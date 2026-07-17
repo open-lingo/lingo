@@ -63,4 +63,34 @@ describe("WordImageMcqStepView — audio-prompt mode (answer-leak regression)", 
     expect(screen.queryByLabelText("Play audio")).toBeNull();
     expect(screen.queryByText("Which word do you hear?")).toBeNull();
   });
+
+  it("renders the kanji-substituted surface when optionAnnotations carries it", () => {
+    // The kanji post-pass rewrites the option annotation surface to 学校; the
+    // renderer's segments path must show that kanji instead of the bare kana.
+    render(
+      <WordImageMcqStepView
+        step={baseStep({
+          options: [
+            { id: "correct", word: "がっこう", emoji: "🏫" },
+            { id: "opt-1", word: "ねこ", emoji: "🐱" },
+            { id: "opt-2", word: "いぬ", emoji: "🐶" },
+            { id: "opt-3", word: "あい", emoji: "❤️" },
+          ],
+          optionAnnotations: [
+            [{ surface: "学校", reading: "学校", atomId: "ja-m6-1-gakkou" }],
+            [{ surface: "ねこ", reading: "ねこ" }],
+            [{ surface: "いぬ", reading: "いぬ" }],
+            [{ surface: "あい", reading: "あい" }],
+          ],
+        })}
+        onComplete={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByText("学校")).toBeTruthy();
+    // The bare kana of the substituted option is no longer rendered.
+    expect(screen.queryByText("がっこう")).toBeNull();
+    // Option still selectable by its kana aria-label (word unchanged).
+    expect(screen.getByLabelText("Hear and pick がっこう")).toBeTruthy();
+  });
 });

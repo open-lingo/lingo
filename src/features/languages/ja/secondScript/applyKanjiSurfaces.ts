@@ -223,12 +223,22 @@ function rewriteAnnotationValue(value: unknown, learnerModule: number): unknown 
   return rewriteAnnotationArray(value as JapaneseAnnotation[], learnerModule);
 }
 
+/** A key holds annotation display data iff it ends in "Annotation" (a single
+ *  array, e.g. promptAnnotation/sourceAnnotation) or its plural "Annotations"
+ *  (a list of arrays, e.g. optionAnnotations — the shape `rewriteAnnotationValue`'s
+ *  listOfArrays branch was written for). Both are display-only; audio/grading
+ *  keys match neither. The plural was previously missed, which left the
+ *  listOfArrays branch unreachable and MCQ option surfaces stuck as kana. */
+function isAnnotationKey(key: string): boolean {
+  return key.endsWith("Annotation") || key.endsWith("Annotations");
+}
+
 /**
- * Deep-walk a node, rewriting ONLY values under keys whose name ends in
- * "Annotation" (the spec's display-fields-only discipline — audio/grading keys
- * never match). Recurses into arrays + plain objects so nested step structures
- * (row_test items[].payload) are covered. Returns the SAME reference when
- * nothing beneath it changed, keeping every untouched field referentially
+ * Deep-walk a node, rewriting ONLY values under annotation keys (see
+ * `isAnnotationKey` — the spec's display-fields-only discipline; audio/grading
+ * keys never match). Recurses into arrays + plain objects so nested step
+ * structures (row_test items[].payload) are covered. Returns the SAME reference
+ * when nothing beneath it changed, keeping every untouched field referentially
  * identical (audio/grading immutability is then trivially deep-equal).
  */
 function processNode(node: unknown, learnerModule: number): unknown {
@@ -247,7 +257,7 @@ function processNode(node: unknown, learnerModule: number): unknown {
     const next: Record<string, unknown> = {};
     for (const key of Object.keys(obj)) {
       const val = obj[key];
-      const r = key.endsWith("Annotation")
+      const r = isAnnotationKey(key)
         ? rewriteAnnotationValue(val, learnerModule)
         : processNode(val, learnerModule);
       if (r !== val) changed = true;

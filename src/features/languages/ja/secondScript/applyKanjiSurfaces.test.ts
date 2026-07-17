@@ -16,6 +16,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
+import { vocabMcq, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
 
 /**
  * KANJI SURFACE POST-PASS — the owner's "needs good checks to make sure it
@@ -77,9 +78,15 @@ function withoutAnnotations(lesson: LessonContent): unknown {
     if (v && typeof v === "object") {
       const out: Record<string, unknown> = {};
       for (const k of Object.keys(v as Record<string, unknown>)) {
-        out[k] = k.endsWith("Annotation")
-          ? null
-          : strip((v as Record<string, unknown>)[k]);
+        // Blank every annotation display field — both the singular
+        // "*Annotation" (a single array) and the plural "*Annotations"
+        // (a list of arrays, e.g. optionAnnotations). Mirrors the pass's
+        // isAnnotationKey so option-surface substitutions are excluded from
+        // the audio/grading equality check.
+        out[k] =
+          k.endsWith("Annotation") || k.endsWith("Annotations")
+            ? null
+            : strip((v as Record<string, unknown>)[k]);
       }
       return out;
     }
@@ -198,6 +205,55 @@ describe("furigana window arithmetic", () => {
     expect(furiganaVisibleAt(10, 8)).toBe(false); // unlock + 2 → off
     expect(furiganaVisibleAt(10, 9)).toBe(true); // m9 kanji still in window at m10
     expect(furiganaVisibleAt(11, 9)).toBe(false);
+  });
+});
+
+// ───────────── word_image_mcq option annotations feed the pass ─────────────
+
+describe("vocabMcq optionAnnotations route options through the kanji pass", () => {
+  const POOL: ReviewAtom[] = [
+    { kana: "がっこう", meaningEn: "school",   emoji: "🏫", fromModule: "m6" },
+    { kana: "ねこ",     meaningEn: "cat",      emoji: "🐱", fromModule: "m1" },
+    { kana: "いぬ",     meaningEn: "dog",      emoji: "🐕", fromModule: "m1" },
+    { kana: "やま",     meaningEn: "mountain", emoji: "⛰️", fromModule: "m1" },
+    { kana: "かわ",     meaningEn: "river",    emoji: "🏞️", fromModule: "m1" },
+  ];
+  const target = POOL[0]; // がっこう → atom ja-m6-1-gakkou, kanji 学校, unlock m22
+
+  it("attaches a single-atom annotation (with atomId) per option, parallel to options", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    expect(step.optionAnnotations).toBeDefined();
+    expect(step.optionAnnotations!).toHaveLength(step.options.length);
+    // The がっこう option's annotation carries the resolvable atomId — the hook
+    // the pass keys on. Option id/word (audio + grading) stay pure kana.
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const ann = step.optionAnnotations![gi]!;
+    expect(ann).toHaveLength(1);
+    expect(ann[0].surface).toBe("がっこう");
+    expect(ann[0].reading).toBe("がっこう");
+    expect(ann[0].atomId).toBe("ja-m6-1-gakkou");
+    expect(step.options[gi].word).toBe("がっこう"); // unchanged answer/audio key
+  });
+
+  it("after applyKanjiSurfaces at m24 (past unlock+2), the option surface is 学校 (bare, no furigana)", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    const out = applyKanjiSurfaces(synthLesson("m24", [step]));
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const wordStep = out.steps[0] as typeof step;
+    const ann = wordStep.optionAnnotations![gi]!;
+    expect(ann[0].surface).toBe("学校"); // kanji substituted
+    expect(ann[0].reading).toBe("学校"); // past window → no furigana to float
+    // Grading/audio untouched: the option word is still kana.
+    expect(wordStep.options[gi].word).toBe("がっこう");
+    expect(wordStep.correctOptionId).toBe(step.correctOptionId);
+  });
+
+  it("leaves options as kana below the unlock module", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    const out = applyKanjiSurfaces(synthLesson("m10", [step]));
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const ann = (out.steps[0] as typeof step).optionAnnotations![gi]!;
+    expect(ann[0].surface).toBe("がっこう"); // m10 < unlock 22 → stays kana
   });
 });
 

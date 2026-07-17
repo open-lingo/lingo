@@ -796,6 +796,11 @@ export function vocabMcq(
     type: "word_image_mcq",
     meaningEn: target.meaningEn,
     options,
+    // Parallel display annotations: one single-atom annotation per option so
+    // the kanji post-pass (which only rewrites *Annotation fields) can swap in
+    // the kanji surface once unlocked. Non-atom option words resolve no atomId
+    // and are left as-is by the pass. Grading/audio (id/word) untouched.
+    optionAnnotations: options.map((o) => [buildSingletonAnnotation(o.word)]),
     correctOptionId: "correct",
     exercisedAtoms: resolveAtomIds([target.kana]),
     modality: "recognition",
@@ -885,6 +890,9 @@ export function audioImageMcq(
     // same kana (QA 2026-07-16, ja-m28-review-1).
     meaningEn: target.kana,
     options,
+    // Parallel display annotations (see vocabMcq) so the kanji post-pass can
+    // substitute unlocked kanji surfaces; audio/grading fields untouched.
+    optionAnnotations: options.map((o) => [buildSingletonAnnotation(o.word)]),
     correctOptionId: "correct",
     exercisedAtoms: resolveAtomIds([target.kana]),
     modality: "recognition",
