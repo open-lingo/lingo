@@ -398,6 +398,35 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "conjugation_cloze",
+      title: "conjugation_cloze",
+      whenToUse:
+        "Conjugated-form-in-sentence drill (JA, N4 wave m31+ — n4-scoping §3 ACCEPT). Sentence frame with a blank where a conjugated verb goes; cue chip names the derivation (dictionary form → target form, optional EN cue). ALWAYS build with the `conjugationCloze` factory: the correct surface comes from conjugateVerb and all 3 distractors from generateFormationDistractors (wrong sound-change / wrong class / attach-to-dictionary) — engine non-words are the sanctioned pedagogy, never hand-author them. audioText is the assembled sentence and plays post-commit only.",
+      step: {
+        id: "preview-cjc",
+        type: "conjugation_cloze",
+        prompt: { before: "コーヒーを ", after: " ください。" },
+        verb: "のむ",
+        form: "te",
+        formLabel: "て form",
+        cueEn: "drink (and…)",
+        meaningEn: "Please drink the coffee.",
+        // Engine-generated distractors (generateFormationDistractors for
+        // のむ → te): wrong sound-changes のって / のいて / のいで. The
+        // factory emits exactly these; hardcoded here only because
+        // fixtures are static literals.
+        options: [
+          { id: "opt-0", text: "のって" },
+          { id: "opt-1", text: "のいて" },
+          { id: "correct", text: "のんで" },
+          { id: "opt-3", text: "のいで" },
+        ],
+        correctOptionId: "correct",
+        audioText: "コーヒーを のんで ください。",
+        modality: "production",
+      },
+    },
+    {
       type: "kanji_reading",
       title: "kanji_reading",
       whenToUse:

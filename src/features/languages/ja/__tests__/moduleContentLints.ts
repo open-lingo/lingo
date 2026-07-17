@@ -321,8 +321,14 @@ export function lintMcqDistractors(lesson: LessonContent): LintFailure[] {
           : "prompt" in step && step.prompt && typeof step.prompt === "object"
             ? Object.values(step.prompt).join(" ")
             : "";
+      // conjugation_cloze is a derivation drill BY TYPE: its options are
+      // engine-generated wrong-derivation shapes (generateFormationDistractors
+      // via the conjugationCloze factory), so non-words are its tested
+      // contrast — exempt explicitly rather than relying on the prompt-shape
+      // heuristic (its prompt is a sentence frame, not a "convert X" cue).
       const derivationCued =
-        /\b(convert|form)\b/i.test(prompt) && JA_CHARS.test(prompt);
+        step.type === "conjugation_cloze" ||
+        (/\b(convert|form)\b/i.test(prompt) && JA_CHARS.test(prompt));
       if (!derivationCued) {
         const surfaces: string[] = [];
         if ("tiles" in step && Array.isArray(step.tiles)) surfaces.push(...step.tiles);

@@ -29,6 +29,7 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   grammar_rule: 17,
   particle_cloze: 18,
   agreement_cloze: 19,
+  conjugation_cloze: 24,
   kanji_reading: 23,
   self_explanation_mcq: 20,
   dialogue_listen: 21,
@@ -67,6 +68,12 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // in the side-lesson content purge (remake pending). Unpin when a remade
   // lesson ships it — or delete the step type if the remake doesn't.
   "phrase_card",
+  // Built ahead of content (n4-scoping-2026-07-16 §3 ACCEPT): the engine-
+  // backed conjugated-form-in-sentence drill. No shipped lesson uses it yet —
+  // the N4 wave (m31+) will. Pinned so the coverage test fails loudly the
+  // moment content starts using it (same pattern as kanji_reading's old pin);
+  // unpin then.
+  "conjugation_cloze",
 ];
 
 export type QaLessonPick = {
