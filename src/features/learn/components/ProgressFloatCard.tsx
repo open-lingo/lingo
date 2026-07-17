@@ -59,7 +59,7 @@ export function ProgressFloatCard({
           </p>
         </div>
       </div>
-      <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-muted" aria-hidden>
+      <div className="mt-2 h-1 overflow-hidden rounded-full bg-border" aria-hidden>
         <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
       </div>
       <Link

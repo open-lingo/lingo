@@ -250,7 +250,8 @@ Authoring rules:
   okurigana stem, rendaku slips) per §13.7. Hand-authored `opts.distractors` win outright. If the
   generator can't reach 3 plausible options it throws rather than ship filler.
 
-Currently pinned in `UNUSED_STEP_TYPES` — **unpin when the first m8+ content ships it.**
+Shipped and in use (3 steps in m29); **already unpinned** from `UNUSED_STEP_TYPES`. (This line
+previously said "pinned — unpin when shipped"; that's done.)
 
 ## 4g. Sentence-complexity floor — production targets must ramp (2026-07-16)
 
@@ -314,7 +315,7 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 - **M4** atoms (の, demonstratives, objects) should appear in M5-M7. Question word `だれ` is high-value — re-surface.
 - **M5** atoms (numbers, counters, ください) have the **heaviest leakage** in the original M3-M7 — counter forms and `X です` duplicates often appeared once and never again. Collapse duplicates: teach bare counters once, use them in carrier sentences without re-introducing.
 - **M6** atoms (locations, に/で/が) should appear in M7 verb-of-motion sentences (every motion verb takes a location particle — natural compounding).
-- **M7** atoms: this note dates from when M7 was the last authored module. The shipped spine is now **M1–M27** (`curriculum/m1*.ts … m27.ts`), so M7 *does* have downstream modules — the review pool (still named `M3_M7_REVIEW_POOL` for historical reasons) is imported by m8…m27, so M7 atoms can compound forward. Still author strong internal review tails, but the "must re-surface entirely within M7" constraint no longer holds.
+- **M7** atoms: this note dates from when M7 was the last authored module. The shipped spine is now **M1–M27 (N5) + M28 capstone + M29 (first N4 module)** (`curriculum/m1*.ts … m29.ts`), so M7 *does* have downstream modules — the review pool (still named `M3_M7_REVIEW_POOL` for historical reasons) is imported by m8…m27, so M7 atoms can compound forward. Still author strong internal review tails, but the "must re-surface entirely within M7" constraint no longer holds.
 
 **Cross-module compounding rule** (in the test): atoms introduced in an early module must appear in at least one later-numbered module's review tail. (Historically framed as "M3–M5 must compound in M6/M7"; with M8–M27 shipped, the same forward-compounding rule applies across the full spine — verify against `atom-coverage.test.ts` for the current enforced check.)
 
@@ -324,7 +325,7 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 
 ### Emoji
 - Use `docs/n5-vocab-emoji-reference-2026-05-18.md` for canonical emoji per N5 vocab word.
-- 22.5% of N5 words are **blocked** (no honest visual referent — abstract concepts, pronouns, existence verbs). For these, use `phrase_card` / `particle_cloze` / `listening_build` / `dialogue_listen`. Add to `WORD_IMAGE_MCQ_BLOCKLIST` if not yet there.
+- 22.5% of N5 words are **blocked** (no honest visual referent — abstract concepts, pronouns, existence verbs). For these in ja, use `listeningCompSentence`+`speaking` / `build` / a `grammarRule` card / `particle_cloze` (within its 2-module window, §4c) — **NOT `phrase_card`** (banned, §4b2). Add to `WORD_IMAGE_MCQ_BLOCKLIST` if not yet there. (es/ko may still use `phrase_card`.)
 - Same emoji can legitimately appear on multiple words at different specificity (朝 / 今朝 / 毎朝 all → 🌅). Author distractor pools per-lesson; don't try to globally disambiguate.
 
 ### Audio
@@ -439,9 +440,9 @@ Map atom lexical category to the dominant retrieval step type. Author the FIRST 
 | Concrete noun with canonical emoji (りんご, ねこ, ほん, コーヒー) | `vocabMcq` (image MCQ) | Image is unambiguous; recognition-first; survives mixed-age audience. |
 | Compound noun without single-glyph emoji (にほんじん, アメリカじん) | `listeningCompSentence` (audio→meaning) + `speaking` | Composite — no clean image cue; audio carries the load. |
 | Verb (たべる, のむ, みる) | `build` (forced single-answer tile bank) | Action images are ambiguous; tile-bank production drills the form. |
-| Adjective (あおい, おおきい) | `build` (forced) OR `phrase_card` exposure + `sentenceMcq` recognition | Color emoji exist (🟦) but the kana ↔ image mapping is weaker than nouns. Production-direction build is the safer choice. |
+| Adjective (あおい, おおきい) | `build` (forced) — ja: NOT phrase_card (§4b2); es/ko may use phrase_card exposure + `sentenceMcq` | Color emoji exist (🟦) but the kana ↔ image mapping is weaker than nouns. Production-direction build is the safer choice. |
 | Pronoun (わたし, あなた, これ/それ/あれ, なん) | `build` (forced) — never image_mcq | Rubric block: `WORD_IMAGE_MCQ_BLOCKLIST` in `grammarHelpers.ts`. Demonstrative-image cues are deeply context-dependent. |
-| Function-phrase / greeting (すみません, こんにちは, おねがいします) | `phrase_card` + `listeningCompSentence` | No image; oral function carries the meaning. |
+| Function-phrase / greeting (すみません, こんにちは, おねがいします) | ja: `listeningCompSentence` + `speaking` (NOT phrase_card, §4b2); es/ko: `phrase_card` + `listeningCompSentence` | No image; oral function carries the meaning. |
 | Particle (は, か, を, に, で, も) | `particle_cloze` | Form-focused practice in carrier sentences. Don't drill in a `particle_cloze` slot if the answer would be `です` — see §13.4. |
 | Kanji-word — reading recall (M8+, once the atom's furigana window has closed) | `kanjiReading(...)` — **shipped 2026-07-16**, see §4f | Tests kanji→kana reading. Review-tier: only on a word the learner has already met. |
 | Kanji-word — spelling recall (when productive) | `audio_spelling_mcq` (factory still to be built) on top of recognition | Tests sound→kanji-spelling — the **inverse** of `kanjiReading`, and a different step. Spelling-MCQ assumes sound↔meaning already bound. Not built; do not conflate the two. |

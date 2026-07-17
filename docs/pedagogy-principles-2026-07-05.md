@@ -28,6 +28,6 @@
 ## What we deliberately do NOT import
 
 - **"Immersion replaces the curriculum."** Lingo is an authored, SRS-scheduled course; the comprehensibility gate + trainers ARE our comprehensible-input delivery. Input-primacy is not an argument against authored drills here.
-- **Anti-romaji absolutism.** Romaji fades on schedule (hiragana @ M10, katakana @ M17) by design — broader audience than either educator serves.
+- **Anti-romaji absolutism.** Romaji fades on schedule (**hiragana @ M7**, katakana @ M17; build-tiles @ M5) by design — broader audience than either educator serves. (Hiragana moved M10→M7 on 2026-07-16; source of truth is the exported constants in `shared/settings/romajiAutoFlip.ts`, not this line.)
 - **"Don't enumerate/schedule grammar."** Track B stays. We reconcile by framing points as compositions (R3), not by dropping SRS.
 - **"Output is overrated."** Production practice (trainer Track B drills, the conversation-practice roadmap) is sequenced *after* input foundations — their point is about timing, and we honor it as timing, not as deletion.

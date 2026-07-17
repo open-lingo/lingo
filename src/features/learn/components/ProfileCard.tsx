@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
+import { ProgressBar } from "@/shared/components/progress/ProgressBar";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { Card } from "@/shared/components/ui";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -66,14 +67,12 @@ export function ProfileCardBody({ profile }: ProfileCardProps) {
         </div>
       </div>
       {!profile.hasNoProgress ? (
-        <div className="mb-3" aria-hidden>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
-            <div
-              className="h-full rounded-full bg-accent transition-[width] duration-500"
-              style={{ width: `${levelProgress.percent}%` }}
-            />
-          </div>
-        </div>
+        <ProgressBar
+          percent={levelProgress.percent}
+          size="xs"
+          className="mb-3"
+          ariaLabel="XP toward next level"
+        />
       ) : null}
       {profile.hasNoProgress ? (
         <ProfileCardEmpty />

@@ -402,6 +402,9 @@ export function LearnPage({
                   onLessonClick={goToLesson}
                   onViewAll={setDetailModuleIdx}
                   devUnlock={devUnlock}
+                  sideQuests={sideQuests}
+                  isSideQuestUnlocked={isSideQuestUnlocked}
+                  onSideQuestClick={onSideQuestClick}
                 />
               </div>
             </div>

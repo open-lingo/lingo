@@ -32,7 +32,7 @@ export function QuestProgressBar({
       aria-valuemax={100}
       aria-valuenow={Math.round(clamped)}
       className={cn(
-        "h-2 w-full overflow-hidden rounded-full bg-surface-muted",
+        "h-2 w-full overflow-hidden rounded-full bg-border",
         className,
       )}
     >
