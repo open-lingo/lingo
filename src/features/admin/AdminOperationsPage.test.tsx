@@ -15,6 +15,7 @@ const mockOps = {
   getRevenueSummary: vi.fn(),
   getRevenueBySource: vi.fn(),
   getCostsByService: vi.fn(),
+  getCostsUsageBreakdown: vi.fn(),
   getCostsByDomain: vi.fn(),
   getCostsAuth0: vi.fn(),
   getSubscriptionsSummary: vi.fn(),
@@ -55,6 +56,15 @@ function makeDefaults() {
     periodEnd: "2026-05-31",
     totalUsd: "20.00",
     byService: { "AWS Lambda": "12.00", "Amazon DynamoDB": "8.00" },
+    updatedAt: "2026-05-25T00:00:00Z",
+  });
+  mockOps.getCostsUsageBreakdown.mockResolvedValue({
+    periodStart: "2026-05-01",
+    periodEnd: "2026-05-31",
+    byService: {
+      "AWS Lambda": { "Lambda-GB-Second": "10.00", "USE1-Requests": "2.00" },
+      // Amazon DynamoDB intentionally absent — its row must render non-expandable.
+    },
     updatedAt: "2026-05-25T00:00:00Z",
   });
   mockOps.getCostsByDomain.mockResolvedValue({
@@ -131,6 +141,26 @@ describe("AdminOperationsPage", () => {
     await waitFor(() => expect(screen.getByText("AWS Lambda")).toBeInTheDocument());
     // The MTD net is revenue 10.00 − costs 20.00 = -10.00 → "-$10.00".
     await waitFor(() => expect(screen.getByText("-$10.00")).toBeInTheDocument());
+  });
+
+  it("expands a service row to show usage-type breakdown", async () => {
+    wrap(<AdminOperationsPage />);
+
+    // Wait for the service row to appear, then expand it.
+    const lambdaRow = await screen.findByRole("button", { name: /AWS Lambda/ });
+    expect(lambdaRow).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(lambdaRow);
+
+    expect(lambdaRow).toHaveAttribute("aria-expanded", "true");
+    // Prettified labels from the usage map.
+    expect(await screen.findByText("Compute (GB-s)")).toBeInTheDocument();
+    // "$10.00" also matches the Revenue MTD total — assert the other
+    // sub-row's amount, which is unique on the page.
+    expect(screen.getByText("$2.00")).toBeInTheDocument();
+
+    // Collapse hides the breakdown again.
+    fireEvent.click(lambdaRow);
+    expect(screen.queryByText("Compute (GB-s)")).not.toBeInTheDocument();
   });
 
   it("shows the 'Activate cost-allocation tags' hint when all by-domain values are zero", async () => {

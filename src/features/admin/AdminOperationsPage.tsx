@@ -24,6 +24,7 @@ import type {
   AdPlacement,
   AdsSummary,
   AwsCostsByService,
+  AwsCostsUsage,
   Auth0Costs,
   CostsByDomain,
   JobRun,
@@ -35,11 +36,13 @@ import type {
   SubscriptionsSummary,
   JobStatus,
 } from "@/shared/api/ops";
+import { Icon } from "@/shared/components/Icon";
 import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card } from "@/shared/components/ui/Card";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { TabButton, TabList } from "@/shared/components/ui/Tabs";
+import { prettyUsageType } from "./usageTypeLabels";
 
 type TabId = "cost-revenue" | "subscriptions" | "ads" | "jobs";
 
@@ -159,6 +162,11 @@ export function CostRevenueTab() {
     queryFn: () => ops.getCostsByService(),
     staleTime: STALE_LIVE,
   });
+  const costsUsage = useQuery<AwsCostsUsage>({
+    queryKey: ["ops", "costs", "usage"],
+    queryFn: () => ops.getCostsUsageBreakdown(),
+    staleTime: STALE_LIVE,
+  });
   const costsByDomain = useQuery<CostsByDomain>({
     queryKey: ["ops", "costs", "by-domain"],
     queryFn: () => ops.getCostsByDomain(),
@@ -211,19 +219,19 @@ export function CostRevenueTab() {
           <p className="text-sm font-medium text-text-primary">AWS cost sync</p>
           <p className="text-xs text-text-muted">
             {syncAws.isPending
-              ? "Syncing — calling Cost Explorer (~$0.03)…"
+              ? "Syncing — calling Cost Explorer (~$0.04)…"
               : syncAws.isSuccess
                 ? "Synced. Numbers refresh below."
                 : syncAws.isError
                   ? `Failed: ${(syncAws.error as Error)?.message ?? "unknown"}`
-                  : "Fetches month-to-date costs by service + by domain. Costs ~$0.03 per call."}
+                  : "Fetches month-to-date costs by service + by domain. Costs ~$0.04 per call."}
           </p>
         </div>
         <button
           type="button"
           onClick={() => syncAws.mutate()}
           disabled={syncAws.isPending}
-          className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
         >
           {syncAws.isPending ? "Syncing…" : "Sync now"}
         </button>
@@ -270,7 +278,11 @@ export function CostRevenueTab() {
 
       {/* Costs grid */}
       <div className="grid gap-4 md:grid-cols-2">
-        <CostsByServiceCard data={costsByService.data} loading={costsByService.isLoading} />
+        <CostsByServiceCard
+          data={costsByService.data}
+          usage={costsUsage.data}
+          loading={costsByService.isLoading}
+        />
         <CostsByDomainCard
           data={costsByDomain.data}
           loading={costsByDomain.isLoading}
@@ -303,11 +315,15 @@ export function CostRevenueTab() {
 
 function CostsByServiceCard({
   data,
+  usage,
   loading,
 }: {
   data: AwsCostsByService | undefined;
+  usage: AwsCostsUsage | undefined;
   loading: boolean;
 }) {
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
   const rows = useMemo(() => {
     if (!data) return [];
     const max = Math.max(
@@ -323,6 +339,17 @@ function CostsByServiceCard({
       .map((row) => ({ ...row, fraction: max > 0 ? row.cents / max : 0 }));
   }, [data]);
 
+  const toggle = (service: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(service)) {
+        next.delete(service);
+      } else {
+        next.add(service);
+      }
+      return next;
+    });
+
   return (
     <Card padding="md">
       <h3 className="text-sm font-semibold text-text-primary">Costs MTD — by service</h3>
@@ -337,20 +364,81 @@ function CostsByServiceCard({
         </p>
       ) : (
         <ul className="mt-4 space-y-3">
-          {rows.map((row) => (
-            <li key={row.service}>
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-medium text-text-primary">{row.service}</span>
-                <span className="text-text-secondary">{centsToUsd(row.cents)}</span>
-              </div>
-              <div className="mt-1">
-                <HorizontalBar fraction={row.fraction} />
-              </div>
-            </li>
-          ))}
+          {rows.map((row) => {
+            const usageMap = usage?.byService[row.service];
+            const expandable = !!usageMap && Object.keys(usageMap).length > 0;
+            const isOpen = expandable && expanded.has(row.service);
+            return (
+              <li key={row.service}>
+                <button
+                  type="button"
+                  onClick={() => toggle(row.service)}
+                  disabled={!expandable}
+                  aria-expanded={isOpen}
+                  className="w-full rounded-md text-left disabled:cursor-default"
+                  title={
+                    expandable
+                      ? undefined
+                      : "No usage breakdown yet — run the AWS cost sync."
+                  }
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-1 font-medium text-text-primary">
+                      <Icon
+                        name="chevronRight"
+                        size={12}
+                        aria-hidden
+                        className={`shrink-0 text-text-muted transition-transform ${
+                          isOpen ? "rotate-90" : ""
+                        } ${expandable ? "" : "invisible"}`}
+                      />
+                      {row.service}
+                    </span>
+                    <span className="text-text-secondary">{centsToUsd(row.cents)}</span>
+                  </div>
+                  <div className="mt-1">
+                    <HorizontalBar fraction={row.fraction} />
+                  </div>
+                </button>
+                {isOpen && usageMap ? <UsageBreakdownList usageMap={usageMap} /> : null}
+              </li>
+            );
+          })}
         </ul>
       )}
     </Card>
+  );
+}
+
+/** Per-service usage-type sub-rows — bars scaled to the max WITHIN the service. */
+function UsageBreakdownList({ usageMap }: { usageMap: Record<string, string> }) {
+  const rows = useMemo(() => {
+    const entries = Object.entries(usageMap).map(([usageType, usd]) => ({
+      usageType,
+      cents: usdStringToCents(usd),
+    }));
+    const max = Math.max(0, ...entries.map((e) => e.cents));
+    return entries
+      .sort((a, b) => b.cents - a.cents)
+      .map((e) => ({ ...e, fraction: max > 0 ? e.cents / max : 0 }));
+  }, [usageMap]);
+
+  return (
+    <ul className="mt-2 space-y-2 border-l border-border pl-4">
+      {rows.map((row) => (
+        <li key={row.usageType}>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-text-secondary" title={row.usageType}>
+              {prettyUsageType(row.usageType)}
+            </span>
+            <span className="text-text-muted">{centsToUsd(row.cents)}</span>
+          </div>
+          <div className="mt-1">
+            <HorizontalBar fraction={row.fraction} variant="warning" />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
