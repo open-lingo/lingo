@@ -18,7 +18,7 @@ function LessonElbow() {
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute left-[2.875rem] top-[0.28rem] h-[0.6rem] w-[0.75rem] rounded-bl-[8px] border-b border-l border-border"
+      className="pointer-events-none absolute left-[2.875rem] top-[0.28rem] h-[0.6rem] w-[0.5rem] rounded-bl-[8px] border-b border-l border-border"
     />
   );
 }
