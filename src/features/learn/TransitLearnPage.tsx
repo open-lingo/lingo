@@ -66,6 +66,7 @@ import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLesson
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
 import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
+import { ResumeFab } from "@/features/learn/components/ResumeFab";
 import { cn } from "@/shared/components/ui/cn";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import {
@@ -2039,6 +2040,13 @@ export default function TransitLearnPage({
             setPlacementDismissedByUser(true);
           }}
         />
+      )}
+
+      {/* Floating resume button — fades in on the path so learners can jump
+          straight back into their current lesson. Hidden in preview + while
+          the placement FTUE is up. */}
+      {!preview && !showPlacement && (
+        <ResumeFab course={viewCourse} completedSet={completedSet} />
       )}
     </div>
   );
