@@ -3,7 +3,14 @@ import { useTranslation } from "react-i18next";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
+import {
+  AnnotatedText as AnnotatedJa,
+  kanjiFuriganaSrsVisible,
+} from "@/shared/readingAnnotation/AnnotatedText";
+import { KanjiRuby } from "@/shared/readingAnnotation/KanjiRuby";
+import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
+import { containsKanji } from "@/shared/japanese/kanaTable";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -298,9 +305,11 @@ type TileProps = {
 };
 
 type SourceTileProps = TileProps & {
-  /** When the step has playAudioOnSelect, the source side is a kana
-   *  recall cue — render plain text in a larger font, no ruby (the
-   *  audio is the romaji channel; on-tile ruby gives away the answer). */
+  /** When the step has playAudioOnSelect, the source side is a recall cue —
+   *  larger font, NO romaji ever (audio is the reading channel; on-tile
+   *  romaji gives away the answer). Kanji segments still ruby their kana
+   *  FURIGANA, gated by the shared window-floor-OR-unmastered predicate
+   *  (Spencer 2026-07-17). */
   audioOnSelect: boolean;
   /** Force romaji above the kana source tiles even in audioOnSelect mode —
    *  for scaffolded first-taste surfaces (onboarding preview) where the
@@ -332,18 +341,20 @@ function SourceTile({
       className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
       {audioOnSelect && !showSourceRomaji ? (
-        // Plain text — audio is the reading channel; on-tile romaji would
-        // give away the recall. Scaffolded surfaces (onboarding preview)
-        // opt in via showSourceRomaji. Use the ANNOTATION surface when
-        // present: it carries the post-kanji-substitution form (店, 学校),
-        // and rendering raw `pair.source` here silently stripped kanji
-        // from every review match tile (Gate 10 finding, 2026-07-17 —
-        // audio on tap supplies the reading, so bare kanji is correct).
-        <span>
-          {pair.sourceAnnotation
-            ? pair.sourceAnnotation.map((s) => s.surface).join("")
-            : pair.source}
-        </span>
+        // No ROMAJI ever in this branch — audio is the reading channel and
+        // on-tile romaji would give away the recall (scaffolded surfaces
+        // opt in via showSourceRomaji). Use the ANNOTATION surface when
+        // present: it carries the post-kanji-substitution form (店, 学校);
+        // rendering raw `pair.source` here silently stripped kanji from
+        // every review match tile (Gate 10 finding, 2026-07-17). Kanji
+        // segments render as ruby with FSRS-gated FURIGANA (Spencer
+        // 2026-07-17 follow-up: bare kanji here needs furigana too — the
+        // same window-floor-OR-unmastered predicate as sentence surfaces).
+        pair.sourceAnnotation ? (
+          <AudioSelectSourceSurface segments={pair.sourceAnnotation} />
+        ) : (
+          <span>{pair.source}</span>
+        )
       ) : pair.sourceAnnotation ? (
         <AnnotatedJa
           segments={pair.sourceAnnotation}
@@ -353,6 +364,44 @@ function SourceTile({
         <AnnotatedJa text={pair.source} forceShowHelper={showSourceRomaji} />
       )}
     </button>
+  );
+}
+
+/**
+ * Audio-on-select source tile surface: kana segments render PLAIN (no
+ * romaji, no ruby — audio is the reading channel), kanji segments render as
+ * okurigana-aligned ruby with the shared FSRS-gated furigana visibility
+ * (`kanjiFuriganaSrsVisible`: window floor OR unmastered; unstamped kanji
+ * segments with a distinct reading keep furigana visible). Same rt
+ * data-visible / ZWSP conventions as every other kanji surface.
+ */
+function AudioSelectSourceSurface({
+  segments,
+}: {
+  segments: JapaneseAnnotation[];
+}) {
+  const revision = useSRSStoreRevision();
+  const visible = useMemo(
+    () => segments.map((s) => kanjiFuriganaSrsVisible(s)),
+    // `revision` re-reads mastery after an SRS store change (sync/review).
+    [segments, revision],
+  );
+  return (
+    <span lang="ja">
+      {segments.map((s, i) =>
+        containsKanji(s.surface) && s.reading !== s.surface ? (
+          <KanjiRuby
+            key={i}
+            data-match-tile-kanji="true"
+            surface={s.surface}
+            reading={s.reading}
+            show={visible[i]}
+          />
+        ) : (
+          <span key={i}>{s.surface}</span>
+        ),
+      )}
+    </span>
   );
 }
 

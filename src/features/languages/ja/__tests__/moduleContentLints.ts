@@ -513,6 +513,108 @@ export function complexityShare(moduleId: string): { pool: number; complex: numb
 }
 
 // ───────────────────────────────────────────────────────────────────────
+// GATE 8 — plain-non-past progressive-gloss lint (Spencer QA 2026-07-17)
+// ───────────────────────────────────────────────────────────────────────
+
+/**
+ * Explicit future-time anchors that license an English futurate progressive
+ * on a plain non-past JA verb ("あした くる？" → "Are you coming tomorrow?").
+ */
+const GATE8_FUTURE_ANCHOR =
+  /(あした|あす|あさって|らいしゅう|らいげつ|らいねん|こんど|しゅうまつ|こんばん|のちほど)/;
+
+/**
+ * Motion/futurate verbs whose unanchored plain non-past still reads as a
+ * natural English futurate progressive ("いく？" → "(Are you) going?",
+ * "きますか" → "Are you coming?") per the retrospective's DO-NOT-FLAG rule.
+ * Compounds (かえってくる, でかけていく, etc.) share the same stems, so a
+ * substring match on the bare stems is sufficient and deliberately broad.
+ */
+const GATE8_MOTION_FUTURATE_ALLOWLIST =
+  /(いく|ゆく|くる|かえる|でかける|もどる)/;
+
+/**
+ * Any ている/てる/でいる ongoing-aspect marking — plain AND polite forms
+ * (のんでいます/かっています, casual contractions てます/でます included) —
+ * genuinely ongoing aspect, English progressive is correct.
+ */
+const GATE8_ONGOING_ASPECT = /(ている|てる|でいる|ています|でいます|てます|でます)/;
+
+const GATE8_PROGRESSIVE_EN = /\b(am|are|is)\s+\w+ing\b/i;
+
+/**
+ * A pure copula predicate (sentence-final です, no ます anywhere) has no verb
+ * at all to carry aspect — it's either an i-adjective+です ("つまらないです" =
+ * "is boring": boring is an ADJECTIVE, not a progressive verb) or a
+ * noun-as-hobby predicate ("しゅみは つりです" = "my hobby is fishing": fishing
+ * is a gerund-NOUN naming the hobby, not "I am fishing right now"). Both
+ * shapes false-positive against the bare `/is \w+ing/` regex — a real GATE 8
+ * defect always has a conjugated verb (plain non-past or ます-form), so
+ * excluding pure です copulas costs no real coverage.
+ */
+const GATE8_PURE_COPULA = /です[。！？]?$/;
+
+/**
+ * Step ids that trip the GATE 8 heuristic but are judged CORRECT on manual
+ * review — every entry must carry a one-line justification. Keep this list
+ * as small as honestly possible; the lint is scoped to `listening_comprehension`
+ * steps only (the `listeningCompSentence()` factory output) because that is
+ * the surface where JA transcript + English gloss are both cleanly available
+ * on the step — other step types (build prompts, grammarRule examples) were
+ * audited by hand per the 2026-07-17 sweep instead of by this lint.
+ */
+export const GATE8_PROGRESSIVE_GLOSS_ALLOWLIST: Record<string, string> = {
+  "ja-m27-6-1-lc-1":
+    "しけんが ちかくなりました (past-tense change-of-state なる, 'has gotten close') " +
+    "glossed 'is getting close' — a resultative change-of-state reading, idiomatic " +
+    "and correct English for a なりました result, not a mis-primed progressive.",
+};
+
+/**
+ * GATE 8 — a `listening_comprehension` step whose JA transcript is plain
+ * non-past (no 〜ている/〜てる/〜でいる ongoing-aspect marking), has no
+ * future-time anchor, and is not a motion/futurate verb, must not be glossed
+ * with an English present-progressive ("Are you studying?") on
+ * `correctMeaningEn` — that primes learners to expect 〜ている. This is
+ * Spencer's live QA catch: にほんごを べんきょうする？ was glossed "Are you
+ * studying Japanese?" instead of the correct habitual/intent reading
+ * ("You study Japanese?" / "Do you study Japanese?").
+ *
+ * Deliberately scoped to `listening_comprehension` — the one step type where
+ * JA source and English gloss are both plain, unambiguous string fields on
+ * the step. Other surfaces (build() prompts, grammarRule examples,
+ * antiPattern.en, speaking translations) were reviewed by hand in the
+ * 2026-07-17 sweep; teaching this lint their JSON shapes reliably was judged
+ * not worth the false-positive risk (documented limitation per the task).
+ */
+export function lintPlainNonPastProgressiveGloss(lesson: LessonContent): LintFailure[] {
+  const failures: LintFailure[] = [];
+  for (const step of lesson.steps) {
+    if (step.type !== "listening_comprehension") continue;
+    const ja = step.transcript ?? "";
+    if (!ja) continue;
+    if (GATE8_ONGOING_ASPECT.test(ja)) continue;
+    if (GATE8_FUTURE_ANCHOR.test(ja)) continue;
+    if (GATE8_MOTION_FUTURATE_ALLOWLIST.test(ja)) continue;
+    if (GATE8_PURE_COPULA.test(ja) && !ja.includes("ます")) continue;
+    if (GATE8_PROGRESSIVE_GLOSS_ALLOWLIST[step.id]) continue;
+    const correct = step.options.find((o) => o.id === step.correctOptionId)?.text ?? "";
+    if (!correct) continue;
+    if (GATE8_PROGRESSIVE_EN.test(correct)) {
+      failures.push({
+        lessonId: lesson.id,
+        stepId: step.id,
+        problem:
+          `JA "${ja}" is plain non-past with no ている/future-anchor/motion-futurate ` +
+          `licensing, but correctMeaningEn "${correct}" uses an English progressive — ` +
+          "gloss primes the wrong JA aspect (Spencer QA 2026-07-17)",
+      });
+    }
+  }
+  return failures;
+}
+
+// ───────────────────────────────────────────────────────────────────────
 // The shared per-module registration
 // ───────────────────────────────────────────────────────────────────────
 
@@ -580,6 +682,11 @@ export function registerJaModuleContentLints(moduleId: string): void {
     it("GATE 6 — grammarRule antiPatterns are full-sentence minimal pairs", () => {
       const failures = lessons.flatMap((l) => lintAntiPatternMinimalPairs(l));
       expect(failures, `antiPattern lint failures:\n  ${fmt(failures)}`).toEqual([]);
+    });
+
+    it("GATE 8 — plain non-past verbs aren't glossed with an English progressive", () => {
+      const failures = lessons.flatMap((l) => lintPlainNonPastProgressiveGloss(l));
+      expect(failures, `progressive-gloss lint failures:\n  ${fmt(failures)}`).toEqual([]);
     });
 
     if (COMPLEXITY_FLOORS[moduleId] !== undefined) {

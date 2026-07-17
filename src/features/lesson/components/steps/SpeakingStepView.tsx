@@ -191,9 +191,22 @@ const CELEBRATE_MS = 1100;
  *  (kanji, punctuation) pass through unchanged. */
 function kanaToRomajiHint(kana: string): string {
   const tokens = tokenizeJapanese(kana);
-  return tokens
-    .map((t) => (t.kana && t.romaji ? t.romaji : t.text))
-    .join("");
+  let out = "";
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    // Sokuon: the tokenizer has no romaji for っ/ッ, so the raw glyph
+    // leaked into the hint ("ze っ tai" — A/B judge find, 2026-07-17).
+    // Render it the standard way: double the next token's consonant;
+    // utterance-final っ just drops.
+    if (t.text === "っ" || t.text === "ッ") {
+      const next = tokens[i + 1];
+      const nextRom = next?.kana && next.romaji ? next.romaji : "";
+      out += nextRom ? nextRom[0] : "";
+      continue;
+    }
+    out += t.kana && t.romaji ? t.romaji : t.text;
+  }
+  return out;
 }
 
 function SpeakingStepRecognized({
@@ -299,6 +312,13 @@ function SpeakingStepRecognized({
     updateRomajiSetting("learning.showRomaji", !showRomaji);
   }, [showRomaji, updateRomajiSetting]);
   const lessonModuleIndex = useLessonModuleIndex();
+  // Same module gate as the toggle below: past the katakana cutoff the
+  // setting may still be ON (it's global), but no romaji surface in this
+  // step may render — including the transcript/target hint lines (A/B
+  // judge find, 2026-07-17: "you said" romaji leaked at m30).
+  const romajiAllowed =
+    lessonModuleIndex == null || lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE;
+  const effectiveShowRomaji = showRomaji && romajiAllowed;
 
   // When recognition finishes, score all alternatives against the
   // target and surface a tiered verdict. The hook resets on the next
@@ -638,7 +658,7 @@ function SpeakingStepRecognized({
         )}
       </div>
 
-      <ReferenceCard step={step} onPlay={handleListen} showRomaji={showRomaji} />
+      <ReferenceCard step={step} onPlay={handleListen} showRomaji={effectiveShowRomaji} />
 
       {silentMode && <SilentModeNotice />}
 
@@ -687,7 +707,7 @@ function SpeakingStepRecognized({
             transcriptKana={bestAltText}
             targetKana={step.targetPhrase}
             verdict={verdict}
-            showRomaji={showRomaji}
+            showRomaji={effectiveShowRomaji}
           />
         )}
 

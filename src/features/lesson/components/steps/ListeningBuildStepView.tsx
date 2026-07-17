@@ -5,13 +5,14 @@ import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl } from "@/shared/tts";
+import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -87,8 +88,24 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
 
+  // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): unlocked words show
+  // their kanji form (furigana until FSRS-mastered) on bank/tray/ghost
+  // tiles alike. Grading (`placed` vs `correctOrder` above) stays kana.
+  // Character-granularity kana-row banks are excluded inside the hook.
+  const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
+
+  // Single-answer listening "builds" are an MCQ wearing tray clothes — see
+  // BuildSentenceStepView's isSingleAnswerPicker (Spencer QA 2026-07-16).
+  const isSingleAnswerPicker = step.correctOrder.length === 1;
+
   function addTile(originalIndex: number) {
     if (submitted) return;
+    if (isSingleAnswerPicker) {
+      // Single-select: tapping an option REPLACES the pick.
+      playSfx("tile");
+      setPlacedIdx([originalIndex]);
+      return;
+    }
     if (placedIdx.includes(originalIndex)) return;
     playSfx("tile");
     setPlacedIdx((prev) => [...prev, originalIndex]);
@@ -145,7 +162,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           <Icon name="play" size={28} />
         </button>
         <p className="text-lg leading-snug text-text-secondary">
-          <PromptWithEmphasis text={step.prompt} />
+          <PromptWithEmphasis text={formatPrompt(step.prompt)} />
         </p>
       </div>
 
@@ -157,6 +174,43 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           placing tiles never grows it — no reflow of the bank/CTA below
           mid-interaction. Real tiles render in an overlay with identical
           layout classes, so wrapping matches the ghost. */}
+      {isSingleAnswerPicker ? (
+        /* MCQ-SHAPED SINGLE-ANSWER PICKER: no tray, no bank row below —
+           the bank tiles ARE the options (MultipleChoiceStepView's visual
+           language). Tap selects (replacing any prior pick); Check
+           submits via the existing generic submit path. */
+        <div
+          className="relative grid gap-3"
+          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+        >
+          {bankTiles.map((tile, i) => {
+            const isSelected = placedIdx.includes(i);
+            const isAnswer = tile === step.correctOrder[0];
+            let optionStyle =
+              "border-border bg-surface text-text-primary hover:border-accent";
+            if (submitted && isAnswer) {
+              optionStyle = "border-accent bg-accent text-white";
+            } else if (submitted && isSelected && !isAnswer) {
+              optionStyle = "border-error bg-error/15 text-error";
+            } else if (isSelected) {
+              optionStyle = "border-accent bg-accent-muted text-accent";
+            }
+            return (
+              <button
+                key={`tile-${i}`}
+                type="button"
+                disabled={submitted}
+                aria-pressed={isSelected}
+                onClick={() => addTile(i)}
+                className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+      <>
       <div className="relative min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
         <div aria-hidden className="invisible flex flex-wrap gap-2.5">
           {step.correctOrder.map((tile, i) => (
@@ -164,7 +218,9 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               key={`ghost-${i}`}
               className="rounded-xl border-2 px-5 py-2.5 text-2xl sm:text-3xl font-bold"
             >
-              <AnnotatedJa text={tile} />
+              {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
+                  real tiles or the tray mis-sizes. */}
+              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
             </span>
           ))}
         </div>
@@ -182,7 +238,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 onClick={() => removeTile(i)}
                 className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
               >
-                <AnnotatedJa text={tile} />
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
               </button>
             ))
           )}
@@ -206,11 +262,13 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                   : "rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
               }
             >
-              <AnnotatedJa text={tile} />
+              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
             </button>
           );
         })}
       </div>
+      </>
+      )}
       </div>
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA live

@@ -214,6 +214,61 @@ function romajiToKana(s: string): string {
  *   7. Romaji → kana fallback when the result is still pure ASCII
  *   8. Drop internal whitespace + punctuation, lowercase
  */
+/**
+ * Whisper inverse-text-normalizes spoken numbers: say よん and the
+ * transcript comes back "4" (or 四) — which then can never match a kana
+ * target (Spencer QA, 2026-07-17, the 四 speaking step). Substitute
+ * number tokens with kana readings BEFORE comparison, target-aware:
+ * numbers with multiple readings (4 よん/し, 7 なな/しち, 9 きゅう/く,
+ * 0 ぜろ/れい) pick whichever reading the target actually contains,
+ * defaulting to the counting-form (よん/なな/きゅう/ぜろ). Covers 0–99
+ * (tens composed with じゅう), 100, 1000, in ASCII digits and kanji
+ * numerals (〇零一..九 with 十/百/千 composition).
+ */
+const DIGIT_READINGS: string[][] = [
+  ["ぜろ", "れい"], ["いち"], ["に"], ["さん"], ["よん", "し"],
+  ["ご"], ["ろく"], ["なな", "しち"], ["はち"], ["きゅう", "く"],
+];
+const KANJI_DIGITS: Record<string, number> = {
+  "〇": 0, "零": 0, "一": 1, "二": 2, "三": 3, "四": 4,
+  "五": 5, "六": 6, "七": 7, "八": 8, "九": 9,
+};
+
+function readingsForNumber(n: number): string[] {
+  if (n === 100) return ["ひゃく"];
+  if (n === 1000) return ["せん"];
+  if (n < 0 || n > 99) return [];
+  if (n <= 9) return DIGIT_READINGS[n];
+  const tensDigit = Math.floor(n / 10);
+  const unit = n % 10;
+  // Tens position uses the counting form only (40 = よんじゅう, never しじゅう).
+  const tens = (tensDigit === 1 ? "" : DIGIT_READINGS[tensDigit][0]) + "じゅう";
+  if (unit === 0) return [tens];
+  return DIGIT_READINGS[unit].map((u) => tens + u);
+}
+
+function parseKanjiNumber(tok: string): number | null {
+  // Single digit, or [digit]?十[digit]?, or 百/千 alone.
+  if (tok === "百") return 100;
+  if (tok === "千") return 1000;
+  const m = /^([〇零一二三四五六七八九])?(十)?([〇零一二三四五六七八九])?$/.exec(tok);
+  if (!m || (!m[1] && !m[2])) return null;
+  if (!m[2]) return m[3] ? null : KANJI_DIGITS[m[1]!];
+  return (m[1] ? KANJI_DIGITS[m[1]] : 1) * 10 + (m[3] ? KANJI_DIGITS[m[3]] : 0);
+}
+
+const NUMBER_TOKEN_RE = /([0-9]{1,4}|[〇零一二三四五六七八九十百千]{1,3})/g;
+
+export function numbersToKana(s: string, target: string): string {
+  return s.replace(NUMBER_TOKEN_RE, (tok) => {
+    const n = /^[0-9]+$/.test(tok) ? Number(tok) : parseKanjiNumber(tok);
+    if (n == null) return tok;
+    const readings = readingsForNumber(n);
+    if (readings.length === 0) return tok;
+    return readings.find((r) => target.includes(r)) ?? readings[0];
+  });
+}
+
 export function normalizeForCompare(s: string, target: string): string {
   if (!s) return "";
 
@@ -225,6 +280,10 @@ export function normalizeForCompare(s: string, target: string): string {
   let out = foldFullWidth(s).trim();
   out = stripLeadingFillers(out, targetStartsWithA);
   out = stripTrailing(out);
+  // Numbers → kana (target-aware) before the ASCII/romaji fallback, so a
+  // transcript that is JUST "4" becomes よん here instead of falling into
+  // romaji conversion.
+  out = numbersToKana(out, katakanaToHiragana(targetStripped));
 
   // If we're still pure ASCII at this point, try the romaji fallback.
   // For vowel-initial targets, strip a leading "h" (e.g. "hai" → "ai")

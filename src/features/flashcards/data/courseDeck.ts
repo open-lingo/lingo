@@ -20,89 +20,19 @@ import {
   isSrsEligibleAtom,
 } from "@/features/languages/ja/courseAtoms";
 import type { Example, Flashcard, FlashcardDeck } from "./types";
-import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import { getUnlockedAtomIds } from "@/features/lesson/data/unlockLessonAtoms";
+import {
+  getMinedSentences,
+  __resetMinedSentences,
+} from "@/features/lesson/data/minedSentences";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 
-/* ── sentence mining ── */
-
-type MinedSentence = { text: string; translation?: string };
-
-let mineIndex: Map<string, MinedSentence> | null = null;
-
-function orderedJaLessonIds(): string[] {
-  const course = getMockCourse("ja");
-  const ids: string[] = [];
-  type LessonRef = { id: string };
-  type ModuleShape = {
-    lessons?: LessonRef[];
-    lessonGroups?: { lessons?: LessonRef[] }[];
-  };
-  for (const mod of course.modules as unknown as ModuleShape[]) {
-    for (const l of mod.lessons ?? []) ids.push(l.id);
-    for (const g of mod.lessonGroups ?? []) {
-      for (const l of g.lessons ?? []) ids.push(l.id);
-    }
-  }
-  return ids;
-}
-
-/** Pull candidate sentences (+ any translation) out of one lesson step. */
-function sentencesFromStep(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  s: any,
-): MinedSentence[] {
-  const out: MinedSentence[] = [];
-  if (s.type === "build_sentence" && typeof s.targetSentence === "string") {
-    out.push({ text: s.targetSentence });
-  }
-  if (s.type === "listening_build" && typeof s.targetSentence === "string") {
-    out.push({ text: s.targetSentence });
-  }
-  if (
-    s.type === "listening_comprehension" &&
-    typeof s.transcript === "string"
-  ) {
-    out.push({ text: s.transcript, translation: s.translation });
-  }
-  return out;
-}
-
-/**
- * Map canonical card id → shortest mined example sentence. Memoized: walks
- * every lesson once. Only multi-character sentences that strictly CONTAIN
- * the word (and aren't just the word itself) qualify.
- */
-function getMinedSentences(): Map<string, MinedSentence> {
-  if (mineIndex) return mineIndex;
-  const best = new Map<string, { sent: MinedSentence; len: number }>();
-  const atoms = JA_COURSE_ATOMS.filter(isSrsEligibleAtom).map((a) => ({
-    kana: a.kana,
-    cardId: canonicalAtomId(a),
-  }));
-  for (const id of orderedJaLessonIds()) {
-    const lesson = getMockLessonContent(id);
-    if (!lesson) continue;
-    for (const step of lesson.steps) {
-      for (const sent of sentencesFromStep(step)) {
-        if (sent.text.length <= 1) continue;
-        for (const { kana, cardId } of atoms) {
-          if (sent.text === kana) continue;
-          if (!sent.text.includes(kana)) continue;
-          const prev = best.get(cardId);
-          if (!prev || sent.text.length < prev.len) {
-            best.set(cardId, { sent, len: sent.text.length });
-          }
-        }
-      }
-    }
-  }
-  mineIndex = new Map([...best].map(([k, v]) => [k, v.sent]));
-  return mineIndex;
-}
+/* ── sentence mining ──
+ * The miner itself now lives in `@/features/lesson/data/minedSentences`
+ * (shared with the SRS review-lesson builder). Behavior is unchanged:
+ * canonical card id → shortest authored sentence containing the word. */
 
 /* ── enriched deck ── */
 
@@ -180,6 +110,6 @@ export function buildEnrichedCourseDeck(
 
 /** Test hook: drop the memoized indexes. */
 export function __resetCourseDeckMine(): void {
-  mineIndex = null;
+  __resetMinedSentences();
   imagesByCardId = null;
 }

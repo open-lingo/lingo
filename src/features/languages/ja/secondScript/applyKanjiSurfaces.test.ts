@@ -114,7 +114,12 @@ function revertToKana(lesson: LessonContent): LessonContent {
         KANJI_ELIGIBLE_ATOMS.has(o.atomId)
       ) {
         const kana = JA_COURSE_ATOMS_BY_ID.get(o.atomId)?.kana;
-        if (kana) return { ...o, surface: kana, reading: kana };
+        if (kana) {
+          // Drop the pass-stamped window flag too — the pre-pass shape
+          // never carries it.
+          const { furiganaWindowOpen: _omit, ...rest } = o;
+          return { ...rest, surface: kana, reading: kana };
+        }
       }
       const out: Record<string, unknown> = {};
       for (const k of Object.keys(o)) out[k] = revert(o[k]);
@@ -235,14 +240,18 @@ describe("vocabMcq optionAnnotations route options through the kanji pass", () =
     expect(step.options[gi].word).toBe("がっこう"); // unchanged answer/audio key
   });
 
-  it("after applyKanjiSurfaces at m24 (past unlock+2), the option surface is 学校 (bare, no furigana)", () => {
+  it("after applyKanjiSurfaces at m24 (past unlock+2), the option surface is 学校 with the kana reading kept and the window flagged closed", () => {
     const step = vocabMcq("mcq-gakkou", target, POOL);
     const out = applyKanjiSurfaces(synthLesson("m24", [step]));
     const gi = step.options.findIndex((o) => o.word === "がっこう");
     const wordStep = out.steps[0] as typeof step;
     const ann = wordStep.optionAnnotations![gi]!;
     expect(ann[0].surface).toBe("学校"); // kanji substituted
-    expect(ann[0].reading).toBe("学校"); // past window → no furigana to float
+    // 2026-07-17: the kana reading is ALWAYS carried — the renderer decides
+    // visibility (window floor OR unmastered). Past the window the flag is
+    // false, so furigana shows only while the atom is not FSRS-mastered.
+    expect(ann[0].reading).toBe("がっこう");
+    expect(ann[0].furiganaWindowOpen).toBe(false);
     // Grading/audio untouched: the option word is still kana.
     expect(wordStep.options[gi].word).toBe("がっこう");
     expect(wordStep.correctOptionId).toBe(step.correctOptionId);
@@ -353,50 +362,55 @@ describe("content gate: zero kanji below the m8 recognition floor (§4c)", () =>
 
 // ───────────────────────── furigana window on lessons ──────────────────────
 
-describe("furigana window: m8 kanji show furigana in m8/m9, none in m10+", () => {
-  it("m8: number kanji substituted WITH furigana (surface≠reading, reading kana)", () => {
+describe("furigana window flag: open in m8/m9 for m8 kanji, closed from m10 — kana reading ALWAYS carried", () => {
+  it("m8: number kanji substituted with the window open (kana reading, flag true)", () => {
     const out = applyKanjiSurfaces(synthLesson("m8", [matchStep("ja-m5-1-v-1")]));
     const seg = collectSegments(out)[0].seg;
     expect(seg.surface).toBe("一");
-    expect(seg.reading).toBe("いち"); // kana furigana visible
+    expect(seg.reading).toBe("いち"); // kana furigana carried
     expect(seg.surface).not.toBe(seg.reading);
     expect(Array.from(seg.reading).every(isKana)).toBe(true);
+    expect(seg.furiganaWindowOpen).toBe(true);
   });
 
-  it("m9: m8-unlocked kanji still shows furigana (inside window)", () => {
+  it("m9: m8-unlocked kanji still inside the window (flag true)", () => {
     const out = applyKanjiSurfaces(synthLesson("m9", [matchStep("ja-m5-1-v-2")]));
     const seg = collectSegments(out)[0].seg;
     expect(seg.surface).toBe("二");
     expect(seg.reading).toBe("に");
-    expect(seg.surface).not.toBe(seg.reading);
+    expect(seg.furiganaWindowOpen).toBe(true);
   });
 
-  it("m10: m8-unlocked kanji shows WITHOUT furigana (reading === surface)", () => {
+  it("m10: m8-unlocked kanji past the window — flag false but the kana reading is KEPT (renderer shows it until FSRS mastery)", () => {
     const out = applyKanjiSurfaces(synthLesson("m10", [matchStep("ja-m5-1-v-3")]));
     const seg = collectSegments(out)[0].seg;
     expect(seg.surface).toBe("三");
-    expect(seg.reading).toBe("三"); // no reading to float → bare kanji
-    expect(seg.surface).toBe(seg.reading);
+    // 2026-07-17 ruling: the data never destroys the furigana — past the
+    // window, visibility hands over to the SRS gate in AnnotatedText.
+    expect(seg.reading).toBe("さん");
+    expect(Array.from(seg.reading).every(isKana)).toBe(true);
+    expect(seg.furiganaWindowOpen).toBe(false);
   });
 
-  it("real m8/m9 lessons carry furigana-on kanji; m10 lessons carry furigana-off", () => {
-    const hasWindowedKanji = (id: string, wantFurigana: boolean): boolean => {
+  it("real m8/m9 lessons carry window-open kanji; m10 lessons carry window-closed", () => {
+    const hasWindowedKanji = (id: string, wantOpen: boolean): boolean => {
       const lesson = getMockLessonContent(id);
       if (!lesson) return false;
       return collectSegments(lesson).some(({ seg }) => {
         if (!HAS_HAN.test(seg.surface)) return false;
-        const furiganaOn = seg.surface !== seg.reading;
+        // Every substituted segment keeps its kana reading now.
+        if (seg.surface === seg.reading) return false;
         // restrict to m8-unlocked (number) atoms so the window is deterministic
         const isM8Atom =
           typeof seg.atomId === "string" &&
           KANJI_ELIGIBLE_ATOMS.get(seg.atomId)?.unlockModule === 8;
-        return isM8Atom && furiganaOn === wantFurigana;
+        return isM8Atom && seg.furiganaWindowOpen === wantOpen;
       });
     };
-    // At least one m8 and one m9 lesson show an m8-kanji WITH furigana …
+    // At least one m8 and one m9 lesson show an m8-kanji inside the window …
     expect(JA_LESSON_IDS.filter((i) => /^ja-m8-/.test(i)).some((i) => hasWindowedKanji(i, true))).toBe(true);
     expect(JA_LESSON_IDS.filter((i) => /^ja-m9-/.test(i)).some((i) => hasWindowedKanji(i, true))).toBe(true);
-    // … and at least one m10 lesson shows an m8-kanji WITHOUT furigana.
+    // … and at least one m10 lesson shows an m8-kanji with the window closed.
     expect(JA_LESSON_IDS.filter((i) => /^ja-m10-/.test(i)).some((i) => hasWindowedKanji(i, false))).toBe(true);
   });
 });
@@ -425,21 +439,23 @@ describe("TTS: every substituted surface's audio key still resolves", () => {
 // ───────────────── deliverable #3: kanji-mode reviews (m10 of m8/m9) ────────
 
 describe("reviews bake in m8 & m9 production (deliverable #3)", () => {
-  it("an m10 review shows m8 vocab as kanji WITHOUT furigana, m9 vocab WITH", () => {
+  it("an m10 review flags m8 vocab past the window, m9 vocab inside it (readings kept on both)", () => {
     // A review lesson's moduleId is where the learner is. Model an m10 review
     // touching an m8 atom (一) and an m9 atom (大きい).
     const lesson = synthLesson("m10", [
-      matchStep("ja-m5-1-v-1"), // 一, unlock m8 → window m8‑m9 → OFF at m10
-      matchStep("ookii"), //        大きい, unlock m9 → window m9‑m10 → ON at m10
+      matchStep("ja-m5-1-v-1"), // 一, unlock m8 → window m8‑m9 → closed at m10
+      matchStep("ookii"), //        大きい, unlock m9 → window m9‑m10 → open at m10
     ]);
     const out = applyKanjiSurfaces(lesson);
     const segs = collectSegments(out);
     const ichi = segs.find((s) => s.seg.atomId === "ja-m5-1-v-1")!.seg;
     const ookii = segs.find((s) => s.seg.atomId === "ookii")!.seg;
     expect(ichi.surface).toBe("一");
-    expect(ichi.reading).toBe("一"); // past window → no furigana
+    expect(ichi.reading).toBe("いち"); // reading kept; SRS gate decides
+    expect(ichi.furiganaWindowOpen).toBe(false); // past window
     expect(ookii.surface).toBe("大きい");
-    expect(ookii.reading).toBe("おおきい"); // still in window → furigana
+    expect(ookii.reading).toBe("おおきい");
+    expect(ookii.furiganaWindowOpen).toBe(true); // still in window
   });
 
   it("the SRS review path is wired through the pass without error", () => {
@@ -462,10 +478,12 @@ describe("sentence-level kanji substitution (multi-segment annotations)", () => 
     const out = applyKanjiSurfaces(synthLesson("m29", [step]));
     const segs = collectSegments(out).map((s) => s.seg);
 
-    // まいにち → 毎日, bare (m29 is past the unlock+2 furigana window at m22).
+    // まいにち → 毎日 (m29 is past the unlock+2 furigana window at m22, so the
+    // window flag is closed — but the kana reading is kept for the SRS gate).
     const mainichi = segs.find((s) => s.atomId === "mainichi")!;
     expect(mainichi.surface).toBe("毎日");
-    expect(mainichi.reading).toBe("毎日");
+    expect(mainichi.reading).toBe("まいにち");
+    expect(mainichi.furiganaWindowOpen).toBe(false);
 
     // Every OTHER sentence segment stays pure kana — ともだち (友達, catalog gap),
     // を (particle), てつだう (手伝う, catalog gap) are NEVER substituted.

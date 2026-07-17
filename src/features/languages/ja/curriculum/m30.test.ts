@@ -13,7 +13,7 @@
  *   - zero particle_cloze anywhere in the module (guide §4c — m30 is far
  *     past every N5 particle's 2-module grandfather window).
  *   - every production step whose answer depends on register carries an
- *     explicit register cue in its prompt (pinned invariant 7).
+ *     explicit register cue in its prompt (pinned invariant 8).
  */
 import { describe, it, expect } from "vitest";
 import {
@@ -44,7 +44,7 @@ function englishPromptOf(step: LessonStep): string | null {
 
 // An explicit addressee cue: "to a friend", "to your boss", "as けん",
 // "as her boss" — anything that names WHO the register choice is for, not
-// just the bare register word itself (pinned invariant 7).
+// just the bare register word itself (pinned invariant 8).
 const REGISTER_CUE = /\bto (a|your|an|けん|たなかさん)\b|\bas\b/i;
 
 describe("JA M30 module-specific content", () => {
@@ -132,7 +132,7 @@ describe("JA M30 module-specific content", () => {
         // produce a casual OR polite form (ない？/ませんか/くる？/きますか-
         // class content). Heuristic: any prompt mentioning "casually" or
         // "politely" is register-dependent by construction; those must
-        // additionally name WHO (friend/boss/senior/etc — pinned invariant 7).
+        // additionally name WHO (friend/boss/senior/etc — pinned invariant 8).
         const registerDependent = /\b(casually|politely)\b/i.test(prompt);
         if (!registerDependent) continue;
         if (!REGISTER_CUE.test(prompt)) {
@@ -143,7 +143,7 @@ describe("JA M30 module-specific content", () => {
     expect(failures, `missing register-cue (who): \n  ${failures.join("\n  ")}`).toEqual([]);
   });
 
-  it("no MCQ option carries a trailing register tag (pinned invariant 8)", () => {
+  it("no MCQ option carries a trailing register tag (pinned invariant 9)", () => {
     for (const lesson of getJaModuleLessons("m30")) {
       for (const step of lesson.steps) {
         if (step.type !== "multiple_choice") continue;

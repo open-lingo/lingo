@@ -43,7 +43,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import type {
@@ -56,6 +56,15 @@ import {
   getModuleStatus,
   type ModuleStatus,
 } from "@/features/learn/moduleProgress";
+import {
+  courseHasTier,
+  deriveDefaultTier,
+  modulesForTier,
+  parseTierParam,
+  readStoredTier,
+  writeStoredTier,
+  type LearnTier,
+} from "@/features/learn/learnTier";
 import { stringsFor, LEARN_HEADER_SUBTITLE } from "@/features/learn/transitStrings";
 import { TransitSignageHeader } from "@/features/learn/components/TransitSignageHeader";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
@@ -1048,6 +1057,13 @@ function NetworkMap({
   const [panelH, setPanelH] = useState<number | null>(null);
   const [helpOpen, setHelpOpen] = useState(false);
   const strings = stringsFor(lang);
+  // TODO(n4-scenery): the ja skyline (torii/pagoda/Fuji) renders for BOTH
+  // tiers for now — no new scenery art per requirement 4. A distinct N4
+  // scene (e.g. "leaving the starter city" — city → countryside →
+  // mountains) would hook in here by threading a `tier` prop down to
+  // `makeSkyline`/`SkylineArt`'s `landmark`. Scenery direction is an open
+  // decision, not yet made: docs/n4-scoping-2026-07-16.md, "Open questions
+  // for Spencer" §2 (Zone scenery).
   const sky = useMemo(() => makeSkyline(layout), [layout]);
 
   /* uniform scale: fill the flexed panel height (content-fit viewBox) */
@@ -1704,6 +1720,114 @@ function LineDiagram({
   );
 }
 
+/* ── tier switcher (2026-07-17) ──────────────────────────────────────── */
+
+/**
+ * Compact interchange-style pill/tabs — "N5 Line" / "N4 Line" — rendered
+ * near the map header. Only mounted when the course actually has n4
+ * content (`hasN4` gate in the page component); es/ko never see this.
+ */
+function TierTabs({
+  tier,
+  onChange,
+  n5Label,
+  n4Label,
+}: {
+  tier: LearnTier;
+  onChange: (t: LearnTier) => void;
+  n5Label: string;
+  n4Label: string;
+}) {
+  const opt = (t: LearnTier, label: string) => {
+    const on = tier === t;
+    return (
+      <button
+        key={t}
+        type="button"
+        data-tm="tier-tab"
+        aria-pressed={on}
+        onClick={() => onChange(t)}
+        className={cn(
+          "rounded-full px-3 py-1 text-[12px] font-bold transition",
+          on
+            ? "text-accent-foreground"
+            : "text-text-secondary hover:text-text-primary",
+        )}
+        style={on ? { background: "var(--tmc-line-main)" } : undefined}
+      >
+        {label}
+      </button>
+    );
+  };
+  return (
+    <div
+      role="group"
+      aria-label="Course tier"
+      className="flex w-fit gap-0.5 rounded-full border border-border bg-surface-muted p-0.5"
+    >
+      {opt("n5", n5Label)}
+      {opt("n4", n4Label)}
+    </div>
+  );
+}
+
+/**
+ * The "graduation moment" — an interchange banner past the end of one
+ * tier's line pointing onto the other. Spencer's ask (2026-07-16): the
+ * learn page had NO way to reach the n4 tier at all. Shipped as a simple
+ * banner below the map rather than an SVG node woven into `buildLayout`
+ * (each tier is deliberately its own map/geometry — see the `modules`
+ * filter comment above — so a true in-map interchange node would mean
+ * threading tier-crossing state through `buildLayout`'s station/zone math
+ * for a purely navigational affordance).
+ */
+function TierContinueBanner({
+  tier,
+  onSwitch,
+  n4Label,
+}: {
+  tier: LearnTier;
+  onSwitch: (t: LearnTier) => void;
+  n4Label: string;
+}) {
+  if (tier === "n5") {
+    return (
+      <button
+        type="button"
+        data-tm="tier-continue"
+        onClick={() => onSwitch("n4")}
+        className="mt-3 flex w-full items-center justify-between gap-3 rounded-md border-2 border-dashed px-4 py-3 text-left transition hover:bg-surface-muted"
+        style={{ borderColor: "var(--tmc-line-main)" }}
+      >
+        <span className="min-w-0">
+          <span className="block text-[10.5px] font-bold uppercase tracking-wider text-text-muted">
+            Interchange · end of the line
+          </span>
+          <span className="block truncate text-[14px] font-extrabold text-text-primary">
+            Continue onto the {n4Label} →
+          </span>
+        </span>
+        <span
+          className="grid h-9 w-9 flex-none place-items-center rounded-full text-[12px] font-extrabold text-accent-foreground"
+          style={{ background: "var(--tmc-line-main)" }}
+        >
+          N4
+        </span>
+      </button>
+    );
+  }
+  return (
+    <button
+      type="button"
+      data-tm="tier-continue"
+      onClick={() => onSwitch("n5")}
+      className="mt-3 flex w-fit items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-[12.5px] font-bold text-text-secondary transition hover:text-text-primary"
+    >
+      ← N5 Line
+    </button>
+  );
+}
+
 /* ── district view (Concept B) ───────────────────────────────────────── */
 
 /* ── page ────────────────────────────────────────────────────────────── */
@@ -1719,6 +1843,7 @@ export default function TransitLearnPage({
   const lang = useLang();
   const p = useLangPath();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const realIds = useCompletedLessonIds();
   const realSet = useMemo(() => new Set(realIds), [realIds]);
   const realProfile = useLearnProfile();
@@ -1758,11 +1883,59 @@ export default function TransitLearnPage({
   }, [preview, lang, realIds.length]);
 
   const course = useMemo(() => getMockCourse(lang), [lang]);
-  // This map draws the N5 tier only. Other tiers are real, learnable modules —
-  // they just belong to their own map (each map keeps its own ZONE 1/2/3, so a
-  // tier's stations must not leak into another's thirds split, `buildLayout`).
-  // Untagged modules are n5: the whole shipped course predates the split.
-  const modules = useMemo(() => course.modules.filter((m) => !m.comingSoon && m.lessons.length > 0 && (m.tier ?? "n5") === "n5"), [course]);
+
+  // ── tier switcher (2026-07-17) ──────────────────────────────────────
+  // Whether this course has ANY n4 content — the switcher's sole render
+  // gate (es/ko: false, zero visual change). Guarded per requirement 5.
+  const hasN4 = useMemo(() => courseHasTier(course, "n4"), [course]);
+
+  // Explicit choice (query param OR localStorage) pins the tier for the
+  // rest of the session and skips progress-derivation entirely; absent
+  // either, the tier is derived from the learner's furthest-in-progress
+  // module (across the FULL course, not one tier's filtered list) so a
+  // learner who has graduated N5 lands straight on the N4 line.
+  const courseId = course.id;
+  const [tier, setTierState] = useState<LearnTier>(() => {
+    const fromParam = parseTierParam(searchParams.get("tier"));
+    const fromStorage = readStoredTier(courseId);
+    return fromParam ?? fromStorage ?? deriveDefaultTier(course, realSet);
+  });
+  // realIds hydrates asynchronously (auth/progress settle after mount) —
+  // re-derive the default once real progress lands, but ONLY when nothing
+  // explicit (param/storage) is pinning the tier already.
+  useEffect(() => {
+    if (!hasN4) return;
+    const fromParam = parseTierParam(searchParams.get("tier"));
+    const fromStorage = readStoredTier(courseId);
+    if (fromParam || fromStorage) return;
+    setTierState(deriveDefaultTier(course, realSet));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course, realSet, hasN4, courseId]);
+
+  const effectiveTier: LearnTier = hasN4 ? tier : "n5";
+  const setTier = useCallback(
+    (next: LearnTier) => {
+      setTierState(next);
+      setOpenIdx(null);
+      writeStoredTier(courseId, next);
+      setSearchParams(
+        (prev) => {
+          const nextParams = new URLSearchParams(prev);
+          nextParams.set("tier", next);
+          return nextParams;
+        },
+        { replace: true },
+      );
+    },
+    [courseId, setSearchParams],
+  );
+
+  // This map draws ONE tier at a time. Other tiers are real, learnable
+  // modules — they just belong to their own map (each map keeps its own
+  // ZONE 1/2/3, so a tier's stations must not leak into another's thirds
+  // split, `buildLayout`). Untagged modules are n5: the whole shipped
+  // course predates the split.
+  const modules = useMemo(() => modulesForTier(course, effectiveTier), [course, effectiveTier]);
   const viewCourse = useMemo(() => ({ ...course, modules }), [course, modules]);
 
   const demoSet = useMemo(() => {
@@ -1893,8 +2066,13 @@ export default function TransitLearnPage({
   // and crash. Show an empty state instead.
   if (modules.length === 0) {
     return (
-      <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
+      <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3", effectiveTier === "n4" && "tmc-tier-n4")}>
         <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
+        {hasN4 && (
+          <div className="mb-3">
+            <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
+          </div>
+        )}
         <div className="mt-4 rounded-md border border-border bg-surface-muted px-6 py-16 text-center">
           <p className="text-[14px] font-bold text-text-primary">
             {strings.noModulesTitle}
@@ -1908,7 +2086,7 @@ export default function TransitLearnPage({
   }
 
   return (
-    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
+    <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3", effectiveTier === "n4" && "tmc-tier-n4")}>
       {/* signage board header */}
       <TransitSignageHeader
         title={titleText}
@@ -1929,6 +2107,17 @@ export default function TransitLearnPage({
         }
       />
 
+      {/* tier switcher — (a) compact pill/tabs near the map header. Only
+          mounted when this course has n4 content at all (requirement 5). */}
+      {hasN4 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
+          <span className="text-[11px] text-text-muted">
+            {effectiveTier === "n4" ? strings.n4LineName : strings.lineName}
+          </span>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <div className="relative hidden md:block">
@@ -1941,6 +2130,10 @@ export default function TransitLearnPage({
               <ResumeFab course={viewCourse} completedSet={completedSet} />
             )}
           </div>
+          {/* (b) end-of-line interchange banner — the graduation moment /
+              the way back. Below the map rather than woven into the SVG
+              geometry (see TierContinueBanner's doc comment). */}
+          {hasN4 && <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />}
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
             <button className="mt-3 w-full rounded-sm border-2 border-text-primary px-3 py-2 text-[13px] font-bold text-text-primary" onClick={() => setShowMapMobile((v) => !v)}>

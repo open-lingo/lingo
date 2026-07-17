@@ -49,6 +49,19 @@
   --tmc-halo: color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
 
+/* N4 tier line color (2026-07-17 tier switcher). Overriding --tmc-line-main
+   here re-derives every dependent token (--tmc-done, --tmc-scene-accent*,
+   --tmc-halo) automatically since they're all defined as var(--tmc-line-main)
+   expressions — no per-usage refactor needed. Teal, matching m29's module
+   accent (mockCourse.ts) so the graduation reads as a genuinely different
+   line rather than a reskin of the same one. */
+.tmc-root.tmc-tier-n4 {
+  --tmc-line-main: #0e7c8c;
+}
+.dark .tmc-root.tmc-tier-n4 {
+  --tmc-line-main: #1fa8bb;
+}
+
 /* ── network map panel ─────────────────────────────────────────────── */
 .tmc-map-scroll {
   overflow-x: auto;

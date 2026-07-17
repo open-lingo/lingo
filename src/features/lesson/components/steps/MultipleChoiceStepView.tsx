@@ -14,6 +14,7 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -122,7 +123,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             {step.promptAnnotation ? (
               <AnnotatedJa segments={step.promptAnnotation} />
             ) : (
-              <AnnotatedJa text={step.prompt} />
+              <AnnotatedJa text={formatPrompt(step.prompt)} />
             )}
           </h2>
           {ttsAvailable && (

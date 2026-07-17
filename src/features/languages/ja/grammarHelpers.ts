@@ -421,7 +421,7 @@ export function build(
  * sentence + a short operation chip ("→ casual"), learner assembles the
  * transformed sentence from tiles. A parametrized `build_sentence` — same
  * grading, same guards, same density slot. The prompt must still state the
- * operation in English WITH the register cue (pinned invariant 7), e.g.
+ * operation in English WITH the register cue (pinned invariant 8), e.g.
  * "Rewrite for a friend:" — the chip is reinforcement, not the only cue.
  */
 export function transformBuild(
@@ -1242,7 +1242,10 @@ export function translationMcq(
   return {
     id: idPrefix,
     type: "multiple_choice",
-    prompt: target.meaningEn,
+    // Bare meaningEn ("this") reads unfinished as a whole prompt — frame it
+    // as an instruction, meaning quoted verbatim (Spencer QA 2026-07-16,
+    // same defect class as the build_sentence single-answer picker).
+    prompt: `Pick the word for "${target.meaningEn}"`,
     options,
     correctOptionId: "correct",
     optionsHideRomaji: true,
