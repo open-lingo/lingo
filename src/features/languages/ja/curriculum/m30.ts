@@ -73,6 +73,7 @@
 import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
+  dialogueListen,
   grammarRule,
   kanjiReading,
   listeningBuildSentence,
@@ -84,6 +85,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  transformBuild,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -200,6 +202,27 @@ const RULE_REGISTER = grammarRule({
   },
   cultureNote:
     "Every sentence in this pair is grammatically correct either way. The mistake this pair teaches is entirely about WHO you're talking to, not how well-formed the sentence is.",
+});
+
+const RULE_INVITE_CASUAL = grammarRule({
+  id: "ja-m30-rule-invite",
+  grammarPointId: "casual-nai-invitation",
+  title: "〜ない？ — casual invitations (same logic as ませんか)",
+  rule:
+    "Casual invitations use the plain ない-form + rising intonation, dropping か exactly like pair 1's casual questions: いかない？ ('Wanna go?'). This mirrors the polite invitation pattern from m23 — ませんか (いきませんか, 'won't you go?') — both use a NEGATIVE question to soften a suggestion into an invitation, giving the listener room to decline. Casual just drops the か the same way every casual question does.",
+  examples: [
+    { ja: "いっしょに たべない？", romaji: "issho ni tabenai?", en: "Wanna eat together?" },
+    { ja: "えいが みない？", romaji: "eiga minai?", en: "Wanna watch a movie?" },
+    { ja: "しゅうまつ あそばない？", romaji: "shuumatsu asobanai?", en: "Wanna hang out this weekend?" },
+  ],
+  antiPattern: {
+    ja: "いっしょに たべないか？",
+    romaji: "issho ni tabenai ka?",
+    en: "(broken — か tacked onto a casual invitation reads blunt, like an interrogation)",
+    why: "Casual invitations rely on rising intonation alone, exactly like casual questions (pair 1) — adding か back breaks the register even though ない makes it an invitation rather than a plain question.",
+  },
+  cultureNote:
+    "This is invitation logic doubled: the negative form softens a suggestion into an invitation (as in ませんか), and casual speech drops か (as in pair 1). Put them together and you get いかない？ — the single most common way friends invite each other to do something.",
 });
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -687,7 +710,7 @@ export const M30_2_2: LessonContent = {
     speaking("ja-m30-2-2-speak-teinei", "ていねいな せんせい", "A polite teacher", ["ていねい"]),
     sentenceMcq({
       id: "ja-m30-2-2-mcq-1",
-      prompt: "Which describes け いご (polite language) itself?",
+      prompt: "Which describes けいご (polite language) itself?",
       correctKana: "けいごは ていねいだ。",
       distractorsKana: ["けいごは しつれいだ。", "ためぐちは ていねいだ。", "けいごは やすいだ。"],
       explanation:

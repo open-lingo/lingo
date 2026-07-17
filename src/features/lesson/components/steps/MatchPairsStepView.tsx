@@ -334,8 +334,16 @@ function SourceTile({
       {audioOnSelect && !showSourceRomaji ? (
         // Plain text — audio is the reading channel; on-tile romaji would
         // give away the recall. Scaffolded surfaces (onboarding preview)
-        // opt in via showSourceRomaji.
-        <span>{pair.source}</span>
+        // opt in via showSourceRomaji. Use the ANNOTATION surface when
+        // present: it carries the post-kanji-substitution form (店, 学校),
+        // and rendering raw `pair.source` here silently stripped kanji
+        // from every review match tile (Gate 10 finding, 2026-07-17 —
+        // audio on tap supplies the reading, so bare kanji is correct).
+        <span>
+          {pair.sourceAnnotation
+            ? pair.sourceAnnotation.map((s) => s.surface).join("")
+            : pair.source}
+        </span>
       ) : pair.sourceAnnotation ? (
         <AnnotatedJa
           segments={pair.sourceAnnotation}

@@ -74,7 +74,17 @@ test.describe("@visual-qa per-step capture", () => {
         // states is the #1 vision-judge failure mode.
         await page.waitForTimeout(700);
         const png = `step-${String(c.stepIndex).padStart(3, "0")}-${c.stepId}.png`;
-        await stage.screenshot({ path: path.join(dir, png) });
+        // Blank-capture guard (2026-07-17): under parallel workers some
+        // steps (lazy image chunks, seeded review draws) painted AFTER the
+        // settle wait, shipping ~2.8KB all-white PNGs that judges must
+        // then guess about. A near-empty buffer means "not painted yet" —
+        // wait longer and reshoot, up to twice.
+        let shot = await stage.screenshot();
+        for (let retry = 0; shot.byteLength < 6_000 && retry < 2; retry++) {
+          await page.waitForTimeout(1_500);
+          shot = await stage.screenshot();
+        }
+        fs.writeFileSync(path.join(dir, png), shot);
         manifest.push({
           stepIndex: c.stepIndex,
           stepId: c.stepId,
