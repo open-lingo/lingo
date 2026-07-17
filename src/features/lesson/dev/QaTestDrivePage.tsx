@@ -154,6 +154,53 @@ function buildSections(lang: string): QaSection[] {
 
   const sections: QaSection[] = [
     {
+      id: "kanji",
+      title: "Kanji rollout — spot checks (2026-07-16)",
+      blurb:
+        "The script ladder is live: romaji dies entering m7, kanji recognition starts m8 (kanji + furigana), furigana comes off 2 modules after a kanji unlocks (\"production\"), and romaji + kanji can never co-exist. Typed answers in kana always grade correct.",
+      items: [
+        {
+          id: "kanji:m8-furigana-on",
+          title: "m8 — kanji WITH furigana (window open)",
+          hint: "Numbers show as kanji (一, 七…) with small kana floating above. NO romaji anywhere on kanji. ja-m8-6-1 has the most (4 surfaces).",
+          links: [
+            { label: "ja-m8-6-1 (一, 七 ×4)", href: p("/learn/lessons/ja-m8-6-1") },
+            { label: "ja-m8-1-2 (三)", href: p("/learn/lessons/ja-m8-1-2") },
+          ],
+        },
+        {
+          id: "kanji:m9-furigana-on",
+          title: "m9 — m8/m9 kanji still inside their window",
+          hint: "ja-m9-7-1 carries 6 kanji surfaces (八, 六, 四…), all still with furigana.",
+          links: [{ label: "ja-m9-7-1 (6 surfaces)", href: p("/learn/lessons/ja-m9-7-1") }],
+        },
+        {
+          id: "kanji:m10-furigana-off",
+          title: "m10 — m8 kanji reads COLD (furigana gone)",
+          hint: "八 / 十 unlocked at m8, so at m10 the window is closed: bare kanji, no floating kana, no romaji. If you still see furigana here, mark broken.",
+          links: [{ label: "ja-m10-2-1 (八, 十)", href: p("/learn/lessons/ja-m10-2-1") }],
+        },
+        {
+          id: "kanji:review-mix",
+          title: "m10 review — bakes m8 (cold) + m9 (furigana) together",
+          hint: "One review, two states: m8 vocab bare kanji, m9 vocab still furigana'd. This is the 'reviews bake in production' behavior.",
+          links: [{ label: "ja-m10-review-1", href: p("/learn/lessons/ja-m10-review-1") }],
+        },
+        {
+          id: "kanji:late-module",
+          title: "m17 — multi-kanji word, ruby layout",
+          hint: "後ろ in the speaking step — the ruby-measured spot (clean at 390px–4K). Check it by eye too.",
+          links: [{ label: "ja-m17-8-1 speaking (後ろ)", href: p("/learn/lessons/ja-m17-8-1?step=speaking") }],
+        },
+        {
+          id: "kanji:none-pre-m8",
+          title: "m7 — ZERO kanji (readable check)",
+          hint: "Pre-m8 stays pure kana so you can read everything: no kanji anywhere in this lesson (content-gate tested; verify by eye). Romaji is also off from m7.",
+          links: [{ label: "ja-m7-1-1 (pure kana)", href: p("/learn/lessons/ja-m7-1-1") }],
+        },
+      ],
+    },
+    {
       id: "fixes",
       title: "Tonight's fixes — re-verify (2026-07-12 evening)",
       blurb:
