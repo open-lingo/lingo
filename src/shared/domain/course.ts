@@ -46,6 +46,19 @@ export type CourseModule = {
   accent?: ModuleAccent;
   /** Future module: shows placeholder UI, no clickable lessons. */
   comingSoon?: boolean;
+  /**
+   * JLPT tier this module belongs to. Absent means `"n5"` — the whole shipped
+   * course predates the split, so undefined must keep behaving as it always has.
+   *
+   * The tier is what separates the two transit maps: each map renders one
+   * tier's stations and keeps its own ZONE 1/2/3. It exists because
+   * `modules` is doing double duty — it is BOTH the pedagogical module order
+   * (`languages/ja/module.ts` → `jaCurriculum()` → `getAtomsUpToModule`, which
+   * is how the SRS knows an atom is reachable) AND the map's station list. A
+   * module must therefore be in `modules` to be learnable at all, even when it
+   * should not be drawn on the N5 map.
+   */
+  tier?: "n5" | "n4";
 };
 
 /** Bonus / interest-driven side quests shown in the right rail. */

@@ -1814,7 +1814,11 @@ export default function TransitLearnPage({
   }, [preview, lang, realIds.length]);
 
   const course = useMemo(() => getMockCourse(lang), [lang]);
-  const modules = useMemo(() => course.modules.filter((m) => !m.comingSoon && m.lessons.length > 0), [course]);
+  // This map draws the N5 tier only. Other tiers are real, learnable modules —
+  // they just belong to their own map (each map keeps its own ZONE 1/2/3, so a
+  // tier's stations must not leak into another's thirds split, `buildLayout`).
+  // Untagged modules are n5: the whole shipped course predates the split.
+  const modules = useMemo(() => course.modules.filter((m) => !m.comingSoon && m.lessons.length > 0 && (m.tier ?? "n5") === "n5"), [course]);
   const viewCourse = useMemo(() => ({ ...course, modules }), [course, modules]);
 
   const demoSet = useMemo(() => {

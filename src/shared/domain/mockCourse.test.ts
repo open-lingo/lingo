@@ -147,8 +147,14 @@ describe("curriculum lesson counts", () => {
   });
 
   it("content modules sit in order with no review interleave", () => {
-    const order = course.modules.map((m) => m.id);
-    expect(order.slice(2)).toEqual(["m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18", "m19", "m20", "m21", "m22", "m23", "m24", "m25", "m26", "m27", "m28"]);
+    // Asserts the invariant the name describes — consecutive m3..mN, nothing
+    // interleaved — rather than a hardcoded snapshot of the list. The snapshot
+    // form ended at m28 and had to be edited every time the course grew, which
+    // makes a real regression (a gap, a stray `m5-review`) look identical to
+    // "someone added a module". Content modules follow the two kana modules.
+    const order = course.modules.map((m) => m.id).slice(2);
+    const expected = order.map((_, i) => `m${i + 3}`);
+    expect(order).toEqual(expected);
   });
 
   it("yoon-rare-test is the final yōon node before recap", () => {
