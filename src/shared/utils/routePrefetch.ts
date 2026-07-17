@@ -28,6 +28,11 @@ const ignore = (p: Promise<unknown>) => {
 // later; the import resolves cheaply when already in bundle.
 export const prefetchLearn = () =>
   ignore(import("@/features/learn/LearnPage"));
+/** LessonPage is lazy() in App.tsx — prefetch it while the learner is on the
+ *  path so launching a lesson (station / resume FAB) navigates instantly and
+ *  the start wipe fires without the chunk-load delay. */
+export const prefetchLesson = () =>
+  ignore(import("@/features/lesson/LessonPage"));
 export const prefetchSocial = () =>
   ignore(import("@/features/social/SocialPage"));
 export const prefetchShop = () =>

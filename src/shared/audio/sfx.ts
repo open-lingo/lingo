@@ -36,7 +36,8 @@ export type SfxName =
   | "complete"
   | "tile"
   | "match"
-  | "passive-advance";
+  | "passive-advance"
+  | "lesson-start";
 
 let sfxEnabled = true;
 
@@ -185,6 +186,15 @@ export function playSfx(name: SfxName, opts: { combo?: number } = {}): void {
       // The original ambient chirp, now actually audible.
       tone(ac, master, { freq: 880, at: 0, dur: 0.08, peak: 0.3 });
       haptic(10);
+      return;
+    }
+    case "lesson-start": {
+      // Train-departure cue for the lesson-start wipe: a two-tone horn
+      // chord, then a rising whoosh that tracks the train across the screen.
+      tone(ac, master, { freq: 293.66, at: 0, dur: 0.34, peak: 0.28, type: "sawtooth" });
+      tone(ac, master, { freq: 369.99, at: 0, dur: 0.34, peak: 0.24, type: "sawtooth" });
+      tone(ac, master, { freq: 220, at: 0.16, dur: 0.6, peak: 0.16, type: "sine", glideTo: 720 });
+      haptic(18);
       return;
     }
   }

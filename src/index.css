@@ -236,10 +236,11 @@ html::-webkit-scrollbar-button,
 }
 @keyframes lesson-wipe-vehicle {
   /* translateY(-50%) keeps it vertically centered on top:50%; translateX
-     carries it left → right, leading the curtain's trailing edge. */
-  0% { transform: translate(-28vw, -50%); }
-  16% { transform: translate(-8vw, -50%); }
-  100% { transform: translate(112vw, -50%); }
+     carries it left → right, running well AHEAD of the curtain's trailing
+     edge so the train visibly leads the reveal seam. */
+  0% { transform: translate(-22vw, -50%); }
+  15% { transform: translate(12vw, -50%); }
+  100% { transform: translate(126vw, -50%); }
 }
 .lesson-wipe-curtain {
   animation: lesson-wipe-curtain 1400ms cubic-bezier(.5,0,.2,1) both;

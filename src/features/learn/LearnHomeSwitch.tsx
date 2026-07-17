@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isTransitLearnHome } from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import { prefetchLesson } from "@/shared/utils/routePrefetch";
 import { stringsFor } from "./transitStrings";
 import { useLearnViewMode, type LearnViewMode } from "./hooks/useLearnViewMode";
 import { TransitSignageHeader } from "./components/TransitSignageHeader";
@@ -51,6 +52,13 @@ export function LearnHomeSwitch() {
   const [mode, setMode] = useLearnViewMode(lang ?? "ko");
   const eligible = isTransitLearnHome(flags, lang);
   const course = useMemo(() => getMockCourse(lang ?? "ko"), [lang]);
+
+  // Warm the lesson chunk while the learner is on the path, so launching a
+  // lesson (station / resume FAB) navigates instantly and the start wipe
+  // fires without the chunk-load delay.
+  useEffect(() => {
+    prefetchLesson();
+  }, []);
 
   if (!eligible) return <LearnPage />;
   if (mode === "map") {

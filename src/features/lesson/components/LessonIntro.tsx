@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TrainMascotArt } from "@/features/learn/components/TrainMascotArt";
+import { playSfx } from "@/shared/audio/sfx";
 
 /**
  * One-shot lesson-start page wipe: a themed curtain masks the screen the
@@ -28,6 +29,7 @@ export function LessonIntro() {
 
   useEffect(() => {
     if (done) return;
+    playSfx("lesson-start");
     const id = window.setTimeout(() => setDone(true), DURATION_MS);
     return () => window.clearTimeout(id);
   }, [done]);
