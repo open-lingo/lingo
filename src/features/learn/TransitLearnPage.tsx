@@ -555,7 +555,10 @@ type Skyline = {
   clouds: { x: number; y: number; blobs: { dx: number; rx: number; ry: number }[] }[];
 };
 
-function makeSkyline(layout: Layout): Skyline {
+function makeSkyline(layout: Layout, lang: string): Skyline {
+  // Spanish reads as a low-rise Latin-American townscape, not a skyscraper
+  // city: fewer buildings, shorter, more spaced out.
+  const isEs = lang === "es";
   // Full-scene scenery per Spencer's paint mockup: the railway threads
   // THROUGH the city — towers rise from the canvas bottom past the rails,
   // hills wave through the middle, landmarks are big. Composition: horizon
@@ -584,12 +587,12 @@ function makeSkyline(layout: Layout): Skyline {
   let mi = 0;
   while (mx < layout.width - 100) {
     const r = (((mi + 7) * 69069) >>> 5) % 1000 / 1000;
-    const w = 42 + ((mi * 61) % 4) * 16;
-    const h = Math.round(H * 0.18 + r * H * 0.42);
-    if (r > 0.22) {
+    const w = (isEs ? 46 : 42) + ((mi * 61) % 4) * (isEs ? 22 : 16);
+    const h = Math.round(H * (isEs ? 0.1 : 0.18) + r * H * (isEs ? 0.18 : 0.42));
+    if (r > (isEs ? 0.42 : 0.22)) {
       mid.push({ x: mx, w, h, windows: Array.from({ length: Math.min(5, Math.floor(h / 46)) }, (_, k) => k) });
     }
-    mx += w + 46 + ((mi * 37) % 5) * 30;
+    mx += w + (isEs ? 96 : 46) + ((mi * 37) % 5) * (isEs ? 44 : 30);
     mi++;
   }
   const near: Skyline["near"] = [];
@@ -597,12 +600,12 @@ function makeSkyline(layout: Layout): Skyline {
   let ni = 0;
   while (nx < layout.width - 140) {
     const r = (((ni + 13) * 40503) >>> 3) % 1000 / 1000;
-    const w = 58 + ((ni * 71) % 4) * 20;
-    const h = Math.round(H * 0.3 + r * H * 0.55);
-    if (r > 0.42) {
+    const w = (isEs ? 70 : 58) + ((ni * 71) % 4) * (isEs ? 26 : 20);
+    const h = Math.round(H * (isEs ? 0.14 : 0.3) + r * H * (isEs ? 0.22 : 0.55));
+    if (r > (isEs ? 0.55 : 0.42)) {
       near.push({ x: nx, w, h, windows: Array.from({ length: Math.min(7, Math.floor(h / 52)) }, (_, k) => k) });
     }
-    nx += w + 210 + ((ni * 43) % 5) * 70;
+    nx += w + (isEs ? 320 : 210) + ((ni * 43) % 5) * (isEs ? 90 : 70);
     ni++;
   }
 
@@ -957,22 +960,41 @@ function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; 
   );
 }
 
-function TrainMascot({ label }: { label: string }) {
+function TrainMascot({
+  label,
+  vehicle = "train",
+}: {
+  label: string;
+  /** es rides Mexico City's Metrobús BRT — a red bus instead of the train. */
+  vehicle?: "train" | "bus";
+}) {
+  const isBus = vehicle === "bus";
+  const bw = isBus ? 50 : 36;
   return (
     <g className="tmc-mascot" aria-hidden>
       <rect x={-58} y={-82} width={116} height={20} rx={10} style={{ fill: "var(--tmc-signage-bg)" }} />
       <text x={0} y={-68} textAnchor="middle" style={{ fill: "var(--tmc-signage-fg)", fontSize: 9.5, fontWeight: 800 }}>
         {label}
       </text>
-      <rect x={-18} y={-58} width={36} height={20} rx={6} style={{ fill: "var(--tmc-line-main)" }} />
-      <rect x={-18} y={-58} width={36} height={5} rx={2.5} style={{ fill: "var(--tmc-ink)", opacity: 0.35 }} />
-      <circle cx={-7} cy={-47} r={4.6} style={{ fill: "var(--tmc-panel)" }} />
-      <circle cx={7} cy={-47} r={4.6} style={{ fill: "var(--tmc-panel)" }} />
-      <circle className="tmc-mascot-eye" cx={-6} cy={-47} r={1.9} style={{ fill: "var(--tmc-ink)" }} />
-      <circle className="tmc-mascot-eye" cx={8} cy={-47} r={1.9} style={{ fill: "var(--tmc-ink)" }} />
-      <path d="M -3 -41.5 Q 0 -39.5 3 -41.5" fill="none" style={{ stroke: "var(--tmc-panel)", strokeWidth: 1.4, strokeLinecap: "round" }} />
-      <circle cx={-10} cy={-37} r={3} style={{ fill: "var(--tmc-ink)" }} />
-      <circle cx={10} cy={-37} r={3} style={{ fill: "var(--tmc-ink)" }} />
+      {/* body (red like the main line / the Metrobús) */}
+      <rect x={-bw / 2} y={-58} width={bw} height={20} rx={isBus ? 5 : 6} style={{ fill: "var(--tmc-line-main)" }} />
+      <rect x={-bw / 2} y={-58} width={bw} height={5} rx={2.5} style={{ fill: "var(--tmc-ink)", opacity: 0.35 }} />
+      {isBus && (
+        <>
+          {/* side windows (rear) + door line */}
+          <rect x={-bw / 2 + 4} y={-53} width={14} height={8} rx={2} style={{ fill: "var(--tmc-panel)", opacity: 0.5 }} />
+          <rect x={-bw / 2 + 20} y={-53} width={3} height={13} rx={1} style={{ fill: "var(--tmc-ink)", opacity: 0.3 }} />
+        </>
+      )}
+      {/* face windows */}
+      <circle cx={isBus ? 6 : -7} cy={-47} r={4.6} style={{ fill: "var(--tmc-panel)" }} />
+      <circle cx={isBus ? 17 : 7} cy={-47} r={4.6} style={{ fill: "var(--tmc-panel)" }} />
+      <circle className="tmc-mascot-eye" cx={isBus ? 7 : -6} cy={-47} r={1.9} style={{ fill: "var(--tmc-ink)" }} />
+      <circle className="tmc-mascot-eye" cx={isBus ? 18 : 8} cy={-47} r={1.9} style={{ fill: "var(--tmc-ink)" }} />
+      <path d={isBus ? "M 9 -41.5 Q 12 -39.5 15 -41.5" : "M -3 -41.5 Q 0 -39.5 3 -41.5"} fill="none" style={{ stroke: "var(--tmc-panel)", strokeWidth: 1.4, strokeLinecap: "round" }} />
+      {/* wheels */}
+      <circle cx={isBus ? -16 : -10} cy={-37} r={3} style={{ fill: "var(--tmc-ink)" }} />
+      <circle cx={isBus ? 16 : 10} cy={-37} r={3} style={{ fill: "var(--tmc-ink)" }} />
     </g>
   );
 }
@@ -1064,7 +1086,7 @@ function NetworkMap({
   // `makeSkyline`/`SkylineArt`'s `landmark`. Scenery direction is an open
   // decision, not yet made: docs/n4-scoping-2026-07-16.md, "Open questions
   // for Spencer" §2 (Zone scenery).
-  const sky = useMemo(() => makeSkyline(layout), [layout]);
+  const sky = useMemo(() => makeSkyline(layout, lang), [layout, lang]);
 
   /* uniform scale: fill the flexed panel height (content-fit viewBox) */
   useLayoutEffect(() => {
@@ -1605,7 +1627,7 @@ function NetworkMap({
 
             {/* the rider */}
             <g ref={trainRef}>
-              <TrainMascot label={strings.youAreHere} />
+              <TrainMascot label={strings.youAreHere} vehicle={lang === "es" ? "bus" : "train"} />
             </g>
           </svg>
 
