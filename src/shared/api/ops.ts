@@ -36,6 +36,14 @@ export type AwsCostsByService = {
   updatedAt: string | null;
 };
 
+export type AwsCostsUsage = {
+  periodStart: string;
+  periodEnd: string;
+  /** service → usage type (raw CE string, e.g. "USE1-Requests-Tier2") → USD decimal string. */
+  byService: Record<string, Record<string, string>>;
+  updatedAt: string | null;
+};
+
 export type CostsByDomain = {
   /** Integer cents per Domain tag value. */
   domains: Record<string, number>;
@@ -205,6 +213,9 @@ export class OpsApi extends ApiClient {
   async getCostsByService(): Promise<AwsCostsByService> {
     return this.get<AwsCostsByService>(`${PREFIX}/finance/costs/aws`);
   }
+  async getCostsUsageBreakdown(): Promise<AwsCostsUsage> {
+    return this.get<AwsCostsUsage>(`${PREFIX}/finance/costs/aws/usage`);
+  }
   async getCostsByDomain(): Promise<CostsByDomain> {
     return this.get<CostsByDomain>(`${PREFIX}/finance/costs/by-domain`);
   }
@@ -224,7 +235,7 @@ export class OpsApi extends ApiClient {
 
   /**
    * Trigger an AWS Cost Explorer sync. Admin only.
-   * Cost: ~$0.03 per call (3 CE requests). Use sparingly.
+   * Cost: ~$0.04 per call (4 CE requests). Use sparingly.
    */
   async syncAwsCosts(): Promise<unknown> {
     return this.post<unknown>(`${PREFIX}/finance/sources/aws/sync`, {});
