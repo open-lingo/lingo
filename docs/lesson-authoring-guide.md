@@ -105,7 +105,7 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 | Goal | Use | Notes |
 |---|---|---|
 | Show a new vocab word | ~~`vocab(...)` / `phrase(...)`~~ | **BANNED in ja** — both produce `phrase_card`, which is shelved (§4b2). Zero call sites remain. Introduce via `vocabMcq` / `listeningCompSentence`+`speaking` / `build` instead. Still valid for es/ko. |
-| Introduce a grammar concept | `grammarRule(...)` | Include 2-3 examples + antiPattern + cultureNote. |
+| Introduce a grammar concept | `grammarRule(...)` | Include 2-3 examples + antiPattern + cultureNote. **`antiPattern.ja` MUST be a full sentence forming a minimal pair with `examples[0].ja`** — `deriveGrammarMicroSteps` auto-injects a "One of these is wrong — pick the correct sentence" step pairing `examples[0].ja` (correct) against `antiPattern.ja` (wrong). A bare word fragment (`のみる`) paired against a full sentence is a giveaway that tests nothing; the wrong sentence must also be *unambiguously* wrong (avoid an anti-pattern that's a valid alternative reading — e.g. くる→きる fails because きる="wear" is a real word). m26/m27 do this right; m29 shipped bare fragments and had to be fixed. |
 | Cloze a particle answer | `cloze(...)` | Authors pass options in any order; the factory rotates the correct slot deterministically. Must hit `assertAnswerRotation(steps, 2+)` across the block. |
 | Visual MCQ on a vocab word | `vocabMcq(...)` | Distractors auto-drawn from the supplied pool. Throws if pool can't yield 3 emoji-bearing foils. Skips `WORD_IMAGE_MCQ_BLOCKLIST` kana. |
 | Kana sentence selection from EN prompt | `sentenceMcq(...)` | Slot-rotated. Three explicit kana distractors. |

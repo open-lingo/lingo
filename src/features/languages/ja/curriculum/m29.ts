@@ -116,9 +116,9 @@ const RULE_DICT_U = grammarRule({
     { ja: "バスを まつ。", romaji: "basu o matsu.", en: "I wait for the bus." },
   ],
   antiPattern: {
-    ja: "のみる",
-    romaji: "nomiru",
-    en: "(broken — う-verbs don't just add る to the stem)",
+    ja: "わたしは まいにち コーヒーを のみる。",
+    romaji: "watashi wa mainichi koohii o nomiru.",
+    en: "(broken — う-verbs don't just add る to the stem: のみる)",
     why: "のむ is a う-verb (godan); its ます-stem のみ- swaps back to the う-row のむ, not のみ + る. Stem-plus-る is the る-verb pattern, taught next.",
   },
   cultureNote:
@@ -132,15 +132,15 @@ const RULE_DICT_RU_IRREGULAR = grammarRule({
   rule:
     "る-verbs are simpler: ます attaches straight onto the bare stem, so stripping ます and adding る gives the dictionary form: たべます → たべる, みます → みる, おぼえます → おぼえる. The two irregulars don't follow either pattern and are memorised as wholes: します → する, きます → くる.",
   examples: [
+    { ja: "まいにち にほんごを べんきょうする。", romaji: "mainichi nihongo o benkyou suru.", en: "I study Japanese every day." },
     { ja: "あさごはんを たべる。", romaji: "asagohan o taberu.", en: "I eat breakfast." },
     { ja: "テレビを みる。", romaji: "terebi o miru.", en: "I watch TV." },
-    { ja: "にほんごを べんきょうする。", romaji: "nihongo o benkyou suru.", en: "I study Japanese." },
   ],
   antiPattern: {
-    ja: "きます → きる",
-    romaji: "kimasu → kiru",
-    en: "(broken — くる is irregular, not a る-verb)",
-    why: "きる looks like a valid stem-plus-る dictionary form, but that's a coincidence — きる is an unrelated real word (to wear / to cut). くる's dictionary form is くる itself; it must be memorised, not derived.",
+    ja: "まいにち にほんごを べんきょうしる。",
+    romaji: "mainichi nihongo o benkyou shiru.",
+    en: "(broken — する is irregular, not a る-verb: べんきょうしる)",
+    why: "する doesn't strip ます and add る like a real る-verb — that would give しる, a different word. する's dictionary form is する itself, memorised not derived. くる is the same: its form is くる, never きる (which is the unrelated verb 'to wear').",
   },
   cultureNote:
     "You already use する constantly (べんきょうします, れんしゅうします) — every する-verb's dictionary form just becomes …する. くる is rarer alone but appears inside compounds you'll meet soon.",
@@ -153,14 +153,14 @@ const RULE_NAI = grammarRule({
   rule:
     "う-verbs shift the stem-final sound one row further back, from う-row to あ-row, then add ない: のむ → のまない, はなす → はなさない, まつ → またない. Verbs whose dictionary form ends in the kana う (not just 'う-row' — the literal character う) take わ instead of あ: てつだう → てつだわない. る-verbs simply drop る and add ない: たべる → たべない. する → しない, くる → こない. This ない is the same piece you'll see attach elsewhere later — one negator, many attachment points.",
   examples: [
+    { ja: "きょうは ともだちを てつだわない。", romaji: "kyou wa tomodachi o tetsudawanai.", en: "I'm not helping my friend today." },
     { ja: "きょうは はたらかない。", romaji: "kyou wa hatarakanai.", en: "I'm not working today." },
-    { ja: "ともだちを てつだわない。", romaji: "tomodachi o tetsudawanai.", en: "I'm not helping my friend." },
     { ja: "テレビを みない。", romaji: "terebi o minai.", en: "I'm not watching TV." },
   ],
   antiPattern: {
-    ja: "てつだあない",
-    romaji: "tetsudaanai",
-    en: "(broken — う takes わ before ない, not あ)",
+    ja: "きょうは ともだちを てつだあない。",
+    romaji: "kyou wa tomodachi o tetsudaanai.",
+    en: "(broken — う takes わ before ない, not あ: てつだあない)",
     why: "Verbs whose dictionary form ends in う (かう, てつだう, うたう) swap う → わ, not あ — あ alone would leave nothing to carry the sound. てつだう → てつだわない.",
   },
   cultureNote:
@@ -174,14 +174,14 @@ const RULE_TA = grammarRule({
   rule:
     "The plain past is a straight swap on the て-form you already use: て → た, で → だ. のんで → のんだ, たべて → たべた, いって → いった (いく keeps its irregular っ). する → した, くる → きた. If you can say the て-form, you already know this.",
   examples: [
+    { ja: "きのう コーヒーを のんだ。", romaji: "kinou koohii o nonda.", en: "I drank coffee yesterday." },
     { ja: "きのう ともだちと はなした。", romaji: "kinou tomodachi to hanashita.", en: "I talked with my friend yesterday." },
-    { ja: "にほんごを べんきょうした。", romaji: "nihongo o benkyou shita.", en: "I studied Japanese." },
     { ja: "がっこうに いった。", romaji: "gakkou ni itta.", en: "I went to school." },
   ],
   antiPattern: {
-    ja: "のみた",
-    romaji: "nomita",
-    en: "(broken — build from the て-form, not straight from the dictionary form)",
+    ja: "きのう コーヒーを のみた。",
+    romaji: "kinou koohii o nomita.",
+    en: "(broken — build from the て-form, not straight from the dictionary form: のみた)",
     why: "のむ's て-form is のんで (not のみて); swap で → だ to get のんだ. Skipping the て-form step produces the wrong sound change.",
   },
   cultureNote:
@@ -200,10 +200,10 @@ const RULE_NAKATTA = grammarRule({
     { ja: "ともだちは こなかった。", romaji: "tomodachi wa konakatta.", en: "My friend didn't come." },
   ],
   antiPattern: {
-    ja: "のまないだった",
-    romaji: "nomanai datta",
-    en: "(broken — ない behaves like an い-adjective; don't add だった)",
-    why: "ない is grammatically an い-type ending: drop い, add かった. だった is for nouns/な-adjectives, not for ない.",
+    ja: "きのうは はたらかないだった。",
+    romaji: "kinou wa hatarakanai datta.",
+    en: "(broken — ない behaves like an い-adjective; don't add だった: はたらかないだった)",
+    why: "ない is grammatically an い-type ending: drop い, add かった (はたらかなかった). だった is for nouns/な-adjectives, not for ない.",
   },
   cultureNote:
     "Once ない behaves like an い-adjective for tense, every い-adjective past-tense rule you already know (たのしい→たのしかった) transfers straight over — no new mechanism.",
