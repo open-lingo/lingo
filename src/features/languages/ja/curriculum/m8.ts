@@ -2791,6 +2791,8 @@ export const M8_7_2: LessonContent = {
     }),
     speaking("ja-m8-7-2-rev-speak-1", M8_7_2_REVIEW[2].kana, M8_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-7-2-rev", M8_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m8-7-2-cov-mazui", "まずい コーヒー", "bad-tasting coffee"),
   ],
 };
 

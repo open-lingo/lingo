@@ -2292,6 +2292,9 @@ export const M21_7_1: LessonContent = {
       exercisedAtomKanas: ["さん"],
     }),
     reviewMatchPairs("ja-m21-7-1-rev", M21_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m21-7-1-cov-nomimono", "つめたい のみもの", "a cold drink"),
+    speaking("ja-m21-7-1-cov-hoka", "ほかの ひと", "another person"),
   ],
 };
 
@@ -2479,6 +2482,9 @@ export const M21_7_2: LessonContent = {
     }),
     speaking("ja-m21-7-2-rev-speak-1", M21_7_2_REVIEW[2].kana, M21_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-7-2-rev", M21_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m21-7-2-cov-choudo", "ちょうど いいです", "It is just right."),
+    speaking("ja-m21-7-2-cov-kekkou", "けっこう たかいです", "It is quite expensive."),
   ],
 };
 

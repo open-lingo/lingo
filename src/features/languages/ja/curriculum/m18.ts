@@ -1904,6 +1904,8 @@ export const M18_6_1: LessonContent = {
     }),
     vocabMcq("ja-m18-6-1-rev-mcq-1", M18_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     reviewMatchPairs("ja-m18-6-1-rev", M18_6_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-6-1-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 
@@ -2364,6 +2366,8 @@ export const M18_7_1: LessonContent = {
     vocabMcq("ja-m18-7-1-rev-mcq-1", M18_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-1-rev-speak-2", M18_7_1_REVIEW[2].kana, M18_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-1-rev", M18_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-7-1-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 
@@ -2519,6 +2523,8 @@ export const M18_7_2: LessonContent = {
     vocabMcq("ja-m18-7-2-rev-mcq-1", M18_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-2-rev-speak-2", M18_7_2_REVIEW[2].kana, M18_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-2-rev", M18_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-7-2-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 

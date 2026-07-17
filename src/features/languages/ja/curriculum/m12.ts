@@ -2342,6 +2342,8 @@ export const M12_7_1: LessonContent = {
     }),
     speaking("ja-m12-7-1-rev-speak-1", M12_7_1_REVIEW[2].kana, M12_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-7-1-rev", M12_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m12-7-1-cov-yuugata", "ゆうがた", "evening"),
   ],
 };
 

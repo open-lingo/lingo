@@ -1812,6 +1812,8 @@ export const M26_6_1: LessonContent = {
     }),
     speaking("ja-m26-6-1-rev-speak-1", M26_6_1_REVIEW[2].kana, M26_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-6-1-rev", M26_6_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m26-6-1-cov-karai", "からい カレー", "spicy curry"),
   ],
 };
 
@@ -1966,6 +1968,8 @@ export const M26_6_2: LessonContent = {
     }),
     speaking("ja-m26-6-2-rev-speak-1", M26_6_2_REVIEW[2].kana, M26_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-6-2-rev", M26_6_2_REVIEW.slice(0, 4)),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m26-6-2-cov-karai", "からい カレー", "spicy curry"),
   ],
 };
 
@@ -2259,6 +2263,8 @@ export const M26_7_1: LessonContent = {
     }),
     speaking("ja-m26-7-1-rev-speak-1", M26_7_1_REVIEW[2].kana, M26_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-7-1-rev", M26_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m26-7-1-cov-tsukareru", "つかれる", "to get tired"),
   ],
 };
 
@@ -2414,6 +2420,10 @@ export const M26_7_2: LessonContent = {
     }),
     speaking("ja-m26-7-2-rev-speak-1", M26_7_2_REVIEW[2].kana, M26_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-7-2-rev", M26_7_2_REVIEW.slice(0, 5)),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m26-7-2-cov-tsukareru", "つかれる", "to get tired"),
+    speaking("ja-m26-7-2-cov-saa", "さあ、いきましょう", "Well then, let's go."),
+    speaking("ja-m26-7-2-cov-karai", "からい カレー", "spicy curry"),
   ],
 };
 

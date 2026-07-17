@@ -1739,6 +1739,11 @@ export const M14_5_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-5-2-rev", M14_5_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m14-5-2-cov-akeru", "あける", "to open"),
+    speaking("ja-m14-5-2-cov-hanasu", "はなす", "to speak"),
+    speaking("ja-m14-5-2-cov-miseru", "みせる", "to show"),
+    speaking("ja-m14-5-2-cov-oshieru", "おしえる", "to teach"),
   ],
 };
 
@@ -2434,6 +2439,11 @@ export const M14_7_1: LessonContent = {
     }),
     speaking("ja-m14-7-1-rev-speak-1", M14_7_1_REVIEW[2].kana, M14_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-7-1-rev", M14_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m14-7-1-cov-akeru", "あける", "to open"),
+    speaking("ja-m14-7-1-cov-hanasu", "はなす", "to speak"),
+    speaking("ja-m14-7-1-cov-miseru", "みせる", "to show"),
+    speaking("ja-m14-7-1-cov-oshieru", "おしえる", "to teach"),
   ],
 };
 
@@ -2590,6 +2600,9 @@ export const M14_7_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-7-2-rev", M14_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m14-7-2-cov-akeru", "あける", "to open"),
+    speaking("ja-m14-7-2-cov-hanasu", "はなす", "to speak"),
   ],
 };
 

@@ -2478,6 +2478,10 @@ export const M17_6_2: LessonContent = {
     vocabMcq("ja-m17-6-2-rev-mcq-1", M17_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-6-2-rev-speak-2", M17_6_2_REVIEW[2].kana, M17_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-6-2-rev", M17_6_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m17-6-2-cov-aruku", "あるく", "to walk"),
+    speaking("ja-m17-6-2-cov-magaru", "まがる", "to turn"),
+    speaking("ja-m17-6-2-cov-oriru", "おりる", "to get off"),
   ],
 };
 
@@ -2779,6 +2783,10 @@ export const M17_7_1: LessonContent = {
     vocabMcq("ja-m17-7-1-rev-mcq-1", M17_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-1-rev-speak-2", M17_7_1_REVIEW[2].kana, M17_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-7-1-rev", M17_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m17-7-1-cov-aruku", "あるく", "to walk"),
+    speaking("ja-m17-7-1-cov-tomaru", "とまる", "to stop"),
+    speaking("ja-m17-7-1-cov-wataru", "わたる", "to cross"),
   ],
 };
 
@@ -2934,6 +2942,8 @@ export const M17_7_2: LessonContent = {
     vocabMcq("ja-m17-7-2-rev-mcq-1", M17_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-2-rev-speak-2", M17_7_2_REVIEW[2].kana, M17_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-7-2-rev", M17_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m17-7-2-cov-aruku", "あるく", "to walk"),
   ],
 };
 

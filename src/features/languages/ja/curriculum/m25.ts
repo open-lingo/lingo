@@ -2358,6 +2358,9 @@ export const M25_7_1: LessonContent = {
     }),
     speaking("ja-m25-7-1-rev-speak-1", M25_7_1_REVIEW[2].kana, M25_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-7-1-rev", M25_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m25-7-1-cov-au", "あう", "to meet"),
+    speaking("ja-m25-7-1-cov-ee", "ええ、そうです", "Yes, that's right."),
   ],
 };
 
@@ -2522,6 +2525,8 @@ export const M25_7_2: LessonContent = {
     }),
     speaking("ja-m25-7-2-rev-speak-1", M25_7_2_REVIEW[2].kana, M25_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-7-2-rev", M25_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m25-7-2-cov-au", "あう", "to meet"),
   ],
 };
 

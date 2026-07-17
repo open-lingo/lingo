@@ -2334,6 +2334,8 @@ export const M13_7_1: LessonContent = {
     }),
     speaking("ja-m13-7-1-rev-speak-1", M13_7_1_REVIEW[2].kana, M13_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-7-1-rev", M13_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m13-7-1-cov-fuku", "あたらしい ふく", "new clothes"),
   ],
 };
 
@@ -2481,6 +2483,8 @@ export const M13_7_2: LessonContent = {
     }),
     speaking("ja-m13-7-2-rev-speak-1", M13_7_2_REVIEW[2].kana, M13_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-7-2-rev", M13_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m13-7-2-cov-naze", "なぜ おそいですか", "Why is it late?"),
   ],
 };
 
