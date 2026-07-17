@@ -35,6 +35,7 @@ import {
 import type { Lesson, SideQuest } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
+  getModuleStatus,
   getNextLessonIndex,
 } from "./moduleProgress";
 import { useModuleAccordion } from "./useModuleAccordion";
@@ -45,7 +46,7 @@ import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hoo
 import { getStoredSettings } from "@/features/settings/storage";
 import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnModuleList } from "./components/LearnModuleList";
-import { ModuleDetailModal } from "./components/ModuleDetailModal";
+import { DistrictView } from "./components/DistrictView";
 import { stringsFor } from "./transitStrings";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
@@ -429,13 +430,18 @@ export function LearnPage({
           </div>
         </div>
         {detailModuleIdx !== null && course.modules[detailModuleIdx] ? (
-          <ModuleDetailModal
-            modules={course.modules}
+          <DistrictView
+            course={course}
             index={detailModuleIdx}
+            statuses={course.modules.map((_, i) =>
+              getModuleStatus(i, completedSet, course.modules),
+            )}
             completedSet={completedSet}
-            devUnlock={devUnlock}
-            onLessonClick={goToLesson}
+            quests={[]}
+            legsFor={() => null}
+            onQuest={() => {}}
             onClose={() => setDetailModuleIdx(null)}
+            onNav={setDetailModuleIdx}
           />
         ) : null}
         {bottomChrome}
