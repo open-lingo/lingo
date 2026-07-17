@@ -982,6 +982,28 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#0e7c8c", to: "#0b616e" },
         },
+        // M30 — Casual register. STAGE 1 of 2 (docs/n4-pilot-spine-2026-07-16.md):
+        // only pairs 1-4 (8 sub-lessons) are authored so far. Pairs 5-7, the
+        // story lesson, and ja-m30-review-1/2 are stage 2 — listing them here
+        // before they're authored would 404. Stage 2 appends them.
+        {
+          id: "m30",
+          title: "Casual register",
+          eyebrow: "Module 30 · Casual",
+          summary: "Casual questions, よ/ね, casual の, and register awareness — when plain form is (and isn't) socially correct.",
+          tier: "n4",
+          lessons: [
+            { id: "ja-m30-1-1", title: "Casual questions — Intro", status: "available" as const },
+            { id: "ja-m30-1-2", title: "Casual questions — Practice", status: "available" as const },
+            { id: "ja-m30-2-1", title: "よ / ね — Intro", status: "available" as const },
+            { id: "ja-m30-2-2", title: "よ / ね — Practice", status: "available" as const },
+            { id: "ja-m30-3-1", title: "Casual の question — Intro", status: "available" as const },
+            { id: "ja-m30-3-2", title: "Casual の question — Practice", status: "available" as const },
+            { id: "ja-m30-4-1", title: "Register awareness — Intro", status: "available" as const },
+            { id: "ja-m30-4-2", title: "Register awareness — Practice", status: "available" as const },
+          ],
+          accent: { from: "#7c3aed", to: "#5b21b6" },
+        },
       ],
       sideQuests,
     };

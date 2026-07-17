@@ -27,7 +27,7 @@ export type CourseAtomSource =
   | "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7"
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
-  | "m28" | "m29"
+  | "m28" | "m29" | "m30"
   | "sidequest-survival"
   | "future";
 
@@ -831,6 +831,39 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hakobu", kana: "はこぶ", kanji: "運ぶ", romaji: "hakobu", meaningEn: "to carry", emoji: "📦", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
   { id: "erabu", kana: "えらぶ", kanji: "選ぶ", romaji: "erabu", meaningEn: "to choose", emoji: "✅", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
   { id: "katazukeru", kana: "かたづける", kanji: "片付ける", romaji: "katazukeru", meaningEn: "to tidy up", emoji: "🧹", fromModule: "m29", introducedByLessonId: "ja-m29-2-1", kind: "vocab" },
+  // ── M30 — Casual register (N4 pilot #2, 2026-07-17). Vocab allocation is
+  //    docs/n4-pilot-spine-2026-07-16.md's 20-atom m30 table. Two
+  //    reconciliation notes (same discipline as m29's header, §13.8):
+  //      - たぶん ("probably") is ALREADY an m18 atom (courseAtoms.ts, blocked,
+  //        introducedByLessonId ja-m18-2-1). It is NOT re-registered here —
+  //        m30 uses it as review vocabulary only (ja-m30-1-1/1-2).
+  //      - The spine's bare き ("feeling, mind") would collide with the
+  //        existing m18 tree atom き (木) in JA_COURSE_ATOMS_BY_KANA (a
+  //        kana-keyed map — a second entry would silently overwrite the
+  //        tree lookup). Taught instead as the fixed collocation きになる
+  //        ("it's on my mind / I'm curious about it") — same abstract
+  //        concept, no kana collision, and arguably more natural to teach
+  //        as a whole idiom than the bare noun anyway.
+  //    19 genuinely new atoms below (all fromModule "m30").
+  { id: "mochiron", kana: "もちろん", romaji: "mochiron", meaningEn: "of course", fromModule: "m30", introducedByLessonId: "ja-m30-1-1", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot" },
+  { id: "zettai", kana: "ぜったい", kanji: "絶対", romaji: "zettai", meaningEn: "absolutely", fromModule: "m30", introducedByLessonId: "ja-m30-1-2", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot" },
+  { id: "keigo", kana: "けいご", kanji: "敬語", romaji: "keigo", meaningEn: "polite language (keigo)", emoji: "🙇", fromModule: "m30", introducedByLessonId: "ja-m30-2-1", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ" },
+  { id: "shitashii", kana: "したしい", kanji: "親しい", romaji: "shitashii", meaningEn: "close, familiar", emoji: "💞", fromModule: "m30", introducedByLessonId: "ja-m30-2-1", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)" },
+  { id: "teinei", kana: "ていねい", kanji: "丁寧", romaji: "teinei", meaningEn: "polite, careful", emoji: "🎀", fromModule: "m30", introducedByLessonId: "ja-m30-2-2", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)" },
+  { id: "shitsurei", kana: "しつれい", kanji: "失礼", romaji: "shitsurei", meaningEn: "rude, impolite", emoji: "🙅", fromModule: "m30", introducedByLessonId: "ja-m30-2-2", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)" },
+  { id: "tameguchi", kana: "ためぐち", kanji: "ため口", romaji: "tameguchi", meaningEn: "casual speech", emoji: "🗣️", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ" },
+  { id: "nande", kana: "なんで", kanji: "何で", romaji: "nande", meaningEn: "why (casual)", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", blocked: true, note: "casual interrogative" },
+  { id: "doushitano", kana: "どうしたの", romaji: "doushitano", meaningEn: "what's up?", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", blocked: true, note: "casual function phrase — also the pair-3 grammar pattern" },
+  { id: "kininaru", kana: "きになる", kanji: "気になる", romaji: "kininaru", meaningEn: "on my mind, curious/concerned about", fromModule: "m30", introducedByLessonId: "ja-m30-3-2", kind: "vocab", blocked: true, note: "fixed idiom replacing spine's bare き — see file header" },
+  { id: "betsuni", kana: "べつに", kanji: "別に", romaji: "betsuni", meaningEn: "not particularly", fromModule: "m30", introducedByLessonId: "ja-m30-3-2", kind: "vocab", blocked: true, note: "casual filler adverb" },
+  { id: "senpai", kana: "せんぱい", kanji: "先輩", romaji: "senpai", meaningEn: "senior (at school/work)", emoji: "🎓", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab" },
+  { id: "joushi", kana: "じょうし", kanji: "上司", romaji: "joushi", meaningEn: "boss, superior", emoji: "💼", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab" },
+  { id: "douryou", kana: "どうりょう", kanji: "同僚", romaji: "douryou", meaningEn: "colleague", emoji: "🧑‍💼", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab" },
+  { id: "yappari", kana: "やっぱり", romaji: "yappari", meaningEn: "as expected, after all", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot" },
+  { id: "kouhai", kana: "こうはい", kanji: "後輩", romaji: "kouhai", meaningEn: "junior (at school/work)", emoji: "🧑‍🎓", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
+  { id: "shiriai", kana: "しりあい", kanji: "知り合い", romaji: "shiriai", meaningEn: "acquaintance", emoji: "🤵", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
+  { id: "osananajimi", kana: "おさななじみ", kanji: "幼馴染", romaji: "osananajimi", meaningEn: "childhood friend", emoji: "🧒", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
+  { id: "nakama", kana: "なかま", kanji: "仲間", romaji: "nakama", meaningEn: "comrade, mate", emoji: "👥", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */
