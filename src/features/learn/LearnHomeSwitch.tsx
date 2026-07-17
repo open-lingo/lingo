@@ -23,21 +23,17 @@ function ViewToggle({
       type="button"
       onClick={() => onChange(m)}
       aria-pressed={mode === m}
-      className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold transition"
-      style={
+      className={
         mode === m
-          ? { background: "var(--tmc-signage-fg)", color: "var(--tmc-signage-bg)" }
-          : { color: "var(--tmc-signage-fg)", opacity: 0.75 }
+          ? "rounded-sm bg-accent px-3 py-1 text-[12.5px] font-bold text-accent-foreground transition"
+          : "rounded-sm px-3 py-1 text-[12.5px] font-bold text-text-secondary transition hover:text-text-primary"
       }
     >
       {label}
     </button>
   );
   return (
-    <div
-      className="flex flex-none gap-0.5 rounded-sm p-0.5"
-      style={{ border: "2px solid var(--tmc-signage-fg)" }}
-    >
+    <div className="flex flex-none gap-0.5 rounded-md border border-border bg-surface-muted p-0.5">
       {opt("map", "Path")}
       {opt("list", "List")}
     </div>
@@ -64,7 +60,7 @@ export function LearnHomeSwitch() {
   const strings = stringsFor(lang ?? "ko");
   return (
     <div className="tmc-root">
-      <div className="mx-auto max-w-6xl px-3 pt-4 sm:px-5">
+      <div className="mx-auto max-w-6xl px-2 pt-2.5 sm:px-3">
         <TransitSignageHeader
           title={`${strings.mapTitle} — ${course.title}`}
           subtitle="Browse every module and lesson as a list"

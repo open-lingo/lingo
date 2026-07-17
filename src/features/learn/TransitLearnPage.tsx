@@ -1941,7 +1941,7 @@ export default function TransitLearnPage({
   const titleText = `${strings.mapTitle} — ${course.title}`;
 
   return (
-    <div className="tmc-root mx-auto max-w-[min(2100px,94vw)] px-3 pb-24 pt-4 sm:px-5">
+    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-16 pt-2.5 sm:px-3">
       {/* signage board header */}
       <TransitSignageHeader
         title={titleText}
@@ -1952,14 +1952,17 @@ export default function TransitLearnPage({
         }
         right={
           headerRight ?? (
-            <Link to={p("learn/classic")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+            <Link
+              to={p("learn/classic")}
+              className="rounded-md border border-border px-3 py-1 text-[12.5px] font-bold text-text-primary transition hover:bg-surface-muted"
+            >
               ← Classic view
             </Link>
           )
         }
       />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <div className="hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
