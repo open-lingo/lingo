@@ -1322,6 +1322,9 @@ export function assertNoSameAnswerCluster(
   steps: LessonStep[],
   maxAdjacent = 2,
 ): void {
+  // Content-authoring guard — build-time only. Vite statically replaces
+  // import.meta.env.DEV, so the body is dead-code-eliminated in prod builds.
+  if (!import.meta.env.DEV) return;
   let runParticle: string | null = null;
   let runLen = 0;
   for (const step of steps) {
@@ -1366,6 +1369,8 @@ export function assertAnswerRotation(
   steps: LessonStep[],
   minDistinct = 3,
 ): void {
+  // Content-authoring guard — build-time only (see assertNoSameAnswerCluster).
+  if (!import.meta.env.DEV) return;
   const entries: { id: string; correctParticle: string }[] = [];
   for (const step of steps) {
     if (step.type !== "particle_cloze") continue;
@@ -1401,6 +1406,8 @@ export function assertNoConsecutiveSame(
   maxAdjacent = 2,
   watch: ReadonlyArray<LessonStep["type"]> = ["phrase_card"],
 ): void {
+  // Content-authoring guard — build-time only (see assertNoSameAnswerCluster).
+  if (!import.meta.env.DEV) return;
   let runType: LessonStep["type"] | null = null;
   let runLen = 0;
   for (const step of steps) {

@@ -293,6 +293,49 @@ export default defineConfig(({ mode }) => {
     exclude: ["@huggingface/transformers"],
     include: ["kuroshiro", "kuroshiro-analyzer-kuromoji"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Group statically-imported heavy vendors into named, cache-stable
+        // chunks. Route-specific vendors (charts/markdown/dnd) are only
+        // reachable through lazy routes, so their chunks stay lazy too.
+        // NB: no catch-all `vendor` bucket on purpose — assigning a chunk to
+        // a dynamically-imported module (kuroshiro/kuromoji/transformers)
+        // would pull it into an eager chunk and defeat its lazy import().
+        // Anything unlisted falls through to Rollup's default splitting,
+        // which preserves those async boundaries.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          // React + router must live in ONE chunk — splitting React across
+          // chunks breaks hook/context identity.
+          if (
+            /[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|react-router-dom|use-sync-external-store)[\\/]/.test(
+              id,
+            )
+          )
+            return "react-vendor";
+          if (id.includes("@tanstack")) return "query-vendor";
+          if (id.includes("@auth0")) return "auth-vendor";
+          if (id.includes("i18next")) return "i18n-vendor";
+          if (
+            id.includes("recharts") ||
+            id.includes("d3-") ||
+            id.includes("victory-vendor")
+          )
+            return "charts-vendor";
+          if (
+            id.includes("@uiw") ||
+            id.includes("react-markdown") ||
+            /[\\/](remark|rehype|micromark|mdast|hast|unist|vfile|property-information|hastscript|comma-separated-tokens|space-separated-tokens|decode-named-character-reference)/.test(
+              id,
+            )
+          )
+            return "markdown-vendor";
+          if (id.includes("@dnd-kit")) return "dnd-vendor";
+        },
+      },
+    },
+  },
   test: {
     environment: "happy-dom",
     setupFiles: ["./src/test/setup.ts"],

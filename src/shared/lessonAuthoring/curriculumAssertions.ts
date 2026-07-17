@@ -100,6 +100,9 @@ export function checkPassiveCardFollowup(
 export function assertPassiveCardsHaveFollowup(
   steps: ReadonlyArray<LessonStep>,
 ): void {
+  // Content-authoring guard — build-time only. Vite statically replaces
+  // import.meta.env.DEV, so the body is dead-code-eliminated in prod builds.
+  if (!import.meta.env.DEV) return;
   const { failures } = checkPassiveCardFollowup(steps);
   if (failures.length === 0) return;
   const msg = failures.map((f) => `  ${f.stepId}: ${f.reason}`).join("\n");
@@ -109,6 +112,8 @@ export function assertPassiveCardsHaveFollowup(
 export function assertNoExplanationOnPassive(
   steps: ReadonlyArray<LessonStep>,
 ): void {
+  // Content-authoring guard — build-time only (see assertPassiveCardsHaveFollowup).
+  if (!import.meta.env.DEV) return;
   const offenders = steps.filter(
     (s) =>
       PASSIVE_STEP_KINDS.has(s.type) &&
@@ -150,6 +155,8 @@ function answerStringsFor(step: LessonStep): string[] {
 export function assertExplanationDoesntLeakAnswer(
   steps: ReadonlyArray<LessonStep>,
 ): void {
+  // Content-authoring guard — build-time only (see assertPassiveCardsHaveFollowup).
+  if (!import.meta.env.DEV) return;
   for (const step of steps) {
     if (step.type !== "build_sentence" && step.type !== "translate") continue;
     const explanation = step.explanation;
