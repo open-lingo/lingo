@@ -142,6 +142,9 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
   const appearance: Record<string, unknown> = { ...DEFAULT_SETTINGS.appearance };
   if (typeof backend.theme === "string") appearance.themeId = normalizeThemeId(backend.theme);
   if (isObj(backend.appearance)) Object.assign(appearance, backend.appearance);
+  if (typeof appearance.themeId === "string") {
+    appearance.themeId = normalizeThemeId(appearance.themeId);
+  }
   if (typeof appearance.themeId !== "string" || !appearance.themeId) {
     appearance.themeId = DEFAULT_SETTINGS.appearance.themeId;
   }

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { SymbolIntroStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
 import { ContinueButton } from "../ContinueButton";
+import { useTheme } from "@/shared/contexts/ThemeContext";
 import {
   autoPlayAlphabetAudio,
   getAlphabetAudioUrl,
@@ -195,6 +196,20 @@ function SymbolAnimation({
   // canvas anyway, so it isn't worth a ResizeObserver here.
   const [size] = useState(introCanvasSize);
 
+  // Theme tokens so the stroke render matches Light/Dark/AMOLED (and custom
+  // themes) automatically. Read once per theme change via context — NOT
+  // inside the per-frame draw effect below, which reruns every rAF tick
+  // (~60fps) and would otherwise force a style recalc every frame.
+  const { activeTokens } = useTheme();
+  const { completedColor, fadedColor, activeColor } = useMemo(
+    () => ({
+      completedColor: activeTokens.colors.textPrimary,
+      fadedColor: activeTokens.colors.textMuted,
+      activeColor: activeTokens.colors.accent,
+    }),
+    [activeTokens],
+  );
+
   // When parent bumps replayKey, reset + play the animation again.
   // Skip the initial 0 — autoPlay already handles first mount.
   useEffect(() => {
@@ -224,19 +239,6 @@ function SymbolAnimation({
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, size, size);
-
-    // Sample theme tokens so the stroke render matches Light/Dark/AMOLED
-    // automatically (canvas can't consume Tailwind classes).
-    const styles =
-      typeof document !== "undefined"
-        ? getComputedStyle(document.documentElement)
-        : null;
-    const completedColor =
-      styles?.getPropertyValue("--color-text-primary").trim() || "#111827";
-    const fadedColor =
-      styles?.getPropertyValue("--color-text-muted").trim() || "#6b7280";
-    const activeColor =
-      styles?.getPropertyValue("--color-accent").trim() || "#0ea5e9";
 
     ctx.save();
     ctx.globalAlpha = 0.22;
@@ -269,7 +271,7 @@ function SymbolAnimation({
         activeColor,
       },
     );
-  }, [glyph, animation.frame, size]);
+  }, [glyph, animation.frame, size, completedColor, fadedColor, activeColor]);
 
   return (
     <canvas

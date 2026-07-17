@@ -87,6 +87,19 @@ describe("settings backend persistence", () => {
     expect(hydrated.learning?.onboardingCompleted).toBe(true);
   });
 
+  it("re-normalizes a retired themeId in the nested appearance blob", () => {
+    // toBackendPatch writes BOTH the flat `theme` mirror and the nested
+    // `appearance.themeId` on every save, so an account that saved "sepia"
+    // before the retirement carries the raw value in the nested shape too.
+    // The nested merge must not let it survive un-normalized.
+    const hydrated = fromBackendResponse({
+      theme: "sepia",
+      appearance: { themeId: "sepia", navLayout: "sidebar" },
+    });
+    expect(hydrated.appearance?.themeId).toBe("light");
+    expect(hydrated.appearance?.navLayout).toBe("sidebar");
+  });
+
   it("falls back to default theme when none is stored", () => {
     const hydrated = fromBackendResponse({});
     expect(hydrated.appearance?.themeId).toBe(
