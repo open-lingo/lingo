@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { Breadcrumbs, type BreadcrumbItem } from "@/shared/components/ui/Breadcrumbs";
 import {
   DndContext,
@@ -21,6 +21,7 @@ import { Link, useNavigate, useParams, useLocation, useBlocker } from "react-rou
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { useApi } from "@/shared/api/provider";
 import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
 import { CardPreview } from "@/features/flashcards/CardPreview";
@@ -34,6 +35,7 @@ import {
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
 import { Icon } from "@/shared/components/Icon";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 
 function generateId(): string {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -219,6 +221,7 @@ function SortableCardItem({
 
 export function DeckEditor() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
   const langPath = useLangPath();
   const navigate = useNavigate();
   const location = useLocation();
@@ -445,6 +448,12 @@ export function DeckEditor() {
       setHasUnsavedChanges(false);
     } catch (err) {
       console.error("Save draft failed:", err);
+      showToast(
+        t("deckEditor.saveFailed", {
+          defaultValue: "Couldn't save your deck. Please try again.",
+        }),
+        "error",
+      );
     } finally {
       setSaving(false);
     }
@@ -477,6 +486,12 @@ export function DeckEditor() {
       }
     } catch (err) {
       console.error("Submit failed:", err);
+      showToast(
+        t("deckEditor.submitFailed", {
+          defaultValue: "Couldn't publish your deck. Please try again.",
+        }),
+        "error",
+      );
     } finally {
       setSaving(false);
     }
@@ -805,6 +820,7 @@ export function DeckEditor() {
         <aside className="flex min-w-0 flex-1 basis-0 flex-col overflow-y-auto bg-surface p-6">
           {selectedCard ? (
             <ActiveCardEditor
+              key={selectedCard.id}
               card={selectedCard}
               index={selectedIndex!}
               languageId={languageId}
@@ -852,15 +868,12 @@ function ActiveCardEditor({
   const isSimple = card.type === "other";
   const mode: CardMode = isSimple ? CARD_MODE_SIMPLE : CARD_MODE_SEGMENTED;
 
-  const setMode = (m: CardMode) => {
-    // Switching simple<->segmented currently drops parts/words; confirm if there's content.
-    const partsLen = "parts" in card ? card.parts?.length ?? 0 : 0;
-    const wordsLen = "words" in card ? card.words?.length ?? 0 : 0;
-    const hasContent =
-      partsLen > 0 || wordsLen > 0 || !!card.front.trim();
-    if (hasContent && !window.confirm(t("community.editorModeSwitchWarning"))) {
-      return;
-    }
+  // Switching simple<->segmented drops parts/words, so confirm first when the
+  // card has content. pendingMode holds the requested mode while the confirm
+  // modal is open.
+  const [pendingMode, setPendingMode] = useState<CardMode | null>(null);
+
+  const applyMode = (m: CardMode) => {
     if (m === CARD_MODE_SIMPLE) {
       onUpdate({ type: "other", front: card.front || "" } as Partial<Flashcard>);
     } else {
@@ -870,6 +883,17 @@ function ActiveCardEditor({
         front: card.front || "",
       } as Partial<Flashcard>);
     }
+  };
+
+  const setMode = (m: CardMode) => {
+    const partsLen = "parts" in card ? card.parts?.length ?? 0 : 0;
+    const wordsLen = "words" in card ? card.words?.length ?? 0 : 0;
+    const hasContent = partsLen > 0 || wordsLen > 0 || !!card.front.trim();
+    if (hasContent) {
+      setPendingMode(m);
+      return;
+    }
+    applyMode(m);
   };
 
   const setSegmentedType = (type: "word" | "sentence") => {
@@ -907,6 +931,20 @@ function ActiveCardEditor({
 
   return (
     <div className="w-full min-w-0 max-w-full space-y-6">
+      {pendingMode !== null ? (
+        <ConfirmModal
+          title={t("community.editorModeSwitchTitle")}
+          message={t("community.editorModeSwitchWarning")}
+          cancelLabel={t("common.cancel")}
+          confirmLabel={t("community.editorModeSwitchConfirm")}
+          danger
+          onConfirm={() => {
+            applyMode(pendingMode);
+            setPendingMode(null);
+          }}
+          onCancel={() => setPendingMode(null)}
+        />
+      ) : null}
       {/* Card mode: Simple | Segmented */}
       <div>
         <label className="mb-1 block text-sm font-medium text-text-secondary">
@@ -1133,7 +1171,19 @@ function PartsEditor({
   t: (key: string) => string;
 }) {
   const items = segments ?? [];
-  const addPart = () => onChange([...items, { segment: "" }]);
+  // Stable per-row keys: CardSegment has no id, so index-as-key would reuse the
+  // wrong input rows (focus/IME loss) when a middle part is removed. Keys are
+  // seeded from the initial segments and tracked through add/remove. This
+  // PartsEditor remounts per card (ActiveCardEditor is keyed by card id), so the
+  // seed re-runs for each card and can't drift out of sync with `items`.
+  const keySeq = useRef(0);
+  const [rowKeys, setRowKeys] = useState<number[]>(() =>
+    items.map(() => keySeq.current++),
+  );
+  const addPart = () => {
+    setRowKeys((k) => [...k, keySeq.current++]);
+    onChange([...items, { segment: "" }]);
+  };
   const updatePart = (i: number, u: Partial<CardSegment>) => {
     const next = [...items];
     next[i] = { ...next[i], ...u };
@@ -1143,7 +1193,10 @@ function PartsEditor({
     const particleId = inferParticleId(segment, languageId);
     updatePart(i, { segment, particleId });
   };
-  const removePart = (i: number) => onChange(items.filter((_, idx) => idx !== i));
+  const removePart = (i: number) => {
+    setRowKeys((k) => k.filter((_, idx) => idx !== i));
+    onChange(items.filter((_, idx) => idx !== i));
+  };
 
   return (
     <div className="min-w-0">
@@ -1161,7 +1214,7 @@ function PartsEditor({
       </div>
       <div className="space-y-2">
         {items.map((item, i) => (
-          <div key={i} className="flex min-w-0 gap-2">
+          <div key={rowKeys[i] ?? i} className="flex min-w-0 gap-2">
             <input
               type="text"
               value={item.segment}

@@ -530,11 +530,16 @@ export function LessonPage() {
       // Buffer step + draft attempt for SyncManager (see recordStepEvent).
       if (!lesson) return;
       const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
+      // A miss (-1) means the reported stepId isn't in this lesson — a desync,
+      // never a normal path. Bail rather than grade/report/write-SRS against
+      // lesson.steps[0] (the WRONG card, which would corrupt its FSRS state).
+      // The result already recorded above is keyed by stepId, so it's harmless.
+      if (stepIdx < 0) return;
       // Combo + correct/incorrect sound — the single audio call site for
       // grading. Passive steps never reach here (they don't call
       // onComplete), but gate on isGradedStep as defense-in-depth so a
       // future passive step that does can't bump the combo.
-      const gradedStep = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
+      const gradedStep = lesson.steps[stepIdx];
       // Reactive grammar intervention: wrong answer on a step drilling a
       // rule-card point → flash the ✗/✓ + rule reminder, once per point.
       const grammarTip = gradedStep?.reactiveGrammarTip;
@@ -555,7 +560,7 @@ export function LessonPage() {
       recordStepEvent({
         lessonId: lesson.id,
         stepId,
-        stepIdx: stepIdx >= 0 ? stepIdx : 0,
+        stepIdx,
         correct,
         conceptIds: [],
       });
@@ -567,7 +572,7 @@ export function LessonPage() {
       //     the lesson's own just-introduced words (same-day grading, D6).
       // Kana glyphs (M1/M2) are never SRS-eligible, so they never resolve here.
       const isReviewLesson = isDedicatedReviewLesson(lesson.id);
-      const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
+      const step = gradedStep;
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];
       const exercisedGrammar = step.exercisedGrammar ?? [];

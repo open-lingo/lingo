@@ -1173,6 +1173,8 @@
     "editorSearchCards": "카드 검색…",
     "editorRequiredField": "필수 항목",
     "editorModeSwitchWarning": "모드를 전환하면 이 카드의 파트/단어가 초기화됩니다. 계속하시겠습니까?",
+    "editorModeSwitchTitle": "카드 모드를 전환할까요?",
+    "editorModeSwitchConfirm": "전환",
     "editorDragToReorder": "드래그하여 순서 변경",
     "editorDuplicateCard": "복제",
     "editorMoveUp": "위로",

@@ -1666,6 +1666,8 @@
     "editorSearchCards": "Search cards…",
     "editorRequiredField": "Required",
     "editorModeSwitchWarning": "Switching modes will reset this card's parts/words. Continue?",
+    "editorModeSwitchTitle": "Switch card mode?",
+    "editorModeSwitchConfirm": "Switch",
     "editorDragToReorder": "Drag to reorder",
     "editorDuplicateCard": "Duplicate",
     "editorMoveUp": "Move up",

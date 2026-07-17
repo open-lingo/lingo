@@ -43,18 +43,6 @@ const TRENDING_MIN_UPVOTES = 5;
 const FACET_TYPE = "type";
 const FACET_SORT = "sort";
 const FACET_LANGUAGE = "language";
-const FACET_LEVEL = "level";
-const FACET_OTHER = "other";
-
-const LEVEL_OPTIONS = [
-  { value: "beginner", label: "Beginner" },
-  { value: "intermediate", label: "Intermediate" },
-  { value: "advanced", label: "Advanced" },
-];
-const OTHER_OPTIONS = [
-  { value: "verified", label: "Verified" },
-  { value: "maintained", label: "Maintained" },
-];
 
 type DeckCardItem = CommunityAddon & { deckId?: string };
 type StoryCardItem = CommunityAddon & { storyId?: string };
@@ -152,8 +140,6 @@ export function ContentBrowserPage() {
   // Default to "most popular" (votes) per the feedback — surfaces the
   // highest-voted decks first instead of an editorial "featured" flag.
   const [sortBy, setSortBy] = useState<SortOption>("upvotes");
-  const [levelFilters, setLevelFilters] = useState<Set<string>>(new Set());
-  const [otherFilters, setOtherFilters] = useState<Set<string>>(new Set());
 
   // Sync language filter when ?lang= changes from outside (back/forward nav).
   useEffect(() => {
@@ -190,7 +176,7 @@ export function ContentBrowserPage() {
   const [apiDecksLoading, setApiDecksLoading] = useState(true);
   const [subscribedDecks, setSubscribedDecks] = useState<DeckResponse[]>([]);
   const [apiStories, setApiStories] = useState<StoryResponse[]>([]);
-  const [_apiStoriesLoading, setApiStoriesLoading] = useState(true);
+  const [apiStoriesLoading, setApiStoriesLoading] = useState(true);
   const [subscribedStories, setSubscribedStories] = useState<StoryResponse[]>([]);
 
   const { openDeckPreview, openStoryPreview } = useCommunityContent();
@@ -233,16 +219,12 @@ export function ContentBrowserPage() {
     usersApi
       .getSubscriptions({ contentType: "deck" })
       .then(async (subs) => {
-        const results: DeckResponse[] = [];
-        for (const s of subs) {
-          try {
-            const deck = await decksApi.getDeck(s.contentId);
-            results.push(deck);
-          } catch {
-            /* skip */
-          }
-        }
-        setSubscribedDecks(results);
+        // Fetch subscribed decks concurrently (was serial await-in-loop);
+        // failed lookups resolve to null and are dropped.
+        const fetched = await Promise.all(
+          subs.map((s) => decksApi.getDeck(s.contentId).catch(() => null)),
+        );
+        setSubscribedDecks(fetched.filter((d): d is DeckResponse => d !== null));
       })
       .catch(() => setSubscribedDecks([]));
     if (!explore.stories) {
@@ -252,16 +234,12 @@ export function ContentBrowserPage() {
     usersApi
       .getSubscriptions({ contentType: "story" })
       .then(async (subs) => {
-        const results: StoryResponse[] = [];
-        for (const s of subs) {
-          try {
-            const story = await storiesApi.getStory(s.contentId);
-            results.push(story);
-          } catch {
-            /* skip */
-          }
-        }
-        setSubscribedStories(results);
+        const fetched = await Promise.all(
+          subs.map((s) => storiesApi.getStory(s.contentId).catch(() => null)),
+        );
+        setSubscribedStories(
+          fetched.filter((s): s is StoryResponse => s !== null),
+        );
       })
       .catch(() => setSubscribedStories([]));
   }, [usersApi, decksApi, storiesApi, explore.stories]);
@@ -367,6 +345,14 @@ export function ContentBrowserPage() {
     parts.push(...communityAddons);
     return parts;
   }, [apiDeckCards, apiStoryCards, communityAddons, explore.flashcardDecks, explore.stories]);
+
+  // Any enabled source still loading — gates the empty state so the grid
+  // doesn't flash "No results" while stories/addons are still in flight
+  // (previously keyed only on apiDecksLoading).
+  const browseLoading =
+    (explore.flashcardDecks && apiDecksLoading) ||
+    (explore.stories && apiStoriesLoading) ||
+    addonsQuery.isLoading;
 
   const facetLanguageIds = useMemo(() => {
     const fromContent = new Set(browseContent.map((a) => a.languageId));
@@ -486,18 +472,6 @@ export function ContentBrowserPage() {
       options: languageFacetOptions,
       multiSelect: true,
     });
-    out.push({
-      id: FACET_LEVEL,
-      label: t("community.contentBrowserFacetLevel", "Level"),
-      options: LEVEL_OPTIONS,
-      multiSelect: true,
-    });
-    out.push({
-      id: FACET_OTHER,
-      label: t("community.contentBrowserFacetOther", "Other"),
-      options: OTHER_OPTIONS,
-      multiSelect: true,
-    });
     return out;
   }, [languageFacetOptions, sortFacetOptions, t]);
 
@@ -508,10 +482,8 @@ export function ContentBrowserPage() {
     out[FACET_SORT] = [sortBy];
     if (selectedLanguages.size > 0)
       out[FACET_LANGUAGE] = Array.from(selectedLanguages);
-    if (levelFilters.size > 0) out[FACET_LEVEL] = Array.from(levelFilters);
-    if (otherFilters.size > 0) out[FACET_OTHER] = Array.from(otherFilters);
     return out;
-  }, [sortBy, selectedLanguages, levelFilters, otherFilters]);
+  }, [sortBy, selectedLanguages]);
 
   const handleFacetToggle = useCallback(
     (facetId: string, value: string) => {
@@ -533,20 +505,6 @@ export function ContentBrowserPage() {
           else next.add(value);
           return next;
         });
-      } else if (facetId === FACET_LEVEL) {
-        setLevelFilters((prev) => {
-          const next = new Set(prev);
-          if (next.has(value)) next.delete(value);
-          else next.add(value);
-          return next;
-        });
-      } else if (facetId === FACET_OTHER) {
-        setOtherFilters((prev) => {
-          const next = new Set(prev);
-          if (next.has(value)) next.delete(value);
-          else next.add(value);
-          return next;
-        });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -562,10 +520,6 @@ export function ContentBrowserPage() {
         setSortBy("upvotes");
       } else if (facetId === FACET_LANGUAGE) {
         setLanguageFilters(new Set());
-      } else if (facetId === FACET_LEVEL) {
-        setLevelFilters(new Set());
-      } else if (facetId === FACET_OTHER) {
-        setOtherFilters(new Set());
       }
     },
     [],
@@ -574,8 +528,6 @@ export function ContentBrowserPage() {
   const handleClearAll = useCallback(() => {
     setLanguageFilters(new Set());
     setTypeFilter(firstEnabledType);
-    setLevelFilters(new Set());
-    setOtherFilters(new Set());
     setSearch("");
     setSortBy("upvotes");
     if (typeParam || tagParam || langParam) {
@@ -706,7 +658,7 @@ export function ContentBrowserPage() {
   const [page, setPage] = useState(0);
   useEffect(() => {
     setPage(0);
-  }, [search, selectedLanguages, typeFilter, sortBy, levelFilters, otherFilters, tagParam]);
+  }, [search, selectedLanguages, typeFilter, sortBy, tagParam]);
   const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
   const pagedRows = useMemo(
     () => rows.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
@@ -734,16 +686,8 @@ export function ContentBrowserPage() {
         label: `#${tagParam}`,
       });
     }
-    for (const lvl of levelFilters) {
-      const opt = LEVEL_OPTIONS.find((o) => o.value === lvl);
-      if (opt) out.push({ facetId: FACET_LEVEL, value: lvl, label: opt.label });
-    }
-    for (const flag of otherFilters) {
-      const opt = OTHER_OPTIONS.find((o) => o.value === flag);
-      if (opt) out.push({ facetId: FACET_OTHER, value: flag, label: opt.label });
-    }
     return out;
-  }, [selectedLanguages, levelFilters, otherFilters, tagParam]);
+  }, [selectedLanguages, tagParam]);
 
   // Active filter count for the floating bar (filters only, not sort/type).
   const activeFilterCount = chips.length;
@@ -885,14 +829,14 @@ export function ContentBrowserPage() {
             <CommunityContentTable
               rows={pagedRows}
               emptyMessage={
-                apiDecksLoading
+                browseLoading
                   ? t("common.loading")
                   : t("community.contentBrowserNoResults")
               }
             />
           ) : pagedRows.length === 0 ? (
             <div className="rounded-lg border border-dashed border-border bg-surface p-8 text-center text-sm text-text-muted">
-              {apiDecksLoading
+              {browseLoading
                 ? t("common.loading")
                 : t("community.contentBrowserNoResults")}
             </div>

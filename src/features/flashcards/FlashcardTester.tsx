@@ -43,8 +43,6 @@ import {
 import type { Flashcard, CardSegment, SRSRating, SRSModality } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
 
-const REVIEW_MODE_STORAGE_KEY = "openlingo-review-mode";
-
 function getParticleById(particles: ParticleDef[] | null, id: string): ParticleDef | undefined {
   return particles?.find((p) => p.id === id);
 }
@@ -231,23 +229,10 @@ export function FlashcardTester() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [highlightMode, setHighlightMode] = useState(true);
-  const [reviewMode, setReviewMode] = useState<ReviewMode>(() => {
-    try {
-      const s = localStorage.getItem(REVIEW_MODE_STORAGE_KEY);
-      if (s && (s === "word-first" || s === "image-first" || s === "back-first")) return s;
-    } catch {
-      /* ignore */
-    }
-    return REVIEW_MODE_WORD_FIRST;
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(REVIEW_MODE_STORAGE_KEY, reviewMode);
-    } catch {
-      /* ignore */
-    }
-  }, [reviewMode]);
+  // Persisted with the other reviewer prefs via settings.flashcards (syncs
+  // across devices) instead of a raw localStorage key.
+  const reviewMode: ReviewMode =
+    settings.flashcards?.reviewMode ?? REVIEW_MODE_WORD_FIRST;
 
   const showImage = (mode: ReviewMode, isFlipped: boolean) => {
     if (mode === "back-first") return !isFlipped; // back first = translation, image on "front" view
@@ -595,6 +580,11 @@ export function FlashcardTester() {
     </>
   );
 
+  const progressPct =
+    queue.totalCount > 0
+      ? Math.min(100, Math.round((sessionStats.reviewed / queue.totalCount) * 100))
+      : 0;
+
   return (
     // `justify-center` keeps the card column horizontally centered. The detail
     // panel is rendered as an absolute overlay INSIDE the centered column, so
@@ -646,7 +636,9 @@ export function FlashcardTester() {
                   </label>
                   <select
                     value={reviewMode}
-                    onChange={(e) => setReviewMode(e.target.value as ReviewMode)}
+                    onChange={(e) =>
+                      updateFlashcards({ reviewMode: e.target.value as ReviewMode })
+                    }
                     className="w-full rounded border border-border bg-surface-muted px-2 py-1.5 text-sm text-text-primary"
                   >
                     {REVIEW_MODES.map((m) => (
@@ -738,16 +730,17 @@ export function FlashcardTester() {
 
         {/* Progress: bar = reviewed / initial queue (capped), +Again when repeat queue grows */}
         <div className="flex items-center gap-2">
-          <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-surface-muted">
+          <div
+            className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-surface-muted"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressPct}
+            aria-label={t("flashcards.sessionProgress", "Session progress")}
+          >
             <div
               className="h-full rounded-full bg-success transition-all duration-300"
-              style={{
-                width: `${
-                  queue.totalCount > 0
-                    ? Math.min(100, Math.round((sessionStats.reviewed / queue.totalCount) * 100))
-                    : 0
-                }%`,
-              }}
+              style={{ width: `${progressPct}%` }}
             />
           </div>
           {repeatCards.length > 0 && (

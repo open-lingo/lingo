@@ -153,8 +153,10 @@ export function AdminUserDetailPage() {
   const [removingSub, setRemovingSub] = useState<string | null>(null);
   const [deckAction, setDeckAction] = useState<{ id: string; action: "unpublish" | "publish" | "delete" } | null>(null);
   const [deckDeleteConfirm, setDeckDeleteConfirm] = useState<string | null>(null);
+  const [srsResetCardId, setSrsResetCardId] = useState<string | null>(null);
   const [editUsername, setEditUsername] = useState("");
   const [editAvatarUrl, setEditAvatarUrl] = useState("");
+  const [avatarPreviewBroken, setAvatarPreviewBroken] = useState(false);
   const [editDisplayName, setEditDisplayName] = useState("");
   const [editStatus, setEditStatus] = useState<"active" | "banned">("active");
   const [editStatusExpiration, setEditStatusExpiration] = useState("");
@@ -571,8 +573,14 @@ export function AdminUserDetailPage() {
     }
   };
 
-  const handleResetSrsCard = async (cardId: string) => {
-    if (!userId || !confirm(t("admin.srsResetConfirm", "Reset this card's SRS state?"))) return;
+  // Opens the confirm modal; the actual delete runs in confirmResetSrsCard.
+  const handleResetSrsCard = (cardId: string) => {
+    setSrsResetCardId(cardId);
+  };
+
+  const confirmResetSrsCard = async () => {
+    const cardId = srsResetCardId;
+    if (!userId || !cardId) return;
     try {
       await admin.deleteUserSrsCards(userId, [cardId]);
       setSrsState((prev) => {
@@ -583,6 +591,8 @@ export function AdminUserDetailPage() {
       showToast("SRS reset", "success");
     } catch {
       showToast("Failed to reset SRS", "error");
+    } finally {
+      setSrsResetCardId(null);
     }
   };
 
@@ -746,6 +756,18 @@ export function AdminUserDetailPage() {
         />
       ) : null}
 
+      {srsResetCardId ? (
+        <ConfirmModal
+          title={t("admin.srsResetTitle", "Reset SRS card")}
+          message={t("admin.srsResetConfirm", "Reset this card's SRS state?")}
+          cancelLabel={t("forum.cancel")}
+          confirmLabel={t("common.reset", "Reset")}
+          danger
+          onConfirm={confirmResetSrsCard}
+          onCancel={() => setSrsResetCardId(null)}
+        />
+      ) : null}
+
       {impersonateOpen ? (
         <ImpersonateConfirmModal
           targetUsername={user.username}
@@ -854,12 +876,12 @@ export function AdminUserDetailPage() {
                   {t("profile.avatarUrl")}
                 </label>
                 <div className="flex items-center gap-4">
-                  {editAvatarUrl ? (
+                  {editAvatarUrl && !avatarPreviewBroken ? (
                     <img
                       src={editAvatarUrl}
                       alt=""
                       className="h-14 w-14 shrink-0 rounded-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      onError={() => setAvatarPreviewBroken(true)}
                     />
                   ) : (
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center text-text-muted">
@@ -869,7 +891,10 @@ export function AdminUserDetailPage() {
                   <input
                     type="url"
                     value={editAvatarUrl}
-                    onChange={(e) => setEditAvatarUrl(e.target.value)}
+                    onChange={(e) => {
+                      setEditAvatarUrl(e.target.value);
+                      setAvatarPreviewBroken(false);
+                    }}
                     placeholder="https://..."
                     className={cn("flex-1", inputClassName)}
                   />
