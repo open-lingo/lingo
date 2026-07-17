@@ -12,7 +12,6 @@ import { EmptyState } from "@/shared/components/ui/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
-import { StudyScopeShortcuts } from "@/features/flashcards/StudyScopeShortcuts";
 import { useDeckManagerData } from "@/features/flashcards/useDeckManagerData";
 import {
   isMyVocabDeck,
@@ -102,55 +101,6 @@ function DueCarousel({
   );
 }
 
-function DeckCard({
-  deck,
-  retentionPct,
-  onClick,
-  settingsHref,
-  t,
-}: {
-  deck: { id: string; name: string; cardCount: number; totalCount?: number };
-  retentionPct: number;
-  onClick: () => void;
-  settingsHref?: string;
-  t: TFunction;
-}) {
-  const countLabel =
-    deck.totalCount != null && deck.totalCount > deck.cardCount
-      ? `${deck.cardCount} / ${deck.totalCount} ${t("flashcards.cards")}`
-      : `${deck.cardCount} ${t("flashcards.cards")}`;
-  return (
-    <div className="relative flex w-full items-center gap-2 rounded-lg border border-border bg-surface p-4 transition hover:border-border-muted hover:shadow">
-      <span
-        className="absolute right-3 top-3 rounded-full bg-success/10 px-2 py-0.5 text-xs font-semibold text-success"
-        aria-label={t("flashcards.retentionLabel", "Retention")}
-      >
-        {retentionPct}%
-      </span>
-      <button
-        type="button"
-        onClick={onClick}
-        className="flex min-w-0 flex-1 items-center justify-between gap-2 pr-12 text-left"
-      >
-        <div>
-          <h3 className="font-medium text-text-primary">{deck.name}</h3>
-          <p className="mt-0.5 text-sm text-text-muted">{countLabel}</p>
-        </div>
-        <Icon name="arrowRight" size={16} className="shrink-0 text-accent" />
-      </button>
-      {settingsHref && (
-        <Link
-          to={settingsHref}
-          aria-label={t("flashcards.deckManager.settingsLabel")}
-          className="shrink-0 rounded p-1.5 text-text-muted hover:bg-surface-muted hover:text-text-primary"
-        >
-          <Icon name="settings" size={20} />
-        </Link>
-      )}
-    </div>
-  );
-}
-
 function ReviewScopeCard({
   icon,
   title,
@@ -230,9 +180,7 @@ export function FlashcardsPage() {
     learningCount,
     masteredCount,
     weekReviews,
-    deckRetentions,
     deck,
-    courseDecks,
     communityPacksWithDecks,
     isLoading: cardsDueLoading,
   } = useFlashcardDueSummary(langId);
@@ -283,10 +231,11 @@ export function FlashcardsPage() {
             </span>
           </div>
           <Link
-            to={langPath("practice/flashcards/cards")}
-            className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+            to={langPath("vocab")}
+            className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline"
           >
-            {t("flashcards.cardManager.title", "Card Manager")}
+            {t("flashcards.vocabBrowserLink", "Browse your vocabulary")}
+            <Icon name="arrowRight" size={14} aria-hidden />
           </Link>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -307,21 +256,6 @@ export function FlashcardsPage() {
               </p>
             </div>
           ))}
-        </div>
-      </Card>
-
-      {/* Zone 2 — Quick study (compact: tightened padding + no separate kicker) */}
-      <Card padding="sm">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="text-sm font-semibold text-text-primary">
-            {t("flashcards.studyShortcuts.title", "Quick study")}
-          </h2>
-          <p className="text-xs text-text-muted">
-            {t("flashcards.studyShortcuts.hint", "Jump straight into a focused review.")}
-          </p>
-        </div>
-        <div className="mt-2">
-          <StudyScopeShortcuts compact />
         </div>
       </Card>
 
@@ -442,61 +376,6 @@ export function FlashcardsPage() {
         />
       )}
 
-      {/* Zone 6 — Your decks */}
-      <section className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              {t("flashcards.yourDecksKicker", "Library")}
-            </p>
-            <h2 className="mt-1 text-lg font-semibold text-text-primary">
-              {t("flashcards.yourDecks", "Your decks")}
-            </h2>
-          </div>
-          <Link
-            to={langPath("vocab")}
-            className="text-sm font-medium text-accent hover:underline"
-          >
-            {t("flashcards.vocabBrowserLink", "Browse your vocabulary")}
-          </Link>
-        </div>
-        {courseDecks.length === 0 ? (
-          <EmptyState
-            icon={<Icon name="decks" size={20} />}
-            title={t("flashcards.noDecksTitle", "No subscribed decks yet")}
-            description={t(
-              "flashcards.noDecksDescription",
-              "Subscribe to community decks to start building your review queue.",
-            )}
-            action={
-              communityOn ? (
-                <Link
-                  to={langPath("community/explore")}
-                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-                >
-                  {t("flashcards.browseCommunityDecks", "Browse community decks")}
-                </Link>
-              ) : undefined
-            }
-          />
-        ) : (
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {courseDecks.map((d, idx) => (
-              <li key={d.id}>
-                <DeckCard
-                  deck={d}
-                  retentionPct={deckRetentions[idx] ?? 0}
-                  onClick={() => {
-                    openDeckPreview(d.deck, null, { onSubscriptionChange: handleSubscriptionChange });
-                  }}
-                  settingsHref={langPath("practice/flashcards/decks")}
-                  t={t}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
 
       {/* Zone 7 — Community card packs. Gated entirely behind the community
           flag: community decks don't exist yet, so the whole surface (empty
