@@ -197,9 +197,14 @@ function SegmentRender({
   if (!hasAnyKana && !containsKanji(surface)) {
     return <span data-role={role}>{surface}</span>;
   }
-  // If the segment is pure kana and surface===reading, annotate it like a
+  // If the segment carries no kanji and surface===reading, annotate it like a
   // bare kana string (per-kana helpers pre-M3, word-grouped romaji after).
-  const isPureKana = surface === reading && Array.from(surface).every(isKana);
+  // Spaces/punctuation inside the segment are fine: buildSentenceAnnotation
+  // filler runs span particles and separators ("は とおいです"), and the bare
+  // annotator already handles them. Requiring every char to be kana sent
+  // those fillers into the kanji-branch fallback below, which floated their
+  // own kana reading above them (ja-m8-6-1 regression).
+  const isPureKana = surface === reading && !containsKanji(surface);
   if (isPureKana) {
     // If author supplied an explicit segment-level romaji, prefer it over
     // the annotator for the *whole* segment as a single annotation.
