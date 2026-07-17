@@ -10,6 +10,8 @@ import { resolveBuildTileKanji } from "./buildTileKanji";
 import { KANJI_ELIGIBLE_ATOMS } from "./applyKanjiSurfaces";
 import { resolveEligibleKanjiAtomId } from "../grammarHelpers";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
+import { ADJ_ENTRIES } from "../conjugationTables";
+import { conjugateIAdj } from "../conjugationEngine";
 
 // atomId → kana lookup for the round-trip test.
 const atomIdKana = new Map(JA_COURSE_ATOMS.map((a) => [a.id, a.kana]));
@@ -61,6 +63,81 @@ describe("resolveBuildTileKanji", () => {
     for (const kana of ["あ", "い", "す", "ん"]) {
       expect(resolveBuildTileKanji(kana, 99)).toBeNull();
     }
+  });
+
+  describe("inflected forms (Spencer QA 2026-07-17 — のまない stayed kana while のむ kanji-fied)", () => {
+    const NOMU = "のむ";
+    const nomuAtomId = resolveEligibleKanjiAtomId(NOMU)!;
+    const nomuEntry = KANJI_ELIGIBLE_ATOMS.get(nomuAtomId)!; // 飲む
+
+    it("real conjugated forms of an eligible verb resolve to kanji stem + inflected tail", () => {
+      expect(nomuEntry.kanji).toBe("飲む");
+      for (const [kana, surface] of [
+        ["のまない", "飲まない"],
+        ["のみます", "飲みます"], // a taught kanji-less atom → SRS keys IT
+        ["のんだ", "飲んだ"],
+        ["のんで", "飲んで"],
+      ] as const) {
+        // Pure inflections bind the dictionary atom; kana that IS a taught
+        // kanji-less sibling atom (のみます) binds the REAL atom instead so
+        // the furigana mastery gate tracks what the learner actually drills.
+        const boundAtomId =
+          JA_COURSE_ATOMS.find((a) => a.kana === kana)?.id ?? nomuAtomId;
+        expect(resolveBuildTileKanji(kana, nomuEntry.unlockModule)).toEqual({
+          surface,
+          reading: kana,
+          atomId: boundAtomId,
+        });
+        // Same unlock gate as the citation form.
+        expect(resolveBuildTileKanji(kana, nomuEntry.unlockModule - 1)).toBeNull();
+      }
+    });
+
+    it("invented mutations never resolve (only REAL engine-generated forms enumerate)", () => {
+      for (const kana of ["のみる", "のむる", "のまなさい"]) {
+        expect(resolveBuildTileKanji(kana, 99)).toBeNull();
+      }
+    });
+
+    it("an eligible い-adjective's conjugated forms resolve the same way", () => {
+      const adj = ADJ_ENTRIES.find(
+        (a) =>
+          a.type === "i-adj" &&
+          a.kanji &&
+          resolveEligibleKanjiAtomId(a.dictionary) !== undefined &&
+          KANJI_ELIGIBLE_ATOMS.has(resolveEligibleKanjiAtomId(a.dictionary)!),
+      );
+      expect(adj, "at least one kanji-eligible い-adjective").toBeDefined();
+      const atomId = resolveEligibleKanjiAtomId(adj!.dictionary)!;
+      const entry = KANJI_ELIGIBLE_ATOMS.get(atomId)!;
+      const past = conjugateIAdj(adj!.dictionary, "past"); // e.g. たかかった
+      const resolved = resolveBuildTileKanji(past, entry.unlockModule);
+      // Derived expectation: kanji stem + inflected tail. The stem is the
+      // catalog surface minus the okurigana tail it shares with the kana
+      // dictionary form (longest common suffix).
+      const dict = adj!.dictionary;
+      const kanji = entry.kanji;
+      let suf = 0;
+      while (
+        suf < dict.length &&
+        suf < kanji.length &&
+        dict[dict.length - 1 - suf] === kanji[kanji.length - 1 - suf]
+      ) {
+        suf++;
+      }
+      expect(resolved).toEqual({
+        surface: kanji.slice(0, kanji.length - suf) + past.slice(dict.length - suf),
+        reading: past,
+        atomId,
+      });
+    });
+
+    it("inflected kana that collides with a real course atom stays kana", () => {
+      // した is する's past — and 下's kana. Real-atom kana is owned by the
+      // citation resolver (which refuses it as a homograph), never the
+      // inflected map.
+      expect(resolveBuildTileKanji("した", 99)).toBeNull();
+    });
   });
 
   it("every eligible-catalog word round-trips through the tile derivation at its unlock", () => {

@@ -26,6 +26,7 @@
  */
 import { useMemo } from "react";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
+import { KanjiRuby } from "@/shared/readingAnnotation/KanjiRuby";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import { getCardState, isMastered } from "@/features/flashcards/engine";
@@ -91,17 +92,15 @@ export function BuildTileSurface({
   hideHelper?: boolean;
 }) {
   if (!kanji) return <AnnotatedJa text={tile} hideHelper={hideHelper} />;
-  const show = kanji.furiganaVisible;
+  // Okurigana-aligned shared ruby (Spencer QA 2026-07-17): the <rt> covers
+  // only the kanji run — 飲(の)まない, never (のまない) over 飲まない.
   return (
-    <ruby data-build-tile-kanji="true" lang="ja">
-      {kanji.surface}
-      <rt
-        className="kana-helper"
-        data-visible={show ? "true" : "false"}
-        aria-hidden={!show}
-      >
-        {show ? kanji.reading : "​"}
-      </rt>
-    </ruby>
+    <KanjiRuby
+      data-build-tile-kanji="true"
+      lang="ja"
+      surface={kanji.surface}
+      reading={kanji.reading}
+      show={kanji.furiganaVisible}
+    />
   );
 }

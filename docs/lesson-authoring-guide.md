@@ -216,19 +216,36 @@ The rules that bind authors:
 - **Kanji recognition starts at m8**, applied by the `applyKanjiSurfaces` post-pass
   (`ja/secondScript/`). It is atom-id keyed and edits **only** `*Annotation` display fields —
   audio and grading are structurally untouched, which is why the ladder is safe to move.
-- **Furigana rides a rolling unlock+2 window.** A kanji introduced at module N shows furigana
-  for modules N and N+1, then goes bare. "Production" (bare kanji) therefore begins ~m10.
+- **Furigana rides a rolling unlock+2 window — as a FLOOR.** A kanji introduced at module N is
+  guaranteed furigana for modules N and N+1, even if the atom was FSRS-mastered back when it
+  displayed as kana. Past the window, furigana no longer drops unconditionally (the
+  pre-2026-07-17 behavior): it stays until the atom is FSRS-mastered (see the §4e addendum —
+  the same window-floor-OR-unmastered rule as build tiles). "Production" (bare kanji) therefore
+  begins per-learner, at unlock+2 at the earliest.
 - **NO typed kanji, ever.** Kana input is always accepted. Never author a step that requires
   producing kanji.
 - **NEVER romaji + kanji together.** The `containsKanji` gate in `AnnotatedText` beats all
   settings. Furigana is **not** romaji and *does* float.
 
-### 4e addendum — build tiles display unlocked kanji (Spencer 2026-07-17)
+### 4e addendum — furigana is window-floor OR unmastered, on tiles AND sentences (Spencer 2026-07-17)
 
 Build-tile banks (`build_sentence` + `listening_build`) are no longer kana-only. Once a tile
 word's kanji is unlocked at the lesson's module, the tile **displays the kanji form**, with kana
 furigana above it until the atom reaches FSRS mastery (both modalities ≥ 21 days) — "they NEED
-the exposure." Mechanics authors should know:
+the exposure."
+
+The same ruling extends to **sentence kanji surfaces** (everything `applyKanjiSurfaces`
+substitutes): furigana on a kanji segment is visible when the lesson module is **inside the
+kanji's unlock+2 grace window** (the floor — it shows even for atoms mastered while they still
+displayed as kana) **OR the segment's atom is not yet FSRS-mastered** (the extension — past the
+window, furigana stays until the learner actually knows the word, instead of dropping
+permanently). Mechanically, the pass now always keeps the kana `reading` on substituted
+segments and stamps `furiganaWindowOpen`; `AnnotatedText`'s kanji branch applies the
+window-OR-unmastered gate per learner. The one deliberate exception: `kanji_reading` prompts
+render bare **always** — the factory emits `surface === reading === kanji`, so there is
+structurally nothing to float (the reading IS the answer).
+
+Mechanics authors should know:
 
 - **Display-only.** `tiles`, `correctOrder`, and grading stay the KANA strings — keep authoring
   build banks in kana exactly as before; the renderer swaps the painted surface
@@ -238,6 +255,14 @@ the exposure." Mechanics authors should know:
 - **Character-granularity builds are excluded** — kana decoding drills keep their kana tiles.
 - **Furigana is per-learner** (mastery-gated), so a tile may legitimately render with or
   without it. Never romaji on a kanji tile (never-mix, as everywhere).
+- **Furigana is okurigana-aligned** (Spencer QA 2026-07-17): the ruby covers only the kanji
+  run — 飲(の)まない, never (のまない) over the whole word (`shared/japanese/okurigana.ts`,
+  used by sentence surfaces, build tiles, and match tiles alike).
+- **Real inflected tiles kanji-fy too** (same QA session: のまない stayed kana while its
+  distractor のむ kanji-fied — an answer leak). Engine-enumerated conjugations of
+  kanji-eligible verbs/い-adjectives resolve to kanji stem + inflected tail (のまない →
+  飲まない, たかかった → 高かった) under the same eligibility/unlock gates; invented forms and
+  homograph collisions never resolve.
 
 ## 4f. `kanji_reading` — closing the ladder (2026-07-16)
 
@@ -441,6 +466,7 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 | 2026-07-16 | Script ladder: romaji off m7 / kanji recognition m8 / furigana unlock+2 | this guide §4e |
 | 2026-07-16 | Never romaji+kanji; no typed kanji (kana input always accepted) | this guide §4e |
 | 2026-07-17 | Build tiles display unlocked kanji, furigana until FSRS mastery; grading stays kana | this guide §4e addendum |
+| 2026-07-17 | Sentence furigana: unlock+2 window is a FLOOR; past it, furigana stays until FSRS mastery (kanji_reading prompts stay bare) | this guide §4e addendum |
 | 2026-07-16 | `kanji_reading` step shipped — kanji→kana reading recall | this guide §4f |
 | 2026-07-16 | Sentence-complexity floor: production targets must ramp from ~m20 | this guide §4g |
 

@@ -20,13 +20,18 @@
    modules.
 2. NEVER romaji + kanji on the same word, under any setting. No typed kanji
    input, ever. Kana floating above identical kana is always a defect.
-3. Build tiles DISPLAY a word's unlocked kanji (Spencer 2026-07-17): once
-   the lesson's module has unlocked that kanji per the rollout schedule,
-   the tile shows the kanji form with kana furigana above until the atom
-   is FSRS-mastered (both modalities ≥ 21 days), then bare. Grading,
-   `tiles`, and `correctOrder` stay KANA — this is display-only.
+3. Kanji furigana is window-floor OR unmastered (Spencer 2026-07-17), on
+   BUILD TILES and SENTENCE surfaces alike: a kanji shows kana furigana
+   while the lesson module is inside its unlock+2 grace window (the floor —
+   even for long-mastered atoms), and past the window it KEEPS furigana
+   until the atom is FSRS-mastered (both modalities ≥ 21 days), then bare.
+   Grading, `tiles`, and `correctOrder` stay KANA — display-only.
    Character-granularity (kana-decoding) builds never kanji-fy: kana IS
-   their content.
+   their content. Furigana is okurigana-aligned (rt over the kanji run
+   only: 飲(の)まない), and REAL inflected tile forms kanji-fy under the
+   same gates (のまない → 飲まない). Exception: `kanji_reading` prompts
+   render bare always (the reading IS the answer — surface === reading
+   suppression).
 
 ## Step-type bans (ja only — es/ko differ)
 
@@ -78,3 +83,34 @@
 
 16. Never invent vocab/kanji outside the module's allocation (spine doc).
     Pull review atoms via the seeded helpers, never hand-pick randomness.
+
+## English glosses (Spencer 2026-07-17; machine-checked by Gate 8)
+
+17. English "-ing" glosses belong to 〜ている surfaces. Plain non-past
+    ACTIVITY verbs gloss habitual/intent ("You study...?", "Gonna
+    drink...?", "Do you...") — a progressive gloss primes learners to
+    expect ている where there is none. Exceptions that stay "-ing":
+    future-anchored futurates ("Are you coming tomorrow?") and motion-verb
+    futurates (いく/くる/かえる). The inverse trap: resultative-stative
+    ている correctly glosses as SIMPLE present (すんでいる "I live",
+    しっている "I know") — never "fix" those to progressive.
+18. Prompts are framed, sentence-cased English ('Pick the word for
+    "this"'), never a bare lowercase meaning.
+
+## Review surfaces (Spencer 2026-07-17)
+
+19. Any review surface (generated SRS reviews AND authored review tails)
+    targets ≥60% sentence-context steps for non-new atoms — sentence
+    listening comp, multi-tile sentence builds, sentence speaking. Word
+    cards are for first exposures and the flashcard deck, not lesson
+    reviews. Reuse MINED authored sentences (minedSentences.ts); never
+    hand-write new review sentences. Single-tile builds are banned.
+
+## Orthography (render rules authors must not defeat)
+
+20. Furigana sits only above kanji glyphs (okurigana never carries ruby);
+    a word shown in kanji anywhere on a screen must show kanji in ALL its
+    forms on that screen (inflections included). These are render-layer
+    guarantees (KanjiRuby / buildTileKanji) — never hand-annotate around
+    them, and never put a kanji word's reading in prompt text (it defeats
+    kanji_reading and leaks answers).

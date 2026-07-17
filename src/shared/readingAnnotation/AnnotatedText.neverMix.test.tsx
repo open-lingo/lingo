@@ -89,8 +89,15 @@ describe("AnnotatedText — never-mix romaji/kanji gate (segments mode, Kanji br
     expect(rt).not.toBeNull();
     expect(rt!.getAttribute("aria-hidden")).toBe("false");
     expect(rt!.textContent).not.toContain("isogashii");
-    expect(rt!.textContent).toBe("いそがしい");
-    expect(container.textContent).toContain("忙しい");
+    // Okurigana-aligned (2026-07-17): the rt covers only the kanji run —
+    // いそが floats over 忙; the しい tail renders as plain base text.
+    expect(rt!.textContent).toBe("いそが");
+    const ruby = rt!.parentElement as HTMLElement;
+    const base = Array.from(ruby.childNodes)
+      .filter((n) => n.nodeName.toLowerCase() !== "rt")
+      .map((n) => n.textContent)
+      .join("");
+    expect(base).toBe("忙しい");
   });
 
   it("renders no reading line once the furigana window closes (reading === surface)", () => {
