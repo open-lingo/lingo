@@ -246,3 +246,62 @@ describe("generateKoDistractors", () => {
     expect(distractors).toContain("듣어요");
   });
 });
+
+// ── Endings & connectives (게/지/는 + connectives), all stem classes ─────────
+describe("conjugateKo — endings & connectives", () => {
+  const E: Array<[string, KoStemClass, KoFormKey, string]> = [
+    // plain present -ㄴ다/는다 (verbs)
+    ["먹다", "regular", "present.plain", "먹는다"],
+    ["가다", "regular", "present.plain", "간다"],
+    ["살다", "l_stem", "present.plain", "산다"],
+    ["공부하다", "hada", "present.plain", "공부한다"],
+    ["듣다", "t_irr", "present.plain", "듣는다"],
+    ["쓰다", "eu_irr", "present.plain", "쓴다"],
+    // adverbial -게
+    ["예쁘다", "eu_irr", "adverbial", "예쁘게"],
+    ["쉽다", "p_irr", "adverbial", "쉽게"],
+    ["듣다", "t_irr", "adverbial", "듣게"],
+    // prohibition -지 마세요
+    ["먹다", "regular", "prohibition", "먹지 마세요"],
+    ["듣다", "t_irr", "prohibition", "듣지 마세요"],
+    // honorific command -(으)세요
+    ["먹다", "regular", "honorific.command", "먹으세요"],
+    ["가다", "regular", "honorific.command", "가세요"],
+    ["살다", "l_stem", "honorific.command", "사세요"],
+    ["듣다", "t_irr", "honorific.command", "들으세요"],
+    ["돕다", "p_irr", "honorific.command", "도우세요"],
+    ["짓다", "s_irr", "honorific.command", "지으세요"],
+    ["하다", "hada", "honorific.command", "하세요"],
+    ["쓰다", "eu_irr", "honorific.command", "쓰세요"],
+    // desiderative -고 싶어요
+    ["먹다", "regular", "desiderative", "먹고 싶어요"],
+    ["듣다", "t_irr", "desiderative", "듣고 싶어요"],
+    // connective -고 / -지만
+    ["먹다", "regular", "connective.and", "먹고"],
+    ["좋다", "regular", "connective.and", "좋고"],
+    ["듣다", "t_irr", "connective.and", "듣고"],
+    ["먹다", "regular", "connective.but", "먹지만"],
+    ["춥다", "p_irr", "connective.but", "춥지만"],
+    // connective -아서/어서
+    ["먹다", "regular", "connective.so", "먹어서"],
+    ["가다", "regular", "connective.so", "가서"],
+    ["하다", "hada", "connective.so", "해서"],
+    ["듣다", "t_irr", "connective.so", "들어서"],
+    ["춥다", "p_irr", "connective.so", "추워서"],
+    ["모르다", "reu_irr", "connective.so", "몰라서"],
+    ["쓰다", "eu_irr", "connective.so", "써서"],
+    // conditional -(으)면 (ㄹ-stem KEEPS ㄹ)
+    ["먹다", "regular", "conditional", "먹으면"],
+    ["가다", "regular", "conditional", "가면"],
+    ["살다", "l_stem", "conditional", "살면"],
+    ["듣다", "t_irr", "conditional", "들으면"],
+    ["춥다", "p_irr", "conditional", "추우면"],
+    ["짓다", "s_irr", "conditional", "지으면"],
+    ["그렇다", "h_irr", "conditional", "그러면"],
+    ["모르다", "reu_irr", "conditional", "모르면"],
+    ["쓰다", "eu_irr", "conditional", "쓰면"],
+  ];
+  it.each(E)("%s (%s) → %s = %s", (lemma, cls, form, expected) => {
+    expect(conjugateKo(lemma, cls, form)).toBe(expected);
+  });
+});

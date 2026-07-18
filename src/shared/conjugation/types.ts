@@ -44,6 +44,16 @@ export interface ConjWordClassInfo {
   irregular: boolean;
 }
 
+/** An illustrative sentence for a form — the conjugated word in real use. */
+export interface ConjExampleSentence {
+  /** Target-language sentence, e.g. "커피를 마시고 싶어요.". */
+  text: string;
+  /** Reading/romanization aid (optional). */
+  reading?: string;
+  /** English gloss, e.g. "I want to drink coffee.". */
+  translation: string;
+}
+
 export interface ConjTrainerTypeMeta {
   id: string;
   title: string;
@@ -51,6 +61,15 @@ export interface ConjTrainerTypeMeta {
   subtitle: string;
   /** Only used to pick the cheat-sheet "your words" label ("verb"/"adjective"). */
   category: string;
+  /** Optional section grouping for the hub (e.g. "Speech level", "Tense",
+   *  "Connecting", "Requests"). Tiles sharing a group render under one header;
+   *  when no tile declares a group the hub falls back to a flat grid. */
+  group?: string;
+  /** True when the form applies to DESCRIPTIVE verbs (adjectives) — drives the
+   *  "adj" flag on the tile + drill so learners know which words it fits. */
+  adjective?: boolean;
+  /** One example sentence showing the form in use (optional). */
+  example?: ConjExampleSentence;
   /** The tile pictogram (kana / hangul glyph). */
   glyph: string;
   /** CSS var name holding the tile color, e.g. "--type-te". */
@@ -73,6 +92,9 @@ export interface ConjTrainerQuestion {
   options: string[];
   /** Written (second-script) dictionary form for ruby rendering; absent → plain. */
   written?: string;
+  /** True when the prompt lemma is a descriptive verb (adjective) — the drill
+   *  shows an "adjective" chip so the learner knows the word class. */
+  isAdjective?: boolean;
 }
 
 export interface ConjComboInfo {

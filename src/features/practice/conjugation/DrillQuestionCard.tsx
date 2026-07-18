@@ -243,7 +243,14 @@ export function DrillQuestionCard({
         )}
 
         <div className="flex min-w-0 flex-col items-center gap-1.5 text-center">
-          <WordClassChip conj={conj} wordClassId={question.wordClassId} />
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            <WordClassChip conj={conj} wordClassId={question.wordClassId} />
+            {question.isAdjective && (
+              <span className="inline-flex items-center rounded-full border border-violet-400/60 bg-violet-500/10 px-2.5 py-0.5 text-xs font-semibold text-violet-600 dark:text-violet-300">
+                {t("practice.conjugation.adjectiveFlag", { defaultValue: "adjective" })}
+              </span>
+            )}
+          </div>
           <p className="break-words text-4xl font-bold leading-snug text-text-primary">
             <Surface
               conj={conj}
@@ -341,6 +348,17 @@ export function DrillQuestionCard({
                   />
                 </span>
               </p>
+            )}
+            {cheatTypes[0]?.example && (
+              <div className="mt-3 rounded-xl bg-surface-muted px-3 py-2 text-center">
+                <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+                  {t("practice.conjugation.exampleLabel", { defaultValue: "Example" })}
+                </p>
+                <p className="mt-0.5 text-base font-semibold text-text-primary">
+                  {cheatTypes[0].example.text}
+                </p>
+                <p className="text-xs text-text-secondary">{cheatTypes[0].example.translation}</p>
+              </div>
             )}
             <button
               type="button"

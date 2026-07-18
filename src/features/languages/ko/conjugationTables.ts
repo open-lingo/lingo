@@ -124,11 +124,16 @@ export const KO_LEMMAS: KoLemma[] = [
   { id: "gopeuda", lemma: "고프다", meaning: "to be hungry", pos: "adjective", cls: "eu_irr", introducedAtModule: 4 },
 ];
 
-/** Verb-only forms (progressive doesn't apply to descriptive verbs/adjectives). */
+/** Verb-only forms (progressive/plain/command/want don't apply to descriptive
+ *  verbs — adjectives). */
 const VERB_ONLY_FORMS: KoFormKey[] = [
   "progressive.polite",
   "progressive.casual",
   "progressive.formal",
+  "present.plain",
+  "prohibition",
+  "honorific.command",
+  "desiderative",
 ];
 
 /** All form keys the module exposes in `conjugation.tables`. */
@@ -152,6 +157,15 @@ export const KO_ALL_FORMS: KoFormKey[] = [
   "neg.long.present.polite",
   "neg.long.present.formal",
   "neg.long.past.polite",
+  "present.plain",
+  "adverbial",
+  "prohibition",
+  "honorific.command",
+  "desiderative",
+  "connective.and",
+  "connective.but",
+  "connective.so",
+  "conditional",
 ];
 
 export function getLemmasUpToModule(maxModule: number): KoLemma[] {

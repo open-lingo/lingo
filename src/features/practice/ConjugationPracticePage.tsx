@@ -116,6 +116,20 @@ export function ConjugationPracticePage() {
     return Math.min(...locked.map((tl) => tl.unlockModule));
   }, [tiles]);
 
+  // Group tiles into sections by their provider `group` (preserving tileOrder,
+  // which the provider already sorts section-first). When no tile declares a
+  // group the whole thing collapses to one unlabeled section (flat grid).
+  const sections = useMemo(() => {
+    const out: { group: string | undefined; tiles: Tile[] }[] = [];
+    for (const tile of tiles) {
+      const g = tile.type.group;
+      const last = out[out.length - 1];
+      if (last && last.group === g) last.tiles.push(tile);
+      else out.push({ group: g, tiles: [tile] });
+    }
+    return out;
+  }, [tiles]);
+
   const selectedIds = useMemo(() => [...selected], [selected]);
   const individualFormCount = conj ? conj.individualFormCount(selectedIds) : 0;
 
@@ -184,25 +198,36 @@ export function ConjugationPracticePage() {
         </p>
       </div>
 
-      {/* Tile grid + optional Mix tile */}
-      <div className="grid grid-cols-2 gap-3">
-        {tiles.map((tile) => (
-          <TileButton
-            key={tile.type.id}
-            tile={tile}
-            selected={selected.has(tile.type.id)}
-            ahead={!tile.unlocked && ackDone}
-            recommended={recommended?.type.id === tile.type.id && selected.size === 0}
-            unpairable={combosActive && !conj.canExtendSelection(selectedIds, tile.type.id)}
-            onToggle={() => handleTilePress(tile)}
-          />
+      {/* Sectioned tile grid + optional Mix tile */}
+      <div className="space-y-5">
+        {sections.map((section, si) => (
+          <div key={section.group ?? si}>
+            {section.group && (
+              <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+                {section.group}
+              </h2>
+            )}
+            <div className="grid grid-cols-2 gap-3">
+              {section.tiles.map((tile) => (
+                <TileButton
+                  key={tile.type.id}
+                  tile={tile}
+                  selected={selected.has(tile.type.id)}
+                  ahead={!tile.unlocked && ackDone}
+                  recommended={recommended?.type.id === tile.type.id && selected.size === 0}
+                  unpairable={combosActive && !conj.canExtendSelection(selectedIds, tile.type.id)}
+                  onToggle={() => handleTilePress(tile)}
+                />
+              ))}
+            </div>
+          </div>
         ))}
 
         {conj.freeDrill && (
           <button
             type="button"
             onClick={() => navigate(langPath("practice/conjugation/free"))}
-            className="col-span-2 flex items-center justify-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm font-bold text-text-primary transition active:translate-y-[2px]"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm font-bold text-text-primary transition active:translate-y-[2px]"
           >
             <span className="text-lg font-extrabold tracking-widest" aria-hidden>
               {conj.mixGlyphs.map((g, i) => (

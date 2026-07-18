@@ -51,7 +51,17 @@ export type KoFormKey =
   | "neg.short.past.polite"
   | "neg.long.present.polite"
   | "neg.long.present.formal"
-  | "neg.long.past.polite";
+  | "neg.long.past.polite"
+  // ── Endings & connectives (the "little words" that trip learners up) ──
+  | "present.plain" // 는다/ㄴ다 — plain declarative "eats / is eating" (verbs)
+  | "adverbial" // -게 — adjective → adverb (예쁘게), also verbs ("so as to")
+  | "prohibition" // -지 마세요 — "don't …" (verbs)
+  | "honorific.command" // -(으)세요 — polite command / honorific (verbs)
+  | "desiderative" // -고 싶어요 — "want to …" (verbs)
+  | "connective.and" // -고 — "and / and then"
+  | "connective.but" // -지만 — "but / although"
+  | "connective.so" // -아서/어서 — "so / and then / because"
+  | "conditional"; // -(으)면 — "if / when"
 
 // ─── Jamo tables ─────────────────────────────────────────────────────────
 
@@ -81,6 +91,7 @@ const J = {
 // Final (jong) indices used by the rules.
 const T = {
   NONE: 0,
+  N: 4, // ㄴ
   L: 8, // ㄹ
   M: 16, // ㅁ
   P: 17, // ㅂ
@@ -253,6 +264,38 @@ function futureStem(stem: string, cls: KoStemClass): string {
   }
 }
 
+/** Drop a trailing ㄹ batchim from the last syllable (leaves other codas). */
+function stripFinalL(s: string): string {
+  const last = decompose(s[s.length - 1]);
+  return last.jong === T.L ? repl(s, compose(last.cho, last.jung, T.NONE)) : s;
+}
+
+/**
+ * Euphonic "으" stem shared by -(으)세요 / -(으)러 etc.: the future adnominal
+ * stem with its ㄹ stripped. This is exactly the -(으) base — consonant stems
+ * keep their 으 (먹으-), vowel stems are bare (가-), every irregular is already
+ * resolved by `futureStem`, and ㄹ-stems correctly LOSE their ㄹ (살 → 사, for
+ * 사세요). Endings where ㄹ-stems KEEP their ㄹ (e.g. -면: 살면) special-case
+ * `l_stem` at the call site instead of using this.
+ */
+function euStem(stem: string, cls: KoStemClass): string {
+  return stripFinalL(futureStem(stem, cls));
+}
+
+/** Plain declarative present (한다체): verbs take 는다/ㄴ다; ㄹ-stems drop ㄹ
+ *  before ㄴ (살다 → 산다). Adjectives use the dictionary form and never reach
+ *  here (the tile is verbs-only). */
+function plainPresent(stem: string, cls: KoStemClass): string {
+  const last = decompose(stem[stem.length - 1]);
+  if (cls === "l_stem") {
+    return repl(stem, compose(last.cho, last.jung, T.N)) + "다"; // 살 → 산다
+  }
+  if (last.jong === T.NONE) {
+    return repl(stem, compose(last.cho, last.jung, T.N)) + "다"; // 가 → 간다, 하 → 한다
+  }
+  return stem + "는다"; // 먹 → 먹는다, 듣 → 듣는다
+}
+
 // ─── Public conjugator ────────────────────────────────────────────────────
 
 function present(stem: string, cls: KoStemClass, level: "polite" | "casual"): string {
@@ -319,6 +362,27 @@ export function conjugateKo(lemma: string, cls: KoStemClass, form: KoFormKey): s
       return stem + "지 않습니다";
     case "neg.long.past.polite":
       return stem + "지 않았어요";
+
+    // ── Endings & connectives ──
+    case "present.plain":
+      return plainPresent(stem, cls);
+    case "adverbial":
+      return stem + "게"; // attaches to the raw stem — no irregular change
+    case "prohibition":
+      return stem + "지 마세요";
+    case "honorific.command":
+      return euStem(stem, cls) + "세요";
+    case "desiderative":
+      return stem + "고 싶어요";
+    case "connective.and":
+      return stem + "고";
+    case "connective.but":
+      return stem + "지만";
+    case "connective.so":
+      return infinitive(stem, cls) + "서";
+    case "conditional":
+      // -(으)면; ㄹ-stems KEEP their ㄹ (살면), unlike -(으)세요.
+      return (cls === "l_stem" ? stem : euStem(stem, cls)) + "면";
   }
 }
 
@@ -401,15 +465,20 @@ function SIBLINGS_FOR(form: KoFormKey): KoFormKey[] {
   // Real neighbours in the same paradigm — wrong tense/politeness are fair
   // distractors (they test that the learner picked the RIGHT cell).
   const groups: KoFormKey[][] = [
-    ["present.polite", "past.polite", "present.formal", "future.polite"],
+    ["present.polite", "past.polite", "present.formal", "future.polite", "present.plain"],
     ["present.casual", "past.casual"],
-    ["progressive.polite", "progressive.casual", "progressive.formal"],
+    ["progressive.polite", "progressive.casual", "progressive.formal", "desiderative"],
     [
       "neg.short.present.polite",
       "neg.short.past.polite",
       "neg.long.present.polite",
       "neg.short.present.casual",
     ],
+    // Connectives are mutually confusable — a great distractor set for each
+    // other ("먹어서" vs "먹으면" vs "먹고" vs "먹지만").
+    ["connective.and", "connective.but", "connective.so", "conditional"],
+    // Commands: prohibition vs honorific, plus the bare adverbial.
+    ["honorific.command", "prohibition", "adverbial"],
   ];
   const group = groups.find((g) => g.includes(form)) ?? [];
   return group.filter((f) => f !== form);

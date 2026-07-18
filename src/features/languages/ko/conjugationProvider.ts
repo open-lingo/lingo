@@ -22,6 +22,7 @@ import type {
   ConjWordClassInfo,
   ConjCheatItem,
   ConjFormationRow,
+  ConjExampleSentence,
 } from "@/shared/conjugation/types";
 import { shuffle, clamp, roundRobinBuild, type QuestionFactory } from "@/shared/conjugation/session";
 import { registerConjugationTrainer } from "@/shared/conjugation/registry";
@@ -179,10 +180,213 @@ const KO_TILES: KoTile[] = [
       R("Long negation", "-지 않아요", "먹다", "먹지 않아요"),
     ],
   },
+
+  // ── Endings & connectives — the "little words" that make KO hard ──────────
+  {
+    id: "desiderative",
+    title: "Want to · -고 싶어요",
+    subtitle: "“I want to …” — attaches straight to the stem. (Verbs only.)",
+    glyph: "싶",
+    colorVar: "--type-want",
+    form: "desiderative",
+    unlockModule: 5,
+    verbsOnly: true,
+    category: "verb",
+    formation: [
+      R("Rule", "stem + 고 싶어요 (no stem change)", "먹다", "먹고 싶어요"),
+      R("Irregulars unaffected", "고 attaches to the raw stem", "듣다", "듣고 싶어요"),
+    ],
+  },
+  {
+    id: "connective-and",
+    title: "And · -고",
+    subtitle: "Links two clauses — “… and (then) …”.",
+    glyph: "고",
+    colorVar: "--type-and",
+    form: "connective.and",
+    unlockModule: 5,
+    verbsOnly: false,
+    category: "verb",
+    formation: [
+      R("Rule", "stem + 고 (no stem change)", "먹다", "먹고"),
+      R("Adjectives too", "same rule", "좋다", "좋고"),
+      R("Irregulars unaffected", "고 attaches raw", "듣다", "듣고"),
+    ],
+  },
+  {
+    id: "honorific-command",
+    title: "Please / command · -(으)세요",
+    subtitle: "Polite command + honorific — “please do …”. (Verbs only.)",
+    glyph: "세",
+    colorVar: "--type-cmd",
+    form: "honorific.command",
+    unlockModule: 6,
+    verbsOnly: true,
+    category: "verb",
+    formation: [
+      R("Consonant stem", "+ 으세요", "먹다", "먹으세요"),
+      R("Vowel stem", "+ 세요", "가다", "가세요"),
+      R("ㄹ stem", "ㄹ drops → 세요", "살다", "사세요"),
+      R("ㄷ irregular", "ㄷ → ㄹ, then 으세요", "듣다", "들으세요"),
+    ],
+  },
+  {
+    id: "adverbial",
+    title: "Adverb · -게",
+    subtitle: "Turns an adjective into an adverb — “prettily”, “easily”.",
+    glyph: "게",
+    colorVar: "--type-adv",
+    form: "adverbial",
+    unlockModule: 6,
+    verbsOnly: false,
+    category: "adjective",
+    formation: [
+      R("Rule", "stem + 게 (no stem change)", "예쁘다", "예쁘게"),
+      R("Irregulars unaffected", "게 attaches raw", "쉽다", "쉽게"),
+    ],
+  },
+  {
+    id: "connective-but",
+    title: "But · -지만",
+    subtitle: "Contrast — “… but / although …”.",
+    glyph: "만",
+    colorVar: "--type-but",
+    form: "connective.but",
+    unlockModule: 7,
+    verbsOnly: false,
+    category: "verb",
+    formation: [
+      R("Rule", "stem + 지만 (no stem change)", "먹다", "먹지만"),
+      R("Adjectives too", "same rule", "춥다", "춥지만"),
+    ],
+  },
+  {
+    id: "connective-so",
+    title: "So / because · -아서/어서",
+    subtitle: "Sequence + cause — “… so / and then …”.",
+    glyph: "서",
+    colorVar: "--type-so",
+    form: "connective.so",
+    unlockModule: 7,
+    verbsOnly: false,
+    category: "verb",
+    formation: [
+      R("Rule", "해요체 stem + 서", "먹다", "먹어서"),
+      R("Vowel stem", "가 → 가서, 하 → 해서", "하다", "해서"),
+      R("Irregulars", "same stem as 해요체", "듣다", "들어서"),
+    ],
+  },
+  {
+    id: "conditional",
+    title: "If / when · -(으)면",
+    subtitle: "Condition — “if / when …”.",
+    glyph: "면",
+    colorVar: "--type-if",
+    form: "conditional",
+    unlockModule: 8,
+    verbsOnly: false,
+    category: "verb",
+    formation: [
+      R("Consonant stem", "+ 으면", "먹다", "먹으면"),
+      R("Vowel stem", "+ 면", "가다", "가면"),
+      R("ㄹ stem", "keeps ㄹ + 면", "살다", "살면"),
+      R("ㄷ irregular", "ㄷ → ㄹ, then 으면", "듣다", "들으면"),
+    ],
+  },
+  {
+    id: "prohibition",
+    title: "Don't · -지 마세요",
+    subtitle: "Negative command — “please don't …”. (Verbs only.)",
+    glyph: "지",
+    colorVar: "--type-proh",
+    form: "prohibition",
+    unlockModule: 8,
+    verbsOnly: true,
+    category: "verb",
+    formation: [
+      R("Rule", "stem + 지 마세요", "먹다", "먹지 마세요"),
+      R("Irregulars unaffected", "지 attaches raw", "듣다", "듣지 마세요"),
+    ],
+  },
+  {
+    id: "present-plain",
+    title: "Plain present · -ㄴ다/는다",
+    subtitle: "Plain/written declarative — “eats / is eating”. (Verbs only.)",
+    glyph: "는",
+    colorVar: "--type-plain",
+    form: "present.plain",
+    unlockModule: 9,
+    verbsOnly: true,
+    category: "verb",
+    formation: [
+      R("Consonant stem", "+ 는다", "먹다", "먹는다"),
+      R("Vowel stem", "add ㄴ + 다", "가다", "간다"),
+      R("ㄹ stem", "ㄹ drops → ㄴ다", "살다", "산다"),
+      R("하다", "→ 한다", "공부하다", "공부한다"),
+    ],
+  },
 ];
 
+// ─── Sections (hub grouping) + example sentences ─────────────────────────
+
+/** The four learner-facing sections. Order here is the hub's section order. */
+const GROUP_SPEECH = "Speech level";
+const GROUP_TENSE = "Tense & aspect";
+const GROUP_CONNECT = "Connecting";
+const GROUP_REQUEST = "Requests & negation";
+
+const TILE_GROUP: Record<string, string> = {
+  "present-polite": GROUP_SPEECH,
+  "present-casual": GROUP_SPEECH,
+  "present-formal": GROUP_SPEECH,
+  "present-plain": GROUP_SPEECH,
+  past: GROUP_TENSE,
+  future: GROUP_TENSE,
+  progressive: GROUP_TENSE,
+  "connective-and": GROUP_CONNECT,
+  "connective-but": GROUP_CONNECT,
+  "connective-so": GROUP_CONNECT,
+  conditional: GROUP_CONNECT,
+  adverbial: GROUP_CONNECT,
+  "honorific-command": GROUP_REQUEST,
+  prohibition: GROUP_REQUEST,
+  desiderative: GROUP_REQUEST,
+  negation: GROUP_REQUEST,
+};
+
+/** Section render order for the hub. */
+const GROUP_ORDER = [GROUP_SPEECH, GROUP_TENSE, GROUP_CONNECT, GROUP_REQUEST];
+
+const ex = (text: string, translation: string): ConjExampleSentence => ({ text, translation });
+
+/** One example sentence per form — the conjugation shown in real use. */
+const TILE_EXAMPLE: Record<string, ConjExampleSentence> = {
+  "present-polite": ex("저는 커피를 마셔요.", "I drink coffee."),
+  "present-casual": ex("지금 뭐 해?", "What are you doing now?"),
+  "present-formal": ex("저는 은행에서 일합니다.", "I work at a bank."),
+  "present-plain": ex("그는 매일 책을 읽는다.", "He reads a book every day."),
+  past: ex("어제 영화를 봤어요.", "I watched a movie yesterday."),
+  future: ex("내일 친구를 만날 거예요.", "I'll meet a friend tomorrow."),
+  progressive: ex("지금 밥을 먹고 있어요.", "I'm eating right now."),
+  "connective-and": ex("밥을 먹고 커피를 마셔요.", "I eat and (then) drink coffee."),
+  "connective-but": ex("작지만 좋아요.", "It's small but good."),
+  "connective-so": ex("배가 아파서 병원에 가요.", "My stomach hurts, so I'm going to the hospital."),
+  conditional: ex("비가 오면 집에 있어요.", "If it rains, I stay home."),
+  adverbial: ex("글씨를 예쁘게 써요.", "I write the letters prettily."),
+  "honorific-command": ex("여기 앉으세요.", "Please sit here."),
+  prohibition: ex("그 물을 마시지 마세요.", "Please don't drink that water."),
+  desiderative: ex("물을 마시고 싶어요.", "I want to drink water."),
+  negation: ex("저는 고기를 안 먹어요.", "I don't eat meat."),
+};
+
 const TILE_BY_ID = new Map(KO_TILES.map((t) => [t.id, t]));
-const TILE_ORDER = KO_TILES.map((t) => t.id);
+// Hub order follows the sections, not the raw tile order.
+const TILE_ORDER = [...KO_TILES]
+  .sort(
+    (a, b) =>
+      GROUP_ORDER.indexOf(TILE_GROUP[a.id] ?? "") - GROUP_ORDER.indexOf(TILE_GROUP[b.id] ?? ""),
+  )
+  .map((t) => t.id);
 
 const FORM_LABELS: Record<string, string> = {
   "present.polite": "해요체 (polite)",
@@ -192,6 +396,15 @@ const FORM_LABELS: Record<string, string> = {
   "future.polite": "Future (-(으)ㄹ 거예요)",
   "progressive.polite": "Progressive (-고 있어요)",
   "neg.short.present.polite": "Negation (안 …)",
+  "present.plain": "Plain present (-ㄴ다/는다)",
+  adverbial: "Adverb (-게)",
+  prohibition: "Don't (-지 마세요)",
+  "honorific.command": "Command (-(으)세요)",
+  desiderative: "Want to (-고 싶어요)",
+  "connective.and": "And (-고)",
+  "connective.but": "But (-지만)",
+  "connective.so": "So / because (-아서/어서)",
+  conditional: "If / when (-(으)면)",
 };
 
 // ─── Word-class chip metadata ─────────────────────────────────────────────
@@ -296,6 +509,7 @@ function makeQuestion(lemma: KoLemma, form: KoFormKey, pool: KoLemma[]): ConjTra
     form,
     correct,
     options: shuffle([correct, ...distractors.slice(0, 3)]),
+    isAdjective: lemma.pos === "adjective",
   };
 }
 
@@ -308,6 +522,10 @@ function toMeta(tile: KoTile): ConjTrainerTypeMeta {
     title: tile.title,
     subtitle: tile.subtitle,
     category: tile.category,
+    group: TILE_GROUP[tile.id],
+    // Non-verb-only forms include descriptive verbs (adjectives) in their pool.
+    adjective: !tile.verbsOnly,
+    example: TILE_EXAMPLE[tile.id],
     glyph: tile.glyph,
     colorVar: tile.colorVar,
     unlockModule: tile.unlockModule,
@@ -325,10 +543,16 @@ const KO_SCOPE_CSS = `
 .conj-scope {
   --type-haeyo:#047857; --type-banmal:#7c3aed; --type-formal:#1d4ed8;
   --type-past:#b45309; --type-future:#0e7490; --type-prog:#be185d; --type-neg:#b91c1c;
+  --type-want:#c2410c; --type-and:#0f766e; --type-cmd:#4338ca; --type-adv:#a16207;
+  --type-but:#9f1239; --type-so:#15803d; --type-if:#6d28d9; --type-proh:#be123c;
+  --type-plain:#0369a1;
 }
 .dark .conj-scope {
   --type-haeyo:#34d399; --type-banmal:#c084fc; --type-formal:#60a5fa;
   --type-past:#fbbf24; --type-future:#22d3ee; --type-prog:#f472b6; --type-neg:#f87171;
+  --type-want:#fb923c; --type-and:#2dd4bf; --type-cmd:#818cf8; --type-adv:#facc15;
+  --type-but:#fb7185; --type-so:#4ade80; --type-if:#a78bfa; --type-proh:#fda4af;
+  --type-plain:#38bdf8;
 }
 .conj-tile-suggest { animation: conj-wobble 4s ease-in-out infinite; }
 @keyframes conj-wobble { 2% { transform: rotate(1.1deg); } 4% { transform: rotate(-1.1deg); } 6% { transform: rotate(0); } }
