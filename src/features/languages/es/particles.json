@@ -1,0 +1,25 @@
+{
+  "languageId": "es",
+  "particles": [
+    { "id": "a", "form": "a", "meaning": "to / at (direction, personal 'a')", "usage": "Direction (voy a casa), a specific time (a las dos), and before a person as direct/indirect object (veo a María)." },
+    { "id": "de", "form": "de", "meaning": "of / from", "usage": "Possession (el libro de Ana), origin (soy de México), and material/topic (una mesa de madera)." },
+    { "id": "en", "form": "en", "meaning": "in / on / at", "usage": "Location (en casa), months/years (en julio), and means of transport (en tren)." },
+    { "id": "con", "form": "con", "meaning": "with", "usage": "Company (con mi amigo) or instrument (escribo con lápiz). con + mí/ti → conmigo / contigo." },
+    { "id": "sin", "form": "sin", "meaning": "without", "usage": "Absence (café sin azúcar). Followed by an infinitive = '-ing' negative (sin hablar)." },
+    { "id": "por", "form": "por", "meaning": "for / by / through / because of", "usage": "Cause/reason (por ti), movement through (por el parque), exchange (por diez euros), and the doer in passives (por Cervantes). Contrast with para." },
+    { "id": "para", "form": "para", "meaning": "for / in order to / toward", "usage": "Purpose/goal (para aprender), recipient (para ti), destination (salgo para Madrid), and deadline (para el lunes). Contrast with por." },
+    { "id": "sobre", "form": "sobre", "meaning": "on / about / over", "usage": "Physical position (sobre la mesa) or topic (un libro sobre historia)." },
+    { "id": "hasta", "form": "hasta", "meaning": "until / up to / even", "usage": "Limit in time or space (hasta mañana, hasta la esquina). Also 'even' for emphasis." },
+    { "id": "desde", "form": "desde", "meaning": "from / since", "usage": "Starting point in time or space (desde ayer, desde aquí). Pairs with hasta: desde … hasta …." },
+    { "id": "entre", "form": "entre", "meaning": "between / among", "usage": "Position between two or more things (entre tú y yo, entre los árboles)." },
+    { "id": "hacia", "form": "hacia", "meaning": "toward / around", "usage": "Approximate direction (camino hacia el mar) or approximate time (hacia las cinco)." },
+    { "id": "según", "form": "según", "meaning": "according to / depending on", "usage": "Source of info (según el mapa) or 'it depends' (según)." },
+    { "id": "contra", "form": "contra", "meaning": "against", "usage": "Opposition or physical contact (contra la pared, jugar contra el equipo)." }
+  ],
+  "sections": [
+    { "id": "place-direction", "name": "Place & direction", "particleIds": ["en", "a", "de", "hacia", "entre", "sobre"] },
+    { "id": "origin-limit", "name": "Origin & limit", "particleIds": ["desde", "hasta"] },
+    { "id": "company-means", "name": "Company & means", "particleIds": ["con", "sin", "por"] },
+    { "id": "purpose-relation", "name": "Purpose & relation", "particleIds": ["para", "según", "contra"] }
+  ]
+}

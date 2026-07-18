@@ -136,7 +136,7 @@ const PILLARS: Pillar[] = [
         descKey: "practice.pillars.grammar.particlesDesc",
         descDefault: "Reference guide and meanings",
         route: "practice/particles",
-        languages: ["ja", "ko"],
+        languages: ["ja", "ko", "es"],
       },
       {
         id: "counters",

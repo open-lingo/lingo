@@ -1,6 +1,7 @@
 import type { ParticlesData } from "@/features/practice/data/types";
 import koParticles from "@/features/languages/ko/particles.json";
 import jaParticles from "@/features/practice/data/ja.json";
+import esParticles from "@/features/languages/es/particles.json";
 
 /**
  * Deck loading was historically backed by static JSON stub decks
@@ -16,6 +17,7 @@ import jaParticles from "@/features/practice/data/ja.json";
 const particlesByLang: Record<string, ParticlesData> = {
   ko: koParticles as ParticlesData,
   ja: jaParticles as ParticlesData,
+  es: esParticles as ParticlesData,
 };
 
 export function getParticlesForLanguage(languageId: string): ParticlesData | null {

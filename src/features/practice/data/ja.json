@@ -1,19 +1,28 @@
 {
   "languageId": "ja",
   "particles": [
-    { "id": "wa", "form": "は", "meaning": "topic marker", "usage": "Marks the topic of the sentence. Pronounced 'wa' when used as a particle." },
-    { "id": "ga", "form": "が", "meaning": "subject marker", "usage": "Marks the subject, often introduces new information or emphasis." },
-    { "id": "wo", "form": "を", "meaning": "object marker", "usage": "Marks the direct object of a verb. Pronounced 'o'." },
-    { "id": "ni", "form": "に", "meaning": "to / at / in (direction, time, location)", "usage": "Direction of movement, specific time, or existence location." },
-    { "id": "de", "form": "で", "meaning": "at / by means of (location of action, tool)", "usage": "Where an action takes place, or the means/tool used." },
-    { "id": "no", "form": "の", "meaning": "possessive / of", "usage": "Connects nouns: A の B = B of A / A's B." },
-    { "id": "to", "form": "と", "meaning": "and / with / quotation", "usage": "Lists items, indicates a companion, or marks quoted speech." },
-    { "id": "ka", "form": "か", "meaning": "question marker", "usage": "Added at end of sentence to form a question." }
+    { "id": "wa", "form": "は", "meaning": "topic marker", "usage": "Marks the topic — 'as for …'. Written は but pronounced 'wa' as a particle." },
+    { "id": "ga", "form": "が", "meaning": "subject marker", "usage": "Marks the subject; introduces new info, emphasis, or the thing that exists/is wanted." },
+    { "id": "wo", "form": "を", "meaning": "object marker", "usage": "Marks the direct object of a verb. Written を, pronounced 'o'." },
+    { "id": "ni", "form": "に", "meaning": "to / at / in / on", "usage": "Destination, existence location, specific time, or the indirect object (receiver)." },
+    { "id": "de", "form": "で", "meaning": "at / by / with (means)", "usage": "Where an action happens (バスで行く by bus), or the tool/means used." },
+    { "id": "e", "form": "へ", "meaning": "to / toward (direction)", "usage": "Direction of movement — overlaps with に but stresses the heading. Written へ, pronounced 'e'." },
+    { "id": "no", "form": "の", "meaning": "possessive / of", "usage": "Links nouns: A の B = B of A / A's B. Also nominalizes and softens sentence-final questions." },
+    { "id": "to", "form": "と", "meaning": "and / with / quotation", "usage": "Exhaustive 'and' between nouns, a companion ('with'), or marks quoted speech (…と言う)." },
+    { "id": "ya", "form": "や", "meaning": "and (partial list)", "usage": "'And' for a non-exhaustive list — 'things like A and B (among others)'." },
+    { "id": "mo", "form": "も", "meaning": "also / too / even", "usage": "'Also/too' — replaces は/が/を. Repeated も…も = 'both … and …'." },
+    { "id": "kara", "form": "から", "meaning": "from / since / because", "usage": "Starting point in space/time (東京から), or 'because' after a clause." },
+    { "id": "made", "form": "まで", "meaning": "until / up to / as far as", "usage": "End point in space/time (駅まで). Pairs with から for a range: A から B まで." },
+    { "id": "ka", "form": "か", "meaning": "question marker", "usage": "Sentence-final — turns a statement into a question. Also 'or' between choices." },
+    { "id": "ne", "form": "ね", "meaning": "…right? / seeking agreement", "usage": "Sentence-final softener — invites the listener to agree ('nice, isn't it?')." },
+    { "id": "yo", "form": "よ", "meaning": "…you know / assertion", "usage": "Sentence-final emphasis — tells the listener something new or asserts a point." }
   ],
   "sections": [
     { "id": "topic-subject", "name": "Topic & subject", "particleIds": ["wa", "ga"] },
     { "id": "object", "name": "Object", "particleIds": ["wo"] },
-    { "id": "location", "name": "Location & means", "particleIds": ["ni", "de"] },
-    { "id": "other", "name": "Other", "particleIds": ["no", "to", "ka"] }
+    { "id": "place-direction", "name": "Place, direction & means", "particleIds": ["ni", "de", "e"] },
+    { "id": "connecting", "name": "Connecting nouns", "particleIds": ["no", "to", "ya", "mo"] },
+    { "id": "range-source", "name": "Range & source", "particleIds": ["kara", "made"] },
+    { "id": "sentence-ending", "name": "Sentence-ending", "particleIds": ["ka", "ne", "yo"] }
   ]
 }
