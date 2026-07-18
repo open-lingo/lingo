@@ -93,6 +93,11 @@ const QaTestDrivePage = lazyRetry(
 const HomeRestructureMockup = lazyRetry(
   () => import("@/features/home/dev/HomeRestructureMockup"),
 );
+// Throwaway Home redesign comparison routes (/home-1 … /home-8). Remove with
+// the src/features/home/variants/ folder once a direction is picked.
+const HomeVariantsRoute = lazyRetry(
+  () => import("@/features/home/variants/HomeVariantsRoute"),
+);
 const TransitLearnPage = lazyRetry(
   () => import("@/features/learn/TransitLearnPage"),
 );
@@ -384,6 +389,7 @@ const router = createBrowserRouter([
       { index: true, element: <RootRoute /> },
       { path: "landing", element: <LandingRoute /> },
       { path: "home", element: <ProtectedHome /> },
+      { path: "home-1", element: <HomeVariantsRoute /> },
       { path: "privacy", element: <PrivacyPolicyPage /> },
       { path: "terms", element: <TermsOfServicePage /> },
       { path: "about", element: <AboutPage /> },
