@@ -97,7 +97,85 @@ export function getTtsUrl(text: string, lang: string = defaultTtsLang): string |
 }
 
 export function hasTtsAudio(text: string, lang: string = defaultTtsLang): boolean {
-  return getTtsUrl(text, lang) !== null;
+  return getTtsUrl(text, lang) !== null || canSynthesize(lang);
+}
+
+// ---------------------------------------------------------------------------
+// Browser speech-synthesis fallback (non-JA manifest misses).
+//
+// JA ships a COMPLETE recorded corpus, so a JA miss means brand-new content;
+// we stay silent there rather than drop to a robotic voice mid-lesson. Every
+// OTHER course ships few/no clips — KO shipped ZERO — so without this fallback
+// their audio is silent ("tts not working for korean", Spencer 2026-07-17).
+// We speak the text with the correct BCP-47 language so the browser never
+// picks, e.g., a Japanese voice for Korean text ("it translates to japanese").
+// ---------------------------------------------------------------------------
+
+const BCP47: Record<string, string> = {
+  ja: "ja-JP",
+  ko: "ko-KR",
+  es: "es-ES",
+  en: "en-US",
+};
+
+function bcp47For(lang: string): string {
+  return BCP47[lang] ?? lang;
+}
+
+function synthSupported(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    "speechSynthesis" in window &&
+    typeof SpeechSynthesisUtterance !== "undefined"
+  );
+}
+
+/** JA keeps its recordings-only behavior; every other language may fall back
+ *  to synthesis when the manifest has no clip. */
+function canSynthesize(lang: string): boolean {
+  return lang !== "ja" && synthSupported();
+}
+
+/** Best voice for a locale: exact match → language-prefix match → null (let
+ *  the engine choose by `utterance.lang`). getVoices() can be empty until the
+ *  async `voiceschanged` event; null is fine — `lang` alone still steers the
+ *  engine away from the wrong-language voice. */
+function pickVoice(tag: string): SpeechSynthesisVoice | null {
+  if (!synthSupported()) return null;
+  const voices = window.speechSynthesis.getVoices();
+  const lower = tag.toLowerCase();
+  const prefix = lower.split("-")[0];
+  return (
+    voices.find((v) => v.lang.toLowerCase() === lower) ??
+    voices.find((v) => v.lang.toLowerCase().startsWith(prefix)) ??
+    null
+  );
+}
+
+let activeUtterance: SpeechSynthesisUtterance | null = null;
+
+/** Speak `text` via the platform TTS voice for `lang`. No-op for JA or when
+ *  synthesis is unsupported. Cancels any in-flight utterance so clips never
+ *  overlap across steps. Returns the utterance (or null) so callers can chain
+ *  on `onend`. */
+function speakViaSynthesis(text: string, lang: string): SpeechSynthesisUtterance | null {
+  if (!canSynthesize(lang) || !text) return null;
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const tag = bcp47For(lang);
+  u.lang = tag;
+  const voice = pickVoice(tag);
+  if (voice) u.voice = voice;
+  u.volume = getAudioVolume();
+  activeUtterance = u;
+  const clear = () => {
+    if (activeUtterance === u) activeUtterance = null;
+  };
+  u.onend = clear;
+  u.onerror = clear;
+  synth.speak(u);
+  return u;
 }
 
 // ---------------------------------------------------------------------------
@@ -241,6 +319,8 @@ export function stopAllAudio(): void {
     }
   }
   activeSources.clear();
+  if (synthSupported()) window.speechSynthesis.cancel();
+  activeUtterance = null;
   stopLocalAudio();
 }
 
@@ -272,7 +352,10 @@ function playBuffer(buffer: AudioBuffer): void {
 
 export async function playJaAudio(text: string, lang: string = defaultTtsLang): Promise<void> {
   const url = getTtsUrl(text, lang);
-  if (!url) return;
+  if (!url) {
+    speakViaSynthesis(text, lang);
+    return;
+  }
   const buf = await loadBuffer(url);
   if (!buf) return;
   playBuffer(buf);
@@ -299,7 +382,27 @@ export async function playJaAudioToEnd(
   voice: VoiceColor = {},
 ): Promise<void> {
   const url = getTtsUrl(text, lang);
-  if (!url) return;
+  if (!url) {
+    // Non-JA fallback: speak via the platform voice and resolve when it
+    // finishes, so dialogue sequencers don't stack turns. Timeout guards a
+    // suspended/blocked synth engine from hanging the sequence forever.
+    const u = speakViaSynthesis(text, lang);
+    if (!u) return;
+    await new Promise<void>((resolve) => {
+      let done = false;
+      const finish = () => {
+        if (!done) {
+          done = true;
+          resolve();
+        }
+      };
+      u.onend = finish;
+      u.onerror = finish;
+      // ~90ms/char is a generous upper bound for platform TTS pacing.
+      setTimeout(finish, text.length * 90 + 2000);
+    });
+    return;
+  }
   const buf = await loadBuffer(url);
   if (!buf) return;
   const c = getContext();
@@ -337,10 +440,18 @@ export async function autoPlayJaAudio(
   lang: string = defaultTtsLang,
 ): Promise<void> {
   if (!text) return;
-  const url = getTtsUrl(text, lang);
-  if (!url) return;
   const key = `${playbackKey}:${lang}:${text}`;
   if (playedAutoKeys.has(key)) return;
+  const url = getTtsUrl(text, lang);
+  if (!url) {
+    // No recorded clip — speak via the platform voice (non-JA only). Mark
+    // the key so the once-per-session autoplay contract still holds.
+    if (canSynthesize(lang)) {
+      playedAutoKeys.add(key);
+      speakViaSynthesis(text, lang);
+    }
+    return;
+  }
   playedAutoKeys.add(key);
   const buf = await loadBuffer(url);
   if (!buf) return;

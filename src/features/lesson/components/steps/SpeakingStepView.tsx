@@ -18,6 +18,7 @@ import {
   isSpeechRecognitionSupported,
   pushSpeechLog,
   scoreAlternatives,
+  scoreAlternativesGeneric,
   tiersForTarget,
   useSpeechRecognition,
   useWhisperRecognition,
@@ -27,6 +28,25 @@ import {
   type UseWhisperRecognitionApi,
   type Verdict,
 } from "@/shared/speech";
+import { useLang } from "@/shared/hooks/useLangPath";
+
+/**
+ * Active-course language → speech-recognition locale codes. Without this
+ * the recognizer defaulted to Japanese for EVERY course, so a Korean
+ * learner speaking Korean had their audio transcribed as Japanese
+ * ("translates to japanese", Spencer 2026-07-17). Web Speech wants a
+ * BCP-47 tag; Whisper wants an ISO-639-1 code.
+ */
+const SPEECH_LOCALES: Record<string, { web: string; whisper: string }> = {
+  ja: { web: "ja-JP", whisper: "ja" },
+  ko: { web: "ko-KR", whisper: "ko" },
+  es: { web: "es-ES", whisper: "es" },
+  en: { web: "en-US", whisper: "en" },
+};
+
+function speechLocalesFor(lang: string): { web: string; whisper: string } {
+  return SPEECH_LOCALES[lang] ?? { web: lang, whisper: lang };
+}
 
 type Props = {
   step: SpeakingStep;
@@ -226,15 +246,21 @@ function SpeakingStepRecognized({
   // recognition session (via the `start` dependency chain).
   const config = useMemo(() => getSpeechConfig(), []);
   const usingWhisper = config.engine === "whisper";
+  // Recognize in the ACTIVE course language, not always Japanese. `useLang`
+  // is stable for the lifetime of this mount (route-derived), so the hooks
+  // below keep a fixed locale — rules-of-hooks safe.
+  const lang = useLang();
+  const isJa = lang === "ja";
+  const locales = useMemo(() => speechLocalesFor(lang), [lang]);
   // Both hooks return a shape compatible with `UseSpeechRecognitionApi`.
   // We always mount one — the engine dial picks which. React's rules of
   // hooks are respected because `usingWhisper` is stable across the
   // lifetime of this mount (sessionStorage-backed, never changes
   // mid-render).
-  const webRecog = useSpeechRecognition("ja-JP", {
+  const webRecog = useSpeechRecognition(locales.web, {
     maxAlternatives: config.maxAlternatives,
   });
-  const whisperRecog: UseWhisperRecognitionApi = useWhisperRecognition("ja");
+  const whisperRecog: UseWhisperRecognitionApi = useWhisperRecognition(locales.whisper);
   const recog: UseSpeechRecognitionApi | UseWhisperRecognitionApi = usingWhisper
     ? whisperRecog
     : webRecog;
@@ -383,16 +409,19 @@ function SpeakingStepRecognized({
 
     let cancelled = false;
     void (async () => {
-      // Whisper (and sometimes Safari on-device) returns natural-
-      // orthography Japanese — kanji included. The scorer normalizes
-      // kana but doesn't read kanji, so we convert before scoring.
-      // Pure-kana transcripts short-circuit inside convertToHiragana.
-      const converted = await Promise.all(
-        rawAlts.map(async (a) => ({
-          ...a,
-          transcript: await convertToHiragana(a.transcript),
-        })),
-      );
+      // JA only: Whisper (and sometimes Safari on-device) returns natural-
+      // orthography Japanese — kanji included. The kana scorer doesn't read
+      // kanji, so we convert before scoring. Pure-kana transcripts short-
+      // circuit inside convertToHiragana. Non-JA courses (ko/es/…) keep the
+      // raw transcript — kuroshiro would mangle Hangul / Latin text.
+      const converted = isJa
+        ? await Promise.all(
+            rawAlts.map(async (a) => ({
+              ...a,
+              transcript: await convertToHiragana(a.transcript),
+            })),
+          )
+        : rawAlts.map((a) => ({ ...a }));
       if (cancelled) return;
 
       // Key by the converted form (which is what `AlternativeScore.raw`
@@ -409,8 +438,15 @@ function SpeakingStepRecognized({
       // Mora-aware thresholds: short utterances (<5 mora) get a much
       // looser perfect bar because Whisper struggles on sub-second audio.
       // Explicit ?speech-perfect / ?speech-close overrides bypass scaling.
-      const tiers = tiersForTarget(step.targetPhrase, config);
-      const result = scoreAlternatives(step.targetPhrase, converted, tiers);
+      // JA uses mora-tiered kana scoring; every other language grades with
+      // the script-agnostic scorer (kana/mora logic doesn't transfer).
+      const result = isJa
+        ? scoreAlternatives(
+            step.targetPhrase,
+            converted,
+            tiersForTarget(step.targetPhrase, config),
+          )
+        : scoreAlternativesGeneric(step.targetPhrase, converted);
       setMatch(result);
 
       const bestTranscript = result.bestAlternative?.raw ?? "";
@@ -698,7 +734,9 @@ function SpeakingStepRecognized({
             <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
               Heard
             </span>
-            <span className="font-japanese" lang="ja">{recog.transcript}</span>
+            <span className={isJa ? "font-japanese" : undefined} lang={isJa ? "ja" : lang}>
+              {recog.transcript}
+            </span>
           </p>
         )}
 
@@ -708,6 +746,8 @@ function SpeakingStepRecognized({
             targetKana={step.targetPhrase}
             verdict={verdict}
             showRomaji={effectiveShowRomaji}
+            isJa={isJa}
+            lang={lang}
           />
         )}
 
@@ -820,19 +860,27 @@ function TranscriptCard({
   targetKana,
   verdict,
   showRomaji,
+  isJa,
+  lang,
 }: {
   transcriptKana: string;
   targetKana: string;
   verdict: LocalVerdict;
   showRomaji: boolean;
+  isJa: boolean;
+  lang: string;
 }) {
   const passed = verdict === "perfect" || verdict === "close";
   // After a fail, show the target side-by-side so the learner can compare
   // what they said to what was wanted. ("auto-pass" was retired
   // 2026-05-18 — the only non-passed branch is now "try-again".)
   const showSideBySide = !passed && verdict === "try-again";
-  const transcriptRomaji = showRomaji ? kanaToRomajiHint(transcriptKana) : "";
-  const targetRomaji = showRomaji ? kanaToRomajiHint(targetKana) : "";
+  // The romaji hint is a kana→romaji map — meaningful only for JA. Non-JA
+  // courses carry their own romanization elsewhere; skip it here.
+  const transcriptRomaji = showRomaji && isJa ? kanaToRomajiHint(transcriptKana) : "";
+  const targetRomaji = showRomaji && isJa ? kanaToRomajiHint(targetKana) : "";
+  const scriptClass = isJa ? "font-japanese " : "";
+  const scriptLang = isJa ? "ja" : lang;
 
   return (
     <div className="w-full rounded-xl bg-surface-muted px-4 py-3 text-base text-text-primary">
@@ -847,7 +895,7 @@ function TranscriptCard({
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             You said
           </p>
-          <p className="font-japanese text-xl text-text-primary" lang="ja">
+          <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
             {transcriptKana || "—"}
           </p>
           {showRomaji && transcriptRomaji && (
@@ -863,7 +911,7 @@ function TranscriptCard({
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Target
             </p>
-            <p className="font-japanese text-xl text-text-primary" lang="ja">
+            <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
               {targetKana}
             </p>
             {showRomaji && targetRomaji && (

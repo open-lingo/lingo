@@ -6,6 +6,8 @@ export {
   normalizeTarget,
   charOverlap,
   scoreAlternatives,
+  scoreAlternativesGeneric,
+  normalizeGeneric,
   DEFAULT_TIERS,
   type Verdict,
   type MatchTiers,

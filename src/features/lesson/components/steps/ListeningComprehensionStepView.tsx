@@ -4,7 +4,7 @@ import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { getTtsUrl } from "@/shared/tts";
+import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
@@ -43,11 +43,16 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
     },
   });
 
+  // Non-JA courses may have no recorded clip; handlePlay falls back to the
+  // platform voice so a listening exercise is never un-hearable.
   const audioUrl = step.transcript ? getTtsUrl(step.transcript) : null;
 
   function handlePlay() {
-    if (!audioUrl) return;
-    playLocalAudio(audioUrl);
+    if (audioUrl) {
+      playLocalAudio(audioUrl);
+      return;
+    }
+    if (step.transcript) playJaAudio(step.transcript);
   }
 
   function handleSubmit() {

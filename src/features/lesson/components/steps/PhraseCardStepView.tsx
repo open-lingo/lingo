@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { PhraseCardStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
-import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/tts";
+import { playJaAudio, useAutoPlayJaAudio, hasTtsAudio } from "@/shared/tts";
 import { ContinueButton } from "../ContinueButton";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";
@@ -31,7 +31,9 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
   // Cheap guard: if the manifest is missing this audio, the play button
   // becomes a no-op rather than throwing. (Should never happen in
   // production but useful when authoring new content.)
-  const hasAudio = getTtsUrl(step.kana) !== null;
+  // hasTtsAudio (not getTtsUrl) so non-JA courses with no recorded clip still
+  // expose the speaker — playJaAudio falls back to the platform voice.
+  const hasAudio = hasTtsAudio(step.kana);
 
   function handlePlay() {
     if (!hasAudio) return;

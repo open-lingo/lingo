@@ -138,10 +138,12 @@ const koVocabArt: VocabArtResolver = {
   },
 };
 
-// ── ttsManifest (empty — KO ships no TTS clips, and the app has NO
-//      browser speechSynthesis fallback, so KO audio is currently silent.
-//      The fix is a real clip corpus, per the ES precedent of a generated
-//      mp3 corpus — not a runtime fallback.) ─────────────────────────────
+// ── ttsManifest (empty — KO ships no recorded TTS clips yet). Audio is no
+//      longer silent: `shared/tts` now falls back to the browser
+//      `speechSynthesis` voice for non-JA manifest misses, forced to the
+//      ko-KR locale (2026-07-17). A generated mp3 corpus (per the ES
+//      precedent) is still the higher-quality end state; the synthesis
+//      fallback is the runtime stopgap until then. ─────────────────────────
 
 const koTtsManifest: TtsManifest = {};
 

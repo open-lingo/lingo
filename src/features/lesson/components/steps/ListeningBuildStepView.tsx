@@ -5,7 +5,7 @@ import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { getTtsUrl } from "@/shared/tts";
+import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { playSfx } from "@/shared/audio/sfx";
@@ -133,10 +133,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
 
   useLessonKeyboard({ onEnter: handleEnter });
 
+  // Non-JA courses may ship no recorded clip; fall back to the platform
+  // voice so the listen-and-build exercise stays playable.
   const audioUrl = getTtsUrl(step.targetSentence);
   function handlePlay() {
-    if (!audioUrl) return;
-    playLocalAudio(audioUrl);
+    if (audioUrl) {
+      playLocalAudio(audioUrl);
+      return;
+    }
+    playJaAudio(step.targetSentence);
   }
 
   const hasSubmittedWrong = submitted && !isCorrect;

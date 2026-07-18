@@ -18,6 +18,7 @@ import {
   normalizeTarget,
   numbersToKana,
   scoreAlternatives,
+  scoreAlternativesGeneric,
 } from "./loose-match";
 
 describe("normalizeJa", () => {
@@ -292,5 +293,40 @@ describe("numbersToKana — Whisper digit inverse-normalization (2026-07-17)", (
       tiers,
     );
     expect(r.verdict === "perfect" || r.verdict === "close").toBe(true);
+  });
+});
+
+describe("scoreAlternativesGeneric (non-JA / Korean)", () => {
+  it("exact Hangul match is perfect", () => {
+    const r = scoreAlternativesGeneric("안녕하세요", [{ transcript: "안녕하세요" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("tolerates trailing punctuation + whitespace", () => {
+    const r = scoreAlternativesGeneric("반갑습니다", [{ transcript: " 반갑습니다. " }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("substring (target within transcript) still passes", () => {
+    const r = scoreAlternativesGeneric("친구", [{ transcript: "제 친구예요" }]);
+    expect(r.verdict === "perfect" || r.verdict === "close").toBe(true);
+  });
+
+  it("a clearly-wrong Korean transcript is try-again", () => {
+    const r = scoreAlternativesGeneric("선생님", [{ transcript: "고맙습니다" }]);
+    expect(r.verdict).toBe("try-again");
+  });
+
+  it("does NOT transcribe-as-Japanese: Japanese output vs Korean target fails", () => {
+    // Regression: the JA recognizer used to hear Korean speech as Japanese.
+    // Now that ko recognizes in ko, a stray Japanese transcript must NOT
+    // score as a pass against a Korean target.
+    const r = scoreAlternativesGeneric("안녕하세요", [{ transcript: "こんにちは" }]);
+    expect(r.verdict).toBe("try-again");
+  });
+
+  it("Spanish exact match ignores case + accents-as-written", () => {
+    const r = scoreAlternativesGeneric("Buenos días", [{ transcript: "buenos días" }]);
+    expect(r.verdict).toBe("perfect");
   });
 });

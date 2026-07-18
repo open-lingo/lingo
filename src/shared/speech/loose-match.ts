@@ -614,6 +614,61 @@ export function scoreAlternatives(
 }
 
 /**
+ * Script-agnostic normalizer for non-JA speech grading. The JA path folds
+ * kana/romaji/kanji; that logic mangles Korean Hangul or Spanish text, so
+ * non-JA courses normalize generically instead: Unicode NFC-fold, drop
+ * whitespace + shared punctuation, and lowercase (a harmless no-op for
+ * scripts without case, e.g. Hangul).
+ */
+const GENERIC_PUNCT_RE = /[\s　.,!?。、！？·・「」『』（）()"'?!;:~-]+/g;
+
+export function normalizeGeneric(s: string): string {
+  return (s ?? "").normalize("NFC").replace(GENERIC_PUNCT_RE, "").toLowerCase().trim();
+}
+
+/**
+ * Language-neutral counterpart to {@link scoreAlternatives}: identical
+ * exact / substring / char-overlap tiering, but a script-agnostic
+ * normalizer. Used by every non-`ja` course (ko, es, …) where the
+ * kana/mora machinery doesn't apply. Returns the same {@link MatchResult}
+ * shape so the caller is engine-agnostic.
+ */
+export function scoreAlternativesGeneric(
+  target: string,
+  alternatives: ReadonlyArray<{ transcript: string; confidence?: number }>,
+  tiers: MatchTiers = DEFAULT_TIERS,
+): MatchResult {
+  const targetNorm = normalizeGeneric(target);
+  const scored: AlternativeScore[] = alternatives.map((a) => {
+    const normalized = normalizeGeneric(a.transcript);
+    let score: number;
+    if (!normalized || !targetNorm) score = 0;
+    else if (normalized === targetNorm) score = 1;
+    else if (normalized.includes(targetNorm) || targetNorm.includes(normalized)) score = 1;
+    else score = charOverlap(normalized, targetNorm);
+    return { raw: a.transcript, normalized, score, confidence: a.confidence };
+  });
+
+  let best: AlternativeScore | null = null;
+  for (const s of scored) {
+    if (!best || s.score > best.score) best = s;
+  }
+  const bestScore = best?.score ?? 0;
+  let verdict: Verdict;
+  if (bestScore >= tiers.perfect) verdict = "perfect";
+  else if (bestScore >= tiers.close) verdict = "close";
+  else verdict = "try-again";
+
+  return {
+    verdict,
+    bestScore,
+    bestAlternative: best,
+    targetNormalized: targetNorm,
+    alternatives: scored,
+  };
+}
+
+/**
  * Returns true if `transcript` is a plausible pronunciation of `target`.
  *
  * Legacy single-string API kept for backwards compatibility with the
