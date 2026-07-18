@@ -99,28 +99,30 @@ export function PracticeHero({
 
       <div
         className={cn(
-          "mt-3.5 flex flex-wrap items-center gap-3 sm:gap-4",
+          "mt-3.5 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4",
           RISE,
           "[animation-delay:60ms]",
         )}
       >
-        <span
-          aria-hidden
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground"
-        >
-          <Icon name="play" size={22} />
-        </span>
-        <div className="min-w-0 flex-1">
-          <div className="text-[0.68rem] font-bold uppercase tracking-wider text-accent">
-            {eyebrow}
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <span
+            aria-hidden
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground"
+          >
+            <Icon name="play" size={22} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[0.68rem] font-bold uppercase tracking-wider text-accent">
+              {eyebrow}
+            </div>
+            <h1 className="text-balance text-lg font-extrabold tracking-tight text-text-primary sm:text-xl">
+              {headline}
+            </h1>
           </div>
-          <h1 className="text-balance text-lg font-extrabold tracking-tight text-text-primary sm:text-xl">
-            {headline}
-          </h1>
         </div>
         <Link
           to={langPath(suggestion.to)}
-          className={composeButtonClasses({ variant: "primary-3d", className: "shrink-0" })}
+          className={composeButtonClasses({ variant: "primary-3d", className: "w-full shrink-0 sm:w-auto" })}
         >
           {buttonLabel}
         </Link>

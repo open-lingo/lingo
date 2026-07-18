@@ -232,7 +232,7 @@ export function SpeakingPracticePage() {
       {/* Progress bar */}
       <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-2">
         <span className="text-sm text-text-secondary">
-          Progress: {currentIdx + 1}/{prompts.length}
+          Progress: {prompts.length ? currentIdx + 1 : 0}/{prompts.length}
         </span>
         <span className="text-sm text-text-secondary">
           Attempted: {stats.attempted}
