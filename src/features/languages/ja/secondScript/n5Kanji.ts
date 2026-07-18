@@ -1029,6 +1029,164 @@ export const N5_KANJI: KanjiEntry[] = [
     anchorVocab: ["iu"],
     category: "verb",
   },
+
+  // ─── M23: Everyday basics (3) ───────────────────────────────────────
+  // 2026-07-18 backfill of the m23-27 catalog gap (kanji-implementation-
+  // spec-2026-07-16.md §6). Strict-N5 glyphs only; anchors all taught at or
+  // before their kanji's unlock module.
+  {
+    character: "本",
+    onyomi: ["ホン"],
+    kunyomi: ["もと"],
+    meaning: ["book", "origin"],
+    strokeCount: 5,
+    introducedAtModule: 23,
+    anchorVocab: ["ja-m3-3-v-hon", "nihon", "ja-m3-2-v-nihonjin"],
+    category: "other",
+  },
+  {
+    character: "円",
+    onyomi: ["エン"],
+    kunyomi: ["まる.い"],
+    meaning: ["yen", "circle"],
+    strokeCount: 4,
+    introducedAtModule: 23,
+    anchorVocab: ["ja-m5-4-v-en"],
+    category: "other",
+  },
+  {
+    character: "話",
+    onyomi: ["ワ"],
+    kunyomi: ["はな.す", "はなし"],
+    meaning: ["talk", "story"],
+    strokeCount: 13,
+    introducedAtModule: 23,
+    anchorVocab: ["denwa", "hanashi", "hanasu"],
+    category: "verb",
+  },
+
+  // ─── M24: Time II (3) ───────────────────────────────────────────────
+  {
+    character: "間",
+    onyomi: ["カン", "ケン"],
+    kunyomi: ["あいだ", "ま"],
+    meaning: ["interval", "between"],
+    strokeCount: 12,
+    introducedAtModule: 24,
+    anchorVocab: ["jikan"],
+    category: "time",
+  },
+  {
+    character: "週",
+    onyomi: ["シュウ"],
+    kunyomi: [],
+    meaning: ["week"],
+    strokeCount: 11,
+    introducedAtModule: 24,
+    anchorVocab: ["senshuu", "konshuu", "raishuu", "maishuu"],
+    category: "time",
+  },
+  {
+    character: "午",
+    onyomi: ["ゴ"],
+    kunyomi: [],
+    meaning: ["noon"],
+    strokeCount: 4,
+    introducedAtModule: 24,
+    anchorVocab: ["gozen", "gogo"],
+    category: "time",
+  },
+
+  // ─── M25: Meeting / work (2) ────────────────────────────────────────
+  // 会う (au) is itself taught at m25 — 会/社 land together so 会社 gates
+  // at MAX(会, 社) = 25.
+  {
+    character: "会",
+    onyomi: ["カイ", "エ"],
+    kunyomi: ["あ.う"],
+    meaning: ["meet", "meeting"],
+    strokeCount: 6,
+    introducedAtModule: 25,
+    anchorVocab: ["au", "kaisha"],
+    category: "verb",
+  },
+  {
+    character: "社",
+    onyomi: ["シャ"],
+    kunyomi: ["やしろ"],
+    meaning: ["company", "shrine"],
+    strokeCount: 7,
+    introducedAtModule: 25,
+    anchorVocab: ["kaisha"],
+    category: "other",
+  },
+
+  // ─── M26: Quantity / degree adjectives (3) ──────────────────────────
+  {
+    character: "多",
+    onyomi: ["タ"],
+    kunyomi: ["おお.い"],
+    meaning: ["many"],
+    strokeCount: 6,
+    introducedAtModule: 26,
+    anchorVocab: ["ooi"],
+    category: "adjective",
+  },
+  {
+    character: "少",
+    onyomi: ["ショウ"],
+    kunyomi: ["すく.ない", "すこ.し"],
+    meaning: ["few", "a little"],
+    strokeCount: 4,
+    introducedAtModule: 26,
+    anchorVocab: ["sukoshi", "sukunai"],
+    category: "adjective",
+  },
+  {
+    character: "早",
+    onyomi: ["ソウ"],
+    kunyomi: ["はや.い"],
+    meaning: ["early"],
+    strokeCount: 6,
+    introducedAtModule: 26,
+    anchorVocab: ["hayai-early"],
+    category: "adjective",
+  },
+
+  // ─── M27: Remaining N5 (3) ──────────────────────────────────────────
+  // 立/力 have no taught anchor atom yet (立つ tatsu and all 力 words are
+  // fromModule "future") — empty anchorVocab per the 半/火/土 precedent so
+  // the N5 set is complete for the kanji browser without unlocking anything.
+  {
+    character: "空",
+    onyomi: ["クウ"],
+    kunyomi: ["そら", "あ.く", "から"],
+    meaning: ["sky", "empty"],
+    strokeCount: 8,
+    introducedAtModule: 27,
+    anchorVocab: ["sora"],
+    category: "nature",
+  },
+  {
+    character: "立",
+    onyomi: ["リツ"],
+    kunyomi: ["た.つ"],
+    meaning: ["stand"],
+    strokeCount: 5,
+    introducedAtModule: 27,
+    anchorVocab: [],
+    category: "verb",
+  },
+  {
+    character: "力",
+    onyomi: ["リョク", "リキ"],
+    kunyomi: ["ちから"],
+    meaning: ["power", "strength"],
+    strokeCount: 2,
+    introducedAtModule: 27,
+    anchorVocab: [],
+    category: "other",
+  },
 ];
 
 export const KANJI_CATEGORIES: { id: KanjiCategory; label: string }[] = [

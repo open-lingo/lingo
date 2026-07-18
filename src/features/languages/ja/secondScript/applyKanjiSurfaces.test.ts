@@ -188,9 +188,32 @@ describe("KANJI_ELIGIBLE_ATOMS", () => {
   });
 
   it("excludes words whose component kanji are not yet in the catalog", () => {
-    // 日本人 (nihonjin) needs 本, which has no N5_KANJI entry → not eligible
-    // (the m23‑27 catalog gap; must stay kana until 本 is teachable).
-    expect(KANJI_ELIGIBLE_ATOMS.has("ja-m3-2-v-nihonjin")).toBe(false);
+    // 時計 (tokei) needs 計 and 友達 (tomodachi) needs 達 — neither glyph is
+    // N5, so neither has an N5_KANJI entry → not eligible even though both
+    // atoms sit in an entry's anchorVocab (時 / 友). They stay kana until a
+    // natively-reviewed catalog extension makes those glyphs teachable.
+    expect(KANJI_ELIGIBLE_ATOMS.has("tokei")).toBe(false);
+    expect(KANJI_ELIGIBLE_ATOMS.has("ja-m3-3-v-tomodachi")).toBe(false);
+  });
+
+  it("m23–27 backfill (2026-07-18) unblocks the former catalog-gap words", () => {
+    // 本 lands at m23 → 日本人 gates on MAX(日 m10, 本 m23, 人 m11) = 23.
+    // This was the pinned casualty of the gap (Spencer's m29 QA walk):
+    // formerly `has("ja-m3-2-v-nihonjin") === false`.
+    expect(KANJI_ELIGIBLE_ATOMS.get("ja-m3-2-v-nihonjin")?.unlockModule).toBe(23);
+    expect(KANJI_ELIGIBLE_ATOMS.get("nihon")?.unlockModule).toBe(23);
+    expect(KANJI_ELIGIBLE_ATOMS.get("ja-m3-3-v-hon")?.unlockModule).toBe(23);
+    // 話 (m23) + already-taught 電 (m22) → 電話 at 23.
+    expect(KANJI_ELIGIBLE_ATOMS.get("denwa")?.unlockModule).toBe(23);
+    // 間 (m24) + 時 (m12) → 時間 at 24; 週 (m24) + 先 (m10) → 先週 at 24.
+    expect(KANJI_ELIGIBLE_ATOMS.get("jikan")?.unlockModule).toBe(24);
+    expect(KANJI_ELIGIBLE_ATOMS.get("senshuu")?.unlockModule).toBe(24);
+    // 会/社 land together at m25 — the module that teaches 会う (au).
+    expect(KANJI_ELIGIBLE_ATOMS.get("au")?.unlockModule).toBe(25);
+    expect(KANJI_ELIGIBLE_ATOMS.get("kaisha")?.unlockModule).toBe(25);
+    // Quantity/degree adjectives at m26; 空 rounds out nature at m27.
+    expect(KANJI_ELIGIBLE_ATOMS.get("sukoshi")?.unlockModule).toBe(26);
+    expect(KANJI_ELIGIBLE_ATOMS.get("sora")?.unlockModule).toBe(27);
   });
 
   it("skips the polite -ます forms (no stored kanji — v1.1 will derive them)", () => {

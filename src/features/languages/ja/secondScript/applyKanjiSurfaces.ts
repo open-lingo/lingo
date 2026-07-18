@@ -36,7 +36,8 @@
  *     Routing them through `writtenForms.writtenSegments` is v1.1.
  *   - MULTI-KANJI words gate on the MAX of their component kanji unlock
  *     modules (電車 waits for BOTH 電 and 車), and are excluded entirely if any
- *     component kanji is absent from the `N5_KANJI` catalog (the m23‑27 gap).
+ *     component kanji is absent from the `N5_KANJI` catalog (post the
+ *     2026-07-18 m23‑27 backfill that's non-N5 glyphs: 時計's 計, 友達's 達).
  *
  * FURIGANA CONVENTION (Spencer 2026-07-17 — window floor OR unmastered):
  *   A substituted segment sets `surface = <kanji>` and ALWAYS keeps
@@ -112,8 +113,9 @@ export type KanjiEligibleEntry = {
  *   2. it resolves to a CourseAtom carrying a kanji surface (skips the 6 `-ます`
  *      forms), and
  *   3. EVERY component kanji of that surface has an `N5_KANJI` catalog entry
- *      (so a word is never shown before all its kanji are teachable — this is
- *      what excludes the m23‑27 catalog-gap words).
+ *      (so a word is never shown before all its kanji are teachable — this
+ *      excluded the m23‑27 catalog-gap words until the 2026-07-18 backfill;
+ *      it still excludes non-N5 glyphs like 計 in 時計 and 達 in 友達).
  *
  * `unlockModule` is the MAX of the component kanji modules (the spec's correct
  * multi-kanji gate), floored at the m8 recognition start.
@@ -142,7 +144,7 @@ function buildEligibleMap(): Map<string, KanjiEligibleEntry> {
     if (!surface) continue; // no kanji form (e.g. -ます forms) — skip in v1
     const components = hanComponents(surface);
     // Every component kanji must be in the catalog; else we can't guarantee
-    // the learner has met each glyph — skip (this is the m23‑27 gap).
+    // the learner has met each glyph — skip (non-N5 glyphs, e.g. 計/達).
     let maxModule = 0;
     let allKnown = true;
     for (const ch of components) {
