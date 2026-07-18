@@ -17,6 +17,7 @@ import type {
   ConjWordClassInfo,
   ConjRubySegment,
   ConjFreeDrillProvider,
+  ConjExampleSentence,
 } from "@/shared/conjugation/types";
 import { registerConjugationTrainer } from "@/shared/conjugation/registry";
 import type { LessonStep } from "@/features/lesson/types";
@@ -81,12 +82,27 @@ const KANJI_EXPOSURE_MODULE = 10;
 const COMBO_DEMO = { dictionary: "みる", group: "ichidan" as const };
 const COMBO_DEMO_ADJ = "たかい";
 
+const jaEx = (text: string, translation: string): ConjExampleSentence => ({ text, translation });
+
+/** One example sentence per trainer type — the form shown in real use (kept
+ *  low-kanji for beginners). */
+const TYPE_EXAMPLE: Record<string, ConjExampleSentence> = {
+  "te-form": jaEx("うたを きいて、べんきょうします。", "I listen to music and (then) study."),
+  "ta-form": jaEx("きのう えいがを みた。", "I watched a movie yesterday."),
+  "nai-form": jaEx("にくを たべない。", "I don't eat meat."),
+  masu: jaEx("まいにち にほんごを べんきょうします。", "I study Japanese every day."),
+  "v-tai": jaEx("みずが のみたいです。", "I want to drink water."),
+  "i-adj-forms": jaEx("この みせは たかくないです。", "This shop isn't expensive."),
+};
+
 function toMeta(type: ConjugationTrainerType): ConjTrainerTypeMeta {
   return {
     id: type.id,
     title: type.title,
     subtitle: type.subtitle,
     category: type.category === "verb" ? "verb" : "adjective",
+    adjective: type.category !== "verb",
+    example: TYPE_EXAMPLE[type.id],
     glyph: TYPE_GLYPH[type.id],
     colorVar: TYPE_COLOR_VAR[type.id],
     unlockModule: unlockModuleForType(type),
@@ -110,6 +126,7 @@ function toQuestion(q: TrainerQuestion): ConjTrainerQuestion {
     correct: q.correct,
     options: q.options,
     written: q.kanji,
+    isAdjective: q.wordClass.includes("adj"),
   };
 }
 

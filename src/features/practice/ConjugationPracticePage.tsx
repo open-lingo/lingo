@@ -165,7 +165,7 @@ export function ConjugationPracticePage() {
   }
 
   return (
-    <div className="conj-scope mx-auto flex min-h-[calc(100dvh-8rem)] max-w-md flex-col">
+    <div className="conj-scope mx-auto flex min-h-[calc(100dvh-8rem)] max-w-2xl flex-col">
       <style>{conj.scopeCss}</style>
 
       {/* Slim header + combined-forms mode toggle (combo-capable languages) */}
@@ -207,7 +207,7 @@ export function ConjugationPracticePage() {
                 {section.group}
               </h2>
             )}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {section.tiles.map((tile) => (
                 <TileButton
                   key={tile.type.id}
@@ -241,7 +241,7 @@ export function ConjugationPracticePage() {
         )}
       </div>
 
-      {/* Sticky action bar */}
+      {/* Sticky action bar — shows the selected forms + a Go button */}
       <div className="sticky bottom-0 mt-auto -mx-4 border-t border-border bg-surface px-4 pb-3 pt-3">
         {selected.size === 0 ? (
           recommended ? (
@@ -268,38 +268,79 @@ export function ConjugationPracticePage() {
               })}
             </div>
           )
-        ) : selected.size === 1 ? (
-          <ActionButton
-            label={t("practice.conjugation.trainType", {
-              defaultValue: "Train {{title}}",
-              title: conj.getType(selectedIds[0])?.title ?? "",
-            })}
-            onClick={() => goType(selectedIds[0])}
-          />
         ) : (
-          <div className="space-y-1.5">
-            <ActionButton
-              label={t("practice.conjugation.trainTogether", {
-                defaultValue: "Train together · {{count}} forms",
-                count: comboFormCount,
+          <div className="space-y-2">
+            {/* Selected form chips — tap ✕ to remove one */}
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+                {t("practice.conjugation.selectedCount", {
+                  defaultValue: "Selected · {{count}}",
+                  count: selected.size,
+                })}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSelected(new Set())}
+                className="text-[11px] font-semibold text-text-muted underline-offset-2 hover:text-text-secondary hover:underline"
+              >
+                {t("practice.conjugation.clearSelection", { defaultValue: "Clear" })}
+              </button>
+            </div>
+            <div className="flex max-h-20 flex-wrap gap-1.5 overflow-y-auto">
+              {selectedIds.map((id) => {
+                const type = conj.getType(id);
+                if (!type) return null;
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => toggle(id)}
+                    className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold transition hover:brightness-110"
+                    style={{
+                      color: `var(${type.colorVar})`,
+                      borderColor: `color-mix(in srgb, var(${type.colorVar}) 55%, transparent)`,
+                      background: `color-mix(in srgb, var(${type.colorVar}) 12%, transparent)`,
+                    }}
+                  >
+                    <span className="font-extrabold" aria-hidden>
+                      {type.glyph}
+                    </span>
+                    <span>{type.title}</span>
+                    <Icon name="close" size={12} aria-hidden className="opacity-70" />
+                  </button>
+                );
               })}
-              onClick={goCombined}
+            </div>
+            <ActionButton
+              label={t("practice.conjugation.go", { defaultValue: "Go" })}
+              sub={
+                selected.size > 1
+                  ? t("practice.conjugation.formCount", {
+                      defaultValue: "{{count}} forms",
+                      count: comboFormCount,
+                    })
+                  : undefined
+              }
+              onClick={selected.size === 1 ? () => goType(selectedIds[0]) : goCombined}
             />
-            {comboExamples.length > 0 ? (
-              <p className="text-center text-xs text-text-muted">
-                +{" "}
-                <span className="font-medium text-text-secondary">{comboExamples.join("・")}</span>{" "}
-                {t("practice.conjugation.combosIncluded", { defaultValue: "included" })}
-              </p>
-            ) : missingComboTiles && missingComboTiles.length > 0 ? (
-              <p className="text-center text-xs text-text-muted">
-                {t("practice.conjugation.comboAddHint", { defaultValue: "Add" })}{" "}
-                <span className="font-semibold text-text-secondary">
-                  {missingComboTiles.map((tid) => conj.glyph(tid)).join("・")}
-                </span>{" "}
-                {t("practice.conjugation.comboAddHintTail", { defaultValue: "for stacked forms" })}
-              </p>
-            ) : null}
+            {selected.size > 1 &&
+              (comboExamples.length > 0 ? (
+                <p className="text-center text-xs text-text-muted">
+                  +{" "}
+                  <span className="font-medium text-text-secondary">
+                    {comboExamples.join("・")}
+                  </span>{" "}
+                  {t("practice.conjugation.combosIncluded", { defaultValue: "included" })}
+                </p>
+              ) : missingComboTiles && missingComboTiles.length > 0 ? (
+                <p className="text-center text-xs text-text-muted">
+                  {t("practice.conjugation.comboAddHint", { defaultValue: "Add" })}{" "}
+                  <span className="font-semibold text-text-secondary">
+                    {missingComboTiles.map((tid) => conj.glyph(tid)).join("・")}
+                  </span>{" "}
+                  {t("practice.conjugation.comboAddHintTail", { defaultValue: "for stacked forms" })}
+                </p>
+              ) : null)}
           </div>
         )}
       </div>
@@ -354,7 +395,7 @@ function TileButton({
           } as React.CSSProperties
         }
         className={
-          "relative flex h-[128px] flex-col items-center justify-center rounded-xl border bg-surface transition-all duration-150 " +
+          "relative flex h-[112px] flex-col items-center justify-center rounded-xl border bg-surface transition-all duration-150 " +
           (unpairable
             ? "border-border opacity-35 saturate-0"
             : "active:translate-y-[3px] active:scale-[0.98] " +
@@ -391,7 +432,7 @@ function TileButton({
         } as React.CSSProperties
       }
       className={
-        "relative flex h-[128px] flex-col items-center justify-center overflow-hidden rounded-xl border bg-surface transition-all duration-150 " +
+        "relative flex h-[112px] flex-col items-center justify-center overflow-hidden rounded-xl border bg-surface transition-all duration-150 " +
         (unpairable
           ? "border-border opacity-35 saturate-0"
           : "active:translate-y-[3px] active:scale-[0.98] " +
