@@ -188,12 +188,15 @@ function Hero({ data }: { data: HomeVariantData }) {
         <div className="flex items-start justify-between gap-4">
           <p
             className={cn(
-              "flex items-center gap-1.5 text-sm font-medium",
+              "flex min-w-0 items-center gap-1.5 text-sm font-medium",
               hasBg ? "text-white/85" : "text-text-secondary",
             )}
           >
-            <Icon name="hand" size={16} aria-hidden className="text-warning" />
-            Hi {data.name} · pick up where you left off
+            <Icon name="hand" size={16} aria-hidden className="shrink-0 text-warning" />
+            <span className="truncate">
+              Hi {data.name}
+              <span className="hidden sm:inline"> · pick up where you left off</span>
+            </span>
           </p>
           <div className="flex shrink-0 items-center gap-2">
             <StatChip hasBg={hasBg} icon="flame" iconClass="text-warning">
@@ -282,10 +285,12 @@ function Hero({ data }: { data: HomeVariantData }) {
                 You&rsquo;re all caught up.
               </h1>
               <p className={cn("mt-2 text-lg", hasBg ? "text-white/80" : "text-text-secondary")}>
-                Nothing new to start — keep your memory sharp with a review.
+                {data.dueCount > 0
+                  ? "Nothing new to start — keep your memory sharp with a review."
+                  : "Nothing new to start right now — explore what's ahead."}
               </p>
               <Link
-                to={data.hrefs.flashcardsReview}
+                to={data.dueCount > 0 ? data.hrefs.flashcardsReview : data.hrefs.courseMap}
                 className={cn(
                   "mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-card transition",
                   hasBg
@@ -293,7 +298,7 @@ function Hero({ data }: { data: HomeVariantData }) {
                     : "bg-accent text-accent-foreground hover:bg-accent-hover",
                 )}
               >
-                Review {data.dueCount} cards
+                {data.dueCount > 0 ? `Review ${data.dueCount} cards` : "Explore the course map"}
                 <Icon name="chevronRight" size={20} aria-hidden />
               </Link>
             </>
