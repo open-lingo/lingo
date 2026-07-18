@@ -11,7 +11,6 @@ import {
 import { usePracticeStats } from "@/features/practice/hooks/usePracticeStats";
 import { PillarTile } from "@/features/practice/components/PillarTile";
 import { PracticeHero } from "@/features/practice/components/PracticeHero";
-import { PracticeHubShell } from "@/features/practice/components/PracticeHubShell";
 import {
   buildQuickStarts,
   pickSuggestion,
@@ -63,7 +62,9 @@ export function PracticePage() {
   );
 
   return (
-    <PracticeHubShell>
+    // Sizing/centering owned by the app shell (Layout <main> hub canvas). This
+    // column just fills it; the pillar grid absorbs the leftover height.
+    <div className="flex w-full flex-1 flex-col gap-4">
       <PracticeHero
         stats={stats}
         suggestion={suggestion}
@@ -91,6 +92,6 @@ export function PracticePage() {
           ))}
         </div>
       </section>
-    </PracticeHubShell>
+    </div>
   );
 }

@@ -2101,7 +2101,7 @@ export default function TransitLearnPage({
   // and crash. Show an empty state instead.
   if (modules.length === 0) {
     return (
-      <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)]", effectiveTier === "n4" && "tmc-tier-n4")}>
+      <div className={cn("tmc-root w-full", effectiveTier === "n4" && "tmc-tier-n4")}>
         <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
         {hasN4 && (
           <div className="mb-3">
@@ -2124,7 +2124,7 @@ export default function TransitLearnPage({
     <div
       data-lang={lang}
       className={cn(
-        "tmc-root mx-auto max-w-[min(2100px,96vw)]",
+        "tmc-root w-full",
         effectiveTier === "n4" && "tmc-tier-n4",
       )}
     >

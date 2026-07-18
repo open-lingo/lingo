@@ -80,9 +80,16 @@ export function Layout() {
   // a page whose whole point is a wide panning canvas: the transit-map
   // preview, and the learn homepage itself where the map is live (ja).
   const learnIndexLang = /^\/([^/]+)\/learn\/?$/.exec(pathname)?.[1];
+  // Hub surfaces share one wide (~96vw) canvas so Home, the Learn map, and the
+  // Practice hub all frame identically. Each caps its own content at the same
+  // max-width; the shell just lifts the 2xl cap for them.
+  const homeIsWide = pathname === "/home" || /^\/home-\d+$/.test(pathname);
+  const practiceIndexWide = /^\/[^/]+\/practice\/?$/.test(pathname);
   const wideCanvas =
     /\/transit-preview/.test(pathname) ||
-    isTransitLearnHome(flags, learnIndexLang);
+    isTransitLearnHome(flags, learnIndexLang) ||
+    homeIsWide ||
+    practiceIndexWide;
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -402,7 +409,15 @@ export function Layout() {
           only (see isLanding above). */}
       <main
         id="main-content"
-        className={`mx-auto w-full ${wideCanvas ? "max-w-none" : "max-w-screen-2xl"} flex-1 px-4 sm:px-6 lg:px-8 ${
+        className={`mx-auto w-full flex-1 px-4 sm:px-6 lg:px-10 ${
+          // Hub pages (Home / Learn map / Practice hub) share one canvas: a
+          // 96vw cap and a vertically-centering flex column, so their content
+          // fills — or middle-aligns within — the same box. Pages just drop in
+          // content (with flex-1 to fill) and never re-implement width/height.
+          wideCanvas
+            ? "max-w-[min(2100px,96vw)] flex flex-col justify-center"
+            : "max-w-screen-2xl"
+        } ${
           focusedFlow
             ? "py-3"
             : `py-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${

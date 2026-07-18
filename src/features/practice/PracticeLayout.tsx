@@ -66,7 +66,16 @@ export function PracticeLayout() {
   const isFocusedSession = /\/practice\/grammar\/review$/.test(norm);
 
   return (
-    <div className="mx-auto max-w-screen-2xl space-y-6">
+    // The hub index rides the shell's shared wide canvas (Layout <main> centers
+    // + caps at 96vw), so it must NOT re-cap here. Sub-pages keep the standard
+    // 2xl cap + breadcrumbs.
+    <div
+      className={
+        isPracticeHub
+          ? "flex w-full flex-1 flex-col"
+          : "mx-auto max-w-screen-2xl space-y-6"
+      }
+    >
       {!isPracticeHub && !isFocusedSession && <PracticeBreadcrumbs />}
       <Outlet />
     </div>

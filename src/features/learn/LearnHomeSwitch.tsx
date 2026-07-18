@@ -67,7 +67,7 @@ export function LearnHomeSwitch() {
 
   const strings = stringsFor(lang ?? "ko");
   return (
-    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
+    <div className="tmc-root w-full">
       <TransitSignageHeader
         title={`${strings.mapTitle} — ${course.title}`}
         subtitle={LEARN_HEADER_SUBTITLE}

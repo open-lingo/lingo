@@ -11,7 +11,7 @@ import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
 import { HomeNavCard } from "./HomeNavCard";
-import { RestructuredHome } from "./restructured/RestructuredHome";
+import { HomeMain } from "./variants/HomeMain";
 import { Card, Button, Skeleton } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isCommunityEnabled } from "@/shared/config/featureFlags";
@@ -149,6 +149,19 @@ export function HomePage() {
     </div>
   );
 
+  if (isAuthenticated) {
+    return (
+      <>
+        {!language && <LanguagePickerModal />}
+        {/* Fill the shell's hub canvas (Layout <main> centers + sizes it). The
+            flex-1 chain must be unbroken from main → here → HomeMain's grid. */}
+        <div className="flex flex-1 flex-col">
+          <HomeMain greetingName={friendlyName} />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       {!language && <LanguagePickerModal />}
@@ -182,9 +195,9 @@ export function HomePage() {
           </>
         ) : (
           // FTUE branch (WelcomeBanner + EmptyActivityNotice) intentionally
-          // disabled — restructured home renders for ALL signed-in users.
+          // disabled — the redesigned home renders for ALL signed-in users.
           // FTUE-specific empty states will land in a follow-up.
-          <RestructuredHome greetingName={friendlyName} />
+          <HomeMain greetingName={friendlyName} />
         )}
       </div>
     </>
