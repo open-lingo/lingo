@@ -10,6 +10,7 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 
 const CELEBRATE_MS = 1100;
 
@@ -87,7 +88,11 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           </p>
           {step.transcript ? (
             <p className="font-japanese text-2xl font-semibold leading-tight text-text-primary">
-              {step.transcript}
+              {step.transcriptAnnotation ? (
+                <AnnotatedJa segments={step.transcriptAnnotation} />
+              ) : (
+                step.transcript
+              )}
               {step.romaji && (
                 <span className="ml-2 font-sans text-sm font-normal text-text-secondary">
                   {step.romaji}
