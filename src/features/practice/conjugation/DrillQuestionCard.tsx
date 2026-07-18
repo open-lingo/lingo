@@ -349,17 +349,23 @@ export function DrillQuestionCard({
                 </span>
               </p>
             )}
-            {cheatTypes[0]?.example && (
-              <div className="mt-3 rounded-xl bg-surface-muted px-3 py-2 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-                  {t("practice.conjugation.exampleLabel", { defaultValue: "Example" })}
-                </p>
-                <p className="mt-0.5 text-base font-semibold text-text-primary">
-                  {cheatTypes[0].example.text}
-                </p>
-                <p className="text-xs text-text-secondary">{cheatTypes[0].example.translation}</p>
-              </div>
-            )}
+            {(() => {
+              // Prefer the per-question example (built from THIS word) over the
+              // tile's static demo sentence.
+              const example = question.example ?? cheatTypes[0]?.example;
+              if (!example) return null;
+              return (
+                <div className="mt-3 rounded-xl bg-surface-muted px-3 py-2 text-center">
+                  <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+                    {t("practice.conjugation.exampleLabel", { defaultValue: "Example" })}
+                  </p>
+                  <p className="mt-0.5 text-base font-semibold text-text-primary">
+                    {example.text}
+                  </p>
+                  <p className="text-xs text-text-secondary">{example.translation}</p>
+                </div>
+              );
+            })()}
             <button
               type="button"
               onClick={onNext}

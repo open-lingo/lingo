@@ -241,9 +241,12 @@ export function ConjugationPracticePage() {
         )}
       </div>
 
-      {/* Sticky action bar — shows the selected forms + a Go button */}
-      <div className="sticky bottom-0 mt-auto -mx-4 border-t border-border bg-surface px-4 pb-3 pt-3">
-        {selected.size === 0 ? (
+      {/* Floating action bar — shows the selected forms + a Go button. Sits
+          above the tile grid (z-30) and clears the bottom edge so it reads as
+          a detached pill. rounded-lg = the theme's corner token. */}
+      <div className="sticky bottom-3 z-30 mx-auto mt-auto w-full max-w-md pt-4">
+        <div className="rounded-lg border border-border bg-surface px-4 py-3 shadow-popover">
+          {selected.size === 0 ? (
           recommended ? (
             <ActionButton
               label={t("practice.conjugation.trainType", {
@@ -342,7 +345,8 @@ export function ConjugationPracticePage() {
                 </p>
               ) : null)}
           </div>
-        )}
+          )}
+        </div>
       </div>
 
       {aheadPrompt && (
@@ -404,11 +408,11 @@ function TileButton({
                 : "border-border opacity-60 hover:border-[color:var(--tc)] hover:opacity-90"))
         }
       >
-        <Icon name="lock" size={22} className="text-text-muted" />
-        <span className="mt-1.5 text-3xl font-extrabold text-text-muted" aria-hidden>
+        <Icon name="lock" size={18} className="text-text-muted" />
+        <span className="mt-1 text-2xl font-extrabold text-text-muted" aria-hidden>
           {glyph}
         </span>
-        <span className="absolute bottom-1.5 whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold text-text-muted">
+        <span className="mt-1.5 whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[9px] font-semibold text-text-muted">
           {t("practice.conjugation.moduleN", {
             defaultValue: "Module {{module}}",
             module: tile.unlockModule,
@@ -466,17 +470,22 @@ function TileButton({
       )}
 
       {!unlocked && (
-        <span className="absolute left-2 top-2 z-[1] whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold text-text-muted">
+        <span className="absolute left-1.5 top-1.5 z-[1] whitespace-nowrap rounded-full bg-surface-muted px-1.5 py-0.5 text-[9px] font-semibold text-text-muted">
           {t("practice.conjugation.aheadChip", {
             defaultValue: "M{{module}}",
             module: tile.unlockModule,
           })}
         </span>
       )}
-      <span className="z-[1] text-3xl font-extrabold leading-none" style={{ color: "var(--tc)" }}>
+      {/* Glyph + title flow together (not absolute) so a long wrapped title
+          never renders on top of the glyph in the narrow 4-col tiles. */}
+      <span
+        className="z-[1] text-2xl font-extrabold leading-none"
+        style={{ color: "var(--tc)" }}
+      >
         {glyph}
       </span>
-      <span className="absolute bottom-2 z-[1] px-1 text-center text-[11px] font-bold text-text-secondary">
+      <span className="z-[1] mt-1.5 line-clamp-2 px-1 text-center text-[10px] font-bold leading-tight text-text-secondary">
         {type.title}
       </span>
     </button>

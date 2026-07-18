@@ -127,7 +127,17 @@ function toQuestion(q: TrainerQuestion): ConjTrainerQuestion {
     options: q.options,
     written: q.kanji,
     isAdjective: q.wordClass.includes("adj"),
+    // Per-question example: show the reviewed word's own conjugation in a
+    // short frame (not a fixed demo word). `formLabel` names the form.
+    example: jaQuestionExample(q),
   };
+}
+
+/** Example built from THIS question's word so the learner sees their own verb
+ *  conjugated, e.g. たべて → "to eat · て-form". */
+function jaQuestionExample(q: TrainerQuestion): ConjExampleSentence {
+  const base = q.meaning.replace(/^to be /i, "").replace(/^to /i, "").trim();
+  return { text: q.correct, translation: `${base} · ${q.formLabel}` };
 }
 
 function comboExample(entry: ComboEntry): string {

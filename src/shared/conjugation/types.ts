@@ -95,6 +95,10 @@ export interface ConjTrainerQuestion {
   /** True when the prompt lemma is a descriptive verb (adjective) — the drill
    *  shows an "adjective" chip so the learner knows the word class. */
   isAdjective?: boolean;
+  /** A per-question example built from THIS lemma's conjugation (so the
+   *  learner sees their own word in use, not a fixed demo word). Preferred
+   *  over the tile's static `example` when present. */
+  example?: ConjExampleSentence;
 }
 
 export interface ConjComboInfo {

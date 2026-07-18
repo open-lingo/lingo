@@ -379,6 +379,72 @@ const TILE_EXAMPLE: Record<string, ConjExampleSentence> = {
   negation: ex("저는 고기를 안 먹어요.", "I don't eat meat."),
 };
 
+/** "to be big" → "big", "to eat" → "eat" — the bare English gloss. */
+function baseMeaning(m: string): string {
+  return m.replace(/^to be /i, "").replace(/^to /i, "").trim();
+}
+
+/**
+ * Build an example FROM the reviewed lemma's own conjugation, so the learner
+ * sees their word in use (커요, not a demo word). The Korean side is a short,
+ * grammatical sentence built off the correct answer; the English gloss uses
+ * the word's meaning + the form's function (kept light — the KO sentence is
+ * the point). `correct` is the already-conjugated surface.
+ */
+function koQuestionExample(
+  meaning: string,
+  form: KoFormKey,
+  isAdj: boolean,
+  correct: string,
+): ConjExampleSentence {
+  const b = baseMeaning(meaning);
+  switch (form) {
+    case "present.polite":
+    case "present.casual":
+    case "present.formal":
+      return ex(`${correct}.`, isAdj ? `It's ${b}.` : `(I) ${b}.`);
+    case "present.plain":
+      return ex(`${correct}.`, `(I) ${b}. (plain style)`);
+    case "past.polite":
+    case "past.casual":
+    case "past.formal":
+      return ex(`어제 ${correct}.`, isAdj ? `It was ${b} yesterday.` : `(I) ${b} — yesterday.`);
+    case "future.polite":
+    case "future.casual":
+    case "future.formal":
+      return ex(`내일 ${correct}.`, `(I) will ${b} tomorrow.`);
+    case "progressive.polite":
+    case "progressive.casual":
+    case "progressive.formal":
+      return ex(`지금 ${correct}.`, `(I)'m ${b}-ing right now.`);
+    case "neg.short.present.polite":
+    case "neg.short.present.casual":
+    case "neg.short.past.polite":
+    case "neg.long.present.polite":
+    case "neg.long.present.formal":
+    case "neg.long.past.polite":
+      return ex(`${correct}.`, isAdj ? `It isn't ${b}.` : `(I) don't ${b}.`);
+    case "desiderative":
+      return ex(`${correct}.`, `(I) want to ${b}.`);
+    case "prohibition":
+      return ex(`${correct}.`, `Please don't ${b}.`);
+    case "honorific.command":
+      return ex(`${correct}.`, `Please ${b}.`);
+    case "connective.and":
+      return ex(`${correct} 좋아요.`, isAdj ? `It's ${b} and good.` : `(I) ${b} and it's good.`);
+    case "connective.but":
+      return ex(`${correct} 괜찮아요.`, isAdj ? `It's ${b}, but it's okay.` : `(I) ${b}, but it's okay.`);
+    case "connective.so":
+      return ex(`${correct} 좋아요.`, isAdj ? `It's ${b}, so it's good.` : `(I) ${b}, so it's good.`);
+    case "conditional":
+      return ex(`${correct} 좋아요.`, isAdj ? `If it's ${b}, it's good.` : `If (I) ${b}, it's good.`);
+    case "adverbial":
+      return ex(`${correct} 말해요.`, `(I) speak in a ${b} way.`);
+    default:
+      return ex(`${correct}.`, b);
+  }
+}
+
 const TILE_BY_ID = new Map(KO_TILES.map((t) => [t.id, t]));
 // Hub order follows the sections, not the raw tile order.
 const TILE_ORDER = [...KO_TILES]
@@ -510,6 +576,7 @@ function makeQuestion(lemma: KoLemma, form: KoFormKey, pool: KoLemma[]): ConjTra
     correct,
     options: shuffle([correct, ...distractors.slice(0, 3)]),
     isAdjective: lemma.pos === "adjective",
+    example: koQuestionExample(lemma.meaning, form, lemma.pos === "adjective", correct),
   };
 }
 

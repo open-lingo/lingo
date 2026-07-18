@@ -27,24 +27,24 @@ function ParticleCard({
   const isCompact = size === "compact";
   return (
     <div
-      className={`flex flex-col rounded-lg border border-border bg-surface shadow-card transition hover:border-border-muted hover:shadow-popover ${
+      className={`flex min-w-0 flex-col rounded-lg border border-border bg-surface shadow-card transition hover:border-border-muted hover:shadow-popover ${
         isCompact
-          ? "min-h-[2.25rem] min-w-[2.25rem] items-center justify-center px-2 py-1.5 text-lg"
-          : "min-h-[5rem] items-start justify-center p-4 text-left"
+          ? "min-h-[2.25rem] min-w-[2.25rem] items-center justify-center whitespace-nowrap px-2.5 py-1.5 text-lg"
+          : "min-h-[5rem] items-start justify-start gap-1 p-4 text-left"
       }`}
       role="listitem"
       aria-label={`${particle.form}: ${particle.meaning}`}
     >
-      <span className={`font-medium text-text-primary ${!isCompact ? "text-2xl" : ""}`}>
+      <span className={`font-medium text-text-primary ${!isCompact ? "text-2xl leading-tight" : ""}`}>
         {particle.form}
       </span>
       {!isCompact && (
         <>
-          <span className="mt-1 text-sm text-text-secondary">
+          <span className="text-sm font-medium text-text-secondary">
             {particle.meaning}
           </span>
           {particle.usage && (
-            <span className="mt-1 text-xs text-text-muted">
+            <span className="text-xs leading-relaxed text-text-muted">
               {particle.usage}
             </span>
           )}
