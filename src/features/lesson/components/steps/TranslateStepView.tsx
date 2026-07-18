@@ -12,6 +12,10 @@ import { normalizeTypedAnswer } from "@/shared/speech";
 import { gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
+import {
+  romajaToHangul,
+  koreanInputMatches,
+} from "@/features/languages/ko/romanization/romajaToHangul";
 import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
@@ -39,6 +43,10 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
   const intoJapanese =
     (language?.id ?? "ja") === "ja" && step.sourceLanguage === "native";
+  // Korean production typing: no wanakana equivalent, so we don't compose
+  // in-place — instead grade romaja-or-Hangul via koreanInputMatches and show
+  // a live Hangul preview (the desktop "Korean keyboard").
+  const intoKorean = language?.id === "ko" && step.sourceLanguage === "native";
   // Accent chip row for learners typing INTO Spanish without an OS layout
   // for it. es only — the JA path has wanakana; other courses opt in as
   // they land.
@@ -85,6 +93,21 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
   function handleSubmit() {
     const raw = textareaRef.current?.value ?? answer;
+    // Korean: accept Hangul (IME) or romaja (composes to Hangul / matches the
+    // target's pronunciation) against any accepted answer.
+    if (intoKorean) {
+      const correct = accepted.some((ans) => koreanInputMatches(raw, ans));
+      setIsCorrect(correct);
+      setNudge(null);
+      setSubmitted(true);
+      onComplete(step.id, correct);
+      if (correct) {
+        setCelebrationText(pickCelebrationText(t));
+        setCelebrating(true);
+        window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+      }
+      return;
+    }
     const composed = intoJapanese ? wanakana.toKana(raw) : raw;
     // gradeTypedAnswer normalizes both sides (NFKC + whitespace + case),
     // strips trailing sentence punctuation (toKana turns a natural final
@@ -151,14 +174,34 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           disabled={submitted}
           defaultValue=""
           onChange={(e) => setAnswer(e.target.value)}
+          lang={intoKorean ? "ko" : undefined}
           placeholder={
             intoJapanese
               ? "Type your translation — English letters become kana as you type…"
-              : "Type your translation..."
+              : intoKorean
+                ? "Type Korean, or English letters (annyeong → 안녕)…"
+                : "Type your translation..."
           }
           rows={3}
           className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
         />
+        {/* Korean romaja → Hangul live preview (IME-safe: mirrors, never
+            mutates the field). */}
+        {intoKorean &&
+          !submitted &&
+          (() => {
+            const preview = romajaToHangul(answer);
+            return preview !== answer && /[가-힣]/.test(preview) ? (
+              <p className="mt-2 text-sm text-text-secondary">
+                <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+                  Hangul
+                </span>
+                <span lang="ko" className="text-lg font-semibold text-text-primary">
+                  {preview}
+                </span>
+              </p>
+            ) : null;
+          })()}
         {celebrating && <CelebrationToast text={celebrationText} />}
         {showAccentBar && (
           <div className="mt-2">

@@ -9,6 +9,10 @@ import { getSpeakingPrompts, getTtsLang } from "./data/practiceDataLoader";
 import { normalizeTypedAnswer } from "./data/drillUtils";
 import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult } from "./practiceStats";
+import {
+  romajaToHangul,
+  koreanInputMatches,
+} from "@/features/languages/ko/romanization/romajaToHangul";
 
 /**
  * Type it — the minimal writing trainer for the Writing pillar. Shows a
@@ -22,6 +26,7 @@ export function WritingPracticePage() {
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
   const ttsLang = getTtsLang(langId);
+  const isKo = langId === "ko";
 
   const allPrompts = useMemo(() => getSpeakingPrompts(langId), [langId]);
   const minLevel =
@@ -46,10 +51,16 @@ export function WritingPracticePage() {
     }
   }, [prompt, ttsLang]);
 
+  // Korean: accept Hangul (IME) OR romaja typed on a plain keyboard. Every
+  // other language keeps the exact normalized compare.
+  const korePreview = isKo ? romajaToHangul(typed) : "";
+  const showPreview = isKo && korePreview !== typed && /[가-힣]/.test(korePreview);
+
   const handleCheck = () => {
     if (!prompt || checked !== null || typed.trim() === "") return;
-    const correct =
-      normalizeTypedAnswer(typed) === normalizeTypedAnswer(prompt.targetPhrase);
+    const correct = isKo
+      ? koreanInputMatches(typed, prompt.targetPhrase)
+      : normalizeTypedAnswer(typed) === normalizeTypedAnswer(prompt.targetPhrase);
     setChecked(correct);
     setScore((s) => ({ correct: s.correct + (correct ? 1 : 0), total: s.total + 1 }));
     recordPracticeResult("writing", prompt.id, correct);
@@ -132,10 +143,17 @@ export function WritingPracticePage() {
               disabled={checked !== null}
               autoComplete="off"
               autoCorrect="off"
+              autoCapitalize="off"
               spellCheck={false}
-              placeholder={t("practice.typeIt.placeholder", {
-                defaultValue: "Type your answer…",
-              })}
+              placeholder={
+                isKo
+                  ? t("practice.typeIt.placeholderKo", {
+                      defaultValue: "Type Korean or romanization…",
+                    })
+                  : t("practice.typeIt.placeholder", {
+                      defaultValue: "Type your answer…",
+                    })
+              }
               className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2.5 text-lg text-text-primary focus:border-accent focus:outline-none"
             />
             <button
@@ -146,6 +164,28 @@ export function WritingPracticePage() {
               {t("practice.typeIt.check", { defaultValue: "Check" })}
             </button>
           </form>
+
+          {/* Korean romaja → Hangul live preview: type "annyeong" on a plain
+              keyboard, see 안녕. Keeps the raw input intact (IME-safe) and just
+              mirrors the composed form so the learner can confirm it. */}
+          {showPreview && checked === null && (
+            <p className="mx-auto mt-3 max-w-md text-center text-sm text-text-secondary">
+              <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+                {t("practice.typeIt.hangul", { defaultValue: "Hangul" })}
+              </span>
+              <span lang="ko" className="text-lg font-semibold text-text-primary">
+                {korePreview}
+              </span>
+            </p>
+          )}
+          {isKo && checked === null && (
+            <p className="mx-auto mt-1 max-w-md text-center text-xs text-text-muted">
+              {t("practice.typeIt.koHint", {
+                defaultValue:
+                  "No Korean keyboard? Just type it in English letters — it converts to Hangul.",
+              })}
+            </p>
+          )}
 
           {checked !== null && (
             <div
