@@ -85,8 +85,15 @@ export function getTtsUrl(text: string, lang: string = defaultTtsLang): string |
   const key = `${lang}:${text}`;
   let relative = pickPath(MANIFEST[key]);
   if (!relative) {
-    const alt = text.endsWith("。") ? text.slice(0, -1) : `${text}。`;
-    relative = pickPath(MANIFEST[`${lang}:${alt}`]);
+    // Trailing sentence punctuation drifts between authored text and the
+    // generated deck (which strips it): try the ± variants for both the
+    // JA "。" and the Latin "." / "?" the KO/ES decks use.
+    const stripped = text.replace(/[。.?!]+$/, "");
+    for (const alt of [stripped, `${stripped}。`, `${stripped}.`]) {
+      if (alt === text) continue;
+      relative = pickPath(MANIFEST[`${lang}:${alt}`]);
+      if (relative) break;
+    }
   }
   if (!relative && lang === "ja") {
     const twin = hiraganaTwin(text);
@@ -157,16 +164,18 @@ let activeUtterance: SpeechSynthesisUtterance | null = null;
 /** Speak `text` via the platform TTS voice for `lang`. No-op for JA or when
  *  synthesis is unsupported. Cancels any in-flight utterance so clips never
  *  overlap across steps. Returns the utterance (or null) so callers can chain
- *  on `onend`. */
+ *  on `onend`.
+ *
+ *  Chrome loads its voice list lazily — `getVoices()` returns `[]` until the
+ *  one-shot `voiceschanged` event fires. Speaking with an empty list can pick
+ *  the wrong voice (or stay silent), so when it's empty we wait for that event
+ *  once and then speak with the right voice resolved. */
 function speakViaSynthesis(text: string, lang: string): SpeechSynthesisUtterance | null {
   if (!canSynthesize(lang) || !text) return null;
   const synth = window.speechSynthesis;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
   const tag = bcp47For(lang);
+  const u = new SpeechSynthesisUtterance(text);
   u.lang = tag;
-  const voice = pickVoice(tag);
-  if (voice) u.voice = voice;
   u.volume = getAudioVolume();
   activeUtterance = u;
   const clear = () => {
@@ -174,7 +183,31 @@ function speakViaSynthesis(text: string, lang: string): SpeechSynthesisUtterance
   };
   u.onend = clear;
   u.onerror = clear;
-  synth.speak(u);
+
+  const speakNow = () => {
+    if (activeUtterance !== u) return; // superseded by a newer clip
+    const voice = pickVoice(tag);
+    if (voice) u.voice = voice;
+    synth.cancel();
+    synth.speak(u);
+  };
+
+  if (synth.getVoices().length === 0) {
+    // Voices not ready yet — speak once they arrive (fall back to speaking
+    // anyway after a short wait so a browser that never fires the event, or
+    // has genuinely no voices, still attempts playback).
+    let fired = false;
+    const onVoices = () => {
+      if (fired) return;
+      fired = true;
+      synth.removeEventListener("voiceschanged", onVoices);
+      speakNow();
+    };
+    synth.addEventListener("voiceschanged", onVoices);
+    setTimeout(onVoices, 250);
+  } else {
+    speakNow();
+  }
   return u;
 }
 
@@ -253,6 +286,9 @@ function unlockOnFirstGesture(): void {
 
 if (typeof window !== "undefined") {
   unlockOnFirstGesture();
+  // Kick off async voice loading early so the synthesis fallback has a
+  // populated list by the time a non-JA lesson needs it.
+  if (synthSupported()) window.speechSynthesis.getVoices();
 }
 
 // ---------------------------------------------------------------------------
