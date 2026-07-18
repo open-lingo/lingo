@@ -9,6 +9,7 @@ import {
 
 import { lazyRetry } from "@/shared/utils/lazyRetry";
 import { useLang } from "@/shared/hooks/useLangPath";
+import { useMe } from "@/shared/hooks/useMe";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
   isCommunityEnabled,
@@ -203,8 +204,24 @@ function RequireCommunity({ children }: { children: ReactNode }) {
 function RequireSocialProfile({ children }: { children: ReactNode }) {
   const flags = useFeatureFlags();
   const [searchParams] = useSearchParams();
+  const { username } = useParams<{ username: string }>();
+  const { me, isLoading } = useMe();
+  // Account provisioning bypass — the register flow must survive social off.
   if (searchParams.get("register") === "1") return <>{children}</>;
-  return isSocialEnabled(flags) ? <>{children}</> : <Navigate to="/" replace />;
+  if (isSocialEnabled(flags)) return <>{children}</>;
+  // Social off: still let the OWNER reach their own profile so they can view
+  // and edit it. Everyone else's profile stays private (bounces home). Wait
+  // for `me` before deciding so we neither flash a redirect before it resolves
+  // nor briefly render a stranger's profile.
+  if (isLoading) return null;
+  if (
+    me?.username &&
+    username &&
+    me.username.toLowerCase() === username.toLowerCase()
+  ) {
+    return <>{children}</>;
+  }
+  return <Navigate to="/" replace />;
 }
 
 const ReadingPracticePage = lazyRetry(() =>

@@ -8,6 +8,7 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useMe } from "@/shared/hooks/useMe";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
@@ -72,6 +73,8 @@ function Panel({ children }: { children: React.ReactNode }) {
 function GeneralPanel() {
   const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
+  const { closeAll } = useModal();
+  const { me } = useMe();
   // Sound controls live here since the Audio section merged into General
   // (2026-07-15). The edit-profile row was removed the same day — the profile
   // page owns inline editing, so the concurrent branch's social-flag gate on
@@ -89,6 +92,28 @@ function GeneralPanel() {
         title={t("settings.nav.general")}
         description={t("settings.generalHelp")}
       />
+
+      {me?.username ? (
+        <SettingsGroup label={t("settings.profileGroup", "Profile")}>
+          <SettingRow
+            label={t("settings.profileRowLabel", "Your public profile")}
+            help={t(
+              "settings.profileRowHelp",
+              "View or edit your display name, bio, and picture.",
+            )}
+            control={
+              <Link
+                to={`/u/${encodeURIComponent(me.username)}`}
+                onClick={closeAll}
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+              >
+                {t("settings.open", "Open")}
+                <Icon name="arrowBigRight" size={14} aria-hidden />
+              </Link>
+            }
+          />
+        </SettingsGroup>
+      ) : null}
 
       <SettingsGroup>
         <SettingRow

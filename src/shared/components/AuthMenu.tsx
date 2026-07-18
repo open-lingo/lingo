@@ -135,21 +135,21 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
             <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
           </Button>
-          {/* Public profile lives behind the social gate (/u/* bounces with
-              social off), so the entry hides with it. */}
-          {isAuthenticated && isSocialEnabled(flags) && (() => {
-            // Public profile URL — prefer the backend ``me.username`` (Auth0
-            // sub maps to this in the seed). Fall back to the Auth0
-            // ``nickname`` claim or the email local-part so the link still
-            // resolves for accounts that haven't picked a username yet. The
-            // profile page now hosts inline editing — no separate "Edit
-            // profile" entry needed.
-            const myUsername =
-              me?.username?.trim() ||
-              profile?.username?.trim() ||
-              user?.nickname?.trim() ||
-              user?.email?.split("@")[0]?.trim() ||
-              "";
+          {/* Public profile entry. With social ON, any resolvable handle
+              works (nickname/email fallbacks included). With social OFF the
+              gate (RequireSocialProfile) only admits the owner's canonical
+              backend username, so we link solely to ``me.username`` — the
+              fallbacks would bounce home. The profile page hosts inline
+              editing, so this doubles as the "edit profile" entry. */}
+          {isAuthenticated && (() => {
+            const socialOn = isSocialEnabled(flags);
+            const myUsername = socialOn
+              ? (me?.username?.trim() ||
+                profile?.username?.trim() ||
+                user?.nickname?.trim() ||
+                user?.email?.split("@")[0]?.trim() ||
+                "")
+              : (me?.username?.trim() ?? "");
             if (!myUsername) return null;
             return (
               <Link

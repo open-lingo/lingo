@@ -19,110 +19,44 @@
  *   - "Inventory" button → slides a popout in from the right with
  *     `InventorySection` (equip / unequip decorators)
  *
- * Typography: uses the app's standard font tokens (Tailwind defaults +
- * theme tokens). No custom Google Fonts injection — the page should look
- * like the rest of the app, not a magazine feature.
+ * The page is a composition shell: the masthead, stats, friendship actions,
+ * modals, and formatters live in sibling files under `features/profile/`.
  */
 
-import { useEffect, useState, type CSSProperties } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
 import { Button } from "@/shared/components/ui/Button";
-import { Input } from "@/shared/components/ui/Input";
 import { Icon } from "@/shared/components/Icon";
-import type { IconName } from "@/shared/iconRegistry";
-import { DataTable, type DataTableColumn } from "@/shared/components/data";
-import { ApiError } from "@/shared/api/client";
 import type { FriendshipStatus } from "@/shared/api/social";
 import { useMe } from "@/shared/hooks/useMe";
 import { canAccessSiteAdmin } from "@/shared/auth/roles";
 import { useStartImpersonation } from "@/features/admin/impersonation/useStartImpersonation";
 import { ImpersonateConfirmModal } from "@/features/admin/impersonation/ImpersonateConfirmModal";
-import { useAuthoredDecks, type AuthoredDeck } from "./useAuthoredDecks";
-import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
+import { useAuthoredDecks } from "./useAuthoredDecks";
 import { getDecoratorStyle } from "@/features/shop/decoratorStyles";
 import { getBannerStyle } from "@/features/shop/bannerStyles";
 import { TITLE_ITEMS } from "@/features/shop/shopCatalog";
 import { InventorySection } from "@/features/shop/InventorySection";
 import { InventoryPopout } from "@/features/shop/InventoryPopout";
-import { ModalBase } from "@/shared/components/ModalBase";
 import { usePublicProfile } from "./usePublicProfile";
 import { useOwnProfile } from "./useOwnProfile";
-
-type ActionState = "idle" | "pending" | "done";
-
-// ─── Formatters ──────────────────────────────────────────────────────────────
-
-function formatJoinDate(iso: string | null | undefined, locale: string): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString(locale, { year: "numeric", month: "long" });
-}
-
-/**
- * Format a last-active timestamp. Recent activity collapses to relative
- * ("active 2h ago"), older falls back to absolute ("last seen May 25").
- */
-function formatLastActive(
-  iso: string | null | undefined,
-  locale: string,
-  t: TFunction,
-): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  const deltaMs = Date.now() - d.getTime();
-  if (deltaMs < 0) {
-    return t("profile.publicLastActiveNow", "active now");
-  }
-  const mins = Math.floor(deltaMs / 60_000);
-  if (mins < 1) return t("profile.publicLastActiveNow", "active now");
-  if (mins < 60) return `active ${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `active ${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `active ${days}d ago`;
-  return `last seen ${d.toLocaleDateString(locale, { month: "short", day: "numeric" })}`;
-}
-
-/**
- * Approximate XP curve for the "XP to next level" display. Mirrors the
- * back-end progression at a glance; exact values aren't load-bearing here
- * since the backend authoritatively assigns levels.
- */
-function xpToNextLevel(level: number, xp: number): number {
-  const nextThreshold = (level + 1) * 100 * (1 + (level - 1) * 0.15);
-  const remaining = Math.max(0, Math.ceil(nextThreshold - xp));
-  return remaining;
-}
-
-/**
- * Progress through the current level as a 0..1 fraction. Used by the
- * hairline progress bar under the level chip; same approximation as
- * xpToNextLevel above (backend is authoritative for the level number).
- */
-function levelProgress(level: number, xp: number): number {
-  const prev = level * 100 * (1 + Math.max(0, level - 2) * 0.15);
-  const next = (level + 1) * 100 * (1 + (level - 1) * 0.15);
-  const span = Math.max(1, next - prev);
-  return Math.min(1, Math.max(0, (xp - prev) / span));
-}
-
-function formatLearningLanguage(
-  code: string | null | undefined,
-): { label: string; flag: string | null } | null {
-  if (!code) return null;
-  const cfg = getLanguageConfig(code);
-  if (cfg) return { label: cfg.name, flag: cfg.flag };
-  return { label: code.toUpperCase(), flag: null };
-}
-
-// ─── Page ───────────────────────────────────────────────────────────────────
+import { useProfileRelationshipActions } from "./useProfileRelationshipActions";
+import {
+  formatJoinDate,
+  formatLastActive,
+  formatLearningLanguage,
+  levelProgress,
+  xpToNextLevel,
+} from "./_profileFormatters";
+import { ProfileShell } from "./components/ProfileShell";
+import { ProfileMasthead } from "./components/ProfileMasthead";
+import { NumberStat } from "./components/NumberStat";
+import { AuthoredDecksTable } from "./components/AuthoredDecksTable";
+import { AvatarUrlModal } from "./components/AvatarUrlModal";
+import { RegisterForm } from "./components/RegisterForm";
 
 export function PublicProfilePage() {
   const { username } = useParams<{ username: string }>();
@@ -136,8 +70,6 @@ export function PublicProfilePage() {
   const { user, social: socialProfile, isPrivate, notFound, isLoading, isError, refetch } =
     usePublicProfile(username);
 
-  const [actionState, setActionState] = useState<ActionState>("idle");
-  const [actionError, setActionError] = useState<string | null>(null);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
   const [impersonateOpen, setImpersonateOpen] = useState(false);
@@ -164,8 +96,18 @@ export function PublicProfilePage() {
   // form and calls ``users.register`` on save.
   const registerMode = isAuthenticated && notFound && searchParams.get("register") === "1";
 
+  // Own-profile detection — friendship_status is the primary signal, but it's
+  // absent when social is disabled. Fall back to matching the viewer's own
+  // username (case-insensitive) / user id so the owner still gets the edit
+  // affordance with social off.
+  const isSelf =
+    friendship === "self" ||
+    (!!me?.username &&
+      !!username &&
+      me.username.toLowerCase() === username.toLowerCase()) ||
+    (!!me?.id && !!socialProfile?.user_id && me.id === socialProfile.user_id);
+
   // Own-profile hooks — must be above any early returns (Rules of Hooks).
-  const isSelf = friendship === "self";
   const ownProfileInitial = {
     displayName,
     bio: bio ?? "",
@@ -182,6 +124,24 @@ export function PublicProfilePage() {
     isSaving,
     saveError,
   } = useOwnProfile(ownProfileInitial, { registerMode });
+
+  const {
+    actionState,
+    actionError,
+    handleAddFriend,
+    handleAccept,
+    handleUnblock,
+    handleUnfriend,
+    handleBlock,
+  } = useProfileRelationshipActions({
+    social,
+    socialProfile,
+    username,
+    isAuthenticated,
+    login,
+    refetch,
+    t,
+  });
 
   // Auto-open the edit form when arriving in register mode so the form is
   // the page's primary content rather than buried behind a button.
@@ -234,9 +194,7 @@ export function PublicProfilePage() {
   }
   if (registerMode) {
     return (
-      <ProfileShell
-        heading={t("profile.registerHeading", "Pick your username")}
-      >
+      <ProfileShell heading={t("profile.registerHeading", "Pick your username")}>
         <p className="mb-6 text-sm text-text-secondary">
           {t(
             "profile.registerDesc",
@@ -308,62 +266,6 @@ export function PublicProfilePage() {
   const progress = levelProgress(level, xp);
   const league = socialProfile?.league ?? null;
 
-  async function runAction(p: Promise<unknown>, successOnDone = true) {
-    setActionState("pending");
-    setActionError(null);
-    try {
-      await p;
-      setActionState(successOnDone ? "done" : "idle");
-      await refetch();
-    } catch (err) {
-      setActionState("idle");
-      setActionError(
-        err instanceof ApiError && typeof err.body === "object" && err.body && "detail" in err.body
-          ? String((err.body as { detail?: unknown }).detail)
-          : t("profile.publicActionFailed", "Could not complete that action."),
-      );
-    }
-  }
-
-  function handleAddFriend() {
-    if (!isAuthenticated) {
-      login();
-      return;
-    }
-    // Backend expects snake_case body fields. The legacy SocialApi types alias
-    // them as camelCase; spread both so the request lands intact regardless of
-    // which spelling Pydantic reads.
-    void runAction(
-      social.sendFriendRequest({
-        toUsername: username!,
-        ...({ to_username: username! } as Record<string, string>),
-      } as Parameters<typeof social.sendFriendRequest>[0]),
-    );
-  }
-  function handleAccept() {
-    if (!socialProfile) return;
-    void runAction(social.acceptFriendRequest(socialProfile.user_id));
-  }
-  function handleUnblock() {
-    if (!socialProfile) return;
-    void runAction(social.unblockUser(socialProfile.user_id));
-  }
-  function handleUnfriend() {
-    if (!socialProfile) return;
-    void runAction(social.unfriend(socialProfile.user_id));
-  }
-  function handleBlock() {
-    if (!socialProfile) return;
-    void runAction(social.blockUser(socialProfile.user_id));
-  }
-  // Banner-as-header mode: the equipped banner becomes a backdrop the
-  // masthead sits ON TOP of (Twitter/Discord profile-header pattern).
-  // We reserve vertical space on the article via top padding so the
-  // header content slides down behind/onto the absolutely-positioned
-  // banner. The avatar is pulled up (negative margin) so it straddles
-  // the banner's bottom edge, and the owner action bar (Edit / Save /
-  // Cancel / Inventory) floats top-right ON the banner with a subtle
-  // surface-pill so it stays legible against any banner art.
   const hasBanner = !!bannerStyle;
   // Per-button surface-pill backdrop so the ghost-variant owner
   // controls stay legible over any banner art (otherwise icon + label
@@ -449,250 +351,35 @@ export function PublicProfilePage() {
           </div>
         )}
 
-        {/* ── Masthead ─────────────────────────────────────────────
-              When the owner toggles "Edit profile" the display-name
-              heading and the bio paragraph swap their text for inline
-              <Input>/<Textarea> elements positioned and sized to match
-              the displayed text. No separate "edit form" section — the
-              page IS the editor.
-
-              When a banner is equipped the masthead pads its top so the
-              kicker + display name sit against the banner art, and the
-              avatar's column gets a negative top offset so the avatar
-              straddles the banner's bottom edge. */}
-        <header
-          className={
-            "relative " +
-            (hasBanner
-              ? "overflow-hidden rounded-card p-4 sm:p-5"
-              : "")
-          }
-        >
-          {/* Banner fills the entire masthead block as a background. The
-              SVG slices to cover at any aspect ratio so the art always
-              fills edge-to-edge. A scrim layer above the SVG keeps the
-              text legible regardless of banner brightness. */}
-          {bannerStyle && (
-            <>
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 overflow-hidden"
-              >
-                <bannerStyle.Svg
-                  preserveAspectRatio="xMidYMid slice"
-                  className="block h-full w-full"
-                />
-              </div>
-              <div
-                aria-hidden
-                role="img"
-                aria-label={bannerStyle.label}
-                className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/45"
-              />
-            </>
-          )}
-          <div className="relative z-10">
-          <p
-            className={
-              "text-xs font-medium uppercase tracking-wide " +
-              (hasBanner
-                ? "text-white/90 text-shadow-banner-soft"
-                : "text-text-muted")
-            }
-          >
-            {t("profile.publicKicker", "Learner Profile")}
-            <span aria-hidden className="mx-2 opacity-50">·</span>
-            <span>@{username}</span>
-          </p>
-
-          {isSelf && editMode && saveError && (
-            <p className="mt-3 rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
-              {saveError}
-            </p>
-          )}
-
-          <div className="mt-4 grid gap-6 sm:grid-cols-[1fr_auto] sm:gap-10">
-            <div className="min-w-0">
-              {isSelf && editMode ? (
-                <input
-                  type="text"
-                  value={draft.displayName}
-                  onChange={(e) =>
-                    setDraft((d) => ({ ...d, displayName: e.target.value }))
-                  }
-                  placeholder={t(
-                    "profile.realNamePlaceholder",
-                    "Your name",
-                  )}
-                  aria-label={t("profile.realName", "Display name")}
-                  className="w-full break-words border-b-2 border-accent/40 bg-transparent text-3xl font-bold tracking-tight text-text-primary outline-none focus:border-accent sm:text-4xl"
-                />
-              ) : (
-                <h1
-                  className={
-                    "break-words text-3xl font-bold tracking-tight sm:text-4xl " +
-                    (hasBanner
-                      ? "text-white text-shadow-banner"
-                      : "text-text-primary")
-                  }
-                >
-                  {displayName}
-                </h1>
-              )}
-
-              {/* Equipped title — render under the heading. Acts as a
-                  subtitle / honorific. Only visible on self profiles
-                  until the social endpoint exposes other users' titles. */}
-              {equippedTitleText && (
-                <p
-                  className={
-                    "mt-1 inline-flex items-center gap-1.5 text-sm font-medium " +
-                    (hasBanner
-                      ? "text-white/95 text-shadow-banner-soft"
-                      : "text-accent")
-                  }
-                >
-                  <Icon name="crown" size={14} strokeWidth={2.25} aria-hidden />
-                  {equippedTitleText}
-                </p>
-              )}
-
-              {/* Byline row: friendship pill + last-active. */}
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-                <FriendshipPill status={friendship ?? null} t={t} />
-                {lastActiveLabel && (
-                  <span
-                    className={
-                      "inline-flex items-center gap-1.5 text-xs " +
-                      (hasBanner
-                        ? "text-white/90 text-shadow-banner-soft"
-                        : "text-text-muted")
-                    }
-                  >
-                    <span
-                      aria-hidden
-                      className={
-                        "inline-block h-1.5 w-1.5 rounded-full " +
-                        (hasBanner ? "bg-white/70" : "bg-text-muted/60")
-                      }
-                    />
-                    {lastActiveLabel}
-                  </span>
-                )}
-                {joined && (
-                  <span
-                    className={
-                      "text-xs " +
-                      (hasBanner
-                        ? "text-white/90 text-shadow-banner-soft"
-                        : "text-text-muted")
-                    }
-                  >
-                    <span aria-hidden className="mr-1.5 opacity-50">·</span>
-                    {t("profile.publicJoinedShort", "Joined")} {joined}
-                  </span>
-                )}
-              </div>
-
-              {/* Bio. In edit mode this becomes a textarea inline at
-                  the same visual position; otherwise it's a paragraph. */}
-              {isSelf && editMode ? (
-                <textarea
-                  value={draft.bio}
-                  onChange={(e) =>
-                    setDraft((d) => ({ ...d, bio: e.target.value }))
-                  }
-                  placeholder={t(
-                    "profile.statusPlaceholder",
-                    "Tell people about yourself",
-                  )}
-                  aria-label={t("profile.status", "Bio")}
-                  rows={2}
-                  className="mt-4 w-full max-w-prose resize-y rounded-md border border-border bg-transparent px-2 py-1.5 text-sm leading-relaxed text-text-secondary outline-none focus:border-accent"
-                />
-              ) : (
-                bio && (
-                  <p
-                    className={
-                      "mt-4 max-w-prose text-sm leading-relaxed " +
-                      (hasBanner
-                        ? "text-white/95 text-shadow-banner-soft"
-                        : "text-text-secondary")
-                    }
-                  >
-                    {bio}
-                  </p>
-                )
-              )}
-
-            </div>
-
-            {/* Right column: avatar + non-self friendship action.
-                Self-owner controls (edit / inventory / save / cancel)
-                live exclusively in the top-right action bar above.
-
-                When a banner is equipped, the avatar gets pulled UP so
-                it straddles the banner/content boundary. The
-                surface-colored ring acts as a halo against any banner
-                hue and gives a "lifted out of the banner" affordance. */}
-            <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
-              <div
-                className={
-                  "relative " +
-                  (hasBanner
-                    ? "rounded-full bg-surface p-1 shadow-lg ring-4 ring-surface"
-                    : "")
-                }
-              >
-                <DecoratedAvatar
-                  name={displayName}
-                  src={avatarSrc}
-                  size="lg"
-                  className="!h-20 !w-20 !text-3xl"
-                  decoratorStyle={decoratorStyle}
-                />
-                {league && <LeagueEmblem league={league} />}
-                {/* Camera overlay — only when the owner is editing.
-                    Sits on the bottom-right of the avatar. Stops event
-                    propagation so the avatar itself never reacts. */}
-                {isSelf && editMode && (
-                  <button
-                    type="button"
-                    aria-label={t(
-                      "profile.avatarEditAria",
-                      "Change profile picture",
-                    )}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setAvatarModalOpen(true);
-                    }}
-                    className="absolute -bottom-1 -right-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-md ring-2 ring-surface transition hover:bg-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
-                  >
-                    <Icon name="camera" size={14} strokeWidth={2.25} aria-hidden />
-                  </button>
-                )}
-              </div>
-              {!isSelf && (
-                <div className="flex items-center gap-2">
-                  <PrimaryAction
-                    status={friendship ?? null}
-                    actionState={actionState}
-                    onAddFriend={handleAddFriend}
-                    onAccept={handleAccept}
-                    onUnblock={handleUnblock}
-                    onUnfriend={handleUnfriend}
-                    onBlock={handleBlock}
-                    canImpersonate={viewerIsAdmin}
-                    onImpersonate={() => setImpersonateOpen(true)}
-                    t={t}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
-          </div>
-        </header>
+        <ProfileMasthead
+          username={username}
+          displayName={displayName}
+          avatarSrc={avatarSrc}
+          bio={bio}
+          isSelf={isSelf}
+          editMode={editMode}
+          draft={draft}
+          setDraft={setDraft}
+          saveError={saveError}
+          hasBanner={hasBanner}
+          bannerStyle={bannerStyle}
+          decoratorStyle={decoratorStyle}
+          equippedTitleText={equippedTitleText}
+          friendship={friendship ?? null}
+          lastActiveLabel={lastActiveLabel}
+          joined={joined}
+          league={league}
+          actionState={actionState}
+          onAddFriend={handleAddFriend}
+          onAccept={handleAccept}
+          onUnblock={handleUnblock}
+          onUnfriend={handleUnfriend}
+          onBlock={handleBlock}
+          viewerIsAdmin={viewerIsAdmin}
+          onImpersonate={() => setImpersonateOpen(true)}
+          onEditAvatar={() => setAvatarModalOpen(true)}
+          t={t}
+        />
 
         {/* ── Stats grid ──────────────────────────────────────────── */}
         <section
@@ -839,668 +526,6 @@ export function PublicProfilePage() {
         )}
       </article>
     </main>
-  );
-}
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-/**
- * One slot in the stats grid. The numeral is the loud part; the label is
- * the small kicker above it. Separation comes from a vertical border
- * between siblings on tablet+.
- */
-function NumberStat({
-  icon,
-  label,
-  value,
-  caption,
-  accentValue,
-  progress,
-}: {
-  icon: IconName;
-  label: string;
-  value: string;
-  caption?: string;
-  accentValue?: boolean;
-  progress?: number; // 0..1, optional micro progress bar
-}) {
-  return (
-    <div className="relative px-1 sm:px-5 sm:first:pl-0 sm:last:pr-0 sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-border">
-      <div className="flex items-center gap-1.5 text-text-muted">
-        <Icon name={icon} size={14} strokeWidth={2.25} aria-hidden />
-        <span className="text-xs font-medium uppercase tracking-wide">
-          {label}
-        </span>
-      </div>
-      <div
-        className={
-          "mt-1.5 text-2xl font-semibold tabular-nums sm:text-3xl " +
-          (accentValue ? "text-accent" : "text-text-primary")
-        }
-      >
-        {value}
-      </div>
-      {caption && (
-        <div className="mt-1.5 text-xs text-text-muted">{caption}</div>
-      )}
-      {typeof progress === "number" && (
-        <div
-          className="mt-2 h-[2px] w-full overflow-hidden rounded-full bg-border"
-          aria-hidden
-        >
-          <div
-            className="h-full bg-text-primary/70 transition-[width] duration-500"
-            style={{ width: `${Math.round(progress * 100)}%` }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * League emblem — brass-foil gradient with a subtle ring, positioned over
- * the avatar's lower-right like a decoration pin. Brass reads as brass on
- * any theme so the hardcoded color values stay put.
- */
-function LeagueEmblem({
-  league,
-}: {
-  league: { name: string; tier_index: number; emoji: string };
-}) {
-  const BRASS_GRADIENT =
-    "linear-gradient(135deg, #d4a857 0%, #f7e2a3 38%, #c08a3a 62%, #efd382 100%)";
-  const ringStyle: CSSProperties = {
-    backgroundImage: BRASS_GRADIENT,
-    boxShadow:
-      "0 0 0 2px var(--color-surface), 0 4px 12px -2px rgba(193,138,55,0.45), inset 0 1px 0 rgba(255,255,255,0.5)",
-  };
-  return (
-    <div
-      className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full"
-      style={ringStyle}
-      role="img"
-      aria-label={`${league.name} league`}
-      title={league.name}
-    >
-      <span className="text-base leading-none drop-shadow-sm" aria-hidden>
-        {league.emoji}
-      </span>
-    </div>
-  );
-}
-
-/**
- * Authored decks as a DataTable — name (linked) / language / per-deck
- * upvotes. Uses the shared DataTable so the creator surface matches the
- * rest of the app's tabular data instead of bespoke list rows.
- */
-function AuthoredDecksTable({
-  decks,
-  t,
-}: {
-  decks: AuthoredDeck[];
-  t: TFunction;
-}) {
-  const columns: DataTableColumn<AuthoredDeck>[] = [
-    {
-      key: "name",
-      label: t("profile.publicAuthoredColName", "Deck"),
-      render: (d) => (
-        <Link
-          to={`/decks/${d.id}`}
-          className="font-medium text-text-primary hover:text-accent"
-        >
-          {d.name || t("profile.publicUnnamedDeck", "(unnamed deck)")}
-        </Link>
-      ),
-    },
-    {
-      key: "language",
-      label: t("profile.publicAuthoredColLanguage", "Language"),
-      className: "hidden sm:table-cell",
-      render: (d) => (
-        <span className="text-text-secondary">{d.language ?? "—"}</span>
-      ),
-    },
-    {
-      key: "upvotes",
-      label: t("profile.publicAuthoredColUpvotes", "Upvotes"),
-      className: "text-right",
-      render: (d) => (
-        <span className="inline-flex items-center gap-1 tabular-nums text-text-secondary">
-          <Icon name="chevronUp" size={12} aria-hidden />
-          {d.upvotes.toLocaleString()}
-        </span>
-      ),
-    },
-  ];
-
-  return (
-    <DataTable<AuthoredDeck>
-      columns={columns}
-      rows={decks}
-      getRowKey={(d) => d.id}
-      emptyMessage={t(
-        "profile.publicAuthoredEmpty",
-        "No published decks yet.",
-      )}
-    />
-  );
-}
-
-/** Fallback shell for loading / not-found / private / error states. */
-function ProfileShell({
-  heading,
-  children,
-}: {
-  heading: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
-      <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
-        {heading}
-      </h1>
-      {children && <div className="mt-4">{children}</div>}
-    </main>
-  );
-}
-
-/**
- * Friendship pill — small chip that sits inline with the byline. No
- * background fill except for the destructive states; this is metadata,
- * not a call to action.
- */
-function FriendshipPill({
-  status,
-  t,
-}: {
-  status: FriendshipStatus | null;
-  t: TFunction;
-}) {
-  if (!status || status === "self" || status === "none") return null;
-
-  const labelAndIcon: { label: string; icon: IconName; tone: string } | null =
-    status === "friend"
-      ? {
-          label: t("profile.badgeFriend", "Friends"),
-          icon: "check",
-          tone: "border-accent/40 text-accent bg-accent-muted/40",
-        }
-      : status === "request_in"
-        ? {
-            label: t("profile.badgeRequestIn", "Wants to be friends"),
-            icon: "userPlus",
-            tone: "border-border text-text-secondary bg-surface-muted",
-          }
-        : status === "request_out"
-          ? {
-              label: t("profile.badgeRequestOut", "Request pending"),
-              icon: "users",
-              tone: "border-border text-text-muted bg-surface-muted",
-            }
-          : status === "blocked"
-            ? {
-                label: t("profile.badgeBlocked", "Blocked"),
-                icon: "shield",
-                tone: "border-error/40 text-error bg-error/10",
-              }
-            : null;
-
-  if (!labelAndIcon) return null;
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${labelAndIcon.tone}`}
-    >
-      <Icon name={labelAndIcon.icon} size={12} strokeWidth={2.5} aria-hidden />
-      {labelAndIcon.label}
-    </span>
-  );
-}
-
-function PrimaryAction({
-  status,
-  actionState,
-  onAddFriend,
-  onAccept,
-  onUnblock,
-  onUnfriend,
-  onBlock,
-  canImpersonate,
-  onImpersonate,
-  t,
-}: {
-  status: FriendshipStatus | null;
-  actionState: ActionState;
-  onAddFriend: () => void;
-  onAccept: () => void;
-  onUnblock: () => void;
-  onUnfriend: () => void;
-  onBlock: () => void;
-  /** Viewer is a site admin → expose "Act as user" in the dropdown. */
-  canImpersonate: boolean;
-  onImpersonate: () => void;
-  t: TFunction;
-}) {
-  const busy = actionState === "pending";
-
-  // status === "self" is handled by the top-right action bar; the right
-  // column never renders a self action here.
-  if (status === "self") return null;
-
-  // Friends get a dropdown (Unfriend / Block). When the viewer is an admin we
-  // fold "Act as user" into that same dropdown — and, for non-friend statuses
-  // that otherwise have no menu, render a standalone admin dropdown beside the
-  // primary button so impersonation is always reachable.
-  const adminItem: ProfileMenuItem | null = canImpersonate
-    ? {
-        key: "impersonate",
-        label: t("profile.publicActAsUser", "Act as user"),
-        icon: "venetianMask",
-        onSelect: onImpersonate,
-      }
-    : null;
-
-  if (status === "friend") {
-    return (
-      <FriendDropdown
-        items={[
-          {
-            key: "unfriend",
-            label: t("profile.publicUnfriend", "Unfriend"),
-            icon: "userMinus",
-            onSelect: onUnfriend,
-          },
-          {
-            key: "block",
-            label: t("profile.publicBlock", "Block"),
-            icon: "shield",
-            danger: true,
-            onSelect: onBlock,
-          },
-          ...(adminItem ? [adminItem] : []),
-        ]}
-        busy={busy}
-        t={t}
-      />
-    );
-  }
-
-  let primary: React.ReactNode;
-  if (status === "request_out") {
-    primary = (
-      <Button type="button" disabled variant="ghost" size="sm">
-        {t("profile.publicRequestSent", "Request sent")}
-      </Button>
-    );
-  } else if (status === "request_in") {
-    primary = (
-      <Button type="button" onClick={onAccept} disabled={busy} variant="primary" size="sm">
-        {busy ? "…" : t("profile.publicAcceptRequest", "Accept request")}
-      </Button>
-    );
-  } else if (status === "blocked") {
-    primary = (
-      <Button type="button" onClick={onUnblock} disabled={busy} variant="ghost" size="sm">
-        {busy ? "…" : t("profile.publicUnblock", "Unblock")}
-      </Button>
-    );
-  } else {
-    // status === "none" or null (logged-out viewer)
-    primary = (
-      <Button type="button" onClick={onAddFriend} disabled={busy} variant="primary" size="sm">
-        {busy ? "…" : t("profile.publicAddFriend", "Add friend")}
-      </Button>
-    );
-  }
-
-  // For non-friend statuses, attach the admin dropdown alongside the primary
-  // button (the dropdown holds only the admin action here).
-  if (adminItem) {
-    return (
-      <div className="flex items-center gap-2">
-        {primary}
-        <FriendDropdown
-          items={[adminItem]}
-          busy={busy}
-          label={t("profile.publicAdminActions", "Admin")}
-          t={t}
-        />
-      </div>
-    );
-  }
-
-  return <>{primary}</>;
-}
-
-type ProfileMenuItem = {
-  key: string;
-  label: string;
-  icon: IconName;
-  danger?: boolean;
-  onSelect: () => void;
-};
-
-function FriendDropdown({
-  items,
-  busy,
-  label,
-  t,
-}: {
-  items: ProfileMenuItem[];
-  busy: boolean;
-  /** Trigger label. Defaults to "Friends". */
-  label?: string;
-  t: TFunction;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="relative">
-      <Button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        disabled={busy}
-        variant="ghost"
-        size="sm"
-        aria-expanded={open}
-        aria-haspopup="menu"
-        className="!gap-1.5"
-      >
-        {busy ? "…" : (label ?? t("profile.publicFriends", "Friends"))}
-        <Icon name="chevronDown" size={13} strokeWidth={2.25} aria-hidden />
-      </Button>
-      {open && (
-        <div
-          role="menu"
-          className="absolute right-0 top-full z-10 mt-1 w-48 rounded-md border border-border bg-surface py-1 shadow-popover"
-        >
-          {items.map((item) => (
-            <button
-              key={item.key}
-              role="menuitem"
-              type="button"
-              className={
-                "flex w-full items-center gap-2 px-3 py-2 text-left text-sm " +
-                (item.danger
-                  ? "text-error hover:bg-error/10"
-                  : "text-text-primary hover:bg-surface-muted")
-              }
-              onClick={() => {
-                setOpen(false);
-                item.onSelect();
-              }}
-            >
-              <Icon name={item.icon} size={14} strokeWidth={2.25} aria-hidden />
-              {item.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * AvatarUrlModal — owner-only modal for changing the profile picture.
- *
- * Two sections:
- *   - Paste a URL (live): text input + Save. Validates basic shape.
- *   - Upload from device (disabled): visible affordance but `<input
- *     disabled>` + capture overlay + tooltip explaining custom uploads
- *     are intentional-future, not broken.
- *
- * Backend field: `profile_picture_key` (see UpdateUserPayload). The
- * field name is historical — it accepts a full URL string today.
- */
-function AvatarUrlModal({
-  currentUrl,
-  onClose,
-  onSaved,
-  t,
-}: {
-  currentUrl: string;
-  onClose: () => void;
-  onSaved: (nextUrl: string) => void;
-  t: TFunction;
-}) {
-  const { users } = useApi();
-  const [url, setUrl] = useState(currentUrl);
-  const [error, setError] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
-
-  function isValidUrl(value: string): boolean {
-    const trimmed = value.trim();
-    if (!trimmed) return true; // empty = clear, allowed
-    if (!/^https?:\/\//i.test(trimmed)) return false;
-    try {
-      new URL(trimmed);
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  async function handleSave() {
-    const trimmed = url.trim();
-    if (!isValidUrl(trimmed)) {
-      setError(
-        t("profile.avatarModalUrlInvalid", "Enter a valid http:// or https:// URL."),
-      );
-      return;
-    }
-    setError(null);
-    setSaving(true);
-    try {
-      await users.updateMe({ profile_picture_key: trimmed || null });
-      onSaved(trimmed);
-    } catch (err) {
-      if (
-        err instanceof ApiError &&
-        typeof err.body === "object" &&
-        err.body &&
-        "detail" in err.body
-      ) {
-        setError(String((err.body as { detail?: unknown }).detail));
-      } else {
-        setError(t("profile.publicActionFailed", "Could not complete that action."));
-      }
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  return (
-    <ModalBase
-      title={t("profile.avatarModalTitle", "Profile picture")}
-      onClose={onClose}
-      maxWidth="max-w-md"
-    >
-      <div className="space-y-6 px-6 py-5">
-        {/* ── URL section ──────────────────────────────────────── */}
-        <section>
-          <h3 className="text-sm font-semibold text-text-primary">
-            {t("profile.avatarModalUrlSection", "Paste a URL")}
-          </h3>
-          <p className="mt-1 text-xs text-text-muted">
-            {t(
-              "profile.avatarModalUrlDesc",
-              "Link to a publicly-hosted image (JPG, PNG, or WebP).",
-            )}
-          </p>
-          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-            <input
-              type="url"
-              value={url}
-              onChange={(e) => {
-                setUrl(e.target.value);
-                if (error) setError(null);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  void handleSave();
-                }
-              }}
-              placeholder="https://..."
-              aria-label={t("profile.avatarUrl", "Profile picture URL")}
-              className="min-w-0 flex-1 rounded-md border border-border bg-transparent px-3 py-2 text-sm text-text-primary outline-none focus:border-accent"
-            />
-            <Button
-              type="button"
-              variant="primary"
-              size="sm"
-              disabled={saving}
-              onClick={() => void handleSave()}
-            >
-              {saving
-                ? t("common.loading", "Saving…")
-                : t("profile.avatarModalUrlSave", "Save")}
-            </Button>
-          </div>
-          {error && (
-            <p
-              role="alert"
-              className="mt-2 rounded-md border border-error/40 bg-error/10 px-2.5 py-1.5 text-xs text-error"
-            >
-              {error}
-            </p>
-          )}
-        </section>
-
-        {/* ── Upload section (disabled placeholder) ────────────── */}
-        <section className="border-t border-border pt-5">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-sm font-semibold text-text-muted">
-              {t("profile.avatarModalUploadSection", "Upload from your device")}
-            </h3>
-            <span className="inline-flex items-center rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
-              {t("profile.avatarModalUploadComingSoon", "Coming soon")}
-            </span>
-          </div>
-          <p className="mt-1 text-xs text-text-muted">
-            {t(
-              "profile.avatarModalUploadDesc",
-              "Custom uploads aren't supported yet — coming soon.",
-            )}
-          </p>
-          {/* Wrapper absorbs clicks so the disabled <input> can't even
-              open a file picker — defends against browser quirks where
-              `disabled` is treated as advisory. */}
-          <div
-            className="relative mt-3 cursor-not-allowed"
-            title={t(
-              "profile.avatarModalUploadDisabledTitle",
-              "Coming soon — we'll support custom uploads once storage is cheaper",
-            )}
-          >
-            <input
-              type="file"
-              accept="image/*"
-              disabled
-              aria-disabled="true"
-              tabIndex={-1}
-              className="block w-full cursor-not-allowed rounded-md border border-dashed border-border bg-surface-muted px-3 py-2 text-xs text-text-muted opacity-60"
-            />
-            {/* Transparent overlay that swallows clicks. */}
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            />
-          </div>
-        </section>
-      </div>
-    </ModalBase>
-  );
-}
-
-/**
- * RegisterForm — first-time username + display name capture. Rendered
- * when the page is reached via the HomePage 404→register redirect.
- *
- * The same ``useOwnProfile`` draft state powers this form; the parent
- * passes ``registerMode: true`` so save POSTs to ``users.register``.
- */
-function RegisterForm({
-  draft,
-  setDraft,
-  save,
-  isSaving,
-  saveError,
-  t,
-}: {
-  draft: {
-    displayName: string;
-    bio: string;
-    avatarUrl: string;
-    username?: string;
-  };
-  setDraft: React.Dispatch<
-    React.SetStateAction<{
-      displayName: string;
-      bio: string;
-      avatarUrl: string;
-      username?: string;
-    }>
-  >;
-  save: () => void;
-  isSaving: boolean;
-  saveError: string | null;
-  t: TFunction;
-}) {
-  return (
-    <form
-      className="space-y-5 rounded-card border border-border bg-surface p-6"
-      onSubmit={(e) => {
-        e.preventDefault();
-        save();
-      }}
-    >
-      {saveError && (
-        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
-          {saveError}
-        </p>
-      )}
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-text-secondary">
-          {t("profile.username", "Username")}
-        </label>
-        <Input
-          value={draft.username ?? ""}
-          onChange={(e) =>
-            setDraft((d) => ({ ...d, username: e.target.value }))
-          }
-          placeholder="@username"
-          required
-        />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-text-secondary">
-          {t("profile.realName", "Display name")}
-        </label>
-        <Input
-          value={draft.displayName}
-          onChange={(e) =>
-            setDraft((d) => ({ ...d, displayName: e.target.value }))
-          }
-          placeholder={t("profile.realNamePlaceholder", "Your name")}
-        />
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Button type="submit" variant="primary" size="sm" disabled={isSaving}>
-          {isSaving
-            ? t("common.loading", "Saving…")
-            : t("profile.registerCta", "Continue")}
-        </Button>
-      </div>
-    </form>
   );
 }
 
