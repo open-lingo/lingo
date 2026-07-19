@@ -242,13 +242,21 @@ export function FlashcardTester() {
   const isSessionDone = !card;
 
   // Front-of-card audio: play the target word/sentence when the card shows.
-  // Course word cards put the target script on `front` (recognition — the word
-  // is already visible, so audio reinforces pronunciation without leaking an
-  // answer). Keyed by card id → plays once per card; honors silentMode inside
-  // the hook. Flip-side audio is a separate future pass. (If a production mode
-  // that shows the meaning first is ever added, gate this to the reveal side.)
+  // Course word cards put the target script on `front`. This ONLY fires on
+  // RECOGNITION reviews — there the target word IS the prompt (front is shown),
+  // so audio reinforces pronunciation without leaking anything. On PRODUCTION
+  // reviews the learner is cued by the meaning (back) and must produce the
+  // word; `front` is the hidden answer, so playing it aloud would give it away
+  // — hence gated off. Keyed by card id → plays once per card; honors
+  // silentMode inside the hook. The 350ms hook delay + effect cleanup absorbs
+  // the transient render where `testedModality` still holds the prior card's
+  // value before its selection effect runs.
   const frontAudioText =
-    card && (card.type === "word" || card.type === "sentence") ? card.front : undefined;
+    card &&
+    testedModality === "recognition" &&
+    (card.type === "word" || card.type === "sentence")
+      ? card.front
+      : undefined;
   useAutoPlayJaAudio(frontAudioText, `fc-front-${card?.id ?? "none"}`);
 
   // ── Daily "Review N cards" quest (retention 1b) ──
@@ -786,16 +794,23 @@ export function FlashcardTester() {
         </p>
       </button>
 
-      {/* Rating buttons (only when flipped) – above detail so layout doesn't shift */}
+      {/* Rating buttons (only when flipped) – above detail so layout doesn't
+          shift. The action controls are wrapped in a fixed-height row so the
+          reveal swap (single "Show" button → grade grid) never changes the
+          control-area height and shoves layout. Both the "Show" button and
+          every grade button are h-16 and vertically center their content, so
+          the two states line up exactly (Spencer QA — buttons were jumping on
+          reveal). This complements the card-body min-h fix above. */}
+      <div className="flex h-16 items-stretch">
       {flipped ? (
         gradingLayout === "simple" ? (
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid w-full grid-cols-2 gap-2">
             {SIMPLE_BUTTONS.map(({ rating, labelKey, labelDefault, color }, i) => (
               <button
                 key={rating}
                 type="button"
                 onClick={() => handleRate(rating)}
-                className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+                className={`relative flex h-full flex-col items-center justify-center gap-0.5 rounded-xl px-3 text-sm font-semibold transition ${color}`}
                 title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
               >
                 {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
@@ -818,13 +833,13 @@ export function FlashcardTester() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid w-full grid-cols-4 gap-2">
             {RATING_BUTTONS.map(({ rating, label, color }, i) => (
               <button
                 key={rating}
                 type="button"
                 onClick={() => handleRate(rating)}
-                className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+                className={`relative flex h-full flex-col items-center justify-center gap-0.5 rounded-xl px-3 text-sm font-semibold transition ${color}`}
                 title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
               >
                 {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
@@ -851,11 +866,12 @@ export function FlashcardTester() {
         <button
           type="button"
           onClick={() => setFlipped(true)}
-          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white transition hover:bg-accent-hover"
+          className="flex h-full w-full items-center justify-center rounded-xl bg-accent px-6 text-base font-semibold text-white transition hover:bg-accent-hover"
         >
           {t("flashcards.showAnswer", "Show Answer")}
         </button>
       )}
+      </div>
 
       {/* Detail panel stacked below the card on mobile. On lg:+ it floats
           as an absolute overlay (below) so the card never shifts. */}
