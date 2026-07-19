@@ -1,0 +1,3600 @@
+[
+ {
+  "rank": 1,
+  "lemma": "うん",
+  "kana": "うん",
+  "pos": "expression",
+  "gloss": "yeah; uh-huh (casual yes)"
+ },
+ {
+  "rank": 2,
+  "lemma": "だ",
+  "kana": "だ",
+  "pos": "particle",
+  "gloss": "plain copula: is/be"
+ },
+ {
+  "rank": 3,
+  "lemma": "の",
+  "kana": "の",
+  "pos": "particle",
+  "gloss": "possessive/nominalizer particle"
+ },
+ {
+  "rank": 4,
+  "lemma": "か",
+  "kana": "か",
+  "pos": "particle",
+  "gloss": "question particle"
+ },
+ {
+  "rank": 5,
+  "lemma": "ね",
+  "kana": "ね",
+  "pos": "particle",
+  "gloss": "sentence-final: right?; isn't it"
+ },
+ {
+  "rank": 6,
+  "lemma": "た",
+  "kana": "た",
+  "pos": "particle",
+  "gloss": "past-tense auxiliary"
+ },
+ {
+  "rank": 7,
+  "lemma": "で",
+  "kana": "で",
+  "pos": "particle",
+  "gloss": "at/by/with (place, means)"
+ },
+ {
+  "rank": 8,
+  "lemma": "て",
+  "kana": "て",
+  "pos": "particle",
+  "gloss": "te-form connective"
+ },
+ {
+  "rank": 9,
+  "lemma": "そう",
+  "kana": "そう",
+  "pos": "adv",
+  "gloss": "so; that way; seems"
+ },
+ {
+  "rank": 10,
+  "lemma": "ない",
+  "kana": "ない",
+  "pos": "adj",
+  "gloss": "not; there is no; nonexistent"
+ },
+ {
+  "rank": 11,
+  "lemma": "と",
+  "kana": "と",
+  "pos": "particle",
+  "gloss": "with; and; quotative"
+ },
+ {
+  "rank": 12,
+  "lemma": "は",
+  "kana": "は",
+  "pos": "particle",
+  "gloss": "topic marker"
+ },
+ {
+  "rank": 13,
+  "lemma": "も",
+  "kana": "も",
+  "pos": "particle",
+  "gloss": "also; too; even"
+ },
+ {
+  "rank": 14,
+  "lemma": "に",
+  "kana": "に",
+  "pos": "particle",
+  "gloss": "to; at; in (target, location)"
+ },
+ {
+  "rank": 15,
+  "lemma": "よ",
+  "kana": "よ",
+  "pos": "particle",
+  "gloss": "sentence-final emphasis: you know"
+ },
+ {
+  "rank": 16,
+  "lemma": "てる",
+  "kana": "てる",
+  "pos": "particle",
+  "gloss": "progressive/resultative (contraction of ている)"
+ },
+ {
+  "rank": 17,
+  "lemma": "って",
+  "kana": "って",
+  "pos": "particle",
+  "gloss": "quotative/topic: speaking of; they say"
+ },
+ {
+  "rank": 18,
+  "lemma": "です",
+  "kana": "です",
+  "pos": "particle",
+  "gloss": "polite copula: is/be"
+ },
+ {
+  "rank": 19,
+  "lemma": "何",
+  "kana": "なに",
+  "pos": "noun",
+  "gloss": "what"
+ },
+ {
+  "rank": 20,
+  "lemma": "言う",
+  "kana": "いう",
+  "pos": "verb",
+  "gloss": "to say"
+ },
+ {
+  "rank": 21,
+  "lemma": "から",
+  "kana": "から",
+  "pos": "particle",
+  "gloss": "from; because"
+ },
+ {
+  "rank": 22,
+  "lemma": "する",
+  "kana": "する",
+  "pos": "verb",
+  "gloss": "to do"
+ },
+ {
+  "rank": 23,
+  "lemma": "はい",
+  "kana": "はい",
+  "pos": "expression",
+  "gloss": "yes (polite)"
+ },
+ {
+  "rank": 24,
+  "lemma": "いい",
+  "kana": "いい",
+  "pos": "adj",
+  "gloss": "good; fine; OK"
+ },
+ {
+  "rank": 25,
+  "lemma": "けど",
+  "kana": "けど",
+  "pos": "particle",
+  "gloss": "but; though (kedo/keredo)"
+ },
+ {
+  "rank": 26,
+  "lemma": "な",
+  "kana": "な",
+  "pos": "particle",
+  "gloss": "sentence-final: huh; don't (prohibitive)"
+ },
+ {
+  "rank": 27,
+  "lemma": "それ",
+  "kana": "それ",
+  "pos": "noun",
+  "gloss": "that (near listener)"
+ },
+ {
+  "rank": 28,
+  "lemma": "ある",
+  "kana": "ある",
+  "pos": "verb",
+  "gloss": "to exist; to have (inanimate)"
+ },
+ {
+  "rank": 29,
+  "lemma": "を",
+  "kana": "を",
+  "pos": "particle",
+  "gloss": "direct-object marker"
+ },
+ {
+  "rank": 30,
+  "lemma": "ます",
+  "kana": "ます",
+  "pos": "particle",
+  "gloss": "polite verb ending"
+ },
+ {
+  "rank": 31,
+  "lemma": "もう",
+  "kana": "もう",
+  "pos": "adv",
+  "gloss": "already; more; soon"
+ },
+ {
+  "rank": 32,
+  "lemma": "さ",
+  "kana": "さ",
+  "pos": "particle",
+  "gloss": "sentence-final filler: you see"
+ },
+ {
+  "rank": 33,
+  "lemma": "これ",
+  "kana": "これ",
+  "pos": "noun",
+  "gloss": "this"
+ },
+ {
+  "rank": 34,
+  "lemma": "行く",
+  "kana": "いく",
+  "pos": "verb",
+  "gloss": "to go"
+ },
+ {
+  "rank": 35,
+  "lemma": "まあ",
+  "kana": "まあ",
+  "pos": "adv",
+  "gloss": "well; I guess"
+ },
+ {
+  "rank": 36,
+  "lemma": "やる",
+  "kana": "やる",
+  "pos": "verb",
+  "gloss": "to do (casual); to give"
+ },
+ {
+  "rank": 37,
+  "lemma": "その",
+  "kana": "その",
+  "pos": "other",
+  "gloss": "that ~ (demonstrative, near listener)"
+ },
+ {
+  "rank": 38,
+  "lemma": "思う",
+  "kana": "おもう",
+  "pos": "verb",
+  "gloss": "to think"
+ },
+ {
+  "rank": 39,
+  "lemma": "なる",
+  "kana": "なる",
+  "pos": "verb",
+  "gloss": "to become"
+ },
+ {
+  "rank": 40,
+  "lemma": "来る",
+  "kana": "くる",
+  "pos": "verb",
+  "gloss": "to come"
+ },
+ {
+  "rank": 41,
+  "lemma": "ちょっと",
+  "kana": "ちょっと",
+  "pos": "adv",
+  "gloss": "a little; a moment"
+ },
+ {
+  "rank": 42,
+  "lemma": "いや",
+  "kana": "いや",
+  "pos": "expression",
+  "gloss": "no; nah"
+ },
+ {
+  "rank": 43,
+  "lemma": "あれ",
+  "kana": "あれ",
+  "pos": "noun",
+  "gloss": "that (over there)"
+ },
+ {
+  "rank": 44,
+  "lemma": "こと",
+  "kana": "こと",
+  "pos": "noun",
+  "gloss": "thing (abstract); matter"
+ },
+ {
+  "rank": 45,
+  "lemma": "さん",
+  "kana": "さん",
+  "pos": "other",
+  "gloss": "polite name suffix: Mr./Ms."
+ },
+ {
+  "rank": 46,
+  "lemma": "ちゃう",
+  "kana": "ちゃう",
+  "pos": "particle",
+  "gloss": "end up doing (contraction of てしまう)"
+ },
+ {
+  "rank": 47,
+  "lemma": "みたい",
+  "kana": "みたい",
+  "pos": "adj",
+  "gloss": "like; similar to; seems"
+ },
+ {
+  "rank": 48,
+  "lemma": "こう",
+  "kana": "こう",
+  "pos": "adv",
+  "gloss": "like this; this way"
+ },
+ {
+  "rank": 49,
+  "lemma": "すごい",
+  "kana": "すごい",
+  "pos": "adj",
+  "gloss": "amazing; awesome; terrible"
+ },
+ {
+  "rank": 50,
+  "lemma": "人",
+  "kana": "ひと",
+  "pos": "noun",
+  "gloss": "person"
+ },
+ {
+  "rank": 51,
+  "lemma": "一",
+  "kana": "いち",
+  "pos": "noun",
+  "gloss": "one"
+ },
+ {
+  "rank": 52,
+  "lemma": "いる",
+  "kana": "いる",
+  "pos": "verb",
+  "gloss": "to exist; to be (animate)"
+ },
+ {
+  "rank": 53,
+  "lemma": "分かる",
+  "kana": "わかる",
+  "pos": "verb",
+  "gloss": "to understand"
+ },
+ {
+  "rank": 54,
+  "lemma": "ええ",
+  "kana": "ええ",
+  "pos": "expression",
+  "gloss": "yes; yeah (mild)"
+ },
+ {
+  "rank": 55,
+  "lemma": "見る",
+  "kana": "みる",
+  "pos": "verb",
+  "gloss": "to see; to look"
+ },
+ {
+  "rank": 56,
+  "lemma": "もの",
+  "kana": "もの",
+  "pos": "noun",
+  "gloss": "thing (concrete)"
+ },
+ {
+  "rank": 57,
+  "lemma": "本当",
+  "kana": "ほんとう",
+  "pos": "noun",
+  "gloss": "truth; really (honto)"
+ },
+ {
+  "rank": 58,
+  "lemma": "私",
+  "kana": "わたし",
+  "pos": "noun",
+  "gloss": "I; me"
+ },
+ {
+  "rank": 59,
+  "lemma": "今",
+  "kana": "いま",
+  "pos": "noun",
+  "gloss": "now"
+ },
+ {
+  "rank": 60,
+  "lemma": "どう",
+  "kana": "どう",
+  "pos": "adv",
+  "gloss": "how; what way"
+ },
+ {
+  "rank": 61,
+  "lemma": "くらい",
+  "kana": "くらい",
+  "pos": "particle",
+  "gloss": "about; approximately; to the extent"
+ },
+ {
+  "rank": 62,
+  "lemma": "時",
+  "kana": "とき",
+  "pos": "noun",
+  "gloss": "time; when"
+ },
+ {
+  "rank": 63,
+  "lemma": "じゃん",
+  "kana": "じゃん",
+  "pos": "particle",
+  "gloss": "sentence-final: isn't it? (colloquial)"
+ },
+ {
+  "rank": 64,
+  "lemma": "この",
+  "kana": "この",
+  "pos": "other",
+  "gloss": "this ~ (demonstrative)"
+ },
+ {
+  "rank": 65,
+  "lemma": "やはり",
+  "kana": "やはり",
+  "pos": "adv",
+  "gloss": "as expected; after all (yahari/yappari)"
+ },
+ {
+  "rank": 66,
+  "lemma": "ほう",
+  "kana": "ほう",
+  "pos": "noun",
+  "gloss": "direction; side; the ~ one (comparison)"
+ },
+ {
+  "rank": 67,
+  "lemma": "ちゃん",
+  "kana": "ちゃん",
+  "pos": "other",
+  "gloss": "affectionate name suffix"
+ },
+ {
+  "rank": 68,
+  "lemma": "違う",
+  "kana": "ちがう",
+  "pos": "verb",
+  "gloss": "to differ; to be wrong; no"
+ },
+ {
+  "rank": 69,
+  "lemma": "ところ",
+  "kana": "ところ",
+  "pos": "noun",
+  "gloss": "place; point (in time)"
+ },
+ {
+  "rank": 70,
+  "lemma": "二",
+  "kana": "に",
+  "pos": "noun",
+  "gloss": "two"
+ },
+ {
+  "rank": 71,
+  "lemma": "食べる",
+  "kana": "たべる",
+  "pos": "verb",
+  "gloss": "to eat"
+ },
+ {
+  "rank": 72,
+  "lemma": "ば",
+  "kana": "ば",
+  "pos": "particle",
+  "gloss": "conditional: if"
+ },
+ {
+  "rank": 73,
+  "lemma": "そんな",
+  "kana": "そんな",
+  "pos": "other",
+  "gloss": "that kind of"
+ },
+ {
+  "rank": 74,
+  "lemma": "ここ",
+  "kana": "ここ",
+  "pos": "noun",
+  "gloss": "here"
+ },
+ {
+  "rank": 75,
+  "lemma": "し",
+  "kana": "し",
+  "pos": "particle",
+  "gloss": "and what's more (reason listing)"
+ },
+ {
+  "rank": 76,
+  "lemma": "後",
+  "kana": "あと",
+  "pos": "noun",
+  "gloss": "after; later; the rest"
+ },
+ {
+  "rank": 77,
+  "lemma": "十",
+  "kana": "じゅう",
+  "pos": "noun",
+  "gloss": "ten"
+ },
+ {
+  "rank": 78,
+  "lemma": "感じ",
+  "kana": "かんじ",
+  "pos": "noun",
+  "gloss": "feeling; impression"
+ },
+ {
+  "rank": 79,
+  "lemma": "だけ",
+  "kana": "だけ",
+  "pos": "particle",
+  "gloss": "only; just"
+ },
+ {
+  "rank": 80,
+  "lemma": "そこ",
+  "kana": "そこ",
+  "pos": "noun",
+  "gloss": "there (near listener)"
+ },
+ {
+  "rank": 81,
+  "lemma": "たい",
+  "kana": "たい",
+  "pos": "particle",
+  "gloss": "want to (desiderative ending)"
+ },
+ {
+  "rank": 82,
+  "lemma": "できる",
+  "kana": "できる",
+  "pos": "verb",
+  "gloss": "to be able to; to be completed"
+ },
+ {
+  "rank": 83,
+  "lemma": "俺",
+  "kana": "おれ",
+  "pos": "noun",
+  "gloss": "I; me (masculine, casual)"
+ },
+ {
+  "rank": 84,
+  "lemma": "っけ",
+  "kana": "っけ",
+  "pos": "particle",
+  "gloss": "sentence-final: was it?; recall marker"
+ },
+ {
+  "rank": 85,
+  "lemma": "出る",
+  "kana": "でる",
+  "pos": "verb",
+  "gloss": "to go out; to leave; to appear"
+ },
+ {
+  "rank": 86,
+  "lemma": "三",
+  "kana": "さん",
+  "pos": "noun",
+  "gloss": "three"
+ },
+ {
+  "rank": 87,
+  "lemma": "多分",
+  "kana": "たぶん",
+  "pos": "adv",
+  "gloss": "probably; maybe"
+ },
+ {
+  "rank": 88,
+  "lemma": "入る",
+  "kana": "はいる",
+  "pos": "verb",
+  "gloss": "to enter"
+ },
+ {
+  "rank": 89,
+  "lemma": "みんな",
+  "kana": "みんな",
+  "pos": "noun",
+  "gloss": "everyone; all"
+ },
+ {
+  "rank": 90,
+  "lemma": "やつ",
+  "kana": "やつ",
+  "pos": "noun",
+  "gloss": "guy; thing (colloquial)"
+ },
+ {
+  "rank": 91,
+  "lemma": "まで",
+  "kana": "まで",
+  "pos": "particle",
+  "gloss": "until; as far as"
+ },
+ {
+  "rank": 92,
+  "lemma": "ほら",
+  "kana": "ほら",
+  "pos": "expression",
+  "gloss": "look!; see?"
+ },
+ {
+  "rank": 93,
+  "lemma": "前",
+  "kana": "まえ",
+  "pos": "noun",
+  "gloss": "before; front"
+ },
+ {
+  "rank": 94,
+  "lemma": "結構",
+  "kana": "けっこう",
+  "pos": "adv",
+  "gloss": "quite; fairly; no thank you"
+ },
+ {
+  "rank": 95,
+  "lemma": "美味しい",
+  "kana": "おいしい",
+  "pos": "adj",
+  "gloss": "delicious"
+ },
+ {
+  "rank": 96,
+  "lemma": "どこ",
+  "kana": "どこ",
+  "pos": "noun",
+  "gloss": "where"
+ },
+ {
+  "rank": 97,
+  "lemma": "全然",
+  "kana": "ぜんぜん",
+  "pos": "adv",
+  "gloss": "(not) at all; totally"
+ },
+ {
+  "rank": 98,
+  "lemma": "もらう",
+  "kana": "もらう",
+  "pos": "verb",
+  "gloss": "to receive"
+ },
+ {
+  "rank": 99,
+  "lemma": "話",
+  "kana": "はなし",
+  "pos": "noun",
+  "gloss": "talk; story"
+ },
+ {
+  "rank": 100,
+  "lemma": "取る",
+  "kana": "とる",
+  "pos": "verb",
+  "gloss": "to take"
+ },
+ {
+  "rank": 101,
+  "lemma": "よう",
+  "kana": "よう",
+  "pos": "adj",
+  "gloss": "like; appearance (~のよう: seems)"
+ },
+ {
+  "rank": 102,
+  "lemma": "大丈夫",
+  "kana": "だいじょうぶ",
+  "pos": "adj",
+  "gloss": "all right; OK; no problem"
+ },
+ {
+  "rank": 103,
+  "lemma": "使う",
+  "kana": "つかう",
+  "pos": "verb",
+  "gloss": "to use"
+ },
+ {
+  "rank": 104,
+  "lemma": "持つ",
+  "kana": "もつ",
+  "pos": "verb",
+  "gloss": "to hold; to have"
+ },
+ {
+  "rank": 105,
+  "lemma": "知る",
+  "kana": "しる",
+  "pos": "verb",
+  "gloss": "to know"
+ },
+ {
+  "rank": 106,
+  "lemma": "こちら",
+  "kana": "こちら",
+  "pos": "noun",
+  "gloss": "this way; this side; here (polite)"
+ },
+ {
+  "rank": 107,
+  "lemma": "入れる",
+  "kana": "いれる",
+  "pos": "verb",
+  "gloss": "to put in"
+ },
+ {
+  "rank": 108,
+  "lemma": "年",
+  "kana": "ねん",
+  "pos": "noun",
+  "gloss": "year (counter)"
+ },
+ {
+  "rank": 109,
+  "lemma": "わけ",
+  "kana": "わけ",
+  "pos": "noun",
+  "gloss": "reason; explanation (~わけだ)"
+ },
+ {
+  "rank": 110,
+  "lemma": "書く",
+  "kana": "かく",
+  "pos": "verb",
+  "gloss": "to write"
+ },
+ {
+  "rank": 111,
+  "lemma": "作る",
+  "kana": "つくる",
+  "pos": "verb",
+  "gloss": "to make"
+ },
+ {
+  "rank": 112,
+  "lemma": "自分",
+  "kana": "じぶん",
+  "pos": "noun",
+  "gloss": "oneself"
+ },
+ {
+  "rank": 113,
+  "lemma": "だめ",
+  "kana": "だめ",
+  "pos": "adj",
+  "gloss": "no good; not allowed"
+ },
+ {
+  "rank": 114,
+  "lemma": "くれる",
+  "kana": "くれる",
+  "pos": "verb",
+  "gloss": "to give (to me)"
+ },
+ {
+  "rank": 115,
+  "lemma": "時",
+  "kana": "じ",
+  "pos": "other",
+  "gloss": "o'clock (counter)"
+ },
+ {
+  "rank": 116,
+  "lemma": "五",
+  "kana": "ご",
+  "pos": "noun",
+  "gloss": "five"
+ },
+ {
+  "rank": 117,
+  "lemma": "まだ",
+  "kana": "まだ",
+  "pos": "adv",
+  "gloss": "still; not yet"
+ },
+ {
+  "rank": 118,
+  "lemma": "買う",
+  "kana": "かう",
+  "pos": "verb",
+  "gloss": "to buy"
+ },
+ {
+  "rank": 119,
+  "lemma": "飲む",
+  "kana": "のむ",
+  "pos": "verb",
+  "gloss": "to drink"
+ },
+ {
+  "rank": 120,
+  "lemma": "聞く",
+  "kana": "きく",
+  "pos": "verb",
+  "gloss": "to hear; to ask"
+ },
+ {
+  "rank": 121,
+  "lemma": "四",
+  "kana": "よん",
+  "pos": "noun",
+  "gloss": "four"
+ },
+ {
+  "rank": 122,
+  "lemma": "回",
+  "kana": "かい",
+  "pos": "other",
+  "gloss": "times (counter for occurrences)"
+ },
+ {
+  "rank": 123,
+  "lemma": "先生",
+  "kana": "せんせい",
+  "pos": "noun",
+  "gloss": "teacher; doctor"
+ },
+ {
+  "rank": 124,
+  "lemma": "たち",
+  "kana": "たち",
+  "pos": "other",
+  "gloss": "pluralizing suffix (people)"
+ },
+ {
+  "rank": 125,
+  "lemma": "的",
+  "kana": "てき",
+  "pos": "other",
+  "gloss": "-ish; -like (adjectival suffix)"
+ },
+ {
+  "rank": 126,
+  "lemma": "あまり",
+  "kana": "あまり",
+  "pos": "adv",
+  "gloss": "(not) very; too much"
+ },
+ {
+  "rank": 127,
+  "lemma": "うち",
+  "kana": "うち",
+  "pos": "noun",
+  "gloss": "home; our house; my family"
+ },
+ {
+  "rank": 128,
+  "lemma": "また",
+  "kana": "また",
+  "pos": "adv",
+  "gloss": "again; also"
+ },
+ {
+  "rank": 129,
+  "lemma": "わ",
+  "kana": "わ",
+  "pos": "particle",
+  "gloss": "sentence-final emphasis (soft)"
+ },
+ {
+  "rank": 130,
+  "lemma": "時間",
+  "kana": "じかん",
+  "pos": "noun",
+  "gloss": "time; hour"
+ },
+ {
+  "rank": 131,
+  "lemma": "月",
+  "kana": "がつ",
+  "pos": "other",
+  "gloss": "month (counter for month names)"
+ },
+ {
+  "rank": 132,
+  "lemma": "なるほど",
+  "kana": "なるほど",
+  "pos": "expression",
+  "gloss": "I see; indeed"
+ },
+ {
+  "rank": 133,
+  "lemma": "つ",
+  "kana": "つ",
+  "pos": "other",
+  "gloss": "general counter (ひとつ, ふたつ...)"
+ },
+ {
+  "rank": 134,
+  "lemma": "円",
+  "kana": "えん",
+  "pos": "noun",
+  "gloss": "yen"
+ },
+ {
+  "rank": 135,
+  "lemma": "気",
+  "kana": "き",
+  "pos": "noun",
+  "gloss": "spirit; mind; feeling (気にする etc.)"
+ },
+ {
+  "rank": 136,
+  "lemma": "今日",
+  "kana": "きょう",
+  "pos": "noun",
+  "gloss": "today"
+ },
+ {
+  "rank": 137,
+  "lemma": "全部",
+  "kana": "ぜんぶ",
+  "pos": "noun",
+  "gloss": "all; everything"
+ },
+ {
+  "rank": 138,
+  "lemma": "中",
+  "kana": "なか",
+  "pos": "noun",
+  "gloss": "inside; middle"
+ },
+ {
+  "rank": 139,
+  "lemma": "別",
+  "kana": "べつ",
+  "pos": "noun",
+  "gloss": "separate; different (別に: not particularly)"
+ },
+ {
+  "rank": 140,
+  "lemma": "出す",
+  "kana": "だす",
+  "pos": "verb",
+  "gloss": "to take out; to submit; to send"
+ },
+ {
+  "rank": 141,
+  "lemma": "あそこ",
+  "kana": "あそこ",
+  "pos": "noun",
+  "gloss": "over there"
+ },
+ {
+  "rank": 142,
+  "lemma": "普通",
+  "kana": "ふつう",
+  "pos": "noun",
+  "gloss": "normal; ordinary; usually"
+ },
+ {
+  "rank": 143,
+  "lemma": "日",
+  "kana": "ひ",
+  "pos": "noun",
+  "gloss": "day; sun"
+ },
+ {
+  "rank": 144,
+  "lemma": "よく",
+  "kana": "よく",
+  "pos": "adv",
+  "gloss": "often; well"
+ },
+ {
+  "rank": 145,
+  "lemma": "誰",
+  "kana": "だれ",
+  "pos": "noun",
+  "gloss": "who"
+ },
+ {
+  "rank": 146,
+  "lemma": "ありがとう",
+  "kana": "ありがとう",
+  "pos": "expression",
+  "gloss": "thank you"
+ },
+ {
+  "rank": 147,
+  "lemma": "しか",
+  "kana": "しか",
+  "pos": "particle",
+  "gloss": "only (with negative)"
+ },
+ {
+  "rank": 148,
+  "lemma": "確か",
+  "kana": "たしか",
+  "pos": "adv",
+  "gloss": "certainly; if I remember right"
+ },
+ {
+  "rank": 149,
+  "lemma": "いつ",
+  "kana": "いつ",
+  "pos": "noun",
+  "gloss": "when"
+ },
+ {
+  "rank": 150,
+  "lemma": "帰る",
+  "kana": "かえる",
+  "pos": "verb",
+  "gloss": "to return; to go home"
+ },
+ {
+  "rank": 151,
+  "lemma": "こんな",
+  "kana": "こんな",
+  "pos": "other",
+  "gloss": "this kind of"
+ },
+ {
+  "rank": 152,
+  "lemma": "子",
+  "kana": "こ",
+  "pos": "noun",
+  "gloss": "child; kid"
+ },
+ {
+  "rank": 153,
+  "lemma": "君",
+  "kana": "くん",
+  "pos": "other",
+  "gloss": "name suffix (familiar, often male)"
+ },
+ {
+  "rank": 154,
+  "lemma": "人",
+  "kana": "にん",
+  "pos": "other",
+  "gloss": "counter for people"
+ },
+ {
+  "rank": 155,
+  "lemma": "方",
+  "kana": "かた",
+  "pos": "noun",
+  "gloss": "person (polite); way of doing"
+ },
+ {
+  "rank": 156,
+  "lemma": "好き",
+  "kana": "すき",
+  "pos": "adj",
+  "gloss": "liked; favorite (to like)"
+ },
+ {
+  "rank": 157,
+  "lemma": "いっぱい",
+  "kana": "いっぱい",
+  "pos": "adv",
+  "gloss": "full; a lot"
+ },
+ {
+  "rank": 158,
+  "lemma": "一番",
+  "kana": "いちばん",
+  "pos": "adv",
+  "gloss": "number one; most; best"
+ },
+ {
+  "rank": 159,
+  "lemma": "六",
+  "kana": "ろく",
+  "pos": "noun",
+  "gloss": "six"
+ },
+ {
+  "rank": 160,
+  "lemma": "一緒",
+  "kana": "いっしょ",
+  "pos": "noun",
+  "gloss": "together (一緒に)"
+ },
+ {
+  "rank": 161,
+  "lemma": "くださる",
+  "kana": "くださる",
+  "pos": "verb",
+  "gloss": "to give (honorific); ~てください: please"
+ },
+ {
+  "rank": 162,
+  "lemma": "待つ",
+  "kana": "まつ",
+  "pos": "verb",
+  "gloss": "to wait"
+ },
+ {
+  "rank": 163,
+  "lemma": "嫌",
+  "kana": "いや",
+  "pos": "adj",
+  "gloss": "unpleasant; disliked; no way"
+ },
+ {
+  "rank": 164,
+  "lemma": "僕",
+  "kana": "ぼく",
+  "pos": "noun",
+  "gloss": "I; me (male, soft)"
+ },
+ {
+  "rank": 165,
+  "lemma": "考える",
+  "kana": "かんがえる",
+  "pos": "verb",
+  "gloss": "to think about; to consider"
+ },
+ {
+  "rank": 166,
+  "lemma": "個",
+  "kana": "こ",
+  "pos": "other",
+  "gloss": "counter for small objects"
+ },
+ {
+  "rank": 167,
+  "lemma": "同じ",
+  "kana": "おなじ",
+  "pos": "adj",
+  "gloss": "same"
+ },
+ {
+  "rank": 168,
+  "lemma": "八",
+  "kana": "はち",
+  "pos": "noun",
+  "gloss": "eight"
+ },
+ {
+  "rank": 169,
+  "lemma": "済む",
+  "kana": "すむ",
+  "pos": "verb",
+  "gloss": "to be finished; to get by (すみません: excuse me)"
+ },
+ {
+  "rank": 170,
+  "lemma": "目",
+  "kana": "め",
+  "pos": "other",
+  "gloss": "eye; -th (ordinal suffix)"
+ },
+ {
+  "rank": 171,
+  "lemma": "あげる",
+  "kana": "あげる",
+  "pos": "verb",
+  "gloss": "to give (outward); to raise"
+ },
+ {
+  "rank": 172,
+  "lemma": "置く",
+  "kana": "おく",
+  "pos": "verb",
+  "gloss": "to put; to place; ~ておく: do in advance"
+ },
+ {
+  "rank": 173,
+  "lemma": "ちゃんと",
+  "kana": "ちゃんと",
+  "pos": "adv",
+  "gloss": "properly; exactly"
+ },
+ {
+  "rank": 174,
+  "lemma": "ずっと",
+  "kana": "ずっと",
+  "pos": "adv",
+  "gloss": "the whole time; by far"
+ },
+ {
+  "rank": 175,
+  "lemma": "上",
+  "kana": "うえ",
+  "pos": "noun",
+  "gloss": "above; top"
+ },
+ {
+  "rank": 176,
+  "lemma": "多い",
+  "kana": "おおい",
+  "pos": "adj",
+  "gloss": "many; much"
+ },
+ {
+  "rank": 177,
+  "lemma": "いただく",
+  "kana": "いただく",
+  "pos": "verb",
+  "gloss": "to receive (humble); いただきます"
+ },
+ {
+  "rank": 178,
+  "lemma": "ごめん",
+  "kana": "ごめん",
+  "pos": "expression",
+  "gloss": "sorry (ごめんなさい)"
+ },
+ {
+  "rank": 179,
+  "lemma": "面白い",
+  "kana": "おもしろい",
+  "pos": "adj",
+  "gloss": "interesting; funny"
+ },
+ {
+  "rank": 180,
+  "lemma": "高い",
+  "kana": "たかい",
+  "pos": "adj",
+  "gloss": "high; expensive"
+ },
+ {
+  "rank": 181,
+  "lemma": "絶対",
+  "kana": "ぜったい",
+  "pos": "adv",
+  "gloss": "absolutely; definitely"
+ },
+ {
+  "rank": 182,
+  "lemma": "一人",
+  "kana": "ひとり",
+  "pos": "noun",
+  "gloss": "one person; alone"
+ },
+ {
+  "rank": 183,
+  "lemma": "日本",
+  "kana": "にほん",
+  "pos": "noun",
+  "gloss": "Japan"
+ },
+ {
+  "rank": 184,
+  "lemma": "早い",
+  "kana": "はやい",
+  "pos": "adj",
+  "gloss": "early; fast"
+ },
+ {
+  "rank": 185,
+  "lemma": "ふう",
+  "kana": "ふう",
+  "pos": "noun",
+  "gloss": "way; manner (こういう風に)"
+ },
+ {
+  "rank": 186,
+  "lemma": "万",
+  "kana": "まん",
+  "pos": "noun",
+  "gloss": "ten thousand"
+ },
+ {
+  "rank": 187,
+  "lemma": "百",
+  "kana": "ひゃく",
+  "pos": "noun",
+  "gloss": "hundred"
+ },
+ {
+  "rank": 188,
+  "lemma": "大変",
+  "kana": "たいへん",
+  "pos": "adj",
+  "gloss": "tough; terrible; very"
+ },
+ {
+  "rank": 189,
+  "lemma": "お母さん",
+  "kana": "おかあさん",
+  "pos": "noun",
+  "gloss": "mother; mom"
+ },
+ {
+  "rank": 190,
+  "lemma": "色々",
+  "kana": "いろいろ",
+  "pos": "adv",
+  "gloss": "various; in many ways"
+ },
+ {
+  "rank": 191,
+  "lemma": "辺",
+  "kana": "へん",
+  "pos": "noun",
+  "gloss": "vicinity; around (この辺)"
+ },
+ {
+  "rank": 192,
+  "lemma": "変わる",
+  "kana": "かわる",
+  "pos": "verb",
+  "gloss": "to change (intransitive)"
+ },
+ {
+  "rank": 193,
+  "lemma": "付く",
+  "kana": "つく",
+  "pos": "verb",
+  "gloss": "to be attached; to come with"
+ },
+ {
+  "rank": 194,
+  "lemma": "学校",
+  "kana": "がっこう",
+  "pos": "noun",
+  "gloss": "school"
+ },
+ {
+  "rank": 195,
+  "lemma": "やばい",
+  "kana": "やばい",
+  "pos": "adj",
+  "gloss": "risky; awesome/awful (slang)"
+ },
+ {
+  "rank": 196,
+  "lemma": "一応",
+  "kana": "いちおう",
+  "pos": "adv",
+  "gloss": "tentatively; just in case; more or less"
+ },
+ {
+  "rank": 197,
+  "lemma": "うまい",
+  "kana": "うまい",
+  "pos": "adj",
+  "gloss": "tasty; skillful"
+ },
+ {
+  "rank": 198,
+  "lemma": "乗る",
+  "kana": "のる",
+  "pos": "verb",
+  "gloss": "to ride; to get on"
+ },
+ {
+  "rank": 199,
+  "lemma": "より",
+  "kana": "より",
+  "pos": "particle",
+  "gloss": "than; from (comparison)"
+ },
+ {
+  "rank": 200,
+  "lemma": "最初",
+  "kana": "さいしょ",
+  "pos": "noun",
+  "gloss": "the first; beginning"
+ },
+ {
+  "rank": 201,
+  "lemma": "やめる",
+  "kana": "やめる",
+  "pos": "verb",
+  "gloss": "to quit; to stop"
+ },
+ {
+  "rank": 202,
+  "lemma": "つける",
+  "kana": "つける",
+  "pos": "verb",
+  "gloss": "to attach; to turn on"
+ },
+ {
+  "rank": 203,
+  "lemma": "どちら",
+  "kana": "どちら",
+  "pos": "noun",
+  "gloss": "which; where (polite)"
+ },
+ {
+  "rank": 204,
+  "lemma": "要る",
+  "kana": "いる",
+  "pos": "verb",
+  "gloss": "to need"
+ },
+ {
+  "rank": 205,
+  "lemma": "終わる",
+  "kana": "おわる",
+  "pos": "verb",
+  "gloss": "to end; to finish"
+ },
+ {
+  "rank": 206,
+  "lemma": "らしい",
+  "kana": "らしい",
+  "pos": "particle",
+  "gloss": "apparently; seems; typical of"
+ },
+ {
+  "rank": 207,
+  "lemma": "なんか",
+  "kana": "なんか",
+  "pos": "particle",
+  "gloss": "something like; kind of (filler)"
+ },
+ {
+  "rank": 208,
+  "lemma": "分",
+  "kana": "ふん",
+  "pos": "other",
+  "gloss": "minute (counter)"
+ },
+ {
+  "rank": 209,
+  "lemma": "子供",
+  "kana": "こども",
+  "pos": "noun",
+  "gloss": "child"
+ },
+ {
+  "rank": 210,
+  "lemma": "会",
+  "kana": "かい",
+  "pos": "noun",
+  "gloss": "meeting; gathering; party"
+ },
+ {
+  "rank": 211,
+  "lemma": "昔",
+  "kana": "むかし",
+  "pos": "noun",
+  "gloss": "old times; long ago"
+ },
+ {
+  "rank": 212,
+  "lemma": "下",
+  "kana": "した",
+  "pos": "noun",
+  "gloss": "below; under"
+ },
+ {
+  "rank": 213,
+  "lemma": "悪い",
+  "kana": "わるい",
+  "pos": "adj",
+  "gloss": "bad; my bad"
+ },
+ {
+  "rank": 214,
+  "lemma": "怖い",
+  "kana": "こわい",
+  "pos": "adj",
+  "gloss": "scary; afraid"
+ },
+ {
+  "rank": 215,
+  "lemma": "大きい",
+  "kana": "おおきい",
+  "pos": "adj",
+  "gloss": "big"
+ },
+ {
+  "rank": 216,
+  "lemma": "仕事",
+  "kana": "しごと",
+  "pos": "noun",
+  "gloss": "work; job (~する)"
+ },
+ {
+  "rank": 217,
+  "lemma": "ただ",
+  "kana": "ただ",
+  "pos": "adv",
+  "gloss": "just; only; free of charge; however"
+ },
+ {
+  "rank": 218,
+  "lemma": "日",
+  "kana": "にち",
+  "pos": "other",
+  "gloss": "day of month (counter)"
+ },
+ {
+  "rank": 219,
+  "lemma": "可愛い",
+  "kana": "かわいい",
+  "pos": "adj",
+  "gloss": "cute"
+ },
+ {
+  "rank": 220,
+  "lemma": "めちゃ",
+  "kana": "めちゃ",
+  "pos": "adv",
+  "gloss": "super; extremely (colloquial, めっちゃ)"
+ },
+ {
+  "rank": 221,
+  "lemma": "結局",
+  "kana": "けっきょく",
+  "pos": "adv",
+  "gloss": "in the end; after all"
+ },
+ {
+  "rank": 222,
+  "lemma": "かかる",
+  "kana": "かかる",
+  "pos": "verb",
+  "gloss": "to take (time/money); to hang"
+ },
+ {
+  "rank": 223,
+  "lemma": "例えば",
+  "kana": "たとえば",
+  "pos": "adv",
+  "gloss": "for example"
+ },
+ {
+  "rank": 224,
+  "lemma": "もっと",
+  "kana": "もっと",
+  "pos": "adv",
+  "gloss": "more"
+ },
+ {
+  "rank": 225,
+  "lemma": "本",
+  "kana": "ほん",
+  "pos": "noun",
+  "gloss": "book; counter for long objects"
+ },
+ {
+  "rank": 226,
+  "lemma": "意味",
+  "kana": "いみ",
+  "pos": "noun",
+  "gloss": "meaning (~する)"
+ },
+ {
+  "rank": 227,
+  "lemma": "さっき",
+  "kana": "さっき",
+  "pos": "adv",
+  "gloss": "a little while ago; just now"
+ },
+ {
+  "rank": 228,
+  "lemma": "いろんな",
+  "kana": "いろんな",
+  "pos": "other",
+  "gloss": "various (colloquial)"
+ },
+ {
+  "rank": 229,
+  "lemma": "小さい",
+  "kana": "ちいさい",
+  "pos": "adj",
+  "gloss": "small"
+ },
+ {
+  "rank": 230,
+  "lemma": "切る",
+  "kana": "きる",
+  "pos": "verb",
+  "gloss": "to cut; to hang up"
+ },
+ {
+  "rank": 231,
+  "lemma": "次",
+  "kana": "つぎ",
+  "pos": "noun",
+  "gloss": "next"
+ },
+ {
+  "rank": 232,
+  "lemma": "最近",
+  "kana": "さいきん",
+  "pos": "adv",
+  "gloss": "recently; these days"
+ },
+ {
+  "rank": 233,
+  "lemma": "お前",
+  "kana": "おまえ",
+  "pos": "noun",
+  "gloss": "you (blunt, casual)"
+ },
+ {
+  "rank": 234,
+  "lemma": "家",
+  "kana": "いえ",
+  "pos": "noun",
+  "gloss": "house"
+ },
+ {
+  "rank": 235,
+  "lemma": "ながら",
+  "kana": "ながら",
+  "pos": "particle",
+  "gloss": "while doing"
+ },
+ {
+  "rank": 236,
+  "lemma": "七",
+  "kana": "なな",
+  "pos": "noun",
+  "gloss": "seven"
+ },
+ {
+  "rank": 237,
+  "lemma": "すぐ",
+  "kana": "すぐ",
+  "pos": "adv",
+  "gloss": "immediately; right away"
+ },
+ {
+  "rank": 238,
+  "lemma": "覚える",
+  "kana": "おぼえる",
+  "pos": "verb",
+  "gloss": "to remember; to learn"
+ },
+ {
+  "rank": 239,
+  "lemma": "お金",
+  "kana": "おかね",
+  "pos": "noun",
+  "gloss": "money"
+ },
+ {
+  "rank": 240,
+  "lemma": "二人",
+  "kana": "ふたり",
+  "pos": "noun",
+  "gloss": "two people"
+ },
+ {
+  "rank": 241,
+  "lemma": "見える",
+  "kana": "みえる",
+  "pos": "verb",
+  "gloss": "to be visible; to seem"
+ },
+ {
+  "rank": 242,
+  "lemma": "かける",
+  "kana": "かける",
+  "pos": "verb",
+  "gloss": "to hang; to call (phone); to apply"
+ },
+ {
+  "rank": 243,
+  "lemma": "大体",
+  "kana": "だいたい",
+  "pos": "adv",
+  "gloss": "roughly; mostly"
+ },
+ {
+  "rank": 244,
+  "lemma": "過ぎる",
+  "kana": "すぎる",
+  "pos": "verb",
+  "gloss": "to pass; too much (~すぎる)"
+ },
+ {
+  "rank": 245,
+  "lemma": "他",
+  "kana": "ほか",
+  "pos": "noun",
+  "gloss": "other; the rest"
+ },
+ {
+  "rank": 246,
+  "lemma": "なんて",
+  "kana": "なんて",
+  "pos": "particle",
+  "gloss": "things like; how ~! (dismissive/emphatic)"
+ },
+ {
+  "rank": 247,
+  "lemma": "ママ",
+  "kana": "ママ",
+  "pos": "noun",
+  "gloss": "mom (loanword)"
+ },
+ {
+  "rank": 248,
+  "lemma": "欲しい",
+  "kana": "ほしい",
+  "pos": "adj",
+  "gloss": "wanted; desired"
+ },
+ {
+  "rank": 249,
+  "lemma": "お父さん",
+  "kana": "おとうさん",
+  "pos": "noun",
+  "gloss": "father; dad"
+ },
+ {
+  "rank": 250,
+  "lemma": "今度",
+  "kana": "こんど",
+  "pos": "noun",
+  "gloss": "next time; this time"
+ },
+ {
+  "rank": 251,
+  "lemma": "無理",
+  "kana": "むり",
+  "pos": "adj",
+  "gloss": "impossible; unreasonable"
+ },
+ {
+  "rank": 252,
+  "lemma": "どうぞ",
+  "kana": "どうぞ",
+  "pos": "expression",
+  "gloss": "please; here you go"
+ },
+ {
+  "rank": 253,
+  "lemma": "さま",
+  "kana": "さま",
+  "pos": "other",
+  "gloss": "honorific name suffix (formal)"
+ },
+ {
+  "rank": 254,
+  "lemma": "まじ",
+  "kana": "まじ",
+  "pos": "adj",
+  "gloss": "serious; for real (slang)"
+ },
+ {
+  "rank": 255,
+  "lemma": "この間",
+  "kana": "このあいだ",
+  "pos": "noun",
+  "gloss": "the other day; recently"
+ },
+ {
+  "rank": 256,
+  "lemma": "オーケー",
+  "kana": "オーケー",
+  "pos": "expression",
+  "gloss": "OK"
+ },
+ {
+  "rank": 257,
+  "lemma": "昨日",
+  "kana": "きのう",
+  "pos": "noun",
+  "gloss": "yesterday"
+ },
+ {
+  "rank": 258,
+  "lemma": "まま",
+  "kana": "まま",
+  "pos": "noun",
+  "gloss": "as it is; state unchanged (そのまま)"
+ },
+ {
+  "rank": 259,
+  "lemma": "きれい",
+  "kana": "きれい",
+  "pos": "adj",
+  "gloss": "pretty; clean"
+ },
+ {
+  "rank": 260,
+  "lemma": "会う",
+  "kana": "あう",
+  "pos": "verb",
+  "gloss": "to meet"
+ },
+ {
+  "rank": 261,
+  "lemma": "最後",
+  "kana": "さいご",
+  "pos": "noun",
+  "gloss": "last; the end"
+ },
+ {
+  "rank": 262,
+  "lemma": "逆",
+  "kana": "ぎゃく",
+  "pos": "noun",
+  "gloss": "reverse; opposite"
+ },
+ {
+  "rank": 263,
+  "lemma": "ご飯",
+  "kana": "ごはん",
+  "pos": "noun",
+  "gloss": "rice; meal"
+ },
+ {
+  "rank": 264,
+  "lemma": "まず",
+  "kana": "まず",
+  "pos": "adv",
+  "gloss": "first of all"
+ },
+ {
+  "rank": 265,
+  "lemma": "安い",
+  "kana": "やすい",
+  "pos": "adj",
+  "gloss": "cheap"
+ },
+ {
+  "rank": 266,
+  "lemma": "難しい",
+  "kana": "むずかしい",
+  "pos": "adj",
+  "gloss": "difficult"
+ },
+ {
+  "rank": 267,
+  "lemma": "朝",
+  "kana": "あさ",
+  "pos": "noun",
+  "gloss": "morning"
+ },
+ {
+  "rank": 268,
+  "lemma": "車",
+  "kana": "くるま",
+  "pos": "noun",
+  "gloss": "car"
+ },
+ {
+  "rank": 269,
+  "lemma": "もし",
+  "kana": "もし",
+  "pos": "adv",
+  "gloss": "if; in case"
+ },
+ {
+  "rank": 270,
+  "lemma": "どれ",
+  "kana": "どれ",
+  "pos": "noun",
+  "gloss": "which one"
+ },
+ {
+  "rank": 271,
+  "lemma": "願う",
+  "kana": "ねがう",
+  "pos": "verb",
+  "gloss": "to wish; to request (お願いします: please)"
+ },
+ {
+  "rank": 272,
+  "lemma": "手",
+  "kana": "て",
+  "pos": "noun",
+  "gloss": "hand"
+ },
+ {
+  "rank": 273,
+  "lemma": "読む",
+  "kana": "よむ",
+  "pos": "verb",
+  "gloss": "to read"
+ },
+ {
+  "rank": 274,
+  "lemma": "向こう",
+  "kana": "むこう",
+  "pos": "noun",
+  "gloss": "over there; the other side"
+ },
+ {
+  "rank": 275,
+  "lemma": "痛い",
+  "kana": "いたい",
+  "pos": "adj",
+  "gloss": "painful; ouch"
+ },
+ {
+  "rank": 276,
+  "lemma": "会社",
+  "kana": "かいしゃ",
+  "pos": "noun",
+  "gloss": "company"
+ },
+ {
+  "rank": 277,
+  "lemma": "歩く",
+  "kana": "あるく",
+  "pos": "verb",
+  "gloss": "to walk"
+ },
+ {
+  "rank": 278,
+  "lemma": "写真",
+  "kana": "しゃしん",
+  "pos": "noun",
+  "gloss": "photograph"
+ },
+ {
+  "rank": 279,
+  "lemma": "そちら",
+  "kana": "そちら",
+  "pos": "noun",
+  "gloss": "that way; your side (polite)"
+ },
+ {
+  "rank": 280,
+  "lemma": "食う",
+  "kana": "くう",
+  "pos": "verb",
+  "gloss": "to eat (rough, masculine)"
+ },
+ {
+  "rank": 281,
+  "lemma": "パパ",
+  "kana": "パパ",
+  "pos": "noun",
+  "gloss": "dad (loanword)"
+ },
+ {
+  "rank": 282,
+  "lemma": "とりあえず",
+  "kana": "とりあえず",
+  "pos": "adv",
+  "gloss": "for now; first of all"
+ },
+ {
+  "rank": 283,
+  "lemma": "友達",
+  "kana": "ともだち",
+  "pos": "noun",
+  "gloss": "friend"
+ },
+ {
+  "rank": 284,
+  "lemma": "売る",
+  "kana": "うる",
+  "pos": "verb",
+  "gloss": "to sell"
+ },
+ {
+  "rank": 285,
+  "lemma": "名前",
+  "kana": "なまえ",
+  "pos": "noun",
+  "gloss": "name"
+ },
+ {
+  "rank": 286,
+  "lemma": "しまう",
+  "kana": "しまう",
+  "pos": "verb",
+  "gloss": "to finish; to put away (~てしまう: end up)"
+ },
+ {
+  "rank": 287,
+  "lemma": "きっと",
+  "kana": "きっと",
+  "pos": "adv",
+  "gloss": "surely; certainly"
+ },
+ {
+  "rank": 288,
+  "lemma": "先",
+  "kana": "さき",
+  "pos": "noun",
+  "gloss": "ahead; earlier; tip (お先に)"
+ },
+ {
+  "rank": 289,
+  "lemma": "寝る",
+  "kana": "ねる",
+  "pos": "verb",
+  "gloss": "to sleep; to go to bed"
+ },
+ {
+  "rank": 290,
+  "lemma": "なさる",
+  "kana": "なさる",
+  "pos": "verb",
+  "gloss": "to do (honorific)"
+ },
+ {
+  "rank": 291,
+  "lemma": "あなた",
+  "kana": "あなた",
+  "pos": "noun",
+  "gloss": "you"
+ },
+ {
+  "rank": 292,
+  "lemma": "今年",
+  "kana": "ことし",
+  "pos": "noun",
+  "gloss": "this year"
+ },
+ {
+  "rank": 293,
+  "lemma": "顔",
+  "kana": "かお",
+  "pos": "noun",
+  "gloss": "face"
+ },
+ {
+  "rank": 294,
+  "lemma": "頑張る",
+  "kana": "がんばる",
+  "pos": "verb",
+  "gloss": "to do one's best; to hang in there"
+ },
+ {
+  "rank": 295,
+  "lemma": "頃",
+  "kana": "ころ",
+  "pos": "noun",
+  "gloss": "around (time); approximate time"
+ },
+ {
+  "rank": 296,
+  "lemma": "関係",
+  "kana": "かんけい",
+  "pos": "noun",
+  "gloss": "relation; connection (~する)"
+ },
+ {
+  "rank": 297,
+  "lemma": "番",
+  "kana": "ばん",
+  "pos": "other",
+  "gloss": "number (in a series); one's turn"
+ },
+ {
+  "rank": 298,
+  "lemma": "楽しい",
+  "kana": "たのしい",
+  "pos": "adj",
+  "gloss": "fun; enjoyable"
+ },
+ {
+  "rank": 299,
+  "lemma": "変",
+  "kana": "へん",
+  "pos": "adj",
+  "gloss": "strange; weird"
+ },
+ {
+  "rank": 300,
+  "lemma": "枚",
+  "kana": "まい",
+  "pos": "other",
+  "gloss": "counter for flat objects"
+ },
+ {
+  "rank": 301,
+  "lemma": "歳",
+  "kana": "さい",
+  "pos": "other",
+  "gloss": "years old (counter)"
+ },
+ {
+  "rank": 302,
+  "lemma": "中",
+  "kana": "ちゅう",
+  "pos": "other",
+  "gloss": "during; throughout (suffix)"
+ },
+ {
+  "rank": 303,
+  "lemma": "忘れる",
+  "kana": "わすれる",
+  "pos": "verb",
+  "gloss": "to forget"
+ },
+ {
+  "rank": 304,
+  "lemma": "ううん",
+  "kana": "ううん",
+  "pos": "expression",
+  "gloss": "no (casual)"
+ },
+ {
+  "rank": 305,
+  "lemma": "お茶",
+  "kana": "おちゃ",
+  "pos": "noun",
+  "gloss": "tea"
+ },
+ {
+  "rank": 306,
+  "lemma": "東京",
+  "kana": "とうきょう",
+  "pos": "noun",
+  "gloss": "Tokyo"
+ },
+ {
+  "rank": 307,
+  "lemma": "ため",
+  "kana": "ため",
+  "pos": "noun",
+  "gloss": "for the sake of; because of (~のため)"
+ },
+ {
+  "rank": 308,
+  "lemma": "大学",
+  "kana": "だいがく",
+  "pos": "noun",
+  "gloss": "university"
+ },
+ {
+  "rank": 309,
+  "lemma": "明日",
+  "kana": "あした",
+  "pos": "noun",
+  "gloss": "tomorrow"
+ },
+ {
+  "rank": 310,
+  "lemma": "話す",
+  "kana": "はなす",
+  "pos": "verb",
+  "gloss": "to speak; to talk"
+ },
+ {
+  "rank": 311,
+  "lemma": "問題",
+  "kana": "もんだい",
+  "pos": "noun",
+  "gloss": "problem; question"
+ },
+ {
+  "rank": 312,
+  "lemma": "教える",
+  "kana": "おしえる",
+  "pos": "verb",
+  "gloss": "to teach; to tell"
+ },
+ {
+  "rank": 313,
+  "lemma": "喋る",
+  "kana": "しゃべる",
+  "pos": "verb",
+  "gloss": "to chat; to talk"
+ },
+ {
+  "rank": 314,
+  "lemma": "上がる",
+  "kana": "あがる",
+  "pos": "verb",
+  "gloss": "to go up; to rise"
+ },
+ {
+  "rank": 315,
+  "lemma": "ちょうど",
+  "kana": "ちょうど",
+  "pos": "adv",
+  "gloss": "exactly; just right"
+ },
+ {
+  "rank": 316,
+  "lemma": "強い",
+  "kana": "つよい",
+  "pos": "adj",
+  "gloss": "strong"
+ },
+ {
+  "rank": 317,
+  "lemma": "水",
+  "kana": "みず",
+  "pos": "noun",
+  "gloss": "water"
+ },
+ {
+  "rank": 318,
+  "lemma": "度",
+  "kana": "ど",
+  "pos": "other",
+  "gloss": "degrees; times (counter, 今度・一度)"
+ },
+ {
+  "rank": 319,
+  "lemma": "必要",
+  "kana": "ひつよう",
+  "pos": "adj",
+  "gloss": "necessary; needed"
+ },
+ {
+  "rank": 320,
+  "lemma": "送る",
+  "kana": "おくる",
+  "pos": "verb",
+  "gloss": "to send; to see someone off"
+ },
+ {
+  "rank": 321,
+  "lemma": "九",
+  "kana": "きゅう",
+  "pos": "noun",
+  "gloss": "nine"
+ },
+ {
+  "rank": 322,
+  "lemma": "バス",
+  "kana": "バス",
+  "pos": "noun",
+  "gloss": "bus"
+ },
+ {
+  "rank": 323,
+  "lemma": "嘘",
+  "kana": "うそ",
+  "pos": "noun",
+  "gloss": "lie; no way!"
+ },
+ {
+  "rank": 324,
+  "lemma": "パン",
+  "kana": "パン",
+  "pos": "noun",
+  "gloss": "bread"
+ },
+ {
+  "rank": 325,
+  "lemma": "高校",
+  "kana": "こうこう",
+  "pos": "noun",
+  "gloss": "high school"
+ },
+ {
+  "rank": 326,
+  "lemma": "半",
+  "kana": "はん",
+  "pos": "noun",
+  "gloss": "half (~時半: half past)"
+ },
+ {
+  "rank": 327,
+  "lemma": "場合",
+  "kana": "ばあい",
+  "pos": "noun",
+  "gloss": "case; situation"
+ },
+ {
+  "rank": 328,
+  "lemma": "電話",
+  "kana": "でんわ",
+  "pos": "noun",
+  "gloss": "telephone; phone call (~する)"
+ },
+ {
+  "rank": 329,
+  "lemma": "頭",
+  "kana": "あたま",
+  "pos": "noun",
+  "gloss": "head"
+ },
+ {
+  "rank": 330,
+  "lemma": "死ぬ",
+  "kana": "しぬ",
+  "pos": "verb",
+  "gloss": "to die"
+ },
+ {
+  "rank": 331,
+  "lemma": "あちら",
+  "kana": "あちら",
+  "pos": "noun",
+  "gloss": "over there; that way (polite)"
+ },
+ {
+  "rank": 332,
+  "lemma": "もちろん",
+  "kana": "もちろん",
+  "pos": "adv",
+  "gloss": "of course"
+ },
+ {
+  "rank": 333,
+  "lemma": "なくなる",
+  "kana": "なくなる",
+  "pos": "verb",
+  "gloss": "to disappear; to run out"
+ },
+ {
+  "rank": 334,
+  "lemma": "なかなか",
+  "kana": "なかなか",
+  "pos": "adv",
+  "gloss": "quite; (not) easily"
+ },
+ {
+  "rank": 335,
+  "lemma": "びっくり",
+  "kana": "びっくり",
+  "pos": "noun",
+  "gloss": "surprise (~する: to be surprised)"
+ },
+ {
+  "rank": 336,
+  "lemma": "店",
+  "kana": "みせ",
+  "pos": "noun",
+  "gloss": "shop; store"
+ },
+ {
+  "rank": 337,
+  "lemma": "千",
+  "kana": "せん",
+  "pos": "noun",
+  "gloss": "thousand"
+ },
+ {
+  "rank": 338,
+  "lemma": "頼む",
+  "kana": "たのむ",
+  "pos": "verb",
+  "gloss": "to request; to order; to rely on"
+ },
+ {
+  "rank": 339,
+  "lemma": "去年",
+  "kana": "きょねん",
+  "pos": "noun",
+  "gloss": "last year"
+ },
+ {
+  "rank": 340,
+  "lemma": "時代",
+  "kana": "じだい",
+  "pos": "noun",
+  "gloss": "era; period; (school) days"
+ },
+ {
+  "rank": 341,
+  "lemma": "しかも",
+  "kana": "しかも",
+  "pos": "adv",
+  "gloss": "moreover; on top of that"
+ },
+ {
+  "rank": 342,
+  "lemma": "受ける",
+  "kana": "うける",
+  "pos": "verb",
+  "gloss": "to receive; to take (an exam)"
+ },
+ {
+  "rank": 343,
+  "lemma": "少ない",
+  "kana": "すくない",
+  "pos": "adj",
+  "gloss": "few; little"
+ },
+ {
+  "rank": 344,
+  "lemma": "形",
+  "kana": "かたち",
+  "pos": "noun",
+  "gloss": "shape; form"
+ },
+ {
+  "rank": 345,
+  "lemma": "合う",
+  "kana": "あう",
+  "pos": "verb",
+  "gloss": "to match; to fit; to suit"
+ },
+ {
+  "rank": 346,
+  "lemma": "近い",
+  "kana": "ちかい",
+  "pos": "adj",
+  "gloss": "near; close"
+ },
+ {
+  "rank": 347,
+  "lemma": "味",
+  "kana": "あじ",
+  "pos": "noun",
+  "gloss": "taste; flavor"
+ },
+ {
+  "rank": 348,
+  "lemma": "少し",
+  "kana": "すこし",
+  "pos": "adv",
+  "gloss": "a little"
+ },
+ {
+  "rank": 349,
+  "lemma": "変える",
+  "kana": "かえる",
+  "pos": "verb",
+  "gloss": "to change (transitive)"
+ },
+ {
+  "rank": 350,
+  "lemma": "ばかり",
+  "kana": "ばかり",
+  "pos": "particle",
+  "gloss": "only; nothing but; just did"
+ },
+ {
+  "rank": 351,
+  "lemma": "色",
+  "kana": "いろ",
+  "pos": "noun",
+  "gloss": "color"
+ },
+ {
+  "rank": 352,
+  "lemma": "若い",
+  "kana": "わかい",
+  "pos": "adj",
+  "gloss": "young"
+ },
+ {
+  "rank": 353,
+  "lemma": "言葉",
+  "kana": "ことば",
+  "pos": "noun",
+  "gloss": "word; language"
+ },
+ {
+  "rank": 354,
+  "lemma": "あんな",
+  "kana": "あんな",
+  "pos": "other",
+  "gloss": "that kind of (distant)"
+ },
+ {
+  "rank": 355,
+  "lemma": "大事",
+  "kana": "だいじ",
+  "pos": "adj",
+  "gloss": "important; precious (お大事に)"
+ },
+ {
+  "rank": 356,
+  "lemma": "へ",
+  "kana": "へ",
+  "pos": "particle",
+  "gloss": "to; toward (direction)"
+ },
+ {
+  "rank": 357,
+  "lemma": "おかしい",
+  "kana": "おかしい",
+  "pos": "adj",
+  "gloss": "funny; strange"
+ },
+ {
+  "rank": 358,
+  "lemma": "夜",
+  "kana": "よる",
+  "pos": "noun",
+  "gloss": "night"
+ },
+ {
+  "rank": 359,
+  "lemma": "決まる",
+  "kana": "きまる",
+  "pos": "verb",
+  "gloss": "to be decided"
+ },
+ {
+  "rank": 360,
+  "lemma": "ビール",
+  "kana": "ビール",
+  "pos": "noun",
+  "gloss": "beer"
+ },
+ {
+  "rank": 361,
+  "lemma": "動く",
+  "kana": "うごく",
+  "pos": "verb",
+  "gloss": "to move (intransitive)"
+ },
+ {
+  "rank": 362,
+  "lemma": "駅",
+  "kana": "えき",
+  "pos": "noun",
+  "gloss": "station"
+ },
+ {
+  "rank": 363,
+  "lemma": "どんどん",
+  "kana": "どんどん",
+  "pos": "adv",
+  "gloss": "steadily; more and more"
+ },
+ {
+  "rank": 364,
+  "lemma": "基本",
+  "kana": "きほん",
+  "pos": "noun",
+  "gloss": "basics; foundation"
+ },
+ {
+  "rank": 365,
+  "lemma": "決める",
+  "kana": "きめる",
+  "pos": "verb",
+  "gloss": "to decide"
+ },
+ {
+  "rank": 366,
+  "lemma": "失礼",
+  "kana": "しつれい",
+  "pos": "expression",
+  "gloss": "excuse me; rudeness (失礼します)"
+ },
+ {
+  "rank": 367,
+  "lemma": "いくら",
+  "kana": "いくら",
+  "pos": "noun",
+  "gloss": "how much"
+ },
+ {
+  "rank": 368,
+  "lemma": "気持ち",
+  "kana": "きもち",
+  "pos": "noun",
+  "gloss": "feeling; mood"
+ },
+ {
+  "rank": 369,
+  "lemma": "お酒",
+  "kana": "おさけ",
+  "pos": "noun",
+  "gloss": "alcohol; sake"
+ },
+ {
+  "rank": 370,
+  "lemma": "意外",
+  "kana": "いがい",
+  "pos": "adj",
+  "gloss": "unexpected; surprising"
+ },
+ {
+  "rank": 371,
+  "lemma": "呼ぶ",
+  "kana": "よぶ",
+  "pos": "verb",
+  "gloss": "to call; to invite"
+ },
+ {
+  "rank": 372,
+  "lemma": "親",
+  "kana": "おや",
+  "pos": "noun",
+  "gloss": "parent"
+ },
+ {
+  "rank": 373,
+  "lemma": "間",
+  "kana": "あいだ",
+  "pos": "noun",
+  "gloss": "interval; between; while"
+ },
+ {
+  "rank": 374,
+  "lemma": "初めて",
+  "kana": "はじめて",
+  "pos": "adv",
+  "gloss": "for the first time"
+ },
+ {
+  "rank": 375,
+  "lemma": "面倒",
+  "kana": "めんどう",
+  "pos": "adj",
+  "gloss": "troublesome; a hassle (面倒くさい)"
+ },
+ {
+  "rank": 376,
+  "lemma": "場所",
+  "kana": "ばしょ",
+  "pos": "noun",
+  "gloss": "place; location"
+ },
+ {
+  "rank": 377,
+  "lemma": "部屋",
+  "kana": "へや",
+  "pos": "noun",
+  "gloss": "room"
+ },
+ {
+  "rank": 378,
+  "lemma": "肉",
+  "kana": "にく",
+  "pos": "noun",
+  "gloss": "meat"
+ },
+ {
+  "rank": 379,
+  "lemma": "見せる",
+  "kana": "みせる",
+  "pos": "verb",
+  "gloss": "to show"
+ },
+ {
+  "rank": 380,
+  "lemma": "奥",
+  "kana": "おく",
+  "pos": "noun",
+  "gloss": "interior; back (of a place)"
+ },
+ {
+  "rank": 381,
+  "lemma": "落ちる",
+  "kana": "おちる",
+  "pos": "verb",
+  "gloss": "to fall; to fail (exam)"
+ },
+ {
+  "rank": 382,
+  "lemma": "始める",
+  "kana": "はじめる",
+  "pos": "verb",
+  "gloss": "to begin (transitive)"
+ },
+ {
+  "rank": 383,
+  "lemma": "甘い",
+  "kana": "あまい",
+  "pos": "adj",
+  "gloss": "sweet; lenient"
+ },
+ {
+  "rank": 384,
+  "lemma": "回る",
+  "kana": "まわる",
+  "pos": "verb",
+  "gloss": "to go around; to turn"
+ },
+ {
+  "rank": 385,
+  "lemma": "授業",
+  "kana": "じゅぎょう",
+  "pos": "noun",
+  "gloss": "class; lesson (~する)"
+ },
+ {
+  "rank": 386,
+  "lemma": "以上",
+  "kana": "いじょう",
+  "pos": "noun",
+  "gloss": "or more; that's all; the above"
+ },
+ {
+  "rank": 387,
+  "lemma": "今回",
+  "kana": "こんかい",
+  "pos": "noun",
+  "gloss": "this time"
+ },
+ {
+  "rank": 388,
+  "lemma": "残る",
+  "kana": "のこる",
+  "pos": "verb",
+  "gloss": "to remain; to be left over"
+ },
+ {
+  "rank": 389,
+  "lemma": "開ける",
+  "kana": "あける",
+  "pos": "verb",
+  "gloss": "to open (transitive)"
+ },
+ {
+  "rank": 390,
+  "lemma": "勉強",
+  "kana": "べんきょう",
+  "pos": "noun",
+  "gloss": "study (~する: to study)"
+ },
+ {
+  "rank": 391,
+  "lemma": "研究",
+  "kana": "けんきゅう",
+  "pos": "noun",
+  "gloss": "research (~する)"
+ },
+ {
+  "rank": 392,
+  "lemma": "声",
+  "kana": "こえ",
+  "pos": "noun",
+  "gloss": "voice"
+ },
+ {
+  "rank": 393,
+  "lemma": "元々",
+  "kana": "もともと",
+  "pos": "adv",
+  "gloss": "originally; from the start"
+ },
+ {
+  "rank": 394,
+  "lemma": "足",
+  "kana": "あし",
+  "pos": "noun",
+  "gloss": "foot; leg"
+ },
+ {
+  "rank": 395,
+  "lemma": "新しい",
+  "kana": "あたらしい",
+  "pos": "adj",
+  "gloss": "new"
+ },
+ {
+  "rank": 396,
+  "lemma": "外",
+  "kana": "そと",
+  "pos": "noun",
+  "gloss": "outside"
+ },
+ {
+  "rank": 397,
+  "lemma": "客",
+  "kana": "きゃく",
+  "pos": "noun",
+  "gloss": "guest; customer (お客さん)"
+ },
+ {
+  "rank": 398,
+  "lemma": "料理",
+  "kana": "りょうり",
+  "pos": "noun",
+  "gloss": "cooking; dish (~する)"
+ },
+ {
+  "rank": 399,
+  "lemma": "こそ",
+  "kana": "こそ",
+  "pos": "particle",
+  "gloss": "precisely; emphasis (こちらこそ)"
+ },
+ {
+  "rank": 400,
+  "lemma": "戻る",
+  "kana": "もどる",
+  "pos": "verb",
+  "gloss": "to return; to go back"
+ },
+ {
+  "rank": 401,
+  "lemma": "階",
+  "kana": "かい",
+  "pos": "other",
+  "gloss": "floor; story (counter)"
+ },
+ {
+  "rank": 402,
+  "lemma": "住む",
+  "kana": "すむ",
+  "pos": "verb",
+  "gloss": "to live; to reside"
+ },
+ {
+  "rank": 403,
+  "lemma": "特に",
+  "kana": "とくに",
+  "pos": "adv",
+  "gloss": "especially; in particular"
+ },
+ {
+  "rank": 404,
+  "lemma": "忙しい",
+  "kana": "いそがしい",
+  "pos": "adj",
+  "gloss": "busy"
+ },
+ {
+  "rank": 405,
+  "lemma": "お腹",
+  "kana": "おなか",
+  "pos": "noun",
+  "gloss": "belly; stomach (お腹すいた)"
+ },
+ {
+  "rank": 406,
+  "lemma": "人間",
+  "kana": "にんげん",
+  "pos": "noun",
+  "gloss": "human being"
+ },
+ {
+  "rank": 407,
+  "lemma": "ずつ",
+  "kana": "ずつ",
+  "pos": "particle",
+  "gloss": "each; apiece (一つずつ)"
+ },
+ {
+  "rank": 408,
+  "lemma": "どんな",
+  "kana": "どんな",
+  "pos": "other",
+  "gloss": "what kind of"
+ },
+ {
+  "rank": 409,
+  "lemma": "どの",
+  "kana": "どの",
+  "pos": "other",
+  "gloss": "which ~"
+ },
+ {
+  "rank": 410,
+  "lemma": "押す",
+  "kana": "おす",
+  "pos": "verb",
+  "gloss": "to push; to press"
+ },
+ {
+  "rank": 411,
+  "lemma": "野菜",
+  "kana": "やさい",
+  "pos": "noun",
+  "gloss": "vegetable"
+ },
+ {
+  "rank": 412,
+  "lemma": "割と",
+  "kana": "わりと",
+  "pos": "adv",
+  "gloss": "relatively; fairly"
+ },
+ {
+  "rank": 413,
+  "lemma": "遊ぶ",
+  "kana": "あそぶ",
+  "pos": "verb",
+  "gloss": "to play; to hang out"
+ },
+ {
+  "rank": 414,
+  "lemma": "調べる",
+  "kana": "しらべる",
+  "pos": "verb",
+  "gloss": "to look up; to investigate"
+ },
+ {
+  "rank": 415,
+  "lemma": "ほとんど",
+  "kana": "ほとんど",
+  "pos": "adv",
+  "gloss": "almost; mostly; hardly (with neg.)"
+ },
+ {
+  "rank": 416,
+  "lemma": "寒い",
+  "kana": "さむい",
+  "pos": "adj",
+  "gloss": "cold (weather)"
+ },
+ {
+  "rank": 417,
+  "lemma": "まったく",
+  "kana": "まったく",
+  "pos": "adv",
+  "gloss": "completely; (not) at all; good grief"
+ },
+ {
+  "rank": 418,
+  "lemma": "通る",
+  "kana": "とおる",
+  "pos": "verb",
+  "gloss": "to pass through; to go past"
+ },
+ {
+  "rank": 419,
+  "lemma": "楽",
+  "kana": "らく",
+  "pos": "adj",
+  "gloss": "easy; comfortable"
+ },
+ {
+  "rank": 420,
+  "lemma": "さすが",
+  "kana": "さすが",
+  "pos": "adv",
+  "gloss": "as expected (admiring); impressive"
+ },
+ {
+  "rank": 421,
+  "lemma": "暑い",
+  "kana": "あつい",
+  "pos": "adj",
+  "gloss": "hot (weather)"
+ },
+ {
+  "rank": 422,
+  "lemma": "彼",
+  "kana": "かれ",
+  "pos": "noun",
+  "gloss": "he; boyfriend"
+ },
+ {
+  "rank": 423,
+  "lemma": "座る",
+  "kana": "すわる",
+  "pos": "verb",
+  "gloss": "to sit"
+ },
+ {
+  "rank": 424,
+  "lemma": "着る",
+  "kana": "きる",
+  "pos": "verb",
+  "gloss": "to wear; to put on"
+ },
+ {
+  "rank": 425,
+  "lemma": "走る",
+  "kana": "はしる",
+  "pos": "verb",
+  "gloss": "to run"
+ },
+ {
+  "rank": 426,
+  "lemma": "でかい",
+  "kana": "でかい",
+  "pos": "adj",
+  "gloss": "huge (colloquial)"
+ },
+ {
+  "rank": 427,
+  "lemma": "電車",
+  "kana": "でんしゃ",
+  "pos": "noun",
+  "gloss": "train"
+ },
+ {
+  "rank": 428,
+  "lemma": "働く",
+  "kana": "はたらく",
+  "pos": "verb",
+  "gloss": "to work"
+ },
+ {
+  "rank": 429,
+  "lemma": "借りる",
+  "kana": "かりる",
+  "pos": "verb",
+  "gloss": "to borrow; to rent"
+ },
+ {
+  "rank": 430,
+  "lemma": "イメージ",
+  "kana": "イメージ",
+  "pos": "noun",
+  "gloss": "image; mental picture (~する)"
+ },
+ {
+  "rank": 431,
+  "lemma": "選ぶ",
+  "kana": "えらぶ",
+  "pos": "verb",
+  "gloss": "to choose"
+ },
+ {
+  "rank": 432,
+  "lemma": "体",
+  "kana": "からだ",
+  "pos": "noun",
+  "gloss": "body"
+ },
+ {
+  "rank": 433,
+  "lemma": "元気",
+  "kana": "げんき",
+  "pos": "adj",
+  "gloss": "healthy; energetic; fine"
+ },
+ {
+  "rank": 434,
+  "lemma": "困る",
+  "kana": "こまる",
+  "pos": "verb",
+  "gloss": "to be troubled; to have a problem"
+ },
+ {
+  "rank": 435,
+  "lemma": "山",
+  "kana": "やま",
+  "pos": "noun",
+  "gloss": "mountain"
+ },
+ {
+  "rank": 436,
+  "lemma": "ばか",
+  "kana": "ばか",
+  "pos": "noun",
+  "gloss": "fool; idiot; silly"
+ },
+ {
+  "rank": 437,
+  "lemma": "半分",
+  "kana": "はんぶん",
+  "pos": "noun",
+  "gloss": "half"
+ },
+ {
+  "rank": 438,
+  "lemma": "増える",
+  "kana": "ふえる",
+  "pos": "verb",
+  "gloss": "to increase (intransitive)"
+ },
+ {
+  "rank": 439,
+  "lemma": "危ない",
+  "kana": "あぶない",
+  "pos": "adj",
+  "gloss": "dangerous; watch out"
+ },
+ {
+  "rank": 440,
+  "lemma": "横",
+  "kana": "よこ",
+  "pos": "noun",
+  "gloss": "side; beside; horizontal"
+ },
+ {
+  "rank": 441,
+  "lemma": "結婚",
+  "kana": "けっこん",
+  "pos": "noun",
+  "gloss": "marriage (~する: to marry)"
+ },
+ {
+  "rank": 442,
+  "lemma": "たまに",
+  "kana": "たまに",
+  "pos": "adv",
+  "gloss": "occasionally; once in a while"
+ },
+ {
+  "rank": 443,
+  "lemma": "引く",
+  "kana": "ひく",
+  "pos": "verb",
+  "gloss": "to pull; to catch (a cold); to look up"
+ },
+ {
+  "rank": 444,
+  "lemma": "男",
+  "kana": "おとこ",
+  "pos": "noun",
+  "gloss": "man; male"
+ },
+ {
+  "rank": 445,
+  "lemma": "偉い",
+  "kana": "えらい",
+  "pos": "adj",
+  "gloss": "great; admirable; important (person)"
+ },
+ {
+  "rank": 446,
+  "lemma": "段々",
+  "kana": "だんだん",
+  "pos": "adv",
+  "gloss": "gradually"
+ },
+ {
+  "rank": 447,
+  "lemma": "生きる",
+  "kana": "いきる",
+  "pos": "verb",
+  "gloss": "to live; to be alive"
+ },
+ {
+  "rank": 448,
+  "lemma": "吸う",
+  "kana": "すう",
+  "pos": "verb",
+  "gloss": "to inhale; to smoke"
+ },
+ {
+  "rank": 449,
+  "lemma": "格好",
+  "kana": "かっこう",
+  "pos": "noun",
+  "gloss": "appearance; looks (かっこいい: cool)"
+ },
+ {
+  "rank": 450,
+  "lemma": "飛ぶ",
+  "kana": "とぶ",
+  "pos": "verb",
+  "gloss": "to fly; to jump"
+ },
+ {
+  "rank": 451,
+  "lemma": "お兄さん",
+  "kana": "おにいさん",
+  "pos": "noun",
+  "gloss": "older brother"
+ },
+ {
+  "rank": 452,
+  "lemma": "連絡",
+  "kana": "れんらく",
+  "pos": "noun",
+  "gloss": "contact; getting in touch (~する)"
+ },
+ {
+  "rank": 453,
+  "lemma": "音",
+  "kana": "おと",
+  "pos": "noun",
+  "gloss": "sound"
+ },
+ {
+  "rank": 454,
+  "lemma": "だいぶ",
+  "kana": "だいぶ",
+  "pos": "adv",
+  "gloss": "considerably; quite a bit"
+ },
+ {
+  "rank": 455,
+  "lemma": "隣",
+  "kana": "となり",
+  "pos": "noun",
+  "gloss": "next to; neighbor"
+ },
+ {
+  "rank": 456,
+  "lemma": "休み",
+  "kana": "やすみ",
+  "pos": "noun",
+  "gloss": "rest; day off; vacation"
+ },
+ {
+  "rank": 457,
+  "lemma": "ヶ月",
+  "kana": "かげつ",
+  "pos": "other",
+  "gloss": "counter for months (三ヶ月)"
+ },
+ {
+  "rank": 458,
+  "lemma": "お姉さん",
+  "kana": "おねえさん",
+  "pos": "noun",
+  "gloss": "older sister"
+ },
+ {
+  "rank": 459,
+  "lemma": "嬉しい",
+  "kana": "うれしい",
+  "pos": "adj",
+  "gloss": "happy; glad"
+ },
+ {
+  "rank": 460,
+  "lemma": "ホテル",
+  "kana": "ホテル",
+  "pos": "noun",
+  "gloss": "hotel"
+ },
+ {
+  "rank": 461,
+  "lemma": "泊まる",
+  "kana": "とまる",
+  "pos": "verb",
+  "gloss": "to stay overnight"
+ },
+ {
+  "rank": 462,
+  "lemma": "夏",
+  "kana": "なつ",
+  "pos": "noun",
+  "gloss": "summer"
+ },
+ {
+  "rank": 463,
+  "lemma": "以外",
+  "kana": "いがい",
+  "pos": "noun",
+  "gloss": "other than; except for"
+ },
+ {
+  "rank": 464,
+  "lemma": "英語",
+  "kana": "えいご",
+  "pos": "noun",
+  "gloss": "English (language)"
+ },
+ {
+  "rank": 465,
+  "lemma": "世界",
+  "kana": "せかい",
+  "pos": "noun",
+  "gloss": "world"
+ },
+ {
+  "rank": 466,
+  "lemma": "たくさん",
+  "kana": "たくさん",
+  "pos": "adv",
+  "gloss": "a lot; plenty"
+ },
+ {
+  "rank": 467,
+  "lemma": "立つ",
+  "kana": "たつ",
+  "pos": "verb",
+  "gloss": "to stand"
+ },
+ {
+  "rank": 468,
+  "lemma": "テレビ",
+  "kana": "テレビ",
+  "pos": "noun",
+  "gloss": "television"
+ },
+ {
+  "rank": 469,
+  "lemma": "周り",
+  "kana": "まわり",
+  "pos": "noun",
+  "gloss": "surroundings; around"
+ },
+ {
+  "rank": 470,
+  "lemma": "重い",
+  "kana": "おもい",
+  "pos": "adj",
+  "gloss": "heavy"
+ },
+ {
+  "rank": 471,
+  "lemma": "実際",
+  "kana": "じっさい",
+  "pos": "adv",
+  "gloss": "actually; in practice"
+ },
+ {
+  "rank": 472,
+  "lemma": "払う",
+  "kana": "はらう",
+  "pos": "verb",
+  "gloss": "to pay"
+ },
+ {
+  "rank": 473,
+  "lemma": "ひどい",
+  "kana": "ひどい",
+  "pos": "adj",
+  "gloss": "terrible; harsh"
+ },
+ {
+  "rank": 474,
+  "lemma": "疲れる",
+  "kana": "つかれる",
+  "pos": "verb",
+  "gloss": "to get tired (お疲れさま)"
+ },
+ {
+  "rank": 475,
+  "lemma": "怒る",
+  "kana": "おこる",
+  "pos": "verb",
+  "gloss": "to get angry; to scold"
+ },
+ {
+  "rank": 476,
+  "lemma": "あいつ",
+  "kana": "あいつ",
+  "pos": "noun",
+  "gloss": "that guy (casual/derogatory)"
+ },
+ {
+  "rank": 477,
+  "lemma": "止まる",
+  "kana": "とまる",
+  "pos": "verb",
+  "gloss": "to stop (intransitive)"
+ },
+ {
+  "rank": 478,
+  "lemma": "渡す",
+  "kana": "わたす",
+  "pos": "verb",
+  "gloss": "to hand over"
+ },
+ {
+  "rank": 479,
+  "lemma": "週間",
+  "kana": "しゅうかん",
+  "pos": "other",
+  "gloss": "counter for weeks (一週間)"
+ },
+ {
+  "rank": 480,
+  "lemma": "カメラ",
+  "kana": "カメラ",
+  "pos": "noun",
+  "gloss": "camera"
+ },
+ {
+  "rank": 481,
+  "lemma": "捨てる",
+  "kana": "すてる",
+  "pos": "verb",
+  "gloss": "to throw away"
+ },
+ {
+  "rank": 482,
+  "lemma": "いたす",
+  "kana": "いたす",
+  "pos": "verb",
+  "gloss": "to do (humble; いたします)"
+ },
+ {
+  "rank": 483,
+  "lemma": "後ろ",
+  "kana": "うしろ",
+  "pos": "noun",
+  "gloss": "behind; back"
+ },
+ {
+  "rank": 484,
+  "lemma": "起きる",
+  "kana": "おきる",
+  "pos": "verb",
+  "gloss": "to wake up; to get up; to occur"
+ },
+ {
+  "rank": 485,
+  "lemma": "説明",
+  "kana": "せつめい",
+  "pos": "noun",
+  "gloss": "explanation (~する)"
+ },
+ {
+  "rank": 486,
+  "lemma": "毎日",
+  "kana": "まいにち",
+  "pos": "noun",
+  "gloss": "every day"
+ },
+ {
+  "rank": 487,
+  "lemma": "洗う",
+  "kana": "あらう",
+  "pos": "verb",
+  "gloss": "to wash"
+ },
+ {
+  "rank": 488,
+  "lemma": "女の子",
+  "kana": "おんなのこ",
+  "pos": "noun",
+  "gloss": "girl"
+ },
+ {
+  "rank": 489,
+  "lemma": "生活",
+  "kana": "せいかつ",
+  "pos": "noun",
+  "gloss": "daily life; living (~する)"
+ },
+ {
+  "rank": 490,
+  "lemma": "部分",
+  "kana": "ぶぶん",
+  "pos": "noun",
+  "gloss": "part; portion"
+ },
+ {
+  "rank": 491,
+  "lemma": "左",
+  "kana": "ひだり",
+  "pos": "noun",
+  "gloss": "left"
+ },
+ {
+  "rank": 492,
+  "lemma": "メール",
+  "kana": "メール",
+  "pos": "noun",
+  "gloss": "email; text message (~する)"
+ },
+ {
+  "rank": 493,
+  "lemma": "似る",
+  "kana": "にる",
+  "pos": "verb",
+  "gloss": "to resemble (似ている)"
+ },
+ {
+  "rank": 494,
+  "lemma": "年",
+  "kana": "とし",
+  "pos": "noun",
+  "gloss": "year; age"
+ },
+ {
+  "rank": 495,
+  "lemma": "昼",
+  "kana": "ひる",
+  "pos": "noun",
+  "gloss": "noon; daytime; lunch"
+ },
+ {
+  "rank": 496,
+  "lemma": "右",
+  "kana": "みぎ",
+  "pos": "noun",
+  "gloss": "right"
+ },
+ {
+  "rank": 497,
+  "lemma": "確認",
+  "kana": "かくにん",
+  "pos": "noun",
+  "gloss": "confirmation; checking (~する)"
+ },
+ {
+  "rank": 498,
+  "lemma": "辛い",
+  "kana": "からい",
+  "pos": "adj",
+  "gloss": "spicy; salty"
+ },
+ {
+  "rank": 499,
+  "lemma": "広い",
+  "kana": "ひろい",
+  "pos": "adj",
+  "gloss": "wide; spacious"
+ },
+ {
+  "rank": 500,
+  "lemma": "降りる",
+  "kana": "おりる",
+  "pos": "verb",
+  "gloss": "to get off; to go down"
+ },
+ {
+  "rank": 501,
+  "lemma": "探す",
+  "kana": "さがす",
+  "pos": "verb",
+  "gloss": "to search for"
+ },
+ {
+  "rank": 502,
+  "lemma": "感じる",
+  "kana": "かんじる",
+  "pos": "verb",
+  "gloss": "to feel"
+ },
+ {
+  "rank": 503,
+  "lemma": "中学",
+  "kana": "ちゅうがく",
+  "pos": "noun",
+  "gloss": "junior high school"
+ },
+ {
+  "rank": 504,
+  "lemma": "真ん中",
+  "kana": "まんなか",
+  "pos": "noun",
+  "gloss": "the middle; center"
+ },
+ {
+  "rank": 505,
+  "lemma": "旅行",
+  "kana": "りょこう",
+  "pos": "noun",
+  "gloss": "trip; travel (~する)"
+ },
+ {
+  "rank": 506,
+  "lemma": "クラス",
+  "kana": "クラス",
+  "pos": "noun",
+  "gloss": "class (group)"
+ },
+ {
+  "rank": 507,
+  "lemma": "焼く",
+  "kana": "やく",
+  "pos": "verb",
+  "gloss": "to grill; to bake; to burn"
+ },
+ {
+  "rank": 508,
+  "lemma": "空く",
+  "kana": "あく",
+  "pos": "verb",
+  "gloss": "to become empty/free (お腹が空く)"
+ },
+ {
+  "rank": 509,
+  "lemma": "遅い",
+  "kana": "おそい",
+  "pos": "adj",
+  "gloss": "late; slow"
+ },
+ {
+  "rank": 510,
+  "lemma": "週",
+  "kana": "しゅう",
+  "pos": "noun",
+  "gloss": "week"
+ },
+ {
+  "rank": 511,
+  "lemma": "止める",
+  "kana": "とめる",
+  "pos": "verb",
+  "gloss": "to stop (transitive); to park"
+ },
+ {
+  "rank": 512,
+  "lemma": "口",
+  "kana": "くち",
+  "pos": "noun",
+  "gloss": "mouth"
+ },
+ {
+  "rank": 513,
+  "lemma": "嫌い",
+  "kana": "きらい",
+  "pos": "adj",
+  "gloss": "disliked; hated"
+ },
+ {
+  "rank": 514,
+  "lemma": "ワイン",
+  "kana": "ワイン",
+  "pos": "noun",
+  "gloss": "wine"
+ }
+]
