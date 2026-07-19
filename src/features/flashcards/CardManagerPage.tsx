@@ -27,8 +27,8 @@ const TAB_MY_VOCAB = "vocab";
 
 const PAGE_SIZE = 25;
 
-type StatusFilter = "all" | "due" | "new" | "learning" | "buried";
-const STATUS_VALUES: StatusFilter[] = ["due", "new", "learning", "buried"];
+type StatusFilter = "all" | "due" | "new" | "learning" | "buried" | "leech";
+const STATUS_VALUES: StatusFilter[] = ["due", "new", "learning", "buried", "leech"];
 type SortKey = "dueDate" | "ease" | "deck" | "lastReview" | "front";
 
 function isVocabDeck(deckId: string): boolean {
@@ -461,7 +461,9 @@ export function CardManagerPage() {
             render: (mc) => (
               <span
                 className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
-                  mc.status === "due"
+                  mc.status === "leech"
+                    ? "bg-error/15 text-error"
+                    : mc.status === "due"
                     ? "bg-warning/15 text-warning"
                     : mc.status === "buried"
                     ? "bg-surface-muted text-text-secondary"
@@ -469,6 +471,14 @@ export function CardManagerPage() {
                     ? "bg-info/15 text-info"
                     : "bg-success/15 text-success"
                 }`}
+                title={
+                  mc.status === "leech"
+                    ? t("flashcards.cardManager.leechHint", {
+                        defaultValue:
+                          "You've forgotten this many times — consider reformulating it (simpler, more context).",
+                      })
+                    : undefined
+                }
               >
                 {t(`flashcards.cardManager.status${mc.status.charAt(0).toUpperCase() + mc.status.slice(1)}`, mc.status)}
               </span>

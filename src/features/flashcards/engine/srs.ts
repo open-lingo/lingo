@@ -37,12 +37,37 @@ import type {
  * SM-2 entries are dropped at the storage boundary.
  */
 
-const TARGET_RETENTION = 0.95;
+// FSRS frames desired retention as a workload↔knowledge knob: ~0.90 is
+// workload-optimal for most learners, and pushing to 0.95 roughly DOUBLES
+// long-run review load for a few points of retention. These atoms are also
+// reviewed inside lessons (two surfaces), so per-card pressure is already
+// high — 0.90 is the right default. (srs-memory-retention-research-2026-07-19.)
+const TARGET_RETENTION = 0.9;
 
 const SCHEDULER: FSRS = fsrs({
-  enable_fuzz: false,
+  // Fuzz spreads due dates ±a few % so same-day siblings don't clump forever.
+  enable_fuzz: true,
   request_retention: TARGET_RETENTION,
 });
+
+/**
+ * Receptive-before-productive: production's first due date is staggered this
+ * many days behind recognition's, so a freshly-seeded atom is drilled
+ * recognition-first and production is *promoted* a few days later rather than
+ * competing same-day (where recognition always won). Research: teach receptive
+ * first, then promote to productive.
+ */
+const PRODUCTION_STAGGER_DAYS = 3;
+
+/**
+ * A card that has lapsed (been forgotten) this many times on either modality is
+ * a "leech" — usually too complex, missing context, or violating one-fact-per-
+ * card. Anki's healthy range is 6–8; we tag at 8. It's a signal to REFORMULATE
+ * the card (surfaced in Card Manager), and we auto-bury it briefly so it stops
+ * burning daily review time.
+ */
+export const LEECH_LAPSE_THRESHOLD = 8;
+const LEECH_BURY_DAYS = 4;
 
 const RATING_MAP: Record<SRSRating, Grade> = {
   again: Rating.Again,
@@ -105,10 +130,12 @@ function createInitialSubState(): SRSModalityState {
 export function createInitialState(_initialEase?: number): SRSCardState {
   // `_initialEase` is the legacy SM-2 deck setting; FSRS-6 has no ease
   // analogue. Accepted for API compatibility and ignored.
-  return {
-    recognition: createInitialSubState(),
-    production: createInitialSubState(),
-  };
+  const recognition = createInitialSubState();
+  const production = createInitialSubState();
+  // Receptive-before-productive: hold production back a few days so recognition
+  // is drilled first (see PRODUCTION_STAGGER_DAYS).
+  production.dueDate = addDays(recognition.dueDate, PRODUCTION_STAGGER_DAYS);
+  return { recognition, production };
 }
 
 /**
@@ -122,7 +149,9 @@ export function createSeededState(dueDate: string): SRSCardState {
   const recognition = createInitialSubState();
   const production = createInitialSubState();
   recognition.dueDate = dueDate;
-  production.dueDate = dueDate;
+  // Receptive-before-productive: production is promoted a few days after
+  // recognition rather than surfacing same-day (see PRODUCTION_STAGGER_DAYS).
+  production.dueDate = addDays(dueDate, PRODUCTION_STAGGER_DAYS);
   return { recognition, production };
 }
 
@@ -189,13 +218,31 @@ export function reviewCard(
   rating: SRSRating,
   at: Date = new Date(),
 ): SRSCardState {
-  const next = reviewSubState(state[modality], rating, at);
-  return {
+  const prev = state[modality];
+  const next = reviewSubState(prev, rating, at);
+  const result: SRSCardState = {
     ...state,
     [modality]: next,
     // Why: backend LWW key — must be an ISO timestamp, set on every review.
     lastReviewedAt: at.toISOString(),
   };
+  // Leech guard: the moment this modality's lapses cross the threshold, bury
+  // the card for a few days so a chronically-failing card stops eating review
+  // time. `isLeech` keeps flagging it for reformulation in Card Manager.
+  if (next.lapses >= LEECH_LAPSE_THRESHOLD && prev.lapses < LEECH_LAPSE_THRESHOLD) {
+    result.buriedUntil = addDays(at.toISOString().slice(0, 10), LEECH_BURY_DAYS);
+  }
+  return result;
+}
+
+/** A card that has lapsed ≥ threshold times on either modality — a chronic
+ *  failure the learner should reformulate. */
+export function isLeech(state: SRSCardState | undefined): boolean {
+  if (!state) return false;
+  return (
+    state.recognition.lapses >= LEECH_LAPSE_THRESHOLD ||
+    state.production.lapses >= LEECH_LAPSE_THRESHOLD
+  );
 }
 
 /**

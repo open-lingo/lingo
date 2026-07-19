@@ -74,6 +74,28 @@ export type DeckWithCards = {
  * 2. Cards with no SRS state (never reviewed) → new card pile, capped per day.
  * 3. Merge: reviews first (sorted oldest-due-first), then new cards.
  */
+/**
+ * Bury siblings within a day: two cards for the SAME fact (identical target
+ * text) make the second a trivially-easy re-exposure that wastes the retrieval
+ * (research: Anki buries same-fact siblings by default). The course deck is
+ * one-card-per-atom so this is a no-op there, but a merged subscription queue
+ * can surface the same word from two decks — keep the first, drop the rest for
+ * the day (they stay due and resurface next build, now spaced). Keyed on the
+ * normalized target surface (`front`); different words / word-vs-sentence keep
+ * distinct keys and are untouched.
+ */
+function dedupeSiblings<T extends { card: Flashcard }>(entries: T[]): T[] {
+  const seen = new Set<string>();
+  const out: T[] = [];
+  for (const e of entries) {
+    const key = e.card.front.trim().toLowerCase();
+    if (key && seen.has(key)) continue;
+    if (key) seen.add(key);
+    out.push(e);
+  }
+  return out;
+}
+
 export function buildReviewQueue(
   cards: Flashcard[],
   newCardsPerDay?: number,
@@ -103,7 +125,7 @@ export function buildReviewQueue(
   // surfaces as long as either direction is hard.
   review.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
 
-  const reviewCards = review.map((r) => r.card);
+  const reviewCards = dedupeSiblings(review).map((r) => r.card);
   const newCards = unseenCards.slice(0, cap);
   const queue = [...reviewCards, ...newCards];
 
@@ -162,7 +184,8 @@ export function buildQueueFromSubscriptions(
   // Sort due by FSRS difficulty descending (harder cards first; see
   // identical comment in buildReviewQueue).
   due.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
-  const reviewCards = due.map((r) => r.card);
+  // Bury same-fact siblings surfaced across merged decks (see dedupeSiblings).
+  const reviewCards = dedupeSiblings(due).map((r) => r.card);
 
   // New cards: per deck in subscription order, apply ordered/shuffled
   const newCards: Flashcard[] = [];

@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
 import {
   createInitialState,
+  createSeededState,
+  isLeech,
   reviewCard,
   gradeFromLesson,
   shouldRepeatInSession,
@@ -311,15 +313,16 @@ describe("FSRS-6 engine — modal", () => {
   });
 
   describe("configuration", () => {
-    it("target retention is 95%", () => {
-      expect(getTargetRetention()).toBe(0.95);
+    it("target retention is 90%", () => {
+      // 0.90 is the workload-optimal FSRS target; 0.95 roughly doubles review
+      // load (srs-memory-retention-research-2026-07-19).
+      expect(getTargetRetention()).toBe(0.9);
     });
 
-    it("fuzz is disabled — identical inputs always produce identical output", () => {
-      // Purpose: pin scheduler config. There's no public getter for
-      // `enable_fuzz`, so this verifies it indirectly — with fuzz ON,
-      // ts-fsrs perturbs the interval/due date randomly, so two runs of the
-      // exact same review sequence from the exact same clock would diverge.
+    it("scheduling is deterministic — identical inputs always produce identical output", () => {
+      // Fuzz is ON (spreads due dates to smooth daily load), but ts-fsrs fuzz
+      // is SEEDED from the card's own state, so the same card+review always
+      // fuzzes the same way. Reproducibility must hold regardless.
       const T = new Date("2026-05-20T12:00:00Z");
       const run = () => reviewCard(createInitialState(), "recognition", "good", T);
       const a = run();
@@ -357,6 +360,7 @@ describe("FSRS-6 engine — modal", () => {
         clock = new Date(s.recognition.dueDate + "T12:00:00Z");
       }
 
+      // Values under request_retention 0.90 + seeded fuzz (deterministic).
       expect(snapshots).toEqual([
         {
           stability: 2.3065,
@@ -371,39 +375,95 @@ describe("FSRS-6 engine — modal", () => {
           stability: 2.3065,
           difficulty: 2.11121424,
           state: "review",
-          interval: 1,
-          dueDate: "2026-05-21",
+          interval: 2,
+          dueDate: "2026-05-22",
           reps: 2,
           lapses: 0,
         },
         {
-          stability: 5.32112938,
+          stability: 7.51735908,
           difficulty: 4.74828477,
           state: "review",
-          interval: 2,
-          dueDate: "2026-05-23",
+          interval: 9,
+          dueDate: "2026-05-31",
           reps: 3,
           lapses: 0,
         },
         {
-          stability: 11.59259274,
+          stability: 28.0388538,
           difficulty: 4.73876485,
           state: "review",
-          interval: 5,
-          dueDate: "2026-05-28",
+          interval: 28,
+          dueDate: "2026-06-28",
           reps: 4,
           lapses: 0,
         },
         {
-          stability: 36.88068075,
+          stability: 129.59501351,
           difficulty: 2.96593361,
           state: "review",
-          interval: 15,
-          dueDate: "2026-06-12",
+          interval: 138,
+          dueDate: "2026-11-13",
           reps: 5,
           lapses: 0,
         },
       ]);
     });
+  });
+});
+
+describe("receptive-before-productive staggering", () => {
+  it("seeds production 3 days behind recognition (createSeededState)", () => {
+    const s = createSeededState("2026-05-20");
+    expect(s.recognition.dueDate).toBe("2026-05-20");
+    expect(s.production.dueDate).toBe("2026-05-23");
+  });
+
+  it("staggers production in createInitialState too", () => {
+    const s = createInitialState();
+    // production is exactly 3 days after recognition's due date
+    const rec = new Date(s.recognition.dueDate + "T00:00:00Z");
+    const prod = new Date(s.production.dueDate + "T00:00:00Z");
+    expect((prod.getTime() - rec.getTime()) / 86_400_000).toBe(3);
+  });
+});
+
+describe("leech handling", () => {
+  // A mature (review-state) sub-state — lapses only accrue from failing a card
+  // that's already graduated, so we build one directly rather than looping.
+  const reviewSub = (lapses: number): SRSModalityState => ({
+    stability: 12,
+    difficulty: 6,
+    state: "review",
+    interval: 12,
+    dueDate: "2026-05-20",
+    lastReviewDate: "2026-05-08",
+    reps: lapses + 3,
+    lapses,
+  });
+
+  it("isLeech: true at ≥8 lapses on either modality, false below", () => {
+    expect(isLeech({ recognition: reviewSub(7), production: reviewSub(2) })).toBe(false);
+    expect(isLeech({ recognition: reviewSub(8), production: reviewSub(2) })).toBe(true);
+    expect(isLeech({ recognition: reviewSub(2), production: reviewSub(9) })).toBe(true);
+  });
+
+  it("crossing the threshold on a review auto-buries the card", () => {
+    const near: SRSCardState = { recognition: reviewSub(7), production: reviewSub(0) };
+    expect(isLeech(near)).toBe(false);
+    const after = reviewCard(near, "recognition", "again", new Date("2026-05-20T12:00:00Z"));
+    expect(after.recognition.lapses).toBe(8);
+    expect(isLeech(after)).toBe(true);
+    expect(after.buriedUntil).toBeTruthy();
+  });
+
+  it("a healthy card is never a leech", () => {
+    let s = createInitialState();
+    let clock = new Date("2026-05-20T12:00:00Z");
+    for (let i = 0; i < 5; i++) {
+      s = reviewCard(s, "recognition", "good", clock);
+      clock = new Date(s.recognition.dueDate + "T12:00:00Z");
+    }
+    expect(isLeech(s)).toBe(false);
   });
 });

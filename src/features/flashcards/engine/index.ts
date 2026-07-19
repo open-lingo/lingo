@@ -18,6 +18,8 @@ export {
   cardEarliestDueDate,
   cardLastReviewDate,
   cardLastReviewedAt,
+  isLeech,
+  LEECH_LAPSE_THRESHOLD,
   MASTERED_INTERVAL_DAYS,
 } from "./srs";
 export { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";

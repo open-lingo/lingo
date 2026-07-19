@@ -5,6 +5,7 @@ import {
   getCardState,
   isDue,
   isBuried,
+  isLeech,
   setCardState,
   buryCard,
   unburyCard,
@@ -27,7 +28,7 @@ export type ManagedCard = {
   deckId: string;
   deckName: string;
   state: SRSCardState | undefined;
-  status: "new" | "due" | "learning" | "buried";
+  status: "new" | "due" | "learning" | "buried" | "leech";
   /**
    * Client-generated course deck card (curriculum atom). No backend deck
    * exists for these — deck-level actions (edit in the community editor,
@@ -39,6 +40,9 @@ export type ManagedCard = {
 
 function statusFor(state: SRSCardState | undefined): ManagedCard["status"] {
   if (!state) return "new";
+  // Leech wins over other states — a chronically-failing card is the one the
+  // learner should act on (reformulate), even while it's buried/due.
+  if (isLeech(state)) return "leech";
   if (isBuried(state)) return "buried";
   if (isDue(state)) return "due";
   return "learning";
