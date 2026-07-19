@@ -66,7 +66,7 @@ export type SpineUnit = {
   spiralWith?: string;
 };
 
-export const SPINE_VERSION = "draft-2 (2026-07-19)";
+export const SPINE_VERSION = "draft-3 (2026-07-19)";
 
 export const SPINE_UNITS: SpineUnit[] = [
   {
@@ -99,8 +99,9 @@ export const SPINE_UNITS: SpineUnit[] = [
       "GLUE-ADVERB DRIP: 1–2 top-500 adverbs as vocab per module (ぜんぜん #97, ちゃんと #173, ずっと #174, たとえば #223, さっき #227, すぐ #237, きっと #287, まず #264…) — never a block",
       "COUNTER DRIP: after the generic つ counter, each new counter arrives when a word calls for it, not as a unit",
       "REGISTER DRILLS: from the ます module on, every production step names its audience; both registers stay warm forever",
-      "SPIRAL BEATS: every ⟳-linked pair = intro then deepen, ≥3 modules apart, deepen uses harder sentence shapes (lintable)",
+      "SPIRAL BEATS: every ⟳-linked pair = intro then deepen, ≥3 modules apart, deepen OPENS with a 60s rehash of the intro beat (audit: never assume SRS compliance), deepen uses harder sentence shapes (lintable)",
       "END-OF-LESSON REVIEWS keep the ≥60% sentence-context floor with all-new example sentences on the second beat",
+      "CLOSED-CLASS COVERAGE CHECKLIST (audit fix): every closed system — particles (が!), question words, yes/no words, copula cells, survival formulas — must be OWNED by a named tile; lintable checklist, ちょっと #41 joins the adverb drip",
     ],
     why: "Spencer's review distilled: 'splitting these teachings up into two parts and going over them sometimes more than once … in different or more complicated variations is the most amazing thing we can do.' These threads are the standing rules every module below obeys — leave notes here for anything spine-wide.",
     parity: [
@@ -119,6 +120,7 @@ export const SPINE_UNITS: SpineUnit[] = [
       "だ state-of-being (AはBだ) — plain from sentence one",
       "は topic / も also; casual questions by rising intonation",
       "そう/うん as recognition (agreement layer, CEJC #9/#1)",
+      "SURVIVAL FORMULA micro-beat: すみません/ありがとう(ございます)/ごめんなさい/だいじょうぶ as unanalyzed chunks (audit: re-stranded by the sidequest purge — day-one utility, zero grammar)",
       "です heard in dialogues for RECOGNITION (register preview)",
       "Katakana ア-row + ー",
     ],
@@ -140,7 +142,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     emoji: "\u{1F448}",
     teaches: [
       "の possession + attributive",
-      "これ/それ/あれ/どれ; だれ",
+      "これ/それ/あれ/どれ; だれ; 何 (これ、何？ — the pointer question, CEJC #19; audit: interrogatives must be owned)",
       "Katakana II continues",
     ],
     why: "Reviewed: keep. Pure particle/noun grammar on the plain copula frame.",
@@ -158,7 +160,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     teaches: [
       "Dictionary form as THE verb; る/う/する/くる classes explicit, いる/える exceptions flagged",
       "を direct object; basic SOV",
-      "Seed verbs BY CEJC RANK: いう #20, おもう #38 (recognition first), わかる #53, たべる, のむ, いく, くる, する, みる, かう #118, きく #120 …",
+      "Seed verbs BY CEJC RANK: いう #20, おもう #38 (recognition first), わかる #53, やる #36 (the casual する — audit add), たべる, のむ, いく, くる, する, みる, かう #118, きく #120 …",
       "もの as a COMPOSITIONAL concept: たべもの = たべ+もの, のみもの = のみ+もの (food domain)",
     ],
     why: "Reviewed: keep — now sharpened by the frequency audit. Draft-1 left the seed verbs unspecified; CEJC picks them, and the old course's absurdities (いう at 'future', わかる blocked) end here. もの (#56) enters as the morpheme that explains the food words being learned in the same breath — Spencer's audit instinct, confirmed by the data (derivatives were taught before the morpheme).",
@@ -177,8 +179,10 @@ export const SPINE_UNITS: SpineUnit[] = [
     emoji: "\u{1F6AB}",
     teaches: [
       "ない by class (のまない vs たべない); わからない as the killer everyday example",
+      "が SUBJECT MARKER — taught explicitly at its classic intro site: ねこがいる/テレビがある (audit: が was never owned by any tile; existence is BUILT on it)",
+      "じゃない — the copula's negative cell lands beside ない (audit: paradigm completeness)",
       "ある/いる existence + animacy; ある→ない irregularity while the rule is fresh",
-      "ここ/そこ/あそこ, に/で location basics",
+      "ここ/そこ/あそこ + どこ (CEJC #96 — the question the demonstratives answer), に/で location basics",
       "⟳ intro beat — past た arrives 3 modules later, なかった later still",
     ],
     why: "The s06 rework: ONE new conjugation, not four. Existence is the domain because ある's negative IS ない. Past tense moves out to Time-I where it has content to describe; negative-past deepens in the connectives module. This is the sprinkle Spencer asked for, with each beat still class-driven.",
@@ -186,7 +190,7 @@ export const SPINE_UNITS: SpineUnit[] = [
       { source: "Tae Kim", ref: "§3.5" },
       { source: "Review", ref: "s06 note", note: "'too much conjugation built into one … sprinkle'" },
     ],
-    salvage: "m6 places/existence vocab + animacy rule + directions dialogue; m29's ない drills.",
+    salvage: "m6 places/existence vocab + animacy rule; directions dialogue demoted to LISTENING-recognition only (audit: asking strangers pre-ます is register-impossible — s15 owns production); m29's ない drills.",
     wave: 1,
     spiralWith: "n04",
   },
@@ -195,21 +199,21 @@ export const SPINE_UNITS: SpineUnit[] = [
     title: "The stem grid + ます/です — politeness as a layer",
     emoji: "\u{1F3AD}",
     teaches: [
-      "Godan a/i/u/e stem rows as attachment points; ます = i-stem + helper; ません/ました/ませんでした",
-      "です for nouns/adjectives; です ≠ polite だ; か as the POLITE question marker",
-      "はい/ええ/うん — ONE word, three registers (un-strands はい from the deleted sidequest)",
-      "わたし/ぼく/おれ — pronoun register, recognition level",
+      "Godan a/i/u/e stem rows as attachment points; ます = i-stem + helper; ません negative — PRESENT CELLS ONLY (audit: polite past waits for plain past — ました joins た in Time-I, ませんでした joins なかった at connectives)",
+      "です for nouns/adjectives; です ≠ polite だ",
+      "か marks questions; POLITE STYLE REQUIRES it, casual style drops it or uses の (audit: the old 'か is polite' framing built a rule embedded questions would break)",
       "Register-explicit production starts: every prompt names its audience",
     ],
-    why: "Reviewed: keep. Draft-2 adds the interaction layer and pronoun register — the frequency audit showed はい (#23) stranded blocked in deleted sidequest content and うん (#1) homeless; teaching the yes-words as a register triple IS the register lesson, made concrete.",
+    why: "SPLIT in draft-3 (Spencer: '7 seems huge, split it and add a module'; audit counted 9 concepts). This half keeps the MACHINE: stems, ます/ません, です, か, and the register-explicit mechanic debut. The interaction words and pronouns move to their own module (n15). Polite past de-stacked entirely — it was teaching a polite skin for a tense that didn't exist yet, inverting the course's own thesis.",
     parity: [
       { source: "Tae Kim", ref: "§4.1 + §4.3" },
       { source: "Cure Dolly", ref: "L10 + L17" },
-      { source: "CEJC", ref: "audit §2 interaction layer, §5 pronouns" },
+      { source: "Review", ref: "draft-2 pass", note: "'7 seems huge, we probably want to split it'" },
     ],
-    salvage: "m7 dict↔ます tables inverted; m30 register-awareness content compresses into the intro here.",
+    salvage: "m7 dict↔ます tables inverted.",
     wave: 2,
     milestone: "SCRIPT LADDER: hiragana romaji dies here (M7 cutoff holds)",
+    spiralWith: "n15",
   },
   {
     id: "n02",
@@ -250,14 +254,35 @@ export const SPINE_UNITS: SpineUnit[] = [
     wave: 2,
   },
   {
+    id: "n15",
+    title: "Register in the wild: yes/no words, aizuchi, pronouns",
+    emoji: "\u{1F5E3}️",
+    teaches: [
+      "Yes-words BY REGISTER *AND FUNCTION*: はい/ええ/うん — including はい as aizuchi ('I'm listening' ≠ agreement, the classic misparse)",
+      "NO-words: いいえ/ううん/ちがう (#68 — the conversational 'no, that's not it'; うん vs ううん trained as the listening minimal pair it is)",
+      "ちょっと (#41) as softener + conventional refusal (ちょっと…)",
+      "わたし/ぼく/おれ pronoun register — RECOGNITION ONLY (production ruling deferred to the capstone)",
+      "だいじょうぶ deepens from s03's chunk to a real yes/no tool",
+      "⟳ deepen of s07's register mechanic — three modules of drilling later, this is where register becomes conversational reality",
+    ],
+    why: "The other half of the s07 split, landing right after the shop module where はい/ええ were just HEARD in the wild. The audit demanded no-words (a course that can agree but not disagree mis-models conversation) and the aizuchi-≠-agreement card; both live here. This module is almost all listening + short production — a deliberate breather between the number/time modules.",
+    parity: [
+      { source: "CEJC", ref: "#1 うん, #23 はい, #41 ちょっと, #68 ちがう" },
+      { source: "Review", ref: "draft-2 pass", note: "'split it and just add a module to the whole thing'" },
+    ],
+    salvage: "m30's register-awareness lessons compress here; はい/ごめん atoms finally un-strand from the deleted survival sidequest.",
+    wave: 2,
+    spiralWith: "s07",
+  },
+  {
     id: "n04",
     title: "Time I + plain past た (compound numbers)",
     emoji: "⏰",
     teaches: [
       "COMPOSITIONAL numbers: じゅう+X / X+じゅう → 11–99 understood, not memorized (Spencer's s10 note)",
-      "〜じ hours; days of week",
-      "Plain past た — same sound-change table as て ('one fact, second payout')",
-      "ました/でした drilled BESIDE た/だった (diary told to a friend AND a teacher)",
+      "〜じ hours; いつ (when — the time question, audit add); days-of-week PUSHED TO THE DRIP (audit: tile was re-stacking)",
+      "Plain past た — same sound-change table as て ('one fact, second payout'); だった completes the copula's past cell",
+      "ました/でした ARRIVE HERE (moved out of s07): polite past drilled beside た/だった the day plain past is born (diary told to a friend AND a teacher)",
       "⟳ deepen of n06a's paradigm; なかった completes later",
     ],
     why: "Past tense lands where there's content to describe (yesterday, last week) — the sprinkle in action. Numbers extend compositionally exactly as Spencer's s10 note prescribed, gated (advisorily) on 1–10 mastery from n03 — FSRS can check that programmatically.",
@@ -278,8 +303,9 @@ export const SPINE_UNITS: SpineUnit[] = [
     teaches: [
       "い-adj conjugation IN PARALLEL with plain verbs (高い/くない/かった)",
       "な-adj + だ/です; じゃない",
-      "High-frequency set: いい/よい, すごい #49, うまい #197, こわい #214, だめ #113",
-      "よ/ね enders (both registers); すき/きらい with が",
+      "High-frequency set: いい/よい, すごい #49, おいしい #95 (audit: register-neutral frequency winner — うまい #197 demoted to recognition with a rough/masculine flag), こわい #214, だめ #113",
+      "どう (how — どうですか / casual どう？, CEJC #60)",
+      "よ/ね enders (both registers); すき/きらい with が (が's second beat after n06a)",
       "PEDAGOGY: teach-by-showing — minimal info cards, learner infers the pattern from contrasts (Spencer's s09 note)",
     ],
     why: "Reviewed: keep, with the discovery-learning note now binding for authoring. Frequency audit adds すごい/だめ — top-120 words the old course never taught.",
@@ -299,6 +325,7 @@ export const SPINE_UNITS: SpineUnit[] = [
       "たい as i-stem attachment that then CONJUGATES AS an い-adjective — the two systems click together",
       "がほしい for things",
       "にいく purpose-of-motion (stem + にいく)",
+      "AUTHORING CONSTRAINT (binding): たい/ほしい drills are 1st-person statements + 2nd-person questions only — 3rd-person 'he wants' requires たがっている and is out of scope (audit: template pipelines generate exactly this error)",
     ],
     why: "The s14 move, resolved: Spencer suggested 'closer to the intro of adjectives' — exactly right, because たい IS an い-adjective wearing a verb stem. Placed immediately after s09 so the adjective rules get their first payout.",
     parity: [
@@ -316,7 +343,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     teaches: [
       "Plain clause + noun (きのうかった本)",
       "こと (#44) taught AS VOCAB with nominalization; のがすき",
-      "とき (#62) temporal clauses — 'when I…' is just a relative clause on 時",
+      "とき (#62) temporal clauses — MATCHED-TENSE sentences only in this beat (audit: 行くとき vs 行ったとき relative-tense flip is a documented trap; the contrast belongs to the s22 deepen)",
       "⟳ intro beat — experience/intent (ことがある/つもり) deepen later",
     ],
     why: "Reviewed: keep — now carries とき (moved sooner per the s22 note) and こと as taught vocabulary (frequency audit: rank #44, previously absent). The audit's function-noun principle lands here: the noun and its grammar arrive together.",
@@ -330,13 +357,36 @@ export const SPINE_UNITS: SpineUnit[] = [
     spiralWith: "s22",
   },
   {
+    id: "n06b",
+    title: "て-form II: ている + permission/prohibition",
+    emoji: "\u{1F9F2}",
+    teaches: [
+      "ている progressive vs resultative (gloss invariant 17 rides along)",
+      "もう #31 / まだ #117 — the canonical ている spend (もう食べた / まだ食べていない; audit add)",
+      "してる contraction — RECOGNITION preview (audit: anime learners hear it in episode one, course explained it second-to-last)",
+      "てもいい / てはいけない; ないでください",
+      "Sequencing clauses with て; てから",
+      "⟳ deepen of n02 — same form, harder spends",
+    ],
+    why: "The s12 rework, half two: everything て beyond requests, landing ~5 modules after the form itself. Moved BEFORE s13 in draft-3 (audit: wave 3 was a four-module abstract-grammar wall — this situational, spendable module breaks it, and shortens the n02 spiral gap). Opens with the mandatory て-table rehash per the thread rule.",
+    parity: [
+      { source: "Tae Kim", ref: "§4.5" },
+      { source: "Genki", ref: "ch 6–7 split across two chapters — same instinct" },
+    ],
+    salvage: "m15 ている unit whole; m16 prohibition set.",
+    wave: 3,
+    spiralWith: "n02",
+  },
+  {
     id: "s13",
     title: "Connecting: から/ので, ranges, なかった completes the paradigm",
     emoji: "\u{1F9ED}",
     teaches: [
       "から reason vs origin; ので softer (register nuance); けど",
       "から…まで; months; frequency spectrum (ぜんぜん gets its ATOM here — audit fix)",
-      "なかった (plain negative past) — the paradigm's last cell, spent on excuses ('didn't go because…')",
+      "なかった + ませんでした — BOTH registers' last past-negative cells land together, spent on excuses ('didn't go because…')",
+      "PARADIGM SYNTHESIS CARD: the full 2×2 (nonpast/past × pos/neg), plain and polite side by side, shown as ONE object for the first time (audit: sprinkling without reassembly is fragmentation)",
+      "は vs が contrast — が's deepen beat (audit: the pair needs an owned contrast lesson)",
       "STRONG, VARIED sentence examples (Spencer's s13 note — binding)",
     ],
     why: "Reviewed: keep. Draft-2 gives it two extra jobs: the なかった deepen beat (sprinkle principle — excuses are the natural home of negative past + reason) and ぜんぜん's promotion from grammar-mention to reviewed vocabulary.",
@@ -350,32 +400,13 @@ export const SPINE_UNITS: SpineUnit[] = [
     spiralWith: "n06a",
   },
   {
-    id: "n06b",
-    title: "て-form II: ている + permission/prohibition",
-    emoji: "\u{1F9F2}",
-    teaches: [
-      "ている progressive vs resultative (gloss invariant 17 rides along)",
-      "てもいい / てはいけない; ないでください",
-      "Sequencing clauses with て; てから",
-      "⟳ deepen of n02 — same form, harder spends",
-    ],
-    why: "The s12 rework, half two: everything て beyond requests, landing ~6 modules after the form itself. By now て is muscle memory and each pattern is one new idea, not five.",
-    parity: [
-      { source: "Tae Kim", ref: "§4.5" },
-      { source: "Genki", ref: "ch 6–7 split across two chapters — same instinct" },
-    ],
-    salvage: "m15 ている unit whole; m16 prohibition set.",
-    wave: 4,
-    spiralWith: "n02",
-  },
-  {
     id: "n07",
     title: "Family I: your side (うち)",
     emoji: "\u{1F3E0}",
     teaches: [
       "YOUR-family terms only (はは/ちち/あに/あね…) + humble register logic",
       "〜さい age; 〜にんかぞく (counter drips in as the word calls for it)",
-      "ぼく/おれ deepen in family talk",
+      "ぼく/おれ in family talk — STILL RECOGNITION-ONLY (audit: no production drift; production ruling waits for the capstone)",
     ],
     why: "The s16 rework: one referent, one word set. The honorific others'-side words wait for Family II so learners never hold two words for 'mother' at once — Spencer's note verbatim.",
     parity: [
@@ -394,6 +425,7 @@ export const SPINE_UNITS: SpineUnit[] = [
       "Plain clause + とおもう — opinions on everything learned so far",
       "という naming/quotation",
       "おもう graduates from recognition (s05) to drilled production",
+      "んだ explanatory — RECOGNITION preview (audit: among the highest-frequency patterns in native dialogue; production stays at s23)",
       "⟳ intro beat — でしょう/conjecture deepens later",
     ],
     why: "The s18 rework, half one: Spencer — 'we can intro these earlier right?' Yes, and it's the dict-first superpower: quotation embeds plain clauses, owned since module ~6. Genki must wait for ch 8; we don't.",
@@ -498,7 +530,8 @@ export const SPINE_UNITS: SpineUnit[] = [
     title: "Can & let's: potential, ましょう, 〜ない？",
     emoji: "\u{1F4AA}",
     teaches: [
-      "Potential: godan e-stem+る (のめる), ichidan られる (たべられる), できる for する — full system, closing the old できる-only gap",
+      "Potential: godan e-stem+る (のめる), ichidan られる (たべられる), くる→こられる, できる for する — full system, closing the old できる-only gap",
+      "ら抜き RECOGNITION line: casual speech often drops ら (食べれる) — understand it, produce the full form (audit: majority form in the very corpus this course optimizes for)",
       "見える/聞こえる nuance",
       "ましょう/ませんか AND casual 〜ない？ — one speech act, both registers",
     ],
@@ -516,7 +549,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     title: "Conjecture: でしょう/だろう + weather",
     emoji: "⛅",
     teaches: [
-      "でしょう (polite) / だろう (plain) — one word, register pair",
+      "でしょう production; casual production targets でしょ(う)/かな — だろう is RECOGNITION + the 何だろう self-talk pattern only (audit: sentence-final だろう to a listener is blunt/masculine, not a neutral register twin)",
       "たぶん (#87) un-blocked as vocab; きっと drips",
       "Weather/seasons domain",
       "⟳ deepen of n08's clause-embedding",
