@@ -6,6 +6,8 @@ import { ContinueButton } from "../ContinueButton";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 
 type Props = {
   step: PhraseCardStep;
@@ -13,12 +15,39 @@ type Props = {
 };
 
 /**
+ * Active language id, defaulting to "ja" when no LanguageProvider is
+ * mounted (lesson-render smoke tests / Storybook). Mirrors AnnotatedText's
+ * `useActiveLanguageOrJa` so the phrase card keeps rendering outside a
+ * provider tree.
+ */
+function useActiveLanguageOrJa(): string {
+  try {
+    const { language } = useLanguage();
+    return language?.id ?? "ja";
+  } catch {
+    return "ja";
+  }
+}
+
+/**
  * Phrasebook exposure card — meaning-first. The user is being TAUGHT a
- * phrase, not tested on one. Layout is intentionally calm: meaning
- * dominates, romaji guides pronunciation, kana decorates (the user may
- * not know kana yet).
+ * phrase, not tested on one. Layout is intentionally calm: the English
+ * meaning heads the card, the TARGET SCRIPT (`step.kana` — kana for JA,
+ * Hangul for KO) is the visual hero, and the romanization (`step.romaji`)
+ * is a small subordinate reading aid beneath it. Over-reliance on
+ * romanization hurts acquisition, so the native script always dominates.
  */
 export function PhraseCardStepView({ step, onContinue }: Props) {
+  const langId = useActiveLanguageOrJa();
+  // Romanization is a reading aid, not the star. JA phrase cards have
+  // historically always shown it (no per-card toggle); non-JA courses
+  // (e.g. KO Revised Romanization) honor the language-neutral
+  // `showRomanization` setting — the same gate AnnotatedText applies to
+  // Hangul reading aids. Native script renders regardless.
+  const { settings } = useSettings();
+  const showRomanization =
+    langId === "ja" ? true : (settings.learning.showRomanization ?? true);
+
   useLessonKeyboard({
     onEnter: () => {
       playSfx("passive-advance");
@@ -76,19 +105,25 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
           {step.meaningEn}
         </h2>
 
+        {/* Target script — the visual hero. Large, accent-colored,
+         *  language-tagged so `:lang(ja)` / `:lang(ko)` pick the right font. */}
         <p
-          className="mt-5 font-japanese text-2xl font-bold text-accent sm:text-3xl"
-          lang="ja-Latn"
-        >
-          {step.romaji}
-        </p>
-
-        <p
-          className="mt-2 font-japanese text-base text-text-muted sm:text-lg"
-          lang="ja"
+          className="mt-5 text-3xl font-bold text-accent sm:text-4xl"
+          lang={langId}
         >
           {step.kana}
         </p>
+
+        {/* Romanization — subordinate reading aid: small + muted, and
+         *  clearly smaller than the native script above. */}
+        {showRomanization && step.romaji ? (
+          <p
+            className="mt-2 text-base text-text-muted sm:text-lg"
+            lang={`${langId}-Latn`}
+          >
+            {step.romaji}
+          </p>
+        ) : null}
 
         <button
           type="button"

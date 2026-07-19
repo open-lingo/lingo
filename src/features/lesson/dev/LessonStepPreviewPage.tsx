@@ -311,7 +311,7 @@ export function fixtures(): Fixture[] {
       type: "phrase_card",
       title: "phrase_card",
       whenToUse:
-        "Exposure-first phrase teaching (M3+). Meaning large, romaji medium, kana decoration, audio auto-plays. NO quiz — the learner reads, hears, continues. Use for survival phrases and grammar examples.",
+        "Exposure-first phrase teaching (M3+). Meaning heads the card, the TARGET SCRIPT (kana/Hangul) is the large accent-colored hero, romanization is a small subordinate reading aid, audio auto-plays. NO quiz — the learner reads, hears, continues. Use for survival phrases and grammar examples.",
       step: {
         id: "preview-phrase",
         type: "phrase_card",
