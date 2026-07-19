@@ -34,12 +34,6 @@ import {
   FlashcardsOnboardingGate,
   FLASHCARDS_ONBOARDING_STORAGE_KEY,
 } from "./components/FlashcardsOnboardingGate";
-import {
-  type ReviewMode,
-  REVIEW_MODES,
-  REVIEW_MODE_LABELS,
-  REVIEW_MODE_WORD_FIRST,
-} from "./reviewModes";
 import type { Flashcard, CardSegment, SRSRating, SRSModality } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
 
@@ -229,16 +223,6 @@ export function FlashcardTester() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [highlightMode, setHighlightMode] = useState(true);
-  // Persisted with the other reviewer prefs via settings.flashcards (syncs
-  // across devices) instead of a raw localStorage key.
-  const reviewMode: ReviewMode =
-    settings.flashcards?.reviewMode ?? REVIEW_MODE_WORD_FIRST;
-
-  const showImage = (mode: ReviewMode, isFlipped: boolean) => {
-    if (mode === "back-first") return !isFlipped; // back first = translation, image on "front" view
-    if (mode === "word-first") return isFlipped;
-    return true; // image-first: both sides
-  };
   const [sessionStats, setSessionStats] = useState({ reviewed: 0, correct: 0 });
   // SM-2 step 7: cards scoring < 4 are appended for re-review within the session
   const [repeatCards, setRepeatCards] = useState<Flashcard[]>([]);
@@ -630,24 +614,6 @@ export function FlashcardTester() {
                 role="dialog"
                 aria-label={t("flashcards.reviewSettings", "Review settings")}
               >
-                <div>
-                  <label className="mb-1 block text-xs font-medium text-text-muted">
-                    {t("flashcards.reviewModeLabel", "Review mode")}
-                  </label>
-                  <select
-                    value={reviewMode}
-                    onChange={(e) =>
-                      updateFlashcards({ reviewMode: e.target.value as ReviewMode })
-                    }
-                    className="w-full rounded border border-border bg-surface-muted px-2 py-1.5 text-sm text-text-primary"
-                  >
-                    {REVIEW_MODES.map((m) => (
-                      <option key={m} value={m}>
-                        {t(REVIEW_MODE_LABELS[m])}
-                      </option>
-                    ))}
-                  </select>
-                </div>
                 <label className="flex items-center gap-2 text-sm text-text-secondary">
                   <input
                     type="checkbox"
@@ -762,19 +728,20 @@ export function FlashcardTester() {
         </span>
       </div>
 
-      {/* Card — top rail color signals the active modality. Image cards
-          reserve their artwork's height on BOTH faces: the image only
-          renders after flip (and loads async), so a plain min-h card grew
-          right as the grade buttons appeared — shoving them down under
-          the cursor mid-grade (Spencer QA 2026-07-13). */}
+      {/* Card — top rail color signals the active modality. Height is fixed
+          (min-h-[360px]) for EVERY card, image or not, so the grade buttons
+          below never shift between cards. Image cards were taller than plain
+          ones, so the buttons jumped up and down as the queue advanced —
+          shoving them under the cursor mid-grade (Spencer QA 2026-07-13).
+          Custom review modes (e.g. front-image cues) will hook in around the
+          image render below; for now the reviewer always shows the vocab art
+          on the answer side so it never gives away a recognition prompt. */}
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className={`flex ${
-          currentCard.image ? "min-h-[360px]" : "min-h-[220px]"
-        } w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
+        className={`flex min-h-[360px] w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
       >
-        {showImage(reviewMode, flipped) && currentCard.image && (
+        {flipped && currentCard.image && (
           <CardImage
             src={currentCard.image}
             className="mb-3 max-h-32 w-auto rounded object-contain"

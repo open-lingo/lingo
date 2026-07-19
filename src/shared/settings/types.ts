@@ -43,14 +43,6 @@ export type FlashcardsSettings = {
    * the "Show scheduling intervals" toggle re-enables them.
    */
   showIntervalPreviews?: boolean;
-  /**
-   * Reviewer prompt order: "word-first" (front → back), "image-first" (art →
-   * word), or "back-first" (meaning → word). Default "word-first". Persisted
-   * here so it syncs across devices like the other reviewer prefs (was a raw
-   * localStorage key). Union is inlined to keep `shared/` decoupled from
-   * `features/flashcards/reviewModes`.
-   */
-  reviewMode?: "word-first" | "image-first" | "back-first";
 };
 
 export type UserSettings = {

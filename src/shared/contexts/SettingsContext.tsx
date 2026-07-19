@@ -209,13 +209,6 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
     if (typeof fc.showIntervalPreviews === "boolean") {
       flashcards.showIntervalPreviews = fc.showIntervalPreviews;
     }
-    if (
-      fc.reviewMode === "word-first" ||
-      fc.reviewMode === "image-first" ||
-      fc.reviewMode === "back-first"
-    ) {
-      flashcards.reviewMode = fc.reviewMode;
-    }
     partial.flashcards = flashcards;
   }
 
