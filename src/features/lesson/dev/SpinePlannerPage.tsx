@@ -97,6 +97,8 @@ const SOURCE_BADGE: Record<ParityRef["source"], string> = {
   "Manga Way": "bg-amber-500/15 text-amber-600 dark:text-amber-400",
   "JF/Marugoto": "bg-sky-500/15 text-sky-600 dark:text-sky-400",
   Research: "bg-slate-500/15 text-slate-600 dark:text-slate-400",
+  CEJC: "bg-teal-500/15 text-teal-600 dark:text-teal-400",
+  Review: "bg-orange-500/15 text-orange-600 dark:text-orange-400",
 };
 
 function HoverCard({ unit }: { unit: SpineUnit }) {
@@ -201,6 +203,14 @@ function SortableTile({
             {unit.milestone && (
               <span className="rounded bg-accent-muted px-1.5 py-0.5 text-xs font-semibold text-accent">
                 {unit.milestone}
+              </span>
+            )}
+            {unit.spiralWith && (
+              <span
+                title={`spiral pair: intro/deepen beats — partner tile ${unit.spiralWith}`}
+                className="rounded bg-violet-500/15 px-1.5 py-0.5 text-xs font-semibold text-violet-600 dark:text-violet-400"
+              >
+                ⟳ {unit.spiralWith}
               </span>
             )}
             {mark.verdict && (
