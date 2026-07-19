@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
+import { useAutoPlayJaAudio } from "@/shared/tts";
 import {
   reviewCard,
   setCardState,
@@ -239,6 +240,16 @@ export function FlashcardTester() {
 
   const card: Flashcard | undefined = allCards[index];
   const isSessionDone = !card;
+
+  // Front-of-card audio: play the target word/sentence when the card shows.
+  // Course word cards put the target script on `front` (recognition — the word
+  // is already visible, so audio reinforces pronunciation without leaking an
+  // answer). Keyed by card id → plays once per card; honors silentMode inside
+  // the hook. Flip-side audio is a separate future pass. (If a production mode
+  // that shows the meaning first is ever added, gate this to the reveal side.)
+  const frontAudioText =
+    card && (card.type === "word" || card.type === "sentence") ? card.front : undefined;
+  useAutoPlayJaAudio(frontAudioText, `fc-front-${card?.id ?? "none"}`);
 
   // ── Daily "Review N cards" quest (retention 1b) ──
   // Report this session's reviews to the server quest ONCE when the session
