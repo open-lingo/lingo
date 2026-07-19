@@ -137,6 +137,52 @@ function devLogMiddleware(): Plugin {
  * can watch marks/critiques land in real time while the tester works —
  * same idea as devLogMiddleware, but structured state instead of logs.
  */
+/**
+ * Same mirror pattern for the spine-planner page (/:lang/spine-plan) —
+ * tile order, verdicts, and notes land in /tmp/lingo-spine-plan.json on
+ * every debounced save so an agent can watch rewrite decisions live.
+ */
+function spinePlanMiddleware(): Plugin {
+  const planFile = "/tmp/lingo-spine-plan.json";
+  return {
+    name: "spine-plan-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__lingo-spine-plan", (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        let size = 0;
+        req.on("data", (c: Buffer) => {
+          size += c.length;
+          if (size > 1_000_000) {
+            res.statusCode = 413;
+            res.end();
+            req.destroy();
+            return;
+          }
+          chunks.push(c);
+        });
+        req.on("end", () => {
+          try {
+            const body = Buffer.concat(chunks).toString("utf8");
+            JSON.parse(body); // validate before writing
+            fs.writeFileSync(`${planFile}.tmp`, body);
+            fs.renameSync(`${planFile}.tmp`, planFile);
+            res.statusCode = 204;
+          } catch {
+            res.statusCode = 400;
+          }
+          res.end();
+        });
+      });
+    },
+  };
+}
+
 function qaNotesMiddleware(): Plugin {
   const notesFile = "/tmp/lingo-qa-notes.json";
   return {
@@ -260,6 +306,7 @@ export default defineConfig(({ mode }) => {
     copyKuromojiDict(),
     devLogMiddleware(),
     qaNotesMiddleware(),
+    spinePlanMiddleware(),
     cspMetaPlugin(env),
   ],
   publicDir: "src/pub",
