@@ -12,8 +12,8 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 
 describe("KO M3 curriculum", () => {
-  it("ships 8 lessons, all tagged ko / m3", () => {
-    expect(KO_M3_LESSONS.length).toBe(8);
+  it("ships 9 lessons, all tagged ko / m3", () => {
+    expect(KO_M3_LESSONS.length).toBe(9);
     expect(KO_M3_LESSONS.every((l) => l.moduleId === "m3")).toBe(true);
     expect(KO_M3_LESSONS.every((l) => l.languageId === "ko")).toBe(true);
   });

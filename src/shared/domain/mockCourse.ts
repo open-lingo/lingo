@@ -1080,6 +1080,7 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m3-2", title: "Formality — formal vs. polite",     status: "available" as const },
       { id: "ko-m3-3", title: "이에요 / 예요 — the copula",        status: "available" as const },
       { id: "ko-m3-4", title: "저는 X 이에요 — introducing yourself", status: "available" as const },
+      { id: "ko-m3-4b", title: "은 / 는 — the topic marker",        status: "available" as const },
       { id: "ko-m3-5", title: "Asking names — 이름이 뭐예요?",     status: "available" as const },
       { id: "ko-m3-6", title: "Numbers 1–10 (Sino-Korean)",       status: "available" as const },
       { id: "ko-m3-7", title: "Mini-dialogue — meeting someone",   status: "available" as const },

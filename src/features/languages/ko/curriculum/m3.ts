@@ -246,6 +246,67 @@ const M3_4: LessonContent = {
   ],
 };
 
+// ─── ko-m3-4b — 은/는 the topic marker ──────────────────────────────────────
+// The topic particle is the single most common word in Korean and is used
+// from 저는 onward, but was never taught explicitly (the 은/는-vs-이/가 contrast
+// only surfaced at M19). This lesson introduces it right where 저는 first
+// appears, so learners can actually read (2026-07-19).
+
+const M3_4B: LessonContent = {
+  id: "ko-m3-4b",
+  moduleId: "m3",
+  courseId: COURSE_ID,
+  languageId: "ko",
+  title: "은 / 는 — the topic marker",
+  description: "Mark what you're talking about — 은 after a consonant, 는 after a vowel.",
+  estimatedMinutes: 6,
+  xpReward: 13,
+  steps: [
+    infoStep(
+      "ko-m3-4b-info-1",
+      "은 / 는 — 'as for …'",
+      "은/는 marks the TOPIC — what a sentence is about, like 'as for …'. You just used it in 저는 ('as for me'). It's the most common particle in Korean, so you can't read a sentence without it. The choice is purely by sound: 은 after a consonant, 는 after a vowel.",
+      "grammar",
+    ),
+    infoStep(
+      "ko-m3-4b-info-2",
+      "Consonant → 은 · Vowel → 는",
+      "Look at the LAST letter of the word. 저 ends in a vowel → 저는. 선생님 ends in a consonant (ㅁ) → 선생님은. 이름 ends in a consonant → 이름은. Same idea every time.",
+      "tip",
+    ),
+    phrase("ko-m3-4b-p-topic", "as for me", "jeoneun", "저는"),
+    cloze(
+      "ko-m3-4b-cloze-vowel",
+      "저",
+      "학생이에요",
+      "는",
+      ["는", "은", "가", "를"],
+      "As for me, I'm a student.",
+      "저는 학생이에요",
+      "저 ends in a vowel → 는.",
+    ),
+    cloze(
+      "ko-m3-4b-cloze-consonant",
+      "선생님",
+      "친구예요",
+      "은",
+      ["은", "는", "이", "를"],
+      "As for the teacher, (she's my) friend.",
+      "선생님은 친구예요",
+      "선생님 ends in a consonant → 은.",
+    ),
+    sentenceMcq({
+      id: "ko-m3-4b-q-topic",
+      prompt: "저 ends in a vowel. Pick the correct topic marking for 'I'm a student.'",
+      correctHangul: "저는 학생이에요",
+      distractorsHangul: ["저은 학생이에요", "저가 학생이에요", "저를 학생이에요"],
+      explanation: "저 (vowel) → 는. 은 is for consonant-final words.",
+      exercisedAtomSurfaces: ["저", "학생"],
+    }),
+    speaking("ko-m3-4b-speak-topic", "저는 학생이에요", "I'm a student"),
+  ],
+};
+
 // ─── ko-m3-5 — Asking names ─────────────────────────────────────────────────
 
 const M3_5: LessonContent = {
@@ -457,6 +518,7 @@ export const KO_M3_LESSONS: LessonContent[] = [
   M3_2,
   M3_3,
   M3_4,
+  M3_4B,
   M3_5,
   M3_6,
   M3_7,
