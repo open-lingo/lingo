@@ -11,7 +11,7 @@ import { useConjugation } from "./useConjugation";
 type SessionStats = { correct: number; total: number; streak: number };
 
 /**
- * Free drill — its own route (`practice/conjugation/free`). Provider-driven:
+ * Free drill — its own route (`practice/grammar/conjugation/free`). Provider-driven:
  * only languages that expose `provider.freeDrill` reach here (the hub hides the
  * Mix tile otherwise). Free play, weighted by the provider; writes no SRS.
  */
@@ -21,14 +21,14 @@ export function FreeDrillPage() {
   const conj = useConjugation();
 
   if (!conj?.freeDrill) {
-    return <Navigate to={langPath("practice/conjugation")} replace />;
+    return <Navigate to={langPath("practice/grammar/conjugation")} replace />;
   }
 
   return (
     <div className="mx-auto max-w-3xl space-y-5">
       <div className="flex items-center gap-3">
         <Link
-          to={langPath("practice/conjugation")}
+          to={langPath("practice/grammar/conjugation")}
           className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
           aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
         >

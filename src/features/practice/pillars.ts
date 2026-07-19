@@ -126,7 +126,7 @@ const PILLARS: Pillar[] = [
         titleDefault: "Conjugation trainer",
         descKey: "practice.pillars.grammar.conjugationDesc",
         descDefault: "Verb and adjective form drills",
-        route: "practice/conjugation",
+        route: "practice/grammar/conjugation",
         languages: ["ja", "ko"],
       },
       {
@@ -135,7 +135,7 @@ const PILLARS: Pillar[] = [
         titleDefault: "Particles",
         descKey: "practice.pillars.grammar.particlesDesc",
         descDefault: "Reference guide and meanings",
-        route: "practice/particles",
+        route: "practice/grammar/particles",
         languages: ["ja", "ko", "es"],
       },
       {

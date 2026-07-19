@@ -146,11 +146,11 @@ export function ConjugationPracticePage() {
     return conj.missingComboTiles(selectedIds);
   }, [conj, combosActive, selectedIds]);
 
-  const goType = (id: string) => navigate(langPath(`practice/conjugation/${id}`));
+  const goType = (id: string) => navigate(langPath(`practice/grammar/conjugation/${id}`));
   const goCombined = () =>
     navigate(
       langPath(
-        `practice/conjugation/train?types=${selectedIds.join(",")}&combos=${combosActive ? 1 : 0}`,
+        `practice/grammar/conjugation/train?types=${selectedIds.join(",")}&combos=${combosActive ? 1 : 0}`,
       ),
     );
 
@@ -226,7 +226,7 @@ export function ConjugationPracticePage() {
         {conj.freeDrill && (
           <button
             type="button"
-            onClick={() => navigate(langPath("practice/conjugation/free"))}
+            onClick={() => navigate(langPath("practice/grammar/conjugation/free"))}
             className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm font-bold text-text-primary transition active:translate-y-[2px]"
           >
             <span className="text-lg font-extrabold tracking-widest" aria-hidden>

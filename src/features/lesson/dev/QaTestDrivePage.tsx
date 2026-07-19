@@ -488,13 +488,13 @@ function buildSections(lang: string): QaSection[] {
           id: "route:conjugation",
           title: "Conjugation trainer",
           links: [
-            { label: "hub", href: p("/practice/conjugation") },
-            { label: "free drill", href: p("/practice/conjugation/free") },
+            { label: "hub", href: p("/practice/grammar/conjugation") },
+            { label: "free drill", href: p("/practice/grammar/conjugation/free") },
             {
               // /train redirects to the hub without 2+ valid type ids —
               // preselect a sane pair so the link demos the session.
               label: "combined (masu+te)",
-              href: p("/practice/conjugation/train?types=masu,te-form"),
+              href: p("/practice/grammar/conjugation/train?types=masu,te-form"),
             },
           ],
         },
@@ -506,7 +506,7 @@ function buildSections(lang: string): QaSection[] {
         {
           id: "route:particles",
           title: "Particle reference (static guide, not a drill)",
-          links: [{ label: "particles", href: p("/practice/particles") }],
+          links: [{ label: "particles", href: p("/practice/grammar/particles") }],
           hint: "Relabeled as a reference on the hub; drilling happens via ParticleCloze in lessons + grammar deck.",
         },
         {

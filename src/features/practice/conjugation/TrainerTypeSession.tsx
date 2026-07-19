@@ -21,7 +21,7 @@ export function TrainerTypeSession() {
 
   const type = conj && typeId ? conj.getType(typeId) : undefined;
   if (!conj || !type || !typeId) {
-    return <Navigate to={langPath("practice/conjugation")} replace />;
+    return <Navigate to={langPath("practice/grammar/conjugation")} replace />;
   }
   return <TrainerSession conj={conj} typeId={typeId} type={type} reachedModule={reachedModule} />;
 }
@@ -48,7 +48,7 @@ function TrainerSession({
       <style>{conj.scopeCss}</style>
       <div className="flex items-center gap-3">
         <Link
-          to={langPath("practice/conjugation")}
+          to={langPath("practice/grammar/conjugation")}
           className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
           aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
         >
@@ -137,7 +137,7 @@ function DrillSegment({
         practiceOnly={ahead}
         onAgain={restart}
         againLabel={t("practice.conjugation.drillAgain", { defaultValue: "Drill again" })}
-        backTo={langPath("practice/conjugation")}
+        backTo={langPath("practice/grammar/conjugation")}
       />
     );
   }

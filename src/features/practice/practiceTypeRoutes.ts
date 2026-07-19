@@ -19,7 +19,7 @@ export function getPracticeRoute(type: PracticeType, alphabetId?: string, lang?:
 
 export const PRACTICE_TYPE_ROUTES: Record<PracticeType, string> = {
   general: "/practice/flashcards",
-  particles: "/practice/particles",
+  particles: "/practice/grammar/particles",
   kanji: "/practice/kanji",
   alphabet: "/practice/alphabet",
   components: "/practice/components",

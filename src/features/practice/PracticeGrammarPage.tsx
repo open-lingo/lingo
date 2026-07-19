@@ -21,7 +21,7 @@ export function PracticeGrammarPage() {
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
   const navItems = getPracticeItemsForLanguage(language?.id, flags);
-  const particleItem = navItems.find((item) => item.to.includes("/practice/particles"));
+  const particleItem = navItems.find((item) => item.to.includes("/practice/grammar/particles"));
 
   // Track B is JA-only. Compute the due/new grammar count once on mount — the
   // grammar store has no revision pub/sub, and review writes happen on the
@@ -128,7 +128,7 @@ export function PracticeGrammarPage() {
                 startChip
               )
             }
-            to={langPath("practice/conjugation")}
+            to={langPath("practice/grammar/conjugation")}
           />
         )}
         <ProgressRow
@@ -140,7 +140,7 @@ export function PracticeGrammarPage() {
           }
           sublabel={t("practice.grammarPage.particlesDesc")}
           rightChip={startChip}
-          to={particleItem?.to ?? langPath("practice/particles")}
+          to={particleItem?.to ?? langPath("practice/grammar/particles")}
         />
         {/* The "Verb conjugation — Soon" placeholder retired 2026-07-02:
             the Conjugation trainer row above IS that feature now. */}

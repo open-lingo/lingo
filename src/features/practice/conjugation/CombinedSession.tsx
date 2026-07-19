@@ -11,7 +11,7 @@ import { DrillQuestionCard } from "./DrillQuestionCard";
 import { SessionSummary } from "./SessionSummary";
 
 /**
- * Combined multi-tile drill route (`practice/conjugation/train?types=a,b,c`).
+ * Combined multi-tile drill route (`practice/grammar/conjugation/train?types=a,b,c`).
  * Provider-driven — the language decides whether combos exist; when they don't
  * it degrades to a free-mix of the selected tiles' individual forms.
  */
@@ -34,7 +34,7 @@ export function CombinedSession() {
   const withCombos = (conj?.supportsCombos ?? false) && params.get("combos") !== "0";
 
   if (!conj || selected.length < 2) {
-    return <Navigate to={langPath("practice/conjugation")} replace />;
+    return <Navigate to={langPath("practice/grammar/conjugation")} replace />;
   }
   return (
     <Session conj={conj} selected={selected} reachedModule={reachedModule} withCombos={withCombos} />
@@ -94,7 +94,7 @@ function Session({
     <div className="flex items-center gap-3">
       <style>{conj.scopeCss}</style>
       <Link
-        to={langPath("practice/conjugation")}
+        to={langPath("practice/grammar/conjugation")}
         className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
         aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
       >
@@ -150,7 +150,7 @@ function Session({
           practiceOnly={ahead}
           onAgain={restart}
           againLabel={t("practice.conjugation.trainAgain", { defaultValue: "Train again" })}
-          backTo={langPath("practice/conjugation")}
+          backTo={langPath("practice/grammar/conjugation")}
         />
       </div>
     );
