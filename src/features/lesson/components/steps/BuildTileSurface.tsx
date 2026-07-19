@@ -24,13 +24,60 @@
  * — reactive when the revision provider is mounted (app shell), a plain
  * read-at-mount otherwise. Tiles don't need live updates mid-step.
  */
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { KanjiRuby } from "@/shared/readingAnnotation/KanjiRuby";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import { getCardState, isMastered } from "@/features/flashcards/engine";
 import { resolveBuildTileKanji } from "@/features/languages/ja/secondScript/buildTileKanji";
+
+/** Hover dwell before a character-build tile's romaji peek fires. Long
+ *  enough that a passing cursor doesn't leak the answer, short enough to
+ *  feel like an intentional peek. */
+export const HOVER_REVEAL_MS = 500;
+
+/**
+ * Per-tile romaji peek for character-granularity builds (Spencer
+ * 2026-07-19: "make them hoverable for the romaji hint"). A tile reveals
+ * on tap or after a hover dwell and stays revealed. Revealed tiles are
+ * FORCED on (AnnotatedText forceShowHelper), so the peek works even when
+ * romaji is globally hidden — the per-script auto-off guard (hiragana@M7)
+ * or the M5 tile-fade setting. The prior sentence-view reveal only cleared
+ * its local hide flag, which the global gate silently overrode for any
+ * learner past the cutoff. Keyed by BANK index (duplicate glyphs reveal
+ * independently, matching the views' index-tracked tiles).
+ */
+export function useTileRomajiPeek(enabled: boolean) {
+  const [revealed, setRevealed] = useState<Set<number>>(() => new Set());
+  const hoverTimer = useRef<number | null>(null);
+  const reveal = useCallback(
+    (i: number) => {
+      if (!enabled) return;
+      setRevealed((prev) => {
+        if (prev.has(i)) return prev;
+        const next = new Set(prev);
+        next.add(i);
+        return next;
+      });
+    },
+    [enabled],
+  );
+  const hoverStart = useCallback(
+    (i: number) => {
+      if (!enabled || revealed.has(i)) return;
+      hoverTimer.current = window.setTimeout(() => reveal(i), HOVER_REVEAL_MS);
+    },
+    [enabled, revealed, reveal],
+  );
+  const hoverEnd = useCallback(() => {
+    if (hoverTimer.current != null) {
+      window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
+  }, []);
+  return { revealed, reveal, hoverStart, hoverEnd };
+}
 
 export type BuildTileDisplay = {
   /** Kanji display surface (e.g. 店). */
@@ -83,6 +130,7 @@ export function BuildTileSurface({
   tile,
   kanji,
   hideHelper,
+  forceHelper,
 }: {
   /** The kana tile string (grading identity). */
   tile: string;
@@ -90,8 +138,20 @@ export function BuildTileSurface({
   kanji?: BuildTileDisplay;
   /** Romaji hard-off passthrough (character-build fade) for kana tiles. */
   hideHelper?: boolean;
+  /** Romaji hard-ON passthrough (peek reveal — see useTileRomajiPeek).
+   *  Overrides the global script guard; hideHelper still wins inside
+   *  AnnotatedText, so pass at most one. Kanji tiles ignore it (never
+   *  romaji on a kanji-bearing tile). */
+  forceHelper?: boolean;
 }) {
-  if (!kanji) return <AnnotatedJa text={tile} hideHelper={hideHelper} />;
+  if (!kanji)
+    return (
+      <AnnotatedJa
+        text={tile}
+        hideHelper={hideHelper}
+        forceShowHelper={forceHelper}
+      />
+    );
   // Okurigana-aligned shared ruby (Spencer QA 2026-07-17): the <rt> covers
   // only the kanji run — 飲(の)まない, never (のまない) over 飲まない.
   return (

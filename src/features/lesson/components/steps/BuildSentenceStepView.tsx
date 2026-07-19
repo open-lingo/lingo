@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { getTrayOverride } from "../../data/devGates";
@@ -8,7 +8,11 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useAutoPlayJaAudio, getTtsUrl, playJaAudio } from "@/shared/tts";
-import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
+import {
+  BuildTileSurface,
+  useBuildTileKanji,
+  useTileRomajiPeek,
+} from "./BuildTileSurface";
 import { playSfx } from "@/shared/audio/sfx";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
@@ -16,10 +20,6 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
-/** Hover dwell before a bank tile's romaji is revealed on character
- *  builds. Long enough that a passing cursor doesn't leak the answer,
- *  short enough to feel like an intentional peek. */
-const HOVER_REVEAL_MS = 500;
 
 type Props = {
   step: BuildSentenceStep;
@@ -44,11 +44,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // romaji until the learner interacts with it — otherwise the labels
   // ("su/shi/...") spell the English answer and the kana is never read
   // (Spencer 2026-06-13). A tile reveals on tap (also plays its sound) or
-  // after a short hover dwell; once revealed it stays revealed.
-  const [revealedTiles, setRevealedTiles] = useState<Set<number>>(
-    () => new Set(),
-  );
-  const hoverTimer = useRef<number | null>(null);
+  // after a short hover dwell; once revealed it stays revealed. The reveal
+  // FORCES the helper on (2026-07-19), so the peek also works for learners
+  // whose global romaji guard already flipped off — see useTileRomajiPeek.
 
   // CHARACTER builds (kana decoding) speak the target on mount — mapping
   // sound↔script is the drill (tester #R1-defer-G, 2026-05-17). WORD
@@ -136,33 +134,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     onEnter: handleEnter,
   });
 
-  const revealTile = useCallback((i: number) => {
-    setRevealedTiles((prev) => {
-      if (prev.has(i)) return prev;
-      const next = new Set(prev);
-      next.add(i);
-      return next;
-    });
-  }, []);
-
-  // Hover-dwell peek (faded char builds only): reveal a tile's romaji
-  // after a short delay so a passing cursor doesn't leak the answer.
-  function handleTileHoverStart(i: number) {
-    if (!fadeTiles || revealedTiles.has(i)) return;
-    hoverTimer.current = window.setTimeout(
-      () => revealTile(i),
-      HOVER_REVEAL_MS,
-    );
-  }
-  function handleTileHoverEnd() {
-    if (hoverTimer.current != null) {
-      window.clearTimeout(hoverTimer.current);
-      hoverTimer.current = null;
-    }
-  }
+  // Hover-dwell peek on character-build tiles — enabled whether or not the
+  // fade setting is on, so post-cutoff learners (global romaji guard off)
+  // can still peek. See useTileRomajiPeek for the force semantics.
+  const peek = useTileRomajiPeek(isWordBuild);
 
   function addTile(originalIndex: number) {
     if (submitted) return;
+    peek.reveal(originalIndex);
     if (isSingleAnswerPicker) {
       // Single-select: tapping an option REPLACES the pick (there is only
       // ever one slot), unlike the multi-tile bank's append-only tray.
@@ -172,9 +151,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     }
     if (placedIdx.includes(originalIndex)) return;
     if (fadeTiles) {
-      // Tap = hear the kana + reveal its romaji. Falls back to the tile
-      // click sfx when a single-mora clip isn't in the manifest.
-      revealTile(originalIndex);
+      // Tap = hear the kana (the reveal happened above). Falls back to the
+      // tile click sfx when a single-mora clip isn't in the manifest.
       const kana = bankTiles[originalIndex];
       if (getTtsUrl(kana)) void playJaAudio(kana);
       else playSfx("tile");
@@ -397,8 +375,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               type="button"
               disabled={submitted || used}
               onClick={() => addTile(i)}
-              onMouseEnter={() => handleTileHoverStart(i)}
-              onMouseLeave={handleTileHoverEnd}
+              onMouseEnter={() => peek.hoverStart(i)}
+              onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
               className={
                 used
@@ -409,7 +387,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               <BuildTileSurface
                 tile={tile}
                 kanji={tileKanji.get(tile)}
-                hideHelper={fadeTiles && !revealedTiles.has(i)}
+                hideHelper={fadeTiles && !peek.revealed.has(i)}
+                forceHelper={peek.revealed.has(i)}
               />
             </button>
           );

@@ -6,7 +6,11 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
-import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
+import {
+  BuildTileSurface,
+  useBuildTileKanji,
+  useTileRomajiPeek,
+} from "./BuildTileSurface";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
@@ -94,12 +98,22 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // Character-granularity kana-row banks are excluded inside the hook.
   const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
 
+  // Romaji peek on character-build tiles (Spencer 2026-07-19): hover-dwell
+  // or tap reveals a tile's romaji, forced past the global script guard —
+  // beginners see romaji outright, post-cutoff learners get an on-demand
+  // hint instead of nothing. Word builds are excluded: their word-level
+  // romaji follows the normal ladder and kanji tiles never carry romaji.
+  const peek = useTileRomajiPeek(step.granularity === "character");
+
   // Single-answer listening "builds" are an MCQ wearing tray clothes — see
   // BuildSentenceStepView's isSingleAnswerPicker (Spencer QA 2026-07-16).
   const isSingleAnswerPicker = step.correctOrder.length === 1;
 
   function addTile(originalIndex: number) {
     if (submitted) return;
+    // Tap counts as an intentional look — reveal the romaji hint (no-op on
+    // word builds; the peek hook is disabled there).
+    peek.reveal(originalIndex);
     if (isSingleAnswerPicker) {
       // Single-select: tapping an option REPLACES the pick.
       playSfx("tile");
@@ -207,9 +221,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 disabled={submitted}
                 aria-pressed={isSelected}
                 onClick={() => addTile(i)}
+                onMouseEnter={() => peek.hoverStart(i)}
+                onMouseLeave={peek.hoverEnd}
                 className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
               >
-                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+                <BuildTileSurface
+                  tile={tile}
+                  kanji={tileKanji.get(tile)}
+                  forceHelper={peek.revealed.has(i)}
+                />
               </button>
             );
           })}
@@ -241,9 +261,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 type="button"
                 disabled={submitted}
                 onClick={() => removeTile(i)}
+                onMouseEnter={() => peek.hoverStart(placedIdx[i])}
+                onMouseLeave={peek.hoverEnd}
                 className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
               >
-                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+                <BuildTileSurface
+                  tile={tile}
+                  kanji={tileKanji.get(tile)}
+                  forceHelper={peek.revealed.has(placedIdx[i])}
+                />
               </button>
             ))
           )}
@@ -260,6 +286,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               type="button"
               disabled={submitted || used}
               onClick={() => addTile(i)}
+              onMouseEnter={() => peek.hoverStart(i)}
+              onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
               className={
                 used
@@ -267,7 +295,11 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                   : "rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
               }
             >
-              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+              <BuildTileSurface
+                tile={tile}
+                kanji={tileKanji.get(tile)}
+                forceHelper={peek.revealed.has(i)}
+              />
             </button>
           );
         })}
