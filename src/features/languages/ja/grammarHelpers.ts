@@ -1654,6 +1654,9 @@ export function listeningCompSentence(opts: {
   correctMeaningEn: string;
   distractorsEn: [string, string, string];
   question?: string;
+  /** Post-answer teaching note (the noticing beat: shown after grading,
+   *  never in the prompt — invariant 18's no-narrative/no-leak rule). */
+  explanation?: string;
   /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
   exercisedAtomKanas?: string[];
 }): ListeningComprehensionStep {
@@ -1675,6 +1678,7 @@ export function listeningCompSentence(opts: {
     options: items,
     correctOptionId: "correct",
     transcriptAnnotation: buildSentenceAnnotation(opts.audioText),
+    explanation: opts.explanation,
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
     modality: "recognition",
   };

@@ -119,9 +119,11 @@ describe("JA m3-neo pilot module content", () => {
     for (const lesson of M3_NEO_LESSONS) {
       for (const step of lesson.steps) {
         if (step.type === "listening_comprehension" && step.transcript?.includes("です")) {
+          // The politeness flag lives in the POST-ANSWER explanation now
+          // (Spencer walk: naming it in the question gave the answer away).
           expect(
-            /polite|preview/i.test(step.question),
-            `${lesson.id}/${step.id} carries です audio without a politeness flag in its question`,
+            /polite/i.test(step.explanation ?? ""),
+            `${lesson.id}/${step.id} carries です audio without a politeness note in its explanation`,
           ).toBe(true);
         }
       }
@@ -350,6 +352,40 @@ describe("m3-neo antiPattern wrongness contract", () => {
         for (const opt of s.options ?? []) {
           expect(opt.text ?? "").not.toMatch(/— '/);
         }
+      }
+    }
+  });
+
+  it("no answer leaks: options never restate the visible transcript or the prompt", async () => {
+    // Spencer walk: the です preview printed ねこです。 as the transcript
+    // while an option said ねこです — the answer on screen. Guard: no
+    // option may contain the step's transcript verbatim, and no correct
+    // EN option (>3 chars) may appear inside its own question/prompt.
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      for (const s of lesson!.steps as any[]) {
+        const transcript = (s.transcript ?? "").replace(/。$/, "");
+        for (const opt of s.options ?? []) {
+          if (transcript.length >= 2) {
+            expect(opt.text.includes(transcript)).toBe(false);
+          }
+        }
+        const correct = (s.options ?? []).find((o: any) => o.id === s.correctOptionId);
+        const promptText = `${s.question ?? ""} ${s.prompt ?? ""}`;
+        if (correct && typeof correct.text === "string" && correct.text.length > 3) {
+          expect(promptText.includes(correct.text)).toBe(false);
+        }
+      }
+    }
+  });
+
+  it("no metalinguistic quiz steps in the module (understanding is tested by use)", async () => {
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      expect(lesson!.steps.some((s: any) => s.type === "self_explanation_mcq")).toBe(false);
+      for (const s of lesson!.steps as any[]) {
+        const q = `${s.question ?? ""} ${s.prompt ?? ""}`;
+        expect(q).not.toMatch(/Which part|Why is|Which little word|gets the spotlight/);
       }
     }
   });

@@ -50,7 +50,6 @@ import {
   M3_M7_REVIEW_POOL,
   pickReviewAtoms,
   reviewMatchPairs,
-  selfExplain,
   sentenceMcq,
   speaking,
   translateStep,
@@ -237,17 +236,18 @@ export const M3_NEO_1: LessonContent = {
       exercisedAtomKanas: ["ねこ"],
     }),
     // ⑦ ONE です recognition preview — explicitly flagged, recognition only.
+    // です preview: a REAL meaning task (the learner infers です ≈ だ from
+    // the ねこ they know) — the polite-layer teaching lands in the
+    // post-answer explanation, never the prompt (Spencer walk: the old
+    // version printed the answer in the transcript, named it in the
+    // prompt, and self-described every option).
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-desu-preview",
       audioText: "ねこです。",
-      question:
-        "Recognition preview — this is the POLITE version. Which did you hear?",
-      correctMeaningEn: "ねこです — the polite version of 'it's a cat'",
-      distractorsEn: [
-        "ねこだ — the casual version of 'it's a cat'",
-        "ねこ？ — asking 'is it a cat?'",
-        "ねこ。 — casual, だ dropped",
-      ],
+      correctMeaningEn: "It's a cat.",
+      distractorsEn: ["It's a dog.", "Is it a cat?", "It's water."],
+      explanation:
+        "You just decoded です without being taught it — it's the POLITE version of だ. Same meaning, more distance. It gets its own module soon; for now, just recognize it.",
       exercisedAtomKanas: ["ねこ"],
     }),
     build(
@@ -406,23 +406,28 @@ export const M3_NEO_2: LessonContent = {
     }),
     // ④ Context MCQs — what does は spotlight?
     listeningCompSentence({
+      // Topic-tracking tested through plain translation — the "which part
+      // is the topic?" metalanguage quiz displayed は on the answer and
+      // explained itself in the options (Spencer walk).
       id: "ja-m3-neo-2-lc-spotlight-1",
       audioText: "トムは がくせいだ。",
-      question: "Which part of this sentence gets the spotlight (は)?",
-      correctMeaningEn: "Tom — he's the topic",
+      correctMeaningEn: "Tom is a student.",
       distractorsEn: [
-        "The speaker — talking about themselves",
-        "Being a student — that's the comment, not the topic",
-        "Nobody — it's a question",
+        "My friend is a student.",
+        "I'm a student.",
+        "Tom is a teacher.",
       ],
       exercisedAtomKanas: ["がくせい", "は"],
     }),
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-spotlight-2",
       audioText: "ともだちは がくせいだ。",
-      question: "What is this sentence about?",
-      correctMeaningEn: "The speaker's friend",
-      distractorsEn: ["The speaker", "Tom", "A teacher"],
+      correctMeaningEn: "My friend is a student.",
+      distractorsEn: [
+        "I'm a student.",
+        "Tom is a student.",
+        "My friend is a teacher.",
+      ],
       exercisedAtomKanas: ["ともだち", "がくせい", "は"],
     }),
     cloze(
@@ -565,20 +570,24 @@ export const M3_NEO_3: LessonContent = {
       ],
       questions: [
         {
+          // The too-less translation as a distractor IS the も test —
+          // no metalanguage, and the answer isn't printed anywhere
+          // (the old q1 quoted わたしも in its own prompt, then q2
+          // asked which word she used).
           id: "q1",
-          prompt: "Mika answers with わたしも. What does she mean?",
-          correctText: "She's a student too",
+          prompt: "What does Mika's reply mean?",
+          correctText: "I'm a student too.",
           distractors: [
-            "She's NOT a student",
-            "She's a teacher instead",
-            "She's asking if Tom is a student",
+            "I'm a student.",
+            "I'm not a student.",
+            "Are you a student?",
           ],
         },
         {
           id: "q2",
-          prompt: "Which little word did Mika swap in?",
-          correctText: "も",
-          distractors: ["は", "だ", "か"],
+          prompt: "Who is a student?",
+          correctText: "Both Tom and Mika",
+          distractors: ["Only Tom", "Only Mika", "Neither of them"],
         },
       ],
       exercisedAtomKanas: ["わたし", "がくせい", "も"],
@@ -662,19 +671,10 @@ export const M3_NEO_3: LessonContent = {
       "ミカは せんせいだ。トムは がくせいだ。",
       "Different comments — Tom isn't joining Mika's group, so a fresh spotlight.",
     ),
-    selfExplain({
-      id: "ja-m3-neo-3-self-mo",
-      anchorLabel: "You picked も in: わたしは がくせいだ。トム＿ がくせいだ。",
-      anchorAudioText: "トムも がくせいだ",
-      question: "Why is も correct in the second sentence?",
-      rule: {
-        text: "も adds 'too' — Tom joins something already said about someone else.",
-      },
-      surface: { text: "も always follows a person's name." },
-      distractor: { text: "も marks the sentence as a question." },
-      ruleExplanation:
-        "も replaces は when the topic JOINS an earlier statement. It has nothing to do with names or questions.",
-    }),
+    // (A "why is も correct?" selfExplain sat here — removed: textbook
+    // metalanguage with a self-announcing rule option, per the Spencer
+    // walk ruling. Understanding is tested by USE — the four
+    // choice-under-contrast clozes above carry it.)
     // ④ Builds — both particles in the bank so the choice is real.
     build(
       "ja-m3-neo-3-build-watashi-mo",
@@ -1386,14 +1386,14 @@ export const M3_NEO_6: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-6-lc-desu-recognition",
       audioText: "せんせいです。",
-      question:
-        "Polite-ending check (recognition only) — what does this mean?",
-      correctMeaningEn: "'(I) am a teacher' — said politely",
+      correctMeaningEn: "(I) am a teacher.",
       distractorsEn: [
-        "'(I) am a teacher' — said casually",
-        "'Is (he) a teacher?'",
-        "'(I) am a student' — said politely",
+        "(I) am a student.",
+        "Is (he) a teacher?",
+        "(He) is a friend.",
       ],
+      explanation:
+        "That's たなか's polite です again — same meaning as せんせいだ, more distance. Recognition only for now.",
       exercisedAtomKanas: ["せんせい"],
     }),
     listeningCompSentence({
@@ -1621,14 +1621,14 @@ export const M3_NEO_REVIEW: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-rev-lc-desu",
       audioText: "がくせいです。",
-      question:
-        "Polite-ending check (recognition only): which one did you hear?",
-      correctMeaningEn: "'(I'm) a student' — the polite version",
+      correctMeaningEn: "(I'm) a student.",
       distractorsEn: [
-        "'(I'm) a student' — the casual version",
-        "'Are you a student?'",
-        "'(I'm) a teacher' — the polite version",
+        "(I'm) a teacher.",
+        "Are you a student?",
+        "(I'm) a friend.",
       ],
+      explanation:
+        "The polite です again — same meaning as がくせいだ, more distance. Still recognition-only; production comes with its own module.",
       exercisedAtomKanas: ["がくせい"],
     }),
     translateStep({
