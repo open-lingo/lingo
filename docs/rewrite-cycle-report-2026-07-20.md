@@ -168,3 +168,33 @@ Verdict: the machine layer now catches ~80% of the shipped defect
 classes before a human sees them; the residue is semantic naturalness
 and cross-module world-consistency (inherently judgment — that's what the
 one continuity judge per module is for).
+
+## Cycle 2c — m5 verb-pedagogy re-author + walk rulings (CLOSED)
+
+Spencer's live m5 walk produced 5 rulings (invariants 28-32) → 4 parallel
+agents re-authored m3/m4/m5; consolidated green (5581 tests, commit
+b6ca5629). Key: m5 verbs now image-MCQ-first with dialogues as closers,
+L1 teaches "verbs take no だ" (was a hole), spot-the-mistake step retired.
+
+Context-fed continuity judge on the 6 most-changed m5 lessons: **rewrite
+verdict CLEAN** — canon holds, all 6 structural checks pass, no layout
+defects. Its one "highest-severity" finding (10 OOV-distractor tiles) was
+a **stale-PNG artifact** — a re-capture left old pre-rewrite screenshots
+with colliding filenames; the judge read them as current (verified false:
+lbs-tomu-mo tiles are トム/も/いく/だ). Two process fixes shipped
+(4e2725a8): capture now WIPES the lesson dir first; context pack counts
+m1/m2 kana-module atoms as always-known (killed 4 more false OOV flags).
+Remaining judge flags are legitimate-by-ruling (single-verb discrimination
+MCQ = the single-chunk case inv 28 keeps; situational act-out = the
+survival-phrase pattern Spencer kept).
+
+**Efficiency retro:** the stale-PNG bug cost one 188k-token judge run on a
+mostly-false report — the capture-dir wipe prevents recurrence. Judge
+kept to ONE agent (no fan-out) this round as instructed. Sequential
+authoring + per-module context pack is now the standing method.
+
+**Cycle-2 status: COMPLETE, pending Spencer's walk of m4+m5.** m6 is next
+(spec + context pack ready). Queued machine-guard tightenings for m6:
+POS-split verb-debut, grammar-construction forward-ref map, dialogue-
+referent lint, token-aware debut guard, OOV-distractor guard (needs
+neo-progress tracking).
