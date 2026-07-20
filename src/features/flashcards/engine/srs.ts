@@ -57,7 +57,7 @@ const SCHEDULER: FSRS = fsrs({
  * competing same-day (where recognition always won). Research: teach receptive
  * first, then promote to productive.
  */
-const PRODUCTION_STAGGER_DAYS = 3;
+export const PRODUCTION_STAGGER_DAYS = 3;
 
 /**
  * A card that has lapsed (been forgotten) this many times on either modality is

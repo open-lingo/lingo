@@ -8,6 +8,7 @@ import {
   isDue,
   addDays,
   getToday,
+  PRODUCTION_STAGGER_DAYS,
 } from "@/features/flashcards/engine/srs";
 import { clearSRSStore, getCardState } from "@/features/flashcards/engine";
 
@@ -23,7 +24,9 @@ describe("createSeededState", () => {
     expect(isNew(s)).toBe(true); // reps 0 → in-course review still picks it up
     expect(isDue(s)).toBe(false); // due tomorrow → standalone reviewer skips it today
     expect(s.recognition.dueDate).toBe(tomorrow);
-    expect(s.production.dueDate).toBe(tomorrow);
+    // Receptive-before-productive: production is staggered behind recognition
+    // (see PRODUCTION_STAGGER_DAYS), not due same-day as recognition.
+    expect(s.production.dueDate).toBe(addDays(tomorrow, PRODUCTION_STAGGER_DAYS));
   });
 });
 

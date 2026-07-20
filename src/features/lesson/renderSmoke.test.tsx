@@ -44,6 +44,12 @@ vi.mock("@/shared/tts", () => ({
 vi.mock("@/shared/audio/sfx", () => ({
   playSfx: vi.fn(),
 }));
+// Lang hook depends on LanguageProvider + router in real life; stub it the
+// PublicProfilePage.test.tsx way. This suite IS the JA script ladder.
+vi.mock("@/shared/hooks/useLangPath", () => ({
+  useLangPath: () => (p: string) => `/ja/${p.replace(/^\//, "")}`,
+  useLang: () => "ja",
+}));
 // Defaults with NO auto-off guard flipped (the deep-link scenario): any
 // hiding asserted below must come from the module-position gate.
 const defaultLearning = () => ({
