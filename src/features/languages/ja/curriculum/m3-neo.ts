@@ -455,6 +455,13 @@ export const M3_NEO_2: LessonContent = {
     }),
     // Quick gamified breather — emoji word check over an M2 salvage atom.
     vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
+    // ⑤ Production with audience cue.
+    speaking(
+      "ja-m3-neo-2-speak-watashi",
+      "わたしは がくせいだ",
+      "I'm a student.",
+      ["わたし", "がくせい"],
+    ),
     // ④ Context MCQs — what does は spotlight?
     listeningCompSentence({
       // Topic-tracking tested through plain translation — the "which part
@@ -469,17 +476,6 @@ export const M3_NEO_2: LessonContent = {
         "Tom is a teacher.",
       ],
       exercisedAtomKanas: ["がくせい", "は"],
-    }),
-    listeningCompSentence({
-      id: "ja-m3-neo-2-lc-spotlight-2",
-      audioText: "ともだちは がくせいだ。",
-      correctMeaningEn: "My friend is a student.",
-      distractorsEn: [
-        "I'm a student.",
-        "Tom is a student.",
-        "My friend is a teacher.",
-      ],
-      exercisedAtomKanas: ["ともだち", "がくせい", "は"],
     }),
     cloze(
       "ja-m3-neo-2-cloze-wa",
@@ -499,24 +495,16 @@ export const M3_NEO_2: LessonContent = {
       ["ともだち", "は", "がくせい", "だ"],
       ["ともだち", "がくせい", "は"],
     ),
-    // ⑤ Production with audience cue.
-    speaking(
-      "ja-m3-neo-2-speak-watashi",
-      "わたしは がくせいだ",
-      "I'm a student.",
-      ["わたし", "がくせい"],
-    ),
     listeningCompSentence({
-      id: "ja-m3-neo-2-lc-tomu-tomodachi",
-      audioText: "トムは ともだちだ。",
-      question: "What does this mean?",
-      correctMeaningEn: "Tom is my friend.",
+      id: "ja-m3-neo-2-lc-spotlight-2",
+      audioText: "ともだちは がくせいだ。",
+      correctMeaningEn: "My friend is a student.",
       distractorsEn: [
+        "I'm a student.",
         "Tom is a student.",
-        "Tom is my teacher.",
-        "I'm a friend.",
+        "My friend is a teacher.",
       ],
-      exercisedAtomKanas: ["ともだち", "は"],
+      exercisedAtomKanas: ["ともだち", "がくせい", "は"],
     }),
     translateStep({
       id: "ja-m3-neo-2-tr-watashi",
@@ -531,12 +519,34 @@ export const M3_NEO_2: LessonContent = {
       audioText: "わたしは がくせいだ",
       exercisedAtomKanas: ["わたし", "がくせい"],
     }),
+    listeningCompSentence({
+      id: "ja-m3-neo-2-lc-tomu-tomodachi",
+      audioText: "トムは ともだちだ。",
+      question: "What does this mean?",
+      correctMeaningEn: "Tom is my friend.",
+      distractorsEn: [
+        "Tom is a student.",
+        "Tom is my teacher.",
+        "I'm a friend.",
+      ],
+      exercisedAtomKanas: ["ともだち", "は"],
+    }),
     speaking(
       "ja-m3-neo-2-speak-tanaka",
       "たなかは せんせいだ",
       "Tanaka is a teacher.",
       ["せんせい"],
     ),
+    // Hear-and-assemble on a taught sentence — the template's
+    // listening_build beat (L2 previously only had a word-level decode).
+    listeningBuildSentence({
+      id: "ja-m3-neo-2-lbs-tomu",
+      target: "トムは がくせいだ",
+      tiles: ["トム", "は", "も", "がくせい", "だ"],
+      correctOrder: ["トム", "は", "がくせい", "だ"],
+      promptEn: "Tom is a student.",
+      exercisedAtomKanas: ["がくせい", "は"],
+    }),
     // Closer dialogue — nationality words in the wild. Speakers state
     // their OWN nationality so every question grades on a stated fact:
     // the old version had ミカ describe an unnamed ともだち, and since
@@ -710,36 +720,6 @@ export const M3_NEO_3: LessonContent = {
       "わたしは がくせいだ。トムも がくせいだ。",
       "Tom joins something already said about the speaker — the context forces 'too.'",
     ),
-    cloze(
-      "ja-m3-neo-3-cloze-wa-1",
-      "トムは アメリカじんだ。ミカ",
-      " にほんじんだ。",
-      "は",
-      ["は", "も", "か", "の"],
-      "Tom is American. Mika is Japanese.",
-      "トムは アメリカじんだ。ミカは にほんじんだ。",
-      "Mika does NOT join Tom's group — a new spotlight, not 'too.'",
-    ),
-    cloze(
-      "ja-m3-neo-3-cloze-mo-2",
-      "いぬは ともだちだ。ねこ",
-      " ともだちだ。",
-      "も",
-      ["も", "は", "の", "か"],
-      "Dogs are friends. Cats are friends too.",
-      "いぬは ともだちだ。ねこも ともだちだ。",
-      "Cats join the same club as dogs — same comment, so 'too.'",
-    ),
-    cloze(
-      "ja-m3-neo-3-cloze-wa-2",
-      "たなかは せんせいだ。トム",
-      " がくせいだ。",
-      "は",
-      ["は", "も", "が", "の"],
-      "Tanaka is a teacher. Tom is a student.",
-      "たなかは せんせいだ。トムは がくせいだ。",
-      "Different comments — Tom isn't joining Tanaka's group, so a fresh spotlight.",
-    ),
     // (A "why is も correct?" selfExplain sat here — removed: textbook
     // metalanguage with a self-announcing rule option, per the Spencer
     // walk ruling. Understanding is tested by USE — the four
@@ -753,6 +733,54 @@ export const M3_NEO_3: LessonContent = {
       ["わたし", "も", "がくせい", "だ"],
       ["わたし", "がくせい", "も"],
     ),
+    cloze(
+      "ja-m3-neo-3-cloze-wa-1",
+      "トムは アメリカじんだ。ミカ",
+      " にほんじんだ。",
+      "は",
+      ["は", "も", "か", "の"],
+      "Tom is American. Mika is Japanese.",
+      "トムは アメリカじんだ。ミカは にほんじんだ。",
+      "Mika does NOT join Tom's group — a new spotlight, not 'too.'",
+    ),
+    speaking(
+      "ja-m3-neo-3-speak-watashi-mo",
+      "わたしも がくせいだ",
+      "I'm a student too.",
+      ["わたし", "がくせい"],
+    ),
+    cloze(
+      "ja-m3-neo-3-cloze-mo-2",
+      "いぬは ともだちだ。ねこ",
+      " ともだちだ。",
+      "も",
+      ["も", "は", "の", "か"],
+      "Dogs are friends. Cats are friends too.",
+      "いぬは ともだちだ。ねこも ともだちだ。",
+      "Cats join the same club as dogs — same comment, so 'too.'",
+    ),
+    translateStep({
+      id: "ja-m3-neo-3-tr-inu-mo",
+      promptEn: "Say to a friend: The dog is a friend too.",
+      acceptedAnswers: [
+        "いぬも ともだちだ",
+        "いぬもともだちだ",
+        "いぬも ともだち",
+        "いぬもともだち",
+      ],
+      audioText: "いぬも ともだちだ",
+      exercisedAtomKanas: ["いぬ", "ともだち", "も"],
+    }),
+    cloze(
+      "ja-m3-neo-3-cloze-wa-2",
+      "たなかは せんせいだ。トム",
+      " がくせいだ。",
+      "は",
+      ["は", "も", "が", "の"],
+      "Tanaka is a teacher. Tom is a student.",
+      "たなかは せんせいだ。トムは がくせいだ。",
+      "Different comments — Tom isn't joining Tanaka's group, so a fresh spotlight.",
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-3-lc-mika",
       audioText: "ミカも ともだちだ。",
@@ -765,8 +793,6 @@ export const M3_NEO_3: LessonContent = {
       ],
       exercisedAtomKanas: ["ともだち", "も"],
     }),
-    // Quick gamified breather — emoji word check over an M1 salvage atom.
-    vocabMcq("ja-m3-neo-3-vmcq-mid", L3_REVIEW[5], NEO_M1_POOL),
     build(
       "ja-m3-neo-3-build-ken-mo",
       "You just told a friend you're Japanese. Add: Ken is Japanese too.",
@@ -775,6 +801,8 @@ export const M3_NEO_3: LessonContent = {
       ["ケン", "も", "にほんじん", "だ"],
       ["にほんじん", "も"],
     ),
+    // Quick gamified breather — emoji word check over an M1 salvage atom.
+    vocabMcq("ja-m3-neo-3-vmcq-mid", L3_REVIEW[5], NEO_M1_POOL),
     // ⑤ Production both directions.
     sentenceMcq({
       id: "ja-m3-neo-3-mcq-reply",
@@ -789,24 +817,6 @@ export const M3_NEO_3: LessonContent = {
       explanation:
         "Joining the club = も. Repeating は just restates; the other options change who or what.",
       exercisedAtomKanas: ["わたし", "がくせい", "も"],
-    }),
-    speaking(
-      "ja-m3-neo-3-speak-watashi-mo",
-      "わたしも がくせいだ",
-      "I'm a student too.",
-      ["わたし", "がくせい"],
-    ),
-    translateStep({
-      id: "ja-m3-neo-3-tr-inu-mo",
-      promptEn: "Say to a friend: The dog is a friend too.",
-      acceptedAnswers: [
-        "いぬも ともだちだ",
-        "いぬもともだちだ",
-        "いぬも ともだち",
-        "いぬもともだち",
-      ],
-      audioText: "いぬも ともだちだ",
-      exercisedAtomKanas: ["いぬ", "ともだち", "も"],
     }),
     build(
       "ja-m3-neo-3-build-mika-mo",
@@ -899,6 +909,15 @@ export const M3_NEO_4: LessonContent = {
       ],
       exercisedAtomKanas: ["ねこ"],
     }),
+    // (Was a third うん/そう LC — redundant with lc-un/lc-sou. Converted to
+    // a kana-decode build of the lesson's own contour word.)
+    listeningBuildWord(
+      "ja-m3-neo-4-lb-neko",
+      "ねこ",
+      "cat",
+      ["ね", "こ"],
+      ["ぬ", "に", "て"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-neko-q",
       audioText: "ねこ？",
@@ -945,6 +964,9 @@ export const M3_NEO_4: LessonContent = {
       ],
       exercisedAtomKanas: ["うん", "ねこ"],
     }),
+    speaking("ja-m3-neo-4-speak-neko-q", "ねこ？", "Is it a cat? (voice rises)", [
+      "ねこ",
+    ]),
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-sou",
       audioText: "そう、ねこだ。",
@@ -965,9 +987,13 @@ export const M3_NEO_4: LessonContent = {
       distractorsKana: ["ねこだ。", "ねこも。", "いぬ？"],
       exercisedAtomKanas: ["ねこ"],
     }),
-    speaking("ja-m3-neo-4-speak-neko-q", "ねこ？", "Is it a cat? (voice rises)", [
-      "ねこ",
-    ]),
+    translateStep({
+      id: "ja-m3-neo-4-tr-hon-q",
+      promptEn: "Ask your friend if it's a book.",
+      acceptedAnswers: ["ほん？", "ほん"],
+      audioText: "ほん？",
+      exercisedAtomKanas: ["ほん"],
+    }),
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-gakusei-q",
       audioText: "がくせい？",
@@ -977,18 +1003,6 @@ export const M3_NEO_4: LessonContent = {
         "I'm a student.",
         "Are you a teacher?",
         "I'm a teacher.",
-      ],
-      exercisedAtomKanas: ["がくせい"],
-    }),
-    listeningCompSentence({
-      id: "ja-m3-neo-4-lc-gakusei-stmt",
-      audioText: "がくせいだ。",
-      question: "Telling or asking?",
-      correctMeaningEn: "(I'm) a student.",
-      distractorsEn: [
-        "Are you a student?",
-        "(I'm) a teacher.",
-        "Are you a teacher?",
       ],
       exercisedAtomKanas: ["がくせい"],
     }),
@@ -1005,6 +1019,30 @@ export const M3_NEO_4: LessonContent = {
         "Rising tone on the plain sentence asks; だ at the end would state it instead.",
       exercisedAtomKanas: ["せんせい", "は"],
     }),
+    // (Was an は-question LC — mcq-ask-tomu already drills that shape.
+    // Converted to a kana-decode build of the lesson's other contour word.)
+    listeningBuildWord(
+      "ja-m3-neo-4-lb-gakusei",
+      "がくせい",
+      "student",
+      ["が", "く", "せ", "い"],
+      ["か", "さ", "り"],
+    ),
+    listeningCompSentence({
+      id: "ja-m3-neo-4-lc-gakusei-stmt",
+      audioText: "がくせいだ。",
+      question: "Telling or asking?",
+      correctMeaningEn: "(I'm) a student.",
+      distractorsEn: [
+        "Are you a student?",
+        "(I'm) a teacher.",
+        "Are you a teacher?",
+      ],
+      exercisedAtomKanas: ["がくせい"],
+    }),
+    speaking("ja-m3-neo-4-speak-inu-q", "いぬ？", "Is it a dog? (voice rises)", [
+      "いぬ",
+    ]),
     // Dialogue: question + うん answer in the wild.
     dialogueListen({
       id: "ja-m3-neo-4-dlg-un",
@@ -1053,34 +1091,6 @@ export const M3_NEO_4: LessonContent = {
       "Is Tom a teacher? (voice rises)",
       ["せんせい"],
     ),
-    // (Was a third うん/そう LC — redundant with lc-un/lc-sou. Converted to
-    // a kana-decode build of the lesson's own contour word.)
-    listeningBuildWord(
-      "ja-m3-neo-4-lb-neko",
-      "ねこ",
-      "cat",
-      ["ね", "こ"],
-      ["ぬ", "に", "て"],
-    ),
-    translateStep({
-      id: "ja-m3-neo-4-tr-hon-q",
-      promptEn: "Ask your friend if it's a book.",
-      acceptedAnswers: ["ほん？", "ほん"],
-      audioText: "ほん？",
-      exercisedAtomKanas: ["ほん"],
-    }),
-    // (Was an は-question LC — mcq-ask-tomu already drills that shape.
-    // Converted to a kana-decode build of the lesson's other contour word.)
-    listeningBuildWord(
-      "ja-m3-neo-4-lb-gakusei",
-      "がくせい",
-      "student",
-      ["が", "く", "せ", "い"],
-      ["か", "さ", "り"],
-    ),
-    speaking("ja-m3-neo-4-speak-inu-q", "いぬ？", "Is it a dog? (voice rises)", [
-      "いぬ",
-    ]),
     // Review tail (house idiom: vocabMcq → decode-build → match grid).
     vocabMcq("ja-m3-neo-4-rev-mcq", L4_REVIEW[0], NEO_M1_M2_POOL),
     listeningBuildWord(
@@ -1103,6 +1113,8 @@ assertNoConsecutiveSame(M3_NEO_4.steps);
  * situation-matching → ONE register-noticing MCQ → listen-and-repeat →
  * act-out MCQs. Zero grammar_rule steps. No decomposition.
  * ════════════════════════════════════════════════════════════════════════ */
+
+const L5_REVIEW = pickReviewAtoms("ja-m3-neo-5-rev", NEO_M1_M2_POOL, 6);
 
 export const M3_NEO_5: LessonContent = {
   id: "ja-m3-neo-5",
@@ -1159,6 +1171,12 @@ export const M3_NEO_5: LessonContent = {
       distractorsKana: ["はじめまして", "すみません", "ありがとうございます"],
       exercisedAtomKanas: ["だいじょうぶ"],
     }),
+    speaking(
+      "ja-m3-neo-5-speak-daijoubu",
+      "だいじょうぶ",
+      "It's okay — no problem.",
+      ["だいじょうぶ"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-5-lc-arigatou",
       audioText: "ありがとうございます",
@@ -1265,12 +1283,6 @@ export const M3_NEO_5: LessonContent = {
       distractorsKana: ["すみません", "ありがとうございます", "はじめまして"],
       exercisedAtomKanas: ["だいじょうぶ"],
     }),
-    speaking(
-      "ja-m3-neo-5-speak-daijoubu",
-      "だいじょうぶ",
-      "It's okay — no problem.",
-      ["だいじょうぶ"],
-    ),
     listeningCompSentence({
       id: "ja-m3-neo-5-lc-arigatou-casual",
       audioText: "ありがとう",
@@ -1285,6 +1297,29 @@ export const M3_NEO_5: LessonContent = {
       "ありがとう",
       "Thanks! (casual — to a close friend)",
     ),
+    // Review tail — M1/M2 atoms (house idiom: LC → vocabMcq → decode-
+    // build); the chunk-meaning grid then closes on confidence.
+    listeningCompSentence({
+      id: "ja-m3-neo-5-rev-lc",
+      audioText: L5_REVIEW[0].kana,
+      correctMeaningEn: L5_REVIEW[0].meaningEn,
+      distractorsEn: [
+        L5_REVIEW[1].meaningEn,
+        L5_REVIEW[2].meaningEn,
+        L5_REVIEW[3].meaningEn,
+      ],
+      exercisedAtomKanas: [L5_REVIEW[0].kana],
+    }),
+    vocabMcq("ja-m3-neo-5-rev-mcq", L5_REVIEW[4], NEO_M1_M2_POOL),
+    listeningBuildWord(
+      "ja-m3-neo-5-rev-lb-tokei",
+      "とけい",
+      "watch/clock",
+      ["と", "け", "い"],
+      ["ど", "は", "り"],
+    ),
+
+
     // ⑥ Second match variant — phrase ↔ MEANING (the first grid pairs
     // phrase ↔ situation; a different pairing closes the lesson).
     {
@@ -1491,6 +1526,12 @@ export const M3_NEO_6: LessonContent = {
         "That's たなか's polite です again — same meaning as せんせいだ, more distance. Recognition only for now.",
       exercisedAtomKanas: ["せんせい"],
     }),
+    speaking(
+      "ja-m3-neo-6-speak-tomu-tomodachi",
+      "トムは ともだちだ",
+      "Tom is a friend.",
+      ["ともだち"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-6-lc-mika-mo",
       audioText: "ミカも がくせいだ。",
@@ -1503,12 +1544,6 @@ export const M3_NEO_6: LessonContent = {
       ],
       exercisedAtomKanas: ["がくせい", "も"],
     }),
-    speaking(
-      "ja-m3-neo-6-speak-tomu-tomodachi",
-      "トムは ともだちだ",
-      "Tom is a friend.",
-      ["ともだち"],
-    ),
     translateStep({
       id: "ja-m3-neo-6-tr-mika",
       promptEn: "Tell a friend: Mika is a friend.",
@@ -1614,6 +1649,12 @@ export const M3_NEO_REVIEW: LessonContent = {
       "ゆきは みずだ。",
       "One spotlight, one comment — a plain statement about snow.",
     ),
+    speaking(
+      "ja-m3-neo-rev-speak-hoshi",
+      "ほしだ",
+      "It's a star.",
+      ["ほし"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-rev-lc-yama",
       audioText: "やまだ。",
@@ -1631,6 +1672,14 @@ export const M3_NEO_REVIEW: LessonContent = {
       "Cats are family. Dogs are family too.",
       "ねこは かぞくだ。いぬも かぞくだ。",
       "Dogs join the same club as cats — same comment, so 'too.'",
+    ),
+    build(
+      "ja-m3-neo-rev-build-mika",
+      "Tell a friend: Mika is Japanese too.",
+      "ミカも にほんじんだ",
+      ["ミカ", "も", "は", "にほんじん", "だ"],
+      ["ミカ", "も", "にほんじん", "だ"],
+      ["にほんじん", "も"],
     ),
     sentenceMcq({
       id: "ja-m3-neo-rev-mcq-ask-yuki",
@@ -1651,6 +1700,14 @@ export const M3_NEO_REVIEW: LessonContent = {
       ],
       exercisedAtomKanas: ["ともだち"],
     }),
+    build(
+      "ja-m3-neo-rev-build-ken",
+      "Tell a friend who Ken is: Ken is a friend.",
+      "ケンは ともだちだ",
+      ["ケン", "は", "も", "ともだち", "だ"],
+      ["ケン", "は", "ともだち", "だ"],
+      ["ともだち", "は"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-rev-lc-un",
       audioText: "うん、ともだちだ。",
@@ -1663,20 +1720,6 @@ export const M3_NEO_REVIEW: LessonContent = {
       ],
       exercisedAtomKanas: ["うん", "ともだち"],
     }),
-    build(
-      "ja-m3-neo-rev-build-mika",
-      "Tell a friend: Mika is Japanese too.",
-      "ミカも にほんじんだ",
-      ["ミカ", "も", "は", "にほんじん", "だ"],
-      ["ミカ", "も", "にほんじん", "だ"],
-      ["にほんじん", "も"],
-    ),
-    speaking(
-      "ja-m3-neo-rev-speak-hoshi",
-      "ほしだ",
-      "It's a star.",
-      ["ほし"],
-    ),
     cloze(
       "ja-m3-neo-rev-cloze-wa-2",
       "たなかは せんせいだ。ケン",
@@ -1686,6 +1729,12 @@ export const M3_NEO_REVIEW: LessonContent = {
       "Tanaka is a teacher. Ken is a student.",
       "たなかは せんせいだ。ケンは がくせいだ。",
       "Different comments — Ken isn't joining Tanaka's group, so a fresh spotlight.",
+    ),
+    speaking(
+      "ja-m3-neo-rev-speak-ken",
+      "ケンも がくせいだ",
+      "Ken is a student too.",
+      ["がくせい"],
     ),
     sentenceMcq({
       id: "ja-m3-neo-rev-mcq-bump",
@@ -1706,14 +1755,13 @@ export const M3_NEO_REVIEW: LessonContent = {
       ],
       exercisedAtomKanas: ["そう", "せんせい"],
     }),
-    build(
-      "ja-m3-neo-rev-build-ken",
-      "Tell a friend who Ken is: Ken is a friend.",
-      "ケンは ともだちだ",
-      ["ケン", "は", "も", "ともだち", "だ"],
-      ["ケン", "は", "ともだち", "だ"],
-      ["ともだち", "は"],
-    ),
+    translateStep({
+      id: "ja-m3-neo-rev-tr-shashin",
+      promptEn: "Say to a friend: It's a photo.",
+      acceptedAnswers: ["しゃしんだ", "しゃしん", "しゃしんだ。", "しゃしん。"],
+      audioText: "しゃしんだ",
+      exercisedAtomKanas: ["しゃしん"],
+    }),
     sentenceMcq({
       id: "ja-m3-neo-rev-mcq-thanks",
       prompt: "Your close friend hands you their umbrella. Casual thanks?",
@@ -1735,19 +1783,6 @@ export const M3_NEO_REVIEW: LessonContent = {
         "The polite です again — same meaning as がくせいだ, more distance. Still recognition-only; production comes with its own module.",
       exercisedAtomKanas: ["がくせい"],
     }),
-    translateStep({
-      id: "ja-m3-neo-rev-tr-shashin",
-      promptEn: "Say to a friend: It's a photo.",
-      acceptedAnswers: ["しゃしんだ", "しゃしん", "しゃしんだ。", "しゃしん。"],
-      audioText: "しゃしんだ",
-      exercisedAtomKanas: ["しゃしん"],
-    }),
-    speaking(
-      "ja-m3-neo-rev-speak-ken",
-      "ケンも がくせいだ",
-      "Ken is a student too.",
-      ["がくせい"],
-    ),
     listeningBuildSentence({
       id: "ja-m3-neo-rev-lbs-umi",
       target: "うみは みずだ",
