@@ -5,11 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import {
-  getTtsUrl,
-  playJaAudioToEnd,
-  type VoiceColor,
-} from "@/shared/tts";
+import { getTtsUrl, playJaAudioToEnd } from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { Icon } from "@/shared/components/Icon";
@@ -35,63 +31,56 @@ export function splitJaSentences(text: string): string[] {
 }
 
 /**
- * Global dialogue pacing. Nanami's natural TTS pace reads fast on a first
- * listen; a modest slow-down helps comprehension without sounding drunk
- * (Spencer QA 2026-07-16: "slowing the tts speed a bit might be helpful").
- *
- * Scoped to dialogue lines only (composed into `voiceFor` below) — NOT a
- * change to the shared TTS module's defaults, so every other step's audio
- * is untouched.
- *
- * Why not "compensate" the pitch drop with detune: a plain Web Audio
- * `AudioBufferSourceNode` has no independent time/pitch controls. Per the
- * spec, `computedPlaybackRate = playbackRate * 2^(detune/1200)` — detune
- * and playbackRate both feed the SAME resampling rate, so nudging detune
- * to cancel the pitch shift would cancel the slow-down too (they're one
- * knob, not two). At 0.92x the pitch drops ~140 cents (a little over a
- * semitone) — the same order of magnitude as the per-speaker VoiceColor
- * shifts below, and a pitch DROP from slowing down reads as natural
- * (only sped-up clips chipmunk).
+ * Real two-voice dialogues (Spencer 2026-07-19: "just generate the two
+ * different voices per speaker and do not pitch anything"). Male-named
+ * speakers' lines have dedicated ja-JP-KeitaNeural clips under
+ * `ja-keita:` manifest keys (emit-tts-deck.mjs + gen_keita_dialogue.py);
+ * everyone else plays the default Nanami corpus. NO detune, NO
+ * playbackRate — clips play raw. Exported for unit testing.
  */
-const DIALOGUE_PACE = 0.92;
+const MALE_SPEAKERS = new Set(["トム", "ケン", "たなか"]);
+const KEITA_LANG = "ja-keita";
 
-/** Compose the global dialogue pace onto a per-speaker VoiceColor's
- *  playbackRate, leaving its detune (voice identity) untouched. Exported
- *  for unit testing. */
-export function pacedVoice(base: VoiceColor, pace: number): VoiceColor {
-  return { ...base, playbackRate: (base.playbackRate ?? 1) * pace };
+export function langForSpeaker(speaker?: string): string | undefined {
+  return speaker && MALE_SPEAKERS.has(speaker) ? KEITA_LANG : undefined;
 }
 
 /**
  * Play one dialogue line sentence-by-sentence with SENTENCE_GAP_MS of
- * breathing room, applying the speaker's FIXED VoiceColor to every
- * sentence (Spencer 2026-07-19: a set distortion per speaker, no audio
- * surgery — the silence-splice experiment cut a word in half and is
- * gone). Whole-line clip is the fallback when a sentence clip is
- * missing, and for the non-manifest synthesis path (non-JA courses).
+ * breathing room, in the speaker's real voice (`preferredLang` names the
+ * voice-scoped manifest, e.g. ja-keita; undefined = course default).
+ * Falls back to the default corpus when the voice lacks a clip, and to
+ * the whole-line clip / synthesis path when sentences are missing.
  * `stillCurrent` aborts between awaits so Replay / step-advance cancels
  * cleanly. Exported for unit testing.
  */
 export async function playLineAudio(
   text: string,
-  voice: VoiceColor,
+  preferredLang?: string,
   stillCurrent: () => boolean = () => true,
 ): Promise<void> {
   const sentences = splitJaSentences(text);
-  const useSentenceChain =
-    sentences.length > 1 && sentences.every((s) => getTtsUrl(s));
-  if (!useSentenceChain) {
-    await playJaAudioToEnd(text, undefined, voice);
-    return;
-  }
-  for (let i = 0; i < sentences.length; i++) {
-    if (!stillCurrent()) return;
-    await playJaAudioToEnd(sentences[i], undefined, voice);
-    if (i < sentences.length - 1) {
-      if (!stillCurrent()) return;
-      await new Promise((r) => setTimeout(r, SENTENCE_GAP_MS));
+  const langs = preferredLang ? [preferredLang, undefined] : [undefined];
+  for (const lang of langs) {
+    if (sentences.length > 1 && sentences.every((s) => getTtsUrl(s, lang))) {
+      for (let i = 0; i < sentences.length; i++) {
+        if (!stillCurrent()) return;
+        await playJaAudioToEnd(sentences[i], lang);
+        if (i < sentences.length - 1) {
+          if (!stillCurrent()) return;
+          await new Promise((r) => setTimeout(r, SENTENCE_GAP_MS));
+        }
+      }
+      return;
+    }
+    if (getTtsUrl(text, lang)) {
+      await playJaAudioToEnd(text, lang);
+      return;
     }
   }
+  // No recorded clip anywhere — let the shared module's synthesis
+  // fallback handle it (non-JA courses).
+  await playJaAudioToEnd(text);
 }
 
 export type TranscriptLineStatus = "active" | "played" | "upcoming";
@@ -165,33 +154,6 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     timeoutsRef.current = [];
   }, []);
 
-  // Per-speaker voice coloring: the whole corpus is one voice (Nanami),
-  // so a two-person exchange was audibly one person talking to herself
-  // (Spencer QA 2026-07-13). Distinct speakers get a small detune/rate
-  // shift in order of first appearance — line 1's speaker stays neutral.
-  // Magnitudes halved 2026-07-19 ("the pitching is a little too extreme"):
-  // ±120–150 cents reads as another person without sounding processed.
-  // Real second-voice clips are the phase-2 fix.
-  const voiceBySpeaker = useMemo(() => {
-    const COLORS: VoiceColor[] = [
-      {},
-      { detuneCents: -150, playbackRate: 0.98 },
-      { detuneCents: 120, playbackRate: 1.02 },
-      { detuneCents: -80, playbackRate: 1.0 },
-    ];
-    const map = new Map<string, VoiceColor>();
-    for (const line of step.lines) {
-      const key = line.speaker ?? "";
-      if (!map.has(key)) map.set(key, COLORS[map.size % COLORS.length]);
-    }
-    return map;
-  }, [step.lines]);
-  // voiceFor composes the per-speaker color with the global dialogue pace
-  // (see DIALOGUE_PACE above) — every dialogue line plays a touch slower
-  // than the raw TTS clip, speaker identity untouched.
-  const voiceFor = (line: (typeof step.lines)[number]): VoiceColor =>
-    pacedVoice(voiceBySpeaker.get(line.speaker ?? "") ?? {}, DIALOGUE_PACE);
-
   const markPlayed = useCallback((idx: number) => {
     setPlayedLineIdxs((prev) => (prev.has(idx) ? prev : new Set(prev).add(idx)));
   }, []);
@@ -214,11 +176,11 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         const line = step.lines[i];
         setActiveLineIdx(i);
         markPlayed(i);
-        // lang stays undefined so the shared default (stamped per-course by
-        // LanguageContext via setDefaultTtsLang) resolves the manifest key.
+        // Male speakers resolve the Keita corpus; everyone else the
+        // per-course default (stamped by LanguageContext).
         await playLineAudio(
           line.audioText ?? line.kana,
-          voiceFor(line),
+          langForSpeaker(line.speaker),
           () => sessionRef.current === mySession,
         );
         if (sessionRef.current !== mySession) return;
@@ -352,12 +314,11 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     const token = ++lineTapTokenRef.current;
     setActiveLineIdx(idx);
     markPlayed(idx);
-    // Same voice color + per-sentence pacing as the sequence — a replay
-    // must sound like the same "person" the learner just heard. lang
-    // undefined → per-course default, same as the sequence above.
+    // Same voice + per-sentence pacing as the sequence — a replay must
+    // sound like the same person the learner just heard.
     void playLineAudio(
       line.audioText ?? line.kana,
-      voiceFor(line),
+      langForSpeaker(line.speaker),
       () => lineTapTokenRef.current === token,
     ).then(() => {
       if (lineTapTokenRef.current !== token) return;
@@ -369,7 +330,12 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   // audio render their play button disabled (defensive; authored lines
   // should always have manifest entries).
   const lineAudioAvailable = useMemo(
-    () => step.lines.map((l) => Boolean(getTtsUrl(l.audioText ?? l.kana))),
+    () =>
+      step.lines.map((l) => {
+        const text = l.audioText ?? l.kana;
+        const lang = langForSpeaker(l.speaker);
+        return Boolean((lang && getTtsUrl(text, lang)) || getTtsUrl(text));
+      }),
     [step.lines],
   );
 

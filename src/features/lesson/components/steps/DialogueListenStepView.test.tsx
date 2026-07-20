@@ -3,10 +3,9 @@
  * polish (Spencer QA: "slowing the tts speed a bit might be helpful, and
  * then a better view of the active and previous transcript line"):
  *
- *  - `pacedVoice` composes DIALOGUE_PACE onto a per-speaker VoiceColor's
- *    playbackRate only — detune (voice identity) is untouched, and it must
- *    compose multiplicatively (not clobber) with whatever rate a speaker
- *    already carries.
+ *  - `langForSpeaker` routes male-named speakers to the real Keita voice
+ *    corpus (`ja-keita:` manifest keys); no detune/rate processing exists
+ *    anymore — clips play raw (Spencer 2026-07-19).
  *  - `lineStatus` classifies each transcript row as active / played /
  *    upcoming, which drives the highlight/dim treatment.
  *  - The rendered transcript reflects that classification, and a per-line
@@ -37,9 +36,8 @@ vi.mock("react-i18next", () => ({
   }),
 }));
 
-type MockVoice = { detuneCents?: number; playbackRate?: number };
-const playJaAudioToEnd = vi.fn(
-  (_text: string, _lang?: string, _voice?: MockVoice) => Promise.resolve(),
+const playJaAudioToEnd = vi.fn((_text: string, _lang?: string) =>
+  Promise.resolve(),
 );
 const getTtsUrl = vi.fn(() => "https://example.test/audio.mp3");
 vi.mock("@/shared/tts", () => ({
@@ -63,7 +61,7 @@ vi.mock("@/shared/readingAnnotation/AnnotatedText", () => ({
 
 import {
   DialogueListenStepView,
-  pacedVoice,
+  langForSpeaker,
   lineStatus,
   splitJaSentences,
   playLineAudio,
@@ -126,28 +124,46 @@ describe("splitJaSentences", () => {
   });
 });
 
+describe("langForSpeaker", () => {
+  it("routes male-named speakers to the Keita corpus", () => {
+    expect(langForSpeaker("トム")).toBe("ja-keita");
+    expect(langForSpeaker("ケン")).toBe("ja-keita");
+    expect(langForSpeaker("たなか")).toBe("ja-keita");
+  });
+  it("leaves everyone else on the course default", () => {
+    expect(langForSpeaker("ミカ")).toBeUndefined();
+    expect(langForSpeaker("Stranger")).toBeUndefined();
+    expect(langForSpeaker(undefined)).toBeUndefined();
+  });
+});
+
 describe("playLineAudio", () => {
-  it("chains per-sentence clips with the speaker's FIXED voice on every sentence", async () => {
-    const voice = { detuneCents: -150, playbackRate: 0.9 };
-    await playLineAudio("わたしは トムだ。がくせいだ。", voice);
-    expect(playJaAudioToEnd.mock.calls.map((c) => c[0])).toEqual([
-      "わたしは トムだ。",
-      "がくせいだ。",
+  it("chains per-sentence clips in the speaker's voice, no pitch processing", async () => {
+    await playLineAudio("わたしは トムだ。がくせいだ。", "ja-keita");
+    expect(playJaAudioToEnd.mock.calls).toEqual([
+      ["わたしは トムだ。", "ja-keita"],
+      ["がくせいだ。", "ja-keita"],
     ]);
-    for (const call of playJaAudioToEnd.mock.calls) {
-      expect(call[2]).toBe(voice);
-    }
+  });
+
+  it("falls back to the default corpus when the voice lacks the clips", async () => {
+    getTtsUrl.mockImplementation(((_t: string, lang?: string) =>
+      lang === "ja-keita" ? null : "https://example.test/a.mp3") as never);
+    await playLineAudio("わたしは トムだ。がくせいだ。", "ja-keita");
+    expect(playJaAudioToEnd.mock.calls).toEqual([
+      ["わたしは トムだ。", undefined],
+      ["がくせいだ。", undefined],
+    ]);
   });
 
   it("falls back to the whole-line clip when a sentence clip is missing", async () => {
-    getTtsUrl.mockImplementation(((text: string) =>
-      text === "がくせいだ。" ? null : "https://example.test/a.mp3") as never);
-    await playLineAudio("わたしは トムだ。がくせいだ。", {});
+    getTtsUrl.mockImplementation(((t: string) =>
+      t === "がくせいだ。" ? null : "https://example.test/a.mp3") as never);
+    await playLineAudio("わたしは トムだ。がくせいだ。");
     expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
     expect(playJaAudioToEnd).toHaveBeenCalledWith(
       "わたしは トムだ。がくせいだ。",
       undefined,
-      {},
     );
   });
 
@@ -157,26 +173,8 @@ describe("playLineAudio", () => {
       alive = false; // goes stale during the first sentence
       return Promise.resolve();
     });
-    await playLineAudio("わたしは トムだ。がくせいだ。", {}, () => alive);
+    await playLineAudio("わたしは トムだ。がくせいだ。", undefined, () => alive);
     expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe("pacedVoice", () => {
-  it("scales an existing playbackRate rather than overwriting it", () => {
-    expect(pacedVoice({ playbackRate: 0.96, detuneCents: -300 }, 0.92)).toEqual({
-      playbackRate: 0.96 * 0.92,
-      detuneCents: -300,
-    });
-  });
-
-  it("treats a missing playbackRate as 1 before pacing", () => {
-    expect(pacedVoice({}, 0.92)).toEqual({ playbackRate: 0.92 });
-  });
-
-  it("leaves detune alone — pacing never touches pitch compensation", () => {
-    const paced = pacedVoice({ detuneCents: 250, playbackRate: 1.04 }, 0.92);
-    expect(paced.detuneCents).toBe(250);
   });
 });
 
@@ -229,15 +227,13 @@ describe("DialogueListenStepView transcript", () => {
     expect(screen.getByText("こんばんは").className).not.toMatch(/blur/);
   });
 
-  it("keeps speaker pitch coloring subtle (≤200 cents)", async () => {
+  it("plays lines raw — no voice-color object passed to playback", async () => {
     render(
       <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
     );
-    // Second speaker (\"You\") carries the first non-neutral color.
     const row = screen.getByText("こんばんは").closest("div") as HTMLElement;
     fireEvent.click(within(row).getByRole("button", { name: "Play audio" }));
-    const voice = playJaAudioToEnd.mock.calls[0][2];
-    expect(Math.abs(voice?.detuneCents ?? 0)).toBeLessThanOrEqual(200);
+    expect(playJaAudioToEnd).toHaveBeenCalledWith("こんばんは", undefined);
   });
 
   it("dims a line that has never played and keeps a played line readable", async () => {
@@ -277,22 +273,4 @@ describe("DialogueListenStepView transcript", () => {
     expect(strangerRow.className).not.toMatch(/border-accent bg-accent-muted/);
   });
 
-  it("plays dialogue lines at the paced (slowed) rate, not the raw speaker rate", async () => {
-    render(
-      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
-    );
-    await revealTranscript();
-
-    const strangerRow = screen.getByText("こんにちは").closest("div") as HTMLElement;
-    fireEvent.click(within(strangerRow).getByRole("button", { name: "Play audio" }));
-
-    expect(playJaAudioToEnd).toHaveBeenCalledWith(
-      "こんにちは",
-      undefined,
-      expect.objectContaining({ playbackRate: expect.any(Number) }),
-    );
-    const voice = playJaAudioToEnd.mock.calls[0][2];
-    expect(voice?.playbackRate).toBeLessThan(1);
-    expect(voice?.playbackRate).toBeGreaterThan(0.85);
-  });
 });

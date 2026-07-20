@@ -107,15 +107,16 @@
 
 ## Dialogue TTS (2026-07-19)
 
-23. Multi-sentence dialogue lines play as CHAINED per-sentence clips with
-    a 350ms gap, the speaker's fixed VoiceColor applied to every sentence
-    (a set distortion per speaker — Spencer 2026-07-19). The deck emitter
-    expands multi-sentence strings so every sentence has its own clip;
-    the whole-line clip is only a fallback. NEVER post-process clip
-    internals (the silence-splice experiment cut がくせい in half —
-    detection can't tell a sentence pause from a stop-consonant closure).
-    Two-person dialogues should eventually get real distinct voices
-    (male ja-JP-KeitaNeural + Nanami) instead of detune coloring.
+23. Dialogue speakers use REAL distinct voices, zero pitch processing:
+    male-named speakers (トム/ケン/たなか — MALE_SPEAKERS in
+    DialogueListenStepView) play ja-JP-KeitaNeural clips under
+    `ja-keita:` manifest keys; everyone else plays the Nanami corpus.
+    Clips are raw — no detune, no playbackRate, and NEVER post-process
+    clip internals (the silence-splice experiment cut がくせい in half).
+    Lines chain per-sentence with a 350ms gap; whole-line clip is the
+    fallback. New male dialogue lines: run emit-tts-deck.mjs then
+    lingo-core scripts/tts/gen_keita_dialogue.py. A new male-named
+    speaker must be added to MALE_SPEAKERS + the emitter's set.
 
 ## Sentences and coverage
 
