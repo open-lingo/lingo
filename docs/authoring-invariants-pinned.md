@@ -68,6 +68,16 @@
 12. `antiPattern.ja` is a FULL-SENTENCE minimal pair of `examples[0].ja`
     (same sentence, one wrong piece) — never a bare fragment; the derived
     spot-the-mistake step makes fragments a length giveaway.
+    **SEMANTIC CONTRACT (2026-07-19, m3-neo pilot walk):** the wrong piece
+    must make the sentence GENUINELY INCORRECT Japanese — a plausible
+    learner error. A correct sentence with a different job (statement vs
+    question) or register (だ vs です) is CONTRAST material: it belongs in
+    `examples[]` with a labeled `en`, NEVER in antiPattern. The derived
+    spot step and the reactive ✗ tip both label antiPattern "wrong"; a
+    contrast pair there grades correct Japanese as an error (shipped
+    twice in the pilot: ねこ？ and そらです。 both marked ✗). If a rule
+    has no natural learner error, omit antiPattern — no spot step derives,
+    which is correct.
 
 ## Sentences and coverage
 

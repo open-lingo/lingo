@@ -129,12 +129,17 @@ export const M3_NEO_1: LessonContent = {
         { ja: "ねこだ。", romaji: "neko da.", en: "It's a cat." },
         { ja: "みずだ。", romaji: "mizu da.", en: "It's water." },
       ],
+      // antiPattern must be GENUINELY WRONG Japanese — the derived
+      // spot-the-mistake step labels it ✗. The statement/question
+      // contrast (ねこだ。/ねこ？) is CORRECT-vs-CORRECT and lives in
+      // L4's teaching, not here (Spencer walk 2026-07-19: both prior
+      // "wrong" options were real sentences).
       antiPattern: {
-        ja: "ねこ？",
-        romaji: "neko?",
-        en: "(Is it a cat?)",
+        ja: "だねこ。",
+        romaji: "da neko.",
+        en: "(broken: だ before the noun)",
         why:
-          "Same word, opposite job: falling だ states, a rising tone asks. ねこだ。 tells your friend it's a cat; ねこ？ asks them. The asking pattern gets its own lesson soon.",
+          "だ closes the sentence — it never leads. Noun first, だ last: ねこだ。",
       },
     }),
     // ③ Builds — tiles keep だ separate so the pattern is assembled, not read.
@@ -192,14 +197,16 @@ export const M3_NEO_1: LessonContent = {
       examples: [
         { ja: "そらだ。", romaji: "sora da.", en: "It's the sky. (with だ)" },
         { ja: "そら。", romaji: "sora.", en: "The sky. (だ dropped — very common)" },
+        {
+          ja: "そらです。",
+          romaji: "sora desu.",
+          en: "It's the sky. (the POLITE version — coming soon; with friends, use そらだ / そら)",
+        },
       ],
-      antiPattern: {
-        ja: "そらです。",
-        romaji: "sora desu.",
-        en: "(It's the sky — polite)",
-        why:
-          "です isn't wrong Japanese — it's the wrong distance. With a close friend the plain そらだ / そら is the natural register; です is the polite layer, coming later.",
-      },
+      // No antiPattern on purpose: there is no wrong way to optionally
+      // drop だ, and です is correct-but-formal — a register CONTRAST,
+      // which belongs above in examples, never in the ✗ slot (the
+      // derived spot step would call polite Japanese "wrong").
     }),
     // ⑤ Production: translate + speaking (だ-dropped answers accepted).
     translateStep({

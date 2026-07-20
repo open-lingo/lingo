@@ -294,3 +294,33 @@ describe("JA m3-neo pilot module content", () => {
     expect(offenders, offenders.join("\n")).toEqual([]);
   });
 });
+
+/**
+ * antiPattern SEMANTIC contract (Spencer walk, 2026-07-19): the derived
+ * spot-the-mistake step calls antiPattern.ja WRONG, so it must be
+ * genuinely incorrect Japanese — never a correct sentence with a
+ * different job (ねこ？) or register (そらです。). Contrast material
+ * belongs in examples[]. Regression: both misuses shipped in the pilot
+ * and graded learners wrong for correct picks.
+ */
+describe("m3-neo antiPattern wrongness contract", () => {
+  it("rule-da carries a true form error, not the question contrast", async () => {
+    const lesson = await getMockLessonContent("ja-m3-neo-1");
+    const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-1-rule-da") as any;
+    expect(rule.antiPattern.ja).toBe("だねこ。");
+  });
+  it("rule-da-drop has NO antiPattern (its です contrast lives in examples)", async () => {
+    const lesson = await getMockLessonContent("ja-m3-neo-1");
+    const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-1-rule-da-drop") as any;
+    expect(rule.antiPattern).toBeUndefined();
+    expect(rule.examples.some((e: any) => e.ja === "そらです。")).toBe(true);
+  });
+  it("derived spot steps never present two correct sentences", async () => {
+    const lesson = await getMockLessonContent("ja-m3-neo-1");
+    const spots = lesson!.steps.filter((s: any) => s.id?.endsWith("-spot")) as any[];
+    // Only the rule-da spot survives, and its wrong option is the order error.
+    expect(spots.map((s) => s.id)).toEqual(["ja-m3-neo-1-rule-da-spot"]);
+    expect(spots[0].options.some((o: any) => o.text === "だねこ。")).toBe(true);
+    expect(spots[0].options.some((o: any) => o.text === "ねこ？")).toBe(false);
+  });
+});
