@@ -1,6 +1,6 @@
 # PINNED authoring invariants (ja) — paste VERBATIM into every dispatch
 
-**Status:** LIVE · **Last-verified:** 2026-07-17
+**Status:** LIVE · **Last-verified:** 2026-07-20
 
 > This is the constraint-pinning block (research doc
 > [ai-workflow-optimization-research-2026-07-17.md](ai-workflow-optimization-research-2026-07-17.md),
@@ -127,6 +127,13 @@
     across its home + later modules (atom-coverage gate, m3–m29).
 15. Sub-lesson density: match the m3+ bar (~18–24 steps); never pad with
     passive cards to hit it.
+25. **Module size (Spencer 2026-07-20):** ≥12 lessons per module from m4
+    on (11 teaching + 1 review; m3's 7 is grandfathered — it taught only
+    three things). Enforced via moduleBarGuards `minLessons`. Every new
+    module's test file MUST call `registerModuleBarGuards(...)`
+    (src/features/languages/ja/__tests__/moduleBarGuards.ts) — it carries
+    the whole mechanical bar (density, variety, sentence-repeat, reply-MCQ
+    ban, vocab provenance, persona canon).
 24. **Sentence variety + name continuity (Spencer 2026-07-20):** a lesson
     uses any single primary sentence surface at most 3 TIMES
     (machine-checked, m3-neo.variety.test.ts) — L2 ran student/teacher

@@ -460,6 +460,16 @@ export const M3_NEO_2: LessonContent = {
     }),
     // Quick gamified breather — emoji word check over an M2 salvage atom.
     vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
+    // Hear-and-assemble on a taught sentence — the template's
+    // listening_build beat (L2 previously only had a word-level decode).
+    listeningBuildSentence({
+      id: "ja-m3-neo-2-lbs-tomu",
+      target: "トムは がくせいだ",
+      tiles: ["トム", "は", "も", "がくせい", "だ"],
+      correctOrder: ["トム", "は", "がくせい", "だ"],
+      promptEn: "Tom is a student.",
+      exercisedAtomKanas: ["がくせい", "は"],
+    }),
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-spotlight-2",
       audioText: "ともだちは がくせいだ。",
@@ -542,16 +552,6 @@ export const M3_NEO_2: LessonContent = {
       "Tanaka is a teacher.",
       ["せんせい"],
     ),
-    // Hear-and-assemble on a taught sentence — the template's
-    // listening_build beat (L2 previously only had a word-level decode).
-    listeningBuildSentence({
-      id: "ja-m3-neo-2-lbs-tomu",
-      target: "トムは がくせいだ",
-      tiles: ["トム", "は", "も", "がくせい", "だ"],
-      correctOrder: ["トム", "は", "がくせい", "だ"],
-      promptEn: "Tom is a student.",
-      exercisedAtomKanas: ["がくせい", "は"],
-    }),
     // Closer dialogue — nationality words in the wild. Speakers state
     // their OWN nationality so every question grades on a stated fact:
     // the old version had ミカ describe an unnamed ともだち, and since

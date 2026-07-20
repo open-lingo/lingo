@@ -1,5 +1,35 @@
 # Lesson authoring guide
 
+> **2026-07-20 REWRITE-ERA ADDENDUM (m3-neo pilot walk — READ FIRST).**
+> [authoring-invariants-pinned.md](authoring-invariants-pinned.md) is the
+> AUTHORITATIVE constraint set (25 invariants) and travels verbatim with
+> every dispatch; where this guide disagrees, the invariants win. Deltas
+> vs the guide body below:
+> - **selfExplain is BANNED in ja** (metalinguistic quiz — Spencer
+>   2026-07-19). Ignore every selfExplain slot in §2/§3/§4; understanding
+>   is tested by USE (choice-under-contrast clozes, forced-choice).
+> - **≥12 lessons per module from m4 on** (11 teaching + 1 review).
+> - **Persona canon** (invariant 21): Tom=student/American/Mika's friend,
+>   Mika=student/Japanese, Tanaka=the teacher, Ken=student/Japanese —
+>   across ALL surfaces including slot-filler practice sentences.
+> - **Dialogue questions grade on stated facts only** (invariant 22);
+>   speaker labels are ROMANIZED (Tom/Mika/Ken/Tanaka).
+> - **Sentence variety** (invariant 24): any primary sentence surface ≤3
+>   uses per lesson; recycle earlier-module nouns as carriers; every
+>   non-prior word's FIRST occurrence must be an intro-capable step.
+> - **Production-framed prompts** ("pick your reply", "Say: …") are
+>   generation steps, never sentence MCQs.
+> - **Particle-substitution concepts (も-class): compact rule card BEFORE
+>   first exposure** — meaning isn't inferable from one hearing.
+>   Exposure-first stays right for inferable patterns (だ-class).
+> - **Dialogue TTS**: real two voices (Keita for male speakers), raw
+>   clips, per-sentence chaining (invariant 23).
+> - **Machine enforcement**: every module test file calls
+>   `registerModuleBarGuards(...)` — density, variety, sentence-repeat,
+>   reply-MCQ ban, vocab provenance, persona canon all fail CI, plus
+>   Gate 10 visual + continuity judging before Spencer walks it.
+
+
 **Status:** LIVE · **Last-verified:** 2026-07-17
 
 How to author a Lingo JA sub-lesson that passes every standard we've accumulated. Living doc — refine as new findings land.
