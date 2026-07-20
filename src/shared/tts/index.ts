@@ -40,6 +40,7 @@ import {
   subscribeAudioVolume,
   stopLocalAudio,
 } from "@/shared/audio/volume";
+import { audioManager } from "@/shared/audio/audioManager";
 
 const MANIFEST = manifest as Record<string, string | string[]>;
 
@@ -178,14 +179,18 @@ function speakViaSynthesis(text: string, lang: string): SpeechSynthesisUtterance
   u.lang = tag;
   u.volume = getAudioVolume();
   activeUtterance = u;
+  // Claim the content-audio channel — cancels any clip already playing on any
+  // backend, and lets a later clip cancel this synthesis.
+  const tok = audioManager.begin(() => synth.cancel());
   const clear = () => {
     if (activeUtterance === u) activeUtterance = null;
+    audioManager.end(tok);
   };
   u.onend = clear;
   u.onerror = clear;
 
   const speakNow = () => {
-    if (activeUtterance !== u) return; // superseded by a newer clip
+    if (activeUtterance !== u || !audioManager.isCurrent(tok)) return; // superseded
     const voice = pickVoice(tag);
     if (voice) u.voice = voice;
     synth.cancel();
@@ -347,6 +352,9 @@ function trackSource(src: AudioBufferSourceNode): void {
  * unmount so audio never spills across a step or lesson boundary.
  */
 export function stopAllAudio(): void {
+  // Release the single content-audio channel (whatever backend owns it), then
+  // sweep every backend's tracked handles as a backstop.
+  audioManager.stop();
   for (const src of activeSources) {
     try {
       src.stop();
@@ -379,6 +387,16 @@ function playBuffer(buffer: AudioBuffer): void {
   const out = getGain() ?? c.destination;
   src.connect(out);
   trackSource(src);
+  // Claim the single content-audio channel — cancels any clip already playing
+  // (Web Audio, HTMLAudio, or synthesis) so nothing overlaps.
+  const tok = audioManager.begin(() => {
+    try {
+      src.stop();
+    } catch {
+      // already stopped
+    }
+  });
+  src.addEventListener("ended", () => audioManager.end(tok));
   src.start();
 }
 
@@ -453,11 +471,22 @@ export async function playJaAudioToEnd(
   src.connect(getGain() ?? c.destination);
   trackSource(src);
   const rate = voice.playbackRate ?? 1;
+  // Claim the channel: cancels any current clip, and a later clip cancels this
+  // one (its stop fires onended → the promise resolves, so a sequencer that
+  // gets interrupted doesn't hang).
+  const tok = audioManager.begin(() => {
+    try {
+      src.stop();
+    } catch {
+      // already stopped
+    }
+  });
   await new Promise<void>((resolve) => {
     let done = false;
     const finish = () => {
       if (!done) {
         done = true;
+        audioManager.end(tok);
         resolve();
       }
     };

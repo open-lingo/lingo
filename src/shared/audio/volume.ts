@@ -13,6 +13,7 @@
  * Range: 0..1. Persisted via `settings.audio.volume`; SettingsContext
  * pushes the current setting into this module on mount + on change.
  */
+import { audioManager } from "./audioManager";
 
 let currentVolume = 1;
 const listeners = new Set<(volume: number) => void>();
@@ -55,7 +56,19 @@ export function playLocalAudio(url: string): HTMLAudioElement | null {
   const audio = new Audio(url);
   audio.volume = currentVolume;
   activeLocalAudio.add(audio);
-  const drop = () => activeLocalAudio.delete(audio);
+  // Claim the single content-audio channel — cancels any clip playing on any
+  // backend so this HTMLAudio clip doesn't overlap it.
+  const tok = audioManager.begin(() => {
+    try {
+      audio.pause();
+    } catch {
+      // detached — ignore
+    }
+  });
+  const drop = () => {
+    activeLocalAudio.delete(audio);
+    audioManager.end(tok);
+  };
   audio.addEventListener("ended", drop, { once: true });
   audio.addEventListener("error", drop, { once: true });
   audio.play().catch(() => {});
