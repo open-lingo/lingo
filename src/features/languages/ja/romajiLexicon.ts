@@ -38,6 +38,12 @@ import { JA_COURSE_ATOMS } from "./courseAtoms";
  * spellings win any collision.
  */
 const FUNCTION_WORD_ROMAJI: Record<string, string> = {
+  // Course-canon character names — not atoms, so without these they fall
+  // back to per-kana ruby ("mi ka" over ミカ; Gate 10 run 2026-07-20).
+  トム: "tomu",
+  ミカ: "mika",
+  ケン: "ken",
+  たなか: "tanaka",
   です: "desu",
   でした: "deshita",
   じゃない: "janai",

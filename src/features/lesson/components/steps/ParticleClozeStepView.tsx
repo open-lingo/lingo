@@ -13,7 +13,8 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 const CELEBRATE_MS = 1100;
 
 /**
- * Options the "Pick the particle that fits" instruction is honest about.
+ * Options the "Pick what fits the blank" instruction is honest about
+ * (metalanguage "particle" dropped from learner copy, Gate 10 2026-07-20).
  * Grammar pools reuse this step type for copula forms, verb endings,
  * adverbs, demonstratives… (2026-07-06 audit: the hardcoded label lied on
  * ~95 steps) — anything outside this set gets "Complete the sentence".
@@ -144,7 +145,7 @@ export function ParticleClozeStepView({
       />
       <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
         {allOptionsAreParticles
-          ? t("lesson.pickParticle", "Pick the particle that fits")
+          ? t("lesson.pickParticle", "Pick what fits the blank")
           : t("lesson.completeSentence", "Complete the sentence")}
       </p>
 

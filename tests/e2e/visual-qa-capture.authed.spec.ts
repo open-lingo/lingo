@@ -51,6 +51,15 @@ test.describe("@visual-qa per-step capture", () => {
       const dir = path.join(OUT_ROOT, lessonId);
       fs.mkdirSync(dir, { recursive: true });
       await page.setViewportSize({ width: 1280, height: 960 });
+      // Pre-seed cookie consent — a fresh context otherwise shows the
+      // GDPR banner, which bled into a tall dialogue capture and got
+      // flagged by a judge (Gate 10 run 2026-07-20).
+      await page.addInitScript(() => {
+        localStorage.setItem(
+          "open-lingo-cookie-consent",
+          JSON.stringify({ advertising: false, decidedAt: "2026-07-20" }),
+        );
+      });
       // Long lessons at ~1.5-2.5s/step: give the whole loop room.
       test.setTimeout(30_000 + contracts.steps.length * 8_000);
 

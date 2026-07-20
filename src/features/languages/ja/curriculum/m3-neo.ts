@@ -937,7 +937,7 @@ export const M3_NEO_4: LessonContent = {
       id: "ja-m3-neo-4-rule-rise",
       title: "Asking with your voice — ねこ？",
       rule:
-        "Casual questions need no question word: say the noun with a rising tone and it becomes a question. ねこ。 (falling) = 'It's a cat.' ねこ？ (rising) = 'Is it a cat?' Works with は-sentences too: トムは せんせい？",
+        "Casual questions need no question word: say the noun with a rising tone and it becomes a question. ねこ。 (falling) = 'It's a cat.' ねこ？ (rising) = 'Is it a cat?' Works with は-sentences too: たなかは せんせい？",
       examples: [
         { ja: "ねこ？", romaji: "neko?", en: "Is it a cat? (rising tone)" },
         { ja: "がくせい？", romaji: "gakusei?", en: "Are you a student?" },

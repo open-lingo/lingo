@@ -197,7 +197,12 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           // - Regular MC short glyph (≤2 chars) in MIXED grids: big-glyph
           //   center layout, classic alphabet drill.
           // - Long text (sentences): left-aligned text-xl.
-          const isShortGlyph = opt.text.length <= 2;
+          // Big-glyph treatment only when the WHOLE grid is glyphs — a
+          // lone short option (うん) in a mixed sentence grid rendered
+          // 3-4x its siblings (Gate 10 continuity run, 2026-07-20).
+          const isShortGlyph =
+            opt.text.length <= 2 &&
+            step.options.every((o) => o.text.length <= 2);
           const layout = step.optionsRevealRomajiOnSelect
             ? "flex items-center justify-center py-8 px-4 text-3xl sm:text-4xl font-bold min-h-[120px]"
             : allSingleWords

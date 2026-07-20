@@ -114,3 +114,37 @@ staying silent.
   step source before any change is made. Human spot-check: a few judged
   steps per sweep, biased toward `ok` verdicts (false passes are the
   failure mode that reaches Spencer).
+
+## Continuity pass (module-level, 2026-07-20)
+
+Per-step contracts can't see CROSS-STEP defects — the classes that actually
+shipped in the m3-neo pilot walk. After the per-step verdicts, review the
+lesson's screenshots IN SEQUENCE and report on:
+
+1. **Persona canon** — named characters (Tom=student/American/Mika's friend,
+   Mika=student/Japanese, Tanaka=the teacher, Ken=student/Japanese) must
+   never flip facts between steps.
+2. **Staleness** — the same sentence or the same interaction shape running
+   3+ steps in a row; the same carrier pair dominating the lesson.
+3. **Teach-before-use** — a word/chunk visible as an option or tile before
+   any step that taught it.
+4. **Readability continuity** — katakana the module hasn't unlocked
+   appearing WITHOUT a romaji annotation line (speaker chips must be Latin
+   names); any text a learner at this module literally cannot read.
+5. **Prompt tone** — narrative color, metalanguage ("Which particle…"),
+   or an option set that prints the answer to its own prompt.
+
+Report continuity findings separately from per-step verdicts, each with the
+step range it spans.
+
+## Known-benign patterns (2026-07-20 run calibration)
+
+- **Review-pool vocabulary** (station, shell, moon, mountain, star, flower,
+  person, face, glasses, rice…) was taught in the M1/M2 kana modules — its
+  appearance in mid-lesson breathers and review tails is cumulative review,
+  not teach-before-use.
+- **Blurred dialogue transcript lines** are the intentional
+  can't-read-ahead mechanic: lines un-blur as their audio plays. A blurred
+  not-yet-played line is correct pre-interaction state.
+- **Grammar-card CTA reading "READING…" with a progress bar** is the
+  transient reading-gate state — capture timing, not a stuck control.
