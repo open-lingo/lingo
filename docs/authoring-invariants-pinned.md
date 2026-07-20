@@ -111,6 +111,14 @@
     しっている "I know") — never "fix" those to progressive.
 18. Prompts are framed, sentence-cased English ('Pick the word for
     "this"'), never a bare lowercase meaning.
+    **No narrative color (2026-07-19, m3-neo walk):** prompts carry ONLY
+    context that changes the answer, stated minimally. Meaning checks
+    default to "What does this mean?"; tone drills to "Telling or
+    asking?". Keep one-clause situation cues where the situation IS the
+    content (chunk-function steps, register cues like "Say to a friend" /
+    "Which thanks fits a stranger?"). Scenario prose ("You crest a hill
+    and your friend shouts…") is reserved for story lessons and for
+    register authoring where the scenario carries the contrast.
 
 ## Review surfaces (Spencer 2026-07-17)
 
