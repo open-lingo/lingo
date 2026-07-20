@@ -152,3 +152,13 @@ step range it spans.
   topic particle は renders "ha" (likewise へ/を render their kana
   readings). The wa-pronunciation is taught on the particle's rule card.
   Never flag "ha" over topic は as a mispronunciation defect.
+- **Loanwords render in HIRAGANA before the katakana ladder** (ぺん, ぱん,
+  ぴあの…) — deliberate script-ladder simplification, not a typo. Names:
+  learner-peer names are katakana (ミカ/ケン/トム), たなか is hiragana —
+  standing course convention, do not flag.
+- **を romanizes "o"** — the KANA_ROMAJI citation table's reading; part of
+  the kana-faithful ruling. Do not flag.
+- **そう and うん are m3 vocabulary** — their appearance anywhere in m4+
+  (including as distractors) is review, not a forward-reference.
+- **The small three-dot glyph on match-grid headers** is standing UI
+  chrome (Spencer: "no biggie") — do not flag.

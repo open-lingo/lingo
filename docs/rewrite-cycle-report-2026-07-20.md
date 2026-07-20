@@ -64,6 +64,17 @@ authoring-invariants-pinned.md and are summarized here for Spencer.
   only exposures were auto-draws can starve. Fixed the two starved m17
   atoms with authored retrievals; the structural fix (draw stability or
   authored-only coverage) queued for the old-course teardown.
+- **Continuity-judge round (m5):** 4 findings, 3 fixed same-cycle: two
+  forward-references I introduced in the ratchet conversion (L1 tail
+  used を one lesson early, L2 used かう — sequence-checked all 14 now),
+  and the ももも triple-kana ruby gluing ("momomo") → を form. The 4th
+  (cloze tile at crop edge) verified as shared-template cosmetics, not
+  a bug. Judge false-positives (hiragana loanwords pre-katakana, を="o",
+  そう=m3 vocab, match-grid dots) → calibrated into the protocol.
+- **Judge-efficiency miss:** the "single" continuity judge fanned out 11
+  sub-agents on its own (~700k tokens — no savings vs the fleet). Next
+  cycle's judge prompt forbids sub-agent spawning; expected real cost
+  ~150k/module.
 - **Open invariant-19 tension:** tails now hand-write short review
   sentences (the mined-sentence pool predates the rewrite). Position:
   the rewrite's authored corpus IS the mine; formalize when the

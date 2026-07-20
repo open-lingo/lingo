@@ -1302,16 +1302,18 @@ export const M5_NEO_REVIEW: LessonContent = {
       ["ゆき", "を", "みる"],
     ),
     listeningCompSentence({
+      // Was ももも たべる？ — the triple-も run renders its word-grouped
+      // romaji glued ("momomo", continuity judge 2026-07-20); the を form
+      // keeps the peach retrieval with an unambiguous helper line.
       id: "ja-m5-neo-rev-lc-momo",
-      audioText: "ももも たべる？",
-      question: "What does this sentence mean?",
-      correctMeaningEn: "Gonna eat the peach too?",
+      audioText: "ももを たべる？",
+      correctMeaningEn: "Gonna eat the peach?",
       distractorsEn: [
-        "Gonna eat the peach?",
-        "Gonna buy a peach too?",
-        "Is this a peach too?",
+        "Gonna buy the peach?",
+        "Gonna eat the bread?",
+        "Is it a peach?",
       ],
-      exercisedAtomKanas: ["もも", "も", "たべる"],
+      exercisedAtomKanas: ["もも", "たべる"],
     }),
     build(
       "ja-m5-neo-rev-build-megane",

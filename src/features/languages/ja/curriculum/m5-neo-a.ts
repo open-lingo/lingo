@@ -349,14 +349,16 @@ export const M5_NEO_1: LessonContent = {
       // Sentence-level (2026-07-20): the pool-word LC tripped the M5+
       // sentence-first ratchet — the pool noun now rides an m5 verb.
       id: "ja-m5-neo-1-rev-lc",
-      audioText: "そらを みる。",
-      correctMeaningEn: "Gonna watch the sky.",
+      // NOT を here — を is Lesson 2's own target (continuity judge
+      // caught the forward-reference); L1's tail stays on m3 grammar.
+      audioText: "そらだ。",
+      correctMeaningEn: "It's the sky.",
       distractorsEn: [
-        "Gonna watch the sea.",
-        "Gonna buy the sky.",
-        "Gonna watch a star.",
+        "It's the sea.",
+        "It's a star.",
+        "It's the moon.",
       ],
-      exercisedAtomKanas: ["そら", "みる"],
+      exercisedAtomKanas: ["そら"],
     }),
     vocabMcq("ja-m5-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
     // ごはん decode — invariant 27: under-reinforced CEJC-frequent item
@@ -569,14 +571,16 @@ export const M5_NEO_2: LessonContent = {
       // Sentence-level (2026-07-20): the pool-word LC tripped the M5+
       // sentence-first ratchet — the pool noun now rides an m5 verb.
       id: "ja-m5-neo-2-rev-lc",
-      audioText: "ぼうしを かう？",
-      correctMeaningEn: "Gonna buy the hat?",
+      // NOT かう here — かう is Lesson 3's own target (continuity judge
+      // caught the forward-reference); L1's みる carries the を drill.
+      audioText: "ぼうしを みる？",
+      correctMeaningEn: "Gonna look at the hat?",
       distractorsEn: [
-        "Gonna buy the bag?",
-        "Gonna look at the hat?",
+        "Gonna look at the bag?",
+        "Gonna eat the hat?",
         "Wearing the hat?",
       ],
-      exercisedAtomKanas: ["ぼうし", "かう"],
+      exercisedAtomKanas: ["ぼうし", "みる"],
     }),
     vocabMcq("ja-m5-neo-2-rev-mcq", L2_REVIEW[0], NEO_M2_POOL),
     listeningBuildWord(
