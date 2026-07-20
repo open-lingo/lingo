@@ -56,10 +56,41 @@ import {
   vocabMcq,
   withoutMcqBlocked,
 } from "@/features/languages/ja/grammarHelpers";
-import type { MatchPairsStep } from "@/features/lesson/types";
+import type { ListeningBuildStep, MatchPairsStep } from "@/features/lesson/types";
 
 const COURSE = "mock-1";
 const LANG = "ja";
+
+/**
+ * Char-granularity `listening_build` of a single REVIEW word from its
+ * m1/m2 TTS clip — the kana-decode beat of the house review tails (same
+ * shape as `_consonantRowHelpers.listeningBuild`, sans RowContext).
+ *
+ * FIXED words only: the mora arrays are hand-tokenized, so targets must
+ * never come from a seeded `pickReviewAtoms` draw (the struggle-weighted
+ * path re-picks per learner and the hand mora would drift out of sync).
+ * Every `word` here must already be clipped in src/pub/tts/manifest.json
+ * (keyed `ja:<word>`) — all m1/m2 pool atoms are.
+ */
+function listeningBuildWord(
+  id: string,
+  word: string,
+  meaningEn: string,
+  mora: string[],
+  distractorKana: string[],
+): ListeningBuildStep {
+  return {
+    id,
+    type: "listening_build",
+    audioKey: word,
+    prompt: `Listen and build the word for '${meaningEn}'`,
+    targetSentence: word,
+    tiles: [...mora, ...distractorKana],
+    correctOrder: mora,
+    granularity: "character",
+    targetAnnotation: [{ surface: word, reading: word }],
+  };
+}
 
 // Review pools: M1 + M2 only — the learner arriving at m3-neo owns kana +
 // the concrete-noun anchors, nothing else.
@@ -180,6 +211,8 @@ export const M3_NEO_1: LessonContent = {
       ],
       exercisedAtomKanas: ["うみ"],
     }),
+    // Quick gamified breather — emoji word check over an M1 salvage atom.
+    vocabMcq("ja-m3-neo-1-vmcq-mid", L1_REVIEW[1], NEO_M1_POOL),
     build(
       "ja-m3-neo-1-build-mizu",
       "Say to a friend: It's water.",
@@ -271,7 +304,7 @@ export const M3_NEO_1: LessonContent = {
       exercisedAtomKanas: ["そら"],
     }),
     speaking("ja-m3-neo-1-speak-hon", "ほんだ", "It's a book.", ["ほん"]),
-    // Review tail — M1 atoms.
+    // Review tail — M1 atoms (house idiom: vocabMcq → decode-build → match grid).
     vocabMcq("ja-m3-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
     sentenceMcq({
       id: "ja-m3-neo-1-mcq-mizu",
@@ -280,6 +313,14 @@ export const M3_NEO_1: LessonContent = {
       distractorsKana: ["ごはんだ。", "うみだ。", "ゆきだ。"],
       exercisedAtomKanas: ["みず"],
     }),
+    listeningBuildWord(
+      "ja-m3-neo-1-rev-lb-hoshi",
+      "ほし",
+      "star",
+      ["ほ", "し"],
+      ["は", "ま", "つ"],
+    ),
+    reviewMatchPairs("ja-m3-neo-1-rev", L1_REVIEW),
   ],
 };
 
@@ -291,7 +332,7 @@ assertNoConsecutiveSame(M3_NEO_1.steps);
  * は only ever appears in multi-sentence / dialogue context. Never "as for".
  * ════════════════════════════════════════════════════════════════════════ */
 
-const L2_REVIEW = pickReviewAtoms("ja-m3-neo-2-rev", NEO_M2_POOL, 5);
+const L2_REVIEW = pickReviewAtoms("ja-m3-neo-2-rev", NEO_M2_POOL, 6);
 
 export const M3_NEO_2: LessonContent = {
   id: "ja-m3-neo-2",
@@ -404,6 +445,8 @@ export const M3_NEO_2: LessonContent = {
       ],
       exercisedAtomKanas: ["ともだち", "せんせい", "は"],
     }),
+    // Quick gamified breather — emoji word check over an M2 salvage atom.
+    vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
     // ④ Context MCQs — what does は spotlight?
     listeningCompSentence({
       // Topic-tracking tested through plain translation — the "which part
@@ -517,12 +560,20 @@ export const M3_NEO_2: LessonContent = {
       ["わたし", "は", "にほんじん", "だ"],
       ["わたし", "にほんじん", "は"],
     ),
-    // Review tail — M2 atoms.
+    // Review tail — M2 atoms (house idiom: speak → decode-build → LC →
+    // vocabMcq → match grid).
     speaking(
       "ja-m3-neo-2-rev-speak",
       L2_REVIEW[0].kana,
       L2_REVIEW[0].meaningEn,
       [L2_REVIEW[0].kana],
+    ),
+    listeningBuildWord(
+      "ja-m3-neo-2-rev-lb-megane",
+      "めがね",
+      "glasses",
+      ["め", "が", "ね"],
+      ["ぬ", "か", "れ"],
     ),
     listeningCompSentence({
       id: "ja-m3-neo-2-rev-lc",
@@ -536,6 +587,7 @@ export const M3_NEO_2: LessonContent = {
       exercisedAtomKanas: [L2_REVIEW[1].kana],
     }),
     vocabMcq("ja-m3-neo-2-rev-mcq", L2_REVIEW[2], NEO_M2_POOL),
+    reviewMatchPairs("ja-m3-neo-2-rev", L2_REVIEW),
   ],
 };
 
@@ -548,7 +600,7 @@ assertNoConsecutiveSame(M3_NEO_2.steps);
  * は→も slot swap = meaning change; choice-under-contrast, never transform.
  * ════════════════════════════════════════════════════════════════════════ */
 
-const L3_REVIEW = pickReviewAtoms("ja-m3-neo-3-rev", NEO_M1_POOL, 5);
+const L3_REVIEW = pickReviewAtoms("ja-m3-neo-3-rev", NEO_M1_POOL, 6);
 
 export const M3_NEO_3: LessonContent = {
   id: "ja-m3-neo-3",
@@ -696,6 +748,8 @@ export const M3_NEO_3: LessonContent = {
       ],
       exercisedAtomKanas: ["ともだち", "も"],
     }),
+    // Quick gamified breather — emoji word check over an M1 salvage atom.
+    vocabMcq("ja-m3-neo-3-vmcq-mid", L3_REVIEW[5], NEO_M1_POOL),
     build(
       "ja-m3-neo-3-build-tomu-mo",
       "Tell a friend: Tom is Japanese too.",
@@ -759,12 +813,20 @@ export const M3_NEO_3: LessonContent = {
       promptEn: "Tom is a friend too.",
       exercisedAtomKanas: ["ともだち", "も"],
     }),
-    // Review tail — M1 atoms.
+    // Review tail — M1 atoms (house idiom: speak → decode-build → LC →
+    // vocabMcq → match grid).
     speaking(
       "ja-m3-neo-3-rev-speak",
       L3_REVIEW[0].kana,
       L3_REVIEW[0].meaningEn,
       [L3_REVIEW[0].kana],
+    ),
+    listeningBuildWord(
+      "ja-m3-neo-3-rev-lb-kawa",
+      "かわ",
+      "river",
+      ["か", "わ"],
+      ["が", "ね", "れ"],
     ),
     listeningCompSentence({
       id: "ja-m3-neo-3-rev-lc",
@@ -778,6 +840,7 @@ export const M3_NEO_3: LessonContent = {
       exercisedAtomKanas: [L3_REVIEW[1].kana],
     }),
     vocabMcq("ja-m3-neo-3-rev-mcq", L3_REVIEW[3], NEO_M1_POOL),
+    reviewMatchPairs("ja-m3-neo-3-rev", L3_REVIEW),
   ],
 };
 
@@ -791,7 +854,9 @@ assertNoConsecutiveSame(M3_NEO_3.steps);
  * うん / そう enter as RECOGNITION-only atoms (blocked, no production).
  * ════════════════════════════════════════════════════════════════════════ */
 
-const L4_REVIEW = pickReviewAtoms("ja-m3-neo-4-rev", NEO_M1_M2_POOL, 6);
+// 11 atoms: [0..5] feed the tail (vocabMcq + closing match grid), [6..10]
+// feed the mid-lesson breather grid.
+const L4_REVIEW = pickReviewAtoms("ja-m3-neo-4-rev", NEO_M1_M2_POOL, 11);
 
 export const M3_NEO_4: LessonContent = {
   id: "ja-m3-neo-4",
@@ -962,24 +1027,24 @@ export const M3_NEO_4: LessonContent = {
       distractorsKana: ["うん、ねこだ。", "ねこ？", "そらだ。"],
       exercisedAtomKanas: ["うん", "いぬ"],
     }),
+    // Mid-lesson breather — review match grid between the two MCQ/speaking
+    // blocks (step-type variety per the 2026-07 audit; contour LCs stay).
+    reviewMatchPairs("ja-m3-neo-4-mid", L4_REVIEW.slice(6, 11)),
     speaking(
       "ja-m3-neo-4-speak-tomu-q",
       "トムは せんせい？",
       "Is Tom a teacher? (voice rises)",
       ["せんせい"],
     ),
-    listeningCompSentence({
-      id: "ja-m3-neo-4-lc-sou-da",
-      audioText: "うん、そうだ。",
-      question: "The reply to ミカは ともだち？ — what's the answer?",
-      correctMeaningEn: "Yeah, that's right.",
-      distractorsEn: [
-        "No, that's wrong.",
-        "They're not sure.",
-        "They're asking who Mika is.",
-      ],
-      exercisedAtomKanas: ["うん", "そう"],
-    }),
+    // (Was a third うん/そう LC — redundant with lc-un/lc-sou. Converted to
+    // a kana-decode build of the lesson's own contour word.)
+    listeningBuildWord(
+      "ja-m3-neo-4-lb-neko",
+      "ねこ",
+      "cat",
+      ["ね", "こ"],
+      ["ぬ", "に", "て"],
+    ),
     translateStep({
       id: "ja-m3-neo-4-tr-hon-q",
       promptEn: "Ask your friend if it's a book.",
@@ -987,35 +1052,28 @@ export const M3_NEO_4: LessonContent = {
       audioText: "ほん？",
       exercisedAtomKanas: ["ほん"],
     }),
-    listeningCompSentence({
-      id: "ja-m3-neo-4-lc-nihonjin-q",
-      audioText: "トムは にほんじん？",
-      question: "What are they asking?",
-      correctMeaningEn: "Is Tom Japanese?",
-      distractorsEn: [
-        "Tom is Japanese.",
-        "Is Tom American?",
-        "Tom is Japanese too.",
-      ],
-      exercisedAtomKanas: ["は"],
-    }),
+    // (Was an は-question LC — mcq-ask-tomu already drills that shape.
+    // Converted to a kana-decode build of the lesson's other contour word.)
+    listeningBuildWord(
+      "ja-m3-neo-4-lb-gakusei",
+      "がくせい",
+      "student",
+      ["が", "く", "せ", "い"],
+      ["か", "さ", "り"],
+    ),
     speaking("ja-m3-neo-4-speak-inu-q", "いぬ？", "Is it a dog? (voice rises)", [
       "いぬ",
     ]),
-    // Review tail.
+    // Review tail (house idiom: vocabMcq → decode-build → match grid).
     vocabMcq("ja-m3-neo-4-rev-mcq", L4_REVIEW[0], NEO_M1_M2_POOL),
-    listeningCompSentence({
-      id: "ja-m3-neo-4-rev-lc",
-      audioText: L4_REVIEW[1].kana,
-      correctMeaningEn: L4_REVIEW[1].meaningEn,
-      distractorsEn: [
-        L4_REVIEW[2].meaningEn,
-        L4_REVIEW[3].meaningEn,
-        L4_REVIEW[4].meaningEn,
-      ],
-      exercisedAtomKanas: [L4_REVIEW[1].kana],
-    }),
-    reviewMatchPairs("ja-m3-neo-4-rev", L4_REVIEW),
+    listeningBuildWord(
+      "ja-m3-neo-4-rev-lb-gohan",
+      "ごはん",
+      "rice/meal",
+      ["ご", "は", "ん"],
+      ["こ", "ば", "そ"],
+    ),
+    reviewMatchPairs("ja-m3-neo-4-rev", L4_REVIEW.slice(0, 6)),
   ],
 };
 
@@ -1152,13 +1210,15 @@ export const M3_NEO_5: LessonContent = {
         "すみません is the all-purpose 'excuse me' for strangers — getting attention, getting past, small apologies.",
       exercisedAtomKanas: ["すみません"],
     }),
-    sentenceMcq({
-      id: "ja-m3-neo-5-mcq-actout-hajimemashite",
-      prompt: "Meeting someone new — what do you say?",
-      correctKana: "はじめまして",
-      distractorsKana: ["ありがとう", "だいじょうぶ", "ごめんなさい"],
-      exercisedAtomKanas: ["はじめまして"],
-    }),
+    // (Was an act-out MCQ — the third MCQ in a row of MCQ-heavy beats.
+    // Converted to a listening decode-build of the same chunk.)
+    listeningBuildWord(
+      "ja-m3-neo-5-lb-hajimemashite",
+      "はじめまして",
+      "nice to meet you",
+      ["は", "じ", "め", "ま", "し", "て"],
+      ["ば", "ぬ"],
+    ),
     // Overheard exchange — two chunks in the wild.
     dialogueListen({
       id: "ja-m3-neo-5-dlg-overheard",
@@ -1202,12 +1262,30 @@ export const M3_NEO_5: LessonContent = {
       correctMeaningEn: "Thanks! (casual)",
       distractorsEn: ["Sorry!", "No thanks.", "Nice to meet you."],
     }),
-    sentenceMcq({
-      id: "ja-m3-neo-5-mcq-actout-thanks",
-      prompt: "Casual thanks to a close friend:",
-      correctKana: "ありがとう",
-      distractorsKana: ["すみません", "はじめまして", "だいじょうぶ"],
-    }),
+    // (Was the sixth sentenceMcq — converted to a speaking beat.)
+    speaking(
+      "ja-m3-neo-5-speak-arigatou-casual",
+      "ありがとう",
+      "Thanks! (casual — to a close friend)",
+    ),
+    // ⑥ Second match variant — phrase ↔ MEANING (the first grid pairs
+    // phrase ↔ situation; a different pairing closes the lesson).
+    {
+      id: "ja-m3-neo-5-match-meanings",
+      type: "match_pairs",
+      prompt: "Match each phrase to its meaning",
+      playAudioOnSelect: true,
+      pairs: [
+        { id: "p-0", source: "すみません", target: "excuse me / sorry (to a stranger)" },
+        { id: "p-1", source: "ごめんなさい", target: "I'm sorry" },
+        { id: "p-2", source: "ありがとうございます", target: "thank you very much" },
+        { id: "p-3", source: "ありがとう", target: "thanks (casual)" },
+        { id: "p-4", source: "だいじょうぶ", target: "it's okay / no problem" },
+        { id: "p-5", source: "はじめまして", target: "nice to meet you" },
+      ],
+      exercisedAtoms: [],
+      modality: "recognition",
+    } satisfies MatchPairsStep,
   ],
 };
 
@@ -1221,7 +1299,7 @@ assertNoConsecutiveSame(M3_NEO_5.steps);
  * the Irodori register-preview device.
  * ════════════════════════════════════════════════════════════════════════ */
 
-const L6_REVIEW = pickReviewAtoms("ja-m3-neo-6-rev", NEO_M2_POOL, 4);
+const L6_REVIEW = pickReviewAtoms("ja-m3-neo-6-rev", NEO_M2_POOL, 6);
 
 export const M3_NEO_6: LessonContent = {
   id: "ja-m3-neo-6",
@@ -1459,6 +1537,15 @@ export const M3_NEO_6: LessonContent = {
       exercisedAtomKanas: [L6_REVIEW[1].kana],
     }),
     vocabMcq("ja-m3-neo-6-rev-mcq", L6_REVIEW[2], NEO_M2_POOL),
+    listeningBuildWord(
+      "ja-m3-neo-6-rev-lb-denwa",
+      "でんわ",
+      "telephone",
+      ["で", "ん", "わ"],
+      ["て", "れ", "ね"],
+    ),
+    vocabMcq("ja-m3-neo-6-rev-mcq-2", L6_REVIEW[4], NEO_M2_POOL),
+    reviewMatchPairs("ja-m3-neo-6-rev", L6_REVIEW),
   ],
 };
 

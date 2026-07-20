@@ -119,6 +119,12 @@
     "Which thanks fits a stranger?"). Scenario prose ("You crest a hill
     and your friend shouts…") is reserved for story lessons and for
     register authoring where the scenario carries the contrast.
+    **Tail + variety (2026-07-19, m3-neo audit):** every lesson ENDS with
+    the house review tail (reviewMatchPairs over the lesson's seeded pool
+    + vocabMcq + a listening_build where clips exist) — building a pool
+    and not spending it is a defect. Step-type variety floor: no lesson
+    leans on ≤3 graded types; break walls of one type (9 LCs in a row
+    shipped in the pilot) with match grids, word MCQs, and builds.
 
 ## Review surfaces (Spencer 2026-07-17)
 
