@@ -185,7 +185,25 @@ stage("visual-QA contracts + capture (optional)", () => {
     : { status: "FAIL", detail: "visual-qa:capture failed" };
 });
 
-// Stage 5 — exposure audit (invariant 27): report-only, never fails the
+// Stage 5 — FULL suite, CI parity. The scoped vitest stage (1) is the
+// fast inner loop; this is the outer gate. Cycle-2 retro: six straight
+// red CI runs happened because pushes were validated with scoped runs
+// only — cross-cutting tests (mockCourse map expectations, atom-coverage
+// pool reseeding, the M5+ listening ratchet) live OUTSIDE the module's
+// test files. Skippable for quick iterations via MODULE_GATE_FAST=1;
+// never skip before pushing.
+if (process.env.MODULE_GATE_FAST === "1") {
+  stage("FULL vitest (CI parity)", () => ({ status: "SKIP", detail: "MODULE_GATE_FAST=1" }));
+} else {
+  stage("FULL vitest (CI parity)", () => {
+    const full = run("npx", ["vitest", "run"]);
+    return full.status === 0
+      ? { status: "PASS", detail: "whole suite green" }
+      : { status: "FAIL", detail: "full suite red — fix before pushing" };
+  });
+}
+
+// Stage 6 — exposure audit (invariant 27): report-only, never fails the
 // gate — its output feeds the NEXT module's spec (under-reinforced
 // CEJC-frequent words become tail/carrier directives).
 stage("exposure audit (report-only)", () => {

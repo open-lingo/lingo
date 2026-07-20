@@ -31,9 +31,43 @@ authoring-invariants-pinned.md and are summarized here for Spencer.
   (cross-module reinforcement). Bug found+fixed: name substrings
   polluted counts (たなか→なか).
 
-## Cycle 2 — m5 (VERBS I) — IN PROGRESS
-- Infra first: module-gate + DOM-render gate (builder agent), then spec
-  with capstone steps + frequency-fed review tails, then authoring.
+## Cycle 2 — m5 (VERBS I) — DONE (pending Spencer walk)
+- 12 lessons / 231 steps; dict-form-as-complete-sentence thesis lesson
+  design; capstone step per teaching lesson (invariant 26); recognition
+  chunks for いう/おもう; verb classes flagged on cards but NOT drilled
+  (taxonomy has no function until negation — pedagogy ruling, report §).
+- Infra shipped first: module-gate (one command: scoped vitest → TTS
+  coverage → tsc → optional capture → FULL-suite CI parity → exposure
+  audit) + DOM-render gate (registerRenderGate; 814 tests m3+m4, m5
+  registered) — replaces ~90% of the vision-judge fleet.
+- **Audit efficiency:** vision fleet 12 → 1 continuity judge (~700k →
+  ~60k tokens/module); per-step text truth now mechanical.
+- **Token efficiency:** authoring unchanged (2×~200k — appropriate);
+  biggest waste eliminated = judge fleet + rework loops.
+- **Pedagogy drift caught by old gates (working as designed):** the M5+
+  sentence-first listening ratchet flagged 14 word-level review items
+  m5 inherited from the m3/m4 tail pattern → all converted to short
+  verb sentences (better reinforcement anyway). Classifier amended: a
+  lone dict-form verb IS a complete sentence (the rewrite thesis) —
+  RULE for Spencer review.
+- **Reinforcement:** review-tail LCs now pair pool nouns WITH m5 verbs
+  (そらを みる。ぼうしを かう？) — double duty: old-noun retrieval +
+  new-verb spacing. Adopted as the house tail pattern going forward
+  (RULE candidate for invariant 19 amendment).
+- **Process failure + fix:** six red CI runs — pushes validated with
+  scoped tests only; cross-cutting tests (map expectations, atom pool
+  reseeding, listening ratchet) live outside module files. module-gate
+  now has a mandatory FULL-suite CI-parity stage (skippable only via
+  MODULE_GATE_FAST=1 for inner loops).
+- **Gate archaeology:** atom-coverage failure root-caused to seeded
+  review-tail draws SHIFTING when the atom pool grows — any atom whose
+  only exposures were auto-draws can starve. Fixed the two starved m17
+  atoms with authored retrievals; the structural fix (draw stability or
+  authored-only coverage) queued for the old-course teardown.
+- **Open invariant-19 tension:** tails now hand-write short review
+  sentences (the mined-sentence pool predates the rewrite). Position:
+  the rewrite's authored corpus IS the mine; formalize when the
+  sentence-miner is repointed.
 
 ## Consultation outcomes (2026-07-20)
 - Capstone cadence: **1 per teaching lesson** (confirmed).
