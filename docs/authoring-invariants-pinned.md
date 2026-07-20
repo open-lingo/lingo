@@ -84,6 +84,38 @@
     nuance (だ isn't literally "it is") belongs in the rule card's
     cultureNote, once, not in every option.
 
+## Persona canon and dialogue referents (2026-07-19, m3-neo walk)
+
+21. Named characters carry ONE set of facts across the whole module (and
+    ideally the course): m3-neo canon is Tom = student, American, Mika's
+    friend; Mika = student, Japanese; Tanaka = the teacher; Ken = student,
+    friend. Slot-filler practice sentences are NOT exempt — a build that
+    says トムは せんせいだ while a graded dialogue says he's a student is
+    a shipped contradiction (Tom flipped roles 5× inside one pilot
+    lesson). Questions (…？) don't assert and are exempt; assertions in
+    DISTRACTOR slots are not (they render on screen as plausible facts).
+    Machine-checked by the persona-canon test in m3-neo.test.ts — extend
+    its CANON map when a character gains a fact.
+22. Dialogue comprehension questions grade on STATED facts only. Every
+    person named in options must have an unambiguous referent in the
+    lines; a distractor must be wrong by what was said, never by an
+    unstated assumption. The pilot's closer had ミカ describe an unnamed
+    ともだち while the same lesson taught トムは ともだちだ — "Tom" and
+    "Mika's friend" collapsed into one person and the graded answer
+    punished a defensible reading. Prefer speakers stating facts about
+    THEMSELVES (or explicitly named third parties) over unnamed roles.
+
+## Dialogue TTS (2026-07-19)
+
+23. Multi-sentence dialogue lines are synthesized as ONE clip (single
+    prosody — chaining per-sentence takes makes the pitch jump), then the
+    pipeline stretches internal sentence pauses to ~450ms
+    (lingo-core scripts/tts/stretch_sentence_gaps.py — run it after
+    generating clips for new multi-sentence content). The player prefers
+    the whole-line clip; per-sentence chaining is a fallback only.
+    Two-person dialogues should eventually get real distinct voices
+    (male ja-JP-KeitaNeural + Nanami) instead of detune coloring.
+
 ## Sentences and coverage
 
 13. From M12 on, production/build sentences ramp in complexity (connectives

@@ -127,9 +127,22 @@ describe("splitJaSentences", () => {
 });
 
 describe("playLineAudio", () => {
-  it("plays a multi-sentence line one sentence at a time, same voice", async () => {
+  it("prefers the whole-line clip when it exists (one take = one prosody)", async () => {
+    await playLineAudio("わたしは トムだ。がくせいだ。", {});
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
+    expect(playJaAudioToEnd).toHaveBeenCalledWith(
+      "わたしは トムだ。がくせいだ。",
+      undefined,
+      {},
+    );
+  });
+
+  it("chains per-sentence clips when the whole-line clip is missing, same voice", async () => {
+    const line = "わたしは トムだ。がくせいだ。";
+    getTtsUrl.mockImplementation(((text: string) =>
+      text === line ? null : "https://example.test/a.mp3") as never);
     const voice = { detuneCents: -150, playbackRate: 0.9 };
-    await playLineAudio("わたしは トムだ。がくせいだ。", voice);
+    await playLineAudio(line, voice);
     expect(playJaAudioToEnd.mock.calls.map((c) => c[0])).toEqual([
       "わたしは トムだ。",
       "がくせいだ。",
@@ -139,9 +152,8 @@ describe("playLineAudio", () => {
     }
   });
 
-  it("falls back to the whole-line clip when a sentence is missing from the manifest", async () => {
-    getTtsUrl.mockImplementation(((text: string) =>
-      text === "がくせいだ。" ? null : "https://example.test/a.mp3") as never);
+  it("falls back to a single whole-line play when a sentence clip is also missing", async () => {
+    getTtsUrl.mockImplementation((() => null) as never);
     await playLineAudio("わたしは トムだ。がくせいだ。", {});
     expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
     expect(playJaAudioToEnd).toHaveBeenCalledWith(
@@ -152,12 +164,15 @@ describe("playLineAudio", () => {
   });
 
   it("aborts between sentences when the guard goes stale", async () => {
+    const line = "わたしは トムだ。がくせいだ。";
+    getTtsUrl.mockImplementation(((text: string) =>
+      text === line ? null : "https://example.test/a.mp3") as never);
     let alive = true;
     playJaAudioToEnd.mockImplementation(() => {
       alive = false; // goes stale during the first sentence
       return Promise.resolve();
     });
-    await playLineAudio("わたしは トムだ。がくせいだ。", {}, () => alive);
+    await playLineAudio(line, {}, () => alive);
     expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
   });
 });

@@ -350,7 +350,7 @@ export const M3_NEO_2: LessonContent = {
       id: "ja-m3-neo-2-dlg-intro",
       lines: [
         { speaker: "トム", kana: "わたしは トムだ。がくせいだ。" },
-        { speaker: "ミカ", kana: "わたしは ミカだ。せんせいだ。" },
+        { speaker: "ミカ", kana: "わたしは ミカだ。がくせいだ。" },
       ],
       questions: [
         {
@@ -362,11 +362,11 @@ export const M3_NEO_2: LessonContent = {
         {
           id: "q2",
           prompt: "Who is the teacher?",
-          correctText: "Mika",
-          distractors: ["Tom", "Tom's friend", "Nobody here"],
+          correctText: "Neither — they're both students",
+          distractors: ["Tom", "Mika", "Both of them"],
         },
       ],
-      exercisedAtomKanas: ["わたし", "がくせい", "せんせい"],
+      exercisedAtomKanas: ["わたし", "がくせい"],
     }),
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-gakusei",
@@ -389,9 +389,9 @@ export const M3_NEO_2: LessonContent = {
           en: "I'm a student. (spotlight: me → comment: student)",
         },
         {
-          ja: "トムは せんせいだ。",
-          romaji: "tomu wa sensei da.",
-          en: "Tom is a teacher. (the spotlight moves to Tom)",
+          ja: "たなかは せんせいだ。",
+          romaji: "tanaka wa sensei da.",
+          en: "Tanaka is a teacher. (the spotlight moves to Tanaka)",
         },
         {
           ja: "がくせいだ。",
@@ -426,24 +426,24 @@ export const M3_NEO_2: LessonContent = {
       NEO_M1_POOL,
     ),
     build(
-      "ja-m3-neo-2-build-tomu",
-      "Tell a friend about Tom: Tom is a teacher.",
-      "トムは せんせいだ",
-      ["トム", "は", "せんせい", "だ", "がくせい"],
-      ["トム", "は", "せんせい", "だ"],
+      "ja-m3-neo-2-build-tanaka",
+      "Tell a friend about Tanaka: Tanaka is a teacher.",
+      "たなかは せんせいだ",
+      ["たなか", "は", "せんせい", "だ", "がくせい"],
+      ["たなか", "は", "せんせい", "だ"],
       ["せんせい", "は"],
     ),
     listeningCompSentence({
-      id: "ja-m3-neo-2-lc-tomodachi",
-      audioText: "ともだちは せんせいだ。",
+      id: "ja-m3-neo-2-lc-tanaka",
+      audioText: "たなかは せんせいだ。",
       question: "What does this mean?",
-      correctMeaningEn: "My friend is a teacher.",
+      correctMeaningEn: "Tanaka is a teacher.",
       distractorsEn: [
-        "My friend is a student.",
-        "Tom is a teacher.",
+        "Tanaka is a student.",
+        "My friend is a teacher.",
         "I'm a teacher.",
       ],
-      exercisedAtomKanas: ["ともだち", "せんせい", "は"],
+      exercisedAtomKanas: ["せんせい", "は"],
     }),
     // Quick gamified breather — emoji word check over an M2 salvage atom.
     vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
@@ -475,13 +475,13 @@ export const M3_NEO_2: LessonContent = {
     }),
     cloze(
       "ja-m3-neo-2-cloze-wa",
-      "トム",
+      "たなか",
       " せんせいだ。",
       "は",
       ["は", "か", "の", "が"],
-      "Tom is a teacher.",
-      "トムは せんせいだ。",
-      "The spotlight goes on Tom; the rest of the sentence comments on him.",
+      "Tanaka is a teacher.",
+      "たなかは せんせいだ。",
+      "The spotlight goes on Tanaka; the rest of the sentence comments on him.",
     ),
     build(
       "ja-m3-neo-2-build-tomodachi",
@@ -524,33 +524,42 @@ export const M3_NEO_2: LessonContent = {
       exercisedAtomKanas: ["わたし", "がくせい"],
     }),
     speaking(
-      "ja-m3-neo-2-speak-tomu",
-      "トムは せんせいだ",
-      "Tom is a teacher.",
+      "ja-m3-neo-2-speak-tanaka",
+      "たなかは せんせいだ",
+      "Tanaka is a teacher.",
       ["せんせい"],
     ),
-    // Closer dialogue — third-person practice with names.
+    // Closer dialogue — nationality words in the wild. Speakers state
+    // their OWN nationality so every question grades on a stated fact:
+    // the old version had ミカ describe an unnamed ともだち, and since
+    // this same lesson teaches トムは ともだちだ, "Tom" and "Mika's
+    // friend" collapsed into one person — two defensible answers, one
+    // graded wrong (Spencer walk 2026-07-19).
     dialogueListen({
       id: "ja-m3-neo-2-dlg-close",
       lines: [
-        { speaker: "ミカ", kana: "ともだちは アメリカじんだ。" },
-        { speaker: "トム", kana: "わたしは にほんじんだ。" },
+        { speaker: "トム", kana: "わたしは アメリカじんだ。" },
+        { speaker: "ミカ", kana: "わたしは にほんじんだ。" },
       ],
       questions: [
         {
           id: "q1",
-          prompt: "Who is Japanese?",
+          prompt: "Who is American?",
           correctText: "Tom",
-          distractors: ["Mika's friend", "Mika", "The teacher"],
+          distractors: ["Mika", "Both of them", "Neither of them"],
         },
         {
           id: "q2",
-          prompt: "Who is Mika talking about?",
-          correctText: "Her friend",
-          distractors: ["Herself", "Tom", "Her teacher"],
+          prompt: "What does Mika say?",
+          correctText: "I'm Japanese.",
+          distractors: [
+            "I'm American.",
+            "Tom is Japanese.",
+            "I'm a student.",
+          ],
         },
       ],
-      exercisedAtomKanas: ["ともだち", "わたし", "は"],
+      exercisedAtomKanas: ["わたし", "は", "にほんじん", "アメリカじん"],
     }),
     build(
       "ja-m3-neo-2-build-nihonjin",
@@ -695,12 +704,12 @@ export const M3_NEO_3: LessonContent = {
     ),
     cloze(
       "ja-m3-neo-3-cloze-wa-1",
-      "トムは にほんじんだ。ミカ",
-      " アメリカじんだ。",
+      "トムは アメリカじんだ。ミカ",
+      " にほんじんだ。",
       "は",
       ["は", "も", "か", "の"],
-      "Tom is Japanese. Mika is American.",
-      "トムは にほんじんだ。ミカは アメリカじんだ。",
+      "Tom is American. Mika is Japanese.",
+      "トムは アメリカじんだ。ミカは にほんじんだ。",
       "Mika does NOT join Tom's group — a new spotlight, not 'too.'",
     ),
     cloze(
@@ -715,13 +724,13 @@ export const M3_NEO_3: LessonContent = {
     ),
     cloze(
       "ja-m3-neo-3-cloze-wa-2",
-      "ミカは せんせいだ。トム",
+      "たなかは せんせいだ。トム",
       " がくせいだ。",
       "は",
       ["は", "も", "が", "の"],
-      "Mika is a teacher. Tom is a student.",
-      "ミカは せんせいだ。トムは がくせいだ。",
-      "Different comments — Tom isn't joining Mika's group, so a fresh spotlight.",
+      "Tanaka is a teacher. Tom is a student.",
+      "たなかは せんせいだ。トムは がくせいだ。",
+      "Different comments — Tom isn't joining Tanaka's group, so a fresh spotlight.",
     ),
     // (A "why is も correct?" selfExplain sat here — removed: textbook
     // metalanguage with a self-announcing rule option, per the Spencer
@@ -751,11 +760,11 @@ export const M3_NEO_3: LessonContent = {
     // Quick gamified breather — emoji word check over an M1 salvage atom.
     vocabMcq("ja-m3-neo-3-vmcq-mid", L3_REVIEW[5], NEO_M1_POOL),
     build(
-      "ja-m3-neo-3-build-tomu-mo",
-      "Tell a friend: Tom is Japanese too.",
-      "トムも にほんじんだ",
-      ["トム", "も", "は", "にほんじん", "だ"],
-      ["トム", "も", "にほんじん", "だ"],
+      "ja-m3-neo-3-build-ken-mo",
+      "You just told a friend you're Japanese. Add: Ken is Japanese too.",
+      "ケンも にほんじんだ",
+      ["ケン", "も", "は", "にほんじん", "だ"],
+      ["ケン", "も", "にほんじん", "だ"],
       ["にほんじん", "も"],
     ),
     // ⑤ Production both directions.
@@ -976,13 +985,13 @@ export const M3_NEO_4: LessonContent = {
       exercisedAtomKanas: ["がくせい"],
     }),
     sentenceMcq({
-      id: "ja-m3-neo-4-mcq-ask-tomu",
-      prompt: "Ask your friend whether Tom is a teacher.",
-      correctKana: "トムは せんせい？",
+      id: "ja-m3-neo-4-mcq-ask-tanaka",
+      prompt: "Ask your friend whether Tanaka is a teacher.",
+      correctKana: "たなかは せんせい？",
       distractorsKana: [
-        "トムは せんせいだ。",
-        "トムも せんせい？",
-        "せんせいは トム？",
+        "たなかは せんせいだ。",
+        "たなかも せんせい？",
+        "せんせいは たなか？",
       ],
       explanation:
         "Rising tone on the plain sentence asks; だ at the end would state it instead.",
@@ -1662,13 +1671,13 @@ export const M3_NEO_REVIEW: LessonContent = {
     ),
     cloze(
       "ja-m3-neo-rev-cloze-wa-2",
-      "ミカは せんせいだ。ケン",
+      "たなかは せんせいだ。ケン",
       " がくせいだ。",
       "は",
       ["は", "も", "が", "の"],
-      "Mika is a teacher. Ken is a student.",
-      "ミカは せんせいだ。ケンは がくせいだ。",
-      "Different comments — Ken isn't joining Mika's group, so a fresh spotlight.",
+      "Tanaka is a teacher. Ken is a student.",
+      "たなかは せんせいだ。ケンは がくせいだ。",
+      "Different comments — Ken isn't joining Tanaka's group, so a fresh spotlight.",
     ),
     sentenceMcq({
       id: "ja-m3-neo-rev-mcq-bump",

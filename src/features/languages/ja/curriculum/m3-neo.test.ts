@@ -390,6 +390,33 @@ describe("m3-neo antiPattern wrongness contract", () => {
     }
   });
 
+  it("persona canon is consistent module-wide (no Tom-flips-role contradictions)", async () => {
+    // 2026-07-19 walk: lesson 2 asserted Tom=student, Tom=teacher, Mika=
+    // teacher, and friend=American within minutes of each other, then a
+    // dialogue graded "Mika's friend" wrong for the Japanese person right
+    // after teaching トムは ともだちだ. Named characters carry ONE set of
+    // facts across the whole module. Assertions only (…だ); questions
+    // (…？) never assert and are exempt.
+    const CANON: Record<string, Set<string>> = {
+      "トム": new Set(["がくせい", "アメリカじん", "ともだち"]),
+      "ミカ": new Set(["がくせい", "にほんじん", "ともだち"]),
+      "たなか": new Set(["せんせい"]),
+      "ケン": new Set(["がくせい", "ともだち", "にほんじん"]),
+    };
+    const assertionRe =
+      /(トム|ミカ|たなか|ケン)(?:は|も) (がくせい|せんせい|アメリカじん|にほんじん|ともだち)だ/g;
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      const blob = JSON.stringify(lesson!.steps);
+      for (const m of blob.matchAll(assertionRe)) {
+        expect(
+          CANON[m[1]].has(m[2]),
+          `${lid}: "${m[0]}" contradicts module persona canon`,
+        ).toBe(true);
+      }
+    }
+  });
+
   it("every antiPattern in the module is distinct from every example (wrongness sanity)", async () => {
     for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
       const lesson = await getMockLessonContent(lid);
