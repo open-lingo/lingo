@@ -11,7 +11,7 @@ authoring-invariants-pinned.md and are summarized here for Spencer.
 | # | Rule | Status |
 |---|------|--------|
 | 25 | ≥12 lessons/module from m4 | Spencer-directed ✓ |
-| 26 | Capstone integration step before every teaching lesson's review tail (m5+) | Spencer-directed ("one hard lesson step occasionally… combining more past concepts") — implemented as 1/lesson; **confirm cadence** |
+| 26 | Capstone integration step before every teaching lesson's review tail (m5+) | Spencer confirmed 2026-07-20: 1 per lesson ✓ |
 | 27 | Frequency-weighted reinforcement via exposure-audit.mjs each cycle | Spencer-directed ✓ |
 | — | Romaji stays kana-faithful (は = "ha"); pronunciation taught on the rule card | Spencer ruling ✓ |
 
@@ -35,10 +35,16 @@ authoring-invariants-pinned.md and are summarized here for Spencer.
 - Infra first: module-gate + DOM-render gate (builder agent), then spec
   with capstone steps + frequency-fed review tails, then authoring.
 
-## Open questions for Spencer (non-blocking; answer whenever)
-1. Capstone cadence: 1 per teaching lesson (current) or 1 per ~2-3
-   lessons?
-2. Module pacing: cycles continue m5→m29 sequentially with a report per
-   module; interrupt anytime to walk a module before the next starts.
-3. Renderer nit: listening-build prompts bold the gloss while MCQs quote
-   it — unify renderer-side? (cosmetic, deferred)
+## Consultation outcomes (2026-07-20)
+- Capstone cadence: **1 per teaching lesson** (confirmed).
+- Pacing: **pause after m5 for Spencer's walk** of m4+m5 before cycles
+  continue to m6→m29 — verbs are the riskiest pedagogy; catch drift
+  before it compounds. This run therefore completes at: m5 green +
+  audited + this report current.
+
+## Still open (cosmetic/deferred)
+- Renderer nit: listening-build prompts bold the gloss while MCQs quote
+  it — unify renderer-side sometime.
+- Atom-registry re-tagging: seed verbs still carry old-course fromModule
+  tags (m7/m11/m15) — harmless now (provenance uses the full registry),
+  cleanup when the old course is deleted.

@@ -79,6 +79,11 @@ export function registerModuleBarGuards(opts: {
   /** Minimum lesson count (Spencer 2026-07-20: 12 from m4 on; m3's 7 is
    *  grandfathered — it taught only three things). */
   minLessons?: number;
+  /** Invariant 26 (m5+): every teaching lesson carries ONE integration
+   *  step (id suffix -capstone; build/translate/listening_build) placed
+   *  before the review tail, combining the new concept with ≥2 earlier-
+   *  module concepts. Review lessons are exempt. */
+  requireCapstone?: boolean;
 }): void {
   const { moduleLabel, lessons, priorModules, canon = COURSE_CANON } = opts;
   const priorSet = new Set(priorModules);
@@ -153,6 +158,25 @@ export function registerModuleBarGuards(opts: {
         for (const [sentence, n] of counts)
           expect(n, `${lesson.id}: "${sentence}" used ${n}x`).toBeLessThanOrEqual(3);
       });
+
+      if (opts.requireCapstone && !lesson.id.endsWith("-review")) {
+        it(`${lesson.id}: has ONE -capstone integration step before the review tail (invariant 26)`, () => {
+          const idx = lesson.steps.findIndex((s) => s.id.endsWith("-capstone"));
+          expect(idx, `${lesson.id}: no -capstone step`).toBeGreaterThan(-1);
+          const step = lesson.steps[idx] as any;
+          expect(
+            ["build_sentence", "translate", "listening_build"],
+            `${lesson.id}: capstone must be a generation step`,
+          ).toContain(step.type);
+          // Near the end, but before the closing grid — the stretch beat
+          // precedes the recognition-easy tail.
+          expect(idx).toBeGreaterThanOrEqual(lesson.steps.length - 8);
+          expect(idx).toBeLessThan(lesson.steps.length - 2);
+          expect(
+            lesson.steps.filter((s) => s.id.endsWith("-capstone")).length,
+          ).toBe(1);
+        });
+      }
 
       it(`${lesson.id}: production-framed prompts are generation steps, not MCQs`, () => {
         for (const s of lesson.steps as any[]) {
