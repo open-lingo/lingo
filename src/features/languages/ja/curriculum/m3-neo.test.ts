@@ -323,4 +323,32 @@ describe("m3-neo antiPattern wrongness contract", () => {
     expect(spots[0].options.some((o: any) => o.text === "だねこ。")).toBe(true);
     expect(spots[0].options.some((o: any) => o.text === "ねこ？")).toBe(false);
   });
+
+  it("L2's antiPattern is the particle-order error; the no-topic contrast is an example", async () => {
+    const lesson = await getMockLessonContent("ja-m3-neo-2");
+    const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-2-rule-wa") as any;
+    expect(rule.antiPattern.ja).toBe("はわたし がくせいだ。");
+    expect(rule.examples.some((e: any) => e.ja === "がくせいだ。")).toBe(true);
+  });
+
+  it("L4's rise rule has NO antiPattern (だ-disbelief nuance lives in examples)", async () => {
+    const lesson = await getMockLessonContent("ja-m3-neo-4");
+    const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-4-rule-rise") as any;
+    expect(rule.antiPattern).toBeUndefined();
+    expect(rule.examples.some((e: any) => e.ja === "ねこだ？")).toBe(true);
+    const spots = lesson!.steps.filter((s: any) => s.id === "ja-m3-neo-4-rule-rise-spot");
+    expect(spots).toHaveLength(0);
+  });
+
+  it("every antiPattern in the module is distinct from every example (wrongness sanity)", async () => {
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      for (const s of lesson!.steps as any[]) {
+        if (s.type === "grammar_rule" && s.antiPattern) {
+          const exampleJas = new Set(s.examples.map((e: any) => e.ja));
+          expect(exampleJas.has(s.antiPattern.ja)).toBe(false);
+        }
+      }
+    }
+  });
 });

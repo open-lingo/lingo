@@ -350,13 +350,22 @@ export const M3_NEO_2: LessonContent = {
           romaji: "tomu wa sensei da.",
           en: "Tom is a teacher. (the spotlight moves to Tom)",
         },
+        {
+          ja: "がくせいだ。",
+          romaji: "gakusei da.",
+          en: "(I'm) a student. (no spotlight — natural when it's already obvious who you mean)",
+        },
       ],
+      // The with/without-topic contrast (がくせいだ。 is CORRECT when the
+      // topic is obvious) moved to examples — invariant 12 semantic
+      // contract. The antiPattern is the genuine beginner error: putting
+      // the particle BEFORE its noun, English-preposition style.
       antiPattern: {
-        ja: "がくせいだ。",
-        romaji: "gakusei da.",
-        en: "((I'm) a student — no spotlight)",
+        ja: "はわたし がくせいだ。",
+        romaji: "wa watashi gakusei da.",
+        en: "(broken: は before its noun)",
         why:
-          "Without は there's no spotlight — fine when everyone already knows who you mean, but when you INTRODUCE yourself, light up the topic first: わたしは, then the comment.",
+          "は clips onto the END of the word it spotlights: わたしは, never はわたし. Japanese particles always follow their word.",
       },
     }),
     // ③ Builds — AはBだ.
@@ -827,14 +836,15 @@ export const M3_NEO_4: LessonContent = {
       examples: [
         { ja: "ねこ？", romaji: "neko?", en: "Is it a cat? (rising tone)" },
         { ja: "がくせい？", romaji: "gakusei?", en: "Are you a student?" },
+        {
+          ja: "ねこだ？",
+          romaji: "neko da?",
+          en: "It's a CAT?! (keeping だ adds surprised disbelief — real, but not a neutral question)",
+        },
       ],
-      antiPattern: {
-        ja: "ねこだ？",
-        romaji: "neko da?",
-        en: "(It's a CAT?!)",
-        why:
-          "The rising tone does the asking on its own — drop だ when you ask this way. Keeping だ turns it into surprised disbelief ('it's a CAT?!'), not a neutral question.",
-      },
+      // No antiPattern: ねこだ？ is real Japanese with a different flavor
+      // (moved to examples per invariant 12's semantic contract), and a
+      // falling-tone "wrong question" can't be written in text.
       cultureNote:
         "The answers you'll hear (recognition only for now): うん — the casual 'yeah,' the most common word in spoken Japanese; そう / そうだ — 'that's right.' Just understand them; producing them comes later.",
     }),
