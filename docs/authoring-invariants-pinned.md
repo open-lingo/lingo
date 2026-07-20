@@ -134,6 +134,20 @@
     (src/features/languages/ja/__tests__/moduleBarGuards.ts) — it carries
     the whole mechanical bar (density, variety, sentence-repeat, reply-MCQ
     ban, vocab provenance, persona canon).
+26. **Capstone step (Spencer 2026-07-20):** from m5 on, every TEACHING
+    lesson places ONE harder integration step (id suffix `-capstone`;
+    build/translate/listening_build) immediately BEFORE its review tail,
+    combining the lesson's new concept with ≥2 concepts from earlier
+    modules. It is the lesson's single stretch beat — close-on-confidence
+    still holds because the recognition-easy tail follows it. Guard:
+    moduleBarGuards `requireCapstone`.
+27. **Frequency-weighted reinforcement (Spencer 2026-07-20):** exposure
+    share tracks CEJC rank and difficulty, not author habit. Run
+    `node scripts/exposure-audit.mjs` every authoring cycle: CEJC top-150
+    words under 4 occurrences get worked into the NEXT module's tails and
+    carriers; >25 occurrences outside a word's home module flags carrier
+    rotation. Home-module density is exempt (teaching a word is dense by
+    design).
 24. **Sentence variety + name continuity (Spencer 2026-07-20):** a lesson
     uses any single primary sentence surface at most 3 TIMES
     (machine-checked, m3-neo.variety.test.ts) — L2 ran student/teacher
