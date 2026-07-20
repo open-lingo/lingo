@@ -234,6 +234,18 @@ export const M16_1_1: LessonContent = {
       ["さわる", "すう", "すわる", "とめる"],
       ["すわる"],
     ),
+    // Extra citation-form retrievals: the atom pool grew (2026-07 rewrite
+    // additions) and reseeded auto review-tail draws away from すわる,
+    // dropping it under the ≥3 floor — the て-form surfaces (すわって…)
+    // don't contain the bare atom. Authored retrievals close it for good.
+    speaking("ja-m16-1-1-speak-suwaru", "すわる", "to sit"),
+    listeningCompSentence({
+      id: "ja-m16-1-1-lc-suwaru-dict",
+      audioText: "すわる",
+      question: "What did you hear?",
+      correctMeaningEn: "to sit",
+      distractorsEn: ["to touch", "to smoke", "to stop"],
+    }),
     listeningCompSentence({
       id: "ja-m16-1-1-lc-suwaru",
       audioText: "そこに すわってはいけません",

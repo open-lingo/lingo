@@ -17,14 +17,27 @@
  * mockLessons/mockCourse/manifest.
  *
  * Constraints honored (pinned invariants + concept-type guide):
- *  - L1 たべる/みる: exposure-first (bare verb is inferable from context +
- *    the m3 contour pattern) — dialogue + LC noticing, THEN the rule card.
- *    Verb-class flag is one line on the card ("たべる is a る-verb"), no
- *    classification drills (class knowledge is functional at negation, m6).
- *  - L2 を: rule card FIRST (new structural particle, invariant 24).
- *    Anti-pattern is the genuine order error (たべるを ごはん) as a
- *    full-sentence minimal pair (invariant 12 semantic contract).
- *    particle_cloze is legal for を from this lesson (invariant 5).
+ *  - Image-MCQ-first (invariant 30, guide §13.2): the imageable verbs
+ *    たべる🍽️ みる👁️ のむ🥤 かう🛒 いく🚶 and the food noun ごはん🍚 each
+ *    make their FIRST appearance on a vocabMcq (word → image), then a
+ *    speaking beat, THEN sentence use. Rubric-blocked する/やる/くる (no
+ *    honest emoji — invariant 4/6) keep the build/LC/rule-card intro. No
+ *    teaching lesson opens on a dialogue (invariant 30): dialogues are
+ *    closers, after the word + concept + builds are established.
+ *  - L1 たべる/みる: image-MCQ intro → speaking → the rule card, which now
+ *    teaches verbs-take-no-だ explicitly (invariant 31): a verb is ALREADY
+ *    a whole sentence (たべる, never たべるだ); だ finishes NOUNS (ねこだ).
+ *    The antiPattern (たべるだ。) is a genuine learner error against
+ *    examples[0] (たべる。). Verb-class flag is one line on the card
+ *    ("たべる is a る-verb"), no classification drills.
+ *  - L2 を: ごはん🍚 image-MCQ opens (word first), THEN the を rule card
+ *    (new structural particle, invariant 24 — を's own first exposure is
+ *    still the card). Anti-pattern is the genuine order error
+ *    (たべるを ごはん) as a full-sentence minimal pair (invariant 12
+ *    semantic contract). particle_cloze is legal for を from this lesson
+ *    (invariant 5). Full-sentence recognition MCQs are converted to builds
+ *    (invariant 28); production prompts are plain "Build/Translate: <En>"
+ *    with no scenario wrappers (invariant 29).
  *  - L3 のむ/かう, L4 いく/くる (bare motion, NO destinations — に is
  *    later; くる flagged irregular), L5 する/やる (する flagged irregular;
  *    やる = casual する, CEJC #36; both rubric-blocked → intro via
@@ -174,65 +187,38 @@ export const M5_NEO_1: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① Noticing exposure — the complete Q→A exchange on one bare verb,
-    // heard before any rule (contour + うん are m3 property).
-    dialogueListen({
-      id: "ja-m5-neo-1-dlg-intro",
-      lines: [
-        { speaker: "Mika", kana: "たべる？" },
-        { speaker: "Tom", kana: "うん、たべる。" },
-      ],
-      questions: [
-        {
-          id: "q1",
-          prompt: "What does Mika ask Tom?",
-          correctText: "Whether he's gonna eat",
-          distractors: [
-            "What he's eating",
-            "Whether he's leaving",
-            "What this thing is",
-          ],
-        },
-        {
-          id: "q2",
-          prompt: "Tom's reply?",
-          correctText: "Yeah — he'll eat.",
-          distractors: ["No thanks.", "He already ate.", "He's not hungry."],
-        },
-      ],
-      exercisedAtomKanas: ["たべる", "うん"],
-    }),
-    listeningCompSentence({
-      id: "ja-m5-neo-1-lc-taberu",
-      audioText: "たべる。",
-      question: "Mika sits down to dinner and says this. Meaning?",
-      correctMeaningEn: "I'll eat.",
-      distractorsEn: ["I'm off.", "It's food.", "I'll buy it."],
-      exercisedAtomKanas: ["たべる"],
-    }),
-    speaking(
-      "ja-m5-neo-1-speak-taberu-q",
-      "たべる？",
-      "Gonna eat? (voice rises)",
-      ["たべる"],
+    // ① Image-MCQ intro — the WORD first (invariant 30 / guide §13.2):
+    // たべる🍽️ then みる👁️ established by recognition before any sentence.
+    vocabMcq(
+      "ja-m5-neo-1-vmcq-taberu",
+      { kana: "たべる", meaningEn: "to eat", emoji: "🍽️", fromModule: "m5" },
+      NEO_M1_POOL,
     ),
-    // ② The rule — the answer to what they just noticed.
+    speaking("ja-m5-neo-1-speak-taberu", "たべる", "I'll eat.", ["たべる"]),
+    vocabMcq(
+      "ja-m5-neo-1-vmcq-miru",
+      { kana: "みる", meaningEn: "to watch", emoji: "👁️", fromModule: "m5" },
+      NEO_M1_POOL,
+    ),
+    speaking("ja-m5-neo-1-speak-miru", "みる", "I'll watch.", ["みる"]),
+    // ② The rule — the verb IS a whole sentence, and takes NO だ
+    // (invariant 31): the contrast with m3's noun+だ, taught explicitly.
     grammarRule({
       id: "ja-m5-neo-1-rule-dict",
       title: "The dictionary form IS the verb",
       rule:
-        "たべる = eat. みる = watch. Say one and you've spoken a complete casual sentence: たべる。 'I'll eat.' Raise the tone — たべる？ — and it's a question, m3-style. (たべる and みる are る-verbs — that'll matter when we start bending verbs soon.)",
+        "たべる = 'I'll eat' all on its own — a verb is already a whole sentence. Back in m3 a NOUN needed だ to finish (ねこだ, 'it's a cat'); a verb never does. It stays たべる, never たべるだ. Raise the tone — たべる？ — and it's a question, m3-style. (たべる and みる are る-verbs — that'll matter when we start bending verbs soon.)",
       examples: [
         { ja: "たべる。", romaji: "taberu.", en: "I'll eat." },
+        { ja: "ねこだ。", romaji: "neko da.", en: "It's a cat. (a NOUN takes だ)" },
         { ja: "たべる？", romaji: "taberu?", en: "Gonna eat? (voice rises)" },
-        { ja: "うん、たべる。", romaji: "un, taberu.", en: "Yeah — I'll eat." },
       ],
       antiPattern: {
         ja: "たべるだ。",
         romaji: "taberu da.",
         en: "(broken: verb + だ)",
         why:
-          "だ glues to NOUNS — ねこだ, ほんだ. A verb never takes it: たべる is already a finished sentence all by itself.",
+          "だ finishes a NOUN — ねこだ, ほんだ. A verb is already finished, so たべるだ jams two endings together. Just たべる.",
       },
       cultureNote:
         "Who eats? Whoever the moment points at — say it flat and it's usually you; aim it at a friend with a rise and it's them. Japanese trusts the room; no 'I' or 'you' needed.",
@@ -240,7 +226,7 @@ export const M5_NEO_1: LessonContent = {
     // ③ も gives the bare verb its first combos (を doesn't exist yet).
     build(
       "ja-m5-neo-1-build-watashi-mo",
-      "Everyone's digging in. Tell a friend: I'll eat too.",
+      "Build this sentence: I'll eat too.",
       "わたしも たべる",
       ["わたし", "も", "たべる", "だ"],
       ["わたし", "も", "たべる"],
@@ -249,15 +235,14 @@ export const M5_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-1-lc-miru-q",
       audioText: "みる？",
-      question: "Mika turns on a movie and asks this. Meaning?",
+      question: "Telling or asking?",
       correctMeaningEn: "Gonna watch?",
-      distractorsEn: ["Gonna eat?", "What's that?", "Did you see it?"],
+      distractorsEn: ["I'll watch.", "What's that?", "Did you see it?"],
       exercisedAtomKanas: ["みる"],
     }),
-    speaking("ja-m5-neo-1-speak-miru", "みる", "I'll watch.", ["みる"]),
     build(
       "ja-m5-neo-1-build-mika-mo",
-      "Movie night is filling up. Tell Tom: Mika will watch too.",
+      "Build this sentence: Mika will watch too.",
       "ミカも みる",
       ["ミカ", "も", "みる", "だ"],
       ["ミカ", "も", "みる"],
@@ -266,7 +251,7 @@ export const M5_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-1-lc-un-miru",
       audioText: "うん、みる。",
-      question: "You asked Ken if he wants to watch. His reply means:",
+      question: "What does the reply mean?",
       correctMeaningEn: "Yeah — I'll watch.",
       distractorsEn: [
         "No — I'll eat.",
@@ -277,13 +262,15 @@ export const M5_NEO_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-1-tr-taberu-q",
-      promptEn: "Dinner's ready. Ask your friend casually: Gonna eat?",
+      promptEn: "Translate: Gonna eat?",
       acceptedAnswers: ["たべる？", "たべる"],
       audioText: "たべる？",
       exercisedAtomKanas: ["たべる"],
     }),
     // Quick gamified breather — emoji word check over an M1 atom.
     vocabMcq("ja-m5-neo-1-vmcq-mid", L1_REVIEW[3], NEO_M1_POOL),
+    // Dialogue is a CLOSER now (invariant 30) — the Q→A exchange lands
+    // after the word + rule + builds have established the concept.
     dialogueListen({
       id: "ja-m5-neo-1-dlg-mid",
       lines: [
@@ -313,7 +300,7 @@ export const M5_NEO_1: LessonContent = {
     }),
     sentenceMcq({
       id: "ja-m5-neo-1-mcq-miru-q",
-      prompt: "Pick: 'Gonna watch?' — offering a friend the couch spot.",
+      prompt: "Which one asks 'Gonna watch?'",
       correctKana: "みる？",
       distractorsKana: ["みる。", "たべる？", "うん、みる。"],
       explanation:
@@ -332,8 +319,7 @@ export const M5_NEO_1: LessonContent = {
     // rising contour, one stretch beat before the recognition-easy tail.
     translateStep({
       id: "ja-m5-neo-1-capstone",
-      promptEn:
-        "Mika slides one more plate your way. Ask casually: This too — gonna eat it?",
+      promptEn: "Translate: Gonna eat this one too?",
       acceptedAnswers: [
         "これも たべる？",
         "これもたべる？",
@@ -361,14 +347,15 @@ export const M5_NEO_1: LessonContent = {
       exercisedAtomKanas: ["そら"],
     }),
     vocabMcq("ja-m5-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
-    // ごはん decode — invariant 27: under-reinforced CEJC-frequent item
-    // worked into the tail (it is also L2's headline carrier).
+    // Decode of an M1/M2 review word (ごはん moved to L2's image-MCQ intro
+    // so the food noun debuts on a picture, not a mora-decode — invariant
+    // 30; ぼうし keeps the tail's kana-decode beat).
     listeningBuildWord(
-      "ja-m5-neo-1-rev-lb-gohan",
-      "ごはん",
-      "rice/meal",
-      ["ご", "は", "ん"],
-      ["こ", "ば", "ぱ"],
+      "ja-m5-neo-1-rev-lb-boushi",
+      "ぼうし",
+      "hat",
+      ["ぼ", "う", "し"],
+      ["ぽ", "つ", "き"],
     ),
     reviewMatchPairs("ja-m5-neo-1-rev", L1_REVIEW),
   ],
@@ -399,7 +386,16 @@ export const M5_NEO_2: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① The card FIRST — new structural particle (invariant 24).
+    // ① Image-MCQ intro — the food noun ごはん🍚 debuts on a picture
+    // (invariant 30), BEFORE the を card that uses it as its carrier.
+    vocabMcq(
+      "ja-m5-neo-2-vmcq-gohan",
+      { kana: "ごはん", meaningEn: "rice / a meal", emoji: "🍚", fromModule: "m5" },
+      NEO_M2_POOL,
+    ),
+    speaking("ja-m5-neo-2-speak-gohan", "ごはん", "rice / a meal", ["ごはん"]),
+    // ② The card — new structural particle (invariant 24); を's own first
+    // exposure is here, after the noun is already known.
     grammarRule({
       id: "ja-m5-neo-2-rule-wo",
       title: "を — the action's target",
@@ -441,7 +437,7 @@ export const M5_NEO_2: LessonContent = {
     }),
     build(
       "ja-m5-neo-2-build-gohan",
-      "Tell a friend what you're having: I'll eat the rice.",
+      "Build this sentence: I'll eat the rice.",
       "ごはんを たべる",
       ["ごはん", "を", "たべる", "は"],
       ["ごはん", "を", "たべる"],
@@ -466,7 +462,7 @@ export const M5_NEO_2: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-2-lc-sushi",
       audioText: "すしを たべる。",
-      question: "Mika eyes the last piece and says this. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "I'll eat the sushi.",
       distractorsEn: [
         "I'll eat the rice.",
@@ -477,7 +473,7 @@ export const M5_NEO_2: LessonContent = {
     }),
     build(
       "ja-m5-neo-2-build-umi",
-      "At the shore with a friend. Tell them: I'll look at the sea.",
+      "Build this sentence: I'll look at the sea.",
       "うみを みる",
       ["うみ", "を", "みる", "たべる"],
       ["うみ", "を", "みる"],
@@ -493,19 +489,16 @@ export const M5_NEO_2: LessonContent = {
       "ももを たべる。",
       "Same skeleton at every meal — thing + を + verb.",
     ),
-    sentenceMcq({
-      id: "ja-m5-neo-2-mcq-gohan",
-      prompt: "Pick: 'I'll eat the rice.'",
-      correctKana: "ごはんを たべる。",
-      distractorsKana: [
-        "たべるを ごはん。",
-        "ごはんを みる。",
-        "すしを たべる。",
-      ],
-      explanation:
-        "Thing + を + verb — the verb-first version is the one order Japanese never allows.",
-      exercisedAtomKanas: ["ごはん", "を", "たべる"],
-    }),
+    // Converted from a full-sentence recognition MCQ (invariant 28): a
+    // build makes the learner PRODUCE the thing+を+verb order.
+    build(
+      "ja-m5-neo-2-build-sushi",
+      "Build this sentence: I'll eat the sushi.",
+      "すしを たべる",
+      ["すし", "を", "たべる", "みる"],
+      ["すし", "を", "たべる"],
+      ["すし", "を", "たべる"],
+    ),
     listeningBuildSentence({
       id: "ja-m5-neo-2-lbs-shashin",
       target: "しゃしんを みる",
@@ -516,6 +509,7 @@ export const M5_NEO_2: LessonContent = {
     }),
     // Quick gamified breather — emoji word check over an M2 atom.
     vocabMcq("ja-m5-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
+    // Dialogue is a CLOSER (invariant 30).
     dialogueListen({
       id: "ja-m5-neo-2-dlg-momo",
       lines: [
@@ -544,22 +538,16 @@ export const M5_NEO_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-2-tr-fune",
-      promptEn: "A boat is coming in. Tell your friend: I'll watch the boat.",
+      promptEn: "Translate: I'll watch the boat.",
       acceptedAnswers: ["ふねを みる", "ふねをみる", "みる"],
       audioText: "ふねを みる",
       exercisedAtomKanas: ["ふね", "を", "みる"],
     }),
-    speaking(
-      "ja-m5-neo-2-speak-sushi",
-      "すしを たべる",
-      "I'll eat the sushi.",
-      ["すし", "を", "たべる"],
-    ),
     // CAPSTONE (invariant 26) — spec's own L2 example: の possession (m4)
     // + an m4 object noun + the new を+verb skeleton in one build.
     build(
       "ja-m5-neo-2-capstone",
-      "Tanaka pulls up in a new car. Tell a friend: I'll check out Tanaka's car.",
+      "Build this sentence: I'll look at Tanaka's car.",
       "たなかの くるまを みる",
       ["たなか", "の", "くるま", "を", "みる", "たべる"],
       ["たなか", "の", "くるま", "を", "みる"],
@@ -619,25 +607,20 @@ export const M5_NEO_3: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① のむ exposure-first — the を skeleton makes it inferable.
-    listeningCompSentence({
-      id: "ja-m5-neo-3-lc-nomu",
-      audioText: "みずを のむ。",
-      question: "Mika comes in from a run, glass in hand. Meaning?",
-      correctMeaningEn: "I'll drink the water.",
-      distractorsEn: [
-        "I'll eat the rice.",
-        "This is water.",
-        "I'll buy the water.",
-      ],
-      exercisedAtomKanas: ["みず", "を", "のむ"],
-    }),
-    speaking(
-      "ja-m5-neo-3-speak-mizu",
-      "みずを のむ",
-      "I'll drink the water.",
-      ["みず", "を", "のむ"],
+    // ① Image-MCQ intro — のむ🥤 then かう🛒 established by picture first
+    // (invariant 30), before the rule card that pairs them.
+    vocabMcq(
+      "ja-m5-neo-3-vmcq-nomu",
+      { kana: "のむ", meaningEn: "to drink", emoji: "🥤", fromModule: "m5" },
+      NEO_M3_POOL,
     ),
+    speaking("ja-m5-neo-3-speak-nomu", "のむ", "I'll drink.", ["のむ"]),
+    vocabMcq(
+      "ja-m5-neo-3-vmcq-kau",
+      { kana: "かう", meaningEn: "to buy", emoji: "🛒", fromModule: "m5" },
+      NEO_M3_POOL,
+    ),
+    speaking("ja-m5-neo-3-speak-kau", "かう", "I'll buy.", ["かう"]),
     // ② The card — both verbs, one-line class flags, no drills on class.
     grammarRule({
       id: "ja-m5-neo-3-rule-nomu-kau",
@@ -654,13 +637,32 @@ export const M5_NEO_3: LessonContent = {
       cultureNote:
         "のむ covers more than English 'drink' — soup and even medicine get のむ. If it goes down in one go, Japanese drinks it.",
     }),
+    listeningCompSentence({
+      id: "ja-m5-neo-3-lc-nomu",
+      audioText: "みずを のむ。",
+      question: "What does this mean?",
+      correctMeaningEn: "I'll drink the water.",
+      distractorsEn: [
+        "I'll eat the rice.",
+        "This is water.",
+        "I'll buy the water.",
+      ],
+      exercisedAtomKanas: ["みず", "を", "のむ"],
+    }),
     build(
       "ja-m5-neo-3-build-hon",
-      "Decision made at the bookshop. Tell your friend: I'll buy the book.",
+      "Build this sentence: I'll buy the book.",
       "ほんを かう",
       ["ほん", "を", "かう", "のむ"],
       ["ほん", "を", "かう"],
       ["ほん", "を", "かう"],
+    ),
+    // ぎゅうにゅう🥛 debuts on a picture (invariant 30) — it also anchors
+    // the に-carrying drink noun before なに appears in the closer.
+    vocabMcq(
+      "ja-m5-neo-3-vmcq-gyuunyuu",
+      { kana: "ぎゅうにゅう", meaningEn: "milk", emoji: "🥛", fromModule: "m5" },
+      NEO_M2_POOL,
     ),
     listeningCompSentence({
       id: "ja-m5-neo-3-lc-gyuunyuu",
@@ -676,7 +678,7 @@ export const M5_NEO_3: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-3-tr-mizu",
-      promptEn: "Tell a friend: I'll drink the water.",
+      promptEn: "Translate: I'll drink the water.",
       acceptedAnswers: ["みずを のむ", "みずをのむ", "のむ"],
       audioText: "みずを のむ",
       exercisedAtomKanas: ["みず", "を", "のむ"],
@@ -694,7 +696,7 @@ export const M5_NEO_3: LessonContent = {
     // ③ The m4-pointer combo starts here: これを かう.
     build(
       "ja-m5-neo-3-build-kore",
-      "Tom asks which one you're getting. Point and tell him: I'll buy this one.",
+      "Build this sentence: I'll buy this one.",
       "これを かう",
       ["これ", "を", "かう", "は"],
       ["これ", "を", "かう"],
@@ -703,7 +705,7 @@ export const M5_NEO_3: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-3-lc-kore-kau-q",
       audioText: "これを かう？",
-      question: "Mika holds up a cup and asks. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "You gonna buy this?",
       distractorsEn: [
         "I'll buy this.",
@@ -712,14 +714,14 @@ export const M5_NEO_3: LessonContent = {
       ],
       exercisedAtomKanas: ["これ", "を", "かう"],
     }),
-    // Quick gamified breather — emoji word check over an M3 atom.
-    vocabMcq("ja-m5-neo-3-vmcq-mid", L3_REVIEW[3], NEO_M3_POOL),
     speaking(
       "ja-m5-neo-3-speak-gyuunyuu",
       "ぎゅうにゅうを のむ",
       "I'll drink the milk.",
       ["ぎゅうにゅう", "を", "のむ"],
     ),
+    // Dialogue is a CLOSER (invariant 30) — なに rides here, well after
+    // ぎゅうにゅう anchored the に-carrying vocabulary.
     dialogueListen({
       id: "ja-m5-neo-3-dlg-gyuunyuu",
       lines: [
@@ -747,17 +749,16 @@ export const M5_NEO_3: LessonContent = {
       ],
       exercisedAtomKanas: ["それ", "なに", "ぎゅうにゅう", "のむ", "うん"],
     }),
-    sentenceMcq({
-      id: "ja-m5-neo-3-mcq-kaban",
-      prompt: "Pick: 'I'll buy the bag.'",
-      correctKana: "かばんを かう。",
-      distractorsKana: [
-        "かばんを みる。",
-        "かうを かばん。",
-        "ほんを かう。",
-      ],
-      exercisedAtomKanas: ["かばん", "を", "かう"],
-    }),
+    // Converted from a full-sentence recognition MCQ (invariant 28) — a
+    // build makes the learner produce thing+を+verb.
+    build(
+      "ja-m5-neo-3-build-kaban",
+      "Build this sentence: I'll buy the bag.",
+      "かばんを かう",
+      ["かばん", "を", "かう", "みる"],
+      ["かばん", "を", "かう"],
+      ["かばん", "を", "かう"],
+    ),
     listeningBuildSentence({
       id: "ja-m5-neo-3-lbs-hon",
       target: "ほんを かう",
@@ -766,12 +767,11 @@ export const M5_NEO_3: LessonContent = {
       promptEn: "I'll buy the book.",
       exercisedAtomKanas: ["ほん", "を", "かう"],
     }),
-    // CAPSTONE (invariant 26) — the spec's だれの…-answer build: だれ+の
-    // (m4) framing in the prompt, の possession inside the answer, new
-    // を+かう closing it.
+    // CAPSTONE (invariant 26) — の possession (m4) + an m3 object noun +
+    // the new を+かう skeleton in one build.
     build(
       "ja-m5-neo-3-capstone",
-      "Ken asks: だれの ほんを かう？ Answer him: I'll buy Mika's book.",
+      "Build this sentence: I'll buy Mika's book.",
       "ミカの ほんを かう",
       ["ミカ", "の", "ほん", "を", "かう", "わたし"],
       ["ミカ", "の", "ほん", "を", "かう"],
@@ -830,7 +830,69 @@ export const M5_NEO_4: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① Noticing exposure — the Q→A pair at the door.
+    // ① Image-MCQ intro — いく🚶 established by picture first (invariant
+    // 30). くる has no honest emoji (blocked) — it enters on the card.
+    vocabMcq(
+      "ja-m5-neo-4-vmcq-iku",
+      { kana: "いく", meaningEn: "to go", emoji: "🚶", fromModule: "m5" },
+      NEO_M4_POOL,
+    ),
+    speaking("ja-m5-neo-4-speak-iku", "いく", "I'm off.", ["いく"]),
+    // ② The card — direction anchored to HERE; くる flagged irregular and
+    // introduced here (blocked atom, no image MCQ — invariant 4/6).
+    grammarRule({
+      id: "ja-m5-neo-4-rule-iku-kuru",
+      title: "いく — away, くる — toward",
+      rule:
+        "いく = moving AWAY from here; くる = moving TOWARD here. Bare, they're complete: いく。 'I'm off.' くる？ 'you coming?' No place-word needed yet — that machinery arrives later. (いく is a う-verb. くる is one of Japanese's only TWO irregular verbs — remember its face; it bends strangely later.)",
+      examples: [
+        { ja: "いく。", romaji: "iku.", en: "I'm off." },
+        { ja: "くる？", romaji: "kuru?", en: "You coming? (voice rises)" },
+        { ja: "うん、くる。", romaji: "un, kuru.", en: "Yeah — I'm coming." },
+      ],
+      // No antiPattern on purpose: a "wrong-direction" verb is correct
+      // Japanese from the other end of the trip — contrast material,
+      // never ✗ material (invariant 12 semantic contract).
+      cultureNote:
+        "The anchor is wherever the SPEAKER stands: your いく is their くる. Phone a friend from home — くる？ — and you've pulled the anchor to your side.",
+    }),
+    listeningCompSentence({
+      id: "ja-m5-neo-4-lc-iku",
+      audioText: "いく。",
+      question: "What does this mean?",
+      correctMeaningEn: "I'm off.",
+      distractorsEn: ["I'm here.", "Come in.", "I'll buy it."],
+      exercisedAtomKanas: ["いく"],
+    }),
+    build(
+      "ja-m5-neo-4-build-tomu-mo",
+      "Build this sentence: Tom's going too.",
+      "トムも いく",
+      ["トム", "も", "いく", "くる"],
+      ["トム", "も", "いく"],
+      ["も", "いく"],
+    ),
+    listeningCompSentence({
+      id: "ja-m5-neo-4-lc-kuru-q",
+      audioText: "くる？",
+      question: "Telling or asking?",
+      correctMeaningEn: "You coming (over)?",
+      distractorsEn: ["You going?", "Are you here?", "Who is it?"],
+      exercisedAtomKanas: ["くる"],
+    }),
+    speaking("ja-m5-neo-4-speak-un-kuru", "うん、くる", "Yeah — I'm coming.", [
+      "うん",
+      "くる",
+    ]),
+    build(
+      "ja-m5-neo-4-build-mika-mo",
+      "Build this sentence: Mika's coming too.",
+      "ミカも くる",
+      ["ミカ", "も", "くる", "いく"],
+      ["ミカ", "も", "くる"],
+      ["も", "くる"],
+    ),
+    // Dialogue is a CLOSER beat (invariant 30).
     dialogueListen({
       id: "ja-m5-neo-4-dlg-intro",
       lines: [
@@ -862,12 +924,16 @@ export const M5_NEO_4: LessonContent = {
       exercisedAtomKanas: ["いく", "うん"],
     }),
     listeningCompSentence({
-      id: "ja-m5-neo-4-lc-iku",
-      audioText: "いく。",
-      question: "Mika grabs her bag at the door and says this. Meaning?",
-      correctMeaningEn: "I'm off.",
-      distractorsEn: ["I'm here.", "Come in.", "I'll buy it."],
-      exercisedAtomKanas: ["いく"],
+      id: "ja-m5-neo-4-lc-un-iku",
+      audioText: "うん、いく。",
+      question: "What does the reply mean?",
+      correctMeaningEn: "Yeah — I'm going.",
+      distractorsEn: [
+        "No — I'm staying.",
+        "I already went.",
+        "Yeah — I'm coming to you.",
+      ],
+      exercisedAtomKanas: ["うん", "いく"],
     }),
     speaking(
       "ja-m5-neo-4-speak-iku-q",
@@ -875,70 +941,25 @@ export const M5_NEO_4: LessonContent = {
       "You going? (voice rises)",
       ["いく"],
     ),
-    // ② The card — direction anchored to HERE; くる flagged irregular.
-    grammarRule({
-      id: "ja-m5-neo-4-rule-iku-kuru",
-      title: "いく — away, くる — toward",
-      rule:
-        "いく = moving AWAY from here; くる = moving TOWARD here. Bare, they're complete: いく。 'I'm off.' くる？ 'you coming?' No place-word needed yet — that machinery arrives later. (いく is a う-verb. くる is one of Japanese's only TWO irregular verbs — remember its face; it bends strangely later.)",
-      examples: [
-        { ja: "いく。", romaji: "iku.", en: "I'm off." },
-        { ja: "くる？", romaji: "kuru?", en: "You coming? (voice rises)" },
-        { ja: "うん、くる。", romaji: "un, kuru.", en: "Yeah — I'm coming." },
-      ],
-      // No antiPattern on purpose: a "wrong-direction" verb is correct
-      // Japanese from the other end of the trip — contrast material,
-      // never ✗ material (invariant 12 semantic contract).
-      cultureNote:
-        "The anchor is wherever the SPEAKER stands: your いく is their くる. Phone a friend from home — くる？ — and you've pulled the anchor to your side.",
-    }),
-    build(
-      "ja-m5-neo-4-build-tomu-mo",
-      "Mika's going. Tell Ken: Tom's going too.",
-      "トムも いく",
-      ["トム", "も", "いく", "くる"],
-      ["トム", "も", "いく"],
-      ["も", "いく"],
-    ),
-    listeningCompSentence({
-      id: "ja-m5-neo-4-lc-kuru-q",
-      audioText: "くる？",
-      question:
-        "You're at Mika's place; she's on the phone with Ken and asks this. Meaning?",
-      correctMeaningEn: "You coming (over)?",
-      distractorsEn: ["You going?", "Are you here?", "Who is it?"],
-      exercisedAtomKanas: ["くる"],
-    }),
-    speaking("ja-m5-neo-4-speak-un-kuru", "うん、くる", "Yeah — I'm coming.", [
-      "うん",
-      "くる",
-    ]),
-    build(
-      "ja-m5-neo-4-build-mika-mo",
-      "Good news for Tom: Mika's coming too.",
-      "ミカも くる",
-      ["ミカ", "も", "くる", "いく"],
-      ["ミカ", "も", "くる"],
-      ["も", "くる"],
-    ),
+    // Quick gamified breather — emoji word check over an M4 atom.
+    vocabMcq("ja-m5-neo-4-vmcq-mid", L4_REVIEW[3], NEO_M4_POOL),
     sentenceMcq({
       id: "ja-m5-neo-4-mcq-kuru-q",
-      prompt: "Pick: 'You coming?' — calling a friend over to your place.",
+      prompt: "Which one asks 'You coming?'",
       correctKana: "くる？",
       distractorsKana: ["いく？", "くる。", "だれ？"],
       explanation:
         "Toward you means くる — いく would send them somewhere else.",
       exercisedAtomKanas: ["くる"],
     }),
-    translateStep({
-      id: "ja-m5-neo-4-tr-iku",
-      promptEn: "You're heading out the door. Tell your friend: I'm off.",
-      acceptedAnswers: ["いく"],
-      audioText: "いく",
-      exercisedAtomKanas: ["いく"],
+    listeningBuildSentence({
+      id: "ja-m5-neo-4-lbs-tomu-mo",
+      target: "トムも いく",
+      tiles: ["トム", "も", "いく", "だ"],
+      correctOrder: ["トム", "も", "いく"],
+      promptEn: "Tom's going too.",
+      exercisedAtomKanas: ["も", "いく"],
     }),
-    // Quick gamified breather — emoji word check over an M4 atom.
-    vocabMcq("ja-m5-neo-4-vmcq-mid", L4_REVIEW[3], NEO_M4_POOL),
     dialogueListen({
       id: "ja-m5-neo-4-dlg-close",
       lines: [
@@ -962,31 +983,11 @@ export const M5_NEO_4: LessonContent = {
       ],
       exercisedAtomKanas: ["くる", "うん", "も", "そう"],
     }),
-    listeningBuildSentence({
-      id: "ja-m5-neo-4-lbs-tomu-mo",
-      target: "トムも いく",
-      tiles: ["トム", "も", "いく", "だ"],
-      correctOrder: ["トム", "も", "いく"],
-      promptEn: "Tom's going too.",
-      exercisedAtomKanas: ["も", "いく"],
-    }),
-    listeningCompSentence({
-      id: "ja-m5-neo-4-lc-un-iku",
-      audioText: "うん、いく。",
-      question: "You asked Ken if he's going. His reply means:",
-      correctMeaningEn: "Yeah — I'm going.",
-      distractorsEn: [
-        "No — I'm staying.",
-        "I already went.",
-        "Yeah — I'm coming to you.",
-      ],
-      exercisedAtomKanas: ["うん", "いく"],
-    }),
     // CAPSTONE (invariant 26) — new verb + も (m3) + the m3 rising
     // contour: the "is she in too?" question in one breath.
     translateStep({
       id: "ja-m5-neo-4-capstone",
-      promptEn: "Tom's already in. Ask Ken casually: Is Mika coming too?",
+      promptEn: "Translate: Is Mika coming too?",
       acceptedAnswers: [
         "ミカも くる？",
         "ミカもくる？",
@@ -996,14 +997,8 @@ export const M5_NEO_4: LessonContent = {
       audioText: "ミカも くる？",
       exercisedAtomKanas: ["も", "くる"],
     }),
-    // Review tail — M4 atoms (house idiom: speak → LC → vocabMcq →
-    // decode-build → match grid).
-    speaking(
-      "ja-m5-neo-4-rev-speak",
-      L4_REVIEW[0].kana,
-      L4_REVIEW[0].meaningEn,
-      [L4_REVIEW[0].kana],
-    ),
+    // Review tail — M4 atoms (house idiom: LC → vocabMcq → decode-build →
+    // match grid).
     listeningCompSentence({
       // Sentence-level (2026-07-20): the pool-word LC tripped the M5+
       // sentence-first ratchet — the pool noun now rides an m5 verb.
@@ -1053,7 +1048,100 @@ export const M5_NEO_5: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① Noticing exposure — the Q→A pair over chores.
+    // ① The card FIRST — する/やる are rubric-blocked (no honest emoji, so
+    // NO image MCQ — invariant 4/6); the card carries the meaning a
+    // picture can't. Opening on the card also keeps step 0 off dialogue
+    // (invariant 30).
+    grammarRule({
+      id: "ja-m5-neo-5-rule-suru-yaru",
+      title: "する・やる — the all-purpose 'do'",
+      rule:
+        "する = do, the verb for everything that has no verb of its own: なにを する？ 'what are you gonna do?' やる is the same 'do' in street clothes — between friends it's everywhere. (する is the OTHER of Japanese's two irregular verbs — remember its face, like くる.)",
+      examples: [
+        { ja: "なにを する？", romaji: "nani o suru?", en: "What are you gonna do?" },
+        { ja: "これを する。", romaji: "kore o suru.", en: "I'll do this one." },
+        { ja: "これを やる。", romaji: "kore o yaru.", en: "I'll do this one. (casual)" },
+      ],
+      // No antiPattern on purpose: する and やる swap freely here, so any
+      // fabricated ✗ would grade correct Japanese as wrong (invariant 12).
+      cultureNote:
+        "やる ranks among the most-spoken verbs in real Japanese conversation — casual talk reaches for it constantly. Both are fine between friends; する is the one that also wears a suit.",
+    }),
+    listeningCompSentence({
+      id: "ja-m5-neo-5-lc-nani-suru",
+      audioText: "なにを する？",
+      question: "What does this mean?",
+      correctMeaningEn: "What are you gonna do?",
+      distractorsEn: [
+        "What is this?",
+        "What'll you buy?",
+        "Who's doing it?",
+      ],
+      exercisedAtomKanas: ["なに", "を", "する"],
+    }),
+    build(
+      "ja-m5-neo-5-build-kore-suru",
+      "Build this sentence: I'll do this one.",
+      "これを する",
+      ["これ", "を", "する", "だ"],
+      ["これ", "を", "する"],
+      ["これ", "を", "する"],
+    ),
+    speaking(
+      "ja-m5-neo-5-speak-nani-yaru",
+      "なにを やる？",
+      "Whatcha gonna do? (casual)",
+      ["なに", "を", "やる"],
+    ),
+    listeningCompSentence({
+      id: "ja-m5-neo-5-lc-sore-yaru",
+      audioText: "それを やる。",
+      question: "What does this mean?",
+      correctMeaningEn: "I'll do that one.",
+      distractorsEn: [
+        "I'll do this one.",
+        "What'll you do?",
+        "That one's done.",
+      ],
+      exercisedAtomKanas: ["それ", "を", "やる"],
+    }),
+    cloze(
+      "ja-m5-neo-5-cloze-kore",
+      "これ",
+      " する。",
+      "を",
+      ["を", "は", "の", "も"],
+      "I'll do this one.",
+      "これを する。",
+      "を pins the task to the verb — これを する = do THIS one.",
+    ),
+    build(
+      "ja-m5-neo-5-build-sore-yaru",
+      "Build this sentence: I'll do that one.",
+      "それを やる",
+      ["それ", "を", "やる", "くる"],
+      ["それ", "を", "やる"],
+      ["それ", "を", "やる"],
+    ),
+    translateStep({
+      id: "ja-m5-neo-5-tr-nani",
+      promptEn: "Translate: What are you gonna do?",
+      acceptedAnswers: [
+        "なにを する？",
+        "なにをする？",
+        "なにを やる？",
+        "なにをやる？",
+        "なにを する",
+        "なにをする",
+        "なにを やる",
+        "なにをやる",
+      ],
+      audioText: "なにを する？",
+      exercisedAtomKanas: ["なに", "を", "する"],
+    }),
+    // Quick gamified breather — emoji word check over a prior atom.
+    vocabMcq("ja-m5-neo-5-vmcq-mid", L5_REVIEW[3], NEO_PRIOR_POOL),
+    // Dialogue closers (invariant 30) — the chore Q→A pair.
     dialogueListen({
       id: "ja-m5-neo-5-dlg-intro",
       lines: [
@@ -1084,96 +1172,10 @@ export const M5_NEO_5: LessonContent = {
       ],
       exercisedAtomKanas: ["なに", "を", "する", "これ"],
     }),
-    // ② The card — irregular flag + the casual twin.
-    grammarRule({
-      id: "ja-m5-neo-5-rule-suru-yaru",
-      title: "する・やる — the all-purpose 'do'",
-      rule:
-        "する = do, the verb for everything that has no verb of its own: なにを する？ 'what are you gonna do?' やる is the same 'do' in street clothes — between friends it's everywhere. (する is the OTHER of Japanese's two irregular verbs — remember its face, like くる.)",
-      examples: [
-        { ja: "なにを する？", romaji: "nani o suru?", en: "What are you gonna do?" },
-        { ja: "これを する。", romaji: "kore o suru.", en: "I'll do this one." },
-        { ja: "これを やる。", romaji: "kore o yaru.", en: "I'll do this one. (casual)" },
-      ],
-      // No antiPattern on purpose: する and やる swap freely here, so any
-      // fabricated ✗ would grade correct Japanese as wrong (invariant 12).
-      cultureNote:
-        "やる ranks among the most-spoken verbs in real Japanese conversation — casual talk reaches for it constantly. Both are fine between friends; する is the one that also wears a suit.",
-    }),
-    listeningCompSentence({
-      id: "ja-m5-neo-5-lc-nani-suru",
-      audioText: "なにを する？",
-      question: "What does this mean?",
-      correctMeaningEn: "What are you gonna do?",
-      distractorsEn: [
-        "What is this?",
-        "What'll you buy?",
-        "Who's doing it?",
-      ],
-      exercisedAtomKanas: ["なに", "を", "する"],
-    }),
-    build(
-      "ja-m5-neo-5-build-kore-suru",
-      "The chore list is out. Tell Mika which you'll take: I'll do this one.",
-      "これを する",
-      ["これ", "を", "する", "だ"],
-      ["これ", "を", "する"],
-      ["これ", "を", "する"],
-    ),
-    speaking(
-      "ja-m5-neo-5-speak-nani-yaru",
-      "なにを やる？",
-      "Whatcha gonna do? (casual)",
-      ["なに", "を", "やる"],
-    ),
-    listeningCompSentence({
-      id: "ja-m5-neo-5-lc-sore-yaru",
-      audioText: "それを やる。",
-      question: "Mika points at the full sink; Ken sighs and says this. Meaning?",
-      correctMeaningEn: "I'll do that one.",
-      distractorsEn: [
-        "I'll do this one.",
-        "What'll you do?",
-        "That one's done.",
-      ],
-      exercisedAtomKanas: ["それ", "を", "やる"],
-    }),
-    translateStep({
-      id: "ja-m5-neo-5-tr-nani",
-      promptEn: "Ask a friend casually: What are you gonna do?",
-      acceptedAnswers: [
-        "なにを する？",
-        "なにをする？",
-        "なにを やる？",
-        "なにをやる？",
-        "なにを する",
-        "なにをする",
-        "なにを やる",
-        "なにをやる",
-      ],
-      audioText: "なにを する？",
-      exercisedAtomKanas: ["なに", "を", "する"],
-    }),
-    cloze(
-      "ja-m5-neo-5-cloze-kore",
-      "これ",
-      " する。",
-      "を",
-      ["を", "は", "の", "も"],
-      "I'll do this one.",
-      "これを する。",
-      "を pins the task to the verb — これを する = do THIS one.",
-    ),
-    build(
-      "ja-m5-neo-5-build-sore-yaru",
-      "Ken can't face the dishes. Take over — tell him: I'll do that.",
-      "それを やる",
-      ["それ", "を", "やる", "くる"],
-      ["それ", "を", "やる"],
-      ["それ", "を", "やる"],
-    ),
-    // Quick gamified breather — emoji word check over a prior atom.
-    vocabMcq("ja-m5-neo-5-vmcq-mid", L5_REVIEW[3], NEO_PRIOR_POOL),
+    speaking("ja-m5-neo-5-speak-un-yaru", "うん、やる", "Yeah — I'm on it.", [
+      "うん",
+      "やる",
+    ]),
     dialogueListen({
       id: "ja-m5-neo-5-dlg-yaru",
       lines: [
@@ -1201,13 +1203,16 @@ export const M5_NEO_5: LessonContent = {
       ],
       exercisedAtomKanas: ["それ", "やる", "うん", "ありがとう"],
     }),
-    sentenceMcq({
-      id: "ja-m5-neo-5-mcq-nani-suru",
-      prompt: "Pick: 'What are you gonna do?' — asking a friend.",
-      correctKana: "なにを する？",
-      distractorsKana: ["なにを かう？", "これを する？", "だれ？"],
-      exercisedAtomKanas: ["なに", "を", "する"],
-    }),
+    // Converted from a full-sentence recognition MCQ (invariant 28) — a
+    // build makes the learner produce なに+を+する.
+    build(
+      "ja-m5-neo-5-build-nani-suru",
+      "Build this sentence: What are you gonna do?",
+      "なにを する",
+      ["なに", "を", "する", "かう"],
+      ["なに", "を", "する"],
+      ["なに", "を", "する"],
+    ),
     listeningBuildSentence({
       id: "ja-m5-neo-5-lbs-kore-yaru",
       target: "これを やる",
@@ -1216,15 +1221,11 @@ export const M5_NEO_5: LessonContent = {
       promptEn: "I'll do this one. (casual)",
       exercisedAtomKanas: ["これ", "を", "やる"],
     }),
-    speaking("ja-m5-neo-5-speak-un-yaru", "うん、やる", "Yeah — I'm on it.", [
-      "うん",
-      "やる",
-    ]),
     // CAPSTONE (invariant 26) — new verb + あれ (m4) + も (m3); the を
     // tile is the genuine trap (も REPLACES を, never stacks on it here).
     build(
       "ja-m5-neo-5-capstone",
-      "The far table needs clearing as well. Tell Mika: I'll do that one too.",
+      "Build this sentence: I'll do that one too.",
       "あれも やる",
       ["あれ", "も", "やる", "を"],
       ["あれ", "も", "やる"],
@@ -1286,7 +1287,18 @@ export const M5_NEO_6: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // Scene 1 — the ask. いらっしゃいませ + いくら debut on exposure.
+    // Story lesson — integrates, no new grammar. It cannot OPEN on a
+    // dialogue (invariant 30), so a known-material build sets the scene,
+    // then the three shop scenes run as dialogue closers.
+    build(
+      "ja-m5-neo-6-build-kore-kau",
+      "Build this sentence: I'll buy this one.",
+      "これを かう",
+      ["これ", "を", "かう", "みる"],
+      ["これ", "を", "かう"],
+      ["これ", "を", "かう"],
+    ),
+    // Scene 1 — the ask. いらっしゃいませ + いくら + えん debut on exposure.
     dialogueListen({
       id: "ja-m5-neo-6-dlg-scene1",
       lines: [
@@ -1325,7 +1337,7 @@ export const M5_NEO_6: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-6-lc-ikura",
       audioText: "これ、いくら？",
-      question: "Holding something up at the counter. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "How much is this?",
       distractorsEn: ["What is this?", "Whose is this?", "I'll buy this."],
       explanation:
@@ -1333,28 +1345,30 @@ export const M5_NEO_6: LessonContent = {
       exercisedAtomKanas: ["これ", "いくら"],
     }),
     speaking(
-      "ja-m5-neo-6-speak-ikura",
-      "これ、いくら？",
-      "How much is this? (voice rises)",
-      ["これ", "いくら"],
+      "ja-m5-neo-6-speak-kore-kau",
+      "これを かう",
+      "I'll buy this one.",
+      ["これ", "を", "かう"],
     ),
     listeningCompSentence({
       id: "ja-m5-neo-6-lc-irasshai",
       audioText: "いらっしゃいませ。",
-      question: "You push open the shop door and hear this. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "Welcome in!",
       distractorsEn: ["Thank you!", "See you!", "Excuse me!"],
       explanation:
         "The shop-staff greeting — it washes over every customer, and you never say it back. A nod is plenty.",
       exercisedAtomKanas: ["いらっしゃいませ"],
     }),
-    build(
-      "ja-m5-neo-6-build-kore-kau",
-      "Decision made. Tell Mika: I'm buying this one.",
-      "これを かう",
-      ["これ", "を", "かう", "いくら"],
-      ["これ", "を", "かう"],
-      ["これ", "を", "かう"],
+    cloze(
+      "ja-m5-neo-6-cloze-are",
+      "あれ",
+      " かう。",
+      "を",
+      ["を", "の", "は", "か"],
+      "I'll buy that one (over there).",
+      "あれを かう。",
+      "Pointer + を + verb — the shop runs on this skeleton.",
     ),
     // Scene 2 — the decision. は contrast + あれ callback.
     dialogueListen({
@@ -1389,7 +1403,7 @@ export const M5_NEO_6: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-6-tr-ikura",
-      promptEn: "Ask the clerk the price of the thing in your hand.",
+      promptEn: "Translate: How much is this?",
       acceptedAnswers: [
         "これ、いくら？",
         "これいくら？",
@@ -1399,16 +1413,6 @@ export const M5_NEO_6: LessonContent = {
       audioText: "これ、いくら？",
       exercisedAtomKanas: ["これ", "いくら"],
     }),
-    cloze(
-      "ja-m5-neo-6-cloze-are",
-      "あれ",
-      " かう。",
-      "を",
-      ["を", "の", "は", "か"],
-      "I'll buy that one (over there).",
-      "あれを かう。",
-      "Pointer + を + verb — the shop runs on this skeleton.",
-    ),
     sentenceMcq({
       id: "ja-m5-neo-6-mcq-irasshai",
       prompt: "Which greeting meets you at the shop door?",
@@ -1456,14 +1460,14 @@ export const M5_NEO_6: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-6-lc-arigatou",
       audioText: "ありがとうございます。",
-      question: "The clerk hands you the bag and says this. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "Thank you (polite).",
       distractorsEn: ["Welcome in!", "Here you go.", "Come again."],
       exercisedAtomKanas: ["ありがとうございます"],
     }),
     build(
       "ja-m5-neo-6-build-watashi-mo",
-      "Mika's getting one — turns out you want one as well. Tell her: I'll buy this too.",
+      "Build this sentence: I'll buy this one too.",
       "わたしも これを かう",
       ["わたし", "も", "これ", "を", "かう", "は"],
       ["わたし", "も", "これ", "を", "かう"],
@@ -1480,7 +1484,7 @@ export const M5_NEO_6: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-6-lc-hyakuen",
       audioText: "ひゃくえんです。",
-      question: "You asked the price. The clerk answers:",
+      question: "What does this mean?",
       correctMeaningEn: "It's 100 yen.",
       distractorsEn: ["It's 1,000 yen.", "It's free.", "That's everything."],
       explanation:

@@ -93,3 +93,78 @@ authoring-invariants-pinned.md and are summarized here for Spencer.
 - Atom-registry re-tagging: seed verbs still carry old-course fromModule
   tags (m7/m11/m15) — harmless now (provenance uses the full registry),
   cleanup when the old course is deleted.
+
+## Cycle 2b — Spencer walk of m5 (findings folded back mid-run)
+
+Spencer walked m4/m5 and flagged 5 issues → 5 new/tightened rules, all
+pinned + guarded, m3/m4/m5 being fixed by 4 parallel agents:
+
+| # | Finding (screenshot) | Rule |
+|---|---|---|
+| 28 | Full-sentence "Pick: 'That's Mika's bag.'" MCQ in a lesson | sentence_mcq with a multi-word answer is TEST-OUT ONLY; lessons use build/translate/speaking. Single-chunk MCQs stay. |
+| 29 | "Movie night is filling up. Tell Tom: Mika will watch too." | Production prompts are plain "Build/Translate: <English>" — no theatrics, no fake "they ask in English" scenarios. Register cue only if it changes the answer. Guard bans internal sentence periods. |
+| 30 | m5-1 opens on a みる？ dialogue before みる is taught | Imageable vocab debuts on word_image_mcq (image IS the intro, guide §13.2); establish the word (+ verb concept) BEFORE dialogue; teaching lessons never open on a dialogue. |
+| 31 | Lesson never explains verbs take no だ | When a construction drops a required element (verb ≠ noun+だ), teach the contrast on the rule card; over-application (たべるだ) is the antiPattern. |
+
+## Step-type coverage audit (Spencer: "make sure we use every relevant type")
+
+11 of 24 union types used across m3-m5; the rest are correctly out of
+scope for this grammar band:
+- USED (count): listening_comprehension 143, build_sentence 82,
+  speaking 76, word_image_mcq 64, listening_build 63, dialogue_listen
+  44, multiple_choice(sentence/vocab MCQ) 42, translate 33, match_pairs
+  33, particle_cloze 30, grammar_rule 21.
+- CORRECTLY UNUSED: info, phrase_card, self_explanation_mcq (all banned);
+  symbol_intro/production/recognition/to_sound/trace, row_test (kana
+  trainer, M1-M2 only).
+- NOT-YET-RELEVANT (forward flags, will become MANDATORY to consider at
+  their unlock): conjugation_cloze → m6 (first verb inflection),
+  kanji_reading → m8 (kanji floor), agreement_cloze → first adjectives,
+  fill_blank → marginal (particle_cloze + build cover it; revisit if a
+  non-particle blank drill is wanted).
+Verdict: variety is maximal for m3-m5; no relevant type left on the
+table. Added to the module-gate coverage report so each future module
+band is checked against its expected type set.
+
+## Methodology audit (adversarial sonnet, 2026-07-20) — findings + actions
+
+An adversarial agent audited whether the context-pack + guards + workflow
+catch each defect class BEFORE a human walk. Result: density/variety/
+capstone are the strongest part; several real gaps found.
+
+IMPLEMENTED this turn (safe, non-disruptive):
+- **Gap 1 [HIGH] — provenance tokenizer was dict-form-only** → false-
+  positives on たべない the moment m6 (negatives) runs; an agent would
+  loosen the check. FIXED: union getRealFormLexicon() (conjugation-aware,
+  already in moduleContentLints) into the tokenizer. Blocks the m6 trap.
+- **Gap 3 [HIGH] — visual/continuity gate silently skippable** (workflow
+  said mandatory; module-gate SKIPped unless two flags set). FIXED:
+  default-ON, auto-derives lesson ids from curriculum files, explicit
+  --skip-visual escape. A SKIP is now chosen, never accidental.
+- **Gap 6 — exposure audit report-only** → added CRITICAL detection
+  (CEJC top-50 taught-but-<2×) with non-zero exit so invariant 27 has
+  visible teeth. (Currently 0 — clean.)
+
+QUEUED for post-agent consolidation (touch the verb-debut guard / need
+full-verify control — task #11):
+- **Gap 2 [HIGH] — dialogue can still be a VERB's first exposure**:
+  INTRO_TYPES treats dialogue_listen as valid debut for any word. Fix:
+  split by POS — verbs debut on image_mcq/build/grammar_rule/LC/cloze,
+  NOT dialogue. (requireImageFirst already blocks lesson-OPEN dialogues;
+  this closes mid-lesson verb debuts.)
+- **Gap 4 [MED] — grammar-construction forward-reference unchecked**:
+  add GRAMMAR_PATTERN_MODULE {regex, introducedModule} (ない/て/た/
+  connectives); lint no surface in module N uses a pattern from >N.
+- **Dialogue-referent-integrity lint** (Add. 3): fail when an option
+  names a role-noun that also = a named character's predicate but the
+  lines never attach the role to a name (the exact m3 ともだち defect).
+- **Gap 5 — canon only covers 4 chars × 4 predicates** as an assertion
+  regex; relational/negated/world facts invisible. Extend COURSE_CANON
+  shape when a story module adds durable facts.
+- Sentence-repeat cap ignores dialogue_listen.lines[]; theatrics guard
+  misses comma-linked scenarios + speaking prompts. Low-effort tightening.
+
+Verdict: the machine layer now catches ~80% of the shipped defect
+classes before a human sees them; the residue is semantic naturalness
+and cross-module world-consistency (inherently judgment — that's what the
+one continuity judge per module is for).

@@ -46,34 +46,9 @@ function tipFromRule(step: GrammarRuleStep): ReactiveGrammarTip | null {
   };
 }
 
-/** Deterministic 0/1 from a string — rotates the correct option's slot so
- *  "first option" never becomes a tell across the course. */
-function hashBit(s: string): number {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  return Math.abs(h) % 2;
-}
-
-function spotStep(rule: GrammarRuleStep): MultipleChoiceStep | null {
-  const right = rule.examples[0];
-  const anti = rule.antiPattern;
-  if (!right || !anti) return null;
-  const options = [
-    { id: "right", text: right.ja },
-    { id: "wrong", text: anti.ja },
-  ];
-  if (hashBit(rule.id)) options.reverse();
-  return {
-    id: `${rule.id}-spot`,
-    type: "multiple_choice",
-    prompt: "One of these is wrong — pick the correct sentence.",
-    options,
-    correctOptionId: "right",
-    optionsHideRomaji: true,
-    explanation: anti.why,
-    exercisedGrammar: rule.grammarPointId ? [rule.grammarPointId] : undefined,
-  };
-}
+// spotStep()/hashBit() removed 2026-07-20 (invariant 32): the derived
+// spot-the-mistake MCQ is retired. antiPattern now feeds only the reactive
+// ✗ tip (tipFromRule). Do not reintroduce a derived recognition step.
 
 export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
   if (!lesson.steps.some((s) => s.type === "grammar_rule")) return lesson;
@@ -111,7 +86,11 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
       flushSpot();
       const rule = step as GrammarRuleStep;
       activeTip = tipFromRule(rule);
-      pendingSpot = spotStep(rule);
+      // Invariant 32 (Spencer 2026-07-20): the derived spot-the-mistake
+      // MCQ is RETIRED — weak binary recognition. antiPattern now drives
+      // ONLY the reactive ✗ tip (activeTip above); the grammar contrast is
+      // taught by authored builds. Never re-enable pendingSpot = spotStep().
+      pendingSpot = null;
       out.push(step);
       continue;
     }

@@ -28,20 +28,11 @@ describe("deriveGrammarMicroSteps", () => {
     expect(tip.ruleLine).toBe(rule.rule);
     expect(tip.why).toBe(rule.antiPattern!.why);
 
-    const spot = lesson.steps.find((s) => s.id === `${rule.id}-spot`) as
-      | MultipleChoiceStep
-      | undefined;
-    expect(spot, "spot step injected").toBeTruthy();
-    expect(spot!.type).toBe("multiple_choice");
-    expect(spot!.options).toHaveLength(2);
-    const correct = spot!.options.find((o) => o.id === spot!.correctOptionId)!;
-    expect(correct.text).toBe(rule.examples[0].ja);
-    const wrong = spot!.options.find((o) => o.id !== spot!.correctOptionId)!;
-    expect(wrong.text).toBe(rule.antiPattern!.ja);
-    // The spot lands AFTER the drill span begins, never before the card.
-    expect(lesson.steps.findIndex((s) => s.id === spot!.id)).toBeGreaterThan(
-      ruleIdx + 1,
-    );
+    // Invariant 32 (2026-07-20): the derived spot-the-mistake step is
+    // RETIRED. antiPattern now feeds ONLY the reactive tip (asserted
+    // above); no `-spot` MCQ is injected anymore.
+    const spot = lesson.steps.find((s) => s.id === `${rule.id}-spot`);
+    expect(spot, "spot step must NOT be injected (invariant 32)").toBeUndefined();
   });
 
   it("every ja lesson with an anti-patterned rule card gets tagging, and none exceeds the density cap", () => {

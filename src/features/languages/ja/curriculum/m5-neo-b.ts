@@ -150,7 +150,14 @@ export const M5_NEO_7: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① きく — exposure first (inferable: taught を pattern + known noun).
+    // ① きく — image-MCQ intro (invariant 30): the 👂 image establishes the
+    // bare verb, speaking produces it, THEN it rides a sentence.
+    vocabMcq(
+      "ja-m5-neo-7-vmcq-kiku",
+      { kana: "きく", meaningEn: "to listen, to hear", emoji: "👂", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
+    speaking("ja-m5-neo-7-speak-kiku", "きく", "I'll listen.", ["きく"]),
     listeningCompSentence({
       id: "ja-m5-neo-7-lc-uta-kiku",
       audioText: "うたを きく？",
@@ -165,7 +172,7 @@ export const M5_NEO_7: LessonContent = {
     }),
     build(
       "ja-m5-neo-7-build-uta-kiku",
-      "Tell a friend: I'll listen to the song.",
+      "Build this sentence: I'll listen to the song.",
       "うたを きく",
       ["うた", "を", "きく", "わかる"],
       ["うた", "を", "きく"],
@@ -201,7 +208,7 @@ export const M5_NEO_7: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-7-tr-un-wakaru",
-      promptEn: "Your friend asks if you get it. You do — answer casually: Yeah, I get it.",
+      promptEn: "Translate: Yeah, I get it.",
       acceptedAnswers: ["うん、わかる", "うんわかる", "わかる", "うん、わかる。"],
       audioText: "うん、わかる",
       exercisedAtomKanas: ["うん", "わかる"],
@@ -320,7 +327,7 @@ export const M5_NEO_7: LessonContent = {
     // も (m3) in one build — the stretch beat before the easy tail.
     build(
       "ja-m5-neo-7-build-kenno-uta-capstone",
-      "Mika's song was good. Tell her: I'll listen to Ken's song too.",
+      "Build this sentence: I'll listen to Ken's song too.",
       "ケンの うたも きく",
       ["ケン", "の", "うた", "も", "きく", "こえ"],
       ["ケン", "の", "うた", "も", "きく"],
@@ -329,16 +336,16 @@ export const M5_NEO_7: LessonContent = {
     // Review tail — prior atoms (house idiom: vocabMcq → decode-build →
     // LC → vocabMcq → match grid).
     vocabMcq("ja-m5-neo-7-rev-mcq", L7_REVIEW[0], NEO_PRIOR_POOL),
-    listeningBuildSentence({
-      // Sentence-level (2026-07-20): two-mora decode tripped the M5+
-      // sentence-first ratchet — converted to a short verb sentence.
-      id: "ja-m5-neo-7-rev-lbs-mado",
-      target: "まどを みる",
-      tiles: ["まど", "を", "みる", "きく"],
-      correctOrder: ["まど", "を", "みる"],
-      promptEn: "Gonna look at the window.",
-      exercisedAtomKanas: ["まど", "みる"],
-    }),
+    // Converted to build_sentence so みる's first module-B appearance is an
+    // intro-capable step (vocab-provenance) — still a sentence-context beat.
+    build(
+      "ja-m5-neo-7-rev-build-mado",
+      "Build this sentence: I'll look at the window.",
+      "まどを みる",
+      ["まど", "を", "みる", "きく"],
+      ["まど", "を", "みる"],
+      ["まど", "みる"],
+    ),
     listeningCompSentence({
       // Sentence-level (2026-07-20): the pool-word LC tripped the M5+
       // sentence-first ratchet — the pool noun now rides an m5 verb.
@@ -386,11 +393,18 @@ export const M5_NEO_8: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① Situated listening + shadow, chunk by chunk.
+    // ① Image-MCQ intro (invariant 30): 💭 establishes おもう as the bare
+    // verb 'think'; the situated chunk そう おもう then teaches usage
+    // recognition-first (no analyzed と quotation — module spec).
+    vocabMcq(
+      "ja-m5-neo-8-vmcq-omou",
+      { kana: "おもう", meaningEn: "to think", emoji: "💭", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
     listeningCompSentence({
       id: "ja-m5-neo-8-lc-sou-omou",
       audioText: "そう おもう。",
-      question: "You ask Mika if it'll snow. She looks up and says this. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "I think so.",
       distractorsEn: [
         "That's how you say it.",
@@ -405,10 +419,17 @@ export const M5_NEO_8: LessonContent = {
       "I think so.",
       ["そう", "おもう"],
     ),
+    // Image-MCQ intro for いう (invariant 30): 💬 establishes the bare verb
+    // 'say' before the recognition chunk そう いう？.
+    vocabMcq(
+      "ja-m5-neo-8-vmcq-iu",
+      { kana: "いう", meaningEn: "to say", emoji: "💬", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
     listeningCompSentence({
       id: "ja-m5-neo-8-lc-sou-iu",
       audioText: "そう いう？",
-      question: "Tom builds a sentence, then checks it with Mika — this. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "Do you say it like that?",
       distractorsEn: [
         "Do you think so?",
@@ -448,21 +469,21 @@ export const M5_NEO_8: LessonContent = {
       ],
       exercisedAtomKanas: ["あれ", "やま", "うん", "そう", "おもう"],
     }),
-    // Situation-match (chunk-function MCQ — single-chunk choices stay
-    // MCQ-legal; no "reply/Say:" framing).
-    sentenceMcq({
-      id: "ja-m5-neo-8-mcq-fit-omou",
-      prompt: "Your friend asks: これ、すし？ You think so, but you're not sure. Which fits?",
-      correctKana: "そう おもう。",
-      distractorsKana: ["そう いう？", "うん、そう いう。", "わかる？"],
-      explanation:
-        "おもう hedges with your own head; いう is about what people SAY.",
-      exercisedAtomKanas: ["そう", "おもう"],
-    }),
+    // Was a full-sentence recognition MCQ (invariant 28) — now a build of
+    // the chunk itself; the いう distractor tile keeps the おもう/いう
+    // contrast the old options carried.
+    build(
+      "ja-m5-neo-8-build-sou-omou",
+      "Build this sentence: I think so.",
+      "そう おもう",
+      ["そう", "おもう", "いう"],
+      ["そう", "おもう"],
+      ["そう", "おもう"],
+    ),
     listeningCompSentence({
       id: "ja-m5-neo-8-lc-un-sou-iu",
       audioText: "うん、そう いう。",
-      question: "You ask if people really say it that way — this comes back. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "Yeah — that's how you say it.",
       distractorsEn: [
         "Yeah — I think so.",
@@ -511,11 +532,13 @@ export const M5_NEO_8: LessonContent = {
     // Mid-lesson breather — review grid between the two selection blocks
     // (step-type variety; the m3-neo-4 chunk-lesson idiom).
     reviewMatchPairs("ja-m5-neo-8-mid", L8_REVIEW.slice(6, 11)),
-    sentenceMcq({
-      id: "ja-m5-neo-8-mcq-fit-iu",
-      prompt: "You're not sure your phrase sounds natural — check with your friend. Which fits?",
-      correctKana: "そう いう？",
-      distractorsKana: ["そう おもう。", "わかる？", "うん、そうだ。"],
+    // Was a full-sentence recognition MCQ (invariant 28) — now a translate
+    // producing the question chunk.
+    translateStep({
+      id: "ja-m5-neo-8-tr-sou-iu",
+      promptEn: "Translate: Do you say it like that?",
+      acceptedAnswers: ["そう いう？", "そういう？", "そう いう", "そういう"],
+      audioText: "そう いう？",
       exercisedAtomKanas: ["そう", "いう"],
     }),
     listeningCompSentence({
@@ -530,21 +553,12 @@ export const M5_NEO_8: LessonContent = {
       ],
       exercisedAtomKanas: ["そう", "おもう"],
     }),
-    build(
-      "ja-m5-neo-8-build-sou-omou",
-      "Piece together the soft agreement: I think so.",
-      "そう おもう",
-      ["そう", "おもう", "いう"],
-      ["そう", "おもう"],
-      ["そう", "おもう"],
-    ),
-    // CAPSTONE (invariant 26): the おもう chunk produced inside a real m3
-    // question-answer flow — うん reply (m3) + にほんの origin frame (m4)
-    // set the scene; the chunk itself stays unanalyzed.
+    // CAPSTONE (invariant 26): the おもう chunk produced in a reply frame —
+    // うん (m3 reply) + そう (m3) around the new chunk. Plain prompt
+    // (invariant 29); the chunk itself stays unanalyzed.
     translateStep({
       id: "ja-m5-neo-8-tr-un-omou-capstone",
-      promptEn:
-        "Ken points at a boat: にほんの ふね？ You think so — agree the casual, soft way.",
+      promptEn: "Translate: Yeah, I think so.",
       acceptedAnswers: [
         "うん、そう おもう",
         "うんそうおもう",
@@ -608,7 +622,29 @@ export const M5_NEO_9: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① The compositional card first.
+    // ① Image-MCQ intros (invariant 30): the three compounds debut on their
+    // own images (🍱🥤🛍️), each with a speaking beat, BEFORE the もの card
+    // reveals the verb hiding inside each. もの itself has no honest image,
+    // so it keeps the rule-card intro.
+    vocabMcq(
+      "ja-m5-neo-9-vmcq-tabemono",
+      { kana: "たべもの", meaningEn: "food", emoji: "🍱", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
+    speaking("ja-m5-neo-9-speak-tabemono-word", "たべもの", "Food.", ["たべもの"]),
+    vocabMcq(
+      "ja-m5-neo-9-vmcq-nomimono",
+      { kana: "のみもの", meaningEn: "a drink", emoji: "🥤", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
+    speaking("ja-m5-neo-9-speak-nomimono-word", "のみもの", "A drink.", ["のみもの"]),
+    vocabMcq(
+      "ja-m5-neo-9-vmcq-kaimono",
+      { kana: "かいもの", meaningEn: "shopping", emoji: "🛍️", fromModule: "m5" },
+      NEO_PRIOR_POOL,
+    ),
+    speaking("ja-m5-neo-9-speak-kaimono-word", "かいもの", "Shopping.", ["かいもの"]),
+    // The compositional card — now the reveal, not the debut.
     grammarRule({
       id: "ja-m5-neo-9-rule-mono",
       title: "もの — the thing word",
@@ -634,7 +670,7 @@ export const M5_NEO_9: LessonContent = {
     }),
     build(
       "ja-m5-neo-9-build-nomimono",
-      "Tell a friend: It's a drink.",
+      "Build this sentence: It's a drink.",
       "のみものだ",
       ["のみもの", "だ", "たべもの"],
       ["のみもの", "だ"],
@@ -643,17 +679,11 @@ export const M5_NEO_9: LessonContent = {
     listeningCompSentence({
       id: "ja-m5-neo-9-lc-kaimono",
       audioText: "かいもの？",
-      question: "Your friend grabs a bag and asks this at the door. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "Going shopping?",
       distractorsEn: ["Going home?", "Is it food?", "Gonna buy this one?"],
       exercisedAtomKanas: ["かいもの"],
     }),
-    speaking(
-      "ja-m5-neo-9-speak-tabemono",
-      "たべものだ",
-      "It's food.",
-      ["たべもの"],
-    ),
     cloze(
       "ja-m5-neo-9-cloze-no",
       "だれ",
@@ -695,22 +725,19 @@ export const M5_NEO_9: LessonContent = {
       ],
       exercisedAtomKanas: ["それ", "のみもの", "ぎゅうにゅう", "わたし", "の"],
     }),
-    sentenceMcq({
-      id: "ja-m5-neo-9-mcq-kenno-tabemono",
-      prompt: "Pick: 'It's Ken's food.'",
-      correctKana: "ケンの たべものだ。",
-      distractorsKana: [
-        "ケンの のみものだ。",
-        "ミカの たべものだ。",
-        "ケンは たべものだ。",
-      ],
-      explanation:
-        "の clips the owner on. ケンは たべものだ would spotlight Ken — and declare HIM the food.",
-      exercisedAtomKanas: ["の", "たべもの"],
-    }),
+    // Was a full-sentence recognition MCQ (invariant 28) — now a build; the
+    // のみもの distractor tile keeps the food/drink contrast the options had.
+    build(
+      "ja-m5-neo-9-build-kenno-tabemono",
+      "Build this sentence: It's Ken's food.",
+      "ケンの たべものだ",
+      ["ケン", "の", "たべもの", "だ", "のみもの"],
+      ["ケン", "の", "たべもの", "だ"],
+      ["の", "たべもの"],
+    ),
     translateStep({
       id: "ja-m5-neo-9-tr-watashino-nomimono",
-      promptEn: "Say to a friend: It's my drink.",
+      promptEn: "Translate: It's my drink.",
       acceptedAnswers: [
         "わたしの のみものだ",
         "わたしののみものだ",
@@ -734,7 +761,7 @@ export const M5_NEO_9: LessonContent = {
     }),
     build(
       "ja-m5-neo-9-build-tabemono-kau",
-      "Tell a friend: I'll buy food.",
+      "Build this sentence: I'll buy food.",
       "たべものを かう",
       ["たべもの", "を", "かう", "のみもの"],
       ["たべもの", "を", "かう"],
@@ -750,7 +777,7 @@ export const M5_NEO_9: LessonContent = {
     // sentence — これ (m4) + も (m3) + の possession (m4) around たべもの.
     build(
       "ja-m5-neo-9-build-koremo-capstone",
-      "More snacks surface in the bag. Tell Ken: This one is Mika's food too.",
+      "Build this sentence: This one is Mika's food too.",
       "これも ミカの たべものだ",
       ["これ", "も", "ミカ", "の", "たべもの", "だ", "のみもの"],
       ["これ", "も", "ミカ", "の", "たべもの", "だ"],
@@ -759,16 +786,16 @@ export const M5_NEO_9: LessonContent = {
     // Review tail — prior atoms (house idiom: vocabMcq → decode-build →
     // LC → vocabMcq → match grid).
     vocabMcq("ja-m5-neo-9-rev-mcq", L9_REVIEW[0], NEO_PRIOR_POOL),
-    listeningBuildSentence({
-      // Sentence-level (2026-07-20): two-mora decode tripped the M5+
-      // sentence-first ratchet — converted to a short verb sentence.
-      id: "ja-m5-neo-9-rev-lbs-kao",
-      target: "かおを みる",
-      tiles: ["かお", "を", "みる", "たべる"],
-      correctOrder: ["かお", "を", "みる"],
-      promptEn: "Gonna look at their face.",
-      exercisedAtomKanas: ["かお", "みる"],
-    }),
+    // Converted to build_sentence so たべる's first module-B appearance is an
+    // intro-capable step (vocab-provenance) — still a sentence-context beat.
+    build(
+      "ja-m5-neo-9-rev-build-kao",
+      "Build this sentence: I'll look at their face.",
+      "かおを みる",
+      ["かお", "を", "みる", "たべる"],
+      ["かお", "を", "みる"],
+      ["かお", "みる"],
+    ),
     listeningCompSentence({
       // Sentence-level (2026-07-20): the pool-word LC tripped the M5+
       // sentence-first ratchet — the pool noun now rides an m5 verb.
@@ -832,7 +859,7 @@ export const M5_NEO_10: LessonContent = {
     }),
     build(
       "ja-m5-neo-10-build-gohan-taberu",
-      "Tell a friend: I'll eat the rice.",
+      "Build this sentence: I'll eat the rice.",
       "ごはんを たべる",
       ["ごはん", "を", "たべる", "のむ"],
       ["ごはん", "を", "たべる"],
@@ -852,7 +879,7 @@ export const M5_NEO_10: LessonContent = {
     }),
     build(
       "ja-m5-neo-10-build-gyuunyuu-nomu",
-      "Tell a friend: I'll drink milk.",
+      "Build this sentence: I'll drink milk.",
       "ぎゅうにゅうを のむ",
       ["ぎゅうにゅう", "を", "のむ", "たべる"],
       ["ぎゅうにゅう", "を", "のむ"],
@@ -925,7 +952,7 @@ export const M5_NEO_10: LessonContent = {
     }),
     build(
       "ja-m5-neo-10-build-sore-yaru",
-      "Chores are being split. Claim that one, casual: I'll do that one.",
+      "Build this sentence: I'll do that one.",
       "それを やる",
       ["それ", "を", "やる", "これ"],
       ["それ", "を", "やる"],
@@ -941,15 +968,12 @@ export const M5_NEO_10: LessonContent = {
       "ごはんを たべる。",
       "を marks what gets eaten; the verb closes the sentence.",
     ),
-    sentenceMcq({
-      id: "ja-m5-neo-10-mcq-nani-nomu",
-      prompt: "Pick: 'What'll you drink?'",
-      correctKana: "なにを のむ？",
-      distractorsKana: [
-        "なにを たべる？",
-        "なにを する？",
-        "だれの のみもの？",
-      ],
+    // Was a full-sentence recognition MCQ (invariant 28) — now a translate.
+    translateStep({
+      id: "ja-m5-neo-10-tr-nani-nomu",
+      promptEn: "Translate: What'll you drink?",
+      acceptedAnswers: ["なにを のむ？", "なにをのむ？", "なにを のむ", "なにをのむ"],
+      audioText: "なにを のむ？",
       exercisedAtomKanas: ["なに", "を", "のむ"],
     }),
     speaking(
@@ -974,7 +998,7 @@ export const M5_NEO_10: LessonContent = {
     // around an を-verb — produced from scratch.
     translateStep({
       id: "ja-m5-neo-10-tr-jitensha-capstone",
-      promptEn: "Ask your friend, surprised: You're gonna buy Mika's bike?",
+      promptEn: "Translate: You're gonna buy Mika's bike?",
       acceptedAnswers: [
         "ミカの じてんしゃを かう？",
         "ミカのじてんしゃをかう？",
@@ -1038,6 +1062,15 @@ export const M5_NEO_11: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
+    // Warm-up on known material (invariant 30: no cold dialogue at step 0).
+    // だいじょうぶ (👌, a known survival callback) previews the apology-
+    // resolution beat of scene 3 and gives the bare chunk an intro-capable
+    // first appearance before it recurs in the function MCQs.
+    vocabMcq(
+      "ja-m5-neo-11-vmcq-daijoubu",
+      { kana: "だいじょうぶ", meaningEn: "all right", emoji: "👌", fromModule: "m9" },
+      NEO_PRIOR_POOL,
+    ),
     // Scene 1 — the plan.
     dialogueListen({
       id: "ja-m5-neo-11-dlg-scene1",
@@ -1073,7 +1106,7 @@ export const M5_NEO_11: LessonContent = {
     }),
     translateStep({
       id: "ja-m5-neo-11-tr-un-taberu",
-      promptEn: "Mika asks ごはんを たべる？ — you're in. Answer casually: Yeah, I'll eat.",
+      promptEn: "Translate: Yeah, I'll eat.",
       acceptedAnswers: ["うん、たべる", "うんたべる", "たべる"],
       audioText: "うん、たべる",
       exercisedAtomKanas: ["うん", "たべる"],
@@ -1092,7 +1125,7 @@ export const M5_NEO_11: LessonContent = {
     }),
     build(
       "ja-m5-neo-11-build-sushi",
-      "Tell a friend: I'll eat sushi.",
+      "Build this sentence: I'll eat sushi.",
       "すしを たべる",
       ["すし", "を", "たべる", "ごはん"],
       ["すし", "を", "たべる"],
@@ -1173,7 +1206,7 @@ export const M5_NEO_11: LessonContent = {
     // ごめんなさい/だいじょうぶ recur in stories).
     sentenceMcq({
       id: "ja-m5-neo-11-mcq-gomen",
-      prompt: "Reaching across, you knock over Ken's cup. What do you say first?",
+      prompt: "You knock over Ken's cup — what do you say?",
       correctKana: "ごめんなさい",
       distractorsKana: ["だいじょうぶ", "ありがとう", "うん"],
       exercisedAtomKanas: ["ごめんなさい"],
@@ -1194,7 +1227,7 @@ export const M5_NEO_11: LessonContent = {
     }),
     build(
       "ja-m5-neo-11-build-kenmo-taberu",
-      "Tell Mika: Ken's gonna eat too.",
+      "Build this sentence: Ken's gonna eat too.",
       "ケンも たべる",
       ["ケン", "も", "たべる", "たなか"],
       ["ケン", "も", "たべる"],
@@ -1295,7 +1328,7 @@ export const M5_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m5-neo-rev-build-yuki",
-      "Tell a friend: I'll watch the snow.",
+      "Build this sentence: I'll watch the snow.",
       "ゆきを みる",
       ["ゆき", "を", "みる", "のむ"],
       ["ゆき", "を", "みる"],
@@ -1317,7 +1350,7 @@ export const M5_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m5-neo-rev-build-megane",
-      "Tell a friend: I'll buy glasses.",
+      "Build this sentence: I'll buy glasses.",
       "めがねを かう",
       ["めがね", "を", "かう", "みる"],
       ["めがね", "を", "かう"],
@@ -1339,15 +1372,16 @@ export const M5_NEO_REVIEW: LessonContent = {
       "ほしを みる。",
       "を marks what your eyes land on; みる closes the sentence.",
     ),
-    sentenceMcq({
-      id: "ja-m5-neo-rev-mcq-umi",
-      prompt: "Pick: 'I'll listen to the sea.'",
-      correctKana: "うみを きく。",
-      distractorsKana: ["うみを みる。", "うみを のむ。", "うみは きく。"],
-      explanation:
-        "きく takes the sound in — うみを きく is listening to the waves. みる would be watching them.",
-      exercisedAtomKanas: ["うみ", "を", "きく"],
-    }),
+    // Was a full-sentence recognition MCQ (invariant 28) — now a build; the
+    // みる distractor tile keeps the listen/watch contrast the options had.
+    build(
+      "ja-m5-neo-rev-build-umi",
+      "Build this sentence: I'll listen to the sea.",
+      "うみを きく",
+      ["うみ", "を", "きく", "みる"],
+      ["うみ", "を", "きく"],
+      ["うみ", "を", "きく"],
+    ),
     // Chunk callback in the wild — そう おもう rides a fresh star-gazing
     // scene.
     dialogueListen({
@@ -1392,7 +1426,7 @@ export const M5_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m5-neo-rev-build-shashin",
-      "Tell a friend: I'll look at the river photos.",
+      "Build this sentence: I'll look at the river photos.",
       "かわの しゃしんを みる",
       ["かわ", "の", "しゃしん", "を", "みる", "つき"],
       ["かわ", "の", "しゃしん", "を", "みる"],
@@ -1400,7 +1434,7 @@ export const M5_NEO_REVIEW: LessonContent = {
     ),
     translateStep({
       id: "ja-m5-neo-rev-tr-denwa",
-      promptEn: "Say to a friend: I'll buy a phone.",
+      promptEn: "Translate: I'll buy a phone.",
       acceptedAnswers: ["でんわを かう", "でんわをかう", "かう"],
       audioText: "でんわを かう",
       exercisedAtomKanas: ["でんわ", "を", "かう"],
@@ -1427,8 +1461,7 @@ export const M5_NEO_REVIEW: LessonContent = {
     }),
     sentenceMcq({
       id: "ja-m5-neo-rev-mcq-daijoubu",
-      prompt:
-        "A stranger's umbrella clatters onto your foot and she gasps an apology. You're fine — you say:",
+      prompt: "Someone apologizes to you and you're fine — which fits?",
       correctKana: "だいじょうぶ",
       distractorsKana: ["ありがとう", "うん", "はじめまして"],
       exercisedAtomKanas: ["だいじょうぶ"],

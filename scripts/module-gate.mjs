@@ -37,7 +37,7 @@
  *      clear reason when the flag is unset or `--lessons` is missing.
  */
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -165,23 +165,48 @@ stage("tsc --noEmit", () => {
     : { status: "FAIL", detail: `tsc exited ${res.status}` };
 });
 
-// ── stage 4 (optional): visual-QA contracts + capture ───────────────────
+// ── stage 4: visual-QA contracts + capture ──────────────────────────────
+// DEFAULT ON (methodology audit 2026-07-20, Gap 3): the workflow calls
+// visual QA mandatory, but this used to SKIP unless MODULE_GATE_CAPTURE=1
+// AND --lessons were both passed — so running the documented command
+// silently skipped the mandatory step. Now it runs by default, auto-
+// deriving lesson ids from the module's curriculum files, with an
+// explicit --skip-visual escape (a SKIP here is now VISIBLE and chosen,
+// never accidental). The follow-up judge still runs separately.
+function deriveLessonIds() {
+  if (lessonIds.length) return lessonIds;
+  const dir = resolve(ROOT, "src/features/languages/ja/curriculum");
+  let ids = new Set();
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!new RegExp(`^${moduleArg.replace("-neo", "")}-neo`).test(f)) continue;
+      if (f.includes(".test.")) continue;
+      const src = readFileSync(resolve(dir, f), "utf-8");
+      for (const m of src.matchAll(/id:\s*"(ja-m\d+-neo(?:-\w+)?)"/g)) {
+        // lesson ids only (ja-mN-neo-<n>|review), not step ids
+        if (/^ja-m\d+-neo-(\d+|review)$/.test(m[1])) ids.add(m[1]);
+      }
+    }
+  } catch { /* no files — leave empty */ }
+  return [...ids];
+}
 
-stage("visual-QA contracts + capture (optional)", () => {
-  if (process.env.MODULE_GATE_CAPTURE !== "1") {
-    return { status: "SKIP", detail: "MODULE_GATE_CAPTURE not set to 1" };
+stage("visual-QA contracts + capture", () => {
+  if (rawArgs.includes("--skip-visual")) {
+    return { status: "SKIP", detail: "--skip-visual (explicitly chosen)" };
   }
-  if (lessonIds.length === 0) {
-    return { status: "SKIP", detail: "no --lessons=id1,id2 flag supplied" };
+  const ids = deriveLessonIds();
+  if (ids.length === 0) {
+    return { status: "FAIL", detail: "no lesson ids derivable — pass --lessons= or --skip-visual" };
   }
-  const env = { ...process.env, VISUAL_QA_LESSONS: lessonIds.join(",") };
+  const env = { ...process.env, VISUAL_QA_LESSONS: ids.join(",") };
   const contracts = run("npm", ["run", "visual-qa:contracts"], { env });
   if (contracts.status !== 0) {
     return { status: "FAIL", detail: "visual-qa:contracts failed" };
   }
   const capture = run("npm", ["run", "visual-qa:capture"], { env });
   return capture.status === 0
-    ? { status: "PASS", detail: `${lessonIds.length} lesson(s) captured` }
+    ? { status: "PASS", detail: `${ids.length} lesson(s) captured` }
     : { status: "FAIL", detail: "visual-qa:capture failed" };
 });
 

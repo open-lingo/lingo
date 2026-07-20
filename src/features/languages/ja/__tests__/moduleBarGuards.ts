@@ -22,6 +22,7 @@ import { describe, it, expect } from "vitest";
 import type { LessonContent } from "@/features/lesson/types";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
 import { M3_M7_REVIEW_POOL } from "../grammarHelpers";
+import { getRealFormLexicon } from "./moduleContentLints";
 
 const SELECTION = new Set([
   "listening_comprehension",
@@ -79,6 +80,10 @@ export function registerModuleBarGuards(opts: {
   /** Minimum lesson count (Spencer 2026-07-20: 12 from m4 on; m3's 7 is
    *  grandfathered — it taught only three things). */
   minLessons?: number;
+  /** Invariant 30 (Spencer 2026-07-20): imageable module-new atoms debut
+   *  on word_image_mcq; teaching lessons don't open on dialogue_listen.
+   *  Gated so already-shipped modules retrofit on their own schedule. */
+  requireImageFirst?: boolean;
   /** Invariant 26 (m5+): every teaching lesson carries ONE integration
    *  step (id suffix -capstone; build/translate/listening_build) placed
    *  before the review tail, combining the new concept with ≥2 earlier-
@@ -95,7 +100,16 @@ export function registerModuleBarGuards(opts: {
       (a) => a.kana,
     ),
   ]);
-  const VOCAB = new Set([...PRIOR, ...JA_COURSE_ATOMS.map((a) => a.kana)]);
+  // Conjugation-aware: without every te/ta/nai/masu form, the tokenizer
+  // reads たべない as an "untracked word" the first time a negatives
+  // module (m6) runs — a false positive an agent would "fix" by loosening
+  // the teach-before-use check (methodology audit 2026-07-20, Gap 1).
+  // getRealFormLexicon (moduleContentLints) already enumerates them.
+  const VOCAB = new Set([
+    ...PRIOR,
+    ...JA_COURSE_ATOMS.map((a) => a.kana),
+    ...getRealFormLexicon(),
+  ]);
   const ALL = [...new Set([...VOCAB, ...STRUCTURAL])].sort(
     (a, b) => b.length - a.length,
   );
@@ -178,6 +192,66 @@ export function registerModuleBarGuards(opts: {
         });
       }
 
+      it(`${lesson.id}: no derived spot-the-mistake step (invariant 32 — retired)`, () => {
+        for (const st of lesson.steps as any[]) {
+          expect(
+            st.id?.endsWith("-spot"),
+            `${lesson.id}/${st.id}: spot-the-mistake step is retired (invariant 32)`,
+          ).not.toBe(true);
+          expect(
+            /one of these is wrong/i.test(st.prompt ?? ""),
+            `${lesson.id}/${st.id}: "one of these is wrong" prompt is retired (invariant 32)`,
+          ).toBe(false);
+        }
+      });
+
+      it(`${lesson.id}: no full-sentence recognition MCQs (invariant 28 — test-outs only)`, () => {
+        // sentenceMcq compiles to a multiple_choice step; the offender is
+        // one whose CORRECT option is a multi-word Japanese sentence
+        // (picking a built sentence). Single-chunk MCQs (register/act-out)
+        // and vocab/English-option MCQs are fine.
+        for (const st of lesson.steps as any[]) {
+          if (st.type !== "multiple_choice") continue;
+          const correct = (st.options ?? []).find(
+            (o: any) => o.id === st.correctOptionId,
+          );
+          const text: string = correct?.text ?? "";
+          const isJa =
+            /[぀-ヿ]/.test(text) && !/[a-zA-Z]/.test(text);
+          const bare = text.replace(/[。？！]/g, "");
+          if (isJa && /[ 　]/.test(bare)) {
+            throw new Error(
+              `${lesson.id}/${st.id}: full-sentence recognition MCQ ("${text}") — pick-the-built-sentence is test-out only; use build/translate/speaking`,
+            );
+          }
+        }
+      });
+
+      if (opts.requireImageFirst && !lesson.id.endsWith("-review")) {
+        it(`${lesson.id}: does not open on a dialogue (invariant 30)`, () => {
+          expect(
+            lesson.steps[0]?.type,
+            `${lesson.id}: teaching lessons establish words before dialogue`,
+          ).not.toBe("dialogue_listen");
+        });
+      }
+
+      it(`${lesson.id}: production prompts are plain, no theatrics (invariant 29)`, () => {
+        for (const st of lesson.steps as any[]) {
+          const isProd = st.type === "build_sentence" || st.type === "translate";
+          const isLc = st.type === "listening_comprehension";
+          if (!isProd && !isLc) continue;
+          const prompt: string = st.prompt ?? st.promptEn ?? st.question ?? "";
+          // A theatrical scenario has an internal sentence period ("… up.
+          // Tell Tom: …"); plain and register-cued prompts never do.
+          if (/[.!?]\s+\S/.test(prompt.trim().replace(/[.!?]+$/, ""))) {
+            throw new Error(
+              `${lesson.id}/${st.id} (${st.type}): theatrical prompt ("${prompt}") — plain only ("Build: <English>" / "What does this mean?"); no scenario, no internal sentence period (inv 29)`,
+            );
+          }
+        }
+      });
+
       it(`${lesson.id}: production-framed prompts are generation steps, not MCQs`, () => {
         for (const s of lesson.steps as any[]) {
           if (s.type !== "sentence_mcq" && s.type !== "multiple_choice") continue;
@@ -219,6 +293,37 @@ export function registerModuleBarGuards(opts: {
           `"${word}" debuts on non-intro step type ${type}`,
         ).toBe(true);
     });
+
+    if (opts.requireImageFirst) {
+      it("imageable module-new atoms debut on word_image_mcq (invariant 30)", () => {
+        const thisModule = `m${moduleLabel.match(/m(\d+)/)?.[1]}`;
+        const imageable = JA_COURSE_ATOMS.filter(
+          (a) =>
+            a.fromModule === thisModule &&
+            a.kind === "vocab" &&
+            a.emoji &&
+            !(a as any).blocked,
+        );
+        const firstType = new Map<string, string>();
+        for (const lesson of lessons) {
+          for (const step of lesson.steps as any[]) {
+            const blob = JSON.stringify(step);
+            for (const atom of imageable) {
+              if (firstType.has(atom.kana)) continue;
+              if (blob.includes(atom.kana)) firstType.set(atom.kana, step.type);
+            }
+          }
+        }
+        for (const atom of imageable) {
+          const t = firstType.get(atom.kana);
+          if (!t) continue; // atom exists but unused in this module — other gate
+          expect(
+            t,
+            `${atom.kana} (${atom.emoji}) debuts on ${t}, not word_image_mcq`,
+          ).toBe("word_image_mcq");
+        }
+      });
+    }
 
     it("persona canon is consistent module-wide", () => {
       const names = Object.keys(canon).join("|");

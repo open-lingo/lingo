@@ -18,6 +18,7 @@ registerModuleBarGuards({
   canon: COURSE_CANON,
   minLessons: 12,
   requireCapstone: true,
+  requireImageFirst: true,
 });
 
 describe("m5-neo cross-half checks", () => {

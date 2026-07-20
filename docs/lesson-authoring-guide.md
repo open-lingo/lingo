@@ -19,6 +19,17 @@
 > - **Sentence variety** (invariant 24): any primary sentence surface ≤3
 >   uses per lesson; recycle earlier-module nouns as carriers; every
 >   non-prior word's FIRST occurrence must be an intro-capable step.
+> - **NO derived spot-the-mistake step** (invariant 32): the auto
+>   "One of these is wrong — pick the correct sentence" MCQ is retired.
+>   Teach the contrast with a harder BUILD (tile-ordered production).
+>   antiPattern → reactive ✗ tip only, no spot step.
+> - **NO THEATRICS in ANY prompt** (invariant 29): build/translate/
+>   speaking instructions AND listening_comprehension questions are plain
+>   — "Build this sentence: X", "What does this mean?", "Telling or
+>   asking?". Kill scenario wrappers ("Mika sits down to dinner and says
+>   this. Meaning?" → "What does this mean?"). A prompt with an internal
+>   sentence period is theatrical and fails the gate. Register cue only
+>   if it changes the answer.
 > - **Production-framed prompts** ("pick your reply", "Say: …") are
 >   generation steps, never sentence MCQs.
 > - **Particle-substitution concepts (も-class): compact rule card BEFORE
@@ -515,7 +526,7 @@ Map atom lexical category to the dominant retrieval step type. Author the FIRST 
 |---|---|---|
 | Concrete noun with canonical emoji (りんご, ねこ, ほん, コーヒー) | `vocabMcq` (image MCQ) | Image is unambiguous; recognition-first; survives mixed-age audience. |
 | Compound noun without single-glyph emoji (にほんじん, アメリカじん) | `listeningCompSentence` (audio→meaning) + `speaking` | Composite — no clean image cue; audio carries the load. |
-| Verb (たべる, のむ, みる) | `build` (forced single-answer tile bank) | Action images are ambiguous; tile-bank production drills the form. |
+| Verb (たべる, のむ, みる) with honest emoji | `vocabMcq` (image MCQ) INTRO, then `build` drills (Spencer 2026-07-20, invariant 30) | Core action verbs have honest emoji (🍽️👁️🥤) — establish the WORD via image MCQ first, THEN build the form. Blocked/abstract verbs (する/やる/わかる — no honest image) keep build/LC intro. |
 | Adjective (あおい, おおきい) | `build` (forced) — ja: NOT phrase_card (§4b2); es/ko may use phrase_card exposure + `sentenceMcq` | Color emoji exist (🟦) but the kana ↔ image mapping is weaker than nouns. Production-direction build is the safer choice. |
 | Pronoun (わたし, あなた, これ/それ/あれ, なん) | `build` (forced) — never image_mcq | Rubric block: `WORD_IMAGE_MCQ_BLOCKLIST` in `grammarHelpers.ts`. Demonstrative-image cues are deeply context-dependent. |
 | Function-phrase / greeting (すみません, こんにちは, おねがいします) | ja: `listeningCompSentence` + `speaking` (NOT phrase_card, §4b2); es/ko: `phrase_card` + `listeningCompSentence` | No image; oral function carries the meaning. |

@@ -147,7 +147,7 @@ export const M4_NEO_7: LessonContent = {
     }),
     build(
       "ja-m4-neo-7-build-kenno",
-      "Tell a friend whose it is: It's Ken's.",
+      "Build this sentence: It's Ken's.",
       "ケンのだ",
       ["ケン", "の", "だ", "は"],
       ["ケン", "の", "だ"],
@@ -215,7 +215,7 @@ export const M4_NEO_7: LessonContent = {
     }),
     build(
       "ja-m4-neo-7-build-kore-kenno",
-      "Hand it over — tell your friend: This is Ken's bag.",
+      "Build this sentence: This is Ken's bag.",
       "これは ケンの かばんだ",
       ["これ", "は", "ケン", "の", "かばん", "だ"],
       ["これ", "は", "ケン", "の", "かばん", "だ"],
@@ -224,14 +224,14 @@ export const M4_NEO_7: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-7-lc-watashino",
       audioText: "わたしのだ。",
-      question: "Ken's words — what do they mean?",
+      question: "What does this mean?",
       correctMeaningEn: "It's mine.",
       distractorsEn: ["It's yours.", "Whose is it?", "It's not mine."],
       exercisedAtomKanas: ["わたし", "の"],
     }),
     translateStep({
       id: "ja-m4-neo-7-tr-watashino",
-      promptEn: "Say to a friend: It's mine.",
+      promptEn: "Translate: It's mine.",
       acceptedAnswers: ["わたしのだ", "わたしの", "わたしのだ。", "わたしの。"],
       audioText: "わたしのだ",
       exercisedAtomKanas: ["わたし", "の"],
@@ -286,6 +286,16 @@ export const M4_NEO_7: LessonContent = {
       "だれの かばん？",
       "Whose bag is it? (voice rises)",
       ["だれ", "の", "かばん"],
+    ),
+    // CAPSTONE (invariant 26) — the story's stretch beat before the tail:
+    // それ (m4 L2) + possessive の (m4 L5) + a recycled object in one build.
+    build(
+      "ja-m4-neo-7-capstone",
+      "Build this sentence: That (near you) is Ken's bag.",
+      "それは ケンの かばんだ",
+      ["それ", "は", "ケン", "の", "かばん", "だ", "これ"],
+      ["それ", "は", "ケン", "の", "かばん", "だ"],
+      ["それ", "の", "かばん"],
     ),
     // Review tail — prior atoms (house idiom: vocabMcq → decode-build →
     // LC → vocabMcq → match grid).
@@ -383,7 +393,7 @@ export const M4_NEO_8: LessonContent = {
     }),
     build(
       "ja-m4-neo-8-build-nihon-kuruma",
-      "Tell a friend: It's a Japanese car.",
+      "Build this sentence: It's a Japanese car.",
       "にほんの くるまだ",
       ["にほん", "の", "くるま", "だ", "アメリカ"],
       ["にほん", "の", "くるま", "だ"],
@@ -403,7 +413,7 @@ export const M4_NEO_8: LessonContent = {
     }),
     build(
       "ja-m4-neo-8-build-amerika-keitai",
-      "Tell a friend: It's an American phone.",
+      "Build this sentence: It's an American phone.",
       "アメリカの けいたいだ",
       ["アメリカ", "の", "けいたい", "だ", "にほん"],
       ["アメリカ", "の", "けいたい", "だ"],
@@ -451,7 +461,7 @@ export const M4_NEO_8: LessonContent = {
     ),
     build(
       "ja-m4-neo-8-build-keitai-mikano",
-      "Tell a friend: The phone is Mika's.",
+      "Build this sentence: The phone is Mika's.",
       "けいたいは ミカのだ",
       ["けいたい", "は", "ミカ", "の", "だ", "にほん"],
       ["けいたい", "は", "ミカ", "の", "だ"],
@@ -471,7 +481,7 @@ export const M4_NEO_8: LessonContent = {
     }),
     translateStep({
       id: "ja-m4-neo-8-tr-nihon-keitai",
-      promptEn: "Say to a friend: It's a Japanese phone.",
+      promptEn: "Translate: It's a Japanese phone.",
       acceptedAnswers: [
         "にほんの けいたいだ",
         "にほんのけいたいだ",
@@ -481,17 +491,15 @@ export const M4_NEO_8: LessonContent = {
       audioText: "にほんの けいたいだ",
       exercisedAtomKanas: ["にほん", "けいたい", "の"],
     }),
-    sentenceMcq({
-      id: "ja-m4-neo-8-mcq-amerika-kuruma",
-      prompt: "Pick: 'It's an American car.'",
-      correctKana: "アメリカの くるまだ。",
-      distractorsKana: [
-        "にほんの くるまだ。",
-        "アメリカの けいたいだ。",
-        "くるまの アメリカだ。",
-      ],
-      exercisedAtomKanas: ["アメリカ", "くるま", "の"],
-    }),
+    // Invariant 28: full-sentence pick → build.
+    build(
+      "ja-m4-neo-8-build-amerika-kuruma",
+      "Build this sentence: It's an American car.",
+      "アメリカの くるまだ",
+      ["アメリカ", "の", "くるま", "だ", "にほん"],
+      ["アメリカ", "の", "くるま", "だ"],
+      ["アメリカ", "くるま", "の"],
+    ),
     // Closer — the origin の in a two-voice exchange.
     dialogueListen({
       id: "ja-m4-neo-8-dlg-close",
@@ -530,7 +538,7 @@ export const M4_NEO_8: LessonContent = {
       ["アメリカ", "くるま"],
     ),
     listeningBuildSentence({
-      id: "ja-m4-neo-8-lbs-kuruma-nihonno",
+      id: "ja-m4-neo-8-capstone",
       target: "くるまは にほんのだ",
       tiles: ["くるま", "は", "にほん", "の", "だ", "アメリカ"],
       correctOrder: ["くるま", "は", "にほん", "の", "だ"],
@@ -626,7 +634,7 @@ export const M4_NEO_9: LessonContent = {
     }),
     build(
       "ja-m4-neo-9-build-kore",
-      "Your friend asks which one is yours. Point and tell them: It's this one.",
+      "Build this sentence: It's this one.",
       "これだ",
       ["これ", "だ", "どれ"],
       ["これ", "だ"],
@@ -665,7 +673,7 @@ export const M4_NEO_9: LessonContent = {
       id: "ja-m4-neo-9-lc-soreda",
       audioText: "それだ。",
       question:
-        "You hold one up; your friend says this. Meaning?",
+        "What does this mean?",
       correctMeaningEn: "That's the one (you're holding).",
       distractorsEn: [
         "This one (near me).",
@@ -676,7 +684,7 @@ export const M4_NEO_9: LessonContent = {
     }),
     build(
       "ja-m4-neo-9-build-are",
-      "Point at the far shelf and tell your friend: It's that one over there.",
+      "Build this sentence: It's that one over there.",
       "あれだ",
       ["あれ", "だ", "これ"],
       ["あれ", "だ"],
@@ -710,32 +718,20 @@ export const M4_NEO_9: LessonContent = {
       ],
       exercisedAtomKanas: ["めがね", "どれ"],
     }),
-    sentenceMcq({
-      id: "ja-m4-neo-9-mcq-ask-kuruma",
-      prompt: "Three cars sit in the lot. Ask your friend which one is Ken's.",
-      correctKana: "ケンの くるまは どれ？",
-      distractorsKana: [
-        "これは ケンの くるま？",
-        "だれの くるま？",
-        "くるまは ケンの？",
-      ],
-      explanation:
-        "どれ asks 'which of them?' The others ask yes/no or 'whose?' instead.",
-      exercisedAtomKanas: ["くるま", "どれ", "の"],
-    }),
+    // Invariant 28: full-sentence pick → build (reordered so the two builds
+    // don't sit adjacent — the LC now separates them).
     build(
-      "ja-m4-neo-9-build-kore-kenno",
-      "Point at the middle one and tell your friend: This one is Ken's car.",
-      "これは ケンの くるまだ",
-      ["これ", "は", "ケン", "の", "くるま", "だ"],
-      ["これ", "は", "ケン", "の", "くるま", "だ"],
-      ["これ", "くるま", "の"],
+      "ja-m4-neo-9-build-ask-kuruma",
+      "Build this sentence: Which one is Ken's car?",
+      "ケンの くるまは どれ",
+      ["ケン", "の", "くるま", "は", "どれ", "これ"],
+      ["ケン", "の", "くるま", "は", "どれ"],
+      ["くるま", "どれ", "の"],
     ),
     listeningCompSentence({
       id: "ja-m4-neo-9-lc-areda",
       audioText: "あれだ。",
-      question:
-        "Asked which one — your friend points across the street. Meaning?",
+      question: "What does this mean?",
       correctMeaningEn: "That one over there.",
       distractorsEn: [
         "This one here.",
@@ -744,16 +740,24 @@ export const M4_NEO_9: LessonContent = {
       ],
       exercisedAtomKanas: ["あれ"],
     }),
+    build(
+      "ja-m4-neo-9-build-kore-kenno",
+      "Build this sentence: This is Ken's car.",
+      "これは ケンの くるまだ",
+      ["これ", "は", "ケン", "の", "くるま", "だ"],
+      ["これ", "は", "ケン", "の", "くるま", "だ"],
+      ["これ", "くるま", "の"],
+    ),
     translateStep({
       id: "ja-m4-neo-9-tr-are",
       promptEn:
-        "Your friend asks which umbrella is yours. Say: It's that one over there.",
+        "Translate: It's that one over there.",
       acceptedAnswers: ["あれだ", "あれ", "あれだ。", "あれ。"],
       audioText: "あれだ",
       exercisedAtomKanas: ["あれ"],
     }),
     listeningBuildSentence({
-      id: "ja-m4-neo-9-lbs-sore-mikano",
+      id: "ja-m4-neo-9-capstone",
       target: "それは ミカの かさだ",
       tiles: ["それ", "は", "ミカ", "の", "かさ", "だ", "どれ"],
       correctOrder: ["それ", "は", "ミカ", "の", "かさ", "だ"],
@@ -832,7 +836,7 @@ export const M4_NEO_10: LessonContent = {
     }),
     build(
       "ja-m4-neo-10-build-kore-jitensha",
-      "Tell a friend: This is a bicycle.",
+      "Build this sentence: This is a bicycle.",
       "これは じてんしゃだ",
       ["これ", "は", "じてんしゃ", "だ", "くるま"],
       ["これ", "は", "じてんしゃ", "だ"],
@@ -857,7 +861,7 @@ export const M4_NEO_10: LessonContent = {
     }),
     build(
       "ja-m4-neo-10-build-are-jitensha",
-      "Tell a friend: That one over there is a bicycle.",
+      "Build this sentence: That (over there) is a bicycle.",
       "あれは じてんしゃだ",
       ["あれ", "は", "じてんしゃ", "だ", "これ"],
       ["あれ", "は", "じてんしゃ", "だ"],
@@ -904,24 +908,15 @@ export const M4_NEO_10: LessonContent = {
       ],
       exercisedAtomKanas: ["じてんしゃ", "だれ", "の", "あれ"],
     }),
-    sentenceMcq({
-      id: "ja-m4-neo-10-mcq-dareno-jisho",
-      prompt: "Pick: 'Whose dictionary is it?'",
-      correctKana: "だれの じしょ？",
-      distractorsKana: [
-        "だれの じてんしゃ？",
-        "じしょは どれ？",
-        "ミカの じしょ？",
-      ],
-      exercisedAtomKanas: ["だれ", "の", "じしょ"],
-    }),
+    // Invariant 28: full-sentence pick → build (reordered so the two builds
+    // don't sit adjacent — the LC now separates them).
     build(
-      "ja-m4-neo-10-build-tomuno",
-      "Tell a friend: It's Tom's bicycle.",
-      "トムの じてんしゃだ",
-      ["トム", "の", "じてんしゃ", "だ", "わたし"],
-      ["トム", "の", "じてんしゃ", "だ"],
-      ["じてんしゃ", "の"],
+      "ja-m4-neo-10-build-dareno-jisho",
+      "Build this sentence: Whose dictionary is it?",
+      "だれの じしょ",
+      ["だれ", "の", "じしょ", "じてんしゃ"],
+      ["だれ", "の", "じしょ"],
+      ["だれ", "の", "じしょ"],
     ),
     listeningCompSentence({
       id: "ja-m4-neo-10-lc-jisho-dore",
@@ -935,9 +930,17 @@ export const M4_NEO_10: LessonContent = {
       ],
       exercisedAtomKanas: ["じしょ", "どれ"],
     }),
+    build(
+      "ja-m4-neo-10-build-tomuno",
+      "Build this sentence: It's Tom's bicycle.",
+      "トムの じてんしゃだ",
+      ["トム", "の", "じてんしゃ", "だ", "わたし"],
+      ["トム", "の", "じてんしゃ", "だ"],
+      ["じてんしゃ", "の"],
+    ),
     translateStep({
       id: "ja-m4-neo-10-tr-watashino-jitensha",
-      promptEn: "Say to a friend: It's my bicycle.",
+      promptEn: "Translate: It's my bicycle.",
       acceptedAnswers: [
         "わたしの じてんしゃだ",
         "わたしのじてんしゃだ",
@@ -948,7 +951,7 @@ export const M4_NEO_10: LessonContent = {
       exercisedAtomKanas: ["わたし", "の", "じてんしゃ"],
     }),
     listeningBuildSentence({
-      id: "ja-m4-neo-10-lbs-kore-tomuno",
+      id: "ja-m4-neo-10-capstone",
       target: "これは トムの じしょだ",
       tiles: ["これ", "は", "トム", "の", "じしょ", "だ", "どれ"],
       correctOrder: ["これ", "は", "トム", "の", "じしょ", "だ"],
@@ -1049,7 +1052,7 @@ export const M4_NEO_11: LessonContent = {
     }),
     build(
       "ja-m4-neo-11-build-tanakano",
-      "Tell a friend: It's Tanaka's dictionary.",
+      "Build this sentence: It's Tanaka's dictionary.",
       "たなかの じしょだ",
       ["たなか", "の", "じしょ", "だ", "わたし"],
       ["たなか", "の", "じしょ", "だ"],
@@ -1058,7 +1061,7 @@ export const M4_NEO_11: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-11-lc-tanakanoda",
       audioText: "たなかのだ。",
-      question: "Mika's answer — what does it mean?",
+      question: "What does this mean?",
       correctMeaningEn: "It's Tanaka's.",
       distractorsEn: [
         "It's mine.",
@@ -1121,7 +1124,7 @@ export const M4_NEO_11: LessonContent = {
     }),
     build(
       "ja-m4-neo-11-build-senseino",
-      "Tell a friend: It's the teacher's dictionary.",
+      "Build this sentence: It's the teacher's dictionary.",
       "せんせいの じしょだ",
       ["せんせい", "の", "じしょ", "だ", "がくせい"],
       ["せんせい", "の", "じしょ", "だ"],
@@ -1166,20 +1169,18 @@ export const M4_NEO_11: LessonContent = {
       ],
       exercisedAtomKanas: ["あれ", "だれ", "かさ", "の", "も", "うん"],
     }),
-    sentenceMcq({
-      id: "ja-m4-neo-11-mcq-mikano-kasa",
-      prompt: "Pick: 'It's Mika's umbrella.'",
-      correctKana: "ミカの かさだ。",
-      distractorsKana: [
-        "ミカの かばんだ。",
-        "ケンの かさだ。",
-        "だれの かさ？",
-      ],
-      exercisedAtomKanas: ["かさ", "の"],
-    }),
+    // Invariant 28: full-sentence pick → build.
+    build(
+      "ja-m4-neo-11-build-mikano-kasa",
+      "Build this sentence: It's Mika's umbrella.",
+      "ミカの かさだ",
+      ["ミカ", "の", "かさ", "だ", "ケン"],
+      ["ミカ", "の", "かさ", "だ"],
+      ["かさ", "の"],
+    ),
     translateStep({
       id: "ja-m4-neo-11-tr-tanakano",
-      promptEn: "Say to a friend: It's Tanaka's bag.",
+      promptEn: "Translate: It's Tanaka's bag.",
       acceptedAnswers: [
         "たなかの かばんだ",
         "たなかのかばんだ",
@@ -1203,7 +1204,7 @@ export const M4_NEO_11: LessonContent = {
     }),
     build(
       "ja-m4-neo-11-build-koremo",
-      "Tell a friend: This one is the teacher's too.",
+      "Build this sentence: This one is the teacher's too.",
       "これも せんせいのだ",
       ["これ", "も", "は", "せんせい", "の", "だ"],
       ["これ", "も", "せんせい", "の", "だ"],
@@ -1216,7 +1217,7 @@ export const M4_NEO_11: LessonContent = {
       ["じしょ", "の"],
     ),
     listeningBuildSentence({
-      id: "ja-m4-neo-11-lbs-are-mikano",
+      id: "ja-m4-neo-11-capstone",
       target: "あれは ミカの かさだ",
       tiles: ["あれ", "は", "ミカ", "の", "かさ", "だ"],
       correctOrder: ["あれ", "は", "ミカ", "の", "かさ", "だ"],
@@ -1290,7 +1291,7 @@ export const M4_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m4-neo-rev-build-tokei",
-      "Tell a friend: This is Mika's watch.",
+      "Build this sentence: This is Mika's watch.",
       "これは ミカの とけいだ",
       ["これ", "は", "ミカ", "の", "とけい", "だ", "あれ"],
       ["これ", "は", "ミカ", "の", "とけい", "だ"],
@@ -1326,7 +1327,7 @@ export const M4_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m4-neo-rev-build-uta",
-      "Tell a friend: It's an American song.",
+      "Build this sentence: It's an American song.",
       "アメリカの うただ",
       ["アメリカ", "の", "うた", "だ", "にほん"],
       ["アメリカ", "の", "うた", "だ"],
@@ -1353,7 +1354,7 @@ export const M4_NEO_REVIEW: LessonContent = {
     }),
     build(
       "ja-m4-neo-rev-build-senseino",
-      "Tell a friend: That one over there is the teacher's.",
+      "Build this sentence: That (over there) is the teacher's.",
       "あれは せんせいのだ",
       ["あれ", "は", "せんせい", "の", "だ", "これ"],
       ["あれ", "は", "せんせい", "の", "だ"],
@@ -1375,7 +1376,7 @@ export const M4_NEO_REVIEW: LessonContent = {
     }),
     translateStep({
       id: "ja-m4-neo-rev-tr-kagi",
-      promptEn: "Say to a friend: It's Ken's key.",
+      promptEn: "Translate: It's Ken's key.",
       acceptedAnswers: [
         "ケンの かぎだ",
         "ケンのかぎだ",

@@ -275,9 +275,14 @@ describe("JA m3-neo pilot module content", () => {
     expect(share, `sentence-context share ${share.toFixed(2)}`).toBeGreaterThanOrEqual(0.6);
   });
 
-  it("every production prompt with a register-dependent answer names its audience", () => {
-    // At m3-neo the audience is always casual/"friend" — check builds +
-    // translates whose target ends in だ (or a だ-dropped noun) carry the cue.
+  it("production prompts are plain, no register-cue theatrics (invariant 29 supersedes 8)", () => {
+    // REPEALED the old "every だ-target prompt must name a 'friend' audience"
+    // rule (2026-07-20): invariant 29 makes production prompts plain
+    // ("Build this sentence: X"). In a plain-form module every sentence
+    // ends in だ but NONE is register-DEPENDENT (there is no polite
+    // alternative in scope), so a forced "friend" cue was pure theatrics.
+    // The guard now asserts the inverse: no build/translate prompt carries
+    // a scenario/internal sentence period.
     const offenders: string[] = [];
     for (const lesson of M3_NEO_LESSONS) {
       for (const step of lesson.steps) {
@@ -285,10 +290,7 @@ describe("JA m3-neo pilot module content", () => {
         if (step.type === "build_sentence") prompt = step.prompt;
         else if (step.type === "translate") prompt = step.sourceText;
         else continue;
-        const surfaces = productionSurfaces(step);
-        const registerDependent = surfaces.some((s) => /だ[。？]?$/.test(s));
-        if (!registerDependent) continue;
-        if (!/friend|Mika adds|casual/i.test(prompt ?? "")) {
+        if (/[.!?]\s+\S/.test((prompt ?? "").trim().replace(/[.!?]+$/, ""))) {
           offenders.push(`${lesson.id}/${step.id}: "${prompt}"`);
         }
       }
@@ -327,13 +329,16 @@ describe("m3-neo antiPattern wrongness contract", () => {
     expect(cardIdx).toBeGreaterThan(-1);
     expect(lcIdx).toBeGreaterThan(cardIdx);
   });
-  it("derived spot steps never present two correct sentences", async () => {
-    const lesson = await getMockLessonContent("ja-m3-neo-1");
-    const spots = lesson!.steps.filter((s: any) => s.id?.endsWith("-spot")) as any[];
-    // Only the rule-da spot survives, and its wrong option is the order error.
-    expect(spots.map((s) => s.id)).toEqual(["ja-m3-neo-1-rule-da-spot"]);
-    expect(spots[0].options.some((o: any) => o.text === "だねこ。")).toBe(true);
-    expect(spots[0].options.some((o: any) => o.text === "ねこ？")).toBe(false);
+  it("no derived spot-the-mistake steps exist (invariant 32 — retired)", async () => {
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      const spots = lesson!.steps.filter((s: any) => s.id?.endsWith("-spot"));
+      expect(spots.map((s: any) => s.id)).toEqual([]);
+      const wrongPrompts = lesson!.steps.filter((s: any) =>
+        /one of these is wrong/i.test(s.prompt ?? ""),
+      );
+      expect(wrongPrompts).toEqual([]);
+    }
   });
 
   it("L2's antiPattern is the particle-order error; the no-topic contrast is an example", async () => {
