@@ -235,7 +235,6 @@ export function getMockCourse(languageId: string): Course {
       title: string;
       summary: string;
     }[] = [
-      { tile: "s04", title: "👉 Possession & pointing: の + これ/それ/あれ", summary: "の possession + attributive; これ/それ/あれ/どれ; だれ/何. Katakana II continues." },
       { tile: "s05", title: "⚙️ Verbs I: dictionary form + classes", summary: "Dictionary form as THE verb; る/う/する/くる classes; を + SOV; CEJC-picked seed verbs; もの as morpheme." },
       { tile: "n06a", title: "🚫 Plain negative ない + ある/いる", summary: "ない by class; が subject marker via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics." },
       { tile: "s07", title: "🎭 The stem grid + ます/です", summary: "Godan stem rows as attachment points; ます/ません; です; か. Register-explicit production starts (romaji cutoff holds at M7)." },
@@ -263,9 +262,9 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
     const spineComingSoonModules = SPINE_COMING_SOON.map((t, i) => ({
-      id: `m${i + 4}`,
+      id: `m${i + 5}`,
       title: t.title,
-      eyebrow: `Module ${i + 4} · Coming soon`,
+      eyebrow: `Module ${i + 5} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -315,7 +314,30 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
-        // m4..m29 — the rest of the draft-3 spine, comingSoon placeholders
+        // M4 — tile s04: possession & pointing (first at-scale rewrite
+        // module, 12 lessons). curriculum/m4-neo-{a,b}.ts via m4-neo.ts.
+        {
+          id: "m4",
+          title: "👉 Possession & pointing: の + これ/それ/あれ",
+          eyebrow: "Module 4 · Rewrite",
+          summary: "Point at the world: これ/それ/あれ/どれ; ask 何 and だれ; own things with の — possession, origin, and the ケンのだ short answer.",
+          lessons: [
+            { id: "ja-m4-neo-1", title: "これ — point and name", status: "available" as const },
+            { id: "ja-m4-neo-2", title: "それ・あれ — the distance system", status: "available" as const },
+            { id: "ja-m4-neo-3", title: "これ、なに？ — the pointer question", status: "available" as const },
+            { id: "ja-m4-neo-4", title: "Objects II", status: "available" as const },
+            { id: "ja-m4-neo-5", title: "の — possession", status: "available" as const },
+            { id: "ja-m4-neo-6", title: "だれ — who (and whose)", status: "available" as const },
+            { id: "ja-m4-neo-7", title: "Story: whose bag?", status: "available" as const },
+            { id: "ja-m4-neo-8", title: "の — where things are from", status: "available" as const },
+            { id: "ja-m4-neo-9", title: "どれ — which one", status: "available" as const },
+            { id: "ja-m4-neo-10", title: "Objects III + こ/そ/あ/ど", status: "available" as const },
+            { id: "ja-m4-neo-11", title: "Story: Tanaka's classroom", status: "available" as const },
+            { id: "ja-m4-neo-review", title: "Pointing & owning — review", status: "available" as const },
+          ],
+          accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        // m5..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;
         // the N4 runway tile (s26) is deliberately NOT a module — the N5 map
         // stops after the capstone.

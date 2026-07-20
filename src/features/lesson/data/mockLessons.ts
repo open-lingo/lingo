@@ -263,6 +263,11 @@ import {
   M3_NEO_1, M3_NEO_2, M3_NEO_3, M3_NEO_4, M3_NEO_5, M3_NEO_6,
   M3_NEO_REVIEW,
 } from "@/features/languages/ja/curriculum/m3-neo";
+// m4-neo — first at-scale module of the rewrite (spine tile s04).
+import {
+  M4_NEO_1, M4_NEO_2, M4_NEO_3, M4_NEO_4, M4_NEO_5, M4_NEO_6,
+  M4_NEO_7, M4_NEO_8, M4_NEO_9, M4_NEO_10, M4_NEO_11, M4_NEO_REVIEW,
+} from "@/features/languages/ja/curriculum/m4-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -613,6 +618,19 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m3-neo-5": M3_NEO_5,
   "ja-m3-neo-6": M3_NEO_6,
   "ja-m3-neo-review": M3_NEO_REVIEW,
+  // m4-neo (spine tile s04)
+  "ja-m4-neo-1": M4_NEO_1,
+  "ja-m4-neo-2": M4_NEO_2,
+  "ja-m4-neo-3": M4_NEO_3,
+  "ja-m4-neo-4": M4_NEO_4,
+  "ja-m4-neo-5": M4_NEO_5,
+  "ja-m4-neo-6": M4_NEO_6,
+  "ja-m4-neo-7": M4_NEO_7,
+  "ja-m4-neo-8": M4_NEO_8,
+  "ja-m4-neo-9": M4_NEO_9,
+  "ja-m4-neo-10": M4_NEO_10,
+  "ja-m4-neo-11": M4_NEO_11,
+  "ja-m4-neo-review": M4_NEO_REVIEW,
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.
