@@ -149,14 +149,11 @@ describe("Gate 10 m4 regressions (2026-07-20)", () => {
     const frags = annotateJapaneseText("にほんの くるまだ", true).filter((f) => f.reading);
     expect(frags.map((f) => f.text)).toEqual(["にほん", "の", "くるま", "だ"]);
   });
-  it("topic は reads 'wa' in grouped sentence romaji", () => {
-    const frags = annotateJapaneseText("これは ほんだ", true);
-    const ha = frags.find((f) => f.text === "は");
-    expect(ha?.reading).toBe("wa");
-  });
-  it("kana-phase per-glyph は keeps the citation reading 'ha'", () => {
-    const frags = annotateJapaneseText("これは ほんだ", false);
-    const ha = frags.find((f) => f.text === "は");
-    expect(ha?.reading).toBe("ha");
+  it("は stays kana-faithful 'ha' in BOTH modes (Spencer ruling 2026-07-20)", () => {
+    for (const grouped of [true, false]) {
+      const frags = annotateJapaneseText("これは ほんだ", grouped);
+      const ha = frags.find((f) => f.text === "は");
+      expect(ha?.reading, `grouped=${grouped}`).toBe("ha");
+    }
   });
 });

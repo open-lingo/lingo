@@ -148,3 +148,7 @@ step range it spans.
   not-yet-played line is correct pre-interaction state.
 - **Grammar-card CTA reading "READING…" with a progress bar** is the
   transient reading-gate state — capture timing, not a stuck control.
+- **Romaji is kana-faithful by design (Spencer ruling 2026-07-20):** the
+  topic particle は renders "ha" (likewise へ/を render their kana
+  readings). The wa-pronunciation is taught on the particle's rule card.
+  Never flag "ha" over topic は as a mispronunciation defect.

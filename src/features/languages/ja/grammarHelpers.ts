@@ -1674,7 +1674,14 @@ export function listeningCompSentence(opts: {
     type: "listening_comprehension",
     audioKey: opts.audioText,
     transcript: opts.audioText,
-    question: opts.question ?? "What does this sentence mean?",
+    // Word-level audio (no space = single word) must not be labeled a
+    // "sentence" (Gate 10 m4 run — pool-word review LCs inherited the
+    // sentence default).
+    question:
+      opts.question ??
+      (/[ 　]/.test(opts.audioText)
+        ? "What does this sentence mean?"
+        : "What did you hear?"),
     options: items,
     correctOptionId: "correct",
     transcriptAnnotation: buildSentenceAnnotation(opts.audioText),

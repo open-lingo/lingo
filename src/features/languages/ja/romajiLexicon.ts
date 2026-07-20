@@ -127,12 +127,11 @@ const LONE_KANA_COST = 2;
  *  (くるま), which is always right. */
 const FREE_KANA = new Set(["だ"]);
 
-/** Particle READINGS for grouped (sentence-level) romaji: the topic
- *  particle は is pronounced "wa" (へ→"e", を→"o") — the literal kana
- *  reading "ha" misleads learners reading the helper line (Gate 10 m4
- *  run). Kana-phase per-glyph emission keeps the citation reading:
- *  there the glyph IS the lesson. */
-const PARTICLE_READINGS: Record<string, string> = { は: "wa", へ: "e", を: "o" };
+/** Romaji is KANA-FAITHFUL by ruling (Spencer 2026-07-20): topic は
+ *  renders "ha" — that's what the particle IS; the wa-pronunciation is
+ *  taught once on the は rule card ("Written は, said 'wa'") and learners
+ *  get used to it. Same principle for へ/を. Judges are calibrated not to
+ *  flag this (judge-prompt.md known-benign list). */
 
 /**
  * Tokenize + annotate a JA string. With `groupWords` false this reproduces
@@ -193,16 +192,7 @@ export function annotateJapaneseText(
   for (let i = 0; i < n; ) {
     const len = choice[i];
     if (len === 1) {
-      const tok = tokens[i];
-      const particleReading =
-        tok.kana && particles.has(tok.text)
-          ? PARTICLE_READINGS[tok.text]
-          : undefined;
-      fragments.push(
-        particleReading
-          ? { ...perKanaFragment(tok), reading: particleReading }
-          : perKanaFragment(tok),
-      );
+      fragments.push(perKanaFragment(tokens[i]));
     } else {
       const span = tokens.slice(i, i + len);
       const text = span.map((t) => t.text).join("");
