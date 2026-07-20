@@ -120,7 +120,9 @@ export const M3_NEO_1: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    // ① Noticing exposure — hear ~だ sentences BEFORE any rule.
+    // ① Noticing exposure — hear ~だ sentences BEFORE any rule, but
+    // interleaved with echo-production (guide density bar: no two
+    // adjacent same-type steps; the old open ran THREE LCs in a row).
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-neko",
       audioText: "ねこだ。",
@@ -129,6 +131,14 @@ export const M3_NEO_1: LessonContent = {
       distractorsEn: ["It's a dog.", "It's water.", "It's a book."],
       exercisedAtomKanas: ["ねこ"],
     }),
+    build(
+      "ja-m3-neo-1-build-neko",
+      "Say to a friend: It's a cat.",
+      "ねこだ",
+      ["だ", "ねこ", "いぬ"],
+      ["ねこ", "だ"],
+      ["ねこ"],
+    ),
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-mizu",
       audioText: "みずだ。",
@@ -137,6 +147,7 @@ export const M3_NEO_1: LessonContent = {
       distractorsEn: ["It's a cat.", "It's the sea.", "It's a key."],
       exercisedAtomKanas: ["みず"],
     }),
+    speaking("ja-m3-neo-1-speak-neko", "ねこだ", "It's a cat.", ["ねこ"]),
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-hon",
       audioText: "ほんだ。",
@@ -176,14 +187,6 @@ export const M3_NEO_1: LessonContent = {
     }),
     // ③ Builds — tiles keep だ separate so the pattern is assembled, not read.
     build(
-      "ja-m3-neo-1-build-neko",
-      "Say to a friend: It's a cat.",
-      "ねこだ",
-      ["だ", "ねこ", "いぬ"],
-      ["ねこ", "だ"],
-      ["ねこ"],
-    ),
-    build(
       "ja-m3-neo-1-build-inu",
       "Say to a friend: It's a dog.",
       "いぬだ",
@@ -211,8 +214,8 @@ export const M3_NEO_1: LessonContent = {
       ],
       exercisedAtomKanas: ["うみ"],
     }),
-    // Quick gamified breather — emoji word check over an M1 salvage atom.
-    vocabMcq("ja-m3-neo-1-vmcq-mid", L1_REVIEW[1], NEO_M1_POOL),
+    // Generation beat breaks the mcq→lc→mcq selection run (cap is 2 taps
+    // in a row), THEN the gamified breather over an M1 salvage atom.
     build(
       "ja-m3-neo-1-build-mizu",
       "Say to a friend: It's water.",
@@ -221,7 +224,7 @@ export const M3_NEO_1: LessonContent = {
       ["みず", "だ"],
       ["みず"],
     ),
-    speaking("ja-m3-neo-1-speak-neko", "ねこだ", "It's a cat.", ["ねこ"]),
+    vocabMcq("ja-m3-neo-1-vmcq-mid", L1_REVIEW[1], NEO_M1_POOL),
     // ⑥ だ-drop note — casual speech often drops だ entirely.
     grammarRule({
       id: "ja-m3-neo-1-rule-da-drop",
@@ -250,6 +253,16 @@ export const M3_NEO_1: LessonContent = {
       audioText: "ねこだ",
       exercisedAtomKanas: ["ねこ"],
     }),
+    // Hear-and-assemble on a fresh noun — the mora-tile listening build
+    // the guide template expects (was a 7th plain LC on そらだ).
+    listeningBuildSentence({
+      id: "ja-m3-neo-1-lbs-sora",
+      target: "そらだ",
+      tiles: ["そら", "だ", "うみ"],
+      correctOrder: ["そら", "だ"],
+      promptEn: "It's the sky.",
+      exercisedAtomKanas: ["そら"],
+    }),
     translateStep({
       id: "ja-m3-neo-1-tr-mizu",
       promptEn: "Say to a friend: It's water.",
@@ -268,6 +281,15 @@ export const M3_NEO_1: LessonContent = {
       distractorsEn: ["It's a dog.", "It's a flower.", "It's a peach."],
       exercisedAtomKanas: ["ねこ"],
     }),
+    // Build between the two recognition LCs (adjacent same-type ban).
+    build(
+      "ja-m3-neo-1-build-umi",
+      "Say to a friend: It's the sea.",
+      "うみだ",
+      ["うみ", "そら", "だ"],
+      ["うみ", "だ"],
+      ["うみ"],
+    ),
     // ⑦ ONE です recognition preview — explicitly flagged, recognition only.
     // です preview: a REAL meaning task (the learner infers です ≈ だ from
     // the ねこ they know) — the polite-layer teaching lands in the
@@ -283,35 +305,21 @@ export const M3_NEO_1: LessonContent = {
         "You just decoded です without being taught it — it's the POLITE version of だ. Same meaning, more distance. It gets its own module soon; for now, just recognize it.",
       exercisedAtomKanas: ["ねこ"],
     }),
-    build(
-      "ja-m3-neo-1-build-umi",
-      "Say to a friend: It's the sea.",
-      "うみだ",
-      ["うみ", "そら", "だ"],
-      ["うみ", "だ"],
-      ["うみ"],
-    ),
-    listeningCompSentence({
-      id: "ja-m3-neo-1-lc-sora",
-      audioText: "そらだ。",
-      question: "What does this mean?",
-      correctMeaningEn: "It's the sky.",
-      distractorsEn: [
-        "It's the sea.",
-        "It's a star.",
-        "It's the moon.",
-      ],
-      exercisedAtomKanas: ["そら"],
-    }),
     speaking("ja-m3-neo-1-speak-hon", "ほんだ", "It's a book.", ["ほん"]),
-    // Review tail — M1 atoms (house idiom: vocabMcq → decode-build → match grid).
-    vocabMcq("ja-m3-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
-    sentenceMcq({
-      id: "ja-m3-neo-1-mcq-mizu",
-      prompt: "Pick: 'It's water.'",
-      correctKana: "みずだ。",
-      distractorsKana: ["ごはんだ。", "うみだ。", "ゆきだ。"],
-      exercisedAtomKanas: ["みず"],
+    // Review tail — M1 atoms (house idiom: LC → decode-build → vocabMcq →
+    // sentence pick → match grid; ratio boosted toward the guide's 0.25
+    // floor, within M3's M1+M2-only draw pool).
+    listeningCompSentence({
+      id: "ja-m3-neo-1-rev-lc",
+      audioText: L1_REVIEW[2].kana,
+      question: "What did you hear?",
+      correctMeaningEn: L1_REVIEW[2].meaningEn,
+      distractorsEn: [
+        L1_REVIEW[3].meaningEn,
+        L1_REVIEW[4].meaningEn,
+        L1_REVIEW[5].meaningEn,
+      ],
+      exercisedAtomKanas: [L1_REVIEW[2].kana],
     }),
     listeningBuildWord(
       "ja-m3-neo-1-rev-lb-hoshi",
@@ -320,6 +328,7 @@ export const M3_NEO_1: LessonContent = {
       ["ほ", "し"],
       ["は", "ま", "つ"],
     ),
+    vocabMcq("ja-m3-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
     reviewMatchPairs("ja-m3-neo-1-rev", L1_REVIEW),
   ],
 };
