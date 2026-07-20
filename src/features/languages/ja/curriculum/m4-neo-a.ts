@@ -545,6 +545,7 @@ export const M4_NEO_2: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-2-rev-lc",
       audioText: L2_REVIEW[1].kana,
+      question: "What did you hear?",
       correctMeaningEn: L2_REVIEW[1].meaningEn,
       distractorsEn: [
         L2_REVIEW[2].meaningEn,
@@ -784,6 +785,7 @@ export const M4_NEO_3: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-3-rev-lc",
       audioText: L3_REVIEW[1].kana,
+      question: "What did you hear?",
       correctMeaningEn: L3_REVIEW[1].meaningEn,
       distractorsEn: [
         L3_REVIEW[2].meaningEn,
@@ -988,6 +990,7 @@ export const M4_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-4-rev-lc",
       audioText: L4_REVIEW[1].kana,
+      question: "What did you hear?",
       correctMeaningEn: L4_REVIEW[1].meaningEn,
       distractorsEn: [
         L4_REVIEW[2].meaningEn,
@@ -1219,6 +1222,7 @@ export const M4_NEO_5: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-5-rev-lc",
       audioText: L5_REVIEW[1].kana,
+      question: "What did you hear?",
       correctMeaningEn: L5_REVIEW[1].meaningEn,
       distractorsEn: [
         L5_REVIEW[2].meaningEn,
@@ -1464,6 +1468,7 @@ export const M4_NEO_6: LessonContent = {
     listeningCompSentence({
       id: "ja-m4-neo-6-rev-lc",
       audioText: L6_REVIEW[1].kana,
+      question: "What did you hear?",
       correctMeaningEn: L6_REVIEW[1].meaningEn,
       distractorsEn: [
         L6_REVIEW[2].meaningEn,
