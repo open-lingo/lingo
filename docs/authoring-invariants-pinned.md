@@ -107,12 +107,13 @@
 
 ## Dialogue TTS (2026-07-19)
 
-23. Multi-sentence dialogue lines are synthesized as ONE clip (single
-    prosody — chaining per-sentence takes makes the pitch jump), then the
-    pipeline stretches internal sentence pauses to ~450ms
-    (lingo-core scripts/tts/stretch_sentence_gaps.py — run it after
-    generating clips for new multi-sentence content). The player prefers
-    the whole-line clip; per-sentence chaining is a fallback only.
+23. Multi-sentence dialogue lines play as CHAINED per-sentence clips with
+    a 350ms gap, the speaker's fixed VoiceColor applied to every sentence
+    (a set distortion per speaker — Spencer 2026-07-19). The deck emitter
+    expands multi-sentence strings so every sentence has its own clip;
+    the whole-line clip is only a fallback. NEVER post-process clip
+    internals (the silence-splice experiment cut がくせい in half —
+    detection can't tell a sentence pause from a stop-consonant closure).
     Two-person dialogues should eventually get real distinct voices
     (male ja-JP-KeitaNeural + Nanami) instead of detune coloring.
 

@@ -63,15 +63,14 @@ export function pacedVoice(base: VoiceColor, pace: number): VoiceColor {
 }
 
 /**
- * Play one dialogue line. PREFERS the whole-line clip: one synthesis take
- * means one consistent prosody, and the pipeline stretches its internal
- * inter-sentence silences (lingo-core scripts/tts/stretch_sentence_gaps.py)
- * so sentences still breathe. Chaining independently-synthesized sentence
- * clips is the FALLBACK when the line clip is missing — each standalone
- * take carries its own pitch contour, which read as random pitch jumps
- * between sentences (Spencer QA 2026-07-19). `stillCurrent` aborts between
- * awaits so Replay / step-advance cancels cleanly. Exported for unit
- * testing.
+ * Play one dialogue line sentence-by-sentence with SENTENCE_GAP_MS of
+ * breathing room, applying the speaker's FIXED VoiceColor to every
+ * sentence (Spencer 2026-07-19: a set distortion per speaker, no audio
+ * surgery — the silence-splice experiment cut a word in half and is
+ * gone). Whole-line clip is the fallback when a sentence clip is
+ * missing, and for the non-manifest synthesis path (non-JA courses).
+ * `stillCurrent` aborts between awaits so Replay / step-advance cancels
+ * cleanly. Exported for unit testing.
  */
 export async function playLineAudio(
   text: string,
@@ -80,9 +79,7 @@ export async function playLineAudio(
 ): Promise<void> {
   const sentences = splitJaSentences(text);
   const useSentenceChain =
-    sentences.length > 1 &&
-    !getTtsUrl(text) &&
-    sentences.every((s) => getTtsUrl(s));
+    sentences.length > 1 && sentences.every((s) => getTtsUrl(s));
   if (!useSentenceChain) {
     await playJaAudioToEnd(text, undefined, voice);
     return;
