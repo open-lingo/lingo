@@ -139,3 +139,24 @@ describe("jaModule.readingAnnotation integration", () => {
     expect(grouped[0]).toMatchObject({ reading: "gakusei" });
   });
 });
+
+describe("Gate 10 m4 regressions (2026-07-20)", () => {
+  it("くるまだ segments as kuruma + da, never kuru + mada", () => {
+    const frags = annotateJapaneseText("くるまだ", true);
+    expect(frags.map((f) => f.text)).toEqual(["くるま", "だ"]);
+  });
+  it("にほんの くるまだ keeps the word boundary through の", () => {
+    const frags = annotateJapaneseText("にほんの くるまだ", true).filter((f) => f.reading);
+    expect(frags.map((f) => f.text)).toEqual(["にほん", "の", "くるま", "だ"]);
+  });
+  it("topic は reads 'wa' in grouped sentence romaji", () => {
+    const frags = annotateJapaneseText("これは ほんだ", true);
+    const ha = frags.find((f) => f.text === "は");
+    expect(ha?.reading).toBe("wa");
+  });
+  it("kana-phase per-glyph は keeps the citation reading 'ha'", () => {
+    const frags = annotateJapaneseText("これは ほんだ", false);
+    const ha = frags.find((f) => f.text === "は");
+    expect(ha?.reading).toBe("ha");
+  });
+});

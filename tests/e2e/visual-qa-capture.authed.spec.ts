@@ -57,7 +57,7 @@ test.describe("@visual-qa per-step capture", () => {
       await page.addInitScript(() => {
         localStorage.setItem(
           "open-lingo-cookie-consent",
-          JSON.stringify({ advertising: false, decidedAt: "2026-07-20" }),
+          JSON.stringify({ essential: true, advertising: false, decidedAt: "2026-07-20" }),
         );
       });
       // Long lessons at ~1.5-2.5s/step: give the whole loop room.

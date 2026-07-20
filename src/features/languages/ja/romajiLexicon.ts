@@ -119,6 +119,21 @@ function perKanaFragment(tok: JaToken): AnnotationFragment {
 const LONE_PARTICLE_COST = 1;
 const LONE_KANA_COST = 2;
 
+/** Sentence-final copula: FREE as a lone kana. Without this, くるまだ
+ *  re-brackets as くる+まだ — two zero-cost lexicon atoms beat
+ *  kuruma + lone-kana だ and the ruby fabricates the phantom word
+ *  "mada" (Gate 10 m4 run, three independent judges; systemic on every
+ *  くるまだ surface). At cost 0 the tie goes to the longer leading word
+ *  (くるま), which is always right. */
+const FREE_KANA = new Set(["だ"]);
+
+/** Particle READINGS for grouped (sentence-level) romaji: the topic
+ *  particle は is pronounced "wa" (へ→"e", を→"o") — the literal kana
+ *  reading "ha" misleads learners reading the helper line (Gate 10 m4
+ *  run). Kana-phase per-glyph emission keeps the citation reading:
+ *  there the glyph IS the lesson. */
+const PARTICLE_READINGS: Record<string, string> = { は: "wa", へ: "e", を: "o" };
+
 /**
  * Tokenize + annotate a JA string. With `groupWords` false this reproduces
  * the historical per-kana emission exactly. With it true, kana spans that
@@ -150,7 +165,13 @@ export function annotateJapaneseText(
       let cost: number;
       if (len === 1) {
         const tok = tokens[i];
-        cost = !tok.kana ? 0 : particles.has(tok.text) ? LONE_PARTICLE_COST : LONE_KANA_COST;
+        cost = !tok.kana
+          ? 0
+          : FREE_KANA.has(tok.text)
+            ? 0
+            : particles.has(tok.text)
+              ? LONE_PARTICLE_COST
+              : LONE_KANA_COST;
       } else {
         if (!tokens[i].kana) continue;
         const joined = tokens
@@ -172,7 +193,16 @@ export function annotateJapaneseText(
   for (let i = 0; i < n; ) {
     const len = choice[i];
     if (len === 1) {
-      fragments.push(perKanaFragment(tokens[i]));
+      const tok = tokens[i];
+      const particleReading =
+        tok.kana && particles.has(tok.text)
+          ? PARTICLE_READINGS[tok.text]
+          : undefined;
+      fragments.push(
+        particleReading
+          ? { ...perKanaFragment(tok), reading: particleReading }
+          : perKanaFragment(tok),
+      );
     } else {
       const span = tokens.slice(i, i + len);
       const text = span.map((t) => t.text).join("");
