@@ -112,7 +112,12 @@ for (const path of sources) {
 // long-vowel mark, punctuation, full-width spaces) — extended from
 // hiragana-only when M3 introduced katakana loanwords + multi-word
 // sentence audio (2026-05-16).
-const JA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}゙゚ー　-〿 ]+$/u;
+// ？/！ (full-width, U+FF1F/U+FF01) included since 2026-07-19: the m3-neo
+// pilot teaches casual questions by CONTOUR (ねこだ。 vs ねこ？), so the
+// ？-suffixed strings must reach the synthesizer as distinct keys — and
+// getTtsUrl has no ？-stripping fallback on purpose (falling back to the
+// statement clip would destroy the contrast being taught).
+const JA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}゙゚ー　-〿？！ ]+$/u;
 // Strip trailing 。 so we don't generate separate audio for "X" and "X。"
 // — the runtime lookup (tts.ts) falls back to the other variant.
 const deduped = new Set();

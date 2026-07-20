@@ -256,6 +256,13 @@ import {
   M3_7_2,
   M3_9,
 } from "@/features/languages/ja/curriculum/m3-v2";
+// m3-neo — PILOT of the dict-form-first rewrite (spine tile s03). Deep-link
+// only: registered here so the lessons resolve, deliberately NOT wired into
+// mockCourse.ts pathways.
+import {
+  M3_NEO_1, M3_NEO_2, M3_NEO_3, M3_NEO_4, M3_NEO_5, M3_NEO_6,
+  M3_NEO_REVIEW,
+} from "@/features/languages/ja/curriculum/m3-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -598,6 +605,14 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m3-7-1": M3_7_1,
   "ja-m3-7-2": M3_7_2,
   "ja-m3-9": M3_9,
+  // m3-neo pilot (deep-link only — not in mockCourse pathways)
+  "ja-m3-neo-1": M3_NEO_1,
+  "ja-m3-neo-2": M3_NEO_2,
+  "ja-m3-neo-3": M3_NEO_3,
+  "ja-m3-neo-4": M3_NEO_4,
+  "ja-m3-neo-5": M3_NEO_5,
+  "ja-m3-neo-6": M3_NEO_6,
+  "ja-m3-neo-review": M3_NEO_REVIEW,
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.
