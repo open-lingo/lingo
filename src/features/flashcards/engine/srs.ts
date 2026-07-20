@@ -28,9 +28,10 @@ import type {
  * lets stability grow more slowly than Good rather than resetting the
  * card's progress. This is a behavior change from the SM-2 era.
  *
- * Target retention: 0.95 (95%). Tighter than the FSRS default of 0.9.
- * Justification: Lingo exposes vocab through two surfaces (lessons +
- * flashcards) so per-card review pressure is higher.
+ * Target retention: 0.90 — the FSRS workload-optimal default (see the
+ * TARGET_RETENTION note below; 2026-07-19 research). Vocab is also reviewed in
+ * lessons, so per-card pressure is already high; an aggressive 0.95 target on
+ * top of that just doubled review load for a few points of retention.
  *
  * No legacy SM-2 fields are written. Cards loaded from localStorage in
  * the pre-modality flat FSRS-6 shape are upgraded on read; pre-FSRS-6
@@ -93,7 +94,7 @@ const PHASE_TO_STATE: Record<SRSPhase, State> = {
 /**
  * Mastery threshold (days). A sub-state whose `interval` is at or above
  * this is considered mature. 21 days matches the Anki / SM-2 convention
- * and is a reasonable cutoff under FSRS-6 with `request_retention = 0.95`.
+ * and is a reasonable cutoff under FSRS-6 with `request_retention = 0.90`.
  */
 export const MASTERED_INTERVAL_DAYS = 21;
 
