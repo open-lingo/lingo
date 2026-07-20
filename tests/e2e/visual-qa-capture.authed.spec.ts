@@ -49,6 +49,12 @@ test.describe("@visual-qa per-step capture", () => {
     test(`${lessonId}: capture every step`, async ({ page }) => {
       const contracts = loadContracts(lessonId);
       const dir = path.join(OUT_ROOT, lessonId);
+      // CLEAN the dir first (2026-07-20): a re-capture after a lesson's
+      // step composition changed left STALE PNGs with colliding step-index
+      // filenames — a continuity judge read them as current content and
+      // reported ~10 phantom OOV-distractor defects. Wipe before writing so
+      // the dir only ever holds the current capture + manifest.
+      fs.rmSync(dir, { recursive: true, force: true });
       fs.mkdirSync(dir, { recursive: true });
       await page.setViewportSize({ width: 1280, height: 960 });
       // Pre-seed cookie consent — a fresh context otherwise shows the

@@ -79,7 +79,15 @@ const priorCorpus = Object.entries(neoText)
   .join("\n");
 const thisCorpus = neoText[targetIdx] ?? "";
 
-let prior = atoms.filter((a) => priorCorpus.includes(a.kana));
+// Known = used in a prior neo module OR a kana-module (m1/m2) atom (those
+// are always known by m3+, even if the neo lessons never reused them —
+// without this the pack under-lists known vocab and a judge flags
+// legitimate m1/m2 distractors as OOV, 2026-07-20).
+let prior = atoms.filter(
+  (a) =>
+    priorCorpus.includes(a.kana) ||
+    ((a.fromModule === "m1" || a.fromModule === "m2") && targetIdx > 2),
+);
 const thisModule = atoms.filter(
   (a) => thisCorpus.includes(a.kana) && !priorCorpus.includes(a.kana),
 );

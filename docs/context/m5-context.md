@@ -9,7 +9,8 @@ Auto-generated from courseAtoms.ts. The learner arriving at m5 has been taught e
 
 ## Words the learner already knows (usable as carriers/review)
 
-### Verbs (dictionary form) (1)
+### Verbs (dictionary form) (2)
+- あそぶ 🎲 — to play, to make a visit
 - くる — to come [no image MCQ]
 
 ### Particles (8)
@@ -22,32 +23,66 @@ Auto-generated from courseAtoms.ts. The learner arriving at m5 has been taught e
 - で — at / by means of
 - に — to / at / location
 
-### Nouns / vocab (81)
+### Nouns / vocab (115)
+- あい — love
+- いいえ — no [no image MCQ]
+- うま — horse
+- かい 🐚 — shell
 - かお 😀 — face
+- かめ — turtle
+- きのこ — mushroom
+- さくら — cherry blossom
 - つき 🌙 — moon
 - ふね 🚢 — boat
 - ほし ⭐ — star
+- もも 🍑 — peach
+- うえ ⬆️ — on top of
+- ひと 🧑 — person
 - なに ❓ — what [no image MCQ]
+- こえ 🗣️ — voice
+- いえ 🏠 — house
 - やま ⛰️ — mountain
 - かわ 🏞️ — river
+- あさ 🌅 — morning
 - うた 🎤 — song
+- いけ 🦆 — pond
 - うみ 🌊 — sea
 - いぬ 🐕 — dog
 - ねこ 🐱 — cat
 - そら ☁️ — sky
+- いろ 🎨 — colour
 - はな 🌸 — flower
 - ゆき ❄️ — snow
+- あおい 🟦 — blue
+- えび — shrimp
 - かぎ 🔑 — key
+- きゅうり — cucumber
+- さんぽ 🚶 — walk/stroll
+- ぞう — elephant
+- どあ — door
+- ぱん — bread
+- ぴあの — piano
+- ぶた — pig
+- ぷりん — pudding
+- ぺん — pen
 - ティーシャツ 👕 — T-shirt
 - パーティー 🎉 — party
+- きょう 📅 — today
+- からだ 🧍 — body
+- げんき 💪 — health, vitality
 - しゃしん 📷 — photograph
 - きっぷ 🎫 — ticket
 - かぞく 👨‍👩‍👧 — family
 - ぼうし 🎩 — hat
+- りょうり 🍱 — cuisine
+- じかん ⏰ — time
+- ぎゅうにゅう 🥛 — milk
+- ひゃく 💯 — hundred
 - めがね 👓 — glasses
 - まど 🪟 — window
 - えんぴつ ✏️ — pencil
 - でんわ 📞 — telephone
+- かぜ 🌬️ — wind
 - すみません — Excuse me
 - にほんじん — Japanese (person)
 - アメリカじん — American (person)
@@ -163,21 +198,31 @@ Imageable new atoms (honest emoji, NOT [no image MCQ]) MUST debut on a word_imag
 ## Reinforcement targets — PREFER these as carriers/review (invariant 27)
 Known words seen few times so far; balance exposure by reusing them
 (esp. high CEJC rank) instead of over-using this lesson's headline nouns:
-- かお 😀 — face (seen ~1×, CEJC #293)
-- でんわ 📞 — telephone (seen ~1×, CEJC #328)
-- はな 🌸 — flower (seen ~1×)
-- きっぷ 🎫 — ticket (seen ~1×)
-- まど 🪟 — window (seen ~1×)
-- えん — Yen (seen ~2×, CEJC #134)
-- かわ 🏞️ — river (seen ~2×)
-- えんぴつ ✏️ — pencil (seen ~2×)
-- ごはん 🍚 — cooked rice, meal (seen ~3×, CEJC #263)
-- はん 🌗 — half (seen ~3×, CEJC #326)
-- すし — Sushi (seen ~3×)
-- えき 🚉 — station (seen ~4×, CEJC #362)
-- つき 🌙 — moon (seen ~4×)
-- かぞく 👨‍👩‍👧 — family (seen ~4×)
-- うた 🎤 — song (seen ~5×)
+- ひと 🧑 — person (seen ~0×, CEJC #50)
+- じかん ⏰ — time (seen ~0×, CEJC #130)
+- きょう 📅 — today (seen ~0×, CEJC #136)
+- うえ ⬆️ — on top of (seen ~0×, CEJC #175)
+- ひゃく 💯 — hundred (seen ~0×, CEJC #187)
+- いえ 🏠 — house (seen ~0×, CEJC #234)
+- あさ 🌅 — morning (seen ~0×, CEJC #267)
+- いろ 🎨 — colour (seen ~0×, CEJC #351)
+- こえ 🗣️ — voice (seen ~0×, CEJC #392)
+- りょうり 🍱 — cuisine (seen ~0×, CEJC #398)
+- かい 🐚 — shell (seen ~0×, CEJC #401)
+- からだ 🧍 — body (seen ~0×, CEJC #432)
+- げんき 💪 — health, vitality (seen ~0×, CEJC #433)
+- あい — love (seen ~0×)
+- うま — horse (seen ~0×)
+- かめ — turtle (seen ~0×)
+- きのこ — mushroom (seen ~0×)
+- さくら — cherry blossom (seen ~0×)
+- もも 🍑 — peach (seen ~0×)
+- いけ 🦆 — pond (seen ~0×)
+- あおい 🟦 — blue (seen ~0×)
+- えび — shrimp (seen ~0×)
+- きゅうり — cucumber (seen ~0×)
+- さんぽ 🚶 — walk/stroll (seen ~0×)
+- ぞう — elephant (seen ~0×)
 
 ## At-level example sentences (from m4) — STYLE reference
 Match this register/length/shape. For a REVIEW lesson, do NOT reuse any
@@ -210,7 +255,7 @@ of these verbatim (invariant: all-new review sentences):
 
 ## Distractor sibling-sets (invariant 10 — real confusions, not noise)
 - **Verb MCQ/build distractors:** draw from OTHER taught verbs (cross-verb
-  confusion), never invented non-words. Pool: くる / あそぶ / いく / みる / たべる / のむ / する / やる / わかる / きく / いう / おもう / かう.
+  confusion), never invented non-words. Pool: あそぶ / くる / あそぶ / いく / みる / たべる / のむ / する / やる / わかる / きく / いう / おもう / かう.
 - **Particle cloze options:** the sibling particles — か / は / が / と / の / も / で.
 - **Demonstratives:** これ/それ/あれ/どれ are each other's distractors.
 - **Meaning-MCQ (LC) distractors:** plausible near-meanings from the known
