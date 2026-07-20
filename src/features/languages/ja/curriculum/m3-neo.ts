@@ -94,7 +94,7 @@ export const M3_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-neko",
       audioText: "ねこだ。",
-      question: "A friend points at something and says this. What do they mean?",
+      question: "What does this mean?",
       correctMeaningEn: "It's a cat.",
       distractorsEn: ["It's a dog.", "It's water.", "It's a book."],
       exercisedAtomKanas: ["ねこ"],
@@ -102,7 +102,7 @@ export const M3_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-mizu",
       audioText: "みずだ。",
-      question: "Your friend peers into a glass and says this. What do they mean?",
+      question: "What does this mean?",
       correctMeaningEn: "It's water.",
       distractorsEn: ["It's a cat.", "It's the sea.", "It's a key."],
       exercisedAtomKanas: ["みず"],
@@ -110,7 +110,7 @@ export const M3_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-hon",
       audioText: "ほんだ。",
-      question: "Your friend opens a package and says this. What's inside?",
+      question: "What does this mean?",
       correctMeaningEn: "It's a book.",
       distractorsEn: [
         "It's a pencil.",
@@ -164,7 +164,7 @@ export const M3_NEO_1: LessonContent = {
     // ④ Meaning MCQs.
     sentenceMcq({
       id: "ja-m3-neo-1-mcq-hon",
-      prompt: "A friend asks what's in the box. Pick 'It's a book.'",
+      prompt: "Pick: 'It's a book.'",
       correctKana: "ほんだ。",
       distractorsKana: ["みずだ。", "ねこだ。", "いぬだ。"],
       exercisedAtomKanas: ["ほん"],
@@ -172,7 +172,7 @@ export const M3_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-umi",
       audioText: "うみだ。",
-      question: "You crest a hill and your friend shouts this. What do they see?",
+      question: "What does this mean?",
       correctMeaningEn: "It's the sea!",
       distractorsEn: [
         "It's the sky!",
@@ -231,7 +231,7 @@ export const M3_NEO_1: LessonContent = {
       id: "ja-m3-neo-1-lc-neko-drop",
       audioText: "ねこ。",
       question:
-        "Your friend points and says just one word, tone falling. What do they mean?",
+        "One word, falling tone — what does it mean?",
       correctMeaningEn: "It's a cat.",
       distractorsEn: ["It's a dog.", "It's a flower.", "It's a peach."],
       exercisedAtomKanas: ["ねこ"],
@@ -241,7 +241,7 @@ export const M3_NEO_1: LessonContent = {
       id: "ja-m3-neo-1-lc-desu-preview",
       audioText: "ねこです。",
       question:
-        "Preview (recognition only): a hotel clerk says this politely. Same meaning, different politeness — which did you hear?",
+        "Recognition preview — this is the POLITE version. Which did you hear?",
       correctMeaningEn: "ねこです — the polite version of 'it's a cat'",
       distractorsEn: [
         "ねこだ — the casual version of 'it's a cat'",
@@ -261,7 +261,7 @@ export const M3_NEO_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-sora",
       audioText: "そらだ。",
-      question: "Your friend looks up from a photo and says this. What is it?",
+      question: "What does this mean?",
       correctMeaningEn: "It's the sky.",
       distractorsEn: [
         "It's the sea.",
@@ -275,7 +275,7 @@ export const M3_NEO_1: LessonContent = {
     vocabMcq("ja-m3-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
     sentenceMcq({
       id: "ja-m3-neo-1-mcq-mizu",
-      prompt: "A friend hands you a cup. Pick 'It's water.'",
+      prompt: "Pick: 'It's water.'",
       correctKana: "みずだ。",
       distractorsKana: ["ごはんだ。", "うみだ。", "ゆきだ。"],
       exercisedAtomKanas: ["みず"],
@@ -330,7 +330,7 @@ export const M3_NEO_2: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-gakusei",
       audioText: "わたしは がくせいだ。",
-      question: "Someone your age introduces themselves. What are they saying?",
+      question: "What are they saying?",
       correctMeaningEn: "I'm a student.",
       distractorsEn: ["I'm a teacher.", "I'm Tom.", "I'm fine."],
       exercisedAtomKanas: ["わたし", "がくせい", "は"],
@@ -395,7 +395,7 @@ export const M3_NEO_2: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-tomodachi",
       audioText: "ともだちは せんせいだ。",
-      question: "Your friend tells you about someone. What are they saying?",
+      question: "What does this mean?",
       correctMeaningEn: "My friend is a teacher.",
       distractorsEn: [
         "My friend is a student.",
@@ -453,7 +453,7 @@ export const M3_NEO_2: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-tomu-tomodachi",
       audioText: "トムは ともだちだ。",
-      question: "Your friend explains who Tom is. What do they say?",
+      question: "What does this mean?",
       correctMeaningEn: "Tom is my friend.",
       distractorsEn: [
         "Tom is a student.",
@@ -586,7 +586,7 @@ export const M3_NEO_3: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-3-lc-tomu",
       audioText: "トムも がくせいだ。",
-      question: "Your friend adds this after talking about Mika. Meaning?",
+      question: "Said right after a sentence about Mika — what does it mean?",
       correctMeaningEn: "Tom is a student too.",
       distractorsEn: [
         "Tom is NOT a student.",
@@ -687,7 +687,7 @@ export const M3_NEO_3: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-3-lc-mika",
       audioText: "ミカも ともだちだ。",
-      question: "You ask about Mika and hear this. Meaning?",
+      question: "The answer to a question about Mika — what does it mean?",
       correctMeaningEn: "Mika is a friend too.",
       distractorsEn: [
         "Mika is my only friend.",
@@ -708,7 +708,7 @@ export const M3_NEO_3: LessonContent = {
     sentenceMcq({
       id: "ja-m3-neo-3-mcq-reply",
       prompt:
-        "Your friend says: わたしは がくせいだ。 You're one too — pick your reply.",
+        "They say: わたしは がくせいだ。 You're a student too — pick your reply.",
       correctKana: "わたしも がくせいだ。",
       distractorsKana: [
         "わたしは がくせいだ。",
@@ -808,7 +808,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-neko-stmt",
       audioText: "ねこだ。",
-      question: "Listen to the tone. Is your friend telling you or asking you?",
+      question: "Telling or asking?",
       correctMeaningEn: "It's a cat.",
       distractorsEn: [
         "Is it a cat?",
@@ -820,7 +820,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-neko-q",
       audioText: "ねこ？",
-      question: "Same word, different tone. Telling or asking?",
+      question: "Telling or asking?",
       correctMeaningEn: "Is it a cat?",
       distractorsEn: [
         "It's a cat.",
@@ -854,7 +854,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-un",
       audioText: "うん、ねこだ。",
-      question: "You asked ねこ？ and hear this reply. What does it mean?",
+      question: "The reply to ねこ？ — what does it mean?",
       correctMeaningEn: "Yeah, it's a cat.",
       distractorsEn: [
         "No, it's a dog.",
@@ -866,7 +866,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-sou",
       audioText: "そう、ねこだ。",
-      question: "Another way your friend might answer. What are they saying?",
+      question: "Another reply to ねこ？ — what does it mean?",
       correctMeaningEn: "That's right — it's a cat.",
       distractorsEn: [
         "No — wrong.",
@@ -889,7 +889,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-gakusei-q",
       audioText: "がくせい？",
-      question: "Tone check: telling or asking?",
+      question: "Telling or asking?",
       correctMeaningEn: "Are you a student?",
       distractorsEn: [
         "I'm a student.",
@@ -901,7 +901,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-gakusei-stmt",
       audioText: "がくせいだ。",
-      question: "And this one — telling or asking?",
+      question: "Telling or asking?",
       correctMeaningEn: "(I'm) a student.",
       distractorsEn: [
         "Are you a student?",
@@ -971,7 +971,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-sou-da",
       audioText: "うん、そうだ。",
-      question: "You asked ミカは ともだち？ and hear this. What's the answer?",
+      question: "The reply to ミカは ともだち？ — what's the answer?",
       correctMeaningEn: "Yeah, that's right.",
       distractorsEn: [
         "No, that's wrong.",
@@ -990,7 +990,7 @@ export const M3_NEO_4: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-4-lc-nihonjin-q",
       audioText: "トムは にほんじん？",
-      question: "What is your friend asking?",
+      question: "What are they asking?",
       correctMeaningEn: "Is Tom Japanese?",
       distractorsEn: [
         "Tom is Japanese.",
@@ -1045,7 +1045,7 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-lc-sumimasen",
       audioText: "すみません",
       question:
-        "Someone bumps into you on a crowded train and says this. What do they mean?",
+        "Someone bumps into you and says this. Meaning?",
       correctMeaningEn: "Sorry / excuse me",
       distractorsEn: ["Thank you", "Nice to meet you", "It's okay"],
       exercisedAtomKanas: ["すみません"],
@@ -1060,7 +1060,7 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-lc-gomen",
       audioText: "ごめんなさい",
       question:
-        "Your friend steps on your foot, winces, and says this. What do they mean?",
+        "Said after stepping on your foot. Meaning?",
       correctMeaningEn: "I'm sorry!",
       distractorsEn: ["Thank you", "Nice to meet you", "It's all right"],
       exercisedAtomKanas: ["ごめんなさい"],
@@ -1072,14 +1072,14 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-lc-daijoubu",
       audioText: "だいじょうぶ",
       question:
-        "You drop your friend's pen and apologize. They wave a hand and say this. Meaning?",
+        "The reply to an apology. Meaning?",
       correctMeaningEn: "It's okay — no problem",
       distractorsEn: ["I'm sorry", "Thank you", "Watch out"],
       exercisedAtomKanas: ["だいじょうぶ"],
     }),
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-daijoubu",
-      prompt: "Your friend apologizes — ごめんなさい！ What do you say back?",
+      prompt: "Reply to ごめんなさい:",
       correctKana: "だいじょうぶ",
       distractorsKana: ["はじめまして", "すみません", "ありがとうございます"],
       exercisedAtomKanas: ["だいじょうぶ"],
@@ -1087,7 +1087,7 @@ export const M3_NEO_5: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-5-lc-arigatou",
       audioText: "ありがとうございます",
-      question: "You hold a door open; a stranger nods and says this. Meaning?",
+      question: "Said to thank a stranger. Meaning?",
       correctMeaningEn: "Thank you very much",
       distractorsEn: ["Excuse me", "I'm sorry", "Good morning"],
       exercisedAtomKanas: ["ありがとうございます"],
@@ -1102,7 +1102,7 @@ export const M3_NEO_5: LessonContent = {
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-register",
       prompt:
-        "A stranger picks up the glove you dropped. Which thanks fits a stranger?",
+        "Which thanks fits a stranger?",
       correctKana: "ありがとうございます",
       distractorsKana: ["ありがとう", "うん", "だいじょうぶ"],
       explanation:
@@ -1113,7 +1113,7 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-lc-hajimemashite",
       audioText: "はじめまして",
       question:
-        "A friend introduces you to someone new; the new person bows slightly and says this. Meaning?",
+        "Said when meeting someone new. Meaning?",
       correctMeaningEn: "Nice to meet you",
       distractorsEn: ["Goodbye", "Good evening", "Congratulations"],
       exercisedAtomKanas: ["はじめまして"],
@@ -1145,7 +1145,7 @@ export const M3_NEO_5: LessonContent = {
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-sumimasen",
       prompt:
-        "You need to squeeze past people on a crowded train. What do you say?",
+        "To squeeze past someone:",
       correctKana: "すみません",
       distractorsKana: ["だいじょうぶ", "はじめまして", "ごめんなさい"],
       explanation:
@@ -1154,7 +1154,7 @@ export const M3_NEO_5: LessonContent = {
     }),
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-hajimemashite",
-      prompt: "You're introduced to your friend's friend. What do you say?",
+      prompt: "Meeting someone new — what do you say?",
       correctKana: "はじめまして",
       distractorsKana: ["ありがとう", "だいじょうぶ", "ごめんなさい"],
       exercisedAtomKanas: ["はじめまして"],
@@ -1183,7 +1183,7 @@ export const M3_NEO_5: LessonContent = {
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-reassure",
       prompt:
-        "Your friend spills your water and looks worried. Reassure them.",
+        "Reassure someone who's apologizing:",
       correctKana: "だいじょうぶ",
       distractorsKana: ["すみません", "ありがとうございます", "はじめまして"],
       exercisedAtomKanas: ["だいじょうぶ"],
@@ -1198,13 +1198,13 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-lc-arigatou-casual",
       audioText: "ありがとう",
       question:
-        "Your friend takes the snack you offered and says this. Meaning?",
+        "Said between friends after a small favor. Meaning?",
       correctMeaningEn: "Thanks! (casual)",
       distractorsEn: ["Sorry!", "No thanks.", "Nice to meet you."],
     }),
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-thanks",
-      prompt: "Your close friend lends you an umbrella. Casual thanks?",
+      prompt: "Casual thanks to a close friend:",
       correctKana: "ありがとう",
       distractorsKana: ["すみません", "はじめまして", "だいじょうぶ"],
     }),
@@ -1538,7 +1538,7 @@ export const M3_NEO_REVIEW: LessonContent = {
     listeningCompSentence({
       id: "ja-m3-neo-rev-lc-tone",
       audioText: "ともだち？",
-      question: "Tone check: telling or asking?",
+      question: "Telling or asking?",
       correctMeaningEn: "A friend (of yours)?",
       distractorsEn: [
         "(he's) a friend.",
