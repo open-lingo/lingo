@@ -155,43 +155,56 @@ const cards = Array.from(deduped)
 // lingo-core scripts/tts/gen_keita_dialogue.py under `ja-keita:` keys.
 const MALE_SPEAKERS = new Set(["トム", "ケン", "たなか"]);
 const keitaSet = new Set();
+const nanamiSet = new Set();
 for (const path of sources) {
   const src = readFileSync(path, "utf-8");
   for (const m of src.matchAll(
     /speaker:\s*"([^"]+)",\s*kana:\s*"([^"]+)"(?:,\s*audioText:\s*"([^"]+)")?/g,
   )) {
-    if (!MALE_SPEAKERS.has(m[1])) continue;
+    const bucket = MALE_SPEAKERS.has(m[1]) ? keitaSet : nanamiSet;
     const text = m[3] ?? m[2];
     for (const t of [text, ...(text.match(/[^。？！]+[。？！]?」?/g) ?? [])]) {
       const trimmed = t.trim();
       if (!JA_ONLY.test(trimmed)) continue;
-      keitaSet.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
+      bucket.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
     }
   }
 }
-const KEITA_OUT = resolve(
-  __dirname,
-  "../../lingo-core/test_decks/ja-keita-dialogue.json",
+function writeDialogueDeck(file, name, set, note) {
+  const out = resolve(__dirname, `../../lingo-core/test_decks/${file}`);
+  writeFileSync(
+    out,
+    JSON.stringify(
+      {
+        name,
+        languageId: name,
+        _note: note,
+        cards: Array.from(set)
+          .sort()
+          .map((t, i) => ({ id: `${name}-${i.toString().padStart(3, "0")}-${t}`, front: t })),
+      },
+      null,
+      2,
+    ) + "\n",
+    "utf-8",
+  );
+  console.log(`wrote ${set.size} phrases → ${out}`);
+}
+writeDialogueDeck(
+  "ja-keita-dialogue.json",
+  "ja-keita-dialogue",
+  keitaSet,
+  "Male dialogue speakers' lines — synthesized with ja-JP-KeitaNeural by " +
+    "scripts/tts/gen_dialogue_voices.py under ja-keita: keys. Auto-emitted.",
 );
-writeFileSync(
-  KEITA_OUT,
-  JSON.stringify(
-    {
-      name: "ja-keita-dialogue",
-      languageId: "ja-keita",
-      _note:
-        "Male dialogue speakers' lines — synthesized with ja-JP-KeitaNeural " +
-        "by scripts/tts/gen_keita_dialogue.py. Auto-emitted; do not edit.",
-      cards: Array.from(keitaSet)
-        .sort()
-        .map((t, i) => ({ id: `keita-${i.toString().padStart(3, "0")}-${t}`, front: t })),
-    },
-    null,
-    2,
-  ) + "\n",
-  "utf-8",
+writeDialogueDeck(
+  "ja-nanami-dialogue.json",
+  "ja-nanami-dialogue",
+  nanamiSet,
+  "Female/neutral dialogue speakers' lines — refreshed as ONE Nanami batch " +
+    "(consistent takes) by scripts/tts/gen_dialogue_voices.py over plain " +
+    "ja: keys. Auto-emitted.",
 );
-console.log(`wrote ${keitaSet.size} keita phrases → ${KEITA_OUT}`);
 
 const deck = {
   name: "ja-hiragana-curriculum",
