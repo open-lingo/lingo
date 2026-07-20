@@ -60,10 +60,11 @@ await page.goto(`${BASE}/ja/transit-preview`, { waitUntil: "networkidle" });
 await page.waitForTimeout(2000);
 report(await page.locator(".tmc-toggle").count() === 1, "preview keeps demo toggle");
 
-// 4. es learn home stays classic
+// 4. es learn home is transit now too (9b73d93e: Spanish uses the transit
+// map + list view — the old "stays classic" expectation predates that).
 await page.goto(`${BASE}/es/learn`, { waitUntil: "networkidle" });
 await page.waitForTimeout(1500);
-report(await page.locator(".tmc-root").count() === 0, "es/learn stays classic");
+report(await page.locator(".tmc-root").count() === 1, "es/learn renders transit map");
 
 // 5. nav: no Social/Community links anywhere in shell
 await page.goto(`${BASE}/ja/learn`, { waitUntil: "networkidle" });

@@ -72,7 +72,8 @@ describe("CourseMapPage", () => {
     fireEvent.click(button);
     const headings = screen.getAllByRole("heading", { level: 2 });
     expect(
-      headings.every((h) => h.textContent?.includes("First sentences")),
+      // m3 = "Plain sentences" since the 2026-07-19 rewrite-spine map.
+      headings.every((h) => h.textContent?.includes("Plain sentences")),
     ).toBe(true);
   });
 

@@ -122,10 +122,11 @@ describe("TransitLearnPage tier switcher", () => {
   it("ja + ?tier=n4 renders only n4 modules, zone labels starting at ZONE 1", () => {
     renderPage("/ja/learn?tier=n4", "ja");
     expect(screen.getByRole("group", { name: "Course tier" })).toBeInTheDocument();
-    // n4 stations (m29 "Plain form", m30 "Casual register") present.
-    expect(screen.getAllByText(/Plain form/).length).toBeGreaterThan(0);
+    // n4 station (m30 "Casual register" — the only n4 module since the
+    // 2026-07-19 spine renumber absorbed the old m29 pilot) present.
+    expect(screen.getAllByText(/Casual register/).length).toBeGreaterThan(0);
     // n5-only station titles must NOT appear on the n4 map.
-    expect(screen.queryByText(/N5 Mastery/)).toBeNull();
+    expect(screen.queryByText(/Plain sentences/)).toBeNull();
     // buildLayout's own-ZONE-1..3 split — n4's map starts its own ZONE 1.
     // (only 2 n4 modules today, below buildLayout's stations.length >= 9
     // floor for drawing zone chips — assert the underlying strings.zones
@@ -135,16 +136,21 @@ describe("TransitLearnPage tier switcher", () => {
 
   it("ja with no param/storage defaults to n5 for a fresh learner", () => {
     renderPage("/ja/learn", "ja");
-    expect(screen.getAllByText(/N5 Mastery|Plain form/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Plain sentences/).length).toBeGreaterThan(0);
     const n5Tab = screen.getByRole("button", { name: "N5 Line" });
     expect(n5Tab).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("default-tier derivation: active module in n4 → defaults to the N4 line", () => {
+  it("default-tier derivation: finishing every authored n5 lesson stays on the N5 line (spine frontier)", () => {
+    // 2026-07-19 rewrite spine: m4-m29 are comingSoon placeholders, so a
+    // learner who cleared everything authored is waiting at the m4 frontier
+    // — deriveDefaultTier must keep them on N5, not bounce them to N4.
+    // (The pure active-module-in-n4 → n4 path is covered synthetically in
+    // learnTier.test.ts.)
     const ja = jaCompletedThroughN5();
     renderPage("/ja/learn", "ja", ja);
-    const n4Tab = screen.getByRole("button", { name: "N4 Line" });
-    expect(n4Tab).toHaveAttribute("aria-pressed", "true");
+    const n5Tab = screen.getByRole("button", { name: "N5 Line" });
+    expect(n5Tab).toHaveAttribute("aria-pressed", "true");
   });
 
   it("n5 map (27+ stations) draws its own ZONE 1/2/3 from buildLayout — same code path n4 will use once it has 9+ stations", () => {

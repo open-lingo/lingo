@@ -12,6 +12,8 @@ describe("courseMapData", () => {
   it("flags review lessons by id suffix", () => {
     expect(isReviewLessonId("ja-m3-review-1")).toBe(true);
     expect(isReviewLessonId("ja-m3-review-2")).toBe(true);
+    // Rewrite-spine pilot review (no numeric suffix, 2026-07-19).
+    expect(isReviewLessonId("ja-m3-neo-review")).toBe(true);
     expect(isReviewLessonId("ja-m3-2-1")).toBe(false);
     expect(isReviewLessonId("ja-m1-l1-1")).toBe(false);
   });
@@ -22,8 +24,8 @@ describe("courseMapData", () => {
     const counts = getModuleLessonCounts(m3);
     expect(counts.total).toBe(m3.lessons.length);
     expect(counts.content + counts.review).toBe(counts.total);
-    // M3 has two review lessons authored at the tail.
-    expect(counts.review).toBe(2);
+    // M3 (the m3-neo rewrite pilot, 2026-07-19) ends on one review lesson.
+    expect(counts.review).toBe(1);
     expect(counts.content).toBeGreaterThan(0);
   });
 

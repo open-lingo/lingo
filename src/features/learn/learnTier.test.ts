@@ -38,7 +38,7 @@ describe("courseHasTier", () => {
     expect(courseHasTier(course, "n4")).toBe(true);
   });
 
-  it("real ja course has n4 content (m29/m30)", () => {
+  it("real ja course has n4 content (m30)", () => {
     const ja = getMockCourse("ja");
     expect(courseHasTier(ja, "n4")).toBe(true);
   });
@@ -61,21 +61,24 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29", "m30"]);
   });
 
-  it("excludes comingSoon and lesson-less modules from either tier", () => {
+  it("draws comingSoon modules (locked spine stations) but not bare lesson-less stubs", () => {
+    // 2026-07-19 rewrite spine: comingSoon placeholders must be VISIBLE on
+    // the map (locked stations), so only lesson-less modules without the
+    // flag (unshipped-language stubs) are filtered.
     const course = mkCourse([
       mkModule({ id: "m1" }),
-      mkModule({ id: "m2", comingSoon: true }),
+      mkModule({ id: "m2", comingSoon: true, lessons: [] }),
       mkModule({ id: "m3", lessons: [] }),
-      mkModule({ id: "m29", tier: "n4", comingSoon: true }),
+      mkModule({ id: "m29", tier: "n4", comingSoon: true, lessons: [] }),
     ]);
-    expect(modulesForTier(course, "n5").map((m) => m.id)).toEqual(["m1"]);
-    expect(modulesForTier(course, "n4")).toEqual([]);
+    expect(modulesForTier(course, "n5").map((m) => m.id)).toEqual(["m1", "m2"]);
+    expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 modules start at ZONE-eligible count and are m29/m30", () => {
+  it("real ja n4 line is m30 only (old m29 pilot renumbered away by the spine)", () => {
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m29", "m30"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30"]);
   });
 });
 
@@ -103,13 +106,17 @@ describe("deriveDefaultTier", () => {
     expect(deriveDefaultTier(course, new Set(["l1"]))).toBe("n4");
   });
 
-  it("real ja course: fresh learner defaults n5, post-capstone learner defaults n4", () => {
+  it("real ja course: fresh learner defaults n5; finishing everything authored still defaults n5 (spine frontier)", () => {
+    // 2026-07-19 rewrite spine: m4-m29 are comingSoon placeholders. A
+    // learner who completed every AUTHORED n5 lesson is standing at the m4
+    // frontier waiting for content — the comingSoon module counts as the
+    // active position, so they must NOT be bounced onto the N4 line.
     const ja = getMockCourse("ja");
     expect(deriveDefaultTier(ja, new Set())).toBe("n5");
     const allN5LessonIds = ja.modules
       .filter((m) => (m.tier ?? "n5") === "n5")
       .flatMap((m) => m.lessons.map((l) => l.id));
-    expect(deriveDefaultTier(ja, new Set(allN5LessonIds))).toBe("n4");
+    expect(deriveDefaultTier(ja, new Set(allN5LessonIds))).toBe("n5");
   });
 });
 

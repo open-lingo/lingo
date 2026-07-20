@@ -2056,7 +2056,9 @@ export default function TransitLearnPage({
         }
       }
       if (anchor === null) {
-        anchor = Math.min(modules.length - 2, Math.max(0, Math.floor(modules.length * spread[unanchored % spread.length])));
+        // Outer Math.max guards the single-station map (n4 line is m30 only
+        // since the 2026-07-19 spine renumber): length - 2 would be -1.
+        anchor = Math.max(0, Math.min(modules.length - 2, Math.max(0, Math.floor(modules.length * spread[unanchored % spread.length]))));
         soft.add(anchor);
         unanchored++;
       }

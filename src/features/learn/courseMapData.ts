@@ -41,7 +41,9 @@ export type ModuleVocab = {
   samples: VocabSample[];
 };
 
-const REVIEW_LESSON_RE = /-review-[12]$/;
+// `-review` with no numeric suffix is the rewrite-spine shape
+// (ja-m3-neo-review, 2026-07-19); `-review-1/2` is the old-course shape.
+const REVIEW_LESSON_RE = /-review(?:-[12])?$/;
 
 /** Whether a lesson id is an SRS review lesson (doesn't introduce content). */
 export function isReviewLessonId(lessonId: string): boolean {

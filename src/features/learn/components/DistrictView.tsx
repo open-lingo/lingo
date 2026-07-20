@@ -91,8 +91,9 @@ export function DistrictView({
             {mod.eyebrow && <div className="text-[10.5px] uppercase tracking-[0.14em] opacity-70">{mod.eyebrow}</div>}
             <div className="truncate text-[19px] font-extrabold leading-tight">{mod.title}</div>
             <div className="text-[12px] opacity-75">
-              {done}/{mod.lessons.length} lessons
-              {status === "locked" ? " · locked — complete the previous station" : ""}
+              {mod.comingSoon
+                ? "Coming soon — lessons not yet authored"
+                : `${done}/${mod.lessons.length} lessons${status === "locked" ? " · locked — complete the previous station" : ""}`}
             </div>
           </div>
           <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
@@ -108,6 +109,11 @@ export function DistrictView({
                 {done}/{mod.lessons.length} {strings.doneStamp}
               </span>
             </div>
+            {mod.comingSoon && (
+              <div className="border-t border-white/10 px-4 py-6 text-[13px] opacity-70">
+                {mod.summary ?? "This station is on the new course spine — its lessons are being written."}
+              </div>
+            )}
             {stops.map((s, i) => {
               const row = (
                 <div
@@ -214,7 +220,7 @@ export function DistrictView({
             Next station →
           </button>
           <div className="flex-1" />
-          {status !== "completed" && (
+          {status !== "completed" && !mod.comingSoon && (
             <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex items-center gap-1.5 rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:border-accent hover:text-text-primary">
               <Icon name="graduationCap" size={14} aria-hidden />
               Test out

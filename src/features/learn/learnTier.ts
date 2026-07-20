@@ -20,13 +20,20 @@ export function courseHasTier(course: Course, tier: LearnTier): boolean {
   return course.modules.some((m) => moduleTier(m) === tier);
 }
 
-/** Drawable modules for one tier, in course order — the same filter
- *  TransitLearnPage always applied for n5 (no comingSoon, has lessons),
- *  now parameterized so each tier gets its own map + own ZONE 1/2/3 split
- *  (buildLayout thirds-splits whatever module list it's given). */
+/** Drawable modules for one tier, in course order, parameterized so each
+ *  tier gets its own map + own ZONE 1/2/3 split (buildLayout thirds-splits
+ *  whatever module list it's given).
+ *
+ *  2026-07-19 (rewrite spine): `comingSoon` modules are now DRAWN — the
+ *  dict-form-first spine ships m4-m29 as visible-but-locked stations so the
+ *  new course shape is navigable before its content is authored
+ *  (getModuleStatus renders them locked; DistrictView shows the
+ *  coming-soon note). Lesson-less modules WITHOUT the flag are still
+ *  filtered — that's the "unshipped language" stub case, not a planned
+ *  station. */
 export function modulesForTier(course: Course, tier: LearnTier): CourseModule[] {
   return course.modules.filter(
-    (m) => !m.comingSoon && m.lessons.length > 0 && moduleTier(m) === tier,
+    (m) => (m.comingSoon || m.lessons.length > 0) && moduleTier(m) === tier,
   );
 }
 
@@ -44,7 +51,14 @@ export function deriveDefaultTier(
 ): LearnTier {
   if (!courseHasTier(course, "n4")) return "n5";
   if (course.modules.length === 0) return "n5";
-  const idx = getCurrentModuleIndex(course, completedLessonIds);
+  // A comingSoon module is a real frontier (rewrite spine: content pending),
+  // not a completed step — without this, a learner who finished everything
+  // authored in n5 would "skip past" the empty spine and default onto the
+  // N4 line even though their course position is mid-N5.
+  const frontier = course.modules.findIndex(
+    (m) => m.comingSoon || m.lessons.some((l) => !completedLessonIds.has(l.id)),
+  );
+  const idx = frontier >= 0 ? frontier : getCurrentModuleIndex(course, completedLessonIds);
   const mod = course.modules[idx] ?? course.modules[0];
   return moduleTier(mod);
 }

@@ -10,7 +10,18 @@ import {
 } from "./deriveModuleTestOut";
 import { mulberry32 } from "@/shared/utils/seededRng";
 
-const SHIPPED = ["m3","m4","m5","m6","m7","m8","m9","m10","m11","m12","m13","m14","m15","m16","m17"];
+// 2026-07-19 (rewrite spine): the ja map replaced the old m3-m17 modules
+// with the dict-form-first spine — m3 (the m3-neo pilot) is the only ja
+// module with authored lessons; m4-m29 are comingSoon placeholders whose
+// test-outs can't derive yet (DistrictView hides the Test-out CTA for
+// them). Derive the shipped list from the live map so spine modules
+// re-enter this invariant automatically as their content lands.
+import { getMockCourse } from "@/shared/domain/mockCourse";
+const SHIPPED = getMockCourse("ja")
+  .modules.filter(
+    (m) => /^m\d+$/.test(m.id) && m.id !== "m1" && m.id !== "m2" && (m.tier ?? "n5") === "n5" && m.lessons.length > 0,
+  )
+  .map((m) => m.id);
 
 describe("deriveModuleTestOut", () => {
   it("every shipped module yields a full-size, format-legal, covering test-out", () => {
@@ -35,27 +46,27 @@ describe("deriveModuleTestOut", () => {
 
   it("excludes speaking/dialogue/symbol formats from the pool", () => {
     const withSpeaking = new Set([...TESTOUT_FORMATS, "speaking", "dialogue_listen"]);
-    const legal = collectGradable("m10");
-    const all = collectGradable("m10", withSpeaking);
+    const legal = collectGradable("m3");
+    const all = collectGradable("m3", withSpeaking);
     expect(all.length).toBeGreaterThan(legal.length); // speaking exists but is excluded by default
     expect(legal.every((i) => i.format !== "speaking")).toBe(true);
     expect(legal.every((i) => i.format !== "dialogue_listen")).toBe(true);
   });
 
   it("is deterministic (no rng) — same module yields the same picks", () => {
-    const a = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
-    const b = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
+    const a = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);
+    const b = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);
     expect(a).toEqual(b);
   });
 
   it("seeded rng — two different seeds draw different subsets, both size-legal & covering", () => {
-    const drawA = deriveModuleTestOut("m14", { rng: mulberry32(1) });
-    const drawB = deriveModuleTestOut("m14", { rng: mulberry32(999) });
+    const drawA = deriveModuleTestOut("m3", { rng: mulberry32(1) });
+    const drawB = deriveModuleTestOut("m3", { rng: mulberry32(999) });
 
     const idsA = drawA.items.map((i) => (i.step as { id: string }).id);
     const idsB = drawB.items.map((i) => (i.step as { id: string }).id);
 
-    // Both honor size + formats (m14 has hundreds of gradable steps).
+    // Both honor size + formats (m3-neo has 100+ gradable steps).
     expect(idsA.length).toBe(TESTOUT_SIZE);
     expect(idsB.length).toBe(TESTOUT_SIZE);
     for (const it of [...drawA.items, ...drawB.items]) {
@@ -70,17 +81,17 @@ describe("deriveModuleTestOut", () => {
   });
 
   it("seeded rng is stable within a seed (same seed → same draw)", () => {
-    const a = deriveModuleTestOut("m14", { rng: mulberry32(42) }).items.map(
+    const a = deriveModuleTestOut("m3", { rng: mulberry32(42) }).items.map(
       (i) => (i.step as { id: string }).id,
     );
-    const b = deriveModuleTestOut("m14", { rng: mulberry32(42) }).items.map(
+    const b = deriveModuleTestOut("m3", { rng: mulberry32(42) }).items.map(
       (i) => (i.step as { id: string }).id,
     );
     expect(a).toEqual(b);
   });
 
   it("pickCovering with rng still covers sections and honors size", () => {
-    const all = collectGradable("m14");
+    const all = collectGradable("m3");
     const picked = pickCovering(all, TESTOUT_SIZE, mulberry32(7));
     expect(picked.length).toBe(TESTOUT_SIZE);
     const sectionsTotal = new Set(all.map((i) => i.section)).size;
@@ -136,7 +147,9 @@ describe("derived es test-out (parametrized language)", () => {
 
   it("getDerivedTestOutItems stamps languageId 'es' and doesn't collide with ja's cache", () => {
     const es = getDerivedTestOutItems("m10", "es");
-    const ja = getDerivedTestOutItems("m10");
+    // ja "m10" is an unauthored spine placeholder since 2026-07-19 — use the
+    // authored ja m3 (m3-neo) as the cross-language cache foil instead.
+    const ja = getDerivedTestOutItems("m3");
     expect(es.length).toBeGreaterThanOrEqual(TESTOUT_DERIVED_FLOOR);
     expect(es.every((c) => c.languageId === "es")).toBe(true);
     // Same moduleId, different course — the per-language cache keys must

@@ -55,8 +55,11 @@ describe("syncTestOutToServer", () => {
     const batchAttempts = vi.fn().mockResolvedValue(undefined);
     const progress = { batchAttempts } as unknown as ProgressApi;
 
-    // Passed m10 ⇒ assumed m3..m9 auto-completed. Both must sync.
-    const res = await syncTestOutToServer(progress, ["m10"], "ja", [
+    // Passed m10 ⇒ assumed earlier modules auto-completed. Both must sync.
+    // Uses the KO course: the ja map's m4+ are unauthored rewrite-spine
+    // placeholders (zero lessons ⇒ zero synthesizable attempts) since
+    // 2026-07-19, while KO still carries full lesson lists per module.
+    const res = await syncTestOutToServer(progress, ["m10"], "ko", [
       "m3",
       "m4",
       "m5",

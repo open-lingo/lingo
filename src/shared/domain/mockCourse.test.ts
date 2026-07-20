@@ -82,59 +82,53 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M3 has 17 sub-lessons (16 + story wired 2026-07-01)", () => {
+  // ── Rewrite spine (draft-3, 2026-07-19) ────────────────────────────────
+  // The old m3-m28 map (First sentences … N5 Mastery) was replaced by the
+  // dict-form-first spine (src/features/lesson/dev/spinePlan.ts). The old
+  // per-module count/katakana-lead assertions moved out with it — the old
+  // lessons stay registered in mockLessons (deep-link only), which the
+  // lesson-data suites still cover.
+
+  it("M3 is the m3-neo pilot (7 lessons, ends on the review)", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     expect(m3).toBeDefined();
     expect(m3.comingSoon).toBeFalsy();
-    // 14 content + story (ja-m3-9) + 2 review = 17.
-    expect(m3.lessons.length).toBe(17);
-    expect(m3.lessons.some((l) => l.id === "ja-m3-9")).toBe(true);
+    expect(m3.lessons.map((l) => l.id)).toEqual([
+      "ja-m3-neo-1",
+      "ja-m3-neo-2",
+      "ja-m3-neo-3",
+      "ja-m3-neo-4",
+      "ja-m3-neo-5",
+      "ja-m3-neo-6",
+      "ja-m3-neo-review",
+    ]);
+    expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("M3 ends with review lessons", () => {
-    const m3 = course.modules.find((m) => m.id === "m3")!;
-    const last = m3.lessons[m3.lessons.length - 1];
-    expect(last.title).toMatch(/Review/i);
-  });
-
-  it("M4 has 18 sub-lessons (possessives + pointers + story + katakana row)", () => {
-    const m4 = course.modules.find((m) => m.id === "m4")!;
-    expect(m4.comingSoon).toBeFalsy();
-    expect(m4.lessons.length).toBe(18);
-    expect(m4.lessons.some((l) => l.id === "ja-m4-story")).toBe(true);
-    expect(m4.lessons[0].id).toBe("ja-m4-kata");
-  });
-
-  it("M5 has 18 sub-lessons (numbers + counters + story + katakana row)", () => {
-    const m5 = course.modules.find((m) => m.id === "m5")!;
-    expect(m5.comingSoon).toBeFalsy();
-    expect(m5.lessons.length).toBe(18);
-    expect(m5.lessons.some((l) => l.id === "ja-m5-story")).toBe(true);
-    expect(m5.lessons[0].id).toBe("ja-m5-kata");
-  });
-
-  it("M6 has 20 sub-lessons (locations + に/で/が + story + katakana row)", () => {
-    const m6 = course.modules.find((m) => m.id === "m6")!;
-    expect(m6.comingSoon).toBeFalsy();
-    expect(m6.lessons.length).toBe(20);
-    expect(m6.lessons.some((l) => l.id === "ja-m6-story")).toBe(true);
-    expect(m6.lessons[0].id).toBe("ja-m6-kata");
-  });
-
-  it("M7 has 20 sub-lessons (verbs + を + story + katakana row)", () => {
-    const m7 = course.modules.find((m) => m.id === "m7")!;
-    expect(m7.comingSoon).toBeFalsy();
-    expect(m7.lessons.length).toBe(20);
-    expect(m7.lessons.some((l) => l.id === "ja-m7-story")).toBe(true);
-    expect(m7.lessons[0].id).toBe("ja-m7-kata");
-  });
-
-  it("every module M4-M12 leads with its katakana row lesson (rollout 2026-07-01)", () => {
-    for (let n = 4; n <= 12; n++) {
+  it("m4-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
+    for (let n = 4; n <= 29; n++) {
       const mod = course.modules.find((m) => m.id === `m${n}`)!;
-      expect(mod, `m${n}`).toBeDefined();
-      expect(mod.lessons[0].id, `m${n}`).toBe(`ja-m${n}-kata`);
+      expect(mod, `m${n} missing`).toBeDefined();
+      expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);
+      expect(mod.lessons.length, `m${n} must have no lessons yet`).toBe(0);
+      expect(mod.tier ?? "n5", `m${n} is an N5 station`).toBe("n5");
     }
+  });
+
+  it("spine milestones land on the ladder-critical module numbers", () => {
+    // parseModuleIndex drives the romaji/kanji ladders off the module
+    // NUMBER, so the spine deliberately lands the ます/です register module
+    // on m7 (hiragana-romaji cutoff) and navigation on m19 (katakana
+    // cutoff re-anchor). m29 is the N5 capstone (tile s25).
+    const byId = new Map(course.modules.map((m) => [m.id, m]));
+    expect(byId.get("m7")!.title).toContain("ます");
+    expect(byId.get("m19")!.title).toMatch(/Getting around/);
+    expect(byId.get("m29")!.title).toMatch(/capstone/i);
+  });
+
+  it("N4 tier is m30 only (old m29 pilot absorbed by the spine renumber)", () => {
+    const n4 = course.modules.filter((m) => m.tier === "n4");
+    expect(n4.map((m) => m.id)).toEqual(["m30"]);
   });
 
   it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {

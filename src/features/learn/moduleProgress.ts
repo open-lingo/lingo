@@ -50,7 +50,9 @@ export function getModuleDisplay(
   };
 }
 
-const REVIEW_LESSON_RE = /^(?:ja|ko)-m\d+-review(?:-\d+)?$/;
+// Matches old-course review ids (ja-m3-review-1) and the rewrite-spine
+// pilot's (ja-m3-neo-review) — review lessons never gate module unlock.
+const REVIEW_LESSON_RE = /^(?:ja|ko)-m\d+(?:-neo)?-review(?:-\d+)?$/;
 
 function isContentLesson(lesson: { id: string }): boolean {
   return !REVIEW_LESSON_RE.test(lesson.id);
@@ -64,6 +66,10 @@ export function getModuleStatus(
   completedLessonIds: ReadonlySet<string>,
   modules: CourseModule[]
 ): ModuleStatus {
+  // comingSoon modules (rewrite-spine placeholders with no lessons) are
+  // always locked — an empty lessons array would otherwise read as
+  // vacuously "completed" via .every() and unlock everything after it.
+  if (modules[moduleIndex]?.comingSoon) return "locked";
   if (moduleIndex === 0) {
     const mod = modules[0];
     const allDone = mod.lessons.filter(isContentLesson).every((l) => completedLessonIds.has(l.id));

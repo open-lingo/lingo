@@ -18,8 +18,7 @@
  * `getUncoveredGrammarPoints`) — authored review items / the Conjugation
  * Trainer (§10) cover them later.
  */
-import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockLessonContent } from "./mockLessons";
+import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
 import type { LessonStep } from "../types";
 import grammarPointsJson from "./n5-grammar-points.json";
 import type { GrammarPoint } from "@/features/flashcards/engine/grammarSrs";
@@ -40,8 +39,9 @@ let index: Map<string, LessonStep[]> | null = null;
  * used to dump EVERY occurrence — all modules, all senses — into the one
  * literal point's pool (audit: kara-origin held てから "after doing X"
  * sentences; imasu's pool was 100% て-います progressive). A cloze is now
- * attributed only when its source LESSON's module (from the course map — the
- * m1-id-prefix landmine forbids parsing lesson ids) sits in
+ * attributed only when its source LESSON's module (the lesson content's own
+ * `moduleId` — the m1-id-prefix landmine forbids parsing lesson ids, and the
+ * course map now carries the rewrite spine, not the harvested lessons) sits in
  * [point.module, point.module + HARVEST_WINDOW_MODULES]: the intro module
  * plus the horizon the curriculum actually re-drills a fresh particle in.
  * Sentences outside the window are simply dropped — the later senses all have
@@ -183,13 +183,25 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
   if (index) return index;
   const tokenToPoint = buildTokenToPoint();
   const out = new Map<string, LessonStep[]>();
-  const course = getMockCourse("ja");
-  for (const mod of course.modules) {
-    const srcModule = moduleNum(mod.id);
-    for (const l of mod.lessons) {
-      if (/-review-[12]$/.test(l.id)) continue; // avoid recursion; reviews aren't sources
-      const lesson = getMockLessonContent(l.id);
-      if (!lesson) continue;
+  // 2026-07-19 (rewrite spine): harvest from the LESSON REGISTRY, not the
+  // course map. The map now carries the dict-form-first spine whose m4-m29
+  // are unauthored comingSoon placeholders — walking it would collapse every
+  // harvested pool. The old-course lessons stay registered in mockLessons
+  // (deep-link only) and each lesson's own `moduleId` carries the exact
+  // attribution the map walk used to provide, so the harvest is unchanged
+  // in content while the map is free to be rewritten around it.
+  for (const lessonId of getAvailableMockLessonIds()) {
+    if (/-review-[12]$/.test(lessonId)) continue; // avoid recursion; reviews aren't sources
+    // Rewrite-spine pilot lessons (ja-m3-neo-*) are excluded: they're
+    // authored under the dict-form-first ruleset whose sentences don't
+    // decompose against the OLD course's atom attribution (comprehensibility
+    // gate), and the rewrite brings its own review machinery. Re-scope the
+    // deck when the spine modules land.
+    if (lessonId.includes("-neo-")) continue;
+    const lesson = getMockLessonContent(lessonId);
+    if (!lesson || lesson.languageId !== "ja") continue;
+    const srcModule = moduleNum(lesson.moduleId);
+    {
       for (const step of lesson.steps) {
         if (step.type !== "particle_cloze") continue;
         const cp = (step as unknown as { correctParticle?: string }).correctParticle;

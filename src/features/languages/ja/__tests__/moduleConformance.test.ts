@@ -35,8 +35,14 @@ import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
  * (no SRS, per Spencer). m28 is the review-only N5 capstone: it introduces no
  * atoms of its own, so it is excluded from the attribution invariants below.
  */
-const CAPSTONE_MODULE_IDS = new Set(["m28"]);
+// 2026-07-19 (rewrite spine): the capstone moved from m28 to m29 (tile s25),
+// and m4-m29 are comingSoon placeholders with zero lessons until each spine
+// tile is authored — they can't be held to the attribution invariants yet,
+// so lesson-less modules are excluded here. As spine modules gain lessons
+// they automatically re-enter the invariant set.
+const CAPSTONE_MODULE_IDS = new Set(["m29"]);
 const CONTENT_MODULE_IDS: string[] = jaModule.curriculum
+  .filter((m) => m.lessons.length > 0)
   .map((m) => m.id)
   .filter((id) => /^m\d+$/.test(id))
   .filter((id) => id !== "m1" && id !== "m2")
