@@ -105,8 +105,10 @@ describe("curriculum lesson counts", () => {
     expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("m4-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
-    for (let n = 4; n <= 29; n++) {
+  it("m6-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
+    // m4 (2026-07-20) and m5 (2026-07-20) are authored — the frontier
+    // advances as rewrite cycles land modules.
+    for (let n = 6; n <= 29; n++) {
       const mod = course.modules.find((m) => m.id === `m${n}`)!;
       expect(mod, `m${n} missing`).toBeDefined();
       expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);

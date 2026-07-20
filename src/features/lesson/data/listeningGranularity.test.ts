@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
 
 /**
@@ -51,6 +52,12 @@ const WORD_LEVEL_BASELINE: Record<string, { lb: number; lc: number }> = {
   m27: { lb: 0, lc: 0 },
 };
 
+/** Dictionary-form verb kanas from the atom registry — a lone one of
+ *  these IS a sentence in the dict-form-first course. */
+const DICT_FORM_VERBS = new Set(
+  JA_COURSE_ATOMS.filter((a) => /^to /.test(a.meaningEn)).map((a) => a.kana),
+);
+
 function countWordLevel(): Record<string, { lb: number; lc: number }> {
   const counts: Record<string, { lb: number; lc: number }> = {};
   for (const id of getAvailableMockLessonIds()) {
@@ -64,12 +71,27 @@ function countWordLevel(): Record<string, { lb: number; lc: number }> {
     for (const s of lesson.steps) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const a = s as any;
+      // Dict-form-first amendment (2026-07-20, m5-neo): a lone
+      // dictionary-form VERB is a complete casual sentence (たべる。=
+      // "I'll eat"), and a ？-final contour utterance is a full question
+      // — both carry sentence-level exposure, which is this ratchet's
+      // whole intent. Only non-verb bare-word items count as word-level.
+      const isCompleteUtterance = (text: string): boolean => {
+        if (/？$/.test(text)) return true;
+        const bare = text.replace(/[。？]/g, "");
+        return DICT_FORM_VERBS.has(bare);
+      };
       if (s.type === "listening_build" && (a.correctOrder ?? []).length < 3) {
-        counts[mod].lb++;
+        const joined = (a.correctOrder ?? []).join("");
+        if (!isCompleteUtterance(joined)) counts[mod].lb++;
       }
       if (s.type === "listening_comprehension") {
         const text: string = a.transcript ?? a.audioKey ?? "";
-        if (!/[はがをにでとへもや、。 ]/.test(text) && text.length < 6) {
+        if (
+          !/[はがをにでとへもや、。 ]/.test(text) &&
+          text.length < 6 &&
+          !isCompleteUtterance(text)
+        ) {
           counts[mod].lc++;
         }
       }

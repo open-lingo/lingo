@@ -235,7 +235,6 @@ export function getMockCourse(languageId: string): Course {
       title: string;
       summary: string;
     }[] = [
-      { tile: "s05", title: "⚙️ Verbs I: dictionary form + classes", summary: "Dictionary form as THE verb; る/う/する/くる classes; を + SOV; CEJC-picked seed verbs; もの as morpheme." },
       { tile: "n06a", title: "🚫 Plain negative ない + ある/いる", summary: "ない by class; が subject marker via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics." },
       { tile: "s07", title: "🎭 The stem grid + ます/です", summary: "Godan stem rows as attachment points; ます/ません; です; か. Register-explicit production starts (romaji cutoff holds at M7)." },
       { tile: "n02", title: "🙏 て-form + ください", summary: "て via the sound-change table; 〜てください requests; traveler beat — order food, ask someone to wait." },
@@ -262,9 +261,9 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
     const spineComingSoonModules = SPINE_COMING_SOON.map((t, i) => ({
-      id: `m${i + 5}`,
+      id: `m${i + 6}`,
       title: t.title,
-      eyebrow: `Module ${i + 5} · Coming soon`,
+      eyebrow: `Module ${i + 6} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -337,7 +336,30 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
         },
-        // m5..m29 — the rest of the draft-3 spine, comingSoon placeholders
+        // M5 — tile s05: VERBS I (dictionary form as THE verb; を + SOV).
+        // curriculum/m5-neo-{a,b}.ts via m5-neo.ts.
+        {
+          id: "m5",
+          title: "⚙️ Verbs I: the dictionary form",
+          eyebrow: "Module 5 · Rewrite",
+          summary: "A bare dictionary verb is a whole casual sentence: たべる。 Add を to say what you act on; meet the CEJC seed verbs and the もの word family.",
+          lessons: [
+            { id: "ja-m5-neo-1", title: "たべる・みる — your first verbs", status: "available" as const },
+            { id: "ja-m5-neo-2", title: "を — marking what you act on", status: "available" as const },
+            { id: "ja-m5-neo-3", title: "のむ・かう — drink it, buy it", status: "available" as const },
+            { id: "ja-m5-neo-4", title: "いく・くる — off and coming", status: "available" as const },
+            { id: "ja-m5-neo-5", title: "する・やる — do", status: "available" as const },
+            { id: "ja-m5-neo-6", title: "Story: at the shop", status: "available" as const },
+            { id: "ja-m5-neo-7", title: "きく・わかる", status: "available" as const },
+            { id: "ja-m5-neo-8", title: "そう おもう — I think so", status: "available" as const },
+            { id: "ja-m5-neo-9", title: "もの — the thing-family", status: "available" as const },
+            { id: "ja-m5-neo-10", title: "Verb drills + ごはん", status: "available" as const },
+            { id: "ja-m5-neo-11", title: "Story: dinner plans", status: "available" as const },
+            { id: "ja-m5-neo-review", title: "Verbs I — review", status: "available" as const },
+          ],
+          accent: { from: "#10b981", to: "#059669" },
+        },
+        // m6..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;
         // the N4 runway tile (s26) is deliberately NOT a module — the N5 map
         // stops after the capstone.

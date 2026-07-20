@@ -755,6 +755,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "oboeru", kana: "おぼえる", kanji: "覚える", romaji: "oboeru", meaningEn: "to memorise, to learn", emoji: "🧠", fromModule: "m29", introducedByLessonId: "ja-m29-2-1", kind: "vocab", note: "brain; upgraded from future 2026-07-16 (m29 plain-form pilot)" },
   { id: "kado", kana: "かど", kanji: "角", romaji: "kado", meaningEn: "a corner", emoji: "📐", fromModule: "future", kind: "vocab", note: "triangle ruler — corner/angle" },
   { id: "iu", kana: "いう", kanji: "言う", romaji: "iu", meaningEn: "to say", emoji: "💬", fromModule: "future", kind: "vocab", note: "speech bubble" },
+  { id: "omou", kana: "おもう", kanji: "思う", romaji: "omou", meaningEn: "to think", emoji: "💭", fromModule: "m5", introducedByLessonId: "ja-m5-neo-8", kind: "vocab", note: "thought balloon; m5-neo L8 teaches it recognition-first via the そう おもう chunk (dict-form-first rewrite) — no analyzed と quotation until later" },
   { id: "kotoba", kana: "ことば", kanji: "言葉", romaji: "kotoba", meaningEn: "word, language", emoji: "🔤", fromModule: "future", kind: "vocab", note: "ABC input symbol as language proxy" },
   { id: "hanashi", kana: "はなし", kanji: "話", romaji: "hanashi", meaningEn: "talk, story", emoji: "💬", fromModule: "m14", kind: "vocab" },
   { id: "hanasu", kana: "はなす", kanji: "話す", romaji: "hanasu", meaningEn: "to speak", emoji: "🗣️", fromModule: "m14", kind: "vocab" },

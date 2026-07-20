@@ -334,6 +334,25 @@ export const M17_1_1: LessonContent = {
       ["のりもの"],
     ),
     speaking("ja-m17-1-1-speak-norimono", "のりもの", "Vehicle"),
+    // ── たてもの (building) — was distractor-only module-wide; the atom
+    // pool grew (2026-07-20 rewrite additions) and reseeded auto-tail
+    // draws away from it, dropping it under the ≥3 retrieval floor.
+    // Authored retrievals close it for good. ──
+    build(
+      "ja-m17-1-1-build-tatemono",
+      "Pick the Japanese word for: Building",
+      "たてもの",
+      ["たてもの", "のりもの", "のみもの", "もの"],
+      ["たてもの"],
+    ),
+    speaking("ja-m17-1-1-speak-tatemono", "たてもの", "Building"),
+    listeningCompSentence({
+      id: "ja-m17-1-1-lc-tatemono",
+      audioText: "たてもの",
+      question: "What did you hear?",
+      correctMeaningEn: "Building",
+      distractorsEn: ["Vehicle", "Drink", "Food"],
+    }),
     // ── で transport drills ──
     listeningBuildSentence({
       id: "ja-m17-1-1-lb-de",
@@ -1810,6 +1829,9 @@ export const M17_8_2: LessonContent = {
       ["かう", "なくす", "まつ", "とる"],
       ["なくす"],
     ),
+    // Third citation-form retrieval for なくす (same pool-reseed dip as
+    // たてもの above — the ました LC below doesn't contain the dict form).
+    speaking("ja-m17-8-2-speak-nakusu", "なくす", "To lose (something)"),
     listeningCompSentence({
       id: "ja-m17-8-2-lc-nakusu",
       audioText: "きっぷを なくしました",

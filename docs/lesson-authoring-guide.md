@@ -1,5 +1,7 @@
 # Lesson authoring guide
 
+**Status:** LIVE · **Last-verified:** 2026-07-20
+
 > **2026-07-20 REWRITE-ERA ADDENDUM (m3-neo pilot walk — READ FIRST).**
 > [authoring-invariants-pinned.md](authoring-invariants-pinned.md) is the
 > AUTHORITATIVE constraint set (25 invariants) and travels verbatim with
@@ -30,7 +32,6 @@
 >   Gate 10 visual + continuity judging before Spencer walks it.
 
 
-**Status:** LIVE · **Last-verified:** 2026-07-17
 
 How to author a Lingo JA sub-lesson that passes every standard we've accumulated. Living doc — refine as new findings land.
 
