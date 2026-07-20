@@ -78,6 +78,11 @@
     twice in the pilot: ねこ？ and そらです。 both marked ✗). If a rule
     has no natural learner error, omit antiPattern — no spot step derives,
     which is correct.
+    **Gloss style (2026-07-19):** MCQ/listening option text is the plain
+    natural English translation alone ("It's a book.") — never stacked
+    with a literal re-gloss ("A book — 'it's a book.'"). Equivalence
+    nuance (だ isn't literally "it is") belongs in the rule card's
+    cultureNote, once, not in every option.
 
 ## Sentences and coverage
 

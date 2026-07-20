@@ -340,6 +340,20 @@ describe("m3-neo antiPattern wrongness contract", () => {
     expect(spots).toHaveLength(0);
   });
 
+  it("option/meaning texts are plain translations — never double-glossed", async () => {
+    // Spencer walk 2026-07-19: "A book — 'it's a book.'" is noise; the
+    // translation IS the option. Equivalence nuance (だ ≠ literal "it
+    // is") lives in the rule card's cultureNote, not in every option.
+    for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
+      const lesson = await getMockLessonContent(lid);
+      for (const s of lesson!.steps as any[]) {
+        for (const opt of s.options ?? []) {
+          expect(opt.text ?? "").not.toMatch(/— '/);
+        }
+      }
+    }
+  });
+
   it("every antiPattern in the module is distinct from every example (wrongness sanity)", async () => {
     for (const lid of ["ja-m3-neo-1","ja-m3-neo-2","ja-m3-neo-3","ja-m3-neo-4","ja-m3-neo-5","ja-m3-neo-6","ja-m3-neo-review"]) {
       const lesson = await getMockLessonContent(lid);
