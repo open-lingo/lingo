@@ -202,20 +202,9 @@ export const M3_NEO_1: LessonContent = {
       distractorsKana: ["みずだ。", "ねこだ。", "いぬだ。"],
       exercisedAtomKanas: ["ほん"],
     }),
-    listeningCompSentence({
-      id: "ja-m3-neo-1-lc-umi",
-      audioText: "うみだ。",
-      question: "What does this mean?",
-      correctMeaningEn: "It's the sea!",
-      distractorsEn: [
-        "It's the sky!",
-        "It's a mountain!",
-        "It's a river!",
-      ],
-      exercisedAtomKanas: ["うみ"],
-    }),
-    // Generation beat breaks the mcq→lc→mcq selection run (cap is 2 taps
-    // in a row), THEN the gamified breather over an M1 salvage atom.
+    // Generation beat, then the gamified breather over an M1 salvage atom.
+    // (An extra うみ LC sat here — trimmed to make room for the です
+    // preview card while staying inside the 24-step spot budget.)
     build(
       "ja-m3-neo-1-build-mizu",
       "Say to a friend: It's water.",
@@ -234,12 +223,10 @@ export const M3_NEO_1: LessonContent = {
       examples: [
         { ja: "そらだ。", romaji: "sora da.", en: "It's the sky. (with だ)" },
         { ja: "そら。", romaji: "sora.", en: "The sky. (だ dropped — very common)" },
-        {
-          ja: "そらです。",
-          romaji: "sora desu.",
-          en: "It's the sky. (the POLITE version — coming soon; with friends, use そらだ / そら)",
-        },
       ],
+      // です moved OFF this card (Spencer walk 2026-07-19: two contrasting
+      // ideas on one card — drop だ AND here's です — read as confusing).
+      // It gets its own preview card right before the です listening step.
       // No antiPattern on purpose: there is no wrong way to optionally
       // drop だ, and です is correct-but-formal — a register CONTRAST,
       // which belongs above in examples, never in the ✗ slot (the
@@ -290,19 +277,31 @@ export const M3_NEO_1: LessonContent = {
       ["うみ", "だ"],
       ["うみ"],
     ),
-    // ⑦ ONE です recognition preview — explicitly flagged, recognition only.
-    // です preview: a REAL meaning task (the learner infers です ≈ だ from
-    // the ねこ they know) — the polite-layer teaching lands in the
-    // post-answer explanation, never the prompt (Spencer walk: the old
-    // version printed the answer in the transcript, named it in the
-    // prompt, and self-described every option).
+    // ⑦ です preview — teach card FIRST, then the recognition question.
+    // (Spencer walk 2026-07-19: the graded です step hit cold; the card
+    // sets up the register contrast so the question confirms, not
+    // ambushes.) No antiPattern: です is correct Japanese.
+    grammarRule({
+      id: "ja-m3-neo-1-rule-desu-preview",
+      title: "Preview: です — the polite だ",
+      rule:
+        "One more ending you'll hear everywhere: です. Same job as だ, wrapped in politeness — ねこだ to a friend, ねこです to a stranger or staff. Your own sentences stay plain for now; just recognize it.",
+      examples: [
+        { ja: "そらだ。", romaji: "sora da.", en: "It's the sky. (plain — friends)" },
+        {
+          ja: "そらです。",
+          romaji: "sora desu.",
+          en: "It's the sky. (polite — its own module comes soon)",
+        },
+      ],
+    }),
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-desu-preview",
       audioText: "ねこです。",
       correctMeaningEn: "It's a cat.",
       distractorsEn: ["It's a dog.", "Is it a cat?", "It's water."],
       explanation:
-        "You just decoded です without being taught it — it's the POLITE version of だ. Same meaning, more distance. It gets its own module soon; for now, just recognize it.",
+        "That's the polite です from the card — same meaning as ねこだ, more distance. It gets its own module soon; for now, just recognize it.",
       exercisedAtomKanas: ["ねこ"],
     }),
     speaking("ja-m3-neo-1-speak-hon", "ほんだ", "It's a book.", ["ほん"]),

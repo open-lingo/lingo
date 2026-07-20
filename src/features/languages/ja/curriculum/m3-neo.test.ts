@@ -311,11 +311,21 @@ describe("m3-neo antiPattern wrongness contract", () => {
     const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-1-rule-da") as any;
     expect(rule.antiPattern.ja).toBe("だねこ。");
   });
-  it("rule-da-drop has NO antiPattern (its です contrast lives in examples)", async () => {
+  it("rule-da-drop has NO antiPattern; です contrast lives on its own preview card", async () => {
     const lesson = await getMockLessonContent("ja-m3-neo-1");
-    const rule = lesson!.steps.find((s) => s.id === "ja-m3-neo-1-rule-da-drop") as any;
-    expect(rule.antiPattern).toBeUndefined();
-    expect(rule.examples.some((e: any) => e.ja === "そらです。")).toBe(true);
+    const drop = lesson!.steps.find((s) => s.id === "ja-m3-neo-1-rule-da-drop") as any;
+    expect(drop.antiPattern).toBeUndefined();
+    // 2026-07-19 walk: two contrasting ideas on one card confused — です
+    // moved to a dedicated preview card that must precede the graded LC.
+    expect(drop.examples.some((e: any) => e.ja === "そらです。")).toBe(false);
+    const stepIds = lesson!.steps.map((s) => s.id);
+    const cardIdx = stepIds.indexOf("ja-m3-neo-1-rule-desu-preview");
+    const lcIdx = stepIds.indexOf("ja-m3-neo-1-lc-desu-preview");
+    const card = lesson!.steps[cardIdx] as any;
+    expect(card.antiPattern).toBeUndefined();
+    expect(card.examples.some((e: any) => e.ja === "そらです。")).toBe(true);
+    expect(cardIdx).toBeGreaterThan(-1);
+    expect(lcIdx).toBeGreaterThan(cardIdx);
   });
   it("derived spot steps never present two correct sentences", async () => {
     const lesson = await getMockLessonContent("ja-m3-neo-1");
