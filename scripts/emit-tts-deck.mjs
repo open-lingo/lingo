@@ -153,7 +153,7 @@ const cards = Array.from(deduped)
 // anything"). Male-named speakers' lines (+ sentence splits) go into a
 // second deck synthesized with ja-JP-KeitaNeural by
 // lingo-core scripts/tts/gen_keita_dialogue.py under `ja-keita:` keys.
-const MALE_SPEAKERS = new Set(["トム", "ケン", "たなか"]);
+const MALE_SPEAKERS = new Set(["Tom", "Ken", "Tanaka"]);
 const keitaSet = new Set();
 const nanamiSet = new Set();
 for (const path of sources) {

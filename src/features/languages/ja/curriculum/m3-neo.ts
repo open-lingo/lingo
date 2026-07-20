@@ -93,13 +93,18 @@ function listeningBuildWord(
 }
 
 // Review pools: M1 + M2 only — the learner arriving at m3-neo owns kana +
-// the concrete-noun anchors, nothing else.
+// the concrete-noun anchors, nothing else. Katakana entries are excluded:
+// the pool's m2 tag predates the katakana-rollout spec (ティーシャツ /
+// パーティー carry extension ティ, never base-readable before M17), so a
+// draw would show a word the learner cannot read (2026-07-20 audit).
+const noKatakana = (a: { kana: string }) =>
+  !/\p{Script=Katakana}/u.test(a.kana);
 const NEO_M1_POOL = withoutMcqBlocked(
   M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1"),
-);
+).filter(noKatakana);
 const NEO_M2_POOL = withoutMcqBlocked(
   M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m2"),
-);
+).filter(noKatakana);
 const NEO_M1_M2_POOL = [...NEO_M1_POOL, ...NEO_M2_POOL];
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -234,11 +239,11 @@ export const M3_NEO_1: LessonContent = {
     }),
     // ⑤ Production: translate + speaking (だ-dropped answers accepted).
     translateStep({
-      id: "ja-m3-neo-1-tr-neko",
-      promptEn: "Say to a friend: It's a cat.",
-      acceptedAnswers: ["ねこだ", "ねこ", "ねこだ。", "ねこ。"],
-      audioText: "ねこだ",
-      exercisedAtomKanas: ["ねこ"],
+      id: "ja-m3-neo-1-tr-inu",
+      promptEn: "Say to a friend: It's a dog.",
+      acceptedAnswers: ["いぬだ", "いぬ", "いぬだ。", "いぬ。"],
+      audioText: "いぬだ",
+      exercisedAtomKanas: ["いぬ"],
     }),
     // Hear-and-assemble on a fresh noun — the mora-tile listening build
     // the guide template expects (was a 7th plain LC on そらだ).
@@ -257,7 +262,7 @@ export const M3_NEO_1: LessonContent = {
       audioText: "みずだ",
       exercisedAtomKanas: ["みず"],
     }),
-    speaking("ja-m3-neo-1-speak-mizu", "みずだ", "It's water.", ["みず"]),
+    speaking("ja-m3-neo-1-speak-umi", "うみだ", "It's the sea.", ["うみ"]),
     // だ-drop recognition.
     listeningCompSentence({
       id: "ja-m3-neo-1-lc-neko-drop",
@@ -357,8 +362,8 @@ export const M3_NEO_2: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-2-dlg-intro",
       lines: [
-        { speaker: "トム", kana: "わたしは トムだ。がくせいだ。" },
-        { speaker: "ミカ", kana: "わたしは ミカだ。がくせいだ。" },
+        { speaker: "Tom", kana: "わたしは トムだ。がくせいだ。" },
+        { speaker: "Mika", kana: "わたしは ミカだ。がくせいだ。" },
       ],
       questions: [
         {
@@ -377,12 +382,12 @@ export const M3_NEO_2: LessonContent = {
       exercisedAtomKanas: ["わたし", "がくせい"],
     }),
     listeningCompSentence({
-      id: "ja-m3-neo-2-lc-gakusei",
-      audioText: "わたしは がくせいだ。",
-      question: "What are they saying?",
-      correctMeaningEn: "I'm a student.",
-      distractorsEn: ["I'm a teacher.", "I'm Tom.", "I'm fine."],
-      exercisedAtomKanas: ["わたし", "がくせい", "は"],
+      id: "ja-m3-neo-2-lc-mika-gakusei",
+      audioText: "ミカは がくせいだ。",
+      question: "What does this mean?",
+      correctMeaningEn: "Mika is a student.",
+      distractorsEn: ["Mika is a teacher.", "Tom is a student.", "I'm a student."],
+      exercisedAtomKanas: ["がくせい", "は"],
     }),
     // ② The rule — spotlight framing (never "as for").
     grammarRule({
@@ -442,25 +447,37 @@ export const M3_NEO_2: LessonContent = {
       ["せんせい", "は"],
     ),
     listeningCompSentence({
-      id: "ja-m3-neo-2-lc-tanaka",
-      audioText: "たなかは せんせいだ。",
+      id: "ja-m3-neo-2-lc-kawa",
+      audioText: "かわは みずだ。",
       question: "What does this mean?",
-      correctMeaningEn: "Tanaka is a teacher.",
+      correctMeaningEn: "The river is water.",
       distractorsEn: [
-        "Tanaka is a student.",
-        "My friend is a teacher.",
-        "I'm a teacher.",
+        "The sea is water.",
+        "The river is big.",
+        "It's water.",
       ],
-      exercisedAtomKanas: ["せんせい", "は"],
+      exercisedAtomKanas: ["みず", "は"],
     }),
     // Quick gamified breather — emoji word check over an M2 salvage atom.
     vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
-    // ⑤ Production with audience cue.
-    speaking(
-      "ja-m3-neo-2-speak-watashi",
-      "わたしは がくせいだ",
-      "I'm a student.",
-      ["わたし", "がくせい"],
+    listeningCompSentence({
+      id: "ja-m3-neo-2-lc-spotlight-2",
+      audioText: "ともだちは がくせいだ。",
+      correctMeaningEn: "My friend is a student.",
+      distractorsEn: [
+        "I'm a student.",
+        "Tom is a student.",
+        "My friend is a teacher.",
+      ],
+      exercisedAtomKanas: ["ともだち", "がくせい", "は"],
+    }),
+    build(
+      "ja-m3-neo-2-build-tomodachi",
+      "Tell a friend: My friend is a student.",
+      "ともだちは がくせいだ",
+      ["ともだち", "は", "がくせい", "だ", "トム"],
+      ["ともだち", "は", "がくせい", "だ"],
+      ["ともだち", "がくせい", "は"],
     ),
     // ④ Context MCQs — what does は spotlight?
     listeningCompSentence({
@@ -479,33 +496,21 @@ export const M3_NEO_2: LessonContent = {
     }),
     cloze(
       "ja-m3-neo-2-cloze-wa",
-      "たなか",
-      " せんせいだ。",
+      "すし",
+      " ごはんだ。",
       "は",
       ["は", "か", "の", "が"],
-      "Tanaka is a teacher.",
-      "たなかは せんせいだ。",
-      "The spotlight goes on Tanaka; the rest of the sentence comments on him.",
+      "Sushi is rice.",
+      "すしは ごはんだ。",
+      "The spotlight lands on sushi; the comment says what it is.",
     ),
-    build(
-      "ja-m3-neo-2-build-tomodachi",
-      "Tell a friend: My friend is a student.",
+    // ⑤ Production with audience cue.
+    speaking(
+      "ja-m3-neo-2-speak-tomodachi",
       "ともだちは がくせいだ",
-      ["ともだち", "は", "がくせい", "だ", "トム"],
-      ["ともだち", "は", "がくせい", "だ"],
-      ["ともだち", "がくせい", "は"],
+      "My friend is a student.",
+      ["ともだち", "がくせい"],
     ),
-    listeningCompSentence({
-      id: "ja-m3-neo-2-lc-spotlight-2",
-      audioText: "ともだちは がくせいだ。",
-      correctMeaningEn: "My friend is a student.",
-      distractorsEn: [
-        "I'm a student.",
-        "Tom is a student.",
-        "My friend is a teacher.",
-      ],
-      exercisedAtomKanas: ["ともだち", "がくせい", "は"],
-    }),
     translateStep({
       id: "ja-m3-neo-2-tr-watashi",
       promptEn: "Say to a friend: I'm a student.",
@@ -556,8 +561,8 @@ export const M3_NEO_2: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-2-dlg-close",
       lines: [
-        { speaker: "トム", kana: "わたしは アメリカじんだ。" },
-        { speaker: "ミカ", kana: "わたしは にほんじんだ。" },
+        { speaker: "Tom", kana: "わたしは アメリカじんだ。" },
+        { speaker: "Mika", kana: "わたしは にほんじんだ。" },
       ],
       questions: [
         {
@@ -640,12 +645,38 @@ export const M3_NEO_3: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
+    // ② The rule — minimal pair per invariant 12.
+    grammarRule({
+      id: "ja-m3-neo-3-rule-mo",
+      title: "Too",
+      rule:
+        "Swap は for も and the sentence gains 'too / also': トムも がくせいだ = Tom is a student TOO. も REPLACES は in that slot — the two never stack. Everything else stays the same.",
+      examples: [
+        {
+          ja: "トムも がくせいだ。",
+          romaji: "tomu mo gakusei da.",
+          en: "Tom is a student too.",
+        },
+        {
+          ja: "わたしも がくせいだ。",
+          romaji: "watashi mo gakusei da.",
+          en: "I'm a student too.",
+        },
+      ],
+      antiPattern: {
+        ja: "トムはも がくせいだ。",
+        romaji: "tomu wa mo gakusei da.",
+        en: "(Tom is a student too — broken)",
+        why:
+          "も replaces は; they never stack. トムも already carries both jobs: topic AND 'too.'",
+      },
+    }),
     // ① Contrast exposure.
     dialogueListen({
       id: "ja-m3-neo-3-dlg-intro",
       lines: [
-        { speaker: "トム", kana: "わたしは がくせいだ。" },
-        { speaker: "ミカ", kana: "わたしも がくせいだ。" },
+        { speaker: "Tom", kana: "わたしは がくせいだ。" },
+        { speaker: "Mika", kana: "わたしも がくせいだ。" },
       ],
       questions: [
         {
@@ -682,32 +713,6 @@ export const M3_NEO_3: LessonContent = {
         "Tom is a teacher too.",
       ],
       exercisedAtomKanas: ["がくせい", "も"],
-    }),
-    // ② The rule — minimal pair per invariant 12.
-    grammarRule({
-      id: "ja-m3-neo-3-rule-mo",
-      title: "Too",
-      rule:
-        "Swap は for も and the sentence gains 'too / also': トムも がくせいだ = Tom is a student TOO. も REPLACES は in that slot — the two never stack. Everything else stays the same.",
-      examples: [
-        {
-          ja: "トムも がくせいだ。",
-          romaji: "tomu mo gakusei da.",
-          en: "Tom is a student too.",
-        },
-        {
-          ja: "わたしも がくせいだ。",
-          romaji: "watashi mo gakusei da.",
-          en: "I'm a student too.",
-        },
-      ],
-      antiPattern: {
-        ja: "トムはも がくせいだ。",
-        romaji: "tomu wa mo gakusei da.",
-        en: "(Tom is a student too — broken)",
-        why:
-          "も replaces は; they never stack. トムも already carries both jobs: topic AND 'too.'",
-      },
     }),
     // ③ Choice-under-contrast drills — 2-line context, blank particle.
     cloze(
@@ -804,20 +809,23 @@ export const M3_NEO_3: LessonContent = {
     // Quick gamified breather — emoji word check over an M1 salvage atom.
     vocabMcq("ja-m3-neo-3-vmcq-mid", L3_REVIEW[5], NEO_M1_POOL),
     // ⑤ Production both directions.
-    sentenceMcq({
-      id: "ja-m3-neo-3-mcq-reply",
-      prompt:
-        "They say: わたしは がくせいだ。 You're a student too — pick your reply.",
-      correctKana: "わたしも がくせいだ。",
-      distractorsKana: [
-        "わたしは がくせいだ。",
-        "トムも がくせいだ。",
-        "わたしも せんせいだ。",
-      ],
-      explanation:
-        "Joining the club = も. Repeating は just restates; the other options change who or what.",
-      exercisedAtomKanas: ["わたし", "がくせい", "も"],
-    }),
+    // (Was a "pick your reply" sentence MCQ — production-framed prompts
+    // are GENERATION steps, never MCQs; the options printed the answer
+    // (Spencer walk 2026-07-20). Reply scenario rebuilt as a build.)
+    build(
+      "ja-m3-neo-3-build-reply-inu",
+      "Your friend says: ねこは ともだちだ。 Reply: Dogs are friends too.",
+      "いぬも ともだちだ",
+      ["いぬ", "も", "は", "ともだち", "だ"],
+      ["いぬ", "も", "ともだち", "だ"],
+      ["いぬ", "ともだち", "も"],
+    ),
+    speaking(
+      "ja-m3-neo-3-speak-neko-mo",
+      "ねこも ともだちだ",
+      "Cats are friends too.",
+      ["ねこ", "ともだち"],
+    ),
     build(
       "ja-m3-neo-3-build-mika-mo",
       "Tell a friend: Mika is a friend too.",
@@ -825,12 +833,6 @@ export const M3_NEO_3: LessonContent = {
       ["ミカ", "も", "は", "ともだち", "だ"],
       ["ミカ", "も", "ともだち", "だ"],
       ["ともだち", "も"],
-    ),
-    speaking(
-      "ja-m3-neo-3-speak-neko-mo",
-      "ねこも ともだちだ",
-      "Cats are friends too.",
-      ["ねこ", "ともだち"],
     ),
     listeningBuildSentence({
       id: "ja-m3-neo-3-lbs-tomu-mo",
@@ -1047,8 +1049,8 @@ export const M3_NEO_4: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-4-dlg-un",
       lines: [
-        { speaker: "ケン", kana: "トムは がくせい？" },
-        { speaker: "ミカ", kana: "うん、がくせいだ。" },
+        { speaker: "Ken", kana: "トムは がくせい？" },
+        { speaker: "Mika", kana: "うん、がくせいだ。" },
       ],
       questions: [
         {
@@ -1164,13 +1166,6 @@ export const M3_NEO_5: LessonContent = {
       distractorsEn: ["I'm sorry", "Thank you", "Watch out"],
       exercisedAtomKanas: ["だいじょうぶ"],
     }),
-    sentenceMcq({
-      id: "ja-m3-neo-5-mcq-actout-daijoubu",
-      prompt: "Reply to ごめんなさい:",
-      correctKana: "だいじょうぶ",
-      distractorsKana: ["はじめまして", "すみません", "ありがとうございます"],
-      exercisedAtomKanas: ["だいじょうぶ"],
-    }),
     speaking(
       "ja-m3-neo-5-speak-daijoubu",
       "だいじょうぶ",
@@ -1190,6 +1185,22 @@ export const M3_NEO_5: LessonContent = {
       "ありがとうございます",
       "Thank you very much.",
       ["ありがとうございます"],
+    ),
+    listeningCompSentence({
+      id: "ja-m3-neo-5-lc-arigatou-casual",
+      audioText: "ありがとう",
+      question:
+        "Said between friends after a small favor. Meaning?",
+      correctMeaningEn: "Thanks! (casual)",
+      distractorsEn: ["Sorry!", "No thanks.", "Nice to meet you."],
+      exercisedAtomKanas: ["ありがとう"],
+    }),
+    // (Was the sixth sentenceMcq — converted to a speaking beat.)
+    speaking(
+      "ja-m3-neo-5-speak-arigatou-casual",
+      "ありがとう",
+      "Thanks! (casual — to a close friend)",
+      ["ありがとう"],
     ),
     // ③ ONE register-noticing MCQ.
     sentenceMcq({
@@ -1217,6 +1228,13 @@ export const M3_NEO_5: LessonContent = {
       "Nice to meet you.",
       ["はじめまして"],
     ),
+    sentenceMcq({
+      id: "ja-m3-neo-5-mcq-actout-daijoubu",
+      prompt: "Reply to ごめんなさい:",
+      correctKana: "だいじょうぶ",
+      distractorsKana: ["はじめまして", "すみません", "ありがとうございます"],
+      exercisedAtomKanas: ["だいじょうぶ"],
+    }),
     // ② Situation-matching — scene ↔ chunk (6 pairs, floor-proof).
     {
       id: "ja-m3-neo-5-match-scenes",
@@ -1259,7 +1277,7 @@ export const M3_NEO_5: LessonContent = {
       id: "ja-m3-neo-5-dlg-overheard",
       lines: [
         { speaker: "Stranger", kana: "すみません。" },
-        { speaker: "ケン", kana: "だいじょうぶ。" },
+        { speaker: "Ken", kana: "だいじょうぶ。" },
       ],
       questions: [
         {
@@ -1276,26 +1294,20 @@ export const M3_NEO_5: LessonContent = {
       exercisedAtomKanas: ["すみません", "だいじょうぶ"],
     }),
     sentenceMcq({
-      id: "ja-m3-neo-5-mcq-actout-reassure",
-      prompt:
-        "Reassure someone who's apologizing:",
-      correctKana: "だいじょうぶ",
-      distractorsKana: ["すみません", "ありがとうございます", "はじめまして"],
-      exercisedAtomKanas: ["だいじょうぶ"],
+      id: "ja-m3-neo-5-mcq-actout-gomen",
+      prompt: "You knock over your friend's cup. Apologize — casually:",
+      correctKana: "ごめんなさい",
+      distractorsKana: ["だいじょうぶ", "ありがとう", "はじめまして"],
+      explanation:
+        "ごめんなさい is the direct, personal sorry — right for friends. だいじょうぶ is what THEY might answer.",
+      exercisedAtomKanas: ["ごめんなさい"],
     }),
-    listeningCompSentence({
-      id: "ja-m3-neo-5-lc-arigatou-casual",
-      audioText: "ありがとう",
-      question:
-        "Said between friends after a small favor. Meaning?",
-      correctMeaningEn: "Thanks! (casual)",
-      distractorsEn: ["Sorry!", "No thanks.", "Nice to meet you."],
-    }),
-    // (Was the sixth sentenceMcq — converted to a speaking beat.)
-    speaking(
-      "ja-m3-neo-5-speak-arigatou-casual",
-      "ありがとう",
-      "Thanks! (casual — to a close friend)",
+    listeningBuildWord(
+      "ja-m3-neo-5-rev-lb-tokei",
+      "とけい",
+      "watch/clock",
+      ["と", "け", "い"],
+      ["ど", "は", "り"],
     ),
     // Review tail — M1/M2 atoms (house idiom: LC → vocabMcq → decode-
     // build); the chunk-meaning grid then closes on confidence.
@@ -1311,15 +1323,6 @@ export const M3_NEO_5: LessonContent = {
       exercisedAtomKanas: [L5_REVIEW[0].kana],
     }),
     vocabMcq("ja-m3-neo-5-rev-mcq", L5_REVIEW[4], NEO_M1_M2_POOL),
-    listeningBuildWord(
-      "ja-m3-neo-5-rev-lb-tokei",
-      "とけい",
-      "watch/clock",
-      ["と", "け", "い"],
-      ["ど", "は", "り"],
-    ),
-
-
     // ⑥ Second match variant — phrase ↔ MEANING (the first grid pairs
     // phrase ↔ situation; a different pairing closes the lesson).
     {
@@ -1368,9 +1371,9 @@ export const M3_NEO_6: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-6-dlg-scene1",
       lines: [
-        { speaker: "ミカ", kana: "ケン、トムだ。ともだちだ。" },
-        { speaker: "トム", kana: "はじめまして。トムだ。" },
-        { speaker: "ケン", kana: "はじめまして。ケンだ。" },
+        { speaker: "Mika", kana: "ケン、トムだ。ともだちだ。" },
+        { speaker: "Tom", kana: "はじめまして。トムだ。" },
+        { speaker: "Ken", kana: "はじめまして。ケンだ。" },
       ],
       questions: [
         {
@@ -1409,9 +1412,9 @@ export const M3_NEO_6: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-6-dlg-scene2",
       lines: [
-        { speaker: "ケン", kana: "トムは がくせい？" },
-        { speaker: "ミカ", kana: "うん、がくせいだ。わたしも がくせいだ。" },
-        { speaker: "ケン", kana: "そう？" },
+        { speaker: "Ken", kana: "トムは がくせい？" },
+        { speaker: "Mika", kana: "うん、がくせいだ。わたしも がくせいだ。" },
+        { speaker: "Ken", kana: "そう？" },
       ],
       questions: [
         {
@@ -1480,9 +1483,9 @@ export const M3_NEO_6: LessonContent = {
     dialogueListen({
       id: "ja-m3-neo-6-dlg-scene3",
       lines: [
-        { speaker: "ミカ", kana: "せんせいだ。" },
-        { speaker: "たなか", kana: "はじめまして。たなかです。" },
-        { speaker: "たなか", kana: "せんせいです。" },
+        { speaker: "Mika", kana: "せんせいだ。" },
+        { speaker: "Tanaka", kana: "はじめまして。たなかです。" },
+        { speaker: "Tanaka", kana: "せんせいです。" },
       ],
       questions: [
         {

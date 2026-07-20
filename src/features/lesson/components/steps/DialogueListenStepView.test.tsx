@@ -126,12 +126,12 @@ describe("splitJaSentences", () => {
 
 describe("langForSpeaker", () => {
   it("routes male-named speakers to the Keita corpus", () => {
-    expect(langForSpeaker("トム")).toBe("ja-keita");
-    expect(langForSpeaker("ケン")).toBe("ja-keita");
-    expect(langForSpeaker("たなか")).toBe("ja-keita");
+    expect(langForSpeaker("Tom")).toBe("ja-keita");
+    expect(langForSpeaker("Ken")).toBe("ja-keita");
+    expect(langForSpeaker("Tanaka")).toBe("ja-keita");
   });
   it("leaves everyone else on the course default", () => {
-    expect(langForSpeaker("ミカ")).toBeUndefined();
+    expect(langForSpeaker("Mika")).toBeUndefined();
     expect(langForSpeaker("Stranger")).toBeUndefined();
     expect(langForSpeaker(undefined)).toBeUndefined();
   });

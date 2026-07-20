@@ -32,13 +32,15 @@ export function splitJaSentences(text: string): string[] {
 
 /**
  * Real two-voice dialogues (Spencer 2026-07-19: "just generate the two
- * different voices per speaker and do not pitch anything"). Male-named
+ * different voices per speaker and do not pitch anything"). Speaker
+ * labels are ROMANIZED (Tom/Mika/Ken/Tanaka) — katakana chips are
+ * unreadable before the katakana ladder (Spencer 2026-07-20). Male-named
  * speakers' lines have dedicated ja-JP-KeitaNeural clips under
  * `ja-keita:` manifest keys (emit-tts-deck.mjs + gen_keita_dialogue.py);
  * everyone else plays the default Nanami corpus. NO detune, NO
  * playbackRate — clips play raw. Exported for unit testing.
  */
-const MALE_SPEAKERS = new Set(["トム", "ケン", "たなか"]);
+const MALE_SPEAKERS = new Set(["Tom", "Ken", "Tanaka"]);
 const KEITA_LANG = "ja-keita";
 
 export function langForSpeaker(speaker?: string): string | undefined {

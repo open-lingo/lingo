@@ -127,6 +127,24 @@
     across its home + later modules (atom-coverage gate, m3–m29).
 15. Sub-lesson density: match the m3+ bar (~18–24 steps); never pad with
     passive cards to hit it.
+24. **Sentence variety + name continuity (Spencer 2026-07-20):** a lesson
+    uses any single primary sentence surface at most 3 TIMES
+    (machine-checked, m3-neo.variety.test.ts) — L2 ran student/teacher
+    carriers ~10× before its first new noun. Prefer recycling
+    earlier-module nouns as carriers (かわは みずだ, すしは ごはんだ)
+    over re-running the lesson's headline pair. Dialogue speaker labels
+    are ROMANIZED (Tom/Mika/Ken/Tanaka) — katakana chips are unreadable
+    before the katakana ladder; in-sentence katakana names rely on the
+    romaji annotation line. Vocab provenance is machine-checked
+    (m3-neo.vocab-provenance.test.ts): every non-M1/M2 word's FIRST
+    occurrence must be an intro-capable step, never a distractor. For
+    particle-substitution concepts (も-class), the compact rule card
+    comes BEFORE first exposure — the meaning is not inferable from one
+    hearing. Production-framed prompts ("pick your reply", "Say: …")
+    with full-sentence answers are GENERATION steps (build/translate/
+    speaking), never sentence MCQs — the options print the answer.
+    Single-chunk choices and form discrimination (Telling or asking?)
+    stay MCQ-legal. Machine-checked in m3-neo.variety.test.ts.
 
 ## Provenance discipline
 

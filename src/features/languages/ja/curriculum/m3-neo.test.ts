@@ -224,7 +224,7 @@ describe("JA m3-neo pilot module content", () => {
     );
     expect(desuLines.length).toBe(2);
     for (const l of desuLines) {
-      expect(l.speaker, `です line "${l.kana}" spoken by ${l.speaker}`).toBe("たなか");
+      expect(l.speaker, `です line "${l.kana}" spoken by ${l.speaker}`).toBe("Tanaka");
     }
   });
 

@@ -2511,6 +2511,7 @@
   "ja:かわ": "tts/ja/51a231b9739ec461.mp3",
   "ja:かわいい": "tts/ja/d0993807814c4baf.mp3",
   "ja:かわない": "tts/ja/5011e5cce4bbed9e.mp3",
+  "ja:かわは みずだ": "tts/ja/095708ec0882f173.mp3",
   "ja:かわを みます": "tts/ja/919b983028eaaea6.mp3",
   "ja:かんじ": "tts/ja/bb3c7b8377baa3c3.mp3",
   "ja:かんじを おぼえた": "tts/ja/ba046036ca713404.mp3",
@@ -3886,6 +3887,7 @@
   "ja:すしと ラーメンは おいしいです": "tts/ja/fd61b8f946f62df3.mp3",
   "ja:すしと ラーメンを ください": "tts/ja/29af3ca80ec11f66.mp3",
   "ja:すしは おいしかったです": "tts/ja/9702890df29ff22c.mp3",
+  "ja:すしは ごはんだ": "tts/ja/bff63b7a50fd546d.mp3",
   "ja:すしは たべます": "tts/ja/cd3957933066021a.mp3",
   "ja:すしを ください": "tts/ja/f65ab22bbef20740.mp3",
   "ja:すしを たべた ことが あります": "tts/ja/627600ff1dd23989.mp3",
@@ -6885,6 +6887,7 @@
   "ja:ポストは ぎんこうの まえに あります": "tts/ja/129c4832b2a6a269.mp3",
   "ja:ポストは どこですか": "tts/ja/58adf72d2342c682.mp3",
   "ja:マッチ": "tts/ja/c3e39ee71dc83563.mp3",
+  "ja:ミカは がくせいだ": "tts/ja/bb0e27202764e311.mp3",
   "ja:ミカは せんせいだ": "tts/ja/172ce61df8bb9d7f.mp3",
   "ja:ミカは ともだちだ": "tts/ja/03d5b6cc11919bc6.mp3",
   "ja:ミカは にほんじんだ": "tts/ja/780851b02deb7f1c.mp3",
@@ -8470,5 +8473,9 @@
   "ko:후": "tts/ko/6546b583fe9e3ef1.mp3",
   "ko:흐": "tts/ko/fa6bd713c13d98ed.mp3",
   "ko:흐려요": "tts/ko/e7756cfc62fa6549.mp3",
-  "ko:히": "tts/ko/c5e7fa058c6178c3.mp3"
+  "ko:히": "tts/ko/c5e7fa058c6178c3.mp3",
+  "ja-keita:すみません、なまえは なんですか": "tts/ja/aabc98745a90f66a.mp3",
+  "ja-keita:わたしも ケンです": "tts/ja/06ac6de85257b8a9.mp3",
+  "ja-keita:わたしも ケンです。アメリカじんですか": "tts/ja/57ee62b179890c2d.mp3",
+  "ja-keita:アメリカじんですか": "tts/ja/9cf9779dee938e67.mp3"
 }
