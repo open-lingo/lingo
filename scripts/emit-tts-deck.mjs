@@ -120,6 +120,21 @@ for (const path of sources) {
 const JA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}゙゚ー　-〿？！ ]+$/u;
 // Strip trailing 。 so we don't generate separate audio for "X" and "X。"
 // — the runtime lookup (tts.ts) falls back to the other variant.
+// Sentence-split expansion (2026-07-19): dialogue_listen now plays
+// multi-sentence lines sentence-by-sentence with a breathing gap
+// (whole-line clips read run-together — Spencer QA). Mirror the split in
+// DialogueListenStepView.splitJaSentences so every sentence of every
+// captured string has its own clip; the whole-line clip stays too as the
+// view's fallback.
+for (const t of Array.from(kanaSet)) {
+  // Trailing 」 stays attached to its sentence (quoted speech like
+  // 「すみません。」 must not shed a lone 」 fragment).
+  const parts = (t.match(/[^。？！]+[。？！]?」?/g) ?? [])
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length > 1) for (const p of parts) kanaSet.add(p);
+}
+
 const deduped = new Set();
 for (const t of kanaSet) {
   if (!JA_ONLY.test(t)) continue;

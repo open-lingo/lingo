@@ -16,8 +16,23 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
-const TURN_GAP_MS = 400;
+const TURN_GAP_MS = 650;
+const SENTENCE_GAP_MS = 350;
 const CELEBRATE_MS = 1100;
+
+/**
+ * Split a JA line into playable sentences, keeping the terminator (？/！
+ * carry the contour; 。 is stripped by the manifest lookup anyway). A line
+ * like わたしは トムだ。がくせいだ。 was synthesized as ONE clip and read
+ * run-together (Spencer QA 2026-07-19: "it needs to be per sentence and
+ * have better spacing between them"). Exported for unit testing and reused
+ * by the TTS deck emitter's sentence-split expansion.
+ */
+export function splitJaSentences(text: string): string[] {
+  return (text.match(/[^。？！]+[。？！]?」?/g) ?? [])
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
 /**
  * Global dialogue pacing. Nanami's natural TTS pace reads fast on a first
@@ -45,6 +60,37 @@ const DIALOGUE_PACE = 0.92;
  *  for unit testing. */
 export function pacedVoice(base: VoiceColor, pace: number): VoiceColor {
   return { ...base, playbackRate: (base.playbackRate ?? 1) * pace };
+}
+
+/**
+ * Play one dialogue line sentence-by-sentence with SENTENCE_GAP_MS of
+ * breathing room between sentences. Falls back to the whole-line clip when
+ * any sentence is missing from the manifest (defensive — the deck emitter
+ * expands multi-sentence strings, so authored lines should always split)
+ * and for the non-manifest synthesis path (non-JA courses). `stillCurrent`
+ * aborts between awaits so Replay / step-advance cancels cleanly.
+ * Exported for unit testing.
+ */
+export async function playLineAudio(
+  text: string,
+  voice: VoiceColor,
+  stillCurrent: () => boolean = () => true,
+): Promise<void> {
+  const sentences = splitJaSentences(text);
+  const perSentence =
+    sentences.length > 1 && sentences.every((s) => getTtsUrl(s));
+  if (!perSentence) {
+    await playJaAudioToEnd(text, undefined, voice);
+    return;
+  }
+  for (let i = 0; i < sentences.length; i++) {
+    if (!stillCurrent()) return;
+    await playJaAudioToEnd(sentences[i], undefined, voice);
+    if (i < sentences.length - 1) {
+      if (!stillCurrent()) return;
+      await new Promise((r) => setTimeout(r, SENTENCE_GAP_MS));
+    }
+  }
 }
 
 export type TranscriptLineStatus = "active" | "played" | "upcoming";
@@ -75,8 +121,9 @@ type Props = {
 /**
  * Dialogue-listen renderer — plays a 2-4 turn dialogue sequentially, then
  * walks the learner through 2-3 comprehension MCQs. Each question commits
- * before the next reveals (no peek-ahead). Transcript reveal is gated by
- * `transcriptRevealAfter` (default `"first-answer"`).
+ * before the next reveals (no peek-ahead). The transcript is always
+ * visible and lines un-blur as they play; `transcriptRevealAfter`
+ * (default `"first-answer"`) gates only when NOT-YET-HEARD lines un-blur.
  *
  * Audio playback uses the same TTS pipeline as the other JA step views
  * (`playJaAudio` + module-cached AudioBuffer decode). Auto-play on mount
@@ -121,13 +168,15 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   // so a two-person exchange was audibly one person talking to herself
   // (Spencer QA 2026-07-13). Distinct speakers get a small detune/rate
   // shift in order of first appearance — line 1's speaker stays neutral.
+  // Magnitudes halved 2026-07-19 ("the pitching is a little too extreme"):
+  // ±120–150 cents reads as another person without sounding processed.
   // Real second-voice clips are the phase-2 fix.
   const voiceBySpeaker = useMemo(() => {
     const COLORS: VoiceColor[] = [
       {},
-      { detuneCents: -300, playbackRate: 0.96 },
-      { detuneCents: 250, playbackRate: 1.04 },
-      { detuneCents: -150, playbackRate: 1.0 },
+      { detuneCents: -150, playbackRate: 0.98 },
+      { detuneCents: 120, playbackRate: 1.02 },
+      { detuneCents: -80, playbackRate: 1.0 },
     ];
     const map = new Map<string, VoiceColor>();
     for (const line of step.lines) {
@@ -166,10 +215,10 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         markPlayed(i);
         // lang stays undefined so the shared default (stamped per-course by
         // LanguageContext via setDefaultTtsLang) resolves the manifest key.
-        await playJaAudioToEnd(
+        await playLineAudio(
           line.audioText ?? line.kana,
-          undefined,
           voiceFor(line),
+          () => sessionRef.current === mySession,
         );
         if (sessionRef.current !== mySession) return;
         await new Promise((r) => setTimeout(r, TURN_GAP_MS));
@@ -238,10 +287,17 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     (q) => committedByQ[q.id] && selectionByQ[q.id] === q.correctOptionId,
   );
 
-  // Transcript reveal gate. Default = "first-answer".
+  // Transcript treatment (reworked 2026-07-19, Spencer QA: "the transcript
+  // doesnt show up as it plays, it needs to do that"). The panel is ALWAYS
+  // visible and lines un-blur as the audio reaches them — the learner reads
+  // along with playback instead of staring at a blank card. The old
+  // `transcriptRevealAfter` gate now controls only when NOT-YET-HEARD lines
+  // un-blur (so a learner still can't read ahead of the audio, and can't
+  // read answers they haven't listened for). "never" keeps unheard lines
+  // blurred for the whole step; heard lines always become readable.
   const transcriptMode = step.transcriptRevealAfter ?? "first-answer";
   const anyCommitted = step.questions.some((q) => committedByQ[q.id]);
-  const showTranscript =
+  const unheardRevealed =
     transcriptMode === "first-answer"
       ? anyCommitted
       : transcriptMode === "all-answers"
@@ -295,15 +351,17 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     const token = ++lineTapTokenRef.current;
     setActiveLineIdx(idx);
     markPlayed(idx);
-    // Same voice color as the sequence — a replay must sound like the
-    // same "person" the learner just heard. lang undefined → per-course
-    // default, same as the sequence above.
-    void playJaAudioToEnd(line.audioText ?? line.kana, undefined, voiceFor(line)).then(
-      () => {
-        if (lineTapTokenRef.current !== token) return;
-        setActiveLineIdx((cur) => (cur === idx ? null : cur));
-      },
-    );
+    // Same voice color + per-sentence pacing as the sequence — a replay
+    // must sound like the same "person" the learner just heard. lang
+    // undefined → per-course default, same as the sequence above.
+    void playLineAudio(
+      line.audioText ?? line.kana,
+      voiceFor(line),
+      () => lineTapTokenRef.current === token,
+    ).then(() => {
+      if (lineTapTokenRef.current !== token) return;
+      setActiveLineIdx((cur) => (cur === idx ? null : cur));
+    });
   }
 
   // Pre-compute whether each line has TTS available — bubbles without
@@ -380,17 +438,17 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
       </div>
 
-      {/* ── Transcript reveal (gated) ─────────────────────────────────────
+      {/* ── Transcript (always visible, un-blurs as audio plays) ──────────
           Three-tier treatment (Spencer QA 2026-07-16: "a better view of the
           active and previous transcript line would help too") — the active
           line pops (accent bg + bold), already-heard lines stay exactly as
-          readable as before, and not-yet-heard lines dim so a learner can't
-          read ahead of the audio. The row list scrolls independently of the
+          readable as before, and not-yet-heard lines dim AND blur their
+          text so a learner can't read ahead of the audio (blur lifts per
+          the reveal gate above). The row list scrolls independently of the
           "Transcript" label so long (narrative, up to 8-line) transcripts
           don't blow out the card, and the active row scrolls itself into
           view — smoothly, unless prefers-reduced-motion asks otherwise. ── */}
-      {showTranscript && (
-        <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
+      <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             {t("lesson.dialogueListen.transcript", "Transcript")}
           </p>
@@ -400,6 +458,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
               const status = lineStatus(i, activeLineIdx, playedLineIdxs);
               const isActive = status === "active";
               const isUpcoming = status === "upcoming";
+              const isMasked = isUpcoming && !unheardRevealed;
               return (
                 <div
                   key={`${step.id}-line-${i}`}
@@ -424,7 +483,8 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
                   <p
                     className={`flex-1 font-japanese text-base text-text-primary ${
                       isActive ? "font-semibold" : "font-medium"
-                    }`}
+                    } ${isMasked ? "select-none blur-[5px]" : ""}`}
+                    aria-hidden={isMasked || undefined}
                   >
                     <AnnotatedJa text={line.kana} />
                   </p>
@@ -442,23 +502,6 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
             })}
           </div>
         </div>
-      )}
-
-      {/* ── Live-active indicator (when transcript hidden) — the ONLY
-          who-is-talking cue during audio-only playback, so it leads with
-          the speaker name, bold (Spencer QA 2026-07-13: "we hear watashi
-          no pen but we dont have context on who that is"). ─────────── */}
-      {!showTranscript && activeLineIdx !== null && (
-        <div className="flex items-center gap-2 rounded-xl border-[1.5px] border-accent/40 bg-accent-muted/40 px-4 py-2.5">
-          <Icon name="volume" size={16} className="shrink-0 text-accent" aria-hidden />
-          <span className="text-sm font-bold text-text-primary">
-            {step.lines[activeLineIdx].speaker}
-          </span>
-          <span className="text-sm text-text-muted">
-            {t("lesson.dialogueListen.speaking", "is speaking…")}
-          </span>
-        </div>
-      )}
 
       {/* ── Question progress ─────────────────────────────────────────── */}
       <div className="flex items-center justify-between">

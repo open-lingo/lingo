@@ -41,8 +41,9 @@ type MockVoice = { detuneCents?: number; playbackRate?: number };
 const playJaAudioToEnd = vi.fn(
   (_text: string, _lang?: string, _voice?: MockVoice) => Promise.resolve(),
 );
+const getTtsUrl = vi.fn(() => "https://example.test/audio.mp3");
 vi.mock("@/shared/tts", () => ({
-  getTtsUrl: vi.fn(() => "https://example.test/audio.mp3"),
+  getTtsUrl: (...args: Parameters<typeof getTtsUrl>) => getTtsUrl(...args),
   playJaAudioToEnd: (...args: Parameters<typeof playJaAudioToEnd>) =>
     playJaAudioToEnd(...args),
 }));
@@ -64,11 +65,16 @@ import {
   DialogueListenStepView,
   pacedVoice,
   lineStatus,
+  splitJaSentences,
+  playLineAudio,
 } from "./DialogueListenStepView";
 
 afterEach(() => {
   cleanup();
   playJaAudioToEnd.mockClear();
+  playJaAudioToEnd.mockImplementation(() => Promise.resolve());
+  getTtsUrl.mockClear();
+  getTtsUrl.mockImplementation(() => "https://example.test/audio.mp3");
 });
 
 function makeStep(): DialogueListenStep {
@@ -99,6 +105,62 @@ async function revealTranscript() {
   fireEvent.click(screen.getByRole("button", { name: "Check" }));
   return screen.findByText("Transcript");
 }
+
+describe("splitJaSentences", () => {
+  it("splits on 。 keeping each sentence's terminator", () => {
+    expect(splitJaSentences("わたしは トムだ。がくせいだ。")).toEqual([
+      "わたしは トムだ。",
+      "がくせいだ。",
+    ]);
+  });
+
+  it("keeps ？ attached (contour is the content)", () => {
+    expect(splitJaSentences("トムは がくせい？うん、がくせいだ。")).toEqual([
+      "トムは がくせい？",
+      "うん、がくせいだ。",
+    ]);
+  });
+
+  it("returns a single-sentence line as-is", () => {
+    expect(splitJaSentences("こんにちは")).toEqual(["こんにちは"]);
+  });
+});
+
+describe("playLineAudio", () => {
+  it("plays a multi-sentence line one sentence at a time, same voice", async () => {
+    const voice = { detuneCents: -150, playbackRate: 0.9 };
+    await playLineAudio("わたしは トムだ。がくせいだ。", voice);
+    expect(playJaAudioToEnd.mock.calls.map((c) => c[0])).toEqual([
+      "わたしは トムだ。",
+      "がくせいだ。",
+    ]);
+    for (const call of playJaAudioToEnd.mock.calls) {
+      expect(call[2]).toBe(voice);
+    }
+  });
+
+  it("falls back to the whole-line clip when a sentence is missing from the manifest", async () => {
+    getTtsUrl.mockImplementation(((text: string) =>
+      text === "がくせいだ。" ? null : "https://example.test/a.mp3") as never);
+    await playLineAudio("わたしは トムだ。がくせいだ。", {});
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
+    expect(playJaAudioToEnd).toHaveBeenCalledWith(
+      "わたしは トムだ。がくせいだ。",
+      undefined,
+      {},
+    );
+  });
+
+  it("aborts between sentences when the guard goes stale", async () => {
+    let alive = true;
+    playJaAudioToEnd.mockImplementation(() => {
+      alive = false; // goes stale during the first sentence
+      return Promise.resolve();
+    });
+    await playLineAudio("わたしは トムだ。がくせいだ。", {}, () => alive);
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe("pacedVoice", () => {
   it("scales an existing playbackRate rather than overwriting it", () => {
@@ -137,6 +199,47 @@ describe("lineStatus", () => {
 });
 
 describe("DialogueListenStepView transcript", () => {
+  it("shows the transcript panel immediately, before any answer", () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    expect(screen.getByText("Transcript")).toBeTruthy();
+  });
+
+  it("blurs a not-yet-heard line, un-blurs it once it plays", async () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const lineText = screen.getByText("こんにちは");
+    expect(lineText.className).toMatch(/blur/);
+
+    const row = lineText.closest("div") as HTMLElement;
+    fireEvent.click(within(row).getByRole("button", { name: "Play audio" }));
+    expect(screen.getByText("こんにちは").className).not.toMatch(/blur/);
+    // The other, still-unheard line stays masked.
+    expect(screen.getByText("こんばんは").className).toMatch(/blur/);
+  });
+
+  it("un-blurs unheard lines after the first answer commits", async () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    await revealTranscript();
+    expect(screen.getByText("こんにちは").className).not.toMatch(/blur/);
+    expect(screen.getByText("こんばんは").className).not.toMatch(/blur/);
+  });
+
+  it("keeps speaker pitch coloring subtle (≤200 cents)", async () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    // Second speaker (\"You\") carries the first non-neutral color.
+    const row = screen.getByText("こんばんは").closest("div") as HTMLElement;
+    fireEvent.click(within(row).getByRole("button", { name: "Play audio" }));
+    const voice = playJaAudioToEnd.mock.calls[0][2];
+    expect(Math.abs(voice?.detuneCents ?? 0)).toBeLessThanOrEqual(200);
+  });
+
   it("dims a line that has never played and keeps a played line readable", async () => {
     render(
       <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
