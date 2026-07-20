@@ -12,8 +12,8 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
-const TURN_GAP_MS = 650;
-const SENTENCE_GAP_MS = 350;
+const TURN_GAP_MS = 550;
+const SENTENCE_GAP_MS = 175;
 const CELEBRATE_MS = 1100;
 
 /**
