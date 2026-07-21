@@ -149,8 +149,8 @@ function StreakStripCard({ days, streak }: { days: DayActivity[]; streak: number
               <span
                 className="flex size-7 items-center justify-center rounded-full border"
                 style={{
-                  backgroundColor: hit ? "var(--color-accent)" : "transparent",
-                  borderColor: hit ? "var(--color-accent)" : "var(--color-border-muted)",
+                  backgroundColor: hit ? "rgb(var(--color-accent))" : "transparent",
+                  borderColor: hit ? "rgb(var(--color-accent))" : "rgb(var(--color-border-muted))",
                 }}
                 aria-hidden
               >

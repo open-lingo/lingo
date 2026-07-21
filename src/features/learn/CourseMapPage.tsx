@@ -58,9 +58,9 @@ type ModuleNode = {
 
 const STATUS_DISC: Record<ModuleStatus, string> = {
   completed:
-    "border-accent bg-[color-mix(in_srgb,var(--color-accent)_14%,var(--color-surface))] text-accent",
+    "border-accent bg-[color-mix(in_srgb,rgb(var(--color-accent))_14%,rgb(var(--color-surface)))] text-accent",
   current:
-    "border-accent bg-accent text-white shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-accent)_22%,transparent)]",
+    "border-accent bg-accent text-white shadow-[0_0_0_6px_color-mix(in_srgb,rgb(var(--color-accent))_22%,transparent)]",
   locked: "border-border bg-surface-muted text-text-muted",
 };
 
@@ -465,7 +465,7 @@ function LevelSectionHeader({ level }: { level: FluencyLevel }) {
   const { t } = useTranslation();
   return (
     <header className="flex items-start gap-3">
-      <span className="mt-0.5 inline-flex shrink-0 items-center rounded-md bg-[color-mix(in_srgb,var(--color-accent)_14%,var(--color-surface))] px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-accent">
+      <span className="mt-0.5 inline-flex shrink-0 items-center rounded-md bg-[color-mix(in_srgb,rgb(var(--color-accent))_14%,rgb(var(--color-surface)))] px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-accent">
         {level.cefr}
       </span>
       <div className="min-w-0">
@@ -574,7 +574,7 @@ function CourseMapNode({
         className={[
           "group flex h-full w-full flex-col gap-2 rounded-card border p-3 text-left transition",
           selected
-            ? "border-accent bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--color-surface))] ring-2 ring-accent/40"
+            ? "border-accent bg-[color-mix(in_srgb,rgb(var(--color-accent))_8%,rgb(var(--color-surface)))] ring-2 ring-accent/40"
             : "border-border hover:border-accent/50 hover:bg-surface-muted",
         ].join(" ")}
       >

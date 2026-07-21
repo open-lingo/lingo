@@ -70,29 +70,29 @@ export function XpAreaChart({ days }: Props) {
             <AreaChart data={series} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
               <defs>
                 <linearGradient id="xpFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--color-accent)" stopOpacity={0.5} />
-                  <stop offset="100%" stopColor="var(--color-accent)" stopOpacity={0.02} />
+                  <stop offset="0%" stopColor="rgb(var(--color-accent))" stopOpacity={0.5} />
+                  <stop offset="100%" stopColor="rgb(var(--color-accent))" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
               <XAxis
                 dataKey="date"
                 tickFormatter={tickDate}
-                tick={{ fontSize: 10, fill: "var(--color-text-muted)" }}
+                tick={{ fontSize: 10, fill: "rgb(var(--color-text-muted))" }}
                 tickLine={false}
-                axisLine={{ stroke: "var(--color-border-muted)" }}
+                axisLine={{ stroke: "rgb(var(--color-border-muted))" }}
                 minTickGap={24}
               />
               <YAxis
-                tick={{ fontSize: 10, fill: "var(--color-text-muted)" }}
+                tick={{ fontSize: 10, fill: "rgb(var(--color-text-muted))" }}
                 tickLine={false}
                 axisLine={false}
                 width={40}
               />
-              <Tooltip content={<ChartTooltip />} cursor={{ stroke: "var(--color-border)" }} />
+              <Tooltip content={<ChartTooltip />} cursor={{ stroke: "rgb(var(--color-border))" }} />
               <Area
                 type="monotone"
                 dataKey="cumulative"
-                stroke="var(--color-accent)"
+                stroke="rgb(var(--color-accent))"
                 strokeWidth={2}
                 fill="url(#xpFill)"
                 animationDuration={400}

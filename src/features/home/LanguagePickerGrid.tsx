@@ -110,7 +110,7 @@ export function LanguagePickerGrid({
             const bgLayers: string[] = [];
             if (isSelected) {
               bgLayers.push(
-                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 12%, transparent), color-mix(in srgb, var(--color-accent) 6%, transparent))",
+                "linear-gradient(135deg, color-mix(in srgb, rgb(var(--color-accent)) 12%, transparent), color-mix(in srgb, rgb(var(--color-accent)) 6%, transparent))",
               );
             }
             if (tint) {
@@ -118,7 +118,7 @@ export function LanguagePickerGrid({
                 `linear-gradient(135deg, ${tint.from} 0%, ${tint.to} 100%)`,
               );
             }
-            bgLayers.push("var(--color-surface)");
+            bgLayers.push("rgb(var(--color-surface))");
 
             return (
               <button

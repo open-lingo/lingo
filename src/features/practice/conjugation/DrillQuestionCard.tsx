@@ -179,7 +179,7 @@ export function DrillQuestionCard({
   const showSecondScript =
     conj.secondScriptExposureModule != null && reachedModule >= conj.secondScriptExposureModule;
   const tiles = conj.formToTiles(question.form);
-  const formColor = tiles ? `var(${conj.colorVar(tiles[0])})` : "var(--color-accent)";
+  const formColor = tiles ? `var(${conj.colorVar(tiles[0])})` : "rgb(var(--color-accent))";
 
   const cheatTypes = useMemo(
     () =>
@@ -232,7 +232,7 @@ export function DrillQuestionCard({
               (stuck && !showResult && !peeked
                 ? (cheatOpen ? "" : "conj-cheat-nudge ") +
                   "border-warning/70 bg-warning/10 text-warning"
-                : "border-border bg-surface-muted text-text-secondary hover:border-[color:var(--color-accent)] hover:text-text-primary")
+                : "border-border bg-surface-muted text-text-secondary hover:border-[color:rgb(var(--color-accent))] hover:text-text-primary")
             }
           >
             <Icon name="bookOpen" size={18} aria-hidden />

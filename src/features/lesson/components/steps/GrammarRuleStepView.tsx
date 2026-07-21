@@ -388,7 +388,7 @@ function ExampleTile({ example }: { example: { ja: string; romaji: string; en: s
         type="button"
         onClick={handlePlay}
         disabled={!hasAudio}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all hover:-translate-y-px hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all hover:-translate-y-px hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
         aria-label="Play example"
       >
         <Icon name="play" size={14} />

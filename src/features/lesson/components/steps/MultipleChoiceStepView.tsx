@@ -108,7 +108,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             type="button"
             onClick={replayPromptAudio}
             disabled={!ttsAvailable}
-            className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] disabled:cursor-not-allowed disabled:opacity-40"
             aria-label={t("lesson.play", "Play audio")}
           >
             <Icon name="play" size={32} />
@@ -134,7 +134,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             <button
               type="button"
               onClick={replayPromptAudio}
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
               aria-label={t("lesson.play", "Play audio")}
             >
               <Icon name="play" size={14} />

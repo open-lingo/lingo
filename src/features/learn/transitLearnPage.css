@@ -9,32 +9,32 @@
      board a glaring white slab in dark mode */
   --tmc-signage-bg: #1a1c1f;
   --tmc-signage-fg: #f5f4f0;
-  --tmc-ink: var(--color-text-primary);
-  --tmc-panel: var(--color-surface);
-  --tmc-muted: var(--color-text-muted);
-  --tmc-border: var(--color-border);
-  --tmc-line-main: var(--color-accent); /* brand red — main JR-style line IS the accent */
+  --tmc-ink: rgb(var(--color-text-primary));
+  --tmc-panel: rgb(var(--color-surface));
+  --tmc-muted: rgb(var(--color-text-muted));
+  --tmc-border: rgb(var(--color-border));
+  --tmc-line-main: rgb(var(--color-accent)); /* brand red — main JR-style line IS the accent */
   --tmc-q0: #0aa3c2;
   --tmc-q1: #f09a00;
   --tmc-q2: #8e77d2;
-  --tmc-locked: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-surface));
-  --tmc-halo: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --tmc-locked: color-mix(in srgb, rgb(var(--color-text-muted)) 40%, rgb(var(--color-surface)));
+  --tmc-halo: color-mix(in srgb, rgb(var(--color-accent)) 22%, transparent);
   --tmc-done: var(--tmc-line-main);
   /* OPAQUE scenery steps (atmospheric perspective): far layers sit close to
      the surface color, near layers gain contrast — solid fills occlude each
      other so the parallax reads as real depth instead of blended washes */
-  --tmc-scene-far: color-mix(in srgb, var(--color-text-muted) 7%, var(--color-surface));
-  --tmc-scene-far2: color-mix(in srgb, var(--color-text-muted) 10%, var(--color-surface));
+  --tmc-scene-far: color-mix(in srgb, rgb(var(--color-text-muted)) 7%, rgb(var(--color-surface)));
+  --tmc-scene-far2: color-mix(in srgb, rgb(var(--color-text-muted)) 10%, rgb(var(--color-surface)));
   /* hills carry a soft green so the landscape reads as landscape — deep and
      desaturated in dark themes, fresh in light */
-  --tmc-scene-hill: color-mix(in srgb, #5b8f68 16%, var(--color-surface));
-  --tmc-scene-hill2: color-mix(in srgb, #5b8f68 11%, var(--color-surface));
-  --tmc-scene-strip: color-mix(in srgb, var(--color-text-muted) 14%, var(--color-surface));
-  --tmc-scene-mid: color-mix(in srgb, var(--color-text-muted) 18%, var(--color-surface));
-  --tmc-scene-near: color-mix(in srgb, var(--color-text-muted) 26%, var(--color-surface));
-  --tmc-scene-accent: color-mix(in srgb, var(--tmc-line-main) 24%, var(--color-surface));
-  --tmc-scene-accent2: color-mix(in srgb, var(--tmc-line-main) 18%, var(--color-surface));
-  --tmc-scene-cloud: color-mix(in srgb, #ffffff 60%, var(--color-surface));
+  --tmc-scene-hill: color-mix(in srgb, #5b8f68 16%, rgb(var(--color-surface)));
+  --tmc-scene-hill2: color-mix(in srgb, #5b8f68 11%, rgb(var(--color-surface)));
+  --tmc-scene-strip: color-mix(in srgb, rgb(var(--color-text-muted)) 14%, rgb(var(--color-surface)));
+  --tmc-scene-mid: color-mix(in srgb, rgb(var(--color-text-muted)) 18%, rgb(var(--color-surface)));
+  --tmc-scene-near: color-mix(in srgb, rgb(var(--color-text-muted)) 26%, rgb(var(--color-surface)));
+  --tmc-scene-accent: color-mix(in srgb, var(--tmc-line-main) 24%, rgb(var(--color-surface)));
+  --tmc-scene-accent2: color-mix(in srgb, var(--tmc-line-main) 18%, rgb(var(--color-surface)));
+  --tmc-scene-cloud: color-mix(in srgb, #ffffff 60%, rgb(var(--color-surface)));
   /* scenery constants (deliberate art colors, not theme-derived) */
   --tmc-star: #ede8d8;
   --tmc-window: #f2ce6b;
@@ -47,21 +47,21 @@
    colours (pyramid = Mayan sandstone, palms = jungle green) and the hills +
    sky carry a fresher tropical tint. es-only — ja/ko are untouched. */
 .tmc-root[data-lang="es"] {
-  --tmc-scene-hill: color-mix(in srgb, #3f9a5c 20%, var(--color-surface));
-  --tmc-scene-hill2: color-mix(in srgb, #3f9a5c 13%, var(--color-surface));
-  --tmc-scene-accent: color-mix(in srgb, #b5763b 54%, var(--color-surface));
-  --tmc-scene-accent2: color-mix(in srgb, #2f8a52 50%, var(--color-surface));
+  --tmc-scene-hill: color-mix(in srgb, #3f9a5c 20%, rgb(var(--color-surface)));
+  --tmc-scene-hill2: color-mix(in srgb, #3f9a5c 13%, rgb(var(--color-surface)));
+  --tmc-scene-accent: color-mix(in srgb, #b5763b 54%, rgb(var(--color-surface)));
+  --tmc-scene-accent2: color-mix(in srgb, #2f8a52 50%, rgb(var(--color-surface)));
   --tmc-sky-day: #cfe9d9;
 }
 .dark .tmc-root[data-lang="es"] {
-  --tmc-scene-accent: color-mix(in srgb, #cf9152 46%, var(--color-surface));
-  --tmc-scene-accent2: color-mix(in srgb, #46ac6d 40%, var(--color-surface));
+  --tmc-scene-accent: color-mix(in srgb, #cf9152 46%, rgb(var(--color-surface)));
+  --tmc-scene-accent2: color-mix(in srgb, #46ac6d 40%, rgb(var(--color-surface)));
 }
 .dark .tmc-root {
   --tmc-q0: #2cc3e0;
   --tmc-q1: #ffb01f;
   --tmc-q2: #a794ea;
-  --tmc-halo: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --tmc-halo: color-mix(in srgb, rgb(var(--color-accent)) 28%, transparent);
 }
 
 /* N4 tier line color (2026-07-17 tier switcher). Overriding --tmc-line-main
@@ -342,15 +342,15 @@ a:focus-visible .tmc-d-stop {
 
 /* ── ambient sky: clouds by day, moon + stars by night ─────────────── */
 .tmc-root {
-  --tmc-seal: var(--color-accent);
+  --tmc-seal: rgb(var(--color-accent));
   --tmc-river: #7fb8d9;
 }
 .dark .tmc-root {
   --tmc-river: #3d6f8e;
-  --tmc-scene-hill: color-mix(in srgb, #4f8a5f 14%, var(--color-surface));
-  --tmc-scene-hill2: color-mix(in srgb, #4f8a5f 9%, var(--color-surface));
+  --tmc-scene-hill: color-mix(in srgb, #4f8a5f 14%, rgb(var(--color-surface)));
+  --tmc-scene-hill2: color-mix(in srgb, #4f8a5f 9%, rgb(var(--color-surface)));
   /* night clouds: a shade lighter than the sky, not paper-white */
-  --tmc-scene-cloud: color-mix(in srgb, var(--color-text-muted) 16%, var(--color-surface));
+  --tmc-scene-cloud: color-mix(in srgb, rgb(var(--color-text-muted)) 16%, rgb(var(--color-surface)));
 }
 .tmc-night {
   display: none;
@@ -459,7 +459,7 @@ a:focus-visible .tmc-d-stop {
   /* line color, not inverted ink — ink is near-white in dark themes and
      read as a glaring white box on the map */
   background: var(--tmc-line-main);
-  color: var(--color-on-accent);
+  color: rgb(var(--color-on-accent));
 }
 
 /* district stamp card */

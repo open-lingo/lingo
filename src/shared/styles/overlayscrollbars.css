@@ -22,7 +22,7 @@
   --os-handle-border-radius: 999px;
   --os-handle-bg: var(--scrollbar-thumb);
   --os-handle-bg-hover: var(--scrollbar-thumb-hover);
-  --os-handle-bg-active: var(--color-accent);
+  --os-handle-bg-active: rgb(var(--color-accent));
   --os-handle-min-size: 32px;
   /* Widen the grab target past the visible pill so the thin bar stays easy
      to catch without drawing a fatter rail. */

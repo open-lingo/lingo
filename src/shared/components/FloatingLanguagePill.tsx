@@ -31,7 +31,7 @@ export function FloatingLanguagePill({ className = "" }: { className?: string })
   return (
     <div
       ref={ref}
-      className={`fixed bottom-4 left-3 z-30 sm:left-4 ${className}`}
+      className={`fixed bottom-safe-4 left-safe-3 z-30 sm:left-safe-4 ${className}`}
     >
       {open && (
         <ul

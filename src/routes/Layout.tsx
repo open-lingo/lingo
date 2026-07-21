@@ -150,7 +150,7 @@ export function Layout() {
           so the learner's attention and the vertical budget both go to the
           exercise (Duolingo-anatomy: no app nav inside a lesson). */}
       <header
-        className={`sticky top-0 z-40 border-b border-border bg-surface ${
+        className={`sticky top-0 z-40 border-b border-border bg-surface pt-safe pl-safe pr-safe ${
           sidebarMode ? "lg:hidden" : ""
         } ${focusedFlow ? "hidden" : ""}`}
       >
@@ -321,7 +321,7 @@ export function Layout() {
               type="button"
               aria-label={t("nav.closeMenu", "Close menu")}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-x-0 bottom-0 top-11 z-30 bg-overlay/40 md:hidden"
+              className="fixed inset-x-0 bottom-0 top-[calc(2.75rem+env(safe-area-inset-top))] z-30 bg-overlay/40 md:hidden"
             />
             <div
               id="mobile-nav"

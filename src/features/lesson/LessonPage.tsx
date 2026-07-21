@@ -775,7 +775,7 @@ export function LessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+          className="rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition hover:bg-accent-hover"
         >
           {t("lesson.backToLearn", "Back to Learn")}
         </button>

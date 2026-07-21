@@ -64,7 +64,7 @@ const variantClasses: Record<ButtonVariant, string> = {
     "border border-error bg-error/10 text-error hover:bg-error/20 disabled:opacity-50",
   menu: "text-text-primary hover:bg-surface-muted disabled:opacity-50",
   "primary-3d":
-    "border-accent-hover bg-accent text-accent-foreground shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:bg-accent-hover hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)] disabled:border-border disabled:bg-surface-muted disabled:text-text-muted disabled:shadow-[0_3px_0_0_var(--color-border)] disabled:hover:translate-y-0 disabled:hover:bg-surface-muted disabled:hover:shadow-[0_3px_0_0_var(--color-border)]",
+    "border-accent-hover bg-accent text-accent-foreground shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:bg-accent-hover hover:-translate-y-px hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))] disabled:border-border disabled:bg-surface-muted disabled:text-text-muted disabled:shadow-[0_3px_0_0_rgb(var(--color-border))] disabled:hover:translate-y-0 disabled:hover:bg-surface-muted disabled:hover:shadow-[0_3px_0_0_rgb(var(--color-border))]",
 };
 
 const accentOutlineClasses =

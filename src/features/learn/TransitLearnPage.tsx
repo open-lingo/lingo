@@ -953,7 +953,7 @@ function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; 
   return (
     <g>
       <rect x={x - w / 2} y={y - 10} width={w} height={20} rx={10} style={{ fill: color }} />
-      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "var(--color-on-accent)", fontSize: 11, fontWeight: 800 }}>
+      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "rgb(var(--color-on-accent))", fontSize: 11, fontWeight: 800 }}>
         {text}
       </text>
     </g>
@@ -1622,7 +1622,7 @@ function NetworkMap({
                     {st.status === "completed" && !st.terminal && (
                       <g transform={`rotate(-14 ${st.x + 13} ${st.y - 13})`} aria-hidden>
                         <circle cx={st.x + 13} cy={st.y - 13} r={7.5} style={{ fill: "var(--tmc-seal)", opacity: 0.94 }} />
-                        <text x={st.x + 13} y={st.y - 10.5} textAnchor="middle" style={{ fill: "var(--color-on-accent)", fontSize: 7.5, fontWeight: 800 }}>
+                        <text x={st.x + 13} y={st.y - 10.5} textAnchor="middle" style={{ fill: "rgb(var(--color-on-accent))", fontSize: 7.5, fontWeight: 800 }}>
                           {strings.seal}
                         </text>
                       </g>
@@ -1696,7 +1696,7 @@ function LineDiagram({
   return (
     <div className="overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-card">
       <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "var(--color-on-accent)" }}>
+        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
           M
         </div>
         <div className="min-w-0">

@@ -146,7 +146,7 @@ export function SymbolIntroStepView({
           aria-label={`Play pronunciation: ${payload.romanization || payload.symbol}`}
         >
           <span>{payload.romanization || payload.symbol}</span>
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)]">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))]">
             <Icon name="play" size={14} />
           </span>
         </button>
