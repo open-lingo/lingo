@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Phase 1.5 — Sentence Practice Step (sprinkle X です sentences)
 
 Status: spec ready to implement. Fires after Phase 1 lands.

@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Task: Homepage UX
 
 > **Status: closed (2026-05)** — Landing + auth split; guest/home patterns shipped. **2026-05-24:** returning home → `RestructuredHome`; landing hero buttons unified (`Button` size `hero`). See [handoff-2026-05-24-home-sync-ux.md](../archive/handoff-2026-05-24-home-sync-ux.md).

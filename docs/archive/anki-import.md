@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by anki-import-spec-2026-07-07.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Task: Anki deck import (.apkg)
 
 **Status:** Not started  

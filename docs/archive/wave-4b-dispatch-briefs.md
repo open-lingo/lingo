@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Wave 4B agent dispatch briefs — staged 2026-05-18
 
 Pre-staged briefs so dispatch is instant when Wave 4A-1 + 4A-3 finalize. Each agent gets a focused per-module brief + the shared standards contract.

@@ -101,13 +101,13 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status.
 
 - [ ] **Vocab page** → [vocab-page.md](tasks/vocab-page.md)
-- [x] **Practice hub** → [practice-hub.md](tasks/practice-hub.md) — `/:lang/practice` index → `PracticePage`
-- [x] **Particle practice** → [particle-practice.md](tasks/particle-practice.md)
+- [x] **Practice hub** → [practice-hub.md](archive/practice-hub.md) — `/:lang/practice` index → `PracticePage`
+- [x] **Particle practice** → [particle-practice.md](archive/particle-practice.md)
 - [ ] **Kanji practice** → [kanji-practice.md](tasks/kanji-practice.md) — page exists; verify depth
-- [x] **Alphabet learner** → [alphabet-learner.md](tasks/alphabet-learner.md)
+- [x] **Alphabet learner** → [alphabet-learner.md](archive/alphabet-learner.md)
 - [ ] **Components practice** → [components-practice.md](tasks/components-practice.md) — page exists; verify depth
 - [ ] **Grammar page** → [grammar-page.md](tasks/grammar-page.md)
-- [ ] **Videos** (unlock by course, community addons, video steps in lessons) → [practice-hub.md](tasks/practice-hub.md) — VideosPracticePage exists with mock; expand
+- [ ] **Videos** (unlock by course, community addons, video steps in lessons) → [practice-hub.md](archive/practice-hub.md) — VideosPracticePage exists with mock; expand
 - [ ] **Story content** (real text + exercises) → [story-content.md](tasks/story-content.md) — layout exists; content placeholder
 
 ## Engine / logic
@@ -117,11 +117,11 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 ## Content expansion
 
 - [ ] **Korean content** (30+ cards, 14+ particles, sentences, vocab lists) → [korean-content.md](tasks/korean-content.md)
-- [ ] **Japanese content** (30+ cards, 12+ particles, sentences, vocab lists) → [japanese-content.md](tasks/japanese-content.md)
+- [ ] **Japanese content** (30+ cards, 12+ particles, sentences, vocab lists) → [japanese-content.md](archive/japanese-content.md)
 
 ## Backend (future)
 
-- [ ] **Anki deck import** (.apkg, server-side; scheduling optional) → [anki-import.md](tasks/anki-import.md), [anki-import architecture](dataformats/flashcards/anki-import.md)
+- [ ] **Anki deck import** (.apkg, server-side; scheduling optional) → [anki-import.md](archive/anki-import.md), [anki-import architecture](dataformats/flashcards/anki-import.md)
 - [ ] **User settings API** → [backend-user-api.md](tasks/backend-user-api.md)
 - [x] **Progress API (core)** → [backend-progress-api.md](tasks/backend-progress-api.md) — batch + GET/DELETE me wired; single-attempt server validate still 501
 - [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
@@ -135,10 +135,10 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 
 ## Core UX improvements
 
-- [x] **Homepage for logged-out users** → [homepage-ux.md](tasks/homepage-ux.md) — **done** — Guest hero, community pointers, streaks, XP in ProgressSummary
+- [x] **Homepage for logged-out users** → [homepage-ux.md](archive/homepage-ux.md) — **done** — Guest hero, community pointers, streaks, XP in ProgressSummary
 - [ ] **SRS viewer redesign** → [srs-viewer-redesign.md](tasks/srs-viewer-redesign.md) — partial — New/review/Again/buried counts; back-first mode, counts widget done
 - [ ] **Card markdown** → [card-markdown-editor.md](tasks/card-markdown-editor.md) — Markdown for card content; rich editor; inline images in markdown
-- [ ] **Flashcards UI pass + Anki .apkg import** → [flashcards-anki-scoping-2026-06-13.md](flashcards-anki-scoping-2026-06-13.md) — scoped, awaiting Spencer go/no-go; media storage (no S3 pipeline) is the Anki blocker
+- [ ] **Flashcards UI pass + Anki .apkg import** → [flashcards-anki-scoping-2026-06-13.md](archive/flashcards-anki-scoping-2026-06-13.md) — scoped, awaiting Spencer go/no-go; media storage (no S3 pipeline) is the Anki blocker
 
 ## Community
 

@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Curriculum restructure — pure-hiragana M1 + compressed M2 (dakuten + yōon)
 
 Status: spec ready, agent-executable. User-approved.

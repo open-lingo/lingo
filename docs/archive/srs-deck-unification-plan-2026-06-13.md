@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # SRS / flashcard-deck / match-backfill unification — implementation plan
 
 Status: PLAN (research complete; awaiting structural decisions before Ralph dispatch).

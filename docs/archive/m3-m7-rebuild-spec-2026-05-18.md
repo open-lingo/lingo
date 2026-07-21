@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # M3-M7 Rebuild Spec (2026-05-18)
 
 Agent-facing brief for rebuilding `mock-ja-m3-v2.ts` through `mock-ja-m7.ts` to the M1/M2 density bar + the 2026-05-18 resolutions in `docs/n5-content-spec-2026-05-25.md`.

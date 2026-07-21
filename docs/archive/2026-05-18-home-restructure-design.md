@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Home Page Restructure — Design Spec (2026-05-18)
 
 Status: approved-pending-review · Owner: Spencer · Target: returning-user `/home` view.

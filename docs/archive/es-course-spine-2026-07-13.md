@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by es-rewrite-brief-2026-07-16.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Spanish (es) A1 course spine — authoring contract
 
 2026-07-13. Target: CEFR A1 (≈ JLPT N5 depth parity with the ja course's m3–m17 arc).

@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # M2 row template — g-row worked example (2026-05-17)
 
 Authored 2026-05-17 from Spencer's spec. This becomes the template for

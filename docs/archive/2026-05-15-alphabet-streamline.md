@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Alphabet Streamline — sub-lessons + row tests + struggle-weighted review
 
 Status: spec ready, agent-executable after user sign-off.

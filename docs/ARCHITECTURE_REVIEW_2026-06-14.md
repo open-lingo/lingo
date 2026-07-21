@@ -1,3 +1,5 @@
+> **Status: STALE SNAPSHOT (2026-07-20).** Point-in-time record; some specifics are now wrong. Kept for history — see docs/plan-code-reconciliation-2026-07-20.md §4.
+
 # Architecture Review — Open Lingo (full system)
 
 _Reviewed 2026-06-14 against latest `main` of all five repos: `lingo`, `lingo-core`, `lingo-async`, `lingo-ops`, `lingo-infra`. Supersedes the frontend-only `ARCHITECTURE_REVIEW.md` (2026-05-18)._

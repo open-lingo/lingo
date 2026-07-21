@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Conjugation Trainer — Product Recon + Spec Draft (2026-07-02)
 
 Status: **v1 SHIPPED 2026-07-02** (same day — Spencer delegated the vision: "leave it mostly

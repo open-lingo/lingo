@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by es-ja-parity-2026-07-15.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # ES course — missing pieces & wanted changes (2026-07-13)
 
 > **STATUS 2026-07-15: §"New trainers/steps" items 1–7 ALL SHIPPED** (ConjugationGrid,

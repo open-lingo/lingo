@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by srs-scheduling-model-2026-06-15.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Retention Architecture — Design Proposal (2026-06-13)
 
 > ⚠️ **PARTIALLY SUPERSEDED (2026-06-15).** The intake/scheduling decisions

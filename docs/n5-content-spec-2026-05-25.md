@@ -1,6 +1,6 @@
 # N5 Content Spec — Full Coverage Plan (2026-05-25)
 
-**Status:** STALE · **Last-verified:** 2026-07-17
+**Status:** STALE · **Last-verified:** 2026-07-17 · further staleness noted 2026-07-20 (§4)
 
 > ⚠️ Kanji sections (§ around lines 92–98) describe `kanji_intro`/`kanji_recognition`
 > step types that don't exist and an SRS-state furigana fade that didn't ship; kanji

@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Task: Practice Hub Page
 
 > **Status: closed (2026-05)** — `/:lang/practice` index routes to `PracticePage`. See [PROJECT_STATE.md](../PROJECT_STATE.md).

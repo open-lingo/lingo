@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by the curriculum + m3-m7 reauthor waves.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Lesson Re-Author: Sentence Variety & Cloze Reduction
 
 **Status:** Scoped, not started

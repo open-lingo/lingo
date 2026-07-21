@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by the full curriculum.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Japanese curriculum — follow-ups log
 
 **Date:** 2026-05-14

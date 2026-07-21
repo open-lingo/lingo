@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by the curriculum + m3-m7 reauthor waves.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Task: Japanese Content Expansion
 
 **Area:** `src/features/flashcards/data/`, `src/features/practice/data/`

@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Practice Features — Implementation Spec (2026-05-25)
 
 Six practice features for the N5 content spine. Each is a standalone route under `/practice/` that an implementing agent can build independently. Ordered by priority (highest first).

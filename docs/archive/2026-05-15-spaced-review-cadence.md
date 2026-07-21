@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by srs-scheduling-model-2026-06-15.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Spaced-review cadence — hiragana module (and beyond)
 
 Status: research-only spec, ready to implement. Pairs with the existing

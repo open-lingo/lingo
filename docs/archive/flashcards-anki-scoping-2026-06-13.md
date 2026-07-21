@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by anki-import-spec-2026-07-07.md (Anki portion).** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Flashcards UI pass + Anki import — scoping for decision (2026-06-13)
 
 Analysis only; nothing changed. Two candidate workstreams sized for a

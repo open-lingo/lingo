@@ -1,3 +1,5 @@
+> **Status: STALE SNAPSHOT (2026-07-20).** Point-in-time record; some specifics are now wrong. Kept for history — see docs/plan-code-reconciliation-2026-07-20.md §4.
+
 # Info-step audit — ja course (2026-07-16)
 
 Scope: every `type: "info"` step in the ja curriculum (`src/features/languages/ja/curriculum/*.ts`, consumed by `src/features/lesson/data/mockLessons.ts`). Triggered by owner QA critique (verbatim):

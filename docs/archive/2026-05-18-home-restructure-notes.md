@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SUPERSEDED by 2026-05-18-home-restructure-design.md.** Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Home page restructure — working notes (2026-05-18)
 
 Pre-design scratchpad. The committed design is `2026-05-18-home-restructure-design.md`. **Implementation status (2026-05-24):** see [handoff-2026-05-24-home-sync-ux.md](../../archive/handoff-2026-05-24-home-sync-ux.md) for wiring table updates.

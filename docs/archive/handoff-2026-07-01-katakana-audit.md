@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Handoff — 2026-07-01 (katakana rollout + M1-M7 audit fixes)
 
 **Session outcome:** all five workstreams from the 2026-07-01 session landed and verified.

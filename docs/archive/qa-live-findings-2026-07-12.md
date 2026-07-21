@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Live QA run — 2026-07-12 (Spencer's step-type test drive)
 
 Dispositions for every note streamed from `/ja/qa`. **FIXED** = landed +

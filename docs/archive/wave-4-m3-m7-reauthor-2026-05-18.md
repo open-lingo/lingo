@@ -1,3 +1,5 @@
+> **Status: ARCHIVED — SHIPPED.** Work completed; kept for history. Archived 2026-07-20 (see docs/plan-code-reconciliation-2026-07-20.md §4).
+
 # Wave 4 — M3-M7 re-author + verify (2026-05-18)
 
 Spencer's directive (2026-05-18 evening):

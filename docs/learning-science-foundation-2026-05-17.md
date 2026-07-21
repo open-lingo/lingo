@@ -1,6 +1,6 @@
 # Learning Science Foundation — Lingo's "Learn" as a Teacher
 
-> ⚠️ **FROZEN SNAPSHOT (2026-05-17).** Kept for pedagogical *rationale* (the "why"). Two caveats before you rely on it:
+> ⚠️ **FROZEN SNAPSHOT (2026-05-17).** Kept for pedagogical *rationale* (the "why"). Two caveats before you rely on it: · further staleness noted 2026-07-20 (§4)
 > 1. **The §5–6 step-type census is historical.** It predates the M3–M27 build — e.g. it calls `translate` "UNUSED" (it's now used ~184× across m11–m27) and lists `self_explanation`/`dialogue_listen` as "to build" (both shipped). For the real step set, see `src/features/lesson/types.ts`; for current authoring rules, `docs/lesson-authoring-guide.md`.
 > 2. **Numeric thresholds here are house heuristics, not direct research findings.** Where a specific number appears ("≥4–6 intervening steps", "selfExplain at N-1", etc.), the cited research supports the *direction*, not that exact figure — treat them as conventions, and note the enforced invariants live in the tests, not here.
 
