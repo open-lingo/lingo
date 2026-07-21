@@ -9,10 +9,9 @@
  *     multiple rows.
  *   - Coming-soon modules don't graduate (no anchor words anyway).
  *   - `clearGraduatedVocab(courseId)` wipes per-course state.
- *   - The CustomEvent fires exactly once with the new items.
  *   - Storage keys are language-namespaced (KO state doesn't tread on JA).
  */
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import type { CourseModule } from "@/shared/domain/course";
 import {
   _isModuleGraduated,
@@ -122,29 +121,6 @@ describe("vocabGraduation.graduateModule", () => {
     clearGraduatedVocab(LANG, "course-A");
     expect(getGraduatedVocab(LANG, "course-A")).toEqual([]);
     expect(getGraduatedVocab(LANG, "course-B").length).toBeGreaterThan(0);
-  });
-
-  it("fires lingo:vocab-graduated CustomEvent with new items and languageId", () => {
-    const handler = vi.fn();
-    window.addEventListener("lingo:vocab-graduated", handler);
-    const m = makeModule("m1", ["ja-m1-ka-1", "ja-m1-ka-test"]);
-    const added = graduateModule(LANG, "mock-1", m);
-    expect(handler).toHaveBeenCalledTimes(1);
-    const event = handler.mock.calls[0][0] as CustomEvent;
-    // Phase 2 (2026-06-01): detail is now {languageId, items} rather
-    // than items[] directly.
-    expect(event.detail).toEqual({ languageId: LANG, items: added });
-    window.removeEventListener("lingo:vocab-graduated", handler);
-  });
-
-  it("does not fire CustomEvent on idempotent re-graduation", () => {
-    const m = makeModule("m1", ["ja-m1-ka-1"]);
-    graduateModule(LANG, "mock-1", m);
-    const handler = vi.fn();
-    window.addEventListener("lingo:vocab-graduated", handler);
-    graduateModule(LANG, "mock-1", m);
-    expect(handler).not.toHaveBeenCalled();
-    window.removeEventListener("lingo:vocab-graduated", handler);
   });
 
   it("ignores lesson ids that don't match the JA row pattern", () => {

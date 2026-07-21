@@ -4,9 +4,8 @@
  *
  * When a module is completed, all anchor words from that module's
  * curriculum-side anchor source "graduate" — they're snapshotted into
- * the graduation store and a `lingo:vocab-graduated` CustomEvent fires
- * for the flashcards-side receiver to consume. The receiver isn't wired
- * yet so the dispatch is harmless until they wire it.
+ * the graduation store for downstream consumers to read via
+ * `getGraduatedVocab`.
  *
  * Idempotency: `graduateModule` checks a per-course flag store and is a
  * no-op if the module has already graduated. The items array is deduped
@@ -120,7 +119,6 @@ export function graduateModule(
     languageId,
     markModuleGraduated(modules, courseId, module.id),
   );
-  notifyFlashcardsOfGraduation(languageId, added);
   // Bump the SRS revision bus so any consumer of graduated vocab
   // re-renders (no receiver wired yet but the channel is open).
   notifySRSStoreChanged();
@@ -134,31 +132,6 @@ export function clearGraduatedVocab(
 ): void {
   clearStorage(languageId, courseId);
   notifySRSStoreChanged();
-}
-
-export type VocabGraduatedEventDetail = {
-  languageId: string;
-  items: GraduatedItem[];
-};
-
-/**
- * Stub for the flashcards maintainer to override. Dispatches a
- * `lingo:vocab-graduated` CustomEvent on the window so a future receiver
- * can subscribe whenever it lands. No-op when items is empty.
- *
- * `event.detail = { languageId, items }` per Phase 2 (2026-06-01). The
- * previous shape (detail = items[], languageId on event itself) is a
- * clean break — no receiver consumed it.
- */
-export function notifyFlashcardsOfGraduation(
-  languageId: string,
-  items: GraduatedItem[],
-): void {
-  if (typeof window === "undefined") return;
-  if (items.length === 0) return;
-  const detail: VocabGraduatedEventDetail = { languageId, items };
-  const event = new CustomEvent("lingo:vocab-graduated", { detail });
-  window.dispatchEvent(event);
 }
 
 /** Test helper — direct flag query so tests can assert idempotency. */
