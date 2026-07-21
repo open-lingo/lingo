@@ -321,7 +321,7 @@ export function DeckEditor() {
   return (
     <div className="space-y-4">
       <Breadcrumbs items={breadcrumbs} />
-      <div className="flex h-[calc(100vh-12rem)] min-h-[500px] flex-col overflow-hidden rounded-card border border-border bg-surface shadow-sm">
+      <div className="flex h-[calc(100svh-12rem)] min-h-[500px] flex-col overflow-hidden rounded-card border border-border bg-surface shadow-sm">
       {blocker.state === "blocked" && (
         <UnsavedChangesModal
           onSave={handleSaveDraft}

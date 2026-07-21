@@ -119,10 +119,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     isWordBuild &&
     (trayOverride ? trayOverride === "slots" : !isReplayRun);
   const bankTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4dvh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : "px-3.5 py-1.5 text-base sm:text-lg font-medium";
   const placedTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4dvh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : "px-3.5 py-1.5 text-base sm:text-lg font-semibold";
 
   const handleEnter = useCallback(() => {
@@ -240,7 +240,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            existing generic submit path below. */
         <div
           className="relative grid gap-3"
-          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+          style={{ minHeight: "min(32.5rem, 44cqh)" }}
         >
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);
@@ -401,7 +401,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback

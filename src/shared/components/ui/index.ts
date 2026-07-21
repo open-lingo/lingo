@@ -42,6 +42,7 @@ export { Toast, type ToastProps, type ToastVariant } from "./Toast";
 // Data display
 export { Avatar, type AvatarProps, type AvatarSize } from "./Avatar";
 export { List, ListItem, type ListProps, type ListItemProps } from "./List";
+export { ResponsiveTable, type ResponsiveTableProps } from "./ResponsiveTable";
 export {
   DescriptionList,
   KeyValue,

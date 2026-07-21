@@ -878,7 +878,14 @@ export function LessonPage() {
         ref={stepContainerRef}
         tabIndex={-1}
         aria-label={t("lesson.stepContainer", "Lesson step")}
-        className="flex flex-1 flex-col overflow-y-auto py-4 outline-none"
+        // `container-type: size` makes this scroller the query container for
+        // step content: step views size tiles/grids against `cqh`/`cqw`
+        // (the actual free space here) instead of `dvh`/`vw`, so mobile
+        // chrome show/hide can't jitter or overflow them (house rule: no
+        // viewport-unit math in step content). `min-h-0` lets the scroller
+        // shrink below its content on short/landscape windows so overflow
+        // scrolls instead of clipping the CTA.
+        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4 outline-none [container-type:size]"
       >
         <div
           className="mx-auto flex w-full max-w-2xl flex-1 flex-col"

@@ -209,12 +209,14 @@ export function CardPreview({
 
   if (infoPosition === "side") {
     return (
-      <div className="flex w-full items-start gap-4">
-        <div className="w-[280px] flex-shrink-0 space-y-2">
+      <div className="flex w-full flex-col items-start gap-4 md:flex-row">
+        <div className="w-full space-y-2 md:max-w-[280px]">
           {cardButton}
           {highlightToggle}
         </div>
-        {infoPanel && <div className="min-w-0 flex-1 self-center">{infoPanel}</div>}
+        {infoPanel && (
+          <div className="w-full min-w-0 flex-1 self-center">{infoPanel}</div>
+        )}
       </div>
     );
   }

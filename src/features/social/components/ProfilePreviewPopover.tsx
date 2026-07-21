@@ -3,7 +3,7 @@
  * stats, language, and quick actions. Mock-only — real impl will be a
  * controlled Popover with backend-fetched profile data.
  */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
@@ -21,12 +21,29 @@ type Props = {
 export function ProfilePreviewPopover({ user, children }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  // Flip the 288px panel to the right edge when opening from a trigger in the
+  // right half of the viewport, so it never overflows off-screen on mobile.
+  const [alignRight, setAlignRight] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  function toggle() {
+    setOpen((o) => {
+      const next = !o;
+      if (next && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const PANEL_WIDTH = 288; // w-72
+        const MARGIN = 8;
+        setAlignRight(rect.left + PANEL_WIDTH > window.innerWidth - MARGIN);
+      }
+      return next;
+    });
+  }
 
   return (
-    <div className="relative inline-block">
+    <div ref={containerRef} className="relative inline-block">
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={toggle}
         className="cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -54,7 +71,8 @@ export function ProfilePreviewPopover({ user, children }: Props) {
           <div
             role="dialog"
             className={cn(
-              "absolute left-0 top-full z-40 mt-2 w-72 rounded-card border border-border bg-surface shadow-card",
+              "absolute top-full z-40 mt-2 w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-surface shadow-card",
+              alignRight ? "right-0" : "left-0",
             )}
           >
             <div className="flex items-start gap-3 p-4">

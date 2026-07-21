@@ -116,11 +116,12 @@ export function SymbolRecognitionStepView({
           </button>
         )}
       </div>
-      {/* dvh-aware row height: cards grow into leftover column height on
-          tall windows instead of stranding dead space. */}
+      {/* Container-aware row height: cards grow into leftover column height
+          on tall windows (relative to the lesson scroller, `cqh`) instead
+          of stranding dead space — no `dvh` jitter on mobile chrome. */}
       <div
         className="grid grid-cols-2 gap-4"
-        style={{ gridAutoRows: "minmax(clamp(7.5rem, 22dvh, 13rem), auto)" }}
+        style={{ gridAutoRows: "minmax(clamp(7.5rem, 22cqh, 13rem), auto)" }}
       >
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
@@ -162,7 +163,7 @@ export function SymbolRecognitionStepView({
       </div>
       {/* Single bottom-anchored block: banner + CTA together so the
           button never moves on submit. */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

@@ -198,8 +198,10 @@ export function ConjugationPracticePage() {
         </p>
       </div>
 
-      {/* Sectioned tile grid + optional Mix tile */}
-      <div className="space-y-5">
+      {/* Sectioned tile grid + optional Mix tile. Bottom padding reserves the
+          sticky action bar's height (+ safe-area) so the last tiles never slide
+          under the opaque pill when the grid overflows the viewport. */}
+      <div className="space-y-5 pb-safe-28">
         {sections.map((section, si) => (
           <div key={section.group ?? si}>
             {section.group && (

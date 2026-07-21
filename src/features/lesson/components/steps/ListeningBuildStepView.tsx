@@ -200,7 +200,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
            submits via the existing generic submit path. */
         <div
           className="relative grid gap-3"
-          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+          style={{ minHeight: "min(32.5rem, 44cqh)" }}
         >
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);
@@ -312,7 +312,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {submitted && !isCorrect && (

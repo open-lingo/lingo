@@ -77,7 +77,7 @@ export function ProfileCardBody({ profile }: ProfileCardProps) {
       {profile.hasNoProgress ? (
         <ProfileCardEmpty />
       ) : (
-        <div className="grid grid-cols-3 gap-1.5">
+        <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
           <StatTile
             iconName="flame"
             valueClassName="text-warning"

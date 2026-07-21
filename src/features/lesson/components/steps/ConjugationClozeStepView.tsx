@@ -209,7 +209,7 @@ export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(option.id)}
-              className={`flex h-[clamp(3.5rem,8dvh,4.5rem)] min-w-fit flex-1 basis-[calc(50%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
+              className={`flex h-[clamp(3.5rem,8cqh,4.5rem)] min-w-fit flex-1 basis-[calc(50%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
             >
               {option.text}
             </button>
@@ -219,7 +219,7 @@ export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props
 
       {/* Single bottom block: explanation + banner + CTA together so the
           button never moves on submit (house convention). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
           <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
