@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -16,6 +17,10 @@ import { defineConfig, devices } from "@playwright/test";
  */
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173";
 const AUTH_STATE = ".auth/user.json";
+// The mobile gate attaches the Auth0 storageState only when it actually exists.
+// In CI (or a fresh checkout) the file is absent — the gate then runs the
+// always-green public-route subset (MOBILE_PUBLIC_ONLY=1) with no auth.
+const MOBILE_STORAGE_STATE = fs.existsSync(AUTH_STATE) ? AUTH_STATE : undefined;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -53,6 +58,22 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], storageState: AUTH_STATE },
       dependencies: ["auth setup"],
       testMatch: /.*\.authed\.spec\.ts$/,
+    },
+    {
+      // Mobile render gate (research §6). Specs set their own per-test viewport
+      // from the VIEWPORTS matrix, so the project fixes only Chrome + auth. The
+      // storageState is attached only if `.auth/user.json` exists; without it the
+      // gate runs the public-route subset (set MOBILE_PUBLIC_ONLY=1). This project
+      // has no `auth setup` dependency — that step is interactive/headed and
+      // cannot run in CI.
+      name: "mobile",
+      testDir: "./tests/mobile",
+      testMatch: /.*\.mobile\.spec\.ts$/,
+      use: {
+        ...devices["Desktop Chrome"],
+        deviceScaleFactor: 1,
+        ...(MOBILE_STORAGE_STATE ? { storageState: MOBILE_STORAGE_STATE } : {}),
+      },
     },
   ],
 });

@@ -15,7 +15,11 @@
     "test:e2e:auth": "playwright test --project='auth setup' --headed",
     "visual-qa:contracts": "vitest run src/features/lesson/dev/visualQaContracts.emit.test.ts",
     "visual-qa:capture": "playwright test visual-qa-capture --project=chromium",
-    "module-gate": "node scripts/module-gate.mjs"
+    "module-gate": "node scripts/module-gate.mjs",
+    "test:mobile": "playwright test --project=mobile",
+    "test:mobile:shots": "node scripts/mobile-matrix.mjs",
+    "test:mobile:snap": "playwright test --project=mobile --grep @snapshot --pass-with-no-tests",
+    "test:mobile:update": "playwright test --project=mobile --grep @snapshot --update-snapshots --pass-with-no-tests"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.15.0",
