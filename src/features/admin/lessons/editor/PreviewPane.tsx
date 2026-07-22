@@ -29,7 +29,7 @@ export function PreviewPane({ step }: Props) {
           <Icon name="refresh" className="inline h-3 w-3" /> reset
         </button>
       </header>
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4 [container-type:size]">
         {!step ? (
           <p className="text-sm text-text-muted">
             Select a step on the left to preview it here.

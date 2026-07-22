@@ -82,10 +82,12 @@ export const CONJ_TYPE_COLOR_CSS = `
 .conj-scope {
   --type-te: #047857; --type-ta: #b45309; --type-nai: #b91c1c;
   --type-masu: #1d4ed8; --type-tai: #be185d; --type-iadj: #0e7490;
+  --type-default: #6b7280;
 }
 .dark .conj-scope {
   --type-te: #34d399; --type-ta: #fbbf24; --type-nai: #f87171;
   --type-masu: #60a5fa; --type-tai: #f472b6; --type-iadj: #22d3ee;
+  --type-default: #9ca3af;
 }
 .conj-tile-suggest { animation: conj-wobble 4s ease-in-out infinite; }
 @keyframes conj-wobble {

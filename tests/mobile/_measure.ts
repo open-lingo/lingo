@@ -144,26 +144,41 @@ export async function smallTapTargets(page: Page): Promise<TapTarget[]> {
 
 /**
  * Assertion 4 — primary CTA within the initial viewport.
- * Looks up `[data-testid="primary-cta"]`. `present:false` when the markup prereq
- * hasn't landed yet (the cta-fold spec skips-with-annotation in that case).
+ * Looks up `[data-testid="primary-cta"]`. `present:false` when no VISIBLE CTA
+ * exists — the markup prereq hasn't landed, OR every match is
+ * `display:none`/`visibility:hidden`/zero-rect (the cta-fold spec
+ * skips-with-annotation in that case). A hidden/zero-rect CTA must NOT count as
+ * `inFold:true` — an all-zero rect trivially satisfies the in-fold inequality,
+ * which would be a vacuous pass. If multiple CTAs match, the visible one is
+ * measured (a hidden desktop/mobile variant alongside the real one is common).
  */
 export async function ctaInFold(page: Page): Promise<CtaFoldResult> {
   return page.evaluate((eps) => {
-    const el = document.querySelector<HTMLElement>('[data-testid="primary-cta"]');
     const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;
-    if (!el) {
-      return {
-        present: false,
-        inFold: false,
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        innerWidth,
-        innerHeight,
-      };
-    }
+    const absent: CtaFoldResult = {
+      present: false,
+      inFold: false,
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      innerWidth,
+      innerHeight,
+    };
+    const candidates = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-testid="primary-cta"]'),
+    );
+    // Keep only genuinely-visible matches: rendered box (display/visibility) AND
+    // a non-zero rect. A zero-area rect is treated as not-present, never in-fold.
+    const visible = candidates.filter((node) => {
+      const style = window.getComputedStyle(node);
+      if (style.display === "none" || style.visibility === "hidden") return false;
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    });
+    if (visible.length === 0) return absent;
+    const el = visible[0];
     const r = el.getBoundingClientRect();
     const inFold =
       r.top >= -eps &&

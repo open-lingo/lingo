@@ -279,7 +279,9 @@ export const jaConjugationTrainer: ConjugationTrainerProvider = {
 
   scopeCss: CONJ_TYPE_COLOR_CSS,
   glyph: (tileId) => TYPE_GLYPH[tileId as TrainerTypeId] ?? "",
-  colorVar: (tileId) => TYPE_COLOR_VAR[tileId as TrainerTypeId] ?? "--color-accent",
+  // Fallback resolves to a standalone-hex `--type-*` var so `var(${colorVar})`
+  // stays a valid color (post-W1 `--color-accent` is a bare channel triple).
+  colorVar: (tileId) => TYPE_COLOR_VAR[tileId as TrainerTypeId] ?? "--type-default",
   mixGlyphs: [
     { glyph: "て", colorVar: "--type-te" },
     { glyph: "た", colorVar: "--type-ta" },

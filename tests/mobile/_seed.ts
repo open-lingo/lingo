@@ -74,4 +74,20 @@ export async function gotoSeeded(
   await page.goto(route.path, { waitUntil: "networkidle", timeout: 30_000 });
   // Settle async layout (fonts, lazy chunks, transitions) before measuring.
   await page.waitForTimeout(600);
+
+  // Auth-bounce guard: an expired/absent `.auth/user.json` makes every authed
+  // route silently redirect to /landing or /login, where the overflow/off-edge/
+  // render/cta assertions all pass VACUOUSLY on the marketing page. Detect the
+  // bounce and fail loudly. Public routes (auth:false) are unaffected — they're
+  // allowed to land on /landing or /login.
+  if (route.auth) {
+    const landed = new URL(page.url()).pathname;
+    const requested = new URL(route.path, "http://localhost").pathname;
+    if (landed !== requested && (landed === "/landing" || landed === "/login")) {
+      throw new Error(
+        `auth storageState is stale — refresh with npm run test:e2e:auth ` +
+          `(requested ${requested}, bounced to ${landed})`,
+      );
+    }
+  }
 }

@@ -371,7 +371,7 @@ export function PlacementTestPage() {
           )}
         </div>
       </div>
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col [container-type:size]">
         {currentStep && (
           <StepRenderer
             key={currentStep.id}

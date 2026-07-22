@@ -2,11 +2,15 @@
  * Mobile render pipeline — the viewport × route matrix (research §6).
  *
  * The gate specs (`*.mobile.spec.ts`) iterate VIEWPORTS × active ROUTES and run
- * DOM-geometry assertions in a real Chromium layout engine. Keep this the single
- * source of truth for what gets measured — the specs, the CI subset, and the
- * `scripts/mobile-matrix.mjs` visual sweep all read from here (the script mirrors
- * the same arrays; keep them in sync when adding a route/viewport).
+ * DOM-geometry assertions in a real Chromium layout engine. The matrix data
+ * (VIEWPORTS + PUBLIC_ROUTES + AUTHED_ROUTES) lives in the plain-ESM
+ * `./routes.mjs` so the Playwright specs and the `scripts/mobile-matrix.mjs`
+ * visual sweep import the SAME arrays — no drift. This file adds the TS types,
+ * the extended viewports, and the env-driven helpers on top.
  */
+import { VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES } from "./routes.mjs";
+
+export { VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES };
 
 export interface Viewport {
   /** slug used in test titles and screenshot filenames */
@@ -32,86 +36,13 @@ export interface RouteTarget {
 }
 
 /**
- * Primary gate viewports (research §6). `deviceScaleFactor` is left at Playwright's
- * default of 1 — DPR does not affect layout overflow and keeps snapshots small.
- * `tablet-portrait` (768×1024) sits exactly on the `md` boundary where the desktop
- * sidebar is still hidden — the highest-value "is the collapsed layout correct" check.
+ * Extended/nightly viewports — short-height landscape clipping (research §6).
+ * (Portrait VIEWPORTS + the PUBLIC_ROUTES/AUTHED_ROUTES arrays live in
+ * `./routes.mjs` — the shared single source imported/re-exported above.)
  */
-export const VIEWPORTS: Viewport[] = [
-  { name: "android-small", width: 360, height: 640 },
-  { name: "iphone-se", width: 375, height: 667 },
-  { name: "pixel-7", width: 412, height: 915 },
-  { name: "iphone-14-promax", width: 430, height: 932 },
-  { name: "tablet-portrait", width: 768, height: 1024 },
-];
-
-/** Extended/nightly viewports — short-height landscape clipping (research §6). */
 export const EXTENDED_VIEWPORTS: Viewport[] = [
   { name: "iphone-se-landscape", width: 667, height: 375 },
   { name: "pixel-7-landscape", width: 915, height: 412 },
-];
-
-/**
- * The always-green subset: public marketing/auth routes that render without a
- * valid Auth0 storageState. CI runs these as the hard gate even when the authed
- * matrix can't (expired/absent token).
- */
-export const PUBLIC_ROUTES: RouteTarget[] = [
-  { path: "/landing", auth: false, lang: null },
-  { path: "/get-started", auth: false, lang: null },
-  { path: "/try", auth: false, lang: "ja" },
-  { path: "/login", auth: false, lang: null },
-  { path: "/about", auth: false, lang: null },
-];
-
-/**
- * Authed surfaces (research §6 route targets). Lesson step routes carry the
- * highest-risk `mt-auto`-below-fold + fixed-shell overflow class; they opt into
- * the CTA-in-fold assertion. A representative `ko` subset covers CJK/long-string
- * wrapping where overflow bites hardest.
- */
-export const AUTHED_ROUTES: RouteTarget[] = [
-  { path: "/home", auth: true, lang: "ja" },
-  { path: "/settings", auth: true, lang: "ja" },
-
-  // Learn + lesson player (LessonPage god file — highest overflow risk)
-  { path: "/ja/learn", auth: true, lang: "ja" },
-  { path: "/ja/learn/course", auth: true, lang: "ja" },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=0", auth: true, lang: "ja", primaryCta: true },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=2", auth: true, lang: "ja", primaryCta: true },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=6", auth: true, lang: "ja", primaryCta: true },
-  { path: "/ja/learn/placement-test", auth: true, lang: "ja", primaryCta: true },
-
-  // Practice pillars
-  { path: "/ja/practice", auth: true, lang: "ja" },
-  { path: "/ja/practice/grammar", auth: true, lang: "ja" },
-  { path: "/ja/practice/grammar/review", auth: true, lang: "ja" },
-  { path: "/ja/practice/grammar/conjugation", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/review", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/cards", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/decks", auth: true, lang: "ja" },
-  { path: "/ja/practice/alphabet", auth: true, lang: "ja" },
-  { path: "/ja/practice/alphabet/hiragana", auth: true, lang: "ja" },
-  { path: "/ja/practice/kanji", auth: true, lang: "ja" },
-  { path: "/ja/practice/stories", auth: true, lang: "ja" },
-  { path: "/ja/practice/journey", auth: true, lang: "ja" },
-  { path: "/ja/practice/reading", auth: true, lang: "ja" },
-  { path: "/ja/practice/speaking", auth: true, lang: "ja" },
-  { path: "/ja/practice/listening", auth: true, lang: "ja" },
-  { path: "/ja/practice/writing", auth: true, lang: "ja" },
-
-  // Content + social
-  { path: "/ja/vocab", auth: true, lang: "ja" },
-  { path: "/ja/shop", auth: true, lang: "ja" },
-  { path: "/ja/community/explore", auth: true, lang: "ja" },
-  { path: "/ja/community/leaderboard", auth: true, lang: "ja" },
-  { path: "/ja/social", auth: true, lang: "ja" },
-
-  // Korean subset — CJK/long-string wrapping regression coverage
-  { path: "/ko/learn", auth: true, lang: "ko" },
-  { path: "/ko/practice", auth: true, lang: "ko" },
-  { path: "/ko/community/leaderboard", auth: true, lang: "ko" },
 ];
 
 export const ALL_ROUTES: RouteTarget[] = [...PUBLIC_ROUTES, ...AUTHED_ROUTES];

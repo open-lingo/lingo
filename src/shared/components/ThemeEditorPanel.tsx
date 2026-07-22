@@ -19,6 +19,7 @@ import {
   cornerStyleFromRadius,
   type CornerStyle,
 } from "@/shared/theme/cornerStyle";
+import { hexToRgbChannels } from "@/shared/theme/web-adapter";
 
 const COLOR_KEYS: (keyof ThemeTokens["colors"])[] = [
   "background",
@@ -272,7 +273,10 @@ export function ThemeEditorPanel() {
     const vars: Record<string, string> = {};
     Object.entries(draft.colors).forEach(([key, value]) => {
       const varName = `--color-${key.replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")}`;
-      vars[varName] = value;
+      // Store as RGB channel triples so Tailwind aliases
+      // (`rgb(var(--color-x) / <alpha-value>)`) resolve — mirrors
+      // applyThemeToDOM. Non-hex tokens (e.g. `overlay: rgba(...)`) pass through.
+      vars[varName] = hexToRgbChannels(value);
     });
     Object.entries(draft.radius).forEach(([key, value]) => {
       // `radius.card` is a CSS length string (e.g. "1.5rem"), not a px number —

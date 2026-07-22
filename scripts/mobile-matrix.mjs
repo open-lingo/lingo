@@ -12,11 +12,13 @@
 //   node scripts/mobile-matrix.mjs [outDir] [--public-only] [--only=slug1,slug2]
 //   PLAYWRIGHT_BASE_URL=http://localhost:5199 node scripts/mobile-matrix.mjs
 //
-// Route/viewport arrays mirror tests/mobile/_matrix.ts — keep them in sync.
+// Route/viewport arrays come from the shared single source tests/mobile/routes.mjs
+// (also consumed by _matrix.ts) — no drift between the gate specs and this sweep.
 
 import { chromium } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
+import { VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES } from "../tests/mobile/routes.mjs";
 
 const BASE = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173";
 const AUTH = ".auth/user.json";
@@ -29,54 +31,6 @@ const onlyArg = args.find((a) => a.startsWith("--only="));
 const only = onlyArg ? new Set(onlyArg.slice(7).split(",")) : null;
 const outDir = args.find((a) => !a.startsWith("--")) ?? "mobile-shots";
 fs.mkdirSync(outDir, { recursive: true });
-
-const VIEWPORTS = [
-  ["android-small", 360, 640],
-  ["iphone-se", 375, 667],
-  ["pixel-7", 412, 915],
-  ["iphone-14-promax", 430, 932],
-  ["tablet-portrait", 768, 1024],
-];
-
-// { path, auth, lang }
-const PUBLIC_ROUTES = [
-  { path: "/landing", auth: false, lang: null },
-  { path: "/get-started", auth: false, lang: null },
-  { path: "/try", auth: false, lang: "ja" },
-  { path: "/login", auth: false, lang: null },
-  { path: "/about", auth: false, lang: null },
-];
-
-const AUTHED_ROUTES = [
-  { path: "/home", auth: true, lang: "ja" },
-  { path: "/settings", auth: true, lang: "ja" },
-  { path: "/ja/learn", auth: true, lang: "ja" },
-  { path: "/ja/learn/course", auth: true, lang: "ja" },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=0", auth: true, lang: "ja" },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=2", auth: true, lang: "ja" },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=6", auth: true, lang: "ja" },
-  { path: "/ja/learn/placement-test", auth: true, lang: "ja" },
-  { path: "/ja/practice", auth: true, lang: "ja" },
-  { path: "/ja/practice/grammar", auth: true, lang: "ja" },
-  { path: "/ja/practice/grammar/conjugation", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/review", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/cards", auth: true, lang: "ja" },
-  { path: "/ja/practice/flashcards/decks", auth: true, lang: "ja" },
-  { path: "/ja/practice/alphabet", auth: true, lang: "ja" },
-  { path: "/ja/practice/alphabet/hiragana", auth: true, lang: "ja" },
-  { path: "/ja/practice/kanji", auth: true, lang: "ja" },
-  { path: "/ja/practice/stories", auth: true, lang: "ja" },
-  { path: "/ja/practice/journey", auth: true, lang: "ja" },
-  { path: "/ja/vocab", auth: true, lang: "ja" },
-  { path: "/ja/shop", auth: true, lang: "ja" },
-  { path: "/ja/community/explore", auth: true, lang: "ja" },
-  { path: "/ja/community/leaderboard", auth: true, lang: "ja" },
-  { path: "/ja/social", auth: true, lang: "ja" },
-  { path: "/ko/learn", auth: true, lang: "ko" },
-  { path: "/ko/practice", auth: true, lang: "ko" },
-  { path: "/ko/community/leaderboard", auth: true, lang: "ko" },
-];
 
 const ROUTES = publicOnly ? PUBLIC_ROUTES : [...PUBLIC_ROUTES, ...AUTHED_ROUTES];
 
@@ -133,7 +87,7 @@ const browser = await chromium.launch();
 let anyOverflow = false;
 let anyError = false;
 
-for (const [vpName, width, height] of VIEWPORTS) {
+for (const { name: vpName, width, height } of VIEWPORTS) {
   for (const route of ROUTES) {
     const routeSlug = slug(route.path);
     if (only && !only.has(routeSlug)) continue;
@@ -147,6 +101,19 @@ for (const [vpName, width, height] of VIEWPORTS) {
       await seed(page, route);
       await page.goto(`${BASE}${route.path}`, { waitUntil: "networkidle", timeout: 30_000 });
       await page.waitForTimeout(600);
+      // Auth-bounce guard: a stale/absent storageState makes authed routes
+      // redirect to /landing or /login, where we'd otherwise screenshot the
+      // marketing page and report a false PASS. Fail the shot loudly instead.
+      if (route.auth) {
+        const landed = new URL(page.url()).pathname;
+        const requested = new URL(route.path, "http://localhost").pathname;
+        if (landed !== requested && (landed === "/landing" || landed === "/login")) {
+          throw new Error(
+            `auth storageState is stale — refresh with npm run test:e2e:auth ` +
+              `(bounced ${requested} -> ${landed})`,
+          );
+        }
+      }
       const o = await page.evaluate((eps) => {
         const el = document.scrollingElement || document.documentElement;
         return { sw: el.scrollWidth, cw: el.clientWidth, overflow: el.scrollWidth > el.clientWidth + eps };

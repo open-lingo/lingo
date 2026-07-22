@@ -613,6 +613,7 @@ const KO_SCOPE_CSS = `
   --type-want:#c2410c; --type-and:#0f766e; --type-cmd:#4338ca; --type-adv:#a16207;
   --type-but:#9f1239; --type-so:#15803d; --type-if:#6d28d9; --type-proh:#be123c;
   --type-plain:#0369a1;
+  --type-default:#6b7280;
 }
 .dark .conj-scope {
   --type-haeyo:#34d399; --type-banmal:#c084fc; --type-formal:#60a5fa;
@@ -620,6 +621,7 @@ const KO_SCOPE_CSS = `
   --type-want:#fb923c; --type-and:#2dd4bf; --type-cmd:#818cf8; --type-adv:#facc15;
   --type-but:#fb7185; --type-so:#4ade80; --type-if:#a78bfa; --type-proh:#fda4af;
   --type-plain:#38bdf8;
+  --type-default:#9ca3af;
 }
 .conj-tile-suggest { animation: conj-wobble 4s ease-in-out infinite; }
 @keyframes conj-wobble { 2% { transform: rotate(1.1deg); } 4% { transform: rotate(-1.1deg); } 6% { transform: rotate(0); } }
@@ -655,7 +657,9 @@ export const koConjugationTrainer: ConjugationTrainerProvider = {
 
   scopeCss: KO_SCOPE_CSS,
   glyph: (id) => TILE_BY_ID.get(id)?.glyph ?? "",
-  colorVar: (id) => TILE_BY_ID.get(id)?.colorVar ?? "--color-accent",
+  // Fallback resolves to a standalone-hex `--type-*` var so `var(${colorVar})`
+  // stays a valid color (post-W1 `--color-accent` is a bare channel triple).
+  colorVar: (id) => TILE_BY_ID.get(id)?.colorVar ?? "--type-default",
   mixGlyphs: KO_TILES.slice(0, 5).map((t) => ({ glyph: t.glyph, colorVar: t.colorVar })),
 
   wordClass: (id) =>

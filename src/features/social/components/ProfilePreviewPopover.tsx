@@ -7,7 +7,6 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
 import type { SocialUser } from "../types";
@@ -21,9 +20,12 @@ type Props = {
 export function ProfilePreviewPopover({ user, children }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  // Flip the 288px panel to the right edge when opening from a trigger in the
-  // right half of the viewport, so it never overflows off-screen on mobile.
-  const [alignRight, setAlignRight] = useState(false);
+  // Panel x-offset (px) relative to the trigger container. Clamped so the 288px
+  // panel can't overflow either viewport edge — a binary left-0/right-0 flip
+  // anchored to the trigger clips the LEFT edge for a mid-viewport trigger on a
+  // narrow screen. Left-aligned (offset 0) whenever there's room, so normal
+  // placement is visually unchanged.
+  const [panelLeft, setPanelLeft] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   function toggle() {
@@ -31,9 +33,11 @@ export function ProfilePreviewPopover({ user, children }: Props) {
       const next = !o;
       if (next && containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        const PANEL_WIDTH = 288; // w-72
         const MARGIN = 8;
-        setAlignRight(rect.left + PANEL_WIDTH > window.innerWidth - MARGIN);
+        const panelWidth = Math.min(288 /* w-72 */, window.innerWidth - MARGIN * 2);
+        const maxLeft = window.innerWidth - MARGIN - panelWidth;
+        const clampedLeft = Math.max(MARGIN, Math.min(rect.left, maxLeft));
+        setPanelLeft(Math.round(clampedLeft - rect.left));
       }
       return next;
     });
@@ -70,10 +74,8 @@ export function ProfilePreviewPopover({ user, children }: Props) {
           />
           <div
             role="dialog"
-            className={cn(
-              "absolute top-full z-40 mt-2 w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-surface shadow-card",
-              alignRight ? "right-0" : "left-0",
-            )}
+            style={{ left: panelLeft }}
+            className="absolute top-full z-40 mt-2 w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-surface shadow-card"
           >
             <div className="flex items-start gap-3 p-4">
               <UserAvatar
