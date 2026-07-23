@@ -13,6 +13,12 @@ const STATE_PATH = ".auth/user.json";
  * .auth/user.json. Subsequent authed tests load that state and skip login.
  *
  * Re-run whenever the session expires or you switch accounts.
+ *
+ * For a PORT-PORTABLE capture use `npm run auth:capture` (CAPTURE_E2E=1): it
+ * serves the worktree with VITE_E2E=true on :5173 so the login persists a
+ * localStorage + refresh-token session. After that one-time capture, the mobile
+ * matrix runs on MOBILE_PORT (default 5273) replaying .auth/user.json — no :5173
+ * dev server needed, so the developer's main server is never disturbed.
  */
 setup("authenticate via Auth0", async ({ page }) => {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });

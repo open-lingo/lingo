@@ -172,7 +172,7 @@ function Hero({ data }: { data: HomeVariantData }) {
           ? { backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }
           : {
               background:
-                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 14%, transparent), color-mix(in srgb, var(--color-accent) 3%, transparent))",
+                "linear-gradient(135deg, color-mix(in srgb, rgb(var(--color-accent)) 14%, transparent), color-mix(in srgb, rgb(var(--color-accent)) 3%, transparent))",
             }
       }
     >

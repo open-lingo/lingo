@@ -175,3 +175,6 @@ scripts/__pycache__/
 
 # Visual-QA gate artifacts (contracts + screenshots, regenerated per run)
 artifacts/
+
+# mobile render pipeline screenshot output
+mobile-shots*/

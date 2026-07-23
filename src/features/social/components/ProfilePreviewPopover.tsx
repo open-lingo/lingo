@@ -3,11 +3,10 @@
  * stats, language, and quick actions. Mock-only — real impl will be a
  * controlled Popover with backend-fetched profile data.
  */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
 import type { SocialUser } from "../types";
@@ -21,12 +20,34 @@ type Props = {
 export function ProfilePreviewPopover({ user, children }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  // Panel x-offset (px) relative to the trigger container. Clamped so the 288px
+  // panel can't overflow either viewport edge — a binary left-0/right-0 flip
+  // anchored to the trigger clips the LEFT edge for a mid-viewport trigger on a
+  // narrow screen. Left-aligned (offset 0) whenever there's room, so normal
+  // placement is visually unchanged.
+  const [panelLeft, setPanelLeft] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  function toggle() {
+    setOpen((o) => {
+      const next = !o;
+      if (next && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const MARGIN = 8;
+        const panelWidth = Math.min(288 /* w-72 */, window.innerWidth - MARGIN * 2);
+        const maxLeft = window.innerWidth - MARGIN - panelWidth;
+        const clampedLeft = Math.max(MARGIN, Math.min(rect.left, maxLeft));
+        setPanelLeft(Math.round(clampedLeft - rect.left));
+      }
+      return next;
+    });
+  }
 
   return (
-    <div className="relative inline-block">
+    <div ref={containerRef} className="relative inline-block">
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={toggle}
         className="cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -53,9 +74,8 @@ export function ProfilePreviewPopover({ user, children }: Props) {
           />
           <div
             role="dialog"
-            className={cn(
-              "absolute left-0 top-full z-40 mt-2 w-72 rounded-card border border-border bg-surface shadow-card",
-            )}
+            style={{ left: panelLeft }}
+            className="absolute top-full z-40 mt-2 w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-surface shadow-card"
           >
             <div className="flex items-start gap-3 p-4">
               <UserAvatar

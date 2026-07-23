@@ -23,10 +23,10 @@ import { VocabCardSheet } from "./VocabCardSheet";
 const VISIBLE_CAP = 150;
 
 const TIER_DOT: Record<VocabTier, string> = {
-  new: "var(--color-border)",
-  learning: "var(--color-warning)",
-  reviewing: "var(--color-accent)",
-  mastered: "var(--color-success)",
+  new: "rgb(var(--color-border))",
+  learning: "rgb(var(--color-warning))",
+  reviewing: "rgb(var(--color-accent))",
+  mastered: "rgb(var(--color-success))",
 };
 
 const TIER_ORDER: VocabTier[] = ["learning", "reviewing", "mastered", "new"];

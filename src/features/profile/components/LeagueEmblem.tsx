@@ -12,7 +12,7 @@ export function LeagueEmblem({ league }: { league: PublicProfileLeague }) {
   const ringStyle: CSSProperties = {
     backgroundImage: BRASS_GRADIENT,
     boxShadow:
-      "0 0 0 2px var(--color-surface), 0 4px 12px -2px rgba(193,138,55,0.45), inset 0 1px 0 rgba(255,255,255,0.5)",
+      "0 0 0 2px rgb(var(--color-surface)), 0 4px 12px -2px rgba(193,138,55,0.45), inset 0 1px 0 rgba(255,255,255,0.5)",
   };
   return (
     <div

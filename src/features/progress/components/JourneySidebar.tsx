@@ -53,7 +53,7 @@ function ThisWeekCard({ days }: { days: DayActivity[] }) {
   return (
     <Card as="section" padding="sm" aria-label={t("journey.side.week.title", { defaultValue: "This week" })}>
       <SideHeader icon="calendarDays" title={t("journey.side.week.title", { defaultValue: "This week" })} />
-      <div className="mt-3 grid grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
         <MiniMetric value={xp.toLocaleString()} label={t("journey.side.week.xp", { defaultValue: "XP" })} />
         <MiniMetric value={String(lessons)} label={t("journey.side.week.lessons", { defaultValue: "Lessons" })} />
         <MiniMetric value={`${active}/7`} label={t("journey.side.week.days", { defaultValue: "Active days" })} />
@@ -149,8 +149,8 @@ function StreakStripCard({ days, streak }: { days: DayActivity[]; streak: number
               <span
                 className="flex size-7 items-center justify-center rounded-full border"
                 style={{
-                  backgroundColor: hit ? "var(--color-accent)" : "transparent",
-                  borderColor: hit ? "var(--color-accent)" : "var(--color-border-muted)",
+                  backgroundColor: hit ? "rgb(var(--color-accent))" : "transparent",
+                  borderColor: hit ? "rgb(var(--color-accent))" : "rgb(var(--color-border-muted))",
                 }}
                 aria-hidden
               >

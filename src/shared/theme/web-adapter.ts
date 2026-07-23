@@ -1,5 +1,26 @@
 import type { ThemeTokens } from "./types";
 
+/**
+ * Convert a hex color (`#rgb` or `#rrggbb`) into a space-separated RGB channel
+ * triple (e.g. `#9c2c2c` → `"156 44 44"`) so Tailwind's `<alpha-value>` slot
+ * can apply alpha to token colors (`bg-accent/10`). Non-hex values
+ * (`rgba(...)`, `transparent`, `currentColor`, an already-converted triple)
+ * are returned untouched — only literal hex is converted.
+ */
+export function hexToRgbChannels(value: string): string {
+  const hex = value.trim();
+  const m = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(hex);
+  if (!m) return value;
+  let h = m[1];
+  if (h.length === 3) {
+    h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+  }
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `${r} ${g} ${b}`;
+}
+
 /** Apply theme tokens to document root as CSS variables. */
 export function applyThemeToDOM(tokens: ThemeTokens): void {
   if (typeof document === "undefined") return;
@@ -7,7 +28,10 @@ export function applyThemeToDOM(tokens: ThemeTokens): void {
 
   Object.entries(tokens.colors).forEach(([key, value]) => {
     const varName = `--color-${key.replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")}`;
-    root.style.setProperty(varName, value);
+    // Store colors as RGB channel triples so Tailwind aliases
+    // (`rgb(var(--color-x) / <alpha-value>)`) can apply alpha modifiers.
+    // Non-hex tokens (e.g. `overlay: rgba(...)`) pass through unchanged.
+    root.style.setProperty(varName, hexToRgbChannels(value));
   });
 
   Object.entries(tokens.radius).forEach(([key, value]) => {

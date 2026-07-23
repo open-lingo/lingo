@@ -4,27 +4,35 @@
  */
 @layer base {
   :root {
-    --color-background: #f5f0e6;
-    --color-surface: #faf8f5;
-    --color-surface-muted: #f0ebe3;
-    --color-surface-elevated: #ffffff;
-    --color-border: #e6dfd4;
-    --color-border-muted: #ebe6dd;
-    --color-text-primary: #3d3a35;
-    --color-text-secondary: #5c5750;
-    --color-text-muted: #6d6860;
-    --color-accent: #9c2c2c;
-    --color-accent-hover: #7a2222;
-    --color-accent-muted: #f0e0d6;
-    --color-on-accent: #ffffff;
-    --color-error: #b91c1c;
-    --color-success: #15803d;
-    --color-warning: #a16207;
+    /*
+     * Color tokens are stored as space-separated RGB channel triples (not hex)
+     * so Tailwind aliases `rgb(var(--color-x) / <alpha-value>)` can apply alpha
+     * modifiers (`bg-accent/10`). These are the static first-paint fallbacks;
+     * ThemeContext overrides them at runtime via web-adapter (same triple form).
+     * `--color-overlay` is an exception — it carries its own alpha (rgba) and is
+     * aliased bare.
+     */
+    --color-background: 245 240 230;
+    --color-surface: 250 248 245;
+    --color-surface-muted: 240 235 227;
+    --color-surface-elevated: 255 255 255;
+    --color-border: 230 223 212;
+    --color-border-muted: 235 230 221;
+    --color-text-primary: 61 58 53;
+    --color-text-secondary: 92 87 80;
+    --color-text-muted: 109 104 96;
+    --color-accent: 156 44 44;
+    --color-accent-hover: 122 34 34;
+    --color-accent-muted: 240 224 214;
+    --color-on-accent: 255 255 255;
+    --color-error: 185 28 28;
+    --color-success: 21 128 61;
+    --color-warning: 161 98 7;
     --color-overlay: rgba(0, 0, 0, 0.4);
     --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
-    --color-info: #1d4ed8;
-    --color-destructive: #b91c1c;
-    --color-link: #1d4ed8;
+    --color-info: 29 78 216;
+    --color-destructive: 185 28 28;
+    --color-link: 29 78 216;
     --radius-sm: 6px;
     --radius-md: 12px;
     --radius-lg: 20px;
@@ -32,8 +40,9 @@
     --shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.12);
     /** Floating funding bar reserved space — bar height + bottom margin + breathing room. Used as bottom offset for content padding and as the stacking baseline for other floating UI (ads, cookie consent, toasts). */
     --funding-meter-height: 4.5rem;
-    --scrollbar-track: var(--color-border);
-    --scrollbar-thumb: var(--color-text-muted);
-    --scrollbar-thumb-hover: var(--color-text-secondary);
+    /* Scrollbar tokens resolve token triples into full colors for direct use. */
+    --scrollbar-track: rgb(var(--color-border));
+    --scrollbar-thumb: rgb(var(--color-text-muted));
+    --scrollbar-thumb-hover: rgb(var(--color-text-secondary));
   }
 }

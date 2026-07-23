@@ -175,7 +175,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
           aria-label="Play audio"
         >
           <Icon name="play" size={28} />
@@ -200,7 +200,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
            submits via the existing generic submit path. */
         <div
           className="relative grid gap-3"
-          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+          style={{ minHeight: "min(32.5rem, 44cqh)" }}
         >
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);
@@ -312,7 +312,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {submitted && !isCorrect && (

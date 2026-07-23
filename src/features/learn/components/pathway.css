@@ -18,16 +18,16 @@
   margin-bottom: 0;
   border-radius: 16px;
   overflow: hidden;
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  background: rgb(var(--color-surface));
+  border: 1.5px solid rgb(var(--color-border));
   box-shadow: var(--shadow-card);
   transition: border-color 0.15s ease;
 }
 .lingo-module-card:hover {
   border-color: color-mix(
     in srgb,
-    var(--color-border) 60%,
-    var(--color-text-muted) 40%
+    rgb(var(--color-border)) 60%,
+    rgb(var(--color-text-muted)) 40%
   );
 }
 
@@ -40,8 +40,8 @@
   gap: 16px;
   background: linear-gradient(
     135deg,
-    var(--m-c1, var(--color-accent)) 0%,
-    var(--m-c2, var(--color-accent-hover)) 100%
+    var(--m-c1, rgb(var(--color-accent))) 0%,
+    var(--m-c2, rgb(var(--color-accent-hover))) 100%
   );
   color: white;
   transition: filter 0.15s ease;
@@ -80,12 +80,12 @@
    * reading as color. */
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--m-c1, var(--color-accent)) 22%, var(--color-surface-muted))
+    color-mix(in srgb, var(--m-c1, rgb(var(--color-accent))) 22%, rgb(var(--color-surface-muted)))
       0%,
-    color-mix(in srgb, var(--m-c2, var(--color-accent-hover)) 12%, var(--color-surface-muted))
+    color-mix(in srgb, var(--m-c2, rgb(var(--color-accent-hover))) 12%, rgb(var(--color-surface-muted)))
       100%
   );
-  color: var(--color-text-secondary);
+  color: rgb(var(--color-text-secondary));
   filter: none;
   opacity: 1;
 }
@@ -97,16 +97,16 @@
 }
 .lingo-module-card[data-state="locked"] .lingo-mnum {
   /* Neutral badge chip — muted surface + secondary text, no white-on-color. */
-  background: color-mix(in srgb, var(--color-text-muted) 14%, transparent);
-  color: var(--color-text-secondary);
+  background: color-mix(in srgb, rgb(var(--color-text-muted)) 14%, transparent);
+  color: rgb(var(--color-text-secondary));
 }
 .lingo-module-card[data-state="locked"] .lingo-mchev {
-  background: color-mix(in srgb, var(--color-text-muted) 12%, transparent);
-  color: var(--color-text-muted);
+  background: color-mix(in srgb, rgb(var(--color-text-muted)) 12%, transparent);
+  color: rgb(var(--color-text-muted));
 }
 .lingo-module-card[data-state="locked"] .lingo-status-pill {
-  background: color-mix(in srgb, var(--color-text-muted) 12%, transparent);
-  color: var(--color-text-muted);
+  background: color-mix(in srgb, rgb(var(--color-text-muted)) 12%, transparent);
+  color: rgb(var(--color-text-muted));
 }
 .lingo-module-card[data-state="locked"] .lingo-module-head:hover {
   filter: none;
@@ -115,10 +115,10 @@
 .lingo-module-card[data-state="completed"] .lingo-module-head {
   background: linear-gradient(
     135deg,
-    var(--color-surface) 0%,
-    var(--color-surface-muted) 100%
+    rgb(var(--color-surface)) 0%,
+    rgb(var(--color-surface-muted)) 100%
   );
-  color: var(--color-text-primary);
+  color: rgb(var(--color-text-primary));
 }
 .lingo-module-card[data-state="completed"] .lingo-module-head::before,
 .lingo-module-card[data-state="completed"] .lingo-module-head::after {
@@ -139,7 +139,7 @@
   letter-spacing: -0.02em;
 }
 .lingo-module-card[data-state="completed"] .lingo-mnum {
-  background: var(--color-accent);
+  background: rgb(var(--color-accent));
   color: white;
 }
 
@@ -161,8 +161,8 @@
   transform: rotate(180deg);
 }
 .lingo-module-card[data-state="completed"] .lingo-mchev {
-  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-  color: var(--color-accent);
+  background: color-mix(in srgb, rgb(var(--color-accent)) 18%, transparent);
+  color: rgb(var(--color-accent));
 }
 
 .lingo-status-pill {
@@ -184,8 +184,8 @@
   text-transform: uppercase;
 }
 .lingo-module-card[data-state="completed"] .lingo-status-pill {
-  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-  color: var(--color-accent);
+  background: color-mix(in srgb, rgb(var(--color-accent)) 18%, transparent);
+  color: rgb(var(--color-accent));
 }
 
 /* Status pill + mastery chip group — right-aligned in the module header
@@ -206,20 +206,20 @@
   margin-top: 0;
   padding: 2px 9px;
   border-radius: 999px;
-  background: var(--color-warning, #f59e0b);
+  background: rgb(var(--color-warning, #f59e0b));
   color: white;
   font-size: 0.625rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow:
-    0 1px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 60%, #000),
-    0 4px 10px -2px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+    0 1px 0 0 color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 60%, #000),
+    0 4px 10px -2px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent);
 }
 .lingo-module-card[data-state="completed"] .lingo-mastery-pill {
   /* On completed (light bg), keep the gold + white treatment — high
    * contrast against the muted surface. */
-  background: var(--color-warning, #f59e0b);
+  background: rgb(var(--color-warning, #f59e0b));
   color: white;
 }
 
@@ -247,7 +247,7 @@
 }
 .lingo-path-svg path {
   fill: none;
-  stroke: var(--color-border);
+  stroke: rgb(var(--color-border));
   stroke-width: 3;
   stroke-dasharray: 2 7;
   stroke-linecap: round;
@@ -339,9 +339,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  color: var(--color-text-muted);
+  background: rgb(var(--color-surface));
+  border: 2px solid rgb(var(--color-border));
+  color: rgb(var(--color-text-muted));
   font-size: 1.5rem;
   font-weight: 700;
   font-family: "Noto Sans JP", "Inter", sans-serif;
@@ -349,32 +349,32 @@
   cursor: pointer;
   position: relative;
   box-shadow:
-    0 4px 0 0 color-mix(in srgb, var(--color-text-primary) 12%, transparent),
-    0 8px 16px -4px color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+    0 4px 0 0 color-mix(in srgb, rgb(var(--color-text-primary)) 12%, transparent),
+    0 8px 16px -4px color-mix(in srgb, rgb(var(--color-text-primary)) 8%, transparent);
 }
 .lingo-node-disc:hover {
   transform: translateY(-2px);
 }
 .lingo-node[data-state="done"] .lingo-node-disc {
-  background: var(--color-accent);
-  border-color: var(--color-accent-hover);
+  background: rgb(var(--color-accent));
+  border-color: rgb(var(--color-accent-hover));
   color: white;
   box-shadow:
-    0 5px 0 0 var(--color-accent-hover),
+    0 5px 0 0 rgb(var(--color-accent-hover)),
     0 12px 20px -4px rgba(0, 0, 0, 0.18);
 }
 .lingo-node[data-state="available"] .lingo-node-disc {
-  background: var(--color-surface);
-  border-color: var(--color-accent);
-  color: var(--color-text-primary);
+  background: rgb(var(--color-surface));
+  border-color: rgb(var(--color-accent));
+  color: rgb(var(--color-text-primary));
 }
 .lingo-node[data-state="current"] .lingo-node-disc {
-  background: var(--color-accent);
-  border-color: var(--color-accent-hover);
+  background: rgb(var(--color-accent));
+  border-color: rgb(var(--color-accent-hover));
   color: white;
   box-shadow:
-    0 5px 0 0 var(--color-accent-hover),
-    0 0 0 8px color-mix(in srgb, var(--color-accent) 25%, transparent),
+    0 5px 0 0 rgb(var(--color-accent-hover)),
+    0 0 0 8px color-mix(in srgb, rgb(var(--color-accent)) 25%, transparent),
     0 12px 24px -4px rgba(0, 0, 0, 0.25);
   animation: lingo-node-pulse 1.8s ease-in-out infinite;
 }
@@ -382,24 +382,24 @@
   0%,
   100% {
     box-shadow:
-      0 5px 0 0 var(--color-accent-hover),
-      0 0 0 8px color-mix(in srgb, var(--color-accent) 25%, transparent),
+      0 5px 0 0 rgb(var(--color-accent-hover)),
+      0 0 0 8px color-mix(in srgb, rgb(var(--color-accent)) 25%, transparent),
       0 12px 24px -4px rgba(0, 0, 0, 0.25);
   }
   50% {
     box-shadow:
-      0 5px 0 0 var(--color-accent-hover),
-      0 0 0 14px color-mix(in srgb, var(--color-accent) 10%, transparent),
+      0 5px 0 0 rgb(var(--color-accent-hover)),
+      0 0 0 14px color-mix(in srgb, rgb(var(--color-accent)) 10%, transparent),
       0 12px 24px -4px rgba(0, 0, 0, 0.25);
   }
 }
 .lingo-node[data-state="locked"] .lingo-node-disc {
-  background: var(--color-surface-muted);
-  border-color: var(--color-border);
-  color: var(--color-text-muted);
+  background: rgb(var(--color-surface-muted));
+  border-color: rgb(var(--color-border));
+  color: rgb(var(--color-text-muted));
   opacity: 0.62;
   box-shadow:
-    0 3px 0 0 var(--color-border),
+    0 3px 0 0 rgb(var(--color-border)),
     0 6px 10px -2px rgba(0, 0, 0, 0.08);
   cursor: not-allowed;
 }
@@ -417,14 +417,14 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  color: var(--color-text-muted);
+  background: rgb(var(--color-surface));
+  border: 2px solid rgb(var(--color-border));
+  color: rgb(var(--color-text-muted));
   pointer-events: none;
 }
 .lingo-node-state-badge--done {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: rgb(var(--color-accent));
+  color: rgb(var(--color-accent));
 }
 
 .lingo-node-label {
@@ -432,16 +432,16 @@
   padding: 2px 9px;
   font-size: 0.719rem;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: rgb(var(--color-text-secondary));
   text-align: center;
   white-space: nowrap;
   /* Subtle pill behind the label so it sits cleanly atop the snake's
    * dashed connector. ~70% opacity surface keeps it whisper-quiet. */
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  background: color-mix(in srgb, rgb(var(--color-surface)) 88%, transparent);
   border-radius: 999px;
 }
 .lingo-node[data-state="locked"] .lingo-node-label {
-  color: var(--color-text-muted);
+  color: rgb(var(--color-text-muted));
   opacity: 0.6;
 }
 
@@ -453,14 +453,14 @@
   height: 1.375rem;
   padding: 0 6px;
   border-radius: 999px;
-  background: var(--color-warning, #f59e0b);
+  background: rgb(var(--color-warning, #f59e0b));
   color: white;
   font-size: 0.625rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-surface);
+  border: 2px solid rgb(var(--color-surface));
   z-index: 2;
 }
 
@@ -470,12 +470,12 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 5px 12px;
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-accent);
+  background: rgb(var(--color-surface));
+  border: 1.5px solid rgb(var(--color-accent));
   border-radius: 999px;
   font-size: 0.688rem;
   font-weight: 700;
-  color: var(--color-accent);
+  color: rgb(var(--color-accent));
   text-transform: uppercase;
   letter-spacing: 0.08em;
   box-shadow: var(--shadow-card);
@@ -490,9 +490,9 @@
   transform: translateX(-50%) rotate(45deg);
   width: 10px;
   height: 10px;
-  background: var(--color-surface);
-  border-right: 1.5px solid var(--color-accent);
-  border-bottom: 1.5px solid var(--color-accent);
+  background: rgb(var(--color-surface));
+  border-right: 1.5px solid rgb(var(--color-accent));
+  border-bottom: 1.5px solid rgb(var(--color-accent));
 }
 
 /* Wrap the disc-button so the START flag can position absolutely against
@@ -513,8 +513,8 @@
   transform: translateY(-50%);
   margin-left: 14px;
   padding: 7px 14px;
-  background: var(--color-accent);
-  border: 1.5px solid var(--color-accent-hover);
+  background: rgb(var(--color-accent));
+  border: 1.5px solid rgb(var(--color-accent-hover));
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 800;
@@ -522,8 +522,8 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   box-shadow:
-    0 3px 0 0 var(--color-accent-hover),
-    0 6px 14px -2px color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+    0 3px 0 0 rgb(var(--color-accent-hover)),
+    0 6px 14px -2px color-mix(in srgb, rgb(var(--color-text-primary)) 12%, transparent);
   white-space: nowrap;
   cursor: pointer;
   z-index: 2;
@@ -536,7 +536,7 @@
 .lingo-start-flag:active {
   transform: translateY(calc(-50% + 1px));
   box-shadow:
-    0 1px 0 0 var(--color-accent-hover),
+    0 1px 0 0 rgb(var(--color-accent-hover)),
     0 3px 8px -2px rgb(15 23 42 / 0.18);
 }
 .lingo-start-flag::before {
@@ -547,9 +547,9 @@
   transform: translateY(-50%) rotate(45deg);
   width: 11px;
   height: 11px;
-  background: var(--color-accent);
-  border-left: 1.5px solid var(--color-accent-hover);
-  border-bottom: 1.5px solid var(--color-accent-hover);
+  background: rgb(var(--color-accent));
+  border-left: 1.5px solid rgb(var(--color-accent-hover));
+  border-bottom: 1.5px solid rgb(var(--color-accent-hover));
 }
 
 /* ---------------------------------------------------------------- preview */
@@ -560,9 +560,9 @@
   gap: 10px;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--m-c1, var(--color-accent)) 8%, var(--color-surface))
+    color-mix(in srgb, var(--m-c1, rgb(var(--color-accent))) 8%, rgb(var(--color-surface)))
       0%,
-    var(--color-surface) 60%
+    rgb(var(--color-surface)) 60%
   );
 }
 .lingo-preview-eyebrow {
@@ -572,8 +572,8 @@
   text-transform: uppercase;
   color: color-mix(
     in srgb,
-    var(--m-c1, var(--color-accent)) 80%,
-    var(--color-text-secondary) 20%
+    var(--m-c1, rgb(var(--color-accent))) 80%,
+    rgb(var(--color-text-secondary)) 20%
   );
   margin: 0;
 }
@@ -587,11 +587,11 @@
   gap: 10px;
   padding: 8px 12px;
   border-radius: 10px;
-  background: var(--color-surface);
+  background: rgb(var(--color-surface));
   border: 1px solid
-    color-mix(in srgb, var(--m-c1, var(--color-accent)) 24%, var(--color-border));
+    color-mix(in srgb, var(--m-c1, rgb(var(--color-accent))) 24%, rgb(var(--color-border)));
   font-size: 0.813rem;
-  color: var(--color-text-secondary);
+  color: rgb(var(--color-text-secondary));
 }
 .lingo-preview-item .lingo-pi-num {
   width: 1.375rem;
@@ -600,13 +600,13 @@
   border-radius: 50%;
   background: color-mix(
     in srgb,
-    var(--m-c1, var(--color-accent)) 18%,
-    var(--color-surface-muted)
+    var(--m-c1, rgb(var(--color-accent))) 18%,
+    rgb(var(--color-surface-muted))
   );
   color: color-mix(
     in srgb,
-    var(--m-c1, var(--color-accent)) 80%,
-    var(--color-text-primary) 20%
+    var(--m-c1, rgb(var(--color-accent))) 80%,
+    rgb(var(--color-text-primary)) 20%
   );
   font-size: 0.625rem;
   font-weight: 700;
@@ -616,7 +616,7 @@
 }
 .lingo-test-out-note {
   font-size: 0.719rem;
-  color: var(--color-text-muted);
+  color: rgb(var(--color-text-muted));
   font-style: italic;
   margin: 6px 0 0;
 }
@@ -629,7 +629,7 @@
   gap: 10px;
   margin-top: 16px;
   padding-top: 14px;
-  border-top: 1px dashed var(--color-border);
+  border-top: 1px dashed rgb(var(--color-border));
 }
 .lingo-module-actions > button,
 .lingo-module-actions > a {
@@ -644,8 +644,8 @@
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  background: rgb(var(--color-surface));
+  border: 1.5px solid rgb(var(--color-border));
   border-radius: 14px;
   margin-bottom: 8px;
   box-shadow: var(--shadow-card);
@@ -660,7 +660,7 @@
 }
 .lingo-quest-card:hover {
   transform: translateY(-1px);
-  border-color: var(--color-accent);
+  border-color: rgb(var(--color-accent));
 }
 .lingo-quest-card[data-locked="true"] {
   opacity: 0.55;
@@ -668,14 +668,14 @@
 }
 .lingo-quest-card[data-locked="true"]:hover {
   transform: none;
-  border-color: var(--color-border);
+  border-color: rgb(var(--color-border));
 }
 .lingo-quest-emoji {
   width: 44px;
   height: 44px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  background: color-mix(in srgb, rgb(var(--color-accent)) 20%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -688,12 +688,12 @@
 .lingo-quest-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: rgb(var(--color-text-primary));
   margin: 0;
 }
 .lingo-quest-meta {
   font-size: 0.75rem;
-  color: var(--color-text-muted);
+  color: rgb(var(--color-text-muted));
   margin: 2px 0 0;
 }
 .lingo-quest-progress {
@@ -701,25 +701,25 @@
   height: 34px;
   border-radius: 50%;
   background: conic-gradient(
-    var(--color-accent) var(--p, 0%),
-    var(--color-border) 0%
+    rgb(var(--color-accent)) var(--p, 0%),
+    rgb(var(--color-border)) 0%
   );
   -webkit-mask: radial-gradient(circle, transparent 12px, #000 14px);
   mask: radial-gradient(circle, transparent 12px, #000 14px);
   flex-shrink: 0;
 }
 .lingo-quest-progress.locked {
-  background: var(--color-border);
+  background: rgb(var(--color-border));
   -webkit-mask: none;
   mask: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
+  color: rgb(var(--color-text-muted));
   font-size: 0.813rem;
 }
 .lingo-quest-progress.locked {
-  background: var(--color-border);
+  background: rgb(var(--color-border));
   -webkit-mask: none;
   mask: none;
 }
@@ -727,38 +727,38 @@
 .lingo-quest-card.daily {
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-warning, #f59e0b) 15%, var(--color-surface))
+    color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 15%, rgb(var(--color-surface)))
       0%,
-    var(--color-surface) 70%
+    rgb(var(--color-surface)) 70%
   );
   border-color: color-mix(
     in srgb,
-    var(--color-warning, #f59e0b) 40%,
-    var(--color-border)
+    rgb(var(--color-warning, #f59e0b)) 40%,
+    rgb(var(--color-border))
   );
 }
 .lingo-quest-card.daily .lingo-quest-emoji {
-  background: var(--color-warning, #f59e0b);
+  background: rgb(var(--color-warning, #f59e0b));
   color: white;
 }
 
 .lingo-quest-card.featured {
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-accent, #9c2c2c) 12%, var(--color-surface))
+    color-mix(in srgb, rgb(var(--color-accent, #9c2c2c)) 12%, rgb(var(--color-surface)))
       0%,
-    color-mix(in srgb, var(--color-info, #0ea5e9) 8%, var(--color-surface))
+    color-mix(in srgb, rgb(var(--color-info, #0ea5e9)) 8%, rgb(var(--color-surface)))
       100%
   );
-  border-color: var(--color-accent, #9c2c2c);
+  border-color: rgb(var(--color-accent, #9c2c2c));
   border-width: 0.125rem;
 }
 .lingo-quest-card.featured .lingo-quest-emoji {
-  background: var(--color-accent, #9c2c2c);
+  background: rgb(var(--color-accent, #9c2c2c));
   color: white;
 }
 .lingo-quest-card.featured .lingo-quest-title {
-  color: var(--color-accent, #9c2c2c);
+  color: rgb(var(--color-accent, #9c2c2c));
 }
 
 /* ---------------------------------------------------------------- row clusters */
@@ -784,7 +784,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-border-strong, var(--color-border));
+  background: rgb(var(--color-border-strong, var(--color-border)));
   display: inline-block;
   /* Gentle inward curl — top/bottom dots nudge toward the disc so the
    * stack visually echoes the circle's edge instead of reading as a
@@ -802,7 +802,7 @@
   transform: translateX(1.5px);
 }
 .lingo-node-subdot[data-filled="true"] {
-  background: var(--color-accent);
+  background: rgb(var(--color-accent));
 }
 .lingo-node[data-state="locked"] .lingo-node-subdot {
   opacity: 0.55;
@@ -826,7 +826,7 @@
   pointer-events: none;
   /* Default = available (hollow). */
   color: transparent;
-  -webkit-text-stroke: 1px var(--color-warning, #f59e0b);
+  -webkit-text-stroke: 1px rgb(var(--color-warning, #f59e0b));
   transition: transform 200ms ease, filter 200ms ease;
 }
 /* Available (unearned but reachable) — gentle parent-hover pulse so the
@@ -837,14 +837,14 @@
   animation: lingo-mastery-hint 2.4s ease-in-out infinite;
 }
 .lingo-mastery-slot[data-state="passed"] {
-  color: var(--color-warning, #f59e0b);
+  color: rgb(var(--color-warning, #f59e0b));
   -webkit-text-stroke: 0;
   /* Size bump (~13%) + soft gold glow ring so the earned star reads
    * louder than the outline at a glance — Mika doesn't read pill text. */
   font-size: 0.938rem;
   filter:
-    drop-shadow(0 0 4px color-mix(in srgb, var(--color-warning, #f59e0b) 65%, transparent))
-    drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent));
+    drop-shadow(0 0 4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 65%, transparent))
+    drop-shadow(0 0 8px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent));
   /* One-second celebratory pulse on first render. CSS-only — no JS hook
    * needed because masterySlot="passed" only appears AFTER the test
    * completion. Animation runs once then settles. */
@@ -862,14 +862,14 @@
   40% {
     transform: translateX(5px) scale(1.35);
     filter:
-      drop-shadow(0 0 10px var(--color-warning, #f59e0b))
-      drop-shadow(0 0 16px color-mix(in srgb, var(--color-warning, #f59e0b) 55%, transparent));
+      drop-shadow(0 0 10px rgb(var(--color-warning, #f59e0b)))
+      drop-shadow(0 0 16px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 55%, transparent));
   }
   100% {
     transform: translateX(5px) scale(1);
     filter:
-      drop-shadow(0 0 4px color-mix(in srgb, var(--color-warning, #f59e0b) 65%, transparent))
-      drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent));
+      drop-shadow(0 0 4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 65%, transparent))
+      drop-shadow(0 0 8px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent));
   }
 }
 
@@ -900,15 +900,15 @@
 .lingo-node[data-recap="true"] .lingo-node-disc {
   background: linear-gradient(
     135deg,
-    var(--color-warning, #f59e0b) 0%,
-    color-mix(in srgb, var(--color-warning, #f59e0b) 75%, #000) 100%
+    rgb(var(--color-warning, #f59e0b)) 0%,
+    color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 75%, #000) 100%
   );
-  border-color: color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000);
+  border-color: color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000);
   color: white;
   box-shadow:
-    0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
-    0 0 0 6px color-mix(in srgb, var(--color-warning, #f59e0b) 18%, transparent),
-    0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+    0 5px 0 0 color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000),
+    0 0 0 6px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 18%, transparent),
+    0 12px 22px -4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent);
 }
 .lingo-node[data-recap="true"][data-state="locked"] .lingo-node-disc {
   filter: grayscale(0.5) brightness(0.85);
@@ -917,9 +917,9 @@
 .lingo-node[data-recap="true"][data-state="done"] .lingo-node-disc {
   /* On done, keep the amber base but add a green ring outline (passed). */
   box-shadow:
-    0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
-    0 0 0 4px color-mix(in srgb, var(--color-accent) 35%, transparent),
-    0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+    0 5px 0 0 color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000),
+    0 0 0 4px color-mix(in srgb, rgb(var(--color-accent)) 35%, transparent),
+    0 12px 22px -4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent);
 }
 .lingo-node[data-recap="true"][data-state="current"] .lingo-node-disc {
   animation: lingo-node-pulse-recap 1.8s ease-in-out infinite;
@@ -928,15 +928,15 @@
   0%,
   100% {
     box-shadow:
-      0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
-      0 0 0 6px color-mix(in srgb, var(--color-warning, #f59e0b) 20%, transparent),
-      0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+      0 5px 0 0 color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000),
+      0 0 0 6px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 20%, transparent),
+      0 12px 22px -4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent);
   }
   50% {
     box-shadow:
-      0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
-      0 0 0 12px color-mix(in srgb, var(--color-warning, #f59e0b) 10%, transparent),
-      0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+      0 5px 0 0 color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000),
+      0 0 0 12px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 10%, transparent),
+      0 12px 22px -4px color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 35%, transparent);
   }
 }
 .lingo-recap-badge {
@@ -946,8 +946,8 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background: var(--color-surface);
-  border: 1.5px solid color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000);
+  background: rgb(var(--color-surface));
+  border: 1.5px solid color-mix(in srgb, rgb(var(--color-warning, #f59e0b)) 70%, #000);
   font-size: 0.813rem;
   line-height: 1;
   display: flex;
@@ -964,8 +964,8 @@
 .lingo-node[data-test="true"][data-state="done"] .lingo-node-disc {
   border-style: solid;
   box-shadow:
-    0 5px 0 0 var(--color-accent-hover),
-    0 0 0 4px color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0 5px 0 0 rgb(var(--color-accent-hover)),
+    0 0 0 4px color-mix(in srgb, rgb(var(--color-accent)) 30%, transparent),
     0 12px 20px -4px rgba(0, 0, 0, 0.18);
 }
 .lingo-test-badge {
@@ -975,9 +975,9 @@
   width: 1.125rem;
   height: 1.125rem;
   border-radius: 50%;
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-accent);
-  color: var(--color-accent);
+  background: rgb(var(--color-surface));
+  border: 1.5px solid rgb(var(--color-accent));
+  color: rgb(var(--color-accent));
   font-size: 0.625rem;
   font-weight: 800;
   display: flex;
@@ -1002,8 +1002,8 @@
   gap: 10px;
   align-items: center;
   padding: 10px 14px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-accent);
+  background: rgb(var(--color-surface));
+  border: 1px solid rgb(var(--color-accent));
   border-radius: 999px;
   box-shadow: var(--shadow-popover);
 }

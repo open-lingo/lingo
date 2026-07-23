@@ -606,7 +606,7 @@ export function FlashcardTester() {
             <button
               type="button"
               onClick={() => setInfoOpen(true)}
-              className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
               aria-label={t("flashcards.info.openLabel", "How review works")}
             >
               <Icon name="info" size={20} />
@@ -614,7 +614,7 @@ export function FlashcardTester() {
             <button
               type="button"
               onClick={() => setSettingsOpen((o) => !o)}
-              className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
               aria-label={t("flashcards.reviewSettings", "Review settings")}
               aria-expanded={settingsOpen}
             >
@@ -801,7 +801,11 @@ export function FlashcardTester() {
           every grade button are h-16 and vertically center their content, so
           the two states line up exactly (Spencer QA — buttons were jumping on
           reveal). This complements the card-body min-h fix above. */}
-      <div className="flex h-16 items-stretch">
+      <div
+        className={`flex items-stretch ${
+          gradingLayout === "simple" ? "h-16" : "h-24 sm:h-16"
+        }`}
+      >
       {flipped ? (
         gradingLayout === "simple" ? (
           <div className="grid w-full grid-cols-2 gap-2">
@@ -833,7 +837,7 @@ export function FlashcardTester() {
             ))}
           </div>
         ) : (
-          <div className="grid w-full grid-cols-4 gap-2">
+          <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
             {RATING_BUTTONS.map(({ rating, label, color }, i) => (
               <button
                 key={rating}

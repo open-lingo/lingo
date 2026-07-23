@@ -190,7 +190,7 @@ function PreviewRunner({
         <LessonProgressBar current={stepIdx} total={totalSteps} />
       </div>
 
-      <div className="flex flex-1 flex-col py-4">
+      <div className="flex flex-1 flex-col py-4 [container-type:size]">
         {currentStep && (
           <StepRenderer
             key={currentStep.id}

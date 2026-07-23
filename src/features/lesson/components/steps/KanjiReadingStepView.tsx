@@ -143,7 +143,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
         ) : null}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {step.options.map((option) => (
           <button
             key={option.id}
@@ -160,7 +160,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
 
       {/* Single bottom block (house CTA-harmony): banner + CTA together so
           the button never moves on submit. */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
           <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">

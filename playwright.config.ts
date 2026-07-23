@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -16,6 +17,52 @@ import { defineConfig, devices } from "@playwright/test";
  */
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173";
 const AUTH_STATE = ".auth/user.json";
+// The mobile project always serves its OWN worktree dev server on a configurable
+// port (default 5273, NOT 5173) so it never collides with the developer's main
+// :5173 dev server and never accidentally tests a stale tree. VITE_E2E=true makes
+// the captured :5173 storageState portable to this port.
+const MOBILE_PORT = process.env.MOBILE_PORT ?? "5273";
+const MOBILE_URL = `http://localhost:${MOBILE_PORT}`;
+// The mobile gate attaches the Auth0 storageState only when it actually exists.
+// In CI (or a fresh checkout) the file is absent — the gate then runs the
+// always-green public-route subset (MOBILE_PUBLIC_ONLY=1) with no auth.
+const MOBILE_STORAGE_STATE = fs.existsSync(AUTH_STATE) ? AUTH_STATE : undefined;
+
+// Portable-auth capture mode (CAPTURE_E2E=1, driven by `npm run auth:capture`):
+// serve the worktree WITH VITE_E2E=true on :5173 — the only Auth0-allowlisted
+// origin — so the one-time headed login writes a localStorage-cached, refresh-
+// token-backed session into .auth/user.json that replays on any port. In this
+// mode we start ONLY that server (no reuse of a plain non-E2E :5173, no mobile
+// server) so the captured token is guaranteed portable.
+const CAPTURE_E2E = process.env.CAPTURE_E2E === "1";
+const webServer = CAPTURE_E2E
+  ? [
+      {
+        command: "VITE_E2E=true npm run dev -- --port 5173 --strictPort",
+        url: "http://localhost:5173",
+        reuseExistingServer: false,
+        timeout: 120_000,
+      },
+    ]
+  : [
+      {
+        // Non-mobile e2e: reuse the running dev server if it's already on 5173;
+        // otherwise start it. Unchanged.
+        command: "npm run dev",
+        url: baseURL,
+        reuseExistingServer: true,
+        timeout: 60_000,
+      },
+      {
+        // Mobile render gate: ALWAYS start its own worktree dev server on
+        // MOBILE_PORT (never :5173) with the E2E portable-auth flag on, so the
+        // captured :5173 storageState replays here and we never test a stale tree.
+        command: `VITE_E2E=true npm run dev -- --port ${MOBILE_PORT} --strictPort`,
+        url: MOBILE_URL,
+        reuseExistingServer: false,
+        timeout: 120_000,
+      },
+    ];
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -30,13 +77,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
-  webServer: {
-    // Reuse the running dev server if it's already on 5173; otherwise start it.
-    command: "npm run dev",
-    url: baseURL,
-    reuseExistingServer: true,
-    timeout: 60_000,
-  },
+  webServer,
   projects: [
     {
       name: "chromium-public",
@@ -53,6 +94,23 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], storageState: AUTH_STATE },
       dependencies: ["auth setup"],
       testMatch: /.*\.authed\.spec\.ts$/,
+    },
+    {
+      // Mobile render gate (research §6). Specs set their own per-test viewport
+      // from the VIEWPORTS matrix, so the project fixes only Chrome + auth. The
+      // storageState is attached only if `.auth/user.json` exists; without it the
+      // gate runs the public-route subset (set MOBILE_PUBLIC_ONLY=1). This project
+      // has no `auth setup` dependency — that step is interactive/headed and
+      // cannot run in CI.
+      name: "mobile",
+      testDir: "./tests/mobile",
+      testMatch: /.*\.mobile\.spec\.ts$/,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: MOBILE_URL,
+        deviceScaleFactor: 1,
+        ...(MOBILE_STORAGE_STATE ? { storageState: MOBILE_STORAGE_STATE } : {}),
+      },
     },
   ],
 });

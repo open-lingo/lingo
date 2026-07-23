@@ -10,7 +10,7 @@
 
 /* :where() keeps specificity at zero so utilities like .outline-none can opt out */
 :where(:focus-visible) {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid rgb(var(--color-accent));
   outline-offset: 2px;
 }
 
@@ -334,7 +334,7 @@ ruby {
 .kana-helper {
   font-size: 0.65em;
   font-weight: 500;
-  color: var(--color-accent); /* reading aid rides the theme accent (marginalia red) */
+  color: rgb(var(--color-accent)); /* reading aid rides the theme accent (marginalia red) */
   letter-spacing: 0.02em;
   transition: opacity 200ms ease-out;
   opacity: 1;
@@ -343,7 +343,7 @@ ruby {
   opacity: 0;
 }
 .dark .kana-helper {
-  color: var(--color-accent-hover); /* lifted for dark surfaces */
+  color: rgb(var(--color-accent-hover)); /* lifted for dark surfaces */
 }
 
 /* Readable text shadow for content layered on top of profile banner art.

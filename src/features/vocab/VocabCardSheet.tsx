@@ -78,7 +78,7 @@ export function VocabCardSheet({ open, onClose, row, practiceTo }: Props) {
                   className="h-full rounded-full"
                   style={{
                     width: `${row.retention}%`,
-                    backgroundColor: "var(--color-accent)",
+                    backgroundColor: "rgb(var(--color-accent))",
                   }}
                 />
               </div>

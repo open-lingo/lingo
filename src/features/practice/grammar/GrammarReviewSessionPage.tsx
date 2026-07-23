@@ -143,7 +143,7 @@ function SessionRunner({
         ref={stepContainerRef}
         tabIndex={-1}
         aria-label={t("practice.grammarReview.stepContainer", "Review step")}
-        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-2 outline-none"
+        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-2 outline-none [container-type:size]"
       >
         <div className="flex w-full flex-1 flex-col">
           {currentStep && (

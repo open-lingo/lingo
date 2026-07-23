@@ -5,10 +5,10 @@ import type { MasteryCell } from "../journey";
 
 /** Token-driven colour per tier. Weakest reads hottest so decay draws the eye. */
 const TIER_STYLE: Record<MasteryCell["tier"], { bg: string; label: string }> = {
-  weak: { bg: "var(--color-error)", label: "Needs work" },
-  fading: { bg: "var(--color-warning)", label: "Fading" },
-  solid: { bg: "var(--color-accent)", label: "Solid" },
-  strong: { bg: "var(--color-success)", label: "Strong" },
+  weak: { bg: "rgb(var(--color-error))", label: "Needs work" },
+  fading: { bg: "rgb(var(--color-warning))", label: "Fading" },
+  solid: { bg: "rgb(var(--color-accent))", label: "Solid" },
+  strong: { bg: "rgb(var(--color-success))", label: "Strong" },
 };
 
 const COLLAPSED_COUNT = 24;

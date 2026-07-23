@@ -28,6 +28,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { Card } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+import { ResponsiveTable } from "@/shared/components/ui/ResponsiveTable";
 import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { Icon } from "@/shared/components/Icon";
@@ -676,8 +677,8 @@ function ModerationTable({
   rows: { key: string; cells: React.ReactNode[] }[];
 }) {
   return (
-    <div className="overflow-hidden rounded-card border border-border bg-surface">
-      <table className="w-full text-sm">
+    <ResponsiveTable className="rounded-card border border-border bg-surface">
+      <table className="min-w-full text-sm">
         <thead className="bg-surface-muted text-left text-xs uppercase text-text-muted">
           <tr>
             {head.map((h, i) => (
@@ -695,7 +696,7 @@ function ModerationTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </ResponsiveTable>
   );
 }
 

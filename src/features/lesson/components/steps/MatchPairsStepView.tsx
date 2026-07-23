@@ -257,7 +257,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
       {/* Slot is permanently reserved (min-h matches the CTA) so the
           Continue appearing on finish never grows the page — Spencer:
           "once the continue button shows up I have to scroll again". */}
-      <div className="relative mt-auto flex min-h-14 flex-col justify-end gap-2 pt-6">
+      <div className="relative mt-auto flex min-h-14 flex-col justify-end gap-2 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {finished && (
           <div className="motion-safe:animate-fade-up">
@@ -330,8 +330,8 @@ function SourceTile({
   // so vertical padding stays minimal — big static py inflated each
   // row's min-content floor and forced inner scroll on short windows.
   const sizeClass = audioOnSelect
-    ? "text-[clamp(1.75rem,4.5dvh,3rem)] font-semibold py-1.5"
-    : "text-[clamp(1.375rem,3.8dvh,2.5rem)] font-medium py-1.5";
+    ? "text-[clamp(1.75rem,4.5cqh,3rem)] font-semibold py-1.5"
+    : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-medium py-1.5";
   return (
     <button
       type="button"
@@ -407,8 +407,8 @@ function AudioSelectSourceSurface({
 
 function TargetTile({ pair, style, disabled, onClick, row, audioOnSelect }: SourceTileProps) {
   const sizeClass = audioOnSelect
-    ? "text-[clamp(1.375rem,3.8dvh,2.5rem)] font-semibold py-1.5"
-    : "text-[clamp(1.125rem,3dvh,1.875rem)] font-medium py-1.5";
+    ? "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-semibold py-1.5"
+    : "text-[clamp(1.125rem,3cqh,1.875rem)] font-medium py-1.5";
   return (
     <button
       type="button"

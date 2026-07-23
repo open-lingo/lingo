@@ -14,15 +14,15 @@ export function TrainMascotArt({ className }: { className?: string }) {
       aria-hidden
     >
       {/* body */}
-      <rect x={-18} y={-58} width={36} height={20} rx={6} fill="var(--color-accent)" />
+      <rect x={-18} y={-58} width={36} height={20} rx={6} fill="rgb(var(--color-accent))" />
       {/* roof highlight */}
-      <rect x={-18} y={-58} width={36} height={5} rx={2.5} fill="var(--color-text-primary)" opacity={0.28} />
+      <rect x={-18} y={-58} width={36} height={5} rx={2.5} fill="rgb(var(--color-text-primary))" opacity={0.28} />
       {/* windows */}
       <circle cx={-7} cy={-47} r={4.6} fill="#ffffff" />
       <circle cx={7} cy={-47} r={4.6} fill="#ffffff" />
       {/* eyes */}
-      <circle cx={-6} cy={-47} r={1.9} fill="var(--color-text-primary)" />
-      <circle cx={8} cy={-47} r={1.9} fill="var(--color-text-primary)" />
+      <circle cx={-6} cy={-47} r={1.9} fill="rgb(var(--color-text-primary))" />
+      <circle cx={8} cy={-47} r={1.9} fill="rgb(var(--color-text-primary))" />
       {/* smile */}
       <path
         d="M -3 -41.5 Q 0 -39.5 3 -41.5"
@@ -32,8 +32,8 @@ export function TrainMascotArt({ className }: { className?: string }) {
         strokeLinecap="round"
       />
       {/* wheels */}
-      <circle cx={-10} cy={-37} r={3} fill="var(--color-text-primary)" />
-      <circle cx={10} cy={-37} r={3} fill="var(--color-text-primary)" />
+      <circle cx={-10} cy={-37} r={3} fill="rgb(var(--color-text-primary))" />
+      <circle cx={10} cy={-37} r={3} fill="rgb(var(--color-text-primary))" />
     </svg>
   );
 }

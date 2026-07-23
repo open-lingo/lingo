@@ -176,7 +176,7 @@ export function FirstSessionArc() {
                 updateSetting("learning.dailyGoalMinutes", goal);
                 setStep(2);
               }}
-              className="mt-6 w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+              className="mt-6 w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition hover:bg-accent-hover"
             >
               {t("ftue.goalCommit", "Commit to my goal")}
             </button>
@@ -202,7 +202,7 @@ export function FirstSessionArc() {
               <button
                 type="button"
                 onClick={() => finish(() => navigate(langPath("learn")))}
-                className="w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+                className="w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition hover:bg-accent-hover"
               >
                 {t("ftue.startFromBeginning", "Start from the beginning")}
               </button>

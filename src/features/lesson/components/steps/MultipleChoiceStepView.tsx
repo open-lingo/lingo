@@ -108,7 +108,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             type="button"
             onClick={replayPromptAudio}
             disabled={!ttsAvailable}
-            className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] disabled:cursor-not-allowed disabled:opacity-40"
             aria-label={t("lesson.play", "Play audio")}
           >
             <Icon name="play" size={32} />
@@ -134,7 +134,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             <button
               type="button"
               onClick={replayPromptAudio}
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
               aria-label={t("lesson.play", "Play audio")}
             >
               <Icon name="play" size={14} />
@@ -147,14 +147,17 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      {/* dvh-driven min-height lets option cards grow on tall windows
-          (auto-rows-fr splits the extra height evenly). */}
+      {/* Container-relative min-height: cards grow into the free space of
+          the lesson scroller (`cqh`) on tall windows and shrink on short
+          ones — no `dvh` floor that overflowed short/landscape viewports.
+          The grid's own `auto-rows-fr` + tile content set the natural
+          floor, so no fixed px minimum is needed. */}
       <div
         className={gridClasses}
         style={{
           minHeight: optionsAre4
-            ? "clamp(320px, 52dvh, 640px)"
-            : "clamp(260px, 44dvh, 520px)",
+            ? "min(40rem, 52cqh)"
+            : "min(32.5rem, 44cqh)",
         }}
       >
         {step.options.map((opt, idx) => {
@@ -245,7 +248,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA together
           so the button never moves on submit. */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback correct={false} explanation={step.explanation} />
