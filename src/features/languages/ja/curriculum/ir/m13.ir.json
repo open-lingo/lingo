@@ -103,8 +103,8 @@
           "en": "I don't want to drink tea in the morning."
         },
         {
-          "ja": "きょうは だいがくに いきたくない。",
-          "en": "I don't want to go to university today."
+          "ja": "きょうは みせに いきたくない。",
+          "en": "I don't want to go to the shop today."
         },
         {
           "ja": "ふるい しゃしんは みたくない。",
@@ -171,8 +171,8 @@
           "en": "I didn't want to eat yesterday."
         },
         {
-          "ja": "きのうは だいがくに いきたくなかった。",
-          "en": "I didn't want to go to university yesterday."
+          "ja": "きのうは みせに いきたくなかった。",
+          "en": "I didn't want to go to the shop yesterday."
         },
         {
           "ja": "たかい かばんは かいたくなかった。",
@@ -309,8 +309,8 @@
           "en": "I like looking at old photos."
         },
         {
-          "ja": "わたしは だいがくに いくのが きらいだ。",
-          "en": "I don't like going to university."
+          "ja": "わたしは みせに いくのが きらいだ。",
+          "en": "I don't like going to the shop."
         }
       ],
       "antiPattern": {
@@ -515,6 +515,13 @@
       "gloss": "disliked, dislike",
       "shortGloss": "dislike",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -760,6 +767,7 @@
       "title": "たくない — the wish, turned down",
       "focus": "たい ends in い, so it negates like any い-adjective: drop い, add くない",
       "introduces": [
+        "だいがく",
         "たべたくない",
         "のみたくない",
         "いきたくない",
@@ -885,8 +893,8 @@
             },
             {
               "speaker": "Mika",
-              "ja": "ううん、いきたくない。いえで ほんが みたい。",
-              "en": "Nope, I don't want to go. I want to read a book at home."
+              "ja": "ううん、いきたくない。いえで しゃしんが みたい。",
+              "en": "Nope, I don't want to go. I want to look at photos at home."
             }
           ],
           "questions": [
@@ -1204,8 +1212,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは しずかな いえで ほんが みたい。",
-          "en": "I want to read a book in a quiet house today",
+          "ja": "きょうは しずかな いえで しゃしんが みたい。",
+          "en": "I want to look at photos in a quiet house today",
           "exercises": [
             "na-adj-present",
             "de-action",

@@ -245,6 +245,23 @@ Deliberately not done yet because nothing before m19 needs it. It blocks:
 `ni-iku` (m19), `sugiru` (m27), and in N4 〜ながら / 〜やすい・にくい / 〜たがる
 (m36) — so it must land before m19 or the deferrals compound.
 
+### Next quiet-window batch (after m14 lands, before m15 is dispatched)
+
+1. **TTS pass** — m13's QA fixes changed Japanese text (だいがく debut, しゃしん
+   sentences, みせ rule examples) and the m8–m10 speaker retrofit still owes a
+   Keita synthesis run. Deferred only to avoid racing an authoring agent on the
+   deck files.
+2. **Cross-module vocab-leak guard.** This is now the single most recurrent QA
+   finding — m6 うえ/なか, m7 パーティー, m9 ひゃく, m13 だいがく. The compiler
+   treats "not declared new by this module" as "already known", which is true
+   only if the word was actually taught earlier. `courseAtoms.fromModule` CANNOT
+   be the check — those tags are stale by construction (see the comment in
+   `authoring-context.mjs`; a raw fromModule-ordering scan reports ~10 false
+   positives per module, mostly substring hits like き inside きょう). The
+   accurate source is USAGE in earlier IR modules plus the m1–m5 TS modules,
+   tokenized with `moduleBarGuards`' own tokenizer.
+3. **Stems in the compiler's `KNOWN` set** — see above; must land before m19.
+
 ### Carried debt (batch later, do not derail a module for these)
 
 - ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami

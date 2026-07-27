@@ -143,7 +143,7 @@ grammarPoints:
     examples:
       - { ja: "きょうは ごはんが たべたくない。", en: "I don't want to eat today." }
       - { ja: "あさは ちゃが のみたくない。", en: "I don't want to drink tea in the morning." }
-      - { ja: "きょうは だいがくに いきたくない。", en: "I don't want to go to university today." }
+      - { ja: "きょうは みせに いきたくない。", en: "I don't want to go to the shop today." }
       - { ja: "ふるい しゃしんは みたくない。", en: "I don't want to look at old photos." }
       - { ja: "たかい かばんは かいたくない。", en: "I don't want to buy an expensive bag." }
     antiPattern: { ja: "きょうは ごはんが たべたいくない。", why: "drop the final い before くない — たべたい becomes たべたくない, never たべたいくない" }
@@ -165,7 +165,7 @@ grammarPoints:
     rule: "The last cell stacks two endings you already own: くない for not, かった for was. Drop い, add くなかった — たべたい → たべたくなかった. That closes the table: たべたい・たべたくない・たべたかった・たべたくなかった. Four cells, all adjective, not one だ among them."
     examples:
       - { ja: "きのうは ごはんが たべたくなかった。", en: "I didn't want to eat yesterday." }
-      - { ja: "きのうは だいがくに いきたくなかった。", en: "I didn't want to go to university yesterday." }
+      - { ja: "きのうは みせに いきたくなかった。", en: "I didn't want to go to the shop yesterday." }
       - { ja: "たかい かばんは かいたくなかった。", en: "I didn't want to buy an expensive bag." }
       - { ja: "きのうの あさは ちゃが のみたくなかった。", en: "I didn't want to drink tea yesterday morning." }
     antiPattern: { ja: "きのうは ごはんが たべたくないでした。", why: "です never carries the past for an adjective — たい itself becomes たべたくなかった" }
@@ -205,7 +205,7 @@ grammarPoints:
       - { ja: "ミカは うたを うたうのが すきだ。", en: "Mika likes singing." }
       - { ja: "ともだちと あそぶのが すきだ。", en: "I like hanging out with friends." }
       - { ja: "ふるい しゃしんを みるのが すきだ。", en: "I like looking at old photos." }
-      - { ja: "わたしは だいがくに いくのが きらいだ。", en: "I don't like going to university." }
+      - { ja: "わたしは みせに いくのが きらいだ。", en: "I don't like going to the shop." }
     antiPattern: { ja: "わたしは ごはんを たべるが すきだ。", why: "a verb cannot be marked が on its own — の turns it into a thing first: たべるのが" }
 
 newAtoms:
@@ -258,6 +258,11 @@ newAtoms:
   - { kana: きらい, romaji: kirai, gloss: "disliked, dislike", shortGloss: "dislike", imageable: false, kind: vocab }
   # ══ The module's PICTURE debuts — its own registry allocation, and
   #    deliberately absent from every rule card so the MCQ stays first.
+  # だいがく carries fromModule m19 in courseAtoms, but those tags are stale by
+  # construction (see authoring-context.mjs) and m13 uses it as its running
+  # destination example. Declaring it here gives it a real teach-first debut
+  # instead of arriving as a word the learner is assumed to know.
+  - { kana: だいがく, romaji: daigaku, gloss: "university", imageable: true, kind: vocab }
   - { kana: ふく, romaji: fuku, gloss: "clothes", imageable: true, kind: vocab }
   - { kana: なつやすみ, romaji: natsuyasumi, gloss: "summer holiday", shortGloss: "summer break", imageable: true, kind: vocab }
   - { kana: きっさてん, romaji: kissaten, gloss: "coffee shop", imageable: true, kind: vocab }
@@ -297,7 +302,7 @@ lessons:
     role: teaching
     title: "たくない — the wish, turned down"
     focus: "たい ends in い, so it negates like any い-adjective: drop い, add くない"
-    introduces: [たべたくない, のみたくない, いきたくない, みたくない, かいたくない]
+    introduces: [だいがく, たべたくない, のみたくない, いきたくない, みたくない, かいたくない]
     beats:
       - { kind: rule, grammarPointId: i-adj-negative }
       - { kind: sentence, ja: "きょうは ごはんが たべたくない。", en: "I don't want to eat today", exercises: [wa-topic, i-adj-negative], mode: build }
@@ -312,7 +317,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "きょうは だいがくに いきたい？", en: "Do you want to go to university today?" }
-          - { speaker: "Mika", ja: "ううん、いきたくない。いえで ほんが みたい。", en: "Nope, I don't want to go. I want to read a book at home." }
+          - { speaker: "Mika", ja: "ううん、いきたくない。いえで しゃしんが みたい。", en: "Nope, I don't want to go. I want to look at photos at home." }
         questions:
           - { q: "What does Mika want to do?", options: ["Stay home and look at a book", "Go to university with Ken", "Go to a shop", "Look at photos at university"], answer: "Stay home and look at a book" }
       - { kind: challenge, ja: "きょうは ミカの あたらしい みせに いきたくない。", en: "I don't want to go to Mika's new shop today", combines: [no-possession, i-adj-present, ni-location, i-adj-negative], mode: build }
@@ -359,7 +364,7 @@ lessons:
       - { kind: particle-cloze, stem: "きのうは すしが ", tail: "。", answer: "たべたかった", options: ["たべたかった", "たべたくない", "たべたい"], en: "I wanted to eat sushi yesterday", explanation: "きのう anchors the wish in the past, so the たい goes past too: たべたかった." }
       - { kind: sentence, ja: "きのう ともだちと えきに いきたかった。", en: "I wanted to go to the station with a friend yesterday", exercises: [ni-location, i-adj-past], mode: build }
       - { kind: listening-comp, audio: "あたらしい めがねが かいたい。", answer: "I want to buy new glasses", distractors: ["I bought new glasses", "I don't want new glasses", "I want to buy a new watch"], exercises: [i-adj-present, v-tai] }
-      - { kind: sentence, ja: "きょうは しずかな いえで ほんが みたい。", en: "I want to read a book in a quiet house today", exercises: [na-adj-present, de-action, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは しずかな いえで しゃしんが みたい。", en: "I want to look at photos in a quiet house today", exercises: [na-adj-present, de-action, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは みずが のみたい。", en: "Say to a friend: I want to drink water today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは みずを のみたい。"] }
       - { kind: listening-comp, audio: "きのうは ちゃが のみたかった。", answer: "I wanted to drink tea yesterday", distractors: ["I drank tea yesterday", "I want to drink tea today", "I didn't drink tea yesterday"], exercises: [wa-topic, i-adj-past] }
       - kind: dialogue
