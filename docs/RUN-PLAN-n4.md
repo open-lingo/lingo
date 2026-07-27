@@ -126,3 +126,15 @@ ya-incomplete-list counter-hai kanji-set-2 yori-comparison ichiban-superlative
 no-ga-jouzu no-ga-heta mashou masenka no-ga-suki tari-tari-suru tsumori-desu
 ni-iku koto-ga-aru toki kara-because n-desu sugiru nakereba-naranai
 hou-ga-ii ku-ni-naru kanji-set-3
+
+## Token discipline for this run (learned the hard way)
+
+- **NEVER** call `TaskOutput` with `block: true` on an agent, and never `Read`
+  an agent's `.output` file. Both dump the agent's ENTIRE JSONL transcript into
+  context — one such call cost ~7k tokens for zero information. Wait for the
+  completion notification instead; it arrives on its own and carries only the
+  agent's final report.
+- Ask agents for **≤15-line reports, no file contents pasted**.
+- Prefer `node -e` / `grep -c` one-liners that print a number over reading files.
+- Generate a module's context pack only immediately before authoring it — the
+  pack is derived from `courseAtoms.ts`, so pre-generating goes stale.
