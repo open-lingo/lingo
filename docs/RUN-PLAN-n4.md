@@ -124,6 +124,19 @@ had been ignoring:
   provenance; only `examples:` count as an introduction.
 - Prompts with an internal sentence period trip the inv-29 theatrics guard.
 - Changing any Japanese text requires a TTS regen or the line ships silent.
+- **A guard that runs on already-cleaned text cannot see punctuation bugs.**
+  Every check ran after `clean()` stripped 。, which is exactly why 10 run-on
+  build steps shipped unnoticed. When adding a guard, ask what the input has
+  already had removed from it.
+- **Homograph atoms mis-credit SRS silently.** さん(honorific) counted as 三,
+  に(particle) as 二, ごじ ⊂ ごじゅう. The symptom is never an error — it is a
+  word that quietly stops being scheduled. Check `exercisedAtoms` when adding
+  any short atom.
+- **`i % pool.length` is not rotation, it is repetition** once i exceeds the
+  pool. Filler must track what it has already spent in the lesson.
+
+**TTS owed:** the boundary fix changed ~10 build targets (`です。` now appears
+in tiles/audioKey). Run emit-tts-deck + generate at the next quiet point.
 
 ## N5 coverage checklist (measured 2026-07-27)
 
