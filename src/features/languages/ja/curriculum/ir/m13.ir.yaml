@@ -536,10 +536,10 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "なにを するのが すき？", en: "What do you like doing?" }
-          - { speaker: "Mika", ja: "うたを うたうのが すきだ。ほんを みるのも すきだ。", en: "I like singing. I like reading books too." }
+          - { speaker: "Mika", ja: "うたを うたうのが すきだ。ほんを みるのも すきだ。", en: "I like singing. I like looking at books too." }
         questions:
           - { q: "What does Mika like doing?", options: ["Singing and reading books", "Only singing", "Shopping and singing", "Reading books and shopping"], answer: "Singing and reading books" }
-      - { kind: challenge, ja: "ミカは しずかな いえで ふるい ほんを みるのが すきだ。", en: "Mika likes reading old books in a quiet house", combines: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: build }
+      - { kind: challenge, ja: "ミカは しずかな いえで ふるい ほんを みるのが すきだ。", en: "Mika likes looking at old books in a quiet house", combines: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: build }
     reviewPool: [ごはん, うた, しゃしん, だいがく, みせ, かいもの, ほん, ともだち, ねこ, いぬ, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -556,7 +556,7 @@ lessons:
       - { kind: sentence, ja: "あたらしい きっさてんに いきたい。", en: "I want to go to the new coffee shop", exercises: [i-adj-present, ni-location, v-tai], mode: build }
       - { kind: sentence, ja: "なにが ほしい？", en: "What do you want?", exercises: [ga-hoshii], mode: build }
       - { kind: sentence, ja: "ミカは あたらしい うたが すき？", en: "Does Mika like new songs?", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
-      - { kind: sentence, ja: "きっさてんで ほんを みるのが すきだ。", en: "I like reading books at a coffee shop", exercises: [de-action, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "きっさてんで ほんを みるのが すきだ。", en: "I like looking at books at a coffee shop", exercises: [de-action, wo-object, no-ga-suki], mode: build }
       - { kind: sentence, ja: "きょうは なにが たべたい？", en: "Ask a friend: What do you want to eat today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは なにを たべたい？"] }
       - { kind: particle-cloze, stem: "きょうは きっさてんに ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたくない", "いきたかった"], en: "I want to go to the coffee shop today", explanation: "たい is the plain non-past cell — たくない says you don't want to, たかった says you did." }
       - { kind: listening-comp, audio: "ミカは きっさてんで ちゃを のむのが すきだ。", answer: "Mika likes drinking tea at the coffee shop", distractors: ["Mika likes drinking tea at home", "Mika doesn't like tea", "Mika wants to drink tea at the coffee shop"], exercises: [de-action, wo-object, no-ga-suki] }
@@ -607,7 +607,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "きょうは ミカと ゆうめいな きっさてんで おいしい ちゃが のみたい。", en: "I want to drink good tea with Mika at a famous coffee shop today", exercises: [na-adj-present, de-action, i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きのうは あたらしい ふくが かいたくなかった。", en: "I didn't want to buy new clothes yesterday", exercises: [wa-topic, i-adj-present, i-adj-past-negative], mode: build }
-      - { kind: sentence, ja: "わたしは しずかな いえで ほんを みるのが すきだ。", en: "I like reading books in a quiet house", exercises: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: listening }
+      - { kind: sentence, ja: "わたしは しずかな いえで ほんを みるのが すきだ。", en: "I like looking at books in a quiet house", exercises: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: listening }
       - { kind: sentence, ja: "ミカの ゆうめいな みせの りょうりが たべたい。", en: "I want to eat the food at Mika's famous shop", exercises: [no-possession, na-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きのう ケンと にぎやかな えきで かいものが したかった。", en: "I wanted to go shopping with Ken at the lively station yesterday", exercises: [na-adj-present, de-action, i-adj-past], mode: build }
       - { kind: sentence, ja: "なつやすみに ともだちと うみに いきたい。", en: "I want to go to the sea with a friend in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }

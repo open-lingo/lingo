@@ -158,9 +158,9 @@ notes: |
 
 grammarPoints:
   - id: dictionary-form
-    rule: "A relative clause in Japanese is just a sentence parked in front of a noun. There is no \"that\", no \"which\", no \"who\" — you put the whole sentence there and the noun it lands in front of is what the sentence is about. 「ほんを みる」 is a sentence; 「ほんを みる ひと」 is the person who reads books. Nothing is added and nothing is reordered. One rule only: the verb inside the clause stays PLAIN. ます is the politeness of the whole SENTENCE, and it can only ever sit on the last verb — never inside a clause."
+    rule: "A relative clause in Japanese is just a sentence parked in front of a noun. There is no \"that\", no \"which\", no \"who\" — you put the whole sentence there and the noun it lands in front of is what the sentence is about. 「ほんを みる」 is a sentence; 「ほんを みる ひと」 is the person who looks at books. Nothing is added and nothing is reordered. One rule only: the verb inside the clause stays PLAIN. ます is the politeness of the whole SENTENCE, and it can only ever sit on the last verb — never inside a clause."
     examples:
-      - { ja: "ほんを みる ひとが いる。", en: "There is a person who reads books." }
+      - { ja: "ほんを みる ひとが いる。", en: "There is a person who looks at books." }
       - { ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika." }
       - { ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea." }
       - { ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat." }
@@ -188,7 +188,7 @@ grammarPoints:
     rule: "You already turn a verb into a thing with の — 「たべるのが すきだ」. こと does the identical job: 「たべる ことが すきだ」. And it is the same shape you have been building all module — a plain clause in front of a noun — except the noun is こと, \"the act of\", so the clause becomes something you can like, hate, or make the subject of a sentence. Both are right; の is the spoken half and こと the written half. こと is also an ordinary noun meaning \"thing\" in the abstract sense: 「わからない ことが ある」 = there is something I don't understand."
     examples:
       - { ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea." }
-      - { ja: "ほんを みる ことが すきだ。", en: "I like reading books." }
+      - { ja: "ほんを みる ことが すきだ。", en: "I like looking at books." }
       - { ja: "あさ はたらく ことは きらいだ。", en: "I hate working in the morning." }
       - { ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun." }
       - { ja: "わからない ことが ある。", en: "There is something I don't understand." }
@@ -254,23 +254,23 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: dictionary-form }
-      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who reads books", exercises: [dictionary-form, wo-object, ga-existence], mode: build }
+      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who looks at books", exercises: [dictionary-form, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika", exercises: [dictionary-form, wa-topic], mode: build }
       - { kind: sentence, ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea", exercises: [dictionary-form, de-action, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "きっさてんで はたらく ひとと あそぶ。", en: "I hang out with the person who works at the coffee shop", exercises: [dictionary-form, de-action, to-and], mode: listening }
       - { kind: sentence, ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat", exercises: [dictionary-form, nai-existence], mode: build }
       - { kind: sentence, ja: "にほんに いく ひとは ともだちだ。", en: "The person going to Japan is my friend", exercises: [dictionary-form, ni-location, wa-topic], mode: build }
       - { kind: sentence, ja: "あたらしい くるまを うる みせに いく。", en: "I go to the shop that sells new cars", exercises: [dictionary-form, i-adj-present, ni-location], mode: build }
-      - { kind: sentence, ja: "ほんを みる ひとが すきだ。", en: "Say to a friend: I like people who read books", exercises: [dictionary-form, suki-kirai-no], mode: translate }
-      - { kind: particle-cloze, stem: "ほんを ", tail: " ひとが いる。", answer: "みる", options: ["みる", "みます", "みません"], en: "There is a person who reads books", explanation: "the verb inside a clause stays plain — みる. a polite form belongs at the end of a sentence, never inside a clause." }
+      - { kind: sentence, ja: "ほんを みる ひとが すきだ。", en: "Say to a friend: I like people who look at books", exercises: [dictionary-form, suki-kirai-no], mode: translate }
+      - { kind: particle-cloze, stem: "ほんを ", tail: " ひとが いる。", answer: "みる", options: ["みる", "みます", "みません"], en: "There is a person who looks at books", explanation: "the verb inside a clause stays plain — みる. a polite form belongs at the end of a sentence, never inside a clause." }
       - { kind: listening-comp, audio: "うみで およぐ ひとが いる。", answer: "There is a person who swims in the sea", distractors: ["There is a person who swims in the river", "I want to swim in the sea", "The person swam in the sea"], exercises: [dictionary-form, de-action] }
       - { kind: listening-comp, audio: "きっさてんで はたらく ひとは ケンだ。", answer: "The person who works at the coffee shop is Ken", distractors: ["The person who works at the shop is Ken", "Ken goes to the coffee shop", "Ken is waiting at the coffee shop"], exercises: [dictionary-form, de-action, wa-topic] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あそこで ほんを みる ひとは だれ？", en: "Who's that person reading a book over there?" }
-          - { speaker: "Tom", ja: "ケンだ。ケンは よく きっさてんで ほんを みる。", en: "That's Ken. Ken often reads books at the coffee shop." }
+          - { speaker: "Mika", ja: "あそこで ほんを みる ひとは だれ？", en: "Who's that person looking at a book over there?" }
+          - { speaker: "Tom", ja: "ケンだ。ケンは よく きっさてんで ほんを みる。", en: "That's Ken. Ken often looks at books at the coffee shop." }
         questions:
-          - { q: "Where does Ken often read books?", options: ["At the coffee shop", "At the station", "At the shop", "At university"], answer: "At the coffee shop" }
+          - { q: "Where does Ken often look at books?", options: ["At the coffee shop", "At the station", "At the shop", "At university"], answer: "At the coffee shop" }
       - { kind: challenge, ja: "きっさてんで はたらく ひとは ミカの あたらしい ともだちだ。", en: "The person who works at the coffee shop is Mika's new friend", combines: [dictionary-form, de-action, no-possession, wa-topic], mode: build }
     reviewPool: [ほん, ちゃ, ひと, うみ, きっさてん, じかん, くるま, みせ, ともだち, にほん]
 
@@ -337,7 +337,7 @@ lessons:
     focus: "non-past clauses, past clauses, and the clause's own が, side by side"
     introduces: []
     beats:
-      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who reads books", exercises: [dictionary-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who looks at books", exercises: [dictionary-form, ga-existence], mode: build }
       - { kind: sentence, ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday", exercises: [ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet", exercises: [ga-existence, ta-form, na-adj-present], mode: listening }
       - { kind: sentence, ja: "きのう みた えいがは おもしろい。", en: "The movie I saw yesterday is interesting", exercises: [ta-form, i-adj-present], mode: build }
@@ -366,7 +366,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: no-ga-suki }
       - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: build }
-      - { kind: sentence, ja: "ほんを みる ことが すきだ。", en: "I like reading books", exercises: [no-ga-suki, wo-object], mode: build }
+      - { kind: sentence, ja: "ほんを みる ことが すきだ。", en: "I like looking at books", exercises: [no-ga-suki, wo-object], mode: build }
       - { kind: sentence, ja: "あさ はたらく ことは きらいだ。", en: "I hate working in the morning", exercises: [no-ga-suki, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカは うたを きく ことが すきだ。", en: "Mika likes listening to songs", exercises: [no-ga-suki, wa-topic], mode: listening }
       - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
@@ -375,7 +375,7 @@ lessons:
       - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
       - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki], mode: translate }
       - { kind: particle-cloze, stem: "うみで およぐ ", tail: " すきだ。", answer: "ことが", options: ["ことが", "ことを", "ことに"], en: "I like swimming in the sea", explanation: "こと turns the clause into a thing, and what you like takes が — the same が as ほしい and すき." }
-      - { kind: listening-comp, audio: "ケンは ほんを かう ことが すきだ。", answer: "Ken likes buying books", distractors: ["Ken likes reading books", "Ken bought a book", "Ken doesn't like books"], exercises: [no-ga-suki, wa-topic] }
+      - { kind: listening-comp, audio: "ケンは ほんを かう ことが すきだ。", answer: "Ken likes buying books", distractors: ["Ken likes looking at books", "Ken bought a book", "Ken doesn't like books"], exercises: [no-ga-suki, wa-topic] }
       - { kind: listening-comp, audio: "あさ およぐ ことは きらいだ。", answer: "I hate swimming in the morning", distractors: ["I like swimming in the morning", "I don't swim in the morning", "I swam in the morning"], exercises: [no-ga-suki, wa-topic] }
       - kind: dialogue
         lines:
@@ -597,12 +597,12 @@ lessons:
       - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: translate }
       - { kind: particle-cloze, stem: "きのう ", tail: " えいがは おもしろい。", answer: "みた", options: ["みた", "みる", "みます"], en: "The movie I saw yesterday is interesting", explanation: "the clause is in the plain past — みた. みます could never sit inside a clause." }
       - { kind: listening-comp, audio: "ミカが すきな みせで あたらしい くつを かった。", answer: "I bought new shoes at the shop Mika likes", distractors: ["Mika bought new shoes at the shop", "I bought new shoes for Mika", "I like the shoes Mika bought"], exercises: [ga-existence, na-adj-present, de-action] }
-      - { kind: listening-comp, audio: "じかんが ある とき ほんを みる ことが すきだ。", answer: "When I have time, I like reading books", distractors: ["I have no time to read books", "When I had time, I read a book", "I like buying books when I have time"], exercises: [toki, no-ga-suki] }
+      - { kind: listening-comp, audio: "じかんが ある とき ほんを みる ことが すきだ。", answer: "When I have time, I like looking at books", distractors: ["I have no time to look at books", "When I had time, I looked at a book", "I like buying books when I have time"], exercises: [toki, no-ga-suki] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "りょこうに いく まえに なにを かった？", en: "What did you buy before going on the trip?" }
           - { speaker: "Mika", ja: "あたらしい くつを かった。ケンが すきな みせで かった。", en: "I bought new shoes. I bought them at the shop Ken likes." }
         questions:
           - { q: "Where did Mika buy the new shoes?", options: ["At a shop Ken likes", "At the station", "At a shop in Japan", "She hasn't bought them yet"], answer: "At a shop Ken likes" }
-      - { kind: challenge, ja: "じかんが ある とき ミカが かった ほんを みる ことが すきだ。", en: "When I have time, I like reading the book Mika bought", combines: [toki, ga-existence, ta-form, no-ga-suki], mode: build }
+      - { kind: challenge, ja: "じかんが ある とき ミカが かった ほんを みる ことが すきだ。", en: "When I have time, I like looking at the book Mika bought", combines: [toki, ga-existence, ta-form, no-ga-suki], mode: build }
     reviewPool: [こと, とき, まえ, えいが, くつ, りょこう, ほん, ちゃ, みせ, じかん]

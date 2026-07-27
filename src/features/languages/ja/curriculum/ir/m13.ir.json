@@ -2391,7 +2391,7 @@
             {
               "speaker": "Mika",
               "ja": "うたを うたうのが すきだ。ほんを みるのも すきだ。",
-              "en": "I like singing. I like reading books too."
+              "en": "I like singing. I like looking at books too."
             }
           ],
           "questions": [
@@ -2410,7 +2410,7 @@
         {
           "kind": "challenge",
           "ja": "ミカは しずかな いえで ふるい ほんを みるのが すきだ。",
-          "en": "Mika likes reading old books in a quiet house",
+          "en": "Mika likes looking at old books in a quiet house",
           "combines": [
             "wa-topic",
             "na-adj-present",
@@ -2520,7 +2520,7 @@
         {
           "kind": "sentence",
           "ja": "きっさてんで ほんを みるのが すきだ。",
-          "en": "I like reading books at a coffee shop",
+          "en": "I like looking at books at a coffee shop",
           "exercises": [
             "de-action",
             "wo-object",
@@ -2870,7 +2870,7 @@
         {
           "kind": "sentence",
           "ja": "わたしは しずかな いえで ほんを みるのが すきだ。",
-          "en": "I like reading books in a quiet house",
+          "en": "I like looking at books in a quiet house",
           "exercises": [
             "wa-topic",
             "na-adj-present",

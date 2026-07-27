@@ -64,11 +64,11 @@
   "grammarPoints": [
     {
       "id": "dictionary-form",
-      "rule": "A relative clause in Japanese is just a sentence parked in front of a noun. There is no \"that\", no \"which\", no \"who\" — you put the whole sentence there and the noun it lands in front of is what the sentence is about. 「ほんを みる」 is a sentence; 「ほんを みる ひと」 is the person who reads books. Nothing is added and nothing is reordered. One rule only: the verb inside the clause stays PLAIN. ます is the politeness of the whole SENTENCE, and it can only ever sit on the last verb — never inside a clause.",
+      "rule": "A relative clause in Japanese is just a sentence parked in front of a noun. There is no \"that\", no \"which\", no \"who\" — you put the whole sentence there and the noun it lands in front of is what the sentence is about. 「ほんを みる」 is a sentence; 「ほんを みる ひと」 is the person who looks at books. Nothing is added and nothing is reordered. One rule only: the verb inside the clause stays PLAIN. ます is the politeness of the whole SENTENCE, and it can only ever sit on the last verb — never inside a clause.",
       "examples": [
         {
           "ja": "ほんを みる ひとが いる。",
-          "en": "There is a person who reads books."
+          "en": "There is a person who looks at books."
         },
         {
           "ja": "ちゃを のむ ひとは ミカだ。",
@@ -162,7 +162,7 @@
         },
         {
           "ja": "ほんを みる ことが すきだ。",
-          "en": "I like reading books."
+          "en": "I like looking at books."
         },
         {
           "ja": "あさ はたらく ことは きらいだ。",
@@ -342,7 +342,7 @@
         {
           "kind": "sentence",
           "ja": "ほんを みる ひとが いる。",
-          "en": "There is a person who reads books",
+          "en": "There is a person who looks at books",
           "exercises": [
             "dictionary-form",
             "wo-object",
@@ -417,7 +417,7 @@
         {
           "kind": "sentence",
           "ja": "ほんを みる ひとが すきだ。",
-          "en": "Say to a friend: I like people who read books",
+          "en": "Say to a friend: I like people who look at books",
           "exercises": [
             "dictionary-form",
             "suki-kirai-no"
@@ -434,7 +434,7 @@
             "みます",
             "みません"
           ],
-          "en": "There is a person who reads books",
+          "en": "There is a person who looks at books",
           "explanation": "the verb inside a clause stays plain — みる. a polite form belongs at the end of a sentence, never inside a clause."
         },
         {
@@ -472,17 +472,17 @@
             {
               "speaker": "Mika",
               "ja": "あそこで ほんを みる ひとは だれ？",
-              "en": "Who's that person reading a book over there?"
+              "en": "Who's that person looking at a book over there?"
             },
             {
               "speaker": "Tom",
               "ja": "ケンだ。ケンは よく きっさてんで ほんを みる。",
-              "en": "That's Ken. Ken often reads books at the coffee shop."
+              "en": "That's Ken. Ken often looks at books at the coffee shop."
             }
           ],
           "questions": [
             {
-              "q": "Where does Ken often read books?",
+              "q": "Where does Ken often look at books?",
               "options": [
                 "At the coffee shop",
                 "At the station",
@@ -915,7 +915,7 @@
         {
           "kind": "sentence",
           "ja": "ほんを みる ひとが いる。",
-          "en": "There is a person who reads books",
+          "en": "There is a person who looks at books",
           "exercises": [
             "dictionary-form",
             "ga-existence"
@@ -1113,7 +1113,7 @@
         {
           "kind": "sentence",
           "ja": "ほんを みる ことが すきだ。",
-          "en": "I like reading books",
+          "en": "I like looking at books",
           "exercises": [
             "no-ga-suki",
             "wo-object"
@@ -1209,7 +1209,7 @@
           "audio": "ケンは ほんを かう ことが すきだ。",
           "answer": "Ken likes buying books",
           "distractors": [
-            "Ken likes reading books",
+            "Ken likes looking at books",
             "Ken bought a book",
             "Ken doesn't like books"
           ],
@@ -2744,10 +2744,10 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが ある とき ほんを みる ことが すきだ。",
-          "answer": "When I have time, I like reading books",
+          "answer": "When I have time, I like looking at books",
           "distractors": [
-            "I have no time to read books",
-            "When I had time, I read a book",
+            "I have no time to look at books",
+            "When I had time, I looked at a book",
             "I like buying books when I have time"
           ],
           "exercises": [
@@ -2785,7 +2785,7 @@
         {
           "kind": "challenge",
           "ja": "じかんが ある とき ミカが かった ほんを みる ことが すきだ。",
-          "en": "When I have time, I like reading the book Mika bought",
+          "en": "When I have time, I like looking at the book Mika bought",
           "combines": [
             "toki",
             "ga-existence",

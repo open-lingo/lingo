@@ -32,9 +32,15 @@ describe("earlier IR vocabulary is visible to later modules", () => {
   const files = readdirSync(IR_DIR)
     .filter((f) => f.endsWith(".ir.json"))
     .sort((a, b) => moduleIndex(a) - moduleIndex(b));
-  const latest = files[files.length - 1];
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const ir: ModuleIR & { priorAtoms?: { kana: string }[] } = require(join(IR_DIR, latest));
+  // The newest module with lessons — a module part-way through authoring has a
+  // skeleton .ir.json, and this guard is about the compiler, not about catching
+  // work in progress.
+  type Ir = ModuleIR & { priorAtoms?: { kana: string }[] };
+  const ir = files
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    .map((f) => require(join(IR_DIR, f)) as Ir)
+    .filter((m) => m.lessons?.[0]?.beats?.length)
+    .pop() as Ir;
 
   it("carries prior IR atoms into the newest module", () => {
     expect(ir.priorAtoms?.length ?? 0).toBeGreaterThan(50);
