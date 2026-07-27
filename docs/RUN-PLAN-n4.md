@@ -78,17 +78,25 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 (m18 in flight) |
 | N5 grammar points left | **35** of 103 (was 74 at run start) |
 | suite | 6559 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
-| untaught words shipping as options | **0** (was routine) |
+| distinct step types | 10–12 per module |
+| audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
+| untaught words shipping as options | **0** |
+| spoken surfaces with no clip | **0** of ~1,700 |
 
-QA has found a defect in every module so far, and **every single one turned out
-to be a compiler bug rather than a content bug** — run-on sentence fusion, the
-さん/三 homograph, filler repetition, the kana→atom twin maps, distractor pools
-drawing on future vocabulary. Sonnet reading four lessons per module is
+QA has found a defect in nearly every module, and **almost every one was a
+compiler or tooling bug rather than a content bug** — run-on sentence fusion,
+the さん/三 homograph, filler repetition, the kana→atom twin maps, distractor
+pools drawing on future vocabulary, prior IR vocabulary being invisible, five
+separate silent-audio classes. Sonnet reading four lessons per module is
 comfortably the highest-yield step in the loop; do not drop it to save tokens.
+
+The authoring agents have been right and the BRIEF wrong three times running
+(m15 とき tense, m16 made-until, m17 the そと family set). "The spine wins, and
+you say so in your report" is doing real work — keep that line in every brief.
 
 ## Standing decisions (mine, documented per instruction)
 
