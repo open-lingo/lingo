@@ -162,6 +162,25 @@ The authoring agents have been right and the BRIEF wrong three times running
 (m15 とき tense, m16 made-until, m17 the そと family set). "The spine wins, and
 you say so in your report" is doing real work — keep that line in every brief.
 
+## ⚑ Open questions for Spencer (NOT decided by me)
+
+- **inv 35 authoring debt** — 99 build steps across all modules are under the
+  distractor floor as authored; `buildTileFloor` backfills them so nothing
+  ships thin. Is the backfill sufficient, or should authors write the
+  distractors anyway? The bar came from your own QA note, *"we give them the
+  answer a little too easy"*, which is why I have not relaxed it myself.
+- **ら抜き in the flashcard deck (m24).** The course teaches たべれる / みれる
+  for RECOGNITION and bans them as production targets — enforced by a guard in
+  `m24-neo.test.ts`. But both atoms are SRS-eligible, so they enter the vocab
+  deck, and a card prompting EN→JA would ask the learner to PRODUCE ら抜き —
+  the one thing the design forbids. The lesson-side ban cannot see the deck.
+  Three options: leave it (recognition value outweighs it), set
+  `excludeFromSrs` (recognition then decays after m24), or make the deck
+  direction per-atom. This is a curriculum call, not a mechanical one.
+- **Overlapping two authoring agents** for throughput — trades correctness
+  margin for speed. Currently one authoring agent at a time, with QA for the
+  previous module running alongside it.
+
 ## Standing decisions (mine, documented per instruction)
 
 1. **Module shape** stays inv 25: 12–15 lessons = 8–11 teaching + 3 review +
