@@ -547,7 +547,14 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // けど — which is also how a symptom is actually spoken, because you say what
   // hurts in order to say what you will do about it. Floor set three sentences
   // below the measurement, per this block's own rule. Raised, never lowered.
-  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.44,
+  // m23 recalibrated 0.44 → 0.90 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m23 (the potential-form drills); the neo module —
+  // spine tile s22 — measures 78/83 = .940, the highest in the course, and it
+  // is structural rather than decorative: 「〜た ことが ある」 is already a
+  // subordinate clause before anything is said about it, and the module's
+  // second half is ABOUT stacking clauses (とき, てから/まえに, と おもう). Floor
+  // set three sentences below the measurement. Raised, never lowered.
+  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.

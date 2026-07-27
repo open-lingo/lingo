@@ -111,15 +111,16 @@ describe("curriculum lesson counts", () => {
     expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("m23-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
+  it("m24-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
     // m4/m5/m6 (2026-07-20), m7-m11 (2026-07-26, the first modules on the
     // 11+3+1 shape), m12 (tile s09), m13 (tile n05), m14 (2026-07-27, tile
     // n06b), m15 (2026-07-27, tile s11), m16 (2026-07-27, tile s13), m17
     // (2026-07-27, tile n07), m18 (2026-07-27, tile n08), m19 (2026-07-27,
-    // tile s15), m20 (2026-07-27, tile n09), m21 (2026-07-27, tile s19) and
-    // m22 (2026-07-27, tile s17) are authored via the compiler pipeline. The
-    // frontier advances as rewrite cycles land modules.
-    for (let n = 23; n <= 29; n++) {
+    // tile s15), m20 (2026-07-27, tile n09), m21 (2026-07-27, tile s19),
+    // m22 (2026-07-27, tile s17) and m23 (2026-07-27, tile s22) are authored
+    // via the compiler pipeline. The frontier advances as rewrite cycles land
+    // modules.
+    for (let n = 24; n <= 29; n++) {
       const mod = course.modules.find((m) => m.id === `m${n}`)!;
       expect(mod, `m${n} missing`).toBeDefined();
       expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);

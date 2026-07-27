@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m22 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17) are LIVE via the compiler pipeline — slice
-    // them off so the placeholders begin at m23. NB the SPINE_COMING_SOON array
-    // still lists s11 before n06b (draft-3 order); draft-4 swapped them, which
-    // is why m14 is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(17).map((t, i) => ({
-      id: `m${i + 23}`,
+    // m6-m23 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22) are LIVE via the compiler pipeline —
+    // slice them off so the placeholders begin at m24. NB the SPINE_COMING_SOON
+    // array still lists s11 before n06b (draft-3 order); draft-4 swapped them,
+    // which is why m14 is n06b and m15 is s11. Only the COUNT sliced matters.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(18).map((t, i) => ({
+      id: `m${i + 24}`,
       title: t.title,
-      eyebrow: `Module ${i + 23} · Coming soon`,
+      eyebrow: `Module ${i + 24} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -836,6 +836,38 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m22-neo-challenge", title: "Challenge — say what hurts, and ask what you may do about it", status: "available" as const },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
+        },
+        {
+          // m23 = spine tile s22. Neither construction is a tense. 「にほんに
+          // いった ことが ある」 says the EXPERIENCE exists — こと + が + ある,
+          // which is why its negative is 「ことが ない」 and never a past
+          // negative — and 「いく つもりだ」 is a DECISION, not a future and not
+          // a wish, which is why 「いきたいけど いく つもりは ない」 is a
+          // coherent sentence. It is also the deepen beat on subordinate
+          // clauses (spiral partner of s11/m15): the 「いく とき」/「いった とき」
+          // relative-tense flip, 〜てから against 〜まえに, and a whole つもり
+          // clause quoted under と おもう. する's plain past appears nowhere —
+          // した is the atom for 下 "below".
+          id: "m23",
+          title: "Experience & intent",
+          eyebrow: "Module 23 · Travel",
+          summary: "\u300Cにほんに いった ことが ある\u300D — I have been to Japan, ever, at some point. That is not the past tense: it says the EXPERIENCE exists, so it is built from こと, が and ある, and 「ことが ない」 is how you say never. 「いく つもりだ」 is the other half — a plan you have made, hanging off the plain dictionary form, and 「いきたいけど いく つもりは ない」 is why wanting and deciding are different words. Then the clauses get harder: 「いく とき」 against 「いった とき」, 〜てから against 〜まえに, and a whole plan quoted under と おもう. Reading set 2 lands along the way: 山 川 海 上 下 小さい 足 来る.",
+          lessons: [
+            { id: "ja-m23-neo-1", title: "\u300Cにほんに いった ことが ある\u300D — ever, not yesterday", status: "available" as const },
+            { id: "ja-m23-neo-2", title: "\u300Cのった ことが ない\u300D — never, and have you ever", status: "available" as const },
+            { id: "ja-m23-neo-3", title: "\u300Cいく つもりだ\u300D — the plan you have made", status: "available" as const },
+            { id: "ja-m23-neo-review-1", title: "Review — what you have done, and what you mean to do", status: "available" as const },
+            { id: "ja-m23-neo-5", title: "\u300Cいきたいけど いく つもりは ない\u300D — wanting is not deciding", status: "available" as const },
+            { id: "ja-m23-neo-6", title: "\u300Cのまない つもりだ\u300D — deciding NOT to", status: "available" as const },
+            { id: "ja-m23-neo-7", title: "山, 川, 海 — reading set 2", status: "available" as const },
+            { id: "ja-m23-neo-review-2", title: "Review — wanting, deciding not to, and reading cold", status: "available" as const },
+            { id: "ja-m23-neo-9", title: "\u300Cいく とき\u300D と \u300Cいった とき\u300D — which side of the when", status: "available" as const },
+            { id: "ja-m23-neo-10", title: "\u300Cかってから のる\u300D — putting a trip in order", status: "available" as const },
+            { id: "ja-m23-neo-11", title: "\u300Cいく つもりだと おもう\u300D — quoting a whole plan", status: "available" as const },
+            { id: "ja-m23-neo-review-3", title: "Review — the when, the order and the quoted plan", status: "available" as const },
+            { id: "ja-m23-neo-challenge", title: "Challenge — everything you have ever done, and everything you mean to", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

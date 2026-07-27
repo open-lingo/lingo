@@ -9,7 +9,18 @@ make and document; he'll flag them later if he disagrees.
 
 **Last commit: `711549c6`. Working tree clean apart from m23's in-flight work.**
 
-- **DONE and committed:** m11–m22. QA verdicts SHIP for m20, m21, m22.
+- **DONE and committed:** m11–m23. QA verdicts SHIP for m20, m21, m22; m23 QA
+  dispatched. Gate re-run independently for m23: 7423 passing, audit row `—`,
+  m23 complexity floor RAISED 0.44 → 0.90, no guard weakened.
+- **m23 claim that needed correcting** (the fourth cycle running): the agent
+  reported した "banned module-wide". It is banned from SURFACES, which is the
+  right scope and what its guard actually asserts — but one した tile ships in
+  `ja-m23-neo-review-3-s-5` as a distractor, injected by the `buildTileFloor`
+  backfill from the prior-atom pool. Harmless (下 "below" is taught, and it is
+  never in `correctOrder`), but note the general point: **a module guard over
+  authored surfaces cannot see backfilled tiles.** If a future module needs a
+  token kept out of the tile bank entirely, the guard has to read compiled
+  `tiles`, not the IR.
 - **Audit table now reads `—` for every module m6–m22.** m10's 6 "single-tile
   builds" were its 6 register beats: the ladder compiles to a `build_sentence`
   that is a PICKER (choose the politeness variant), so one slot is correct.
@@ -56,7 +67,7 @@ partial success has burned this project repeatedly.
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
 m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
-m18 n08 · m19 s15 · m20 n09 · m21 s19.
+m18 n08 · m19 s15 · m20 n09 · m21 s19 · m22 s17 · m23 s22.
 
 | m | unit | title |
 |---|---|---|
@@ -110,10 +121,10 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 |
-| N5 grammar points left | **18** of 103 (was 74 at run start) |
-| suite | 7278 passing, 0 failing |
-| translate share | 8.1–13.6% (ceiling 15%); m22 = 10.1% |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 m23 |
+| N5 grammar points left | **15** of 103 (was 74 at run start) |
+| suite | 7423 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%); m23 = 10.4% |
 | distinct step types | 10–12 per module |
 | audit findings | **0 module-specific** for every module except m10 (1, its register single-tile builds, by design). The course-wide inv-35 debt now has its OWN column and is no longer counted as a per-module finding — see the audit-signal fix of 2026-07-27. `findings = —` means clean. |
 | QA verdicts | m20 SHIP · m21 SHIP · m22 SHIP (first three clean modules of the run; every earlier module had at least one defect, almost always a compiler bug rather than content) |
@@ -318,6 +329,25 @@ otherwise.
   happens to pick that sentence. Nine of m22's LCs collided and only three
   failed. Scan the IR for the collision rather than trusting the suite.
 
+- **The plain past is a MINEFIELD of registered homographs, and m23 measured it
+  rather than assuming.** 「した」 (する) is the m17 atom for 下 "below" and
+  「きた」 (くる) is the m17 atom for 北 "north", so 「〜した ことが ある」 tiles
+  した and credits the wrong word with nothing erroring. 「あった」 is
+  unregistered and must STAY unregistered — ある's past and 会う's past share the
+  kana, so a row for either silently mis-credits the other. 「はいった」
+  fragments to はい + った (the m3 interjection eating the stem) — the same
+  greedy-match class as きょうは|いかない. The safe plain-past atoms are the m11
+  set (たべた のんだ きいた みた かった あそんだ いった わかった) plus m23's
+  のった / およいだ / はたらいた, every one of which was checked against the whole
+  corpus for zero prior occurrences before registration.
+- **A word can be in the context pack, in courseAtoms, AND untaught.** m23
+  caught はやい that way (the pack lists it; no neo module teaches it) and also
+  では — an ATOM meaning "with that…" that nothing teaches, which 「うみでは」
+  fuses で + は into. Same family as からだ ⊃ から + だ and ので ⊂ のです. The
+  cheap check is to tokenize every authored surface with the COMPILER's
+  vocabulary and then test each token against `priorVocab`; it takes one script
+  and it found both in one pass.
+
 **TTS owed:** the boundary fix changed ~10 build targets (`です。` now appears
 in tiles/audioKey). Run emit-tts-deck + generate at the next quiet point.
 
@@ -353,7 +383,7 @@ teaches four counters at once is a table, not a lesson).
 | 20 | yori-comparison numbers-100-10000 counter-ko | ✅
 | 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** | ✅
 | 22 | ga-itai frequency-adverbs **counter-hon** | ✅
-| 23 | koto-ga-aru tsumori-desu kanji-set-2 |
+| 23 | koto-ga-aru tsumori-desu kanji-set-2 | ✅
 | 24 | mashou masenka no-ga-jouzu no-ga-heta |
 | 25 | deshou |
 | 26 | ichiban-superlative |

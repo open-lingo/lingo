@@ -1,0 +1,6179 @@
+{
+  "module": "m23",
+  "title": "Experience & intent: 〜た ことが ある, つもり",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18",
+    "m19",
+    "m20",
+    "m21",
+    "m22"
+  ],
+  "priorGrammarPoints": [
+    "ka-question",
+    "desu-copula",
+    "no-possession",
+    "kore-sore-are-dore",
+    "kono-sono-ano-dono",
+    "dare",
+    "koko-soko-asoko",
+    "location-qa",
+    "ga-existence",
+    "arimasu",
+    "imasu",
+    "wo-object",
+    "ni-location",
+    "ni-time",
+    "de-action",
+    "e-direction",
+    "masu-present",
+    "masu-past",
+    "masu-negative",
+    "masu-past-negative",
+    "kara-origin",
+    "kara-time",
+    "made-until",
+    "made-ni",
+    "mae-ni",
+    "dictionary-form",
+    "ta-form",
+    "i-adj-present",
+    "i-adj-past-negative",
+    "na-adj-present",
+    "na-adj-negative",
+    "ga-hoshii",
+    "no-ga-suki",
+    "suki-kirai-no",
+    "mada-mou",
+    "kara-because",
+    "node-because",
+    "kedo",
+    "te-iru",
+    "te-form",
+    "te-kudasai",
+    "te-wa-ikemasen",
+    "te-mo-ii",
+    "kudasai",
+    "naide-kudasai",
+    "to-quotation",
+    "ni-iku",
+    "ga-itai",
+    "frequency-adverbs",
+    "numbers-1-10",
+    "numbers-11-99",
+    "numbers-100-10000",
+    "counter-ji",
+    "counter-fun",
+    "counter-tsu",
+    "counter-ko",
+    "counter-sai",
+    "counter-nin",
+    "counter-mai",
+    "counter-hai",
+    "counter-hon",
+    "wa-topic",
+    "mo-also",
+    "yori-comparison",
+    "ikura-price",
+    "ya-incomplete-list",
+    "to-and",
+    "tari-tari-suru",
+    "family-register",
+    "kanji-set-1"
+  ],
+  "grammarPoints": [
+    {
+      "id": "koto-ga-aru",
+      "rule": "「にほんに いった」 means I went to Japan — one trip, on a date, and if you say it people will ask you when. 「にほんに いった ことが ある」 means something else entirely: I have been to Japan, at some point, ever. This is NOT a second past tense. It is a statement that the EXPERIENCE exists. Look at what it is made of and the whole thing falls out: こと is the act, the doing-of-it, so 「いった こと」 is the act of having gone; が marks it as the thing that exists; and ある is the same verb that has been putting things in rooms since module 6. The act of having gone EXISTS. Because こと is a thing and not a person, the verb is always ある and never いる. Three rules and you own it. The verb in front of こと is the PLAIN PAST — いった, たべた, みた, のんだ. The が never changes to は unless you are contrasting. And you never say when: the moment you add a date the sentence stops being about experience and goes back to being ordinary past. 「がいこくで はたらいた ことが ある」 — I have worked abroad. Whether it was last year or ten years ago is not what the sentence is for.",
+      "examples": [
+        {
+          "ja": "にほんに いった ことが ある。",
+          "en": "I have been to Japan."
+        },
+        {
+          "ja": "すしを たべた ことが ある。",
+          "en": "I have eaten sushi."
+        },
+        {
+          "ja": "にほんで はたらいた ことが ある。",
+          "en": "I have worked in Japan."
+        },
+        {
+          "ja": "あの えいがを みた ことが あるけど おもしろくなかった。",
+          "en": "I have seen that film, but it wasn't interesting."
+        },
+        {
+          "ja": "なつやすみに うみに いった ことが ある。",
+          "en": "I have been to the sea in the summer holidays."
+        }
+      ],
+      "antiPattern": {
+        "ja": "にほんに いった ことが いる。",
+        "why": "こと is a THING, not a person or an animal — a thing exists with ある: にほんに いった ことが ある。"
+      }
+    },
+    {
+      "id": "nai-existence",
+      "rule": "The other half arrives free. If the experience EXISTS with ある, then it fails to exist with ない — 「ひこうきに のった ことが ない」, I have never been on a plane. That is the whole negative: no ません, no ませんでした, nothing about the past at all, because the sentence was never in the past to begin with. It says the act does not exist among the things you have done. ない is an adjective here, exactly as it was in module 6, so nothing follows it — 「ことが ないだ」 is not a sentence. Asking is just as cheap: raise your voice at the end. 「ふねに のった ことが ある？」 — have you ever been on a boat? Answer it with うん or ううん and the bare frame: 「ううん、ない」. And the two halves love sitting in one sentence, because that is how people actually talk about themselves: 「おさけを のんだ ことが ないけど すしは たべた ことが ある」 — I have never drunk sake, but I have eaten sushi. Note the は on すし there: the moment you contrast two experiences, the second one takes the topic particle.",
+      "examples": [
+        {
+          "ja": "ひこうきに のった ことが ない。",
+          "en": "I have never been on a plane."
+        },
+        {
+          "ja": "うみで およいだ ことが ない。",
+          "en": "I have never swum in the sea."
+        },
+        {
+          "ja": "ふねに のった ことが ある？",
+          "en": "Have you ever been on a boat?"
+        },
+        {
+          "ja": "おさけを のんだ ことが ないけど すしは たべた ことが ある。",
+          "en": "I have never drunk sake, but I have eaten sushi."
+        },
+        {
+          "ja": "ちかてつに のった ことが ないから でんしゃで いく。",
+          "en": "I have never taken the subway, so I'm going by train."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ひこうきに のった ことが ないだ。",
+        "why": "ない is an ADJECTIVE and finishes the sentence by itself — nothing follows it: ひこうきに のった ことが ない。"
+      }
+    },
+    {
+      "id": "tsumori-desu",
+      "rule": "つもり is a DECISION. 「なつやすみに にほんに いく つもりだ」 is not I will go and not I want to go — it is I intend to go, I have made up my mind, the plan is made. That is why it is a noun: つもり literally is your intention, and だ finishes it the way だ finishes any noun. The verb in front is the PLAIN DICTIONARY form and nothing else. いく つもり, かう つもり, まつ つもり. Never ます, never たい, never the past — an intention is about something that has not happened yet, so 「いきます つもり」 is wrong in a way a Japanese speaker hears immediately. Everything else behaves normally: hang a reason on から, a contrast on けど, and put the time wherever time goes. 「りょこうに いく つもりだけど じかんが ない」 — I mean to travel, but I have no time, which is a sentence you will want more often than you would like. To ask, drop the だ and let your voice rise: 「なつやすみは なにを する つもり？」 — what are you planning to do in the summer?",
+      "examples": [
+        {
+          "ja": "なつやすみに にほんに いく つもりだ。",
+          "en": "I intend to go to Japan in the summer holidays."
+        },
+        {
+          "ja": "あした きっぷを かう つもりだ。",
+          "en": "I'm planning to buy a ticket tomorrow."
+        },
+        {
+          "ja": "ミカと えいがを みる つもりだ。",
+          "en": "I intend to see a film with Mika."
+        },
+        {
+          "ja": "りょこうに いく つもりだけど じかんが ない。",
+          "en": "I intend to travel, but I have no time."
+        },
+        {
+          "ja": "あさ ちかてつに のる つもりだ。",
+          "en": "I'm planning to take the subway in the morning."
+        }
+      ],
+      "antiPattern": {
+        "ja": "なつやすみに にほんに いきます つもりだ。",
+        "why": "つもり hangs off the plain DICTIONARY form, never the polite ます-form: なつやすみに にほんに いく つもりだ。"
+      }
+    },
+    {
+      "id": "v-tai",
+      "rule": "たい and つもり are not the same word twice. たい (module 13) says what you WANT: 「にほんに いきたい」 — I want to go to Japan, and whether you ever will is left completely open. つもり says what you have DECIDED: 「にほんに いく つもりだ」 — the plan exists. Wanting is a feeling; intending is a plan; and the four combinations are all real. You can want to and intend to — 「にほんに いきたいから いく つもりだ」. You can want to and NOT intend to, which is the most useful of the four and the one English fumbles: 「にほんに いきたいけど いく つもりは ない」, I'd love to go, but I'm not going to. You can intend to without wanting to, which is what work is. And you can do neither. Notice the negative there: to say you have no intention you do not negate the verb, you say the intention itself does not exist — 「つもりは ない」, with は because it is a contrast. That is the same ある/ない you just used for experience, one lesson later, doing the same job on a different noun.",
+      "examples": [
+        {
+          "ja": "にほんに いきたいから いく つもりだ。",
+          "en": "I want to go to Japan, so I intend to."
+        },
+        {
+          "ja": "すしを たべたいけど たべた ことが ない。",
+          "en": "I want to eat sushi, but I never have."
+        },
+        {
+          "ja": "あした えいがを みたいけど みる つもりは ない。",
+          "en": "I want to see a film tomorrow, but I don't intend to."
+        },
+        {
+          "ja": "おさけを のみたいから かう つもりだ。",
+          "en": "I want to drink sake, so I intend to buy some."
+        },
+        {
+          "ja": "ミカと あそびたいけど じかんが ない。",
+          "en": "I want to hang out with Mika, but I have no time."
+        }
+      ],
+      "antiPattern": {
+        "ja": "にほんに いきたい つもりだ。",
+        "why": "たい already says what you want, and つもり follows the plain DICTIONARY form — pick one: にほんに いく つもりだ。"
+      }
+    },
+    {
+      "id": "nai-form",
+      "rule": "An intention not to do something is built the obvious way and it is worth doing once slowly, because learners reach for the wrong negative here. You do NOT negate つもり. You negate the VERB and leave つもり alone: 「きょうは おさけを のまない つもりだ」 — I intend not to drink today. The ない-form is module 6's, unchanged: のむ → のまない, いく → いかない, たべる → たべない, みる → みない, およぐ → およがない. Put it straight in front of つもり and finish with だ. Keep it apart from the other negative you met one lesson ago. 「いかない つもりだ」 is I intend not to go — a decision. 「いく つもりは ない」 is I have no intention of going — no decision was ever made. English blurs them; Japanese does not, and the difference is exactly where the ない sits. Everything else is ordinary: 「あした がっこうに いかない つもりだから うちで まつ」 hangs a reason on から like any other clause.",
+      "examples": [
+        {
+          "ja": "きょうは おさけを のまない つもりだ。",
+          "en": "I intend not to drink today."
+        },
+        {
+          "ja": "あした がっこうに いかない つもりだから うちで まつ。",
+          "en": "I intend not to go to school tomorrow, so I'll wait at home."
+        },
+        {
+          "ja": "うみで およがない つもりだ。",
+          "en": "I intend not to swim in the sea."
+        },
+        {
+          "ja": "その えいがは みない つもりだ。",
+          "en": "I intend not to see that film."
+        },
+        {
+          "ja": "パンを たべない つもりだ。",
+          "en": "I intend not to eat bread."
+        }
+      ],
+      "antiPattern": {
+        "ja": "きょうは おさけを のむない つもりだ。",
+        "why": "the ない-form of のむ is のまない — ない never attaches to the dictionary form: きょうは おさけを のまない つもりだ。"
+      }
+    },
+    {
+      "id": "kanji-set-2",
+      "rule": "Second reading set. The ladder has not changed since module 18 — a kanji appears, you say what it says, and you are never asked to write one. What is worth adding now is WHY a glyph can sound like two different things. Japanese borrowed the characters from Chinese and kept both sounds: the native Japanese word that already meant the thing, and an approximation of the Chinese one. So 人 is ひと when it stands on its own as the everyday word for a person, and にん when it is stacked into a compound like さんにん. 三 is the さん you count with and the みっ inside みっつ. Neither reading is more correct; the WORD picks. That is the entire trick, and it means the useful question is never what does this character say but what does this WORD say. This set is eight of them and every one is a word you have already been reading for modules, quietly, with its kana floating overhead until the window closed. Now it reads cold.",
+      "examples": [
+        {
+          "ja": "にほんの やまに いった ことが ある。",
+          "en": "I have been to a mountain in Japan."
+        },
+        {
+          "ja": "うみで およいだ ことが ある。",
+          "en": "I have swum in the sea."
+        },
+        {
+          "ja": "あした かわに いく つもりだ。",
+          "en": "I'm planning to go to the river tomorrow."
+        },
+        {
+          "ja": "うみに ちかい ホテルに はいる つもりだ。",
+          "en": "I intend to check into a hotel near the sea."
+        },
+        {
+          "ja": "あしが いたいけど あるく つもりだ。",
+          "en": "My foot hurts, but I intend to walk."
+        }
+      ]
+    },
+    {
+      "id": "toki",
+      "rule": "とき is module 15's word, and here is the half module 15 held back. In English the clause before when takes the tense of the real world: when I go to Japan, when I went to Japan. In Japanese the tense inside a とき clause is measured against the MAIN clause, not against now — and that one difference decides which form you use. 「にほんに いく とき ひこうきに のる」: the getting on the plane happens BEFORE the arriving, so the clause is non-past, いく. 「にほんに いった とき すしを たべた」: the sushi happens AFTER the arriving, so the clause is past, いった. Both sentences may be about last year and both may be about next year — the tense of いく/いった is not telling you when, it is telling you which side of the とき you are standing on. Test it on yourself: 「りょこうに いく とき カメラを かう」 buys the camera first; 「りょこうに いった とき カメラを かった」 buys it once you are there. The clause is ALWAYS plain — ます never appears in front of とき — and a noun joins with の: 「がくせいの とき」, back when I was a student.",
+      "examples": [
+        {
+          "ja": "にほんに いく とき ひこうきに のる。",
+          "en": "When I go to Japan, I take a plane."
+        },
+        {
+          "ja": "にほんに いった とき すしを たべた。",
+          "en": "When I got to Japan, I ate sushi."
+        },
+        {
+          "ja": "りょこうに いく とき カメラを かう。",
+          "en": "When I go travelling, I buy a camera first."
+        },
+        {
+          "ja": "うみに いった とき およいだ。",
+          "en": "When I got to the sea, I went swimming."
+        },
+        {
+          "ja": "がくせいの とき にほんで はたらいた ことが ある。",
+          "en": "I have worked in Japan, back when I was a student."
+        }
+      ],
+      "antiPattern": {
+        "ja": "にほんに いきます とき すしを たべる。",
+        "why": "the clause in front of とき is ALWAYS plain — ます never appears there: にほんに いく とき すしを たべる。"
+      }
+    },
+    {
+      "id": "te-kara",
+      "rule": "An itinerary is a list of things in order, and Japanese has two ways to say which comes first. 〜てから is after doing: take the て-form, add から, and the rest of the sentence happens next. 「きっぷを かってから でんしゃに のる」 — I'll buy a ticket and THEN get on the train. This から is not the から that means because; it is the から that has meant from since module 16, and 「かってから」 is literally from having bought. The other direction is まえに, which you already own: 「ひこうきに のる まえに コーヒーを のむ」 — before getting on the plane, I drink a coffee. Notice what changes and what does not. Before まえに the verb is always the plain DICTIONARY form no matter when any of it happens; before から it is always the て-form. Neither one takes a past. The order lives entirely in the connector, and the て-form is the one that has to be derived: かう → かって, たべる → たべて, およぐ → およいで, まつ → まって.",
+      "examples": [
+        {
+          "ja": "きっぷを かってから でんしゃに のる。",
+          "en": "I'll buy a ticket, then get on the train."
+        },
+        {
+          "ja": "すしを たべてから ホテルに はいる。",
+          "en": "I'll eat sushi, then check into the hotel."
+        },
+        {
+          "ja": "うみで およいでから ちゃを のむ。",
+          "en": "I'll swim in the sea, then drink some tea."
+        },
+        {
+          "ja": "はたらいてから がいこくに いく つもりだ。",
+          "en": "I intend to work first, then go abroad."
+        },
+        {
+          "ja": "ひこうきに のる まえに コーヒーを のむ。",
+          "en": "Before getting on the plane, I drink a coffee."
+        }
+      ],
+      "antiPattern": {
+        "ja": "きっぷを かうてから でんしゃに のる。",
+        "why": "から attaches to the て-form, and the て-form of かう is かって — かうて is not a word: きっぷを かってから でんしゃに のる。"
+      }
+    },
+    {
+      "id": "to-omoimasu",
+      "rule": "Everything this module built is a CLAUSE, which means it can be quoted. Module 18 taught the frame: a plain sentence, と, then おもう or いう. Feed it a whole つもり sentence and you get 「ミカは にほんに いく つもりだと おもう」 — I think Mika is planning to go to Japan. Feed it an experience and you get 「トムは すしを たべた ことが あると おもう」 — I think Tom has eaten sushi. Nothing new is being learned here; what is new is that the thing you are quoting is now two clauses deep, because 「いく つもりだ」 already had a verb inside a noun inside a copula. The rules do not bend for the extra depth. What sits in front of と is ALWAYS plain, so it is つもりだと, never つもりですと. The negative works the same way: 「ひこうきに のった ことが ないと おもう」. And いう swaps in for おもう when you are reporting speech rather than opinion — 「あしたは いかない つもりだと ミカに いう」, I'll tell Mika I'm not planning to go tomorrow, with に marking the person the words go to.",
+      "examples": [
+        {
+          "ja": "ミカは にほんに いく つもりだと おもう。",
+          "en": "I think Mika is planning to go to Japan."
+        },
+        {
+          "ja": "トムは すしを たべた ことが あると おもう。",
+          "en": "I think Tom has eaten sushi."
+        },
+        {
+          "ja": "ケンは ひこうきに のった ことが ないと おもう。",
+          "en": "I don't think Ken has ever been on a plane."
+        },
+        {
+          "ja": "あしたは いかない つもりだと ミカに いう。",
+          "en": "I'll tell Mika I'm not planning to go tomorrow."
+        },
+        {
+          "ja": "この ホテルは たかいと おもうけど はいる つもりだ。",
+          "en": "I think this hotel is expensive, but I intend to check in."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ミカは にほんに いく つもりですと おもう。",
+        "why": "what goes in front of と is ALWAYS plain — です never appears there: ミカは にほんに いく つもりだと おもう。"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "がいこく",
+      "romaji": "gaikoku",
+      "gloss": "a foreign country, abroad",
+      "shortGloss": "abroad",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたらいた",
+      "romaji": "hataraita",
+      "gloss": "worked (work, past)",
+      "shortGloss": "worked",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひこうき",
+      "romaji": "hikouki",
+      "gloss": "an aeroplane",
+      "shortGloss": "aeroplane",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のる",
+      "romaji": "noru",
+      "gloss": "to get on, to ride",
+      "shortGloss": "get on",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "のった",
+      "romaji": "notta",
+      "gloss": "got on, rode (get on, past)",
+      "shortGloss": "got on",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およいだ",
+      "romaji": "oyoida",
+      "gloss": "swam (swim, past)",
+      "shortGloss": "swam",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つもり",
+      "romaji": "tsumori",
+      "gloss": "intention, plan — what you mean to do",
+      "shortGloss": "intend to",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ホテル",
+      "romaji": "hoteru",
+      "gloss": "a hotel",
+      "shortGloss": "hotel",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はいる",
+      "romaji": "hairu",
+      "gloss": "to enter, to go in",
+      "shortGloss": "enter",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "くうこう",
+      "romaji": "kuukou",
+      "gloss": "an airport",
+      "shortGloss": "airport",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つく",
+      "romaji": "tsuku",
+      "gloss": "to arrive, to get there",
+      "shortGloss": "arrive",
+      "kind": "verb"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m23-neo-1",
+      "role": "teaching",
+      "title": "「にほんに いった ことが ある」 — ever, not yesterday",
+      "focus": "〜た ことが ある says the EXPERIENCE exists — it is not a second past tense",
+      "introduces": [
+        "がいこく",
+        "はたらいた"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "koto-ga-aru"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった ことが ある。",
+          "en": "I have been to Japan",
+          "exercises": [
+            "koto-ga-aru",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がいこくで はたらいた ことが ある。",
+          "en": "I have worked abroad",
+          "exercises": [
+            "koto-ga-aru",
+            "ta-form",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの えいがを みた ことが あるけど おもしろくなかった。",
+          "en": "I have seen that film, but it wasn't interesting",
+          "exercises": [
+            "koto-ga-aru",
+            "ta-form",
+            "kedo",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに うみに いった ことが ある。",
+          "en": "I have been to the sea in the summer holidays",
+          "exercises": [
+            "koto-ga-aru",
+            "ni-time",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは にほんで はたらいた ことが ある。",
+          "en": "Mika has worked in Japan",
+          "exercises": [
+            "koto-ga-aru",
+            "wa-topic",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がいこくの りょうりを たべた ことが あるから りょこうが すきだ。",
+          "en": "I have eaten foreign food, so I like travelling",
+          "exercises": [
+            "koto-ga-aru",
+            "no-possession",
+            "kara-because",
+            "no-ga-suki"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカと えいがを みた ことが ある。",
+          "en": "I have seen a film with Mika",
+          "exercises": [
+            "koto-ga-aru",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった ことが ある。",
+          "en": "Say to a friend: I have been to Japan",
+          "exercises": [
+            "koto-ga-aru"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "うみに ",
+          "tail": " ことが ある。",
+          "answer": "いった",
+          "options": [
+            "いった",
+            "いく",
+            "いきたい"
+          ],
+          "en": "I have been to the sea",
+          "explanation": "こと takes the PLAIN PAST in front of it — いった. いく is the dictionary form and いきたい says you want to go."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは がいこくに いった ことが ある。",
+          "answer": "Tom has been abroad",
+          "distractors": [
+            "Tom has never been abroad",
+            "Tom is going abroad tomorrow",
+            "Tom has worked abroad"
+          ],
+          "exercises": [
+            "koto-ga-aru",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "さくらを みた ことが あるから しゃしんが ある。",
+          "answer": "I have seen cherry blossom, so I have a photo of it",
+          "distractors": [
+            "I have never seen cherry blossom, so I have no photo",
+            "I want to see cherry blossom, so I'm buying a camera",
+            "I have seen a photo of cherry blossom"
+          ],
+          "exercises": [
+            "koto-ga-aru",
+            "kara-because",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "にほんに いった ことが ある？",
+              "en": "Have you ever been to Japan?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "うん。がっこうの りょこうで いった。",
+              "en": "Yeah. I went on a school trip."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about Japan?",
+              "options": [
+                "He has been there on a school trip",
+                "He has never been there",
+                "He is going there next summer",
+                "He worked there"
+              ],
+              "answer": "He has been there on a school trip"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "がいこくで はたらいた ことが あるから にほんの りょうりを たべた ことが ある。",
+          "en": "I have worked abroad, so I have eaten Japanese food",
+          "combines": [
+            "koto-ga-aru",
+            "ta-form",
+            "de-action",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "りょこう",
+        "りょうり",
+        "えいが",
+        "なつやすみ",
+        "うみ",
+        "さくら",
+        "しゃしん",
+        "がっこう",
+        "すし",
+        "こと"
+      ]
+    },
+    {
+      "id": "m23-neo-2",
+      "role": "teaching",
+      "title": "「のった ことが ない」 — never, and have you ever",
+      "focus": "The experience simply fails to exist — ない, not a past negative",
+      "introduces": [
+        "ひこうき",
+        "のる",
+        "のった",
+        "およいだ"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "nai-existence"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひこうきに のった ことが ない。",
+          "en": "I have never been on a plane",
+          "exercises": [
+            "nai-existence",
+            "koto-ga-aru",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいだ ことが ないけど かわで およいだ ことが ある。",
+          "en": "I have never swum in the sea, but I have swum in a river",
+          "exercises": [
+            "nai-existence",
+            "koto-ga-aru",
+            "kedo",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふねに のった ことが ある？",
+          "en": "Have you ever been on a boat",
+          "exercises": [
+            "koto-ga-aru",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつに のった ことが ないから でんしゃで いく。",
+          "en": "I have never taken the subway, so I'm going by train",
+          "exercises": [
+            "nai-existence",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おさけを のんだ ことが ない。",
+          "en": "I have never drunk sake",
+          "exercises": [
+            "nai-existence",
+            "ta-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは ひこうきに のった ことが ある？",
+          "en": "Has Mika ever been on a plane",
+          "exercises": [
+            "koto-ga-aru",
+            "wa-topic",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いけで およいだ ことが ないけど うみは すきだ。",
+          "en": "I have never swum in a pond, but I like the sea",
+          "exercises": [
+            "nai-existence",
+            "kedo",
+            "no-ga-suki"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひこうきに のった ことが ない。",
+          "en": "Say to a friend: I have never been on a plane",
+          "exercises": [
+            "nai-existence"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ふねに ",
+          "tail": " ことが ある？",
+          "answer": "のった",
+          "options": [
+            "のった",
+            "のる",
+            "のんだ"
+          ],
+          "en": "Have you ever been on a boat?",
+          "explanation": "you get ON a boat, so the verb is のる and its plain past is のった. のる is the dictionary form and のんだ is the past of のむ, to drink."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは うみで およいだ ことが ない。",
+          "answer": "Mika has never swum in the sea",
+          "distractors": [
+            "Mika has swum in the sea",
+            "Mika has never swum in a river",
+            "Mika doesn't want to swim in the sea"
+          ],
+          "exercises": [
+            "nai-existence",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ケンは ちかてつに のった ことが ある。",
+          "answer": "Ken has taken the subway",
+          "distractors": [
+            "Ken has never taken the subway",
+            "Ken has been on a plane",
+            "Ken takes the subway every morning"
+          ],
+          "exercises": [
+            "koto-ga-aru",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "ひこうきに のった ことが ある？",
+              "en": "Have you ever been on a plane?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ううん、ない。ふねに のった ことが ある。",
+              "en": "No, never. I have been on a boat, though."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What has Mika been on?",
+              "options": [
+                "A boat",
+                "A plane",
+                "The subway",
+                "Nothing at all"
+              ],
+              "answer": "A boat"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ちかてつに のった ことが ないけど でんしゃに のった ことが あるから だいじょうぶだ。",
+          "en": "I have never taken the subway, but I have taken the train, so it's all right",
+          "combines": [
+            "nai-existence",
+            "koto-ga-aru",
+            "ta-form",
+            "kedo",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "がいこく",
+        "はたらいた",
+        "ふね",
+        "でんしゃ",
+        "ちかてつ",
+        "うみ",
+        "かわ",
+        "いけ",
+        "おさけ",
+        "こと"
+      ]
+    },
+    {
+      "id": "m23-neo-3",
+      "role": "teaching",
+      "title": "「いく つもりだ」 — the plan you have made",
+      "focus": "つもり is a DECISION hanging off the plain dictionary form",
+      "introduces": [
+        "つもり",
+        "ホテル",
+        "はいる"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "tsumori-desu"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに がいこくに いく つもりだ。",
+          "en": "I intend to go abroad in the summer holidays",
+          "exercises": [
+            "tsumori-desu",
+            "dictionary-form",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ホテルで ミカを まつ つもりだ。",
+          "en": "I intend to wait for Mika at the hotel",
+          "exercises": [
+            "tsumori-desu",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした きっぷを かう つもりだ。",
+          "en": "I'm planning to buy a ticket tomorrow",
+          "exercises": [
+            "tsumori-desu",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい ホテルに はいる つもりだ。",
+          "en": "I intend to check into a small hotel",
+          "exercises": [
+            "tsumori-desu",
+            "i-adj-present",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは でんしゃで だいがくに いく つもりだ。",
+          "en": "Mika is planning to go to university by train",
+          "exercises": [
+            "tsumori-desu",
+            "wa-topic",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべる つもりだから おさけを かう。",
+          "en": "I intend to eat sushi, so I'm buying some sake",
+          "exercises": [
+            "tsumori-desu",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およぐ つもりだけど あしが いたい。",
+          "en": "I intend to swim in the sea, but my foot hurts",
+          "exercises": [
+            "tsumori-desu",
+            "kedo",
+            "ga-itai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いく つもりだ。",
+          "en": "Say to a friend: I intend to go to Japan",
+          "exercises": [
+            "tsumori-desu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "なつやすみに にほんに ",
+          "tail": " つもりだから きっぷを かう。",
+          "answer": "いく",
+          "options": [
+            "いく",
+            "いった",
+            "いきたい"
+          ],
+          "en": "I intend to go to Japan in the summer, so I'm buying a ticket",
+          "explanation": "つもり follows the plain DICTIONARY form — いく. いった is the past and an intention is never about the past; いきたい says you want to go."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "なつやすみに うみに いく つもりだ。",
+          "answer": "I intend to go to the sea in the summer holidays",
+          "distractors": [
+            "I have been to the sea in the summer holidays",
+            "I want to go to the sea in the summer holidays",
+            "I intend to go to the mountains in the summer holidays"
+          ],
+          "exercises": [
+            "tsumori-desu",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ホテルで あねを まつ つもりだ。",
+          "answer": "I intend to wait for my older sister at the hotel",
+          "distractors": [
+            "I intend to wait for my older brother at the hotel",
+            "I'm waiting for my older sister at the hotel now",
+            "I intend to meet my older sister at the airport"
+          ],
+          "exercises": [
+            "tsumori-desu",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "なつやすみは なにを する つもり？",
+              "en": "What are you planning to do in the summer?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "にほんに いく つもりだ。きっぷは もう かった。",
+              "en": "I'm going to Japan. I've already bought the ticket."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the ticket?",
+              "options": [
+                "She has already bought it",
+                "She intends to buy it tomorrow",
+                "It was too expensive",
+                "Her sister bought it"
+              ],
+              "answer": "She has already bought it"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "なつやすみに がいこくに いく つもりだから いま ひこうきの きっぷを かう。",
+          "en": "I intend to go abroad in the summer holidays, so I'm buying a plane ticket now",
+          "combines": [
+            "tsumori-desu",
+            "dictionary-form",
+            "kara-because",
+            "no-possession",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ひこうき",
+        "のる",
+        "のった",
+        "およいだ",
+        "がいこく",
+        "きっぷ",
+        "だいがく",
+        "でんしゃ",
+        "なつやすみ",
+        "すし"
+      ]
+    },
+    {
+      "id": "m23-neo-review-1",
+      "role": "review",
+      "title": "Review — what you have done, and what you mean to do",
+      "focus": "〜た ことが ある, 〜た ことが ない and 〜つもりだ side by side",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった ことが ある。",
+          "en": "I have been to Japan",
+          "exercises": [
+            "koto-ga-aru",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひこうきに のった ことが ない。",
+          "en": "I have never been on a plane",
+          "exercises": [
+            "nai-existence",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに がいこくに いく つもりだ。",
+          "en": "I intend to go abroad in the summer holidays",
+          "exercises": [
+            "tsumori-desu",
+            "ni-time"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がいこくで はたらいた ことが ある。",
+          "en": "I have worked abroad",
+          "exercises": [
+            "koto-ga-aru",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい ホテルに はいる つもりだ。",
+          "en": "I intend to check into a small hotel",
+          "exercises": [
+            "tsumori-desu",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ちかてつに ",
+          "tail": " ことが ないから でんしゃで いく。",
+          "answer": "のった",
+          "options": [
+            "のった",
+            "のる",
+            "のんだ"
+          ],
+          "en": "I have never taken the subway, so I'm going by train",
+          "explanation": "you get ON a subway, so the verb is のる and its plain past is のった. のる is the dictionary form and のんだ is the past of のむ."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふねに のった ことが ある？",
+          "en": "Have you ever been on a boat",
+          "exercises": [
+            "koto-ga-aru",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あの えいがを みた ことが あるけど おもしろくなかった。",
+          "answer": "I have seen that film, but it wasn't interesting",
+          "distractors": [
+            "I have never seen that film, but it looks interesting",
+            "I saw that film yesterday and it wasn't interesting",
+            "I intend to see that film, but it doesn't look interesting"
+          ],
+          "exercises": [
+            "koto-ga-aru",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ホテルで ミカを まつ つもりだ。",
+          "en": "I intend to wait for Mika at the hotel",
+          "exercises": [
+            "tsumori-desu",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいだ ことが ない。",
+          "en": "Say to a friend: I have never swum in the sea",
+          "exercises": [
+            "nai-existence"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは でんしゃで だいがくに いく つもりだ。",
+          "answer": "Mika is planning to go to university by train",
+          "distractors": [
+            "Mika is planning to go to university by subway",
+            "Mika goes to university by train every day",
+            "Mika has been to university by train"
+          ],
+          "exercises": [
+            "tsumori-desu",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべる つもりだから おさけを かう。",
+          "en": "I intend to eat sushi, so I'm buying some sake",
+          "exercises": [
+            "tsumori-desu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いけで およいだ ことが ないけど うみは すきだ。",
+          "en": "I have never swum in a pond, but I like the sea",
+          "exercises": [
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "がいこくに いった ことが ある？",
+              "en": "Have you ever been abroad?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ううん、ない。なつやすみに いく つもりだ。",
+              "en": "No, never. I'm planning to go in the summer."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken say about going abroad?",
+              "options": [
+                "He has never been, but plans to go in the summer",
+                "He has been once, in the summer",
+                "He wants to go but has no plan",
+                "He is going tomorrow"
+              ],
+              "answer": "He has never been, but plans to go in the summer"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "つもり",
+        "ホテル",
+        "はいる",
+        "ひこうき",
+        "のる",
+        "のった",
+        "およいだ",
+        "がいこく",
+        "はたらいた",
+        "こと"
+      ]
+    },
+    {
+      "id": "m23-neo-5",
+      "role": "teaching",
+      "title": "「いきたいけど いく つもりは ない」 — wanting is not deciding",
+      "focus": "たい is a feeling and つもり is a plan — all four combinations are real",
+      "introduces": [
+        "くうこう",
+        "つく"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "v-tai"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ くうこうに つく つもりだ。",
+          "en": "I intend to arrive at the airport in the morning",
+          "exercises": [
+            "tsumori-desu",
+            "dictionary-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべたいけど たべた ことが ない。",
+          "en": "I want to eat sushi, but I never have",
+          "exercises": [
+            "v-tai",
+            "koto-ga-aru",
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いきたいから きっぷを かう つもりだ。",
+          "en": "I want to go to Japan, so I intend to buy a ticket",
+          "exercises": [
+            "v-tai",
+            "tsumori-desu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くうこうまで バスで いく つもりだ。",
+          "en": "I intend to go to the airport by bus",
+          "exercises": [
+            "tsumori-desu",
+            "made-until",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがを みたいけど みる つもりは ない。",
+          "en": "I want to see a film, but I don't intend to",
+          "exercises": [
+            "v-tai",
+            "tsumori-desu",
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おさけを のみたいけど のんだ ことが ない。",
+          "en": "I want to drink sake, but I never have",
+          "exercises": [
+            "v-tai",
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさの でんしゃで くうこうに つく つもりだ。",
+          "en": "I intend to reach the airport on the morning train",
+          "exercises": [
+            "tsumori-desu",
+            "no-possession",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いきたいけど いく つもりは ない。",
+          "en": "Say to a friend: I want to go to Japan, but I don't intend to",
+          "exercises": [
+            "v-tai",
+            "tsumori-desu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "にほんに ",
+          "tail": "から きっぷを かう。",
+          "answer": "いきたい",
+          "options": [
+            "いきたい",
+            "いきたかった",
+            "いった"
+          ],
+          "en": "I want to go to Japan, so I'm buying a ticket",
+          "explanation": "いきたい is what you want NOW. いきたかった is what you wanted then, and いった is what you actually did."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは あした くうこうに つく つもりだ。",
+          "answer": "Mika intends to arrive at the airport tomorrow",
+          "distractors": [
+            "Mika arrived at the airport yesterday",
+            "Mika wants to go to the airport tomorrow",
+            "Mika intends to arrive at the station tomorrow"
+          ],
+          "exercises": [
+            "tsumori-desu",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がいこくに いきたいけど いった ことが ない。",
+          "answer": "I want to go abroad, but I never have",
+          "distractors": [
+            "I have been abroad, but I don't want to go again",
+            "I intend to go abroad, and I have been before",
+            "I don't want to go abroad and I never have"
+          ],
+          "exercises": [
+            "v-tai",
+            "nai-existence"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "あした なんじに くうこうに つく つもり？",
+              "en": "What time are you planning to get to the airport tomorrow?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ごぜん くじに つく つもりだ。バスで いく。",
+              "en": "I'm planning to arrive at nine in the morning. I'm going by bus."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How is Tom getting to the airport?",
+              "options": [
+                "By bus",
+                "By train",
+                "By subway",
+                "He hasn't decided"
+              ],
+              "answer": "By bus"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "がいこくに いきたいけど ひこうきに のった ことが ないから ふねで いく つもりだ。",
+          "en": "I want to go abroad, but I have never been on a plane, so I intend to go by boat",
+          "combines": [
+            "v-tai",
+            "koto-ga-aru",
+            "nai-existence",
+            "tsumori-desu",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "つもり",
+        "ホテル",
+        "はいる",
+        "きっぷ",
+        "バス",
+        "ふね",
+        "ひこうき",
+        "おさけ",
+        "えいが",
+        "すし"
+      ]
+    },
+    {
+      "id": "m23-neo-6",
+      "role": "teaching",
+      "title": "「のまない つもりだ」 — deciding NOT to",
+      "focus": "You negate the verb, never つもり — and 〜ない つもり is not 〜つもりは ない",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "nai-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは おさけを のまない つもりだ。",
+          "en": "I intend not to drink today",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした がっこうに いかない つもりだから うちで まつ。",
+          "en": "I intend not to go to school tomorrow, so I'll wait at home",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およがない つもりだけど うみは みたい。",
+          "en": "I intend not to swim in the sea, but I do want to see it",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "kedo",
+            "v-tai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その えいがは みない つもりだ。",
+          "en": "I intend not to see that film",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした パンを かわない つもりだ。",
+          "en": "I intend not to buy bread tomorrow",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がいこくに いかない つもりだけど にほんには いく。",
+          "en": "I intend not to go abroad, but I am going to Japan",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "kedo",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさは コーヒーを のまない つもりだから ちゃを かう。",
+          "en": "I intend not to drink coffee in the mornings, so I'm buying tea",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべない つもりだ。",
+          "en": "Say to a friend: I intend not to eat sushi",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうは おさけを ",
+          "tail": " つもりだから ちゃを のむ。",
+          "answer": "のまない",
+          "options": [
+            "のまない",
+            "のんだ",
+            "のまなかった"
+          ],
+          "en": "I intend not to drink today, so I'll have tea",
+          "explanation": "an intention NOT to do something negates the VERB — のまない. のんだ is the plain past and のまなかった is the past negative; an intention is never about the past."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あした だいがくに いかない つもりだ。",
+          "answer": "I intend not to go to university tomorrow",
+          "distractors": [
+            "I have never been to university",
+            "I didn't go to university yesterday",
+            "I don't want to go to university tomorrow"
+          ],
+          "exercises": [
+            "nai-form",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは うみで およがない つもりだ。",
+          "answer": "Mika intends not to swim in the sea",
+          "distractors": [
+            "Mika has never swum in the sea",
+            "Mika intends to swim in the sea",
+            "Mika doesn't want to swim in the sea"
+          ],
+          "exercises": [
+            "nai-form",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "あした えいがを みる つもり？",
+              "en": "Are you planning to see a film tomorrow?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ううん。みない つもりだ。すしを たべに いく。",
+              "en": "No. I'm planning not to. I'm going out for sushi."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Tom planning to do tomorrow?",
+              "options": [
+                "Go out for sushi",
+                "See a film",
+                "Stay at home and wait",
+                "Buy a ticket"
+              ],
+              "answer": "Go out for sushi"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ねつが あるから あした だいがくに いかない つもりだけど くすりを かう つもりだ。",
+          "en": "I have a fever, so I intend not to go to university tomorrow, but I do intend to buy medicine",
+          "combines": [
+            "nai-form",
+            "tsumori-desu",
+            "ga-existence",
+            "kara-because",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "くうこう",
+        "つく",
+        "つもり",
+        "ホテル",
+        "はいる",
+        "コーヒー",
+        "ちゃ",
+        "パン",
+        "えいが",
+        "だいがく"
+      ]
+    },
+    {
+      "id": "m23-neo-7",
+      "role": "teaching",
+      "title": "山, 川, 海 — reading set 2",
+      "focus": "A glyph carries the meaning and the WORD picks the sound",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "kanji-set-2"
+        },
+        {
+          "kind": "kanji",
+          "kana": "やま",
+          "kanji": "山",
+          "distractors": [
+            "さん",
+            "ざん",
+            "やば"
+          ],
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんの やまに いった ことが ある。",
+          "en": "I have been to a mountain in Japan",
+          "exercises": [
+            "kanji-set-2",
+            "koto-ga-aru",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "kanji",
+          "kana": "かわ",
+          "kanji": "川",
+          "distractors": [
+            "せん",
+            "ぜん",
+            "かば"
+          ],
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "かわで およいだ ことが ないけど うみで およいだ ことが ある。",
+          "en": "I have never swum in a river, but I have swum in the sea",
+          "exercises": [
+            "kanji-set-2",
+            "nai-existence",
+            "koto-ga-aru",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "kanji",
+          "kana": "うみ",
+          "kanji": "海",
+          "distractors": [
+            "かい",
+            "がい",
+            "うび"
+          ],
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに ちかい ホテルに はいる つもりだ。",
+          "en": "I intend to check into a hotel near the sea",
+          "exercises": [
+            "kanji-set-2",
+            "tsumori-desu",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "kanji",
+          "kana": "ちいさい",
+          "kanji": "小さい",
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい ふねに のった ことが ある。",
+          "en": "I have been on a small boat",
+          "exercises": [
+            "kanji-set-2",
+            "koto-ga-aru",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "kanji",
+          "kana": "あし",
+          "kanji": "足",
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あしが いたいから あるく つもりは ない。",
+          "en": "My foot hurts, so I don't intend to walk",
+          "exercises": [
+            "kanji-set-2",
+            "ga-itai",
+            "tsumori-desu",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいだ ことが ある。",
+          "en": "Say to a friend: I have swum in the sea",
+          "exercises": [
+            "koto-ga-aru"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "にほんの ",
+          "tail": "に いった ことが ある。",
+          "answer": "やま",
+          "options": [
+            "やま",
+            "かわ",
+            "うみ"
+          ],
+          "en": "I have been to a mountain in Japan",
+          "explanation": "やま is a mountain — the glyph 山 is a picture of three peaks. かわ is a river and うみ is the sea."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちいさい かわで およいだ ことが ある。",
+          "answer": "I have swum in a small river",
+          "distractors": [
+            "I have swum in a small pond",
+            "I have never swum in a small river",
+            "I intend to swim in a small river"
+          ],
+          "exercises": [
+            "kanji-set-2",
+            "koto-ga-aru"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あしが いたいから きょうは いかない。",
+          "answer": "My foot hurts, so I'm not going today",
+          "distractors": [
+            "My foot hurts, but I'm going today",
+            "My hand hurts, so I'm not going today",
+            "My foot hurt yesterday, so I didn't go"
+          ],
+          "exercises": [
+            "kanji-set-2",
+            "ga-itai",
+            "nai-form"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "なつやすみに どこに いく つもり？",
+              "en": "Where are you planning to go in the summer?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "やまに いく つもりだ。うみには いった ことが ある。",
+              "en": "I'm going to the mountains. I've already been to the sea."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why is Ken going to the mountains?",
+              "options": [
+                "He has already been to the sea",
+                "The sea is too far",
+                "He has never seen a mountain",
+                "His foot hurts"
+              ],
+              "answer": "He has already been to the sea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ちいさい ふねに のった ことが あるけど うみは とおいから やまに いく つもりだ。",
+          "en": "I have been on a small boat, but the sea is far away, so I intend to go to the mountains",
+          "combines": [
+            "kanji-set-2",
+            "koto-ga-aru",
+            "tsumori-desu",
+            "kedo",
+            "kara-because",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "くうこう",
+        "つく",
+        "つもり",
+        "ホテル",
+        "はいる",
+        "ふね",
+        "やま",
+        "かわ",
+        "うみ",
+        "あし"
+      ]
+    },
+    {
+      "id": "m23-neo-review-2",
+      "role": "review",
+      "title": "Review — wanting, deciding not to, and reading cold",
+      "focus": "たい against つもり, 〜ない つもり, and the second kanji set",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "にほんに いきたいから きっぷを かう つもりだ。",
+          "en": "I want to go to Japan, so I intend to buy a ticket",
+          "exercises": [
+            "v-tai",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは おさけを のまない つもりだ。",
+          "en": "I intend not to drink today",
+          "exercises": [
+            "nai-form",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ くうこうに つく つもりだ。",
+          "en": "I intend to arrive at the airport in the morning",
+          "exercises": [
+            "tsumori-desu",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべたいけど たべた ことが ない。",
+          "en": "I want to eat sushi, but I never have",
+          "exercises": [
+            "v-tai",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんの やまに いった ことが ある。",
+          "en": "I have been to a mountain in Japan",
+          "exercises": [
+            "kanji-set-2",
+            "koto-ga-aru"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうは コーヒーを ",
+          "tail": " つもりだから ちゃを かう。",
+          "answer": "のまない",
+          "options": [
+            "のまない",
+            "のむ",
+            "のんだ"
+          ],
+          "en": "I intend not to drink coffee today, so I'm buying tea",
+          "explanation": "an intention NOT to do something negates the VERB — のむ becomes のまない. のむ is the plain positive and のんだ is the past."
+        },
+        {
+          "kind": "sentence",
+          "ja": "その えいがは みない つもりだ。",
+          "en": "I intend not to see that film",
+          "exercises": [
+            "nai-form",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がいこくに いかない つもりだけど にほんには いく。",
+          "answer": "I intend not to go abroad, but I am going to Japan",
+          "distractors": [
+            "I intend to go abroad, but not to Japan",
+            "I have never been abroad, and I have never been to Japan",
+            "I want to go abroad, but not to Japan"
+          ],
+          "exercises": [
+            "nai-form",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに ちかい ホテルに はいる つもりだ。",
+          "en": "I intend to check into a hotel near the sea",
+          "exercises": [
+            "kanji-set-2",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いきたいけど いく つもりは ない。",
+          "en": "Say to a friend: I want to go to Japan, but I don't intend to",
+          "exercises": [
+            "v-tai",
+            "tsumori-desu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あさの でんしゃで くうこうに つく つもりだ。",
+          "answer": "I intend to reach the airport on the morning train",
+          "distractors": [
+            "I intend to reach the station on the morning train",
+            "I reached the airport on the morning train",
+            "I want to reach the airport on the morning train"
+          ],
+          "exercises": [
+            "tsumori-desu",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした がっこうに いかない つもりだから うちで まつ。",
+          "en": "I intend not to go to school tomorrow, so I'll wait at home",
+          "exercises": [
+            "nai-form",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい ふねに のった ことが ある。",
+          "en": "I have been on a small boat",
+          "exercises": [
+            "kanji-set-2",
+            "koto-ga-aru"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "うみで およぐ つもり？",
+              "en": "Are you planning to swim in the sea?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ううん。およがない つもりだ。あしが いたい。",
+              "en": "No. I'm planning not to. My foot hurts."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why is Mika not swimming?",
+              "options": [
+                "Her foot hurts",
+                "She has never swum",
+                "The sea is far away",
+                "She wants to go to the mountains"
+              ],
+              "answer": "Her foot hurts"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "くうこう",
+        "つく",
+        "つもり",
+        "ホテル",
+        "はいる",
+        "やま",
+        "かわ",
+        "うみ",
+        "ちいさい",
+        "あし"
+      ]
+    },
+    {
+      "id": "m23-neo-9",
+      "role": "teaching",
+      "title": "「いく とき」 と 「いった とき」 — which side of the when",
+      "focus": "The tense inside a とき clause is measured against the MAIN clause, not against now",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "toki"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いく とき ひこうきに のる。",
+          "en": "When I go to Japan, I take a plane",
+          "exercises": [
+            "toki",
+            "dictionary-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった とき すしを たべた。",
+          "en": "When I got to Japan, I ate sushi",
+          "exercises": [
+            "toki",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょこうに いく とき カメラを かう つもりだ。",
+          "en": "When I go travelling, I intend to buy a camera first",
+          "exercises": [
+            "toki",
+            "tsumori-desu",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "kanji",
+          "kana": "くる",
+          "kanji": "来る",
+          "distractors": [
+            "らいる",
+            "ぐる",
+            "きる"
+          ],
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いった とき およいだ。",
+          "en": "When I got to the sea, I went swimming",
+          "exercises": [
+            "toki",
+            "ta-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいの とき がいこくで はたらいた ことが ある。",
+          "en": "I have worked abroad, back when I was a student",
+          "exercises": [
+            "toki",
+            "no-possession",
+            "koto-ga-aru"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ホテルに はいる とき きっぷを みせる。",
+          "en": "When I check into the hotel, I show the ticket",
+          "exercises": [
+            "toki",
+            "dictionary-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカが くる とき ちゃを かう つもりだ。",
+          "en": "When Mika comes, I intend to buy some tea",
+          "exercises": [
+            "toki",
+            "tsumori-desu",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いく とき ふねに のる。",
+          "en": "Say to a friend: When I go to the sea, I take a boat",
+          "exercises": [
+            "toki"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "にほんに ",
+          "tail": " とき すしを たべた。",
+          "answer": "いった",
+          "options": [
+            "いった",
+            "いく",
+            "いきたい"
+          ],
+          "en": "When I got to Japan, I ate sushi",
+          "explanation": "the sushi comes AFTER arriving, so the とき clause is past — いった. いく would put the sushi before the trip, and いきたい is not a tense at all."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "にほんに いった とき さくらを みた。",
+          "answer": "When I got to Japan, I saw cherry blossom",
+          "distractors": [
+            "When I go to Japan, I'll see cherry blossom",
+            "Before going to Japan, I saw cherry blossom",
+            "I have seen cherry blossom in Japan"
+          ],
+          "exercises": [
+            "toki",
+            "ta-form"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "うみに いく とき カメラを かう。",
+          "answer": "When I go to the sea, I buy a camera first",
+          "distractors": [
+            "When I got to the sea, I bought a camera",
+            "I have bought a camera at the sea",
+            "I intend to buy a camera at the sea"
+          ],
+          "exercises": [
+            "toki",
+            "dictionary-form"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "にほんに いった とき なにを たべた？",
+              "en": "What did you eat when you got to Japan?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "すしを たべた。おさけも のんだ。",
+              "en": "I ate sushi. I drank sake too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Mika have in Japan?",
+              "options": [
+                "Sushi and sake",
+                "Sushi only",
+                "Sake only",
+                "Tea and bread"
+              ],
+              "answer": "Sushi and sake"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "がくせいの とき がいこくに いった ことが あるから なつやすみに いく つもりだ。",
+          "en": "I have been abroad once, back when I was a student, so I intend to go in the summer holidays",
+          "combines": [
+            "toki",
+            "koto-ga-aru",
+            "tsumori-desu",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ひこうき",
+        "のる",
+        "のった",
+        "つく",
+        "くうこう",
+        "カメラ",
+        "さくら",
+        "りょこう",
+        "きっぷ",
+        "とき"
+      ]
+    },
+    {
+      "id": "m23-neo-10",
+      "role": "teaching",
+      "title": "「かってから のる」 — putting a trip in order",
+      "focus": "〜てから is after doing and 〜まえに is before doing — the order lives in the connector",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-kara"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷを かってから でんしゃに のる。",
+          "en": "I'll buy a ticket, then get on the train",
+          "exercises": [
+            "te-kara",
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべてから ホテルに はいる つもりだ。",
+          "en": "I intend to eat sushi, then check into the hotel",
+          "exercises": [
+            "te-kara",
+            "tsumori-desu",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいでから ちゃを のむ つもりだ。",
+          "en": "I intend to swim in the sea, then drink some tea",
+          "exercises": [
+            "te-kara",
+            "tsumori-desu",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はたらいてから がいこくに いく つもりだ。",
+          "en": "I intend to work first, then go abroad",
+          "exercises": [
+            "te-kara",
+            "tsumori-desu",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカを まってから えいがを みる。",
+          "en": "I'll wait for Mika, then watch the film",
+          "exercises": [
+            "te-kara",
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くうこうに いく まえに きっぷを かう。",
+          "en": "Before going to the airport, I buy a ticket",
+          "exercises": [
+            "mae-ni",
+            "dictionary-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひこうきに のる まえに コーヒーを のむ。",
+          "en": "Before getting on the plane, I drink a coffee",
+          "exercises": [
+            "mae-ni",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいでから かえる。",
+          "en": "Say to a friend: I'll swim in the sea, then head home",
+          "exercises": [
+            "te-kara"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きっぷを ",
+          "tail": "から でんしゃに のる。",
+          "answer": "かって",
+          "options": [
+            "かって",
+            "かった",
+            "かう"
+          ],
+          "en": "I'll buy a ticket, then get on the train",
+          "explanation": "から attaches to the て-form — かう becomes かって. かった is the plain past and かう is the dictionary form; neither can carry this から."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "すしを たべてから うみに いく。",
+          "answer": "I'll eat sushi, then go to the sea",
+          "distractors": [
+            "Before eating sushi, I'll go to the sea",
+            "I ate sushi and then went to the sea",
+            "I intend to eat sushi at the sea"
+          ],
+          "exercises": [
+            "te-kara",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "はたらいてから りょこうに いく つもりだ。",
+          "answer": "I intend to work first, then go travelling",
+          "distractors": [
+            "I intend to travel first, then work",
+            "I worked and then went travelling",
+            "I want to work and travel"
+          ],
+          "exercises": [
+            "te-kara",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "くうこうに つく まえに なにを する？",
+              "en": "What do you do before you get to the airport?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "きっぷを かってから コーヒーを のむ。",
+              "en": "I buy a ticket, then have a coffee."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom do first?",
+              "options": [
+                "Buy a ticket",
+                "Drink a coffee",
+                "Get on the plane",
+                "Wait for Mika"
+              ],
+              "answer": "Buy a ticket"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "はたらいてから がいこくに いく つもりだけど ひこうきに のった ことが ない。",
+          "en": "I intend to work first and then go abroad, but I have never been on a plane",
+          "combines": [
+            "te-kara",
+            "tsumori-desu",
+            "koto-ga-aru",
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "つく",
+        "くうこう",
+        "ホテル",
+        "はいる",
+        "きっぷ",
+        "でんしゃ",
+        "コーヒー",
+        "ちゃ",
+        "りょこう",
+        "とき"
+      ]
+    },
+    {
+      "id": "m23-neo-11",
+      "role": "teaching",
+      "title": "「いく つもりだと おもう」 — quoting a whole plan",
+      "focus": "A つもり or a ことが ある clause goes under と おもう unchanged, and it stays plain",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "to-omoimasu"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは にほんに いく つもりだと おもう。",
+          "en": "I think Mika is planning to go to Japan",
+          "exercises": [
+            "to-omoimasu",
+            "tsumori-desu",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは すしを たべた ことが あると おもう。",
+          "en": "I think Tom has eaten sushi",
+          "exercises": [
+            "to-omoimasu",
+            "koto-ga-aru",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは ひこうきに のった ことが ないと おもう。",
+          "en": "I don't think Ken has ever been on a plane",
+          "exercises": [
+            "to-omoimasu",
+            "nai-existence",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あしたは いかない つもりだと ミカに いう。",
+          "en": "I'll tell Mika I'm not planning to go tomorrow",
+          "exercises": [
+            "to-quotation",
+            "nai-form",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ホテルは たかいと おもうけど はいる つもりだ。",
+          "en": "I think this hotel is expensive, but I intend to check in",
+          "exercises": [
+            "to-omoimasu",
+            "tsumori-desu",
+            "kedo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは うみで およいだ ことが あると おもう。",
+          "en": "I think Mika has swum in the sea",
+          "exercises": [
+            "to-omoimasu",
+            "koto-ga-aru",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がいこくで はたらいた ことが あると トムに はなす。",
+          "en": "I'll tell Tom I have worked abroad",
+          "exercises": [
+            "to-quotation",
+            "koto-ga-aru",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは くうこうに つく つもりだと おもう。",
+          "en": "Say to a friend: I think Tom is planning to get to the airport",
+          "exercises": [
+            "to-omoimasu",
+            "tsumori-desu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "この ホテルは ",
+          "tail": "と おもう。",
+          "answer": "たかい",
+          "options": [
+            "たかい",
+            "やすい",
+            "ちいさい"
+          ],
+          "en": "I think this hotel is expensive",
+          "explanation": "たかい is expensive. やすい is cheap and ちいさい is small — all three are real opinions, but only one is the price complaint."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ケンは がいこくに いった ことが ないと おもう。",
+          "answer": "I don't think Ken has ever been abroad",
+          "distractors": [
+            "I think Ken has been abroad",
+            "Ken says he has never been abroad",
+            "I don't think Ken is going abroad"
+          ],
+          "exercises": [
+            "to-omoimasu",
+            "nai-existence"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは ふねに のった ことが あると おもう。",
+          "answer": "I think Tom has been on a boat",
+          "distractors": [
+            "I don't think Tom has been on a boat",
+            "I think Tom is going on a boat",
+            "Tom says he has been on a boat"
+          ],
+          "exercises": [
+            "to-omoimasu",
+            "koto-ga-aru"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "トムは にほんに いった ことが ある？",
+              "en": "Has Tom ever been to Japan?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "いった ことが あると おもう。しゃしんを みた。",
+              "en": "I think he has. I've seen the photos."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why does Ken think Tom has been to Japan?",
+              "options": [
+                "He has seen the photos",
+                "Tom told him so",
+                "They went together",
+                "Tom bought a ticket"
+              ],
+              "answer": "He has seen the photos"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカは がくせいの とき がいこくで はたらいた ことが あると おもうけど きいた ことが ない。",
+          "en": "I think Mika worked abroad back when she was a student, but I have never heard her say so",
+          "combines": [
+            "to-omoimasu",
+            "toki",
+            "koto-ga-aru",
+            "nai-existence",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "つもり",
+        "ホテル",
+        "はいる",
+        "つく",
+        "くうこう",
+        "ひこうき",
+        "のった",
+        "はたらいた",
+        "およいだ",
+        "がいこく"
+      ]
+    },
+    {
+      "id": "m23-neo-review-3",
+      "role": "review",
+      "title": "Review — the when, the order and the quoted plan",
+      "focus": "とき's relative tense, 〜てから against 〜まえに, and clauses under と おもう",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "にほんに いく とき ひこうきに のる。",
+          "en": "When I go to Japan, I take a plane",
+          "exercises": [
+            "toki",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった とき すしを たべた。",
+          "en": "When I got to Japan, I ate sushi",
+          "exercises": [
+            "toki",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷを かってから でんしゃに のる。",
+          "en": "I'll buy a ticket, then get on the train",
+          "exercises": [
+            "te-kara",
+            "te-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは にほんに いく つもりだと おもう。",
+          "en": "I think Mika is planning to go to Japan",
+          "exercises": [
+            "to-omoimasu",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "kanji",
+          "kana": "うえ",
+          "kanji": "上",
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひこうきに のる まえに コーヒーを のむ。",
+          "en": "Before getting on the plane, I drink a coffee",
+          "exercises": [
+            "mae-ni",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "うみに ",
+          "tail": " とき およいだ。",
+          "answer": "いった",
+          "options": [
+            "いった",
+            "いく",
+            "いきたい"
+          ],
+          "en": "When I got to the sea, I went swimming",
+          "explanation": "the swimming comes AFTER arriving, so the とき clause is past — いった. いく would put the swimming before the trip."
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいの とき がいこくで はたらいた ことが ある。",
+          "en": "I have worked abroad, back when I was a student",
+          "exercises": [
+            "toki",
+            "koto-ga-aru"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ケンは ひこうきに のった ことが ないと おもう。",
+          "answer": "I don't think Ken has ever been on a plane",
+          "distractors": [
+            "I think Ken has been on a plane",
+            "Ken has never been on a plane, he says",
+            "I don't think Ken is getting on a plane"
+          ],
+          "exercises": [
+            "to-omoimasu",
+            "nai-existence"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべてから ホテルに はいる つもりだ。",
+          "en": "I intend to eat sushi, then check into the hotel",
+          "exercises": [
+            "te-kara",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いく とき ふねに のる。",
+          "en": "Say to a friend: When I go to the sea, I take a boat",
+          "exercises": [
+            "toki"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "うみで およいでから ちゃを のむ つもりだ。",
+          "answer": "I intend to swim in the sea, then drink some tea",
+          "distractors": [
+            "I intend to drink tea, then swim in the sea",
+            "I swam in the sea and then drank tea",
+            "I want to swim in the sea and drink tea"
+          ],
+          "exercises": [
+            "te-kara",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカが くる とき ちゃを かう つもりだ。",
+          "en": "When Mika comes, I intend to buy some tea",
+          "exercises": [
+            "toki",
+            "tsumori-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "くうこうに つく まえに なにを かう つもり？",
+              "en": "What are you planning to buy before you get to the airport?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "カメラを かう つもりだ。しゃしんが すきだから。",
+              "en": "I'm planning to buy a camera. I like photos."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Mika planning to buy?",
+              "options": [
+                "A camera",
+                "A ticket",
+                "A coffee",
+                "Nothing at all"
+              ],
+              "answer": "A camera"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "とき",
+        "つもり",
+        "ホテル",
+        "はいる",
+        "つく",
+        "くうこう",
+        "ひこうき",
+        "きっぷ",
+        "カメラ",
+        "ふね"
+      ]
+    },
+    {
+      "id": "m23-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — everything you have ever done, and everything you mean to",
+      "focus": "End-of-module stretch: an experience, a plan, a when and a quote in one sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "がくせいの とき がいこくで はたらいた ことが あるから なつやすみに いく つもりだ。",
+          "en": "I have worked abroad, back when I was a student, so I intend to go in the summer holidays",
+          "exercises": [
+            "toki",
+            "koto-ga-aru",
+            "tsumori-desu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは ひこうきに のった ことが ないと おもうけど くうこうに いく つもりだ。",
+          "en": "I don't think Mika has ever been on a plane, but she intends to go to the airport",
+          "exercises": [
+            "to-omoimasu",
+            "nai-existence",
+            "tsumori-desu",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷを かってから でんしゃで うみに いく つもりだ。",
+          "en": "I intend to buy a ticket, then go to the sea by train",
+          "exercises": [
+            "te-kara",
+            "tsumori-desu",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "kanji",
+          "kana": "した",
+          "kanji": "下",
+          "exercises": [
+            "kanji-set-2"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった とき さくらを みたけど しゃしんが ない。",
+          "en": "When I got to Japan I saw cherry blossom, but I have no photo of it",
+          "exercises": [
+            "toki",
+            "ta-form",
+            "kedo",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい ホテルに はいる まえに すしを たべる つもりだ。",
+          "en": "Before checking into a small hotel, I intend to eat sushi",
+          "exercises": [
+            "mae-ni",
+            "tsumori-desu",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみで およいだ ことが ないけど かわで およいだ ことが ある。",
+          "en": "I have never swum in the sea, but I have swum in a river",
+          "exercises": [
+            "nai-existence",
+            "koto-ga-aru",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんに いった ことが ある。",
+          "en": "Say to a friend: I have been to Japan",
+          "exercises": [
+            "koto-ga-aru"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "がいこくで ",
+          "tail": " ことが ないから しらない。",
+          "answer": "はたらいた",
+          "options": [
+            "はたらいた",
+            "はたらく",
+            "はたらいて"
+          ],
+          "en": "I have never worked abroad, so I don't know",
+          "explanation": "こと takes the PLAIN PAST in front of it — はたらいた. はたらく is the dictionary form and はたらいて is the て-form; neither can sit in front of こと."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "はたらいてから がいこくに いく つもりだ。",
+          "answer": "I intend to work first, then go abroad",
+          "distractors": [
+            "I intend to go abroad first, then work",
+            "I have worked abroad",
+            "I want to work abroad"
+          ],
+          "exercises": [
+            "te-kara",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "りょこうに いく とき カメラを かう つもりだ。",
+          "answer": "When I go travelling, I intend to buy a camera first",
+          "distractors": [
+            "When I went travelling, I bought a camera",
+            "I have bought a camera for the trip",
+            "I intend to buy a camera while travelling"
+          ],
+          "exercises": [
+            "toki",
+            "tsumori-desu"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ くうこうに つく つもりだから ちかてつに のる。",
+          "en": "I intend to arrive at the airport in the morning, so I'm taking the subway",
+          "exercises": [
+            "tsumori-desu",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "がいこくに いった ことが ある？",
+              "en": "Have you ever been abroad?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "うん。がくせいの とき はたらいた。なつやすみに いく つもりだ。",
+              "en": "Yeah. I worked there when I was a student. I'm going again in the summer."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Tom do abroad?",
+              "options": [
+                "He worked there as a student",
+                "He studied there as a student",
+                "He has never been abroad",
+                "He went there last summer"
+              ],
+              "answer": "He worked there as a student"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカは がいこくに いった ことが ないと おもうけど なつやすみに ひこうきで いく つもりだと きいた。",
+          "en": "I don't think Mika has ever been abroad, but I hear she intends to fly there in the summer holidays",
+          "combines": [
+            "to-omoimasu",
+            "nai-existence",
+            "tsumori-desu",
+            "to-quotation",
+            "de-action",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "つもり",
+        "ホテル",
+        "はいる",
+        "つく",
+        "くうこう",
+        "ひこうき",
+        "のる",
+        "のった",
+        "およいだ",
+        "はたらいた"
+      ]
+    }
+  ],
+  "priorVocab": [
+    "あさ",
+    "あし",
+    "あした",
+    "あそこ",
+    "あそびたい",
+    "あそびます",
+    "あそぶ",
+    "あそんだ",
+    "あそんだり",
+    "あそんで",
+    "あたま",
+    "あたらしい",
+    "あたらしくない",
+    "あに",
+    "あね",
+    "あの",
+    "あまり",
+    "ありがとう",
+    "ありがとうございます",
+    "あります",
+    "ありません",
+    "ある",
+    "あるく",
+    "あれ",
+    "いい",
+    "いう",
+    "いえ",
+    "いかない",
+    "いかなかった",
+    "いきたい",
+    "いきたかった",
+    "いきたくない",
+    "いきたくなかった",
+    "いきました",
+    "いきます",
+    "いきません",
+    "いきませんでした",
+    "いく",
+    "いくら",
+    "いけ",
+    "いけません",
+    "いしゃ",
+    "いす",
+    "いそがしい",
+    "いたい",
+    "いち",
+    "いちじ",
+    "いった",
+    "いったり",
+    "いって",
+    "いっぱい",
+    "いっぽん",
+    "いつ",
+    "いつも",
+    "いない",
+    "いぬ",
+    "いま",
+    "いもうと",
+    "いらっしゃいませ",
+    "いる",
+    "いろ",
+    "ううん",
+    "うえ",
+    "うた",
+    "うち",
+    "うま",
+    "うみ",
+    "うる",
+    "うん",
+    "え",
+    "えいが",
+    "ええ",
+    "えき",
+    "えん",
+    "えんぴつ",
+    "おいしい",
+    "おいしかった",
+    "おいしくない",
+    "おいしくなかった",
+    "おおきい",
+    "おおきかった",
+    "おおきくない",
+    "おおきくなかった",
+    "おかあさん",
+    "おさけ",
+    "おしえて",
+    "おしえる",
+    "おとうさん",
+    "おとうと",
+    "おなか",
+    "おにいさん",
+    "おねえさん",
+    "おもう",
+    "おもしろい",
+    "おもしろかった",
+    "おもしろくない",
+    "おもしろくなかった",
+    "およいで",
+    "およがない",
+    "およぐ",
+    "おんがく",
+    "か",
+    "かいしゃ",
+    "かいたい",
+    "かいたかった",
+    "かいたくない",
+    "かいたくなかった",
+    "かいました",
+    "かいます",
+    "かいませんでした",
+    "かいもの",
+    "かう",
+    "かえる",
+    "かお",
+    "かぎ",
+    "かさ",
+    "かぜ",
+    "かぞく",
+    "かった",
+    "かって",
+    "かね",
+    "かばん",
+    "かめ",
+    "からだ",
+    "かわ",
+    "かわない",
+    "かわなかった",
+    "が",
+    "がくせい",
+    "がっこう",
+    "がつ",
+    "き",
+    "きいた",
+    "きいたり",
+    "きいて",
+    "ききます",
+    "きく",
+    "きた",
+    "きっさてん",
+    "きっぷ",
+    "きて",
+    "きのう",
+    "きのこ",
+    "きます",
+    "きません",
+    "きませんでした",
+    "きゅう",
+    "きゅうり",
+    "きょう",
+    "きょうだい",
+    "きらい",
+    "きれい",
+    "ぎゅうにゅう",
+    "く",
+    "くじ",
+    "くすり",
+    "ください",
+    "くち",
+    "くつ",
+    "くる",
+    "くるま",
+    "くん",
+    "けいたい",
+    "けっこう",
+    "けど",
+    "げんき",
+    "こ",
+    "こえ",
+    "ここ",
+    "こちら",
+    "こと",
+    "こない",
+    "こなかった",
+    "この",
+    "こめ",
+    "これ",
+    "ご",
+    "ごご",
+    "ごじ",
+    "ごじゅう",
+    "ごぜん",
+    "ごはい",
+    "ごはん",
+    "ごほん",
+    "ごめんなさい",
+    "さい",
+    "さくら",
+    "さま",
+    "さむい",
+    "さむかった",
+    "さん",
+    "さんじ",
+    "さんじゅう",
+    "さんぜん",
+    "さんにん",
+    "さんばい",
+    "さんびゃく",
+    "さんぼん",
+    "さんぽ",
+    "し",
+    "しずか",
+    "した",
+    "したい",
+    "したかった",
+    "しちじ",
+    "しって",
+    "して",
+    "しない",
+    "しなかった",
+    "しました",
+    "します",
+    "しません",
+    "しませんでした",
+    "しゃしん",
+    "しょくじ",
+    "しらない",
+    "しります",
+    "しりません",
+    "しる",
+    "じかん",
+    "じしょ",
+    "じてんしゃ",
+    "じゃない",
+    "じゃなかった",
+    "じゅう",
+    "じゅうじ",
+    "じゅぎょう",
+    "じゅっぷん",
+    "すき",
+    "すし",
+    "すみません",
+    "する",
+    "すんで",
+    "せ",
+    "せん",
+    "せんせい",
+    "ぜんぜん",
+    "そう",
+    "そこ",
+    "その",
+    "そら",
+    "それ",
+    "たかい",
+    "たかかった",
+    "たかくない",
+    "たかくなかった",
+    "たなか",
+    "たのしい",
+    "たべた",
+    "たべたい",
+    "たべたかった",
+    "たべたくない",
+    "たべたくなかった",
+    "たべたり",
+    "たべて",
+    "たべない",
+    "たべなかった",
+    "たべました",
+    "たべます",
+    "たべません",
+    "たべませんでした",
+    "たべもの",
+    "たべる",
+    "たまご",
+    "だいがく",
+    "だいじょうぶ",
+    "だった",
+    "だめ",
+    "だれ",
+    "ちいさい",
+    "ちかい",
+    "ちかてつ",
+    "ちがいます",
+    "ちがう",
+    "ちち",
+    "ちゃ",
+    "ちゃん",
+    "ちょっと",
+    "つき",
+    "て",
+    "てがみ",
+    "で",
+    "でした",
+    "でんしゃ",
+    "でんわ",
+    "と",
+    "とおい",
+    "とき",
+    "ときどき",
+    "とけい",
+    "としょかん",
+    "ともだち",
+    "とりにく",
+    "どう",
+    "どこ",
+    "どちら",
+    "どっち",
+    "どの",
+    "どれ",
+    "ない",
+    "なか",
+    "なかった",
+    "なつやすみ",
+    "など",
+    "なな",
+    "ななじゅう",
+    "なに",
+    "なまえ",
+    "なん",
+    "なんじ",
+    "なんばい",
+    "なんぼん",
+    "に",
+    "にぎやか",
+    "にじ",
+    "にほん",
+    "にほんじん",
+    "にん",
+    "ねこ",
+    "ねつ",
+    "の",
+    "ので",
+    "のど",
+    "のまない",
+    "のまなかった",
+    "のみたい",
+    "のみたかった",
+    "のみたくない",
+    "のみたくなかった",
+    "のみました",
+    "のみます",
+    "のみません",
+    "のみませんでした",
+    "のみもの",
+    "のむ",
+    "のんだ",
+    "のんだり",
+    "のんで",
+    "は",
+    "はい",
+    "はじめまして",
+    "はたち",
+    "はたらいて",
+    "はたらきます",
+    "はたらきません",
+    "はたらく",
+    "はち",
+    "はちじ",
+    "はっせん",
+    "はっぴゃく",
+    "はな",
+    "はなす",
+    "はは",
+    "はん",
+    "ばん",
+    "ひと",
+    "ひとつ",
+    "ひとり",
+    "ひま",
+    "ひゃく",
+    "びょういん",
+    "びょうき",
+    "ふく",
+    "ふたつ",
+    "ふたり",
+    "ふね",
+    "ふるい",
+    "ふるかった",
+    "ふん",
+    "ぶた",
+    "ぷん",
+    "へ",
+    "ほう",
+    "ほし",
+    "ほしい",
+    "ほん",
+    "ぼうし",
+    "ぼく",
+    "まあ",
+    "まい",
+    "まえ",
+    "まだ",
+    "まって",
+    "まつ",
+    "まで",
+    "まど",
+    "まん",
+    "みず",
+    "みせ",
+    "みせて",
+    "みせない",
+    "みせる",
+    "みた",
+    "みたい",
+    "みたくない",
+    "みたり",
+    "みっつ",
+    "みて",
+    "みない",
+    "みなかった",
+    "みます",
+    "みません",
+    "みませんでした",
+    "みみ",
+    "みる",
+    "むずかしい",
+    "め",
+    "めがね",
+    "も",
+    "もう",
+    "もも",
+    "や",
+    "やすい",
+    "やすかった",
+    "やすみ",
+    "やま",
+    "やる",
+    "ゆうめい",
+    "ゆき",
+    "よかった",
+    "よく",
+    "よくない",
+    "よくなかった",
+    "よじ",
+    "よにん",
+    "より",
+    "よん",
+    "よんじゅう",
+    "よんはい",
+    "よんほん",
+    "りょうり",
+    "りょこう",
+    "ろく",
+    "ろくじ",
+    "ろくじゅう",
+    "ろっぱい",
+    "ろっぴゃく",
+    "ろっぽん",
+    "わかった",
+    "わからない",
+    "わかります",
+    "わかる",
+    "わたし",
+    "を",
+    "アメリカ",
+    "アメリカじん",
+    "カメラ",
+    "コーヒー",
+    "バス",
+    "パン",
+    "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "えいが",
+      "romaji": "eiga",
+      "gloss": "movie",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くつ",
+      "romaji": "kutsu",
+      "gloss": "shoes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こと",
+      "romaji": "koto",
+      "gloss": "thing, the act of doing",
+      "shortGloss": "thing (act of)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とき",
+      "romaji": "toki",
+      "gloss": "time, when",
+      "shortGloss": "time, when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いそがしい",
+      "romaji": "isogashii",
+      "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "りょこう",
+      "romaji": "ryokou",
+      "gloss": "trip, travel",
+      "shortGloss": "trip",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まえ",
+      "romaji": "mae",
+      "gloss": "before",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さむい",
+      "romaji": "samui",
+      "gloss": "cold (weather)",
+      "shortGloss": "cold",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うち",
+      "romaji": "uchi",
+      "gloss": "home, my place",
+      "shortGloss": "home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ので",
+      "romaji": "node",
+      "gloss": "because (softer)",
+      "shortGloss": "because",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けど",
+      "romaji": "kedo",
+      "gloss": "but",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まで",
+      "romaji": "made",
+      "gloss": "until, as far as",
+      "shortGloss": "until",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がつ",
+      "romaji": "gatsu",
+      "gloss": "month (in a date)",
+      "shortGloss": "month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすみ",
+      "romaji": "yasumi",
+      "gloss": "holiday, time off",
+      "shortGloss": "holiday",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべませんでした",
+      "romaji": "tabemasendeshita",
+      "gloss": "didn't eat (polite)",
+      "shortGloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみませんでした",
+      "romaji": "nomimasendeshita",
+      "gloss": "didn't drink (polite)",
+      "shortGloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しませんでした",
+      "romaji": "shimasendeshita",
+      "gloss": "didn't do (polite)",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いきませんでした",
+      "romaji": "ikimasendeshita",
+      "gloss": "didn't go (polite)",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みませんでした",
+      "romaji": "mimasendeshita",
+      "gloss": "didn't watch (polite)",
+      "shortGloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいませんでした",
+      "romaji": "kaimasendeshita",
+      "gloss": "didn't buy (polite)",
+      "shortGloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きませんでした",
+      "romaji": "kimasendeshita",
+      "gloss": "didn't come (polite)",
+      "shortGloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "さむかった",
+      "romaji": "samukatta",
+      "gloss": "was cold",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "さむい"
+    },
+    {
+      "kana": "たべなかった",
+      "romaji": "tabenakatta",
+      "gloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまなかった",
+      "romaji": "nomanakatta",
+      "gloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しなかった",
+      "romaji": "shinakatta",
+      "gloss": "didn't do",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いかなかった",
+      "romaji": "ikanakatta",
+      "gloss": "didn't go",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みなかった",
+      "romaji": "minakatta",
+      "gloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かわなかった",
+      "romaji": "kawanakatta",
+      "gloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "こなかった",
+      "romaji": "konakatta",
+      "gloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "なかった",
+      "romaji": "nakatta",
+      "gloss": "there wasn't, didn't have",
+      "shortGloss": "didn't have",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "ぜんぜん",
+      "romaji": "zenzen",
+      "gloss": "not at all (with a negative)",
+      "shortGloss": "not at all",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まい",
+      "romaji": "mai",
+      "gloss": "counter for flat things",
+      "shortGloss": "flat-thing counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちち",
+      "romaji": "chichi",
+      "gloss": "(my) father",
+      "shortGloss": "my father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はは",
+      "romaji": "haha",
+      "gloss": "(my) mother",
+      "shortGloss": "my mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あに",
+      "romaji": "ani",
+      "gloss": "(my) older brother",
+      "shortGloss": "older brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あね",
+      "romaji": "ane",
+      "gloss": "(my) older sister",
+      "shortGloss": "older sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうと",
+      "romaji": "otouto",
+      "gloss": "(my) younger brother",
+      "shortGloss": "younger brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いもうと",
+      "romaji": "imouto",
+      "gloss": "(my) younger sister",
+      "shortGloss": "younger sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうだい",
+      "romaji": "kyoudai",
+      "gloss": "(my) siblings",
+      "shortGloss": "siblings",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にん",
+      "romaji": "nin",
+      "gloss": "counter for people",
+      "shortGloss": "people counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとり",
+      "romaji": "hitori",
+      "gloss": "one person",
+      "shortGloss": "one person",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたり",
+      "romaji": "futari",
+      "gloss": "two people",
+      "shortGloss": "two people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんにん",
+      "romaji": "sannin",
+      "gloss": "three people",
+      "shortGloss": "three people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よにん",
+      "romaji": "yonin",
+      "gloss": "four people",
+      "shortGloss": "four people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さい",
+      "romaji": "sai",
+      "gloss": "years old (counter for age)",
+      "shortGloss": "years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたち",
+      "romaji": "hatachi",
+      "gloss": "twenty years old",
+      "shortGloss": "twenty years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "この",
+      "romaji": "kono",
+      "gloss": "this (+ noun)",
+      "shortGloss": "this …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "その",
+      "romaji": "sono",
+      "gloss": "that (+ noun)",
+      "shortGloss": "that …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あの",
+      "romaji": "ano",
+      "gloss": "that over there (+ noun)",
+      "shortGloss": "that … over there",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どの",
+      "romaji": "dono",
+      "gloss": "which (+ noun)",
+      "shortGloss": "which …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "むずかしい",
+      "romaji": "muzukashii",
+      "gloss": "difficult",
+      "shortGloss": "difficult",
+      "kind": "vocab"
+    },
+    {
+      "kana": "たのしい",
+      "romaji": "tanoshii",
+      "gloss": "enjoyable, fun",
+      "shortGloss": "enjoyable",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はなす",
+      "romaji": "hanasu",
+      "gloss": "to speak, to talk",
+      "shortGloss": "to speak",
+      "kind": "vocab"
+    },
+    {
+      "kana": "がっこう",
+      "romaji": "gakkou",
+      "gloss": "school",
+      "shortGloss": "school",
+      "kind": "vocab"
+    },
+    {
+      "kana": "としょかん",
+      "romaji": "toshokan",
+      "gloss": "library",
+      "shortGloss": "library",
+      "kind": "vocab"
+    },
+    {
+      "kana": "かえる",
+      "romaji": "kaeru",
+      "gloss": "to go back, to go home",
+      "shortGloss": "go home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "へ",
+      "romaji": "e (written he)",
+      "gloss": "to, toward (direction)",
+      "shortGloss": "toward",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "びょういん",
+      "romaji": "byouin",
+      "gloss": "hospital",
+      "shortGloss": "hospital",
+      "kind": "vocab"
+    },
+    {
+      "kana": "でんしゃ",
+      "romaji": "densha",
+      "gloss": "train",
+      "shortGloss": "train",
+      "kind": "vocab"
+    },
+    {
+      "kana": "バス",
+      "romaji": "basu",
+      "gloss": "bus",
+      "shortGloss": "bus",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちかてつ",
+      "romaji": "chikatetsu",
+      "gloss": "underground train, subway",
+      "shortGloss": "subway",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あるく",
+      "romaji": "aruku",
+      "gloss": "to walk",
+      "shortGloss": "to walk",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふん",
+      "romaji": "fun",
+      "gloss": "minutes (after 2, 5, 7, 9)",
+      "shortGloss": "minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぷん",
+      "romaji": "pun",
+      "gloss": "minutes (after 1, 3, 4, 6, 8, 10)",
+      "shortGloss": "minutes -pun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅっぷん",
+      "romaji": "juppun",
+      "gloss": "ten minutes",
+      "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ほう",
+      "romaji": "hou",
+      "gloss": "the more ~ one, this side",
+      "shortGloss": "the ~ one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "より",
+      "romaji": "yori",
+      "gloss": "than (marks the loser of a comparison)",
+      "shortGloss": "than",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "ちかい",
+      "romaji": "chikai",
+      "gloss": "near, close",
+      "shortGloss": "near",
+      "kind": "vocab"
+    },
+    {
+      "kana": "とおい",
+      "romaji": "tooi",
+      "gloss": "far",
+      "shortGloss": "far",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どっち",
+      "romaji": "dotchi",
+      "gloss": "which (of two)",
+      "shortGloss": "which of two",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どちら",
+      "romaji": "dochira",
+      "gloss": "which (of two) — polite",
+      "shortGloss": "which (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんびゃく",
+      "romaji": "sanbyaku",
+      "gloss": "three hundred",
+      "shortGloss": "300",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぴゃく",
+      "romaji": "roppyaku",
+      "gloss": "six hundred",
+      "shortGloss": "600",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっぴゃく",
+      "romaji": "happyaku",
+      "gloss": "eight hundred",
+      "shortGloss": "800",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せん",
+      "romaji": "sen",
+      "gloss": "thousand",
+      "shortGloss": "1000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まん",
+      "romaji": "man",
+      "gloss": "ten thousand",
+      "shortGloss": "10000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんぜん",
+      "romaji": "sanzen",
+      "gloss": "three thousand",
+      "shortGloss": "3000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっせん",
+      "romaji": "hassen",
+      "gloss": "eight thousand",
+      "shortGloss": "8000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こ",
+      "romaji": "ko",
+      "gloss": "counter for small objects",
+      "shortGloss": "-ko counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たまご",
+      "romaji": "tamago",
+      "gloss": "egg",
+      "shortGloss": "egg",
+      "kind": "vocab"
+    },
+    {
+      "kana": "や",
+      "romaji": "ya",
+      "gloss": "and (an open list — A や B means A and B among others)",
+      "shortGloss": "and (some of)",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "など",
+      "romaji": "nado",
+      "gloss": "and so on, et cetera",
+      "shortGloss": "and so on",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おかあさん",
+      "romaji": "okaasan",
+      "gloss": "(someone else's) mother — honorific",
+      "shortGloss": "their mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうさん",
+      "romaji": "otousan",
+      "gloss": "(someone else's) father — honorific",
+      "shortGloss": "their father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おにいさん",
+      "romaji": "oniisan",
+      "gloss": "(someone else's) older brother — honorific",
+      "shortGloss": "their big brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おねえさん",
+      "romaji": "oneesan",
+      "gloss": "(someone else's) older sister — honorific",
+      "shortGloss": "their big sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コーヒー",
+      "romaji": "koohii",
+      "gloss": "coffee",
+      "shortGloss": "coffee",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おさけ",
+      "romaji": "osake",
+      "gloss": "sake, alcohol",
+      "shortGloss": "sake",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いっぱい",
+      "romaji": "ippai",
+      "gloss": "one cupful, one glass",
+      "shortGloss": "1 cup",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんばい",
+      "romaji": "sanbai",
+      "gloss": "three cupfuls",
+      "shortGloss": "3 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんはい",
+      "romaji": "yonhai",
+      "gloss": "four cupfuls",
+      "shortGloss": "4 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごはい",
+      "romaji": "gohai",
+      "gloss": "five cupfuls",
+      "shortGloss": "5 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぱい",
+      "romaji": "roppai",
+      "gloss": "six cupfuls",
+      "shortGloss": "6 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんばい",
+      "romaji": "nanbai",
+      "gloss": "how many cupfuls",
+      "shortGloss": "how many cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたり",
+      "romaji": "tabetari",
+      "gloss": "eat, and things like that",
+      "shortGloss": "eat, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のんだり",
+      "romaji": "nondari",
+      "gloss": "drink, and things like that",
+      "shortGloss": "drink, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みたり",
+      "romaji": "mitari",
+      "gloss": "watch, and things like that",
+      "shortGloss": "watch, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きいたり",
+      "romaji": "kiitari",
+      "gloss": "listen, and things like that",
+      "shortGloss": "listen, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそんだり",
+      "romaji": "asondari",
+      "gloss": "play, and things like that",
+      "shortGloss": "play, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いったり",
+      "romaji": "ittari",
+      "gloss": "go, and things like that",
+      "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いたい",
+      "romaji": "itai",
+      "gloss": "painful, sore — it hurts",
+      "shortGloss": "it hurts",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたま",
+      "romaji": "atama",
+      "gloss": "head",
+      "shortGloss": "head",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おなか",
+      "romaji": "onaka",
+      "gloss": "stomach, belly",
+      "shortGloss": "stomach",
+      "kind": "vocab"
+    },
+    {
+      "kana": "め",
+      "romaji": "me",
+      "gloss": "eye",
+      "shortGloss": "eye",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みみ",
+      "romaji": "mimi",
+      "gloss": "ear",
+      "shortGloss": "ear",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くち",
+      "romaji": "kuchi",
+      "gloss": "mouth",
+      "shortGloss": "mouth",
+      "kind": "vocab"
+    },
+    {
+      "kana": "て",
+      "romaji": "te",
+      "gloss": "hand",
+      "shortGloss": "hand",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ねつ",
+      "romaji": "netsu",
+      "gloss": "a fever",
+      "shortGloss": "fever",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のど",
+      "romaji": "nodo",
+      "gloss": "throat",
+      "shortGloss": "throat",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "びょうき",
+      "romaji": "byouki",
+      "gloss": "illness, being ill",
+      "shortGloss": "illness",
+      "kind": "vocab"
+    },
+    {
+      "kana": "くすり",
+      "romaji": "kusuri",
+      "gloss": "medicine",
+      "shortGloss": "medicine",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつも",
+      "romaji": "itsumo",
+      "gloss": "always",
+      "shortGloss": "always",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ときどき",
+      "romaji": "tokidoki",
+      "gloss": "sometimes",
+      "shortGloss": "sometimes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あまり",
+      "romaji": "amari",
+      "gloss": "not much (always with a negative)",
+      "shortGloss": "not much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あし",
+      "romaji": "ashi",
+      "gloss": "foot, leg",
+      "shortGloss": "foot/leg",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いしゃ",
+      "romaji": "isha",
+      "gloss": "a doctor",
+      "shortGloss": "doctor",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いっぽん",
+      "romaji": "ippon",
+      "gloss": "one long thin thing",
+      "shortGloss": "1 (long thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんぼん",
+      "romaji": "sanbon",
+      "gloss": "three long thin things",
+      "shortGloss": "3 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぽん",
+      "romaji": "roppon",
+      "gloss": "six long thin things",
+      "shortGloss": "6 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんぼん",
+      "romaji": "nanbon",
+      "gloss": "how many long thin things",
+      "shortGloss": "how many?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんほん",
+      "romaji": "yonhon",
+      "gloss": "four long thin things",
+      "shortGloss": "4 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごほん",
+      "romaji": "gohon",
+      "gloss": "five long thin things",
+      "shortGloss": "5 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ]
+}

@@ -1237,6 +1237,29 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // provenance move. Adding a second row would have been a duplicate id, which
   // `courseAtoms.test.ts` catches, and a second by-kana entry, which the
   // last-wins map would have resolved silently.
+
+  // ── m23 · EXPERIENCE & INTENT (spine tile s22) ───────────────────────────
+  //
+  // FOUR rows, and only four: がいこく / ひこうき / くうこう / ホテル / のる /
+  // はいる / つく all already have rows under stale old-course tags and are
+  // declared in m23's IR `newAtoms` only (the m15-m22 provenance move), which
+  // adds nothing to the course-wide tokenizer. These four had NO row and each
+  // was checked against the whole corpus first: every one of the four strings
+  // occurs in ZERO existing surfaces, so registering them cannot re-tokenize
+  // anything — the m16-ので regression class is impossible here.
+  //
+  // つもり is the module's headline noun. It is the ONLY genuinely course-wide
+  // registration in the cycle, and 「つもりだ」 tiles as つもり + だ, the same
+  // shape m22's 「げんきだ」 already ships.
+  { id: "tsumori", kana: "つもり", kanji: "積もり", romaji: "tsumori", meaningEn: "intention, plan — what you mean to do", shortGloss: "intend to", fromModule: "m23", introducedByLessonId: "ja-m23-neo-3", kind: "vocab", blocked: true, note: "an intention has no referent a picture could name, and the tsumori-desu card must name the word — a rule card compiles to a pinned step ahead of the interleaved middle and would steal any debut MCQ" },
+  // PLAIN PAST, continued from m11. The same ban applies and for the same
+  // reason: した (する) and きた (くる) stay unregistered because 下 and 北 own
+  // those kana, and あった (ある) is not registered because it would collide
+  // with 会った "met". はいった is likewise absent — it fragments to はい + った,
+  // the interjection eating the stem — so m23 uses はいる in the non-past only.
+  { id: "notta", kana: "のった", romaji: "notta", meaningEn: "got on, rode (get on, past)", shortGloss: "got on", fromModule: "m23", introducedByLessonId: "ja-m23-neo-2", kind: "vocab", blocked: true, note: "inflected form — no picture; 🚗 is くるま's and のる's already" },
+  { id: "oyoida", kana: "およいだ", romaji: "oyoida", meaningEn: "swam (swim, past)", shortGloss: "swam", fromModule: "m23", introducedByLessonId: "ja-m23-neo-2", kind: "vocab", blocked: true, note: "inflected form — no picture; 🏊 belongs to およぐ" },
+  { id: "hataraita", kana: "はたらいた", romaji: "hataraita", meaningEn: "worked (work, past)", shortGloss: "worked", fromModule: "m23", introducedByLessonId: "ja-m23-neo-1", kind: "vocab", blocked: true, note: "inflected form — no picture; 💼 belongs to はたらく" },
 ];
 
 /**
