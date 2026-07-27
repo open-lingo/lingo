@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
+import { expandAcceptedAnswers } from "./translateVariants";
+import { normalizeTypedAnswer } from "@/shared/speech";
 import { getTrayOverride } from "../../data/devGates";
 import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -18,6 +20,7 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 
 const CELEBRATE_MS = 1100;
 
@@ -59,6 +62,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     `build-${step.id}`,
   );
 
+  // Gates the register widening in expandAcceptedAnswers (ungraded until
+  // module 20). Tiles can rarely spell a ます form anyway — this keeps the
+  // build path honest with the typed path rather than relying on that.
+  const moduleIndex = useLessonModuleIndex();
+
   // Kana-module build banks predate the m8+ data scramble and are mostly
   // authored answer-first; shuffle at render (seeded on step id, so the
   // order is stable across re-renders/resumes) to close the leak for
@@ -76,7 +84,30 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   );
 
   const placed = placedIdx.map((i) => bankTiles[i]);
-  const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
+  // Grade against the SAME leniency machinery as typed translation
+  // (Spencer walk 2026-07-24: きょう これを しない — the temporal-は-drop
+  // ruling — was built correctly and marked wrong because builds demanded
+  // the exact tile sequence; a leftover は tile is not an error when the
+  // remaining sentence is correct Japanese). Word-granularity JA builds
+  // only: character builds spell ONE word (exact by definition), and
+  // listening builds stay exact — you build what you HEARD, は included.
+  const acceptedBuildSurfaces = useMemo(() => {
+    if (step.granularity !== "word") return null;
+    const target = step.correctOrder.join("");
+    if (!/[぀-ヿ]/.test(target)) return null;
+    // Seed from the AUTHORED sentence — its spacing carries the word
+    // grouping the variant regexes key on (きょうは, not きょう|は).
+    const seed = step.targetSentence?.trim() || step.correctOrder.join(" ");
+    return new Set(
+      expandAcceptedAnswers([seed], { moduleIndex }).map((v) =>
+        normalizeTypedAnswer(v),
+      ),
+    );
+  }, [step.correctOrder, step.granularity, step.targetSentence, moduleIndex]);
+  const isCorrect =
+    JSON.stringify(placed) === JSON.stringify(step.correctOrder) ||
+    (acceptedBuildSurfaces !== null &&
+      acceptedBuildSurfaces.has(normalizeTypedAnswer(placed.join(""))));
 
   // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): once the lesson's
   // module unlocks a tile word's kanji, the tile shows the kanji form
@@ -239,8 +270,24 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            Tap selects (replacing any prior pick); Check submits via the
            existing generic submit path below. */
         <div
-          className="relative grid gap-3"
-          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+          className={
+            bankTiles.length === 4
+              ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
+              : "relative grid auto-rows-fr gap-3"
+          }
+          style={{
+            // Mirror MultipleChoiceStepView's sizing exactly — the picker
+            // borrowed its look but not its GRID, so a 3-option bank was
+            // stretching one short word each across a 260-520px single
+            // column (Spencer 2026-07-24: "≤3 tiles render as giant rows").
+            // The distractor floor now guarantees 4 options here, so the
+            // 2x2 is the live path; the single-column branch is a fallback
+            // for banks the floor couldn't fill.
+            minHeight:
+              bankTiles.length === 4
+                ? "clamp(320px, 52dvh, 640px)"
+                : `clamp(${Math.min(bankTiles.length, 4) * 72}px, 44dvh, 520px)`,
+          }}
         >
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);

@@ -107,6 +107,28 @@ for (const path of sources) {
   }
 }
 
+// IR-authored modules (compiler pipeline, 2026-07-20): phrases live in
+// `curriculum/ir/*.ir.json`, not as string literals in a .ts source, so the
+// regexes above miss them (JSON keys are quoted). Extract every audio-bearing
+// `ja` surface — sentences, capstones, dialogue lines, assembled clozes — so
+// the compiled lessons' audioKeys get clips.
+try {
+  const IR_DIR = join(JA_CURRICULUM_DIR, "ir");
+  for (const f of readdirSync(IR_DIR)) {
+    if (!f.endsWith(".ir.json")) continue;
+    const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf-8"));
+    for (const lesson of ir.lessons ?? []) {
+      for (const b of lesson.beats ?? []) {
+        if ((b.kind === "sentence" || b.kind === "capstone") && b.ja) kanaSet.add(b.ja);
+        if (b.kind === "particle-cloze") kanaSet.add(`${b.stem}${b.answer}${b.tail}`);
+        if (b.kind === "dialogue") for (const l of b.lines ?? []) if (l.ja) kanaSet.add(l.ja);
+      }
+    }
+  }
+} catch {
+  /* no ir/ dir yet — pre-compiler modules */
+}
+
 // Build the deck JSON shape the Python collector expects.
 // Accept any string that is purely Japanese script (hiragana, katakana,
 // long-vowel mark, punctuation, full-width spaces) — extended from
@@ -169,6 +191,30 @@ for (const path of sources) {
       bucket.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
     }
   }
+}
+// IR-authored modules (compiler pipeline): dialogue lines carry {speaker, ja}
+// in ir/*.ir.json. Route by speaker into the same keita/nanami buckets, with
+// the same sentence-split so multi-sentence lines get per-sentence clips.
+try {
+  const IR_DIR = join(JA_CURRICULUM_DIR, "ir");
+  for (const f of readdirSync(IR_DIR)) {
+    if (!f.endsWith(".ir.json")) continue;
+    const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf-8"));
+    for (const lesson of ir.lessons ?? [])
+      for (const b of lesson.beats ?? [])
+        if (b.kind === "dialogue")
+          for (const l of b.lines ?? []) {
+            const bucket = MALE_SPEAKERS.has(l.speaker) ? keitaSet : nanamiSet;
+            const text = l.ja ?? "";
+            for (const t of [text, ...(text.match(/[^。？！]+[。？！]?」?/g) ?? [])]) {
+              const trimmed = t.trim();
+              if (!JA_ONLY.test(trimmed)) continue;
+              bucket.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
+            }
+          }
+  }
+} catch {
+  /* no ir/ dir yet — pre-compiler modules */
 }
 function writeDialogueDeck(file, name, set, note) {
   const out = resolve(__dirname, `../../lingo-core/test_decks/${file}`);

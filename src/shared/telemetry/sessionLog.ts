@@ -32,7 +32,6 @@ export type SessionEventType =
   | "step_complete"
   | "speech_attempt"
   | "trace_attempt"
-  | "row_test_result"
   | "module_complete"
   | "dev_action";
 

@@ -23,13 +23,14 @@ describe("moduleMastery", () => {
   });
 
   describe("getRowTestLessonIds", () => {
-    it("returns ids of every row-test lesson in module order", () => {
+    it("returns the module's mastery-gate lessons (kana → the recap)", () => {
       const m1 = findM1();
       const ids = getRowTestLessonIds(m1);
-      // JA M1 has row tests like ja-m1-ka-test, ja-m1-sa-test, etc.
-      expect(ids.length).toBeGreaterThan(0);
+      // Per-row row-tests were retired 2026-07-20 — M1's only mastery
+      // gate is now the module recap.
+      expect(ids).toEqual(["ja-m1-recap"]);
       for (const id of ids) {
-        expect(id).toMatch(/-test$/);
+        expect(id).toMatch(/(-test|-recap)$/);
       }
     });
   });
@@ -43,7 +44,7 @@ describe("moduleMastery", () => {
       expect(result.total).toBeGreaterThan(0);
     });
 
-    it("returns mastered=true when all lessons complete AND all tests passed un-skipped", () => {
+    it("returns mastered=true when all lessons complete AND the gate passed un-skipped", () => {
       const m1 = findM1();
       const allIds = new Set(m1.lessons.map((l) => l.id));
       for (const id of m1.lessons) {
@@ -59,18 +60,18 @@ describe("moduleMastery", () => {
       expect(result.passed).toBe(result.total);
     });
 
-    it("partial mastery — one row-test skipped reduces passed count", () => {
+    it("partial mastery — the recap skipped reduces passed count", () => {
       const m1 = findM1();
       const allIds = new Set(m1.lessons.map((l) => l.id));
       const testIds = getRowTestLessonIds(m1);
-      // Complete everything except the first test is completed via skip.
-      const firstTest = testIds[0];
+      // Complete everything, but the recap gate is completed via skip.
+      const gate = testIds[0];
       for (const lesson of m1.lessons) {
         markLessonCompleted(lesson.id, {
           accuracy: 1,
           xpEarned: 10,
           isReview: false,
-          wasSkipped: lesson.id === firstTest,
+          wasSkipped: lesson.id === gate,
         });
       }
       const result = getModuleMastery(m1, allIds);
@@ -78,16 +79,16 @@ describe("moduleMastery", () => {
       expect(result.mastered).toBe(false);
     });
 
-    it("all-skipped tests = passed count zero, not mastered", () => {
+    it("skipped mastery gate = passed count zero, not mastered", () => {
       const m1 = findM1();
       const allIds = new Set(m1.lessons.map((l) => l.id));
+      const gates = new Set(getRowTestLessonIds(m1));
       for (const lesson of m1.lessons) {
-        const isTest = lesson.id.endsWith("-test");
         markLessonCompleted(lesson.id, {
           accuracy: 1,
           xpEarned: 10,
           isReview: false,
-          wasSkipped: isTest,
+          wasSkipped: gates.has(lesson.id),
         });
       }
       const result = getModuleMastery(m1, allIds);
@@ -95,11 +96,11 @@ describe("moduleMastery", () => {
       expect(result.mastered).toBe(false);
     });
 
-    it("auto-mastered when module has no row-tests (total=0) and all sub-lessons done", () => {
-      // Synthetic module with one non-test lesson.
+    it("auto-mastered when module has no mastery gate (total=0) and all sub-lessons done", () => {
+      // Synthetic module with one non-gate lesson (no registered content).
       const mod: CourseModule = {
         id: "synthetic",
-        title: "No tests",
+        title: "No gates",
         lessons: [{ id: "no-such-lesson", title: "L1" }],
       };
       const completed = new Set(["no-such-lesson"]);
@@ -137,93 +138,95 @@ describe("moduleMastery", () => {
 
   describe("isRowTestPassed", () => {
     it("returns false when no record exists", () => {
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(false);
+      expect(isRowTestPassed("ja-m1-recap")).toBe(false);
     });
 
     it("returns true when record exists with wasSkipped=false", () => {
-      markLessonCompleted("ja-m1-ka-test", {
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 1,
         xpEarned: 10,
         isReview: false,
         wasSkipped: false,
       });
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(true);
+      expect(isRowTestPassed("ja-m1-recap")).toBe(true);
     });
 
     it("returns false when record exists with wasSkipped=true", () => {
-      markLessonCompleted("ja-m1-ka-test", {
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 0,
         xpEarned: 0,
         isReview: false,
         wasSkipped: true,
       });
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(false);
+      expect(isRowTestPassed("ja-m1-recap")).toBe(false);
     });
 
     it("a successful pass after a skip clears the skipped flag", () => {
-      markLessonCompleted("ja-m1-ka-test", {
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 0,
         xpEarned: 0,
         isReview: false,
         wasSkipped: true,
       });
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(false);
-      markLessonCompleted("ja-m1-ka-test", {
+      expect(isRowTestPassed("ja-m1-recap")).toBe(false);
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 1,
         xpEarned: 10,
         isReview: false,
         wasSkipped: false,
       });
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(true);
+      expect(isRowTestPassed("ja-m1-recap")).toBe(true);
     });
 
     it("a later skip after a successful pass does NOT regress to skipped", () => {
-      markLessonCompleted("ja-m1-ka-test", {
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 1,
         xpEarned: 10,
         isReview: false,
         wasSkipped: false,
       });
-      markLessonCompleted("ja-m1-ka-test", {
+      markLessonCompleted("ja-m1-recap", {
         accuracy: 0,
         xpEarned: 1,
         isReview: true,
         wasSkipped: true,
       });
-      expect(isRowTestPassed("ja-m1-ka-test")).toBe(true);
+      expect(isRowTestPassed("ja-m1-recap")).toBe(true);
     });
   });
 
   describe("getMissingMasteryTests", () => {
-    it("returns every row-test lesson when nothing's done", () => {
+    it("returns every mastery gate when nothing's done", () => {
       const m1 = findM1();
       const missing = getMissingMasteryTests(m1, new Set());
       expect(missing.length).toBeGreaterThan(0);
-      expect(missing.every((l) => l.id.endsWith("-test"))).toBe(true);
+      expect(missing.every((l) => /(-test|-recap)$/.test(l.id))).toBe(true);
     });
 
-    it("excludes passed row-tests, includes skipped ones", () => {
+    it("excludes a passed mastery gate", () => {
       const m1 = findM1();
-      const testIds = getRowTestLessonIds(m1);
-      const firstTest = testIds[0];
-      const secondTest = testIds[1];
-      markLessonCompleted(firstTest, {
+      const gate = getRowTestLessonIds(m1)[0];
+      markLessonCompleted(gate, {
         accuracy: 1,
         xpEarned: 10,
         isReview: false,
         wasSkipped: false,
       });
-      markLessonCompleted(secondTest, {
+      const missing = getMissingMasteryTests(m1, new Set([gate]));
+      expect(missing.map((l) => l.id)).not.toContain(gate);
+    });
+
+    it("includes a skipped mastery gate", () => {
+      const m1 = findM1();
+      const gate = getRowTestLessonIds(m1)[0];
+      markLessonCompleted(gate, {
         accuracy: 0,
         xpEarned: 0,
         isReview: false,
         wasSkipped: true,
       });
-      const completed = new Set([firstTest, secondTest]);
-      const missing = getMissingMasteryTests(m1, completed);
-      const missingIds = missing.map((l) => l.id);
-      expect(missingIds).not.toContain(firstTest);
-      expect(missingIds).toContain(secondTest);
+      const missing = getMissingMasteryTests(m1, new Set([gate]));
+      expect(missing.map((l) => l.id)).toContain(gate);
     });
   });
 });

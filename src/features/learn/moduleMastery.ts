@@ -3,13 +3,18 @@
  *
  * A module is "mastered" (★) when:
  *   1. Every sub-lesson in the module is in `completedLessonIds`, AND
- *   2. Every row-test sub-lesson in the module was completed WITHOUT
+ *   2. Every mastery-gate lesson in the module was completed WITHOUT
  *      being skipped (i.e. its LessonCompletion.wasSkipped === false /
  *      undefined).
  *
- * Per-row test mastery is granular: the yōon-capstone does NOT grant
- * retroactive mastery for the four prior yōon rows; each row's own
- * row-test must be completed un-skipped.
+ * A mastery-gate lesson is one that contains a `row_test` step AND whose
+ * id ends in `-test` OR `-recap`:
+ *   - Kana modules (M1/M2) no longer ship per-row row-tests — they were
+ *     retired 2026-07-20. Their single gate is the module recap
+ *     (`ja-m1-recap` / `ja-m2-recap`), which runs the same `row_test`
+ *     step. Acing the recap (un-skipped) is what grants ★.
+ *   - Grammar modules (e.g. M3) gate on their mastery test
+ *     (`ja-m3-8-test`), which has no recap.
  *
  * Backward-compat: pre-feature completion records have no `wasSkipped`
  * field. They're treated as `false` (= passed) so users mid-flight
@@ -31,7 +36,7 @@ import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 export const MASTERY_PASS_THRESHOLD = 1.0;
 
 /**
- * Look-up function for whether a given lesson's row-test was passed
+ * Look-up function for whether a given mastery-gate lesson was passed
  * un-skipped. Injectable for testing so callers can avoid touching
  * localStorage. The default reads from the live completion store.
  */
@@ -50,25 +55,34 @@ function isCompletionPassed(rec: LessonCompletion | null): boolean {
 }
 
 /**
- * A row-test lesson's id ends in `-test` (e.g. `ja-m1-ka-test`). Recap
- * and capstone lessons also contain `row_test` steps but don't count
- * toward per-row mastery — the id suffix is the authoritative signal.
+ * A mastery-gate lesson contains a `row_test` step AND its id ends in
+ * `-test` or `-recap`:
+ *   - `-test`  → a grammar-module mastery test (e.g. `ja-m3-8-test`).
+ *   - `-recap` → a kana-module recap (`ja-m1-recap` / `ja-m2-recap`),
+ *     now the only graded checkpoint in M1/M2 after per-row row-tests
+ *     were retired.
+ * The id suffix is the authoritative signal; the `row_test` step check
+ * keeps ordinary review/story lessons out.
  */
-function isRowTestLesson(lessonId: string): boolean {
-  if (!lessonId.endsWith("-test")) return false;
+function isMasteryTestLesson(lessonId: string): boolean {
+  if (!(lessonId.endsWith("-test") || lessonId.endsWith("-recap"))) {
+    return false;
+  }
   const content = getMockLessonContent(lessonId);
   return content?.steps.some((s) => s.type === "row_test") ?? false;
 }
 
-/** Return ids of every row-test lesson in the module, in module order. */
+/** Return ids of every mastery-gate lesson in the module, in module order. */
 export function getRowTestLessonIds(module: CourseModule): string[] {
-  return module.lessons.filter((l) => isRowTestLesson(l.id)).map((l) => l.id);
+  return module.lessons
+    .filter((l) => isMasteryTestLesson(l.id))
+    .map((l) => l.id);
 }
 
 export type ModuleMastery = {
-  /** Row-tests passed (completed without `wasSkipped`). */
+  /** Mastery gates passed (completed without `wasSkipped`). */
   passed: number;
-  /** Total row-tests in the module. */
+  /** Total mastery gates in the module. */
   total: number;
   /** True iff all sub-lessons complete AND `passed === total`. */
   mastered: boolean;
@@ -77,10 +91,10 @@ export type ModuleMastery = {
 /**
  * Compute mastery for a module.
  *
- * - `total === 0` (module with no row-tests, e.g. vowels-only module) is
- *   auto-mastered once all sub-lessons complete.
+ * - `total === 0` (module with no mastery gate, e.g. a vowels-only stub)
+ *   is auto-mastered once all sub-lessons complete.
  * - When any sub-lesson is incomplete, `mastered` is `false` regardless
- *   of how many row-tests have been passed.
+ *   of how many gates have been passed.
  */
 export function getModuleMastery(
   module: CourseModule,
@@ -100,9 +114,10 @@ export function getModuleMastery(
 }
 
 /**
- * Of the row-test lessons in `module`, return those NOT yet mastered
- * (either not completed, or completed via skip). Used by callout copy
- * to nudge "you still have 2 row tests to ace for ★".
+ * Of the mastery-gate lessons in `module`, return those NOT yet mastered
+ * (either not completed, or completed via skip). Used by callout copy to
+ * nudge "ace the recap to master this module" (kana) or "you still have N
+ * mastery tests to ace for ★" (grammar).
  */
 export function getMissingMasteryTests(
   module: CourseModule,
@@ -110,7 +125,7 @@ export function getMissingMasteryTests(
   isPassedFn: IsRowTestPassedFn = isRowTestPassed,
 ): Lesson[] {
   return module.lessons.filter((l) => {
-    if (!isRowTestLesson(l.id)) return false;
+    if (!isMasteryTestLesson(l.id)) return false;
     if (!completedSet.has(l.id)) return true;
     return !isPassedFn(l.id);
   });

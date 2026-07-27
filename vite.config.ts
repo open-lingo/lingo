@@ -384,6 +384,8 @@ export default defineConfig(({ mode }) => {
     },
   },
   test: {
+    // ARCHIVED old-course content — excluded from the run (2026-07-26 ruling).
+    exclude: ["**/node_modules/**", "**/dist/**", "**/curriculum/_archive/**"],
     environment: "happy-dom",
     setupFiles: ["./src/test/setup.ts"],
     css: false,

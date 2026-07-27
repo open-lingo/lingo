@@ -15,8 +15,8 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * M2 voiced s → z: ざ じ ず ぜ ぞ. 3 hand-authored sub-lessons + auto
- * row-test. Mirrors the g-row template
+ * M2 voiced s → z: ざ じ ず ぜ ぞ. 3 hand-authored sub-lessons. Mirrors
+ * the g-row template
  * (docs/m2-row-template-2026-05-17.md) authored 2026-05-17 from Spencer's
  * walkthrough.
  *

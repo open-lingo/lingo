@@ -21,6 +21,7 @@ export type StepType =
   | "particle_cloze"
   | "agreement_cloze"
   | "conjugation_cloze"
+  | "conjugation_transform"
   | "kanji_reading"
   | "self_explanation_mcq"
   | "dialogue_listen"
@@ -437,6 +438,14 @@ export type GrammarRuleStep = StepBase & {
    * session. Cards that don't map cleanly to one point stay untagged.
    */
   grammarPointId?: string;
+  /**
+   * When this rule card teaches a CONJUGATION (IR grammar point with a
+   * `conjugation` block), the ChainForm id ("nai") — the view renders the
+   * shared TransformRuleTable (ending → result grid, canonical example per
+   * class) instead of leaving the transformations buried in prose
+   * (Spencer 2026-07-23).
+   */
+  conjugationForm?: string;
 };
 
 /**
@@ -533,6 +542,43 @@ export type ConjugationClozeStep = StepBase & {
    *  kanji post-pass (applyKanjiSurfaces) can rewrite them. */
   beforeAnnotation?: JapaneseAnnotation[];
   afterAnnotation?: JapaneseAnnotation[];
+};
+
+/**
+ * Conjugation Transform (spec 2026-07-23) — the morphing drill card that
+ * teaches the TRANSFORMATION itself (base → form) right after a
+ * conjugation rule card, before any sentence work. The card's answer
+ * mechanism is decided AT RENDER by the (form × verb-class) mastery cell
+ * (`transformCells.ts`): stage 1/2 render MCQ (options below), stage 3
+ * renders typed production. The rule table (canonical example per class,
+ * たべる/のむ pinned) comes from `transformRulesets.ts` by `form` — it is
+ * NEVER authored per-step.
+ *
+ * `ungraded: true` marks the end-of-lesson "try typing it" tease: always
+ * typed, never writes the cell, never touches the streak (stakes wait for
+ * consolidation; the act doesn't — research review 2026-07-23).
+ */
+export type ConjugationTransformStep = StepBase & {
+  type: "conjugation_transform";
+  /** Dictionary form shown as the prompt, e.g. のむ. */
+  base: string;
+  /** Per-kana romaji for the base (annotation line). */
+  baseRomaji?: string;
+  /** Prompt-clarity glosses: "to drink" → "won't drink / don't drink". */
+  baseGloss: string;
+  targetGloss: string;
+  /** ChainForm id ("nai") — keys the mastery cell and the rule table. */
+  form: string;
+  /** Human form label for the prompt chip, e.g. "ない form". */
+  formLabel: string;
+  /** Verb class — mastery cell axis + rule-table row highlight. */
+  verbClass: "ichidan" | "godan" | "irregular";
+  /** Engine-derived correct surface, e.g. のまない. */
+  answer: string;
+  /** 3 formation distractors (same-verb rule misapplications). */
+  distractors: string[];
+  /** Ungraded type-tease variant — see type doc. */
+  ungraded?: boolean;
 };
 
 /**
@@ -706,6 +752,7 @@ export type LessonStep =
   | ParticleClozeStep
   | AgreementClozeStep
   | ConjugationClozeStep
+  | ConjugationTransformStep
   | KanjiReadingStep
   | SelfExplanationMcqStep
   | DialogueListenStep

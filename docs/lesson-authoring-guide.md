@@ -126,7 +126,7 @@ Sub-lesson N — <name> (target: 20-22 steps)
   ── Compounding review tail (4-6 steps from prior modules) ──
   16. vocabMcq         (prior-module atom, distractor pool also prior-module)
   17. listeningCompSentence (prior-module sentence)
-  18. reviewMatchPairs  (4-6 pairs from prior pool — never < 4)
+  18. reviewMatchPairs  (6 pairs from prior pool — MATCH_PAIRS_FLOOR = 6)
   19. particle_cloze   (prior-module grammar reuse — compounds across modules)
 
   20. [info: close-win] ja: OMIT (§4d) — the reviewMatchPairs at 18 is the close, and it must
@@ -610,7 +610,7 @@ The last cognitive step of a sub-lesson should be a step the learner is **likely
 Recommended closing tail order:
 1. Peak: `dialogue_listen` / hardest `build` / `speaking` on a long target.
 2. One short retrieval beat on the peak's atoms.
-3. **`reviewMatchPairs` as the closer** — 4-6 pairs, recognition-easy, almost-always-right.
+3. **`reviewMatchPairs` as the closer** — 6 pairs (`MATCH_PAIRS_FLOOR`), recognition-easy, almost-always-right.
 4. ~~`infoStep` (win variant)~~ — **dropped for ja 2026-07-16 (§4d).** `info` is banned and
    lessons must end gradeable, so `reviewMatchPairs` at step 3 **is** the close. This is
    arguably the better shape anyway: the learner's last act is a win they *earned*, not a slide

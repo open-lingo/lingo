@@ -16,7 +16,7 @@ import {
 
 /**
  * M2 yōon sh + ch families: しゃ しゅ しょ + ちゃ ちゅ ちょ. 3 hand-
- * authored sub-lessons + auto row-test. Mirrors g-row template.
+ * authored sub-lessons. Mirrors g-row template.
  *
  * Sub-1: sh-family (しゃ しゅ しょ). Anchor: しゃしん (photo 📷).
  * Sub-2: ch-family (ちゃ ちゅ ちょ) + consolidation. Anchor: おちゃ (tea 🍵).

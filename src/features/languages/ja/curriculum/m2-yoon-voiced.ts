@@ -15,13 +15,13 @@ import {
 
 /**
  * M2 yōon voiced: ぎゃ じゃ びゃ ぴゃ families — 12 kana total. 3 hand-
- * authored sub-lessons + auto row-test. Mirrors g-row template.
+ * authored sub-lessons. Mirrors g-row template.
  *
  * 12 chars is too many for per-char intros. Strategy:
  *   Sub-1: j-family (じゃ じゅ じょ) — highest utility. Anchor じゅう (ten).
  *   Sub-2: g/b/p families — wide recognition + s2s sweep, no new anchor.
  *   Sub-3: cumulative review + M1 cross-module sprinkle.
- * Row test still quizzes all 12 (chart-completeness).
+ * The module recap still exercises all 12 (chart-completeness).
  */
 
 // Sub-1 context — j-family chars + a few cousins as foils.

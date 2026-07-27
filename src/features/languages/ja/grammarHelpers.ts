@@ -8,6 +8,7 @@
 import type {
   BuildSentenceStep,
   ConjugationClozeStep,
+  ConjugationTransformStep,
   DialogueListenStep,
   GrammarRuleStep,
   GrammarExample,
@@ -44,7 +45,7 @@ import {
 } from "./conjugationEngine";
 // PURE leaf module (not trainerSession — its SRS chain closes an import
 // cycle back into the curriculum through the language registry).
-import { generateFormationDistractors } from "./conjugation/formationDistractors";
+import { generateFormationDistractors, transformDrillDistractors } from "./conjugation/formationDistractors";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -461,6 +462,8 @@ export function grammarRule(opts: {
   /** Track B grammar-point id this card teaches (see GrammarRuleStep). Passed
    *  through verbatim; omit for cards that don't map cleanly to one point. */
   grammarPointId?: string;
+  /** ChainForm id when this card teaches a conjugation (see GrammarRuleStep). */
+  conjugationForm?: string;
 }): GrammarRuleStep {
   return {
     id: opts.id,
@@ -471,6 +474,7 @@ export function grammarRule(opts: {
     antiPattern: opts.antiPattern,
     cultureNote: opts.cultureNote,
     ...(opts.grammarPointId ? { grammarPointId: opts.grammarPointId } : {}),
+    ...(opts.conjugationForm ? { conjugationForm: opts.conjugationForm } : {}),
   };
 }
 
@@ -1460,6 +1464,72 @@ export function conjugationCloze(opts: {
       : {}),
     exercisedAtoms: resolveAtomIds([opts.verb]),
     modality: "production",
+  };
+}
+
+/**
+ * Conjugation Transform factory (spec 2026-07-23) — the morphing drill
+ * card. Answer + formation distractors are engine-derived; glosses are
+ * REQUIRED (prompt-clarity invariant: the target is always spelled out,
+ * "to drink → won't drink · ない form", never bare "make it negative").
+ * Stage (MCQ vs typed) is NOT authored — the view resolves it from the
+ * (form × verb-class) mastery cell at render.
+ */
+export function conjugationTransform(opts: {
+  id: string;
+  /** Dictionary form, e.g. のむ. */
+  base: string;
+  /** Base-form gloss, e.g. "to drink". */
+  baseGloss: string;
+  /** Target-form gloss, e.g. "won't drink / don't drink". */
+  targetGloss: string;
+  form: ChainForm;
+  /** Verb class override — required when `base` is not in VERB_ENTRIES. */
+  group?: VerbGroup;
+  /** Per-kana romaji annotation line for the base. */
+  baseRomaji?: string;
+  /** Ungraded end-of-lesson type-tease (no cell write, no streak). */
+  ungraded?: boolean;
+}): ConjugationTransformStep {
+  const group =
+    opts.group ?? VERB_ENTRIES.find((v) => v.dictionary === opts.base)?.group;
+  if (!group) {
+    throw new Error(
+      `conjugationTransform(${opts.id}): '${opts.base}' is not in VERB_ENTRIES — pass opts.group`,
+    );
+  }
+  const answer = conjugateVerb(opts.base, group, opts.form);
+  // Never serve a REAL registered word as a wrong option (いない collision
+  // class); anti-pattern ranks first — see transformDrillDistractors.
+  const realWords = new Set(JA_COURSE_ATOMS.map((a) => a.kana));
+  const distractors = transformDrillDistractors(
+    opts.base,
+    group,
+    opts.form,
+    answer,
+    realWords,
+  );
+  if (distractors.length < 2) {
+    throw new Error(
+      `conjugationTransform(${opts.id}): only ${distractors.length} formation distractor(s) for ${opts.base} → ${opts.form}`,
+    );
+  }
+  return {
+    id: opts.id,
+    type: "conjugation_transform",
+    base: opts.base,
+    ...(opts.baseRomaji ? { baseRomaji: opts.baseRomaji } : {}),
+    baseGloss: opts.baseGloss,
+    targetGloss: opts.targetGloss,
+    form: opts.form,
+    formLabel: CHAIN_FORM_LABELS[opts.form],
+    verbClass: group,
+    answer,
+    distractors: distractors.slice(0, 2),
+    ...(opts.ungraded ? { ungraded: true } : {}),
+    // Cell grading happens in the view (recordTransformResult) against the
+    // grammar store — deliberately NOT the vocab pipeline, so no
+    // exercisedAtoms here. Modality is stage-dependent at render.
   };
 }
 

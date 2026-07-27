@@ -16,14 +16,14 @@ import {
 
 /**
  * M2 yōon rare: にゃ ひゃ みゃ りゃ families — 12 kana total. 3 hand-
- * authored sub-lessons + auto row-test. Mirrors g-row template.
+ * authored sub-lessons. Mirrors g-row template.
  *
  * Strategy mirrors yoon-voiced:
  *   Sub-1: h-family (ひゃ ひゅ ひょ). Anchor: ひゃく (hundred 💯).
  *   Sub-2: r-family (りゃ りゅ りょ) + sweep across n + m families.
  *          Anchor: りょうり (cooking 🍳).
  *   Sub-3: cumulative review + M1 cross-module sprinkle.
- * Row test still quizzes all 12.
+ * The module recap still exercises all 12.
  */
 
 // Sub-1 context — h-family chars + cousins as foils.

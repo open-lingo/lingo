@@ -1,5 +1,12 @@
 # Language Authoring Guide — Practice Features
 
+> **Status note (2026-07-20):** Sections that frame Spanish as hypothetical future
+> work ("When adding Spanish…") and the coverage table's "Korean conjugation — Not
+> started" are STALE. Spanish shipped an A1 course (see `es-course-spine-2026-07-13.md`
+> / `es-rewrite-brief-2026-07-16.md`) and Korean conjugation phase 1 shipped
+> (`ko-conjugation-phase1-2026-07-15.md`). Read the per-feature checklists as
+> language-agnostic guidance, not as a current status report.
+
 How to bring a new language to full practice coverage. This covers the data files, infrastructure, and curriculum prerequisites needed for each practice feature.
 
 ## Architecture Overview
@@ -186,7 +193,7 @@ Add import and switch cases for the new language in each getter function.
 | Reading | 5 passages (M7) | 2 passages (M3) | Korean stubs — expand with curriculum |
 | Speaking | 10 prompts (M3-M7) | 10 prompts (M1-M3) | Korean stubs — TTS support needed |
 | Counters | 7 counters (M5-M7) | 4 classifiers (M3) | Korean stubs with 명/개/마리/잔 |
-| Conjugation | 19 verbs + 15 adj (M7-M10) | Not started | Needs Korean verb morphology |
+| Conjugation | 19 verbs + 15 adj (M7-M10) | Phase 1 shipped (`ko-conjugation-phase1-2026-07-15`) | — |
 | Kanji | ~80 N5 kanji (M8-M15) | N/A | Not applicable to Korean |
 
 ## Future Languages

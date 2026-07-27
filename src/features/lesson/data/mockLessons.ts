@@ -128,134 +128,10 @@ import {
   MOCK_LESSON_JA_M2_YOON_RARE_3,
 } from "@/features/languages/ja/curriculum/m2-yoon-rare";
 import {
-  M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
-  M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
-  M8_8_1, M8_8_2, M8_STORY, M8_7_1, M8_7_2,
-} from "@/features/languages/ja/curriculum/m8";
-import {
-  M9_1_1, M9_1_2, M9_2_1, M9_2_2, M9_3_1, M9_3_2,
-  M9_4_1, M9_4_2, M9_5_1, M9_5_2, M9_6_1, M9_6_2,
-  M9_STORY, M9_7_1, M9_7_2,
-} from "@/features/languages/ja/curriculum/m9";
-import {
-  M10_1_1, M10_1_2, M10_2_1, M10_2_2, M10_3_1, M10_3_2,
-  M10_4_1, M10_4_2, M10_5_1, M10_5_2, M10_6_1, M10_6_2,
-  M10_STORY, M10_7_1, M10_7_2,
-} from "@/features/languages/ja/curriculum/m10";
-import {
-  M11_1_1, M11_1_2, M11_2_1, M11_2_2, M11_3_1, M11_3_2,
-  M11_4_1, M11_4_2, M11_5_1, M11_5_2, M11_6_1, M11_6_2,
-  M11_STORY, M11_7_1, M11_7_2,
-} from "@/features/languages/ja/curriculum/m11";
-import {
-  M12_1_1, M12_1_2, M12_2_1, M12_2_2, M12_3_1, M12_3_2,
-  M12_4_1, M12_4_2, M12_5_1, M12_5_2, M12_6_1, M12_6_2,
-  M12_STORY, M12_7_1, M12_7_2,
-} from "@/features/languages/ja/curriculum/m12";
-import {
-  M13_1_1, M13_1_2, M13_2_1, M13_2_2, M13_3_1, M13_3_2,
-  M13_4_1, M13_4_2, M13_5_1, M13_5_2, M13_6_1, M13_6_2,
-  M13_STORY, M13_7_1, M13_7_2,
-} from "@/features/languages/ja/curriculum/m13";
-import {
-  M14_1_1, M14_1_2, M14_2_1, M14_2_2, M14_3_1, M14_3_2,
-  M14_4_1, M14_4_2, M14_5_1, M14_5_2, M14_6_1, M14_6_2,
-  M14_STORY, M14_7_1, M14_7_2,
-} from "@/features/languages/ja/curriculum/m14";
-import {
-  M15_1_1, M15_1_2, M15_2_1, M15_2_2, M15_3_1, M15_3_2,
-  M15_4_1, M15_4_2, M15_5_1, M15_5_2, M15_6_1, M15_6_2,
-  M15_STORY, M15_7_1, M15_7_2,
-} from "@/features/languages/ja/curriculum/m15";
-import {
-  M16_1_1, M16_1_2, M16_2_1, M16_2_2, M16_3_1, M16_3_2,
-  M16_4_1, M16_4_2, M16_5_1, M16_5_2, M16_6_1, M16_6_2,
-  M16_STORY, M16_7_1, M16_7_2,
-} from "@/features/languages/ja/curriculum/m16";
-import {
-  M17_1_1, M17_1_2, M17_2_1, M17_2_2, M17_3_1, M17_3_2,
-  M17_4_1, M17_4_2, M17_5_1, M17_5_2, M17_6_1, M17_6_2,
-  M17_8_1, M17_8_2,
-  M17_STORY, M17_7_1, M17_7_2,
-} from "@/features/languages/ja/curriculum/m17";
-import {
-  M18_1_1, M18_1_2, M18_2_1, M18_2_2, M18_3_1, M18_3_2,
-  M18_4_1, M18_4_2, M18_5_1, M18_5_2, M18_6_1, M18_6_2,
-  M18_STORY, M18_7_1, M18_7_2,
-} from "@/features/languages/ja/curriculum/m18";
-import {
-  M19_1_1, M19_1_2, M19_2_1, M19_2_2, M19_3_1, M19_3_2,
-  M19_4_1, M19_4_2, M19_5_1, M19_5_2, M19_6_1, M19_6_2,
-  M19_STORY, M19_7_1, M19_7_2,
-} from "@/features/languages/ja/curriculum/m19";
-import {
-  M20_1_1, M20_1_2, M20_2_1, M20_2_2, M20_3_1, M20_3_2,
-  M20_4_1, M20_4_2, M20_5_1, M20_5_2, M20_6_1, M20_6_2,
-  M20_STORY, M20_7_1, M20_7_2,
-} from "@/features/languages/ja/curriculum/m20";
-import {
-  M21_1_1, M21_1_2, M21_2_1, M21_2_2, M21_3_1, M21_3_2,
-  M21_4_1, M21_4_2, M21_5_1, M21_5_2, M21_6_1, M21_6_2,
-  M21_STORY, M21_7_1, M21_7_2,
-} from "@/features/languages/ja/curriculum/m21";
-import {
-  M22_1_1, M22_1_2, M22_2_1, M22_2_2, M22_3_1, M22_3_2,
-  M22_4_1, M22_4_2, M22_5_1, M22_5_2, M22_6_1, M22_6_2,
-  M22_STORY, M22_7_1, M22_7_2,
-} from "@/features/languages/ja/curriculum/m22";
-import {
-  M23_1_1, M23_1_2, M23_2_1, M23_2_2, M23_3_1, M23_3_2,
-  M23_4_1, M23_4_2, M23_5_1, M23_5_2, M23_6_1, M23_6_2,
-  M23_8_1, M23_8_2,
-  M23_STORY, M23_7_1, M23_7_2,
-} from "@/features/languages/ja/curriculum/m23";
-import {
-  M25_1_1, M25_1_2, M25_2_1, M25_2_2, M25_3_1, M25_3_2,
-  M25_4_1, M25_4_2, M25_5_1, M25_5_2, M25_6_1, M25_6_2,
-  M25_STORY, M25_7_1, M25_7_2,
-} from "@/features/languages/ja/curriculum/m25";
-import {
-  M26_1_1, M26_1_2, M26_2_1, M26_2_2, M26_3_1, M26_3_2,
-  M26_4_1, M26_4_2, M26_5_1, M26_5_2, M26_6_1, M26_6_2,
-  M26_STORY, M26_7_1, M26_7_2,
-} from "@/features/languages/ja/curriculum/m26";
-import {
-  M24_1_1, M24_1_2, M24_2_1, M24_2_2, M24_3_1, M24_3_2,
-  M24_4_1, M24_4_2, M24_5_1, M24_5_2, M24_6_1, M24_6_2,
-  M24_STORY, M24_7_1, M24_7_2,
-} from "@/features/languages/ja/curriculum/m24";
-import {
-  M27_1_1, M27_1_2, M27_2_1, M27_2_2, M27_3_1, M27_3_2,
-  M27_4_1, M27_4_2, M27_5_1, M27_5_2, M27_6_1, M27_6_2,
-  M27_STORY, M27_7_1, M27_7_2,
-} from "@/features/languages/ja/curriculum/m27";
-import {
-  M29_1_1, M29_1_2, M29_2_1, M29_2_2, M29_3_1, M29_3_2,
-  M29_4_1, M29_4_2, M29_5_1, M29_5_2, M29_6_1, M29_6_2,
-  M29_STORY, M29_7_1, M29_7_2,
-} from "@/features/languages/ja/curriculum/m29";
-import {
   M30_1_1, M30_1_2, M30_2_1, M30_2_2, M30_3_1, M30_3_2,
   M30_4_1, M30_4_2, M30_5_1, M30_5_2, M30_6_1, M30_6_2,
   M30_STORY, M30_7_1, M30_7_2,
 } from "@/features/languages/ja/curriculum/m30";
-import {
-  M3_1_1,
-  M3_1_2,
-  M3_2_1,
-  M3_2_2,
-  M3_3_1,
-  M3_3_2,
-  M3_4_1,
-  M3_4_2,
-  M3_5_1,
-  M3_5_2,
-  M3_6_1,
-  M3_6_2,
-  M3_7_1,
-  M3_7_2,
-  M3_9,
-} from "@/features/languages/ja/curriculum/m3-v2";
 // m3-neo — PILOT of the dict-form-first rewrite (spine tile s03). Deep-link
 // only: registered here so the lessons resolve, deliberately NOT wired into
 // mockCourse.ts pathways.
@@ -273,6 +149,12 @@ import {
   M5_NEO_1, M5_NEO_2, M5_NEO_3, M5_NEO_4, M5_NEO_5, M5_NEO_6,
   M5_NEO_7, M5_NEO_8, M5_NEO_9, M5_NEO_10, M5_NEO_11, M5_NEO_REVIEW,
 } from "@/features/languages/ja/curriculum/m5-neo";
+// m6-neo — NEGATIVES & EXISTENCE (spine tile n06a). FIRST compiler-pipeline
+// module: lessons compiled from ir/m6.ir.json at import (moduleCompiler).
+import { M6_NEO_LESSONS } from "@/features/languages/ja/curriculum/m6-neo";
+// m7-neo — POLITENESS AS A LAYER (spine tile s07). First module on the
+// 2026-07-26 shape: 11 teaching (2 of them katakana) + 3 review + 1 challenge.
+import { M7_NEO_LESSONS } from "@/features/languages/ja/curriculum/m7-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -287,78 +169,6 @@ import {
   KATA_M11_RA,
   KATA_M12_WA,
 } from "@/features/languages/ja/curriculum/katakanaRows";
-import {
-  M4_1_1,
-  M4_1_2,
-  M4_2_1,
-  M4_2_2,
-  M4_3_1,
-  M4_3_2,
-  M4_4_1,
-  M4_4_2,
-  M4_5_1,
-  M4_5_2,
-  M4_6_1,
-  M4_6_2,
-  M4_7_1,
-  M4_7_2,
-  M4_STORY,
-} from "@/features/languages/ja/curriculum/m4";
-import {
-  M5_1_1,
-  M5_1_2,
-  M5_2_1,
-  M5_2_2,
-  M5_3_1,
-  M5_3_2,
-  M5_4_1,
-  M5_4_2,
-  M5_5_1,
-  M5_5_2,
-  M5_6_1,
-  M5_6_2,
-  M5_7_1,
-  M5_7_2,
-  M5_STORY,
-} from "@/features/languages/ja/curriculum/m5";
-import {
-  M6_1_1,
-  M6_1_2,
-  M6_2_1,
-  M6_2_2,
-  M6_3_1,
-  M6_3_2,
-  M6_4_1,
-  M6_4_2,
-  M6_5_1,
-  M6_5_2,
-  M6_6_1,
-  M6_6_2,
-  M6_7_1,
-  M6_7_2,
-  M6_8_1,
-  M6_8_2,
-  M6_STORY,
-} from "@/features/languages/ja/curriculum/m6";
-import {
-  M7_1_1,
-  M7_1_2,
-  M7_2_1,
-  M7_2_2,
-  M7_3_1,
-  M7_3_2,
-  M7_4_1,
-  M7_4_2,
-  M7_5_1,
-  M7_5_2,
-  M7_6_1,
-  M7_6_2,
-  M7_7_1,
-  M7_7_2,
-  M7_8_1,
-  M7_8_2,
-  M7_STORY,
-} from "@/features/languages/ja/curriculum/m7";
 // Standalone inter-module Review pseudo-modules were removed from the pathway
 // (2026-05-18); the live ja-mN-review-1/2 lessons are built by
 // buildSrsReviewLesson (imported below). The old buildModuleReviewLessons +
@@ -600,21 +410,6 @@ const LESSONS: Record<string, LessonContent> = {
   // M3-M7 — grammar-spine modules (restructure 2026-05-16). Hand-authored
   // and registered explicitly. The augmentWithReviewTail helper skips them
   // because their ids don't match `ja-mN-{rowId}-{suffix}`.
-  "ja-m3-1-1": M3_1_1,
-  "ja-m3-1-2": M3_1_2,
-  "ja-m3-2-1": M3_2_1,
-  "ja-m3-2-2": M3_2_2,
-  "ja-m3-3-1": M3_3_1,
-  "ja-m3-3-2": M3_3_2,
-  "ja-m3-4-1": M3_4_1,
-  "ja-m3-4-2": M3_4_2,
-  "ja-m3-5-1": M3_5_1,
-  "ja-m3-5-2": M3_5_2,
-  "ja-m3-6-1": M3_6_1,
-  "ja-m3-6-2": M3_6_2,
-  "ja-m3-7-1": M3_7_1,
-  "ja-m3-7-2": M3_7_2,
-  "ja-m3-9": M3_9,
   // m3-neo pilot (deep-link only — not in mockCourse pathways)
   "ja-m3-neo-1": M3_NEO_1,
   "ja-m3-neo-2": M3_NEO_2,
@@ -649,6 +444,10 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m5-neo-10": M5_NEO_10,
   "ja-m5-neo-11": M5_NEO_11,
   "ja-m5-neo-review": M5_NEO_REVIEW,
+  // m6-neo (spine tile n06a) — compiled from ir/m6.ir.json at import.
+  ...Object.fromEntries(M6_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  // m7-neo (spine tile s07) — compiled from ir/m7.ir.json + 2 katakana rows.
+  ...Object.fromEntries(M7_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.
@@ -661,270 +460,27 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m10-kata": KATA_M10_YA,
   "ja-m11-kata": KATA_M11_RA,
   "ja-m12-kata": KATA_M12_WA,
-  "ja-m4-1-1": M4_1_1,
-  "ja-m4-1-2": M4_1_2,
-  "ja-m4-2-1": M4_2_1,
-  "ja-m4-2-2": M4_2_2,
-  "ja-m4-3-1": M4_3_1,
-  "ja-m4-3-2": M4_3_2,
-  "ja-m4-4-1": M4_4_1,
-  "ja-m4-4-2": M4_4_2,
-  "ja-m4-5-1": M4_5_1,
-  "ja-m4-5-2": M4_5_2,
-  "ja-m4-6-1": M4_6_1,
-  "ja-m4-6-2": M4_6_2,
-  "ja-m4-7-1": M4_7_1,
-  "ja-m4-7-2": M4_7_2,
-  "ja-m4-story": M4_STORY,
-  "ja-m5-1-1": M5_1_1,
-  "ja-m5-1-2": M5_1_2,
-  "ja-m5-2-1": M5_2_1,
-  "ja-m5-2-2": M5_2_2,
-  "ja-m5-3-1": M5_3_1,
-  "ja-m5-3-2": M5_3_2,
-  "ja-m5-4-1": M5_4_1,
-  "ja-m5-4-2": M5_4_2,
-  "ja-m5-5-1": M5_5_1,
-  "ja-m5-5-2": M5_5_2,
-  "ja-m5-6-1": M5_6_1,
-  "ja-m5-6-2": M5_6_2,
-  "ja-m5-7-1": M5_7_1,
-  "ja-m5-7-2": M5_7_2,
-  "ja-m5-story": M5_STORY,
-  "ja-m6-1-1": M6_1_1,
-  "ja-m6-1-2": M6_1_2,
-  "ja-m6-2-1": M6_2_1,
-  "ja-m6-2-2": M6_2_2,
-  "ja-m6-3-1": M6_3_1,
-  "ja-m6-3-2": M6_3_2,
-  "ja-m6-4-1": M6_4_1,
-  "ja-m6-4-2": M6_4_2,
-  "ja-m6-5-1": M6_5_1,
-  "ja-m6-5-2": M6_5_2,
-  "ja-m6-6-1": M6_6_1,
-  "ja-m6-6-2": M6_6_2,
-  "ja-m6-7-1": M6_7_1,
-  "ja-m6-7-2": M6_7_2,
-  "ja-m6-8-1": M6_8_1,
-  "ja-m6-8-2": M6_8_2,
-  "ja-m6-story": M6_STORY,
-  "ja-m7-1-1": M7_1_1,
-  "ja-m7-1-2": M7_1_2,
-  "ja-m7-2-1": M7_2_1,
-  "ja-m7-2-2": M7_2_2,
-  "ja-m7-3-1": M7_3_1,
-  "ja-m7-3-2": M7_3_2,
-  "ja-m7-4-1": M7_4_1,
-  "ja-m7-4-2": M7_4_2,
-  "ja-m7-5-1": M7_5_1,
-  "ja-m7-5-2": M7_5_2,
-  "ja-m7-6-1": M7_6_1,
-  "ja-m7-6-2": M7_6_2,
-  "ja-m7-7-1": M7_7_1,
-  "ja-m7-7-2": M7_7_2,
-  "ja-m7-8-1": M7_8_1,
-  "ja-m7-8-2": M7_8_2,
-  "ja-m7-story": M7_STORY,
   // M8 — i-Adjectives + kanji parallel track begins
-  "ja-m8-1-1": M8_1_1,
-  "ja-m8-1-2": M8_1_2,
-  "ja-m8-2-1": M8_2_1,
-  "ja-m8-2-2": M8_2_2,
-  "ja-m8-3-1": M8_3_1,
-  "ja-m8-3-2": M8_3_2,
-  "ja-m8-4-1": M8_4_1,
-  "ja-m8-4-2": M8_4_2,
-  "ja-m8-5-1": M8_5_1,
-  "ja-m8-5-2": M8_5_2,
-  "ja-m8-6-1": M8_6_1,
-  "ja-m8-6-2": M8_6_2,
-  "ja-m8-8-1": M8_8_1,
-  "ja-m8-8-2": M8_8_2,
-  "ja-m8-story": M8_STORY,
-  "ja-m8-7-1": M8_7_1,
-  "ja-m8-7-2": M8_7_2,
   // M9 — na-Adjectives + よ/ね
-  "ja-m9-1-1": M9_1_1, "ja-m9-1-2": M9_1_2,
-  "ja-m9-2-1": M9_2_1, "ja-m9-2-2": M9_2_2,
-  "ja-m9-3-1": M9_3_1, "ja-m9-3-2": M9_3_2,
-  "ja-m9-4-1": M9_4_1, "ja-m9-4-2": M9_4_2,
-  "ja-m9-5-1": M9_5_1, "ja-m9-5-2": M9_5_2,
-  "ja-m9-6-1": M9_6_1, "ja-m9-6-2": M9_6_2,
-  "ja-m9-story": M9_STORY,
-  "ja-m9-7-1": M9_7_1, "ja-m9-7-2": M9_7_2,
   // M10 — Past tense (polite only)
-  "ja-m10-1-1": M10_1_1, "ja-m10-1-2": M10_1_2,
-  "ja-m10-2-1": M10_2_1, "ja-m10-2-2": M10_2_2,
-  "ja-m10-3-1": M10_3_1, "ja-m10-3-2": M10_3_2,
-  "ja-m10-4-1": M10_4_1, "ja-m10-4-2": M10_4_2,
-  "ja-m10-5-1": M10_5_1, "ja-m10-5-2": M10_5_2,
-  "ja-m10-6-1": M10_6_1, "ja-m10-6-2": M10_6_2,
-  "ja-m10-story": M10_STORY,
-  "ja-m10-7-1": M10_7_1, "ja-m10-7-2": M10_7_2,
   // M11 — Negation (ません, ない-form, まだ/もう)
-  "ja-m11-1-1": M11_1_1, "ja-m11-1-2": M11_1_2,
-  "ja-m11-2-1": M11_2_1, "ja-m11-2-2": M11_2_2,
-  "ja-m11-3-1": M11_3_1, "ja-m11-3-2": M11_3_2,
-  "ja-m11-4-1": M11_4_1, "ja-m11-4-2": M11_4_2,
-  "ja-m11-5-1": M11_5_1, "ja-m11-5-2": M11_5_2,
-  "ja-m11-6-1": M11_6_1, "ja-m11-6-2": M11_6_2,
-  "ja-m11-story": M11_STORY,
-  "ja-m11-7-1": M11_7_1, "ja-m11-7-2": M11_7_2,
   // M12 — Time & Calendar
-  "ja-m12-1-1": M12_1_1, "ja-m12-1-2": M12_1_2,
-  "ja-m12-2-1": M12_2_1, "ja-m12-2-2": M12_2_2,
-  "ja-m12-3-1": M12_3_1, "ja-m12-3-2": M12_3_2,
-  "ja-m12-4-1": M12_4_1, "ja-m12-4-2": M12_4_2,
-  "ja-m12-5-1": M12_5_1, "ja-m12-5-2": M12_5_2,
-  "ja-m12-6-1": M12_6_1, "ja-m12-6-2": M12_6_2,
-  "ja-m12-story": M12_STORY,
-  "ja-m12-7-1": M12_7_1, "ja-m12-7-2": M12_7_2,
   // M13 — Months + Frequency + から (because)
-  "ja-m13-1-1": M13_1_1, "ja-m13-1-2": M13_1_2,
-  "ja-m13-2-1": M13_2_1, "ja-m13-2-2": M13_2_2,
-  "ja-m13-3-1": M13_3_1, "ja-m13-3-2": M13_3_2,
-  "ja-m13-4-1": M13_4_1, "ja-m13-4-2": M13_4_2,
-  "ja-m13-5-1": M13_5_1, "ja-m13-5-2": M13_5_2,
-  "ja-m13-6-1": M13_6_1, "ja-m13-6-2": M13_6_2,
-  "ja-m13-story": M13_STORY,
-  "ja-m13-7-1": M13_7_1, "ja-m13-7-2": M13_7_2,
   // M14 — Te-form + Ta-form + Counters
-  "ja-m14-1-1": M14_1_1, "ja-m14-1-2": M14_1_2,
-  "ja-m14-2-1": M14_2_1, "ja-m14-2-2": M14_2_2,
-  "ja-m14-3-1": M14_3_1, "ja-m14-3-2": M14_3_2,
-  "ja-m14-4-1": M14_4_1, "ja-m14-4-2": M14_4_2,
-  "ja-m14-5-1": M14_5_1, "ja-m14-5-2": M14_5_2,
-  "ja-m14-6-1": M14_6_1, "ja-m14-6-2": M14_6_2,
-  "ja-m14-story": M14_STORY,
-  "ja-m14-7-1": M14_7_1, "ja-m14-7-2": M14_7_2,
   // M15 — Te-form applications + Wants
-  "ja-m15-1-1": M15_1_1, "ja-m15-1-2": M15_1_2,
-  "ja-m15-2-1": M15_2_1, "ja-m15-2-2": M15_2_2,
-  "ja-m15-3-1": M15_3_1, "ja-m15-3-2": M15_3_2,
-  "ja-m15-4-1": M15_4_1, "ja-m15-4-2": M15_4_2,
-  "ja-m15-5-1": M15_5_1, "ja-m15-5-2": M15_5_2,
-  "ja-m15-6-1": M15_6_1, "ja-m15-6-2": M15_6_2,
-  "ja-m15-story": M15_STORY,
-  "ja-m15-7-1": M15_7_1, "ja-m15-7-2": M15_7_2,
   // M16 — Te-form Part 2 (prohibition + sequence + すき/きらい)
-  "ja-m16-1-1": M16_1_1, "ja-m16-1-2": M16_1_2,
-  "ja-m16-2-1": M16_2_1, "ja-m16-2-2": M16_2_2,
-  "ja-m16-3-1": M16_3_1, "ja-m16-3-2": M16_3_2,
-  "ja-m16-4-1": M16_4_1, "ja-m16-4-2": M16_4_2,
-  "ja-m16-5-1": M16_5_1, "ja-m16-5-2": M16_5_2,
-  "ja-m16-6-1": M16_6_1, "ja-m16-6-2": M16_6_2,
-  "ja-m16-story": M16_STORY,
-  "ja-m16-7-1": M16_7_1, "ja-m16-7-2": M16_7_2,
   // M17 — Transportation & Directions
-  "ja-m17-1-1": M17_1_1, "ja-m17-1-2": M17_1_2,
-  "ja-m17-2-1": M17_2_1, "ja-m17-2-2": M17_2_2,
-  "ja-m17-3-1": M17_3_1, "ja-m17-3-2": M17_3_2,
-  "ja-m17-4-1": M17_4_1, "ja-m17-4-2": M17_4_2,
-  "ja-m17-8-1": M17_8_1, "ja-m17-8-2": M17_8_2,
-  "ja-m17-5-1": M17_5_1, "ja-m17-5-2": M17_5_2,
-  "ja-m17-6-1": M17_6_1, "ja-m17-6-2": M17_6_2,
-  "ja-m17-story": M17_STORY,
-  "ja-m17-7-1": M17_7_1, "ja-m17-7-2": M17_7_2,
   // M18 — Weather & Nature
-  "ja-m18-1-1": M18_1_1, "ja-m18-1-2": M18_1_2,
-  "ja-m18-2-1": M18_2_1, "ja-m18-2-2": M18_2_2,
-  "ja-m18-3-1": M18_3_1, "ja-m18-3-2": M18_3_2,
-  "ja-m18-4-1": M18_4_1, "ja-m18-4-2": M18_4_2,
-  "ja-m18-5-1": M18_5_1, "ja-m18-5-2": M18_5_2,
-  "ja-m18-6-1": M18_6_1, "ja-m18-6-2": M18_6_2,
-  "ja-m18-story": M18_STORY,
-  "ja-m18-7-1": M18_7_1, "ja-m18-7-2": M18_7_2,
   // M19 — Family & People
-  "ja-m19-1-1": M19_1_1, "ja-m19-1-2": M19_1_2,
-  "ja-m19-2-1": M19_2_1, "ja-m19-2-2": M19_2_2,
-  "ja-m19-3-1": M19_3_1, "ja-m19-3-2": M19_3_2,
-  "ja-m19-4-1": M19_4_1, "ja-m19-4-2": M19_4_2,
-  "ja-m19-5-1": M19_5_1, "ja-m19-5-2": M19_5_2,
-  "ja-m19-6-1": M19_6_1, "ja-m19-6-2": M19_6_2,
-  "ja-m19-story": M19_STORY,
-  "ja-m19-7-1": M19_7_1, "ja-m19-7-2": M19_7_2,
   // M20 — Body & Health
-  "ja-m20-1-1": M20_1_1, "ja-m20-1-2": M20_1_2,
-  "ja-m20-2-1": M20_2_1, "ja-m20-2-2": M20_2_2,
-  "ja-m20-3-1": M20_3_1, "ja-m20-3-2": M20_3_2,
-  "ja-m20-4-1": M20_4_1, "ja-m20-4-2": M20_4_2,
-  "ja-m20-5-1": M20_5_1, "ja-m20-5-2": M20_5_2,
-  "ja-m20-6-1": M20_6_1, "ja-m20-6-2": M20_6_2,
-  "ja-m20-story": M20_STORY,
-  "ja-m20-7-1": M20_7_1, "ja-m20-7-2": M20_7_2,
   // M21 — Food & Restaurants
-  "ja-m21-1-1": M21_1_1, "ja-m21-1-2": M21_1_2,
-  "ja-m21-2-1": M21_2_1, "ja-m21-2-2": M21_2_2,
-  "ja-m21-3-1": M21_3_1, "ja-m21-3-2": M21_3_2,
-  "ja-m21-4-1": M21_4_1, "ja-m21-4-2": M21_4_2,
-  "ja-m21-5-1": M21_5_1, "ja-m21-5-2": M21_5_2,
-  "ja-m21-6-1": M21_6_1, "ja-m21-6-2": M21_6_2,
-  "ja-m21-story": M21_STORY,
-  "ja-m21-7-1": M21_7_1, "ja-m21-7-2": M21_7_2,
   // M22 — Comparison
-  "ja-m22-1-1": M22_1_1, "ja-m22-1-2": M22_1_2,
-  "ja-m22-2-1": M22_2_1, "ja-m22-2-2": M22_2_2,
-  "ja-m22-3-1": M22_3_1, "ja-m22-3-2": M22_3_2,
-  "ja-m22-4-1": M22_4_1, "ja-m22-4-2": M22_4_2,
-  "ja-m22-5-1": M22_5_1, "ja-m22-5-2": M22_5_2,
-  "ja-m22-6-1": M22_6_1, "ja-m22-6-2": M22_6_2,
-  "ja-m22-story": M22_STORY,
-  "ja-m22-7-1": M22_7_1, "ja-m22-7-2": M22_7_2,
   // M23 — Capability & Suggestions
-  "ja-m23-1-1": M23_1_1, "ja-m23-1-2": M23_1_2,
-  "ja-m23-8-1": M23_8_1, "ja-m23-8-2": M23_8_2,
-  "ja-m23-2-1": M23_2_1, "ja-m23-2-2": M23_2_2,
-  "ja-m23-3-1": M23_3_1, "ja-m23-3-2": M23_3_2,
-  "ja-m23-4-1": M23_4_1, "ja-m23-4-2": M23_4_2,
-  "ja-m23-5-1": M23_5_1, "ja-m23-5-2": M23_5_2,
-  "ja-m23-6-1": M23_6_1, "ja-m23-6-2": M23_6_2,
-  "ja-m23-story": M23_STORY,
-  "ja-m23-7-1": M23_7_1, "ja-m23-7-2": M23_7_2,
   // M25 — Plans & Intentions
-  "ja-m25-1-1": M25_1_1, "ja-m25-1-2": M25_1_2,
-  "ja-m25-2-1": M25_2_1, "ja-m25-2-2": M25_2_2,
-  "ja-m25-3-1": M25_3_1, "ja-m25-3-2": M25_3_2,
-  "ja-m25-4-1": M25_4_1, "ja-m25-4-2": M25_4_2,
-  "ja-m25-5-1": M25_5_1, "ja-m25-5-2": M25_5_2,
-  "ja-m25-6-1": M25_6_1, "ja-m25-6-2": M25_6_2,
-  "ja-m25-story": M25_STORY,
-  "ja-m25-7-1": M25_7_1, "ja-m25-7-2": M25_7_2,
   // M26 — Explanatory & Excess
-  "ja-m26-1-1": M26_1_1, "ja-m26-1-2": M26_1_2,
-  "ja-m26-2-1": M26_2_1, "ja-m26-2-2": M26_2_2,
-  "ja-m26-3-1": M26_3_1, "ja-m26-3-2": M26_3_2,
-  "ja-m26-4-1": M26_4_1, "ja-m26-4-2": M26_4_2,
-  "ja-m26-5-1": M26_5_1, "ja-m26-5-2": M26_5_2,
-  "ja-m26-6-1": M26_6_1, "ja-m26-6-2": M26_6_2,
-  "ja-m26-story": M26_STORY,
-  "ja-m26-7-1": M26_7_1, "ja-m26-7-2": M26_7_2,
   // M24 — Hobbies & Activities
-  "ja-m24-1-1": M24_1_1, "ja-m24-1-2": M24_1_2,
-  "ja-m24-2-1": M24_2_1, "ja-m24-2-2": M24_2_2,
-  "ja-m24-3-1": M24_3_1, "ja-m24-3-2": M24_3_2,
-  "ja-m24-4-1": M24_4_1, "ja-m24-4-2": M24_4_2,
-  "ja-m24-5-1": M24_5_1, "ja-m24-5-2": M24_5_2,
-  "ja-m24-6-1": M24_6_1, "ja-m24-6-2": M24_6_2,
-  "ja-m24-story": M24_STORY,
-  "ja-m24-7-1": M24_7_1, "ja-m24-7-2": M24_7_2,
   // M27 — Modal Grammar
-  "ja-m27-1-1": M27_1_1, "ja-m27-1-2": M27_1_2,
-  "ja-m27-2-1": M27_2_1, "ja-m27-2-2": M27_2_2,
-  "ja-m27-3-1": M27_3_1, "ja-m27-3-2": M27_3_2,
-  "ja-m27-4-1": M27_4_1, "ja-m27-4-2": M27_4_2,
-  "ja-m27-5-1": M27_5_1, "ja-m27-5-2": M27_5_2,
-  "ja-m27-6-1": M27_6_1, "ja-m27-6-2": M27_6_2,
-  "ja-m27-story": M27_STORY,
-  "ja-m27-7-1": M27_7_1, "ja-m27-7-2": M27_7_2,
   // M29 — Plain form (N4 pilot #1)
-  "ja-m29-1-1": M29_1_1, "ja-m29-1-2": M29_1_2,
-  "ja-m29-2-1": M29_2_1, "ja-m29-2-2": M29_2_2,
-  "ja-m29-3-1": M29_3_1, "ja-m29-3-2": M29_3_2,
-  "ja-m29-4-1": M29_4_1, "ja-m29-4-2": M29_4_2,
-  "ja-m29-5-1": M29_5_1, "ja-m29-5-2": M29_5_2,
-  "ja-m29-6-1": M29_6_1, "ja-m29-6-2": M29_6_2,
-  "ja-m29-story": M29_STORY,
-  "ja-m29-7-1": M29_7_1, "ja-m29-7-2": M29_7_2,
   // M30 — Casual register (N4 pilot #2).
   "ja-m30-1-1": M30_1_1, "ja-m30-1-2": M30_1_2,
   "ja-m30-2-1": M30_2_1, "ja-m30-2-2": M30_2_2,

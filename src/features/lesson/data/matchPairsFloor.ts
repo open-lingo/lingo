@@ -402,6 +402,9 @@ function buildMeaningFill(
       /[a-zA-Z]/.test(a.meaningEn) &&
       a.kind !== "phrase" &&
       !/\s/.test(a.kana) &&
+      // Kana-drill spellings (どあ/ぱん/ぺん/ぴあの) are not words — pairing
+      // one with "door"/"bread" teaches a misspelling as vocabulary.
+      !a.kanaDrillOnly &&
       !/ます$/.test(a.kana),
   );
   if (prior.length === 0) return [];

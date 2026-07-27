@@ -101,6 +101,16 @@ dead or vestigial controls, and anything a picky paying learner would
 screenshot — use category `polish` when no other rule fits, rather than
 staying silent.
 
+## Missing inputs — ABORT, never improvise
+
+If `contracts.json` is absent from the lesson's artifact directory, STOP and
+report exactly that. Do NOT synthesize a contract from the IR/lesson source,
+do NOT judge from "general expectations", and NEVER write a contracts.json
+yourself. (2026-07-23 incident: the capture harness was wiping contracts;
+judges quietly fabricated replacements — one invented a wrong romaji rule and
+produced 13 phantom violations, another false-passed an entire lesson. A
+missing input is a pipeline failure to surface, not a gap to fill.)
+
 ## Calibration (for the pipeline operator, not the judge)
 
 - A labeled ground-truth set lives in the validation runs (2026-07-17:

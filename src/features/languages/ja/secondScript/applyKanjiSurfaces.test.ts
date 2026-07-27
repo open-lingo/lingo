@@ -415,7 +415,10 @@ describe("furigana window flag: open in m8/m9 for m8 kanji, closed from m10 — 
     expect(seg.furiganaWindowOpen).toBe(false);
   });
 
-  it("real m8/m9 lessons carry window-open kanji; m10 lessons carry window-closed", () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: this asserts behaviour for a
+    // module that no longer exists in the course (it ends at m7). Re-enable
+    // as each module is authored — do not delete, the behaviour is real.
+    it.skip("real m8/m9 lessons carry window-open kanji; m10 lessons carry window-closed", () => {
     const hasWindowedKanji = (id: string, wantOpen: boolean): boolean => {
       const lesson = getMockLessonContent(id);
       if (!lesson) return false;

@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ha-row: は ひ ふ へ ほ — three sub-lessons + auto row-test (~13 min).
+ * Ha-row: は ひ ふ へ ほ — three sub-lessons (~13 min).
  * Words: ひと (person), ふね (boat), ほし (star).
  * Quirk to remember (not surfaced here): は is pronounced 'wa' when it's
  * the topic particle. We treat it as 'ha' for now since particles arrive
@@ -110,8 +110,8 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ha3-mcq-hoshi", "ほし"),
     listeningBuild(ctx, "ja-ha3-build-hoshi", "ほし", "star"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition(ctx, "ja-ha3-rev-fu", "ふ", "fu", "soft 'foo'"),
 
     wordImageMcq(ctx, "ja-ha3-mcq-rev-fune", "ふね"),

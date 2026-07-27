@@ -71,43 +71,71 @@ function jaStrings(step: unknown): string[] {
   return out;
 }
 
+/** A dedicated review lesson: `…-review` (single) or `…-review-2` (one of
+ *  several — inv 25 ships three per module). */
+export const isReviewLessonId = (id: string): boolean =>
+  /-review(-\d+)?$/.test(id);
+
 export function registerModuleBarGuards(opts: {
   moduleLabel: string;
   lessons: LessonContent[];
   /** Modules whose atoms count as already-known (e.g. ["m1","m2","m3"]). */
   priorModules: string[];
   canon?: Record<string, Set<string>>;
-  /** Minimum lesson count (Spencer 2026-07-20: 12 from m4 on; m3's 7 is
-   *  grandfathered — it taught only three things). */
+  /** Minimum lesson count (Spencer 2026-07-26, inv 25: 12 from m7 on;
+   *  m3's 7 is grandfathered — it taught only three things). */
   minLessons?: number;
+  /** Maximum lesson count (Spencer 2026-07-26, inv 25: hard ceiling 15 =
+   *  11 teaching + 3 review + 1 challenge). */
+  maxLessons?: number;
+  /** Inv 25 (Spencer 2026-07-26): the CHALLENGE lesson is always the
+   *  module's final lesson. Gated so pre-rule modules (m4/m5/m6) don't
+   *  fail before they're re-authored. */
+  requireChallengeLast?: boolean;
+  /** Inv 25 (Spencer 2026-07-26): exactly N dedicated review lessons
+   *  (id ends `-review`), placed at the beginning/middle/end thirds.
+   *  Pass 3 for m7+. */
+  requireReviewCount?: number;
   /** Invariant 30 (Spencer 2026-07-20): imageable module-new atoms debut
    *  on word_image_mcq; teaching lessons don't open on dialogue_listen.
    *  Gated so already-shipped modules retrofit on their own schedule. */
   requireImageFirst?: boolean;
   /** Invariant 26 (m5+): every teaching lesson carries ONE integration
-   *  step (id suffix -capstone; build/translate/listening_build) placed
-   *  before the review tail, combining the new concept with ≥2 earlier-
-   *  module concepts. Review lessons are exempt. */
+   *  step — the CHALLENGE STEP (id suffix `-challenge`, legacy
+   *  `-capstone`; build/translate/listening_build) placed before the
+   *  review tail, combining ≥3 grammar points in a shape not seen
+   *  elsewhere in the module. Review lessons are exempt.
+   *  NOTE (2026-07-26): "capstone" is retired as a name — `requireCapstone`
+   *  is the legacy alias, both suffixes are accepted while m3–m6 await
+   *  re-authoring. New modules emit `-challenge`. */
+  requireChallengeStep?: boolean;
+  /** @deprecated legacy alias for `requireChallengeStep`. */
   requireCapstone?: boolean;
+  /** HIDE-THE-OLD-COURSE (Spencer 2026-07-20): the prior NEO modules'
+   *  lessons. When provided, "already known" vocab is derived from ACTUAL
+   *  neo usage instead of the stale old-course `fromModule` tags. Pass
+   *  [...M3_NEO_LESSONS, ...M4_NEO_LESSONS, ...] for m6+. */
+  priorLessons?: LessonContent[];
+  /** Invariant 33 (Spencer 2026-07-20): teach-first. A dialogue is never a
+   *  valid FIRST exposure — every content word must debut on a real intro
+   *  step before any dialogue uses it. Drops dialogue_listen from the
+   *  intro-capable set. Enable for m6+; shipped modules retrofit later. */
+  requireTeachFirst?: boolean;
 }): void {
   const { moduleLabel, lessons, priorModules, canon = COURSE_CANON } = opts;
   const priorSet = new Set(priorModules);
-  const PRIOR = new Set([
-    ...JA_COURSE_ATOMS.filter((a) => priorSet.has(a.fromModule as string)).map(
-      (a) => a.kana,
-    ),
-    ...M3_M7_REVIEW_POOL.filter((a) => priorSet.has(a.fromModule)).map(
-      (a) => a.kana,
-    ),
-  ]);
-  // Conjugation-aware: without every te/ta/nai/masu form, the tokenizer
-  // reads たべない as an "untracked word" the first time a negatives
-  // module (m6) runs — a false positive an agent would "fix" by loosening
-  // the teach-before-use check (methodology audit 2026-07-20, Gap 1).
-  // getRealFormLexicon (moduleContentLints) already enumerates them.
+  // Kana-module (m1/m2) atoms are always known by m3+ (the kana ladder),
+  // even when the neo lessons never reuse them.
+  const KANA_KNOWN = JA_COURSE_ATOMS.filter(
+    (a) => a.fromModule === "m1" || a.fromModule === "m2",
+  ).map((a) => a.kana);
+  // Tokenizer vocabulary: every atom surface + M3–M7 review-pool surfaces +
+  // conjugation-aware real forms (te/ta/nai/masu — else たべない reads as
+  // "untracked" the first time a negatives module runs, methodology audit
+  // Gap 1) + structural glue. Independent of provenance (PRIOR is below).
   const VOCAB = new Set([
-    ...PRIOR,
     ...JA_COURSE_ATOMS.map((a) => a.kana),
+    ...M3_M7_REVIEW_POOL.map((a) => a.kana),
     ...getRealFormLexicon(),
   ]);
   const ALL = [...new Set([...VOCAB, ...STRUCTURAL])].sort(
@@ -116,21 +144,55 @@ export function registerModuleBarGuards(opts: {
   function tokenize(str0: string): { tokens: string[]; unknown: string[] } {
     const tokens: string[] = [];
     const unknown: string[] = [];
-    const str = str0.replace(/[　 ]/g, "");
-    let i = 0;
-    while (i < str.length) {
-      const hit = ALL.find((t) => str.startsWith(t, i));
-      if (hit) {
-        tokens.push(hit);
-        i += hit.length;
-      } else {
-        let j = i + 1;
-        while (j < str.length && !ALL.some((t) => str.startsWith(t, j))) j++;
-        unknown.push(str.slice(i, j));
-        i = j;
+    // Split on whitespace FIRST — the content is space-segmented into bunsetsu,
+    // and a boundary-crossing longest match would mis-segment (でた, the ta-form
+    // of でる, otherwise eats a で particle + the た of たべる in "…で たべる").
+    for (const chunk of str0.split(/[　\s]+/).filter(Boolean)) {
+      let i = 0;
+      while (i < chunk.length) {
+        const hit = ALL.find((t) => chunk.startsWith(t, i));
+        if (hit) {
+          tokens.push(hit);
+          i += hit.length;
+        } else {
+          let j = i + 1;
+          while (j < chunk.length && !ALL.some((t) => chunk.startsWith(t, j))) j++;
+          unknown.push(chunk.slice(i, j));
+          i = j;
+        }
       }
     }
     return { tokens, unknown };
+  }
+
+  // Teach-first (invariant 33, Spencer 2026-07-20): a dialogue is NEVER a
+  // valid first exposure — content words must debut on a real intro step
+  // before any dialogue uses them, so dialogue_listen drops out of the
+  // intro-capable set under requireTeachFirst.
+  const introTypes = opts.requireTeachFirst
+    ? new Set([...INTRO_TYPES].filter((t) => t !== "dialogue_listen"))
+    : INTRO_TYPES;
+  // "Already known" vocab. HIDE-THE-OLD-COURSE (Spencer 2026-07-20): when the
+  // caller passes the prior NEO modules' lessons, provenance is derived from
+  // ACTUAL neo usage — and STEP-AWARE: a word counts as known only if a prior
+  // neo module INTRODUCED it on an intro-capable step. A word that appeared
+  // ONLY in a prior dialogue was never taught (that is exactly how m5's
+  // いくら/えん/いらっしゃいませ read as "known"), so it does NOT count. The
+  // stale old-course `fromModule` tags are never consulted in this mode;
+  // tag-based PRIOR is the fallback only for modules not yet on priorLessons.
+  const PRIOR = new Set<string>(KANA_KNOWN);
+  if (opts.priorLessons) {
+    for (const lesson of opts.priorLessons)
+      for (const step of lesson.steps)
+        if (introTypes.has(step.type))
+          for (const s of jaStrings(step))
+            for (const t of tokenize(s).tokens)
+              if (t.length > 1) PRIOR.add(t);
+  } else {
+    for (const a of JA_COURSE_ATOMS)
+      if (priorSet.has(a.fromModule as string)) PRIOR.add(a.kana);
+    for (const a of M3_M7_REVIEW_POOL)
+      if (priorSet.has(a.fromModule)) PRIOR.add(a.kana);
   }
 
   describe(`${moduleLabel} authoring bar`, () => {
@@ -140,14 +202,74 @@ export function registerModuleBarGuards(opts: {
       });
     }
 
+    if (opts.maxLessons) {
+      it(`ships at most ${opts.maxLessons} lessons (inv 25 ceiling)`, () => {
+        expect(lessons.length).toBeLessThanOrEqual(opts.maxLessons!);
+      });
+    }
+
+    if (opts.requireChallengeLast) {
+      it("the CHALLENGE lesson is the module's final lesson (inv 25)", () => {
+        const last = lessons[lessons.length - 1];
+        expect(
+          last?.id.endsWith("-challenge"),
+          `last lesson is ${last?.id}, expected a -challenge lesson`,
+        ).toBe(true);
+      });
+    }
+
+    if (opts.requireReviewCount !== undefined) {
+      it(`ships exactly ${opts.requireReviewCount} review lessons (inv 25)`, () => {
+        const reviews = lessons.filter((l) => isReviewLessonId(l.id));
+        expect(
+          reviews.length,
+          `review lessons: ${reviews.map((l) => l.id).join(", ") || "none"}`,
+        ).toBe(opts.requireReviewCount);
+      });
+
+      it("review lessons sit in the beginning/middle/end thirds (inv 25)", () => {
+        // With the challenge lesson pinned last, the reviews should be
+        // spread rather than clustered: no two in the same third of the
+        // module, measured over the non-challenge lessons.
+        const body = lessons.filter((l) => !l.id.endsWith("-challenge"));
+        const thirds = new Set(
+          body
+            .map((l, i) => [l, i] as const)
+            .filter(([l]) => isReviewLessonId(l.id))
+            .map(([, i]) => Math.min(2, Math.floor((i * 3) / body.length))),
+        );
+        expect(
+          thirds.size,
+          `review lessons cluster: thirds hit = ${[...thirds].join(",")}`,
+        ).toBe(opts.requireReviewCount);
+      });
+    }
+
     for (const lesson of lessons) {
       it(`${lesson.id}: density + variety bar`, () => {
         const types = lesson.steps.map((s) => s.type);
-        for (let i = 1; i < types.length; i++)
+        for (let i = 1; i < types.length; i++) {
+          // The transform RAMP is deliberately consecutive (spec
+          // 2026-07-23): 2-3 transform cards pinned right after the rule
+          // drill the same operation on different verbs — repetition of
+          // the drill shape is the point, not a variety defect. Cap the
+          // run at 3 instead of banning adjacency.
+          if (
+            types[i] === "conjugation_transform" &&
+            types[i - 1] === "conjugation_transform"
+          ) {
+            const runStart = types.slice(0, i).lastIndexOf("grammar_rule");
+            expect(
+              i - runStart,
+              `${lesson.id} transform ramp longer than 3 @${i}`,
+            ).toBeLessThanOrEqual(3);
+            continue;
+          }
           expect(
             types[i],
             `${lesson.id} adjacent ${types[i]} @${i}`,
           ).not.toBe(types[i - 1]);
+        }
         let run = 0;
         for (const t of types) {
           run = SELECTION.has(t) ? run + 1 : 0;
@@ -173,22 +295,29 @@ export function registerModuleBarGuards(opts: {
           expect(n, `${lesson.id}: "${sentence}" used ${n}x`).toBeLessThanOrEqual(3);
       });
 
-      if (opts.requireCapstone && !lesson.id.endsWith("-review")) {
-        it(`${lesson.id}: has ONE -capstone integration step before the review tail (invariant 26)`, () => {
-          const idx = lesson.steps.findIndex((s) => s.id.endsWith("-capstone"));
-          expect(idx, `${lesson.id}: no -capstone step`).toBeGreaterThan(-1);
+      const wantChallengeStep =
+        opts.requireChallengeStep ?? opts.requireCapstone;
+      if (wantChallengeStep && !isReviewLessonId(lesson.id)) {
+        it(`${lesson.id}: has ONE challenge integration step before the review tail (invariant 26)`, () => {
+          // `-challenge` is the current name; `-capstone` is the legacy
+          // suffix still carried by m3-m6 until they are re-authored.
+          const isChallengeStep = (id: string) =>
+            id.endsWith("-challenge") || id.endsWith("-capstone");
+          const idx = lesson.steps.findIndex((s) => isChallengeStep(s.id));
+          expect(idx, `${lesson.id}: no challenge step`).toBeGreaterThan(-1);
+          expect(
+            lesson.steps.filter((s) => isChallengeStep(s.id)).length,
+            `${lesson.id}: more than one challenge step`,
+          ).toBe(1);
           const step = lesson.steps[idx] as any;
           expect(
             ["build_sentence", "translate", "listening_build"],
-            `${lesson.id}: capstone must be a generation step`,
+            `${lesson.id}: challenge step must be a generation step`,
           ).toContain(step.type);
           // Near the end, but before the closing grid — the stretch beat
           // precedes the recognition-easy tail.
           expect(idx).toBeGreaterThanOrEqual(lesson.steps.length - 8);
           expect(idx).toBeLessThan(lesson.steps.length - 2);
-          expect(
-            lesson.steps.filter((s) => s.id.endsWith("-capstone")).length,
-          ).toBe(1);
         });
       }
 
@@ -273,7 +402,21 @@ export function registerModuleBarGuards(opts: {
       const firstSeen = new Map<string, string>();
       for (const lesson of lessons) {
         for (const step of lesson.steps as any[]) {
-          for (const s of jaStrings(step)) {
+          // Skip grading-only + intentionally-wrong fields. antiPattern.ja is a
+          // deliberate non-word (あらない for the irregular ある→ない contrast,
+          // inv 12). acceptedAnswers holds spaceless/だ-drop GRADING variants
+          // whose spaceless form mis-segments (はこ out of は+こ across a word
+          // boundary) — the spaced display surface (audioKey/targetSentence)
+          // carries provenance and is still checked.
+          const scrubbed: Record<string, unknown> = { ...(step as Record<string, unknown>) };
+          if (step.type === "grammar_rule") scrubbed.antiPattern = undefined;
+          // Transform distractors are DELIBERATE formation errors (the
+          // same-verb rule misapplications the card exists to discriminate
+          // — たべらない, のむない); they're never taught and never valid,
+          // so provenance must not see them (spec 2026-07-23).
+          if (step.type === "conjugation_transform") scrubbed.distractors = undefined;
+          scrubbed.acceptedAnswers = undefined;
+          for (const s of jaStrings(scrubbed)) {
             const { tokens, unknown } = tokenize(s);
             for (const u of unknown)
               expect(
@@ -289,8 +432,13 @@ export function registerModuleBarGuards(opts: {
       }
       for (const [word, type] of firstSeen)
         expect(
-          INTRO_TYPES.has(type),
-          `"${word}" debuts on non-intro step type ${type}`,
+          introTypes.has(type),
+          `"${word}" debuts on non-intro step type ${type}` +
+            (type === "dialogue_listen"
+              ? ` — teach-first (invariant 33): a dialogue can't be a word's` +
+                ` first exposure; introduce it earlier on a word_image_mcq/` +
+                `speaking/build/grammar_rule/listening_comp`
+              : ""),
         ).toBe(true);
     });
 
@@ -302,7 +450,11 @@ export function registerModuleBarGuards(opts: {
             a.fromModule === thisModule &&
             a.kind === "vocab" &&
             a.emoji &&
-            !(a as any).blocked,
+            !(a as any).blocked &&
+            // HIDE-THE-OLD-COURSE: a word the learner already knows from a
+            // prior NEO module (in PRIOR) is not "module-new" no matter what
+            // its stale old-course fromModule tag says (えき/います false-flag).
+            !PRIOR.has(a.kana),
         );
         const firstType = new Map<string, string>();
         for (const lesson of lessons) {

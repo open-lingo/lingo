@@ -6,7 +6,7 @@
  * Adding a row = add it to `hiraganaCurriculum.ts`. No code changes here.
  *
  * Lesson id shape: `ja-m1-${row.id}-${subSuffix}` where subSuffix is
- * "1" | "2" | "3" | "test" (per the alphabet-streamline spec). Legacy id
+ * "1" | "2" | "3" (per the alphabet-streamline spec). Legacy id
  * `ja-m1-${row.id}` is migrated forward by `mockProgress.ts`.
  */
 import type { LessonContent } from "../types";
@@ -56,8 +56,8 @@ export const GENERATED_HIRAGANA_LESSONS: Record<string, LessonContent> = (() => 
     // Every row's content sub-lessons are now hand-authored
     // (languages/ja/curriculum/m1-*.ts, m2-*.ts) and override these via
     // mockLessons.ts spread order — the generated versions below survive
-    // as the fallback. Row-tests (suffix "test") ARE served from here:
-    // buildRowTestLesson produces the row_test step for every row.
+    // as the fallback. Per-row row-tests were retired 2026-07-20; each
+    // module's mastery gate is now its recap (appended below).
     for (const lesson of buildRowSubLessons(row)) {
       map[lesson.id] = lesson;
     }

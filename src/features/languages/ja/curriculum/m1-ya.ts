@@ -7,16 +7,15 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ya-row: や ゆ よ — three sub-lessons + auto row-test (~11 min).
+ * Ya-row: や ゆ よ — three sub-lessons (~11 min).
  *
  * Only three kana in this row — Japanese has no separate 'yi' or 'ye'
- * symbols in the standard syllabary. Adopts the 1+1+1+test split: one
- * new kana plus one anchor word per sub-lesson, then the row-test.
+ * symbols in the standard syllabary. Adopts the 1+1+1 split: one
+ * new kana plus one anchor word per sub-lesson.
  *
- *   1/4 — や + やま (mountain)
- *   2/4 — ゆ + ゆき (snow)
- *   3/4 — よ + よむ (to read) + full-row review + speaking
- *   4/4 — Row-test (auto-built by buildRowTestLesson)
+ *   1/3 — や + やま (mountain)
+ *   2/3 — ゆ + ゆき (snow)
+ *   3/3 — よ + よむ (to read) + full-row review + speaking
  *
  * Words use only pure-known kana from prior rows:
  *   - やま: や (new) + ま (ma-row, known)
@@ -111,7 +110,7 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ya3-mcq-yomu", "よむ"),
     listeningBuild(ctx, "ja-ya3-build-yomu", "よむ", "to read"),
 
-    // Single representative row-sweep recog — the row-test covers all 3.
+    // Single representative row-sweep recog — the module recap covers all 3.
     recognition(ctx, "ja-ya3-rev-yu", "ゆ", "yu", "like 'you'"),
 
     wordImageMcq(ctx, "ja-ya3-mcq-rev-yuki", "ゆき"),

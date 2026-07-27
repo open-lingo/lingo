@@ -18,6 +18,40 @@ process that fixes it. Every module-authoring dispatch MUST follow it.
    module's spec (`docs/m<N>-neo-authoring-spec-*.md`).
 3. Read the exemplar file (m4-neo-a.ts / m5-neo-a.ts) for factory usage.
 
+## The OLD course is OFF-LIMITS (Spencer 2026-07-20 — "the old tags are ruining us")
+
+**Planning vs. authoring (Spencer 2026-07-26 — the cemented split):** the old
+course is legitimate REFERENCE MATERIAL FOR PLANNING — spine sequencing, N5
+coverage checks, "what did we used to teach here", gap-hunting. Spencer and
+planning/research agents may read it freely. **Authoring agents are NEVER
+exposed to it.** An authoring dispatch's inputs are the generated context pack,
+the pinned invariants, the module spec, and the neo exemplar files — nothing
+else. Old-course material reaches a neo module only after a human or planning
+pass has RE-DERIVED it into the spine or the module spec; it never travels
+directly into an authoring prompt. This is why old-course review pools
+(`AUTHORED_GRAMMAR_POOLS` and friends) must not be wired into neo review
+surfaces: they are polite-register old-course content, and every path that
+lets them reach a neo learner is the いくら/えん leak in a new costume.
+
+**ARCHIVED 2026-07-26.** The old modules now live in
+`src/features/languages/ja/curriculum/_archive/` (see its README), excluded
+from tsconfig and the test run. Nothing in `src/` imports them. This is no
+longer a discipline anyone has to remember — it is enforced by the build.
+
+While authoring a neo module, treat the old course as if it doesn't exist:
+- NEVER open a bare old-course curriculum file (`m5.ts`, `m6.ts` … `m28.ts`)
+  to copy content or check "what's taught." Only the `m*-neo*.ts` files and
+  the generated context pack describe the new course.
+- NEVER trust an atom's `fromModule` tag or `introducedByLessonId` — those are
+  OLD-course provenance, stale and wrong for the neo sequence (that's how
+  いくら/えん/いらっしゃいませ leaked into m5). A word is "known" ONLY if a
+  PRIOR NEO module introduced it via an intro-capable step; the context pack's
+  "already knows" list is the single source of truth, and the teach-first
+  guard (invariant 33) enforces it.
+- When a neo module reuses an old atom, re-stamp its provenance to the neo
+  intro (or rely on neo-usage derivation) — never author as if the old tag
+  were the truth.
+
 ## While authoring (self-check per lesson, NOT at the end)
 After drafting EACH lesson, before the next:
 - Tokenize every Japanese surface: is each word in the context pack's
@@ -56,3 +90,20 @@ then — not yet needed (m6 pack = 248 lines).
 Every past defect class is now either a machine guard (fails the
 throwaway test the agent runs per-lesson) or a line in the context pack
 the agent reads before starting. The post-hoc walk shrinks to spot-checks.
+
+## Keeping the law honest (added 2026-07-20 after the doc-audit)
+The pinned invariants doc is pasted VERBATIM into every dispatch, so if it
+drifts from shipped reality it poisons every agent at once — exactly how
+`authoring-invariants-pinned.md` §Register rule 7 kept asserting "M3–M28 is
+polite-form" for a full day after m4/m5 shipped plain-form. Guardrails:
+- **Reconcile before dispatch.** When a rewrite decision changes a pinned
+  rule, edit `authoring-invariants-pinned.md` in the SAME commit as the code
+  — the law and the shipped module move together, never a day apart.
+- **The doc-staleness sweep is a periodic step, not a one-off.** Re-run it
+  each time a wave lands in code (register/script-ladder/kanji changes):
+  orientation docs (`CLAUDE.md`, `PROJECT_STATE.md`, the pinned invariants,
+  the emoji/kanji specs) drift silently and agents follow them believing
+  they comply. The 2026-07-20 sweep is logged in `retrospective-2026-07-17.md`.
+- **Candidate guard (queued):** a machine check that no rewritten module
+  ships です/ます as a PRODUCTION target (rule 7's enforceable core), to sit
+  alongside the moduleBarGuards register cues — build it in the m6 cycle.

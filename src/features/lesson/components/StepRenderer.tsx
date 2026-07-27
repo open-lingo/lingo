@@ -19,6 +19,7 @@ import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { AgreementClozeStepView } from "./steps/AgreementClozeStepView";
 import { ConjugationClozeStepView } from "./steps/ConjugationClozeStepView";
+import { ConjugationTransformStepView } from "./steps/ConjugationTransformStepView";
 import { KanjiReadingStepView } from "./steps/KanjiReadingStepView";
 import { SelfExplanationMcqStepView } from "./steps/SelfExplanationMcqStepView";
 import { DialogueListenStepView } from "./steps/DialogueListenStepView";
@@ -28,7 +29,14 @@ type Props = {
   step: LessonStep;
   /** `progressTicks` (trace steps only): cumulative successful passes,
    *  so the weighted progress bar ticks per stroke. */
-  onComplete: (stepId: string, correct: boolean, progressTicks?: number) => void;
+  onComplete: (
+    stepId: string,
+    correct: boolean,
+    progressTicks?: number,
+    // Typed steps pass their raw answer so LessonPage can verify a reactive
+    // grammar tip actually matches the learner's mistake (reactiveTipGate).
+    answerText?: string,
+  ) => void;
   onContinue: () => void;
   /** True when the learner is replaying an already-completed lesson —
    *  first-view pacing gates (e.g. the symbol-intro stroke animation
@@ -42,6 +50,8 @@ type Props = {
    * 2026-07-06 audit) and rule cards render as compact refreshers.
    */
   surface?: "lesson" | "grammarReview";
+  /** Owning lesson id — keys per-lesson step state (transform flame). */
+  lessonId?: string;
 };
 
 export function StepRenderer({
@@ -50,6 +60,7 @@ export function StepRenderer({
   onContinue,
   isReplayRun,
   surface = "lesson",
+  lessonId,
 }: Props) {
   switch (step.type) {
     case "info":
@@ -203,6 +214,15 @@ export function StepRenderer({
       return (
         <ConjugationClozeStepView
           step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "conjugation_transform":
+      return (
+        <ConjugationTransformStepView
+          step={step}
+          lessonId={lessonId ?? step.id}
           onComplete={onComplete}
           onContinue={onContinue}
         />

@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Na-row: な に ぬ ね の — three sub-lessons + auto row-test (~13 min).
+ * Na-row: な に ぬ ね の — three sub-lessons (~13 min).
  * No phonetic quirks. Words: なに (what), ねこ (cat), きのこ (mushroom).
  */
 
@@ -105,8 +105,8 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
     wordImageMcq(ctx, "ja-na3-mcq-kinoko", "きのこ"),
     listeningBuild(ctx, "ja-na3-build-kinoko", "きのこ", "mushroom"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition(ctx, "ja-na3-rev-ne", "ね", "ne", "like 'net'"),
 
     wordImageMcq(ctx, "ja-na3-mcq-rev-neko", "ねこ"),

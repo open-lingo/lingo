@@ -214,7 +214,7 @@ function findRenderableStep(
 
 describe("Gate 9 — render-integration smoke (script ladder through real components)", () => {
   it(`below M${HIRAGANA_ROMAJI_OFF_MODULE}: romaji helpers actually render visible`, () => {
-    const lesson = getLesson("ja-m4-1-1");
+    const lesson = getLesson("ja-m4-neo-1");
     const moduleIndex = parseModuleIndex(lesson.moduleId);
     // Regression #1 guard: bare "m4" must parse, and land below the cutoff.
     expect(moduleIndex).toBeGreaterThan(0);
@@ -232,7 +232,10 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
     ).toBeGreaterThan(0);
   });
 
-  it(`at M${HIRAGANA_ROMAJI_OFF_MODULE}: hiragana romaji is hidden by module position (guards unflipped), katakana still shows`, () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: asserts behaviour for a module
+  // that no longer exists in the course (it ends at m7). Re-enable as each
+  // module is authored — the behaviour is real, the fixture is gone.
+  it.skip(`at M${HIRAGANA_ROMAJI_OFF_MODULE}: hiragana romaji is hidden by module position (guards unflipped), katakana still shows`, () => {
     const lesson = getLesson(`ja-m${HIRAGANA_ROMAJI_OFF_MODULE}-1-1`);
     const moduleIndex = parseModuleIndex(lesson.moduleId);
     expect(moduleIndex).toBe(HIRAGANA_ROMAJI_OFF_MODULE);
@@ -262,7 +265,10 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
     ).toBeGreaterThan(0);
   });
 
-  it(`at M${KANJI_RECOGNITION_MODULE}: kanji surfaces reach rendered MCQ options (plural *Annotations branch) with furigana visible inside the window`, () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: asserts behaviour for a module
+  // that no longer exists in the course (it ends at m7). Re-enable as each
+  // module is authored — the behaviour is real, the fixture is gone.
+  it.skip(`at M${KANJI_RECOGNITION_MODULE}: kanji surfaces reach rendered MCQ options (plural *Annotations branch) with furigana visible inside the window`, () => {
     const lesson = getLesson(`ja-m${KANJI_RECOGNITION_MODULE}-3-1`);
     const moduleIndex = parseModuleIndex(lesson.moduleId);
     expect(moduleIndex).toBe(KANJI_RECOGNITION_MODULE);
@@ -313,7 +319,10 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
     ).toEqual([]);
   });
 
-  it(`at M${KATAKANA_ROMAJI_OFF_MODULE}: katakana romaji is gone too — zero visible romaji anywhere`, () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: asserts behaviour for a module
+  // that no longer exists in the course (it ends at m7). Re-enable as each
+  // module is authored — the behaviour is real, the fixture is gone.
+  it.skip(`at M${KATAKANA_ROMAJI_OFF_MODULE}: katakana romaji is gone too — zero visible romaji anywhere`, () => {
     const lesson = getLesson(`ja-m${KATAKANA_ROMAJI_OFF_MODULE}-1-1`);
     const moduleIndex = parseModuleIndex(lesson.moduleId);
     expect(moduleIndex).toBe(KATAKANA_ROMAJI_OFF_MODULE);
@@ -327,7 +336,10 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
     expect(visibleRomajiRts(container)).toEqual([]);
   });
 
-  it("at m29 (the exemplar): kanji_reading renders bare kanji — no romaji, no floated reading", () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: this asserts behaviour for a
+    // module that no longer exists in the course (it ends at m7). Re-enable
+    // as each module is authored — do not delete, the behaviour is real.
+    it.skip("at m29 (the exemplar): kanji_reading renders bare kanji — no romaji, no floated reading", () => {
     const lesson = getLesson("ja-m29-4-1");
     // Regression #1's exact failure: LessonContent.moduleId is the BARE
     // "m29" — parseModuleIndex must not return 0 for it.
@@ -422,7 +434,10 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
     expect(rtVisible(findRt(ma.container))).toBe(false);
   });
 
-  it(`at M${KANJI_RECOGNITION_MODULE}+: sentence filler segments never float their own kana as a fake reading (f67479f regression)`, () => {
+  // DORMANT since the 2026-07-26 ARCHIVE: asserts behaviour for a module
+  // that no longer exists in the course (it ends at m7). Re-enable as each
+  // module is authored — the behaviour is real, the fixture is gone.
+  it.skip(`at M${KANJI_RECOGNITION_MODULE}+: sentence filler segments never float their own kana as a fake reading (f67479f regression)`, () => {
     // buildSentenceAnnotation filler runs span spaces/particles
     // ("は とおいです", surface === reading, no kanji). They once fell into
     // AnnotatedText's kanji-branch helper fallback and rendered their own

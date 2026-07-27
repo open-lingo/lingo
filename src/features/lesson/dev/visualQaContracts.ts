@@ -18,6 +18,7 @@
  *      scripts/visual-qa/judge-prompt.md)
  */
 import { getMockLessonContent } from "../data/mockLessons";
+import { formatPrompt } from "../components/formatPrompt";
 import type { LessonStep } from "../types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
@@ -153,8 +154,26 @@ function contractForStep(
       if (step.wordBank) step.wordBank.forEach((w) => mustShow.push(w));
       break;
     }
+    case "conjugation_transform": {
+      mustShow.push(step.base);
+      mustShow.push(step.formLabel);
+      // Stage is learner-state-dependent; the capture profile is fresh, so
+      // graded captures render STAGE 1: MCQ with the answer among 3
+      // options and the rule table pinned. The ungraded tease renders a
+      // typed input — its answer is never on screen pre-interaction.
+      if (!step.ungraded) mustShow.push(step.answer);
+      expectations.push(
+        step.ungraded
+          ? "Ungraded type-tease: a typed input, no streak flame."
+          : "Fresh profile renders stage 1: three MCQ options (answer + 2 formation distractors), the rule table with one row per verb class (canonical examples), stage chip, and streak flame.",
+      );
+      break;
+    }
     case "translate": {
-      mustShow.push(surfaceOf(step.sourceAnnotation, step.sourceText));
+      // Mirror the render path: TranslateStepView sentence-cases English
+      // prompts via formatPrompt, so the oracle must expect the cased form
+      // ("Book", not "book") or judges flag phantom mustShow mismatches.
+      mustShow.push(formatPrompt(surfaceOf(step.sourceAnnotation, step.sourceText)));
       break;
     }
     case "listening_comprehension": {

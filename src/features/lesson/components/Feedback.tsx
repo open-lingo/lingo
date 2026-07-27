@@ -23,6 +23,15 @@ type Props = {
    * same contract as `correctAnswer`. Only rendered when flagged.
    */
   flaggedNote?: ReactNode;
+  /**
+   * Informational line on a CORRECT answer that is NOT a correction — it
+   * keeps the success palette rather than swapping to amber. The register
+   * pair is the motivating case (Spencer 2026-07-24: politeness "will never
+   * be a choice, we will accept either answer, show them both"): both
+   * renderings are fully right, so flagging one amber would wrongly mark it
+   * as the lesser answer. Ignored when `correct` is false or `flagged` won.
+   */
+  note?: ReactNode;
 };
 
 /**
@@ -39,8 +48,10 @@ export function Feedback({
   correctAnswer,
   flagged = false,
   flaggedNote,
+  note,
 }: Props) {
   const isFlagged = correct && flagged;
+  const showNote = correct && !isFlagged && note !== undefined;
   return (
     <div
       role="alert"
@@ -79,6 +90,7 @@ export function Feedback({
       {isFlagged && flaggedNote !== undefined && (
         <p className="mt-2 text-base leading-relaxed">{flaggedNote}</p>
       )}
+      {showNote && <p className="mt-2 text-base leading-relaxed">{note}</p>}
       {!correct && correctAnswer !== undefined && (
         <p className="mt-2 text-base leading-relaxed">
           <span className="opacity-80">Correct answer: </span>

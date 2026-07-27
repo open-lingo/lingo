@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ma-row: ま み む め も — three sub-lessons + auto row-test (~13 min).
+ * Ma-row: ま み む め も — three sub-lessons (~13 min).
  * No quirks. Words: うま (horse), かめ (turtle), もも (peach).
  */
 
@@ -107,8 +107,8 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ma3-mcq-momo", "もも"),
     listeningBuild(ctx, "ja-ma3-build-momo", "もも", "peach"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition(ctx, "ja-ma3-rev-mi", "み", "mi", "like 'mee'"),
 
     wordImageMcq(ctx, "ja-ma3-mcq-rev-kame", "かめ"),

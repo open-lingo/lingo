@@ -1,5 +1,14 @@
 # N4 pilot spine — m29 & m30 (plain form)
 
+> **⚠️ FORWARD-RISK BANNER (2026-07-20).** This doc's foundational premise —
+> that PLAIN FORM is an N4/m29+ innovation layered on a polite-first N5 course —
+> is being DISMANTLED by the dict-form-first rewrite (plain form is now the
+> taught base from m3-neo; see `authoring-invariants-pinned.md` §Register rule 7).
+> Once the rewrite reaches these modules the "plain form starts here" framing is
+> void. What REMAINS VALID and load-bearing: the m23–m28 vocab-gap / anchor-overlap
+> analysis below (the rewrite has not reached m23+ yet). Use this doc for the vocab
+> map, not for register sequencing.
+
 2026-07-16. Vocab pre-allocation + grammar contract for the **two pilot modules** of the N4
 tier. This is the artifact the authoring agents build from; it exists because the es A1 wave
 proved that per-module vocab pre-allocation is what lets parallel agents author whole files

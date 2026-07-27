@@ -192,12 +192,13 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
   // in content while the map is free to be rewritten around it.
   for (const lessonId of getAvailableMockLessonIds()) {
     if (/-review-[12]$/.test(lessonId)) continue; // avoid recursion; reviews aren't sources
-    // Rewrite-spine pilot lessons (ja-m3-neo-*) are excluded: they're
-    // authored under the dict-form-first ruleset whose sentences don't
-    // decompose against the OLD course's atom attribution (comprehensibility
-    // gate), and the rewrite brings its own review machinery. Re-scope the
-    // deck when the spine modules land.
-    if (lessonId.includes("-neo-")) continue;
+    // NEO-ONLY (2026-07-26). This used to be the inverse — neo lessons were
+    // SKIPPED because "the rewrite brings its own review machinery" and the
+    // old course was the source of truth. The old course is now ARCHIVED
+    // (Spencer's ruling: no function in the program may reference it), so
+    // harvesting anything but neo would either find nothing or resurrect
+    // polite-register content into a dict-form-first course.
+    if (!lessonId.includes("-neo-")) continue;
     const lesson = getMockLessonContent(lessonId);
     if (!lesson || lesson.languageId !== "ja") continue;
     const srcModule = moduleNum(lesson.moduleId);

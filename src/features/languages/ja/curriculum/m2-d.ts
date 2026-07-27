@@ -15,12 +15,12 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * M2 voiced t → d: だ で ど. 3 hand-authored sub-lessons + auto row-test.
+ * M2 voiced t → d: だ で ど. 3 hand-authored sub-lessons.
  * Mirrors the g-row template (docs/m2-row-template-2026-05-17.md).
  *
  * 2026-05-17 Spencer: ぢ・づ dropped entirely from the row. They get a
  * one-line callout in the sub-1 intro info card for chart-completeness
- * awareness, but neither lesson drills nor the row-test quiz them — modern
+ * awareness, but neither lesson drills nor the recap quizzes them — modern
  * Japanese writes those sounds as じ・ず in nearly every word.
  *
  * Sub-1: chars 1-2 (だ で). Anchors: でんわ (telephone 📞), からだ (body).

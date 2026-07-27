@@ -35,15 +35,15 @@ These are NOT removed from the curriculum. They have custom art under `src/pub/l
 | あります | exists (thing) | `exists-thing.svg` (box + ✓) | `particle_cloze` ("テーブルの上に本が___"), `build_sentence`, `listening_comp` |
 | います | exists (alive) | `exists-alive.svg` (creature + sparkles) | `particle_cloze` ("公園に犬が___"), contrast with あります via `self_explanation_mcq` |
 | どれ | which one | `which.svg` (A/B/C/D grid) | `multiple_choice` (ask "Which is X?" with kana options), `dialogue_listen` |
-| あなた | you | `you.svg` (pointing finger + YOU label) | `phrase_card` only — gloss, don't drill. Japanese pronouns are context-dropped in practice. |
-| わたし | I/me | (Noto 🙋) | `phrase_card` only. Same reason as above. |
+| あなた | you | `you.svg` (pointing finger + YOU label) | **ja:** gloss once inside a `build`/`speaking` sentence where it appears (あなたは…), don't drill — Japanese pronouns are context-dropped in practice. (Was "phrase_card only"; phrase_card is banned in ja.) |
+| わたし | I/me | (Noto 🙋) | **ja:** introduce by use in a `build`/`speaking` sentence (わたしは がくせいだ), never a standalone card. Same context-drop reason as above. |
 
 ## Cards where the audit flagged sibling-age ambiguity but custom art doesn't fully resolve it
 
 | Kana | Meaning | Custom art | Caveat |
 |---|---|---|---|
 | あに / あね | older brother / sister | `older-brother.svg` / `older-sister.svg` | Kanji badge (兄 / 姉) is what carries the "older" cue, not the face. Acceptable but pair with `dialogue_listen` for age context ("My older sister is 25"). |
-| ちち / はは | (my) father / mother | `father.svg` / `mother.svg` | Adult-with-child composition reads as "parent" but doesn't specifically read as "father" vs "older male relative." Pair with `phrase_card` that establishes context ("This is my dad"). |
+| ちち / はは | (my) father / mother | `father.svg` / `mother.svg` | Adult-with-child composition reads as "parent" but doesn't specifically read as "father" vs "older male relative." **ja:** pair with a `listeningCompSentence` + `speaking` that establishes context (これは ちちだ, "This is my dad") — not `phrase_card`, which is banned in ja. |
 
 ## Truly image-blocked (do NOT author `wordImageMcq` for these)
 

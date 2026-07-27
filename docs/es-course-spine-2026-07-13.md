@@ -6,6 +6,13 @@ backbone for parallel authoring: **vocab is pre-allocated per module** — an au
 agent introduces exactly its module's allocation as atoms (`fromModule` = that module)
 and may freely REUSE any surface allocated to an earlier module without re-registering it.
 
+> **⚠️ STYLE SECTION SUPERSEDED (self-diagnosed in retrospective-2026-07-17;
+> banner added 2026-07-20).** The style contract below (steps-per-lesson,
+> `grammar_rule` ban, infoStep grammar framing) is SUPERSEDED by
+> `es-rewrite-brief-2026-07-16.md` — author es style from the brief, not here.
+> The **vocab pre-allocation tables** further down THIS doc are still
+> authoritative and in use; only the style rules moved.
+
 ## Global style rules
 
 - **Variety:** LatAm-neutral. `ustedes` for plural you (no `vosotros` drills — one culture

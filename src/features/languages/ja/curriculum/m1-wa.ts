@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Wa-row: わ を ん — three sub-lessons + auto row-test (~11 min).
+ * Wa-row: わ を ん — three sub-lessons (~11 min).
  *
  * Three special kana to close out hiragana:
  *   - わ: standard 'wa' consonant + vowel pair.
@@ -18,11 +18,10 @@ import {
  *     ('m' before /m,p,b/, 'ng' before /k,g/) — taught implicitly via
  *     the listening + speaking blocks.
  *
- * Split (1+1+1+test):
- *   1/4 — わ + かわ (river)
- *   2/4 — を particle + わたし (I/me — reinforces わ, no を-buildable word)
- *   3/4 — ん + ほん (book) + full-row review + speaking
- *   4/4 — Row-test (auto-built by buildRowTestLesson)
+ * Split (1+1+1):
+ *   1/3 — わ + かわ (river)
+ *   2/3 — を particle + わたし (I/me — reinforces わ, no を-buildable word)
+ *   3/3 — ん + ほん (book) + full-row review + speaking
  *
  * Anchor words use only kana known by this point in the curriculum
  * (wa-row is the last basic row, so every prior kana is available):
@@ -143,7 +142,7 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
     wordImageMcq(ctx, "ja-wa3-mcq-hon", "ほん"),
     listeningBuild(ctx, "ja-wa3-build-hon", "ほん", "book"),
 
-    // Single representative row-sweep recog — the row-test covers all 3.
+    // Single representative row-sweep recog — the module recap covers all 3.
     recognition(ctx, "ja-wa3-rev-o",  "を", "o",  "particle 'o'"),
 
     wordImageMcq(ctx, "ja-wa3-mcq-rev-kawa", "かわ"),

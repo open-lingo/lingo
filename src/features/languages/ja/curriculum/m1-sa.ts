@@ -8,14 +8,13 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Sa-row: さ し す せ そ — three sub-lessons + row-test (~12 min total).
+ * Sa-row: さ し す せ そ — three sub-lessons (~12 min total).
  *
  * Adopts the 2+2+1+review pattern (2026-05-16, after vowel + ka pilots):
- *   1/4 — 2 kana (さ, し) + 1 word (あさ morning)
- *   2/4 — 2 kana (す, せ) + 1 word (すし sushi)
- *   3/4 — 1 kana (そ) + 1 word (うそ lie) + 5-kana recognition rotation
+ *   1/3 — 2 kana (さ, し) + 1 word (あさ morning)
+ *   2/3 — 2 kana (す, せ) + 1 word (すし sushi)
+ *   3/3 — 1 kana (そ) + 1 word (うそ lie) + 5-kana recognition rotation
  *         + 1 cross-sub word_image_mcq + 3 speaking targets
- *   4/4 — Row-test (auto-built by buildRowTestLesson)
  *
  * The 'shi' quirk lives in the し intro hint + a note field. し is NOT
  * romanized as 'si' anywhere in this lesson.
@@ -380,8 +379,8 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     wordImageMcq("ja-sa3-mcq-sora", "そら"),
     listeningBuild("ja-sa3-build-sora", "そら", "sky"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition("ja-sa3-rev-shi", "し", "shi", "like 'she'"),
 
     // Cumulative vocab — one MCQ pulling across all 3 sa words.
@@ -409,8 +408,8 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     },
     speaking("ja-sa3-speak-sushi-desu", "すし です", "It's sushi."),
 
-    // Removed: redundant 5× symbol_to_sound block. The row-test
-    // (sub-lesson 4/4) drills kana→romaji recall already; doubling
+    // Removed: redundant 5× symbol_to_sound block. The module recap
+    // drills kana→romaji recall already; doubling
     // it here padded the lesson to 17–21 steps for no gain (flagged
     // by Mio, Jordan, Robert).
 

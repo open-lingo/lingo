@@ -1,0 +1,634 @@
+module: m6
+title: "Negatives & Existence"
+register: plain
+priorNeoModules: [m3, m4, m5]
+
+# Grammar points m6 EXERCISES but does not TEACH — taught in m3-m5, so they
+# carry no rule/examples here. `exercises:`/`combines:` may name these; any
+# id in neither this list nor grammarPoints[] is a typo (2026-07-26: the
+# compiler now reads those fields, so typos surface instead of sailing
+# through). NOTE: these are IR-local ids and do NOT yet match
+# n5-grammar-points.json's registry ids (wa vs wa-topic, ni vs ni-location,
+# …) — that reconciliation is a separate pass.
+priorGrammarPoints: [wa, ga, ni, wo, "no", de, mo, dare, kore-deixis, sore-deixis]
+
+# ─────────────────────────────────────────────────────────────────────────
+# PROVENANCE / AUTHORING NOTES (free text — ignored by codegen)
+# ─────────────────────────────────────────────────────────────────────────
+notes: |
+  PHASE-1 content IR for m6 ("Negatives & Existence"). Authored teach-first
+  and sequentially: the accumulating taught-set is tracked lesson-by-lesson,
+  and no surface uses a word before it is introduced.
+
+  === What m6 introduces (per context pack) ===
+  1. Plain negative ない by verb class — る-verb (L1), う-verb (L2),
+     irregular する/くる (L3).
+  2. ある + が (inanimate existence, X が ある) — L4.
+  3. いる + animacy (animate existence; ある vs いる) — L5.
+  4. Negative existence — ある→ない (IRREGULAR), いる→いない — L6.
+  5. ここ/そこ/あそこ/どこ location deixis (parallels これ/それ/あれ/どれ) — L7.
+  6. に = location of existence (Place に X が ある/いる) — L8.
+  7. で = location of action; に/で contrast — L9.
+  8. Spatial-relation nouns (Noun の うえ / Noun の なか + に) — L10 (construction
+     lesson, uses the KNOWN nouns うえ/なか; introduces no new atoms).
+  9. どこに …？ location Q&A pattern — L11 (integration lesson; no new atoms).
+  10. L12 = mixed REVIEW, all-new surfaces, no new atoms, no new grammar.
+
+  === Provenance decisions (READ THESE) ===
+  * が, に, で are treated as NEW constructions taught fresh in m6, each via a
+    rule card BEFORE first use. They appear in the pack's "known particles"
+    list, but that list is auto-generated from old-course fromModule tags,
+    which the pipeline does NOT trust. Crucially: m5-neo explicitly did NOT
+    teach them (m5-neo L4's own comment says "に is a later module"; motion
+    verbs took NO destination; the m5 grammar summary is を + SOV only, no
+    が/に/で). So none has a real neo intro step yet → introduced here.
+    -> COMPILER: if your neo taught-set (built from priorNeoModules intro
+       steps) already contains が/に/で from a genuine prior intro step, drop
+       that atom from `newAtoms` to avoid a double-provenance conflict. I have
+       listed each as introduced (が=L4, に=L8, で=L9) on the assumption it is
+       NOT yet in the neo taught-set.
+  * m6 introduces ZERO imageable atoms. Every new atom is a negative form, an
+    existence verb, a particle, or a location pointer — all abstract/blocked
+    (invariant 4/6). There is therefore NO word_image_mcq debut in this module;
+    all debuts are grammar_rule / build / listeningComp (invariant 33's
+    intro-capable set). requireImageFirst is vacuously satisfied. Image MCQs
+    still appear in the compiler's review tails over PRIOR imageable atoms
+    (reviewPool words). This is expected, not a defect.
+  * ここ/そこ/あそこ/どこ are BLOCKED (no image MCQ), exactly as これ/それ/あれ/どれ
+    are flagged [no image MCQ] in the pack — a picture on a pointer word is a
+    rubric violation.
+  * ある's negative is IRREGULAR: ある→ない (an i-adjective form), never あらない.
+    Taught explicitly in L6; its antiPattern (ほんが あらない。) is the genuine
+    learner error. いる→いない follows the ordinary る-drop rule from L1.
+  * TOKENIZER NOTE: every conjugated negative (たべない, のまない, いかない, かわない,
+    わからない, しない, こない, いない) is a SINGLE atom — do not split off a ない
+    suffix. The standalone existence-negative ない (L6) is its OWN distinct atom.
+    Match longest surface first so たべない never tokenizes as たべ+ない.
+  * CONTEXT-PACK CAVEAT honored: いくら / えん / いらっしゃいませ / です are NOT used
+    anywhere in m6 (they are not reliably taught).
+  * L7 uses the deictic-predicate frame "Xは <place>" (ねこは あそこ) BEFORE に
+    exists — this is the exact parallel of m4's taught "Xは これ/それ/あれ"
+    (casual copula-drop). Full "place に ある/いる" arrives in L8.
+  * ANIMACY assignments used for existence: animals & people (ねこ いぬ ひと うま
+    かめ ぶた ぞう せんせい ともだち がくせい) take いる; lifeless things — objects AND
+    plants/fungi/celestial (ほん かさ かぎ くるま いす かばん ぼうし ふね
+    きのこ さくら ほし そら えび りょうり) take ある.
+  * BANNED CARRIERS — kana-drill spellings, NOT words (Spencer 2026-07-24):
+    どあ ぱん ぺん ぴあの are hiragana spellings invented so the M2 kana drills
+    had a word for ど/ぱ/ぺ/ぴ. The real words are katakana (ドア パン ペン
+    ピアノ) and are not taught until katakana lands. NEVER use them as
+    carriers, review-pool entries, or distractors — see
+    CourseAtom.kanaDrillOnly, which now excludes them from every pool draw.
+    Native substitutes used here: ぱん→きゅうり/ほん, ぴあの→ふね, ぺん→ぼうし/かさ.
+
+  === Distractor sibling-sets (invariant 10) ===
+  * Verb-form pickers (negatives): other TAUGHT negatives of the same or a
+    sibling verb (cross-verb confusion) — never invented non-words. Non-word
+    negatives (のむない/するない/あらない) appear ONLY as grammar antiPatterns,
+    where wrong-derivation is the tested contrast.
+  * Particle cloze options: sibling particles that are ALREADY TAUGHT at that
+    lesson. NB the L8 に-cloze deliberately excludes で (で is not taught until
+    L9); the L9/L10 clozes may use で↔に because both are then taught.
+  * Location deixis: ここ/そこ/あそこ/どこ are each other's distractors (and
+    contrast with the object-pointers これ/それ/あれ/どれ).
+
+  === Reinforcement carriers used (invariant 27) ===
+  Woven in as carriers/subjects: ひと きょう うえ いえ あさ うま かめ きのこ さくら
+  いけ えび きゅうり ぞう ふね ぶた ぼうし なか かわ うみ えき ほし そら りょうり かさ.
+  Harder to fit into negation/existence naturally and LEFT FOR THE COMPILER'S
+  TAILS: からだ, あい, かぜ, あおい (adjective), ぷりん. Flag them into the m6 tails
+  / next module per the exposure audit.
+
+  === Per-lesson topic map ===
+  L1 ない (る-verbs) · L2 ない (う-verbs) · L3 ない (irregular する/くる) ·
+  L4 ある + が · L5 いる + animacy · L6 negative existence ない/いない ·
+  L7 ここ/そこ/あそこ/どこ · L8 に (existence) · L9 で (action) + に/で contrast ·
+  L10 spatial うえ/なか · L11 どこに …？ Q&A · L12 REVIEW.
+
+# ─────────────────────────────────────────────────────────────────────────
+# NEW ATOMS — nothing may appear in a surface unless it is here OR in the
+# prior-neo taught-set. All imageable:false (see notes: zero imageable atoms).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # -- L1 : る-verb negatives --
+  - { kana: たべない, romaji: tabenai, gloss: "won't eat / don't eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: みない,   romaji: minai,   gloss: "won't watch / don't watch", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
+  # -- L2 : う-verb negatives --
+  - { kana: のまない,   romaji: nomanai,   gloss: "won't drink / don't drink", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: いかない,   romaji: ikanai,    gloss: "won't go / isn't going", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: かわない,   romaji: kawanai,   gloss: "won't buy / don't buy", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: わからない, romaji: wakaranai, gloss: "don't understand / don't get it", shortGloss: "don't understand", imageable: false, kind: verb-form, derivedFrom: わかる, verbClass: u }
+  # -- L3 : irregular negatives --
+  - { kana: しない, romaji: shinai, gloss: "won't do / don't do", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: こない, romaji: konai, gloss: "won't come / isn't coming", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
+  # -- L4 : existence (inanimate) + subject が --
+  - { kana: ある, romaji: aru, gloss: "there is / to exist (inanimate)", shortGloss: "there is (things)", imageable: false, kind: verb, verbClass: u }
+  - { kana: が,   romaji: ga,  gloss: "subject marker (spotlights the thing that exists)", shortGloss: "subject marker", imageable: false, kind: particle }
+  # -- L5 : existence (animate) --
+  - { kana: いる, romaji: iru, gloss: "there is / to exist (animate)", shortGloss: "there is (living)", imageable: false, kind: verb, verbClass: ru }
+  # -- L6 : negative existence --
+  - { kana: ない,   romaji: nai,   gloss: "there isn't (for things)", shortGloss: "there isn't (things)", imageable: false, kind: verb-form, derivedFrom: ある, verbClass: irregular }
+  - { kana: いない, romaji: inai,  gloss: "there isn't (for living things)", shortGloss: "there isn't (living)", imageable: false, kind: verb-form, derivedFrom: いる, verbClass: ru }
+  # -- L7 : location deixis (blocked, like これ/それ/あれ/どれ) --
+  - { kana: ここ,   romaji: koko,  gloss: "here (by me)", imageable: false, kind: vocab }
+  - { kana: そこ,   romaji: soko,  gloss: "there (by you)", imageable: false, kind: vocab }
+  - { kana: あそこ, romaji: asoko, gloss: "over there (away from both)", imageable: false, kind: vocab }
+  - { kana: どこ,   romaji: doko,  gloss: "where?", imageable: false, kind: vocab }
+  # -- L8 : location-of-existence particle --
+  - { kana: に, romaji: ni, gloss: "at / in (location of existence)", shortGloss: "where it is", imageable: false, kind: particle }
+  # -- L9 : location-of-action particle --
+  - { kana: で, romaji: de, gloss: "at / in (location of action)", shortGloss: "where you do it", imageable: false, kind: particle }
+
+# ─────────────────────────────────────────────────────────────────────────
+# GRAMMAR POINTS
+# antiPattern.ja is a FULL-SENTENCE minimal pair of examples[0].ja, one wrong
+# piece, GENUINELY incorrect Japanese (invariant 12). Omitted where no natural
+# learner error exists (location-deixis).
+# ─────────────────────────────────────────────────────────────────────────
+grammarPoints:
+  - id: nai-ru
+    conjugation: { form: nai, classes: [ru] }
+    rule: "る-verb negative: drop る, add ない. たべる→たべない, みる→みない. A negative verb is still a whole sentence on its own — たべない = 'I won't eat' — and it never takes だ."
+    examples:
+      - { ja: "ごはんを たべない。", en: "I don't eat rice." }
+      - { ja: "たべない。", en: "I won't eat." }
+      - { ja: "しゃしんを みない。", en: "I don't look at the photo." }
+    antiPattern: { ja: "ごはんを たべるない。", why: "る-verbs drop る before ない — たべる→たべない, never たべるない." }
+
+  - id: nai-u
+    conjugation: { form: nai, classes: [u] }
+    rule: "う-verb negative: change the final -u kana to its あ-row partner, then add ない. のむ→のまない (む→ま), いく→いかない (く→か), わかる→わからない (る→ら). Verbs ending in う add わ: かう→かわない (never かあない)."
+    examples:
+      - { ja: "みずを のまない。", en: "I don't drink water." }
+      - { ja: "ほんを かわない。", en: "I won't buy the book." }
+      - { ja: "きょうは いかない。", en: "Today I'm not going." }
+      - { ja: "わからない。", en: "I don't get it." }
+    antiPattern: { ja: "みずを のむない。", why: "う-verbs don't tack ない onto the dict form — the final kana shifts to the あ-row: のむ→のまない." }
+
+  - id: nai-irregular
+    conjugation: { form: nai, classes: [irregular] }
+    rule: "The two irregulars bend their stems: する→しない, くる→こない. There's no rule to derive these — learn the pair by heart, the way you met する and くる."
+    examples:
+      - { ja: "これを しない。", en: "I won't do this one." }
+      - { ja: "しない。", en: "I won't do it." }
+      - { ja: "こない。", en: "I'm not coming." }
+    antiPattern: { ja: "これを するない。", why: "する is irregular — its negative is しない, not するない." }
+
+  - id: aru-ga-existence
+    rule: "ある says an inanimate thing EXISTS — 'there is'. Mark the thing whose existence you announce with が: ほんが ある = 'there's a book.' が spotlights the subject; ある closes the sentence and takes no だ."
+    examples:
+      - { ja: "ほんが ある。", en: "There's a book." }
+      - { ja: "かさが ある。", en: "There's an umbrella." }
+    antiPattern: { ja: "ほんを ある。", why: "existence isn't done TO the book — ある takes が (the thing that exists), never を." }
+
+  - id: iru-animacy
+    rule: "いる says a LIVING thing exists — animals and people. Lifeless things take ある; anything alive takes いる. ねこが いる = 'there's a cat'; ほんが ある = 'there's a book.' Both close the sentence plain, no だ."
+    examples:
+      - { ja: "ねこが いる。", en: "There's a cat." }
+      - { ja: "ひとが いる。", en: "There's someone." }
+    antiPattern: { ja: "ねこが ある。", why: "a cat is alive, so it takes いる — ある is only for lifeless things." }
+
+  - id: nai-existence
+    rule: "No such thing? ある's negative is irregular: ある→ない (not あらない). いる drops る like any る-verb: いる→いない. ほんが ない = 'there's no book'; ねこが いない = 'there's no cat.'"
+    examples:
+      - { ja: "ほんが ない。", en: "There's no book." }
+      - { ja: "ねこが いない。", en: "There's no cat." }
+    antiPattern: { ja: "ほんが あらない。", why: "ある is irregular — its negative is ない, never あらない." }
+
+  - id: location-deixis
+    rule: "Place pointers mirror これ/それ/あれ/どれ, one step out: ここ = here (by me), そこ = there (by you), あそこ = over there (away from both), どこ = where? ねこは どこ？ 'where's the cat?' → あそこ。 'over there.'"
+    examples:
+      - { ja: "ねこは どこ？", en: "Where's the cat?" }
+      - { ja: "かぎは ここ。", en: "The key's right here." }
+      - { ja: "ほんは そこ。", en: "The book's there, by you." }
+    # antiPattern omitted (invariant 12): the natural confusion is これ↔ここ /
+    # どれ↔どこ, but those are CORRECT Japanese with a different job (object vs
+    # place) — contrast material, never a ✗. No natural single-wrong-piece error.
+
+  - id: ni-existence
+    rule: "に pins down WHERE something exists. Frame: Place + に + thing + が + ある/いる. あそこに ねこが いる = 'there's a cat over there'; ここに ほんが ある = 'there's a book here.'"
+    examples:
+      - { ja: "ここに ほんが ある。", en: "There's a book here." }
+      - { ja: "あそこに ねこが いる。", en: "There's a cat over there." }
+    antiPattern: { ja: "ここ ほんが ある。", why: "the place of existence needs に — ここに, not bare ここ." }
+
+  - id: de-action
+    rule: "で marks where an ACTION happens; に marks where something EXISTS. いえで たべる = 'I eat at home' (action); いえに ねこが いる = 'there's a cat at home' (existence). Doing → で. Being → に."
+    examples:
+      - { ja: "いえで たべる。", en: "I eat at home." }
+      - { ja: "うみで あそぶ。", en: "I play at the sea." }
+    antiPattern: { ja: "いえに たべる。", why: "eating is an ACTION, so its place takes で — に marks only where things exist." }
+
+  - id: spatial-relations
+    rule: "Stack nouns for a precise place: [noun]の うえ = on top of; [noun]の なか = inside. Add に to say where a thing exists. ほんの うえに ねこが いる = 'there's a cat on the book'; かばんの なかに かぎが ある = 'there's a key in the bag.'"
+    examples:
+      - { ja: "ほんの うえに ねこが いる。", en: "There's a cat on the book." }
+      - { ja: "かばんの なかに かぎが ある。", en: "There's a key in the bag." }
+    antiPattern: { ja: "ほん うえに ねこが いる。", why: "'the book's top' needs の — ほんの うえ, not ほん うえ." }
+
+  - id: location-qa
+    rule: "Ask where with どこ — ねこは どこに いる？ means 'where's the cat?'. Answer with a place plus に — あそこに いる means 'it's over there'. If it's not around, say ここに ない or ねこは いない."
+    examples:
+      - { ja: "ねこは どこに いる？", en: "Where's the cat?" }
+      - { ja: "かばんの なかに ある。", en: "It's in the bag." }
+      - { ja: "ここに ない。", en: "It's not here." }
+    antiPattern: { ja: "ねこは どこに ある？", why: "a cat is alive → どこに いる, not ある." }
+
+# ─────────────────────────────────────────────────────────────────────────
+# LESSONS
+# ─────────────────────────────────────────────────────────────────────────
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-1
+    title: "Saying no — る-verbs"
+    focus: "plain negative for る-verbs: drop る + ない (たべる→たべない, みる→みない)"
+    introduces: [たべない, みない]
+    beats:
+      - { kind: rule, grammarPointId: nai-ru }
+      - { kind: sentence, ja: "きゅうりを たべない。", en: "I won't eat the cucumber.", exercises: [nai-ru], mode: build }
+      - { kind: sentence, ja: "ごはんを たべない。", en: "I don't eat rice.", exercises: [nai-ru, wo], mode: build }
+      - { kind: sentence, ja: "それを みない。", en: "I don't look at that one.", exercises: [nai-ru], mode: listening }
+      - { kind: sentence, ja: "しゃしんを みない。", en: "I don't look at the photo.", exercises: [nai-ru, wo], mode: translate }
+      - { kind: sentence, ja: "すしを たべない。", en: "I don't eat sushi.", exercises: [nai-ru, wo], mode: build }
+      - { kind: sentence, ja: "きょうは たべない。", en: "Today I won't eat.", exercises: [nai-ru, wa], mode: translate }
+      - { kind: sentence, ja: "ふねを みない。", en: "I don't look at the boat.", exercises: [nai-ru, wo], mode: listening }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Mika, ja: "ごはん、たべる？", en: "Gonna eat rice?" }
+          - { speaker: Tom,  ja: "たべない。", en: "I won't." }
+        questions:
+          - { q: "Does Tom eat the rice?", options: ["No — he won't eat", "Yes — he eats it", "He eats a little", "He drinks instead"], answer: "No — he won't eat" }
+      - { kind: capstone, ja: "ミカの ごはんを たべない。", en: "I won't eat Mika's rice.",
+          combines: ["no",wo, nai-ru], mode: build }
+    reviewPool: [たべる, みる, たべない, みない, ごはん, しゃしん, ふね, きょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-2
+    title: "Saying no — う-verbs"
+    focus: "plain negative for う-verbs: final -u → あ-row + ない (のむ→のまない, いく→いかない, かう→かわない, わかる→わからない)"
+    introduces: [のまない, いかない, かわない, わからない]
+    beats:
+      - { kind: rule, grammarPointId: nai-u }
+      - { kind: sentence, ja: "わたしは のまない。", en: "I won't drink.", exercises: [nai-u, wa], mode: build }
+      - { kind: sentence, ja: "みずを のまない。", en: "I don't drink water.", exercises: [nai-u, wo], mode: build }
+      - { kind: sentence, ja: "ミカは いかない。", en: "Mika isn't going.", exercises: [nai-u, wa], mode: listening }
+      - { kind: sentence, ja: "ほんを かわない。", en: "I won't buy the book.", exercises: [nai-u, wo], mode: translate, alsoAccept: ["ほんは かわない。"] }
+      - { kind: sentence, ja: "トムは わからない。", en: "Tom doesn't get it.", exercises: [nai-u, wa], mode: build }
+      - kind: sentence
+        ja: "それは わからない。"
+        en: "I don't get that one."
+        exercises: [nai-u, wa, sore-deixis]
+        mode: translate
+        # わかる pitfall (Spencer walk 2026-07-23): every learner reaches for
+        # を ("get IT" is transitive in English) — それをわからない is wrong.
+        # が is correct-but-untaught until L4, so it grades correct via
+        # alsoAccept; the pitfall tip fires ONLY on actual を answers.
+        alsoAccept: ["それが わからない。"]
+        pitfall:
+          wrong: "それを わからない。"
+          title: "わかる never takes を"
+          why: "わかる isn't 'to get something' — it means 'to be clear (to me)'. The thing you understand is the subject, so it takes が (or は as the topic): それが/それは わからない, never それを."
+      - { kind: sentence, ja: "ぎゅうにゅうを のまない。", en: "I don't drink milk.", exercises: [nai-u, wo], mode: listening }
+      - { kind: sentence, ja: "きょうは いかない。", en: "Today I'm not going.", exercises: [nai-u, wa], mode: build }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Ken,  ja: "みず、のむ？", en: "Want some water?" }
+          - { speaker: Tom,  ja: "のまない。", en: "I'll pass." }
+          - { speaker: Mika, ja: "わたしも のまない。", en: "Me neither." }
+        questions:
+          - { q: "Will Tom drink the water?", options: ["No — he won't drink", "Yes — he'll drink", "He'll drink later", "He wants tea instead"], answer: "No — he won't drink" }
+          - { q: "And Mika?", options: ["She won't drink either", "She'll drink", "Only Mika drinks", "She wants water"], answer: "She won't drink either" }
+      - { kind: capstone, ja: "ミカも みずを のまない。", en: "Mika won't drink water either.",
+          combines: [mo, wo, nai-u], mode: build }
+    reviewPool: [のむ, いく, かう, わかる, のまない, いかない, かわない, わからない, みず, ぎゅうにゅう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-3
+    title: "Saying no — する・くる"
+    focus: "the two irregular negatives (する→しない, くる→こない) + mixing all three classes"
+    introduces: [しない, こない]
+    beats:
+      - { kind: rule, grammarPointId: nai-irregular }
+      - { kind: sentence, ja: "きょう しない。", en: "Today I won't do it.", exercises: [nai-irregular], mode: build }
+      - { kind: sentence, ja: "これを しない。", en: "I won't do this one.", exercises: [nai-irregular, wo, kore-deixis], mode: build }
+      - { kind: sentence, ja: "ケンは こない。", en: "Ken isn't coming.", exercises: [nai-irregular, wa], mode: listening }
+      - { kind: sentence, ja: "ミカは こない。", en: "Mika isn't coming.", exercises: [nai-irregular, wa], mode: translate, alsoAccept: ["ミカが こない。"] }
+      - { kind: sentence, ja: "それを しない。", en: "I won't do that one.", exercises: [nai-irregular, wo, sore-deixis], mode: build }
+      - { kind: sentence, ja: "ごはんを たべない。", en: "I don't eat rice.", exercises: [nai-ru, wo], mode: build }
+      - { kind: sentence, ja: "みずを のまない。", en: "I don't drink water.", exercises: [nai-u, wo], mode: listening }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Mika, ja: "ケン、くる？", en: "Ken, are you coming?" }
+          - { speaker: Ken,  ja: "こない。", en: "I'm not coming." }
+          - { speaker: Mika, ja: "そう。", en: "I see." }
+        questions:
+          - { q: "Is Ken coming?", options: ["No — he's not coming", "Yes — he's coming", "He's coming later", "Only Tom is coming"], answer: "No — he's not coming" }
+      - { kind: capstone, ja: "きょうは これを しない。", en: "Today I won't do this one.",
+          combines: [wa, wo, kore-deixis, nai-irregular], mode: build }
+    reviewPool: [する, くる, しない, こない, これ, それ, たべない, のまない]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-4
+    title: "ある — there is (things)"
+    focus: "ある = an inanimate thing exists; mark the subject with が (X が ある)"
+    introduces: [ある, が]
+    beats:
+      - { kind: rule, grammarPointId: aru-ga-existence }
+      - { kind: sentence, ja: "ほんが ある。", en: "There's a book.", exercises: [aru-ga-existence, ga], mode: build }
+      - { kind: sentence, ja: "かさが ある。", en: "There's an umbrella.", exercises: [aru-ga-existence, ga], mode: build }
+      - { kind: sentence, ja: "かぎが ある。", en: "There's a key.", exercises: [aru-ga-existence, ga], mode: listening }
+      - kind: sentence
+        ja: "きのこが ある。"
+        en: "There's a mushroom."
+        exercises: [aru-ga-existence, ga]
+        mode: translate
+        alsoAccept: ["きのこは ある。"]
+        pitfall:
+          wrong: "きのこを ある。"
+          title: "ある never takes を"
+          why: "ある announces that something EXISTS — the thing is the subject, marked が (きのこが ある). を marks what you act on; existing isn't an action on the mushroom."
+      - { kind: sentence, ja: "ほんが ある。", en: "There's a book.", exercises: [aru-ga-existence, ga], mode: build }
+      - { kind: sentence, ja: "くるまが ある。", en: "There's a car.", exercises: [aru-ga-existence, ga], mode: listening }
+      - { kind: sentence, ja: "ふねが ある。", en: "There's a boat.", exercises: [aru-ga-existence, ga], mode: translate, alsoAccept: ["ふねは ある。"], pitfall: { wrong: "ふねを ある。", title: "ある never takes を", why: "ある announces that something EXISTS — mark it with が, or front it as the topic with は. を marks what you act on; existing isn't an action." } }
+      - { kind: particle-cloze, stem: "くるま", tail: " ある。", answer: "が",
+          options: ["が", "の", "を", "も"], en: "There's a car.",
+          explanation: "が spotlights the thing that exists — ほんが ある." }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Tom,  ja: "かぎ、ある？", en: "Is there a key?" }
+          - { speaker: Mika, ja: "ある。", en: "There is." }
+        questions:
+          - { q: "Is there a key?", options: ["Yes — there's a key", "No — there's no key", "There's a book", "There are two keys"], answer: "Yes — there's a key" }
+      - { kind: capstone, ja: "だれの かさが ある？", en: "Whose umbrella is over there?",
+          combines: [dare, "no",aru-ga-existence, ga], mode: translate, alsoAccept: ["あそこに だれの かさが ある？", "そこに だれの かさが ある？", "あそこは だれの かさが ある？"] }
+    reviewPool: [ある, が, ほん, かさ, かぎ, きのこ, くるま, ふね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-5
+    title: "いる — there is (living things)"
+    focus: "いる = a living thing exists (animals, people); ある is for lifeless things"
+    introduces: [いる]
+    beats:
+      - { kind: rule, grammarPointId: iru-animacy }
+      - { kind: sentence, ja: "ねこが いる。", en: "There's a cat.", exercises: [iru-animacy, ga], mode: build }
+      - { kind: sentence, ja: "いぬが いる。", en: "There's a dog.", exercises: [iru-animacy, ga], mode: build }
+      - { kind: sentence, ja: "ひとが いる。", en: "There's someone.", exercises: [iru-animacy, ga], mode: listening }
+      - { kind: sentence, ja: "うまが いる。", en: "There's a horse.", exercises: [iru-animacy, ga], mode: translate, alsoAccept: ["うまは いる。"], pitfall: { wrong: "うまを いる。", title: "いる never takes を", why: "いる announces that something EXISTS — mark it with が, or front it as the topic with は. を marks what you act on; existing isn't an action." } }
+      - { kind: sentence, ja: "かめが いる。", en: "There's a turtle.", exercises: [iru-animacy, ga], mode: build }
+      - { kind: sentence, ja: "ほんが ある。", en: "There's a book.", exercises: [aru-ga-existence, ga], mode: listening }
+      - { kind: sentence, ja: "ぶたが いる。", en: "There's a pig.", exercises: [iru-animacy, ga], mode: build }
+      - { kind: particle-cloze, stem: "ねこ", tail: " いる。", answer: "が",
+          options: ["が", "に", "を", "も"], en: "Look — there's a cat!",
+          explanation: "living things exist WITH いる, and が marks which one — ねこが いる." }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Ken,  ja: "いぬ、いる？", en: "Is there a dog?" }
+          - { speaker: Mika, ja: "いる。ねこも いる。", en: "There is. There's a cat too." }
+        questions:
+          - { q: "Is there a dog?", options: ["Yes — there's a dog", "No — there's no dog", "There's only a cat", "There are two dogs"], answer: "Yes — there's a dog" }
+          - { q: "What else is there?", options: ["A cat", "A bird", "A horse", "Nothing else"], answer: "A cat" }
+      - { kind: capstone, ja: "ミカの ねこも いる。", en: "Mika's cat is here too.",
+          combines: ["no",mo, iru-animacy], mode: build }
+    reviewPool: [いる, ある, が, ねこ, いぬ, ひと, うま, かめ, ぶた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-6
+    title: "Nothing there — ない・いない"
+    focus: "negative existence: ある→ない (irregular!), いる→いない; ほんが ない, ねこが いない"
+    introduces: [ない, いない]
+    beats:
+      - { kind: rule, grammarPointId: nai-existence }
+      - { kind: sentence, ja: "ほんが ない。", en: "There's no book.", exercises: [nai-existence, ga], mode: build }
+      - { kind: sentence, ja: "かぎが ない。", en: "There's no key.", exercises: [nai-existence, ga], mode: listening }
+      - { kind: sentence, ja: "ねこが いない。", en: "There's no cat.", exercises: [nai-existence, ga], mode: build }
+      - { kind: sentence, ja: "いぬが いない。", en: "There's no dog.", exercises: [nai-existence, ga], mode: translate, alsoAccept: ["いぬは いない。"], pitfall: { wrong: "いぬが ない。", title: "Alive → いない", why: "Dogs are alive — living things go missing with いない. ない is for things (かぎが ない); a missing dog is いぬが いない." } }
+      - { kind: sentence, ja: "きょうは ごはんが ない。", en: "There's no rice today.", exercises: [nai-existence, ga], mode: build }
+      - { kind: sentence, ja: "ひとが いない。", en: "There's no one.", exercises: [nai-existence, ga], mode: listening }
+      - { kind: sentence, ja: "ミカの かさが ない。", en: "Mika's umbrella is gone.", exercises: [nai-existence, ga], mode: build }
+      - { kind: sentence, ja: "きょうは せんせいが いない。", en: "Today the teacher isn't here.", exercises: [nai-existence, ga, wa], mode: translate, alsoAccept: ["せんせいは きょう いない。"] }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Tom,  ja: "ねこ、いる？", en: "Is there a cat?" }
+          - { speaker: Mika, ja: "いない。いぬが いる。", en: "There isn't. There's a dog." }
+        questions:
+          - { q: "Is there a cat?", options: ["No — there's no cat", "Yes — there's a cat", "There are two cats", "The cat is outside"], answer: "No — there's no cat" }
+          - { q: "What is there?", options: ["A dog", "A cat", "A bird", "Nothing at all"], answer: "A dog" }
+      - { kind: capstone, ja: "きょうは ミカの いぬが いない。", en: "Today Mika's dog isn't here.",
+          combines: [wa, "no",nai-existence, ga], mode: listening }
+    reviewPool: [ない, いない, ある, いる, が, ほん, ねこ, いぬ, ひと, きょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-7
+    title: "Here, there — ここ・そこ・あそこ・どこ"
+    focus: "place pointers mirroring これ/それ/あれ/どれ: ここ (here), そこ (there), あそこ (over there), どこ (where?)"
+    introduces: [ここ, そこ, あそこ, どこ]
+    beats:
+      - { kind: rule, grammarPointId: location-deixis }
+      - { kind: sentence, ja: "ねこは どこ？", en: "Where's the cat?", exercises: [location-deixis, wa], mode: listening }
+      - { kind: sentence, ja: "ねこは あそこ。", en: "The cat's over there.", exercises: [location-deixis, wa], mode: build }
+      - { kind: sentence, ja: "かぎは ここ。", en: "The key's right here.", exercises: [location-deixis, wa], mode: build }
+      - { kind: sentence, ja: "ほんは そこ。", en: "The book's there, by you.", exercises: [location-deixis, wa], mode: translate, alsoAccept: ["ほんは そこに ある。"] }
+      - { kind: sentence, ja: "せんせいは どこ？", en: "Where's the teacher?", exercises: [location-deixis, wa], mode: listening }
+      - { kind: sentence, ja: "かさは あそこ。", en: "The umbrella's over there.", exercises: [location-deixis, wa], mode: build }
+      - { kind: sentence, ja: "トムは どこ？", en: "Where's Tom?", exercises: [location-deixis, wa], mode: translate, alsoAccept: ["トムは どこに いる？"] }
+      - { kind: sentence, ja: "うまは そこ。", en: "The horse is there, by you.", exercises: [location-deixis, wa], mode: build }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Ken,  ja: "ねこは どこ？", en: "Where's the cat?" }
+          - { speaker: Mika, ja: "あそこ。", en: "Over there." }
+        questions:
+          - { q: "Where's the cat?", options: ["Over there", "Right here", "By you", "At home"], answer: "Over there" }
+      - { kind: capstone, ja: "ミカの かさは どこ？", en: "Where's Mika's umbrella?",
+          combines: ["no",wa, location-deixis], mode: translate, alsoAccept: ["ミカの かさは どこに ある？"] }
+    reviewPool: [ここ, そこ, あそこ, どこ, これ, それ, あれ, どれ, せんせい, うま]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-8
+    title: "に — where it is"
+    focus: "に pins the place of existence: Place に X が ある/いる (あそこに ねこが いる, ここに ほんが ある)"
+    introduces: [に]
+    beats:
+      - { kind: rule, grammarPointId: ni-existence }
+      - { kind: sentence, ja: "あそこに ねこが いる。", en: "There's a cat over there.", exercises: [ni-existence, ni, ga, iru-animacy], mode: build }
+      - { kind: sentence, ja: "ここに ほんが ある。", en: "There's a book here.", exercises: [ni-existence, ni, ga, aru-ga-existence], mode: build }
+      - { kind: sentence, ja: "そこに かぎが ある。", en: "There's a key there.", exercises: [ni-existence, ni, ga], mode: listening }
+      - kind: sentence
+        ja: "いけに かめが いる。"
+        en: "There's a turtle in the pond."
+        exercises: [ni-existence, ni, ga, iru-animacy]
+        mode: translate
+        alsoAccept: ["かめは いけに いる。", "かめが いけに いる。"]
+        pitfall:
+          wrong: "かめを いる。"
+          title: "いる never takes を"
+          why: "いる announces that a living thing EXISTS — mark it with が (かめが いる), or front it as the topic (かめは). を never marks the thing that exists."
+      - { kind: sentence, ja: "いえに いぬが いる。", en: "There's a dog at home.", exercises: [ni-existence, ni, ga], mode: build }
+      - { kind: sentence, ja: "あそこに うまが いる。", en: "There's a horse over there.", exercises: [ni-existence, ni, ga], mode: listening }
+      - { kind: particle-cloze, stem: "そこ", tail: " かぎが ある。", answer: "に",
+          options: ["に", "を", "が", "は"], en: "There's a key there.",
+          explanation: "に marks WHERE it exists — ここに ほんが ある. (で isn't offered: it hasn't been taught yet.)" }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Tom,  ja: "ねこは どこ？", en: "Where's the cat?" }
+          - { speaker: Mika, ja: "あそこに いる。", en: "It's over there." }
+        questions:
+          - { q: "Where's the cat?", options: ["Over there", "In the pond", "At home", "By the turtle"], answer: "Over there" }
+      - { kind: capstone, ja: "ミカの かめは いけに いる。", en: "Mika's turtle is in the pond.",
+          combines: ["no",wa, ni-existence, iru-animacy], mode: build }
+    reviewPool: [に, ある, いる, が, ここ, そこ, あそこ, どこ, いけ, かめ, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-9
+    title: "で — where you do it"
+    focus: "で marks where an ACTION happens (に marks where a thing EXISTS): いえで たべる vs いえに いる"
+    introduces: [で]
+    beats:
+      - { kind: rule, grammarPointId: de-action }
+      - { kind: sentence, ja: "いえで たべる。", en: "I eat at home.", exercises: [de-action, de], mode: build }
+      - { kind: sentence, ja: "うみで あそぶ。", en: "I play at the sea.", exercises: [de-action, de], mode: build }
+      - { kind: sentence, ja: "いえで ごはんを たべる。", en: "I eat rice at home.", exercises: [de-action, de, wo], mode: translate }
+      - { kind: sentence, ja: "かわで あそぶ。", en: "I play at the river.", exercises: [de-action, de], mode: listening }
+      - { kind: sentence, ja: "いえに ねこが いる。", en: "There's a cat at home.", exercises: [ni-existence, ni, ga], mode: build }
+      - { kind: sentence, ja: "えきで かう。", en: "I buy it at the station.", exercises: [de-action, de], mode: translate }
+      - { kind: sentence, ja: "いけで あそぶ。", en: "I play at the pond.", exercises: [de-action, de], mode: listening }
+      - { kind: particle-cloze, stem: "いえ", tail: " たべる。", answer: "で",
+          options: ["で", "に", "を", "が"], en: "I eat at home.",
+          explanation: "eating is an action → its place takes で. に would be for existence (いえに いる)." }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Ken, ja: "どこで たべる？", en: "Where are we eating?" }
+          - { speaker: Tom, ja: "いえで たべる。", en: "At home." }
+        questions:
+          - { q: "Where will they eat?", options: ["At home", "At the station", "At the sea", "At the river"], answer: "At home" }
+      - { kind: capstone, ja: "ミカの いえで ごはんを たべる。", en: "I eat rice at Mika's house.",
+          combines: ["no",wo, de-action, de], mode: build }
+    reviewPool: [で, に, たべる, のむ, あそぶ, かう, いえ, うみ, かわ, えき, いけ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-10
+    title: "Exactly where — うえ・なか"
+    focus: "stack nouns for a precise place: Noun の うえ (on top) / Noun の なか (inside) + に for existence"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: spatial-relations }
+      - { kind: sentence, ja: "ほんの うえに ねこが いる。", en: "There's a cat on the book.", exercises: [spatial-relations, "no",ni, ga], mode: build }
+      - { kind: sentence, ja: "かばんの なかに かぎが ある。", en: "There's a key in the bag.", exercises: [spatial-relations, "no",ni, ga], mode: build }
+      - { kind: sentence, ja: "いすの うえに ぼうしが ある。", en: "There's a hat on the chair.", exercises: [spatial-relations, "no",ni, ga], mode: translate, alsoAccept: ["ぼうしは いすの うえに ある。"] }
+      - { kind: sentence, ja: "かばんの なかに ぼうしが ある。", en: "There's a hat in the bag.", exercises: [spatial-relations, "no",ni, ga], mode: listening }
+      - { kind: sentence, ja: "ほんの うえに かぎが ある。", en: "There's a key on the book.", exercises: [spatial-relations, "no",ni, ga], mode: build }
+      - { kind: sentence, ja: "いえの なかに いぬが いる。", en: "There's a dog inside the house.", exercises: [spatial-relations, "no",ni, ga, iru-animacy], mode: translate, alsoAccept: ["いぬは いえの なかに いる。"] }
+      - { kind: particle-cloze, stem: "かばんの うえ", tail: " ねこが いる。", answer: "に",
+          options: ["に", "で", "を", "が"], en: "There's a cat on the bag.",
+          explanation: "existence sits with に — うえに ある/いる. で would be for an action done there." }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Tom,  ja: "かぎは どこ？", en: "Where's the key?" }
+          - { speaker: Mika, ja: "かばんの なかに ある。", en: "It's in the bag." }
+        questions:
+          - { q: "Where's the key?", options: ["In the bag", "On the book", "On the chair", "In the house"], answer: "In the bag" }
+      - { kind: capstone, ja: "かさも ほんの うえに ある。", en: "The umbrella is on the book too.",
+          combines: [mo, "no",spatial-relations, ni], mode: build }
+    reviewPool: [うえ, なか, に, ある, いる, が, ほん, かばん, いす, ぼうし, かさ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-11
+    title: "Where is it? — どこに …？"
+    focus: "ask where with どこに: Xは どこに ある/いる？ answer with place + に; not around → ない/いない"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: location-qa }
+      - { kind: sentence, ja: "ねこは どこに いる？", en: "Where's the cat?", exercises: [location-qa, wa, ni, iru-animacy], mode: listening }
+      - { kind: sentence, ja: "かぎは どこに ある？", en: "Where's the key?", exercises: [location-qa, wa, ni, aru-ga-existence], mode: build }
+      - { kind: sentence, ja: "あそこに いる。", en: "He's over there.", exercises: [location-qa, ni, iru-animacy], mode: build }
+      - { kind: sentence, ja: "かばんの なかに ある。", en: "It's in the bag.", exercises: [location-qa, "no",ni, spatial-relations], mode: translate, alsoAccept: ["かばんに ある。"] }
+      - { kind: sentence, ja: "ここに ない。", en: "It's not here.", exercises: [location-qa, ni, nai-existence], mode: build }
+      - { kind: sentence, ja: "せんせいは どこに いる？", en: "Where's the teacher?", exercises: [location-qa, wa, ni], mode: listening }
+      - { kind: sentence, ja: "ねこは ここに いない。", en: "The cat isn't here.", exercises: [location-qa, ni, nai-existence], mode: translate }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Ken,  ja: "ぼうしは どこに ある？", en: "Where's the hat?" }
+          - { speaker: Mika, ja: "いすの うえに ある。", en: "It's on the chair." }
+        questions:
+          - { q: "Where's the hat?", options: ["On the chair", "In the bag", "On the book", "In the house"], answer: "On the chair" }
+      - { kind: capstone, ja: "ミカの ねこは どこに いる？", en: "Where's Mika's cat?",
+          combines: ["no",wa, location-qa, ni], mode: translate, alsoAccept: ["ミカの ねこは どこ？"] }
+    reviewPool: [どこ, に, ある, いる, ない, いない, が, ねこ, かぎ, せんせい, ぼうし]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m6-neo-challenge
+    title: "Challenge — put it all together"
+    focus: "End-of-module stretch: every m6 concept combined in longer sentences (Spencer 2026-07-24: the old modules' 'final challenge' pattern, revived for the neo spine)"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは ミカの いえで ごはんを たべない。", en: "Today I won't eat rice at Mika's house.", exercises: [wa, "no", de-action, wo, nai-ru], mode: build }
+      - { kind: sentence, ja: "かばんの なかに かぎが ない。", en: "There's no key in the bag.", exercises: ["no", spatial-relations, ni, ga, nai-existence], mode: translate, alsoAccept: ["かぎは かばんの なかに ない。", "かばんに かぎが ない。"] }
+      - { kind: sentence, ja: "せんせいは あそこに いる。", en: "The teacher is over there.", exercises: [wa, location-deixis, ni, iru-animacy], mode: build }
+      # STRETCH BEAT (Spencer 2026-07-24: "more complicated ones, using at
+      # least 3-4 grammar points in a way they haven't seen before"). L1-11
+      # never pair a POSSESSIVE subject with a deictic place AND a negative
+      # existence — each piece is taught, the combination is new.
+      - { kind: sentence, ja: "ケンの くるまは あそこに ない。", en: "Ken's car isn't over there.", exercises: ["no", wa, location-deixis, ni-existence, nai-existence], mode: translate, alsoAccept: ["ケンの くるまが あそこに ない。"] }
+      - { kind: sentence, ja: "ケンは きょう こない。", en: "Ken isn't coming today.", exercises: [wa, nai-irregular], mode: listening }
+      - { kind: sentence, ja: "いぬは いえに いない。", en: "The dog isn't at home.", exercises: [wa, ni-existence, nai-existence], mode: translate, alsoAccept: ["いぬが いえに いない。"] }
+      - { kind: sentence, ja: "ほんは いすの うえに ある。", en: "The book is on the chair.", exercises: [wa, "no", spatial-relations, ni, aru-ga-existence], mode: build }
+      # STRETCH BEAT — every spatial sentence in L1-11 is INANIMATE (ある/
+      # ない). This is the first spatial relation with a living subject and a
+      # negative: 2x の, うえ, に, いない.
+      - { kind: sentence, ja: "ミカの ねこは いすの うえに いない。", en: "Mika's cat isn't on the chair.", exercises: ["no", wa, spatial-relations, ni-existence, nai-existence, iru-animacy], mode: build, alsoAccept: ["ミカの ねこが いすの うえに いない。"] }
+      # STRETCH BEAT — なか has only ever held things inside a かばん. A
+      # natural place plus an animate negative is a new shape.
+      - { kind: sentence, ja: "うまは かわの なかに いない。", en: "The horse isn't in the river.", exercises: [wa, "no", spatial-relations, ni-existence, nai-existence, iru-animacy], mode: translate, alsoAccept: ["うまが かわの なかに いない。", "うまは かわに いない。"] }
+      - { kind: particle-cloze, stem: "かわに ぶた", tail: " いる。", answer: "が", options: ["が", "は", "を", "も"], en: "There's a pig in the river.", explanation: "が spotlights the thing that exists — かめが いる." }
+      - { kind: sentence, ja: "これは かわない。", en: "I won't buy this one.", exercises: [kore-deixis, wa, nai-u], mode: translate, alsoAccept: ["これを かわない。"] }
+      # STRETCH BEAT — L4's capstone asked だれの かさが ある？; this pushes
+      # the same question through a spatial relation, so the learner holds a
+      # だれの chain and an うえに phrase at once.
+      - { kind: sentence, ja: "だれの かさが いすの うえに ある？", en: "Whose umbrella is on the chair?", exercises: [dare, "no", ga, spatial-relations, ni-existence, aru-ga-existence], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "トム", ja: "ぼうしは どこ？", en: "Where's the hat?" }
+          - { speaker: "ミカ", ja: "かばんに ない。いすの うえに ある。", en: "Not in the bag. It's on the chair." }
+        questions:
+          - { q: "Where's the hat?", options: ["On the chair", "In the bag", "Over there", "There's no hat"], answer: "On the chair" }
+      - { kind: capstone, ja: "きょうは あそこで かさを かわない。", en: "Today I won't buy an umbrella over there.",
+          combines: [wa, location-deixis, de-action, wo, nai-u], mode: build }
+    reviewPool: [たべない, のまない, しない, こない, ない, いない, ある, いる, が, に, で, うえ, なか, どこ]
+
+  - id: m6-neo-12
+    title: "m6 review — no's, there-is, and where"
+    focus: "mixed review of m6 (ない negatives, ある/いる + が, ここ/そこ/あそこ/どこ, に/で) — all-new surfaces, no new atoms"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あさは ごはんを たべない。", en: "I don't eat rice in the morning.", exercises: [nai-ru, wa, wo], mode: translate, alsoAccept: ["ごはんは あさ たべない。"] }
+      - { kind: sentence, ja: "きゅうりを かわない。", en: "I won't buy cucumbers.", exercises: [nai-u, wo], mode: build }
+      - { kind: sentence, ja: "さくらが ある。", en: "There are cherry blossoms.", exercises: [aru-ga-existence, ga], mode: build }
+      - { kind: sentence, ja: "ぞうが いる。", en: "There's an elephant.", exercises: [iru-animacy, ga], mode: listening }
+      - { kind: sentence, ja: "えびが ない。", en: "There's no shrimp.", exercises: [nai-existence, ga], mode: build }
+      - { kind: sentence, ja: "かめは そこ。", en: "The turtle's there.", exercises: [location-deixis, wa], mode: build }
+      - { kind: sentence, ja: "いえで みる。", en: "I watch (it) at home.", exercises: [de-action, de], mode: translate, alsoAccept: ["うちで みる。"] }
+      - { kind: sentence, ja: "そらに ほしが ある。", en: "There are stars in the sky.", exercises: [ni-existence, ni, ga], mode: build }
+      - { kind: sentence, ja: "かわに かめが いる。", en: "There's a turtle in the river.", exercises: [ni-existence, ni, ga, iru-animacy], mode: listening }
+      - { kind: sentence, ja: "かばんの なかに ぼうしが ない。", en: "There's no hat in the bag.", exercises: [spatial-relations, "no", ni, nai-existence], mode: translate, alsoAccept: ["ぼうしは かばんに ない。"] }
+      - { kind: particle-cloze, stem: "うみ", tail: " あそぶ。", answer: "で",
+          options: ["で", "に", "を", "が"], en: "I play at the sea.",
+          explanation: "playing is an ACTION → its place takes で. に would mark where something exists." }
+      - kind: dialogue
+        speakers-ok: true
+        lines:
+          - { speaker: Mika, ja: "きょう、くる？", en: "Coming today?" }
+          - { speaker: Ken,  ja: "こない。いえで する。", en: "I'm not. I'll do it at home." }
+        questions:
+          - { q: "Is Ken coming?", options: ["No — he's not coming", "Yes — he's coming", "He's coming later", "Only Mika is coming"], answer: "No — he's not coming" }
+          - { q: "Where will Ken do it?", options: ["At home", "At school", "At the station", "At the sea"], answer: "At home" }
+    reviewPool: [たべない, のまない, かわない, しない, こない, ある, いる, ない, いない, が, ここ, そこ, あそこ, どこ, に, で]

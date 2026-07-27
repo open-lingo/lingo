@@ -291,20 +291,3 @@ describe("lessonBuilder — yōon rows cap gracefully", () => {
     expect((counts.symbol_recognition ?? 0)).toBeLessThanOrEqual(6);
   });
 });
-
-describe("lessonBuilder — row-test sub-lesson is unaffected by density", () => {
-  beforeEach(clearDensityStorage);
-
-  it("test sub-lesson contains a row_test step regardless of density", () => {
-    setDensityMode("thorough");
-    const row = ALL_ROWS.find((r) => r.id === "ka");
-    if (!row) return;
-    const testLesson = buildRowSubLessons(row).find((l) =>
-      l.id.endsWith("-test"),
-    );
-    expect(testLesson).toBeDefined();
-    if (!testLesson) return;
-    const rowTest = testLesson.steps.find((s) => s.type === "row_test");
-    expect(rowTest).toBeDefined();
-  });
-});

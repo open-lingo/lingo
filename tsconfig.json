@@ -21,5 +21,9 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  // ARCHIVED old-course content (Spencer's ruling, 2026-07-26): kept on disk
+  // for planning reference only. NO function in the program may reference it,
+  // so it is excluded from the build and the test run.
+  "exclude": ["src/features/languages/**/curriculum/_archive"]
 }

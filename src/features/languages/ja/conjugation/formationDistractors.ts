@@ -102,6 +102,42 @@ function wrongSoundChangeCandidates(
  * distinct distractors, none equal to `correct`; never falls back to another
  * verb. Ordered so the most confusable errors come first.
  */
+/**
+ * Distractor picker for the TRANSFORM CARD's stage-1/2 MCQ (Fable sweep
+ * 2026-07-24). Differs from the trainer/cloze ordering in two ways:
+ *  - ATTACH-TO-DICTIONARY ranks FIRST (たべるない) — it's the exact error
+ *    the rule card's anti-pattern warns about, and the general ordering
+ *    buried it below family-tense forms (なかった) whose tense can never
+ *    match the card's gloss, letting learners meta-game by elimination.
+ *  - `exclude` filters candidates that are REAL registered words: いない
+ *    was served as a WRONG option in L2 (いく → ×いない), training an
+ *    error against the very word L6 then teaches as correct.
+ */
+export function transformDrillDistractors(
+  dictionary: string,
+  group: VerbGroup,
+  form: ChainForm,
+  correct: string,
+  exclude: ReadonlySet<string>,
+): string[] {
+  const ranked = [
+    dictionary + CHAIN_SUFFIX[form],
+    ...(group === "irregular"
+      ? [conjugateVerb(dictionary, "godan", form), conjugateVerb(dictionary, "ichidan", form)]
+      : [conjugateVerb(dictionary, group === "godan" ? "ichidan" : "godan", form)]),
+    ...generateFormationDistractors(dictionary, group, form, correct),
+  ];
+  const out: string[] = [];
+  const seen = new Set<string>([correct]);
+  for (const c of ranked) {
+    if (!c || seen.has(c) || exclude.has(c)) continue;
+    seen.add(c);
+    out.push(c);
+    if (out.length >= 2) break;
+  }
+  return out;
+}
+
 export function generateFormationDistractors(
   dictionary: string,
   group: VerbGroup,

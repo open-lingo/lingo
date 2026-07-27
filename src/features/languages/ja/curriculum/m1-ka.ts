@@ -7,19 +7,18 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ka-row: か き く け こ — three sub-lessons + auto row-test (~13 min).
+ * Ka-row: か き く け こ — three sub-lessons (~13 min).
  *
  * Refactored 2026-05-16 from the older 5+2+test (3 dots) layout to the
- * standard 2+2+1+test (4 dots) pattern shared by every other consonant
+ * standard 2+2+1 pattern shared by every other consonant
  * row. Each sub-lesson introduces ~2 kana plus 1 anchor word:
  *
- *   1/4 — か + き + かい (shell)
- *   2/4 — く + け + いけ (pond)
- *   3/4 — こ + こえ (voice) + full-row review + speaking
- *   4/4 — Row-test (auto-built by buildRowTestLesson)
+ *   1/3 — か + き + かい (shell)
+ *   2/3 — く + け + いけ (pond)
+ *   3/3 — こ + こえ (voice) + full-row review + speaking
  *
  * The row's other two anchor words (かお, えき) stay in the row-level
- * anchor pool for the test queue and surface in this file as cumulative
+ * anchor pool for the recap queue and surface in this file as cumulative
  * wordImageMcq / listening_comp / speaking targets within sub-3 — they
  * just don't get a dedicated build step.
  *
@@ -161,11 +160,11 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     listeningBuild(ctx, "ja-ka3-build-koe", "こえ", "voice"),
 
     // Single representative row-sweep recog (け). The remaining four
-    // row-kana get re-encountered in the row-test that follows.
+    // row-kana get re-encountered in the module recap.
     recognition(ctx, "ja-ka3-rev-ke", "け", "ke", "like 'kept'"),
 
     // Cumulative vocab — surface えき (the row anchor without a dedicated
-    // build sub-lesson). かお is left for the row-test queue.
+    // build sub-lesson). かお is left for the module recap.
     wordImageMcq(ctx, "ja-ka3-mcq-eki", "えき"),
 
     listeningComp("ja-ka3-lc-koe", "こえ", "koe", "voice",

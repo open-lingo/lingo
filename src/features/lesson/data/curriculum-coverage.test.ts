@@ -3,8 +3,11 @@
  *
  * Asserts that the per-row sub-lesson split preserves every kana + anchor
  * word from the source RowDef. Without this test, anchor-word attrition
- * during refactors is silent and the row-test queue can quietly diverge
- * from the row's introduced material.
+ * during refactors is silent and the module recap (which sources its pool
+ * from the rows) can quietly diverge from the row's introduced material.
+ *
+ * Per-row row-tests were retired 2026-07-20 — rows now emit only their
+ * content sub-lessons; ★ mastery gates on the module recap.
  */
 import { describe, it, expect } from "vitest";
 import { ALL_ROWS } from "./hiraganaCurriculum";
@@ -32,7 +35,6 @@ describe("alphabet-streamline coverage", () => {
         const subs = row.subLessons ?? [];
         const seen = new Set<string>();
         for (const sub of subs) {
-          if (sub.isTest) continue;
           for (const k of sub.introduces) {
             expect(
               seen.has(k.kana),
@@ -64,48 +66,26 @@ describe("alphabet-streamline coverage", () => {
         }
       });
 
-      it("every row has exactly one row-test sub-lesson (M2 compact: per-row tests required for mastery)", () => {
-        // M2 compact (curriculum-design-v2, 2026-05-16): every voiced and
-        // yōon row carries its own row-test for ★ mastery. The standalone
-        // yōon-capstone was removed 2026-05-17 (Hannah audit) — m2-recap
-        // absorbs the cross-yōon sweep.
+      it("no row carries a per-row row-test sub-lesson (retired 2026-07-20)", () => {
+        // Per-row row-tests were retired 2026-07-20; ★ mastery gates on the
+        // module recap. Rows now emit only content sub-lessons.
         const subs = row.subLessons ?? [];
         const tests = subs.filter((s) => s.isTest);
-        expect(tests.length, `${row.id}: expected exactly 1 test`).toBe(1);
-        expect(subs[subs.length - 1].isTest).toBe(true);
+        expect(tests.length, `${row.id}: expected no test sub-lessons`).toBe(0);
+        expect(
+          subs.some((s) => s.suffix === "test"),
+          `${row.id}: no sub-lesson should use the "test" suffix`,
+        ).toBe(false);
       });
 
-      it("emits a LessonContent per sub-lesson (including any test)", () => {
+      it("emits a LessonContent per sub-lesson", () => {
         const lessons = buildRowSubLessons(row);
         expect(lessons.length).toBe((row.subLessons ?? []).length);
         for (const lesson of lessons) {
           expect(lesson.id.startsWith(`ja-m1-${row.id}-`)).toBe(true);
           expect(lesson.steps.length).toBeGreaterThan(0);
-        }
-      });
-
-      it("row-test step covers every kana in the row", () => {
-        const lessons = buildRowSubLessons(row);
-        const testLesson = lessons.find((l) => l.id.endsWith("-test"));
-        expect(testLesson, `${row.id}: missing -test lesson`).toBeDefined();
-        if (!testLesson) return;
-        const rowTest = testLesson.steps.find((s) => s.type === "row_test");
-        expect(rowTest).toBeDefined();
-        if (!rowTest || rowTest.type !== "row_test") return;
-        const mcKana = new Set<string>();
-        for (const item of rowTest.items) {
-          if (item.kind === "mc") {
-            // The MC prompt includes the kana via promptAudioText.
-            if (item.payload.promptAudioText) {
-              mcKana.add(item.payload.promptAudioText);
-            }
-          }
-        }
-        for (const k of row.introduces) {
-          expect(
-            mcKana.has(k.kana),
-            `${row.id}: kana ${k.kana} missing from row test MC items`,
-          ).toBe(true);
+          // No generated lesson is a row_test any more.
+          expect(lesson.steps.some((s) => s.type === "row_test")).toBe(false);
         }
       });
     });

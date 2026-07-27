@@ -1,8 +1,15 @@
 # Lingo retrospective — regressions, context rot, and the gates that prevent them
 
 2026-07-17. Written after the N4 pilot (m29) QA session surfaced ~10 defects in one sitting.
-Synthesis of three parallel audits (regression taxonomy, context-rot, code-health). Read-only
-analysis; nothing here is implemented yet — this is the plan. `Status: LIVE`.
+Synthesis of three parallel audits (regression taxonomy, context-rot, code-health). `Status: LIVE`.
+
+> **IMPLEMENTATION TRACKING (updated 2026-07-20).** This started as a read-only plan;
+> much of it is now BUILT — do not re-fix shipped items. DONE: JA per-module content
+> gates (`moduleBarGuards.ts` / `registerModuleBarGuards`), conformance extended past
+> m27, `module-gate.mjs` + DOM-render gate, the pinned-invariants constraint block,
+> and the orientation-doc staleness sweep (this 2026-07-20 pass). Live progress and
+> remaining work are tracked in `rewrite-cycle-report-2026-07-20.md`. Check that report
+> + the pinned invariants before treating any item below as still-open.
 
 ---
 

@@ -1,5 +1,13 @@
 # Kanji + furigana — investigation & plan (2026-07-16)
 
+> **⚠️ STALE / SUPERSEDED (2026-07-20).** The "Verdict up front" below — that
+> zero lesson content has ever been authored with a kanji surface and that the
+> course is "still kana-only" — is NO LONGER TRUE. Kanji recognition went LIVE
+> at M8 via `ja/secondScript/kanjiRollout.ts` (furigana window = unlock+2); see
+> the pinned invariants §"Script ladder" and `kanji-implementation-spec-2026-07-16.md`.
+> This doc is retained for its investigation history only — do not act on its
+> "not executed / no code changes" framing.
+
 **Trigger:** Owner QA note: *"I am not seeing kanji where I probably should,
 http://localhost:5173/ja/learn/lessons/ja-m27-5-2 was an example, should be
 kanji + furigana at that point right?"*

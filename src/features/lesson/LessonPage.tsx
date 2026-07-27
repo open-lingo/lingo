@@ -23,6 +23,7 @@ import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
+import { typedAnswerExhibitsTipError } from "./components/reactiveTipGate";
 import { LessonIntro } from "./components/LessonIntro";
 import { LessonProgressBar } from "./components/LessonProgressBar";
 import { LessonComplete } from "./components/LessonComplete";
@@ -514,7 +515,12 @@ export function LessonPage() {
     : lesson?.steps[currentStepIdx];
 
   const handleStepComplete = useCallback(
-    (stepId: string, correct: boolean, progressTicks?: number) => {
+    (
+      stepId: string,
+      correct: boolean,
+      progressTicks?: number,
+      answerText?: string,
+    ) => {
       // Last-write-wins. A retry that passes upgrades the verdict to
       // correct; a retry that fails too stays incorrect. Accuracy at
       // lesson end reflects final state.
@@ -546,6 +552,12 @@ export function LessonPage() {
       if (
         !correct &&
         grammarTip &&
+        // Typed steps supply their answer — only flash the card when the
+        // learner actually produced the tip's anti-pattern; a different
+        // mistake getting this card is noise (Spencer m6 walk 2026-07-23).
+        // Steps with no answer text (builds, MCQs) keep the old behavior.
+        (answerText === undefined ||
+          typedAnswerExhibitsTipError(grammarTip, answerText)) &&
         !shownGrammarTipsRef.current.has(grammarTip.grammarPointId)
       ) {
         shownGrammarTipsRef.current.add(grammarTip.grammarPointId);
@@ -893,6 +905,7 @@ export function LessonPage() {
               // state (no carry-over selection / submit flag from first attempt).
               key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
               step={currentStep}
+              lessonId={lesson.id}
               onComplete={handleStepComplete}
               onContinue={handleContinue}
               isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}

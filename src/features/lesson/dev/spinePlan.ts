@@ -64,9 +64,21 @@ export type SpineUnit = {
   locked?: boolean;
   /** Spiral partner tile id (intro ↔ deepen beat). */
   spiralWith?: string;
+  /** VOCAB ALLOCATION (inv 16, added draft-4). Invariant 16 forbids
+   *  authoring vocab "outside the module's allocation (spine doc)" — this
+   *  is that allocation. `must` = words this tile OWNS (its domain needs
+   *  them); `prefer` = ranked candidates to draw the remainder from;
+   *  `sidequest` = flagged as side-quest material, NOT taught in-course.
+   *  Ranked pool + signals: docs/data/ja-neo-vocab.json. */
+  vocab?: {
+    count: number;
+    must?: string[];
+    prefer?: string[];
+    sidequest?: string[];
+  };
 };
 
-export const SPINE_VERSION = "draft-3 (2026-07-19)";
+export const SPINE_VERSION = "draft-4 (2026-07-26)";
 
 export const SPINE_UNITS: SpineUnit[] = [
   {
@@ -98,6 +110,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     teaches: [
       "GLUE-ADVERB DRIP: 1–2 top-500 adverbs as vocab per module (ぜんぜん #97, ちゃんと #173, ずっと #174, たとえば #223, さっき #227, すぐ #237, きっと #287, まず #264…) — never a block",
       "COUNTER DRIP: after the generic つ counter, each new counter arrives when a word calls for it, not as a unit",
+      "KATAKANA LADDER (ruling 2026-07-26): base gojūon rows only, TWO row-lessons per module across m7-m11 (10 rows, complete at m11), counting toward the module's 11 teaching lessons. m3-m6 stay katakana-free so the sentence engine gets full capacity. Dakuten/handakuten/yōon are NEVER taught as lessons — their function transfers from hiragana m1/m2; one glance-over pass only. Machinery already exists: KATAKANA_ROW_SCHEDULE in curriculum/katakanaRows.ts (re-anchor moduleIndex, don't rebuild). The katakana romaji cutoff (m17 today) should follow ~2 modules after the last row — OPEN.",
       "REGISTER DRILLS: from the ます module on, every production step names its audience; both registers stay warm forever",
       "SPIRAL BEATS: every ⟳-linked pair = intro then deepen, ≥3 modules apart, deepen OPENS with a 60s rehash of the intro beat (audit: never assume SRS compliance), deepen uses harder sentence shapes (lintable)",
       "END-OF-LESSON REVIEWS keep the ≥60% sentence-context floor with all-new example sentences on the second beat",
@@ -114,7 +127,7 @@ export const SPINE_UNITS: SpineUnit[] = [
   },
   {
     id: "s03",
-    title: "Plain sentences: だ, は, も + Katakana I",
+    title: "Plain sentences: だ, は, も",
     emoji: "\u{1F9F1}",
     teaches: [
       "だ state-of-being (AはBだ) — plain from sentence one",
@@ -122,7 +135,6 @@ export const SPINE_UNITS: SpineUnit[] = [
       "そう/うん as recognition (agreement layer, CEJC #9/#1)",
       "SURVIVAL FORMULA micro-beat: すみません/ありがとう(ございます)/ごめんなさい/だいじょうぶ as unanalyzed chunks (audit: re-stranded by the sidequest purge — day-one utility, zero grammar)",
       "です heard in dialogues for RECOGNITION (register preview)",
-      "Katakana ア-row + ー",
     ],
     why: "Reviewed: keep. Every dict-first source starts with the plain copula sentence as the atom. New in draft-2: the interaction words そう and うん enter as recognition here — うん is the #1 word in spoken Japanese and casual agreement is how plain-style dialogue actually sounds.",
     parity: [
@@ -143,7 +155,6 @@ export const SPINE_UNITS: SpineUnit[] = [
     teaches: [
       "の possession + attributive",
       "これ/それ/あれ/どれ; だれ; 何 (これ、何？ — the pointer question, CEJC #19; audit: interrogatives must be owned)",
-      "Katakana II continues",
     ],
     why: "Reviewed: keep. Pure particle/noun grammar on the plain copula frame.",
     parity: [
@@ -214,6 +225,13 @@ export const SPINE_UNITS: SpineUnit[] = [
     wave: 2,
     milestone: "SCRIPT LADDER: hiragana romaji dies here (M7 cutoff holds)",
     spiralWith: "n15",
+    vocab: {
+      /** Register module — DELIBERATELY THIN on new vocab (audit: it is grammar-and-register, not a lexical module). The name suffixes さま/くん/ちゃん are the lexical face of the register mechanic and belong here. Katakana ア/カ rows land in this module (2 lessons, inv 25). */
+      count: 12,
+      must: ["かいしゃ", "はたらく", "じゅぎょう", "さま", "くん", "ちゃん"],
+      prefer: ["だいがくせい", "こうこう", "ええ", "しる", "カメラ", "カード"],
+      sidequest: ["サラリーマン", "しゃちょう"],
+    },
   },
   {
     id: "n02",
@@ -234,6 +252,12 @@ export const SPINE_UNITS: SpineUnit[] = [
     salvage: "m14's group-by-group て tables nearly verbatim (the expensive asset), re-motivated.",
     wave: 2,
     spiralWith: "n06b",
+    vocab: {
+      /** おしえる is the canonical ください spend (おしえてください) — highest-value single word in the tile. Food/drink domain because 〜てください's natural home is asking for things. */
+      count: 24,
+      must: ["おしえる", "ごはん", "パン", "ちゃ", "たべもの", "しょくじ"],
+      prefer: ["こめ", "ちゃわん", "さけ", "すいどう", "みせ"],
+    },
   },
   {
     id: "n03",
@@ -252,6 +276,13 @@ export const SPINE_UNITS: SpineUnit[] = [
     ],
     salvage: "m5's two-number-system rule + cafe story + transaction TTS (mostly polite already).",
     wave: 2,
+    vocab: {
+      /** いらっしゃいませ is SIDEQUEST-ONLY — it is one of the words that leaked into m5 before (workflow doc: the いくら/えん leak). It is shop-clerk speech the learner HEARS, never produces; do not teach it in-course. */
+      count: 26,
+      must: ["かね", "ねだん", "やすい", "たかい", "うる", "かいもの", "みせ"],
+      prefer: ["ほんや", "かかく", "はんばい", "うれる"],
+      sidequest: ["いらっしゃいませ", "うりきれ", "たばこや"],
+    },
   },
   {
     id: "n15",
@@ -273,6 +304,12 @@ export const SPINE_UNITS: SpineUnit[] = [
     salvage: "m30's register-awareness lessons compress here; はい/ごめん atoms finally un-strand from the deleted survival sidequest.",
     wave: 2,
     spiralWith: "s07",
+    vocab: {
+      /** Most of this tile's closed-class content (いいえ/ううん/ちがう/ちょっと/だいじょうぶ/わたし/ぼく/おれ) is already OWNED in `teaches` — the allocation here is only the residue that needs atom status. */
+      count: 18,
+      must: ["はい", "ええ", "だめ", "けっこう"],
+      prefer: ["まあ", "よく", "こちら", "しる", "いま"],
+    },
   },
   {
     id: "n04",
@@ -305,6 +342,7 @@ export const SPINE_UNITS: SpineUnit[] = [
       "な-adj + だ/です; じゃない",
       "High-frequency set: いい/よい, すごい #49, おいしい #95 (audit: register-neutral frequency winner — うまい #197 demoted to recognition with a rough/masculine flag), こわい #214, だめ #113",
       "どう (how — どうですか / casual どう？, CEJC #60)",
+      "なる (#39) — く/になる change of state. PULLED FORWARD in draft-4: it was at s23 (wave 6), second-to-last, despite being a top-40 word; and it IS the adjective-stem rule being spent (たかくなる / しずかになる). s09 taught the stem transformation and then never used it.",
       "よ/ね enders (both registers); すき/きらい with が (が's second beat after n06a)",
       "PEDAGOGY: teach-by-showing — minimal info cards, learner infers the pattern from contrasts (Spencer's s09 note)",
     ],
@@ -337,6 +375,27 @@ export const SPINE_UNITS: SpineUnit[] = [
     wave: 3,
   },
   {
+    id: "n06b",
+    title: "て-form II: ている + permission/prohibition",
+    emoji: "\u{1F9F2}",
+    teaches: [
+      "ている progressive vs resultative (gloss invariant 17 rides along)",
+      "もう #31 / まだ #117 — the canonical ている spend (もう食べた / まだ食べていない; audit add)",
+      "してる contraction — RECOGNITION preview (audit: anime learners hear it in episode one, course explained it second-to-last)",
+      "てもいい / てはいけない; ないでください",
+      "Sequencing clauses with て; てから",
+      "⟳ deepen of n02 — same form, harder spends",
+    ],
+    why: "The s12 rework, half two: everything て beyond requests, landing ~5 modules after the form itself. Moved BEFORE s13 in draft-3, and BEFORE s11 in draft-4: teaching the ABSTRACT relative clause before the CONCRETE, top-frequency ている inverted the difficulty ramp for no prerequisite reason (both need only what waves 1-2 already taught). Opens with the mandatory て-table rehash per the thread rule.",
+    parity: [
+      { source: "Tae Kim", ref: "§4.5" },
+      { source: "Genki", ref: "ch 6–7 split across two chapters — same instinct" },
+    ],
+    salvage: "m15 ている unit whole; m16 prohibition set.",
+    wave: 3,
+    spiralWith: "n02",
+  },
+  {
     id: "s11",
     title: "Relative clauses + こと/の nominalizers + とき",
     emoji: "\u{1F517}",
@@ -357,34 +416,13 @@ export const SPINE_UNITS: SpineUnit[] = [
     spiralWith: "s22",
   },
   {
-    id: "n06b",
-    title: "て-form II: ている + permission/prohibition",
-    emoji: "\u{1F9F2}",
-    teaches: [
-      "ている progressive vs resultative (gloss invariant 17 rides along)",
-      "もう #31 / まだ #117 — the canonical ている spend (もう食べた / まだ食べていない; audit add)",
-      "してる contraction — RECOGNITION preview (audit: anime learners hear it in episode one, course explained it second-to-last)",
-      "てもいい / てはいけない; ないでください",
-      "Sequencing clauses with て; てから",
-      "⟳ deepen of n02 — same form, harder spends",
-    ],
-    why: "The s12 rework, half two: everything て beyond requests, landing ~5 modules after the form itself. Moved BEFORE s13 in draft-3 (audit: wave 3 was a four-module abstract-grammar wall — this situational, spendable module breaks it, and shortens the n02 spiral gap). Opens with the mandatory て-table rehash per the thread rule.",
-    parity: [
-      { source: "Tae Kim", ref: "§4.5" },
-      { source: "Genki", ref: "ch 6–7 split across two chapters — same instinct" },
-    ],
-    salvage: "m15 ている unit whole; m16 prohibition set.",
-    wave: 3,
-    spiralWith: "n02",
-  },
-  {
     id: "s13",
     title: "Connecting: から/ので, ranges, なかった completes the paradigm",
     emoji: "\u{1F9ED}",
     teaches: [
       "から reason vs origin; ので softer (register nuance); けど",
       "から…まで; months; frequency spectrum (ぜんぜん gets its ATOM here — audit fix)",
-      "なかった + ませんでした — BOTH registers' last past-negative cells land together, spent on excuses ('didn't go because…')",
+      "なかった + ませんでした + じゃなかった — ALL the last past-negative cells land together (verb AND copula; じゃなかった was owned by no tile through draft-3), spent on excuses ('didn't go because…')",
       "PARADIGM SYNTHESIS CARD: the full 2×2 (nonpast/past × pos/neg), plain and polite side by side, shown as ONE object for the first time (audit: sprinkling without reassembly is fragmentation)",
       "は vs が contrast — が's deepen beat (audit: the pair needs an owned contrast lesson)",
       "STRONG, VARIED sentence examples (Spencer's s13 note — binding)",
@@ -587,7 +625,7 @@ export const SPINE_UNITS: SpineUnit[] = [
     emoji: "\u{1F4A1}",
     teaches: [
       "んだ (plain) / んです (polite) explanatory — one item, two skins",
-      "すぎる; く/になる change of state (なる #39 finally productive — audit flag)",
+      "すぎる (なる moved to s09 in draft-4 — this tile keeps the すぎる/んだ pairing only)",
     ],
     why: "Reviewed: keep. なる's promotion from m27 vocabulary to drilled pattern here answers the frequency audit (#39).",
     parity: [

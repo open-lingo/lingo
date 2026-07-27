@@ -14,8 +14,8 @@ import type {
  *  - injection never pushes a lesson past the density hard cap (25).
  */
 describe("deriveGrammarMicroSteps", () => {
-  it("m27-2-1: tags drills and injects the spot-the-mistake step", () => {
-    const lesson = getMockLessonContent("ja-m27-2-1")!;
+  it("m7-neo-1: tags drills and injects the spot-the-mistake step", () => {
+    const lesson = getMockLessonContent("ja-m7-neo-1")!;
     const ruleIdx = lesson.steps.findIndex((s) => s.type === "grammar_rule");
     const rule = lesson.steps[ruleIdx] as GrammarRuleStep;
     expect(rule.antiPattern).toBeTruthy();
@@ -65,7 +65,7 @@ describe("deriveGrammarMicroSteps", () => {
         overCap.push(`${id}: more spots than rule cards`);
       }
     }
-    expect(lessonsWithRule).toBeGreaterThan(50); // ~93 anti-patterns exist
+    expect(lessonsWithRule).toBeGreaterThan(25) // ARCHIVE 2026-07-26: was 50 across the old course; the neo course is m3-m7 so far; // ~93 anti-patterns exist
     expect(lessonsTagged).toBe(lessonsWithRule);
     expect(overCap, overCap.join("\n")).toEqual([]);
   });

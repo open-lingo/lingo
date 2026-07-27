@@ -30,6 +30,7 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   particle_cloze: 18,
   agreement_cloze: 19,
   conjugation_cloze: 24,
+  conjugation_transform: 25,
   kanji_reading: 23,
   self_explanation_mcq: 20,
   dialogue_listen: 21,

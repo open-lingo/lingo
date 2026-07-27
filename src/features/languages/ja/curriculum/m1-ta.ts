@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ta-row: た ち つ て と — three sub-lessons + auto row-test (~13 min).
+ * Ta-row: た ち つ て と — three sub-lessons (~13 min).
  * Quirks: ち = 'chi', つ = 'tsu'. た, て, と follow the pattern.
  * Words: うた (song), つき (moon), とけい (clock).
  * Speaking targets: うた, つき, とけい — all 2-3 mora, Whisper-friendly.
@@ -108,8 +108,8 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ta3-mcq-tokei", "とけい"),
     listeningBuild(ctx, "ja-ta3-build-tokei", "とけい", "clock"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition(ctx, "ja-ta3-rev-chi", "ち", "chi", "like 'chee'"),
 
     wordImageMcq(ctx, "ja-ta3-mcq-rev-tsuki", "つき"),

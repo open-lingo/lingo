@@ -14,6 +14,7 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "particle_cloze", label: "Particle cloze", group: "Drill" },
   { value: "agreement_cloze", label: "Agreement cloze", group: "Drill" },
   { value: "conjugation_cloze", label: "Conjugation cloze", group: "Drill" },
+  { value: "conjugation_transform", label: "Conjugation transform", group: "Drill" },
   { value: "kanji_reading", label: "Kanji reading", group: "Drill" },
   { value: "self_explanation_mcq", label: "Self-explanation MCQ", group: "Drill" },
   { value: "word_image_mcq", label: "Word ↔ image MCQ", group: "Drill" },
@@ -102,6 +103,22 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         options: [],
         correctOptionId: "",
         meaningEn: "",
+      };
+    case "conjugation_transform":
+      // Empty shell for shape only. Real steps come from the
+      // `conjugationTransform` factory — answer + distractors are
+      // engine-derived; stage is resolved from the mastery cell at render.
+      return {
+        ...base,
+        type: "conjugation_transform",
+        base: "",
+        baseGloss: "",
+        targetGloss: "",
+        form: "nai",
+        formLabel: "ない form",
+        verbClass: "godan",
+        answer: "",
+        distractors: [],
       };
     case "kanji_reading":
       // Empty shell: `promptAnnotation` still gets the furigana-OFF shape
@@ -246,6 +263,8 @@ export function summariseStep(step: LessonStep): string {
       return truncate(
         `${step.prompt.before}__${step.prompt.after} (${step.verb} → ${step.formLabel})`,
       );
+    case "conjugation_transform":
+      return truncate(`${step.base} → ${step.answer} (${step.formLabel})`);
     case "kanji_reading":
       return `${step.kanji} → ${step.reading}`;
     case "match_pairs":

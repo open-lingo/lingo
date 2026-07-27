@@ -62,6 +62,12 @@ export type KatakanaRowDef = {
   rowId: string;
   /** Module that teaches this row (ア row = m3 via ja-m3-1-1/1-2). */
   moduleIndex: number;
+  /** NEO schedule (ruling 2026-07-26): TWO rows per module across m7-m11,
+   *  so the katakana ladder completes at m11 and m3-m6 stay katakana-free
+   *  for the sentence engine. Kept SEPARATE from `moduleIndex` (which the
+   *  un-rewritten old course still reads) so the two can run in parallel
+   *  until the neo modules swap in. */
+  neoModuleIndex?: number;
   /** In-course lesson id (M3's ア row spans ja-m3-1-1 + ja-m3-1-2). */
   lessonId: string;
   glyphs: KatakanaGlyph[];
@@ -71,6 +77,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "a",
     moduleIndex: 3,
+    neoModuleIndex: 7,
     lessonId: "ja-m3-1-1",
     glyphs: [
       { symbol: "ア", romaji: "a", hint: "like 'a' in 'father'" },
@@ -83,6 +90,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ka",
     moduleIndex: 4,
+    neoModuleIndex: 7,
     lessonId: "ja-m4-kata",
     glyphs: [
       { symbol: "カ", romaji: "ka", hint: "like 'ka' in 'car'" },
@@ -95,6 +103,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "sa",
     moduleIndex: 5,
+    neoModuleIndex: 8,
     lessonId: "ja-m5-kata",
     glyphs: [
       { symbol: "サ", romaji: "sa", hint: "like 'sa' in 'saw'" },
@@ -107,6 +116,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ta",
     moduleIndex: 6,
+    neoModuleIndex: 8,
     lessonId: "ja-m6-kata",
     glyphs: [
       { symbol: "タ", romaji: "ta", hint: "like 'ta' in 'tan'" },
@@ -119,6 +129,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "na",
     moduleIndex: 7,
+    neoModuleIndex: 9,
     lessonId: "ja-m7-kata",
     glyphs: [
       { symbol: "ナ", romaji: "na", hint: "like 'na' in 'nap'" },
@@ -131,6 +142,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ha",
     moduleIndex: 8,
+    neoModuleIndex: 9,
     lessonId: "ja-m8-kata",
     glyphs: [
       { symbol: "ハ", romaji: "ha", hint: "like 'ha' in 'haha'" },
@@ -143,6 +155,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ma",
     moduleIndex: 9,
+    neoModuleIndex: 10,
     lessonId: "ja-m9-kata",
     glyphs: [
       { symbol: "マ", romaji: "ma", hint: "like 'ma' in 'mama'" },
@@ -155,6 +168,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ya",
     moduleIndex: 10,
+    neoModuleIndex: 10,
     lessonId: "ja-m10-kata",
     glyphs: [
       { symbol: "ヤ", romaji: "ya", hint: "like 'ya' in 'yard'" },
@@ -165,6 +179,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "ra",
     moduleIndex: 11,
+    neoModuleIndex: 11,
     lessonId: "ja-m11-kata",
     glyphs: [
       { symbol: "ラ", romaji: "ra", hint: "tap the roof of your mouth — between 'r' and 'l'" },
@@ -177,6 +192,7 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
   {
     rowId: "wa",
     moduleIndex: 12,
+    neoModuleIndex: 11,
     lessonId: "ja-m12-kata",
     glyphs: [
       { symbol: "ワ", romaji: "wa", hint: "like 'wa' in 'water'" },
@@ -188,6 +204,15 @@ export const KATAKANA_ROW_SCHEDULE: KatakanaRowDef[] = [
 
 /** All base katakana taught STRICTLY BEFORE `moduleIndex` — the review
  *  pool + tile-decoy pool for that module's row lesson. */
+/** NEO variant of {@link katakanaTaughtBefore} — reads `neoModuleIndex`.
+ *  Use this for m*-neo authoring/provenance; the un-suffixed function
+ *  stays pointed at the old course until it is fully replaced. */
+export function katakanaTaughtBeforeNeo(moduleIndex: number): KatakanaGlyph[] {
+  return KATAKANA_ROW_SCHEDULE.filter(
+    (r) => r.neoModuleIndex !== undefined && r.neoModuleIndex < moduleIndex,
+  ).flatMap((r) => r.glyphs);
+}
+
 export function katakanaTaughtBefore(moduleIndex: number): KatakanaGlyph[] {
   return KATAKANA_ROW_SCHEDULE.filter(
     (r) => r.moduleIndex < moduleIndex,
@@ -631,3 +656,58 @@ export const ALL_KATAKANA_ROW_LESSONS: LessonContent[] = [
   KATA_M11_RA,
   KATA_M12_WA,
 ];
+
+/* ────────────────────────────────────────────────────────────────────────
+ * NEO row lessons (ruling 2026-07-26)
+ *
+ * The hand-authored KATA_M4_KA…KATA_M12_WA lessons above belong to the
+ * OLD course and keep their `ja-m<N>-kata` ids so that path keeps working
+ * while the rewrite runs in parallel. The neo course schedules TWO rows per
+ * module across m7-m11 (`neoModuleIndex`), so it needs its own lesson
+ * objects with neo ids and the right `moduleId`.
+ *
+ * This factory builds them from the schedule's own glyph data — same step
+ * shape as the hand-authored rows (intro → trace → recognise per glyph,
+ * then a sound sweep and a match grid), minus the per-glyph mnemonic
+ * flavour, which stays with the old lessons until each row is re-authored.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/** Build the neo lesson for one katakana row. */
+export function neoKatakanaRowLesson(rowId: string): LessonContent {
+  const def = KATAKANA_ROW_SCHEDULE.find((r) => r.rowId === rowId);
+  if (!def) throw new Error(`neoKatakanaRowLesson: unknown row ${rowId}`);
+  if (def.neoModuleIndex === undefined)
+    throw new Error(`neoKatakanaRowLesson: row ${rowId} has no neoModuleIndex`);
+  const mod = `m${def.neoModuleIndex}`;
+  const idBase = `ja-${mod}-neo-kata-${rowId}`;
+  const ctx = ctxFor(rowId, []);
+  const label = def.glyphs.map((g) => g.symbol).join(" ");
+  return {
+    id: idBase,
+    moduleId: mod,
+    courseId: COURSE,
+    languageId: LANG,
+    title: `Katakana — ${def.glyphs[0].symbol} row`,
+    description: `${label} — the katakana ${def.glyphs[0].romaji}-row. Same sounds you already read in hiragana, in their squared-off suit.`,
+    estimatedMinutes: 5,
+    xpReward: 10,
+    steps: [
+      ...def.glyphs.flatMap((g) => glyphBlock(ctx, idBase, g, "", "")),
+      ...def.glyphs
+        .slice(0, 3)
+        .map((g) =>
+          symbolToSound(ctx, `${idBase}-sts-${g.romaji}`, g.symbol, g.romaji, g.hint),
+        ),
+      matchKanaToRomaji(`${idBase}-match`, entriesOf(rowId),
+        "Match the katakana to their sounds"),
+    ],
+  };
+}
+
+/** Neo row lessons keyed by rowId, for the module files to splice in. */
+export const NEO_KATAKANA_ROW_LESSONS: Record<string, LessonContent> =
+  Object.fromEntries(
+    KATAKANA_ROW_SCHEDULE.filter((r) => r.neoModuleIndex !== undefined).map(
+      (r) => [r.rowId, neoKatakanaRowLesson(r.rowId)] as const,
+    ),
+  );

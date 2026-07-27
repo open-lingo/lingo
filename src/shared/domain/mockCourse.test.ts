@@ -1,14 +1,15 @@
 /**
  * Curriculum lesson-count guard (M2 compact restructure 2026-05-16,
- * yoon-capstone removed 2026-05-17 per Hannah audit).
+ * yoon-capstone removed 2026-05-17 per Hannah audit, per-row row-tests
+ * retired 2026-07-20 — module mastery now gates on the recap).
  *
  * Per spec:
- *   M1 = pure hiragana → 39 lessons (vowels + 9 rows × 4 nodes + recap).
+ *   M1 = pure hiragana → 31 lessons (3 vowels + 9 rows × 3 content + recap).
  *        Hand-authored end-to-end.
- *   M2 = dakuten/handakuten + yōon + recap → 37 lessons.
- *        Each voiced row (g/z/d/b/p): 3 content + 1 test = 4 × 5 = 20.
- *        Each yōon row (intro/sh-ch/voiced/rare): 3 + 1 = 4 × 4 = 16.
- *        + recap = 1 → 37.
+ *   M2 = dakuten/handakuten + yōon + recap → 28 lessons.
+ *        Each voiced row (g/z/d/b/p): 3 content = 3 × 5 = 15.
+ *        Each yōon row (intro/sh-ch/voiced/rare): 3 content = 3 × 4 = 12.
+ *        + recap = 1 → 28.
  *        (Hannah audit 2026-05-17: standalone yoon-capstone removed; the
  *        m2-recap pool already pulls items from every yōon row.)
  *
@@ -22,32 +23,37 @@ import { getMockCourse } from "./mockCourse";
 describe("curriculum lesson counts", () => {
   const course = getMockCourse("ja");
 
-  it("M1 has 40 lessons (pure hiragana, no yōon)", () => {
+  it("M1 has 31 lessons (pure hiragana, no yōon)", () => {
     const m1 = course.modules.find((m) => m.id === "m1")!;
     expect(m1).toBeDefined();
     // 3 vowels (a-i-u / e-o / full review)
-    //   + (9 × 4-node rows: ka/sa/ta/na/ha/ma/ya/ra/wa)
+    //   + (9 × 3-node rows: ka/sa/ta/na/ha/ma/ya/ra/wa)
     //   + 1 recap
-    // = 3 + 36 + 1 = 40
-    expect(m1.lessons.length).toBe(40);
+    // = 3 + 27 + 1 = 31
+    expect(m1.lessons.length).toBe(31);
     // No yōon ids leak into m1.
     for (const lesson of m1.lessons) {
       expect(lesson.id.includes("yoon-")).toBe(false);
     }
+    // Per-row row-tests were retired 2026-07-20 — no -test node survives.
+    for (const lesson of m1.lessons) {
+      expect(lesson.id.endsWith("-test")).toBe(false);
+    }
   });
 
-  it("M2 has 37 lessons (every row uses the g-row 3-sub + test template)", () => {
+  it("M2 has 28 lessons (every row uses the g-row 3-sub template)", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     expect(m2).toBeDefined();
     // 2026-05-17: every dakuten/yōon row mirrors the g-row template
-    // (3 hand-authored sub-lessons + auto row-test). Hannah audit removed
-    // the standalone yoon-capstone — its cross-row coverage is absorbed by
-    // m2-recap, which pulls items from every yōon row already.
-    //   Voiced rows (g, z, d, b, p): 5 × (3 content + 1 test) = 20
-    //   Yōon rows (intro, sh-ch, voiced, rare): 4 × (3 + 1) = 16
+    // (3 hand-authored sub-lessons). Hannah audit removed the standalone
+    // yoon-capstone — its cross-row coverage is absorbed by m2-recap, which
+    // pulls items from every yōon row already. Per-row row-tests were
+    // retired 2026-07-20 (mastery gates on the recap).
+    //   Voiced rows (g, z, d, b, p): 5 × 3 content = 15
+    //   Yōon rows (intro, sh-ch, voiced, rare): 4 × 3 content = 12
     //   Recap: 1
-    //   Total = 20 + 16 + 1 = 37
-    expect(m2.lessons.length).toBe(37);
+    //   Total = 15 + 12 + 1 = 28
+    expect(m2.lessons.length).toBe(28);
     // Dakuten cluster comes before yōon cluster.
     const yoonIdx = m2.lessons.findIndex((l) => l.id.includes("yoon-"));
     const lastDakutenIdx = Math.max(
@@ -60,25 +66,25 @@ describe("curriculum lesson counts", () => {
     expect(yoonIdx).toBeGreaterThan(lastDakutenIdx);
   });
 
-  it("each voiced row has its own row-test", () => {
+  it("no voiced row has a per-row row-test (retired 2026-07-20)", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     for (const rowId of ["g", "z", "d", "b", "p"]) {
       const testId = `ja-m1-${rowId}-test`;
       expect(
         m2.lessons.some((l) => l.id === testId),
-        `${rowId} row missing -test lesson`,
-      ).toBe(true);
+        `${rowId} row should no longer have a -test lesson`,
+      ).toBe(false);
     }
   });
 
-  it("each non-capstone yōon row has its own row-test", () => {
+  it("no yōon row has a per-row row-test (retired 2026-07-20)", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     for (const rowId of ["yoon-intro", "yoon-sh-ch", "yoon-voiced", "yoon-rare"]) {
       const testId = `ja-m1-${rowId}-test`;
       expect(
         m2.lessons.some((l) => l.id === testId),
-        `${rowId} missing -test lesson`,
-      ).toBe(true);
+        `${rowId} should no longer have a -test lesson`,
+      ).toBe(false);
     }
   });
 
@@ -105,10 +111,11 @@ describe("curriculum lesson counts", () => {
     expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("m6-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
-    // m4 (2026-07-20) and m5 (2026-07-20) are authored — the frontier
+  it("m8-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
+    // m4/m5/m6 (2026-07-20) and m7 (2026-07-26, the first module on the
+    // 11+3+1 shape) are authored via the compiler pipeline. The frontier
     // advances as rewrite cycles land modules.
-    for (let n = 6; n <= 29; n++) {
+    for (let n = 8; n <= 29; n++) {
       const mod = course.modules.find((m) => m.id === `m${n}`)!;
       expect(mod, `m${n} missing`).toBeDefined();
       expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);
@@ -123,7 +130,8 @@ describe("curriculum lesson counts", () => {
     // on m7 (hiragana-romaji cutoff) and navigation on m19 (katakana
     // cutoff re-anchor). m29 is the N5 capstone (tile s25).
     const byId = new Map(course.modules.map((m) => [m.id, m]));
-    expect(byId.get("m7")!.title).toContain("ます");
+    // m7 is authored now; its ます/です identity lives in the eyebrow.
+    expect(`${byId.get("m7")!.title} ${byId.get("m7")!.eyebrow}`).toContain("ます");
     expect(byId.get("m19")!.title).toMatch(/Getting around/);
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
@@ -153,15 +161,16 @@ describe("curriculum lesson counts", () => {
     expect(order).toEqual(expected);
   });
 
-  it("yoon-rare-test is the final yōon node before recap", () => {
+  it("yoon-rare-3 is the final yōon node before recap", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     const yoonIds = m2.lessons.filter((l) => l.id.includes("yoon-"));
-    // 2026-05-17 (Hannah audit): standalone yoon-capstone removed —
-    //   intro (3 content + test) + sh-ch (3 + test) + voiced (3 + test)
-    //   + rare (3 + test) = 16. The final yōon node is now yoon-rare-test
-    //   (the last per-row test). m2-recap follows it as the climax beat.
-    expect(yoonIds.length).toBe(16);
-    expect(yoonIds[yoonIds.length - 1].id).toBe("ja-m1-yoon-rare-test");
+    // 2026-05-17 (Hannah audit): standalone yoon-capstone removed.
+    // 2026-07-20: per-row row-tests retired —
+    //   intro (3 content) + sh-ch (3) + voiced (3) + rare (3) = 12. The
+    //   final yōon node is now yoon-rare-3 (the last content sub-lesson).
+    //   m2-recap follows it as the climax + ★ mastery gate.
+    expect(yoonIds.length).toBe(12);
+    expect(yoonIds[yoonIds.length - 1].id).toBe("ja-m1-yoon-rare-3");
     // No yoon-capstone lesson should exist anywhere in M2.
     expect(
       m2.lessons.some((l) => l.id.includes("yoon-capstone")),

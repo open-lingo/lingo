@@ -7,7 +7,7 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * Ra-row: ら り る れ ろ — three sub-lessons + auto row-test (~13 min).
+ * Ra-row: ら り る れ ろ — three sub-lessons (~13 min).
  * The 'r' is a tap — close to a Spanish 'r' or American English 'tt' in
  * 'butter'. Not the English rolled 'r'. Words: さくら, これ, いろ.
  *
@@ -115,8 +115,8 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ra3-mcq-iro", "いろ"),
     listeningBuild(ctx, "ja-ra3-build-iro", "いろ", "color"),
 
-    // Single representative row-sweep recog — the row-test that follows
-    // covers the full 5-kana sweep.
+    // Single representative row-sweep recog — the module recap covers
+    // the full 5-kana sweep.
     recognition(ctx, "ja-ra3-rev-ri", "り", "ri", "tap 'ri'"),
 
     wordImageMcq(ctx, "ja-ra3-mcq-rev-kore", "これ"),

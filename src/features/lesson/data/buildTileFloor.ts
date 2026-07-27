@@ -48,6 +48,10 @@
 import type { LessonContent, LessonStep } from "../types";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
+import {
+  particleContrastsFor,
+  siblingsOf,
+} from "@/features/languages/ja/jaSiblingSets";
 
 /** Languages with a wired atom pool (`getAtomsUpToModule`) to draw fill
  *  distractors from. Any other language's lesson returns UNTOUCHED — a
@@ -62,6 +66,12 @@ const POOLED_LANGUAGES = new Set(["ja", "es", "ko"]);
  */
 export function minDistractorsFor(answerCount: number): number {
   if (answerCount <= 0) return 0;
+  // A 1-tile answer renders as the MCQ-shaped single-answer picker
+  // (BuildSentenceStepView `isSingleAnswerPicker`), which wants exactly 4
+  // options to paint a 2x2 grid — 3 options stretched into giant rows
+  // (Spencer 2026-07-24). Three distractors is also the honest floor for a
+  // one-word pick: with two, elimination does the work.
+  if (answerCount === 1) return 3;
   return Math.min(3, Math.max(2, answerCount));
 }
 
@@ -90,7 +100,7 @@ export function padBuildTileFloor(lesson: LessonContent): LessonContent {
     const have = step.tiles.length - answerCount;
     const need = minDistractorsFor(answerCount) - have;
     if (need <= 0) return step;
-    const fill = pickFillTiles(step, need, lesson.moduleId, lesson.languageId);
+    const fill = pickFillTiles(step, need, lesson.moduleId, lesson.languageId, lesson.id);
     if (fill.length === 0) return step;
     changed = true;
     return { ...step, tiles: [...step.tiles, ...fill] };
@@ -105,25 +115,72 @@ export function padBuildTileFloor(lesson: LessonContent): LessonContent {
  * (case-insensitive) — never a duplicate of an answer tile or an existing
  * distractor. Deterministic (seeded on the step id).
  */
+/** JA deictic sets — never useful as fill on tiny answers, where they read
+ *  as a plausible object for the English prompt's "it/that" (Fable sweep
+ *  2026-07-24: "Build: I won't do it." with それ in the bank → a learner
+ *  faithfully rendering "it" is marked wrong). */
+const JA_DEICTICS = new Set(["これ", "それ", "あれ", "どれ", "ここ", "そこ", "あそこ", "どこ"]);
+const NEO_LESSON_RE = /-neo-(\d+|challenge|review)$/;
+const neoIndex = (lessonId: string): number | null => {
+  const m = NEO_LESSON_RE.exec(lessonId);
+  if (!m) return null;
+  if (m[1] === "challenge") return 98;
+  if (m[1] === "review") return 99;
+  return parseInt(m[1], 10);
+};
+
 function pickFillTiles(
   step: TileStep,
   need: number,
   moduleId: string,
   languageId: string,
+  lessonId: string,
 ): string[] {
   const used = new Set(step.tiles.map((t) => t.toLowerCase()));
+  const lessonNeo = neoIndex(lessonId);
+  const tinyAnswer = step.correctOrder.length <= 2;
   const pool = getAtomsUpToModule(moduleId, languageId).filter(
     (a) =>
       a.kind !== "phrase" &&
       !/\s/.test(a.kana) &&
       a.kana.length > 0 &&
-      !used.has(a.kana.toLowerCase()),
+      !used.has(a.kana.toLowerCase()) &&
+      // Kana-drill spellings are not words (どあ/ぱん/ぺん/ぴあの — see
+      // CourseAtom.kanaDrillOnly). Drawing one as a distractor teaches a
+      // misspelling, and どあ was colliding with a live ドア in m6.
+      !a.kanaDrillOnly &&
+      // Fable sweep 2026-07-24 fill-policy holes for JA:
+      //  - POLITE register forms (〜ます/〜です) never fill: あります beside
+      //    ある makes correct Japanese a wrong answer.
+      //  - Same-module atoms only fill NEO lessons at-or-before their own
+      //    neo lesson (and never from the hidden old course): the module-
+      //    granular pool was pulling old-m6 あります/ここ into m6-neo-4.
+      // The blanket PARTICLE ban that also lived here was LIFTED on
+      // 2026-07-24 by Spencer's ruling — see `preferredFill`.
+      !(languageId === "ja" && /(ます|です)$/.test(a.kana)) &&
+      !(languageId === "ja" && tinyAnswer && JA_DEICTICS.has(a.kana)) &&
+      !(
+        lessonNeo !== null &&
+        a.fromModule === moduleId &&
+        (neoIndex(a.introducedByLessonId ?? "") === null ||
+          (neoIndex(a.introducedByLessonId ?? "") ?? 999) > lessonNeo)
+      ),
   );
   if (pool.length === 0) return [];
   const shuffled = seededShuffle(pool, step.id);
+  // SIBLING-FIRST fill (Spencer 2026-07-24): "we want them to have to think
+  // for these sentences and not entirely deductively reason their way out.
+  // they need to work the right muscle." A random prior atom next to the
+  // answer is solvable by elimination; a same-category word is not.
+  const preferred =
+    languageId === "ja" ? preferredFill(step, shuffled, used) : new Set<string>();
+  const ranked = [
+    ...shuffled.filter((a) => preferred.has(a.kana)),
+    ...shuffled.filter((a) => !preferred.has(a.kana)),
+  ];
   const picked: string[] = [];
   const seen = new Set<string>();
-  for (const atom of shuffled) {
+  for (const atom of ranked) {
     if (picked.length >= need) break;
     const key = atom.kana.toLowerCase();
     if (seen.has(key)) continue;
@@ -131,4 +188,33 @@ function pickFillTiles(
     picked.push(atom.kana);
   }
   return picked;
+}
+
+/**
+ * The kana in `pool` that are semantic siblings (or genuine particle
+ * contrasts) of something in the answer — the distractors that force real
+ * reading. Everything here is still drawn from the prior-taught pool, so an
+ * untaught sibling can never leak in.
+ *
+ * Particles are included ONLY as `JA_PARTICLE_CONTRASTS` pairs, never as a
+ * flat particle list: は↔が is usually defensible Japanese and would mark a
+ * correct answer wrong, so that pair is excluded there by design. Offering
+ * で against a に answer, by contrast, IS the m6 contrast being taught.
+ */
+function preferredFill(
+  step: TileStep,
+  pool: readonly { kana: string }[],
+  used: ReadonlySet<string>,
+): Set<string> {
+  const available = new Set(pool.map((a) => a.kana));
+  const wanted = new Set<string>();
+  for (const tile of step.correctOrder) {
+    for (const sibling of siblingsOf(tile)) wanted.add(sibling);
+    for (const contrast of particleContrastsFor(tile)) wanted.add(contrast);
+  }
+  const out = new Set<string>();
+  for (const kana of wanted) {
+    if (available.has(kana) && !used.has(kana.toLowerCase())) out.add(kana);
+  }
+  return out;
 }

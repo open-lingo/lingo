@@ -53,9 +53,16 @@ test.describe("@visual-qa per-step capture", () => {
       // step composition changed left STALE PNGs with colliding step-index
       // filenames — a continuity judge read them as current content and
       // reported ~10 phantom OOV-distractor defects. Wipe before writing so
-      // the dir only ever holds the current capture + manifest.
-      fs.rmSync(dir, { recursive: true, force: true });
+      // the dir only ever holds the current capture + manifest — but KEEP
+      // contracts.json (2026-07-23): the whole-dir rmSync was deleting the
+      // contracts the emitter just wrote, leaving the judge stage nothing
+      // to judge against.
       fs.mkdirSync(dir, { recursive: true });
+      for (const f of fs.readdirSync(dir)) {
+        if (f !== "contracts.json") {
+          fs.rmSync(path.join(dir, f), { recursive: true, force: true });
+        }
+      }
       await page.setViewportSize({ width: 1280, height: 960 });
       // Pre-seed cookie consent — a fresh context otherwise shows the
       // GDPR banner, which bled into a tall dialogue capture and got

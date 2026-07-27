@@ -42,6 +42,14 @@ export type CourseAtom = {
   romaji: string;
   /** English meaning. Short — one phrase, not a definition. */
   meaningEn: string;
+  /**
+   * Even shorter form for width-constrained tiles (match pairs). Also the
+   * place to pin ONE sense when meaningEn lists several and a derived form
+   * (e.g. みない "won't watch") must sit consistently beside the base on
+   * the same card (Spencer m6 walk 2026-07-23). Full meaningEn stays on
+   * flashcards and teaching surfaces.
+   */
+  shortGloss?: string;
   /** Optional emoji art. */
   emoji?: string;
   /** Where this atom first enters the curriculum. */
@@ -61,6 +69,21 @@ export type CourseAtom = {
    * territory — exclude.
    */
   excludeFromSrs?: boolean;
+  /**
+   * True when this atom's kana is NOT how the word is really written — a
+   * loanword spelled in hiragana purely so the M1/M2 kana-decoding drills
+   * have a word for that glyph (どあ for ど, ぱん/ぺん/ぴあの for the ぱ row).
+   * The real word is katakana (ドア・パン・ペン・ピアノ), which is a separate
+   * atom taught once katakana lands.
+   *
+   * Spencer's ruling 2026-07-24: "it has to be katakana no? doa in hiragana
+   * isn't a word right?" — correct. These may appear ONLY inside their own
+   * kana-decoding lesson. They must never be drawn as a word: not as build
+   * distractor fill, not as match-pair draws, not in review pools. The bug
+   * that surfaced it: どあ was filling tile banks in m6-neo-7/8 while ドア
+   * was live in the same module.
+   */
+  kanaDrillOnly?: boolean;
   /** N5 emoji map's authoring note, kept as provenance. */
   note?: string;
 };
@@ -102,12 +125,12 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kyuuri", kana: "きゅうり", romaji: "kyuuri", meaningEn: "cucumber", fromModule: "m2", introducedByLessonId: "ja-m2-yoon-intro", kind: "vocab" },
   { id: "sanpo", kana: "さんぽ", kanji: "散歩", romaji: "sanpo", meaningEn: "walk/stroll", emoji: "🚶", fromModule: "m2", kind: "vocab" },
   { id: "zou", kana: "ぞう", kanji: "象", romaji: "zou", meaningEn: "elephant", fromModule: "m2", introducedByLessonId: "ja-m2-z", kind: "vocab" },
-  { id: "doa-door", kana: "どあ", romaji: "doa", meaningEn: "door", fromModule: "m2", introducedByLessonId: "ja-m2-d", kind: "vocab" },
-  { id: "pan", kana: "ぱん", romaji: "pan", meaningEn: "bread", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab" },
-  { id: "piano", kana: "ぴあの", romaji: "piano", meaningEn: "piano", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab" },
+  { id: "doa-door", kana: "どあ", romaji: "doa", meaningEn: "door", fromModule: "m2", introducedByLessonId: "ja-m2-d", kind: "vocab", kanaDrillOnly: true, note: "ど-drill spelling only — the word is ドア (atom `doa`)." },
+  { id: "pan", kana: "ぱん", romaji: "pan", meaningEn: "bread", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab", kanaDrillOnly: true, note: "ぱ-drill spelling only — the word is パン (atom `ja-m7-4-v-pan`)." },
+  { id: "piano", kana: "ぴあの", romaji: "piano", meaningEn: "piano", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab", kanaDrillOnly: true, note: "ぴ-drill spelling only — the word is ピアノ (no atom yet)." },
   { id: "buta", kana: "ぶた", kanji: "豚", romaji: "buta", meaningEn: "pig", fromModule: "m2", introducedByLessonId: "ja-m2-b", kind: "vocab" },
   { id: "purin", kana: "ぷりん", romaji: "purin", meaningEn: "pudding", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab" },
-  { id: "pen", kana: "ぺん", romaji: "pen", meaningEn: "pen", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab" },
+  { id: "pen", kana: "ぺん", romaji: "pen", meaningEn: "pen", fromModule: "m2", introducedByLessonId: "ja-m2-p", kind: "vocab", kanaDrillOnly: true, note: "ぺ-drill spelling only — the word is ペン (atom `ja-m4-1-v-pen`)." },
   { id: "tiishatsu", kana: "ティーシャツ", romaji: "tiishatsu", meaningEn: "T-shirt", emoji: "👕", fromModule: "future", kind: "vocab", note: "Extension katakana (ティ) — never base-readable in the M3-M12 gojūon rollout; accept-romaji only. Moved off the mis-early m2 (kana module, pre-katakana) 2026-07-01 per katakana-rollout spec §4.2." },
   { id: "paatii", kana: "パーティー", romaji: "paatii", meaningEn: "party", emoji: "🎉", fromModule: "m23", introducedByLessonId: "ja-m23-2-2", kind: "vocab", note: "Extension katakana (ティ) — never base-readable in the M3-M12 gojūon rollout; accept-romaji only. Moved off the mis-early m2 2026-07-01 per katakana-rollout spec §4.2, to m23 where ja-m23-2-2 formally introduces it (ましょう invitations)." },
   { id: "kyou", kana: "きょう", kanji: "今日", romaji: "kyou", meaningEn: "today", emoji: "📅", fromModule: "m2", introducedByLessonId: "ja-m2-yoon-intro", kind: "vocab", note: "calendar as today cue" },
@@ -123,22 +146,22 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hyaku", kana: "ひゃく", kanji: "百", romaji: "hyaku", meaningEn: "hundred", emoji: "💯", fromModule: "m2", introducedByLessonId: "ja-m2-yoon-rare", kind: "vocab" },
   { id: "megane", kana: "めがね", kanji: "眼鏡", romaji: "megane", meaningEn: "glasses", emoji: "👓", fromModule: "m2", introducedByLessonId: "ja-m2-g", kind: "vocab" },
   { id: "mado", kana: "まど", kanji: "窓", romaji: "mado", meaningEn: "window", emoji: "🪟", fromModule: "m2", kind: "vocab" },
-  { id: "asobu", kana: "あそぶ", kanji: "遊ぶ", romaji: "asobu", meaningEn: "to play, to make a visit", emoji: "🎲", fromModule: "m2", kind: "vocab", note: "die as play proxy" },
+  { id: "asobu", kana: "あそぶ", kanji: "遊ぶ", romaji: "asobu", meaningEn: "to play", emoji: "🎲", fromModule: "m2", kind: "vocab", note: "die as play proxy" },
   { id: "enpitsu", kana: "えんぴつ", kanji: "鉛筆", romaji: "enpitsu", meaningEn: "pencil", emoji: "✏️", fromModule: "m2", kind: "vocab" },
   { id: "denwa", kana: "でんわ", kanji: "電話", romaji: "denwa", meaningEn: "telephone", emoji: "📞", fromModule: "m2", introducedByLessonId: "ja-m2-d", kind: "vocab" },
   { id: "kaze-wind", kana: "かぜ", kanji: "風", romaji: "kaze", meaningEn: "wind", emoji: "🌬️", fromModule: "m2", introducedByLessonId: "ja-m2-z", kind: "vocab", note: "wind face" },
   { id: "kaze", kana: "かぜ", kanji: "風邪", romaji: "kaze", meaningEn: "a cold", emoji: "🤧", fromModule: "m2", introducedByLessonId: "ja-m2-z", kind: "vocab", note: "sneezing face" },
-  { id: "ja-m3-3-adj-big", kana: "あれは おおきいです", romaji: "are wa ookii desu", meaningEn: "That (over there) is big.", fromModule: "m3", introducedByLessonId: "ja-m3-3", kind: "phrase" },
+  { id: "ja-m3-3-adj-big", kana: "あれは おおきいです", romaji: "are wa ookii desu", meaningEn: "That (over there) is big.", fromModule: "future", introducedByLessonId: "ja-m3-3", kind: "phrase" },
   { id: "p-ka", kana: "か", romaji: "ka", meaningEn: "question particle", fromModule: "m3", introducedByLessonId: "ja-m3-2-1", kind: "particle" },
-  { id: "ja-m3-3-adj-blue", kana: "これは あおいです", romaji: "kore wa aoi desu", meaningEn: "This is blue.", fromModule: "m3", introducedByLessonId: "ja-m3-3", kind: "phrase" },
+  { id: "ja-m3-3-adj-blue", kana: "これは あおいです", romaji: "kore wa aoi desu", meaningEn: "This is blue.", fromModule: "future", introducedByLessonId: "ja-m3-3", kind: "phrase" },
   { id: "ja-m3-7-warmup-sumimasen", kana: "すみません", romaji: "sumimasen", meaningEn: "Excuse me", fromModule: "m3", introducedByLessonId: "ja-m3-7", kind: "vocab" },
   { id: "ja-m3-2-v-nihonjin", kana: "にほんじん", kanji: "日本人", romaji: "nihonjin", meaningEn: "Japanese (person)", fromModule: "m3", introducedByLessonId: "ja-m3-2", kind: "vocab" },
   { id: "p-wa", kana: "は", romaji: "wa", meaningEn: "topic marker", fromModule: "m3", introducedByLessonId: "ja-m3-4-1", kind: "particle" },
   { id: "ja-m3-2-v-amerikajin", kana: "アメリカじん", kanji: "アメリカ人", romaji: "amerikajin", meaningEn: "American (person)", fromModule: "m3", introducedByLessonId: "ja-m3-2", kind: "vocab" },
   { id: "ja-m3-1-coffee", kana: "コーヒー", romaji: "koohii", meaningEn: "coffee", emoji: "☕", fromModule: "m8", introducedByLessonId: "ja-m8-kata", kind: "phrase", note: "Kept as the M3 why-katakana hook (ja-m3-1) but SRS-attributed to m8, where the ハ row makes コーヒー fully base-readable (katakana-rollout spec §4.2 known-safe move). Unlocks on ja-m8-kata completion." },
-  { id: "ja-m3-1-coffee-desu", kana: "コーヒー です", romaji: "koohii desu", meaningEn: "It's coffee.", fromModule: "m3", introducedByLessonId: "ja-m3-1", kind: "phrase" },
-  { id: "ja-m3-1-taxi", kana: "タクシー", romaji: "takushii", meaningEn: "taxi", emoji: "🚕", fromModule: "m3", introducedByLessonId: "ja-m3-1", kind: "phrase" },
-  { id: "ja-m3-1-taxi-desu", kana: "タクシー です", romaji: "takushii desu", meaningEn: "It's a taxi.", fromModule: "m3", introducedByLessonId: "ja-m3-1", kind: "phrase" },
+  { id: "ja-m3-1-coffee-desu", kana: "コーヒー です", romaji: "koohii desu", meaningEn: "It's coffee.", fromModule: "future", introducedByLessonId: "ja-m3-1", kind: "phrase" },
+  { id: "ja-m3-1-taxi", kana: "タクシー", romaji: "takushii", meaningEn: "taxi", emoji: "🚕", fromModule: "future", introducedByLessonId: "ja-m3-1", kind: "phrase" },
+  { id: "ja-m3-1-taxi-desu", kana: "タクシー です", romaji: "takushii desu", meaningEn: "It's a taxi.", fromModule: "future", introducedByLessonId: "ja-m3-1", kind: "phrase" },
   { id: "biiru", kana: "ビール", romaji: "biiru", meaningEn: "beer", emoji: "🍺", fromModule: "m11", introducedByLessonId: "ja-m11-kata", kind: "vocab", note: "SRS-attributed to m11 — the ラ row makes ビール base-readable (spec §4.2 known-safe move). Unlocks on ja-m11-kata." },
   { id: "hoteru", kana: "ホテル", romaji: "hoteru", meaningEn: "hotel", emoji: "🏨", fromModule: "m11", introducedByLessonId: "ja-m11-kata", kind: "vocab", note: "SRS-attributed to m11 — ル (ラ row) is ホテル's last base glyph (spec §4.2). Unlocks on ja-m11-kata." },
   { id: "resutoran", kana: "レストラン", romaji: "resutoran", meaningEn: "restaurant", emoji: "🍽️", fromModule: "m12", introducedByLessonId: "ja-m12-kata", kind: "vocab", note: "SRS-attributed to m12 — ン (ワ row) is レストラン's last base glyph; base katakana complete (spec §4.2). Unlocks on ja-m12-kata." },
@@ -153,12 +176,12 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sou", kana: "そう", romaji: "sou", meaningEn: "that's right", fromModule: "m3", introducedByLessonId: "ja-m3-neo-4", kind: "vocab", blocked: true, excludeFromSrs: true, note: "m3-neo pilot: agreement/acknowledgement, CEJC #9 — RECOGNITION only (abstract function word; same exclusion rationale as うん)." },
   { id: "arigatou-casual", kana: "ありがとう", romaji: "arigatou", meaningEn: "thanks (casual)", fromModule: "m3", introducedByLessonId: "ja-m3-neo-5", kind: "phrase", note: "m3-neo pilot: casual thanks — register pair with ありがとうございます, taught as a chunk (guide type 5). Found untracked by the 2026-07-20 vocab-provenance audit." },
   { id: "hajimemashite", kana: "はじめまして", romaji: "hajimemashite", meaningEn: "Nice to meet you", fromModule: "m3", introducedByLessonId: "ja-m3-neo-5", kind: "phrase", note: "m3-neo pilot: first-meeting formula taught as an unanalyzed chunk (guide type 5)" },
-  { id: "anata", kana: "あなた", romaji: "anata", meaningEn: "you", emoji: "🫵", fromModule: "m4", introducedByLessonId: "ja-m4-4-1", kind: "vocab", blocked: true, note: "pronoun — rubric explicit block" },
+  { id: "anata", kana: "あなた", romaji: "anata", meaningEn: "you", emoji: "🫵", fromModule: "future", introducedByLessonId: "ja-m4-4-1", kind: "vocab", blocked: true, note: "pronoun — rubric explicit block" },
   { id: "ja-m4-3-v-isu", kana: "いす", romaji: "isu", meaningEn: "chair", emoji: "🪑", fromModule: "m4", introducedByLessonId: "ja-m4-3", kind: "vocab" },
   { id: "ja-m4-1-v-kaban", kana: "かばん", romaji: "kaban", meaningEn: "bag, basket", emoji: "👜", fromModule: "m4", introducedByLessonId: "ja-m4-1", kind: "vocab" },
   { id: "p-ga", kana: "が", romaji: "ga", meaningEn: "subject marker", fromModule: "m4", introducedByLessonId: "ja-m6-4-1", kind: "particle" },
   { id: "ja-m4-1-v-keitai", kana: "けいたい", romaji: "keitai", meaningEn: "Mobile phone", fromModule: "m4", introducedByLessonId: "ja-m4-1", kind: "vocab" },
-  { id: "kore", kana: "これ", romaji: "kore", meaningEn: "this", emoji: "👇", fromModule: "m4", introducedByLessonId: "ja-m1-l9-ra", kind: "vocab", blocked: true, note: "demonstrative — per rubric" },
+  { id: "kore", kana: "これ", romaji: "kore", shortGloss: "this (by me)", meaningEn: "this", emoji: "👇", fromModule: "m4", introducedByLessonId: "ja-m1-l9-ra", kind: "vocab", blocked: true, note: "demonstrative — per rubric" },
   { id: "chichi", kana: "ちち", kanji: "父", romaji: "chichi", meaningEn: "(my) father", emoji: "👨‍👦", fromModule: "m8", introducedByLessonId: "ja-m4-1-1", kind: "vocab" },
   { id: "p-to", kana: "と", romaji: "to", meaningEn: "and / with", fromModule: "m4", introducedByLessonId: "ja-m4-1-1", kind: "particle" },
   { id: "dore", kana: "どれ", romaji: "dore", meaningEn: "which (of three or more)", emoji: "🤔", fromModule: "m4", introducedByLessonId: "ja-m4-4-1", kind: "vocab", blocked: true, note: "demonstrative — rubric blocks" },
@@ -188,7 +211,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m5-4-v-en", kana: "えん", kanji: "円", romaji: "en", meaningEn: "Yen", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab" },
   { id: "kara", kana: "から", romaji: "kara", meaningEn: "from (origin)", fromModule: "m5", introducedByLessonId: "ja-m5-6-1", kind: "vocab" },
   { id: "ja-m5-2-kudasai-card", kana: "ください", romaji: "kudasai", meaningEn: "please", emoji: "🤲", fromModule: "m5", introducedByLessonId: "ja-m5-2", kind: "phrase", blocked: true, note: "polite-request auxiliary; function word" },
-  { id: "ja-m5-3-v-gonin", kana: "ごにん", kanji: "五人", romaji: "go nin", meaningEn: "5 people", fromModule: "m5", introducedByLessonId: "ja-m5-3", kind: "vocab" },
+  { id: "ja-m5-3-v-gonin", kana: "ごにん", kanji: "五人", romaji: "go nin", meaningEn: "5 people", fromModule: "future", introducedByLessonId: "ja-m5-3", kind: "vocab" },
   { id: "ja-m5-3-v-sannin", kana: "さんにん", kanji: "三人", romaji: "san nin", meaningEn: "3 people", fromModule: "m5", introducedByLessonId: "ja-m5-3", kind: "vocab" },
   { id: "ja-m5-3-v-yonin", kana: "よにん", kanji: "四人", romaji: "yo nin", meaningEn: "4 people", fromModule: "m5", introducedByLessonId: "ja-m5-3", kind: "vocab" },
   { id: "ja-m5-4-v-ocha", kana: "おちゃ", kanji: "お茶", romaji: "ocha", meaningEn: "green tea", emoji: "🍵", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab" },
@@ -201,15 +224,33 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m5-5-v-mittsu", kana: "みっつ", kanji: "三つ", romaji: "mittsu", meaningEn: "three", emoji: "3️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-5", kind: "vocab" },
   { id: "ja-m5-2-v-9", kana: "きゅう", kanji: "九", romaji: "kyuu", meaningEn: "nine", emoji: "9️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-2", kind: "vocab" },
   { id: "ja-m5-1-v-2", kana: "に", kanji: "二", romaji: "ni", meaningEn: "two", emoji: "2️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-1", kind: "vocab" },
-  { id: "ja-m5-5-v-futatsu", kana: "ふたつ", kanji: "二つ", romaji: "futatsu", meaningEn: "two", emoji: "2️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-5", kind: "vocab" },
+  { id: "ja-m5-5-v-futatsu", kana: "ふたつ", kanji: "二つ", romaji: "futatsu", meaningEn: "two", emoji: "2️⃣", fromModule: "future", introducedByLessonId: "ja-m5-5", kind: "vocab" },
   { id: "ja-m5-3-v-futari", kana: "ふたり", kanji: "二人", romaji: "futari", meaningEn: "two people", emoji: "👥", fromModule: "m5", introducedByLessonId: "ja-m5-3", kind: "vocab", note: "two silhouettes" },
   { id: "ja-m5-1-v-5", kana: "ご", kanji: "五", romaji: "go", meaningEn: "five", emoji: "5️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-1", kind: "vocab" },
   { id: "ja-m5-2-v-8", kana: "はち", kanji: "八", romaji: "hachi", meaningEn: "eight", emoji: "8️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-2", kind: "vocab" },
   { id: "ja-m5-2-v-6", kana: "ろく", kanji: "六", romaji: "roku", meaningEn: "six", emoji: "6️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-2", kind: "vocab" },
   { id: "ja-m5-2-v-10", kana: "じゅう", kanji: "十", romaji: "juu", meaningEn: "ten", emoji: "🔟", fromModule: "m5", introducedByLessonId: "ja-m5-2", kind: "vocab" },
   { id: "ja-m5-1-v-4", kana: "よん", kanji: "四", romaji: "yon", meaningEn: "four", emoji: "4️⃣", fromModule: "m5", introducedByLessonId: "ja-m5-1", kind: "vocab" },
-  { id: "arimasu", kana: "あります", romaji: "arimasu", meaningEn: "exists (thing)", emoji: "📦", fromModule: "m6", introducedByLessonId: "ja-m6-2-1", kind: "vocab" },
+  { id: "arimasu", kana: "あります", romaji: "arimasu", meaningEn: "exists (thing)", emoji: "📦", fromModule: "m6", introducedByLessonId: "ja-m6-4-1", kind: "vocab" },
   { id: "imasu", kana: "います", romaji: "imasu", meaningEn: "exists (alive)", emoji: "🧑", fromModule: "m6", introducedByLessonId: "ja-m6-2-1", kind: "vocab" },
+  // Neo m6 (Negatives & Existence): existence negatives. ない is the IRREGULAR
+  // negative of ある; いない the ordinary る-drop negative of いる (2026-07-20).
+  // Neo m6 ない-form atoms (2026-07-24): registered so the romaji lexicon
+  // word-groups them on tiles ("shinai", never "shi nai" — Spencer walk)
+  // and provenance/exposure see them. excludeFromSrs: their retention is
+  // tracked by the conjugation transform cells (conj:nai:<class>), not
+  // vocab flashcards — a たべない flip-card would double-count たべる.
+  // blocked: negatives aren't imageable.
+  { id: "ja-m6-neo-tabenai", kana: "たべない", romaji: "tabenai", meaningEn: "won't eat / don't eat", shortGloss: "won't eat", fromModule: "m6", introducedByLessonId: "ja-m6-neo-1", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-minai", kana: "みない", romaji: "minai", meaningEn: "won't watch / don't watch", shortGloss: "won't watch", fromModule: "m6", introducedByLessonId: "ja-m6-neo-1", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-nomanai", kana: "のまない", romaji: "nomanai", meaningEn: "won't drink / don't drink", shortGloss: "won't drink", fromModule: "m6", introducedByLessonId: "ja-m6-neo-2", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-ikanai", kana: "いかない", romaji: "ikanai", meaningEn: "won't go / isn't going", shortGloss: "won't go", fromModule: "m6", introducedByLessonId: "ja-m6-neo-2", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-kawanai", kana: "かわない", romaji: "kawanai", meaningEn: "won't buy / don't buy", shortGloss: "won't buy", fromModule: "m6", introducedByLessonId: "ja-m6-neo-2", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-wakaranai", kana: "わからない", romaji: "wakaranai", meaningEn: "don't understand / don't get it", shortGloss: "don't understand", fromModule: "m6", introducedByLessonId: "ja-m6-neo-2", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-shinai", kana: "しない", romaji: "shinai", meaningEn: "won't do / don't do", shortGloss: "won't do", fromModule: "m6", introducedByLessonId: "ja-m6-neo-3", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-konai", kana: "こない", romaji: "konai", meaningEn: "won't come / isn't coming", shortGloss: "won't come", fromModule: "m6", introducedByLessonId: "ja-m6-neo-3", kind: "vocab", blocked: true, excludeFromSrs: true },
+  { id: "ja-m6-neo-nai-aru", kana: "ない", romaji: "nai", meaningEn: "there isn't (neg. of ある)", fromModule: "m6", introducedByLessonId: "ja-m6-neo-6", kind: "vocab" },
+  { id: "ja-m6-neo-inai", kana: "いない", romaji: "inai", meaningEn: "there isn't (neg. of いる)", fromModule: "m6", introducedByLessonId: "ja-m6-neo-6", kind: "vocab" },
   { id: "ja-m6-1-uchi", kana: "うち", romaji: "uchi", meaningEn: "Home / my place", fromModule: "m6", introducedByLessonId: "ja-m6-1", kind: "vocab" },
   { id: "kuukou", kana: "くうこう", kanji: "空港", romaji: "kuukou", meaningEn: "airport", emoji: "✈️", fromModule: "m7", introducedByLessonId: "ja-m6-1-1", kind: "vocab" },
   { id: "p-de", kana: "で", romaji: "de", meaningEn: "at / by means of", fromModule: "m6", introducedByLessonId: "ja-m6-3-1", kind: "particle" },
@@ -227,23 +268,23 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m6-8-warm-chikai", kana: "ちかい", kanji: "近い", romaji: "chikai", meaningEn: "near", emoji: "📍", fromModule: "m6", introducedByLessonId: "ja-m6-8", kind: "vocab", note: "map pin as proximity cue (weak)" },
   { id: "ja-m6-8-warm-tooi", kana: "とおい", kanji: "遠い", romaji: "tooi", meaningEn: "far", emoji: "🔭", fromModule: "m6", introducedByLessonId: "ja-m6-8", kind: "vocab", note: "telescope = far / distant" },
   { id: "ja-m6-1-heya", kana: "へや", kanji: "部屋", romaji: "heya", meaningEn: "room", emoji: "🚪", fromModule: "m6", introducedByLessonId: "ja-m6-1", kind: "vocab", note: "door as room proxy; concrete spatial referent" },
-  { id: "yuubinkyoku", kana: "ゆうびんきょく", kanji: "郵便局", romaji: "yuubinkyoku", meaningEn: "post office", emoji: "🏤", fromModule: "m7", introducedByLessonId: "ja-m6-1-1", kind: "vocab", note: "post office building" },
+  { id: "yuubinkyoku", kana: "ゆうびんきょく", kanji: "郵便局", romaji: "yuubinkyoku", meaningEn: "post office", emoji: "🏤", fromModule: "future", introducedByLessonId: "ja-m6-1-1", kind: "vocab", note: "post office building" },
   { id: "ginkou", kana: "ぎんこう", kanji: "銀行", romaji: "ginkou", meaningEn: "bank", emoji: "🏦", fromModule: "m6", introducedByLessonId: "ja-m6-8-2", kind: "vocab" },
   { id: "densha", kana: "でんしゃ", kanji: "電車", romaji: "densha", meaningEn: "electric train", emoji: "🚆", fromModule: "m6", introducedByLessonId: "ja-m6-3-1", kind: "vocab" },
   { id: "ja-m6-1-eki", kana: "えき", kanji: "駅", romaji: "eki", meaningEn: "station", emoji: "🚉", fromModule: "m6", introducedByLessonId: "ja-m6-1", kind: "vocab", note: "station emoji" },
-  { id: "ikimasu", kana: "いきます", romaji: "ikimasu", meaningEn: "go (polite)", emoji: "🚶", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
+  { id: "ikimasu", kana: "いきます", romaji: "ikimasu", meaningEn: "go (polite)", emoji: "🚶", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab" },
   { id: "ja-m7-8-warm-irasshai", kana: "いらっしゃいませ", romaji: "irasshaimase", meaningEn: "Welcome (shop greeting)", fromModule: "m7", introducedByLessonId: "ja-m7-8", kind: "phrase" },
-  { id: "kakimasu", kana: "かきます", romaji: "kakimasu", meaningEn: "write (polite)", emoji: "✍️", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
-  { id: "ja-m7-8-warm-kashikomari", kana: "かしこまりました", romaji: "kashikomarimashita", meaningEn: "Understood. (formal acknowledgement)", fromModule: "m7", introducedByLessonId: "ja-m7-8", kind: "phrase" },
-  { id: "ja-m7-8-warm-gochuumon", kana: "ごちゅうもんは", romaji: "go-chuumon wa", meaningEn: "Your order? (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-8", kind: "phrase" },
-  { id: "ja-m7-4-v-sake", kana: "さけ", kanji: "酒", romaji: "sake", meaningEn: "Sake (rice wine)", fromModule: "m7", introducedByLessonId: "ja-m7-4", kind: "vocab" },
+  { id: "kakimasu", kana: "かきます", romaji: "kakimasu", meaningEn: "write (polite)", emoji: "✍️", fromModule: "future", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
+  { id: "ja-m7-8-warm-kashikomari", kana: "かしこまりました", romaji: "kashikomarimashita", meaningEn: "Understood. (formal acknowledgement)", fromModule: "future", introducedByLessonId: "ja-m7-8", kind: "phrase" },
+  { id: "ja-m7-8-warm-gochuumon", kana: "ごちゅうもんは", romaji: "go-chuumon wa", meaningEn: "Your order? (polite)", fromModule: "future", introducedByLessonId: "ja-m7-8", kind: "phrase" },
+  { id: "ja-m7-4-v-sake", kana: "さけ", kanji: "酒", romaji: "sake", meaningEn: "Sake (rice wine)", fromModule: "future", introducedByLessonId: "ja-m7-4", kind: "vocab" },
   { id: "ja-m7-4-v-sushi", kana: "すし", kanji: "寿司", romaji: "sushi", meaningEn: "Sushi", fromModule: "m7", introducedByLessonId: "ja-m7-4", kind: "vocab" },
-  { id: "tabemasu", kana: "たべます", romaji: "tabemasu", meaningEn: "eat (polite)", emoji: "🍴", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
-  { id: "ja-m7-8-warm-nanmei", kana: "なんめいさまですか", romaji: "nan-mei sama desu ka", meaningEn: "How many people?", fromModule: "m7", introducedByLessonId: "ja-m7-8", kind: "phrase" },
-  { id: "nomimasu", kana: "のみます", romaji: "nomimasu", meaningEn: "drink (polite)", emoji: "🥤", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
-  { id: "mimasu", kana: "みます", romaji: "mimasu", meaningEn: "watch (polite)", emoji: "👀", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
+  { id: "tabemasu", kana: "たべます", romaji: "tabemasu", meaningEn: "eat (polite)", emoji: "🍴", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "ja-m7-8-warm-nanmei", kana: "なんめいさまですか", romaji: "nan-mei sama desu ka", meaningEn: "How many people?", fromModule: "future", introducedByLessonId: "ja-m7-8", kind: "phrase" },
+  { id: "nomimasu", kana: "のみます", romaji: "nomimasu", meaningEn: "drink (polite)", emoji: "🥤", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "mimasu", kana: "みます", romaji: "mimasu", meaningEn: "watch (polite)", emoji: "👀", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab" },
   { id: "yomimasu", kana: "よみます", romaji: "yomimasu", meaningEn: "read (polite)", emoji: "📚", fromModule: "m7", introducedByLessonId: "ja-m7-2-1", kind: "vocab" },
-  { id: "ja-m7-2-ex-1", kana: "わたしは すしを たべます", romaji: "watashi wa sushi wo tabemasu", meaningEn: "I eat sushi. (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-2", kind: "phrase" },
+  { id: "ja-m7-2-ex-1", kana: "わたしは すしを たべます", romaji: "watashi wa sushi wo tabemasu", meaningEn: "I eat sushi. (polite)", fromModule: "future", introducedByLessonId: "ja-m7-2", kind: "phrase" },
   { id: "ja-m7-2-ex-2", kana: "わたしは ほんを よみます", romaji: "watashi wa hon wo yomimasu", meaningEn: "I read a book. (polite)", fromModule: "future", introducedByLessonId: "ja-m7-2", kind: "phrase" },
   { id: "p-wo", kana: "を", romaji: "wo", meaningEn: "direct object marker", fromModule: "m7", introducedByLessonId: "ja-m7-3-1", kind: "particle" },
   { id: "ja-m7-4-v-juusu", kana: "ジュース", romaji: "juusu", meaningEn: "Juice", fromModule: "m5", introducedByLessonId: "ja-m5-kata", kind: "vocab", note: "First fully base-readable loanword — the サ row (M5) closes ジュース (spec §4.2). Unlocks on ja-m5-kata." },
@@ -253,7 +294,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m7-4-v-gohan", kana: "ごはん", kanji: "御飯", romaji: "gohan", meaningEn: "cooked rice, meal", emoji: "🍚", fromModule: "m7", introducedByLessonId: "ja-m7-4", kind: "vocab" },
   { id: "ja-m7-1-v-kaku", kana: "かく", kanji: "書く", romaji: "kaku", meaningEn: "to write", emoji: "✍️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-iku", kana: "いく", kanji: "行く", romaji: "iku", meaningEn: "to go", emoji: "🚶", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab", note: "person walking" },
-  { id: "ja-m7-1-v-miru", kana: "みる", kanji: "見る  観る", romaji: "miru", meaningEn: "to see, to watch", emoji: "👁️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
+  { id: "ja-m7-1-v-miru", kana: "みる", kanji: "見る  観る", romaji: "miru", meaningEn: "to watch, to look at", shortGloss: "to watch", emoji: "👁️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-yomu", kana: "よむ", kanji: "読む", romaji: "yomu", meaningEn: "to read", emoji: "📖", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-taberu", kana: "たべる", kanji: "食べる", romaji: "taberu", meaningEn: "to eat", emoji: "🍽️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-nomu", kana: "のむ", kanji: "飲む", romaji: "nomu", meaningEn: "to drink", emoji: "🥤", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab", note: "cup with straw" },
@@ -268,21 +309,21 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-surv-hai", kana: "はい", romaji: "hai", meaningEn: "yes", fromModule: "sidequest-survival", introducedByLessonId: "ja-sidequest-survival-phrases", kind: "phrase", blocked: true, note: "interjection/function word" },
   { id: "ja-surv-wakarimashita", kana: "わかりました", romaji: "wakarimashita", meaningEn: "I understand / got it", fromModule: "sidequest-survival", introducedByLessonId: "ja-sidequest-survival-phrases", kind: "phrase" },
   { id: "asatte", kana: "あさって", romaji: "asatte", meaningEn: "day after tomorrow", emoji: "📅", fromModule: "m12", kind: "vocab", note: "calendar; pair with phrase context" },
-  { id: "asoko", kana: "あそこ", romaji: "asoko", meaningEn: "over there", fromModule: "m6", kind: "vocab", blocked: true, note: "spatial demonstrative — per rubric" },
+  { id: "asoko", kana: "あそこ", romaji: "asoko", shortGloss: "over there", meaningEn: "over there", fromModule: "m6", kind: "vocab", blocked: true, note: "spatial demonstrative — per rubric" },
   { id: "achira", kana: "あちら", romaji: "achira", meaningEn: "there", fromModule: "m8", kind: "vocab", blocked: true, note: "spatial demonstrative — per rubric" },
   { id: "atchi", kana: "あっち", romaji: "atchi", meaningEn: "over there", fromModule: "future", kind: "vocab", blocked: true, note: "demonstrative spatial — rubric block" },
   { id: "ano", kana: "あの", romaji: "ano", meaningEn: "that over there", fromModule: "m8", kind: "vocab", blocked: true, note: "demonstrative — rubric block" },
   { id: "abiru", kana: "あびる", romaji: "abiru", meaningEn: "to bathe, to shower", emoji: "🚿", fromModule: "future", kind: "vocab" },
   { id: "amari", kana: "あまり", romaji: "amari", meaningEn: "not very", fromModule: "m9", kind: "vocab", blocked: true, note: "abstract grammar adverb" },
   { id: "aru", kana: "ある", romaji: "aru", meaningEn: "to be, to have (used for inanimate objects)", fromModule: "m11", kind: "vocab", blocked: true, note: "existence-of — rubric explicit block" },
-  { id: "are", kana: "あれ", romaji: "are", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — rubric block" },
+  { id: "are", kana: "あれ", romaji: "are", shortGloss: "that (over there)", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — rubric block" },
   { id: "ii--yoi", kana: "いい / よい", romaji: "ii-/-yoi", meaningEn: "good", emoji: "👍", fromModule: "m8", kind: "vocab", note: "thumbs up as good proxy" },
   { id: "ikaga", kana: "いかが", romaji: "ikaga", meaningEn: "how", fromModule: "m21", introducedByLessonId: "ja-m21-6-2", kind: "vocab", blocked: true, note: "interrogative adverb — abstract grammar" },
   { id: "ikutsu", kana: "いくつ", romaji: "ikutsu", meaningEn: "how many?, how old?", fromModule: "m14", introducedByLessonId: "ja-m14-6-2", kind: "vocab", blocked: true, note: "interrogative" },
   { id: "ichiban", kana: "いちばん", romaji: "ichiban", meaningEn: "best, first", emoji: "🥇", fromModule: "m22", introducedByLessonId: "ja-m22-1-1", kind: "vocab" },
   { id: "itsumo", kana: "いつも", romaji: "itsumo", meaningEn: "always", fromModule: "m11", kind: "vocab", blocked: true, note: "frequency adverb" },
   { id: "iroiro", kana: "いろいろ", romaji: "iroiro", meaningEn: "various", emoji: "🌈", fromModule: "m22", introducedByLessonId: "ja-m22-4-2", kind: "vocab", note: "rainbow as variety cue" },
-  { id: "ee", kana: "ええ", romaji: "ee", meaningEn: "yes", emoji: "✅", fromModule: "m25", introducedByLessonId: "ja-m25-4-2", kind: "vocab" },
+  { id: "ee", kana: "ええ", romaji: "ee", meaningEn: "yes", emoji: "✅", fromModule: "m7", introducedByLessonId: "ja-m7-neo-6", kind: "vocab" },
   { id: "oishii", kana: "おいしい", romaji: "oishii", meaningEn: "delicious", emoji: "😋", fromModule: "m8", kind: "vocab" },
   { id: "onaka", kana: "おなか", romaji: "onaka", meaningEn: "stomach", emoji: "🫃", fromModule: "m20", kind: "vocab" },
   { id: "obaasan", kana: "おばあさん", romaji: "obaasan", meaningEn: "grandmother, female senior-citizen", emoji: "👵", fromModule: "m19", kind: "vocab" },
@@ -302,7 +343,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "shouyu", kana: "しょうゆ", romaji: "shouyu", meaningEn: "soy sauce", emoji: "🍶", fromModule: "future", kind: "vocab", note: "sake bottle as closest condiment vessel; weak" },
   { id: "ja--jaa", kana: "じゃ / じゃあ", romaji: "ja-/-jaa", meaningEn: "well then…", fromModule: "m26", introducedByLessonId: "ja-m26-5-2", kind: "vocab", blocked: true, note: "discourse particle" },
   { id: "suguni", kana: "すぐに", romaji: "suguni", meaningEn: "instantly", emoji: "⚡", fromModule: "m17", introducedByLessonId: "ja-m17-8-2", kind: "vocab", note: "lightning = instant" },
-  { id: "suru", kana: "する", romaji: "suru", meaningEn: "to do", fromModule: "m11", kind: "vocab", blocked: true, note: "generic abstract verb" },
+  { id: "suru", kana: "する", romaji: "suru", meaningEn: "to do, to make", fromModule: "m11", kind: "vocab", blocked: true, note: "generic abstract verb" },
   { id: "sekken", kana: "せっけん", romaji: "sekken", meaningEn: "economy", emoji: "🧼", fromModule: "m20", kind: "vocab", note: "soap — note: meaning field appears mislabeled (せっけん=soap)" },
   { id: "soushite--soshite", kana: "そうして / そして", romaji: "soushite-/-soshite", meaningEn: "and", fromModule: "m26", introducedByLessonId: "ja-m26-1-2", kind: "vocab", blocked: true, note: "conjunction / function word" },
   { id: "soko", kana: "そこ", romaji: "soko", meaningEn: "that place", fromModule: "m6", kind: "vocab", blocked: true, note: "demonstrative — rubric blocks" },
@@ -310,7 +351,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sotchi", kana: "そっち", romaji: "sotchi", meaningEn: "over there", fromModule: "future", kind: "vocab", blocked: true, note: "demonstrative — rubric block" },
   { id: "sono", kana: "その", romaji: "sono", meaningEn: "that", fromModule: "m8", kind: "vocab", blocked: true, note: "demonstrative — abstract grammar per rubric" },
   { id: "soba", kana: "そば", romaji: "soba", meaningEn: "near, beside", fromModule: "m17", kind: "vocab", blocked: true, note: "positional — abstract" },
-  { id: "sore", kana: "それ", romaji: "sore", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — per rubric" },
+  { id: "sore", kana: "それ", romaji: "sore", shortGloss: "that (by you)", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — per rubric" },
   { id: "sorekara", kana: "それから", romaji: "sorekara", meaningEn: "after that", fromModule: "m10", kind: "vocab", blocked: true, note: "conjunction — abstract grammar" },
   { id: "soredeha", kana: "それでは", romaji: "soredeha", meaningEn: "in that situation", fromModule: "future", kind: "vocab", blocked: true, note: "discourse connector" },
   { id: "taihen", kana: "たいへん", romaji: "taihen", meaningEn: "very", fromModule: "m9", kind: "vocab", blocked: true, note: "intensifier adverb" },
@@ -440,7 +481,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ryoushin", kana: "りょうしん", kanji: "両親", romaji: "ryoushin", meaningEn: "both parents", emoji: "👪", fromModule: "future", kind: "vocab", note: "family glyph implies parents" },
   { id: "narabu", kana: "ならぶ", kanji: "並ぶ", romaji: "narabu", meaningEn: "to line up, to stand in a line", fromModule: "future", kind: "vocab", blocked: true, note: "no single-glyph for line-up; abstract action" },
   { id: "naraberu", kana: "ならべる", kanji: "並べる", romaji: "naraberu", meaningEn: "to line up, to set up", emoji: "📊", fromModule: "future", kind: "vocab", blocked: true, note: "no clean glyph for 'arrange in a row'; risk of confusion" },
-  { id: "naka", kana: "なか", kanji: "中", romaji: "naka", meaningEn: "middle", emoji: "🎯", fromModule: "m17", introducedByLessonId: "ja-m17-8-1", kind: "vocab", blocked: true, note: "bullseye reads as 'target' not 'middle'" },
+  { id: "naka", kana: "なか", kanji: "中", romaji: "naka", meaningEn: "inside", emoji: "🎯", fromModule: "m17", introducedByLessonId: "ja-m17-8-1", kind: "vocab", blocked: true, note: "bullseye reads as 'target' not 'middle'" },
   { id: "marui", kana: "まるい", kanji: "丸い / 円い", romaji: "marui", meaningEn: "round, circular", emoji: "⭕", fromModule: "future", kind: "vocab", note: "circle" },
   { id: "noru", kana: "のる", kanji: "乗る", romaji: "noru", meaningEn: "to get on, to ride", emoji: "🚗", fromModule: "m17", kind: "vocab", note: "car as ride proxy" },
   { id: "ku", kana: "く", kanji: "九", romaji: "ku", meaningEn: "nine", emoji: "9️⃣", fromModule: "future", kind: "vocab" },
@@ -463,7 +504,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "yasumi", kana: "やすみ", kanji: "休み", romaji: "yasumi", meaningEn: "rest, holiday", emoji: "😴", fromModule: "m10", kind: "vocab", note: "sleeping face as rest proxy" },
   { id: "yasumu", kana: "やすむ", kanji: "休む", romaji: "yasumu", meaningEn: "to rest", emoji: "😴", fromModule: "future", kind: "vocab", note: "sleeping face — rest" },
   { id: "au", kana: "あう", kanji: "会う", romaji: "au", meaningEn: "to meet", emoji: "🤝", fromModule: "m25", kind: "vocab" },
-  { id: "kaisha", kana: "かいしゃ", kanji: "会社", romaji: "kaisha", meaningEn: "company", emoji: "🏢", fromModule: "m13", kind: "vocab", note: "office building" },
+  { id: "kaisha", kana: "かいしゃ", kanji: "会社", romaji: "kaisha", meaningEn: "company", emoji: "🏢", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "office building" },
   { id: "obasan", kana: "おばさん", kanji: "伯母さん / 叔母さん", romaji: "obasan", meaningEn: "aunt", emoji: "👩", fromModule: "future", kind: "vocab", note: "woman; pair with phrase for aunt context" },
   { id: "ojiisan", kana: "おじいさん", kanji: "伯父 / 叔父", romaji: "ojiisan", meaningEn: "grandfather, male senior citizen", emoji: "👴", fromModule: "m19", kind: "vocab", note: "older man" },
   { id: "hikui", kana: "ひくい", kanji: "低い", romaji: "hikui", meaningEn: "short, low", emoji: "⬇️", fromModule: "future", kind: "vocab", note: "down arrow as low cue (weak; ⬆️ used for 上)" },
@@ -473,7 +514,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tsukau", kana: "つかう", kanji: "使う", romaji: "tsukau", meaningEn: "to use", emoji: "🔧", fromModule: "m29", introducedByLessonId: "ja-m29-1-1", kind: "vocab", note: "tools — using; upgraded from future 2026-07-16 (m29 plain-form pilot)" },
   { id: "benri", kana: "べんり", kanji: "便利", romaji: "benri", meaningEn: "useful, convenient", emoji: "🛠️", fromModule: "m9", kind: "vocab", note: "tools as useful proxy" },
   { id: "kariru", kana: "かりる", kanji: "借りる", romaji: "kariru", meaningEn: "to borrow", emoji: "🤝", fromModule: "future", kind: "vocab", note: "handshake as borrow/lend cue (weak but acceptable)" },
-  { id: "hataraku", kana: "はたらく", kanji: "働く", romaji: "hataraku", meaningEn: "to work", emoji: "💼", fromModule: "future", kind: "vocab", note: "briefcase" },
+  { id: "hataraku", kana: "はたらく", kanji: "働く", romaji: "hataraku", meaningEn: "to work", emoji: "💼", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "briefcase" },
   { id: "kyoudai", kana: "きょうだい", kanji: "兄弟", romaji: "kyoudai", meaningEn: "(humble) siblings", emoji: "👫", fromModule: "future", kind: "vocab", note: "two people; siblings" },
   { id: "saki", kana: "さき", kanji: "先", romaji: "saki", meaningEn: "the future, previous", fromModule: "m16", introducedByLessonId: "ja-m16-3-2", kind: "vocab", blocked: true, note: "abstract temporal/positional — no concrete referent" },
   { id: "sengetsu", kana: "せんげつ", kanji: "先月", romaji: "sengetsu", meaningEn: "last month", fromModule: "m10", kind: "vocab", blocked: true, note: "abstract time reference" },
@@ -494,7 +535,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "dasu", kana: "だす", kanji: "出す", romaji: "dasu", meaningEn: "to put out", emoji: "📤", fromModule: "future", kind: "vocab", note: "outbox tray as put-out cue" },
   { id: "deru", kana: "でる", kanji: "出る", romaji: "deru", meaningEn: "to appear, to leave", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door — leave/exit" },
   { id: "deguchi", kana: "でぐち", kanji: "出口", romaji: "deguchi", meaningEn: "exit", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door — paired w/ kanji 出" },
-  { id: "wakaru", kana: "わかる", kanji: "分かる", romaji: "wakaru", meaningEn: "to be understood", emoji: "💡", fromModule: "future", kind: "vocab", blocked: true, note: "lightbulb already used for 電気; understanding too abstract" },
+  { id: "wakaru", kana: "わかる", kanji: "分かる", romaji: "wakaru", meaningEn: "to be understood", shortGloss: "to understand", emoji: "💡", fromModule: "future", kind: "vocab", blocked: true, note: "lightbulb already used for 電気; understanding too abstract. shortGloss uses the learner-facing sense so tiles sit consistently beside わからない 'don't understand' (m6 walk 2026-07-23)" },
   { id: "kiru-cut", kana: "きる", kanji: "切る", romaji: "kiru", meaningEn: "to cut", emoji: "✂️", fromModule: "future", kind: "vocab" },
   { id: "kitte", kana: "きって", kanji: "切手", romaji: "kitte", meaningEn: "postage stamp", emoji: "📮", fromModule: "m14", kind: "vocab", note: "postbox; no stamp emoji in Noto" },
   { id: "hajime", kana: "はじめ", kanji: "初め / 始め", romaji: "hajime", meaningEn: "beginning", emoji: "🏁", fromModule: "future", kind: "vocab", note: "checkered flag — start" },
@@ -607,7 +648,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "osu", kana: "おす", kanji: "押す", romaji: "osu", meaningEn: "to push, to stamp something", emoji: "👆", fromModule: "future", kind: "vocab", note: "pointing/pushing finger" },
   { id: "motsu", kana: "もつ", kanji: "持つ", romaji: "motsu", meaningEn: "to hold", emoji: "✊", fromModule: "m15", kind: "vocab", note: "fist as holding cue" },
   { id: "soujisuru", kana: "そうじする", kanji: "掃除", romaji: "soujisuru", meaningEn: "to clean, to sweep", emoji: "🧹", fromModule: "future", kind: "vocab", note: "broom" },
-  { id: "jugyou", kana: "じゅぎょう", kanji: "授業", romaji: "jugyou", meaningEn: "lesson, class work", emoji: "👨‍🏫", fromModule: "m13", introducedByLessonId: "ja-m13-3-2", kind: "vocab", note: "teacher as class cue" },
+  { id: "jugyou", kana: "じゅぎょう", kanji: "授業", romaji: "jugyou", meaningEn: "lesson, class work", emoji: "👨‍🏫", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "teacher as class cue" },
   { id: "toru-take", kana: "とる", kanji: "撮る", romaji: "toru", meaningEn: "to take a photo or record a film", emoji: "📸", fromModule: "m16", kind: "vocab", note: "camera with flash" },
   { id: "oshieru", kana: "おしえる", kanji: "教える", romaji: "oshieru", meaningEn: "to teach, to tell", emoji: "👨‍🏫", fromModule: "m14", kind: "vocab", note: "teacher ZWJ glyph" },
   { id: "kyoushitsu", kana: "きょうしつ", kanji: "教室", romaji: "kyoushitsu", meaningEn: "classroom", emoji: "🏫", fromModule: "m16", kind: "vocab", note: "school; closest concrete" },
@@ -870,6 +911,24 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "shiriai", kana: "しりあい", kanji: "知り合い", romaji: "shiriai", meaningEn: "acquaintance", emoji: "🤵", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
   { id: "osananajimi", kana: "おさななじみ", kanji: "幼馴染", romaji: "osananajimi", meaningEn: "childhood friend", emoji: "🧒", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
   { id: "nakama", kana: "なかま", kanji: "仲間", romaji: "nakama", meaningEn: "comrade, mate", emoji: "👥", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab" },
+  // ── m7-neo (spine tile s07) — the polite layer: ます / ません / です ──
+  { id: "shimasu", kana: "します", romaji: "shimasu", meaningEn: "do, make (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab" },
+  { id: "kimasu", kana: "きます", romaji: "kimasu", meaningEn: "come (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab" },
+  { id: "kaimasu", kana: "かいます", romaji: "kaimasu", meaningEn: "buy (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "kikimasu", kana: "ききます", romaji: "kikimasu", meaningEn: "listen, ask (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "asobimasu", kana: "あそびます", romaji: "asobimasu", meaningEn: "play (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "tabemasen", kana: "たべません", romaji: "tabemasen", meaningEn: "don't eat (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "nomimasen", kana: "のみません", romaji: "nomimasen", meaningEn: "don't drink (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "mimasen", kana: "みません", romaji: "mimasen", meaningEn: "don't watch (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "ikimasen", kana: "いきません", romaji: "ikimasen", meaningEn: "don't go, not travelling (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "kimasen", kana: "きません", romaji: "kimasen", meaningEn: "doesn't come (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "shimasen", kana: "しません", romaji: "shimasen", meaningEn: "don't do, won't make (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "hatarakimasen", kana: "はたらきません", romaji: "hatarakimasen", meaningEn: "don't work (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "arimasen", kana: "ありません", romaji: "arimasen", meaningEn: "doesn't have, isn't there (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-1", kind: "vocab" },
+  { id: "hatarakimasu", kana: "はたらきます", romaji: "hatarakimasu", meaningEn: "work (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab" },
+  { id: "sama", kana: "さま", romaji: "sama", meaningEn: "-sama (respectful name suffix)", shortGloss: "-sama", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
+  { id: "kun", kana: "くん", romaji: "kun", meaningEn: "-kun (familiar, usually boys)", shortGloss: "-kun", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
+  { id: "chan", kana: "ちゃん", romaji: "chan", meaningEn: "-chan (affectionate)", shortGloss: "-chan", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */

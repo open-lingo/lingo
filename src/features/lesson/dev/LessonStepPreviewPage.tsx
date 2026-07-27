@@ -427,6 +427,28 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "conjugation_transform",
+      title: "conjugation_transform",
+      whenToUse:
+        "The morphing conjugation drill card (spec 2026-07-23): base verb → produce the form, right after a conjugation rule card, BEFORE sentence work. Stage is resolved at render from the (form × verb-class) mastery cell in the grammar FSRS store — stage 1/2 MCQ (rule table pinned, then behind a half-credit peek), stage 3 typed (never same-session; consolidation-gated). ALWAYS build with the `conjugationTransform` factory (engine answer + formation distractors); the compiler auto-emits ramps from IR grammar points with a `conjugation` block. `ungraded: true` is the end-of-lesson type-tease (no cell write, no streak).",
+      step: {
+        id: "preview-cjt",
+        type: "conjugation_transform",
+        base: "のむ",
+        baseRomaji: "no mu",
+        baseGloss: "to drink",
+        targetGloss: "won't drink / don't drink",
+        form: "nai",
+        formLabel: "ない form",
+        verbClass: "godan",
+        answer: "のまない",
+        // Engine formation distractors for のむ → nai (naive う→あ swap /
+        // attach-to-dictionary). Hardcoded only because fixtures are
+        // static literals — real steps come from the factory.
+        distractors: ["のまあない", "のむない"],
+      },
+    },
+    {
       type: "kanji_reading",
       title: "kanji_reading",
       whenToUse:

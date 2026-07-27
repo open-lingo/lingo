@@ -32,9 +32,11 @@ function languageLessonIds(languageId: string): string[] {
 }
 
 describe("minDistractorsFor", () => {
-  it("scales down for tiny (1-2 tile) answers and caps at 3", () => {
+  it("scales down for 2-tile answers, fills the picker grid at 1, caps at 3", () => {
     expect(minDistractorsFor(0)).toBe(0);
-    expect(minDistractorsFor(1)).toBe(2);
+    // 1-tile answers render as the MCQ-shaped picker, which needs 4 options
+    // to paint a 2x2 grid instead of giant stretched rows (2026-07-24).
+    expect(minDistractorsFor(1)).toBe(3);
     expect(minDistractorsFor(2)).toBe(2);
     expect(minDistractorsFor(3)).toBe(3);
     expect(minDistractorsFor(4)).toBe(3);

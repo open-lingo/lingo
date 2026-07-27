@@ -79,7 +79,11 @@ function countWordLevel(): Record<string, { lb: number; lc: number }> {
       const isCompleteUtterance = (text: string): boolean => {
         if (/？$/.test(text)) return true;
         const bare = text.replace(/[。？]/g, "");
-        return DICT_FORM_VERBS.has(bare);
+        if (DICT_FORM_VERBS.has(bare)) return true;
+        // Dict-form-first (2026-07-20, m6-neo): a lone PLAIN-NEGATIVE verb
+        // (たべない/いかない/ない/いない) is a complete casual sentence too —
+        // same sentence-level exposure as a positive dict form.
+        return /ない$/.test(bare);
       };
       if (s.type === "listening_build" && (a.correctOrder ?? []).length < 3) {
         const joined = (a.correctOrder ?? []).join("");

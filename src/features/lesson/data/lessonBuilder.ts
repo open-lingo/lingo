@@ -5,9 +5,10 @@
  * Two builder shapes coexist:
  *   - `buildRowLesson(row)` (legacy): one Lesson per row. Used as a fallback
  *     for any RowDef without `subLessons`. Kept for back-compat.
- *   - `buildRowSubLessons(row)` (alphabet-streamline): N+1 lessons per row,
- *     one per sub-lesson plus a row-test. Used whenever `row.subLessons` is
- *     populated (i.e. every production row after the streamline pass).
+ *   - `buildRowSubLessons(row)` (alphabet-streamline): one lesson per
+ *     sub-lesson. Used whenever `row.subLessons` is populated (i.e. every
+ *     production row after the streamline pass). Per-row row-tests were
+ *     retired 2026-07-20 — module mastery now gates on the module recap.
  *
  * Per-kana cycle (the user-validated pedagogy):
  *   1. symbol_intro — meet the new kana
@@ -35,9 +36,6 @@ import type {
   PhraseCardStep,
   MatchPairsStep,
   BuildSentenceStep,
-  MultipleChoiceStep,
-  RowTestStep,
-  RowTestItem,
   InfoStep,
 } from "../types";
 import {
@@ -54,10 +52,10 @@ import {
 /**
  * Resolve the owning module for a row. M1 owns pure hiragana rows;
  * M2 owns dakuten + yōon (any row not in HIRAGANA_ROWS). Used by the
- * row sub-lesson + row-test builders so every generated lesson reports
- * the right moduleId — the prior hardcoded `"m1"` mis-tagged every
- * dakuten/yōon row-test as m1 even though their intro lessons sat in
- * m2 (the "m1=51 lessons, m2=10" bug Spencer flagged 2026-05-17).
+ * row sub-lesson builder so every generated lesson reports the right
+ * moduleId — the prior hardcoded `"m1"` mis-tagged every dakuten/yōon
+ * lesson as m1 even though their intro lessons sat in m2 (the
+ * "m1=51 lessons, m2=10" bug Spencer flagged 2026-05-17).
  */
 function moduleIdForRow(row: RowDef): string {
   return HIRAGANA_ROWS.some((r) => r.id === row.id) ? "m1" : "m2";
@@ -828,7 +826,7 @@ function buildSubLessonWrapInfo(row: RowDef, sub: SubLessonDef): InfoStep {
       (row.subLessons ?? []).filter((s) => !s.isTest).length,
     );
   const body = isFinalLearning
-    ? `Row review complete — next up the row test.`
+    ? `Row complete — the module recap will bring it all together.`
     : sub.introduces.length > 0
       ? `Nice. Tap continue.`
       : `Tap continue.`;
@@ -842,8 +840,7 @@ function buildSubLessonWrapInfo(row: RowDef, sub: SubLessonDef): InfoStep {
 }
 
 /**
- * Match-step over a small set of anchors. Used both inside sub-lessons and
- * by the row-test runner via a separate builder.
+ * Match-step over a small set of anchors. Used inside sub-lessons.
  */
 function buildSubLessonMatchStep(
   row: RowDef,
@@ -967,15 +964,12 @@ function buildSubLessonContent(
   subLessonIdx: number,
   lang: string,
 ): LessonContent {
-  if (sub.isTest) {
-    return buildRowTestLesson(row, sub);
-  }
   const steps: LessonStep[] = [];
   // Bookend info cards are valuable on sub-lesson 1 (welcome to the row,
   // closing recap). For sub-lessons 2+ they were filler and the teen audit
   // (Riley) flagged them as bail risk: "two info cards back-to-back =
   // I tab away." Keep the intro on sub-1 only; sub-2/3 jump straight into
-  // the kana cycle. Row tests (`isTest`) own their own intro/outro.
+  // the kana cycle.
   const isFirstSubLesson = sub.suffix === "1";
   if (isFirstSubLesson) {
     steps.push(buildSubLessonIntroInfo(row, sub));
@@ -1061,129 +1055,8 @@ function buildSubLessonContent(
   };
 }
 
-// ============================================================================
-// Row-test builder
-// ============================================================================
-
 /**
- * Build the row-test items: a mix of recognition MC, match, and build,
- * struggle-biased at build time. Spec: ~12-15 items, ratio 60/30/10.
- *
- * Strategy:
- *   - MC: one per kana in the row (5-12), each is a "you hear X, pick the
- *     kana" recognition question.
- *   - Match: 1-2 match steps over the row's anchor words (5-6 pairs each).
- *   - Build: 1-2 build_sentence steps over the row's anchor words.
- */
-// 2026-05-17 Hannah audit: removed yoon-capstone-specific kana/anchor
-// override helpers — that row is gone. m2-recap pulls union coverage
-// across all yōon rows via buildRecapLesson.ts.
-
-export function buildRowTestSteps(row: RowDef): RowTestItem[] {
-  const items: RowTestItem[] = [];
-  const introduces = row.introduces;
-  const anchorWords = row.anchorWords;
-
-  // Recognition MC per kana (one item per kana, prompt = audio).
-  introduces.forEach((k, idx) => {
-    const others = introduces.filter((other) => other.kana !== k.kana);
-    const pool = [...others.map((o) => o.kana), ...row.audioPick.distractors];
-    // De-dup.
-    const distractorKana: string[] = [];
-    for (const candidate of pool) {
-      if (candidate === k.kana) continue;
-      if (distractorKana.includes(candidate)) continue;
-      distractorKana.push(candidate);
-      if (distractorKana.length >= 3) break;
-    }
-    const options = [k.kana, ...distractorKana.slice(0, 3)].map((symbol, i) => ({
-      id: `opt-${i}`,
-      text: symbol,
-    }));
-    const correctId = options[0].id;
-    // Seeded shuffle for reproducibility.
-    const shuffled = seededShuffle(options, `${row.id}-test-mc-${k.kana}-${idx}`);
-    const mc: MultipleChoiceStep = {
-      id: `ja-${row.id}-test-mc-${idx}`,
-      type: "multiple_choice",
-      prompt: `Which kana is "${k.romaji}"?`,
-      promptAudioText: k.kana,
-      options: shuffled,
-      correctOptionId: correctId,
-      explanation: buildKanaRecognitionExplanation(k.kana, k.romaji),
-      // Test mode — strip the romaji ruby that AnnotatedJa would draw
-      // above each option's kana. Otherwise the helper IS the answer.
-      // Audio + romaji-in-prompt remain the only clues.
-      optionsHideRomaji: true,
-    };
-    items.push({ kind: "mc", payload: mc });
-  });
-
-  // Match step — anchor words ↔ meanings. One step is plenty for most rows.
-  if (anchorWords.length >= 2) {
-    const pairs = anchorWords.slice(0, 6).map((w, i) => ({
-      id: `p${i + 1}`,
-      source: w.kana,
-      target: w.meaning,
-      sourceAnnotation: [{ surface: w.kana, reading: w.kana }],
-    }));
-    items.push({
-      kind: "match",
-      payload: {
-        id: `ja-${row.id}-test-match-0`,
-        type: "match_pairs",
-        prompt: "Match each Japanese word to its meaning",
-        pairs,
-      },
-    });
-  }
-
-  // Build step — row's canonical build.
-  const buildStep = buildBuildSentence(row);
-  // Re-id so it doesn't collide with the legacy build step id.
-  items.push({
-    kind: "build",
-    payload: { ...buildStep, id: `ja-${row.id}-test-build-0` },
-  });
-
-  return items;
-}
-
-/**
- * Wrap the row-test items as a one-step LessonContent. The single step is a
- * `RowTestStep` consumed by `RowTestStepView` (the runtime queue manager).
- */
-function buildRowTestLesson(row: RowDef, sub: SubLessonDef): LessonContent {
-  const items = buildRowTestSteps(row);
-  const testStep: RowTestStep = {
-    id: `ja-${row.id}-test`,
-    type: "row_test",
-    rowId: row.id,
-    items,
-    passThreshold: 0.7,
-    maxRetries: 3,
-  };
-  // 2026-07-16 info-step purge: the "Row test — quick check…" intro info
-  // card was cut (ja ships zero info steps). The row-test step is
-  // self-explanatory in RowTestStepView; the lesson opens straight into it.
-  return {
-    id: `ja-m1-${row.id}-${sub.suffix}`,
-    moduleId: moduleIdForRow(row),
-    courseId: "mock-1",
-    languageId: "ja",
-    title: `${row.title.split(":")[0]} — Row test`,
-    description: `Row-test for ${row.title}.`,
-    estimatedMinutes: 3,
-    // Tests pay a premium over the 12-XP drills they cap — retrieval
-    // under test conditions is the highest-value rep (testing effect).
-    xpReward: 25,
-    introducesVocabIds: [],
-    steps: [testStep],
-  };
-}
-
-/**
- * Build every sub-lesson + the row-test as separate `LessonContent`s. When
+ * Build every sub-lesson as a separate `LessonContent`. When
  * `row.subLessons` is empty, falls back to `buildRowLesson(row)`.
  *
  * `lang` defaults to "ja" — used by the struggle-store carry-over picker.

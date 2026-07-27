@@ -15,8 +15,8 @@ import {
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
- * M2 voiced h → b: ば び ぶ べ ぼ. 3 hand-authored sub-lessons + auto
- * row-test. Mirrors the g-row template (docs/m2-row-template-2026-05-17.md).
+ * M2 voiced h → b: ば び ぶ べ ぼ. 3 hand-authored sub-lessons. Mirrors
+ * the g-row template (docs/m2-row-template-2026-05-17.md).
  *
  * Sub-1: chars 1-3 (ば び ぶ). Anchors: かばん (bag 🎒) and えび (shrimp 🦐).
  * Sub-2: chars 4-5 (べ ぼ) + consolidation. Anchors: たべる (eat 🍽), ぼうし (hat).

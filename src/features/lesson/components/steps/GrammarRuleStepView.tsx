@@ -7,6 +7,7 @@ import { Icon } from "@/shared/components/Icon";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import { TransformRuleTable } from "./TransformRuleTable";
 import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
 
 /**
@@ -20,6 +21,49 @@ import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
 function useShowExampleRomaji(): boolean {
   const moduleIndex = useLessonModuleIndex();
   return moduleIndex == null || moduleIndex < HIRAGANA_ROMAJI_OFF_MODULE;
+}
+
+/**
+ * Structured rule body (Spencer 2026-07-23: "stating the rule like that
+ * doesn't look great — list them out so there is better vertical
+ * separation"). Splits the authored prose into sentences, one line each
+ * with breathing room, and bolds inline transformations (のむ→のまない,
+ * む→ま) so the derivations pop out of the text instead of drowning in it.
+ * Pure formatting — the authored `rule` string is untouched.
+ */
+const JA_TRANSFORM = /([ぁ-んァ-ヶー]+→[ぁ-んァ-ヶー]+)/g;
+
+function RuleBody({ rule, className }: { rule: string; className: string }) {
+  // Sentence split — ONLY where the next fragment starts a Latin sentence
+  // (capital or quote). Splitting at every 。 shattered mixed EN/JA prose
+  // into orphan bullets ("'over there.' / ねこは いない。" — Fable sweep
+  // 2026-07-24): a JA example's 。 mid-sentence is not a bullet boundary.
+  const sentences = rule
+    .split(/(?<=[.。])\s+(?=[A-Z"'“‘])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return (
+    <ul className={`mt-4 space-y-2.5 ${className}`}>
+      {sentences.map((sentence, i) => (
+        <li key={i} className="flex gap-2.5">
+          <span aria-hidden="true" className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-text-muted" />
+          <span>
+            {/* split-with-capture puts matched transforms at odd indices —
+                never test() a /g/ regex per-part (stateful lastIndex). */}
+            {sentence.split(JA_TRANSFORM).map((part, j) =>
+              j % 2 === 1 ? (
+                <b key={j} className="whitespace-nowrap rounded-md bg-surface-raised px-1.5 py-0.5 font-japanese font-bold text-text-primary">
+                  {part}
+                </b>
+              ) : (
+                <span key={j}>{part}</span>
+              ),
+            )}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 type Props = {
@@ -267,10 +311,11 @@ export function GrammarRuleStepView({
             </h2>
             <ReadAloudButton text={readAloudText} />
           </div>
-          <p className="mt-3 text-base leading-relaxed text-text-secondary">
-            {step.rule}
-          </p>
+          <RuleBody rule={step.rule} className="text-base leading-relaxed text-text-secondary" />
         </div>
+        {step.conjugationForm ? (
+          <TransformRuleTable form={step.conjugationForm} />
+        ) : null}
 
         {step.examples[0] ? <ExampleTile example={step.examples[0]} /> : null}
 
@@ -307,10 +352,15 @@ export function GrammarRuleStepView({
         <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
           {step.title}
         </h2>
-        <p className="mt-4 text-lg leading-relaxed text-text-secondary sm:text-xl">
-          {step.rule}
-        </p>
+        <RuleBody rule={step.rule} className="text-lg leading-relaxed text-text-secondary sm:text-xl" />
       </div>
+
+      {/* Conjugation rule cards get the ending → result grid — the
+          transformations as chips, one row per class, canonical examples
+          pinned — instead of leaving derivations prose-only. */}
+      {step.conjugationForm ? (
+        <TransformRuleTable form={step.conjugationForm} />
+      ) : null}
 
       <div className="flex flex-col gap-3">
         {step.examples.map((ex, i) => (

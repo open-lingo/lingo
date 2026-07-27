@@ -13,6 +13,11 @@ import { gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
 import {
+  registerPairFor,
+  REGISTER_GRADED_FROM_MODULE,
+} from "@/features/languages/ja/jaAcceptedForms";
+import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import {
   romajaToHangul,
   koreanInputMatches,
 } from "@/features/languages/ko/romanization/romajaToHangul";
@@ -24,11 +29,20 @@ const CELEBRATE_MS = 1100;
  *  wording so we say "katakana" for テレビ and "hiragana" for the reverse. */
 const KATAKANA_RE = /[ァ-ヺー]/;
 
-type Nudge = { tone: "accent" | "kana"; display: string };
+type Nudge =
+  | { tone: "accent" | "kana"; display: string }
+  /** Both registers are correct here — show the pair rather than correct it
+   *  (Spencer 2026-07-24: "we will accept either answer, show them both"). */
+  | { tone: "register"; plain: string; polite: string };
 
 type Props = {
   step: TranslateStep;
-  onComplete: (stepId: string, correct: boolean) => void;
+  onComplete: (
+    stepId: string,
+    correct: boolean,
+    progressTicks?: number,
+    answerText?: string,
+  ) => void;
   onContinue: () => void;
 };
 
@@ -43,6 +57,11 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
   const intoJapanese =
     (language?.id ?? "ja") === "ja" && step.sourceLanguage === "native";
+  // Register (plain vs ます) is ungraded until REGISTER_GRADED_FROM_MODULE:
+  // until then either answer passes and we SHOW the pair as a teaching beat.
+  const moduleIndex = useLessonModuleIndex();
+  const registerGraded =
+    moduleIndex !== null && moduleIndex >= REGISTER_GRADED_FROM_MODULE;
   // Korean production typing: no wanakana equivalent, so we don't compose
   // in-place — instead grade romaja-or-Hangul via koreanInputMatches and show
   // a live Hangul preview (the desktop "Korean keyboard").
@@ -73,9 +92,9 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   const accepted = useMemo(
     () =>
       intoJapanese
-        ? expandAcceptedAnswers(step.acceptedAnswers)
+        ? expandAcceptedAnswers(step.acceptedAnswers, { moduleIndex })
         : step.acceptedAnswers,
-    [intoJapanese, step.acceptedAnswers],
+    [intoJapanese, step.acceptedAnswers, moduleIndex],
   );
   // Grade from the DOM at submit time, not from render-time state: React's
   // onChange lags wanakana's final programmatic write by one event (state
@@ -100,7 +119,7 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
       setIsCorrect(correct);
       setNudge(null);
       setSubmitted(true);
-      onComplete(step.id, correct);
+      onComplete(step.id, correct, undefined, raw);
       if (correct) {
         setCelebrationText(pickCelebrationText(t));
         setCelebrating(true);
@@ -116,15 +135,21 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
     // answer grades correct but surfaces the accented form as a nudge.
     const grade = gradeTypedAnswer(accepted, composed);
     setIsCorrect(grade.correct);
+    const registerPair =
+      intoJapanese && grade.correct && !registerGraded
+        ? registerPairFor(composed)
+        : null;
     if (grade.accentFlagged && grade.accentDisplay) {
       setNudge({ tone: "accent", display: grade.accentDisplay });
     } else if (grade.kanaFlagged && grade.kanaDisplay) {
       setNudge({ tone: "kana", display: grade.kanaDisplay });
+    } else if (registerPair) {
+      setNudge({ tone: "register", ...registerPair });
     } else {
       setNudge(null);
     }
     setSubmitted(true);
-    onComplete(step.id, grade.correct);
+    onComplete(step.id, grade.correct, undefined, composed);
     if (grade.correct) {
       setCelebrationText(pickCelebrationText(t));
       setCelebrating(true);
@@ -171,6 +196,10 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
             via onChange for grading; the step remount resets the field. */}
         <textarea
           ref={textareaRef}
+          // Mid-lesson, focus is stranded on the previous step's Continue —
+          // without this, keystrokes go to <body> (same stranded-focus bug
+          // as the transform card, Spencer walk 2026-07-24).
+          autoFocus
           disabled={submitted}
           defaultValue=""
           onChange={(e) => setAnswer(e.target.value)}
@@ -222,9 +251,26 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         {submitted && (
           <Feedback
             correct={isCorrect}
-            flagged={nudge !== null}
+            flagged={nudge !== null && nudge.tone !== "register"}
+            note={
+              /* Both registers pass until module 20. This is exposure, not
+                 a correction — it stays in the success palette (`note`, not
+                 `flaggedNote`) so neither rendering reads as the lesser one. */
+              nudge?.tone === "register" ? (
+                <>
+                  Both work — plain{" "}
+                  <span className="font-semibold" lang="ja">
+                    {nudge.plain}
+                  </span>
+                  , polite{" "}
+                  <span className="font-semibold" lang="ja">
+                    {nudge.polite}
+                  </span>
+                </>
+              ) : undefined
+            }
             flaggedNote={
-              nudge === null ? undefined : nudge.tone === "accent" ? (
+              nudge === null || nudge.tone === "register" ? undefined : nudge.tone === "accent" ? (
                 <>
                   Watch the accents:{" "}
                   <span className="font-semibold">{nudge.display}</span>

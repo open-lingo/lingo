@@ -23,7 +23,18 @@ const LEXICALIZED = new Set([
   "もの", // thing
   "もも", // peach
   "どうも", // thanks / somehow
+  // Deliberate WRONG-DERIVATION distractor in m14's "convert くる to
+  // て-form" drill (invariant 10 permits non-words in derivation drills).
+  // Only decomposes because m7 teaches the name-suffix くん as an atom.
+  "くんで",
 ]);
+
+/** 〜ないで ("without doing / don't-…") is ONE grammatical unit, never a
+ *  negative + で glue. Pattern, not allowlist entries: m16 ships a whole
+ *  family (たべないで, さわらないで…), and the m6 ない-form atoms entering
+ *  the registry (2026-07-24) made the tokenizer see the stem inside every
+ *  one of them. */
+const NAIDE_UNIT = /ないで$/;
 
 describe("build-tile particle separation", () => {
   it("no build/listening_build tile glues a known word to a particle", () => {
@@ -49,7 +60,7 @@ describe("build-tile particle separation", () => {
           ...(a.correctOrder ?? []),
         ];
         for (const tok of new Set(tokens)) {
-          if (typeof tok !== "string" || LEXICALIZED.has(tok)) continue;
+          if (typeof tok !== "string" || LEXICALIZED.has(tok) || NAIDE_UNIT.test(tok)) continue;
           for (const p of PARTICLES) {
             if (tok.length <= p.length || !tok.endsWith(p)) continue;
             const stem = tok.slice(0, -p.length);

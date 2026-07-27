@@ -18,8 +18,8 @@ import {
  * M2 voiced k → g: が ぎ ぐ げ ご.
  *
  * Per the M2-row-template (docs/m2-row-template-2026-05-17.md, updated
- * 2026-05-17 after Spencer's walkthrough): 3 hand-authored sub-lessons +
- * auto row-test. Sub-3 does NOT contribute to ★ mastery (row-test only).
+ * 2026-05-17 after Spencer's walkthrough): 3 hand-authored sub-lessons.
+ * Sub-3 completes the row; ★ mastery now gates on the M2 recap.
  *
  * Sub-1: chars 1-3 (g/g/g with intro+mcq+speaking for chars 1-2, intro+
  *        trace for char 3 since kagu was dropped — no anchor word means
@@ -281,7 +281,7 @@ export const MOCK_LESSON_JA_M2_G_2: LessonContent = {
 // 2 translate + 2 image_mcq for words from prior modules (FSRS-style
 // "last used" via M1_REVIEW_POOL).
 //
-// Does NOT contribute to ★ — row_test still owns mastery.
+// Sub-3 completes the row; ★ mastery now gates on the M2 recap.
 
 // Pool for sub-3's translateMcq distractors (sub-2 g-words + a curated
 // pair of M1 words so options are plausible but not row-only).

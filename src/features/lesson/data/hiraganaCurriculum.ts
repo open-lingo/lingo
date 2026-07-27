@@ -86,18 +86,17 @@ export type SentencePractice = {
 
 /**
  * A single sub-lesson within a row. When `RowDef.subLessons` is present,
- * the lesson builder emits one `LessonContent` per entry (plus an
- * auto-generated row-test if `isTest` is not already set somewhere).
+ * the lesson builder emits one `LessonContent` per entry.
  *
  * Stable lesson id = `ja-m1-${row.id}-${suffix}` so progress tracking
  * survives reorders inside a row.
  */
 export type SubLessonDef = {
-  /** Stable id suffix: "1" | "2" | "3" | "test". */
+  /** Stable id suffix: "1" | "2" | "3". */
   suffix: string;
   /** Short label shown beneath the pathway node. */
   label: string;
-  /** Kana introduced in THIS sub-lesson (empty for review/test). */
+  /** Kana introduced in THIS sub-lesson (empty for the review node). */
   introduces: KanaIntro[];
   /** Anchor words exposed in this sub-lesson (subset of row.anchorWords). */
   anchorWords: AnchorWord[];
@@ -107,7 +106,12 @@ export type SubLessonDef = {
   sentenceExamples?: SentenceExample[];
   /** Multi-tile sentence-practice drills scoped to this sub-lesson, if any. */
   sentencePractice?: SentencePractice[];
-  /** When true, this sub-lesson is the row-test; emits a RowTestStep flow. */
+  /**
+   * Legacy per-row row-test flag. Per-row row-tests were retired
+   * 2026-07-20 (module mastery now gates on the module recap), so no
+   * production sub-lesson sets this. Retained so the `!sub.isTest` guards
+   * in the review-tail / wrap-up builders stay type-safe.
+   */
   isTest?: boolean;
 };
 
@@ -138,8 +142,6 @@ export type RowDef = {
    * When present, the row is emitted as a cluster of sub-lessons (each its
    * own pathway node) rather than the single legacy row-lesson. Per the
    * alphabet-streamline spec, all production rows should populate this.
-   * The lesson builder auto-appends a row-test sub-lesson when no entry
-   * sets `isTest: true`.
    */
   subLessons?: SubLessonDef[];
   /**
@@ -226,10 +228,9 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     audioPick: { word: "かお", pickIndex: 0, distractors: ["き", "く", "さ"] },
     build: { meaning: "face", answer: "かお", decoys: ["き", "い", "う"] },
-    // 2+2+1+test pattern (refactored 2026-05-16 from the older 5+2+test
-    // layout for consistency with every other consonant row). Hand-
-    // authored mock-ja-m1-ka.ts overrides the auto-built sub-lessons;
-    // the row-test is auto-built.
+    // 2+2+1 pattern (refactored 2026-05-16 from the older 5+2 layout for
+    // consistency with every other consonant row). Hand-authored
+    // mock-ja-m1-ka.ts overrides the auto-built sub-lessons.
     subLessons: [
       {
         suffix: "1",
@@ -267,19 +268,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
           { kana: "かお", romaji: "kao", meaning: "face" },
           { kana: "えき", romaji: "eki", meaning: "station" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "かい", romaji: "kai", meaning: "shell" },
-          { kana: "いけ", romaji: "ike", meaning: "pond" },
-          { kana: "かお", romaji: "kao", meaning: "face" },
-          { kana: "こえ", romaji: "koe", meaning: "voice" },
-          { kana: "えき", romaji: "eki", meaning: "station" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -320,7 +308,7 @@ export const HIRAGANA_ROWS: RowDef[] = [
       },
     ],
     // 2+2+1+test pattern (2026-05-16). Hand-authored mock-ja-m1-sa.ts
-    // overrides the auto-built sub-lessons; the row-test is auto-built.
+    // overrides the auto-built sub-lessons.
     subLessons: [
       {
         suffix: "1",
@@ -353,17 +341,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
         anchorWords: [
           { kana: "そら", romaji: "sora", meaning: "sky" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "あさ", romaji: "asa",   meaning: "morning" },
-          { kana: "すし", romaji: "sushi", meaning: "sushi" },
-          { kana: "そら", romaji: "sora",  meaning: "sky" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -407,13 +384,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "と", romaji: "to", hint: "like 'to' in 'toe'" }],
         anchorWords: [{ kana: "とけい", romaji: "tokei", meaning: "clock" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "うた",   romaji: "uta",   meaning: "song" },
-          { kana: "つき",   romaji: "tsuki", meaning: "moon" },
-          { kana: "とけい", romaji: "tokei", meaning: "clock" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -459,13 +429,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "の", romaji: "no", hint: "like 'no' in 'note'" }],
         anchorWords: [{ kana: "きのこ", romaji: "kinoko", meaning: "mushroom" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "なに",   romaji: "nani",   meaning: "what" },
-          { kana: "ねこ",   romaji: "neko",   meaning: "cat" },
-          { kana: "きのこ", romaji: "kinoko", meaning: "mushroom" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -525,13 +488,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "ほ", romaji: "ho", hint: "like 'ho' in 'hope'" }],
         anchorWords: [{ kana: "ほし", romaji: "hoshi", meaning: "star" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "ひと", romaji: "hito",  meaning: "person" },
-          { kana: "ふね", romaji: "fune",  meaning: "boat" },
-          { kana: "ほし", romaji: "hoshi", meaning: "star" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -577,13 +533,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "も", romaji: "mo", hint: "like 'mo' in 'more'" }],
         anchorWords: [{ kana: "もも", romaji: "momo", meaning: "peach" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "うま", romaji: "uma",  meaning: "horse" },
-          { kana: "かめ", romaji: "kame", meaning: "turtle" },
-          { kana: "もも", romaji: "momo", meaning: "peach" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -612,7 +561,7 @@ export const HIRAGANA_ROWS: RowDef[] = [
       },
     ],
     // 1+1+1+test pattern (2026-05-16). Hand-authored mock-ja-m1-ya.ts
-    // overrides the auto-built sub-lessons; the row-test is auto-built.
+    // overrides the auto-built sub-lessons.
     // 3-kana row so each sub introduces one kana + one anchor word.
     subLessons: [
       { suffix: "1", label: "Intro 1",
@@ -628,13 +577,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "よ", romaji: "yo", hint: "like 'yo' in 'yoga'" }],
         anchorWords: [{ kana: "よむ", romaji: "yomu", meaning: "to read" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "やま", romaji: "yama", meaning: "mountain" },
-          { kana: "ゆき", romaji: "yuki", meaning: "snow" },
-          { kana: "よむ", romaji: "yomu", meaning: "to read" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -686,13 +628,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { suffix: "3", label: "Review",
         introduces: [{ kana: "ろ", romaji: "ro", hint: "tap between 'lo' and 'ro'" }],
         anchorWords: [{ kana: "いろ", romaji: "iro", meaning: "color" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "さくら", romaji: "sakura", meaning: "cherry blossom" },
-          { kana: "これ",   romaji: "kore",   meaning: "this" },
-          { kana: "いろ",   romaji: "iro",    meaning: "color" },
-        ],
-        isTest: true },
     ],
   },
   {
@@ -747,7 +682,7 @@ export const HIRAGANA_ROWS: RowDef[] = [
       },
     ],
     // 1+1+1+test pattern (2026-05-16). Hand-authored mock-ja-m1-wa.ts
-    // overrides the auto-built sub-lessons; the row-test is auto-built.
+    // overrides the auto-built sub-lessons.
     // を is a pure particle in modern Japanese — sub-2 introduces it but
     // its anchor word (わたし) reinforces わ rather than building from を,
     // since no content word starts with or contains を outside particle
@@ -772,13 +707,6 @@ export const HIRAGANA_ROWS: RowDef[] = [
             note: "Word-final or word-medial only." },
         ],
         anchorWords: [{ kana: "ほん", romaji: "hon", meaning: "book" }] },
-      { suffix: "test", label: "Row test", introduces: [],
-        anchorWords: [
-          { kana: "かわ",   romaji: "kawa",    meaning: "river" },
-          { kana: "わたし", romaji: "watashi", meaning: "I / me" },
-          { kana: "ほん",   romaji: "hon",     meaning: "book" },
-        ],
-        isTest: true },
     ],
   },
 ];
@@ -790,11 +718,11 @@ export const HIRAGANA_ROWS: RowDef[] = [
  * M2 compact pattern (per curriculum-design-v2, 2026-05-16): each row is
  * a *modification* of kana the learner already knows from M1. The hand
  * already knows the shape — tracing is dropped entirely. Per row the
- * shape is ONE compact content sub-lesson (~5–7 steps, ~3 min) plus ONE
- * row-test. The content sub-lessons are hand-authored in
- * `mock-ja-m2-{g,z,d,b,p}.ts` and override the auto-built body via the
- * mockLessons.ts spread order. The row-test is auto-built from
- * `audioPick` / `build` / `anchorWords` below.
+ * shape is compact content sub-lessons (~5–7 steps, ~3 min each). The
+ * content sub-lessons are hand-authored in `mock-ja-m2-{g,z,d,b,p}.ts`
+ * and override the auto-built body via the mockLessons.ts spread order.
+ * (Per-row row-tests were retired 2026-07-20 — mastery gates on the M2
+ * recap.)
  *
  * Row ids are short single letters (g, z, d, b, p) — split from the older
  * `da-ba` combined row (2026-05-16) so each voiced family is its own
@@ -854,15 +782,6 @@ export const DAKUTEN_ROWS: RowDef[] = [
           { kana: "げんき", romaji: "genki", meaning: "well/energy" },
           { kana: "ごはん", romaji: "gohan", meaning: "rice/meal" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "かぎ", romaji: "kagi", meaning: "key" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -935,15 +854,6 @@ export const DAKUTEN_ROWS: RowDef[] = [
           { kana: "じかん", romaji: "jikan", meaning: "time" },
         ],
       },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "みず", romaji: "mizu", meaning: "water" },
-        ],
-        isTest: true,
-      },
     ],
   },
   {
@@ -1002,15 +912,6 @@ export const DAKUTEN_ROWS: RowDef[] = [
           { kana: "からだ", romaji: "karada", meaning: "body" },
           { kana: "どあ", romaji: "doa", meaning: "door" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "でんわ", romaji: "denwa", meaning: "telephone" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -1077,15 +978,6 @@ export const DAKUTEN_ROWS: RowDef[] = [
           { kana: "ぼうし", romaji: "boushi", meaning: "hat" },
         ],
       },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "たべる", romaji: "taberu", meaning: "to eat" },
-        ],
-        isTest: true,
-      },
     ],
   },
   {
@@ -1150,15 +1042,6 @@ export const DAKUTEN_ROWS: RowDef[] = [
           { kana: "ぺん", romaji: "pen", meaning: "pen" },
         ],
       },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "ぱん", romaji: "pan", meaning: "bread" },
-        ],
-        isTest: true,
-      },
     ],
   },
 ];
@@ -1170,8 +1053,8 @@ export const DAKUTEN_ROWS: RowDef[] = [
  *
  * M2 compact pattern (curriculum-design-v2, 2026-05-16): yōon are
  * *modifications* of known kana — drop tracing, ~5–7 step content
- * sub-lessons. Per row: 3 hand-template content sub-lessons + ONE row-test
- * (required for ★ mastery).
+ * sub-lessons. Per row: 3 hand-template content sub-lessons. (Per-row
+ * row-tests were retired 2026-07-20 — ★ mastery gates on the M2 recap.)
  *
  * 2026-05-17 Hannah audit: removed the standalone `yoon-capstone` test-only
  * row. M2's back-half was 6 test nodes out of 13 — read as "exam week," not
@@ -1236,15 +1119,6 @@ export const YOON_ROWS: RowDef[] = [
           { kana: "きゅうり", romaji: "kyuuri", meaning: "cucumber" },
         ],
       },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "きょう", romaji: "kyou", meaning: "today" },
-        ],
-        isTest: true,
-      },
     ],
   },
   // 2) sh + ch yōon — same rule, two consonant families packed in one
@@ -1305,15 +1179,6 @@ export const YOON_ROWS: RowDef[] = [
           { kana: "おちゃ", romaji: "ocha", meaning: "tea" },
           { kana: "しゃしん", romaji: "shashin", meaning: "photo" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "おちゃ", romaji: "ocha", meaning: "tea" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -1389,15 +1254,6 @@ export const YOON_ROWS: RowDef[] = [
         anchorWords: [
           { kana: "じゅう", romaji: "juu", meaning: "ten" },
         ],
-      },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "じゅう", romaji: "juu", meaning: "ten" },
-        ],
-        isTest: true,
       },
     ],
   },
@@ -1478,15 +1334,6 @@ export const YOON_ROWS: RowDef[] = [
           { kana: "りょうり", romaji: "ryouri", meaning: "cooking" },
         ],
       },
-      {
-        suffix: "test",
-        label: "Row test",
-        introduces: [],
-        anchorWords: [
-          { kana: "ひゃく", romaji: "hyaku", meaning: "hundred" },
-        ],
-        isTest: true,
-      },
     ],
   },
   // 2026-05-17 Hannah audit: standalone yoon-capstone removed — its coverage
@@ -1495,16 +1342,18 @@ export const YOON_ROWS: RowDef[] = [
 
 /**
  * Canonical split rule (alphabet-streamline spec):
- *   - 3 kana  → 2+1 + test     (3 nodes)
- *   - 5 kana  → 2+2+1 + test   (4 nodes)
- *   - 6 kana  → 2+2+2 + test   (4 nodes)  — yōon
- *   - 8 kana  → 2+2+2+2 + test (5 nodes)  — legacy da-ba (split into d+b in M2 compact)
- *   - 12 kana → 1 wide intro + test (2 nodes) — legacy yōon capstone path
+ *   - 3 kana  → 2+1     (3 nodes)
+ *   - 5 kana  → 2+2+1   (4 nodes)
+ *   - 6 kana  → 2+2+2   (4 nodes)  — yōon
+ *   - 8 kana  → 2+2+2+2 (5 nodes)  — legacy da-ba (split into d+b in M2 compact)
+ *   - 12 kana → 1 wide intro (2 nodes) — legacy yōon capstone path
  *     (kept as a safety net; not exercised since the yo-n-h-m-r split into
  *     yo-n-h + yo-m-r).
  *
- * Returns the per-sub-lesson kana group sizes (NOT including the trailing
- * row-test, which is appended automatically by `deriveSubLessons`).
+ * (Node counts above are historical — they included the per-row row-test,
+ * retired 2026-07-20. The split itself is unchanged.)
+ *
+ * Returns the per-sub-lesson kana group sizes.
  */
 function canonicalSplit(n: number): number[] {
   if (n === 3) return [2, 1];
@@ -1580,9 +1429,8 @@ function distributeAnchorWords(
  * Derive a canonical `subLessons` array from a RowDef. Splits kana per
  * `canonicalSplit`, distributes anchor words to the earliest sub-lesson
  * that can spell them, places `build` + `sentencePractice` on the final
- * non-test sub-lesson, places `sentenceExamples` on the latest sub-lesson
- * whose kana set introduces the example's target kana, then appends a
- * row-test sub-lesson.
+ * sub-lesson, and places `sentenceExamples` on the latest sub-lesson
+ * whose kana set introduces the example's target kana.
  */
 export function deriveSubLessons(row: RowDef): SubLessonDef[] {
   if (row.subLessons && row.subLessons.length > 0) return row.subLessons;
@@ -1637,14 +1485,6 @@ export function deriveSubLessons(row: RowDef): SubLessonDef[] {
     }
     out.push(subLesson);
   }
-  // Row-test
-  out.push({
-    suffix: "test",
-    label: "Row test",
-    introduces: [],
-    anchorWords: row.anchorWords,
-    isTest: true,
-  });
   return out;
 }
 

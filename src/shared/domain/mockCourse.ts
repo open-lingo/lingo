@@ -48,14 +48,16 @@ export function getMockCourse(languageId: string): Course {
   const isJapanese = languageId === "ja";
 
   if (isJapanese) {
-    // Curriculum-restructure (2026-05-15):
-    //   M1 = pure hiragana only (vowels + 9 base rows + recap).
-    //   M2 = dakuten block (g/z/d/b/p, 3 content + 1 test each)
-    //        then yōon block (yoon-intro / yoon-sh-ch / yoon-voiced /
-    //        yoon-rare each 3 content + 1 test) then recap. The recap
-    //        absorbs cross-yōon coverage (Hannah audit, 2026-05-17:
-    //        standalone yoon-capstone removed — too many test nodes in a
-    //        row read as exam week, not climax).
+    // Curriculum-restructure (2026-05-15; per-row row-tests retired
+    // 2026-07-20):
+    //   M1 = pure hiragana only (3 vowels + 9 base rows × 3 content +
+    //        recap = 31 lessons).
+    //   M2 = dakuten block (g/z/d/b/p, 3 content each) then yōon block
+    //        (yoon-intro / yoon-sh-ch / yoon-voiced / yoon-rare each 3
+    //        content) then recap = 28 lessons. The recap absorbs
+    //        cross-yōon coverage (Hannah audit, 2026-05-17: standalone
+    //        yoon-capstone removed) and is now the module's ★ mastery gate
+    //        (row-tests removed — the recap is the only graded checkpoint).
     //
     // Yōon prereq: every yōon row carries `prerequisites: ["ya"]` which
     // `isLessonLocked` honors — yōon stays locked until the full ya-row
@@ -122,8 +124,8 @@ export function getMockCourse(languageId: string): Course {
       });
     }
 
-    // Module 2 — dakuten (g/z/d/b/p, 3 sub-lessons + test per row) +
-    // yōon (4 rows × 3 sub-lessons + test) + recap.
+    // Module 2 — dakuten (g/z/d/b/p, 3 sub-lessons per row) +
+    // yōon (4 rows × 3 sub-lessons) + recap.
     const m2Lessons: {
       id: string;
       title: string;
@@ -260,10 +262,12 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    const spineComingSoonModules = SPINE_COMING_SOON.map((t, i) => ({
-      id: `m${i + 6}`,
+    // m6 (tile n06a) and m7 (tile s07) are LIVE via the compiler pipeline —
+    // slice them off so the placeholders begin at m8.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(2).map((t, i) => ({
+      id: `m${i + 8}`,
       title: t.title,
-      eyebrow: `Module ${i + 6} · Coming soon`,
+      eyebrow: `Module ${i + 8} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -359,7 +363,60 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#10b981", to: "#059669" },
         },
-        // m6..m29 — the rest of the draft-3 spine, comingSoon placeholders
+        // M6 — tile n06a: NEGATIVES & EXISTENCE. FIRST compiler-pipeline module
+        // (ir/m6.ir.yaml → moduleCompiler). curriculum/m6-neo.ts.
+        {
+          id: "m6",
+          title: "🚫 Negatives & Existence",
+          eyebrow: "Module 6 · Rewrite",
+          summary: "Say no with ない by verb class; announce what exists with ある / いる + が; point with ここ/そこ/あそこ/どこ; place things with に and で.",
+          lessons: [
+            { id: "ja-m6-neo-1", title: "ない — saying no (る-verbs)", status: "available" as const },
+            { id: "ja-m6-neo-2", title: "ない — う-verbs", status: "available" as const },
+            { id: "ja-m6-neo-3", title: "ない — する・くる", status: "available" as const },
+            { id: "ja-m6-neo-4", title: "ある — there is (things)", status: "available" as const },
+            { id: "ja-m6-neo-5", title: "いる — there is (living things)", status: "available" as const },
+            { id: "ja-m6-neo-6", title: "Nothing there — ない・いない", status: "available" as const },
+            { id: "ja-m6-neo-7", title: "ここ・そこ・あそこ・どこ", status: "available" as const },
+            { id: "ja-m6-neo-8", title: "に — where things are", status: "available" as const },
+            { id: "ja-m6-neo-9", title: "で — where you do things", status: "available" as const },
+            { id: "ja-m6-neo-10", title: "うえ・なか — spatial relations", status: "available" as const },
+            { id: "ja-m6-neo-11", title: "どこに…？ — asking where", status: "available" as const },
+            { id: "ja-m6-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+            { id: "ja-m6-neo-review", title: "Negatives & Existence — review", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          // m7-neo (spine tile s07) — POLITENESS AS A LAYER. First module on
+          // the 2026-07-26 shape (inv 25): 11 teaching + 3 review + 1
+          // challenge, reviews at the beginning/middle/end thirds, challenge
+          // LAST. Two teaching slots are katakana rows (ア, カ).
+          // Authored in ir/m7.ir.yaml → moduleCompiler. curriculum/m7-neo.ts.
+          id: "m7",
+          title: "Politeness as a layer",
+          eyebrow: "Module 7 · ます and です",
+          summary: "The polite skin: ます, ません, です, か — and choosing your form by audience. Katakana ア and カ rows.",
+          lessons: [
+            { id: "ja-m7-neo-kata-a", title: "Katakana — ア row", status: "available" as const },
+            { id: "ja-m7-neo-1", title: "Talking up — ます", status: "available" as const },
+            { id: "ja-m7-neo-2", title: "Every verb, politely", status: "available" as const },
+            { id: "ja-m7-neo-3", title: "Politely saying no — ません", status: "available" as const },
+            { id: "ja-m7-neo-review-1", title: "Review — polite verbs", status: "available" as const },
+            { id: "ja-m7-neo-4", title: "です — the noun's polite finish", status: "available" as const },
+            { id: "ja-m7-neo-5", title: "Asking politely — か", status: "available" as const },
+            { id: "ja-m7-neo-6", title: "Who are you talking to?", status: "available" as const },
+            { id: "ja-m7-neo-kata-ka", title: "Katakana — カ row", status: "available" as const },
+            { id: "ja-m7-neo-review-2", title: "Review — です, か and audience", status: "available" as const },
+            { id: "ja-m7-neo-7", title: "Work and school", status: "available" as const },
+            { id: "ja-m7-neo-8", title: "Names carry register too", status: "available" as const },
+            { id: "ja-m7-neo-9", title: "Switching skins", status: "available" as const },
+            { id: "ja-m7-neo-review-3", title: "Review — the whole polite layer", status: "available" as const },
+            { id: "ja-m7-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+          ],
+          accent: { from: "#8b5cf6", to: "#7c3aed" },
+        },
+        // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;
         // the N4 runway tile (s26) is deliberately NOT a module — the N5 map
         // stops after the capstone.
