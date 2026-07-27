@@ -787,7 +787,7 @@ export function LessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+          className="rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition hover:bg-accent-hover"
         >
           {t("lesson.backToLearn", "Back to Learn")}
         </button>
@@ -890,7 +890,14 @@ export function LessonPage() {
         ref={stepContainerRef}
         tabIndex={-1}
         aria-label={t("lesson.stepContainer", "Lesson step")}
-        className="flex flex-1 flex-col overflow-y-auto py-4 outline-none"
+        // `container-type: size` makes this scroller the query container for
+        // step content: step views size tiles/grids against `cqh`/`cqw`
+        // (the actual free space here) instead of `dvh`/`vw`, so mobile
+        // chrome show/hide can't jitter or overflow them (house rule: no
+        // viewport-unit math in step content). `min-h-0` lets the scroller
+        // shrink below its content on short/landscape windows so overflow
+        // scrolls instead of clipping the CTA.
+        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4 outline-none [container-type:size]"
       >
         <div
           className="mx-auto flex w-full max-w-2xl flex-1 flex-col"

@@ -53,7 +53,7 @@ export function ConceptDrillSheet({ open, onClose, label, rollup, practiceTo }: 
                     key={i}
                     className="h-5 w-5 rounded-[4px]"
                     style={{
-                      backgroundColor: ok ? "var(--color-success)" : "var(--color-error)",
+                      backgroundColor: ok ? "rgb(var(--color-success))" : "rgb(var(--color-error))",
                     }}
                     title={ok ? t("journey.drill.correct", "Correct") : t("journey.drill.wrong", "Missed")}
                     aria-label={ok ? "correct" : "missed"}

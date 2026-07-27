@@ -19,6 +19,7 @@ import {
   cornerStyleFromRadius,
   type CornerStyle,
 } from "@/shared/theme/cornerStyle";
+import { hexToRgbChannels } from "@/shared/theme/web-adapter";
 
 const COLOR_KEYS: (keyof ThemeTokens["colors"])[] = [
   "background",
@@ -272,7 +273,10 @@ export function ThemeEditorPanel() {
     const vars: Record<string, string> = {};
     Object.entries(draft.colors).forEach(([key, value]) => {
       const varName = `--color-${key.replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")}`;
-      vars[varName] = value;
+      // Store as RGB channel triples so Tailwind aliases
+      // (`rgb(var(--color-x) / <alpha-value>)`) resolve — mirrors
+      // applyThemeToDOM. Non-hex tokens (e.g. `overlay: rgba(...)`) pass through.
+      vars[varName] = hexToRgbChannels(value);
     });
     Object.entries(draft.radius).forEach(([key, value]) => {
       // `radius.card` is a CSS length string (e.g. "1.5rem"), not a px number —
@@ -366,51 +370,51 @@ export function ThemeEditorPanel() {
               className="theme-editor-preview rounded-lg p-4"
               style={{
                 ...previewVars,
-                backgroundColor: "var(--color-background)",
-                color: "var(--color-text-primary)",
+                backgroundColor: "rgb(var(--color-background))",
+                color: "rgb(var(--color-text-primary))",
               }}
             >
               <style>{`
-                .theme-editor-preview .preview-btn-primary:hover { background-color: var(--color-accent-hover) !important; }
-                .theme-editor-preview .preview-btn-secondary:hover { background-color: var(--color-surface-muted) !important; }
+                .theme-editor-preview .preview-btn-primary:hover { background-color: rgb(var(--color-accent-hover)) !important; }
+                .theme-editor-preview .preview-btn-secondary:hover { background-color: rgb(var(--color-surface-muted)) !important; }
               `}</style>
               <div
                 className="mb-3 rounded-card border p-3"
                 style={{
-                  backgroundColor: "var(--color-surface)",
-                  borderColor: "var(--color-border)",
+                  backgroundColor: "rgb(var(--color-surface))",
+                  borderColor: "rgb(var(--color-border))",
                   borderWidth: "1px",
                   borderStyle: "solid",
                 }}
               >
-                <p className="mb-2 text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+                <p className="mb-2 text-sm font-medium" style={{ color: "rgb(var(--color-text-primary))" }}>
                   Card surface
                 </p>
-                <p className="mb-2 text-xs" style={{ color: "var(--color-text-muted)" }}>
+                <p className="mb-2 text-xs" style={{ color: "rgb(var(--color-text-muted))" }}>
                   Secondary text
                 </p>
                 <div
                   className="mb-3 rounded px-2 py-1.5 text-xs"
-                  style={{ backgroundColor: "var(--color-surface-muted)", color: "var(--color-text-primary)" }}
+                  style={{ backgroundColor: "rgb(var(--color-surface-muted))", color: "rgb(var(--color-text-primary))" }}
                 >
                   Surface muted
                 </div>
                 <div className="mb-3 flex flex-wrap gap-1">
                   <span
                     className="rounded px-2 py-0.5 text-xs font-medium"
-                    style={{ backgroundColor: "var(--color-error)", color: "white" }}
+                    style={{ backgroundColor: "rgb(var(--color-error))", color: "white" }}
                   >
                     Error
                   </span>
                   <span
                     className="rounded px-2 py-0.5 text-xs font-medium"
-                    style={{ backgroundColor: "var(--color-success)", color: "white" }}
+                    style={{ backgroundColor: "rgb(var(--color-success))", color: "white" }}
                   >
                     Success
                   </span>
                   <span
                     className="rounded px-2 py-0.5 text-xs font-medium"
-                    style={{ backgroundColor: "var(--color-warning)", color: "white" }}
+                    style={{ backgroundColor: "rgb(var(--color-warning))", color: "white" }}
                   >
                     Warning
                   </span>
@@ -419,7 +423,7 @@ export function ThemeEditorPanel() {
                   <button
                     type="button"
                     className="preview-btn-primary rounded-lg px-3 py-1.5 text-sm font-medium text-accent-foreground transition-colors"
-                    style={{ backgroundColor: "var(--color-accent)" }}
+                    style={{ backgroundColor: "rgb(var(--color-accent))" }}
                   >
                     Primary (hover)
                   </button>
@@ -427,16 +431,16 @@ export function ThemeEditorPanel() {
                     type="button"
                     className="preview-btn-secondary rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors"
                     style={{
-                      borderColor: "var(--color-border)",
-                      color: "var(--color-text-primary)",
-                      backgroundColor: "var(--color-surface)",
+                      borderColor: "rgb(var(--color-border))",
+                      color: "rgb(var(--color-text-primary))",
+                      backgroundColor: "rgb(var(--color-surface))",
                     }}
                   >
                     Secondary (hover)
                   </button>
                 </div>
               </div>
-              <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+              <p className="text-xs" style={{ color: "rgb(var(--color-text-muted))" }}>
                 Colors update as you edit
               </p>
             </div>

@@ -28,6 +28,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+import { ResponsiveTable } from "@/shared/components/ui/ResponsiveTable";
 import { useDateFormat } from "@/shared/utils/formatDate";
 
 const PAGE_SIZE = 20;
@@ -173,8 +174,8 @@ export function AdminUsersListPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-card border border-border bg-surface">
-        <table className="w-full text-sm">
+      <ResponsiveTable className="rounded-card border border-border bg-surface">
+        <table className="min-w-full text-sm">
           <thead className="bg-surface-muted text-left text-xs uppercase text-text-muted">
             <tr>
               <SortableTh
@@ -254,7 +255,7 @@ export function AdminUsersListPage() {
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
 
       <div className="flex items-center justify-between gap-2">
         <p className="text-xs text-text-muted">

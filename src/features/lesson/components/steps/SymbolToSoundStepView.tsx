@@ -107,7 +107,7 @@ export function SymbolToSoundStepView({
           it pins to the shared bottom action slot. */}
       <div className="flex justify-center">
         <span
-          className="font-japanese text-[clamp(140px,22dvh,200px)] font-bold leading-none text-text-primary"
+          className="font-japanese text-[clamp(140px,22cqh,200px)] font-bold leading-none text-text-primary"
           aria-hidden
         >
           {step.payload.symbol}
@@ -149,7 +149,7 @@ export function SymbolToSoundStepView({
       </div>
       {/* Single bottom block: banner + CTA together so the button never
           moves on submit. */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

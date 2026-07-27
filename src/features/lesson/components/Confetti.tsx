@@ -28,7 +28,9 @@ function themeColors(): string[] {
   const style = getComputedStyle(document.documentElement);
   const fromVars = ["--color-accent", "--color-warning", "--color-accent-hover"]
     .map((v) => style.getPropertyValue(v).trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    // Tokens are stored as RGB channel triples ("156 44 44"); wrap for canvas.
+    .map((triple) => `rgb(${triple})`);
   // Fallbacks keep the burst visible if a theme is missing a token.
   return fromVars.length > 0 ? fromVars : ["#22c55e", "#f59e0b", "#16a34a"];
 }

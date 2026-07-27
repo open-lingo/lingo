@@ -1,36 +1,48 @@
+// Single source of truth for breakpoint pixel values — the same module backs
+// the `useViewport` / `useBreakpoint` hooks, so config + JS never drift.
+import { SCREENS } from "./src/shared/hooks/breakpoints";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
+    // Values are identical to Tailwind's stock scale — existing sm:/md:/lg:
+    // utilities are unchanged; this just removes the duplicated constants.
+    screens: SCREENS,
     extend: {
       colors: {
-        background: "var(--color-background)",
+        // Color tokens are stored as RGB channel triples (see styles/tokens.css
+        // + theme/web-adapter.ts) so the `<alpha-value>` slot below lets alpha
+        // modifiers (`bg-accent/10`, `border-error/40`) resolve to real CSS.
+        // `overlay` is the exception: it carries its own alpha (rgba) and is
+        // aliased bare.
+        background: "rgb(var(--color-background) / <alpha-value>)",
         surface: {
-          DEFAULT: "var(--color-surface)",
-          muted: "var(--color-surface-muted)",
-          elevated: "var(--color-surface-elevated)",
+          DEFAULT: "rgb(var(--color-surface) / <alpha-value>)",
+          muted: "rgb(var(--color-surface-muted) / <alpha-value>)",
+          elevated: "rgb(var(--color-surface-elevated) / <alpha-value>)",
         },
         border: {
-          DEFAULT: "var(--color-border)",
-          muted: "var(--color-border-muted)",
+          DEFAULT: "rgb(var(--color-border) / <alpha-value>)",
+          muted: "rgb(var(--color-border-muted) / <alpha-value>)",
         },
-        "text-primary": "var(--color-text-primary)",
-        "text-secondary": "var(--color-text-secondary)",
-        "text-muted": "var(--color-text-muted)",
+        "text-primary": "rgb(var(--color-text-primary) / <alpha-value>)",
+        "text-secondary": "rgb(var(--color-text-secondary) / <alpha-value>)",
+        "text-muted": "rgb(var(--color-text-muted) / <alpha-value>)",
         accent: {
-          DEFAULT: "var(--color-accent)",
-          hover: "var(--color-accent-hover)",
-          muted: "var(--color-accent-muted)",
-          foreground: "var(--color-on-accent)",
+          DEFAULT: "rgb(var(--color-accent) / <alpha-value>)",
+          hover: "rgb(var(--color-accent-hover) / <alpha-value>)",
+          muted: "rgb(var(--color-accent-muted) / <alpha-value>)",
+          foreground: "rgb(var(--color-on-accent) / <alpha-value>)",
         },
-        error: "var(--color-error)",
-        success: "var(--color-success)",
-        warning: "var(--color-warning)",
+        error: "rgb(var(--color-error) / <alpha-value>)",
+        success: "rgb(var(--color-success) / <alpha-value>)",
+        warning: "rgb(var(--color-warning) / <alpha-value>)",
         overlay: "var(--color-overlay)",
-        info: "var(--color-info)",
-        destructive: "var(--color-destructive)",
-        link: "var(--color-link)",
+        info: "rgb(var(--color-info) / <alpha-value>)",
+        destructive: "rgb(var(--color-destructive) / <alpha-value>)",
+        link: "rgb(var(--color-link) / <alpha-value>)",
       },
       borderRadius: {
         sm: "var(--radius-sm)",
@@ -87,5 +99,37 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    // Safe-area utilities backed by env(safe-area-inset-*). Each is
+    // `max(env(inset), <fallback>)` so non-notch / desktop devices (where the
+    // inset is 0) fall back to the given spacing and are visually unchanged;
+    // notched devices grow to clear the status bar / home indicator / rounded
+    // corners. Bare `pt-safe` uses a 0px fallback (pure additive inset);
+    // suffixed `bottom-safe-4` etc. pull the fallback from the spacing scale.
+    // Maps to React Native's useSafeAreaInsets at RN time.
+    require("tailwindcss/plugin")(function ({ matchUtilities, theme }) {
+      const sides = {
+        "pt-safe": ["padding-top", "top"],
+        "pb-safe": ["padding-bottom", "bottom"],
+        "pl-safe": ["padding-left", "left"],
+        "pr-safe": ["padding-right", "right"],
+        "top-safe": ["top", "top"],
+        "bottom-safe": ["bottom", "bottom"],
+        "left-safe": ["left", "left"],
+        "right-safe": ["right", "right"],
+      };
+      const values = { DEFAULT: "0px", ...theme("spacing") };
+      for (const [name, [prop, inset]] of Object.entries(sides)) {
+        matchUtilities(
+          {
+            [name]: (value) => ({
+              [prop]: `max(env(safe-area-inset-${inset}), ${value})`,
+            }),
+          },
+          { values },
+        );
+      }
+    }),
+  ],
 };

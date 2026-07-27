@@ -42,11 +42,29 @@ const { domain, clientId } = requireAuth0Config();
 const redirectUri =
   window.location.origin + (window.location.origin.endsWith("/") ? "" : "/");
 
+// E2E-ONLY portable auth. Default (prod + normal dev) keeps the Auth0 in-memory
+// cache: the session only re-hydrates via silent-auth on an Auth0-allowlisted
+// origin (:5173), so it is NOT portable to other ports. When VITE_E2E=true we
+// switch to the localStorage cache + refresh tokens instead. A one-time login on
+// :5173 then produces a localStorage-cached token + refresh token that
+// Playwright's storageState can capture and replay on ANY origin/port — which is
+// what lets the mobile matrix run authed off a non-5173 worktree port. These
+// props are applied conditionally so the non-e2e path is byte-for-byte today's
+// memory-cache behavior.
+const e2eAuth = import.meta.env.VITE_E2E === "true";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Auth0Provider
       domain={domain}
       clientId={clientId}
+      {...(e2eAuth
+        ? {
+            cacheLocation: "localstorage" as const,
+            useRefreshTokens: true,
+            useRefreshTokensFallback: true,
+          }
+        : {})}
       authorizationParams={{
         redirect_uri: redirectUri,
         ...(auth0Audience ? { audience: auth0Audience } : {}),

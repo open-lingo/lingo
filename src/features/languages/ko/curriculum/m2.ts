@@ -55,6 +55,8 @@ import {
   listeningBuild,
   listeningComp,
   speaking,
+  matchBlocksToRomaji,
+  correctSlot,
   type KoRowContext,
 } from "./_hangulRowHelpers";
 
@@ -493,11 +495,158 @@ function buildModuleReview(): LessonContent {
   };
 }
 
+// ─── 받침 neutralization — the [t] group (final reading piece) ───────────
+//
+// This is the last piece of the "read every Korean syllable" arc the M2
+// review promises ("final-consonant 받침 are next"). Rows taught these
+// letters as ONSETS; here the learner meets them as CODAS, where Korean
+// neutralizes a blocked final consonant to one of only 7 representative
+// sounds ([k n t l m p ŋ]). The lesson focuses on the biggest collapse:
+// ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ all → a plain unreleased [t] at a syllable's end.
+//
+// Verified against the RR engine (romanization/hangulRomanize.ts): every
+// one of those 7 jongseong carries `rep: "t"`, so 옷→ot, 꽃→kkot, 밭→bat,
+// 낮→nat, and the verb stems 듣/웃/있 all end [t]. (ㅎ only surfaces as a
+// bare [t] utterance-finally — 좋 alone is [jot]; in 좋다 it aspirates the
+// 다 → [jota] — so we mention it but drill the clean ㅅ/ㅊ/ㅌ cases.)
+
+/**
+ * A "which sound does this coda make?" MCQ. Options are Hangul blocks that
+ * differ only in their 받침; the learner picks the one whose written ending
+ * matches how the target word actually sounds. Romaji is hidden on options
+ * so the drill tests the sound→letter mapping, not romaji-skimming.
+ */
+function codaSoundMcq(
+  id: string,
+  prompt: string,
+  correctBlock: string,
+  distractorBlocks: [string, string, string],
+  explanation: string,
+): LessonStep {
+  const items = [
+    { id: "correct", text: correctBlock },
+    { id: "opt-1", text: distractorBlocks[0] },
+    { id: "opt-2", text: distractorBlocks[1] },
+    { id: "opt-3", text: distractorBlocks[2] },
+  ];
+  const slot = correctSlot(id);
+  const correct = items.shift()!;
+  items.splice(slot, 0, correct);
+  return {
+    id,
+    type: "multiple_choice",
+    prompt,
+    options: items,
+    correctOptionId: "correct",
+    explanation,
+    optionsHideRomaji: true,
+  };
+}
+
+function buildBatchimLesson(): LessonContent {
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-batchim-info-1",
+      type: "info",
+      title: "받침 — the final consonant",
+      body:
+        "A consonant written at the BOTTOM of a syllable is a 받침 (batchim) — the 'support'. Korean gives it a special job: at the end of a syllable it is stopped, not released. Your mouth moves into the shape but never finishes the sound.\n\nOnly SEVEN endings survive that stop: [k] [n] [t] [l] [m] [p] and [ng]. Every possible final consonant collapses into one of these seven.",
+      variant: "grammar",
+    },
+    {
+      id: "ko-m2-batchim-info-2",
+      type: "info",
+      title: "Seven letters → one [t]",
+      body:
+        "The biggest group all lands on a plain, stopped [t]. These seven 받침 are ALL pronounced [t] at a syllable's end:\n\n  ㄷ · ㅌ · ㅅ · ㅆ · ㅈ · ㅊ · ㅎ\n\nSo 옷 (clothes) sounds like [ot], 꽃 (flower) like [kkot], and 밭 (field) like [bat] — even though they're spelled with ㅅ, ㅊ, and ㅌ. Don't release the ending; just stop on [t]. (ㅎ joins them only at the very end of a word — 좋 on its own is [jot].)",
+      variant: "tip",
+    },
+
+    // Nouns — hear the stop, then choose the block that spells the sound.
+    listeningComp("ko-m2-batchim-lc-ot", "옷", "clothes", ["shoes", "a hat", "milk"]),
+    codaSoundMcq(
+      "ko-m2-batchim-mcq-ot",
+      "옷 means 'clothes'. Which block shows how its ending SOUNDS?",
+      "옫",
+      ["옥", "온", "옵"],
+      "옷 ends in ㅅ, but a final ㅅ is pronounced [t] — the same sound as ㄷ. So 옷 sounds like 옫 [ot].",
+    ),
+    listeningComp("ko-m2-batchim-lc-kkot", "꽃", "flower", ["a tree", "grass", "a car"]),
+    codaSoundMcq(
+      "ko-m2-batchim-mcq-kkot",
+      "꽃 means 'flower'. Which block shows how its ending SOUNDS?",
+      "꼳",
+      ["꼭", "꼰", "꼽"],
+      "The final ㅊ in 꽃 becomes a plain stopped [t]. 꽃 sounds like 꼳 [kkot].",
+    ),
+
+    {
+      id: "ko-m2-batchim-info-3",
+      type: "info",
+      title: "Verbs end in [t] a lot",
+      body:
+        "You'll meet this constantly in verbs. A dictionary form is stem + 다, and many stems end in one of these seven letters:\n\n  듣다 (to listen) — 듣 is [deut]\n  웃다 (to laugh) — 웃 is [ut]\n  있다 (to exist / to have) — 있 is [it]\n\nThe stem stops on [t] right before the 다.",
+      variant: "grammar",
+    },
+
+    listeningComp("ko-m2-batchim-lc-itda", "있다", "to exist / to have", ["to go", "to eat", "to sleep"]),
+    codaSoundMcq(
+      "ko-m2-batchim-mcq-ut",
+      "웃다 means 'to laugh'. How does the 웃 stem sound?",
+      "욷",
+      ["욱", "운", "웁"],
+      "웃 ends in ㅅ → a stopped [t]. 웃 sounds like 욷 [ut] — the same [t] you hear right before 다.",
+    ),
+    listeningComp("ko-m2-batchim-lc-bat", "밭", "field", ["the sea", "a mountain", "the sky"]),
+    codaSoundMcq(
+      "ko-m2-batchim-mcq-rule",
+      "Which of these 받침 is NOT pronounced [t] at a syllable's end?",
+      "ㅁ",
+      ["ㅌ", "ㅅ", "ㅈ"],
+      "ㅌ, ㅅ, and ㅈ all collapse to [t]. ㅁ is the odd one out — it stays [m], like the ending of 곰 (bear).",
+    ),
+
+    // Say the stop yourself, then a recognition-easy close.
+    speaking("ko-m2-batchim-speak-ot", "옷", "clothes"),
+    matchBlocksToRomaji(
+      "ko-m2-batchim-match",
+      [
+        { block: "옷", romaji: "ot" },
+        { block: "꽃", romaji: "kkot" },
+        { block: "밭", romaji: "bat" },
+        { block: "낮", romaji: "nat" },
+      ],
+      "Match each word to how it sounds",
+    ),
+
+    {
+      id: "ko-m2-batchim-info-end",
+      type: "info",
+      title: "You can hear the stop",
+      body:
+        "ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ at a syllable's end are all one plain, stopped [t]. You can now read 옷, 꽃, 밭, 낮 and the stems of 듣다, 웃다, 있다 the way Koreans actually say them — the last big piece of Hangul pronunciation. You don't just read every syllable now; you know how its ending sounds.",
+      variant: "win",
+    },
+  ];
+
+  return {
+    id: "ko-m2-batchim-1",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "받침 — the final [t] sound",
+    description: "Seven letters, one sound: how ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ all stop on [t] at a syllable's end.",
+    estimatedMinutes: 6,
+    xpReward: 15,
+    steps,
+  };
+}
+
 // ─── Public builder ─────────────────────────────────────────────────────
 
 /**
  * Build every M2 lesson the curriculum exposes — 9 rows × 3 sub-lessons
- * (27 lessons) + Y-vowel lesson + module review.
+ * (27 lessons) + Y-vowel lesson + module review + 받침 [t]-group lesson.
  */
 export function buildAllKoreanM2Lessons(): LessonContent[] {
   const out: LessonContent[] = [];
@@ -507,5 +656,6 @@ export function buildAllKoreanM2Lessons(): LessonContent[] {
   }
   out.push(buildYVowelLesson());
   out.push(buildModuleReview());
+  out.push(buildBatchimLesson());
   return out;
 }

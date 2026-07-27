@@ -40,7 +40,7 @@ export default function EventsPage() {
   const items = useMemo(() => listQ.data?.items ?? [], [listQ.data]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className="flex flex-col h-[calc(100svh-4rem)]">
       {/* Tab bar */}
       <div className="border-b border-border px-0">
         <TabList aria-label="Events sections">

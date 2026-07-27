@@ -172,7 +172,7 @@ export function JourneyHeatmap({ days }: Props) {
                         onFocus={() => setActive(cell)}
                         className="rounded-[3px] border border-border-muted transition-transform hover:scale-110 focus-visible:scale-110"
                         style={{
-                          backgroundColor: "var(--color-accent)",
+                          backgroundColor: "rgb(var(--color-accent))",
                           opacity: INTENSITY_OPACITY[cell.intensity] || 0.12,
                         }}
                         aria-label={`${formatDate(cell.date)}: ${cell.xpEarned} XP, ${cell.lessonsCompleted} lessons`}
@@ -212,7 +212,7 @@ export function JourneyHeatmap({ days }: Props) {
                 <span
                   key={i}
                   className="h-3 w-3 rounded-[3px] border border-border-muted"
-                  style={{ backgroundColor: "var(--color-accent)", opacity: o || 0.12 }}
+                  style={{ backgroundColor: "rgb(var(--color-accent))", opacity: o || 0.12 }}
                 />
               ))}
               <span className="text-[10px] text-text-muted">

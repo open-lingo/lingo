@@ -45,8 +45,8 @@ function saveUnlockedSet(set: Set<string>): void {
  * localStorage-only, so a storage clear / device switch lost progression.
  * On every local unlock we dispatch the NEWLY-added ids; `useUnlockMapSync`
  * listens and fire-and-forget pushes them to `POST /progress/me/unlocks`
- * (server unions, never drops). Kept as a window event — same decoupling as
- * `lingo:vocab-graduated` — so this sync utility stays React-free.
+ * (server unions, never drops). Kept as a window event so this sync utility
+ * stays React-free — the listener lives in a hook, the emitter does not.
  */
 export const ATOMS_UNLOCKED_EVENT = "lingo:atoms-unlocked";
 

@@ -21,3 +21,42 @@ jobs:
         run: npm run test:run
       - name: build
         run: npm run build
+
+  mobile-e2e:
+    # Mobile render gate (research §6). Runs after build. Without a valid Auth0
+    # storageState in CI it exercises the always-green PUBLIC-route subset
+    # (MOBILE_PUBLIC_ONLY=1) — overflow (1), off-right-edge (2), and render-error
+    # (7) assertions hard-fail; tap-target (3) warns and cta-in-fold (4) ratchets
+    # per route as the src markup lands. The authed matrix runs locally where
+    # `.auth/user.json` exists.
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      MOBILE_PUBLIC_ONLY: "1"
+      # The SPA's Auth0Provider throws at boot if these are unset (src/shared/
+      # auth/config.ts). Public routes never invoke a real Auth0 redirect, so
+      # format-valid placeholders are enough for the always-green gate. Swap for
+      # repo `vars` if the authed matrix is ever run in CI.
+      VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN || 'example.us.auth0.com' }}
+      VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID || 'ci-placeholder' }}
+      VITE_AUTH0_AUDIENCE: ${{ vars.VITE_AUTH0_AUDIENCE || 'https://api.example.com' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: install playwright chromium
+        run: npx playwright install --with-deps chromium
+      - name: mobile render gate (public subset)
+        run: npm run test:mobile
+      - name: upload playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

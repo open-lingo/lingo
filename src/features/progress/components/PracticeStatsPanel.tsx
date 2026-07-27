@@ -20,17 +20,17 @@ import {
 
 /** Token colour per card-state bucket (matches MasteryGrid's heat ordering). */
 const STATE_COLOR: Record<keyof Omit<CardStateCounts, "total" | "seen">, string> = {
-  yetToLearn: "var(--color-surface-muted)",
-  new: "var(--color-info)",
-  learning: "var(--color-warning)",
-  review: "var(--color-success)",
+  yetToLearn: "rgb(var(--color-surface-muted))",
+  new: "rgb(var(--color-info))",
+  learning: "rgb(var(--color-warning))",
+  review: "rgb(var(--color-success))",
 };
 
 const RATING_COLOR: Record<keyof RatingDistribution, string> = {
-  again: "var(--color-error)",
-  hard: "var(--color-warning)",
-  good: "var(--color-accent)",
-  easy: "var(--color-success)",
+  again: "rgb(var(--color-error))",
+  hard: "rgb(var(--color-warning))",
+  good: "rgb(var(--color-accent))",
+  easy: "rgb(var(--color-success))",
 };
 
 /**

@@ -11,6 +11,11 @@ Synthesis of three parallel audits (regression taxonomy, context-rot, code-healt
 > remaining work are tracked in `rewrite-cycle-report-2026-07-20.md`. Check that report
 > + the pinned invariants before treating any item below as still-open.
 
+> **Partially reconciled 2026-07-20.** Several of these gates shipped *after* this doc was
+> written — Gates 1, 2, 4 and the doc-references-code test are done (stamped inline below).
+> See `docs/plan-code-reconciliation-2026-07-20.md` §2.7 for the verification. The still-open
+> items (Gate 3, Gates 5/6/7/9/10, the guide split) remain as written.
+
 ---
 
 ## 1. Executive summary
@@ -105,6 +110,10 @@ Ranked by (frequency × blast-radius × ease). Each is implementable directly fr
 ### Tier 1 — do first (highest leverage)
 
 **GATE 1 — Extend module-conformance past m27. ⭐ (effort: trivial, 1 line)**
+✅ **SHIPPED (2026-07-20 reconciliation)** — `languages/ja/__tests__/moduleConformance.test.ts:44`
+now derives `CONTENT_MODULE_IDS` from `jaModule.curriculum` (non-kana); the hardcoded `3–27`
+range is gone. (One narrow residual `n <= 27` at line 153 gates a single "planned grammar point"
+sub-check — minor.)
 `moduleConformance.test.ts:31` hardcodes `for (n=3; n<=27)`, so m28/m29 are excluded from every
 attribution invariant. Derive `CONTENT_MODULE_IDS` from `jaModule.curriculum` (non-kana) instead.
 The existing "every atom attributed to mN appears in mN's steps" invariant then immediately vets
@@ -112,6 +121,9 @@ m29. **Caveat:** turning this on may reveal *existing* m8–m29 violations — s
 follow-up, don't auto-suppress.
 
 **GATE 2 — JA per-module curriculum test files. ⭐ (effort: M; template exists)**
+✅ **SHIPPED (2026-07-20 reconciliation)** — JA now has **28** per-module test files
+(`ja/curriculum/m*.test.ts`). **The central "JA has 0 per-module tests" claim of this
+retrospective (also stated in §1) is REVERSED** — the asymmetry it describes is closed.
 ES has 17, KO has 26, JA has 0. Clone `es/curriculum/m5.test.ts` → `ja/curriculum/m29.test.ts`,
 then backfill m3–m28. It runs follow-up-spacing, no-explanation-on-passive, explanation-doesn't-
 leak-answer, unique-ids, pathway-resolves, mastery-graded-only, and the listening sentence-level
@@ -126,6 +138,9 @@ actually in the curriculum, assert `parseModuleIndex(moduleId) > 0` — one asse
 canonical module, so no 9th copy is added.
 
 **GATE 4 — Extend `atom-coverage` to the full spine. ⭐ (effort: low) — Class B + doc-truth**
+✅ **SHIPPED (2026-07-20 reconciliation)** — `features/lesson/data/atom-coverage.test.ts:419` is
+the full-spine `m3–m29` re-exposure gate: every SRS-eligible vocab atom introduced in m3–m29 must
+appear in ≥3 audited retrieval surfaces (keyed on `JA_COURSE_ATOMS`, walking every JA lesson).
 `atom-coverage.test.ts` imports only m3–m7 (0 m8+ imports), yet the guide presents ≥3-occurrence
 coverage as enforced everywhere. Every atom in m8–m29 is currently unguaranteed. Extend the import
 set to m8–m29. (Same caveat as Gate 1 — may reveal existing gaps.)
@@ -223,7 +238,12 @@ Split into:
 1. **`Status:` front-matter on every doc** — `LIVE | SUPERSEDED-BY:<path> | SHIPPED(archival) |
    RESEARCH-SNAPSHOT` + a `Last-verified:` date. A recon doc is born archival; stamp it so
    day-old readers don't treat it as spec.
-2. **A `doc-references-code` test (highest-ROI hygiene item).** Grep the guide + CLAUDE.md +
+2. **A `doc-references-code` test (highest-ROI hygiene item).** ✅ **SHIPPED (2026-07-20
+   reconciliation)** — `src/__tests__/docReferences.test.ts` machine-checks the script-ladder
+   constants (`HIRAGANA_ROMAJI_OFF_MODULE`, `KATAKANA_ROMAJI_OFF_MODULE`,
+   `BUILD_TILE_ROMAJI_FADE_MODULE`, `KANJI_RECOGNITION_MODULE`, `FURIGANA_WINDOW`, and now
+   `TARGET_RETENTION`) across CLAUDE.md + the guide + pedagogy-principles + 2 more, and enforces
+   Status front-matter on a 10-doc list. Grep the guide + CLAUDE.md +
    pedagogy-principles for the ladder constants (`HIRAGANA_ROMAJI_OFF_MODULE`,
    `KANJI_RECOGNITION_MODULE`, `FURIGANA_WINDOW`, density 12/25) and assert they equal the exported
    values. Would have caught the M10/M17 drift the day it happened.

@@ -11,7 +11,7 @@ For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first, then the most
 **Post-launch / parallel (when infra is ready):**
 
 ### Core UX (post-launch polish)
-1. **[homepage-ux](./homepage-ux.md)** — **done** — landing + guest patterns
+1. **[homepage-ux](../archive/homepage-ux.md)** — **done** — landing + guest patterns
 2. **[srs-viewer-redesign](./srs-viewer-redesign.md)** — **partial**
 3. **[card-markdown-editor](./card-markdown-editor.md)** — open
 
@@ -19,11 +19,11 @@ For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first, then the most
 4. **[auth-session-strategy](./auth-session-strategy.md)** — 401 refresh, session revocation
 
 ### Backlog
-5. **[practice-hub](./practice-hub.md)** — **done** — `PracticePage` is practice index
+5. **[practice-hub](../archive/practice-hub.md)** — **done** — `PracticePage` is practice index
 6. **[vocab-page](./vocab-page.md)** — Themed lists, search, drill view
 7. **[story-content](./story-content.md)** — Replace StoryDetailPage placeholder with real text + exercises
 8. **[grammar-page](./grammar-page.md)** — Grammar topic browser/drills
-9. **[korean-content](./korean-content.md)** / **[japanese-content](./japanese-content.md)** — Expand to 30+ cards, 14+ particles
+9. **[korean-content](./korean-content.md)** / **[japanese-content](../archive/japanese-content.md)** — Expand to 30+ cards, 14+ particles
 10. **[community-themes](./community-themes.md)** — Backend + CloudFront for community themes; replace mock
 
 ### Investigation (planning, not yet implementation)
@@ -61,10 +61,10 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 | Task | File | Status |
 |------|------|--------|
 | [vocab-page](./vocab-page.md) | `src/features/vocab/VocabPage.tsx` | stub |
-| [practice-hub](./practice-hub.md) | `src/features/practice/PracticePage.tsx` | **closed** — practice index routed |
-| [particle-practice](./particle-practice.md) | `src/features/practice/ParticlePracticePage.tsx` | closed |
+| [practice-hub](../archive/practice-hub.md) | `src/features/practice/PracticePage.tsx` | **closed** — practice index routed |
+| [particle-practice](../archive/particle-practice.md) | `src/features/practice/ParticlePracticePage.tsx` | closed |
 | [kanji-practice](./kanji-practice.md) | `src/features/practice/KanjiPracticePage.tsx` | partial (verify depth) |
-| [alphabet-learner](./alphabet-learner.md) | `src/features/practice/AlphabetPracticePage.tsx` | closed |
+| [alphabet-learner](../archive/alphabet-learner.md) | `src/features/practice/AlphabetPracticePage.tsx` | closed |
 | [components-practice](./components-practice.md) | `src/features/practice/ComponentsPracticePage.tsx` | partial (verify depth) |
 | [grammar-page](./grammar-page.md) | `src/features/grammar/GrammarPage.tsx` | stub |
 | [story-content](./story-content.md) | `src/features/stories/StoryDetailPage.tsx` | partial (layout; content placeholder) |
@@ -95,7 +95,7 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 
 | Task | File | Status |
 |------|------|--------|
-| [japanese-content](./japanese-content.md) | `src/features/flashcards/data/`, `src/features/practice/data/` | stub |
+| [japanese-content](../archive/japanese-content.md) | `src/features/flashcards/data/`, `src/features/practice/data/` | stub |
 | [korean-content](./korean-content.md) | `src/features/flashcards/data/`, `src/features/practice/data/` | partial |
 
 ### Community
@@ -111,7 +111,7 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 
 | Task | File | Status |
 |------|------|--------|
-| [homepage-ux](./homepage-ux.md) | HomePage, ProgressSummary | closed |
+| [homepage-ux](../archive/homepage-ux.md) | HomePage, ProgressSummary | closed |
 | [srs-viewer-redesign](./srs-viewer-redesign.md) | FlashcardTester | partial (back-first, counts widget) |
 | [card-markdown-editor](./card-markdown-editor.md) | DeckEditor, CardPreview, FlashcardTester | not started |
 

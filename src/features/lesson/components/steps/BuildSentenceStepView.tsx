@@ -150,10 +150,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     isWordBuild &&
     (trayOverride ? trayOverride === "slots" : !isReplayRun);
   const bankTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4dvh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : "px-3.5 py-1.5 text-base sm:text-lg font-medium";
   const placedTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4dvh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : "px-3.5 py-1.5 text-base sm:text-lg font-semibold";
 
   const handleEnter = useCallback(() => {
@@ -278,15 +278,17 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           style={{
             // Mirror MultipleChoiceStepView's sizing exactly — the picker
             // borrowed its look but not its GRID, so a 3-option bank was
-            // stretching one short word each across a 260-520px single
-            // column (Spencer 2026-07-24: "≤3 tiles render as giant rows").
-            // The distractor floor now guarantees 4 options here, so the
-            // 2x2 is the live path; the single-column branch is a fallback
-            // for banks the floor couldn't fill.
+            // stretching one short word each across a tall single column
+            // (Spencer 2026-07-24: "≤3 tiles render as giant rows"). The
+            // distractor floor guarantees 4 options, so the 2x2 is the live
+            // path; the single-column branch is the fallback.
+            // MERGE 2026-07-26: heights use the mobile-scaling branch's
+            // container-query units (cqh) rather than dvh — same intent,
+            // and it keeps this view correct inside the scaled shell.
             minHeight:
               bankTiles.length === 4
-                ? "clamp(320px, 52dvh, 640px)"
-                : `clamp(${Math.min(bankTiles.length, 4) * 72}px, 44dvh, 520px)`,
+                ? "min(40rem, 52cqh)"
+                : "min(32.5rem, 44cqh)",
           }}
         >
           {bankTiles.map((tile, i) => {
@@ -448,7 +450,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback

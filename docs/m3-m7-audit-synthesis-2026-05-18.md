@@ -1,3 +1,5 @@
+> **Status: STALE SNAPSHOT (2026-07-20).** Point-in-time record; some specifics are now wrong. Kept for history — see docs/plan-code-reconciliation-2026-07-20.md §4.
+
 # M3-M7 Rebuild Audit — Synthesis (2026-05-18)
 
 10 differentiated Opus agents audited the rebuilt M3-M7 curriculum:

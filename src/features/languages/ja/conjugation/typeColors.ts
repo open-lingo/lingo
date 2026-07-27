@@ -82,10 +82,12 @@ export const CONJ_TYPE_COLOR_CSS = `
 .conj-scope {
   --type-te: #047857; --type-ta: #b45309; --type-nai: #b91c1c;
   --type-masu: #1d4ed8; --type-tai: #be185d; --type-iadj: #0e7490;
+  --type-default: #6b7280;
 }
 .dark .conj-scope {
   --type-te: #34d399; --type-ta: #fbbf24; --type-nai: #f87171;
   --type-masu: #60a5fa; --type-tai: #f472b6; --type-iadj: #22d3ee;
+  --type-default: #9ca3af;
 }
 .conj-tile-suggest { animation: conj-wobble 4s ease-in-out infinite; }
 @keyframes conj-wobble {
@@ -99,11 +101,11 @@ export const CONJ_TYPE_COLOR_CSS = `
 .conj-scope .conj-opt { position: relative; overflow: hidden; }
 .conj-scope .conj-opt::before {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 0;
-  background: color-mix(in srgb, var(--fc, var(--color-accent)) 12%, transparent);
+  background: color-mix(in srgb, var(--fc, rgb(var(--color-accent))) 12%, transparent);
   transition: height 0.16s ease;
 }
 .conj-scope .conj-opt > * { position: relative; }
-.conj-scope .conj-opt:not(:disabled):hover { border-color: var(--fc, var(--color-accent)); }
+.conj-scope .conj-opt:not(:disabled):hover { border-color: var(--fc, rgb(var(--color-accent))); }
 .conj-scope .conj-opt:not(:disabled):hover::before { height: 100%; }
 .conj-scope .conj-opt-correct { animation: conj-pop 0.3s ease; }
 .conj-scope .conj-opt-wrong { animation: conj-shake 0.3s ease; }

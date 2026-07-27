@@ -232,7 +232,7 @@ export function ParticleClozeStepView({
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(p)}
-              className={`flex h-[clamp(3.5rem,8dvh,4.5rem)] min-w-fit flex-1 basis-[calc(25%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
+              className={`flex h-[clamp(3.5rem,8cqh,4.5rem)] min-w-fit flex-1 basis-[calc(25%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
             >
               {p}
             </button>
@@ -243,7 +243,7 @@ export function ParticleClozeStepView({
       {/* Single bottom block: explanation + banner + CTA together so the
           button never moves on submit. Banner only on wrong — correct
           celebrates via toast; the explanation still teaches on both. */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
           <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">

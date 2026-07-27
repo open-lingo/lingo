@@ -136,7 +136,13 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const optCount = step.options.length;
   const cols = optCount <= 3 ? optCount : 2;
   const rows = Math.ceil(optCount / cols);
-  const gridWidth = `min(calc(100vw - 3rem), calc((100dvh - 20rem) * ${cols} / ${rows}), ${cols * 16}rem)`;
+  // Width is capped three ways: the scroller's own inline free space
+  // (`100cqw`, not `100vw` — no scrollbar-gutter error), a height budget
+  // that keeps the two stacked square rows inside the scroller
+  // (`100cqh` minus the prompt + Continue budget; `cqh` already excludes
+  // the lesson chrome, so the subtracted budget is smaller than the old
+  // `dvh` math), and a hard per-column rem cap. No viewport-unit math.
+  const gridWidth = `min(calc(100cqw - 3rem), calc((100cqh - 11rem) * ${cols} / ${rows}), ${cols * 16}rem)`;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
@@ -148,7 +154,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           <button
             type="button"
             onClick={() => playJaAudio(step.meaningEn)}
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
             aria-label="Play audio"
           >
             <Icon name="play" size={24} />
@@ -164,9 +170,9 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
       )}
 
       {/* Grid height ≈ its width (two stacked squares), so the width cap
-          is really a height cap: 100dvh minus the chrome + prompt +
-          Continue budget. Shrinks on short laptops (MacBook 14" ≈ 840px
-          usable); on tall windows it grows past the 42rem text column
+          is really a height cap: the scroller free space (100cqh) minus the
+          prompt + Continue budget. Shrinks on short laptops (MacBook 14" ≈
+          840px usable); on tall windows it grows past the 42rem text column
           (picture cards have no line-length constraint) via the
           left-1/2 translate breakout, up to 56rem. */}
       <div
@@ -252,6 +258,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
       <div
         className="relative left-1/2 mt-auto flex -translate-x-1/2 flex-col gap-4 pt-6"
         style={{ width: gridWidth }}
+        data-testid="primary-cta"
       >
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}

@@ -53,10 +53,57 @@ export function SettingsNav({
   const languagesActive = isLanguageSectionId(activeSection);
 
   return (
-    <nav
-      className="flex min-h-0 shrink-0 flex-col gap-0.5 overflow-y-auto border-b border-border px-3 py-3 sm:w-52 sm:border-b-0 sm:border-r sm:py-4"
-      aria-label={t("settings.nav.label", "Settings sections")}
-    >
+    <>
+      {/* Mobile (<sm): horizontal scrolling tab strip so the user doesn't
+          scroll past the whole nav to reach a section. Sections are flattened
+          (global + per-language) into one touch-friendly carousel. */}
+      <nav
+        className="no-scrollbar flex shrink-0 gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border px-3 py-2 sm:hidden"
+        aria-label={t("settings.nav.label", "Settings sections")}
+      >
+        {SETTINGS_GLOBAL_SECTIONS.map((id) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onSectionChange(id)}
+            className={cn(
+              "flex min-h-[44px] shrink-0 items-center rounded-full px-3.5 text-sm font-medium transition",
+              activeSection === id
+                ? "bg-accent-muted text-accent"
+                : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
+            )}
+            aria-current={activeSection === id ? "true" : undefined}
+          >
+            {t(GLOBAL_LABEL_KEYS[id])}
+          </button>
+        ))}
+        {languages.map((lang) => {
+          const sectionId = `lang-${lang.id}` as const;
+          return (
+            <button
+              key={lang.id}
+              type="button"
+              onClick={() => onSectionChange(sectionId)}
+              className={cn(
+                "flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full px-3.5 text-sm font-medium transition",
+                activeSection === sectionId
+                  ? "bg-accent-muted text-accent"
+                  : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
+              )}
+              aria-current={activeSection === sectionId ? "true" : undefined}
+            >
+              <span aria-hidden>{lang.flag}</span>
+              {lang.name}
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Desktop (sm+): vertical rail with collapsible language group. */}
+      <nav
+        className="hidden min-h-0 shrink-0 flex-col gap-0.5 overflow-y-auto px-3 py-4 sm:flex sm:w-52 sm:border-r sm:border-border"
+        aria-label={t("settings.nav.label", "Settings sections")}
+      >
       {SETTINGS_GLOBAL_SECTIONS.map((id) => (
         <button
           key={id}
@@ -119,6 +166,7 @@ export function SettingsNav({
           </ul>
         )}
       </div>
-    </nav>
+      </nav>
+    </>
   );
 }

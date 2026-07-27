@@ -499,9 +499,10 @@ export function getMockCourse(languageId: string): Course {
     }
 
     // M2 — aspirated + tense consonants + y-vowels (Phase 5, 2026-06-01).
-    // Each row gets 3 sub-lessons via the same row builder as M1.
-    // Compound vowels (ㅐ ㅔ ㅘ ㅝ ㅢ ㅟ) and final-consonant 받침 are
-    // deferred to a future M2 extension pass — out of scope here.
+    // Each row gets 3 sub-lessons via the same row builder as M1. A closing
+    // 받침 lesson (final-consonant [t]-group neutralization) completes the
+    // reading foundation. Compound vowels (ㅐ ㅔ ㅘ ㅝ ㅢ ㅟ) are still
+    // deferred to a future M2 extension pass.
     const m2Lessons: { id: string; title: string; status: "available"; kind?: "recap" }[] = [];
     for (const row of KO_M2_ROWS) {
       for (const suffix of ["1", "2", "3"] as const) {
@@ -523,6 +524,13 @@ export function getMockCourse(languageId: string): Course {
       title: "Module 2 — Full review",
       status: "available" as const,
       kind: "recap" as const,
+    });
+    // Final reading piece the M2 review promises ("받침 are next"):
+    // final-consonant neutralization, focused on the [t] group.
+    m2Lessons.push({
+      id: "ko-m2-batchim-1",
+      title: "받침 — the final [t] sound",
+      status: "available" as const,
     });
 
     const m3Lessons = [

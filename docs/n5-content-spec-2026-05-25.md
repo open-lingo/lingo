@@ -2,6 +2,9 @@
 
 **Status:** STALE · **Last-verified:** 2026-07-17
 
+Further staleness noted 2026-07-20 (§4). Superseded on module count and
+ordering by the draft-4 spine (docs/spine-draft4-2026-07-26.md).
+
 > ⚠️ Kanji sections (§ around lines 92–98) describe `kanji_intro`/`kanji_recognition`
 > step types that don't exist and an SRS-state furigana fade that didn't ship; kanji
 > shipped as render-time surface substitution from m8 with a module-window (unlock+2)

@@ -43,7 +43,7 @@ import type {
 // long-run review load for a few points of retention. These atoms are also
 // reviewed inside lessons (two surfaces), so per-card pressure is already
 // high — 0.90 is the right default. (srs-memory-retention-research-2026-07-19.)
-const TARGET_RETENTION = 0.9;
+export const TARGET_RETENTION = 0.9;
 
 const SCHEDULER: FSRS = fsrs({
   // Fuzz spreads due dates ±a few % so same-day siblings don't clump forever.

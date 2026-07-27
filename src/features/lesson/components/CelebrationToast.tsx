@@ -43,7 +43,7 @@ export function CelebrationToast({ text }: Props) {
       <div
         className={`flex flex-col items-center gap-1.5 motion-safe:animate-rise-celebrate ${scale}`}
       >
-        <span className="rounded-full border-[1.5px] border-accent-hover bg-accent px-5 py-1.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)]">
+        <span className="rounded-full border-[1.5px] border-accent-hover bg-accent px-5 py-1.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))]">
           {text}
         </span>
         {combo >= 3 && (

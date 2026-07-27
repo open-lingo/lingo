@@ -179,7 +179,7 @@ export function DrillQuestionCard({
   const showSecondScript =
     conj.secondScriptExposureModule != null && reachedModule >= conj.secondScriptExposureModule;
   const tiles = conj.formToTiles(question.form);
-  const formColor = tiles ? `var(${conj.colorVar(tiles[0])})` : "var(--color-accent)";
+  const formColor = tiles ? `var(${conj.colorVar(tiles[0])})` : "rgb(var(--color-accent))";
 
   const cheatTypes = useMemo(
     () =>
@@ -222,7 +222,7 @@ export function DrillQuestionCard({
 
   return (
     <Card padding="lg" className="flex flex-col">
-      <div className="mx-auto grid w-full max-w-md grid-cols-[1fr_auto_1fr] items-center gap-3">
+      <div className="mx-auto grid w-full max-w-md grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-3">
         {cheatTypes.length > 0 ? (
           <button
             type="button"
@@ -232,7 +232,7 @@ export function DrillQuestionCard({
               (stuck && !showResult && !peeked
                 ? (cheatOpen ? "" : "conj-cheat-nudge ") +
                   "border-warning/70 bg-warning/10 text-warning"
-                : "border-border bg-surface-muted text-text-secondary hover:border-[color:var(--color-accent)] hover:text-text-primary")
+                : "border-border bg-surface-muted text-text-secondary hover:border-[color:rgb(var(--color-accent))] hover:text-text-primary")
             }
           >
             <Icon name="bookOpen" size={18} aria-hidden />

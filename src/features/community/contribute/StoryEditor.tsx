@@ -330,7 +330,7 @@ export function StoryEditor() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-12rem)] flex-col">
+    <div className="flex min-h-[calc(100svh-12rem)] flex-col">
       <StudioHeader
         deckName={title || t("community.storyEditorTitlePlaceholder")}
         status="draft"

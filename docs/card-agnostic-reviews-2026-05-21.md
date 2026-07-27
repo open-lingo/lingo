@@ -1,3 +1,5 @@
+> **Status: STALE SNAPSHOT (2026-07-20).** Point-in-time record; some specifics are now wrong. Kept for history — see docs/plan-code-reconciliation-2026-07-20.md §4.
+
 # Card-agnostic review factories — catalog (2026-05-21)
 
 ## What "card-agnostic" means

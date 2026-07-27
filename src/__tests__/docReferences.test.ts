@@ -42,6 +42,7 @@ import {
   FURIGANA_WINDOW,
   KANJI_RECOGNITION_MODULE,
 } from "../features/languages/ja/secondScript/kanjiRollout";
+import { TARGET_RETENTION } from "../features/flashcards/engine/srs";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -122,6 +123,14 @@ const CLAIM_MATCHERS: ClaimMatcher[] = [
     name: "furigana window — 'unlock+<n>'",
     pattern: /\bunlock\s*\+\s*(\d+)\b/g,
     expected: FURIGANA_WINDOW,
+  },
+  // --- FSRS target retention --------------------------------------------
+  // The first capture group is a FLOAT ("0.90"), not a module integer; the
+  // comparison below coerces with Number(...) so it round-trips correctly.
+  {
+    name: "target retention — 'target retention 0.NN'",
+    pattern: /target retention (0\.\d+)/gi,
+    expected: TARGET_RETENTION,
   },
 ];
 

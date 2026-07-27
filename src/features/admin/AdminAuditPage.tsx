@@ -18,6 +18,7 @@ import { Button } from "@/shared/components/ui/Button";
 import { Card } from "@/shared/components/ui/Card";
 import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+import { ResponsiveTable } from "@/shared/components/ui/ResponsiveTable";
 
 const PAGE_SIZE = 50;
 const TARGET_KINDS = ["", "user", "deck", "story"] as const;
@@ -86,8 +87,8 @@ export function AdminAuditPage() {
         </div>
       </Card>
 
-      <div className="overflow-hidden rounded-card border border-border bg-surface">
-        <table className="w-full text-sm">
+      <ResponsiveTable className="rounded-card border border-border bg-surface">
+        <table className="min-w-full text-sm">
           <thead className="bg-surface-muted text-left text-xs uppercase text-text-muted">
             <tr>
               <th className="px-3 py-2">{t("admin.audit.when", "When")}</th>
@@ -130,7 +131,7 @@ export function AdminAuditPage() {
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
 
       <div className="flex items-center justify-end gap-2">
         <Button

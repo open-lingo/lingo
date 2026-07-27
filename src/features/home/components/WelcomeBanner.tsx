@@ -35,7 +35,7 @@ export function WelcomeBanner({
             }
           : {
               background:
-                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), color-mix(in srgb, var(--color-accent) 2%, transparent))",
+                "linear-gradient(135deg, color-mix(in srgb, rgb(var(--color-accent)) 10%, transparent), color-mix(in srgb, rgb(var(--color-accent)) 2%, transparent))",
             }
       }
     >

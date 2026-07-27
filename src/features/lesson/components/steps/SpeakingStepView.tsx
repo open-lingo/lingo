@@ -169,7 +169,7 @@ function ReferenceCard({
       <button
         type="button"
         onClick={onPlay}
-        className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)]"
+        className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))]"
         aria-label="Play audio"
       >
         <Icon name="play" size={28} />
@@ -708,7 +708,7 @@ function SpeakingStepRecognized({
             whisperTranscribing ||
             canContinue
           }
-          className={`flex h-14 w-full max-w-md items-center justify-center gap-3 rounded-2xl border-[1.5px] text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40 ${
+          className={`flex h-14 w-full max-w-md items-center justify-center gap-3 rounded-2xl border-[1.5px] text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] disabled:cursor-not-allowed disabled:opacity-40 ${
             recog.listening
               ? "border-error bg-error motion-safe:animate-pulse"
               : "border-accent-hover bg-accent"
