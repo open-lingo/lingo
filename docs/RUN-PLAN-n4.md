@@ -953,6 +953,15 @@ hou-ga-ii ku-ni-naru kanji-set-3
 
 ## Token discipline for this run (learned the hard way)
 
+- **Tell every authoring agent NOT to spawn a background watcher shell to poll
+  for TTS.** `scripts.tts.generate` is synchronous — it prints
+  `wrote=N cached_skipped=N failed=0` and exits. Both the m20 and m21 agents
+  started poll loops anyway; the loops outlived the work, got reaped one by one,
+  and each reaping fired a task-notification that woke the orchestrator with
+  nothing to do. Three wasted turns per module, every module. Add the line "run
+  the TTS commands in the foreground; do not background them or poll for them"
+  to the brief.
+
 - **NEVER** call `TaskOutput` with `block: true` on an agent, and never `Read`
   an agent's `.output` file. Both dump the agent's ENTIRE JSONL transcript into
   context — one such call cost ~7k tokens for zero information. Wait for the
