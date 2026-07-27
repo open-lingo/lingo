@@ -294,6 +294,20 @@ const NAMES = ["トム", "ミカ", "ケン", "たなか", "タナカ"];
 const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"];
 const PUNCT = /[。、？！]/g;
 
+/**
+ * Split on SENTENCE-final punctuation only — 、 is a comma, not a boundary.
+ * Returns each sentence with the mark that ended it, so the tokenizer can put
+ * the mark back on the last tile of every non-final sentence.
+ */
+function splitSentences(ja: string): { text: string; mark: string }[] {
+  const out: { text: string; mark: string }[] = [];
+  for (const m of ja.matchAll(/([^。？！]*)([。？！]?)/g)) {
+    if (!m[1].trim() && !m[2]) continue;
+    out.push({ text: m[1], mark: m[2] });
+  }
+  return out.length ? out : [{ text: ja, mark: "" }];
+}
+
 /** Step taxonomy is SHARED with the guards — see `stepTaxonomy.ts` for why
  *  these must never be re-declared locally. */
 const SELECTION = SELECTION_TYPES;
@@ -358,20 +372,37 @@ function makeTokenizer(atoms: Map<string, Atom>) {
     // emitted an UNBUILDABLE build step (きょう・はい・か・ない —
     // Spencer m6 walk 2026-07-23). The `unbuildable` diagnostic below is
     // the standing gate for this class.
+    // Sentence-final punctuation is ALSO a word boundary, and it has to
+    // survive into the tiles. Stripping it globally first fused two
+    // independent clauses into one run-on whenever a beat held more than one
+    // sentence: 「…だった。ちょっと たかい。」 built as ろくじゅうえんだった +
+    // ちょっと with nothing between them, and the audio ran them together
+    // (m8-m11, 8 beats). The boundary mark rides on the preceding tile so the
+    // break is visible without costing the learner an extra tap.
     const out: string[] = [];
-    for (const str of ja.replace(PUNCT, "").split(/[　\s]+/).filter(Boolean)) {
-      let i = 0;
-      while (i < str.length) {
-        const hit = vocab.find((t) => str.startsWith(t, i));
-        if (hit) {
-          out.push(hit);
-          i += hit.length;
-        } else {
-          let j = i + 1;
-          while (j < str.length && !vocab.some((t) => str.startsWith(t, j))) j++;
-          out.push(str.slice(i, j));
-          i = j;
+    const sentences = splitSentences(ja);
+    for (const [n, sentence] of sentences.entries()) {
+      const before = out.length;
+      for (const str of sentence.text.replace(PUNCT, "").split(/[　\s]+/).filter(Boolean)) {
+        let i = 0;
+        while (i < str.length) {
+          const hit = vocab.find((t) => str.startsWith(t, i));
+          if (hit) {
+            out.push(hit);
+            i += hit.length;
+          } else {
+            let j = i + 1;
+            while (j < str.length && !vocab.some((t) => str.startsWith(t, j))) j++;
+            out.push(str.slice(i, j));
+            i = j;
+          }
         }
+      }
+      // Only INTERNAL boundaries need a mark — a trailing 。 is implicit and
+      // has always been dropped.
+      const isLast = n === sentences.length - 1;
+      if (!isLast && sentence.mark && out.length > before) {
+        out[out.length - 1] += sentence.mark;
       }
     }
     return out;
@@ -399,13 +430,42 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
 
   const resolve = (kana: string): Atom =>
     atoms.get(kana) ?? { kana, meaningEn: kana, fromModule: moduleId as ReviewAtom["fromModule"] };
-  const exercised = (ja: string): string[] => tokenize(ja).filter((t) => atoms.has(t));
+  /**
+   * Atoms a beat actually practises.
+   *
+   * The honorific さん is a homograph of the number 三, and Track A credited
+   * every 「たなかさん」 as a review of "three" — 31 steps across m7–m11, which
+   * meant FSRS kept marking 三 as freshly practised and stopped scheduling it.
+   * An honorific always attaches to a person's name, so a さん that follows one
+   * is never the numeral. (The module notes already flagged this collision
+   * class for に/にじゅう and missed it here.)
+   */
+  const exercised = (ja: string): string[] => {
+    const tokens = tokenize(ja);
+    return tokens.filter((t, i) => {
+      if (!atoms.has(t)) return false;
+      if (t === "さん" && i > 0 && NAMES.includes(tokens[i - 1])) return false;
+      return true;
+    });
+  };
   const acceptedVariants = (ja: string): string[] => {
     const noPunct = ja.replace(PUNCT, "").trim();
     const noSpace = noPunct.replace(/[　\s]/g, "");
     return [...new Set([ja.trim(), noPunct, noSpace])];
   };
   const clean = (ja: string) => ja.replace(PUNCT, "").trim();
+  /**
+   * Target text for a BUILD step. Same as `clean`, except an internal
+   * sentence boundary survives — otherwise a two-sentence beat renders (and
+   * is spoken) as a run-on. The trailing mark still goes, as it always has.
+   */
+  const buildTarget = (ja: string) => {
+    const parts = splitSentences(ja);
+    return parts
+      .map((s, i) => clean(s.text) + (i === parts.length - 1 ? "" : s.mark))
+      .join("")
+      .trim();
+  };
 
   // Inv 25: a module carries THREE review lessons. Resolve every lesson's
   // role up front so review lessons can be numbered without colliding —
@@ -530,10 +590,17 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     const transformRamp: LessonStep[] = [];
     let capstone: LessonStep | null = null;
 
-    const IR_CLASS_TO_GROUP: Record<string, "ichidan" | "godan" | "irregular"> = {
+    // IR verbClass name → the transform card's CLASS axis. `i-adj` (m12 /
+    // spine s09) rides the same ramp: an い-adjective conjugates like a verb,
+    // so the 4-cell adjective table is drilled by the same card type.
+    const IR_CLASS_TO_GROUP: Record<
+      string,
+      "ichidan" | "godan" | "irregular" | "i-adj"
+    > = {
       ru: "ichidan",
       u: "godan",
       irregular: "irregular",
+      "i-adj": "i-adj",
     };
 
     for (const beat of lesson.beats) {
@@ -645,7 +712,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           const tiles = tokenize(beat.ja);
           step = listeningBuildSentence({
             id,
-            target: clean(beat.ja),
+            target: buildTarget(beat.ja),
             tiles,
             correctOrder: tiles,
             promptEn: "Build what you hear.",
@@ -661,7 +728,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           step = build(
             id,
             directive ? beat.en : `Build: ${beat.en}`,
-            clean(beat.ja),
+            buildTarget(beat.ja),
             tiles,
             tiles,
             ex,
@@ -817,6 +884,10 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       ...(ir.newAtoms ?? []).filter((x) => x.derivedFrom).map((x) => x.kana),
     ]);
     let fi = 0;
+    // What filler has already consumed in THIS lesson, as `modality:key`.
+    // Filler used to index its pools with `i % length`, so once the slot index
+    // wrapped it re-asked questions it had already asked.
+    const usedFiller = new Set<string>();
     while (middle.length + fixed < 18 && fi < 60) {
       // TRANSLATE BUDGET: <=15% of production (Spencer 2026-07-26). The old
       // filler alternated speaking/translate, which alone pushed compiled
@@ -835,6 +906,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
         noTyped,
         sentencePairs,
         translateOk,
+        usedFiller,
       );
       if (f) middle.push(f);
       fi++;
@@ -1128,6 +1200,7 @@ function reviewFiller(
   noTyped: ReadonlySet<string>,
   sentences: { ja: string; en: string }[],
   translateOk: boolean,
+  used: Set<string>,
 ): LessonStep | null {
   // Particles are never filler (mic-grading a mora is ASR noise; typing に
   // from a gloss is a guessing game), glosses are the SHORT form, and no typed
@@ -1147,9 +1220,21 @@ function reviewFiller(
     (p) => !PARTICLES.includes(p.kana) && !noTyped.has(p.kana),
   );
   const fallback = declaredPool.filter((p) => !noTyped.has(p.kana));
-  const a = usable.length
-    ? usable[i % usable.length]
-    : fallback[i % Math.max(fallback.length, 1)];
+  /**
+   * The first atom this lesson has not already drilled in THIS modality.
+   * `usable[i % usable.length]` alone re-asked the same word as soon as the
+   * slot index wrapped past the pool size — "Pick the word for 'person'" five
+   * times in one m10 lesson, and twelve quieter ×2 repeats elsewhere.
+   */
+  const pickAtom = (tag: string): Atom | null => {
+    for (const source of [usable, fallback]) {
+      for (let k = 0; k < source.length; k++) {
+        const cand = source[(i + k) % source.length];
+        if (cand && !used.has(`${tag}:${cand.kana}`)) return cand;
+      }
+    }
+    return null;
+  };
 
   const uniq = sentences.filter(
     (x, ix, arr) =>
@@ -1162,38 +1247,74 @@ function reviewFiller(
   );
   const sentenceComp = (): LessonStep | null => {
     if (uniq.length < 4) return null;
-    const pick = uniq[i % uniq.length];
-    const others = uniq.filter((x) => x.ja !== pick.ja);
-    if (others.length < 3) return null;
-    const d = [0, 1, 2].map((k) => others[(i + k) % others.length]);
-    if (new Set(d.map((x) => x.en)).size < 3) return null;
-    return listeningCompSentence({
-      id: `${lid}-fill-${i}`,
-      audioText: pick.ja,
-      correctMeaningEn: pick.en,
-      distractorsEn: [d[0].en, d[1].en, d[2].en],
-    });
+    // `uniq[i % uniq.length]` alone re-asked the SAME audio with the same four
+    // options merely reordered once the filler index wrapped (m11 review-1 slots
+    // 0 and 4), while a sentence the lesson had authored never got checked at
+    // all. Comprehension-check each sentence at most once per lesson and let the
+    // rotation move on when they are spent.
+    for (let k = 0; k < uniq.length; k++) {
+      const pick = uniq[(i + k) % uniq.length];
+      if (used.has(`comp:${pick.ja}`)) continue;
+      const others = uniq.filter((x) => x.ja !== pick.ja);
+      if (others.length < 3) return null;
+      const d = [0, 1, 2].map((n) => others[(i + n) % others.length]);
+      if (new Set(d.map((x) => x.en)).size < 3) continue;
+      used.add(`comp:${pick.ja}`);
+      return listeningCompSentence({
+        id: `${lid}-fill-${i}`,
+        audioText: pick.ja,
+        correctMeaningEn: pick.en,
+        distractorsEn: [d[0].en, d[1].en, d[2].en],
+      });
+    }
+    return null;
   };
 
   // NB: word_image_mcq is FIRST-EXPOSURE ONLY, and a full-sentence MCQ is
   // TEST-OUT ONLY (invariant 28) — neither belongs in filler.
-  const rotation: (() => LessonStep | null)[] = [
-    sentenceComp,
-    () => (a ? safeStep(() => translationMcq(`${lid}-fill-${i}`, a as ReviewAtom, declaredPool as ReviewAtom[])) : null),
-    () => (a ? speaking(`${lid}-fill-${i}`, a.kana, matchTileGloss(a), [a.kana]) : null),
-    () =>
-      translateOk && a && !noTyped.has(a.kana)
-        ? translateStep({
-            id: `${lid}-fill-${i}`,
-            promptEn: matchTileGloss(a),
-            acceptedAnswers: [a.kana],
-            exercisedAtomKanas: [a.kana],
-          })
-        : null,
+  // Each entry reports the key it consumed so the loop can mark it ONLY when
+  // the step actually materialized — several of these can still come back null.
+  const rotation: (() => [LessonStep | null, string])[] = [
+    () => [sentenceComp(), ""],
+    () => {
+      const a = pickAtom("mcq");
+      return [
+        a
+          ? safeStep(() =>
+              translationMcq(`${lid}-fill-${i}`, a as ReviewAtom, declaredPool as ReviewAtom[]),
+            )
+          : null,
+        a ? `mcq:${a.kana}` : "",
+      ];
+    },
+    () => {
+      const a = pickAtom("say");
+      return [
+        a ? speaking(`${lid}-fill-${i}`, a.kana, matchTileGloss(a), [a.kana]) : null,
+        a ? `say:${a.kana}` : "",
+      ];
+    },
+    () => {
+      const a = translateOk ? pickAtom("type") : null;
+      return [
+        a && !noTyped.has(a.kana)
+          ? translateStep({
+              id: `${lid}-fill-${i}`,
+              promptEn: matchTileGloss(a),
+              acceptedAnswers: [a.kana],
+              exercisedAtomKanas: [a.kana],
+            })
+          : null,
+        a ? `type:${a.kana}` : "",
+      ];
+    },
   ];
   for (let k = 0; k < rotation.length; k++) {
-    const step = rotation[(i + k) % rotation.length]();
-    if (step) return step;
+    const [step, key] = rotation[(i + k) % rotation.length]();
+    if (step) {
+      if (key) used.add(key);
+      return step;
+    }
   }
   return null;
 }
@@ -1213,7 +1334,11 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
     for (const b of lesson.beats) {
       if (b.kind !== "sentence" && b.kind !== "capstone" && b.kind !== "challenge")
         continue;
-      const alien = tokenize(b.ja).filter((t) => !KNOWN.has(t) && t.length > 1);
+      // A tile may carry the sentence boundary it ends (「です。」); the mark is
+      // punctuation, not part of the word being checked for buildability.
+      const alien = tokenize(b.ja)
+        .map((t) => t.replace(/[。？！]$/, ""))
+        .filter((t) => !KNOWN.has(t) && t.length > 1);
       if (alien.length > 0)
         out.push({
           lesson: lesson.id,
