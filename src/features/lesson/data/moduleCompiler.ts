@@ -18,6 +18,8 @@ import {
   jaSurfaces,
 } from "@/features/lesson/data/stepTaxonomy";
 import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
+import { VERB_ENTRIES, ADJ_ENTRIES } from "@/features/languages/ja/conjugationTables";
+import { conjugateVerb } from "@/features/languages/ja/conjugationEngine";
 import {
   audience,
   registerCheatSheet,
@@ -28,6 +30,7 @@ import {
   dialogueListen,
   conjugationTransform,
   grammarRule,
+  kanjiReading,
   listeningBuildSentence,
   listeningCompSentence,
   translationMcq,
@@ -121,6 +124,35 @@ export type IRBeat =
       distractors: [string, string, string];
       q?: string;
       explanation?: string;
+      exercises?: string[];
+    }
+  | {
+      /**
+       * KANJI READING BEAT (kanji-set-1/2/3, RUN-PLAN ledger rows m18/m23/m28).
+       *
+       * The course's kanji policy is a READING ladder, never a writing one:
+       * `applyKanjiSurfaces` swaps kana display for kanji automatically from
+       * m8 on, and the only AUTHORED kanji step is `kanji_reading` — a kanji
+       * shown bare, four kana readings, pick the right one. That factory
+       * already exists (grammarHelpers.kanjiReading, shipped 2026-07-16 and
+       * used by m30); this beat is the IR's front door to it, so an
+       * IR-compiled module can pay its kanji-set row without hand-authoring
+       * TS or inventing a second mechanism.
+       *
+       * `kana` names an ALREADY-TAUGHT atom — the ladder tests reading, not
+       * vocabulary, so a kanji step is never a word's first exposure. The
+       * surface and its unlock module come from the shipped rollout catalog
+       * (`KANJI_ELIGIBLE_ATOMS`), which is why the beat cannot test a glyph
+       * the ladder has not reached. `distractors` overrides the generated
+       * near-misses (valid-but-wrong on/kun, wrong okurigana stem, rendaku
+       * slip) when the generator has fewer than three.
+       */
+      kind: "kanji";
+      kana: string;
+      /** Override the surface (homograph atoms, counter forms). */
+      kanji?: string;
+      /** Hand-authored near-miss readings; defaults to `readingDistractors`. */
+      distractors?: string[];
       exercises?: string[];
     }
   | {
@@ -307,6 +339,38 @@ const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"
 const PUNCT = /[。、？！]/g;
 
 /**
+ * Verb ます-stems and い-adjective く-stems.
+ *
+ * 〜に いく, 〜ながら, 〜やすい/にくい, 〜すぎる, 〜たがる and 〜く なる all attach
+ * to a stem, and a stem was a surface no lexicon here knew — so the sentence
+ * read as an invented mutation and the unbuildable gate rejected it. That
+ * already cost two spine items (m12 dropped 〜く なる, m13 dropped 〜に いく,
+ * both for tooling reasons rather than curriculum ones) and would have blocked
+ * most of N4's m36.
+ *
+ * Safe to add to the tokenizer by construction: `vocab` is longest-match-first,
+ * so a SHORTER entry can only win where nothing longer matched — i.e. exactly
+ * where the old code was emitting an unrecognized fragment. It cannot change a
+ * tokenization that was already correct.
+ */
+const STEMS: readonly string[] = (() => {
+  const out = new Set<string>();
+  for (const v of VERB_ENTRIES) {
+    const masu = conjugateVerb(v.dictionary, v.group, "masu");
+    if (masu.endsWith("ます")) out.add(masu.slice(0, -2));
+  }
+  for (const adj of ADJ_ENTRIES) {
+    if (adj.type !== "i-adj") continue;
+    // いい is irregular in every stem it forms: よく, never いく — which is a
+    // different verb entirely.
+    if (adj.dictionary === "いい") out.add("よく");
+    else if (adj.dictionary.endsWith("い")) out.add(`${adj.dictionary.slice(0, -1)}く`);
+  }
+  out.delete("");
+  return [...out];
+})();
+
+/**
  * Split on SENTENCE-final punctuation only — 、 is a comma, not a boundary.
  * Returns each sentence with the mark that ended it, so the tokenizer can put
  * the mark back on the last tile of every non-final sentence.
@@ -395,7 +459,9 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
 }
 
 function makeTokenizer(atoms: Map<string, Atom>) {
-  const vocab = [...new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ])].sort(
+  const vocab = [
+    ...new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ, ...STEMS]),
+  ].sort(
     (a, b) => b.length - a.length,
   );
   return function tokenize(ja: string): string[] {
@@ -862,6 +928,24 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             step.exercisedGrammar = [...new Set(beat.exercises)];
           body.push(step);
         }
+      } else if (beat.kind === "kanji") {
+        // Reading ladder. The atom is prior-module by construction (the beat
+        // tests a READING, never a new word), so no gate/debut plumbing is
+        // needed — and the factory throws rather than degrading, because a
+        // silently-dropped kanji step is a coverage hole nothing else sees.
+        const a = resolve(beat.kana);
+        const step = kanjiReading(
+          sid("kanji"),
+          {
+            kana: a.kana,
+            meaningEn: a.meaningEn,
+            fromModule: a.fromModule,
+          } as ReviewAtom,
+          { kanji: beat.kanji, distractors: beat.distractors },
+        );
+        if (beat.exercises?.length)
+          step.exercisedGrammar = [...new Set(beat.exercises)];
+        body.push(step);
       } else if (beat.kind === "particle-cloze") {
         const full = clean(`${beat.stem}${beat.answer}${beat.tail}`);
         body.push(
@@ -1404,7 +1488,7 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   // an unknown fragment means the tile bank cannot spell the sentence.
   const atoms = atomIndex(ir);
   const tokenize = makeTokenizer(atoms);
-  const KNOWN = new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ]);
+  const KNOWN = new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ, ...STEMS]);
   for (const lesson of ir.lessons) {
     for (const b of lesson.beats) {
       if (b.kind !== "sentence" && b.kind !== "capstone" && b.kind !== "challenge")
