@@ -1052,6 +1052,38 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // the rule cards that teach them are their introduction.
   { id: "koto", kana: "こと", romaji: "koto", meaningEn: "thing, the act of doing", shortGloss: "thing (act of)", fromModule: "m15", introducedByLessonId: "ja-m15-neo-4", kind: "vocab", blocked: true, note: "nominalizer / abstract 'thing' — no concrete referent" },
   { id: "toki-when", kana: "とき", romaji: "toki", meaningEn: "time, when", shortGloss: "time, when", fromModule: "m15", introducedByLessonId: "ja-m15-neo-5", kind: "vocab", blocked: true, note: "temporal function noun — an emoji clock would read as じかん/とけい" },
+  // ── m16-neo (tile s13) — から/ので/けど, から…まで, past negatives ──
+  // SIX registrations, all `blocked` (function words and counters have no
+  // honest emoji). Every other surface m16 teaches is either already an atom
+  // (さむい/やすみ/うち carry stale old-course tags of their own) or a REAL form
+  // the conjugation lexicon derives from VERB_ENTRIES/ADJ_ENTRIES
+  // (たべませんでした, たべなかった, さむかった …). These six are derivable from
+  // nothing: without a row here the guards' tokenizer reads them as untracked
+  // words and the compiler's `unbuildable` gate rejects every sentence that
+  // uses them — the same reason m15 registered こと/とき.
+  // まい and がつ are deliberately the ONLY counter atoms: months and sheet
+  // counts are built compositionally from a number the learner already owns +
+  // the suffix (「ろく」+「がつ」, 「さん」+「まい」), which is both the pedagogy
+  // and what keeps twelve month atoms out of the registry. Bound-suffix check
+  // (inv 41): がつ is a substring of no other atom, and every atom containing
+  // まい (せまい/あまい/まいにち/まいばん/まいあさ/まいしゅう/まいとし/まいねん/
+  // まいげつ/まいつき) is itself registered, so longest-match consumes them
+  // whole and まい can never be split out of one.
+  { id: "node", kana: "ので", romaji: "node", meaningEn: "because (softer)", shortGloss: "because", fromModule: "m16", introducedByLessonId: "ja-m16-neo-3", kind: "vocab", blocked: true, note: "conjunctive particle — no concrete referent" },
+  { id: "kedo", kana: "けど", romaji: "kedo", meaningEn: "but", fromModule: "m16", introducedByLessonId: "ja-m16-neo-4", kind: "vocab", blocked: true, note: "conjunctive particle — no concrete referent" },
+  { id: "made", kana: "まで", romaji: "made", meaningEn: "until, as far as", shortGloss: "until", fromModule: "m16", introducedByLessonId: "ja-m16-neo-6", kind: "vocab", blocked: true, note: "span-end particle — no concrete referent" },
+  { id: "gatsu", kana: "がつ", romaji: "gatsu", meaningEn: "month (in a date)", shortGloss: "month", fromModule: "m16", introducedByLessonId: "ja-m16-neo-6", kind: "vocab", blocked: true, note: "bound month suffix — 📅 already belongs to きょう" },
+  { id: "zenzen", kana: "ぜんぜん", romaji: "zenzen", meaningEn: "not at all (with a negative)", shortGloss: "not at all", fromModule: "m16", introducedByLessonId: "ja-m16-neo-8", kind: "vocab", blocked: true, note: "polarity adverb — only ever appears beside a negative" },
+  { id: "mai-counter", kana: "まい", romaji: "mai", meaningEn: "counter for flat things", shortGloss: "flat-thing counter", fromModule: "m16", introducedByLessonId: "ja-m16-neo-9", kind: "vocab", blocked: true, note: "bound counter — no concrete referent of its own" },
+  // なかった is the ONE conjugated surface m16 has to register. Every other
+  // past-negative it teaches is derivable — たべなかった / のまなかった /
+  // いかなかった come out of VERB_ENTRIES via the nai-past chain, さむかった out
+  // of ADJ_ENTRIES — but ある and いる are absent from VERB_ENTRIES entirely, so
+  // ある's past negative exists in no lexicon the guards read. Without a row
+  // here 「じかんが なかったから」 tokenizes as なか ("inside") + った, which is
+  // both an untracked fragment AND a silent SRS mis-credit: the same class m14
+  // documented for いけません and m15 for こと/とき.
+  { id: "nakatta", kana: "なかった", romaji: "nakatta", meaningEn: "there wasn't, didn't have", shortGloss: "didn't have", fromModule: "m16", introducedByLessonId: "ja-m16-neo-8", kind: "vocab", blocked: true, note: "past negative of ある — ある is not in VERB_ENTRIES, so no lexicon derives it" },
 ];
 
 /**

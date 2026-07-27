@@ -1,0 +1,681 @@
+module: m16
+title: "Connecting: から/ので, ranges, なかった"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15]
+
+priorGrammarPoints: [wo-object, no-possession, ni-location, ni-time, de-action, mo-also,
+                     dare, kore-sore-are-dore, koko-soko-asoko, spatial-relations, location-qa,
+                     nai-existence, arimasu, imasu, ga-existence,
+                     masu-present, masu-negative, masu-past, desu-copula, desu-past, ka-question,
+                     dictionary-form, ta-form, te-form, te-iru, te-kara, mae-ni, toki,
+                     numbers-1-10, numbers-11-99, counter-ji, counter-tsu, kudasai,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, to-and, mada-mou]
+
+notes: |
+  m16 = spine tile s13. CONNECTING CLAUSES — から (because), ので (softer
+  because), けど (but) — plus から's OTHER job (origin), the から…まで span, and
+  the two past-negative cells that close the paradigm (ませんでした, なかった).
+
+  THE WHOLE POINT — the reason comes FIRST in Japanese.
+
+  1. **から attaches to the REASON, and the reason clause leads.**
+     「さむいから うちに いる」 = it's cold, so I'm staying home. English puts
+     the reason SECOND ("I'm staying home because it's cold"); Japanese puts it
+     first and hangs から on its end. Every card in the first half says this out
+     loud — it is a word-ORDER fact, not a vocabulary fact, and it is the one
+     thing learners get wrong here.
+  2. **から / ので / けど are ONE shape with three meanings.** All three hang on
+     the END of a plain clause and join it to what follows: reason, softer
+     reason, concession. Teaching them as one slot with three fillers is what
+     lets L4's cloze put all three in the same frame and let the ENGLISH pick
+     the winner.
+  3. **The だ / な split is the trap worth an anti-pattern beat.** A noun or
+     な-adjective takes だ before から and けど (ゆきだから, ゆきだけど) but な
+     before ので (しずかなので). L3's antiPattern is exactly 「しずかだので」.
+  4. **から also marks ORIGIN, and the test is what sits in front of it.**
+     After a NOUN it is "from" (にほんから くる); after a whole CLAUSE it is
+     "because" (さむいから いかない). L5 teaches the two senses as a deliberate
+     contrast rather than hoping the learner notices.
+  5. **ませんでした closes the ます table** (L7) and **なかった closes the plain
+     one** (L8). Neither is a new formation: ません + でした is two pieces the
+     learner already says, and ない → なかった is the い-adjective swap m12
+     already drilled on たかい → たかかった. Both lessons carry a
+     conjugation_transform ramp.
+  6. **〜まい** (L9) is the flat-thing counter, and the kindest counter in the
+     language — no reading ever changes.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation).
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **`made-until` moves from m19's ledger row to m16's — the SPINE wins over
+    the coverage table, and the table is EDITED rather than ignored.**
+    spinePlan s13 lists "から…まで" in so many words; spinePlan s15 (m19) lists
+    only "で means / に arrival / へ direction; までに". So the SPAN belongs
+    here, beside the から this module already owns, and only までに (`made-ni`)
+    stays with m19. Splitting から…まで across two modules would teach half a
+    pair twice — the same argument m14/m15 used to keep まえに and てから
+    together. `docs/RUN-PLAN-n4.md`'s m16 and m19 rows are edited to match.
+  - **`kara-time` does NOT move.** m16 spends から on clock times (「くじから
+    ごじまで はたらく」) but the card that teaches it is `kara-origin` — "から
+    marks where something STARTS, a place or a time" is one fact with one rule,
+    and m19 keeps the formal time-particle tile (`kara-time`, `made-ni`,
+    `counter-fun`) where it sits beside に-time and へ. A second rule beat in
+    the same lesson is illegal anyway (m14's layout law: two `kind: rule` beats
+    compile to two PINNED, ADJACENT grammar_rule steps and fail the adjacency
+    bar), so the honest choice was one card, not a split one.
+  - **MONTHS ship as ONE atom, がつ, not twelve.** spinePlan s13 asks for months
+    beside the span. Registering いちがつ…じゅうにがつ as twelve atoms would make
+    the module a vocabulary table (and each would owe its own ≥3 occurrences),
+    so がつ is registered alone and every month is built compositionally from a
+    number the learner already owns + がつ — which is also the pedagogy, exactly
+    as m11 taught じゅう+X. Deliberately UNUSED: にがつ and じゅうにがつ (both
+    tokenize through に, the documented homograph trap — に the particle vs に
+    the numeral 2 — so a month containing it mis-credits SRS silently) and
+    しちがつ (しち is a courseAtom but no NEO module ever taught it; なな is what
+    the learner has). いちがつ / さんがつ / ろくがつ / くがつ / じゅうがつ carry
+    the teaching instead, and the card's PROSE names the しがつ/しちがつ/くがつ
+    irregular readings without putting them on a graded surface.
+  - **ぜんぜん lands as VOCABULARY, not as `frequency-adverbs`.** The spine wants
+    ぜんぜん promoted from grammar-mention to reviewed vocabulary (CEJC #97), and
+    its own GLUE-ADVERB DRIP line calls for "1-2 top-500 adverbs as vocab per
+    module, never a block". `frequency-adverbs` is m22's ledger row and stays
+    there; ぜんぜん arrives here as a word, on the L8 rule card, where the
+    negative it requires is the lesson's whole subject. Same move m12 made with
+    どう.
+  - **The PARADIGM SYNTHESIS lives in L7's rule PROSE, not in a card of its
+    own.** The spine asks for the full 2×2 (nonpast/past × pos/neg), plain and
+    polite, shown as ONE object for the first time. ませんでした IS the last
+    cell, so its card is where the table assembles; giving the synthesis a
+    separate rule beat would need either a tenth teaching lesson or a second
+    pinned rule step in one lesson (illegal, above). It sits in `rule:` prose
+    deliberately — prose is mixed-script and invisible to the provenance guard,
+    so naming たべなかった there cannot steal L8's debut.
+  - **は vs が gets the owned contrast lesson the spine asks for (L2), carried by
+    `wa-topic`.** The registry has no `wa-vs-ga` id and inv 42 forbids inventing
+    one, so m3's `wa-topic` is re-taught in contrast position — the same ⟳ move
+    m15 made with `ta-form`/`ga-existence` and m14 with `te-form`. Likewise
+    `nai-form` (m6's) carries the なかった card: the registry has no id for the
+    plain past negative, and なかった IS the ない form with an い-adjective
+    ending swapped. No ledger row moves for either; a re-teach is not a
+    re-assignment.
+  - **NO は/が particle_cloze anywhere.** Two independent rules forbid it: inv 5
+    (particle_cloze is an INTRODUCTION device — は is m3's, が is m4's) and
+    `particleClozePlacement.test.ts` (a true all-particle cloze may not land
+    beyond intro + 2). More importantly it would be pedagogically wrong: inv 35
+    records that は↔が is never offered as a contrast because swapping them
+    usually yields correct Japanese, so half the frames would mark a right
+    answer wrong. L2 drills the pair by PRODUCTION (builds where the learner
+    lays the particle down) and by question-word frames where only が is
+    grammatical.
+  - **さむい / やすみ / うち are declared in `newAtoms` although courseAtoms
+    already has rows for them** (stale `fromModule` m8 / m10 / m6, from the old
+    course). Same move m15 made with まえ and m13 with だいがく: without the
+    declaration the compiler treats them as already-known and they leak in as
+    words the learner is assumed to have. さむい and やすみ are imageable, so
+    both debut on a `word_image_mcq`, and NEITHER is named in any rule card —
+    requireImageFirst reads the RAW step JSON, rule cards are pinned first, and
+    a mention there would steal the picture debut (m14 learned this the hard
+    way). うち has no emoji, so the L1 rule card IS its introduction; it is here
+    because it is CEJC #127 and has been seen once in the whole course (inv 27).
+  - **A listening_build may never carry a module-new atom's FIRST appearance.**
+    `mode: listening` compiles to `listening_build`, which has TILES (so a bare
+    ので / まで / がつ / まい tile is a token-initial appearance) but is NOT
+    intro-capable. `mode: translate` and dialogue lines are safe by contrast —
+    neither decomposes into tiles, and no sentence here begins with one of those
+    words. So in each introducing lesson the `mode: listening` beat is
+    deliberately built from EARLIER material, unless the atom is already spelled
+    token-initially on that lesson's pinned rule card (ぜんぜん, いかなかった).
+  - **Verbs the context pack calls known but the guards do not: かく / たつ /
+    うたう / なる / ふる / さく / しち.** The pack's word list is built from
+    courseAtoms attribution; the taught-set the guards use comes from prior neo
+    LESSONS, and `priorVocab` in the compiled JSON is the authority. Every
+    surface in this file was checked against it. That is also why あそばない,
+    はたらいた, まった, あった, いた, いました, さむくなかった and みせなかった
+    never appear: their bases are taught but those particular cells are neither
+    courseAtoms nor IR atoms of any module, so the tokenizer shatters them (the
+    documented `unbuildable` class). わからなかった was dropped for a different
+    reason — わかる's registry gloss is "to be understood", which shares no
+    content word with "didn't understand", and the gloss-mismatch diagnostic is
+    right to say so.
+  - **NO この/その/あの** (m17's `kono-sono-ano-dono`) and **no きた as the past
+    of くる** (きた is already an atom meaning "north" — the homograph trap m15
+    documented). Where "that shop" was tempting, this module reaches for a
+    relative clause (m15's machinery) or ここ/そこ.
+  - **Clause boundaries are SPACES, never 、.** `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored 「さむいから、うちに いる」
+    compiles to the run-on target AND the run-on TTS key. Only rule-card prose
+    and dialogue lines, which render raw, keep a 、 here.
+  - **Bound-suffix check (inv 41).** まい and がつ are new FREE atoms, so both
+    were checked against every kana in the registry before shipping: がつ is a
+    substring of nothing; まい sits inside せまい / あまい / まいにち / まいばん /
+    まいあさ / まいしゅう / まいとし / まいねん / まいげつ / まいつき, and every
+    one of those is itself a registered atom, so the longest-match tokenizer
+    consumes them whole and まい can never be split out of one.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson here
+  carries exactly one, because this module owes nine points across nine teaching
+  lessons.
+
+  CONJUGATION RAMPS (inv 37). Two, and only two: L7 (`masu-past-neg`) and L8
+  (`nai-past`). The ramp is pinned ahead of the interleaved middle and is NOT
+  intro-capable, so for each one the three forms it can emit — たべませんでした /
+  のみませんでした / しませんでした, and たべなかった / のまなかった / しなかった —
+  are the FIRST THREE in-scope entries of `newAtoms` in declaration order, and
+  every one of them is spelled out in its own rule card's `examples:`. Every BASE
+  the ramp prints (たべる, のむ, する) is taught in m5 and present in
+  `priorVocab`; the m14 defect (a ramp drilling すむ, a verb taught in no module)
+  cannot recur here. Every other conjugated atom carries NO `verbClass`, which is
+  what keeps it out of ramp material entirely.
+
+  CONNECTIVES + COMPLEXITY (inv 13): this module IS a connective module — から,
+  ので and けど are three of the eight surfaces `isComplexSentence` counts, so
+  nearly every production sentence is two clauses by construction.
+
+  REINFORCEMENT (inv 27): うち (CEJC #127, seen ~1× in the whole course before
+  now) is re-taught rather than assumed; かぜ, とりにく, しゃしん, てがみ and
+  シャツ — the context pack's under-exposed targets that survive the priorVocab
+  check — rotate as carriers so the module is not a wall of ほん and ごはん.
+
+grammarPoints:
+  - id: kara-because
+    rule: "から means \"because\" — and the piece that catches every English speaker is WHERE it goes. The reason comes FIRST in Japanese, and から hangs on the END of it: 「いそがしいから うちに いる」 = I'm busy, so I'm staying home. English says the result first and the reason second; Japanese always says the reason first and lets から close it off. Whatever sits in front of から stays in its PLAIN form — a verb, an い-adjective, anything. A noun or a な-adjective needs だ first: 「ゆきだから いかない」."
+    examples:
+      - { ja: "いそがしいから うちに いる。", en: "I'm busy, so I'm staying home." }
+      - { ja: "たかいから かわない。", en: "It's expensive, so I won't buy it." }
+      - { ja: "おいしいから よく たべる。", en: "It's delicious, so I eat it often." }
+      - { ja: "じかんが ないから いかない。", en: "I have no time, so I'm not going." }
+      - { ja: "ゆきだから ミカは こない。", en: "It's snowing, so Mika isn't coming." }
+    antiPattern: { ja: "いそがしいだから うちに いる。", why: "から hangs straight onto the plain form — an い-adjective never takes だ. Only a noun or a な-adjective does: いそがしいから うちに いる。" }
+  - id: wa-topic
+    rule: "は and が both sit behind the person or thing doing something, and they do different jobs. は marks the TOPIC — what the sentence is about, something already in play: 「ミカは がくせいだ」. が marks NEW information — the piece the listener does not have yet, and the ANSWER to a question word: 「だれが くる？」「ケンが くる。」 A question word can never take は, because nothing nobody has named yet can be the topic. There is one more place が is compulsory: inside a reason clause. は belongs to the whole sentence and a sentence gets one topic, so the clause in front of から takes が instead: 「ケンが くるから うちで まつ」."
+    examples:
+      - { ja: "だれが くる？", en: "Who's coming?" }
+      - { ja: "ケンが くるから うちで まつ。", en: "Ken is coming, so I'll wait at home." }
+      - { ja: "ミカは がくせいだから いそがしい。", en: "Mika is a student, so she's busy." }
+      - { ja: "ここは とりにくが おいしい。", en: "The chicken here is delicious." }
+      - { ja: "わたしは じかんが ない。", en: "I have no time." }
+    antiPattern: { ja: "だれは くる？", why: "a question word never takes は — you cannot make a topic out of someone nobody has named yet: だれが くる？" }
+  - id: node-because
+    rule: "ので is から's quieter twin. Same job — it marks the reason, and the reason still comes first — but it SOUNDS softer and more matter-of-fact. から is you asserting the reason; ので presents it as simply how things are, which is why ので is what you reach for when you are explaining yourself to a teacher, to a shop, or to anyone you want to be careful with. It hangs on the plain form exactly like から, with one difference that catches everybody: a noun or a な-adjective takes な in front of ので, never だ. 「しずかなので ここが すきだ」, and 「ゆきなので ミカは こない」."
+    examples:
+      - { ja: "しずかなので ここが すきだ。", en: "It's quiet, so I like it here." }
+      - { ja: "たかいので かわない。", en: "It's expensive, so I won't buy it." }
+      - { ja: "じかんが ないので いかない。", en: "I have no time, so I'm not going." }
+      - { ja: "ゆきなので ミカは こない。", en: "It's snowing, so Mika isn't coming." }
+      - { ja: "あした じゅぎょうが あるので うちに いる。", en: "I have class tomorrow, so I'm staying home." }
+    antiPattern: { ja: "しずかだので ここが すきだ。", why: "な-adjectives take な in front of ので, never だ — だ is what から and けど take: しずかなので ここが すきだ。" }
+  - id: kedo
+    rule: "けど is \"but\", and it is built the same way as から and ので: it hangs on the END of the first clause, on the plain form, and holds both halves in ONE sentence. 「たかいけど かいたい」 = it's expensive, but I want to buy it. You already know でも, and the difference is mechanical rather than a matter of meaning — でも STARTS a new sentence (「たかい。でも かいたい。」) while けど JOINS two clauses inside one. And けど takes だ after a noun or a な-adjective, like から and unlike ので: 「ゆきだけど いく」."
+    examples:
+      - { ja: "たかいけど かいたい。", en: "It's expensive, but I want to buy it." }
+      - { ja: "いそがしいけど いく。", en: "I'm busy, but I'll go." }
+      - { ja: "ゆきだけど いく。", en: "It's snowing, but I'll go." }
+      - { ja: "のんだけど まだ のみたい。", en: "I drank, but I still want more." }
+      - { ja: "ここは しずかだけど すきじゃない。", en: "It's quiet here, but I don't like it." }
+    antiPattern: { ja: "たかいだけど かいたい。", why: "けど hangs straight onto the plain form — an い-adjective never takes だ. Only a noun or a な-adjective does: たかいけど かいたい。" }
+  - id: kara-origin
+    rule: "から has a second job, and it is the older one: it marks where something comes FROM. 「にほんから くる」 = comes from Japan. Same word, and there is one test that always tells you which から you are looking at — what sits in FRONT of it. A NOUN in front means \"from\" (「アメリカから」, a place). A whole CLAUSE in front means \"because\" (「たかいから」, a sentence). It marks the start of a TIME exactly the way it marks the start of a place: 「くじから はたらく」 = I work from nine, 「あさから いそがしい」 = I've been busy since morning."
+    examples:
+      - { ja: "トムは アメリカから くる。", en: "Tom is coming from America." }
+      - { ja: "くじから はたらく。", en: "I work from nine." }
+      - { ja: "にほんから ともだちが くる。", en: "A friend is coming from Japan." }
+      - { ja: "あさから いそがしい。", en: "I've been busy since morning." }
+      - { ja: "ごごから じゅぎょうが ある。", en: "I have class from the afternoon." }
+    antiPattern: { ja: "トムは アメリカを くる。", why: "から marks where you come FROM — を marks a direct object, and くる has none: トムは アメリカから くる。" }
+  - id: made-until
+    rule: "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ — with three readings you simply take as they come: shigatsu for 4, shichigatsu for 7, kugatsu for 9."
+    examples:
+      - { ja: "くじから ごじまで はたらく。", en: "I work from nine to five." }
+      - { ja: "ごじまで まつ。", en: "I'll wait until five." }
+      - { ja: "いちがつから さんがつまで さむい。", en: "It's cold from January to March." }
+      - { ja: "にほんから アメリカまで いく。", en: "I'll go from Japan to America." }
+      - { ja: "あさから ばんまで えいがを みた。", en: "I watched movies from morning till evening." }
+    antiPattern: { ja: "くじから ごじから はたらく。", why: "the end of a span is まで, never a second から: くじから ごじまで はたらく。" }
+  - id: masu-past-negative
+    rule: "You already own three quarters of the ます table — たべます, たべません, たべました — and this is the last cell: \"didn't\". Take the ません you already say and add the でした you already say. たべません + でした → たべませんでした. Nothing is rebuilt and nothing is irregular; every verb does it the same way. Here is the whole thing in one place for the first time, plain on the left and polite on the right. Non-past: taberu / tabemasu. Non-past negative: tabenai / tabemasen. Past: tabeta / tabemashita. Past negative: tabenakatta / tabemasendeshita. Plain is still your default; the polite column is the register you switch into for a teacher, a shop, or a stranger."
+    conjugation: { form: masu-past-neg, classes: [ru, u, irregular] }
+    examples:
+      - { ja: "きのう ごはんを たべませんでした。", en: "I didn't eat yesterday." }
+      - { ja: "あさ ちゃを のみませんでした。", en: "I didn't drink tea in the morning." }
+      - { ja: "きのうは なにも しませんでした。", en: "I didn't do anything yesterday." }
+      - { ja: "ミカは きませんでした。", en: "Mika didn't come." }
+      - { ja: "えいがを みませんでした。", en: "I didn't watch the movie." }
+    antiPattern: { ja: "きのう ごはんを たべませんだ。", why: "ません takes the whole でした, never a bare だ: きのう ごはんを たべませんでした。" }
+  - id: nai-form
+    rule: "The plain \"didn't\" is the ない form with its ending swapped: ない → なかった. That is not a new rule to learn — ない conjugates like an い-adjective, and you already turn たかい into たかかった the same way. たべない → たべなかった. いかない → いかなかった. ある keeps the pair you know: ない → なかった, \"there wasn't\". The copula matches it too: じゃない → じゃなかった. Put any of them in front of から or ので and you have every excuse you will ever need. One word travels with them: ぜんぜん, \"not at all\", which only ever appears alongside a negative."
+    conjugation: { form: nai-past, classes: [ru, u, irregular] }
+    examples:
+      - { ja: "きのう ごはんを たべなかった。", en: "I didn't eat yesterday." }
+      - { ja: "あさ ちゃを のまなかった。", en: "I didn't drink tea in the morning." }
+      - { ja: "きのうは なにも しなかった。", en: "I didn't do anything yesterday." }
+      - { ja: "じかんが なかったから いかなかった。", en: "I had no time, so I didn't go." }
+      - { ja: "ぜんぜん おもしろくなかった。", en: "It wasn't interesting at all." }
+    antiPattern: { ja: "きのう ごはんを たべないかった。", why: "ない drops its い before かった, exactly like たかい → たかかった: きのう ごはんを たべなかった。" }
+  - id: counter-mai
+    rule: "Flat things — tickets, photographs, letters, shirts, plates — are counted with 〜まい, and it is the kindest counter in the language: no reading ever changes. ichimai, sanmai, yonmai, gomai, all the way up, exactly as you already say the numbers. It sits after the thing being counted and in front of the verb: 「きっぷを さんまい かった」 = I bought three tickets. To ask how many, なんまい: 「きっぷを なんまい かう？」"
+    examples:
+      - { ja: "きっぷを さんまい かった。", en: "I bought three tickets." }
+      - { ja: "しゃしんを ごまい みた。", en: "I looked at five photos." }
+      - { ja: "シャツを よんまい かう。", en: "I'll buy four shirts." }
+      - { ja: "きっぷを なんまい かう？", en: "How many tickets are you buying?" }
+      - { ja: "しゃしんを いちまい ください。", en: "One photo, please." }
+    antiPattern: { ja: "きっぷを さん かった。", why: "a bare number cannot count a noun in Japanese — flat things need まい: きっぷを さんまい かった。" }
+
+newAtoms:
+  # ══ L1. さむい already has a courseAtoms row (stale fromModule m8, emoji 🥶),
+  #    declared here so it gets a real teach-first debut instead of arriving as
+  #    a word the learner is assumed to know. Deliberately absent from EVERY
+  #    rule card in this file — requireImageFirst reads the RAW step JSON and
+  #    rule cards are pinned first, so a mention there steals the picture debut.
+  - { kana: さむい, romaji: samui, gloss: "cold (weather)", shortGloss: "cold", imageable: true, kind: vocab }
+  #    うち: CEJC #127, seen ONCE in the whole course so far (inv 27). No emoji
+  #    in the registry, so the L1 rule card is its introduction.
+  - { kana: うち, romaji: uchi, gloss: "home, my place", shortGloss: "home", imageable: false, kind: vocab }
+  # ══ L3
+  - { kana: ので, romaji: node, gloss: "because (softer)", shortGloss: "because", imageable: false, kind: vocab }
+  # ══ L4
+  - { kana: けど, romaji: kedo, gloss: "but", imageable: false, kind: vocab }
+  # ══ L6 — the span, the month suffix, and the module's second picture debut.
+  - { kana: まで, romaji: made, gloss: "until, as far as", shortGloss: "until", imageable: false, kind: vocab }
+  - { kana: がつ, romaji: gatsu, gloss: "month (in a date)", shortGloss: "month", imageable: false, kind: vocab }
+  - { kana: やすみ, romaji: yasumi, gloss: "holiday, time off", shortGloss: "holiday", imageable: true, kind: vocab }
+  # ══ L7 — ませんでした. ORDER MATTERS (inv 37): the ramp takes the FIRST THREE
+  #    in-scope entries of this list, so the three drilled are the three the
+  #    masu-past-negative card spells out, and each of their BASES (たべる /
+  #    のむ / する) is taught in m5. The rest carry no verbClass at all.
+  - { kana: たべませんでした, romaji: tabemasendeshita, gloss: "didn't eat (polite)", shortGloss: "didn't eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のみませんでした, romaji: nomimasendeshita, gloss: "didn't drink (polite)", shortGloss: "didn't drink", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: しませんでした, romaji: shimasendeshita, gloss: "didn't do (polite)", shortGloss: "didn't make/do", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: いきませんでした, romaji: ikimasendeshita, gloss: "didn't go (polite)", shortGloss: "didn't travel/go", imageable: false, kind: verb-form, derivedFrom: いく }
+  - { kana: みませんでした, romaji: mimasendeshita, gloss: "didn't watch (polite)", shortGloss: "didn't watch", imageable: false, kind: verb-form, derivedFrom: みる }
+  - { kana: かいませんでした, romaji: kaimasendeshita, gloss: "didn't buy (polite)", shortGloss: "didn't buy", imageable: false, kind: verb-form, derivedFrom: かう }
+  - { kana: きませんでした, romaji: kimasendeshita, gloss: "didn't come (polite)", shortGloss: "didn't come", imageable: false, kind: verb-form, derivedFrom: くる }
+  #    さむかった rides L7 as a PAST reason ("I didn't go because it was cold").
+  #    No verbClass, so the ませんでした ramp can never pick it up.
+  - { kana: さむかった, romaji: samukatta, gloss: "was cold", imageable: false, kind: adj-form, derivedFrom: さむい }
+  # ══ L8 — なかった. Same ordering rule: the first three in-scope entries ARE
+  #    the ramp, and all three are spelled out on the nai-form card.
+  - { kana: たべなかった, romaji: tabenakatta, gloss: "didn't eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のまなかった, romaji: nomanakatta, gloss: "didn't drink", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: しなかった, romaji: shinakatta, gloss: "didn't do", shortGloss: "didn't make/do", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: いかなかった, romaji: ikanakatta, gloss: "didn't go", shortGloss: "didn't travel/go", imageable: false, kind: verb-form, derivedFrom: いく }
+  - { kana: みなかった, romaji: minakatta, gloss: "didn't watch", imageable: false, kind: verb-form, derivedFrom: みる }
+  - { kana: かわなかった, romaji: kawanakatta, gloss: "didn't buy", imageable: false, kind: verb-form, derivedFrom: かう }
+  - { kana: こなかった, romaji: konakatta, gloss: "didn't come", imageable: false, kind: verb-form, derivedFrom: くる }
+  #    ある's past negative. shortGloss deliberately reads "didn't have" so that
+  #    it shares a content word with ある's registry gloss ("to be, to have …") —
+  #    the gloss-mismatch diagnostic compares exactly that.
+  - { kana: なかった, romaji: nakatta, gloss: "there wasn't, didn't have", shortGloss: "didn't have", imageable: false, kind: verb-form, derivedFrom: ある }
+  - { kana: ぜんぜん, romaji: zenzen, gloss: "not at all (with a negative)", shortGloss: "not at all", imageable: false, kind: vocab }
+  # ══ L9
+  - { kana: まい, romaji: mai, gloss: "counter for flat things", shortGloss: "flat-thing counter", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-1
+    role: teaching
+    title: "いそがしいから うちに いる — the reason comes first"
+    focus: "から marks the REASON, and in Japanese the reason clause comes FIRST — the opposite order to English"
+    introduces: [さむい, うち]
+    beats:
+      - { kind: rule, grammarPointId: kara-because }
+      - { kind: sentence, ja: "さむいから うちに いる。", en: "It's cold, so I'm staying home", exercises: [kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "たかいから かわない。", en: "It's expensive, so I won't buy it", exercises: [kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "おいしいから よく たべる。", en: "It's delicious, so I eat it often", exercises: [kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "じかんが ないから いかない。", en: "I have no time, so I'm not going", exercises: [kara-because, nai-existence], mode: listening }
+      - { kind: sentence, ja: "ミカが くるから うちに いる。", en: "Mika is coming, so I'm staying home", exercises: [kara-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "ゆきだから ミカは こない。", en: "It's snowing, so Mika isn't coming", exercises: [kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "にぎやかだから ここが すきだ。", en: "It's lively, so I like it here", exercises: [kara-because, na-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "いそがしいから うちに いる。", en: "Say to a friend: I'm staying home because I'm busy", exercises: [kara-because], mode: translate }
+      - { kind: particle-cloze, stem: "さむい", tail: " うちに いる。", answer: "から", options: ["から", "でも", "まだ"], en: "It's cold, so I'm staying home", explanation: "から closes the reason clause and holds both halves in one sentence. でも would have to start a new sentence, and まだ means \"still\"." }
+      - { kind: listening-comp, audio: "やすいから かう。", answer: "It's cheap, so I'll buy it", distractors: ["It's expensive, so I won't buy it", "I bought it because it was cheap", "It's cheap, but I won't buy it"], exercises: [kara-because, i-adj-present] }
+      - { kind: listening-comp, audio: "ともだちが くるから きっさてんに いく。", answer: "A friend is coming, so I'm going to the coffee shop", distractors: ["A friend is coming, so I'm staying home", "I'm going to the coffee shop with a friend", "My friend went to the coffee shop"], exercises: [kara-because, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きょうは いく？", en: "Are you going today?" }
+          - { speaker: "Mika", ja: "ううん、さむいから。うちで えいがを みる。", en: "Nope — because it's cold. I'll watch a movie at home." }
+        questions:
+          - { q: "Why isn't Mika going?", options: ["Because it's cold", "Because she's busy", "Because it's expensive", "Because she has no time"], answer: "Because it's cold" }
+      - { kind: challenge, ja: "ミカが すきな みせは たかいから きょうは かいものを しない。", en: "The shop Mika likes is expensive, so I'm not shopping today", combines: [kara-because, ga-existence, na-adj-present, nai-form, i-adj-present], mode: build }
+    reviewPool: [いえ, じかん, みせ, ゆき, ともだち, えいが, かいもの, ほん, ちゃ, かぜ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-2
+    role: teaching
+    title: "だれが くる？ — は と が"
+    focus: "が carries NEW information and answers a question word; は marks the topic — and a reason clause takes が"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: wa-topic }
+      - { kind: sentence, ja: "あした だれが くる？", en: "Who's coming tomorrow?", exercises: [wa-topic, dare], mode: build }
+      - { kind: sentence, ja: "ケンが くるから うちで まつ。", en: "Ken is coming, so I'll wait at home", exercises: [wa-topic, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "ミカは がくせいだから いそがしい。", en: "Mika is a student, so she's busy", exercises: [wa-topic, kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "ここは とりにくが おいしい。", en: "The chicken here is delicious", exercises: [wa-topic, ga-existence, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "わたしは じかんが ない。", en: "I have no time", exercises: [wa-topic, nai-existence], mode: build }
+      - { kind: sentence, ja: "だれが かった？", en: "Who bought it?", exercises: [wa-topic, dare, ta-form], mode: build }
+      - { kind: sentence, ja: "さむいから ミカは うちに いる。", en: "It's cold, so Mika is staying home", exercises: [wa-topic, kara-because], mode: build }
+      - { kind: sentence, ja: "きょうは じかんが ない。", en: "Say to a friend: I have no time today", exercises: [wa-topic, nai-existence], mode: translate }
+      - { kind: particle-cloze, stem: "あした ", tail: " くる？", answer: "だれが", options: ["だれが", "だれは", "だれも"], en: "Who's coming tomorrow?", explanation: "a question word takes が — nobody can be the topic before you know who they are. だれも needs a negative after it (\"nobody is coming\")." }
+      - { kind: listening-comp, audio: "ここは ちゃが おいしい。", answer: "The tea here is delicious", distractors: ["The tea here is expensive", "I like tea", "This tea is famous"], exercises: [wa-topic, ga-existence] }
+      - { kind: listening-comp, audio: "だれが ほんを かった？", answer: "Who bought the book?", distractors: ["Whose book is it?", "Did you buy the book?", "Who is looking at the book?"], exercises: [wa-topic, dare] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あした だれが くる？", en: "Who's coming tomorrow?" }
+          - { speaker: "Mika", ja: "トムが くる。トムは いそがしいから ごごに くる。", en: "Tom is. Tom is busy, so he's coming in the afternoon." }
+        questions:
+          - { q: "When is Tom coming?", options: ["In the afternoon", "In the morning", "At nine", "He isn't coming"], answer: "In the afternoon" }
+      - { kind: challenge, ja: "ミカが すきな えいがは ゆうめいだから きっぷが たかい。", en: "The movie Mika likes is famous, so the tickets are expensive", combines: [wa-topic, ga-existence, na-adj-present, kara-because], mode: build }
+    reviewPool: [さむい, うち, ひと, ともだち, えいが, きっぷ, じかん, とりにく, みせ, がくせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-3
+    role: teaching
+    title: "しずかなので — the softer reason"
+    focus: "ので is から's quieter twin — same slot, softer tone, and な (never だ) after a noun or な-adjective"
+    introduces: [ので]
+    beats:
+      - { kind: rule, grammarPointId: node-because }
+      - { kind: sentence, ja: "たかいので かわない。", en: "It's expensive, so I won't buy it", exercises: [node-because, nai-form], mode: build }
+      - { kind: sentence, ja: "じかんが ないので いかない。", en: "I have no time, so I'm not going", exercises: [node-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "しずかなので ここが すきだ。", en: "It's quiet, so I like it here", exercises: [node-because, na-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "ゆきだから ミカは こない。", en: "It's snowing, so Mika isn't coming", exercises: [kara-because, desu-copula], mode: listening }
+      - { kind: sentence, ja: "にぎやかなので ここは すきじゃない。", en: "It's noisy, so I don't like it here", exercises: [node-because, na-adj-negative], mode: build }
+      - { kind: sentence, ja: "あした じゅぎょうが あるので うちに いる。", en: "I have class tomorrow, so I'm staying home", exercises: [node-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "いそがしいので あした いく。", en: "I'm busy, so I'll go tomorrow", exercises: [node-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "さむいので うちに いる。", en: "Say to a friend: I'm staying home because it's cold", exercises: [node-because], mode: translate }
+      - { kind: particle-cloze, stem: "しずか", tail: " ここが すきだ。", answer: "なので", options: ["なので", "ので", "だので"], en: "It's quiet, so I like it here", explanation: "a な-adjective takes な in front of ので — しずかなので. しずかので is missing the な, and しずかだので uses the だ that belongs to から and けど." }
+      - { kind: listening-comp, audio: "いそがしいので きっさてんに いかない。", answer: "I'm busy, so I'm not going to the coffee shop", distractors: ["I'm busy, but I'm going to the coffee shop", "I'm not busy, so I'm going to the coffee shop", "I was busy, so I didn't go to the coffee shop"], exercises: [node-because, nai-form] }
+      - { kind: listening-comp, audio: "にぎやかなので ここが きらいだ。", answer: "It's noisy, so I hate it here", distractors: ["It's quiet, so I like it here", "It's noisy, but I like it here", "I hate the music here"], exercises: [node-because, na-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あした くる？", en: "Are you coming tomorrow?" }
+          - { speaker: "Tom", ja: "じゅぎょうが あるので あさは いきません。ごごに いきます。", en: "I have class, so I won't go in the morning. I'll go in the afternoon." }
+        questions:
+          - { q: "When will Tom go?", options: ["In the afternoon", "In the morning", "He isn't going at all", "At nine"], answer: "In the afternoon" }
+      - { kind: challenge, ja: "ミカが すきな きっさてんは しずかなので よく ちゃを のむ。", en: "The coffee shop Mika likes is quiet, so I often drink tea there", combines: [node-because, ga-existence, na-adj-present, wa-topic], mode: build }
+    reviewPool: [さむい, うち, じかん, きっさてん, ほん, みせ, ゆき, ともだち, えいが, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-review-1
+    role: review
+    title: "Review — saying why"
+    focus: "から and ので side by side, with が inside the reason clause and は outside it"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "さむいから うちに いる。", en: "It's cold, so I'm staying home", exercises: [kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "たかいので かわない。", en: "It's expensive, so I won't buy it", exercises: [node-because, nai-form], mode: build }
+      - { kind: sentence, ja: "ケンが くるから うちで まつ。", en: "Ken is coming, so I'll wait at home", exercises: [wa-topic, kara-because, de-action], mode: listening }
+      - { kind: sentence, ja: "しずかなので ここが すきだ。", en: "It's quiet, so I like it here", exercises: [node-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカは がくせいだから いそがしい。", en: "Mika is a student, so she's busy", exercises: [kara-because, desu-copula], mode: build }
+      - { kind: particle-cloze, stem: "しずか", tail: " ここが すきだ。", answer: "なので", options: ["なので", "だので", "ので"], en: "It's quiet, so I like it here", explanation: "な-adjectives take な in front of ので. だ belongs to から and けど, and bare ので is missing the な." }
+      - { kind: sentence, ja: "ここは とりにくが おいしい。", en: "The chicken here is delicious", exercises: [wa-topic, ga-existence], mode: build }
+      - { kind: listening-comp, audio: "じかんが ないので いかない。", answer: "I have no time, so I'm not going", distractors: ["I have time, so I'm going", "I'm not going because it's cold", "I have no money, so I'm not going"], exercises: [node-because, nai-existence] }
+      - { kind: sentence, ja: "ゆきだから ミカは こない。", en: "It's snowing, so Mika isn't coming", exercises: [kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "いそがしいから うちに いる。", en: "Say to a friend: I'm staying home because I'm busy", exercises: [kara-because], mode: translate }
+      - { kind: listening-comp, audio: "あした だれが くる？", answer: "Who's coming tomorrow?", distractors: ["Who bought it yesterday?", "Are you coming tomorrow?", "Where are you going tomorrow?"], exercises: [wa-topic, dare] }
+      - { kind: sentence, ja: "あした じゅぎょうが あるので うちに いる。", en: "I have class tomorrow, so I'm staying home", exercises: [node-because, ga-existence], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょう かいものに いく？", en: "Are you going shopping today?" }
+          - { speaker: "Ken", ja: "ううん、さむいから うちに いる。", en: "Nope, it's cold, so I'm staying home." }
+        questions:
+          - { q: "What is Ken doing today?", options: ["Staying home", "Going shopping", "Going to class", "Watching a movie"], answer: "Staying home" }
+    reviewPool: [さむい, うち, じかん, ともだち, えいが, きっさてん, とりにく, ゆき, みせ, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-4
+    role: teaching
+    title: "たかいけど かいたい — saying but"
+    focus: "けど joins two clauses the way から does, but marks a contrast; でも starts a new sentence, けど never does"
+    introduces: [けど]
+    beats:
+      - { kind: rule, grammarPointId: kedo }
+      - { kind: sentence, ja: "たかいけど かいたい。", en: "It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: build }
+      - { kind: sentence, ja: "いそがしいけど いく。", en: "I'm busy, but I'll go", exercises: [kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ゆきだけど いく。", en: "It's snowing, but I'll go", exercises: [kedo, desu-copula], mode: build }
+      - { kind: sentence, ja: "じかんが ないので いかない。", en: "I have no time, so I'm not going", exercises: [node-because, nai-existence], mode: listening }
+      - { kind: sentence, ja: "ここは しずかだけど すきじゃない。", en: "It's quiet here, but I don't like it", exercises: [kedo, na-adj-negative], mode: build }
+      - { kind: sentence, ja: "さむいけど うみに いく。", en: "It's cold, but I'm going to the sea", exercises: [kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "のんだけど まだ のみたい。", en: "I drank, but I still want more", exercises: [kedo, ta-form, v-tai], mode: build }
+      - { kind: sentence, ja: "たかいけど ほしい。", en: "Say to a friend: It's expensive, but I want it", exercises: [kedo, ga-hoshii], mode: translate }
+      - { kind: particle-cloze, stem: "いそがしい", tail: " いく。", answer: "けど", options: ["けど", "から", "ので"], en: "I'm busy, but I'll go", explanation: "けど is the contrast — the second half goes AGAINST the first. から and ので would make being busy the REASON for going." }
+      - { kind: listening-comp, audio: "やすいけど かわない。", answer: "It's cheap, but I won't buy it", distractors: ["It's cheap, so I'll buy it", "It's expensive, so I won't buy it", "It was cheap, so I bought it"], exercises: [kedo, nai-form] }
+      - { kind: listening-comp, audio: "ゆきだけど えきに いく。", answer: "It's snowing, but I'm going to the station", distractors: ["It's snowing, so I'm not going to the station", "It was snowing at the station", "I go to the station when it snows"], exercises: [kedo, desu-copula] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きっぷは たかい？", en: "Is the ticket expensive?" }
+          - { speaker: "Mika", ja: "たかいけど かいたい。ゆうめいな えいがだから。", en: "It's expensive, but I want to buy it. It's a famous movie." }
+        questions:
+          - { q: "What does Mika say about the ticket?", options: ["It's expensive, but she wants it", "It's cheap, so she'll buy it", "She already bought it", "She doesn't want it"], answer: "It's expensive, but she wants it" }
+      - { kind: challenge, ja: "ミカが かった くつは たかかったけど きれいだ。", en: "The shoes Mika bought were expensive, but they're pretty", combines: [kedo, ga-existence, ta-form, i-adj-past], mode: build }
+    reviewPool: [さむい, うち, ので, きっぷ, えいが, くつ, うみ, ちゃ, みせ, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-5
+    role: teaching
+    title: "にほんから くる — the other から"
+    focus: "から also marks where something starts FROM; a noun in front means 'from', a whole clause means 'because'"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: kara-origin }
+      - { kind: sentence, ja: "トムは アメリカから くる。", en: "Tom is coming from America", exercises: [kara-origin, wa-topic], mode: build }
+      - { kind: sentence, ja: "くじから はたらく。", en: "I work from nine", exercises: [kara-origin, counter-ji], mode: build }
+      - { kind: sentence, ja: "にほんから ともだちが くる。", en: "A friend is coming from Japan", exercises: [kara-origin, ga-existence], mode: build }
+      - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "ごごから じゅぎょうが ある。", en: "I have class from the afternoon", exercises: [kara-origin, ga-existence], mode: build }
+      - { kind: sentence, ja: "ごじから えいがを みる。", en: "I'll watch the movie from five", exercises: [kara-origin, wo-object], mode: build }
+      - { kind: sentence, ja: "さむいから ともだちは にほんから こない。", en: "It's cold, so my friend isn't coming from Japan", exercises: [kara-origin, kara-because], mode: build }
+      - { kind: sentence, ja: "あさから はたらく。", en: "Say to a friend: I work from the morning", exercises: [kara-origin], mode: translate }
+      - { kind: particle-cloze, stem: "トムは アメリカ", tail: " くる。", answer: "から", options: ["から", "けど", "ので"], en: "Tom is coming from America", explanation: "after a NOUN, から means \"from\". けど and ので can only ever follow a whole clause." }
+      - { kind: listening-comp, audio: "アメリカから ともだちが くる。", answer: "A friend is coming from America", distractors: ["A friend is going to America", "My friend is American", "A friend is coming from Japan"], exercises: [kara-origin, ga-existence] }
+      - { kind: listening-comp, audio: "ごぜんから いそがしい。", answer: "I'm busy from the morning", distractors: ["I'm busy in the afternoon", "I was busy this morning", "I'm not busy in the morning"], exercises: [kara-origin, i-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした だれが くる？", en: "Who's coming tomorrow?" }
+          - { speaker: "Ken", ja: "トムだ。アメリカから くる。ごぜんに えきに いく。", en: "Tom. He's coming from America. I'll go to the station in the morning." }
+        questions:
+          - { q: "Where is Tom coming from?", options: ["America", "Japan", "The university", "The station"], answer: "America" }
+      - { kind: challenge, ja: "にほんから くる ともだちに しゃしんを みせる。", en: "I'll show the photos to the friend coming from Japan", combines: [kara-origin, dictionary-form, ni-location, wo-object], mode: build }
+    reviewPool: [さむい, うち, ので, けど, えき, だいがく, ともだち, にほん, しゃしん, じゅぎょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-6
+    role: teaching
+    title: "くじから ごじまで — from here to there"
+    focus: "まで closes the span から opens — clock times, months and places alike"
+    introduces: [まで, がつ, やすみ]
+    beats:
+      - { kind: rule, grammarPointId: made-until }
+      - { kind: sentence, ja: "くじから ごじまで はたらく。", en: "I work from nine to five", exercises: [made-until, kara-origin, counter-ji], mode: build }
+      - { kind: sentence, ja: "ごじまで まつ。", en: "I'll wait until five", exercises: [made-until, counter-ji], mode: build }
+      - { kind: sentence, ja: "いちがつから さんがつまで さむい。", en: "It's cold from January to March", exercises: [made-until, kara-origin], mode: build }
+      - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin, desu-copula], mode: build }
+      - { kind: sentence, ja: "にほんから アメリカまで いく。", en: "I'll go from Japan to America", exercises: [made-until, kara-origin], mode: build }
+      - { kind: sentence, ja: "あさから ばんまで えいがを みた。", en: "I watched movies from morning till evening", exercises: [made-until, kara-origin, ta-form], mode: build }
+      - { kind: sentence, ja: "さんじまで まつ。", en: "Say to a friend: I'll wait until three", exercises: [made-until], mode: translate }
+      - { kind: particle-cloze, stem: "くじから ごじ", tail: " はたらく。", answer: "まで", options: ["まで", "から", "けど"], en: "I work from nine to five", explanation: "から opens the span and まで closes it. A second から would give the span two starts and no end." }
+      - { kind: listening-comp, audio: "ごぜんから ごごまで はたらく。", answer: "I work from the morning until the afternoon", distractors: ["I work from the afternoon until the evening", "I worked until the afternoon", "I don't work in the afternoon"], exercises: [made-until, kara-origin] }
+      - { kind: listening-comp, audio: "ろくがつから じゅうがつまで うみに いく。", answer: "I go to the sea from June to October", distractors: ["I go to the sea from October to June", "I went to the sea in June", "I don't go to the sea until October"], exercises: [made-until, kara-origin] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "やすみは いつ？", en: "When is your holiday?" }
+          - { speaker: "Tom", ja: "ろくがつから。くがつまで にほんに いる。", en: "From June. I'll be in Japan until September." }
+        questions:
+          - { q: "When does Tom's holiday start?", options: ["June", "September", "January", "March"], answer: "June" }
+      - { kind: challenge, ja: "なつやすみは ろくがつから くがつまでだから りょこうに いく。", en: "The summer holiday runs from June to September, so I'm going on a trip", combines: [made-until, kara-because, kara-origin, ni-location], mode: build }
+    reviewPool: [さむい, うち, ので, けど, じかん, にほん, えき, ほん, ともだち, なつやすみ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-review-2
+    role: review
+    title: "Review — but, from, and until"
+    focus: "けど against から, and から's two jobs — reason and origin — with まで closing the span"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たかいけど かいたい。", en: "It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: build }
+      - { kind: sentence, ja: "トムは アメリカから くる。", en: "Tom is coming from America", exercises: [kara-origin, wa-topic], mode: build }
+      - { kind: sentence, ja: "くじから ごじまで はたらく。", en: "I work from nine to five", exercises: [made-until, kara-origin], mode: listening }
+      - { kind: sentence, ja: "ゆきだけど いく。", en: "It's snowing, but I'll go", exercises: [kedo, desu-copula], mode: build }
+      - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "いそがしい", tail: " いく。", answer: "けど", options: ["けど", "ので", "から"], en: "I'm busy, but I'll go", explanation: "the second half goes against the first, so it is けど. ので and から would make being busy the reason for going." }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin], mode: build }
+      - { kind: listening-comp, audio: "ここは しずかだけど すきじゃない。", answer: "It's quiet here, but I don't like it", distractors: ["It's quiet here, so I like it", "It's noisy here, but I like it", "I don't like quiet places"], exercises: [kedo, na-adj-negative] }
+      - { kind: sentence, ja: "ごじまで まつ。", en: "I'll wait until five", exercises: [made-until, counter-ji], mode: build }
+      - { kind: sentence, ja: "さむいけど うみに いく。", en: "Say to a friend: It's cold, but I'm going to the sea", exercises: [kedo, ni-location], mode: translate }
+      - { kind: listening-comp, audio: "にほんから ともだちが くる。", answer: "A friend is coming from Japan", distractors: ["A friend is going to Japan", "My friend is Japanese", "A friend is coming from America"], exercises: [kara-origin, ga-existence] }
+      - { kind: sentence, ja: "いちがつから さんがつまで さむい。", en: "It's cold from January to March", exercises: [made-until, kara-origin], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あさから ばんまで はたらく？", en: "Do you work from morning till evening?" }
+          - { speaker: "Mika", ja: "うん、いそがしいけど おもしろい。", en: "Yeah, it's busy, but it's interesting." }
+        questions:
+          - { q: "What does Mika say about her work?", options: ["It's busy, but interesting", "It's easy and short", "She works until nine", "She doesn't work"], answer: "It's busy, but interesting" }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, えいが, うみ, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-7
+    role: teaching
+    title: "たべませんでした — the last polite cell"
+    focus: "ません + でした closes the ます table, and the whole 2×2 lands in one place — plain beside polite"
+    introduces: [たべませんでした, のみませんでした, しませんでした, いきませんでした, みませんでした, かいませんでした, きませんでした, さむかった]
+    beats:
+      - { kind: rule, grammarPointId: masu-past-negative }
+      - { kind: sentence, ja: "きのう ごはんを たべませんでした。", en: "Say politely: I didn't eat yesterday", exercises: [masu-past-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "あさ ちゃを のみませんでした。", en: "Say politely: I didn't drink tea in the morning", exercises: [masu-past-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "きのうは なにも しませんでした。", en: "Say politely: I didn't do anything yesterday", exercises: [masu-past-negative, wa-topic], mode: build }
+      - { kind: sentence, ja: "あさから ばんまで はたらく。", en: "I work from morning till evening", exercises: [made-until, kara-origin], mode: listening }
+      - { kind: sentence, ja: "さむかったから いきませんでした。", en: "Say politely: I didn't go because it was cold", exercises: [masu-past-negative, kara-because, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きっぷを かいませんでした。", en: "Say politely: I didn't buy a ticket", exercises: [masu-past-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "たかかったので えいがを みませんでした。", en: "It was expensive, so I didn't watch the movie", exercises: [masu-past-negative, node-because, i-adj-past], mode: listening }
+      - { kind: sentence, ja: "ミカは きませんでした。", en: "Say politely: Mika didn't come", exercises: [masu-past-negative, wa-topic], mode: translate }
+      - { kind: particle-cloze, stem: "きのう ごはんを ", tail: "。", answer: "たべませんでした", options: ["たべませんでした", "たべました", "たべません"], en: "I didn't eat yesterday", explanation: "past AND negative, so it is the last cell: たべませんでした. たべました is the past, and たべません the non-past negative." }
+      - { kind: listening-comp, audio: "きのう きっさてんに いきませんでした。", answer: "I didn't go to the coffee shop yesterday", distractors: ["I went to the coffee shop yesterday", "I don't go to coffee shops", "I won't go to the coffee shop tomorrow"], exercises: [masu-past-negative, ni-location] }
+      - { kind: listening-comp, audio: "あさ ごはんを たべませんでした。", answer: "I didn't eat in the morning", distractors: ["I ate in the morning", "I don't eat in the morning", "I didn't drink tea in the morning"], exercises: [masu-past-negative, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きのう じゅぎょうに きませんでした。", en: "You didn't come to class yesterday." }
+          - { speaker: "Tom", ja: "すみません。さむかったので いきませんでした。", en: "I'm sorry. It was cold, so I didn't go." }
+        questions:
+          - { q: "Why didn't Tom go to class?", options: ["It was cold", "He was busy", "He had no ticket", "He was in America"], answer: "It was cold" }
+      - { kind: challenge, ja: "ミカが すきな えいがは ゆうめいだけど きのうは みませんでした。", en: "Say politely: The movie Mika likes is famous, but I didn't watch it yesterday", combines: [masu-past-negative, kedo, ga-existence, na-adj-present], mode: build }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, えいが, ちゃ, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-8
+    role: teaching
+    title: "いかなかった — didn't, and why"
+    focus: "ない → なかった is the い-adjective swap you already know; excuses pair it with から and ので"
+    introduces: [たべなかった, のまなかった, しなかった, いかなかった, みなかった, かわなかった, こなかった, なかった, ぜんぜん]
+    beats:
+      - { kind: rule, grammarPointId: nai-form }
+      - { kind: sentence, ja: "きのう ごはんを たべなかった。", en: "I didn't eat yesterday", exercises: [nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "あさ ちゃを のまなかった。", en: "I didn't drink tea in the morning", exercises: [nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "きのうは なにも しなかった。", en: "I didn't do anything yesterday", exercises: [nai-form, wa-topic], mode: build }
+      - { kind: sentence, ja: "えいがは ぜんぜん おもしろくなかった。", en: "The movie wasn't interesting at all", exercises: [nai-form, i-adj-past-negative], mode: listening }
+      - { kind: sentence, ja: "ゆきだったから ともだちは こなかった。", en: "It was snowing, so my friend didn't come", exercises: [nai-form, kara-because, desu-past], mode: build }
+      - { kind: sentence, ja: "さむかったので えきまで いかなかった。", en: "It was cold, so I didn't go as far as the station", exercises: [nai-form, node-because, made-until], mode: listening }
+      - { kind: sentence, ja: "きっぷを かわなかったから えいがを みなかった。", en: "I didn't buy a ticket, so I didn't watch the movie", exercises: [nai-form, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "じかんが なかったから いかなかった。", en: "I had no time, so I didn't go", exercises: [nai-form, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "きのうは なにも しなかった。", en: "Say to a friend: I didn't do anything yesterday", exercises: [nai-form, wa-topic], mode: translate }
+      - { kind: particle-cloze, stem: "きのう ごはんを ", tail: "。", answer: "たべなかった", options: ["たべなかった", "たべない", "たべた"], en: "I didn't eat yesterday", explanation: "past AND negative: ない loses its い and takes かった — たべなかった. たべない is the non-past, and たべた the plain past." }
+      - { kind: listening-comp, audio: "きのう ともだちが こなかった。", answer: "My friend didn't come yesterday", distractors: ["My friend came yesterday", "My friend isn't coming today", "I didn't go to my friend's place"], exercises: [nai-form, ga-existence] }
+      - { kind: listening-comp, audio: "ぜんぜん おいしくなかった。", answer: "It wasn't delicious at all", distractors: ["It was delicious", "It wasn't expensive at all", "I didn't eat it at all"], exercises: [nai-form, i-adj-past-negative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きのう えいがを みた？", en: "Did you watch the movie yesterday?" }
+          - { speaker: "Mika", ja: "ううん、みなかった。じかんが なかったから。", en: "Nope, I didn't. Because I had no time." }
+        questions:
+          - { q: "Why didn't Mika watch the movie?", options: ["She had no time", "She didn't like it", "It was expensive", "She watched it today"], answer: "She had no time" }
+      - { kind: challenge, ja: "ゆきだったから ミカが すきな みせに いかなかった。", en: "It was snowing, so I didn't go to the shop Mika likes", combines: [nai-form, kara-because, ga-existence, na-adj-present, desu-past], mode: build }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, じかん, えいが, きっぷ, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-9
+    role: teaching
+    title: "きっぷを さんまい — counting flat things"
+    focus: "〜まい counts flat things and no reading ever changes; it sits after the noun and in front of the verb"
+    introduces: [まい]
+    beats:
+      - { kind: rule, grammarPointId: counter-mai }
+      - { kind: sentence, ja: "きっぷを さんまい かった。", en: "I bought three tickets", exercises: [counter-mai, ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "しゃしんを ごまい みた。", en: "I looked at five photos", exercises: [counter-mai, ta-form], mode: build }
+      - { kind: sentence, ja: "シャツを よんまい かう。", en: "I'll buy four shirts", exercises: [counter-mai, wo-object], mode: build }
+      - { kind: sentence, ja: "きっぷは たかかったので かわなかった。", en: "The tickets were expensive, so I didn't buy them", exercises: [node-because, nai-form, i-adj-past], mode: listening }
+      - { kind: sentence, ja: "しゃしんを いちまい ください。", en: "One photo, please", exercises: [counter-mai, kudasai], mode: build }
+      - { kind: sentence, ja: "たかかったから きっぷを いちまい かった。", en: "It was expensive, so I bought one ticket", exercises: [counter-mai, kara-because, ta-form], mode: build }
+      - { kind: sentence, ja: "きっぷを ごまい かいませんでした。", en: "Say politely: I didn't buy five tickets", exercises: [counter-mai, masu-past-negative], mode: build }
+      - { kind: sentence, ja: "きっぷを なんまい かう？", en: "How many tickets are you buying?", exercises: [counter-mai, ka-question], mode: build }
+      - { kind: sentence, ja: "しゃしんを さんまい みせる。", en: "Say to a friend: I'll show three photos", exercises: [counter-mai], mode: translate }
+      - { kind: particle-cloze, stem: "きっぷを ", tail: " かった。", answer: "さんまい", options: ["さんまい", "さんじ", "さん"], en: "I bought three tickets", explanation: "flat things are counted with まい — さんまい. さんじ is three o'clock, and a bare さん cannot count a noun at all." }
+      - { kind: listening-comp, audio: "きっぷを よんまい かう。", answer: "I'll buy four tickets", distractors: ["I'll buy four photos", "I bought four tickets", "I'll buy one ticket"], exercises: [counter-mai, wo-object] }
+      - { kind: listening-comp, audio: "しゃしんを いちまい みせる。", answer: "I'll show one photo", distractors: ["I'll show five photos", "I looked at one photo", "I'll buy one photo"], exercises: [counter-mai, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きっぷを なんまい かう？", en: "How many tickets are you buying?" }
+          - { speaker: "Tom", ja: "さんまい。ケンが くるから。", en: "Three. Because Ken is coming." }
+        questions:
+          - { q: "How many tickets is Tom buying?", options: ["Three", "One", "Five", "Four"], answer: "Three" }
+      - { kind: challenge, ja: "きっぷを ごまい かったけど ともだちは こなかった。", en: "I bought five tickets, but my friends didn't come", combines: [counter-mai, kedo, nai-form, ta-form], mode: build }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, しゃしん, てがみ, えいが]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-review-3
+    role: review
+    title: "Review — reasons, spans, and what didn't happen"
+    focus: "everything the module built: から, ので, けど, から…まで, ませんでした, なかった and 〜まい"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "さむいから うちに いる。", en: "It's cold, so I'm staying home", exercises: [kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "きのう ごはんを たべなかった。", en: "I didn't eat yesterday", exercises: [nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "くじから ごじまで はたらく。", en: "I work from nine to five", exercises: [made-until, kara-origin], mode: listening }
+      - { kind: sentence, ja: "きっぷを さんまい かった。", en: "I bought three tickets", exercises: [counter-mai, ta-form], mode: build }
+      - { kind: sentence, ja: "しずかなので ここが すきだ。", en: "It's quiet, so I like it here", exercises: [node-because, na-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "きっぷを ", tail: " かった。", answer: "さんまい", options: ["さんまい", "さん", "さんじ"], en: "I bought three tickets", explanation: "まい counts flat things. A bare number cannot count a noun, and さんじ is a time." }
+      - { kind: sentence, ja: "たかいけど かいたい。", en: "It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: build }
+      - { kind: listening-comp, audio: "きのう えいがを みませんでした。", answer: "I didn't watch a movie yesterday", distractors: ["I watched a movie yesterday", "I don't watch movies", "I won't watch the movie tomorrow"], exercises: [masu-past-negative] }
+      - { kind: sentence, ja: "にほんから ともだちが くる。", en: "A friend is coming from Japan", exercises: [kara-origin, ga-existence], mode: build }
+      - { kind: sentence, ja: "じかんが なかったから いかなかった。", en: "Say to a friend: I had no time, so I didn't go", exercises: [nai-form, kara-because], mode: translate }
+      - { kind: listening-comp, audio: "ぜんぜん おもしろくなかった。", answer: "It wasn't interesting at all", distractors: ["It was interesting", "It wasn't expensive at all", "It wasn't quiet at all"], exercises: [nai-form, i-adj-past-negative] }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin], mode: build }
+      - { kind: sentence, ja: "さむかったから いきませんでした。", en: "Say politely: I didn't go because it was cold", exercises: [masu-past-negative, kara-because], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きのう なにを した？", en: "What did you do yesterday?" }
+          - { speaker: "Mika", ja: "なにも しなかった。さむかったから。", en: "Nothing. Because it was cold." }
+        questions:
+          - { q: "What did Mika do yesterday?", options: ["Nothing", "She went shopping", "She watched a movie", "She worked"], answer: "Nothing" }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, えいが, じかん, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m16-neo-challenge
+    role: challenge
+    title: "Challenge — say why, say how long, say what didn't happen"
+    focus: "End-of-module stretch: reasons, contrasts, spans and past negatives stacked in shapes the teaching lessons never paired"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きっぷが たかかったので えいがを みませんでした。", en: "Say politely: The ticket was expensive, so I didn't watch the movie", exercises: [node-because, masu-past-negative, i-adj-past], mode: build }
+      - { kind: sentence, ja: "あさから ばんまで はたらいて いるから じかんが ない。", en: "I'm working from morning till evening, so I have no time", exercises: [made-until, kara-because, te-iru], mode: build }
+      - { kind: sentence, ja: "ミカが かった きっぷは やすかったけど えいがは ぜんぜん おもしろくなかった。", en: "The ticket Mika bought was cheap, but the movie wasn't interesting at all", exercises: [kedo, ga-existence, i-adj-past-negative], mode: listening }
+      - { kind: sentence, ja: "ろくがつから くがつまで にほんに いるから しゃしんを ごまい みせる。", en: "I'll be in Japan from June to September, so I'll show five photos", exercises: [made-until, kara-because, counter-mai], mode: build }
+      - { kind: sentence, ja: "アメリカから ともだちが くるので えきまで いく。", en: "A friend is coming from America, so I'll go as far as the station", exercises: [kara-origin, node-because, made-until], mode: build }
+      - { kind: sentence, ja: "さむかったけど うみに いく ともだちを まつ。", en: "It was cold, but I'll wait for the friend going to the sea", exercises: [kedo, dictionary-form, i-adj-past], mode: build }
+      - { kind: sentence, ja: "じかんが なかったので きっぷを いちまい かいませんでした。", en: "Say politely: I had no time, so I didn't buy a ticket", exercises: [node-because, masu-past-negative, counter-mai], mode: build }
+      - { kind: sentence, ja: "たかいけど かいたい。", en: "Say to a friend: It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: translate }
+      - { kind: particle-cloze, stem: "しずか", tail: " ここが すきだ。", answer: "なので", options: ["なので", "だので", "ので"], en: "It's quiet, so I like it here", explanation: "な-adjectives take な in front of ので — だ belongs to から and けど, and bare ので is missing the な." }
+      - { kind: listening-comp, audio: "ミカは くじから ごじまで はたらくので こない。", answer: "Mika works from nine to five, so she isn't coming", distractors: ["Mika worked from nine to five, so she didn't come", "Mika comes at five because she finishes work", "Mika isn't working, so she's coming at nine"], exercises: [made-until, node-because, nai-form] }
+      - { kind: listening-comp, audio: "ゆきだったから きっぷを いちまいも かわなかった。", answer: "It was snowing, so I didn't buy even one ticket", distractors: ["It was snowing, so I bought one ticket", "It's snowing, so I won't buy a ticket", "I bought one ticket in the snow"], exercises: [kara-because, counter-mai, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "なつやすみは どうでしたか。", en: "How was your summer holiday?" }
+          - { speaker: "Tom", ja: "ろくがつから くがつまで にほんに いきました。ゆきが ぜんぜん なかったので うみに いきました。", en: "I went to Japan from June to September. There was no snow at all, so I went to the sea." }
+        questions:
+          - { q: "Where did Tom go?", options: ["To the sea", "To America", "To the station", "To the coffee shop"], answer: "To the sea" }
+      - { kind: challenge, ja: "ミカが すきな きっさてんは くじから ごじまでだから ごごに ちゃを のまなかった。", en: "The coffee shop Mika likes runs from nine to five, so I didn't drink tea in the afternoon", combines: [made-until, kara-because, ga-existence, na-adj-present, nai-form], mode: build }
+    reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, しゃしん, えいが, じかん]

@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m15 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b) are
-    // LIVE via the compiler pipeline — slice them off so the placeholders
-    // begin at m16. NB the SPINE_COMING_SOON array still lists s11 before
+    // m6-m16 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13)
+    // are LIVE via the compiler pipeline — slice them off so the placeholders
+    // begin at m17. NB the SPINE_COMING_SOON array still lists s11 before
     // n06b (draft-3 order); draft-4 swapped them, which is why m14 is n06b
     // and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(10).map((t, i) => ({
-      id: `m${i + 16}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(11).map((t, i) => ({
+      id: `m${i + 17}`,
       title: t.title,
-      eyebrow: `Module ${i + 16} · Coming soon`,
+      eyebrow: `Module ${i + 17} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -630,6 +630,34 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m15-neo-challenge", title: "Challenge — say what, say when, say in what order", status: "available" as const },
           ],
           accent: { from: "#f97316", to: "#ea580c" },
+        },
+        {
+          // m16-neo (spine tile s13) — clause linking. から marks the REASON
+          // and the reason clause comes FIRST in Japanese; ので is its softer
+          // twin (な, never だ, after a noun or な-adjective); けど is the
+          // contrast in the same slot. から's other job is ORIGIN, まで closes
+          // the span it opens, and ませんでした / なかった fill the last cells
+          // of the polite and plain paradigms.
+          id: "m16",
+          title: "Connecting: から / ので / けど",
+          eyebrow: "Module 16 · reasons, spans and past negatives",
+          summary: "In Japanese the reason comes FIRST and から closes it: さむいから うちに いる. ので says the same thing more softly, けど turns it into a contrast, and から's other sense — \"from\" — pairs with まで to mark a span of time, months or distance. The module closes the paradigm with ませんでした and なかった, and counts flat things with 〜まい.",
+          lessons: [
+            { id: "ja-m16-neo-1", title: "いそがしいから うちに いる — the reason comes first", status: "available" as const },
+            { id: "ja-m16-neo-2", title: "だれが くる？ — は と が", status: "available" as const },
+            { id: "ja-m16-neo-3", title: "しずかなので — the softer reason", status: "available" as const },
+            { id: "ja-m16-neo-review-1", title: "Review — saying why", status: "available" as const },
+            { id: "ja-m16-neo-4", title: "たかいけど かいたい — saying but", status: "available" as const },
+            { id: "ja-m16-neo-5", title: "にほんから くる — the other から", status: "available" as const },
+            { id: "ja-m16-neo-6", title: "くじから ごじまで — from here to there", status: "available" as const },
+            { id: "ja-m16-neo-review-2", title: "Review — but, from, and until", status: "available" as const },
+            { id: "ja-m16-neo-7", title: "たべませんでした — the last polite cell", status: "available" as const },
+            { id: "ja-m16-neo-8", title: "いかなかった — didn't, and why", status: "available" as const },
+            { id: "ja-m16-neo-9", title: "きっぷを さんまい — counting flat things", status: "available" as const },
+            { id: "ja-m16-neo-review-3", title: "Review — reasons, spans, and what didn't happen", status: "available" as const },
+            { id: "ja-m16-neo-challenge", title: "Challenge — say why, say how long, say what didn't happen", status: "available" as const },
+          ],
+          accent: { from: "#14b8a6", to: "#0d9488" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

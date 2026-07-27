@@ -288,7 +288,12 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "ミカ", ja: "それは トムさんの ぼうしですか。", en: "Is that Tom's hat?" }
-          - { speaker: "たなか", ja: "いいえ、ケンさんのです。", en: "No, it's Ken's." }
+          # Was 「ケンさんのです。」 until m16 registered ので as an atom: the
+          # longest-match tokenizer then read 「のです」 as ので + す and reported
+          # ので debuting on a DIALOGUE (inv 41 — a bound morpheme changes how
+          # everything else containing that string segments). Naming the noun
+          # again is clearer anyway, and it keeps the question's answer intact.
+          - { speaker: "たなか", ja: "いいえ、ケンさんの ぼうしです。", en: "No, it's Ken's hat." }
         questions:
           - { q: "Whose hat is it?", options: ["Ken's", "Tom's", "Mika's", "Tanaka's"], answer: "Ken's" }
     reviewPool: [まど, めがね, でんわ, えんぴつ, きっぷ, そら, かぞく, ぼうし, にほんじん]

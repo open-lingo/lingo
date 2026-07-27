@@ -24,7 +24,7 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11.
+m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13.
 
 | m | unit | title |
 |---|---|---|
@@ -78,9 +78,9 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 (m15 in flight) |
-| N5 grammar points left | **51** of 103 (was 74 at run start) |
-| suite | 6137 passing, 0 failing |
+| authored this run | m11 m12 m13 m14 m15 m16 |
+| N5 grammar points left | **39** of 103 (was 74 at run start) |
+| suite | 6420 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
 | untaught words shipping as options | **0** (was routine) |
 
@@ -202,10 +202,10 @@ teaches four counters at once is a table, not a lesson).
 | 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki | ✅
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai **mada-mou** | ✅
 | 15 | dictionary-form toki mae-ni te-kara | ✅
-| 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** |
+| 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** **made-until** | ✅
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
 | 18 | to-omoimasu to-quotation kanji-set-1 |
-| 19 | e-direction ni-iku made-until made-ni kara-time **counter-fun** |
+| 19 | e-direction ni-iku made-ni kara-time **counter-fun** |
 | 20 | yori-comparison numbers-100-10000 counter-ko |
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
 | 22 | ga-itai frequency-adverbs counter-hai |
@@ -221,6 +221,28 @@ teaches four counters at once is a table, not a lesson).
 gets edited — the table is a coverage ledger, not a curriculum. Already
 reconciled: `masu-past-negative` m11→m16 (the spine defers ませんでした to the
 connectives tile) and `counter-fun` m11→m19 (ぷん rendaku defers to the drip).
+
+**A FIFTH reconciliation, m16 (2026-07-27) — `made-until` m19 → m16, and
+`kara-time` stays at m19.** spinePlan s13 lists "から…まで" in so many words,
+while spinePlan s15 (m19) lists only "で means / に arrival / へ direction;
+までに". The SPAN therefore belongs beside the から m16 already owns, and
+splitting から…まで across two modules would teach half a pair twice — the same
+argument m14/m15 used to keep まえに and てから together. The SPINE wins and the
+ledger row MOVED, exactly as this table's own rule requires. `kara-time` does
+NOT move: m16 spends から on clock times, but the card that teaches it is
+`kara-origin` ("から marks where something STARTS — a place or a time"), and
+m19 keeps the formal time-particle tile where it sits beside に-time and へ.
+Two more m16 notes: **months ship as ONE atom, がつ** (twelve month atoms would
+make the module a vocabulary table, and every month builds compositionally from
+a number the learner owns; にがつ/じゅうにがつ are deliberately unused because に
+is the documented homograph trap), and **ぜんぜん lands as vocabulary, not as
+`frequency-adverbs`** — that id stays on m22's row, while the spine's own
+GLUE-ADVERB DRIP line asks for adverbs as vocab, never as a block. m16 also
+RE-TEACHES `wa-topic` (the spine's "は vs が contrast — が's deepen beat"; the
+registry has no `wa-vs-ga` id and inv 42 forbids inventing one) and `nai-form`
+(the plain past negative なかった has no id of its own, and なかった IS the ない
+form with an い-adjective ending swapped). Neither row moves — a re-teach is not
+a re-assignment.
 
 **One reconciliation goes the OTHER way (m12, 2026-07-27).** spinePlan s09
 pulls なる (く/になる) forward from s23; the ledger keeps `ku-ni-naru` at m27
