@@ -265,7 +265,7 @@
         },
         {
           "ja": "うみに ちかい ホテルに はいる つもりだ。",
-          "en": "I intend to check into a hotel near the sea."
+          "en": "I intend to go into a hotel near the sea."
         },
         {
           "ja": "あしが いたいけど あるく つもりだ。",
@@ -313,7 +313,7 @@
         },
         {
           "ja": "すしを たべてから ホテルに はいる。",
-          "en": "I'll eat sushi, then check into the hotel."
+          "en": "I'll eat sushi, then go into the hotel."
         },
         {
           "ja": "うみで およいでから ちゃを のむ。",
@@ -355,7 +355,7 @@
         },
         {
           "ja": "この ホテルは たかいと おもうけど はいる つもりだ。",
-          "en": "I think this hotel is expensive, but I intend to check in."
+          "en": "I think this hotel is expensive, but I intend to go in."
         }
       ],
       "antiPattern": {
@@ -896,7 +896,7 @@
         {
           "kind": "sentence",
           "ja": "ちいさい ホテルに はいる つもりだ。",
-          "en": "I intend to check into a small hotel",
+          "en": "I intend to go into a small hotel",
           "exercises": [
             "tsumori-desu",
             "i-adj-present",
@@ -1091,7 +1091,7 @@
         {
           "kind": "sentence",
           "ja": "ちいさい ホテルに はいる つもりだ。",
-          "en": "I intend to check into a small hotel",
+          "en": "I intend to go into a small hotel",
           "exercises": [
             "tsumori-desu",
             "i-adj-present"
@@ -1700,7 +1700,7 @@
         {
           "kind": "sentence",
           "ja": "うみに ちかい ホテルに はいる つもりだ。",
-          "en": "I intend to check into a hotel near the sea",
+          "en": "I intend to go into a hotel near the sea",
           "exercises": [
             "kanji-set-2",
             "tsumori-desu",
@@ -1950,7 +1950,7 @@
         {
           "kind": "sentence",
           "ja": "うみに ちかい ホテルに はいる つもりだ。",
-          "en": "I intend to check into a hotel near the sea",
+          "en": "I intend to go into a hotel near the sea",
           "exercises": [
             "kanji-set-2",
             "tsumori-desu"
@@ -2123,7 +2123,7 @@
         {
           "kind": "sentence",
           "ja": "ホテルに はいる とき きっぷを みせる。",
-          "en": "When I check into the hotel, I show the ticket",
+          "en": "When I go into the hotel, I show the ticket",
           "exercises": [
             "toki",
             "dictionary-form",
@@ -2271,7 +2271,7 @@
         {
           "kind": "sentence",
           "ja": "すしを たべてから ホテルに はいる つもりだ。",
-          "en": "I intend to eat sushi, then check into the hotel",
+          "en": "I intend to eat sushi, then go into the hotel",
           "exercises": [
             "te-kara",
             "tsumori-desu",
@@ -2495,7 +2495,7 @@
         {
           "kind": "sentence",
           "ja": "この ホテルは たかいと おもうけど はいる つもりだ。",
-          "en": "I think this hotel is expensive, but I intend to check in",
+          "en": "I think this hotel is expensive, but I intend to go in",
           "exercises": [
             "to-omoimasu",
             "tsumori-desu",
@@ -2735,7 +2735,7 @@
         {
           "kind": "sentence",
           "ja": "すしを たべてから ホテルに はいる つもりだ。",
-          "en": "I intend to eat sushi, then check into the hotel",
+          "en": "I intend to eat sushi, then go into the hotel",
           "exercises": [
             "te-kara",
             "tsumori-desu"
@@ -2881,7 +2881,7 @@
         {
           "kind": "sentence",
           "ja": "ちいさい ホテルに はいる まえに すしを たべる つもりだ。",
-          "en": "Before checking into a small hotel, I intend to eat sushi",
+          "en": "Before going into a small hotel, I intend to eat sushi",
           "exercises": [
             "mae-ni",
             "tsumori-desu",

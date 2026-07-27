@@ -267,7 +267,7 @@ grammarPoints:
       - { ja: "にほんの やまに いった ことが ある。", en: "I have been to a mountain in Japan." }
       - { ja: "うみで およいだ ことが ある。", en: "I have swum in the sea." }
       - { ja: "あした かわに いく つもりだ。", en: "I'm planning to go to the river tomorrow." }
-      - { ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to check into a hotel near the sea." }
+      - { ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to go into a hotel near the sea." }
       - { ja: "あしが いたいけど あるく つもりだ。", en: "My foot hurts, but I intend to walk." }
 
   - id: toki
@@ -284,7 +284,7 @@ grammarPoints:
     rule: "An itinerary is a list of things in order, and Japanese has two ways to say which comes first. 〜てから is after doing: take the て-form, add から, and the rest of the sentence happens next. 「きっぷを かってから でんしゃに のる」 — I'll buy a ticket and THEN get on the train. This から is not the から that means because; it is the から that has meant from since module 16, and 「かってから」 is literally from having bought. The other direction is まえに, which you already own: 「ひこうきに のる まえに コーヒーを のむ」 — before getting on the plane, I drink a coffee. Notice what changes and what does not. Before まえに the verb is always the plain DICTIONARY form no matter when any of it happens; before から it is always the て-form. Neither one takes a past. The order lives entirely in the connector, and the て-form is the one that has to be derived: かう → かって, たべる → たべて, およぐ → およいで, まつ → まって."
     examples:
       - { ja: "きっぷを かってから でんしゃに のる。", en: "I'll buy a ticket, then get on the train." }
-      - { ja: "すしを たべてから ホテルに はいる。", en: "I'll eat sushi, then check into the hotel." }
+      - { ja: "すしを たべてから ホテルに はいる。", en: "I'll eat sushi, then go into the hotel." }
       - { ja: "うみで およいでから ちゃを のむ。", en: "I'll swim in the sea, then drink some tea." }
       - { ja: "はたらいてから がいこくに いく つもりだ。", en: "I intend to work first, then go abroad." }
       - { ja: "ひこうきに のる まえに コーヒーを のむ。", en: "Before getting on the plane, I drink a coffee." }
@@ -297,7 +297,7 @@ grammarPoints:
       - { ja: "トムは すしを たべた ことが あると おもう。", en: "I think Tom has eaten sushi." }
       - { ja: "ケンは ひこうきに のった ことが ないと おもう。", en: "I don't think Ken has ever been on a plane." }
       - { ja: "あしたは いかない つもりだと ミカに いう。", en: "I'll tell Mika I'm not planning to go tomorrow." }
-      - { ja: "この ホテルは たかいと おもうけど はいる つもりだ。", en: "I think this hotel is expensive, but I intend to check in." }
+      - { ja: "この ホテルは たかいと おもうけど はいる つもりだ。", en: "I think this hotel is expensive, but I intend to go in." }
     antiPattern: { ja: "ミカは にほんに いく つもりですと おもう。", why: "what goes in front of と is ALWAYS plain — です never appears there: ミカは にほんに いく つもりだと おもう。" }
 
 newAtoms:
@@ -409,7 +409,7 @@ lessons:
       - { kind: sentence, ja: "なつやすみに がいこくに いく つもりだ。", en: "I intend to go abroad in the summer holidays", exercises: [tsumori-desu, dictionary-form, ni-time], mode: build }
       - { kind: sentence, ja: "ホテルで ミカを まつ つもりだ。", en: "I intend to wait for Mika at the hotel", exercises: [tsumori-desu, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "あした きっぷを かう つもりだ。", en: "I'm planning to buy a ticket tomorrow", exercises: [tsumori-desu, wo-object], mode: build }
-      - { kind: sentence, ja: "ちいさい ホテルに はいる つもりだ。", en: "I intend to check into a small hotel", exercises: [tsumori-desu, i-adj-present, ni-location], mode: build }
+      - { kind: sentence, ja: "ちいさい ホテルに はいる つもりだ。", en: "I intend to go into a small hotel", exercises: [tsumori-desu, i-adj-present, ni-location], mode: build }
       - { kind: sentence, ja: "ミカは でんしゃで だいがくに いく つもりだ。", en: "Mika is planning to go to university by train", exercises: [tsumori-desu, wa-topic, de-action], mode: listening }
       - { kind: sentence, ja: "すしを たべる つもりだから おさけを かう。", en: "I intend to eat sushi, so I'm buying some sake", exercises: [tsumori-desu, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "うみで およぐ つもりだけど あしが いたい。", en: "I intend to swim in the sea, but my foot hurts", exercises: [tsumori-desu, kedo, ga-itai], mode: build }
@@ -437,7 +437,7 @@ lessons:
       - { kind: sentence, ja: "ひこうきに のった ことが ない。", en: "I have never been on a plane", exercises: [nai-existence, ta-form], mode: build }
       - { kind: sentence, ja: "なつやすみに がいこくに いく つもりだ。", en: "I intend to go abroad in the summer holidays", exercises: [tsumori-desu, ni-time], mode: listening }
       - { kind: sentence, ja: "がいこくで はたらいた ことが ある。", en: "I have worked abroad", exercises: [koto-ga-aru, de-action], mode: build }
-      - { kind: sentence, ja: "ちいさい ホテルに はいる つもりだ。", en: "I intend to check into a small hotel", exercises: [tsumori-desu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちいさい ホテルに はいる つもりだ。", en: "I intend to go into a small hotel", exercises: [tsumori-desu, i-adj-present], mode: build }
       - { kind: particle-cloze, stem: "ちかてつに ", tail: " ことが ないから でんしゃで いく。", answer: "のった", options: ["のった", "のる", "のんだ"], en: "I have never taken the subway, so I'm going by train", explanation: "you get ON a subway, so the verb is のる and its plain past is のった. のる is the dictionary form and のんだ is the past of のむ." }
       - { kind: sentence, ja: "ふねに のった ことが ある？", en: "Have you ever been on a boat", exercises: [koto-ga-aru, ka-question], mode: build }
       - { kind: listening-comp, audio: "あの えいがを みた ことが あるけど おもしろくなかった。", answer: "I have seen that film, but it wasn't interesting", distractors: ["I have never seen that film, but it looks interesting", "I saw that film yesterday and it wasn't interesting", "I intend to see that film, but it doesn't look interesting"], exercises: [koto-ga-aru, kedo] }
@@ -523,7 +523,7 @@ lessons:
       - { kind: kanji, kana: かわ, kanji: 川, distractors: ["せん", "ぜん", "かば"], exercises: [kanji-set-2] }
       - { kind: sentence, ja: "かわで およいだ ことが ないけど うみで およいだ ことが ある。", en: "I have never swum in a river, but I have swum in the sea", exercises: [kanji-set-2, nai-existence, koto-ga-aru, kedo], mode: build }
       - { kind: kanji, kana: うみ, kanji: 海, distractors: ["かい", "がい", "うび"], exercises: [kanji-set-2] }
-      - { kind: sentence, ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to check into a hotel near the sea", exercises: [kanji-set-2, tsumori-desu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to go into a hotel near the sea", exercises: [kanji-set-2, tsumori-desu, i-adj-present], mode: build }
       - { kind: kanji, kana: ちいさい, kanji: 小さい, exercises: [kanji-set-2] }
       - { kind: sentence, ja: "ちいさい ふねに のった ことが ある。", en: "I have been on a small boat", exercises: [kanji-set-2, koto-ga-aru, i-adj-present], mode: listening }
       - { kind: kanji, kana: あし, kanji: 足, exercises: [kanji-set-2] }
@@ -556,7 +556,7 @@ lessons:
       - { kind: particle-cloze, stem: "きょうは コーヒーを ", tail: " つもりだから ちゃを かう。", answer: "のまない", options: ["のまない", "のむ", "のんだ"], en: "I intend not to drink coffee today, so I'm buying tea", explanation: "an intention NOT to do something negates the VERB — のむ becomes のまない. のむ is the plain positive and のんだ is the past." }
       - { kind: sentence, ja: "その えいがは みない つもりだ。", en: "I intend not to see that film", exercises: [nai-form, kono-sono-ano-dono], mode: build }
       - { kind: listening-comp, audio: "がいこくに いかない つもりだけど にほんには いく。", answer: "I intend not to go abroad, but I am going to Japan", distractors: ["I intend to go abroad, but not to Japan", "I have never been abroad, and I have never been to Japan", "I want to go abroad, but not to Japan"], exercises: [nai-form, tsumori-desu] }
-      - { kind: sentence, ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to check into a hotel near the sea", exercises: [kanji-set-2, tsumori-desu], mode: build }
+      - { kind: sentence, ja: "うみに ちかい ホテルに はいる つもりだ。", en: "I intend to go into a hotel near the sea", exercises: [kanji-set-2, tsumori-desu], mode: build }
       - { kind: sentence, ja: "にほんに いきたいけど いく つもりは ない。", en: "Say to a friend: I want to go to Japan, but I don't intend to", exercises: [v-tai, tsumori-desu], mode: translate }
       - { kind: listening-comp, audio: "あさの でんしゃで くうこうに つく つもりだ。", answer: "I intend to reach the airport on the morning train", distractors: ["I intend to reach the station on the morning train", "I reached the airport on the morning train", "I want to reach the airport on the morning train"], exercises: [tsumori-desu, de-action] }
       - { kind: sentence, ja: "あした がっこうに いかない つもりだから うちで まつ。", en: "I intend not to go to school tomorrow, so I'll wait at home", exercises: [nai-form, kara-because], mode: build }
@@ -583,7 +583,7 @@ lessons:
       - { kind: kanji, kana: くる, kanji: 来る, distractors: ["らいる", "ぐる", "きる"], exercises: [kanji-set-2] }
       - { kind: sentence, ja: "うみに いった とき およいだ。", en: "When I got to the sea, I went swimming", exercises: [toki, ta-form], mode: listening }
       - { kind: sentence, ja: "がくせいの とき がいこくで はたらいた ことが ある。", en: "I have worked abroad, back when I was a student", exercises: [toki, no-possession, koto-ga-aru], mode: build }
-      - { kind: sentence, ja: "ホテルに はいる とき きっぷを みせる。", en: "When I check into the hotel, I show the ticket", exercises: [toki, dictionary-form, wo-object], mode: build }
+      - { kind: sentence, ja: "ホテルに はいる とき きっぷを みせる。", en: "When I go into the hotel, I show the ticket", exercises: [toki, dictionary-form, wo-object], mode: build }
       - { kind: sentence, ja: "ミカが くる とき ちゃを かう つもりだ。", en: "When Mika comes, I intend to buy some tea", exercises: [toki, tsumori-desu, ga-existence], mode: build }
       - { kind: sentence, ja: "うみに いく とき ふねに のる。", en: "Say to a friend: When I go to the sea, I take a boat", exercises: [toki], mode: translate }
       - { kind: particle-cloze, stem: "にほんに ", tail: " とき すしを たべた。", answer: "いった", options: ["いった", "いく", "いきたい"], en: "When I got to Japan, I ate sushi", explanation: "the sushi comes AFTER arriving, so the とき clause is past — いった. いく would put the sushi before the trip, and いきたい is not a tense at all." }
@@ -607,7 +607,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: te-kara }
       - { kind: sentence, ja: "きっぷを かってから でんしゃに のる。", en: "I'll buy a ticket, then get on the train", exercises: [te-kara, te-form, wo-object], mode: build }
-      - { kind: sentence, ja: "すしを たべてから ホテルに はいる つもりだ。", en: "I intend to eat sushi, then check into the hotel", exercises: [te-kara, tsumori-desu, ni-location], mode: build }
+      - { kind: sentence, ja: "すしを たべてから ホテルに はいる つもりだ。", en: "I intend to eat sushi, then go into the hotel", exercises: [te-kara, tsumori-desu, ni-location], mode: build }
       - { kind: sentence, ja: "うみで およいでから ちゃを のむ つもりだ。", en: "I intend to swim in the sea, then drink some tea", exercises: [te-kara, tsumori-desu, de-action], mode: build }
       - { kind: sentence, ja: "はたらいてから がいこくに いく つもりだ。", en: "I intend to work first, then go abroad", exercises: [te-kara, tsumori-desu, ni-location], mode: build }
       - { kind: sentence, ja: "ミカを まってから えいがを みる。", en: "I'll wait for Mika, then watch the film", exercises: [te-kara, te-form, wo-object], mode: listening }
@@ -638,7 +638,7 @@ lessons:
       - { kind: sentence, ja: "トムは すしを たべた ことが あると おもう。", en: "I think Tom has eaten sushi", exercises: [to-omoimasu, koto-ga-aru, wa-topic], mode: build }
       - { kind: sentence, ja: "ケンは ひこうきに のった ことが ないと おもう。", en: "I don't think Ken has ever been on a plane", exercises: [to-omoimasu, nai-existence, wa-topic], mode: build }
       - { kind: sentence, ja: "あしたは いかない つもりだと ミカに いう。", en: "I'll tell Mika I'm not planning to go tomorrow", exercises: [to-quotation, nai-form, tsumori-desu], mode: build }
-      - { kind: sentence, ja: "この ホテルは たかいと おもうけど はいる つもりだ。", en: "I think this hotel is expensive, but I intend to check in", exercises: [to-omoimasu, tsumori-desu, kedo], mode: listening }
+      - { kind: sentence, ja: "この ホテルは たかいと おもうけど はいる つもりだ。", en: "I think this hotel is expensive, but I intend to go in", exercises: [to-omoimasu, tsumori-desu, kedo], mode: listening }
       - { kind: sentence, ja: "ミカは うみで およいだ ことが あると おもう。", en: "I think Mika has swum in the sea", exercises: [to-omoimasu, koto-ga-aru, wa-topic], mode: build }
       - { kind: sentence, ja: "がいこくで はたらいた ことが あると トムに はなす。", en: "I'll tell Tom I have worked abroad", exercises: [to-quotation, koto-ga-aru, de-action], mode: build }
       - { kind: sentence, ja: "トムは くうこうに つく つもりだと おもう。", en: "Say to a friend: I think Tom is planning to get to the airport", exercises: [to-omoimasu, tsumori-desu], mode: translate }
@@ -670,7 +670,7 @@ lessons:
       - { kind: particle-cloze, stem: "うみに ", tail: " とき およいだ。", answer: "いった", options: ["いった", "いく", "いきたい"], en: "When I got to the sea, I went swimming", explanation: "the swimming comes AFTER arriving, so the とき clause is past — いった. いく would put the swimming before the trip." }
       - { kind: sentence, ja: "がくせいの とき がいこくで はたらいた ことが ある。", en: "I have worked abroad, back when I was a student", exercises: [toki, koto-ga-aru], mode: build }
       - { kind: listening-comp, audio: "ケンは ひこうきに のった ことが ないと おもう。", answer: "I don't think Ken has ever been on a plane", distractors: ["I think Ken has been on a plane", "Ken has never been on a plane, he says", "I don't think Ken is getting on a plane"], exercises: [to-omoimasu, nai-existence] }
-      - { kind: sentence, ja: "すしを たべてから ホテルに はいる つもりだ。", en: "I intend to eat sushi, then check into the hotel", exercises: [te-kara, tsumori-desu], mode: build }
+      - { kind: sentence, ja: "すしを たべてから ホテルに はいる つもりだ。", en: "I intend to eat sushi, then go into the hotel", exercises: [te-kara, tsumori-desu], mode: build }
       - { kind: sentence, ja: "うみに いく とき ふねに のる。", en: "Say to a friend: When I go to the sea, I take a boat", exercises: [toki], mode: translate }
       - { kind: listening-comp, audio: "うみで およいでから ちゃを のむ つもりだ。", answer: "I intend to swim in the sea, then drink some tea", distractors: ["I intend to drink tea, then swim in the sea", "I swam in the sea and then drank tea", "I want to swim in the sea and drink tea"], exercises: [te-kara, tsumori-desu] }
       - { kind: sentence, ja: "ミカが くる とき ちゃを かう つもりだ。", en: "When Mika comes, I intend to buy some tea", exercises: [toki, tsumori-desu], mode: build }
@@ -694,7 +694,7 @@ lessons:
       - { kind: sentence, ja: "きっぷを かってから でんしゃで うみに いく つもりだ。", en: "I intend to buy a ticket, then go to the sea by train", exercises: [te-kara, tsumori-desu, de-action], mode: listening }
       - { kind: kanji, kana: した, kanji: 下, exercises: [kanji-set-2] }
       - { kind: sentence, ja: "にほんに いった とき さくらを みたけど しゃしんが ない。", en: "When I got to Japan I saw cherry blossom, but I have no photo of it", exercises: [toki, ta-form, kedo, ga-existence], mode: build }
-      - { kind: sentence, ja: "ちいさい ホテルに はいる まえに すしを たべる つもりだ。", en: "Before checking into a small hotel, I intend to eat sushi", exercises: [mae-ni, tsumori-desu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちいさい ホテルに はいる まえに すしを たべる つもりだ。", en: "Before going into a small hotel, I intend to eat sushi", exercises: [mae-ni, tsumori-desu, i-adj-present], mode: build }
       - { kind: sentence, ja: "うみで およいだ ことが ないけど かわで およいだ ことが ある。", en: "I have never swum in the sea, but I have swum in a river", exercises: [nai-existence, koto-ga-aru, kedo], mode: build }
       - { kind: sentence, ja: "にほんに いった ことが ある。", en: "Say to a friend: I have been to Japan", exercises: [koto-ga-aru], mode: translate }
       - { kind: particle-cloze, stem: "がいこくで ", tail: " ことが ないから しらない。", answer: "はたらいた", options: ["はたらいた", "はたらく", "はたらいて"], en: "I have never worked abroad, so I don't know", explanation: "こと takes the PLAIN PAST in front of it — はたらいた. はたらく is the dictionary form and はたらいて is the て-form; neither can sit in front of こと." }
