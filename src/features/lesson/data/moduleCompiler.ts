@@ -568,10 +568,43 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       return true;
     });
   };
+  /**
+   * DESTINATION に ↔ へ.
+   *
+   * Both particles mark where you are going, so 「としょかんに いく」 and
+   * 「としょかんへ いく」 are equally correct and max-acceptance grading requires
+   * both. m19 rejected the unauthored one in three items.
+   *
+   * The two directions are NOT symmetric, which is why this is a rule and not a
+   * blanket swap:
+   *   へ → に  is always safe — へ has exactly one job, direction.
+   *   に → へ  is only safe when に is marking a DESTINATION, i.e. the sentence
+   *           runs to a motion verb. に also marks time (ごじに), location of
+   *           existence (いえに ある) and the indirect object (ミカに いう), and
+   *           へ is wrong in every one of those.
+   */
+  const MOTION_VERB = /(いく|いきます|いった|いきました|くる|きます|きた|きました|かえる|かえります|かえった|かえりました)/;
+  const particleVariants = (ja: string): string[] => {
+    const out = [ja];
+    if (ja.includes("へ")) out.push(ja.replace(/へ/g, "に"));
+    // Swap ONLY a に that IMMEDIATELY precedes the motion verb. Anything looser
+    // reaches particles that are not destinations: a blanket replace turns
+    // 「ごじに としょかんに いく」 into 「ごじへ としょかんへ いく」, and even
+    // "the last に before the verb" grabs the に inside までに
+    // (「ごじまでに うちへ かえる」 → 「ごじまでへ …」).
+    out.push(ja.replace(new RegExp(`に(\\s*)(?=${MOTION_VERB.source})`), "へ$1"));
+    return out;
+  };
+
   const acceptedVariants = (ja: string): string[] => {
-    const noPunct = ja.replace(PUNCT, "").trim();
-    const noSpace = noPunct.replace(/[　\s]/g, "");
-    return [...new Set([ja.trim(), noPunct, noSpace])];
+    const out = new Set<string>();
+    for (const variant of particleVariants(ja.trim())) {
+      const noPunct = variant.replace(PUNCT, "").trim();
+      out.add(variant);
+      out.add(noPunct);
+      out.add(noPunct.replace(/[　\s]/g, ""));
+    }
+    return [...out];
   };
   const clean = (ja: string) => ja.replace(PUNCT, "").trim();
   /**
