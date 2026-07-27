@@ -945,6 +945,15 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kome", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab" },
   // ── m9-neo (tile n03) — numbers, counters, purchases ──
   { id: "kane", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab" },
+  // ── m10-neo (tile n15) — register in the wild ──
+  { id: "uun", kana: "ううん", romaji: "uun", meaningEn: "nope (casual no)", shortGloss: "nope", fromModule: "m10", introducedByLessonId: "ja-m10-neo-2", kind: "vocab" },
+  { id: "dame", kana: "だめ", romaji: "dame", meaningEn: "no good, not allowed", shortGloss: "no good", fromModule: "m10", introducedByLessonId: "ja-m10-neo-5", kind: "vocab" },
+  { id: "boku", kana: "ぼく", romaji: "boku", meaningEn: "I, me (casual, usually male)", shortGloss: "I (casual)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-6", kind: "vocab" },
+  { id: "shirimasu", kana: "しります", romaji: "shirimasu", meaningEn: "know (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
+  { id: "shirimasen", kana: "しりません", romaji: "shirimasen", meaningEn: "don't know (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
+  { id: "wakarimasu", kana: "わかります", romaji: "wakarimasu", meaningEn: "understand (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
+  { id: "chigaimasu", kana: "ちがいます", romaji: "chigaimasu", meaningEn: "that's not right (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
+  { id: "maa", kana: "まあ", romaji: "maa", meaningEn: "well, sort of", shortGloss: "well…", fromModule: "m10", introducedByLessonId: "ja-m10-neo-8", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */

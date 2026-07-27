@@ -111,11 +111,11 @@ describe("curriculum lesson counts", () => {
     expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("m10-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
-    // m4/m5/m6 (2026-07-20) and m7-m9 (2026-07-26, the first modules on
+  it("m11-m29 are comingSoon spine placeholders (visible, zero lessons)", () => {
+    // m4/m5/m6 (2026-07-20) and m7-m10 (2026-07-26, the first modules on
     // the 11+3+1 shape) are authored via the compiler pipeline. The frontier
     // advances as rewrite cycles land modules.
-    for (let n = 10; n <= 29; n++) {
+    for (let n = 11; n <= 29; n++) {
       const mod = course.modules.find((m) => m.id === `m${n}`)!;
       expect(mod, `m${n} missing`).toBeDefined();
       expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);

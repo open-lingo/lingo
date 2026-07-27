@@ -2245,17 +2245,14 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぼくは みずを のみません。",
-          "en": "Say politely: I don't drink water",
+          "ja": "きょうは みずを のみません。",
+          "en": "Say politely: I don't drink water today",
           "exercises": [
             "wa",
             "wo",
             "masu-negative"
           ],
-          "mode": "translate",
-          "alsoAccept": [
-            "わたしは みずを のみません。"
-          ]
+          "mode": "translate"
         },
         {
           "kind": "dialogue",

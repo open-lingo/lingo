@@ -264,10 +264,10 @@ export function getMockCourse(languageId: string): Course {
     ];
     // m6 (tile n06a) and m7 (tile s07) are LIVE via the compiler pipeline —
     // slice them off so the placeholders begin at m8.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(4).map((t, i) => ({
-      id: `m${i + 10}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(5).map((t, i) => ({
+      id: `m${i + 11}`,
       title: t.title,
-      eyebrow: `Module ${i + 10} · Coming soon`,
+      eyebrow: `Module ${i + 11} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -467,6 +467,32 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m9-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
           ],
           accent: { from: "#10b981", to: "#059669" },
+        },
+        {
+          // m10-neo (spine tile n15) — the DEEPEN beat of m7's register
+          // mechanic: the words that actually carry register in speech.
+          id: "m10",
+          title: "Register in the wild",
+          eyebrow: "Module 10 · Yes, no and softening",
+          summary: "Three yeses and three noes by audience, はい as aizuchi, ちょっと as the refusal that never says no, and pronoun register. Katakana マ and ヤ rows.",
+          lessons: [
+            { id: "ja-m10-neo-kata-ma", title: "Katakana — マ row", status: "available" as const },
+            { id: "ja-m10-neo-1", title: "Three ways to say yes", status: "available" as const },
+            { id: "ja-m10-neo-2", title: "Three ways to say no", status: "available" as const },
+            { id: "ja-m10-neo-3", title: "はい isn't always yes", status: "available" as const },
+            { id: "ja-m10-neo-review-1", title: "Review — yes and no by audience", status: "available" as const },
+            { id: "ja-m10-neo-4", title: "Softening with ちょっと", status: "available" as const },
+            { id: "ja-m10-neo-5", title: "No thank you — だめ and けっこう", status: "available" as const },
+            { id: "ja-m10-neo-6", title: "Who's I? — わたし, ぼく", status: "available" as const },
+            { id: "ja-m10-neo-kata-ya", title: "Katakana — ヤ row", status: "available" as const },
+            { id: "ja-m10-neo-review-2", title: "Review — softening and refusing", status: "available" as const },
+            { id: "ja-m10-neo-7", title: "Knowing and now — しる, いま", status: "available" as const },
+            { id: "ja-m10-neo-8", title: "Hedging — まあ and よく", status: "available" as const },
+            { id: "ja-m10-neo-9", title: "A conversation that sounds real", status: "available" as const },
+            { id: "ja-m10-neo-review-3", title: "Review — the whole register kit", status: "available" as const },
+            { id: "ja-m10-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+          ],
+          accent: { from: "#ec4899", to: "#db2777" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

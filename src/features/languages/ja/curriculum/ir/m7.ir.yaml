@@ -409,7 +409,7 @@ lessons:
       - { kind: sentence, ja: "きょうは ともだちと うみに いきます。", en: "Say politely: Today I'm going to the sea with a friend", exercises: [wa, ni, masu-present], mode: listening }
       - { kind: sentence, ja: "ミカさんは じゅぎょうに きませんか。", en: "Say politely: Isn't Mika coming to class?", exercises: [wa, ni, masu-negative, ka-question], mode: translate }
       - { kind: sentence, ja: "あそこの ひとは せんせいですか。", en: "Say politely: Is the person over there a teacher?", exercises: [location-deixis, "no", wa, desu-copula, ka-question], mode: build }
-      - { kind: sentence, ja: "ぼくは みずを のみません。", en: "Say politely: I don't drink water", exercises: [wa, wo, masu-negative], mode: translate, alsoAccept: ["わたしは みずを のみません。"] }
+      - { kind: sentence, ja: "きょうは みずを のみません。", en: "Say politely: I don't drink water today", exercises: [wa, wo, masu-negative], mode: translate }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "トムさん、きょうは はたらきますか。", en: "Tom, are you working today?" }
