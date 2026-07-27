@@ -2347,12 +2347,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "ねこも いぬも ちいさい。",
-          "answer": "Both the cat and the dog are small",
+          "audio": "ねこも ちいさい。",
+          "answer": "The cat is small too",
           "distractors": [
-            "Both the cat and the dog are big",
-            "The cat is small but the dog is big",
-            "Both the cat and the dog are pretty"
+            "The cat is big too",
+            "The cat isn't small",
+            "The dog is small too"
           ],
           "exercises": [
             "i-adj-present",

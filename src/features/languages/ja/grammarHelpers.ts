@@ -1234,7 +1234,20 @@ export function translationMcq(
   distractorPool: ReviewAtom[],
 ): MultipleChoiceStep {
   const filtered = distractorPool.filter((a) => a.kana !== target.kana);
-  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  // LENGTH IS A FREE CUE. Drawing from the whole pool put 2-3 kana nouns up
+  // against 4-8 kana conjugated adjectives, so the answer was the uniquely
+  // shortest option and pickable with no vocabulary at all — 6 of m12's 11
+  // "Pick the word for X" items. Prefer distractors within a mora of the
+  // target and only widen when there aren't three of them.
+  const len = (kana: string) => [...kana].length;
+  const nearLength = filtered.filter(
+    (a) => Math.abs(len(a.kana) - len(target.kana)) <= 1,
+  );
+  const picked = pickReviewAtoms(
+    `${idPrefix}-distractors`,
+    nearLength.length >= 3 ? nearLength : filtered,
+    3,
+  );
   if (picked.length < 3) {
     throw new Error(
       `translationMcq: not enough distractors for '${target.kana}' (have ${picked.length}, need 3)`,

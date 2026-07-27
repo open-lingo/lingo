@@ -495,7 +495,10 @@ lessons:
       - { kind: particle-cloze, stem: "うみは ", tail: "。", answer: "きれいだった", options: ["きれいだった", "きれいじゃなかった", "おおきかった"], en: "The sea was pretty", explanation: "きれい borrows the noun past だった — かった belongs to い-adjectives." }
       - { kind: sentence, ja: "ふるい じてんしゃは よくない。", en: "Say to a friend: An old bicycle isn't good", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "きのう まどは きれいじゃなかった。", en: "Say to a friend: The window wasn't clean yesterday", exercises: [wa-topic, na-adj-past], mode: translate }
-      - { kind: listening-comp, audio: "ねこも いぬも ちいさい。", answer: "Both the cat and the dog are small", distractors: ["Both the cat and the dog are big", "The cat is small but the dog is big", "Both the cat and the dog are pretty"], exercises: [i-adj-present, mo-also] }
+      # Single trailing も only. The AもBも "both X and Y" pattern is taught
+      # nowhere in the course — it was the sole instance — so testing it in a
+      # REVIEW lesson made the right answer depend on grammar never modelled.
+      - { kind: listening-comp, audio: "ねこも ちいさい。", answer: "The cat is small too", distractors: ["The cat is big too", "The cat isn't small", "The dog is small too"], exercises: [i-adj-present, mo-also] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "きのうの うみは どうだった？", en: "How was the sea yesterday?" }

@@ -65,12 +65,11 @@ describe("N5 coverage ledger", () => {
   const rows = ledger();
 
   it("assigns only real grammar point ids", () => {
-    const raw = JSON.parse(readFileSync(POINTS, "utf-8"));
-    const known = new Set(
-      (Array.isArray(raw) ? raw : Object.values(raw)[0]).map(
-        (p: { id: string }) => p.id,
-      ),
-    );
+    const raw: unknown = JSON.parse(readFileSync(POINTS, "utf-8"));
+    const list = (
+      Array.isArray(raw) ? raw : Object.values(raw as Record<string, unknown>)[0]
+    ) as { id: string }[];
+    const known = new Set(list.map((p) => p.id));
     const bogus = [...rows].flatMap(([m, ids]) =>
       ids.filter((id) => !known.has(id)).map((id) => `${m}: ${id}`),
     );

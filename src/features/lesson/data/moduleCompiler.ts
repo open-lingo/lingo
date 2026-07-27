@@ -17,7 +17,7 @@ import {
   TEACH_FIRST_INTRO_TYPES,
   jaSurfaces,
 } from "@/features/lesson/data/stepTaxonomy";
-import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
+import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
 import {
   audience,
   registerCheatSheet,
@@ -334,7 +334,13 @@ function precedenceHolds(
 
 function atomIndex(ir: ModuleIR): Map<string, Atom> {
   const m = new Map<string, Atom>();
-  for (const a of JA_COURSE_ATOMS as unknown as Array<Record<string, unknown>>) {
+  // Iterate the RESOLVED by-kana map, not the raw list. Building a second
+  // kana index here made this map first-wins while JA_COURSE_ATOMS_BY_KANA was
+  // last-wins, so ambiguous kana got one sense for their gloss and the other
+  // for their SRS id (はな displayed "flower", credited 鼻 "nose").
+  for (const a of JA_COURSE_ATOMS_BY_KANA.values() as unknown as Iterable<
+    Record<string, unknown>
+  >) {
     const kana = a.kana as string;
     if (kana && !m.has(kana))
       m.set(kana, {
@@ -1407,9 +1413,9 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   const baseGlossOf = (kana: string): string | null => {
     const irAtom = (ir.newAtoms ?? []).find((n) => n.kana === kana);
     if (irAtom) return `${irAtom.shortGloss ?? ""} ${irAtom.gloss}`;
-    const course = (JA_COURSE_ATOMS as ReadonlyArray<{ kana: string; meaningEn: string; shortGloss?: string }>).find(
-      (c) => c.kana === kana,
-    );
+    // Same resolved map as everywhere else — a `.find()` over the raw list is
+    // a third, independently-ordered answer for an ambiguous kana.
+    const course = JA_COURSE_ATOMS_BY_KANA.get(kana);
     return course ? `${course.shortGloss ?? ""} ${course.meaningEn}` : null;
   };
   for (const a of ir.newAtoms ?? []) {

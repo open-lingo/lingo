@@ -52,6 +52,36 @@ describe("review filler variety", () => {
     expect(dupes).toEqual([]);
   });
 
+  it("rarely makes the correct answer the uniquely shortest option", () => {
+    // Option length is a free cue: a 2-kana noun among three 6-kana conjugated
+    // adjectives is answerable with no vocabulary at all. `translationMcq` now
+    // prefers distractors within a mora of the target, which took this from
+    // roughly half of m12's items to 5 course-wide — the residue is pools that
+    // genuinely hold nothing of comparable length. Ratchet, not a floor.
+    let total = 0;
+    let guessable = 0;
+    for (const lesson of all) {
+      for (const step of lesson.steps as unknown as (Probe & {
+        options?: { id: string; text: string }[];
+      })[]) {
+        if (step.type !== "multiple_choice") continue;
+        if (!step.prompt?.startsWith("Pick the word")) continue;
+        const options = step.options ?? [];
+        const correct = options.find((o) => o.id === "correct");
+        if (!correct) continue;
+        total++;
+        const size = (s: string) => [...s].length;
+        if (
+          options.every((o) => o.id === "correct" || size(o.text) > size(correct.text))
+        ) {
+          guessable++;
+        }
+      }
+    }
+    expect(total).toBeGreaterThan(100);
+    expect(guessable / total).toBeLessThan(0.03);
+  });
+
   it("never repeats a filler prompt within one lesson", () => {
     const dupes: string[] = [];
     for (const lesson of all) {

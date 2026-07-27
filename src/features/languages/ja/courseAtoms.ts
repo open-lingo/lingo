@@ -1013,10 +1013,62 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // their glosses, which is all the compiled lessons need.
 ];
 
-/** Indexed by kana for fast lookup from lesson step commits. */
-export const JA_COURSE_ATOMS_BY_KANA: ReadonlyMap<string, CourseAtom> = new Map(
-  JA_COURSE_ATOMS.map((a) => [a.kana, a]),
-);
+/**
+ * Which atom a BARE KANA means when several share it.
+ *
+ * 17 kana are ambiguous, and two different maps were resolving them two
+ * different ways: `new Map(entries)` here is LAST-wins, while the compiler's
+ * `atomIndex` is FIRST-wins. So a はな sentence displayed "flower" (compiler)
+ * while crediting SRS to 鼻 "nose" (this map) — the gloss looked right and the
+ * scheduling was wrong, which is why it survived m12 QA of the visible text.
+ *
+ * Declaration order is arbitrary, so neither first- nor last-wins is
+ * defensible; the sense has to be chosen. These are the readings a beginner
+ * course means by default — particles over their numeral/noun homophones, and
+ * the more basic vocabulary item otherwise. A module that needs the other
+ * sense must reference it by id, not by kana.
+ *
+ * `homophoneAtomResolution.test.ts` fails if a new collision appears without a
+ * ruling here, or if the two maps ever disagree again.
+ */
+export const JA_PRIMARY_ATOM_BY_KANA: Readonly<Record<string, string>> = {
+  は: "p-wa", // topic particle, not 歯 "tooth"
+  に: "p-ni", // particle, not 二 "two"
+  と: "p-to", // particle, not 戸 "door"
+  はな: "hana", // 花 flower, not 鼻 nose
+  かぜ: "kaze-wind", // 風 wind, not 風邪 a cold
+  あめ: "ame", // 雨 rain, not 飴 candy
+  はし: "hashi", // 箸 chopsticks, not 橋 bridge
+  はる: "haru", // 春 spring, not 貼る to stick
+  あつい: "atsui", // 暑い hot, not 厚い thick
+  はやい: "hayai-early", // 早い early — the course teaches clock time first
+  ふく: "fuku-clothes", // 服 clothes, not 吹く to blow
+  きる: "kiru", // 着る to wear, not 切る to cut
+  いる: "iru-be", // to exist, not 要る to need
+  ひく: "hiku", // 引く to pull, not 弾く to play (strings)
+  とる: "toru", // 取る to take, not 撮る to photograph
+  しめる: "shimeru", // 閉める to close, not 締める to tie
+};
+
+/**
+ * Indexed by kana for fast lookup from lesson step commits. Ambiguous kana
+ * resolve through JA_PRIMARY_ATOM_BY_KANA; everything else is first-wins, so
+ * the map is order-stable rather than silently last-write-wins.
+ */
+export const JA_COURSE_ATOMS_BY_KANA: ReadonlyMap<string, CourseAtom> = (() => {
+  const byId = new Map(JA_COURSE_ATOMS.map((a) => [a.id, a]));
+  const out = new Map<string, CourseAtom>();
+  for (const a of JA_COURSE_ATOMS) {
+    const ruled = JA_PRIMARY_ATOM_BY_KANA[a.kana];
+    if (ruled) {
+      const primary = byId.get(ruled);
+      if (primary) out.set(a.kana, primary);
+      continue;
+    }
+    if (!out.has(a.kana)) out.set(a.kana, a);
+  }
+  return out;
+})();
 
 /** Indexed by id for the SRS / unlock layer. */
 export const JA_COURSE_ATOMS_BY_ID: ReadonlyMap<string, CourseAtom> = new Map(
