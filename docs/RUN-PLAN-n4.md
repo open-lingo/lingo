@@ -902,6 +902,19 @@ and it makes sentences feel same-y long before a learner can say why.
 Meanwhile only ONE word is under-exposed course-wide (はいる #88 ×2), so the
 problem is concentration, not coverage.
 
+**Re-measured after m21 — the guidance works, but slowly.** m21 was given this
+table mid-flight and added 477 surfaces while the heavy carriers grew by only
+1–9 each (みせ +3, ごはん +1); a module leaning on them normally would have added
+~20 apiece. So briefing it changes authoring behaviour. What it cannot do is
+move the RATIOS (21.3× → 20.7× for みせ): nine modules of accumulated
+concentration will not be diluted by one module, so treat the table as a "spend
+elsewhere" list, not a debt that later modules can pay off.
+
+**Under-exposed words to spend, refreshed after m21: もの (#56, ×2) and はいる
+(#88, ×2).** もの was NOT flagged before m21 — its count fell because m21 added
+のみもの and longest-match correctly stopped crediting the もの inside it. That is
+the audit working as intended, not a regression.
+
 ### Carried debt (batch later, do not derail a module for these)
 
 - ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami
