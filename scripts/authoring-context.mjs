@@ -54,7 +54,8 @@ const GRAMMAR = {
   m3: "だ (plain copula, noun+だ); は (topic); も (also); casual ？-contour questions (no か); survival chunks; です (recognition only)",
   m4: "の (possession + attributive); これ/それ/あれ/どれ (deixis by distance); だれ (who); なに/何 (what); のだ short answers",
   m5: "dictionary-form verbs as COMPLETE sentences (NO だ on verbs); を (direct object) + SOV; もの word family; いう/おもう recognition chunks",
-  m6: "(authoring now) plain negative ない by verb class; が subject via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics",
+  m6: "plain negative ない by verb class; が subject via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics",
+  m7: "POLITE LAYER OPENS: ます/ません (i-stem + helper); です finishes NOUNS (never verbs — たべるです is wrong); か REQUIRED on polite questions, dropped in casual; register chosen by AUDIENCE (friend=plain, teacher=polite); name suffixes さん/さま/くん/ちゃん; はい/ええ. Katakana ア and カ rows. NOTE: plain stays the base — polite production is the MINORITY share until ~m16 (ramp: <=20% m8-m11).",
 };
 
 const isVerb = (a) => a.kind === "vocab" && /^to /.test(a.meaningEn);

@@ -264,10 +264,10 @@ export function getMockCourse(languageId: string): Course {
     ];
     // m6 (tile n06a) and m7 (tile s07) are LIVE via the compiler pipeline —
     // slice them off so the placeholders begin at m8.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(2).map((t, i) => ({
-      id: `m${i + 8}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(3).map((t, i) => ({
+      id: `m${i + 9}`,
       title: t.title,
-      eyebrow: `Module ${i + 8} · Coming soon`,
+      eyebrow: `Module ${i + 9} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -415,6 +415,32 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m7-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
+        },
+        {
+          // m8-neo (spine tile n02) — て-form + ください, pulled early for
+          // traveler utility. Katakana サ and タ rows ride along.
+          id: "m8",
+          title: "Asking for things",
+          eyebrow: "Module 8 · て-form and ください",
+          summary: "The connector form and the request formula: て, てください, and the casual bare-て friends use. Katakana サ and タ rows.",
+          lessons: [
+            { id: "ja-m8-neo-kata-sa", title: "Katakana — サ row", status: "available" as const },
+            { id: "ja-m8-neo-1", title: "The connector — て", status: "available" as const },
+            { id: "ja-m8-neo-2", title: "The sound-change table", status: "available" as const },
+            { id: "ja-m8-neo-3", title: "The rebels — いって, して, きて", status: "available" as const },
+            { id: "ja-m8-neo-review-1", title: "Review — the て table", status: "available" as const },
+            { id: "ja-m8-neo-4", title: "Please — てください", status: "available" as const },
+            { id: "ja-m8-neo-5", title: "Food and meals", status: "available" as const },
+            { id: "ja-m8-neo-6", title: "At the shop", status: "available" as const },
+            { id: "ja-m8-neo-kata-ta", title: "Katakana — タ row", status: "available" as const },
+            { id: "ja-m8-neo-review-2", title: "Review — requests in context", status: "available" as const },
+            { id: "ja-m8-neo-7", title: "Please tell me — おしえて", status: "available" as const },
+            { id: "ja-m8-neo-8", title: "Friends don't say ください", status: "available" as const },
+            { id: "ja-m8-neo-9", title: "Asking your way through a day", status: "available" as const },
+            { id: "ja-m8-neo-review-3", title: "Review — the whole request kit", status: "available" as const },
+            { id: "ja-m8-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+          ],
+          accent: { from: "#f59e0b", to: "#d97706" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

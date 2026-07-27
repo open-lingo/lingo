@@ -1,0 +1,2057 @@
+{
+  "module": "m8",
+  "title": "Asking for things: て-form and ください",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7"
+  ],
+  "priorGrammarPoints": [
+    "wa",
+    "ga",
+    "wo",
+    "no",
+    "ni",
+    "de",
+    "mo",
+    "dare",
+    "kore-deixis",
+    "sore-deixis",
+    "nai-ru",
+    "nai-u",
+    "nai-irregular",
+    "aru-ga-existence",
+    "iru-animacy",
+    "nai-existence",
+    "location-deixis",
+    "ni-existence",
+    "spatial-relations",
+    "location-qa",
+    "de-action",
+    "masu-present",
+    "masu-negative",
+    "desu-copula",
+    "ka-question",
+    "register-audience"
+  ],
+  "grammarPoints": [
+    {
+      "id": "te-form",
+      "rule": "The て-form is the verb's CONNECTOR. る-verbs just swap る for て: たべる → たべて. う-verbs follow a sound-change table by their last kana: む/ぶ/ぬ → んで (のむ → のんで); う/つ/る → って (かう → かって); く → いて (きく → きいて); ぐ → いで. する → して, くる → きて. いく is the one rebel: いって, not いいて.",
+      "examples": [
+        {
+          "ja": "たべて",
+          "en": "eat (て-form)"
+        },
+        {
+          "ja": "のんで",
+          "en": "drink (て-form)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "のみて",
+        "en": "",
+        "why": "のむ is an う-verb ending in む — it becomes のんで, not のみて"
+      }
+    },
+    {
+      "id": "te-kudasai",
+      "rule": "て + ください = a polite request: 'please do X'. It is a fixed FORMULA — you attach ください to the て-form and nothing else changes. Drop ください and the bare て-form is the casual version friends use: みて = 'look', みてください = 'please look'.",
+      "examples": [
+        {
+          "ja": "みてください",
+          "en": "Please look."
+        },
+        {
+          "ja": "たべてください",
+          "en": "Please eat."
+        }
+      ],
+      "antiPattern": {
+        "ja": "たべるください",
+        "en": "",
+        "why": "ください attaches to the て-form, not the dictionary form — たべてください"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m8-neo-1",
+      "role": "teaching",
+      "title": "The connector — て",
+      "focus": "る-verbs swap る for て; the form that other things attach to",
+      "introduces": [
+        "たべて",
+        "みて"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべて。",
+          "en": "Eat",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みて。",
+          "en": "Look",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょうりを たべて。",
+          "en": "Eat the food",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "そらを みて。",
+          "en": "Look at the sky",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんを みて。",
+          "en": "Look at the book",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぎゅうにゅうを のむ。",
+          "en": "I drink milk",
+          "exercises": [
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しゃしんを みて。",
+          "en": "Look at the photo",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは たべて。",
+          "en": "Eat today",
+          "exercises": [
+            "te-form",
+            "wa"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "そらを みて。",
+              "en": "Look at the sky."
+            },
+            {
+              "speaker": "トム",
+              "ja": "ほしだ。",
+              "en": "Stars."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika point out?",
+              "options": [
+                "The sky",
+                "A book",
+                "A photo",
+                "Food"
+              ],
+              "answer": "The sky"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの しゃしんを みて。",
+          "en": "Look at Mika's photo",
+          "combines": [
+            "no",
+            "wo",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "たべる",
+        "みる",
+        "ほん",
+        "そら",
+        "しゃしん",
+        "ほし",
+        "きょう",
+        "ひと"
+      ]
+    },
+    {
+      "id": "m8-neo-2",
+      "role": "teaching",
+      "title": "The sound-change table — う-verbs",
+      "focus": "む/ぶ → んで, う/つ/る → って, く → いて; the table that pays twice",
+      "introduces": [
+        "のんで",
+        "かって",
+        "きいて",
+        "あそんで"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のんで。",
+          "en": "Drink",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かって。",
+          "en": "Buy it",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きいて。",
+          "en": "Listen",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あそんで。",
+          "en": "Play",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みずを のんで。",
+          "en": "Drink the water",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんを かって。",
+          "en": "Buy a book",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたを きいて。",
+          "en": "Listen to the song",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ぎゅうにゅうを ",
+          "tail": "。",
+          "answer": "のんで",
+          "options": [
+            "のんで",
+            "たべて",
+            "かって"
+          ],
+          "en": "Drink the milk",
+          "explanation": "のむ ends in む, so it takes んで — のんで. たべて and かって are other verbs' て-forms."
+        },
+        {
+          "kind": "sentence",
+          "ja": "かわで あそんで。",
+          "en": "Play at the river",
+          "exercises": [
+            "te-form",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "かわで ともだちの うたを きいて。",
+          "en": "Listen to your friend's song at the river",
+          "combines": [
+            "de-action",
+            "no",
+            "wo",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "のむ",
+        "かう",
+        "きく",
+        "あそぶ",
+        "みず",
+        "ぎゅうにゅう",
+        "うた",
+        "かわ",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m8-neo-3",
+      "role": "teaching",
+      "title": "The rebels — いって, して, きて",
+      "focus": "する/くる and the one irregular う-verb; the table's exceptions in one place",
+      "introduces": [
+        "いって",
+        "して",
+        "きて"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "して。",
+          "en": "Do it",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きて。",
+          "en": "Come",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いって。",
+          "en": "Go",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえに きて。",
+          "en": "Come to the house",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いって。",
+          "en": "Go to the sea",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さんぽを して。",
+          "en": "Take a walk",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "やまに ",
+          "tail": "。",
+          "answer": "いって",
+          "options": [
+            "いって",
+            "きて",
+            "して"
+          ],
+          "en": "Go to the mountain",
+          "explanation": "いく is the rebel: いって. きて is くる and して is する — different verbs."
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょう いえに きて。",
+          "en": "Come to the house today",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ケン",
+              "ja": "きょう いえに きて。",
+              "en": "Come to my place today."
+            },
+            {
+              "speaker": "ミカ",
+              "ja": "うん、いく。",
+              "en": "Yeah, I'll go."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Will Mika come?",
+              "options": [
+                "Yes",
+                "No",
+                "Tomorrow",
+                "She didn't say"
+              ],
+              "answer": "Yes"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの いえに いって。",
+          "en": "Go to Mika's house",
+          "combines": [
+            "no",
+            "ni",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "する",
+        "くる",
+        "いく",
+        "いえ",
+        "うみ",
+        "やま",
+        "さんぽ",
+        "きょう"
+      ]
+    },
+    {
+      "id": "m8-neo-r1",
+      "role": "review",
+      "title": "Review — the て table",
+      "focus": "all three classes on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "かさを かって。",
+          "en": "Buy an umbrella",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなを みて。",
+          "en": "Look at the flowers",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いけに いって。",
+          "en": "Go to the pond",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こえを きいて。",
+          "en": "Listen to the voice",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょうりを たべて。",
+          "en": "Eat the food",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぼうしを かって。",
+          "en": "Buy a hat",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ねこと ",
+          "tail": "。",
+          "answer": "あそんで",
+          "options": [
+            "あそんで",
+            "きいて",
+            "みて"
+          ],
+          "en": "Play with the cat",
+          "explanation": "あそぶ ends in ぶ, which joins む in the んで group — あそんで."
+        },
+        {
+          "kind": "sentence",
+          "ja": "まどを みて。",
+          "en": "Look at the window",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いって。",
+          "en": "Go to the sea",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんわを きいて。",
+          "en": "Listen to the phone",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "うみに いく？",
+              "en": "Going to the sea?"
+            },
+            {
+              "speaker": "ケン",
+              "ja": "うん、ミカも くる。",
+              "en": "Yeah, Mika's coming too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who else is coming?",
+              "options": [
+                "Mika",
+                "Tanaka",
+                "Nobody",
+                "Tom's family"
+              ],
+              "answer": "Mika"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "はな",
+        "いけ",
+        "こえ",
+        "りょうり",
+        "ぼうし",
+        "まど",
+        "でんわ",
+        "ねこ"
+      ]
+    },
+    {
+      "id": "m8-neo-4",
+      "role": "teaching",
+      "title": "Please — てください",
+      "focus": "ください as a fixed formula bolted onto て",
+      "introduces": [
+        "ください"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-kudasai"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みてください。",
+          "en": "Say politely: Please look",
+          "exercises": [
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべてください。",
+          "en": "Say politely: Please eat",
+          "exercises": [
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きいてください。",
+          "en": "Say politely: Please listen",
+          "exercises": [
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みずを のんでください。",
+          "en": "Say politely: Please drink the water",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえに きてください。",
+          "en": "Say politely: Please come to the house",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しゃしんを みてください。",
+          "en": "Say politely: Please look at the photo",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ほんを ",
+          "tail": "ください。",
+          "answer": "かって",
+          "options": [
+            "かって",
+            "かう",
+            "かいます"
+          ],
+          "en": "Please buy a book",
+          "explanation": "ください attaches to the て-form: かう → かって. かう is the dictionary form and かいます is polite."
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたを きいてください。",
+          "en": "Say politely: Please listen to the song",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "たなか",
+              "ja": "ほんを みてください。",
+              "en": "Please look at the book."
+            },
+            {
+              "speaker": "トム",
+              "ja": "はい。",
+              "en": "Yes."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tanaka ask Tom to do?",
+              "options": [
+                "Look at the book",
+                "Buy the book",
+                "Read aloud",
+                "Come here"
+              ],
+              "answer": "Look at the book"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たなかさんの しゃしんを みてください。",
+          "en": "Say politely: Please look at Tanaka's photo",
+          "combines": [
+            "no",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "みる",
+        "たべる",
+        "きく",
+        "のむ",
+        "みず",
+        "いえ",
+        "しゃしん",
+        "ほん",
+        "うた"
+      ]
+    },
+    {
+      "id": "m8-neo-5",
+      "role": "teaching",
+      "title": "Food and meals",
+      "focus": "the vocabulary requests are actually made about",
+      "introduces": [
+        "ごはん",
+        "たべもの",
+        "しょくじ",
+        "ちゃ"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ごはん",
+          "en": "rice, a meal",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃ",
+          "en": "tea",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべもの",
+          "en": "food",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しょくじ",
+          "en": "a meal",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべる。",
+          "en": "I eat rice",
+          "exercises": [
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを のんで。",
+          "en": "Drink the tea",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものが ある。",
+          "en": "There's food",
+          "exercises": [
+            "ga",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しょくじを してください。",
+          "en": "Say politely: Please have a meal",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを のんでください。",
+          "en": "Say politely: Please drink the tea",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの たべものを たべないで。",
+          "en": "Don't eat Mika's food",
+          "combines": [
+            "no",
+            "wo",
+            "nai-ru"
+          ],
+          "mode": "translate",
+          "alsoAccept": [
+            "ミカの たべものを たべない。"
+          ]
+        }
+      ],
+      "reviewPool": [
+        "たべる",
+        "のむ",
+        "みず",
+        "ぎゅうにゅう",
+        "りょうり",
+        "ある",
+        "ひと",
+        "いえ"
+      ]
+    },
+    {
+      "id": "m8-neo-6",
+      "role": "teaching",
+      "title": "At the shop",
+      "focus": "requests in the one place a beginner actually needs them",
+      "introduces": [
+        "みせ",
+        "こめ"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "みせ",
+          "en": "a shop",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こめ",
+          "en": "uncooked rice",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせに いく。",
+          "en": "I go to the shop",
+          "exercises": [
+            "ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで かう。",
+          "en": "I buy it at the shop",
+          "exercises": [
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こめを かってください。",
+          "en": "Say politely: Please buy rice",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせに いってください。",
+          "en": "Say politely: Please go to the shop",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは あそこです。",
+          "en": "Say politely: The shop is over there",
+          "exercises": [
+            "wa",
+            "desu-copula",
+            "location-deixis"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで ちゃを かって。",
+          "en": "Buy tea at the shop",
+          "exercises": [
+            "de-action",
+            "wo",
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "みせは どこ？",
+              "en": "Where's the shop?"
+            },
+            {
+              "speaker": "ケン",
+              "ja": "あそこだ。",
+              "en": "Over there."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Where is the shop?",
+              "options": [
+                "Over there",
+                "Here",
+                "At Mika's house",
+                "Not stated"
+              ],
+              "answer": "Over there"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせで ごはんを かってください。",
+          "en": "Say politely: Please buy rice at the shop",
+          "combines": [
+            "de-action",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "いく",
+        "かう",
+        "ちゃ",
+        "ごはん",
+        "いえ",
+        "ひと",
+        "きょう",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m8-neo-r2",
+      "role": "review",
+      "title": "Review — requests in context",
+      "focus": "て and てください over the module's new vocabulary",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべてください。",
+          "en": "Say politely: Please eat the rice",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで こめを かって。",
+          "en": "Buy rice at the shop",
+          "exercises": [
+            "de-action",
+            "wo",
+            "te-form"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものは そこです。",
+          "en": "Say politely: The food is there",
+          "exercises": [
+            "wa",
+            "desu-copula",
+            "location-deixis"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃが ある。",
+          "en": "There's tea",
+          "exercises": [
+            "ga",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しょくじを たべて。",
+          "en": "Eat the meal",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせに いきます。",
+          "en": "Say politely: I'm going to the shop",
+          "exercises": [
+            "ni",
+            "masu-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "みずを ",
+          "tail": "ください。",
+          "answer": "のんで",
+          "options": [
+            "のんで",
+            "のむ",
+            "のみます"
+          ],
+          "en": "Please drink the water",
+          "explanation": "ください needs the て-form in front of it."
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものを かってください。",
+          "en": "Say politely: Please buy food",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんが ない。",
+          "en": "There's no rice",
+          "exercises": [
+            "ga",
+            "nai-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを のみますか。",
+          "en": "Say politely: Will you drink tea",
+          "exercises": [
+            "wo",
+            "masu-present",
+            "ka-question"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "たなか",
+              "ja": "ごはんを たべますか。",
+              "en": "Will you eat?"
+            },
+            {
+              "speaker": "ミカ",
+              "ja": "はい、たべます。",
+              "en": "Yes, I'll eat."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Will Mika eat?",
+              "options": [
+                "Yes",
+                "No",
+                "Only tea",
+                "Later"
+              ],
+              "answer": "Yes"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ごはん",
+        "ちゃ",
+        "たべもの",
+        "しょくじ",
+        "こめ",
+        "みせ",
+        "みず",
+        "たべる",
+        "のむ"
+      ]
+    },
+    {
+      "id": "m8-neo-7",
+      "role": "teaching",
+      "title": "Please tell me — おしえて",
+      "focus": "the single most useful request a learner owns",
+      "introduces": [
+        "おしえる",
+        "おしえて"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "おしえる。",
+          "en": "I'll tell you",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おしえて。",
+          "en": "Tell me",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おしえてください。",
+          "en": "Say politely: Please tell me",
+          "exercises": [
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせを おしえてください。",
+          "en": "Say politely: Please tell me the shop",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なまえを おしえて。",
+          "en": "Tell me your name",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんに おしえてください。",
+          "en": "Say politely: Please tell Tanaka",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカに おしえて。",
+          "en": "Tell Mika",
+          "exercises": [
+            "te-form",
+            "ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いえを ",
+          "tail": "ください。",
+          "answer": "おしえて",
+          "options": [
+            "おしえて",
+            "おしえる",
+            "おしえます"
+          ],
+          "en": "Please tell me the house",
+          "explanation": "ください takes the て-form — おしえる → おしえて."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "たなかさん、みせを おしえてください。",
+              "en": "Tanaka, please tell me where the shop is."
+            },
+            {
+              "speaker": "たなか",
+              "ja": "あそこですよ。",
+              "en": "It's over there."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom ask for?",
+              "options": [
+                "Where the shop is",
+                "Some food",
+                "A book",
+                "The time"
+              ],
+              "answer": "Where the shop is"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たなかさんに ミカの みせを おしえてください。",
+          "en": "Say politely: Please tell Tanaka about Mika's shop",
+          "combines": [
+            "ni",
+            "no",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "みせ",
+        "いえ",
+        "ひと",
+        "ともだち",
+        "せんせい",
+        "きょう",
+        "ほん"
+      ]
+    },
+    {
+      "id": "m8-neo-8",
+      "role": "teaching",
+      "title": "Friends don't say ください",
+      "focus": "bare て is the casual request; ください makes it polite",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-kudasai"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みて。",
+          "en": "Say to a friend: Look",
+          "exercises": [
+            "te-form",
+            "register-audience"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みてください。",
+          "en": "Say to a teacher: Please look",
+          "exercises": [
+            "te-kudasai",
+            "register-audience"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きいて。",
+          "en": "Say to a friend: Listen",
+          "exercises": [
+            "te-form",
+            "register-audience"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きいてください。",
+          "en": "Say to a teacher: Please listen",
+          "exercises": [
+            "te-kudasai",
+            "register-audience"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべて。",
+          "en": "Say to a friend: Eat the rice",
+          "exercises": [
+            "te-form",
+            "wo",
+            "register-audience"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべてください。",
+          "en": "Say to a teacher: Please eat the rice",
+          "exercises": [
+            "te-kudasai",
+            "wo",
+            "register-audience"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせに いって。",
+          "en": "Say to a friend: Go to the shop",
+          "exercises": [
+            "te-form",
+            "ni",
+            "register-audience"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ケン",
+              "ja": "ちゃを のんで。",
+              "en": "Drink some tea."
+            },
+            {
+              "speaker": "トム",
+              "ja": "うん、のむ。",
+              "en": "Yeah, I will."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why does Ken say のんで and not のんでください?",
+              "options": [
+                "Tom is a friend",
+                "Tom is a teacher",
+                "It's a question",
+                "It's negative"
+              ],
+              "answer": "Tom is a friend"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たなかさんに ちゃを かってください。",
+          "en": "Say politely: Please buy tea for Tanaka",
+          "combines": [
+            "ni",
+            "wo",
+            "te-kudasai",
+            "register-audience"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "みる",
+        "きく",
+        "たべる",
+        "のむ",
+        "ごはん",
+        "ちゃ",
+        "みせ",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m8-neo-9",
+      "role": "teaching",
+      "title": "Asking your way through a day",
+      "focus": "stringing requests into real situations",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "みずを かってください。",
+          "en": "Say politely: Please buy water",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえに きてください。",
+          "en": "Say politely: Please come to the house",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しゃしんを みて。",
+          "en": "Look at the photo",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで たべものを かって。",
+          "en": "Buy food at the shop",
+          "exercises": [
+            "de-action",
+            "wo",
+            "te-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに おしえてください。",
+          "en": "Say politely: Please tell the teacher",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょう みせに いってください。",
+          "en": "Say politely: Please go to the shop today",
+          "exercises": [
+            "te-kudasai",
+            "ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちと あそんで。",
+          "en": "Play with your friend",
+          "exercises": [
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "うたを ",
+          "tail": "ください。",
+          "answer": "きいて",
+          "options": [
+            "きいて",
+            "きく",
+            "ききます"
+          ],
+          "en": "Please listen to the song",
+          "explanation": "きく ends in く → いて."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "きょう みせに いく？",
+              "en": "Going to the shop today?"
+            },
+            {
+              "speaker": "トム",
+              "ja": "うん。ちゃを かう。",
+              "en": "Yeah. I'll buy tea."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What will Tom buy?",
+              "options": [
+                "Tea",
+                "Rice",
+                "A book",
+                "Nothing"
+              ],
+              "answer": "Tea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせで ミカの たべものを かってください。",
+          "en": "Say politely: Please buy Mika's food at the shop",
+          "combines": [
+            "de-action",
+            "no",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かう",
+        "くる",
+        "きく",
+        "あそぶ",
+        "みず",
+        "いえ",
+        "みせ",
+        "たべもの",
+        "うた",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m8-neo-r3",
+      "role": "review",
+      "title": "Review — the whole request kit",
+      "focus": "て, てください and register together on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "かさを かってください。",
+          "en": "Say politely: Please buy an umbrella",
+          "exercises": [
+            "te-kudasai",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなを みて。",
+          "en": "Look at the flowers",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こめを かいます。",
+          "en": "Say politely: I'll buy rice",
+          "exercises": [
+            "wo",
+            "masu-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しょくじは ここです。",
+          "en": "Say politely: The meal is here",
+          "exercises": [
+            "wa",
+            "desu-copula",
+            "location-deixis"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを のんで。",
+          "en": "Drink the tea",
+          "exercises": [
+            "te-form",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせに いきません。",
+          "en": "Say politely: I'm not going to the shop",
+          "exercises": [
+            "ni",
+            "masu-negative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものが ありません。",
+          "en": "Say politely: There's no food",
+          "exercises": [
+            "ga",
+            "masu-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いえに ",
+          "tail": "ください。",
+          "answer": "きて",
+          "options": [
+            "きて",
+            "くる",
+            "きます"
+          ],
+          "en": "Please come to the house",
+          "explanation": "くる → きて before ください."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべますか。",
+          "en": "Say politely: Will you eat rice",
+          "exercises": [
+            "wo",
+            "masu-present",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おしえてください。",
+          "en": "Say politely: Please tell me",
+          "exercises": [
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "たなか",
+              "ja": "しょくじを たべますか。",
+              "en": "Will you eat a meal?"
+            },
+            {
+              "speaker": "ミカ",
+              "ja": "いいえ、たべません。",
+              "en": "No, I won't."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Will Mika eat?",
+              "options": [
+                "No",
+                "Yes",
+                "Only tea",
+                "She didn't say"
+              ],
+              "answer": "No"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "はな",
+        "こめ",
+        "しょくじ",
+        "ちゃ",
+        "みせ",
+        "たべもの",
+        "ごはん",
+        "いえ"
+      ]
+    },
+    {
+      "id": "m8-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — put it all together",
+      "focus": "End-of-module stretch: て, ください, register and location combined in shapes the teaching lessons never paired",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの みせで こめを かってください。",
+          "en": "Say politely: Please buy rice at Tanaka's shop",
+          "exercises": [
+            "no",
+            "de-action",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカちゃんに たべものを おしえて。",
+          "en": "Tell Mika about the food",
+          "exercises": [
+            "register-audience",
+            "ni",
+            "wo",
+            "te-form"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは みせに いかない。",
+          "en": "I'm not going to the shop today",
+          "exercises": [
+            "wa",
+            "ni",
+            "nai-u"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃが ないです。おしえてください。",
+          "en": "Say politely: There's no tea. Please tell me",
+          "exercises": [
+            "ga",
+            "nai-existence",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちの いえで ごはんを たべて。",
+          "en": "Eat rice at your friend's house",
+          "exercises": [
+            "no",
+            "de-action",
+            "wo",
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに しゃしんを おしえてください。",
+          "en": "Say politely: Please tell the teacher about the photo",
+          "exercises": [
+            "ni",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは あそこに ありますか。",
+          "en": "Say politely: Is the shop over there",
+          "exercises": [
+            "wa",
+            "location-deixis",
+            "ni-existence",
+            "ka-question"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの ちゃを のまないで。",
+          "en": "Don't drink Mika's tea",
+          "exercises": [
+            "no",
+            "wo",
+            "nai-u"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "たなかさん、たべものを かってください。",
+              "en": "Tanaka, please buy some food."
+            },
+            {
+              "speaker": "たなか",
+              "ja": "はい。みせに いきます。",
+              "en": "Sure. I'll go to the shop."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What will Tanaka do?",
+              "options": [
+                "Go to the shop",
+                "Cook a meal",
+                "Stay home",
+                "Buy tea only"
+              ],
+              "answer": "Go to the shop"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きょうは ミカの みせで ちゃを かってください。",
+          "en": "Say politely: Today please buy tea at Mika's shop",
+          "combines": [
+            "wa",
+            "no",
+            "de-action",
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "こめ",
+        "ちゃ",
+        "たべもの",
+        "ごはん",
+        "みせ",
+        "しゃしん",
+        "いえ",
+        "ともだち",
+        "せんせい"
+      ]
+    }
+  ]
+}

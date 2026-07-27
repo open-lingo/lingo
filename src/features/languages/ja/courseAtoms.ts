@@ -293,7 +293,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "osake", kana: "おさけ", kanji: "お酒", romaji: "osake", meaningEn: "alcohol, rice wine", emoji: "🍶", fromModule: "m21", introducedByLessonId: "ja-m7-1-1", kind: "vocab" },
   { id: "ja-m7-4-v-gohan", kana: "ごはん", kanji: "御飯", romaji: "gohan", meaningEn: "cooked rice, meal", emoji: "🍚", fromModule: "m7", introducedByLessonId: "ja-m7-4", kind: "vocab" },
   { id: "ja-m7-1-v-kaku", kana: "かく", kanji: "書く", romaji: "kaku", meaningEn: "to write", emoji: "✍️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
-  { id: "ja-m7-1-v-iku", kana: "いく", kanji: "行く", romaji: "iku", meaningEn: "to go", emoji: "🚶", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab", note: "person walking" },
+  { id: "ja-m7-1-v-iku", kana: "いく", kanji: "行く", romaji: "iku", meaningEn: "to go, to travel", emoji: "🚶", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab", note: "person walking" },
   { id: "ja-m7-1-v-miru", kana: "みる", kanji: "見る  観る", romaji: "miru", meaningEn: "to watch, to look at", shortGloss: "to watch", emoji: "👁️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-yomu", kana: "よむ", kanji: "読む", romaji: "yomu", meaningEn: "to read", emoji: "📖", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
   { id: "ja-m7-1-v-taberu", kana: "たべる", kanji: "食べる", romaji: "taberu", meaningEn: "to eat", emoji: "🍽️", fromModule: "m7", introducedByLessonId: "ja-m7-1", kind: "vocab" },
@@ -929,6 +929,20 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sama", kana: "さま", romaji: "sama", meaningEn: "-sama (respectful name suffix)", shortGloss: "-sama", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
   { id: "kun", kana: "くん", romaji: "kun", meaningEn: "-kun (familiar, usually boys)", shortGloss: "-kun", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
   { id: "chan", kana: "ちゃん", romaji: "chan", meaningEn: "-chan (affectionate)", shortGloss: "-chan", fromModule: "m7", introducedByLessonId: "ja-m7-neo-8", kind: "vocab" },
+  // ── m8-neo (tile n02) — て-form + ください ──
+  { id: "tabete", kana: "たべて", romaji: "tabete", meaningEn: "eat (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-1", kind: "vocab" },
+  { id: "mite", kana: "みて", romaji: "mite", meaningEn: "watch, look (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-1", kind: "vocab" },
+  { id: "nonde", kana: "のんで", romaji: "nonde", meaningEn: "drink (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-2", kind: "vocab" },
+  { id: "katte", kana: "かって", romaji: "katte", meaningEn: "buy (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-2", kind: "vocab" },
+  { id: "kiite", kana: "きいて", romaji: "kiite", meaningEn: "listen, ask (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-2", kind: "vocab" },
+  { id: "asonde", kana: "あそんで", romaji: "asonde", meaningEn: "play (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-2", kind: "vocab" },
+  { id: "itte", kana: "いって", romaji: "itte", meaningEn: "go, travel (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-3", kind: "vocab" },
+  { id: "shite", kana: "して", romaji: "shite", meaningEn: "do, make (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-3", kind: "vocab" },
+  { id: "kite", kana: "きて", romaji: "kite", meaningEn: "come (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-3", kind: "vocab" },
+  { id: "oshiete", kana: "おしえて", romaji: "oshiete", meaningEn: "teach, tell (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-7", kind: "vocab" },
+  { id: "shokuji", kana: "しょくじ", romaji: "shokuji", meaningEn: "a meal", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab" },
+  { id: "cha", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab" },
+  { id: "kome", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */
