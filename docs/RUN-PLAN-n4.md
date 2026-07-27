@@ -249,8 +249,8 @@ teaches four counters at once is a table, not a lesson).
 | 18 | to-omoimasu to-quotation kanji-set-1 | ✅
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** | ✅
 | 20 | yori-comparison numbers-100-10000 counter-ko | ✅
-| 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
-| 22 | ga-itai frequency-adverbs counter-hai |
+| 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** |
+| 22 | ga-itai frequency-adverbs **counter-hon** |
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 |
 | 24 | mashou masenka no-ga-jouzu no-ga-heta |
 | 25 | deshou |
@@ -261,7 +261,13 @@ teaches four counters at once is a table, not a lesson).
 
 **When this table and `spinePlan.ts` disagree, the spine wins** and the table
 gets edited — the table is a coverage ledger, not a curriculum. Already
-reconciled: `masu-past-negative` m11→m16 (the spine defers ませんでした to the
+reconciled: **`counter-hai` m22→m21 and `counter-hon` m21→m22 (2026-07-27)** —
+spine tile s19 names the cup counter in so many words ("Cup counter はい/ぱい/ばい
+drips with drinks vocab"), and it belongs there for a reason the ledger can't
+see: m21 is the LISTING module, so 「コーヒーを にはい と ケーキを…」 is the
+counter earning its place inside the grammar being taught, not a drip bolted on.
+本 has no such affinity and moves to m22, where it drips as ordinary vocabulary.
+Also reconciled: `masu-past-negative` m11→m16 (the spine defers ませんでした to the
 connectives tile) and `counter-fun` m11→m19 (ぷん rendaku defers to the drip).
 
 **A FIFTH reconciliation, m16 (2026-07-27) — `made-until` m19 → m16, and
