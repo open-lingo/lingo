@@ -2,7 +2,7 @@ import {
   getTransformRuleset,
   getTransformRulesetFor,
 } from "@/features/languages/ja/conjugation/transformRulesets";
-import type { VerbGroup } from "@/features/languages/ja/conjugationTables";
+import type { TransformClass } from "@/features/languages/ja/conjugation/transformCells";
 
 /**
  * The conjugation rule table (spec 2026-07-23): one row per verb class,
@@ -18,7 +18,7 @@ export function TransformRuleTable({
   maskBase,
 }: {
   form: string;
-  highlight?: VerbGroup;
+  highlight?: TransformClass;
   /** The drilled base verb — rows whose canonical example IS this word swap
    *  to an alternate so the table never prints the card's own answer. */
   maskBase?: string;

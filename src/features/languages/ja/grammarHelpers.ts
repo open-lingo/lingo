@@ -40,12 +40,19 @@ import { annotateJapaneseText } from "./romajiLexicon";
 import { VERB_ENTRIES, ADJ_ENTRIES, type VerbGroup } from "./conjugationTables";
 import {
   conjugateVerb,
+  conjugateIAdj,
   CHAIN_FORM_LABELS,
+  IADJ_FORM_LABELS,
   type ChainForm,
+  type IAdjForm,
 } from "./conjugationEngine";
 // PURE leaf module (not trainerSession — its SRS chain closes an import
 // cycle back into the curriculum through the language registry).
-import { generateFormationDistractors, transformDrillDistractors } from "./conjugation/formationDistractors";
+import {
+  generateFormationDistractors,
+  transformDrillDistractors,
+  transformDrillIAdjDistractors,
+} from "./conjugation/formationDistractors";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -1483,9 +1490,11 @@ export function conjugationTransform(opts: {
   baseGloss: string;
   /** Target-form gloss, e.g. "won't drink / don't drink". */
   targetGloss: string;
-  form: ChainForm;
-  /** Verb class override — required when `base` is not in VERB_ENTRIES. */
-  group?: VerbGroup;
+  /** Verb chain form, OR an い-adjective cell when `group` is "i-adj". */
+  form: ChainForm | IAdjForm;
+  /** Word class override — required when `base` is not in VERB_ENTRIES, and
+   *  ALWAYS for い-adjectives ("i-adj", m12 / spine s09). */
+  group?: VerbGroup | "i-adj";
   /** Per-kana romaji annotation line for the base. */
   baseRomaji?: string;
   /** Ungraded end-of-lesson type-tease (no cell write, no streak). */
@@ -1498,17 +1507,29 @@ export function conjugationTransform(opts: {
       `conjugationTransform(${opts.id}): '${opts.base}' is not in VERB_ENTRIES — pass opts.group`,
     );
   }
-  const answer = conjugateVerb(opts.base, group, opts.form);
   // Never serve a REAL registered word as a wrong option (いない collision
   // class); anti-pattern ranks first — see transformDrillDistractors.
   const realWords = new Set(JA_COURSE_ATOMS.map((a) => a.kana));
-  const distractors = transformDrillDistractors(
-    opts.base,
-    group,
-    opts.form,
-    answer,
-    realWords,
-  );
+  // い-adjectives conjugate on their OWN engine (よ- suppletion, no verb
+  // classes) — same card, same mastery ladder, different rule table.
+  const isIAdj = group === "i-adj";
+  const answer = isIAdj
+    ? conjugateIAdj(opts.base, opts.form as IAdjForm)
+    : conjugateVerb(opts.base, group, opts.form as ChainForm);
+  const distractors = isIAdj
+    ? transformDrillIAdjDistractors(
+        opts.base,
+        opts.form as IAdjForm,
+        answer,
+        realWords,
+      )
+    : transformDrillDistractors(
+        opts.base,
+        group,
+        opts.form as ChainForm,
+        answer,
+        realWords,
+      );
   if (distractors.length < 2) {
     throw new Error(
       `conjugationTransform(${opts.id}): only ${distractors.length} formation distractor(s) for ${opts.base} → ${opts.form}`,
@@ -1522,7 +1543,9 @@ export function conjugationTransform(opts: {
     baseGloss: opts.baseGloss,
     targetGloss: opts.targetGloss,
     form: opts.form,
-    formLabel: CHAIN_FORM_LABELS[opts.form],
+    formLabel: isIAdj
+      ? IADJ_FORM_LABELS[opts.form as IAdjForm]
+      : CHAIN_FORM_LABELS[opts.form as ChainForm],
     verbClass: group,
     answer,
     distractors: distractors.slice(0, 2),

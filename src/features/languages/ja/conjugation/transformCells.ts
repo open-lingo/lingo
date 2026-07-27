@@ -32,14 +32,26 @@ import {
 } from "@/features/flashcards/engine/grammarSrs";
 import { getToday } from "@/features/flashcards/engine/srs";
 import type { SRSRating } from "@/features/flashcards/data/types";
-import type { ChainForm } from "../conjugationEngine";
+import type { ChainForm, IAdjForm } from "../conjugationEngine";
 import type { VerbGroup } from "../conjugationTables";
 
 export type TransformStage = 1 | 2 | 3;
 
+/**
+ * The CLASS axis of a mastery cell. Verbs contribute their group; い-adjectives
+ * (m12 / spine s09) are a fourth class on the same axis — the adjective
+ * paradigm is drilled by the same card, so it needs its own cells rather than
+ * silently sharing "ichidan".
+ */
+export type TransformClass = VerbGroup | "i-adj";
+
+/** The FORM axis. Verb chain forms and the three い-adjective cells; the
+ *  class disambiguates the (disjoint) namespaces. */
+export type TransformForm = ChainForm | IAdjForm;
+
 export const SHIELD_REPS = 5;
 
-export function transformCellId(form: ChainForm, group: VerbGroup): string {
+export function transformCellId(form: TransformForm, group: TransformClass): string {
   return `conj:${form}:${group}`;
 }
 
@@ -70,8 +82,8 @@ function writeMeta(m: Record<string, CellMeta>): void {
 }
 
 export function getTransformStage(
-  form: ChainForm,
-  group: VerbGroup,
+  form: TransformForm,
+  group: TransformClass,
   today: string = getToday(),
 ): TransformStage {
   const id = transformCellId(form, group);
@@ -94,14 +106,14 @@ export function getTransformStage(
 }
 
 /** True while misses should shake — not reset — the lesson streak flame. */
-export function isStreakShielded(form: ChainForm, group: VerbGroup): boolean {
+export function isStreakShielded(form: TransformForm, group: TransformClass): boolean {
   const card = getGrammarCardState(transformCellId(form, group));
   if (!card) return true;
   return card.recognition.reps + card.production.reps < SHIELD_REPS;
 }
 
 /** Total lifetime reps across modalities — surfaced on the card as `srs ×N`. */
-export function getTransformCellReps(form: ChainForm, group: VerbGroup): number {
+export function getTransformCellReps(form: TransformForm, group: TransformClass): number {
   const card = getGrammarCardState(transformCellId(form, group));
   if (!card) return 0;
   return card.recognition.reps + card.production.reps;
@@ -114,8 +126,8 @@ export function getTransformCellReps(form: ChainForm, group: VerbGroup): number 
  * call this (stakes wait for consolidation; the act doesn't).
  */
 export function recordTransformResult(opts: {
-  form: ChainForm;
-  group: VerbGroup;
+  form: TransformForm;
+  group: TransformClass;
   stage: TransformStage;
   correct: boolean;
   peeked: boolean;

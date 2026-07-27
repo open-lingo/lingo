@@ -45,6 +45,21 @@ export const CHAIN_FORM_LABELS: Record<ChainForm, string> = {
   "tai-neg-past": "たい form (negative past)",
 };
 
+/**
+ * Display labels for the い-adjective cells (m12 / spine s09). Deliberately
+ * NOT merged into `CHAIN_FORM_LABELS`: the two form vocabularies are
+ * disjoint namespaces keyed off the transform card's CLASS ("i-adj" vs a
+ * VerbGroup), and merging them would let a verb card resolve an adjective
+ * label. The trailing " form" also keeps the label out of the kana-only
+ * provenance projection (`kanaSurfaces`) — a bare "くない" would read as a
+ * taught surface on every ramp card.
+ */
+export const IADJ_FORM_LABELS: Record<IAdjForm, string> = {
+  negative: "くない form",
+  past: "かった form",
+  "past-negative": "くなかった form",
+};
+
 // う-row kana → い-row (ます-stem) and → あ-row (ない-stem).
 const U_TO_I: Record<string, string> = {
   う: "い",

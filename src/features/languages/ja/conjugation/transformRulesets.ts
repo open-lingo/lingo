@@ -15,7 +15,7 @@
  * Adding a form later (te / ta / adjectives) = adding a ruleset here; the
  * card and compiler never hard-code ない.
  */
-import type { VerbGroup } from "../conjugationTables";
+import type { TransformClass } from "./transformCells";
 
 export type RuleChip = {
   text: string;
@@ -23,8 +23,8 @@ export type RuleChip = {
 };
 
 export type RulesetRow = {
-  /** VerbGroup this row explains — used for highlight matching. */
-  group: VerbGroup;
+  /** Word class this row explains — used for highlight matching. */
+  group: TransformClass;
   /** Learner-facing class label (course vocabulary, not linguist jargon). */
   label: string;
   chips: RuleChip[];

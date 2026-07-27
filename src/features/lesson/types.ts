@@ -637,8 +637,13 @@ export type ConjugationTransformStep = StepBase & {
   form: string;
   /** Human form label for the prompt chip, e.g. "ない form". */
   formLabel: string;
-  /** Verb class — mastery cell axis + rule-table row highlight. */
-  verbClass: "ichidan" | "godan" | "irregular";
+  /**
+   * Word class — mastery cell axis + rule-table row highlight. `i-adj` (m12
+   * / spine s09) is the adjective paradigm riding the same ramp: an
+   * い-adjective conjugates like a verb, so it gets its own (form × class)
+   * cells rather than a parallel step type.
+   */
+  verbClass: "ichidan" | "godan" | "irregular" | "i-adj";
   /** Engine-derived correct surface, e.g. のまない. */
   answer: string;
   /** 3 formation distractors (same-verb rule misapplications). */

@@ -139,11 +139,26 @@ try {
     const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf-8"));
     for (const lesson of ir.lessons ?? []) {
       for (const b of lesson.beats ?? []) {
-        if ((b.kind === "sentence" || b.kind === "capstone") && b.ja) kanaSet.add(b.ja);
+        if (
+          (b.kind === "sentence" || b.kind === "capstone" || b.kind === "challenge") &&
+          b.ja
+        )
+          kanaSet.add(b.ja);
         if (b.kind === "particle-cloze") kanaSet.add(`${b.stem}${b.answer}${b.tail}`);
+        if (b.kind === "listening-comp" && b.audio) kanaSet.add(b.audio);
         if (b.kind === "dialogue") for (const l of b.lines ?? []) if (l.ja) kanaSet.add(l.ja);
       }
     }
+    // EVERY declared atom needs a clip, not just the ones that happen to be
+    // registered in courseAtoms (2026-07-27, m12). A module may legitimately
+    // declare a form in the IR ONLY — m12's adjective cells (たかくない,
+    // おおきかった …) are real surfaces via ADJ_ENTRIES, so registering them
+    // in courseAtoms would regress flashcard import. But the compiler still
+    // renders them: as the conjugation_transform card's `answer` (whose
+    // correct-answer audio the view plays), as match-pair tiles, and as
+    // speaking/listening filler drawn from the pool. Without this line the
+    // whole ramp was mute.
+    for (const a of ir.newAtoms ?? []) if (a.kana) kanaSet.add(a.kana);
   }
 } catch {
   /* no ir/ dir yet — pre-compiler modules */
@@ -175,6 +190,21 @@ for (const t of Array.from(kanaSet)) {
     .map((s) => s.trim())
     .filter(Boolean);
   if (parts.length > 1) for (const p of parts) kanaSet.add(p);
+}
+
+// PUNCTUATION-STRIPPED TWIN (2026-07-27). `moduleCompiler.clean()` strips
+// 。、？！ from every sentence beat before it becomes a step's
+// `targetSentence`/`audioText`, so a build of a question is looked up as
+// 「なんじに いく」 while the deck only ever held 「なんじに いく？」 — and
+// getTtsUrl deliberately has NO ？-stripping fallback (serving the statement
+// clip for a question would destroy the contour contrast dialogues teach).
+// The result was silent build steps in every IR module that authored a
+// question (m11 shipped four). Emit BOTH: the ？-bearing string keeps its
+// question intonation for dialogue playback, the stripped twin gives the
+// compiled build step something to play.
+for (const t of Array.from(kanaSet)) {
+  const bare = t.replace(/[。、？！]/g, "").trim();
+  if (bare && bare !== t) kanaSet.add(bare);
 }
 
 const deduped = new Set();

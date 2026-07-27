@@ -12,7 +12,12 @@
  * one implementation. Do not duplicate.
  */
 import type { VerbGroup } from "../conjugationTables";
-import { conjugateVerb, type ChainForm } from "../conjugationEngine";
+import {
+  conjugateVerb,
+  conjugateIAdj,
+  type ChainForm,
+  type IAdjForm,
+} from "../conjugationEngine";
 
 // Distractors are SAME-VERB, SAME-ENDING-FAMILY rule misapplications: every
 // option shares the verb's stem AND the target form's ending shape, so only
@@ -126,6 +131,83 @@ export function transformDrillDistractors(
       ? [conjugateVerb(dictionary, "godan", form), conjugateVerb(dictionary, "ichidan", form)]
       : [conjugateVerb(dictionary, group === "godan" ? "ichidan" : "godan", form)]),
     ...generateFormationDistractors(dictionary, group, form, correct),
+  ];
+  const out: string[] = [];
+  const seen = new Set<string>([correct]);
+  for (const c of ranked) {
+    if (!c || seen.has(c) || exclude.has(c)) continue;
+    seen.add(c);
+    out.push(c);
+    if (out.length >= 2) break;
+  }
+  return out;
+}
+
+/** Plain い-adjective suffix — also the attach-to-dictionary error shape. */
+const ADJ_SUFFIX: Record<IAdjForm, string> = {
+  negative: "くない",
+  past: "かった",
+  "past-negative": "くなかった",
+};
+
+/**
+ * い-adjective formation distractors — misapplied くない/かった rules on the
+ * SAME adjective (attach-to-dictionary たかいくない, wrong polarity/tense).
+ * Same anti-elimination guarantees as the verb generator.
+ *
+ * Lives here, in the PURE leaf, for the same reason the verb generator does:
+ * `grammarHelpers.conjugationTransform` needs it for the m12 い-adjective
+ * ramp, and importing `trainerSession` there closes an import cycle back
+ * into the curriculum. `trainerSession` re-exports it — still ONE source.
+ */
+export function generateIAdjFormationDistractors(
+  dictionary: string,
+  form: IAdjForm,
+  correct: string,
+): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>([correct]);
+  const push = (s: string | undefined) => {
+    if (s && !seen.has(s)) {
+      seen.add(s);
+      out.push(s);
+    }
+  };
+  const siblings: IAdjForm[] = ["negative", "past", "past-negative"];
+
+  // (4) wrong polarity/tense within the family (real sibling forms).
+  for (const sib of siblings) if (sib !== form) push(conjugateIAdj(dictionary, sib));
+  // (2) attach-to-dictionary: たかい + くない → たかいくない.
+  push(dictionary + ADJ_SUFFIX[form]);
+  for (const sib of siblings) if (sib !== form) push(dictionary + ADJ_SUFFIX[sib]);
+  // Fallback: stem + every ending (dedup drops correct + sibling repeats).
+  const stem = dictionary.slice(0, -1);
+  for (const e of ["くない", "かった", "くなかった"]) push(stem + e);
+
+  return out.slice(0, 3);
+}
+
+/**
+ * Transform-card picker for い-adjectives — the adjective twin of
+ * `transformDrillDistractors`. ATTACH-TO-DICTIONARY ranks FIRST (たかいくない
+ * is exactly the error the rule card's anti-pattern warns about), then the
+ * regular-stem misapplication for the suppletive いい (いくない beside the
+ * correct よくない), then the family siblings. `exclude` drops candidates that
+ * are REAL registered words, so a wrong option can never be a word the course
+ * teaches as correct somewhere else.
+ */
+export function transformDrillIAdjDistractors(
+  dictionary: string,
+  form: IAdjForm,
+  correct: string,
+  exclude: ReadonlySet<string>,
+): string[] {
+  const ranked = [
+    dictionary + ADJ_SUFFIX[form],
+    // いい's stem is suppletive (よ-); applying the REGULAR rule to it is the
+    // one formation error the family-sibling list can't produce.
+    dictionary.slice(0, -1) + ADJ_SUFFIX[form],
+    ...generateIAdjFormationDistractors(dictionary, form, correct),
   ];
   const out: string[] = [];
   const seen = new Set<string>([correct]);

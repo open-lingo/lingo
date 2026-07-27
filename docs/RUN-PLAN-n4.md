@@ -24,7 +24,7 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15.
+m10 n15 · m11 n04 · m12 s09.
 
 | m | unit | title |
 |---|---|---|
@@ -124,6 +124,16 @@ had been ignoring:
   provenance; only `examples:` count as an introduction.
 - Prompts with an internal sentence period trip the inv-29 theatrics guard.
 - Changing any Japanese text requires a TTS regen or the line ships silent.
+- **Two silent-line classes the emitter could not see, both fixed 2026-07-27
+  in `scripts/emit-tts-deck.mjs` (m12 cycle):** (a) `moduleCompiler.clean()`
+  strips 。、？！ before a sentence becomes a step's `targetSentence`, and
+  `getTtsUrl` deliberately has no ？-fallback, so every IR-authored QUESTION
+  build was mute — m11 shipped four. The emitter now writes a
+  punctuation-stripped twin beside the ？-bearing key, which keeps dialogue
+  contour intact. (b) An atom declared in the IR but NOT registered in
+  courseAtoms got no clip at all, so m12's whole conjugation ramp (the
+  transform card plays its own answer) plus its match tiles and speaking
+  filler would have been silent. The emitter now reads `newAtoms[].kana`.
 - **A guard that runs on already-cleaned text cannot see punctuation bugs.**
   Every check ran after `clean()` stripped 。, which is exactly why 10 run-on
   build steps shipped unnoticed. When adding a guard, ask what the input has
@@ -159,7 +169,7 @@ teaches four counters at once is a table, not a lesson).
 | m | grammar point ids owed |
 |---|---|
 | 11 | ta-form masu-past desu-past numbers-11-99 counter-ji ni-time | ✅ |
-| 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past |
+| 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past | ✅ |
 | 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki |
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai |
 | 15 | dictionary-form toki mae-ni te-kara |
@@ -182,6 +192,23 @@ teaches four counters at once is a table, not a lesson).
 gets edited — the table is a coverage ledger, not a curriculum. Already
 reconciled: `masu-past-negative` m11→m16 (the spine defers ませんでした to the
 connectives tile) and `counter-fun` m11→m19 (ぷん rendaku defers to the drip).
+
+**One reconciliation goes the OTHER way (m12, 2026-07-27).** spinePlan s09
+pulls なる (く/になる) forward from s23; the ledger keeps `ku-ni-naru` at m27
+and m12 shipped WITHOUT it. This is a tooling limit, not a curriculum call:
+the く-stem (たかく) exists in no lexicon the guards read — ADJ_ENTRIES stores
+only the four full cells and courseAtoms stores no inflections — so
+`たかく なる` either trips the compiler's unbuildable gate or forces inflected
+stems into the atom registry, the exact regression m11 documented for ました.
+The に-side (しずかに なる, げんきに なる) tokenizes cleanly today, so なる can
+land whole as soon as a く-stem lexicon exists; splitting it in half at m12
+would have been worse than deferring it. Also deferred from s09 by the
+ledger's own rows, not by m12: すき/きらい (m13, beside が-marked ほしい/たい)
+and よ/ね (m29, the sentence-final-particle tile). すごい/こわい were cut —
+neither is in ADJ_ENTRIES, so their inflections are invisible to the
+provenance guard's real-form lexicon; おいしい/いい/おもしろい carry the
+frequency win instead. どう DID land, as vocabulary rather than a rule card
+(the registry has no point for it, and inv 42 forbids inventing one).
 
 ### Carried debt (batch later, do not derail a module for these)
 

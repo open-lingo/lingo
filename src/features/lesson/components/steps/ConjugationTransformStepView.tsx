@@ -17,7 +17,7 @@ import {
 } from "@/features/languages/ja/conjugation/transformCells";
 import { getTransformRuleset } from "@/features/languages/ja/conjugation/transformRulesets";
 import { TransformRuleTable } from "./TransformRuleTable";
-import type { ChainForm } from "@/features/languages/ja/conjugationEngine";
+import type { TransformForm } from "@/features/languages/ja/conjugation/transformCells";
 import { normalizeTypedAnswer } from "@/shared/speech";
 
 const CELEBRATE_MS = 1100;
@@ -60,7 +60,7 @@ type Props = {
  */
 export function ConjugationTransformStepView({ step, lessonId, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
-  const form = step.form as ChainForm;
+  const form = step.form as TransformForm;
   const stage: TransformStage = step.ungraded
     ? 3
     : getTransformStage(form, step.verbClass);

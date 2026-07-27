@@ -1,0 +1,2562 @@
+{
+  "module": "m12",
+  "title": "Adjectives as mini-predicates (い + な)",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11"
+  ],
+  "priorGrammarPoints": [
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
+    "dare",
+    "kore-sore-are-dore",
+    "nai-form",
+    "arimasu",
+    "imasu",
+    "nai-existence",
+    "koko-soko-asoko",
+    "spatial-relations",
+    "location-qa",
+    "masu-present",
+    "masu-negative",
+    "desu-copula",
+    "ka-question",
+    "register-audience",
+    "te-form",
+    "te-kudasai",
+    "numbers-1-10",
+    "counter-tsu",
+    "ikura-price",
+    "yes-no-register",
+    "aizuchi",
+    "chotto-softener",
+    "numbers-11-99",
+    "counter-ji",
+    "ni-time",
+    "ta-form",
+    "desu-past",
+    "masu-past"
+  ],
+  "grammarPoints": [
+    {
+      "id": "i-adj-present",
+      "rule": "An い-adjective is ALREADY a sentence. たかい does not mean 'expensive', it means 'is-expensive' — ほんは たかい。 is complete and there is nothing to add. Put it straight in front of a noun and it needs no glue either: ちいさい ねこ. The one thing an い-adjective never takes is だ; だ finishes NOUNS.",
+      "examples": [
+        {
+          "ja": "ほんは たかい。",
+          "en": "The book is expensive."
+        },
+        {
+          "ja": "パンは やすい。",
+          "en": "The bread is cheap."
+        },
+        {
+          "ja": "ねこは ちいさい。",
+          "en": "The cat is small."
+        },
+        {
+          "ja": "ちいさい ねこ",
+          "en": "a small cat"
+        },
+        {
+          "ja": "いい ひと",
+          "en": "a good person"
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんは たかいだ。",
+        "why": "たかい is already the whole predicate — an い-adjective never takes だ"
+      }
+    },
+    {
+      "id": "i-adj-negative",
+      "rule": "To say an い-adjective is NOT true, drop the final い and add くない: たかい → たかくない. The adjective conjugates on its own, exactly like a verb, and still takes no だ. One rebel: いい has a different stem — よくない, never いくない.",
+      "examples": [
+        {
+          "ja": "ほんは たかくない。",
+          "en": "The book isn't expensive."
+        },
+        {
+          "ja": "やまは おおきくない。",
+          "en": "The mountain isn't big."
+        },
+        {
+          "ja": "ごはんは おいしくない。",
+          "en": "The rice isn't delicious."
+        },
+        {
+          "ja": "くるまは あたらしくない。",
+          "en": "The car isn't new."
+        },
+        {
+          "ja": "うたは おもしろくない。",
+          "en": "The song isn't interesting."
+        },
+        {
+          "ja": "みせは よくない。",
+          "en": "The shop isn't good."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんは たかいじゃない。",
+        "why": "じゃない finishes nouns — an い-adjective drops its い for くない: たかくない"
+      },
+      "conjugation": {
+        "form": "negative",
+        "classes": [
+          "i-adj"
+        ]
+      }
+    },
+    {
+      "id": "i-adj-past",
+      "rule": "The past of an い-adjective is かった: drop い, add かった. たかい → たかかった. Nouns take だった and verbs take た; an adjective makes its own past and never borrows the copula. The rebel again: いい → よかった.",
+      "examples": [
+        {
+          "ja": "ほんは たかかった。",
+          "en": "The book was expensive."
+        },
+        {
+          "ja": "やまは おおきかった。",
+          "en": "The mountain was big."
+        },
+        {
+          "ja": "ごはんは おいしかった。",
+          "en": "The rice was delicious."
+        },
+        {
+          "ja": "いえは ふるかった。",
+          "en": "The house was old."
+        },
+        {
+          "ja": "かさは やすかった。",
+          "en": "The umbrella was cheap."
+        },
+        {
+          "ja": "きのうは よかった。",
+          "en": "Yesterday was good."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんは たかいだった。",
+        "why": "だった is the NOUN past — an い-adjective drops its い for かった: たかかった"
+      },
+      "conjugation": {
+        "form": "past",
+        "classes": [
+          "i-adj"
+        ]
+      }
+    },
+    {
+      "id": "i-adj-past-negative",
+      "rule": "The last cell stacks the two you already own: くない for 'not', かった for 'was'. Drop い, add くなかった — たかい → たかくなかった, いい → よくなかった. That closes the table: たかい・たかくない・たかかった・たかくなかった, four cells and not a だ in sight.",
+      "examples": [
+        {
+          "ja": "ほんは たかくなかった。",
+          "en": "The book wasn't expensive."
+        },
+        {
+          "ja": "やまは おおきくなかった。",
+          "en": "The mountain wasn't big."
+        },
+        {
+          "ja": "ごはんは おいしくなかった。",
+          "en": "The rice wasn't delicious."
+        },
+        {
+          "ja": "うたは おもしろくなかった。",
+          "en": "The song wasn't interesting."
+        },
+        {
+          "ja": "きのうは よくなかった。",
+          "en": "Yesterday wasn't good."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんは たかくないでした。",
+        "why": "です never carries the past for an adjective — the adjective itself becomes たかくなかった"
+      },
+      "conjugation": {
+        "form": "past-negative",
+        "classes": [
+          "i-adj"
+        ]
+      }
+    },
+    {
+      "id": "na-adj-present",
+      "rule": "A な-adjective is really a NOUN. It cannot predicate on its own, so it borrows the copula exactly like ねこだ: げんきだ. Put it in FRONT of a noun and it takes な — げんきな ひと. That な is the whole reason for the name, and it is the only place the two classes look different: an い-adjective needs nothing there (おおきい いえ).",
+      "examples": [
+        {
+          "ja": "ミカは げんきだ。",
+          "en": "Mika is well."
+        },
+        {
+          "ja": "きょうは ひまだ。",
+          "en": "Today is a free day."
+        },
+        {
+          "ja": "げんきな ひと",
+          "en": "a healthy person"
+        },
+        {
+          "ja": "おおきい いえ",
+          "en": "a big house"
+        }
+      ],
+      "antiPattern": {
+        "ja": "ミカは げんきな。",
+        "why": "な only appears in FRONT of a noun — standing as the predicate it is げんきだ"
+      }
+    },
+    {
+      "id": "na-adj-negative",
+      "rule": "Because a な-adjective is a noun, its negative is the NOUN negative: だ becomes じゃない. しずかだ → しずかじゃない. Nothing drops and nothing changes shape — じゃない simply replaces だ, and it does the same job on plain nouns (ねこじゃない). Never くない: that ending belongs to い-adjectives.",
+      "examples": [
+        {
+          "ja": "いえは しずかじゃない。",
+          "en": "The house isn't quiet."
+        },
+        {
+          "ja": "はなは きれいじゃない。",
+          "en": "The flowers aren't pretty."
+        },
+        {
+          "ja": "えきは にぎやかじゃない。",
+          "en": "The station isn't lively."
+        },
+        {
+          "ja": "それは ねこじゃない。",
+          "en": "That isn't a cat."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いえは しずかくない。",
+        "why": "しずか is a な-adjective — it takes じゃない; くない belongs to い-adjectives"
+      }
+    },
+    {
+      "id": "na-adj-past",
+      "rule": "Same story in the past. A な-adjective borrows the noun's copula, so it borrows だった too: しずかだった. The negative past stacks the same way — じゃない becomes じゃなかった: きれいじゃなかった. You already own both endings from ねこだった; nothing new is being learned here, only spent.",
+      "examples": [
+        {
+          "ja": "みせは しずかだった。",
+          "en": "The shop was quiet."
+        },
+        {
+          "ja": "えきは にぎやかだった。",
+          "en": "The station was lively."
+        },
+        {
+          "ja": "いえは きれいじゃなかった。",
+          "en": "The house wasn't clean."
+        },
+        {
+          "ja": "きのうは ひまじゃなかった。",
+          "en": "Yesterday wasn't a free day."
+        }
+      ],
+      "antiPattern": {
+        "ja": "みせは しずかかった。",
+        "why": "かった is the い-adjective past — a な-adjective borrows the noun's だった"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m12-neo-1",
+      "role": "teaching",
+      "title": "たかい already says \"is\"",
+      "focus": "an い-adjective is a complete predicate — no だ — and attaches straight onto a noun",
+      "introduces": [
+        "おおきい",
+        "おいしい",
+        "あたらしい",
+        "ふるい",
+        "おもしろい",
+        "ちいさい",
+        "いい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "i-adj-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは おおきい。",
+          "en": "Say to a friend: The mountain is big",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ねこは ちいさい。",
+          "en": "Say to a friend: The cat is small",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんは おいしい。",
+          "en": "Say to a friend: The rice is delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くるまは あたらしい。",
+          "en": "The car is new",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは おもしろい。",
+          "en": "Say to a friend: The book is interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふるい いえに いく。",
+          "en": "Say to a friend: I'm going to an old house",
+          "exercises": [
+            "i-adj-present",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いい ともだちが いる。",
+          "en": "Say to a friend: I have a good friend",
+          "exercises": [
+            "i-adj-present",
+            "ga-existence",
+            "imasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おおきい かさを かう。",
+          "en": "Say to a friend: I'll buy a big umbrella",
+          "exercises": [
+            "i-adj-present",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "やまは ",
+          "tail": "。",
+          "answer": "おおきい",
+          "options": [
+            "おおきい",
+            "ちいさい",
+            "おいしい"
+          ],
+          "en": "The mountain is big",
+          "explanation": "おおきい is the whole predicate — nothing goes after it and nothing goes between it and は."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "おおきい ふねが ある。",
+          "answer": "There's a big boat",
+          "distractors": [
+            "There's a small boat",
+            "There's a new car",
+            "The boat is old"
+          ],
+          "exercises": [
+            "i-adj-present",
+            "ga-existence",
+            "arimasu"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "じてんしゃは あたらしい？",
+              "en": "Is the bicycle new?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "うん、あたらしい。ちょっと たかい。",
+              "en": "Yeah, it's new. It's a bit pricey."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the bicycle?",
+              "options": [
+                "New and a bit pricey",
+                "Old and cheap",
+                "New and cheap",
+                "Old and pricey"
+              ],
+              "answer": "New and a bit pricey"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの あたらしい じてんしゃは おおきい。",
+          "en": "Say to a friend: Mika's new bicycle is big",
+          "combines": [
+            "no-possession",
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "やま",
+        "ねこ",
+        "ごはん",
+        "くるま",
+        "いえ",
+        "かさ",
+        "ともだち",
+        "ふね",
+        "じてんしゃ",
+        "ほん"
+      ]
+    },
+    {
+      "id": "m12-neo-2",
+      "role": "teaching",
+      "title": "くない — the adjective says no",
+      "focus": "drop い, add くない; the adjective conjugates by itself, and いい is the rebel",
+      "introduces": [
+        "たかくない",
+        "おおきくない",
+        "おいしくない",
+        "あたらしくない",
+        "おもしろくない",
+        "よくない"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "i-adj-negative"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは たかくない。",
+          "en": "Say to a friend: The book isn't expensive",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは おおきくない。",
+          "en": "Say to a friend: The mountain isn't big",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃは おいしくない。",
+          "en": "Say to a friend: The tea isn't delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じてんしゃは あたらしくない。",
+          "en": "The bicycle isn't new",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたは おもしろくない。",
+          "en": "Say to a friend: The song isn't interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは よくない。",
+          "en": "The shop isn't good",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やすい かさは おおきくない。",
+          "en": "Say to a friend: The cheap umbrella isn't big",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごはんは ",
+          "tail": "。",
+          "answer": "おいしくない",
+          "options": [
+            "おいしくない",
+            "おいしい",
+            "おおきくない"
+          ],
+          "en": "The rice isn't delicious",
+          "explanation": "Drop the final い and add くない — おいしい becomes おいしくない."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いぬは おおきくない。",
+          "answer": "The dog isn't big",
+          "distractors": [
+            "The dog is big",
+            "The cat isn't big",
+            "The dog isn't new"
+          ],
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "ほんは たかい？",
+              "en": "Is the book expensive?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ううん、たかくない。おもしろくない。",
+              "en": "Nope, it isn't expensive. It isn't interesting."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the book?",
+              "options": [
+                "Not expensive and not interesting",
+                "Expensive but interesting",
+                "Not expensive but interesting",
+                "Expensive and interesting"
+              ],
+              "answer": "Not expensive and not interesting"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの あたらしい かさは たかくない。",
+          "en": "Say to a friend: Mika's new umbrella isn't expensive",
+          "combines": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "やま",
+        "ちゃ",
+        "みせ",
+        "かさ",
+        "うた",
+        "いぬ",
+        "じてんしゃ",
+        "おおきい",
+        "おいしい",
+        "おもしろい"
+      ]
+    },
+    {
+      "id": "m12-neo-3",
+      "role": "teaching",
+      "title": "かった — how it was",
+      "focus": "the adjective owns its own past: drop い, add かった; だった stays with nouns",
+      "introduces": [
+        "たかかった",
+        "おおきかった",
+        "おいしかった",
+        "ふるかった",
+        "やすかった",
+        "おもしろかった",
+        "よかった"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "i-adj-past"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ごはんは おいしかった。",
+          "en": "Say to a friend: The rice was delicious yesterday",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは たかかった。",
+          "en": "Say to a friend: The book was expensive",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは おおきかった。",
+          "en": "Say to a friend: The mountain was big",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえは ふるかった。",
+          "en": "The house was old",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは よかった。",
+          "en": "Say to a friend: Yesterday was good",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの いえは ふるかった。",
+          "en": "Mika's house was old",
+          "exercises": [
+            "no-possession",
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう かさは やすかった。",
+          "en": "Say to a friend: The umbrella was cheap yesterday",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたは おもしろかった。",
+          "en": "Say to a friend: The song was interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのうは ",
+          "tail": "。",
+          "answer": "よかった",
+          "options": [
+            "よかった",
+            "いい",
+            "おいしかった"
+          ],
+          "en": "Yesterday was good",
+          "explanation": "いい is the one adjective with a different stem — its past is よかった, never いかった."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "きのう ごはんは おいしかった？",
+              "en": "Was the rice good yesterday?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うん、おいしかった。ちょっと たかかった。",
+              "en": "Yeah, it was good. It was a bit pricey."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Mika say about the rice?",
+              "options": [
+                "Good but a bit pricey",
+                "Cheap and good",
+                "Not good at all",
+                "Old and cheap"
+              ],
+              "answer": "Good but a bit pricey"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ともだちと おいしい ごはんを たべた。",
+          "en": "Say to a friend: I ate delicious rice with a friend yesterday",
+          "combines": [
+            "i-adj-present",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ごはん",
+        "ほん",
+        "やま",
+        "いえ",
+        "かさ",
+        "きのう",
+        "ともだち",
+        "うた",
+        "おおきい",
+        "ふるい",
+        "おいしい"
+      ]
+    },
+    {
+      "id": "m12-neo-r1",
+      "role": "review",
+      "title": "Review — the い-adjective, three cells in",
+      "focus": "たかい / たかくない / たかかった on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "とけいは やすかった。",
+          "en": "Say to a friend: The clock was cheap",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは おおきい。",
+          "en": "Say to a friend: The station is big",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたは よくない。",
+          "en": "The song isn't good",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふるい とけいは たかくない。",
+          "en": "Say to a friend: The old clock isn't expensive",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう すしは おいしかった。",
+          "en": "Say to a friend: The sushi was delicious yesterday",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あたらしい くるまが ある。",
+          "en": "Say to a friend: There's a new car",
+          "exercises": [
+            "i-adj-present",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ほんは ",
+          "tail": "。",
+          "answer": "たかかった",
+          "options": [
+            "たかかった",
+            "たかくない",
+            "たかい"
+          ],
+          "en": "The book was expensive",
+          "explanation": "かった is the adjective's own past — たかい becomes たかかった."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちいさい いぬが いる。",
+          "en": "Say to a friend: There's a small dog",
+          "exercises": [
+            "i-adj-present",
+            "ga-existence",
+            "imasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのう みせは よかった。",
+          "answer": "The shop was good yesterday",
+          "distractors": [
+            "The shop wasn't good yesterday",
+            "The shop is good today",
+            "The shop was big yesterday"
+          ],
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの けいたいは おおきくない。",
+          "en": "Say to a friend: Mika's mobile phone isn't big",
+          "exercises": [
+            "no-possession",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "ミカの いえは ふるい？",
+              "en": "Is Mika's house old?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うん、ふるい。おおきくない。",
+              "en": "Yeah, it's old. It isn't big."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about her house?",
+              "options": [
+                "Old and not big",
+                "New and big",
+                "Old and big",
+                "New and not big"
+              ],
+              "answer": "Old and not big"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "とけい",
+        "えき",
+        "うた",
+        "すし",
+        "くるま",
+        "いぬ",
+        "ほん",
+        "けいたい",
+        "おおきい",
+        "おいしい",
+        "ふるい"
+      ]
+    },
+    {
+      "id": "m12-neo-4",
+      "role": "teaching",
+      "title": "くなかった — the fourth cell",
+      "focus": "くない plus かった; the table closes with no だ anywhere in it",
+      "introduces": [
+        "たかくなかった",
+        "おおきくなかった",
+        "おいしくなかった",
+        "おもしろくなかった",
+        "よくなかった"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "i-adj-past-negative"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは たかくなかった。",
+          "en": "Say to a friend: The book wasn't expensive",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは おおきくなかった。",
+          "en": "Say to a friend: The mountain wasn't big",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ごはんは おいしくなかった。",
+          "en": "Say to a friend: The rice wasn't delicious yesterday",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは よくなかった。",
+          "en": "Say to a friend: Yesterday wasn't good",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "とけいは たかくなかった。",
+          "en": "The clock wasn't expensive",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふるい いえは おおきくなかった。",
+          "en": "Say to a friend: The old house wasn't big",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたは おもしろくなかった。",
+          "en": "Say to a friend: The song wasn't interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごはんは ",
+          "tail": "。",
+          "answer": "おいしくなかった",
+          "options": [
+            "おいしくなかった",
+            "おいしくない",
+            "おいしかった"
+          ],
+          "en": "The rice wasn't delicious",
+          "explanation": "くない carries the 'not' and かった carries the 'was' — stack them for おいしくなかった."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのう みせは おおきくなかった。",
+          "answer": "The shop wasn't big yesterday",
+          "distractors": [
+            "The shop was big yesterday",
+            "The shop isn't big today",
+            "The shop wasn't good yesterday"
+          ],
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの ふるい くるまは たかくなかった。",
+          "en": "Say to a friend: Mika's old car wasn't expensive",
+          "combines": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "やま",
+        "ごはん",
+        "とけい",
+        "いえ",
+        "うた",
+        "みせ",
+        "きのう",
+        "おおきい",
+        "おいしい",
+        "おもしろい"
+      ]
+    },
+    {
+      "id": "m12-neo-5",
+      "role": "teaching",
+      "title": "な-adjectives — a noun doing an adjective's job",
+      "focus": "しずかだ needs the copula; な appears only in front of a noun",
+      "introduces": [
+        "しずか",
+        "きれい",
+        "にぎやか",
+        "ゆうめい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "na-adj-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえは しずかだ。",
+          "en": "Say to a friend: The house is quiet",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しずかな いえに いく。",
+          "en": "Say to a friend: I'm going to a quiet house",
+          "exercises": [
+            "na-adj-present",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなは きれいだ。",
+          "en": "Say to a friend: The flowers are pretty",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きれいな しゃしんを みた。",
+          "en": "I looked at a pretty photo",
+          "exercises": [
+            "na-adj-present",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは にぎやかだ。",
+          "en": "Say to a friend: The station is lively",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは ゆうめいだ。",
+          "en": "Say to a friend: The mountain is famous",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは ひまだ。",
+          "en": "Say to a friend: Today is a free day",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いえは ",
+          "tail": "。",
+          "answer": "しずかだ",
+          "options": [
+            "しずかだ",
+            "しずかな",
+            "きれいだ"
+          ],
+          "en": "The house is quiet",
+          "explanation": "な only goes in FRONT of a noun; standing as the predicate, a な-adjective takes だ."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "えきは しずか？",
+              "en": "Is the station quiet?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ううん、にぎやかだ。きれいな えきだ。",
+              "en": "Nope, it's lively. It's a pretty station."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How does Mika describe the station?",
+              "options": [
+                "Lively and pretty",
+                "Quiet and pretty",
+                "Lively and old",
+                "Quiet and big"
+              ],
+              "answer": "Lively and pretty"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの あたらしい いえは しずかだ。",
+          "en": "Say to a friend: Mika's new house is quiet",
+          "combines": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "いえ",
+        "はな",
+        "えき",
+        "やま",
+        "しゃしん",
+        "きょう",
+        "くるま",
+        "おおきい",
+        "おいしい",
+        "ふるい"
+      ]
+    },
+    {
+      "id": "m12-neo-6",
+      "role": "teaching",
+      "title": "じゃない — the noun's no",
+      "focus": "だ becomes じゃない; くない is not available to a な-adjective",
+      "introduces": [
+        "じゃない"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "na-adj-negative"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえは しずかじゃない。",
+          "en": "Say to a friend: The house isn't quiet",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなは きれいじゃない。",
+          "en": "Say to a friend: The flowers aren't pretty",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは にぎやかじゃない。",
+          "en": "The station isn't lively",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは ひまじゃない。",
+          "en": "Say to a friend: Today isn't a free day",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "それは ねこじゃない。",
+          "en": "Say to a friend: That isn't a cat",
+          "exercises": [
+            "kore-sore-are-dore",
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは ゆうめいじゃない。",
+          "en": "Say to a friend: The mountain isn't famous",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しずかな みせは にぎやかじゃない。",
+          "en": "Say to a friend: A quiet shop isn't lively",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いえは ",
+          "tail": "。",
+          "answer": "しずかじゃない",
+          "options": [
+            "しずかじゃない",
+            "しずかだ",
+            "きれいじゃない"
+          ],
+          "en": "The house isn't quiet",
+          "explanation": "A な-adjective is a noun, so it negates like one: だ steps aside for じゃない."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "まどは きれいじゃない。",
+          "answer": "The window isn't clean",
+          "distractors": [
+            "The window is clean",
+            "The window isn't new",
+            "The door isn't clean"
+          ],
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの おおきい いえは しずかじゃない。",
+          "en": "Say to a friend: Mika's big house isn't quiet",
+          "combines": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "いえ",
+        "はな",
+        "えき",
+        "きょう",
+        "ねこ",
+        "やま",
+        "みせ",
+        "まど",
+        "しずか",
+        "きれい"
+      ]
+    },
+    {
+      "id": "m12-neo-r2",
+      "role": "review",
+      "title": "Review — い against な",
+      "focus": "the fourth い cell beside だ / じゃない: which class is this word?",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "みせは きれいだ。",
+          "en": "Say to a friend: The shop is clean",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは おもしろくない。",
+          "en": "Say to a friend: The book isn't interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは にぎやかじゃない。",
+          "en": "Say to a friend: The station isn't lively",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うたは よくなかった。",
+          "en": "Say to a friend: The song wasn't good",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しずかな いえで ほんを みた。",
+          "en": "I looked at a book in a quiet house",
+          "exercises": [
+            "na-adj-present",
+            "de-action",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ゆうめいな みせは たかい。",
+          "en": "Say to a friend: A famous shop is expensive",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "はなは ",
+          "tail": "。",
+          "answer": "きれいじゃない",
+          "options": [
+            "きれいじゃない",
+            "きれいだ",
+            "おおきくない"
+          ],
+          "en": "The flowers aren't pretty",
+          "explanation": "きれい ends in い but is a な-adjective — it negates the way nouns do, with じゃない."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんは おいしくなかった。",
+          "en": "Say to a friend: The rice wasn't delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは ひまじゃない。",
+          "en": "Say to a friend: Today isn't a free day",
+          "exercises": [
+            "wa-topic",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あたらしい いえは しずかだ。",
+          "answer": "The new house is quiet",
+          "distractors": [
+            "The new house is lively",
+            "The old house is quiet",
+            "The new house is big"
+          ],
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "na-adj-present"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "みせは にぎやか？",
+              "en": "Is the shop lively?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "にぎやかじゃない。きれいだ。",
+              "en": "It isn't lively. It's pretty."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is the shop like?",
+              "options": [
+                "Not lively but pretty",
+                "Lively and pretty",
+                "Not lively and not pretty",
+                "Big and lively"
+              ],
+              "answer": "Not lively but pretty"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "みせ",
+        "ほん",
+        "えき",
+        "うた",
+        "いえ",
+        "はな",
+        "ごはん",
+        "きょう",
+        "しずか",
+        "きれい",
+        "にぎやか"
+      ]
+    },
+    {
+      "id": "m12-neo-7",
+      "role": "teaching",
+      "title": "だった / じゃなかった — the な-adjective's past",
+      "focus": "the copula's past cells, spent on な-adjectives",
+      "introduces": [
+        "じゃなかった"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "na-adj-past"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは しずかだった。",
+          "en": "Say to a friend: The shop was quiet",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは にぎやかだった。",
+          "en": "Say to a friend: The station was lively",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえは きれいじゃなかった。",
+          "en": "Say to a friend: The house wasn't clean",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは ひまじゃなかった。",
+          "en": "Yesterday wasn't a free day",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは ゆうめいだった。",
+          "en": "Say to a friend: The mountain was famous",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなは きれいだった。",
+          "en": "Say to a friend: The flowers were pretty",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しずかな いえは ふるかった。",
+          "en": "Say to a friend: The quiet house was old",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いえは ",
+          "tail": "。",
+          "answer": "きれいじゃなかった",
+          "options": [
+            "きれいじゃなかった",
+            "きれいじゃない",
+            "きれいだった"
+          ],
+          "en": "The house wasn't clean",
+          "explanation": "じゃない takes the same past ending everything else does: じゃなかった."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのう えきは しずかだった。",
+          "answer": "The station was quiet yesterday",
+          "distractors": [
+            "The station was lively yesterday",
+            "The station is quiet today",
+            "The station wasn't quiet yesterday"
+          ],
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ミカの みせは にぎやかだった。",
+          "en": "Say to a friend: Mika's shop was lively yesterday",
+          "combines": [
+            "no-possession",
+            "wa-topic",
+            "na-adj-past",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "みせ",
+        "えき",
+        "いえ",
+        "きのう",
+        "やま",
+        "はな",
+        "きょう",
+        "しずか",
+        "きれい",
+        "にぎやか"
+      ]
+    },
+    {
+      "id": "m12-neo-8",
+      "role": "teaching",
+      "title": "です — the coat that never conjugates",
+      "focus": "politeness bolts on top of a finished adjective; たかいでした does not exist",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "i-adj-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまは たかいです。",
+          "en": "Say politely: The mountain is tall",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんは おいしいです。",
+          "en": "Say politely: The rice is delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえは しずかです。",
+          "en": "Say politely: The house is quiet",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは きれいです。",
+          "en": "Say politely: The shop is clean",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは たかくないです。",
+          "en": "The book isn't expensive",
+          "exercises": [
+            "wa-topic",
+            "i-adj-negative",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんは おいしかったです。",
+          "en": "Say politely: The rice was delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは にぎやかでした。",
+          "en": "Say politely: The station was lively",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past",
+            "desu-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "やまは ",
+          "tail": "。",
+          "answer": "たかかったです",
+          "options": [
+            "たかかったです",
+            "たかいでした",
+            "たかいです"
+          ],
+          "en": "The mountain was tall (to a teacher)",
+          "explanation": "です carries no tense of its own — the adjective goes past first, then です follows."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "きのうの じゅぎょうは よかったですか。",
+              "en": "Was yesterday's class good?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "はい、よかったです。にぎやかでした。",
+              "en": "Yes, it was good. It was lively."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Tanaka say about the class?",
+              "options": [
+                "Good and lively",
+                "Bad and quiet",
+                "Good but quiet",
+                "Lively but bad"
+              ],
+              "answer": "Good and lively"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの みせは しずかでしたか。",
+          "en": "Say politely: Was Mika's shop quiet",
+          "combines": [
+            "no-possession",
+            "wa-topic",
+            "na-adj-past",
+            "ka-question",
+            "desu-past"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "やま",
+        "ごはん",
+        "いえ",
+        "みせ",
+        "ほん",
+        "えき",
+        "じゅぎょう",
+        "しずか",
+        "きれい",
+        "にぎやか"
+      ]
+    },
+    {
+      "id": "m12-neo-9",
+      "role": "teaching",
+      "title": "どう？ — asking what something is like",
+      "focus": "the question an adjective answers, in both registers",
+      "introduces": [
+        "どう"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ごはんは どう？",
+          "en": "Ask a friend: How's the rice",
+          "exercises": [
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは どう？",
+          "en": "Ask a friend: What's the station like",
+          "exercises": [
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうの じゅぎょうは どうだった？",
+          "en": "Ask a friend: How was yesterday's class",
+          "exercises": [
+            "no-possession",
+            "wa-topic",
+            "desu-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんは どうですか。",
+          "en": "Say politely: What is Japan like",
+          "exercises": [
+            "wa-topic",
+            "ka-question",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんは きれいだ。",
+          "en": "Say to a friend: Japan is pretty",
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃは おいしいです。",
+          "en": "The tea is delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ゆうめいな みせは にぎやかだ。",
+          "en": "Say to a friend: A famous shop is lively",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは おもしろくなかった。",
+          "en": "Say to a friend: The book wasn't interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "やまは ",
+          "tail": "？",
+          "answer": "どう",
+          "options": [
+            "どう",
+            "だれ",
+            "なんじ"
+          ],
+          "en": "What's the mountain like?",
+          "explanation": "どう asks what something is LIKE and an adjective answers it; だれ asks who, なんじ asks the hour."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのうの ごはんは どうだった？",
+          "answer": "How was the food yesterday?",
+          "distractors": [
+            "How's the food today?",
+            "Was the food expensive?",
+            "Where did you eat yesterday?"
+          ],
+          "exercises": [
+            "no-possession",
+            "wa-topic",
+            "desu-past"
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの あたらしい いえは しずかですか。",
+          "en": "Say politely: Is Mika's new house quiet",
+          "combines": [
+            "no-possession",
+            "i-adj-present",
+            "na-adj-present",
+            "ka-question"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ごはん",
+        "えき",
+        "じゅぎょう",
+        "にほん",
+        "ちゃ",
+        "みせ",
+        "ほん",
+        "やま",
+        "しずか",
+        "きれい",
+        "ゆうめい"
+      ]
+    },
+    {
+      "id": "m12-neo-r3",
+      "role": "review",
+      "title": "Review — both classes, all four cells",
+      "focus": "the whole module: い and な, present and past, plain and polite",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "きのう うみは きれいだった。",
+          "en": "Say to a friend: The sea was pretty yesterday",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "てがみは おもしろかった。",
+          "en": "Say to a friend: The letter was interesting",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いけは しずかじゃなかった。",
+          "en": "The pond wasn't quiet",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あたらしい けいたいは たかいです。",
+          "en": "Say politely: The new mobile phone is expensive",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょうりは おいしくなかった。",
+          "en": "Say to a friend: The food wasn't delicious",
+          "exercises": [
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ゆうめいな ひとが きた。",
+          "en": "Say to a friend: A famous person came",
+          "exercises": [
+            "na-adj-present",
+            "ga-existence",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "うみは ",
+          "tail": "。",
+          "answer": "きれいだった",
+          "options": [
+            "きれいだった",
+            "きれいじゃなかった",
+            "おおきかった"
+          ],
+          "en": "The sea was pretty",
+          "explanation": "きれい borrows the noun past だった — かった belongs to い-adjectives."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふるい じてんしゃは よくない。",
+          "en": "Say to a friend: An old bicycle isn't good",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう まどは きれいじゃなかった。",
+          "en": "Say to a friend: The window wasn't clean yesterday",
+          "exercises": [
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ねこも いぬも ちいさい。",
+          "answer": "Both the cat and the dog are small",
+          "distractors": [
+            "Both the cat and the dog are big",
+            "The cat is small but the dog is big",
+            "Both the cat and the dog are pretty"
+          ],
+          "exercises": [
+            "i-adj-present",
+            "mo-also"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "きのうの うみは どうだった？",
+              "en": "How was the sea yesterday?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "きれいだった。ふねも おおきかった。",
+              "en": "It was pretty. The boats were big too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Mika say about the sea?",
+              "options": [
+                "Pretty, and the boats were big",
+                "Not pretty, but the boats were big",
+                "Pretty, but the boats were small",
+                "She didn't go"
+              ],
+              "answer": "Pretty, and the boats were big"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "うみ",
+        "てがみ",
+        "いけ",
+        "けいたい",
+        "りょうり",
+        "ひと",
+        "じてんしゃ",
+        "まど",
+        "いぬ",
+        "しずか",
+        "きれい"
+      ]
+    },
+    {
+      "id": "m12-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — describe it, then describe it in the past",
+      "focus": "End-of-module stretch: possessive plus prenominal adjective plus predicate adjective plus tense and register, in shapes the teaching lessons never paired",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "きのう ミカの ふるい いえは しずかだった。",
+          "en": "Say to a friend: Mika's old house was quiet yesterday",
+          "exercises": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの あたらしい くるまは おおきいです。",
+          "en": "Say politely: Tanaka's new car is big",
+          "exercises": [
+            "no-possession",
+            "i-adj-present",
+            "wa-topic",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ともだちと きれいな うみに いった。",
+          "en": "Say to a friend: I went to a pretty sea with a friend yesterday",
+          "exercises": [
+            "na-adj-present",
+            "ni-location",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ゆうめいな みせの ごはんは たかくなかった。",
+          "en": "Say to a friend: The food at the famous shop wasn't expensive",
+          "exercises": [
+            "na-adj-present",
+            "no-possession",
+            "wa-topic",
+            "i-adj-past-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん くじの えきは にぎやかだった。",
+          "en": "The station at nine in the morning was lively",
+          "exercises": [
+            "no-possession",
+            "counter-ji",
+            "wa-topic",
+            "na-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あたらしい ほんは おもしろかった。",
+          "en": "Say to a friend: The new book was interesting",
+          "exercises": [
+            "i-adj-present",
+            "wa-topic",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しずかな いえは あたらしくない。",
+          "en": "Say to a friend: The quiet house isn't new",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic",
+            "i-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの じゅぎょうは よかったです。",
+          "en": "Say politely: Tanaka's class was good",
+          "exercises": [
+            "no-possession",
+            "wa-topic",
+            "i-adj-past",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "きのうの みせは どうだった？",
+              "en": "How was the shop yesterday?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "にぎやかだった。ごはんも おいしかった。",
+              "en": "It was lively. The food was good too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Tom say about the shop?",
+              "options": [
+                "Lively, and the food was good",
+                "Quiet, and the food was good",
+                "Lively, but the food was bad",
+                "He didn't go"
+              ],
+              "answer": "Lively, and the food was good"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ミカの ゆうめいな みせで おいしい ごはんを たべた。",
+          "en": "Say to a friend: I ate delicious food at Mika's famous shop yesterday",
+          "combines": [
+            "no-possession",
+            "na-adj-present",
+            "de-action",
+            "i-adj-present",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "いえ",
+        "くるま",
+        "うみ",
+        "みせ",
+        "ごはん",
+        "えき",
+        "ほん",
+        "じゅぎょう",
+        "しずか",
+        "きれい",
+        "にぎやか",
+        "ゆうめい"
+      ]
+    }
+  ]
+}

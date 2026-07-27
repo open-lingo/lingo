@@ -262,12 +262,12 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6 (tile n06a) and m7 (tile s07) are LIVE via the compiler pipeline —
-    // slice them off so the placeholders begin at m8.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(5).map((t, i) => ({
-      id: `m${i + 11}`,
+    // m6-m12 (tiles n06a, s07, n02, n03, n15, n04, s09) are LIVE via the
+    // compiler pipeline — slice them off so the placeholders begin at m13.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(7).map((t, i) => ({
+      id: `m${i + 13}`,
       title: t.title,
-      eyebrow: `Module ${i + 11} · Coming soon`,
+      eyebrow: `Module ${i + 13} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -493,6 +493,59 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m10-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
+        },
+        {
+          // m11-neo (spine tile n04) — Time I + plain past た. Compound
+          // numbers land compositionally; the m8 sound-change table pays a
+          // second time; ました/でした arrive beside た/だった.
+          id: "m11",
+          title: "Time I and the plain past",
+          eyebrow: "Module 11 \u00b7 Clock, calendar, た",
+          summary: "Numbers 11-99 as arithmetic, 〜じ hours and 〜じに, いつ, plain past た/だった off the て table, and the polite past ました/でした beside it. Katakana ラ and ワ rows.",
+          lessons: [
+            { id: "ja-m11-neo-kata-ra", title: "Katakana \u2014 \u30e9 row", status: "available" as const },
+            { id: "ja-m11-neo-1", title: "Eleven to ninety-nine", status: "available" as const },
+            { id: "ja-m11-neo-2", title: "Telling the hour \u2014 \u301cじ", status: "available" as const },
+            { id: "ja-m11-neo-3", title: "At three o'clock \u2014 \u301cじに", status: "available" as const },
+            { id: "ja-m11-neo-review-1", title: "Review \u2014 numbers and the clock", status: "available" as const },
+            { id: "ja-m11-neo-4", title: "た \u2014 the same table, a second payout", status: "available" as const },
+            { id: "ja-m11-neo-5", title: "The rebels \u2014 した, きた, いった", status: "available" as const },
+            { id: "ja-m11-neo-6", title: "だった \u2014 it was", status: "available" as const },
+            { id: "ja-m11-neo-kata-wa", title: "Katakana \u2014 \u30ef row", status: "available" as const },
+            { id: "ja-m11-neo-review-2", title: "Review \u2014 the past you speak to friends", status: "available" as const },
+            { id: "ja-m11-neo-7", title: "ました \u2014 the polite past", status: "available" as const },
+            { id: "ja-m11-neo-8", title: "でした \u2014 was, politely", status: "available" as const },
+            { id: "ja-m11-neo-9", title: "いつ \u2014 asking when", status: "available" as const },
+            { id: "ja-m11-neo-review-3", title: "Review \u2014 clock, calendar and past", status: "available" as const },
+            { id: "ja-m11-neo-challenge", title: "Challenge \u2014 put it all together", status: "available" as const },
+          ],
+          accent: { from: "#f97316", to: "#ea580c" },
+        },
+        {
+          // m12-neo (spine tile s09) — adjectives as mini-predicates. い-adj
+          // conjugates on its own (four cells, no だ); な-adj is a noun that
+          // borrows the copula, and な shows up only in front of a noun.
+          // No katakana rows: the katakana programme ended at m11.
+          id: "m12",
+          title: "Adjectives as mini-predicates",
+          eyebrow: "Module 12 \u00b7 \u3044-adjectives + \u306a-adjectives",
+          summary: "たかい already means 'is-expensive': the four-cell い-adjective table (くない・かった・くなかった) drilled against な-adjectives, which are nouns borrowing だ/じゃない/だった. です is the politeness coat that never conjugates, and どう？ asks for the answer.",
+          lessons: [
+            { id: "ja-m12-neo-1", title: "たかい already says \"is\"", status: "available" as const },
+            { id: "ja-m12-neo-2", title: "くない \u2014 the adjective says no", status: "available" as const },
+            { id: "ja-m12-neo-3", title: "かった \u2014 how it was", status: "available" as const },
+            { id: "ja-m12-neo-review-1", title: "Review \u2014 the い-adjective, three cells in", status: "available" as const },
+            { id: "ja-m12-neo-4", title: "くなかった \u2014 the fourth cell", status: "available" as const },
+            { id: "ja-m12-neo-5", title: "な-adjectives \u2014 a noun doing an adjective's job", status: "available" as const },
+            { id: "ja-m12-neo-6", title: "じゃない \u2014 the noun's no", status: "available" as const },
+            { id: "ja-m12-neo-review-2", title: "Review \u2014 い against な", status: "available" as const },
+            { id: "ja-m12-neo-7", title: "だった / じゃなかった \u2014 the な-adjective's past", status: "available" as const },
+            { id: "ja-m12-neo-8", title: "です \u2014 the coat that never conjugates", status: "available" as const },
+            { id: "ja-m12-neo-9", title: "どう？ \u2014 asking what something is like", status: "available" as const },
+            { id: "ja-m12-neo-review-3", title: "Review \u2014 both classes, all four cells", status: "available" as const },
+            { id: "ja-m12-neo-challenge", title: "Challenge \u2014 describe it, then describe it in the past", status: "available" as const },
+          ],
+          accent: { from: "#14b8a6", to: "#0d9488" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

@@ -33,7 +33,10 @@ import {
   type TrainerTypeId,
 } from "./trainerRegistry";
 import { combosForSelection } from "./comboForms";
-import { generateFormationDistractors } from "./formationDistractors";
+import {
+  generateFormationDistractors,
+  generateIAdjFormationDistractors,
+} from "./formationDistractors";
 
 export function shuffle<T>(arr: T[]): T[] {
   const result = [...arr];
@@ -51,46 +54,10 @@ export function shuffle<T>(arr: T[]): T[] {
 // import it without this file's SRS/localStorage dependency chain (which
 // closed an import cycle through the curriculum). Re-exported here so every
 // existing consumer keeps its import path; still the SINGLE source.
-export { generateFormationDistractors };
-
-/** Plain i-adjective suffix for the attach-to-dictionary error. */
-const ADJ_SUFFIX: Record<IAdjForm, string> = {
-  negative: "くない",
-  past: "かった",
-  "past-negative": "くなかった",
-};
-
-/**
- * i-adjective formation distractors — misapplied くない/かった rules on the same
- * adjective (attach-to-dictionary e.g. たかいくない, wrong polarity/tense). Same
- * anti-elimination guarantees as the verb generator.
- */
-export function generateIAdjFormationDistractors(
-  dictionary: string,
-  form: IAdjForm,
-  correct: string,
-): string[] {
-  const out: string[] = [];
-  const seen = new Set<string>([correct]);
-  const push = (s: string | undefined) => {
-    if (s && !seen.has(s)) {
-      seen.add(s);
-      out.push(s);
-    }
-  };
-  const siblings: IAdjForm[] = ["negative", "past", "past-negative"];
-
-  // (4) wrong polarity/tense within the family (real sibling forms).
-  for (const sib of siblings) if (sib !== form) push(conjugateIAdj(dictionary, sib));
-  // (2) attach-to-dictionary: たかい + くない → たかいくない.
-  push(dictionary + ADJ_SUFFIX[form]);
-  for (const sib of siblings) if (sib !== form) push(dictionary + ADJ_SUFFIX[sib]);
-  // Fallback: stem + every ending (dedup drops correct + sibling repeats).
-  const stem = dictionary.slice(0, -1);
-  for (const e of ["くない", "かった", "くなかった"]) push(stem + e);
-
-  return out.slice(0, 3);
-}
+// `generateIAdjFormationDistractors` moved to the same leaf 2026-07-27 (m12):
+// the い-adjective transform ramp needs it from `grammarHelpers`, and importing
+// THIS file there would close the very cycle the leaf exists to avoid.
+export { generateFormationDistractors, generateIAdjFormationDistractors };
 
 /** LEGACY: same-item-wrong-form + same-form-other-item, kept for na-adjectives
  *  in the Free drill (verbs + i-adjectives now use the formation generators). */

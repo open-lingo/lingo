@@ -992,6 +992,18 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // Copula past
   { id: "datta", kana: "だった", romaji: "datta", meaningEn: "was, were (plain)", shortGloss: "was (plain)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-6", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
   { id: "deshita", kana: "でした", romaji: "deshita", meaningEn: "was, were (polite)", shortGloss: "was (polite)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-8", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
+  // ── m12-neo (tile s09) — adjectives as mini-predicates ──
+  // ONLY the two copula chunks are registered. Every い-adjective form this
+  // module teaches (たかくない / おおきかった / よくなかった …) is already a
+  // REAL surface via ADJ_ENTRIES, so the conjugation lexicon tokenizes it and
+  // the IR carries its gloss — registering inflections here would regress
+  // flashcard import + annotateJapaneseText the way m11's polite-past forms
+  // would have. じゃない / じゃなかった have no such backing: ADJ_ENTRIES only
+  // stores the POLITE な-adjective column (しずかじゃないです), so without
+  // these two the tokenizer cannot split しずかじゃない and the tile bank
+  // cannot spell it.
+  { id: "janai", kana: "じゃない", romaji: "janai", meaningEn: "isn't (noun or な-adjective)", shortGloss: "isn't", fromModule: "m12", introducedByLessonId: "ja-m12-neo-6", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
+  { id: "janakatta", kana: "じゃなかった", romaji: "janakatta", meaningEn: "wasn't (noun or な-adjective)", shortGloss: "wasn't", fromModule: "m12", introducedByLessonId: "ja-m12-neo-7", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
   // Polite past (たべました / のみました / いきました / しました / かいました) is
   // deliberately NOT registered here. The forms are already real surfaces via
   // the conjugation lexicon, and registering them REGRESSES two shipped
