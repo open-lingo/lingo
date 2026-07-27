@@ -136,6 +136,35 @@ complete when this list is empty. Re-run:
 node -e 'const fs=require("fs");const pts=JSON.parse(fs.readFileSync("src/features/lesson/data/n5-grammar-points.json","utf8"));const ids=(Array.isArray(pts)?pts:Object.values(pts)[0]).map(p=>p.id);const d="src/features/languages/ja/curriculum/ir/";const t=new Set();for(const f of fs.readdirSync(d).filter(x=>x.endsWith(".ir.yaml"))){const s=fs.readFileSync(d+f,"utf8");for(const m of s.matchAll(/grammarPointId:\s*([a-z0-9-]+)/g))t.add(m[1]);for(const m of s.matchAll(/(?:exercises|combines):\s*\[([^\]]*)\]/g))m[1].split(",").map(x=>x.trim()).filter(Boolean).forEach(x=>t.add(x));}console.log(ids.filter(i=>!t.has(i)).join(" "))'
 ```
 
+### Assignment — which module owes which points
+
+Decided 2026-07-27 so no point falls through the gap between modules. Each
+authoring brief cites its row; the module is not done until every id in it
+appears in the IR. Counters/kanji sets are spread deliberately (a module that
+teaches four counters at once is a table, not a lesson).
+
+| m | grammar point ids owed |
+|---|---|
+| 11 | ta-form masu-past desu-past masu-past-negative numbers-11-99 counter-ji counter-fun ni-time |
+| 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past |
+| 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki |
+| 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai |
+| 15 | dictionary-form toki mae-ni te-kara |
+| 16 | kara-because node-because kedo kara-origin counter-mai |
+| 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
+| 18 | to-omoimasu to-quotation kanji-set-1 |
+| 19 | e-direction ni-iku made-until made-ni kara-time |
+| 20 | yori-comparison numbers-100-10000 counter-ko |
+| 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
+| 22 | ga-itai frequency-adverbs mada-mou counter-hai |
+| 23 | koto-ga-aru tsumori-desu kanji-set-2 |
+| 24 | mashou masenka no-ga-jouzu no-ga-heta |
+| 25 | deshou |
+| 26 | ichiban-superlative |
+| 27 | n-desu sugiru ku-ni-naru |
+| 28 | nakereba-naranai hou-ga-ii kanji-set-3 |
+| 29 | janai-desu yo-emphasis ne-agreement |
+
 Untouched at run start (74): janai-desu kara-origin kudasai counter-nin
 dictionary-form kono-sono-ano-dono i-adj-present i-adj-negative to-and
 na-adj-present na-adj-negative yo-emphasis ne-agreement masu-past desu-past
