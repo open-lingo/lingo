@@ -961,6 +961,10 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             tiles,
             correctOrder: [beat.answer],
             granularity: "word",
+            // Not a one-tile build — a choice between whole utterances. See
+            // `picker` in types.ts; without this the bulk audit reads the
+            // ladder as 6 broken builds.
+            picker: true,
             // Stage 3 has NO picture: the vocative frame names the addressee
             // in Japanese, which is the point of reaching stage 3 at all.
             ...(beat.stage < 3

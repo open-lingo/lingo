@@ -11,7 +11,7 @@ guide or the compiler, not the modules one at a time.**
 | m7 | 234 | 13.4% | 11 | — | 1 |
 | m8 | 234 | 12.5% | 11 | — | 1 |
 | m9 | 234 | 13.6% | 11 | — | 1 |
-| m10 | 234 | 12.7% | 11 | 1 | 1 |
+| m10 | 234 | 12.7% | 11 | — | 1 |
 | m11 | 234 | 9.6% | 11 | — | 1 |
 | m12 | 235 | 8.1% | 12 | — | 1 |
 | m13 | 234 | 10.9% | 12 | — | 1 |
@@ -34,7 +34,3 @@ single module can fix them. `findings` = 0 means that module is clean.
   - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
 
 ## Findings by module
-
-### m10
-
-- **inv 19 single-tile-build** — 6 build steps have a ONE-tile answer — that is a word card, not a build: ja-m10-neo-1-reg-0, ja-m10-neo-1-reg-1, ja-m10-neo-1-reg-3, ja-m10-neo-1-reg-7, ja-m10-neo-2-reg-1, ja-m10-neo-2-reg-2

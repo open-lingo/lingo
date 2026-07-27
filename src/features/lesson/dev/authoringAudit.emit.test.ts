@@ -119,8 +119,16 @@ function auditModule(
   const singleTileIds: string[] = [];
   let thinBank = 0;
   for (const s of steps) {
-    const rec = s as unknown as { correctOrder?: string[]; tiles?: string[] };
+    const rec = s as unknown as {
+      correctOrder?: string[];
+      tiles?: string[];
+      picker?: boolean;
+    };
     if (!Array.isArray(rec.correctOrder)) continue;
+    // A picker's tiles are competing whole utterances and its answer is one of
+    // them — one slot is the CORRECT shape, not a degenerate build. The
+    // compiler says which it built; don't infer it from the length.
+    if (rec.picker) continue;
     if (rec.correctOrder.length === 1) singleTileIds.push(s.id);
     else if (
       Array.isArray(rec.tiles) &&

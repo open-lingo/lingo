@@ -169,6 +169,23 @@ export type BuildSentenceStep = StepBase & {
   sourceAnnotation?: JapaneseAnnotation[];
   transformLabel?: string;
   /**
+   * PICKER MODE. The register ladder compiles to a `build_sentence` whose
+   * `tiles` are whole competing utterances and whose `correctOrder` is the one
+   * correct utterance — the learner CHOOSES a politeness variant rather than
+   * assembling a sentence. (See the `kind === "register"` branch in
+   * `moduleCompiler`: it stays a build_sentence so the whole ladder is one
+   * step type, and because inv 5 pins `particle_cloze` to introductions.)
+   *
+   * That shape is indistinguishable from a genuinely broken build — one tile,
+   * one slot — so the compiler LABELS it instead of leaving every consumer to
+   * re-derive intent from shape. The bulk audit's inv 19 check read all 6 of
+   * m10's register beats as single-tile builds for exactly that reason.
+   *
+   * Rule Zero's sibling: ask the compiler what it built; don't pattern-match
+   * the output.
+   */
+  picker?: boolean;
+  /**
    * AUDIENCE CUE (Spencer 2026-07-27). Register questions used to be asked in
    * prose — "You are talking to your teacher, how do you say this?" — which is
    * narration the learner has to parse before they can even start, in the same
