@@ -5,97 +5,36 @@ output — the hard gates are `moduleBarGuards` and the compiler
 diagnostics. **When the same invariant appears in 3+ modules, fix the
 guide or the compiler, not the modules one at a time.**
 
-| module | steps | translate % | distinct types | findings |
-| --- | --- | --- | --- | --- |
-| m6 | 234 | 10.8% | 11 | 1 |
-| m7 | 234 | 13.4% | 11 | 1 |
-| m8 | 234 | 12.5% | 11 | 1 |
-| m9 | 234 | 13.6% | 11 | 1 |
-| m10 | 234 | 12.7% | 11 | 2 |
-| m11 | 234 | 9.6% | 11 | 1 |
-| m12 | 235 | 8.1% | 12 | 1 |
-| m13 | 234 | 10.9% | 12 | 1 |
-| m14 | 234 | 11.3% | 12 | 1 |
-| m15 | 234 | 11.5% | 11 | 1 |
-| m16 | 235 | 11.5% | 12 | 1 |
-| m17 | 234 | 11.3% | 10 | 1 |
-| m18 | 234 | 12.0% | 12 | 1 |
-| m19 | 234 | 12.4% | 11 | 1 |
-| m20 | 234 | 11.5% | 11 | 1 |
-| m21 | 234 | 12.2% | 11 | 1 |
-| m22 | 234 | 10.1% | 11 | 1 |
+| module | steps | translate % | distinct types | findings | systemic |
+| --- | --- | --- | --- | --- | --- |
+| m6 | 234 | 10.8% | 11 | — | 1 |
+| m7 | 234 | 13.4% | 11 | — | 1 |
+| m8 | 234 | 12.5% | 11 | — | 1 |
+| m9 | 234 | 13.6% | 11 | — | 1 |
+| m10 | 234 | 12.7% | 11 | 1 | 1 |
+| m11 | 234 | 9.6% | 11 | — | 1 |
+| m12 | 235 | 8.1% | 12 | — | 1 |
+| m13 | 234 | 10.9% | 12 | — | 1 |
+| m14 | 234 | 11.3% | 12 | — | 1 |
+| m15 | 234 | 11.5% | 11 | — | 1 |
+| m16 | 235 | 11.5% | 12 | — | 1 |
+| m17 | 234 | 11.3% | 10 | — | 1 |
+| m18 | 234 | 12.0% | 12 | — | 1 |
+| m19 | 234 | 12.4% | 11 | — | 1 |
+| m20 | 234 | 11.5% | 11 | — | 1 |
+| m21 | 234 | 12.2% | 11 | — | 1 |
+| m22 | 234 | 10.1% | 11 | — | 1 |
 
 ## Systemic — fix upstream, not per module
 
+These are counted in the `systemic` column, NOT in `findings`, because no
+single module can fix them. `findings` = 0 means that module is clean.
+
 - **inv 35 build-tile-distractors** flagged in 17 modules
+  - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
 
 ## Findings by module
-
-### m6
-
-- **inv 35 build-tile-distractors** — 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m7
-
-- **inv 35 build-tile-distractors** — 110 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m8
-
-- **inv 35 build-tile-distractors** — 94 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m9
-
-- **inv 35 build-tile-distractors** — 91 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
 
 ### m10
 
 - **inv 19 single-tile-build** — 6 build steps have a ONE-tile answer — that is a word card, not a build: ja-m10-neo-1-reg-0, ja-m10-neo-1-reg-1, ja-m10-neo-1-reg-3, ja-m10-neo-1-reg-7, ja-m10-neo-2-reg-1, ja-m10-neo-2-reg-2
-- **inv 35 build-tile-distractors** — 89 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m11
-
-- **inv 35 build-tile-distractors** — 102 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m12
-
-- **inv 35 build-tile-distractors** — 104 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m13
-
-- **inv 35 build-tile-distractors** — 106 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m14
-
-- **inv 35 build-tile-distractors** — 108 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m15
-
-- **inv 35 build-tile-distractors** — 107 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m16
-
-- **inv 35 build-tile-distractors** — 107 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m17
-
-- **inv 35 build-tile-distractors** — 105 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m18
-
-- **inv 35 build-tile-distractors** — 101 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m19
-
-- **inv 35 build-tile-distractors** — 103 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m20
-
-- **inv 35 build-tile-distractors** — 106 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m21
-
-- **inv 35 build-tile-distractors** — 104 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-
-### m22
-
-- **inv 35 build-tile-distractors** — 108 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").

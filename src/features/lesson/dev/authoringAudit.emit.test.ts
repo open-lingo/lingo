@@ -164,41 +164,77 @@ describe("authoring audit (bulk conformance report)", () => {
       "diagnostics. **When the same invariant appears in 3+ modules, fix the",
       "guide or the compiler, not the modules one at a time.**",
       "",
-      "| module | steps | translate % | distinct types | findings |",
-      "| --- | --- | --- | --- | --- |",
+      "| module | steps | translate % | distinct types | findings | systemic |",
+      "| --- | --- | --- | --- | --- | --- |",
     ];
     const detail: string[] = [];
     const tally = new Map<string, number>();
 
-    for (const f of files) {
+    // TWO PASSES, because "systemic" is not knowable until every module has
+    // been scanned — and the split matters. When the `findings` column counted
+    // systemic debt, EVERY module read "1 finding" forever (inv 35 has been
+    // flagged in all 16 IR modules since m6). A number that is always 1 is not
+    // a signal: it trains the reader to treat 1 as clean, and m10 legitimately
+    // reads 2, so a genuine new defect would show up as "the usual, plus one"
+    // and slide past. That is alarm fatigue in a gate whose whole job is to be
+    // read at a glance.
+    //
+    // So `findings` now counts only what THIS module can fix, and systemic
+    // debt is counted separately and explained once. 0 in the findings column
+    // means clean, which is what it always should have meant.
+    const scanned = files.map((f) => {
       const name = f.replace(".ir.json", "");
       const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf8")) as ModuleIR;
       const lessons = compileModule(ir);
       const steps = lessons.flatMap((l) => l.steps);
+      const newKana = (ir.newAtoms ?? []).map((a) => a.kana);
+      return { name, steps, findings: auditModule(lessons, newKana) };
+    });
+
+    // Count MODULES per invariant, not findings — "flagged in 3+ modules"
+    // is the signal that the guide or compiler is the defect.
+    for (const { findings } of scanned)
+      for (const inv of new Set(findings.map((x) => x.inv)))
+        tally.set(inv, (tally.get(inv) ?? 0) + 1);
+    const systemicInvs = new Set(
+      [...tally.entries()].filter(([, n]) => n >= 3).map(([inv]) => inv),
+    );
+
+    for (const { name, steps, findings } of scanned) {
       const prod = steps.filter((s) => PRODUCTION.has(s.type)).length;
       const tr = steps.filter((s) => s.type === "translate").length;
       const types = new Set(steps.map((s) => s.type)).size;
-      const newKana = (ir.newAtoms ?? []).map((a) => a.kana);
-      const findings = auditModule(lessons, newKana);
-      // Count MODULES per invariant, not findings — "flagged in 3+ modules"
-      // is the signal that the guide or compiler is the defect.
-      for (const inv of new Set(findings.map((x) => x.inv)))
-        tally.set(inv, (tally.get(inv) ?? 0) + 1);
+      const own = findings.filter((x) => !systemicInvs.has(x.inv));
+      const sys = findings.filter((x) => systemicInvs.has(x.inv));
 
       lines.push(
-        `| ${name} | ${steps.length} | ${prod ? ((tr / prod) * 100).toFixed(1) : "0.0"}% | ${types} | ${findings.length || "—"} |`,
+        `| ${name} | ${steps.length} | ${prod ? ((tr / prod) * 100).toFixed(1) : "0.0"}% | ${types} | ${own.length || "—"} | ${sys.length || "—"} |`,
       );
-      if (findings.length) {
+      // Only a module's OWN findings get a detail block. Repeating the same
+      // systemic paragraph 16 times is what buried it in the first place.
+      if (own.length) {
         detail.push(`\n### ${name}\n`);
-        for (const x of findings) detail.push(`- **inv ${x.inv}** — ${x.detail}`);
+        for (const x of own) detail.push(`- **inv ${x.inv}** — ${x.detail}`);
       }
     }
 
     const systemic = [...tally.entries()].filter(([, n]) => n >= 3);
     if (systemic.length) {
-      lines.push("", "## Systemic — fix upstream, not per module", "");
-      for (const [inv, n] of systemic)
+      lines.push(
+        "",
+        "## Systemic — fix upstream, not per module",
+        "",
+        "These are counted in the `systemic` column, NOT in `findings`, because no",
+        "single module can fix them. `findings` = 0 means that module is clean.",
+        "",
+      );
+      for (const [inv, n] of systemic) {
         lines.push(`- **inv ${inv}** flagged in ${n} modules`);
+        const example = scanned
+          .flatMap((m) => m.findings)
+          .find((x) => x.inv === inv);
+        if (example) lines.push(`  - ${example.detail}`);
+      }
     }
     lines.push("", "## Findings by module", ...detail);
 
