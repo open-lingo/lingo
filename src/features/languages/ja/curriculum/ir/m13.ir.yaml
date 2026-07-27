@@ -1,0 +1,622 @@
+module: m13
+title: "Wanting: たい + ほしい"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12]
+
+priorGrammarPoints: [wa-topic, ga-existence, no-possession, ni-location, de-action, mo-also, dare, kore-sore-are-dore,
+                     nai-form, arimasu, imasu,
+                     nai-existence, koko-soko-asoko, spatial-relations,
+                     location-qa,
+                     masu-present, masu-negative, desu-copula, ka-question,
+                     te-form, te-kudasai, numbers-1-10, counter-tsu, ikura-price,
+                     numbers-11-99, counter-ji, ni-time, ta-form, desu-past, masu-past,
+                     dictionary-form,
+                     i-adj-present, na-adj-present, na-adj-negative, na-adj-past]
+
+notes: |
+  m13 = spine tile n05. WANTING: たい + ほしい.
+
+  Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, reviews
+  at the first/middle/last thirds, challenge lesson LAST. NO katakana rows —
+  the programme ended at m11 (RUN-PLAN standing decision 2). NO `kind:
+  register` beats — that machinery is m10 + m29 only
+  (registerScaffoldIsolation).
+
+  THE WHOLE POINT — three facts that are ONE fact:
+
+  1. **たい IS AN い-ADJECTIVE.** Hang it on the ます-stem and the result
+     inflects with the table m12 just finished teaching: たべたい /
+     たべたくない / たべたかった / たべたくなかった. This module therefore
+     buys NO new conjugation machinery — it spends m12's. L2/L3/L4 each
+     re-run one of m12's own rule cards (`i-adj-negative`, `i-adj-past`,
+     `i-adj-past-negative`) with たい as the base, and the
+     `conjugation_transform` ramp drills the cell exactly as it drilled
+     たかい→たかくない. Saying "same rule, new base" out loud IS the lesson.
+  2. **たい IS FOR THE SPEAKER.** Japanese does not let you assert another
+     person's internal state flatly, so every たい production here is
+     first-person or a question to the listener. 「トムは いきたい。」 is the
+     v-tai card's antiPattern precisely because template pipelines generate
+     it (spine n05's binding authoring constraint). 〜たがる is N4 (m36) and
+     is NOT previewed, not even in a dialogue.
+  3. **が MARKS WHAT YOU WANT.** ほしい (a NOUN's want), すき/きらい
+     (な-adjectives) and たい all put が on the thing — one family, taught as
+     one family. The を/が wobble under たい (「みずを のみたい」 =
+     「みずが のみたい」) gets its own lesson (L5) and rides `alsoAccept` on
+     every typed beat where a learner could reasonably produce either
+     (max-acceptance, Spencer 2026-07-26).
+
+  TRANSFORM RAMP (inv 37 — this bit m11 and m12, do not rediscover it): the
+  ramp is PINNED ahead of the interleaved middle and conjugation_transform
+  is NOT intro-capable, so EVERY form the ramp can emit also appears in the
+  introducing rule card's `examples:`. The compiler takes the first three
+  ramp-eligible atoms of a lesson's `introduces` in `newAtoms` order, so each
+  ramp lesson lists its three drilled forms FIRST and every other derived
+  form in that lesson has `verbClass` deliberately OMITTED so it can never be
+  picked up. The POSITIVE たい cells (たべたい …) also carry no verbClass —
+  they are the ramp's BASES, not its material, and giving them one would make
+  the L2 ramp try to conjugate たべる as an い-adjective.
+
+  NO ATOM IS REGISTERED IN courseAtoms FOR THE たい CELLS. Every one of them
+  is already a REAL surface via the conjugation lexicon: `ChainForm` has
+  `tai` / `tai-neg` / `tai-past` / `tai-neg-past` columns for every
+  VERB_ENTRIES verb, so `getRealFormLexicon()` already tokenizes たべたくなかった
+  and registering the inflections would regress flashcard import +
+  annotateJapaneseText exactly the way m11's polite-past forms would have.
+  This is also why the たい set is restricted to verbs that are IN
+  VERB_ENTRIES — たべる/のむ/いく/みる/かう/あそぶ/する. きく, いう, おもう and
+  やる are taught vocabulary but have no conjugation-table entry, so ききたい
+  would be an untracked word to the provenance guard. They appear here in
+  dictionary form only (きくのが すき).
+
+  WHY THE RULE-CARD WORDS ARE `imageable: false`: a rule card is PINNED at
+  step 1, so any word in its `examples:` is pre-satisfied and its picture
+  debut stops being its first appearance (inv 30/44 — m12 documented this).
+  ほしい, すき and きらい ARE the rule cards, so they cannot also debut on a
+  word_image_mcq; they are flagged `imageable: false` and introduced by the
+  card. The module still ships image debuts, from its OWN registry
+  allocation: ふく (L6), なつやすみ (L7), きっさてん (L9) — none of which
+  appears in any rule card.
+
+  DEVIATIONS, documented per RUN-PLAN "decide and document":
+  - **にいく is NOT here.** spinePlan n05 lists "にいく purpose-of-motion
+    (stem + にいく)"; the coverage ledger assigns `ni-iku` to m19 (s15,
+    motion particles). The SPINE wins over the ledger as a rule — but this
+    one is blocked by tooling, not by curriculum, and for the identical
+    mechanical reason m12 deferred なる: the bare ます-stem (たべ, のみ) is a
+    surface NO lexicon in this repo knows. It is absent from
+    `getRealFormLexicon()` (which stores whole ChainForm outputs, never
+    stems) and from courseAtoms, so 「たべに いく」 either trips the
+    compiler's unbuildable gate or forces stems into the atom registry — the
+    exact regression m11 documented for ました. Flagged, not forced;
+    `ni-iku` stays on m19's row, which already owns e-direction/made-ni and
+    is where a stem lexicon can land whole. THIS IS A REAL SPINE DEVIATION,
+    reported as such.
+  - **ほしくない / ほしかった are NOT taught.** ほしい is not in ADJ_ENTRIES,
+    so unlike たい its inflections are invisible to the real-form lexicon and
+    would have to be hand-registered as atoms. The negative wish is carried
+    by 〜たくない (fully lexicon-backed) and by すきじゃない; ほしい ships
+    affirmative + question only. Same class of decision as m12's なる: the
+    pedagogy is deferrable, the lexicon change is not this module's job.
+  - **`i-adj-negative` / `i-adj-past` / `i-adj-past-negative` get a SECOND
+    rule card here.** They are m12's ledger points and stay m12's; m13
+    re-teaches them applied to たい because "no new machinery" is the whole
+    argument, and inv 42 forbids inventing an id like `tai-negative`. The
+    ledger is untouched.
+  - **`wo-object` gets a second card too** (L5), because the を/が
+    alternation under たい is a genuinely new wrinkle on the object marker
+    and inv 42 leaves no other honest id for it.
+  - **`し` (4) and `しち` (7) were marked `blocked` in courseAtoms.** Both
+    are tagged `fromModule: m13` by the OLD course, but the neo course
+    teaches よん and なな (m9) and never these readings. `し` is one kana, so
+    `requireImageFirst`'s substring scan matched it inside したい / わたし /
+    おいしい and demanded a picture debut for a word this module does not
+    teach. `blocked` is exactly the "no image MCQ" flag and changes nothing
+    else.
+
+  BUILD PROMPTS ARE PLAIN ("Build: I want to eat sushi"), not
+  "Say to a friend: …". A tile build cannot express the wrong register — the
+  tiles decide it — so inv 8's cue would be noise, and it would leak into the
+  compiler's sentence-comprehension filler as option text. The cue IS carried
+  on every `mode: translate` beat, where the learner types and ます is a live
+  wrong answer.
+
+  CONNECTIVES (inv 13): から/ので/けど and て-linking land at m14/m16, so
+  complexity is bought by STACKING what the module owns — possessive +
+  prenominal adjective + な-adjective + location/instrument particle + the
+  たい cell (きょうは ミカの ゆうめいな みせで おいしい すしが たべたい).
+  Nothing here uses この/その/あの (m17), そう, or でも.
+
+grammarPoints:
+  - id: v-tai
+    rule: "Take the ます-stem — what is left when you drop ます — and hang たい on it: たべます → たべたい. It says I WANT TO do this. たい speaks for the SPEAKER: いきたい is about me, and いきたい？ asks you. You never state it flat about somebody else. The thing you want can keep を or switch to が — すしを たべたい and すしが たべたい are both correct, and が puts the thing itself in the spotlight."
+    examples:
+      - { ja: "トムと にほんに いきたい。", en: "I want to go to Japan with Tom." }
+      - { ja: "きょうは おいしい すしが たべたい。", en: "I want to eat good sushi today." }
+      - { ja: "わたしは あさ みずが のみたい。", en: "I want to drink water in the morning." }
+      - { ja: "ミカの あたらしい しゃしんが みたい。", en: "I want to see Mika's new photo." }
+      - { ja: "あたらしい かさが かいたい。", en: "I want to buy a new umbrella." }
+      - { ja: "きょうは ともだちと あそびたい。", en: "I want to hang out with a friend today." }
+      - { ja: "きょうは なにが したい？", en: "What do you want to do today?" }
+    antiPattern: { ja: "トムは にほんに いきたい。", why: "たい states YOUR OWN wish — Japanese will not let you assert someone else's from the outside. Ask them (いきたい？) or say it about yourself." }
+  - id: i-adj-negative
+    rule: "たい ends in い, and it IS an い-adjective — so its negative is one you already own from m12. Drop the final い, add くない: たべたい → たべたくない. Nothing about the verb changes; たい does all the work, and there is still no だ anywhere. たべない says you will not eat; たべたくない says you do not WANT to."
+    examples:
+      - { ja: "きょうは ごはんが たべたくない。", en: "I don't want to eat today." }
+      - { ja: "あさは ちゃが のみたくない。", en: "I don't want to drink tea in the morning." }
+      - { ja: "きょうは だいがくに いきたくない。", en: "I don't want to go to university today." }
+      - { ja: "ふるい しゃしんは みたくない。", en: "I don't want to look at old photos." }
+      - { ja: "たかい かばんは かいたくない。", en: "I don't want to buy an expensive bag." }
+    antiPattern: { ja: "きょうは ごはんが たべたいくない。", why: "drop the final い before くない — たべたい becomes たべたくない, never たべたいくない" }
+    # Ramp scope (inv 37): the three forms the transform can emit —
+    # たべたくない, のみたくない, いきたくない — are all example lines above,
+    # and so are the two that carry no verbClass.
+    conjugation: { form: negative, classes: [i-adj] }
+  - id: i-adj-past
+    rule: "The past works the same way, because it is the same い-adjective: drop い, add かった. たべたい → たべたかった, I wanted to eat. It reports a wish you HAD, so it pairs naturally with きのう. Nouns take だった and verbs take た; たい makes its own past and borrows nothing."
+    examples:
+      - { ja: "きのうは おいしい すしが たべたかった。", en: "I wanted to eat good sushi yesterday." }
+      - { ja: "きのうは ちゃが のみたかった。", en: "I wanted to drink tea yesterday." }
+      - { ja: "きのう ともだちと うみに いきたかった。", en: "I wanted to go to the sea with a friend yesterday." }
+      - { ja: "あたらしい ぼうしが かいたかった。", en: "I wanted to buy a new hat." }
+      - { ja: "きのうは かいものが したかった。", en: "I wanted to go shopping yesterday." }
+    antiPattern: { ja: "きのうは おいしい すしが たべたいだった。", why: "だった is the NOUN past — たい makes its own past: たべたかった" }
+    conjugation: { form: past, classes: [i-adj] }
+  - id: i-adj-past-negative
+    rule: "The last cell stacks two endings you already own: くない for not, かった for was. Drop い, add くなかった — たべたい → たべたくなかった. That closes the table: たべたい・たべたくない・たべたかった・たべたくなかった. Four cells, all adjective, not one だ among them."
+    examples:
+      - { ja: "きのうは ごはんが たべたくなかった。", en: "I didn't want to eat yesterday." }
+      - { ja: "きのうは だいがくに いきたくなかった。", en: "I didn't want to go to university yesterday." }
+      - { ja: "たかい かばんは かいたくなかった。", en: "I didn't want to buy an expensive bag." }
+      - { ja: "きのうの あさは ちゃが のみたくなかった。", en: "I didn't want to drink tea yesterday morning." }
+    antiPattern: { ja: "きのうは ごはんが たべたくないでした。", why: "です never carries the past for an adjective — たい itself becomes たべたくなかった" }
+    conjugation: { form: past-negative, classes: [i-adj] }
+  - id: wo-object
+    rule: "A verb's object normally takes を, and it still can: すしを たべたい is correct. But たい is an ADJECTIVE, and what an adjective is about gets marked が — so すしが たべたい is equally correct, and it pushes the thing itself into the spotlight. Take either one. What you cannot do is drop the marker or reach for に."
+    examples:
+      - { ja: "きょうは おいしい すしを たべたい。", en: "I want to eat good sushi today." }
+      - { ja: "きょうは おいしい すしが たべたい。", en: "I want to eat good sushi today — the sushi in the spotlight." }
+      - { ja: "あたらしい じてんしゃを かいたい。", en: "I want to buy a new bicycle." }
+      - { ja: "あたらしい じてんしゃが かいたい。", en: "I want to buy a new bicycle — the bicycle in the spotlight." }
+      - { ja: "ミカの あたらしい しゃしんを みたい。", en: "I want to see Mika's new photo." }
+    antiPattern: { ja: "きょうは おいしい すしに たべたい。", why: "に marks a destination, not the thing you want — たい takes を or が" }
+  - id: ga-hoshii
+    rule: "ほしい is not a verb. It is an い-adjective that hangs off a NOUN, and the thing you want is marked が: みずが ほしい. Hold that split — たい attaches to a VERB (みずが のみたい), ほしい attaches to a THING (みずが ほしい). Like たい it speaks for you, so なにが ほしい？ asks the listener and there is no flat third-person version."
+    examples:
+      - { ja: "わたしは あたらしい めがねが ほしい。", en: "I want new glasses." }
+      - { ja: "あたらしい じてんしゃが ほしい。", en: "I want a new bicycle." }
+      - { ja: "ミカの ふるい じしょが ほしい。", en: "I want Mika's old dictionary." }
+      - { ja: "みずが ほしい。", en: "I want water." }
+      - { ja: "みずが のみたい。", en: "I want to drink water." }
+      - { ja: "なにが ほしい？", en: "What do you want?" }
+    antiPattern: { ja: "わたしは あたらしい めがねを ほしい。", why: "ほしい marks what you want with が, never を — を belongs to verbs" }
+  - id: suki-kirai-no
+    rule: "すき and きらい are な-adjectives, not verbs. ねこが すきだ is literally cats are likeable — to me, which is exactly why the thing you like takes が, the same が as ほしい. In front of a noun they take な (すきな いろ) and they negate like any な-adjective (すきじゃない). One difference from たい: these you MAY say about other people — ミカは うたが すきだ is fine."
+    examples:
+      - { ja: "わたしは ちいさい ねこが すきだ。", en: "I like small cats." }
+      - { ja: "ミカは あたらしい うたが すきだ。", en: "Mika likes new songs." }
+      - { ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber." }
+      - { ja: "わたしの すきな いろは あかい。", en: "The colour I like is red." }
+      - { ja: "とりにくは すきじゃない。", en: "I don't like chicken." }
+    antiPattern: { ja: "わたしは ちいさい ねこを すきだ。", why: "すき is an adjective, not a verb — what you like is marked が" }
+  - id: no-ga-suki
+    rule: "To like an ACTION you first have to make it a thing. Put の straight after the plain verb and たべる becomes たべるの, the eating of it. Then it takes が like anything else you like: たべるのが すきだ. The verb stays in plain form — の does the nominalising — and きらい works identically."
+    examples:
+      - { ja: "わたしは ごはんを たべるのが すきだ。", en: "I like eating." }
+      - { ja: "ミカは うたを うたうのが すきだ。", en: "Mika likes singing." }
+      - { ja: "ともだちと あそぶのが すきだ。", en: "I like hanging out with friends." }
+      - { ja: "ふるい しゃしんを みるのが すきだ。", en: "I like looking at old photos." }
+      - { ja: "わたしは だいがくに いくのが きらいだ。", en: "I don't like going to university." }
+    antiPattern: { ja: "わたしは ごはんを たべるが すきだ。", why: "a verb cannot be marked が on its own — の turns it into a thing first: たべるのが" }
+
+newAtoms:
+  # ══ L1 — the POSITIVE たい cell. `derivedFrom` points at the VERB (for the
+  #    gloss-consistency check) and `verbClass` is deliberately ABSENT: these
+  #    are the ramp's BASES, and a verbClass here would make L2's ramp try to
+  #    conjugate たべる as an い-adjective.
+  - { kana: たべたい, romaji: tabetai, gloss: "want to eat", imageable: false, kind: tai-form, derivedFrom: たべる }
+  - { kana: のみたい, romaji: nomitai, gloss: "want to drink", imageable: false, kind: tai-form, derivedFrom: のむ }
+  # いきたい and したい carry NO `derivedFrom`. The gloss-consistency
+  # diagnostic only compares content words of 3+ characters, and the whole
+  # English content of いく ("to go") and する ("to do") is two-letter — so
+  # the pair is unverifiable by machine, not wrong. Recording a base it
+  # cannot check would just produce a permanent false finding. Base verbs:
+  # いく and する respectively.
+  - { kana: いきたい, romaji: ikitai, gloss: "want to go", imageable: false, kind: tai-form }
+  - { kana: みたい, romaji: mitai, gloss: "want to watch", imageable: false, kind: tai-form, derivedFrom: みる }
+  - { kana: かいたい, romaji: kaitai, gloss: "want to buy", imageable: false, kind: tai-form, derivedFrom: かう }
+  - { kana: したい, romaji: shitai, gloss: "want to do", imageable: false, kind: tai-form }
+  - { kana: あそびたい, romaji: asobitai, gloss: "want to play", imageable: false, kind: tai-form, derivedFrom: あそぶ }
+  # ══ L2 — たくない. Order matters: the ramp takes the FIRST THREE in-scope
+  #    entries, so the three drilled are the three the i-adj-negative card
+  #    spells out. The rest carry no verbClass at all.
+  - { kana: たべたくない, romaji: tabetakunai, gloss: "don't want to eat", imageable: false, kind: tai-form, derivedFrom: たべたい, verbClass: i-adj }
+  - { kana: のみたくない, romaji: nomitakunai, gloss: "don't want to drink", imageable: false, kind: tai-form, derivedFrom: のみたい, verbClass: i-adj }
+  - { kana: いきたくない, romaji: ikitakunai, gloss: "don't want to go", imageable: false, kind: tai-form, derivedFrom: いきたい, verbClass: i-adj }
+  - { kana: みたくない, romaji: mitakunai, gloss: "don't want to watch", imageable: false, kind: tai-form, derivedFrom: みたい }
+  - { kana: かいたくない, romaji: kaitakunai, gloss: "don't want to buy", imageable: false, kind: tai-form, derivedFrom: かいたい }
+  # ══ L3 — たかった. The ramp trio is たべ/のみ/かい, NOT いき: "wanted to go"
+  #    and "want to go" share no 3+-character content word, so the
+  #    gloss-consistency diagnostic cannot verify いきたかった against its
+  #    base. Same limitation as above, resolved by choosing a drilled verb
+  #    whose English survives the filter (buy) rather than by bending a
+  #    learner-facing gloss around a lint.
+  - { kana: たべたかった, romaji: tabetakatta, gloss: "wanted to eat", imageable: false, kind: tai-form, derivedFrom: たべたい, verbClass: i-adj }
+  - { kana: のみたかった, romaji: nomitakatta, gloss: "wanted to drink", imageable: false, kind: tai-form, derivedFrom: のみたい, verbClass: i-adj }
+  - { kana: かいたかった, romaji: kaitakatta, gloss: "wanted to buy", imageable: false, kind: tai-form, derivedFrom: かいたい, verbClass: i-adj }
+  - { kana: いきたかった, romaji: ikitakatta, gloss: "wanted to go", imageable: false, kind: tai-form }
+  - { kana: したかった, romaji: shitakatta, gloss: "wanted to do", imageable: false, kind: tai-form }
+  # ══ L4 — たくなかった
+  - { kana: たべたくなかった, romaji: tabetakunakatta, gloss: "didn't want to eat", imageable: false, kind: tai-form, derivedFrom: たべたい, verbClass: i-adj }
+  - { kana: いきたくなかった, romaji: ikitakunakatta, gloss: "didn't want to go", imageable: false, kind: tai-form, derivedFrom: いきたい, verbClass: i-adj }
+  - { kana: かいたくなかった, romaji: kaitakunakatta, gloss: "didn't want to buy", imageable: false, kind: tai-form, derivedFrom: かいたい, verbClass: i-adj }
+  - { kana: のみたくなかった, romaji: nomitakunakatta, gloss: "didn't want to drink", imageable: false, kind: tai-form, derivedFrom: のみたい }
+  # ══ L6 — ほしい. imageable:false because the ga-hoshii card IS its
+  #    introduction and a pinned rule card would steal a picture debut.
+  - { kana: ほしい, romaji: hoshii, gloss: "want (a thing)", shortGloss: "want (thing)", imageable: false, kind: vocab }
+  # ══ L7 — すき / きらい. Same reason as ほしい.
+  - { kana: すき, romaji: suki, gloss: "likeable, like", shortGloss: "like", imageable: false, kind: vocab }
+  - { kana: きらい, romaji: kirai, gloss: "disliked, dislike", shortGloss: "dislike", imageable: false, kind: vocab }
+  # ══ The module's PICTURE debuts — its own registry allocation, and
+  #    deliberately absent from every rule card so the MCQ stays first.
+  - { kana: ふく, romaji: fuku, gloss: "clothes", imageable: true, kind: vocab }
+  - { kana: なつやすみ, romaji: natsuyasumi, gloss: "summer holiday", shortGloss: "summer break", imageable: true, kind: vocab }
+  - { kana: きっさてん, romaji: kissaten, gloss: "coffee shop", imageable: true, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-1
+    role: teaching
+    title: "たべたい — what I want to do"
+    focus: "ます-stem + たい says what the SPEAKER wants; を or が both mark the thing"
+    introduces: [たべたい, のみたい, いきたい, みたい, かいたい, したい, あそびたい]
+    beats:
+      - { kind: rule, grammarPointId: v-tai }
+      - { kind: sentence, ja: "きょうは おいしい すしが たべたい。", en: "I want to eat good sushi today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "わたしは あさ みずが のみたい。", en: "I want to drink water in the morning", exercises: [wa-topic, v-tai], mode: build }
+      - { kind: sentence, ja: "ともだちと にほんに いきたい。", en: "I want to go to Japan with a friend", exercises: [ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "ミカの あたらしい しゃしんが みたい。", en: "I want to see Mika's new photo", exercises: [no-possession, i-adj-present, v-tai], mode: listening }
+      - { kind: sentence, ja: "あたらしい かさが かいたい。", en: "I want to buy a new umbrella", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは ともだちと あそびたい。", en: "I want to hang out with a friend today", exercises: [wa-topic, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは にぎやかな みせに いきたい。", en: "I want to go to a lively shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "ミカの ふるい じしょが みたい。", en: "I want to look at Mika's old dictionary", exercises: [no-possession, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは なにが したい？", en: "Ask a friend: What do you want to do today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは なにを したい？"] }
+      - { kind: particle-cloze, stem: "きょうは すしが ", tail: "。", answer: "たべたい", options: ["たべたい", "たべる", "のみたい"], en: "I want to eat sushi today", explanation: "たい on the ます-stem says you WANT to; たべる on its own just says you will." }
+      - { kind: listening-comp, audio: "あたらしい ぼうしが かいたい。", answer: "I want to buy a new hat", distractors: ["I bought a new hat", "I want to buy a new bag", "I want to buy a big hat"], exercises: [i-adj-present, v-tai] }
+      - { kind: listening-comp, audio: "ともだちと おおきい うみに いきたい。", answer: "I want to go to the big sea with a friend", distractors: ["I went to the big sea with a friend", "I want to go to the big mountain with a friend", "I want to go to the sea with my family"], exercises: [ni-location, i-adj-present, v-tai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは なにが したい？", en: "What do you want to do today?" }
+          - { speaker: "Tom", ja: "おいしい すしが たべたい。ミカと いきたい。", en: "I want to eat good sushi. I want to go with you." }
+        questions:
+          - { q: "What does Tom want?", options: ["To eat good sushi with Mika", "To buy sushi for Mika", "To drink water with Mika", "To go to Mika's house"], answer: "To eat good sushi with Mika" }
+      - { kind: challenge, ja: "きょうは ミカの あたらしい みせで おいしい すしが たべたい。", en: "I want to eat good sushi at Mika's new shop today", combines: [no-possession, de-action, i-adj-present, v-tai], mode: build }
+    reviewPool: [すし, みず, にほん, しゃしん, かさ, ともだち, みせ, ぼうし, うみ, じしょ, きょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-2
+    role: teaching
+    title: "たくない — the wish, turned down"
+    focus: "たい ends in い, so it negates like any い-adjective: drop い, add くない"
+    introduces: [たべたくない, のみたくない, いきたくない, みたくない, かいたくない]
+    beats:
+      - { kind: rule, grammarPointId: i-adj-negative }
+      - { kind: sentence, ja: "きょうは ごはんが たべたくない。", en: "I don't want to eat today", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あさは ちゃが のみたくない。", en: "I don't want to drink tea in the morning", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "きょうは だいがくに いきたくない。", en: "I don't want to go to university today", exercises: [wa-topic, ni-location, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "ふるい しゃしんは みたくない。", en: "I don't want to look at old photos", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: listening }
+      - { kind: sentence, ja: "たかい かばんは かいたくない。", en: "I don't want to buy an expensive bag", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "きょうは にぎやかな みせに いきたくない。", en: "I don't want to go to a lively shop today", exercises: [wa-topic, na-adj-present, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "きょうは みずが のみたくない。", en: "Say to a friend: I don't want to drink water today", exercises: [wa-topic, i-adj-negative], mode: translate, alsoAccept: ["きょうは みずを のみたくない。"] }
+      - { kind: particle-cloze, stem: "きょうは ごはんが ", tail: "。", answer: "たべたくない", options: ["たべたくない", "たべたい", "たべない"], en: "I don't want to eat today", explanation: "たべない says you won't eat; たべたくない says you don't WANT to." }
+      - { kind: listening-comp, audio: "あたらしい くるまは かいたくない。", answer: "I don't want to buy a new car", distractors: ["I want to buy a new car", "I don't want to buy an old car", "I didn't buy a new car"], exercises: [i-adj-present, i-adj-negative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きょうは だいがくに いきたい？", en: "Do you want to go to university today?" }
+          - { speaker: "Mika", ja: "ううん、いきたくない。いえで ほんが みたい。", en: "Nope, I don't want to go. I want to read a book at home." }
+        questions:
+          - { q: "What does Mika want to do?", options: ["Stay home and look at a book", "Go to university with Ken", "Go to a shop", "Look at photos at university"], answer: "Stay home and look at a book" }
+      - { kind: challenge, ja: "きょうは ミカの あたらしい みせに いきたくない。", en: "I don't want to go to Mika's new shop today", combines: [no-possession, i-adj-present, ni-location, i-adj-negative], mode: build }
+    reviewPool: [ごはん, ちゃ, だいがく, しゃしん, かばん, みせ, くるま, ほん, いえ, たべたい, いきたい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-3
+    role: teaching
+    title: "たかった — what I wanted"
+    focus: "the same い-adjective past: drop い, add かった; だった stays with nouns"
+    introduces: [たべたかった, のみたかった, いきたかった, かいたかった, したかった]
+    beats:
+      - { kind: rule, grammarPointId: i-adj-past }
+      - { kind: sentence, ja: "きのうは おいしい すしが たべたかった。", en: "I wanted to eat good sushi yesterday", exercises: [wa-topic, i-adj-present, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きのうは ちゃが のみたかった。", en: "I wanted to drink tea yesterday", exercises: [wa-topic, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きのう ともだちと うみに いきたかった。", en: "I wanted to go to the sea with a friend yesterday", exercises: [ni-location, i-adj-past], mode: build }
+      - { kind: sentence, ja: "あたらしい ぼうしが かいたかった。", en: "I wanted to buy a new hat", exercises: [i-adj-present, i-adj-past], mode: listening }
+      - { kind: sentence, ja: "きのうは かいものが したかった。", en: "I wanted to go shopping yesterday", exercises: [wa-topic, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きのう ミカの あたらしい いえに いきたかった。", en: "I wanted to go to Mika's new house yesterday", exercises: [no-possession, i-adj-present, ni-location, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きのうは すしが たべたかった。", en: "Say to a friend: I wanted to eat sushi yesterday", exercises: [wa-topic, i-adj-past], mode: translate, alsoAccept: ["きのうは すしを たべたかった。"] }
+      - { kind: particle-cloze, stem: "きのうは ちゃが ", tail: "。", answer: "のみたかった", options: ["のみたかった", "のみたい", "のみたくない"], en: "I wanted to drink tea yesterday", explanation: "かった carries the past — the たい becomes たかった." }
+      - { kind: listening-comp, audio: "きのうは だいがくに いきたかった。", answer: "I wanted to go to university yesterday", distractors: ["I went to university yesterday", "I don't want to go to university today", "I wanted to go to the shop yesterday"], exercises: [wa-topic, ni-location, i-adj-past] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きのうは なにが したかった？", en: "What did you want to do yesterday?" }
+          - { speaker: "Mika", ja: "うみに いきたかった。おいしい ごはんが たべたかった。", en: "I wanted to go to the sea. I wanted to eat good food." }
+        questions:
+          - { q: "What did Mika want yesterday?", options: ["To go to the sea and eat good food", "To go to the mountain and eat", "To stay home and eat sushi", "To go shopping with Tom"], answer: "To go to the sea and eat good food" }
+      - { kind: challenge, ja: "きのう ミカと にぎやかな えきで かいものが したかった。", en: "I wanted to go shopping with Mika at the lively station yesterday", combines: [na-adj-present, de-action, v-tai, i-adj-past], mode: build }
+    reviewPool: [すし, ちゃ, うみ, ぼうし, かいもの, いえ, だいがく, えき, きのう, たべたい, いきたい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-r1
+    role: review
+    title: "Review — たい, three cells in"
+    focus: "たい / たくない / たかった on all-new surfaces"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは あたらしい かばんが かいたい。", en: "I want to buy a new bag today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あさは ちゃが のみたくない。", en: "I don't want to drink tea in the morning", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "きのうは やまに いきたかった。", en: "I wanted to go to the mountain yesterday", exercises: [wa-topic, ni-location, i-adj-past], mode: listening }
+      - { kind: sentence, ja: "ミカの ふるい しゃしんが みたい。", en: "I want to look at Mika's old photo", exercises: [no-possession, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは だいがくに いきたくない。", en: "I don't want to go to university today", exercises: [wa-topic, ni-location, i-adj-negative], mode: build }
+      - { kind: particle-cloze, stem: "きのうは すしが ", tail: "。", answer: "たべたかった", options: ["たべたかった", "たべたくない", "たべたい"], en: "I wanted to eat sushi yesterday", explanation: "きのう anchors the wish in the past, so the たい goes past too: たべたかった." }
+      - { kind: sentence, ja: "きのう ともだちと えきに いきたかった。", en: "I wanted to go to the station with a friend yesterday", exercises: [ni-location, i-adj-past], mode: build }
+      - { kind: listening-comp, audio: "あたらしい めがねが かいたい。", answer: "I want to buy new glasses", distractors: ["I bought new glasses", "I don't want new glasses", "I want to buy a new watch"], exercises: [i-adj-present, v-tai] }
+      - { kind: sentence, ja: "きょうは しずかな いえで ほんが みたい。", en: "I want to read a book in a quiet house today", exercises: [na-adj-present, de-action, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは みずが のみたい。", en: "Say to a friend: I want to drink water today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは みずを のみたい。"] }
+      - { kind: listening-comp, audio: "きのうは ちゃが のみたかった。", answer: "I wanted to drink tea yesterday", distractors: ["I drank tea yesterday", "I want to drink tea today", "I didn't drink tea yesterday"], exercises: [wa-topic, i-adj-past] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きのうは なにが したかった？", en: "What did you want to do yesterday?" }
+          - { speaker: "Tom", ja: "おいしい ごはんが たべたかった。", en: "I wanted to eat good food." }
+        questions:
+          - { q: "What did Tom want yesterday?", options: ["To eat good food", "To buy a new bag", "To go to the station", "To drink tea"], answer: "To eat good food" }
+      - { kind: sentence, ja: "きょうは おおきい みせで かいものが したい。", en: "I want to go shopping at a big shop today", exercises: [de-action, i-adj-present, v-tai], mode: build }
+      - { kind: listening-comp, audio: "きょうは ともだちと あそびたい。", answer: "I want to hang out with a friend today", distractors: ["I hung out with a friend yesterday", "I don't want to hang out with a friend today", "I want to hang out with my family today"], exercises: [wa-topic, v-tai] }
+    reviewPool: [かばん, ちゃ, やま, しゃしん, だいがく, すし, えき, めがね, いえ, ほん, みず]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-4
+    role: teaching
+    title: "たくなかった — the fourth cell"
+    focus: "くない plus かった; the たい table closes with no だ anywhere in it"
+    introduces: [たべたくなかった, いきたくなかった, かいたくなかった, のみたくなかった]
+    beats:
+      - { kind: rule, grammarPointId: i-adj-past-negative }
+      - { kind: sentence, ja: "きのうは ごはんが たべたくなかった。", en: "I didn't want to eat yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "きのうは だいがくに いきたくなかった。", en: "I didn't want to go to university yesterday", exercises: [wa-topic, ni-location, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "たかい かばんは かいたくなかった。", en: "I didn't want to buy an expensive bag", exercises: [i-adj-present, wa-topic, i-adj-past-negative], mode: listening }
+      - { kind: sentence, ja: "きのうの あさは ちゃが のみたくなかった。", en: "I didn't want to drink tea yesterday morning", exercises: [no-possession, wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "きのうは にぎやかな みせに いきたくなかった。", en: "I didn't want to go to a lively shop yesterday", exercises: [wa-topic, na-adj-present, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "あたらしい くるまは かいたくなかった。", en: "I didn't want to buy a new car", exercises: [i-adj-present, wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "きのうは すしが たべたくなかった。", en: "Say to a friend: I didn't want to eat sushi yesterday", exercises: [wa-topic, i-adj-past-negative], mode: translate, alsoAccept: ["きのうは すしを たべたくなかった。"] }
+      - { kind: particle-cloze, stem: "きのうは ごはんが ", tail: "。", answer: "たべたくなかった", options: ["たべたくなかった", "たべたくない", "たべたかった"], en: "I didn't want to eat yesterday", explanation: "くない carries the not and かった carries the was — stack them for たべたくなかった." }
+      - { kind: listening-comp, audio: "きのうは えきに いきたくなかった。", answer: "I didn't want to go to the station yesterday", distractors: ["I went to the station yesterday", "I don't want to go to the station today", "I wanted to go to the station yesterday"], exercises: [wa-topic, ni-location, i-adj-past-negative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きのうは かいものが したかった？", en: "Did you want to go shopping yesterday?" }
+          - { speaker: "Ken", ja: "ううん。だいがくに いきたくなかった。", en: "Nope. I didn't want to go to university." }
+        questions:
+          - { q: "What does Ken say about yesterday?", options: ["He didn't want to go to university", "He wanted to go shopping", "He went shopping with Mika", "He was at the station"], answer: "He didn't want to go to university" }
+      - { kind: challenge, ja: "きのう ミカの ふるい みせで ぼうしが かいたくなかった。", en: "I didn't want to buy a hat at Mika's old shop yesterday", combines: [no-possession, i-adj-present, de-action, i-adj-past-negative], mode: build }
+    reviewPool: [ごはん, だいがく, かばん, ちゃ, みせ, くるま, すし, えき, ぼうし, たべたい, いきたくない]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-5
+    role: teaching
+    title: "が or を — both are right"
+    focus: "the object of a たい sentence takes either marker; が foregrounds the thing"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: wo-object }
+      - { kind: sentence, ja: "きょうは おいしい すしを たべたい。", en: "I want to eat good sushi today", exercises: [wa-topic, wo-object, v-tai], mode: build }
+      - { kind: sentence, ja: "あたらしい じてんしゃを かいたい。", en: "I want to buy a new bicycle", exercises: [wo-object, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あたらしい じてんしゃが かいたい。", en: "I want to buy a new bicycle, bicycle first", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "ミカの あたらしい しゃしんを みたい。", en: "I want to see Mika's new photo", exercises: [no-possession, wo-object, v-tai], mode: listening }
+      - { kind: sentence, ja: "きょうは ちゃを のみたい。", en: "I want to drink tea today", exercises: [wa-topic, wo-object, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは おおきい ふねが みたい。", en: "I want to see a big boat today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "みずが のみたい。", en: "Say to a friend: I want to drink water", exercises: [v-tai], mode: translate, alsoAccept: ["みずを のみたい。"] }
+      - { kind: sentence, ja: "あたらしい ぼうしが かいたい。", en: "Say to a friend: I want to buy a new hat", exercises: [i-adj-present, v-tai], mode: translate, alsoAccept: ["あたらしい ぼうしを かいたい。"] }
+      - { kind: particle-cloze, stem: "あたらしい かさを ", tail: "。", answer: "かいたい", options: ["かいたい", "かう", "かいたくない"], en: "I want to buy a new umbrella", explanation: "を is the ordinary object marker and stays legal with たい; が would put the umbrella in the spotlight." }
+      - { kind: listening-comp, audio: "きょうは にほんの りょうりが たべたい。", answer: "I want to eat Japanese food today", distractors: ["I ate Japanese food today", "I don't want to eat Japanese food", "I want to buy Japanese food"], exercises: [no-possession, wa-topic, v-tai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なにが のみたい？", en: "What do you want to drink?" }
+          - { speaker: "Mika", ja: "ちゃが のみたい。トムは？", en: "I want tea. How about you, Tom?" }
+          - { speaker: "Tom", ja: "わたしは みずを のみたい。", en: "I want to drink water." }
+        questions:
+          - { q: "What does Tom want to drink?", options: ["Water", "Tea", "Milk", "Nothing"], answer: "Water" }
+      - { kind: challenge, ja: "きょうは ともだちと ゆうめいな みせで おいしい ごはんが たべたい。", en: "I want to eat good food with a friend at a famous shop today", combines: [na-adj-present, de-action, i-adj-present, v-tai], mode: build }
+    reviewPool: [すし, じてんしゃ, しゃしん, ちゃ, ふね, みず, ぼうし, かさ, りょうり, えき, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-6
+    role: teaching
+    title: "ほしい — wanting a thing"
+    focus: "ほしい hangs off a NOUN and marks it with が; たい hangs off a verb"
+    introduces: [ほしい, ふく]
+    beats:
+      - { kind: rule, grammarPointId: ga-hoshii }
+      - { kind: sentence, ja: "あたらしい ふくが ほしい。", en: "I want new clothes", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "わたしは あたらしい めがねが ほしい。", en: "I want new glasses", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あたらしい じてんしゃが ほしい。", en: "I want a new bicycle", exercises: [i-adj-present, ga-hoshii], mode: listening }
+      - { kind: sentence, ja: "ミカの ふるい じしょが ほしい。", en: "I want Mika's old dictionary", exercises: [no-possession, i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あたらしい ふくが かいたい。", en: "I want to buy new clothes", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは おおきい かばんが ほしい。", en: "I want a big bag today", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "なにが ほしい？", en: "Ask a friend: What do you want", exercises: [ga-hoshii], mode: translate }
+      - { kind: particle-cloze, stem: "みずが ", tail: "。", answer: "ほしい", options: ["ほしい", "のみたい", "たべたい"], en: "I want water", explanation: "ほしい hangs off a THING; のみたい hangs off the verb のむ." }
+      - { kind: listening-comp, audio: "あたらしい かばんが ほしい。", answer: "I want a new bag", distractors: ["I want to buy a new bag", "I want an old bag", "I don't want a new bag"], exercises: [i-adj-present, ga-hoshii] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "なにが ほしい？", en: "What do you want?" }
+          - { speaker: "Tom", ja: "あたらしい ふくが ほしい。おおきい かばんも ほしい。", en: "I want new clothes. I want a big bag too." }
+        questions:
+          - { q: "What does Tom want?", options: ["New clothes and a big bag", "New clothes and a new bag", "An old bag and new clothes", "Only a big bag"], answer: "New clothes and a big bag" }
+      - { kind: challenge, ja: "きょうは ミカの ゆうめいな みせで あたらしい ふくが ほしい。", en: "I want new clothes from Mika's famous shop today", combines: [no-possession, na-adj-present, de-action, ga-hoshii], mode: build }
+    reviewPool: [めがね, じてんしゃ, じしょ, かばん, とけい, みず, いえ, くるま, ぼうし, かさ, すし]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-r2
+    role: review
+    title: "Review — the four cells, and ほしい beside them"
+    focus: "たい across all four cells, が/を on the object, ほしい on a noun"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは あたらしい ふくが ほしい。", en: "I want new clothes today", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "きのうは すしが たべたくなかった。", en: "I didn't want to eat sushi yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: listening }
+      - { kind: sentence, ja: "きょうは ちゃを のみたい。", en: "I want to drink tea today", exercises: [wa-topic, wo-object, v-tai], mode: build }
+      - { kind: sentence, ja: "きのう ミカと えきに いきたかった。", en: "I wanted to go to the station with Mika yesterday", exercises: [ni-location, i-adj-past], mode: build }
+      - { kind: particle-cloze, stem: "あたらしい かばんが ", tail: "。", answer: "ほしい", options: ["ほしい", "かいたい", "たかい"], en: "I want a new bag", explanation: "ほしい wants a THING; かいたい wants the ACT of buying." }
+      - { kind: sentence, ja: "ふるい しゃしんは みたくない。", en: "I don't want to look at old photos", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
+      - { kind: listening-comp, audio: "きょうは かいものが したい。", answer: "I want to go shopping today", distractors: ["I went shopping today", "I don't want to go shopping today", "I wanted to go shopping yesterday"], exercises: [wa-topic, v-tai] }
+      - { kind: sentence, ja: "きょうは しずかな みせに いきたい。", en: "I want to go to a quiet shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "あたらしい めがねが ほしい。", en: "Say to a friend: I want new glasses", exercises: [i-adj-present, ga-hoshii], mode: translate }
+      - { kind: listening-comp, audio: "きのうは だいがくに いきたくなかった。", answer: "I didn't want to go to university yesterday", distractors: ["I didn't go to university yesterday", "I don't want to go to university today", "I wanted to go to university yesterday"], exercises: [wa-topic, ni-location, i-adj-past-negative] }
+      - { kind: sentence, ja: "きのうは おおきい かさが かいたかった。", en: "I wanted to buy a big umbrella yesterday", exercises: [i-adj-present, i-adj-past], mode: build }
+      - { kind: sentence, ja: "ミカの あたらしい じてんしゃが ほしい。", en: "I want Mika's new bicycle", exercises: [no-possession, i-adj-present, ga-hoshii], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なにが ほしい？", en: "What do you want?" }
+          - { speaker: "Ken", ja: "あたらしい じてんしゃが ほしい。", en: "I want a new bicycle." }
+          - { speaker: "Tom", ja: "わたしは くるまが ほしい。", en: "I want a car." }
+        questions:
+          - { q: "What does Ken want?", options: ["A new bicycle", "A new car", "An old bicycle", "New clothes"], answer: "A new bicycle" }
+    reviewPool: [ふく, すし, とけい, ちゃ, えき, かばん, しゃしん, かいもの, みせ, めがね, じてんしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-7
+    role: teaching
+    title: "すき / きらい — が, one more time"
+    focus: "すき and きらい are な-adjectives: what you like is marked が, not を"
+    introduces: [すき, きらい, なつやすみ]
+    beats:
+      - { kind: rule, grammarPointId: suki-kirai-no }
+      - { kind: sentence, ja: "わたしは ちいさい ねこが すきだ。", en: "I like small cats", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "ミカは あたらしい うたが すきだ。", en: "Mika likes new songs", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber", exercises: [wa-topic, suki-kirai-no], mode: listening }
+      - { kind: sentence, ja: "わたしは なつやすみが すきだ。", en: "I like the summer holiday", exercises: [wa-topic, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "わたしの すきな いろは あかい。", en: "The colour I like is red", exercises: [no-possession, suki-kirai-no, i-adj-present], mode: build }
+      - { kind: sentence, ja: "とりにくは すきじゃない。", en: "I don't like chicken", exercises: [wa-topic, suki-kirai-no, na-adj-negative], mode: build }
+      - { kind: sentence, ja: "ケンは にぎやかな みせが きらいだ。", en: "Ken doesn't like lively shops", exercises: [wa-topic, na-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "ねこが すきだ。", en: "Say to a friend: I like cats", exercises: [suki-kirai-no], mode: translate, alsoAccept: ["ねこが すき。"] }
+      - { kind: particle-cloze, stem: "わたしは いぬが ", tail: "。", answer: "すきだ", options: ["すきだ", "すきな", "きらいだ"], en: "I like dogs", explanation: "な only goes in front of a noun; as the predicate a な-adjective takes だ." }
+      - { kind: listening-comp, audio: "ミカは ふるい うたが すきだ。", answer: "Mika likes old songs", distractors: ["Mika likes new songs", "Mika doesn't like old songs", "Mika likes old books"], exercises: [wa-topic, i-adj-present, suki-kirai-no] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なつやすみは すき？", en: "Do you like the summer holiday?" }
+          - { speaker: "Mika", ja: "うん、すきだ。うみに いきたい。", en: "Yeah, I like it. I want to go to the sea." }
+        questions:
+          - { q: "What does Mika say?", options: ["She likes the summer holiday and wants to go to the sea", "She doesn't like the summer holiday", "She wants to go to the mountain", "She likes the sea but not the holiday"], answer: "She likes the summer holiday and wants to go to the sea" }
+      - { kind: challenge, ja: "わたしは しずかな みせの おいしい ごはんが すきだ。", en: "I like the good food at a quiet shop", combines: [wa-topic, na-adj-present, no-possession, suki-kirai-no], mode: build }
+    reviewPool: [ねこ, いぬ, うた, きゅうり, いろ, とりにく, みせ, ごはん, ほん, うみ, りょうり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-8
+    role: teaching
+    title: "たべるのが すき — liking to do something"
+    focus: "の turns a plain verb into a thing, and then が marks it like any other"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: no-ga-suki }
+      - { kind: sentence, ja: "わたしは ごはんを たべるのが すきだ。", en: "I like eating", exercises: [wa-topic, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "ミカは うたを うたうのが すきだ。", en: "Mika likes singing", exercises: [wa-topic, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "ともだちと あそぶのが すきだ。", en: "I like hanging out with friends", exercises: [no-ga-suki], mode: listening }
+      - { kind: sentence, ja: "ふるい しゃしんを みるのが すきだ。", en: "I like looking at old photos", exercises: [i-adj-present, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "わたしは だいがくに いくのが きらいだ。", en: "I don't like going to university", exercises: [wa-topic, ni-location, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "にぎやかな みせで かいものを するのが すきだ。", en: "I like shopping at a lively shop", exercises: [na-adj-present, de-action, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "きゅうりを たべるのが きらいだ。", en: "I don't like eating cucumber", exercises: [wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "あさ ちゃを のむのが すきだ。", en: "I like drinking tea in the morning", exercises: [wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "ごはんを たべるのが すきだ。", en: "Say to a friend: I like eating", exercises: [wo-object, no-ga-suki], mode: translate, alsoAccept: ["ごはんを たべるのが すき。"] }
+      - { kind: listening-comp, audio: "わたしは ふるい うたを きくのが すきだ。", answer: "I like listening to old songs", distractors: ["I like singing old songs", "I don't like listening to old songs", "I like listening to new songs"], exercises: [i-adj-present, wo-object, no-ga-suki] }
+      - { kind: listening-comp, audio: "ミカは かいものを するのが すきだ。", answer: "Mika likes shopping", distractors: ["Mika likes cooking", "Mika doesn't like shopping", "Mika likes going to the station"], exercises: [wo-object, no-ga-suki] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "なにを するのが すき？", en: "What do you like doing?" }
+          - { speaker: "Mika", ja: "うたを うたうのが すきだ。ほんを みるのも すきだ。", en: "I like singing. I like reading books too." }
+        questions:
+          - { q: "What does Mika like doing?", options: ["Singing and reading books", "Only singing", "Shopping and singing", "Reading books and shopping"], answer: "Singing and reading books" }
+      - { kind: challenge, ja: "ミカは しずかな いえで ふるい ほんを みるのが すきだ。", en: "Mika likes reading old books in a quiet house", combines: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: build }
+    reviewPool: [ごはん, うた, しゃしん, だいがく, みせ, かいもの, ほん, ともだち, ねこ, いぬ, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-9
+    role: teaching
+    title: "なにが したい？ — asking what someone wants"
+    focus: "turning every pattern in the module round on the listener"
+    introduces: [きっさてん]
+    beats:
+      - { kind: sentence, ja: "きょうは なにが したい？", en: "What do you want to do today?", exercises: [wa-topic, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは きっさてんに いきたい。", en: "I want to go to the coffee shop today", exercises: [wa-topic, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "しずかな きっさてんで ちゃが のみたい。", en: "I want to drink tea at a quiet coffee shop", exercises: [na-adj-present, de-action, v-tai], mode: listening }
+      - { kind: sentence, ja: "きょうは どこに いきたい？", en: "Where do you want to go today?", exercises: [wa-topic, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "あたらしい きっさてんに いきたい。", en: "I want to go to the new coffee shop", exercises: [i-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "なにが ほしい？", en: "What do you want?", exercises: [ga-hoshii], mode: build }
+      - { kind: sentence, ja: "ミカは あたらしい うたが すき？", en: "Does Mika like new songs?", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "きっさてんで ほんを みるのが すきだ。", en: "I like reading books at a coffee shop", exercises: [de-action, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "きょうは なにが たべたい？", en: "Ask a friend: What do you want to eat today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは なにを たべたい？"] }
+      - { kind: particle-cloze, stem: "きょうは きっさてんに ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたくない", "いきたかった"], en: "I want to go to the coffee shop today", explanation: "たい is the plain non-past cell — たくない says you don't want to, たかった says you did." }
+      - { kind: listening-comp, audio: "ミカは きっさてんで ちゃを のむのが すきだ。", answer: "Mika likes drinking tea at the coffee shop", distractors: ["Mika likes drinking tea at home", "Mika doesn't like tea", "Mika wants to drink tea at the coffee shop"], exercises: [de-action, wo-object, no-ga-suki] }
+      - { kind: listening-comp, audio: "あたらしい ふくが ほしい？", answer: "Do you want new clothes?", distractors: ["Did you buy new clothes?", "Do you like new clothes?", "Do you want to buy clothes?"], exercises: [i-adj-present, ga-hoshii] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは どこに いきたい？", en: "Where do you want to go today?" }
+          - { speaker: "Tom", ja: "きっさてんに いきたい。おいしい ちゃが のみたい。", en: "I want to go to a coffee shop. I want to drink good tea." }
+        questions:
+          - { q: "Where does Tom want to go?", options: ["To a coffee shop, for good tea", "To a shop, for new clothes", "To the station", "To Mika's house"], answer: "To a coffee shop, for good tea" }
+      - { kind: challenge, ja: "きょうは ミカと しずかな きっさてんで おいしい ちゃが のみたい。", en: "I want to drink good tea with Mika at a quiet coffee shop today", combines: [wa-topic, na-adj-present, de-action, v-tai], mode: build }
+    reviewPool: [ちゃ, ほん, うた, くるま, みせ, えき, ごはん, すし, ねこ, いぬ, ふく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-r3
+    role: review
+    title: "Review — wanting, liking, doing"
+    focus: "the whole module: four たい cells, ほしい on a noun, すき on a thing and on an action"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは しずかな きっさてんに いきたい。", en: "I want to go to a quiet coffee shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber", exercises: [wa-topic, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "ごはんを たべるのが すきだ。", en: "I like eating", exercises: [wo-object, no-ga-suki], mode: listening }
+      - { kind: sentence, ja: "きのうは ちゃが のみたくなかった。", en: "I didn't want to drink tea yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "あたらしい めがねが ほしい。", en: "I want new glasses", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: particle-cloze, stem: "わたしは ねこが ", tail: "。", answer: "すきだ", options: ["すきだ", "ほしい", "すきな"], en: "I like cats", explanation: "な goes in front of a noun; すきだ is the predicate. ほしい would say you want to OWN one." }
+      - { kind: sentence, ja: "きのう ミカと うみに いきたかった。", en: "I wanted to go to the sea with Mika yesterday", exercises: [ni-location, i-adj-past], mode: build }
+      - { kind: listening-comp, audio: "ふるい しゃしんは みたくない。", answer: "I don't want to look at old photos", distractors: ["I looked at old photos", "I want to look at old photos", "I don't want to look at new photos"], exercises: [i-adj-present, wa-topic, i-adj-negative] }
+      - { kind: sentence, ja: "ケンは しずかな いえが すきだ。", en: "Ken likes quiet houses", exercises: [wa-topic, na-adj-present, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "あたらしい じてんしゃが かいたい。", en: "Say to a friend: I want to buy a new bicycle", exercises: [i-adj-present, v-tai], mode: translate, alsoAccept: ["あたらしい じてんしゃを かいたい。"] }
+      - { kind: listening-comp, audio: "わたしは にぎやかな みせが きらいだ。", answer: "I don't like lively shops", distractors: ["I like lively shops", "I don't like quiet shops", "I don't like big shops"], exercises: [wa-topic, na-adj-present, suki-kirai-no] }
+      - { kind: sentence, ja: "きょうは おいしい りょうりが たべたい。", en: "I want to eat good food today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "なつやすみに にほんに いきたい。", en: "I want to go to Japan in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なつやすみは なにが したい？", en: "What do you want to do in the summer holiday?" }
+          - { speaker: "Mika", ja: "にほんに いきたい。おいしい すしが たべたい。", en: "I want to go to Japan. I want to eat good sushi." }
+        questions:
+          - { q: "What does Mika want for the summer holiday?", options: ["To go to Japan and eat good sushi", "To stay home and eat sushi", "To go to Japan and buy clothes", "To go to the sea"], answer: "To go to Japan and eat good sushi" }
+    reviewPool: [きっさてん, きゅうり, ごはん, ちゃ, めがね, ねこ, うみ, しゃしん, いえ, じてんしゃ, なつやすみ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m13-neo-challenge
+    role: challenge
+    title: "Challenge — say what you want, then say what you like"
+    focus: "End-of-module stretch: possessive plus な-adjective plus place plus the wanting family, in shapes the teaching lessons never paired"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは ミカと ゆうめいな きっさてんで おいしい ちゃが のみたい。", en: "I want to drink good tea with Mika at a famous coffee shop today", exercises: [na-adj-present, de-action, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きのうは あたらしい ふくが かいたくなかった。", en: "I didn't want to buy new clothes yesterday", exercises: [wa-topic, i-adj-present, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "わたしは しずかな いえで ほんを みるのが すきだ。", en: "I like reading books in a quiet house", exercises: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: listening }
+      - { kind: sentence, ja: "ミカの ゆうめいな みせの りょうりが たべたい。", en: "I want to eat the food at Mika's famous shop", exercises: [no-possession, na-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "きのう ケンと にぎやかな えきで かいものが したかった。", en: "I wanted to go shopping with Ken at the lively station yesterday", exercises: [na-adj-present, de-action, i-adj-past], mode: build }
+      - { kind: sentence, ja: "なつやすみに ともだちと うみに いきたい。", en: "I want to go to the sea with a friend in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "Say to a friend: I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: translate }
+      - { kind: sentence, ja: "わたしは あさ ちゃを のむのが すきだ。", en: "I like drinking tea in the morning", exercises: [wa-topic, wo-object, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "ミカの あたらしい ふくが みたい。", en: "I want to see Mika's new clothes", exercises: [no-possession, i-adj-present, v-tai], mode: build }
+      - { kind: particle-cloze, stem: "きのうは すしが ", tail: "。", answer: "たべたくなかった", options: ["たべたくなかった", "たべたくない", "たべたかった"], en: "I didn't want to eat sushi yesterday", explanation: "The past negative stacks both endings: くない for not, かった for was." }
+      - { kind: listening-comp, audio: "ミカは にぎやかな きっさてんが きらいだ。", answer: "Mika doesn't like lively coffee shops", distractors: ["Mika likes lively coffee shops", "Mika doesn't like quiet coffee shops", "Mika doesn't like lively shops"], exercises: [wa-topic, na-adj-present, suki-kirai-no] }
+      - { kind: listening-comp, audio: "あたらしい じてんしゃが ほしい。", answer: "I want a new bicycle", distractors: ["I want to buy a new bicycle", "I want an old bicycle", "I don't want a new bicycle"], exercises: [i-adj-present, ga-hoshii] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "なつやすみは なにが したいですか。", en: "What would you like to do in the summer holiday?" }
+          - { speaker: "Tom", ja: "にほんに いきたいです。おいしい りょうりが たべたいです。", en: "I'd like to go to Japan. I'd like to eat good food." }
+        questions:
+          - { q: "What does Tom want to do in the summer holiday?", options: ["Go to Japan and eat good food", "Stay in America and study", "Go to Japan and buy clothes", "Go to the sea with Tanaka"], answer: "Go to Japan and eat good food" }
+      - { kind: challenge, ja: "なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい。", en: "I want to eat good sushi with Mika at a famous shop in Japan in the summer holiday", combines: [ni-time, no-possession, na-adj-present, de-action, v-tai], mode: build }
+    reviewPool: [きっさてん, ふく, ちゃ, ほん, りょうり, えき, なつやすみ, うみ, とけい, すし, ねこ]

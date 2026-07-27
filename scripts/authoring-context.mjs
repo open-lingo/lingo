@@ -74,6 +74,22 @@ for (const f of neoFiles) {
   const idx = parseInt(f.match(/^m(\d+)-neo/)[1], 10);
   neoText[idx] = (neoText[idx] ?? "") + readFileSync(join(CUR_DIR, f), "utf8");
 }
+// CONTENT-IR MODULES. An IR module's `m<N>-neo.ts` is a two-line file that
+// calls compileModule() — all of its Japanese lives in `ir/m<N>.ir.yaml`. Since
+// m8 that meant this scan saw NOTHING from the most recent modules, so every
+// pack understated what the learner already knows and authors had to rederive
+// the prior vocabulary by hand (m13). Fold the YAML in under the same index.
+const IR_DIR = join(CUR_DIR, "ir");
+try {
+  for (const f of readdirSync(IR_DIR)) {
+    const m = f.match(/^m(\d+)\.ir\.yaml$/);
+    if (!m) continue;
+    const idx = parseInt(m[1], 10);
+    neoText[idx] = (neoText[idx] ?? "") + readFileSync(join(IR_DIR, f), "utf8");
+  }
+} catch {
+  // no ir/ directory yet — fine
+}
 const priorCorpus = Object.entries(neoText)
   .filter(([i]) => Number(i) < targetIdx)
   .map(([, t]) => t)

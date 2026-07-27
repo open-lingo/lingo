@@ -24,7 +24,7 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15 · m11 n04 · m12 s09.
+m10 n15 · m11 n04 · m12 s09 · m13 n05.
 
 | m | unit | title |
 |---|---|---|
@@ -170,7 +170,7 @@ teaches four counters at once is a table, not a lesson).
 |---|---|
 | 11 | ta-form masu-past desu-past numbers-11-99 counter-ji ni-time | ✅ |
 | 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past | ✅ |
-| 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki |
+| 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki | ✅
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai |
 | 15 | dictionary-form toki mae-ni te-kara |
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** |
@@ -209,6 +209,23 @@ neither is in ADJ_ENTRIES, so their inflections are invisible to the
 provenance guard's real-form lexicon; おいしい/いい/おもしろい carry the
 frequency win instead. どう DID land, as vocabulary rather than a rule card
 (the registry has no point for it, and inv 42 forbids inventing one).
+
+**A SECOND spine deviation, m13 (2026-07-27) — `ni-iku` stays at m19.**
+spinePlan n05 lists "にいく purpose-of-motion (stem + にいく)"; the ledger
+assigns `ni-iku` to m19 (s15). The spine normally wins, and this row is NOT
+being edited to match it, for a tooling reason identical to m12's なる: the
+bare ます-stem (たべ, のみ) is a surface no lexicon in this repo knows.
+`getRealFormLexicon()` stores whole ChainForm outputs, never stems, and
+courseAtoms stores no inflections — so 「たべに いく」 either trips the
+compiler's unbuildable gate or forces stems into the atom registry, the
+exact regression m11 documented for ました. m19 already owns
+e-direction/made-ni/kara-time and is where にいく can land whole once a
+stem lexicon exists. Also deferred from n05 by m13 itself: **ほしくない /
+ほしかった**, because ほしい is absent from ADJ_ENTRIES and its inflections
+are therefore invisible to the real-form lexicon (〜たくない carries the
+negative wish instead). m13 DOES re-teach m12's `i-adj-negative` /
+`i-adj-past` / `i-adj-past-negative` cards with たい as the base — that
+reuse IS the module's argument, and the ledger rows are unchanged.
 
 ### Carried debt (batch later, do not derail a module for these)
 

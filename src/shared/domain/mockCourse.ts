@@ -262,12 +262,12 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m12 (tiles n06a, s07, n02, n03, n15, n04, s09) are LIVE via the
-    // compiler pipeline — slice them off so the placeholders begin at m13.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(7).map((t, i) => ({
-      id: `m${i + 13}`,
+    // m6-m13 (tiles n06a, s07, n02, n03, n15, n04, s09, n05) are LIVE via the
+    // compiler pipeline — slice them off so the placeholders begin at m14.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(8).map((t, i) => ({
+      id: `m${i + 14}`,
       title: t.title,
-      eyebrow: `Module ${i + 13} · Coming soon`,
+      eyebrow: `Module ${i + 14} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -546,6 +546,32 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m12-neo-challenge", title: "Challenge \u2014 describe it, then describe it in the past", status: "available" as const },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
+        },
+        {
+          // m13-neo (spine tile n05) — wanting. たい rides the ます-stem and
+          // then conjugates as the い-adjective m12 just taught; ほしい hangs
+          // off a NOUN with が; すき/きらい are な-adjectives with the same が.
+          // たい stays first-person (〜たがる is N4).
+          id: "m13",
+          title: "Wanting: たい and ほしい",
+          eyebrow: "Module 13 · たい + ほしい",
+          summary: "たべたい is an い-adjective wearing a verb stem, so its four cells (たくない・たかった・たくなかった) cost no new machinery. ほしい wants a THING and marks it が; すき/きらい mark the same が; and 〜のが すき turns a whole verb into something you can like.",
+          lessons: [
+            { id: "ja-m13-neo-1", title: "たべたい — what I want to do", status: "available" as const },
+            { id: "ja-m13-neo-2", title: "たくない — the wish, turned down", status: "available" as const },
+            { id: "ja-m13-neo-3", title: "たかった — what I wanted", status: "available" as const },
+            { id: "ja-m13-neo-review-1", title: "Review — たい, three cells in", status: "available" as const },
+            { id: "ja-m13-neo-4", title: "たくなかった — the fourth cell", status: "available" as const },
+            { id: "ja-m13-neo-5", title: "が or を — both are right", status: "available" as const },
+            { id: "ja-m13-neo-6", title: "ほしい — wanting a thing", status: "available" as const },
+            { id: "ja-m13-neo-review-2", title: "Review — the four cells, and ほしい beside them", status: "available" as const },
+            { id: "ja-m13-neo-7", title: "すき / きらい — が, one more time", status: "available" as const },
+            { id: "ja-m13-neo-8", title: "たべるのが すき — liking to do something", status: "available" as const },
+            { id: "ja-m13-neo-9", title: "なにが したい？ — asking what someone wants", status: "available" as const },
+            { id: "ja-m13-neo-review-3", title: "Review — wanting, liking, doing", status: "available" as const },
+            { id: "ja-m13-neo-challenge", title: "Challenge — say what you want, then say what you like", status: "available" as const },
+          ],
+          accent: { from: "#a855f7", to: "#9333ea" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

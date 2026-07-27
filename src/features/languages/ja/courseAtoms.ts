@@ -571,7 +571,14 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "saku", kana: "さく", kanji: "咲く", romaji: "saku", meaningEn: "to bloom", emoji: "🌷", fromModule: "future", kind: "vocab", note: "tulip; avoid 🌸 per rubric (cherry blossom specific)" },
   { id: "mondai", kana: "もんだい", kanji: "問題", romaji: "mondai", meaningEn: "problem", emoji: "❓", fromModule: "future", kind: "vocab", note: "question mark as problem proxy" },
   { id: "kissaten", kana: "きっさてん", kanji: "喫茶店", romaji: "kissaten", meaningEn: "coffee lounge", emoji: "☕", fromModule: "m13", kind: "vocab", note: "coffee cup; café" },
-  { id: "shi", kana: "し", kanji: "四", romaji: "shi", meaningEn: "four", emoji: "4️⃣", fromModule: "m13", kind: "vocab" },
+  // BLOCKED 2026-07-27 (m13-neo authoring). し is a ONE-KANA surface, so the
+  // invariant-30 guard's substring scan matched it inside したい / わたし /
+  // おいしい and demanded a picture debut in every module tagged m13 — for a
+  // reading the neo course never teaches (m9 teaches よん, not し). A 4️⃣ MCQ
+  // whose answer is the bare kana し is also genuinely ambiguous against the
+  // kana ladder. `blocked` is exactly the "no image MCQ" flag; nothing else
+  // about the atom changes.
+  { id: "shi", kana: "し", kanji: "四", romaji: "shi", meaningEn: "four", emoji: "4️⃣", fromModule: "m13", kind: "vocab", blocked: true },
   { id: "yottsu", kana: "よっつ", kanji: "四つ", romaji: "yottsu", meaningEn: "four", emoji: "4️⃣", fromModule: "future", kind: "vocab" },
   { id: "yokka", kana: "よっか", kanji: "四日", romaji: "yokka", meaningEn: "four days, fouth day of the month", emoji: "4️⃣", fromModule: "future", kind: "vocab", note: "number 4" },
   { id: "komaru", kana: "こまる", kanji: "困る", romaji: "komaru", meaningEn: "to be worried", emoji: "😟", fromModule: "m26", kind: "vocab", note: "worried face" },
