@@ -171,6 +171,18 @@ had been ignoring:
   or the conjugation lexicon actually knows). Before authoring, tokenize every
   sentence with the COMPILER's vocabulary, not the guard's — the guard also
   reads `getRealFormLexicon()` and will not see this.
+- **A new short atom re-tokenizes the ENTIRE course, not just its module.**
+  m16 registered ので and broke an m7 sentence — 「ケンさんのです」 re-read as
+  ので+す. Registering a short particle-like surface is a course-wide change;
+  run the full suite afterwards and read failures as tokenization damage,
+  not as unrelated breakage. Same family as ごじ ⊂ ごじゅう.
+- **A gloss can be wrong while the Japanese is right, and QA of the
+  Japanese will never catch it.** みる was glossed "read" 16 times across
+  m13 and m15 — よむ is taught in no module. Check the PAIRING.
+  `verbGlossFidelity.test.ts` now does; keep its list short so a failure
+  always means something real (a きく="ask" rule was drafted and deleted —
+  「〜さんに きく」 genuinely IS "ask", and a guard that cries wolf teaches
+  authors to route around the suite).
 - **`i % pool.length` is not rotation, it is repetition** once i exceeds the
   pool. Filler must track what it has already spent in the lesson.
 
