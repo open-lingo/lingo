@@ -1018,6 +1018,28 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // dictionary atom (match.test.ts), and annotateJapaneseText stops splitting
   // のみました into stem + ました helper (romajiLexicon.test.ts). The IR carries
   // their glosses, which is all the compiled lessons need.
+  //
+  // BACKFILL (2026-07-27, m14 authoring): いい is TAUGHT by m12-neo-1 but was
+  // never registered — it lives only in m12's IR `newAtoms`, and an IR-only
+  // atom is invisible to the module COMPILER's tokenizer (which knows
+  // courseAtoms + the module's own newAtoms, nothing else). m14 needs it for
+  // 〜ても いい: without this row 「たべても いい」 tokenizes to
+  // たべて・も・<unknown いい> and trips the `unbuildable` gate. ADJ_ENTRIES
+  // already carries the inflections (よくない/よかった), so only the
+  // dictionary surface is registered here.
+  { id: "ii", kana: "いい", romaji: "ii", meaningEn: "good, fine, OK", shortGloss: "good", fromModule: "m12", introducedByLessonId: "ja-m12-neo-1", kind: "vocab", blocked: true, note: "abstract quality adjective — no honest emoji" },
+  // ── m14-neo (tile n06b) — ている + permission/prohibition ──
+  // ONE registration only. Every other surface this module teaches is either
+  // already an atom (ください, たべない …) or a REAL form the conjugation
+  // lexicon derives (しって, すんで, およがない via VERB_ENTRIES), and ている
+  // itself is deliberately NOT an atom: it tokenizes as て-form + いる, which
+  // is exactly the composition the module teaches, so the build tiles show
+  // 「たべて」+「いる」 instead of hiding the pattern in one tile.
+  // いけません has no such backing — いける is absent from VERB_ENTRIES, so
+  // 「たべては いけません」 otherwise tokenizes as たべて・は・いけ・ま・せん
+  // (crediting せん "thousand" to SRS, the documented homograph trap) and the
+  // tile bank cannot spell the sentence.
+  { id: "ikemasen", kana: "いけません", romaji: "ikemasen", meaningEn: "must not, not allowed", shortGloss: "must not", fromModule: "m14", introducedByLessonId: "ja-m14-neo-7", kind: "vocab", blocked: true, note: "fixed prohibition helper — no concrete referent" },
 ];
 
 /**

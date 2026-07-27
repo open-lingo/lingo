@@ -171,7 +171,7 @@ teaches four counters at once is a table, not a lesson).
 | 11 | ta-form masu-past desu-past numbers-11-99 counter-ji ni-time | ✅ |
 | 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past | ✅ |
 | 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki | ✅
-| 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai |
+| 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai **mada-mou** | ✅
 | 15 | dictionary-form toki mae-ni te-kara |
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** |
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
@@ -179,7 +179,7 @@ teaches four counters at once is a table, not a lesson).
 | 19 | e-direction ni-iku made-until made-ni kara-time **counter-fun** |
 | 20 | yori-comparison numbers-100-10000 counter-ko |
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
-| 22 | ga-itai frequency-adverbs mada-mou counter-hai |
+| 22 | ga-itai frequency-adverbs counter-hai |
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 |
 | 24 | mashou masenka no-ga-jouzu no-ga-heta |
 | 25 | deshou |
@@ -226,6 +226,24 @@ are therefore invisible to the real-form lexicon (〜たくない carries the
 negative wish instead). m13 DOES re-teach m12's `i-adj-negative` /
 `i-adj-past` / `i-adj-past-negative` cards with たい as the base — that
 reuse IS the module's argument, and the ledger rows are unchanged.
+
+**A THIRD reconciliation, m14 (2026-07-27) — `mada-mou` m22 → m14, and
+`te-kara` stays at m15.** spinePlan n06b lists もう/まだ as "the canonical
+ている spend (もう食べた / まだ食べていない)", while the ledger had `mada-mou`
+on m22 (s17, body & health), where it is a bolt-on with no domain link.
+まだ〜ていない is not a temporal-adverb fact — it IS the negative ている, so it
+cannot be taught before m14 and should not wait five modules after it. The
+SPINE wins and the ledger row moved, exactly as this table's own rule
+requires. The same spine line also says "Sequencing clauses with て; てから":
+m14 teaches the SEQUENCING half (L9, a second `te-form` card — clause linking
+is what buys the module its sentence-complexity ramp, inv 13), but `te-kara`
+stays on m15's row, where the ledger pairs it with `mae-ni`/`toki`. "After
+doing X" and "before doing X" are one contrast; splitting them across two
+modules teaches half a pair twice. **Also NOT taught in m14: かく/たつ/うたう**
+— the context pack lists them as known because the pack's word list is built
+from courseAtoms attribution, but no NEO module has ever introduced them, and
+the taught-set the guards use comes from prior neo LESSONS. かいて would have
+been the natural fourth ramp verb.
 
 ### Scheduled tooling fix — STEMS (do before m19)
 

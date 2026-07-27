@@ -262,12 +262,13 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m13 (tiles n06a, s07, n02, n03, n15, n04, s09, n05) are LIVE via the
-    // compiler pipeline — slice them off so the placeholders begin at m14.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(8).map((t, i) => ({
-      id: `m${i + 14}`,
+    // m6-m14 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, n06b) are LIVE
+    // via the compiler pipeline — slice them off so the placeholders begin
+    // at m15.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(9).map((t, i) => ({
+      id: `m${i + 15}`,
       title: t.title,
-      eyebrow: `Module ${i + 14} · Coming soon`,
+      eyebrow: `Module ${i + 15} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -572,6 +573,33 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m13-neo-challenge", title: "Challenge — say what you want, then say what you like", status: "available" as const },
           ],
           accent: { from: "#a855f7", to: "#9333ea" },
+        },
+        {
+          // m14-neo (spine tile n06b) — the て-form's second half. ている is
+          // て + いる ("exists in the state of having done X"), which is one
+          // fact covering both the ongoing and the resultative reading; the
+          // permission family (てもいい / てはいけません / ないでください)
+          // arrives pairwise on the same frame.
+          id: "m14",
+          title: "て-form II: ている and permission",
+          eyebrow: "Module 14 · ている + may/must not",
+          summary: "ください asks for a thing, てください for an action, and ている hangs いる on the て-form: you exist in the state the action left you in — eating right now, or knowing, or living somewhere. Then the same frame turns into permission (ても いい), prohibition (ては いけません) and requests not to (ないで ください), and て finally links whole clauses.",
+          lessons: [
+            { id: "ja-m14-neo-1", title: "ください — please give me, please do", status: "available" as const },
+            { id: "ja-m14-neo-2", title: "ている — て plus いる", status: "available" as const },
+            { id: "ja-m14-neo-3", title: "しっている — the state you are already in", status: "available" as const },
+            { id: "ja-m14-neo-review-1", title: "Review — asking for it, and what's going on", status: "available" as const },
+            { id: "ja-m14-neo-4", title: "もう と まだ — already, and not yet", status: "available" as const },
+            { id: "ja-m14-neo-5", title: "なにを している？ — asking what someone is doing", status: "available" as const },
+            { id: "ja-m14-neo-6", title: "〜ても いい — may I?", status: "available" as const },
+            { id: "ja-m14-neo-review-2", title: "Review — what's happening, and what's allowed", status: "available" as const },
+            { id: "ja-m14-neo-7", title: "〜ては いけません — when the answer is no", status: "available" as const },
+            { id: "ja-m14-neo-8", title: "〜ないで ください — please don't", status: "available" as const },
+            { id: "ja-m14-neo-9", title: "たべて、いく — one thing, then the next", status: "available" as const },
+            { id: "ja-m14-neo-review-3", title: "Review — the whole て family", status: "available" as const },
+            { id: "ja-m14-neo-challenge", title: "Challenge — say what's happening, then say what's allowed", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

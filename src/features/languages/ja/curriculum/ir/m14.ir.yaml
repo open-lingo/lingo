@@ -1,0 +1,644 @@
+module: m14
+title: "て-form II: ている + permission/prohibition"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13]
+
+priorGrammarPoints: [wa-topic, ga-existence, wo-object, no-possession, ni-location, de-action, mo-also,
+                     dare, kore-sore-are-dore, koko-soko-asoko, spatial-relations, location-qa,
+                     nai-form, nai-existence, arimasu, imasu,
+                     masu-present, masu-negative, desu-copula, ka-question, te-kudasai,
+                     dictionary-form, numbers-1-10, counter-tsu, numbers-11-99, counter-ji, ni-time,
+                     ta-form, desu-past, masu-past,
+                     i-adj-present, i-adj-negative, i-adj-past, na-adj-present, na-adj-negative,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki]
+
+notes: |
+  m14 = spine tile n06b. て-FORM II: ている + permission/prohibition.
+  ⟳ the DEEPEN beat of n02 (m8), which taught the て table and てください and
+  was told to leave the rest of the family here.
+
+  Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at
+  the first/middle/last thirds, challenge lesson LAST. NO katakana rows (the
+  programme ended at m11). NO `kind: register` beats — that machinery is m10 +
+  m29 only (registerScaffoldIsolation).
+
+  THE WHOLE POINT — ている is NOT "the present continuous".
+
+  1. **ている IS て + いる.** The learner already owns both halves: the て-form
+     from m8 and いる from m6. Hung together they say "exists in the state of
+     having done X". That ONE idea explains both readings the learner is about
+     to meet, so the module never presents them as two facts:
+       - an action still in motion → ongoing (いま たべている "is eating");
+       - a change already made → the state it left (しっている "knows",
+         すんでいる "lives", literally "has come to know / to move in and
+         remains so").
+     Every course that skips the second reading produces learners who say
+     しる for "I know". L3 is that reading, taught explicitly, and the L3
+     rule card is the SAME `te-iru` card as L2 — one rule, seen twice
+     (m8 re-showed its `te-form` card three times for the same reason).
+  2. **THE HOUSE GLOSS RULE FINALLY PAYS (inv 17).** -ing glosses belong to
+     ている and ONLY ている. Plain non-past has glossed habitual/intent all
+     course precisely so that this module can spend the progressive. The
+     inverse half of inv 17 is live here too: RESULTATIVE ている glosses as
+     SIMPLE present ("I know", "I live in Japan"), never as progressive.
+  3. **PERMISSION AND PROHIBITION ARE ONE FAMILY, INTRODUCED PAIRWISE.**
+     てもいい (L6) then てはいけません (L7) — the same frame with も→は and
+     いい→いけません — and only after that pair is solid does ないでください
+     arrive (L8). Never all three at once: the pinned sequencing rule is
+     pairwise contrast on introduction, N-way only on review (R3 + the
+     challenge lesson do the N-way).
+  4. **THE POLITE-FORM TENSION, RESOLVED AS VOCABULARY.** てはいけません and
+     ないでください are inherently polite-register forms in a plain-form-first
+     course. They are taught as the FIXED EXPRESSIONS they are — the voice of
+     signs, teachers and rules — with だめ (m10) as their casual echo, so the
+     learner always has a plain-form way to say no. No `kind: register` beat,
+     no politeness meter, no audience picture: this is not a register lesson.
+
+  TRANSFORM RAMP (inv 37 — it bit m11, m12 AND m13, so it is scoped tightly):
+  ONE ramp, on L2's `te-iru` card, `{form: te, classes: [u]}`. It re-runs the
+  m8 sound-change table on three う-verbs the learner knows but has never seen
+  in て-form — しる → しって (る→って), はたらく → はたらいて (く→いて),
+  すむ → すんで (む→んで) — three different rows of the table, which is the
+  spine's "same form, harder spends". Constraints obeyed:
+    - the ramp is PINNED ahead of the interleaved middle and
+      conjugation_transform is NOT intro-capable, so all three answers appear
+      inside the L2 rule card's `examples:` (しっている, はたらいている,
+      すんでいる contain them as substrings);
+    - the ramp's BASES (しる/はたらく/すむ) are prior-neo vocabulary, so no
+      new word can debut on a transform card;
+    - only those three atoms carry `verbClass`. Every other derived form in
+      this module omits it deliberately so it can never be picked up as ramp
+      material (the compiler takes the first three eligible atoms in
+      `newAtoms` order).
+
+  ONE RULE CARD PER LESSON (layout law, learned here): two `kind: rule` beats
+  in one lesson compile to two PINNED, ADJACENT `grammar_rule` steps, and the
+  adjacency bar exempts only the transform ramp — so L1's て+ください rehash is
+  folded into the `kudasai` card's own rule text instead of getting a second
+  card. てください stays a PRIOR point (m8's `te-kudasai`), spent on beats.
+
+  CLAUSE LINKING IS SPACED, NOT COMMA'D (L9). `moduleCompiler.clean()` strips
+  、 with nothing in its place, so an authored 「たべて、だいがくに いく」
+  compiles to the run-on target — and the run-on TTS key — 「たべてだいがくに
+  いく」. Sentence/challenge/listening-comp beats therefore write the link as a
+  SPACE (「たべて だいがくに いく」); only rule-card examples and dialogue
+  lines, which render raw, keep the 、. Same trap class as the ？-stripping
+  fix the m11 cycle documented: a guard that runs on cleaned text cannot see
+  punctuation bugs.
+
+  TOKENIZATION IS PEDAGOGY HERE (three rulings, all deliberate):
+    - **ている is NOT registered as an atom.** 「たべている」 tokenizes to
+      たべて + いる, so the build tiles literally show the composition the
+      module teaches. Registering たべている would hide the pattern in one
+      tile and add ~10 inflected atoms to the SRS deck for nothing.
+      Same for the negative: 「たべていない」 = たべて + いない (m6's いない).
+    - **てもいい / てはいけません are written with a SPACE before the last
+      word** (たべても いい / たべては いけません). The tokenizer is
+      longest-match over a vocabulary that contains はい "yes", so the
+      spaceless 「たべてはいけません」 segments as たべて・はい・けま・せん —
+      which credits せん "thousand" to SRS (the documented homograph trap)
+      and leaves an unbuildable fragment. With the space each piece is its
+      own tile: たべて / は / いけません.
+    - **ないでください decomposes: たべない + で + ください.** The ない-form is
+      already an atom (m6) and ください is already an atom (m8), so the tiles
+      spell out the rule the card states. This does credit the particle で on
+      those steps — a small, honest mis-credit (で is a heavily-taught
+      particle that also appears in ordinary で-sentences all through the
+      module), and the alternative was five per-verb 〜ないで atoms whose only
+      job is to hide the composition.
+
+  ATOMS: only ONE new courseAtoms row, いけません (see its note there — いける
+  is absent from VERB_ENTRIES so nothing derives it). Everything else this
+  module declares is either an existing atom or a REAL surface the conjugation
+  lexicon already produces (しって/はたらいて/すんで/まって/みせて/およいで/
+  しらない/およがない all derive from VERB_ENTRIES verbs), so the IR carries
+  their glosses and the registry stays clean — the m12/m13 ruling, unchanged.
+  One BACKFILL was unavoidable: いい, taught by m12-neo-1, existed only in
+  m12's IR and was therefore invisible to this module's compiler; it is now a
+  courseAtoms row tagged `fromModule: m12`.
+
+  PICTURE DEBUTS (inv 30/44): まつ ⏳ (L1), みせる 👀 (L1), およぐ 🏊 (L5) —
+  three verbs from m14's own registry allocation, each earning its place in
+  the grammar rather than decorating it (まって ください is the single most
+  useful request in the language; みせて ください is the second; およぐ carries
+  both およいでいる and the canonical 「かわで およいでは いけません」).
+  A new imageable verb can NEVER be ramp material in its own lesson: the ramp
+  card prints its BASE, the ramp is pinned first, and `requireImageFirst`
+  scans the raw step JSON — so the transform card would steal the picture
+  debut. That is why the ramp verbs are all prior-module words. For the same
+  reason no rule card in this module names まつ/みせる/およぐ (not even in the
+  `rule:` prose or an antiPattern — the guard reads the raw blob, not the
+  scrubbed projection).
+
+  DEVIATIONS, documented per RUN-PLAN "decide and document":
+  - **`mada-mou` MOVED m22 → m14 (ledger edited, spine wins).** spinePlan
+    n06b lists "もう #31 / まだ #117 — the canonical ている spend
+    (もう食べた / まだ食べていない)"; the coverage ledger had `mada-mou` on
+    m22 (s17, body & health), where it is a bolt-on with no domain link.
+    まだ〜ていない is not a temporal adverb fact, it is the NEGATIVE ている —
+    it cannot be taught before this module and it should not be taught five
+    modules after it. Ledger row edited both ways (added to m14, removed from
+    m22) exactly as the ledger's own rule requires.
+  - **`te-kara` STAYS on m15's row.** spinePlan n06b lists "Sequencing clauses
+    with て; てから". The SEQUENCING half is taught here (L9, a second
+    `te-form` card — clause linking is the て-form's other job and it is what
+    buys this module its sentence-complexity ramp, inv 13). てから itself
+    stays at m15, where the ledger pairs it with `mae-ni` and `toki`: "after
+    doing X" and "before doing X" are one contrast and splitting them across
+    two modules teaches half a pair twice. This is a REAL, deliberate split of
+    a spine line — reported as such.
+  - **してる is prose-only.** The spine wants the contraction as a RECOGNITION
+    preview ("anime learners hear it in episode one"). It is named in the
+    `te-iru` rule card's prose and appears on NO graded surface — rule prose
+    is invisible to the provenance guard, which is exactly why it can never
+    be an introduction and exactly why it is safe as a heads-up.
+  - **かく / たつ / うたう are NOT used**, though the context pack lists them as
+    known. The pack's "already knows" list is built from courseAtoms
+    attribution, and those three have never been introduced by a NEO module —
+    the taught-set the guards actually use comes from prior neo LESSONS. かいて
+    (write) would have been the natural fourth ramp verb; it is not available.
+
+  NO この/その/あの (m17's `kono-sono-ano-dono`). They are courseAtoms, so the
+  compiler treats them as "already known" and they leak silently — the exact
+  defect the m13 QA pass caught with だいがく on 2026-07-27. m13's IR flagged
+  the same rule; m14 keeps it. Demonstratives here are the m4 pronouns only,
+  and this module reaches for a possessive or an adjective instead
+  (ミカの ほん, あたらしい きっさてん) wherever "that X" was tempting.
+
+  CONNECTIVES (inv 13): L9's て-linking is this module's complexity engine —
+  two-clause sentences with a real temporal order, which is the first time the
+  course can build one. から/ので/けど land at m16.
+
+grammarPoints:
+  - id: kudasai
+    rule: "ください asks for a THING. Name it, mark it with を, then say ください: みずを ください = water, please. It is polite all by itself — no です, no ます, nothing added. And you already own its partner: put a て-form in front instead of a noun and you are asking for an ACTION — ほんを みて ください = please look at the book. Same word, two jobs. The て table has not moved since m8: る-verbs swap る for て (みる → みて), う-verbs follow the sound changes (のむ → のんで, かう → かって, きく → きいて, いく → いって), and する → して, くる → きて."
+    examples:
+      - { ja: "みずを ください。", en: "Water, please." }
+      - { ja: "コーヒーを ください。", en: "Coffee, please." }
+      - { ja: "すしを ください。", en: "Sushi, please." }
+      - { ja: "あたらしい かさを ください。", en: "A new umbrella, please." }
+      - { ja: "ほんを みて ください。", en: "Please look at the book." }
+      - { ja: "ちょっと まって ください。", en: "Please wait a moment." }
+      - { ja: "しゃしんを みせて ください。", en: "Please show me the photo." }
+    antiPattern: { ja: "みずが ください。", why: "ください takes を — what you are asking for is the object of the request. が would make the water the one doing the asking." }
+  - id: te-iru
+    rule: "Hang いる on the て-form and you get ている: たべる → たべて → たべている. It does not mean \"present tense\"; it says you EXIST IN THE STATE that the action left you in. For an action still in motion that reads as ongoing — いま ごはんを たべている = I'm eating right now. For a verb that describes a CHANGE, it reads as the state after the change: しる is the moment you find out, so しっている is \"I know\"; すんでいる is \"I live\". Only いる moves: the negative is ていない (まだ たべていない), and in fast speech people drop the い — たべてる — which you will hear everywhere even though we write the full form."
+    examples:
+      - { ja: "いま ごはんを たべている。", en: "I'm eating right now." }
+      - { ja: "ミカは いま ほんを みている。", en: "Mika is looking at a book right now." }
+      - { ja: "ともだちは かいしゃで はたらいている。", en: "My friend works at a company." }
+      - { ja: "わたしは にほんに すんでいる。", en: "I live in Japan." }
+      - { ja: "トムの なまえを しっている。", en: "I know Tom's name." }
+      - { ja: "いま みずを のんでいない。", en: "I'm not drinking water right now." }
+    antiPattern: { ja: "いま ごはんを たべるいる。", why: "いる hangs on the て-form, not the dictionary form — たべる becomes たべて first: いま ごはんを たべている。" }
+    # Ramp scope (inv 37): the three answers the transform can emit — しって,
+    # はたらいて, すんで — all appear inside the examples above (しっている,
+    # はたらいている, すんでいる), and their bases しる/はたらく/すむ are
+    # prior-neo words, so nothing debuts on a transform card.
+    conjugation: { form: te, classes: [u] }
+  - id: mada-mou
+    rule: "もう means \"already\" and points at something finished, so it takes the past: もう たべた = I already ate. まだ means \"not yet\", and its partner is the NEGATIVE ている: まだ たべていない = I haven't eaten yet. Hold that pairing — まだ〜ていない says the door is still open, and it is what Japanese uses where English says \"haven't … yet\". まだ on its own also means \"still\": ミカは まだ えきで まっている。"
+    examples:
+      - { ja: "もう ごはんを たべた。", en: "I already ate." }
+      - { ja: "まだ ごはんを たべていない。", en: "I haven't eaten yet." }
+      - { ja: "もう しゃしんを みた。", en: "I already saw the photo." }
+      - { ja: "まだ しゃしんを みていない。", en: "I haven't seen the photo yet." }
+      - { ja: "ミカは まだ えきで まっている。", en: "Mika is still waiting at the station." }
+    antiPattern: { ja: "もう ごはんを たべたない。", why: "た and ない never stack. The past is もう たべた; the \"not yet\" side is a different shape altogether — まだ たべていない。" }
+  - id: te-mo-ii
+    rule: "Put も after the て-form and finish with いい to ask whether something is allowed: ここで たべても いい？ = is it OK if I eat here? Literally \"even if I eat, it's fine\". Said flat instead of asked, it GRANTS the permission: ここで たべても いい = you may eat here. The answers are short — うん、いい for go ahead, ううん、だめ for no."
+    examples:
+      - { ja: "ここで たべても いい？", en: "Is it OK if I eat here?" }
+      - { ja: "しゃしんを みても いい？", en: "May I look at the photo?" }
+      - { ja: "うみで およいでも いい。", en: "You may swim in the sea." }
+      - { ja: "ここで まっても いい？", en: "May I wait here?" }
+      - { ja: "ううん、だめ。", en: "No — that's not allowed." }
+    antiPattern: { ja: "ここで たべるも いい？", why: "も and いい hang off the て-form — たべる becomes たべて: ここで たべても いい？" }
+  - id: te-wa-ikemasen
+    rule: "Swap も for は and いい for いけません and permission becomes prohibition: ここで たべては いけません = you must not eat here. It is a fixed expression, the voice of signs, teachers and house rules, and it stays in that polite shape even in a casual conversation — you are quoting the rule, not choosing a register. Between friends the same no is just だめ: ここで たべては だめ。"
+    examples:
+      - { ja: "ここで たべては いけません。", en: "You must not eat here." }
+      - { ja: "かわで およいでは いけません。", en: "You must not swim in the river." }
+      - { ja: "じゅぎょうで けいたいを みては いけません。", en: "You must not look at your phone in class." }
+      - { ja: "ここで まっては いけません。", en: "You must not wait here." }
+      - { ja: "ここで たべては だめ。", en: "You can't eat here. (to a friend)" }
+    antiPattern: { ja: "ここで たべるは いけません。", why: "は and いけません hang off the て-form, exactly like も and いい — たべる becomes たべて: ここで たべては いけません。" }
+  - id: naide-kudasai
+    rule: "To ask someone NOT to do something, start from the ない-form you already own, add で, then ください: たべる → たべない → たべないで ください = please don't eat. It is a REQUEST, softer than てはいけません, which states the law — a friend says ここで たべないで ください, a sign says ここで たべては いけません. The ない-form does all the work; nothing else changes."
+    examples:
+      - { ja: "ここで たべないで ください。", en: "Please don't eat here." }
+      - { ja: "しゃしんを みないで ください。", en: "Please don't look at the photo." }
+      - { ja: "かわで およがないで ください。", en: "Please don't swim in the river." }
+      - { ja: "きょうは いかないで ください。", en: "Please don't go today." }
+      - { ja: "みずを のまないで ください。", en: "Please don't drink the water." }
+    antiPattern: { ja: "ここで たべない ください。", why: "で is what turns the ない-form into a request — without it the sentence just stops halfway: ここで たべないで ください。" }
+  - id: te-form
+    rule: "The て-form's other job is a comma. It links one action to the next in the order they happen: あさ ごはんを たべて、だいがくに いく = in the morning I eat, then go to university. Only the LAST verb carries the tense — everything before it stays in て, however long the chain gets. Same table you have used all module, longer sentences."
+    examples:
+      - { ja: "あさ ごはんを たべて、だいがくに いく。", en: "In the morning I eat and then go to university." }
+      - { ja: "きっさてんに いって、ちゃを のんだ。", en: "I went to the coffee shop and drank tea." }
+      - { ja: "みせに いって、あたらしい ふくを かった。", en: "I went to the shop and bought new clothes." }
+      - { ja: "うたを きいて、ごはんを たべた。", en: "I listened to a song and then ate." }
+      - { ja: "きょうは えきに いって、ともだちと あそんだ。", en: "Today I went to the station and hung out with a friend." }
+    antiPattern: { ja: "あさ ごはんを たべる、だいがくに いく。", why: "a plain verb cannot hand over to the next clause — the first verb goes into the て-form: あさ ごはんを たべて、だいがくに いく。" }
+
+newAtoms:
+  # ══ THE RAMP TRIO (L2) — declared FIRST and the ONLY atoms carrying
+  #    `verbClass`, so the compiler's "first three eligible" pick is exactly
+  #    these three and nothing else can ride the ramp (inv 37).
+  - { kana: しって, romaji: shitte, gloss: "know (te-form)", shortGloss: "know (te)", imageable: false, kind: verb-form, derivedFrom: しる, verbClass: u }
+  - { kana: はたらいて, romaji: hataraite, gloss: "work (te-form)", shortGloss: "work (te)", imageable: false, kind: verb-form, derivedFrom: はたらく, verbClass: u }
+  - { kana: すんで, romaji: sunde, gloss: "live in (te-form)", shortGloss: "live in (te)", imageable: false, kind: verb-form, derivedFrom: すむ, verbClass: u }
+  # ══ L1 — the request lesson. まつ and みせる are PICTURE debuts; their
+  #    て-forms are introduced by the te-kudasai card. No verbClass: a new
+  #    imageable verb must never reach a pinned transform card (its base
+  #    would print before the image MCQ).
+  - { kana: まつ, romaji: matsu, gloss: "to wait", imageable: true, kind: verb, verbClass: u }
+  - { kana: みせる, romaji: miseru, gloss: "to show", imageable: true, kind: verb, verbClass: ru }
+  - { kana: まって, romaji: matte, gloss: "wait (te-form)", shortGloss: "wait (te)", imageable: false, kind: verb-form, derivedFrom: まつ }
+  - { kana: みせて, romaji: misete, gloss: "show (te-form)", shortGloss: "show (te)", imageable: false, kind: verb-form, derivedFrom: みせる }
+  # ══ L3 — the state reading needs its own negative: しらない is "I don't
+  #    know", the single most-used negative in the language, and it is NOT
+  #    しっていない.
+  - { kana: しらない, romaji: shiranai, gloss: "don't know", imageable: false, kind: verb-form, derivedFrom: しる }
+  # ══ L8 — the ない-form of L1's みせる, for ないでください.
+  - { kana: みせない, romaji: misenai, gloss: "won't show / don't show", shortGloss: "don't show", imageable: false, kind: verb-form, derivedFrom: みせる }
+  # ══ L4 — もう / まだ. Both are existing courseAtoms (m11 attribution) that
+  #    no neo module ever introduced, so they are genuinely new to the
+  #    learner and are declared here to be gated like any new word.
+  - { kana: もう, romaji: mou, gloss: "already", imageable: false, kind: vocab }
+  - { kana: まだ, romaji: mada, gloss: "not yet, still", shortGloss: "not yet", imageable: false, kind: vocab }
+  # ══ L5 — およぐ, the third picture debut, and the verb the prohibition
+  #    lesson is built on.
+  - { kana: およぐ, romaji: oyogu, gloss: "to swim", imageable: true, kind: verb, verbClass: u }
+  - { kana: およいで, romaji: oyoide, gloss: "swim (te-form)", shortGloss: "swim (te)", imageable: false, kind: verb-form, derivedFrom: およぐ }
+  # ══ L7 / L8 — the fixed prohibition helper (the module's ONLY courseAtoms
+  #    registration) and the ない-form およぐ needs for ないでください.
+  - { kana: いけません, romaji: ikemasen, gloss: "must not, not allowed", shortGloss: "must not", imageable: false, kind: grammar-chunk }
+  - { kana: およがない, romaji: oyoganai, gloss: "won't swim / don't swim", shortGloss: "don't swim", imageable: false, kind: verb-form, derivedFrom: およぐ }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-1
+    role: teaching
+    title: "ください — please give me, please do"
+    focus: "を + ください asks for a THING; a て-form + ください asks for an ACTION"
+    introduces: [まつ, みせる, まって, みせて]
+    beats:
+      - { kind: rule, grammarPointId: kudasai }
+      - { kind: sentence, ja: "みずを ください。", en: "Water, please", exercises: [kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "コーヒーを ください。", en: "Coffee, please", exercises: [kudasai], mode: build }
+      - { kind: sentence, ja: "あたらしい ぼうしを ください。", en: "A new hat, please", exercises: [kudasai, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちょっと まって ください。", en: "Please wait a moment", exercises: [te-kudasai], mode: build }
+      - { kind: sentence, ja: "しゃしんを みせて ください。", en: "Please show me the photo", exercises: [te-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "うたを きいて ください。", en: "Please listen to the song", exercises: [te-kudasai, wo-object], mode: listening }
+      - { kind: sentence, ja: "きっさてんで まって ください。", en: "Please wait at the coffee shop", exercises: [te-kudasai, de-action], mode: build }
+      - { kind: sentence, ja: "ミカの あたらしい しゃしんを みせて ください。", en: "Please show me Mika's new photo", exercises: [te-kudasai, no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちゃを ください。", en: "Ask for tea", exercises: [kudasai], mode: translate }
+      - { kind: particle-cloze, stem: "しゃしんを ", tail: " ください。", answer: "みせて", options: ["みせて", "みて", "きいて"], en: "Please show me the photo", explanation: "みせて is show; みて is look. ください takes the て-form of whichever verb you mean." }
+      - { kind: listening-comp, audio: "ここで まって ください。", answer: "Please wait here", distractors: ["Please look here", "Please wait at the station", "Please buy it here"], exercises: [te-kudasai, koko-soko-asoko] }
+      - { kind: listening-comp, audio: "おおきい かばんを ください。", answer: "A big bag, please", distractors: ["A small bag, please", "Please show me the bag", "I want a big bag"], exercises: [kudasai, i-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "すみません。みずを ください。", en: "Excuse me. Water, please." }
+          - { speaker: "Staff", ja: "はい。ちょっと まって ください。", en: "Certainly. Please wait a moment." }
+        questions:
+          - { q: "What does the staff member ask Mika to do?", options: ["Wait a moment", "Show a photo", "Buy the water", "Come back later"], answer: "Wait a moment" }
+      - { kind: challenge, ja: "しずかな きっさてんで ミカの しゃしんを みせて ください。", en: "Please show me Mika's photo at the quiet coffee shop", combines: [te-kudasai, na-adj-present, de-action, no-possession], mode: build }
+    reviewPool: [みず, ちゃ, しゃしん, ほん, うた, ぼうし, きっさてん, かばん, かさ, すし]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-2
+    role: teaching
+    title: "ている — て plus いる"
+    focus: "the て-form plus いる: you exist in the state the action left you in — for an action in motion, that is ongoing"
+    introduces: [しって, はたらいて, すんで]
+    beats:
+      - { kind: rule, grammarPointId: te-iru }
+      - { kind: sentence, ja: "いま ごはんを たべている。", en: "I'm eating right now", exercises: [te-iru, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは いま ほんを みている。", en: "Mika is looking at a book right now", exercises: [te-iru, wa-topic], mode: build }
+      - { kind: sentence, ja: "トムは えきで まっている。", en: "Tom is waiting at the station", exercises: [te-iru, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "いま みずを のんでいる。", en: "I'm drinking water right now", exercises: [te-iru, wo-object], mode: listening }
+      - { kind: sentence, ja: "ともだちは かいしゃで はたらいている。", en: "My friend works at a company", exercises: [te-iru, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカは いま うたを きいている。", en: "Mika is listening to a song right now", exercises: [te-iru, wa-topic, wo-object], mode: listening }
+      - { kind: sentence, ja: "ケンは にぎやかな みせで はたらいている。", en: "Ken works at a busy shop", exercises: [te-iru, na-adj-present, de-action], mode: build }
+      - { kind: sentence, ja: "いま すしを たべている。", en: "Say to a friend: I'm eating sushi right now", exercises: [te-iru], mode: translate }
+      - { kind: particle-cloze, stem: "いま ごはんを ", tail: "。", answer: "たべている", options: ["たべている", "たべる", "たべた"], en: "I'm eating right now", explanation: "ている puts the action in motion; たべる is what you will do and たべた is what you did." }
+      - { kind: listening-comp, audio: "いま しゃしんを みている。", answer: "I'm looking at a photo right now", distractors: ["I looked at a photo", "I want to look at a photo", "I'm buying a photo"], exercises: [te-iru, wo-object] }
+      - { kind: listening-comp, audio: "ケンは えきで まっている。", answer: "Ken is waiting at the station", distractors: ["Ken went to the station", "Ken is working at the station", "Ken is waiting at the shop"], exercises: [te-iru, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いま なにを している？", en: "What are you doing right now?" }
+          - { speaker: "Tom", ja: "きっさてんで ちゃを のんでいる。", en: "I'm drinking tea at a coffee shop." }
+        questions:
+          - { q: "What is Tom doing?", options: ["Drinking tea at a coffee shop", "Eating sushi at home", "Waiting at the station", "Buying tea at a shop"], answer: "Drinking tea at a coffee shop" }
+      - { kind: challenge, ja: "ミカは いま しずかな きっさてんで ほんを みている。", en: "Mika is looking at a book at a quiet coffee shop right now", combines: [te-iru, na-adj-present, de-action, wa-topic], mode: build }
+    reviewPool: [ごはん, ほん, みず, うた, えき, かいしゃ, みせ, しゃしん, ちゃ, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-3
+    role: teaching
+    title: "しっている — the state you are already in"
+    focus: "for a verb that names a CHANGE, ている is the state after it: しっている 'know', すんでいる 'live'"
+    introduces: [しらない]
+    beats:
+      - { kind: rule, grammarPointId: te-iru }
+      - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "I live in Japan", exercises: [te-iru, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカの なまえを しっている。", en: "I know Mika's name", exercises: [te-iru, no-possession, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは アメリカに すんでいる。", en: "Tom lives in America", exercises: [te-iru, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "わたしは トムの ともだちを しらない。", en: "I don't know Tom's friend", exercises: [nai-form, no-possession, wo-object], mode: build }
+      - { kind: sentence, ja: "ゆうめいな みせを しっている。", en: "I know a famous shop", exercises: [te-iru, na-adj-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "ケンは しずかな いえに すんでいる。", en: "Ken lives in a quiet house", exercises: [te-iru, na-adj-present, ni-location], mode: build }
+      - { kind: sentence, ja: "あたらしい きっさてんを しらない。", en: "I don't know the new coffee shop", exercises: [nai-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "Say to a friend: I live in Japan", exercises: [te-iru, ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "わたしは ミカを ", tail: "。", answer: "しっている", options: ["しっている", "しらない", "しる"], en: "I know Mika", explanation: "しる is the moment you find out, so it never means 'I know' — the state that follows is しっている, and its negative is しらない." }
+      - { kind: listening-comp, audio: "わたしは トムを しっている。", answer: "I know Tom", distractors: ["I don't know Tom", "I'm waiting for Tom", "I met Tom yesterday"], exercises: [te-iru, wo-object] }
+      - { kind: listening-comp, audio: "ミカは あたらしい いえに すんでいる。", answer: "Mika lives in a new house", distractors: ["Mika is building a new house", "Mika wants a new house", "Mika lives in an old house"], exercises: [te-iru, i-adj-present, ni-location] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカは どこに すんでいる？", en: "Where do you live, Mika?" }
+          - { speaker: "Mika", ja: "わたしは しずかな いえに すんでいる。トムは？", en: "I live in a quiet house. How about you, Tom?" }
+          - { speaker: "Tom", ja: "わたしは にぎやかな いえに すんでいる。", en: "I live in a lively house." }
+        questions:
+          - { q: "What does Mika say about her house?", options: ["It is quiet", "It is lively", "It is new", "It is near the sea"], answer: "It is quiet" }
+      - { kind: challenge, ja: "わたしは にほんの ゆうめいな きっさてんを しっている。", en: "I know a famous coffee shop in Japan", combines: [te-iru, no-possession, na-adj-present, wo-object], mode: build }
+    reviewPool: [にほん, なまえ, いえ, みせ, ひと, きっさてん, えき, アメリカ, ともだち, しゃしん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-r1
+    role: review
+    title: "Review — asking for it, and what's going on"
+    focus: "ください and てください beside both readings of ている"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "いま ちゃを のんでいる。", en: "I'm drinking tea right now", exercises: [te-iru, wo-object], mode: build }
+      - { kind: sentence, ja: "あたらしい かばんを ください。", en: "A new bag, please", exercises: [kudasai, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカは にほんに すんでいる。", en: "Mika lives in Japan", exercises: [te-iru, ni-location, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ちょっと まって ください。", en: "Please wait a moment", exercises: [te-kudasai], mode: build }
+      - { kind: sentence, ja: "トムは えきで ともだちを まっている。", en: "Tom is waiting for a friend at the station", exercises: [te-iru, de-action, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "わたしは にほんの みせを ", tail: "。", answer: "しっている", options: ["しっている", "しらない", "みている"], en: "I know a shop in Japan", explanation: "しっている is the state of knowing; しらない is not knowing it at all." }
+      - { kind: sentence, ja: "ふるい しゃしんを みせて ください。", en: "Please show me the old photo", exercises: [te-kudasai, i-adj-present], mode: build }
+      - { kind: listening-comp, audio: "ケンは かいしゃで はたらいている。", answer: "Ken works at a company", distractors: ["Ken is going to a company", "Ken wants to work at a company", "Ken works at a shop"], exercises: [te-iru, de-action] }
+      - { kind: sentence, ja: "きっさてんで うたを きいている。", en: "I'm listening to a song at the coffee shop", exercises: [te-iru, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "みずを ください。", en: "Ask for water", exercises: [kudasai], mode: translate }
+      - { kind: listening-comp, audio: "いま ごはんを たべている。", answer: "I'm eating right now", distractors: ["I already ate", "I want to eat now", "I'm making food now"], exercises: [te-iru, wo-object] }
+      - { kind: sentence, ja: "ミカの あたらしい ふくを みせて ください。", en: "Please show me Mika's new clothes", exercises: [te-kudasai, no-possession, i-adj-present], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "トムは いま なにを している？", en: "What is Tom doing right now?" }
+          - { speaker: "Mika", ja: "きっさてんで ほんを みている。", en: "He's looking at a book at the coffee shop." }
+        questions:
+          - { q: "What is Tom doing?", options: ["Looking at a book at the coffee shop", "Waiting at the station", "Eating at home", "Working at a company"], answer: "Looking at a book at the coffee shop" }
+    reviewPool: [ちゃ, かばん, にほん, えき, しゃしん, みせ, かいしゃ, うた, ごはん, ふく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-4
+    role: teaching
+    title: "もう と まだ — already, and not yet"
+    focus: "もう takes the past た; まだ takes the negative ている — the 'not yet' half of the same form"
+    introduces: [もう, まだ]
+    beats:
+      - { kind: rule, grammarPointId: mada-mou }
+      - { kind: sentence, ja: "もう ごはんを たべた。", en: "I already ate", exercises: [mada-mou, ta-form], mode: build }
+      - { kind: sentence, ja: "まだ ごはんを たべていない。", en: "I haven't eaten yet", exercises: [mada-mou, te-iru], mode: build }
+      - { kind: sentence, ja: "もう しゃしんを みた。", en: "I already saw the photo", exercises: [mada-mou, ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "まだ しゃしんを みていない。", en: "I haven't seen the photo yet", exercises: [mada-mou, te-iru, wo-object], mode: listening }
+      - { kind: sentence, ja: "ミカは まだ えきで まっている。", en: "Mika is still waiting at the station", exercises: [mada-mou, te-iru, de-action], mode: build }
+      - { kind: sentence, ja: "もう ちゃを のんだ。", en: "I already drank the tea", exercises: [mada-mou, ta-form], mode: build }
+      - { kind: sentence, ja: "まだ あたらしい ふくを かっていない。", en: "I haven't bought the new clothes yet", exercises: [mada-mou, te-iru, i-adj-present], mode: build }
+      - { kind: sentence, ja: "まだ ごはんを たべていない。", en: "Say to a friend: I haven't eaten yet", exercises: [mada-mou, te-iru], mode: translate }
+      - { kind: particle-cloze, stem: "まだ ごはんを ", tail: "。", answer: "たべていない", options: ["たべていない", "たべている", "たべた"], en: "I haven't eaten yet", explanation: "まだ pairs with the negative ている — the door is still open. たべた would close it." }
+      - { kind: listening-comp, audio: "もう ぎゅうにゅうを のんだ。", answer: "I already drank the milk", distractors: ["I haven't drunk the milk yet", "I'm drinking the milk now", "I already bought the milk"], exercises: [mada-mou, ta-form] }
+      - { kind: listening-comp, audio: "ケンは まだ きっさてんに いない。", answer: "Ken isn't at the coffee shop yet", distractors: ["Ken is already at the coffee shop", "Ken is waiting at the coffee shop", "Ken isn't at the station yet"], exercises: [mada-mou, nai-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "もう ごはんを たべた？", en: "Have you eaten yet?" }
+          - { speaker: "Ken", ja: "ううん、まだ たべていない。", en: "Nope, I haven't eaten yet." }
+        questions:
+          - { q: "What does Ken say?", options: ["He hasn't eaten yet", "He already ate", "He is eating now", "He doesn't want to eat"], answer: "He hasn't eaten yet" }
+      - { kind: challenge, ja: "ミカは もう ゆうめいな みせで あたらしい かさを かった。", en: "Mika already bought a new umbrella at the famous shop", combines: [mada-mou, na-adj-present, de-action, ta-form], mode: build }
+    reviewPool: [ごはん, しゃしん, ちゃ, えき, ふく, ぎゅうにゅう, きっさてん, みせ, かさ, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-5
+    role: teaching
+    title: "なにを している？ — asking what someone is doing"
+    focus: "turning ている round on the listener, and answering it"
+    introduces: [およぐ, およいで]
+    beats:
+      - { kind: sentence, ja: "いま なにを している？", en: "What are you doing right now?", exercises: [te-iru, wo-object], mode: build }
+      - { kind: sentence, ja: "どこで はたらいている？", en: "Where do you work?", exercises: [te-iru, de-action], mode: build }
+      - { kind: sentence, ja: "だれを まっている？", en: "Who are you waiting for?", exercises: [te-iru, dare, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは うみで およいでいる。", en: "Mika is swimming in the sea", exercises: [te-iru, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "トムは かわで およいでいる。", en: "Tom is swimming in the river", exercises: [te-iru, de-action, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ケンは いま なにを のんでいる？", en: "What is Ken drinking right now?", exercises: [te-iru, wa-topic], mode: build }
+      - { kind: sentence, ja: "きっさてんで ちゃを のんでいる。", en: "I'm drinking tea at the coffee shop", exercises: [te-iru, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちは うみで およいでいる。", en: "My friend is swimming in the sea", exercises: [te-iru, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "いま なにを たべている？", en: "Ask a friend: What are you eating right now", exercises: [te-iru], mode: translate }
+      - { kind: particle-cloze, stem: "だれを ", tail: "？", answer: "まっている", options: ["まっている", "まっていない", "みている"], en: "Who are you waiting for?", explanation: "まっている asks about a wait in progress; まっていない says the wait is not happening." }
+      - { kind: listening-comp, audio: "ミカは いま うみで およいでいる。", answer: "Mika is swimming in the sea right now", distractors: ["Mika swam in the sea", "Mika wants to swim in the sea", "Mika is swimming in the river"], exercises: [te-iru, de-action] }
+      - { kind: listening-comp, audio: "どこで はたらいている？", answer: "Where do you work?", distractors: ["Where are you going?", "Where did you work?", "Who do you work with?"], exercises: [te-iru, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "トムは いま どこに いる？", en: "Where is Tom right now?" }
+          - { speaker: "Mika", ja: "うみに いる。ともだちと およいでいる。", en: "He's at the sea. He's swimming with a friend." }
+        questions:
+          - { q: "What is Tom doing?", options: ["Swimming with a friend", "Waiting for a friend", "Working at the sea", "Waiting at the sea"], answer: "Swimming with a friend" }
+      - { kind: challenge, ja: "ミカの ともだちは いま しずかな うみで およいでいる。", en: "Mika's friend is swimming in the quiet sea right now", combines: [te-iru, no-possession, na-adj-present, de-action, wa-topic], mode: build }
+    reviewPool: [うみ, かわ, ちゃ, きっさてん, えき, ともだち, ごはん, かいしゃ, みせ, うた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-6
+    role: teaching
+    title: "〜ても いい — may I?"
+    focus: "て-form + も + いい asks whether it is allowed; うん、いい or ううん、だめ answers"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: te-mo-ii }
+      - { kind: sentence, ja: "ここで たべても いい？", en: "Is it OK if I eat here?", exercises: [te-mo-ii, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "しゃしんを みても いい？", en: "May I look at the photo?", exercises: [te-mo-ii, wo-object], mode: build }
+      - { kind: sentence, ja: "うみで およいでも いい。", en: "You may swim in the sea", exercises: [te-mo-ii, de-action], mode: build }
+      - { kind: sentence, ja: "ここで まっても いい？", en: "May I wait here?", exercises: [te-mo-ii, koko-soko-asoko], mode: listening }
+      - { kind: sentence, ja: "ちゃを のんでも いい？", en: "May I drink the tea?", exercises: [te-mo-ii, wo-object], mode: build }
+      - { kind: sentence, ja: "あたらしい ほんを みても いい？", en: "May I look at the new book?", exercises: [te-mo-ii, i-adj-present], mode: build }
+      - { kind: sentence, ja: "きっさてんで はたらいても いい。", en: "You may work at the coffee shop", exercises: [te-mo-ii, de-action], mode: build }
+      - { kind: sentence, ja: "しゃしんを みても いい？", en: "Ask a friend: May I look at the photo", exercises: [te-mo-ii], mode: translate }
+      - { kind: particle-cloze, stem: "ここで ", tail: " いい？", answer: "たべても", options: ["たべても", "のんでも", "みても"], en: "Is it OK if I eat here?", explanation: "も + いい hangs off the て-form of the verb you mean — たべて for eating, のんで for drinking." }
+      - { kind: listening-comp, audio: "ここで しゃしんを みても いい？", answer: "Is it OK if I look at the photo here?", distractors: ["May I show the photo here?", "May I buy the photo here?", "Did you look at the photo here?"], exercises: [te-mo-ii, koko-soko-asoko] }
+      - { kind: listening-comp, audio: "うみで およいでも いい。", answer: "You may swim in the sea", distractors: ["You must not swim in the sea", "I want to swim in the sea", "I'm swimming in the sea"], exercises: [te-mo-ii, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ここで ちゃを のんでも いい？", en: "Is it OK if I drink tea here?" }
+          - { speaker: "Mika", ja: "うん、いい。わたしも のんでいる。", en: "Yeah, it's fine. I'm drinking some too." }
+        questions:
+          - { q: "What does Mika tell Tom?", options: ["It's fine, and she is drinking too", "It's not allowed here", "She wants tea as well later", "She is waiting for tea"], answer: "It's fine, and she is drinking too" }
+      - { kind: challenge, ja: "しずかな きっさてんで ミカの ほんを みても いい？", en: "May I look at Mika's book at the quiet coffee shop?", combines: [te-mo-ii, na-adj-present, de-action, no-possession], mode: build }
+    reviewPool: [しゃしん, ほん, ちゃ, うみ, きっさてん, ごはん, みず, えき, みせ, うた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-r2
+    role: review
+    title: "Review — what's happening, and what's allowed"
+    focus: "ている in both readings, もう/まだ, and asking permission"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ここで しゃしんを みても いい？", en: "Is it OK if I look at the photo here?", exercises: [te-mo-ii, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "まだ ちゃを のんでいない。", en: "I haven't drunk the tea yet", exercises: [mada-mou, te-iru], mode: build }
+      - { kind: sentence, ja: "ミカは かいしゃで はたらいている。", en: "Mika works at a company", exercises: [te-iru, de-action, wa-topic], mode: listening }
+      - { kind: sentence, ja: "もう あたらしい かさを かった。", en: "I already bought a new umbrella", exercises: [mada-mou, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "I live in Japan", exercises: [te-iru, ni-location, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "ここで ちゃを ", tail: " いい？", answer: "のんでも", options: ["のんでも", "たべても", "みても"], en: "Is it OK if I drink tea here?", explanation: "ちゃ goes with のむ, so the て-form in the frame is のんで." }
+      - { kind: sentence, ja: "トムは うみで およいでいる。", en: "Tom is swimming in the sea", exercises: [te-iru, de-action, wa-topic], mode: build }
+      - { kind: listening-comp, audio: "まだ しゃしんを みていない。", answer: "I haven't seen the photo yet", distractors: ["I already saw the photo", "I'm looking at the photo", "I don't want to see the photo"], exercises: [mada-mou, te-iru] }
+      - { kind: sentence, ja: "ここで まっても いい？", en: "May I wait here?", exercises: [te-mo-ii, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "いま すしを たべている。", en: "Say to a friend: I'm eating sushi right now", exercises: [te-iru], mode: translate }
+      - { kind: listening-comp, audio: "にほんの みせを しっている。", answer: "I know a shop in Japan", distractors: ["I don't know a shop in Japan", "I'm looking for a shop in Japan", "I went to a shop in Japan"], exercises: [te-iru, no-possession] }
+      - { kind: sentence, ja: "ミカは まだ えきで ともだちを まっている。", en: "Mika is still waiting for a friend at the station", exercises: [mada-mou, te-iru, de-action], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "もう ごはんを たべた？", en: "Have you eaten yet?" }
+          - { speaker: "Tom", ja: "ううん、まだ たべていない。きっさてんに いく。", en: "Nope, not yet. I'm going to a coffee shop." }
+        questions:
+          - { q: "What does Tom say?", options: ["He hasn't eaten and wants to go to a coffee shop", "He already ate at a coffee shop", "He is eating at the station", "He doesn't want to eat today"], answer: "He hasn't eaten and wants to go to a coffee shop" }
+    reviewPool: [しゃしん, ちゃ, かいしゃ, かさ, にほん, うみ, えき, すし, みせ, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-7
+    role: teaching
+    title: "〜ては いけません — when the answer is no"
+    focus: "the same frame with も→は and いい→いけません states a rule; だめ is its casual echo"
+    introduces: [いけません]
+    beats:
+      - { kind: rule, grammarPointId: te-wa-ikemasen }
+      - { kind: sentence, ja: "ここで たべては いけません。", en: "You must not eat here", exercises: [te-wa-ikemasen, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "かわで およいでは いけません。", en: "You must not swim in the river", exercises: [te-wa-ikemasen, de-action], mode: build }
+      - { kind: sentence, ja: "じゅぎょうで けいたいを みては いけません。", en: "You must not look at your phone in class", exercises: [te-wa-ikemasen, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "ここで まっては いけません。", en: "You must not wait here", exercises: [te-wa-ikemasen, koko-soko-asoko], mode: listening }
+      - { kind: sentence, ja: "みせで しゃしんを みせては いけません。", en: "You must not show photos in the shop", exercises: [te-wa-ikemasen, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "ここで たべては だめ。", en: "Say to a friend: You can't eat here", exercises: [te-wa-ikemasen], mode: translate }
+      - { kind: sentence, ja: "うみで およいでも いい。", en: "You may swim in the sea", exercises: [te-mo-ii, de-action], mode: build }
+      - { kind: sentence, ja: "きっさてんで うたを きいては いけません。", en: "You must not listen to songs in the coffee shop", exercises: [te-wa-ikemasen, de-action, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "かわで およいでは ", tail: "。", answer: "いけません", options: ["いけません", "いい", "ください"], en: "You must not swim in the river", explanation: "は + いけません states a rule; も + いい grants permission. The frame decides which half you are saying." }
+      - { kind: listening-comp, audio: "きっさてんで およいでは いけません。", answer: "You must not swim at the coffee shop", distractors: ["You may swim at the coffee shop", "Please don't eat at the coffee shop", "I'm swimming at the coffee shop"], exercises: [te-wa-ikemasen, de-action] }
+      - { kind: listening-comp, audio: "じゅぎょうで けいたいを みては いけません。", answer: "You must not look at your phone in class", distractors: ["You may look at your phone in class", "Please show your phone in class", "I'm looking at my phone in class"], exercises: [te-wa-ikemasen, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ここで ごはんを たべても いい？", en: "Is it OK if I eat here?" }
+          - { speaker: "Tanaka", ja: "いいえ、ここで たべては いけません。", en: "No — you must not eat here." }
+        questions:
+          - { q: "What does Tanaka tell Tom?", options: ["Eating here is not allowed", "Eating here is fine", "He should eat later at the shop", "He must wait for Mika"], answer: "Eating here is not allowed" }
+      - { kind: challenge, ja: "しずかな きっさてんで ともだちの しゃしんを みせては いけません。", en: "You must not show a friend's photo at the quiet coffee shop", combines: [te-wa-ikemasen, na-adj-present, de-action, no-possession], mode: build }
+    reviewPool: [かわ, うみ, けいたい, じゅぎょう, しゃしん, みせ, きっさてん, うた, ごはん, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-8
+    role: teaching
+    title: "〜ないで ください — please don't"
+    focus: "the ない-form + で + ください asks someone NOT to do it — a request, not a rule"
+    introduces: [およがない, みせない]
+    beats:
+      - { kind: rule, grammarPointId: naide-kudasai }
+      - { kind: sentence, ja: "ここで たべないで ください。", en: "Please don't eat here", exercises: [naide-kudasai, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "しゃしんを みないで ください。", en: "Please don't look at the photo", exercises: [naide-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "かわで およがないで ください。", en: "Please don't swim in the river", exercises: [naide-kudasai, de-action], mode: build }
+      - { kind: sentence, ja: "きょうは いかないで ください。", en: "Please don't go today", exercises: [naide-kudasai, wa-topic], mode: listening }
+      - { kind: sentence, ja: "みずを のまないで ください。", en: "Please don't drink the water", exercises: [naide-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "ふるい ほんを かわないで ください。", en: "Please don't buy the old book", exercises: [naide-kudasai, i-adj-present, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカに しゃしんを みせないで ください。", en: "Please don't show Mika the photo", exercises: [naide-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "しゃしんを みないで ください。", en: "Ask politely: Please don't look at the photo", exercises: [naide-kudasai], mode: translate }
+      - { kind: particle-cloze, stem: "かわで ", tail: " ください。", answer: "およがないで", options: ["およがないで", "およいで", "およがない"], en: "Please don't swim in the river", explanation: "ください needs the で — およがない stops halfway, and およいで asks for the opposite." }
+      - { kind: listening-comp, audio: "きょうは うみに いかないで ください。", answer: "Please don't go to the sea today", distractors: ["Please go to the sea today", "You must not go to the sea today", "I'm not going to the sea today"], exercises: [naide-kudasai, ni-location] }
+      - { kind: listening-comp, audio: "みずを のまないで ください。", answer: "Please don't drink the water", distractors: ["Please drink the water", "I don't drink water", "May I drink the water?"], exercises: [naide-kudasai, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ここで およいでも いい？", en: "Is it OK if I swim here?" }
+          - { speaker: "Ken", ja: "ううん、およがないで ください。ここは かわだ。", en: "No, please don't swim. This is a river." }
+        questions:
+          - { q: "What does Ken ask Mika to do?", options: ["Not to swim here", "To swim in the sea instead", "To wait at the river", "Not to look at the river"], answer: "Not to swim here" }
+      - { kind: challenge, ja: "にぎやかな みせで ミカの しゃしんを みせないで ください。", en: "Please don't show Mika's photo at the busy shop", combines: [naide-kudasai, na-adj-present, de-action, no-possession], mode: build }
+    reviewPool: [かわ, しゃしん, みず, ほん, きっさてん, うみ, みせ, ふく, きょう, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-9
+    role: teaching
+    title: "たべて、いく — one thing, then the next"
+    focus: "the て-form's other job: linking clauses in the order they happen, with only the last verb carrying the tense"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: te-form }
+      - { kind: sentence, ja: "あさ ごはんを たべて だいがくに いく。", en: "In the morning I eat and then go to university", exercises: [te-form, wo-object, ni-location], mode: build }
+      - { kind: sentence, ja: "きっさてんに いって ちゃを のんだ。", en: "I went to the coffee shop and drank tea", exercises: [te-form, ni-location, ta-form], mode: build }
+      - { kind: sentence, ja: "みせに いって あたらしい ふくを かった。", en: "I went to the shop and bought new clothes", exercises: [te-form, ni-location, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "うたを きいて ごはんを たべた。", en: "I listened to a song and then ate", exercises: [te-form, wo-object, ta-form], mode: listening }
+      - { kind: sentence, ja: "きょうは えきに いって ともだちと あそんだ。", en: "Today I went to the station and hung out with a friend", exercises: [te-form, ni-location, ta-form, wa-topic], mode: build }
+      - { kind: sentence, ja: "ふるい しゃしんを みて ともだちと あそんだ。", en: "I looked at an old photo and hung out with a friend", exercises: [te-form, wo-object, i-adj-present, ta-form], mode: build }
+      - { kind: sentence, ja: "しゃしんを みて うたを きいた。", en: "I looked at the photo and listened to a song", exercises: [te-form, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "あさ ちゃを のんで かいしゃに いく。", en: "Say to a friend: In the morning I drink tea and go to the company", exercises: [te-form, ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "あさ ごはんを ", tail: " だいがくに いく。", answer: "たべて", options: ["たべて", "たべる", "たべた"], en: "In the morning I eat and then go to university", explanation: "Only the last verb carries the tense — everything before it stays in the て-form." }
+      - { kind: listening-comp, audio: "きっさてんに いって ほんを みた。", answer: "I went to the coffee shop and looked at a book", distractors: ["I looked at a book and went to the coffee shop", "I want to look at a book at the coffee shop", "I'm looking at a book at the coffee shop"], exercises: [te-form, ta-form] }
+      - { kind: listening-comp, audio: "うたを きいて ごはんを たべた。", answer: "I listened to a song and then ate", distractors: ["I ate and then listened to a song", "I'm listening to a song and eating", "I want to listen to a song and eat"], exercises: [te-form, ta-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きのうは なにを した？", en: "What did you do yesterday?" }
+          - { speaker: "Tom", ja: "えきに いって、ミカと あそんだ。", en: "I went to the station and hung out with Mika." }
+        questions:
+          - { q: "What did Tom do yesterday?", options: ["Went to the station and hung out with Mika", "Went to the sea and swam", "Waited for Mika at the coffee shop", "Stayed home and looked at photos"], answer: "Went to the station and hung out with Mika" }
+      - { kind: challenge, ja: "きのう にぎやかな みせに いって ミカの あたらしい かさを かった。", en: "Yesterday I went to the busy shop and bought Mika's new umbrella", combines: [te-form, na-adj-present, ni-location, no-possession, ta-form], mode: build }
+    reviewPool: [ごはん, だいがく, きっさてん, ちゃ, みせ, ふく, うた, えき, うみ, しゃしん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-r3
+    role: review
+    title: "Review — the whole て family"
+    focus: "ている, もう/まだ, permission, prohibition, please-don't and clause linking together"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ここで しゃしんを みても いい？", en: "Is it OK if I look at the photo here?", exercises: [te-mo-ii, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "かわで およいでは いけません。", en: "You must not swim in the river", exercises: [te-wa-ikemasen, de-action], mode: build }
+      - { kind: sentence, ja: "ミカは いま えきで まっている。", en: "Mika is waiting at the station right now", exercises: [te-iru, de-action, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ここで たべないで ください。", en: "Please don't eat here", exercises: [naide-kudasai, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "もう あたらしい ふくを かった。", en: "I already bought new clothes", exercises: [mada-mou, ta-form, i-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "ここで たべては ", tail: "。", answer: "いけません", options: ["いけません", "いい", "ください"], en: "You must not eat here", explanation: "は + いけません is the rule; も + いい is the permission. Same frame, opposite answer." }
+      - { kind: sentence, ja: "きっさてんに いって ちゃを のんだ。", en: "I went to the coffee shop and drank tea", exercises: [te-form, ni-location, ta-form], mode: build }
+      - { kind: listening-comp, audio: "まだ ごはんを たべていない。", answer: "I haven't eaten yet", distractors: ["I already ate", "I'm eating now", "I don't want to eat"], exercises: [mada-mou, te-iru] }
+      - { kind: sentence, ja: "わたしは ゆうめいな みせを しっている。", en: "I know a famous shop", exercises: [te-iru, na-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "ちょっと まって ください。", en: "Ask politely: Please wait a moment", exercises: [te-kudasai], mode: translate }
+      - { kind: listening-comp, audio: "うみで およいでも いい。", answer: "You may swim in the sea", distractors: ["You must not swim in the sea", "I'm swimming in the sea", "Please don't swim in the sea"], exercises: [te-mo-ii, de-action] }
+      - { kind: sentence, ja: "ともだちは にほんの かいしゃで はたらいている。", en: "My friend works at a Japanese company", exercises: [te-iru, no-possession, de-action], mode: build }
+      - { kind: sentence, ja: "みずを のまないで ください。", en: "Please don't drink the water", exercises: [naide-kudasai, wo-object], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ここで ちゃを のんでも いい？", en: "Is it OK if I drink tea here?" }
+          - { speaker: "Tanaka", ja: "いいえ、ここで のんでは いけません。", en: "No — you must not drink here." }
+        questions:
+          - { q: "What does Tanaka say about drinking tea here?", options: ["It is not allowed here", "It is fine here", "He will bring tea", "He is drinking tea too"], answer: "It is not allowed here" }
+    reviewPool: [しゃしん, かわ, えき, ふく, きっさてん, ちゃ, みせ, にほん, かいしゃ, みず]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m14-neo-challenge
+    role: challenge
+    title: "Challenge — say what's happening, then say what's allowed"
+    focus: "End-of-module stretch: ている, もう/まだ, the permission family and て-linking in shapes the teaching lessons never paired"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ミカは まだ にぎやかな きっさてんで ともだちを まっている。", en: "Mika is still waiting for a friend at the busy coffee shop", exercises: [mada-mou, te-iru, na-adj-present, de-action], mode: build }
+      - { kind: sentence, ja: "うみに いって ともだちと およいでも いい？", en: "Is it OK if I go to the sea and swim with a friend?", exercises: [te-form, ni-location, te-mo-ii], mode: build }
+      - { kind: sentence, ja: "しずかな みせで けいたいを みては いけません。", en: "You must not look at your phone in a quiet shop", exercises: [te-wa-ikemasen, na-adj-present, de-action], mode: listening }
+      - { kind: sentence, ja: "わたしは にほんの ゆうめいな みせを しっている。", en: "I know a famous shop in Japan", exercises: [te-iru, no-possession, na-adj-present, wo-object], mode: build }
+      - { kind: sentence, ja: "きのう えきに いって あたらしい ほんを かった。", en: "Yesterday I went to the station and bought a new book", exercises: [te-form, ni-location, i-adj-present, ta-form], mode: build }
+      - { kind: sentence, ja: "ミカの ふるい しゃしんを みせないで ください。", en: "Please don't show Mika's old photo", exercises: [naide-kudasai, no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "まだ あたらしい ふくを かっていない。", en: "Say to a friend: I haven't bought the new clothes yet", exercises: [mada-mou, te-iru, i-adj-present], mode: translate }
+      - { kind: sentence, ja: "ケンは いま しずかな いえで ほんを みている。", en: "Ken is looking at a book at a quiet house right now", exercises: [te-iru, na-adj-present, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "きっさてんに いって ちゃを のんでも いい？", en: "Is it OK if I go to the coffee shop and drink tea?", exercises: [te-form, ni-location, te-mo-ii, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "まだ しゃしんを ", tail: "。", answer: "みていない", options: ["みていない", "みている", "みた"], en: "I haven't seen the photo yet", explanation: "まだ opens the door with the negative ている; みた would close it." }
+      - { kind: listening-comp, audio: "ここで およいでは いけません。", answer: "You must not swim here", distractors: ["You may swim here", "Please don't swim here", "I'm swimming here"], exercises: [te-wa-ikemasen, koko-soko-asoko] }
+      - { kind: listening-comp, audio: "ともだちは にほんの だいがくで はたらいている。", answer: "My friend works at a Japanese university", distractors: ["My friend studies at a Japanese university", "My friend worked at a Japanese university", "My friend wants to work at a Japanese university"], exercises: [te-iru, no-possession, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ここで けいたいを みても いい？", en: "Is it OK if I look at my phone here?" }
+          - { speaker: "Mika", ja: "ううん、じゅぎょうで けいたいを みては いけません。", en: "Nope — you must not look at your phone in class." }
+          - { speaker: "Tom", ja: "わかった。まだ みていない。", en: "Got it. I haven't looked at it yet." }
+        questions:
+          - { q: "What does Mika say about phones in class?", options: ["Looking at them is not allowed", "Looking at them is fine", "She is looking at hers now", "Tom already looked at his"], answer: "Looking at them is not allowed" }
+      - { kind: challenge, ja: "ゆうめいな きっさてんに いって ミカと ちゃを のんでも いい？", en: "Is it OK if I go to the famous coffee shop and drink tea with Mika?", combines: [te-form, na-adj-present, ni-location, te-mo-ii], mode: build }
+    reviewPool: [きっさてん, しゃしん, けいたい, うみ, えき, ふく, みせ, ちゃ, にほん, ほん]
