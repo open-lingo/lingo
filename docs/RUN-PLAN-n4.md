@@ -389,15 +389,17 @@ Deliberately not done yet because nothing before m19 needs it. It blocks:
   drilling すむ, a verb taught in no module, invisible to every debut guard
   because a given is not an introduction.
 
-### Still owed
+### DONE 2026-07-27 — stems (was the last blocker before m19)
 
-1. **Stems in the compiler's `KNOWN` set** — must land before **m19**.
-   `getRealFormLexicon()` already emits them; the `unbuildable` diagnostic
-   keeps its own set and does not consult it. Adding stems there means
-   adding them to the TOKENIZER vocabulary, so it wants its own test pass
-   (longest-match protects たべる from splitting into たべ+る, but verify).
-   Blocks `ni-iku` (m19), `sugiru` (m27) and N4's 〜ながら / 〜やすい・にくい /
-   〜たがる (m36). Two spine items have already been deferred for it.
+`getRealFormLexicon()` AND the compiler's tokenizer/`unbuildable` gate now
+know verb ます-stems and い-adjective く-stems. 〜に いく (m19), 〜すぎる (m27)
+and N4's 〜ながら / 〜やすい・にくい / 〜たがる (m36) are unblocked, and the two
+deferrals it caused (m12 〜く なる, m13 〜に いく) can be revisited whenever
+their modules are next touched.
+
+It was safe to land mid-authoring because the tokenizer is longest-match-
+first: a shorter entry can only win where nothing longer matched, i.e.
+exactly where an unrecognized fragment was already being emitted.
 
 ### Carried debt (batch later, do not derail a module for these)
 
