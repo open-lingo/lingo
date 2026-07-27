@@ -85,14 +85,52 @@ function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
   if (moduleId && getContent) {
     const lesson = getContent(lessonId);
     if (lesson) {
-      const haystack = JSON.stringify(lesson.steps);
-      atoms = JA_COURSE_ATOMS.filter(
+      const candidates = JA_COURSE_ATOMS.filter(
         (a) =>
           isSrsEligibleAtom(a) &&
           a.fromModule === moduleId &&
-          !a.introducedByLessonId &&
-          atomSurfaces(a).some((s) => haystack.includes(s)),
+          !a.introducedByLessonId,
       );
+
+      // EXACT FIRST. The compiler already decided which atoms a step exercises
+      // — that is what `exercisedAtoms` IS, and its tiles are the tokenizer's
+      // own segmentation. Ask them.
+      const exercised = new Set<string>();
+      const tiled = new Set<string>();
+      for (const step of lesson.steps) {
+        const s = step as unknown as { exercisedAtoms?: string[]; tiles?: string[] };
+        for (const id of s.exercisedAtoms ?? []) exercised.add(id);
+        for (const t of s.tiles ?? []) tiled.add(t);
+      }
+      atoms = candidates.filter(
+        (a) => exercised.has(a.id) || atomSurfaces(a).some((s) => tiled.has(s)),
+      );
+
+      // SUBSTRING ONLY AS A LAST RESORT — and it is wrong often enough that it
+      // may never be the first resort. This used to be
+      // `JSON.stringify(lesson.steps).includes(surface)`, which matches a
+      // surface ANYWHERE: inside another word, inside the English gloss, inside
+      // a step id. Measured across m8+, it attributed 184 atoms where exact
+      // matching attributes 80, and every single difference was an artefact:
+      //   くる "come"  credited from くるま "car"
+      //   とし "year"  credited from としょかん "library"
+      //   はん "half"  credited from ごはん "meal"
+      //   いま "now"   credited from います "exists"
+      //   いい "good"  credited from いいえ "no"
+      // Each one schedules an atom in a lesson that never taught it, which is
+      // silent: the lesson renders correctly and the learner simply starts
+      // getting reviews for a word they have not met. The eighth distinct
+      // substring-on-Japanese bug in this repo.
+      //
+      // A handful of lessons carry no tiles and no exercisedAtoms at all
+      // (rule-card-only shapes). For those there is no better evidence, so the
+      // old behaviour is kept rather than silently attributing nothing.
+      if (!exercised.size && !tiled.size) {
+        const haystack = JSON.stringify(lesson.steps);
+        atoms = candidates.filter((a) =>
+          atomSurfaces(a).some((s) => haystack.includes(s)),
+        );
+      }
     }
   }
   fallbackAtomsCache.set(lessonId, atoms);
