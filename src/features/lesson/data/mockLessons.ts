@@ -158,6 +158,7 @@ import { M7_NEO_LESSONS } from "@/features/languages/ja/curriculum/m7-neo";
 import { M8_NEO_LESSONS } from "@/features/languages/ja/curriculum/m8-neo";
 import { M9_NEO_LESSONS } from "@/features/languages/ja/curriculum/m9-neo";
 import { M10_NEO_LESSONS } from "@/features/languages/ja/curriculum/m10-neo";
+import { M11_NEO_LESSONS } from "@/features/languages/ja/curriculum/m11-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -455,6 +456,7 @@ const LESSONS: Record<string, LessonContent> = {
   ...Object.fromEntries(M8_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M9_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M10_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M11_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.

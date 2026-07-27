@@ -12,10 +12,11 @@ guide or the compiler, not the modules one at a time.**
 | m8 | 234 | 12.5% | 11 | 1 |
 | m9 | 234 | 13.6% | 11 | 2 |
 | m10 | 234 | 12.7% | 11 | 2 |
+| m11 | 234 | 9.6% | 11 | 1 |
 
 ## Systemic — fix upstream, not per module
 
-- **inv 35 build-tile-distractors** flagged in 5 modules
+- **inv 35 build-tile-distractors** flagged in 6 modules
 
 ## Findings by module
 
@@ -40,3 +41,7 @@ guide or the compiler, not the modules one at a time.**
 
 - **inv 19 single-tile-build** — 6 build steps have a ONE-tile answer — that is a word card, not a build: ja-m10-neo-1-reg-0, ja-m10-neo-1-reg-1, ja-m10-neo-1-reg-3, ja-m10-neo-1-reg-7, ja-m10-neo-2-reg-1, ja-m10-neo-2-reg-2
 - **inv 35 build-tile-distractors** — 89 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
+
+### m11
+
+- **inv 35 build-tile-distractors** — 102 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").

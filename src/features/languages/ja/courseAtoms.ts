@@ -954,6 +954,51 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "wakarimasu", kana: "わかります", romaji: "wakarimasu", meaningEn: "understand (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
   { id: "chigaimasu", kana: "ちがいます", romaji: "chigaimasu", meaningEn: "that's not right (polite)", fromModule: "m10", introducedByLessonId: "ja-m10-neo-1", kind: "vocab" },
   { id: "maa", kana: "まあ", romaji: "maa", meaningEn: "well, sort of", shortGloss: "well…", fromModule: "m10", introducedByLessonId: "ja-m10-neo-8", kind: "vocab" },
+  // ── m11-neo (tile n04) — time I + plain past た ──
+  // Multiples of ten. Registered as whole surfaces because the tokenizer is
+  // longest-match and every hour below is a PREFIX of one of these
+  // (ごじ ⊂ ごじゅう); without them ごじゅうえん cannot be tiled.
+  { id: "sanjuu", kana: "さんじゅう", romaji: "sanjuu", meaningEn: "thirty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab" },
+  { id: "yonjuu", kana: "よんじゅう", romaji: "yonjuu", meaningEn: "forty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab" },
+  { id: "gojuu", kana: "ごじゅう", romaji: "gojuu", meaningEn: "fifty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab" },
+  { id: "rokujuu", kana: "ろくじゅう", romaji: "rokujuu", meaningEn: "sixty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab" },
+  { id: "nanajuu", kana: "ななじゅう", romaji: "nanajuu", meaningEn: "seventy", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab" },
+  // Clock hours. No emoji by design: a clock face cannot discriminate よじ
+  // from くじ, so these are never image-MCQ material (inv 30/44).
+  { id: "ichiji", kana: "いちじ", romaji: "ichiji", meaningEn: "one o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "niji", kana: "にじ", romaji: "niji", meaningEn: "two o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "sanji", kana: "さんじ", romaji: "sanji", meaningEn: "three o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "yoji", kana: "よじ", romaji: "yoji", meaningEn: "four o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "goji", kana: "ごじ", romaji: "goji", meaningEn: "five o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "rokuji", kana: "ろくじ", romaji: "rokuji", meaningEn: "six o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "shichiji", kana: "しちじ", romaji: "shichiji", meaningEn: "seven o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "hachiji", kana: "はちじ", romaji: "hachiji", meaningEn: "eight o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "kuji", kana: "くじ", romaji: "kuji", meaningEn: "nine o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "juuji", kana: "じゅうじ", romaji: "juuji", meaningEn: "ten o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab" },
+  { id: "nanji", kana: "なんじ", romaji: "nanji", meaningEn: "what time", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, note: "interrogative — no concrete referent" },
+  // Plain past. した (する) and きた (くる) are deliberately NOT registered:
+  // both kana already belong to 下 / 北 in this deck, and a second entry
+  // would silently overwrite the kana-keyed lookup those m16/m17 atoms need.
+  // The conjugation lexicon already tokenizes them, and the IR carries their
+  // gloss, so nothing is lost but the duplicate row.
+  { id: "tabeta", kana: "たべた", romaji: "tabeta", meaningEn: "ate (eat, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "nonda", kana: "のんだ", romaji: "nonda", meaningEn: "drank (drink, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "kiita", kana: "きいた", romaji: "kiita", meaningEn: "heard (hear, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "mita", kana: "みた", romaji: "mita", meaningEn: "watched (watch, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "katta", kana: "かった", romaji: "katta", meaningEn: "bought (buy, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "asonda", kana: "あそんだ", romaji: "asonda", meaningEn: "played (play, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-4", kind: "vocab" },
+  { id: "itta-iku", kana: "いった", romaji: "itta", meaningEn: "went (travel, past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-5", kind: "vocab" },
+  { id: "wakatta", kana: "わかった", romaji: "wakatta", meaningEn: "understood (past)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-5", kind: "vocab" },
+  // Copula past
+  { id: "datta", kana: "だった", romaji: "datta", meaningEn: "was, were (plain)", shortGloss: "was (plain)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-6", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
+  { id: "deshita", kana: "でした", romaji: "deshita", meaningEn: "was, were (polite)", shortGloss: "was (polite)", fromModule: "m11", introducedByLessonId: "ja-m11-neo-8", kind: "vocab", blocked: true, note: "copula — no concrete referent" },
+  // Polite past (たべました / のみました / いきました / しました / かいました) is
+  // deliberately NOT registered here. The forms are already real surfaces via
+  // the conjugation lexicon, and registering them REGRESSES two shipped
+  // behaviours: the flashcard importer stops mapping 食べました back to its
+  // dictionary atom (match.test.ts), and annotateJapaneseText stops splitting
+  // のみました into stem + ました helper (romajiLexicon.test.ts). The IR carries
+  // their glosses, which is all the compiled lessons need.
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */

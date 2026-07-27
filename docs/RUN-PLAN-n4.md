@@ -145,15 +145,15 @@ teaches four counters at once is a table, not a lesson).
 
 | m | grammar point ids owed |
 |---|---|
-| 11 | ta-form masu-past desu-past masu-past-negative numbers-11-99 counter-ji counter-fun ni-time |
+| 11 | ta-form masu-past desu-past numbers-11-99 counter-ji ni-time | ✅ |
 | 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past |
 | 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki |
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai |
 | 15 | dictionary-form toki mae-ni te-kara |
-| 16 | kara-because node-because kedo kara-origin counter-mai |
+| 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** |
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
 | 18 | to-omoimasu to-quotation kanji-set-1 |
-| 19 | e-direction ni-iku made-until made-ni kara-time |
+| 19 | e-direction ni-iku made-until made-ni kara-time **counter-fun** |
 | 20 | yori-comparison numbers-100-10000 counter-ko |
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
 | 22 | ga-itai frequency-adverbs mada-mou counter-hai |
@@ -164,6 +164,21 @@ teaches four counters at once is a table, not a lesson).
 | 27 | n-desu sugiru ku-ni-naru |
 | 28 | nakereba-naranai hou-ga-ii kanji-set-3 |
 | 29 | janai-desu yo-emphasis ne-agreement |
+
+**When this table and `spinePlan.ts` disagree, the spine wins** and the table
+gets edited — the table is a coverage ledger, not a curriculum. Already
+reconciled: `masu-past-negative` m11→m16 (the spine defers ませんでした to the
+connectives tile) and `counter-fun` m11→m19 (ぷん rendaku defers to the drip).
+
+### Carried debt (batch later, do not derail a module for these)
+
+- **m8–m10 dialogue speaker labels are kana**, which routes male speakers to
+  the Nanami voice. inv 23/24 wants romanized labels; m11 does it right and its
+  male lines correctly got Keita. Retrofit m8–m10 + TTS regen in one pass.
+- **inv 35** ("build tiles carry no authored distractors") flags every IR
+  module m6–m11 — the IR has no field to express it. This is a COMPILER/IR gap,
+  not a module defect; the 3+-modules rule says fix the tooling, not the
+  content.
 
 Untouched at run start (74): janai-desu kara-origin kudasai counter-nin
 dictionary-form kono-sono-ano-dono i-adj-present i-adj-negative to-and

@@ -1,0 +1,2350 @@
+{
+  "module": "m11",
+  "title": "Time I: the clock, the calendar, and plain past た",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10"
+  ],
+  "priorGrammarPoints": [
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
+    "dare",
+    "kore-sore-are-dore",
+    "nai-form",
+    "arimasu",
+    "imasu",
+    "nai-existence",
+    "koko-soko-asoko",
+    "spatial-relations",
+    "location-qa",
+    "masu-present",
+    "masu-negative",
+    "desu-copula",
+    "ka-question",
+    "register-audience",
+    "te-form",
+    "te-kudasai",
+    "numbers-1-10",
+    "counter-tsu",
+    "ikura-price",
+    "yes-no-register",
+    "aizuchi",
+    "chotto-softener"
+  ],
+  "grammarPoints": [
+    {
+      "id": "numbers-11-99",
+      "rule": "Past ten, Japanese counts by ARITHMETIC. Stack a digit on the RIGHT of じゅう and you add: じゅう + ご = じゅうご (15). Stack a digit on the LEFT and you multiply: さん + じゅう = さんじゅう (30). Combine both for everything in between: ろくじゅうご = 65. There is nothing new to memorise — you already know every piece.",
+      "examples": [
+        {
+          "ja": "じゅうご",
+          "en": "fifteen"
+        },
+        {
+          "ja": "さんじゅう",
+          "en": "thirty"
+        },
+        {
+          "ja": "ろくじゅうご",
+          "en": "sixty-five"
+        }
+      ],
+      "antiPattern": {
+        "ja": "いちじゅう",
+        "en": "",
+        "why": "ten on its own is just じゅう — いちじゅう is not a number"
+      }
+    },
+    {
+      "id": "counter-ji",
+      "rule": "A clock hour is the number plus 〜じ. Three readings break the pattern and are simply learned: 4 is よじ (never よんじ), 7 is しちじ (never ななじ), 9 is くじ (never きゅうじ). なんじ asks 'what time?', and はん after the hour means half past — ごじはん is 5:30.",
+      "examples": [
+        {
+          "ja": "いちじ にじ さんじ よじ",
+          "en": "one, two, three, four o'clock"
+        },
+        {
+          "ja": "ごじ ろくじ しちじ はちじ",
+          "en": "five, six, seven, eight o'clock"
+        },
+        {
+          "ja": "くじ じゅうじ",
+          "en": "nine, ten o'clock"
+        }
+      ],
+      "antiPattern": {
+        "ja": "よんじ",
+        "en": "",
+        "why": "four o'clock is よじ — よん never takes 〜じ"
+      }
+    },
+    {
+      "id": "ni-time",
+      "rule": "A point on the CLOCK takes に: さんじに いく. It is the same に you already use for a destination — Japanese treats a moment in time like a place you arrive at. Words that are not clock readings take NO に at all: きょう いく, あした いく. ごぜん (a.m.) and ごご (p.m.) sit in front of the hour: ごご さんじに.",
+      "examples": [
+        {
+          "ja": "さんじに いく。",
+          "en": "I'll go at three."
+        },
+        {
+          "ja": "くじに たべる。",
+          "en": "I eat at nine."
+        }
+      ],
+      "antiPattern": {
+        "ja": "さんじ いく。",
+        "en": "",
+        "why": "a clock time needs に — さんじに いく"
+      }
+    },
+    {
+      "id": "ta-form",
+      "rule": "Plain past is た, and it runs on the SAME sound-change table you bought for て. Swap て for た and で for だ, and you are done. る-verbs: たべる → たべた. う-verbs: む/ぶ/ぬ → んだ (のむ → のんだ); う/つ/る → った (かう → かった); く → いた (きく → きいた); ぐ → いだ. する → した, くる → きた, and いく is the same rebel it was for て: いった.",
+      "examples": [
+        {
+          "ja": "みずを のんだ。",
+          "en": "I drank water."
+        },
+        {
+          "ja": "ごはんを たべた。",
+          "en": "I ate rice."
+        },
+        {
+          "ja": "うたを きいた。",
+          "en": "I listened to a song."
+        },
+        {
+          "ja": "みせに いった。",
+          "en": "I went to the shop."
+        }
+      ],
+      "antiPattern": {
+        "ja": "みずを のみた。",
+        "en": "",
+        "why": "のむ ends in む, so it joins the んだ group — のんだ, not のみた"
+      },
+      "conjugation": {
+        "form": "ta",
+        "classes": [
+          "ru",
+          "u"
+        ]
+      }
+    },
+    {
+      "id": "desu-past",
+      "rule": "だ has a past cell too, and it is だった: ねこだ → ねこだった. Verbs take た, nouns take だった — the same split you already know from the present, where a verb stands alone and a noun needs だ. Its polite twin is でした, which arrives beside ました.",
+      "examples": [
+        {
+          "ja": "それは ねこだった。",
+          "en": "That was a cat."
+        },
+        {
+          "ja": "きのうは じゅぎょうだった。",
+          "en": "Yesterday was a class day."
+        }
+      ],
+      "antiPattern": {
+        "ja": "それは ねこた。",
+        "en": "",
+        "why": "nouns take だった — た alone is for verbs"
+      }
+    },
+    {
+      "id": "masu-past",
+      "rule": "The polite past swaps ます for ました — same stem, different tail. のみます → のみました. Nothing else moves: ました is the polite skin on the た you just learned. Plain た goes to friends; ました goes to teachers, staff and strangers.",
+      "examples": [
+        {
+          "ja": "みずを のみました。",
+          "en": "I drank water. (polite)"
+        },
+        {
+          "ja": "ごはんを たべました。",
+          "en": "I ate rice. (polite)"
+        },
+        {
+          "ja": "みせに いきました。",
+          "en": "I went to the shop. (polite)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "みずを のみますた。",
+        "en": "",
+        "why": "ました REPLACES ます — you never stack た on top of it"
+      },
+      "conjugation": {
+        "form": "masu-past",
+        "classes": [
+          "ru",
+          "u"
+        ]
+      }
+    },
+    {
+      "id": "itsu-when",
+      "rule": "いつ asks WHEN. It stands where a time word would stand and takes no particle of its own: いつ いく？ Answer with any time at all — さんじに, きょう, きのう, ごご. なんじ is the narrow version: it asks for a reading on the clock, so its answer is always an hour.",
+      "examples": [
+        {
+          "ja": "いつ いく？",
+          "en": "When are you going?"
+        },
+        {
+          "ja": "いつ たべる？",
+          "en": "When do you eat?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "いつに いく？",
+        "en": "",
+        "why": "いつ takes no に — the particle belongs to a clock time, not to the question word"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m11-neo-1",
+      "role": "teaching",
+      "title": "Eleven to ninety-nine",
+      "focus": "numbers past ten are arithmetic on pieces the learner already owns",
+      "introduces": [
+        "さんじゅう",
+        "よんじゅう",
+        "ごじゅう",
+        "ろくじゅう",
+        "ななじゅう"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "numbers-11-99"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは じゅうごえんだ。",
+          "en": "Say to a friend: The book is fifteen yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさは さんじゅうえんだ。",
+          "en": "Say to a friend: The umbrella is thirty yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンは じゅうはちえんだ。",
+          "en": "The bread is eighteen yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぼうしは よんじゅうえんだ。",
+          "en": "Say to a friend: The hat is forty yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは ごじゅうえんです。",
+          "en": "Say politely: This is fifty yen",
+          "exercises": [
+            "kore-sore-are-dore",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつは じゅうきゅうえんだ。",
+          "en": "Say to a friend: The pencil is nineteen yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ほんは ",
+          "tail": "えんだ。",
+          "answer": "じゅうご",
+          "options": [
+            "じゅうご",
+            "ごじゅう",
+            "じゅうきゅう"
+          ],
+          "en": "The book is fifteen yen",
+          "explanation": "じゅう on the left adds: じゅうご is 15. じゅう on the right multiplies: ごじゅう is 50."
+        },
+        {
+          "kind": "sentence",
+          "ja": "めがねは ななじゅうえんだ。",
+          "en": "Say to a friend: The glasses are seventy yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの かさは ろくじゅうごえんだ。",
+          "en": "Say to a friend: Mika's umbrella is sixty-five yen",
+          "combines": [
+            "no-possession",
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "かさ",
+        "パン",
+        "ぼうし",
+        "えんぴつ",
+        "めがね",
+        "えん",
+        "たかい",
+        "やすい"
+      ]
+    },
+    {
+      "id": "m11-neo-2",
+      "role": "teaching",
+      "title": "Telling the hour — 〜じ",
+      "focus": "number + じ, the three irregular readings, なんじ and はん",
+      "introduces": [
+        "いちじ",
+        "にじ",
+        "さんじ",
+        "よじ",
+        "ごじ",
+        "ろくじ",
+        "しちじ",
+        "はちじ",
+        "くじ",
+        "じゅうじ",
+        "なんじ",
+        "はん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-ji"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま さんじだ。",
+          "en": "Say to a friend: It's three o'clock now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま よじだ。",
+          "en": "Say to a friend: It's four o'clock now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま なんじですか。",
+          "en": "Say politely: What time is it now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは くじだ。",
+          "en": "Say to a friend: Class is at nine",
+          "exercises": [
+            "wa-topic",
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま しちじはんだ。",
+          "en": "It's half past seven now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "とけいは じゅうじだ。",
+          "en": "Say to a friend: The clock says ten",
+          "exercises": [
+            "wa-topic",
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いま ",
+          "tail": "だ。",
+          "answer": "よじ",
+          "options": [
+            "よじ",
+            "しちじ",
+            "くじ"
+          ],
+          "en": "It's four o'clock now",
+          "explanation": "Four o'clock is よじ — the hour that refuses よん."
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま ごじはんだ。",
+          "en": "Say to a friend: It's half past five now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの じゅぎょうは いちじはんだ。",
+          "en": "Say to a friend: Mika's class is at half past one",
+          "combines": [
+            "no-possession",
+            "wa-topic",
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "いま",
+        "じかん",
+        "とけい",
+        "じゅぎょう",
+        "きょう",
+        "せんせい",
+        "がくせい",
+        "ほん"
+      ]
+    },
+    {
+      "id": "m11-neo-3",
+      "role": "teaching",
+      "title": "At three o'clock — 〜じに",
+      "focus": "に on a clock time; ごぜん/ごご in front of the hour; あした takes no に",
+      "introduces": [
+        "ごぜん",
+        "ごご",
+        "あした"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-time"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごご さんじに いく。",
+          "en": "Say to a friend: I'm going at three in the afternoon",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん しちじに たべる。",
+          "en": "Say to a friend: I eat at seven in the morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ごじに いく。",
+          "en": "Say to a friend: I'm going at five tomorrow",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした じゅぎょうが ある。",
+          "en": "Say to a friend: There's class tomorrow",
+          "exercises": [
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごご ろくじに ともだちと あそぶ。",
+          "en": "I'm playing with a friend at six in the afternoon",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょう くじに みせに いく。",
+          "en": "Say to a friend: I'm going to the shop at nine today",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " ごじに いく。",
+          "answer": "ごご",
+          "options": [
+            "ごご",
+            "ごぜん",
+            "いま"
+          ],
+          "en": "I'm going at five in the afternoon",
+          "explanation": "ごご marks the afternoon half of the clock; ごぜん marks the morning half."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん はちじに ごはんを たべる。",
+          "en": "Say to a friend: I eat rice at eight in the morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "あした ごご よじに ミカの いえに いく。",
+          "en": "Say to a friend: I'm going to Mika's house at four tomorrow afternoon",
+          "combines": [
+            "ni-time",
+            "counter-ji",
+            "no-possession",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "じゅぎょう",
+        "みせ",
+        "いえ",
+        "ともだち",
+        "ごはん",
+        "いま",
+        "とけい",
+        "いちじ",
+        "さんじ"
+      ]
+    },
+    {
+      "id": "m11-neo-r1",
+      "role": "review",
+      "title": "Review — numbers and the clock",
+      "focus": "11-99, the hours and 〜じに on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ほんは よんじゅうえんだ。",
+          "en": "Say to a friend: The book is forty yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま しちじだ。",
+          "en": "Say to a friend: It's seven o'clock now",
+          "exercises": [
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじに みせに いく。",
+          "en": "I'm going to the shop at nine",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん はちじに たべる。",
+          "en": "Say to a friend: I eat at eight in the morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは ごじはんだ。",
+          "en": "Say to a friend: Class is at half past five",
+          "exercises": [
+            "wa-topic",
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ごご みせに いく。",
+          "en": "Say to a friend: I'm going to the shop tomorrow afternoon",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いま ",
+          "tail": "だ。",
+          "answer": "じゅうじ",
+          "options": [
+            "じゅうじ",
+            "いちじ",
+            "さんじ"
+          ],
+          "en": "It's ten o'clock now",
+          "explanation": "じゅうじ is ten o'clock — じゅう from the number line, plus 〜じ."
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさは ごじゅうえんです。",
+          "en": "Say politely: The umbrella is fifty yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ろくじに ともだちが くる。",
+          "en": "A friend is coming at six",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なんじに いく？",
+          "en": "Say to a friend: What time are you going",
+          "exercises": [
+            "counter-ji",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "じゅぎょうは なんじ？",
+              "en": "What time is class?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "くじだ。",
+              "en": "Nine o'clock."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What time is class?",
+              "options": [
+                "Nine",
+                "Ten",
+                "Seven",
+                "Half past five"
+              ],
+              "answer": "Nine"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "いま",
+        "とけい",
+        "じゅぎょう",
+        "あした",
+        "ごぜん",
+        "ごご",
+        "えん",
+        "いちじ",
+        "ごじ"
+      ]
+    },
+    {
+      "id": "m11-neo-4",
+      "role": "teaching",
+      "title": "た — the same table, a second payout",
+      "focus": "plain past from the て table: る-verbs and the う-verb sound changes",
+      "introduces": [
+        "きのう",
+        "たべた",
+        "のんだ",
+        "きいた",
+        "みた",
+        "かった",
+        "あそんだ"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ta-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ごはんを たべた。",
+          "en": "Say to a friend: I ate rice yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう みずを のんだ。",
+          "en": "Say to a friend: I drank water yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ほんを みた。",
+          "en": "Say to a friend: I looked at a book yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう うたを きいた。",
+          "en": "I listened to a song yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう パンを かった。",
+          "en": "Say to a friend: I bought bread yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう かわで あそんだ。",
+          "en": "Say to a friend: I played at the river yesterday",
+          "exercises": [
+            "ta-form",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのう ちゃを ",
+          "tail": "。",
+          "answer": "のんだ",
+          "options": [
+            "のんだ",
+            "のむ",
+            "のみます"
+          ],
+          "en": "I drank tea yesterday",
+          "explanation": "のむ ends in む, so the past joins the んだ group — exactly as the て-form did."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのう しゃしんを みた。",
+          "answer": "I looked at a photo yesterday",
+          "distractors": [
+            "I bought a photo yesterday",
+            "I listened to a song yesterday",
+            "I ate at home yesterday"
+          ],
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ミカの いえで ごはんを たべた。",
+          "en": "Say to a friend: I ate rice at Mika's house yesterday",
+          "combines": [
+            "ta-form",
+            "no-possession",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ごはん",
+        "みず",
+        "ほん",
+        "うた",
+        "パン",
+        "かわ",
+        "ちゃ",
+        "しゃしん",
+        "いえ"
+      ]
+    },
+    {
+      "id": "m11-neo-5",
+      "role": "teaching",
+      "title": "The rebels — した, きた, いった",
+      "focus": "する/くる and the one irregular う-verb, in the past this time",
+      "introduces": [
+        "した",
+        "きた",
+        "いった",
+        "わかった"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ta-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう さんぽを した。",
+          "en": "Say to a friend: I took a walk yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ミカが きた。",
+          "en": "Say to a friend: Mika came yesterday",
+          "exercises": [
+            "ta-form",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう みせに いった。",
+          "en": "Say to a friend: I went to the shop yesterday",
+          "exercises": [
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう かいものを した。",
+          "en": "I did the shopping yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう うみに いった。",
+          "en": "Say to a friend: I went to the sea yesterday",
+          "exercises": [
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ケンが いえに きた。",
+          "en": "Say to a friend: Ken came to the house yesterday",
+          "exercises": [
+            "ta-form",
+            "ga-existence",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの こえが わかった。",
+          "en": "Say to a friend: I recognised Mika's voice",
+          "exercises": [
+            "ta-form",
+            "no-possession",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのう みせに ",
+          "tail": "。",
+          "answer": "いった",
+          "options": [
+            "いった",
+            "いく",
+            "いきます"
+          ],
+          "en": "I went to the shop yesterday",
+          "explanation": "いく is the rebel: its past is いった, the same shape as its て-form いって."
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう たなかさんが ミカの いえに きた。",
+          "en": "Say to a friend: Tanaka came to Mika's house yesterday",
+          "combines": [
+            "ta-form",
+            "ga-existence",
+            "no-possession",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "さんぽ",
+        "かいもの",
+        "みせ",
+        "うみ",
+        "いえ",
+        "こえ",
+        "きのう",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m11-neo-6",
+      "role": "teaching",
+      "title": "だった — it was",
+      "focus": "the copula's past cell: verbs take た, nouns take だった",
+      "introduces": [
+        "だった"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "desu-past"
+        },
+        {
+          "kind": "sentence",
+          "ja": "それは ミカの かさだった。",
+          "en": "Say to a friend: That was Mika's umbrella",
+          "exercises": [
+            "desu-past",
+            "kore-sore-are-dore",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは やすい パンだった。",
+          "en": "Say to a friend: Yesterday it was cheap bread",
+          "exercises": [
+            "desu-past",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは ミカの ほんだった。",
+          "en": "Say to a friend: This was Mika's book",
+          "exercises": [
+            "desu-past",
+            "no-possession",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは さんじゅうえんだった。",
+          "en": "Yesterday it was thirty yen",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "numbers-11-99"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの くるまだった。",
+          "en": "Say to a friend: It was Tanaka's car",
+          "exercises": [
+            "desu-past",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あれは ぼくの ぼうしだった。",
+          "en": "Say to a friend: That over there was my hat",
+          "exercises": [
+            "desu-past",
+            "kore-sore-are-dore",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "それは ミカの かばん",
+          "tail": "。",
+          "answer": "だった",
+          "options": [
+            "だった",
+            "だ",
+            "です"
+          ],
+          "en": "That was Mika's bag",
+          "explanation": "The past of だ is だった — a noun never takes た on its own."
+        },
+        {
+          "kind": "sentence",
+          "ja": "とけいは ごじだった。",
+          "en": "Say to a friend: The clock said five",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのうの じゅぎょうは ごじはんだった。",
+          "en": "Say to a friend: Yesterday's class was at half past five",
+          "combines": [
+            "desu-past",
+            "no-possession",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "ほん",
+        "くるま",
+        "ぼうし",
+        "かばん",
+        "とけい",
+        "じゅぎょう",
+        "きのう"
+      ]
+    },
+    {
+      "id": "m11-neo-r2",
+      "role": "review",
+      "title": "Review — the past you speak to friends",
+      "focus": "た and だった over the module's own vocabulary, all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "きのう パンを かった。",
+          "en": "Say to a friend: I bought bread yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう うみに いった。",
+          "en": "Say to a friend: I went to the sea yesterday",
+          "exercises": [
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう しゃしんを みた。",
+          "en": "I looked at a photo yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは じゅうごえんだった。",
+          "en": "Say to a friend: Yesterday it was fifteen yen",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "それは ミカの かばんだった。",
+          "en": "Say to a friend: That was Mika's bag",
+          "exercises": [
+            "desu-past",
+            "kore-sore-are-dore",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ぎゅうにゅうを のんだ。",
+          "en": "Say to a friend: I drank milk yesterday",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのう ミカが ",
+          "tail": "。",
+          "answer": "きた",
+          "options": [
+            "きた",
+            "くる",
+            "きます"
+          ],
+          "en": "Mika came yesterday",
+          "explanation": "くる is irregular — its past is きた, matching its て-form きて."
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ともだちが きた。",
+          "en": "Say to a friend: A friend came yesterday",
+          "exercises": [
+            "ta-form",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうの じゅぎょうは よじだった。",
+          "en": "Yesterday's class was at four",
+          "exercises": [
+            "desu-past",
+            "no-possession",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう いけで あそんだ。",
+          "en": "Say to a friend: I played at the pond yesterday",
+          "exercises": [
+            "ta-form",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "きのう なにを した？",
+              "en": "What did you do yesterday?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "みせに いった。パンを かった。",
+              "en": "I went to the shop. I bought bread."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Mika buy?",
+              "options": [
+                "Bread",
+                "Tea",
+                "A book",
+                "Milk"
+              ],
+              "answer": "Bread"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "きのう",
+        "パン",
+        "うみ",
+        "しゃしん",
+        "かばん",
+        "ぎゅうにゅう",
+        "いけ",
+        "ともだち",
+        "じゅぎょう"
+      ]
+    },
+    {
+      "id": "m11-neo-7",
+      "role": "teaching",
+      "title": "ました — the polite past",
+      "focus": "the polite skin on た; same stem, ます swapped for ました",
+      "introduces": [
+        "たべました",
+        "のみました",
+        "いきました",
+        "しました",
+        "かいました"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "masu-past"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ごはんを たべました。",
+          "en": "Say politely: I ate rice yesterday",
+          "exercises": [
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ちゃを のみました。",
+          "en": "Say politely: I drank tea yesterday",
+          "exercises": [
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう みせに いきました。",
+          "en": "Say politely: I went to the shop yesterday",
+          "exercises": [
+            "masu-past",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう かいものを しました。",
+          "en": "Say politely: I did the shopping yesterday",
+          "exercises": [
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう パンを かいました。",
+          "en": "Say politely: I bought bread yesterday",
+          "exercises": [
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじに いきました。",
+          "en": "I went at nine",
+          "exercises": [
+            "masu-past",
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのう みずを ",
+          "tail": "。",
+          "answer": "のみました",
+          "options": [
+            "のみました",
+            "のみます",
+            "のんだ"
+          ],
+          "en": "I drank water yesterday (to a teacher)",
+          "explanation": "ました is the polite past; のんだ is the plain twin and のみます is the polite non-past."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "きのう みせに いきましたか。",
+              "en": "Did you go to the shop yesterday?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "はい、いきました。パンを かいました。",
+              "en": "Yes, I did. I bought bread."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What did Tom buy?",
+              "options": [
+                "Bread",
+                "Tea",
+                "Rice",
+                "Milk"
+              ],
+              "answer": "Bread"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ミカの みせで パンを かいました。",
+          "en": "Say politely: I bought bread at Mika's shop yesterday",
+          "combines": [
+            "masu-past",
+            "no-possession",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ごはん",
+        "ちゃ",
+        "みせ",
+        "パン",
+        "かいもの",
+        "きのう",
+        "みず",
+        "せんせい"
+      ]
+    },
+    {
+      "id": "m11-neo-8",
+      "role": "teaching",
+      "title": "でした — was, politely",
+      "focus": "the polite past of だ, drilled against だった",
+      "introduces": [
+        "でした"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "それは ミカの かさでした。",
+          "en": "Say politely: That was Mika's umbrella",
+          "exercises": [
+            "desu-past",
+            "kore-sore-are-dore",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは じゅぎょうでした。",
+          "en": "Say politely: Yesterday was a class day",
+          "exercises": [
+            "desu-past",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひゃくえんでした。",
+          "en": "Say politely: It was a hundred yen",
+          "exercises": [
+            "desu-past",
+            "ikura-price"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンは じゅうごえんでした。",
+          "en": "The bread was fifteen yen",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "numbers-11-99"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは くじでした。",
+          "en": "Say politely: Class was at nine",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの くるまでした。",
+          "en": "Say politely: It was Tanaka's car",
+          "exercises": [
+            "desu-past",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "これは わたしの ほん",
+          "tail": "。",
+          "answer": "でした",
+          "options": [
+            "でした",
+            "だった",
+            "です"
+          ],
+          "en": "This was my book (to a teacher)",
+          "explanation": "でした is the polite past of だ; だった is its plain twin and です is the polite non-past."
+        },
+        {
+          "kind": "sentence",
+          "ja": "とけいは ろくじでした。",
+          "en": "Say politely: The clock said six",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "パンは いくらでしたか。",
+              "en": "How much was the bread?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "じゅうごえんでした。やすいですよ。",
+              "en": "It was fifteen yen. That's cheap."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How much was the bread?",
+              "options": [
+                "Fifteen yen",
+                "Fifty yen",
+                "A hundred yen",
+                "Sixty yen"
+              ],
+              "answer": "Fifteen yen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たなかさんの ぼうしは ろくじゅうえんでした。",
+          "en": "Say politely: Tanaka's hat was sixty yen",
+          "combines": [
+            "desu-past",
+            "no-possession",
+            "wa-topic",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "ほん",
+        "くるま",
+        "ぼうし",
+        "じゅぎょう",
+        "とけい",
+        "えん",
+        "パン",
+        "だった"
+      ]
+    },
+    {
+      "id": "m11-neo-9",
+      "role": "teaching",
+      "title": "いつ — asking when",
+      "focus": "the open time question, against なんじ's narrow clock question",
+      "introduces": [
+        "いつ"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "itsu-when"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ みせに いった？",
+          "en": "Say to a friend: When did you go to the shop",
+          "exercises": [
+            "itsu-when",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ ごはんを たべた？",
+          "en": "Say to a friend: When did you eat",
+          "exercises": [
+            "itsu-when",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ いきましたか。",
+          "en": "Say politely: When did you go",
+          "exercises": [
+            "itsu-when",
+            "masu-past",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ごご いった。",
+          "en": "Say to a friend: I went yesterday afternoon",
+          "exercises": [
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん くじに いく。",
+          "en": "I'm going at nine in the morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ごご みせに いく。",
+          "en": "Say to a friend: I'm going to the shop tomorrow afternoon",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " ミカが きた？",
+          "answer": "いつ",
+          "options": [
+            "いつ",
+            "なんじ",
+            "だれ"
+          ],
+          "en": "When did Mika come?",
+          "explanation": "いつ takes any time as its answer; なんじ insists on a clock hour."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "いつ うみに いった？",
+              "en": "When did you go to the sea?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "きのう いった。ごご さんじだった。",
+              "en": "I went yesterday. It was three in the afternoon."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When did Tom go?",
+              "options": [
+                "Yesterday afternoon",
+                "Yesterday morning",
+                "Tomorrow afternoon",
+                "At nine"
+              ],
+              "answer": "Yesterday afternoon"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "いつ ミカの いえに いきましたか。",
+          "en": "Say politely: When did you go to Mika's house",
+          "combines": [
+            "itsu-when",
+            "no-possession",
+            "ni-location",
+            "masu-past",
+            "ka-question"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "きのう",
+        "あした",
+        "ごぜん",
+        "ごご",
+        "みせ",
+        "うみ",
+        "いえ",
+        "なんじ"
+      ]
+    },
+    {
+      "id": "m11-neo-r3",
+      "role": "review",
+      "title": "Review — clock, calendar and past",
+      "focus": "the whole module: hours, に-time, た/だった and ました/でした",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "きのう くじに いきました。",
+          "en": "Say politely: I went at nine yesterday",
+          "exercises": [
+            "masu-past",
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは しちじでした。",
+          "en": "Say politely: Class was at seven",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ うたを きいた？",
+          "en": "Say to a friend: When did you listen to the song",
+          "exercises": [
+            "itsu-when",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごご さんじに かいものを した。",
+          "en": "I did the shopping at three in the afternoon",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ごぜん くじに いく。",
+          "en": "Say to a friend: I'm going at nine tomorrow morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ミカの いえで あそんだ。",
+          "en": "Say to a friend: I played at Mika's house yesterday",
+          "exercises": [
+            "ta-form",
+            "no-possession",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きのう みずを ",
+          "tail": "。",
+          "answer": "のみました",
+          "options": [
+            "のみました",
+            "のみます",
+            "のみません"
+          ],
+          "en": "I drank water yesterday (to a teacher)",
+          "explanation": "ました is the polite past; ます and ません are the non-past pair."
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンは ななじゅうえんでした。",
+          "en": "Say politely: The bread was seventy yen",
+          "exercises": [
+            "desu-past",
+            "wa-topic",
+            "numbers-11-99"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ みせに いきましたか。",
+          "en": "When did you go to the shop?",
+          "exercises": [
+            "itsu-when",
+            "masu-past",
+            "ni-location",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう たなかさんが きた。",
+          "en": "Say to a friend: Tanaka came yesterday",
+          "exercises": [
+            "ta-form",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "きのう みせに いきましたか。",
+              "en": "Did you go to the shop yesterday?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "はい、ごご よじに いきました。",
+              "en": "Yes, I went at four in the afternoon."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When did Tom go?",
+              "options": [
+                "Four in the afternoon",
+                "Four in the morning",
+                "Nine in the morning",
+                "He didn't go"
+              ],
+              "answer": "Four in the afternoon"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "きのう",
+        "あした",
+        "ごぜん",
+        "ごご",
+        "いつ",
+        "なんじ",
+        "はん",
+        "みせ",
+        "パン"
+      ]
+    },
+    {
+      "id": "m11-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — put it all together",
+      "focus": "End-of-module stretch: hour, day-part, past tense and register combined in shapes the teaching lessons never paired",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "きのう ごご さんじに ミカの いえに いった。",
+          "en": "Say to a friend: I went to Mika's house at three yesterday afternoon",
+          "exercises": [
+            "ta-form",
+            "ni-time",
+            "counter-ji",
+            "no-possession",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの じゅぎょうは ごぜん くじでした。",
+          "en": "Say politely: Tanaka's class was at nine in the morning",
+          "exercises": [
+            "desu-past",
+            "no-possession",
+            "wa-topic",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いつ ミカの みせで パンを かいましたか。",
+          "en": "Say politely: When did you buy bread at Mika's shop",
+          "exercises": [
+            "itsu-when",
+            "no-possession",
+            "de-action",
+            "wo-object",
+            "masu-past",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのうは ろくじゅうえんだった。ちょっと たかい。",
+          "en": "Say to a friend: Yesterday it was sixty yen — a bit pricey",
+          "exercises": [
+            "desu-past",
+            "numbers-11-99",
+            "chotto-softener"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごぜん じゅうじに ともだちと さんぽを した。",
+          "en": "I took a walk with a friend at ten in the morning",
+          "exercises": [
+            "ni-time",
+            "counter-ji",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのう ともだちと ごはんを たべました。",
+          "en": "Say politely: I ate with a friend yesterday",
+          "exercises": [
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なんじに きた？",
+          "en": "Say to a friend: What time did you come",
+          "exercises": [
+            "counter-ji",
+            "ni-time",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんは ごご よじに いきました。",
+          "en": "Tanaka went at four in the afternoon",
+          "exercises": [
+            "wa-topic",
+            "ni-time",
+            "counter-ji",
+            "masu-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "きのう いつ かいものを した？",
+              "en": "When did you do the shopping yesterday?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ごぜん じゅうじに した。パンを かった。",
+              "en": "At ten in the morning. I bought bread."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When did Tom do the shopping?",
+              "options": [
+                "Ten in the morning",
+                "Ten at night",
+                "Three in the afternoon",
+                "Four in the afternoon"
+              ],
+              "answer": "Ten in the morning"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きのう ごご ごじに ミカの みせで パンを かいました。",
+          "en": "Say politely: I bought bread at Mika's shop at five yesterday afternoon",
+          "combines": [
+            "masu-past",
+            "ni-time",
+            "counter-ji",
+            "no-possession",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "きのう",
+        "ごぜん",
+        "ごご",
+        "いつ",
+        "なんじ",
+        "みせ",
+        "パン",
+        "ごはん",
+        "さんぽ",
+        "ともだち"
+      ]
+    }
+  ]
+}
