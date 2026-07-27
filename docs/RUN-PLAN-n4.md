@@ -48,8 +48,31 @@ m10 n15.
 | 28 | s24 | Must & should: なきゃ, ほうがいい |
 | 29 | s25 | Register mastery + N5 capstone |
 
-Then: N4 spine (documented in `docs/spine-n4.md`), then author N4 to the
-midpoint.
+### N4 (spine now written — `docs/spine-n4.md`, 22 units, m30–m51)
+
+| m | unit | title |
+|---|---|---|
+| 30 | n4-01 | て+helper I: てみる / ておく |
+| 31 | n4-02 | Give & receive I: あげる・くれる・もらう (things) |
+| 32 | n4-03 | Conditionals I: たら (と as contrast) |
+| 33 | n4-04 | Transitivity I: 自動詞/他動詞 — が vs を |
+| 34 | n4-05 | Volitional: よう/おう + とおもう, ことにする |
+| 35 | n4-06 | Give & receive II: てくれる + favors |
+| 36 | n4-07 | Looks like: そう(appearance), がる, やすい/にくい, ながら |
+| 37 | n4-08 | Conditionals II: ば + なら |
+| 38 | n4-09 | て+helper II: てしまう/ちゃう + ていく/てくる |
+| 39 | n4-10 | Concession & reasons: のに, ても/でも, し |
+| 40 | n4-11 | Passive I: direct passive られる |
+
+**"Mid N4" = through m40 (n4-11).** m41–m51 are out of scope for this run.
+
+Three spine calls worth knowing (full rationale in `spine-n4.md` §3/§5):
+transitivity lands **early at m33** as a particle *diagnostic* (it gates
+passive, causative, てある and resultative ている); conditionals split 2+2 five
+modules apart with **たら as the sole hub** (every newcomer contrasted against
+たら alone, 4-way only in the capstone — same ruling as register); and
+**causative-passive is rehomed to m50** inside 謙譲語 via させていただく, so it
+arrives as a composition of owned parts rather than a new form.
 
 ## Standing decisions (mine, documented per instruction)
 
