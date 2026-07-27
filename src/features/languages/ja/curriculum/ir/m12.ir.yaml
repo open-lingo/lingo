@@ -453,7 +453,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "きのうの じゅぎょうは よかったですか。", en: "Was yesterday's class good?" }
-          - { speaker: "Tanaka", ja: "はい、よかったです。にぎやかでした。", en: "Yes, it was good. It was lively." }
+          - { speaker: "Tanaka", ja: "はい、よかったです。", en: "Yes, it was good." }
         questions:
           - { q: "What did Tanaka say about the class?", options: ["Good and lively", "Bad and quiet", "Good but quiet", "Lively but bad"], answer: "Good and lively" }
       - { kind: challenge, ja: "ミカの みせは しずかでしたか。", en: "Say politely: Was Mika's shop quiet", combines: [no-possession, wa-topic, na-adj-past, ka-question, desu-past], mode: build }

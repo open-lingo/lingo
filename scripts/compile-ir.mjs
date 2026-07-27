@@ -91,10 +91,29 @@ if (Number.isFinite(modIdx)) {
       join(process.cwd(), "src/features/languages/ja/courseAtoms.ts"),
       "utf8",
     );
+    // A bare `corpus.includes(kana)` is a SUBSTRING test, and Japanese has no
+    // spaces — so short surfaces matched inside unrelated words and entered
+    // priorVocab having been taught nowhere. m16 registered ので and its own
+    // priorVocab then listed ので, because 「…のです」 contains it. That silently
+    // weakens the untaught-option guard, which is the one thing priorVocab
+    // exists to power.
+    //
+    // A quoted hit is a real declaration; an unquoted one is only trustworthy
+    // when the surface is long enough that an accidental match is implausible.
+    // Only a QUOTED hit counts — that is a declaration (an atom row, or a
+    // factory argument). A loose match is just "these characters occur
+    // somewhere", which for a length-3 surface still picked up カメラ and
+    // にぎやかでした, words no lesson ever teaches; they promptly appeared as
+    // distractors and tripped m12's and m15's own teach-first checks.
     for (const m of atomsSrc.matchAll(/kana:\s*"([^"]+)"/g)) {
-      if (corpus.includes(m[1])) priorVocab.add(m[1]);
+      if (corpus.includes(`"${m[1]}"`)) priorVocab.add(m[1]);
     }
   }
+}
+// A module's own new words are never PRIOR, whatever a scan turned up.
+for (const a of ir.newAtoms ?? []) {
+  priorVocab.delete(a.kana);
+  priorAtoms.delete(a.kana);
 }
 ir.priorVocab = [...priorVocab].sort();
 ir.priorAtoms = [...priorAtoms.values()];
