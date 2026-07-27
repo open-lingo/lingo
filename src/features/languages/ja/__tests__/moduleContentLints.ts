@@ -554,8 +554,16 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // subordinate clause before anything is said about it, and the module's
   // second half is ABOUT stacking clauses (とき, てから/まえに, と おもう). Floor
   // set three sentences below the measurement. Raised, never lowered.
+  // m24 recalibrated 0.58 → 0.80 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m24; the neo module — spine tile s21 — measures
+  // 76/91 = .835. A bare ability sentence is three tiles long (「おさけが
+  // のめる」), which is exactly the flat texture this gate exists to stop, so
+  // nearly every production beat hangs a reason or contrast clause on m16's
+  // から / けど — which is also how ability is actually spoken, because you say
+  // what you can do in order to say what you will do about it. Floor set three
+  // sentences below the measurement. Raised, never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
+  m24: 0.80, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

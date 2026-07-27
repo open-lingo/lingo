@@ -40,7 +40,15 @@ const IR_DIR = join(
 // so it is an optional suffix rather than a listed alternative — spelling out
 // only `ますか` made 「めがねですか。」 read as PLAIN and produced six false
 // positives on m7's own review and challenge lessons.
-const POLITE = /(です|ます|ません|ました|ください|でした)(か)?[。？！]?\s*$/;
+//
+// ましょう ADDED 2026-07-27 (m24, spine tile s21). The volitional is a cell of
+// the same ます paradigm as ます / ません / ました — 「いっしょに たべましょう。」
+// is unambiguously polite — but it was unreachable before m24 authored one, so
+// the detector read every ましょう as PLAIN and flagged three "Say politely:"
+// steps that were correct. Widening the POLITE set can only remove FALSE
+// positives here: no plain form ends in ましょう, so nothing that used to fail
+// legitimately now passes.
+const POLITE = /(です|ます|ません|ました|ましょう|ください|でした)(か)?[。？！]?\s*$/;
 const isPolite = (ja: string): boolean => {
   const clauses = ja.split(/[。？！]/).filter((c) => c.trim());
   return POLITE.test((clauses.at(-1) ?? ja).trim());

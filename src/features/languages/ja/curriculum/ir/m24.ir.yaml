@@ -1,0 +1,744 @@
+module: m24
+title: "Can & let's: potential, ましょう, 〜ない？"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23]
+
+priorGrammarPoints: [ka-question, desu-copula, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, dare, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     masu-present, masu-past, masu-negative, masu-past-negative,
+                     kara-origin, kara-time, made-until, made-ni, mae-ni,
+                     dictionary-form, ta-form,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     ga-hoshii, no-ga-suki, suki-kirai-no, mada-mou,
+                     kara-because, node-because, kedo, te-iru, te-form, te-kara,
+                     te-kudasai, te-wa-ikemasen, te-mo-ii, kudasai, naide-kudasai,
+                     to-quotation, to-omoimasu, ni-iku, ga-itai, frequency-adverbs,
+                     toki, koto-ga-aru, nai-existence, tsumori-desu, v-tai,
+                     numbers-1-10, numbers-11-99, numbers-100-10000,
+                     counter-ji, counter-fun, counter-tsu, counter-ko,
+                     counter-sai, counter-nin, counter-mai, counter-hai, counter-hon,
+                     wa-topic, mo-also, yori-comparison, ikura-price,
+                     ya-incomplete-list, to-and, tari-tari-suru, family-register,
+                     kanji-set-1, kanji-set-2]
+
+notes: |
+  m24 = spine tile s21, "Can & let's: potential, ましょう, 〜ない？". The
+  milestone line on the tile is "closes the old course's potential-form gap":
+  the archived course taught できる and nothing else, so a learner could say
+  they were able to DO things and never able to drink, swim, read or come.
+
+  THE WHOLE POINT — the potential is a FORM, not a word. Four formation rules
+  cover every verb in Japanese and the module teaches all four, in the order
+  that makes each one cheap:
+
+  1. **う-verbs move to the え row and add る.** のむ → のめる, いく → いける,
+     およぐ → およげる, あるく → あるける, はなす → はなせる. It is the same
+     stem-row machinery m7 used for ます (い row) and m6 for ない (あ row), so
+     the learner is placing a THIRD row on a chart they already own rather
+     than memorising a list.
+  2. **る-verbs drop る and add られる.** たべる → たべられる, みる → みられる.
+     Draft-2 of the spine records the precision fix this module obeys: ichidan
+     potential is られる-ATTACHMENT, not an e-stem — the stem-grid story covers
+     う-verbs and る-verbs get their own one-liner.
+  3. **くる → こられる, and する has no potential at all** — it uses できる,
+     which is also the noun-taking 「りょうりが できる」.
+  4. **Every result is itself a る-verb**, which is why L5's negative is m6's
+     ない-form re-taught rather than a new point: のめる → のめない,
+     たべられる → たべられない, できる → できない.
+
+  The particle flip rides along: 「おさけを のむ」 but 「おさけが のめる」. It is
+  taught as the が the learner already owns from 「かぎが ある」 — the potential
+  is not about doing anything, it says the thing is POSSIBLE, and が marks the
+  thing whose possibility is under discussion.
+
+  **ら抜きことば is RECOGNITION, exactly as the spine words it.** たべれる /
+  みれる are registered atoms and appear in the L2 rule card (labelled), two
+  listening-comprehension beats and one dialogue line — and in ZERO production
+  targets anywhere in the module. The audit note the spine cites is real (the
+  ら-dropped form is the majority form in spoken corpora), so hiding it would
+  leave the learner unable to parse ordinary speech; producing it would have
+  them marked wrong by half of Japan. Understand the short one, say the long
+  one. Machine-checked in `m24-neo.test.ts`.
+
+  **見える/聞こえる is the nuance beat (L6), and it is a contrast with the
+  potential rather than a vocabulary pair.** みられる says the OPPORTUNITY
+  exists ("they show films at the library"); みえる says the thing is VISIBLE
+  and nobody chose anything. Both take が; only one is a potential form.
+
+  **ましょう / ませんか / 〜ない？ are ONE speech act in three registers**, which
+  is the spine's own framing ("one speech act, both registers"), so ませんか and
+  the casual 〜ない？ share a lesson (L11) rather than being split — splitting
+  them would teach half a contrast twice, the argument m14/m15 used for
+  てから/まえに. The ladder the learner leaves with: 「たべない？」 to a friend,
+  「たべませんか」 to anyone else, 「たべましょう」 once it is settled.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation), and this module's register work
+  is done with ordinary prompt cues ("Say politely:" / "Say to a friend:") per
+  inv 8. NO kanji beats — kanji-set-3 is m28's ledger row, not m24's.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** spinePlan s21 asks for the full potential system
+    including ら抜き recognition, the 見える/聞こえる nuance, and ましょう /
+    ませんか / casual 〜ない？. All of it ships. The ledger row —
+    `mashou` `masenka` `no-ga-jouzu` `no-ga-heta` — is unchanged and every one
+    of the four carries its own rule card.
+  - **FOUR GRAMMAR-POINT IDS ARE IR-LOCAL, and this is a registry HOLE rather
+    than an invented vocabulary.** `n5-grammar-points.json` holds 103 points
+    and NONE of them is the potential form — because the potential is
+    nominally N4 grammar that the dict-form-first rewrite pulled forward, which
+    `docs/spine-n4.md` §1.1 states in so many words ("potential form (full
+    system, incl. ら抜き recognition) | Owned by m24"). Inv 42 forbids inventing
+    an id where the registry HAS one; it cannot require an id that does not
+    exist. `potential-form`, `potential-rareru`, `dekiru` and `mieru-kikoeru`
+    are therefore declared in this IR's `grammarPoints[]`, the same move m11
+    made for `itsu-when` (also absent from the registry, also shipped clean).
+    The registry was deliberately NOT edited: adding a shipped point with no
+    authored pool would force a new entry into `POOL_GAP_EXEMPTIONS`, a list
+    whose own comment says it must shrink and never grow silently, and that is
+    a tooling decision this module has no business making on its own.
+  - **ONE POINT IS RE-TAUGHT rather than re-assigned.** `nai-form` (m6) returns
+    in L5, because a potential verb is a る-verb whatever its base was and its
+    negative is m6's rule applied to a new stem — のめる → のめない is exactly
+    たべる → たべない. That is the module's own argument for why the potential
+    is worth learning as a FORM, so re-teaching the point is the content, not
+    filler. No ledger row moves.
+  - **THREE POTENTIAL FORMS ARE BANNED BECAUSE THEIR KANA ARE ALREADY TAKEN,
+    and each was measured against courseAtoms rather than assumed:**
+      かう → **かえる** is 帰る "to go back" (an m14 row) — a bare かえる tile
+        would credit the wrong verb and nothing would error;
+      かく → **かける** is 掛ける "to call by phone" (an m14 row);
+      つく → **つける** is 付ける "to turn on" (a row exists).
+    Those three verbs never appear in the potential anywhere in this module.
+    **いける is SAFE despite いけ 池 "pond" and いけません** — the tokenizer is
+    longest-match, so いける (3) beats いけ (2) at the same index and いけません
+    (5) still beats both where it occurs. Verified by dumping the compiled
+    `tiles`, not by reading the code.
+  - **SIX VERBS ARE BANNED FROM ましょう FOR THE SAME REASON, one layer down.**
+    ましょう is registered as a SUFFIX (see below), so 「たべましょう」 tiles as
+    たべ + ましょう — the ます-stem tile m19's 〜に いく already ships. That is
+    only safe when the stem is not itself a registered noun, and six of them
+    are: する→**し** is 四 "four", くる→**き** is 木 "tree", かう→**かい** is
+    貝 "shell", まつ→**まち** is 町 "town", つく→**つき** is 月 "moon", and
+    はなす→**はなし** is 話 "talk". 「しましょう」 is too useful to lose, so it
+    is registered WHOLE (5 chars, so longest-match beats し); the other five
+    verbs simply never take ましょう here. The safe stems this module actually
+    uses — たべ・のみ・いき・きき・あそび・およぎ・あるき・み — were each checked
+    against the whole atom registry. Machine-checked in `m24-neo.test.ts`.
+  - **ましょう IS A BOUND SUFFIX and inv 41 is the reason it got checked before
+    it got registered.** ZERO live Japanese surfaces contain the string: m30's
+    only hit is inside an ENGLISH option ("She uses ましょう instead."),
+    `jaSurfaceForms.ts` GENERATES the form for flashcard credit rather than
+    storing it, and the TTS manifest hits are cache keys from the archived
+    old course. Registering the suffix buys every taught verb's volitional at
+    once and shows the ます→ましょう swap in the tile bank, instead of hiding it
+    inside one whole-word atom per verb.
+  - **SEVENTEEN NEW courseAtoms ROWS, every one checked for zero prior
+    occurrences.** のめる いける およげる はなせる あるける たべられる みられる
+    こられる たべれる みれる のめない たべられない できない みえる きこえる
+    ましょう しましょう. No lexicon in this repo can spell a potential form —
+    `ChainForm` has no `potential` cell, so `getRealFormLexicon()` and the
+    compiler's `STEMS` are both blind to のめる — which is why these are whole
+    atoms rather than derived forms, the same call m11 made for the plain past
+    and m14 for the て-form. FOUR MORE atoms are declared in this IR only,
+    because rows already exist under stale old-course tags: できる (m23 tag),
+    いっしょ (m23), じょうず (m9), へた (m9) and もの (m5).
+  - **NO ATOM DEBUTS ON A PICTURE, and the registry is why.** Every potential
+    form is an inflection with no referent a picture could name. The four
+    imageable-looking candidates all fail the m19/m20/m21 tests:
+    **じょうず 👌 is だいじょうぶ's emoji too** and だいじょうぶ is a MET word, so
+    the debut MCQ would draw its distractors from a pool containing a word the
+    picture names equally well; **へた 👎 and いっしょ 👫 are each named by their
+    own rule card**, and a `kind: rule` beat compiles to a PINNED step ahead of
+    the interleaved middle, so the card would steal the debut (the m20/m21
+    rule, and m22's いたい/ねつ precedent); **もの has no referent at all.** The
+    module therefore ships zero `word_image_mcq` steps, which inv 44 explicitly
+    permits — the count is fixed by how many imageable words a module
+    introduces, and this one introduces none.
+  - **もの IS HERE ON PURPOSE.** `exposure-audit` reports exactly ONE
+    under-exposed CEJC top-150 word in the whole course — もの (#56, ×2, and
+    both of those are inside かいもの) — and inv 27 says such a word goes into
+    the next module's carriers. 「たべられない ものが ある」 is where it earns its
+    place: a whole potential clause modifying a noun, which is m15's relative
+    clause doing a job m15 never asked of it.
+  - **CARRIER ROTATION (inv 27).** The 15 worst over-exposed carriers measured
+    this cycle — みせ ×259, ともだち ×243, ほん ×274, いる ×292, ごはん ×223,
+    ください ×257, みず ×163, きのう ×201, あたらしい ×130, えき ×135,
+    かった ×232, うみ ×226, いたい ×165, でんしゃ ×103, ちゃ ×210 — appear
+    NOWHERE in this module. An ability module's natural stock carries the
+    sentences instead: おさけ, コーヒー, ぎゅうにゅう, すし, パン, りょうり,
+    たまご, とりにく, えいが, おんがく, うた, しゃしん, カメラ, じてんしゃ,
+    くるま, ひこうき, ふね, バス, ちかてつ, くうこう, ホテル, やま, かわ, いけ,
+    そら, ほし, さくら, まど, でんわ, けいたい, としょかん, きっさてん, だいがく,
+    かいしゃ, びょういん, はたち, さんぽ, かいもの, もの.
+  - **Words the context pack lists as known but the compiler does not.** The
+    pack is built from `courseAtoms` attribution and overstates. Verified
+    against `priorVocab` (the compiler's truth) and either AVOIDED or
+    INTRODUCED here rather than assumed: へた, じょうず, いっしょ, もの, できる
+    (all introduced), and えいご, はなし, にく, こうえん, へや, プール, ノート,
+    ちかく, そば, ゆっくりと, あい, せっけん, ぴあの, ぱん, ぺん, どあ, あおい,
+    しょうゆ, なく, おもい, いりぐち, ちがいます, へん, あまい, うるさい,
+    あかい, しります, いつつ, よっつ, かく, よむ, とる, うたう, おぼえる, でる,
+    たつ, みがく, なる (all avoided — no neo module teaches them).
+  - **Cloze frames carry no character names and never end in bare だ** (m21/m22
+    findings): a particle_cloze is harvested into the grammar-review deck,
+    whose comprehensibility gate resolves every word through `courseAtoms` —
+    ミカ / トム / ケン / たなか have no rows — and strips only atoms and
+    `TAUGHT_ENDINGS`, which does not include だ. Every frame here picks among
+    CONTENT words (potential forms, dictionary forms, ない-forms, な-adjectives,
+    polite forms) because m24 introduces no particle at all, so a true
+    particle_cloze would be a REVIEW use of the type and inv 5 bans it.
+  - **Clause boundaries are SPACES, never 、** — `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    build target AND a run-on TTS key.
+  - **Gloss discipline (inv 17).** No potential surface is ever glossed with an
+    English progressive: 「のめる」 is "I can drink", never "I'm able to be
+    drinking". いく / くる / かえる keep the motion-futurate "-ing" where a
+    futurate is meant. Every みる is "watch" / "look at", never "read"
+    (`verbGlossFidelity`).
+  - **L7 calls Tom good at cooking and L9 has Tom deny it — that is the card,
+    not a contradiction.** The `no-ga-heta` card says へた "is how a Japanese
+    speaker deflects a compliment", and L9's dialogue is that exact beat: ミカ
+    praises (「トムは りょうりを するのが じょうずだ」), トム deflects (「ううん。
+    ぼくは へただ」). Both halves are true of the same person in Japanese, which
+    is the point of teaching the pair together.
+  - **じょうず is about OTHER people and へた is about yourself.** That is a
+    culture rule, not a grammar rule, and it is stated in the two cards'
+    prose. No sentence in this module has the speaker call themselves じょうず,
+    and the softer way to say someone else is not good — あまり じょうずじゃない
+    — is taught in L9, which is finally a negative for あまり to sit in front of.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. `conjugation:` on a grammar point compiles to
+  `conjugationTransform`, whose `form` must be a `ChainForm` — and there is no
+  `potential` cell in that type. Adding one is an engine change with a
+  course-wide blast radius (`transformDrillDistractors`, the trainer registry,
+  the FSRS form ladder), which is exactly the class of tooling work m12 and m13
+  deferred rather than half-landed. The module drills the derivation with
+  particle_cloze form-pickers and builds instead, and the ramp can be added
+  later without touching this content.
+
+  CONNECTIVES + COMPLEXITY (inv 13): a bare ability sentence is three tiles
+  long — 「おさけが のめる」 — which is precisely the flat texture GATE 7 exists
+  to stop. Nearly every production beat therefore hangs a second clause on
+  から / けど / とき / てから, which is also how ability is actually spoken: you
+  say what you can do in order to say what you are going to do about it.
+
+grammarPoints:
+  - id: potential-form
+    rule: "Japanese has a form that means CAN, and for an う-verb you build it the same way you have built everything else: move the last kana along the chart and add an ending. ます took the い row (のむ → のみます). ない took the あ row (のむ → のまない). The potential takes the え row and adds る. のむ ends in む, so slide to め: のめる, I can drink. いく → いける. およぐ → およげる. あるく → あるける. あそぶ → あそべる. はなす → はなせる. One rule, every う-verb, no exceptions worth worrying about. There is a second half nobody warns you about, and it matters more than the ending. The thing you can do stops being を and becomes が. 「おさけを のむ」 is I drink sake; 「おさけが のめる」 is I can drink sake. The reason is worth one sentence: のめる is not really about doing anything — it says the drinking is POSSIBLE — and が is the particle that has marked the thing under discussion since 「かぎが ある」 in module 6. Same が, same job. And the form you end up with is itself a る-verb, which is going to make the negative free."
+    examples:
+      - { ja: "はたちだから おさけが のめる。", en: "I'm twenty, so I can drink sake." }
+      - { ja: "げんきだから かわで およげる。", en: "I'm well, so I can swim in the river." }
+      - { ja: "じかんが あるから きっさてんに いける。", en: "I have time, so I can go to the coffee shop." }
+      - { ja: "あさは コーヒーが のめるけど ばんは ぎゅうにゅうを のむ。", en: "I can drink coffee in the morning, but at night I drink milk." }
+      - { ja: "じてんしゃが ないけど がっこうまで いける。", en: "I have no bicycle, but I can get as far as school." }
+    antiPattern: { ja: "はたちだから おさけが のむれる。", why: "the potential of のむ moves む to め and adds る — のめる, never のむれる: はたちだから おさけが のめる。" }
+
+  - id: potential-rareru
+    rule: "る-verbs are easier than う-verbs and the irregulars are shorter than the list makes them look. For a る-verb you do not touch the stem at all: drop る, add られる. たべる → たべられる. みる → みられる. おしえる → おしえられる. That is the whole rule — it is attachment, not a row on the chart. くる is the one that changes shape: こられる. And する has no potential form at all, which is the next lesson's word. が does exactly what it did with う-verbs: 「すしが たべられる」. Now the part you will hear long before you are ready for it. In ordinary speech people drop the ら and say 「たべれる」, 「みれる」. It is called ら抜きことば — ら-dropped words — and it is everywhere, on television, in shops, from your friends. So you need to UNDERSTAND it from today. You do not need to say it. Speak たべられる and you are correct with every person in Japan; speak たべれる and some of them will hear a mistake. Recognise the short one, produce the long one, and you never have to think about it again."
+    examples:
+      - { ja: "きっさてんで すしが たべられる。", en: "You can eat sushi at the coffee shop." }
+      - { ja: "としょかんで えいがが みられるから よく いく。", en: "You can watch films at the library, so I go often." }
+      - { ja: "ひまだから あした ミカも こられる。", en: "Mika's free, so she can come tomorrow too." }
+      - { ja: "すしが たべれる。", en: "I can eat sushi. — the casual ら-dropped form; recognise it, but say たべられる" }
+      - { ja: "えいがが みれる。", en: "I can watch a film. — the casual ら-dropped form; recognise it, but say みられる" }
+    antiPattern: { ja: "きっさてんで すしが たべるられる。", why: "a る-verb DROPS る before られる — たべられる, never たべるられる: きっさてんで すしが たべられる。" }
+
+  - id: dekiru
+    rule: "する is the one verb with no potential form, and the reason is that Japanese already had a word for the job: できる. It is not built from anything. You learn it once and you own the whole する family with it — 「さんぽが できる」, 「かいものが できる」, 「りょこうが できる」. Which shows you the bigger half. できる takes a NOUN in front of it with が, and that noun does not have to be a する-word at all: 「にほんの りょうりが できる」 means I can cook Japanese food, with no verb anywhere in the sentence. English needs a different verb for each of those — cook, shop, travel — and Japanese needs one word and a noun. できる is also a る-verb, like every potential form, so it behaves itself everywhere else. And が is not optional here in the way it sometimes is elsewhere: できる has never taken を in its life."
+    examples:
+      - { ja: "にほんの りょうりが できる。", en: "I can cook Japanese food." }
+      - { ja: "げんきだから あした さんぽが できる。", en: "I'm well, so I can go for a walk tomorrow." }
+      - { ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can do the shopping." }
+      - { ja: "なつやすみに りょこうが できるから きっぷを かう。", en: "I can travel in the summer holidays, so I'm buying a ticket." }
+      - { ja: "ひまな とき うちで りょうりが できる。", en: "When I'm free, I can cook at home." }
+    antiPattern: { ja: "にほんの りょうりが すれる。", why: "する has no regular potential — the word is できる: にほんの りょうりが できる。" }
+
+  - id: nai-form
+    rule: "Here is the payoff for the line you have heard three times now: every potential form is a る-verb. のめる, いける, たべられる, できる — all of them end in る and all of them behave like たべる from this moment on. So the negative is module 6's rule, unchanged, applied to a new stem. Drop る, add ない. のめる → のめない. およげる → およげない. たべられる → たべられない. できる → できない. Nothing new to learn, which is the whole argument for treating the potential as a FORM rather than a pile of words. Keep が: 「おさけが のめない」, I can't drink. You will use these more than the positives, because half of what anyone says about ability is what they cannot do. Two things worth adding while you are here. ぜんぜん means not at all and it only ever appears in front of a negative, so 「ぜんぜん りょうりが できない」 is I can't cook a thing. And もの means thing, so 「たべられない ものが ある」 — there are things I can't eat — puts a whole potential clause in front of a noun, which is module 15's relative clause doing a job module 15 never asked of it."
+    examples:
+      - { ja: "おさけが のめないから ぎゅうにゅうを のむ。", en: "I can't drink sake, so I'll have milk." }
+      - { ja: "たまごが たべられないから とりにくを かう。", en: "I can't eat eggs, so I'll buy chicken." }
+      - { ja: "ぜんぜん りょうりが できない。", en: "I can't cook at all." }
+      - { ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine." }
+      - { ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today." }
+    antiPattern: { ja: "おさけが のめるないから ぎゅうにゅうを のむ。", why: "ない REPLACES the final る, it never follows it — のめない: おさけが のめないから ぎゅうにゅうを のむ。" }
+
+  - id: mieru-kikoeru
+    rule: "みられる and みえる are both about seeing and they are not the same sentence. みられる is the potential you built two lessons ago: it says the OPPORTUNITY exists. 「としょかんで えいがが みられる」 — you can watch films at the library, because they have them and you are allowed in. Somebody arranged that. みえる is not about you at all. It says the thing is VISIBLE, and whether anyone is looking is beside the point: 「まどから やまが みえる」, you can see the mountain from the window, which is a fact about the window. Ears divide the same way. きける is I get to listen; きこえる is it reaches my ear. 「こえが きこえる」 means a voice arrives, not that you chose to hear it. Both take が and both are る-verbs, so nothing else changes. And the test is one question: did a person decide? If yes, it is the potential. If the world is simply like that, it is みえる or きこえる."
+    examples:
+      - { ja: "まどから やまが みえる。", en: "You can see the mountain from the window." }
+      - { ja: "ばんは そらに ほしが みえる。", en: "You can see stars in the sky at night." }
+      - { ja: "きっさてんで おんがくが きこえるから すきだ。", en: "You can hear music at the coffee shop, so I like it." }
+      - { ja: "かわが みえるから この ホテルが すきだ。", en: "I like this hotel because you can see the river." }
+      - { ja: "きっさてんの まどから さくらが みえるから よく いく。", en: "You can see cherry blossom from the coffee shop window, so I go often." }
+    antiPattern: { ja: "まどから やまを みえる。", why: "みえる is never about what you DO to something — the visible thing takes が: まどから やまが みえる。" }
+
+  - id: no-ga-jouzu
+    rule: "じょうず means skilled, and it is a な-adjective, so it finishes with だ the way げんきだ does. To say what someone is good AT, take the verb, turn it into a thing with の, and mark that thing with が: 「およぐのが じょうずだ」, good at swimming. That の is module 13's の — the one that turned たべる into something you could like — and here it turns a verb into something you can be good at. The frame is 〜のが じょうずだ and it does not vary. A noun can sit there instead with no の at all: 「うたが じょうずだ」, good at singing. Now the rule that matters more than the grammar. じょうず is what you say about OTHER people. Calling yourself じょうず lands as boasting in a way the English good at simply does not, so Japanese speakers use it generously about their friends and stay quiet about themselves. Say it about other people as often as you can — it is one of the kindest words in the language — and use the next lesson's word about yourself."
+    examples:
+      - { ja: "ミカは およぐのが じょうずだから よく かわに いく。", en: "Mika is good at swimming, so she often goes to the river." }
+      - { ja: "トムは りょうりを するのが じょうずだから いつも おいしい。", en: "Tom is good at cooking, so it's always delicious." }
+      - { ja: "たなかせんせいは はなすのが じょうずだ。", en: "Tanaka is good at speaking." }
+      - { ja: "あねは うたが じょうずだけど ぼくは ばんに きく。", en: "My older sister is good at singing, but I only listen in the evening." }
+      - { ja: "ケンは じてんしゃに のるのが じょうずだ。", en: "Ken is good at riding a bicycle." }
+    antiPattern: { ja: "ミカは およぐが じょうずだから よく かわに いく。", why: "が cannot sit straight on a verb — の turns およぐ into a thing first: ミカは およぐのが じょうずだから よく かわに いく。" }
+
+  - id: no-ga-heta
+    rule: "へた is the opposite word and it is the one you use about yourself. Same frame exactly — 〜のが へただ — and the same な-adjective ending: 「あるくのが へただ」. Where じょうず is for other people, へた is for you, and it is not the confession English makes it sound like: 「ぼくは りょうりを するのが へただ」 is modest, ordinary and completely unremarkable to say. It is also how a Japanese speaker deflects a compliment, so you will hear it constantly right after somebody has praised something. Two more things. First, へた says a skill is not there yet; it is not a judgement about a person. Second, if you want to say someone ELSE is not good at something, へた is too blunt and the polite move is a negative instead: 「あまり じょうずじゃない」, not very good. あまり has been sitting in your vocabulary since module 9 waiting for a negative to stand in front of, and this is it."
+    examples:
+      - { ja: "ぼくは りょうりを するのが へただから きっさてんに いく。", en: "I'm bad at cooking, so I go to the coffee shop." }
+      - { ja: "ぼくは じてんしゃに のるのが へただから だいがくまで あるく。", en: "I'm bad at riding a bicycle, so I walk to university." }
+      - { ja: "ぼくは うたが へただけど たのしいから うたを きく。", en: "I'm bad at singing, but it's fun, so I listen to songs." }
+      - { ja: "ケンは およぐのが あまり じょうずじゃない。", en: "Ken isn't very good at swimming." }
+      - { ja: "あねは およぐのが あまり じょうずじゃないけど かわが すきだ。", en: "My older sister isn't very good at swimming, but she likes the river." }
+    antiPattern: { ja: "ぼくは りょうりを するのが へたいから きっさてんに いく。", why: "へた is a な-adjective and finishes with だ, never い: ぼくは りょうりを するのが へただから きっさてんに いく。" }
+
+  - id: mashou
+    rule: "ましょう is let's. Take the ます-form, take ます off, put ましょう in its place: たべます → たべましょう, いきます → いきましょう, のみます → のみましょう, ききます → ききましょう. する is irregular here as everywhere and becomes しましょう. Two things about it are worth knowing before you use it. It is POLITE — ましょう is built on the ます layer, so it belongs with a teacher, in a shop, with a group you have only just met. And it is CONFIDENT: ましょう assumes everyone already agrees. 「いっしょに たべましょう」 is let's eat together, said as a decision that has gone your way rather than a question. いっしょに means together and sits at the front of the sentence, in front of the object and everything else. So use ましょう when the plan is obvious and welcome — the bill has arrived, the lesson has finished, everybody is hungry. When you are not sure the other person wants to, ましょう is too strong, and the next lesson has the word for that."
+    examples:
+      - { ja: "いっしょに たべましょう。", en: "Let's eat together." }
+      - { ja: "きっさてんで コーヒーを のみましょう。", en: "Let's drink coffee at the coffee shop." }
+      - { ja: "あした いっしょに としょかんに いきましょう。", en: "Let's go to the library together tomorrow." }
+      - { ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's do the shopping." }
+      - { ja: "げんきだから かわで およぎましょう。", en: "We're well, so let's swim in the river." }
+    antiPattern: { ja: "いっしょに たべるましょう。", why: "ましょう replaces ます on the ます-form, never the dictionary form: いっしょに たべましょう。" }
+
+  - id: masenka
+    rule: "ませんか is the same invitation with the door left open. It is literally the polite negative plus か — won't you eat? — and that negative is doing real work: by asking whether you will NOT, it makes saying no easy, which is exactly why it is the polite way to invite somebody who might not want to come. Put the two side by side. 「いっしょに たべませんか」 offers. 「いっしょに たべましょう」 decides. Offer first; decide once they have said yes. Now the casual twin, which you will use far more than either. Drop the polite layer entirely, use the ない-form, and let your voice rise: 「いっしょに たべない？」 — wanna eat? That is the plain-form invitation and it is what friends actually say to each other. So there are three rungs and one meaning: 「たべない？」 to a friend, 「たべませんか」 to anybody else, 「たべましょう」 once it is settled. Nothing else moves — いっしょに still sits at the front, the object still takes を, and the verb is the only thing that changes register."
+    examples:
+      - { ja: "いっしょに たべませんか。", en: "Won't you eat with me?" }
+      - { ja: "あした えいがを みませんか。", en: "Won't you watch a film tomorrow?" }
+      - { ja: "いっしょに たべない？", en: "Wanna eat together? — to a friend" }
+      - { ja: "あした きっさてんに いきませんか。", en: "Won't you go to the coffee shop tomorrow?" }
+      - { ja: "あした うちに こない？", en: "Wanna come over tomorrow? — to a friend" }
+    antiPattern: { ja: "いっしょに たべるませんか。", why: "ません attaches to the ます-form, never the dictionary form: いっしょに たべませんか。" }
+
+newAtoms:
+  # ══ L1. The three う-verb potentials the module opens on. Every one is a NEW
+  #    courseAtoms row (no lexicon here can spell a potential — `ChainForm` has
+  #    no `potential` cell) and every one was checked against the whole live
+  #    corpus for zero prior occurrences before registration. All are
+  #    `imageable: false`: an inflection has no referent a picture could name,
+  #    and 🥤 / 🚶 / 🏊 belong to のむ / いく / およぐ already.
+  - { kana: のめる, romaji: nomeru, gloss: "can drink (potential of のむ)", shortGloss: "can drink", imageable: false, kind: verb }
+  - { kana: いける, romaji: ikeru, gloss: "can go (potential of いく)", shortGloss: "can go", imageable: false, kind: verb }
+  - { kana: およげる, romaji: oyogeru, gloss: "can swim (potential of およぐ)", shortGloss: "can swim", imageable: false, kind: verb }
+  # ══ L2. The る-verb + irregular potentials, and the ら抜き pair. たべれる and
+  #    みれる are RECOGNITION ONLY — they debut on the L2 rule card (labelled in
+  #    the English) and appear only in listening comprehension and dialogue,
+  #    never in a build, translate or speaking target anywhere in the course.
+  - { kana: たべられる, romaji: taberareru, gloss: "can eat (potential of たべる)", shortGloss: "can eat", imageable: false, kind: verb }
+  - { kana: みられる, romaji: mirareru, gloss: "can watch (potential of みる)", shortGloss: "can watch", imageable: false, kind: verb }
+  - { kana: こられる, romaji: korareru, gloss: "can come (potential of くる)", shortGloss: "can come", imageable: false, kind: verb }
+  - { kana: たべれる, romaji: tabereru, gloss: "can eat (casual ら-dropped form)", shortGloss: "can eat (casual)", imageable: false, kind: verb }
+  - { kana: みれる, romaji: mireru, gloss: "can watch (casual ら-dropped form)", shortGloss: "can watch (casual)", imageable: false, kind: verb }
+  # ══ L3. する's suppletive potential. できる already has a courseAtoms row
+  #    under a stale old-course m23 tag and is in NO neo module's priorVocab,
+  #    so it is declared here for provenance — the m15-m23 move.
+  - { kana: できる, romaji: dekiru, gloss: "can do it, to be able to", shortGloss: "can do", imageable: false, kind: verb }
+  # ══ L5. The negative potential — m6's ない-form on a new stem. もの is the
+  #    ONE under-exposed CEJC top-150 word in the whole course (#56, ×2, both
+  #    inside かいもの) and inv 27 puts it here; it already has a courseAtoms
+  #    row, so this declaration is provenance only.
+  - { kana: のめない, romaji: nomenai, gloss: "can't drink (negative potential of のむ)", shortGloss: "can't drink", imageable: false, kind: verb }
+  - { kana: たべられない, romaji: taberarenai, gloss: "can't eat (negative potential of たべる)", shortGloss: "can't eat", imageable: false, kind: verb }
+  - { kana: できない, romaji: dekinai, gloss: "can't do it, isn't possible", shortGloss: "can't do", imageable: false, kind: verb }
+  - { kana: もの, romaji: mono, gloss: "a thing", shortGloss: "thing", imageable: false, kind: vocab }
+  # ══ L6. Spontaneous perception — NOT the potential, which is the whole point
+  #    of the card. 👁️ is みる's and め's; 👂 is みみ's and きく's.
+  - { kana: みえる, romaji: mieru, gloss: "to be visible, to be in sight", shortGloss: "is visible", imageable: false, kind: verb }
+  - { kana: きこえる, romaji: kikoeru, gloss: "to be audible, to reach the ear", shortGloss: "is audible", imageable: false, kind: verb }
+  # ══ L7. Good at. じょうず has a row with 👌 — which is ALSO だいじょうぶ's, a
+  #    MET word, so the debut MCQ would draw a distractor the picture names
+  #    just as well (the m19 ruling). `imageable: false`.
+  - { kana: じょうず, romaji: jouzu, gloss: "skillful, good at", shortGloss: "good at", imageable: false, kind: vocab }
+  - { kana: はなせる, romaji: hanaseru, gloss: "can speak (potential of はなす)", shortGloss: "can speak", imageable: false, kind: verb }
+  # ══ L9. Bad at. へた's 👎 is unique among MET words, but the `no-ga-heta`
+  #    card must name へた and a `kind: rule` beat compiles to a PINNED step
+  #    ahead of the interleaved middle, so the card would steal the debut
+  #    (m20/m21 rule, m22's いたい precedent). `imageable: false`.
+  - { kana: へた, romaji: heta, gloss: "unskillful, bad at", shortGloss: "bad at", imageable: false, kind: vocab }
+  - { kana: あるける, romaji: arukeru, gloss: "can walk (potential of あるく)", shortGloss: "can walk", imageable: false, kind: verb }
+  # ══ L10. ましょう is a BOUND SUFFIX (inv 41) — checked against the whole live
+  #    corpus first, ZERO Japanese surfaces contain it. しましょう is registered
+  #    WHOLE because する's ます-stem し is 四 "four": a bare し tile would credit
+  #    the number. いっしょ's 👫 is ともだち's, a met word — `imageable: false`.
+  - { kana: ましょう, romaji: mashou, gloss: "let's ~ (polite suggestion, on the ます-stem)", shortGloss: "let's ~", imageable: false, kind: vocab }
+  - { kana: しましょう, romaji: shimashou, gloss: "let's do it (polite suggestion)", shortGloss: "let's do", imageable: false, kind: vocab }
+  - { kana: いっしょ, romaji: issho, gloss: "together", shortGloss: "together", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-1
+    role: teaching
+    title: "「おさけが のめる」 — the え row and る"
+    focus: "う-verb potential: slide to the え row, add る, and を becomes が"
+    introduces: [のめる, いける, およげる]
+    beats:
+      - { kind: rule, grammarPointId: potential-form }
+      - { kind: sentence, ja: "はたちだから おさけが のめる。", en: "I'm twenty, so I can drink sake", exercises: [potential-form, kara-because, counter-sai], mode: build }
+      - { kind: sentence, ja: "げんきだから かわで およげる。", en: "I'm well, so I can swim in the river", exercises: [potential-form, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "じかんが あるから きっさてんに いける。", en: "I have time, so I can go to the coffee shop", exercises: [potential-form, ga-existence, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "あさは コーヒーが のめるけど ばんは ぎゅうにゅうを のむ。", en: "I can drink coffee in the morning, but at night I drink milk", exercises: [potential-form, wa-topic, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは あした くうこうに いける。", en: "Mika can go to the airport tomorrow", exercises: [potential-form, wa-topic, ni-location], mode: listening }
+      - { kind: sentence, ja: "ケンは じてんしゃで だいがくに いける。", en: "Ken can get to university by bicycle", exercises: [potential-form, de-action, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "じてんしゃが ないけど がっこうまで いける。", en: "I have no bicycle, but I can get as far as school", exercises: [potential-form, nai-existence, kedo, made-until], mode: build }
+      - { kind: sentence, ja: "おさけが のめる。", en: "Say to a friend: I can drink sake", exercises: [potential-form], mode: translate }
+      - { kind: particle-cloze, stem: "じかんが あるから きっさてんに ", tail: "。", answer: "いける", options: ["いける", "いく", "いった"], en: "I have time, so I can go to the coffee shop", explanation: "いく moves to the え row and adds る — いける, I can go. いく is the plain dictionary form and いった is the past." }
+      - { kind: listening-comp, audio: "トムは かわで およげる。", answer: "Tom can swim in the river", distractors: ["Tom can't swim in the river", "Tom swam in the river", "Tom wants to swim in the river"], exercises: [potential-form, wa-topic] }
+      - { kind: listening-comp, audio: "ミカは はたちだから おさけが のめる。", answer: "Mika is twenty, so she can drink sake", distractors: ["Mika is twenty, so she drinks sake every night", "Mika isn't twenty, so she can't drink sake", "Mika is twenty, and she has drunk sake before"], exercises: [potential-form, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "おさけが のめる？", en: "Can you drink sake?" }
+          - { speaker: "Tom", ja: "うん。はたちだから のめる。", en: "Yeah. I'm twenty, so I can." }
+        questions:
+          - { q: "Why can Tom drink sake?", options: ["He is twenty", "He is a student", "He is Japanese", "He is at a coffee shop"], answer: "He is twenty" }
+      - { kind: challenge, ja: "はたちだから おさけが のめるけど あさは コーヒーを のむ。", en: "I'm twenty, so I can drink sake, but in the morning I drink coffee", combines: [potential-form, kara-because, kedo, wa-topic, wo-object], mode: build }
+    reviewPool: [おさけ, コーヒー, ぎゅうにゅう, きっさてん, だいがく, じてんしゃ, くうこう, かわ, はたち, じかん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-2
+    role: teaching
+    title: "「すしが たべられる」 — られる, and the ら people drop"
+    focus: "る-verbs attach られる; くる → こられる; ら抜き is heard, not spoken"
+    introduces: [たべられる, みられる, こられる, たべれる, みれる]
+    beats:
+      - { kind: rule, grammarPointId: potential-rareru }
+      - { kind: sentence, ja: "きっさてんで すしが たべられる。", en: "You can eat sushi at the coffee shop", exercises: [potential-rareru, de-action], mode: build }
+      - { kind: sentence, ja: "としょかんで えいがが みられるから よく いく。", en: "You can watch films at the library, so I go often", exercises: [potential-rareru, de-action, kara-because, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "ひまだから あした ミカも こられる。", en: "Mika is free, so she can come tomorrow too", exercises: [potential-rareru, na-adj-present, kara-because, mo-also], mode: build }
+      - { kind: sentence, ja: "なつやすみだから ケンも うちに こられる。", en: "It's the summer holidays, so Ken can come over too", exercises: [potential-rareru, kara-because, mo-also, ni-location], mode: build }
+      - { kind: sentence, ja: "ばんに えいがが みられる。", en: "I can watch a film in the evening", exercises: [potential-rareru, ni-time], mode: listening }
+      - { kind: sentence, ja: "ホテルで にほんの りょうりが たべられる。", en: "You can eat Japanese food at the hotel", exercises: [potential-rareru, de-action, no-possession], mode: build }
+      - { kind: sentence, ja: "あした こられるけど ばんは いそがしい。", en: "I can come tomorrow, but I'm busy in the evening", exercises: [potential-rareru, kedo, wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "すしが たべられる。", en: "Say to a friend: I can eat sushi", exercises: [potential-rareru], mode: translate }
+      - { kind: particle-cloze, stem: "としょかんで えいがが ", tail: "から よく いく。", answer: "みられる", options: ["みられる", "みる", "みた"], en: "You can watch films at the library, so I go often", explanation: "みる is a る-verb, so it drops る and adds られる — みられる. みる is the dictionary form and みた is the past." }
+      - { kind: listening-comp, audio: "ケンは すしが たべれる。", answer: "Ken can eat sushi — said the casual ら-dropped way", distractors: ["Ken can't eat sushi", "Ken ate sushi", "Ken wants to eat sushi"], exercises: [potential-rareru, wa-topic] }
+      - { kind: listening-comp, audio: "あした えいがが みれる。", answer: "I can watch a film tomorrow — said the casual ら-dropped way", distractors: ["I watched a film yesterday", "I can't watch a film tomorrow", "I want to watch a film tomorrow"], exercises: [potential-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "すしが たべられる？", en: "Can you eat sushi?" }
+          - { speaker: "Tom", ja: "うん、たべれる。ホテルで たべた。", en: "Yeah, I can. I had some at the hotel." }
+        questions:
+          - { q: "Where did Tom eat sushi?", options: ["At the hotel", "At the library", "At the coffee shop", "He has never eaten it"], answer: "At the hotel" }
+      - { kind: challenge, ja: "ホテルで にほんの りょうりが たべられるけど ちょっと たかい。", en: "You can eat Japanese food at the hotel, but it's a bit expensive", combines: [potential-rareru, de-action, no-possession, kedo, i-adj-present], mode: build }
+    reviewPool: [のめる, いける, およげる, すし, えいが, としょかん, ホテル, りょうり, なつやすみ, うち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-3
+    role: teaching
+    title: "「りょうりが できる」 — the verb that replaces する"
+    focus: "する has no potential — できる does the job, and it takes a NOUN"
+    introduces: [できる]
+    beats:
+      - { kind: rule, grammarPointId: dekiru }
+      - { kind: sentence, ja: "にほんの りょうりが できる。", en: "I can cook Japanese food", exercises: [dekiru, no-possession], mode: build }
+      - { kind: sentence, ja: "げんきだから あした さんぽが できる。", en: "I'm well, so I can go for a walk tomorrow", exercises: [dekiru, na-adj-present, kara-because], mode: build }
+      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can do the shopping", exercises: [dekiru, wa-topic, ga-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "なつやすみに りょこうが できるから きっぷを かう。", en: "I can travel in the summer holidays, so I'm buying a ticket", exercises: [dekiru, ni-time, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ひまな とき うちで りょうりが できる。", en: "When I'm free, I can cook at home", exercises: [dekiru, toki, de-action], mode: listening }
+      - { kind: sentence, ja: "ホテルで かいものが できるけど ちょっと たかい。", en: "You can shop at the hotel, but it's a bit expensive", exercises: [dekiru, de-action, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ケンは あさ さんぽが できるから げんきだ。", en: "Ken can go for a walk in the morning, so he's healthy", exercises: [dekiru, wa-topic, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "にほんの りょうりが できる。", en: "Say to a friend: I can cook Japanese food", exercises: [dekiru], mode: translate }
+      - { kind: particle-cloze, stem: "げんきだから あした さんぽが ", tail: "。", answer: "できる", options: ["できる", "する", "した"], en: "I'm well, so I can go for a walk tomorrow", explanation: "する has no potential form of its own — できる is the word. する is the plain dictionary form and した is the past." }
+      - { kind: listening-comp, audio: "あさは かいものが できる。", answer: "I can do the shopping in the morning", distractors: ["I do the shopping every morning", "I can't do the shopping in the morning", "I did the shopping this morning"], exercises: [dekiru, wa-topic] }
+      - { kind: listening-comp, audio: "なつやすみに りょこうが できる。", answer: "I can travel in the summer holidays", distractors: ["I travelled in the summer holidays", "I intend to travel in the summer holidays", "I can't travel in the summer holidays"], exercises: [dekiru, ni-time] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "にほんの りょうりが できる？", en: "Can you cook Japanese food?" }
+          - { speaker: "Tom", ja: "うん。ひまな とき うちで する。", en: "Yeah. I do it at home when I'm free." }
+        questions:
+          - { q: "When does Tom cook?", options: ["When he is free", "Every morning", "At the hotel", "He has never cooked"], answer: "When he is free" }
+      - { kind: challenge, ja: "なつやすみは ひまだから りょこうが できるけど かいものは しない。", en: "I'm free in the summer holidays, so I can travel, but I won't go shopping", combines: [dekiru, na-adj-present, kara-because, kedo, wa-topic], mode: build }
+    reviewPool: [たべられる, みられる, こられる, りょうり, さんぽ, かいもの, りょこう, きっぷ, なつやすみ, ホテル]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-review-1
+    role: review
+    title: "Review — three formations and one particle"
+    focus: "う-verbs, る-verbs and できる side by side, all of them taking が"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "はたちだから おさけが のめる。", en: "I'm twenty, so I can drink sake", exercises: [potential-form, kara-because], mode: build }
+      - { kind: sentence, ja: "きっさてんで すしが たべられる。", en: "You can eat sushi at the coffee shop", exercises: [potential-rareru, de-action], mode: build }
+      - { kind: sentence, ja: "げんきだから あした さんぽが できる。", en: "I'm well, so I can go for a walk tomorrow", exercises: [dekiru, kara-because], mode: listening }
+      - { kind: sentence, ja: "じかんが あるから きっさてんに いける。", en: "I have time, so I can go to the coffee shop", exercises: [potential-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "ひまだから あした ミカも こられる。", en: "Mika is free, so she can come tomorrow too", exercises: [potential-rareru, mo-also], mode: build }
+      - { kind: particle-cloze, stem: "げんきだから かわで ", tail: "。", answer: "およげる", options: ["およげる", "およぐ", "およいだ"], en: "I'm well, so I can swim in the river", explanation: "およぐ moves to the え row and adds る — およげる, I can swim. およぐ is the dictionary form and およいだ is the past." }
+      - { kind: sentence, ja: "としょかんで えいがが みられるから よく いく。", en: "You can watch films at the library, so I go often", exercises: [potential-rareru, kara-because], mode: build }
+      - { kind: listening-comp, audio: "ホテルで にほんの りょうりが たべられる。", answer: "You can eat Japanese food at the hotel", distractors: ["You can't eat Japanese food at the hotel", "I ate Japanese food at the hotel", "You can cook Japanese food at the hotel"], exercises: [potential-rareru, de-action] }
+      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can do the shopping", exercises: [dekiru, kara-because], mode: build }
+      - { kind: sentence, ja: "あした くうこうに いける。", en: "Say to a friend: I can go to the airport tomorrow", exercises: [potential-form], mode: translate }
+      - { kind: listening-comp, audio: "ケンは じてんしゃで だいがくに いける。", answer: "Ken can get to university by bicycle", distractors: ["Ken goes to university by bicycle every day", "Ken can't get to university by bicycle", "Ken went to university by bicycle"], exercises: [potential-form, de-action] }
+      - { kind: sentence, ja: "なつやすみに りょこうが できるから きっぷを かう。", en: "I can travel in the summer holidays, so I'm buying a ticket", exercises: [dekiru, wo-object], mode: build }
+      - { kind: sentence, ja: "あした こられるけど ばんは いそがしい。", en: "I can come tomorrow, but I'm busy in the evening", exercises: [potential-rareru, kedo], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "あした としょかんに いける？", en: "Can you get to the library tomorrow?" }
+          - { speaker: "Mika", ja: "うん、いける。じてんしゃで いく。", en: "Yeah, I can. I'll go by bicycle." }
+        questions:
+          - { q: "How is Mika getting to the library?", options: ["By bicycle", "By bus", "On foot", "She can't get there"], answer: "By bicycle" }
+    reviewPool: [のめる, いける, およげる, たべられる, みられる, こられる, できる, きっさてん, としょかん, さんぽ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-5
+    role: teaching
+    title: "「おさけが のめない」 — every can-form is a る-verb"
+    focus: "Drop る, add ない — m6's rule on a brand-new stem"
+    introduces: [のめない, たべられない, できない, もの]
+    beats:
+      - { kind: rule, grammarPointId: nai-form }
+      - { kind: sentence, ja: "おさけが のめないから ぎゅうにゅうを のむ。", en: "I can't drink sake, so I'll have milk", exercises: [nai-form, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "たまごが たべられないから とりにくを かう。", en: "I can't eat eggs, so I'll buy chicken", exercises: [nai-form, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ぜんぜん りょうりが できない。", en: "I can't cook at all", exercises: [nai-form, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, ga-existence, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today", exercises: [nai-form, ga-existence, kara-because, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ミカは おさけが のめないから コーヒーを かう。", en: "Mika can't drink sake, so she's buying coffee", exercises: [nai-form, wa-topic, kara-because], mode: build }
+      - { kind: sentence, ja: "びょうきだから きょうは おさけが のめない。", en: "I'm ill, so I can't drink sake today", exercises: [nai-form, na-adj-present, kara-because, wa-topic], mode: build }
+      - { kind: sentence, ja: "たまごが たべられない。", en: "Say to a friend: I can't eat eggs", exercises: [nai-form], mode: translate }
+      - { kind: particle-cloze, stem: "たまごが ", tail: "から とりにくを かう。", answer: "たべられない", options: ["たべられない", "たべられる", "たべない"], en: "I can't eat eggs, so I'll buy chicken", explanation: "たべられる is a る-verb, so its negative drops る and adds ない — たべられない. たべられる is the positive and たべない just means don't eat." }
+      - { kind: listening-comp, audio: "ミカは ぜんぜん りょうりが できない。", answer: "Mika can't cook at all", distractors: ["Mika can cook a little", "Mika didn't cook at all", "Mika doesn't like cooking at all"], exercises: [nai-form, frequency-adverbs] }
+      - { kind: listening-comp, audio: "たべられない ものが ある。", answer: "There are things I can't eat", distractors: ["There is nothing I can't eat", "There are things I don't want to eat", "I have eaten some strange things"], exercises: [nai-form, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たべられない ものが ある？", en: "Are there things you can't eat?" }
+          - { speaker: "Tom", ja: "うん。たまごが たべられない。", en: "Yeah. I can't eat eggs." }
+        questions:
+          - { q: "What can't Tom eat?", options: ["Eggs", "Sushi", "Chicken", "Nothing at all"], answer: "Eggs" }
+      - { kind: challenge, ja: "ぜんぜん りょうりが できないけど きっさてんで にほんの りょうりが たべられる。", en: "I can't cook at all, but I can eat Japanese food at the coffee shop", combines: [nai-form, dekiru, potential-rareru, de-action, kedo], mode: build }
+    reviewPool: [できる, たべられる, のめる, たまご, とりにく, ぎゅうにゅう, りょうり, ねつ, さんぽ, もの]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-6
+    role: teaching
+    title: "「やまが みえる」 — what you can see is not what you get to watch"
+    focus: "みられる is an opportunity; みえる is a fact about the world"
+    introduces: [みえる, きこえる]
+    beats:
+      - { kind: rule, grammarPointId: mieru-kikoeru }
+      - { kind: sentence, ja: "まどから やまが みえる。", en: "You can see the mountain from the window", exercises: [mieru-kikoeru, kara-origin], mode: build }
+      - { kind: sentence, ja: "ばんは そらに ほしが みえる。", en: "You can see stars in the sky at night", exercises: [mieru-kikoeru, wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "きっさてんで おんがくが きこえるから すきだ。", en: "You can hear music at the coffee shop, so I like it", exercises: [mieru-kikoeru, de-action, kara-because, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "かわが みえるから この ホテルが すきだ。", en: "I like this hotel because you can see the river", exercises: [mieru-kikoeru, kara-because, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "まどから さくらが みえる。", en: "You can see cherry blossom from the window", exercises: [mieru-kikoeru, kara-origin], mode: listening }
+      - { kind: sentence, ja: "きっさてんの まどから さくらが みえるから よく いく。", en: "You can see cherry blossom from the coffee shop window, so I go often", exercises: [mieru-kikoeru, no-possession, kara-origin, kara-because, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "ミカの こえが きこえるから まどを みる。", en: "I can hear Mika's voice, so I'll look out of the window", exercises: [mieru-kikoeru, no-possession, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "まどから やまが みえる。", en: "Say to a friend: You can see the mountain from the window", exercises: [mieru-kikoeru], mode: translate }
+      - { kind: particle-cloze, stem: "まどから やまが ", tail: "。", answer: "みえる", options: ["みえる", "みられる", "みる"], en: "You can see the mountain from the window", explanation: "nobody arranged the mountain — it is simply visible, so the verb is みえる. みられる would mean somebody lets you watch it, and みる is just to look." }
+      - { kind: listening-comp, audio: "きっさてんで おんがくが きこえる。", answer: "You can hear music at the coffee shop", distractors: ["You can listen to music at the coffee shop if you ask", "I heard music at the coffee shop yesterday", "You can't hear music at the coffee shop"], exercises: [mieru-kikoeru, de-action] }
+      - { kind: listening-comp, audio: "ばんは そらに ほしが よく みえる。", answer: "You can see the stars well in the sky at night", distractors: ["You can watch the stars at night if you go outside", "I saw the stars in the sky last night", "You can't see the stars in the sky at night"], exercises: [mieru-kikoeru, wa-topic] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "まどから なにが みえる？", en: "What can you see from the window?" }
+          - { speaker: "Mika", ja: "やまが みえる。さくらも みえる。", en: "You can see the mountain. And the cherry blossom." }
+        questions:
+          - { q: "What can Mika see from the window?", options: ["The mountain and the cherry blossom", "The mountain only", "The river and the sky", "Nothing at all"], answer: "The mountain and the cherry blossom" }
+      - { kind: challenge, ja: "この ホテルは まどから かわが みえるから すきだけど ちょっと たかい。", en: "I like this hotel because you can see the river from the window, but it's a bit expensive", combines: [mieru-kikoeru, kara-because, suki-kirai-no, kedo, i-adj-present], mode: build }
+    reviewPool: [みえる, きこえる, まど, やま, そら, ほし, さくら, おんがく, こえ, ホテル]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-7
+    role: teaching
+    title: "「およぐのが じょうずだ」 — the word you say about other people"
+    focus: "〜のが じょうずだ, and why it is never about yourself"
+    introduces: [じょうず, はなせる]
+    beats:
+      - { kind: rule, grammarPointId: no-ga-jouzu }
+      - { kind: sentence, ja: "ミカは およぐのが じょうずだから よく かわに いく。", en: "Mika is good at swimming, so she often goes to the river", exercises: [no-ga-jouzu, wa-topic, kara-because, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "トムは りょうりを するのが じょうずだから いつも おいしい。", en: "Tom is good at cooking, so it's always delicious", exercises: [no-ga-jouzu, wo-object, kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たなかせんせいは はなすのが じょうずだ。", en: "Tanaka is good at speaking", exercises: [no-ga-jouzu, wa-topic, dictionary-form], mode: build }
+      - { kind: sentence, ja: "あねは うたが じょうずだけど ぼくは ばんに きく。", en: "My older sister is good at singing, but I only listen in the evening", exercises: [no-ga-jouzu, kedo, wa-topic, ni-time], mode: build }
+      - { kind: sentence, ja: "ケンは じてんしゃに のるのが じょうずだ。", en: "Ken is good at riding a bicycle", exercises: [no-ga-jouzu, ni-location, wa-topic], mode: listening }
+      - { kind: sentence, ja: "でんわで かぞくと はなせるから げんきだ。", en: "I can talk to my family on the phone, so I'm doing fine", exercises: [potential-form, de-action, to-and, kara-because], mode: build }
+      - { kind: sentence, ja: "ちちは りょうりを するのが じょうずじゃないけど いつも する。", en: "My father isn't good at cooking, but he always does it", exercises: [no-ga-jouzu, na-adj-negative, kedo, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "ミカは およぐのが じょうずだ。", en: "Say to a friend: Mika is good at swimming", exercises: [no-ga-jouzu], mode: translate }
+      - { kind: particle-cloze, stem: "かわで およぐのが ", tail: "だから なつやすみが たのしい。", answer: "じょうず", options: ["じょうず", "すき", "きらい"], en: "She is good at swimming in the river, so the summer holidays are fun", explanation: "じょうず says the skill is there. すき says she likes it and きらい says she hates it — all three are real, but only one is about skill." }
+      - { kind: listening-comp, audio: "トムは りょうりを するのが じょうずだ。", answer: "Tom is good at cooking", distractors: ["Tom likes cooking", "Tom isn't good at cooking", "Tom cooked something delicious"], exercises: [no-ga-jouzu, wa-topic] }
+      - { kind: listening-comp, audio: "でんわで かぞくと はなせる。", answer: "I can talk to my family on the phone", distractors: ["I talked to my family on the phone", "I can't talk to my family on the phone", "I want to talk to my family on the phone"], exercises: [potential-form, to-and] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカは およぐのが じょうずだ。", en: "Mika is good at swimming." }
+          - { speaker: "Ken", ja: "うん。なつやすみに よく かわに いく。", en: "Yeah. She often goes to the river in the summer." }
+        questions:
+          - { q: "Where does Mika often go in the summer?", options: ["To the river", "To the sea", "To the library", "To the coffee shop"], answer: "To the river" }
+      - { kind: challenge, ja: "あねは うたが じょうずだから ばんに うたを きくのが たのしい。", en: "My older sister is good at singing, so listening to songs in the evening is fun", combines: [no-ga-jouzu, kara-because, ni-time, i-adj-present, wo-object], mode: build }
+    reviewPool: [じょうず, はなせる, うた, かぞく, でんわ, あね, いもうと, かわ, りょうり, じてんしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-review-2
+    role: review
+    title: "Review — can't, is visible, and good at"
+    focus: "The negative potential, みえる/きこえる, and 〜のが じょうずだ"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "おさけが のめないから ぎゅうにゅうを のむ。", en: "I can't drink sake, so I'll have milk", exercises: [nai-form, kara-because], mode: build }
+      - { kind: sentence, ja: "まどから やまが みえる。", en: "You can see the mountain from the window", exercises: [mieru-kikoeru, kara-origin], mode: build }
+      - { kind: sentence, ja: "ミカは およぐのが じょうずだから よく かわに いく。", en: "Mika is good at swimming, so she often goes to the river", exercises: [no-ga-jouzu, kara-because], mode: listening }
+      - { kind: sentence, ja: "たまごが たべられないから とりにくを かう。", en: "I can't eat eggs, so I'll buy chicken", exercises: [nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "きっさてんで おんがくが きこえるから すきだ。", en: "You can hear music at the coffee shop, so I like it", exercises: [mieru-kikoeru, suki-kirai-no], mode: build }
+      - { kind: particle-cloze, stem: "ばんは そらに ほしが ", tail: "から やまに いく。", answer: "みえる", options: ["みえる", "みられる", "みた"], en: "You can see stars in the sky at night, so I go to the mountains", explanation: "nobody arranged the stars — they are simply visible, so the verb is みえる. みられる would mean somebody lets you watch them, and みた is the past of みる." }
+      - { kind: sentence, ja: "ぜんぜん りょうりが できない。", en: "I can't cook at all", exercises: [nai-form, frequency-adverbs], mode: build }
+      - { kind: listening-comp, audio: "トムは りょうりを するのが じょうずだから いつも おいしい。", answer: "Tom is good at cooking, so it's always delicious", distractors: ["Tom likes cooking, so he does it a lot", "Tom isn't good at cooking, but he tries", "Tom cooked something delicious yesterday"], exercises: [no-ga-jouzu, kara-because] }
+      - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, kedo], mode: build }
+      - { kind: sentence, ja: "でんわで かぞくと はなせる。", en: "Say to a friend: I can talk to my family on the phone", exercises: [potential-form], mode: translate }
+      - { kind: listening-comp, audio: "びょうきだから きょうは おさけが のめない。", answer: "I'm ill, so I can't drink sake today", distractors: ["I was ill, so I didn't drink sake yesterday", "I'm ill, but I can drink sake today", "I'm ill, so I don't want sake today"], exercises: [nai-form, kara-because] }
+      - { kind: sentence, ja: "かわが みえるから この ホテルが すきだ。", en: "I like this hotel because you can see the river", exercises: [mieru-kikoeru, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "ケンは じてんしゃに のるのが じょうずだ。", en: "Ken is good at riding a bicycle", exercises: [no-ga-jouzu, ni-location], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "たまごが たべられる？", en: "Can you eat eggs?" }
+          - { speaker: "Tom", ja: "ううん、たべられない。とりにくは たべられる。", en: "No, I can't. I can eat chicken, though." }
+        questions:
+          - { q: "What can Tom eat?", options: ["Chicken", "Eggs", "Both eggs and chicken", "Neither"], answer: "Chicken" }
+    reviewPool: [のめない, たべられない, できない, みえる, きこえる, じょうず, もの, たまご, とりにく, おんがく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-9
+    role: teaching
+    title: "「するのが へただ」 — the word you say about yourself"
+    focus: "〜のが へただ, and あまり じょうずじゃない for everyone else"
+    introduces: [へた, あるける]
+    beats:
+      - { kind: rule, grammarPointId: no-ga-heta }
+      - { kind: sentence, ja: "ぼくは りょうりを するのが へただから きっさてんに いく。", en: "I'm bad at cooking, so I go to the coffee shop", exercises: [no-ga-heta, wa-topic, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "ぼくは じてんしゃに のるのが へただから だいがくまで あるく。", en: "I'm bad at riding a bicycle, so I walk to university", exercises: [no-ga-heta, wa-topic, kara-because, made-until], mode: build }
+      - { kind: sentence, ja: "ぼくは うたが へただけど たのしいから うたを きく。", en: "I'm bad at singing, but it's fun, so I listen to songs", exercises: [no-ga-heta, kedo, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンは およぐのが あまり じょうずじゃない。", en: "Ken isn't very good at swimming", exercises: [no-ga-heta, na-adj-negative, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "げんきだから だいがくまで あるける。", en: "I'm well, so I can walk to university", exercises: [potential-form, na-adj-present, kara-because, made-until], mode: build }
+      - { kind: sentence, ja: "あねは およぐのが あまり じょうずじゃないけど かわが すきだ。", en: "My older sister isn't very good at swimming, but she likes the river", exercises: [no-ga-heta, na-adj-negative, kedo, suki-kirai-no], mode: listening }
+      - { kind: sentence, ja: "いもうとは はなすのが あまり じょうずじゃないけど えいがを みるのが すきだ。", en: "My little sister isn't very good at speaking, but she likes watching films", exercises: [no-ga-heta, na-adj-negative, kedo, no-ga-suki], mode: build }
+      - { kind: sentence, ja: "ぼくは うたが へただ。", en: "Say to a friend: I'm bad at singing", exercises: [no-ga-heta], mode: translate }
+      - { kind: particle-cloze, stem: "りょうりを するのが ", tail: "だから きっさてんに いく。", answer: "へた", options: ["へた", "じょうず", "すき"], en: "I'm bad at cooking, so I go to the coffee shop", explanation: "へた says the skill is not there. じょうず says the opposite and すき only says you like it." }
+      - { kind: listening-comp, audio: "トムは およぐのが あまり じょうずじゃない。", answer: "Tom isn't very good at swimming", distractors: ["Tom is very good at swimming", "Tom doesn't like swimming very much", "Tom can't swim at all"], exercises: [no-ga-heta, na-adj-negative] }
+      - { kind: listening-comp, audio: "げんきだから がっこうまで あるける。", answer: "I'm well, so I can walk to school", distractors: ["I'm well, so I walked to school", "I'm not well, so I can't walk to school", "I'm well, so I want to walk to school"], exercises: [potential-form, made-until] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "トムは りょうりを するのが じょうずだ。", en: "Tom is good at cooking." }
+          - { speaker: "Tom", ja: "ううん。ぼくは へただ。きっさてんに いく。", en: "No. I'm bad at it. I go to the coffee shop." }
+        questions:
+          - { q: "What does Tom say about his cooking?", options: ["He is bad at it", "He is good at it", "He never cooks eggs", "He cooks at the library"], answer: "He is bad at it" }
+      - { kind: challenge, ja: "ぼくは はなすのが へただけど でんわで かぞくと はなせる。", en: "I'm bad at speaking, but I can talk to my family on the phone", combines: [no-ga-heta, potential-form, kedo, de-action, to-and], mode: build }
+    reviewPool: [へた, あるける, じょうず, りょうり, うた, じてんしゃ, だいがく, きっさてん, いもうと, あね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-10
+    role: teaching
+    title: "「いっしょに たべましょう」 — the plan everyone already agrees with"
+    focus: "ます-form minus ます plus ましょう — polite, and confident"
+    introduces: [ましょう, しましょう, いっしょ]
+    beats:
+      - { kind: rule, grammarPointId: mashou }
+      - { kind: sentence, ja: "いっしょに たべましょう。", en: "Say politely: Let's eat together", exercises: [mashou, masu-present], mode: build }
+      - { kind: sentence, ja: "きっさてんで コーヒーを のみましょう。", en: "Say politely: Let's drink coffee at the coffee shop", exercises: [mashou, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "あした いっしょに としょかんに いきましょう。", en: "Say politely: Let's go to the library together tomorrow", exercises: [mashou, ni-location], mode: build }
+      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's do the shopping", exercises: [mashou, ga-existence, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "げんきだから かわで およぎましょう。", en: "Say politely: We're well, so let's swim in the river", exercises: [mashou, kara-because, de-action], mode: listening }
+      - { kind: sentence, ja: "ばんに いっしょに えいがを みましょう。", en: "Say politely: Let's watch a film together in the evening", exercises: [mashou, ni-time, wo-object], mode: build }
+      - { kind: sentence, ja: "じかんが ないから バスに のりましょう。", en: "Say politely: We have no time, so let's take the bus", exercises: [mashou, nai-existence, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "いっしょに たべましょう。", en: "Say politely: Let's eat together", exercises: [mashou], mode: translate }
+      - { kind: particle-cloze, stem: "きっさてんで コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のみません", "のみたい"], en: "Let's drink coffee at the coffee shop", explanation: "ましょう replaces ます on the ます-form — のみましょう, let's drink. のみません says you don't drink and のみたい says you want to." }
+      - { kind: listening-comp, audio: "あした いっしょに きっさてんに いきましょう。", answer: "Let's go to the coffee shop together tomorrow", distractors: ["Won't you go to the coffee shop with me tomorrow?", "I'm going to the coffee shop tomorrow", "I went to the coffee shop yesterday"], exercises: [mashou, ni-location] }
+      - { kind: listening-comp, audio: "ひまだから かいものを しましょう。", answer: "We're free, so let's do the shopping", distractors: ["We're busy, so let's not go shopping", "I'm free, so I'll do the shopping", "We were free, so we did the shopping"], exercises: [mashou, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's do the shopping." }
+          - { speaker: "Mika", ja: "はい。いっしょに いきましょう。", en: "Yes. Let's go together." }
+        questions:
+          - { q: "What does Tanaka suggest?", options: ["Doing the shopping", "Going to the library", "Drinking coffee", "Swimming in the river"], answer: "Doing the shopping" }
+      - { kind: challenge, ja: "じかんが あるから いっしょに きっさてんで コーヒーを のみましょう。", en: "Say politely: We have time, so let's drink coffee together at the coffee shop", combines: [mashou, ga-existence, kara-because, de-action, wo-object], mode: build }
+    reviewPool: [ましょう, しましょう, いっしょ, コーヒー, きっさてん, としょかん, おんがく, かいもの, バス, じかん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-11
+    role: teaching
+    title: "「たべませんか」 と 「たべない？」 — one invitation, three registers"
+    focus: "ませんか offers, ましょう decides, 〜ない？ is what friends say"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: masenka }
+      - { kind: sentence, ja: "いっしょに たべませんか。", en: "Say politely: Won't you eat with me", exercises: [masenka, masu-negative, ka-question], mode: build }
+      - { kind: sentence, ja: "あした えいがを みませんか。", en: "Say politely: Won't you watch a film tomorrow", exercises: [masenka, wo-object, ka-question], mode: build }
+      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: build }
+      - { kind: sentence, ja: "あした きっさてんに いきませんか。", en: "Say politely: Won't you go to the coffee shop tomorrow", exercises: [masenka, ni-location, ka-question], mode: build }
+      - { kind: sentence, ja: "あした うちに こない？", en: "Say to a friend: Wanna come over tomorrow", exercises: [masenka, nai-form, ni-location], mode: listening }
+      - { kind: sentence, ja: "じかんが あるから いっしょに かわで およがない？", en: "Say to a friend: We have time, so wanna swim in the river", exercises: [masenka, nai-form, ga-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "ばんに いっしょに コーヒーを のみませんか。", en: "Say politely: Won't you have a coffee together in the evening", exercises: [masenka, ni-time, wo-object], mode: build }
+      - { kind: sentence, ja: "あした えいがを みない？", en: "Say to a friend: Wanna watch a film tomorrow", exercises: [masenka], mode: translate }
+      - { kind: particle-cloze, stem: "あした えいがを ", tail: "。", answer: "みませんか", options: ["みませんか", "みましょう", "みません"], en: "Won't you watch a film tomorrow?", explanation: "ませんか is the invitation that leaves room to say no. みましょう decides for both of you and みません just says you don't watch." }
+      - { kind: listening-comp, audio: "あした いっしょに すしを たべませんか。", answer: "Won't you eat sushi with me tomorrow?", distractors: ["Let's eat sushi together tomorrow", "I won't eat sushi with you tomorrow", "Have you eaten sushi before?"], exercises: [masenka, masu-negative] }
+      - { kind: listening-comp, audio: "ひまだから いっしょに かわで およがない？", answer: "We're free, so wanna swim in the river?", distractors: ["We're busy, so we can't swim in the river", "We were free, so we swam in the river", "I can't swim in the river"], exercises: [masenka, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした いっしょに えいがを みない？", en: "Wanna watch a film together tomorrow?" }
+          - { speaker: "Tom", ja: "うん。ばんは ひまだから いける。", en: "Yeah. I'm free in the evening, so I can make it." }
+        questions:
+          - { q: "When is Tom free?", options: ["In the evening", "In the morning", "At the weekend", "He is not free at all"], answer: "In the evening" }
+      - { kind: challenge, ja: "あした ひまだから いっしょに としょかんに いきませんか。", en: "Say politely: I'm free tomorrow, so won't you go to the library with me", combines: [masenka, na-adj-present, kara-because, ni-location, ka-question], mode: build }
+    reviewPool: [ましょう, いっしょ, えいが, きっさてん, としょかん, おんがく, かわ, うち, ひま, ばん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-review-3
+    role: review
+    title: "Review — bad at it, let's anyway"
+    focus: "〜のが へただ, ましょう, ませんか and the casual 〜ない？"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ぼくは りょうりを するのが へただから きっさてんに いく。", en: "I'm bad at cooking, so I go to the coffee shop", exercises: [no-ga-heta, kara-because], mode: build }
+      - { kind: sentence, ja: "いっしょに たべましょう。", en: "Say politely: Let's eat together", exercises: [mashou, masu-present], mode: build }
+      - { kind: sentence, ja: "あした えいがを みませんか。", en: "Say politely: Won't you watch a film tomorrow", exercises: [masenka, ka-question], mode: listening }
+      - { kind: sentence, ja: "ケンは およぐのが あまり じょうずじゃない。", en: "Ken isn't very good at swimming", exercises: [no-ga-heta, na-adj-negative], mode: build }
+      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's do the shopping", exercises: [mashou, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "あした いっしょに かわで ", tail: "。", answer: "およぎましょう", options: ["およぎましょう", "およいだ", "およがない"], en: "Let's swim in the river together tomorrow", explanation: "ましょう replaces ます on the ます-form — およぎましょう, let's swim. およいだ is the plain past and およがない says you won't." }
+      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: build }
+      - { kind: listening-comp, audio: "ぼくは じてんしゃに のるのが へただから だいがくまで あるく。", answer: "I'm bad at riding a bicycle, so I walk to university", distractors: ["I'm good at riding a bicycle, so I ride to university", "I can't walk to university, so I ride a bicycle", "I walked to university yesterday"], exercises: [no-ga-heta, made-until] }
+      - { kind: sentence, ja: "げんきだから だいがくまで あるける。", en: "I'm well, so I can walk to university", exercises: [potential-form, made-until], mode: build }
+      - { kind: sentence, ja: "あした きっさてんに いきませんか。", en: "Say politely: Won't you go to the coffee shop tomorrow", exercises: [masenka], mode: translate }
+      - { kind: listening-comp, audio: "あした うちに こない？", answer: "Wanna come over tomorrow?", distractors: ["Won't you come over tomorrow? (polite)", "I can't come over tomorrow", "Did you come over yesterday?"], exercises: [masenka, nai-form] }
+      - { kind: sentence, ja: "あした いっしょに かわで およぎましょう。", en: "Say politely: Let's swim in the river together tomorrow", exercises: [mashou, de-action], mode: build }
+      - { kind: sentence, ja: "ぼくは うたが へただけど たのしいから うたを きく。", en: "I'm bad at singing, but it's fun, so I listen to songs", exercises: [no-ga-heta, kedo], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "いっしょに きっさてんに いきませんか。", en: "Won't you go to the coffee shop with me?" }
+          - { speaker: "Ken", ja: "はい。コーヒーを のみましょう。", en: "Yes. Let's have a coffee." }
+        questions:
+          - { q: "What does Ken suggest they drink?", options: ["Coffee", "Milk", "Sake", "Tea"], answer: "Coffee" }
+    reviewPool: [へた, あるける, ましょう, しましょう, いっしょ, きっさてん, としょかん, おんがく, だいがく, うた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m24-neo-challenge
+    role: challenge
+    title: "Challenge — everything you can do, and everything you're inviting them to"
+    focus: "End-of-module stretch: an ability, a skill and an invitation in one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ミカは およぐのが じょうずだから いっしょに かわに いきませんか。", en: "Say politely: Mika is good at swimming, so won't you come to the river with us", exercises: [no-ga-jouzu, masenka, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "たまごが たべられないけど とりにくは たべられる。", en: "I can't eat eggs, but I can eat chicken", exercises: [nai-form, potential-rareru, kedo, wa-topic], mode: build }
+      - { kind: sentence, ja: "まどから かわが みえるから この ホテルに いきましょう。", en: "Say politely: You can see the river from the window, so let's go to this hotel", exercises: [mieru-kikoeru, mashou, kara-because, kono-sono-ano-dono], mode: listening }
+      - { kind: sentence, ja: "ぼくは りょうりを するのが へただから きっさてんで たべない？", en: "Say to a friend: I'm bad at cooking, so shall we eat at the coffee shop", exercises: [no-ga-heta, masenka, nai-form, de-action], mode: build }
+      - { kind: sentence, ja: "はたちだから おさけが のめるけど きょうは ぎゅうにゅうを のむ。", en: "I'm twenty, so I can drink sake, but today I'll have milk", exercises: [potential-form, kedo, wa-topic, wo-object], mode: build }
+      - { kind: sentence, ja: "ひまな とき としょかんで えいがが みられる。", en: "When I'm free, I can watch films at the library", exercises: [potential-rareru, toki, de-action], mode: build }
+      - { kind: sentence, ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today", exercises: [nai-form, ga-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: translate }
+      - { kind: particle-cloze, stem: "げんきだから だいがくまで ", tail: "。", answer: "あるける", options: ["あるける", "あるく", "あるいて"], en: "I'm well, so I can walk to university", explanation: "あるく moves to the え row and adds る — あるける, I can walk. あるく is the dictionary form and あるいて is the て-form." }
+      - { kind: listening-comp, audio: "きっさてんで おんがくが きこえるから すきだ。", answer: "You can hear music at the coffee shop, so I like it", distractors: ["You can listen to music at the coffee shop if you ask", "I heard music at the coffee shop, so I liked it", "You can't hear music at the coffee shop"], exercises: [mieru-kikoeru, suki-kirai-no] }
+      - { kind: listening-comp, audio: "あした いっしょに としょかんに いきましょう。", answer: "Let's go to the library together tomorrow", distractors: ["Won't you go to the library with me tomorrow?", "I can go to the library tomorrow", "We went to the library together yesterday"], exercises: [mashou, ni-location] }
+      - { kind: sentence, ja: "ぜんぜん りょうりが できないけど かいものは できる。", en: "I can't cook at all, but I can do the shopping", exercises: [nai-form, dekiru, kedo, wa-topic], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あした いっしょに かわで およがない？", en: "Wanna swim in the river together tomorrow?" }
+          - { speaker: "Tom", ja: "ぼくは およぐのが へただ。きっさてんに いきましょう。", en: "I'm bad at swimming. Let's go to the coffee shop." }
+        questions:
+          - { q: "What does Tom suggest instead?", options: ["Going to the coffee shop", "Swimming in the river", "Going to the library", "Watching a film"], answer: "Going to the coffee shop" }
+      - { kind: challenge, ja: "ぼくは およぐのが へただから いっしょに きっさてんに いきませんか。", en: "Say politely: I'm bad at swimming, so won't you come to the coffee shop with me instead", combines: [no-ga-heta, masenka, kara-because, ni-location, wa-topic], mode: build }
+    reviewPool: [のめる, たべられる, できる, みえる, きこえる, じょうず, へた, ましょう, いっしょ, もの]

@@ -5,12 +5,31 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE (state as of 2026-07-27, after the m22 commit)
+## ⏵ RESUME HERE (state as of 2026-07-27, after the m23 commit)
 
-**Last commit: `711549c6`. Working tree clean apart from m23's in-flight work.**
+**Last commit: `75b8504e`. Working tree carries m24, UNCOMMITTED.**
 
-- **DONE and committed:** m11–m23. QA verdicts SHIP for m20, m21, m22; m23 QA
-  dispatched. Gate re-run independently for m23: 7423 passing, audit row `—`,
+- **DONE and committed:** m11–m23. **m24 is authored and green but NOT
+  committed** — spine tile s21, ledger row `mashou masenka no-ga-jouzu
+  no-ga-heta` cleared, 7569 passing / 0 failing, audit row `m24 | 234 | 9.7% |
+  10 | — | 1`, complexity floor RAISED 0.58 → 0.80. Remaining N5 points: 11.
+- **m24's two guard edits, both verified false positives before changing:**
+  (a) `registerCueGrading`'s POLITE regex had no `ましょう` cell, so it read the
+  polite volitional as PLAIN and flagged three correct "Say politely:" steps —
+  ましょう is the same ます paradigm as ます/ません/ました, no plain form ends in
+  it, so widening the set can only remove false positives; (b) the m24
+  complexity floor was measured on the ARCHIVED old-course m24 (76/91 = .835
+  now). Nothing was weakened.
+- **The tokenizer traps m24 hit, both of the Rule-Zero class:** three potential
+  forms are unusable because their kana already belong to another verb
+  (かう→かえる is 帰る, かく→かける is 掛ける, つく→つける is 付ける), and — one
+  layer down — six verbs cannot take ましょう because their ます-stem is a
+  registered NOUN (する→し 四, くる→き 木, かう→かい 貝, まつ→まち 町, つく→つき
+  月, はなす→はなし 話). ましょう ships as a SUFFIX atom so 「たべましょう」 tiles
+  as たべ+ましょう; 「しましょう」 is registered whole so longest-match beats し.
+  Both lines are machine-checked, the second by reading COMPILED tiles.
+- QA verdicts SHIP for m20, m21, m22; m23 QA dispatched, m24 QA not yet.
+  Gate re-run independently for m23: 7423 passing, audit row `—`,
   m23 complexity floor RAISED 0.44 → 0.90, no guard weakened.
 - **m23 claim that needed correcting** (the fourth cycle running): the agent
   reported した "banned module-wide". It is banned from SURFACES, which is the
@@ -30,17 +49,18 @@ make and document; he'll flag them later if he disagrees.
   intent: たことがある, つもり"; ledger owes `koto-ga-aru` `tsumori-desu`
   `kanji-set-2`). It has NOT been committed. It created a working directory
   `scratch-m23/` at the repo root — **verify that is gone before committing.**
-- **NEXT after m23 lands**, in this order:
-  1. `node scripts/compile-ir.mjs m23 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
-     — check the m23 row: `findings` must be `—`, `systemic` may be 1.
+- **NEXT after m24 lands**, in this order:
+  1. `node scripts/compile-ir.mjs m24 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
+     — check the m24 row: `findings` must be `—`, `systemic` may be 1.
   2. Verify any guard the agent changed is a real false positive, and any
      claim it makes about tokenization, by dumping tiles/`exercisedAtoms`
-     yourself. Three cycles running, the agent's headline claim needed
-     checking (m20's option count, m21's banned tense, m22's "zero て tiles").
-  3. Commit m23, then `node scripts/authoring-context.mjs m24 > docs/context/m24-context.md`
-  4. Dispatch Sonnet QA on m23 review+challenge ONLY, and the m24 authoring
+     yourself. Four cycles running, the agent's headline claim needed
+     checking (m20's option count, m21's banned tense, m22's "zero て tiles",
+     m23's "した banned module-wide").
+  3. Commit m24, then `node scripts/authoring-context.mjs m25 > docs/context/m25-context.md`
+  4. Dispatch Sonnet QA on m24 review+challenge ONLY, and the m25 authoring
      agent, in ONE message so they run concurrently.
-- **REMAINING:** m24–m29 to finish N5 (18 grammar points), then m30–m40 for
+- **REMAINING:** m25–m29 to finish N5 (11 grammar points), then m30–m40 for
   mid-N4. ~1 hour per module cycle, measured.
 
 Brief boilerplate that must stay in every authoring brief: the carrier-fatigue
@@ -67,7 +87,7 @@ partial success has burned this project repeatedly.
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
 m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
-m18 n08 · m19 s15 · m20 n09 · m21 s19 · m22 s17 · m23 s22.
+m18 n08 · m19 s15 · m20 n09 · m21 s19 · m22 s17 · m23 s22 · m24 s21.
 
 | m | unit | title |
 |---|---|---|
@@ -121,11 +141,11 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 m23 |
-| N5 grammar points left | **15** of 103 (was 74 at run start) |
-| suite | 7423 passing, 0 failing |
-| translate share | 8.1–13.6% (ceiling 15%); m23 = 10.4% |
-| distinct step types | 10–12 per module |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 m23 m24 |
+| N5 grammar points left | **11** of 103 (was 74 at run start) |
+| suite | 7569 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%); m24 = 9.7% |
+| distinct step types | 10–12 per module (m24 = 10: it introduces no imageable word, so it ships no `word_image_mcq`, and kanji-set-3 is m28's row) |
 | audit findings | **0 module-specific** for every module except m10 (1, its register single-tile builds, by design). The course-wide inv-35 debt now has its OWN column and is no longer counted as a per-module finding — see the audit-signal fix of 2026-07-27. `findings = —` means clean. |
 | QA verdicts | m20 SHIP · m21 SHIP · m22 SHIP (first three clean modules of the run; every earlier module had at least one defect, almost always a compiler bug rather than content) |
 | untaught words shipping as options | **0** |
@@ -340,6 +360,25 @@ otherwise.
   set (たべた のんだ きいた みた かった あそんだ いった わかった) plus m23's
   のった / およいだ / はたらいた, every one of which was checked against the whole
   corpus for zero prior occurrences before registration.
+- **The ます-STEM is a minefield too, and it is the same class one layer down
+  (m24, 2026-07-27).** Registering a bound suffix (m24 did it for ましょう, so
+  every taught verb gets a volitional for one atom) makes the TILE a stem —
+  「たべましょう」 → たべ + ましょう, the shape m19's 〜に いく already ships. That
+  is only safe when the stem is not itself a registered word, and SIX common
+  verbs fail: する→**し** is 四 "four", くる→**き** is 木 "tree", かう→**かい**
+  is 貝 "shell", まつ→**まち** is 町 "town", つく→**つき** is 月 "moon",
+  はなす→**はなし** is 話 "talk". Register the whole form instead when the stem
+  collides (m24 registered しましょう, 5 chars, so longest-match beats し) or
+  drop the verb. Also check `VERB_ENTRIES` before assuming a stem EXISTS:
+  きく is absent from it, so きき is not a stem at all and 「ききましょう」
+  shattered into き|き|ましょう. Same check applies to ません — only the ８ ます-
+  negatives that have atom rows can carry ませんか, so およぎません fragments.
+- **The POTENTIAL form has its own homograph list (m24).** かう→**かえる** is
+  帰る "to go back" (m14 row), かく→**かける** is 掛ける "to call by phone"
+  (m14 row), つく→**つける** is 付ける "to turn on". Those three verbs cannot
+  appear in the potential anywhere until the course has a disambiguation
+  mechanism. いける is SAFE despite いけ 池 and いけません — longest-match settles
+  it — but that was verified by dumping compiled tiles, not by reading code.
 - **A word can be in the context pack, in courseAtoms, AND untaught.** m23
   caught はやい that way (the pack lists it; no neo module teaches it) and also
   では — an ATOM meaning "with that…" that nothing teaches, which 「うみでは」
@@ -384,7 +423,7 @@ teaches four counters at once is a table, not a lesson).
 | 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** | ✅
 | 22 | ga-itai frequency-adverbs **counter-hon** | ✅
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 | ✅
-| 24 | mashou masenka no-ga-jouzu no-ga-heta |
+| 24 | mashou masenka no-ga-jouzu no-ga-heta | ✅
 | 25 | deshou |
 | 26 | ichiban-superlative |
 | 27 | n-desu sugiru ku-ni-naru |

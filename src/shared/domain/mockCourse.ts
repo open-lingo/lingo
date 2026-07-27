@@ -262,15 +262,17 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m23 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22) are LIVE via the compiler pipeline —
-    // slice them off so the placeholders begin at m24. NB the SPINE_COMING_SOON
-    // array still lists s11 before n06b (draft-3 order); draft-4 swapped them,
-    // which is why m14 is n06b and m15 is s11. Only the COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(18).map((t, i) => ({
-      id: `m${i + 24}`,
+    // m6-m24 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22, s21) are LIVE via the compiler
+    // pipeline — slice them off so the placeholders begin at m25. NB the
+    // SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
+    // draft-4 swapped them, which is why m14 is n06b and m15 is s11. s22 and
+    // s21 are already in shipped order here (m23 = s22, m24 = s21). Only the
+    // COUNT sliced matters.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(19).map((t, i) => ({
+      id: `m${i + 25}`,
       title: t.title,
-      eyebrow: `Module ${i + 24} · Coming soon`,
+      eyebrow: `Module ${i + 25} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -868,6 +870,37 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m23-neo-challenge", title: "Challenge — everything you have ever done, and everything you mean to", status: "available" as const },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          // m24 = spine tile s21, and the milestone is "closes the old course's
+          // potential-form gap": the archived course taught できる and nothing
+          // else. Four formations, one particle flip. う-verbs slide to the え
+          // row and add る (のめる); る-verbs attach られる (たべられる); くる →
+          // こられる; する has no potential and uses できる, which also takes a
+          // bare noun. Every result is itself a る-verb, so the negative is m6's
+          // ない-form on a new stem. ら抜き (たべれる) is RECOGNITION only. 見える
+          // /聞こえる is the nuance beat, and ましょう / ませんか / 〜ない？ close
+          // the module as one speech act in three registers.
+          id: "m24",
+          title: "Can & let's",
+          eyebrow: "Module 24 · Ability",
+          summary: "\u300Cおさけが のめる\u300D — I can drink. The potential is a FORM, not a word: う-verbs slide to the え row and add る, る-verbs attach られる, くる becomes こられる, and する hands the job to できる. The thing you can do stops being を and becomes が. Every can-form is itself a る-verb, so 「のめない」 is module 6's rule on a new stem. You will also hear people drop the ら — 「たべれる」 — and you need to understand that without saying it. Then 見える against 見られる, 〜のが じょうず against 〜のが へた, and one invitation in three registers: 「たべない？」, 「たべませんか」, 「たべましょう」.",
+          lessons: [
+            { id: "ja-m24-neo-1", title: "\u300Cおさけが のめる\u300D — the え row and る", status: "available" as const },
+            { id: "ja-m24-neo-2", title: "\u300Cすしが たべられる\u300D — られる, and the ら people drop", status: "available" as const },
+            { id: "ja-m24-neo-3", title: "\u300Cりょうりが できる\u300D — the verb that replaces する", status: "available" as const },
+            { id: "ja-m24-neo-review-1", title: "Review — three formations and one particle", status: "available" as const },
+            { id: "ja-m24-neo-5", title: "\u300Cおさけが のめない\u300D — every can-form is a る-verb", status: "available" as const },
+            { id: "ja-m24-neo-6", title: "\u300Cやまが みえる\u300D — visible is not the same as allowed", status: "available" as const },
+            { id: "ja-m24-neo-7", title: "\u300Cおよぐのが じょうずだ\u300D — the word for other people", status: "available" as const },
+            { id: "ja-m24-neo-review-2", title: "Review — can't, is visible, and good at", status: "available" as const },
+            { id: "ja-m24-neo-9", title: "\u300Cするのが へただ\u300D — the word for yourself", status: "available" as const },
+            { id: "ja-m24-neo-10", title: "\u300Cいっしょに たべましょう\u300D — the plan everyone agrees with", status: "available" as const },
+            { id: "ja-m24-neo-11", title: "\u300Cたべませんか\u300D と \u300Cたべない？\u300D — one invitation, three registers", status: "available" as const },
+            { id: "ja-m24-neo-review-3", title: "Review — bad at it, let's anyway", status: "available" as const },
+            { id: "ja-m24-neo-challenge", title: "Challenge — everything you can do, and everything you're inviting them to", status: "available" as const },
+          ],
+          accent: { from: "#f97316", to: "#ea580c" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

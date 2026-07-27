@@ -1260,6 +1260,59 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "notta", kana: "のった", romaji: "notta", meaningEn: "got on, rode (get on, past)", shortGloss: "got on", fromModule: "m23", introducedByLessonId: "ja-m23-neo-2", kind: "vocab", blocked: true, note: "inflected form — no picture; 🚗 is くるま's and のる's already" },
   { id: "oyoida", kana: "およいだ", romaji: "oyoida", meaningEn: "swam (swim, past)", shortGloss: "swam", fromModule: "m23", introducedByLessonId: "ja-m23-neo-2", kind: "vocab", blocked: true, note: "inflected form — no picture; 🏊 belongs to およぐ" },
   { id: "hataraita", kana: "はたらいた", romaji: "hataraita", meaningEn: "worked (work, past)", shortGloss: "worked", fromModule: "m23", introducedByLessonId: "ja-m23-neo-1", kind: "vocab", blocked: true, note: "inflected form — no picture; 💼 belongs to はたらく" },
+
+  // ── m24 · CAN & LET'S (spine tile s21) ───────────────────────────────────
+  //
+  // The POTENTIAL FORM is a derivation, not a vocabulary list, but no lexicon
+  // in this repo can spell one: `ChainForm` has no `potential` cell, so
+  // `getRealFormLexicon()` and the compiler's `STEMS` are both blind to
+  // のめる / たべられる. Every potential surface that reaches a tile therefore
+  // needs a whole atom, exactly as m11 did for the plain past and m14 for the
+  // て-form.
+  //
+  // EVERY string below was checked against the whole live corpus first and
+  // occurs in ZERO existing surfaces, so registering it cannot re-tokenize
+  // anything (the m16-ので regression class is impossible). The forms that were
+  // WANTED and REJECTED, all for kana collisions with atoms that already exist:
+  //   かう → かえる  is 帰る "to go back" (m14 row)
+  //   かく → かける  is 掛ける "to call by phone" (m14 row)
+  //   つく → つける  is 付ける "to turn on" (row exists)
+  // Those three verbs are simply never put in the potential in this module.
+  // いける is safe DESPITE いけ 池 "pond" and いけません: the tokenizer is
+  // longest-match, so いける (3) beats いけ (2) and いけません (5) still beats
+  // both — verified by dumping the compiled tiles, not assumed.
+  { id: "nomeru", kana: "のめる", romaji: "nomeru", meaningEn: "can drink (potential of のむ)", shortGloss: "can drink", fromModule: "m24", introducedByLessonId: "ja-m24-neo-1", kind: "vocab", blocked: true, note: "derived form — no picture; 🥤 belongs to のむ" },
+  { id: "ikeru", kana: "いける", romaji: "ikeru", meaningEn: "can go (potential of いく)", shortGloss: "can go", fromModule: "m24", introducedByLessonId: "ja-m24-neo-1", kind: "vocab", blocked: true, note: "derived form — no picture; 🚶 belongs to いく" },
+  { id: "oyogeru", kana: "およげる", romaji: "oyogeru", meaningEn: "can swim (potential of およぐ)", shortGloss: "can swim", fromModule: "m24", introducedByLessonId: "ja-m24-neo-1", kind: "vocab", blocked: true, note: "derived form — no picture; 🏊 belongs to およぐ" },
+  { id: "hanaseru", kana: "はなせる", romaji: "hanaseru", meaningEn: "can speak (potential of はなす)", shortGloss: "can speak", fromModule: "m24", introducedByLessonId: "ja-m24-neo-7", kind: "vocab", blocked: true, note: "derived form — no picture; 🗣️ belongs to はなす" },
+  { id: "arukeru", kana: "あるける", romaji: "arukeru", meaningEn: "can walk (potential of あるく)", shortGloss: "can walk", fromModule: "m24", introducedByLessonId: "ja-m24-neo-9", kind: "vocab", blocked: true, note: "derived form — no picture; 🚶 belongs to あるく" },
+  { id: "taberareru", kana: "たべられる", romaji: "taberareru", meaningEn: "can eat (potential of たべる)", shortGloss: "can eat", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "derived form — no picture; 🍽️ belongs to たべる" },
+  { id: "mirareru", kana: "みられる", romaji: "mirareru", meaningEn: "can watch (potential of みる)", shortGloss: "can watch", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "derived form — no picture; 👁️ belongs to みる" },
+  { id: "korareru", kana: "こられる", romaji: "korareru", meaningEn: "can come (potential of くる)", shortGloss: "can come", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "derived form — no picture; くる has none either" },
+  // ら抜きことば — RECOGNITION ONLY (spine s21: "understand it, produce the full
+  // form"). Registered because the module HEARS them in dialogue and listening
+  // comprehension, and an unregistered surface is an untracked word rather than
+  // a taught variant. Never a build target anywhere in the course.
+  { id: "tabereru", kana: "たべれる", romaji: "tabereru", meaningEn: "can eat (casual ら-dropped form)", shortGloss: "can eat (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant — recognition only; the course produces たべられる" },
+  { id: "mireru", kana: "みれる", romaji: "mireru", meaningEn: "can watch (casual ら-dropped form)", shortGloss: "can watch (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant — recognition only; the course produces みられる" },
+  // NEGATIVE POTENTIAL. A potential verb is ichidan whatever its base was, so
+  // this is m6's ない-form applied to a new stem — which is why the L5 card is
+  // `nai-form` re-taught rather than a new point.
+  { id: "nomenai", kana: "のめない", romaji: "nomenai", meaningEn: "can't drink (negative potential of のむ)", shortGloss: "can't drink", fromModule: "m24", introducedByLessonId: "ja-m24-neo-5", kind: "vocab", blocked: true, note: "derived form — no picture" },
+  { id: "taberarenai", kana: "たべられない", romaji: "taberarenai", meaningEn: "can't eat (negative potential of たべる)", shortGloss: "can't eat", fromModule: "m24", introducedByLessonId: "ja-m24-neo-5", kind: "vocab", blocked: true, note: "derived form — no picture" },
+  { id: "dekinai", kana: "できない", romaji: "dekinai", meaningEn: "can't do it, isn't possible", shortGloss: "can't do", fromModule: "m24", introducedByLessonId: "ja-m24-neo-5", kind: "vocab", blocked: true, note: "derived form — no picture; できる has none either" },
+  // SPONTANEOUS PERCEPTION — not the potential, which is the whole point of the
+  // L6 card: みられる is "I get to watch", みえる is "it is visible".
+  { id: "mieru", kana: "みえる", romaji: "mieru", meaningEn: "to be visible, to be in sight", shortGloss: "is visible", fromModule: "m24", introducedByLessonId: "ja-m24-neo-6", kind: "vocab", blocked: true, note: "a state of the world, not an action — 👁️ is みる's and め's, and a picture cannot separate 'watch' from 'is visible'" },
+  { id: "kikoeru", kana: "きこえる", romaji: "kikoeru", meaningEn: "to be audible, to reach the ear", shortGloss: "is audible", fromModule: "m24", introducedByLessonId: "ja-m24-neo-6", kind: "vocab", blocked: true, note: "a state of the world, not an action — 👂 is みみ's and きく's" },
+  // ましょう is a BOUND SUFFIX and inv 41 says to check what else in the corpus
+  // contains the string before shipping one. Checked: ZERO live Japanese
+  // surfaces contain ましょう (m30's only hit is inside an ENGLISH option, and
+  // `jaSurfaceForms.ts` GENERATES the form for flashcard credit rather than
+  // storing it). Registering it buys every taught verb's volitional at once —
+  // 「たべましょう」 tiles as たべ + ましょう, the ます-stem tile m19's 〜に いく
+  // already ships — instead of one whole atom per verb.
+  { id: "mashou", kana: "ましょう", romaji: "mashou", meaningEn: "let's ~ (polite suggestion, on the ます-stem)", shortGloss: "let's ~", fromModule: "m24", introducedByLessonId: "ja-m24-neo-10", kind: "vocab", blocked: true, note: "bound suffix — no referent a picture could name" },
 ];
 
 /**
