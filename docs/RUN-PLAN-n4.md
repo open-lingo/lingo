@@ -227,6 +227,24 @@ negative wish instead). m13 DOES re-teach m12's `i-adj-negative` /
 `i-adj-past` / `i-adj-past-negative` cards with たい as the base — that
 reuse IS the module's argument, and the ledger rows are unchanged.
 
+### Scheduled tooling fix — STEMS (do before m19)
+
+Two spine items have now been deferred for the same tooling reason, not a
+curriculum one: **m12 dropped 〜く なる** and **m13 dropped 〜に いく**. Both
+attach to a STEM (い-adj く-stem, verb ます-stem), and stems existed in no
+lexicon here, so the sentence read as an invented mutation.
+
+Half-fixed 2026-07-27: `getRealFormLexicon()` now emits both stem families
+(いい → よく handled, since いく is a different verb). **The other half is the
+compiler's `unbuildable` diagnostic**, whose `KNOWN` set is atoms ∪ particles ∪
+names ∪ interjections — it does not consult the lexicon. Adding stems there
+means adding them to the TOKENIZER vocabulary, which is riskier: longest-match
+protects たべる from splitting into たべ+る, but it wants a careful test pass.
+
+Deliberately not done yet because nothing before m19 needs it. It blocks:
+`ni-iku` (m19), `sugiru` (m27), and in N4 〜ながら / 〜やすい・にくい / 〜たがる
+(m36) — so it must land before m19 or the deferrals compound.
+
 ### Carried debt (batch later, do not derail a module for these)
 
 - ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami

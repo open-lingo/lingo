@@ -130,6 +130,30 @@ export function getRealFormLexicon(): Set<string> {
     if (adj.kanji) lex.add(adj.kanji);
     for (const f of Object.values(adj.forms)) lex.add(f);
   }
+  // STEMS ARE REAL SURFACES TOO.
+  //
+  // The lexicon held only whole conjugated outputs, so any construction that
+  // attaches to a STEM read as an invented mutation and the unbuildable gate
+  // rejected the sentence. That has already cost two spine items — m12
+  // deferred 〜く なる and m13 deferred 〜に いく, both for tooling reasons
+  // rather than curriculum ones — and it would have blocked 〜ながら,
+  // 〜やすい/にくい, 〜すぎる and 〜たがる later, which is most of N4's m36.
+  //
+  // A stem is not a standalone word, so this does loosen the invented-form
+  // check slightly. That is the deliberate trade: the guard exists to catch
+  // のみる/のむる, and a bare ます-stem is not that shape.
+  for (const v of VERB_ENTRIES) {
+    const masu = conjugateVerb(v.dictionary, v.group, "masu");
+    if (masu.endsWith("ます")) lex.add(masu.slice(0, -2));
+  }
+  for (const adj of ADJ_ENTRIES) {
+    if (adj.type !== "i-adj") continue;
+    // いい is irregular in every stem it forms: よく, never いく (which is a
+    // different verb entirely).
+    if (adj.dictionary === "いい") lex.add("よく");
+    else if (adj.dictionary.endsWith("い")) lex.add(`${adj.dictionary.slice(0, -1)}く`);
+  }
+
   lex.delete("");
   realFormLexicon = lex;
   return lex;
