@@ -2451,5 +2451,184 @@
     "ティーシャツ",
     "パーティー",
     "ペン"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    }
   ]
 }

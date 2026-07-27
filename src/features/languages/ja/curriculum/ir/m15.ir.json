@@ -3156,5 +3156,1743 @@
     "パーティー",
     "ペン",
     "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
   ]
 }

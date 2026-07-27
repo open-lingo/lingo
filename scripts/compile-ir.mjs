@@ -51,12 +51,25 @@ delete ir.notes;
 // filesystem is available, and hand it to the compiler.
 const modIdx = Number(mod.replace(/^m/, ""));
 const priorVocab = new Set();
+const priorAtoms = new Map();
 if (Number.isFinite(modIdx)) {
   for (const f of readdirSync(dir)) {
     const m = f.match(/^m(\d+)\.ir\.yaml$/);
     if (!m || Number(m[1]) >= modIdx) continue;
     const earlier = parse(readFileSync(join(dir, f), "utf8"));
-    for (const a of earlier.newAtoms ?? []) if (a.kana) priorVocab.add(a.kana);
+    for (const a of earlier.newAtoms ?? []) {
+      if (!a.kana) continue;
+      priorVocab.add(a.kana);
+      // Carry the whole atom, not just the kana. Most IR atoms are deliberately
+      // NOT registered in courseAtoms (registering inflections regresses
+      // flashcard import), so a later module's compiler — which knows only
+      // courseAtoms ∪ its own newAtoms — could not see them at all. Their
+      // surfaces shattered into junk tiles, and worse, sometimes split SILENTLY
+      // into real words: 「ふるかった」 → ふる (to fall) + かった (bought), no
+      // diagnostic, wrong SRS credit. m15 had to avoid nine earlier words to
+      // dodge this.
+      if (!priorAtoms.has(a.kana)) priorAtoms.set(a.kana, a);
+    }
     for (const lesson of earlier.lessons ?? []) {
       for (const kana of lesson.introduces ?? []) priorVocab.add(kana);
       // A reviewPool ASSERTS the word is already known, so it counts as met.
@@ -84,6 +97,7 @@ if (Number.isFinite(modIdx)) {
   }
 }
 ir.priorVocab = [...priorVocab].sort();
+ir.priorAtoms = [...priorAtoms.values()];
 
 writeFileSync(jsonPath, JSON.stringify(ir, null, 2) + "\n");
 const lessons = ir.lessons?.length ?? 0;

@@ -188,6 +188,12 @@ export type ModuleIR = {
    * Not authored by hand — it is derived, and regenerating is a recompile.
    */
   priorVocab?: string[];
+  /**
+   * The ATOM RECORDS behind those kana, for the ones earlier modules declared
+   * only in their IR. Same provenance as `priorVocab`; carried separately
+   * because the tokenizer and the gloss surfaces need more than the surface.
+   */
+  priorAtoms?: IRAtom[];
   grammarPoints?: IRGrammarPoint[];
   /** Grammar points this module EXERCISES but does not TEACH — taught by an
    *  earlier module, so they carry no rule/examples here. `exercises:` and
@@ -357,6 +363,21 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
         fromModule: (a.fromModule as ReviewAtom["fromModule"]) ?? "m6",
       });
   }
+  // Words EARLIER IR modules taught. Most IR atoms are deliberately left out of
+  // courseAtoms (registering inflections regresses flashcard import and
+  // annotateJapaneseText), so without this a later module cannot see them at
+  // all: their surfaces shattered into junk tiles, and sometimes split silently
+  // into other real words — 「ふるかった」 → ふる "to fall" + かった "bought", no
+  // diagnostic, wrong SRS credit. m15 worked around it by avoiding nine words
+  // it had every right to reuse.
+  for (const a of ir.priorAtoms ?? [])
+    m.set(a.kana, {
+      kana: a.kana,
+      meaningEn: a.gloss,
+      shortGloss: a.shortGloss,
+      emoji: m.get(a.kana)?.emoji,
+      fromModule: (m.get(a.kana)?.fromModule ?? "m6") as ReviewAtom["fromModule"],
+    });
   for (const a of ir.newAtoms ?? [])
     m.set(a.kana, {
       kana: a.kana,
