@@ -1145,6 +1145,51 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "happyaku", kana: "はっぴゃく", romaji: "happyaku", meaningEn: "eight hundred", shortGloss: "800", fromModule: "m20", introducedByLessonId: "ja-m20-neo-4", kind: "vocab", blocked: true, note: "geminating sound-change cell — はっ decomposes to nothing" },
   { id: "sanzen", kana: "さんぜん", romaji: "sanzen", meaningEn: "three thousand", shortGloss: "3000", fromModule: "m20", introducedByLessonId: "ja-m20-neo-5", kind: "vocab", blocked: true, note: "sound-change cell — さん + せん never surfaces" },
   { id: "hassen", kana: "はっせん", romaji: "hassen", meaningEn: "eight thousand", shortGloss: "8000", fromModule: "m20", introducedByLessonId: "ja-m20-neo-5", kind: "vocab", blocked: true, note: "geminating sound-change cell — はっ decomposes to nothing" },
+
+  // ── m21 (spine s19) — LISTING, and the CUP COUNTER cell by cell ─────────
+  //
+  // や is the open-list particle; every other m21 word already had a registry
+  // row (the Family II honorifics, など, コーヒー, おさけ) or is a derived
+  // 〜たり form, which stays IR-only per the m14 rule for inflections.
+  //
+  // THE CUP COUNTER IS ALL WHOLE CELLS, and that is forced rather than chosen.
+  // 「はい」 is ALREADY an atom — the m3-era interjection "yes"
+  // (`ja-surv-hai`) — and `JA_COURSE_ATOMS_BY_KANA` is LAST-WINS, so adding a
+  // second はい row would flip every 「はい」 in the course from the
+  // interjection to the counter and silently re-credit SRS on ~66 existing
+  // surfaces. No cell can therefore compose from number + counter the way
+  // m19's さん + ぷん and m20's ご + ひゃく did; each cell is its own lexical
+  // unit and each gets a row. Consequence worth stating: さん never tokenizes
+  // out of 「さんばい」, so 三 is never credited from it and
+  // `honorificAtomTagging`'s NUMERAL_CONTEXT needed no new entry — exactly
+  // the note m20 left for さんびゃく / さんぜん.
+  //
+  // Readings follow `classifiers.ts`, this repo's shipped counter table.
+  // にはい is banned as a surface twice over (the に/二 homograph AND the
+  // はい/はい one); ななはい / はっぱい / きゅうはい / じゅっぱい are named in
+  // m21's L5 card prose only. All six strings below were checked against every
+  // compiled tile in the whole ja course before and after registration (the
+  // m16-ので class): the diff was empty.
+  { id: "p-ya", kana: "や", romaji: "ya", meaningEn: "and (an open list — A や B means A and B among others)", shortGloss: "and (some of)", fromModule: "m21", introducedByLessonId: "ja-m21-neo-1", kind: "particle", blocked: true, note: "listing particle — an open list, against と's closed one" },
+  { id: "ippai", kana: "いっぱい", romaji: "ippai", meaningEn: "one cupful, one glass", shortGloss: "1 cup", fromModule: "m21", introducedByLessonId: "ja-m21-neo-5", kind: "vocab", blocked: true, note: "geminating cell — いっ decomposes to nothing, and はい cannot be an atom (it is the interjection)" },
+  { id: "sanbai", kana: "さんばい", romaji: "sanbai", meaningEn: "three cupfuls", shortGloss: "3 cups", fromModule: "m21", introducedByLessonId: "ja-m21-neo-5", kind: "vocab", blocked: true, note: "rendaku cell — さん turns はい into ばい" },
+  { id: "yonhai", kana: "よんはい", romaji: "yonhai", meaningEn: "four cupfuls", shortGloss: "4 cups", fromModule: "m21", introducedByLessonId: "ja-m21-neo-6", kind: "vocab", blocked: true, note: "regular cell, whole because はい cannot be an atom (ja-surv-hai owns the kana)" },
+  { id: "gohai", kana: "ごはい", romaji: "gohai", meaningEn: "five cupfuls", shortGloss: "5 cups", fromModule: "m21", introducedByLessonId: "ja-m21-neo-6", kind: "vocab", blocked: true, note: "regular cell, whole for the same reason as よんはい" },
+  { id: "roppai", kana: "ろっぱい", romaji: "roppai", meaningEn: "six cupfuls", shortGloss: "6 cups", fromModule: "m21", introducedByLessonId: "ja-m21-neo-5", kind: "vocab", blocked: true, note: "geminating cell — ろっ decomposes to nothing" },
+  { id: "nanbai", kana: "なんばい", romaji: "nanbai", meaningEn: "how many cupfuls", shortGloss: "how many cups", fromModule: "m21", introducedByLessonId: "ja-m21-neo-6", kind: "vocab", blocked: true, note: "interrogative cell — なん takes the rendaku ばい" },
+
+  // 〜たり forms. Registered for the same reason the て-forms (たべて, m8) and
+  // the plain pasts (のんだ, m11) are: without a row the SRS annotator cannot
+  // resolve the surface at all, so a whole lesson's production would credit
+  // nothing, and the guards' tokenizer splits 「たべたり」 into たべた + り.
+  // Each is a WHOLE atom because it has to be — a bare り is a one-character
+  // junk tile that no diagnostic can see.
+  { id: "tabetari", kana: "たべたり", romaji: "tabetari", meaningEn: "eat, and things like that", shortGloss: "eat, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-7", kind: "vocab", blocked: true, note: "〜たり form of たべる — a listing form, no single referent a picture could name" },
+  { id: "nondari", kana: "のんだり", romaji: "nondari", meaningEn: "drink, and things like that", shortGloss: "drink, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-7", kind: "vocab", blocked: true, note: "〜たり form of のむ" },
+  { id: "mitari", kana: "みたり", romaji: "mitari", meaningEn: "watch, and things like that", shortGloss: "watch, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-7", kind: "vocab", blocked: true, note: "〜たり form of みる — watch/look at, never 'read' (verbGlossFidelity)" },
+  { id: "kiitari", kana: "きいたり", romaji: "kiitari", meaningEn: "listen, and things like that", shortGloss: "listen, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-7", kind: "vocab", blocked: true, note: "〜たり form of きく" },
+  { id: "asondari", kana: "あそんだり", romaji: "asondari", meaningEn: "play, and things like that", shortGloss: "play, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-8", kind: "vocab", blocked: true, note: "〜たり form of あそぶ" },
+  { id: "ittari", kana: "いったり", romaji: "ittari", meaningEn: "go, and things like that", shortGloss: "go, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-8", kind: "vocab", blocked: true, note: "〜たり form of いく — 'go', never 'say' (the m18 いった homograph ruling)" },
 ];
 
 /**

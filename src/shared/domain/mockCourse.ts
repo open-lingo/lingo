@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m20 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09) are LIVE via the compiler pipeline — slice them off
-    // so the placeholders begin at m21. NB the SPINE_COMING_SOON array still
+    // m6-m21 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19) are LIVE via the compiler pipeline — slice them
+    // off so the placeholders begin at m22. NB the SPINE_COMING_SOON array still
     // lists s11 before n06b (draft-3 order); draft-4 swapped them, which is why
     // m14 is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(15).map((t, i) => ({
-      id: `m${i + 21}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(16).map((t, i) => ({
+      id: `m${i + 22}`,
       title: t.title,
-      eyebrow: `Module ${i + 21} · Coming soon`,
+      eyebrow: `Module ${i + 22} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -777,6 +777,35 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m20-neo-challenge", title: "Challenge — pick one and say why", status: "available" as const },
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        {
+          // m21 = spine tile s19. A Japanese list tells you whether it is
+          // FINISHED: と closes it, や leaves it open, and English has one
+          // word for both — so the contrast IS the lesson. 〜たり 〜たり する
+          // does the same job to verbs. Family II (the そと honorifics) lands
+          // here, deferred from m17 by the spine so the learner never holds
+          // two words for "mother" at once, and the cup counter 〜はい drips
+          // through the drinks the module orders.
+          id: "m21",
+          title: "Listing & describing: や, たり",
+          eyebrow: "Module 21 · Listing",
+          summary: "Two words for \u2018and\u2019, and the difference is whether you have finished. \u300Cいぬと ねこが いる\u300D names every animal there is; \u300Cいぬや ねこが いる\u300D names two of them and leaves the rest unsaid, with など to say so out loud. 〜たり 〜たり する does the same for what you DO. Family II arrives beside it — おかあさん / おとうさん for other people\u2019s families against m17\u2019s はは / ちち for your own — and the cup counter 〜はい (いっぱい, さんばい, ろっぱい) counts the drinks you order.",
+          lessons: [
+            { id: "ja-m21-neo-1", title: "\u300Cうみや やまが すきだ\u300D — the list that isn\u2019t finished", status: "available" as const },
+            { id: "ja-m21-neo-2", title: "\u300Cいぬと ねこが いる\u300D — the list that is", status: "available" as const },
+            { id: "ja-m21-neo-3", title: "\u300Cミカの おかあさん\u300D — the other family words", status: "available" as const },
+            { id: "ja-m21-neo-review-1", title: "Review — や, と, and whose family", status: "available" as const },
+            { id: "ja-m21-neo-4", title: "\u300Cミカの おにいさん\u300D — の decides whose", status: "available" as const },
+            { id: "ja-m21-neo-5", title: "\u300Cコーヒーを さんばい\u300D — counting what\u2019s in the cup", status: "available" as const },
+            { id: "ja-m21-neo-6", title: "\u300Cさんにんで よんはい\u300D — people take にん, cupfuls take はい", status: "available" as const },
+            { id: "ja-m21-neo-review-2", title: "Review — the family sets and the cup counter", status: "available" as const },
+            { id: "ja-m21-neo-7", title: "\u300Cみたり きいたり する\u300D — listing what you do", status: "available" as const },
+            { id: "ja-m21-neo-8", title: "\u300Cえいがや おんがくが すきだ\u300D — listing what you like", status: "available" as const },
+            { id: "ja-m21-neo-9", title: "\u300Cコーヒーを いっぱい ください\u300D — ordering", status: "available" as const },
+            { id: "ja-m21-neo-review-3", title: "Review — open lists, closed lists and everything in the cup", status: "available" as const },
+            { id: "ja-m21-neo-challenge", title: "Challenge — say what you do and who you do it with", status: "available" as const },
+          ],
+          accent: { from: "#ec4899", to: "#db2777" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

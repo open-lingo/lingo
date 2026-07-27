@@ -534,7 +534,12 @@ export function lintAntiPatternMinimalPairs(lesson: LessonContent): LintFailure[
 // below that measurement, per this block's own rule.
 export const COMPLEXITY_FLOORS: Record<string, number> = {
   m12: 0.12, m13: 0.60, m14: 0.75, m15: 0.84, m16: 0.85, m17: 0.75,
-  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.40, m22: 0.56, m23: 0.44,
+  // m21 recalibrated 0.40 → 0.70 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m21 (the rendaku counter table); the neo module
+  // measures 64/88 = .727, because a list names two things plus a predicate by
+  // construction and most beats hang a clause on m16's から / けど. Raised,
+  // never lowered, per this block's own rule.
+  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.56, m23: 0.44,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.

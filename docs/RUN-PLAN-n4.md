@@ -25,7 +25,7 @@ partial success has burned this project repeatedly.
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
 m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
-m18 n08 · m19 s15 · m20 n09.
+m18 n08 · m19 s15 · m20 n09 · m21 s19.
 
 | m | unit | title |
 |---|---|---|
@@ -79,10 +79,10 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 |
-| N5 grammar points left | **24** of 103 (was 74 at run start) |
-| suite | 6985 passing, 0 failing |
-| translate share | 8.1–13.6% (ceiling 15%) |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 |
+| N5 grammar points left | **21** of 103 (was 74 at run start) |
+| suite | 7133 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%); m21 = 12.2% |
 | distinct step types | 10–12 per module |
 | audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
 | untaught words shipping as options | **0** |
@@ -203,6 +203,20 @@ had been ignoring:
   general rule is to DUMP THE COMPILED TILES of a new module and read them as a
   vocabulary list before shipping. Every junk or homograph tile is visible there
   in one glance and invisible everywhere else.
+- **A cloze frame that ends in the bare copula だ fails the grammar-deck
+  comprehensibility gate.** That gate strips atoms and `TAUGHT_ENDINGS`, and だ
+  is in neither, so 「…が すきだ」 reads as unexplained vocabulary on a point
+  whose words it entirely owns (m21's や cloze, 2026-07-27). End a cloze frame
+  on a verb.
+- **An authored `listening-comp` beat must not re-use a `sentence` beat's exact
+  audio.** `reviewFiller` re-presents authored sentences as comprehension items,
+  so the collision ships the same audio twice in one lesson and
+  `reviewFillerVariety.test.ts` fails (m21, two beats).
+- **A kana already owned by an interjection cannot become a counter.** 「はい」
+  is the m3 survival atom for "yes" and `JA_COURSE_ATOMS_BY_KANA` is last-wins,
+  so the 杯 counter could not be registered under it — every 〜はい cell had to
+  become a whole atom instead (m21). Before registering any counter, check
+  whether its kana is already spoken for.
 - **A registered survival PHRASE tiles whole and can eat the lesson's own
   skill.** 「どこですか」 is one atom (sidequest-survival), so m19's
   「すみません えきは どこですか」 built as three tiles with どこですか intact —
@@ -249,7 +263,7 @@ teaches four counters at once is a table, not a lesson).
 | 18 | to-omoimasu to-quotation kanji-set-1 | ✅
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** | ✅
 | 20 | yori-comparison numbers-100-10000 counter-ko | ✅
-| 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** |
+| 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** | ✅
 | 22 | ga-itai frequency-adverbs **counter-hon** |
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 |
 | 24 | mashou masenka no-ga-jouzu no-ga-heta |
@@ -380,6 +394,139 @@ comprehensibility gate resolves every word through `courseAtoms` — and the
 character names have no atom rows. So a cloze frame must not contain ミカ / トム
 / ケン / たなか, or it lands in GATE_EXEMPTIONS. m19's へ cloze says 「きょうは
 うみへ いく」 for that reason.
+
+**PAST 〜たり WAS RESTORED BY THE ORCHESTRATOR (m21, 2026-07-27) — a guard
+banned a tense when the real constraint was one word.** The authoring agent
+ruled that 「〜たり 〜たり した」 must not ship, which is CORRECT: した is the
+registered m17 atom 下 "below", so a bare した tile mis-credits SRS. But it then
+wrote the guard as `/たり[^。？]*した/` — a substring match — and shipped every
+たり sentence in the module non-past. 「しました」 contains した and was rejected
+along with it. That cost the highest-frequency form of the whole pattern: 〜たり
+〜たり しました is what answers "what did you do at the weekend?", and a learner
+would have met the construction only in the present.
+
+Verified against the compiler before touching anything: 「しました」 emits ONE
+tile, `しました`, and its exercisedAtoms are `[yasumi, p-wa, eiga, p-wo, mitari,
+ongaku, p-wo, kiitari]` — `shita` appears nowhere, so nothing is mis-credited.
+The ban is on した, not on the past. Both guards now say what they mean: the
+した check matches a TILE (which is what SRS credits) instead of a substring,
+and the closure check accepts する / します / しました / しません, because する is a
+VERB and carries the tense — 「…きいたり しました」 is the same closure in the
+past, not a missing one.
+
+L7 gained a build beat and a listening item in the polite past, and the rule
+card now teaches that する carries the tense for the whole list. The prompts
+NAME the register (inv 48) rather than accepting both, because plain した really
+is unavailable — so this is the one place where the register carve-out is
+carrying a tooling limit rather than a pedagogical one. **This is the sixth
+distinct site of substring-matching-on-Japanese** (ので⊂のです, さん⊂さんぷん,
+は⊂歯, ごじ⊂ごじゅう, からだ, now した⊂しました). Whenever a check reasons about
+Japanese, match a TILE or an ATOM, never a substring.
+
+**A TENTH note, m21 (2026-07-27) — the ledger row is unchanged and there is NO
+spine deviation.** spinePlan s19 asks for "や partial list vs と complete;
+たりする alternatives (た-form spend)", "FAMILY II: others'-family honorifics —
+listed, compared, drilled against Family I" and "Cup counter はい/ぱい/ばい drips
+with drinks vocab". All of it ships. **FIVE points are RE-TAUGHT rather than
+re-assigned**, because the row owes four ids across nine teaching lessons and
+inv 42 forbids inventing new ones: `family-register` (m17 taught the うち half
+and the spine always meant the そと half to land here), `no-possession` (m4 — の
+is the ENTIRE disambiguation between the two family sets), `counter-nin` (m17 —
+a counter is only learned once you have to CHOOSE one, so 〜にん comes back
+beside 〜はい), `suki-kirai-no` (m13 — 「Aや Bが すきだ」 is where an open list is
+most naturally spoken) and `kudasai` (m14 — ordering drinks is where a cup
+counter is actually used). No ledger row moved.
+
+**THE CUP COUNTER IS ALL WHOLE CELLS, and it was FORCED, not chosen.** 「はい」
+is already an atom — the m3-era interjection "yes" (`ja-surv-hai`) — and
+`JA_COURSE_ATOMS_BY_KANA` is LAST-WINS, so registering the counter under the
+same kana would flip every one of the ~66 existing 「はい」 surfaces in the course
+and silently re-credit SRS. No cell can therefore compose from number + counter
+the way m19 composed さん + ぷん and m20 composed ご + ひゃく. Six cells get rows
+of their own — いっぱい, さんばい, よんはい, ごはい, ろっぱい, なんばい — and
+にはい is banned TWICE OVER (the documented に/二 homograph, and に + はい
+tokenizing into the numeral plus the interjection). ななはい / はっぱい /
+きゅうはい / じゅっぱい are named in the L5 card's PROSE, which is mixed-script
+and invisible to `jaSurfaces`; readings follow `classifiers.ts`, the repo's
+shipped counter table, which is why 8 is はっぱい and はちはい appears nowhere.
+**Consequence: `honorificAtomTagging`'s NUMERAL_CONTEXT needed NO new entry** —
+さん never tokenizes out of a whole 「さんばい」, so 三 is never credited from it,
+exactly the note m20 left for さんびゃく / さんぜん. The brief predicted
+ばい/はい/ぱい would have to be added; the whole-atom decision is what made that
+unnecessary, and **no guard was touched in this cycle at all**.
+
+**「〜たり 〜たり した」 IS BANNED — した is 下.** A past たり list wants した on
+the end, and 「した」 is the registered m17 atom for "below". A past list would
+tile a direction word and credit the wrong atom with no diagnostic anywhere —
+the ふるかった / からだ / ごじ⊂ごじゅう class. Every たり list in m21 is NON-PAST
+and closes with する; the た-form is still spent, because it is where たり comes
+from and the L7 card derives it in prose from たべた / のんだ / みた / きいた.
+
+**THIRTEEN new courseAtoms rows — や, いっぱい, さんばい, よんはい, ごはい,
+ろっぱい, なんばい, たべたり, のんだり, みたり, きいたり, あそんだり, いったり —
+and all thirteen were checked for retokenization damage FIRST (the m16-ので
+class), by dumping every compiled tile in the whole ja course before and after.
+The diff was confined to m30's seeded distractor slots; zero tokenization
+changed anywhere.** や is the one-character case: the tokenizer is
+longest-match-first, so every や-bearing atom in the registry (やま / やすい /
+やさい / やる / やすみ / なつやすみ / へや / にぎやか …) is strictly longer and is
+consumed whole. The 〜たり forms are registered for the same reason the て-forms
+(たべて, m8) and the plain pasts (のんだ, m11) are: without a row the SRS
+annotator cannot resolve the surface, so a whole lesson's production credits
+nothing. The other seven m21 atoms — おかあさん / おとうさん / おにいさん /
+おねえさん (stale m19 tags), など, コーヒー, おさけ (stale m21 tags) — already had
+rows and are declared in `newAtoms` only to fix provenance, the m15-m20 move.
+
+**FAMILY II ships `imageable: false`, all four, and every family surface names
+WHOSE family it is.** 👩 is shared by おかあさん, おねえさん and MET あね; 👨 by
+おとうさん and おにいさん — and more fundamentally a picture cannot express
+"whose", which is the only thing separating Family II from Family I. So all four
+debut on rule cards, where the register fact can be stated in words. Grading
+runs ONE WAY ONLY: a humble word offered for somebody else's family is flatly
+wrong (「ミカの はは」 ✗) and is a legitimate distractor, whereas an honorific
+used about your own family is merely informal — so おかあさん is never offered as
+a wrong answer against はは. Machine-checked in `m21-neo.test.ts`, along with the
+possessor rule.
+
+**と is NEVER a distractor against や.** 「うみと やまが すきだ」 and 「うみや
+やまが すきだ」 are BOTH correct Japanese — they differ in whether the list is
+finished, which a tile picker cannot express — so offering と would mark a right
+answer wrong, the same reasoning inv 35 uses for は↔が. The contrast is taught
+and drilled by PRODUCTION with the English saying which list is meant; the ONE
+true particle_cloze in the module is や's in L1, with を and から as distractors.
+`particleClozePlacement` already carried `や: 21`, so it needed no edit.
+
+**A cloze frame must not end in the bare copula だ.** The grammar-review deck's
+comprehensibility gate strips atoms and `TAUGHT_ENDINGS`, and だ is in neither —
+so 「うみや やまが すきだ」 flagged as too-advanced on a point whose whole
+vocabulary it owns. m21's や cloze says 「うみや やまに いく」 instead. Same class
+as the m19 no-character-names finding, and worth adding to the trap list.
+
+**An authored `listening-comp` beat should not re-use a `sentence` beat's exact
+audio.** `reviewFiller` re-presents authored sentences as comprehension items,
+so a collision ships the same audio twice in one lesson
+(`reviewFillerVariety.test.ts`). Two m21 beats hit it and were given their own
+sentences.
+
+**GATE 7 recalibrated for m21, 0.40 → 0.70.** The old floor was measured on the
+archived old-course m21; the neo module measures 64/88 = .727, because a list
+names two things plus a predicate by construction and most beats hang a clause
+on m16's から / けど. Raised, never lowered, per that block's own rule.
+
+**Carrier note for m21 (inv 27), against the REPAIRED exposure audit.** With the
+audit finally reading the IR corpus, 59 words sit above their frequency-justified
+share (みせ ×254, ほん ×260, ともだち ×234, ごはん ×222, きのう ×201, えき ×135)
+and only one is under. A listing module is structurally a noun generator, so
+m21's lists deliberately run on the course's UNDER-spent stock — いけ, かわ, そら,
+ゆき, さくら, つき, ほし, ふね, かめ, きのこ, きゅうり, もも, かぎ, けいたい,
+えんぴつ, かさ, くつ, ぼうし — plus the drinks vocabulary, which is new material
+and cannot be over-exposed. **はいる was NOT used**: the coordinator's note lists
+it as taught, but it is in no earlier module's `priorVocab`, and the same is true
+of いしゃ / へや / こうえん / ノート / たくさん / なる / とり / おなか / くち /
+みみ / くすり / びょうき / あめ / せいと — every one of which the CONTEXT PACK
+lists as known. The pack is built from `courseAtoms` attribution and overstates;
+`priorVocab` is the compiler's truth. All of them are avoided, and
+`m21-neo.test.ts` holds the line.
 
 **A NINTH note, m20 (2026-07-27) — the ledger row is unchanged and there is
 NO spine deviation.** spinePlan n09 asks for "AのほうがBより pattern; ほう (#66)
