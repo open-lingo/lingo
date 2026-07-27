@@ -5,6 +5,32 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
+## ⏵ RESUME HERE (state as of 2026-07-27, after the m22 commit)
+
+**Last commit: `965b0f8c`. Working tree clean apart from m23's in-flight work.**
+
+- **DONE and committed:** m11–m22. QA verdicts SHIP for m20, m21, m22.
+- **IN FLIGHT:** one authoring agent on **m23** (spine s22 — "Experience &
+  intent: たことがある, つもり"; ledger owes `koto-ga-aru` `tsumori-desu`
+  `kanji-set-2`). It has NOT been committed. It created a working directory
+  `scratch-m23/` at the repo root — **verify that is gone before committing.**
+- **NEXT after m23 lands**, in this order:
+  1. `node scripts/compile-ir.mjs m23 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
+     — check the m23 row: `findings` must be `—`, `systemic` may be 1.
+  2. Verify any guard the agent changed is a real false positive, and any
+     claim it makes about tokenization, by dumping tiles/`exercisedAtoms`
+     yourself. Three cycles running, the agent's headline claim needed
+     checking (m20's option count, m21's banned tense, m22's "zero て tiles").
+  3. Commit m23, then `node scripts/authoring-context.mjs m24 > docs/context/m24-context.md`
+  4. Dispatch Sonnet QA on m23 review+challenge ONLY, and the m24 authoring
+     agent, in ONE message so they run concurrently.
+- **REMAINING:** m24–m29 to finish N5 (18 grammar points), then m30–m40 for
+  mid-N4. ~1 hour per module cycle, measured.
+
+Brief boilerplate that must stay in every authoring brief: the carrier-fatigue
+list, "run TTS in the FOREGROUND, no watcher shells", "if a guard fires assume
+YOUR content is wrong", and Rule Zero (never substring-match Japanese).
+
 ## The loop (one module at a time, strictly in order)
 
 ```
@@ -84,7 +110,8 @@ arrives as a composition of owned parts rather than a new form.
 | suite | 7278 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%); m22 = 10.1% |
 | distinct step types | 10–12 per module |
-| audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
+| audit findings | **0 module-specific** for every module except m10 (1, its register single-tile builds, by design). The course-wide inv-35 debt now has its OWN column and is no longer counted as a per-module finding — see the audit-signal fix of 2026-07-27. `findings = —` means clean. |
+| QA verdicts | m20 SHIP · m21 SHIP · m22 SHIP (first three clean modules of the run; every earlier module had at least one defect, almost always a compiler bug rather than content) |
 | untaught words shipping as options | **0** |
 | spoken surfaces with no clip | **0** of ~1,700 |
 
