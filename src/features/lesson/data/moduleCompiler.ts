@@ -497,10 +497,16 @@ function makeTokenizer(atoms: Map<string, Atom>) {
           }
         }
       }
-      // Only INTERNAL boundaries need a mark — a trailing 。 is implicit and
-      // has always been dropped.
+      // A trailing 。 is implicit and has always been dropped. A trailing ？ is
+      // NOT: a plain-form question has no か, so 「ミカは くると おもう」 and
+      // 「ミカは くると おもう？」 are the same tiles and opposite meanings, and
+      // the question reading lives entirely in intonation a tile bank cannot
+      // encode. m18 shipped two items where the prompt asked a question the
+      // learner had no way to build. The mark rides the last tile, so it costs
+      // no extra tap.
       const isLast = n === sentences.length - 1;
-      if (!isLast && sentence.mark && out.length > before) {
+      const keep = !isLast || sentence.mark === "？";
+      if (keep && sentence.mark && out.length > before) {
         out[out.length - 1] += sentence.mark;
       }
     }
@@ -576,7 +582,12 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
   const buildTarget = (ja: string) => {
     const parts = splitSentences(ja);
     return parts
-      .map((s, i) => clean(s.text) + (i === parts.length - 1 ? "" : s.mark))
+      .map((s, i) => {
+        // Trailing ？ survives (it is the only thing marking a plain-form
+        // question); trailing 。 does not. See the tokenizer for why.
+        const last = i === parts.length - 1;
+        return clean(s.text) + (last && s.mark !== "？" ? "" : s.mark);
+      })
       .join("")
       .trim();
   };
@@ -874,7 +885,11 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       } else if (beat.kind === "listening-comp") {
         const step = listeningCompSentence({
           id: sid("lc"),
-          audioText: clean(beat.audio),
+          // buildTarget, not clean: a listening item's ？ is the only thing
+          // distinguishing 「…と おもう」 from 「…と おもう？」, and stripping it
+          // left m18's challenge playing a STATEMENT while its correct option
+          // was the question reading.
+          audioText: buildTarget(beat.audio),
           correctMeaningEn: beat.answer,
           distractorsEn: beat.distractors,
           question: beat.q,

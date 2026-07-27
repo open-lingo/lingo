@@ -20,6 +20,7 @@ guide or the compiler, not the modules one at a time.**
 | m16 | 235 | 11.5% | 12 | 1 |
 | m17 | 234 | 11.3% | 10 | 1 |
 | m18 | 234 | 12.0% | 12 | 1 |
+| m19 | 0 | 0.0% | 0 | 5 |
 
 ## Systemic — fix upstream, not per module
 
@@ -79,3 +80,11 @@ guide or the compiler, not the modules one at a time.**
 ### m18
 
 - **inv 35 build-tile-distractors** — 101 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
+
+### m19
+
+- **inv 45 usage-floor** — zero `listening_comprehension` steps in the whole module
+- **inv 45 usage-floor** — zero `multiple_choice` steps in the whole module
+- **inv 45 usage-floor** — zero `speaking` steps in the whole module
+- **inv 45 usage-floor** — zero `particle_cloze` steps in the whole module
+- **inv 45 usage-floor** — zero `match_pairs` steps in the whole module

@@ -105,10 +105,24 @@ describe("build_sentence sentence boundaries", () => {
     }
   });
 
-  it("still drops the trailing mark", () => {
+  it("drops a trailing 。 but KEEPS a trailing ？", () => {
+    // A statement needs no full stop — the tile bank ending is the ending. A
+    // plain-form question has no か, so without the ？ 「ミカは くると おもう」 and
+    // 「ミカは くると おもう？」 are the same tiles with opposite meanings, and the
+    // question reading lives in intonation the UI cannot encode. m18 shipped two
+    // items whose English asked a question the learner had no way to build.
     for (const { where, step } of steps) {
-      expect(step.targetSentence, where).not.toMatch(/[。？！]$/);
+      expect(step.targetSentence, where).not.toMatch(/[。！]$/);
     }
+  });
+
+  it("marks every plain-form question with ？", () => {
+    // A question with か is already marked; one without か must carry the ？.
+    const unmarked = steps
+      .filter(({ step }) => /^(Ask|Say|Build)?.*\?\s*$/.test(step.prompt ?? ""))
+      .filter(({ step }) => !/[か？]/.test(step.targetSentence))
+      .map(({ where, step }) => `${where}: ${step.targetSentence}`);
+    expect(unmarked).toEqual([]);
   });
 
   it("keeps tiles a partition of the target", () => {
