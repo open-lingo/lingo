@@ -1,0 +1,689 @@
+module: m18
+title: "Saying & thinking: とおもう + という"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17]
+
+priorGrammarPoints: [wa-topic, wo-object, ni-time, de-action, mo-also, to-and,
+                     koko-soko-asoko, nai-existence, arimasu, imasu, ga-existence,
+                     no-possession, kore-sore-are-dore, kono-sono-ano-dono, dare,
+                     masu-negative, masu-past, masu-past-negative, desu-past,
+                     dictionary-form, te-form, te-iru, te-kara, mae-ni, toki,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     kara-because, node-because, kedo, kara-origin, made-until,
+                     numbers-1-10, numbers-11-99, counter-ji, counter-tsu,
+                     counter-mai, counter-nin, counter-sai, family-register,
+                     kudasai]
+
+notes: |
+  m18 = spine tile n08, "Saying & thinking: とおもう + という". The quotation
+  particle と, the two verbs it feeds (おもう, いう), and the first kanji
+  READING set.
+
+  THE WHOLE POINT — と parks a finished sentence.
+
+  1. **と is a QUOTATION particle: it closes a quoted clause and hands it to a
+     verb of saying or thinking.** 「あした いくと おもう」 = "I think I'll go
+     tomorrow". The clause in front of と — 「あした いく」 — is a complete
+     plain sentence, exactly the one the learner would say on its own. Nothing
+     is reordered and nothing is added. This is the same move m15 taught for
+     relative clauses (park a whole sentence somewhere and let one word do a
+     job with it), and L1's rule card points at that explicitly.
+  2. **The quoted clause is PLAIN, ALWAYS.** 「いきますと おもう」 is wrong even
+     when the outer sentence is polite: politeness lives on the FINAL verb and
+     nowhere else. This is the payoff of dict-form-first and it is the module's
+     central rule — L2 exists for it alone, its antiPattern IS 「たべますと
+     おもう」, and its cloze makes the learner choose たべる over たべます inside
+     the quotation.
+  3. **とおもう is the SPEAKER's own opinion.** For somebody else's you need
+     とおもっている. That fact is stated in L1's rule-card prose in ROMAJI
+     (`to omotte iru`), where `jaSurfaces` — which reads KANA-ONLY strings — is
+     blind to it, so the fact lands without putting an untaught inflection on a
+     tile or in the tokenizer. Every production surface in the module is first
+     person or a plain third-person prediction, which is what とおもう is for.
+  4. **という is taught as NAMING only**: 「トムと いう ひと」, 「さくらと いう
+     みせ」, 「なんと いう はな？」. The abstract "which is to say" senses are far
+     beyond N5 and appear nowhere.
+  5. **kanji-set-1 is a READING ladder, not a writing exercise.** It compiles
+     to the course's own shipped `kanji_reading` factory (kanji shown bare →
+     pick the kana reading), reached through a NEW IR beat `kind: kanji` — see
+     the tooling note below. Eight glyphs, all on already-taught words whose
+     surfaces the rollout catalog unlocked at m9–m15, so every one of them
+     already reads BARE at m18 (unlock + FURIGANA_WINDOW). Nothing is invented:
+     the kanji, the unlock schedule and the distractor generator are the
+     shipped `n5Kanji.ts` / `applyKanjiSurfaces.ts` / `readingDistractors.ts`.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation); the ONE polite beat here is an
+  ordinary sentence with an explicit "Say politely:" cue, which is what inv 8
+  asks for.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION on the grammar.** spinePlan n08 asks for "Plain clause
+    + とおもう", "という naming/quotation", "おもう graduates from recognition
+    (s05) to drilled production" and an "⟳ intro beat — でしょう/conjecture
+    deepens later". All four land as written; でしょう stays on m25's row
+    (`deshou`) and is not previewed here, because the spine itself puts it in
+    n13 and the ledger agrees.
+  - **んだ (explanatory) is PROSE-ONLY, and that is the one place this module
+    is thinner than the spine's letter.** spinePlan n08 lists "んだ explanatory
+    — RECOGNITION preview". It is named, in romaji, in L9's rule-card prose
+    (`n da` beside 「どう おもう？」, which is exactly where a learner hears it),
+    and it reaches NO graded surface. Two reasons, both mechanical rather than
+    editorial: (a) inv 33 forbids a dialogue being a word's first exposure, so
+    a "recognition preview" cannot be a dialogue line — it would need a real
+    intro step, i.e. teaching it; and (b) registering んだ is a COURSE-WIDE
+    tokenizer change of exactly the class that broke m7 when m16 registered ので
+    (「ケンさんのです」 → ので + す), and 「いくんだ」/「ごはんだ」 sit on the same
+    fault line. `n-desu` is the ledger's m27 row, where the production lesson
+    lives; previewing it in prose costs nothing and risks nothing. Same device
+    m17 used for the Family II words and m16 for the irregular month readings.
+  - **NEW TOOLING: `kind: kanji`, an IR beat that emits `kanji_reading`.**
+    Three ledger rows owe a kanji set (m18, m23, m28) and the IR had no way to
+    express one — the only authored kanji step in the whole course is m30's,
+    hand-written in TS. Rather than invent a mechanism or hand-author lessons
+    outside the compiler, the beat is a thin front door onto the SHIPPED
+    factory (`grammarHelpers.kanjiReading`, 2026-07-16): surface + unlock gate
+    from `KANJI_ELIGIBLE_ATOMS`, distractors from `readingDistractors`
+    (valid-but-wrong on/kun, wrong okurigana stem, rendaku slip). It throws
+    rather than degrading, because a silently-dropped kanji step is a coverage
+    hole nothing else can see. `scripts/emit-tts-deck.mjs` learned the beat in
+    the same change so the post-commit reading audio cannot go silent.
+  - **The kanji set is 8 glyphs, sprinkled, never a wall.** 人 · 水 · 食べる ·
+    行く · 聞く · 分かる · 新しい · 高い. Five sit in L8 (the kanji-set-1
+    lesson), one in L9, one in review-3 and one in the challenge — m30's
+    "sprinkle-not-saturate" rule, and the brief's "do not let kanji crowd out
+    the grammar". Every one is a word the course TAUGHT and whose surface
+    unlocked at m9–m15, so it reads bare at m18 and the step is an honest
+    recognition check rather than a first sighting. Rejected on purpose: 木 (き
+    — a one-mora answer whose generated distractor ぼく is a taught pronoun),
+    中/前/海/山/川/花/月 (fewer than three plausible near-misses, so the factory
+    would have needed hand-authored ones for no pedagogical gain), 今日 (its
+    only third near-miss is こんにち, which is a REAL reading of the same two
+    glyphs — a distractor that is arguably correct grades a right answer
+    wrong; 新しい took the slot), and 言う / 思う — the two glyphs this module
+    would most like to test, which the rollout catalog does not unlock until
+    m22 and never (思 is not in `N5_KANJI`). 行く is the one entry with
+    hand-authored distractors, for the same reason 今日 was cut: the
+    generator's third near-miss was ゆく, a real alternate reading.
+  - **inv 20 (never leak a reading into prompt text) shaped the kanji rule
+    card.** Its prose explains on-vs-kun with 一 (ひとつ / いち) precisely
+    because 一 is not one of the eight tested glyphs; naming 人 = ひと there
+    would have handed over the answer to a step in the same lesson.
+  - **THREE new atoms, and ZERO new courseAtoms rows.** むずかしい, たのしい and
+    はなす all already have registry rows carrying stale old-course tags
+    (m8 / m15 / m14) and none is in `priorVocab`, so they are declared in
+    `newAtoms` — the m15/m16/m17 move — to stop the compiler treating them as
+    already-known. Because every one is already IN courseAtoms, this module
+    adds NOTHING to the course-wide tokenizer, which is the whole reason the
+    m16-ので class of regression cannot arise here. The vocabulary is
+    deliberately tiny: n08 allocates no word list, and the module's content is
+    every sentence the learner already owns, re-embedded under と.
+  - **Why those three.** とおもう is useless without something to have an
+    opinion ABOUT, and the course owned exactly two evaluative adjectives
+    (おいしい, おもしろい). むずかしい and たのしい are the two an N5 learner
+    reaches for first and are the canonical とおもう predicates in every
+    textbook. はなす gives L7 its contrast: 「ミカに いう」 (the person your
+    words go TO) against 「ミカと はなす」 (the person you talk WITH) — the
+    ordinary "and/with" と sitting one word away from the quotation と, which
+    is a confusion worth meeting on purpose rather than by accident.
+  - **All three debut on `word_image_mcq`, and NO rule card contains one.**
+    Inv 30/44 plus the pinned-card trap: a rule card is pinned ahead of the
+    interleaved middle, so an imageable word in its `examples:` loses its
+    picture debut. L4's card (nouns + adjectives before と) therefore runs on
+    おいしい / おもしろい / しずか / がくせい, and L7's card on いう / きく /
+    おしえる, while むずかしい / たのしい / はなす appear only in beats.
+  - **NO true particle_cloze anywhere.** Every cloze in this module chooses
+    among CONTENT words (くる/こない/こなかった, たべる/たべます/たべた,
+    がくせいだ/がくせい/がくせいじゃない), so `particleClozePlacement.test.ts` —
+    which fires only when EVERY option is a particle — has nothing to catch.
+    This is deliberate and not a dodge: the quotation と would be a legal cloze
+    under inv 5 (m18 introduces the function), but the choice that actually
+    teaches this module is PLAIN-vs-POLITE and DICT-vs-PAST inside the quote,
+    which is a word choice. と itself is drilled by production, on every build
+    in the module.
+  - **いった is never "said".** いった is a registered atom glossed "went
+    (travel, past)" — the past of いく — so using it for the past of いう would
+    hand FSRS the wrong credit and teach a homograph the course has not framed.
+    Reported speech therefore stays non-past (「ミカは くると いう」), and the
+    past-inside-the-quote lesson (L6) puts the past on the QUOTED verb, which
+    is where it belongs anyway: 「もう たべたと おもう」.
+  - **きた is never "came".** Same class, worse: きた is the atom for 北
+    "north" (m17). くる's past is unavailable as a surface, so nothing in this
+    module needs it — こない / こなかった carry the negative side.
+  - **No polite form of おもう / いう / はなす reaches a surface.** おもいます,
+    いいます and はなします have no courseAtoms row, so they exist in no
+    tokenizer and would compile to junk tiles. The ONE beat that shows
+    politeness on the outer verb uses ききます, which IS a taught atom
+    (「ケンは こないと ききます」 — "I hear Ken isn't coming"), and carries the
+    explicit "Say politely:" cue inv 8 requires. Everything else is plain, per
+    the course rule; おもいます is named in L2's prose, in romaji.
+  - **Persona canon.** Only two 「NAMEは NOUNだ」 assertions appear (「ミカは
+    がくせいだと おもう」, 「たなかは せんせいだと おもう」) and both agree with
+    COURSE_CANON. Opinions ABOUT people are otherwise about what they will do,
+    which is what an opinion sentence is for, and every dialogue speaker states
+    facts about themselves or asks (inv 22).
+  - **Clause boundaries are SPACES, never 、.** `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    target AND a run-on TTS key. Only rule-card prose and dialogue lines, which
+    render raw, keep one.
+  - **`verbGlossFidelity`:** みる is never glossed "read" here — every みる is
+    "watch"/"look at", and the module's ほん sentences use かう / おもしろい.
+  - **Gloss discipline (inv 17):** a plain non-past ACTIVITY verb inside a
+    quote glosses as intent ("I think Mika will eat sushi"), never progressive;
+    the motion verbs いく / くる keep the futurate "-ing" ("I think Mika is
+    coming tomorrow").
+  - **Verbs the context pack calls known but `priorVocab` does not:** かく,
+    うたう, たつ, ふる, さく, なる, すむ, ふく (the verb), plus にほんご,
+    がっこう, でんしゃ, とし, まいにち, あめ, たぶん and almost the entire
+    "reinforcement targets" block at the bottom of the pack (あまい, やさい,
+    さいふ, うるさい, あかい, あお, ぱん, ぺん, ぴあの, どあ, ぷりん, えび,
+    ぞう, まいばん, まいあさ — none of them are in `priorVocab`). The pack's
+    list is built from courseAtoms attribution; `priorVocab` is the authority
+    and every surface in this file was checked against it. The genuinely
+    under-exposed words that DO survive the check — きっさてん, じてんしゃ,
+    ぼうし, けいたい, しゃしん, かばん, めがね, とけい, てがみ, じしょ,
+    りょうり, おんがく, じゅぎょう, なつやすみ — rotate as carriers so the
+    module is not a wall of ほん and えいが (inv 27).
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing this module teaches conjugates — と is a
+  particle and the quoted clause reuses forms the learner already owns — so no
+  `conjugation:` block is declared and no `verbClass` is set on any atom, which
+  keeps every one of them out of ramp material entirely (inv 37 is satisfied
+  vacuously, not waived).
+
+  CONNECTIVES + COMPLEXITY (inv 13): a quotation sentence is already two
+  clauses deep, and most beats stack a third on m16's から / ので / けど
+  (「たかいと おもうけど かう」), which is also how opinions are actually
+  spoken.
+
+  SIX POINTS ARE RE-TAUGHT rather than re-assigned, because the row owes only
+  three ids across nine teaching lessons and inv 42 forbids inventing new ones:
+  `masu-present` (m7 — L2 is where the polite layer meets the quotation and
+  loses), `nai-form` (m6 — English negates the THINKING, Japanese negates the
+  QUOTED CLAUSE, and that asymmetry needs its own lesson), `desu-copula` (m3 —
+  だ survives in front of と, which is the only place a learner ever drops it),
+  `ta-form` (m11 — the quote carries its own tense), `ni-location` (m6 — に
+  marks the person the words go TO) and `ka-question` (m3 — 「どう おもう？」).
+  No ledger row moves: a re-teach is not a re-assignment, exactly as
+  m14/m15/m16/m17 established.
+
+grammarPoints:
+  - id: to-omoimasu
+    rule: "と is a QUOTATION particle. It closes a quoted clause and hands it to a verb of thinking or saying: 「あした いくと おもう」 = I think I'll go tomorrow. Look at what is in front of と — 「あした いく」 — it is a complete plain sentence, the one you would say on its own. Nothing is reordered, nothing is added, nothing is dropped. You have done this before: in module 15 you parked a whole sentence in front of a noun to describe it. This is the same move with a different landing place. One limit worth knowing now: 〜と おもう states YOUR OWN opinion. For what somebody ELSE thinks, Japanese says 'to omotte iru' — a later lesson. Everything you build here is what YOU think."
+    examples:
+      - { ja: "あした いくと おもう。", en: "I think I'll go tomorrow." }
+      - { ja: "ミカは あした くると おもう。", en: "I think Mika is coming tomorrow." }
+      - { ja: "ケンは えいがを みると おもう。", en: "I think Ken will watch the movie." }
+      - { ja: "たなかは わかると おもう。", en: "I think Tanaka understands." }
+      - { ja: "トムは うちに いると おもう。", en: "I think Tom is at home." }
+    antiPattern: { ja: "あした いくを おもう。", why: "を marks a THING you act on, and a whole sentence is not a thing — a quoted clause is handed over with と: あした いくと おもう。" }
+  - id: masu-present
+    rule: "Politeness lives on the FINAL verb of the sentence and nowhere else. Whatever you park in front of と stays PLAIN — always, without exception. 「ミカは すしを たべると おもう」 is the casual sentence; speaking politely you change only the last word, to 'omoimasu', and the たべる inside the quotation does not move. 「たべますと おもう」 is not stiff Japanese, it is wrong Japanese. This is why the course taught you plain form first: the quoted clause is the plain sentence you have been building since module 5, and ます is a coat you put on the last word only."
+    examples:
+      - { ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi." }
+      - { ja: "トムは ほんを かうと おもう。", en: "I think Tom will buy a book." }
+      - { ja: "ケンは きょう はたらくと おもう。", en: "I think Ken will work today." }
+      - { ja: "ミカは えきで まつと おもう。", en: "I think Mika will wait at the station." }
+      - { ja: "たなかは ミカに おしえると おもう。", en: "I think Tanaka will teach Mika." }
+    antiPattern: { ja: "ミカは すしを たべますと おもう。", why: "the clause in front of と is ALWAYS plain — politeness belongs to the last verb only, never inside the quotation: ミカは すしを たべると おもう。" }
+  - id: nai-form
+    rule: "English and Japanese negate different halves of this sentence, and the mismatch is the whole lesson. English says \"I DON'T think he's coming\". Japanese says 「こないと おもう」 — literally \"I think he isn't coming\". The ない goes INSIDE the quotation, on the quoted verb, and おもう stays positive. Every plain negative you own works there: いかない, たべない, みない, わからない, こない, いない, ない, and the noun negative じゃない. There IS a form 'omowanai', but it is a much heavier \"I do not think so\" — a flat rejection, not the everyday hedge. Negate the clause, not the thinking."
+    examples:
+      - { ja: "ケンは こないと おもう。", en: "I don't think Ken is coming." }
+      - { ja: "ミカは えいがを みないと おもう。", en: "I don't think Mika will watch the movie." }
+      - { ja: "トムは わからないと おもう。", en: "I don't think Tom understands." }
+      - { ja: "たなかは きょう こないと おもう。", en: "I don't think Tanaka is coming today." }
+      - { ja: "ミカは すしを たべないと おもう。", en: "I don't think Mika will eat sushi." }
+    antiPattern: { ja: "ケンは くないと おもう。", why: "くる is irregular — its plain negative is こない, never くない: ケンは こないと おもう。" }
+  - id: desu-copula
+    rule: "Not every opinion is about an action, and what you quote decides what has to be there. A NOUN sentence keeps its だ: 「ミカは がくせいだと おもう」 — the だ is what makes 「ミカは がくせい」 a sentence at all, so it cannot be dropped in front of と. A な-adjective behaves like a noun and keeps だ too: 「しずかだと おもう」. An い-ADJECTIVE is already a whole sentence by itself and takes NO だ: 「おいしいと おもう」, never 'oishii da to'. Three shapes, one question every time: is the thing in front of と a complete plain sentence? If it is, と will take it."
+    examples:
+      - { ja: "ミカは がくせいだと おもう。", en: "I think Mika is a student." }
+      - { ja: "この すしは おいしいと おもう。", en: "I think this sushi is delicious." }
+      - { ja: "あの きっさてんは しずかだと おもう。", en: "I think that coffee shop over there is quiet." }
+      - { ja: "この ほんは おもしろいと おもう。", en: "I think this book is interesting." }
+      - { ja: "たなかは せんせいだと おもう。", en: "I think Tanaka is a teacher." }
+    antiPattern: { ja: "ミカは がくせいと おもう。", why: "a noun on its own is not a sentence — だ is what finishes it, and it survives in front of と: ミカは がくせいだと おもう。" }
+  - id: to-quotation
+    rule: "The same と, a different verb, a different job. 〜と いう in front of a NOUN names it: 「トムと いう ひと」 = a person called Tom. と closes the name exactly as it closed a quoted sentence, and いう hands it to the noun behind. Reach for it the first time you mention something your listener does not know yet — 「さくらと いう みせ」 a shop called Sakura, 「ミカと いう がくせい」 a student called Mika. To ask, 「なんと いう ひと？」 — what is the person called? Once the name is common ground you drop the frame and just say the name. Same verb, plain quotation: 「ミカは くると いう」 = Mika says she's coming."
+    examples:
+      - { ja: "トムと いう ひとが くる。", en: "A person called Tom is coming." }
+      - { ja: "さくらと いう みせで かう。", en: "I buy it at a shop called Sakura." }
+      - { ja: "ミカと いう がくせいが いる。", en: "There's a student called Mika." }
+      - { ja: "これは さくらと いう はなだ。", en: "This is a flower called sakura." }
+      - { ja: "あれは なんと いう はな？", en: "What is that flower called?" }
+    antiPattern: { ja: "トムの いう ひとが くる。", why: "の joins two nouns as owner and owned; a NAME is handed to its noun with と いう: トムと いう ひとが くる。" }
+  - id: ta-form
+    rule: "The quoted clause carries its own tense and おもう stays in the present, because the thinking is happening now. 「ミカは もう たべたと おもう」 = I think Mika has already eaten — the past sits on たべた, inside the quotation, where the eating happened. Every plain past you own goes in: たべた, のんだ, みた, かった, きいた, わかった, あそんだ, and the noun past だった. There is a sentence 「たべたと おもった」 with the past on BOTH verbs, but it means \"I thought she had eaten\" — a report about your past self — and it is rarer than beginners expect. Keep おもう in the present and let the quotation do the time-travel."
+    examples:
+      - { ja: "ミカは もう たべたと おもう。", en: "I think Mika has already eaten." }
+      - { ja: "ケンは えいがを みたと おもう。", en: "I think Ken watched the movie." }
+      - { ja: "トムは ほんを かったと おもう。", en: "I think Tom bought a book." }
+      - { ja: "ミカは わかったと おもう。", en: "I think Mika understood." }
+      - { ja: "ケンは きのう ともだちと あそんだと おもう。", en: "I think Ken played with a friend yesterday." }
+    antiPattern: { ja: "ミカは もう たべただと おもう。", why: "a past VERB is already a whole sentence — だ finishes NOUNS, never verbs: ミカは もう たべたと おもう。" }
+  - id: ni-location
+    rule: "A quotation needs somebody on the other end, and the particle you pick says what that person is to the sentence. に marks the person the words go TO: 「ミカに あした いくと いう」 = I'll tell Mika I'm going tomorrow. と marks the person you do it WITH: 「ミカと はなす」 = I talk with Mika — and that is the ordinary \"and / with\" と you have had since module 8, sitting one word away from the quotation と in the same sentence. きく takes both readings: 「ミカに きく」 is asking her, while 「ミカは くると きく」 is hearing that she'll come. Read the whole sentence, not the particle on its own."
+    examples:
+      - { ja: "ミカに あした いくと いう。", en: "I'll tell Mika I'm going tomorrow." }
+      - { ja: "トムに この みせは やすいと いう。", en: "I'll tell Tom this shop is cheap." }
+      - { ja: "たなかに わからないと いう。", en: "I'll tell Tanaka I don't understand." }
+      - { ja: "ケンは あした こないと きく。", en: "I hear Ken isn't coming tomorrow." }
+      - { ja: "ともだちに この ほんは おもしろいと おしえる。", en: "I'll tell my friend this book is interesting." }
+    antiPattern: { ja: "ミカを あした いくと いう。", why: "を marks the THING acted on; the person your words go TO is marked with に: ミカに あした いくと いう。" }
+  - id: kanji-set-1
+    rule: "You have been reading kanji since module 8 without ever being asked to prove it — the words you know quietly changed clothes, and their kana floated above until the glyph had been on screen long enough. From here the oldest ones read bare, so the question becomes a plain one: what does this say? A Japanese word carries its MEANING in the kanji and its SOUND in the kana around it, which is why 大きい is one glyph plus きい and the きい never changes. Most glyphs answer to two readings, a native Japanese one and a borrowed Chinese one — 三 is the みっ of みっつ and the さん you count with — so the same character can sound different in different words, and the word tells you which. You are never asked to WRITE one. Reading is the whole job."
+    examples:
+      - { ja: "この ひとは がくせいだと おもう。", en: "I think this person is a student." }
+      - { ja: "きょうは みずを かうと おもう。", en: "I think I'll buy water today." }
+      - { ja: "トムは にほんに いくと おもう。", en: "I think Tom will go to Japan." }
+      - { ja: "ミカは わかると おもう。", en: "I think Mika understands." }
+      - { ja: "この かばんは たかいと おもう。", en: "I think this bag is expensive." }
+  - id: ka-question
+    rule: "To ask what somebody thinks you need no new word, only the question you already own. 「どう おもう？」 is \"what do you think?\" — Japanese asks HOW you think about it, not WHAT. To test one specific opinion, quote it and hand it over: 「たかいと おもう？」 = do you think it's expensive? In casual speech the question is carried by the rising contour alone and か stays away; か comes back when you speak politely. 「なんと いう？」 asks what a thing is called. One thing you will HEAR constantly and are not asked to produce yet: Japanese often ends an explanation with 'n da' — 'takai n da', \"the thing is, it's expensive\" — which is a later lesson. Answering is the frame you have built all module: quote your opinion, add と, finish with おもう."
+    examples:
+      - { ja: "ミカは くると おもう？", en: "Do you think Mika is coming?" }
+      - { ja: "どう おもう？", en: "What do you think?" }
+      - { ja: "この みせは たかいと おもう？", en: "Do you think this shop is expensive?" }
+      - { ja: "あれは なんと いう はな？", en: "What is that flower called?" }
+      - { ja: "この えいがは おもしろいと おもう？", en: "Do you think this movie is interesting?" }
+    antiPattern: { ja: "ミカは くるかと おもう？", why: "か marks a question you are asking your LISTENER, not the clause you are quoting — what goes in front of と is a plain statement: ミカは くると おもう？" }
+
+newAtoms:
+  # ══ L4. The two evaluative adjectives とおもう exists to spend. Both already
+  #    carry courseAtoms rows with stale old-course tags (むずかしい m8,
+  #    たのしい m15) and neither is in priorVocab, so declaring them here is
+  #    what stops the compiler treating them as already-known — and adds
+  #    NOTHING to the course-wide tokenizer, since both surfaces are already
+  #    in it. Both are imageable and debut on a word_image_mcq (inv 30/44);
+  #    neither appears in ANY rule card's examples, because a pinned card
+  #    would steal the picture debut.
+  #    NOTE: むずかしい is in ADJ_ENTRIES (its inflections are real forms the
+  #    guards' lexicon knows); たのしい is NOT, so no inflected たのし- surface
+  #    appears anywhere in this module — the same care m13 took with ほしい.
+  - { kana: むずかしい, romaji: muzukashii, gloss: "difficult", shortGloss: "difficult", kind: vocab }
+  - { kana: たのしい, romaji: tanoshii, gloss: "enjoyable, fun", shortGloss: "enjoyable", kind: vocab }
+  # ══ L7. The verb that makes the と-contrast teachable: 「ミカと はなす」
+  #    (talk WITH) against 「ミカに いう」 (tell TO). Registry row exists
+  #    (stale m14 tag), absent from priorVocab, imageable → image debut.
+  #    Only the dictionary form is ever used: はなす is NOT in VERB_ENTRIES,
+  #    so no inflected はなし- surface exists in any lexicon the guards read.
+  - { kana: はなす, romaji: hanasu, gloss: "to speak, to talk", shortGloss: "to speak", kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-1
+    role: teaching
+    title: "「あした いくと おもう」 — handing a sentence to おもう"
+    focus: "と closes a quoted clause and hands it to おもう — what sits in front of と is a complete plain sentence"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: to-omoimasu }
+      - { kind: sentence, ja: "あした いくと おもう。", en: "I think I'll go tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
+      - { kind: sentence, ja: "ミカは あした くると おもう。", en: "I think Mika is coming tomorrow", exercises: [to-omoimasu, wa-topic], mode: build }
+      - { kind: sentence, ja: "ケンは えいがを みると おもう。", en: "I think Ken will watch the movie", exercises: [to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは うちに いると おもう。", en: "I think Tom is at home", exercises: [to-omoimasu, imasu], mode: listening }
+      - { kind: sentence, ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi", exercises: [to-omoimasu, wo-object, wa-topic], mode: build }
+      - { kind: sentence, ja: "この みせは ぼうしを うると おもう。", en: "I think this shop sells hats", exercises: [to-omoimasu, kono-sono-ano-dono, wo-object], mode: build }
+      - { kind: sentence, ja: "たなかは きょう じゅぎょうが あると おもう。", en: "I think Tanaka has a class today", exercises: [to-omoimasu, arimasu], mode: build }
+      - { kind: sentence, ja: "あした いくと おもう。", en: "Say to a friend: I think I'll go tomorrow", exercises: [to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは あした ", tail: "と おもう。", answer: "くる", options: ["くる", "こない", "こなかった"], en: "I think Mika is coming tomorrow", explanation: "what sits in front of と is the whole sentence 「ミカは あした くる」. こない is its negative and こなかった its past negative — both are legal there, but neither means \"is coming\"." }
+      - { kind: listening-comp, audio: "ミカは きっさてんに いくと おもう。", answer: "I think Mika is going to the coffee shop", distractors: ["I think Mika went to the coffee shop", "I don't think Mika is going to the coffee shop", "Mika says she's going to the coffee shop"], exercises: [to-omoimasu, ni-location] }
+      - { kind: listening-comp, audio: "たなかは わかると おもう。", answer: "I think Tanaka understands", distractors: ["I don't think Tanaka understands", "Tanaka thinks I understand", "I understood Tanaka"], exercises: [to-omoimasu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ケンは あした くる？", en: "Is Ken coming tomorrow?" }
+          - { speaker: "Tom", ja: "くると おもう。じてんしゃで くると おもう。", en: "I think he's coming. I think he's coming by bike." }
+        questions:
+          - { q: "What does Tom think about Ken?", options: ["He thinks Ken is coming by bike", "He thinks Ken isn't coming", "He knows Ken is coming by car", "He thinks Ken is at home"], answer: "He thinks Ken is coming by bike" }
+      - { kind: challenge, ja: "この きっさてんは やすいから ミカは いくと おもう。", en: "This coffee shop is cheap, so I think Mika will go", combines: [to-omoimasu, kono-sono-ano-dono, kara-because, i-adj-present], mode: build }
+    reviewPool: [おもう, えいが, すし, ぼうし, みせ, きっさてん, じてんしゃ, じゅぎょう, せんせい, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-2
+    role: teaching
+    title: "「たべますと おもう」 は ✗ — the quote stays plain"
+    focus: "Politeness lives on the FINAL verb only; whatever you park in front of と is always plain"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      - { kind: sentence, ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi", exercises: [masu-present, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは ほんを かうと おもう。", en: "I think Tom will buy a book", exercises: [masu-present, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンは きょう はたらくと おもう。", en: "I think Ken will work today", exercises: [masu-present, to-omoimasu, ni-time], mode: build }
+      - { kind: sentence, ja: "ミカは えきで まつと おもう。", en: "I think Mika will wait at the station", exercises: [masu-present, to-omoimasu, de-action], mode: listening }
+      - { kind: sentence, ja: "たなかは ミカに おしえると おもう。", en: "I think Tanaka will teach Mika", exercises: [masu-present, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "ケンは こないと ききます。", en: "Say politely: I hear Ken isn't coming", exercises: [masu-present, to-omoimasu, nai-form], mode: build }
+      - { kind: sentence, ja: "トムは ぎゅうにゅうを のむと おもう。", en: "I think Tom will drink the milk", exercises: [masu-present, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは えきで まつと おもう。", en: "Say to a friend: I think Mika will wait at the station", exercises: [masu-present, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは すしを ", tail: "と おもう。", answer: "たべる", options: ["たべる", "たべます", "たべたい"], en: "I think Mika will eat sushi", explanation: "the clause in front of と is ALWAYS plain, so たべる — never たべます, however polite the rest of the sentence gets. たべたい would mean she WANTS to eat it." }
+      - { kind: listening-comp, audio: "トムは かばんを かうと おもう。", answer: "I think Tom will buy a bag", distractors: ["I think Tom bought a bag", "I think Tom will buy a book", "Tom says he'll buy a bag"], exercises: [masu-present, to-omoimasu] }
+      - { kind: listening-comp, audio: "ケンは かいしゃで はたらくと おもう。", answer: "I think Ken works at a company", distractors: ["I don't think Ken works at a company", "I think Ken works at a shop", "Ken says he works at a company"], exercises: [masu-present, to-omoimasu, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "ミカさんは きょう きますか。", en: "Is Mika coming today?" }
+          - { speaker: "Ken", ja: "くると おもう。じゅぎょうが あるから くると おもう。", en: "I think she's coming. She has a class, so I think she's coming." }
+        questions:
+          - { q: "Why does Ken think Mika is coming?", options: ["She has a class", "She has no class", "She works today", "She's at the station"], answer: "She has a class" }
+      - { kind: challenge, ja: "ミカは いそがしいから えきで まつと おもう。", en: "Mika is busy, so I think she'll wait at the station", combines: [masu-present, to-omoimasu, kara-because, de-action], mode: build }
+    reviewPool: [おもう, ほん, えき, ぎゅうにゅう, じゅぎょう, すし, かいしゃ, とけい, けいたい, かばん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-3
+    role: teaching
+    title: "「こないと おもう」 — where the ない goes"
+    focus: "English negates the thinking, Japanese negates the QUOTED clause — 「I don't think he's coming」 is 「こないと おもう」"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: nai-form }
+      - { kind: sentence, ja: "ケンは こないと おもう。", en: "I don't think Ken is coming", exercises: [nai-form, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "ミカは えいがを みないと おもう。", en: "I don't think Mika will watch the movie", exercises: [nai-form, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは わからないと おもう。", en: "I don't think Tom understands", exercises: [nai-form, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "たなかは きょう こないと おもう。", en: "I don't think Tanaka is coming today", exercises: [nai-form, to-omoimasu, ni-time], mode: listening }
+      - { kind: sentence, ja: "ミカは すしを たべないと おもう。", en: "I don't think Mika will eat sushi", exercises: [nai-form, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは めがねを かわないと おもう。", en: "I don't think Mika will buy glasses", exercises: [nai-form, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンは いそがしいから こないと おもう。", en: "Ken is busy, so I don't think he's coming", exercises: [nai-form, to-omoimasu, kara-because], mode: build }
+      - { kind: sentence, ja: "トムは わからないと おもう。", en: "Say to a friend: I don't think Tom understands", exercises: [nai-form, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ケンは ", tail: "と おもう。", answer: "こない", options: ["こない", "くる", "こなかった"], en: "I don't think Ken is coming", explanation: "Japanese negates the QUOTED clause, so the ない sits on こない and おもう stays positive. くる is the plain positive; こなかった is the past negative." }
+      - { kind: listening-comp, audio: "ミカは ぎゅうにゅうを のまないと おもう。", answer: "I don't think Mika will drink the milk", distractors: ["I think Mika will drink the milk", "I don't think Ken will drink the milk", "Mika says she won't drink the milk"], exercises: [nai-form, to-omoimasu] }
+      - { kind: listening-comp, audio: "トムは きょう こないと おもう。", answer: "I don't think Tom is coming today", distractors: ["I think Tom is coming today", "I don't think Ken is coming today", "Tom says he isn't coming today"], exercises: [nai-form, to-omoimasu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカは きょう くる？", en: "Is Mika coming today?" }
+          - { speaker: "Ken", ja: "こないと おもう。りょこうに いくから こないと おもう。", en: "I don't think she's coming. She's going on a trip, so I don't think she's coming." }
+        questions:
+          - { q: "Why does Ken think Mika isn't coming?", options: ["She's going on a trip", "She's busy at work", "She's at the station", "She doesn't like movies"], answer: "She's going on a trip" }
+      - { kind: challenge, ja: "この えいがは おもしろくないから ミカは みないと おもう。", en: "This movie isn't interesting, so I don't think Mika will watch it", combines: [nai-form, to-omoimasu, kara-because, i-adj-negative], mode: build }
+    reviewPool: [おもう, えいが, めがね, りょこう, すし, ともだち, きっさてん, しゃしん, てがみ, じしょ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-review-1
+    role: review
+    title: "Review — と おもう, positive and negative"
+    focus: "The clause in front of と is a complete plain sentence, and the negative goes inside it"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あした いくと おもう。", en: "I think I'll go tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
+      - { kind: sentence, ja: "ケンは こないと おもう。", en: "I don't think Ken is coming", exercises: [nai-form, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi", exercises: [to-omoimasu, wo-object], mode: listening }
+      - { kind: sentence, ja: "トムは ほんを かうと おもう。", en: "I think Tom will buy a book", exercises: [masu-present, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "たなかは きょう こないと おもう。", en: "I don't think Tanaka is coming today", exercises: [nai-form, to-omoimasu], mode: build }
+      - { kind: particle-cloze, stem: "ミカは すしを ", tail: "と おもう。", answer: "たべる", options: ["たべる", "たべます", "たべない"], en: "I think Mika will eat sushi", explanation: "the quoted clause stays plain — たべる, never たべます. たべない is the negative, which would mean she won't." }
+      - { kind: sentence, ja: "ケンは きょう はたらくと おもう。", en: "I think Ken will work today", exercises: [masu-present, to-omoimasu], mode: build }
+      - { kind: listening-comp, audio: "トムは わからないと おもう。", answer: "I don't think Tom understands", distractors: ["I think Tom understands", "Tom doesn't understand me", "I don't think Ken understands"], exercises: [nai-form, to-omoimasu] }
+      - { kind: sentence, ja: "ミカは えきで まつと おもう。", en: "I think Mika will wait at the station", exercises: [masu-present, to-omoimasu, de-action], mode: build }
+      - { kind: sentence, ja: "ケンは こないと おもう。", en: "Say to a friend: I don't think Ken is coming", exercises: [nai-form, to-omoimasu], mode: translate }
+      - { kind: listening-comp, audio: "この みせは ぼうしを うると おもう。", answer: "I think this shop sells hats", distractors: ["I don't think this shop sells hats", "I think that shop over there sells hats", "I think this shop sells glasses"], exercises: [to-omoimasu, kono-sono-ano-dono] }
+      - { kind: sentence, ja: "ケンは えいがを みると おもう。", en: "I think Ken will watch the movie", exercises: [to-omoimasu, wo-object], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "トムは きょう くると おもう？", en: "Do you think Tom is coming today?" }
+          - { speaker: "Ken", ja: "こないと おもう。うちで はたらくと おもう。", en: "I don't think he's coming. I think he's working at home." }
+        questions:
+          - { q: "What does Ken think Tom is doing?", options: ["Working at home", "Coming to the station", "Watching a movie", "Buying a book"], answer: "Working at home" }
+    reviewPool: [おもう, えいが, すし, ほん, えき, ぼうし, みせ, きっさてん, じてんしゃ, めがね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-4
+    role: teaching
+    title: "「がくせいだと おもう」 — quoting nouns and adjectives"
+    focus: "A noun keeps its だ in front of と; an い-adjective is already a sentence and takes none"
+    introduces: [むずかしい, たのしい]
+    beats:
+      - { kind: rule, grammarPointId: desu-copula }
+      - { kind: sentence, ja: "ミカは がくせいだと おもう。", en: "I think Mika is a student", exercises: [desu-copula, to-omoimasu, wa-topic], mode: build }
+      - { kind: sentence, ja: "この じゅぎょうは むずかしいと おもう。", en: "I think this class is difficult", exercises: [desu-copula, to-omoimasu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "この えいがは たのしいと おもう。", en: "I think this movie is fun", exercises: [desu-copula, to-omoimasu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あの きっさてんは しずかだと おもう。", en: "I think that coffee shop over there is quiet", exercises: [desu-copula, to-omoimasu, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "この すしは おいしいと おもう。", en: "I think this sushi is delicious", exercises: [desu-copula, to-omoimasu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たなかは せんせいだと おもう。", en: "I think Tanaka is a teacher", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "この とけいは たかいけど あたらしいと おもう。", en: "This watch is expensive, but I think it's new", exercises: [desu-copula, to-omoimasu, kedo], mode: build }
+      - { kind: sentence, ja: "この じゅぎょうは むずかしいと おもう。", en: "Say to a friend: I think this class is difficult", exercises: [desu-copula, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは ", tail: "と おもう。", answer: "がくせいだ", options: ["がくせいだ", "がくせい", "がくせいじゃない"], en: "I think Mika is a student", explanation: "a noun on its own is not a sentence — だ is what finishes it, and it survives in front of と. がくせいじゃない is the negative, \"isn't a student\"." }
+      - { kind: listening-comp, audio: "この ほんは むずかしいと おもう。", answer: "I think this book is difficult", distractors: ["I think this book is fun", "I don't think this book is difficult", "I think this class is difficult"], exercises: [desu-copula, to-omoimasu] }
+      - { kind: listening-comp, audio: "なつやすみは たのしいと おもう。", answer: "I think the summer holiday is fun", distractors: ["I think the summer holiday is difficult", "I don't think the summer holiday is fun", "I think the class is fun"], exercises: [desu-copula, to-omoimasu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "この じゅぎょうは どう？", en: "How is this class?" }
+          - { speaker: "Mika", ja: "むずかしいと おもう。でも たのしいと おもう。", en: "I think it's difficult. But I think it's fun." }
+        questions:
+          - { q: "What does Mika think of the class?", options: ["Difficult but fun", "Easy and fun", "Difficult and boring", "Quiet but expensive"], answer: "Difficult but fun" }
+      - { kind: challenge, ja: "この ほんは むずかしいけど おもしろいと おもう。", en: "This book is difficult, but I think it's interesting", combines: [desu-copula, to-omoimasu, kedo, i-adj-present], mode: build }
+    reviewPool: [おもう, じゅぎょう, えいが, すし, とけい, きっさてん, がくせい, せんせい, ほん, しゃしん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-5
+    role: teaching
+    title: "「トムと いう ひと」 — naming things"
+    focus: "〜と いう in front of a noun names it — a person called Tom, a shop called Sakura"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: to-quotation }
+      - { kind: sentence, ja: "トムと いう ひとが くる。", en: "A person called Tom is coming", exercises: [to-quotation, ga-existence], mode: build }
+      - { kind: sentence, ja: "さくらと いう みせで かう。", en: "I buy it at a shop called Sakura", exercises: [to-quotation, de-action], mode: build }
+      - { kind: sentence, ja: "ミカと いう がくせいが いる。", en: "There's a student called Mika", exercises: [to-quotation, imasu], mode: build }
+      - { kind: sentence, ja: "これは さくらと いう はなだ。", en: "This is a flower called sakura", exercises: [to-quotation, kore-sore-are-dore], mode: listening }
+      - { kind: sentence, ja: "あれは なんと いう はな？", en: "What is that flower called", exercises: [to-quotation, dare], mode: build }
+      - { kind: sentence, ja: "ミカは あした くると いう。", en: "Mika says she's coming tomorrow", exercises: [to-quotation, wa-topic], mode: build }
+      - { kind: sentence, ja: "さくらと いう きっさてんは しずかだと おもう。", en: "I think the coffee shop called Sakura is quiet", exercises: [to-quotation, to-omoimasu, na-adj-present], mode: build }
+      - { kind: sentence, ja: "トムと いう ひとが くる。", en: "Say to a friend: A person called Tom is coming", exercises: [to-quotation], mode: translate }
+      - { kind: particle-cloze, stem: "さくらと ", tail: " みせで かう。", answer: "いう", options: ["いう", "おもう", "きく"], en: "I buy it at a shop called Sakura", explanation: "naming takes いう — 〜と いう in front of the noun. おもう would make it an opinion, and きく is hearing or asking." }
+      - { kind: listening-comp, audio: "ケンと いう がくせいが いる。", answer: "There's a student called Ken", distractors: ["There's a teacher called Ken", "Ken says there's a student", "I think Ken is a student"], exercises: [to-quotation, imasu] }
+      - { kind: listening-comp, audio: "トムは あした くると いう。", answer: "Tom says he's coming tomorrow", distractors: ["I think Tom is coming tomorrow", "Tom says he isn't coming tomorrow", "Tom asks if I'm coming tomorrow"], exercises: [to-quotation] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "あれは なんと いう はな？", en: "What is that flower called?" }
+          - { speaker: "Mika", ja: "さくらと いう はなだ。にほんの はなだ。", en: "It's a flower called sakura. It's a Japanese flower." }
+        questions:
+          - { q: "What does Mika say about the flower?", options: ["It's called sakura and it's Japanese", "It's called sakura and it's American", "She doesn't know its name", "It's a flower from her house"], answer: "It's called sakura and it's Japanese" }
+      - { kind: challenge, ja: "さくらと いう みせは やすいから よく いくと おもう。", en: "The shop called Sakura is cheap, so I think I'll go often", combines: [to-quotation, to-omoimasu, kara-because, i-adj-present], mode: build }
+    reviewPool: [おもう, いう, ひと, はな, みせ, がくせい, なまえ, きっさてん, にほん, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-6
+    role: teaching
+    title: "「もう たべたと おもう」 — the quote keeps its own tense"
+    focus: "The past sits inside the quotation, on the quoted verb; おもう stays in the present"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: ta-form }
+      - { kind: sentence, ja: "ミカは もう たべたと おもう。", en: "I think Mika has already eaten", exercises: [ta-form, to-omoimasu, mada-mou], mode: build }
+      - { kind: sentence, ja: "ケンは えいがを みたと おもう。", en: "I think Ken watched the movie", exercises: [ta-form, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは ほんを かったと おもう。", en: "I think Tom bought a book", exercises: [ta-form, to-omoimasu, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは わかったと おもう。", en: "I think Mika understood", exercises: [ta-form, to-omoimasu], mode: listening }
+      - { kind: sentence, ja: "ケンは きのう ともだちと あそんだと おもう。", en: "I think Ken played with a friend yesterday", exercises: [ta-form, to-omoimasu, to-and], mode: build }
+      - { kind: sentence, ja: "たなかは もう ぎゅうにゅうを のんだと おもう。", en: "I think Tanaka has already drunk the milk", exercises: [ta-form, to-omoimasu, mada-mou], mode: build }
+      - { kind: sentence, ja: "この りょうりは おいしかったと おもう。", en: "I think this dish was delicious", exercises: [ta-form, to-omoimasu, i-adj-past], mode: build }
+      - { kind: sentence, ja: "ケンは えいがを みたと おもう。", en: "Say to a friend: I think Ken watched the movie", exercises: [ta-form, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは もう ", tail: "と おもう。", answer: "たべた", options: ["たべた", "たべる", "たべなかった"], en: "I think Mika has already eaten", explanation: "the past belongs to the quoted clause, so たべた goes in front of と and おもう stays present. たべる is non-past; たべなかった is the past negative." }
+      - { kind: listening-comp, audio: "トムは かばんを かったと おもう。", answer: "I think Tom bought a bag", distractors: ["I think Tom will buy a bag", "I think Mika bought a bag", "I think Tom bought a book"], exercises: [ta-form, to-omoimasu] }
+      - { kind: listening-comp, audio: "ミカは きのう ともだちと あそんだと おもう。", answer: "I think Mika played with a friend yesterday", distractors: ["I think Mika will play with a friend tomorrow", "I don't think Mika played with a friend yesterday", "I think Ken played with a friend yesterday"], exercises: [ta-form, to-omoimasu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "ミカさんは もう たべましたか。", en: "Has Mika eaten yet?" }
+          - { speaker: "Tom", ja: "もう たべたと おもう。きっさてんに いったと おもう。", en: "I think she's already eaten. I think she went to the coffee shop." }
+        questions:
+          - { q: "Where does Tom think Mika went?", options: ["To the coffee shop", "To the station", "To the shop", "Home"], answer: "To the coffee shop" }
+      - { kind: challenge, ja: "きのうの りょうりは たかかったけど おいしかったと おもう。", en: "Yesterday's dish was expensive, but I think it was delicious", combines: [ta-form, to-omoimasu, kedo, i-adj-past], mode: build }
+    reviewPool: [おもう, えいが, ほん, ぎゅうにゅう, りょうり, きっさてん, なつやすみ, しゃしん, てがみ, けいたい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-review-2
+    role: review
+    title: "Review — という, and what the quote carries"
+    focus: "Naming with 〜と いう, nouns and adjectives in front of と, and the past inside the quotation"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ミカは がくせいだと おもう。", en: "I think Mika is a student", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "トムと いう ひとが くる。", en: "A person called Tom is coming", exercises: [to-quotation, ga-existence], mode: build }
+      - { kind: sentence, ja: "ミカは もう たべたと おもう。", en: "I think Mika has already eaten", exercises: [ta-form, to-omoimasu], mode: listening }
+      - { kind: sentence, ja: "この じゅぎょうは むずかしいと おもう。", en: "I think this class is difficult", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "さくらと いう みせで かう。", en: "I buy it at a shop called Sakura", exercises: [to-quotation, de-action], mode: build }
+      - { kind: particle-cloze, stem: "ケンは えいがを ", tail: "と おもう。", answer: "みた", options: ["みた", "みる", "みない"], en: "I think Ken watched the movie", explanation: "the tense sits on the quoted verb — みた is the past, みる the non-past and みない the negative." }
+      - { kind: sentence, ja: "この えいがは たのしいと おもう。", en: "I think this movie is fun", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: listening-comp, audio: "ミカと いう がくせいが いる。", answer: "There's a student called Mika", distractors: ["There's a teacher called Mika", "I think Mika is a student", "Mika says there's a student"], exercises: [to-quotation, imasu] }
+      - { kind: sentence, ja: "トムは ほんを かったと おもう。", en: "I think Tom bought a book", exercises: [ta-form, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "あの きっさてんは しずかだと おもう。", en: "Say to a friend: I think that coffee shop over there is quiet", exercises: [desu-copula, to-omoimasu], mode: translate }
+      - { kind: listening-comp, audio: "この りょうりは おいしかったと おもう。", answer: "I think this dish was delicious", distractors: ["I think this dish is delicious", "I don't think this dish was delicious", "I think this dish was expensive"], exercises: [ta-form, to-omoimasu] }
+      - { kind: sentence, ja: "ミカは あした くると いう。", en: "Mika says she's coming tomorrow", exercises: [to-quotation, wa-topic], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "さくらと いう きっさてんは どう？", en: "How is the coffee shop called Sakura?" }
+          - { speaker: "Mika", ja: "しずかだと おもう。りょうりも おいしいと おもう。", en: "I think it's quiet. I think the food is delicious too." }
+        questions:
+          - { q: "What does Mika think of the coffee shop?", options: ["Quiet, with delicious food", "Noisy, with delicious food", "Quiet, but expensive", "She has never been there"], answer: "Quiet, with delicious food" }
+    reviewPool: [おもう, いう, むずかしい, たのしい, じゅぎょう, えいが, ひと, みせ, りょうり, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-7
+    role: teaching
+    title: "「ミカに いう」 と 「ミカと はなす」 — who the words go to"
+    focus: "に marks the person your words go TO; と marks the person you talk WITH — one word from the quotation と"
+    introduces: [はなす]
+    beats:
+      - { kind: rule, grammarPointId: ni-location }
+      - { kind: sentence, ja: "ミカに あした いくと いう。", en: "I'll tell Mika I'm going tomorrow", exercises: [ni-location, to-quotation], mode: build }
+      - { kind: sentence, ja: "トムに この みせは やすいと いう。", en: "I'll tell Tom this shop is cheap", exercises: [ni-location, to-quotation, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たなかに わからないと いう。", en: "I'll tell Tanaka I don't understand", exercises: [ni-location, to-quotation, nai-form], mode: build }
+      - { kind: sentence, ja: "ケンは あした こないと きく。", en: "I hear Ken isn't coming tomorrow", exercises: [ni-location, to-quotation, nai-form], mode: listening }
+      - { kind: sentence, ja: "ともだちに この ほんは おもしろいと おしえる。", en: "I'll tell my friend this book is interesting", exercises: [ni-location, to-quotation], mode: build }
+      - { kind: sentence, ja: "きょうは ミカと はなす。", en: "I'm talking with Mika today", exercises: [ni-location, to-and, ni-time], mode: build }
+      - { kind: sentence, ja: "たなかと はなすから きっさてんに いく。", en: "I'm talking with Tanaka, so I'm going to the coffee shop", exercises: [ni-location, to-and, kara-because], mode: build }
+      - { kind: sentence, ja: "ミカに あした いくと いう。", en: "Say to a friend: I'll tell Mika I'm going tomorrow", exercises: [ni-location, to-quotation], mode: translate }
+      - { kind: particle-cloze, stem: "ともだちと ", tail: "から たのしい。", answer: "はなす", options: ["はなす", "いう", "きく"], en: "I'm talking with my friend, so it's fun", explanation: "はなす is talking WITH somebody — two-way, marked with と. いう hands words to a person with に, and きく is hearing or asking." }
+      - { kind: listening-comp, audio: "ケンに あした いくと いう。", answer: "I'll tell Ken I'm going tomorrow", distractors: ["Ken says he's going tomorrow", "I'll ask Ken if he's going tomorrow", "I'll talk with Ken tomorrow"], exercises: [ni-location, to-quotation] }
+      - { kind: listening-comp, audio: "きょうは ともだちと はなす。", answer: "I'm talking with a friend today", distractors: ["I'm telling a friend today", "My friend is talking today", "I hear about a friend today"], exercises: [ni-location, to-and] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "たなかに なんと いう？", en: "What are you going to tell Tanaka?" }
+          - { speaker: "Ken", ja: "わからないと いう。あした はなす。", en: "I'll tell him I don't understand. I'll talk with him tomorrow." }
+        questions:
+          - { q: "What will Ken tell Tanaka?", options: ["That he doesn't understand", "That he understands", "That he isn't coming", "That he's busy"], answer: "That he doesn't understand" }
+      - { kind: challenge, ja: "ミカと はなすから この みせは やすいと おしえる。", en: "I'm talking with Mika, so I'll tell her this shop is cheap", combines: [ni-location, to-and, to-quotation, kara-because], mode: build }
+    reviewPool: [はなす, いう, おもう, ともだち, ほん, みせ, きっさてん, てがみ, でんわ, けいたい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-8
+    role: teaching
+    title: "人 · 水 · 行く — reading the kanji you already know"
+    focus: "The words you own have been wearing kanji since module 8; now you read them with no kana above"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: kanji-set-1 }
+      - { kind: kanji, kana: ひと, kanji: 人, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "この ひとは がくせいだと おもう。", en: "I think this person is a student", exercises: [kanji-set-1, desu-copula, to-omoimasu], mode: build }
+      - { kind: kanji, kana: みず, kanji: 水, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "きょうは みずを かうと おもう。", en: "I think I'll buy water today", exercises: [kanji-set-1, to-omoimasu, wo-object], mode: build }
+      - { kind: kanji, kana: たべる, kanji: 食べる, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "ミカは もう たべたと おもう。", en: "I think Mika has already eaten", exercises: [kanji-set-1, ta-form, to-omoimasu], mode: build }
+      # ゆく is a REAL alternate reading of 行く, so the generator's third
+      # near-miss would have been a correct answer marked wrong. Hand-authored:
+      # two on-reading slips and a wrong-okurigana stem from 行う (おこなう).
+      - { kind: kanji, kana: いく, kanji: 行く, distractors: ["こうく", "ぎょうく", "おこなく"], exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "トムは にほんに いくと おもう。", en: "I think Tom will go to Japan", exercises: [kanji-set-1, to-omoimasu, ni-location], mode: listening }
+      - { kind: kanji, kana: きく, kanji: 聞く, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "ケンは あした こないと きく。", en: "I hear Ken isn't coming tomorrow", exercises: [kanji-set-1, ni-location, nai-form], mode: build }
+      - { kind: sentence, ja: "この かばんは たかいと おもう。", en: "Say to a friend: I think this bag is expensive", exercises: [kanji-set-1, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "この ", tail: "は がくせいだと おもう。", answer: "ひと", options: ["ひと", "みず", "ほん"], en: "I think this person is a student", explanation: "only a PERSON can be a student — ひと. みず is water and ほん is a book." }
+      - { kind: listening-comp, audio: "ミカは みずを かうと おもう。", answer: "I think Mika will buy water", distractors: ["I think Mika will drink water", "I think Mika bought water", "I think Mika will buy milk"], exercises: [kanji-set-1, to-omoimasu] }
+      - { kind: listening-comp, audio: "この ひとは にほんに いくと おもう。", answer: "I think this person is going to Japan", distractors: ["I think this person went to Japan", "I don't think this person is going to Japan", "I think that person over there is going to Japan"], exercises: [kanji-set-1, to-omoimasu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あの ひとは だれ？", en: "Who is that person over there?" }
+          - { speaker: "Tom", ja: "ミカと いう がくせいだと おもう。", en: "I think she's a student called Mika." }
+        questions:
+          - { q: "What does Tom think about the person?", options: ["She's a student called Mika", "She's a teacher called Mika", "She's Tom's older sister", "He doesn't know her at all"], answer: "She's a student called Mika" }
+      - { kind: challenge, ja: "この ひとは にほんに いくと きくけど わからない。", en: "I hear this person is going to Japan, but I don't know", combines: [kanji-set-1, ni-location, to-quotation, kedo], mode: build }
+    reviewPool: [ひと, みず, かばん, にほん, がくせい, おもう, えき, くるま, やま, かわ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-9
+    role: teaching
+    title: "「どう おもう？」 — asking for an opinion"
+    focus: "どう おもう？ asks HOW you think about it; quoting the opinion back checks one specific reading of it"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: ka-question }
+      - { kind: sentence, ja: "ミカは くると おもう？", en: "Do you think Mika is coming", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "どう おもう？", en: "What do you think", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "この みせは たかいと おもう？", en: "Do you think this shop is expensive", exercises: [ka-question, to-omoimasu, i-adj-present], mode: build }
+      - { kind: sentence, ja: "この えいがは おもしろいと おもう？", en: "Do you think this movie is interesting", exercises: [ka-question, to-omoimasu, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "あれは なんと いう はな？", en: "What is that flower called", exercises: [ka-question, to-quotation], mode: build }
+      - { kind: sentence, ja: "この じゅぎょうは むずかしいと おもう？", en: "Do you think this class is difficult", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: kanji, kana: わかる, kanji: 分かる, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "トムは わかると おもう？", en: "Do you think Tom understands", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "この みせは たかいと おもう？", en: "Say to a friend: Do you think this shop is expensive", exercises: [ka-question, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: " おもう？", answer: "どう", options: ["どう", "なに", "だれ"], en: "What do you think?", explanation: "Japanese asks HOW you think about something — どう おもう？ なに asks what a thing is, and だれ asks who." }
+      - { kind: listening-comp, audio: "この ほんは むずかしいと おもう？", answer: "Do you think this book is difficult?", distractors: ["Is this book difficult?", "Do you think this book is fun?", "Who thinks this book is difficult?"], exercises: [ka-question, to-omoimasu] }
+      - { kind: listening-comp, audio: "これは なんと いう みせ？", answer: "What is this shop called?", distractors: ["Whose shop is this?", "What do you think of this shop?", "Where is this shop?"], exercises: [ka-question, to-quotation] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "この えいがは どう おもう？", en: "What do you think of this movie?" }
+          - { speaker: "Mika", ja: "たのしいと おもう。でも ちょっと むずかしい。", en: "I think it's fun. But it's a bit difficult." }
+        questions:
+          - { q: "What does Mika think of the movie?", options: ["Fun but a bit difficult", "Boring and difficult", "Fun and easy", "She hasn't watched it"], answer: "Fun but a bit difficult" }
+      - { kind: challenge, ja: "この じゅぎょうは むずかしいけど たのしいと おもう？", en: "This class is difficult, but do you think it's fun", combines: [ka-question, to-omoimasu, kedo, i-adj-present], mode: build }
+    reviewPool: [おもう, いう, むずかしい, たのしい, えいが, じゅぎょう, みせ, はな, ひと, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-review-3
+    role: review
+    title: "Review — saying, thinking and asking"
+    focus: "と おもう and 〜と いう across every clause type, plus the questions that go with them"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ミカは がくせいだと おもう。", en: "I think Mika is a student", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "ミカに あした いくと いう。", en: "I'll tell Mika I'm going tomorrow", exercises: [ni-location, to-quotation], mode: build }
+      - { kind: sentence, ja: "ケンは こないと おもう。", en: "I don't think Ken is coming", exercises: [nai-form, to-omoimasu], mode: listening }
+      - { kind: kanji, kana: あたらしい, kanji: 新しい, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "この えいがは たのしいと おもう。", en: "I think this movie is fun", exercises: [desu-copula, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "ミカは もう たべたと おもう。", en: "I think Mika has already eaten", exercises: [ta-form, to-omoimasu], mode: build }
+      - { kind: particle-cloze, stem: "トムと ", tail: " ひとが くる。", answer: "いう", options: ["いう", "おもう", "はなす"], en: "A person called Tom is coming", explanation: "naming takes 〜と いう in front of the noun. おもう makes it an opinion, and はなす is talking with somebody." }
+      - { kind: sentence, ja: "きょうは ミカと はなす。", en: "I'm talking with Mika today", exercises: [ni-location, to-and], mode: build }
+      - { kind: listening-comp, audio: "この じゅぎょうは むずかしいと おもう。", answer: "I think this class is difficult", distractors: ["I think this class is fun", "I don't think this class is difficult", "I hear this class is difficult"], exercises: [desu-copula, to-omoimasu] }
+      - { kind: sentence, ja: "ミカは くると おもう？", en: "Do you think Mika is coming", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "トムは わからないと おもう。", en: "Say to a friend: I don't think Tom understands", exercises: [nai-form, to-omoimasu], mode: translate }
+      - { kind: listening-comp, audio: "さくらと いう みせで かう。", answer: "I buy it at a shop called Sakura", distractors: ["I buy sakura at the shop", "I think this shop is called Sakura", "I tell the shop my name"], exercises: [to-quotation, de-action] }
+      - { kind: sentence, ja: "ケンは えいがを みたと おもう。", en: "I think Ken watched the movie", exercises: [ta-form, to-omoimasu], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "あの ひとは なんと いう なまえ？", en: "What is that person's name?" }
+          - { speaker: "Mika", ja: "ミカと いう。わたしの ともだちだ。", en: "She's called Mika. She's my friend." }
+        questions:
+          - { q: "What does Mika say about the person?", options: ["She's called Mika and she's her friend", "She's called Mika and she's a teacher", "She doesn't know the name", "The person is her older sister"], answer: "She's called Mika and she's her friend" }
+    reviewPool: [おもう, いう, はなす, むずかしい, たのしい, ひと, なまえ, えいが, じゅぎょう, みせ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m18-neo-challenge
+    role: challenge
+    title: "Challenge — say what you think"
+    focus: "End-of-module stretch: quoted clauses of every shape stacked with reasons, contrasts and the naming frame"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "さくらと いう みせは やすいから ミカは かうと おもう。", en: "The shop called Sakura is cheap, so I think Mika will buy it", exercises: [to-quotation, to-omoimasu, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "この じゅぎょうは むずかしいけど たのしいと たなかに いう。", en: "I'll tell Tanaka this class is difficult but fun", exercises: [ni-location, to-quotation, kedo], mode: build }
+      - { kind: sentence, ja: "ケンは きのう りょこうに いったから きょうは こないと おもう。", en: "Ken went on a trip yesterday, so I don't think he's coming today", exercises: [ta-form, nai-form, to-omoimasu, kara-because], mode: listening }
+      - { kind: kanji, kana: たかい, kanji: 高い, exercises: [kanji-set-1] }
+      - { kind: sentence, ja: "この とけいは たかいと おもうけど ミカは かうと おもう。", en: "I think this watch is expensive, but I think Mika will buy it", exercises: [to-omoimasu, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "トムと いう ひとと はなすから きっさてんに いく。", en: "I'm talking with a person called Tom, so I'm going to the coffee shop", exercises: [to-quotation, to-and, kara-because], mode: build }
+      - { kind: sentence, ja: "ミカは もう たべたと きくけど わからない。", en: "I hear Mika has already eaten, but I don't know", exercises: [ta-form, ni-location, kedo], mode: build }
+      - { kind: sentence, ja: "たなかは せんせいだと おもう。", en: "Say to a friend: I think Tanaka is a teacher", exercises: [desu-copula, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは すしを ", tail: "と おもう。", answer: "たべる", options: ["たべる", "たべます", "たべた"], en: "I think Mika will eat sushi", explanation: "the quoted clause is always plain, so たべます never goes there. たべた would put the eating in the past." }
+      - { kind: listening-comp, audio: "この えいがは たのしいと おもう？", answer: "Do you think this movie is fun?", distractors: ["Is this movie fun?", "Do you think this movie is difficult?", "Who thinks this movie is fun?"], exercises: [ka-question, to-omoimasu] }
+      - { kind: listening-comp, audio: "ミカに あした いくと いう。", answer: "I'll tell Mika I'm going tomorrow", distractors: ["Mika says she's going tomorrow", "I'll talk with Mika tomorrow", "I hear Mika is going tomorrow"], exercises: [ni-location, to-quotation] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "この じゅぎょうは どうですか。", en: "How is this class?" }
+          - { speaker: "Ken", ja: "むずかしいと おもう。でも たのしいと おもう。あした きます。", en: "I think it's difficult. But I think it's fun. I'll come tomorrow." }
+        questions:
+          - { q: "What does Ken tell Tanaka?", options: ["It's difficult but fun, and he'll come tomorrow", "It's easy and fun, and he'll come tomorrow", "It's difficult and he won't come tomorrow", "He hasn't decided yet"], answer: "It's difficult but fun, and he'll come tomorrow" }
+      - { kind: challenge, ja: "さくらと いう きっさてんは しずかだから ミカと はなすと おもう。", en: "The coffee shop called Sakura is quiet, so I think I'll talk with Mika there", combines: [to-quotation, to-and, to-omoimasu, kara-because, na-adj-present], mode: build }
+    reviewPool: [おもう, いう, はなす, むずかしい, たのしい, ひと, みせ, きっさてん, じゅぎょう, とけい]

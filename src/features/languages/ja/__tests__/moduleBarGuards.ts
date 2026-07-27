@@ -429,10 +429,22 @@ export function registerModuleBarGuards(opts: {
         const firstType = new Map<string, string>();
         for (const lesson of lessons) {
           for (const step of lesson.steps as any[]) {
-            const blob = JSON.stringify(step);
-            for (const atom of imageable) {
-              if (firstType.has(atom.kana)) continue;
-              if (blob.includes(atom.kana)) firstType.set(atom.kana, step.type);
+            // TOKENIZE, never substring-match — the same lesson moduleCompiler's
+            // own image-debut diagnostic learned ("いま is a substring of
+            // かいます"). A raw `JSON.stringify(step).includes(kana)` reports a
+            // debut for every atom whose kana happens to occur inside an
+            // unrelated word, and for a ONE-CHARACTER atom that is every lesson
+            // in the course: き (木, stale old-course m18 tag) "debuts" on the
+            // first step containing きく / きょう / きっさてん. The stale tags are
+            // exactly what the PRIOR filter above exists to neutralize, and the
+            // length-1 escape it uses (`t.length > 1`) cannot help here because
+            // the atom itself is one character. Tokenizing fixes both: a kana
+            // run only counts when the longest-match tokenizer actually yields
+            // it as a word.
+            for (const s of jaSurfaces(step)) {
+              for (const t of tokenize(s).tokens) {
+                if (!firstType.has(t)) firstType.set(t, step.type);
+              }
             }
           }
         }

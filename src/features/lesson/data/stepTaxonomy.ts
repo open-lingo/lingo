@@ -65,6 +65,14 @@ export function kanaSurfaces(value: unknown): string[] {
  *   irregular ある→ない contrast, inv 12).
  * - `conjugation_transform.distractors` — deliberate formation errors
  *   (たべらない, のむない) that are never taught and never valid.
+ * - `kanji_reading.options` — deliberate MIS-readings of the tested glyph
+ *   (じん for 人, じきべる for 食べる: a valid-but-wrong on/kun, a wrong
+ *   okurigana stem, a rendaku slip — `readingDistractors`, guide §13.7).
+ *   Same class as the transform distractors and the same reason: they are
+ *   non-words the learner must reject, so counting them as vocabulary
+ *   reported じん as an untracked word and き (out of じきべる) as debuting
+ *   on a kanji step. The CORRECT reading is still visible via the step's
+ *   `reading` + `audioText`, so nothing real is hidden.
  *
  * This is the projection provenance and debut-placement both read.
  */
@@ -73,5 +81,6 @@ export function jaSurfaces(step: { type?: string } & Record<string, unknown>): s
   scrubbed.acceptedAnswers = undefined;
   if (step.type === "grammar_rule") scrubbed.antiPattern = undefined;
   if (step.type === "conjugation_transform") scrubbed.distractors = undefined;
+  if (step.type === "kanji_reading") scrubbed.options = undefined;
   return kanaSurfaces(scrubbed);
 }

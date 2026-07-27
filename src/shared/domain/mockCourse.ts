@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m17 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07) are LIVE via the compiler pipeline — slice them off so the
-    // placeholders begin at m18. NB the SPINE_COMING_SOON array still lists
+    // m6-m18 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08) are LIVE via the compiler pipeline — slice them off so the
+    // placeholders begin at m19. NB the SPINE_COMING_SOON array still lists
     // s11 before n06b (draft-3 order); draft-4 swapped them, which is why m14
     // is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(12).map((t, i) => ({
-      id: `m${i + 18}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(13).map((t, i) => ({
+      id: `m${i + 19}`,
       title: t.title,
-      eyebrow: `Module ${i + 18} · Coming soon`,
+      eyebrow: `Module ${i + 19} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -688,6 +688,36 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m17-neo-challenge", title: "Challenge — introduce your family", status: "available" as const },
           ],
           accent: { from: "#e11d48", to: "#be123c" },
+        },
+        {
+          // m18-neo (spine tile n08) — Saying & thinking. と is a QUOTATION
+          // particle: it closes a complete PLAIN sentence and hands it to a
+          // verb of thinking or saying. 「あした いくと おもう」 reorders
+          // nothing and adds nothing, and the quoted clause stays plain
+          // however polite the outer sentence gets — the payoff of teaching
+          // plain form first. 〜と いう names things (「トムと いう ひと」),
+          // and kanji-set-1 lands as a READING ladder over eight glyphs the
+          // learner has been seeing since m8.
+          id: "m18",
+          title: "Saying & thinking: とおもう + という",
+          eyebrow: "Module 18 · Quotation",
+          summary: "と is the quotation particle: it closes a whole plain sentence and hands it to a verb of thinking or saying. 「あした いくと おもう」 = \"I think I'll go tomorrow\" — nothing is reordered and nothing is added, and the clause in front of と stays PLAIN however polite the rest of the sentence gets. The same と names things with いう (「トムと いう ひと」, a person called Tom), and the first kanji reading set asks you to read the glyphs you have been seeing since module 8.",
+          lessons: [
+            { id: "ja-m18-neo-1", title: "「あした いくと おもう」 — handing a sentence to おもう", status: "available" as const },
+            { id: "ja-m18-neo-2", title: "「たべますと おもう」 は ✗ — the quote stays plain", status: "available" as const },
+            { id: "ja-m18-neo-3", title: "「こないと おもう」 — where the ない goes", status: "available" as const },
+            { id: "ja-m18-neo-review-1", title: "Review — と おもう, positive and negative", status: "available" as const },
+            { id: "ja-m18-neo-4", title: "「がくせいだと おもう」 — quoting nouns and adjectives", status: "available" as const },
+            { id: "ja-m18-neo-5", title: "「トムと いう ひと」 — naming things", status: "available" as const },
+            { id: "ja-m18-neo-6", title: "「もう たべたと おもう」 — the quote keeps its own tense", status: "available" as const },
+            { id: "ja-m18-neo-review-2", title: "Review — という, and what the quote carries", status: "available" as const },
+            { id: "ja-m18-neo-7", title: "「ミカに いう」 と 「ミカと はなす」 — who the words go to", status: "available" as const },
+            { id: "ja-m18-neo-8", title: "人 · 水 · 行く — reading the kanji you already know", status: "available" as const },
+            { id: "ja-m18-neo-9", title: "「どう おもう？」 — asking for an opinion", status: "available" as const },
+            { id: "ja-m18-neo-review-3", title: "Review — saying, thinking and asking", status: "available" as const },
+            { id: "ja-m18-neo-challenge", title: "Challenge — say what you think", status: "available" as const },
+          ],
+          accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

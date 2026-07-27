@@ -146,6 +146,11 @@ try {
           kanaSet.add(b.ja);
         if (b.kind === "particle-cloze") kanaSet.add(`${b.stem}${b.answer}${b.tail}`);
         if (b.kind === "listening-comp" && b.audio) kanaSet.add(b.audio);
+        // Kanji reading ladder: the step's audioText is the KANA reading,
+        // played post-commit (it IS the answer). The word is prior-module by
+        // construction so a clip usually exists already — but "usually" is
+        // exactly how the five silent-line classes shipped.
+        if (b.kind === "kanji" && b.kana) kanaSet.add(b.kana);
         if (b.kind === "dialogue") for (const l of b.lines ?? []) if (l.ja) kanaSet.add(l.ja);
       }
     }

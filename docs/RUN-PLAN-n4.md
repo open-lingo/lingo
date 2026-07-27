@@ -24,7 +24,8 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07.
+m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
+m18 n08.
 
 | m | unit | title |
 |---|---|---|
@@ -78,9 +79,9 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 (m18 in flight) |
-| N5 grammar points left | **35** of 103 (was 74 at run start) |
-| suite | 6559 passing, 0 failing |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 |
+| N5 grammar points left | **32** of 103 (was 74 at run start) |
+| suite | 6699 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
 | distinct step types | 10–12 per module |
 | audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
@@ -224,7 +225,7 @@ teaches four counters at once is a table, not a lesson).
 | 15 | dictionary-form toki mae-ni te-kara | ✅
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** **made-until** | ✅
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono | ✅
-| 18 | to-omoimasu to-quotation kanji-set-1 |
+| 18 | to-omoimasu to-quotation kanji-set-1 | ✅
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** |
 | 20 | yori-comparison numbers-100-10000 counter-ko |
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
@@ -263,6 +264,60 @@ registry has no `wa-vs-ga` id and inv 42 forbids inventing one) and `nai-form`
 (the plain past negative なかった has no id of its own, and なかった IS the ない
 form with an い-adjective ending swapped). Neither row moves — a re-teach is not
 a re-assignment.
+
+**A SEVENTH note, m18 (2026-07-27) — the ledger row is unchanged and the
+spine is followed, with ONE deliberate under-delivery.** spinePlan n08 lists
+"んだ explanatory — RECOGNITION preview". m18 names it in ROMAJI in L9's
+rule-card prose and puts it on NO graded surface, for two mechanical reasons:
+inv 33 forbids a dialogue being a word's first exposure (so a "preview" would
+have to be a real intro step, i.e. teaching it), and registering んだ is a
+COURSE-WIDE tokenizer change of exactly the class that broke m7 when m16
+registered ので — 「いくんだ」 and 「ごはんだ」 sit on the same fault line.
+`n-desu` keeps its m27 row, where the production lesson lives. Everything else
+n08 asks for lands as written; でしょう stays at m25 because the spine itself
+puts it in n13.
+
+**Also m18: THREE new atoms and ZERO new courseAtoms rows.** むずかしい,
+たのしい and はなす all already had registry rows with stale old-course tags,
+so declaring them in `newAtoms` (the m15/m16/m17 move) adds nothing to the
+course-wide tokenizer — the m16-ので regression class cannot arise. Two
+homographs are banned as surfaces for the usual mis-credit reason: **いった is
+never "said"** (it is the registered past of いく, "went") and **きた is never
+"came"** (it is 北, "north", m17), so reported speech stays non-past and the
+past lives on the QUOTED verb, which is where the module wants it anyway.
+Six points are RE-TAUGHT rather than re-assigned (`masu-present`, `nai-form`,
+`desu-copula`, `ta-form`, `ni-location`, `ka-question`) because the row owes
+only three ids across nine teaching lessons and inv 42 forbids inventing new
+ones. No ledger row moved.
+
+**NEW TOOLING from the m18 cycle — `kind: kanji`, an IR beat that emits
+`kanji_reading`.** Three rows owe a kanji set (m18/m23/m28) and the IR could
+not express one: the only authored kanji step in the course was m30's,
+hand-written in TS. The beat is a thin front door onto the SHIPPED factory
+(`grammarHelpers.kanjiReading`) — surface + unlock gate from
+`KANJI_ELIGIBLE_ATOMS`, distractors from `readingDistractors` — and it THROWS
+rather than degrading, because a silently-dropped kanji step is a coverage
+hole nothing else can see. `emit-tts-deck.mjs` learned it in the same change.
+m18 spends it on eight glyphs (人 水 食べる 行く 聞く 分かる 新しい 高い), all
+on already-taught words unlocked at m9–m15 so they read BARE at m18, sprinkled
+five/one/one/one across L8, L9, review-3 and the challenge rather than walled
+into one lesson.
+
+**Three guards were WRONG rather than the content (m18, 2026-07-27) — the
+3+-modules rule applied early because each defect was structural:**
+(a) `moduleBarGuards`' image-first check substring-matched `JSON.stringify(step)`
+against every atom kana, so the ONE-CHARACTER atom き (木, stale old-course m18
+tag) "debuted" on the first step containing きく / きょう / きっさてん — it now
+tokenizes, the same lesson `moduleCompiler`'s own image-debut diagnostic
+learned ("いま is a substring of かいます"). (b) `jaSurfaces` did not scrub
+`kanji_reading.options`, so the factory's deliberate MIS-readings counted as
+vocabulary (じん reported as an untracked word, き extracted out of じきべる) —
+they are now scrubbed beside `conjugation_transform.distractors`, the same
+class for the same reason. (c) GATE 8's motion-futurate allowlist is a
+substring match on stems, and くる's negative こない/こなかった shares no
+characters with くる, so "I don't think he's coming" — the gloss invariant 17
+explicitly licenses — was flagged as wrong-aspect. All three make the guards
+report fewer FALSE positives and cannot mask a real one.
 
 **A SIXTH note, m17 (2026-07-27) — the ledger row is unchanged; the SPINE
 overrode the authoring brief on the SIZE of the vocabulary.** The m17 brief asked

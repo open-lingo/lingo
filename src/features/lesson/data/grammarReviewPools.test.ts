@@ -297,8 +297,11 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
     });
 
     it("returns null for a point with no tagged rule card", () => {
-      // kanji-set-1 is a planned point with no authored rule card.
-      expect(getGrammarRuleStepForPoint("kanji-set-1")).toBeNull();
+      // kanji-set-2 is a planned point with no authored rule card. (Was
+      // kanji-set-1 until m18 authored the first reading ladder — the ledger
+      // puts set 2 on m23 and set 3 on m28, so this assertion moves down the
+      // list one module at a time as the sets land.)
+      expect(getGrammarRuleStepForPoint("kanji-set-2")).toBeNull();
       expect(getGrammarRuleStepForPoint("__no-such-point__")).toBeNull();
     });
   });

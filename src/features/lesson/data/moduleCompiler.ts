@@ -648,7 +648,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           // registerScaffoldIsolation.
           for (const t of tokenize(b.answer)) note(t, li);
           for (const o of b.options) for (const t of tokenize(o)) note(t, li);
-        } else if (b.kind !== "dialogue" && b.mode === "build") {
+        } else if (b.kind !== "dialogue" && b.kind !== "kanji" && b.mode === "build") {
           // build_sentence only: `listening` → listening_build and
           // `translate` → translate, neither of which can introduce.
           for (const t of tokenize(b.ja)) note(t, li);

@@ -577,9 +577,16 @@ const GATE8_FUTURE_ANCHOR =
  * "きますか" → "Are you coming?") per the retrospective's DO-NOT-FLAG rule.
  * Compounds (かえってくる, でかけていく, etc.) share the same stems, so a
  * substring match on the bare stems is sufficient and deliberately broad.
+ *
+ * くる's NEGATIVE stem is the one case a substring rule cannot reach: こない
+ * and こなかった share no characters with くる, so 「こないと おもう」 → "I don't
+ * think he's coming" — the natural English for a negated motion futurate, and
+ * exactly what invariant 17 licenses — was flagged as a wrong-aspect gloss
+ * (m18, 2026-07-27). いかない/かえらない need no entry: they contain their
+ * stems already.
  */
 const GATE8_MOTION_FUTURATE_ALLOWLIST =
-  /(いく|ゆく|くる|かえる|でかける|もどる)/;
+  /(いく|ゆく|くる|かえる|でかける|もどる|こない|こなかった)/;
 
 /**
  * Any ている/てる/でいる ongoing-aspect marking — plain AND polite forms
