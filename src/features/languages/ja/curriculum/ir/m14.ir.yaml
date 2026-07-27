@@ -507,7 +507,7 @@ lessons:
           - { speaker: "Mika", ja: "もう ごはんを たべた？", en: "Have you eaten yet?" }
           - { speaker: "Tom", ja: "ううん、まだ たべていない。きっさてんに いく。", en: "Nope, not yet. I'm going to a coffee shop." }
         questions:
-          - { q: "What does Tom say?", options: ["He hasn't eaten and wants to go to a coffee shop", "He already ate at a coffee shop", "He is eating at the station", "He doesn't want to eat today"], answer: "He hasn't eaten and wants to go to a coffee shop" }
+          - { q: "What does Tom say?", options: ["He hasn't eaten and is going to a coffee shop", "He already ate at a coffee shop", "He is eating at the station", "He doesn't want to eat today"], answer: "He hasn't eaten and is going to a coffee shop" }
     reviewPool: [しゃしん, ちゃ, かいしゃ, かさ, にほん, うみ, えき, すし, みせ, ごはん]
 
   # ═══════════════════════════════════════════════════════════════════════

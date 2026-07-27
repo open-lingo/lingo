@@ -449,7 +449,10 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
    * carry old-course m7/m11/m15 tags — so ordering by them both admits
    * untaught words and rejects taught ones.
    */
-  const priorVocab = new Set(ir.priorVocab ?? []);
+  // Character names and bare interjections belong to no module — they are
+  // course furniture, present since m3 — so they count as met. Without this the
+  // leak check is inexact exactly where it looks most alarming (トム, ケン).
+  const priorVocab = new Set([...(ir.priorVocab ?? []), ...NAMES, ...INTERJ]);
   const metBefore = (kana: string): boolean => priorVocab.has(kana);
 
   const resolve = (kana: string): Atom =>
@@ -1253,8 +1256,12 @@ function reviewFiller(
   // brand-new word lands before that word's real (intro-capable) debut and
   // the learner meets it first as a wrong answer. `noTyped` is exactly this
   // lesson's new atoms + their conjugations.
+  // Character names are known but are not vocabulary — たなか sitting among
+  // みせ/いえ as a "Pick the word for …" option is an odd-one-out cue, not a
+  // distractor.
   const usable = pool.filter(
-    (p) => !PARTICLES.includes(p.kana) && !noTyped.has(p.kana),
+    (p) =>
+      !PARTICLES.includes(p.kana) && !noTyped.has(p.kana) && !NAMES.includes(p.kana),
   );
   const fallback = declaredPool.filter((p) => !noTyped.has(p.kana));
   /**

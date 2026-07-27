@@ -1935,12 +1935,12 @@
             {
               "q": "What does Tom say?",
               "options": [
-                "He hasn't eaten and wants to go to a coffee shop",
+                "He hasn't eaten and is going to a coffee shop",
                 "He already ate at a coffee shop",
                 "He is eating at the station",
                 "He doesn't want to eat today"
               ],
-              "answer": "He hasn't eaten and wants to go to a coffee shop"
+              "answer": "He hasn't eaten and is going to a coffee shop"
             }
           ]
         }
