@@ -1,0 +1,5328 @@
+{
+  "module": "m17",
+  "title": "Family I: your side (うち)",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16"
+  ],
+  "priorGrammarPoints": [
+    "wo-object",
+    "ni-location",
+    "ni-time",
+    "de-action",
+    "mo-also",
+    "to-and",
+    "koko-soko-asoko",
+    "nai-existence",
+    "arimasu",
+    "imasu",
+    "masu-present",
+    "masu-negative",
+    "masu-past",
+    "masu-past-negative",
+    "desu-copula",
+    "desu-past",
+    "ka-question",
+    "wa-topic",
+    "dictionary-form",
+    "ta-form",
+    "te-form",
+    "te-iru",
+    "te-kara",
+    "mae-ni",
+    "toki",
+    "nai-form",
+    "numbers-1-10",
+    "counter-ji",
+    "counter-tsu",
+    "counter-mai",
+    "kudasai",
+    "i-adj-present",
+    "i-adj-negative",
+    "i-adj-past",
+    "i-adj-past-negative",
+    "na-adj-present",
+    "na-adj-negative",
+    "na-adj-past",
+    "v-tai",
+    "ga-hoshii",
+    "suki-kirai-no",
+    "no-ga-suki",
+    "mada-mou",
+    "kara-because",
+    "node-because",
+    "kedo",
+    "kara-origin",
+    "made-until"
+  ],
+  "grammarPoints": [
+    {
+      "id": "family-register",
+      "rule": "Japanese has TWO sets of family words, and which set you use depends on WHOSE family it is — not on how polite you are feeling. Your own family is what Japanese calls うち, \"inside\", and it takes the plain, humble set: ちち my father, はは my mother, あに my older brother, あね my older sister, おとうと my younger brother, いもうと my younger sister. Every one of those words already means MY. 「ちちは かいしゃで はたらく」 can only ever be about your own father. Anyone else's family is そと, \"outside\", and takes a different, honorific set — that set is a module of its own, so for now the rule is simple and absolute: these six words are for YOUR side only. And here is the piece that surprises everybody: you do not call your own mother はは to her face. Speaking TO her she is okaasan; speaking ABOUT her to an outsider she is はは. The word tracks the AUDIENCE, not the person — and that uchi/soto split is the same machinery Japanese politeness runs on all the way up.",
+      "examples": [
+        {
+          "ja": "ちちは かいしゃで はたらくから いそがしい。",
+          "en": "My father works at a company, so he's busy."
+        },
+        {
+          "ja": "ははは せんせいだから じゅぎょうが ある。",
+          "en": "My mother is a teacher, so she has classes."
+        },
+        {
+          "ja": "ちちも ははも かいしゃで はたらく。",
+          "en": "Both my father and my mother work at a company."
+        },
+        {
+          "ja": "ははは くるまが すきだから よく かいものに いく。",
+          "en": "My mother likes cars, so she often drives to go shopping."
+        },
+        {
+          "ja": "ちちは からだが おおきいけど ははは ちいさい。",
+          "en": "My father is big, but my mother is small."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ちちさんは かいしゃで はたらくから いそがしい。",
+        "why": "ちち is ALREADY the humble word for your own father — it never takes さん. さん belongs to the honorific set you use for someone else's family: ちちは かいしゃで はたらくから いそがしい。"
+      }
+    },
+    {
+      "id": "no-possession",
+      "rule": "の glues two nouns together and the one in FRONT owns the one behind: 「あにの じてんしゃ」 = my older brother's bicycle. Two more うち words arrive with it — あに, my older brother, and あね, my older sister — and like ちち and はは they can only ever mean mine. Notice what Japanese splits on: AGE, before anything else. あに is specifically an OLDER brother and あね an OLDER sister, and there is no word that just means \"brother\". You can chain の as far as you like — 「あにの ともだちの くるま」 = my older brother's friend's car — and you can stop after it, letting の carry the noun on its own: 「この かばんは あねのだ」 = this bag is my older sister's.",
+      "examples": [
+        {
+          "ja": "あにの じてんしゃは たかかったけど あたらしい。",
+          "en": "My older brother's bicycle was expensive, but it's new."
+        },
+        {
+          "ja": "ちちの かいしゃは えきの まえだ。",
+          "en": "My father's company is in front of the station."
+        },
+        {
+          "ja": "あにの ともだちは だいがくの がくせいだ。",
+          "en": "My older brother's friend is a university student."
+        },
+        {
+          "ja": "あねは ははの くるまを かった。",
+          "en": "My older sister bought my mother's car."
+        },
+        {
+          "ja": "あねの かばんは ははのだ。",
+          "en": "My older sister's bag is my mother's."
+        }
+      ],
+      "antiPattern": {
+        "ja": "あに じてんしゃは たかかったけど あたらしい。",
+        "why": "two nouns need の between them — without it あに and じてんしゃ are just two words sitting side by side: あにの じてんしゃは たかかったけど あたらしい。"
+      }
+    },
+    {
+      "id": "ga-existence",
+      "rule": "Japanese has no verb \"to have\" for people. You say they EXIST: 「おとうとが いる」, literally \"a younger brother exists\" — and that IS how you tell somebody you have one. が marks the person who exists, いる is the verb for people and animals (ある is for things), and the negative is いない. Two more うち words land here: おとうと, my younger brother, and いもうと, my younger sister. きょうだい comes with them and covers all four sibling words at once, which you will want often, because Japanese never lets you say just \"brother\" — あに and おとうと are different words and you have to pick one.",
+      "examples": [
+        {
+          "ja": "おとうとが いるけど あねは いない。",
+          "en": "I have a younger brother, but I don't have an older sister."
+        },
+        {
+          "ja": "いもうとは だいがくの がくせいだから いそがしい。",
+          "en": "My younger sister is a university student, so she's busy."
+        },
+        {
+          "ja": "きょうだいが いるから うちは にぎやかだ。",
+          "en": "I have siblings, so my house is lively."
+        },
+        {
+          "ja": "おとうとは おんがくが すきだから よく きく。",
+          "en": "My younger brother likes music, so he listens to it often."
+        },
+        {
+          "ja": "いもうとが いるけど おとうとは いない。",
+          "en": "I have a younger sister, but I don't have a younger brother."
+        }
+      ],
+      "antiPattern": {
+        "ja": "おとうとが あるけど あねは いない。",
+        "why": "people and animals take いる — ある is only for things: おとうとが いるけど あねは いない。"
+      }
+    },
+    {
+      "id": "counter-nin",
+      "rule": "People are counted with 〜にん, and the first two cells are the ones you simply have to know: ひとり for one person and ふたり for two. Nobody says ichinin or ninin. From three on it behaves: さんにん, よにん, ごにん, ろくにん — with よにん read yo-nin, never yon-nin or shi-nin. To ask, なんにん. The count is not glued onto the noun the way English glues \"three\" onto \"siblings\": it stands on its own just in front of the verb, 「きょうだいが さんにん いる」, or finishes the sentence as an ordinary noun, 「うちの かぞくは よにんだ」.",
+      "examples": [
+        {
+          "ja": "きょうだいが さんにん いるから うちは にぎやかだ。",
+          "en": "I have three siblings, so my house is lively."
+        },
+        {
+          "ja": "うちの かぞくは よにんだ。",
+          "en": "There are four people in my family."
+        },
+        {
+          "ja": "あねが ひとり いるけど あには いない。",
+          "en": "I have one older sister, but I don't have an older brother."
+        },
+        {
+          "ja": "おとうとが ふたり いるから いそがしい。",
+          "en": "I have two younger brothers, so I'm busy."
+        },
+        {
+          "ja": "かぞくは なんにん？",
+          "en": "How many people are in your family?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "きょうだいが さん いるから うちは にぎやかだ。",
+        "why": "a bare number cannot count anything in Japanese — three PEOPLE needs にん: きょうだいが さんにん いるから うちは にぎやかだ。"
+      }
+    },
+    {
+      "id": "counter-sai",
+      "rule": "Age is a number plus 〜さい: さんさい, ごさい, ろくさい, ななさい, きゅうさい. You already own every number it needs. Three cells change sound and you take them as they come — issai for 1, hassai for 8, jussai for 10 — and twenty has a word of its own, はたち, the age Japan treats as growing up. はたち is a WORD, not a rule: it already means \"twenty years old\", so it never takes さい on top of it. To ask, なんさい. An age is a NOUN, so it finishes a sentence with だ like any other noun, and it sits happily in front of から and けど: 「あねは はたちだから だいがくに いく」.",
+      "examples": [
+        {
+          "ja": "あねは はたちだから だいがくに いく。",
+          "en": "My older sister is twenty, so she goes to university."
+        },
+        {
+          "ja": "いもうとは ろくさいだから ちいさい。",
+          "en": "My younger sister is six, so she's small."
+        },
+        {
+          "ja": "おとうとは きゅうさいだけど おおきい。",
+          "en": "My younger brother is nine, but he's big."
+        },
+        {
+          "ja": "ちちは ごじゅうさんさいだけど げんきだ。",
+          "en": "My father is fifty-three, but he's in good health."
+        },
+        {
+          "ja": "ミカは なんさい？",
+          "en": "How old is Mika?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "あねは はたちさいだから だいがくに いく。",
+        "why": "はたち already MEANS twenty years old — it never takes さい on top: あねは はたちだから だいがくに いく。"
+      }
+    },
+    {
+      "id": "numbers-11-99",
+      "rule": "Ages past ten need nothing new. You already build the numbers by stacking — じゅう + なな = 17, じゅう + きゅう = 19, ごじゅう + さん = 53 — and the counter just rides on the number you already say: じゅうななさい, じゅうきゅうさい, ごじゅうさんさい. The tiles show it: the number is one piece and さい is another. Two ages step aside from the pattern. Twenty is はたち, never nijussai. And a ROUND ten — 10, 30, 40, 50 — pulls the same sound change as 10 itself: jussai, sanjussai, yonjussai, gojussai. Every age in between, which is nearly all of them, is exactly as regular as it looks.",
+      "examples": [
+        {
+          "ja": "あには じゅうななさいだから だいがくに いかない。",
+          "en": "My older brother is seventeen, so he doesn't go to university."
+        },
+        {
+          "ja": "ケンは じゅうきゅうさいだから だいがくの がくせいだ。",
+          "en": "Ken is nineteen, so he's a university student."
+        },
+        {
+          "ja": "ちちは ごじゅうさんさいだから いそがしい。",
+          "en": "My father is fifty-three, so he's busy."
+        },
+        {
+          "ja": "ははは よんじゅうごさいだけど げんきだ。",
+          "en": "My mother is forty-five, but she's in good health."
+        },
+        {
+          "ja": "ちちの ともだちは ろくじゅうさんさいだ。",
+          "en": "My father's friend is sixty-three."
+        }
+      ],
+      "antiPattern": {
+        "ja": "あには じゅうなな だから だいがくに いかない。",
+        "why": "a bare number is only the number — an AGE has to carry さい: あには じゅうななさいだから だいがくに いかない。"
+      }
+    },
+    {
+      "id": "kono-sono-ano-dono",
+      "rule": "You already own これ / それ / あれ / どれ — words that stand alone and mean \"this one\", \"that one\", \"which one\". この / その / あの / どの are the same four distances with one difference: they can NEVER stand alone. They must have a noun right behind them. 「これ」 is \"this one\"; 「この ほん」 is \"this book\". The distances are the ones you already know from ここ / そこ / あそこ: この is next to you, その is next to the person you are talking to, あの is away from you both, and どの asks \"which one of them\". That is the whole lesson — it is the third row of a table you have had since module 4.",
+      "examples": [
+        {
+          "ja": "あの ひとは あにの ともだちだ。",
+          "en": "That person over there is my older brother's friend."
+        },
+        {
+          "ja": "この かばんは あねのだから きれいだ。",
+          "en": "This bag is my older sister's, so it's pretty."
+        },
+        {
+          "ja": "その しゃしんは ちちが かった。",
+          "en": "My father bought that photo."
+        },
+        {
+          "ja": "この みせは やすいから よく いく。",
+          "en": "This shop is cheap, so I go often."
+        },
+        {
+          "ja": "どの くるまが ははのだ？",
+          "en": "Which car is my mother's?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "あれ ひとは あにの ともだちだ。",
+        "why": "あれ stands ALONE — \"that one over there\" — and can never sit in front of a noun. The form that attaches to a noun is あの: あの ひとは あにの ともだちだ。"
+      }
+    },
+    {
+      "id": "kore-sore-are-dore",
+      "rule": "Two rows, one job. これ / それ / あれ / どれ ARE the thing, so they take a particle straight away: 「あれは あにの くるまだ」. この / その / あの / どの are not things at all — they are labels, and a label needs something to stick to: 「あの くるまは あにのだ」. Both sentences say exactly the same thing, and the only question is whether you name the object out loud. Name it and you need この; leave it unnamed and you need これ. The same split runs through the question words: どれ asks \"which one?\" with nothing named, どの asks \"which bicycle?\" with the noun spelled out.",
+      "examples": [
+        {
+          "ja": "あれは あにの くるまだから あたらしい。",
+          "en": "That over there is my older brother's car, so it's new."
+        },
+        {
+          "ja": "あの くるまは あにのだから あたらしい。",
+          "en": "That car over there is my older brother's, so it's new."
+        },
+        {
+          "ja": "これは いもうとの ぼうしだから ちいさい。",
+          "en": "This is my younger sister's hat, so it's small."
+        },
+        {
+          "ja": "どの じてんしゃが あねのだ？",
+          "en": "Which bicycle is my older sister's?"
+        },
+        {
+          "ja": "それは おとうとの けいたいだ。",
+          "en": "That is my younger brother's mobile phone."
+        }
+      ],
+      "antiPattern": {
+        "ja": "あのは あにの くるまだから あたらしい。",
+        "why": "あの always needs a noun right behind it — with nothing to attach to, the word you want is the stand-alone あれ: あれは あにの くるまだから あたらしい。"
+      }
+    },
+    {
+      "id": "dare",
+      "rule": "A question word sits exactly where its answer would sit, and it never takes は. だれ asks WHO — 「あの ひとは だれ？」 — and だれ plus の asks WHOSE — 「これは だれの かばん？」. The family questions run on the same rails and you now have all of them: 「かぞくは なんにん？」 for how many, 「なんさい？」 for how old, 「どの ひとが ミカの ともだちだ？」 for which one. Watch what comes back, though. Answering ABOUT your own family, every answer lands in the うち set — ちち, はは, あに, あね, おとうと, いもうと — because the moment you are speaking to an outsider, your family is the inside group.",
+      "examples": [
+        {
+          "ja": "これは だれの かばん？",
+          "en": "Whose bag is this?"
+        },
+        {
+          "ja": "あの ひとは だれ？",
+          "en": "Who is that person over there?"
+        },
+        {
+          "ja": "かぞくは なんにん？",
+          "en": "How many people are in your family?"
+        },
+        {
+          "ja": "どの ひとが ミカの ともだちだ？",
+          "en": "Which person is Mika's friend?"
+        },
+        {
+          "ja": "だれが この しゃしんを かった？",
+          "en": "Who bought this photo?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "これは だれ かばん？",
+        "why": "asking WHOSE needs の between だれ and the noun — だれ on its own only ever means \"who\": これは だれの かばん？"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "ちち",
+      "romaji": "chichi",
+      "gloss": "(my) father",
+      "shortGloss": "my father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はは",
+      "romaji": "haha",
+      "gloss": "(my) mother",
+      "shortGloss": "my mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あに",
+      "romaji": "ani",
+      "gloss": "(my) older brother",
+      "shortGloss": "older brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あね",
+      "romaji": "ane",
+      "gloss": "(my) older sister",
+      "shortGloss": "older sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうと",
+      "romaji": "otouto",
+      "gloss": "(my) younger brother",
+      "shortGloss": "younger brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いもうと",
+      "romaji": "imouto",
+      "gloss": "(my) younger sister",
+      "shortGloss": "younger sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうだい",
+      "romaji": "kyoudai",
+      "gloss": "(my) siblings",
+      "shortGloss": "siblings",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にん",
+      "romaji": "nin",
+      "gloss": "counter for people",
+      "shortGloss": "people counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとり",
+      "romaji": "hitori",
+      "gloss": "one person",
+      "shortGloss": "one person",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたり",
+      "romaji": "futari",
+      "gloss": "two people",
+      "shortGloss": "two people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんにん",
+      "romaji": "sannin",
+      "gloss": "three people",
+      "shortGloss": "three people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よにん",
+      "romaji": "yonin",
+      "gloss": "four people",
+      "shortGloss": "four people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さい",
+      "romaji": "sai",
+      "gloss": "years old (counter for age)",
+      "shortGloss": "years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたち",
+      "romaji": "hatachi",
+      "gloss": "twenty years old",
+      "shortGloss": "twenty years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "この",
+      "romaji": "kono",
+      "gloss": "this (+ noun)",
+      "shortGloss": "this …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "その",
+      "romaji": "sono",
+      "gloss": "that (+ noun)",
+      "shortGloss": "that …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あの",
+      "romaji": "ano",
+      "gloss": "that over there (+ noun)",
+      "shortGloss": "that … over there",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どの",
+      "romaji": "dono",
+      "gloss": "which (+ noun)",
+      "shortGloss": "which …",
+      "imageable": false,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m17-neo-1",
+      "role": "teaching",
+      "title": "ちちと はは — the words for your own family",
+      "focus": "Your own family is うち, \"inside\", and takes the humble set — ちち and はは can only ever mean YOURS",
+      "introduces": [
+        "ちち",
+        "はは"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "family-register"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは かいしゃで はたらくから いそがしい。",
+          "en": "My father works at a company, so he's busy",
+          "exercises": [
+            "family-register",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは せんせいだから じゅぎょうが ある。",
+          "en": "My mother is a teacher, so she has classes",
+          "exercises": [
+            "family-register",
+            "kara-because",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは からだが おおきいけど ははは ちいさい。",
+          "en": "My father is big, but my mother is small",
+          "exercises": [
+            "family-register",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちも ははも かいしゃで はたらく。",
+          "en": "Both my father and my mother work at a company",
+          "exercises": [
+            "family-register",
+            "mo-also"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは くるまが すきだから よく かいものに いく。",
+          "en": "My mother likes cars, so she often goes shopping",
+          "exercises": [
+            "family-register",
+            "suki-kirai-no",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちの ちちは にほんじんだ。",
+          "en": "My father is Japanese",
+          "exercises": [
+            "family-register",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは あさから ばんまで はたらく。",
+          "en": "My father works from morning till evening",
+          "exercises": [
+            "family-register",
+            "kara-origin",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは せんせいだ。",
+          "en": "Say to a friend: My mother is a teacher",
+          "exercises": [
+            "family-register"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "は かいしゃで はたらく。",
+          "answer": "ちち",
+          "options": [
+            "ちち",
+            "はは",
+            "かぞく"
+          ],
+          "en": "My father works at a company",
+          "explanation": "ちち is the word for your OWN father. はは is your own mother, and かぞく is the whole family."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ははは よく かいものに いく。",
+          "answer": "My mother often goes shopping",
+          "distractors": [
+            "My father often goes shopping",
+            "My mother went shopping",
+            "My mother likes shopping"
+          ],
+          "exercises": [
+            "family-register",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちちは くるまが すきだ。",
+          "answer": "My father likes cars",
+          "distractors": [
+            "My father bought a car",
+            "My mother likes cars",
+            "My father has a car"
+          ],
+          "exercises": [
+            "family-register",
+            "suki-kirai-no"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "トムの かぞくは にほんに いる？",
+              "en": "Is your family in Japan, Tom?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ううん、ちちも ははも アメリカに いる。",
+              "en": "Nope — my father and my mother are both in America."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Where are Tom's parents?",
+              "options": [
+                "In America",
+                "In Japan",
+                "At the station",
+                "At the university"
+              ],
+              "answer": "In America"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ちちは かいしゃで はたらくけど ははは うちに いる。",
+          "en": "My father works at a company, but my mother is at home",
+          "combines": [
+            "family-register",
+            "kedo",
+            "de-action",
+            "wa-topic"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ちち",
+        "はは",
+        "かぞく",
+        "かいしゃ",
+        "せんせい",
+        "くるま",
+        "からだ",
+        "ともだち",
+        "しゃしん",
+        "うち"
+      ]
+    },
+    {
+      "id": "m17-neo-2",
+      "role": "teaching",
+      "title": "あにの じてんしゃ — whose is whose",
+      "focus": "の puts the owner in front, and あに / あね join the うち set — Japanese splits siblings by AGE first",
+      "introduces": [
+        "あに",
+        "あね"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "no-possession"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにの じてんしゃは たかかったけど あたらしい。",
+          "en": "My older brother's bicycle was expensive, but it's new",
+          "exercises": [
+            "no-possession",
+            "kedo",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねの かばんは ははのだ。",
+          "en": "My older sister's bag is my mother's",
+          "exercises": [
+            "no-possession",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちの かいしゃは えきの まえだ。",
+          "en": "My father's company is in front of the station",
+          "exercises": [
+            "no-possession",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにの ともだちは だいがくの がくせいだ。",
+          "en": "My older brother's friend is a university student",
+          "exercises": [
+            "no-possession",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは ははの くるまを かった。",
+          "en": "My older sister bought my mother's car",
+          "exercises": [
+            "no-possession",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あには おんがくが すきだから よく きく。",
+          "en": "My older brother likes music, so he listens to it often",
+          "exercises": [
+            "no-possession",
+            "suki-kirai-no",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは あにの しゃしんだから みせる。",
+          "en": "This is my older brother's photo, so I'll show it to you",
+          "exercises": [
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねの かばんは あたらしい。",
+          "en": "Say to a friend: My older sister's bag is new",
+          "exercises": [
+            "no-possession"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "は だいがくの がくせいだ。",
+          "answer": "あに",
+          "options": [
+            "あに",
+            "あね",
+            "ちち"
+          ],
+          "en": "My older brother is a university student",
+          "explanation": "あに is specifically an OLDER brother. あね is an older sister, and ちち is your father."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あねの くつは あたらしい。",
+          "answer": "My older sister's shoes are new",
+          "distractors": [
+            "My older brother's shoes are new",
+            "My older sister's bag is new",
+            "My older sister bought shoes"
+          ],
+          "exercises": [
+            "no-possession",
+            "i-adj-present"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あには おんがくが すきだ。",
+          "answer": "My older brother likes music",
+          "distractors": [
+            "My older sister likes music",
+            "My older brother listens to music",
+            "My older brother likes movies"
+          ],
+          "exercises": [
+            "no-possession",
+            "suki-kirai-no"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "これは だれの じてんしゃ？",
+              "en": "Whose bicycle is this?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "あにのだ。あには だいがくの がくせいだ。",
+              "en": "It's my older brother's. He's a university student."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Whose bicycle is it?",
+              "options": [
+                "Tom's older brother's",
+                "Tom's",
+                "Tom's older sister's",
+                "Ken's"
+              ],
+              "answer": "Tom's older brother's"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あにの ともだちは アメリカに いくから しゃしんを みせる。",
+          "en": "My older brother's friend is going to America, so I'll show him the photos",
+          "combines": [
+            "no-possession",
+            "kara-because",
+            "ni-location",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "あに",
+        "あね",
+        "ちち",
+        "はは",
+        "じてんしゃ",
+        "かばん",
+        "しゃしん",
+        "くつ",
+        "かいしゃ",
+        "おんがく"
+      ]
+    },
+    {
+      "id": "m17-neo-3",
+      "role": "teaching",
+      "title": "おとうとが いる — saying who you have",
+      "focus": "Japanese has no \"have\" for people — they EXIST: 「おとうとが いる」, and きょうだい covers all four sibling words",
+      "introduces": [
+        "おとうと",
+        "いもうと",
+        "きょうだい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ga-existence"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとが いるから うちは にぎやかだ。",
+          "en": "I have a younger brother, so my house is lively",
+          "exercises": [
+            "ga-existence",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとは だいがくの がくせいだから いそがしい。",
+          "en": "My younger sister is a university student, so she's busy",
+          "exercises": [
+            "ga-existence",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいが いるから しゃしんを みせる。",
+          "en": "I have siblings, so I'll show you the photos",
+          "exercises": [
+            "ga-existence",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとは おんがくが すきだから よく きく。",
+          "en": "My younger brother likes music, so he listens to it often",
+          "exercises": [
+            "ga-existence",
+            "suki-kirai-no",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとが いるけど あねは いない。",
+          "en": "I have a younger sister, but I don't have an older sister",
+          "exercises": [
+            "ga-existence",
+            "kedo",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちに ねこが いるから いもうとは げんきだ。",
+          "en": "There's a cat at home, so my younger sister is happy",
+          "exercises": [
+            "ga-existence",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとは あにの じてんしゃを かった。",
+          "en": "My younger brother bought my older brother's bicycle",
+          "exercises": [
+            "ga-existence",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとが いる。",
+          "en": "Say to a friend: I have a younger sister",
+          "exercises": [
+            "ga-existence"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "おとうとが ",
+          "tail": "。",
+          "answer": "いる",
+          "options": [
+            "いる",
+            "ある",
+            "いない"
+          ],
+          "en": "I have a younger brother",
+          "explanation": "people and animals take いる. ある is for things, and いない is the negative — \"there isn't one\"."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうだいが いるから うちは にぎやかだ。",
+          "answer": "I have siblings, so my house is lively",
+          "distractors": [
+            "I have no siblings, so my house is quiet",
+            "My siblings are at home",
+            "My house is lively, so my friends come"
+          ],
+          "exercises": [
+            "ga-existence",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いもうとは だいがくの がくせいだ。",
+          "answer": "My younger sister is a university student",
+          "distractors": [
+            "My younger brother is a university student",
+            "My older sister is a university student",
+            "My younger sister goes to the university"
+          ],
+          "exercises": [
+            "ga-existence",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "きょうだいは いる？",
+              "en": "Do you have any siblings?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "うん、あにが いる。おとうとは いない。",
+              "en": "Yeah, I have an older brother. I don't have a younger brother."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who does Tom have?",
+              "options": [
+                "An older brother",
+                "A younger brother",
+                "A younger sister",
+                "No siblings at all"
+              ],
+              "answer": "An older brother"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "いもうとが いるけど あねは いないから しゃしんを みせる。",
+          "en": "I have a younger sister but no older sister, so I'll show you the photo",
+          "combines": [
+            "ga-existence",
+            "kedo",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "おとうと",
+        "いもうと",
+        "きょうだい",
+        "あに",
+        "あね",
+        "ちち",
+        "はは",
+        "ねこ",
+        "しゃしん",
+        "おんがく"
+      ]
+    },
+    {
+      "id": "m17-neo-review-1",
+      "role": "review",
+      "title": "Review — your side of the family",
+      "focus": "ちち / はは / あに / あね / おとうと / いもうと, の between them, and いる for the people you have",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ちちは かいしゃで はたらくから いそがしい。",
+          "en": "My father works at a company, so he's busy",
+          "exercises": [
+            "family-register",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにの じてんしゃは たかかったけど あたらしい。",
+          "en": "My older brother's bicycle was expensive, but it's new",
+          "exercises": [
+            "no-possession",
+            "kedo",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとが いるから うちは にぎやかだ。",
+          "en": "I have a younger brother, so my house is lively",
+          "exercises": [
+            "ga-existence",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは せんせいだから じゅぎょうが ある。",
+          "en": "My mother is a teacher, so she has classes",
+          "exercises": [
+            "family-register",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは ははの くるまを かった。",
+          "en": "My older sister bought my mother's car",
+          "exercises": [
+            "no-possession",
+            "wo-object",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうだいが ",
+          "tail": "。",
+          "answer": "いる",
+          "options": [
+            "いる",
+            "ある",
+            "いない"
+          ],
+          "en": "I have siblings",
+          "explanation": "people take いる. ある is for things, and いない is the negative."
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとは だいがくの がくせいだから いそがしい。",
+          "en": "My younger sister is a university student, so she's busy",
+          "exercises": [
+            "ga-existence",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちちも ははも かいしゃで はたらく。",
+          "answer": "Both my father and my mother work at a company",
+          "distractors": [
+            "My father works at a company, but my mother doesn't",
+            "My father and mother are at home",
+            "My mother works at a company"
+          ],
+          "exercises": [
+            "family-register",
+            "mo-also"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは からだが おおきいけど ははは ちいさい。",
+          "en": "My father is big, but my mother is small",
+          "exercises": [
+            "family-register",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あには おんがくが すきだ。",
+          "en": "Say to a friend: My older brother likes music",
+          "exercises": [
+            "no-possession",
+            "suki-kirai-no"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いもうとが いるけど あねは いない。",
+          "answer": "I have a younger sister, but I don't have an older sister",
+          "distractors": [
+            "I have an older sister, but not a younger one",
+            "I have a younger brother, but not an older brother",
+            "I don't have any siblings"
+          ],
+          "exercises": [
+            "ga-existence",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちの かいしゃは えきの まえだ。",
+          "en": "My father's company is in front of the station",
+          "exercises": [
+            "no-possession",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "きょうだいは いる？",
+              "en": "Do you have any siblings?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うん、あねが いる。だいがくの がくせいだ。",
+              "en": "Yeah, I have an older sister. She's a university student."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about her older sister?",
+              "options": [
+                "She's a university student",
+                "She's a teacher",
+                "She works at a company",
+                "She's at home"
+              ],
+              "answer": "She's a university student"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ちち",
+        "はは",
+        "あに",
+        "あね",
+        "おとうと",
+        "いもうと",
+        "きょうだい",
+        "かぞく",
+        "じてんしゃ",
+        "かいしゃ"
+      ]
+    },
+    {
+      "id": "m17-neo-4",
+      "role": "teaching",
+      "title": "かぞくは よにんだ — counting people",
+      "focus": "〜にん counts people, and the first two cells are irregular: ひとり and ふたり, never いちにん or ににん",
+      "introduces": [
+        "にん",
+        "ひとり",
+        "ふたり",
+        "さんにん",
+        "よにん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-nin"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちの かぞくは よにんだ。",
+          "en": "There are four people in my family",
+          "exercises": [
+            "counter-nin",
+            "no-possession",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいが さんにん いるから うちは にぎやかだ。",
+          "en": "I have three siblings, so my house is lively",
+          "exercises": [
+            "counter-nin",
+            "ga-existence",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねが ひとり いるけど あには いない。",
+          "en": "I have one older sister, but I don't have an older brother",
+          "exercises": [
+            "counter-nin",
+            "kedo",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとが ふたり いるから いそがしい。",
+          "en": "I have two younger brothers, so I'm busy",
+          "exercises": [
+            "counter-nin",
+            "ga-existence",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちが よにん くるから ごはんを かう。",
+          "en": "Four friends are coming, so I'll buy some food",
+          "exercises": [
+            "counter-nin",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいが さんにん きっさてんに いる。",
+          "en": "There are three students in the coffee shop",
+          "exercises": [
+            "counter-nin",
+            "ga-existence",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくは なんにん？",
+          "en": "How many people are in your family",
+          "exercises": [
+            "counter-nin",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねが ひとり いる。",
+          "en": "Say to a friend: I have one older sister",
+          "exercises": [
+            "counter-nin"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうだいが ",
+          "tail": " いる。",
+          "answer": "さんにん",
+          "options": [
+            "さんにん",
+            "さん",
+            "さんじ"
+          ],
+          "en": "I have three siblings",
+          "explanation": "people are counted with にん — さんにん. A bare さん cannot count anything, and さんじ is three o'clock."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ともだちが ふたり くる。",
+          "answer": "Two friends are coming",
+          "distractors": [
+            "Two friends came",
+            "One friend is coming",
+            "Four friends are coming"
+          ],
+          "exercises": [
+            "counter-nin",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がくせいが ふたり きっさてんに いる。",
+          "answer": "There are two students in the coffee shop",
+          "distractors": [
+            "Two students are going to the coffee shop",
+            "There are three students in the coffee shop",
+            "The students are at the station"
+          ],
+          "exercises": [
+            "counter-nin",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "かぞくは なんにん？",
+              "en": "How many are there in your family?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "よにんだ。ちちと ははと あにと ぼくだ。",
+              "en": "Four. My father, my mother, my older brother and me."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many people are in Tom's family?",
+              "options": [
+                "Four",
+                "Three",
+                "Two",
+                "Five"
+              ],
+              "answer": "Four"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きょうだいが ふたり いるけど うちは しずかだ。",
+          "en": "I have two siblings, but my house is quiet",
+          "combines": [
+            "counter-nin",
+            "ga-existence",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ひとり",
+        "ふたり",
+        "さんにん",
+        "よにん",
+        "かぞく",
+        "きょうだい",
+        "おとうと",
+        "いもうと",
+        "あね",
+        "きっさてん"
+      ]
+    },
+    {
+      "id": "m17-neo-5",
+      "role": "teaching",
+      "title": "あねは はたちだ — how old",
+      "focus": "Age is a number plus 〜さい, and twenty is a word of its own — はたち, which never takes さい",
+      "introduces": [
+        "さい",
+        "はたち"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-sai"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは はたちだから だいがくに いく。",
+          "en": "My older sister is twenty, so she goes to university",
+          "exercises": [
+            "counter-sai",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとは ろくさいだから ちいさい。",
+          "en": "My younger sister is six, so she's small",
+          "exercises": [
+            "counter-sai",
+            "kara-because",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとは きゅうさいだけど おおきい。",
+          "en": "My younger brother is nine, but he's big",
+          "exercises": [
+            "counter-sai",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだけど げんきだ。",
+          "en": "My father is fifty-three, but he's in good health",
+          "exercises": [
+            "counter-sai",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは よんじゅうごさいだから いそがしい。",
+          "en": "My mother is forty-five, so she's busy",
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは じゅうきゅうさいだから だいがくの がくせいだ。",
+          "en": "Ken is nineteen, so he's a university student",
+          "exercises": [
+            "counter-sai",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは なんさい？",
+          "en": "How old is Mika",
+          "exercises": [
+            "counter-sai",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは はたちだ。",
+          "en": "Say to a friend: My older sister is twenty",
+          "exercises": [
+            "counter-sai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いもうとは ",
+          "tail": "。",
+          "answer": "ろくさい",
+          "options": [
+            "ろくさい",
+            "ろくにん",
+            "ろくじ"
+          ],
+          "en": "My younger sister is six years old",
+          "explanation": "さい counts YEARS OF AGE. にん counts people, and ろくじ is six o'clock."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あねは はたちだから はたらく。",
+          "answer": "My older sister is twenty, so she works",
+          "distractors": [
+            "My older brother is twenty, so he works",
+            "My older sister is twelve, so she doesn't work",
+            "My older sister works at a company"
+          ],
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちちは ごじゅうさんさいだから よく およぐ。",
+          "answer": "My father is fifty-three, so he swims often",
+          "distractors": [
+            "My father is thirty-five, so he swims often",
+            "My mother is fifty-three and swims often",
+            "My father swam a lot when he was fifty-three"
+          ],
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "きょうだいは なんにん？",
+              "en": "How many siblings do you have?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ふたり。おとうとは きゅうさいだ。いもうとは ろくさいだ。",
+              "en": "Two. My younger brother is nine. My younger sister is six."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How old is Ken's younger brother?",
+              "options": [
+                "Nine",
+                "Six",
+                "Two",
+                "Twenty"
+              ],
+              "answer": "Nine"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あねは はたちだけど おとうとは きゅうさいだから うちは にぎやかだ。",
+          "en": "My older sister is twenty but my younger brother is nine, so my house is lively",
+          "combines": [
+            "counter-sai",
+            "kedo",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "さい",
+        "はたち",
+        "ひとり",
+        "ふたり",
+        "さんにん",
+        "よにん",
+        "あね",
+        "おとうと",
+        "いもうと",
+        "きょうだい"
+      ]
+    },
+    {
+      "id": "m17-neo-6",
+      "role": "teaching",
+      "title": "じゅうななさい — ages past ten",
+      "focus": "Ages past ten are the number stack you already own with さい riding on the end",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "numbers-11-99"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あには じゅうななさいだから だいがくに いかない。",
+          "en": "My older brother is seventeen, so he doesn't go to university",
+          "exercises": [
+            "numbers-11-99",
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは じゅうきゅうさいだから だいがくに いく。",
+          "en": "Ken is nineteen, so he goes to university",
+          "exercises": [
+            "numbers-11-99",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだから いそがしい。",
+          "en": "My father is fifty-three, so he's busy",
+          "exercises": [
+            "numbers-11-99",
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは よんじゅうごさいだけど げんきだ。",
+          "en": "My mother is forty-five, but she's in good health",
+          "exercises": [
+            "numbers-11-99",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちの ともだちは ろくじゅうさんさいだから かいしゃに いかない。",
+          "en": "My father's friend is sixty-three, so he doesn't go to the company",
+          "exercises": [
+            "numbers-11-99",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あには じゅうななさいだけど おおきい。",
+          "en": "My older brother is seventeen, but he's big",
+          "exercises": [
+            "numbers-11-99",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは はたちだから だいがくの がくせいだ。",
+          "en": "My older sister is twenty, so she's a university student",
+          "exercises": [
+            "counter-sai",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだ。",
+          "en": "Say to a friend: My father is fifty-three",
+          "exercises": [
+            "numbers-11-99"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "あには ",
+          "tail": "だ。",
+          "answer": "じゅうななさい",
+          "options": [
+            "じゅうななさい",
+            "じゅうなな",
+            "じゅうななにん"
+          ],
+          "en": "My older brother is seventeen",
+          "explanation": "an age needs さい on the end — じゅうななさい. じゅうなな is just the number 17, and じゅうななにん would be seventeen PEOPLE."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ケンは じゅうきゅうさいだ。",
+          "answer": "Ken is nineteen",
+          "distractors": [
+            "Ken is ninety",
+            "Ken is twenty",
+            "Ken's older brother is nineteen"
+          ],
+          "exercises": [
+            "numbers-11-99",
+            "counter-sai"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちちの ともだちは ろくじゅうさんさいだ。",
+          "answer": "My father's friend is sixty-three",
+          "distractors": [
+            "My father's friend is thirty-six",
+            "My mother's friend is sixty-three",
+            "My father is sixty-three"
+          ],
+          "exercises": [
+            "numbers-11-99",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "かぞくは なんにんですか。",
+              "en": "How many people are there in your family?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "よにんです。あには じゅうななさいです。",
+              "en": "Four. My older brother is seventeen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How old is Tom's older brother?",
+              "options": [
+                "Seventeen",
+                "Seventy",
+                "Nineteen",
+                "Twenty"
+              ],
+              "answer": "Seventeen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あねは はたちだから だいがくに いくけど あには じゅうななさいだ。",
+          "en": "My older sister is twenty, so she goes to university, but my older brother is seventeen",
+          "combines": [
+            "counter-sai",
+            "numbers-11-99",
+            "kara-because",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "さい",
+        "はたち",
+        "ちち",
+        "はは",
+        "あに",
+        "あね",
+        "おとうと",
+        "いもうと",
+        "かいしゃ",
+        "だいがく"
+      ]
+    },
+    {
+      "id": "m17-neo-review-2",
+      "role": "review",
+      "title": "Review — how many, how old",
+      "focus": "ひとり / ふたり against さんにん and よにん, and 〜さい on every number the course owns",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "うちの かぞくは よにんだ。",
+          "en": "There are four people in my family",
+          "exercises": [
+            "counter-nin",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは はたちだから だいがくに いく。",
+          "en": "My older sister is twenty, so she goes to university",
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいが さんにん いるから うちは にぎやかだ。",
+          "en": "I have three siblings, so my house is lively",
+          "exercises": [
+            "counter-nin",
+            "ga-existence",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとは きゅうさいだけど おおきい。",
+          "en": "My younger brother is nine, but he's big",
+          "exercises": [
+            "counter-sai",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねが ひとり いるけど あには いない。",
+          "en": "I have one older sister, but I don't have an older brother",
+          "exercises": [
+            "counter-nin",
+            "kedo",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうだいが ",
+          "tail": " いる。",
+          "answer": "さんにん",
+          "options": [
+            "さんにん",
+            "さんじ",
+            "さん"
+          ],
+          "en": "I have three siblings",
+          "explanation": "people take にん. さんじ is three o'clock, and a bare number cannot count a noun at all."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだから いそがしい。",
+          "en": "My father is fifty-three, so he's busy",
+          "exercises": [
+            "numbers-11-99",
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "おとうとが ふたり いるから いそがしい。",
+          "answer": "I have two younger brothers, so I'm busy",
+          "distractors": [
+            "I have one younger brother, so I'm busy",
+            "I have two younger sisters, so I'm busy",
+            "My two younger brothers are busy"
+          ],
+          "exercises": [
+            "counter-nin",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは じゅうきゅうさいだから だいがくに いく。",
+          "en": "Ken is nineteen, so he goes to university",
+          "exercises": [
+            "numbers-11-99",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくは よにんだ。",
+          "en": "Say to a friend: There are four of us in my family",
+          "exercises": [
+            "counter-nin"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ははは よんじゅうごさいだけど げんきだ。",
+          "answer": "My mother is forty-five, but she's in good health",
+          "distractors": [
+            "My mother is fourteen and in good health",
+            "My father is forty-five, but he's in good health",
+            "My mother is forty-five, so she's busy"
+          ],
+          "exercises": [
+            "numbers-11-99",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいが さんにん きっさてんに いる。",
+          "en": "There are three students in the coffee shop",
+          "exercises": [
+            "counter-nin",
+            "ga-existence",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "いもうとは なんさい？",
+              "en": "How old is your younger sister?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ろくさいだ。おとうとは きゅうさいだ。",
+              "en": "Six. My younger brother is nine."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How old is Ken's younger sister?",
+              "options": [
+                "Six",
+                "Nine",
+                "Sixteen",
+                "Twenty"
+              ],
+              "answer": "Six"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ひとり",
+        "ふたり",
+        "さんにん",
+        "よにん",
+        "さい",
+        "はたち",
+        "かぞく",
+        "きょうだい",
+        "きっさてん",
+        "だいがく"
+      ]
+    },
+    {
+      "id": "m17-neo-7",
+      "role": "teaching",
+      "title": "この ほん — pointing at a named thing",
+      "focus": "この / その / あの / どの are the third row of a table you already own — and they must have a noun behind them",
+      "introduces": [
+        "この",
+        "その",
+        "あの",
+        "どの"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "kono-sono-ano-dono"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの ひとは あにの ともだちだ。",
+          "en": "That person over there is my older brother's friend",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは あねのだから きれいだ。",
+          "en": "This bag is my older sister's, so it's pretty",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その しゃしんは ちちが かった。",
+          "en": "My father bought that photo",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みせは やすいから よく いく。",
+          "en": "This shop is cheap, so I go there often",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kara-because",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どの くるまが ははのだ？",
+          "en": "Which car is my mother's",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの きっさてんは しずかだから すきだ。",
+          "en": "That coffee shop over there is quiet, so I like it",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kara-because",
+            "suki-kirai-no"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その ほんは おとうとのだけど ぼくが かった。",
+          "en": "That book is my younger brother's, but I bought it",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kedo",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ほんは あにのだ。",
+          "en": "Say to a friend: This book is my older brother's",
+          "exercises": [
+            "kono-sono-ano-dono"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " ひとは あにの ともだちだ。",
+          "answer": "あの",
+          "options": [
+            "あの",
+            "あれ",
+            "あそこ"
+          ],
+          "en": "That person over there is my older brother's friend",
+          "explanation": "あの must have a noun behind it, and here that noun is ひと. あれ stands alone (\"that one\"), and あそこ is a PLACE (\"over there\")."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この かばんは あねのだ。",
+          "answer": "This bag is my older sister's",
+          "distractors": [
+            "That bag over there is my older sister's",
+            "This bag is my older brother's",
+            "My older sister bought this bag"
+          ],
+          "exercises": [
+            "kono-sono-ano-dono",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "どの くるまが ミカのだ？",
+          "answer": "Which car is Mika's?",
+          "distractors": [
+            "Whose car is this?",
+            "Which car did Mika buy?",
+            "Where is Mika's car?"
+          ],
+          "exercises": [
+            "kono-sono-ano-dono",
+            "ka-question"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "あの ひとは だれ？",
+              "en": "Who's that person over there?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "あねだ。だいがくの がくせいだ。",
+              "en": "That's my older sister. She's a university student."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who is the person over there?",
+              "options": [
+                "Mika's older sister",
+                "Mika's older brother",
+                "Mika's mother",
+                "Ken's friend"
+              ],
+              "answer": "Mika's older sister"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あの みせは たかいけど あねが すきだから よく いく。",
+          "en": "That shop over there is expensive, but my older sister likes it, so we go often",
+          "combines": [
+            "kono-sono-ano-dono",
+            "kedo",
+            "kara-because",
+            "suki-kirai-no"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "この",
+        "その",
+        "あの",
+        "どの",
+        "かばん",
+        "しゃしん",
+        "くるま",
+        "みせ",
+        "ほん",
+        "きっさてん"
+      ]
+    },
+    {
+      "id": "m17-neo-8",
+      "role": "teaching",
+      "title": "これ と この — standing alone or attached",
+      "focus": "これ IS the thing and takes a particle straight away; この is a label and needs the noun spelled out",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "kore-sore-are-dore"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あれは あにの くるまだから あたらしい。",
+          "en": "That over there is my older brother's car, so it's new",
+          "exercises": [
+            "kore-sore-are-dore",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの くるまは あにのだから あたらしい。",
+          "en": "That car over there is my older brother's, so it's new",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれが あねの じてんしゃ？",
+          "en": "Which one is my older sister's bicycle",
+          "exercises": [
+            "kore-sore-are-dore",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どの じてんしゃが あねのだ？",
+          "en": "Which bicycle is my older sister's",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは いもうとの ぼうしだから ちいさい。",
+          "en": "This is my younger sister's hat, so it's small",
+          "exercises": [
+            "kore-sore-are-dore",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ぼうしは いもうとのだけど ぼくが かった。",
+          "en": "This hat is my younger sister's, but I bought it",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kedo",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "それは おとうとの けいたいだ。",
+          "en": "That is my younger brother's mobile phone",
+          "exercises": [
+            "kore-sore-are-dore",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あれは ちちの くるまだ。",
+          "en": "Say to a friend: That over there is my father's car",
+          "exercises": [
+            "kore-sore-are-dore"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " じてんしゃが あねのだ？",
+          "answer": "どの",
+          "options": [
+            "どの",
+            "どれ",
+            "どこ"
+          ],
+          "en": "Which bicycle is my older sister's?",
+          "explanation": "どの needs the noun behind it, and here it is じてんしゃ. どれ stands alone (\"which one\"), and どこ asks WHERE."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "これは いもうとの ぼうしだ。",
+          "answer": "This is my younger sister's hat",
+          "distractors": [
+            "That over there is my younger sister's hat",
+            "This is my younger brother's hat",
+            "My younger sister bought this hat"
+          ],
+          "exercises": [
+            "kore-sore-are-dore",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あの くるまは あにのだ。",
+          "answer": "That car over there is my older brother's",
+          "distractors": [
+            "This car is my older brother's",
+            "That car over there is my older sister's",
+            "My older brother bought that car"
+          ],
+          "exercises": [
+            "kono-sono-ano-dono",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "どれが ケンの かばん？",
+              "en": "Which one is your bag, Ken?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "あれだ。あの あたらしい かばんだ。",
+              "en": "That one over there. The new bag."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which bag is Ken's?",
+              "options": [
+                "The new one over there",
+                "The old one here",
+                "Mika's bag",
+                "The one on the chair"
+              ],
+              "answer": "The new one over there"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あの みせで かった ぼうしは いもうとのだ。",
+          "en": "The hat I bought at that shop over there is my younger sister's",
+          "combines": [
+            "kono-sono-ano-dono",
+            "ta-form",
+            "no-possession",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "この",
+        "その",
+        "あの",
+        "どの",
+        "ぼうし",
+        "けいたい",
+        "くるま",
+        "じてんしゃ",
+        "かばん",
+        "みせ"
+      ]
+    },
+    {
+      "id": "m17-neo-9",
+      "role": "teaching",
+      "title": "あの ひとは だれ？ — asking about people",
+      "focus": "だれ / だれの / なんにん / なんさい / どの — the question frames that make the whole module usable",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "dare"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは だれの かばん？",
+          "en": "Whose bag is this",
+          "exercises": [
+            "dare",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの ひとは だれ？",
+          "en": "Who is that person over there",
+          "exercises": [
+            "dare",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どの ひとが ミカの ともだちだ？",
+          "en": "Which person is Mika's friend",
+          "exercises": [
+            "dare",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "だれが この しゃしんを かった？",
+          "en": "Who bought this photo",
+          "exercises": [
+            "dare",
+            "kono-sono-ano-dono",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの ひとは ミカの ともだちだから にほんじんだ。",
+          "en": "That person over there is Mika's friend, so she's Japanese",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kara-because",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは なんさい？",
+          "en": "How old is Mika",
+          "exercises": [
+            "dare",
+            "counter-sai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その ひとは だれの ともだちだ？",
+          "en": "Whose friend is that person",
+          "exercises": [
+            "dare",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは だれの かばん？",
+          "en": "Say to a friend: Whose bag is this",
+          "exercises": [
+            "dare"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "これは ",
+          "tail": " かばん？",
+          "answer": "だれの",
+          "options": [
+            "だれの",
+            "だれ",
+            "どこ"
+          ],
+          "en": "Whose bag is this?",
+          "explanation": "asking WHOSE is だれ plus の. Bare だれ only means \"who\", and どこ asks where."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あの ひとは あにの ともだちだ。",
+          "answer": "That person over there is my older brother's friend",
+          "distractors": [
+            "This person is my older brother's friend",
+            "That person over there is my older sister's friend",
+            "My older brother's friend is coming"
+          ],
+          "exercises": [
+            "dare",
+            "kono-sono-ano-dono"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぞくは なんにん？",
+          "answer": "How many people are in your family?",
+          "distractors": [
+            "How old is your family?",
+            "Where is your family?",
+            "Who is in your family?"
+          ],
+          "exercises": [
+            "dare",
+            "counter-nin"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "これは だれの しゃしん？",
+              "en": "Whose photo is this?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うちの かぞくの しゃしんだ。ちちと ははと あねが いる。",
+              "en": "It's a photo of my family. My father, my mother and my older sister are in it."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who is in Mika's photo?",
+              "options": [
+                "Her father, mother and older sister",
+                "Her father and younger brother",
+                "Her mother and younger sister",
+                "Her friends from university"
+              ],
+              "answer": "Her father, mother and older sister"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あの きっさてんに いる ひとは だれの ともだちだ？",
+          "en": "Whose friend is the person in that coffee shop over there",
+          "combines": [
+            "dare",
+            "kono-sono-ano-dono",
+            "dictionary-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "この",
+        "その",
+        "あの",
+        "どの",
+        "ひと",
+        "ともだち",
+        "かばん",
+        "しゃしん",
+        "かぞく",
+        "きっさてん"
+      ]
+    },
+    {
+      "id": "m17-neo-review-3",
+      "role": "review",
+      "title": "Review — うちの かぞく, start to finish",
+      "focus": "the うち words, 〜にん and 〜さい, and この / その / あの / どの against これ / それ / あれ / どれ",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ちちは かいしゃで はたらくから いそがしい。",
+          "en": "My father works at a company, so he's busy",
+          "exercises": [
+            "family-register",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちの かぞくは よにんだ。",
+          "en": "There are four people in my family",
+          "exercises": [
+            "counter-nin",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの ひとは あにの ともだちだ。",
+          "en": "That person over there is my older brother's friend",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "no-possession"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとは ろくさいだから ちいさい。",
+          "en": "My younger sister is six, so she's small",
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいが いるから うちは にぎやかだ。",
+          "en": "I have siblings, so my house is lively",
+          "exercises": [
+            "ga-existence",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " じてんしゃが あねのだ？",
+          "answer": "どの",
+          "options": [
+            "どの",
+            "どれ",
+            "どこ"
+          ],
+          "en": "Which bicycle is my older sister's?",
+          "explanation": "どの attaches to the noun じてんしゃ. どれ stands alone, and どこ asks where."
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは いもうとの ぼうしだから ちいさい。",
+          "en": "This is my younger sister's hat, so it's small",
+          "exercises": [
+            "kore-sore-are-dore",
+            "no-possession",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あねは はたちだから だいがくに いく。",
+          "answer": "My older sister is twenty, so she goes to university",
+          "distractors": [
+            "My older sister is twelve, so she doesn't go to university",
+            "My older brother is twenty and goes to university",
+            "My older sister goes to university every day"
+          ],
+          "exercises": [
+            "counter-sai",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにの じてんしゃは たかかったけど あたらしい。",
+          "en": "My older brother's bicycle was expensive, but it's new",
+          "exercises": [
+            "no-possession",
+            "kedo",
+            "i-adj-past"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは だれの かばん？",
+          "en": "Say to a friend: Whose bag is this",
+          "exercises": [
+            "dare"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうだいが さんにん いるから うちは にぎやかだ。",
+          "answer": "I have three siblings, so my house is lively",
+          "distractors": [
+            "I have two siblings, so my house is lively",
+            "I have three friends, so my house is lively",
+            "My three siblings are at home"
+          ],
+          "exercises": [
+            "counter-nin",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "その ほんは おとうとのだけど ぼくが かった。",
+          "en": "That book is my younger brother's, but I bought it",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kedo",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだから いそがしい。",
+          "en": "My father is fifty-three, so he's busy",
+          "exercises": [
+            "numbers-11-99",
+            "counter-sai",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "ミカの かぞくは なんにん？",
+              "en": "How many are there in your family, Mika?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "よにんだ。ちちと ははと あねと わたしだ。",
+              "en": "Four. My father, my mother, my older sister and me."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many people are in Mika's family?",
+              "options": [
+                "Four",
+                "Three",
+                "Two",
+                "Five"
+              ],
+              "answer": "Four"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ちち",
+        "はは",
+        "あに",
+        "あね",
+        "おとうと",
+        "いもうと",
+        "きょうだい",
+        "さんにん",
+        "さい",
+        "はたち"
+      ]
+    },
+    {
+      "id": "m17-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — introduce your family",
+      "focus": "End-of-module stretch: うち words, people counts, ages and the pointing row stacked in shapes the teaching lessons never paired",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "あねは はたちだから だいがくに いくけど ぼくは じゅうごさいだ。",
+          "en": "My older sister is twenty, so she goes to university, but I'm fifteen",
+          "exercises": [
+            "counter-sai",
+            "kara-because",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この しゃしんに きょうだいが さんにん いる。",
+          "en": "There are three siblings in this photo",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "counter-nin",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの みせで かった かばんは あねのだから あたらしい。",
+          "en": "The bag I bought at that shop over there is my older sister's, so it's new",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "ta-form",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちちは ごじゅうさんさいだけど げんきだから よく およぐ。",
+          "en": "My father is fifty-three, but he's in good health, so he swims often",
+          "exercises": [
+            "counter-sai",
+            "kedo",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとが ふたり いるから この くるまは ちいさい。",
+          "en": "I have two younger brothers, so this car is small",
+          "exercises": [
+            "counter-nin",
+            "kara-because",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの ひとは あねの ともだちだけど にほんじんじゃない。",
+          "en": "That person over there is my older sister's friend, but she isn't Japanese",
+          "exercises": [
+            "kono-sono-ano-dono",
+            "kedo",
+            "na-adj-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちの かぞくは よにんだから くるまが おおきい。",
+          "en": "There are four of us in my family, so our car is big",
+          "exercises": [
+            "counter-nin",
+            "kara-because",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは だれの しゃしん？",
+          "en": "Say to a friend: Whose photo is this",
+          "exercises": [
+            "dare"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いもうとは ",
+          "tail": "。",
+          "answer": "ろくさい",
+          "options": [
+            "ろくさい",
+            "ろくにん",
+            "ろくじ"
+          ],
+          "en": "My younger sister is six years old",
+          "explanation": "さい counts years of age, にん counts people, and ろくじ is six o'clock."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あには じゅうななさいだから だいがくに いかない。",
+          "answer": "My older brother is seventeen, so he doesn't go to university",
+          "distractors": [
+            "My older brother is seventy, so he doesn't go to university",
+            "My older sister is seventeen and doesn't go to university",
+            "My older brother goes to university at seventeen"
+          ],
+          "exercises": [
+            "numbers-11-99",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "どの ひとが ケンの ともだちだ？",
+          "answer": "Which person is Ken's friend?",
+          "distractors": [
+            "Who is Ken's friend?",
+            "Which person is Ken's older brother?",
+            "Where is Ken's friend?"
+          ],
+          "exercises": [
+            "kono-sono-ano-dono",
+            "dare"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "この しゃしんの ひとは だれですか。",
+              "en": "Who are the people in this photo?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "あにです。じゅうななさいです。あの ひとは ははです。",
+              "en": "That's my older brother. He's seventeen. And that person over there is my mother."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who is in Tom's photo?",
+              "options": [
+                "His older brother and his mother",
+                "His older sister and his father",
+                "His younger brother and his mother",
+                "Mika and Ken"
+              ],
+              "answer": "His older brother and his mother"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あの きっさてんに いる ひとは あねの ともだちだから にほんじんだ。",
+          "en": "The person in that coffee shop over there is my older sister's friend, so she's Japanese",
+          "combines": [
+            "kono-sono-ano-dono",
+            "dictionary-form",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ちち",
+        "はは",
+        "あに",
+        "あね",
+        "おとうと",
+        "いもうと",
+        "きょうだい",
+        "ひとり",
+        "ふたり",
+        "よにん"
+      ]
+    }
+  ],
+  "priorVocab": [
+    "あさ",
+    "あした",
+    "あそこ",
+    "あそびたい",
+    "あそびます",
+    "あそぶ",
+    "あそんだ",
+    "あそんで",
+    "あたらしい",
+    "あたらしくない",
+    "ありがとう",
+    "ありがとうございます",
+    "あります",
+    "ありません",
+    "ある",
+    "あれ",
+    "いい",
+    "いう",
+    "いえ",
+    "いかない",
+    "いかなかった",
+    "いきたい",
+    "いきたかった",
+    "いきたくない",
+    "いきたくなかった",
+    "いきました",
+    "いきます",
+    "いきません",
+    "いきませんでした",
+    "いく",
+    "いくら",
+    "いけ",
+    "いけません",
+    "いす",
+    "いそがしい",
+    "いち",
+    "いちじ",
+    "いった",
+    "いって",
+    "いつ",
+    "いない",
+    "いぬ",
+    "いま",
+    "いらっしゃいませ",
+    "いる",
+    "いろ",
+    "ううん",
+    "うえ",
+    "うた",
+    "うち",
+    "うま",
+    "うみ",
+    "うる",
+    "うん",
+    "え",
+    "えいが",
+    "ええ",
+    "えき",
+    "えん",
+    "えんぴつ",
+    "おいしい",
+    "おいしかった",
+    "おいしくない",
+    "おいしくなかった",
+    "おおきい",
+    "おおきかった",
+    "おおきくない",
+    "おおきくなかった",
+    "おしえて",
+    "おしえる",
+    "おもう",
+    "おもしろい",
+    "おもしろかった",
+    "おもしろくない",
+    "おもしろくなかった",
+    "およいで",
+    "およがない",
+    "およぐ",
+    "か",
+    "かいしゃ",
+    "かいたい",
+    "かいたかった",
+    "かいたくない",
+    "かいたくなかった",
+    "かいました",
+    "かいます",
+    "かいませんでした",
+    "かいもの",
+    "かう",
+    "かお",
+    "かぎ",
+    "かさ",
+    "かぜ",
+    "かぞく",
+    "かった",
+    "かって",
+    "かね",
+    "かばん",
+    "かめ",
+    "からだ",
+    "かわ",
+    "かわない",
+    "かわなかった",
+    "が",
+    "がくせい",
+    "がつ",
+    "き",
+    "きいた",
+    "きいて",
+    "ききます",
+    "きく",
+    "きた",
+    "きっさてん",
+    "きっぷ",
+    "きて",
+    "きのう",
+    "きのこ",
+    "きます",
+    "きません",
+    "きませんでした",
+    "きゅう",
+    "きゅうり",
+    "きょう",
+    "きらい",
+    "きれい",
+    "ぎゅうにゅう",
+    "く",
+    "くじ",
+    "ください",
+    "くつ",
+    "くる",
+    "くるま",
+    "くん",
+    "けいたい",
+    "けっこう",
+    "けど",
+    "げんき",
+    "こえ",
+    "ここ",
+    "こちら",
+    "こと",
+    "こない",
+    "こなかった",
+    "こめ",
+    "これ",
+    "ご",
+    "ごご",
+    "ごじ",
+    "ごじゅう",
+    "ごぜん",
+    "ごはん",
+    "ごめんなさい",
+    "さくら",
+    "さま",
+    "さむい",
+    "さむかった",
+    "さん",
+    "さんじ",
+    "さんじゅう",
+    "さんぽ",
+    "し",
+    "しずか",
+    "した",
+    "したい",
+    "したかった",
+    "しちじ",
+    "しって",
+    "して",
+    "しない",
+    "しなかった",
+    "しました",
+    "します",
+    "しません",
+    "しませんでした",
+    "しゃしん",
+    "しょくじ",
+    "しらない",
+    "しります",
+    "しりません",
+    "しる",
+    "じかん",
+    "じしょ",
+    "じてんしゃ",
+    "じゃない",
+    "じゃなかった",
+    "じゅう",
+    "じゅうじ",
+    "じゅぎょう",
+    "すき",
+    "すし",
+    "すみません",
+    "する",
+    "すんで",
+    "せ",
+    "せんせい",
+    "ぜんぜん",
+    "そう",
+    "そこ",
+    "そら",
+    "それ",
+    "たかい",
+    "たかかった",
+    "たかくない",
+    "たかくなかった",
+    "たなか",
+    "たべた",
+    "たべたい",
+    "たべたかった",
+    "たべたくない",
+    "たべたくなかった",
+    "たべて",
+    "たべない",
+    "たべなかった",
+    "たべました",
+    "たべます",
+    "たべません",
+    "たべませんでした",
+    "たべもの",
+    "たべる",
+    "だいがく",
+    "だいじょうぶ",
+    "だった",
+    "だめ",
+    "だれ",
+    "ちいさい",
+    "ちがいます",
+    "ちがう",
+    "ちゃ",
+    "ちゃん",
+    "ちょっと",
+    "つき",
+    "て",
+    "てがみ",
+    "で",
+    "でした",
+    "でんわ",
+    "と",
+    "とき",
+    "とけい",
+    "ともだち",
+    "とりにく",
+    "どう",
+    "どこ",
+    "どれ",
+    "ない",
+    "なか",
+    "なかった",
+    "なつやすみ",
+    "なな",
+    "ななじゅう",
+    "なに",
+    "なまえ",
+    "なん",
+    "なんじ",
+    "に",
+    "にぎやか",
+    "にじ",
+    "にほん",
+    "にほんじん",
+    "ねこ",
+    "の",
+    "ので",
+    "のまない",
+    "のまなかった",
+    "のみたい",
+    "のみたかった",
+    "のみたくない",
+    "のみたくなかった",
+    "のみました",
+    "のみます",
+    "のみません",
+    "のみませんでした",
+    "のみもの",
+    "のむ",
+    "のんだ",
+    "のんで",
+    "は",
+    "はい",
+    "はじめまして",
+    "はたらいて",
+    "はたらきます",
+    "はたらきません",
+    "はたらく",
+    "はち",
+    "はちじ",
+    "はな",
+    "はん",
+    "ひと",
+    "ひとつ",
+    "ひゃく",
+    "ふく",
+    "ふたつ",
+    "ふね",
+    "ふるい",
+    "ふるかった",
+    "ぶた",
+    "ほし",
+    "ほしい",
+    "ほん",
+    "ぼうし",
+    "ぼく",
+    "まあ",
+    "まい",
+    "まえ",
+    "まだ",
+    "まって",
+    "まつ",
+    "まで",
+    "まど",
+    "みず",
+    "みせ",
+    "みせて",
+    "みせない",
+    "みせる",
+    "みた",
+    "みたい",
+    "みたくない",
+    "みっつ",
+    "みて",
+    "みない",
+    "みなかった",
+    "みます",
+    "みません",
+    "みませんでした",
+    "みる",
+    "め",
+    "めがね",
+    "も",
+    "もう",
+    "もも",
+    "やすい",
+    "やすかった",
+    "やすみ",
+    "やま",
+    "やる",
+    "ゆうめい",
+    "ゆき",
+    "よかった",
+    "よく",
+    "よくない",
+    "よくなかった",
+    "よじ",
+    "よん",
+    "よんじゅう",
+    "りょうり",
+    "りょこう",
+    "ろく",
+    "ろくじ",
+    "ろくじゅう",
+    "わかった",
+    "わからない",
+    "わかります",
+    "わかる",
+    "わたし",
+    "を",
+    "アメリカ",
+    "アメリカじん",
+    "カメラ",
+    "パン",
+    "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "えいが",
+      "romaji": "eiga",
+      "gloss": "movie",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くつ",
+      "romaji": "kutsu",
+      "gloss": "shoes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こと",
+      "romaji": "koto",
+      "gloss": "thing, the act of doing",
+      "shortGloss": "thing (act of)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とき",
+      "romaji": "toki",
+      "gloss": "time, when",
+      "shortGloss": "time, when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いそがしい",
+      "romaji": "isogashii",
+      "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "りょこう",
+      "romaji": "ryokou",
+      "gloss": "trip, travel",
+      "shortGloss": "trip",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まえ",
+      "romaji": "mae",
+      "gloss": "before",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さむい",
+      "romaji": "samui",
+      "gloss": "cold (weather)",
+      "shortGloss": "cold",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うち",
+      "romaji": "uchi",
+      "gloss": "home, my place",
+      "shortGloss": "home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ので",
+      "romaji": "node",
+      "gloss": "because (softer)",
+      "shortGloss": "because",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けど",
+      "romaji": "kedo",
+      "gloss": "but",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まで",
+      "romaji": "made",
+      "gloss": "until, as far as",
+      "shortGloss": "until",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がつ",
+      "romaji": "gatsu",
+      "gloss": "month (in a date)",
+      "shortGloss": "month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすみ",
+      "romaji": "yasumi",
+      "gloss": "holiday, time off",
+      "shortGloss": "holiday",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべませんでした",
+      "romaji": "tabemasendeshita",
+      "gloss": "didn't eat (polite)",
+      "shortGloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみませんでした",
+      "romaji": "nomimasendeshita",
+      "gloss": "didn't drink (polite)",
+      "shortGloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しませんでした",
+      "romaji": "shimasendeshita",
+      "gloss": "didn't do (polite)",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いきませんでした",
+      "romaji": "ikimasendeshita",
+      "gloss": "didn't go (polite)",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みませんでした",
+      "romaji": "mimasendeshita",
+      "gloss": "didn't watch (polite)",
+      "shortGloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいませんでした",
+      "romaji": "kaimasendeshita",
+      "gloss": "didn't buy (polite)",
+      "shortGloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きませんでした",
+      "romaji": "kimasendeshita",
+      "gloss": "didn't come (polite)",
+      "shortGloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "さむかった",
+      "romaji": "samukatta",
+      "gloss": "was cold",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "さむい"
+    },
+    {
+      "kana": "たべなかった",
+      "romaji": "tabenakatta",
+      "gloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまなかった",
+      "romaji": "nomanakatta",
+      "gloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しなかった",
+      "romaji": "shinakatta",
+      "gloss": "didn't do",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いかなかった",
+      "romaji": "ikanakatta",
+      "gloss": "didn't go",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みなかった",
+      "romaji": "minakatta",
+      "gloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かわなかった",
+      "romaji": "kawanakatta",
+      "gloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "こなかった",
+      "romaji": "konakatta",
+      "gloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "なかった",
+      "romaji": "nakatta",
+      "gloss": "there wasn't, didn't have",
+      "shortGloss": "didn't have",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "ぜんぜん",
+      "romaji": "zenzen",
+      "gloss": "not at all (with a negative)",
+      "shortGloss": "not at all",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まい",
+      "romaji": "mai",
+      "gloss": "counter for flat things",
+      "shortGloss": "flat-thing counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ]
+}

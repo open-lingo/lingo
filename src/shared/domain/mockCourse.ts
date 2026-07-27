@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m16 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13)
-    // are LIVE via the compiler pipeline — slice them off so the placeholders
-    // begin at m17. NB the SPINE_COMING_SOON array still lists s11 before
-    // n06b (draft-3 order); draft-4 swapped them, which is why m14 is n06b
-    // and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(11).map((t, i) => ({
-      id: `m${i + 17}`,
+    // m6-m17 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07) are LIVE via the compiler pipeline — slice them off so the
+    // placeholders begin at m18. NB the SPINE_COMING_SOON array still lists
+    // s11 before n06b (draft-3 order); draft-4 swapped them, which is why m14
+    // is n06b and m15 is s11. Only the COUNT sliced matters here.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(12).map((t, i) => ({
+      id: `m${i + 18}`,
       title: t.title,
-      eyebrow: `Module ${i + 17} · Coming soon`,
+      eyebrow: `Module ${i + 18} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -658,6 +658,36 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m16-neo-challenge", title: "Challenge — say why, say how long, say what didn't happen", status: "available" as const },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
+        },
+        {
+          // m17-neo (spine tile n07) — Family I. Japanese has TWO sets of
+          // family words and the choice tracks WHOSE family it is: your own
+          // side is うち ("inside") and takes the humble set ちち / はは /
+          // あに / あね / おとうと / いもうと. The others'-side honorific set
+          // waits for Family II (m21) so a learner never holds two words for
+          // "mother" at once. 〜にん counts people (ひとり / ふたり irregular),
+          // 〜さい counts years, and この / その / あの / どの complete the
+          // ko-so-a-do table the learner already half owns.
+          id: "m17",
+          title: "Family I: your side (うち)",
+          eyebrow: "Module 17 · うち and そと",
+          summary: "Japanese has two sets of family words, and which one you use depends on whose family it is. Your own side is うち — \"inside\" — and takes the humble set: ちち, はは, あに, あね, おとうと, いもうと. With them come the counters family talk needs immediately — 〜にん for people (with the irregular ひとり / ふたり) and 〜さい for age — plus この / その / あの / どの, the row of the ko-so-a-do table that has to lean on a noun.",
+          lessons: [
+            { id: "ja-m17-neo-1", title: "ちちと はは — the words for your own family", status: "available" as const },
+            { id: "ja-m17-neo-2", title: "あにの じてんしゃ — whose is whose", status: "available" as const },
+            { id: "ja-m17-neo-3", title: "おとうとが いる — saying who you have", status: "available" as const },
+            { id: "ja-m17-neo-review-1", title: "Review — your side of the family", status: "available" as const },
+            { id: "ja-m17-neo-4", title: "かぞくは よにんだ — counting people", status: "available" as const },
+            { id: "ja-m17-neo-5", title: "あねは はたちだ — how old", status: "available" as const },
+            { id: "ja-m17-neo-6", title: "じゅうななさい — ages past ten", status: "available" as const },
+            { id: "ja-m17-neo-review-2", title: "Review — how many, how old", status: "available" as const },
+            { id: "ja-m17-neo-7", title: "この ほん — pointing at a named thing", status: "available" as const },
+            { id: "ja-m17-neo-8", title: "これ と この — standing alone or attached", status: "available" as const },
+            { id: "ja-m17-neo-9", title: "あの ひとは だれ？ — asking about people", status: "available" as const },
+            { id: "ja-m17-neo-review-3", title: "Review — うちの かぞく, start to finish", status: "available" as const },
+            { id: "ja-m17-neo-challenge", title: "Challenge — introduce your family", status: "available" as const },
+          ],
+          accent: { from: "#e11d48", to: "#be123c" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

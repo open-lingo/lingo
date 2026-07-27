@@ -1084,6 +1084,23 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // both an untracked fragment AND a silent SRS mis-credit: the same class m14
   // documented for いけません and m15 for こと/とき.
   { id: "nakatta", kana: "なかった", romaji: "nakatta", meaningEn: "there wasn't, didn't have", shortGloss: "didn't have", fromModule: "m16", introducedByLessonId: "ja-m16-neo-8", kind: "vocab", blocked: true, note: "past negative of ある — ある is not in VERB_ENTRIES, so no lexicon derives it" },
+  // ── m17-neo (tile n07) — Family I: your side (うち) ──
+  // TWO registrations, and they are the ONLY surfaces this module adds to the
+  // tokenizer. Every other atom m17 declares already HAS a row here under a
+  // stale old-course tag — ちち/はは (m8), あに (m3), あね/おとうと/いもうと
+  // (m19), ひとり/さんにん/よにん (m5), きょうだい/はたち ("future"),
+  // この/その/あの/どの (m8) — so declaring them in the IR only fixes their
+  // PROVENANCE (priorVocab contains none of them), it does not touch tiling.
+  // Both are `blocked`: a bound counter has no concrete referent of its own,
+  // and the rule cards that teach them are their introduction.
+  // Bound-suffix check (inv 41), run before shipping because a new short atom
+  // re-tokenizes the WHOLE course: every registered atom containing さい —
+  // ください / ごめんなさい / ちいさい / うるさい / やさい / さいふ — is itself
+  // an atom and strictly longer, so longest-match consumes it whole and さい can
+  // never be split out of one. Same for にん: さんにん / よにん / ごにん are all
+  // registered, and にほんじん / アメリカじん contain じん, not にん.
+  { id: "sai-counter", kana: "さい", romaji: "sai", meaningEn: "years old (counter for age)", shortGloss: "years old", fromModule: "m17", introducedByLessonId: "ja-m17-neo-5", kind: "vocab", blocked: true, note: "bound age counter — no concrete referent of its own" },
+  { id: "nin-counter", kana: "にん", romaji: "nin", meaningEn: "counter for people", shortGloss: "people counter", fromModule: "m17", introducedByLessonId: "ja-m17-neo-4", kind: "vocab", blocked: true, note: "bound people counter — 🧍 already belongs to からだ and 👥 to ひと" },
 ];
 
 /**

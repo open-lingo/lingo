@@ -24,7 +24,7 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13.
+m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07.
 
 | m | unit | title |
 |---|---|---|
@@ -78,9 +78,9 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 |
-| N5 grammar points left | **39** of 103 (was 74 at run start) |
-| suite | 6420 passing, 0 failing |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 |
+| N5 grammar points left | **35** of 103 (was 74 at run start) |
+| suite | 6559 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
 | untaught words shipping as options | **0** (was routine) |
 
@@ -215,7 +215,7 @@ teaches four counters at once is a table, not a lesson).
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai **mada-mou** | ✅
 | 15 | dictionary-form toki mae-ni te-kara | ✅
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** **made-until** | ✅
-| 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
+| 17 | family-register counter-sai counter-nin kono-sono-ano-dono | ✅
 | 18 | to-omoimasu to-quotation kanji-set-1 |
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** |
 | 20 | yori-comparison numbers-100-10000 counter-ko |
@@ -255,6 +255,30 @@ registry has no `wa-vs-ga` id and inv 42 forbids inventing one) and `nai-form`
 (the plain past negative なかった has no id of its own, and なかった IS the ない
 form with an い-adjective ending swapped). Neither row moves — a re-teach is not
 a re-assignment.
+
+**A SIXTH note, m17 (2026-07-27) — the ledger row is unchanged; the SPINE
+overrode the authoring brief on the SIZE of the vocabulary.** The m17 brief asked
+for BOTH family word sets in one module (ちち/はは/あに/あね/おとうと/いもうと
+*and* おとうさん/おかあさん/おにいさん/おねえさん). spinePlan n07 says the
+opposite in so many words — "YOUR-family terms only (はは/ちち/あに/あね…)" — and
+its `why` is Spencer's note verbatim: "the honorific others'-side words wait for
+Family II so learners never hold two words for 'mother' at once". Family II is
+already this table's m21 (tile s19, "Listing: や, たり (+ Family II)"), whose own
+spine entry says "others'-family honorifics drilled against Family I". **The
+SPINE WINS** and no row moves: m17 ships the うち set only, and no そと word is a
+graded surface anywhere in it (machine-checked in `m17-neo.test.ts`). The brief's
+other half — "you address your OWN parents as おとうさん/おかあさん" — is still
+taught, in the L1 rule card's PROSE in ROMAJI, where `jaSurfaces` (kana-only) is
+blind to it: the register fact lands without putting a Family II word on a tile.
+Five points are RE-TAUGHT rather than re-assigned, because the row owes only four
+ids across nine teaching lessons and inv 42 forbids inventing new ones:
+`no-possession` + `kore-sore-are-dore` + `dare` (m4), `ga-existence` (m6) and
+`numbers-11-99` (m11). **Also not shipped: any age on a sound-change cell.**
+〜さい geminates on 1, 8 and 10, and a ROUND ten inherits it (jussai, sanjussai,
+gojussai), so 「ごじゅうさい」 on a build tile would install a reading nobody uses
+— the first draft shipped three of them and the module's own guard caught it. The
+ages that reach a tile are 6, 9, 17, 19, 45, 53, 63 plus はたち. `にさい`/
+`にじゅう`-anything is banned for the separate に-homograph reason.
 
 **One reconciliation goes the OTHER way (m12, 2026-07-27).** spinePlan s09
 pulls なる (く/になる) forward from s23; the ledger keeps `ku-ni-naru` at m27

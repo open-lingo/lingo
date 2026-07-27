@@ -513,8 +513,15 @@ export function lintAntiPatternMinimalPairs(lesson: LessonContent): LintFailure[
 // every 〜 ひと / 〜 とき / 〜 まえに / 〜てから beat is two clauses by
 // construction. Floor set three sentences below that measurement, per this
 // block's own rule.
+// m17 RECALIBRATED 2026-07-27: the 0.60 floor was measured on the OLD m17
+// (transportation & directions, now archived). The neo module — spine tile
+// n07 — measures 71/90 = .789. Family talk is naturally flat ("my father is a
+// teacher"), which is exactly the texture this gate exists to stop, so nearly
+// every production sentence carries a second clause on m16's から / ので / けど
+// — which is also how people actually talk about their families. Floor set
+// three sentences below that measurement, per this block's own rule.
 export const COMPLEXITY_FLOORS: Record<string, number> = {
-  m12: 0.12, m13: 0.60, m14: 0.75, m15: 0.84, m16: 0.85, m17: 0.60,
+  m12: 0.12, m13: 0.60, m14: 0.75, m15: 0.84, m16: 0.85, m17: 0.75,
   m18: 0.57, m19: 0.49, m20: 0.53, m21: 0.40, m22: 0.56, m23: 0.44,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion

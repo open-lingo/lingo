@@ -1,0 +1,675 @@
+module: m17
+title: "Family I: your side (うち)"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16]
+
+priorGrammarPoints: [wo-object, ni-location, ni-time, de-action, mo-also, to-and,
+                     koko-soko-asoko, nai-existence, arimasu, imasu,
+                     masu-present, masu-negative, masu-past, masu-past-negative,
+                     desu-copula, desu-past, ka-question, wa-topic,
+                     dictionary-form, ta-form, te-form, te-iru, te-kara, mae-ni, toki,
+                     nai-form, numbers-1-10, counter-ji, counter-tsu, counter-mai, kudasai,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     kara-because, node-because, kedo, kara-origin, made-until]
+
+notes: |
+  m17 = spine tile n07, "Family I: your side (うち)". YOUR-side family words,
+  the 〜にん and 〜さい counters they immediately need, and the adnominal
+  demonstratives この/その/あの/どの.
+
+  THE WHOLE POINT — うち and そと.
+
+  1. **Japanese has TWO sets of family words and the choice is about WHOSE
+     family it is, not about who is being polite to whom.** Your own family is
+     うち, "inside": ちち, はは, あに, あね, おとうと, いもうと. Every one of
+     them can ONLY mean mine. Someone else's family is そと, "outside", and
+     takes a different, honorific set. That frame is named out loud in L1 and
+     is the same frame keigo runs on in N4 — naming it here is the point.
+  2. **THE SPINE OVERRODE THE BRIEF ON THE SIZE OF THE VOCABULARY.** The
+     authoring brief asked for BOTH sets in this module (ちち…/おとうさん…).
+     spinePlan n07 says the opposite in so many words: "YOUR-family terms only
+     (はは/ちち/あに/あね…)", and its `why` is Spencer's note verbatim — "the
+     honorific others'-side words wait for Family II so learners never hold two
+     words for 'mother' at once". `docs/RUN-PLAN-n4.md` puts Family II on m21
+     (tile s19, "Listing: や, たり (+ Family II)"), and mockCourse's own s19
+     summary says "others'-family honorifics drilled against Family I". **The
+     SPINE WINS**, exactly as m15 and m16 did: m17 teaches the うち set ONLY,
+     and no そと word is ever a graded surface here.
+  3. **The brief's other half — "you address your OWN parents as おとうさん /
+     おかあさん" — is still taught, in the L1 rule card's PROSE, in ROMAJI.**
+     It is the sharpest half of the register fact (a learner who misses it
+     sounds cold to their own family), and it cannot be dropped just because
+     its vocabulary belongs to a later module. Prose is mixed-script and
+     invisible to the provenance guard (`jaSurfaces` only reads KANA-ONLY
+     strings), so writing "otousan / okaasan" there states the rule without
+     putting a そと word on a tile, in an option set, or in the tokenizer.
+     Same device m16 used for the しがつ/しちがつ/くがつ irregular readings.
+  4. **〜にん counts people and the trap is the first two cells**: ひとり and
+     ふたり, never いちにん / ににん. From three on it is regular, and よにん is
+     read yo-nin. なんにん asks how many.
+  5. **〜さい is the age counter** and it is regular on every number the course
+     owns. はたち (20) is taught as VOCABULARY — one word, no rule — exactly as
+     the brief asks. L6 re-teaches `numbers-11-99` so ages past ten are built
+     from the stack the learner already owns (じゅう + なな + さい).
+  6. **この/その/あの/どの is the THIRD ROW of a table the learner already has.**
+     ここ/そこ/あそこ/どこ (m6) and これ/それ/あれ/どれ (m4) are both owned, so
+     L7 teaches the new row as one fact — these four must attach to a noun —
+     and L8 is the CONTRAST lesson: これ stands alone, この needs a noun.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation), and the humble/honorific split
+  here is ordinary vocabulary with a rule card, which is the whole reason the
+  register machinery is kept isolated.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO そと vocabulary, per the spine (above).** Every consequence of that is
+    load-bearing and was checked sentence by sentence: no beat says 「ミカの
+    あね」 or 「トムの ちち」, because a うち word describing SOMEONE ELSE's
+    family is precisely the error this module exists to prevent. Where a
+    question about another person's family was tempting, the module reaches for
+    the NEUTRAL nouns instead — かぞく, きょうだい, ひと — which is also what a
+    Japanese speaker actually does before they know you well. Speakers state
+    facts about their OWN family (inv 22 asks for exactly this).
+  - **ZERO word_image_mcq steps, deliberately.** Four of the six family terms —
+    ちち, はは, あに, あね — are already on the course's own
+    `WORD_IMAGE_MCQ_BLOCKLIST` with the right reason recorded ("age cue carried
+    by kanji, not face"; "parent composition reads as 'parent', not father"),
+    and おとうと / いもうと fail the same test for the same reason: 👦 and 👧
+    read "boy" and "girl", they cannot carry OLDER-vs-YOUNGER, and they cannot
+    carry WHOSE. Shipping half the sibling set with pictures and half without
+    would teach that the picture is the meaning, which is the one thing this
+    module must not teach. きょうだい's 👫 reads "two friends"; ひとり's 🧍
+    already belongs to からだ and ふたり's 👥 to ひと; はたち's 🔞 is an
+    age-restriction sign, not the age. So every new atom here is
+    `imageable: false` and debuts on its rule card or a `build` beat. Inv 44 is
+    explicit that word_image_mcq has NO usage floor — "its count is fixed by
+    how many imageable words the module introduces" — and here that count is
+    honestly zero. No `m17` row is added to courseAtoms for any of them, so
+    `requireImageFirst` has nothing to check either.
+  - **Only TWO new courseAtoms rows: さい and にん.** Every other atom this
+    module declares already HAS a row (with a stale old-course `fromModule` tag:
+    ちち m8, はは m8, あに m3, あね/おとうと/いもうと m19, ひとり/さんにん/よにん
+    m5, きょうだい/はたち "future", この/その/あの/どの m8). They are declared in
+    `newAtoms` anyway — the same move m16 made for さむい/やすみ/うち and m15 for
+    まえ — because without the declaration the compiler treats them as
+    already-known and they leak in as words the learner is assumed to have.
+    `priorVocab` is the authority and it contains NONE of them.
+  - **Bound-suffix check (inv 41), the only course-wide tokenizer change.**
+    さい and にん are the ONLY surfaces this module adds to the tokenizer, so
+    they are the only ones that can re-read an existing sentence. Every
+    registered atom containing さい — ください, ごめんなさい, ちいさい, うるさい,
+    やさい, さいふ — is itself an atom and strictly longer, so longest-match
+    consumes it whole and さい can never be split out of one. Same for にん:
+    さんにん, よにん and ごにん are all registered atoms. にほんじん and
+    アメリカじん contain じん, not にん. The full suite was re-run after
+    registering both.
+  - **この/その/あの/どの add NOTHING to the tokenizer** — all four already have
+    courseAtoms rows (stale old-course m8 tags), so the near-homograph worry
+    against そこ/あそこ is already the status quo and was verified rather than
+    assumed: あそこ (3) and そこ (2) are longer than / disjoint from あの and
+    その at every position, and no chunk in the course puts こ/そ/あ/ど at a
+    token boundary immediately before の.
+  - **に is never a NUMERAL here** (the documented homograph trap: に the
+    particle vs に the numeral 2). No age uses 2 or 20-as-a-number — twenty is
+    はたち, which is the pedagogy anyway — and ふたり covers "two people".
+  - **No age whose kana would teach a wrong READING is ever a graded surface.**
+    〜さい geminates on 1, 8 and 10 — issai, hassai, jussai — and a ROUND TEN
+    inherits it (sanjussai, yonjussai, gojussai), so 「じゅうさい」 or
+    「ごじゅうさい」 on a build tile would install a reading no Japanese speaker
+    uses. The first draft of this module shipped ごじゅうさい / よんじゅうさい /
+    さんじゅうさい and the module's own guard caught them. The `counter-sai` and
+    `numbers-11-99` cards name every sound-change cell in ROMAJI prose, and the
+    ages that reach a tile are only the ones that are regular on the numbers the
+    learner owns — 6, 9, 17, 19, 45, 53, 63 — plus はたち, which is a word
+    rather than a sum. `m17-neo.test.ts` holds the line.
+  - **The DIALOGUES carry one consistent family each, module-wide.** Persona
+    canon (inv 21) tracks predicate nouns, not relatives, so nothing mechanical
+    stops Tom from having a brother in one lesson and a sister in the next —
+    and the first draft did exactly that across five dialogues. Fixed by
+    ruling: **Tom** = ちち + はは + あに (17) + Tom, four people, parents in
+    America; **Mika** = ちち + はは + あね (university student) + Mika, four
+    people; **Ken** = おとうと (9) + いもうと (6). Every dialogue in the module
+    answers to that. Build sentences are the anonymous learner's own family and
+    are deliberately not held to it.
+  - **ごにん is deliberately unused.** よにん is the interesting cell (yo-, not
+    shi-) and さんにん is the regular exemplar; a fifth counted number would make
+    L4 a table. Same argument m16 used for the twelve months.
+  - **Four points are RE-TAUGHT rather than re-assigned**, because the module
+    owes only four ids across nine teaching lessons and inv 42 forbids
+    inventing new ones: `no-possession` (m4 — の between two family words is the
+    module's first real spend), `ga-existence` (m6 — 「おとうとが いる」 IS how
+    Japanese says you have a sibling, and it is the sentence frame 〜にん hangs
+    on), `numbers-11-99` (m11 — ages past ten are the counter's biggest spend),
+    `kore-sore-are-dore` (m4 — L8 is the これ-vs-この contrast lesson the third
+    row needs) and `dare` (m4 — the question frames that make the vocabulary
+    usable). No ledger row moves: a re-teach is not a re-assignment, exactly as
+    m14/m15/m16 established.
+  - **NO true particle_cloze anywhere.** Every cloze in this module chooses
+    among CONTENT words (ちち/はは/かぞく, さんにん/さん/さんじ, この/これ/ここ),
+    so `particleClozePlacement.test.ts` — which fires only when every option is
+    a particle — has nothing to catch, and inv 5 is satisfied by construction:
+    the module introduces no particle, so it has no business clozing one. The
+    の in 「だれの」 is drilled by PRODUCTION (L9's builds) and by a cloze whose
+    options are だれの / だれ / どこ, i.e. a word choice, not a particle tap.
+  - **Verbs the context pack calls known but the guards do not: なる / すむ /
+    かく / うたう / たつ / ふる / さく, plus いしゃ, にく, ノート, とし, なつ,
+    ひま, まいにち/まいあさ/まいばん, そば, でも, あか/あお/しろ, あし,
+    よっつ/いつつ/とお.** The pack's word list is built from courseAtoms
+    attribution; `priorVocab` in the compiled JSON is the authority and every
+    surface in this file was checked against it. いしゃ is the painful one — the
+    natural 「ちちは いしゃだ」 is unavailable — so せんせい (registry gloss
+    "teacher, doctor") and かいしゃ carry the parents' occupations instead.
+  - **Clause boundaries are SPACES, never 、.** `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    target AND a run-on TTS key. Only rule-card prose and dialogue lines, which
+    render raw, keep one.
+  - **`verbGlossFidelity`:** みる is never glossed "read" here. The module's
+    「ほん」 sentences use かう / みせる, and every みる gloss is "watch" or
+    "look at".
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing this module teaches conjugates — a counter is a
+  noun suffix and a demonstrative is invariant — so no `conjugation:` block is
+  declared and no `verbClass` is set on any atom, which keeps every one of them
+  out of ramp material entirely (inv 37 is satisfied vacuously, not waived).
+
+  CONNECTIVES + COMPLEXITY (inv 13): family talk is naturally flat ("my father
+  is a teacher"), which is exactly the texture GATE 7 exists to stop. Almost
+  every production sentence here therefore carries a second clause on m16's
+  から / ので / けど, which is also the honest way people actually talk about
+  their families ("my father works at a company, so he's busy").
+
+  REINFORCEMENT (inv 27): からだ and おんがく — two of the context pack's
+  under-exposed targets that survive the `priorVocab` check — rotate as
+  carriers, alongside じてんしゃ, かばん, ぼうし, けいたい, しゃしん and
+  きっさてん, so the module is not a wall of かぞく and ひと.
+
+grammarPoints:
+  - id: family-register
+    rule: "Japanese has TWO sets of family words, and which set you use depends on WHOSE family it is — not on how polite you are feeling. Your own family is what Japanese calls うち, \"inside\", and it takes the plain, humble set: ちち my father, はは my mother, あに my older brother, あね my older sister, おとうと my younger brother, いもうと my younger sister. Every one of those words already means MY. 「ちちは かいしゃで はたらく」 can only ever be about your own father. Anyone else's family is そと, \"outside\", and takes a different, honorific set — that set is a module of its own, so for now the rule is simple and absolute: these six words are for YOUR side only. And here is the piece that surprises everybody: you do not call your own mother はは to her face. Speaking TO her she is okaasan; speaking ABOUT her to an outsider she is はは. The word tracks the AUDIENCE, not the person — and that uchi/soto split is the same machinery Japanese politeness runs on all the way up."
+    examples:
+      - { ja: "ちちは かいしゃで はたらくから いそがしい。", en: "My father works at a company, so he's busy." }
+      - { ja: "ははは せんせいだから じゅぎょうが ある。", en: "My mother is a teacher, so she has classes." }
+      - { ja: "ちちも ははも かいしゃで はたらく。", en: "Both my father and my mother work at a company." }
+      - { ja: "ははは くるまが すきだから よく かいものに いく。", en: "My mother likes cars, so she often drives to go shopping." }
+      - { ja: "ちちは からだが おおきいけど ははは ちいさい。", en: "My father is big, but my mother is small." }
+    antiPattern: { ja: "ちちさんは かいしゃで はたらくから いそがしい。", why: "ちち is ALREADY the humble word for your own father — it never takes さん. さん belongs to the honorific set you use for someone else's family: ちちは かいしゃで はたらくから いそがしい。" }
+  - id: no-possession
+    rule: "の glues two nouns together and the one in FRONT owns the one behind: 「あにの じてんしゃ」 = my older brother's bicycle. Two more うち words arrive with it — あに, my older brother, and あね, my older sister — and like ちち and はは they can only ever mean mine. Notice what Japanese splits on: AGE, before anything else. あに is specifically an OLDER brother and あね an OLDER sister, and there is no word that just means \"brother\". You can chain の as far as you like — 「あにの ともだちの くるま」 = my older brother's friend's car — and you can stop after it, letting の carry the noun on its own: 「この かばんは あねのだ」 = this bag is my older sister's."
+    examples:
+      - { ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new." }
+      - { ja: "ちちの かいしゃは えきの まえだ。", en: "My father's company is in front of the station." }
+      - { ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a university student." }
+      - { ja: "あねは ははの くるまを かった。", en: "My older sister bought my mother's car." }
+      - { ja: "あねの かばんは ははのだ。", en: "My older sister's bag is my mother's." }
+    antiPattern: { ja: "あに じてんしゃは たかかったけど あたらしい。", why: "two nouns need の between them — without it あに and じてんしゃ are just two words sitting side by side: あにの じてんしゃは たかかったけど あたらしい。" }
+  - id: ga-existence
+    rule: "Japanese has no verb \"to have\" for people. You say they EXIST: 「おとうとが いる」, literally \"a younger brother exists\" — and that IS how you tell somebody you have one. が marks the person who exists, いる is the verb for people and animals (ある is for things), and the negative is いない. Two more うち words land here: おとうと, my younger brother, and いもうと, my younger sister. きょうだい comes with them and covers all four sibling words at once, which you will want often, because Japanese never lets you say just \"brother\" — あに and おとうと are different words and you have to pick one."
+    examples:
+      - { ja: "おとうとが いるけど あねは いない。", en: "I have a younger brother, but I don't have an older sister." }
+      - { ja: "いもうとは だいがくの がくせいだから いそがしい。", en: "My younger sister is a university student, so she's busy." }
+      - { ja: "きょうだいが いるから うちは にぎやかだ。", en: "I have siblings, so my house is lively." }
+      - { ja: "おとうとは おんがくが すきだから よく きく。", en: "My younger brother likes music, so he listens to it often." }
+      - { ja: "いもうとが いるけど おとうとは いない。", en: "I have a younger sister, but I don't have a younger brother." }
+    antiPattern: { ja: "おとうとが あるけど あねは いない。", why: "people and animals take いる — ある is only for things: おとうとが いるけど あねは いない。" }
+  - id: counter-nin
+    rule: "People are counted with 〜にん, and the first two cells are the ones you simply have to know: ひとり for one person and ふたり for two. Nobody says ichinin or ninin. From three on it behaves: さんにん, よにん, ごにん, ろくにん — with よにん read yo-nin, never yon-nin or shi-nin. To ask, なんにん. The count is not glued onto the noun the way English glues \"three\" onto \"siblings\": it stands on its own just in front of the verb, 「きょうだいが さんにん いる」, or finishes the sentence as an ordinary noun, 「うちの かぞくは よにんだ」."
+    examples:
+      - { ja: "きょうだいが さんにん いるから うちは にぎやかだ。", en: "I have three siblings, so my house is lively." }
+      - { ja: "うちの かぞくは よにんだ。", en: "There are four people in my family." }
+      - { ja: "あねが ひとり いるけど あには いない。", en: "I have one older sister, but I don't have an older brother." }
+      - { ja: "おとうとが ふたり いるから いそがしい。", en: "I have two younger brothers, so I'm busy." }
+      - { ja: "かぞくは なんにん？", en: "How many people are in your family?" }
+    antiPattern: { ja: "きょうだいが さん いるから うちは にぎやかだ。", why: "a bare number cannot count anything in Japanese — three PEOPLE needs にん: きょうだいが さんにん いるから うちは にぎやかだ。" }
+  - id: counter-sai
+    rule: "Age is a number plus 〜さい: さんさい, ごさい, ろくさい, ななさい, きゅうさい. You already own every number it needs. Three cells change sound and you take them as they come — issai for 1, hassai for 8, jussai for 10 — and twenty has a word of its own, はたち, the age Japan treats as growing up. はたち is a WORD, not a rule: it already means \"twenty years old\", so it never takes さい on top of it. To ask, なんさい. An age is a NOUN, so it finishes a sentence with だ like any other noun, and it sits happily in front of から and けど: 「あねは はたちだから だいがくに いく」."
+    examples:
+      - { ja: "あねは はたちだから だいがくに いく。", en: "My older sister is twenty, so she goes to university." }
+      - { ja: "いもうとは ろくさいだから ちいさい。", en: "My younger sister is six, so she's small." }
+      - { ja: "おとうとは きゅうさいだけど おおきい。", en: "My younger brother is nine, but he's big." }
+      - { ja: "ちちは ごじゅうさんさいだけど げんきだ。", en: "My father is fifty-three, but he's in good health." }
+      - { ja: "ミカは なんさい？", en: "How old is Mika?" }
+    antiPattern: { ja: "あねは はたちさいだから だいがくに いく。", why: "はたち already MEANS twenty years old — it never takes さい on top: あねは はたちだから だいがくに いく。" }
+  - id: numbers-11-99
+    rule: "Ages past ten need nothing new. You already build the numbers by stacking — じゅう + なな = 17, じゅう + きゅう = 19, ごじゅう + さん = 53 — and the counter just rides on the number you already say: じゅうななさい, じゅうきゅうさい, ごじゅうさんさい. The tiles show it: the number is one piece and さい is another. Two ages step aside from the pattern. Twenty is はたち, never nijussai. And a ROUND ten — 10, 30, 40, 50 — pulls the same sound change as 10 itself: jussai, sanjussai, yonjussai, gojussai. Every age in between, which is nearly all of them, is exactly as regular as it looks."
+    examples:
+      - { ja: "あには じゅうななさいだから だいがくに いかない。", en: "My older brother is seventeen, so he doesn't go to university." }
+      - { ja: "ケンは じゅうきゅうさいだから だいがくの がくせいだ。", en: "Ken is nineteen, so he's a university student." }
+      - { ja: "ちちは ごじゅうさんさいだから いそがしい。", en: "My father is fifty-three, so he's busy." }
+      - { ja: "ははは よんじゅうごさいだけど げんきだ。", en: "My mother is forty-five, but she's in good health." }
+      - { ja: "ちちの ともだちは ろくじゅうさんさいだ。", en: "My father's friend is sixty-three." }
+    antiPattern: { ja: "あには じゅうなな だから だいがくに いかない。", why: "a bare number is only the number — an AGE has to carry さい: あには じゅうななさいだから だいがくに いかない。" }
+  - id: kono-sono-ano-dono
+    rule: "You already own これ / それ / あれ / どれ — words that stand alone and mean \"this one\", \"that one\", \"which one\". この / その / あの / どの are the same four distances with one difference: they can NEVER stand alone. They must have a noun right behind them. 「これ」 is \"this one\"; 「この ほん」 is \"this book\". The distances are the ones you already know from ここ / そこ / あそこ: この is next to you, その is next to the person you are talking to, あの is away from you both, and どの asks \"which one of them\". That is the whole lesson — it is the third row of a table you have had since module 4."
+    examples:
+      - { ja: "あの ひとは あにの ともだちだ。", en: "That person over there is my older brother's friend." }
+      - { ja: "この かばんは あねのだから きれいだ。", en: "This bag is my older sister's, so it's pretty." }
+      - { ja: "その しゃしんは ちちが かった。", en: "My father bought that photo." }
+      - { ja: "この みせは やすいから よく いく。", en: "This shop is cheap, so I go often." }
+      - { ja: "どの くるまが ははのだ？", en: "Which car is my mother's?" }
+    antiPattern: { ja: "あれ ひとは あにの ともだちだ。", why: "あれ stands ALONE — \"that one over there\" — and can never sit in front of a noun. The form that attaches to a noun is あの: あの ひとは あにの ともだちだ。" }
+  - id: kore-sore-are-dore
+    rule: "Two rows, one job. これ / それ / あれ / どれ ARE the thing, so they take a particle straight away: 「あれは あにの くるまだ」. この / その / あの / どの are not things at all — they are labels, and a label needs something to stick to: 「あの くるまは あにのだ」. Both sentences say exactly the same thing, and the only question is whether you name the object out loud. Name it and you need この; leave it unnamed and you need これ. The same split runs through the question words: どれ asks \"which one?\" with nothing named, どの asks \"which bicycle?\" with the noun spelled out."
+    examples:
+      - { ja: "あれは あにの くるまだから あたらしい。", en: "That over there is my older brother's car, so it's new." }
+      - { ja: "あの くるまは あにのだから あたらしい。", en: "That car over there is my older brother's, so it's new." }
+      - { ja: "これは いもうとの ぼうしだから ちいさい。", en: "This is my younger sister's hat, so it's small." }
+      - { ja: "どの じてんしゃが あねのだ？", en: "Which bicycle is my older sister's?" }
+      - { ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's mobile phone." }
+    antiPattern: { ja: "あのは あにの くるまだから あたらしい。", why: "あの always needs a noun right behind it — with nothing to attach to, the word you want is the stand-alone あれ: あれは あにの くるまだから あたらしい。" }
+  - id: dare
+    rule: "A question word sits exactly where its answer would sit, and it never takes は. だれ asks WHO — 「あの ひとは だれ？」 — and だれ plus の asks WHOSE — 「これは だれの かばん？」. The family questions run on the same rails and you now have all of them: 「かぞくは なんにん？」 for how many, 「なんさい？」 for how old, 「どの ひとが ミカの ともだちだ？」 for which one. Watch what comes back, though. Answering ABOUT your own family, every answer lands in the うち set — ちち, はは, あに, あね, おとうと, いもうと — because the moment you are speaking to an outsider, your family is the inside group."
+    examples:
+      - { ja: "これは だれの かばん？", en: "Whose bag is this?" }
+      - { ja: "あの ひとは だれ？", en: "Who is that person over there?" }
+      - { ja: "かぞくは なんにん？", en: "How many people are in your family?" }
+      - { ja: "どの ひとが ミカの ともだちだ？", en: "Which person is Mika's friend?" }
+      - { ja: "だれが この しゃしんを かった？", en: "Who bought this photo?" }
+    antiPattern: { ja: "これは だれ かばん？", why: "asking WHOSE needs の between だれ and the noun — だれ on its own only ever means \"who\": これは だれの かばん？" }
+
+newAtoms:
+  # ══ L1. The two parent terms. Both already carry courseAtoms rows with stale
+  #    old-course tags (m8), and BOTH are already on WORD_IMAGE_MCQ_BLOCKLIST —
+  #    "parent composition reads as 'parent', not father" — so `imageable: false`
+  #    here agrees with the registry rather than overriding it.
+  - { kana: ちち, romaji: chichi, gloss: "(my) father", shortGloss: "my father", imageable: false, kind: vocab }
+  - { kana: はは, romaji: haha, gloss: "(my) mother", shortGloss: "my mother", imageable: false, kind: vocab }
+  # ══ L2. Also blocklisted in the registry ("age cue carried by kanji, not face").
+  - { kana: あに, romaji: ani, gloss: "(my) older brother", shortGloss: "older brother", imageable: false, kind: vocab }
+  - { kana: あね, romaji: ane, gloss: "(my) older sister", shortGloss: "older sister", imageable: false, kind: vocab }
+  # ══ L3. NOT on the registry blocklist, but they fail the same test for the
+  #    same reason: 👦/👧 read "boy"/"girl" and can carry neither OLDER-vs-
+  #    YOUNGER nor WHOSE. 👫 on きょうだい reads "two friends".
+  - { kana: おとうと, romaji: otouto, gloss: "(my) younger brother", shortGloss: "younger brother", imageable: false, kind: vocab }
+  - { kana: いもうと, romaji: imouto, gloss: "(my) younger sister", shortGloss: "younger sister", imageable: false, kind: vocab }
+  - { kana: きょうだい, romaji: kyoudai, gloss: "(my) siblings", shortGloss: "siblings", imageable: false, kind: vocab }
+  # ══ L4 — the people counter. にん is one of only TWO surfaces this module adds
+  #    to the tokenizer (see the bound-suffix check in the notes). ひとり/ふたり
+  #    are the irregular pair and the real trap; さんにん and よにん are already
+  #    whole atoms in the registry, so they tile whole while なんにん tiles as
+  #    なん + にん — which is where the composition stays visible.
+  - { kana: にん, romaji: nin, gloss: "counter for people", shortGloss: "people counter", imageable: false, kind: vocab }
+  - { kana: ひとり, romaji: hitori, gloss: "one person", shortGloss: "one person", imageable: false, kind: vocab }
+  - { kana: ふたり, romaji: futari, gloss: "two people", shortGloss: "two people", imageable: false, kind: vocab }
+  - { kana: さんにん, romaji: sannin, gloss: "three people", shortGloss: "three people", imageable: false, kind: vocab }
+  - { kana: よにん, romaji: yonin, gloss: "four people", shortGloss: "four people", imageable: false, kind: vocab }
+  # ══ L5 — the age counter, plus the one age that is a word rather than a sum.
+  - { kana: さい, romaji: sai, gloss: "years old (counter for age)", shortGloss: "years old", imageable: false, kind: vocab }
+  - { kana: はたち, romaji: hatachi, gloss: "twenty years old", shortGloss: "twenty years old", imageable: false, kind: vocab }
+  # ══ L7 — the adnominal row. All four already have courseAtoms rows (stale m8),
+  #    all four are `blocked` there, and registering them adds nothing to the
+  #    tokenizer that was not already in it.
+  - { kana: この, romaji: kono, gloss: "this (+ noun)", shortGloss: "this …", imageable: false, kind: vocab }
+  - { kana: その, romaji: sono, gloss: "that (+ noun)", shortGloss: "that …", imageable: false, kind: vocab }
+  - { kana: あの, romaji: ano, gloss: "that over there (+ noun)", shortGloss: "that … over there", imageable: false, kind: vocab }
+  - { kana: どの, romaji: dono, gloss: "which (+ noun)", shortGloss: "which …", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-1
+    role: teaching
+    title: "ちちと はは — the words for your own family"
+    focus: "Your own family is うち, \"inside\", and takes the humble set — ちち and はは can only ever mean YOURS"
+    introduces: [ちち, はは]
+    beats:
+      - { kind: rule, grammarPointId: family-register }
+      - { kind: sentence, ja: "ちちは かいしゃで はたらくから いそがしい。", en: "My father works at a company, so he's busy", exercises: [family-register, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "ははは せんせいだから じゅぎょうが ある。", en: "My mother is a teacher, so she has classes", exercises: [family-register, kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "ちちは からだが おおきいけど ははは ちいさい。", en: "My father is big, but my mother is small", exercises: [family-register, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちちも ははも かいしゃで はたらく。", en: "Both my father and my mother work at a company", exercises: [family-register, mo-also], mode: listening }
+      - { kind: sentence, ja: "ははは くるまが すきだから よく かいものに いく。", en: "My mother likes cars, so she often goes shopping", exercises: [family-register, suki-kirai-no, kara-because], mode: build }
+      - { kind: sentence, ja: "うちの ちちは にほんじんだ。", en: "My father is Japanese", exercises: [family-register, desu-copula], mode: build }
+      - { kind: sentence, ja: "ちちは あさから ばんまで はたらく。", en: "My father works from morning till evening", exercises: [family-register, kara-origin, made-until], mode: build }
+      - { kind: sentence, ja: "ははは せんせいだ。", en: "Say to a friend: My mother is a teacher", exercises: [family-register], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: "は かいしゃで はたらく。", answer: "ちち", options: ["ちち", "はは", "かぞく"], en: "My father works at a company", explanation: "ちち is the word for your OWN father. はは is your own mother, and かぞく is the whole family." }
+      - { kind: listening-comp, audio: "ははは よく かいものに いく。", answer: "My mother often goes shopping", distractors: ["My father often goes shopping", "My mother went shopping", "My mother likes shopping"], exercises: [family-register, ni-location] }
+      - { kind: listening-comp, audio: "ちちは くるまが すきだ。", answer: "My father likes cars", distractors: ["My father bought a car", "My mother likes cars", "My father has a car"], exercises: [family-register, suki-kirai-no] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "トムの かぞくは にほんに いる？", en: "Is your family in Japan, Tom?" }
+          - { speaker: "Tom", ja: "ううん、ちちも ははも アメリカに いる。", en: "Nope — my father and my mother are both in America." }
+        questions:
+          - { q: "Where are Tom's parents?", options: ["In America", "In Japan", "At the station", "At the university"], answer: "In America" }
+      - { kind: challenge, ja: "ちちは かいしゃで はたらくけど ははは うちに いる。", en: "My father works at a company, but my mother is at home", combines: [family-register, kedo, de-action, wa-topic], mode: build }
+    reviewPool: [ちち, はは, かぞく, かいしゃ, せんせい, くるま, からだ, ともだち, しゃしん, うち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-2
+    role: teaching
+    title: "あにの じてんしゃ — whose is whose"
+    focus: "の puts the owner in front, and あに / あね join the うち set — Japanese splits siblings by AGE first"
+    introduces: [あに, あね]
+    beats:
+      - { kind: rule, grammarPointId: no-possession }
+      - { kind: sentence, ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new", exercises: [no-possession, kedo, i-adj-past], mode: build }
+      - { kind: sentence, ja: "あねの かばんは ははのだ。", en: "My older sister's bag is my mother's", exercises: [no-possession, desu-copula], mode: build }
+      - { kind: sentence, ja: "ちちの かいしゃは えきの まえだ。", en: "My father's company is in front of the station", exercises: [no-possession, desu-copula], mode: build }
+      - { kind: sentence, ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a university student", exercises: [no-possession, desu-copula], mode: listening }
+      - { kind: sentence, ja: "あねは ははの くるまを かった。", en: "My older sister bought my mother's car", exercises: [no-possession, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "あには おんがくが すきだから よく きく。", en: "My older brother likes music, so he listens to it often", exercises: [no-possession, suki-kirai-no, kara-because], mode: build }
+      - { kind: sentence, ja: "これは あにの しゃしんだから みせる。", en: "This is my older brother's photo, so I'll show it to you", exercises: [no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "あねの かばんは あたらしい。", en: "Say to a friend: My older sister's bag is new", exercises: [no-possession], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: "は だいがくの がくせいだ。", answer: "あに", options: ["あに", "あね", "ちち"], en: "My older brother is a university student", explanation: "あに is specifically an OLDER brother. あね is an older sister, and ちち is your father." }
+      - { kind: listening-comp, audio: "あねの くつは あたらしい。", answer: "My older sister's shoes are new", distractors: ["My older brother's shoes are new", "My older sister's bag is new", "My older sister bought shoes"], exercises: [no-possession, i-adj-present] }
+      - { kind: listening-comp, audio: "あには おんがくが すきだ。", answer: "My older brother likes music", distractors: ["My older sister likes music", "My older brother listens to music", "My older brother likes movies"], exercises: [no-possession, suki-kirai-no] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "これは だれの じてんしゃ？", en: "Whose bicycle is this?" }
+          - { speaker: "Tom", ja: "あにのだ。あには だいがくの がくせいだ。", en: "It's my older brother's. He's a university student." }
+        questions:
+          - { q: "Whose bicycle is it?", options: ["Tom's older brother's", "Tom's", "Tom's older sister's", "Ken's"], answer: "Tom's older brother's" }
+      - { kind: challenge, ja: "あにの ともだちは アメリカに いくから しゃしんを みせる。", en: "My older brother's friend is going to America, so I'll show him the photos", combines: [no-possession, kara-because, ni-location, wo-object], mode: build }
+    reviewPool: [あに, あね, ちち, はは, じてんしゃ, かばん, しゃしん, くつ, かいしゃ, おんがく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-3
+    role: teaching
+    title: "おとうとが いる — saying who you have"
+    focus: "Japanese has no \"have\" for people — they EXIST: 「おとうとが いる」, and きょうだい covers all four sibling words"
+    introduces: [おとうと, いもうと, きょうだい]
+    beats:
+      - { kind: rule, grammarPointId: ga-existence }
+      - { kind: sentence, ja: "おとうとが いるから うちは にぎやかだ。", en: "I have a younger brother, so my house is lively", exercises: [ga-existence, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "いもうとは だいがくの がくせいだから いそがしい。", en: "My younger sister is a university student, so she's busy", exercises: [ga-existence, kara-because, no-possession], mode: build }
+      - { kind: sentence, ja: "きょうだいが いるから しゃしんを みせる。", en: "I have siblings, so I'll show you the photos", exercises: [ga-existence, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "おとうとは おんがくが すきだから よく きく。", en: "My younger brother likes music, so he listens to it often", exercises: [ga-existence, suki-kirai-no, kara-because], mode: listening }
+      - { kind: sentence, ja: "いもうとが いるけど あねは いない。", en: "I have a younger sister, but I don't have an older sister", exercises: [ga-existence, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "うちに ねこが いるから いもうとは げんきだ。", en: "There's a cat at home, so my younger sister is happy", exercises: [ga-existence, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "おとうとは あにの じてんしゃを かった。", en: "My younger brother bought my older brother's bicycle", exercises: [ga-existence, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "いもうとが いる。", en: "Say to a friend: I have a younger sister", exercises: [ga-existence], mode: translate }
+      - { kind: particle-cloze, stem: "おとうとが ", tail: "。", answer: "いる", options: ["いる", "ある", "いない"], en: "I have a younger brother", explanation: "people and animals take いる. ある is for things, and いない is the negative — \"there isn't one\"." }
+      - { kind: listening-comp, audio: "きょうだいが いるから うちは にぎやかだ。", answer: "I have siblings, so my house is lively", distractors: ["I have no siblings, so my house is quiet", "My siblings are at home", "My house is lively, so my friends come"], exercises: [ga-existence, kara-because] }
+      - { kind: listening-comp, audio: "いもうとは だいがくの がくせいだ。", answer: "My younger sister is a university student", distractors: ["My younger brother is a university student", "My older sister is a university student", "My younger sister goes to the university"], exercises: [ga-existence, no-possession] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうだいは いる？", en: "Do you have any siblings?" }
+          - { speaker: "Tom", ja: "うん、あにが いる。おとうとは いない。", en: "Yeah, I have an older brother. I don't have a younger brother." }
+        questions:
+          - { q: "Who does Tom have?", options: ["An older brother", "A younger brother", "A younger sister", "No siblings at all"], answer: "An older brother" }
+      - { kind: challenge, ja: "いもうとが いるけど あねは いないから しゃしんを みせる。", en: "I have a younger sister but no older sister, so I'll show you the photo", combines: [ga-existence, kedo, kara-because, wo-object], mode: build }
+    reviewPool: [おとうと, いもうと, きょうだい, あに, あね, ちち, はは, ねこ, しゃしん, おんがく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-review-1
+    role: review
+    title: "Review — your side of the family"
+    focus: "ちち / はは / あに / あね / おとうと / いもうと, の between them, and いる for the people you have"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ちちは かいしゃで はたらくから いそがしい。", en: "My father works at a company, so he's busy", exercises: [family-register, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new", exercises: [no-possession, kedo, i-adj-past], mode: build }
+      - { kind: sentence, ja: "おとうとが いるから うちは にぎやかだ。", en: "I have a younger brother, so my house is lively", exercises: [ga-existence, kara-because], mode: listening }
+      - { kind: sentence, ja: "ははは せんせいだから じゅぎょうが ある。", en: "My mother is a teacher, so she has classes", exercises: [family-register, kara-because], mode: build }
+      - { kind: sentence, ja: "あねは ははの くるまを かった。", en: "My older sister bought my mother's car", exercises: [no-possession, wo-object, ta-form], mode: build }
+      - { kind: particle-cloze, stem: "きょうだいが ", tail: "。", answer: "いる", options: ["いる", "ある", "いない"], en: "I have siblings", explanation: "people take いる. ある is for things, and いない is the negative." }
+      - { kind: sentence, ja: "いもうとは だいがくの がくせいだから いそがしい。", en: "My younger sister is a university student, so she's busy", exercises: [ga-existence, kara-because], mode: build }
+      - { kind: listening-comp, audio: "ちちも ははも かいしゃで はたらく。", answer: "Both my father and my mother work at a company", distractors: ["My father works at a company, but my mother doesn't", "My father and mother are at home", "My mother works at a company"], exercises: [family-register, mo-also] }
+      - { kind: sentence, ja: "ちちは からだが おおきいけど ははは ちいさい。", en: "My father is big, but my mother is small", exercises: [family-register, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あには おんがくが すきだ。", en: "Say to a friend: My older brother likes music", exercises: [no-possession, suki-kirai-no], mode: translate }
+      - { kind: listening-comp, audio: "いもうとが いるけど あねは いない。", answer: "I have a younger sister, but I don't have an older sister", distractors: ["I have an older sister, but not a younger one", "I have a younger brother, but not an older brother", "I don't have any siblings"], exercises: [ga-existence, kedo] }
+      - { kind: sentence, ja: "ちちの かいしゃは えきの まえだ。", en: "My father's company is in front of the station", exercises: [no-possession, desu-copula], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きょうだいは いる？", en: "Do you have any siblings?" }
+          - { speaker: "Mika", ja: "うん、あねが いる。だいがくの がくせいだ。", en: "Yeah, I have an older sister. She's a university student." }
+        questions:
+          - { q: "What does Mika say about her older sister?", options: ["She's a university student", "She's a teacher", "She works at a company", "She's at home"], answer: "She's a university student" }
+    reviewPool: [ちち, はは, あに, あね, おとうと, いもうと, きょうだい, かぞく, じてんしゃ, かいしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-4
+    role: teaching
+    title: "かぞくは よにんだ — counting people"
+    focus: "〜にん counts people, and the first two cells are irregular: ひとり and ふたり, never いちにん or ににん"
+    introduces: [にん, ひとり, ふたり, さんにん, よにん]
+    beats:
+      - { kind: rule, grammarPointId: counter-nin }
+      - { kind: sentence, ja: "うちの かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, no-possession, desu-copula], mode: build }
+      - { kind: sentence, ja: "きょうだいが さんにん いるから うちは にぎやかだ。", en: "I have three siblings, so my house is lively", exercises: [counter-nin, ga-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "あねが ひとり いるけど あには いない。", en: "I have one older sister, but I don't have an older brother", exercises: [counter-nin, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "おとうとが ふたり いるから いそがしい。", en: "I have two younger brothers, so I'm busy", exercises: [counter-nin, ga-existence, kara-because], mode: listening }
+      - { kind: sentence, ja: "ともだちが よにん くるから ごはんを かう。", en: "Four friends are coming, so I'll buy some food", exercises: [counter-nin, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "がくせいが さんにん きっさてんに いる。", en: "There are three students in the coffee shop", exercises: [counter-nin, ga-existence, ni-location], mode: build }
+      - { kind: sentence, ja: "かぞくは なんにん？", en: "How many people are in your family", exercises: [counter-nin, ka-question], mode: build }
+      - { kind: sentence, ja: "あねが ひとり いる。", en: "Say to a friend: I have one older sister", exercises: [counter-nin], mode: translate }
+      - { kind: particle-cloze, stem: "きょうだいが ", tail: " いる。", answer: "さんにん", options: ["さんにん", "さん", "さんじ"], en: "I have three siblings", explanation: "people are counted with にん — さんにん. A bare さん cannot count anything, and さんじ is three o'clock." }
+      - { kind: listening-comp, audio: "ともだちが ふたり くる。", answer: "Two friends are coming", distractors: ["Two friends came", "One friend is coming", "Four friends are coming"], exercises: [counter-nin, ga-existence] }
+      - { kind: listening-comp, audio: "がくせいが ふたり きっさてんに いる。", answer: "There are two students in the coffee shop", distractors: ["Two students are going to the coffee shop", "There are three students in the coffee shop", "The students are at the station"], exercises: [counter-nin, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "かぞくは なんにん？", en: "How many are there in your family?" }
+          - { speaker: "Tom", ja: "よにんだ。ちちと ははと あにと ぼくだ。", en: "Four. My father, my mother, my older brother and me." }
+        questions:
+          - { q: "How many people are in Tom's family?", options: ["Four", "Three", "Two", "Five"], answer: "Four" }
+      - { kind: challenge, ja: "きょうだいが ふたり いるけど うちは しずかだ。", en: "I have two siblings, but my house is quiet", combines: [counter-nin, ga-existence, kedo, na-adj-present], mode: build }
+    reviewPool: [ひとり, ふたり, さんにん, よにん, かぞく, きょうだい, おとうと, いもうと, あね, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-5
+    role: teaching
+    title: "あねは はたちだ — how old"
+    focus: "Age is a number plus 〜さい, and twenty is a word of its own — はたち, which never takes さい"
+    introduces: [さい, はたち]
+    beats:
+      - { kind: rule, grammarPointId: counter-sai }
+      - { kind: sentence, ja: "あねは はたちだから だいがくに いく。", en: "My older sister is twenty, so she goes to university", exercises: [counter-sai, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "いもうとは ろくさいだから ちいさい。", en: "My younger sister is six, so she's small", exercises: [counter-sai, kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "おとうとは きゅうさいだけど おおきい。", en: "My younger brother is nine, but he's big", exercises: [counter-sai, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだけど げんきだ。", en: "My father is fifty-three, but he's in good health", exercises: [counter-sai, kedo, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "ははは よんじゅうごさいだから いそがしい。", en: "My mother is forty-five, so she's busy", exercises: [counter-sai, kara-because], mode: build }
+      - { kind: sentence, ja: "ケンは じゅうきゅうさいだから だいがくの がくせいだ。", en: "Ken is nineteen, so he's a university student", exercises: [counter-sai, kara-because, no-possession], mode: build }
+      - { kind: sentence, ja: "ミカは なんさい？", en: "How old is Mika", exercises: [counter-sai, ka-question], mode: build }
+      - { kind: sentence, ja: "あねは はたちだ。", en: "Say to a friend: My older sister is twenty", exercises: [counter-sai], mode: translate }
+      - { kind: particle-cloze, stem: "いもうとは ", tail: "。", answer: "ろくさい", options: ["ろくさい", "ろくにん", "ろくじ"], en: "My younger sister is six years old", explanation: "さい counts YEARS OF AGE. にん counts people, and ろくじ is six o'clock." }
+      - { kind: listening-comp, audio: "あねは はたちだから はたらく。", answer: "My older sister is twenty, so she works", distractors: ["My older brother is twenty, so he works", "My older sister is twelve, so she doesn't work", "My older sister works at a company"], exercises: [counter-sai, kara-because] }
+      - { kind: listening-comp, audio: "ちちは ごじゅうさんさいだから よく およぐ。", answer: "My father is fifty-three, so he swims often", distractors: ["My father is thirty-five, so he swims often", "My mother is fifty-three and swims often", "My father swam a lot when he was fifty-three"], exercises: [counter-sai, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうだいは なんにん？", en: "How many siblings do you have?" }
+          - { speaker: "Ken", ja: "ふたり。おとうとは きゅうさいだ。いもうとは ろくさいだ。", en: "Two. My younger brother is nine. My younger sister is six." }
+        questions:
+          - { q: "How old is Ken's younger brother?", options: ["Nine", "Six", "Two", "Twenty"], answer: "Nine" }
+      - { kind: challenge, ja: "あねは はたちだけど おとうとは きゅうさいだから うちは にぎやかだ。", en: "My older sister is twenty but my younger brother is nine, so my house is lively", combines: [counter-sai, kedo, kara-because, na-adj-present], mode: build }
+    reviewPool: [さい, はたち, ひとり, ふたり, さんにん, よにん, あね, おとうと, いもうと, きょうだい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-6
+    role: teaching
+    title: "じゅうななさい — ages past ten"
+    focus: "Ages past ten are the number stack you already own with さい riding on the end"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: numbers-11-99 }
+      - { kind: sentence, ja: "あには じゅうななさいだから だいがくに いかない。", en: "My older brother is seventeen, so he doesn't go to university", exercises: [numbers-11-99, counter-sai, kara-because], mode: build }
+      - { kind: sentence, ja: "ケンは じゅうきゅうさいだから だいがくに いく。", en: "Ken is nineteen, so he goes to university", exercises: [numbers-11-99, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだから いそがしい。", en: "My father is fifty-three, so he's busy", exercises: [numbers-11-99, counter-sai, kara-because], mode: build }
+      - { kind: sentence, ja: "ははは よんじゅうごさいだけど げんきだ。", en: "My mother is forty-five, but she's in good health", exercises: [numbers-11-99, kedo, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "ちちの ともだちは ろくじゅうさんさいだから かいしゃに いかない。", en: "My father's friend is sixty-three, so he doesn't go to the company", exercises: [numbers-11-99, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "あには じゅうななさいだけど おおきい。", en: "My older brother is seventeen, but he's big", exercises: [numbers-11-99, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あねは はたちだから だいがくの がくせいだ。", en: "My older sister is twenty, so she's a university student", exercises: [counter-sai, kara-because, no-possession], mode: build }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだ。", en: "Say to a friend: My father is fifty-three", exercises: [numbers-11-99], mode: translate }
+      - { kind: particle-cloze, stem: "あには ", tail: "だ。", answer: "じゅうななさい", options: ["じゅうななさい", "じゅうなな", "じゅうななにん"], en: "My older brother is seventeen", explanation: "an age needs さい on the end — じゅうななさい. じゅうなな is just the number 17, and じゅうななにん would be seventeen PEOPLE." }
+      - { kind: listening-comp, audio: "ケンは じゅうきゅうさいだ。", answer: "Ken is nineteen", distractors: ["Ken is ninety", "Ken is twenty", "Ken's older brother is nineteen"], exercises: [numbers-11-99, counter-sai] }
+      - { kind: listening-comp, audio: "ちちの ともだちは ろくじゅうさんさいだ。", answer: "My father's friend is sixty-three", distractors: ["My father's friend is thirty-six", "My mother's friend is sixty-three", "My father is sixty-three"], exercises: [numbers-11-99, no-possession] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "かぞくは なんにんですか。", en: "How many people are there in your family?" }
+          - { speaker: "Tom", ja: "よにんです。あには じゅうななさいです。", en: "Four. My older brother is seventeen." }
+        questions:
+          - { q: "How old is Tom's older brother?", options: ["Seventeen", "Seventy", "Nineteen", "Twenty"], answer: "Seventeen" }
+      - { kind: challenge, ja: "あねは はたちだから だいがくに いくけど あには じゅうななさいだ。", en: "My older sister is twenty, so she goes to university, but my older brother is seventeen", combines: [counter-sai, numbers-11-99, kara-because, kedo], mode: build }
+    reviewPool: [さい, はたち, ちち, はは, あに, あね, おとうと, いもうと, かいしゃ, だいがく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-review-2
+    role: review
+    title: "Review — how many, how old"
+    focus: "ひとり / ふたり against さんにん and よにん, and 〜さい on every number the course owns"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "うちの かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, no-possession], mode: build }
+      - { kind: sentence, ja: "あねは はたちだから だいがくに いく。", en: "My older sister is twenty, so she goes to university", exercises: [counter-sai, kara-because], mode: build }
+      - { kind: sentence, ja: "きょうだいが さんにん いるから うちは にぎやかだ。", en: "I have three siblings, so my house is lively", exercises: [counter-nin, ga-existence, kara-because], mode: listening }
+      - { kind: sentence, ja: "おとうとは きゅうさいだけど おおきい。", en: "My younger brother is nine, but he's big", exercises: [counter-sai, kedo], mode: build }
+      - { kind: sentence, ja: "あねが ひとり いるけど あには いない。", en: "I have one older sister, but I don't have an older brother", exercises: [counter-nin, kedo, nai-existence], mode: build }
+      - { kind: particle-cloze, stem: "きょうだいが ", tail: " いる。", answer: "さんにん", options: ["さんにん", "さんじ", "さん"], en: "I have three siblings", explanation: "people take にん. さんじ is three o'clock, and a bare number cannot count a noun at all." }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだから いそがしい。", en: "My father is fifty-three, so he's busy", exercises: [numbers-11-99, counter-sai, kara-because], mode: build }
+      - { kind: listening-comp, audio: "おとうとが ふたり いるから いそがしい。", answer: "I have two younger brothers, so I'm busy", distractors: ["I have one younger brother, so I'm busy", "I have two younger sisters, so I'm busy", "My two younger brothers are busy"], exercises: [counter-nin, kara-because] }
+      - { kind: sentence, ja: "ケンは じゅうきゅうさいだから だいがくに いく。", en: "Ken is nineteen, so he goes to university", exercises: [numbers-11-99, kara-because], mode: build }
+      - { kind: sentence, ja: "かぞくは よにんだ。", en: "Say to a friend: There are four of us in my family", exercises: [counter-nin], mode: translate }
+      - { kind: listening-comp, audio: "ははは よんじゅうごさいだけど げんきだ。", answer: "My mother is forty-five, but she's in good health", distractors: ["My mother is fourteen and in good health", "My father is forty-five, but he's in good health", "My mother is forty-five, so she's busy"], exercises: [numbers-11-99, kedo] }
+      - { kind: sentence, ja: "がくせいが さんにん きっさてんに いる。", en: "There are three students in the coffee shop", exercises: [counter-nin, ga-existence, ni-location], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "いもうとは なんさい？", en: "How old is your younger sister?" }
+          - { speaker: "Ken", ja: "ろくさいだ。おとうとは きゅうさいだ。", en: "Six. My younger brother is nine." }
+        questions:
+          - { q: "How old is Ken's younger sister?", options: ["Six", "Nine", "Sixteen", "Twenty"], answer: "Six" }
+    reviewPool: [ひとり, ふたり, さんにん, よにん, さい, はたち, かぞく, きょうだい, きっさてん, だいがく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-7
+    role: teaching
+    title: "この ほん — pointing at a named thing"
+    focus: "この / その / あの / どの are the third row of a table you already own — and they must have a noun behind them"
+    introduces: [この, その, あの, どの]
+    beats:
+      - { kind: rule, grammarPointId: kono-sono-ano-dono }
+      - { kind: sentence, ja: "あの ひとは あにの ともだちだ。", en: "That person over there is my older brother's friend", exercises: [kono-sono-ano-dono, no-possession], mode: build }
+      - { kind: sentence, ja: "この かばんは あねのだから きれいだ。", en: "This bag is my older sister's, so it's pretty", exercises: [kono-sono-ano-dono, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "その しゃしんは ちちが かった。", en: "My father bought that photo", exercises: [kono-sono-ano-dono, ta-form], mode: build }
+      - { kind: sentence, ja: "この みせは やすいから よく いく。", en: "This shop is cheap, so I go there often", exercises: [kono-sono-ano-dono, kara-because, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "どの くるまが ははのだ？", en: "Which car is my mother's", exercises: [kono-sono-ano-dono, ka-question], mode: build }
+      - { kind: sentence, ja: "あの きっさてんは しずかだから すきだ。", en: "That coffee shop over there is quiet, so I like it", exercises: [kono-sono-ano-dono, kara-because, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "その ほんは おとうとのだけど ぼくが かった。", en: "That book is my younger brother's, but I bought it", exercises: [kono-sono-ano-dono, kedo, ta-form], mode: build }
+      - { kind: sentence, ja: "この ほんは あにのだ。", en: "Say to a friend: This book is my older brother's", exercises: [kono-sono-ano-dono], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: " ひとは あにの ともだちだ。", answer: "あの", options: ["あの", "あれ", "あそこ"], en: "That person over there is my older brother's friend", explanation: "あの must have a noun behind it, and here that noun is ひと. あれ stands alone (\"that one\"), and あそこ is a PLACE (\"over there\")." }
+      - { kind: listening-comp, audio: "この かばんは あねのだ。", answer: "This bag is my older sister's", distractors: ["That bag over there is my older sister's", "This bag is my older brother's", "My older sister bought this bag"], exercises: [kono-sono-ano-dono, no-possession] }
+      - { kind: listening-comp, audio: "どの くるまが ミカのだ？", answer: "Which car is Mika's?", distractors: ["Whose car is this?", "Which car did Mika buy?", "Where is Mika's car?"], exercises: [kono-sono-ano-dono, ka-question] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あの ひとは だれ？", en: "Who's that person over there?" }
+          - { speaker: "Mika", ja: "あねだ。だいがくの がくせいだ。", en: "That's my older sister. She's a university student." }
+        questions:
+          - { q: "Who is the person over there?", options: ["Mika's older sister", "Mika's older brother", "Mika's mother", "Ken's friend"], answer: "Mika's older sister" }
+      - { kind: challenge, ja: "あの みせは たかいけど あねが すきだから よく いく。", en: "That shop over there is expensive, but my older sister likes it, so we go often", combines: [kono-sono-ano-dono, kedo, kara-because, suki-kirai-no], mode: build }
+    reviewPool: [この, その, あの, どの, かばん, しゃしん, くるま, みせ, ほん, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-8
+    role: teaching
+    title: "これ と この — standing alone or attached"
+    focus: "これ IS the thing and takes a particle straight away; この is a label and needs the noun spelled out"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: kore-sore-are-dore }
+      - { kind: sentence, ja: "あれは あにの くるまだから あたらしい。", en: "That over there is my older brother's car, so it's new", exercises: [kore-sore-are-dore, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "あの くるまは あにのだから あたらしい。", en: "That car over there is my older brother's, so it's new", exercises: [kono-sono-ano-dono, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "どれが あねの じてんしゃ？", en: "Which one is my older sister's bicycle", exercises: [kore-sore-are-dore, ka-question], mode: build }
+      - { kind: sentence, ja: "どの じてんしゃが あねのだ？", en: "Which bicycle is my older sister's", exercises: [kono-sono-ano-dono, ka-question], mode: listening }
+      - { kind: sentence, ja: "これは いもうとの ぼうしだから ちいさい。", en: "This is my younger sister's hat, so it's small", exercises: [kore-sore-are-dore, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "この ぼうしは いもうとのだけど ぼくが かった。", en: "This hat is my younger sister's, but I bought it", exercises: [kono-sono-ano-dono, kedo, ta-form], mode: build }
+      - { kind: sentence, ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's mobile phone", exercises: [kore-sore-are-dore, no-possession], mode: build }
+      - { kind: sentence, ja: "あれは ちちの くるまだ。", en: "Say to a friend: That over there is my father's car", exercises: [kore-sore-are-dore], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: " じてんしゃが あねのだ？", answer: "どの", options: ["どの", "どれ", "どこ"], en: "Which bicycle is my older sister's?", explanation: "どの needs the noun behind it, and here it is じてんしゃ. どれ stands alone (\"which one\"), and どこ asks WHERE." }
+      - { kind: listening-comp, audio: "これは いもうとの ぼうしだ。", answer: "This is my younger sister's hat", distractors: ["That over there is my younger sister's hat", "This is my younger brother's hat", "My younger sister bought this hat"], exercises: [kore-sore-are-dore, no-possession] }
+      - { kind: listening-comp, audio: "あの くるまは あにのだ。", answer: "That car over there is my older brother's", distractors: ["This car is my older brother's", "That car over there is my older sister's", "My older brother bought that car"], exercises: [kono-sono-ano-dono, no-possession] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どれが ケンの かばん？", en: "Which one is your bag, Ken?" }
+          - { speaker: "Ken", ja: "あれだ。あの あたらしい かばんだ。", en: "That one over there. The new bag." }
+        questions:
+          - { q: "Which bag is Ken's?", options: ["The new one over there", "The old one here", "Mika's bag", "The one on the chair"], answer: "The new one over there" }
+      - { kind: challenge, ja: "あの みせで かった ぼうしは いもうとのだ。", en: "The hat I bought at that shop over there is my younger sister's", combines: [kono-sono-ano-dono, ta-form, no-possession, de-action], mode: build }
+    reviewPool: [この, その, あの, どの, ぼうし, けいたい, くるま, じてんしゃ, かばん, みせ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-9
+    role: teaching
+    title: "あの ひとは だれ？ — asking about people"
+    focus: "だれ / だれの / なんにん / なんさい / どの — the question frames that make the whole module usable"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: dare }
+      - { kind: sentence, ja: "これは だれの かばん？", en: "Whose bag is this", exercises: [dare, no-possession], mode: build }
+      - { kind: sentence, ja: "あの ひとは だれ？", en: "Who is that person over there", exercises: [dare, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "どの ひとが ミカの ともだちだ？", en: "Which person is Mika's friend", exercises: [dare, kono-sono-ano-dono], mode: listening }
+      - { kind: sentence, ja: "だれが この しゃしんを かった？", en: "Who bought this photo", exercises: [dare, kono-sono-ano-dono, ta-form], mode: build }
+      - { kind: sentence, ja: "あの ひとは ミカの ともだちだから にほんじんだ。", en: "That person over there is Mika's friend, so she's Japanese", exercises: [kono-sono-ano-dono, kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "ミカは なんさい？", en: "How old is Mika", exercises: [dare, counter-sai], mode: build }
+      - { kind: sentence, ja: "その ひとは だれの ともだちだ？", en: "Whose friend is that person", exercises: [dare, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "これは だれの かばん？", en: "Say to a friend: Whose bag is this", exercises: [dare], mode: translate }
+      - { kind: particle-cloze, stem: "これは ", tail: " かばん？", answer: "だれの", options: ["だれの", "だれ", "どこ"], en: "Whose bag is this?", explanation: "asking WHOSE is だれ plus の. Bare だれ only means \"who\", and どこ asks where." }
+      - { kind: listening-comp, audio: "あの ひとは あにの ともだちだ。", answer: "That person over there is my older brother's friend", distractors: ["This person is my older brother's friend", "That person over there is my older sister's friend", "My older brother's friend is coming"], exercises: [dare, kono-sono-ano-dono] }
+      - { kind: listening-comp, audio: "かぞくは なんにん？", answer: "How many people are in your family?", distractors: ["How old is your family?", "Where is your family?", "Who is in your family?"], exercises: [dare, counter-nin] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "これは だれの しゃしん？", en: "Whose photo is this?" }
+          - { speaker: "Mika", ja: "うちの かぞくの しゃしんだ。ちちと ははと あねが いる。", en: "It's a photo of my family. My father, my mother and my older sister are in it." }
+        questions:
+          - { q: "Who is in Mika's photo?", options: ["Her father, mother and older sister", "Her father and younger brother", "Her mother and younger sister", "Her friends from university"], answer: "Her father, mother and older sister" }
+      - { kind: challenge, ja: "あの きっさてんに いる ひとは だれの ともだちだ？", en: "Whose friend is the person in that coffee shop over there", combines: [dare, kono-sono-ano-dono, dictionary-form, ni-location], mode: build }
+    reviewPool: [この, その, あの, どの, ひと, ともだち, かばん, しゃしん, かぞく, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-review-3
+    role: review
+    title: "Review — うちの かぞく, start to finish"
+    focus: "the うち words, 〜にん and 〜さい, and この / その / あの / どの against これ / それ / あれ / どれ"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ちちは かいしゃで はたらくから いそがしい。", en: "My father works at a company, so he's busy", exercises: [family-register, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "うちの かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, no-possession], mode: build }
+      - { kind: sentence, ja: "あの ひとは あにの ともだちだ。", en: "That person over there is my older brother's friend", exercises: [kono-sono-ano-dono, no-possession], mode: listening }
+      - { kind: sentence, ja: "いもうとは ろくさいだから ちいさい。", en: "My younger sister is six, so she's small", exercises: [counter-sai, kara-because], mode: build }
+      - { kind: sentence, ja: "きょうだいが いるから うちは にぎやかだ。", en: "I have siblings, so my house is lively", exercises: [ga-existence, kara-because, na-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "", tail: " じてんしゃが あねのだ？", answer: "どの", options: ["どの", "どれ", "どこ"], en: "Which bicycle is my older sister's?", explanation: "どの attaches to the noun じてんしゃ. どれ stands alone, and どこ asks where." }
+      - { kind: sentence, ja: "これは いもうとの ぼうしだから ちいさい。", en: "This is my younger sister's hat, so it's small", exercises: [kore-sore-are-dore, no-possession, kara-because], mode: build }
+      - { kind: listening-comp, audio: "あねは はたちだから だいがくに いく。", answer: "My older sister is twenty, so she goes to university", distractors: ["My older sister is twelve, so she doesn't go to university", "My older brother is twenty and goes to university", "My older sister goes to university every day"], exercises: [counter-sai, kara-because] }
+      - { kind: sentence, ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new", exercises: [no-possession, kedo, i-adj-past], mode: build }
+      - { kind: sentence, ja: "これは だれの かばん？", en: "Say to a friend: Whose bag is this", exercises: [dare], mode: translate }
+      - { kind: listening-comp, audio: "きょうだいが さんにん いるから うちは にぎやかだ。", answer: "I have three siblings, so my house is lively", distractors: ["I have two siblings, so my house is lively", "I have three friends, so my house is lively", "My three siblings are at home"], exercises: [counter-nin, kara-because] }
+      - { kind: sentence, ja: "その ほんは おとうとのだけど ぼくが かった。", en: "That book is my younger brother's, but I bought it", exercises: [kono-sono-ano-dono, kedo, ta-form], mode: build }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだから いそがしい。", en: "My father is fifty-three, so he's busy", exercises: [numbers-11-99, counter-sai, kara-because], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカの かぞくは なんにん？", en: "How many are there in your family, Mika?" }
+          - { speaker: "Mika", ja: "よにんだ。ちちと ははと あねと わたしだ。", en: "Four. My father, my mother, my older sister and me." }
+        questions:
+          - { q: "How many people are in Mika's family?", options: ["Four", "Three", "Two", "Five"], answer: "Four" }
+    reviewPool: [ちち, はは, あに, あね, おとうと, いもうと, きょうだい, さんにん, さい, はたち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m17-neo-challenge
+    role: challenge
+    title: "Challenge — introduce your family"
+    focus: "End-of-module stretch: うち words, people counts, ages and the pointing row stacked in shapes the teaching lessons never paired"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あねは はたちだから だいがくに いくけど ぼくは じゅうごさいだ。", en: "My older sister is twenty, so she goes to university, but I'm fifteen", exercises: [counter-sai, kara-because, kedo], mode: build }
+      - { kind: sentence, ja: "この しゃしんに きょうだいが さんにん いる。", en: "There are three siblings in this photo", exercises: [kono-sono-ano-dono, counter-nin, ni-location], mode: build }
+      - { kind: sentence, ja: "あの みせで かった かばんは あねのだから あたらしい。", en: "The bag I bought at that shop over there is my older sister's, so it's new", exercises: [kono-sono-ano-dono, ta-form, kara-because], mode: listening }
+      - { kind: sentence, ja: "ちちは ごじゅうさんさいだけど げんきだから よく およぐ。", en: "My father is fifty-three, but he's in good health, so he swims often", exercises: [counter-sai, kedo, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "おとうとが ふたり いるから この くるまは ちいさい。", en: "I have two younger brothers, so this car is small", exercises: [counter-nin, kara-because, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "あの ひとは あねの ともだちだけど にほんじんじゃない。", en: "That person over there is my older sister's friend, but she isn't Japanese", exercises: [kono-sono-ano-dono, kedo, na-adj-negative], mode: build }
+      - { kind: sentence, ja: "うちの かぞくは よにんだから くるまが おおきい。", en: "There are four of us in my family, so our car is big", exercises: [counter-nin, kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "これは だれの しゃしん？", en: "Say to a friend: Whose photo is this", exercises: [dare], mode: translate }
+      - { kind: particle-cloze, stem: "いもうとは ", tail: "。", answer: "ろくさい", options: ["ろくさい", "ろくにん", "ろくじ"], en: "My younger sister is six years old", explanation: "さい counts years of age, にん counts people, and ろくじ is six o'clock." }
+      - { kind: listening-comp, audio: "あには じゅうななさいだから だいがくに いかない。", answer: "My older brother is seventeen, so he doesn't go to university", distractors: ["My older brother is seventy, so he doesn't go to university", "My older sister is seventeen and doesn't go to university", "My older brother goes to university at seventeen"], exercises: [numbers-11-99, kara-because] }
+      - { kind: listening-comp, audio: "どの ひとが ケンの ともだちだ？", answer: "Which person is Ken's friend?", distractors: ["Who is Ken's friend?", "Which person is Ken's older brother?", "Where is Ken's friend?"], exercises: [kono-sono-ano-dono, dare] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "この しゃしんの ひとは だれですか。", en: "Who are the people in this photo?" }
+          - { speaker: "Tom", ja: "あにです。じゅうななさいです。あの ひとは ははです。", en: "That's my older brother. He's seventeen. And that person over there is my mother." }
+        questions:
+          - { q: "Who is in Tom's photo?", options: ["His older brother and his mother", "His older sister and his father", "His younger brother and his mother", "Mika and Ken"], answer: "His older brother and his mother" }
+      - { kind: challenge, ja: "あの きっさてんに いる ひとは あねの ともだちだから にほんじんだ。", en: "The person in that coffee shop over there is my older sister's friend, so she's Japanese", combines: [kono-sono-ano-dono, dictionary-form, kara-because, no-possession], mode: build }
+    reviewPool: [ちち, はは, あに, あね, おとうと, いもうと, きょうだい, ひとり, ふたり, よにん]

@@ -19,9 +19,10 @@ import { compileModule } from "./moduleCompiler";
 const IR_DIR = join(__dirname, "..", "..", "languages", "ja", "curriculum", "ir");
 const THREE = /m5-1-v-3$/;
 // COUNTER LIST — extend it when a module teaches a new counter. まい and
-// がつ arrived with m16 (spine s13): 「さんまい」 and 「さんがつ」 DO exercise
-// 三, so the honorific check must not read them as a mistagged さん.
-const NUMERAL_CONTEXT = /さん(じ|じゅう|ぼん|にん|びき|えん|つ|まい|がつ)|^[いちにさんよごろくななはちきゅうじゅう\s]+$/;
+// がつ arrived with m16 (spine s13) and さい with m17 (spine n07): 「さんまい」,
+// 「さんがつ」 and the さん inside 「ごじゅうさんさい」 DO exercise 三, so the
+// honorific check must not read them as a mistagged さん.
+const NUMERAL_CONTEXT = /さん(じ|じゅう|ぼん|にん|びき|えん|つ|まい|がつ|さい)|^[いちにさんよごろくななはちきゅうじゅう\s]+$/;
 
 describe("honorific さん is not the numeral 三", () => {
   const offenders: string[] = [];
