@@ -685,6 +685,46 @@ It was safe to land mid-authoring because the tokenizer is longest-match-
 first: a shorter entry can only win where nothing longer matched, i.e.
 exactly where an unrecognized fragment was already being emitted.
 
+### Carrier fatigue — WHICH WORDS NOT TO REACH FOR (measured 2026-07-27)
+
+`scripts/exposure-audit.mjs` was blind to every IR module (it globbed
+`m*-neo*.ts`, which from m6 on are empty compiler wrappers) and was therefore
+reporting on m3/m4/m5/m30 while implying the whole course. **Fixed** — it now
+reads `ir/*.ir.yaml`, counting only learner-facing keys, never declarations like
+`kana`/`introduces`, which a module could otherwise use to inflate its own
+reinforcement score. Corpus went 3336 → 9494 surfaces.
+
+Fixing it exposed the same bug one level up: the OVER-exposure rule was a flat
+`> 25 occurrences`, calibrated on the four-module corpus, so against the real
+one it flagged うん, から, これ — CEJC ranks 1, 21, 33. A rank-1 word appearing
+constantly is not fatigue, it is Japanese. **Over-exposure is now a RATIO**:
+observed share vs Zipf-expected share from CEJC rank (and, for words outside
+the top-500, vs the median carrier). Corpus-size independent, so it stays true
+as the course grows.
+
+**The result is a real finding, and it applies to every module from m21 on.**
+These carriers are used far past what their own frequency justifies — reach for
+something else when a sentence needs a noun:
+
+| word | uses | over-use |
+|---|---|---|
+| みせ | 254 | 21.3× |
+| ともだち | 234 | 16.5× |
+| ほん | 260 | 14.6× |
+| ごはん | 222 | 14.6× |
+| いる | 271 | 13.8× |
+| きのう | 201 | 12.9× |
+| あたらしい | 130 | 12.8× |
+| えき | 135 | 12.2× |
+| かばん | 186 | 8.9× the median carrier |
+
+59 words are above the bar in total. The course is not wrong to use concrete
+nouns — it needs imageable carriers — but nine words carrying a fifth of every
+sentence is the "student/teacher ×10" pattern Spencer flagged on 2026-07-20,
+and it makes sentences feel same-y long before a learner can say why.
+Meanwhile only ONE word is under-exposed course-wide (はいる #88 ×2), so the
+problem is concentration, not coverage.
+
 ### Carried debt (batch later, do not derail a module for these)
 
 - ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami
