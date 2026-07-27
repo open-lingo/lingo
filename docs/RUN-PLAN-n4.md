@@ -7,9 +7,14 @@ make and document; he'll flag them later if he disagrees.
 
 ## ⏵ RESUME HERE (state as of 2026-07-27, after the m22 commit)
 
-**Last commit: `965b0f8c`. Working tree clean apart from m23's in-flight work.**
+**Last commit: `711549c6`. Working tree clean apart from m23's in-flight work.**
 
 - **DONE and committed:** m11–m22. QA verdicts SHIP for m20, m21, m22.
+- **Audit table now reads `—` for every module m6–m22.** m10's 6 "single-tile
+  builds" were its 6 register beats: the ladder compiles to a `build_sentence`
+  that is a PICKER (choose the politeness variant), so one slot is correct.
+  The compiler now sets `picker: true` and the audit skips those. Content was
+  never affected — verified all 6 ship 4 genuine register siblings.
 - **IN FLIGHT:** one authoring agent on **m23** (spine s22 — "Experience &
   intent: たことがある, つもり"; ledger owes `koto-ga-aru` `tsumori-desu`
   `kanji-set-2`). It has NOT been committed. It created a working directory
