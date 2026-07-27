@@ -539,7 +539,15 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // measures 64/88 = .727, because a list names two things plus a predicate by
   // construction and most beats hang a clause on m16's から / けど. Raised,
   // never lowered, per this block's own rule.
-  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.56, m23: 0.44,
+  // m22 recalibrated 0.56 → 0.86 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m22 (なかで…いちばん comparisons); the neo module —
+  // spine tile s17 — measures 77/86 = .895. A symptom sentence is three tiles
+  // long by construction, which is exactly the flat texture this gate exists to
+  // stop, so nearly every production beat hangs a reason clause on m16's から /
+  // けど — which is also how a symptom is actually spoken, because you say what
+  // hurts in order to say what you will do about it. Floor set three sentences
+  // below the measurement, per this block's own rule. Raised, never lowered.
+  m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.44,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.

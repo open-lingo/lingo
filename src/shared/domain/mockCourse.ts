@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m21 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19) are LIVE via the compiler pipeline — slice them
-    // off so the placeholders begin at m22. NB the SPINE_COMING_SOON array still
-    // lists s11 before n06b (draft-3 order); draft-4 swapped them, which is why
-    // m14 is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(16).map((t, i) => ({
-      id: `m${i + 22}`,
+    // m6-m22 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17) are LIVE via the compiler pipeline — slice
+    // them off so the placeholders begin at m23. NB the SPINE_COMING_SOON array
+    // still lists s11 before n06b (draft-3 order); draft-4 swapped them, which
+    // is why m14 is n06b and m15 is s11. Only the COUNT sliced matters here.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(17).map((t, i) => ({
+      id: `m${i + 23}`,
       title: t.title,
-      eyebrow: `Module ${i + 22} · Coming soon`,
+      eyebrow: `Module ${i + 23} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -806,6 +806,36 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m21-neo-challenge", title: "Challenge — say what you do and who you do it with", status: "available" as const },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
+        },
+        {
+          // m22 = spine tile s17. Japanese does not let you OWN a pain: the
+          // body part is the thing that IS painful and it takes が, and いたい
+          // is an adjective, so を does not parse. Put a person in front and
+          // both particles work at once — 「わたしは あたまが いたい」. Health
+          // is also where register is load-bearing, so the second half runs the
+          // clinic and the pharmacy in です・ます: ください, ないでください
+          // (the spine's named spend) and 〜ても いい. The 本 counter drips
+          // through as ordinary vocabulary.
+          id: "m22",
+          title: "Body, health & help",
+          eyebrow: "Module 22 · Health",
+          summary: "\u300Cあたまが いたい\u300D — the head is painful. Japanese makes the body part the SUBJECT, so が carries every symptom you will ever need, and 「わたしは あたまが いたい」 puts は and が to work in one clause. 「ねつが ある」 says a fever is simply there. Then the register turns: you tell a doctor 「あたまが いたいです」, ask a pharmacist 「くすりを ください」, hear 「おさけを のまないで ください」 and ask back 「のんでも いいですか」. いつも / よく / ときどき / あまり / ぜんぜん say how often, and 〜ほん counts anything longer than it is wide.",
+          lessons: [
+            { id: "ja-m22-neo-1", title: "\u300Cあたまが いたい\u300D — the part that hurts takes が", status: "available" as const },
+            { id: "ja-m22-neo-2", title: "\u300Cわたしは あたまが いたい\u300D — は says who, が says which part", status: "available" as const },
+            { id: "ja-m22-neo-3", title: "\u300Cねつが ある\u300D — a symptom is something that EXISTS", status: "available" as const },
+            { id: "ja-m22-neo-review-1", title: "Review — what hurts, whose it is, and what you have", status: "available" as const },
+            { id: "ja-m22-neo-5", title: "\u300Cときどき あたまが いたい\u300D — how often", status: "available" as const },
+            { id: "ja-m22-neo-6", title: "\u300Cあたまが いたいです\u300D — telling the doctor", status: "available" as const },
+            { id: "ja-m22-neo-7", title: "\u300Cえんぴつを さんぼん\u300D — counting long thin things", status: "available" as const },
+            { id: "ja-m22-neo-review-2", title: "Review — how often, how politely, how many", status: "available" as const },
+            { id: "ja-m22-neo-9", title: "\u300Cくすりを ください\u300D — at the pharmacy", status: "available" as const },
+            { id: "ja-m22-neo-10", title: "\u300Cのまないで ください\u300D — what the doctor tells you not to do", status: "available" as const },
+            { id: "ja-m22-neo-11", title: "\u300Cたべても いい？\u300D — asking whether you may", status: "available" as const },
+            { id: "ja-m22-neo-review-3", title: "Review — the pharmacy, the don'ts and the may-I's", status: "available" as const },
+            { id: "ja-m22-neo-challenge", title: "Challenge — say what hurts, and ask what you may do about it", status: "available" as const },
+          ],
+          accent: { from: "#14b8a6", to: "#0d9488" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

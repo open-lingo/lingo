@@ -1190,6 +1190,53 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kiitari", kana: "きいたり", romaji: "kiitari", meaningEn: "listen, and things like that", shortGloss: "listen, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-7", kind: "vocab", blocked: true, note: "〜たり form of きく" },
   { id: "asondari", kana: "あそんだり", romaji: "asondari", meaningEn: "play, and things like that", shortGloss: "play, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-8", kind: "vocab", blocked: true, note: "〜たり form of あそぶ" },
   { id: "ittari", kana: "いったり", romaji: "ittari", meaningEn: "go, and things like that", shortGloss: "go, etc.", fromModule: "m21", introducedByLessonId: "ja-m21-neo-8", kind: "vocab", blocked: true, note: "〜たり form of いく — 'go', never 'say' (the m18 いった homograph ruling)" },
+
+  // ── m22 (spine s17) — BODY, HEALTH & HELP ────────────────────────────────
+  //
+  // Most of the domain already had registry rows under stale old-course m20
+  // tags (あたま / おなか / め / みみ / あし / くち / て / くすり / びょうき /
+  // いたい / いしゃ), so m22 declares those in its IR `newAtoms` only — the
+  // m15-m21 provenance move, which adds nothing to the course-wide tokenizer
+  // and therefore cannot raise the m16-ので regression class. Eleven surfaces
+  // had NO row and are added here; all eleven were checked for retokenization
+  // damage first by dumping every compiled tile in the whole ja course before
+  // and after (the diff was empty).
+  //
+  // 歯 "tooth" and 風邪 "a cold" are BANNED from this module and the ban is
+  // mechanical: は is the topic particle and かぜ resolves to 風 "wind"
+  // (JA_PRIMARY_ATOM_BY_KANA), so both are homograph LOSERS — no token can
+  // ever identify them, so nothing can be scheduled for them.
+  // `homographTeaching.test.ts` fails the build on anyone who tries.
+  { id: "netsu", kana: "ねつ", kanji: "熱", romaji: "netsu", meaningEn: "a fever", shortGloss: "fever", fromModule: "m22", introducedByLessonId: "ja-m22-neo-3", kind: "vocab", blocked: true, note: "no picture, for two reasons: 🌡️ and びょうき's 🤒 are confusable and both land in L3, and the card that TEACHES 「ねつが ある」 compiles to a pinned step ahead of the interleaved middle — so it would steal any debut MCQ (the m20/m21 card-steals-the-picture rule)" },
+  { id: "nodo", kana: "のど", romaji: "nodo", meaningEn: "throat", shortGloss: "throat", fromModule: "m22", introducedByLessonId: "ja-m22-neo-3", kind: "vocab", blocked: true, note: "no honest glyph for a throat — 🗣️ is こえ and 👅 is a tongue; debuts on a rule card" },
+
+  // THE 本 COUNTER, CELL BY CELL — forced, not chosen, exactly as m21's 〜はい
+  // was. 「ほん」 is already the m3 atom for "book" and `JA_COURSE_ATOMS_BY_KANA`
+  // is last-wins, so registering the counter under that kana would flip all
+  // ~488 existing ほん surfaces and silently re-credit SRS. Nothing can compose
+  // from number + counter the way m19's さん + ぷん and m20's ご + ひゃく did:
+  // 「ごほん」 would tokenize as ご (5) + ほん (book). Each cell that reaches a
+  // tile is therefore its own atom. Consequence: さん never tokenizes out of
+  // 「さんぼん」, so 三 is never credited from it and `honorificAtomTagging`
+  // needed no change (its NUMERAL_CONTEXT already lists ぼん).
+  // 「にほん」 IS BANNED THREE TIMES OVER — the documented に/二 homograph, に +
+  // ほん splitting into the numeral plus "book", and 「にほん」 being the atom
+  // for JAPAN (153 occurrences in the corpus). Readings follow
+  // `classifiers.ts`, this repo's shipped counter table; ななほん / はっぽん /
+  // きゅうほん / じゅっぽん are named in m22's L7 card prose only.
+  { id: "ippon", kana: "いっぽん", romaji: "ippon", meaningEn: "one long thin thing", shortGloss: "1 (long thing)", fromModule: "m22", introducedByLessonId: "ja-m22-neo-7", kind: "vocab", blocked: true, note: "geminating cell — いっ decomposes to nothing, and ほん cannot be an atom (it is 'book')" },
+  { id: "sanbon", kana: "さんぼん", romaji: "sanbon", meaningEn: "three long thin things", shortGloss: "3 (long things)", fromModule: "m22", introducedByLessonId: "ja-m22-neo-7", kind: "vocab", blocked: true, note: "rendaku cell — さん turns ほん into ぼん" },
+  { id: "roppon", kana: "ろっぽん", romaji: "roppon", meaningEn: "six long thin things", shortGloss: "6 (long things)", fromModule: "m22", introducedByLessonId: "ja-m22-neo-7", kind: "vocab", blocked: true, note: "geminating cell — ろっ decomposes to nothing" },
+  { id: "nanbon", kana: "なんぼん", romaji: "nanbon", meaningEn: "how many long thin things", shortGloss: "how many?", fromModule: "m22", introducedByLessonId: "ja-m22-neo-7", kind: "vocab", blocked: true, note: "interrogative cell — なん takes the rendaku ぼん" },
+  { id: "yonhon", kana: "よんほん", romaji: "yonhon", meaningEn: "four long thin things", shortGloss: "4 (long things)", fromModule: "m22", introducedByLessonId: "ja-m22-neo-9", kind: "vocab", blocked: true, note: "regular cell, whole because ほん cannot be an atom" },
+  { id: "gohon", kana: "ごほん", romaji: "gohon", meaningEn: "five long thin things", shortGloss: "5 (long things)", fromModule: "m22", introducedByLessonId: "ja-m22-neo-9", kind: "vocab", blocked: true, note: "regular cell — ご + ほん would otherwise read as 'five books'" },
+
+  // FREQUENCY ADVERBS need NO rows here. いつも / ときどき / あまり already have
+  // them under stale old-course m9/m11 tags (and よく / ぜんぜん under m20 /
+  // m16), so m22 declares all five in its IR `newAtoms` only — the m15-m21
+  // provenance move. Adding a second row would have been a duplicate id, which
+  // `courseAtoms.test.ts` catches, and a second by-kana entry, which the
+  // last-wins map would have resolved silently.
 ];
 
 /**

@@ -79,10 +79,10 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 |
-| N5 grammar points left | **21** of 103 (was 74 at run start) |
-| suite | 7133 passing, 0 failing |
-| translate share | 8.1–13.6% (ceiling 15%); m21 = 12.2% |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 |
+| N5 grammar points left | **18** of 103 (was 74 at run start) |
+| suite | 7278 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%); m22 = 10.1% |
 | distinct step types | 10–12 per module |
 | audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
 | untaught words shipping as options | **0** |
@@ -229,6 +229,32 @@ had been ignoring:
   character names have no atom rows. A cloze frame containing ミカ / トム / ケン /
   たなか therefore lands in GATE_EXEMPTIONS as "too advanced". Write cloze frames
   with common nouns instead.
+- **An adjective absent from `ADJ_ENTRIES` has no inflections ANY lexicon here
+  can see.** いたい is not in the conjugation tables, so 「いたくない」 tokenizes to
+  the junk fragment いた + く + ない and trips `unbuildable`; 「いたかった」 is the
+  same shape. Third instance of the class (m12 すごい/こわい, m13 ほしくない, now
+  m22 いたい) and the fix is always authorial — m22 says "it doesn't hurt" with
+  だいじょうぶ / げんき, which is what a Japanese speaker says anyway. Check
+  ADJ_ENTRIES before planning a lesson around an adjective's negative or past.
+- **A ONE-CHARACTER new atom cannot get an image debut.** `moduleCompiler`'s
+  precedence machinery gates a step on the atoms it surfaces via
+  `needsGate = t.length > 1 && …`, so a 1-char atom has no gate and its
+  `word_image_mcq` can be sequenced AFTER its first sentence use — which the
+  image-debut diagnostic then (correctly) reports. て 手 hit this in m22 and
+  ships `imageable: false`. The length-1 escape is there to stop particles being
+  gated; loosening it is a course-wide reordering, so it was NOT done.
+- **A rule card STEALS the picture of any imageable word it names.** A
+  `kind: rule` beat compiles to a PINNED grammar_rule ahead of the interleaved
+  middle, so a word its own card must mention can never debut on a
+  `word_image_mcq`. m21 stated this for おさけ (keep the word OUT of the card);
+  m22 hit the unavoidable direction — a card about 〜が いたい must say いたい —
+  so いたい and ねつ ship `imageable: false` instead.
+- **An authored `listening-comp` audio must not equal ANY `sentence` beat's ja
+  in the same lesson.** The m21 note said this; m22 shows the failure is
+  NON-DETERMINISTIC from the author's side — `reviewFiller` re-presents the
+  lesson's own sentences, so a collision only fails the build when the filler
+  happens to pick that sentence. Nine of m22's LCs collided and only three
+  failed. Scan the IR for the collision rather than trusting the suite.
 
 **TTS owed:** the boundary fix changed ~10 build targets (`です。` now appears
 in tiles/audioKey). Run emit-tts-deck + generate at the next quiet point.
@@ -264,7 +290,7 @@ teaches four counters at once is a table, not a lesson).
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** | ✅
 | 20 | yori-comparison numbers-100-10000 counter-ko | ✅
 | 21 | ya-incomplete-list to-and tari-tari-suru **counter-hai** | ✅
-| 22 | ga-itai frequency-adverbs **counter-hon** |
+| 22 | ga-itai frequency-adverbs **counter-hon** | ✅
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 |
 | 24 | mashou masenka no-ga-jouzu no-ga-heta |
 | 25 | deshou |
@@ -527,6 +553,126 @@ of いしゃ / へや / こうえん / ノート / たくさん / なる / と�
 lists as known. The pack is built from `courseAtoms` attribution and overstates;
 `priorVocab` is the compiler's truth. All of them are avoided, and
 `m21-neo.test.ts` holds the line.
+
+**AN ELEVENTH note, m22 (2026-07-27) — the ledger row is unchanged and there
+is NO spine deviation.** spinePlan s17 asks for "〜がいたい (いたい #275); body
+parts (あたま #329, おなか #405)" and "Pharmacy/help dialogues; ないでください
+spend". All of it ships. **SIX POINTS ARE RE-TAUGHT rather than re-assigned**,
+because the row owes three ids across nine teaching lessons and inv 42 forbids
+inventing new ones: `wa-topic` (m3 — 「わたしは あたまが いたい」 is the first
+place は and が must be chosen in the SAME clause), `ga-existence` (m6 — 「ねつが
+ある」 is where が-existence is finally the natural English mismatch),
+`masu-present` (m7 — describing symptoms to a doctor is a です・ます situation by
+construction), and three of m14's: `kudasai` (a pharmacy is where you ask for
+something), `naide-kudasai` (the spine's own named spend) and `te-mo-ii`
+(permission is the other end of prohibition — 「たべても いい？」 and 「たべないで
+ください」 are one contrast, not two lessons). m14 owns the request/permission
+machinery and health is the domain where it is actually used. No ledger row
+moved.
+
+**は "tooth" and かぜ "a cold" never appear, per Spencer's pre-brief ruling, and
+て "hand" DOES — verified rather than assumed.** The brief flagged て as
+unchecked: it is a registered atom and the て-form is everywhere, so a bare て
+tile would credit 手 on every 「たべて」 in the course. **Checked against the
+compiler by dumping every `correctOrder` in every compiled IR module: ZERO bare
+て tiles course-wide, and the only tiles ending in て are the whole registered
+て-forms** (いって / おしえて / かって / きいて / きて / しって / して / たべて /
+はたらいて / まって / みせて / みて). The tokenizer is longest-match-first and
+every て-form the course uses has its own atom row, so a bare て is only ever
+emitted where an author writes it. て is taught in L2 and `m22-neo.test.ts`
+holds the line: a bare て tile must be followed by a case particle.
+
+**A PRE-EXISTING MIS-ATTRIBUTION, reported not papered over.**
+`lessonAtomIndex`'s M8+ fallback attributes an atom to a lesson by
+`JSON.stringify(lesson.steps).includes(surface)` — a SUBSTRING match — for every
+atom whose `fromModule` equals that lesson's module and which has no
+`introducedByLessonId`. The whole archived Body & Health vocabulary still
+carries `fromModule: "m20"` (て / め / みみ / あし / くち / あたま / おなか /
+くすり / びょうき / いたい / いしゃ / は), so the m20-neo comparison lessons are
+today credited with introducing all of them — 「ゆうめい」 contains め, and every
+lesson in the course contains て. m22 did NOT retag those rows: `fromModule`
+also drives the kanji-rollout unlock module and the image-first guard's
+"module-new" set, so moving twelve rows is a course-wide change that belongs in
+its own commit with the tile dump run before and after. The seventh distinct
+site of substring-matching-on-Japanese in this repo.
+
+**EIGHT new courseAtoms rows — ねつ, のど, いっぽん, さんぼん, ろっぽん, なんぼん,
+よんほん, ごほん — and all eight were checked for retokenization damage FIRST
+(the m16-ので class), by dumping every compiled tile in the whole ja course
+before and after registering them. The diff was EMPTY: zero tokenization changed
+anywhere.** The other fourteen m22 atoms already had rows under stale
+old-course tags — いたい / あたま / おなか / め / みみ / くち / て / びょうき /
+くすり / いしゃ (m20), いつも / ときどき (m11), あまり (m9), あし (m20) — and are
+declared in `newAtoms` only to fix their provenance, the m15-m21 move. That
+matters twice here: `courseAtoms.test.ts` catches a duplicate id, but a second
+by-kana row would ALSO have been resolved silently by the last-wins map.
+
+**THE 本 CELLS ARE ALL WHOLE ATOMS, and it was forced exactly as m21's 〜はい
+was.** 「ほん」 is already the m3 atom for "book" (~488 corpus occurrences) and
+`JA_COURSE_ATOMS_BY_KANA` is LAST-WINS, so registering the counter under that
+kana would flip every one of them. Nothing composes — 「ごほん」 would tokenize as
+ご (5) + ほん (book) and tile a library — so six cells get rows of their own.
+**「にほん」 is banned THREE times over**: the documented に/二 homograph, に +
+ほん splitting into numeral + "book", and 「にほん」 being the registered atom for
+JAPAN. ななほん / はっぽん / きゅうほん / じゅっぽん live in the L7 card's
+mixed-script prose. Readings follow `classifiers.ts`. Consequence: さん never
+tokenizes out of a whole 「さんぼん」, so 三 is never credited and
+`honorificAtomTagging` needed no edit (NUMERAL_CONTEXT already lists ぼん).
+**NO GUARD WAS TOUCHED IN THIS CYCLE.**
+
+**NINE WORDS SHIP WITHOUT A PICTURE and only seven with one, for two mechanical
+reasons that generalize.** (a) A `kind: rule` beat compiles to a PINNED step
+ahead of the interleaved middle, so a word its own card must NAME can never
+debut on a `word_image_mcq` — that is m21's おさけ rule running the other way,
+and it costs いたい and ねつ their pictures. (b) An emoji already spoken for by a
+MET word makes the debut a trick question (the m19 かえる/あるく ruling): 👁️ is
+also みる and 👂 is also きく, so め and みみ debut on the L2 card. あたま is
+registry-blocked (🧠 belongs to おぼえる) and のど has no honest glyph at all.
+**て is a THIRD, new reason**: `moduleCompiler`'s `needsGate` requires
+`t.length > 1`, so a one-character atom gets no precedence gate and its picture
+cannot be held ahead of its first sentence use — the diagnostic caught it and
+て went `imageable: false` rather than the length-1 escape being loosened.
+The seven that DO get pictures — おなか 🫃, くち 👄, びょうき 🤒, くすり 💊,
+あし 🦶, いしゃ 👨‍⚕️ — have emoji unique in the registry.
+
+**NO NEGATIVE OR PAST いたい ANYWHERE — the m12/m13 adjective-lexicon class,
+third instance.** いたい is absent from `ADJ_ENTRIES`, so 「いたくない」 tokenizes
+to いた + く + ない and trips `unbuildable`; 「いたかった」 is the same. The fix is
+authorial rather than a registry change: "it doesn't hurt" is said with
+だいじょうぶ / げんき, which is what a Japanese speaker says anyway. For the same
+reason ある stays non-past in plain form (「あった」 has no row) — a symptom you
+are describing is current by definition.
+
+**REGISTER: every production prompt names its audience.** The brief's rule is
+that a prompt which does not name one must accept BOTH renderings; a build
+step's tile bank can only ever spell one, so the honest way to satisfy it is to
+cue every beat whose answer depends on register. L1-L5 and L7 are plain, L6 is
+the clinic and is cued "Say politely:" throughout, and L9-L11 run on ください /
+ないでください / 〜ても いい, which `registerCueGrading` reads as POLITE — so
+those carry "Ask politely:" or no cue rather than a friend cue that would
+contradict the grader. Two dialogue roles were added to
+`dialogueSpeakers.json` (Doctor, Pharmacist, both neutral) and
+`m22-neo.test.ts` extends m21's たなか rule to them: a student never answers a
+white coat in plain form.
+
+**GATE 7 recalibrated for m22, 0.56 → 0.86.** The old floor was measured on the
+archived old-course m22 (なかで…いちばん); the neo module measures 77/86 = .895,
+because a symptom sentence is three tiles long by construction — exactly the
+flat texture the gate exists to stop — so nearly every beat hangs a reason
+clause on m16's から / けど, which is also how a symptom is actually spoken.
+Raised, never lowered, per that block's own rule.
+
+**Carrier note for m22 (inv 27).** A body-parts module is a noun generator the
+way a listing module is, so the carriers are deliberately the under-spent stock:
+ちゃ, ぎゅうにゅう, コーヒー, おさけ, すし, パン, えんぴつ, かさ, けいたい, き,
+やま, かわ, めがね, じゅぎょう, きっさてん, だいがく, かいしゃ. みず appears
+exactly twice, both times because a bottle of water is what a pharmacy hands
+you. みせ appears once. **Words the context pack lists as known but `priorVocab`
+does not** — and which are therefore avoided — include へや, こうえん, ノート,
+たくさん, せいと, やさい, にく, あめ, さいふ, はなし, ひこうき, たいへん,
+まいにち / まいあさ / まいばん (which the frequency lesson would have wanted),
+ひく, みがく, なる, とり, たつ, うたう, かく, のる, でる, せっけん, ペン, そば
+and ちかく. The pack overstates; `priorVocab` is the compiler's truth.
 
 **A NINTH note, m20 (2026-07-27) — the ledger row is unchanged and there is
 NO spine deviation.** spinePlan n09 asks for "AのほうがBより pattern; ほう (#66)

@@ -1,0 +1,727 @@
+module: m22
+title: "Body, health & help: 〜が いたい"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21]
+
+priorGrammarPoints: [ka-question, desu-copula, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, dare, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu, nai-existence,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     masu-past, masu-negative, masu-past-negative,
+                     kara-origin, kara-time, made-until, made-ni,
+                     dictionary-form, ta-form, nai-form,
+                     i-adj-present, na-adj-present, na-adj-negative,
+                     v-tai, ga-hoshii, no-ga-suki, mada-mou,
+                     kara-because, node-because, kedo, toki, te-iru, te-form,
+                     te-kudasai, te-wa-ikemasen,
+                     to-omoimasu, to-quotation, ni-iku,
+                     numbers-1-10, numbers-11-99, numbers-100-10000,
+                     counter-ji, counter-fun, counter-tsu, counter-ko,
+                     counter-sai, counter-nin, counter-mai, counter-hai,
+                     mo-also, yori-comparison, ikura-price,
+                     ya-incomplete-list, to-and, tari-tari-suru, family-register]
+
+notes: |
+  m22 = spine tile s17, "Body, health & help".
+
+  THE WHOLE POINT — in Japanese a body part is not something you HAVE a pain
+  in; it is the thing that IS painful, and it takes が.
+
+  1. **〜が いたい is an ADJECTIVE predicate, not a verb.** English says "I
+     have a headache" and puts the person in charge; Japanese says
+     「あたまが いたい」 — the head is painful. Nothing is done TO anything, so
+     を is flatly wrong, and が is the only particle the sentence wants. That
+     one fact is L1, and it is also why the module can be spoken from day one:
+     every symptom in the language is the same three tiles with a different
+     body part in the front.
+  2. **は says WHO and が says WHICH PART, in one clause.** 「わたしは あたまが
+     いたい」 is the double-subject shape a learner meets here for the first
+     time, and it is the reason 〜が いたい has to arrive AFTER m3's は: the
+     topic scopes the person, the subject scopes the part. Two が in one clause
+     is the error, and it is the L2 antiPattern.
+  3. **A symptom EXISTS.** 「ねつが ある」 — a fever is not owned, it is there.
+     That reuses m6's ga-existence exactly, on a domain where it is finally the
+     natural English-to-Japanese mismatch rather than a furniture sentence.
+  4. **Health is where REGISTER is load-bearing** (Spencer's brief). You say
+     「あたまが いたい」 to a friend and 「あたまが いたいです」 to a doctor, and
+     the module teaches both: L6 is the clinic in です・ます, L9-L11 run the
+     pharmacy and the doctor's instructions on ください / ないでください /
+     〜ても いい. Every graded item names its audience, so nothing is
+     ambiguous — see the register note below.
+  5. **The 本 counter drips here as ordinary vocabulary** (RUN-PLAN
+     reconciliation, `counter-hon` m21→m22). Unlike m21's cup counter it has no
+     affinity with the module's grammar, so it is taught as what it is: the
+     counter for long thin things, spent on pencils, umbrellas, bottles and
+     trees, and then used once at the pharmacy counter in L9.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation).
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** spinePlan s17 asks for "〜がいたい (いたい #275);
+    body parts (あたま #329, おなか #405)" and "Pharmacy/help dialogues;
+    ないでください spend". All of it ships. The ledger row — `ga-itai`
+    `frequency-adverbs` `counter-hon` — is unchanged.
+  - **SIX POINTS ARE RE-TAUGHT rather than re-assigned**, because the row owes
+    three ids across nine teaching lessons and inv 42 forbids inventing new
+    ones: `wa-topic` (m3 — the double-subject 「わたしは あたまが いたい」 is
+    the first place は and が have to be chosen in the SAME clause),
+    `ga-existence` (m6 — 「ねつが ある」 is the domain where が-existence is
+    finally the natural mismatch), `masu-present` (m7 — describing symptoms to
+    a doctor is a です・ます situation by construction), `kudasai` (m14 — a
+    pharmacy is where you ask for something), `naide-kudasai` (m14 — the
+    spine's own named spend) and `te-mo-ii` (m14 — permission is the other half
+    of prohibition, and 「たべても いい？」 / 「たべないで ください」 is one
+    contrast, not two lessons). Three of the six are m14's: that module owns
+    the request/permission machinery and this is the domain where it is
+    actually used. No ledger row moves.
+  - **は "tooth" and かぜ "a cold" are BANNED, and the ban is Spencer's, made
+    before this module was briefed** (RUN-PLAN 2026-07-27). Both are homograph
+    LOSERS — は resolves to the TOPIC PARTICLE and かぜ to 風 "wind" (m7's
+    「かぜが あります」, a breeze) through `JA_PRIMARY_ATOM_BY_KANA` — so no
+    token can ever identify them and nothing could ever be scheduled for them.
+    `homographTeaching.test.ts` fails the build on a word-image MCQ that
+    teaches a sense the kana does not resolve to. There is no toothache content
+    anywhere in this module and 「ねつが あります」 carries being ill instead.
+  - **て "hand" IS TAUGHT, and it was VERIFIED rather than assumed.** The brief
+    flagged it as unchecked: て is a registered atom and the て-form is
+    everywhere, so a bare て tile would credit 手 on every 「たべて」 in the
+    course. Checked against the COMPILER by dumping every `correctOrder` in
+    every compiled IR module: **zero bare て tiles, and the only tiles ending in
+    て are the whole registered て-forms** (いって / おしえて / かって / きいて /
+    きて / しって / して / たべて / はたらいて / まって / みせて / みて). The
+    tokenizer is longest-match-first and every て-form the course uses has its
+    own atom row, so て is only ever emitted where an author writes it bare.
+    It is therefore safe, and 「てが いたい」 ships in L2.
+  - **NO NEGATIVE OR PAST いたい ANYWHERE — いたい is absent from
+    `ADJ_ENTRIES`.** 「いたくない」 tokenizes to the junk fragment いた + く +
+    ない and trips the compiler's `unbuildable` gate; 「いたかった」 is the same
+    shape. This is the m12 すごい/こわい and m13 ほしくない class exactly — an
+    adjective the conjugation tables do not carry has no inflections any lexicon
+    in this repo can see — and the fix is authorial, not a registry change:
+    "it doesn't hurt" is said with 「だいじょうぶ」 and 「げんき」, which is what
+    a Japanese speaker says anyway. For the same reason ある stays NON-PAST in
+    plain form (「あった」 has no atom row); the past exists only as m7's polite
+    「ありました」 is likewise unregistered, so the module simply does not go
+    into the past — a symptom you are describing is by definition current.
+  - **ねつ ships WITHOUT a picture, and there are two independent reasons.**
+    (a) The card that TEACHES 「ねつが ある」 compiles to a PINNED grammar_rule
+    ahead of the interleaved middle, so it would steal any debut MCQ — the m20
+    rule m21 stated for おさけ, running the other way. (b) 🌡️ and びょうき's
+    🤒 are the same picture to a learner, and both land in L3. Same call, same
+    reason, for いたい (its own card must name it), あたま (🧠 is
+    registry-blocked and belongs to おぼえる), め (👁️ is ALSO MET みる) and
+    みみ (👂 is ALSO MET きく) — a debut picture that names a taught word as
+    well as it names the answer is a trick question, and the debut MCQ draws
+    its distractors from exactly that met pool. **Seven words DO debut on a
+    picture**: おなか 🫃, くち 👄, て ✋, びょうき 🤒, くすり 💊, あし 🦶 and
+    いしゃ 👨‍⚕️ — every one of those emoji is unique in the registry.
+  - **THE 本 CELLS ARE ALL WHOLE ATOMS, and it was forced, not chosen** — the
+    same shape as m21's 〜はい. 「ほん」 is already the m3 atom for "book" and
+    `JA_COURSE_ATOMS_BY_KANA` is LAST-WINS, so registering the counter under
+    that kana would flip all ~488 existing ほん surfaces in the course and
+    silently re-credit SRS. No cell can compose from number + counter the way
+    m19's さん + ぷん and m20's ご + ひゃく did — 「ごほん」 would tokenize as
+    ご (5) + ほん (book) and tile a library. Six cells get rows of their own:
+    いっぽん, さんぼん, ろっぽん, なんぼん (L7) and よんほん, ごほん (L9).
+    **「にほん」 is banned THREE times over** — the documented に/二 homograph,
+    に + ほん splitting into the numeral plus "book", and 「にほん」 being the
+    atom for JAPAN with 153 occurrences in the corpus. ななほん / はっぽん /
+    きゅうほん / じゅっぽん are named in the L7 card's PROSE, which is
+    mixed-script and invisible to `jaSurfaces`. Readings follow
+    `classifiers.ts`, this repo's shipped counter table. Consequence worth
+    stating: さん never tokenizes out of a whole 「さんぼん」, so 三 is never
+    credited from it and `honorificAtomTagging` needed no edit (its
+    NUMERAL_CONTEXT already lists ぼん). **No guard was touched in this cycle.**
+  - **FREQUENCY ADVERBS: three new rows, and あまり/ぜんぜん are taught as a
+    GRAMMAR fact, not a vocabulary one.** いつも / ときどき / あまり are new;
+    よく (m20) and ぜんぜん (m16) already had rows and are re-spent here, which
+    is the whole reason the spine drips adverbs rather than blocking them. The
+    fact that carries the card is that あまり and ぜんぜん REQUIRE a negative
+    predicate — 「あまり くすりを のむ」 is not a slightly odd sentence, it is
+    not a sentence — and that is the L5 antiPattern.
+  - **REGISTER: every production prompt in this module names its audience.**
+    The brief's rule is that a prompt which does NOT name an audience must
+    accept both renderings; a build step's tile bank can only ever spell one
+    rendering, so the honest way to satisfy it is to cue every production beat
+    whose answer depends on register. L1-L5 and L7 are plain and cued "Say to a
+    friend:" where a polite reading is even available; L6 is the clinic and is
+    cued "Say politely:" throughout; L9-L11 run on ください / ないでください /
+    〜ても いい, which `registerCueGrading` reads as POLITE, so those carry
+    "Ask politely:" or no cue at all rather than a friend cue that would
+    contradict the grader. Nothing in the module accepts the register its own
+    prompt rules out (inv 48).
+  - **Cloze frames carry no character names and never end in bare だ** — a
+    particle_cloze is harvested into the grammar-review deck, whose
+    comprehensibility gate resolves every word through `courseAtoms` (ミカ /
+    トム / ケン / たなか have no rows) and strips only atoms and
+    `TAUGHT_ENDINGS` (だ is in neither). Every cloze here picks among CONTENT
+    words — body parts, adverbs, counter cells, ない-forms — because m22
+    introduces no particle at all, so a true particle_cloze would be a REVIEW
+    use of the type and inv 5 bans it outright.
+  - **No 「〜からだ」 anywhere** (から + だ fuses into からだ, the m2 atom for
+    "body" — m19's finding), which matters more here than anywhere else in the
+    course, because からだ is a word this module actually teaches with. から is
+    always followed by a verb or a noun phrase, and a reason spells
+    びょうき + だ + から, which produces だから, not からだ.
+  - **Clause boundaries are SPACES, never 、** — `moduleCompiler.clean()`
+    strips 、 with nothing in its place, so an authored comma compiles to a
+    run-on build target AND a run-on TTS key.
+  - **Gloss discipline (inv 17).** いく / くる / かえる keep the motion-futurate
+    "-ing"; たべる / のむ / みる / きく gloss habitual or intent. Every みる is
+    "watch" / "look at", never "read" (`verbGlossFidelity`). 「あたまが いたい」
+    glosses "my head hurts", never "my head is hurting" — there is no ている
+    here and GATE 8 is right to want the simple present.
+  - **CARRIER ROTATION (inv 27).** みせ ×254, ほん ×260, ともだち ×234,
+    ごはん ×222, きのう ×201, えき ×135, かばん ×186, あたらしい ×130 and みず
+    are all far past their frequency-justified share, so this module's carriers
+    are deliberately the under-spent stock: ちゃ, ぎゅうにゅう, コーヒー,
+    おさけ, すし, パン, たまご, きのこ, きゅうり, えんぴつ, かさ, けいたい,
+    かぎ, くつ, ぼうし, めがね, とけい, き, やま, うみ, いけ, かわ, いぬ, ねこ,
+    かめ, ぶた, びょういん, きっさてん, かいしゃ, だいがく, じゅぎょう. みず
+    appears exactly twice, both times because "a bottle of water" is what you
+    are actually handed at a pharmacy counter.
+  - **Words the context pack lists as known but the compiler does not.** The
+    pack is built from `courseAtoms` attribution and overstates. Verified
+    against `priorVocab` (the compiler's truth) and AVOIDED: へや, こうえん,
+    ノート, たくさん, せいと, やさい, にく, あめ, しろ, あか, あお, さいふ,
+    かいもの, はなし, ひこうき, たいへん, ゆっくりと, まいにち / まいあさ /
+    まいばん (which the frequency lesson would otherwise have wanted), ひく,
+    みがく, なる, とり, たつ, うたう, かく, のる, でる, せっけん and ペン.
+    Nothing in this module rests on the pack's word alone.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing in this module is a derived cell: the counter
+  cells and the adverbs are whole lexical units, and いたい has no inflections
+  any lexicon here can express (see above).
+
+  CONNECTIVES + COMPLEXITY (inv 13): a symptom sentence is three tiles long by
+  construction, which is exactly the flat texture GATE 7 exists to stop. So
+  nearly every production beat hangs a second clause on m16's から / けど — and
+  that is also how a symptom is actually spoken, because you say what hurts in
+  order to say what you are going to do about it.
+
+grammarPoints:
+  - id: ga-itai
+    rule: "English makes YOU the owner of a pain — I have a headache, my foot hurts. Japanese does the opposite: the body part is the thing that IS painful, and it takes が. 「あたまが いたい」 — the head is painful. That is the whole sentence, and it is already complete without a word for 'I', because the person who is talking is the person whose head it is. Two things follow. First, いたい is an ADJECTIVE, not a verb: it behaves exactly like たかい or おいしい, so it needs no だ after it and no を in front of it. Nothing is being done TO the head, so を is not a mistake of style, it is a sentence that does not parse. Second, the pattern is fixed and the only thing that changes is the noun: あたまが いたい, おなかが いたい, からだが いたい. Learn the frame once and every symptom you will ever need is one word away. Add a reason clause with から and you have the sentence people actually say: 「あたまが いたいから きょうは いかない」 — my head hurts, so I'm not going today."
+    examples:
+      - { ja: "あたまが いたい。", en: "My head hurts." }
+      - { ja: "あたまが いたいから きょうは いかない。", en: "My head hurts, so I'm not going today." }
+      - { ja: "からだが いたいから うちに いる。", en: "My body aches, so I'm staying at home." }
+      - { ja: "あたまが いたいけど だいじょうぶだ。", en: "My head hurts, but I'm all right." }
+      - { ja: "あさから あたまが いたい。", en: "My head has hurt since this morning." }
+    antiPattern: { ja: "あたまを いたい。", why: "いたい is an ADJECTIVE — nothing is done TO the head, so it takes が, never を: あたまが いたい。" }
+
+  - id: wa-topic
+    rule: "Now put a person in front of it. 「わたしは あたまが いたい」 — as for me, the head is painful. Both particles are doing a job and neither can be dropped: は sets WHO the sentence is about, が picks out WHICH PART of them hurts. English collapses the two into one subject, which is why the shape looks strange the first time and why learners reach for が twice. 「わたしが あたまが いたい」 is the error, and it is a real one — a clause takes one が, and the person is not it. Once you can see the two layers, the same frame carries anything you want to say about somebody else: 「ちちは めが いたい」, 「ミカの おかあさんは みみが いたい」. The possessor rides の on the topic, exactly as it has since module 4, and が stays where it always was, on the part. Drop the topic and the sentence is about you again — that is why 「あたまが いたい」 alone already means MY head."
+    examples:
+      - { ja: "わたしは あたまが いたい。", en: "My head hurts." }
+      - { ja: "ちちは めが いたいから びょういんに いく。", en: "My father's eyes hurt, so he's going to the hospital." }
+      - { ja: "あねは みみが いたいけど だいじょうぶだ。", en: "My older sister's ear hurts, but she's all right." }
+      - { ja: "わたしは げんきだけど おとうとは おなかが いたい。", en: "I'm fine, but my younger brother's stomach hurts." }
+      - { ja: "ミカの おかあさんは めが いたい。", en: "Mika's mother's eyes hurt." }
+    antiPattern: { ja: "わたしが あたまが いたい。", why: "one clause takes ONE が, and the person is not it — the person is the TOPIC and takes は: わたしは あたまが いたい。" }
+
+  - id: ga-existence
+    rule: "A fever is not something you own in Japanese. It is something that is THERE. 「ねつが ある」 — a fever exists — and that is the ordinary way to say I have a temperature. This is module 6's ある doing exactly what it always did: が marks the thing that exists, and ある is the verb. The English mismatch is the whole difficulty, because 'I have' pushes you towards a を that the sentence has no room for. It generalizes far past symptoms: 「じかんが ない」 I have no time, 「やすみが ある」 I have a day off, 「くすりが ある」 there's medicine. And it sits beside 〜が いたい without clashing, because both use が for the same reason — the thing being talked about is the subject, not the object. 「のどが いたいから ちゃを のむ」, 「ねつが あるから きょうは いかない」: name the symptom, then say what you will do."
+    examples:
+      - { ja: "あさから ねつが ある。", en: "I've had a fever since this morning." }
+      - { ja: "ねつが あるから きょうは いかない。", en: "I have a fever, so I'm not going today." }
+      - { ja: "のどが いたいから ちゃを のむ。", en: "My throat hurts, so I drink tea." }
+      - { ja: "きょうは ねつが ない。", en: "I don't have a fever today." }
+      - { ja: "じかんが ないから きょうは いかない。", en: "I have no time, so I'm not going today." }
+    antiPattern: { ja: "あさから ねつを ある。", why: "ある says something EXISTS, and what exists takes が, never を: あさから ねつが ある。" }
+
+  - id: frequency-adverbs
+    rule: "How often, on one line: いつも always, よく often, ときどき sometimes, あまり not much, ぜんぜん not at all. They sit at the FRONT of the sentence, before everything else, and they change nothing else about it — 「ときどき あたまが いたい」, 「いつも あさに ちゃを のむ」. The last two are the ones to actually learn, because they are not just words, they are a grammar rule: あまり and ぜんぜん can only ever appear with a NEGATIVE predicate. 「あまり くすりを のまない」 is I don't take much medicine. 「あまり くすりを のむ」 is not a slightly odd sentence — it is not a sentence, and a Japanese speaker hears it break. Think of them as half of a pair whose other half is the ない: the adverb opens the negative and the verb closes it. ぜんぜん is the stronger of the two, not at all rather than not much, and it is the one you want when a doctor asks whether something has been happening: 「ぜんぜん たべない」 — I'm not eating at all."
+    examples:
+      - { ja: "あまり くすりを のまない。", en: "I don't take much medicine." }
+      - { ja: "いつも あさに ちゃを のむ。", en: "I always drink tea in the morning." }
+      - { ja: "ときどき あたまが いたい。", en: "Sometimes my head hurts." }
+      - { ja: "よく のどが いたいから いつも ちゃを のむ。", en: "My throat often hurts, so I always drink tea." }
+      - { ja: "ぜんぜん たべないから げんきじゃない。", en: "I'm not eating at all, so I'm not well." }
+    antiPattern: { ja: "あまり くすりを のむ。", why: "あまり only ever works with a NEGATIVE — the adverb opens it and the verb has to close it: あまり くすりを のまない。" }
+
+  - id: masu-present
+    rule: "This is where politeness stops being decoration. You describe symptoms to a doctor, a pharmacist or a teacher — people you have no claim on — so the whole conversation runs in です・ます, and the plain forms you have been building with all module would land as rude. Two moves cover it. A verb takes ます: ある → あります, のむ → のみます, いく → いきます, and the negative is ません. And いたい, being an adjective, simply adds です with nothing else changing: 「あたまが いたいです」. That です is not the copula finishing a noun — it is the politeness marker sitting on top of an adjective that was already a complete sentence, which is why 「いたいだ」 exists nowhere. The particles do not move an inch: が still marks the part that hurts, を still marks what you take. 「ねつが あります」, 「くすりを のみます」, 「きょうは がっこうに いきません」. Same sentences, different room."
+    examples:
+      - { ja: "ねつが あります。", en: "I have a fever." }
+      - { ja: "あたまが いたいです。", en: "I have a headache." }
+      - { ja: "ねつが ありますから きょうは いきません。", en: "I have a fever, so I won't be coming today." }
+      - { ja: "くすりを のみます。", en: "I'll take the medicine." }
+      - { ja: "おなかが いたいですから なにも たべません。", en: "My stomach hurts, so I'm not eating anything." }
+    antiPattern: { ja: "ねつが あるです。", why: "です finishes a NOUN or an adjective — a VERB takes ます instead: ねつが あります。" }
+
+  - id: counter-hon
+    rule: "〜ほん counts long thin things: pencils, umbrellas, bottles, trees, legs. It goes where every counter goes, after the noun and just before the verb — 「えんぴつを さんぼん かう」. The sound changes are the lesson, and they follow the same shape as every counter you have met. One is ippon. Three is sanBON. Six is roPPON. Ten is juPPON, and eight is haPPON. Everything else keeps the plain ほん: yonhon (4), gohon (5), nanahon (7), kyuuhon (9). To ask, use なんぼん: 「ちゃを なんぼん かう？」 — how many bottles of tea are you buying? The trap is not the sound changes at all. It is that a bare number cannot count a noun in Japanese: 「えんぴつを さん かう」 is not a sentence, and neither is 「えんぴつを さんつ」 — the generic 〜つ counter does not cover a pencil. Pick the counter by the SHAPE of the thing, and 本 is the one for anything longer than it is wide."
+    examples:
+      - { ja: "えんぴつを さんぼん かう。", en: "I'll buy three pencils." }
+      - { ja: "かさを いっぽん かう。", en: "I'll buy an umbrella." }
+      - { ja: "ぎゅうにゅうを ろっぽん かうから かねが ない。", en: "I'm buying six bottles of milk, so I have no money." }
+      - { ja: "ちゃを なんぼん かう？", en: "How many bottles of tea are you buying?" }
+      - { ja: "やまに きが いっぽん ある。", en: "There's one tree on the mountain." }
+    antiPattern: { ja: "えんぴつを さん かう。", why: "a bare number cannot count anything in Japanese — a long thin thing takes 〜ほん, and after さん it turns into ぼん: えんぴつを さんぼん かう。" }
+
+  - id: kudasai
+    rule: "A pharmacy is the shortest useful conversation in the language. Name what you want with を and finish with ください: 「くすりを ください」 — medicine, please. ください IS the verb of the sentence, and it is polite on its own, which is why it works with a stranger behind a counter with nothing else added. Put すみません in front to get their attention first, and you have the whole transaction. The count goes in its usual slot, straight before ください: 「みずを ごほん ください」, five bottles of water. Drop the number and the sentence is still perfectly good — 「みずを ください」 — so the counter buys you precision, not grammar. And you can say WHY, which is what actually gets you the right thing: 「あたまが いたいから くすりを ください」. The one error worth naming is が. What you are asking for is what you want handed over, so it takes を; が would make the medicine the thing doing something."
+    examples:
+      - { ja: "すみません くすりを ください。", en: "Excuse me — some medicine, please." }
+      - { ja: "ちゃを よんほん ください。", en: "Four bottles of tea, please." }
+      - { ja: "みずを ごほん ください。", en: "Five bottles of water, please." }
+      - { ja: "あたまが いたいから くすりを ください。", en: "My head hurts, so could I have some medicine." }
+      - { ja: "くすりと みずを ください。", en: "Some medicine and some water, please." }
+    antiPattern: { ja: "すみません くすりが ください。", why: "what you are ASKING FOR takes を — が would make the medicine the thing doing something: すみません くすりを ください。" }
+
+  - id: naide-kudasai
+    rule: "The other half of a pharmacy visit is what you are told NOT to do, and it is built from something you already own. Take the ない-form, add で, finish with ください: のむ → のまない → 「のまないで ください」, please don't drink it. Nothing else changes and no verb is irregular here — たべない → たべないで, いかない → いかないで, みない → みないで. The で is what turns a flat negative into a request; without it the sentence stops halfway and means nothing. It is a REQUEST rather than a law, which is exactly the register a doctor uses on a patient: 「おさけを のまないで ください」 is please don't drink alcohol, where a sign on a wall would say のんでは いけません instead. And because ください is polite by itself, you can hear this from a stranger and say it back to one — it is the same word you used to ask for the medicine, doing the opposite job."
+    examples:
+      - { ja: "おさけを のまないで ください。", en: "Please don't drink alcohol." }
+      - { ja: "きょうは がっこうに いかないで ください。", en: "Please don't go to school today." }
+      - { ja: "じゅぎょうで けいたいを みないで ください。", en: "Please don't look at your phone in class." }
+      - { ja: "うみで およがないで ください。", en: "Please don't swim in the sea." }
+      - { ja: "ねつが ありますから きょうは がっこうに こないで ください。", en: "You have a fever, so please don't come to school today." }
+    antiPattern: { ja: "おさけを のまない ください。", why: "で is what turns the ない-form into a request — without it the sentence just stops halfway: おさけを のまないで ください。" }
+
+  - id: te-mo-ii
+    rule: "And the question you actually want to ask a doctor is the opposite one: may I? Put も after the て-form and finish with いい — 「くすりを のんでも いい？」, is it all right if I take the medicine? Literally: even if I drink it, it's fine. Said flat instead of asked, the same words GRANT the permission: 「のんでも いい」 you may take it. The answers are short — うん、いい for go ahead, ううん、だめ for no. Two things make this lesson worth having beside ないでください. First, they are one contrast, not two facts: 「たべても いい？」 and 「たべないで ください」 are the two ends of the same conversation, and a patient asks the first while a doctor says the second. Second, the polite version costs one word: 「くすりを のんでも いいですか」. Same frame, です on the いい, か on the end — and that is the form you will use with anyone in a white coat."
+    examples:
+      - { ja: "くすりを のんでも いい？", en: "Is it OK if I take the medicine?" }
+      - { ja: "すしを たべても いい？", en: "May I eat sushi?" }
+      - { ja: "きょうは がっこうに いっても いい？", en: "May I go to school today?" }
+      - { ja: "うみで およいでも いい？", en: "May I swim in the sea?" }
+      - { ja: "けいたいを みても いいですか。", en: "May I look at my phone?" }
+    antiPattern: { ja: "くすりを のむも いい？", why: "も and いい hang off the て-form — のむ becomes のんで: くすりを のんでも いい？" }
+
+newAtoms:
+  # ══ L1. The module's headline adjective and the two body parts the frame is
+  #    taught on. いたい is `imageable: false` for one mechanical reason: the
+  #    ga-itai card MUST name it, and a rule card compiles to a PINNED step
+  #    ahead of the interleaved middle, so it would steal the debut MCQ (the
+  #    m20/m21 card-steals-the-picture rule). あたま is registry-blocked
+  #    already — 🧠 reads as "remember" and belongs to おぼえる. おなか 🫃 is
+  #    unique in the registry and is kept OUT of the card, so it debuts on a
+  #    picture. All three already have courseAtoms rows under stale old-course
+  #    m20 tags, so declaring them here fixes provenance and changes no
+  #    tokenization anywhere (the m15-m21 move).
+  - { kana: いたい, romaji: itai, gloss: "painful, sore — it hurts", shortGloss: "it hurts", imageable: false, kind: vocab }
+  - { kana: あたま, romaji: atama, gloss: "head", shortGloss: "head", imageable: false, kind: vocab }
+  - { kana: おなか, romaji: onaka, gloss: "stomach, belly", shortGloss: "stomach", kind: vocab }
+  # ══ L2. The rest of the head, plus the hand. め and みみ ship
+  #    `imageable: false` because their emoji are ALREADY the emoji of MET
+  #    words — 👁️ is みる and 👂 is きく — and the debut MCQ draws distractors
+  #    from exactly that met pool, so the picture would name a taught word as
+  #    well as it names the answer (the m19 かえる/あるく ruling). くち 👄 and
+  #    て ✋ are unique and debut on pictures.
+  #    て IS SAFE, VERIFIED NOT ASSUMED: every compiled tile in every IR module
+  #    was dumped and there is not one bare て tile in the course — the
+  #    tokenizer is longest-match-first and every て-form in use (たべて / みて /
+  #    のんで / いって / して / きいて / かって / あそんで / きて / おしえて /
+  #    はたらいて / まって / みせて / しって) has its own atom row.
+  - { kana: め, romaji: me, gloss: "eye", shortGloss: "eye", imageable: false, kind: vocab }
+  - { kana: みみ, romaji: mimi, gloss: "ear", shortGloss: "ear", imageable: false, kind: vocab }
+  - { kana: くち, romaji: kuchi, gloss: "mouth", shortGloss: "mouth", kind: vocab }
+  - { kana: て, romaji: te, gloss: "hand", shortGloss: "hand", imageable: false, kind: vocab }
+  # ══ L3. Symptoms. ねつ and のど are the module's genuinely new registry rows
+  #    on this side; both are picture-less (see the notes block — ねつ's card
+  #    names it, and 🌡️ against びょうき's 🤒 is the same picture twice, while
+  #    a throat has no honest glyph at all). びょうき 🤒 and くすり 💊 are
+  #    unique, are kept out of the L3 card, and debut on pictures.
+  - { kana: ねつ, romaji: netsu, gloss: "a fever", shortGloss: "fever", imageable: false, kind: vocab }
+  - { kana: のど, romaji: nodo, gloss: "throat", shortGloss: "throat", imageable: false, kind: vocab }
+  - { kana: びょうき, romaji: byouki, gloss: "illness, being ill", shortGloss: "illness", kind: vocab }
+  - { kana: くすり, romaji: kusuri, gloss: "medicine", shortGloss: "medicine", kind: vocab }
+  # ══ L5. The frequency spectrum. よく (m20) and ぜんぜん (m16) already exist
+  #    and are re-spent rather than re-registered; these three are new. All are
+  #    abstract adverbs with no referent a picture could name. ときどき is
+  #    consumed WHOLE by longest match even though とき is a registered atom,
+  #    and あまり collides with nothing (あまい is a strictly different string).
+  - { kana: いつも, romaji: itsumo, gloss: "always", shortGloss: "always", imageable: false, kind: vocab }
+  - { kana: ときどき, romaji: tokidoki, gloss: "sometimes", shortGloss: "sometimes", imageable: false, kind: vocab }
+  - { kana: あまり, romaji: amari, gloss: "not much (always with a negative)", shortGloss: "not much", imageable: false, kind: vocab }
+  - { kana: あし, romaji: ashi, gloss: "foot, leg", shortGloss: "foot/leg", kind: vocab }
+  # ══ L6. The person you are being polite to. 👨‍⚕️ is unique in the registry.
+  - { kana: いしゃ, romaji: isha, gloss: "a doctor", shortGloss: "doctor", kind: vocab }
+  # ══ L7 + L9. THE 本 COUNTER, cell by cell. See the notes block: ほん cannot
+  #    be registered as the counter (it is the m3 atom for "book" and the
+  #    by-kana map is last-wins), so no cell composes and every cell that
+  #    reaches a tile is a whole atom. にほん is banned three times over — the
+  #    に/二 homograph, に + ほん splitting into numeral + "book", and にほん
+  #    being the atom for JAPAN. ななほん / はっぽん / きゅうほん / じゅっぽん
+  #    live in the L7 card's mixed-script prose, invisible to jaSurfaces.
+  - { kana: いっぽん, romaji: ippon, gloss: "one long thin thing", shortGloss: "1 (long thing)", imageable: false, kind: vocab }
+  - { kana: さんぼん, romaji: sanbon, gloss: "three long thin things", shortGloss: "3 (long things)", imageable: false, kind: vocab }
+  - { kana: ろっぽん, romaji: roppon, gloss: "six long thin things", shortGloss: "6 (long things)", imageable: false, kind: vocab }
+  - { kana: なんぼん, romaji: nanbon, gloss: "how many long thin things", shortGloss: "how many?", imageable: false, kind: vocab }
+  - { kana: よんほん, romaji: yonhon, gloss: "four long thin things", shortGloss: "4 (long things)", imageable: false, kind: vocab }
+  - { kana: ごほん, romaji: gohon, gloss: "five long thin things", shortGloss: "5 (long things)", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-1
+    role: teaching
+    title: "「あたまが いたい」 — the part that hurts takes が"
+    focus: "いたい is an adjective and the body part is its subject — nothing is done TO the head"
+    introduces: [いたい, あたま, おなか]
+    beats:
+      - { kind: rule, grammarPointId: ga-itai }
+      - { kind: sentence, ja: "おなかが いたいけど すしを たべる。", en: "My stomach hurts, but I'll eat sushi anyway", exercises: [ga-itai, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "おなかが いたいから ちゃを のむ。", en: "My stomach hurts, so I drink tea", exercises: [ga-itai, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "あたまも おなかも いたいから びょういんに いく。", en: "Both my head and my stomach hurt, so I'm going to the hospital", exercises: [ga-itai, mo-also, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "あさから おなかが いたい。", en: "My stomach has hurt since this morning", exercises: [ga-itai, kara-origin], mode: listening }
+      - { kind: sentence, ja: "きょうは おなかが いたいから かいしゃに いかない。", en: "My stomach hurts today, so I'm not going to the office", exercises: [ga-itai, wa-topic, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "からだが いたいけど げんきだ。", en: "My body aches, but I'm well", exercises: [ga-itai, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "あたまが いたいから きょうは じゅぎょうに いかない。", en: "My head hurts, so I'm not going to class today", exercises: [ga-itai, kara-because, ni-location, nai-form], mode: build }
+      - { kind: sentence, ja: "おなかが いたい。", en: "Say to a friend: My stomach hurts", exercises: [ga-itai], mode: translate }
+      - { kind: particle-cloze, stem: "あたまが ", tail: "から きょうは いかない。", answer: "いたい", options: ["いたい", "おいしい", "たのしい"], en: "My head hurts, so I'm not going today", explanation: "いたい is the word for a part of you that is painful. おいしい is delicious and たのしい is enjoyable — neither is a symptom." }
+      - { kind: listening-comp, audio: "あたまが いたいから きょうは うちに いる。", answer: "My head hurts, so I'm staying at home today", distractors: ["My stomach hurts, so I'm staying at home today", "My head hurts, so I'm going out today", "My head hurt yesterday, so I stayed at home"], exercises: [ga-itai, kara-because, imasu] }
+      - { kind: listening-comp, audio: "おなかが いたいけど ぎゅうにゅうを のむ。", answer: "My stomach hurts, but I drink milk anyway", distractors: ["My stomach hurts, so I don't drink milk", "My head hurts, but I drink milk anyway", "My stomach hurts, but I drink tea anyway"], exercises: [ga-itai, kedo] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "だいじょうぶ？", en: "Are you OK?" }
+          - { speaker: "Tom", ja: "ううん。あたまが いたい。きょうは かえる。", en: "No. My head hurts. I'm going home today." }
+        questions:
+          - { q: "What does Tom say is wrong?", options: ["His head hurts", "His stomach hurts", "He is tired but fine", "Nothing is wrong"], answer: "His head hurts" }
+      - { kind: challenge, ja: "あさから あたまも おなかも いたいから きょうは かいしゃに いかない。", en: "Both my head and my stomach have hurt since this morning, so I'm not going to the office today", combines: [ga-itai, mo-also, kara-origin, kara-because, nai-form], mode: build }
+    reviewPool: [からだ, げんき, だいじょうぶ, びょういん, きっさてん, ちゃ, すし, うち, あさ, きょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-2
+    role: teaching
+    title: "「わたしは あたまが いたい」 — は says who, が says which part"
+    focus: "Two particles, two jobs: the topic scopes the person, the subject scopes the part"
+    introduces: [め, みみ, くち, て]
+    beats:
+      - { kind: rule, grammarPointId: wa-topic }
+      - { kind: sentence, ja: "てが いたいから きょうは かいしゃに いかない。", en: "My hand hurts, so I'm not going to the office today", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "くちが いたいから パンを たべない。", en: "My mouth hurts, so I don't eat bread", exercises: [ga-itai, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "わたしは めが いたいから えいがを みない。", en: "My eyes hurt, so I don't watch films", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "あには みみが いたいけど おんがくを きく。", en: "My older brother's ear hurts, but he listens to music anyway", exercises: [wa-topic, ga-itai, kedo], mode: listening }
+      - { kind: sentence, ja: "ミカは てが いたいから きょうは だいがくに いかない。", en: "Mika's hand hurts, so she isn't going to university today", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "いもうとは くちが いたいから ぎゅうにゅうを のむ。", en: "My younger sister's mouth hurts, so she drinks milk", exercises: [wa-topic, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "せんせいの おかあさんは めが いたい。", en: "The teacher's mother's eyes hurt", exercises: [wa-topic, no-possession, ga-itai], mode: build }
+      - { kind: sentence, ja: "わたしは みみが いたい。", en: "Say to a friend: My ear hurts", exercises: [wa-topic, ga-itai], mode: translate }
+      - { kind: particle-cloze, stem: "ちちは ", tail: "が いたいから めがねを かう。", answer: "め", options: ["め", "みみ", "くち"], en: "My father's eyes hurt, so he's buying glasses", explanation: "め is the eye — glasses go with eyes. みみ is the ear and くち is the mouth." }
+      - { kind: listening-comp, audio: "わたしは げんきだけど おとうとは おなかが いたい。", answer: "I'm fine, but my younger brother's stomach hurts", distractors: ["I'm fine, and my younger brother is fine too", "My stomach hurts, but my younger brother is fine", "I'm fine, but my younger sister's stomach hurts"], exercises: [wa-topic, ga-itai, kedo] }
+      - { kind: listening-comp, audio: "くちが いたいから すしを たべない。", answer: "My mouth hurts, so I don't eat sushi", distractors: ["My mouth hurts, but I eat sushi anyway", "My hand hurts, so I don't eat sushi", "My mouth hurts, so I don't drink tea"], exercises: [ga-itai, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "どこが いたい？", en: "Where does it hurt?" }
+          - { speaker: "Mika", ja: "みみが いたい。あさから いたい。", en: "My ear hurts. It's hurt since this morning." }
+        questions:
+          - { q: "What does Mika say hurts?", options: ["Her ear", "Her eye", "Her mouth", "Her hand"], answer: "Her ear" }
+      - { kind: challenge, ja: "ミカの おかあさんは めが いたいから じゅぎょうで けいたいを みない。", en: "Mika's mother's eyes hurt, so she doesn't look at her phone in class", combines: [wa-topic, no-possession, ga-itai, kara-because, de-action], mode: build }
+    reviewPool: [あたま, おなか, いたい, からだ, げんき, えいが, おんがく, めがね, パン, ぎゅうにゅう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-3
+    role: teaching
+    title: "「ねつが ある」 — a symptom is something that EXISTS"
+    focus: "が marks what exists, so a fever is there rather than owned"
+    introduces: [ねつ, のど, びょうき, くすり]
+    beats:
+      - { kind: rule, grammarPointId: ga-existence }
+      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm ill, so I'm not going to school today", exercises: [ga-existence, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "ねつが あるから くすりを のむ。", en: "I have a fever, so I take medicine", exercises: [ga-existence, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "くすりが あるから だいじょうぶだ。", en: "There's medicine, so it's all right", exercises: [ga-existence, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "のどが いたいから ぎゅうにゅうを のむ。", en: "My throat hurts, so I drink milk", exercises: [ga-itai, kara-because, wo-object], mode: listening }
+      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm ill, but I'm going to class", exercises: [ga-existence, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "ねつが あるから びょういんに いく。", en: "I have a fever, so I'm going to the hospital", exercises: [ga-existence, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "うちに くすりが ないから みせに いく。", en: "There's no medicine at home, so I'm going to the shop", exercises: [ga-existence, nai-existence, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "ねつが ある。", en: "Say to a friend: I have a fever", exercises: [ga-existence], mode: translate }
+      - { kind: particle-cloze, stem: "あさから ", tail: "が あるから くすりを のむ。", answer: "ねつ", options: ["ねつ", "くすり", "びょうき"], en: "I've had a fever since this morning, so I'm taking medicine", explanation: "ねつ is a fever — it is the thing that EXISTS. くすり is the medicine you take for it, and びょうき is illness in general." }
+      - { kind: listening-comp, audio: "のどが いたいから すしを たべない。", answer: "My throat hurts, so I don't eat sushi", distractors: ["My throat hurts, but I eat sushi anyway", "My mouth hurts, so I don't eat sushi", "My throat hurts, so I don't drink tea"], exercises: [ga-itai, kara-because, nai-form] }
+      - { kind: listening-comp, audio: "びょうきだから きょうは だいがくに いかない。", answer: "I'm ill, so I'm not going to university today", distractors: ["I'm ill, but I'm going to university today", "I have a fever, so I'm not going to university today", "I'm ill, so I'm not going to the office today"], exercises: [ga-existence, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きょうは じゅぎょうに いく？", en: "Are you going to class today?" }
+          - { speaker: "Ken", ja: "ううん。ねつが あるから うちに いる。", en: "No. I have a fever, so I'm staying at home." }
+        questions:
+          - { q: "Why is Ken staying at home?", options: ["He has a fever", "His head hurts", "He has no time", "The class was cancelled"], answer: "He has a fever" }
+      - { kind: challenge, ja: "のどが いたいけど ねつは ないから きょうは じゅぎょうに いく。", en: "My throat hurts, but I have no fever, so I'm going to class today", combines: [ga-itai, ga-existence, nai-existence, kedo, kara-because], mode: build }
+    reviewPool: [あたま, おなか, め, みみ, くち, て, いたい, からだ, びょういん, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-review-1
+    role: review
+    title: "Review — what hurts, whose it is, and what you have"
+    focus: "〜が いたい, は against が in one clause, and a symptom that exists"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あたまが いたいから きょうは いかない。", en: "My head hurts, so I'm not going today", exercises: [ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "わたしは めが いたいから えいがを みない。", en: "My eyes hurt, so I don't watch films", exercises: [wa-topic, ga-itai], mode: build }
+      - { kind: sentence, ja: "ねつが あるから びょういんに いく。", en: "I have a fever, so I'm going to the hospital", exercises: [ga-existence, kara-because], mode: listening }
+      - { kind: sentence, ja: "てが いたいけど かいしゃに いく。", en: "My hand hurts, but I'm going to the office", exercises: [ga-itai, kedo], mode: build }
+      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm ill, so I'm not going to school today", exercises: [ga-existence, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "あには ", tail: "が いたいけど おんがくを きく。", answer: "みみ", options: ["みみ", "め", "くち"], en: "My older brother's ear hurts, but he listens to music anyway", explanation: "みみ is the ear, and music is what an ear hears. め is the eye and くち is the mouth." }
+      - { kind: sentence, ja: "くちが いたいから パンを たべない。", en: "My mouth hurts, so I don't eat bread", exercises: [ga-itai, nai-form], mode: build }
+      - { kind: listening-comp, audio: "あたまも おなかも いたいから びょういんに いく。", answer: "Both my head and my stomach hurt, so I'm going to the hospital", distractors: ["My head hurts but my stomach doesn't, so I'm going to the hospital", "Both my head and my stomach hurt, so I'm staying at home", "Both my eyes and my ears hurt, so I'm going to the hospital"], exercises: [ga-itai, mo-also] }
+      - { kind: sentence, ja: "うちに くすりが ないから みせに いく。", en: "There's no medicine at home, so I'm going to the shop", exercises: [ga-existence, nai-existence], mode: build }
+      - { kind: sentence, ja: "のどが いたい。", en: "Say to a friend: My throat hurts", exercises: [ga-itai], mode: translate }
+      - { kind: listening-comp, audio: "ミカは てが いたいから きょうは だいがくに いかない。", answer: "Mika's hand hurts, so she isn't going to university today", distractors: ["Mika's hand hurts, but she's going to university today", "Mika's eyes hurt, so she isn't going to university today", "Mika's hand hurts, so she isn't going to school today"], exercises: [wa-topic, ga-itai] }
+      - { kind: sentence, ja: "からだが いたいけど げんきだ。", en: "My body aches, but I'm well", exercises: [ga-itai, kedo], mode: build }
+      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm ill, but I'm going to class", exercises: [ga-existence, kedo], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは だいじょうぶ？", en: "Are you all right today?" }
+          - { speaker: "Tom", ja: "うん。ねつは ない。でも のどが いたい。", en: "Yeah. No fever. But my throat hurts." }
+        questions:
+          - { q: "What does Tom say about his fever?", options: ["He doesn't have one", "He has one", "It started this morning", "He didn't say"], answer: "He doesn't have one" }
+    reviewPool: [ねつ, のど, びょうき, くすり, あたま, おなか, め, みみ, くち, て]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-5
+    role: teaching
+    title: "「ときどき あたまが いたい」 — how often"
+    focus: "いつも / よく / ときどき / あまり / ぜんぜん — and the last two demand a negative"
+    introduces: [いつも, ときどき, あまり, あし]
+    beats:
+      - { kind: rule, grammarPointId: frequency-adverbs }
+      - { kind: sentence, ja: "ときどき あしが いたいから くすりを のむ。", en: "Sometimes my leg hurts, so I take medicine", exercises: [frequency-adverbs, ga-itai, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "いつも あさに くすりを のむ。", en: "I always take medicine in the morning", exercises: [frequency-adverbs, ni-time, wo-object], mode: build }
+      - { kind: sentence, ja: "あまり コーヒーを のまないから げんきだ。", en: "I don't drink much coffee, so I'm well", exercises: [frequency-adverbs, nai-form, kara-because], mode: build }
+      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I'm not eating at all, so my stomach hurts", exercises: [frequency-adverbs, nai-form, ga-itai], mode: listening }
+      - { kind: sentence, ja: "よく のどが いたいから いつも ちゃを のむ。", en: "My throat often hurts, so I always drink tea", exercises: [frequency-adverbs, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "ときどき あしが いたいけど びょういんに いかない。", en: "Sometimes my leg hurts, but I don't go to the hospital", exercises: [frequency-adverbs, ga-itai, kedo, nai-form], mode: build }
+      - { kind: sentence, ja: "あまり えいがを みないから めは だいじょうぶだ。", en: "I don't watch many films, so my eyes are fine", exercises: [frequency-adverbs, nai-form, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ときどき あたまが いたい。", en: "Say to a friend: Sometimes my head hurts", exercises: [frequency-adverbs, ga-itai], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: " くすりを のまないから びょういんに いかない。", answer: "あまり", options: ["あまり", "いつも", "ときどき"], en: "I don't take much medicine, so I don't go to the hospital", explanation: "あまり is the one that needs a negative — のまない closes it. いつも and ときどき go with a positive verb." }
+      - { kind: listening-comp, audio: "いつも あさに ちゃを のむ。", answer: "I always drink tea in the morning", distractors: ["I sometimes drink tea in the morning", "I always drink tea in the evening", "I always drink milk in the morning"], exercises: [frequency-adverbs, ni-time] }
+      - { kind: listening-comp, audio: "ぜんぜん くすりを のまない。", answer: "I don't take medicine at all", distractors: ["I don't take much medicine", "I always take medicine", "I sometimes take medicine"], exercises: [frequency-adverbs, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "よく あたまが いたい？", en: "Does your head often hurt?" }
+          - { speaker: "Mika", ja: "ううん。ときどき いたい。くすりは あまり のまない。", en: "No. Sometimes. I don't take much medicine." }
+        questions:
+          - { q: "What does Mika say about medicine?", options: ["She doesn't take much", "She takes it every morning", "She never has any at home", "She takes it when her head hurts"], answer: "She doesn't take much" }
+      - { kind: challenge, ja: "ときどき あしが いたいけど あまり くすりを のまないから げんきだ。", en: "Sometimes my leg hurts, but I don't take much medicine, so I'm well", combines: [frequency-adverbs, ga-itai, kedo, nai-form, na-adj-present], mode: build }
+    reviewPool: [ねつ, のど, びょうき, くすり, いたい, あたま, おなか, ちゃ, コーヒー, ぎゅうにゅう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-6
+    role: teaching
+    title: "「あたまが いたいです」 — telling the doctor"
+    focus: "Symptoms are described in です・ます, and the particles do not move"
+    introduces: [いしゃ]
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      - { kind: sentence, ja: "のどが いたいです。", en: "Say politely: My throat hurts", exercises: [masu-present, ga-itai], mode: build }
+      - { kind: sentence, ja: "ねつが ありますから きょうは いきません。", en: "Say politely: I have a fever, so I won't be coming today", exercises: [masu-present, ga-existence, kara-because, masu-negative], mode: build }
+      - { kind: sentence, ja: "いつも あさに くすりを のみます。", en: "Say politely: I always take medicine in the morning", exercises: [masu-present, frequency-adverbs, ni-time], mode: build }
+      - { kind: sentence, ja: "おなかが いたいですから なにも たべません。", en: "Say politely: My stomach hurts, so I'm not eating anything", exercises: [masu-present, ga-itai, kara-because, masu-negative], mode: listening }
+      - { kind: sentence, ja: "いしゃに いきますから だいじょうぶです。", en: "Say politely: I'm going to a doctor, so it's all right", exercises: [masu-present, ni-location, kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "ときどき めが いたいです。", en: "Say politely: Sometimes my eyes hurt", exercises: [masu-present, frequency-adverbs, ga-itai], mode: build }
+      - { kind: sentence, ja: "あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol", exercises: [masu-present, frequency-adverbs, masu-negative], mode: build }
+      - { kind: sentence, ja: "あたまが いたいです。", en: "Say politely: My head hurts", exercises: [masu-present, ga-itai], mode: translate }
+      - { kind: particle-cloze, stem: "ねつが ", tail: "から きょうは いきません。", answer: "あります", options: ["あります", "ありません", "います"], en: "I have a fever, so I won't be coming today", explanation: "あります is the polite ある — the fever EXISTS. ありません says it does not, and います is for people and animals." }
+      - { kind: listening-comp, audio: "くすりが ありますから だいじょうぶです。", answer: "I have medicine, so it's all right", distractors: ["I have no medicine, so it isn't all right", "I'm going to a doctor, so it's all right", "I have medicine, so I'm going to a doctor"], exercises: [masu-present, ga-existence] }
+      - { kind: listening-comp, audio: "ときどき めが いたいですから いしゃに ききます。", answer: "Sometimes my eyes hurt, so I ask a doctor", distractors: ["My eyes always hurt, so I ask a doctor", "Sometimes my ears hurt, so I ask a doctor", "Sometimes my eyes hurt, so I take medicine"], exercises: [masu-present, frequency-adverbs] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きょうは どうしましたか。", en: "What's the matter today?" }
+          - { speaker: "Tom", ja: "ねつが あります。のども いたいです。", en: "I have a fever. My throat hurts too." }
+        questions:
+          - { q: "What does Tom tell Tanaka?", options: ["He has a fever and a sore throat", "He has a fever but no sore throat", "His head and his stomach hurt", "He is perfectly well"], answer: "He has a fever and a sore throat" }
+      - { kind: challenge, ja: "ときどき あたまが いたいですから いつも いしゃに ききます。", en: "Say politely: Sometimes my head hurts, so I always ask a doctor", combines: [masu-present, frequency-adverbs, ga-itai, kara-because, ni-location], mode: build }
+    reviewPool: [いつも, ときどき, あまり, あし, ねつ, のど, びょうき, くすり, びょういん, げんき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-7
+    role: teaching
+    title: "「えんぴつを さんぼん」 — counting long thin things"
+    focus: "〜ほん counts anything longer than it is wide, and it changes shape after 1, 3, 6, 8 and 10"
+    introduces: [いっぽん, さんぼん, ろっぽん, なんぼん]
+    beats:
+      - { kind: rule, grammarPointId: counter-hon }
+      - { kind: sentence, ja: "かさを いっぽん かうから かねが ない。", en: "I'm buying an umbrella, so I have no money", exercises: [counter-hon, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "きっさてんで ちゃを ろっぽん かう。", en: "I'll buy six bottles of tea at the coffee shop", exercises: [counter-hon, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "やまに きが いっぽん ある。", en: "There's one tree on the mountain", exercises: [counter-hon, ni-location, ga-existence], mode: build }
+      - { kind: sentence, ja: "えんぴつを なんぼん かう？", en: "How many pencils are you buying", exercises: [counter-hon, ka-question], mode: listening }
+      - { kind: sentence, ja: "ぎゅうにゅうを さんぼん かうけど かねが ない。", en: "I'm buying three bottles of milk, but I have no money", exercises: [counter-hon, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "かわに きが ろっぽん ある。", en: "There are six trees by the river", exercises: [counter-hon, ni-location, ga-existence], mode: build }
+      - { kind: sentence, ja: "おさけを いっぽん かうから きっさてんに いく。", en: "I'm buying a bottle of sake, so I'm going to the coffee shop", exercises: [counter-hon, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "えんぴつを さんぼん かう。", en: "Say to a friend: I'll buy three pencils", exercises: [counter-hon], mode: translate }
+      - { kind: particle-cloze, stem: "えんぴつを ", tail: " かう。", answer: "さんぼん", options: ["さんぼん", "いっぽん", "ろっぽん"], en: "I'll buy three pencils", explanation: "three long thin things is さんぼん — さん turns ほん into ぼん. いっぽん is one and ろっぽん is six." }
+      - { kind: listening-comp, audio: "かさを いっぽん かう。", answer: "I'll buy one umbrella", distractors: ["I'll buy three umbrellas", "I'll buy one pencil", "I'll buy six umbrellas"], exercises: [counter-hon, wo-object] }
+      - { kind: listening-comp, audio: "やまに きが ろっぽん ある。", answer: "There are six trees on the mountain", distractors: ["There is one tree on the mountain", "There are six trees by the river", "There are three trees on the mountain"], exercises: [counter-hon, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ちゃを なんぼん かう？", en: "How many bottles of tea are you buying?" }
+          - { speaker: "Ken", ja: "ろっぽん かう。おさけは いっぽん かう。", en: "Six. And one bottle of sake." }
+        questions:
+          - { q: "How many bottles of tea does Ken buy?", options: ["Six", "One", "Three", "He doesn't say"], answer: "Six" }
+      - { kind: challenge, ja: "きっさてんで ちゃを ろっぽん かうけど おさけは ぜんぜん かわない。", en: "I'll buy six bottles of tea at the coffee shop, but I won't buy any sake at all", combines: [counter-hon, de-action, kedo, frequency-adverbs, nai-form], mode: build }
+    reviewPool: [いしゃ, いつも, ときどき, あまり, あし, えんぴつ, かさ, き, ぎゅうにゅう, おさけ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-review-2
+    role: review
+    title: "Review — how often, how politely, how many"
+    focus: "The frequency spectrum, the clinic register, and the counter for long thin things"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ときどき あしが いたいから くすりを のむ。", en: "Sometimes my leg hurts, so I take medicine", exercises: [frequency-adverbs, ga-itai], mode: build }
+      - { kind: sentence, ja: "ねつが ありますから きょうは いきません。", en: "Say politely: I have a fever, so I won't be coming today", exercises: [masu-present, masu-negative], mode: build }
+      - { kind: sentence, ja: "かさを いっぽん かうから かねが ない。", en: "I'm buying an umbrella, so I have no money", exercises: [counter-hon, kara-because], mode: listening }
+      - { kind: sentence, ja: "あまり コーヒーを のまないから げんきだ。", en: "I don't drink much coffee, so I'm well", exercises: [frequency-adverbs, nai-form], mode: build }
+      - { kind: sentence, ja: "いしゃに いきますから だいじょうぶです。", en: "Say politely: I'm going to a doctor, so it's all right", exercises: [masu-present, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "きっさてんで ちゃを ", tail: " かう。", answer: "ろっぽん", options: ["ろっぽん", "いっぽん", "さんぼん"], en: "I'll buy six bottles of tea at the coffee shop", explanation: "six long thin things is ろっぽん — ろく turns into ろっ and ほん into ぽん. いっぽん is one and さんぼん is three." }
+      - { kind: sentence, ja: "よく のどが いたいから いつも ちゃを のむ。", en: "My throat often hurts, so I always drink tea", exercises: [frequency-adverbs, ga-itai], mode: build }
+      - { kind: listening-comp, audio: "おなかが いたいですから なにも たべません。", answer: "My stomach hurts, so I'm not eating anything", distractors: ["My stomach hurts, but I eat anyway", "My head hurts, so I'm not eating anything", "My stomach hurts, so I'm not drinking anything"], exercises: [masu-present, ga-itai] }
+      - { kind: sentence, ja: "やまに きが いっぽん ある。", en: "There's one tree on the mountain", exercises: [counter-hon, ga-existence], mode: build }
+      - { kind: sentence, ja: "ときどき あたまが いたい。", en: "Say to a friend: Sometimes my head hurts", exercises: [frequency-adverbs, ga-itai], mode: translate }
+      - { kind: listening-comp, audio: "えんぴつを なんぼん かう？", answer: "How many pencils are you buying?", distractors: ["How many bottles of tea are you buying?", "Are you buying three pencils?", "How many people are buying pencils?"], exercises: [counter-hon, ka-question] }
+      - { kind: sentence, ja: "あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol", exercises: [masu-present, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I'm not eating at all, so my stomach hurts", exercises: [frequency-adverbs, ga-itai], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きょうは げんきですか。", en: "Are you well today?" }
+          - { speaker: "Mika", ja: "はい。ねつは ありません。あしは ときどき いたいです。", en: "Yes. No fever. My leg hurts sometimes." }
+        questions:
+          - { q: "What does Mika tell Tanaka about her leg?", options: ["It hurts sometimes", "It hurts all the time", "It never hurts", "It hurt this morning"], answer: "It hurts sometimes" }
+    reviewPool: [いっぽん, さんぼん, ろっぽん, なんぼん, いしゃ, いつも, ときどき, あまり, あし, くすり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-9
+    role: teaching
+    title: "「くすりを ください」 — at the pharmacy"
+    focus: "Name it with を, count it, and finish with ください"
+    introduces: [よんほん, ごほん]
+    beats:
+      - { kind: rule, grammarPointId: kudasai }
+      - { kind: sentence, ja: "すみません みずを ごほん ください。", en: "Excuse me — five bottles of water please", exercises: [kudasai, counter-hon, wo-object], mode: build }
+      - { kind: sentence, ja: "ちゃを よんほん ください。", en: "Four bottles of tea please", exercises: [kudasai, counter-hon], mode: build }
+      - { kind: sentence, ja: "のどが いたいから くすりを ください。", en: "My throat hurts, so could I have some medicine", exercises: [kudasai, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "くすりと みずを ください。", en: "Some medicine and some water please", exercises: [kudasai, to-and], mode: listening }
+      - { kind: sentence, ja: "ねつが ありますから くすりを ください。", en: "I have a fever, so could I have some medicine", exercises: [kudasai, masu-present, kara-because], mode: build }
+      - { kind: sentence, ja: "すみません ぎゅうにゅうを よんほん ください。", en: "Excuse me — four bottles of milk please", exercises: [kudasai, counter-hon], mode: build }
+      - { kind: sentence, ja: "すみません あしが いたいですから いしゃに いきたいです。", en: "Say politely: Excuse me — my leg hurts, so I'd like to go to a doctor", exercises: [masu-present, ga-itai, kara-because, v-tai], mode: build }
+      - { kind: sentence, ja: "くすりを ください。", en: "Ask politely: Some medicine please", exercises: [kudasai], mode: translate }
+      - { kind: particle-cloze, stem: "ちゃを ", tail: " ください。", answer: "よんほん", options: ["よんほん", "ごほん", "いっぽん"], en: "Four bottles of tea please", explanation: "four long thin things is よんほん — よん keeps the plain ほん. ごほん is five and いっぽん is one." }
+      - { kind: listening-comp, audio: "すみません ぎゅうにゅうを ごほん ください。", answer: "Excuse me — five bottles of milk, please", distractors: ["Excuse me — four bottles of milk, please", "Excuse me — five bottles of tea, please", "Excuse me — five bottles of water, please"], exercises: [kudasai, counter-hon] }
+      - { kind: listening-comp, audio: "あたまが いたいから くすりを ください。", answer: "My head hurts, so could I have some medicine", distractors: ["My head hurts, so I'm going to a doctor", "My stomach hurts, so could I have some medicine", "My head hurts, so could I have some water"], exercises: [kudasai, ga-itai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "すみません あたまが いたいです。くすりを ください。", en: "Excuse me — I have a headache. Could I have some medicine." }
+          - { speaker: "Pharmacist", ja: "はい。みずは ありますか。", en: "Certainly. Do you have any water?" }
+        questions:
+          - { q: "What does Tom ask for?", options: ["Medicine", "Water", "A doctor", "A phone number"], answer: "Medicine" }
+      - { kind: challenge, ja: "ねつが ありますから くすりを いっぽんと みずを ごほん ください。", en: "Say politely: I have a fever, so could I have one bottle of medicine and five bottles of water", combines: [kudasai, counter-hon, masu-present, to-and, kara-because], mode: build }
+    reviewPool: [いっぽん, さんぼん, ろっぽん, なんぼん, いしゃ, くすり, ねつ, のど, ちゃ, みず]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-10
+    role: teaching
+    title: "「のまないで ください」 — what the doctor tells you not to do"
+    focus: "The ない-form plus で plus ください is a request, and nothing else changes"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: naide-kudasai }
+      - { kind: sentence, ja: "ねつが ありますから きょうは がっこうに こないで ください。", en: "You have a fever, so please don't come to school today", exercises: [naide-kudasai, masu-present, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "おなかが いたいですから すしを たべないで ください。", en: "Your stomach hurts, so please don't eat sushi", exercises: [naide-kudasai, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "めが いたいですから えいがを みないで ください。", en: "Your eyes hurt, so please don't watch films", exercises: [naide-kudasai, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "うみで およがないで ください。", en: "Please don't swim in the sea", exercises: [naide-kudasai, de-action], mode: listening }
+      - { kind: sentence, ja: "じゅぎょうで けいたいを みないで ください。", en: "Please don't look at your phone in class", exercises: [naide-kudasai, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're ill, so please don't go to school today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
+      - { kind: sentence, ja: "くすりが ありますから おさけを かわないで ください。", en: "There's medicine, so please don't buy alcohol", exercises: [naide-kudasai, masu-present, kara-because], mode: build }
+      - { kind: sentence, ja: "おさけを のまないで ください。", en: "Ask politely: Please don't drink alcohol", exercises: [naide-kudasai], mode: translate }
+      - { kind: particle-cloze, stem: "おさけを ", tail: " ください。", answer: "のまないで", options: ["のまないで", "のまない", "のんで"], en: "Please don't drink alcohol", explanation: "ください needs the で — のまない stops halfway, and のんで asks for the opposite." }
+      - { kind: listening-comp, audio: "きょうは がっこうに いかないで ください。", answer: "Please don't go to school today", distractors: ["Please go to school today", "You must not go to school today", "I'm not going to school today"], exercises: [naide-kudasai, ni-location] }
+      - { kind: listening-comp, audio: "きょうは すしを たべないで ください。", answer: "Please don't eat sushi today", distractors: ["Please eat sushi today", "You must not eat sushi today", "I'm not eating sushi today"], exercises: [naide-kudasai, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Doctor", ja: "ねつが あります。きょうは おさけを のまないで ください。", en: "You have a fever. Please don't drink alcohol today." }
+          - { speaker: "Mika", ja: "はい。くすりを ください。", en: "All right. Could I have some medicine." }
+        questions:
+          - { q: "What does the doctor tell Mika not to do today?", options: ["Drink alcohol", "Eat sushi", "Go swimming", "Take medicine"], answer: "Drink alcohol" }
+      - { kind: challenge, ja: "めが いたいですから じゅぎょうで けいたいを みないで ください。", en: "Your eyes hurt, so please don't look at your phone in class", combines: [naide-kudasai, ga-itai, masu-present, de-action, wo-object], mode: build }
+    reviewPool: [よんほん, ごほん, いっぽん, さんぼん, くすり, ねつ, びょうき, いしゃ, おさけ, けいたい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-11
+    role: teaching
+    title: "「たべても いい？」 — asking whether you may"
+    focus: "も on the て-form plus いい asks permission — the other end of ないでください"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: te-mo-ii }
+      - { kind: sentence, ja: "ねつが あるけど すしを たべても いい？", en: "Ask a friend: I have a fever, but may I eat sushi", exercises: [te-mo-ii, ga-existence, kedo], mode: build }
+      - { kind: sentence, ja: "あしが いたいけど うみで およいでも いい？", en: "Ask a friend: My leg hurts, but may I swim in the sea", exercises: [te-mo-ii, ga-itai, kedo, de-action], mode: build }
+      - { kind: sentence, ja: "くすりを のんでも いいですか。", en: "Say politely: May I take the medicine", exercises: [te-mo-ii, desu-copula, ka-question], mode: build }
+      - { kind: sentence, ja: "きょうは がっこうに いっても いい？", en: "May I go to school today", exercises: [te-mo-ii, ni-location], mode: listening }
+      - { kind: sentence, ja: "めが いたいけど けいたいを みても いい？", en: "Ask a friend: My eyes hurt, but may I look at my phone", exercises: [te-mo-ii, ga-itai, kedo], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは うちで まっても いいですか。", en: "Say politely: I'm ill, so may I wait at home today", exercises: [te-mo-ii, desu-copula, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "のどが いたいから ぎゅうにゅうを のんでも いい？", en: "Ask a friend: My throat hurts, so may I drink some milk", exercises: [te-mo-ii, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "すしを たべても いい？", en: "Ask a friend: May I eat sushi", exercises: [te-mo-ii], mode: translate }
+      - { kind: particle-cloze, stem: "くすりを ", tail: " いい？", answer: "のんでも", options: ["のんでも", "たべても", "みても"], en: "May I take the medicine", explanation: "medicine is something you のむ, so the て-form is のんで and も hangs off it. たべても is eat and みても is look at." }
+      - { kind: listening-comp, audio: "ねつが あるけど うみで およいでも いい？", answer: "I have a fever, but may I swim in the sea?", distractors: ["I have a fever, so please don't swim in the sea", "My leg hurts, but may I swim in the sea?", "I have a fever, but may I eat sushi?"], exercises: [te-mo-ii, ga-existence] }
+      - { kind: listening-comp, audio: "ちゃを のんでも いいですか。", answer: "May I drink some tea?", distractors: ["Please don't drink the tea", "Would you like some tea?", "May I buy some tea?"], exercises: [te-mo-ii, desu-copula] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あしが いたいけど うみで およいでも いい？", en: "My leg hurts — is it OK if I swim in the sea?" }
+          - { speaker: "Doctor", ja: "いいえ。きょうは およがないで ください。ちゃを のんでも いいです。", en: "No. Please don't swim today. You may drink tea." }
+        questions:
+          - { q: "What does the doctor tell Ken?", options: ["Not to swim today", "To swim today", "Not to drink tea", "To go to the hospital"], answer: "Not to swim today" }
+      - { kind: challenge, ja: "のどが いたいですから ちゃを のんでも いいですか。", en: "Say politely: My throat hurts, so may I drink some tea", combines: [te-mo-ii, masu-present, ga-itai, kara-because, desu-copula], mode: build }
+    reviewPool: [よんほん, ごほん, なんぼん, くすり, ねつ, のど, あし, て, くち, おさけ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-review-3
+    role: review
+    title: "Review — the pharmacy, the don'ts and the may-I's"
+    focus: "ください, ないでください and 〜ても いい, with the whole module's symptoms behind them"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "すみません みずを ごほん ください。", en: "Excuse me — five bottles of water please", exercises: [kudasai, counter-hon], mode: build }
+      - { kind: sentence, ja: "おさけを のまないで ください。", en: "Please don't drink alcohol", exercises: [naide-kudasai], mode: build }
+      - { kind: sentence, ja: "くすりを のんでも いいですか。", en: "Say politely: May I take the medicine", exercises: [te-mo-ii, desu-copula], mode: listening }
+      - { kind: sentence, ja: "のどが いたいから くすりを ください。", en: "My throat hurts, so could I have some medicine", exercises: [kudasai, ga-itai], mode: build }
+      - { kind: sentence, ja: "じゅぎょうで けいたいを みないで ください。", en: "Please don't look at your phone in class", exercises: [naide-kudasai, de-action], mode: build }
+      - { kind: particle-cloze, stem: "うみで ", tail: " ください。", answer: "およがないで", options: ["およがないで", "およいで", "およがない"], en: "Please don't swim in the sea", explanation: "ください needs the で — およがない stops halfway, and およいで asks for the opposite." }
+      - { kind: sentence, ja: "ねつが あるけど すしを たべても いい？", en: "Ask a friend: I have a fever, but may I eat sushi", exercises: [te-mo-ii, ga-existence], mode: build }
+      - { kind: listening-comp, audio: "ちゃを よんほん ください。", answer: "Four bottles of tea, please", distractors: ["Five bottles of tea, please", "Four bottles of water, please", "How many bottles of tea?"], exercises: [kudasai, counter-hon] }
+      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're ill, so please don't go to school today", exercises: [naide-kudasai, kara-because], mode: build }
+      - { kind: sentence, ja: "ちゃを のんでも いい？", en: "Ask a friend: May I drink some tea", exercises: [te-mo-ii], mode: translate }
+      - { kind: listening-comp, audio: "あしが いたいけど うみで およいでも いい？", answer: "My leg hurts, but may I swim in the sea?", distractors: ["My leg hurts, so please don't swim in the sea", "My leg hurts, and I'm swimming in the sea", "My hand hurts, but may I swim in the sea?"], exercises: [te-mo-ii, ga-itai] }
+      - { kind: sentence, ja: "ときどき あしが いたいけど びょういんに いかない。", en: "Sometimes my leg hurts, but I don't go to the hospital", exercises: [frequency-adverbs, ga-itai, kedo], mode: build }
+      - { kind: sentence, ja: "いつも あさに くすりを のむ。", en: "I always take medicine in the morning", exercises: [frequency-adverbs, ni-time], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Pharmacist", ja: "どうしましたか。", en: "What can I do for you?" }
+          - { speaker: "Mika", ja: "ねつが あります。くすりを ください。", en: "I have a fever. Some medicine, please." }
+        questions:
+          - { q: "What does Mika tell the pharmacist?", options: ["She has a fever", "Her leg hurts", "She wants water", "She is going to a doctor"], answer: "She has a fever" }
+    reviewPool: [いっぽん, さんぼん, ろっぽん, よんほん, ごほん, なんぼん, くすり, ねつ, のど, いしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m22-neo-challenge
+    role: challenge
+    title: "Challenge — say what hurts, and ask what you may do about it"
+    focus: "End-of-module stretch: a symptom, a reason, a count and a request in one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ときどき のどが いたいですから いつも ちゃを のみます。", en: "Say politely: Sometimes my throat hurts, so I always drink tea", exercises: [masu-present, frequency-adverbs, ga-itai, kara-because], mode: build }
+      - { kind: sentence, ja: "わたしは げんきだけど あには ねつが あるから びょういんに いく。", en: "I'm well, but my older brother has a fever, so he's going to the hospital", exercises: [wa-topic, ga-existence, kedo, kara-because], mode: build }
+      - { kind: sentence, ja: "あしが いたいから きょうは バスで かえる。", en: "My leg hurts, so I'm going home by bus today", exercises: [ga-itai, kara-because, de-action, wa-topic], mode: listening }
+      - { kind: sentence, ja: "すみません くすりを いっぽんと ちゃを よんほん ください。", en: "Excuse me — one bottle of medicine and four bottles of tea please", exercises: [kudasai, counter-hon, to-and], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは じゅぎょうに いかないで ください。", en: "You're ill, so please don't go to class today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
+      - { kind: sentence, ja: "めも みみも いたいけど けいたいを みても いい？", en: "Ask a friend: Both my eyes and my ears hurt, but may I look at my phone", exercises: [te-mo-ii, ga-itai, mo-also, kedo], mode: build }
+      - { kind: sentence, ja: "おなかが いたいです。", en: "Say politely: My stomach hurts", exercises: [masu-present, ga-itai], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: " くすりを のまないから いしゃに いかない。", answer: "あまり", options: ["あまり", "いつも", "ときどき"], en: "I don't take much medicine, so I don't go to a doctor", explanation: "あまり is the one that needs a negative — のまない closes it. いつも and ときどき go with a positive verb." }
+      - { kind: listening-comp, audio: "ミカの おかあさんは めが いたいから えいがを みない。", answer: "Mika's mother's eyes hurt, so she doesn't watch films", distractors: ["Mika's mother's eyes hurt, but she watches films anyway", "Mika's mother's ears hurt, so she doesn't watch films", "Mika's eyes hurt, so she doesn't watch films"], exercises: [wa-topic, ga-itai] }
+      - { kind: listening-comp, audio: "ねつが ありますから きょうは がっこうに こないで ください。", answer: "You have a fever, so please don't come to school today", distractors: ["You have a fever, so please don't drink alcohol today", "I have a fever, so I'm not coming to school today", "You have no fever, so please come to school today"], exercises: [naide-kudasai, masu-present] }
+      - { kind: sentence, ja: "いつも あさに くすりを のみますから げんきです。", en: "Say politely: I always take medicine in the morning, so I'm well", exercises: [masu-present, frequency-adverbs, kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "きっさてんで ぎゅうにゅうを ろっぽん かうけど おさけは かわない。", en: "I'll buy six bottles of milk at the coffee shop, but I won't buy sake", exercises: [counter-hon, de-action, kedo, nai-form], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Doctor", ja: "どこが いたいですか。", en: "Where does it hurt?" }
+          - { speaker: "Tom", ja: "のどが いたいです。ねつも あります。くすりを ください。", en: "My throat hurts. I have a fever too. Could I have some medicine." }
+        questions:
+          - { q: "What does Tom tell the doctor?", options: ["His throat hurts and he has a fever", "His throat hurts but he has no fever", "His head hurts and he has a fever", "He is well but wants medicine"], answer: "His throat hurts and he has a fever" }
+      - { kind: challenge, ja: "あさから のども あたまも いたいですから きょうは くすりを のんでも いいですか。", en: "Say politely: My throat and my head have both hurt since this morning, so may I take some medicine today", combines: [te-mo-ii, masu-present, ga-itai, mo-also, kara-origin, kara-because], mode: build }
+    reviewPool: [いたい, あたま, おなか, め, みみ, くち, て, あし, のど, ねつ]
