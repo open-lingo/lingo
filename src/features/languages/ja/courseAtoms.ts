@@ -1101,6 +1101,28 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // registered, and にほんじん / アメリカじん contain じん, not にん.
   { id: "sai-counter", kana: "さい", romaji: "sai", meaningEn: "years old (counter for age)", shortGloss: "years old", fromModule: "m17", introducedByLessonId: "ja-m17-neo-5", kind: "vocab", blocked: true, note: "bound age counter — no concrete referent of its own" },
   { id: "nin-counter", kana: "にん", romaji: "nin", meaningEn: "counter for people", shortGloss: "people counter", fromModule: "m17", introducedByLessonId: "ja-m17-neo-4", kind: "vocab", blocked: true, note: "bound people counter — 🧍 already belongs to からだ and 👥 to ひと" },
+  // ── m19-neo (tile s15) — Getting around: motion particles ──
+  // FOUR registrations, and they are the only surfaces this module adds to the
+  // tokenizer. Every other atom m19 declares already HAS a row here under a
+  // stale old-course tag — がっこう/としょかん/でんしゃ (m6), びょういん/あるく
+  // (m17), バス (m8), ちかてつ ("future"), かえる (m14) — so declaring them in
+  // the IR only fixes their PROVENANCE (priorVocab contains none of them); it
+  // does not touch tiling.
+  // Bound-suffix / retokenization check (inv 41 + the m16-ので trap), run before
+  // shipping because a new short atom re-tokenizes the WHOLE course: へ is
+  // ALREADY in moduleCompiler's PARTICLES list, so this row changes no
+  // tokenization at all, and the four registered atoms that contain へ (へや,
+  // たいへん, へた, へん) are each strictly longer, so longest-match consumes
+  // them whole. ふん / ぷん / じゅっぷん are substrings of NO registered atom and
+  // occur in NO existing curriculum surface, so they cannot be split out of
+  // anything either.
+  // へ is `blocked` for the usual particle reason (no concrete referent) and the
+  // minute counters because a bound counter has none of its own; the L2 and L5
+  // rule cards are their introduction.
+  { id: "p-e", kana: "へ", romaji: "e", meaningEn: "to, toward (direction)", shortGloss: "toward", fromModule: "m19", introducedByLessonId: "ja-m19-neo-2", kind: "particle", blocked: true, note: "direction particle — WRITTEN he, READ e" },
+  { id: "fun-counter", kana: "ふん", romaji: "fun", meaningEn: "minutes (after 2, 5, 7, 9)", shortGloss: "minutes", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "bound minute counter — no concrete referent of its own" },
+  { id: "pun-counter", kana: "ぷん", romaji: "pun", meaningEn: "minutes (after 1, 3, 4, 6, 8, 10)", shortGloss: "minutes -pun", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "the rendaku half of the minute counter" },
+  { id: "juppun", kana: "じゅっぷん", romaji: "juppun", meaningEn: "ten minutes", shortGloss: "ten minutes", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "geminating cell — じゅっ decomposes to nothing, so the whole form is the atom" },
 ];
 
 /**

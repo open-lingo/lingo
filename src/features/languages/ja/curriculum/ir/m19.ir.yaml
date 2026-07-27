@@ -1,0 +1,707 @@
+module: m19
+title: "Getting around: motion particles"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18]
+
+priorGrammarPoints: [wa-topic, wo-object, ni-time, mo-also, to-and,
+                     koko-soko-asoko, spatial-relations, nai-existence, arimasu, imasu,
+                     ga-existence, no-possession, kore-sore-are-dore, kono-sono-ano-dono,
+                     dare, masu-negative, masu-past, masu-past-negative, desu-past,
+                     dictionary-form, ta-form, nai-form, desu-copula, ka-question,
+                     te-form, te-iru, te-kara, mae-ni, toki,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     kara-because, node-because, kedo, kara-origin, made-until,
+                     to-omoimasu, to-quotation,
+                     numbers-1-10, numbers-11-99, counter-ji, counter-tsu,
+                     counter-mai, counter-nin, counter-sai, family-register,
+                     kudasai, kanji-set-1]
+
+notes: |
+  m19 = spine tile s15, "Getting around: motion particles + navigation".
+  Destination, direction, means, purpose, and the clock a journey runs on.
+
+  THE WHOLE POINT — no new particles, one new spelling.
+
+  1. **に marks the place you ARRIVE at.** 「えきに いく」. The learner has
+     owned に since m6 for location and since m11 for time; destination is the
+     THIRD job of a particle they already have, not a fourth particle. L1 says
+     that out loud, because "another job for に" is a much cheaper thing to
+     learn than "a new particle".
+  2. **へ is the one genuinely new surface, and it is read え.** That spelling
+     is the single most confusing fact in beginner Japanese, so it gets its own
+     sentences at the top of the L2 card, before anything about meaning. へ
+     points at the DIRECTION; に points at the ARRIVAL; with いく / くる / かえる
+     they are near-interchangeable and に is the everyday default. What へ
+     CANNOT do is に's other jobs — no time, no existence — and that is the
+     module's antiPattern for it (「ろくじへ うちへ かえる」).
+  3. **で marks the MEANS.** 「バスで いく」. Same move as に: the learner owns
+     で as the place an action happens (m6), and "by means of" is the same
+     particle's other job. L3 contrasts the two uses inside one card, which is
+     the point of teaching them together rather than as two particles.
+  4. **〜に いく attaches to the ます-STEM.** 「たべに いく」, 「のみに いく」,
+     「かいものに いく」. This was BLOCKED until 2026-07-27: the bare stem was a
+     surface no lexicon in the repo knew, so m13 deferred `ni-iku` to this row
+     for a tooling reason it documented at the time. `getRealFormLexicon()` and
+     the compiler's tokenizer / `unbuildable` gate now both know ます-stems, so
+     it is authored here whole, exactly as that deferral note promised.
+  5. **から / まで / までに — start, span, deadline.** m16 already owns まで
+     ("until") and から…まで (the span); this module owes `kara-time` (the
+     formal clock-time tile) and `made-ni`. までに vs まで is the discrimination
+     worth a lesson of its own: まで is CONTINUOUS ("I'll wait until five" — the
+     waiting fills every minute), までに is a DEADLINE ("I'll be home by five" —
+     one event, some time before). The test L7 hands the learner is whether the
+     verb is something you keep doing or something that happens once.
+  6. **〜ふん / 〜ぷん.** The rendaku is the trap and every cell is stated in the
+     card: ふん after 2, 5, 7, 9; ぷん after 1, 3, 4, 6, 8, 10, with the
+     consonant doubling on 1, 6, 8 and 10.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation); L9's polite production is an
+  ordinary sentence with an explicit "Say politely:" cue, which is what inv 8
+  asks for and what inv 48 then grades.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** spinePlan s15 asks for "で means / に arrival / へ
+    direction; までに" and "Positions; asking strangers (obligatory-polite
+    register realism)". All of it lands. The register-realism half is L9 — the
+    module's payoff lesson — where every production prompt carries a "Say
+    politely:" cue and the answers are です / ます / か. It is NOT a register
+    LESSON in the m10/m29 sense and ships no scaffolding: standing decision 3
+    of the RUN-PLAN confines audience pictures, politeness meters and cheat
+    sheets to those two modules and `registerScaffoldIsolation.test.ts`
+    enforces it. "Positions" is read as the spine's navigation vocabulary —
+    destinations, means, and the question words that ask for them (L8); the
+    spatial nouns うえ / した / なか / まえ belong to m6 and m15 and are not
+    re-taught here.
+  - **`ni-iku` is authored, not deferred — the tooling blocker is gone.** m13's
+    IR notes deferred it to this row because 「たべに いく」 needed a bare
+    ます-stem and `getRealFormLexicon()` stored only whole ChainForm outputs.
+    Both halves landed 2026-07-27 (the lexicon AND the compiler's tokenizer +
+    `unbuildable` KNOWN set), so 「たべに」 tokenizes as たべ + に and builds as
+    two tiles, which is also the pedagogy. **「かいに いく」 is deliberately NOT
+    used**: かい is a registered atom (貝, "shell", m1), so a かい tile would
+    hand FSRS the wrong credit — the same homograph class as さん/三 and に/二.
+    「かいものに いく」 carries the shopping sense instead, which is what people
+    say anyway.
+  - **Minutes: ふん, ぷん and じゅっぷん are atoms; the other three geminate
+    cells live in PROSE.** さんぷん / よんぷん / ごふん / ななふん / きゅうふん /
+    なんぷん all build compositionally from a number the learner owns plus the
+    counter, exactly as m16 built months from がつ and m17 built ages from さい.
+    The cells that geminate do not decompose, so いっぷん, ろっぷん and はっぷん
+    are named in the L5 card's PROSE (mixed script, invisible to `jaSurfaces`)
+    and never reach a tile — the device m17 used for issai/hassai/jussai and
+    m16 for shigatsu/shichigatsu/kugatsu. **じゅっぷん is the ONE exception and
+    gets an atom row of its own**: ten-minute intervals are what timetables and
+    speech actually run on, a minutes lesson that cannot say "ten minutes" is
+    not teaching the counter, and it is a genuine lexical unit. **にふん is
+    banned as a surface** for the documented homograph reason — に the particle
+    vs に the numeral 2 — so the ふん family is carried by ごふん / ななふん /
+    きゅうふん. `m19-neo.test.ts` carries a guard that reads every 〜ふん/〜ぷん
+    surface in the module and checks the counter against the number in front of
+    it; that guard is the answer to the brief's "get every single one right".
+  - **FOUR new courseAtoms rows: へ, ふん, ぷん, じゅっぷん.** Every other new
+    atom already had a registry row with a stale old-course tag (がっこう m6,
+    としょかん m6, びょういん m17, でんしゃ m6, バス m8, ちかてつ future, あるく
+    m17, かえる m14) and none of them is in `priorVocab`, so they are declared
+    in `newAtoms` — the m15/m16/m17/m18 move — which stops the compiler
+    treating them as already-known while adding NOTHING to the course-wide
+    tokenizer.
+    **The four genuinely new surfaces were checked for retokenization damage
+    before shipping (the m16-ので class, RUN-PLAN recurring trap).** へ is
+    already in `moduleCompiler`'s PARTICLES list, so registering the atom
+    changes no tokenization anywhere, and the corpus contains exactly zero
+    occurrences of へ outside this module — the registry's へ-bearing atoms
+    (へや, たいへん, へた, へん) are each strictly longer, so longest-match
+    consumes them whole, and none of them is taught. ふん, ぷん and じゅっぷん
+    occur in NO existing curriculum surface and are substrings of NO registered
+    atom, so they cannot be split out of anything (inv 41).
+  - **かえる and あるく are `imageable: false`, deliberately.** Both carry emoji
+    in the registry and both emoji are already spoken for by words the learner
+    has MET: かえる is 🏠, which is also いえ and すむ, and あるく is 🚶, which is
+    also いく and さんぽ. A picture that names another taught word better than it
+    names the answer is not a debut, it is a trick question — and the debut MCQ
+    draws its distractors from exactly that met-vocabulary pool. Both debut on
+    a rule card instead (L1, L3), which is intro-capable. **こうえん was CUT**
+    from the module for the same reason with no workaround available (🏞️ is
+    かわ, taught in m1); としょかん 📚 and びょういん 🏥 took the place slots
+    because their emoji are unique across the whole registry.
+  - **The rule card of a lesson that debuts an imageable word never NAMES it.**
+    A rule card compiles to a PINNED step ahead of the interleaved middle, so an
+    imageable word in `examples:` loses its picture debut (inv 30/44 — the trap
+    m14 learned the hard way). L1's card therefore runs on えき / きっさてん /
+    だいがく / にほん while がっこう and としょかん appear only in beats; L2's on
+    にほん / うみ / がっこう / やま while びょういん stays out; L3's on くるま /
+    じてんしゃ / ふね while でんしゃ / バス / ちかてつ stay out.
+  - **The ONE true particle_cloze in the module is へ's, and its distractors are
+    never に.** Inv 5 makes particle_cloze an INTRODUCTION device, so the only
+    particle this module may cloze is the one it introduces — and it is also the
+    only one `particleClozePlacement.test.ts` would allow, since に, で, から and
+    まで were introduced five to fourteen modules ago. に is never offered
+    against へ for exactly the reason inv 35 gives for は↔が: swapping them
+    yields correct Japanese, so the step would mark a right answer wrong. を and
+    が are the distractors and both are genuinely ungrammatical there. Every
+    other cloze in the module picks among CONTENT words, or has までに in the
+    option set (which is not a listed particle), so the all-particle guard has
+    nothing to catch.
+  - **Clause boundaries are SPACES, never 、.** `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on build
+    target AND a run-on TTS key. Nothing in this file uses one, dialogue lines
+    included — 「すみません えきは どこですか。」 spells the pause as a space.
+  - **No polite form of あるく / かえる reaches a surface.** あるきます and
+    かえります have no courseAtoms row, so they exist in no tokenizer and would
+    compile to junk tiles (the m13/m14 IR-only-atom trap). L9's polite beats run
+    on いきます / きます / かいます / です, every one a registered atom.
+  - **Gloss discipline (inv 17).** いく / くる / かえる are motion futurates and
+    keep the "-ing" gloss ("I'm heading home at six"). あるく, まつ, はたらく and
+    みる are ordinary activity verbs and gloss habitual or intent ("I walk to the
+    station", "Mika waits ten minutes") — GATE 8's allowlist covers the motion
+    verbs and nothing else, which is exactly right here. `verbGlossFidelity`:
+    every みる in this module is "watch" / "look at", never "read".
+  - **Persona canon.** No 「NAMEは NOUNだ」 assertion appears anywhere in the
+    module — every sentence is about where people go and how — so the canon
+    guard has nothing to contradict. Dialogue speakers state facts about
+    themselves or ask (inv 22), and every student answering たなか answers in
+    ます / です, because that is the register the course assigned that audience
+    in m7.
+  - **Words the context pack calls known but `priorVocab` does not:** かく,
+    うたう, たつ, ふる, さく, なる, すむ, ふく(verb), のる, つく, でる, かかる,
+    ひこうき, くうこう, こうえん, タクシー, コーヒー, まいにち, and most of the
+    pack's "reinforcement targets" block (あめ, はなし, とし, さいふ, うるさい,
+    やさい, いつつ, よっつ, せいと). The pack's list is built from courseAtoms
+    attribution; `priorVocab` is the authority and every surface in this file
+    was checked against it. **のる was cut** for that reason plus the 🚗/くるま
+    emoji clash — 「バスに のる」 is a good beat and can land in a later module
+    with room to teach the verb properly. The genuinely under-exposed words that
+    DO survive the check — きっさてん, じてんしゃ, きっぷ, ふね, くつ, とけい,
+    けいたい, かばん, じしょ, しゃしん, おんがく, じゅぎょう, りょこう,
+    なつやすみ — rotate as carriers so the module is not a wall of えき and
+    がっこう (inv 27).
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing this module teaches conjugates — に, へ, で,
+  から and までに are particles, 〜ふん is a counter, and 〜に いく reuses the
+  ます-stem the learner has produced since m7 — so no `conjugation:` block is
+  declared and no `verbClass` is set on any atom.
+
+  CONNECTIVES + COMPLEXITY (inv 13): a journey sentence naturally carries two or
+  three phrases (means + destination + time), and most beats stack a clause on
+  m16's から / ので / けど, which is also how people actually talk about getting
+  somewhere.
+
+  FOUR POINTS ARE RE-TAUGHT rather than re-assigned, because the row owes five
+  ids across nine teaching lessons and inv 42 forbids inventing new ones:
+  `ni-location` (m6 — destination is に's third job, and the module opens on it),
+  `de-action` (m6 — means is で's other job, and the contrast IS the lesson),
+  `location-qa` (m6 — the question words a journey needs, now with へ and で in
+  them) and `masu-present` (m7 — the polite layer, in the one situation where
+  plain form is socially wrong). No ledger row moves: a re-teach is not a
+  re-assignment, exactly as m14/m15/m16/m17/m18 established.
+
+grammarPoints:
+  - id: ni-location
+    rule: "に marks the place you ARRIVE at. 「えきに いく」 = I'm going to the station. This is not a new particle — it is a third job for one you have had for a long time. You already use に for where something IS (「うちに いる」) and for WHEN something happens (「くじに いく」), and destination is the same idea once more: に pins the sentence to a point, and the point can be a place, a time, or the place you end up. The word order is the ordinary one, with the place before the verb and the verb last: 「あした きっさてんに いく」. Every verb of motion takes it — いく, くる, and かえる, which is the verb for going back where you belong: home, your own town, your country. かえる is not a formal 'return'; it is the everyday word, and Japanese reaches for it far more often than English reaches for 'go back'."
+    examples:
+      - { ja: "えきに いく。", en: "I'm going to the station." }
+      - { ja: "ミカは きっさてんに いく。", en: "Mika is going to the coffee shop." }
+      - { ja: "トムは あした だいがくに くる。", en: "Tom is coming to the university tomorrow." }
+      - { ja: "ろくじに うちに かえる。", en: "I'm going home at six." }
+      - { ja: "なつやすみに にほんに いく。", en: "I'm going to Japan for the summer holiday." }
+    antiPattern: { ja: "えきで いく。", why: "で marks where an action HAPPENS; the place you go TO is marked with に: えきに いく。" }
+
+  - id: e-direction
+    rule: "へ is the one genuinely new piece in this module, and the first thing to know about it is how it SOUNDS. Written, it is the hiragana he. Used as a PARTICLE it is read **e** — always, with no exceptions, and nothing else in the writing system does this. Learn it once and it never troubles you again. Now the meaning: へ points at the DIRECTION you are heading, に at the ARRIVAL you are heading for. 「にほんへ いく」 leans on the journey, 「にほんに いく」 leans on getting there. With いく, くる and かえる the two are close enough that either is fine, and に is what people reach for by default — treat へ as the slightly softer 'off toward' option. What へ cannot do is に's OTHER jobs. It never marks a clock time and it never marks where something exists. 「ろくじへ かえる」 is wrong; a time is always に."
+    examples:
+      - { ja: "ろくじに うちへ かえる。", en: "I'm heading home at six." }
+      - { ja: "にほんへ いく。", en: "I'm heading to Japan." }
+      - { ja: "ミカは うみへ いく。", en: "Mika is heading to the sea." }
+      - { ja: "ケンは あした がっこうへ くる。", en: "Ken is coming to school tomorrow." }
+      - { ja: "やまへ いくから くつを かう。", en: "I'm heading to the mountains, so I'll buy shoes." }
+    antiPattern: { ja: "ろくじへ うちへ かえる。", why: "へ points at a PLACE you head toward; a clock time is always marked with に: ろくじに うちへ かえる。" }
+
+  - id: de-action
+    rule: "で has a second job and it is the one this module needs: で marks the MEANS — the thing you go BY. 「くるまで いく」 = I go by car. You met で as the place an action happens (「きっさてんで はなす」), and this is the same particle saying the same thing from another angle, because で always means 'using this'. A place is simply a tool you stand inside. A journey sentence often carries both jobs at once and they never collide, since に and へ own the destination while で owns the vehicle: 「くるまで だいがくに いく」. Two things で is NOT. It is not the destination, so 「えきで いく」 is wrong. And walking is not a means at all — you are using nothing, so no で appears anywhere: 「えきまで あるく」, I walk as far as the station."
+    examples:
+      - { ja: "くるまで だいがくに いく。", en: "I go to the university by car." }
+      - { ja: "ミカは じてんしゃで きっさてんに いく。", en: "Mika goes to the coffee shop by bike." }
+      - { ja: "トムは ふねで うみへ いく。", en: "Tom heads out to the sea by boat." }
+      - { ja: "えきまで あるく。", en: "I walk as far as the station." }
+      - { ja: "くるまで いくから きっぷは かわない。", en: "I'm going by car, so I won't buy a ticket." }
+    antiPattern: { ja: "くるまを だいがくに いく。", why: "を marks a thing you ACT ON, and you are not acting on the car — you are using it, so it takes で: くるまで だいがくに いく。" }
+
+  - id: ni-iku
+    rule: "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going travelling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」."
+    examples:
+      - { ja: "ごはんを たべに いく。", en: "I'm going out to eat." }
+      - { ja: "ミカは ちゃを のみに きっさてんに いく。", en: "Mika is going to the coffee shop to drink tea." }
+      - { ja: "えいがを みに いく。", en: "I'm going to watch a movie." }
+      - { ja: "きょうは かいものに いく。", en: "I'm going shopping today." }
+      - { ja: "トムは ともだちと あそびに くる。", en: "Tom is coming over to hang out with a friend." }
+    antiPattern: { ja: "ごはんを たべるに いく。", why: "〜に いく attaches to the ます-STEM, never the dictionary form — たべます minus ます is たべ: ごはんを たべに いく。" }
+
+  - id: counter-fun
+    rule: "Minutes are a number plus the counter for 分, and this is the one counter where the number changes the counter's own sound. Take the two families as they come. After 2, 5, 7 and 9 it stays FUN — nifun, gofun, nanafun, kyuufun. After 1, 3, 4, 6, 8 and 10 it turns into PUN: sanpun (3) and yonpun (4) simply swap the consonant, while ippun (1), roppun (6), happun (8) and juppun (10) also double the sound in front of it. 'How many minutes' is nanpun, in the pun family. Say the list out loud a few times — the mouth learns this far faster than the eye does, and once it is in the mouth you stop thinking about it. Building a clock time is easy after that: the hour, then the minutes, with no particle between them, so 「しちじ ごふん」 is 7:05. And half past has a word of its own, はん, which is what people actually say: 「しちじはん」."
+    examples:
+      - { ja: "いま しちじ ごふんだ。", en: "It's 7:05 now." }
+      - { ja: "でんしゃは はちじ じゅっぷんに くる。", en: "The train comes at 8:10." }
+      - { ja: "えきまで じゅっぷん あるく。", en: "I walk ten minutes to the station." }
+      - { ja: "ミカは よんぷん まつ。", en: "Mika waits four minutes." }
+      - { ja: "バスは ろくじ さんぷんに くる。", en: "The bus comes at 6:03." }
+    antiPattern: { ja: "いま しちじ ごぷんだ。", why: "5 belongs to the ふん family — ごふん. Only 1, 3, 4, 6, 8 and 10 take ぷん: いま しちじ ごふんだ。" }
+
+  - id: kara-time
+    rule: "から's third job is the clock. You have used it for a reason (「さむいから いかない」) and for an origin (「にほんから くる」); put a TIME in front of it and it marks the moment something STARTS. 「くじから はたらく」 = I work from nine. That is the whole rule — から is a starting gun, and the thing it starts can be an hour, an hour and minutes, or a part of the day: 「くじ ごふんから」, 「あさから」, 「ばんから」. Give it a まで on the other end and you have the whole stretch, which is the pair module 16 taught you: 「くじから ごじまで」. A start with no end is completely normal on its own — nothing is waiting for the まで. What から never gives you is a deadline. 'From five' and 'by five' are different sentences, and the second one needs までに."
+    examples:
+      - { ja: "くじから ろくじまで はたらく。", en: "I work from nine to six." }
+      - { ja: "みせは くじから ろくじまでだ。", en: "The shop is open from nine to six." }
+      - { ja: "くじから はたらく。", en: "I work from nine." }
+      - { ja: "ばんは しちじから ひまだ。", en: "In the evening I'm free from seven." }
+      - { ja: "あしたは あさ ろくじから いそがしい。", en: "Tomorrow I'm busy from six in the morning." }
+    antiPattern: { ja: "くじまで ろくじから はたらく。", why: "から marks the START of a stretch and まで its END — swapped round, the sentence runs the working day backwards: くじから ろくじまで はたらく。" }
+
+  - id: made-ni
+    rule: "まで and までに are one syllable apart and they are not the same word. まで is UNTIL: whatever the verb is, it carries on the whole way to that point. 「ごじまで まつ」 = I'll wait until five, and the waiting fills every minute between now and five. までに is BY: the verb happens ONCE, at some moment before the deadline, and nothing says which moment. 「ごじまでに かえる」 = I'll be home by five — it might be four, it might be ten to. The test is the verb itself. Is it something you keep DOING, like まつ, はたらく, いる or みる? Then まで. Is it something that happens once and is over, like かえる, くる, いく or かう? Then までに. And notice what makes the difference: it is the に — the same に that pins a clock time, now pinning a whole deadline to the sentence."
+    examples:
+      - { ja: "ごじまでに うちに かえる。", en: "I'll be home by five." }
+      - { ja: "くじまでに がっこうに いく。", en: "I'll get to school by nine." }
+      - { ja: "あしたまでに きっぷを かう。", en: "I'll buy the ticket by tomorrow." }
+      - { ja: "ろくじまで きっさてんで まつ。", en: "I'll wait at the coffee shop until six." }
+      - { ja: "はちじ じゅっぷんまでに えきに いく。", en: "I'll get to the station by 8:10." }
+    antiPattern: { ja: "ごじにまで うちに かえる。", why: "the deadline particle is までに — まで with に on the END of it, never に in the middle: ごじまでに うちに かえる。" }
+
+  - id: location-qa
+    rule: "Every piece of a journey has a question word, and asking is easier than you expect: you drop the question word into the slot the answer will occupy and change nothing else. Destination — 「どこに いく？」 or 「どこへ いく？」, where the place becomes どこ and the particle stays put. Means — 「なにで いく？」, where the vehicle becomes なに and で stays put. Time — 「なんじに いく？」, plus 「なんじから？」 and 「なんじまでに？」 for the two ends of a stretch. Duration — 「なんぷん？」. Nothing moves to the front and nothing is added, which is exactly why your listener can answer by saying the very same sentence with the word filled in. One word to sidestep: なんで is also the casual word for 'why', so when you want to ask about transport, なにで is the question that cannot be misheard."
+    examples:
+      - { ja: "どこへ いく？", en: "Where are you heading?" }
+      - { ja: "なにで がっこうに いく？", en: "What do you go to school by?" }
+      - { ja: "でんしゃは なんじに くる？", en: "What time does the train come?" }
+      - { ja: "びょういんまで なんぷん あるく？", en: "How many minutes do you walk to the hospital?" }
+      - { ja: "としょかんは なんじから？", en: "What time is the library open from?" }
+    antiPattern: { ja: "どこを いく？", why: "を marks a thing you act on; the place you head for is marked with へ or に: どこへ いく？" }
+
+  - id: masu-present
+    rule: "There is one situation where this course's plain form is simply the wrong tool, and it is the situation this module is about: stopping a stranger to ask the way. You do not know them and they do not know you, so です and ます are not decoration here — they are the only forms that will not land as rude. The shape is always the same three moves. Open with すみません. Ask with です or ます. Close with ありがとうございます. 「すみません えきは どこですか。」 — excuse me, where is the station? 「バスで いきますか。」 — do I go by bus? Watch the か: a casual question rides its rising contour alone, but a polite question REQUIRES it. Everything else you have learned stays exactly where it is — the particles do not change and the word order does not change, only the last word does. To a friend the same journey is 「えきは どこ？」"
+    examples:
+      - { ja: "すみません えきは どこですか。", en: "Excuse me, where is the station?" }
+      - { ja: "びょういんは あそこですか。", en: "Is the hospital over there?" }
+      - { ja: "バスで がっこうに いきますか。", en: "Do you go to school by bus?" }
+      - { ja: "でんしゃは なんじに きますか。", en: "What time does the train come?" }
+      - { ja: "ちかてつで だいがくに いきますか。", en: "Do you go to the university by subway?" }
+    antiPattern: { ja: "すみません えきは どこです。", why: "a polite question REQUIRES か — without it the sentence is a statement, and an unfinished one: すみません えきは どこですか。" }
+
+newAtoms:
+  # ══ L1. Two destinations plus the verb for going back. がっこう is CEJC #194
+  #    and has been seen ONCE in the whole course (inv 27); としょかん 📚 is the
+  #    only 📚 the learner has met, so its debut MCQ cannot show two pictures
+  #    that both fit. Both already carry courseAtoms rows with stale old-course
+  #    m6 tags and neither is in priorVocab, so declaring them here is what
+  #    stops the compiler treating them as already-known — and adds NOTHING to
+  #    the course-wide tokenizer, since both surfaces are already in it.
+  - { kana: がっこう, romaji: gakkou, gloss: "school", shortGloss: "school", kind: vocab }
+  - { kana: としょかん, romaji: toshokan, gloss: "library", shortGloss: "library", kind: vocab }
+  #    かえる is 🏠 in the registry — the same emoji as いえ and すむ, both of
+  #    which the learner has MET, so an image debut would draw distractors that
+  #    name the picture better than the answer does. imageable: false; it debuts
+  #    on the L1 rule card, which is intro-capable.
+  - { kana: かえる, romaji: kaeru, gloss: "to go back, to go home", shortGloss: "go home", imageable: false, kind: vocab }
+  # ══ L2. The module's one genuinely new particle. No emoji and no image debut
+  #    — it debuts on its own rule card. Already present in moduleCompiler's
+  #    PARTICLES list, so the atom row changes NO tokenization anywhere.
+  - { kana: へ, romaji: "e (written he)", gloss: "to, toward (direction)", shortGloss: "toward", imageable: false, kind: particle }
+  - { kana: びょういん, romaji: byouin, gloss: "hospital", shortGloss: "hospital", kind: vocab }
+  # ══ L3. The vehicles で needs. All three emoji (🚆 🚌 🚇) are unique in the
+  #    registry. でんしゃ is CEJC #427 and has been seen once (inv 27).
+  - { kana: でんしゃ, romaji: densha, gloss: "train", shortGloss: "train", kind: vocab }
+  - { kana: バス, romaji: basu, gloss: "bus", shortGloss: "bus", kind: vocab }
+  - { kana: ちかてつ, romaji: chikatetsu, gloss: "underground train, subway", shortGloss: "subway", kind: vocab }
+  #    あるく is 🚶 — the same emoji as いく and さんぽ, both met. Same call as
+  #    かえる: imageable: false, debut on the L3 rule card. Only the dictionary
+  #    form is ever used; あるいて and あるきます exist in no tokenizer here.
+  - { kana: あるく, romaji: aruku, gloss: "to walk", shortGloss: "to walk", imageable: false, kind: vocab }
+  # ══ L5. The minute counter in its two families, plus the one geminate cell
+  #    frequent enough to earn a row. Checked against every kana in the registry
+  #    before shipping (inv 41): no atom CONTAINS ふん or ぷん, and neither
+  #    string occurs in any existing curriculum surface, so registering them
+  #    cannot re-split anything. いっぷん / ろっぷん / はっぷん are named in the
+  #    L5 card's PROSE and never reach a tile.
+  - { kana: ふん, romaji: fun, gloss: "minutes (after 2, 5, 7, 9)", shortGloss: "minutes", imageable: false, kind: vocab }
+  - { kana: ぷん, romaji: pun, gloss: "minutes (after 1, 3, 4, 6, 8, 10)", shortGloss: "minutes -pun", imageable: false, kind: vocab }
+  - { kana: じゅっぷん, romaji: juppun, gloss: "ten minutes", shortGloss: "ten minutes", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-1
+    role: teaching
+    title: "「えきに いく」 — に marks where you arrive"
+    focus: "Destination is に's third job — the learner already owns it for location and for time"
+    introduces: [がっこう, としょかん, かえる]
+    beats:
+      - { kind: rule, grammarPointId: ni-location }
+      - { kind: sentence, ja: "あした がっこうに いく。", en: "I'm going to school tomorrow", exercises: [ni-location, dictionary-form], mode: build }
+      - { kind: sentence, ja: "きょうは としょかんに いく。", en: "I'm going to the library today", exercises: [ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカは あさ がっこうに いく。", en: "Mika goes to school in the morning", exercises: [ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "ケンは ろくじに うちに かえる。", en: "Ken is going home at six", exercises: [ni-location, ni-time, counter-ji], mode: listening }
+      - { kind: sentence, ja: "トムは いそがしいから としょかんに いく。", en: "Tom is busy, so he's going to the library", exercises: [ni-location, kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "きょうは じゅぎょうが あるから がっこうに いく。", en: "I have a class today, so I'm going to school", exercises: [ni-location, arimasu, kara-because], mode: build }
+      - { kind: sentence, ja: "ミカは きっさてんに いくけど ケンは うちに かえる。", en: "Mika is going to the coffee shop, but Ken is going home", exercises: [ni-location, kedo, wa-topic], mode: build }
+      - { kind: sentence, ja: "あした がっこうに いく。", en: "Say to a friend: I'm going to school tomorrow", exercises: [ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "きょうは ", tail: "に いく。", answer: "としょかん", options: ["としょかん", "がっこう", "きっさてん"], en: "I'm going to the library today", explanation: "としょかん is the library — the place with the books. がっこう is a school and きっさてん a coffee shop; に would be right in front of any of them, but only one of them is a library." }
+      - { kind: listening-comp, audio: "ミカは あした がっこうに いく。", answer: "Mika is going to school tomorrow", distractors: ["Mika went to school yesterday", "Mika isn't going to school tomorrow", "Mika is going to the library tomorrow"], exercises: [ni-location, ni-time] }
+      - { kind: listening-comp, audio: "トムは としょかんに いくけど ミカは うちに かえる。", answer: "Tom is going to the library, but Mika is going home", distractors: ["Tom is going home, but Mika is going to the library", "Tom and Mika are both going home", "Tom is going to the library, and Mika is coming too"], exercises: [ni-location, kedo] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きょうは どこに いく？", en: "Where are you going today?" }
+          - { speaker: "Mika", ja: "としょかんに いく。じゅぎょうが あるから がっこうにも いく。", en: "I'm going to the library. I have a class, so I'm going to school too." }
+        questions:
+          - { q: "Why is Mika going to school as well?", options: ["She has a class", "She has no class", "She is meeting Ken", "She is going home"], answer: "She has a class" }
+      - { kind: challenge, ja: "あしたは じゅぎょうが ないから がっこうに いかない。", en: "I have no class tomorrow, so I'm not going to school", combines: [ni-location, nai-existence, kara-because, nai-form], mode: build }
+    reviewPool: [がっこう, としょかん, かえる, えき, きっさてん, だいがく, うち, じゅぎょう, とけい, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-2
+    role: teaching
+    title: "「にほんへ いく」 — written he, said e"
+    focus: "へ marks the direction you head, is read え, and can never do に's time job"
+    introduces: [へ, びょういん]
+    beats:
+      - { kind: rule, grammarPointId: e-direction }
+      - { kind: sentence, ja: "きょうは びょういんへ いく。", en: "I'm heading to the hospital today", exercises: [e-direction, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカは あした うみへ いく。", en: "Mika is heading to the sea tomorrow", exercises: [e-direction, ni-time], mode: build }
+      - { kind: sentence, ja: "トムは いそがしいけど がっこうへ くる。", en: "Tom is busy, but he's coming to school", exercises: [e-direction, kedo, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ケンは しちじに うちへ かえる。", en: "Ken is heading home at seven", exercises: [e-direction, ni-time, counter-ji], mode: listening }
+      - { kind: sentence, ja: "やまへ いくから くつを かう。", en: "I'm heading to the mountains, so I'll buy shoes", exercises: [e-direction, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "あねは びょういんへ いくから きょうは こない。", en: "My older sister is heading to the hospital, so she isn't coming today", exercises: [e-direction, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "にほんへ いくから きっぷを かう。", en: "I'm heading to Japan, so I'll buy a ticket", exercises: [e-direction, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは うみへ いく。", en: "Say to a friend: Mika is heading to the sea", exercises: [e-direction], mode: translate }
+      # The ONE true particle_cloze in the module (inv 5 — へ is the particle
+      # m19 introduces). NO NAME in the frame: this cloze is harvested into the
+      # grammar-review deck, whose comprehensibility gate resolves every word
+      # through courseAtoms, and the character names have no atom rows.
+      - { kind: particle-cloze, stem: "きょうは うみ", tail: " いく。", answer: "へ", options: ["へ", "を", "が"], en: "I'm heading to the sea today", explanation: "へ points at the direction you head — and remember it is READ え. を marks a thing you act on, and が would make the sea itself do the going." }
+      - { kind: listening-comp, audio: "トムは あした にほんへ いく。", answer: "Tom is heading to Japan tomorrow", distractors: ["Tom went to Japan yesterday", "Tom isn't heading to Japan tomorrow", "Tom is heading to America tomorrow"], exercises: [e-direction, ni-time] }
+      - { kind: listening-comp, audio: "ミカは びょういんへ いくから きょうは こない。", answer: "Mika is heading to the hospital, so she isn't coming today", distractors: ["Mika is coming today and then heading to the hospital", "Mika isn't heading to the hospital today", "Mika is heading to school, so she isn't coming today"], exercises: [e-direction, kara-because, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なつやすみは どこへ いく？", en: "Where are you heading for the summer holiday?" }
+          - { speaker: "Ken", ja: "うみへ いく。ミカも いくと おもう。", en: "I'm heading to the sea. I think Mika is going too." }
+        questions:
+          - { q: "Where is Ken heading?", options: ["To the sea", "To the mountains", "To Japan", "To the hospital"], answer: "To the sea" }
+      - { kind: challenge, ja: "あしたは やすみだから ともだちと うみへ いく。", en: "Tomorrow is a holiday, so I'm heading to the sea with a friend", combines: [e-direction, desu-copula, kara-because, to-and], mode: build }
+    reviewPool: [へ, びょういん, がっこう, うみ, やま, にほん, くつ, きっぷ, なつやすみ, かえる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-3
+    role: teaching
+    title: "「バスで いく」 — で is how you get there"
+    focus: "で marks the MEANS — the same particle as で 'place of action', doing its other job"
+    introduces: [でんしゃ, バス, ちかてつ, あるく]
+    beats:
+      - { kind: rule, grammarPointId: de-action }
+      - { kind: sentence, ja: "でんしゃで がっこうに いく。", en: "I go to school by train", exercises: [de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "ミカは バスで としょかんに いく。", en: "Mika goes to the library by bus", exercises: [de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "ちかてつで だいがくへ いく。", en: "I head to the university by subway", exercises: [de-action, e-direction], mode: build }
+      - { kind: sentence, ja: "トムは バスで びょういんに いく。", en: "Tom goes to the hospital by bus", exercises: [de-action, ni-location], mode: listening }
+      - { kind: sentence, ja: "きょうは でんしゃが ないから バスで いく。", en: "There are no trains today, so I'm going by bus", exercises: [de-action, nai-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "うちから えきまで あるく。", en: "I walk from home to the station", exercises: [de-action, kara-origin, made-until], mode: build }
+      - { kind: sentence, ja: "ちかてつは やすいから ちかてつで いく。", en: "The subway is cheap, so I'm going by subway", exercises: [de-action, i-adj-present, kara-because], mode: build }
+      - { kind: sentence, ja: "バスで としょかんに いく。", en: "Say to a friend: I'm going to the library by bus", exercises: [de-action, ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "ミカは ", tail: "で がっこうに いく。", answer: "でんしゃ", options: ["でんしゃ", "バス", "ちかてつ"], en: "Mika goes to school by train", explanation: "でんしゃ is the train. バス is a bus and ちかてつ the subway — で is right in front of any of them, because で marks whichever one you use." }
+      - { kind: listening-comp, audio: "トムは ちかてつで だいがくに いく。", answer: "Tom goes to the university by subway", distractors: ["Tom goes to the university by bus", "Tom walks to the university", "Tom goes to school by subway"], exercises: [de-action, ni-location] }
+      - { kind: listening-comp, audio: "ミカは うちから えきまで あるく。", answer: "Mika walks from home to the station", distractors: ["Mika goes from home to the station by bus", "Mika walks from the station to her home", "Mika waits at the station"], exercises: [de-action, kara-origin, made-until] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "なにで がっこうに いく？", en: "What do you go to school by?" }
+          - { speaker: "Ken", ja: "でんしゃで いく。えきまで あるく。", en: "I go by train. I walk as far as the station." }
+        questions:
+          - { q: "How does Ken get to school?", options: ["He walks to the station, then takes the train", "He takes the bus the whole way", "He walks the whole way", "He goes by bike"], answer: "He walks to the station, then takes the train" }
+      - { kind: challenge, ja: "バスは やすいけど でんしゃで がっこうに いく。", en: "The bus is cheap, but I go to school by train", combines: [de-action, kedo, i-adj-present, ni-location], mode: build }
+    reviewPool: [でんしゃ, バス, ちかてつ, あるく, くるま, じてんしゃ, ふね, えき, きっぷ, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-review-1
+    role: review
+    title: "Review — に, へ, で: where you go and how"
+    focus: "Destination with に and へ, means with で, and all three inside one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あした がっこうに いく。", en: "I'm going to school tomorrow", exercises: [ni-location, ni-time], mode: build }
+      - { kind: sentence, ja: "ミカは うみへ いく。", en: "Mika is heading to the sea", exercises: [e-direction], mode: build }
+      - { kind: sentence, ja: "でんしゃで がっこうに いく。", en: "I go to school by train", exercises: [de-action, ni-location], mode: listening }
+      - { kind: sentence, ja: "ケンは ろくじに うちに かえる。", en: "Ken is going home at six", exercises: [ni-location, ni-time], mode: build }
+      - { kind: sentence, ja: "きょうは としょかんに いく。", en: "I'm going to the library today", exercises: [ni-location, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "ミカは ", tail: "で としょかんに いく。", answer: "バス", options: ["バス", "でんしゃ", "ちかてつ"], en: "Mika goes to the library by bus", explanation: "バス is the bus. でんしゃ is a train and ちかてつ the subway — all three take で, because で marks the one you use." }
+      - { kind: sentence, ja: "うちから えきまで あるく。", en: "I walk from home to the station", exercises: [kara-origin, made-until], mode: build }
+      - { kind: listening-comp, audio: "トムは あした にほんへ いく。", answer: "Tom is heading to Japan tomorrow", distractors: ["Tom is heading to America tomorrow", "Tom isn't heading to Japan tomorrow", "Tom came to Japan yesterday"], exercises: [e-direction, ni-time] }
+      - { kind: sentence, ja: "ちかてつで だいがくへ いく。", en: "I head to the university by subway", exercises: [de-action, e-direction], mode: build }
+      - { kind: sentence, ja: "きょうは びょういんへ いく。", en: "Say to a friend: I'm heading to the hospital today", exercises: [e-direction], mode: translate }
+      - { kind: listening-comp, audio: "ミカは きっさてんに いくけど ケンは うちに かえる。", answer: "Mika is going to the coffee shop, but Ken is going home", distractors: ["Mika is going home, but Ken is going to the coffee shop", "Mika and Ken are both going home", "Mika is going to the library, but Ken is going home"], exercises: [ni-location, kedo] }
+      - { kind: sentence, ja: "やまへ いくから くつを かう。", en: "I'm heading to the mountains, so I'll buy shoes", exercises: [e-direction, kara-because, wo-object], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あしたは がっこうへ きますか。", en: "Are you coming to school tomorrow?" }
+          - { speaker: "Mika", ja: "いきます。でんしゃで いきます。", en: "I am. I'm going by train." }
+        questions:
+          - { q: "How is Mika getting to school?", options: ["By train", "By bus", "On foot", "By bike"], answer: "By train" }
+    reviewPool: [がっこう, としょかん, びょういん, でんしゃ, バス, ちかてつ, あるく, かえる, へ, えき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-4
+    role: teaching
+    title: "「たべに いく」 — going in order to do something"
+    focus: "The purpose comes first: ます-stem + に いく, and the dictionary form never goes there"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: ni-iku }
+      - { kind: sentence, ja: "ごはんを たべに いく。", en: "I'm going out to eat", exercises: [ni-iku, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは ちゃを のみに きっさてんに いく。", en: "Mika is going to the coffee shop to drink tea", exercises: [ni-iku, wo-object, ni-location], mode: build }
+      - { kind: sentence, ja: "えいがを みに いく。", en: "I'm going to watch a movie", exercises: [ni-iku, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは ともだちと かいものに いく。", en: "Tom is going shopping with a friend", exercises: [ni-iku, to-and], mode: listening }
+      - { kind: sentence, ja: "あした ともだちと あそびに いく。", en: "I'm going out to hang out with a friend tomorrow", exercises: [ni-iku, to-and, ni-time], mode: build }
+      - { kind: sentence, ja: "としょかんに ほんを みに いく。", en: "I'm going to the library to look at books", exercises: [ni-iku, ni-location, wo-object], mode: build }
+      - { kind: sentence, ja: "すしを たべに いくけど かねが ない。", en: "I'm going out to eat sushi, but I have no money", exercises: [ni-iku, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "えいがを みに いく。", en: "Say to a friend: I'm going to watch a movie", exercises: [ni-iku], mode: translate }
+      - { kind: particle-cloze, stem: "ごはんを ", tail: " いく。", answer: "たべに", options: ["たべに", "のみに", "みに"], en: "I'm going out to eat", explanation: "ごはん is food, so the stem is たべ — 「たべに いく」. のみに would be going to drink and みに going to look." }
+      - { kind: listening-comp, audio: "ミカは ちゃを のみに きっさてんに いく。", answer: "Mika is going to the coffee shop to drink tea", distractors: ["Mika is going to the coffee shop to eat", "Mika drinks tea at home", "Mika is going to the library to look at books"], exercises: [ni-iku, ni-location] }
+      - { kind: listening-comp, audio: "きょうは ともだちと かいものに いく。", answer: "I'm going shopping with a friend today", distractors: ["I went shopping with a friend yesterday", "I'm going out to eat with a friend today", "My friend is going shopping today"], exercises: [ni-iku, to-and] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あしたは なにを する？", en: "What are you doing tomorrow?" }
+          - { speaker: "Tom", ja: "えいがを みに いく。ばんは ごはんを たべに いく。", en: "I'm going to watch a movie. In the evening I'm going out to eat." }
+        questions:
+          - { q: "What is Tom doing in the evening?", options: ["Going out to eat", "Going shopping", "Going home", "Going to the library"], answer: "Going out to eat" }
+      - { kind: challenge, ja: "あしたは ひまだから ともだちと えいがを みに いく。", en: "I'm free tomorrow, so I'm going to watch a movie with a friend", combines: [ni-iku, na-adj-present, kara-because, to-and], mode: build }
+    reviewPool: [えいが, かいもの, すし, ごはん, ちゃ, きっさてん, としょかん, ともだち, ほん, かね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-5
+    role: teaching
+    title: "「はちじ じゅっぷん」 — counting minutes"
+    focus: "ふん after 2, 5, 7, 9; ぷん after 1, 3, 4, 6, 8, 10 — the number decides the counter's sound"
+    introduces: [ふん, ぷん, じゅっぷん]
+    beats:
+      - { kind: rule, grammarPointId: counter-fun }
+      - { kind: sentence, ja: "でんしゃは はちじ じゅっぷんに くる。", en: "The train comes at 8:10", exercises: [counter-fun, counter-ji, ni-time], mode: build }
+      - { kind: sentence, ja: "いま しちじ ごふんだ。", en: "It's 7:05 now", exercises: [counter-fun, counter-ji, desu-copula], mode: build }
+      - { kind: sentence, ja: "バスは ろくじ さんぷんに くる。", en: "The bus comes at 6:03", exercises: [counter-fun, counter-ji, ni-time], mode: build }
+      - { kind: sentence, ja: "えきまで じゅっぷん あるく。", en: "I walk ten minutes to the station", exercises: [counter-fun, made-until], mode: listening }
+      - { kind: sentence, ja: "ミカは じゅっぷん まつけど ケンは こない。", en: "Mika waits ten minutes, but Ken doesn't come", exercises: [counter-fun, kedo, nai-form], mode: build }
+      - { kind: sentence, ja: "がっこうまで じてんしゃで きゅうふんだ。", en: "It's nine minutes to school by bike", exercises: [counter-fun, de-action, made-until], mode: build }
+      - { kind: sentence, ja: "ちかてつは くじ よんぷんに くるから いま いく。", en: "The subway comes at 9:04, so I'm going now", exercises: [counter-fun, counter-ji, kara-because], mode: build }
+      - { kind: sentence, ja: "いま しちじ ごふんだ。", en: "Say to a friend: It's 7:05 now", exercises: [counter-fun, counter-ji], mode: translate }
+      - { kind: particle-cloze, stem: "でんしゃは はちじ ", tail: "に くる。", answer: "じゅっぷん", options: ["じゅっぷん", "ごふん", "さんぷん"], en: "The train comes at 8:10", explanation: "ten past is じゅっぷん — 10 belongs to the ぷん family and doubles the sound in front of it. ごふん is five past and さんぷん three past." }
+      - { kind: listening-comp, audio: "バスは ろくじ さんぷんに くる。", answer: "The bus comes at 6:03", distractors: ["The bus comes at 6:10", "The train comes at 6:03", "The bus comes at 3:06"], exercises: [counter-fun, counter-ji] }
+      - { kind: listening-comp, audio: "きっさてんまで ごふん あるく。", answer: "I walk five minutes to the coffee shop", distractors: ["I walk ten minutes to the coffee shop", "I go to the coffee shop at five", "I wait five minutes at the coffee shop"], exercises: [counter-fun, made-until] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "でんしゃは なんじに くる？", en: "What time does the train come?" }
+          - { speaker: "Mika", ja: "はちじ じゅっぷんに くる。ごふん まつ。", en: "It comes at 8:10. We'll wait five minutes." }
+        questions:
+          - { q: "What does Mika say about the train?", options: ["It comes at 8:10, and they'll wait five minutes", "It comes at 8:05, and they'll wait ten minutes", "It has already gone", "It comes at 8:10, so they should walk"], answer: "It comes at 8:10, and they'll wait five minutes" }
+      - { kind: challenge, ja: "でんしゃは くじ じゅっぷんに くるから えきで ごふん まつ。", en: "The train comes at 9:10, so I'll wait five minutes at the station", combines: [counter-fun, counter-ji, kara-because, de-action], mode: build }
+    reviewPool: [ふん, ぷん, じゅっぷん, とけい, でんしゃ, バス, えき, いま, じかん, きっぷ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-6
+    role: teaching
+    title: "「くじから はたらく」 — から starts the clock"
+    focus: "から's third job: with a time in front of it, it marks the moment something starts"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: kara-time }
+      - { kind: sentence, ja: "みせは くじから ろくじまでだ。", en: "The shop is open from nine to six", exercises: [kara-time, made-until, desu-copula], mode: build }
+      - { kind: sentence, ja: "くじから はたらく。", en: "I work from nine", exercises: [kara-time, counter-ji], mode: build }
+      # NEVER 「〜からだ」: から + the copula fuses into からだ, the m2 atom for
+      # "body", and the mis-credit is silent (RUN-PLAN recurring trap). から is
+      # always followed by a verb or by まで in this module.
+      - { kind: sentence, ja: "じゅうじ ごふんから じゅぎょうが ある。", en: "There's a class from 10:05", exercises: [kara-time, counter-fun, arimasu], mode: build }
+      - { kind: sentence, ja: "ばんは しちじから ひまだ。", en: "In the evening I'm free from seven", exercises: [kara-time, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "あしたは あさ ろくじから いそがしい。", en: "Tomorrow I'm busy from six in the morning", exercises: [kara-time, i-adj-present], mode: build }
+      - { kind: sentence, ja: "としょかんは じゅうじから ごご ごじまでだ。", en: "The library is open from ten to five in the afternoon", exercises: [kara-time, made-until, desu-copula], mode: build }
+      - { kind: sentence, ja: "でんしゃは あさ ごじから あるから だいじょうぶだ。", en: "There are trains from five in the morning, so it's fine", exercises: [kara-time, arimasu, kara-because], mode: build }
+      - { kind: sentence, ja: "くじから はたらく。", en: "Say to a friend: I work from nine", exercises: [kara-time], mode: translate }
+      - { kind: particle-cloze, stem: "みせは ", tail: "から ろくじまでだ。", answer: "くじ", options: ["くじ", "はちじ", "じゅうじ"], en: "The shop is open from nine to six", explanation: "nine o'clock is くじ — this hour keeps the short reading and is never kyuuji. はちじ is eight and じゅうじ is ten." }
+      - { kind: listening-comp, audio: "じゅうじ ごふんから じゅぎょうが ある。", answer: "There's a class from 10:05", distractors: ["There's a class from 10:10", "There's a class until 10:05", "There's a class from 5:10"], exercises: [kara-time, counter-fun] }
+      - { kind: listening-comp, audio: "としょかんは じゅうじから ごご ごじまでだ。", answer: "The library is open from ten to five in the afternoon", distractors: ["The library is open from five to ten in the afternoon", "The library is open until ten in the morning", "The shop is open from ten to five in the afternoon"], exercises: [kara-time, made-until] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "じゅぎょうは なんじからですか。", en: "What time is the class from?" }
+          - { speaker: "Tanaka", ja: "じゅうじ ごふんからです。ごご さんじまでです。", en: "It's from 10:05. It runs until three in the afternoon." }
+        questions:
+          - { q: "When does the class run?", options: ["From 10:05 until 3 p.m.", "From 10:05 until 5 p.m.", "From 3 p.m. until 10 p.m.", "From 10 a.m. until 10:05"], answer: "From 10:05 until 3 p.m." }
+      - { kind: challenge, ja: "みせは くじから ろくじまでだから はちじ じゅっぷんに でんしゃで いく。", en: "The shop is open from nine to six, so I'm going by train at 8:10", combines: [kara-time, made-until, counter-fun, de-action], mode: build }
+    reviewPool: [みせ, じゅぎょう, ばん, あさ, ごご, ごぜん, とけい, じかん, ひま, いそがしい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-review-2
+    role: review
+    title: "Review — purpose, minutes and start times"
+    focus: "〜に いく for why you go, 〜ふん for the minutes, から for when it starts"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ごはんを たべに いく。", en: "I'm going out to eat", exercises: [ni-iku, wo-object], mode: build }
+      - { kind: sentence, ja: "でんしゃは はちじ じゅっぷんに くる。", en: "The train comes at 8:10", exercises: [counter-fun, ni-time], mode: build }
+      - { kind: sentence, ja: "くじから はたらく。", en: "I work from nine", exercises: [kara-time, counter-ji], mode: listening }
+      - { kind: sentence, ja: "えいがを みに いく。", en: "I'm going to watch a movie", exercises: [ni-iku, wo-object], mode: build }
+      - { kind: sentence, ja: "いま しちじ ごふんだ。", en: "It's 7:05 now", exercises: [counter-fun, desu-copula], mode: build }
+      - { kind: particle-cloze, stem: "ちゃを ", tail: " きっさてんに いく。", answer: "のみに", options: ["のみに", "たべに", "みに"], en: "I'm going to the coffee shop to drink tea", explanation: "ちゃ is a drink, so the stem is のみ — 「のみに いく」. たべに would be going to eat and みに going to look." }
+      - { kind: sentence, ja: "みせは くじから ろくじまでだ。", en: "The shop is open from nine to six", exercises: [kara-time, made-until], mode: build }
+      - { kind: listening-comp, audio: "ミカは じゅっぷん まつけど ケンは こない。", answer: "Mika waits ten minutes, but Ken doesn't come", distractors: ["Mika waits five minutes, but Ken doesn't come", "Ken waits ten minutes, but Mika doesn't come", "Mika waits ten minutes and Ken comes"], exercises: [counter-fun, kedo] }
+      - { kind: sentence, ja: "きょうは ともだちと かいものに いく。", en: "I'm going shopping with a friend today", exercises: [ni-iku, to-and], mode: build }
+      - { kind: sentence, ja: "ばんは しちじから ひまだ。", en: "Say to a friend: In the evening I'm free from seven", exercises: [kara-time], mode: translate }
+      - { kind: listening-comp, audio: "がっこうまで じてんしゃで きゅうふんだ。", answer: "It's nine minutes to school by bike", distractors: ["It's nine minutes to school on foot", "It's five minutes to school by bike", "It's nine minutes to the station by bike"], exercises: [counter-fun, de-action] }
+      - { kind: sentence, ja: "としょかんに ほんを みに いく。", en: "I'm going to the library to look at books", exercises: [ni-iku, ni-location], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは なんじから ひま？", en: "What time are you free from today?" }
+          - { speaker: "Ken", ja: "ごご ごじから ひまだ。ごはんを たべに いく？", en: "I'm free from five in the afternoon. Shall we go out to eat?" }
+        questions:
+          - { q: "What does Ken suggest?", options: ["Going out to eat after five", "Going shopping at five", "Watching a movie at five", "Waiting at the station"], answer: "Going out to eat after five" }
+    reviewPool: [ふん, ぷん, じゅっぷん, えいが, かいもの, みせ, じゅぎょう, ばん, ごご, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-7
+    role: teaching
+    title: "「ごじまでに かえる」 — by five, not until five"
+    focus: "まで is continuous 'until'; までに is a one-shot deadline 'by' — the verb tells you which"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: made-ni }
+      - { kind: sentence, ja: "ごじまでに うちに かえる。", en: "I'll be home by five", exercises: [made-ni, ni-location], mode: build }
+      - { kind: sentence, ja: "くじまでに がっこうに いく。", en: "I'll get to school by nine", exercises: [made-ni, ni-location], mode: build }
+      - { kind: sentence, ja: "あしたまでに きっぷを かう。", en: "I'll buy the ticket by tomorrow", exercises: [made-ni, wo-object], mode: build }
+      - { kind: sentence, ja: "ろくじまで きっさてんで まつ。", en: "I'll wait at the coffee shop until six", exercises: [made-until, de-action], mode: listening }
+      - { kind: sentence, ja: "はちじ じゅっぷんまでに えきに いく。", en: "I'll get to the station by 8:10", exercises: [made-ni, counter-fun, ni-location], mode: build }
+      - { kind: sentence, ja: "ごじまで はたらくから ろくじまでに かえる。", en: "I work until five, so I'll be home by six", exercises: [made-ni, made-until, kara-because], mode: build }
+      - { kind: sentence, ja: "としょかんは ごじまでだから よじまでに いく。", en: "The library is open until five, so I'll get there by four", exercises: [made-ni, made-until, kara-because], mode: build }
+      - { kind: sentence, ja: "ごじまでに うちに かえる。", en: "Say to a friend: I'll be home by five", exercises: [made-ni], mode: translate }
+      - { kind: particle-cloze, stem: "ごじ", tail: " うちに かえる。", answer: "までに", options: ["までに", "まで", "から"], en: "I'll be home by five", explanation: "かえる happens ONCE, so it takes the deadline particle までに. まで would stretch the going-home over every minute until five, and から would start it at five instead." }
+      - { kind: listening-comp, audio: "ろくじまで きっさてんで まつ。", answer: "I'll wait at the coffee shop until six", distractors: ["I'll get to the coffee shop by six", "I'll wait at the coffee shop from six", "I'll wait at the station until six"], exercises: [made-until, de-action] }
+      - { kind: listening-comp, audio: "くじまでに がっこうに いく。", answer: "I'll get to school by nine", distractors: ["I'm at school until nine", "I go to school from nine", "I'll get to the library by nine"], exercises: [made-ni, ni-location] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きっぷは いつ かいますか。", en: "When are you buying the ticket?" }
+          - { speaker: "Tom", ja: "あしたまでに かいます。ごじまでに えきへ いきます。", en: "I'll buy it by tomorrow. I'll get to the station by five." }
+        questions:
+          - { q: "What does Tom say about the ticket?", options: ["He'll buy it by tomorrow", "He bought it yesterday", "He'll buy it at the station at five", "He isn't buying one"], answer: "He'll buy it by tomorrow" }
+      - { kind: challenge, ja: "でんしゃは ごじ さんぷんに くるから よじまでに えきに いく。", en: "The train comes at 5:03, so I'll get to the station by four", combines: [made-ni, counter-fun, kara-because, ni-location], mode: build }
+    reviewPool: [きっぷ, えき, としょかん, きっさてん, かえる, がっこう, とけい, じかん, でんしゃ, うち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-8
+    role: teaching
+    title: "「どこへ いく？」 — asking about a journey"
+    focus: "A question word goes in the slot the answer will occupy — nothing else moves"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: location-qa }
+      - { kind: sentence, ja: "どこへ いく？", en: "Where are you heading", exercises: [location-qa, e-direction], mode: build }
+      - { kind: sentence, ja: "なにで がっこうに いく？", en: "What do you go to school by", exercises: [location-qa, de-action], mode: build }
+      - { kind: sentence, ja: "でんしゃは なんじに くる？", en: "What time does the train come", exercises: [location-qa, ni-time], mode: build }
+      - { kind: sentence, ja: "びょういんまで なんぷん あるく？", en: "How many minutes do you walk to the hospital", exercises: [location-qa, counter-fun, made-until], mode: listening }
+      - { kind: sentence, ja: "としょかんは なんじから？", en: "What time is the library open from", exercises: [location-qa, kara-time], mode: build }
+      - { kind: sentence, ja: "なんじまでに えきに いく？", en: "What time will you get to the station by", exercises: [location-qa, made-ni], mode: build }
+      - { kind: sentence, ja: "きょうは いそがしいけど どこに いく？", en: "You're busy today, but where are you going", exercises: [location-qa, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "なにで がっこうに いく？", en: "Say to a friend: What do you go to school by", exercises: [location-qa], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: "で がっこうに いく？", answer: "なに", options: ["なに", "どこ", "だれ"], en: "What do you go to school by?", explanation: "a vehicle is a THING, so it is なに — 「なにで いく？」. どこ asks where and だれ asks who." }
+      - { kind: listening-comp, audio: "でんしゃは なんじに くる？", answer: "What time does the train come?", distractors: ["What time does the bus come?", "Where does the train come from?", "How many minutes until the train comes?"], exercises: [location-qa, ni-time] }
+      - { kind: listening-comp, audio: "びょういんまで なんぷん あるく？", answer: "How many minutes do you walk to the hospital?", distractors: ["How many minutes do you walk to the library?", "What time do you go to the hospital?", "Do you walk to the hospital?"], exercises: [location-qa, counter-fun] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "としょかんは なんじから？", en: "What time is the library open from?" }
+          - { speaker: "Mika", ja: "じゅうじから ろくじまでだ。ちかてつで じゅっぷんだ。", en: "From ten until six. It's ten minutes by subway." }
+        questions:
+          - { q: "What does Mika say about the library?", options: ["It's open ten to six and it's ten minutes by subway", "It's open ten to six and it's ten minutes on foot", "It's open from six until ten", "It's five minutes by subway"], answer: "It's open ten to six and it's ten minutes by subway" }
+      - { kind: challenge, ja: "あしたは ひまだけど なんじから どこへ いく？", en: "You're free tomorrow, but what time are you heading out, and where", combines: [location-qa, kara-time, e-direction, kedo], mode: build }
+    reviewPool: [どこ, なに, なんじ, でんしゃ, びょういん, としょかん, えき, がっこう, ふん, ぷん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-9
+    role: teaching
+    title: "「えきは どこですか」 — asking a stranger"
+    focus: "The one place plain form is socially wrong: すみません, です / ます, and か on every question"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      # 「どこですか」 is a registered survival PHRASE, so a build step would tile
+      # it whole and the learner would never place the か. Typed instead; the
+      # cloze below drills the あそこ / あそこです / あそこですか ladder, which is
+      # the same contrast on a surface that decomposes.
+      - { kind: sentence, ja: "すみません えきは どこですか。", en: "Say politely: Excuse me, where is the station", exercises: [masu-present, location-qa, ka-question], mode: translate }
+      - { kind: sentence, ja: "びょういんは あそこですか。", en: "Say politely: Is the hospital over there", exercises: [masu-present, koko-soko-asoko, ka-question], mode: build }
+      - { kind: sentence, ja: "バスで がっこうに いきますか。", en: "Say politely: Do you go to school by bus", exercises: [masu-present, de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "でんしゃは なんじに きますか。", en: "Say politely: What time does the train come", exercises: [masu-present, location-qa, ni-time], mode: listening }
+      - { kind: sentence, ja: "ちかてつで だいがくに いきますか。", en: "Say politely: Do you go to the university by subway", exercises: [masu-present, de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "としょかんは なんじからですか。", en: "Say politely: What time is the library open from", exercises: [masu-present, kara-time, ka-question], mode: build }
+      - { kind: sentence, ja: "えきまで じゅっぷんですか。", en: "Say politely: Is it ten minutes to the station", exercises: [masu-present, counter-fun, made-until], mode: build }
+      - { kind: sentence, ja: "えきは どこ？", en: "Say to a friend: Where is the station", exercises: [masu-present, location-qa], mode: build }
+      - { kind: particle-cloze, stem: "びょういんは ", tail: "。", answer: "あそこですか", options: ["あそこですか", "あそこです", "あそこ"], en: "Say politely: Is the hospital over there?", explanation: "a polite QUESTION needs both halves — です for the register and か to make it a question. あそこです is a polite statement, and あそこ on its own is what you say to a friend." }
+      - { kind: listening-comp, audio: "バスで びょういんに いきますか。", answer: "Do you go to the hospital by bus?", distractors: ["Do you go to the library by bus?", "Do you go to the hospital by train?", "Does the bus go to the hospital?"], exercises: [masu-present, de-action] }
+      - { kind: listening-comp, audio: "でんしゃは なんじに きますか。", answer: "What time does the train come?", distractors: ["What time does the bus come?", "Does the train come at nine?", "How many minutes until the train comes?"], exercises: [masu-present, ni-time] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "すみません びょういんは どこですか。", en: "Excuse me, where is the hospital?" }
+          - { speaker: "Tanaka", ja: "あそこです。バスで じゅっぷんです。", en: "It's over there. It's ten minutes by bus." }
+        questions:
+          - { q: "What does Tanaka tell Tom?", options: ["It's over there, ten minutes by bus", "It's over there, ten minutes on foot", "It's at the station, five minutes by bus", "He doesn't know where it is"], answer: "It's over there, ten minutes by bus" }
+      - { kind: challenge, ja: "すみません ちかてつで びょういんに いきますか。", en: "Say politely: Excuse me, do you go to the hospital by subway", combines: [masu-present, de-action, ni-location, ka-question], mode: build }
+    reviewPool: [えき, びょういん, がっこう, だいがく, としょかん, でんしゃ, バス, ちかてつ, すみません, どこ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-review-3
+    role: review
+    title: "Review — getting around, start to finish"
+    focus: "Destination, direction, means, purpose, minutes, start times and deadlines in one pass"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "でんしゃで がっこうに いく。", en: "I go to school by train", exercises: [de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "ごじまでに うちに かえる。", en: "I'll be home by five", exercises: [made-ni, ni-location], mode: build }
+      - { kind: sentence, ja: "ごはんを たべに いく。", en: "I'm going out to eat", exercises: [ni-iku, wo-object], mode: listening }
+      - { kind: sentence, ja: "ミカは うみへ いく。", en: "Mika is heading to the sea", exercises: [e-direction], mode: build }
+      - { kind: sentence, ja: "バスは ろくじ さんぷんに くる。", en: "The bus comes at 6:03", exercises: [counter-fun, ni-time], mode: build }
+      - { kind: particle-cloze, stem: "ごじ", tail: " うちに かえる。", answer: "までに", options: ["までに", "まで", "から"], en: "I'll be home by five", explanation: "かえる happens once, so the deadline particle までに is the one. まで would stretch the going-home over every minute, and から would start it at five." }
+      - { kind: sentence, ja: "みせは くじから ろくじまでだ。", en: "The shop is open from nine to six", exercises: [kara-time, made-until], mode: build }
+      - { kind: listening-comp, audio: "ちかてつで だいがくへ いく。", answer: "I head to the university by subway", distractors: ["I head to the university by bus", "I walk to the university", "I head to the library by subway"], exercises: [de-action, e-direction] }
+      - { kind: sentence, ja: "すみません バスで えきに いきますか。", en: "Say politely: Excuse me, do you go to the station by bus", exercises: [masu-present, de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "きょうは としょかんに いく。", en: "Say to a friend: I'm going to the library today", exercises: [ni-location], mode: translate }
+      - { kind: listening-comp, audio: "でんしゃは はちじ じゅっぷんに くる。", answer: "The train comes at 8:10", distractors: ["The train comes at 8:05", "The bus comes at 8:10", "The train comes at 10:08"], exercises: [counter-fun, ni-time] }
+      - { kind: sentence, ja: "うちから えきまで あるく。", en: "I walk from home to the station", exercises: [kara-origin, made-until], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あしたは なにで がっこうに いく？", en: "What are you going to school by tomorrow?" }
+          - { speaker: "Mika", ja: "えきまで あるく。そこから でんしゃで いく。", en: "I walk as far as the station. From there I go by train." }
+        questions:
+          - { q: "What does Mika do first?", options: ["Walks to the station", "Takes the train from home", "Takes the bus", "Goes by bike"], answer: "Walks to the station" }
+    reviewPool: [がっこう, としょかん, びょういん, でんしゃ, バス, ちかてつ, あるく, かえる, じゅっぷん, へ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m19-neo-challenge
+    role: challenge
+    title: "Challenge — plan the whole trip"
+    focus: "End-of-module stretch: means, destination, purpose and the clock stacked in one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "はちじ じゅっぷんの でんしゃで えいがを みに いく。", en: "I'm taking the 8:10 train to go and watch a movie", exercises: [counter-fun, de-action, ni-iku, no-possession], mode: build }
+      - { kind: sentence, ja: "としょかんは ごじまでだから よじまでに ちかてつで いく。", en: "The library is open until five, so I'm going by subway to get there by four", exercises: [made-ni, made-until, de-action, kara-because], mode: build }
+      - { kind: sentence, ja: "きょうは でんしゃが ないから ともだちの くるまで がっこうへ いく。", en: "There are no trains today, so I'm heading to school in a friend's car", exercises: [de-action, nai-existence, e-direction, no-possession], mode: listening }
+      - { kind: sentence, ja: "くじから はたらくから はちじまでに かいしゃに いく。", en: "I work from nine, so I'll get to the company by eight", exercises: [kara-time, made-ni, kara-because, ni-location], mode: build }
+      - { kind: sentence, ja: "ミカは ちゃを のみに いくけど ケンは うちに かえる。", en: "Mika is going out to drink tea, but Ken is going home", exercises: [ni-iku, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "びょういんまで じてんしゃで きゅうふんだから じゅうじまでに いく。", en: "It's nine minutes to the hospital by bike, so I'll get there by ten", exercises: [counter-fun, de-action, kara-because, made-ni], mode: build }
+      - { kind: sentence, ja: "すみません バスで としょかんに いきますか。", en: "Say politely: Excuse me, do you go to the library by bus", exercises: [masu-present, de-action, ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "ごはんを ", tail: " いくから ろくじまでに かえる。", answer: "たべに", options: ["たべに", "のみに", "みに"], en: "I'm going out to eat, so I'll be home by six", explanation: "ごはん is food, so the stem is たべ. のみに would be going to drink and みに going to look." }
+      - { kind: listening-comp, audio: "としょかんは ごじまでだから よじまでに いく。", answer: "The library is open until five, so I'll get there by four", distractors: ["The library is open from five, so I'll go at four", "The library is open until four, so I'll get there by five", "The library is open until five, and I'll stay until four"], exercises: [made-ni, made-until] }
+      - { kind: listening-comp, audio: "はちじ じゅっぷんの でんしゃで いく。", answer: "I'm going on the 8:10 train", distractors: ["I'm going on the 8:05 train", "I'm going on the 10:08 train", "I'm going on the 8:10 bus"], exercises: [counter-fun, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あしたは なんじに がっこうへ きますか。", en: "What time are you coming to school tomorrow?" }
+          - { speaker: "Ken", ja: "くじまでに いきます。でんしゃで じゅっぷんですから はちじ ごふんに うちから いきます。", en: "I'll get there by nine. It's ten minutes by train, so I'll go from home at 8:05." }
+        questions:
+          - { q: "What is Ken's plan?", options: ["Leave home at 8:05 and get to school by nine", "Leave home at nine and get to school by ten", "Walk to school by nine", "Take the bus at 8:05"], answer: "Leave home at 8:05 and get to school by nine" }
+      - { kind: challenge, ja: "でんしゃは くじ よんぷんに くるから ともだちと えきで ごふん まつ。", en: "The train comes at 9:04, so I'll wait five minutes at the station with a friend", combines: [counter-fun, kara-because, de-action, to-and, counter-ji], mode: build }
+    reviewPool: [でんしゃ, バス, ちかてつ, あるく, かえる, がっこう, としょかん, びょういん, じゅっぷん, えき]

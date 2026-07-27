@@ -520,9 +520,15 @@ export function lintAntiPatternMinimalPairs(lesson: LessonContent): LintFailure[
 // every production sentence carries a second clause on m16's から / ので / けど
 // — which is also how people actually talk about their families. Floor set
 // three sentences below that measurement, per this block's own rule.
+// m19 RECALIBRATED 2026-07-27: the 0.51 floor was measured on the OLD m19
+// (people and family vocabulary, now archived). The neo module — spine tile
+// s15 — measures 71/86 = .826, because a journey sentence carries a means
+// phrase plus a destination plus a time by construction, and most beats hang a
+// second clause on m16's から / けど. Floor set three sentences below that
+// measurement, per this block's own rule.
 export const COMPLEXITY_FLOORS: Record<string, number> = {
   m12: 0.12, m13: 0.60, m14: 0.75, m15: 0.84, m16: 0.85, m17: 0.75,
-  m18: 0.57, m19: 0.49, m20: 0.53, m21: 0.40, m22: 0.56, m23: 0.44,
+  m18: 0.57, m19: 0.80, m20: 0.53, m21: 0.40, m22: 0.56, m23: 0.44,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.

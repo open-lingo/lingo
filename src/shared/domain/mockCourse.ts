@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m18 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08) are LIVE via the compiler pipeline — slice them off so the
-    // placeholders begin at m19. NB the SPINE_COMING_SOON array still lists
+    // m6-m19 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15) are LIVE via the compiler pipeline — slice them off so the
+    // placeholders begin at m20. NB the SPINE_COMING_SOON array still lists
     // s11 before n06b (draft-3 order); draft-4 swapped them, which is why m14
     // is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(13).map((t, i) => ({
-      id: `m${i + 19}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(14).map((t, i) => ({
+      id: `m${i + 20}`,
       title: t.title,
-      eyebrow: `Module ${i + 19} · Coming soon`,
+      eyebrow: `Module ${i + 20} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -718,6 +718,35 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m18-neo-challenge", title: "Challenge — say what you think", status: "available" as const },
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
+        },
+        {
+          // m19-neo (spine tile s15) — Getting around. Almost nothing here is
+          // new: destination is に's THIRD job, means is で's other job, and
+          // clock-から is から's third. The one genuinely new surface is へ,
+          // which is written he and READ e — the single most confusing
+          // spelling a beginner meets, so the lesson opens on the reading.
+          // 〜に いく (「たべに いく」) lands here at last: it attaches to the
+          // ます-stem, which no lexicon in the repo knew until the stem fix.
+          id: "m19",
+          title: "Getting around: motion particles",
+          eyebrow: "Module 19 · Motion",
+          summary: "Where you go, how you get there and when. に marks the place you arrive at, へ points at the direction you head — and へ is written he but READ e, the one spelling in the language that catches everybody. で marks the vehicle (「バスで いく」), the ます-stem plus に いく says why you are going (「たべに いく」), and から, まで and までに hang the whole journey on the clock, minutes and all.",
+          lessons: [
+            { id: "ja-m19-neo-1", title: "「えきに いく」 — に marks where you arrive", status: "available" as const },
+            { id: "ja-m19-neo-2", title: "「にほんへ いく」 — written he, said e", status: "available" as const },
+            { id: "ja-m19-neo-3", title: "「バスで いく」 — で is how you get there", status: "available" as const },
+            { id: "ja-m19-neo-review-1", title: "Review — に, へ, で: where you go and how", status: "available" as const },
+            { id: "ja-m19-neo-4", title: "「たべに いく」 — going in order to do something", status: "available" as const },
+            { id: "ja-m19-neo-5", title: "「はちじ じゅっぷん」 — counting minutes", status: "available" as const },
+            { id: "ja-m19-neo-6", title: "「くじから はたらく」 — から starts the clock", status: "available" as const },
+            { id: "ja-m19-neo-review-2", title: "Review — purpose, minutes and start times", status: "available" as const },
+            { id: "ja-m19-neo-7", title: "「ごじまでに かえる」 — by five, not until five", status: "available" as const },
+            { id: "ja-m19-neo-8", title: "「どこへ いく？」 — asking about a journey", status: "available" as const },
+            { id: "ja-m19-neo-9", title: "「えきは どこですか」 — asking a stranger", status: "available" as const },
+            { id: "ja-m19-neo-review-3", title: "Review — getting around, start to finish", status: "available" as const },
+            { id: "ja-m19-neo-challenge", title: "Challenge — plan the whole trip", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

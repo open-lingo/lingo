@@ -1,0 +1,5436 @@
+{
+  "module": "m19",
+  "title": "Getting around: motion particles",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18"
+  ],
+  "priorGrammarPoints": [
+    "wa-topic",
+    "wo-object",
+    "ni-time",
+    "mo-also",
+    "to-and",
+    "koko-soko-asoko",
+    "spatial-relations",
+    "nai-existence",
+    "arimasu",
+    "imasu",
+    "ga-existence",
+    "no-possession",
+    "kore-sore-are-dore",
+    "kono-sono-ano-dono",
+    "dare",
+    "masu-negative",
+    "masu-past",
+    "masu-past-negative",
+    "desu-past",
+    "dictionary-form",
+    "ta-form",
+    "nai-form",
+    "desu-copula",
+    "ka-question",
+    "te-form",
+    "te-iru",
+    "te-kara",
+    "mae-ni",
+    "toki",
+    "i-adj-present",
+    "i-adj-negative",
+    "i-adj-past",
+    "i-adj-past-negative",
+    "na-adj-present",
+    "na-adj-negative",
+    "na-adj-past",
+    "v-tai",
+    "ga-hoshii",
+    "suki-kirai-no",
+    "no-ga-suki",
+    "mada-mou",
+    "kara-because",
+    "node-because",
+    "kedo",
+    "kara-origin",
+    "made-until",
+    "to-omoimasu",
+    "to-quotation",
+    "numbers-1-10",
+    "numbers-11-99",
+    "counter-ji",
+    "counter-tsu",
+    "counter-mai",
+    "counter-nin",
+    "counter-sai",
+    "family-register",
+    "kudasai",
+    "kanji-set-1"
+  ],
+  "grammarPoints": [
+    {
+      "id": "ni-location",
+      "rule": "に marks the place you ARRIVE at. 「えきに いく」 = I'm going to the station. This is not a new particle — it is a third job for one you have had for a long time. You already use に for where something IS (「うちに いる」) and for WHEN something happens (「くじに いく」), and destination is the same idea once more: に pins the sentence to a point, and the point can be a place, a time, or the place you end up. The word order is the ordinary one, with the place before the verb and the verb last: 「あした きっさてんに いく」. Every verb of motion takes it — いく, くる, and かえる, which is the verb for going back where you belong: home, your own town, your country. かえる is not a formal 'return'; it is the everyday word, and Japanese reaches for it far more often than English reaches for 'go back'.",
+      "examples": [
+        {
+          "ja": "えきに いく。",
+          "en": "I'm going to the station."
+        },
+        {
+          "ja": "ミカは きっさてんに いく。",
+          "en": "Mika is going to the coffee shop."
+        },
+        {
+          "ja": "トムは あした だいがくに くる。",
+          "en": "Tom is coming to the university tomorrow."
+        },
+        {
+          "ja": "ろくじに うちに かえる。",
+          "en": "I'm going home at six."
+        },
+        {
+          "ja": "なつやすみに にほんに いく。",
+          "en": "I'm going to Japan for the summer holiday."
+        }
+      ],
+      "antiPattern": {
+        "ja": "えきで いく。",
+        "why": "で marks where an action HAPPENS; the place you go TO is marked with に: えきに いく。"
+      }
+    },
+    {
+      "id": "e-direction",
+      "rule": "へ is the one genuinely new piece in this module, and the first thing to know about it is how it SOUNDS. Written, it is the hiragana he. Used as a PARTICLE it is read **e** — always, with no exceptions, and nothing else in the writing system does this. Learn it once and it never troubles you again. Now the meaning: へ points at the DIRECTION you are heading, に at the ARRIVAL you are heading for. 「にほんへ いく」 leans on the journey, 「にほんに いく」 leans on getting there. With いく, くる and かえる the two are close enough that either is fine, and に is what people reach for by default — treat へ as the slightly softer 'off toward' option. What へ cannot do is に's OTHER jobs. It never marks a clock time and it never marks where something exists. 「ろくじへ かえる」 is wrong; a time is always に.",
+      "examples": [
+        {
+          "ja": "ろくじに うちへ かえる。",
+          "en": "I'm heading home at six."
+        },
+        {
+          "ja": "にほんへ いく。",
+          "en": "I'm heading to Japan."
+        },
+        {
+          "ja": "ミカは うみへ いく。",
+          "en": "Mika is heading to the sea."
+        },
+        {
+          "ja": "ケンは あした がっこうへ くる。",
+          "en": "Ken is coming to school tomorrow."
+        },
+        {
+          "ja": "やまへ いくから くつを かう。",
+          "en": "I'm heading to the mountains, so I'll buy shoes."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ろくじへ うちへ かえる。",
+        "why": "へ points at a PLACE you head toward; a clock time is always marked with に: ろくじに うちへ かえる。"
+      }
+    },
+    {
+      "id": "de-action",
+      "rule": "で has a second job and it is the one this module needs: で marks the MEANS — the thing you go BY. 「くるまで いく」 = I go by car. You met で as the place an action happens (「きっさてんで はなす」), and this is the same particle saying the same thing from another angle, because で always means 'using this'. A place is simply a tool you stand inside. A journey sentence often carries both jobs at once and they never collide, since に and へ own the destination while で owns the vehicle: 「くるまで だいがくに いく」. Two things で is NOT. It is not the destination, so 「えきで いく」 is wrong. And walking is not a means at all — you are using nothing, so no で appears anywhere: 「えきまで あるく」, I walk as far as the station.",
+      "examples": [
+        {
+          "ja": "くるまで だいがくに いく。",
+          "en": "I go to the university by car."
+        },
+        {
+          "ja": "ミカは じてんしゃで きっさてんに いく。",
+          "en": "Mika goes to the coffee shop by bike."
+        },
+        {
+          "ja": "トムは ふねで うみへ いく。",
+          "en": "Tom heads out to the sea by boat."
+        },
+        {
+          "ja": "えきまで あるく。",
+          "en": "I walk as far as the station."
+        },
+        {
+          "ja": "くるまで いくから きっぷは かわない。",
+          "en": "I'm going by car, so I won't buy a ticket."
+        }
+      ],
+      "antiPattern": {
+        "ja": "くるまを だいがくに いく。",
+        "why": "を marks a thing you ACT ON, and you are not acting on the car — you are using it, so it takes で: くるまで だいがくに いく。"
+      }
+    },
+    {
+      "id": "ni-iku",
+      "rule": "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going travelling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」.",
+      "examples": [
+        {
+          "ja": "ごはんを たべに いく。",
+          "en": "I'm going out to eat."
+        },
+        {
+          "ja": "ミカは ちゃを のみに きっさてんに いく。",
+          "en": "Mika is going to the coffee shop to drink tea."
+        },
+        {
+          "ja": "えいがを みに いく。",
+          "en": "I'm going to watch a movie."
+        },
+        {
+          "ja": "きょうは かいものに いく。",
+          "en": "I'm going shopping today."
+        },
+        {
+          "ja": "トムは ともだちと あそびに くる。",
+          "en": "Tom is coming over to hang out with a friend."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ごはんを たべるに いく。",
+        "why": "〜に いく attaches to the ます-STEM, never the dictionary form — たべます minus ます is たべ: ごはんを たべに いく。"
+      }
+    },
+    {
+      "id": "counter-fun",
+      "rule": "Minutes are a number plus the counter for 分, and this is the one counter where the number changes the counter's own sound. Take the two families as they come. After 2, 5, 7 and 9 it stays FUN — nifun, gofun, nanafun, kyuufun. After 1, 3, 4, 6, 8 and 10 it turns into PUN: sanpun (3) and yonpun (4) simply swap the consonant, while ippun (1), roppun (6), happun (8) and juppun (10) also double the sound in front of it. 'How many minutes' is nanpun, in the pun family. Say the list out loud a few times — the mouth learns this far faster than the eye does, and once it is in the mouth you stop thinking about it. Building a clock time is easy after that: the hour, then the minutes, with no particle between them, so 「しちじ ごふん」 is 7:05. And half past has a word of its own, はん, which is what people actually say: 「しちじはん」.",
+      "examples": [
+        {
+          "ja": "いま しちじ ごふんだ。",
+          "en": "It's 7:05 now."
+        },
+        {
+          "ja": "でんしゃは はちじ じゅっぷんに くる。",
+          "en": "The train comes at 8:10."
+        },
+        {
+          "ja": "えきまで じゅっぷん あるく。",
+          "en": "I walk ten minutes to the station."
+        },
+        {
+          "ja": "ミカは よんぷん まつ。",
+          "en": "Mika waits four minutes."
+        },
+        {
+          "ja": "バスは ろくじ さんぷんに くる。",
+          "en": "The bus comes at 6:03."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いま しちじ ごぷんだ。",
+        "why": "5 belongs to the ふん family — ごふん. Only 1, 3, 4, 6, 8 and 10 take ぷん: いま しちじ ごふんだ。"
+      }
+    },
+    {
+      "id": "kara-time",
+      "rule": "から's third job is the clock. You have used it for a reason (「さむいから いかない」) and for an origin (「にほんから くる」); put a TIME in front of it and it marks the moment something STARTS. 「くじから はたらく」 = I work from nine. That is the whole rule — から is a starting gun, and the thing it starts can be an hour, an hour and minutes, or a part of the day: 「くじ ごふんから」, 「あさから」, 「ばんから」. Give it a まで on the other end and you have the whole stretch, which is the pair module 16 taught you: 「くじから ごじまで」. A start with no end is completely normal on its own — nothing is waiting for the まで. What から never gives you is a deadline. 'From five' and 'by five' are different sentences, and the second one needs までに.",
+      "examples": [
+        {
+          "ja": "くじから ろくじまで はたらく。",
+          "en": "I work from nine to six."
+        },
+        {
+          "ja": "みせは くじから ろくじまでだ。",
+          "en": "The shop is open from nine to six."
+        },
+        {
+          "ja": "くじから はたらく。",
+          "en": "I work from nine."
+        },
+        {
+          "ja": "ばんは しちじから ひまだ。",
+          "en": "In the evening I'm free from seven."
+        },
+        {
+          "ja": "あしたは あさ ろくじから いそがしい。",
+          "en": "Tomorrow I'm busy from six in the morning."
+        }
+      ],
+      "antiPattern": {
+        "ja": "くじまで ろくじから はたらく。",
+        "why": "から marks the START of a stretch and まで its END — swapped round, the sentence runs the working day backwards: くじから ろくじまで はたらく。"
+      }
+    },
+    {
+      "id": "made-ni",
+      "rule": "まで and までに are one syllable apart and they are not the same word. まで is UNTIL: whatever the verb is, it carries on the whole way to that point. 「ごじまで まつ」 = I'll wait until five, and the waiting fills every minute between now and five. までに is BY: the verb happens ONCE, at some moment before the deadline, and nothing says which moment. 「ごじまでに かえる」 = I'll be home by five — it might be four, it might be ten to. The test is the verb itself. Is it something you keep DOING, like まつ, はたらく, いる or みる? Then まで. Is it something that happens once and is over, like かえる, くる, いく or かう? Then までに. And notice what makes the difference: it is the に — the same に that pins a clock time, now pinning a whole deadline to the sentence.",
+      "examples": [
+        {
+          "ja": "ごじまでに うちに かえる。",
+          "en": "I'll be home by five."
+        },
+        {
+          "ja": "くじまでに がっこうに いく。",
+          "en": "I'll get to school by nine."
+        },
+        {
+          "ja": "あしたまでに きっぷを かう。",
+          "en": "I'll buy the ticket by tomorrow."
+        },
+        {
+          "ja": "ろくじまで きっさてんで まつ。",
+          "en": "I'll wait at the coffee shop until six."
+        },
+        {
+          "ja": "はちじ じゅっぷんまでに えきに いく。",
+          "en": "I'll get to the station by 8:10."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ごじにまで うちに かえる。",
+        "why": "the deadline particle is までに — まで with に on the END of it, never に in the middle: ごじまでに うちに かえる。"
+      }
+    },
+    {
+      "id": "location-qa",
+      "rule": "Every piece of a journey has a question word, and asking is easier than you expect: you drop the question word into the slot the answer will occupy and change nothing else. Destination — 「どこに いく？」 or 「どこへ いく？」, where the place becomes どこ and the particle stays put. Means — 「なにで いく？」, where the vehicle becomes なに and で stays put. Time — 「なんじに いく？」, plus 「なんじから？」 and 「なんじまでに？」 for the two ends of a stretch. Duration — 「なんぷん？」. Nothing moves to the front and nothing is added, which is exactly why your listener can answer by saying the very same sentence with the word filled in. One word to sidestep: なんで is also the casual word for 'why', so when you want to ask about transport, なにで is the question that cannot be misheard.",
+      "examples": [
+        {
+          "ja": "どこへ いく？",
+          "en": "Where are you heading?"
+        },
+        {
+          "ja": "なにで がっこうに いく？",
+          "en": "What do you go to school by?"
+        },
+        {
+          "ja": "でんしゃは なんじに くる？",
+          "en": "What time does the train come?"
+        },
+        {
+          "ja": "びょういんまで なんぷん あるく？",
+          "en": "How many minutes do you walk to the hospital?"
+        },
+        {
+          "ja": "としょかんは なんじから？",
+          "en": "What time is the library open from?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "どこを いく？",
+        "why": "を marks a thing you act on; the place you head for is marked with へ or に: どこへ いく？"
+      }
+    },
+    {
+      "id": "masu-present",
+      "rule": "There is one situation where this course's plain form is simply the wrong tool, and it is the situation this module is about: stopping a stranger to ask the way. You do not know them and they do not know you, so です and ます are not decoration here — they are the only forms that will not land as rude. The shape is always the same three moves. Open with すみません. Ask with です or ます. Close with ありがとうございます. 「すみません えきは どこですか。」 — excuse me, where is the station? 「バスで いきますか。」 — do I go by bus? Watch the か: a casual question rides its rising contour alone, but a polite question REQUIRES it. Everything else you have learned stays exactly where it is — the particles do not change and the word order does not change, only the last word does. To a friend the same journey is 「えきは どこ？」",
+      "examples": [
+        {
+          "ja": "すみません えきは どこですか。",
+          "en": "Excuse me, where is the station?"
+        },
+        {
+          "ja": "びょういんは あそこですか。",
+          "en": "Is the hospital over there?"
+        },
+        {
+          "ja": "バスで がっこうに いきますか。",
+          "en": "Do you go to school by bus?"
+        },
+        {
+          "ja": "でんしゃは なんじに きますか。",
+          "en": "What time does the train come?"
+        },
+        {
+          "ja": "ちかてつで だいがくに いきますか。",
+          "en": "Do you go to the university by subway?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "すみません えきは どこです。",
+        "why": "a polite question REQUIRES か — without it the sentence is a statement, and an unfinished one: すみません えきは どこですか。"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "がっこう",
+      "romaji": "gakkou",
+      "gloss": "school",
+      "shortGloss": "school",
+      "kind": "vocab"
+    },
+    {
+      "kana": "としょかん",
+      "romaji": "toshokan",
+      "gloss": "library",
+      "shortGloss": "library",
+      "kind": "vocab"
+    },
+    {
+      "kana": "かえる",
+      "romaji": "kaeru",
+      "gloss": "to go back, to go home",
+      "shortGloss": "go home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "へ",
+      "romaji": "e (written he)",
+      "gloss": "to, toward (direction)",
+      "shortGloss": "toward",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "びょういん",
+      "romaji": "byouin",
+      "gloss": "hospital",
+      "shortGloss": "hospital",
+      "kind": "vocab"
+    },
+    {
+      "kana": "でんしゃ",
+      "romaji": "densha",
+      "gloss": "train",
+      "shortGloss": "train",
+      "kind": "vocab"
+    },
+    {
+      "kana": "バス",
+      "romaji": "basu",
+      "gloss": "bus",
+      "shortGloss": "bus",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちかてつ",
+      "romaji": "chikatetsu",
+      "gloss": "underground train, subway",
+      "shortGloss": "subway",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あるく",
+      "romaji": "aruku",
+      "gloss": "to walk",
+      "shortGloss": "to walk",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふん",
+      "romaji": "fun",
+      "gloss": "minutes (after 2, 5, 7, 9)",
+      "shortGloss": "minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぷん",
+      "romaji": "pun",
+      "gloss": "minutes (after 1, 3, 4, 6, 8, 10)",
+      "shortGloss": "minutes -pun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅっぷん",
+      "romaji": "juppun",
+      "gloss": "ten minutes",
+      "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m19-neo-1",
+      "role": "teaching",
+      "title": "「えきに いく」 — に marks where you arrive",
+      "focus": "Destination is に's third job — the learner already owns it for location and for time",
+      "introduces": [
+        "がっこう",
+        "としょかん",
+        "かえる"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-location"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした がっこうに いく。",
+          "en": "I'm going to school tomorrow",
+          "exercises": [
+            "ni-location",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは としょかんに いく。",
+          "en": "I'm going to the library today",
+          "exercises": [
+            "ni-location",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは あさ がっこうに いく。",
+          "en": "Mika goes to school in the morning",
+          "exercises": [
+            "ni-location",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは ろくじに うちに かえる。",
+          "en": "Ken is going home at six",
+          "exercises": [
+            "ni-location",
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは いそがしいから としょかんに いく。",
+          "en": "Tom is busy, so he's going to the library",
+          "exercises": [
+            "ni-location",
+            "kara-because",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは じゅぎょうが あるから がっこうに いく。",
+          "en": "I have a class today, so I'm going to school",
+          "exercises": [
+            "ni-location",
+            "arimasu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは きっさてんに いくけど ケンは うちに かえる。",
+          "en": "Mika is going to the coffee shop, but Ken is going home",
+          "exercises": [
+            "ni-location",
+            "kedo",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした がっこうに いく。",
+          "en": "Say to a friend: I'm going to school tomorrow",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうは ",
+          "tail": "に いく。",
+          "answer": "としょかん",
+          "options": [
+            "としょかん",
+            "がっこう",
+            "きっさてん"
+          ],
+          "en": "I'm going to the library today",
+          "explanation": "としょかん is the library — the place with the books. がっこう is a school and きっさてん a coffee shop; に would be right in front of any of them, but only one of them is a library."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは あした がっこうに いく。",
+          "answer": "Mika is going to school tomorrow",
+          "distractors": [
+            "Mika went to school yesterday",
+            "Mika isn't going to school tomorrow",
+            "Mika is going to the library tomorrow"
+          ],
+          "exercises": [
+            "ni-location",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは としょかんに いくけど ミカは うちに かえる。",
+          "answer": "Tom is going to the library, but Mika is going home",
+          "distractors": [
+            "Tom is going home, but Mika is going to the library",
+            "Tom and Mika are both going home",
+            "Tom is going to the library, and Mika is coming too"
+          ],
+          "exercises": [
+            "ni-location",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "きょうは どこに いく？",
+              "en": "Where are you going today?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "としょかんに いく。じゅぎょうが あるから がっこうにも いく。",
+              "en": "I'm going to the library. I have a class, so I'm going to school too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why is Mika going to school as well?",
+              "options": [
+                "She has a class",
+                "She has no class",
+                "She is meeting Ken",
+                "She is going home"
+              ],
+              "answer": "She has a class"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あしたは じゅぎょうが ないから がっこうに いかない。",
+          "en": "I have no class tomorrow, so I'm not going to school",
+          "combines": [
+            "ni-location",
+            "nai-existence",
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "がっこう",
+        "としょかん",
+        "かえる",
+        "えき",
+        "きっさてん",
+        "だいがく",
+        "うち",
+        "じゅぎょう",
+        "とけい",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m19-neo-2",
+      "role": "teaching",
+      "title": "「にほんへ いく」 — written he, said e",
+      "focus": "へ marks the direction you head, is read え, and can never do に's time job",
+      "introduces": [
+        "へ",
+        "びょういん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "e-direction"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは びょういんへ いく。",
+          "en": "I'm heading to the hospital today",
+          "exercises": [
+            "e-direction",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは あした うみへ いく。",
+          "en": "Mika is heading to the sea tomorrow",
+          "exercises": [
+            "e-direction",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは いそがしいけど がっこうへ くる。",
+          "en": "Tom is busy, but he's coming to school",
+          "exercises": [
+            "e-direction",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは しちじに うちへ かえる。",
+          "en": "Ken is heading home at seven",
+          "exercises": [
+            "e-direction",
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまへ いくから くつを かう。",
+          "en": "I'm heading to the mountains, so I'll buy shoes",
+          "exercises": [
+            "e-direction",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは びょういんへ いくから きょうは こない。",
+          "en": "My older sister is heading to the hospital, so she isn't coming today",
+          "exercises": [
+            "e-direction",
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんへ いくから きっぷを かう。",
+          "en": "I'm heading to Japan, so I'll buy a ticket",
+          "exercises": [
+            "e-direction",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは うみへ いく。",
+          "en": "Say to a friend: Mika is heading to the sea",
+          "exercises": [
+            "e-direction"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうは うみ",
+          "tail": " いく。",
+          "answer": "へ",
+          "options": [
+            "へ",
+            "を",
+            "が"
+          ],
+          "en": "I'm heading to the sea today",
+          "explanation": "へ points at the direction you head — and remember it is READ え. を marks a thing you act on, and が would make the sea itself do the going."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは あした にほんへ いく。",
+          "answer": "Tom is heading to Japan tomorrow",
+          "distractors": [
+            "Tom went to Japan yesterday",
+            "Tom isn't heading to Japan tomorrow",
+            "Tom is heading to America tomorrow"
+          ],
+          "exercises": [
+            "e-direction",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは びょういんへ いくから きょうは こない。",
+          "answer": "Mika is heading to the hospital, so she isn't coming today",
+          "distractors": [
+            "Mika is coming today and then heading to the hospital",
+            "Mika isn't heading to the hospital today",
+            "Mika is heading to school, so she isn't coming today"
+          ],
+          "exercises": [
+            "e-direction",
+            "kara-because",
+            "nai-form"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "なつやすみは どこへ いく？",
+              "en": "Where are you heading for the summer holiday?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "うみへ いく。ミカも いくと おもう。",
+              "en": "I'm heading to the sea. I think Mika is going too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Where is Ken heading?",
+              "options": [
+                "To the sea",
+                "To the mountains",
+                "To Japan",
+                "To the hospital"
+              ],
+              "answer": "To the sea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あしたは やすみだから ともだちと うみへ いく。",
+          "en": "Tomorrow is a holiday, so I'm heading to the sea with a friend",
+          "combines": [
+            "e-direction",
+            "desu-copula",
+            "kara-because",
+            "to-and"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "へ",
+        "びょういん",
+        "がっこう",
+        "うみ",
+        "やま",
+        "にほん",
+        "くつ",
+        "きっぷ",
+        "なつやすみ",
+        "かえる"
+      ]
+    },
+    {
+      "id": "m19-neo-3",
+      "role": "teaching",
+      "title": "「バスで いく」 — で is how you get there",
+      "focus": "で marks the MEANS — the same particle as で 'place of action', doing its other job",
+      "introduces": [
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "あるく"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "de-action"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃで がっこうに いく。",
+          "en": "I go to school by train",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは バスで としょかんに いく。",
+          "en": "Mika goes to the library by bus",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつで だいがくへ いく。",
+          "en": "I head to the university by subway",
+          "exercises": [
+            "de-action",
+            "e-direction"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは バスで びょういんに いく。",
+          "en": "Tom goes to the hospital by bus",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは でんしゃが ないから バスで いく。",
+          "en": "There are no trains today, so I'm going by bus",
+          "exercises": [
+            "de-action",
+            "nai-existence",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちから えきまで あるく。",
+          "en": "I walk from home to the station",
+          "exercises": [
+            "de-action",
+            "kara-origin",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつは やすいから ちかてつで いく。",
+          "en": "The subway is cheap, so I'm going by subway",
+          "exercises": [
+            "de-action",
+            "i-adj-present",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスで としょかんに いく。",
+          "en": "Say to a friend: I'm going to the library by bus",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ミカは ",
+          "tail": "で がっこうに いく。",
+          "answer": "でんしゃ",
+          "options": [
+            "でんしゃ",
+            "バス",
+            "ちかてつ"
+          ],
+          "en": "Mika goes to school by train",
+          "explanation": "でんしゃ is the train. バス is a bus and ちかてつ the subway — で is right in front of any of them, because で marks whichever one you use."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは ちかてつで だいがくに いく。",
+          "answer": "Tom goes to the university by subway",
+          "distractors": [
+            "Tom goes to the university by bus",
+            "Tom walks to the university",
+            "Tom goes to school by subway"
+          ],
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは うちから えきまで あるく。",
+          "answer": "Mika walks from home to the station",
+          "distractors": [
+            "Mika goes from home to the station by bus",
+            "Mika walks from the station to her home",
+            "Mika waits at the station"
+          ],
+          "exercises": [
+            "de-action",
+            "kara-origin",
+            "made-until"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "なにで がっこうに いく？",
+              "en": "What do you go to school by?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "でんしゃで いく。えきまで あるく。",
+              "en": "I go by train. I walk as far as the station."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How does Ken get to school?",
+              "options": [
+                "He walks to the station, then takes the train",
+                "He takes the bus the whole way",
+                "He walks the whole way",
+                "He goes by bike"
+              ],
+              "answer": "He walks to the station, then takes the train"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "バスは やすいけど でんしゃで がっこうに いく。",
+          "en": "The bus is cheap, but I go to school by train",
+          "combines": [
+            "de-action",
+            "kedo",
+            "i-adj-present",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "あるく",
+        "くるま",
+        "じてんしゃ",
+        "ふね",
+        "えき",
+        "きっぷ",
+        "がっこう"
+      ]
+    },
+    {
+      "id": "m19-neo-review-1",
+      "role": "review",
+      "title": "Review — に, へ, で: where you go and how",
+      "focus": "Destination with に and へ, means with で, and all three inside one sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "あした がっこうに いく。",
+          "en": "I'm going to school tomorrow",
+          "exercises": [
+            "ni-location",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは うみへ いく。",
+          "en": "Mika is heading to the sea",
+          "exercises": [
+            "e-direction"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃで がっこうに いく。",
+          "en": "I go to school by train",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンは ろくじに うちに かえる。",
+          "en": "Ken is going home at six",
+          "exercises": [
+            "ni-location",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは としょかんに いく。",
+          "en": "I'm going to the library today",
+          "exercises": [
+            "ni-location",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ミカは ",
+          "tail": "で としょかんに いく。",
+          "answer": "バス",
+          "options": [
+            "バス",
+            "でんしゃ",
+            "ちかてつ"
+          ],
+          "en": "Mika goes to the library by bus",
+          "explanation": "バス is the bus. でんしゃ is a train and ちかてつ the subway — all three take で, because で marks the one you use."
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちから えきまで あるく。",
+          "en": "I walk from home to the station",
+          "exercises": [
+            "kara-origin",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "トムは あした にほんへ いく。",
+          "answer": "Tom is heading to Japan tomorrow",
+          "distractors": [
+            "Tom is heading to America tomorrow",
+            "Tom isn't heading to Japan tomorrow",
+            "Tom came to Japan yesterday"
+          ],
+          "exercises": [
+            "e-direction",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつで だいがくへ いく。",
+          "en": "I head to the university by subway",
+          "exercises": [
+            "de-action",
+            "e-direction"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは びょういんへ いく。",
+          "en": "Say to a friend: I'm heading to the hospital today",
+          "exercises": [
+            "e-direction"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは きっさてんに いくけど ケンは うちに かえる。",
+          "answer": "Mika is going to the coffee shop, but Ken is going home",
+          "distractors": [
+            "Mika is going home, but Ken is going to the coffee shop",
+            "Mika and Ken are both going home",
+            "Mika is going to the library, but Ken is going home"
+          ],
+          "exercises": [
+            "ni-location",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまへ いくから くつを かう。",
+          "en": "I'm heading to the mountains, so I'll buy shoes",
+          "exercises": [
+            "e-direction",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "あしたは がっこうへ きますか。",
+              "en": "Are you coming to school tomorrow?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "いきます。でんしゃで いきます。",
+              "en": "I am. I'm going by train."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How is Mika getting to school?",
+              "options": [
+                "By train",
+                "By bus",
+                "On foot",
+                "By bike"
+              ],
+              "answer": "By train"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "がっこう",
+        "としょかん",
+        "びょういん",
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "あるく",
+        "かえる",
+        "へ",
+        "えき"
+      ]
+    },
+    {
+      "id": "m19-neo-4",
+      "role": "teaching",
+      "title": "「たべに いく」 — going in order to do something",
+      "focus": "The purpose comes first: ます-stem + に いく, and the dictionary form never goes there",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-iku"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべに いく。",
+          "en": "I'm going out to eat",
+          "exercises": [
+            "ni-iku",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは ちゃを のみに きっさてんに いく。",
+          "en": "Mika is going to the coffee shop to drink tea",
+          "exercises": [
+            "ni-iku",
+            "wo-object",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがを みに いく。",
+          "en": "I'm going to watch a movie",
+          "exercises": [
+            "ni-iku",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "トムは ともだちと かいものに いく。",
+          "en": "Tom is going shopping with a friend",
+          "exercises": [
+            "ni-iku",
+            "to-and"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ともだちと あそびに いく。",
+          "en": "I'm going out to hang out with a friend tomorrow",
+          "exercises": [
+            "ni-iku",
+            "to-and",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんに ほんを みに いく。",
+          "en": "I'm going to the library to look at books",
+          "exercises": [
+            "ni-iku",
+            "ni-location",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしを たべに いくけど かねが ない。",
+          "en": "I'm going out to eat sushi, but I have no money",
+          "exercises": [
+            "ni-iku",
+            "kedo",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがを みに いく。",
+          "en": "Say to a friend: I'm going to watch a movie",
+          "exercises": [
+            "ni-iku"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごはんを ",
+          "tail": " いく。",
+          "answer": "たべに",
+          "options": [
+            "たべに",
+            "のみに",
+            "みに"
+          ],
+          "en": "I'm going out to eat",
+          "explanation": "ごはん is food, so the stem is たべ — 「たべに いく」. のみに would be going to drink and みに going to look."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは ちゃを のみに きっさてんに いく。",
+          "answer": "Mika is going to the coffee shop to drink tea",
+          "distractors": [
+            "Mika is going to the coffee shop to eat",
+            "Mika drinks tea at home",
+            "Mika is going to the library to look at books"
+          ],
+          "exercises": [
+            "ni-iku",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうは ともだちと かいものに いく。",
+          "answer": "I'm going shopping with a friend today",
+          "distractors": [
+            "I went shopping with a friend yesterday",
+            "I'm going out to eat with a friend today",
+            "My friend is going shopping today"
+          ],
+          "exercises": [
+            "ni-iku",
+            "to-and"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "あしたは なにを する？",
+              "en": "What are you doing tomorrow?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "えいがを みに いく。ばんは ごはんを たべに いく。",
+              "en": "I'm going to watch a movie. In the evening I'm going out to eat."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Tom doing in the evening?",
+              "options": [
+                "Going out to eat",
+                "Going shopping",
+                "Going home",
+                "Going to the library"
+              ],
+              "answer": "Going out to eat"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あしたは ひまだから ともだちと えいがを みに いく。",
+          "en": "I'm free tomorrow, so I'm going to watch a movie with a friend",
+          "combines": [
+            "ni-iku",
+            "na-adj-present",
+            "kara-because",
+            "to-and"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "えいが",
+        "かいもの",
+        "すし",
+        "ごはん",
+        "ちゃ",
+        "きっさてん",
+        "としょかん",
+        "ともだち",
+        "ほん",
+        "かね"
+      ]
+    },
+    {
+      "id": "m19-neo-5",
+      "role": "teaching",
+      "title": "「はちじ じゅっぷん」 — counting minutes",
+      "focus": "ふん after 2, 5, 7, 9; ぷん after 1, 3, 4, 6, 8, 10 — the number decides the counter's sound",
+      "introduces": [
+        "ふん",
+        "ぷん",
+        "じゅっぷん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-fun"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃは はちじ じゅっぷんに くる。",
+          "en": "The train comes at 8:10",
+          "exercises": [
+            "counter-fun",
+            "counter-ji",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま しちじ ごふんだ。",
+          "en": "It's 7:05 now",
+          "exercises": [
+            "counter-fun",
+            "counter-ji",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスは ろくじ さんぷんに くる。",
+          "en": "The bus comes at 6:03",
+          "exercises": [
+            "counter-fun",
+            "counter-ji",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきまで じゅっぷん あるく。",
+          "en": "I walk ten minutes to the station",
+          "exercises": [
+            "counter-fun",
+            "made-until"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは じゅっぷん まつけど ケンは こない。",
+          "en": "Mika waits ten minutes, but Ken doesn't come",
+          "exercises": [
+            "counter-fun",
+            "kedo",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がっこうまで じてんしゃで きゅうふんだ。",
+          "en": "It's nine minutes to school by bike",
+          "exercises": [
+            "counter-fun",
+            "de-action",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつは くじ よんぷんに くるから いま いく。",
+          "en": "The subway comes at 9:04, so I'm going now",
+          "exercises": [
+            "counter-fun",
+            "counter-ji",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま しちじ ごふんだ。",
+          "en": "Say to a friend: It's 7:05 now",
+          "exercises": [
+            "counter-fun",
+            "counter-ji"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "でんしゃは はちじ ",
+          "tail": "に くる。",
+          "answer": "じゅっぷん",
+          "options": [
+            "じゅっぷん",
+            "ごふん",
+            "さんぷん"
+          ],
+          "en": "The train comes at 8:10",
+          "explanation": "ten past is じゅっぷん — 10 belongs to the ぷん family and doubles the sound in front of it. ごふん is five past and さんぷん three past."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "バスは ろくじ さんぷんに くる。",
+          "answer": "The bus comes at 6:03",
+          "distractors": [
+            "The bus comes at 6:10",
+            "The train comes at 6:03",
+            "The bus comes at 3:06"
+          ],
+          "exercises": [
+            "counter-fun",
+            "counter-ji"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きっさてんまで ごふん あるく。",
+          "answer": "I walk five minutes to the coffee shop",
+          "distractors": [
+            "I walk ten minutes to the coffee shop",
+            "I go to the coffee shop at five",
+            "I wait five minutes at the coffee shop"
+          ],
+          "exercises": [
+            "counter-fun",
+            "made-until"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "でんしゃは なんじに くる？",
+              "en": "What time does the train come?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "はちじ じゅっぷんに くる。ごふん まつ。",
+              "en": "It comes at 8:10. We'll wait five minutes."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the train?",
+              "options": [
+                "It comes at 8:10, and they'll wait five minutes",
+                "It comes at 8:05, and they'll wait ten minutes",
+                "It has already gone",
+                "It comes at 8:10, so they should walk"
+              ],
+              "answer": "It comes at 8:10, and they'll wait five minutes"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "でんしゃは くじ じゅっぷんに くるから えきで ごふん まつ。",
+          "en": "The train comes at 9:10, so I'll wait five minutes at the station",
+          "combines": [
+            "counter-fun",
+            "counter-ji",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ふん",
+        "ぷん",
+        "じゅっぷん",
+        "とけい",
+        "でんしゃ",
+        "バス",
+        "えき",
+        "いま",
+        "じかん",
+        "きっぷ"
+      ]
+    },
+    {
+      "id": "m19-neo-6",
+      "role": "teaching",
+      "title": "「くじから はたらく」 — から starts the clock",
+      "focus": "から's third job: with a time in front of it, it marks the moment something starts",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "kara-time"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは くじから ろくじまでだ。",
+          "en": "The shop is open from nine to six",
+          "exercises": [
+            "kara-time",
+            "made-until",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじから はたらく。",
+          "en": "I work from nine",
+          "exercises": [
+            "kara-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅうじ ごふんから じゅぎょうが ある。",
+          "en": "There's a class from 10:05",
+          "exercises": [
+            "kara-time",
+            "counter-fun",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ばんは しちじから ひまだ。",
+          "en": "In the evening I'm free from seven",
+          "exercises": [
+            "kara-time",
+            "na-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あしたは あさ ろくじから いそがしい。",
+          "en": "Tomorrow I'm busy from six in the morning",
+          "exercises": [
+            "kara-time",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは じゅうじから ごご ごじまでだ。",
+          "en": "The library is open from ten to five in the afternoon",
+          "exercises": [
+            "kara-time",
+            "made-until",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃは あさ ごじから あるから だいじょうぶだ。",
+          "en": "There are trains from five in the morning, so it's fine",
+          "exercises": [
+            "kara-time",
+            "arimasu",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじから はたらく。",
+          "en": "Say to a friend: I work from nine",
+          "exercises": [
+            "kara-time"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "みせは ",
+          "tail": "から ろくじまでだ。",
+          "answer": "くじ",
+          "options": [
+            "くじ",
+            "はちじ",
+            "じゅうじ"
+          ],
+          "en": "The shop is open from nine to six",
+          "explanation": "nine o'clock is くじ — this hour keeps the short reading and is never kyuuji. はちじ is eight and じゅうじ is ten."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "じゅうじ ごふんから じゅぎょうが ある。",
+          "answer": "There's a class from 10:05",
+          "distractors": [
+            "There's a class from 10:10",
+            "There's a class until 10:05",
+            "There's a class from 5:10"
+          ],
+          "exercises": [
+            "kara-time",
+            "counter-fun"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "としょかんは じゅうじから ごご ごじまでだ。",
+          "answer": "The library is open from ten to five in the afternoon",
+          "distractors": [
+            "The library is open from five to ten in the afternoon",
+            "The library is open until ten in the morning",
+            "The shop is open from ten to five in the afternoon"
+          ],
+          "exercises": [
+            "kara-time",
+            "made-until"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "じゅぎょうは なんじからですか。",
+              "en": "What time is the class from?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "じゅうじ ごふんからです。ごご さんじまでです。",
+              "en": "It's from 10:05. It runs until three in the afternoon."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When does the class run?",
+              "options": [
+                "From 10:05 until 3 p.m.",
+                "From 10:05 until 5 p.m.",
+                "From 3 p.m. until 10 p.m.",
+                "From 10 a.m. until 10:05"
+              ],
+              "answer": "From 10:05 until 3 p.m."
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせは くじから ろくじまでだから はちじ じゅっぷんに でんしゃで いく。",
+          "en": "The shop is open from nine to six, so I'm going by train at 8:10",
+          "combines": [
+            "kara-time",
+            "made-until",
+            "counter-fun",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "みせ",
+        "じゅぎょう",
+        "ばん",
+        "あさ",
+        "ごご",
+        "ごぜん",
+        "とけい",
+        "じかん",
+        "ひま",
+        "いそがしい"
+      ]
+    },
+    {
+      "id": "m19-neo-review-2",
+      "role": "review",
+      "title": "Review — purpose, minutes and start times",
+      "focus": "〜に いく for why you go, 〜ふん for the minutes, から for when it starts",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべに いく。",
+          "en": "I'm going out to eat",
+          "exercises": [
+            "ni-iku",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃは はちじ じゅっぷんに くる。",
+          "en": "The train comes at 8:10",
+          "exercises": [
+            "counter-fun",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじから はたらく。",
+          "en": "I work from nine",
+          "exercises": [
+            "kara-time",
+            "counter-ji"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがを みに いく。",
+          "en": "I'm going to watch a movie",
+          "exercises": [
+            "ni-iku",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いま しちじ ごふんだ。",
+          "en": "It's 7:05 now",
+          "exercises": [
+            "counter-fun",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ちゃを ",
+          "tail": " きっさてんに いく。",
+          "answer": "のみに",
+          "options": [
+            "のみに",
+            "たべに",
+            "みに"
+          ],
+          "en": "I'm going to the coffee shop to drink tea",
+          "explanation": "ちゃ is a drink, so the stem is のみ — 「のみに いく」. たべに would be going to eat and みに going to look."
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは くじから ろくじまでだ。",
+          "en": "The shop is open from nine to six",
+          "exercises": [
+            "kara-time",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカは じゅっぷん まつけど ケンは こない。",
+          "answer": "Mika waits ten minutes, but Ken doesn't come",
+          "distractors": [
+            "Mika waits five minutes, but Ken doesn't come",
+            "Ken waits ten minutes, but Mika doesn't come",
+            "Mika waits ten minutes and Ken comes"
+          ],
+          "exercises": [
+            "counter-fun",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは ともだちと かいものに いく。",
+          "en": "I'm going shopping with a friend today",
+          "exercises": [
+            "ni-iku",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ばんは しちじから ひまだ。",
+          "en": "Say to a friend: In the evening I'm free from seven",
+          "exercises": [
+            "kara-time"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がっこうまで じてんしゃで きゅうふんだ。",
+          "answer": "It's nine minutes to school by bike",
+          "distractors": [
+            "It's nine minutes to school on foot",
+            "It's five minutes to school by bike",
+            "It's nine minutes to the station by bike"
+          ],
+          "exercises": [
+            "counter-fun",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんに ほんを みに いく。",
+          "en": "I'm going to the library to look at books",
+          "exercises": [
+            "ni-iku",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "きょうは なんじから ひま？",
+              "en": "What time are you free from today?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ごご ごじから ひまだ。ごはんを たべに いく？",
+              "en": "I'm free from five in the afternoon. Shall we go out to eat?"
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken suggest?",
+              "options": [
+                "Going out to eat after five",
+                "Going shopping at five",
+                "Watching a movie at five",
+                "Waiting at the station"
+              ],
+              "answer": "Going out to eat after five"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ふん",
+        "ぷん",
+        "じゅっぷん",
+        "えいが",
+        "かいもの",
+        "みせ",
+        "じゅぎょう",
+        "ばん",
+        "ごご",
+        "ちゃ"
+      ]
+    },
+    {
+      "id": "m19-neo-7",
+      "role": "teaching",
+      "title": "「ごじまでに かえる」 — by five, not until five",
+      "focus": "まで is continuous 'until'; までに is a one-shot deadline 'by' — the verb tells you which",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "made-ni"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごじまでに うちに かえる。",
+          "en": "I'll be home by five",
+          "exercises": [
+            "made-ni",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじまでに がっこうに いく。",
+          "en": "I'll get to school by nine",
+          "exercises": [
+            "made-ni",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あしたまでに きっぷを かう。",
+          "en": "I'll buy the ticket by tomorrow",
+          "exercises": [
+            "made-ni",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ろくじまで きっさてんで まつ。",
+          "en": "I'll wait at the coffee shop until six",
+          "exercises": [
+            "made-until",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はちじ じゅっぷんまでに えきに いく。",
+          "en": "I'll get to the station by 8:10",
+          "exercises": [
+            "made-ni",
+            "counter-fun",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごじまで はたらくから ろくじまでに かえる。",
+          "en": "I work until five, so I'll be home by six",
+          "exercises": [
+            "made-ni",
+            "made-until",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは ごじまでだから よじまでに いく。",
+          "en": "The library is open until five, so I'll get there by four",
+          "exercises": [
+            "made-ni",
+            "made-until",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごじまでに うちに かえる。",
+          "en": "Say to a friend: I'll be home by five",
+          "exercises": [
+            "made-ni"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごじ",
+          "tail": " うちに かえる。",
+          "answer": "までに",
+          "options": [
+            "までに",
+            "まで",
+            "から"
+          ],
+          "en": "I'll be home by five",
+          "explanation": "かえる happens ONCE, so it takes the deadline particle までに. まで would stretch the going-home over every minute until five, and から would start it at five instead."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ろくじまで きっさてんで まつ。",
+          "answer": "I'll wait at the coffee shop until six",
+          "distractors": [
+            "I'll get to the coffee shop by six",
+            "I'll wait at the coffee shop from six",
+            "I'll wait at the station until six"
+          ],
+          "exercises": [
+            "made-until",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "くじまでに がっこうに いく。",
+          "answer": "I'll get to school by nine",
+          "distractors": [
+            "I'm at school until nine",
+            "I go to school from nine",
+            "I'll get to the library by nine"
+          ],
+          "exercises": [
+            "made-ni",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "きっぷは いつ かいますか。",
+              "en": "When are you buying the ticket?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "あしたまでに かいます。ごじまでに えきへ いきます。",
+              "en": "I'll buy it by tomorrow. I'll get to the station by five."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the ticket?",
+              "options": [
+                "He'll buy it by tomorrow",
+                "He bought it yesterday",
+                "He'll buy it at the station at five",
+                "He isn't buying one"
+              ],
+              "answer": "He'll buy it by tomorrow"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "でんしゃは ごじ さんぷんに くるから よじまでに えきに いく。",
+          "en": "The train comes at 5:03, so I'll get to the station by four",
+          "combines": [
+            "made-ni",
+            "counter-fun",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "きっぷ",
+        "えき",
+        "としょかん",
+        "きっさてん",
+        "かえる",
+        "がっこう",
+        "とけい",
+        "じかん",
+        "でんしゃ",
+        "うち"
+      ]
+    },
+    {
+      "id": "m19-neo-8",
+      "role": "teaching",
+      "title": "「どこへ いく？」 — asking about a journey",
+      "focus": "A question word goes in the slot the answer will occupy — nothing else moves",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "location-qa"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どこへ いく？",
+          "en": "Where are you heading",
+          "exercises": [
+            "location-qa",
+            "e-direction"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なにで がっこうに いく？",
+          "en": "What do you go to school by",
+          "exercises": [
+            "location-qa",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃは なんじに くる？",
+          "en": "What time does the train come",
+          "exercises": [
+            "location-qa",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "びょういんまで なんぷん あるく？",
+          "en": "How many minutes do you walk to the hospital",
+          "exercises": [
+            "location-qa",
+            "counter-fun",
+            "made-until"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは なんじから？",
+          "en": "What time is the library open from",
+          "exercises": [
+            "location-qa",
+            "kara-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なんじまでに えきに いく？",
+          "en": "What time will you get to the station by",
+          "exercises": [
+            "location-qa",
+            "made-ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは いそがしいけど どこに いく？",
+          "en": "You're busy today, but where are you going",
+          "exercises": [
+            "location-qa",
+            "kedo",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なにで がっこうに いく？",
+          "en": "Say to a friend: What do you go to school by",
+          "exercises": [
+            "location-qa"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "で がっこうに いく？",
+          "answer": "なに",
+          "options": [
+            "なに",
+            "どこ",
+            "だれ"
+          ],
+          "en": "What do you go to school by?",
+          "explanation": "a vehicle is a THING, so it is なに — 「なにで いく？」. どこ asks where and だれ asks who."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "でんしゃは なんじに くる？",
+          "answer": "What time does the train come?",
+          "distractors": [
+            "What time does the bus come?",
+            "Where does the train come from?",
+            "How many minutes until the train comes?"
+          ],
+          "exercises": [
+            "location-qa",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "びょういんまで なんぷん あるく？",
+          "answer": "How many minutes do you walk to the hospital?",
+          "distractors": [
+            "How many minutes do you walk to the library?",
+            "What time do you go to the hospital?",
+            "Do you walk to the hospital?"
+          ],
+          "exercises": [
+            "location-qa",
+            "counter-fun"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "としょかんは なんじから？",
+              "en": "What time is the library open from?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "じゅうじから ろくじまでだ。ちかてつで じゅっぷんだ。",
+              "en": "From ten until six. It's ten minutes by subway."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the library?",
+              "options": [
+                "It's open ten to six and it's ten minutes by subway",
+                "It's open ten to six and it's ten minutes on foot",
+                "It's open from six until ten",
+                "It's five minutes by subway"
+              ],
+              "answer": "It's open ten to six and it's ten minutes by subway"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あしたは ひまだけど なんじから どこへ いく？",
+          "en": "You're free tomorrow, but what time are you heading out, and where",
+          "combines": [
+            "location-qa",
+            "kara-time",
+            "e-direction",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "どこ",
+        "なに",
+        "なんじ",
+        "でんしゃ",
+        "びょういん",
+        "としょかん",
+        "えき",
+        "がっこう",
+        "ふん",
+        "ぷん"
+      ]
+    },
+    {
+      "id": "m19-neo-9",
+      "role": "teaching",
+      "title": "「えきは どこですか」 — asking a stranger",
+      "focus": "The one place plain form is socially wrong: すみません, です / ます, and か on every question",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "masu-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません えきは どこですか。",
+          "en": "Say politely: Excuse me, where is the station",
+          "exercises": [
+            "masu-present",
+            "location-qa",
+            "ka-question"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "びょういんは あそこですか。",
+          "en": "Say politely: Is the hospital over there",
+          "exercises": [
+            "masu-present",
+            "koko-soko-asoko",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスで がっこうに いきますか。",
+          "en": "Say politely: Do you go to school by bus",
+          "exercises": [
+            "masu-present",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃは なんじに きますか。",
+          "en": "Say politely: What time does the train come",
+          "exercises": [
+            "masu-present",
+            "location-qa",
+            "ni-time"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつで だいがくに いきますか。",
+          "en": "Say politely: Do you go to the university by subway",
+          "exercises": [
+            "masu-present",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは なんじからですか。",
+          "en": "Say politely: What time is the library open from",
+          "exercises": [
+            "masu-present",
+            "kara-time",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきまで じゅっぷんですか。",
+          "en": "Say politely: Is it ten minutes to the station",
+          "exercises": [
+            "masu-present",
+            "counter-fun",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは どこ？",
+          "en": "Say to a friend: Where is the station",
+          "exercises": [
+            "masu-present",
+            "location-qa"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "びょういんは ",
+          "tail": "。",
+          "answer": "あそこですか",
+          "options": [
+            "あそこですか",
+            "あそこです",
+            "あそこ"
+          ],
+          "en": "Say politely: Is the hospital over there?",
+          "explanation": "a polite QUESTION needs both halves — です for the register and か to make it a question. あそこです is a polite statement, and あそこ on its own is what you say to a friend."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "バスで びょういんに いきますか。",
+          "answer": "Do you go to the hospital by bus?",
+          "distractors": [
+            "Do you go to the library by bus?",
+            "Do you go to the hospital by train?",
+            "Does the bus go to the hospital?"
+          ],
+          "exercises": [
+            "masu-present",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "でんしゃは なんじに きますか。",
+          "answer": "What time does the train come?",
+          "distractors": [
+            "What time does the bus come?",
+            "Does the train come at nine?",
+            "How many minutes until the train comes?"
+          ],
+          "exercises": [
+            "masu-present",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "すみません びょういんは どこですか。",
+              "en": "Excuse me, where is the hospital?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "あそこです。バスで じゅっぷんです。",
+              "en": "It's over there. It's ten minutes by bus."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tanaka tell Tom?",
+              "options": [
+                "It's over there, ten minutes by bus",
+                "It's over there, ten minutes on foot",
+                "It's at the station, five minutes by bus",
+                "He doesn't know where it is"
+              ],
+              "answer": "It's over there, ten minutes by bus"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "すみません ちかてつで びょういんに いきますか。",
+          "en": "Say politely: Excuse me, do you go to the hospital by subway",
+          "combines": [
+            "masu-present",
+            "de-action",
+            "ni-location",
+            "ka-question"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "えき",
+        "びょういん",
+        "がっこう",
+        "だいがく",
+        "としょかん",
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "すみません",
+        "どこ"
+      ]
+    },
+    {
+      "id": "m19-neo-review-3",
+      "role": "review",
+      "title": "Review — getting around, start to finish",
+      "focus": "Destination, direction, means, purpose, minutes, start times and deadlines in one pass",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "でんしゃで がっこうに いく。",
+          "en": "I go to school by train",
+          "exercises": [
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごじまでに うちに かえる。",
+          "en": "I'll be home by five",
+          "exercises": [
+            "made-ni",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんを たべに いく。",
+          "en": "I'm going out to eat",
+          "exercises": [
+            "ni-iku",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは うみへ いく。",
+          "en": "Mika is heading to the sea",
+          "exercises": [
+            "e-direction"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスは ろくじ さんぷんに くる。",
+          "en": "The bus comes at 6:03",
+          "exercises": [
+            "counter-fun",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごじ",
+          "tail": " うちに かえる。",
+          "answer": "までに",
+          "options": [
+            "までに",
+            "まで",
+            "から"
+          ],
+          "en": "I'll be home by five",
+          "explanation": "かえる happens once, so the deadline particle までに is the one. まで would stretch the going-home over every minute, and から would start it at five."
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは くじから ろくじまでだ。",
+          "en": "The shop is open from nine to six",
+          "exercises": [
+            "kara-time",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちかてつで だいがくへ いく。",
+          "answer": "I head to the university by subway",
+          "distractors": [
+            "I head to the university by bus",
+            "I walk to the university",
+            "I head to the library by subway"
+          ],
+          "exercises": [
+            "de-action",
+            "e-direction"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません バスで えきに いきますか。",
+          "en": "Say politely: Excuse me, do you go to the station by bus",
+          "exercises": [
+            "masu-present",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは としょかんに いく。",
+          "en": "Say to a friend: I'm going to the library today",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "でんしゃは はちじ じゅっぷんに くる。",
+          "answer": "The train comes at 8:10",
+          "distractors": [
+            "The train comes at 8:05",
+            "The bus comes at 8:10",
+            "The train comes at 10:08"
+          ],
+          "exercises": [
+            "counter-fun",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちから えきまで あるく。",
+          "en": "I walk from home to the station",
+          "exercises": [
+            "kara-origin",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "あしたは なにで がっこうに いく？",
+              "en": "What are you going to school by tomorrow?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "えきまで あるく。そこから でんしゃで いく。",
+              "en": "I walk as far as the station. From there I go by train."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika do first?",
+              "options": [
+                "Walks to the station",
+                "Takes the train from home",
+                "Takes the bus",
+                "Goes by bike"
+              ],
+              "answer": "Walks to the station"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "がっこう",
+        "としょかん",
+        "びょういん",
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "あるく",
+        "かえる",
+        "じゅっぷん",
+        "へ"
+      ]
+    },
+    {
+      "id": "m19-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — plan the whole trip",
+      "focus": "End-of-module stretch: means, destination, purpose and the clock stacked in one sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "はちじ じゅっぷんの でんしゃで えいがを みに いく。",
+          "en": "I'm taking the 8:10 train to go and watch a movie",
+          "exercises": [
+            "counter-fun",
+            "de-action",
+            "ni-iku",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは ごじまでだから よじまでに ちかてつで いく。",
+          "en": "The library is open until five, so I'm going by subway to get there by four",
+          "exercises": [
+            "made-ni",
+            "made-until",
+            "de-action",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは でんしゃが ないから ともだちの くるまで がっこうへ いく。",
+          "en": "There are no trains today, so I'm heading to school in a friend's car",
+          "exercises": [
+            "de-action",
+            "nai-existence",
+            "e-direction",
+            "no-possession"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くじから はたらくから はちじまでに かいしゃに いく。",
+          "en": "I work from nine, so I'll get to the company by eight",
+          "exercises": [
+            "kara-time",
+            "made-ni",
+            "kara-because",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカは ちゃを のみに いくけど ケンは うちに かえる。",
+          "en": "Mika is going out to drink tea, but Ken is going home",
+          "exercises": [
+            "ni-iku",
+            "kedo",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "びょういんまで じてんしゃで きゅうふんだから じゅうじまでに いく。",
+          "en": "It's nine minutes to the hospital by bike, so I'll get there by ten",
+          "exercises": [
+            "counter-fun",
+            "de-action",
+            "kara-because",
+            "made-ni"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません バスで としょかんに いきますか。",
+          "en": "Say politely: Excuse me, do you go to the library by bus",
+          "exercises": [
+            "masu-present",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごはんを ",
+          "tail": " いくから ろくじまでに かえる。",
+          "answer": "たべに",
+          "options": [
+            "たべに",
+            "のみに",
+            "みに"
+          ],
+          "en": "I'm going out to eat, so I'll be home by six",
+          "explanation": "ごはん is food, so the stem is たべ. のみに would be going to drink and みに going to look."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "としょかんは ごじまでだから よじまでに いく。",
+          "answer": "The library is open until five, so I'll get there by four",
+          "distractors": [
+            "The library is open from five, so I'll go at four",
+            "The library is open until four, so I'll get there by five",
+            "The library is open until five, and I'll stay until four"
+          ],
+          "exercises": [
+            "made-ni",
+            "made-until"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "はちじ じゅっぷんの でんしゃで いく。",
+          "answer": "I'm going on the 8:10 train",
+          "distractors": [
+            "I'm going on the 8:05 train",
+            "I'm going on the 10:08 train",
+            "I'm going on the 8:10 bus"
+          ],
+          "exercises": [
+            "counter-fun",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "あしたは なんじに がっこうへ きますか。",
+              "en": "What time are you coming to school tomorrow?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "くじまでに いきます。でんしゃで じゅっぷんですから はちじ ごふんに うちから いきます。",
+              "en": "I'll get there by nine. It's ten minutes by train, so I'll go from home at 8:05."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Ken's plan?",
+              "options": [
+                "Leave home at 8:05 and get to school by nine",
+                "Leave home at nine and get to school by ten",
+                "Walk to school by nine",
+                "Take the bus at 8:05"
+              ],
+              "answer": "Leave home at 8:05 and get to school by nine"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "でんしゃは くじ よんぷんに くるから ともだちと えきで ごふん まつ。",
+          "en": "The train comes at 9:04, so I'll wait five minutes at the station with a friend",
+          "combines": [
+            "counter-fun",
+            "kara-because",
+            "de-action",
+            "to-and",
+            "counter-ji"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "あるく",
+        "かえる",
+        "がっこう",
+        "としょかん",
+        "びょういん",
+        "じゅっぷん",
+        "えき"
+      ]
+    }
+  ],
+  "priorVocab": [
+    "あさ",
+    "あした",
+    "あそこ",
+    "あそびたい",
+    "あそびます",
+    "あそぶ",
+    "あそんだ",
+    "あそんで",
+    "あたらしい",
+    "あたらしくない",
+    "あに",
+    "あね",
+    "あの",
+    "ありがとう",
+    "ありがとうございます",
+    "あります",
+    "ありません",
+    "ある",
+    "あれ",
+    "いい",
+    "いう",
+    "いえ",
+    "いかない",
+    "いかなかった",
+    "いきたい",
+    "いきたかった",
+    "いきたくない",
+    "いきたくなかった",
+    "いきました",
+    "いきます",
+    "いきません",
+    "いきませんでした",
+    "いく",
+    "いくら",
+    "いけ",
+    "いけません",
+    "いす",
+    "いそがしい",
+    "いち",
+    "いちじ",
+    "いった",
+    "いって",
+    "いつ",
+    "いない",
+    "いぬ",
+    "いま",
+    "いもうと",
+    "いらっしゃいませ",
+    "いる",
+    "いろ",
+    "ううん",
+    "うえ",
+    "うた",
+    "うち",
+    "うま",
+    "うみ",
+    "うる",
+    "うん",
+    "え",
+    "えいが",
+    "ええ",
+    "えき",
+    "えん",
+    "えんぴつ",
+    "おいしい",
+    "おいしかった",
+    "おいしくない",
+    "おいしくなかった",
+    "おおきい",
+    "おおきかった",
+    "おおきくない",
+    "おおきくなかった",
+    "おしえて",
+    "おしえる",
+    "おとうと",
+    "おもう",
+    "おもしろい",
+    "おもしろかった",
+    "おもしろくない",
+    "おもしろくなかった",
+    "およいで",
+    "およがない",
+    "およぐ",
+    "おんがく",
+    "か",
+    "かいしゃ",
+    "かいたい",
+    "かいたかった",
+    "かいたくない",
+    "かいたくなかった",
+    "かいました",
+    "かいます",
+    "かいませんでした",
+    "かいもの",
+    "かう",
+    "かお",
+    "かぎ",
+    "かさ",
+    "かぜ",
+    "かぞく",
+    "かった",
+    "かって",
+    "かね",
+    "かばん",
+    "かめ",
+    "からだ",
+    "かわ",
+    "かわない",
+    "かわなかった",
+    "が",
+    "がくせい",
+    "がつ",
+    "き",
+    "きいた",
+    "きいて",
+    "ききます",
+    "きく",
+    "きた",
+    "きっさてん",
+    "きっぷ",
+    "きて",
+    "きのう",
+    "きのこ",
+    "きます",
+    "きません",
+    "きませんでした",
+    "きゅう",
+    "きゅうり",
+    "きょう",
+    "きょうだい",
+    "きらい",
+    "きれい",
+    "ぎゅうにゅう",
+    "く",
+    "くじ",
+    "ください",
+    "くつ",
+    "くる",
+    "くるま",
+    "くん",
+    "けいたい",
+    "けっこう",
+    "けど",
+    "げんき",
+    "こえ",
+    "ここ",
+    "こちら",
+    "こと",
+    "こない",
+    "こなかった",
+    "この",
+    "こめ",
+    "これ",
+    "ご",
+    "ごご",
+    "ごじ",
+    "ごじゅう",
+    "ごぜん",
+    "ごはん",
+    "ごめんなさい",
+    "さい",
+    "さくら",
+    "さま",
+    "さむい",
+    "さむかった",
+    "さん",
+    "さんじ",
+    "さんじゅう",
+    "さんにん",
+    "さんぽ",
+    "し",
+    "しずか",
+    "した",
+    "したい",
+    "したかった",
+    "しちじ",
+    "しって",
+    "して",
+    "しない",
+    "しなかった",
+    "しました",
+    "します",
+    "しません",
+    "しませんでした",
+    "しゃしん",
+    "しょくじ",
+    "しらない",
+    "しります",
+    "しりません",
+    "しる",
+    "じかん",
+    "じしょ",
+    "じてんしゃ",
+    "じゃない",
+    "じゃなかった",
+    "じゅう",
+    "じゅうじ",
+    "じゅぎょう",
+    "すき",
+    "すし",
+    "すみません",
+    "する",
+    "すんで",
+    "せ",
+    "せんせい",
+    "ぜんぜん",
+    "そう",
+    "そこ",
+    "その",
+    "そら",
+    "それ",
+    "たかい",
+    "たかかった",
+    "たかくない",
+    "たかくなかった",
+    "たなか",
+    "たのしい",
+    "たべた",
+    "たべたい",
+    "たべたかった",
+    "たべたくない",
+    "たべたくなかった",
+    "たべて",
+    "たべない",
+    "たべなかった",
+    "たべました",
+    "たべます",
+    "たべません",
+    "たべませんでした",
+    "たべもの",
+    "たべる",
+    "だいがく",
+    "だいじょうぶ",
+    "だった",
+    "だめ",
+    "だれ",
+    "ちいさい",
+    "ちがいます",
+    "ちがう",
+    "ちち",
+    "ちゃ",
+    "ちゃん",
+    "ちょっと",
+    "つき",
+    "て",
+    "てがみ",
+    "で",
+    "でした",
+    "でんわ",
+    "と",
+    "とき",
+    "とけい",
+    "ともだち",
+    "とりにく",
+    "どう",
+    "どこ",
+    "どの",
+    "どれ",
+    "ない",
+    "なか",
+    "なかった",
+    "なつやすみ",
+    "なな",
+    "ななじゅう",
+    "なに",
+    "なまえ",
+    "なん",
+    "なんじ",
+    "に",
+    "にぎやか",
+    "にじ",
+    "にほん",
+    "にほんじん",
+    "にん",
+    "ねこ",
+    "の",
+    "ので",
+    "のまない",
+    "のまなかった",
+    "のみたい",
+    "のみたかった",
+    "のみたくない",
+    "のみたくなかった",
+    "のみました",
+    "のみます",
+    "のみません",
+    "のみませんでした",
+    "のみもの",
+    "のむ",
+    "のんだ",
+    "のんで",
+    "は",
+    "はい",
+    "はじめまして",
+    "はたち",
+    "はたらいて",
+    "はたらきます",
+    "はたらきません",
+    "はたらく",
+    "はち",
+    "はちじ",
+    "はな",
+    "はなす",
+    "はは",
+    "はん",
+    "ひと",
+    "ひとつ",
+    "ひとり",
+    "ひゃく",
+    "ふく",
+    "ふたつ",
+    "ふたり",
+    "ふね",
+    "ふるい",
+    "ふるかった",
+    "ぶた",
+    "ほし",
+    "ほしい",
+    "ほん",
+    "ぼうし",
+    "ぼく",
+    "まあ",
+    "まい",
+    "まえ",
+    "まだ",
+    "まって",
+    "まつ",
+    "まで",
+    "まど",
+    "みず",
+    "みせ",
+    "みせて",
+    "みせない",
+    "みせる",
+    "みた",
+    "みたい",
+    "みたくない",
+    "みっつ",
+    "みて",
+    "みない",
+    "みなかった",
+    "みます",
+    "みません",
+    "みませんでした",
+    "みる",
+    "むずかしい",
+    "め",
+    "めがね",
+    "も",
+    "もう",
+    "もも",
+    "やすい",
+    "やすかった",
+    "やすみ",
+    "やま",
+    "やる",
+    "ゆうめい",
+    "ゆき",
+    "よかった",
+    "よく",
+    "よくない",
+    "よくなかった",
+    "よじ",
+    "よにん",
+    "よん",
+    "よんじゅう",
+    "りょうり",
+    "りょこう",
+    "ろく",
+    "ろくじ",
+    "ろくじゅう",
+    "わかった",
+    "わからない",
+    "わかります",
+    "わかる",
+    "わたし",
+    "を",
+    "アメリカ",
+    "アメリカじん",
+    "カメラ",
+    "パン",
+    "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "えいが",
+      "romaji": "eiga",
+      "gloss": "movie",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くつ",
+      "romaji": "kutsu",
+      "gloss": "shoes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こと",
+      "romaji": "koto",
+      "gloss": "thing, the act of doing",
+      "shortGloss": "thing (act of)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とき",
+      "romaji": "toki",
+      "gloss": "time, when",
+      "shortGloss": "time, when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いそがしい",
+      "romaji": "isogashii",
+      "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "りょこう",
+      "romaji": "ryokou",
+      "gloss": "trip, travel",
+      "shortGloss": "trip",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まえ",
+      "romaji": "mae",
+      "gloss": "before",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さむい",
+      "romaji": "samui",
+      "gloss": "cold (weather)",
+      "shortGloss": "cold",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うち",
+      "romaji": "uchi",
+      "gloss": "home, my place",
+      "shortGloss": "home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ので",
+      "romaji": "node",
+      "gloss": "because (softer)",
+      "shortGloss": "because",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けど",
+      "romaji": "kedo",
+      "gloss": "but",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まで",
+      "romaji": "made",
+      "gloss": "until, as far as",
+      "shortGloss": "until",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がつ",
+      "romaji": "gatsu",
+      "gloss": "month (in a date)",
+      "shortGloss": "month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすみ",
+      "romaji": "yasumi",
+      "gloss": "holiday, time off",
+      "shortGloss": "holiday",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべませんでした",
+      "romaji": "tabemasendeshita",
+      "gloss": "didn't eat (polite)",
+      "shortGloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみませんでした",
+      "romaji": "nomimasendeshita",
+      "gloss": "didn't drink (polite)",
+      "shortGloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しませんでした",
+      "romaji": "shimasendeshita",
+      "gloss": "didn't do (polite)",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いきませんでした",
+      "romaji": "ikimasendeshita",
+      "gloss": "didn't go (polite)",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みませんでした",
+      "romaji": "mimasendeshita",
+      "gloss": "didn't watch (polite)",
+      "shortGloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいませんでした",
+      "romaji": "kaimasendeshita",
+      "gloss": "didn't buy (polite)",
+      "shortGloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きませんでした",
+      "romaji": "kimasendeshita",
+      "gloss": "didn't come (polite)",
+      "shortGloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "さむかった",
+      "romaji": "samukatta",
+      "gloss": "was cold",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "さむい"
+    },
+    {
+      "kana": "たべなかった",
+      "romaji": "tabenakatta",
+      "gloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまなかった",
+      "romaji": "nomanakatta",
+      "gloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しなかった",
+      "romaji": "shinakatta",
+      "gloss": "didn't do",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いかなかった",
+      "romaji": "ikanakatta",
+      "gloss": "didn't go",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みなかった",
+      "romaji": "minakatta",
+      "gloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かわなかった",
+      "romaji": "kawanakatta",
+      "gloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "こなかった",
+      "romaji": "konakatta",
+      "gloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "なかった",
+      "romaji": "nakatta",
+      "gloss": "there wasn't, didn't have",
+      "shortGloss": "didn't have",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "ぜんぜん",
+      "romaji": "zenzen",
+      "gloss": "not at all (with a negative)",
+      "shortGloss": "not at all",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まい",
+      "romaji": "mai",
+      "gloss": "counter for flat things",
+      "shortGloss": "flat-thing counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちち",
+      "romaji": "chichi",
+      "gloss": "(my) father",
+      "shortGloss": "my father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はは",
+      "romaji": "haha",
+      "gloss": "(my) mother",
+      "shortGloss": "my mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あに",
+      "romaji": "ani",
+      "gloss": "(my) older brother",
+      "shortGloss": "older brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あね",
+      "romaji": "ane",
+      "gloss": "(my) older sister",
+      "shortGloss": "older sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうと",
+      "romaji": "otouto",
+      "gloss": "(my) younger brother",
+      "shortGloss": "younger brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いもうと",
+      "romaji": "imouto",
+      "gloss": "(my) younger sister",
+      "shortGloss": "younger sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうだい",
+      "romaji": "kyoudai",
+      "gloss": "(my) siblings",
+      "shortGloss": "siblings",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にん",
+      "romaji": "nin",
+      "gloss": "counter for people",
+      "shortGloss": "people counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとり",
+      "romaji": "hitori",
+      "gloss": "one person",
+      "shortGloss": "one person",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたり",
+      "romaji": "futari",
+      "gloss": "two people",
+      "shortGloss": "two people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんにん",
+      "romaji": "sannin",
+      "gloss": "three people",
+      "shortGloss": "three people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よにん",
+      "romaji": "yonin",
+      "gloss": "four people",
+      "shortGloss": "four people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さい",
+      "romaji": "sai",
+      "gloss": "years old (counter for age)",
+      "shortGloss": "years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたち",
+      "romaji": "hatachi",
+      "gloss": "twenty years old",
+      "shortGloss": "twenty years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "この",
+      "romaji": "kono",
+      "gloss": "this (+ noun)",
+      "shortGloss": "this …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "その",
+      "romaji": "sono",
+      "gloss": "that (+ noun)",
+      "shortGloss": "that …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あの",
+      "romaji": "ano",
+      "gloss": "that over there (+ noun)",
+      "shortGloss": "that … over there",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どの",
+      "romaji": "dono",
+      "gloss": "which (+ noun)",
+      "shortGloss": "which …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "むずかしい",
+      "romaji": "muzukashii",
+      "gloss": "difficult",
+      "shortGloss": "difficult",
+      "kind": "vocab"
+    },
+    {
+      "kana": "たのしい",
+      "romaji": "tanoshii",
+      "gloss": "enjoyable, fun",
+      "shortGloss": "enjoyable",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はなす",
+      "romaji": "hanasu",
+      "gloss": "to speak, to talk",
+      "shortGloss": "to speak",
+      "kind": "vocab"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ]
+}

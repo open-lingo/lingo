@@ -25,7 +25,7 @@ partial success has burned this project repeatedly.
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
 m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
-m18 n08.
+m18 n08 · m19 s15.
 
 | m | unit | title |
 |---|---|---|
@@ -79,9 +79,9 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 |
-| N5 grammar points left | **32** of 103 (was 74 at run start) |
-| suite | 6699 passing, 0 failing |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 |
+| N5 grammar points left | **27** of 103 (was 74 at run start) |
+| suite | 6840 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
 | distinct step types | 10–12 per module |
 | audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
@@ -194,6 +194,27 @@ had been ignoring:
   authors to route around the suite).
 - **`i % pool.length` is not rotation, it is repetition** once i exceeds the
   pool. Filler must track what it has already spent in the lesson.
+- **A particle + the copula can FUSE into an unrelated atom.** m19 wrote
+  「じゅうじ ごふんからだ」 and 「くじからだから」 — から + だ tokenizes as からだ,
+  the m2 atom for "body", so the build tiled 「からだ」 and FSRS credited a
+  vocabulary word the sentence never used. Nothing errors: the fragment IS a
+  real atom, which is exactly the silent shape ふるかった/ごじ⊂ごじゅう have. The
+  fix is authorial — から is followed by a verb or by まで, never by だ — and the
+  general rule is to DUMP THE COMPILED TILES of a new module and read them as a
+  vocabulary list before shipping. Every junk or homograph tile is visible there
+  in one glance and invisible everywhere else.
+- **A registered survival PHRASE tiles whole and can eat the lesson's own
+  skill.** 「どこですか」 is one atom (sidequest-survival), so m19's
+  「すみません えきは どこですか」 built as three tiles with どこですか intact —
+  in the lesson whose entire point is that a polite question REQUIRES か. No
+  guard fires (it is a legitimate atom). Same class as いくらですか. Either pick a
+  surface that decomposes or make the beat `mode: translate`, which is typed and
+  has no tiles.
+- **A particle_cloze is HARVESTED into the grammar-review deck**, whose
+  comprehensibility gate resolves every word through `courseAtoms` — and the
+  character names have no atom rows. A cloze frame containing ミカ / トム / ケン /
+  たなか therefore lands in GATE_EXEMPTIONS as "too advanced". Write cloze frames
+  with common nouns instead.
 
 **TTS owed:** the boundary fix changed ~10 build targets (`です。` now appears
 in tiles/audioKey). Run emit-tts-deck + generate at the next quiet point.
@@ -226,7 +247,7 @@ teaches four counters at once is a table, not a lesson).
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** **made-until** | ✅
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono | ✅
 | 18 | to-omoimasu to-quotation kanji-set-1 | ✅
-| 19 | e-direction ni-iku made-ni kara-time **counter-fun** |
+| 19 | e-direction ni-iku made-ni kara-time **counter-fun** | ✅
 | 20 | yori-comparison numbers-100-10000 counter-ko |
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
 | 22 | ga-itai frequency-adverbs counter-hai |
@@ -289,6 +310,74 @@ Six points are RE-TAUGHT rather than re-assigned (`masu-present`, `nai-form`,
 `desu-copula`, `ta-form`, `ni-location`, `ka-question`) because the row owes
 only three ids across nine teaching lessons and inv 42 forbids inventing new
 ones. No ledger row moved.
+
+**An EIGHTH note, m19 (2026-07-27) — the ledger row is unchanged and there is
+NO spine deviation.** spinePlan s15 asks for "で means / に arrival / へ
+direction; までに" plus "Positions; asking strangers (obligatory-polite register
+realism)", and all of it ships. The register-realism half is L9, where every
+production prompt carries a "Say politely:" cue and the answers are です / ます /
+か — an ORDINARY lesson under inv 8, not a `kind: register` beat, because
+standing decision 3 confines that machinery to m10 and m29. "Positions" is read
+as the navigation vocabulary and the question words that ask for it (L8); the
+spatial nouns うえ/した/なか/まえ stay m6's and m15's.
+
+**`ni-iku` was authored, paying off m13's deferral.** m13's note deferred it to
+this row for a tooling reason — a bare ます-stem existed in no lexicon — and the
+stem fix landed the day before. 「たべに いく」 now tokenizes as たべ + に + いく
+and builds as three tiles, which is also the pedagogy. **「かいに いく」 is
+banned**: かい is a registered atom (貝 "shell", m1), so a かい tile would
+mis-credit SRS — the さん/三 and に/二 class. 「かいものに いく」 carries the
+shopping sense.
+
+**Minutes: ふん, ぷん and じゅっぷん are atoms; いっぷん / ろっぷん / はっぷん are
+PROSE.** The compositional cells (さんぷん よんぷん ごふん ななふん きゅうふん
+なんぷん) all build from a number the learner owns, exactly as m16 built months
+from がつ and m17 ages from さい; the three geminating cells that do NOT
+decompose are named in the L5 card's prose, where `jaSurfaces` is blind to them.
+**じゅっぷん is the one exception with a row of its own** — ten-minute intervals
+are what timetables run on, and a minutes lesson that cannot say "ten minutes"
+is not teaching the counter. **にふん is banned** (the に/二 homograph). A guard
+in `m19-neo.test.ts` reads every 〜ふん/〜ぷん surface and checks the counter
+against the number in front of it.
+
+**Four new courseAtoms rows — へ, ふん, ぷん, じゅっぷん — and all four were
+checked for retokenization damage first (the m16-ので class).** へ is ALREADY in
+`moduleCompiler`'s PARTICLES list, so the row changes no tokenization anywhere,
+and the corpus contains zero occurrences of へ outside m19 (へや / たいへん /
+へた / へん are each strictly longer, consumed whole by longest-match, and none
+is taught). ふん / ぷん / じゅっぷん are substrings of no registered atom and
+occur in no existing curriculum surface. The other eight new atoms — がっこう,
+としょかん, かえる, びょういん, でんしゃ, バス, ちかてつ, あるく — already had
+registry rows under stale tags and are declared in `newAtoms` only to fix their
+provenance, the m15–m18 move.
+
+**Two atoms ship `imageable: false` on purpose, and こうえん was cut.** かえる is
+🏠 (also いえ, すむ) and あるく is 🚶 (also いく, さんぽ) — a debut picture that
+names a taught word better than it names the answer is a trick question, and the
+debut MCQ draws distractors from exactly that met pool. Both debut on a rule
+card instead. こうえん had no workaround (🏞️ is かわ, m1), so としょかん 📚 and
+びょういん 🏥 took the place slots; their emoji are unique across the registry.
+のる was cut too (🚗 is くるま, and のる is in no NEO module's taught set).
+
+**Two guards were adjusted, both removing FALSE positives only (m19):**
+(a) `honorificAtomTagging`'s NUMERAL_CONTEXT gained ぷん — 「さんぷん」 genuinely
+DOES exercise 三, exactly as 「さんまい」/「さんがつ」/「さんさい」 do, and that
+list carries a comment telling each module to extend it. (b) GATE 7's m19
+complexity floor was recalibrated 0.51 → 0.80: the old value was measured on the
+archived people-and-family m19, while the neo module measures 72/86 = .837
+because a journey sentence carries means + destination + time by construction.
+Raised, never lowered, per that block's own rule.
+
+**A third finding is a real constraint on future modules, not a guard bug:** a
+particle_cloze is HARVESTED into the grammar-review deck, whose
+comprehensibility gate resolves every word through `courseAtoms` — and the
+character names have no atom rows. So a cloze frame must not contain ミカ / トム
+/ ケン / たなか, or it lands in GATE_EXEMPTIONS. m19's へ cloze says 「きょうは
+うみへ いく」 for that reason.
+
+**Carrier note for m20 (inv 27):** `exposure-audit` now reports exactly ONE
+under-exposed CEJC top-150 word, じかん (#130, ×1). It belongs in m20's tails
+and carriers.
 
 **NEW TOOLING from the m18 cycle — `kind: kanji`, an IR beat that emits
 `kanji_reading`.** Three rows owe a kanji set (m18/m23/m28) and the IR could
