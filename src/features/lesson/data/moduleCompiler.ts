@@ -182,6 +182,12 @@ export type ModuleIR = {
   register?: string;
   priorNeoModules?: string[];
   newAtoms?: IRAtom[];
+  /**
+   * Every kana taught by an EARLIER module. Injected by compile-ir.mjs, which
+   * can read the other modules; compileModule itself only ever sees one IR.
+   * Not authored by hand — it is derived, and regenerating is a recompile.
+   */
+  priorVocab?: string[];
   grammarPoints?: IRGrammarPoint[];
   /** Grammar points this module EXERCISES but does not TEACH — taught by an
    *  earlier module, so they carry no rule/examples here. `exercises:` and
@@ -434,6 +440,18 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     (a) => a.emoji && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
   );
 
+  /**
+   * Has the learner MET this word before this module?
+   *
+   * `ir.priorVocab` is the union of what every earlier module actually taught
+   * (compile-ir.mjs builds it). `courseAtoms.fromModule` deliberately is not
+   * consulted: those tags are stale by construction — m5's seed verbs still
+   * carry old-course m7/m11/m15 tags — so ordering by them both admits
+   * untaught words and rejects taught ones.
+   */
+  const priorVocab = new Set(ir.priorVocab ?? []);
+  const metBefore = (kana: string): boolean => priorVocab.has(kana);
+
   const resolve = (kana: string): Atom =>
     atoms.get(kana) ?? { kana, meaningEn: kana, fromModule: moduleId as ReviewAtom["fromModule"] };
   /**
@@ -563,7 +581,14 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       // pool early, collapsing it to whichever words happened not to recur.
       // m10-neo-1 was left with one usable word and shipped the identical
       // "Pick the word for 'person'" MCQ five times in one lesson.
-      if (!moduleNew.has(kana)) return true;
+      // …but "not new here" is not the same as "known". Every atom belonging
+      // to a LATER module also lands in this branch, and the pools believed
+      // them: image-MCQ debuts and filler drew distractors from the whole
+      // registry, so untaught words (えいが, りょこう, ポスト) shipped as wrong
+      // answers, and だいがく — an m19 atom — became m13's running example.
+      // `priorVocab` is what earlier modules actually taught, computed in
+      // compile-ir.mjs where the filesystem is available.
+      if (!moduleNew.has(kana)) return metBefore(kana);
       // Module-new stays STRICT: usable only after the lesson that declares
       // it in `introduces:`. Loosening this to a beat-scan fallback let a new
       // word reach filler before its own debut (m6 なか, m7 パーティー).
@@ -645,7 +670,13 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
               a.derivedFrom &&
               a.verbClass &&
               groups.includes(IR_CLASS_TO_GROUP[a.verbClass]) &&
-              (scope.size === 0 || scope.has(a.kana)),
+              (scope.size === 0 || scope.has(a.kana)) &&
+              // You cannot drill a transform FROM a base the learner has never
+              // met. m14's ramp printed すむ as a given, and すむ is taught in
+              // no module — the base is the card's premise, not its answer, so
+              // an untaught one is invisible to the debut guards.
+              (metBefore(a.derivedFrom as string) ||
+                (ir.newAtoms ?? []).some((n) => n.kana === a.derivedFrom)),
           );
           for (const a of material.slice(0, 3)) {
             const group = IR_CLASS_TO_GROUP[a.verbClass as string];
@@ -1232,11 +1263,21 @@ function reviewFiller(
    * slot index wrapped past the pool size — "Pick the word for 'person'" five
    * times in one m10 lesson, and twelve quieter ×2 repeats elsewhere.
    */
+  // Dedupe on the GLOSS as well as the kana: この and その both render as
+  // "Pick the word for "that"", so a kana-only check let m6-neo-7 ask the
+  // identical question twice with different right answers.
+  // Key on `meaningEn`, which is what the PROMPT renders — not on
+  // matchTileGloss, whose shortGloss can differ for two atoms that print the
+  // same question.
+  const usedKey = (tag: string, a: Atom) =>
+    `${tag}:${a.kana}|${tag}g:${a.meaningEn}`;
   const pickAtom = (tag: string): Atom | null => {
     for (const source of [usable, fallback]) {
       for (let k = 0; k < source.length; k++) {
         const cand = source[(i + k) % source.length];
-        if (cand && !used.has(`${tag}:${cand.kana}`)) return cand;
+        if (!cand) continue;
+        if (usedKey(tag, cand).split("|").some((key) => used.has(key))) continue;
+        return cand;
       }
     }
     return null;
@@ -1290,14 +1331,14 @@ function reviewFiller(
               translationMcq(`${lid}-fill-${i}`, a as ReviewAtom, declaredPool as ReviewAtom[]),
             )
           : null,
-        a ? `mcq:${a.kana}` : "",
+        a ? usedKey("mcq", a) : "",
       ];
     },
     () => {
       const a = pickAtom("say");
       return [
         a ? speaking(`${lid}-fill-${i}`, a.kana, matchTileGloss(a), [a.kana]) : null,
-        a ? `say:${a.kana}` : "",
+        a ? usedKey("say", a) : "",
       ];
     },
     () => {
@@ -1311,14 +1352,14 @@ function reviewFiller(
               exercisedAtomKanas: [a.kana],
             })
           : null,
-        a ? `type:${a.kana}` : "",
+        a ? usedKey("type", a) : "",
       ];
     },
   ];
   for (let k = 0; k < rotation.length; k++) {
     const [step, key] = rotation[(i + k) % rotation.length]();
     if (step) {
-      if (key) used.add(key);
+      for (const part of key.split("|")) if (part) used.add(part);
       return step;
     }
   }

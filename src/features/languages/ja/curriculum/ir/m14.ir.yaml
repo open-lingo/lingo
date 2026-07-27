@@ -182,12 +182,12 @@ grammarPoints:
       - { ja: "しゃしんを みせて ください。", en: "Please show me the photo." }
     antiPattern: { ja: "みずが ください。", why: "ください takes を — what you are asking for is the object of the request. が would make the water the one doing the asking." }
   - id: te-iru
-    rule: "Hang いる on the て-form and you get ている: たべる → たべて → たべている. It does not mean \"present tense\"; it says you EXIST IN THE STATE that the action left you in. For an action still in motion that reads as ongoing — いま ごはんを たべている = I'm eating right now. For a verb that describes a CHANGE, it reads as the state after the change: しる is the moment you find out, so しっている is \"I know\"; すんでいる is \"I live\". Only いる moves: the negative is ていない (まだ たべていない), and in fast speech people drop the い — たべてる — which you will hear everywhere even though we write the full form."
+    rule: "Hang いる on the て-form and you get ている: たべる → たべて → たべている. It does not mean \"present tense\"; it says you EXIST IN THE STATE that the action left you in. For an action still in motion that reads as ongoing — いま ごはんを たべている = I'm eating right now. For a verb that describes a CHANGE, it reads as the state after the change: しる is the moment you find out, so しっている is \"I know\". Only いる moves: the negative is ていない (まだ たべていない), and in fast speech people drop the い — たべてる — which you will hear everywhere even though we write the full form."
     examples:
       - { ja: "いま ごはんを たべている。", en: "I'm eating right now." }
       - { ja: "ミカは いま ほんを みている。", en: "Mika is looking at a book right now." }
       - { ja: "ともだちは かいしゃで はたらいている。", en: "My friend works at a company." }
-      - { ja: "わたしは にほんに すんでいる。", en: "I live in Japan." }
+      - { ja: "ミカは いま ちゃを のんでいる。", en: "Mika is drinking tea right now." }
       - { ja: "トムの なまえを しっている。", en: "I know Tom's name." }
       - { ja: "いま みずを のんでいない。", en: "I'm not drinking water right now." }
     antiPattern: { ja: "いま ごはんを たべるいる。", why: "いる hangs on the て-form, not the dictionary form — たべる becomes たべて first: いま ごはんを たべている。" }
@@ -248,6 +248,14 @@ newAtoms:
   #    these three and nothing else can ride the ramp (inv 37).
   - { kana: しって, romaji: shitte, gloss: "know (te-form)", shortGloss: "know (te)", imageable: false, kind: verb-form, derivedFrom: しる, verbClass: u }
   - { kana: はたらいて, romaji: hataraite, gloss: "work (te-form)", shortGloss: "work (te)", imageable: false, kind: verb-form, derivedFrom: はたらく, verbClass: u }
+  # のむ, not すむ: すむ is taught in no module, so both すんで and its ramp card
+  # rested on a verb the learner had never met. Same む→んで row of the table.
+  # すんで is taught as a WHOLE lexical item (すんでいる = "live in"). Its base
+  # すむ is taught in no module, so it must never reach a ramp card — a
+  # transform prints its base as a given, and a given the learner has never
+  # seen is invisible to every debut guard. The compiler now enforces this;
+  # the ramp runs on しる/はたらく/のむ instead.
+  - { kana: のんで, romaji: nonde, gloss: "drink (te-form)", shortGloss: "drink (te)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
   - { kana: すんで, romaji: sunde, gloss: "live in (te-form)", shortGloss: "live in (te)", imageable: false, kind: verb-form, derivedFrom: すむ, verbClass: u }
   # ══ L1 — the request lesson. まつ and みせる are PICTURE debuts; their
   #    て-forms are introduced by the te-kudasai card. No verbClass: a new
@@ -312,7 +320,7 @@ lessons:
     role: teaching
     title: "ている — て plus いる"
     focus: "the て-form plus いる: you exist in the state the action left you in — for an action in motion, that is ongoing"
-    introduces: [しって, はたらいて, すんで]
+    introduces: [しって, はたらいて, のんで]
     beats:
       - { kind: rule, grammarPointId: te-iru }
       - { kind: sentence, ja: "いま ごはんを たべている。", en: "I'm eating right now", exercises: [te-iru, wo-object], mode: build }
@@ -340,7 +348,7 @@ lessons:
     role: teaching
     title: "しっている — the state you are already in"
     focus: "for a verb that names a CHANGE, ている is the state after it: しっている 'know', すんでいる 'live'"
-    introduces: [しらない]
+    introduces: [すんで, しらない]
     beats:
       - { kind: rule, grammarPointId: te-iru }
       - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "I live in Japan", exercises: [te-iru, ni-location, wa-topic], mode: build }

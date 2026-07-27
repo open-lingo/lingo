@@ -126,8 +126,12 @@ describe("m14-neo owes the spine's て-family grammar points", () => {
     expect(ramp.every((s) => s.verbClass === "godan")).toBe(true);
     // Three DIFFERENT rows of that table (る→って, く→いて, む→んで) —
     // the spine's "same form, harder spends".
+    // のむ, not すむ: a ramp card prints its BASE as a given, and すむ is taught
+    // in no module, so it arrived as a word the learner had never met — and a
+    // given is invisible to every debut guard. すんでいる is still taught in L3,
+    // as the whole lexical item it is.
     expect(new Set(ramp.map((s) => s.base))).toEqual(
-      new Set(["しる", "はたらく", "すむ"]),
+      new Set(["しる", "はたらく", "のむ"]),
     );
   });
 
