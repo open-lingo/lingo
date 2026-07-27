@@ -141,6 +141,36 @@ had been ignoring:
 
 ## Recurring traps (cost real time this session — do not re-learn)
 
+### RULE ZERO — never match a Japanese substring. Match a TILE or an ATOM.
+
+This is the single most repeated bug in the project: **eight distinct sites so
+far**, found one at a time, each one silent, each one reaching the learner.
+Japanese has no spaces, so `haystack.includes(word)` is not a word test — it is
+"do these characters occur anywhere", which in this language is almost always
+yes.
+
+| site | what it did |
+|---|---|
+| `compile-ir` priorVocab | ので matched inside のです → untaught word marked known |
+| `honorificAtomTagging` | さん matched inside さんぷん → honorific credited as 三 |
+| `moduleBarGuards` image-first | は matched inside 歯 → every は read as a debut |
+| m11 time guard | ごじ matched inside ごじゅう |
+| m22 body guard | からだ matched inside unrelated surfaces |
+| m19 stem check | substring match on stems mis-read くる's negative |
+| m21 `たり` guard | した matched inside しました → **banned a whole tense** |
+| `lessonAtomIndex` fallback | くる⊂くるま, とし⊂としょかん, はん⊂ごはん, いま⊂います, いい⊂いいえ → **57% of m8+ atom attributions were false**, scheduling SRS reviews for words no lesson taught |
+
+The compiler already computes the right answer and hands it to you: a step's
+`tiles` are the tokenizer's own segmentation, and `exercisedAtoms` is literally
+"which atoms this step exercises". Ask those. If a check must reason about raw
+text, anchor it — `^`, `$`, a following particle — and say in a comment why that
+anchor is sound.
+
+The reason this keeps happening is that the wrong version PASSES: a substring
+match is a superset, so it never fails a build, it just quietly does the wrong
+thing. Treat any new `.includes(` on Japanese text as a defect until proven
+otherwise.
+
 - A bare cardinal cannot quantify a noun in Japanese (`ほんが ご ある` ✗).
   Counters only: 〜つ (inanimate), 〜人, 〜匹, 〜えん.
 - `reviewPool` asserts "already known" — putting an untaught word there is a
