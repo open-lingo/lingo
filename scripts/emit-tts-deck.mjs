@@ -195,7 +195,18 @@ const cards = Array.from(deduped)
 // anything"). Male-named speakers' lines (+ sentence splits) go into a
 // second deck synthesized with ja-JP-KeitaNeural by
 // lingo-core scripts/tts/gen_keita_dialogue.py under `ja-keita:` keys.
-const MALE_SPEAKERS = new Set(["Tom", "Ken", "Tanaka"]);
+// Roster shared with DialogueListenStepView so generation and playback cannot
+// disagree — they were hand-copied twins holding only the romanized names,
+// which left every kana-labelled male speaker (トム/たけし/たなか/ケン) playing
+// the female Nanami voice.
+const MALE_SPEAKERS = new Set(
+  JSON.parse(
+    readFileSync(
+      new URL("../src/features/languages/ja/dialogueSpeakers.json", import.meta.url),
+      "utf-8",
+    ),
+  ).male,
+);
 const keitaSet = new Set();
 const nanamiSet = new Set();
 for (const path of sources) {

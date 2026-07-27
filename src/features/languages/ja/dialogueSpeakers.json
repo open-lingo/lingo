@@ -1,0 +1,29 @@
+{
+  "_doc": "Single source of truth for dialogue speaker -> TTS voice routing (inv 23). Imported by DialogueListenStepView.tsx (runtime playback) and read by scripts/emit-tts-deck.mjs (clip generation). These two used to be hand-copied twins holding only the romanized names, so every kana-labelled male speaker in m8-m10 silently played the female Nanami voice. dialogueSpeakerRegistry.test.ts fails the build on any speaker label that appears in the course but not here, so a new name cannot default-to-female by omission.",
+  "male": [
+    "Tom",
+    "トム",
+    "Ken",
+    "ケン",
+    "けん",
+    "Tanaka",
+    "たなか",
+    "たなかさん",
+    "たけし"
+  ],
+  "female": [
+    "Mika",
+    "ミカ",
+    "ゆき"
+  ],
+  "neutral": [
+    "You",
+    "Staff",
+    "Friend",
+    "Stranger",
+    "Clerk",
+    "せんせい",
+    "やくざいし",
+    "やまだ"
+  ]
+}

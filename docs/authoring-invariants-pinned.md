@@ -132,15 +132,19 @@
 ## Dialogue TTS (2026-07-19)
 
 23. Dialogue speakers use REAL distinct voices, zero pitch processing:
-    male-named speakers (トム/ケン/たなか — MALE_SPEAKERS in
-    DialogueListenStepView) play ja-JP-KeitaNeural clips under
+    male-named speakers (トム/ケン/たなか/たけし — the `male` list in
+    `src/features/languages/ja/dialogueSpeakers.json`, the ONE roster the
+    runtime view and the TTS emitter both read) play ja-JP-KeitaNeural clips under
     `ja-keita:` manifest keys; everyone else plays the Nanami corpus.
     Clips are raw — no detune, no playbackRate, and NEVER post-process
     clip internals (the silence-splice experiment cut がくせい in half).
     Lines chain per-sentence with a 350ms gap; whole-line clip is the
     fallback. New male dialogue lines: run emit-tts-deck.mjs then
-    lingo-core scripts/tts/gen_keita_dialogue.py. A new male-named
-    speaker must be added to MALE_SPEAKERS + the emitter's set.
+    lingo-core scripts/tts/gen_keita_dialogue.py. EVERY new speaker label —
+    male, female or role — must be classified in dialogueSpeakers.json;
+    `dialogueSpeakerRegistry.test.ts` fails the build on an unclassified one,
+    because the default is the female voice and that is silently wrong for a
+    male name (it shipped that way for m8–m10).
 
 ## Sentences and coverage
 

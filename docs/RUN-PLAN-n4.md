@@ -172,9 +172,17 @@ connectives tile) and `counter-fun` m11→m19 (ぷん rendaku defers to the drip
 
 ### Carried debt (batch later, do not derail a module for these)
 
-- **m8–m10 dialogue speaker labels are kana**, which routes male speakers to
-  the Nanami voice. inv 23/24 wants romanized labels; m11 does it right and its
-  male lines correctly got Keita. Retrofit m8–m10 + TTS regen in one pass.
+- ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami
+  voice.~~ FIXED 2026-07-27, and not the way it was reported: the invariant
+  always named the kana forms, so the *code* was wrong, not the content. The
+  roster moved to `dialogueSpeakers.json` (one file, read by both the runtime
+  view and the emitter, which were hand-copied twins) and
+  `dialogueSpeakerRegistry.test.ts` now fails on any unclassified speaker.
+  89 lines were affected — トム 28, たけし 27, たなか 22, ケン 9, けん 2,
+  たなかさん 1. **Still owes a Keita generation pass** — emit-tts-deck will
+  now route those lines into the ja-keita deck, but the clips themselves need
+  synthesizing in lingo-core (`scripts/tts/gen_keita_dialogue.py`). Until then
+  they fall back to the whole-line Nanami clip, i.e. no worse than today.
 - **inv 35** ("build tiles carry no authored distractors") flags every IR
   module m6–m11 — the IR has no field to express it. This is a COMPILER/IR gap,
   not a module defect; the 3+-modules rule says fix the tooling, not the

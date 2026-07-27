@@ -11,6 +11,7 @@ import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import dialogueSpeakers from "@/features/languages/ja/dialogueSpeakers.json";
 
 const TURN_GAP_MS = 550;
 const SENTENCE_GAP_MS = 175;
@@ -33,14 +34,16 @@ export function splitJaSentences(text: string): string[] {
 /**
  * Real two-voice dialogues (Spencer 2026-07-19: "just generate the two
  * different voices per speaker and do not pitch anything"). Speaker
- * labels are ROMANIZED (Tom/Mika/Ken/Tanaka) — katakana chips are
- * unreadable before the katakana ladder (Spencer 2026-07-20). Male-named
+ * labels may be romanized (Tom/Mika) or kana (トム/たけし) — both ship, and
+ * both must route to the right voice, so the roster lives in
+ * dialogueSpeakers.json rather than being hand-copied here and in the
+ * emitter. Male-named
  * speakers' lines have dedicated ja-JP-KeitaNeural clips under
  * `ja-keita:` manifest keys (emit-tts-deck.mjs + gen_keita_dialogue.py);
  * everyone else plays the default Nanami corpus. NO detune, NO
  * playbackRate — clips play raw. Exported for unit testing.
  */
-const MALE_SPEAKERS = new Set(["Tom", "Ken", "Tanaka"]);
+const MALE_SPEAKERS = new Set(dialogueSpeakers.male);
 const KEITA_LANG = "ja-keita";
 
 export function langForSpeaker(speaker?: string): string | undefined {
