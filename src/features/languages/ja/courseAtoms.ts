@@ -1293,8 +1293,8 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // form"). Registered because the module HEARS them in dialogue and listening
   // comprehension, and an unregistered surface is an untracked word rather than
   // a taught variant. Never a build target anywhere in the course.
-  { id: "tabereru", kana: "たべれる", romaji: "tabereru", meaningEn: "can eat (casual ら-dropped form)", shortGloss: "can eat (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant — recognition only; the course produces たべられる" },
-  { id: "mireru", kana: "みれる", romaji: "mireru", meaningEn: "can watch (casual ら-dropped form)", shortGloss: "can watch (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant — recognition only; the course produces みられる" },
+  { id: "tabereru", kana: "たべれる", romaji: "tabereru", meaningEn: "can eat (casual ら-dropped form)", shortGloss: "can eat (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant. `blocked` here means NOT-IMAGEABLE (no word_image_mcq) — it does not enforce anything else. Recognition-only is enforced by the guard in m24-neo.test.ts ('ら抜き forms are RECOGNITION only'), which bans these from production targets and requires >=3 heard beats. Still SRS-eligible on purpose, so recognition stays live after m24." },
+  { id: "mireru", kana: "みれる", romaji: "mireru", meaningEn: "can watch (casual ら-dropped form)", shortGloss: "can watch (casual)", fromModule: "m24", introducedByLessonId: "ja-m24-neo-2", kind: "vocab", blocked: true, note: "ら抜き variant. See たべれる — `blocked` is not-imageable only; the production ban lives in m24-neo.test.ts. SRS-eligible on purpose." },
   // NEGATIVE POTENTIAL. A potential verb is ichidan whatever its base was, so
   // this is m6's ない-form applied to a new stem — which is why the L5 card is
   // `nai-form` re-taught rather than a new point.
