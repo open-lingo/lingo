@@ -22,6 +22,12 @@ const LEXICALIZED = new Set([
   "はは", // mother
   "もの", // thing
   "もも", // peach
+  // Both only decompose because m20 (spine n09) registers the counter こ as
+  // an atom. この is a lexicalized demonstrative and こと a lexicalized noun —
+  // the tokenizer is longest-match-first, so each is always tiled WHOLE and
+  // no learner ever assembles it from こ + a particle. Same class as もも/もの.
+  "この", // this (demonstrative adjective)
+  "こと", // thing / the act of doing
   "どうも", // thanks / somehow
   // Deliberate WRONG-DERIVATION distractor in m14's "convert くる to
   // て-form" drill (invariant 10 permits non-words in derivation drills).

@@ -167,6 +167,7 @@ import { M16_NEO_LESSONS } from "@/features/languages/ja/curriculum/m16-neo";
 import { M17_NEO_LESSONS } from "@/features/languages/ja/curriculum/m17-neo";
 import { M18_NEO_LESSONS } from "@/features/languages/ja/curriculum/m18-neo";
 import { M19_NEO_LESSONS } from "@/features/languages/ja/curriculum/m19-neo";
+import { M20_NEO_LESSONS } from "@/features/languages/ja/curriculum/m20-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -492,6 +493,10 @@ const LESSONS: Record<string, LessonContent> = {
   // for arrival, へ for direction (written he, read e), で for the means,
   // ます-stem + に いく for the purpose, 〜ふん/〜ぷん, から and までに.
   ...Object.fromEntries(M19_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  // m20-neo (tile n09) — compiled from ir/m20.ir.json. Comparisons: the winner
+  // first with ほうが, the loser with より, 「AとBと どっちが〜？」 to ask,
+  // どちら as its polite twin, numbers 100-10000 and the 〜こ counter.
+  ...Object.fromEntries(M20_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.

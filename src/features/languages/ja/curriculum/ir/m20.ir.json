@@ -1,0 +1,5570 @@
+{
+  "module": "m20",
+  "title": "Comparisons I: のほうが…より",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18",
+    "m19"
+  ],
+  "priorGrammarPoints": [
+    "ka-question",
+    "desu-copula",
+    "no-possession",
+    "kore-sore-are-dore",
+    "kono-sono-ano-dono",
+    "dare",
+    "koko-soko-asoko",
+    "location-qa",
+    "ga-existence",
+    "arimasu",
+    "imasu",
+    "nai-existence",
+    "wo-object",
+    "ni-location",
+    "ni-time",
+    "de-action",
+    "e-direction",
+    "kara-origin",
+    "kara-time",
+    "made-until",
+    "made-ni",
+    "dictionary-form",
+    "ta-form",
+    "nai-form",
+    "masu-negative",
+    "i-adj-present",
+    "i-adj-negative",
+    "i-adj-past",
+    "na-adj-negative",
+    "na-adj-past",
+    "v-tai",
+    "ga-hoshii",
+    "suki-kirai-no",
+    "no-ga-suki",
+    "mada-mou",
+    "kara-because",
+    "node-because",
+    "kedo",
+    "toki",
+    "te-iru",
+    "to-omoimasu",
+    "to-quotation",
+    "ni-iku",
+    "numbers-1-10",
+    "numbers-11-99",
+    "counter-ji",
+    "counter-fun",
+    "counter-tsu",
+    "counter-nin",
+    "counter-sai",
+    "counter-mai",
+    "family-register",
+    "kudasai"
+  ],
+  "grammarPoints": [
+    {
+      "id": "yori-comparison",
+      "rule": "Japanese leads with the WINNER. 「Aの ほうが Bより 〜」 means A is more ~ than B: ほう marks the one that wins and より hangs the one that loses off the back of it. English does the opposite — it leads with the comparison word, 'more expensive', 'cheaper', 'bigger' — and here is the good news: Japanese has no such word and no comparative ending. **Neither ほう nor より changes the adjective.** たかい is たかい whether you are comparing or not, and there is nothing extra to learn. ほう itself is an ordinary noun meaning 'the ~ side, the ~ one', which is why it takes の in front of it exactly like any other noun and が behind it: 「でんしゃの ほう」 is 'the train one'. より sits straight after the loser with nothing between them. Word order is loose and 「バスより でんしゃの ほうが たかい」 says the same thing, but lead with ほうが while you are learning, because that is the half nobody ever drops.",
+      "examples": [
+        {
+          "ja": "でんしゃの ほうが バスより たかい。",
+          "en": "The train is more expensive than the bus."
+        },
+        {
+          "ja": "この みせの ほうが やすい。",
+          "en": "This shop is the cheaper one."
+        },
+        {
+          "ja": "じてんしゃの ほうが くるまより やすい。",
+          "en": "A bike is cheaper than a car."
+        },
+        {
+          "ja": "すしの ほうが パンより おいしい。",
+          "en": "Sushi is more delicious than bread."
+        },
+        {
+          "ja": "ミカの ほうが ケンより いそがしい。",
+          "en": "Mika is busier than Ken."
+        }
+      ],
+      "antiPattern": {
+        "ja": "でんしゃ ほうが バスより たかい。",
+        "why": "ほう is a NOUN, so whatever describes it needs の in front: でんしゃの ほうが バスより たかい。"
+      }
+    },
+    {
+      "id": "wa-topic",
+      "rule": "There is a shorter way to say the same thing, and it is the one you will hear. Put the winner up as the TOPIC with は, hang the loser off より, and stop: 「でんしゃは バスより たかい」. Same meaning as the ほうが version, one word lighter. は does here exactly what it has always done — it announces what the sentence is about — and より keeps its one job of marking the loser. In an ANSWER you can drop even more. Once both things are already on the table, 「バスより やすい」 on its own is a complete reply; nobody repeats the winner. That is the everyday shape of a comparison: ほうが…より is the frame you learn the pattern with, より alone is what comes out of your mouth. The one thing that never moves is より's position — directly after the loser, never in front of it — and the adjective still does not change.",
+      "examples": [
+        {
+          "ja": "でんしゃは バスより たかい。",
+          "en": "The train is more expensive than the bus."
+        },
+        {
+          "ja": "バスより やすい。",
+          "en": "It's cheaper than the bus."
+        },
+        {
+          "ja": "この かばんは あの かばんより おおきい。",
+          "en": "This bag is bigger than that bag."
+        },
+        {
+          "ja": "きょうは きのうより さむい。",
+          "en": "Today is colder than yesterday."
+        },
+        {
+          "ja": "すしは とりにくより おいしい。",
+          "en": "Sushi is more delicious than chicken."
+        }
+      ],
+      "antiPattern": {
+        "ja": "でんしゃは バス たかい。",
+        "why": "the loser needs より on it — with no particle at all, バス just collides with the adjective: でんしゃは バスより たかい。"
+      }
+    },
+    {
+      "id": "to-and",
+      "rule": "To ASK a comparison, name the two things with と and finish with どっち: 「でんしゃと バスと どっちが たかい？」 — of the train and the bus, which is the more expensive one? と is the same 'and' you have used for a closed list since module 8, and that is exactly the job it is doing: the second と marks the list as FINISHED, so the listener knows there are two options and only two. Say it while you are learning even though speech often drops it. どっち takes が and never は, because a question word cannot be the thing a sentence is ABOUT. The answer comes back with ほうが — 「でんしゃの ほうが たかい」 — and needs no より at all, because the question already named both things. どっち is the plain, everyday word. Its polite twin is どちら: same meaning, same slot, and the only difference is who you are talking to.",
+      "examples": [
+        {
+          "ja": "でんしゃと バスと どっちが たかい？",
+          "en": "Which is more expensive, the train or the bus?"
+        },
+        {
+          "ja": "すしと とりにくと どっちが すき？",
+          "en": "Which do you like more, sushi or chicken?"
+        },
+        {
+          "ja": "どっちが やすい？",
+          "en": "Which is the cheaper one?"
+        },
+        {
+          "ja": "この かさと あの かさと どっちが あたらしい？",
+          "en": "Which umbrella is newer, this one or that one?"
+        },
+        {
+          "ja": "えいがと おんがくと どちらが すきですか。",
+          "en": "Which do you prefer, films or music? — the same question, said politely"
+        }
+      ],
+      "antiPattern": {
+        "ja": "でんしゃと バスと どっちは たかい？",
+        "why": "a question word can never be the topic, so どっち always takes が: でんしゃと バスと どっちが たかい？"
+      }
+    },
+    {
+      "id": "numbers-100-10000",
+      "rule": "Hundreds are a number plus ひゃく, and most of them are as plain as they look: yonhyaku (400), gohyaku (500), nanahyaku (700), kyuuhyaku (900) — the number goes in front, the counter does not budge. Three of them DO budge, and those three are the whole lesson. 300 is sanBYAKU, 600 is roPPYAKU, 800 is haPPYAKU: the h softens to b after san, and it hardens to p — with the sound in front of it doubling — after roku and hachi. Nothing else in the hundreds changes. Say the three out loud a few times, because the mouth learns this far faster than the eye does, and a hundred you have to stop and reconstruct is a hundred you cannot use at a till. Building a bigger number is then just stacking, exactly as it was for 11-99: 「ごひゃく」 is 500, and 500 yen is 「ごひゃくえん」 with えん straight on the end.",
+      "examples": [
+        {
+          "ja": "この ほんは さんびゃくえんだ。",
+          "en": "This book is 300 yen."
+        },
+        {
+          "ja": "きっぷは ろっぴゃくえんだ。",
+          "en": "The ticket is 600 yen."
+        },
+        {
+          "ja": "この かさは はっぴゃくえんだ。",
+          "en": "This umbrella is 800 yen."
+        },
+        {
+          "ja": "この ぼうしは ごひゃくえんだ。",
+          "en": "This hat is 500 yen."
+        },
+        {
+          "ja": "あの めがねは きゅうひゃくえんだ。",
+          "en": "Those glasses are 900 yen."
+        }
+      ],
+      "antiPattern": {
+        "ja": "この ほんは さんひゃくえんだ。",
+        "why": "300 is さんびゃく — さん turns ひゃく into びゃく. Only 400, 500, 700 and 900 leave the counter alone: この ほんは さんびゃくえんだ。"
+      }
+    },
+    {
+      "id": "ikura-price",
+      "rule": "Past nine hundred you need two more words and both of them behave. せん is a thousand and まん is ten thousand, and they stack the same way the hundreds did: yonsen (4,000), gosen (5,000), nanasen (7,000), kyuusen (9,000), and ichiman for 10,000 — ten thousand always carries its ichi, unlike sen and hyaku, which stand alone. Two cells change sound, and they are the same two numbers that changed in the hundreds: 3,000 is sanZEN and 8,000 is haSSEN. Stack them left to right with the big unit first and no word for 'and': 「せん ごひゃくえん」 is 1,500 yen. Asking the price is the easy half. 「いくら？」 is the whole question to a friend — no verb, no particle — and the answer is the number with えん on it and だ to finish: 「さんぜんえんだ」.",
+      "examples": [
+        {
+          "ja": "この くつは さんぜんえんだ。",
+          "en": "These shoes are 3,000 yen."
+        },
+        {
+          "ja": "この かばんは いくら？",
+          "en": "How much is this bag?"
+        },
+        {
+          "ja": "せん ごひゃくえんだ。",
+          "en": "It's 1,500 yen."
+        },
+        {
+          "ja": "あの カメラは はっせんえんだ。",
+          "en": "That camera is 8,000 yen."
+        },
+        {
+          "ja": "この じてんしゃは いちまんえんだ。",
+          "en": "This bike is 10,000 yen."
+        }
+      ],
+      "antiPattern": {
+        "ja": "この くつは さんせんえんだ。",
+        "why": "3,000 is さんぜん — さん turns せん into ぜん, exactly as it turns ひゃく into びゃく: この くつは さんぜんえんだ。"
+      }
+    },
+    {
+      "id": "counter-ko",
+      "rule": "〜こ is the everyday counter for a small object you can pick up — a key, a piece of fruit, a box, an egg. When you do not know the specialised counter for something small, this is the one that will not be wrong. Attach it straight to the number: sanko (3), yonko (4), goko (5), nanako (7), kyuuko (9). Four cells double the sound in front of them and are worth saying out loud until they stick: ikko (1), rokko (6), hakko (8), jukko (10). Now the part that catches English speakers, and it is not the counter at all — it is where the count SITS. English puts 'three' in front of 'keys'. Japanese does not: the noun comes first with が or は on it, and the number-plus-counter stands on its own just before the verb. 「かぎが さんこ ある」 — as for keys, three exist. And a bare number can never do this job by itself; without a counter on it there is nothing to attach the count to the sentence with.",
+      "examples": [
+        {
+          "ja": "かぎが さんこ ある。",
+          "en": "There are three keys."
+        },
+        {
+          "ja": "きゅうりが よんこ ある。",
+          "en": "There are four cucumbers."
+        },
+        {
+          "ja": "ももが ごこ ある。",
+          "en": "There are five peaches."
+        },
+        {
+          "ja": "きのこが きゅうこ ある。",
+          "en": "There are nine mushrooms."
+        },
+        {
+          "ja": "ももの ほうが きゅうりより たかい。",
+          "en": "Peaches are more expensive than cucumbers."
+        }
+      ],
+      "antiPattern": {
+        "ja": "かぎが さん ある。",
+        "why": "a bare number cannot count a noun in Japanese — it needs a counter on it, and for a small object that counter is こ: かぎが さんこ ある。"
+      }
+    },
+    {
+      "id": "na-adj-present",
+      "rule": "な-adjectives compare exactly like い-adjectives, and this is where the promise that nothing changes earns its keep. Drop one into the frame and nothing in it moves: 「としょかんの ほうが きっさてんより しずかだ」. What a な-adjective still needs is its だ, because it is not a verb and cannot end a sentence on its own — しずか is a quality, しずかだ is a statement. ほう and より do not affect that in either direction: they are not verbs, they are not endings, and they leave the predicate exactly as it would have been in a sentence with no comparison in it at all. The same goes for すき and きらい, which are な-adjectives even though English hears them as verbs: 「すしの ほうが すきだ」 is 'sushi is the one I like more'.",
+      "examples": [
+        {
+          "ja": "としょかんの ほうが きっさてんより しずかだ。",
+          "en": "The library is quieter than the coffee shop."
+        },
+        {
+          "ja": "みせは としょかんより にぎやかだ。",
+          "en": "The shop is livelier than the library."
+        },
+        {
+          "ja": "この えいがの ほうが ゆうめいだ。",
+          "en": "This film is the more famous one."
+        },
+        {
+          "ja": "すしの ほうが すきだ。",
+          "en": "Sushi is the one I like more."
+        },
+        {
+          "ja": "きょうの ほうが ひまだ。",
+          "en": "Today is the freer of the two days."
+        }
+      ],
+      "antiPattern": {
+        "ja": "としょかんの ほうが きっさてんより しずか。",
+        "why": "a な-adjective cannot end a sentence on its own — it needs だ: としょかんの ほうが きっさてんより しずかだ。"
+      }
+    },
+    {
+      "id": "mo-also",
+      "rule": "Often both things are true and you still have a preference, and Japanese has a tidy way to say so. Put も on BOTH halves and you get 'both of them': 「でんしゃも バスも たかい」 — the train and the bus are both expensive. も is the same 'too' you have had since module 3; doubling it is what turns two separate 'too's into one pair. Then hang the comparison off the end with けど: 「でんしゃも バスも たかいけど でんしゃの ほうが たかい」. That is the shape of a real opinion — concede first, choose second — and it is far friendlier than flatly saying one thing is worse. When both things have already been named you can shorten the first half to どっちも, 'both of them': 「どっちも たかい」.",
+      "examples": [
+        {
+          "ja": "でんしゃも バスも たかいけど でんしゃの ほうが たかい。",
+          "en": "The train and the bus are both expensive, but the train is the more expensive one."
+        },
+        {
+          "ja": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
+          "en": "Sushi and chicken are both delicious, but sushi is the one I like more."
+        },
+        {
+          "ja": "どっちも たかい。",
+          "en": "Both are expensive."
+        },
+        {
+          "ja": "としょかんも きっさてんも しずかだ。",
+          "en": "The library and the coffee shop are both quiet."
+        },
+        {
+          "ja": "ミカも ケンも いそがしいけど ケンの ほうが いそがしい。",
+          "en": "Mika and Ken are both busy, but Ken is the busier one."
+        }
+      ],
+      "antiPattern": {
+        "ja": "でんしゃも バスも たかいけど でんしゃの ほうを たかい。",
+        "why": "ほう is what the second half is ABOUT, so it takes が — を marks a thing you act on, and you are not acting on anything here: でんしゃも バスも たかいけど でんしゃの ほうが たかい。"
+      }
+    },
+    {
+      "id": "masu-present",
+      "rule": "どちら is どっち's polite twin. Same meaning, same slot in the sentence, and the only thing that changes is who is standing in front of you: with a friend it is どっち, with a shop assistant or a stranger it is どちら. When you reach for どちら the rest of the sentence goes polite with it, because a polite question word in a plain sentence sounds like two people talking: 「どちらが やすいですか。」 Watch the か. A casual question rides its rising contour alone — 「どっちが やすい？」 — but a polite question REQUIRES か on the end, and without it you have said a statement and left it hanging. Everything else stays exactly where it was: と…と still ties the pair, ほうが still marks the winner in the answer, and より still marks the loser.",
+      "examples": [
+        {
+          "ja": "どちらが やすいですか。",
+          "en": "Which one is cheaper?"
+        },
+        {
+          "ja": "この かばんと あの かばんと どちらが おおきいですか。",
+          "en": "Which bag is bigger, this one or that one?"
+        },
+        {
+          "ja": "こちらの ほうが あたらしいです。",
+          "en": "This one is the newer one."
+        },
+        {
+          "ja": "すみません この とけいは いくらですか。",
+          "en": "Excuse me, how much is this watch?"
+        },
+        {
+          "ja": "この ほんの ほうが たかいですか。",
+          "en": "Is this book the more expensive one?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "どちらが やすいです。",
+        "why": "a polite question REQUIRES か — without it the sentence is a statement, and an unfinished one: どちらが やすいですか。"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "ほう",
+      "romaji": "hou",
+      "gloss": "the more ~ one, this side",
+      "shortGloss": "the ~ one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "より",
+      "romaji": "yori",
+      "gloss": "than (marks the loser of a comparison)",
+      "shortGloss": "than",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "ちかい",
+      "romaji": "chikai",
+      "gloss": "near, close",
+      "shortGloss": "near",
+      "kind": "vocab"
+    },
+    {
+      "kana": "とおい",
+      "romaji": "tooi",
+      "gloss": "far",
+      "shortGloss": "far",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どっち",
+      "romaji": "dotchi",
+      "gloss": "which (of two)",
+      "shortGloss": "which of two",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どちら",
+      "romaji": "dochira",
+      "gloss": "which (of two) — polite",
+      "shortGloss": "which (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんびゃく",
+      "romaji": "sanbyaku",
+      "gloss": "three hundred",
+      "shortGloss": "300",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぴゃく",
+      "romaji": "roppyaku",
+      "gloss": "six hundred",
+      "shortGloss": "600",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっぴゃく",
+      "romaji": "happyaku",
+      "gloss": "eight hundred",
+      "shortGloss": "800",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せん",
+      "romaji": "sen",
+      "gloss": "thousand",
+      "shortGloss": "1000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まん",
+      "romaji": "man",
+      "gloss": "ten thousand",
+      "shortGloss": "10000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんぜん",
+      "romaji": "sanzen",
+      "gloss": "three thousand",
+      "shortGloss": "3000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっせん",
+      "romaji": "hassen",
+      "gloss": "eight thousand",
+      "shortGloss": "8000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こ",
+      "romaji": "ko",
+      "gloss": "counter for small objects",
+      "shortGloss": "-ko counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たまご",
+      "romaji": "tamago",
+      "gloss": "egg",
+      "shortGloss": "egg",
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m20-neo-1",
+      "role": "teaching",
+      "title": "「でんしゃの ほうが たかい」 — the winner goes first",
+      "focus": "AのほうがBより〜: ほう marks the winner, より marks the loser, and the adjective never changes",
+      "introduces": [
+        "ほう",
+        "より"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "yori-comparison"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつの ほうが バスより やすい。",
+          "en": "The subway is cheaper than the bus",
+          "exercises": [
+            "yori-comparison",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この じしょの ほうが あの ほんより あたらしい。",
+          "en": "This dictionary is newer than that book",
+          "exercises": [
+            "yori-comparison",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうの ほうが きのうより いそがしい。",
+          "en": "Today is busier than yesterday",
+          "exercises": [
+            "yori-comparison",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの けいたいの ほうが わたしの けいたいより あたらしい。",
+          "en": "Mika's phone is newer than mine",
+          "exercises": [
+            "yori-comparison",
+            "no-possession"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じてんしゃの ほうが くるまより やすいから じてんしゃを かう。",
+          "en": "A bike is cheaper than a car, so I'll buy a bike",
+          "exercises": [
+            "yori-comparison",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしの ほうが パンより たかいけど すしを たべる。",
+          "en": "Sushi is more expensive than bread, but I'll eat sushi",
+          "exercises": [
+            "yori-comparison",
+            "kedo",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみの ほうが いけより おおきい。",
+          "en": "The sea is bigger than the pond",
+          "exercises": [
+            "yori-comparison",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスの ほうが やすい。",
+          "en": "Say to a friend: The bus is the cheaper one",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "でんしゃの ほうが バス",
+          "tail": " たかい。",
+          "answer": "より",
+          "options": [
+            "より",
+            "を",
+            "から"
+          ],
+          "en": "The train is more expensive than the bus",
+          "explanation": "より marks the one that LOSES the comparison and sits straight after it. を marks a thing you act on, and から would say the price starts at the bus."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "うみの ほうが いけより おおきい。",
+          "answer": "The sea is bigger than the pond",
+          "distractors": [
+            "The pond is bigger than the sea",
+            "The sea is smaller than the pond",
+            "The mountain is bigger than the pond"
+          ],
+          "exercises": [
+            "yori-comparison"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうの ほうが きのうより いそがしい。",
+          "answer": "Today is busier than yesterday",
+          "distractors": [
+            "Yesterday was busier than today",
+            "Today is quieter than yesterday",
+            "Tomorrow is busier than today"
+          ],
+          "exercises": [
+            "yori-comparison",
+            "i-adj-present"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "バスは やすい？",
+              "en": "Is the bus cheap?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "バスの ほうが やすい。でも でんしゃの ほうが すきだ。",
+              "en": "The bus is the cheaper one. But the train is the one I like more."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the bus?",
+              "options": [
+                "It's the cheaper one",
+                "It's the more expensive one",
+                "She likes it more than the train",
+                "She never takes it"
+              ],
+              "answer": "It's the cheaper one"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "でんしゃの ほうが バスより たかいけど でんしゃで がっこうに いく。",
+          "en": "The train is more expensive than the bus, but I go to school by train",
+          "combines": [
+            "yori-comparison",
+            "kedo",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "じてんしゃ",
+        "くるま",
+        "じしょ",
+        "けいたい",
+        "きのう",
+        "うみ",
+        "いけ"
+      ]
+    },
+    {
+      "id": "m20-neo-2",
+      "role": "teaching",
+      "title": "「バスより やすい」 — より on its own",
+      "focus": "AはBより〜 is the everyday shape, and より alone is a whole answer",
+      "introduces": [
+        "ちかい",
+        "とおい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "wa-topic"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは がっこうより ちかい。",
+          "en": "The station is closer than the school",
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちは えきより とおい。",
+          "en": "My place is farther away than the station",
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは びょういんより ちかいから あるく。",
+          "en": "The library is closer than the hospital, so I'll walk",
+          "exercises": [
+            "wa-topic",
+            "kara-because",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは きのうより さむい。",
+          "en": "Today is colder than yesterday",
+          "exercises": [
+            "wa-topic",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスより やすい。",
+          "en": "It's cheaper than the bus",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは あの かばんより おおきい。",
+          "en": "This bag is bigger than that bag",
+          "exercises": [
+            "wa-topic",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "だいがくは きっさてんより とおいけど あるく。",
+          "en": "The university is farther than the coffee shop, but I'll walk",
+          "exercises": [
+            "wa-topic",
+            "kedo",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは がっこうより ちかい。",
+          "en": "Say to a friend: The station is closer than the school",
+          "exercises": [
+            "wa-topic"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "えきは がっこうより ",
+          "tail": "。",
+          "answer": "ちかい",
+          "options": [
+            "ちかい",
+            "とおい",
+            "たかい"
+          ],
+          "en": "The station is closer than the school",
+          "explanation": "ちかい is near. とおい is its opposite and たかい is about price or height — none of them changes shape for the comparison."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "うちは えきより とおい。",
+          "answer": "My place is farther away than the station",
+          "distractors": [
+            "My place is closer than the station",
+            "The station is farther away than my place",
+            "My place is near the school"
+          ],
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "としょかんは びょういんより ちかいから あるく。",
+          "answer": "The library is closer than the hospital, so I'll walk",
+          "distractors": [
+            "The hospital is closer than the library, so I'll walk",
+            "The library is farther than the hospital, so I'll take the bus",
+            "The library is close, so I won't walk"
+          ],
+          "exercises": [
+            "wa-topic",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "えきは とおい？",
+              "en": "Is the station far?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ううん がっこうより ちかい。あるく。",
+              "en": "Nope, it's closer than the school. I'll walk."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken say about the station?",
+              "options": [
+                "It's closer than the school",
+                "It's farther than the school",
+                "It's next to the school",
+                "He takes the bus to it"
+              ],
+              "answer": "It's closer than the school"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "うちは えきより とおいから じてんしゃで えきに いく。",
+          "en": "My place is farther than the station, so I'll go to the station by bike",
+          "combines": [
+            "wa-topic",
+            "kara-because",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "えき",
+        "がっこう",
+        "としょかん",
+        "びょういん",
+        "だいがく",
+        "きっさてん",
+        "うち",
+        "かばん",
+        "さむい",
+        "おおきい"
+      ]
+    },
+    {
+      "id": "m20-neo-3",
+      "role": "teaching",
+      "title": "「どっちが たかい？」 — asking which of two",
+      "focus": "AとBと どっちが〜？ — と ties the pair, どっち takes が, and the answer comes back with ほうが",
+      "introduces": [
+        "どっち",
+        "どちら"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "to-and"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃと バスと どっちが たかい？",
+          "en": "Which is more expensive, the train or the bus",
+          "exercises": [
+            "to-and",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしと とりにくと どっちが すき？",
+          "en": "Which do you like more, sushi or chicken",
+          "exercises": [
+            "to-and",
+            "suki-kirai-no"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かさと あの かさと どっちが あたらしい？",
+          "en": "Which umbrella is newer, this one or that one",
+          "exercises": [
+            "to-and",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じてんしゃと くるまと どっちが やすい？",
+          "en": "Which is cheaper, a bike or a car",
+          "exercises": [
+            "to-and",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがと おんがくと どっちが おもしろい？",
+          "en": "Which is more interesting, films or music",
+          "exercises": [
+            "to-and",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どっちが ちかい？",
+          "en": "Which is the closer one",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつの ほうが やすいから ちかてつで いく。",
+          "en": "The subway is the cheaper one, so I'll go by subway",
+          "exercises": [
+            "yori-comparison",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃと バスと どっちが たかい？",
+          "en": "Say to a friend: Which is more expensive, the train or the bus",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "でんしゃと バスと ",
+          "tail": "が たかい？",
+          "answer": "どっち",
+          "options": [
+            "どっち",
+            "どこ",
+            "だれ"
+          ],
+          "en": "Which is more expensive, the train or the bus?",
+          "explanation": "どっち asks which of TWO things. どこ asks where and だれ asks who — neither can pick between a train and a bus."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "すしと とりにくと どっちが すき？",
+          "answer": "Which do you like more, sushi or chicken?",
+          "distractors": [
+            "Do you like sushi and chicken?",
+            "Which is more expensive, sushi or chicken?",
+            "Which do you like more, sushi or bread?"
+          ],
+          "exercises": [
+            "to-and",
+            "suki-kirai-no"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "えいがと おんがくと どっちが おもしろい？",
+          "answer": "Which is more interesting, films or music?",
+          "distractors": [
+            "Which is more interesting, films or books?",
+            "Are films and music interesting?",
+            "Which do you like more, films or music?"
+          ],
+          "exercises": [
+            "to-and",
+            "i-adj-present"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "この かさと あの かさと どっちが あたらしい？",
+              "en": "Which umbrella is newer, this one or that one?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "この かさの ほうが あたらしい。でも あの かさの ほうが やすい。",
+              "en": "This umbrella is the newer one. But that one is the cheaper one."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the umbrella over there?",
+              "options": [
+                "It's the cheaper one",
+                "It's the newer one",
+                "It's both newer and cheaper",
+                "He doesn't know"
+              ],
+              "answer": "It's the cheaper one"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きっさてんと としょかんと どっちが しずかだと おもう？",
+          "en": "Which do you think is quieter, the coffee shop or the library",
+          "combines": [
+            "to-and",
+            "na-adj-present",
+            "to-omoimasu"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "えいが",
+        "おんがく",
+        "すし",
+        "とりにく",
+        "じてんしゃ",
+        "くるま",
+        "あたらしい",
+        "おもしろい",
+        "ちかい"
+      ]
+    },
+    {
+      "id": "m20-neo-review-1",
+      "role": "review",
+      "title": "Review — ほうが, より, どっち",
+      "focus": "The winner with ほうが, the loser with より, and the question that asks for both",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ちかてつの ほうが バスより やすい。",
+          "en": "The subway is cheaper than the bus",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは がっこうより ちかい。",
+          "en": "The station is closer than the school",
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃと バスと どっちが たかい？",
+          "en": "Which is more expensive, the train or the bus",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うちは えきより とおい。",
+          "en": "My place is farther away than the station",
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしの ほうが パンより たかいけど すしを たべる。",
+          "en": "Sushi is more expensive than bread, but I'll eat sushi",
+          "exercises": [
+            "yori-comparison",
+            "kedo",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "この かばんは あの かばん",
+          "tail": " おおきい。",
+          "answer": "より",
+          "options": [
+            "より",
+            "を",
+            "から"
+          ],
+          "en": "This bag is bigger than that bag",
+          "explanation": "より marks the one that loses. を marks a thing you act on, and から would make the other bag a starting point."
+        },
+        {
+          "kind": "sentence",
+          "ja": "じてんしゃの ほうが くるまより やすいから じてんしゃを かう。",
+          "en": "A bike is cheaper than a car, so I'll buy a bike",
+          "exercises": [
+            "yori-comparison",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "としょかんは びょういんより ちかいから あるく。",
+          "answer": "The library is closer than the hospital, so I'll walk",
+          "distractors": [
+            "The hospital is closer than the library, so I'll walk",
+            "The library is farther than the hospital, so I'll take the bus",
+            "The library is closer than the station, so I'll walk"
+          ],
+          "exercises": [
+            "wa-topic",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがと おんがくと どっちが おもしろい？",
+          "en": "Which is more interesting, films or music",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスの ほうが やすい。",
+          "en": "Say to a friend: The bus is the cheaper one",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ミカの けいたいの ほうが わたしの けいたいより あたらしい。",
+          "answer": "Mika's phone is newer than mine",
+          "distractors": [
+            "My phone is newer than Mika's",
+            "Mika's phone is more expensive than mine",
+            "Mika's phone is older than mine"
+          ],
+          "exercises": [
+            "yori-comparison",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "だいがくは きっさてんより とおいけど あるく。",
+          "en": "The university is farther than the coffee shop, but I'll walk",
+          "exercises": [
+            "wa-topic",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "じてんしゃと でんしゃと どっちが やすい？",
+              "en": "Which is cheaper, a bike or the train?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "じてんしゃの ほうが やすい。でも でんしゃの ほうが すきだ。",
+              "en": "The bike is the cheaper one. But the train is the one I like more."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which does Mika prefer?",
+              "options": [
+                "The train",
+                "The bike",
+                "Neither of them",
+                "She doesn't say"
+              ],
+              "answer": "The train"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "でんしゃ",
+        "バス",
+        "ちかてつ",
+        "えき",
+        "がっこう",
+        "としょかん",
+        "かばん",
+        "けいたい",
+        "ちかい",
+        "とおい"
+      ]
+    },
+    {
+      "id": "m20-neo-4",
+      "role": "teaching",
+      "title": "「さんびゃくえん」 — hundreds, and the three that change sound",
+      "focus": "Number + ひゃく, except 300, 600 and 800 — さんびゃく, ろっぴゃく, はっぴゃく",
+      "introduces": [
+        "さんびゃく",
+        "ろっぴゃく",
+        "はっぴゃく"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "numbers-100-10000"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この じしょは ろっぴゃくえんだ。",
+          "en": "This dictionary is 600 yen",
+          "exercises": [
+            "numbers-100-10000",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷは はっぴゃくえんだから かわない。",
+          "en": "The ticket is 800 yen, so I won't buy it",
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ぼうしは ごひゃくえんだ。",
+          "en": "This hat is 500 yen",
+          "exercises": [
+            "numbers-100-10000",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの かばんは さんびゃくえんだ。",
+          "en": "That bag is 300 yen",
+          "exercises": [
+            "numbers-100-10000",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この えんぴつは ひゃくえんだけど あの えんぴつは よんひゃくえんだ。",
+          "en": "This pencil is 100 yen, but that pencil is 400 yen",
+          "exercises": [
+            "numbers-100-10000",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この とけいの ほうが あの とけいより たかい。",
+          "en": "This watch is more expensive than that watch",
+          "exercises": [
+            "yori-comparison",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの めがねは きゅうひゃくえんだから かう。",
+          "en": "Those glasses are 900 yen, so I'll buy them",
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ぼうしは ごひゃくえんだ。",
+          "en": "Say to a friend: This hat is 500 yen",
+          "exercises": [
+            "numbers-100-10000"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "この じしょは ",
+          "tail": "えんだ。",
+          "answer": "ろっぴゃく",
+          "options": [
+            "ろっぴゃく",
+            "さんびゃく",
+            "はっぴゃく"
+          ],
+          "en": "This dictionary is 600 yen",
+          "explanation": "600 is ろっぴゃく — ろく hardens ひゃく into ぴゃく and doubles the sound in front of it. さんびゃく is 300 and はっぴゃく is 800."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きっぷは はっぴゃくえんだから かわない。",
+          "answer": "The ticket is 800 yen, so I won't buy it",
+          "distractors": [
+            "The ticket is 300 yen, so I won't buy it",
+            "The ticket is 800 yen, so I'll buy it",
+            "The ticket is 600 yen, so I won't buy it"
+          ],
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あの めがねは きゅうひゃくえんだから かう。",
+          "answer": "Those glasses are 900 yen, so I'll buy them",
+          "distractors": [
+            "Those glasses are 900 yen, so I won't buy them",
+            "That watch is 900 yen, so I'll buy it",
+            "Those glasses are 500 yen, so I'll buy them"
+          ],
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "この ぼうしは いくら？",
+              "en": "How much is this hat?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ごひゃくえんだ。あの ぼうしは はっぴゃくえんだ。",
+              "en": "It's 500 yen. That hat over there is 800 yen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How much is the hat over there?",
+              "options": [
+                "800 yen",
+                "500 yen",
+                "300 yen",
+                "600 yen"
+              ],
+              "answer": "800 yen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "この えんぴつの ほうが あの えんぴつより やすいから ひゃくえんの えんぴつを かう。",
+          "en": "This pencil is cheaper than that pencil, so I'll buy the 100 yen one",
+          "combines": [
+            "numbers-100-10000",
+            "yori-comparison",
+            "kara-because",
+            "no-possession"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "じしょ",
+        "きっぷ",
+        "ぼうし",
+        "えんぴつ",
+        "めがね",
+        "とけい",
+        "かばん",
+        "えん",
+        "いくら",
+        "みせ"
+      ]
+    },
+    {
+      "id": "m20-neo-5",
+      "role": "teaching",
+      "title": "「いくら？」 — thousands, and what things cost",
+      "focus": "せん, まん and the two cells that shift — さんぜん and はっせん — spent on prices",
+      "introduces": [
+        "せん",
+        "まん",
+        "さんぜん",
+        "はっせん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ikura-price"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは いくら？",
+          "en": "How much is this bag",
+          "exercises": [
+            "ikura-price",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せん ごひゃくえんだ。",
+          "en": "It's 1,500 yen",
+          "exercises": [
+            "ikura-price",
+            "numbers-100-10000"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この くつは さんぜんえんだけど あの くつは はっせんえんだ。",
+          "en": "These shoes are 3,000 yen, but those shoes are 8,000 yen",
+          "exercises": [
+            "ikura-price",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あの カメラは はっせんえんだ。",
+          "en": "That camera is 8,000 yen",
+          "exercises": [
+            "ikura-price",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この じてんしゃは いちまんえんだから かわない。",
+          "en": "This bike is 10,000 yen, so I won't buy it",
+          "exercises": [
+            "ikura-price",
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この カメラの ほうが あの カメラより さんぜんえん たかい。",
+          "en": "This camera is 3,000 yen more expensive than that camera",
+          "exercises": [
+            "ikura-price",
+            "yori-comparison",
+            "numbers-100-10000"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この とけいは よんせんえんだから かう。",
+          "en": "This watch is 4,000 yen, so I'll buy it",
+          "exercises": [
+            "ikura-price",
+            "kara-because",
+            "dictionary-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは いくら？",
+          "en": "Say to a friend: How much is this bag",
+          "exercises": [
+            "ikura-price"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "この くつは ",
+          "tail": "えんだ。",
+          "answer": "さんぜん",
+          "options": [
+            "さんぜん",
+            "はっせん",
+            "さんびゃく"
+          ],
+          "en": "These shoes are 3,000 yen",
+          "explanation": "3,000 is さんぜん — さん turns せん into ぜん. はっせん is 8,000 and さんびゃく is 300."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この じてんしゃは いちまんえんだから かわない。",
+          "answer": "This bike is 10,000 yen, so I won't buy it",
+          "distractors": [
+            "This bike is 10,000 yen, so I'll buy it",
+            "This bike is 1,000 yen, so I won't buy it",
+            "This car is 10,000 yen, so I won't buy it"
+          ],
+          "exercises": [
+            "ikura-price",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せん ごひゃくえんだ。",
+          "answer": "It's 1,500 yen",
+          "distractors": [
+            "It's 1,000 yen",
+            "It's 500 yen",
+            "It's 5,100 yen"
+          ],
+          "exercises": [
+            "ikura-price",
+            "numbers-100-10000"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "その カメラは いくら？",
+              "en": "How much is that camera?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "はっせんえんだ。でも あの カメラの ほうが やすい。",
+              "en": "It's 8,000 yen. But that camera over there is the cheaper one."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the camera over there?",
+              "options": [
+                "It's the cheaper one",
+                "It's 8,000 yen too",
+                "It's the more expensive one",
+                "He hasn't seen it"
+              ],
+              "answer": "It's the cheaper one"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "この くつの ほうが あの くつより さんぜんえん たかいけど この くつを かう。",
+          "en": "These shoes are 3,000 yen more expensive than those shoes, but I'll buy these",
+          "combines": [
+            "ikura-price",
+            "yori-comparison",
+            "kedo",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "くつ",
+        "カメラ",
+        "じてんしゃ",
+        "とけい",
+        "かばん",
+        "えん",
+        "いくら",
+        "たかい",
+        "やすい",
+        "みせ"
+      ]
+    },
+    {
+      "id": "m20-neo-6",
+      "role": "teaching",
+      "title": "「たまごが さんこ」 — counting small things",
+      "focus": "〜こ counts a small object, and the count stands before the verb, never in front of the noun",
+      "introduces": [
+        "こ",
+        "たまご"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-ko"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごが さんこ ある。",
+          "en": "There are three eggs",
+          "exercises": [
+            "counter-ko",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで たまごを ごこ かう。",
+          "en": "I'll buy five eggs at the shop",
+          "exercises": [
+            "counter-ko",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きゅうりが よんこ あるけど たまごは ない。",
+          "en": "There are four cucumbers, but there are no eggs",
+          "exercises": [
+            "counter-ko",
+            "kedo",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ももが ごこ ある。",
+          "en": "There are five peaches",
+          "exercises": [
+            "counter-ko",
+            "arimasu"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごの ほうが ももより やすい。",
+          "en": "Eggs are cheaper than peaches",
+          "exercises": [
+            "counter-ko",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぎが さんこ あるから だいじょうぶだ。",
+          "en": "There are three keys, so it's fine",
+          "exercises": [
+            "counter-ko",
+            "kara-because",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きのこが きゅうこ あるから りょうりを する。",
+          "en": "There are nine mushrooms, so I'll cook",
+          "exercises": [
+            "counter-ko",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごが さんこ ある。",
+          "en": "Say to a friend: There are three eggs",
+          "exercises": [
+            "counter-ko"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "たまごが ",
+          "tail": " ある。",
+          "answer": "さんこ",
+          "options": [
+            "さんこ",
+            "よんこ",
+            "ごこ"
+          ],
+          "en": "There are three eggs",
+          "explanation": "three of a small object is さんこ — the number takes the counter こ and stands just before the verb. よんこ is four and ごこ is five."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きゅうりが よんこ あるけど たまごは ない。",
+          "answer": "There are four cucumbers, but there are no eggs",
+          "distractors": [
+            "There are four eggs, but there are no cucumbers",
+            "There are four cucumbers and four eggs",
+            "There are five cucumbers, but there are no eggs"
+          ],
+          "exercises": [
+            "counter-ko",
+            "nai-existence"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "みせで たまごを ごこ かう。",
+          "answer": "I'll buy five eggs at the shop",
+          "distractors": [
+            "I'll buy three eggs at the shop",
+            "I'll buy five peaches at the shop",
+            "There are five eggs at the shop"
+          ],
+          "exercises": [
+            "counter-ko",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "たまごは ある？",
+              "en": "Are there any eggs?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "うん さんこ ある。きゅうりも よんこ ある。",
+              "en": "Yeah, there are three. There are four cucumbers too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many cucumbers are there?",
+              "options": [
+                "Four",
+                "Three",
+                "Five",
+                "None"
+              ],
+              "answer": "Four"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ももが ごこ あるけど ももの ほうが きゅうりより たかいから きゅうりを かう。",
+          "en": "There are five peaches, but peaches are more expensive than cucumbers, so I'll buy cucumbers",
+          "combines": [
+            "counter-ko",
+            "yori-comparison",
+            "kara-because",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "たまご",
+        "きゅうり",
+        "もも",
+        "かぎ",
+        "きのこ",
+        "みせ",
+        "りょうり",
+        "ごはん",
+        "やすい",
+        "たかい"
+      ]
+    },
+    {
+      "id": "m20-neo-review-2",
+      "role": "review",
+      "title": "Review — hundreds, prices and 〜こ",
+      "focus": "The five cells that change sound, prices in えん, and counting small things",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "この じしょは ろっぴゃくえんだ。",
+          "en": "This dictionary is 600 yen",
+          "exercises": [
+            "numbers-100-10000"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごが さんこ ある。",
+          "en": "There are three eggs",
+          "exercises": [
+            "counter-ko",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この くつは さんぜんえんだけど あの くつは はっせんえんだ。",
+          "en": "These shoes are 3,000 yen, but those shoes are 8,000 yen",
+          "exercises": [
+            "ikura-price",
+            "kedo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷは はっぴゃくえんだから かわない。",
+          "en": "The ticket is 800 yen, so I won't buy it",
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで たまごを ごこ かう。",
+          "en": "I'll buy five eggs at the shop",
+          "exercises": [
+            "counter-ko",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きっぷは ",
+          "tail": "えんだ。",
+          "answer": "はっぴゃく",
+          "options": [
+            "はっぴゃく",
+            "ろっぴゃく",
+            "さんびゃく"
+          ],
+          "en": "The ticket is 800 yen",
+          "explanation": "800 is はっぴゃく — はち hardens ひゃく into ぴゃく and doubles the sound in front of it. ろっぴゃく is 600 and さんびゃく is 300."
+        },
+        {
+          "kind": "sentence",
+          "ja": "この じてんしゃは いちまんえんだから かわない。",
+          "en": "This bike is 10,000 yen, so I won't buy it",
+          "exercises": [
+            "ikura-price",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きのこが きゅうこ あるから りょうりを する。",
+          "answer": "There are nine mushrooms, so I'll cook",
+          "distractors": [
+            "There are nine cucumbers, so I'll cook",
+            "There are five mushrooms, so I'll cook",
+            "There are nine mushrooms, so I'll go shopping"
+          ],
+          "exercises": [
+            "counter-ko",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごの ほうが ももより やすい。",
+          "en": "Eggs are cheaper than peaches",
+          "exercises": [
+            "counter-ko",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは いくら？",
+          "en": "Say to a friend: How much is this bag",
+          "exercises": [
+            "ikura-price"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この カメラの ほうが あの カメラより さんぜんえん たかい。",
+          "answer": "This camera is 3,000 yen more expensive than that camera",
+          "distractors": [
+            "That camera is 3,000 yen more expensive than this camera",
+            "This camera is 3,000 yen cheaper than that camera",
+            "This camera is 300 yen more expensive than that camera"
+          ],
+          "exercises": [
+            "ikura-price",
+            "yori-comparison"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぎが さんこ あるから だいじょうぶだ。",
+          "en": "There are three keys, so it's fine",
+          "exercises": [
+            "counter-ko",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "きゅうりは いくら？",
+              "en": "How much are the cucumbers?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "よんこで さんびゃくえんだ。ももより やすい。",
+              "en": "Four of them are 300 yen. Cheaper than peaches."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the cucumbers?",
+              "options": [
+                "Four are 300 yen, cheaper than peaches",
+                "Four are 300 yen, more expensive than peaches",
+                "Three are 400 yen",
+                "They cost the same as peaches"
+              ],
+              "answer": "Four are 300 yen, cheaper than peaches"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "じしょ",
+        "きっぷ",
+        "くつ",
+        "カメラ",
+        "じてんしゃ",
+        "たまご",
+        "きゅうり",
+        "もも",
+        "かぎ",
+        "きのこ"
+      ]
+    },
+    {
+      "id": "m20-neo-7",
+      "role": "teaching",
+      "title": "「としょかんの ほうが しずかだ」 — な-adjectives compare too",
+      "focus": "な-adjectives still need だ, and ほう/より change nothing about them",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "na-adj-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんの ほうが きっさてんより しずかだ。",
+          "en": "The library is quieter than the coffee shop",
+          "exercises": [
+            "na-adj-present",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは としょかんより にぎやかだ。",
+          "en": "The shop is livelier than the library",
+          "exercises": [
+            "na-adj-present",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この えいがの ほうが ゆうめいだ。",
+          "en": "This film is the more famous one",
+          "exercises": [
+            "na-adj-present",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしの ほうが すきだから すしを たべる。",
+          "en": "Sushi is the one I like more, so I'll eat sushi",
+          "exercises": [
+            "na-adj-present",
+            "suki-kirai-no",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうの ほうが きのうより ひまだ。",
+          "en": "Today is freer than yesterday",
+          "exercises": [
+            "na-adj-present",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうの ほうが きのうより じかんが ある。",
+          "en": "I have more time today than yesterday",
+          "exercises": [
+            "yori-comparison",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この カメラの ほうが あの カメラより きれいだ。",
+          "en": "This camera is nicer-looking than that camera",
+          "exercises": [
+            "na-adj-present",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんの ほうが しずかだけど きっさてんに いく。",
+          "en": "The library is the quieter one, but I'll go to the coffee shop",
+          "exercises": [
+            "na-adj-present",
+            "kedo",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせは としょかんより にぎやかだ。",
+          "en": "Say to a friend: The shop is livelier than the library",
+          "exercises": [
+            "na-adj-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "としょかんの ほうが きっさてんより ",
+          "tail": "。",
+          "answer": "しずかだ",
+          "options": [
+            "しずかだ",
+            "にぎやかだ",
+            "ゆうめいだ"
+          ],
+          "en": "The library is quieter than the coffee shop",
+          "explanation": "しずかだ is quiet — and it keeps its だ, because a な-adjective cannot finish a sentence on its own. にぎやかだ is lively and ゆうめいだ is famous."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "みせは としょかんより にぎやかだ。",
+          "answer": "The shop is livelier than the library",
+          "distractors": [
+            "The library is livelier than the shop",
+            "The shop is quieter than the library",
+            "The shop is more famous than the library"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうの ほうが きのうより ひまだ。",
+          "answer": "Today is freer than yesterday",
+          "distractors": [
+            "Yesterday was freer than today",
+            "Today is busier than yesterday",
+            "Tomorrow is freer than today"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "yori-comparison"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "きっさてんと としょかんと どっちが しずか？",
+              "en": "Which is quieter, the coffee shop or the library?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "としょかんの ほうが しずかだ。でも きっさてんの ほうが ちかい。",
+              "en": "The library is the quieter one. But the coffee shop is the closer one."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say about the coffee shop?",
+              "options": [
+                "It's the closer one",
+                "It's the quieter one",
+                "It's both closer and quieter",
+                "She never goes there"
+              ],
+              "answer": "It's the closer one"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "としょかんの ほうが しずかだと おもうけど きっさてんの ほうが ちかい。",
+          "en": "I think the library is the quieter one, but the coffee shop is the closer one",
+          "combines": [
+            "na-adj-present",
+            "to-omoimasu",
+            "kedo",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "としょかん",
+        "きっさてん",
+        "みせ",
+        "えいが",
+        "カメラ",
+        "しずか",
+        "にぎやか",
+        "ゆうめい",
+        "ひま",
+        "じかん"
+      ]
+    },
+    {
+      "id": "m20-neo-8",
+      "role": "teaching",
+      "title": "「どっちも たかいけど」 — both are, but one is more",
+      "focus": "も on both halves says 'both'; けど then lets you pick the winner",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "mo-also"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃも バスも たかいけど でんしゃの ほうが たかい。",
+          "en": "The train and the bus are both expensive, but the train is the more expensive one",
+          "exercises": [
+            "mo-also",
+            "kedo",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
+          "en": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "exercises": [
+            "mo-also",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どっちも たかい。",
+          "en": "Both are expensive",
+          "exercises": [
+            "mo-also"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんも きっさてんも しずかだ。",
+          "en": "The library and the coffee shop are both quiet",
+          "exercises": [
+            "mo-also",
+            "na-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。",
+          "en": "Films and music are both interesting, but films are what I like more",
+          "exercises": [
+            "mo-also",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かさも あの かさも ごひゃくえんだ。",
+          "en": "This umbrella and that umbrella are both 500 yen",
+          "exercises": [
+            "mo-also",
+            "numbers-100-10000"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごも きゅうりも やすいから みせで かう。",
+          "en": "Eggs and cucumbers are both cheap, so I'll buy them at the shop",
+          "exercises": [
+            "mo-also",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうも あしたも じかんが ある。",
+          "en": "I have time both today and tomorrow",
+          "exercises": [
+            "mo-also",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どっちも たかい。",
+          "en": "Say to a friend: Both are expensive",
+          "exercises": [
+            "mo-also"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "でんしゃも ",
+          "tail": "も たかい。",
+          "answer": "バス",
+          "options": [
+            "バス",
+            "ちかてつ",
+            "じてんしゃ"
+          ],
+          "en": "The train and the bus are both expensive",
+          "explanation": "バス is the bus — and notice も sits on BOTH halves, which is what makes it 'both … and …' rather than 'the train too'. ちかてつ is the subway and じてんしゃ a bike."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
+          "answer": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "distractors": [
+            "Sushi and chicken are both delicious, but chicken is the one I like more",
+            "Sushi is delicious, but chicken isn't",
+            "Sushi and chicken are both expensive, but I like sushi more"
+          ],
+          "exercises": [
+            "mo-also",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この かさも あの かさも ごひゃくえんだ。",
+          "answer": "This umbrella and that umbrella are both 500 yen",
+          "distractors": [
+            "This umbrella is 500 yen, but that one isn't",
+            "This umbrella and that umbrella are both 900 yen",
+            "This umbrella and that bag are both 500 yen"
+          ],
+          "exercises": [
+            "mo-also",
+            "numbers-100-10000"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "この くつと あの くつと どっちが やすい？",
+              "en": "Which is cheaper, these shoes or those shoes?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "どっちも さんぜんえんだ。でも この くつの ほうが あたらしい。",
+              "en": "They're both 3,000 yen. But these shoes are the newer ones."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say about the two pairs of shoes?",
+              "options": [
+                "They cost the same",
+                "These shoes are cheaper",
+                "Those shoes are cheaper",
+                "He doesn't know the price"
+              ],
+              "answer": "They cost the same"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たまごも ももも ごこ あるけど ももの ほうが たまごより たかい。",
+          "en": "There are five eggs and five peaches, but peaches are more expensive than eggs",
+          "combines": [
+            "mo-also",
+            "counter-ko",
+            "kedo",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "でんしゃ",
+        "バス",
+        "すし",
+        "とりにく",
+        "えいが",
+        "おんがく",
+        "かさ",
+        "くつ",
+        "たまご",
+        "じかん"
+      ]
+    },
+    {
+      "id": "m20-neo-9",
+      "role": "teaching",
+      "title": "「どちらが やすいですか」 — asking a stranger which",
+      "focus": "どちら is どっち's polite twin, and a polite question still requires か",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "masu-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どちらが やすいですか。",
+          "en": "Say politely: Which one is cheaper",
+          "exercises": [
+            "masu-present",
+            "to-and",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんと あの かばんと どちらが おおきいですか。",
+          "en": "Say politely: Which bag is bigger, this one or that one",
+          "exercises": [
+            "masu-present",
+            "to-and",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こちらの ほうが あたらしいです。",
+          "en": "Say politely: This one is the newer one",
+          "exercises": [
+            "masu-present",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ほんの ほうが たかいですか。",
+          "en": "Say politely: Is this book the more expensive one",
+          "exercises": [
+            "masu-present",
+            "yori-comparison",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません この とけいは いくらですか。",
+          "en": "Say politely: Excuse me, how much is this watch",
+          "exercises": [
+            "masu-present",
+            "ikura-price"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その カメラの ほうが やすいですか。",
+          "en": "Say politely: Is that camera the cheaper one",
+          "exercises": [
+            "masu-present",
+            "yori-comparison",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この くつは はっせんえんですか。",
+          "en": "Say politely: Are these shoes 8,000 yen",
+          "exercises": [
+            "masu-present",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どっちが やすい？",
+          "en": "Say to a friend: Which is the cheaper one",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "どちらが ",
+          "tail": "。",
+          "answer": "やすいですか",
+          "options": [
+            "やすいですか",
+            "やすいです",
+            "やすい"
+          ],
+          "en": "Say politely: Which one is cheaper?",
+          "explanation": "a polite QUESTION needs both halves — です for the register and か to make it a question. やすいです is a polite statement, and やすい on its own is what you say to a friend."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "その カメラの ほうが やすいですか。",
+          "answer": "Is that camera the cheaper one?",
+          "distractors": [
+            "Is that camera the more expensive one?",
+            "Is this camera the cheaper one?",
+            "Is that watch the cheaper one?"
+          ],
+          "exercises": [
+            "masu-present",
+            "to-and"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "こちらの ほうが あたらしいです。",
+          "answer": "This one is the newer one",
+          "distractors": [
+            "That one is the newer one",
+            "This one is the cheaper one",
+            "This one is the older one"
+          ],
+          "exercises": [
+            "masu-present",
+            "yori-comparison"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "すみません この かさと あの かさと どちらが やすいですか。",
+              "en": "Excuse me, which umbrella is cheaper, this one or that one?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "こちらの ほうが やすいです。ごひゃくえんです。",
+              "en": "This one is the cheaper one. It's 500 yen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tanaka say?",
+              "options": [
+                "This one is cheaper, at 500 yen",
+                "That one is cheaper, at 500 yen",
+                "This one is cheaper, at 800 yen",
+                "Both cost the same"
+              ],
+              "answer": "This one is cheaper, at 500 yen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "すみません この とけいと あの とけいと どちらが あたらしいですか。",
+          "en": "Say politely: Excuse me, which watch is newer, this one or that one",
+          "combines": [
+            "masu-present",
+            "to-and",
+            "ka-question",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かばん",
+        "かさ",
+        "とけい",
+        "カメラ",
+        "くつ",
+        "ほん",
+        "みせ",
+        "すみません",
+        "こちら",
+        "えん"
+      ]
+    },
+    {
+      "id": "m20-neo-review-3",
+      "role": "review",
+      "title": "Review — comparing anything, in either register",
+      "focus": "ほうが and より, どっち and どちら, both-and-but, prices and counts in one pass",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "としょかんの ほうが きっさてんより しずかだ。",
+          "en": "The library is quieter than the coffee shop",
+          "exercises": [
+            "na-adj-present",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃも バスも たかいけど でんしゃの ほうが たかい。",
+          "en": "The train and the bus are both expensive, but the train is the more expensive one",
+          "exercises": [
+            "mo-also",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どちらが やすいですか。",
+          "en": "Say politely: Which one is cheaper",
+          "exercises": [
+            "masu-present",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごが さんこ ある。",
+          "en": "There are three eggs",
+          "exercises": [
+            "counter-ko",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えきは がっこうより ちかい。",
+          "en": "The station is closer than the school",
+          "exercises": [
+            "wa-topic",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "としょかんの ほうが きっさてんより ",
+          "tail": "。",
+          "answer": "しずかだ",
+          "options": [
+            "しずかだ",
+            "にぎやかだ",
+            "ちかい"
+          ],
+          "en": "The library is quieter than the coffee shop",
+          "explanation": "しずかだ is quiet, and it keeps its だ. にぎやかだ is its opposite and ちかい is about distance."
+        },
+        {
+          "kind": "sentence",
+          "ja": "この くつは さんぜんえんだけど あの くつは はっせんえんだ。",
+          "en": "These shoes are 3,000 yen, but those shoes are 8,000 yen",
+          "exercises": [
+            "ikura-price",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
+          "answer": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "distractors": [
+            "Sushi and chicken are both delicious, but chicken is the one I like more",
+            "Sushi is delicious, but chicken isn't",
+            "Sushi and chicken are both cheap, but I like sushi more"
+          ],
+          "exercises": [
+            "mo-also",
+            "kedo"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃと バスと どっちが たかい？",
+          "en": "Which is more expensive, the train or the bus",
+          "exercises": [
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どっちも たかい。",
+          "en": "Say to a friend: Both are expensive",
+          "exercises": [
+            "mo-also"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きっぷは はっぴゃくえんだから かわない。",
+          "answer": "The ticket is 800 yen, so I won't buy it",
+          "distractors": [
+            "The ticket is 800 yen, so I'll buy it",
+            "The ticket is 600 yen, so I won't buy it",
+            "The bag is 800 yen, so I won't buy it"
+          ],
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "こちらの ほうが あたらしいです。",
+          "en": "Say politely: This one is the newer one",
+          "exercises": [
+            "masu-present",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうも あしたも じかんが ある。",
+          "en": "I have time both today and tomorrow",
+          "exercises": [
+            "mo-also",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "この かばんと あの かばんと どっちが やすい？",
+              "en": "Which bag is cheaper, this one or that one?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "あの かばんの ほうが やすい。さんびゃくえんだ。",
+              "en": "That bag is the cheaper one. It's 300 yen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How much is the cheaper bag?",
+              "options": [
+                "300 yen",
+                "600 yen",
+                "800 yen",
+                "3,000 yen"
+              ],
+              "answer": "300 yen"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "としょかん",
+        "きっさてん",
+        "でんしゃ",
+        "バス",
+        "たまご",
+        "えき",
+        "がっこう",
+        "くつ",
+        "じかん",
+        "きっぷ"
+      ]
+    },
+    {
+      "id": "m20-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — pick one and say why",
+      "focus": "End-of-module stretch: two things, a price, a count and a reason in one sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ちかてつの ほうが バスより やすいから ちかてつで だいがくに いく。",
+          "en": "The subway is cheaper than the bus, so I'll go to the university by subway",
+          "exercises": [
+            "yori-comparison",
+            "kara-because",
+            "de-action",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この カメラは はっせんえんだけど あの カメラの ほうが きれいだ。",
+          "en": "This camera is 8,000 yen, but that camera is the nicer-looking one",
+          "exercises": [
+            "ikura-price",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たまごも きゅうりも よんこ あるから りょうりを する。",
+          "en": "There are four eggs and four cucumbers, so I'll cook",
+          "exercises": [
+            "mo-also",
+            "counter-ko",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "としょかんは きっさてんより とおいけど としょかんの ほうが しずかだ。",
+          "en": "The library is farther than the coffee shop, but the library is the quieter one",
+          "exercises": [
+            "wa-topic",
+            "kedo",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きっぷは ろっぴゃくえんだから じてんしゃで えきに いく。",
+          "en": "The ticket is 600 yen, so I'll go to the station by bike",
+          "exercises": [
+            "numbers-100-10000",
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません この かさと あの かさと どちらが やすいですか。",
+          "en": "Say politely: Excuse me, which umbrella is cheaper, this one or that one",
+          "exercises": [
+            "masu-present",
+            "to-and",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃと バスと どっちが やすいと おもう？",
+          "en": "Say to a friend: Which do you think is cheaper, the train or the bus",
+          "exercises": [
+            "to-and",
+            "to-omoimasu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "この くつの ほうが あの くつ",
+          "tail": " たかい。",
+          "answer": "より",
+          "options": [
+            "より",
+            "を",
+            "から"
+          ],
+          "en": "These shoes are more expensive than those shoes",
+          "explanation": "より marks the pair's loser and sits straight after it. を marks a thing you act on and から marks a starting point."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "みせは としょかんより にぎやかだ。",
+          "answer": "The shop is livelier than the library",
+          "distractors": [
+            "The library is livelier than the shop",
+            "The shop is quieter than the library",
+            "The shop is farther than the library"
+          ],
+          "exercises": [
+            "wa-topic",
+            "na-adj-present"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "たまごの ほうが ももより やすい。",
+          "answer": "Eggs are cheaper than peaches",
+          "distractors": [
+            "Peaches are cheaper than eggs",
+            "Eggs are more expensive than peaches",
+            "Eggs are cheaper than cucumbers"
+          ],
+          "exercises": [
+            "yori-comparison",
+            "counter-ko"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tanaka",
+              "ja": "でんしゃと ちかてつと どちらが やすいですか。",
+              "en": "Which is cheaper, the train or the subway?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ちかてつの ほうが やすいです。でも でんしゃの ほうが ちかいです。",
+              "en": "The subway is the cheaper one. But the train is the closer one."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken say about the train?",
+              "options": [
+                "It's the closer one",
+                "It's the cheaper one",
+                "It's both cheaper and closer",
+                "He doesn't take it"
+              ],
+              "answer": "It's the closer one"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ももの ほうが たまごより たかいけど ももが ごこ あるから ももを たべる。",
+          "en": "Peaches are more expensive than eggs, but there are five peaches, so I'll eat peaches",
+          "combines": [
+            "yori-comparison",
+            "counter-ko",
+            "kedo",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ちかてつ",
+        "バス",
+        "でんしゃ",
+        "カメラ",
+        "たまご",
+        "きゅうり",
+        "もも",
+        "としょかん",
+        "きっさてん",
+        "きっぷ"
+      ]
+    }
+  ],
+  "priorVocab": [
+    "あさ",
+    "あした",
+    "あそこ",
+    "あそびたい",
+    "あそびます",
+    "あそぶ",
+    "あそんだ",
+    "あそんで",
+    "あたらしい",
+    "あたらしくない",
+    "あに",
+    "あね",
+    "あの",
+    "ありがとう",
+    "ありがとうございます",
+    "あります",
+    "ありません",
+    "ある",
+    "あるく",
+    "あれ",
+    "いい",
+    "いう",
+    "いえ",
+    "いかない",
+    "いかなかった",
+    "いきたい",
+    "いきたかった",
+    "いきたくない",
+    "いきたくなかった",
+    "いきました",
+    "いきます",
+    "いきません",
+    "いきませんでした",
+    "いく",
+    "いくら",
+    "いけ",
+    "いけません",
+    "いす",
+    "いそがしい",
+    "いち",
+    "いちじ",
+    "いった",
+    "いって",
+    "いつ",
+    "いない",
+    "いぬ",
+    "いま",
+    "いもうと",
+    "いらっしゃいませ",
+    "いる",
+    "いろ",
+    "ううん",
+    "うえ",
+    "うた",
+    "うち",
+    "うま",
+    "うみ",
+    "うる",
+    "うん",
+    "え",
+    "えいが",
+    "ええ",
+    "えき",
+    "えん",
+    "えんぴつ",
+    "おいしい",
+    "おいしかった",
+    "おいしくない",
+    "おいしくなかった",
+    "おおきい",
+    "おおきかった",
+    "おおきくない",
+    "おおきくなかった",
+    "おしえて",
+    "おしえる",
+    "おとうと",
+    "おもう",
+    "おもしろい",
+    "おもしろかった",
+    "おもしろくない",
+    "おもしろくなかった",
+    "およいで",
+    "およがない",
+    "およぐ",
+    "おんがく",
+    "か",
+    "かいしゃ",
+    "かいたい",
+    "かいたかった",
+    "かいたくない",
+    "かいたくなかった",
+    "かいました",
+    "かいます",
+    "かいませんでした",
+    "かいもの",
+    "かう",
+    "かえる",
+    "かお",
+    "かぎ",
+    "かさ",
+    "かぜ",
+    "かぞく",
+    "かった",
+    "かって",
+    "かね",
+    "かばん",
+    "かめ",
+    "からだ",
+    "かわ",
+    "かわない",
+    "かわなかった",
+    "が",
+    "がくせい",
+    "がっこう",
+    "がつ",
+    "き",
+    "きいた",
+    "きいて",
+    "ききます",
+    "きく",
+    "きた",
+    "きっさてん",
+    "きっぷ",
+    "きて",
+    "きのう",
+    "きのこ",
+    "きます",
+    "きません",
+    "きませんでした",
+    "きゅう",
+    "きゅうり",
+    "きょう",
+    "きょうだい",
+    "きらい",
+    "きれい",
+    "ぎゅうにゅう",
+    "く",
+    "くじ",
+    "ください",
+    "くつ",
+    "くる",
+    "くるま",
+    "くん",
+    "けいたい",
+    "けっこう",
+    "けど",
+    "げんき",
+    "こえ",
+    "ここ",
+    "こちら",
+    "こと",
+    "こない",
+    "こなかった",
+    "この",
+    "こめ",
+    "これ",
+    "ご",
+    "ごご",
+    "ごじ",
+    "ごじゅう",
+    "ごぜん",
+    "ごはん",
+    "ごめんなさい",
+    "さい",
+    "さくら",
+    "さま",
+    "さむい",
+    "さむかった",
+    "さん",
+    "さんじ",
+    "さんじゅう",
+    "さんにん",
+    "さんぽ",
+    "し",
+    "しずか",
+    "した",
+    "したい",
+    "したかった",
+    "しちじ",
+    "しって",
+    "して",
+    "しない",
+    "しなかった",
+    "しました",
+    "します",
+    "しません",
+    "しませんでした",
+    "しゃしん",
+    "しょくじ",
+    "しらない",
+    "しります",
+    "しりません",
+    "しる",
+    "じかん",
+    "じしょ",
+    "じてんしゃ",
+    "じゃない",
+    "じゃなかった",
+    "じゅう",
+    "じゅうじ",
+    "じゅぎょう",
+    "じゅっぷん",
+    "すき",
+    "すし",
+    "すみません",
+    "する",
+    "すんで",
+    "せ",
+    "せんせい",
+    "ぜんぜん",
+    "そう",
+    "そこ",
+    "その",
+    "そら",
+    "それ",
+    "たかい",
+    "たかかった",
+    "たかくない",
+    "たかくなかった",
+    "たなか",
+    "たのしい",
+    "たべた",
+    "たべたい",
+    "たべたかった",
+    "たべたくない",
+    "たべたくなかった",
+    "たべて",
+    "たべない",
+    "たべなかった",
+    "たべました",
+    "たべます",
+    "たべません",
+    "たべませんでした",
+    "たべもの",
+    "たべる",
+    "だいがく",
+    "だいじょうぶ",
+    "だった",
+    "だめ",
+    "だれ",
+    "ちいさい",
+    "ちかてつ",
+    "ちがいます",
+    "ちがう",
+    "ちち",
+    "ちゃ",
+    "ちゃん",
+    "ちょっと",
+    "つき",
+    "て",
+    "てがみ",
+    "で",
+    "でした",
+    "でんしゃ",
+    "でんわ",
+    "と",
+    "とき",
+    "とけい",
+    "としょかん",
+    "ともだち",
+    "とりにく",
+    "どう",
+    "どこ",
+    "どの",
+    "どれ",
+    "ない",
+    "なか",
+    "なかった",
+    "なつやすみ",
+    "なな",
+    "ななじゅう",
+    "なに",
+    "なまえ",
+    "なん",
+    "なんじ",
+    "に",
+    "にぎやか",
+    "にじ",
+    "にほん",
+    "にほんじん",
+    "にん",
+    "ねこ",
+    "の",
+    "ので",
+    "のまない",
+    "のまなかった",
+    "のみたい",
+    "のみたかった",
+    "のみたくない",
+    "のみたくなかった",
+    "のみました",
+    "のみます",
+    "のみません",
+    "のみませんでした",
+    "のみもの",
+    "のむ",
+    "のんだ",
+    "のんで",
+    "は",
+    "はい",
+    "はじめまして",
+    "はたち",
+    "はたらいて",
+    "はたらきます",
+    "はたらきません",
+    "はたらく",
+    "はち",
+    "はちじ",
+    "はな",
+    "はなす",
+    "はは",
+    "はん",
+    "ばん",
+    "ひと",
+    "ひとつ",
+    "ひとり",
+    "ひま",
+    "ひゃく",
+    "びょういん",
+    "ふく",
+    "ふたつ",
+    "ふたり",
+    "ふね",
+    "ふるい",
+    "ふるかった",
+    "ふん",
+    "ぶた",
+    "ぷん",
+    "へ",
+    "ほし",
+    "ほしい",
+    "ほん",
+    "ぼうし",
+    "ぼく",
+    "まあ",
+    "まい",
+    "まえ",
+    "まだ",
+    "まって",
+    "まつ",
+    "まで",
+    "まど",
+    "みず",
+    "みせ",
+    "みせて",
+    "みせない",
+    "みせる",
+    "みた",
+    "みたい",
+    "みたくない",
+    "みっつ",
+    "みて",
+    "みない",
+    "みなかった",
+    "みます",
+    "みません",
+    "みませんでした",
+    "みる",
+    "むずかしい",
+    "め",
+    "めがね",
+    "も",
+    "もう",
+    "もも",
+    "やすい",
+    "やすかった",
+    "やすみ",
+    "やま",
+    "やる",
+    "ゆうめい",
+    "ゆき",
+    "よかった",
+    "よく",
+    "よくない",
+    "よくなかった",
+    "よじ",
+    "よにん",
+    "よん",
+    "よんじゅう",
+    "りょうり",
+    "りょこう",
+    "ろく",
+    "ろくじ",
+    "ろくじゅう",
+    "わかった",
+    "わからない",
+    "わかります",
+    "わかる",
+    "わたし",
+    "を",
+    "アメリカ",
+    "アメリカじん",
+    "カメラ",
+    "バス",
+    "パン",
+    "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "えいが",
+      "romaji": "eiga",
+      "gloss": "movie",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くつ",
+      "romaji": "kutsu",
+      "gloss": "shoes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こと",
+      "romaji": "koto",
+      "gloss": "thing, the act of doing",
+      "shortGloss": "thing (act of)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とき",
+      "romaji": "toki",
+      "gloss": "time, when",
+      "shortGloss": "time, when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いそがしい",
+      "romaji": "isogashii",
+      "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "りょこう",
+      "romaji": "ryokou",
+      "gloss": "trip, travel",
+      "shortGloss": "trip",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まえ",
+      "romaji": "mae",
+      "gloss": "before",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さむい",
+      "romaji": "samui",
+      "gloss": "cold (weather)",
+      "shortGloss": "cold",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うち",
+      "romaji": "uchi",
+      "gloss": "home, my place",
+      "shortGloss": "home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ので",
+      "romaji": "node",
+      "gloss": "because (softer)",
+      "shortGloss": "because",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けど",
+      "romaji": "kedo",
+      "gloss": "but",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まで",
+      "romaji": "made",
+      "gloss": "until, as far as",
+      "shortGloss": "until",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がつ",
+      "romaji": "gatsu",
+      "gloss": "month (in a date)",
+      "shortGloss": "month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすみ",
+      "romaji": "yasumi",
+      "gloss": "holiday, time off",
+      "shortGloss": "holiday",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべませんでした",
+      "romaji": "tabemasendeshita",
+      "gloss": "didn't eat (polite)",
+      "shortGloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみませんでした",
+      "romaji": "nomimasendeshita",
+      "gloss": "didn't drink (polite)",
+      "shortGloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しませんでした",
+      "romaji": "shimasendeshita",
+      "gloss": "didn't do (polite)",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いきませんでした",
+      "romaji": "ikimasendeshita",
+      "gloss": "didn't go (polite)",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みませんでした",
+      "romaji": "mimasendeshita",
+      "gloss": "didn't watch (polite)",
+      "shortGloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいませんでした",
+      "romaji": "kaimasendeshita",
+      "gloss": "didn't buy (polite)",
+      "shortGloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きませんでした",
+      "romaji": "kimasendeshita",
+      "gloss": "didn't come (polite)",
+      "shortGloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "さむかった",
+      "romaji": "samukatta",
+      "gloss": "was cold",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "さむい"
+    },
+    {
+      "kana": "たべなかった",
+      "romaji": "tabenakatta",
+      "gloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまなかった",
+      "romaji": "nomanakatta",
+      "gloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しなかった",
+      "romaji": "shinakatta",
+      "gloss": "didn't do",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いかなかった",
+      "romaji": "ikanakatta",
+      "gloss": "didn't go",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みなかった",
+      "romaji": "minakatta",
+      "gloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かわなかった",
+      "romaji": "kawanakatta",
+      "gloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "こなかった",
+      "romaji": "konakatta",
+      "gloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "なかった",
+      "romaji": "nakatta",
+      "gloss": "there wasn't, didn't have",
+      "shortGloss": "didn't have",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "ぜんぜん",
+      "romaji": "zenzen",
+      "gloss": "not at all (with a negative)",
+      "shortGloss": "not at all",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まい",
+      "romaji": "mai",
+      "gloss": "counter for flat things",
+      "shortGloss": "flat-thing counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちち",
+      "romaji": "chichi",
+      "gloss": "(my) father",
+      "shortGloss": "my father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はは",
+      "romaji": "haha",
+      "gloss": "(my) mother",
+      "shortGloss": "my mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あに",
+      "romaji": "ani",
+      "gloss": "(my) older brother",
+      "shortGloss": "older brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あね",
+      "romaji": "ane",
+      "gloss": "(my) older sister",
+      "shortGloss": "older sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうと",
+      "romaji": "otouto",
+      "gloss": "(my) younger brother",
+      "shortGloss": "younger brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いもうと",
+      "romaji": "imouto",
+      "gloss": "(my) younger sister",
+      "shortGloss": "younger sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうだい",
+      "romaji": "kyoudai",
+      "gloss": "(my) siblings",
+      "shortGloss": "siblings",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にん",
+      "romaji": "nin",
+      "gloss": "counter for people",
+      "shortGloss": "people counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとり",
+      "romaji": "hitori",
+      "gloss": "one person",
+      "shortGloss": "one person",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたり",
+      "romaji": "futari",
+      "gloss": "two people",
+      "shortGloss": "two people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんにん",
+      "romaji": "sannin",
+      "gloss": "three people",
+      "shortGloss": "three people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よにん",
+      "romaji": "yonin",
+      "gloss": "four people",
+      "shortGloss": "four people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さい",
+      "romaji": "sai",
+      "gloss": "years old (counter for age)",
+      "shortGloss": "years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたち",
+      "romaji": "hatachi",
+      "gloss": "twenty years old",
+      "shortGloss": "twenty years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "この",
+      "romaji": "kono",
+      "gloss": "this (+ noun)",
+      "shortGloss": "this …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "その",
+      "romaji": "sono",
+      "gloss": "that (+ noun)",
+      "shortGloss": "that …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あの",
+      "romaji": "ano",
+      "gloss": "that over there (+ noun)",
+      "shortGloss": "that … over there",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どの",
+      "romaji": "dono",
+      "gloss": "which (+ noun)",
+      "shortGloss": "which …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "むずかしい",
+      "romaji": "muzukashii",
+      "gloss": "difficult",
+      "shortGloss": "difficult",
+      "kind": "vocab"
+    },
+    {
+      "kana": "たのしい",
+      "romaji": "tanoshii",
+      "gloss": "enjoyable, fun",
+      "shortGloss": "enjoyable",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はなす",
+      "romaji": "hanasu",
+      "gloss": "to speak, to talk",
+      "shortGloss": "to speak",
+      "kind": "vocab"
+    },
+    {
+      "kana": "がっこう",
+      "romaji": "gakkou",
+      "gloss": "school",
+      "shortGloss": "school",
+      "kind": "vocab"
+    },
+    {
+      "kana": "としょかん",
+      "romaji": "toshokan",
+      "gloss": "library",
+      "shortGloss": "library",
+      "kind": "vocab"
+    },
+    {
+      "kana": "かえる",
+      "romaji": "kaeru",
+      "gloss": "to go back, to go home",
+      "shortGloss": "go home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "へ",
+      "romaji": "e (written he)",
+      "gloss": "to, toward (direction)",
+      "shortGloss": "toward",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "びょういん",
+      "romaji": "byouin",
+      "gloss": "hospital",
+      "shortGloss": "hospital",
+      "kind": "vocab"
+    },
+    {
+      "kana": "でんしゃ",
+      "romaji": "densha",
+      "gloss": "train",
+      "shortGloss": "train",
+      "kind": "vocab"
+    },
+    {
+      "kana": "バス",
+      "romaji": "basu",
+      "gloss": "bus",
+      "shortGloss": "bus",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちかてつ",
+      "romaji": "chikatetsu",
+      "gloss": "underground train, subway",
+      "shortGloss": "subway",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あるく",
+      "romaji": "aruku",
+      "gloss": "to walk",
+      "shortGloss": "to walk",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふん",
+      "romaji": "fun",
+      "gloss": "minutes (after 2, 5, 7, 9)",
+      "shortGloss": "minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぷん",
+      "romaji": "pun",
+      "gloss": "minutes (after 1, 3, 4, 6, 8, 10)",
+      "shortGloss": "minutes -pun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅっぷん",
+      "romaji": "juppun",
+      "gloss": "ten minutes",
+      "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ]
+}

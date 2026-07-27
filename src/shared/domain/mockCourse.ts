@@ -262,15 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m19 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15) are LIVE via the compiler pipeline — slice them off so the
-    // placeholders begin at m20. NB the SPINE_COMING_SOON array still lists
-    // s11 before n06b (draft-3 order); draft-4 swapped them, which is why m14
-    // is n06b and m15 is s11. Only the COUNT sliced matters here.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(14).map((t, i) => ({
-      id: `m${i + 20}`,
+    // m6-m20 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09) are LIVE via the compiler pipeline — slice them off
+    // so the placeholders begin at m21. NB the SPINE_COMING_SOON array still
+    // lists s11 before n06b (draft-3 order); draft-4 swapped them, which is why
+    // m14 is n06b and m15 is s11. Only the COUNT sliced matters here.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(15).map((t, i) => ({
+      id: `m${i + 21}`,
       title: t.title,
-      eyebrow: `Module ${i + 20} · Coming soon`,
+      eyebrow: `Module ${i + 21} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -747,6 +747,36 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m19-neo-challenge", title: "Challenge — plan the whole trip", status: "available" as const },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          // m20-neo (spine tile n09) — Comparisons I. Japanese leads with the
+          // WINNER: 「Aの ほうが Bより 〜」. ほう is an ordinary noun ("the ~
+          // one"), より is one more particle, and — the good news English
+          // speakers need told out loud — nothing inflects. There is no
+          // comparative ending in the language. どっち asks it, どちら is the
+          // polite twin, and the ledger's numbers 100-10000 and 〜こ pay for
+          // the prices and counts a comparison actually runs on. いちばん waits
+          // for m26: n09 is the intro beat of the spiral, n14 the deepen.
+          id: "m20",
+          title: "Comparisons I: のほうが…より",
+          eyebrow: "Module 20 · Comparing",
+          summary: "Saying one thing beats another. Japanese leads with the WINNER — 「でんしゃの ほうが バスより たかい」 — with ほうが on the one that wins and より on the one that loses, and the adjective never changes shape, because Japanese has no comparative ending at all. Ask with 「AとBと どっちが〜？」 (どちら to a stranger), and pay for it with the numbers and counters a real comparison needs: ひゃく, せん, まん and the generic 〜こ.",
+          lessons: [
+            { id: "ja-m20-neo-1", title: "「でんしゃの ほうが たかい」 — the winner goes first", status: "available" as const },
+            { id: "ja-m20-neo-2", title: "「バスより やすい」 — より on its own", status: "available" as const },
+            { id: "ja-m20-neo-3", title: "「どっちが たかい？」 — asking which of two", status: "available" as const },
+            { id: "ja-m20-neo-review-1", title: "Review — ほうが, より, どっち", status: "available" as const },
+            { id: "ja-m20-neo-4", title: "「さんびゃくえん」 — hundreds, and the three that change sound", status: "available" as const },
+            { id: "ja-m20-neo-5", title: "「いくら？」 — thousands, and what things cost", status: "available" as const },
+            { id: "ja-m20-neo-6", title: "「たまごが さんこ」 — counting small things", status: "available" as const },
+            { id: "ja-m20-neo-review-2", title: "Review — hundreds, prices and 〜こ", status: "available" as const },
+            { id: "ja-m20-neo-7", title: "「としょかんの ほうが しずかだ」 — な-adjectives compare too", status: "available" as const },
+            { id: "ja-m20-neo-8", title: "「どっちも たかいけど」 — both are, but one is more", status: "available" as const },
+            { id: "ja-m20-neo-9", title: "「どちらが やすいですか」 — asking a stranger which", status: "available" as const },
+            { id: "ja-m20-neo-review-3", title: "Review — comparing anything, in either register", status: "available" as const },
+            { id: "ja-m20-neo-challenge", title: "Challenge — pick one and say why", status: "available" as const },
+          ],
+          accent: { from: "#f59e0b", to: "#d97706" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

@@ -1,0 +1,696 @@
+module: m20
+title: "Comparisons I: のほうが…より"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19]
+
+priorGrammarPoints: [ka-question, desu-copula, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, dare, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu, nai-existence,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     kara-origin, kara-time, made-until, made-ni,
+                     dictionary-form, ta-form, nai-form, masu-negative,
+                     i-adj-present, i-adj-negative, i-adj-past,
+                     na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     kara-because, node-because, kedo, toki, te-iru,
+                     to-omoimasu, to-quotation, ni-iku,
+                     numbers-1-10, numbers-11-99, counter-ji, counter-fun,
+                     counter-tsu, counter-nin, counter-sai, counter-mai,
+                     family-register, kudasai]
+
+notes: |
+  m20 = spine tile n09, "Comparisons I: のほうが…より".
+
+  THE WHOLE POINT — Japanese leads with the WINNER, and nothing inflects.
+
+  1. **AのほうがBより〜 = "A is more ~ than B".** The English instinct is to
+     lead with the comparison word ("more expensive", "cheaper"); Japanese has
+     no such word and no comparative ending. It leads with the thing that WINS,
+     marked ほうが, and hangs the loser off より. 「でんしゃの ほうが バスより
+     たかい」. L1 says the good news out loud, because English speakers expect
+     an inflection and go looking for one: **neither ほう nor より touches the
+     adjective.** たかい is たかい, comparing or not.
+  2. **ほう is an ORDINARY NOUN** — "the ~ side, the ~ one" — which is why it
+     takes の in front of it like any other noun (「でんしゃの ほう」) and が
+     behind it. Teaching it as vocabulary rather than as a piece of a frame is
+     the spine's own instruction ("ほう (#66) taught AS VOCAB with it").
+  3. **より alone is what people actually say.** 「バスより やすい」 is a whole
+     answer. The full ほうが…より frame is the TEACHING form (L1); the reduced
+     は…より and the bare より…〜 are the everyday forms (L2). Both ship, in
+     that order, so the learner meets the scaffold before the shortcut.
+  4. **The question is 「AとBと どっちが 〜？」 and the answer takes ほうが.**
+     と…と ties the pair closed; どっち takes が because a question word can
+     never be the topic; and the answer needs no より at all, because the
+     question already named both things. **どっち is the plain default and
+     どちら its polite twin** — the course is plain-form first, so どっち is
+     drilled (L3) and どちら gets its register home with a stranger (L9).
+  5. **numbers 100-10000**: ひゃく, せん, まん compose from numbers the learner
+     already owns; the five cells that do NOT compose are the whole lesson —
+     さんびゃく, ろっぴゃく, はっぴゃく, さんぜん, はっせん. m17 shipped wrong
+     〜さい readings and m19 had to guard 〜ふん for the same reason, so
+     `m20-neo.test.ts` carries a guard that reads every 〜ひゃく/〜びゃく/
+     〜ぴゃく/〜せん/〜ぜん surface in the module and checks the counter against
+     the number in front of it.
+  6. **〜こ** is the generic counter for a small object you can hold, and its
+     card carries the RUN-PLAN's own recurring trap as its antiPattern: a bare
+     cardinal cannot quantify a noun (「かぎが さん ある」 ✗).
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation); L9's polite production is an
+  ordinary lesson with explicit "Say politely:" cues, which is what inv 8 asks
+  for and what inv 48 then grades.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** spinePlan n09 asks for "AのほうがBより pattern; ほう
+    (#66) taught AS VOCAB with it", "どっち (casual) / どちら (polite) — register
+    pair", and "⟳ intro beat — いちばん superlatives deepen later". All of it
+    ships and **いちばん is deliberately ABSENT**: n09 is the INTRO beat of the
+    comparison spiral and n14 (m26) is its deepen beat, which is the entire
+    point of the s20 split ("superlatives join once comparison is second
+    nature"). `ichiban-superlative` keeps its m26 ledger row. The ledger row for
+    m20 — `yori-comparison` `numbers-100-10000` `counter-ko` — is unchanged.
+  - **SIX POINTS ARE RE-TAUGHT rather than re-assigned**, because the row owes
+    three ids across nine teaching lessons and inv 42 forbids inventing new
+    ones: `wa-topic` (m3 — the reduced 「AはBより〜」 is は doing its ordinary
+    job in a new frame, and the contrast with ほうが IS L2), `to-and` (m8 —
+    と…と closes the pair the question asks about), `ikura-price` (m9 — prices
+    are the only place a beginner meets thousands, so they carry せん/まん),
+    `na-adj-present` (m12 — な-adjectives compare identically and still need
+    だ, which is where "nothing inflects" earns its keep), `mo-also` (m3 —
+    「AもBも〜けど」 is the concession move that makes a comparison polite) and
+    `masu-present` (m7 — どちら's register home). No ledger row moves: a
+    re-teach is not a re-assignment, exactly as m14-m19 established.
+  - **はやい is NOT taught, and the brief's headline sentence 「でんしゃの ほうが
+    バスより はやい」 does not ship.** はやい is a HOMOGRAPH with a course-wide
+    ruling against it: `JA_PRIMARY_ATOM_BY_KANA` resolves the bare kana to
+    `hayai-early` (早い "early", ⏰) rather than `hayai` (速い "quick", 💨), so a
+    はやい surface would display "fast" while crediting SRS to 早い — the silent
+    はな/鼻 class the registry comment exists to prevent — and ⏰ already belongs
+    to じかん and いま, both MET, so an image debut would draw distractors that
+    name the picture better than the answer does. Flipping the ruling to suit
+    one module is not a guard fix in the false-positive direction, so it was not
+    done. **ちかい 📍 and とおい 🔭 carry the comparison instead** (both
+    unambiguous, both with unique met-pool emoji, and both a natural spend of
+    m19's journey vocabulary), alongside the prior adjective stock — たかい /
+    やすい / おおきい / ちいさい / あたらしい / ふるい / おいしい / おもしろい /
+    さむい / いそがしい / しずか / にぎやか / きれい / ゆうめい / ひま.
+  - **EIGHT new courseAtoms rows: ほう, より, こ, さんびゃく, ろっぴゃく,
+    はっぴゃく, さんぜん, はっせん.** ちかい / とおい (m6), どっち / どちら,
+    せん / まん (m14) and たまご (m21) already had rows under stale old-course
+    tags and none of them is in `priorVocab`, so they are declared in `newAtoms`
+    — the m15-m19 move — which stops the compiler treating them as
+    already-known while adding NOTHING to the course-wide tokenizer.
+    **The eight genuinely new surfaces were checked for retokenization damage
+    before shipping (the m16-ので class, RUN-PLAN recurring trap), by dumping
+    every compiled tile in the whole ja course before and after registering
+    them.** The diff was confined to m30's seeded distractor slots — zero
+    tokenization changes anywhere. ほう and より occur in no curriculum surface
+    and inside no registered atom. **こ is the dangerous one** — one character —
+    but the tokenizer is longest-match-first, so it can only win where nothing
+    longer matched, and every こ-bearing atom in the registry (ここ / これ /
+    この / こと / こない / こえ / こめ / こうえん / きのこ / ねこ / こちら /
+    けっこう / がっこう / としょかん …) is strictly longer and is consumed whole.
+    The five hundred/thousand cells are 4-5 kana and are substrings of nothing.
+  - **The sound-change cells are WHOLE ATOMS; the regular cells COMPOSE.**
+    さんびゃく / ろっぴゃく / はっぴゃく / さんぜん / はっせん do not decompose
+    (さん + ひゃく never surfaces, and ろっ / はっ are not atoms), so each is its
+    own row — the same call m19 made for じゅっぷん. Everything regular builds
+    from a number the learner owns plus ひゃく / せん / まん: 「ご ひゃく えん」,
+    「きゅう ひゃく」, 「よん せん」, 「いち まん」. **にひゃく and にせん are
+    banned as surfaces** for the documented に/二 homograph reason, so the
+    hundreds family is carried by ごひゃく / よんひゃく / ななひゃく / きゅうひゃく.
+  - **〜こ: the geminating cells いっこ / ろっこ / はっこ / じゅっこ are PROSE
+    ONLY.** They decompose to nothing (いっ / ろっ / はっ / じゅっ are not atoms),
+    so putting one on a tile would either trip the `unbuildable` gate or ship a
+    junk tile — the device m17 used for issai/hassai/jussai and m19 for
+    ippun/roppun/happun. They are named in the L6 card's PROSE, which is
+    mixed-script and invisible to `jaSurfaces`. The cells that reach a tile are
+    さんこ / よんこ / ごこ / ななこ / きゅうこ, each of which tokenizes as
+    number + こ. **にこ is banned** for the に/二 reason.
+    `honorificAtomTagging`'s NUMERAL_CONTEXT gained こ for the same reason it
+    gained ぷん at m19: 「さんこ」 genuinely DOES exercise 三.
+  - **The rule card of a lesson that debuts an imageable word never NAMES it.**
+    A rule card compiles to a PINNED step ahead of the interleaved middle, so an
+    imageable word in `examples:` loses its picture debut (inv 30/44 — the trap
+    m14 learned the hard way). L2's card therefore runs on でんしゃ / バス /
+    かばん / すし while ちかい and とおい appear only in beats, and L6's card
+    counts かぎ / きゅうり / もも / きのこ while たまご stays out.
+  - **The ONE true particle_cloze in the module is より's, and に/が/は are never
+    offered against it.** Inv 5 makes particle_cloze an INTRODUCTION device, so
+    the only particle this module may cloze is the one it introduces; を and から
+    are the distractors and both are genuinely ungrammatical in that slot. Every
+    other cloze in the module picks among CONTENT words. `より` was added to
+    `particleClozePlacement`'s PARTICLE_INTRO_MODULE as m20 so the ratchet can
+    actually see it — it had no entry, which meant a より cloze in ANY module
+    would have passed unchecked.
+  - **Cloze frames carry no character names.** A particle_cloze is harvested
+    into the grammar-review deck, whose comprehensibility gate resolves every
+    word through `courseAtoms`, and ミカ / トム / ケン / たなか have no atom rows
+    (RUN-PLAN, m19 finding 3). Every frame here runs on common nouns.
+  - **No 「〜からだ」 anywhere.** から + the copula fuses into からだ, the m2 atom
+    for "body" (m19's finding). から is followed by a verb or by まで in this
+    module, and a price statement that needs a reason uses 「〜えんだから」, which
+    tokenizes as えん + だ + から and never produces からだ.
+  - **Clause boundaries are SPACES, never 、.** `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    build target AND a run-on TTS key.
+  - **Words avoided on purpose.** せんせい is absent from the whole module: the
+    bulk audit's debut check is token-INITIAL, so a 「せんせい」 token would
+    register as the debut of せん (1000) on whatever step happened to carry it.
+    たなか is the teacher and covers that role. The stale old-course m20 tags on
+    あし / いたい / みみ / くち / おなか / くすり / いしゃ / びょうき / みがく /
+    ひく / せっけん / ゆっくりと / たくさん / あたま (the archived Body & Health
+    module, which the spine rehomes to s17 = m22) are likewise avoided, since a
+    word tagged `fromModule: "m20"` is read as module-new by the image-first
+    guard. て-forms and past-tense adjectives are avoided for the m13/m14
+    IR-only-atom reason.
+  - **Gloss discipline (inv 17).** いく / くる / かえる keep the "-ing" motion
+    futurate gloss; あるく, まつ, かう, たべる and みる gloss habitual or intent
+    ("I'll buy the bike", "I walk to the station"). `verbGlossFidelity`: every
+    みる in this module is "watch" / "look at", never "read".
+  - **Persona canon.** No 「NAMEは NOUNだ」 assertion appears anywhere — every
+    sentence compares things, not people's roles — so the canon guard has
+    nothing to contradict. Where a person IS compared it is by a property
+    (「ミカの ほうが ケンより いそがしい」), which asserts no canon fact.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing this module teaches conjugates — ほう is a noun,
+  より is a particle, ひゃく/せん/まん and 〜こ are counters — so no
+  `conjugation:` block is declared and no `verbClass` is set on any atom.
+
+  CONNECTIVES + COMPLEXITY (inv 13): a comparison sentence carries two nouns and
+  a predicate by construction, and most beats stack a clause on m16's から / ので
+  / けど, which is also how people actually justify a preference.
+
+grammarPoints:
+  - id: yori-comparison
+    rule: "Japanese leads with the WINNER. 「Aの ほうが Bより 〜」 means A is more ~ than B: ほう marks the one that wins and より hangs the one that loses off the back of it. English does the opposite — it leads with the comparison word, 'more expensive', 'cheaper', 'bigger' — and here is the good news: Japanese has no such word and no comparative ending. **Neither ほう nor より changes the adjective.** たかい is たかい whether you are comparing or not, and there is nothing extra to learn. ほう itself is an ordinary noun meaning 'the ~ side, the ~ one', which is why it takes の in front of it exactly like any other noun and が behind it: 「でんしゃの ほう」 is 'the train one'. より sits straight after the loser with nothing between them. Word order is loose and 「バスより でんしゃの ほうが たかい」 says the same thing, but lead with ほうが while you are learning, because that is the half nobody ever drops."
+    examples:
+      - { ja: "でんしゃの ほうが バスより たかい。", en: "The train is more expensive than the bus." }
+      - { ja: "この みせの ほうが やすい。", en: "This shop is the cheaper one." }
+      - { ja: "じてんしゃの ほうが くるまより やすい。", en: "A bike is cheaper than a car." }
+      - { ja: "すしの ほうが パンより おいしい。", en: "Sushi is more delicious than bread." }
+      - { ja: "ミカの ほうが ケンより いそがしい。", en: "Mika is busier than Ken." }
+    antiPattern: { ja: "でんしゃ ほうが バスより たかい。", why: "ほう is a NOUN, so whatever describes it needs の in front: でんしゃの ほうが バスより たかい。" }
+
+  - id: wa-topic
+    rule: "There is a shorter way to say the same thing, and it is the one you will hear. Put the winner up as the TOPIC with は, hang the loser off より, and stop: 「でんしゃは バスより たかい」. Same meaning as the ほうが version, one word lighter. は does here exactly what it has always done — it announces what the sentence is about — and より keeps its one job of marking the loser. In an ANSWER you can drop even more. Once both things are already on the table, 「バスより やすい」 on its own is a complete reply; nobody repeats the winner. That is the everyday shape of a comparison: ほうが…より is the frame you learn the pattern with, より alone is what comes out of your mouth. The one thing that never moves is より's position — directly after the loser, never in front of it — and the adjective still does not change."
+    examples:
+      - { ja: "でんしゃは バスより たかい。", en: "The train is more expensive than the bus." }
+      - { ja: "バスより やすい。", en: "It's cheaper than the bus." }
+      - { ja: "この かばんは あの かばんより おおきい。", en: "This bag is bigger than that bag." }
+      - { ja: "きょうは きのうより さむい。", en: "Today is colder than yesterday." }
+      - { ja: "すしは とりにくより おいしい。", en: "Sushi is more delicious than chicken." }
+    antiPattern: { ja: "でんしゃは バス たかい。", why: "the loser needs より on it — with no particle at all, バス just collides with the adjective: でんしゃは バスより たかい。" }
+
+  - id: to-and
+    rule: "To ASK a comparison, name the two things with と and finish with どっち: 「でんしゃと バスと どっちが たかい？」 — of the train and the bus, which is the more expensive one? と is the same 'and' you have used for a closed list since module 8, and that is exactly the job it is doing: the second と marks the list as FINISHED, so the listener knows there are two options and only two. Say it while you are learning even though speech often drops it. どっち takes が and never は, because a question word cannot be the thing a sentence is ABOUT. The answer comes back with ほうが — 「でんしゃの ほうが たかい」 — and needs no より at all, because the question already named both things. どっち is the plain, everyday word. Its polite twin is どちら: same meaning, same slot, and the only difference is who you are talking to."
+    examples:
+      - { ja: "でんしゃと バスと どっちが たかい？", en: "Which is more expensive, the train or the bus?" }
+      - { ja: "すしと とりにくと どっちが すき？", en: "Which do you like more, sushi or chicken?" }
+      - { ja: "どっちが やすい？", en: "Which is the cheaper one?" }
+      - { ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one?" }
+      - { ja: "えいがと おんがくと どちらが すきですか。", en: "Which do you prefer, films or music? — the same question, said politely" }
+    antiPattern: { ja: "でんしゃと バスと どっちは たかい？", why: "a question word can never be the topic, so どっち always takes が: でんしゃと バスと どっちが たかい？" }
+
+  - id: numbers-100-10000
+    rule: "Hundreds are a number plus ひゃく, and most of them are as plain as they look: yonhyaku (400), gohyaku (500), nanahyaku (700), kyuuhyaku (900) — the number goes in front, the counter does not budge. Three of them DO budge, and those three are the whole lesson. 300 is sanBYAKU, 600 is roPPYAKU, 800 is haPPYAKU: the h softens to b after san, and it hardens to p — with the sound in front of it doubling — after roku and hachi. Nothing else in the hundreds changes. Say the three out loud a few times, because the mouth learns this far faster than the eye does, and a hundred you have to stop and reconstruct is a hundred you cannot use at a till. Building a bigger number is then just stacking, exactly as it was for 11-99: 「ごひゃく」 is 500, and 500 yen is 「ごひゃくえん」 with えん straight on the end."
+    examples:
+      - { ja: "この ほんは さんびゃくえんだ。", en: "This book is 300 yen." }
+      - { ja: "きっぷは ろっぴゃくえんだ。", en: "The ticket is 600 yen." }
+      - { ja: "この かさは はっぴゃくえんだ。", en: "This umbrella is 800 yen." }
+      - { ja: "この ぼうしは ごひゃくえんだ。", en: "This hat is 500 yen." }
+      - { ja: "あの めがねは きゅうひゃくえんだ。", en: "Those glasses are 900 yen." }
+    antiPattern: { ja: "この ほんは さんひゃくえんだ。", why: "300 is さんびゃく — さん turns ひゃく into びゃく. Only 400, 500, 700 and 900 leave the counter alone: この ほんは さんびゃくえんだ。" }
+
+  - id: ikura-price
+    rule: "Past nine hundred you need two more words and both of them behave. せん is a thousand and まん is ten thousand, and they stack the same way the hundreds did: yonsen (4,000), gosen (5,000), nanasen (7,000), kyuusen (9,000), and ichiman for 10,000 — ten thousand always carries its ichi, unlike sen and hyaku, which stand alone. Two cells change sound, and they are the same two numbers that changed in the hundreds: 3,000 is sanZEN and 8,000 is haSSEN. Stack them left to right with the big unit first and no word for 'and': 「せん ごひゃくえん」 is 1,500 yen. Asking the price is the easy half. 「いくら？」 is the whole question to a friend — no verb, no particle — and the answer is the number with えん on it and だ to finish: 「さんぜんえんだ」."
+    examples:
+      - { ja: "この くつは さんぜんえんだ。", en: "These shoes are 3,000 yen." }
+      - { ja: "この かばんは いくら？", en: "How much is this bag?" }
+      - { ja: "せん ごひゃくえんだ。", en: "It's 1,500 yen." }
+      - { ja: "あの カメラは はっせんえんだ。", en: "That camera is 8,000 yen." }
+      - { ja: "この じてんしゃは いちまんえんだ。", en: "This bike is 10,000 yen." }
+    antiPattern: { ja: "この くつは さんせんえんだ。", why: "3,000 is さんぜん — さん turns せん into ぜん, exactly as it turns ひゃく into びゃく: この くつは さんぜんえんだ。" }
+
+  - id: counter-ko
+    rule: "〜こ is the everyday counter for a small object you can pick up — a key, a piece of fruit, a box, an egg. When you do not know the specialised counter for something small, this is the one that will not be wrong. Attach it straight to the number: sanko (3), yonko (4), goko (5), nanako (7), kyuuko (9). Four cells double the sound in front of them and are worth saying out loud until they stick: ikko (1), rokko (6), hakko (8), jukko (10). Now the part that catches English speakers, and it is not the counter at all — it is where the count SITS. English puts 'three' in front of 'keys'. Japanese does not: the noun comes first with が or は on it, and the number-plus-counter stands on its own just before the verb. 「かぎが さんこ ある」 — as for keys, three exist. And a bare number can never do this job by itself; without a counter on it there is nothing to attach the count to the sentence with."
+    examples:
+      - { ja: "かぎが さんこ ある。", en: "There are three keys." }
+      - { ja: "きゅうりが よんこ ある。", en: "There are four cucumbers." }
+      - { ja: "ももが ごこ ある。", en: "There are five peaches." }
+      - { ja: "きのこが きゅうこ ある。", en: "There are nine mushrooms." }
+      - { ja: "ももの ほうが きゅうりより たかい。", en: "Peaches are more expensive than cucumbers." }
+    antiPattern: { ja: "かぎが さん ある。", why: "a bare number cannot count a noun in Japanese — it needs a counter on it, and for a small object that counter is こ: かぎが さんこ ある。" }
+
+  - id: na-adj-present
+    rule: "な-adjectives compare exactly like い-adjectives, and this is where the promise that nothing changes earns its keep. Drop one into the frame and nothing in it moves: 「としょかんの ほうが きっさてんより しずかだ」. What a な-adjective still needs is its だ, because it is not a verb and cannot end a sentence on its own — しずか is a quality, しずかだ is a statement. ほう and より do not affect that in either direction: they are not verbs, they are not endings, and they leave the predicate exactly as it would have been in a sentence with no comparison in it at all. The same goes for すき and きらい, which are な-adjectives even though English hears them as verbs: 「すしの ほうが すきだ」 is 'sushi is the one I like more'."
+    examples:
+      - { ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop." }
+      - { ja: "みせは としょかんより にぎやかだ。", en: "The shop is livelier than the library." }
+      - { ja: "この えいがの ほうが ゆうめいだ。", en: "This film is the more famous one." }
+      - { ja: "すしの ほうが すきだ。", en: "Sushi is the one I like more." }
+      - { ja: "きょうの ほうが ひまだ。", en: "Today is the freer of the two days." }
+    antiPattern: { ja: "としょかんの ほうが きっさてんより しずか。", why: "a な-adjective cannot end a sentence on its own — it needs だ: としょかんの ほうが きっさてんより しずかだ。" }
+
+  - id: mo-also
+    rule: "Often both things are true and you still have a preference, and Japanese has a tidy way to say so. Put も on BOTH halves and you get 'both of them': 「でんしゃも バスも たかい」 — the train and the bus are both expensive. も is the same 'too' you have had since module 3; doubling it is what turns two separate 'too's into one pair. Then hang the comparison off the end with けど: 「でんしゃも バスも たかいけど でんしゃの ほうが たかい」. That is the shape of a real opinion — concede first, choose second — and it is far friendlier than flatly saying one thing is worse. When both things have already been named you can shorten the first half to どっちも, 'both of them': 「どっちも たかい」."
+    examples:
+      - { ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one." }
+      - { ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more." }
+      - { ja: "どっちも たかい。", en: "Both are expensive." }
+      - { ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet." }
+      - { ja: "ミカも ケンも いそがしいけど ケンの ほうが いそがしい。", en: "Mika and Ken are both busy, but Ken is the busier one." }
+    antiPattern: { ja: "でんしゃも バスも たかいけど でんしゃの ほうを たかい。", why: "ほう is what the second half is ABOUT, so it takes が — を marks a thing you act on, and you are not acting on anything here: でんしゃも バスも たかいけど でんしゃの ほうが たかい。" }
+
+  - id: masu-present
+    rule: "どちら is どっち's polite twin. Same meaning, same slot in the sentence, and the only thing that changes is who is standing in front of you: with a friend it is どっち, with a shop assistant or a stranger it is どちら. When you reach for どちら the rest of the sentence goes polite with it, because a polite question word in a plain sentence sounds like two people talking: 「どちらが やすいですか。」 Watch the か. A casual question rides its rising contour alone — 「どっちが やすい？」 — but a polite question REQUIRES か on the end, and without it you have said a statement and left it hanging. Everything else stays exactly where it was: と…と still ties the pair, ほうが still marks the winner in the answer, and より still marks the loser."
+    examples:
+      - { ja: "どちらが やすいですか。", en: "Which one is cheaper?" }
+      - { ja: "この かばんと あの かばんと どちらが おおきいですか。", en: "Which bag is bigger, this one or that one?" }
+      - { ja: "こちらの ほうが あたらしいです。", en: "This one is the newer one." }
+      - { ja: "すみません この とけいは いくらですか。", en: "Excuse me, how much is this watch?" }
+      - { ja: "この ほんの ほうが たかいですか。", en: "Is this book the more expensive one?" }
+    antiPattern: { ja: "どちらが やすいです。", why: "a polite question REQUIRES か — without it the sentence is a statement, and an unfinished one: どちらが やすいですか。" }
+
+newAtoms:
+  # ══ L1. The two words the whole module hangs on. Neither has an emoji and
+  #    neither could have one — ほう is "the ~ one" and より is a particle — so
+  #    both are imageable: false and debut on the L1 rule card, which is
+  #    intro-capable. ほう is taught AS VOCAB, per the spine.
+  - { kana: ほう, romaji: hou, gloss: "the more ~ one, this side", shortGloss: "the ~ one", imageable: false, kind: vocab }
+  - { kana: より, romaji: yori, gloss: "than (marks the loser of a comparison)", shortGloss: "than", imageable: false, kind: particle }
+  # ══ L2. The two adjectives the module adds, and the only imageable atoms in
+  #    it apart from たまご. 📍 is shared only with ちかく and 🔭 with nothing at
+  #    all — neither clashing atom has been MET, so the debut MCQ cannot show a
+  #    picture that names a known word better than it names the answer. Both
+  #    already carry courseAtoms rows (stale m6 tags) and neither is in
+  #    priorVocab, so declaring them here fixes provenance and touches no
+  #    tokenization. They are a deliberate spend of m19's journey vocabulary.
+  - { kana: ちかい, romaji: chikai, gloss: "near, close", shortGloss: "near", kind: vocab }
+  - { kana: とおい, romaji: tooi, gloss: "far", shortGloss: "far", kind: vocab }
+  # ══ L3. The register pair the spine asks for. Both are blocked in the
+  #    registry (an interrogative has no referent a picture could name), so both
+  #    debut on the L3 rule card.
+  - { kana: どっち, romaji: dotchi, gloss: "which (of two)", shortGloss: "which of two", imageable: false, kind: vocab }
+  - { kana: どちら, romaji: dochira, gloss: "which (of two) — polite", shortGloss: "which (polite)", imageable: false, kind: vocab }
+  # ══ L4. The three hundreds that do not compose. さん + ひゃく never surfaces,
+  #    and ろっ / はっ are not atoms, so each cell is its own lexical unit — the
+  #    same call m19 made for じゅっぷん. Checked against every kana in the
+  #    registry before shipping (inv 41): no atom contains any of these strings
+  #    and none occurs in any existing curriculum surface.
+  - { kana: さんびゃく, romaji: sanbyaku, gloss: "three hundred", shortGloss: "300", imageable: false, kind: vocab }
+  - { kana: ろっぴゃく, romaji: roppyaku, gloss: "six hundred", shortGloss: "600", imageable: false, kind: vocab }
+  - { kana: はっぴゃく, romaji: happyaku, gloss: "eight hundred", shortGloss: "800", imageable: false, kind: vocab }
+  # ══ L5. Thousands and ten-thousands. せん and まん already have registry rows
+  #      (stale m14 tags, blocked — no glyph means "1000") and are not in
+  #      priorVocab; さんぜん and はっせん are the two sound-change cells.
+  - { kana: せん, romaji: sen, gloss: "thousand", shortGloss: "1000", imageable: false, kind: vocab }
+  - { kana: まん, romaji: man, gloss: "ten thousand", shortGloss: "10000", imageable: false, kind: vocab }
+  - { kana: さんぜん, romaji: sanzen, gloss: "three thousand", shortGloss: "3000", imageable: false, kind: vocab }
+  - { kana: はっせん, romaji: hassen, gloss: "eight thousand", shortGloss: "8000", imageable: false, kind: vocab }
+  # ══ L6. The generic counter, plus the one thing a counter lesson most wants
+  #      to count. こ is a BOUND counter with no referent of its own, so it is
+  #      imageable: false and debuts on the L6 rule card; たまご 🥚 is the only
+  #      🥚 in the whole registry, so its debut MCQ cannot show two pictures
+  #      that both fit.
+  - { kana: こ, romaji: ko, gloss: "counter for small objects", shortGloss: "-ko counter", imageable: false, kind: vocab }
+  - { kana: たまご, romaji: tamago, gloss: "egg", shortGloss: "egg", kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-1
+    role: teaching
+    title: "「でんしゃの ほうが たかい」 — the winner goes first"
+    focus: "AのほうがBより〜: ほう marks the winner, より marks the loser, and the adjective never changes"
+    introduces: [ほう, より]
+    beats:
+      - { kind: rule, grammarPointId: yori-comparison }
+      - { kind: sentence, ja: "ちかてつの ほうが バスより やすい。", en: "The subway is cheaper than the bus", exercises: [yori-comparison, i-adj-present], mode: build }
+      - { kind: sentence, ja: "この じしょの ほうが あの ほんより あたらしい。", en: "This dictionary is newer than that book", exercises: [yori-comparison, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "きょうの ほうが きのうより いそがしい。", en: "Today is busier than yesterday", exercises: [yori-comparison, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカの けいたいの ほうが わたしの けいたいより あたらしい。", en: "Mika's phone is newer than mine", exercises: [yori-comparison, no-possession], mode: listening }
+      - { kind: sentence, ja: "じてんしゃの ほうが くるまより やすいから じてんしゃを かう。", en: "A bike is cheaper than a car, so I'll buy a bike", exercises: [yori-comparison, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "すしの ほうが パンより たかいけど すしを たべる。", en: "Sushi is more expensive than bread, but I'll eat sushi", exercises: [yori-comparison, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "うみの ほうが いけより おおきい。", en: "The sea is bigger than the pond", exercises: [yori-comparison, i-adj-present], mode: build }
+      - { kind: sentence, ja: "バスの ほうが やすい。", en: "Say to a friend: The bus is the cheaper one", exercises: [yori-comparison], mode: translate }
+      # The ONE true particle_cloze in the module (inv 5 — より is the particle
+      # m20 introduces). NO NAME in the frame: this cloze is harvested into the
+      # grammar-review deck, whose gate resolves every word through courseAtoms.
+      - { kind: particle-cloze, stem: "でんしゃの ほうが バス", tail: " たかい。", answer: "より", options: ["より", "を", "から"], en: "The train is more expensive than the bus", explanation: "より marks the one that LOSES the comparison and sits straight after it. を marks a thing you act on, and から would say the price starts at the bus." }
+      - { kind: listening-comp, audio: "うみの ほうが いけより おおきい。", answer: "The sea is bigger than the pond", distractors: ["The pond is bigger than the sea", "The sea is smaller than the pond", "The mountain is bigger than the pond"], exercises: [yori-comparison] }
+      - { kind: listening-comp, audio: "きょうの ほうが きのうより いそがしい。", answer: "Today is busier than yesterday", distractors: ["Yesterday was busier than today", "Today is quieter than yesterday", "Tomorrow is busier than today"], exercises: [yori-comparison, i-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "バスは やすい？", en: "Is the bus cheap?" }
+          - { speaker: "Mika", ja: "バスの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bus is the cheaper one. But the train is the one I like more." }
+        questions:
+          - { q: "What does Mika say about the bus?", options: ["It's the cheaper one", "It's the more expensive one", "She likes it more than the train", "She never takes it"], answer: "It's the cheaper one" }
+      - { kind: challenge, ja: "でんしゃの ほうが バスより たかいけど でんしゃで がっこうに いく。", en: "The train is more expensive than the bus, but I go to school by train", combines: [yori-comparison, kedo, de-action, ni-location], mode: build }
+    reviewPool: [でんしゃ, バス, ちかてつ, じてんしゃ, くるま, じしょ, けいたい, きのう, うみ, いけ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-2
+    role: teaching
+    title: "「バスより やすい」 — より on its own"
+    focus: "AはBより〜 is the everyday shape, and より alone is a whole answer"
+    introduces: [ちかい, とおい]
+    beats:
+      - { kind: rule, grammarPointId: wa-topic }
+      - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "The station is closer than the school", exercises: [wa-topic, yori-comparison], mode: build }
+      - { kind: sentence, ja: "うちは えきより とおい。", en: "My place is farther away than the station", exercises: [wa-topic, yori-comparison], mode: build }
+      - { kind: sentence, ja: "としょかんは びょういんより ちかいから あるく。", en: "The library is closer than the hospital, so I'll walk", exercises: [wa-topic, kara-because, dictionary-form], mode: build }
+      - { kind: sentence, ja: "きょうは きのうより さむい。", en: "Today is colder than yesterday", exercises: [wa-topic, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "バスより やすい。", en: "It's cheaper than the bus", exercises: [yori-comparison], mode: build }
+      - { kind: sentence, ja: "この かばんは あの かばんより おおきい。", en: "This bag is bigger than that bag", exercises: [wa-topic, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "だいがくは きっさてんより とおいけど あるく。", en: "The university is farther than the coffee shop, but I'll walk", exercises: [wa-topic, kedo, dictionary-form], mode: build }
+      - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "Say to a friend: The station is closer than the school", exercises: [wa-topic], mode: translate }
+      - { kind: particle-cloze, stem: "えきは がっこうより ", tail: "。", answer: "ちかい", options: ["ちかい", "とおい", "たかい"], en: "The station is closer than the school", explanation: "ちかい is near. とおい is its opposite and たかい is about price or height — none of them changes shape for the comparison." }
+      - { kind: listening-comp, audio: "うちは えきより とおい。", answer: "My place is farther away than the station", distractors: ["My place is closer than the station", "The station is farther away than my place", "My place is near the school"], exercises: [wa-topic, yori-comparison] }
+      - { kind: listening-comp, audio: "としょかんは びょういんより ちかいから あるく。", answer: "The library is closer than the hospital, so I'll walk", distractors: ["The hospital is closer than the library, so I'll walk", "The library is farther than the hospital, so I'll take the bus", "The library is close, so I won't walk"], exercises: [wa-topic, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "えきは とおい？", en: "Is the station far?" }
+          - { speaker: "Ken", ja: "ううん がっこうより ちかい。あるく。", en: "Nope, it's closer than the school. I'll walk." }
+        questions:
+          - { q: "What does Ken say about the station?", options: ["It's closer than the school", "It's farther than the school", "It's next to the school", "He takes the bus to it"], answer: "It's closer than the school" }
+      - { kind: challenge, ja: "うちは えきより とおいから じてんしゃで えきに いく。", en: "My place is farther than the station, so I'll go to the station by bike", combines: [wa-topic, kara-because, de-action, ni-location], mode: build }
+    reviewPool: [えき, がっこう, としょかん, びょういん, だいがく, きっさてん, うち, かばん, さむい, おおきい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-3
+    role: teaching
+    title: "「どっちが たかい？」 — asking which of two"
+    focus: "AとBと どっちが〜？ — と ties the pair, どっち takes が, and the answer comes back with ほうが"
+    introduces: [どっち, どちら]
+    beats:
+      - { kind: rule, grammarPointId: to-and }
+      - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Which is more expensive, the train or the bus", exercises: [to-and, yori-comparison], mode: build }
+      - { kind: sentence, ja: "すしと とりにくと どっちが すき？", en: "Which do you like more, sushi or chicken", exercises: [to-and, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one", exercises: [to-and, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "じてんしゃと くるまと どっちが やすい？", en: "Which is cheaper, a bike or a car", exercises: [to-and, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, films or music", exercises: [to-and, i-adj-present], mode: build }
+      - { kind: sentence, ja: "どっちが ちかい？", en: "Which is the closer one", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "ちかてつの ほうが やすいから ちかてつで いく。", en: "The subway is the cheaper one, so I'll go by subway", exercises: [yori-comparison, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Say to a friend: Which is more expensive, the train or the bus", exercises: [to-and], mode: translate }
+      - { kind: particle-cloze, stem: "でんしゃと バスと ", tail: "が たかい？", answer: "どっち", options: ["どっち", "どこ", "だれ"], en: "Which is more expensive, the train or the bus?", explanation: "どっち asks which of TWO things. どこ asks where and だれ asks who — neither can pick between a train and a bus." }
+      - { kind: listening-comp, audio: "すしと とりにくと どっちが すき？", answer: "Which do you like more, sushi or chicken?", distractors: ["Do you like sushi and chicken?", "Which is more expensive, sushi or chicken?", "Which do you like more, sushi or bread?"], exercises: [to-and, suki-kirai-no] }
+      - { kind: listening-comp, audio: "えいがと おんがくと どっちが おもしろい？", answer: "Which is more interesting, films or music?", distractors: ["Which is more interesting, films or books?", "Are films and music interesting?", "Which do you like more, films or music?"], exercises: [to-and, i-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one?" }
+          - { speaker: "Tom", ja: "この かさの ほうが あたらしい。でも あの かさの ほうが やすい。", en: "This umbrella is the newer one. But that one is the cheaper one." }
+        questions:
+          - { q: "What does Tom say about the umbrella over there?", options: ["It's the cheaper one", "It's the newer one", "It's both newer and cheaper", "He doesn't know"], answer: "It's the cheaper one" }
+      - { kind: challenge, ja: "きっさてんと としょかんと どっちが しずかだと おもう？", en: "Which do you think is quieter, the coffee shop or the library", combines: [to-and, na-adj-present, to-omoimasu], mode: build }
+    reviewPool: [かさ, えいが, おんがく, すし, とりにく, じてんしゃ, くるま, あたらしい, おもしろい, ちかい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-review-1
+    role: review
+    title: "Review — ほうが, より, どっち"
+    focus: "The winner with ほうが, the loser with より, and the question that asks for both"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ちかてつの ほうが バスより やすい。", en: "The subway is cheaper than the bus", exercises: [yori-comparison], mode: build }
+      - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "The station is closer than the school", exercises: [wa-topic, yori-comparison], mode: build }
+      - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Which is more expensive, the train or the bus", exercises: [to-and], mode: listening }
+      - { kind: sentence, ja: "うちは えきより とおい。", en: "My place is farther away than the station", exercises: [wa-topic, yori-comparison], mode: build }
+      - { kind: sentence, ja: "すしの ほうが パンより たかいけど すしを たべる。", en: "Sushi is more expensive than bread, but I'll eat sushi", exercises: [yori-comparison, kedo, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "この かばんは あの かばん", tail: " おおきい。", answer: "より", options: ["より", "を", "から"], en: "This bag is bigger than that bag", explanation: "より marks the one that loses. を marks a thing you act on, and から would make the other bag a starting point." }
+      - { kind: sentence, ja: "じてんしゃの ほうが くるまより やすいから じてんしゃを かう。", en: "A bike is cheaper than a car, so I'll buy a bike", exercises: [yori-comparison, kara-because, wo-object], mode: build }
+      - { kind: listening-comp, audio: "としょかんは びょういんより ちかいから あるく。", answer: "The library is closer than the hospital, so I'll walk", distractors: ["The hospital is closer than the library, so I'll walk", "The library is farther than the hospital, so I'll take the bus", "The library is closer than the station, so I'll walk"], exercises: [wa-topic, kara-because] }
+      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, films or music", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "バスの ほうが やすい。", en: "Say to a friend: The bus is the cheaper one", exercises: [yori-comparison], mode: translate }
+      - { kind: listening-comp, audio: "ミカの けいたいの ほうが わたしの けいたいより あたらしい。", answer: "Mika's phone is newer than mine", distractors: ["My phone is newer than Mika's", "Mika's phone is more expensive than mine", "Mika's phone is older than mine"], exercises: [yori-comparison, no-possession] }
+      - { kind: sentence, ja: "だいがくは きっさてんより とおいけど あるく。", en: "The university is farther than the coffee shop, but I'll walk", exercises: [wa-topic, kedo], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "じてんしゃと でんしゃと どっちが やすい？", en: "Which is cheaper, a bike or the train?" }
+          - { speaker: "Mika", ja: "じてんしゃの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bike is the cheaper one. But the train is the one I like more." }
+        questions:
+          - { q: "Which does Mika prefer?", options: ["The train", "The bike", "Neither of them", "She doesn't say"], answer: "The train" }
+    reviewPool: [でんしゃ, バス, ちかてつ, えき, がっこう, としょかん, かばん, けいたい, ちかい, とおい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-4
+    role: teaching
+    title: "「さんびゃくえん」 — hundreds, and the three that change sound"
+    focus: "Number + ひゃく, except 300, 600 and 800 — さんびゃく, ろっぴゃく, はっぴゃく"
+    introduces: [さんびゃく, ろっぴゃく, はっぴゃく]
+    beats:
+      - { kind: rule, grammarPointId: numbers-100-10000 }
+      - { kind: sentence, ja: "この じしょは ろっぴゃくえんだ。", en: "This dictionary is 600 yen", exercises: [numbers-100-10000, desu-copula], mode: build }
+      - { kind: sentence, ja: "きっぷは はっぴゃくえんだから かわない。", en: "The ticket is 800 yen, so I won't buy it", exercises: [numbers-100-10000, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "この ぼうしは ごひゃくえんだ。", en: "This hat is 500 yen", exercises: [numbers-100-10000, desu-copula], mode: build }
+      - { kind: sentence, ja: "あの かばんは さんびゃくえんだ。", en: "That bag is 300 yen", exercises: [numbers-100-10000, kono-sono-ano-dono], mode: listening }
+      - { kind: sentence, ja: "この えんぴつは ひゃくえんだけど あの えんぴつは よんひゃくえんだ。", en: "This pencil is 100 yen, but that pencil is 400 yen", exercises: [numbers-100-10000, kedo], mode: build }
+      - { kind: sentence, ja: "この とけいの ほうが あの とけいより たかい。", en: "This watch is more expensive than that watch", exercises: [yori-comparison, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "あの めがねは きゅうひゃくえんだから かう。", en: "Those glasses are 900 yen, so I'll buy them", exercises: [numbers-100-10000, kara-because, dictionary-form], mode: build }
+      - { kind: sentence, ja: "この ぼうしは ごひゃくえんだ。", en: "Say to a friend: This hat is 500 yen", exercises: [numbers-100-10000], mode: translate }
+      - { kind: particle-cloze, stem: "この じしょは ", tail: "えんだ。", answer: "ろっぴゃく", options: ["ろっぴゃく", "さんびゃく", "はっぴゃく"], en: "This dictionary is 600 yen", explanation: "600 is ろっぴゃく — ろく hardens ひゃく into ぴゃく and doubles the sound in front of it. さんびゃく is 300 and はっぴゃく is 800." }
+      - { kind: listening-comp, audio: "きっぷは はっぴゃくえんだから かわない。", answer: "The ticket is 800 yen, so I won't buy it", distractors: ["The ticket is 300 yen, so I won't buy it", "The ticket is 800 yen, so I'll buy it", "The ticket is 600 yen, so I won't buy it"], exercises: [numbers-100-10000, kara-because] }
+      - { kind: listening-comp, audio: "あの めがねは きゅうひゃくえんだから かう。", answer: "Those glasses are 900 yen, so I'll buy them", distractors: ["Those glasses are 900 yen, so I won't buy them", "That watch is 900 yen, so I'll buy it", "Those glasses are 500 yen, so I'll buy them"], exercises: [numbers-100-10000, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "この ぼうしは いくら？", en: "How much is this hat?" }
+          - { speaker: "Mika", ja: "ごひゃくえんだ。あの ぼうしは はっぴゃくえんだ。", en: "It's 500 yen. That hat over there is 800 yen." }
+        questions:
+          - { q: "How much is the hat over there?", options: ["800 yen", "500 yen", "300 yen", "600 yen"], answer: "800 yen" }
+      - { kind: challenge, ja: "この えんぴつの ほうが あの えんぴつより やすいから ひゃくえんの えんぴつを かう。", en: "This pencil is cheaper than that pencil, so I'll buy the 100 yen one", combines: [numbers-100-10000, yori-comparison, kara-because, no-possession], mode: build }
+    reviewPool: [じしょ, きっぷ, ぼうし, えんぴつ, めがね, とけい, かばん, えん, いくら, みせ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-5
+    role: teaching
+    title: "「いくら？」 — thousands, and what things cost"
+    focus: "せん, まん and the two cells that shift — さんぜん and はっせん — spent on prices"
+    introduces: [せん, まん, さんぜん, はっせん]
+    beats:
+      - { kind: rule, grammarPointId: ikura-price }
+      - { kind: sentence, ja: "この かばんは いくら？", en: "How much is this bag", exercises: [ikura-price, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "せん ごひゃくえんだ。", en: "It's 1,500 yen", exercises: [ikura-price, numbers-100-10000], mode: build }
+      - { kind: sentence, ja: "この くつは さんぜんえんだけど あの くつは はっせんえんだ。", en: "These shoes are 3,000 yen, but those shoes are 8,000 yen", exercises: [ikura-price, kedo], mode: build }
+      - { kind: sentence, ja: "あの カメラは はっせんえんだ。", en: "That camera is 8,000 yen", exercises: [ikura-price, kono-sono-ano-dono], mode: listening }
+      - { kind: sentence, ja: "この じてんしゃは いちまんえんだから かわない。", en: "This bike is 10,000 yen, so I won't buy it", exercises: [ikura-price, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "この カメラの ほうが あの カメラより さんぜんえん たかい。", en: "This camera is 3,000 yen more expensive than that camera", exercises: [ikura-price, yori-comparison, numbers-100-10000], mode: build }
+      - { kind: sentence, ja: "この とけいは よんせんえんだから かう。", en: "This watch is 4,000 yen, so I'll buy it", exercises: [ikura-price, kara-because, dictionary-form], mode: build }
+      - { kind: sentence, ja: "この かばんは いくら？", en: "Say to a friend: How much is this bag", exercises: [ikura-price], mode: translate }
+      - { kind: particle-cloze, stem: "この くつは ", tail: "えんだ。", answer: "さんぜん", options: ["さんぜん", "はっせん", "さんびゃく"], en: "These shoes are 3,000 yen", explanation: "3,000 is さんぜん — さん turns せん into ぜん. はっせん is 8,000 and さんびゃく is 300." }
+      - { kind: listening-comp, audio: "この じてんしゃは いちまんえんだから かわない。", answer: "This bike is 10,000 yen, so I won't buy it", distractors: ["This bike is 10,000 yen, so I'll buy it", "This bike is 1,000 yen, so I won't buy it", "This car is 10,000 yen, so I won't buy it"], exercises: [ikura-price, kara-because] }
+      - { kind: listening-comp, audio: "せん ごひゃくえんだ。", answer: "It's 1,500 yen", distractors: ["It's 1,000 yen", "It's 500 yen", "It's 5,100 yen"], exercises: [ikura-price, numbers-100-10000] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "その カメラは いくら？", en: "How much is that camera?" }
+          - { speaker: "Tom", ja: "はっせんえんだ。でも あの カメラの ほうが やすい。", en: "It's 8,000 yen. But that camera over there is the cheaper one." }
+        questions:
+          - { q: "What does Tom say about the camera over there?", options: ["It's the cheaper one", "It's 8,000 yen too", "It's the more expensive one", "He hasn't seen it"], answer: "It's the cheaper one" }
+      - { kind: challenge, ja: "この くつの ほうが あの くつより さんぜんえん たかいけど この くつを かう。", en: "These shoes are 3,000 yen more expensive than those shoes, but I'll buy these", combines: [ikura-price, yori-comparison, kedo, wo-object], mode: build }
+    reviewPool: [くつ, カメラ, じてんしゃ, とけい, かばん, えん, いくら, たかい, やすい, みせ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-6
+    role: teaching
+    title: "「たまごが さんこ」 — counting small things"
+    focus: "〜こ counts a small object, and the count stands before the verb, never in front of the noun"
+    introduces: [こ, たまご]
+    beats:
+      - { kind: rule, grammarPointId: counter-ko }
+      - { kind: sentence, ja: "たまごが さんこ ある。", en: "There are three eggs", exercises: [counter-ko, ga-existence, arimasu], mode: build }
+      - { kind: sentence, ja: "みせで たまごを ごこ かう。", en: "I'll buy five eggs at the shop", exercises: [counter-ko, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "きゅうりが よんこ あるけど たまごは ない。", en: "There are four cucumbers, but there are no eggs", exercises: [counter-ko, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "ももが ごこ ある。", en: "There are five peaches", exercises: [counter-ko, arimasu], mode: listening }
+      - { kind: sentence, ja: "たまごの ほうが ももより やすい。", en: "Eggs are cheaper than peaches", exercises: [counter-ko, yori-comparison], mode: build }
+      - { kind: sentence, ja: "かぎが さんこ あるから だいじょうぶだ。", en: "There are three keys, so it's fine", exercises: [counter-ko, kara-because, na-adj-present], mode: build }
+      - { kind: sentence, ja: "きのこが きゅうこ あるから りょうりを する。", en: "There are nine mushrooms, so I'll cook", exercises: [counter-ko, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "たまごが さんこ ある。", en: "Say to a friend: There are three eggs", exercises: [counter-ko], mode: translate }
+      - { kind: particle-cloze, stem: "たまごが ", tail: " ある。", answer: "さんこ", options: ["さんこ", "よんこ", "ごこ"], en: "There are three eggs", explanation: "three of a small object is さんこ — the number takes the counter こ and stands just before the verb. よんこ is four and ごこ is five." }
+      - { kind: listening-comp, audio: "きゅうりが よんこ あるけど たまごは ない。", answer: "There are four cucumbers, but there are no eggs", distractors: ["There are four eggs, but there are no cucumbers", "There are four cucumbers and four eggs", "There are five cucumbers, but there are no eggs"], exercises: [counter-ko, nai-existence] }
+      - { kind: listening-comp, audio: "みせで たまごを ごこ かう。", answer: "I'll buy five eggs at the shop", distractors: ["I'll buy three eggs at the shop", "I'll buy five peaches at the shop", "There are five eggs at the shop"], exercises: [counter-ko, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たまごは ある？", en: "Are there any eggs?" }
+          - { speaker: "Ken", ja: "うん さんこ ある。きゅうりも よんこ ある。", en: "Yeah, there are three. There are four cucumbers too." }
+        questions:
+          - { q: "How many cucumbers are there?", options: ["Four", "Three", "Five", "None"], answer: "Four" }
+      - { kind: challenge, ja: "ももが ごこ あるけど ももの ほうが きゅうりより たかいから きゅうりを かう。", en: "There are five peaches, but peaches are more expensive than cucumbers, so I'll buy cucumbers", combines: [counter-ko, yori-comparison, kara-because, kedo], mode: build }
+    reviewPool: [たまご, きゅうり, もも, かぎ, きのこ, みせ, りょうり, ごはん, やすい, たかい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-review-2
+    role: review
+    title: "Review — hundreds, prices and 〜こ"
+    focus: "The five cells that change sound, prices in えん, and counting small things"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この じしょは ろっぴゃくえんだ。", en: "This dictionary is 600 yen", exercises: [numbers-100-10000], mode: build }
+      - { kind: sentence, ja: "たまごが さんこ ある。", en: "There are three eggs", exercises: [counter-ko, arimasu], mode: build }
+      - { kind: sentence, ja: "この くつは さんぜんえんだけど あの くつは はっせんえんだ。", en: "These shoes are 3,000 yen, but those shoes are 8,000 yen", exercises: [ikura-price, kedo], mode: listening }
+      - { kind: sentence, ja: "きっぷは はっぴゃくえんだから かわない。", en: "The ticket is 800 yen, so I won't buy it", exercises: [numbers-100-10000, kara-because], mode: build }
+      - { kind: sentence, ja: "みせで たまごを ごこ かう。", en: "I'll buy five eggs at the shop", exercises: [counter-ko, de-action], mode: build }
+      - { kind: particle-cloze, stem: "きっぷは ", tail: "えんだ。", answer: "はっぴゃく", options: ["はっぴゃく", "ろっぴゃく", "さんびゃく"], en: "The ticket is 800 yen", explanation: "800 is はっぴゃく — はち hardens ひゃく into ぴゃく and doubles the sound in front of it. ろっぴゃく is 600 and さんびゃく is 300." }
+      - { kind: sentence, ja: "この じてんしゃは いちまんえんだから かわない。", en: "This bike is 10,000 yen, so I won't buy it", exercises: [ikura-price, kara-because], mode: build }
+      - { kind: listening-comp, audio: "きのこが きゅうこ あるから りょうりを する。", answer: "There are nine mushrooms, so I'll cook", distractors: ["There are nine cucumbers, so I'll cook", "There are five mushrooms, so I'll cook", "There are nine mushrooms, so I'll go shopping"], exercises: [counter-ko, kara-because] }
+      - { kind: sentence, ja: "たまごの ほうが ももより やすい。", en: "Eggs are cheaper than peaches", exercises: [counter-ko, yori-comparison], mode: build }
+      - { kind: sentence, ja: "この かばんは いくら？", en: "Say to a friend: How much is this bag", exercises: [ikura-price], mode: translate }
+      - { kind: listening-comp, audio: "この カメラの ほうが あの カメラより さんぜんえん たかい。", answer: "This camera is 3,000 yen more expensive than that camera", distractors: ["That camera is 3,000 yen more expensive than this camera", "This camera is 3,000 yen cheaper than that camera", "This camera is 300 yen more expensive than that camera"], exercises: [ikura-price, yori-comparison] }
+      - { kind: sentence, ja: "かぎが さんこ あるから だいじょうぶだ。", en: "There are three keys, so it's fine", exercises: [counter-ko, kara-because], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きゅうりは いくら？", en: "How much are the cucumbers?" }
+          - { speaker: "Mika", ja: "よんこで さんびゃくえんだ。ももより やすい。", en: "Four of them are 300 yen. Cheaper than peaches." }
+        questions:
+          - { q: "What does Mika say about the cucumbers?", options: ["Four are 300 yen, cheaper than peaches", "Four are 300 yen, more expensive than peaches", "Three are 400 yen", "They cost the same as peaches"], answer: "Four are 300 yen, cheaper than peaches" }
+    reviewPool: [じしょ, きっぷ, くつ, カメラ, じてんしゃ, たまご, きゅうり, もも, かぎ, きのこ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-7
+    role: teaching
+    title: "「としょかんの ほうが しずかだ」 — な-adjectives compare too"
+    focus: "な-adjectives still need だ, and ほう/より change nothing about them"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: na-adj-present }
+      - { kind: sentence, ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop", exercises: [na-adj-present, yori-comparison], mode: build }
+      - { kind: sentence, ja: "みせは としょかんより にぎやかだ。", en: "The shop is livelier than the library", exercises: [na-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "この えいがの ほうが ゆうめいだ。", en: "This film is the more famous one", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "すしの ほうが すきだから すしを たべる。", en: "Sushi is the one I like more, so I'll eat sushi", exercises: [na-adj-present, suki-kirai-no, kara-because], mode: listening }
+      - { kind: sentence, ja: "きょうの ほうが きのうより ひまだ。", en: "Today is freer than yesterday", exercises: [na-adj-present, yori-comparison], mode: build }
+      # じかん is the ONE under-exposed CEJC top-150 word `exposure-audit`
+      # hands to m20 (#130, seen once in the whole course before this) — inv 27.
+      - { kind: sentence, ja: "きょうの ほうが きのうより じかんが ある。", en: "I have more time today than yesterday", exercises: [yori-comparison, ga-existence, arimasu], mode: build }
+      - { kind: sentence, ja: "この カメラの ほうが あの カメラより きれいだ。", en: "This camera is nicer-looking than that camera", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "としょかんの ほうが しずかだけど きっさてんに いく。", en: "The library is the quieter one, but I'll go to the coffee shop", exercises: [na-adj-present, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "みせは としょかんより にぎやかだ。", en: "Say to a friend: The shop is livelier than the library", exercises: [na-adj-present], mode: translate }
+      - { kind: particle-cloze, stem: "としょかんの ほうが きっさてんより ", tail: "。", answer: "しずかだ", options: ["しずかだ", "にぎやかだ", "ゆうめいだ"], en: "The library is quieter than the coffee shop", explanation: "しずかだ is quiet — and it keeps its だ, because a な-adjective cannot finish a sentence on its own. にぎやかだ is lively and ゆうめいだ is famous." }
+      - { kind: listening-comp, audio: "みせは としょかんより にぎやかだ。", answer: "The shop is livelier than the library", distractors: ["The library is livelier than the shop", "The shop is quieter than the library", "The shop is more famous than the library"], exercises: [na-adj-present, wa-topic] }
+      - { kind: listening-comp, audio: "きょうの ほうが きのうより ひまだ。", answer: "Today is freer than yesterday", distractors: ["Yesterday was freer than today", "Today is busier than yesterday", "Tomorrow is freer than today"], exercises: [na-adj-present, yori-comparison] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きっさてんと としょかんと どっちが しずか？", en: "Which is quieter, the coffee shop or the library?" }
+          - { speaker: "Mika", ja: "としょかんの ほうが しずかだ。でも きっさてんの ほうが ちかい。", en: "The library is the quieter one. But the coffee shop is the closer one." }
+        questions:
+          - { q: "What does Mika say about the coffee shop?", options: ["It's the closer one", "It's the quieter one", "It's both closer and quieter", "She never goes there"], answer: "It's the closer one" }
+      - { kind: challenge, ja: "としょかんの ほうが しずかだと おもうけど きっさてんの ほうが ちかい。", en: "I think the library is the quieter one, but the coffee shop is the closer one", combines: [na-adj-present, to-omoimasu, kedo, yori-comparison], mode: build }
+    reviewPool: [としょかん, きっさてん, みせ, えいが, カメラ, しずか, にぎやか, ゆうめい, ひま, じかん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-8
+    role: teaching
+    title: "「どっちも たかいけど」 — both are, but one is more"
+    focus: "も on both halves says 'both'; けど then lets you pick the winner"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: mo-also }
+      - { kind: sentence, ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one", exercises: [mo-also, kedo, yori-comparison], mode: build }
+      - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "どっちも たかい。", en: "Both are expensive", exercises: [mo-also], mode: build }
+      - { kind: sentence, ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet", exercises: [mo-also, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Films and music are both interesting, but films are what I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "この かさも あの かさも ごひゃくえんだ。", en: "This umbrella and that umbrella are both 500 yen", exercises: [mo-also, numbers-100-10000], mode: build }
+      - { kind: sentence, ja: "たまごも きゅうりも やすいから みせで かう。", en: "Eggs and cucumbers are both cheap, so I'll buy them at the shop", exercises: [mo-also, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "きょうも あしたも じかんが ある。", en: "I have time both today and tomorrow", exercises: [mo-also, ga-existence, arimasu], mode: build }
+      - { kind: sentence, ja: "どっちも たかい。", en: "Say to a friend: Both are expensive", exercises: [mo-also], mode: translate }
+      # Content-word cloze, not a particle one: も was introduced in m3, so a
+      # true particle cloze on it would be a REVIEW use of the type — banned by
+      # inv 5 and by particleClozePlacement's ratchet. The frame still shows
+      # both も, which is the shape the lesson is about.
+      - { kind: particle-cloze, stem: "でんしゃも ", tail: "も たかい。", answer: "バス", options: ["バス", "ちかてつ", "じてんしゃ"], en: "The train and the bus are both expensive", explanation: "バス is the bus — and notice も sits on BOTH halves, which is what makes it 'both … and …' rather than 'the train too'. ちかてつ is the subway and じてんしゃ a bike." }
+      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but sushi is the one I like more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both expensive, but I like sushi more"], exercises: [mo-also, kedo] }
+      - { kind: listening-comp, audio: "この かさも あの かさも ごひゃくえんだ。", answer: "This umbrella and that umbrella are both 500 yen", distractors: ["This umbrella is 500 yen, but that one isn't", "This umbrella and that umbrella are both 900 yen", "This umbrella and that bag are both 500 yen"], exercises: [mo-also, numbers-100-10000] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "この くつと あの くつと どっちが やすい？", en: "Which is cheaper, these shoes or those shoes?" }
+          - { speaker: "Tom", ja: "どっちも さんぜんえんだ。でも この くつの ほうが あたらしい。", en: "They're both 3,000 yen. But these shoes are the newer ones." }
+        questions:
+          - { q: "What does Tom say about the two pairs of shoes?", options: ["They cost the same", "These shoes are cheaper", "Those shoes are cheaper", "He doesn't know the price"], answer: "They cost the same" }
+      - { kind: challenge, ja: "たまごも ももも ごこ あるけど ももの ほうが たまごより たかい。", en: "There are five eggs and five peaches, but peaches are more expensive than eggs", combines: [mo-also, counter-ko, kedo, yori-comparison], mode: build }
+    reviewPool: [でんしゃ, バス, すし, とりにく, えいが, おんがく, かさ, くつ, たまご, じかん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-9
+    role: teaching
+    title: "「どちらが やすいですか」 — asking a stranger which"
+    focus: "どちら is どっち's polite twin, and a polite question still requires か"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      - { kind: sentence, ja: "どちらが やすいですか。", en: "Say politely: Which one is cheaper", exercises: [masu-present, to-and, ka-question], mode: build }
+      - { kind: sentence, ja: "この かばんと あの かばんと どちらが おおきいですか。", en: "Say politely: Which bag is bigger, this one or that one", exercises: [masu-present, to-and, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "こちらの ほうが あたらしいです。", en: "Say politely: This one is the newer one", exercises: [masu-present, yori-comparison], mode: build }
+      - { kind: sentence, ja: "この ほんの ほうが たかいですか。", en: "Say politely: Is this book the more expensive one", exercises: [masu-present, yori-comparison, ka-question], mode: listening }
+      - { kind: sentence, ja: "すみません この とけいは いくらですか。", en: "Say politely: Excuse me, how much is this watch", exercises: [masu-present, ikura-price], mode: translate }
+      - { kind: sentence, ja: "その カメラの ほうが やすいですか。", en: "Say politely: Is that camera the cheaper one", exercises: [masu-present, yori-comparison, ka-question], mode: build }
+      - { kind: sentence, ja: "この くつは はっせんえんですか。", en: "Say politely: Are these shoes 8,000 yen", exercises: [masu-present, ikura-price, ka-question], mode: build }
+      - { kind: sentence, ja: "どっちが やすい？", en: "Say to a friend: Which is the cheaper one", exercises: [to-and], mode: build }
+      - { kind: particle-cloze, stem: "どちらが ", tail: "。", answer: "やすいですか", options: ["やすいですか", "やすいです", "やすい"], en: "Say politely: Which one is cheaper?", explanation: "a polite QUESTION needs both halves — です for the register and か to make it a question. やすいです is a polite statement, and やすい on its own is what you say to a friend." }
+      - { kind: listening-comp, audio: "その カメラの ほうが やすいですか。", answer: "Is that camera the cheaper one?", distractors: ["Is that camera the more expensive one?", "Is this camera the cheaper one?", "Is that watch the cheaper one?"], exercises: [masu-present, to-and] }
+      - { kind: listening-comp, audio: "こちらの ほうが あたらしいです。", answer: "This one is the newer one", distractors: ["That one is the newer one", "This one is the cheaper one", "This one is the older one"], exercises: [masu-present, yori-comparison] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "すみません この かさと あの かさと どちらが やすいですか。", en: "Excuse me, which umbrella is cheaper, this one or that one?" }
+          - { speaker: "Tanaka", ja: "こちらの ほうが やすいです。ごひゃくえんです。", en: "This one is the cheaper one. It's 500 yen." }
+        questions:
+          - { q: "What does Tanaka say?", options: ["This one is cheaper, at 500 yen", "That one is cheaper, at 500 yen", "This one is cheaper, at 800 yen", "Both cost the same"], answer: "This one is cheaper, at 500 yen" }
+      - { kind: challenge, ja: "すみません この とけいと あの とけいと どちらが あたらしいですか。", en: "Say politely: Excuse me, which watch is newer, this one or that one", combines: [masu-present, to-and, ka-question, kono-sono-ano-dono], mode: build }
+    reviewPool: [かばん, かさ, とけい, カメラ, くつ, ほん, みせ, すみません, こちら, えん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-review-3
+    role: review
+    title: "Review — comparing anything, in either register"
+    focus: "ほうが and より, どっち and どちら, both-and-but, prices and counts in one pass"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop", exercises: [na-adj-present, yori-comparison], mode: build }
+      - { kind: sentence, ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one", exercises: [mo-also, kedo], mode: build }
+      - { kind: sentence, ja: "どちらが やすいですか。", en: "Say politely: Which one is cheaper", exercises: [masu-present, ka-question], mode: listening }
+      - { kind: sentence, ja: "たまごが さんこ ある。", en: "There are three eggs", exercises: [counter-ko, arimasu], mode: build }
+      - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "The station is closer than the school", exercises: [wa-topic, yori-comparison], mode: build }
+      - { kind: particle-cloze, stem: "としょかんの ほうが きっさてんより ", tail: "。", answer: "しずかだ", options: ["しずかだ", "にぎやかだ", "ちかい"], en: "The library is quieter than the coffee shop", explanation: "しずかだ is quiet, and it keeps its だ. にぎやかだ is its opposite and ちかい is about distance." }
+      - { kind: sentence, ja: "この くつは さんぜんえんだけど あの くつは はっせんえんだ。", en: "These shoes are 3,000 yen, but those shoes are 8,000 yen", exercises: [ikura-price, kedo], mode: build }
+      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but sushi is the one I like more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both cheap, but I like sushi more"], exercises: [mo-also, kedo] }
+      - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Which is more expensive, the train or the bus", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "どっちも たかい。", en: "Say to a friend: Both are expensive", exercises: [mo-also], mode: translate }
+      - { kind: listening-comp, audio: "きっぷは はっぴゃくえんだから かわない。", answer: "The ticket is 800 yen, so I won't buy it", distractors: ["The ticket is 800 yen, so I'll buy it", "The ticket is 600 yen, so I won't buy it", "The bag is 800 yen, so I won't buy it"], exercises: [numbers-100-10000, kara-because] }
+      - { kind: sentence, ja: "こちらの ほうが あたらしいです。", en: "Say politely: This one is the newer one", exercises: [masu-present, yori-comparison], mode: build }
+      - { kind: sentence, ja: "きょうも あしたも じかんが ある。", en: "I have time both today and tomorrow", exercises: [mo-also, arimasu], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この かばんと あの かばんと どっちが やすい？", en: "Which bag is cheaper, this one or that one?" }
+          - { speaker: "Ken", ja: "あの かばんの ほうが やすい。さんびゃくえんだ。", en: "That bag is the cheaper one. It's 300 yen." }
+        questions:
+          - { q: "How much is the cheaper bag?", options: ["300 yen", "600 yen", "800 yen", "3,000 yen"], answer: "300 yen" }
+    reviewPool: [としょかん, きっさてん, でんしゃ, バス, たまご, えき, がっこう, くつ, じかん, きっぷ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m20-neo-challenge
+    role: challenge
+    title: "Challenge — pick one and say why"
+    focus: "End-of-module stretch: two things, a price, a count and a reason in one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ちかてつの ほうが バスより やすいから ちかてつで だいがくに いく。", en: "The subway is cheaper than the bus, so I'll go to the university by subway", exercises: [yori-comparison, kara-because, de-action, ni-location], mode: build }
+      - { kind: sentence, ja: "この カメラは はっせんえんだけど あの カメラの ほうが きれいだ。", en: "This camera is 8,000 yen, but that camera is the nicer-looking one", exercises: [ikura-price, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "たまごも きゅうりも よんこ あるから りょうりを する。", en: "There are four eggs and four cucumbers, so I'll cook", exercises: [mo-also, counter-ko, kara-because], mode: listening }
+      - { kind: sentence, ja: "としょかんは きっさてんより とおいけど としょかんの ほうが しずかだ。", en: "The library is farther than the coffee shop, but the library is the quieter one", exercises: [wa-topic, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "きっぷは ろっぴゃくえんだから じてんしゃで えきに いく。", en: "The ticket is 600 yen, so I'll go to the station by bike", exercises: [numbers-100-10000, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "すみません この かさと あの かさと どちらが やすいですか。", en: "Say politely: Excuse me, which umbrella is cheaper, this one or that one", exercises: [masu-present, to-and, ka-question], mode: build }
+      - { kind: sentence, ja: "でんしゃと バスと どっちが やすいと おもう？", en: "Say to a friend: Which do you think is cheaper, the train or the bus", exercises: [to-and, to-omoimasu], mode: translate }
+      - { kind: particle-cloze, stem: "この くつの ほうが あの くつ", tail: " たかい。", answer: "より", options: ["より", "を", "から"], en: "These shoes are more expensive than those shoes", explanation: "より marks the pair's loser and sits straight after it. を marks a thing you act on and から marks a starting point." }
+      - { kind: listening-comp, audio: "みせは としょかんより にぎやかだ。", answer: "The shop is livelier than the library", distractors: ["The library is livelier than the shop", "The shop is quieter than the library", "The shop is farther than the library"], exercises: [wa-topic, na-adj-present] }
+      - { kind: listening-comp, audio: "たまごの ほうが ももより やすい。", answer: "Eggs are cheaper than peaches", distractors: ["Peaches are cheaper than eggs", "Eggs are more expensive than peaches", "Eggs are cheaper than cucumbers"], exercises: [yori-comparison, counter-ko] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "でんしゃと ちかてつと どちらが やすいですか。", en: "Which is cheaper, the train or the subway?" }
+          - { speaker: "Ken", ja: "ちかてつの ほうが やすいです。でも でんしゃの ほうが ちかいです。", en: "The subway is the cheaper one. But the train is the closer one." }
+        questions:
+          - { q: "What does Ken say about the train?", options: ["It's the closer one", "It's the cheaper one", "It's both cheaper and closer", "He doesn't take it"], answer: "It's the closer one" }
+      - { kind: challenge, ja: "ももの ほうが たまごより たかいけど ももが ごこ あるから ももを たべる。", en: "Peaches are more expensive than eggs, but there are five peaches, so I'll eat peaches", combines: [yori-comparison, counter-ko, kedo, kara-because, wo-object], mode: build }
+    reviewPool: [ちかてつ, バス, でんしゃ, カメラ, たまご, きゅうり, もも, としょかん, きっさてん, きっぷ]

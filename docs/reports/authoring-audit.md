@@ -21,10 +21,11 @@ guide or the compiler, not the modules one at a time.**
 | m17 | 234 | 11.3% | 10 | 1 |
 | m18 | 234 | 12.0% | 12 | 1 |
 | m19 | 234 | 12.4% | 11 | 1 |
+| m20 | 234 | 11.5% | 11 | 1 |
 
 ## Systemic — fix upstream, not per module
 
-- **inv 35 build-tile-distractors** flagged in 14 modules
+- **inv 35 build-tile-distractors** flagged in 15 modules
 
 ## Findings by module
 
@@ -84,3 +85,7 @@ guide or the compiler, not the modules one at a time.**
 ### m19
 
 - **inv 35 build-tile-distractors** — 103 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
+
+### m20
+
+- **inv 35 build-tile-distractors** — 106 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").

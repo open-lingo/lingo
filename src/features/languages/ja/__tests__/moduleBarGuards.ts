@@ -20,7 +20,7 @@
  */
 import { describe, it, expect } from "vitest";
 import type { LessonContent } from "@/features/lesson/types";
-import { JA_COURSE_ATOMS } from "../courseAtoms";
+import { JA_COURSE_ATOMS, JA_COURSE_ATOMS_BY_KANA } from "../courseAtoms";
 import { M3_M7_REVIEW_POOL } from "../grammarHelpers";
 import { getRealFormLexicon } from "./moduleContentLints";
 import {
@@ -424,7 +424,20 @@ export function registerModuleBarGuards(opts: {
             // HIDE-THE-OLD-COURSE: a word the learner already knows from a
             // prior NEO module (in PRIOR) is not "module-new" no matter what
             // its stale old-course fromModule tag says (えき/います false-flag).
-            !PRIOR.has(a.kana),
+            !PRIOR.has(a.kana) &&
+            // HOMOGRAPH LOSER (2026-07-27, m20): a bare kana means exactly ONE
+            // atom — that is what JA_PRIMARY_ATOM_BY_KANA decides, and
+            // `JA_COURSE_ATOMS_BY_KANA` is the resolved answer. 歯 "tooth"
+            // shares は with the TOPIC PARTICLE and carries a stale
+            // old-course m20 tag, so every は the tokenizer emits (i.e. every
+            // lesson in the course) read as 歯 debuting on whatever step came
+            // first. The atom the kana does NOT resolve to can never be
+            // identified by a token, so requiring it to debut on a picture MCQ
+            // is a false positive by construction. Same class as the m18 fix
+            // that made this check tokenize instead of substring-match, and
+            // the length-1 escape used elsewhere cannot help here because the
+            // atom IS one character.
+            JA_COURSE_ATOMS_BY_KANA.get(a.kana)?.id === a.id,
         );
         const firstType = new Map<string, string>();
         for (const lesson of lessons) {

@@ -744,7 +744,20 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
 
     /** This lesson's own sentences, so filler can re-present them in another
      *  modality — same concepts, different context (Spencer 2026-07-26) —
-     *  instead of padding with unrelated single words. */
+     *  instead of padding with unrelated single words.
+     *
+     *  `en` here is the MEANING, not the beat's prompt. A beat's `en` IS its
+     *  prompt (inv 39), so it may open with a register cue — "Say politely: I
+     *  work from nine" (inv 8). Filler re-presents the sentence as a
+     *  listening-comprehension item asking "What does this sentence mean?",
+     *  and a directive addressed to the speaker is not a meaning: 164 options
+     *  across m5-m20 read "Say politely: …" as an answer to that question,
+     *  which is both wrong and a giveaway (only the authored sentence carries
+     *  a cue, so the cued option stands out). Strip the cue where the text
+     *  changes job; the build prompt keeps it. A colon is required, so a
+     *  sentence that genuinely MEANS "Say it one more time." is untouched. */
+    const meaningOf = (en: string): string =>
+      en.replace(/^(?:Say|Ask|Answer|Reply|Tell)\b[^:]{0,40}:\s*/i, "").trim() || en;
     const sentencePairs: { ja: string; en: string }[] = [];
     const ruleSteps: LessonStep[] = [];
     const body: LessonStep[] = [];
@@ -849,7 +862,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             : beat.kind === "capstone"
               ? `${lid}-capstone`
               : sid("s");
-        sentencePairs.push({ ja: clean(beat.ja), en: beat.en });
+        sentencePairs.push({ ja: clean(beat.ja), en: meaningOf(beat.en) });
         const ex = exercised(beat.ja);
         let step: LessonStep;
         if (beat.mode === "translate") {

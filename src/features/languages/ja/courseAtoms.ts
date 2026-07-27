@@ -1123,6 +1123,28 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "fun-counter", kana: "ふん", romaji: "fun", meaningEn: "minutes (after 2, 5, 7, 9)", shortGloss: "minutes", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "bound minute counter — no concrete referent of its own" },
   { id: "pun-counter", kana: "ぷん", romaji: "pun", meaningEn: "minutes (after 1, 3, 4, 6, 8, 10)", shortGloss: "minutes -pun", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "the rendaku half of the minute counter" },
   { id: "juppun", kana: "じゅっぷん", romaji: "juppun", meaningEn: "ten minutes", shortGloss: "ten minutes", fromModule: "m19", introducedByLessonId: "ja-m19-neo-5", kind: "vocab", blocked: true, note: "geminating cell — じゅっ decomposes to nothing, so the whole form is the atom" },
+  // ── m20-neo (tile n09) — Comparisons I: のほうが…より ──
+  // EIGHT registrations. Every other atom m20 declares already HAS a row —
+  // ちかい/とおい (m6), どっち/どちら, せん/まん (m14), たまご (m21) — so
+  // declaring those in the IR only fixes their PROVENANCE; it does not touch
+  // tiling.
+  // Retokenization check (inv 41 + the m16-ので trap), run against a dump of
+  // every compiled tile in the course BEFORE shipping, because a new short
+  // atom re-tokenizes the WHOLE course: ほう and より occur in no curriculum
+  // surface and inside no registered atom. こ is the dangerous one — one
+  // character — but longest-match-first means it can only win where nothing
+  // longer matched, and every こ-bearing atom in the registry (ここ, これ,
+  // この, こと, こない, こえ, こめ, こうえん, きのこ, ねこ, こちら, けっこう,
+  // がっこう …) is strictly longer and is consumed whole. The five
+  // hundred/thousand cells are 4-5 kana and are substrings of nothing.
+  { id: "hou", kana: "ほう", romaji: "hou", meaningEn: "the more ~ one, this side", shortGloss: "the ~ one", fromModule: "m20", introducedByLessonId: "ja-m20-neo-1", kind: "vocab", blocked: true, note: "comparison noun — abstract, no referent a picture could name" },
+  { id: "p-yori", kana: "より", romaji: "yori", meaningEn: "than (in a comparison)", shortGloss: "than", fromModule: "m20", introducedByLessonId: "ja-m20-neo-1", kind: "particle", blocked: true, note: "comparison particle — marks the LOSER of the comparison" },
+  { id: "ko-counter", kana: "こ", romaji: "ko", meaningEn: "counter for small objects", shortGloss: "-ko counter", fromModule: "m20", introducedByLessonId: "ja-m20-neo-6", kind: "vocab", blocked: true, note: "bound generic counter — no concrete referent of its own" },
+  { id: "sanbyaku", kana: "さんびゃく", romaji: "sanbyaku", meaningEn: "three hundred", shortGloss: "300", fromModule: "m20", introducedByLessonId: "ja-m20-neo-4", kind: "vocab", blocked: true, note: "sound-change cell — さん + ひゃく never surfaces, so the whole form is the atom" },
+  { id: "roppyaku", kana: "ろっぴゃく", romaji: "roppyaku", meaningEn: "six hundred", shortGloss: "600", fromModule: "m20", introducedByLessonId: "ja-m20-neo-4", kind: "vocab", blocked: true, note: "geminating sound-change cell — ろっ decomposes to nothing" },
+  { id: "happyaku", kana: "はっぴゃく", romaji: "happyaku", meaningEn: "eight hundred", shortGloss: "800", fromModule: "m20", introducedByLessonId: "ja-m20-neo-4", kind: "vocab", blocked: true, note: "geminating sound-change cell — はっ decomposes to nothing" },
+  { id: "sanzen", kana: "さんぜん", romaji: "sanzen", meaningEn: "three thousand", shortGloss: "3000", fromModule: "m20", introducedByLessonId: "ja-m20-neo-5", kind: "vocab", blocked: true, note: "sound-change cell — さん + せん never surfaces" },
+  { id: "hassen", kana: "はっせん", romaji: "hassen", meaningEn: "eight thousand", shortGloss: "8000", fromModule: "m20", introducedByLessonId: "ja-m20-neo-5", kind: "vocab", blocked: true, note: "geminating sound-change cell — はっ decomposes to nothing" },
 ];
 
 /**

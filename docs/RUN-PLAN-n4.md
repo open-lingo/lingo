@@ -25,7 +25,7 @@ partial success has burned this project repeatedly.
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
 m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11 · m16 s13 · m17 n07 ·
-m18 n08 · m19 s15.
+m18 n08 · m19 s15 · m20 n09.
 
 | m | unit | title |
 |---|---|---|
@@ -79,9 +79,9 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 |
-| N5 grammar points left | **27** of 103 (was 74 at run start) |
-| suite | 6840 passing, 0 failing |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 |
+| N5 grammar points left | **24** of 103 (was 74 at run start) |
+| suite | 6985 passing, 0 failing |
 | translate share | 8.1–13.6% (ceiling 15%) |
 | distinct step types | 10–12 per module |
 | audit findings | 1 per module — the course-wide inv-35 debt only (m10 has 2: its register single-tile builds, by design) |
@@ -248,7 +248,7 @@ teaches four counters at once is a table, not a lesson).
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono | ✅
 | 18 | to-omoimasu to-quotation kanji-set-1 | ✅
 | 19 | e-direction ni-iku made-ni kara-time **counter-fun** | ✅
-| 20 | yori-comparison numbers-100-10000 counter-ko |
+| 20 | yori-comparison numbers-100-10000 counter-ko | ✅
 | 21 | ya-incomplete-list to-and tari-tari-suru counter-hon |
 | 22 | ga-itai frequency-adverbs counter-hai |
 | 23 | koto-ga-aru tsumori-desu kanji-set-2 |
@@ -374,6 +374,140 @@ comprehensibility gate resolves every word through `courseAtoms` — and the
 character names have no atom rows. So a cloze frame must not contain ミカ / トム
 / ケン / たなか, or it lands in GATE_EXEMPTIONS. m19's へ cloze says 「きょうは
 うみへ いく」 for that reason.
+
+**A NINTH note, m20 (2026-07-27) — the ledger row is unchanged and there is
+NO spine deviation.** spinePlan n09 asks for "AのほうがBより pattern; ほう (#66)
+taught AS VOCAB with it", "どっち (casual) / どちら (polite) — register pair" and
+"⟳ intro beat — いちばん superlatives deepen later". All of it ships, and
+**いちばん is deliberately ABSENT**: n09 is the INTRO beat of the comparison
+spiral and n14 (m26) is its deepen beat, which is the whole point of the s20
+split. `ichiban-superlative` keeps its m26 row. Six points are RE-TAUGHT rather
+than re-assigned, because the row owes only three ids across nine teaching
+lessons and inv 42 forbids inventing new ones: `wa-topic` (m3, the reduced
+「AはBより〜」), `to-and` (m8, the closed pair a comparison question asks about),
+`ikura-price` (m9, prices as the only place a beginner meets thousands),
+`na-adj-present` (m12, な-adjectives keeping だ inside the frame), `mo-also`
+(m3, 「AもBも〜けど」 as the concession move) and `masu-present` (m7, どちら's
+register home). No ledger row moved.
+
+**はやい is NOT taught, and the m20 brief's headline sentence 「でんしゃの ほうが
+バスより はやい」 does not ship.** はやい is a homograph with a course-wide ruling
+against it: `JA_PRIMARY_ATOM_BY_KANA` resolves the bare kana to `hayai-early`
+(早い "early", ⏰) rather than `hayai` (速い "quick", 💨). A はやい surface glossed
+"fast" would therefore credit SRS to the wrong sense — the はな/鼻 class — and ⏰
+already belongs to MET じかん and いま, so an image debut would draw distractors
+that name the picture better than the answer does. Flipping the ruling to suit
+one module is not a guard fix in the false-positive direction, so it was not
+done; **ちかい 📍 and とおい 🔭 carry the comparison instead**, alongside the
+prior adjective stock.
+
+**Numbers: the five sound-change cells are WHOLE ATOMS, the regular ones
+COMPOSE.** さんびゃく / ろっぴゃく / はっぴゃく / さんぜん / はっせん do not
+decompose (さん + ひゃく never surfaces; ろっ and はっ are not atoms), so each
+gets a row — the same call m19 made for じゅっぷん, and it also means さん never
+tokenizes out of them, so 三 is never mis-credited. Everything regular builds
+from a number the learner owns: 「ごひゃくえん」, 「きゅうひゃく」, 「よんせん」,
+「いちまん」. **にひゃく / にせん / にこ are banned** for the documented に/二
+reason. The 〜こ cells that geminate — いっこ / ろっこ / はっこ / じゅっこ — are
+PROSE ONLY (mixed script, invisible to `jaSurfaces`), exactly as m17 handled
+issai/hassai/jussai and m19 ippun/roppun/happun. `m20-neo.test.ts` carries a
+guard that reads every 〜ひゃく/〜びゃく/〜ぴゃく/〜せん/〜ぜん surface and checks
+the counter against the number in front of it.
+
+**EIGHT new courseAtoms rows — ほう, より, こ, さんびゃく, ろっぴゃく, はっぴゃく,
+さんぜん, はっせん — and all eight were checked for retokenization damage FIRST
+(the m16-ので class), by dumping every compiled tile in the whole ja course
+before and after registering them.** The diff was confined to m30's seeded
+distractor slots; zero tokenization changed anywhere. **こ is the one-character
+case the trap list warns about**, and it is safe only because the tokenizer is
+longest-match-first: every こ-bearing atom in the registry (ここ / これ / この /
+こと / こない / こえ / こめ / こうえん / きのこ / ねこ / こちら / けっこう /
+がっこう / としょかん …) is strictly longer and is consumed whole. The other
+seven m20 atoms — ちかい / とおい (m6), どっち / どちら, せん / まん (m14),
+たまご (m21) — already had rows under stale tags and are declared in `newAtoms`
+only to fix their provenance, the m15-m19 move.
+
+**Words avoided on purpose, and why the reason is mechanical.** せんせい appears
+NOWHERE in m20: the bulk audit's debut check is token-INITIAL
+(`tok.startsWith(kana)`), so a 「せんせい」 token would register as the debut of
+せん (1000) on whatever step happened to carry it. The same check is why L1's
+rule card deliberately contains 「この みせの ほうが やすい」 — it makes the
+FIRST こ-initial token in the module land on a grammar_rule, which is
+intro-capable. The stale old-course `fromModule: "m20"` tags on the archived
+Body & Health vocabulary (あし / いたい / みみ / くち / おなか / くすり / いしゃ
+/ びょうき / みがく / ひく / せっけん / ゆっくりと / たくさん / あたま — the
+spine rehomes that domain to s17 = m22) are avoided for the same class of
+reason.
+
+**THREE guards were adjusted, all removing FALSE positives only (m20):**
+(a) `moduleBarGuards`' image-first check now skips a HOMOGRAPH LOSER — an atom
+whose kana does not resolve to it through `JA_COURSE_ATOMS_BY_KANA`. 歯 "tooth"
+shares は with the TOPIC PARTICLE and carries a stale old-course m20 tag, so
+every は the tokenizer emits (i.e. every lesson in the course) read as 歯
+debuting on whatever step came first; an atom a token can never identify cannot
+have a debut to get wrong. Same class as the m18 fix that made this check
+tokenize instead of substring-match, and the length-1 escape used elsewhere
+cannot help because the atom IS one character. (b) `particleTileSeparation`'s
+LEXICALIZED allowlist gained この and こと — both only decompose because m20
+registers こ, both are tiled WHOLE by longest match, and neither is ever
+assembled from こ + a particle. Same class as the もも/もの entries already
+there. (c) `honorificAtomTagging`'s NUMERAL_CONTEXT gained こ, because
+「さんこ」 genuinely DOES exercise 三, exactly as 「さんぷん」/「さんまい」 do.
+**One guard was TIGHTENED**: `particleClozePlacement`'s PARTICLE_INTRO_MODULE
+had no entry for より at all, so `intro === undefined` made every より cloze in
+every module skip the ratchet; it now reads `より: 20`.
+
+**A COMPILER DEFECT was fixed at the source, and it was flagged in 15 modules
+(m20 cycle).** `reviewFiller`'s sentence-comprehension filler re-presents the
+lesson's own sentences as "What does this sentence mean?" items using the beat's
+`en` as the OPTION TEXT — but a beat's `en` IS its prompt (inv 39), so it may
+open with a register cue (inv 8). **164 listening-comp options across m5-m20 read
+"Say politely: …" as an answer to a meaning question**, which is both wrong and a
+giveaway, since only the authored sentence carries a cue. `sentencePairs` now
+stores a MEANING (`meaningOf` strips a `<Directive …>:` prefix); the build prompt
+keeps its cue. 164 → 2, and both survivors are colon-less m5/m8 authoring, not
+the systematic class. This is the RUN-PLAN's own 3+-modules rule applied.
+
+**`scripts/exposure-audit.mjs` IS BLIND TO EVERY IR MODULE, and the carrier note
+that opened this cycle was measured on a partial corpus.** It globs
+`curriculum/m*-neo*.ts`, which for m6-m20 are thin compiler wrappers containing
+no Japanese at all — so its "3336 surfaces" are m3/m4/m5/m30 only, and its one
+UNDER-exposed row (じかん #130 ×1) cannot move no matter what a later module
+does. m20 spends じかん anyway (three authored sentences plus three review
+pools, inv 27), but the SCRIPT needs to read `ir/*.ir.yaml` before its output
+means anything for m6+. Carried debt, not a module defect.
+
+**VERIFICATION OF THE m20 CYCLE (orchestrator, 2026-07-27).** Guard relaxations
+are where a bad call hides, so both course-wide changes were re-derived rather
+than accepted on the agent's report. (a) The `meaningOf` strip rewrites **640
+beats**, not the 164 quoted — that figure counted OPTIONS, a different
+denominator. Every one of the 640 removes a genuine register cue (checked by
+requiring the stripped prefix to name a register: politely / to a friend / to a
+teacher / …); **zero** strip real meaning, and the 15 colon-bearing survivors are
+all clock times (8:10, 7:05), correctly untouched. (b) The homograph-loser
+exemption lets through **exactly 17 atoms** — precisely the
+`JA_PRIMARY_ATOM_BY_KANA` ruling set, no more. Both accepted.
+
+**NEW GUARD — `homographTeaching.test.ts`, the other half of the exemption.**
+Relaxing image-first for losers is right (an atom no token can identify has no
+debut to get wrong), but it opens a hole: a module could now teach 「あめ =
+candy」 and the guard would stay silent, while the tokenizer credited 雨 "rain".
+The lesson would render perfectly, mark the learner correct, and schedule the
+wrong atom — 飴 could never come up for review, because nothing can reference it.
+So image-first stops demanding the impossible and this stops anyone authoring it:
+any `word_image_mcq` answering with a ruled kana must teach the sense the kana
+resolves to. It ships with a non-vacuity test (`sensesAgree("candy","rain")` is
+false) because the course currently has no offenders and a guard that can only
+pass is worthless. **Standing consequence: a losing sense is UNTEACHABLE until
+the course has a disambiguation mechanism (a kanji surface, or a compound).**
+N4 health vocabulary wants かぜ "a cold" and は "tooth" — both losers — so this
+decision has to be made before that module, not during it.
+
+**GATE 7 recalibrated for m20, 0.53 → 0.76.** The old floor was measured on the
+archived Body & Health m20; the neo module measures 69/87 = .793, because a
+comparison names TWO things plus a predicate by construction and most beats hang
+a second clause on m16's から / けど. Raised, never lowered, per that block's own
+rule.
 
 **Carrier note for m20 (inv 27):** `exposure-audit` now reports exactly ONE
 under-exposed CEJC top-150 word, じかん (#130, ×1). It belongs in m20's tails
@@ -562,6 +696,10 @@ exactly where an unrecognized fragment was already being emitted.
   module m6–m11 — the IR has no field to express it. This is a COMPILER/IR gap,
   not a module defect; the 3+-modules rule says fix the tooling, not the
   content.
+- **`scripts/exposure-audit.mjs` reads only `curriculum/m*-neo*.ts`**, which are
+  thin compiler wrappers for every IR module (m6+). Point it at
+  `curriculum/ir/*.ir.yaml` too, or its UNDER/OVER rows keep describing a
+  four-module corpus (found in the m20 cycle).
 
 Untouched at run start (74): janai-desu kara-origin kudasai counter-nin
 dictionary-form kono-sono-ano-dono i-adj-present i-adj-negative to-and

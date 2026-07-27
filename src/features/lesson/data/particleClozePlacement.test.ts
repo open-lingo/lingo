@@ -11,7 +11,10 @@ import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
  * as content waves retire them; the test fails on any NEW late usage.
  */
 const PARTICLES = new Set(["は","が","を","に","で","と","へ","も","の","か","や","から","まで","より","ね","よ"]);
-const PARTICLE_INTRO_MODULE: Record<string, number> = {"か":3,"は":3,"も":3,"の":4,"が":4,"から":5,"に":6,"で":6,"を":7,"と":8,"よ":9,"ね":9,"まで":13,"へ":17,"や":21};
+// より added 2026-07-27 (m20, spine n09): it had NO entry, so `intro ===
+// undefined` made every より cloze in every module skip the ratchet entirely.
+// Naming its intro module is what lets the check actually run on it.
+const PARTICLE_INTRO_MODULE: Record<string, number> = {"か":3,"は":3,"も":3,"の":4,"が":4,"から":5,"に":6,"で":6,"を":7,"と":8,"よ":9,"ね":9,"まで":13,"へ":17,"より":20,"や":21};
 
 const LATE_PARTICLE_CLOZE_EXEMPTIONS = new Set([
   "ja-m10-1-1/ja-m10-1-1-cloze-wo",
