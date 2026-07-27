@@ -643,23 +643,19 @@ from courseAtoms attribution, but no NEO module has ever introduced them, and
 the taught-set the guards use comes from prior neo LESSONS. かいて would have
 been the natural fourth ramp verb.
 
-### Scheduled tooling fix — STEMS (do before m19)
+### Scheduled tooling fix — STEMS — SUPERSEDED, see "DONE — stems" below
 
-Two spine items have now been deferred for the same tooling reason, not a
-curriculum one: **m12 dropped 〜く なる** and **m13 dropped 〜に いく**. Both
-attach to a STEM (い-adj く-stem, verb ます-stem), and stems existed in no
-lexicon here, so the sentence read as an invented mutation.
+Deleted 2026-07-27 rather than left in place: this section still read
+"deliberately not done yet … must land before m19", which was true when written
+and false by the time m19 shipped. Two sections describing the same work in
+opposite tenses is the context-rot failure this run is supposed to be auditing,
+and a stale instruction is worse than no instruction — an agent reading top-down
+would have believed stems were still missing and re-deferred around them.
 
-Half-fixed 2026-07-27: `getRealFormLexicon()` now emits both stem families
-(いい → よく handled, since いく is a different verb). **The other half is the
-compiler's `unbuildable` diagnostic**, whose `KNOWN` set is atoms ∪ particles ∪
-names ∪ interjections — it does not consult the lexicon. Adding stems there
-means adding them to the TOKENIZER vocabulary, which is riskier: longest-match
-protects たべる from splitting into たべ+る, but it wants a careful test pass.
-
-Deliberately not done yet because nothing before m19 needs it. It blocks:
-`ni-iku` (m19), `sugiru` (m27), and in N4 〜ながら / 〜やすい・にくい / 〜たがる
-(m36) — so it must land before m19 or the deferrals compound.
+Current state: stems landed, `ni-iku` was authored in m19, and of the two
+deferrals it caused, **m13's 〜に いく is PAID** and **m12's 〜く なる is not
+debt** — the ledger assigns `ku-ni-naru` to m27, so it is scheduled work, not
+something owed back to m12.
 
 ### DONE 2026-07-27 (was the quiet-window batch)
 
