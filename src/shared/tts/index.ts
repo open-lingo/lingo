@@ -90,7 +90,12 @@ export function getTtsUrl(text: string, lang: string = defaultTtsLang): string |
     // generated deck (which strips it): try the ± variants for both the
     // JA "。" and the Latin "." / "?" the KO/ES decks use.
     const stripped = text.replace(/[。.?!]+$/, "");
-    for (const alt of [stripped, `${stripped}。`, `${stripped}.`]) {
+    // INTERNAL punctuation drifts too. A two-sentence build target keeps its
+    // boundary mark (「…です。ちゃは のみません」) so the learner does not have to
+    // assemble a run-on, but the deck stores the text punctuation-free, so a
+    // trailing-only strip missed it and the line played silent.
+    const bare = text.replace(/[。、？！?!]/g, "");
+    for (const alt of [stripped, `${stripped}。`, `${stripped}.`, bare]) {
       if (alt === text) continue;
       relative = pickPath(MANIFEST[`${lang}:${alt}`]);
       if (relative) break;
