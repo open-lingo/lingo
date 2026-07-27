@@ -1,0 +1,608 @@
+module: m15
+title: "Relative clauses + こと/の + とき"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14]
+
+priorGrammarPoints: [wa-topic, wo-object, no-possession, ni-location, de-action, mo-also,
+                     dare, kore-sore-are-dore, koko-soko-asoko, spatial-relations, location-qa,
+                     nai-form, nai-existence, arimasu, imasu,
+                     masu-present, masu-negative, desu-copula, ka-question,
+                     te-form, te-kudasai, kudasai, te-iru, te-mo-ii, mada-mou,
+                     numbers-1-10, counter-tsu, numbers-11-99, counter-ji, ni-time,
+                     desu-past, masu-past,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, to-and]
+
+notes: |
+  m15 = spine tile s11. RELATIVE CLAUSES + こと/の NOMINALIZERS + とき, and the
+  ordering pair まえに / てから.
+
+  Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at
+  the first/middle/last thirds, challenge lesson LAST. NO katakana rows (the
+  programme ended at m11). NO `kind: register` beats — that machinery is m10 +
+  m29 only (registerScaffoldIsolation).
+
+  THE WHOLE POINT — a relative clause is COMPOSITION, not a new form.
+
+  1. **A Japanese relative clause is a sentence parked in front of a noun.**
+     No relative pronoun, no "that/which/who", and NOTHING changes about the
+     verb: 「ほんを みる」 + 「ひと」 → 「ほんを みる ひと」. The learner
+     already owns both halves; the module teaches the JOIN. This is the single
+     highest-leverage structural idea in N5 — it is what stops a learner
+     speaking in short sentences — so every lesson presents it as two things
+     the learner already has, put next to each other.
+  2. **The clause verb goes PLAIN.** 「たべる ひと」, never 「たべます ひと」.
+     ます is the politeness of the SENTENCE and can only sit on the last verb.
+     This is the payoff of the course's plain-form-first spine, and it is L1's
+     antiPattern.
+  3. **が inside the clause, は outside it (L3).** 「わたしは ミカが かった
+     ほんを みた」. は marks the topic of the whole sentence and a sentence has
+     one topic, so a second は inside a clause collides with the one outside —
+     which is why the L3 antiPattern is a DOUBLE-は sentence rather than a bare
+     「ミカは かった ほん」. That bare shape is grammatical (ミカ can be the
+     main topic), and inv 12 forbids marking correct Japanese as an error.
+     m16 (s13) owns the full は-vs-が contrast beat; this module takes only the
+     narrow clause-internal rule it needs.
+  4. **こと names an action (L5) — it is the same shape again**, a plain clause
+     in front of a noun where the noun happens to be こと "the act of". m13
+     already taught 〜のが すき, so this is NAMING something the learner has
+     been using: の is the spoken half, こと the written half, and こと is also
+     an ordinary noun (「わからない ことが ある」, 「きらいな ことが ない」).
+  5. **とき is the same shape a third time (L6/L7)** — a clause in front of the
+     noun とき. A noun takes の in front of it (がくせいの とき), a な-adjective
+     takes な, a verb takes nothing.
+  6. **まえに / てから are the ordering pair (L9/L10/L11).** They are introduced
+     PAIRWISE — まえに first, then てから, then a lesson that runs them against
+     each other — never all at once. 「たべる まえに」 takes the DICTIONARY form
+     whatever the tense of the sentence (the module's second big trap, and L9's
+     antiPattern); 「たべてから」 takes the て-form the learner got in m8/m14.
+
+  DEVIATIONS, documented per the RUN-PLAN "decide and document" rule:
+  - **とき ships MATCHED-TENSE ONLY — the spine wins over the dispatch brief.**
+    spinePlan s11 says in so many words: "とき (#62) temporal clauses — MATCHED-
+    TENSE sentences only in this beat (audit: 行くとき vs 行ったとき relative-
+    tense flip is a documented trap; the contrast belongs to the s22 deepen)".
+    The authoring brief asked for "〜る とき = before/while, 〜た とき = after".
+    That IS the relative-tense flip the spine defers, so it is NOT taught here.
+    Every とき sentence in this module keeps the two halves in the same tense
+    (〜る とき + non-past main clause, 〜た とき + past main clause), and the
+    toki rule card states that as a learning rule rather than as a fact about
+    Japanese. m22 (s22) owns the flip.
+  - **No registry id exists for "relative clause" or for the こと nominalizer**,
+    and inv 42 forbids inventing IR-local ids. So:
+      * the relative-clause cards are `dictionary-form` (L1) and `ta-form` (L2)
+        — which is exactly why the coverage ledger puts `dictionary-form` on
+        m15's row even though m7 first taught the citation form: this module is
+        where the plain form earns its keep;
+      * the clause-internal subject card is `ga-existence` (m6's が point,
+        re-taught in clause position, the same ⟳ move m14 made with `te-form`);
+      * the こと card is `no-ga-suki` (m13's point). こと and の are one
+        construction with two skins, and `koto-ga-aru` in the registry is the
+        EXPERIENCE construction, which the ledger keeps at m23. The ledger rows
+        for m11/m13 are unchanged — a re-teach is not a re-assignment.
+  - **こと and とき are registered in courseAtoms** (two rows, the module's only
+    registry additions). Unlike m14's conjugated surfaces, neither is derivable
+    from VERB_ENTRIES, so without a row the guards' tokenizer reads them as
+    untracked words and the compiler's tile bank cannot spell the sentence.
+    Both are `blocked: true` — an abstract function noun has no honest emoji.
+    まえ already has a row (stale `fromModule: m17`); like m13 with だいがく it
+    is declared in `newAtoms` here so it gets a real teach-first debut instead
+    of arriving as a word the learner is assumed to know.
+  - **NO conjugation_transform ramp.** Nothing in this module is a conjugation:
+    a relative clause is composition of forms the learner already has (plain
+    non-past, plain past, て-form), and まえに/てから attach whole forms. A ramp
+    would drill a transformation the module does not teach. Inv 37's whole
+    hazard class (a ramp emitting a form its rule card never spelled out, or
+    printing an untaught base) therefore cannot arise here.
+  - **かく / たつ / うたう / すむ / なる / ふる / さく are NOT used**, though the
+    context pack lists them as known. The pack's word list is built from
+    courseAtoms attribution; the taught-set the guards use comes from prior neo
+    LESSONS, and no neo module ever introduced these. `priorVocab` in the
+    compiled JSON is the authority — every surface in this file was checked
+    against it. Same reason した/きた are never used as the past of する/くる:
+    both kana are already atoms with a DIFFERENT sense (した "below", きた
+    "north"), so using them as verbs mis-credits SRS (the documented homograph
+    trap).
+  - **NO この/その/あの** (m17's `kono-sono-ano-dono`). They are courseAtoms, so
+    the compiler treats them as "already known" and they leak silently — the
+    defect m13's QA pass caught with だいがく. m13 and m14 both flagged this
+    rule; m15 keeps it. Where "that X" was tempting this module reaches for a
+    relative clause instead, which is the point of the module.
+
+  PICTURE DEBUTS (inv 30/44): えいが 🎬 (L2), くつ 👞 (L3), いそがしい 😰 (L6),
+  りょこう ✈️ (L7) — four words from m15's OWN registry allocation, each chosen
+  because the grammar needs it rather than to decorate it: a relative clause
+  wants concrete things you can have bought or seen (えいが, くつ), とき wants a
+  state you can be in (いそがしい) and an event you can be before or after
+  (りょこう). Each debuts in a lesson whose rule card does NOT name it —
+  `requireImageFirst` scans the RAW step JSON, including `rule:` prose and
+  `antiPattern`, and a rule card is pinned first, so any mention there would
+  steal the picture debut (m14 learned this the hard way).
+
+  ONE RULE CARD PER LESSON (m14's layout law, unchanged): two `kind: rule` beats
+  in one lesson compile to two PINNED, ADJACENT `grammar_rule` steps and fail
+  the adjacency bar. L6 (no rule) and L11 (no rule) are the module's two
+  card-free teaching lessons — L7 spends とき and L11 runs まえに against てから,
+  both of which are practice, not new rules.
+
+  CLAUSE LINKING IS SPACED, NOT COMMA'D (m14's finding, still live).
+  `moduleCompiler.clean()` strips 、 with nothing in its place, so an authored
+  「たべる とき、みずを のむ」 compiles to the run-on target and the run-on TTS
+  key. Every sentence/challenge/listening-comp beat here writes the clause
+  boundary as a SPACE; only rule-card prose and dialogue lines, which render
+  raw, may keep a 、.
+
+  TOKENIZATION IS PEDAGOGY HERE (three deliberate rulings):
+    - **こと is its own tile.** 「たべる ことが すきだ」 builds as
+      たべる / こと / が / すき / だ, which is literally the composition the
+      card describes. Registering 「たべること」 as one atom would hide it.
+    - **まえに decomposes to まえ + に**, so the learner sees that まえに is the
+      noun まえ plus the に they have used since m6, not an opaque particle.
+    - **てから decomposes to て-form + から.** から is already a courseAtom and a
+      tokenizer particle, so 「たべてから」 builds as たべて / から — the exact
+      claim the te-kara card makes. This is also why から never appears as a
+      free word anywhere else in the module: `kara-because` and `kara-origin`
+      are m16's row, and から's only job here is the てから suffix.
+
+  CONNECTIVES + COMPLEXITY (inv 13): this module IS the complexity engine.
+  Every relative clause, every とき and every まえに/てから beat is a two-clause
+  sentence, which is why GATE 7's m15 floor was recalibrated upward after
+  measurement (see moduleContentLints COMPLEXITY_FLOORS).
+
+  REINFORCEMENT (inv 27): じかん, からだ-adjacent carriers, かぜ and とりにく were
+  the context pack's under-exposed targets that survive the priorVocab check;
+  じかん carries three beats (「ごはんを たべる じかんが ない」,
+  「じかんが ある とき」) and カメラ/きっぷ/じてんしゃ/ぼうし rotate as carriers so
+  the module is not a wall of ほん and ごはん.
+
+grammarPoints:
+  - id: dictionary-form
+    rule: "A relative clause in Japanese is just a sentence parked in front of a noun. There is no \"that\", no \"which\", no \"who\" — you put the whole sentence there and the noun it lands in front of is what the sentence is about. 「ほんを みる」 is a sentence; 「ほんを みる ひと」 is the person who reads books. Nothing is added and nothing is reordered. One rule only: the verb inside the clause stays PLAIN. ます is the politeness of the whole SENTENCE, and it can only ever sit on the last verb — never inside a clause."
+    examples:
+      - { ja: "ほんを みる ひとが いる。", en: "There is a person who reads books." }
+      - { ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika." }
+      - { ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea." }
+      - { ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat." }
+      - { ja: "きっさてんで はたらく ひとと あそぶ。", en: "I hang out with the person who works at the coffee shop." }
+    antiPattern: { ja: "ほんを みます ひとが いる。", why: "the verb inside a clause stays PLAIN — ます is the politeness of the whole sentence and only ever sits on the LAST verb: ほんを みる ひとが いる。" }
+  - id: ta-form
+    rule: "Put the clause in the past and nothing else changes — the plain past sits in front of the noun exactly where the plain non-past did. 「きのう かった ほん」 = the book I bought yesterday. Who did the buying is usually left out and the rest of the sentence makes it obvious. And there is never a の between the clause and its noun: の joins two NOUNS (ミカの ほん), never a clause to the noun it describes."
+    examples:
+      - { ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday." }
+      - { ja: "あさ のんだ ちゃは おいしい。", en: "The tea I drank in the morning is delicious." }
+      - { ja: "きのう いった みせは ふるい。", en: "The shop I went to yesterday is old." }
+      - { ja: "きのう きいた うたが すきだ。", en: "I like the song I heard yesterday." }
+      - { ja: "きのう たべた すしは たかい。", en: "The sushi I ate yesterday is expensive." }
+    antiPattern: { ja: "きのう かった の ほんを みた。", why: "の joins two NOUNS — it never joins a clause to the noun it describes, so the clause sits straight in front: きのう かった ほんを みた。" }
+  - id: ga-existence
+    rule: "Give the clause its own subject and that subject takes が: 「ミカが かった ほん」 = the book Mika bought. The が belongs to the clause alone and never reaches outside it. は cannot go there. は marks the topic of the WHOLE sentence and a sentence gets one topic, so a は inside a clause collides with the one outside it. Rule of thumb while you learn this: outside the clause は, inside the clause が."
+    examples:
+      - { ja: "わたしは ミカが かった ほんを みた。", en: "I looked at the book Mika bought." }
+      - { ja: "ケンが きいた うたは おもしろい。", en: "The song Ken heard is interesting." }
+      - { ja: "たなかが おしえる じゅぎょうは おもしろい。", en: "The class Tanaka teaches is interesting." }
+      - { ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet." }
+      - { ja: "わたしが かった かばんは やすい。", en: "The bag I bought is cheap." }
+    antiPattern: { ja: "わたしは ミカは かった ほんを みた。", why: "one sentence, one は — the clause's own subject takes が instead: わたしは ミカが かった ほんを みた。" }
+  - id: no-ga-suki
+    rule: "You already turn a verb into a thing with の — 「たべるのが すきだ」. こと does the identical job: 「たべる ことが すきだ」. And it is the same shape you have been building all module — a plain clause in front of a noun — except the noun is こと, \"the act of\", so the clause becomes something you can like, hate, or make the subject of a sentence. Both are right; の is the spoken half and こと the written half. こと is also an ordinary noun meaning \"thing\" in the abstract sense: 「わからない ことが ある」 = there is something I don't understand."
+    examples:
+      - { ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea." }
+      - { ja: "ほんを みる ことが すきだ。", en: "I like reading books." }
+      - { ja: "あさ はたらく ことは きらいだ。", en: "I hate working in the morning." }
+      - { ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun." }
+      - { ja: "わからない ことが ある。", en: "There is something I don't understand." }
+    antiPattern: { ja: "うみで およぐが すきだ。", why: "a verb cannot be marked が on its own — こと (or の) turns it into a thing first: うみで およぐ ことが すきだ。" }
+  - id: toki
+    rule: "とき is just the noun \"time\", and by now you know how to describe a noun: park a clause in front of it. 「にほんに いく とき」 = the time when I go to Japan → when I go to Japan. What sits in front follows the same rules as everything else that describes a noun — a verb goes in plain, a noun takes の (がくせいの とき = when I was a student), a な-adjective takes な (げんきな とき). While you are learning it, keep the two halves in the same tense: a 〜る とき clause with a non-past sentence, a 〜た とき clause with a past one."
+    examples:
+      - { ja: "がくせいの とき じてんしゃを かった。", en: "When I was a student, I bought a bicycle." }
+      - { ja: "ごはんを たべる とき みずを のむ。", en: "When I eat, I drink water." }
+      - { ja: "きっさてんに いった とき ちゃを のんだ。", en: "When I went to the coffee shop, I drank tea." }
+      - { ja: "うみに いく とき ぼうしを かう。", en: "When I go to the sea, I buy a hat." }
+      - { ja: "げんきな とき うみで およぐ。", en: "When I'm well, I swim in the sea." }
+    antiPattern: { ja: "がくせいだ とき じてんしゃを かった。", why: "だ never sits in front of a noun — a noun describing another noun takes の: がくせいの とき じてんしゃを かった。" }
+  - id: mae-ni
+    rule: "まえ means \"before\". Put a clause in front of it — the same shape as always — add に, and you have \"before doing X\": 「だいがくに いく まえに ごはんを たべる」 = before going to university, I eat. Here is the piece that catches everybody: the verb in front of まえに is ALWAYS the dictionary form, even when the whole thing happened yesterday. まえに only says \"earlier than\"; the tense is decided by the verb at the END of the sentence. 「たべた まえに」 is never Japanese. A noun takes の, as usual: 「じゅぎょうの まえに」."
+    examples:
+      - { ja: "だいがくに いく まえに ごはんを たべる。", en: "Before going to university, I eat." }
+      - { ja: "ちゃを のむ まえに ほんを みた。", en: "Before drinking tea, I looked at a book." }
+      - { ja: "きっさてんに いく まえに かばんを かった。", en: "Before going to the coffee shop, I bought a bag." }
+      - { ja: "じゅぎょうの まえに ともだちと あそんだ。", en: "Before class, I hung out with a friend." }
+      - { ja: "うみで およぐ まえに みずを のんだ。", en: "Before swimming in the sea, I drank water." }
+    antiPattern: { ja: "だいがくに いった まえに ごはんを たべる。", why: "まえに always takes the DICTIONARY form, whatever the tense of the sentence — the verb at the end carries the tense: だいがくに いく まえに ごはんを たべる。" }
+  - id: te-kara
+    rule: "The other half of the pair. Take the て-form you already own, hang から on it, and you have \"after doing X\": 「ごはんを たべてから だいがくに いく」 = after eating, I go to university. て on its own already links actions in the order they happen; てから adds that the first one is FINISHED before the second starts. The tense still lives on the last verb only — 「たべてから いった」 = after eating, I went. And the pair is complete: まえに takes the dictionary form, てから takes the て-form."
+    examples:
+      - { ja: "ごはんを たべてから だいがくに いく。", en: "After eating, I go to university." }
+      - { ja: "うたを きいてから ごはんを たべた。", en: "After listening to a song, I ate." }
+      - { ja: "きっさてんに いってから みせに いった。", en: "After going to the coffee shop, I went to the shop." }
+      - { ja: "ちゃを のんでから しゃしんを みた。", en: "After drinking tea, I looked at the photo." }
+      - { ja: "めがねを かってから えきに いった。", en: "After buying glasses, I went to the station." }
+    antiPattern: { ja: "ごはんを たべるてから だいがくに いく。", why: "から hangs on the て-form, not the dictionary form — たべる becomes たべて first: ごはんを たべてから だいがくに いく。" }
+
+newAtoms:
+  # ══ L2 — the first picture debut. えいが is m15's own registry allocation
+  #    (courseAtoms `fromModule: m15`, emoji 🎬) and is deliberately absent
+  #    from every rule card, antiPattern and rule-prose line in this file:
+  #    requireImageFirst reads the RAW step JSON and rule cards are pinned
+  #    first, so a mention there would steal the picture debut.
+  - { kana: えいが, romaji: eiga, gloss: "movie", imageable: true, kind: vocab }
+  # ══ L3
+  - { kana: くつ, romaji: kutsu, gloss: "shoes", imageable: true, kind: vocab }
+  # ══ L5 — こと. imageable:false: an abstract function noun has no honest
+  #    emoji, so the no-ga-suki rule card IS its introduction (the same move
+  #    m13 made for ほしい/すき/きらい). Registered in courseAtoms because it is
+  #    derivable from nothing — see the notes block.
+  - { kana: こと, romaji: koto, gloss: "thing, the act of doing", shortGloss: "thing (act of)", imageable: false, kind: vocab }
+  # ══ L6 — とき, and the module's third picture debut.
+  - { kana: とき, romaji: toki, gloss: "time, when", shortGloss: "time, when", imageable: false, kind: vocab }
+  - { kana: いそがしい, romaji: isogashii, gloss: "busy", imageable: true, kind: vocab }
+  # ══ L7
+  - { kana: りょこう, romaji: ryokou, gloss: "trip, travel", shortGloss: "trip", imageable: true, kind: vocab }
+  # ══ L9 — まえ. Already a courseAtoms row (stale `fromModule: m17`, blocked),
+  #    declared here so it gets a real teach-first debut rather than being
+  #    assumed known — the m13/だいがく precedent.
+  - { kana: まえ, romaji: mae, gloss: "before", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-1
+    role: teaching
+    title: "ほんを みる ひと — a sentence in front of a noun"
+    focus: "a plain clause parked in front of a noun describes it — no 'that', no 'who', and the verb does not change"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: dictionary-form }
+      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who reads books", exercises: [dictionary-form, wo-object, ga-existence], mode: build }
+      - { kind: sentence, ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika", exercises: [dictionary-form, wa-topic], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea", exercises: [dictionary-form, de-action, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "きっさてんで はたらく ひとと あそぶ。", en: "I hang out with the person who works at the coffee shop", exercises: [dictionary-form, de-action, to-and], mode: listening }
+      - { kind: sentence, ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat", exercises: [dictionary-form, nai-existence], mode: build }
+      - { kind: sentence, ja: "にほんに いく ひとは ともだちだ。", en: "The person going to Japan is my friend", exercises: [dictionary-form, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "あたらしい くるまを うる みせに いく。", en: "I go to the shop that sells new cars", exercises: [dictionary-form, i-adj-present, ni-location], mode: build }
+      - { kind: sentence, ja: "ほんを みる ひとが すきだ。", en: "Say to a friend: I like people who read books", exercises: [dictionary-form, suki-kirai-no], mode: translate }
+      - { kind: particle-cloze, stem: "ほんを ", tail: " ひとが いる。", answer: "みる", options: ["みる", "みます", "みません"], en: "There is a person who reads books", explanation: "the verb inside a clause stays plain — みる. a polite form belongs at the end of a sentence, never inside a clause." }
+      - { kind: listening-comp, audio: "うみで およぐ ひとが いる。", answer: "There is a person who swims in the sea", distractors: ["There is a person who swims in the river", "I want to swim in the sea", "The person swam in the sea"], exercises: [dictionary-form, de-action] }
+      - { kind: listening-comp, audio: "きっさてんで はたらく ひとは ケンだ。", answer: "The person who works at the coffee shop is Ken", distractors: ["The person who works at the shop is Ken", "Ken goes to the coffee shop", "Ken is waiting at the coffee shop"], exercises: [dictionary-form, de-action, wa-topic] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あそこで ほんを みる ひとは だれ？", en: "Who's that person reading a book over there?" }
+          - { speaker: "Tom", ja: "ケンだ。ケンは よく きっさてんで ほんを みる。", en: "That's Ken. Ken often reads books at the coffee shop." }
+        questions:
+          - { q: "Where does Ken often read books?", options: ["At the coffee shop", "At the station", "At the shop", "At university"], answer: "At the coffee shop" }
+      - { kind: challenge, ja: "きっさてんで はたらく ひとは ミカの あたらしい ともだちだ。", en: "The person who works at the coffee shop is Mika's new friend", combines: [dictionary-form, de-action, no-possession, wa-topic], mode: build }
+    reviewPool: [ほん, ちゃ, ひと, うみ, きっさてん, じかん, くるま, みせ, ともだち, にほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-2
+    role: teaching
+    title: "きのう かった ほん — clauses in the past"
+    focus: "the plain past sits in front of the noun exactly where the plain non-past did; の never joins a clause to its noun"
+    introduces: [えいが]
+    beats:
+      - { kind: rule, grammarPointId: ta-form }
+      - { kind: sentence, ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday", exercises: [ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "きのう みた えいがは おもしろい。", en: "The movie I saw yesterday is interesting", exercises: [ta-form, wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あさ のんだ ちゃは おいしい。", en: "The tea I drank in the morning is delicious", exercises: [ta-form, wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "きのう いった みせは ふるい。", en: "The shop I went to yesterday is old", exercises: [ta-form, wa-topic, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "きのう きいた うたが すきだ。", en: "I like the song I heard yesterday", exercises: [ta-form, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "きのう たべた すしは たかい。", en: "The sushi I ate yesterday is expensive", exercises: [ta-form, wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "きのう みた えいがの なまえが わからない。", en: "I don't know the name of the movie I saw yesterday", exercises: [ta-form, no-possession, nai-form], mode: build }
+      - { kind: sentence, ja: "きのう かった ほんが すきだ。", en: "Say to a friend: I like the book I bought yesterday", exercises: [ta-form, suki-kirai-no], mode: translate }
+      - { kind: particle-cloze, stem: "きのう ", tail: " ほんを みた。", answer: "かった", options: ["かった", "かう", "かいます"], en: "I looked at the book I bought yesterday", explanation: "the clause is in the plain past — かった. かう would be the book you are going to buy." }
+      - { kind: listening-comp, audio: "きのう かった ぼうしは あたらしい。", answer: "The hat I bought yesterday is new", distractors: ["The hat I bought yesterday is old", "The hat I want to buy is new", "I bought a new hat today"], exercises: [ta-form, i-adj-present] }
+      - { kind: listening-comp, audio: "きのう いった みせは しずかだった。", answer: "The shop I went to yesterday was quiet", distractors: ["The shop I go to is quiet", "The shop I went to yesterday was busy", "I went to a quiet shop today"], exercises: [ta-form, na-adj-past] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きのう みた えいがは どうだった？", en: "How was the movie you saw yesterday?" }
+          - { speaker: "Mika", ja: "おもしろかった。ケンと いった。", en: "It was interesting. I went with Ken." }
+        questions:
+          - { q: "What does Mika say about the movie she saw yesterday?", options: ["It was interesting", "It was boring", "She hasn't seen it yet", "She went on her own"], answer: "It was interesting" }
+      - { kind: challenge, ja: "きのう きっさてんで のんだ ちゃの なまえを おしえる。", en: "I'll tell you the name of the tea I drank at the coffee shop yesterday", combines: [ta-form, de-action, no-possession, wo-object], mode: build }
+    reviewPool: [ほん, ちゃ, みせ, うた, すし, なまえ, しゃしん, きっぷ, ごはん, ひと]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-3
+    role: teaching
+    title: "ミカが かった ほん — who did it, inside the clause"
+    focus: "the clause's own subject takes が, never は — one sentence gets one topic"
+    introduces: [くつ]
+    beats:
+      - { kind: rule, grammarPointId: ga-existence }
+      - { kind: sentence, ja: "わたしは ミカが かった ほんを みた。", en: "I looked at the book Mika bought", exercises: [ga-existence, ta-form, wa-topic], mode: build }
+      - { kind: sentence, ja: "ケンが きいた うたは おもしろい。", en: "The song Ken heard is interesting", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たなかが おしえる じゅぎょうは おもしろい。", en: "The class Tanaka teaches is interesting", exercises: [ga-existence, dictionary-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet", exercises: [ga-existence, ta-form, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "トムが かった くつは あたらしい。", en: "The shoes Tom bought are new", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わたしが かった かばんは やすい。", en: "The bag I bought is cheap", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ケンが うる じてんしゃは ふるい。", en: "The bicycle Ken sells is old", exercises: [ga-existence, dictionary-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカが かった くつは あたらしい。", en: "Say to a friend: The shoes Mika bought are new", exercises: [ga-existence, ta-form], mode: translate }
+      - { kind: particle-cloze, stem: "わたしは ミカが ", tail: " ほんを みた。", answer: "かった", options: ["かった", "かう", "かいます"], en: "I looked at the book Mika bought", explanation: "the clause is in the plain past — かった names the book she has already bought." }
+      - { kind: listening-comp, audio: "たなかが かった くるまは おおきい。", answer: "The car Tanaka bought is big", distractors: ["The car Tanaka sold is big", "Tanaka wants to buy a big car", "The car Tanaka bought is small"], exercises: [ga-existence, ta-form] }
+      - { kind: listening-comp, audio: "ミカが うる じてんしゃは ふるい。", answer: "The bicycle Mika sells is old", distractors: ["The bicycle Mika bought is old", "Mika wants to sell a new bicycle", "The bicycle Mika sells is new"], exercises: [ga-existence, dictionary-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "トムが かった くつは あたらしい？", en: "Are the shoes Tom bought new?" }
+          - { speaker: "Tom", ja: "うん、きのう みせで かった。", en: "Yeah, I bought them at a shop yesterday." }
+        questions:
+          - { q: "What does Tom say about the shoes?", options: ["He bought them at a shop yesterday", "He bought them at the station", "Mika bought them for him", "He hasn't bought them yet"], answer: "He bought them at a shop yesterday" }
+      - { kind: challenge, ja: "ミカが きのう かった あたらしい くつは やすい。", en: "The new shoes Mika bought yesterday are cheap", combines: [ga-existence, ta-form, i-adj-present, wa-topic], mode: build }
+    reviewPool: [ほん, うた, いえ, じゅぎょう, かばん, じてんしゃ, くるま, ひと, みせ, えいが]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-r1
+    role: review
+    title: "Review — sentences in front of nouns"
+    focus: "non-past clauses, past clauses, and the clause's own が, side by side"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who reads books", exercises: [dictionary-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday", exercises: [ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet", exercises: [ga-existence, ta-form, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "きのう みた えいがは おもしろい。", en: "The movie I saw yesterday is interesting", exercises: [ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea", exercises: [dictionary-form, de-action], mode: build }
+      - { kind: particle-cloze, stem: "ケンが ", tail: " うたは おもしろい。", answer: "きいた", options: ["きいた", "きく", "ききます"], en: "The song Ken heard is interesting", explanation: "the clause is in the plain past — きいた. ききます could never sit inside a clause." }
+      - { kind: sentence, ja: "トムが かった くつは あたらしい。", en: "The shoes Tom bought are new", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
+      - { kind: listening-comp, audio: "きっさてんで はたらく ひとと あそぶ。", answer: "I hang out with the person who works at the coffee shop", distractors: ["I hang out with the person who works at the shop", "I want to work at the coffee shop", "I'm waiting for the person at the coffee shop"], exercises: [dictionary-form, de-action] }
+      - { kind: sentence, ja: "たなかが おしえる じゅぎょうは おもしろい。", en: "The class Tanaka teaches is interesting", exercises: [ga-existence, dictionary-form], mode: build }
+      - { kind: sentence, ja: "きのう かった ほんが すきだ。", en: "Say to a friend: I like the book I bought yesterday", exercises: [ta-form, suki-kirai-no], mode: translate }
+      - { kind: listening-comp, audio: "あさ のんだ ちゃは おいしい。", answer: "The tea I drank in the morning is delicious", distractors: ["The tea I drank in the morning was cheap", "The tea I bought in the morning is delicious", "I didn't drink tea in the morning"], exercises: [ta-form, i-adj-present] }
+      - { kind: sentence, ja: "わたしが かった かばんは やすい。", en: "The bag I bought is cheap", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカが すきな えいがを しっている？", en: "Do you know the movie Mika likes?" }
+          - { speaker: "Ken", ja: "うん、きのう みた。おもしろかった。", en: "Yeah, I saw it yesterday. It was interesting." }
+        questions:
+          - { q: "What does Ken say about the movie Mika likes?", options: ["He saw it yesterday and it was interesting", "He hasn't seen it", "He bought a ticket for it", "He didn't like it"], answer: "He saw it yesterday and it was interesting" }
+    reviewPool: [ほん, えいが, くつ, ひと, うた, ちゃ, いえ, かばん, じゅぎょう, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-4
+    role: teaching
+    title: "たべる こと — turning an action into a thing"
+    focus: "こと does what の has been doing since m13 — it makes a clause into a thing you can like, hate, or talk about"
+    introduces: [こと]
+    beats:
+      - { kind: rule, grammarPointId: no-ga-suki }
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: build }
+      - { kind: sentence, ja: "ほんを みる ことが すきだ。", en: "I like reading books", exercises: [no-ga-suki, wo-object], mode: build }
+      - { kind: sentence, ja: "あさ はたらく ことは きらいだ。", en: "I hate working in the morning", exercises: [no-ga-suki, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカは うたを きく ことが すきだ。", en: "Mika likes listening to songs", exercises: [no-ga-suki, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あたらしい えいがを みる ことが すきだ。", en: "I like watching new movies", exercises: [no-ga-suki, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わからない ことが ある。", en: "There is something I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki], mode: translate }
+      - { kind: particle-cloze, stem: "うみで およぐ ", tail: " すきだ。", answer: "ことが", options: ["ことが", "ことを", "ことに"], en: "I like swimming in the sea", explanation: "こと turns the clause into a thing, and what you like takes が — the same が as ほしい and すき." }
+      - { kind: listening-comp, audio: "ケンは ほんを かう ことが すきだ。", answer: "Ken likes buying books", distractors: ["Ken likes reading books", "Ken bought a book", "Ken doesn't like books"], exercises: [no-ga-suki, wa-topic] }
+      - { kind: listening-comp, audio: "あさ およぐ ことは きらいだ。", answer: "I hate swimming in the morning", distractors: ["I like swimming in the morning", "I don't swim in the morning", "I swam in the morning"], exercises: [no-ga-suki, wa-topic] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ミカは なにが すき？", en: "What do you like, Mika?" }
+          - { speaker: "Mika", ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea." }
+        questions:
+          - { q: "What does Mika like?", options: ["Swimming in the sea", "Watching movies", "Listening to songs", "Reading books"], answer: "Swimming in the sea" }
+      - { kind: challenge, ja: "ミカが すきな ことは あたらしい えいがを みる ことだ。", en: "What Mika likes is watching new movies", combines: [no-ga-suki, ga-existence, na-adj-present, i-adj-present, wa-topic], mode: build }
+    reviewPool: [うみ, ほん, うた, えいが, ともだち, ごはん, ひと, きっさてん, みせ, くつ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-5
+    role: teaching
+    title: "いく とき — saying when"
+    focus: "とき is the noun 'time' with a clause in front of it; keep both halves in the same tense"
+    introduces: [とき, いそがしい]
+    beats:
+      - { kind: rule, grammarPointId: toki }
+      - { kind: sentence, ja: "ごはんを たべる とき みずを のむ。", en: "When I eat, I drink water", exercises: [toki, dictionary-form], mode: build }
+      - { kind: sentence, ja: "がくせいの とき じてんしゃを かった。", en: "When I was a student, I bought a bicycle", exercises: [toki, no-possession, ta-form], mode: build }
+      - { kind: sentence, ja: "きっさてんに いった とき ちゃを のんだ。", en: "When I went to the coffee shop, I drank tea", exercises: [toki, ta-form], mode: build }
+      - { kind: sentence, ja: "うみに いく とき ぼうしを かう。", en: "When I go to the sea, I buy a hat", exercises: [toki, ni-location, dictionary-form], mode: listening }
+      - { kind: sentence, ja: "いそがしい とき ごはんを たべない。", en: "When I'm busy, I don't eat", exercises: [toki, i-adj-present, nai-form], mode: build }
+      - { kind: sentence, ja: "げんきな とき うみで およぐ。", en: "When I'm well, I swim in the sea", exercises: [toki, na-adj-present, de-action], mode: build }
+      - { kind: sentence, ja: "えいがを みる とき ケンと いく。", en: "When I watch a movie, I go with Ken", exercises: [toki, dictionary-form, to-and], mode: build }
+      - { kind: sentence, ja: "いそがしい とき えいがを みない。", en: "Say to a friend: When I'm busy, I don't watch movies", exercises: [toki, nai-form], mode: translate }
+      - { kind: particle-cloze, stem: "きっさてんに ", tail: " とき ちゃを のんだ。", answer: "いった", options: ["いった", "いく", "いきます"], en: "When I went to the coffee shop, I drank tea", explanation: "the sentence ends in the past — のんだ — so the clause in front of とき matches it: いった." }
+      - { kind: listening-comp, audio: "うみに いく とき カメラを かう。", answer: "When I go to the sea, I buy a camera", distractors: ["When I went to the sea, I bought a camera", "I want to buy a camera for the sea", "I buy a camera at the sea"], exercises: [toki, dictionary-form] }
+      - { kind: listening-comp, audio: "いそがしい とき ちゃを のまない。", answer: "When I'm busy, I don't drink tea", distractors: ["When I'm busy, I drink tea", "I don't drink tea today", "I was busy and didn't drink tea"], exercises: [toki, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "にほんに いく とき なにを かう？", en: "What will you buy when you go to Japan?" }
+          - { speaker: "Mika", ja: "あたらしい かばんを かう。", en: "I'll buy a new bag." }
+        questions:
+          - { q: "What will Mika buy when she goes to Japan?", options: ["A new bag", "A new hat", "A bicycle", "Shoes"], answer: "A new bag" }
+      - { kind: challenge, ja: "ミカが にほんに いった とき あたらしい くつを かった。", en: "When Mika went to Japan, she bought new shoes", combines: [toki, ga-existence, ta-form, i-adj-present], mode: build }
+    reviewPool: [みず, ごはん, ちゃ, ぼうし, じてんしゃ, えいが, くつ, きっさてん, うみ, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-6
+    role: teaching
+    title: "じかんが ある とき — spending とき"
+    focus: "とき with nouns, adjectives and verbs in front of it, run against ordinary relative clauses"
+    introduces: [りょこう]
+    beats:
+      - { kind: sentence, ja: "りょこうの とき カメラを かう。", en: "When I travel, I buy a camera", exercises: [toki, no-possession], mode: build }
+      - { kind: sentence, ja: "なつやすみの とき うみに いった。", en: "When it was summer holiday, I went to the sea", exercises: [toki, no-possession, ta-form], mode: build }
+      - { kind: sentence, ja: "りょこうに いく とき あたらしい かばんを かう。", en: "When I go on a trip, I buy a new bag", exercises: [toki, ni-location, i-adj-present], mode: build }
+      - { kind: sentence, ja: "じかんが ある とき えいがを みる。", en: "When I have time, I watch movies", exercises: [toki, ga-existence, dictionary-form], mode: listening }
+      - { kind: sentence, ja: "じゅぎょうが ない とき ともだちと あそぶ。", en: "When there is no class, I hang out with friends", exercises: [toki, nai-existence, to-and], mode: build }
+      - { kind: sentence, ja: "にほんに いった とき すしを たべた。", en: "When I went to Japan, I ate sushi", exercises: [toki, ta-form], mode: build }
+      - { kind: sentence, ja: "りょこうが すきな ひとと あそぶ。", en: "I hang out with a person who likes travelling", exercises: [ga-existence, na-adj-present, to-and], mode: build }
+      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer holiday, I go to the sea", exercises: [toki, ni-location], mode: translate }
+      - { kind: particle-cloze, stem: "じかんが ある ", tail: " えいがを みる。", answer: "とき", options: ["とき", "こと", "ひと"], en: "When I have time, I watch movies", explanation: "とき is the noun 'time' — a clause in front of it says WHEN. こと would turn the clause into a thing instead." }
+      - { kind: listening-comp, audio: "なつやすみの とき ともだちと あそんだ。", answer: "When it was summer holiday, I hung out with a friend", distractors: ["I hang out with friends during the summer holiday", "When it was summer holiday, I worked", "I want to hang out with a friend in the summer"], exercises: [toki, ta-form] }
+      - { kind: listening-comp, audio: "じかんが ない とき えいがを みない。", answer: "When I have no time, I don't watch movies", distractors: ["When I have time, I watch movies", "I have no time for movies today", "I didn't watch a movie because I had no time"], exercises: [toki, nai-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer holiday?" }
+          - { speaker: "Mika", ja: "ともだちと りょこうに いった。うみが きれいだった。", en: "I went on a trip with a friend. The sea was beautiful." }
+        questions:
+          - { q: "What did Mika do over the summer holiday?", options: ["Went on a trip with a friend", "Worked at a company", "Stayed at home", "Went to university"], answer: "Went on a trip with a friend" }
+      - { kind: challenge, ja: "にほんに いった とき ミカが すきな みせで くつを かった。", en: "When I went to Japan, I bought shoes at the shop Mika likes", combines: [toki, ta-form, ga-existence, na-adj-present, de-action], mode: build }
+    reviewPool: [とき, なつやすみ, えいが, じかん, かばん, カメラ, うみ, すし, じゅぎょう, くつ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-r2
+    role: review
+    title: "Review — things and times"
+    focus: "こと as a named action and a plain noun, beside とき in every shape"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: build }
+      - { kind: sentence, ja: "がくせいの とき じてんしゃを かった。", en: "When I was a student, I bought a bicycle", exercises: [toki, no-possession, ta-form], mode: build }
+      - { kind: sentence, ja: "ミカは うたを きく ことが すきだ。", en: "Mika likes listening to songs", exercises: [no-ga-suki, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ごはんを たべる とき みずを のむ。", en: "When I eat, I drink water", exercises: [toki, dictionary-form], mode: build }
+      - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
+      - { kind: particle-cloze, stem: "あさ ", tail: " ことは きらいだ。", answer: "はたらく", options: ["はたらく", "はたらきます", "はたらきません"], en: "I hate working in the morning", explanation: "こと needs a plain verb in front of it — はたらく. はたらきます only ever ends a sentence." }
+      - { kind: sentence, ja: "りょこうに いく とき あたらしい かばんを かう。", en: "When I go on a trip, I buy a new bag", exercises: [toki, ni-location, i-adj-present], mode: build }
+      - { kind: listening-comp, audio: "いそがしい とき ごはんを たべない。", answer: "When I'm busy, I don't eat", distractors: ["When I'm busy, I eat at the shop", "I don't eat because I'm busy today", "I was busy and didn't eat"], exercises: [toki, nai-form] }
+      - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
+      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer holiday, I go to the sea", exercises: [toki, ni-location], mode: translate }
+      - { kind: listening-comp, audio: "じかんが ある とき えいがを みる。", answer: "When I have time, I watch movies", distractors: ["When I had time, I watched a movie", "I want to watch a movie", "I have no time to watch movies"], exercises: [toki, ga-existence] }
+      - { kind: sentence, ja: "わからない ことが ある。", en: "There is something I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "なにを する ことが すき？", en: "What do you like doing?" }
+          - { speaker: "Mika", ja: "えいがを みる ことが すきだ。いそがしい とき みない。", en: "I like watching movies. I don't watch them when I'm busy." }
+        questions:
+          - { q: "When does Mika not watch movies?", options: ["When she is busy", "When she is at university", "In the morning", "When she is with friends"], answer: "When she is busy" }
+    reviewPool: [こと, とき, えいが, りょこう, くつ, うた, じかん, かばん, なつやすみ, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-7
+    role: teaching
+    title: "たべる まえに — before doing"
+    focus: "まえに always takes the DICTIONARY form, whatever the tense of the sentence"
+    introduces: [まえ]
+    beats:
+      - { kind: rule, grammarPointId: mae-ni }
+      - { kind: sentence, ja: "だいがくに いく まえに ごはんを たべる。", en: "Before going to university, I eat", exercises: [mae-ni, ni-location], mode: build }
+      - { kind: sentence, ja: "ちゃを のむ まえに ほんを みた。", en: "Before drinking tea, I looked at a book", exercises: [mae-ni, ta-form], mode: build }
+      - { kind: sentence, ja: "きっさてんに いく まえに かばんを かった。", en: "Before going to the coffee shop, I bought a bag", exercises: [mae-ni, ta-form], mode: build }
+      - { kind: sentence, ja: "じゅぎょうの まえに ともだちと あそんだ。", en: "Before class, I hung out with a friend", exercises: [mae-ni, no-possession, ta-form], mode: listening }
+      - { kind: sentence, ja: "うみで およぐ まえに みずを のんだ。", en: "Before swimming in the sea, I drank water", exercises: [mae-ni, de-action, ta-form], mode: build }
+      - { kind: sentence, ja: "えいがを みる まえに きっぷを かう。", en: "Before watching a movie, I buy a ticket", exercises: [mae-ni, wo-object], mode: build }
+      - { kind: sentence, ja: "りょこうの まえに あたらしい くつを かった。", en: "Before the trip, I bought new shoes", exercises: [mae-ni, no-possession, i-adj-present, ta-form], mode: build }
+      - { kind: sentence, ja: "ごはんを たべる まえに ちゃを のむ。", en: "Say to a friend: Before eating, I drink tea", exercises: [mae-ni], mode: translate }
+      - { kind: particle-cloze, stem: "だいがくに ", tail: " まえに ごはんを たべた。", answer: "いく", options: ["いく", "いった", "いきます"], en: "Before going to university, I ate", explanation: "まえに always takes the dictionary form, even when the sentence is in the past — たべた at the end carries the tense." }
+      - { kind: listening-comp, audio: "だいがくに いく まえに しゃしんを みた。", answer: "Before going to university, I looked at a photo", distractors: ["After going to university, I looked at a photo", "Before looking at a photo, I went to university", "I looked at a photo at the university"], exercises: [mae-ni, ta-form] }
+      - { kind: listening-comp, audio: "じゅぎょうの まえに ちゃを のんだ。", answer: "Before class, I drank tea", distractors: ["After class, I drank tea", "Before drinking tea, I went to class", "I drank tea in class"], exercises: [mae-ni, ta-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "じゅぎょうの まえに なにを した？", en: "What did you do before class?" }
+          - { speaker: "Mika", ja: "きっさてんで ちゃを のんだ。", en: "I drank tea at a coffee shop." }
+        questions:
+          - { q: "What did Mika do before class?", options: ["Drank tea at a coffee shop", "Bought new shoes", "Watched a movie", "Went to the sea"], answer: "Drank tea at a coffee shop" }
+      - { kind: challenge, ja: "にほんに いく まえに ミカが すきな みせで あたらしい かばんを かった。", en: "Before going to Japan, I bought a new bag at the shop Mika likes", combines: [mae-ni, ga-existence, na-adj-present, i-adj-present, de-action], mode: build }
+    reviewPool: [こと, とき, えいが, くつ, りょこう, きっぷ, かばん, だいがく, じゅぎょう, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-8
+    role: teaching
+    title: "たべてから — after doing"
+    focus: "て-form + から says the first action is finished before the second starts"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: te-kara }
+      - { kind: sentence, ja: "ごはんを たべてから だいがくに いく。", en: "After eating, I go to university", exercises: [te-kara, ni-location], mode: build }
+      - { kind: sentence, ja: "うたを きいてから ごはんを たべた。", en: "After listening to a song, I ate", exercises: [te-kara, ta-form], mode: build }
+      - { kind: sentence, ja: "きっさてんに いってから みせに いった。", en: "After going to the coffee shop, I went to the shop", exercises: [te-kara, ni-location, ta-form], mode: build }
+      - { kind: sentence, ja: "ちゃを のんでから しゃしんを みた。", en: "After drinking tea, I looked at the photo", exercises: [te-kara, ta-form], mode: listening }
+      - { kind: sentence, ja: "めがねを かってから えきに いった。", en: "After buying glasses, I went to the station", exercises: [te-kara, ni-location, ta-form], mode: build }
+      - { kind: sentence, ja: "えいがを みてから ごはんを たべる。", en: "After watching the movie, I eat", exercises: [te-kara, wo-object], mode: build }
+      - { kind: sentence, ja: "だいがくに いってから ともだちと あそんだ。", en: "After going to university, I hung out with a friend", exercises: [te-kara, ni-location, to-and], mode: build }
+      - { kind: sentence, ja: "ちゃを のんでから いく。", en: "Say to a friend: I'll go after drinking tea", exercises: [te-kara], mode: translate }
+      - { kind: particle-cloze, stem: "ごはんを ", tail: " だいがくに いく。", answer: "たべてから", options: ["たべてから", "のんでから", "みてから"], en: "After eating, I go to university", explanation: "ごはん goes with たべる, so the て-form in the frame is たべて — then から." }
+      - { kind: listening-comp, audio: "しゃしんを みてから みせに いった。", answer: "After looking at the photo, I went to the shop", distractors: ["Before looking at the photo, I went to the shop", "After going to the shop, I looked at the photo", "I looked at a photo at the shop"], exercises: [te-kara, ta-form] }
+      - { kind: listening-comp, audio: "ごはんを たべてから ほんを みた。", answer: "After eating, I looked at a book", distractors: ["Before eating, I looked at a book", "After looking at a book, I ate", "I looked at a book while eating"], exercises: [te-kara, ta-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きのう なにを した？", en: "What did you do yesterday?" }
+          - { speaker: "Tom", ja: "えいがを みてから ミカと ごはんを たべた。", en: "After watching a movie I ate with Mika." }
+        questions:
+          - { q: "What did Tom do after watching the movie?", options: ["Ate with Mika", "Bought a ticket", "Waited at the station", "Went to university"], answer: "Ate with Mika" }
+      - { kind: challenge, ja: "かばんを かってから ミカが すきな きっさてんで ちゃを のんだ。", en: "After buying a bag, I drank tea at the coffee shop Mika likes", combines: [te-kara, ga-existence, na-adj-present, de-action, ta-form], mode: build }
+    reviewPool: [こと, とき, まえ, えいが, くつ, りょこう, うた, かばん, えき, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-9
+    role: teaching
+    title: "まえに と てから — putting two actions in order"
+    focus: "the pair, run against each other: まえに takes the dictionary form, てから takes the て-form"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ごはんを たべる まえに みずを のむ。", en: "Before eating, I drink water", exercises: [mae-ni, wo-object], mode: build }
+      - { kind: sentence, ja: "ごはんを たべてから ちゃを のむ。", en: "After eating, I drink tea", exercises: [te-kara, wo-object], mode: build }
+      - { kind: sentence, ja: "えいがを みる まえに きっぷを かった。", en: "Before watching the movie, I bought a ticket", exercises: [mae-ni, ta-form], mode: build }
+      - { kind: sentence, ja: "えいがを みてから ごはんを たべた。", en: "After watching the movie, I ate", exercises: [te-kara, ta-form], mode: listening }
+      - { kind: sentence, ja: "りょこうの まえに あたらしい くつを かう。", en: "Before the trip, I buy new shoes", exercises: [mae-ni, no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "りょこうに いってから ともだちと あそんだ。", en: "After going on the trip, I hung out with a friend", exercises: [te-kara, to-and, ta-form], mode: build }
+      - { kind: sentence, ja: "だいがくに いく まえに きっさてんで ちゃを のむ。", en: "Before going to university, I drink tea at a coffee shop", exercises: [mae-ni, de-action], mode: build }
+      - { kind: sentence, ja: "ちゃを のんでから うみで およぐ。", en: "After drinking tea, I swim in the sea", exercises: [te-kara, de-action], mode: build }
+      - { kind: sentence, ja: "ごはんを たべてから いく。", en: "Say to a friend: I'll go after eating", exercises: [te-kara], mode: translate }
+      - { kind: particle-cloze, stem: "ちゃを ", tail: " まえに ほんを みた。", answer: "のむ", options: ["のむ", "のんで", "のんだ"], en: "Before drinking tea, I looked at a book", explanation: "まえに always takes the dictionary form — のむ. のんで is the て-form, and that is what てから uses." }
+      - { kind: listening-comp, audio: "えいがを みる まえに ごはんを たべた。", answer: "Before watching the movie, I ate", distractors: ["After watching the movie, I ate", "Before eating, I watched the movie", "I ate at the movie"], exercises: [mae-ni, ta-form] }
+      - { kind: listening-comp, audio: "くつを かってから きっさてんに いった。", answer: "After buying shoes, I went to the coffee shop", distractors: ["Before buying shoes, I went to the coffee shop", "After going to the coffee shop, I bought shoes", "I bought shoes at the coffee shop"], exercises: [te-kara, ni-location] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "えいがの まえに ごはんを たべる？", en: "Are you going to eat before the movie?" }
+          - { speaker: "Ken", ja: "ううん、えいがを みてから たべる。", en: "Nope, I'll eat after watching the movie." }
+        questions:
+          - { q: "When does Ken want to eat?", options: ["After the movie", "Before the movie", "He doesn't want to eat", "At the coffee shop"], answer: "After the movie" }
+      - { kind: challenge, ja: "りょこうに いく まえに あたらしい くつを かってから ともだちと あそんだ。", en: "Before going on the trip, I bought new shoes and then hung out with a friend", combines: [mae-ni, te-kara, i-adj-present, to-and, ta-form], mode: build }
+    reviewPool: [まえ, とき, こと, えいが, くつ, りょこう, きっぷ, みず, ちゃ, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-r3
+    role: review
+    title: "Review — clauses, things, times and order"
+    focus: "everything the module built: clauses in front of nouns, こと, とき, まえに and てから"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday", exercises: [ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "ごはんを たべる まえに みずを のむ。", en: "Before eating, I drink water", exercises: [mae-ni, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet", exercises: [ga-existence, ta-form, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "うたを きいてから ごはんを たべた。", en: "After listening to a song, I ate", exercises: [te-kara, ta-form], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: build }
+      - { kind: particle-cloze, stem: "がくせいの ", tail: " じてんしゃを かった。", answer: "とき", options: ["とき", "こと", "まえ"], en: "When I was a student, I bought a bicycle", explanation: "とき says WHEN; こと turns a clause into a thing, and まえ needs に after it." }
+      - { kind: sentence, ja: "いそがしい とき えいがを みない。", en: "When I'm busy, I don't watch movies", exercises: [toki, nai-form], mode: build }
+      - { kind: listening-comp, audio: "きのう みた えいがは おもしろい。", answer: "The movie I saw yesterday is fun", distractors: ["The movie I want to see is fun", "The movie I saw yesterday was boring", "I bought a ticket for the movie yesterday"], exercises: [ta-form, i-adj-present] }
+      - { kind: sentence, ja: "たなかが おしえる じゅぎょうは おもしろい。", en: "The class Tanaka teaches is interesting", exercises: [ga-existence, dictionary-form], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki], mode: translate }
+      - { kind: listening-comp, audio: "だいがくに いく まえに ごはんを たべる。", answer: "Before going to university, I eat", distractors: ["After going to university, I eat", "Before eating, I go to university", "I eat at the university"], exercises: [mae-ni, ni-location] }
+      - { kind: sentence, ja: "りょこうの まえに あたらしい くつを かった。", en: "Before the trip, I bought new shoes", exercises: [mae-ni, no-possession, ta-form], mode: build }
+      - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer holiday?" }
+          - { speaker: "Mika", ja: "りょこうに いった。うみで およぐ ことが すきだ。", en: "I went on a trip. I love swimming in the sea." }
+        questions:
+          - { q: "What does Mika say she likes?", options: ["Swimming in the sea", "Watching movies", "Buying shoes", "Working"], answer: "Swimming in the sea" }
+    reviewPool: [こと, とき, まえ, えいが, くつ, りょこう, ほん, うた, じてんしゃ, じゅぎょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m15-neo-challenge
+    role: challenge
+    title: "Challenge — say what, say when, say in what order"
+    focus: "End-of-module stretch: relative clauses, こと, とき, まえに and てから stacked in shapes the teaching lessons never paired"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "にほんに いく まえに ミカが すきな えいがを みた。", en: "Before going to Japan, I watched the movie Mika likes", exercises: [mae-ni, ga-existence, na-adj-present, ta-form], mode: build }
+      - { kind: sentence, ja: "じゅぎょうが ない とき ともだちと あそぶ ことが すきだ。", en: "I like hanging out with friends when there is no class", exercises: [toki, nai-existence, no-ga-suki, to-and], mode: build }
+      - { kind: sentence, ja: "ケンが かった くつを みてから みせに いった。", en: "After looking at the shoes Ken bought, I went to the shop", exercises: [ga-existence, ta-form, te-kara, ni-location], mode: listening }
+      - { kind: sentence, ja: "りょこうの まえに あたらしい カメラを かう ことが すきだ。", en: "I like buying a new camera before a trip", exercises: [mae-ni, no-possession, no-ga-suki, i-adj-present], mode: build }
+      - { kind: sentence, ja: "がくせいの とき きいた うたを いま きいている。", en: "I'm listening to the song I heard when I was a student", exercises: [toki, ta-form, te-iru], mode: build }
+      - { kind: sentence, ja: "ごはんを たべてから ミカが すきな きっさてんで ちゃを のむ。", en: "After eating, I drink tea at the coffee shop Mika likes", exercises: [te-kara, ga-existence, na-adj-present, de-action], mode: build }
+      - { kind: sentence, ja: "いそがしい とき えいがを みる じかんが ない。", en: "When I'm busy, there is no time to watch movies", exercises: [toki, dictionary-form, nai-existence], mode: build }
+      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: translate }
+      - { kind: particle-cloze, stem: "きのう ", tail: " えいがは おもしろい。", answer: "みた", options: ["みた", "みる", "みます"], en: "The movie I saw yesterday is interesting", explanation: "the clause is in the plain past — みた. みます could never sit inside a clause." }
+      - { kind: listening-comp, audio: "ミカが すきな みせで あたらしい くつを かった。", answer: "I bought new shoes at the shop Mika likes", distractors: ["Mika bought new shoes at the shop", "I bought new shoes for Mika", "I like the shoes Mika bought"], exercises: [ga-existence, na-adj-present, de-action] }
+      - { kind: listening-comp, audio: "じかんが ある とき ほんを みる ことが すきだ。", answer: "When I have time, I like reading books", distractors: ["I have no time to read books", "When I had time, I read a book", "I like buying books when I have time"], exercises: [toki, no-ga-suki] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "りょこうに いく まえに なにを かった？", en: "What did you buy before going on the trip?" }
+          - { speaker: "Mika", ja: "あたらしい くつを かった。ケンが すきな みせで かった。", en: "I bought new shoes. I bought them at the shop Ken likes." }
+        questions:
+          - { q: "Where did Mika buy the new shoes?", options: ["At a shop Ken likes", "At the station", "At a shop in Japan", "She hasn't bought them yet"], answer: "At a shop Ken likes" }
+      - { kind: challenge, ja: "じかんが ある とき ミカが かった ほんを みる ことが すきだ。", en: "When I have time, I like reading the book Mika bought", combines: [toki, ga-existence, ta-form, no-ga-suki], mode: build }
+    reviewPool: [こと, とき, まえ, えいが, くつ, りょこう, ほん, ちゃ, みせ, じかん]

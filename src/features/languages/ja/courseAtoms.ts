@@ -1040,6 +1040,18 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // (crediting せん "thousand" to SRS, the documented homograph trap) and the
   // tile bank cannot spell the sentence.
   { id: "ikemasen", kana: "いけません", romaji: "ikemasen", meaningEn: "must not, not allowed", shortGloss: "must not", fromModule: "m14", introducedByLessonId: "ja-m14-neo-7", kind: "vocab", blocked: true, note: "fixed prohibition helper — no concrete referent" },
+  // ── m15-neo (tile s11) — relative clauses + こと/の + とき ──
+  // TWO registrations. Every other surface m15 teaches is already an atom
+  // (えいが/くつ/りょこう/いそがしい carry m15 `fromModule` tags of their own,
+  // まえ carries a stale m17 one) or a REAL form the conjugation lexicon
+  // derives (かった, のんだ, いってから = いって + から …). こと and とき are
+  // derivable from nothing: without a row here the guards' tokenizer reads
+  // them as untracked words and the compiler's `unbuildable` gate rejects
+  // every sentence that uses them, exactly as m14 documented for いけません.
+  // Both are `blocked` — an abstract function noun has no honest emoji, and
+  // the rule cards that teach them are their introduction.
+  { id: "koto", kana: "こと", romaji: "koto", meaningEn: "thing, the act of doing", shortGloss: "thing (act of)", fromModule: "m15", introducedByLessonId: "ja-m15-neo-4", kind: "vocab", blocked: true, note: "nominalizer / abstract 'thing' — no concrete referent" },
+  { id: "toki-when", kana: "とき", romaji: "toki", meaningEn: "time, when", shortGloss: "time, when", fromModule: "m15", introducedByLessonId: "ja-m15-neo-5", kind: "vocab", blocked: true, note: "temporal function noun — an emoji clock would read as じかん/とけい" },
 ];
 
 /**

@@ -262,13 +262,15 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m14 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, n06b) are LIVE
-    // via the compiler pipeline — slice them off so the placeholders begin
-    // at m15.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(9).map((t, i) => ({
-      id: `m${i + 15}`,
+    // m6-m15 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b) are
+    // LIVE via the compiler pipeline — slice them off so the placeholders
+    // begin at m16. NB the SPINE_COMING_SOON array still lists s11 before
+    // n06b (draft-3 order); draft-4 swapped them, which is why m14 is n06b
+    // and m15 is s11. Only the COUNT sliced matters here.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(10).map((t, i) => ({
+      id: `m${i + 16}`,
       title: t.title,
-      eyebrow: `Module ${i + 15} · Coming soon`,
+      eyebrow: `Module ${i + 16} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -600,6 +602,34 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m14-neo-challenge", title: "Challenge — say what's happening, then say what's allowed", status: "available" as const },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          // m15-neo (spine tile s11) — the relative clause. A Japanese
+          // relative clause is a whole sentence parked in front of a noun:
+          // no "that/which/who", no change to the verb, and the verb stays
+          // PLAIN. こと/の name an action so it can be liked or talked
+          // about; とき is the same shape with the noun "time"; まえに and
+          // てから put two actions in order.
+          id: "m15",
+          title: "Relative clauses + こと / とき",
+          eyebrow: "Module 15 · clauses in front of nouns",
+          summary: "Japanese has no relative pronoun — you park a whole sentence in front of a noun and the verb does not change: ほんを みる ひと is the person who reads books. The clause verb stays plain, its own subject takes が, and the same shape then gives you こと (naming an action), とき (saying when) and the ordering pair まえに / てから.",
+          lessons: [
+            { id: "ja-m15-neo-1", title: "ほんを みる ひと — a sentence in front of a noun", status: "available" as const },
+            { id: "ja-m15-neo-2", title: "きのう かった ほん — clauses in the past", status: "available" as const },
+            { id: "ja-m15-neo-3", title: "ミカが かった ほん — who did it, inside the clause", status: "available" as const },
+            { id: "ja-m15-neo-review-1", title: "Review — sentences in front of nouns", status: "available" as const },
+            { id: "ja-m15-neo-4", title: "たべる こと — turning an action into a thing", status: "available" as const },
+            { id: "ja-m15-neo-5", title: "いく とき — saying when", status: "available" as const },
+            { id: "ja-m15-neo-6", title: "じかんが ある とき — spending とき", status: "available" as const },
+            { id: "ja-m15-neo-review-2", title: "Review — things and times", status: "available" as const },
+            { id: "ja-m15-neo-7", title: "たべる まえに — before doing", status: "available" as const },
+            { id: "ja-m15-neo-8", title: "たべてから — after doing", status: "available" as const },
+            { id: "ja-m15-neo-9", title: "まえに と てから — putting two actions in order", status: "available" as const },
+            { id: "ja-m15-neo-review-3", title: "Review — clauses, things, times and order", status: "available" as const },
+            { id: "ja-m15-neo-challenge", title: "Challenge — say what, say when, say in what order", status: "available" as const },
+          ],
+          accent: { from: "#f97316", to: "#ea580c" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

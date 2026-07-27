@@ -24,7 +24,7 @@ partial success has burned this project repeatedly.
 ## Module map (spine draft-4 → module number)
 
 Authored: m3 s03 · m4 s04 · m5 s05 · m6 n06a · m7 s07 · m8 n02 · m9 n03 ·
-m10 n15 · m11 n04 · m12 s09 · m13 n05.
+m10 n15 · m11 n04 · m12 s09 · m13 n05 · m14 n06b · m15 s11.
 
 | m | unit | title |
 |---|---|---|
@@ -158,6 +158,19 @@ had been ignoring:
   に(particle) as 二, ごじ ⊂ ごじゅう. The symptom is never an error — it is a
   word that quietly stops being scheduled. Check `exercisedAtoms` when adding
   any short atom.
+- **An IR-ONLY atom from an earlier module is invisible to a later module's
+  compiler.** `moduleCompiler`'s tokenizer knows courseAtoms ∪ THIS module's
+  `newAtoms` — nothing else — so m13/m14 surfaces that live only in their own IR
+  (おいしかった, やすかった, したい, しって, すんで, はたらいて, およいで …)
+  shatter into junk tiles inside m15 (「おいしかった」 → おい/し/かった). Two
+  failure modes, one loud and one SILENT: a >1-char fragment trips
+  `unbuildable`, but a split into pieces that all happen to be atoms does not —
+  「ふるかった」 tokenized to ふる (to fall) + かった (bought) and mis-credited
+  SRS with no error anywhere. m14 fixed one instance by backfilling いい into
+  courseAtoms; m15 avoided the class instead (it uses only surfaces the registry
+  or the conjugation lexicon actually knows). Before authoring, tokenize every
+  sentence with the COMPILER's vocabulary, not the guard's — the guard also
+  reads `getRealFormLexicon()` and will not see this.
 - **`i % pool.length` is not rotation, it is repetition** once i exceeds the
   pool. Filler must track what it has already spent in the lesson.
 
@@ -188,7 +201,7 @@ teaches four counters at once is a table, not a lesson).
 | 12 | i-adj-present i-adj-negative na-adj-present na-adj-negative i-adj-past i-adj-past-negative na-adj-past | ✅ |
 | 13 | v-tai ga-hoshii suki-kirai-no no-ga-suki | ✅
 | 14 | te-iru te-mo-ii te-wa-ikemasen naide-kudasai kudasai **mada-mou** | ✅
-| 15 | dictionary-form toki mae-ni te-kara |
+| 15 | dictionary-form toki mae-ni te-kara | ✅
 | 16 | kara-because node-because kedo kara-origin counter-mai **masu-past-negative** |
 | 17 | family-register counter-sai counter-nin kono-sono-ano-dono |
 | 18 | to-omoimasu to-quotation kanji-set-1 |
@@ -242,6 +255,25 @@ are therefore invisible to the real-form lexicon (〜たくない carries the
 negative wish instead). m13 DOES re-teach m12's `i-adj-negative` /
 `i-adj-past` / `i-adj-past-negative` cards with たい as the base — that
 reuse IS the module's argument, and the ledger rows are unchanged.
+
+**A FOURTH note, m15 (2026-07-27) — the ledger row is unchanged; the SPINE
+overrode the authoring brief on one point.** spinePlan s11 says "とき (#62)
+temporal clauses — MATCHED-TENSE sentences only in this beat (audit: 行くとき vs
+行ったとき relative-tense flip is a documented trap; the contrast belongs to the
+s22 deepen)". The m15 brief asked for the flip ("〜る とき = before/while, 〜た
+とき = after"). **The spine wins**: every とき sentence in m15 keeps its two
+halves in the same tense, and the flip stays on m22's row. Machine-checked by a
+matched-tense guard in `m15-neo.test.ts`. Three points are also RE-TAUGHT here
+rather than re-assigned, because the registry has no id for "relative clause"
+and inv 42 forbids inventing one: `dictionary-form` (m7's citation form, which
+is exactly why the ledger put it on m15's row), `ta-form` (m11) for the past
+clause, and `ga-existence` (m6) for the clause-internal subject. こと rides
+m13's `no-ga-suki` — こと and の are one construction with two skins, and
+`koto-ga-aru` (EXPERIENCE) stays on m23. No ledger row moved. **Not taught in
+m15: past-tense ADJECTIVE predicates** (おいしかった / やすかった / たかかった /
+おもしろかった) — see the new recurring trap below; the module uses non-past
+adjective predicates with past clauses instead, which isolates the
+relative-clause skill anyway.
 
 **A THIRD reconciliation, m14 (2026-07-27) — `mada-mou` m22 → m14, and
 `te-kara` stays at m15.** spinePlan n06b lists もう/まだ as "the canonical

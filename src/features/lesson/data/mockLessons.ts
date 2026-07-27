@@ -162,6 +162,7 @@ import { M11_NEO_LESSONS } from "@/features/languages/ja/curriculum/m11-neo";
 import { M12_NEO_LESSONS } from "@/features/languages/ja/curriculum/m12-neo";
 import { M13_NEO_LESSONS } from "@/features/languages/ja/curriculum/m13-neo";
 import { M14_NEO_LESSONS } from "@/features/languages/ja/curriculum/m14-neo";
+import { M15_NEO_LESSONS } from "@/features/languages/ja/curriculum/m15-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -468,6 +469,9 @@ const LESSONS: Record<string, LessonContent> = {
   // m14-neo (tile n06b) — compiled from ir/m14.ir.json. ている + the
   // permission/prohibition family.
   ...Object.fromEntries(M14_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  // m15-neo (tile s11) — compiled from ir/m15.ir.json. Relative clauses,
+  // こと/の nominalizers, とき, and the まえに / てから ordering pair.
+  ...Object.fromEntries(M15_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.
