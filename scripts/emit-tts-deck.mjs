@@ -53,6 +53,22 @@ for (const f of readdirSync(JA_CURRICULUM_DIR)) {
   }
 }
 
+// CONTENT-IR MODULES (added 2026-07-26). Modules authored through the
+// compiler pipeline keep their Japanese in `ir/m<N>.ir.yaml`, not in a
+// `.ts` file — `m<N>-neo.ts` only calls compileModule(). Without this the
+// emitter silently skipped every IR module's sentences and the manifest
+// check passed while the lessons were mute. The YAML's `ja: "…"` lines are
+// picked up by the existing `ja:` pattern below; dialogue lines use the
+// same key, so they come along too.
+const JA_IR_DIR = join(JA_CURRICULUM_DIR, "ir");
+try {
+  for (const f of readdirSync(JA_IR_DIR)) {
+    if (/\.ir\.yaml$/.test(f)) sources.push(join(JA_IR_DIR, f));
+  }
+} catch {
+  // no ir/ directory yet — fine
+}
+
 const kanaSet = new Set();
 
 for (const path of sources) {
