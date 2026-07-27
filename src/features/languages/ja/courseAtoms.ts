@@ -943,6 +943,8 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "shokuji", kana: "しょくじ", romaji: "shokuji", meaningEn: "a meal", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab" },
   { id: "cha", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab" },
   { id: "kome", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab" },
+  // ── m9-neo (tile n03) — numbers, counters, purchases ──
+  { id: "kane", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */

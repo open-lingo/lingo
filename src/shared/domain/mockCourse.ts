@@ -264,10 +264,10 @@ export function getMockCourse(languageId: string): Course {
     ];
     // m6 (tile n06a) and m7 (tile s07) are LIVE via the compiler pipeline —
     // slice them off so the placeholders begin at m8.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(3).map((t, i) => ({
-      id: `m${i + 9}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(4).map((t, i) => ({
+      id: `m${i + 10}`,
       title: t.title,
-      eyebrow: `Module ${i + 9} · Coming soon`,
+      eyebrow: `Module ${i + 10} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -441,6 +441,32 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m8-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        {
+          // m9-neo (spine tile n03) — numbers 1-10 + the first purchase.
+          // ONE generic counter (〜つ); every other counter drips in later.
+          id: "m9",
+          title: "Numbers and purchases",
+          eyebrow: "Module 9 · Counting and buying",
+          summary: "The number line, the all-purpose 〜つ counter, and a whole shop exchange: いくらですか, 〜えん, ください. Katakana ナ and ハ rows.",
+          lessons: [
+            { id: "ja-m9-neo-kata-na", title: "Katakana — ナ row", status: "available" as const },
+            { id: "ja-m9-neo-1", title: "One to five", status: "available" as const },
+            { id: "ja-m9-neo-2", title: "Six to ten", status: "available" as const },
+            { id: "ja-m9-neo-3", title: "Counting things — 〜つ", status: "available" as const },
+            { id: "ja-m9-neo-review-1", title: "Review — the number line", status: "available" as const },
+            { id: "ja-m9-neo-4", title: "Yen and how much", status: "available" as const },
+            { id: "ja-m9-neo-5", title: "Cheap and expensive", status: "available" as const },
+            { id: "ja-m9-neo-6", title: "Buying and selling", status: "available" as const },
+            { id: "ja-m9-neo-kata-ha", title: "Katakana — ハ row", status: "available" as const },
+            { id: "ja-m9-neo-review-2", title: "Review — the shop exchange", status: "available" as const },
+            { id: "ja-m9-neo-7", title: "How many do you want?", status: "available" as const },
+            { id: "ja-m9-neo-8", title: "Too expensive", status: "available" as const },
+            { id: "ja-m9-neo-9", title: "A whole purchase", status: "available" as const },
+            { id: "ja-m9-neo-review-3", title: "Review — numbers, prices, purchases", status: "available" as const },
+            { id: "ja-m9-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+          ],
+          accent: { from: "#10b981", to: "#059669" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

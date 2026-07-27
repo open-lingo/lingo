@@ -1,0 +1,1969 @@
+{
+  "module": "m9",
+  "title": "Numbers and first purchases",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8"
+  ],
+  "priorGrammarPoints": [
+    "wa",
+    "ga",
+    "wo",
+    "no",
+    "ni",
+    "de",
+    "mo",
+    "dare",
+    "kore-deixis",
+    "sore-deixis",
+    "nai-ru",
+    "nai-u",
+    "nai-irregular",
+    "aru-ga-existence",
+    "iru-animacy",
+    "nai-existence",
+    "location-deixis",
+    "ni-existence",
+    "spatial-relations",
+    "location-qa",
+    "de-action",
+    "masu-present",
+    "masu-negative",
+    "desu-copula",
+    "ka-question",
+    "register-audience",
+    "te-form",
+    "te-kudasai"
+  ],
+  "grammarPoints": [
+    {
+      "id": "numbers-1-10",
+      "rule": "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things.",
+      "examples": [
+        {
+          "ja": "いち に さん",
+          "en": "one, two, three"
+        },
+        {
+          "ja": "よん ご ろく",
+          "en": "four, five, six"
+        }
+      ]
+    },
+    {
+      "id": "counter-tsu",
+      "rule": "〜つ is the ALL-PURPOSE counter for things: ひとつ ふたつ みっつ よっつ いつつ. It works for objects when you don't know the specific counter, which as a beginner is most of the time. It stops at とお (10) — past that you use the plain numbers.",
+      "examples": [
+        {
+          "ja": "ひとつ ください",
+          "en": "One, please."
+        },
+        {
+          "ja": "ふたつ ある",
+          "en": "There are two."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いちつ",
+        "en": "",
+        "why": "the 〜つ series uses its own readings — ひとつ, not いちつ"
+      }
+    },
+    {
+      "id": "ikura-price",
+      "rule": "いくら asks the price: いくらですか = 'how much is it?'. The answer is a number + えん. Prices are the one place a beginner needs numbers immediately, so this is where the number line gets spent.",
+      "examples": [
+        {
+          "ja": "いくらですか",
+          "en": "How much is it?"
+        },
+        {
+          "ja": "ひゃくえんです",
+          "en": "It's a hundred yen."
+        }
+      ]
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m9-neo-1",
+      "role": "teaching",
+      "title": "One to five",
+      "focus": "the first half of the number line, as a sequence",
+      "introduces": [
+        "いち",
+        "さん",
+        "よん",
+        "ご"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "numbers-1-10"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いち",
+          "en": "one",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さん",
+          "en": "three",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "よん",
+          "en": "four",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ご",
+          "en": "five",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いち さん",
+          "en": "one, three",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さん よん ご",
+          "en": "three, four, five",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "よん ご",
+          "en": "four, five",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんが ご ある。",
+          "en": "There are five books",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの ほんは さんです。",
+          "en": "Say politely: Mika's books are three",
+          "combines": [
+            "no",
+            "wa",
+            "desu-copula",
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "ひと",
+        "ねこ",
+        "いえ",
+        "みず",
+        "ともだち",
+        "きょう"
+      ]
+    },
+    {
+      "id": "m9-neo-2",
+      "role": "teaching",
+      "title": "Six to ten",
+      "focus": "the rest of the line; なな and よん over しち and し",
+      "introduces": [
+        "ろく",
+        "なな",
+        "はち",
+        "きゅう",
+        "じゅう"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "numbers-1-10"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ろく",
+          "en": "six",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なな",
+          "en": "seven",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はち",
+          "en": "eight",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きゅう",
+          "en": "nine",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅう",
+          "en": "ten",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ねこが ご いる。",
+          "en": "There are five cats",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "iru-animacy"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんが さん ある。",
+          "en": "There are three books",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いち さん よん",
+          "en": "one, three, four",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いぬが さん いる。",
+          "en": "There are three dogs",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "iru-animacy"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "challenge",
+          "ja": "いえに ねこが きゅう いる。",
+          "en": "There are nine cats at the house",
+          "combines": [
+            "ni-existence",
+            "ga",
+            "numbers-1-10",
+            "iru-animacy"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ねこ",
+        "いぬ",
+        "ほん",
+        "ひと",
+        "いえ",
+        "ともだち",
+        "せんせい"
+      ]
+    },
+    {
+      "id": "m9-neo-3",
+      "role": "teaching",
+      "title": "Counting things — 〜つ",
+      "focus": "the all-purpose counter; its own readings, not the plain numbers",
+      "introduces": [
+        "ひとつ",
+        "ふたつ",
+        "みっつ"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "counter-tsu"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひとつ",
+          "en": "one thing",
+          "exercises": [
+            "counter-tsu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふたつ",
+          "en": "two things",
+          "exercises": [
+            "counter-tsu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みっつ",
+          "en": "three things",
+          "exercises": [
+            "counter-tsu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひとつ ください。",
+          "en": "Say politely: One, please",
+          "exercises": [
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふたつ ください。",
+          "en": "Say politely: Two, please",
+          "exercises": [
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんが ふたつ ある。",
+          "en": "There are two books",
+          "exercises": [
+            "counter-tsu",
+            "ga",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みっつ ある。",
+          "en": "There are three",
+          "exercises": [
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ぼうしを ",
+          "tail": " ください。",
+          "answer": "ひとつ",
+          "options": [
+            "ひとつ",
+            "ふたつ",
+            "みっつ"
+          ],
+          "en": "One hat, please",
+          "explanation": "ひとつ is the 〜つ form of one — the counter has its own readings."
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの ぼうしが ふたつ ある。",
+          "en": "Mika has two hats",
+          "combines": [
+            "no",
+            "ga",
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "ぼうし",
+        "かさ",
+        "ねこ",
+        "いえ",
+        "みず",
+        "ある"
+      ]
+    },
+    {
+      "id": "m9-neo-r1",
+      "role": "review",
+      "title": "Review — the number line",
+      "focus": "numbers and 〜つ on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "かさが みっつ ある。",
+          "en": "There are three umbrellas",
+          "exercises": [
+            "ga",
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひとが ろく いる。",
+          "en": "There are six people",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "iru-animacy"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひとつ ください。",
+          "en": "Say politely: One, please",
+          "exercises": [
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつが ふたつ ある。",
+          "en": "There are two pencils",
+          "exercises": [
+            "ga",
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさが なな ある。",
+          "en": "There are seven umbrellas",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ねこは ごです。",
+          "en": "Say politely: The cats are five",
+          "exercises": [
+            "wa",
+            "desu-copula",
+            "numbers-1-10"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ほんが ",
+          "tail": " ある。",
+          "answer": "みっつ",
+          "options": [
+            "みっつ",
+            "ひとつ",
+            "ふたつ"
+          ],
+          "en": "There are three books",
+          "explanation": "みっつ is three things."
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅう",
+          "en": "ten",
+          "exercises": [
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "まどが ふたつ ある。",
+          "en": "There are two windows",
+          "exercises": [
+            "ga",
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "めがねを ひとつ かって。",
+          "en": "Buy one pair of glasses",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-form"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "ほんが みっつ ある。",
+              "en": "There are three books."
+            },
+            {
+              "speaker": "トム",
+              "ja": "ふたつは ミカの？",
+              "en": "Are two of them yours?"
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many books are there?",
+              "options": [
+                "Three",
+                "Two",
+                "One",
+                "Four"
+              ],
+              "answer": "Three"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "えんぴつ",
+        "まど",
+        "めがね",
+        "ほん",
+        "ねこ",
+        "いえ"
+      ]
+    },
+    {
+      "id": "m9-neo-4",
+      "role": "teaching",
+      "title": "Yen and how much",
+      "focus": "いくらですか and a number + えん; the exchange that makes numbers pay",
+      "introduces": [
+        "えん",
+        "いくら"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ikura-price"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えん",
+          "en": "yen",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いくら",
+          "en": "how much",
+          "exercises": [
+            "ikura-price"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いくらですか。",
+          "en": "Say politely: How much is it",
+          "exercises": [
+            "ikura-price",
+            "desu-copula",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひゃくえんです。",
+          "en": "Say politely: It's a hundred yen",
+          "exercises": [
+            "ikura-price",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは ごひゃくえんです。",
+          "en": "Say politely: The book is five hundred yen",
+          "exercises": [
+            "wa",
+            "ikura-price",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんは いくらですか。",
+          "en": "Say politely: How much is the book",
+          "exercises": [
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぼうしは ひゃくえんです。",
+          "en": "Say politely: The hat is a hundred yen",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "これは いくらですか。",
+              "en": "How much is this?"
+            },
+            {
+              "speaker": "たなか",
+              "ja": "ひゃくえんです。",
+              "en": "It's a hundred yen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What's the price?",
+              "options": [
+                "100 yen",
+                "500 yen",
+                "10 yen",
+                "Not stated"
+              ],
+              "answer": "100 yen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの かさは いくらですか。",
+          "en": "Say politely: How much is Mika's umbrella",
+          "combines": [
+            "no",
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "ぼうし",
+        "かさ",
+        "ひゃく",
+        "これ",
+        "めがね",
+        "えんぴつ"
+      ]
+    },
+    {
+      "id": "m9-neo-5",
+      "role": "teaching",
+      "title": "Cheap and expensive",
+      "focus": "the two adjectives a shopper needs before adjectives are formally taught",
+      "introduces": [
+        "たかい",
+        "やすい",
+        "かね"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "たかい",
+          "en": "expensive",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やすい",
+          "en": "cheap",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かね",
+          "en": "money",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たかいです。",
+          "en": "Say politely: It's expensive",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やすいです。",
+          "en": "Say politely: It's cheap",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは たかいです。",
+          "en": "Say politely: This is expensive",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かねが ない。",
+          "en": "I have no money",
+          "exercises": [
+            "ga",
+            "nai-existence"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさは やすいです。",
+          "en": "Say politely: The umbrella is cheap",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ごひゃくえんは ",
+          "tail": "です。",
+          "answer": "たかい",
+          "options": [
+            "たかい",
+            "やすい",
+            "かね"
+          ],
+          "en": "Five hundred yen is expensive",
+          "explanation": "たかい is expensive; やすい is cheap."
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの めがねは たかいです。",
+          "en": "Say politely: Mika's glasses are expensive",
+          "combines": [
+            "no",
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "かさ",
+        "ぼうし",
+        "めがね",
+        "えん",
+        "ある",
+        "ない"
+      ]
+    },
+    {
+      "id": "m9-neo-6",
+      "role": "teaching",
+      "title": "Buying and selling",
+      "focus": "うる beside かう; かいもの as the activity",
+      "introduces": [
+        "うる",
+        "かいもの",
+        "パン"
+      ],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "うる",
+          "en": "to sell",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいもの",
+          "en": "shopping",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パン",
+          "en": "bread",
+          "exercises": [],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンを かう。",
+          "en": "I buy bread",
+          "exercises": [
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで パンを うる。",
+          "en": "They sell bread at the shop",
+          "exercises": [
+            "de-action",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいものを する。",
+          "en": "I do the shopping",
+          "exercises": [
+            "wo"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンは やすいです。",
+          "en": "Say politely: The bread is cheap",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンを ふたつ ください。",
+          "en": "Say politely: Two breads, please",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "みせで かいものを する？",
+              "en": "Doing the shopping at the store?"
+            },
+            {
+              "speaker": "ケン",
+              "ja": "うん。パンを かう。",
+              "en": "Yeah. I'll buy bread."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What will Ken buy?",
+              "options": [
+                "Bread",
+                "Tea",
+                "A book",
+                "Nothing"
+              ],
+              "answer": "Bread"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせで パンを みっつ かってください。",
+          "en": "Say politely: Please buy three breads at the shop",
+          "combines": [
+            "de-action",
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かう",
+        "する",
+        "みせ",
+        "ちゃ",
+        "ごはん",
+        "たべもの",
+        "やすい",
+        "えん"
+      ]
+    },
+    {
+      "id": "m9-neo-r2",
+      "role": "review",
+      "title": "Review — the shop exchange",
+      "focus": "price, counter and request in one place",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "パンは いくらですか。",
+          "en": "Say politely: How much is the bread",
+          "exercises": [
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みっつ ください。",
+          "en": "Say politely: Three, please",
+          "exercises": [
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たかいです。",
+          "en": "Say politely: It's expensive",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かねが ない。",
+          "en": "I have no money",
+          "exercises": [
+            "ga",
+            "nai-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで ちゃを かう。",
+          "en": "I buy tea at the shop",
+          "exercises": [
+            "de-action",
+            "wo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごはんは やすいです。",
+          "en": "Say politely: The rice is cheap",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "これは ",
+          "tail": "ですか。",
+          "answer": "いくら",
+          "options": [
+            "いくら",
+            "たかい",
+            "やすい"
+          ],
+          "en": "How much is this?",
+          "explanation": "いくら asks the price; たかい/やすい answer it."
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンを かいます。",
+          "en": "Say politely: I'll buy bread",
+          "exercises": [
+            "wo",
+            "masu-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいものを してください。",
+          "en": "Say politely: Please do the shopping",
+          "exercises": [
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひゃくえんです。",
+          "en": "Say politely: It's a hundred yen",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "パンは いくらですか。",
+              "en": "How much is the bread?"
+            },
+            {
+              "speaker": "たなか",
+              "ja": "ひゃくえんです。やすいですよ。",
+              "en": "A hundred yen. It's cheap."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tanaka say about the price?",
+              "options": [
+                "It's cheap",
+                "It's expensive",
+                "It's free",
+                "He doesn't know"
+              ],
+              "answer": "It's cheap"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "パン",
+        "ちゃ",
+        "ごはん",
+        "みせ",
+        "かね",
+        "えん",
+        "たかい",
+        "やすい",
+        "かいもの"
+      ]
+    },
+    {
+      "id": "m9-neo-7",
+      "role": "teaching",
+      "title": "How many do you want?",
+      "focus": "counting what you are buying, out loud",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "パンを ひとつ かう。",
+          "en": "I buy one bread",
+          "exercises": [
+            "wo",
+            "counter-tsu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを ふたつ ください。",
+          "en": "Say politely: Two teas, please",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぼうしを みっつ かいます。",
+          "en": "Say politely: I'll buy three hats",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "masu-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんを ひとつ うる。",
+          "en": "I sell one book",
+          "exercises": [
+            "wo",
+            "counter-tsu"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさを ふたつ かってください。",
+          "en": "Say politely: Please buy two umbrellas",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みずを ひとつ ください。",
+          "en": "Say politely: One water, please",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつが みっつ ある。",
+          "en": "There are three pencils",
+          "exercises": [
+            "ga",
+            "counter-tsu",
+            "aru-ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "パンを ",
+          "tail": " かいます。",
+          "answer": "ふたつ",
+          "options": [
+            "ふたつ",
+            "ひとつ",
+            "みっつ"
+          ],
+          "en": "I'll buy two breads",
+          "explanation": "ふたつ is two things."
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせで ミカの パンを ひとつ かって。",
+          "en": "Buy one of Mika's breads at the shop",
+          "combines": [
+            "de-action",
+            "no",
+            "wo",
+            "counter-tsu",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "パン",
+        "ちゃ",
+        "ぼうし",
+        "かさ",
+        "みず",
+        "えんぴつ",
+        "ほん",
+        "みせ"
+      ]
+    },
+    {
+      "id": "m9-neo-8",
+      "role": "teaching",
+      "title": "Too expensive",
+      "focus": "refusing a price — the other half of a real exchange",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "たかいです。かいません。",
+          "en": "Say politely: It's expensive so I won't buy it",
+          "exercises": [
+            "desu-copula",
+            "masu-negative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やすいです。かいます。",
+          "en": "Say politely: It's cheap so I'll buy it",
+          "exercises": [
+            "desu-copula",
+            "masu-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かねが ないです。",
+          "en": "Say politely: I don't have money",
+          "exercises": [
+            "ga",
+            "nai-existence",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "パンは たかい。",
+          "en": "The bread is expensive",
+          "exercises": [
+            "wa"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やすい パンを かう。",
+          "en": "I buy cheap bread",
+          "exercises": [
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たかい ほんは かわない。",
+          "en": "I don't buy expensive books",
+          "exercises": [
+            "wa",
+            "nai-u"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ごひゃくえんは たかいです。",
+          "en": "Say politely: Five hundred yen is expensive",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "これ、たかい？",
+              "en": "Is this expensive?"
+            },
+            {
+              "speaker": "ケン",
+              "ja": "うん。かわない。",
+              "en": "Yeah. I'm not buying it."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Will Ken buy it?",
+              "options": [
+                "No",
+                "Yes",
+                "Only if cheap",
+                "He didn't say"
+              ],
+              "answer": "No"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの みせの パンは たかいです。",
+          "en": "Say politely: The bread at Mika's shop is expensive",
+          "combines": [
+            "no",
+            "wa",
+            "desu-copula",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "パン",
+        "ほん",
+        "かね",
+        "えん",
+        "たかい",
+        "やすい",
+        "かう",
+        "みせ"
+      ]
+    },
+    {
+      "id": "m9-neo-9",
+      "role": "teaching",
+      "title": "A whole purchase",
+      "focus": "greeting to price to request, end to end",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "すみません。パンは いくらですか。",
+          "en": "Say politely: Excuse me — how much is the bread",
+          "exercises": [
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ひゃくえんです。",
+          "en": "Say politely: It's a hundred yen",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふたつ ください。",
+          "en": "Say politely: Two, please",
+          "exercises": [
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ありがとう。やすいです。",
+          "en": "Say politely: Thanks — it's cheap",
+          "exercises": [
+            "desu-copula"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで かいものを します。",
+          "en": "Say politely: I do the shopping at the shop",
+          "exercises": [
+            "de-action",
+            "wo",
+            "masu-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃを みっつ かってください。",
+          "en": "Say politely: Please buy three teas",
+          "exercises": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かねは ありません。",
+          "en": "Say politely: There's no money",
+          "exercises": [
+            "wa",
+            "masu-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "すみません。ちゃは いくらですか。",
+              "en": "Excuse me. How much is the tea?"
+            },
+            {
+              "speaker": "たなか",
+              "ja": "ごひゃくえんです。",
+              "en": "Five hundred yen."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How much is the tea?",
+              "options": [
+                "500 yen",
+                "100 yen",
+                "50 yen",
+                "Not stated"
+              ],
+              "answer": "500 yen"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "すみません。パンを ふたつ ください。",
+          "en": "Say politely: Excuse me — two breads, please",
+          "combines": [
+            "wo",
+            "counter-tsu",
+            "te-kudasai",
+            "ikura-price"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "パン",
+        "ちゃ",
+        "みせ",
+        "かね",
+        "えん",
+        "かいもの",
+        "すみません",
+        "ありがとう"
+      ]
+    },
+    {
+      "id": "m9-neo-r3",
+      "role": "review",
+      "title": "Review — numbers, prices, purchases",
+      "focus": "the whole module on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "めがねは いくらですか。",
+          "en": "Say politely: How much are the glasses",
+          "exercises": [
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつを ふたつ かう。",
+          "en": "I buy two pencils",
+          "exercises": [
+            "wo",
+            "counter-tsu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ねこが はち いる。",
+          "en": "There are eight cats",
+          "exercises": [
+            "ga",
+            "numbers-1-10",
+            "iru-animacy"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かさは やすいです。",
+          "en": "Say politely: The umbrella is cheap",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで パンを うる。",
+          "en": "They sell bread at the shop",
+          "exercises": [
+            "de-action",
+            "wo"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かねが ひゃくえん ある。",
+          "en": "I have a hundred yen",
+          "exercises": [
+            "ga",
+            "aru-ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ぼうしを ",
+          "tail": " ください。",
+          "answer": "みっつ",
+          "options": [
+            "みっつ",
+            "ひとつ",
+            "ふたつ"
+          ],
+          "en": "Three hats, please",
+          "explanation": "みっつ is three things."
+        },
+        {
+          "kind": "sentence",
+          "ja": "たかい めがねは かいません。",
+          "en": "Say politely: I don't buy expensive glasses",
+          "exercises": [
+            "wa",
+            "masu-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいものを してください。",
+          "en": "Say politely: Please do the shopping",
+          "exercises": [
+            "wo",
+            "te-kudasai"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ろく ななです。",
+          "en": "Say politely: It's six, seven",
+          "exercises": [
+            "numbers-1-10",
+            "desu-copula"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "かいものを する？",
+              "en": "Doing the shopping?"
+            },
+            {
+              "speaker": "トム",
+              "ja": "うん。パンを みっつ かう。",
+              "en": "Yeah. I'll buy three breads."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many breads will Tom buy?",
+              "options": [
+                "Three",
+                "Two",
+                "One",
+                "None"
+              ],
+              "answer": "Three"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "めがね",
+        "えんぴつ",
+        "かさ",
+        "ぼうし",
+        "パン",
+        "みせ",
+        "かね",
+        "えん",
+        "かいもの"
+      ]
+    },
+    {
+      "id": "m9-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — put it all together",
+      "focus": "End-of-module stretch: numbers, counters, prices and requests in shapes the teaching lessons never paired",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ミカの みせで パンを ふたつ かってください。",
+          "en": "Say politely: Please buy two breads at Mika's shop",
+          "exercises": [
+            "no",
+            "de-action",
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たかい かさは かいません。",
+          "en": "Say politely: I won't buy an expensive umbrella",
+          "exercises": [
+            "wa",
+            "masu-negative",
+            "masu-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たなかさんの ほんは いくらですか。",
+          "en": "Say politely: How much is Tanaka's book",
+          "exercises": [
+            "no",
+            "wa",
+            "ikura-price",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうは かねが ありません。",
+          "en": "Say politely: I have no money today",
+          "exercises": [
+            "wa",
+            "ga",
+            "masu-negative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "みせで ちゃを みっつ うる。",
+          "en": "They sell three teas at the shop",
+          "exercises": [
+            "de-action",
+            "wo",
+            "counter-tsu"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ケンくんに パンを ひとつ かってください。",
+          "en": "Say politely: Please buy one bread for Ken",
+          "exercises": [
+            "register-audience",
+            "ni",
+            "wo",
+            "counter-tsu",
+            "te-kudasai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "めがねは ごひゃくえんです。",
+          "en": "Say politely: The glasses are five hundred yen",
+          "exercises": [
+            "wa",
+            "desu-copula"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいものに いきますか。",
+          "en": "Say politely: Are you going shopping",
+          "exercises": [
+            "ni",
+            "masu-present",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "すみません。ぼうしは いくらですか。",
+              "en": "Excuse me. How much is the hat?"
+            },
+            {
+              "speaker": "たなか",
+              "ja": "ひゃくえんです。やすいですよ。",
+              "en": "A hundred yen. That's cheap."
+            },
+            {
+              "speaker": "トム",
+              "ja": "ふたつ ください。",
+              "en": "Two, please."
+            }
+          ],
+          "questions": [
+            {
+              "q": "How many hats does Tom buy?",
+              "options": [
+                "Two",
+                "One",
+                "Three",
+                "None"
+              ],
+              "answer": "Two"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "みせで やすい パンを みっつ かいます。",
+          "en": "Say politely: I'll buy three cheap breads at the shop",
+          "combines": [
+            "de-action",
+            "wo",
+            "counter-tsu",
+            "masu-present",
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "パン",
+        "ちゃ",
+        "ぼうし",
+        "めがね",
+        "かさ",
+        "みせ",
+        "かね",
+        "えん",
+        "かいもの",
+        "たかい"
+      ]
+    }
+  ]
+}
