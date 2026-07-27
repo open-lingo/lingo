@@ -1,6 +1,6 @@
 {
   "module": "m10",
-  "title": "Register in the wild: yes, no, and softening",
+  "title": "Register in the wild: yes, no-possession, and softening",
   "register": "plain",
   "priorNeoModules": [
     "m3",
@@ -12,24 +12,24 @@
     "m9"
   ],
   "priorGrammarPoints": [
-    "wa",
-    "ga",
-    "wo",
-    "no",
-    "ni",
-    "de",
-    "mo",
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
     "dare",
-    "kore-deixis",
-    "sore-deixis",
-    "nai-ru",
-    "nai-u",
-    "nai-irregular",
-    "aru-ga-existence",
-    "iru-animacy",
+    "kore-sore-are-dore",
+    "kore-sore-are-dore",
+    "nai-form",
+    "nai-form",
+    "nai-form",
+    "arimasu",
+    "imasu",
     "nai-existence",
-    "location-deixis",
-    "ni-existence",
+    "koko-soko-asoko",
+    "ni-location",
     "spatial-relations",
     "location-qa",
     "de-action",
@@ -124,7 +124,7 @@
       "romaji": "dame",
       "gloss": "no good, not allowed",
       "shortGloss": "no good",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -235,34 +235,43 @@
           "grammarPointId": "yes-no-register"
         },
         {
-          "kind": "sentence",
-          "ja": "うん。",
-          "en": "Say to a friend: Yeah",
+          "kind": "register",
+          "stage": 1,
+          "audience": "grandmother",
+          "answer": "ええ",
+          "options": [
+            "うん",
+            "はい",
+            "ええ",
+            "ううん"
+          ],
+          "en": "Say yes.",
+          "cheatSheet": {
+            "1": "うん",
+            "2": "はい",
+            "3": "ええ"
+          },
           "exercises": [
             "yes-no-register",
             "register-audience"
-          ],
-          "mode": "build"
+          ]
         },
         {
-          "kind": "sentence",
-          "ja": "はい。",
-          "en": "Say to a teacher: Yes",
+          "kind": "register",
+          "stage": 2,
+          "audience": "friend",
+          "answer": "うん",
+          "options": [
+            "うん",
+            "はい",
+            "ええ",
+            "ううん"
+          ],
+          "en": "Say yes.",
           "exercises": [
             "yes-no-register",
             "register-audience"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ええ。",
-          "en": "Say politely: Yes",
-          "exercises": [
-            "yes-no-register",
-            "register-audience"
-          ],
-          "mode": "build"
+          ]
         },
         {
           "kind": "sentence",
@@ -273,6 +282,23 @@
             "register-audience"
           ],
           "mode": "translate"
+        },
+        {
+          "kind": "register",
+          "stage": 2,
+          "audience": "teacher",
+          "answer": "はい",
+          "options": [
+            "うん",
+            "はい",
+            "ええ",
+            "ううん"
+          ],
+          "en": "Say yes.",
+          "exercises": [
+            "yes-no-register",
+            "register-audience"
+          ]
         },
         {
           "kind": "sentence",
@@ -290,7 +316,7 @@
           "en": "Say politely: Yes, I'll eat rice",
           "exercises": [
             "yes-no-register",
-            "wo",
+            "wo-object",
             "masu-present"
           ],
           "mode": "listening"
@@ -303,29 +329,36 @@
             "yes-no-register",
             "register-audience"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "せんせい、",
-          "tail": "、いきます。",
+          "kind": "register",
+          "stage": 3,
+          "audience": "teacher",
           "answer": "はい",
           "options": [
-            "はい",
             "うん",
-            "ええ"
+            "はい",
+            "ええ",
+            "ううん"
           ],
-          "en": "Yes, I'll go. (to a teacher)",
-          "explanation": "はい is the formal yes — うん to a teacher is too casual."
+          "en": "Answer.",
+          "frame": {
+            "before": "せんせい：「トムさん！」　"
+          },
+          "exercises": [
+            "yes-no-register",
+            "register-audience"
+          ]
         },
         {
           "kind": "challenge",
-          "ja": "はい、たなかさんの いえに いきます。",
-          "en": "Say to a teacher: Yes, I'll go to Tanaka's house",
+          "ja": "はい、せんせいの いえに いきます。",
+          "en": "Say to a teacher: Yes, I'll go to the teacher's house",
           "combines": [
             "yes-no-register",
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "masu-present"
           ],
           "mode": "build"
@@ -344,8 +377,8 @@
     {
       "id": "m10-neo-2",
       "role": "teaching",
-      "title": "Three ways to say no",
-      "focus": "ううん / いいえ / ちがう; the うん-ううん minimal pair",
+      "title": "Saying no — and correcting",
+      "focus": "ううん↔いいえ as register twins; ちがう as a CORRECTION, not a third no",
       "introduces": [
         "ううん",
         "ちがう"
@@ -356,9 +389,59 @@
           "grammarPointId": "yes-no-register"
         },
         {
+          "kind": "listening-comp",
+          "audio": "うん、いえに いく。",
+          "q": "Who is this said to?",
+          "answer": "A close friend",
+          "distractors": [
+            "Your teacher",
+            "Someone you just met",
+            "A shop clerk"
+          ],
+          "explanation": "Both halves are casual — うん rather than はい, いく rather than いきます. Register rides the whole utterance, not one word.",
+          "exercises": [
+            "yes-no-register",
+            "register-audience"
+          ]
+        },
+        {
+          "kind": "register",
+          "stage": 2,
+          "audience": "friend",
+          "answer": "ううん",
+          "options": [
+            "ううん",
+            "いいえ",
+            "うん",
+            "はい"
+          ],
+          "en": "Say no.",
+          "exercises": [
+            "yes-no-register",
+            "register-audience"
+          ]
+        },
+        {
+          "kind": "register",
+          "stage": 2,
+          "audience": "teacher",
+          "answer": "いいえ",
+          "options": [
+            "ううん",
+            "いいえ",
+            "うん",
+            "はい"
+          ],
+          "en": "Say no.",
+          "exercises": [
+            "yes-no-register",
+            "register-audience"
+          ]
+        },
+        {
           "kind": "sentence",
-          "ja": "ううん。",
-          "en": "Say to a friend: Nope",
+          "ja": "ううん、しない。",
+          "en": "Say to a friend: Nope, I won't",
           "exercises": [
             "yes-no-register"
           ],
@@ -366,8 +449,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちがう。",
-          "en": "Say to a friend: That's not it",
+          "ja": "ちがう、ねこだ。",
+          "en": "Say to a friend: That's not it, it's a cat",
           "exercises": [
             "yes-no-register"
           ],
@@ -379,7 +462,7 @@
           "en": "Say to a friend: Nope, I'm not going",
           "exercises": [
             "yes-no-register",
-            "nai-u"
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -399,20 +482,20 @@
           "en": "Say to a friend: Nope, I won't eat rice",
           "exercises": [
             "yes-no-register",
-            "wo",
-            "nai-ru"
+            "wo-object",
+            "nai-form"
           ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "ちがう、ミカの ほんだ。",
-          "en": "Say to a friend: No, it's Mika's book",
+          "en": "Say to a friend: That's not it, it's Mika's book",
           "exercises": [
             "yes-no-register",
-            "no"
+            "no-possession"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -443,11 +526,11 @@
           "en": "Say to a friend: Nope, Mika's umbrella isn't here",
           "combines": [
             "yes-no-register",
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "nai-existence"
           ],
-          "mode": "translate"
+          "mode": "listening"
         }
       ],
       "reviewPool": [
@@ -516,7 +599,7 @@
           "en": "Say to a friend: Yeah, it's Mika's book",
           "exercises": [
             "yes-no-register",
-            "no"
+            "no-possession"
           ],
           "mode": "listening"
         },
@@ -526,16 +609,16 @@
           "en": "Say politely: Yes, I'll go to the shop",
           "exercises": [
             "aizuchi",
-            "ni",
+            "ni-location",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
           "lines": [
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "みせは あそこです。",
               "en": "The shop is over there."
             },
@@ -545,7 +628,7 @@
               "en": "Mm-hm."
             },
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "パンが やすいですよ。",
               "en": "The bread is cheap."
             }
@@ -565,12 +648,12 @@
         },
         {
           "kind": "challenge",
-          "ja": "はい、たなかさんの みせに いきます。",
-          "en": "Say politely: Yes, I'll go to Tanaka's shop",
+          "ja": "はい、ともだちの みせに いきます。",
+          "en": "Say politely: Yes, I'll go to my friend's shop",
           "combines": [
             "aizuchi",
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "masu-present"
           ],
           "mode": "build"
@@ -618,7 +701,7 @@
           "en": "Say to a friend: Nope, I won't buy it",
           "exercises": [
             "yes-no-register",
-            "nai-u"
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -628,7 +711,7 @@
           "en": "Say to a teacher: No, I won't do the shopping",
           "exercises": [
             "yes-no-register",
-            "wo",
+            "wo-object",
             "masu-negative"
           ],
           "mode": "listening"
@@ -641,7 +724,7 @@
             "yes-no-register",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -649,14 +732,14 @@
           "en": "Say to a friend: No, there's no hat",
           "exercises": [
             "yes-no-register",
-            "wa",
+            "wa-topic",
             "nai-existence"
           ],
           "mode": "build"
         },
         {
           "kind": "particle-cloze",
-          "stem": "たなかさん、",
+          "stem": "せんせい、",
           "tail": "、わかります。",
           "answer": "はい",
           "options": [
@@ -673,7 +756,7 @@
           "en": "Say to a friend: Yeah, I'm going to the shop",
           "exercises": [
             "yes-no-register",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -694,10 +777,10 @@
           "en": "Say to a friend: Nope, I don't drink tea",
           "exercises": [
             "yes-no-register",
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -754,8 +837,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと。",
-          "en": "Say politely: A bit",
+          "ja": "ちょっと みる。",
+          "en": "Say to a friend: I'll take a quick look",
           "exercises": [
             "chotto-softener"
           ],
@@ -787,7 +870,7 @@
           "en": "Say politely: Today is a bit difficult",
           "exercises": [
             "chotto-softener",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -799,15 +882,15 @@
             "chotto-softener",
             "te-kudasai"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "それは ちょっと ちがう。",
           "en": "Say to a friend: That's a bit off",
           "exercises": [
-            "sore-deixis",
-            "wa",
+            "kore-sore-are-dore",
+            "wa-topic",
             "chotto-softener",
             "yes-no-register"
           ],
@@ -888,25 +971,29 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "だめ。",
-          "en": "Say to a friend: No good",
-          "exercises": [],
+          "ja": "それは だめ。",
+          "en": "Say to a friend: That's no good",
+          "exercises": [
+            "wa-topic"
+          ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "けっこうです。",
-          "en": "Say politely: No thank you",
+          "ja": "みずは けっこうです。",
+          "en": "Say politely: No water, thank you",
           "exercises": [
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "だめです。",
+          "ja": "それは だめです。",
           "en": "Say politely: That's no good",
           "exercises": [
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "translate"
@@ -916,7 +1003,7 @@
           "ja": "きょうは だめ。",
           "en": "Say to a friend: Today's no good",
           "exercises": [
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -928,14 +1015,14 @@
             "yes-no-register",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ちゃは けっこうです。",
           "en": "Say politely: No tea, thank you",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "listening"
@@ -945,8 +1032,8 @@
           "ja": "それは だめです。",
           "en": "Say politely: That's not allowed",
           "exercises": [
-            "sore-deixis",
-            "wa",
+            "kore-sore-are-dore",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -998,15 +1085,15 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "わたし",
-          "en": "I, me (neutral)",
+          "ja": "わたしは いく。",
+          "en": "Say to a friend: I'm going",
           "exercises": [],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "ぼく",
-          "en": "I, me (casual)",
+          "ja": "ぼくは たべる。",
+          "en": "Say to a friend: I'll eat",
           "exercises": [],
           "mode": "build"
         },
@@ -1015,7 +1102,7 @@
           "ja": "わたしは がくせいです。",
           "en": "Say politely: I'm a student",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "translate"
@@ -1025,8 +1112,8 @@
           "ja": "ぼくは いかない。",
           "en": "Say to a friend: I'm not going",
           "exercises": [
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -1035,7 +1122,7 @@
           "ja": "わたしは しりません。",
           "en": "Say politely: I don't know",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "build"
@@ -1045,7 +1132,7 @@
           "ja": "ぼくの ほんだ。",
           "en": "Say to a friend: It's my book",
           "exercises": [
-            "no"
+            "no-possession"
           ],
           "mode": "listening"
         },
@@ -1054,7 +1141,7 @@
           "ja": "わたしの かさです。",
           "en": "Say politely: It's my umbrella",
           "exercises": [
-            "no",
+            "no-possession",
             "desu-copula"
           ],
           "mode": "build"
@@ -1091,8 +1178,8 @@
           "ja": "わたしは ミカの ともだちです。",
           "en": "Say politely: I'm Mika's friend",
           "combines": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "desu-copula"
           ],
           "mode": "build"
@@ -1130,7 +1217,7 @@
           "ja": "わたしは かいません。",
           "en": "Say politely: I won't buy it",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "translate"
@@ -1140,8 +1227,8 @@
           "ja": "ぼくは しらない。",
           "en": "Say to a friend: I don't know",
           "exercises": [
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -1150,7 +1237,7 @@
           "ja": "ちゃは けっこうです。",
           "en": "Say politely: No tea, thank you",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "listening"
@@ -1160,11 +1247,11 @@
           "ja": "それは だめです。",
           "en": "Say politely: That's not allowed",
           "exercises": [
-            "sore-deixis",
-            "wa",
+            "kore-sore-are-dore",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1194,7 +1281,7 @@
           "ja": "わたしの めがねです。",
           "en": "Say politely: They're my glasses",
           "exercises": [
-            "no",
+            "no-possession",
             "desu-copula"
           ],
           "mode": "build"
@@ -1204,9 +1291,9 @@
           "ja": "ぼくは ちゃを のまない。",
           "en": "Say to a friend: I don't drink tea",
           "exercises": [
-            "wa",
-            "wo",
-            "nai-u"
+            "wa-topic",
+            "wo-object",
+            "nai-form"
           ],
           "mode": "listening"
         },
@@ -1218,13 +1305,13 @@
             "chotto-softener",
             "te-kudasai"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
           "lines": [
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "ちゃを のみますか。",
               "en": "Would you like tea?"
             },
@@ -1270,15 +1357,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "しる",
-          "en": "to know",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いま",
-          "en": "now",
+          "ja": "ともだちを しる。",
+          "en": "I know the friend",
           "exercises": [],
           "mode": "build"
         },
@@ -1303,7 +1383,7 @@
           "ja": "わたしは しりません。",
           "en": "Say politely: I don't know",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "build"
@@ -1313,8 +1393,8 @@
           "ja": "ぼくは しらない。",
           "en": "Say to a friend: I don't know",
           "exercises": [
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
           "mode": "listening"
         },
@@ -1323,17 +1403,17 @@
           "ja": "いま みせに いきます。",
           "en": "Say politely: I'm going to the shop now",
           "exercises": [
-            "ni",
+            "ni-location",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "たなかさんを しりますか。",
-          "en": "Say politely: Do you know Tanaka",
+          "ja": "せんせいを しりますか。",
+          "en": "Say politely: Do you know the teacher",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present",
             "ka-question"
           ],
@@ -1344,8 +1424,8 @@
           "ja": "いま ミカの いえに いきます。",
           "en": "Say politely: I'm going to Mika's house now",
           "combines": [
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "masu-present"
           ],
           "mode": "build"
@@ -1373,15 +1453,15 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "まあ",
-          "en": "well, sort of",
+          "ja": "まあ、たべる。",
+          "en": "Say to a friend: Well, I'll eat",
           "exercises": [],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "よく",
-          "en": "often, well",
+          "ja": "よく たべる。",
+          "en": "Say to a friend: I eat it often",
           "exercises": [],
           "mode": "build"
         },
@@ -1397,7 +1477,7 @@
           "ja": "よく みせに いく。",
           "en": "Say to a friend: I often go to the shop",
           "exercises": [
-            "ni"
+            "ni-location"
           ],
           "mode": "translate"
         },
@@ -1406,7 +1486,7 @@
           "ja": "よく ちゃを のみます。",
           "en": "Say politely: I often drink tea",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present"
           ],
           "mode": "build"
@@ -1427,7 +1507,7 @@
           "exercises": [
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -1447,9 +1527,9 @@
           "ja": "よく ミカの みせで パンを かいます。",
           "en": "Say politely: I often buy bread at Mika's shop",
           "combines": [
-            "no",
+            "no-possession",
             "de-action",
-            "wo",
+            "wo-object",
             "masu-present"
           ],
           "mode": "build"
@@ -1475,13 +1555,6 @@
         "こちら"
       ],
       "beats": [
-        {
-          "kind": "sentence",
-          "ja": "こちら",
-          "en": "this way, this person (polite)",
-          "exercises": [],
-          "mode": "build"
-        },
         {
           "kind": "sentence",
           "ja": "こちらです。",
@@ -1516,19 +1589,19 @@
           "en": "Say to a friend: Nope, I don't really know",
           "exercises": [
             "yes-no-register",
-            "nai-u"
+            "nai-form"
           ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "こちらは たなかさんです。",
-          "en": "Say politely: This is Tanaka",
+          "ja": "こちらは せんせいです。",
+          "en": "Say politely: This is the teacher",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1549,7 +1622,7 @@
               "en": "Where is the shop?"
             },
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "こちらです。",
               "en": "It's this way."
             },
@@ -1578,8 +1651,8 @@
           "en": "Say politely: Yes, this is my shop",
           "combines": [
             "aizuchi",
-            "ga",
-            "no",
+            "ga-existence",
+            "no-possession",
             "desu-copula"
           ],
           "mode": "build"
@@ -1618,7 +1691,7 @@
           "en": "Say to a friend: Nope, I don't go often",
           "exercises": [
             "yes-no-register",
-            "nai-u"
+            "nai-form"
           ],
           "mode": "translate"
         },
@@ -1637,7 +1710,7 @@
           "ja": "わたしは しりません。",
           "en": "Say politely: I don't know",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "listening"
@@ -1649,14 +1722,14 @@
           "exercises": [
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ぼくは よく あそぶ。",
           "en": "Say to a friend: I play a lot",
           "exercises": [
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1678,7 +1751,7 @@
           "ja": "こちらは ミカさんです。",
           "en": "Say politely: This is Mika",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -1688,7 +1761,7 @@
           "ja": "みずは けっこうです。",
           "en": "Say politely: No water, thank you",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "listening"
@@ -1701,13 +1774,13 @@
             "chotto-softener",
             "yes-no-register"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
           "lines": [
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "こちらは トムさんです。",
               "en": "This is Tom."
             },
@@ -1756,8 +1829,8 @@
           "en": "Say politely: No, I don't know Mika's friend",
           "exercises": [
             "yes-no-register",
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "masu-negative"
           ],
           "mode": "build"
@@ -1768,7 +1841,7 @@
           "en": "Say politely: Yes, I'm heading this way now",
           "exercises": [
             "aizuchi",
-            "ni",
+            "ni-location",
             "masu-present"
           ],
           "mode": "translate"
@@ -1789,18 +1862,18 @@
           "en": "Say to a friend: Nope, I don't really know",
           "exercises": [
             "yes-no-register",
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "わたしは よく ミカの みせで かいます。",
           "en": "Say politely: I often buy at Mika's shop",
           "exercises": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "de-action",
             "masu-present"
           ],
@@ -1812,7 +1885,7 @@
           "en": "Say politely: Well, today is a bit difficult",
           "exercises": [
             "chotto-softener",
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "listening"
@@ -1823,11 +1896,11 @@
           "en": "Say politely: Yes, I'll buy two breads",
           "exercises": [
             "aizuchi",
-            "wo",
+            "wo-object",
             "counter-tsu",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1835,8 +1908,8 @@
           "en": "Say to a friend: No, that's my umbrella",
           "exercises": [
             "yes-no-register",
-            "sore-deixis",
-            "no"
+            "kore-sore-are-dore",
+            "no-possession"
           ],
           "mode": "build"
         },
@@ -1844,7 +1917,7 @@
           "kind": "dialogue",
           "lines": [
             {
-              "speaker": "たなか",
+              "speaker": "せんせい",
               "ja": "いま、ちゃを のみますか。",
               "en": "Would you like tea now?"
             },
@@ -1873,8 +1946,8 @@
           "en": "Say politely: No, I'm not going to the shop now",
           "combines": [
             "yes-no-register",
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "masu-negative"
           ],
           "mode": "build"

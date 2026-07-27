@@ -9,24 +9,24 @@
     "m6"
   ],
   "priorGrammarPoints": [
-    "wa",
-    "ga",
-    "wo",
-    "no",
-    "ni",
-    "de",
-    "mo",
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
     "dare",
-    "kore-deixis",
-    "sore-deixis",
-    "nai-ru",
-    "nai-u",
-    "nai-irregular",
-    "aru-ga-existence",
-    "iru-animacy",
+    "kore-sore-are-dore",
+    "kore-sore-are-dore",
+    "nai-form",
+    "nai-form",
+    "nai-form",
+    "arimasu",
+    "imasu",
     "nai-existence",
-    "location-deixis",
-    "ni-existence",
+    "koko-soko-asoko",
+    "ni-location",
     "spatial-relations",
     "location-qa",
     "de-action"
@@ -360,17 +360,18 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべます。",
-          "en": "Say politely: I eat",
+          "ja": "いえで たべます。",
+          "en": "Say politely: I eat at home",
           "exercises": [
-            "masu-present"
+            "masu-present",
+            "de-action"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "のみます。",
-          "en": "Say politely: I drink",
+          "ja": "ともだちと のみます。",
+          "en": "Say politely: I drink with a friend",
           "exercises": [
             "masu-present"
           ],
@@ -382,12 +383,9 @@
           "en": "Say politely: I drink water",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate",
-          "alsoAccept": [
-            "みずを のむ。"
-          ]
+          "mode": "translate"
         },
         {
           "kind": "sentence",
@@ -395,7 +393,7 @@
           "en": "Say politely: I eat the food",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -405,7 +403,7 @@
           "en": "Say politely: I drink milk",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -415,7 +413,7 @@
           "en": "Say politely: Tanaka eats",
           "exercises": [
             "masu-present",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -426,7 +424,7 @@
           "exercises": [
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -434,7 +432,7 @@
           "en": "Say politely: Today I'll eat",
           "exercises": [
             "masu-present",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -479,8 +477,8 @@
           "ja": "たなかさんは みずを のみます。",
           "en": "Say politely: Tanaka drinks water",
           "combines": [
-            "wa",
-            "wo",
+            "wa-topic",
+            "wo-object",
             "masu-present"
           ],
           "mode": "build"
@@ -516,8 +514,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みます。",
-          "en": "Say politely: I watch",
+          "ja": "そらを みます。",
+          "en": "Say politely: I look at the sky",
           "exercises": [
             "masu-present"
           ],
@@ -525,8 +523,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いきます。",
-          "en": "Say politely: I go",
+          "ja": "いえに いきます。",
+          "en": "Say politely: I go home",
           "exercises": [
             "masu-present"
           ],
@@ -534,8 +532,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "します。",
-          "en": "Say politely: I do it",
+          "ja": "きょう します。",
+          "en": "Say politely: I'll do it today",
           "exercises": [
             "masu-present"
           ],
@@ -543,10 +541,11 @@
         },
         {
           "kind": "sentence",
-          "ja": "きます。",
-          "en": "Say politely: I'm coming",
+          "ja": "ともだちが きます。",
+          "en": "Say politely: A friend is coming",
           "exercises": [
-            "masu-present"
+            "masu-present",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -556,12 +555,9 @@
           "en": "Say politely: I'm going to the sea",
           "exercises": [
             "masu-present",
-            "ni"
+            "ni-location"
           ],
-          "mode": "translate",
-          "alsoAccept": [
-            "うみに いく。"
-          ]
+          "mode": "translate"
         },
         {
           "kind": "sentence",
@@ -569,7 +565,7 @@
           "en": "Say politely: I look at the photo",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -579,9 +575,9 @@
           "en": "Say politely: I take a walk",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -589,9 +585,9 @@
           "en": "Say politely: A friend is coming",
           "exercises": [
             "masu-present",
-            "ga"
+            "ga-existence"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -599,7 +595,7 @@
           "en": "Say politely: I'm going to the mountain",
           "exercises": [
             "masu-present",
-            "ni"
+            "ni-location"
           ],
           "mode": "listening"
         },
@@ -609,7 +605,7 @@
           "en": "Say politely: I buy a book",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -619,8 +615,8 @@
           "en": "Say politely: A friend is coming to the house today",
           "combines": [
             "masu-present",
-            "ga",
-            "ni"
+            "ga-existence",
+            "ni-location"
           ],
           "mode": "build"
         }
@@ -650,18 +646,20 @@
         },
         {
           "kind": "sentence",
-          "ja": "のみません。",
-          "en": "Say politely: I don't drink",
+          "ja": "みずを のみません。",
+          "en": "Say politely: I don't drink water",
           "exercises": [
+            "wo-object",
             "masu-negative"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "たべません。",
-          "en": "Say politely: I don't eat",
+          "ja": "きょうは たべません。",
+          "en": "Say politely: I don't eat today",
           "exercises": [
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "build"
@@ -672,12 +670,9 @@
           "en": "Say politely: I'm not going today",
           "exercises": [
             "masu-negative",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "build",
-          "alsoAccept": [
-            "きょうは いかない。"
-          ]
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -685,7 +680,7 @@
           "en": "Say politely: I don't look at the photo",
           "exercises": [
             "masu-negative",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -695,7 +690,7 @@
           "en": "Say politely: I don't drink milk",
           "exercises": [
             "masu-negative",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -705,7 +700,7 @@
           "en": "Say politely: Tanaka isn't coming",
           "exercises": [
             "masu-negative",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -728,7 +723,7 @@
           "en": "Say politely: I don't take walks",
           "exercises": [
             "masu-negative",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -764,8 +759,8 @@
           "ja": "ミカさんは きょう いえに きません。",
           "en": "Say politely: Mika isn't coming to the house today",
           "combines": [
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "masu-negative"
           ],
           "mode": "build",
@@ -798,7 +793,7 @@
           "en": "Say politely: I listen to a song",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -808,7 +803,7 @@
           "en": "Say politely: I buy glasses",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -818,7 +813,7 @@
           "en": "Say politely: I'm not going there",
           "exercises": [
             "masu-negative",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -828,7 +823,7 @@
           "en": "Say politely: The dog is coming",
           "exercises": [
             "masu-present",
-            "ga"
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -848,13 +843,13 @@
           "en": "Say politely: I won't do it today",
           "exercises": [
             "masu-negative",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
-          "stem": "パーティーに ",
+          "stem": "うみに ",
           "tail": "。",
           "answer": "いきます",
           "options": [
@@ -871,7 +866,7 @@
           "en": "Say politely: I look at the cat",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -881,7 +876,7 @@
           "en": "Say politely: I don't drink water",
           "exercises": [
             "masu-negative",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -892,15 +887,15 @@
           "exercises": [
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
           "lines": [
             {
               "speaker": "ケン",
-              "ja": "パーティーに いく？",
-              "en": "Going to the party?"
+              "ja": "うみに いく？",
+              "en": "Going to the sea?"
             },
             {
               "speaker": "トム",
@@ -931,7 +926,7 @@
         "いぬ",
         "ねこ",
         "かわ",
-        "パーティー",
+        "うみ",
         "ともだち"
       ]
     },
@@ -970,12 +965,9 @@
           "en": "Say politely: Tanaka is a teacher",
           "exercises": [
             "desu-copula",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "translate",
-          "alsoAccept": [
-            "たなかさんは せんせいだ。"
-          ]
+          "mode": "translate"
         },
         {
           "kind": "sentence",
@@ -983,7 +975,7 @@
           "en": "Say politely: Tom is American",
           "exercises": [
             "desu-copula",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -993,8 +985,8 @@
           "en": "Say politely: This is a book",
           "exercises": [
             "desu-copula",
-            "wa",
-            "kore-deixis"
+            "wa-topic",
+            "kore-sore-are-dore"
           ],
           "mode": "listening"
         },
@@ -1004,9 +996,9 @@
           "en": "Say politely: Mika is Japanese",
           "exercises": [
             "desu-copula",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1014,8 +1006,8 @@
           "en": "Say politely: That's a key",
           "exercises": [
             "desu-copula",
-            "wa",
-            "sore-deixis"
+            "wa-topic",
+            "kore-sore-are-dore"
           ],
           "mode": "build"
         },
@@ -1025,9 +1017,9 @@
           "en": "Say politely: It's my friend's hat",
           "exercises": [
             "desu-copula",
-            "no"
+            "no-possession"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1061,10 +1053,10 @@
           "ja": "たなかさんの いえは あそこです。",
           "en": "Say politely: Tanaka's house is over there",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "desu-copula",
-            "location-deixis"
+            "koko-soko-asoko"
           ],
           "mode": "build"
         }
@@ -1118,9 +1110,9 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1129,7 +1121,7 @@
           "exercises": [
             "ka-question",
             "desu-copula",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1140,7 +1132,7 @@
           "exercises": [
             "ka-question",
             "desu-copula",
-            "kore-deixis"
+            "kore-sore-are-dore"
           ],
           "mode": "listening"
         },
@@ -1151,9 +1143,9 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1173,7 +1165,7 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1206,11 +1198,11 @@
         },
         {
           "kind": "challenge",
-          "ja": "たなかさんは きょう かいしゃに いきますか。",
-          "en": "Say politely: Is Tanaka going to the company today?",
+          "ja": "たなかさんは きょう いえに いきますか。",
+          "en": "Say politely: Is Tanaka going home today?",
           "combines": [
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "ka-question",
             "masu-present"
           ],
@@ -1243,8 +1235,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべる。",
-          "en": "Say to a friend: I'll eat",
+          "ja": "きょう たべる。",
+          "en": "Say to a friend: I'll eat today",
           "exercises": [
             "register-audience"
           ],
@@ -1252,8 +1244,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべます。",
-          "en": "Say to a teacher: I'll eat",
+          "ja": "きょう たべます。",
+          "en": "Say to a teacher: I'll eat today",
           "exercises": [
             "register-audience",
             "masu-present"
@@ -1262,18 +1254,20 @@
         },
         {
           "kind": "sentence",
-          "ja": "いく？",
-          "en": "Say to a friend: Going?",
+          "ja": "うみに いく？",
+          "en": "Say to a friend: Going to the sea?",
           "exercises": [
+            "ni-location",
             "register-audience"
           ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "いきますか。",
-          "en": "Say to a teacher: Are you going?",
+          "ja": "うみに いきますか。",
+          "en": "Say to a teacher: Are you going to the sea?",
           "exercises": [
+            "ni-location",
             "register-audience",
             "ka-question"
           ],
@@ -1305,9 +1299,9 @@
           "exercises": [
             "register-audience",
             "ka-question",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1316,7 +1310,7 @@
           "exercises": [
             "register-audience",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1352,12 +1346,12 @@
           "ja": "ともだちは がくせいですか。",
           "en": "Say to a teacher: Is your friend a student?",
           "combines": [
-            "wa",
+            "wa-topic",
             "desu-copula",
             "ka-question",
             "register-audience"
           ],
-          "mode": "translate"
+          "mode": "listening"
         }
       ],
       "reviewPool": [
@@ -1385,7 +1379,7 @@
           "en": "Say politely: That's a window",
           "exercises": [
             "desu-copula",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1405,8 +1399,8 @@
           "en": "Say politely: The phone is there",
           "exercises": [
             "desu-copula",
-            "wa",
-            "location-deixis"
+            "wa-topic",
+            "koko-soko-asoko"
           ],
           "mode": "build"
         },
@@ -1417,7 +1411,7 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -1428,7 +1422,7 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1439,7 +1433,7 @@
           "exercises": [
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -1460,7 +1454,7 @@
           "en": "Say politely: I'll buy a ticket",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1471,7 +1465,7 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -1481,9 +1475,9 @@
           "en": "Say politely: I'm not going today",
           "exercises": [
             "masu-negative",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1539,31 +1533,27 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "かいしゃ",
-          "en": "a company",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "じゅぎょう",
-          "en": "a class",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "はたらく。",
-          "en": "Say to a friend: I work",
+          "ja": "かいしゃに いく。",
+          "en": "Say to a friend: I go to the company",
           "exercises": [
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいしゃで はたらく。",
+          "en": "Say to a friend: I work at the company",
+          "exercises": [
+            "de-action",
             "register-audience"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "はたらきます。",
-          "en": "Say politely: I work",
+          "ja": "きょう はたらきます。",
+          "en": "Say politely: I work today",
           "exercises": [
             "masu-present"
           ],
@@ -1577,10 +1567,7 @@
             "masu-present",
             "de-action"
           ],
-          "mode": "translate",
-          "alsoAccept": [
-            "かいしゃで はたらく。"
-          ]
+          "mode": "translate"
         },
         {
           "kind": "sentence",
@@ -1588,9 +1575,9 @@
           "en": "Say politely: I'm going to class",
           "exercises": [
             "masu-present",
-            "ni"
+            "ni-location"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1600,9 +1587,9 @@
             "ka-question",
             "masu-present",
             "de-action",
-            "wa"
+            "wa-topic"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1610,8 +1597,8 @@
           "en": "Say politely: The class is over there",
           "exercises": [
             "desu-copula",
-            "wa",
-            "location-deixis"
+            "wa-topic",
+            "koko-soko-asoko"
           ],
           "mode": "listening"
         },
@@ -1620,7 +1607,7 @@
           "ja": "きょう じゅぎょうが あります。",
           "en": "Say politely: There's a class today",
           "exercises": [
-            "ga",
+            "ga-existence",
             "masu-present"
           ],
           "mode": "build"
@@ -1630,7 +1617,7 @@
           "ja": "きょう じゅぎょうが ありません。",
           "en": "Say politely: There's no class today",
           "exercises": [
-            "ga",
+            "ga-existence",
             "masu-negative"
           ],
           "mode": "build"
@@ -1667,7 +1654,7 @@
           "ja": "ミカさんは きょう かいしゃで はたらきません。",
           "en": "Say politely: Mika isn't working at the company today",
           "combines": [
-            "wa",
+            "wa-topic",
             "de-action",
             "masu-negative"
           ],
@@ -1733,7 +1720,7 @@
           "en": "Say politely: Ken is a student",
           "exercises": [
             "register-audience",
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "translate"
@@ -1741,10 +1728,10 @@
         {
           "kind": "sentence",
           "ja": "ミカちゃんは きます。",
-          "en": "Say politely: Mika is coming",
+          "en": "Say politely: Mika will come",
           "exercises": [
             "register-audience",
-            "wa",
+            "wa-topic",
             "masu-present"
           ],
           "mode": "build"
@@ -1755,10 +1742,10 @@
           "en": "Say very politely: Tanaka is a teacher",
           "exercises": [
             "register-audience",
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1766,7 +1753,7 @@
           "en": "Say politely: Tom is going too",
           "exercises": [
             "register-audience",
-            "mo",
+            "mo-also",
             "masu-present"
           ],
           "mode": "build"
@@ -1776,7 +1763,7 @@
           "ja": "ミカちゃんの ねこです。",
           "en": "Say politely: It's Mika's cat",
           "exercises": [
-            "no",
+            "no-possession",
             "desu-copula"
           ],
           "mode": "listening"
@@ -1814,8 +1801,8 @@
           "en": "Say politely: Is Mika going to class today?",
           "combines": [
             "register-audience",
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "ka-question",
             "masu-present"
           ],
@@ -1845,7 +1832,7 @@
           "en": "Say to a friend: I'm going to the sea",
           "exercises": [
             "register-audience",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -1855,7 +1842,7 @@
           "en": "Say to a teacher: I'm going to the sea",
           "exercises": [
             "register-audience",
-            "ni",
+            "ni-location",
             "masu-present"
           ],
           "mode": "build"
@@ -1866,7 +1853,7 @@
           "en": "Say to a friend: This is a hat",
           "exercises": [
             "register-audience",
-            "kore-deixis"
+            "kore-sore-are-dore"
           ],
           "mode": "translate"
         },
@@ -1886,7 +1873,7 @@
           "en": "Say to a friend: Listening to a song?",
           "exercises": [
             "register-audience",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -1897,9 +1884,9 @@
           "exercises": [
             "register-audience",
             "ka-question",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1907,7 +1894,7 @@
           "en": "Say politely: I'm not working today",
           "exercises": [
             "masu-negative",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1966,13 +1953,13 @@
           "ja": "ミカさんは かいしゃで はたらきますか。",
           "en": "Say to a teacher: Does Mika work at a company?",
           "combines": [
-            "wa",
+            "wa-topic",
             "de-action",
             "ka-question",
             "masu-present",
             "register-audience"
           ],
-          "mode": "translate"
+          "mode": "listening"
         }
       ],
       "reviewPool": [
@@ -1999,7 +1986,7 @@
           "en": "Say politely: I'll buy flowers",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2010,7 +1997,7 @@
           "exercises": [
             "ka-question",
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -2019,7 +2006,7 @@
           "ja": "かぜが あります。",
           "en": "Say politely: There's a wind",
           "exercises": [
-            "ga",
+            "ga-existence",
             "masu-present"
           ],
           "mode": "listening"
@@ -2029,7 +2016,7 @@
           "ja": "じかんが ありません。",
           "en": "Say politely: There's no time",
           "exercises": [
-            "ga",
+            "ga-existence",
             "masu-negative"
           ],
           "mode": "build"
@@ -2039,7 +2026,7 @@
           "ja": "からだは げんきです。",
           "en": "Say politely: I'm in good health",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -2049,7 +2036,7 @@
           "ja": "いけに いきません。",
           "en": "Say politely: I'm not going to the pond",
           "exercises": [
-            "ni",
+            "ni-location",
             "masu-negative"
           ],
           "mode": "build"
@@ -2073,7 +2060,7 @@
           "en": "Say politely: I'll look at the cherry blossoms",
           "exercises": [
             "masu-present",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2083,7 +2070,7 @@
           "en": "Say politely: Ken isn't coming",
           "exercises": [
             "register-audience",
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "listening"
@@ -2093,10 +2080,10 @@
           "ja": "じゅぎょうは あさです。",
           "en": "Say politely: The class is in the morning",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
@@ -2152,8 +2139,8 @@
           "en": "Say very politely: Tanaka isn't going to the company today",
           "exercises": [
             "register-audience",
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "masu-negative"
           ],
           "mode": "build"
@@ -2164,8 +2151,8 @@
           "en": "Say politely: Is Mika's friend Japanese?",
           "exercises": [
             "register-audience",
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "desu-copula",
             "ka-question"
           ],
@@ -2177,7 +2164,7 @@
           "en": "Say politely: What do you do in class?",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "ka-question",
             "masu-present"
           ],
@@ -2189,19 +2176,19 @@
           "en": "Say politely: Ken doesn't work at a company",
           "exercises": [
             "register-audience",
-            "wa",
+            "wa-topic",
             "de-action",
             "masu-negative"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "たなかさんの いえに いきますか。",
           "en": "Say politely: Are you going to Tanaka's house?",
           "exercises": [
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "ka-question",
             "masu-present"
           ],
@@ -2212,8 +2199,8 @@
           "ja": "きょうは ともだちと うみに いきます。",
           "en": "Say politely: Today I'm going to the sea with a friend",
           "exercises": [
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "masu-present"
           ],
           "mode": "listening"
@@ -2223,21 +2210,21 @@
           "ja": "ミカさんは じゅぎょうに きませんか。",
           "en": "Say politely: Isn't Mika coming to class?",
           "exercises": [
-            "wa",
-            "ni",
+            "wa-topic",
+            "ni-location",
             "masu-negative",
             "ka-question"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "あそこの ひとは せんせいですか。",
           "en": "Say politely: Is the person over there a teacher?",
           "exercises": [
-            "location-deixis",
-            "no",
-            "wa",
+            "koko-soko-asoko",
+            "no-possession",
+            "wa-topic",
             "desu-copula",
             "ka-question"
           ],
@@ -2248,11 +2235,11 @@
           "ja": "きょうは みずを のみません。",
           "en": "Say politely: I don't drink water today",
           "exercises": [
-            "wa",
-            "wo",
+            "wa-topic",
+            "wo-object",
             "masu-negative"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
@@ -2287,7 +2274,7 @@
           "en": "Say politely: Does Mika work at a company too?",
           "combines": [
             "register-audience",
-            "mo",
+            "mo-also",
             "de-action",
             "ka-question",
             "masu-present"

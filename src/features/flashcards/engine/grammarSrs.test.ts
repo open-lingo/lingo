@@ -48,14 +48,16 @@ describe("Track B — grammar SRS", () => {
   });
 
   it("number/counter-category points never activate, even with their module reached", () => {
-    // m5 ships kara-origin + kudasai (grammar) AND numbers-1-10 + counter-nin
-    // (recognition drills — Counters-Trainer/vocab material, not grammar).
+    // RE-KEYED to the neo spine 2026-07-26: m5 now ships wo-object +
+    // kara-origin (grammar); kudasai moved to m8 with てください, and
+    // numbers-1-10 to m9. counter-nin/counter-tsu stay category "counter"
+    // and never activate — they are Counters-Trainer/vocab material.
     const unlocked = unlockModules("m5");
     const ids = getActiveGrammarPoints(unlocked).map((p) => p.id);
     expect(ids).toContain("kara-origin");
-    expect(ids).toContain("kudasai");
-    expect(ids).not.toContain("numbers-1-10");
+    expect(ids).toContain("wo-object");
     expect(ids).not.toContain("counter-nin");
+    expect(ids).not.toContain("counter-tsu");
   });
 
   it("never-reviewed points are throttled unseen; nothing due yet", () => {
@@ -83,13 +85,15 @@ describe("Track B — grammar SRS", () => {
 
   describe("hasPool filter (empty-pool points never occupy a queue slot)", () => {
     it("a point excluded by hasPool appears in neither review/newItems/queue nor the counts (incl. unseenTotal)", () => {
-      const unlocked = unlockModules("m3"); // shipped m3: wa-topic, ka-question, desu-copula, janai-desu
+      // Neo m3 (re-keyed 2026-07-26): wa-topic, mo-also, janai-desu.
+      // ka-question and desu-copula moved to m7 with the ます layer.
+      const unlocked = unlockModules("m3");
       setGrammarCardState("wa-topic", createInitialState()); // due
 
       // Unfiltered: wa-topic is due (review), the other 3 are unseen.
       const unfiltered = buildGrammarReviewQueue(unlocked);
       expect(unfiltered.review.map((i) => i.point.id)).toContain("wa-topic");
-      expect(unfiltered.unseenTotal).toBe(3);
+      expect(unfiltered.unseenTotal).toBe(2); // neo m3 = 3 points, one is due
 
       // Excluding wa-topic via hasPool: it must vanish from review/newItems/
       // queue AND from dueCount/newCount/unseenTotal — the badge and the
@@ -102,7 +106,7 @@ describe("Track B — grammar SRS", () => {
       expect(filtered.newItems.some((i) => i.point.id === "wa-topic")).toBe(false);
       expect(filtered.queue.some((i) => i.point.id === "wa-topic")).toBe(false);
       expect(filtered.dueCount).toBe(0);
-      expect(filtered.unseenTotal).toBe(3); // unchanged — the other 3 remain unseen, none due to wa-topic's exclusion
+      expect(filtered.unseenTotal).toBe(2); // unchanged — the other 2 remain unseen, none due to wa-topic's exclusion
     });
 
     it("new-card cap slots go to pool-backed points when an empty-pool point sits earlier in JSON order", () => {
@@ -212,7 +216,7 @@ describe("Track B — grammar SRS", () => {
       const unlocked = unlockModules("m3");
       // Both modalities scheduled in the future → not due, not unseen.
       setGrammarCardState("wa-topic", createSeededState(addDays(getToday(), 5)));
-      setGrammarCardState("ka-question", createSeededState(addDays(getToday(), 2)));
+      setGrammarCardState("janai-desu", createSeededState(addDays(getToday(), 2)));
 
       // Default queue (newPerDay 0 isolates from unseen intake): empty.
       const dueQ = buildGrammarReviewQueue(unlocked, 0);
@@ -221,7 +225,7 @@ describe("Track B — grammar SRS", () => {
 
       const freeQ = buildGrammarReviewQueue(unlocked, 0, { includeNotDue: true });
       expect(freeQ.queue.map((i) => i.point.id)).toEqual([
-        "ka-question", // due in 2 days — closer, practiced first
+        "janai-desu", // due in 2 days — closer, practiced first
         "wa-topic", // due in 5 days
       ]);
       expect(freeQ.notDueCount).toBe(2);
@@ -236,8 +240,8 @@ describe("Track B — grammar SRS", () => {
 
       const inTwo = addDays(getToday(), 2);
       setGrammarCardState("wa-topic", createSeededState(addDays(getToday(), 5)));
-      setGrammarCardState("ka-question", createSeededState(inTwo));
-      setGrammarCardState("desu-copula", createSeededState(inTwo));
+      setGrammarCardState("janai-desu", createSeededState(inTwo));
+      setGrammarCardState("mo-also", createSeededState(inTwo)); // m3 (desu-copula moved to m7)
 
       expect(nextGrammarDue(unlocked)).toEqual({ dueDate: inTwo, count: 2 });
     });
@@ -251,7 +255,7 @@ describe("Track B — grammar SRS", () => {
     it("devForceAllGrammarDue drags every stored point back into the review pile", () => {
       const unlocked = unlockModules("m3");
       setGrammarCardState("wa-topic", createSeededState(addDays(getToday(), 5)));
-      setGrammarCardState("ka-question", createSeededState(addDays(getToday(), 9)));
+      setGrammarCardState("janai-desu", createSeededState(addDays(getToday(), 9)));
       expect(buildGrammarReviewQueue(unlocked, 0).dueCount).toBe(0);
 
       expect(devForceAllGrammarDue()).toBe(2);
@@ -259,7 +263,7 @@ describe("Track B — grammar SRS", () => {
       const q = buildGrammarReviewQueue(unlocked, 0);
       expect(q.dueCount).toBe(2);
       expect(q.review.map((i) => i.point.id).sort()).toEqual([
-        "ka-question",
+        "janai-desu",
         "wa-topic",
       ]);
     });

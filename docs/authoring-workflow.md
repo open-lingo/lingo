@@ -1,6 +1,6 @@
 # JA authoring workflow (MANDATORY — 2026-07-20)
 
-**Status:** LIVE · **Last-verified:** 2026-07-20
+**Status:** LIVE · **Last-verified:** 2026-07-26
 
 Spencer 2026-07-20: agents ship contradictions "every single time" because
 they start without the full picture and self-check only after. This is the
@@ -54,6 +54,15 @@ While authoring a neo module, treat the old course as if it doesn't exist:
 
 ## While authoring (self-check per lesson, NOT at the end)
 After drafting EACH lesson, before the next:
+- **RE-READ `authoring-invariants-pinned.md` FIRST — every lesson, not once
+  per module** (Spencer 2026-07-26, pinned as invariant 47). Reading it at
+  the top of the dispatch is NOT enough and never has been: the m7–m10 cycle
+  shipped 38 bare-word debuts and 58 translate-heavy lessons from agents that
+  had the full block in their prompt. Compliance decays with distance from
+  the text (research doc Finding 1, ~8× for soft rules). At minimum re-read
+  inv 5, 28–33, 37–42, 43–46 before emitting the next lesson's beats. If
+  that feels redundant, it is working — the cost is seconds, the failure mode
+  is a module Spencer has to walk twice.
 - Tokenize every Japanese surface: is each word in the context pack's
   "already knows" list or this module's allocation? If not — STOP, fix.
 - Does any sentence contradict character canon or an earlier lesson's
@@ -68,6 +77,29 @@ After drafting EACH lesson, before the next:
 FULL-suite CI parity → exposure audit). Then wire (mockLessons/mockCourse/
 barrel/module test/render-gate), regenerate TTS, and run the visual
 capture + ONE continuity judge (give the judge the context pack too).
+
+## Bulk conformance audit (Spencer 2026-07-26 — the backstop)
+
+Per-lesson re-reading raises compliance; it does not guarantee it. So the
+mechanical half of the law is also checked in BULK over compiled output,
+across every module at once, independent of whoever authored it:
+`npm run authoring-audit` (→ `scripts/authoring-audit.mjs`).
+
+It reports per module and course-wide, and its job is to catch a rule being
+ignored *repeatedly* — the pattern a single module's test run can't see:
+- translate share of production vs. the 15% ceiling (inv 43)
+- step-type histogram vs. the usage floors (inv 45), naming types with
+  material available but zero uses
+- `word_image_mcq` reuse — any word imaged more than once (inv 44)
+- debuts landing on non-intro step types (inv 30/33/37)
+- `particle_cloze` outside its introducing module (inv 5)
+- single-tile builds and build-tile distractor floors (inv 35)
+
+Two rules for it: the audit is a BACKSTOP, never a substitute for the
+per-lesson re-read; and when it flags the same invariant in three or more
+modules, the defect is the GUIDE (or the compiler), not the author — fix it
+upstream instead of patching modules one at a time. That is the loop that
+stops Spencer re-reporting the same finding.
 
 ## Why SEQUENTIAL (Spencer 2026-07-20)
 Author modules strictly in course order (m4 → m5 → m6 …), never fan

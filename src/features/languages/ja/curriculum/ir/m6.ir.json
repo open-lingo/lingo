@@ -8,18 +8,32 @@
     "m5"
   ],
   "priorGrammarPoints": [
-    "wa",
-    "ga",
-    "ni",
-    "wo",
-    "no",
-    "de",
-    "mo",
+    "wa-topic",
+    "ga-existence",
+    "ni-location",
+    "wo-object",
+    "no-possession",
+    "de-action",
+    "mo-also",
     "dare",
-    "kore-deixis",
-    "sore-deixis"
+    "kore-sore-are-dore",
+    "kore-sore-are-dore"
   ],
   "newAtoms": [
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
     {
       "kana": "たべない",
       "romaji": "tabenai",
@@ -186,7 +200,7 @@
   ],
   "grammarPoints": [
     {
-      "id": "nai-ru",
+      "id": "nai-form",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -214,7 +228,7 @@
       }
     },
     {
-      "id": "nai-u",
+      "id": "nai-form",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -246,7 +260,7 @@
       }
     },
     {
-      "id": "nai-irregular",
+      "id": "nai-form",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -274,7 +288,7 @@
       }
     },
     {
-      "id": "aru-ga-existence",
+      "id": "arimasu",
       "rule": "ある says an inanimate thing EXISTS — 'there is'. Mark the thing whose existence you announce with が: ほんが ある = 'there's a book.' が spotlights the subject; ある closes the sentence and takes no だ.",
       "examples": [
         {
@@ -292,7 +306,7 @@
       }
     },
     {
-      "id": "iru-animacy",
+      "id": "imasu",
       "rule": "いる says a LIVING thing exists — animals and people. Lifeless things take ある; anything alive takes いる. ねこが いる = 'there's a cat'; ほんが ある = 'there's a book.' Both close the sentence plain, no だ.",
       "examples": [
         {
@@ -328,7 +342,7 @@
       }
     },
     {
-      "id": "location-deixis",
+      "id": "koko-soko-asoko",
       "rule": "Place pointers mirror これ/それ/あれ/どれ, one step out: ここ = here (by me), そこ = there (by you), あそこ = over there (away from both), どこ = where? ねこは どこ？ 'where's the cat?' → あそこ。 'over there.'",
       "examples": [
         {
@@ -346,7 +360,7 @@
       ]
     },
     {
-      "id": "ni-existence",
+      "id": "ni-location-location",
       "rule": "に pins down WHERE something exists. Frame: Place + に + thing + が + ある/いる. あそこに ねこが いる = 'there's a cat over there'; ここに ほんが ある = 'there's a book here.'",
       "examples": [
         {
@@ -364,7 +378,7 @@
       }
     },
     {
-      "id": "de-action",
+      "id": "de-action-action",
       "rule": "で marks where an ACTION happens; に marks where something EXISTS. いえで たべる = 'I eat at home' (action); いえに ねこが いる = 'there's a cat at home' (existence). Doing → で. Being → に.",
       "examples": [
         {
@@ -434,14 +448,14 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-ru"
+          "grammarPointId": "nai-form"
         },
         {
           "kind": "sentence",
           "ja": "きゅうりを たべない。",
           "en": "I won't eat the cucumber.",
           "exercises": [
-            "nai-ru"
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -450,8 +464,8 @@
           "ja": "ごはんを たべない。",
           "en": "I don't eat rice.",
           "exercises": [
-            "nai-ru",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -460,17 +474,17 @@
           "ja": "それを みない。",
           "en": "I don't look at that one.",
           "exercises": [
-            "nai-ru"
+            "nai-form"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "しゃしんを みない。",
           "en": "I don't look at the photo.",
           "exercises": [
-            "nai-ru",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -479,28 +493,28 @@
           "ja": "すしを たべない。",
           "en": "I don't eat sushi.",
           "exercises": [
-            "nai-ru",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "きょうは たべない。",
           "en": "Today I won't eat.",
           "exercises": [
-            "nai-ru",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ふねを みない。",
           "en": "I don't look at the boat.",
           "exercises": [
-            "nai-ru",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -537,9 +551,9 @@
           "ja": "ミカの ごはんを たべない。",
           "en": "I won't eat Mika's rice.",
           "combines": [
-            "no",
-            "wo",
-            "nai-ru"
+            "no-possession",
+            "wo-object",
+            "nai-form"
           ],
           "mode": "build"
         }
@@ -547,8 +561,6 @@
       "reviewPool": [
         "たべる",
         "みる",
-        "たべない",
-        "みない",
         "ごはん",
         "しゃしん",
         "ふね",
@@ -568,15 +580,15 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-u"
+          "grammarPointId": "nai-form"
         },
         {
           "kind": "sentence",
           "ja": "わたしは のまない。",
           "en": "I won't drink.",
           "exercises": [
-            "nai-u",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -585,30 +597,30 @@
           "ja": "みずを のまない。",
           "en": "I don't drink water.",
           "exercises": [
-            "nai-u",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "ミカは いかない。",
           "en": "Mika isn't going.",
           "exercises": [
-            "nai-u",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ほんを かわない。",
           "en": "I won't buy the book.",
           "exercises": [
-            "nai-u",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "ほんは かわない。"
           ]
@@ -618,8 +630,8 @@
           "ja": "トムは わからない。",
           "en": "Tom doesn't get it.",
           "exercises": [
-            "nai-u",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -628,11 +640,11 @@
           "ja": "それは わからない。",
           "en": "I don't get that one.",
           "exercises": [
-            "nai-u",
-            "wa",
-            "sore-deixis"
+            "nai-form",
+            "wa-topic",
+            "kore-sore-are-dore"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "それが わからない。"
           ],
@@ -647,18 +659,18 @@
           "ja": "ぎゅうにゅうを のまない。",
           "en": "I don't drink milk.",
           "exercises": [
-            "nai-u",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "きょうは いかない。",
           "en": "Today I'm not going.",
           "exercises": [
-            "nai-u",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -710,9 +722,9 @@
           "ja": "ミカも みずを のまない。",
           "en": "Mika won't drink water either.",
           "combines": [
-            "mo",
-            "wo",
-            "nai-u"
+            "mo-also",
+            "wo-object",
+            "nai-form"
           ],
           "mode": "build"
         }
@@ -722,10 +734,6 @@
         "いく",
         "かう",
         "わかる",
-        "のまない",
-        "いかない",
-        "かわない",
-        "わからない",
         "みず",
         "ぎゅうにゅう"
       ]
@@ -741,14 +749,14 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-irregular"
+          "grammarPointId": "nai-form"
         },
         {
           "kind": "sentence",
           "ja": "きょう しない。",
           "en": "Today I won't do it.",
           "exercises": [
-            "nai-irregular"
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -757,9 +765,9 @@
           "ja": "これを しない。",
           "en": "I won't do this one.",
           "exercises": [
-            "nai-irregular",
-            "wo",
-            "kore-deixis"
+            "nai-form",
+            "wo-object",
+            "kore-sore-are-dore"
           ],
           "mode": "build"
         },
@@ -768,18 +776,18 @@
           "ja": "ケンは こない。",
           "en": "Ken isn't coming.",
           "exercises": [
-            "nai-irregular",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ミカは こない。",
           "en": "Mika isn't coming.",
           "exercises": [
-            "nai-irregular",
-            "wa"
+            "nai-form",
+            "wa-topic"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -791,9 +799,9 @@
           "ja": "それを しない。",
           "en": "I won't do that one.",
           "exercises": [
-            "nai-irregular",
-            "wo",
-            "sore-deixis"
+            "nai-form",
+            "wo-object",
+            "kore-sore-are-dore"
           ],
           "mode": "build"
         },
@@ -802,8 +810,8 @@
           "ja": "ごはんを たべない。",
           "en": "I don't eat rice.",
           "exercises": [
-            "nai-ru",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -812,8 +820,8 @@
           "ja": "みずを のまない。",
           "en": "I don't drink water.",
           "exercises": [
-            "nai-u",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -855,10 +863,10 @@
           "ja": "きょうは これを しない。",
           "en": "Today I won't do this one.",
           "combines": [
-            "wa",
-            "wo",
-            "kore-deixis",
-            "nai-irregular"
+            "wa-topic",
+            "wo-object",
+            "kore-sore-are-dore",
+            "nai-form"
           ],
           "mode": "build"
         }
@@ -866,12 +874,9 @@
       "reviewPool": [
         "する",
         "くる",
-        "しない",
-        "こない",
         "これ",
         "それ",
-        "たべない",
-        "のまない"
+        "たべない"
       ]
     },
     {
@@ -885,15 +890,15 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "aru-ga-existence"
+          "grammarPointId": "arimasu"
         },
         {
           "kind": "sentence",
           "ja": "ほんが ある。",
           "en": "There's a book.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -902,8 +907,8 @@
           "ja": "かさが ある。",
           "en": "There's an umbrella.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -912,8 +917,8 @@
           "ja": "かぎが ある。",
           "en": "There's a key.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -922,8 +927,8 @@
           "ja": "きのこが ある。",
           "en": "There's a mushroom.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -940,8 +945,8 @@
           "ja": "ほんが ある。",
           "en": "There's a book.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -950,8 +955,8 @@
           "ja": "くるまが ある。",
           "en": "There's a car.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -960,10 +965,10 @@
           "ja": "ふねが ある。",
           "en": "There's a boat.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "ふねは ある。"
           ],
@@ -1021,11 +1026,11 @@
           "en": "Whose umbrella is over there?",
           "combines": [
             "dare",
-            "no",
-            "aru-ga-existence",
-            "ga"
+            "no-possession",
+            "arimasu",
+            "ga-existence"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "あそこに だれの かさが ある？",
             "そこに だれの かさが ある？",
@@ -1034,8 +1039,6 @@
         }
       ],
       "reviewPool": [
-        "ある",
-        "が",
         "ほん",
         "かさ",
         "かぎ",
@@ -1054,15 +1057,15 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "iru-animacy"
+          "grammarPointId": "imasu"
         },
         {
           "kind": "sentence",
           "ja": "ねこが いる。",
           "en": "There's a cat.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1071,8 +1074,8 @@
           "ja": "いぬが いる。",
           "en": "There's a dog.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1081,8 +1084,8 @@
           "ja": "ひとが いる。",
           "en": "There's someone.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1091,8 +1094,8 @@
           "ja": "うまが いる。",
           "en": "There's a horse.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -1109,8 +1112,8 @@
           "ja": "かめが いる。",
           "en": "There's a turtle.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1119,8 +1122,8 @@
           "ja": "ほんが ある。",
           "en": "There's a book.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1129,8 +1132,8 @@
           "ja": "ぶたが いる。",
           "en": "There's a pig.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1191,15 +1194,14 @@
           "ja": "ミカの ねこも いる。",
           "en": "Mika's cat is here too.",
           "combines": [
-            "no",
-            "mo",
-            "iru-animacy"
+            "no-possession",
+            "mo-also",
+            "imasu"
           ],
           "mode": "build"
         }
       ],
       "reviewPool": [
-        "いる",
         "ある",
         "が",
         "ねこ",
@@ -1229,7 +1231,7 @@
           "en": "There's no book.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1239,7 +1241,7 @@
           "en": "There's no key.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1249,7 +1251,7 @@
           "en": "There's no cat.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1259,7 +1261,7 @@
           "en": "There's no dog.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -1277,7 +1279,7 @@
           "en": "There's no rice today.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1287,7 +1289,7 @@
           "en": "There's no one.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1297,7 +1299,7 @@
           "en": "Mika's umbrella is gone.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1307,10 +1309,10 @@
           "en": "Today the teacher isn't here.",
           "exercises": [
             "nai-existence",
-            "ga",
-            "wa"
+            "ga-existence",
+            "wa-topic"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "せんせいは きょう いない。"
           ]
@@ -1358,17 +1360,15 @@
           "ja": "きょうは ミカの いぬが いない。",
           "en": "Today Mika's dog isn't here.",
           "combines": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "listening"
         }
       ],
       "reviewPool": [
-        "ない",
-        "いない",
         "ある",
         "いる",
         "が",
@@ -1392,15 +1392,15 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "location-deixis"
+          "grammarPointId": "koko-soko-asoko"
         },
         {
           "kind": "sentence",
           "ja": "ねこは どこ？",
           "en": "Where's the cat?",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "listening"
         },
@@ -1409,8 +1409,8 @@
           "ja": "ねこは あそこ。",
           "en": "The cat's over there.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1419,8 +1419,8 @@
           "ja": "かぎは ここ。",
           "en": "The key's right here.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1429,8 +1429,8 @@
           "ja": "ほんは そこ。",
           "en": "The book's there, by you.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -1442,8 +1442,8 @@
           "ja": "せんせいは どこ？",
           "en": "Where's the teacher?",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "listening"
         },
@@ -1452,8 +1452,8 @@
           "ja": "かさは あそこ。",
           "en": "The umbrella's over there.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1462,10 +1462,10 @@
           "ja": "トムは どこ？",
           "en": "Where's Tom?",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "トムは どこに いる？"
           ]
@@ -1475,8 +1475,8 @@
           "ja": "うまは そこ。",
           "en": "The horse is there, by you.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -1513,21 +1513,17 @@
           "ja": "ミカの かさは どこ？",
           "en": "Where's Mika's umbrella?",
           "combines": [
-            "no",
-            "wa",
-            "location-deixis"
+            "no-possession",
+            "wa-topic",
+            "koko-soko-asoko"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "ミカの かさは どこに ある？"
           ]
         }
       ],
       "reviewPool": [
-        "ここ",
-        "そこ",
-        "あそこ",
-        "どこ",
         "これ",
         "それ",
         "あれ",
@@ -1546,17 +1542,17 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "ni-existence"
+          "grammarPointId": "ni-location-location"
         },
         {
           "kind": "sentence",
           "ja": "あそこに ねこが いる。",
           "en": "There's a cat over there.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga",
-            "iru-animacy"
+            "ni-location",
+            "ni-location",
+            "ga-existence",
+            "imasu"
           ],
           "mode": "build"
         },
@@ -1565,10 +1561,10 @@
           "ja": "ここに ほんが ある。",
           "en": "There's a book here.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga",
-            "aru-ga-existence"
+            "ni-location",
+            "ni-location",
+            "ga-existence",
+            "arimasu"
           ],
           "mode": "build"
         },
@@ -1577,9 +1573,9 @@
           "ja": "そこに かぎが ある。",
           "en": "There's a key there.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga"
+            "ni-location",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1588,10 +1584,10 @@
           "ja": "いけに かめが いる。",
           "en": "There's a turtle in the pond.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga",
-            "iru-animacy"
+            "ni-location",
+            "ni-location",
+            "ga-existence",
+            "imasu"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -1609,9 +1605,9 @@
           "ja": "いえに いぬが いる。",
           "en": "There's a dog at home.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga"
+            "ni-location",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1620,9 +1616,9 @@
           "ja": "あそこに うまが いる。",
           "en": "There's a horse over there.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga"
+            "ni-location",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1673,16 +1669,15 @@
           "ja": "ミカの かめは いけに いる。",
           "en": "Mika's turtle is in the pond.",
           "combines": [
-            "no",
-            "wa",
-            "ni-existence",
-            "iru-animacy"
+            "no-possession",
+            "wa-topic",
+            "ni-location",
+            "imasu"
           ],
           "mode": "build"
         }
       ],
       "reviewPool": [
-        "に",
         "ある",
         "いる",
         "が",
@@ -1705,7 +1700,7 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "de-action"
+          "grammarPointId": "de-action-action"
         },
         {
           "kind": "sentence",
@@ -1713,7 +1708,7 @@
           "en": "I eat at home.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
           "mode": "build"
         },
@@ -1723,7 +1718,7 @@
           "en": "I play at the sea.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
           "mode": "build"
         },
@@ -1733,8 +1728,8 @@
           "en": "I eat rice at home.",
           "exercises": [
             "de-action",
-            "de",
-            "wo"
+            "de-action",
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -1744,7 +1739,7 @@
           "en": "I play at the river.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
           "mode": "listening"
         },
@@ -1753,9 +1748,9 @@
           "ja": "いえに ねこが いる。",
           "en": "There's a cat at home.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga"
+            "ni-location",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1765,9 +1760,9 @@
           "en": "I buy it at the station.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1775,7 +1770,7 @@
           "en": "I play at the pond.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
           "mode": "listening"
         },
@@ -1826,16 +1821,15 @@
           "ja": "ミカの いえで ごはんを たべる。",
           "en": "I eat rice at Mika's house.",
           "combines": [
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "de-action",
-            "de"
+            "de-action"
           ],
           "mode": "build"
         }
       ],
       "reviewPool": [
-        "で",
         "に",
         "たべる",
         "のむ",
@@ -1852,7 +1846,10 @@
       "id": "m6-neo-10",
       "title": "Exactly where — うえ・なか",
       "focus": "stack nouns for a precise place: Noun の うえ (on top) / Noun の なか (inside) + に for existence",
-      "introduces": [],
+      "introduces": [
+        "うえ",
+        "なか"
+      ],
       "beats": [
         {
           "kind": "rule",
@@ -1864,9 +1861,9 @@
           "en": "There's a cat on the book.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga"
+            "no-possession",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1876,9 +1873,9 @@
           "en": "There's a key in the bag.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga"
+            "no-possession",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1888,9 +1885,9 @@
           "en": "There's a hat on the chair.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga"
+            "no-possession",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -1903,9 +1900,9 @@
           "en": "There's a hat in the bag.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga"
+            "no-possession",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -1915,9 +1912,9 @@
           "en": "There's a key on the book.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga"
+            "no-possession",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -1927,12 +1924,12 @@
           "en": "There's a dog inside the house.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
-            "ga",
-            "iru-animacy"
+            "no-possession",
+            "ni-location",
+            "ga-existence",
+            "imasu"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "いぬは いえの なかに いる。"
           ]
@@ -1984,10 +1981,10 @@
           "ja": "かさも ほんの うえに ある。",
           "en": "The umbrella is on the book too.",
           "combines": [
-            "mo",
-            "no",
+            "mo-also",
+            "no-possession",
             "spatial-relations",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         }
@@ -2022,9 +2019,9 @@
           "en": "Where's the cat?",
           "exercises": [
             "location-qa",
-            "wa",
-            "ni",
-            "iru-animacy"
+            "wa-topic",
+            "ni-location",
+            "imasu"
           ],
           "mode": "listening"
         },
@@ -2034,9 +2031,9 @@
           "en": "Where's the key?",
           "exercises": [
             "location-qa",
-            "wa",
-            "ni",
-            "aru-ga-existence"
+            "wa-topic",
+            "ni-location",
+            "arimasu"
           ],
           "mode": "build"
         },
@@ -2046,8 +2043,8 @@
           "en": "He's over there.",
           "exercises": [
             "location-qa",
-            "ni",
-            "iru-animacy"
+            "ni-location",
+            "imasu"
           ],
           "mode": "build"
         },
@@ -2057,8 +2054,8 @@
           "en": "It's in the bag.",
           "exercises": [
             "location-qa",
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "spatial-relations"
           ],
           "mode": "translate",
@@ -2072,7 +2069,7 @@
           "en": "It's not here.",
           "exercises": [
             "location-qa",
-            "ni",
+            "ni-location",
             "nai-existence"
           ],
           "mode": "build"
@@ -2083,8 +2080,8 @@
           "en": "Where's the teacher?",
           "exercises": [
             "location-qa",
-            "wa",
-            "ni"
+            "wa-topic",
+            "ni-location"
           ],
           "mode": "listening"
         },
@@ -2094,10 +2091,10 @@
           "en": "The cat isn't here.",
           "exercises": [
             "location-qa",
-            "ni",
+            "ni-location",
             "nai-existence"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
@@ -2132,12 +2129,12 @@
           "ja": "ミカの ねこは どこに いる？",
           "en": "Where's Mika's cat?",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "location-qa",
-            "ni"
+            "ni-location"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "ミカの ねこは どこ？"
           ]
@@ -2168,11 +2165,11 @@
           "ja": "きょうは ミカの いえで ごはんを たべない。",
           "en": "Today I won't eat rice at Mika's house.",
           "exercises": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "de-action",
-            "wo",
-            "nai-ru"
+            "wo-object",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -2181,10 +2178,10 @@
           "ja": "かばんの なかに かぎが ない。",
           "en": "There's no key in the bag.",
           "exercises": [
-            "no",
+            "no-possession",
             "spatial-relations",
-            "ni",
-            "ga",
+            "ni-location",
+            "ga-existence",
             "nai-existence"
           ],
           "mode": "translate",
@@ -2198,10 +2195,10 @@
           "ja": "せんせいは あそこに いる。",
           "en": "The teacher is over there.",
           "exercises": [
-            "wa",
-            "location-deixis",
-            "ni",
-            "iru-animacy"
+            "wa-topic",
+            "koko-soko-asoko",
+            "ni-location",
+            "imasu"
           ],
           "mode": "build"
         },
@@ -2210,13 +2207,13 @@
           "ja": "ケンの くるまは あそこに ない。",
           "en": "Ken's car isn't over there.",
           "exercises": [
-            "no",
-            "wa",
-            "location-deixis",
-            "ni-existence",
+            "no-possession",
+            "wa-topic",
+            "koko-soko-asoko",
+            "ni-location",
             "nai-existence"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "ケンの くるまが あそこに ない。"
           ]
@@ -2226,8 +2223,8 @@
           "ja": "ケンは きょう こない。",
           "en": "Ken isn't coming today.",
           "exercises": [
-            "wa",
-            "nai-irregular"
+            "wa-topic",
+            "nai-form"
           ],
           "mode": "listening"
         },
@@ -2236,11 +2233,11 @@
           "ja": "いぬは いえに いない。",
           "en": "The dog isn't at home.",
           "exercises": [
-            "wa",
-            "ni-existence",
+            "wa-topic",
+            "ni-location",
             "nai-existence"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "いぬが いえに いない。"
           ]
@@ -2250,11 +2247,11 @@
           "ja": "ほんは いすの うえに ある。",
           "en": "The book is on the chair.",
           "exercises": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "spatial-relations",
-            "ni",
-            "aru-ga-existence"
+            "ni-location",
+            "arimasu"
           ],
           "mode": "build"
         },
@@ -2263,12 +2260,12 @@
           "ja": "ミカの ねこは いすの うえに いない。",
           "en": "Mika's cat isn't on the chair.",
           "exercises": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "spatial-relations",
-            "ni-existence",
+            "ni-location",
             "nai-existence",
-            "iru-animacy"
+            "imasu"
           ],
           "mode": "build",
           "alsoAccept": [
@@ -2280,14 +2277,14 @@
           "ja": "うまは かわの なかに いない。",
           "en": "The horse isn't in the river.",
           "exercises": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "spatial-relations",
-            "ni-existence",
+            "ni-location",
             "nai-existence",
-            "iru-animacy"
+            "imasu"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "うまが かわの なかに いない。",
             "うまは かわに いない。"
@@ -2312,11 +2309,11 @@
           "ja": "これは かわない。",
           "en": "I won't buy this one.",
           "exercises": [
-            "kore-deixis",
-            "wa",
-            "nai-u"
+            "kore-sore-are-dore",
+            "wa-topic",
+            "nai-form"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "これを かわない。"
           ]
@@ -2327,11 +2324,11 @@
           "en": "Whose umbrella is on the chair?",
           "exercises": [
             "dare",
-            "no",
-            "ga",
+            "no-possession",
+            "ga-existence",
             "spatial-relations",
-            "ni-existence",
-            "aru-ga-existence"
+            "ni-location",
+            "arimasu"
           ],
           "mode": "build"
         },
@@ -2367,11 +2364,11 @@
           "ja": "きょうは あそこで かさを かわない。",
           "en": "Today I won't buy an umbrella over there.",
           "combines": [
-            "wa",
-            "location-deixis",
+            "wa-topic",
+            "koko-soko-asoko",
             "de-action",
-            "wo",
-            "nai-u"
+            "wo-object",
+            "nai-form"
           ],
           "mode": "build"
         }
@@ -2389,8 +2386,7 @@
         "に",
         "で",
         "うえ",
-        "なか",
-        "どこ"
+        "なか"
       ]
     },
     {
@@ -2404,9 +2400,9 @@
           "ja": "あさは ごはんを たべない。",
           "en": "I don't eat rice in the morning.",
           "exercises": [
-            "nai-ru",
-            "wa",
-            "wo"
+            "nai-form",
+            "wa-topic",
+            "wo-object"
           ],
           "mode": "translate",
           "alsoAccept": [
@@ -2418,8 +2414,8 @@
           "ja": "きゅうりを かわない。",
           "en": "I won't buy cucumbers.",
           "exercises": [
-            "nai-u",
-            "wo"
+            "nai-form",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2428,8 +2424,8 @@
           "ja": "さくらが ある。",
           "en": "There are cherry blossoms.",
           "exercises": [
-            "aru-ga-existence",
-            "ga"
+            "arimasu",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -2438,8 +2434,8 @@
           "ja": "ぞうが いる。",
           "en": "There's an elephant.",
           "exercises": [
-            "iru-animacy",
-            "ga"
+            "imasu",
+            "ga-existence"
           ],
           "mode": "listening"
         },
@@ -2449,7 +2445,7 @@
           "en": "There's no shrimp.",
           "exercises": [
             "nai-existence",
-            "ga"
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -2458,8 +2454,8 @@
           "ja": "かめは そこ。",
           "en": "The turtle's there.",
           "exercises": [
-            "location-deixis",
-            "wa"
+            "koko-soko-asoko",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -2469,9 +2465,9 @@
           "en": "I watch (it) at home.",
           "exercises": [
             "de-action",
-            "de"
+            "de-action"
           ],
-          "mode": "translate",
+          "mode": "build",
           "alsoAccept": [
             "うちで みる。"
           ]
@@ -2481,9 +2477,9 @@
           "ja": "そらに ほしが ある。",
           "en": "There are stars in the sky.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga"
+            "ni-location",
+            "ni-location",
+            "ga-existence"
           ],
           "mode": "build"
         },
@@ -2492,10 +2488,10 @@
           "ja": "かわに かめが いる。",
           "en": "There's a turtle in the river.",
           "exercises": [
-            "ni-existence",
-            "ni",
-            "ga",
-            "iru-animacy"
+            "ni-location",
+            "ni-location",
+            "ga-existence",
+            "imasu"
           ],
           "mode": "listening"
         },
@@ -2505,11 +2501,11 @@
           "en": "There's no hat in the bag.",
           "exercises": [
             "spatial-relations",
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "nai-existence"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "ぼうしは かばんに ない。"
           ]
@@ -2582,8 +2578,7 @@
         "そこ",
         "あそこ",
         "どこ",
-        "に",
-        "で"
+        "に"
       ]
     }
   ]

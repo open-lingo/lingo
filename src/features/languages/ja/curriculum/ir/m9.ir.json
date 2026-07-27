@@ -11,24 +11,24 @@
     "m8"
   ],
   "priorGrammarPoints": [
-    "wa",
-    "ga",
-    "wo",
-    "no",
-    "ni",
-    "de",
-    "mo",
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
     "dare",
-    "kore-deixis",
-    "sore-deixis",
-    "nai-ru",
-    "nai-u",
-    "nai-irregular",
-    "aru-ga-existence",
-    "iru-animacy",
+    "kore-sore-are-dore",
+    "kore-sore-are-dore",
+    "nai-form",
+    "nai-form",
+    "nai-form",
+    "arimasu",
+    "imasu",
     "nai-existence",
-    "location-deixis",
-    "ni-existence",
+    "koko-soko-asoko",
+    "ni-location",
     "spatial-relations",
     "location-qa",
     "de-action",
@@ -52,6 +52,10 @@
         {
           "ja": "よん ご ろく",
           "en": "four, five, six"
+        },
+        {
+          "ja": "なな はち きゅう じゅう",
+          "en": "seven, eight, nine, ten"
         }
       ]
     },
@@ -185,6 +189,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いくら",
       "romaji": "ikura",
       "gloss": "how much",
@@ -246,7 +257,8 @@
         "いち",
         "さん",
         "よん",
-        "ご"
+        "ご",
+        "えん"
       ],
       "beats": [
         {
@@ -255,44 +267,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いち",
-          "en": "one",
-          "exercises": [
-            "numbers-1-10"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "さん",
-          "en": "three",
-          "exercises": [
-            "numbers-1-10"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "よん",
-          "en": "four",
-          "exercises": [
-            "numbers-1-10"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ご",
-          "en": "five",
-          "exercises": [
-            "numbers-1-10"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いち さん",
-          "en": "one, three",
+          "ja": "いち さん よん ご",
+          "en": "one, three, four, five",
           "exercises": [
             "numbers-1-10"
           ],
@@ -305,35 +281,59 @@
           "exercises": [
             "numbers-1-10"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "よん ご",
-          "en": "four, five",
+          "ja": "これは ごえんだ。",
+          "en": "This is five yen",
           "exercises": [
+            "kore-sore-are-dore",
+            "desu-copula",
             "numbers-1-10"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "ほんが ご ある。",
-          "en": "There are five books",
+          "ja": "えんぴつは いちえんだ。",
+          "en": "The pencil is one yen",
           "exercises": [
-            "ga",
-            "numbers-1-10",
-            "aru-ga-existence"
+            "wa-topic",
+            "desu-copula",
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "それは よんえんだ。",
+          "en": "That is four yen",
+          "exercises": [
+            "kore-sore-are-dore",
+            "desu-copula",
+            "numbers-1-10"
           ],
           "mode": "listening"
         },
         {
+          "kind": "sentence",
+          "ja": "ほんは さんえんだ。",
+          "en": "The book is three yen",
+          "exercises": [
+            "wa-topic",
+            "desu-copula",
+            "numbers-1-10"
+          ],
+          "mode": "build"
+        },
+        {
           "kind": "challenge",
-          "ja": "ミカの ほんは さんです。",
-          "en": "Say politely: Mika's books are three",
+          "ja": "ミカの ぼうしは ごえんだ。",
+          "en": "Mika's hat is five yen",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "desu-copula",
             "numbers-1-10"
           ],
@@ -369,8 +369,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ろく",
-          "en": "six",
+          "ja": "ろく なな はち",
+          "en": "six, seven, eight",
           "exercises": [
             "numbers-1-10"
           ],
@@ -378,8 +378,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "なな",
-          "en": "seven",
+          "ja": "はち きゅう じゅう",
+          "en": "eight, nine, ten",
           "exercises": [
             "numbers-1-10"
           ],
@@ -387,82 +387,68 @@
         },
         {
           "kind": "sentence",
-          "ja": "はち",
-          "en": "eight",
+          "ja": "これは じゅうえんだ。",
+          "en": "This is ten yen",
           "exercises": [
+            "kore-sore-are-dore",
+            "desu-copula",
             "numbers-1-10"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "きゅう",
-          "en": "nine",
+          "ja": "かさは ろくえんだ。",
+          "en": "The umbrella is six yen",
           "exercises": [
+            "wa-topic",
+            "desu-copula",
             "numbers-1-10"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "じゅう",
-          "en": "ten",
+          "ja": "あれは はちえんだ。",
+          "en": "That over there is eight yen",
           "exercises": [
+            "kore-sore-are-dore",
+            "desu-copula",
             "numbers-1-10"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ねこが ご いる。",
-          "en": "There are five cats",
-          "exercises": [
-            "ga",
-            "numbers-1-10",
-            "iru-animacy"
-          ],
-          "mode": "translate"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ほんが さん ある。",
-          "en": "There are three books",
-          "exercises": [
-            "ga",
-            "numbers-1-10",
-            "aru-ga-existence"
           ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "いち さん よん",
-          "en": "one, three, four",
+          "ja": "みずは ななえんだ。",
+          "en": "The water is seven yen",
           "exercises": [
+            "wa-topic",
+            "desu-copula",
             "numbers-1-10"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "いぬが さん いる。",
-          "en": "There are three dogs",
+          "ja": "めがねは きゅうえんだ。",
+          "en": "The glasses are nine yen",
           "exercises": [
-            "ga",
-            "numbers-1-10",
-            "iru-animacy"
+            "wa-topic",
+            "desu-copula",
+            "numbers-1-10"
           ],
-          "mode": "listening"
+          "mode": "translate"
         },
         {
           "kind": "challenge",
-          "ja": "いえに ねこが きゅう いる。",
-          "en": "There are nine cats at the house",
+          "ja": "それも じゅうえんだ。",
+          "en": "That one is ten yen too",
           "combines": [
-            "ni-existence",
-            "ga",
-            "numbers-1-10",
-            "iru-animacy"
+            "kore-sore-are-dore",
+            "mo-also",
+            "desu-copula",
+            "numbers-1-10"
           ],
           "mode": "build"
         }
@@ -494,30 +480,36 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひとつ",
-          "en": "one thing",
+          "ja": "ぼうしが ひとつ ある。",
+          "en": "There is one hat",
           "exercises": [
-            "counter-tsu"
+            "ga-existence",
+            "counter-tsu",
+            "arimasu"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "ふたつ",
-          "en": "two things",
+          "ja": "えんぴつが ふたつ ある。",
+          "en": "There are two pencils",
           "exercises": [
-            "counter-tsu"
+            "ga-existence",
+            "counter-tsu",
+            "arimasu"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "みっつ",
-          "en": "three things",
+          "ja": "かさが みっつ ある。",
+          "en": "There are three umbrellas",
           "exercises": [
-            "counter-tsu"
+            "ga-existence",
+            "counter-tsu",
+            "arimasu"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -545,8 +537,8 @@
           "en": "There are two books",
           "exercises": [
             "counter-tsu",
-            "ga",
-            "aru-ga-existence"
+            "ga-existence",
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -556,9 +548,9 @@
           "en": "There are three",
           "exercises": [
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -578,10 +570,10 @@
           "ja": "ミカの ぼうしが ふたつ ある。",
           "en": "Mika has two hats",
           "combines": [
-            "no",
-            "ga",
+            "no-possession",
+            "ga-existence",
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
           "mode": "build"
         }
@@ -608,20 +600,20 @@
           "ja": "かさが みっつ ある。",
           "en": "There are three umbrellas",
           "exercises": [
-            "ga",
+            "ga-existence",
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "ひとが ろく いる。",
-          "en": "There are six people",
+          "ja": "ほんが ふたつ ある。",
+          "en": "There are two books",
           "exercises": [
-            "ga",
-            "numbers-1-10",
-            "iru-animacy"
+            "ga-existence",
+            "counter-tsu",
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -640,33 +632,33 @@
           "ja": "えんぴつが ふたつ ある。",
           "en": "There are two pencils",
           "exercises": [
-            "ga",
+            "ga-existence",
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かさが なな ある。",
-          "en": "There are seven umbrellas",
+          "ja": "これは ななえんだ。",
+          "en": "This is seven yen",
           "exercises": [
-            "ga",
-            "numbers-1-10",
-            "aru-ga-existence"
+            "kore-sore-are-dore",
+            "desu-copula",
+            "numbers-1-10"
           ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "ねこは ごです。",
-          "en": "Say politely: The cats are five",
+          "ja": "かさは ごえんです。",
+          "en": "Say politely: The umbrella is five yen",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula",
             "numbers-1-10"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -683,8 +675,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅう",
-          "en": "ten",
+          "ja": "はち きゅう じゅう",
+          "en": "eight, nine, ten",
           "exercises": [
             "numbers-1-10"
           ],
@@ -695,9 +687,9 @@
           "ja": "まどが ふたつ ある。",
           "en": "There are two windows",
           "exercises": [
-            "ga",
+            "ga-existence",
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -706,11 +698,11 @@
           "ja": "めがねを ひとつ かって。",
           "en": "Buy one pair of glasses",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-form"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -756,8 +748,8 @@
       "title": "Yen and how much",
       "focus": "いくらですか and a number + えん; the exchange that makes numbers pay",
       "introduces": [
-        "えん",
-        "いくら"
+        "いくら",
+        "ひゃく"
       ],
       "beats": [
         {
@@ -766,25 +758,20 @@
         },
         {
           "kind": "sentence",
-          "ja": "えん",
-          "en": "yen",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いくら",
-          "en": "how much",
+          "ja": "これは いくら？",
+          "en": "How much is this?",
           "exercises": [
-            "ikura-price"
+            "ikura-price",
+            "kore-sore-are-dore"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "いくらですか。",
-          "en": "Say politely: How much is it",
+          "ja": "これは いくらですか。",
+          "en": "Say politely: How much is this",
           "exercises": [
+            "wa-topic",
             "ikura-price",
             "desu-copula",
             "ka-question"
@@ -799,14 +786,14 @@
             "ikura-price",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "ほんは ごひゃくえんです。",
           "en": "Say politely: The book is five hundred yen",
           "exercises": [
-            "wa",
+            "wa-topic",
             "ikura-price",
             "desu-copula"
           ],
@@ -817,7 +804,7 @@
           "ja": "ほんは いくらですか。",
           "en": "Say politely: How much is the book",
           "exercises": [
-            "wa",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -828,10 +815,10 @@
           "ja": "ぼうしは ひゃくえんです。",
           "en": "Say politely: The hat is a hundred yen",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
@@ -865,8 +852,8 @@
           "ja": "ミカの かさは いくらですか。",
           "en": "Say politely: How much is Mika's umbrella",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -877,7 +864,7 @@
         "ほん",
         "ぼうし",
         "かさ",
-        "ひゃく",
+        "えん",
         "これ",
         "めがね",
         "えんぴつ"
@@ -896,39 +883,20 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たかい",
-          "en": "expensive",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "やすい",
-          "en": "cheap",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "かね",
-          "en": "money",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "たかいです。",
-          "en": "Say politely: It's expensive",
+          "ja": "これは たかいです。",
+          "en": "Say politely: This is expensive",
           "exercises": [
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "translate"
         },
         {
           "kind": "sentence",
-          "ja": "やすいです。",
-          "en": "Say politely: It's cheap",
+          "ja": "これは やすいです。",
+          "en": "Say politely: This is cheap",
           "exercises": [
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -938,7 +906,7 @@
           "ja": "これは たかいです。",
           "en": "Say politely: This is expensive",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "listening"
@@ -948,17 +916,17 @@
           "ja": "かねが ない。",
           "en": "I have no money",
           "exercises": [
-            "ga",
+            "ga-existence",
             "nai-existence"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "かさは やすいです。",
           "en": "Say politely: The umbrella is cheap",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -981,8 +949,8 @@
           "ja": "ミカの めがねは たかいです。",
           "en": "Say politely: Mika's glasses are expensive",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -1011,31 +979,10 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "うる",
-          "en": "to sell",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "かいもの",
-          "en": "shopping",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "パン",
-          "en": "bread",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "パンを かう。",
           "en": "I buy bread",
           "exercises": [
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -1045,7 +992,7 @@
           "en": "They sell bread at the shop",
           "exercises": [
             "de-action",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1054,7 +1001,7 @@
           "ja": "かいものを する。",
           "en": "I do the shopping",
           "exercises": [
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -1063,17 +1010,17 @@
           "ja": "パンは やすいです。",
           "en": "Say politely: The bread is cheap",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "パンを ふたつ ください。",
           "en": "Say politely: Two breads, please",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1112,7 +1059,7 @@
           "en": "Say politely: Please buy three breads at the shop",
           "combines": [
             "de-action",
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1142,7 +1089,7 @@
           "ja": "パンは いくらですか。",
           "en": "Say politely: How much is the bread",
           "exercises": [
-            "wa",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -1172,7 +1119,7 @@
           "ja": "かねが ない。",
           "en": "I have no money",
           "exercises": [
-            "ga",
+            "ga-existence",
             "nai-existence"
           ],
           "mode": "listening"
@@ -1183,7 +1130,7 @@
           "en": "I buy tea at the shop",
           "exercises": [
             "de-action",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1192,10 +1139,10 @@
           "ja": "ごはんは やすいです。",
           "en": "Say politely: The rice is cheap",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -1215,7 +1162,7 @@
           "ja": "パンを かいます。",
           "en": "Say politely: I'll buy bread",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present"
           ],
           "mode": "build"
@@ -1225,7 +1172,7 @@
           "ja": "かいものを してください。",
           "en": "Say politely: Please do the shopping",
           "exercises": [
-            "wo",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "listening"
@@ -1237,7 +1184,7 @@
           "exercises": [
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1291,7 +1238,7 @@
           "ja": "パンを ひとつ かう。",
           "en": "I buy one bread",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu"
           ],
           "mode": "build"
@@ -1301,7 +1248,7 @@
           "ja": "ちゃを ふたつ ください。",
           "en": "Say politely: Two teas, please",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1312,7 +1259,7 @@
           "ja": "ぼうしを みっつ かいます。",
           "en": "Say politely: I'll buy three hats",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "masu-present"
           ],
@@ -1323,7 +1270,7 @@
           "ja": "ほんを ひとつ うる。",
           "en": "I sell one book",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu"
           ],
           "mode": "listening"
@@ -1333,18 +1280,18 @@
           "ja": "かさを ふたつ かってください。",
           "en": "Say politely: Please buy two umbrellas",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "みずを ひとつ ください。",
           "en": "Say politely: One water, please",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1355,9 +1302,9 @@
           "ja": "えんぴつが みっつ ある。",
           "en": "There are three pencils",
           "exercises": [
-            "ga",
+            "ga-existence",
             "counter-tsu",
-            "aru-ga-existence"
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -1380,8 +1327,8 @@
           "en": "Buy one of Mika's breads at the shop",
           "combines": [
             "de-action",
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "counter-tsu",
             "te-form"
           ],
@@ -1431,7 +1378,7 @@
           "ja": "かねが ないです。",
           "en": "Say politely: I don't have money",
           "exercises": [
-            "ga",
+            "ga-existence",
             "nai-existence",
             "desu-copula"
           ],
@@ -1442,7 +1389,7 @@
           "ja": "パンは たかい。",
           "en": "The bread is expensive",
           "exercises": [
-            "wa"
+            "wa-topic"
           ],
           "mode": "listening"
         },
@@ -1451,17 +1398,17 @@
           "ja": "やすい パンを かう。",
           "en": "I buy cheap bread",
           "exercises": [
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "たかい ほんは かわない。",
           "en": "I don't buy expensive books",
           "exercises": [
-            "wa",
-            "nai-u"
+            "wa-topic",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -1470,10 +1417,10 @@
           "ja": "ごひゃくえんは たかいです。",
           "en": "Say politely: Five hundred yen is expensive",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1507,8 +1454,8 @@
           "ja": "ミカの みせの パンは たかいです。",
           "en": "Say politely: The bread at Mika's shop is expensive",
           "combines": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "desu-copula",
             "de-action"
           ],
@@ -1538,7 +1485,7 @@
           "ja": "すみません。パンは いくらですか。",
           "en": "Say politely: Excuse me — how much is the bread",
           "exercises": [
-            "wa",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -1578,17 +1525,17 @@
           "en": "Say politely: I do the shopping at the shop",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ちゃを みっつ かってください。",
           "en": "Say politely: Please buy three teas",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1599,7 +1546,7 @@
           "ja": "かねは ありません。",
           "en": "Say politely: There's no money",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "listening"
@@ -1636,7 +1583,7 @@
           "ja": "すみません。パンを ふたつ ください。",
           "en": "Say politely: Excuse me — two breads, please",
           "combines": [
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai",
             "ikura-price"
@@ -1667,7 +1614,7 @@
           "ja": "めがねは いくらですか。",
           "en": "Say politely: How much are the glasses",
           "exercises": [
-            "wa",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -1678,19 +1625,18 @@
           "ja": "えんぴつを ふたつ かう。",
           "en": "I buy two pencils",
           "exercises": [
-            "wo",
+            "wo-object",
             "counter-tsu"
           ],
           "mode": "translate"
         },
         {
           "kind": "sentence",
-          "ja": "ねこが はち いる。",
-          "en": "There are eight cats",
+          "ja": "パンを ふたつ かう。",
+          "en": "I buy two loaves of bread",
           "exercises": [
-            "ga",
-            "numbers-1-10",
-            "iru-animacy"
+            "wo-object",
+            "counter-tsu"
           ],
           "mode": "listening"
         },
@@ -1699,7 +1645,7 @@
           "ja": "かさは やすいです。",
           "en": "Say politely: The umbrella is cheap",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
           "mode": "build"
@@ -1710,17 +1656,17 @@
           "en": "They sell bread at the shop",
           "exercises": [
             "de-action",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "かねが ひゃくえん ある。",
           "en": "I have a hundred yen",
           "exercises": [
-            "ga",
-            "aru-ga-existence"
+            "ga-existence",
+            "arimasu"
           ],
           "mode": "build"
         },
@@ -1742,7 +1688,7 @@
           "ja": "たかい めがねは かいません。",
           "en": "Say politely: I don't buy expensive glasses",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative"
           ],
           "mode": "listening"
@@ -1752,10 +1698,10 @@
           "ja": "かいものを してください。",
           "en": "Say politely: Please do the shopping",
           "exercises": [
-            "wo",
+            "wo-object",
             "te-kudasai"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1819,9 +1765,9 @@
           "ja": "ミカの みせで パンを ふたつ かってください。",
           "en": "Say politely: Please buy two breads at Mika's shop",
           "exercises": [
-            "no",
+            "no-possession",
             "de-action",
-            "wo",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1832,7 +1778,7 @@
           "ja": "たかい かさは かいません。",
           "en": "Say politely: I won't buy an expensive umbrella",
           "exercises": [
-            "wa",
+            "wa-topic",
             "masu-negative",
             "masu-present"
           ],
@@ -1843,8 +1789,8 @@
           "ja": "たなかさんの ほんは いくらですか。",
           "en": "Say politely: How much is Tanaka's book",
           "exercises": [
-            "no",
-            "wa",
+            "no-possession",
+            "wa-topic",
             "ikura-price",
             "ka-question"
           ],
@@ -1855,11 +1801,11 @@
           "ja": "きょうは かねが ありません。",
           "en": "Say politely: I have no money today",
           "exercises": [
-            "wa",
-            "ga",
+            "wa-topic",
+            "ga-existence",
             "masu-negative"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1867,7 +1813,7 @@
           "en": "They sell three teas at the shop",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "counter-tsu"
           ],
           "mode": "listening"
@@ -1878,8 +1824,8 @@
           "en": "Say politely: Please buy one bread for Ken",
           "exercises": [
             "register-audience",
-            "ni",
-            "wo",
+            "ni-location",
+            "wo-object",
             "counter-tsu",
             "te-kudasai"
           ],
@@ -1890,17 +1836,17 @@
           "ja": "めがねは ごひゃくえんです。",
           "en": "Say politely: The glasses are five hundred yen",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "かいものに いきますか。",
           "en": "Say politely: Are you going shopping",
           "exercises": [
-            "ni",
+            "ni-location",
             "masu-present",
             "ka-question"
           ],
@@ -1944,7 +1890,7 @@
           "en": "Say politely: I'll buy three cheap breads at the shop",
           "combines": [
             "de-action",
-            "wo",
+            "wo-object",
             "counter-tsu",
             "masu-present",
             "numbers-1-10"

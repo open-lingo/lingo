@@ -18,7 +18,12 @@ import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
  * writes are still confined to these lessons.
  */
 export function isDedicatedReviewLesson(lessonId: string): boolean {
-  return /^ja-m\d+-review-[12]$/.test(lessonId);
+  // OLD course: ja-m4-review-1 / ja-m4-review-2.
+  // NEO course (2026-07-26): ja-m7-neo-review-1 … -3, plus the single
+  // unnumbered ja-m6-neo-review. This regex used to match the old shape ONLY,
+  // which meant NO neo lesson could write to Track B — every grammar point
+  // practised in m3-m10 was graded into a closed valve.
+  return /^ja-m\d+(-neo)?-review(-\d+)?$/.test(lessonId);
 }
 
 /** Parse a bare `fromModule` ordinal ("m4" → 4). 0 if unrecognized. */

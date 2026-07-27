@@ -14,7 +14,7 @@
     "point": "か",
     "pointEn": "Question marker",
     "category": "particle",
-    "module": "m3",
+    "module": "m7",
     "status": "shipped",
     "notes": "Yes/no questions with です＋か",
     "dependsOn": [
@@ -26,7 +26,7 @@
     "point": "です",
     "pointEn": "Copula (is/am/are)",
     "category": "copula",
-    "module": "m3",
+    "module": "m7",
     "status": "shipped",
     "notes": "Polite copula; foundation for all formal sentences",
     "dependsOn": []
@@ -73,8 +73,8 @@
     "point": "も",
     "pointEn": "Also / too",
     "category": "particle",
-    "module": "m4",
-    "status": "backfill",
+    "module": "m3",
+    "status": "shipped",
     "notes": "Backfill; replaces は to mean 'also'",
     "dependsOn": [
       "wa-topic"
@@ -97,7 +97,7 @@
     "point": "ください",
     "pointEn": "Please (give me / do)",
     "category": "request-permission",
-    "module": "m5",
+    "module": "m8",
     "status": "shipped",
     "notes": "Noun-を-ください for requests; verb+て form comes in m16",
     "dependsOn": []
@@ -107,7 +107,7 @@
     "point": "いち〜じゅう",
     "pointEn": "Numbers 1-10",
     "category": "number",
-    "module": "m5",
+    "module": "m9",
     "status": "shipped",
     "notes": "Core number set; foundation for all counters",
     "dependsOn": []
@@ -192,7 +192,7 @@
     "pointEn": "Location demonstratives (here/there/over there)",
     "category": "demonstrative",
     "module": "m6",
-    "status": "backfill",
+    "status": "shipped",
     "notes": "Backfill; ko-so-a location set used with に/で",
     "dependsOn": [
       "kore-sore-are-dore",
@@ -226,7 +226,7 @@
     "point": "を",
     "pointEn": "Direct object marker",
     "category": "particle",
-    "module": "m7",
+    "module": "m5",
     "status": "shipped",
     "notes": "Marks object of transitive verbs; noun-を-verb pattern",
     "dependsOn": [
@@ -250,7 +250,7 @@
     "point": "いーけいようし（です）",
     "pointEn": "i-adjective present (formal)",
     "category": "adjective-form",
-    "module": "m8",
+    "module": "m12",
     "status": "shipped",
     "notes": "い-adjective + です for polite predicate",
     "dependsOn": [
@@ -262,7 +262,7 @@
     "point": "〜くない",
     "pointEn": "i-adjective negative",
     "category": "adjective-form",
-    "module": "m8",
+    "module": "m12",
     "status": "shipped",
     "notes": "Drop い, add くない; いい→よくない irregular",
     "dependsOn": [
@@ -284,7 +284,7 @@
     "point": "なーけいようし（です）",
     "pointEn": "na-adjective present",
     "category": "adjective-form",
-    "module": "m9",
+    "module": "m12",
     "status": "shipped",
     "notes": "na-adj stem + です; な linking for noun modification",
     "dependsOn": [
@@ -296,7 +296,7 @@
     "point": "なーけいようし（じゃないです）",
     "pointEn": "na-adjective negative",
     "category": "adjective-form",
-    "module": "m9",
+    "module": "m12",
     "status": "shipped",
     "notes": "na-adj stem + じゃないです",
     "dependsOn": [
@@ -406,7 +406,7 @@
     "point": "ません",
     "pointEn": "Polite negative",
     "category": "verb-form",
-    "module": "m11",
+    "module": "m7",
     "status": "shipped",
     "notes": "Polite negative present; ます stem + せん",
     "dependsOn": [
@@ -431,7 +431,7 @@
     "point": "ないーけい",
     "pointEn": "Negative plain form",
     "category": "verb-form",
-    "module": "m11",
+    "module": "m6",
     "status": "shipped",
     "notes": "Plain negative; a-column + ない; する→しない, くる→こない",
     "dependsOn": [
@@ -652,7 +652,7 @@
     "point": "てーけい",
     "pointEn": "te-form (formation rules)",
     "category": "verb-form",
-    "module": "m14",
+    "module": "m8",
     "status": "shipped",
     "notes": "Shipped in M14 (formation rules), not M16",
     "dependsOn": [
@@ -664,7 +664,7 @@
     "point": "てください",
     "pointEn": "Please do (request)",
     "category": "request-permission",
-    "module": "m14",
+    "module": "m8",
     "status": "shipped",
     "notes": "Shipped in M14 (Formation + Requests), not M16",
     "dependsOn": [
@@ -1135,5 +1135,105 @@
     "dependsOn": [
       "kanji-set-2"
     ]
+  },
+  {
+    "id": "dare",
+    "point": "だれ",
+    "pointEn": "Who (question word)",
+    "category": "particle",
+    "module": "m4",
+    "status": "shipped",
+    "notes": "Pairs with これ/それ/あれ deixis",
+    "dependsOn": []
+  },
+  {
+    "id": "nai-existence",
+    "point": "ない",
+    "pointEn": "Negative existence (ある's irregular negative)",
+    "category": "verb-form",
+    "module": "m6",
+    "status": "shipped",
+    "notes": "ある→ない, never あらない",
+    "dependsOn": []
+  },
+  {
+    "id": "spatial-relations",
+    "point": "〜の うえ/なか",
+    "pointEn": "Spatial relation nouns + に",
+    "category": "particle",
+    "module": "m6",
+    "status": "shipped",
+    "notes": "Noun の うえ に ある",
+    "dependsOn": []
+  },
+  {
+    "id": "location-qa",
+    "point": "どこに〜？",
+    "pointEn": "Asking where something is",
+    "category": "particle",
+    "module": "m6",
+    "status": "shipped",
+    "notes": "Answers with に + ある/いる",
+    "dependsOn": []
+  },
+  {
+    "id": "register-audience",
+    "point": "ていねいご/タメぐち",
+    "pointEn": "Register chosen by audience",
+    "category": "modal",
+    "module": "m7",
+    "status": "shipped",
+    "notes": "Plain to friends, polite to teachers",
+    "dependsOn": []
+  },
+  {
+    "id": "counter-tsu",
+    "point": "〜つ",
+    "pointEn": "All-purpose counter for things",
+    "category": "counter",
+    "module": "m9",
+    "status": "shipped",
+    "notes": "ひとつ/ふたつ/みっつ; own readings",
+    "dependsOn": []
+  },
+  {
+    "id": "ikura-price",
+    "point": "いくら",
+    "pointEn": "Asking a price",
+    "category": "particle",
+    "module": "m9",
+    "status": "shipped",
+    "notes": "いくらですか + number + えん",
+    "dependsOn": []
+  },
+  {
+    "id": "yes-no-register",
+    "point": "はい/ええ/うん",
+    "pointEn": "Yes and no by register",
+    "category": "modal",
+    "module": "m10",
+    "status": "shipped",
+    "notes": "うん/ううん casual, はい/いいえ formal",
+    "dependsOn": []
+  },
+  {
+    "id": "aizuchi",
+    "point": "はい（あいづち）",
+    "pointEn": "はい as backchannel, not agreement",
+    "category": "modal",
+    "module": "m10",
+    "status": "shipped",
+    "notes": "'I'm listening', the classic misparse",
+    "dependsOn": []
+  },
+  {
+    "id": "chotto-softener",
+    "point": "ちょっと",
+    "pointEn": "Softening and indirect refusal",
+    "category": "modal",
+    "module": "m10",
+    "status": "shipped",
+    "notes": "Trailing ちょっと = a polite no",
+    "dependsOn": []
   }
 ]

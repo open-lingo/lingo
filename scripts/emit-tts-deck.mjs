@@ -93,6 +93,10 @@ for (const path of sources) {
     /promptAudioText:\s*"([^"]+)"/g,
     /audioText:\s*"([^"]+)"/g,
     /ja:\s*"([^"]+)"/g,
+    // IR `kind: listening-comp` carries its stimulus as `audio:` — a field
+    // no other pattern here matches, so authored LC beats shipped silently
+    // clipless until 2026-07-27.
+    /\baudio:\s*"([^"]+)"/g,
     // Positional args: wordImageMcq("id", "あい"), listeningBuild("id", "あい", "love"),
     // speaking("id", "あい", "love"), listeningComp("id", "あい", "romaji", ...).
     // The optional leading arg is any RowContext identifier (ctx, saCtx,

@@ -168,6 +168,72 @@ export type BuildSentenceStep = StepBase & {
   sourceSentence?: string;
   sourceAnnotation?: JapaneseAnnotation[];
   transformLabel?: string;
+  /**
+   * AUDIENCE CUE (Spencer 2026-07-27). Register questions used to be asked in
+   * prose — "You are talking to your teacher, how do you say this?" — which is
+   * narration the learner has to parse before they can even start, in the same
+   * verbal channel as the Japanese. Instead the addressee is DRAWN: 👵 / 🧑‍🏫 /
+   * 👫 above a prompt that says only "Say yes."
+   *
+   * This is the one thing no competitor does. Register contrast needs the
+   * addressee to be a variable the item can vary, and every major course
+   * instead tags register in a gloss and drills the form. It works here only
+   * because our cast is already 100% register-consistent, so the picture is
+   * shorthand for a relationship the learner has genuinely been living in.
+   *
+   * `audienceLabel` is the accessible name (alt text / screen readers) — never
+   * rendered as visible prose, or we would be back to narrating.
+   */
+  audienceEmoji?: string;
+  audienceLabel?: string;
+  /**
+   * POLITENESS METER, 1–3 — the fading hint (Spencer 2026-07-27: "slowly
+   * giving hints and what goes where"). Lifted from Tobira Gateway's 丁寧度
+   * star rating, which prints a per-ROLE politeness degree right on the page
+   * (`丁寧度 先生★★ 学生★★★`) so the asymmetry is shown rather than explained.
+   *
+   * 1 = くだけた (plain, to friends) · 2 = 丁寧 (です・ます) · 3 = とても丁寧.
+   *
+   * Set it on a word's INTRODUCTION and omit it on review surfaces: the
+   * scaffold is supposed to disappear once the audience picture alone is
+   * doing the work. Never a substitute for the emoji — a bare number is
+   * narration in a costume.
+   */
+  politenessHint?: 1 | 2 | 3;
+  /**
+   * CHEAT SHEET (Spencer 2026-07-27) — the stage-1 scaffold, mirroring how
+   * `conjugation_transform` pins `TransformRuleTable` at STAGE 1 · LEARN and
+   * then hides it behind a half-credit 💡 peek at stage 2.
+   *
+   * Same discipline as that table's `maskBase`: it must NOT print the answer
+   * to the card it sits above, or the step is a lookup rather than a recall.
+   * For register that means the table shows the cline against EXAMPLE
+   * audiences and the card asks about a different one — the learner
+   * transfers rather than reads off.
+   *
+   * Set on a word's first go-around only; drop it once production starts.
+   */
+  referenceTable?: {
+    label: string;
+    rows: { cue: string; form: string }[];
+  };
+  /**
+   * SENTENCE FRAME around a single-answer picker — 「せんせい、___。」
+   *
+   * This is the register picker's production form (Spencer 2026-07-27 picked
+   * the vocative-cloze shape). It deliberately does NOT reuse `particle_cloze`:
+   * invariant 5 pins that type as an introduction-only device, banned in later
+   * modules, and register production is the opposite of an introduction. These
+   * are also not particles. Framing the picker instead keeps the whole register
+   * ladder — cheat sheet, audience picture, meter, frame — inside ONE step type
+   * with different scaffolds switched on and off, which is why inv 5 is
+   * untouched rather than carved out.
+   *
+   * The vocative is the point: 「せんせい、」 names the addressee in JAPANESE,
+   * so the cue costs no English narration at all.
+   */
+  frameBefore?: string;
+  frameAfter?: string;
 };
 
 export type MatchPair = {

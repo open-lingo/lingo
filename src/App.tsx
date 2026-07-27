@@ -87,6 +87,9 @@ const SpeechTunePage = lazyRetry(() =>
 const LessonStepPreviewPage = lazyRetry(
   () => import("@/features/lesson/dev/LessonStepPreviewPage"),
 );
+const RegisterVariantsPage = lazyRetry(
+  () => import("@/features/lesson/dev/RegisterVariantsPage"),
+);
 const QaTestDrivePage = lazyRetry(
   () => import("@/features/lesson/dev/QaTestDrivePage"),
 );
@@ -504,6 +507,7 @@ const router = createBrowserRouter([
               { path: "speech-tune", element: <SpeechTunePage /> },
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
+              { path: "qa/register", element: <RegisterVariantsPage /> },
               { path: "spine-plan", element: <SpinePlannerPage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "transit-preview", element: <TransitLearnPage preview /> },

@@ -5,9 +5,9 @@ priorNeoModules: [m3, m4, m5, m6]
 
 # Grammar m7 EXERCISES but does not TEACH (taught m3-m6). Registry-id
 # reconciliation is a separate pass; these are the IR-local ids m3-m6 use.
-priorGrammarPoints: [wa, ga, wo, "no", ni, de, mo, dare, kore-deixis, sore-deixis,
-                     nai-ru, nai-u, nai-irregular, aru-ga-existence, iru-animacy,
-                     nai-existence, location-deixis, ni-existence, spatial-relations,
+priorGrammarPoints: [wa-topic, ga-existence, wo-object, no-possession, ni-location, de-action, mo-also, dare, kore-sore-are-dore, kore-sore-are-dore,
+                     nai-form, nai-form, nai-form, arimasu, imasu,
+                     nai-existence, koko-soko-asoko, ni-location, spatial-relations,
                      location-qa, de-action]
 
 notes: |
@@ -104,14 +104,14 @@ lessons:
     introduces: [たべます, のみます, はい]
     beats:
       - { kind: rule, grammarPointId: masu-present }
-      - { kind: sentence, ja: "たべます。", en: "Say politely: I eat", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "のみます。", en: "Say politely: I drink", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "みずを のみます。", en: "Say politely: I drink water", exercises: [masu-present, wo], mode: translate, alsoAccept: ["みずを のむ。"] }
-      - { kind: sentence, ja: "りょうりを たべます。", en: "Say politely: I eat the food", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "ぎゅうにゅうを のみます。", en: "Say politely: I drink milk", exercises: [masu-present, wo], mode: listening }
-      - { kind: sentence, ja: "たなかさんは たべます。", en: "Say politely: Tanaka eats", exercises: [masu-present, wa], mode: build }
-      - { kind: sentence, ja: "ともだちと たべます。", en: "Say politely: I eat with a friend", exercises: [masu-present], mode: translate }
-      - { kind: sentence, ja: "きょうは たべます。", en: "Say politely: Today I'll eat", exercises: [masu-present, wa], mode: build }
+      - { kind: sentence, ja: "いえで たべます。", en: "Say politely: I eat at home", exercises: [masu-present, de-action], mode: build }
+      - { kind: sentence, ja: "ともだちと のみます。", en: "Say politely: I drink with a friend", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "みずを のみます。", en: "Say politely: I drink water", exercises: [masu-present, wo-object], mode: translate }
+      - { kind: sentence, ja: "りょうりを たべます。", en: "Say politely: I eat the food", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "ぎゅうにゅうを のみます。", en: "Say politely: I drink milk", exercises: [masu-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "たなかさんは たべます。", en: "Say politely: Tanaka eats", exercises: [masu-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "ともだちと たべます。", en: "Say politely: I eat with a friend", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "きょうは たべます。", en: "Say politely: Today I'll eat", exercises: [masu-present, wa-topic], mode: build }
       - { kind: sentence, ja: "はい、たべます。", en: "Say politely: Yes, I'll eat", exercises: [masu-present], mode: build }
       - kind: dialogue
         lines:
@@ -119,7 +119,7 @@ lessons:
           - { speaker: "トム", ja: "のみます。", en: "I'll drink." }
         questions:
           - { q: "What does Tom say he'll do?", options: ["Drink", "Eat", "Go", "Nothing"], answer: "Drink" }
-      - { kind: challenge, ja: "たなかさんは みずを のみます。", en: "Say politely: Tanaka drinks water", combines: [wa, wo, masu-present], mode: build }
+      - { kind: challenge, ja: "たなかさんは みずを のみます。", en: "Say politely: Tanaka drinks water", combines: [wa-topic, wo-object, masu-present], mode: build }
     reviewPool: [たべる, のむ, みず, ぎゅうにゅう, りょうり, きょう, ひと, ほん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -130,17 +130,17 @@ lessons:
     introduces: [みます, いきます, します, きます, かいます]
     beats:
       - { kind: rule, grammarPointId: masu-present }
-      - { kind: sentence, ja: "みます。", en: "Say politely: I watch", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "いきます。", en: "Say politely: I go", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "します。", en: "Say politely: I do it", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "きます。", en: "Say politely: I'm coming", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "うみに いきます。", en: "Say politely: I'm going to the sea", exercises: [masu-present, ni], mode: translate, alsoAccept: ["うみに いく。"] }
-      - { kind: sentence, ja: "しゃしんを みます。", en: "Say politely: I look at the photo", exercises: [masu-present, wo], mode: listening }
-      - { kind: sentence, ja: "さんぽを します。", en: "Say politely: I take a walk", exercises: [masu-present, wo], mode: translate }
-      - { kind: sentence, ja: "ともだちが きます。", en: "Say politely: A friend is coming", exercises: [masu-present, ga], mode: translate }
-      - { kind: sentence, ja: "やまに いきます。", en: "Say politely: I'm going to the mountain", exercises: [masu-present, ni], mode: listening }
-      - { kind: sentence, ja: "ほんを かいます。", en: "Say politely: I buy a book", exercises: [masu-present, wo], mode: build }
-      - { kind: challenge, ja: "きょう ともだちが いえに きます。", en: "Say politely: A friend is coming to the house today", combines: [masu-present, ga, ni], mode: build }
+      - { kind: sentence, ja: "そらを みます。", en: "Say politely: I look at the sky", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "いえに いきます。", en: "Say politely: I go home", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "きょう します。", en: "Say politely: I'll do it today", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "ともだちが きます。", en: "Say politely: A friend is coming", exercises: [masu-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "うみに いきます。", en: "Say politely: I'm going to the sea", exercises: [masu-present, ni-location], mode: translate }
+      - { kind: sentence, ja: "しゃしんを みます。", en: "Say politely: I look at the photo", exercises: [masu-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "さんぽを します。", en: "Say politely: I take a walk", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちが きます。", en: "Say politely: A friend is coming", exercises: [masu-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "やまに いきます。", en: "Say politely: I'm going to the mountain", exercises: [masu-present, ni-location], mode: listening }
+      - { kind: sentence, ja: "ほんを かいます。", en: "Say politely: I buy a book", exercises: [masu-present, wo-object], mode: build }
+      - { kind: challenge, ja: "きょう ともだちが いえに きます。", en: "Say politely: A friend is coming to the house today", combines: [masu-present, ga-existence, ni-location], mode: build }
     reviewPool: [みる, いく, する, くる, うみ, やま, しゃしん, ともだち, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -151,21 +151,21 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: masu-negative }
-      - { kind: sentence, ja: "のみません。", en: "Say politely: I don't drink", exercises: [masu-negative], mode: build }
-      - { kind: sentence, ja: "たべません。", en: "Say politely: I don't eat", exercises: [masu-negative], mode: build }
-      - { kind: sentence, ja: "きょうは いきません。", en: "Say politely: I'm not going today", exercises: [masu-negative, wa], mode: build, alsoAccept: ["きょうは いかない。"] }
-      - { kind: sentence, ja: "しゃしんを みません。", en: "Say politely: I don't look at the photo", exercises: [masu-negative, wo], mode: build }
-      - { kind: sentence, ja: "ぎゅうにゅうを のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wo], mode: listening }
-      - { kind: sentence, ja: "たなかさんは きません。", en: "Say politely: Tanaka isn't coming", exercises: [masu-negative, wa], mode: build }
+      - { kind: sentence, ja: "みずを のみません。", en: "Say politely: I don't drink water", exercises: [wo-object, masu-negative], mode: build }
+      - { kind: sentence, ja: "きょうは たべません。", en: "Say politely: I don't eat today", exercises: [wa-topic, masu-negative], mode: build }
+      - { kind: sentence, ja: "きょうは いきません。", en: "Say politely: I'm not going today", exercises: [masu-negative, wa-topic], mode: build }
+      - { kind: sentence, ja: "しゃしんを みません。", en: "Say politely: I don't look at the photo", exercises: [masu-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "ぎゅうにゅうを のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wo-object], mode: listening }
+      - { kind: sentence, ja: "たなかさんは きません。", en: "Say politely: Tanaka isn't coming", exercises: [masu-negative, wa-topic], mode: build }
       - { kind: particle-cloze, stem: "みずを ", tail: "。", answer: "のみません", options: ["のみません", "のみます", "たべません"], en: "I don't drink water. (polite)", explanation: "ません is the polite negative — の-み-ません, same stem as のみます." }
-      - { kind: sentence, ja: "さんぽを しません。", en: "Say politely: I don't take walks", exercises: [masu-negative, wo], mode: build }
+      - { kind: sentence, ja: "さんぽを しません。", en: "Say politely: I don't take walks", exercises: [masu-negative, wo-object], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "ぎゅうにゅうを のみますか。", en: "Do you drink milk?" }
           - { speaker: "ミカ", ja: "いいえ、のみません。", en: "No, I don't." }
         questions:
           - { q: "Does Mika drink milk?", options: ["No", "Yes", "Sometimes", "She didn't say"], answer: "No" }
-      - { kind: challenge, ja: "ミカさんは きょう いえに きません。", en: "Say politely: Mika isn't coming to the house today", combines: [wa, ni, masu-negative], mode: build, alsoAccept: ["ミカは きょう いえに きません。"] }
+      - { kind: challenge, ja: "ミカさんは きょう いえに きません。", en: "Say politely: Mika isn't coming to the house today", combines: [wa-topic, ni-location, masu-negative], mode: build, alsoAccept: ["ミカは きょう いえに きません。"] }
     reviewPool: [のむ, たべる, みる, くる, みず, ぎゅうにゅう, きょう, さんぽ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -175,23 +175,23 @@ lessons:
     focus: "ます / ません across all three verb classes, all-new surfaces, no new atoms"
     introduces: []
     beats:
-      - { kind: sentence, ja: "うたを ききます。", en: "Say politely: I listen to a song", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "めがねを かいます。", en: "Say politely: I buy glasses", exercises: [masu-present, wo], mode: translate }
-      - { kind: sentence, ja: "そこに いきません。", en: "Say politely: I'm not going there", exercises: [masu-negative, ni], mode: build }
-      - { kind: sentence, ja: "いぬが きます。", en: "Say politely: The dog is coming", exercises: [masu-present, ga], mode: listening }
+      - { kind: sentence, ja: "うたを ききます。", en: "Say politely: I listen to a song", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "めがねを かいます。", en: "Say politely: I buy glasses", exercises: [masu-present, wo-object], mode: translate }
+      - { kind: sentence, ja: "そこに いきません。", en: "Say politely: I'm not going there", exercises: [masu-negative, ni-location], mode: build }
+      - { kind: sentence, ja: "いぬが きます。", en: "Say politely: The dog is coming", exercises: [masu-present, ga-existence], mode: listening }
       - { kind: sentence, ja: "かわで あそびます。", en: "Say politely: I play at the river", exercises: [masu-present, de-action], mode: build }
-      - { kind: sentence, ja: "きょうは しません。", en: "Say politely: I won't do it today", exercises: [masu-negative, wa], mode: translate }
-      - { kind: particle-cloze, stem: "パーティーに ", tail: "。", answer: "いきます", options: ["いきます", "いきません", "みます"], en: "I'm going to the party. (polite)", explanation: "いく → い-き-ます." }
-      - { kind: sentence, ja: "ねこを みます。", en: "Say politely: I look at the cat", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "みずを のみません。", en: "Say politely: I don't drink water", exercises: [masu-negative, wo], mode: listening }
-      - { kind: sentence, ja: "ともだちと いきます。", en: "Say politely: I'm going with a friend", exercises: [masu-present], mode: translate }
+      - { kind: sentence, ja: "きょうは しません。", en: "Say politely: I won't do it today", exercises: [masu-negative, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "うみに ", tail: "。", answer: "いきます", options: ["いきます", "いきません", "みます"], en: "I'm going to the party. (polite)", explanation: "いく → い-き-ます." }
+      - { kind: sentence, ja: "ねこを みます。", en: "Say politely: I look at the cat", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "みずを のみません。", en: "Say politely: I don't drink water", exercises: [masu-negative, wo-object], mode: listening }
+      - { kind: sentence, ja: "ともだちと いきます。", en: "Say politely: I'm going with a friend", exercises: [masu-present], mode: listening }
       - kind: dialogue
         lines:
-          - { speaker: "ケン", ja: "パーティーに いく？", en: "Going to the party?" }
+          - { speaker: "ケン", ja: "うみに いく？", en: "Going to the sea?" }
           - { speaker: "トム", ja: "うん、いく。", en: "Yeah, I'm going." }
         questions:
           - { q: "Why does Tom answer いく and not いきます?", options: ["Ken is a friend", "Ken is a teacher", "It's a question", "It's negative"], answer: "Ken is a friend" }
-    reviewPool: [きく, かう, あそぶ, うた, ほん, いぬ, ねこ, かわ, パーティー, ともだち]
+    reviewPool: [きく, かう, あそぶ, うた, ほん, いぬ, ねこ, かわ, うみ, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m7-neo-4
@@ -203,19 +203,19 @@ lessons:
       - { kind: rule, grammarPointId: desu-copula }
       - { kind: sentence, ja: "がくせいです。", en: "Say politely: I'm a student", exercises: [desu-copula], mode: build }
       - { kind: sentence, ja: "せんせいです。", en: "Say politely: I'm a teacher", exercises: [desu-copula], mode: build }
-      - { kind: sentence, ja: "たなかさんは せんせいです。", en: "Say politely: Tanaka is a teacher", exercises: [desu-copula, wa], mode: translate, alsoAccept: ["たなかさんは せんせいだ。"] }
-      - { kind: sentence, ja: "トムさんは アメリカじんです。", en: "Say politely: Tom is American", exercises: [desu-copula, wa], mode: build }
-      - { kind: sentence, ja: "これは ほんです。", en: "Say politely: This is a book", exercises: [desu-copula, wa, kore-deixis], mode: listening }
-      - { kind: sentence, ja: "ミカさんは にほんじんです。", en: "Say politely: Mika is Japanese", exercises: [desu-copula, wa], mode: translate }
-      - { kind: sentence, ja: "それは かぎです。", en: "Say politely: That's a key", exercises: [desu-copula, wa, sore-deixis], mode: build }
-      - { kind: sentence, ja: "ともだちの ぼうしです。", en: "Say politely: It's my friend's hat", exercises: [desu-copula, "no"], mode: translate }
+      - { kind: sentence, ja: "たなかさんは せんせいです。", en: "Say politely: Tanaka is a teacher", exercises: [desu-copula, wa-topic], mode: translate }
+      - { kind: sentence, ja: "トムさんは アメリカじんです。", en: "Say politely: Tom is American", exercises: [desu-copula, wa-topic], mode: build }
+      - { kind: sentence, ja: "これは ほんです。", en: "Say politely: This is a book", exercises: [desu-copula, wa-topic, kore-sore-are-dore], mode: listening }
+      - { kind: sentence, ja: "ミカさんは にほんじんです。", en: "Say politely: Mika is Japanese", exercises: [desu-copula, wa-topic], mode: build }
+      - { kind: sentence, ja: "それは かぎです。", en: "Say politely: That's a key", exercises: [desu-copula, wa-topic, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "ともだちの ぼうしです。", en: "Say politely: It's my friend's hat", exercises: [desu-copula, no-possession], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "トムさんは がくせいですか。", en: "Is Tom a student?" }
           - { speaker: "ミカ", ja: "はい、がくせいです。", en: "Yes, he's a student." }
         questions:
           - { q: "What is Tom?", options: ["A student", "A teacher", "American only", "Not stated"], answer: "A student" }
-      - { kind: challenge, ja: "たなかさんの いえは あそこです。", en: "Say politely: Tanaka's house is over there", combines: ["no", wa, desu-copula, location-deixis], mode: build }
+      - { kind: challenge, ja: "たなかさんの いえは あそこです。", en: "Say politely: Tanaka's house is over there", combines: [no-possession, wa-topic, desu-copula, koko-soko-asoko], mode: build }
     reviewPool: [がくせい, せんせい, ほん, かぎ, ぼうし, いえ, にほんじん, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -228,19 +228,19 @@ lessons:
       - { kind: rule, grammarPointId: ka-question }
       - { kind: sentence, ja: "たべますか。", en: "Say politely: Will you eat?", exercises: [ka-question, masu-present], mode: build }
       - { kind: sentence, ja: "いきますか。", en: "Say politely: Are you going?", exercises: [ka-question, masu-present], mode: build }
-      - { kind: sentence, ja: "みずを のみますか。", en: "Say politely: Will you drink water?", exercises: [ka-question, masu-present, wo], mode: translate }
-      - { kind: sentence, ja: "たなかさんは せんせいですか。", en: "Say politely: Is Tanaka a teacher?", exercises: [ka-question, desu-copula, wa], mode: build }
-      - { kind: sentence, ja: "これは かぎですか。", en: "Say politely: Is this a key?", exercises: [ka-question, desu-copula, kore-deixis], mode: listening }
-      - { kind: sentence, ja: "なにを たべますか。", en: "Say politely: What will you eat?", exercises: [ka-question, masu-present, wo], mode: translate }
+      - { kind: sentence, ja: "みずを のみますか。", en: "Say politely: Will you drink water?", exercises: [ka-question, masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "たなかさんは せんせいですか。", en: "Say politely: Is Tanaka a teacher?", exercises: [ka-question, desu-copula, wa-topic], mode: build }
+      - { kind: sentence, ja: "これは かぎですか。", en: "Say politely: Is this a key?", exercises: [ka-question, desu-copula, kore-sore-are-dore], mode: listening }
+      - { kind: sentence, ja: "なにを たべますか。", en: "Say politely: What will you eat?", exercises: [ka-question, masu-present, wo-object], mode: build }
       - { kind: sentence, ja: "どこに いきますか。", en: "Say politely: Where are you going?", exercises: [ka-question, masu-present, location-qa], mode: build }
-      - { kind: sentence, ja: "うたを ききますか。", en: "Say politely: Will you listen to a song", exercises: [ka-question, masu-present, wo], mode: build }
+      - { kind: sentence, ja: "うたを ききますか。", en: "Say politely: Will you listen to a song", exercises: [ka-question, masu-present, wo-object], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "どこに いきますか。", en: "Where are you going?" }
           - { speaker: "トム", ja: "うみに いきます。", en: "I'm going to the sea." }
         questions:
           - { q: "Where is Tom going?", options: ["The sea", "The mountain", "The river", "Home"], answer: "The sea" }
-      - { kind: challenge, ja: "たなかさんは きょう かいしゃに いきますか。", en: "Say politely: Is Tanaka going to the company today?", combines: [wa, ni, ka-question, masu-present], mode: build }
+      - { kind: challenge, ja: "たなかさんは きょう いえに いきますか。", en: "Say politely: Is Tanaka going home today?", combines: [wa-topic, ni-location, ka-question, masu-present], mode: build }
     reviewPool: [たべる, いく, きく, みず, うた, かぎ, せんせい, きょう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -251,21 +251,21 @@ lessons:
     introduces: [ええ]
     beats:
       - { kind: rule, grammarPointId: register-audience }
-      - { kind: sentence, ja: "たべる。", en: "Say to a friend: I'll eat", exercises: [register-audience], mode: build }
-      - { kind: sentence, ja: "たべます。", en: "Say to a teacher: I'll eat", exercises: [register-audience, masu-present], mode: build }
-      - { kind: sentence, ja: "いく？", en: "Say to a friend: Going?", exercises: [register-audience], mode: listening }
-      - { kind: sentence, ja: "いきますか。", en: "Say to a teacher: Are you going?", exercises: [register-audience, ka-question], mode: translate }
+      - { kind: sentence, ja: "きょう たべる。", en: "Say to a friend: I'll eat today", exercises: [register-audience], mode: build }
+      - { kind: sentence, ja: "きょう たべます。", en: "Say to a teacher: I'll eat today", exercises: [register-audience, masu-present], mode: build }
+      - { kind: sentence, ja: "うみに いく？", en: "Say to a friend: Going to the sea?", exercises: [ni-location, register-audience], mode: listening }
+      - { kind: sentence, ja: "うみに いきますか。", en: "Say to a teacher: Are you going to the sea?", exercises: [ni-location, register-audience, ka-question], mode: translate }
       - { kind: sentence, ja: "ええ、そうです。", en: "Say politely: Yes, that's right", exercises: [register-audience, desu-copula], mode: build }
       - { kind: sentence, ja: "うん、そう。", en: "Say to a friend: Yeah, that's right", exercises: [register-audience], mode: build }
-      - { kind: sentence, ja: "みずを のみますか。", en: "Say to a teacher: Will you drink water?", exercises: [register-audience, ka-question, wo], mode: translate }
-      - { kind: sentence, ja: "ほんを かいます。", en: "Say to a teacher: I'll buy a book", exercises: [register-audience, masu-present, wo], mode: build }
+      - { kind: sentence, ja: "みずを のみますか。", en: "Say to a teacher: Will you drink water?", exercises: [register-audience, ka-question, wo-object], mode: listening }
+      - { kind: sentence, ja: "ほんを かいます。", en: "Say to a teacher: I'll buy a book", exercises: [register-audience, masu-present, wo-object], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "ミカさんは がくせいですか。", en: "Is Mika a student?" }
           - { speaker: "トム", ja: "はい、がくせいです。", en: "Yes, she's a student." }
         questions:
           - { q: "Why does Tom use です here?", options: ["Tanaka is his teacher", "Mika is his friend", "It's a question", "It's plain speech"], answer: "Tanaka is his teacher" }
-      - { kind: challenge, ja: "ともだちは がくせいですか。", en: "Say to a teacher: Is your friend a student?", combines: [wa, desu-copula, ka-question, register-audience], mode: translate }
+      - { kind: challenge, ja: "ともだちは がくせいですか。", en: "Say to a teacher: Is your friend a student?", combines: [wa-topic, desu-copula, ka-question, register-audience], mode: listening }
     reviewPool: [たべる, いく, のむ, かう, みず, ほん, がくせい, そう, うん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -275,16 +275,16 @@ lessons:
     focus: "noun sentences, polite questions, and register choice on all-new surfaces"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あれは まどです。", en: "Say politely: That's a window", exercises: [desu-copula, wa], mode: build }
+      - { kind: sentence, ja: "あれは まどです。", en: "Say politely: That's a window", exercises: [desu-copula, wa-topic], mode: build }
       - { kind: sentence, ja: "これは めがねですか。", en: "Say politely: Are these glasses?", exercises: [desu-copula, ka-question], mode: translate }
-      - { kind: sentence, ja: "でんわは そこです。", en: "Say politely: The phone is there", exercises: [desu-copula, wa, location-deixis], mode: build }
-      - { kind: sentence, ja: "なにを かいますか。", en: "Say politely: What will you buy?", exercises: [ka-question, masu-present, wo], mode: listening }
-      - { kind: sentence, ja: "えんぴつを かいますか。", en: "Say politely: Will you buy a pencil?", exercises: [ka-question, masu-present, wo], mode: build }
-      - { kind: sentence, ja: "かぞくと いきます。", en: "Say politely: I'm going with my family", exercises: [masu-present], mode: translate }
+      - { kind: sentence, ja: "でんわは そこです。", en: "Say politely: The phone is there", exercises: [desu-copula, wa-topic, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "なにを かいますか。", en: "Say politely: What will you buy?", exercises: [ka-question, masu-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "えんぴつを かいますか。", en: "Say politely: Will you buy a pencil?", exercises: [ka-question, masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "かぞくと いきます。", en: "Say politely: I'm going with my family", exercises: [masu-present], mode: build }
       - { kind: particle-cloze, stem: "ミカさんは にほんじん", tail: "。", answer: "です", options: ["です", "だ", "します"], en: "Mika is Japanese. (polite)", explanation: "Nouns take です politely — ます is for verbs." }
-      - { kind: sentence, ja: "きっぷを かいます。", en: "Say politely: I'll buy a ticket", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "そらを みますか。", en: "Say politely: Will you look at the sky?", exercises: [ka-question, masu-present, wo], mode: listening }
-      - { kind: sentence, ja: "きょうは いきません。", en: "Say politely: I'm not going today", exercises: [masu-negative, wa], mode: translate }
+      - { kind: sentence, ja: "きっぷを かいます。", en: "Say politely: I'll buy a ticket", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "そらを みますか。", en: "Say politely: Will you look at the sky?", exercises: [ka-question, masu-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "きょうは いきません。", en: "Say politely: I'm not going today", exercises: [masu-negative, wa-topic], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "ミカ", ja: "それは トムさんの ぼうしですか。", en: "Is that Tom's hat?" }
@@ -300,23 +300,22 @@ lessons:
     focus: "the settings where polite speech actually lives"
     introduces: [はたらく, はたらきます, かいしゃ, じゅぎょう]
     beats:
-      - { kind: sentence, ja: "かいしゃ", en: "a company", exercises: [], mode: build }
-      - { kind: sentence, ja: "じゅぎょう", en: "a class", exercises: [], mode: build }
-      - { kind: sentence, ja: "はたらく。", en: "Say to a friend: I work", exercises: [register-audience], mode: build }
-      - { kind: sentence, ja: "はたらきます。", en: "Say politely: I work", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "かいしゃで はたらきます。", en: "Say politely: I work at a company", exercises: [masu-present, de-action], mode: translate, alsoAccept: ["かいしゃで はたらく。"] }
-      - { kind: sentence, ja: "じゅぎょうに いきます。", en: "Say politely: I'm going to class", exercises: [masu-present, ni], mode: build }
-      - { kind: sentence, ja: "たなかさんは かいしゃで はたらきますか。", en: "Say politely: Does Tanaka work at a company?", exercises: [ka-question, masu-present, de-action, wa], mode: translate }
-      - { kind: sentence, ja: "じゅぎょうは あそこです。", en: "Say politely: The class is over there", exercises: [desu-copula, wa, location-deixis], mode: listening }
-      - { kind: sentence, ja: "きょう じゅぎょうが あります。", en: "Say politely: There's a class today", exercises: [ga, masu-present], mode: build }
-      - { kind: sentence, ja: "きょう じゅぎょうが ありません。", en: "Say politely: There's no class today", exercises: [ga, masu-negative], mode: build }
+      - { kind: sentence, ja: "かいしゃに いく。", en: "Say to a friend: I go to the company", exercises: [ni-location], mode: build }
+      - { kind: sentence, ja: "かいしゃで はたらく。", en: "Say to a friend: I work at the company", exercises: [de-action, register-audience], mode: build }
+      - { kind: sentence, ja: "きょう はたらきます。", en: "Say politely: I work today", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "かいしゃで はたらきます。", en: "Say politely: I work at a company", exercises: [masu-present, de-action], mode: translate }
+      - { kind: sentence, ja: "じゅぎょうに いきます。", en: "Say politely: I'm going to class", exercises: [masu-present, ni-location], mode: listening }
+      - { kind: sentence, ja: "たなかさんは かいしゃで はたらきますか。", en: "Say politely: Does Tanaka work at a company?", exercises: [ka-question, masu-present, de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "じゅぎょうは あそこです。", en: "Say politely: The class is over there", exercises: [desu-copula, wa-topic, koko-soko-asoko], mode: listening }
+      - { kind: sentence, ja: "きょう じゅぎょうが あります。", en: "Say politely: There's a class today", exercises: [ga-existence, masu-present], mode: build }
+      - { kind: sentence, ja: "きょう じゅぎょうが ありません。", en: "Say politely: There's no class today", exercises: [ga-existence, masu-negative], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "どこで はたらきますか。", en: "Where do you work?" }
           - { speaker: "トム", ja: "かいしゃで はたらきます。", en: "I work at a company." }
         questions:
           - { q: "Where does Tom work?", options: ["At a company", "At a school", "At home", "He doesn't work"], answer: "At a company" }
-      - { kind: challenge, ja: "ミカさんは きょう かいしゃで はたらきません。", en: "Say politely: Mika isn't working at the company today", combines: [wa, de-action, masu-negative], mode: build }
+      - { kind: challenge, ja: "ミカさんは きょう かいしゃで はたらきません。", en: "Say politely: Mika isn't working at the company today", combines: [wa-topic, de-action, masu-negative], mode: build }
     reviewPool: [いく, する, きょう, せんせい, がくせい, ひと, いえ, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -330,18 +329,18 @@ lessons:
       - { kind: sentence, ja: "たなかさま", en: "Say very politely: Tanaka-sama", exercises: [register-audience], mode: build }
       - { kind: sentence, ja: "ケンくん", en: "Ken-kun (familiar)", exercises: [register-audience], mode: build }
       - { kind: sentence, ja: "ミカちゃん", en: "Mika-chan (affectionate)", exercises: [register-audience], mode: build }
-      - { kind: sentence, ja: "ケンくんは がくせいです。", en: "Say politely: Ken is a student", exercises: [register-audience, wa, desu-copula], mode: translate }
-      - { kind: sentence, ja: "ミカちゃんは きます。", en: "Say politely: Mika is coming", exercises: [register-audience, wa, masu-present], mode: build }
-      - { kind: sentence, ja: "たなかさまは せんせいです。", en: "Say very politely: Tanaka is a teacher", exercises: [register-audience, wa, desu-copula], mode: translate }
-      - { kind: sentence, ja: "トムくんも いきます。", en: "Say politely: Tom is going too", exercises: [register-audience, mo, masu-present], mode: build }
-      - { kind: sentence, ja: "ミカちゃんの ねこです。", en: "Say politely: It's Mika's cat", exercises: ["no", desu-copula], mode: listening }
+      - { kind: sentence, ja: "ケンくんは がくせいです。", en: "Say politely: Ken is a student", exercises: [register-audience, wa-topic, desu-copula], mode: translate }
+      - { kind: sentence, ja: "ミカちゃんは きます。", en: "Say politely: Mika will come", exercises: [register-audience, wa-topic, masu-present], mode: build }
+      - { kind: sentence, ja: "たなかさまは せんせいです。", en: "Say very politely: Tanaka is a teacher", exercises: [register-audience, wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "トムくんも いきます。", en: "Say politely: Tom is going too", exercises: [register-audience, mo-also, masu-present], mode: build }
+      - { kind: sentence, ja: "ミカちゃんの ねこです。", en: "Say politely: It's Mika's cat", exercises: [no-possession, desu-copula], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "ミカ", ja: "ケンくんも きますか。", en: "Is Ken coming too?" }
           - { speaker: "たなか", ja: "ええ、きます。", en: "Yes, he's coming." }
         questions:
           - { q: "Is Ken coming?", options: ["Yes", "No", "Only Mika is", "Not stated"], answer: "Yes" }
-      - { kind: challenge, ja: "ミカちゃんは きょう じゅぎょうに いきますか。", en: "Say politely: Is Mika going to class today?", combines: [register-audience, wa, ni, ka-question, masu-present], mode: build }
+      - { kind: challenge, ja: "ミカちゃんは きょう じゅぎょうに いきますか。", en: "Say politely: Is Mika going to class today?", combines: [register-audience, wa-topic, ni-location, ka-question, masu-present], mode: build }
     reviewPool: [がくせい, せんせい, ねこ, きょう, ともだち, いえ, ひと]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -351,13 +350,13 @@ lessons:
     focus: "same content, both registers, chosen by the named audience"
     introduces: []
     beats:
-      - { kind: sentence, ja: "うみに いく。", en: "Say to a friend: I'm going to the sea", exercises: [register-audience, ni], mode: build }
-      - { kind: sentence, ja: "うみに いきます。", en: "Say to a teacher: I'm going to the sea", exercises: [register-audience, ni, masu-present], mode: build }
-      - { kind: sentence, ja: "これは ぼうしだ。", en: "Say to a friend: This is a hat", exercises: [register-audience, kore-deixis], mode: translate }
+      - { kind: sentence, ja: "うみに いく。", en: "Say to a friend: I'm going to the sea", exercises: [register-audience, ni-location], mode: build }
+      - { kind: sentence, ja: "うみに いきます。", en: "Say to a teacher: I'm going to the sea", exercises: [register-audience, ni-location, masu-present], mode: build }
+      - { kind: sentence, ja: "これは ぼうしだ。", en: "Say to a friend: This is a hat", exercises: [register-audience, kore-sore-are-dore], mode: translate }
       - { kind: sentence, ja: "これは ぼうしです。", en: "Say to a teacher: This is a hat", exercises: [register-audience, desu-copula], mode: build }
-      - { kind: sentence, ja: "うたを きく？", en: "Say to a friend: Listening to a song?", exercises: [register-audience, wo], mode: listening }
-      - { kind: sentence, ja: "うたを ききますか。", en: "Say to a teacher: Will you listen to a song?", exercises: [register-audience, ka-question, wo], mode: translate }
-      - { kind: sentence, ja: "きょうは はたらきません。", en: "Say politely: I'm not working today", exercises: [masu-negative, wa], mode: build }
+      - { kind: sentence, ja: "うたを きく？", en: "Say to a friend: Listening to a song?", exercises: [register-audience, wo-object], mode: listening }
+      - { kind: sentence, ja: "うたを ききますか。", en: "Say to a teacher: Will you listen to a song?", exercises: [register-audience, ka-question, wo-object], mode: build }
+      - { kind: sentence, ja: "きょうは はたらきません。", en: "Say politely: I'm not working today", exercises: [masu-negative, wa-topic], mode: build }
       - { kind: particle-cloze, stem: "たなかさんに ", tail: "か。", answer: "ききます", options: ["ききます", "きく", "ききません"], en: "Will you ask Tanaka? (polite)", explanation: "Polite question to a teacher: ます-stem + か." }
       - { kind: sentence, ja: "ケンくんと あそびます。", en: "Say politely: I'll play with Ken", exercises: [register-audience, masu-present], mode: build }
       - kind: dialogue
@@ -366,7 +365,7 @@ lessons:
           - { speaker: "たなか", ja: "いいえ、きょうは ありません。", en: "No, there isn't one today." }
         questions:
           - { q: "Is there a class today?", options: ["No", "Yes", "Only in the morning", "Tanaka didn't say"], answer: "No" }
-      - { kind: challenge, ja: "ミカさんは かいしゃで はたらきますか。", en: "Say to a teacher: Does Mika work at a company?", combines: [wa, de-action, ka-question, masu-present, register-audience], mode: translate }
+      - { kind: challenge, ja: "ミカさんは かいしゃで はたらきますか。", en: "Say to a teacher: Does Mika work at a company?", combines: [wa-topic, de-action, ka-question, masu-present, register-audience], mode: listening }
     reviewPool: [いく, きく, あそぶ, はたらく, うみ, うた, ぼうし, きょう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -376,16 +375,16 @@ lessons:
     focus: "ます / ません / です / か / audience together, all-new surfaces"
     introduces: []
     beats:
-      - { kind: sentence, ja: "はなを かいます。", en: "Say politely: I'll buy flowers", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "ゆきを みますか。", en: "Say politely: Will you look at the snow?", exercises: [ka-question, masu-present, wo], mode: translate }
-      - { kind: sentence, ja: "かぜが あります。", en: "Say politely: There's a wind", exercises: [ga, masu-present], mode: listening }
-      - { kind: sentence, ja: "じかんが ありません。", en: "Say politely: There's no time", exercises: [ga, masu-negative], mode: build }
-      - { kind: sentence, ja: "からだは げんきです。", en: "Say politely: I'm in good health", exercises: [wa, desu-copula], mode: build }
-      - { kind: sentence, ja: "いけに いきません。", en: "Say politely: I'm not going to the pond", exercises: [ni, masu-negative], mode: build }
+      - { kind: sentence, ja: "はなを かいます。", en: "Say politely: I'll buy flowers", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "ゆきを みますか。", en: "Say politely: Will you look at the snow?", exercises: [ka-question, masu-present, wo-object], mode: translate }
+      - { kind: sentence, ja: "かぜが あります。", en: "Say politely: There's a wind", exercises: [ga-existence, masu-present], mode: listening }
+      - { kind: sentence, ja: "じかんが ありません。", en: "Say politely: There's no time", exercises: [ga-existence, masu-negative], mode: build }
+      - { kind: sentence, ja: "からだは げんきです。", en: "Say politely: I'm in good health", exercises: [wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "いけに いきません。", en: "Say politely: I'm not going to the pond", exercises: [ni-location, masu-negative], mode: build }
       - { kind: particle-cloze, stem: "たなかさんは かいしゃに ", tail: "か。", answer: "いきます", options: ["いきます", "いく", "います"], en: "Is Tanaka going to the company? (polite)", explanation: "Polite + question: ます-stem + か." }
-      - { kind: sentence, ja: "さくらを みます。", en: "Say politely: I'll look at the cherry blossoms", exercises: [masu-present, wo], mode: build }
-      - { kind: sentence, ja: "ケンくんは きません。", en: "Say politely: Ken isn't coming", exercises: [register-audience, wa, masu-negative], mode: listening }
-      - { kind: sentence, ja: "じゅぎょうは あさです。", en: "Say politely: The class is in the morning", exercises: [wa, desu-copula], mode: translate }
+      - { kind: sentence, ja: "さくらを みます。", en: "Say politely: I'll look at the cherry blossoms", exercises: [masu-present, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンくんは きません。", en: "Say politely: Ken isn't coming", exercises: [register-audience, wa-topic, masu-negative], mode: listening }
+      - { kind: sentence, ja: "じゅぎょうは あさです。", en: "Say politely: The class is in the morning", exercises: [wa-topic, desu-copula], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "きょう なにを しますか。", en: "What will you do today?" }
@@ -401,20 +400,20 @@ lessons:
     focus: "End-of-module stretch: register, ます/ません, です and か combined in shapes the teaching lessons never paired"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たなかさまは きょう かいしゃに いきません。", en: "Say very politely: Tanaka isn't going to the company today", exercises: [register-audience, wa, ni, masu-negative], mode: build }
-      - { kind: sentence, ja: "ミカちゃんの ともだちは にほんじんですか。", en: "Say politely: Is Mika's friend Japanese?", exercises: [register-audience, "no", wa, desu-copula, ka-question], mode: translate }
-      - { kind: sentence, ja: "じゅぎょうで なにを しますか。", en: "Say politely: What do you do in class?", exercises: [de-action, wo, ka-question, masu-present], mode: build }
-      - { kind: sentence, ja: "ケンくんは かいしゃで はたらきません。", en: "Say politely: Ken doesn't work at a company", exercises: [register-audience, wa, de-action, masu-negative], mode: translate }
-      - { kind: sentence, ja: "たなかさんの いえに いきますか。", en: "Say politely: Are you going to Tanaka's house?", exercises: ["no", ni, ka-question, masu-present], mode: build }
-      - { kind: sentence, ja: "きょうは ともだちと うみに いきます。", en: "Say politely: Today I'm going to the sea with a friend", exercises: [wa, ni, masu-present], mode: listening }
-      - { kind: sentence, ja: "ミカさんは じゅぎょうに きませんか。", en: "Say politely: Isn't Mika coming to class?", exercises: [wa, ni, masu-negative, ka-question], mode: translate }
-      - { kind: sentence, ja: "あそこの ひとは せんせいですか。", en: "Say politely: Is the person over there a teacher?", exercises: [location-deixis, "no", wa, desu-copula, ka-question], mode: build }
-      - { kind: sentence, ja: "きょうは みずを のみません。", en: "Say politely: I don't drink water today", exercises: [wa, wo, masu-negative], mode: translate }
+      - { kind: sentence, ja: "たなかさまは きょう かいしゃに いきません。", en: "Say very politely: Tanaka isn't going to the company today", exercises: [register-audience, wa-topic, ni-location, masu-negative], mode: build }
+      - { kind: sentence, ja: "ミカちゃんの ともだちは にほんじんですか。", en: "Say politely: Is Mika's friend Japanese?", exercises: [register-audience, no-possession, wa-topic, desu-copula, ka-question], mode: translate }
+      - { kind: sentence, ja: "じゅぎょうで なにを しますか。", en: "Say politely: What do you do in class?", exercises: [de-action, wo-object, ka-question, masu-present], mode: build }
+      - { kind: sentence, ja: "ケンくんは かいしゃで はたらきません。", en: "Say politely: Ken doesn't work at a company", exercises: [register-audience, wa-topic, de-action, masu-negative], mode: build }
+      - { kind: sentence, ja: "たなかさんの いえに いきますか。", en: "Say politely: Are you going to Tanaka's house?", exercises: [no-possession, ni-location, ka-question, masu-present], mode: build }
+      - { kind: sentence, ja: "きょうは ともだちと うみに いきます。", en: "Say politely: Today I'm going to the sea with a friend", exercises: [wa-topic, ni-location, masu-present], mode: listening }
+      - { kind: sentence, ja: "ミカさんは じゅぎょうに きませんか。", en: "Say politely: Isn't Mika coming to class?", exercises: [wa-topic, ni-location, masu-negative, ka-question], mode: listening }
+      - { kind: sentence, ja: "あそこの ひとは せんせいですか。", en: "Say politely: Is the person over there a teacher?", exercises: [koko-soko-asoko, no-possession, wa-topic, desu-copula, ka-question], mode: build }
+      - { kind: sentence, ja: "きょうは みずを のみません。", en: "Say politely: I don't drink water today", exercises: [wa-topic, wo-object, masu-negative], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "たなか", ja: "トムさん、きょうは はたらきますか。", en: "Tom, are you working today?" }
           - { speaker: "トム", ja: "いいえ、きょうは はたらきません。ともだちと あそびます。", en: "No, I'm not working today. I'll hang out with a friend." }
         questions:
           - { q: "What is Tom doing today?", options: ["Playing with a friend", "Working", "Going to class", "Nothing"], answer: "Playing with a friend" }
-      - { kind: challenge, ja: "ミカちゃんも かいしゃで はたらきますか。", en: "Say politely: Does Mika work at a company too?", combines: [register-audience, mo, de-action, ka-question, masu-present], mode: build }
+      - { kind: challenge, ja: "ミカちゃんも かいしゃで はたらきますか。", en: "Say politely: Does Mika work at a company too?", combines: [register-audience, mo-also, de-action, ka-question, masu-present], mode: build }
     reviewPool: [はたらく, いく, くる, する, のむ, かいしゃ, じゅぎょう, いえ, うみ, せんせい]

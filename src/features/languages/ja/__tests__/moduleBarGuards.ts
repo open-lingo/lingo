@@ -23,23 +23,19 @@ import type { LessonContent } from "@/features/lesson/types";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
 import { M3_M7_REVIEW_POOL } from "../grammarHelpers";
 import { getRealFormLexicon } from "./moduleContentLints";
+import {
+  SELECTION_TYPES,
+  INTRO_TYPES as ALL_INTRO_TYPES,
+  kanaSurfaces,
+  jaSurfaces,
+} from "@/features/lesson/data/stepTaxonomy";
 
-const SELECTION = new Set([
-  "listening_comprehension",
-  "word_image_mcq",
-  "sentence_mcq",
-  "particle_cloze",
-  "self_explanation_mcq",
-  "multiple_choice",
-]);
-const INTRO_TYPES = new Set([
-  "listening_comprehension",
-  "dialogue_listen",
-  "grammar_rule",
-  "build_sentence",
-  "word_image_mcq",
-  "particle_cloze",
-]);
+// SHARED with the compiler — see `lesson/data/stepTaxonomy.ts`. Never
+// re-declare these here: the compiler places debuts against the same sets
+// and the same kana projection this guard reads, and silent drift between
+// the two is a debugging cycle every time.
+const SELECTION = SELECTION_TYPES;
+const INTRO_TYPES = ALL_INTRO_TYPES;
 
 /** Course-wide persona canon — extend when a character gains a fact. */
 export const COURSE_CANON: Record<string, Set<string>> = {
@@ -54,22 +50,7 @@ const STRUCTURAL = new Set([
   "、", "。", "？", "！",
 ]);
 
-function jaStrings(step: unknown): string[] {
-  const out: string[] = [];
-  const walk = (v: unknown, key: string) => {
-    if (typeof v === "string") {
-      if (
-        /^[\p{Script=Hiragana}\p{Script=Katakana}ー、。？！　 ]+$/u.test(v) &&
-        key !== "id"
-      )
-        out.push(v);
-    } else if (Array.isArray(v)) v.forEach((x) => walk(x, key));
-    else if (v && typeof v === "object")
-      Object.entries(v).forEach(([k, x]) => walk(x, k));
-  };
-  walk(step, "");
-  return out;
-}
+const jaStrings = kanaSurfaces;
 
 /** A dedicated review lesson: `…-review` (single) or `…-review-2` (one of
  *  several — inv 25 ships three per module). */
@@ -402,21 +383,10 @@ export function registerModuleBarGuards(opts: {
       const firstSeen = new Map<string, string>();
       for (const lesson of lessons) {
         for (const step of lesson.steps as any[]) {
-          // Skip grading-only + intentionally-wrong fields. antiPattern.ja is a
-          // deliberate non-word (あらない for the irregular ある→ない contrast,
-          // inv 12). acceptedAnswers holds spaceless/だ-drop GRADING variants
-          // whose spaceless form mis-segments (はこ out of は+こ across a word
-          // boundary) — the spaced display surface (audioKey/targetSentence)
-          // carries provenance and is still checked.
-          const scrubbed: Record<string, unknown> = { ...(step as Record<string, unknown>) };
-          if (step.type === "grammar_rule") scrubbed.antiPattern = undefined;
-          // Transform distractors are DELIBERATE formation errors (the
-          // same-verb rule misapplications the card exists to discriminate
-          // — たべらない, のむない); they're never taught and never valid,
-          // so provenance must not see them (spec 2026-07-23).
-          if (step.type === "conjugation_transform") scrubbed.distractors = undefined;
-          scrubbed.acceptedAnswers = undefined;
-          for (const s of jaStrings(scrubbed)) {
+          // `jaSurfaces` applies the grading-only + intentionally-wrong
+          // scrubs (acceptedAnswers, antiPattern, transform distractors) —
+          // and is the SAME projection the compiler places debuts against.
+          for (const s of jaSurfaces(step)) {
             const { tokens, unknown } = tokenize(s);
             for (const u of unknown)
               expect(

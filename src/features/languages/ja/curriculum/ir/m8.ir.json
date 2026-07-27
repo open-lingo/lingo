@@ -10,24 +10,24 @@
     "m7"
   ],
   "priorGrammarPoints": [
-    "wa",
-    "ga",
-    "wo",
-    "no",
-    "ni",
-    "de",
-    "mo",
+    "wa-topic",
+    "ga-existence",
+    "wo-object",
+    "no-possession",
+    "ni-location",
+    "de-action",
+    "mo-also",
     "dare",
-    "kore-deixis",
-    "sore-deixis",
-    "nai-ru",
-    "nai-u",
-    "nai-irregular",
-    "aru-ga-existence",
-    "iru-animacy",
+    "kore-sore-are-dore",
+    "kore-sore-are-dore",
+    "nai-form",
+    "nai-form",
+    "nai-form",
+    "arimasu",
+    "imasu",
     "nai-existence",
-    "location-deixis",
-    "ni-existence",
+    "koko-soko-asoko",
+    "ni-location",
     "spatial-relations",
     "location-qa",
     "de-action",
@@ -238,8 +238,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべて。",
-          "en": "Eat",
+          "ja": "いえで たべて。",
+          "en": "Eat at home",
           "exercises": [
             "te-form"
           ],
@@ -247,8 +247,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みて。",
-          "en": "Look",
+          "ja": "ねこを みて。",
+          "en": "Look at the cat",
           "exercises": [
             "te-form"
           ],
@@ -260,7 +260,7 @@
           "en": "Eat the food",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -270,7 +270,7 @@
           "en": "Look at the sky",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -280,7 +280,7 @@
           "en": "Look at the book",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -289,7 +289,7 @@
           "ja": "ぎゅうにゅうを のむ。",
           "en": "I drink milk",
           "exercises": [
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -299,9 +299,9 @@
           "en": "Look at the photo",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -309,7 +309,7 @@
           "en": "Eat today",
           "exercises": [
             "te-form",
-            "wa"
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -345,8 +345,8 @@
           "ja": "ミカの しゃしんを みて。",
           "en": "Look at Mika's photo",
           "combines": [
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "te-form"
           ],
           "mode": "build"
@@ -381,8 +381,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "のんで。",
-          "en": "Drink",
+          "ja": "いえで のんで。",
+          "en": "Drink at home",
           "exercises": [
             "te-form"
           ],
@@ -390,8 +390,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かって。",
-          "en": "Buy it",
+          "ja": "えんぴつを かって。",
+          "en": "Buy a pencil",
           "exercises": [
             "te-form"
           ],
@@ -399,8 +399,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きいて。",
-          "en": "Listen",
+          "ja": "ともだちに きいて。",
+          "en": "Ask your friend",
           "exercises": [
             "te-form"
           ],
@@ -408,8 +408,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あそんで。",
-          "en": "Play",
+          "ja": "いえで あそんで。",
+          "en": "Play at home",
           "exercises": [
             "te-form"
           ],
@@ -421,7 +421,7 @@
           "en": "Drink the water",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -431,7 +431,7 @@
           "en": "Buy a book",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -441,9 +441,9 @@
           "en": "Listen to the song",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -474,8 +474,8 @@
           "en": "Listen to your friend's song at the river",
           "combines": [
             "de-action",
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "te-form"
           ],
           "mode": "build"
@@ -510,8 +510,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "して。",
-          "en": "Do it",
+          "ja": "きょう して。",
+          "en": "Do it today",
           "exercises": [
             "te-form"
           ],
@@ -519,8 +519,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きて。",
-          "en": "Come",
+          "ja": "きょう きて。",
+          "en": "Come today",
           "exercises": [
             "te-form"
           ],
@@ -528,8 +528,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いって。",
-          "en": "Go",
+          "ja": "かわに いって。",
+          "en": "Go to the river",
           "exercises": [
             "te-form"
           ],
@@ -541,7 +541,7 @@
           "en": "Come to the house",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
           "mode": "translate"
         },
@@ -551,7 +551,7 @@
           "en": "Go to the sea",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -561,7 +561,7 @@
           "en": "Take a walk",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -584,7 +584,7 @@
           "en": "Come to the house today",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -620,8 +620,8 @@
           "ja": "ミカの いえに いって。",
           "en": "Go to Mika's house",
           "combines": [
-            "no",
-            "ni",
+            "no-possession",
+            "ni-location",
             "te-form"
           ],
           "mode": "build"
@@ -651,7 +651,7 @@
           "en": "Buy an umbrella",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -661,7 +661,7 @@
           "en": "Look at the flowers",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -671,7 +671,7 @@
           "en": "Go to the pond",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -681,7 +681,7 @@
           "en": "Listen to the voice",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -691,7 +691,7 @@
           "en": "Eat the food",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -701,9 +701,9 @@
           "en": "Buy a hat",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -724,7 +724,7 @@
           "en": "Look at the window",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -734,7 +734,7 @@
           "en": "Go to the sea",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
           "mode": "listening"
         },
@@ -744,9 +744,9 @@
           "en": "Listen to the phone",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -834,7 +834,7 @@
           "en": "Say politely: Please drink the water",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -844,7 +844,7 @@
           "en": "Say politely: Please come to the house",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
           "mode": "listening"
         },
@@ -854,7 +854,7 @@
           "en": "Say politely: Please look at the photo",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -877,9 +877,9 @@
           "en": "Say politely: Please listen to the song",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "dialogue",
@@ -913,8 +913,8 @@
           "ja": "たなかさんの しゃしんを みてください。",
           "en": "Say politely: Please look at Tanaka's photo",
           "combines": [
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"
@@ -946,38 +946,10 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ごはん",
-          "en": "rice, a meal",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ちゃ",
-          "en": "tea",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "たべもの",
-          "en": "food",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "しょくじ",
-          "en": "a meal",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "ごはんを たべる。",
           "en": "I eat rice",
           "exercises": [
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -987,7 +959,7 @@
           "en": "Drink the tea",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -996,8 +968,8 @@
           "ja": "たべものが ある。",
           "en": "There's food",
           "exercises": [
-            "ga",
-            "aru-ga-existence"
+            "ga-existence",
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -1007,9 +979,9 @@
           "en": "Say politely: Please have a meal",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1017,7 +989,7 @@
           "en": "Say politely: Please drink the tea",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1026,11 +998,11 @@
           "ja": "ミカの たべものを たべないで。",
           "en": "Don't eat Mika's food",
           "combines": [
-            "no",
-            "wo",
-            "nai-ru"
+            "no-possession",
+            "wo-object",
+            "nai-form"
           ],
-          "mode": "translate",
+          "mode": "listening",
           "alsoAccept": [
             "ミカの たべものを たべない。"
           ]
@@ -1059,24 +1031,10 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "みせ",
-          "en": "a shop",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こめ",
-          "en": "uncooked rice",
-          "exercises": [],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "みせに いく。",
           "en": "I go to the shop",
           "exercises": [
-            "ni"
+            "ni-location"
           ],
           "mode": "translate"
         },
@@ -1095,9 +1053,9 @@
           "en": "Say politely: Please buy rice",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1105,7 +1063,7 @@
           "en": "Say politely: Please go to the shop",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -1114,9 +1072,9 @@
           "ja": "みせは あそこです。",
           "en": "Say politely: The shop is over there",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula",
-            "location-deixis"
+            "koko-soko-asoko"
           ],
           "mode": "listening"
         },
@@ -1126,7 +1084,7 @@
           "en": "Buy tea at the shop",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "te-form"
           ],
           "mode": "build"
@@ -1164,7 +1122,7 @@
           "en": "Say politely: Please buy rice at the shop",
           "combines": [
             "de-action",
-            "wo",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"
@@ -1194,7 +1152,7 @@
           "en": "Say politely: Please eat the rice",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1204,7 +1162,7 @@
           "en": "Buy rice at the shop",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "te-form"
           ],
           "mode": "translate"
@@ -1214,9 +1172,9 @@
           "ja": "たべものは そこです。",
           "en": "Say politely: The food is there",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula",
-            "location-deixis"
+            "koko-soko-asoko"
           ],
           "mode": "build"
         },
@@ -1225,8 +1183,8 @@
           "ja": "ちゃが ある。",
           "en": "There's tea",
           "exercises": [
-            "ga",
-            "aru-ga-existence"
+            "ga-existence",
+            "arimasu"
           ],
           "mode": "listening"
         },
@@ -1236,7 +1194,7 @@
           "en": "Eat the meal",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1245,10 +1203,10 @@
           "ja": "みせに いきます。",
           "en": "Say politely: I'm going to the shop",
           "exercises": [
-            "ni",
+            "ni-location",
             "masu-present"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -1269,7 +1227,7 @@
           "en": "Say politely: Please buy food",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1278,7 +1236,7 @@
           "ja": "ごはんが ない。",
           "en": "There's no rice",
           "exercises": [
-            "ga",
+            "ga-existence",
             "nai-existence"
           ],
           "mode": "listening"
@@ -1288,11 +1246,11 @@
           "ja": "ちゃを のみますか。",
           "en": "Say politely: Will you drink tea",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present",
             "ka-question"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1346,15 +1304,17 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "おしえる。",
-          "en": "I'll tell you",
-          "exercises": [],
+          "ja": "せんせいが おしえる。",
+          "en": "The teacher tells us",
+          "exercises": [
+            "ga-existence"
+          ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "おしえて。",
-          "en": "Tell me",
+          "ja": "ともだちに おしえて。",
+          "en": "Tell your friend",
           "exercises": [
             "te-form"
           ],
@@ -1362,7 +1322,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "おしえてください。",
+          "ja": "おしえて ください。",
           "en": "Say politely: Please tell me",
           "exercises": [
             "te-kudasai"
@@ -1375,7 +1335,7 @@
           "en": "Say politely: Please tell me the shop",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -1385,7 +1345,7 @@
           "en": "Tell me your name",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "listening"
         },
@@ -1395,7 +1355,7 @@
           "en": "Say politely: Please tell Tanaka",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -1405,9 +1365,9 @@
           "en": "Tell Mika",
           "exercises": [
             "te-form",
-            "ni"
+            "ni-location"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "particle-cloze",
@@ -1454,9 +1414,9 @@
           "ja": "たなかさんに ミカの みせを おしえてください。",
           "en": "Say politely: Please tell Tanaka about Mika's shop",
           "combines": [
-            "ni",
-            "no",
-            "wo",
+            "ni-location",
+            "no-possession",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"
@@ -1485,9 +1445,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "みて。",
-          "en": "Say to a friend: Look",
+          "ja": "これを みて。",
+          "en": "Say to a friend: Look at this",
           "exercises": [
+            "wo-object",
             "te-form",
             "register-audience"
           ],
@@ -1495,9 +1456,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "みてください。",
-          "en": "Say to a teacher: Please look",
+          "ja": "これを みて ください。",
+          "en": "Say to a teacher: Please look at this",
           "exercises": [
+            "wo-object",
             "te-kudasai",
             "register-audience"
           ],
@@ -1505,9 +1467,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "きいて。",
-          "en": "Say to a friend: Listen",
+          "ja": "うたを きいて。",
+          "en": "Say to a friend: Listen to the song",
           "exercises": [
+            "wo-object",
             "te-form",
             "register-audience"
           ],
@@ -1515,9 +1478,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "きいてください。",
-          "en": "Say to a teacher: Please listen",
+          "ja": "うたを きいて ください。",
+          "en": "Say to a teacher: Please listen to the song",
           "exercises": [
+            "wo-object",
             "te-kudasai",
             "register-audience"
           ],
@@ -1529,7 +1493,7 @@
           "en": "Say to a friend: Eat the rice",
           "exercises": [
             "te-form",
-            "wo",
+            "wo-object",
             "register-audience"
           ],
           "mode": "listening"
@@ -1540,10 +1504,10 @@
           "en": "Say to a teacher: Please eat the rice",
           "exercises": [
             "te-kudasai",
-            "wo",
+            "wo-object",
             "register-audience"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1551,7 +1515,7 @@
           "en": "Say to a friend: Go to the shop",
           "exercises": [
             "te-form",
-            "ni",
+            "ni-location",
             "register-audience"
           ],
           "mode": "build"
@@ -1588,8 +1552,8 @@
           "ja": "たなかさんに ちゃを かってください。",
           "en": "Say politely: Please buy tea for Tanaka",
           "combines": [
-            "ni",
-            "wo",
+            "ni-location",
+            "wo-object",
             "te-kudasai",
             "register-audience"
           ],
@@ -1620,7 +1584,7 @@
           "en": "Say politely: Please buy water",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1630,7 +1594,7 @@
           "en": "Say politely: Please come to the house",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
           "mode": "translate"
         },
@@ -1640,7 +1604,7 @@
           "en": "Look at the photo",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1650,7 +1614,7 @@
           "en": "Buy food at the shop",
           "exercises": [
             "de-action",
-            "wo",
+            "wo-object",
             "te-form"
           ],
           "mode": "listening"
@@ -1661,9 +1625,9 @@
           "en": "Say politely: Please tell the teacher",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1671,7 +1635,7 @@
           "en": "Say politely: Please go to the shop today",
           "exercises": [
             "te-kudasai",
-            "ni"
+            "ni-location"
           ],
           "mode": "build"
         },
@@ -1730,8 +1694,8 @@
           "en": "Say politely: Please buy Mika's food at the shop",
           "combines": [
             "de-action",
-            "no",
-            "wo",
+            "no-possession",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"
@@ -1763,7 +1727,7 @@
           "en": "Say politely: Please buy an umbrella",
           "exercises": [
             "te-kudasai",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1773,7 +1737,7 @@
           "en": "Look at the flowers",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "translate"
         },
@@ -1782,7 +1746,7 @@
           "ja": "こめを かいます。",
           "en": "Say politely: I'll buy rice",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present"
           ],
           "mode": "build"
@@ -1792,9 +1756,9 @@
           "ja": "しょくじは ここです。",
           "en": "Say politely: The meal is here",
           "exercises": [
-            "wa",
+            "wa-topic",
             "desu-copula",
-            "location-deixis"
+            "koko-soko-asoko"
           ],
           "mode": "listening"
         },
@@ -1804,7 +1768,7 @@
           "en": "Drink the tea",
           "exercises": [
             "te-form",
-            "wo"
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1813,17 +1777,17 @@
           "ja": "みせに いきません。",
           "en": "Say politely: I'm not going to the shop",
           "exercises": [
-            "ni",
+            "ni-location",
             "masu-negative"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "たべものが ありません。",
           "en": "Say politely: There's no food",
           "exercises": [
-            "ga",
+            "ga-existence",
             "masu-negative"
           ],
           "mode": "build"
@@ -1846,7 +1810,7 @@
           "ja": "ごはんを たべますか。",
           "en": "Say politely: Will you eat rice",
           "exercises": [
-            "wo",
+            "wo-object",
             "masu-present",
             "ka-question"
           ],
@@ -1854,12 +1818,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "おしえてください。",
-          "en": "Say politely: Please tell me",
+          "ja": "みせを おしえてください。",
+          "en": "Say politely: Please tell me where the shop is",
           "exercises": [
-            "te-kudasai"
+            "te-kudasai",
+            "wo-object"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -1913,9 +1878,9 @@
           "ja": "たなかさんの みせで こめを かってください。",
           "en": "Say politely: Please buy rice at Tanaka's shop",
           "exercises": [
-            "no",
+            "no-possession",
             "de-action",
-            "wo",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"
@@ -1926,8 +1891,8 @@
           "en": "Tell Mika about the food",
           "exercises": [
             "register-audience",
-            "ni",
-            "wo",
+            "ni-location",
+            "wo-object",
             "te-form"
           ],
           "mode": "translate"
@@ -1937,31 +1902,31 @@
           "ja": "きょうは みせに いかない。",
           "en": "I'm not going to the shop today",
           "exercises": [
-            "wa",
-            "ni",
-            "nai-u"
+            "wa-topic",
+            "ni-location",
+            "nai-form"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ちゃが ないです。おしえてください。",
-          "en": "Say politely: There's no tea. Please tell me",
+          "en": "Say politely: There's no tea, so please tell me",
           "exercises": [
-            "ga",
+            "ga-existence",
             "nai-existence",
             "te-kudasai"
           ],
-          "mode": "translate"
+          "mode": "build"
         },
         {
           "kind": "sentence",
           "ja": "ともだちの いえで ごはんを たべて。",
           "en": "Eat rice at your friend's house",
           "exercises": [
-            "no",
+            "no-possession",
             "de-action",
-            "wo",
+            "wo-object",
             "te-form"
           ],
           "mode": "build"
@@ -1971,8 +1936,8 @@
           "ja": "せんせいに しゃしんを おしえてください。",
           "en": "Say politely: Please tell the teacher about the photo",
           "exercises": [
-            "ni",
-            "wo",
+            "ni-location",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "listening"
@@ -1982,21 +1947,21 @@
           "ja": "みせは あそこに ありますか。",
           "en": "Say politely: Is the shop over there",
           "exercises": [
-            "wa",
-            "location-deixis",
-            "ni-existence",
+            "wa-topic",
+            "koko-soko-asoko",
+            "ni-location",
             "ka-question"
           ],
-          "mode": "translate"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
           "ja": "ミカの ちゃを のまないで。",
           "en": "Don't drink Mika's tea",
           "exercises": [
-            "no",
-            "wo",
-            "nai-u"
+            "no-possession",
+            "wo-object",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -2032,10 +1997,10 @@
           "ja": "きょうは ミカの みせで ちゃを かってください。",
           "en": "Say politely: Today please buy tea at Mika's shop",
           "combines": [
-            "wa",
-            "no",
+            "wa-topic",
+            "no-possession",
             "de-action",
-            "wo",
+            "wo-object",
             "te-kudasai"
           ],
           "mode": "build"

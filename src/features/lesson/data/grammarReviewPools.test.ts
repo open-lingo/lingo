@@ -123,17 +123,17 @@ function gateResidual(sentence: string, pointModule: string, pointToken: string)
 // 2026-07-26: five exemptions removed — m7-neo teaches ません/です, so those
 // pool steps became comprehensible and the gate no longer flags them.
 const GATE_EXEMPTIONS: string[] = [
-  // 2026-07-26: every OLD entry named an archived step id and was dropped.
-  // What remains are NEO clozes that the gate mis-flags because it resolves
-  // words through courseAtoms' `fromModule` tags — which are OLD-COURSE
-  // attribution (authoring-workflow.md: "the old tags are ruining us").
-  // These are NOT content defects; they clear the moment the registry +
-  // atom provenance are re-keyed to the neo spine. Tracked as the
-  // grammar-SRS reconciliation task; this list should go back to [] then.
+  // Neo clozes the comprehensibility gate mis-flags because it resolves
+  // words through courseAtoms OLD-course fromModule tags. Not content
+  // defects; they clear when atom provenance is re-stamped to the neo spine.
   "de-action::ja-m6-neo-9-cloze-7",
   "ga-existence::ja-m6-neo-4-cloze-7",
   "ga-existence::ja-m6-neo-5-cloze-7",
   "ga-existence::ja-m6-neo-challenge-cloze-9",
+  "mo-also::ja-m3-neo-3-cloze-mo-1",
+  "mo-also::ja-m3-neo-3-cloze-mo-2",
+  "mo-also::ja-m3-neo-rev-cloze-mo",
+  "mo-also::ja-m4-neo-rev-cloze-mo",
   "ni-location::ja-m6-neo-10-cloze-6",
   "ni-location::ja-m6-neo-8-cloze-6",
   "no-possession::ja-m4-neo-11-cloze-no",
@@ -149,6 +149,15 @@ const GATE_EXEMPTIONS: string[] = [
   "wa-topic::ja-m3-neo-rev-cloze-wa-2",
   "wa-topic::ja-m4-neo-8-cloze-wa",
   "wa-topic::ja-m4-neo-9-cloze-wa",
+  "wo-object::ja-m5-neo-10-cloze-wo",
+  "wo-object::ja-m5-neo-11-cloze-wo",
+  "wo-object::ja-m5-neo-2-cloze-momo",
+  "wo-object::ja-m5-neo-2-cloze-shashin",
+  "wo-object::ja-m5-neo-3-cloze-keitai",
+  "wo-object::ja-m5-neo-5-cloze-kore",
+  "wo-object::ja-m5-neo-6-cloze-are",
+  "wo-object::ja-m5-neo-7-cloze-wo",
+  "wo-object::ja-m5-neo-rev-cloze-wo",
 ];
 
 describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
@@ -321,16 +330,18 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
  *  the point's module.
  */
 const POOL_GAP_EXEMPTIONS: string[] = [
-  // RECALIBRATED 2026-07-26 for the ARCHIVE. The old course is no longer
-  // referenced by the program, and the neo course currently ends at m7, so
-  // every grammar point owned by a not-yet-authored module has no pool.
-  // This list SHRINKS as each module lands — it is the authoring backlog.
+  // RECALIBRATED 2026-07-26 after the registry re-key. Every point owned by
+  // a module the neo course has not authored yet has no pool. The list also
+  // gained the 10 points the re-key ADDED (register-audience, aizuchi,
+  // chotto-softener, …) — they are taught in m7-m10 but have no authored or
+  // harvested pool steps yet. This list is the authoring backlog: it should
+  // SHRINK as pools are authored, never grow silently.
   "ka-question",
   "kara-origin",
   "kudasai",
   "ni-location",
   "de-action",
-  "wo-object",
+  "koko-soko-asoko",
   "i-adj-negative",
   "to-and",
   "yo-emphasis",
@@ -369,4 +380,14 @@ const POOL_GAP_EXEMPTIONS: string[] = [
   "sugiru",
   "nakereba-naranai",
   "hou-ga-ii",
+  "dare",
+  "nai-existence",
+  "spatial-relations",
+  "location-qa",
+  "register-audience",
+  "counter-tsu",
+  "ikura-price",
+  "yes-no-register",
+  "aizuchi",
+  "chotto-softener",
 ];

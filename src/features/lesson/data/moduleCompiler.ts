@@ -12,7 +12,16 @@
  * can fix the YAML instead of the compiler guessing.
  */
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
+import {
+  SELECTION_TYPES,
+  TEACH_FIRST_INTRO_TYPES,
+  jaSurfaces,
+} from "@/features/lesson/data/stepTaxonomy";
 import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
+import {
+  audience,
+  registerCheatSheet,
+} from "@/features/languages/ja/registerAudiences";
 import {
   build,
   cloze,
@@ -20,6 +29,8 @@ import {
   conjugationTransform,
   grammarRule,
   listeningBuildSentence,
+  listeningCompSentence,
+  translationMcq,
   reviewMatchPairs,
   speaking,
   translateStep,
@@ -92,6 +103,63 @@ export type IRBeat =
       kind: "dialogue";
       lines: { speaker: string; ja: string; en?: string }[];
       questions: { q: string; options: string[]; answer: string }[];
+    }
+  | {
+      /**
+       * Authored listening-comprehension beat. Until now `listening_comprehension`
+       * existed ONLY as compiler filler — the IR had no way to author one, so a
+       * module could not deliberately drill the RECOGNITION direction at all.
+       * That is a large part of why register content came out 100% production.
+       *
+       * `q` defaults to the factory's "What does this mean?"; override it to ask
+       * about something other than meaning — "Who is this said to?" is how
+       * register gets a recognition beat with no English scenario anywhere.
+       */
+      kind: "listening-comp";
+      audio: string;
+      answer: string;
+      distractors: [string, string, string];
+      q?: string;
+      explanation?: string;
+      exercises?: string[];
+    }
+  | {
+      /**
+       * REGISTER BEAT — the ONLY beat that may emit register scaffolding
+       * (audience picture, politeness meter, cheat sheet, vocative frame).
+       *
+       * Isolation is the point (Spencer 2026-07-27: "these lesson types and
+       * ways of teaching should be isolated to register"). Because one beat
+       * kind owns all four fields, an ordinary teaching lesson cannot grow an
+       * audience emoji by accident — there is no beat that would produce one.
+       * `registerScaffoldIsolation.test.ts` holds the line.
+       *
+       * `stage` is the FADE (Spencer: "should fade out of active teaching as
+       * they learn the register of said words"), mirroring
+       * conjugation_transform's LEARN/KNOW/OWN ladder:
+       *   1 LEARN — cheat sheet pinned above the options, meter shown
+       *   2 KNOW  — sheet withdrawn, meter is the last hint
+       *   3 OWN   — no scaffold at all; a vocative frame carries the context
+       *             in Japanese, so the cue costs no English
+       * Stage 1 fires ONCE per word, course-wide. After stage 3 the word is
+       * ordinary vocabulary and belongs in ordinary beats.
+       */
+      kind: "register";
+      stage: 1 | 2 | 3;
+      /** Key into REGISTER_AUDIENCES — supplies emoji, label and level. */
+      audience: string;
+      /** The correct form for this audience. */
+      answer: string;
+      /** Full option set; every entry must already be taught (inv 33). */
+      options: string[];
+      /** Prompt. Names the ACT ("Say yes."), never the audience — that is
+       *  what the picture is for. */
+      en: string;
+      /** Stage 3 only: Japanese vocative frame around the answer slot. */
+      frame?: { before: string; after?: string };
+      /** Stage 1 only: the level→form mapping the cheat sheet renders. */
+      cheatSheet?: { 1: string; 2: string; 3: string };
+      exercises?: string[];
     };
 export type IRLesson = {
   id: string;
@@ -226,14 +294,29 @@ const NAMES = ["トム", "ミカ", "ケン", "たなか", "タナカ"];
 const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"];
 const PUNCT = /[。、？！]/g;
 
-const SELECTION = new Set([
-  "listening_comprehension",
-  "word_image_mcq",
-  "sentence_mcq",
-  "particle_cloze",
-  "self_explanation_mcq",
-  "multiple_choice",
-]);
+/** Step taxonomy is SHARED with the guards — see `stepTaxonomy.ts` for why
+ *  these must never be re-declared locally. */
+const SELECTION = SELECTION_TYPES;
+const INTRO_STEP_TYPES = TEACH_FIRST_INTRO_TYPES;
+
+/** Does `seq` respect every gate? Used to veto an adjacency-repair swap
+ *  that would move a step ahead of a word's debut. */
+function precedenceHolds(
+  seq: LessonStep[],
+  gated: Map<LessonStep, Set<string>>,
+  gateOf: Map<string, LessonStep>,
+  satisfied: ReadonlySet<string>,
+): boolean {
+  const seen = new Set(satisfied);
+  for (const s of seq) {
+    for (const k of gated.get(s) ?? []) {
+      const g = gateOf.get(k);
+      if (!seen.has(k) && g !== undefined && g !== s) return false;
+    }
+    for (const k of gated.get(s) ?? []) seen.add(k);
+  }
+  return true;
+}
 
 function atomIndex(ir: ModuleIR): Map<string, Atom> {
   const m = new Map<string, Atom>();
@@ -253,6 +336,12 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
       kana: a.kana,
       meaningEn: a.gloss,
       shortGloss: a.shortGloss,
+      // The IR overrides the GLOSS, not the artwork. Dropping the course
+      // atom's emoji here silently disabled EVERY image debut in every
+      // IR-compiled module (m6-m10 shipped zero word_image_mcq steps), which
+      // is why one-token `mode: build` beats had to stand in as intros —
+      // and why 41 single-tile builds came back (inv 19).
+      emoji: m.get(a.kana)?.emoji,
       fromModule: ir.module as ReviewAtom["fromModule"],
     });
   return m;
@@ -295,6 +384,15 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
   const tokenize = makeTokenizer(atoms);
   const gpById = new Map((ir.grammarPoints ?? []).map((g) => [g.id, g]));
   const moduleId = ir.module;
+  // Distractors may only come from vocabulary THIS module declares — its own
+  // newAtoms plus every reviewPool word (a pool entry asserts the word is
+  // already known). `atomIndex` loads the whole course, and an unfiltered pool
+  // handed far-future words (ギター, としょかん) to MCQ distractors.
+  const declaredKana = new Set<string>([
+    ...(ir.newAtoms ?? []).map((a) => a.kana),
+    ...ir.lessons.flatMap((l) => l.reviewPool ?? []),
+  ]);
+  const declaredPool: Atom[] = [...atoms.values()].filter((a) => declaredKana.has(a.kana));
   const emojiPool: Atom[] = [...atoms.values()].filter(
     (a) => a.emoji && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
   );
@@ -323,7 +421,89 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
   };
   const reviewIds = ir.lessons.filter((l) => roleOf(l) === "review").map((l) => l.id);
 
-  return ir.lessons.map((lesson) => {
+  // ── AVAILABILITY (teach-first, inv 33) ────────────────────────────────
+  // A module-new atom is not usable as DISTRACTOR/filler/match material
+  // until a STRICTLY EARLIER lesson has introduced it. Options text is a
+  // real appearance to the provenance guard, so an unscoped pool makes a
+  // word debut on a `multiple_choice` distractor lessons before it is
+  // taught (m7 のみません in lesson 1, taught in lesson 3). Same-lesson
+  // introduces are excluded too: filler is interleaved, so nothing can
+  // guarantee the distractor lands after the intro step.
+  const moduleNew = new Set((ir.newAtoms ?? []).map((a) => a.kana));
+  // Introduced-by-declaration: `introduces:` on a strictly earlier lesson.
+  const introducedBefore: Set<string>[] = [];
+  {
+    const acc = new Set<string>();
+    for (const l of ir.lessons) {
+      introducedBefore.push(new Set(acc));
+      for (const k of l.introduces ?? []) if (moduleNew.has(k)) acc.add(k);
+    }
+  }
+  // Introduced-by-USE: a reviewPool entry asserts "already known", and it
+  // can be WRONG — m6's L9 pool lists なか, which m6 itself only teaches in
+  // L10 (its IR comment calls うえ/なか "the KNOWN nouns"); m7's L2 pool
+  // lists パーティー, which the module first uses in review-1. The claim is
+  // unverifiable from `newAtoms` alone, so derive it from the IR: the first
+  // lesson at which a word lands on an INTRO-CAPABLE beat. A word this
+  // module itself teaches later is not prior-known, whatever the pool says.
+  const firstIntroLesson = new Map<string, number>();
+  {
+    const note = (kana: string, li: number) => {
+      if (!firstIntroLesson.has(kana)) firstIntroLesson.set(kana, li);
+    };
+    ir.lessons.forEach((l, li) => {
+      // word_image_mcq debuts (intro-capable) — see `debutSteps` below.
+      for (const k of l.introduces ?? []) note(k, li);
+      for (const b of l.beats) {
+        if (b.kind === "rule") {
+          // grammar_rule: examples render as kana-only lines the provenance
+          // guard reads. The `rule:` prose is mixed-script and invisible to
+          // it, so it does NOT count as an intro.
+          for (const e of gpById.get(b.grammarPointId)?.examples ?? [])
+            for (const t of tokenize(e.ja)) note(t, li);
+        } else if (b.kind === "particle-cloze") {
+          for (const t of tokenize(`${b.stem}${b.answer}${b.tail}`)) note(t, li);
+        } else if (b.kind === "listening-comp") {
+          // listening_comprehension IS intro-capable, so its audio counts.
+          for (const t of tokenize(b.audio)) note(t, li);
+        } else if (b.kind === "register") {
+          // A register beat compiles to build_sentence, so provenance WILL
+          // treat it as intro-capable — this scan has to agree or `usableHere`
+          // drifts from the guard. That a register beat must never actually be
+          // a word's first exposure is a separate, stricter rule, enforced by
+          // registerScaffoldIsolation.
+          for (const t of tokenize(b.answer)) note(t, li);
+          for (const o of b.options) for (const t of tokenize(o)) note(t, li);
+        } else if (b.kind !== "dialogue" && b.mode === "build") {
+          // build_sentence only: `listening` → listening_build and
+          // `translate` → translate, neither of which can introduce.
+          for (const t of tokenize(b.ja)) note(t, li);
+        }
+      }
+    });
+  }
+
+  return ir.lessons.map((lesson, lessonIdx) => {
+    /** May this word appear on a NON-intro-capable step in this lesson?
+     *  Module-new atoms need a declared earlier `introduces:`; anything the
+     *  module itself teaches needs that teaching to be strictly earlier;
+     *  everything else is genuinely prior-module vocabulary. */
+    const known = introducedBefore[lessonIdx];
+    const usableKana = (kana: string): boolean => {
+      // PRIOR-MODULE vocabulary is known by definition — it must not be gated
+      // on `firstIntroLesson`. It was, and the effect was severe: any earlier
+      // word that ALSO appears in a later lesson of this module (いく, たべる,
+      // せんせい …) counted as "introduced later" and dropped out of the filler
+      // pool early, collapsing it to whichever words happened not to recur.
+      // m10-neo-1 was left with one usable word and shipped the identical
+      // "Pick the word for 'person'" MCQ five times in one lesson.
+      if (!moduleNew.has(kana)) return true;
+      // Module-new stays STRICT: usable only after the lesson that declares
+      // it in `introduces:`. Loosening this to a beat-scan fallback let a new
+      // word reach filler before its own debut (m6 なか, m7 パーティー).
+      return known.has(kana);
+    };
+    const usableHere = (a: Atom) => usableKana(a.kana);
     const role = roleOf(lesson);
     const isReview = role === "review";
     // Review lessons are named `-review` so the guards' review-lesson
@@ -337,6 +517,10 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     let n = 0;
     const sid = (tag: string) => `${lid}-${tag}-${n++}`;
 
+    /** This lesson's own sentences, so filler can re-present them in another
+     *  modality — same concepts, different context (Spencer 2026-07-26) —
+     *  instead of padding with unrelated single words. */
+    const sentencePairs: { ja: string; en: string }[] = [];
     const ruleSteps: LessonStep[] = [];
     const body: LessonStep[] = [];
     // Transform ramp (spec 2026-07-23): pinned IMMEDIATELY after the rule
@@ -427,6 +611,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             : beat.kind === "capstone"
               ? `${lid}-capstone`
               : sid("s");
+        sentencePairs.push({ ja: clean(beat.ja), en: beat.en });
         const ex = exercised(beat.ja);
         let step: LessonStep;
         if (beat.mode === "translate") {
@@ -468,7 +653,19 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           });
         } else {
           const tiles = tokenize(beat.ja);
-          step = build(id, `Build: ${beat.en}`, clean(beat.ja), tiles, tiles, ex);
+          // A beat's `en` that already opens with a directive IS the prompt —
+          // prefixing "Build: " onto a register cue produced the double-framed
+          // "Build: Say to a friend: Yeah" on all 327 `Say …` beats course-wide.
+          // Inv 8 wants the cue to be the FIRST thing read, not the second.
+          const directive = /^(Say|Ask|Answer|Reply|Tell)\b/.test(beat.en);
+          step = build(
+            id,
+            directive ? beat.en : `Build: ${beat.en}`,
+            clean(beat.ja),
+            tiles,
+            tiles,
+            ex,
+          );
         }
         // Track B (grammar SRS): carry the beat's declared grammar points
         // onto the step. `exercises` (sentence) and `combines` (challenge)
@@ -480,6 +677,63 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
         if (beat.kind === "capstone" || beat.kind === "challenge")
           capstone = step;
         else body.push(step);
+      } else if (beat.kind === "listening-comp") {
+        const step = listeningCompSentence({
+          id: sid("lc"),
+          audioText: clean(beat.audio),
+          correctMeaningEn: beat.answer,
+          distractorsEn: beat.distractors,
+          question: beat.q,
+          explanation: beat.explanation,
+          exercisedAtomKanas: exercised(beat.audio),
+        });
+        if (beat.exercises?.length)
+          step.exercisedGrammar = [...new Set(beat.exercises)];
+        body.push(step);
+      } else if (beat.kind === "register") {
+        // The register ladder compiles to a single-answer picker — NOT a
+        // particle_cloze. Inv 5 pins that type as introduction-only and these
+        // are not particles, so framing the picker keeps the whole ladder in
+        // one step type and leaves inv 5 untouched rather than carved out.
+        const aud = audience(beat.audience);
+        if (aud) {
+          const tiles = [...new Set(beat.options)];
+          const step: LessonStep = {
+            id: sid("reg"),
+            type: "build_sentence",
+            prompt: beat.en,
+            targetSentence: beat.answer,
+            tiles,
+            correctOrder: [beat.answer],
+            granularity: "word",
+            // Stage 3 has NO picture: the vocative frame names the addressee
+            // in Japanese, which is the point of reaching stage 3 at all.
+            ...(beat.stage < 3
+              ? {
+                  audienceEmoji: aud.emoji,
+                  audienceLabel: aud.label,
+                  politenessHint: aud.politeness,
+                }
+              : {}),
+            ...(beat.stage === 1 && beat.cheatSheet
+              ? {
+                  referenceTable: registerCheatSheet(
+                    beat.cheatSheet,
+                    beat.audience,
+                  ),
+                }
+              : {}),
+            ...(beat.frame
+              ? {
+                  frameBefore: beat.frame.before,
+                  frameAfter: beat.frame.after ?? "",
+                }
+              : {}),
+          } as LessonStep;
+          if (beat.exercises?.length)
+            step.exercisedGrammar = [...new Set(beat.exercises)];
+          body.push(step);
+        }
       } else if (beat.kind === "particle-cloze") {
         const full = clean(`${beat.stem}${beat.answer}${beat.tail}`);
         body.push(
@@ -513,11 +767,13 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
 
     // ── DENSITY: assemble the middle pool so rule + middle + capstone + match
     //    lands in [18, 24]; pad with review fillers, trim fillers if over.
-    const pool = (lesson.reviewPool ?? []).map(resolve);
+    const pool = (lesson.reviewPool ?? []).map(resolve).filter(usableHere);
     // Match pairs are EXCLUSIVELY words (Spencer 2026-07-24: "が is not a
     // word") — particles drill in cloze/build, never as match tiles.
     const matchable = pool.filter((a) => !PARTICLES.includes(a.kana));
-    const picked = (matchable.length >= 4 ? matchable : [...matchable, ...emojiPool]).slice(0, 6);
+    const picked = (
+      matchable.length >= 4 ? matchable : [...matchable, ...emojiPool.filter(usableHere)]
+    ).slice(0, 6);
     const tileGlosses = picked.map(matchTileGloss);
     const matchAtoms = picked.map((a, i) => ({
       ...a,
@@ -530,16 +786,30 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           : tileGlosses[i],
     }));
     const match = reviewMatchPairs(`${lid}-rev`, matchAtoms);
-    const fixed =
-      ruleSteps.length +
-      transformRamp.length +
-      (lesson.introduces ?? []).filter((k) => {
-        const x = (ir.newAtoms ?? []).find((n) => n.kana === k);
-        return x && x.imageable !== false && !!atoms.get(k)?.emoji;
-      }).length +
-      (capstone ? 1 : 0) +
-      1;
-    const middle: LessonStep[] = [...body];
+
+    // Image-first debuts (Spencer 2026-07-23): an imageable NEW word's
+    // first-ever appearance IS its word_image_mcq. These are NOT pinned —
+    // a pinned block of N debuts is N-1 guaranteed adjacent-same-type
+    // failures, and the pinned region is exempt from `repairAdjacency`.
+    // They ride the interleaver like everything else and are held first by
+    // the PRECEDENCE constraint below (gateOf), which is what "debut"
+    // actually means: before every other use, not at position zero.
+    const debutSteps: LessonStep[] = [];
+    for (const kana of lesson.introduces ?? []) {
+      const irAtom = (ir.newAtoms ?? []).find((x) => x.kana === kana);
+      const atom = atoms.get(kana);
+      if (!irAtom || irAtom.imageable === false || !atom?.emoji) continue;
+      const v = tryVocabMcq(
+        `${lid}-debut-${debutSteps.length}`,
+        atom,
+        emojiPool.filter(usableHere),
+      );
+      if (v) debutSteps.push(v);
+    }
+
+    const fixed = ruleSteps.length + transformRamp.length + (capstone ? 1 : 0) + 1;
+    // Debuts lead the AUTHORED order so gate assignment prefers them.
+    const middle: LessonStep[] = [...debutSteps, ...body];
     // Never TYPED-recall this lesson's own new words or any conjugated
     // form — the transform cells own their production timeline.
     const noTyped = new Set<string>([
@@ -548,7 +818,24 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     ]);
     let fi = 0;
     while (middle.length + fixed < 18 && fi < 60) {
-      const f = reviewFiller(lid, fi, pool, emojiPool, noTyped);
+      // TRANSLATE BUDGET: <=15% of production (Spencer 2026-07-26). The old
+      // filler alternated speaking/translate, which alone pushed compiled
+      // modules to ~30% translate.
+      const soFar = [...body, ...middle];
+      const prodSoFar = soFar.filter((x) =>
+        ["build_sentence", "translate", "speaking", "listening_build"].includes(x.type),
+      ).length;
+      const trSoFar = soFar.filter((x) => x.type === "translate").length;
+      const translateOk = trSoFar < Math.floor((prodSoFar + 1) * 0.15);
+      const f = reviewFiller(
+        lid,
+        fi,
+        pool,
+        declaredPool.filter(usableHere),
+        noTyped,
+        sentencePairs,
+        translateOk,
+      );
       if (f) middle.push(f);
       fi++;
     }
@@ -557,26 +844,33 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       middle.splice(idx, 1);
     }
 
-    // Image-first debuts (Spencer 2026-07-23): an imageable NEW word's
-    // first-ever appearance IS its word_image_mcq — pinned ahead of the
-    // ramp and middle so nothing can precede it, emitted ONCE (module-wide
-    // repeat ban enforced by the image-debut diagnostic).
-    const debutSteps: LessonStep[] = [];
-    for (const kana of lesson.introduces ?? []) {
-      const irAtom = (ir.newAtoms ?? []).find((x) => x.kana === kana);
-      const atom = atoms.get(kana);
-      if (!irAtom || irAtom.imageable === false || !atom?.emoji) continue;
-      const v = tryVocabMcq(`${lid}-debut-${debutSteps.length}`, atom, emojiPool);
-      if (v) debutSteps.push(v);
-    }
+    // ── SEQUENCE: rule(s) first → TRANSFORM RAMP (pinned, exempt from the
+    //    interleaver: the transformation is drilled before any sentence
+    //    work, and no typed production can land adjacent to a new rule —
+    //    spec 2026-07-23) → interleaved middle (image debuts included,
+    //    held first by PRECEDENCE not by position) → capstone (stretch) →
+    //    close on match_pairs.
+    const pinned = [...ruleSteps, ...transformRamp];
 
-    // ── SEQUENCE: rule(s) first → IMAGE DEBUTS (pinned) → TRANSFORM RAMP
-    //    (pinned, exempt from the interleaver: the transformation is
-    //    drilled before any sentence work, and no typed production can
-    //    land adjacent to a new rule — spec 2026-07-23) → interleaved
-    //    middle → ungraded type-tease → capstone (stretch) → close on
-    //    match_pairs.
-    const pinned = [...ruleSteps, ...debutSteps, ...transformRamp];
+    // ── PRECEDENCE (teach-first, inv 33) ──────────────────────────────
+    // Every atom this lesson introduces gets ONE gate: the earliest
+    // intro-capable step, in AUTHORED order, that surfaces it. No step may
+    // be sequenced before the gate of an atom it surfaces. This is a
+    // PARTIAL order — strictly weaker than pinning, which is why it
+    // composes with the adjacency/defer rules instead of fighting them.
+    const needsGate = (t: string) => t.length > 1 && atoms.has(t) && !usableKana(t);
+    const gatedOf = (s: LessonStep): Set<string> =>
+      new Set(jaSurfaces(s).flatMap(tokenize).filter(needsGate));
+    const gated = new Map<LessonStep, Set<string>>();
+    for (const s of [...pinned, ...middle]) gated.set(s, gatedOf(s));
+    const preSatisfied = new Set<string>();
+    for (const s of pinned) for (const k of gated.get(s)!) preSatisfied.add(k);
+    const gateOf = new Map<string, LessonStep>();
+    for (const s of middle)
+      if (INTRO_STEP_TYPES.has(s.type))
+        for (const k of gated.get(s)!)
+          if (!preSatisfied.has(k) && !gateOf.has(k)) gateOf.set(k, s);
+
     // Typed translates live as late as possible ("more repetitions before
     // typing", Spencer 2026-07-24) — but the tail must keep ≥2t-1 slots so
     // t translates can still alternate with other types (no-adjacent bar).
@@ -590,10 +884,23 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           middle.length - (typedCount * 2 - 1),
         ),
       ),
+      gated,
+      gateOf,
+      satisfied: preSatisfied,
     });
     const steps: LessonStep[] = [...pinned, ...midSeq];
     if (capstone) placeCapstone(steps, capstone, pinned.length);
-    repairAdjacency(steps, pinned.length);
+    // ONE legality predicate for the repair pass, covering every HARD
+    // constraint it could otherwise break. Repair may reorder freely inside
+    // the space this predicate defines and nowhere else — that is what
+    // stops the three passes from fighting.
+    repairAdjacency(
+      steps,
+      pinned.length,
+      (seq) =>
+        precedenceHolds(seq, gated, gateOf, preSatisfied) &&
+        challengeInWindow(seq, capstone),
+    );
     steps.push(match);
 
     return {
@@ -622,15 +929,44 @@ function lastType(steps: LessonStep[]): string | null {
 function interleave(
   pool: LessonStep[],
   prev: string | null,
-  opts?: { deferTypes?: Set<string>; deferUntil?: number },
+  opts?: {
+    deferTypes?: Set<string>;
+    deferUntil?: number;
+    /** step → the not-yet-taught atoms it surfaces (see `jaSurfaces`). */
+    gated?: Map<LessonStep, Set<string>>;
+    /** atom → the ONE step allowed to be its first appearance. */
+    gateOf?: Map<string, LessonStep>;
+    /** atoms already introduced by the pinned prefix. */
+    satisfied?: ReadonlySet<string>;
+  },
 ): LessonStep[] {
   const remaining = [...pool];
   const out: LessonStep[] = [];
   let last = prev;
   let selRun = prev && SELECTION.has(prev) ? 1 : 0;
+  const seen = new Set(opts?.satisfied ?? []);
+  /** HARD constraint, applied before every soft tier: a step may be placed
+   *  only if each new atom it surfaces is already introduced, or this step
+   *  is that atom's designated gate. Acyclic by construction — a gate is
+   *  the authored-earliest intro-capable step for its atom, so dependencies
+   *  always point backwards in authored order. */
+  const eligible = (s: LessonStep): boolean => {
+    for (const k of opts?.gated?.get(s) ?? []) {
+      if (seen.has(k)) continue;
+      const g = opts?.gateOf?.get(k);
+      if (g === undefined || g === s) continue;
+      return false;
+    }
+    return true;
+  };
   while (remaining.length) {
+    // Sequence over the ELIGIBLE subset; fall back to the whole pool rather
+    // than deadlock (an unsatisfiable gate is an authoring defect, reported
+    // by the `ordering` diagnostic, not a reason to fail the compile).
+    const avail = remaining.filter(eligible);
+    const usable = avail.length ? avail : remaining;
     const byType = new Map<string, number>();
-    for (const s of remaining) byType.set(s.type, (byType.get(s.type) ?? 0) + 1);
+    for (const s of usable) byType.set(s.type, (byType.get(s.type) ?? 0) + 1);
     const rank = (t: string) => byType.get(t) ?? 0;
     // deferTypes are held out of the early lesson (typed translate lives
     // in the final third — "more repetitions before typing", Spencer
@@ -656,8 +992,11 @@ function interleave(
     if (!cands.length) cands = [...byType.keys()];
     cands.sort((a, b) => rank(b) - rank(a));
     const t = cands[0];
-    const idx = remaining.findIndex((s) => s.type === t);
-    const [s] = remaining.splice(idx, 1);
+    // Pick within the ELIGIBLE subset — `byType` was counted over `usable`,
+    // so the chosen type must be filled from it too.
+    const s = usable.find((x) => x.type === t)!;
+    remaining.splice(remaining.indexOf(s), 1);
+    for (const k of opts?.gated?.get(s) ?? []) seen.add(k);
     selRun = SELECTION.has(s.type) ? (last && SELECTION.has(last) ? selRun + 1 : 1) : 0;
     last = s.type;
     out.push(s);
@@ -671,30 +1010,79 @@ function interleave(
  * 2026-07-24). Swap the later duplicate with the nearest earlier step
  * whose move breaks the pair without creating a new one. Deferral is
  * soft, adjacency is hard — one translate drifting earlier is the price.
+ *
+ * `ok` VETOES a swap that would break a teach-first gate. Without it this
+ * pass and the interleaver fight over the same ordering (the oscillating
+ * 6↔30 failure counts of the `enforceIntroFirst` experiment): precedence is
+ * decided once, in the interleaver, and repair may only move within it.
  */
-function repairAdjacency(seq: LessonStep[], floor: number): void {
-  const t = (k: number): string | undefined => seq[k]?.type;
-  for (let i = floor + 1; i < seq.length; i++) {
-    if (t(i) !== t(i - 1)) continue;
-    // The transform ramp is LEGALLY consecutive (capped at 3 by the guard).
-    if (t(i) === "conjugation_transform") continue;
-    for (let j = i - 2; j > floor; j--) {
-      if (t(j) === t(i)) continue;
-      // After swapping j↔i, check all four affected adjacencies.
-      const jPrev = t(j - 1);
-      const jNext = j + 1 === i ? t(j) : t(j + 1);
-      const iNext = t(i + 1);
-      if (
-        jPrev !== t(i) &&
-        jNext !== t(i) &&
-        t(i - 1) !== t(j) &&
-        (iNext === undefined || iNext !== t(j))
-      ) {
-        [seq[j], seq[i]] = [seq[i], seq[j]];
-        break;
+function repairAdjacency(
+  seq: LessonStep[],
+  floor: number,
+  ok: (seq: LessonStep[]) => boolean = () => true,
+): void {
+  for (let pass = 0; pass < 6; pass++) {
+    const before = sequenceCost(seq, floor);
+    if (before === 0) return;
+    let improved = false;
+    search: for (let i = floor + 1; i < seq.length; i++) {
+      if (seq[i].type !== seq[i - 1].type) continue;
+      // The transform ramp is LEGALLY consecutive (capped at 3 by the guard).
+      if (seq[i].type === "conjugation_transform") continue;
+      // Try relocating EITHER member of the offending pair. The old pass
+      // only ever moved the later one, which deadlocks when that one is
+      // immovable (the challenge step, pinned to its stretch window).
+      for (const victim of [i, i - 1]) {
+        if (victim <= floor) continue;
+        for (let j = seq.length - 1; j > floor; j--) {
+          if (j === victim) continue;
+          [seq[victim], seq[j]] = [seq[j], seq[victim]];
+          if (sequenceCost(seq, floor) < before && ok(seq)) {
+            improved = true;
+            break search;
+          }
+          [seq[victim], seq[j]] = [seq[j], seq[victim]];
+        }
       }
     }
+    // STRICT improvement only: the cost is monotone non-increasing, so this
+    // terminates and cannot oscillate. (The `enforceIntroFirst` experiment
+    // swung between 6 and 30 failures because three passes each optimized a
+    // different objective with no shared cost function.)
+    if (!improved) return;
   }
+}
+
+/** Hard ordering-bar violations in `seq` past `floor`: adjacent same-type
+ *  steps plus selection-tap runs longer than 2. One number for the repair
+ *  pass to descend — the guard checks both, so repairing one by creating
+ *  the other is not progress. */
+function sequenceCost(seq: LessonStep[], floor: number): number {
+  let cost = 0;
+  let selRun = 0;
+  for (let i = 0; i < seq.length; i++) {
+    if (
+      i > floor &&
+      i > 0 &&
+      seq[i].type === seq[i - 1].type &&
+      seq[i].type !== "conjugation_transform"
+    )
+      cost++;
+    selRun = SELECTION.has(seq[i].type) ? selRun + 1 : 0;
+    if (selRun > 2) cost++;
+  }
+  return cost;
+}
+
+/** Inv 26: the challenge step stays in the stretch window. `seq` here has
+ *  not had the closing match grid pushed yet, so the final length is
+ *  `seq.length + 1` — the guard's window is [len-8, len-3). */
+function challengeInWindow(seq: LessonStep[], capstone: LessonStep | null): boolean {
+  if (!capstone) return true;
+  const idx = seq.indexOf(capstone);
+  if (idx < 0) return true;
+  const len = seq.length + 1;
+  return idx >= len - 8 && idx < len - 2;
 }
 
 /** Insert the capstone in the stretch window [N-8, N-3] (N = final length),
@@ -722,40 +1110,92 @@ function tryVocabMcq(id: string, target: Atom, distractorPool: Atom[]): LessonSt
   }
 }
 
+/** MCQ factories throw on a thin distractor pool; filler must degrade to the
+ *  next rotation entry rather than fail the compile. */
+function safeStep(make: () => LessonStep): LessonStep | null {
+  try {
+    return make();
+  } catch {
+    return null;
+  }
+}
+
 function reviewFiller(
   lid: string,
   i: number,
   pool: Atom[],
-  emojiPool: Atom[],
+  declaredPool: Atom[],
   noTyped: ReadonlySet<string>,
+  sentences: { ja: string; en: string }[],
+  translateOk: boolean,
 ): LessonStep | null {
-  // Fable sweep 2026-07-24, three filler classes fixed at the source:
-  //  - PARTICLES never filler: mic-grading a single mora ("say が aloud")
-  //    is ASR-noise, and typing に from a metalanguage gloss is a guessing
-  //    game — particles drill in cloze/build/match only.
-  //  - Prompts/glosses use the SHORT gloss: the raw teaching gloss printed
-  //    the answer's own stem ("There isn't (negative of いる)" → いない)
-  //    and leaked authoring tone ("— IRREGULAR") onto learner cards.
-  //  - No TYPED recall of `noTyped` atoms (this lesson's own introduces +
-  //    conjugated forms): word-typing waits for consolidation — the filler
-  //    path was bypassing the transform stage-3 gate same-session.
-  const usable = pool.filter((p) => !PARTICLES.includes(p.kana));
+  // Particles are never filler (mic-grading a mora is ASR noise; typing に
+  // from a gloss is a guessing game), glosses are the SHORT form, and no typed
+  // recall of this lesson's own new atoms.
+  //
+  // 2026-07-26 (Spencer): the old body alternated speaking/translate on
+  // unrelated pool words, which pushed translate to ~30% of production and
+  // padded lessons with vocabulary the lesson wasn't about. It now rotates and
+  // prefers re-presenting THIS LESSON'S sentences in a modality they weren't
+  // authored in, using sibling sentences as distractors — no extra authoring.
+  // Filler is REVIEW of prior material. It must never touch a word this
+  // lesson introduces: filler is interleaved, so an MCQ/speaking filler on a
+  // brand-new word lands before that word's real (intro-capable) debut and
+  // the learner meets it first as a wrong answer. `noTyped` is exactly this
+  // lesson's new atoms + their conjugations.
+  const usable = pool.filter(
+    (p) => !PARTICLES.includes(p.kana) && !noTyped.has(p.kana),
+  );
+  const fallback = declaredPool.filter((p) => !noTyped.has(p.kana));
   const a = usable.length
     ? usable[i % usable.length]
-    : emojiPool[i % Math.max(emojiPool.length, 1)];
-  if (!a) return null;
-  const gloss = matchTileGloss(a);
-  const typedOk = !noTyped.has(a.kana);
-  if (i % 2 === 0 || !typedOk) {
-    return speaking(`${lid}-fill-${i}`, a.kana, gloss, [a.kana]);
+    : fallback[i % Math.max(fallback.length, 1)];
+
+  const uniq = sentences.filter(
+    (x, ix, arr) =>
+      x.ja &&
+      x.en &&
+      // >=3 chunks = real sentence context; a 2-token surface reads as
+      // word-level to the M5+ sentence-first ratchet (invariant 19).
+      x.ja.trim().split(/[\s\u3000]+/).length >= 3 &&
+      arr.findIndex((y) => y.ja === x.ja) === ix,
+  );
+  const sentenceComp = (): LessonStep | null => {
+    if (uniq.length < 4) return null;
+    const pick = uniq[i % uniq.length];
+    const others = uniq.filter((x) => x.ja !== pick.ja);
+    if (others.length < 3) return null;
+    const d = [0, 1, 2].map((k) => others[(i + k) % others.length]);
+    if (new Set(d.map((x) => x.en)).size < 3) return null;
+    return listeningCompSentence({
+      id: `${lid}-fill-${i}`,
+      audioText: pick.ja,
+      correctMeaningEn: pick.en,
+      distractorsEn: [d[0].en, d[1].en, d[2].en],
+    });
+  };
+
+  // NB: word_image_mcq is FIRST-EXPOSURE ONLY, and a full-sentence MCQ is
+  // TEST-OUT ONLY (invariant 28) — neither belongs in filler.
+  const rotation: (() => LessonStep | null)[] = [
+    sentenceComp,
+    () => (a ? safeStep(() => translationMcq(`${lid}-fill-${i}`, a as ReviewAtom, declaredPool as ReviewAtom[])) : null),
+    () => (a ? speaking(`${lid}-fill-${i}`, a.kana, matchTileGloss(a), [a.kana]) : null),
+    () =>
+      translateOk && a && !noTyped.has(a.kana)
+        ? translateStep({
+            id: `${lid}-fill-${i}`,
+            promptEn: matchTileGloss(a),
+            acceptedAnswers: [a.kana],
+            exercisedAtomKanas: [a.kana],
+          })
+        : null,
+  ];
+  for (let k = 0; k < rotation.length; k++) {
+    const step = rotation[(i + k) % rotation.length]();
+    if (step) return step;
   }
-  return translateStep({
-    id: `${lid}-fill-${i}`,
-    promptEn: gloss,
-    acceptedAnswers: [a.kana],
-    audioText: a.kana,
-    exercisedAtomKanas: [a.kana],
-  });
+  return null;
 }
 
 // ── diagnostics (author ⇄ compiler feedback) ─────────────────────────────────
@@ -812,13 +1252,16 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
             else mcqSeen.set(word, step.id as string);
           }
         }
-        const surface = JSON.stringify({
-          ...step,
-          distractors: undefined,
-          acceptedAnswers: undefined,
-        });
+        // TOKENIZE, never substring-match: `いま` is a substring of
+        // `かいます`, so `JSON.stringify(step).includes(kana)` reported いま
+        // debuting in a lesson that only ever says かいます. Same longest-
+        // match tokenizer the guard uses, over the same kana-only display
+        // projection.
+        const surfaced = new Set(
+          jaSurfaces(step as unknown as LessonStep).flatMap(tokenize),
+        );
         for (const kana of introduced) {
-          if (!firstAppearance.has(kana) && surface.includes(kana))
+          if (!firstAppearance.has(kana) && surfaced.has(kana))
             firstAppearance.set(kana, {
               stepId: step.id as string,
               type: step.type as string,

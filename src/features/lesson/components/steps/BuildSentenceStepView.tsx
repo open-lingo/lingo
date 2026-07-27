@@ -18,11 +18,72 @@ import {
 import { playSfx } from "@/shared/audio/sfx";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
+import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 
 const CELEBRATE_MS = 1100;
+
+/**
+ * The person being addressed, as a picture. Vendored Noto art when we have
+ * it, the device glyph otherwise — the same fallback WordImageMcqStepView
+ * uses, so an un-vendored emoji degrades to a glyph instead of a broken box
+ * (👵 and 🧑‍🏫 are exactly the kind of late additions that may not be
+ * vendored yet).
+ */
+function AudienceCue({
+  emoji,
+  label,
+  politeness,
+}: {
+  emoji: string;
+  label: string;
+  politeness?: 1 | 2 | 3;
+}) {
+  const [failed, setFailed] = useState(false);
+  const src = notoEmojiUrl(emoji);
+  return (
+    <div className="flex flex-col items-center gap-1.5" title={label}>
+      {!src || failed ? (
+        <span role="img" aria-label={label} className="text-6xl leading-none">
+          {emoji}
+        </span>
+      ) : (
+        <img
+          src={src}
+          alt={label}
+          width={96}
+          height={96}
+          loading="eager"
+          onError={() => setFailed(true)}
+          className="h-20 w-20 select-none object-contain sm:h-24 sm:w-24"
+          draggable={false}
+        />
+      )}
+      {politeness && (
+        /* Tobira's 丁寧度 meter: three dots, filled to the level this
+           audience calls for. Purely visual — the accessible name carries
+           the same information for screen readers without putting prose
+           on screen. */
+        <div
+          className="flex gap-1"
+          role="img"
+          aria-label={`politeness level ${politeness} of 3`}
+        >
+          {[1, 2, 3].map((n) => (
+            <span
+              key={n}
+              className={`h-1.5 w-1.5 rounded-full ${
+                n <= politeness ? "bg-text-primary" : "bg-text-muted/30"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 type Props = {
   step: BuildSentenceStep;
@@ -236,12 +297,65 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           first thing the eye should hit); the action block below carries
           mt-auto so it pins to the bottom regardless of content height. */}
       <div className="flex flex-col gap-4">
-      <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild ? "text-center" : ""}`}>
+      {step.audienceEmoji && (
+        /* WHO you are speaking to, drawn rather than narrated. The label is
+           the accessible name only — showing it as text would restore the
+           prose cue this exists to delete. */
+        <AudienceCue
+          emoji={step.audienceEmoji}
+          label={step.audienceLabel ?? ""}
+          politeness={step.politenessHint}
+        />
+      )}
+      <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild || step.audienceEmoji ? "text-center" : ""}`}>
         {formatPrompt(step.prompt)}
       </h2>
 
       {step.hint && !submitted && (
         <p className="text-sm text-text-muted">{step.hint}</p>
+      )}
+
+      {(step.frameBefore || step.frameAfter) && (
+        /* Vocative frame: the addressee is named in Japanese, so no English
+           scenario line is needed. The slot fills in as soon as a tile is
+           picked, which is the whole read-back — you see the sentence you
+           just built, addressed to the person named in it. */
+        <div className="rounded-2xl border-[1.5px] border-border bg-surface px-4 py-4 text-center text-2xl font-bold tracking-wide text-text-primary">
+          <span>{step.frameBefore}</span>
+          <span
+            className={`mx-1 inline-block min-w-[4.5rem] rounded-lg border-b-4 px-2 ${
+              placed.length
+                ? "border-accent text-text-primary"
+                : "border-border text-text-muted/50"
+            }`}
+          >
+            {placed.length ? placed.join("") : "◯◯"}
+          </span>
+          <span>{step.frameAfter}</span>
+        </div>
+      )}
+
+      {step.referenceTable && !submitted && (
+        /* Stage-1 cheat sheet — same visual language as TransformRuleTable
+           so the two scaffolds read as one idea across the course. */
+        <div className="rounded-2xl border-[1.5px] border-border bg-surface px-4 py-3">
+          <p className="mb-2 text-center text-[10.5px] font-bold uppercase tracking-widest text-text-muted">
+            {step.referenceTable.label}
+          </p>
+          <div className="flex flex-col gap-1">
+            {step.referenceTable.rows.map((r) => (
+              <div
+                key={`${r.cue}-${r.form}`}
+                className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-xl px-2.5 py-1.5 odd:bg-surface-muted/40"
+              >
+                <span className="text-sm text-text-secondary">{r.cue}</span>
+                <span className="text-lg font-bold text-text-primary">
+                  {r.form}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       {step.sourceSentence && (

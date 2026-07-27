@@ -100,12 +100,14 @@ describe("conjugation trainer registry", () => {
       expect(isSelectionAhead(["te-form"], te - 1)).toBe(true);
       expect(isSelectionAhead(["te-form"], te)).toBe(false);
 
-      // Mixed selection: i-adj unlocks before te (guard the premise), so at
-      // i-adj's unlock module the pair still counts as ahead.
+      // Mixed selection: under the NEO spine て-form is m8 and adjectives are
+      // s09 = m12, so te unlocks FIRST (it was the other way round on the old
+      // spine — 2026-07-26 registry re-key). At te's module the pair is still
+      // "ahead" because i-adj has not unlocked yet.
       const iadj = unlockModuleForType(getTrainerType("i-adj-forms")!);
-      expect(iadj).toBeLessThan(te);
-      expect(isSelectionAhead(["i-adj-forms", "te-form"], iadj)).toBe(true);
-      expect(isSelectionAhead(["i-adj-forms", "te-form"], te)).toBe(false);
+      expect(te).toBeLessThan(iadj);
+      expect(isSelectionAhead(["i-adj-forms", "te-form"], te)).toBe(true);
+      expect(isSelectionAhead(["i-adj-forms", "te-form"], iadj)).toBe(false);
 
       expect(isSelectionAhead([], 1)).toBe(false);
     });

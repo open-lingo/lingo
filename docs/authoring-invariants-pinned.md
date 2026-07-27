@@ -1,6 +1,6 @@
 # PINNED authoring invariants (ja) — paste VERBATIM into every dispatch
 
-**Status:** LIVE · **Last-verified:** 2026-07-20
+**Status:** LIVE · **Last-verified:** 2026-07-26
 
 > This is the constraint-pinning block (research doc
 > [ai-workflow-optimization-research-2026-07-17.md](ai-workflow-optimization-research-2026-07-17.md),
@@ -344,6 +344,61 @@ invisible until something fails, which is exactly why they are pinned.
     vocabulary and 20 of its 21 ids match nothing. Unknown ids are now
     caught by the `unknown-grammar-point` diagnostic — declare genuinely
     prior-module points in `priorGrammarPoints:` instead.
+
+## Step mix and ratios (Spencer 2026-07-26 — the "translate is bad" ruling)
+
+43. **`translate` is ≤15% of PRODUCTION, module-wide.** Production =
+    `build_sentence` + `translate` + `speaking` + `listening_build`. Before
+    this ruling the course ran ~30% (m6–m10 were 32–37%) because filler
+    alternated speaking/translate. Typed translation is a LATE surface: it
+    belongs in FSRS review after an atom has graduated, not in the lesson
+    that teaches it. Do NOT lean on it for early authoring — an author who
+    can't think of a step reaches for `mode: translate`, and that reflex is
+    the whole reason for the cap. Enforced by the compiler's filler budget
+    plus the `translate-heavy` diagnostic; authored `mode: translate` beats
+    count toward the same ceiling.
+44. **`word_image_mcq` is FIRST-EXPOSURE ONLY.** It is the debut surface for
+    an imageable new word and may never be used again for that word — not as
+    review, not as filler, not in a later module. (Inv 30 says it must be
+    first; this says it must be ONLY.) There is no minimum-usage floor for
+    it, because its count is fixed by how many imageable words the module
+    introduces.
+45. **Under-used step types carry usage FLOORS, not just permission.** The
+    compiler's filler rotation exists so lessons stop being
+    build/translate monocultures. Types that must actually appear across a
+    module: `listening_comprehension`, `multiple_choice` (word- and
+    English-option, per inv 28), `speaking`, `conjugation_transform` (where
+    a rule has a conjugation), `particle_cloze` (introduction lessons only,
+    per inv 5), `match_pairs` (lesson closer). A module that ships without a
+    type it had material for is an authoring miss, not a style choice.
+46. **Register is taught by CHOOSING AMONG KNOWN WORDS — never by MCQ-ing a
+    word the learner has not met** (Spencer 2026-07-26). The pattern
+    `"You are talking to <person>, how do you say this?"` is BANNED as a
+    teaching device: m10 used it to quiz brand-new register words, so the
+    learner's first-ever exposure was as a wrong answer.
+    **The mechanics live in [register-teaching.md](register-teaching.md) and
+    apply to REGISTER LESSONS ONLY — if you are not authoring one, this
+    invariant is the whole of your obligation and you can skip that file
+    entirely.** Register scaffolding (audience pictures, politeness meters,
+    cheat sheets, vocative frames) reaches a step through exactly one IR beat
+    (`kind: register`), so it cannot leak into an ordinary teaching lesson;
+    `registerScaffoldIsolation.test.ts` keeps it that way. It is also
+    deliberately temporary — the scaffolds fade as the words are learned, and
+    a word past the ladder is ordinary vocabulary in ordinary beats.
+
+## Standing rule — re-read this file per lesson (Spencer 2026-07-26)
+
+47. **Re-check the guide EVERY time you author, at LESSON granularity — not
+    once per module, not once per session.** Compliance decays across a long
+    dispatch (research doc Finding 1: soft rules decay ~8× faster than hard
+    rules after compaction), and the m7–m10 cycle proved it: 38 bare-word
+    debuts and 58 translate-heavy lessons shipped from agents that had read
+    these rules at the top of the same dispatch. Before emitting each
+    lesson's beats, re-read at minimum: inv 5 (particle_cloze),
+    inv 28–33 (step-type discipline), inv 37–42 (IR mistakes), inv 43–46
+    (step mix). A bulk conformance audit runs separately over compiled
+    output — but the audit is a backstop for the cases this re-read misses,
+    not a substitute for it.
 
 ## Provenance discipline
 
