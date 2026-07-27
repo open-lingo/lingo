@@ -828,6 +828,40 @@ It was safe to land mid-authoring because the tokenizer is longest-match-
 first: a shorter entry can only win where nothing longer matched, i.e.
 exactly where an unrecognized fragment was already being emitted.
 
+### RULING — a homograph LOSER is not teachable, so は "tooth" and かぜ "a cold" are out of N5
+
+Decided 2026-07-27, before m22 (Body & Health) was briefed, because that is the
+module that wants both words and finding out mid-authoring would have cost a
+cycle.
+
+Seventeen kana resolve to one atom by ruling (`JA_PRIMARY_ATOM_BY_KANA`). The
+LOSER of each pair cannot be identified by any token, so it can never accrue SRS
+credit — and `homographTeaching.test.ts` (added this cycle) now fails the build
+if a word-image MCQ teaches a sense the kana does not resolve to. Health
+vocabulary is where that first bites:
+
+- **は "tooth" — permanently out.** は is the TOPIC PARTICLE. Nothing short of a
+  kanji surface can disambiguate it, and no toothache sentence is worth a tile
+  that mis-credits the most common particle in the language.
+- **かぜ "a cold" — out of N5.** m7 already teaches かぜ = WIND
+  (「かぜが あります」 = "there's a breeze", which is correct Japanese — checked,
+  not assumed). Teaching a second sense in kana would contradict prior learning
+  AND credit kaze-wind. 「ねつが あります」 covers being ill without it.
+
+**Do not "fix" either by flipping a ruling in `JA_PRIMARY_ATOM_BY_KANA`.** That
+silently rewrites every existing use of the word — the change is course-wide and
+invisible, which is exactly the class of bug this run keeps finding.
+
+The rest of the domain is clear: あたま, おなか, め, みみ, あし, からだ, くすり,
+びょうき, いたい, げんき all resolve uniquely, and のど, ねつ, くび, ゆび, せなか,
+こし are unclaimed. **て "hand" is UNVERIFIED** — it is a registered atom and the
+て-form is everywhere, so if a て-form verb ever emits a bare て tile it is a
+silent mis-credit of the same class; m22 was told to check rather than assume.
+
+Teaching a losing sense stays blocked until the course has a disambiguation
+mechanism — a kanji surface, or a compound that the longest-match tokenizer
+consumes whole. That is a real decision for N4, not a bug to fix.
+
 ### Carrier fatigue — WHICH WORDS NOT TO REACH FOR (measured 2026-07-27)
 
 `scripts/exposure-audit.mjs` was blind to every IR module (it globbed
