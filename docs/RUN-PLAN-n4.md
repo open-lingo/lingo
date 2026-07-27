@@ -74,6 +74,22 @@ modules apart with **たら as the sole hub** (every newcomer contrasted against
 **causative-passive is rehomed to m50** inside 謙譲語 via させていただく, so it
 arrives as a composition of owned parts rather than a new form.
 
+## Progress (updated after each module lands)
+
+| | |
+|---|---|
+| authored this run | m11 m12 m13 m14 (m15 in flight) |
+| N5 grammar points left | **51** of 103 (was 74 at run start) |
+| suite | 6137 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%) |
+| untaught words shipping as options | **0** (was routine) |
+
+QA has found a defect in every module so far, and **every single one turned out
+to be a compiler bug rather than a content bug** — run-on sentence fusion, the
+さん/三 homograph, filler repetition, the kana→atom twin maps, distractor pools
+drawing on future vocabulary. Sonnet reading four lessons per module is
+comfortably the highest-yield step in the loop; do not drop it to save tokens.
+
 ## Standing decisions (mine, documented per instruction)
 
 1. **Module shape** stays inv 25: 12–15 lessons = 8–11 teaching + 3 review +
@@ -263,22 +279,27 @@ Deliberately not done yet because nothing before m19 needs it. It blocks:
 `ni-iku` (m19), `sugiru` (m27), and in N4 〜ながら / 〜やすい・にくい / 〜たがる
 (m36) — so it must land before m19 or the deferrals compound.
 
-### Next quiet-window batch (after m14 lands, before m15 is dispatched)
+### DONE 2026-07-27 (was the quiet-window batch)
 
-1. **TTS pass** — m13's QA fixes changed Japanese text (だいがく debut, しゃしん
-   sentences, みせ rule examples) and the m8–m10 speaker retrofit still owes a
-   Keita synthesis run. Deferred only to avoid racing an authoring agent on the
-   deck files.
-2. **Cross-module vocab-leak guard.** This is now the single most recurrent QA
-   finding — m6 うえ/なか, m7 パーティー, m9 ひゃく, m13 だいがく. The compiler
-   treats "not declared new by this module" as "already known", which is true
-   only if the word was actually taught earlier. `courseAtoms.fromModule` CANNOT
-   be the check — those tags are stale by construction (see the comment in
-   `authoring-context.mjs`; a raw fromModule-ordering scan reports ~10 false
-   positives per module, mostly substring hits like き inside きょう). The
-   accurate source is USAGE in earlier IR modules plus the m1–m5 TS modules,
-   tokenized with `moduleBarGuards`' own tokenizer.
-3. **Stems in the compiler's `KNOWN` set** — see above; must land before m19.
+- ✅ TTS is current end to end, including the Keita clips the speaker-routing
+  fix owed. `emit-tts-deck` → `generate` → `gen_dialogue_voices`.
+- ✅ **The vocab-leak class is closed at the source.** `ir.priorVocab` (built by
+  `compile-ir.mjs` from earlier modules, NOT from the stale `fromModule` tags)
+  is now what "already known" means, so pools cannot reach forward into
+  vocabulary the learner has not met. `untaughtOptions.test.ts` holds it at 0.
+  This also caught that a ramp card prints its BASE as a given — m14 was
+  drilling すむ, a verb taught in no module, invisible to every debut guard
+  because a given is not an introduction.
+
+### Still owed
+
+1. **Stems in the compiler's `KNOWN` set** — must land before **m19**.
+   `getRealFormLexicon()` already emits them; the `unbuildable` diagnostic
+   keeps its own set and does not consult it. Adding stems there means
+   adding them to the TOKENIZER vocabulary, so it wants its own test pass
+   (longest-match protects たべる from splitting into たべ+る, but verify).
+   Blocks `ni-iku` (m19), `sugiru` (m27) and N4's 〜ながら / 〜やすい・にくい /
+   〜たがる (m36). Two spine items have already been deferred for it.
 
 ### Carried debt (batch later, do not derail a module for these)
 
