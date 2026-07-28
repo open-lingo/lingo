@@ -5,46 +5,59 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE (state as of 2026-07-27, after the m25 commit)
+## ⏵ RESUME HERE (state as of 2026-07-27, after the m26 commit)
 
-**Last commit: `d4ff5335`. Working tree carries m26, IN FLIGHT.**
+**Last commit: `58dc37b2` (m26). Working tree carries m27, IN FLIGHT.**
 
-- **DONE and committed: m11–m25.** QA verdict SHIP for m20–m25 (every module
-  QA'd this run has shipped). Remaining N5 points: ~8. Suite 7719 passing.
-- **IN FLIGHT:** one authoring agent on **m26** (comparisons のほうが /
-  いちばん; ほど is deferred to m37). Not committed. Its files, as of the
-  handoff — stage exactly these plus `src/pub/tts`, and re-check for
-  `courseAtoms.ts` (it had not registered atoms yet at this point):
-  ```
-  docs/context/m26-context.md
-  docs/reports/authoring-audit.md
-  src/features/languages/ja/__tests__/moduleContentLints.ts
-  src/features/languages/ja/curriculum/__tests__/m26-neo.test.ts
-  src/features/languages/ja/curriculum/ir/m26.ir.{json,yaml}
-  src/features/languages/ja/curriculum/m26-neo.ts
-  src/features/lesson/data/mockLessons.ts
-  src/shared/domain/mockCourse.{ts,test.ts}
-  ```
-  Anything OUTSIDE that list at commit time is either mine or a surprise —
-  look before staging it.
-- **NEXT after m26 lands**, in this order:
-  1. `node scripts/compile-ir.mjs m26 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
-     — the m26 row must read `findings = —`; `systemic` may be 1.
+- **DONE and committed: m11–m26.** QA verdict SHIP for m20–m25; m26's QA is
+  running now. Remaining N5 points: **9** — three each in m27, m28, m29, per
+  the assignment ledger. Suite 7868 passing, audit row m26 `findings = —`.
+- **IN FLIGHT, two agents dispatched together:**
+  1. Sonnet QA on m26's three review lessons + challenge ONLY (Spencer's
+     scoping). Read its verdict before treating m26 as closed — the commit is
+     already in, so a FIX verdict means a follow-up commit, not a revert.
+  2. One authoring agent on **m27** (spine tile s23, "Explaining:
+     んだ/んです, すぎる, なる"; ledger row `n-desu sugiru ku-ni-naru`). Not
+     committed. Expect its files to mirror m26's exactly:
+     ```
+     docs/context/m27-context.md
+     docs/reports/authoring-audit.md
+     src/features/languages/ja/__tests__/moduleContentLints.ts   (floor recalibration)
+     src/features/languages/ja/curriculum/__tests__/m27-neo.test.ts
+     src/features/languages/ja/curriculum/ir/m27.ir.{json,yaml}
+     src/features/languages/ja/curriculum/m27-neo.ts
+     src/features/lesson/data/mockLessons.ts
+     src/shared/domain/mockCourse.{ts,test.ts}
+     ```
+     Plus `src/pub/tts`, and possibly `moduleCompiler.ts` +
+     `boundEnderProduction.test.ts` — んだ/んです and すぎる are BOUND enders,
+     and the brief told it to add them to the `BOUND` list if it registers
+     them as atoms. `courseAtoms.ts` should NOT appear; if it does, read the
+     diff before staging. Anything else is mine or a surprise — look first.
+- **NEXT after m27 lands**, in this order:
+  1. `node scripts/compile-ir.mjs m27 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
+     — the m27 row must read `findings = —`; `systemic` may be 1.
   2. Verify every guard the agent changed is a real false positive, and any
-     tokenization claim, by dumping tiles/`exercisedAtoms` yourself. SIX
+     tokenization claim, by dumping tiles/`exercisedAtoms` yourself. SEVEN
      cycles running the headline claim needed correcting: m20's option count,
      m21's banned tense, m22's "zero て tiles", m23's "した banned
      module-wide", m24's inv-42 ids (they were fine, but only checking
      showed it), m25's "m24 shipped this once" (it was three times, across
-     two modules). Assume the report is directionally right and numerically
-     off.
-  3. Commit m26 (`git add -A` will sweep in anything else uncommitted —
-     stage m26's files explicitly), then
-     `node scripts/authoring-context.mjs m27 > docs/context/m27-context.md`
-  4. Dispatch Sonnet QA on m26 review+challenge ONLY, and the m27 authoring
+     two modules), m26's ください false positive (this one held up — the step
+     dump confirmed a compiler-picked `word_image_mcq` distractor — but it
+     took the dump to know). Assume the report is directionally right and
+     numerically off.
+  3. Commit m27 (`git add -A` will sweep in anything else uncommitted —
+     stage m27's files explicitly), then
+     `node scripts/authoring-context.mjs m28 > docs/context/m28-context.md`
+  4. Dispatch Sonnet QA on m27 review+challenge ONLY, and the m28 authoring
      agent, in ONE message so they run concurrently.
-- **REMAINING:** m26–m29 to finish N5, then m30–m40 for mid-N4. ~1 hour per
-  module cycle, measured.
+- **REMAINING:** m27, m28, m29 to finish N5, then m30–m40 for mid-N4. ~1 hour
+  per module cycle, measured.
+- **m28 EXISTS in the new spine** (tile s24, "Must & should: なきゃ/なければ,
+  ほうがいい"; ledger `nakereba-naranai hou-ga-ii kanji-set-3`). The INDEX
+  landmine "m28 does not exist (m27→m29)" describes the ARCHIVED course only.
+  m29 is tile s25, the N5 capstone.
 
 ### Standing hazards, learned the hard way
 
@@ -144,13 +157,13 @@ arrives as a composition of owned parts rather than a new form.
 
 | | |
 |---|---|
-| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 m23 m24 |
-| N5 grammar points left | **11** of 103 (was 74 at run start) |
-| suite | 7569 passing, 0 failing |
-| translate share | 8.1–13.6% (ceiling 15%); m24 = 9.7% |
+| authored this run | m11 m12 m13 m14 m15 m16 m17 m18 m19 m20 m21 m22 m23 m24 m25 m26 |
+| N5 grammar points left | **9** of 103 (was 74 at run start) — three each in m27, m28, m29 |
+| suite | 7868 passing, 0 failing |
+| translate share | 8.1–13.6% (ceiling 15%); m26 = 10.1% |
 | distinct step types | 10–12 per module (m24 = 10: it introduces no imageable word, so it ships no `word_image_mcq`, and kanji-set-3 is m28's row) |
 | audit findings | **0 module-specific** for every module except m10 (1, its register single-tile builds, by design). The course-wide inv-35 debt now has its OWN column and is no longer counted as a per-module finding — see the audit-signal fix of 2026-07-27. `findings = —` means clean. |
-| QA verdicts | m20 SHIP · m21 SHIP · m22 SHIP (first three clean modules of the run; every earlier module had at least one defect, almost always a compiler bug rather than content) |
+| QA verdicts | m20 SHIP · m21 SHIP · m22 SHIP · m23 SHIP · m24 SHIP · m25 SHIP (six clean modules running; every earlier module had at least one defect, almost always a compiler bug rather than content). m26 QA in flight. **A SHIP verdict is not the same as a clean module** — the はいる mis-gloss and the bound-ender production targets both shipped through a SHIP verdict, and were found later by course-wide scans. QA reads four lessons; the scans read all thirteen. |
 | untaught words shipping as options | **0** |
 | spoken surfaces with no clip | **0** of ~1,700 |
 
