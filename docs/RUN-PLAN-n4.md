@@ -5,63 +5,52 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE (state as of 2026-07-27, after the m23 commit)
+## ⏵ RESUME HERE (state as of 2026-07-27, after the m25 commit)
 
-**Last commit: `75b8504e`. Working tree carries m24, UNCOMMITTED.**
+**Last commit: `d4ff5335`. Working tree carries m26, IN FLIGHT.**
 
-- **DONE and committed:** m11–m23. **m24 is authored and green but NOT
-  committed** — spine tile s21, ledger row `mashou masenka no-ga-jouzu
-  no-ga-heta` cleared, 7569 passing / 0 failing, audit row `m24 | 234 | 9.7% |
-  10 | — | 1`, complexity floor RAISED 0.58 → 0.80. Remaining N5 points: 11.
-- **m24's two guard edits, both verified false positives before changing:**
-  (a) `registerCueGrading`'s POLITE regex had no `ましょう` cell, so it read the
-  polite volitional as PLAIN and flagged three correct "Say politely:" steps —
-  ましょう is the same ます paradigm as ます/ません/ました, no plain form ends in
-  it, so widening the set can only remove false positives; (b) the m24
-  complexity floor was measured on the ARCHIVED old-course m24 (76/91 = .835
-  now). Nothing was weakened.
-- **The tokenizer traps m24 hit, both of the Rule-Zero class:** three potential
-  forms are unusable because their kana already belong to another verb
-  (かう→かえる is 帰る, かく→かける is 掛ける, つく→つける is 付ける), and — one
-  layer down — six verbs cannot take ましょう because their ます-stem is a
-  registered NOUN (する→し 四, くる→き 木, かう→かい 貝, まつ→まち 町, つく→つき
-  月, はなす→はなし 話). ましょう ships as a SUFFIX atom so 「たべましょう」 tiles
-  as たべ+ましょう; 「しましょう」 is registered whole so longest-match beats し.
-  Both lines are machine-checked, the second by reading COMPILED tiles.
-- QA verdicts SHIP for m20, m21, m22; m23 QA dispatched, m24 QA not yet.
-  Gate re-run independently for m23: 7423 passing, audit row `—`,
-  m23 complexity floor RAISED 0.44 → 0.90, no guard weakened.
-- **m23 claim that needed correcting** (the fourth cycle running): the agent
-  reported した "banned module-wide". It is banned from SURFACES, which is the
-  right scope and what its guard actually asserts — but one した tile ships in
-  `ja-m23-neo-review-3-s-5` as a distractor, injected by the `buildTileFloor`
-  backfill from the prior-atom pool. Harmless (下 "below" is taught, and it is
-  never in `correctOrder`), but note the general point: **a module guard over
-  authored surfaces cannot see backfilled tiles.** If a future module needs a
-  token kept out of the tile bank entirely, the guard has to read compiled
-  `tiles`, not the IR.
-- **Audit table now reads `—` for every module m6–m22.** m10's 6 "single-tile
-  builds" were its 6 register beats: the ladder compiles to a `build_sentence`
-  that is a PICKER (choose the politeness variant), so one slot is correct.
-  The compiler now sets `picker: true` and the audit skips those. Content was
-  never affected — verified all 6 ship 4 genuine register siblings.
-- **IN FLIGHT:** one authoring agent on **m23** (spine s22 — "Experience &
-  intent: たことがある, つもり"; ledger owes `koto-ga-aru` `tsumori-desu`
-  `kanji-set-2`). It has NOT been committed. It created a working directory
-  `scratch-m23/` at the repo root — **verify that is gone before committing.**
-- **NEXT after m24 lands**, in this order:
-  1. `node scripts/compile-ir.mjs m24 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
-     — check the m24 row: `findings` must be `—`, `systemic` may be 1.
-  2. Verify any guard the agent changed is a real false positive, and any
-     claim it makes about tokenization, by dumping tiles/`exercisedAtoms`
-     yourself. Four cycles running, the agent's headline claim needed
-     checking (m20's option count, m21's banned tense, m22's "zero て tiles",
-     m23's "した banned module-wide").
-  3. Commit m24, then `node scripts/authoring-context.mjs m25 > docs/context/m25-context.md`
-  4. Dispatch Sonnet QA on m24 review+challenge ONLY, and the m25 authoring
+- **DONE and committed: m11–m25.** QA verdict SHIP for m20–m25 (every module
+  QA'd this run has shipped). Remaining N5 points: ~8. Suite 7719 passing.
+- **IN FLIGHT:** one authoring agent on **m26** (comparisons のほうが /
+  いちばん; ほど is deferred to m37). Not committed.
+- **NEXT after m26 lands**, in this order:
+  1. `node scripts/compile-ir.mjs m26 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
+     — the m26 row must read `findings = —`; `systemic` may be 1.
+  2. Verify every guard the agent changed is a real false positive, and any
+     tokenization claim, by dumping tiles/`exercisedAtoms` yourself. SIX
+     cycles running the headline claim needed correcting: m20's option count,
+     m21's banned tense, m22's "zero て tiles", m23's "した banned
+     module-wide", m24's inv-42 ids (they were fine, but only checking
+     showed it), m25's "m24 shipped this once" (it was three times, across
+     two modules). Assume the report is directionally right and numerically
+     off.
+  3. Commit m26 (`git add -A` will sweep in anything else uncommitted —
+     stage m26's files explicitly), then
+     `node scripts/authoring-context.mjs m27 > docs/context/m27-context.md`
+  4. Dispatch Sonnet QA on m26 review+challenge ONLY, and the m27 authoring
      agent, in ONE message so they run concurrently.
-- **REMAINING:** m25–m29 to finish N5 (11 grammar points), then m30–m40 for
-  mid-N4. ~1 hour per module cycle, measured.
+- **REMAINING:** m26–m29 to finish N5, then m30–m40 for mid-N4. ~1 hour per
+  module cycle, measured.
+
+### Standing hazards, learned the hard way
+
+- **A check that matches nothing looks exactly like a check that passes.**
+  Rule Zero (never substring-match Japanese) is one instance; the other is
+  reading a field that does not exist. `speaking` keeps its answer in
+  `targetPhrase`, `translate` in `acceptedAnswers` (an ARRAY), builds in
+  `tiles`/`correctOrder`. There is no `targetSentence` on either. I shipped a
+  course-wide scan on `targetSentence` that reported clean while three
+  defects were live. Assert a non-zero scanned count in every guard.
+- **A module guard over authored surfaces cannot see compiler-generated
+  content.** Two instances: `buildTileFloor` backfills distractor tiles the
+  IR never wrote (m23's した), and the filler generator draws production
+  targets from the review pool (m23/m24's bound enders). Guard COMPILED
+  output when it matters.
+- **`COMPLEXITY_FLOORS` values for un-authored modules were measured on the
+  ARCHIVED old course** and are meaningless for the neo module. Every one of
+  m23/m24/m25 had to be raised. Check before trusting, and never lower.
+- Stale docs describe archived modules by the same id — the old m26 was a
+  "problems" module, not comparisons. Prefer the spine over prose.
 
 Brief boilerplate that must stay in every authoring brief: the carrier-fatigue
 list, "run TTS in the FOREGROUND, no watcher shells", "if a guard fires assume
