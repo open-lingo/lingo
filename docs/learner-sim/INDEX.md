@@ -5,8 +5,8 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 
 | # | module | title | lessons | steps |
 | --- | --- | --- | --- | --- |
-| 1 | [m1](m1.md) | The first 46 sounds | 31 | 433 |
-| 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 438 |
+| 1 | [m1](m1.md) | The first 46 sounds | 31 | 434 |
+| 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 440 |
 | 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 7 | 155 |
 | 4 | [m4](m4.md) | 👉 Possession & pointing: の + これ/それ/あれ | 12 | 245 |
 | 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 12 | 242 |

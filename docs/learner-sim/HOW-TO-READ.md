@@ -72,6 +72,24 @@ whether the rule was understood rather than memorised.
 **`symbol_trace`** — handwriting practice.
 **`row_test`** — a gate at the end of a kana row; must be passed to continue.
 
+## Kanji
+
+The course writes eligible words in KANJI once they unlock, with the kana
+floating above them (furigana) while the word is still inside its grace
+window. Where a step shows Japanese in kanji you will see a line:
+
+    [as written: 三(みっ)つ ください]
+
+`surface(reading)` means furigana is floating — you can read it. A bare kanji
+with no bracket means the window has closed and the course expects you to read
+it cold. Kanji starts appearing around m9 and builds from there.
+
+This line was MISSING from the first three walks of this course, because the
+emitter stripped the annotation layer that carries it. A learner concluded the
+course had never once shown a kanji and that three modules were lying about a
+furigana window. They were not. If you find yourself about to report that
+nothing has taught you kanji, check that these lines are present first.
+
 ## What the learner does NOT get
 
 No answer key, no per-word glosses inside a Japanese sentence, no romaji

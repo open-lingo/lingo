@@ -58,6 +58,43 @@ function shuffle<T>(items: T[], seedText: string): T[] {
 
 const LETTERS = "ABCDEFGH";
 
+/**
+ * An annotation array as the learner SEES it.
+ *
+ * Annotations were dropped wholesale by the first version of this emitter,
+ * on the grounds that they carry readings and per-word glosses. They also
+ * carry `surface` — and `surface` is where the kanji lives, because
+ * `applyKanjiSurfaces` rewrites the display layer and deliberately never
+ * touches `targetPhrase`/`transcript`/tiles (so a kanji can never desync the
+ * TTS key or the grader). Stripping annotations therefore hid EVERY kanji in
+ * the course: 1,852 annotated segments carry one, from m9 on.
+ *
+ * The cost of that was a whole simulated learner concluding, in its most
+ * serious finding, that "no kanji has ever appeared in a Japanese sentence
+ * anywhere in m1-m29" and that three modules were lying to it about a
+ * furigana window that had never existed. The course was right and this file
+ * was wrong (2026-07-27).
+ *
+ * Furigana is shown exactly when the renderer shows it: while the window is
+ * open, or — for hand-authored segments — whenever the reading differs from
+ * the surface. `gloss` stays hidden; per-word English is a crutch the learner
+ * does not get for free.
+ */
+function renderAnnotation(ann: unknown): string {
+  if (!Array.isArray(ann)) return "";
+  return ann
+    .map((raw) => {
+      const s = raw as { surface?: string; reading?: string; furiganaWindowOpen?: boolean };
+      const surface = s.surface ?? "";
+      const reading = s.reading ?? "";
+      const floats =
+        s.furiganaWindowOpen === true ||
+        (s.furiganaWindowOpen === undefined && reading !== "" && reading !== surface);
+      return floats && reading !== surface ? `${surface}(${reading})` : surface;
+    })
+    .join("");
+}
+
 function optionTexts(step: Rec): string[] {
   const raw = step.options;
   if (!Array.isArray(raw)) return [];
@@ -79,7 +116,11 @@ function renderChoices(step: Rec, id: string): string {
 function renderStep(step: Rec, n: number): string {
   const id = String(step.id ?? `step-${n}`);
   const t = String(step.type);
-  const L = (s: string) => `${n}. [${t}] ${s}`;
+  // The written form of whatever Japanese this step SHOWS. `targetAnnotation`
+  // is never rendered — on a build/translate/speaking step it is the answer.
+  const shown = renderAnnotation(step.promptAnnotation) || renderAnnotation(step.transcriptAnnotation);
+  const written = shown && /[一-鿿]/.test(shown) ? `\n   [as written: ${shown}]` : "";
+  const L = (s: string) => `${n}. [${t}] ${s}${written}`;
 
   switch (t) {
     case "grammar_rule": {
