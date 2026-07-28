@@ -336,6 +336,22 @@ function kanaToRomaji(input: string): string {
 const PARTICLES = ["は", "が", "を", "に", "で", "と", "の", "も", "へ", "から", "まで", "か"];
 const NAMES = ["トム", "ミカ", "ケン", "たなか", "タナカ"];
 const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"];
+/**
+ * BOUND ENDERS — real atoms that cannot stand alone as an utterance. They
+ * attach to a preceding predicate, so a filler slot that asks the learner to
+ * "Say: intend to" and expects 「つもり」 is asking for something no one says.
+ *
+ * Found 2026-07-27 by scanning every compiled production target course-wide:
+ * m23 shipped 「つもり」 twice and m24 shipped 「ましょう」 once, all as
+ * `speaking` filler. m25 caught it in its own pool and pulled its four enders
+ * out by hand — which is the per-module fix, and is why this list exists
+ * instead: the filler generator draws from the pool automatically, so every
+ * future module with a bound ender would ship the same step again.
+ *
+ * Excluded deliberately: しましょう is a complete utterance ("let's do it"),
+ * as are the INTERJ above.
+ */
+const BOUND = ["つもり", "ましょう", "でしょう", "でしょ", "だろう", "かな", "たり"];
 const PUNCT = /[。、？！]/g;
 
 /**
@@ -1431,9 +1447,17 @@ function reviewFiller(
   // distractor.
   const usable = pool.filter(
     (p) =>
-      !PARTICLES.includes(p.kana) && !noTyped.has(p.kana) && !NAMES.includes(p.kana),
+      !PARTICLES.includes(p.kana) &&
+      !noTyped.has(p.kana) &&
+      !NAMES.includes(p.kana) &&
+      !BOUND.includes(p.kana),
   );
-  const fallback = declaredPool.filter((p) => !noTyped.has(p.kana));
+  // `fallback` feeds the same filler slots, so it needs the same exclusion —
+  // filtering only `usable` would just move the bad step to the modules whose
+  // pool is thin enough to fall through.
+  const fallback = declaredPool.filter(
+    (p) => !noTyped.has(p.kana) && !BOUND.includes(p.kana),
+  );
   /**
    * The first atom this lesson has not already drilled in THIS modality.
    * `usable[i % usable.length]` alone re-asked the same word as soon as the
