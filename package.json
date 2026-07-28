@@ -21,7 +21,8 @@
     "test:mobile:shots": "node scripts/mobile-matrix.mjs --serve",
     "test:mobile:snap": "playwright test --project=mobile --grep @snapshot --pass-with-no-tests",
     "test:mobile:update": "playwright test --project=mobile --grep @snapshot --update-snapshots --pass-with-no-tests",
-    "authoring-audit": "vitest run src/features/lesson/dev/authoringAudit.emit.test.ts"
+    "authoring-audit": "vitest run src/features/lesson/dev/authoringAudit.emit.test.ts",
+    "learner-view": "LEARNER_VIEW=1 vitest run src/features/lesson/dev/learnerView.emit.test.ts"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.15.0",

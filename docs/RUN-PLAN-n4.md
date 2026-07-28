@@ -5,39 +5,76 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE (state as of 2026-07-27, after the m28 commit)
+## ⏵ RESUME HERE — THE GOAL CHANGED (Spencer, 2026-07-27, mid-run)
 
-**Last commit: `f26edc9d` (m28). Working tree clean.**
+**N4 IS CANCELLED. Stop at N5.** Spencer's words: *"we should stop at N5
+honestly and then you should run the QA pass sequentially though the whole
+course with one medium or high opus agent, having them simulate a player, the
+learning curve, check for the 'I dont know this word' or 'this is confusing'
+or anything else we might see, feed them the just the data and an example of
+how to interpret each lesson step, and dont expose the correct answer for
+them. simulate literally a person doing the entire course and make sure there
+are no gaps. once we do that and fix the things it sees, then stop the goal
+and then I will go review everything."*
 
-- **DONE and committed: m11–m28.** QA verdicts: SHIP for m20–m25, **FIX for
-  m26 and m27 — both fixed and committed**. Remaining N5 points: **3**, all in
-  m29. Suite **8177 passing**, audit rows m26/m27/m28 `findings = —`.
-- **IN FLIGHT, two agents dispatched together:** Sonnet QA on m28's three
-  review lessons + challenge ONLY, and the **m29** authoring agent — the **N5
-  CAPSTONE** (spine tile s25; ledger `janai-desu yo-emphasis ne-agreement`).
-  m29 is not a normal module: all-new sentences COURSE-wide rather than
-  module-wide, register scaffolding permitted (it and m10 are the only two),
-  mixed-register speed drills, and capstone fail-routing per
-  `docs/concept-type-authoring-guide-2026-07-19.md` ~line 145. It is also the
-  last N5 module, so the comingSoon placeholder loop in `mockCourse.ts` empties
-  out — expect `mockCourse.test.ts` to need real changes, not cosmetic ones.
-- **NEXT after m29 lands:** same loop (compile → tsc → full suite → audit →
-  verify the agent's claims by dumping data yourself → commit → QA on
-  review+challenge). **Then N5 IS COMPLETE** and the run moves to N4: m30–m40,
-  spine in `docs/spine-n4.md` (22 units, m30–m51).
-  **Check m30 before authoring it** — `curriculum/m30.ts` and `m30.test.ts`
-  already exist from a pre-IR era, and `COMPLEXITY_FLOORS.m30 = 0.41` says it
-  was measured at "stage-2 authoring completion (2026-07-17)". Decide whether
-  it is ported to IR or replaced, and say which in the commit.
-- **Never pipe vitest through `tail` and trust the exit code** — the pipe
-  returns tail's status, which is how a real 1-test failure read as EXIT=0
-  here. Redirect to a file and grep the summary line.
-- **QA IS WORTH ITS COST AND THE VERDICT IS NOT THE POINT.** m26 had six
-  consecutive SHIP verdicts behind it and still shipped a challenge lesson that
-  was half recycled; no gate caught it. What came out of that one finding: a
-  fix in m26, the same defect found in m27 before it shipped, a course-wide
-  guard, eleven more modules fixed, and — from m27's QA — a second guard for
-  words debuting as wrong answers.
+### The remaining work, in order
+
+1. **Land m29** (in flight when this was written — the N5 capstone, spine tile
+   s25, ledger `janai-desu yo-emphasis ne-agreement`). Same loop: compile →
+   tsc → full suite → audit → verify the agent's claims by dumping data
+   yourself → commit. Then N5 is COMPLETE.
+2. **Regenerate the learner view** — `npm run learner-view` — so m29 is in it.
+3. **Run the learner simulation** (below).
+4. **Fix what it finds.**
+5. **STOP.** Do not start N4. Spencer reviews from there.
+
+### The learner-simulation harness (built 2026-07-27, ready to use)
+
+- `npm run learner-view` → writes `docs/learner-sim/mN.md`, one file per
+  module, **lessons in course order, answers removed**. Emitter:
+  `src/features/lesson/dev/learnerView.emit.test.ts` (skipped in the normal
+  suite; needs `LEARNER_VIEW=1`).
+- `docs/learner-sim/HOW-TO-READ.md` — the per-step-type interpretation guide
+  Spencer asked for. Give this to the agent.
+- `docs/learner-sim/INDEX.md` — 29 modules, lesson and step counts.
+- **What is redacted, and why it matters:** option ids are stripped (the
+  correct option's id is literally `"correct"` in the compiled data), options
+  and tiles are shuffled deterministically (tiles ship answer-first),
+  `match_pairs` columns are shuffled independently (the `pairs` array IS the
+  answer key), per-token readings/glosses are dropped, `explanation` and the
+  post-mistake `reactiveGrammarTip` are dropped. Rule cards are kept WHOLE —
+  that is the teaching, and the question is whether it suffices.
+
+### How to run it — ONE agent, sequential, cumulative
+
+The whole course is ~1.6 MB of learner view (~400k tokens), so it does not fit
+in one context. Preserve the SEQUENCE, which is the part that matters: one
+learner persona walking forward, carrying what it has learned.
+
+- Agent: **Opus**, one at a time, never parallel — a parallel fan-out would
+  destroy the learning curve this is meant to measure.
+- State lives on disk, not in context: the agent maintains
+  `docs/learner-sim/STATE.md` (what it has been taught so far: grammar points,
+  vocabulary it can read, register rules) and appends to
+  `docs/learner-sim/FINDINGS.md` (module, lesson, step, what a learner cannot
+  do and why).
+- When a run approaches its context limit it writes STATE.md and stops with a
+  handoff; the next agent reads STATE.md and continues from that module. Same
+  learner, new context — not a new learner.
+- Tell it to move briskly through m1/m2 (kana drills, 62 lessons) and spend
+  its attention on m3–m29.
+- **It must never be given the answers.** Do not paste IR files into its
+  prompt, do not let it read `curriculum/ir/*` or `mockLessons` — the whole
+  finding is worthless if it has seen the key. Its inputs are the
+  `docs/learner-sim/*.md` files and nothing else.
+
+### What counts as a finding
+
+A word used before it is taught. A rule card that does not cover what the
+beats then ask. A step answerable only by guessing. An English prompt with two
+defensible Japanese answers where only one is accepted. A jump in difficulty
+with no bridge. Anything a real person would hit and say "I don't know this
+word" or "this is confusing".
 
 ### Standing hazards, learned the hard way
 
