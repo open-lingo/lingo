@@ -19,6 +19,12 @@ and then I will go review everything."*
 
 ### The remaining work, in order
 
+**N5 IS COMPLETE.** m29 landed 2026-07-27 (`d8e1dadb`) — m11 through m29
+authored this run, 8,333 tests passing, every audit row `findings = —`, all
+103 registry grammar points now carry a tagged rule card somewhere in the
+course. The learner simulation is RUNNING (one Opus agent, sequential).
+
+
 1. **Land m29** (in flight when this was written — the N5 capstone, spine tile
    s25, ledger `janai-desu yo-emphasis ne-agreement`). Same loop: compile →
    tsc → full suite → audit → verify the agent's claims by dumping data
@@ -1284,6 +1290,26 @@ elsewhere" list, not a debt that later modules can pay off.
 the audit working as intended, not a regression.
 
 ### Carried debt (batch later, do not derail a module for these)
+
+- **CAPSTONE FAIL-ROUTING IS WIRED TO A TABLE THAT IS MOSTLY WRONG** (found by
+  the m29 agent, 2026-07-27; independently re-measured and confirmed in
+  direction). `src/features/lesson/data/n5-grammar-points.json` carries a
+  `module` column that is ARCHIVED attribution: for the large majority of ids
+  it names a different module from the one whose IR actually teaches the point
+  (`n-desu` says m26, taught in m27; `masenka` says m23, taught in m24;
+  `masu-past` says m10, taught in m11). Routing a failed capstone beat through
+  it would send the learner to the wrong module most of the time. Separately,
+  the concept-type guide names `conceptType` as the other routing input and
+  **0 of 103 entries carry one**.
+  Deliberately NOT fixed with the module: the correct owner is derivable, but
+  m3–m5 are hand-written TS rather than IR, and `grammarSrs`,
+  `grammarReviewIndex`, `grammarReviewPools` and `trainerRegistry` all read
+  `p.module` as an ordering key — re-keying it is a systems change, not an
+  authoring one. Both gaps are pinned in `m29-neo.test.ts` so fixing them
+  breaks that test loudly and on purpose.
+  **My exact count and the agent's disagree** (94 of 116 vs 74 of 103) because
+  re-teach cards make "which module owns this" order-dependent; the direction
+  is not in doubt and the fix needs the ownership rule defined first.
 
 - ~~m8–m10 dialogue speaker labels are kana → male speakers got the Nanami
   voice.~~ FIXED 2026-07-27, and not the way it was reported: the invariant
