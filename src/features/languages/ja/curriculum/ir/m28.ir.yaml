@@ -484,7 +484,7 @@ lessons:
       - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえなきゃ。", en: "I have to learn the words, because I've got a class tomorrow", exercises: [kara-because, nakereba-naranai, ga-existence], mode: build }
       - { kind: sentence, ja: "わからないから せんせいに きかなくちゃ。", en: "I have to ask the teacher, because I don't understand", exercises: [kara-because, nakereba-naranai, nai-form], mode: build }
       - { kind: sentence, ja: "びょうきだから やさいを たべなきゃ。", en: "I have to eat vegetables, because I'm ill", exercises: [kara-because, nakereba-naranai, desu-copula], mode: build }
-      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [kara-because, nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every day", exercises: [kara-because, nakereba-naranai, wa-topic], mode: build }
       - { kind: sentence, ja: "だいがくに はいる まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I get into university", exercises: [kara-because, nakereba-naranai, mae-ni], mode: build }
       - { kind: sentence, ja: "しごとが いそがしいから ばんも はたらかなきゃ。", en: "I have to work every evening, because work is busy", exercises: [kara-because, nakereba-naranai, frequency-adverbs], mode: listening }
       - { kind: sentence, ja: "まいにち はたらかなきゃ。", en: "I have to work every day", exercises: [kara-because, nakereba-naranai], mode: translate }
@@ -518,7 +518,7 @@ lessons:
       - { kind: sentence, ja: "びょうきだから やさいを たべなきゃ。", en: "I have to eat vegetables, because I'm ill", exercises: [kara-because, desu-copula], mode: build }
       - { kind: sentence, ja: "まいにち はたらかなきゃ。", en: "I have to work every day", exercises: [nakereba-naranai], mode: translate }
       - { kind: listening-comp, audio: "あした かいしゃに いかなければ ならない。", answer: "I have to go to the office tomorrow", distractors: ["I have to go to school tomorrow", "I'm not going to the office tomorrow", "I have to go to the office every day"], exercises: [nai-form, nakereba-naranai] }
-      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every day", exercises: [nakereba-naranai, wa-topic], mode: build }
       - { kind: sentence, ja: "だいがくに はいる まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I get into university", exercises: [kara-because, mae-ni], mode: build }
       - kind: dialogue
         lines:
@@ -751,7 +751,7 @@ lessons:
       - { kind: particle-cloze, stem: "あそびたいけど ", tail: "。", answer: "はたらかなきゃ", options: ["はたらかなきゃ", "はたらかなければ", "はたらく"], en: "I want to play, but I have to work", explanation: "はたらかなければ is only half of the grammar and needs ならない behind it, and plain はたらく just says that you work rather than that you have to." }
       - { kind: sentence, ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back", exercises: [kanji-set-3, mae-ni], mode: build }
       - { kind: listening-comp, audio: "にくより さかなを たべた ほうが いい。", answer: "You'd better eat fish rather than meat", distractors: ["You'd better eat meat rather than fish", "You'd better not eat fish or meat", "You'd better buy fish rather than meat"], exercises: [yori-comparison, hou-ga-ii] }
-      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every day", exercises: [nakereba-naranai, wa-topic], mode: build }
       - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
       - { kind: listening-comp, audio: "やさいを たべたくないけど たべなきゃ。", answer: "I don't want to eat vegetables, but I have to", distractors: ["I want to eat vegetables, and I have to", "I don't want to eat vegetables, so I'm not eating them", "I don't want to eat fish, but I have to"], exercises: [v-tai, nakereba-naranai] }
       - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, nai-form], mode: build }

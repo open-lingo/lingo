@@ -1060,7 +1060,7 @@
         {
           "kind": "sentence",
           "ja": "せいとは まいにち がっこうに いかなきゃ。",
-          "en": "A pupil has to go to school every morning",
+          "en": "A pupil has to go to school every day",
           "exercises": [
             "kara-because",
             "nakereba-naranai",
@@ -1325,7 +1325,7 @@
         {
           "kind": "sentence",
           "ja": "せいとは まいにち がっこうに いかなきゃ。",
-          "en": "A pupil has to go to school every morning",
+          "en": "A pupil has to go to school every day",
           "exercises": [
             "nakereba-naranai",
             "wa-topic"
@@ -2877,7 +2877,7 @@
         {
           "kind": "sentence",
           "ja": "せいとは まいにち がっこうに いかなきゃ。",
-          "en": "A pupil has to go to school every morning",
+          "en": "A pupil has to go to school every day",
           "exercises": [
             "nakereba-naranai",
             "wa-topic"
