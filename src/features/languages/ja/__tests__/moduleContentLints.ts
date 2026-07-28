@@ -562,8 +562,17 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // から / けど — which is also how ability is actually spoken, because you say
   // what you can do in order to say what you will do about it. Floor set three
   // sentences below the measurement. Raised, never lowered.
+  // m25 recalibrated 0.71 -> 0.76 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m25; the neo module -- spine tile n13 -- measures
+  // 71/89 = .798. A bare conjecture is three tiles long ("あめでしょう"), which
+  // is exactly the flat texture this gate exists to stop and is all a weather
+  // module will produce if left alone, so nearly every production beat carries
+  // a contrast or a reason on m16's けど / から -- which is also how a forecast
+  // is actually spoken, because you say what the morning will do in order to
+  // say what the evening will do. Floor set three sentences below the
+  // measurement. Raised, never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.80, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
+  m24: 0.80, m25: 0.76, m26: 0.63, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

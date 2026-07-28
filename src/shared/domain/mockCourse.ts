@@ -262,17 +262,17 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m24 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22, s21) are LIVE via the compiler
-    // pipeline — slice them off so the placeholders begin at m25. NB the
+    // m6-m25 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22, s21, n13) are LIVE via the compiler
+    // pipeline — slice them off so the placeholders begin at m26. NB the
     // SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
     // draft-4 swapped them, which is why m14 is n06b and m15 is s11. s22 and
     // s21 are already in shipped order here (m23 = s22, m24 = s21). Only the
     // COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(19).map((t, i) => ({
-      id: `m${i + 25}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(20).map((t, i) => ({
+      id: `m${i + 26}`,
       title: t.title,
-      eyebrow: `Module ${i + 25} · Coming soon`,
+      eyebrow: `Module ${i + 26} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -901,6 +901,38 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m24-neo-challenge", title: "Challenge — everything you can do, and everything you're inviting them to", status: "available" as const },
           ],
           accent: { from: "#f97316", to: "#ea580c" },
+        },
+        {
+          // m25 = spine tile n13, "Conjecture: でしょう/だろう + weather".
+          // でしょう is a sentence-ENDER: it stands behind a finished plain
+          // sentence and turns a claim into an expectation. Three rungs — a
+          // noun drops its だ, an い-adjective changes nothing, a verb changes
+          // nothing — and then the register neighbours: casual でしょ？ asking
+          // a friend to agree, かな wondering out loud, and だろう, which the
+          // learner understands everywhere and says only to themselves
+          // (「なんだろう」). Weather and the four seasons carry it, and L11
+          // measures でしょう against m18's 〜と おもう. はず / かもしれない /
+          // にちがいない belong to m43 and appear nowhere here.
+          id: "m25",
+          title: "Conjecture",
+          eyebrow: "Module 25 · Weather",
+          summary: "「あしたは あめでしょう」 — it'll probably rain tomorrow. でしょう is not a verb ending; it is a word that stands behind a finished sentence and turns a claim into an expectation. A noun drops its だ, an adjective changes nothing, a verb changes nothing. Then the weather it was made for, the four seasons, and the two adverbs that agree with it — たぶん and きっと. Finally the register neighbours: 「あついでしょ？」 asking a friend to agree, 「あした あめかな」 wondering out loud, and だろう, which you will hear everywhere and say only to yourself.",
+          lessons: [
+            { id: "ja-m25-neo-1", title: "「あしたは あめでしょう」 — the ending a forecast is made of", status: "available" as const },
+            { id: "ja-m25-neo-2", title: "「さむいでしょう」 — adjectives take it bare", status: "available" as const },
+            { id: "ja-m25-neo-3", title: "「あめが ふるでしょう」 — verbs take it bare too", status: "available" as const },
+            { id: "ja-m25-neo-review-1", title: "Review — one ending, three things to hang it on", status: "available" as const },
+            { id: "ja-m25-neo-5", title: "「ふゆは さむいでしょう」 — four seasons, two particles", status: "available" as const },
+            { id: "ja-m25-neo-6", title: "「たぶん あめでしょう」 — how sure, said at the front", status: "available" as const },
+            { id: "ja-m25-neo-7", title: "「あした あめかな」 — wondering, out loud", status: "available" as const },
+            { id: "ja-m25-neo-review-2", title: "Review — seasons, certainty and wondering", status: "available" as const },
+            { id: "ja-m25-neo-9", title: "「なんだろう」 — the one you mostly just hear", status: "available" as const },
+            { id: "ja-m25-neo-10", title: "「あついでしょ？」 — handing the thought over", status: "available" as const },
+            { id: "ja-m25-neo-11", title: "「ふると おもう」 と 「ふるでしょう」 — whose view, or how likely", status: "available" as const },
+            { id: "ja-m25-neo-review-3", title: "Review — every ending, and the one that isn't one", status: "available" as const },
+            { id: "ja-m25-neo-challenge", title: "Challenge — the whole forecast, and how sure you are of it", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

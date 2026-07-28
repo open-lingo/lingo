@@ -1313,6 +1313,43 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // 「たべましょう」 tiles as たべ + ましょう, the ます-stem tile m19's 〜に いく
   // already ships — instead of one whole atom per verb.
   { id: "mashou", kana: "ましょう", romaji: "mashou", meaningEn: "let's ~ (polite suggestion, on the ます-stem)", shortGloss: "let's ~", fromModule: "m24", introducedByLessonId: "ja-m24-neo-10", kind: "vocab", blocked: true, note: "bound suffix — no referent a picture could name" },
+
+  // ── m25 · CONJECTURE (spine tile n13) ────────────────────────────────────
+  //
+  // FIVE rows, and only five. The whole weather/seasons domain (てんき / はれ /
+  // くもり / あめ / あつい / すずしい / あたたかい / はる / なつ / あき / ふゆ /
+  // ふる) already has registry rows under stale old-course m18/m8/m1 tags, so
+  // m25 declares those in its IR `newAtoms` only — the m15-m24 provenance move,
+  // which adds nothing to the course-wide tokenizer and therefore cannot raise
+  // the m16-ので regression class.
+  //
+  // でしょう / でしょ / だろう / きっと had NO row and each was checked against
+  // the whole live corpus first: all four strings occur in ZERO existing
+  // Japanese surfaces (the only でしょう hits in the repo are the hand-authored
+  // `ja-gpool-deshou-*` grammar-review clozes, which are a POOL keyed to this
+  // very grammar point, plus English prose), so registering them cannot
+  // re-tokenize anything that exists.
+  //
+  // かな IS THE RISKY ONE and it was measured, not assumed. The string occurs
+  // inside 520 live surfaces — every いかない, every しずかな / にぎやかな, and
+  // さかな — so the question is whether the longest-match tokenizer can ever
+  // LAND on the か. It cannot: いかない (4) and さかな (3) are atoms that start
+  // earlier and win outright, and a な-adjective run tokenizes as しずか + な
+  // with the pointer already past the か. Verified by dumping every compiled
+  // tile in every IR module before and after adding this row — the diff was
+  // empty.
+  //
+  // でしょう is BOUND to the predicate in front of it (inv 41), exactly as m24's
+  // ましょう is bound to a ます-stem, so 「あめでしょう」 tiles as あめ + でしょう
+  // and 「さむいでしょう」 as さむい + でしょう. That is the point: the tile bank
+  // SHOWS the attachment instead of hiding it in one whole-word atom per
+  // predicate. Unlike ましょう the stem is a free word, so the m24 noun-stem trap
+  // (し 四 / き 木 / まち 町) cannot arise here.
+  { id: "deshou", kana: "でしょう", romaji: "deshou", meaningEn: "probably, I expect (conjecture)", shortGloss: "probably", fromModule: "m25", introducedByLessonId: "ja-m25-neo-1", kind: "vocab", blocked: true, note: "bound sentence-ender — no referent a picture could name" },
+  { id: "desho", kana: "でしょ", romaji: "desho", meaningEn: "right? (casual でしょう, checking agreement)", shortGloss: "right?", fromModule: "m25", introducedByLessonId: "ja-m25-neo-10", kind: "vocab", blocked: true, note: "casual contraction of でしょう; longest-match keeps でしょう (4) ahead of it (3)" },
+  { id: "darou", kana: "だろう", romaji: "darou", meaningEn: "probably (plain conjecture — recognition)", shortGloss: "probably (plain)", fromModule: "m25", introducedByLessonId: "ja-m25-neo-9", kind: "vocab", blocked: true, note: "recognition only — sentence-final だろう to a listener is blunt/masculine (spine n13)" },
+  { id: "kana-wonder", kana: "かな", romaji: "kana", meaningEn: "I wonder (thinking out loud)", shortGloss: "I wonder", fromModule: "m25", introducedByLessonId: "ja-m25-neo-6", kind: "vocab", blocked: true, note: "sentence-ender — no referent; checked against いかない / さかな / しずかな for retokenization, diff empty" },
+  { id: "kitto", kana: "きっと", romaji: "kitto", meaningEn: "surely, definitely", shortGloss: "surely", fromModule: "m25", introducedByLessonId: "ja-m25-neo-5", kind: "vocab", blocked: true, note: "abstract modal adverb — no honest emoji (the m30 べつに/やっぱり class)" },
 ];
 
 /**
