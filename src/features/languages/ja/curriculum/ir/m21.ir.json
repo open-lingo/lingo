@@ -2905,12 +2905,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "ふたりで コーヒーを よんはい のんだ。",
-          "answer": "The two of us drank four coffees",
+          "audio": "よにんで ちゃを ろっぱい のんだ。",
+          "answer": "The four of us drank six teas",
           "distractors": [
-            "The four of us drank two coffees",
-            "The two of us drank four teas",
-            "The two of us drank six coffees"
+            "The six of us drank four teas",
+            "The four of us drank six coffees",
+            "The four of us drank three teas"
           ],
           "exercises": [
             "counter-nin",

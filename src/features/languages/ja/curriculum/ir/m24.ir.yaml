@@ -729,9 +729,11 @@ lessons:
       - { kind: sentence, ja: "はたちだから おさけが のめるけど きょうは ぎゅうにゅうを のむ。", en: "I'm twenty, so I can drink sake, but today I'll have milk", exercises: [potential-form, kedo, wa-topic, wo-object], mode: build }
       - { kind: sentence, ja: "ひまな とき としょかんで えいがが みられる。", en: "When I'm free, I can watch films at the library", exercises: [potential-rareru, toki, de-action], mode: build }
       - { kind: sentence, ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today", exercises: [nai-form, ga-existence, kara-because], mode: build }
-      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: sentence, ja: "いっしょに およがない？", en: "Say to a friend: Wanna swim together", exercises: [masenka, nai-form], mode: translate }
       - { kind: particle-cloze, stem: "げんきだから だいがくまで ", tail: "。", answer: "あるける", options: ["あるける", "あるく", "あるいて"], en: "I'm well, so I can walk to university", explanation: "あるく moves to the え row and adds る — あるける, I can walk. あるく is the dictionary form and あるいて is the て-form." }
-      - { kind: listening-comp, audio: "きっさてんで おんがくが きこえるから すきだ。", answer: "You can hear music at the coffee shop, so I like it", distractors: ["You can listen to music at the coffee shop if you ask", "I heard music at the coffee shop, so I liked it", "You can't hear music at the coffee shop"], exercises: [mieru-kikoeru, suki-kirai-no] }
+      - { kind: listening-comp, audio: "うちから やまが みえるから ここが すきだ。", answer: "You can see the mountains from my house, so I like it here", distractors: ["You can see the sea from my house, so I like it here", "I looked at the mountains from my house, so I liked it here", "You can't see the mountains from my house"], exercises: [mieru-kikoeru, suki-kirai-no] }
       - { kind: listening-comp, audio: "あした いっしょに としょかんに いきましょう。", answer: "Let's go to the library together tomorrow", distractors: ["Won't you go to the library with me tomorrow?", "I can go to the library tomorrow", "We went to the library together yesterday"], exercises: [mashou, ni-location] }
       - { kind: sentence, ja: "ぜんぜん りょうりが できないけど かいものは できる。", en: "I can't cook at all, but I can do the shopping", exercises: [nai-form, dekiru, kedo, wa-topic], mode: build }
       - kind: dialogue

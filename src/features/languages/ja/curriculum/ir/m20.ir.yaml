@@ -685,7 +685,9 @@ lessons:
       - { kind: sentence, ja: "でんしゃと バスと どっちが やすいと おもう？", en: "Say to a friend: Which do you think is cheaper, the train or the bus", exercises: [to-and, to-omoimasu], mode: translate }
       - { kind: particle-cloze, stem: "この くつの ほうが あの くつ", tail: " たかい。", answer: "より", options: ["より", "を", "から"], en: "These shoes are more expensive than those shoes", explanation: "より marks the pair's loser and sits straight after it. を marks a thing you act on and から marks a starting point." }
       - { kind: listening-comp, audio: "みせは としょかんより にぎやかだ。", answer: "The shop is livelier than the library", distractors: ["The library is livelier than the shop", "The shop is quieter than the library", "The shop is farther than the library"], exercises: [wa-topic, na-adj-present] }
-      - { kind: listening-comp, audio: "たまごの ほうが ももより やすい。", answer: "Eggs are cheaper than peaches", distractors: ["Peaches are cheaper than eggs", "Eggs are more expensive than peaches", "Eggs are cheaper than cucumbers"], exercises: [yori-comparison, counter-ko] }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: listening-comp, audio: "きゅうりより たまごの ほうが たかいから きゅうりを よんこ かう。", answer: "Eggs are more expensive than cucumbers, so I'll buy four cucumbers", distractors: ["Cucumbers are more expensive than eggs, so I'll buy four eggs", "Eggs are cheaper than cucumbers, so I'll buy four cucumbers", "Eggs are more expensive than cucumbers, so I'll buy two cucumbers"], exercises: [yori-comparison, counter-ko] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "でんしゃと ちかてつと どちらが やすいですか。", en: "Which is cheaper, the train or the subway?" }

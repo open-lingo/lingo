@@ -677,8 +677,10 @@ lessons:
       - { kind: sentence, ja: "ミカは もう たべたと きくけど わからない。", en: "I hear Mika has already eaten, but I don't know", exercises: [ta-form, ni-location, kedo], mode: build }
       - { kind: sentence, ja: "たなかは せんせいだと おもう。", en: "Say to a friend: I think Tanaka is a teacher", exercises: [desu-copula, to-omoimasu], mode: translate }
       - { kind: particle-cloze, stem: "ミカは すしを ", tail: "と おもう。", answer: "たべる", options: ["たべる", "たべます", "たべた"], en: "I think Mika will eat sushi", explanation: "the quoted clause is always plain, so たべます never goes there. たべた would put the eating in the past." }
-      - { kind: listening-comp, audio: "この えいがは たのしいと おもう？", answer: "Do you think this movie is fun?", distractors: ["Is this movie fun?", "Do you think this movie is difficult?", "Who thinks this movie is fun?"], exercises: [ka-question, to-omoimasu] }
-      - { kind: listening-comp, audio: "ミカに あした いくと いう。", answer: "I'll tell Mika I'm going tomorrow", distractors: ["Mika says she's going tomorrow", "I'll talk with Mika tomorrow", "I hear Mika is going tomorrow"], exercises: [ni-location, to-quotation] }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: listening-comp, audio: "ミカは きょう くると おもう？", answer: "Do you think Mika is coming today?", distractors: ["Is Mika coming today?", "Do you think Mika came today?", "Who thinks Mika is coming today?"], exercises: [ka-question, to-omoimasu] }
+      - { kind: listening-comp, audio: "ケンに きょう はたらくと いう。", answer: "I'll tell Ken I'm working today", distractors: ["Ken says he's working today", "I'll talk with Ken today", "I hear Ken is working today"], exercises: [ni-location, to-quotation] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この じゅぎょうは どうですか。", en: "How is this class?" }

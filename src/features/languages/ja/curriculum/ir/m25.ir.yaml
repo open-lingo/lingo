@@ -728,7 +728,9 @@ lessons:
       - { kind: sentence, ja: "あきは すずしいでしょ？", en: "Say to a friend: Autumn's cool, right", exercises: [deshou-casual, ni-time], mode: build }
       - { kind: sentence, ja: "きっと なつは あきより あついと おもう。", en: "I think summer's definitely hotter than autumn", exercises: [to-omoimasu, tabun-kitto, yori-comparison, ni-time], mode: build }
       - { kind: sentence, ja: "あめが ふるから ミカは バスで くるでしょう。", en: "It's going to rain, so Mika will probably come by bus", exercises: [deshou-verb, ga-existence, kara-because, de-action], mode: build }
-      - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "It'll probably rain tomorrow", exercises: [tabun-kitto, deshou], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: sentence, ja: "ふゆは たぶん ゆきでしょう。", en: "It'll probably snow in winter", exercises: [tabun-kitto, deshou], mode: translate }
       - { kind: particle-cloze, stem: "あしたの てんきは ", tail: "でしょう。", answer: "はれ", options: ["はれ", "くもり", "あめ"], en: "Tomorrow's weather will probably be clear", explanation: "はれ is clear weather. くもり is cloud cover and あめ is rain — three different forecasts, one ending." }
       - { kind: listening-comp, audio: "ふゆの やまは きっと さむいでしょう。", answer: "The mountains in winter will definitely be cold", distractors: ["The mountains in winter are probably cold", "The mountains in winter were cold", "I wonder if the mountains are cold in winter"], exercises: [tabun-kitto, deshou-adjective] }
       - { kind: listening-comp, audio: "あきに かぞくと りょこうを するでしょう。", answer: "I'll probably travel with my family in autumn", distractors: ["I travelled with my family in autumn", "I want to travel with my family in autumn", "I wonder whether I'll travel with my family in autumn"], exercises: [deshou-verb, ni-time] }

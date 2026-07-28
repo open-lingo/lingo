@@ -2842,12 +2842,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "たまごの ほうが ももより やすい。",
-          "answer": "Eggs are cheaper than peaches",
+          "audio": "きゅうりより たまごの ほうが たかいから きゅうりを よんこ かう。",
+          "answer": "Eggs are more expensive than cucumbers, so I'll buy four cucumbers",
           "distractors": [
-            "Peaches are cheaper than eggs",
-            "Eggs are more expensive than peaches",
-            "Eggs are cheaper than cucumbers"
+            "Cucumbers are more expensive than eggs, so I'll buy four eggs",
+            "Eggs are cheaper than cucumbers, so I'll buy four cucumbers",
+            "Eggs are more expensive than cucumbers, so I'll buy two cucumbers"
           ],
           "exercises": [
             "yori-comparison",

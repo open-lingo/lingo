@@ -2914,8 +2914,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい とけいが ほしい。",
-          "en": "Say to a friend: I want a new watch",
+          "ja": "ちいさい じてんしゃが ほしい。",
+          "en": "Say to a friend: I want a small bicycle",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -3152,6 +3152,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",

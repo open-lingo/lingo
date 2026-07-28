@@ -594,7 +594,9 @@ lessons:
       - { kind: sentence, ja: "がくせいの とき きいた うたを いま きいている。", en: "I'm listening to the song I heard when I was a student", exercises: [toki, ta-form, te-iru], mode: build }
       - { kind: sentence, ja: "ごはんを たべてから ミカが すきな きっさてんで ちゃを のむ。", en: "After eating, I drink tea at the coffee shop Mika likes", exercises: [te-kara, ga-existence, na-adj-present, de-action], mode: build }
       - { kind: sentence, ja: "いそがしい とき えいがを みる じかんが ない。", en: "When I'm busy, there is no time to watch movies", exercises: [toki, dictionary-form, nai-existence], mode: build }
-      - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki, de-action], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: sentence, ja: "いえで うたを きく ことが すきだ。", en: "Say to a friend: I like listening to music at home", exercises: [no-ga-suki, de-action], mode: translate }
       - { kind: particle-cloze, stem: "きのう ", tail: " えいがは おもしろい。", answer: "みた", options: ["みた", "みる", "みます"], en: "The movie I saw yesterday is interesting", explanation: "the clause is in the plain past — みた. みます could never sit inside a clause." }
       - { kind: listening-comp, audio: "ミカが すきな みせで あたらしい くつを かった。", answer: "I bought new shoes at the shop Mika likes", distractors: ["Mika bought new shoes at the shop", "I bought new shoes for Mika", "I like the shoes Mika bought"], exercises: [ga-existence, na-adj-present, de-action] }
       - { kind: listening-comp, audio: "じかんが ある とき ほんを みる ことが すきだ。", answer: "When I have time, I like looking at books", distractors: ["I have no time to look at books", "When I had time, I looked at a book", "I like buying books when I have time"], exercises: [toki, no-ga-suki] }

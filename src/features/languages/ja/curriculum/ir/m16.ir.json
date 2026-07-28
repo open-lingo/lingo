@@ -2936,8 +2936,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいけど かいたい。",
-          "en": "Say to a friend: It's expensive, but I want to buy it",
+          "ja": "さむいけど うみに いきたい。",
+          "en": "Say to a friend: It's cold, but I want to go to the sea",
           "exercises": [
             "kedo",
             "v-tai"
@@ -3172,6 +3172,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",

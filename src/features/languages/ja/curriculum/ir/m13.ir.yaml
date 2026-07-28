@@ -611,7 +611,9 @@ lessons:
       - { kind: sentence, ja: "ミカの ゆうめいな みせの りょうりが たべたい。", en: "I want to eat the food at Mika's famous shop", exercises: [no-possession, na-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きのう ケンと にぎやかな えきで かいものが したかった。", en: "I wanted to go shopping with Ken at the lively station yesterday", exercises: [na-adj-present, de-action, i-adj-past], mode: build }
       - { kind: sentence, ja: "なつやすみに ともだちと うみに いきたい。", en: "I want to go to the sea with a friend in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }
-      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "Say to a friend: I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: sentence, ja: "ちいさい じてんしゃが ほしい。", en: "Say to a friend: I want a small bicycle", exercises: [i-adj-present, ga-hoshii], mode: translate }
       - { kind: sentence, ja: "わたしは あさ ちゃを のむのが すきだ。", en: "I like drinking tea in the morning", exercises: [wa-topic, wo-object, no-ga-suki], mode: build }
       - { kind: sentence, ja: "ミカの あたらしい ふくが みたい。", en: "I want to see Mika's new clothes", exercises: [no-possession, i-adj-present, v-tai], mode: build }
       - { kind: particle-cloze, stem: "きのうは すしが ", tail: "。", answer: "たべたくなかった", options: ["たべたくなかった", "たべたくない", "たべたかった"], en: "I didn't want to eat sushi yesterday", explanation: "The past negative stacks both endings: くない for not, かった for was." }

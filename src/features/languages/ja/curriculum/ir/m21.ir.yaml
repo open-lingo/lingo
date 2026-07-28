@@ -710,7 +710,9 @@ lessons:
       - { kind: sentence, ja: "すみません コーヒーと ちゃを ください。", en: "Excuse me — a coffee and a tea please", exercises: [kudasai, to-and], mode: build }
       - { kind: sentence, ja: "ミカの おねえさんは がくせいだ。", en: "Say to a friend: Mika's older sister is a student", exercises: [family-register, no-possession], mode: translate }
       - { kind: particle-cloze, stem: "いけ", tail: " かわで あそぶ。", answer: "や", options: ["や", "を", "から"], en: "I play at ponds and rivers and places like that", explanation: "や joins the places you are naming and leaves the list open. を marks a thing you act on and から a starting point." }
-      - { kind: listening-comp, audio: "ふたりで コーヒーを よんはい のんだ。", answer: "The two of us drank four coffees", distractors: ["The four of us drank two coffees", "The two of us drank four teas", "The two of us drank six coffees"], exercises: [counter-nin, counter-hai] }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: listening-comp, audio: "よにんで ちゃを ろっぱい のんだ。", answer: "The four of us drank six teas", distractors: ["The six of us drank four teas", "The four of us drank six coffees", "The four of us drank three teas"], exercises: [counter-nin, counter-hai] }
       - { kind: listening-comp, audio: "ちちは おさけが すきだけど ははは ちゃが すきだ。", answer: "My father likes sake, but my mother likes tea", distractors: ["My father likes tea, but my mother likes sake", "Mika's father likes sake, but her mother likes tea", "My father likes sake and my mother likes it too"], exercises: [suki-kirai-no, kedo] }
       - kind: dialogue
         lines:

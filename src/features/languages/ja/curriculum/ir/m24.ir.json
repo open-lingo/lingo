@@ -2995,8 +2995,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いっしょに たべない？",
-          "en": "Say to a friend: Wanna eat together",
+          "ja": "いっしょに およがない？",
+          "en": "Say to a friend: Wanna swim together",
           "exercises": [
             "masenka",
             "nai-form"
@@ -3018,12 +3018,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "きっさてんで おんがくが きこえるから すきだ。",
-          "answer": "You can hear music at the coffee shop, so I like it",
+          "audio": "うちから やまが みえるから ここが すきだ。",
+          "answer": "You can see the mountains from my house, so I like it here",
           "distractors": [
-            "You can listen to music at the coffee shop if you ask",
-            "I heard music at the coffee shop, so I liked it",
-            "You can't hear music at the coffee shop"
+            "You can see the sea from my house, so I like it here",
+            "I looked at the mountains from my house, so I liked it here",
+            "You can't see the mountains from my house"
           ],
           "exercises": [
             "mieru-kikoeru",

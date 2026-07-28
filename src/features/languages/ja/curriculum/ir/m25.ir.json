@@ -2940,8 +2940,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした たぶん あめでしょう。",
-          "en": "It'll probably rain tomorrow",
+          "ja": "ふゆは たぶん ゆきでしょう。",
+          "en": "It'll probably snow in winter",
           "exercises": [
             "tabun-kitto",
             "deshou"

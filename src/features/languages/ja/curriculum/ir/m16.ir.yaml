@@ -667,7 +667,9 @@ lessons:
       - { kind: sentence, ja: "アメリカから ともだちが くるので えきまで いく。", en: "A friend is coming from America, so I'll go as far as the station", exercises: [kara-origin, node-because, made-until], mode: build }
       - { kind: sentence, ja: "さむかったけど うみに いく ともだちを まつ。", en: "It was cold, but I'll wait for the friend going to the sea", exercises: [kedo, dictionary-form, i-adj-past], mode: build }
       - { kind: sentence, ja: "じかんが なかったので きっぷを いちまい かいませんでした。", en: "Say politely: I had no time, so I didn't buy a ticket", exercises: [node-because, masu-past-negative, counter-mai], mode: build }
-      - { kind: sentence, ja: "たかいけど かいたい。", en: "Say to a friend: It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      - { kind: sentence, ja: "さむいけど うみに いきたい。", en: "Say to a friend: It's cold, but I want to go to the sea", exercises: [kedo, v-tai], mode: translate }
       - { kind: particle-cloze, stem: "しずか", tail: " ここが すきだ。", answer: "なので", options: ["なので", "だので", "ので"], en: "It's quiet, so I like it here", explanation: "な-adjectives take な in front of ので — だ belongs to から and けど, and bare ので is missing the な." }
       - { kind: listening-comp, audio: "ミカは くじから ごじまで はたらくので こない。", answer: "Mika works from nine to five, so she isn't coming", distractors: ["Mika worked from nine to five, so she didn't come", "Mika comes at five because she finishes work", "Mika isn't working, so she's coming at nine"], exercises: [made-until, node-because, nai-form] }
       - { kind: listening-comp, audio: "ゆきだったから きっぷを いちまいも かわなかった。", answer: "It was snowing, so I didn't buy even one ticket", distractors: ["It was snowing, so I bought one ticket", "It's snowing, so I won't buy a ticket", "I bought one ticket in the snow"], exercises: [kara-because, counter-mai, nai-form] }

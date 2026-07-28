@@ -2705,8 +2705,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "うみで およぐ ことが すきだ。",
-          "en": "Say to a friend: I like swimming in the sea",
+          "ja": "いえで うたを きく ことが すきだ。",
+          "en": "Say to a friend: I like listening to music at home",
           "exercises": [
             "no-ga-suki",
             "de-action"
@@ -2936,6 +2936,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",

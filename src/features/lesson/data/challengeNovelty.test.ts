@@ -23,7 +23,7 @@ import { getMockLessonContent, getAvailableMockLessonIds } from "./mockLessons";
  * lesson 7 and then HEARING it in the challenge is a different act. What is not
  * legitimate is the third exposure — taught, reviewed, and then handed back as
  * the module's stretch. Fifteen single-prior-appearance cases are deliberately
- * NOT flagged; the eleven below all appeared in two or more other lessons.
+ * NOT flagged; the eleven that were rewritten all appeared in two or more.
  *
  * The unit is what the LEARNER IS ASKED TO PRODUCE OR HEAR — `targetPhrase`,
  * `acceptedAnswers`, `correctOrder`, `transcript`. Not `jaSurfaces`: scanning
@@ -54,24 +54,12 @@ function learnerJa(step: unknown): string[] {
 }
 
 /**
- * Known debt as of 2026-07-27, keyed `<module> <stepId>`. These eleven shipped
- * before the rule was mechanical. This list may SHRINK and must never grow: a
- * new entry means a module was authored with a stale challenge beat, and the
- * fix is the sentence, not the list.
+ * EMPTY, and it stays empty. All eleven shipped-before-the-rule cases were
+ * rewritten on 2026-07-27 — one sentence each, grammar tags kept. An entry
+ * appearing here again means a module was authored with a stale challenge
+ * beat, and the fix is the sentence, not the list.
  */
-const KNOWN_DEBT = new Set([
-  "m13 ja-m13-neo-challenge-s-6",
-  "m15 ja-m15-neo-challenge-s-7",
-  "m16 ja-m16-neo-challenge-s-7",
-  "m18 ja-m18-neo-challenge-lc-9",
-  "m18 ja-m18-neo-challenge-lc-10",
-  "m20 ja-m20-neo-challenge-lc-9",
-  "m21 ja-m21-neo-challenge-lc-8",
-  "m23 ja-m23-neo-challenge-s-7",
-  "m24 ja-m24-neo-challenge-lc-9",
-  "m24 ja-m24-neo-challenge-s-7",
-  "m25 ja-m25-neo-challenge-s-7",
-]);
+const KNOWN_DEBT = new Set<string>([]);
 
 describe("challenge lessons are new material", () => {
   it("no challenge sentence has already been met in two other lessons", () => {

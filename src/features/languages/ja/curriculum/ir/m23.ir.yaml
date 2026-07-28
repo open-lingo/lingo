@@ -696,7 +696,13 @@ lessons:
       - { kind: sentence, ja: "にほんに いった とき さくらを みたけど しゃしんが ない。", en: "When I got to Japan I saw cherry blossom, but I have no photo of it", exercises: [toki, ta-form, kedo, ga-existence], mode: build }
       - { kind: sentence, ja: "ちいさい ホテルに はいる まえに すしを たべる つもりだ。", en: "Before going into a small hotel, I intend to eat sushi", exercises: [mae-ni, tsumori-desu, i-adj-present], mode: build }
       - { kind: sentence, ja: "うみで およいだ ことが ないけど かわで およいだ ことが ある。", en: "I have never swum in the sea, but I have swum in a river", exercises: [nai-existence, koto-ga-aru, kedo], mode: build }
-      - { kind: sentence, ja: "にほんに いった ことが ある。", en: "Say to a friend: I have been to Japan", exercises: [koto-ga-aru], mode: translate }
+      # Replaced 2026-07-27: the original repeated a sentence this module had
+      # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
+      # 「ホテルで はたらいた」 was the first draft and this module's own
+      # untaught-vocab guard rejected it: で + は fuses into では, an atom
+      # taught nowhere. The guard was right. Any verb starting with は is
+      # unusable after で here.
+      - { kind: sentence, ja: "ホテルで ちゃを のんだ ことが ある。", en: "Say to a friend: I have drunk tea at a hotel", exercises: [koto-ga-aru], mode: translate }
       - { kind: particle-cloze, stem: "がいこくで ", tail: " ことが ないから しらない。", answer: "はたらいた", options: ["はたらいた", "はたらく", "はたらいて"], en: "I have never worked abroad, so I don't know", explanation: "こと takes the PLAIN PAST in front of it — はたらいた. はたらく is the dictionary form and はたらいて is the て-form; neither can sit in front of こと." }
       - { kind: listening-comp, audio: "はたらいてから がいこくに いく つもりだ。", answer: "I intend to work first, then go abroad", distractors: ["I intend to go abroad first, then work", "I have worked abroad", "I want to work abroad"], exercises: [te-kara, tsumori-desu] }
       - { kind: listening-comp, audio: "りょこうに いく とき カメラを かう つもりだ。", answer: "When I go travelling, I intend to buy a camera first", distractors: ["When I went travelling, I bought a camera", "I have bought a camera for the trip", "I intend to buy a camera while travelling"], exercises: [toki, tsumori-desu] }
