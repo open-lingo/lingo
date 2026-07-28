@@ -30,6 +30,17 @@ const BOUND_ENDERS = [
   "だろう",
   "かな",
   "たり",
+  // m27 (2026-07-27), added with the module rather than after it. んだ /
+  // んです / なんだ / なんです attach to a finished clause; すぎる / すぎた
+  // attach to a ます-stem or an adjective stem. なる / なった and the seven
+  // 〜すぎる adjective composites are deliberately absent — 「たかすぎる」 is a
+  // complete utterance, so it is a legitimate production target.
+  "んだ",
+  "んです",
+  "なんだ",
+  "なんです",
+  "すぎる",
+  "すぎた",
 ];
 
 /**

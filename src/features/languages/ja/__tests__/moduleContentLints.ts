@@ -581,8 +581,21 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // most beats then hang a reason or a concession on m16's から / けど, which
   // is also how a preference is actually stated. Floor set three sentences
   // below the measurement, per this block's own rule. Raised, never lowered.
+  // m27 recalibrated 0.60 -> 0.71 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m27 — the FOURTH floor in a row to have been
+  // measured on archived content, after m22, m25 and m26. The neo module —
+  // spine tile s23 — measures 66/88 = .750. It sits BELOW its neighbours on
+  // purpose: this module's headline sentences are deliberately short, because
+  // んだ's whole claim is that it attaches to the plain sentence you would
+  // have said anyway (「ねつが あるんだ」 is four tiles and is the module's
+  // thesis), and 「たかすぎる」 is a complete utterance in three. The ramp is
+  // carried by the beats that hang a reason or a concession on m16's から /
+  // けど — which is also how an explanation is actually spoken, since a reason
+  // plus a consequence is two clauses by construction. Floor set three
+  // sentences below the measurement ((66-3)/88 = .716), per this block's own
+  // rule. Raised, never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.60, m29: 0.39,
+  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

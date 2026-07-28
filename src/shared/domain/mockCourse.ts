@@ -262,17 +262,17 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m26 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14) are LIVE via the
-    // compiler pipeline — slice them off so the placeholders begin at m27. NB
+    // m6-m27 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14, s23) are LIVE via the
+    // compiler pipeline — slice them off so the placeholders begin at m28. NB
     // the SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
     // draft-4 swapped them, which is why m14 is n06b and m15 is s11. s22 and
     // s21 are already in shipped order here (m23 = s22, m24 = s21). Only the
     // COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(21).map((t, i) => ({
-      id: `m${i + 27}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(22).map((t, i) => ({
+      id: `m${i + 28}`,
       title: t.title,
-      eyebrow: `Module ${i + 27} · Coming soon`,
+      eyebrow: `Module ${i + 28} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -963,6 +963,37 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m26-neo-challenge", title: "Challenge — the whole field, the winner, and why", status: "available" as const },
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        {
+          // m27 = spine tile s23, "💡 Explaining: んだ/んです, すぎる, なる".
+          // んだ is a whole-sentence suffix, not a verb ending: say the plain
+          // sentence and put んだ on the end. After a NOUN or な-adjective the
+          // copula comes first and だ turns into な (びょうきなんだ), and
+          // んです is the SAME ITEM in the polite skin — the tile's "one item,
+          // two skins" — with the clause in front of ん staying PLAIN in both.
+          // すぎる attaches to a stem (たべすぎる, たかすぎる); なる takes く
+          // from an い-adjective and に from everything else, and なった is the
+          // tense a change is actually reported in.
+          id: "m27",
+          title: "Explaining",
+          eyebrow: "Module 27 · Explaining",
+          summary: "「ねつが あるんだ」 — the thing is, I've got a fever. Two characters on the end of a sentence you can already say turn a fact into an explanation, and んです is the very same item said politely. Then two shapes for what goes wrong and what changes: すぎる for too much of something (たべすぎた, たかすぎる) and く/に なる for a state that is turning into another one (さむく なる, いしゃに なる) — with なった for the change you have already noticed.",
+          lessons: [
+            { id: "ja-m27-neo-1", title: "「ねつが あるんだ」 — saying it as an explanation", status: "available" as const },
+            { id: "ja-m27-neo-2", title: "「びょうきなんだ」 — nouns put な in first", status: "available" as const },
+            { id: "ja-m27-neo-3", title: "「どうして いかないんだ？」 — asking for the reason and giving it", status: "available" as const },
+            { id: "ja-m27-neo-review-1", title: "Review — explaining yourself, plain", status: "available" as const },
+            { id: "ja-m27-neo-5", title: "「いかないんです」 — the same thing, said politely", status: "available" as const },
+            { id: "ja-m27-neo-6", title: "「たべすぎた」 — more than you should have", status: "available" as const },
+            { id: "ja-m27-neo-7", title: "「たかすぎる」 — too expensive to buy", status: "available" as const },
+            { id: "ja-m27-neo-review-2", title: "Review — too much, and explaining it", status: "available" as const },
+            { id: "ja-m27-neo-9", title: "「だんだん さむく なる」 — the weather is changing", status: "available" as const },
+            { id: "ja-m27-neo-10", title: "「いしゃに なる」 — what you turn into", status: "available" as const },
+            { id: "ja-m27-neo-11", title: "「さむく なったんだ」 — reporting what has changed", status: "available" as const },
+            { id: "ja-m27-neo-review-3", title: "Review — changing, and saying why", status: "available" as const },
+            { id: "ja-m27-neo-challenge", title: "Challenge — the reason, the excess and the change", status: "available" as const },
+          ],
+          accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

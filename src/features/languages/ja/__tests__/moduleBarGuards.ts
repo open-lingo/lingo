@@ -102,6 +102,26 @@ export function registerModuleBarGuards(opts: {
    *  step before any dialogue uses it. Drops dialogue_listen from the
    *  intro-capable set. Enable for m6+; shipped modules retrofit later. */
   requireTeachFirst?: boolean;
+  /**
+   * Surfaces this module DECLARES in its IR `newAtoms` that exist in neither
+   * `courseAtoms` nor `getRealFormLexicon()` — i.e. derived forms the
+   * conjugation engine cannot produce.
+   *
+   * Added 2026-07-27 for m27. Every earlier module's IR-only atoms were
+   * reachable by accident: m11's たべました / m12's たかくない / m13's たべたい /
+   * m14's しって / m16's たべませんでした are all real conjugated forms the
+   * engine emits, and m24's しましょう decomposes into two rows that exist. The
+   * 〜すぎる family is neither — 「たべすぎたんだ」 tokenized to たべ plus the
+   * unknown fragment 「すぎたん」 — so the tokenizer below could not see the
+   * module's own vocabulary at all.
+   *
+   * This is additive and per-module: an entry here becomes a TOKEN, which
+   * means the provenance check that follows starts applying to it (it must
+   * still debut on an intro-capable step). Leaving it out does not make the
+   * guard stricter — it makes the word invisible to the debut check, which is
+   * the opposite of what this file is for.
+   */
+  extraVocab?: string[];
 }): void {
   const { moduleLabel, lessons, priorModules, canon = COURSE_CANON } = opts;
   const priorSet = new Set(priorModules);
@@ -118,6 +138,7 @@ export function registerModuleBarGuards(opts: {
     ...JA_COURSE_ATOMS.map((a) => a.kana),
     ...M3_M7_REVIEW_POOL.map((a) => a.kana),
     ...getRealFormLexicon(),
+    ...(opts.extraVocab ?? []),
   ]);
   const ALL = [...new Set([...VOCAB, ...STRUCTURAL])].sort(
     (a, b) => b.length - a.length,

@@ -350,8 +350,20 @@ const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"
  *
  * Excluded deliberately: しましょう is a complete utterance ("let's do it"),
  * as are the INTERJ above.
+ *
+ * 2026-07-27, m27: six more, added BEFORE the module shipped rather than after
+ * (which is the whole point of the list existing). んだ / んです / なんだ /
+ * なんです attach to a finished clause and なんだ carries a copula that only a
+ * noun can hand it; すぎる / すぎた attach to a ます-stem or an adjective stem.
+ * A filler slot asking "Say: too much" and expecting 「すぎる」 is the つもり
+ * defect with a different word in it. NOT added: なる / なった and the seven
+ * 〜すぎる ADJECTIVE composites (たかすぎる …), because those are complete
+ * utterances — 「たかすぎる」 is a whole sentence.
  */
-const BOUND = ["つもり", "ましょう", "でしょう", "でしょ", "だろう", "かな", "たり"];
+const BOUND = [
+  "つもり", "ましょう", "でしょう", "でしょ", "だろう", "かな", "たり",
+  "んだ", "んです", "なんだ", "なんです", "すぎる", "すぎた",
+];
 const PUNCT = /[。、？！]/g;
 
 /**
