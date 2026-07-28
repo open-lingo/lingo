@@ -218,7 +218,7 @@
     },
     {
       "id": "made-until",
-      "rule": "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ — with three readings you simply take as they come: shigatsu for 4, shichigatsu for 7, kugatsu for 9.",
+      "rule": "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ. Three of them bend the number and are worth learning as their own words: April is しがつ, July is しちがつ, September is くがつ — never よんがつ, ななかがつ or きゅうがつ.",
       "examples": [
         {
           "ja": "くじから ごじまで はたらく。",
@@ -3126,6 +3126,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -3466,6 +3467,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4372,14 +4381,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4785,6 +4786,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

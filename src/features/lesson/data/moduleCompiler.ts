@@ -557,14 +557,14 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
  *
  * Most ids name exactly one card and this is a lookup. Where a module writes
  * several cards under one id — m6's three `nai-form` cards, one per verb class
- * — the beat says which with `classes`, matched against the card's own
- * `conjugation.classes`. Returns undefined when the reference is ambiguous
- * rather than guessing; `diagnoseModule` turns that into a build failure.
+ * — the beat says which with `variant`, matched against the card's own
+ * `variant`. Returns undefined when the reference is ambiguous rather than
+ * guessing; `diagnoseModule` turns that into a build failure.
  */
 function resolveGrammarPoint(
   ir: ModuleIR,
   beat: { grammarPointId: string; variant?: string },
-): ModuleIR["grammarPoints"][number] | undefined {
+): IRGrammarPoint | undefined {
   const candidates = (ir.grammarPoints ?? []).filter((g) => g.id === beat.grammarPointId);
   if (candidates.length <= 1) return candidates[0];
   if (!beat.variant) return undefined;
@@ -631,7 +631,6 @@ function makeTokenizer(atoms: Map<string, Atom>) {
 export function compileModule(ir: ModuleIR): LessonContent[] {
   const atoms = atomIndex(ir);
   const tokenize = makeTokenizer(atoms);
-  const gpById = new Map((ir.grammarPoints ?? []).map((g) => [g.id, g]));
   const moduleId = ir.module;
   // Distractors may only come from vocabulary THIS module declares — its own
   // newAtoms plus every reviewPool word (a pool entry asserts the word is

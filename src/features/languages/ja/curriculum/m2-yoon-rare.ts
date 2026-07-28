@@ -228,10 +228,60 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_3: LessonContent = {
   courseId: "mock-1",
   languageId: "ja",
   title: "Yōon rare — Review",
-  description: "Cumulative practice across rare yōon + a spaced-review tap from M1. Yōon system complete.",
-  estimatedMinutes: 5,
+  description:
+    "Cumulative practice across rare yōon, then the last two things kana does: the small っ pause and held vowels. Kana system complete.",
+  estimatedMinutes: 6,
   xpReward: 15,
   steps: [
+    // ─── The two script rules the kana ladder never stated ───
+    //
+    // Spencer's learner walk (2026-07-27) finished all 46 hiragana + dakuten
+    // + handakuten + yōon and still could not read 「きっぷ」 or say 「きゅうり」.
+    // Small っ is used from m3 lesson 2 onward (87 times by m8) and appeared
+    // nowhere as teaching; held vowels are in とけい, せんせい, りょうり,
+    // ぎゅうにゅう and were never mentioned, so the learner pronounced every
+    // one of them mora-by-mora — "to-ke-i" — which is exactly what the kana
+    // they had been taught say.
+    //
+    // They live HERE, at the end of the last kana lesson, because both are
+    // modifications to kana the learner now knows all of, and because the
+    // katakana track later assumes both: its ッ card says "same rule you
+    // know, new outfit" and its ジュース card says "katakana reuses the exact
+    // hiragana rules". Those cards were building on a floor that was missing.
+    {
+      id: "ja-yr3-info-sokuon",
+      type: "grammar_rule",
+      title: "Small っ — the held beat",
+      rule:
+        "A SMALL っ is not a sound of its own — it is a one-beat pause that doubles the consonant after it. きっぷ is ki-(pause)-pu, three beats, and the p lands hard. It is written at half size, and telling っ from つ is the whole skill: きつ is 'kitsu', きっ is 'kit-'.",
+      examples: [
+        { ja: "きっぷ", romaji: "kippu", en: "ticket — one held beat before the ぷ" },
+        { ja: "きつね", romaji: "kitsune", en: "fox — full-size つ, so you say 'tsu'" },
+      ],
+      antiPattern: {
+        ja: "きつぷ",
+        romaji: "kitsupu",
+        en: "(incorrect)",
+        why: "a full-size つ is its own syllable 'tsu' — the ticket word needs the SMALL っ, which is a pause and not a sound.",
+      },
+    },
+    {
+      id: "ja-yr3-info-long-vowels",
+      type: "grammar_rule",
+      title: "Held vowels — two beats, one sound",
+      rule:
+        "When a vowel is followed by the same vowel — or お by う, and え by い — you HOLD it for two beats instead of saying it twice. りょうり is 'ryōri', not 'ryo-u-ri'. せんせい is 'sensē'. The extra kana is the length mark; it is not a separate syllable.",
+      examples: [
+        { ja: "りょうり", romaji: "ryōri", en: "cooking — おう is a held 'o'" },
+        { ja: "せんせい", romaji: "sensē", en: "teacher — えい is a held 'e'" },
+      ],
+      antiPattern: {
+        ja: "りょうり",
+        romaji: "ryo-u-ri",
+        en: "(incorrect)",
+        why: "the う does not get its own beat here — it lengthens the お before it, so the word has three beats and not four.",
+      },
+    },
 
     wordImageMcq(ctxSub3, "ja-yr3-mcq-hyaku", "ひゃく"),
     symbolToSound(ctxSub3, "ja-yr3-s2s-ryo", "りょ", "ryo", "ri + small yo"),

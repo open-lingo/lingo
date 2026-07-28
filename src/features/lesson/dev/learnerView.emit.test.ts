@@ -95,9 +95,17 @@ function renderStep(step: Rec, n: number): string {
     case "build_sentence": {
       const tiles = shuffle((step.tiles ?? []) as string[], id).join(" | ");
       const frame = [step.frameBefore, step.frameAfter].filter(Boolean).join(" … ");
-      const cue = [step.audienceEmoji, step.audienceLabel, step.politenessHint]
-        .filter(Boolean)
-        .join(" ");
+      // The register cue as the learner MEETS it: a picture, plus a 1-3
+      // politeness meter drawn as a meter. `audienceLabel` is screen-reader
+      // alt text the app never renders as prose, and `politenessHint` is a
+      // tier, not a word — joining all three into a string invented the
+      // prompt "👵 an elderly neighbour 3", which the first learner walk duly
+      // reported as leaked internal data (2026-07-27). It was this emitter's
+      // bug, not the course's.
+      const meter = step.politenessHint
+        ? ` politeness ${"●".repeat(Number(step.politenessHint))}${"○".repeat(3 - Number(step.politenessHint))}`
+        : "";
+      const cue = step.audienceEmoji ? `${step.audienceEmoji}${meter}` : meter.trim();
       return L(
         `${step.prompt ?? "Build it"}${cue ? `\n   [register cue: ${cue}]` : ""}` +
           `${frame ? `\n   [frame: ${frame}]` : ""}\n   TILES: ${tiles}`,
