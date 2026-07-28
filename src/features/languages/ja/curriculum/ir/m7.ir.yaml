@@ -45,7 +45,7 @@ grammarPoints:
     antiPattern: { ja: "たべるます", en: "", why: "the る is dropped before ます — たべます, not たべるます" }
   - id: masu-present
     variant: by-class
-    rule: "Finding the stem is the whole trick, and each class finds it differently. る-verbs drop る: みる → み + ます. う-verbs shift the last kana up to the い row: いく → いき + ます, かう → かい + ます, きく → きき + ます. する and くる obey neither rule — they are します and きます, and you learn that pair by heart. Every polite form in the language is built on this one move."
+    rule: "Finding the stem is the whole trick, and each class finds it differently. る-verbs drop る: みる → み + ます. う-verbs shift the last kana up to the い row: いく → いき + ます, かう → かい + ます, きく → きき + ます. する and くる obey neither rule — they are します and きます, and you learn that pair by heart. Every polite form in the language is built on this one move. One of these verbs brings a particle with it: いく names where you are going with に — 「いえに いきます」, I'm going home. That is the same に you met marking where something IS; with a motion verb it marks where you ARRIVE. で is still for where you DO something."
     examples:
       - { ja: "しゃしんを みます。", en: "I look at the photo. (polite)" }
       - { ja: "ほんを かいます。", en: "I buy the book. (polite)" }
