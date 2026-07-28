@@ -1250,6 +1250,20 @@ the audit working as intended, not a regression.
 - ~~**`scripts/exposure-audit.mjs` reads only `curriculum/m*-neo*.ts`**~~ —
   FIXED in the m21 cycle; it reads `ir/*.ir.yaml` now and the corpus went
   3336 → 9494 surfaces. See the carrier-fatigue section.
+- **⏳ IN THE TREE, UNCOMPILED: all eleven replacements are already written into
+  the nine `*.ir.yaml` files** (2026-07-27, during the m28 quiet window). A YAML
+  edit is INERT until `compile-ir.mjs` regenerates the `.ir.json` the tests
+  read, which is why they could be drafted while an authoring agent was running
+  its own suite. **To finish, after m28 is committed:** compile m13 m15 m16 m18
+  m20 m21 m23 m24 m25 → run each module's own test file → empty out
+  `KNOWN_DEBT` in `challengeNovelty.test.ts` (it should go to zero, not shrink)
+  → `emit-tts-deck` + `generate` (11 new sentences need clips, and
+  `audioCoverage.test.ts` fails without them) → full suite → commit.
+  Two drafts were struck by the collision check before being applied
+  (「さくらを みた ことが ある」 and 「あきは たぶん すずしいでしょう」 already existed),
+  and m23's replacement had to be done by line number because the original
+  string appears twice in that file — once in the teaching lesson, once in the
+  challenge, which IS the defect.
 - **ELEVEN challenge lessons re-run a sentence the learner already met twice.**
   Superseded and made precise 2026-07-27 by `challengeNovelty.test.ts`, which
   is now a hard gate with these eleven listed as `KNOWN_DEBT` — the list may
