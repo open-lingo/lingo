@@ -1253,6 +1253,22 @@ export function translationMcq(
       `translationMcq: not enough distractors for '${target.kana}' (have ${picked.length}, need 3)`,
     );
   }
+  // "Within a mora" still allows all three foils to land on the LONG side, and
+  // that is the whole cue back again — the answer is the uniquely shortest
+  // option. When it happens, swap the longest foil for any pool word that is
+  // no longer than the target, so at least one option ties or undercuts it.
+  if (picked.every((a) => len(a.kana) > len(target.kana))) {
+    const chosen = new Set(picked.map((a) => a.kana));
+    const shorter = filtered
+      .filter((a) => !chosen.has(a.kana) && len(a.kana) <= len(target.kana))
+      .sort((a, b) => len(b.kana) - len(a.kana) || (a.kana < b.kana ? -1 : 1))[0];
+    if (shorter) {
+      let worst = 0;
+      for (let k = 1; k < picked.length; k++)
+        if (len(picked[k].kana) > len(picked[worst].kana)) worst = k;
+      picked[worst] = shorter;
+    }
+  }
   const slot = slotFor(idPrefix, 4);
   const options: { id: string; text: string }[] = [];
   let di = 0;

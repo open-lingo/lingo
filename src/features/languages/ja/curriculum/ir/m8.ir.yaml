@@ -46,13 +46,18 @@ grammarPoints:
       - { ja: "しゃしんを みて。", en: "Look at the photo." }
       - { ja: "たべて。", en: "Go on, eat." }
     antiPattern: { ja: "しゃしんを みるて。", why: "る-verbs drop る before て — みる→みて, never みるて." }
+    # Ramp is pinned ahead of the middle and a transform card is not
+    # intro-capable (inv 37), so every form it emits is stated above.
+    conjugation: { form: te, classes: [ru] }
   - id: te-form
     variant: sound-change
     rule: "う-verbs change their last kana before て, and which change depends on that kana: む・ぶ・ぬ → んで (のむ→のんで, あそぶ→あそんで); う・つ・る → って (かう→かって); く → いて (きく→きいて); ぐ → いで. Learn this table once and it pays twice — the past form た uses exactly the same rows."
     examples:
       - { ja: "みずを のんで。", en: "Drink the water." }
       - { ja: "ほんを かって。", en: "Buy the book." }
+      - { ja: "きいて。", en: "Listen." }
     antiPattern: { ja: "みずを のみて。", why: "のむ ends in む, so it takes the んで row — のんで, never のみて." }
+    conjugation: { form: te, classes: [u] }
   - id: te-form
     variant: rebels
     rule: "Three verbs ignore the table. する → して and くる → きて are the two irregulars you already know as a pair. The third is いく: it ends in く, so the table promises いいて — but it is いって, borrowing the う・つ・る row. Memorise these three as a set."
@@ -61,6 +66,9 @@ grammarPoints:
       - { ja: "これを して。", en: "Do this one." }
       - { ja: "きて。", en: "Come here." }
     antiPattern: { ja: "いいて。", why: "いく looks like a く-verb but skips the く→いて row — its て-form is いって." }
+    # いく is class `u` and only breaks the ROW, so it rides here with the two
+    # irregulars — the lesson's `introduces` scopes the ramp to these three.
+    conjugation: { form: te, classes: [u, irregular] }
   - id: te-kudasai
     variant: polite
     rule: "て + ください = a polite request: 'please do X'. It is a fixed FORMULA — you attach ください to the て-form and nothing else changes. Drop ください and the bare て-form is the casual version friends use: みて = 'look', みてください = 'please look'."
@@ -99,18 +107,18 @@ grammarPoints:
     # the contrast is audience, not grammar, so there is no wrong sentence to show.
 
 newAtoms:
-  - { kana: たべて, romaji: tabete, gloss: "eat (te-form)", imageable: false, kind: verb-form, derivedFrom: たべる }
-  - { kana: みて, romaji: mite, gloss: "watch, look (te-form)", imageable: false, kind: verb-form, derivedFrom: みる }
-  - { kana: のんで, romaji: nonde, gloss: "drink (te-form)", imageable: false, kind: verb-form, derivedFrom: のむ }
-  - { kana: かって, romaji: katte, gloss: "buy (te-form)", imageable: false, kind: verb-form, derivedFrom: かう }
-  - { kana: きいて, romaji: kiite, gloss: "listen, ask (te-form)", imageable: false, kind: verb-form, derivedFrom: きく }
-  - { kana: あそんで, romaji: asonde, gloss: "play (te-form)", imageable: false, kind: verb-form, derivedFrom: あそぶ }
-  - { kana: いって, romaji: itte, gloss: "go, travel (te-form)", imageable: false, kind: verb-form, derivedFrom: いく }
-  - { kana: して, romaji: shite, gloss: "do, make (te-form)", imageable: false, kind: verb-form, derivedFrom: する }
-  - { kana: きて, romaji: kite, gloss: "come (te-form)", imageable: false, kind: verb-form, derivedFrom: くる }
+  - { kana: たべて, romaji: tabete, gloss: "eat (te-form)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: みて, romaji: mite, gloss: "watch, look (te-form)", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
+  - { kana: のんで, romaji: nonde, gloss: "drink (te-form)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: かって, romaji: katte, gloss: "buy (te-form)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: きいて, romaji: kiite, gloss: "listen, ask (te-form)", imageable: false, kind: verb-form, derivedFrom: きく, verbClass: u }
+  - { kana: あそんで, romaji: asonde, gloss: "play (te-form)", imageable: false, kind: verb-form, derivedFrom: あそぶ, verbClass: u }
+  - { kana: いって, romaji: itte, gloss: "go, travel (te-form)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: して, romaji: shite, gloss: "do, make (te-form)", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: きて, romaji: kite, gloss: "come (te-form)", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
   - { kana: ください, romaji: kudasai, gloss: "please (request)", shortGloss: "please", imageable: false, kind: grammar-chunk }
   - { kana: おしえる, romaji: oshieru, gloss: "to teach, to tell", shortGloss: "teach, tell", imageable: true, kind: verb, verbClass: ru }
-  - { kana: おしえて, romaji: oshiete, gloss: "teach, tell (te-form)", imageable: false, kind: verb-form, derivedFrom: おしえる }
+  - { kana: おしえて, romaji: oshiete, gloss: "teach, tell (te-form)", imageable: false, kind: verb-form, derivedFrom: おしえる, verbClass: ru }
   - { kana: ごはん, romaji: gohan, gloss: "rice, a meal", shortGloss: "rice/meal", imageable: true, kind: vocab }
   - { kana: たべもの, romaji: tabemono, gloss: "food", imageable: true, kind: vocab }
   - { kana: しょくじ, romaji: shokuji, gloss: "a meal", imageable: true, kind: vocab }
@@ -158,7 +166,7 @@ lessons:
       - { kind: sentence, ja: "ほんを かって。", en: "Buy a book", exercises: [te-form, wo-object], mode: listening }
       - { kind: sentence, ja: "うたを きいて。", en: "Listen to the song", exercises: [te-form, wo-object], mode: build }
       - { kind: particle-cloze, stem: "ぎゅうにゅうを ", tail: "。", answer: "のんで", options: ["のんで", "たべて", "かって"], en: "Drink the milk", explanation: "のむ ends in む, so it takes んで — のんで. たべて and かって are other verbs' て-forms." }
-      - { kind: sentence, ja: "かわで あそんで。", en: "Play at the river", exercises: [te-form, de-action], mode: build }
+      - { kind: sentence, ja: "かわで あそんで。", en: "Play at the river", exercises: [te-form, de-action], mode: listening }
       - { kind: challenge, ja: "かわで ともだちの うたを きいて。", en: "Listen to your friend's song at the river", combines: [de-action, no-possession, wo-object, te-form], mode: build }
     reviewPool: [のむ, かう, きく, あそぶ, みず, ぎゅうにゅう, うた, かわ, ともだち]
 

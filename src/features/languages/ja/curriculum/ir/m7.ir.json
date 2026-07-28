@@ -50,6 +50,13 @@
         "ja": "たべるます",
         "en": "",
         "why": "the る is dropped before ます — たべます, not たべるます"
+      },
+      "conjugation": {
+        "form": "masu",
+        "classes": [
+          "ru",
+          "u"
+        ]
       }
     },
     {
@@ -64,11 +71,22 @@
         {
           "ja": "ほんを かいます。",
           "en": "I buy the book. (polite)"
+        },
+        {
+          "ja": "いえに いきます。",
+          "en": "I go home. (polite)"
         }
       ],
       "antiPattern": {
         "ja": "しゃしんを みるます。",
         "why": "る-verbs drop る before ます — みる→みます, never みるます."
+      },
+      "conjugation": {
+        "form": "masu",
+        "classes": [
+          "ru",
+          "u"
+        ]
       }
     },
     {
@@ -82,12 +100,27 @@
         {
           "ja": "きょうは いきません",
           "en": "I'm not going today. (polite)"
+        },
+        {
+          "ja": "ごはんを たべません",
+          "en": "I don't eat rice. (polite)"
+        },
+        {
+          "ja": "しゃしんを みません",
+          "en": "I don't look at the photo. (polite)"
         }
       ],
       "antiPattern": {
         "ja": "のみますない",
         "en": "",
         "why": "ません REPLACES ます — you don't stack ない on top of it"
+      },
+      "conjugation": {
+        "form": "masu-neg",
+        "classes": [
+          "ru",
+          "u"
+        ]
       }
     },
     {
@@ -170,7 +203,8 @@
       "gloss": "eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみます",
@@ -178,7 +212,8 @@
       "gloss": "drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みます",
@@ -186,7 +221,8 @@
       "gloss": "watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきます",
@@ -194,7 +230,8 @@
       "gloss": "go, travel (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "します",
@@ -202,7 +239,8 @@
       "gloss": "do, make (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "きます",
@@ -210,7 +248,8 @@
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいます",
@@ -218,7 +257,8 @@
       "gloss": "buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "ききます",
@@ -226,7 +266,8 @@
       "gloss": "listen, ask (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそびます",
@@ -234,7 +275,8 @@
       "gloss": "play (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "あります",
@@ -242,7 +284,8 @@
       "gloss": "have, there is (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "たべません",
@@ -250,7 +293,8 @@
       "gloss": "don't eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみません",
@@ -258,7 +302,8 @@
       "gloss": "don't drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みません",
@@ -266,7 +311,8 @@
       "gloss": "don't watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきません",
@@ -274,7 +320,8 @@
       "gloss": "don't go, not travelling (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きません",
@@ -282,7 +329,8 @@
       "gloss": "doesn't come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいません",
@@ -290,7 +338,8 @@
       "gloss": "don't buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "しません",
@@ -298,7 +347,8 @@
       "gloss": "don't do, won't make (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "はたらきません",
@@ -306,7 +356,8 @@
       "gloss": "don't work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "ありません",
@@ -314,7 +365,8 @@
       "gloss": "doesn't have, isn't there (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "はたらく",
@@ -331,7 +383,8 @@
       "gloss": "work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "かいしゃ",
@@ -483,7 +536,7 @@
             "masu-present",
             "wa-topic"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -587,7 +640,7 @@
           "exercises": [
             "masu-present"
           ],
-          "mode": "build"
+          "mode": "translate"
         },
         {
           "kind": "sentence",
@@ -732,7 +785,7 @@
             "masu-negative",
             "wo-object"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",

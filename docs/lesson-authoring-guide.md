@@ -166,6 +166,30 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 
 ---
 
+## 4a2. Word-level RECALL is multiple choice, never typed (Spencer, 2026-07-28)
+
+`translateStep` is typed free recall — the strongest retrieval tier here (§5.2)
+— and it belongs to **utterances**. If the question is "what is the Japanese
+word for X", it is an MCQ: `translationMcq` for gloss → word, `vocabMcq` for
+the picture debut. Never a typed box with a bare gloss above it.
+
+Caught in the app at `ja-m7-neo-2`: prompt "To come", expected answer くる,
+typed. `reviewFiller`'s fourth rotation slot had been emitting that shape 57
+times across 16 modules; it is a `translationMcq` now — same word, same
+question, tapped.
+
+The line is drawn at the PROMPT, not the answer's length. 「いぬだ」 for
+"Translate: It's a dog." is one word long and is honest typed production —
+the retrieval is a predicate (which copula, which register). 「ほん？」 for
+"Is it a book?" is a question mark's worth of grammar. "to come" → くる is
+neither; it is a spelling with nothing to place it in.
+
+Guard: `typedProductionIsUtterance.test.ts` — no `translate` prompt may equal
+a course atom's English gloss. Same family as §4b below and as the two
+decisions that stated this principle without writing it down: the ungraded
+word-typing "type-tease" card, cut 2026-07-24, and the generator ban on
+single-tile builds, 2026-07-17.
+
 ## 4b. Listening is sentence-first from M5 (Spencer, 2026-07-12)
 
 Single-word "make what you hear" is the WEAKER form of both listening

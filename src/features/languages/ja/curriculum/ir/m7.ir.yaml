@@ -43,19 +43,31 @@ grammarPoints:
       - { ja: "たべます", en: "I eat. (polite)" }
       - { ja: "みずを のみます", en: "I drink water. (polite)" }
     antiPattern: { ja: "たべるます", en: "", why: "the る is dropped before ます — たべます, not たべるます" }
+    # The ramp is PINNED ahead of the interleaved middle and a transform card
+    # is not intro-capable (inv 37), so every form it can emit must already
+    # appear in `examples` above. Scoped to ru/u; する・くる stay in the prose
+    # and debut on L2's build beats.
+    conjugation: { form: masu, classes: [ru, u] }
   - id: masu-present
     variant: by-class
     rule: "Finding the stem is the whole trick, and each class finds it differently. る-verbs drop る: みる → み + ます. う-verbs shift the last kana up to the い row: いく → いき + ます, かう → かい + ます, きく → きき + ます. する and くる obey neither rule — they are します and きます, and you learn that pair by heart. Every polite form in the language is built on this one move. One of these verbs brings a particle with it: いく names where you are going with に — 「いえに いきます」, I'm going home. That is the same に you met marking where something IS; with a motion verb it marks where you ARRIVE. で is still for where you DO something."
     examples:
       - { ja: "しゃしんを みます。", en: "I look at the photo. (polite)" }
       - { ja: "ほんを かいます。", en: "I buy the book. (polite)" }
+      - { ja: "いえに いきます。", en: "I go home. (polite)" }
     antiPattern: { ja: "しゃしんを みるます。", why: "る-verbs drop る before ます — みる→みます, never みるます." }
+    conjugation: { form: masu, classes: [ru, u] }
   - id: masu-negative
     rule: "The polite negative swaps ます for ません — same stem, different tail. のみます → のみません. It is the polite twin of plain ない: のまない = のみません."
     examples:
       - { ja: "のみません", en: "I don't drink. (polite)" }
       - { ja: "きょうは いきません", en: "I'm not going today. (polite)" }
+      - { ja: "ごはんを たべません", en: "I don't eat rice. (polite)" }
+      - { ja: "しゃしんを みません", en: "I don't look at the photo. (polite)" }
     antiPattern: { ja: "のみますない", en: "", why: "ません REPLACES ます — you don't stack ない on top of it" }
+    # L3 declares no `introduces`, so the ramp draws unscoped from newAtoms in
+    # order — たべません, のみません, みません. All three are stated above.
+    conjugation: { form: masu-neg, classes: [ru, u] }
   - id: desu-copula
     rule: "です finishes NOUNS politely, the way だ finishes them plainly: ねこだ → ねこです. です is NOT 'polite だ' you can bolt onto verbs — たべるです is not a sentence. Verbs get ます; nouns get です. Any noun sits in that slot: がくせい (a student), せんせい (a teacher), アメリカじん (an American — a country name plus じん 'person' names the nationality)."
     examples:
@@ -83,31 +95,31 @@ grammarPoints:
     antiPattern: { ja: "トムさんは わたしさんです。", why: "a suffix is something you give other people — never attach さん to your own name." }
 
 newAtoms:
-  - { kana: たべます, romaji: tabemasu, gloss: "eat (polite)", imageable: false, kind: verb-form, derivedFrom: たべる }
-  - { kana: のみます, romaji: nomimasu, gloss: "drink (polite)", imageable: false, kind: verb-form, derivedFrom: のむ }
-  - { kana: みます, romaji: mimasu, gloss: "watch (polite)", imageable: false, kind: verb-form, derivedFrom: みる }
-  - { kana: いきます, romaji: ikimasu, gloss: "go, travel (polite)", imageable: false, kind: verb-form, derivedFrom: いく }
-  - { kana: します, romaji: shimasu, gloss: "do, make (polite)", imageable: false, kind: verb-form, derivedFrom: する }
-  - { kana: きます, romaji: kimasu, gloss: "come (polite)", imageable: false, kind: verb-form, derivedFrom: くる }
-  - { kana: かいます, romaji: kaimasu, gloss: "buy (polite)", imageable: false, kind: verb-form, derivedFrom: かう }
-  - { kana: ききます, romaji: kikimasu, gloss: "listen, ask (polite)", imageable: false, kind: verb-form, derivedFrom: きく }
-  - { kana: あそびます, romaji: asobimasu, gloss: "play (polite)", imageable: false, kind: verb-form, derivedFrom: あそぶ }
-  - { kana: あります, romaji: arimasu, gloss: "have, there is (polite)", imageable: false, kind: verb-form, derivedFrom: ある }
-  - { kana: たべません, romaji: tabemasen, gloss: "don't eat (polite)", imageable: false, kind: verb-form, derivedFrom: たべる }
-  - { kana: のみません, romaji: nomimasen, gloss: "don't drink (polite)", imageable: false, kind: verb-form, derivedFrom: のむ }
-  - { kana: みません, romaji: mimasen, gloss: "don't watch (polite)", imageable: false, kind: verb-form, derivedFrom: みる }
-  - { kana: いきません, romaji: ikimasen, gloss: "don't go, not travelling (polite)", imageable: false, kind: verb-form, derivedFrom: いく }
-  - { kana: きません, romaji: kimasen, gloss: "doesn't come (polite)", imageable: false, kind: verb-form, derivedFrom: くる }
+  - { kana: たべます, romaji: tabemasu, gloss: "eat (polite)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のみます, romaji: nomimasu, gloss: "drink (polite)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: みます, romaji: mimasu, gloss: "watch (polite)", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
+  - { kana: いきます, romaji: ikimasu, gloss: "go, travel (polite)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: します, romaji: shimasu, gloss: "do, make (polite)", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: きます, romaji: kimasu, gloss: "come (polite)", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
+  - { kana: かいます, romaji: kaimasu, gloss: "buy (polite)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: ききます, romaji: kikimasu, gloss: "listen, ask (polite)", imageable: false, kind: verb-form, derivedFrom: きく, verbClass: u }
+  - { kana: あそびます, romaji: asobimasu, gloss: "play (polite)", imageable: false, kind: verb-form, derivedFrom: あそぶ, verbClass: u }
+  - { kana: あります, romaji: arimasu, gloss: "have, there is (polite)", imageable: false, kind: verb-form, derivedFrom: ある, verbClass: u }
+  - { kana: たべません, romaji: tabemasen, gloss: "don't eat (polite)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のみません, romaji: nomimasen, gloss: "don't drink (polite)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: みません, romaji: mimasen, gloss: "don't watch (polite)", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
+  - { kana: いきません, romaji: ikimasen, gloss: "don't go, not travelling (polite)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: きません, romaji: kimasen, gloss: "doesn't come (polite)", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
   # The gap in this paradigm: every other verb here has its ません form, かう
   # had only かいます. m9 and m10 then wrote five 「かいません」 beats that
   # tokenized to かい ("shell") + ま + せん ("thousand") — three real-looking
   # tiles, no diagnostic, an unbuildable step.
-  - { kana: かいません, romaji: kaimasen, gloss: "don't buy (polite)", imageable: false, kind: verb-form, derivedFrom: かう }
-  - { kana: しません, romaji: shimasen, gloss: "don't do, won't make (polite)", imageable: false, kind: verb-form, derivedFrom: する }
-  - { kana: はたらきません, romaji: hatarakimasen, gloss: "don't work (polite)", imageable: false, kind: verb-form, derivedFrom: はたらく }
-  - { kana: ありません, romaji: arimasen, gloss: "doesn't have, isn't there (polite)", imageable: false, kind: verb-form, derivedFrom: ある }
+  - { kana: かいません, romaji: kaimasen, gloss: "don't buy (polite)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: しません, romaji: shimasen, gloss: "don't do, won't make (polite)", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: はたらきません, romaji: hatarakimasen, gloss: "don't work (polite)", imageable: false, kind: verb-form, derivedFrom: はたらく, verbClass: u }
+  - { kana: ありません, romaji: arimasen, gloss: "doesn't have, isn't there (polite)", imageable: false, kind: verb-form, derivedFrom: ある, verbClass: u }
   - { kana: はたらく, romaji: hataraku, gloss: "to work", shortGloss: "work", imageable: true, kind: verb, verbClass: u }
-  - { kana: はたらきます, romaji: hatarakimasu, gloss: "work (polite)", imageable: false, kind: verb-form, derivedFrom: はたらく }
+  - { kana: はたらきます, romaji: hatarakimasu, gloss: "work (polite)", imageable: false, kind: verb-form, derivedFrom: はたらく, verbClass: u }
   - { kana: かいしゃ, romaji: kaisha, gloss: "company, workplace", shortGloss: "company", imageable: true, kind: vocab }
   - { kana: じゅぎょう, romaji: jugyou, gloss: "class, lesson", shortGloss: "class", imageable: true, kind: vocab }
   - { kana: はい, romaji: hai, gloss: "yes (polite)", shortGloss: "yes", imageable: false, kind: vocab }
@@ -132,7 +144,7 @@ lessons:
       - { kind: sentence, ja: "ぎゅうにゅうを のみます。", en: "Say politely: I drink milk", exercises: [masu-present, wo-object], mode: listening }
       - { kind: sentence, ja: "たなかさんは たべます。", en: "Say politely: Tanaka eats", exercises: [masu-present, wa-topic], mode: build }
       - { kind: sentence, ja: "ともだちと たべます。", en: "Say politely: I eat with a friend", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "きょうは たべます。", en: "Say politely: Today I'll eat", exercises: [masu-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "きょうは たべます。", en: "Say politely: Today I'll eat", exercises: [masu-present, wa-topic], mode: listening }
       - { kind: sentence, ja: "はい、たべます。", en: "Say politely: Yes, I'll eat", exercises: [masu-present], mode: build }
       - kind: dialogue
         lines:
@@ -153,7 +165,7 @@ lessons:
       - { kind: rule, grammarPointId: masu-present, variant: by-class }
       - { kind: sentence, ja: "そらを みます。", en: "Say politely: I look at the sky", exercises: [masu-present], mode: build }
       - { kind: sentence, ja: "いえに いきます。", en: "Say politely: I go home", exercises: [masu-present], mode: build }
-      - { kind: sentence, ja: "きょう します。", en: "Say politely: I'll do it today", exercises: [masu-present], mode: build }
+      - { kind: sentence, ja: "きょう します。", en: "Say politely: I'll do it today", exercises: [masu-present], mode: translate }
       - { kind: sentence, ja: "ともだちが きます。", en: "Say politely: A friend is coming", exercises: [masu-present, ga-existence], mode: build }
       - { kind: sentence, ja: "うみに いきます。", en: "Say politely: I'm going to the sea", exercises: [masu-present, ni-location], mode: translate }
       - { kind: sentence, ja: "しゃしんを みます。", en: "Say politely: I look at the photo", exercises: [masu-present, wo-object], mode: listening }
@@ -175,7 +187,7 @@ lessons:
       - { kind: sentence, ja: "みずを のみません。", en: "Say politely: I don't drink water", exercises: [wo-object, masu-negative], mode: build }
       - { kind: sentence, ja: "きょうは たべません。", en: "Say politely: I don't eat today", exercises: [wa-topic, masu-negative], mode: build }
       - { kind: sentence, ja: "きょうは いきません。", en: "Say politely: I'm not going today", exercises: [masu-negative, wa-topic], mode: build }
-      - { kind: sentence, ja: "しゃしんを みません。", en: "Say politely: I don't look at the photo", exercises: [masu-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "しゃしんを みません。", en: "Say politely: I don't look at the photo", exercises: [masu-negative, wo-object], mode: listening }
       - { kind: sentence, ja: "ぎゅうにゅうを のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wo-object], mode: listening }
       - { kind: sentence, ja: "たなかさんは きません。", en: "Say politely: Tanaka isn't coming", exercises: [masu-negative, wa-topic], mode: build }
       - { kind: particle-cloze, stem: "みずを ", tail: "。", answer: "のみません", options: ["のみません", "のみます", "たべません"], en: "I don't drink water. (polite)", explanation: "ません is the polite negative — の-み-ません, same stem as のみます." }

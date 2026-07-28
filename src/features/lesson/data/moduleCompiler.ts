@@ -1227,15 +1227,9 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     // wrapped it re-asked questions it had already asked.
     const usedFiller = new Set<string>();
     while (middle.length + fixed < 18 && fi < 60) {
-      // TRANSLATE BUDGET: <=15% of production (Spencer 2026-07-26). The old
-      // filler alternated speaking/translate, which alone pushed compiled
-      // modules to ~30% translate.
-      const soFar = [...body, ...middle];
-      const prodSoFar = soFar.filter((x) =>
-        ["build_sentence", "translate", "speaking", "listening_build"].includes(x.type),
-      ).length;
-      const trSoFar = soFar.filter((x) => x.type === "translate").length;
-      const translateOk = trSoFar < Math.floor((prodSoFar + 1) * 0.15);
+      // (The <=15% translate budget that used to gate the filler's typed slot
+      // went away with the slot itself — filler emits no translate steps now,
+      // so every compiled translate is an authored sentence beat.)
       const f = reviewFiller(
         lid,
         fi,
@@ -1243,7 +1237,6 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
         declaredPool.filter(usableHere),
         noTyped,
         sentencePairs,
-        translateOk,
         usedFiller,
       );
       if (f) middle.push(f);
@@ -1537,7 +1530,6 @@ function reviewFiller(
   declaredPool: Atom[],
   noTyped: ReadonlySet<string>,
   sentences: { ja: string; en: string }[],
-  translateOk: boolean,
   used: Set<string>,
 ): LessonStep | null {
   // Particles are never filler (mic-grading a mora is ASR noise; typing に
@@ -1654,18 +1646,32 @@ function reviewFiller(
         a ? usedKey("say", a) : "",
       ];
     },
+    // WORD-LEVEL RECALL IS ALWAYS MULTIPLE CHOICE (Spencer 2026-07-28).
+    // This slot used to emit a typed `translateStep` from a bare gloss — the
+    // prompt was literally "to come" and the answer くる. Typing is the
+    // strongest retrieval tier in the codebase and it belongs to whole
+    // utterances; spending it on one dictionary word asks the learner to
+    // free-recall a spelling with no sentence to place it in, which is the
+    // same objection that killed the ungraded type-tease card (2026-07-24)
+    // and single-tile builds (2026-07-17). Recognition of a single word is
+    // still worth drilling — so the slot keeps its atom and its rotation
+    // position and asks the same question as a tap instead of a type.
+    //
+    // It shares the "mcq" dedupe tag with the slot two up ON PURPOSE: two
+    // slots drawing from one namespace means the second one picks the next
+    // unused word, where a private tag would happily ask about the same word
+    // twice. And it is `translationMcq`, not `audioMeaningMcq` — a word-level
+    // `listening_comprehension` is exactly what the M5+ sentence-first
+    // ratchet (§4b) bans, and `listeningGranularity.test.ts` catches it.
     () => {
-      const a = translateOk ? pickAtom("type") : null;
+      const a = pickAtom("mcq");
       return [
-        a && !noTyped.has(a.kana)
-          ? translateStep({
-              id: `${lid}-fill-${i}`,
-              promptEn: matchTileGloss(a),
-              acceptedAnswers: [a.kana],
-              exercisedAtomKanas: [a.kana],
-            })
+        a
+          ? safeStep(() =>
+              translationMcq(`${lid}-fill-${i}`, a as ReviewAtom, declaredPool as ReviewAtom[]),
+            )
           : null,
-        a ? usedKey("type", a) : "",
+        a ? usedKey("mcq", a) : "",
       ];
     },
   ];
