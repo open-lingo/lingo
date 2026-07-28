@@ -179,6 +179,36 @@ you say so in your report" is doing real work — keep that line in every brief.
 
 ## Standing decisions (mine, documented per instruction)
 
+0. **THE LEGACY m30 IS RETIRED WHEN N4 AUTHORING STARTS** (decided 2026-07-27,
+   in the m29 quiet window — read this before writing a line of N4).
+   `curriculum/m30.ts` is 2,414 hand-authored lines from the **N4 pilot** of
+   2026-07-16/17: "Casual register", pairs-plus-story shape, wired into
+   `mockLessons` AND holding a live entry in the course map. Four things make
+   it unusable as m30:
+   - **The N4 spine assigns m30 to `n4-01` — "て + helper I: 〜てみる / 〜ておく"**
+     (`docs/spine-n4.md` §2, and the spine wins over prose by standing rule).
+   - Its shape is pairs + a story lesson, not 13 lessons (inv 25).
+   - Its stated premise, in its own header, is *"m29 taught the plain forms;
+     m30 teaches USING them with people"*. That m29 no longer exists — the
+     dict-form-first rewrite teaches plain forms from m4 on, and the new m29 is
+     the N5 capstone.
+   - Its content — casual questions, よ/ね, 〜ない？ invitations, register
+     awareness — is spent inside N5 already: m10 (register in the wild), m24
+     (ませんか / casual 〜ない？) and m29 (register mastery).
+   **`mockCourse.ts` already anticipates this** at the m30 block: *"m30 keeps
+   the N4 tier alive (tabs + interchange banner) until the N4 map is
+   re-scoped."* It is now re-scoped. Follow the precedent the old m29 set in
+   the same comment: drop the course-map entry, leave `ja-m30-*` registered in
+   `mockLessons` so it stays deep-linkable via `/ja/qa`, leave its atoms
+   SRS-reachable, and move `m30.ts` + `m30.test.ts` into `curriculum/_archive/`.
+   No id collision — the new module is `ja-m30-neo-*`.
+   **The trap this leaves:** every course-wide scan filters `^ja-m\d+-`, so the
+   legacy `ja-m30-1-1`-style lessons land in the same "m30" bucket as the new
+   ones. `challengeNovelty.test.ts` would then compare a new m30 challenge
+   sentence against pilot-era sentences and call a genuine first use a repeat.
+   Exclude the legacy ids from module-scoped scans, or unregister them, when
+   the new m30 lands.
+
 1. **Module shape** stays inv 25: 12–15 lessons = 8–11 teaching + 3 review +
    1 challenge, challenge lesson last.
 2. **Katakana rows** are wired at module level for m7–m11 only (2/module).
