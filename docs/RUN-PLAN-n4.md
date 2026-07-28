@@ -5,48 +5,39 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE (state as of 2026-07-27, after the m27 commit)
+## ⏵ RESUME HERE (state as of 2026-07-27, after the m28 commit)
 
-**Last commit: `cc8f6906` (m27). Working tree clean apart from the guard commit
-that follows it.**
+**Last commit: `f26edc9d` (m28). Working tree clean.**
 
-- **DONE and committed: m11–m27.** QA verdict SHIP for m20–m25; **m26's QA came
-  back FIX and the fix is committed** (`e425ff17`). Remaining N5 points: **6** —
-  three each in m28 and m29. Suite **8022 passing**, audit rows m26/m27
-  `findings = —`.
-- **IN FLIGHT, two agents dispatched together:** Sonnet QA on m27's three
-  review lessons + challenge ONLY, and the **m28** authoring agent (spine tile
-  s24, "Must & should: なきゃ/なければ, ほうがいい"; ledger row
-  `nakereba-naranai hou-ga-ii kanji-set-3`). Expect m28's files to mirror
-  m27's, plus `src/pub/tts`. `courseAtoms.ts` should NOT appear; if it does,
-  read the diff before staging.
-- **NEXT after m28 lands**, in this order:
-  1. `node scripts/compile-ir.mjs m28 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
-     — the m28 row must read `findings = —`; `systemic` may be 1.
-     **Never pipe vitest through `tail` and trust the exit code** — the pipe
-     returns tail's status, which is how a 1-test failure read as EXIT=0 here.
-     Redirect to a file and grep the summary line.
-  2. Verify every guard the agent changed is a real false positive, and any
-     tokenization claim, by dumping tiles/`exercisedAtoms` yourself. Seven
-     cycles running the headline claim needed correcting; m26's and m27's both
-     held up under checking, but only checking showed that.
-  3. Commit m28 (`git add -A` will sweep in anything else uncommitted —
-     stage m28's files explicitly), then
-     `node scripts/authoring-context.mjs m29 > docs/context/m29-context.md`
-  4. Dispatch Sonnet QA on m28 review+challenge ONLY, and the m29 authoring
-     agent, in ONE message so they run concurrently.
-- **REMAINING:** m28, m29 to finish N5, then m30–m40 for mid-N4. ~1 hour per
-  module cycle, measured.
-- **QA IS WORTH ITS COST AND THE VERDICT IS NOT THE POINT.** m26 got six
-  consecutive SHIP verdicts' worth of confidence and still shipped a challenge
-  lesson that was half recycled. The Sonnet pass found it; no gate did. What
-  came out of that one finding: a fix in m26, the same defect found and fixed
-  in m27 before it shipped, and a course-wide guard
-  (`challengeNovelty.test.ts`) that found eleven more modules with it.
-- **m28 EXISTS in the new spine** (tile s24, "Must & should: なきゃ/なければ,
-  ほうがいい"; ledger `nakereba-naranai hou-ga-ii kanji-set-3`). The INDEX
-  landmine "m28 does not exist (m27→m29)" describes the ARCHIVED course only.
-  m29 is tile s25, the N5 capstone.
+- **DONE and committed: m11–m28.** QA verdicts: SHIP for m20–m25, **FIX for
+  m26 and m27 — both fixed and committed**. Remaining N5 points: **3**, all in
+  m29. Suite **8177 passing**, audit rows m26/m27/m28 `findings = —`.
+- **IN FLIGHT, two agents dispatched together:** Sonnet QA on m28's three
+  review lessons + challenge ONLY, and the **m29** authoring agent — the **N5
+  CAPSTONE** (spine tile s25; ledger `janai-desu yo-emphasis ne-agreement`).
+  m29 is not a normal module: all-new sentences COURSE-wide rather than
+  module-wide, register scaffolding permitted (it and m10 are the only two),
+  mixed-register speed drills, and capstone fail-routing per
+  `docs/concept-type-authoring-guide-2026-07-19.md` ~line 145. It is also the
+  last N5 module, so the comingSoon placeholder loop in `mockCourse.ts` empties
+  out — expect `mockCourse.test.ts` to need real changes, not cosmetic ones.
+- **NEXT after m29 lands:** same loop (compile → tsc → full suite → audit →
+  verify the agent's claims by dumping data yourself → commit → QA on
+  review+challenge). **Then N5 IS COMPLETE** and the run moves to N4: m30–m40,
+  spine in `docs/spine-n4.md` (22 units, m30–m51).
+  **Check m30 before authoring it** — `curriculum/m30.ts` and `m30.test.ts`
+  already exist from a pre-IR era, and `COMPLEXITY_FLOORS.m30 = 0.41` says it
+  was measured at "stage-2 authoring completion (2026-07-17)". Decide whether
+  it is ported to IR or replaced, and say which in the commit.
+- **Never pipe vitest through `tail` and trust the exit code** — the pipe
+  returns tail's status, which is how a real 1-test failure read as EXIT=0
+  here. Redirect to a file and grep the summary line.
+- **QA IS WORTH ITS COST AND THE VERDICT IS NOT THE POINT.** m26 had six
+  consecutive SHIP verdicts behind it and still shipped a challenge lesson that
+  was half recycled; no gate caught it. What came out of that one finding: a
+  fix in m26, the same defect found in m27 before it shipped, a course-wide
+  guard, eleven more modules fixed, and — from m27's QA — a second guard for
+  words debuting as wrong answers.
 
 ### Standing hazards, learned the hard way
 
