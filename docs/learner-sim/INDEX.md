@@ -34,4 +34,3 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | 27 | [m27](m27.md) | Explaining | 13 | 234 |
 | 28 | [m28](m28.md) | Must & should | 13 | 234 |
 | 29 | [m29](m29.md) | Register mastery + N5 capstone | 13 | 234 |
-| 30 | [m30](m30.md) | Casual register | 15 | 265 |
