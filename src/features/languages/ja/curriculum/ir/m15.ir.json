@@ -312,6 +312,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "りょこう",
       "romaji": "ryokou",
       "gloss": "trip, travel",
@@ -1293,7 +1300,8 @@
       "focus": "とき is the noun 'time' with a clause in front of it; keep both halves in the same tense",
       "introduces": [
         "とき",
-        "いそがしい"
+        "いそがしい",
+        "カメラ"
       ],
       "beats": [
         {
@@ -2891,6 +2899,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -3225,6 +3234,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4131,14 +4148,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4492,6 +4501,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

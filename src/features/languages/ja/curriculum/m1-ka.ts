@@ -2,7 +2,7 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
-  wordImageMcq, listeningBuild, speaking, listeningComp,
+  wordImageMcq, listeningBuild, speaking, listeningComp, translateMcq,
   priorRowReviewTail,
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
@@ -164,24 +164,30 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     recognition(ctx, "ja-ka3-rev-ke", "け", "ke", "like 'kept'"),
 
     // Cumulative vocab — surface えき (the row anchor without a dedicated
-    // build sub-lesson). かお is left for the module recap.
+    // build sub-lesson). かお has no visual MCQ here — the です card below
+    // carries its gloss, which is what the speaking beat needs.
     wordImageMcq(ctx, "ja-ka3-mcq-eki", "えき"),
 
-    listeningComp("ja-ka3-lc-koe", "こえ", "koe", "voice",
-      ["face", "station", "shell"]),
-
-    speaking("ja-ka3-speak-kao", "かお", "face"),
-    speaking("ja-ka3-speak-koe", "こえ", "voice"),
+    // Meaning → word recall on こえ (was a second こえ listening comp).
+    // GLOSS-BEFORE-PRODUCTION: the audio primer above teaches こえ by ear,
+    // but the learner has to SAY it two steps below — this states the
+    // word↔meaning pair outright first.
+    translateMcq("ja-ka3-tmcq-koe", "voice", "こえ", ctx.words),
 
     // ─── First-of-type です + か info card (M1 sentence sprinkle, 2026-05-17).
     // Spencer: "introduce desu and ka in the plain hiragana module 1 …
     // dont explain desu and ka much but let them know its there".
+    // Sits BEFORE the speaking beats (2026-07-27): its worked example is
+    // where かお is glossed, and かお is spoken directly below.
     { id: "ja-ka3-info-desu-ka", type: "grammar_rule", title: "です + か — your first sentence",
       rule: "です means 'is/am'. Adding か at the end turns a statement into a question. Just notice them for now — no need to memorize yet.",
       examples: [
         { ja: "かお です", romaji: "kao desu", en: "It's a face." },
         { ja: "かお ですか", romaji: "kao desu ka", en: "Is it a face?" },
       ] },
+
+    speaking("ja-ka3-speak-kao", "かお", "face"),
+    speaking("ja-ka3-speak-koe", "こえ", "voice"),
 
     // Build a sentence: かお です = "it's a face".
     {

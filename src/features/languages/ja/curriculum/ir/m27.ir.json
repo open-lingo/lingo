@@ -179,7 +179,7 @@
     },
     {
       "id": "kara-because",
-      "rule": "から and んだ do two different jobs, and once you see the difference you will use them together constantly. から gives the reason INSIDE the sentence: 「ねつが あるから いかない」 — I have a fever, so I'm not going. んだ presents the WHOLE sentence as an explanation of something outside it. Put both in and you get the shape people actually use: 「ねつが あるから いかないんだ」. The から clause says why I'm not going; the んだ says that this is the answer to the question you were about to ask. Note where the んだ sits — on the very end, after the main clause. It never lands on the から clause in the middle. Asking is the mirror image. Put どうして at the front and keep the んだ at the back: 「どうして たべないんだ？」 That ん is what makes the question sound curious instead of blunt — a bare 「どうして たべない？」 can land like an accusation, while 「どうして たべないんだ？」 asks for the story. The answer comes straight back in the same shape, and the shortest useful answer of all is a reason with んだ on it: 「びょうきなんだ」.",
+      "rule": "から and んだ do two different jobs, and once you see the difference you will use them together constantly. から gives the reason INSIDE the sentence: 「ねつが あるから いかない」 — I have a fever, so I'm not going. んだ presents the WHOLE sentence as an explanation of something outside it. Put both in and you get the shape people actually use: 「ねつが あるから いかないんだ」. The から clause says why I'm not going; the んだ says that this is the answer to the question you were about to ask. Note where the んだ sits — on the very end, after the main clause. It never lands on the から clause in the middle. Asking is the mirror image. Put どうして at the front and keep the んだ at the back: 「どうして たべないんだ？」 That ん is what makes the question sound curious instead of blunt — a bare 「どうして たべない？」 can land like an accusation, while 「どうして たべないんだ？」 asks for the story. The answer comes straight back in the same shape, and the shortest useful answer of all is a reason with んだ on it: 「びょうきなんだ」. Three words come along to give you something to explain: へや a room, つくえ a desk, and せまい narrow, cramped — 「つくえが おおきいから へやが せまいんだ」, the desk is big, so the room is cramped.",
       "examples": [
         {
           "ja": "ねつが あるから いかないんだ。",
@@ -299,7 +299,7 @@
     },
     {
       "id": "ku-ni-naru",
-      "rule": "なる is become, and everything interesting about it is in the piece that comes just before. For an い-adjective, swap the final い for く and put なる after it: さむい gives さむく なる, it gets cold. You have seen that く before — it is the shape an い-adjective takes whenever something follows it, which is why the negative was さむくない back in module 12. Nothing else changes, and the adjective itself is never touched again. What the sentence describes is a CHANGE, and that is the whole reason to reach for it. 「かみが みじかい」 says the paper is short. 「かみが みじかく なる」 says it is GETTING short — a different claim, and usually the more interesting one. Put だんだん in front when the change is gradual: 「だんだん さむく なる」. なる is an ordinary verb, so it does everything ordinary verbs do — んだ on the end to explain yourself, から to hang a consequence off it, けど to concede one. And いい is irregular here in exactly the way it was irregular in module 12: its く-form is よく, never いく, so get better is 「よく なる」.",
+      "rule": "なる is become, and everything interesting about it is in the piece that comes just before. For an い-adjective, swap the final い for く and put なる after it: さむい gives さむく なる, it gets cold. You have seen that く before — it is the shape an い-adjective takes whenever something follows it, which is why the negative was さむくない back in module 12. Nothing else changes, and the adjective itself is never touched again. What the sentence describes is a CHANGE, and that is the whole reason to reach for it. 「かみが みじかい」 says the paper is short. 「かみが みじかく なる」 says it is GETTING short — a different claim, and usually the more interesting one. Its opposite works the same way: ながい is long, so 「かみが ながく なる」 is the paper is getting longer. Put だんだん in front when the change is gradual: 「だんだん さむく なる」. なる is an ordinary verb, so it does everything ordinary verbs do — んだ on the end to explain yourself, から to hang a consequence off it, けど to concede one. And いい is irregular here in exactly the way it was irregular in module 12: its く-form is よく, never いく, so get better is 「よく なる」.",
       "examples": [
         {
           "ja": "だんだん さむく なる。",
@@ -3238,6 +3238,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3716,6 +3717,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4622,14 +4631,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4721,6 +4722,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6424,6 +6432,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

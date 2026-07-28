@@ -190,6 +190,13 @@
       "kind": "particle"
     },
     {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "で",
       "romaji": "de",
       "gloss": "at / in (location of action)",
@@ -1543,7 +1550,8 @@
       "title": "に — where it is",
       "focus": "に pins the place of existence: Place に X が ある/いる (あそこに ねこが いる, ここに ほんが ある)",
       "introduces": [
-        "に"
+        "に",
+        "いけ"
       ],
       "beats": [
         {

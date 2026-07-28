@@ -295,7 +295,7 @@
     },
     {
       "id": "mo-also",
-      "rule": "Real preferences are polite about the things they did not pick, and Japanese has a tidy shape for that. Put も on every member of the field to concede that all of them are true, then hang the choice off the end with けど. 「にくも さかなも おいしいけど さかなが いちばん すきだ」 — meat and fish are both delicious, but fish is what I like most. も is module 3's 'too', and repeating it is what turns two separate 'too's into 'both'. The move matters more than the grammar does: saying flatly that one thing is the best implies the others are not, and conceding first takes that sting out. It also works with the field already named — 「どれも たかいけど これが いちばん たかい」, they are all expensive but this is the most expensive — where どれも means 'all of them' and needs no list in front of it. Two things to watch. も REPLACES は and が rather than stacking with them, so it is 「にくも」 and never 「にくがも」. And すき still takes が on the thing liked, however many も have come before it.",
+      "rule": "Real preferences are polite about the things they did not pick, and Japanese has a tidy shape for that. Put も on every member of the field to concede that all of them are true, then hang the choice off the end with けど. 「にくも さかなも おいしいけど さかなが いちばん すきだ」 — meat and fish are both delicious, but fish is what I like most. も is module 3's 'too', and repeating it is what turns two separate 'too's into 'both'. The move matters more than the grammar does: saying flatly that one thing is the best implies the others are not, and conceding first takes that sting out. It also works with the field already named — 「どれも たかいけど これが いちばん たかい」, they are all expensive but this is the most expensive — where どれも means 'all of them' and needs no list in front of it. Name the field with a noun and 〜の なかで does the same job: 「ことばの なかで えいごが いちばん むずかしい」 — of all the languages, えいご, the English language, is the hardest. Two things to watch. も REPLACES は and が rather than stacking with them, so it is 「にくも」 and never 「にくがも」. And すき still takes が on the thing liked, however many も have come before it.",
       "examples": [
         {
           "ja": "にくも さかなも おいしいけど さかなが いちばん すきだ。",
@@ -3098,6 +3098,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3569,6 +3570,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4475,14 +4484,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4574,6 +4575,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6204,6 +6212,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

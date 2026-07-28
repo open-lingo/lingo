@@ -35,7 +35,7 @@
     {
       "id": "masu-present",
       "variant": "the-stem",
-      "rule": "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes.",
+      "rule": "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own.",
       "examples": [
         {
           "ja": "たべます",
@@ -92,7 +92,7 @@
     },
     {
       "id": "desu-copula",
-      "rule": "です finishes NOUNS politely, the way だ finishes them plainly: ねこだ → ねこです. です is NOT 'polite だ' you can bolt onto verbs — たべるです is not a sentence. Verbs get ます; nouns get です.",
+      "rule": "です finishes NOUNS politely, the way だ finishes them plainly: ねこだ → ねこです. です is NOT 'polite だ' you can bolt onto verbs — たべるです is not a sentence. Verbs get ます; nouns get です. Any noun sits in that slot: がくせい (a student), せんせい (a teacher), アメリカじん (an American — a country name plus じん 'person' names the nationality).",
       "examples": [
         {
           "ja": "がくせいです",
@@ -131,7 +131,7 @@
     {
       "id": "register-audience",
       "variant": "audience",
-      "rule": "Japanese picks its form by WHO you're talking to, not by what you mean. Friends and family get plain (たべる). Teachers, strangers, and customers get polite (たべます). Same thought, two skins — you choose by audience, every sentence.",
+      "rule": "Japanese picks its form by WHO you're talking to, not by what you mean. Friends and family get plain (たべる). Teachers, strangers, and customers get polite (たべます). Same thought, two skins — you choose by audience, every sentence. Even 'yes' has two skins: うん to a friend, and ええ — a soft, warm 'yes' — to anyone you are being polite with, beside the crisper はい.",
       "examples": [
         {
           "ja": "たべる",
@@ -2648,6 +2648,13 @@
       "shortGloss": "where it is",
       "imageable": false,
       "kind": "particle"
+    },
+    {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "で",

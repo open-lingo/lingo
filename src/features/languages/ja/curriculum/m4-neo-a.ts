@@ -701,8 +701,12 @@ export const M4_NEO_3: LessonContent = {
         "In their hands means それ — これ would point at your own hands.",
       exercisedAtomKanas: ["それ", "なに"],
     }),
-    // Quick gamified breather — emoji word check over an M3 atom.
-    vocabMcq("ja-m4-neo-3-vmcq-mid", L3_REVIEW[3], NEO_M3_POOL),
+    // Quick gamified breather — emoji word check over an M3 atom. Pinned to
+    // the atom the review tail SPEAKS (L3_REVIEW[0], 2026-07-27
+    // gloss-before-production): the tail asks for it bare, and for なまえ the
+    // m3 rewrite never glossed it — the grid two steps later was its first
+    // stated meaning, one step too late.
+    vocabMcq("ja-m4-neo-3-vmcq-mid", L3_REVIEW[0], NEO_M3_POOL),
     build(
       "ja-m4-neo-3-build-keitai",
       "Build this sentence: This is a phone.",

@@ -153,7 +153,7 @@
     },
     {
       "id": "nai-form",
-      "rule": "なきゃ is a contraction, and this is what it is a contraction of. Start from the ない-form again, but this time treat that ない as the い-adjective it behaves like: drop the い and put ければ there instead. いかない gives いかなければ, のまない gives のまなければ, しない gives しなければ. On its own that half means if I don't go — a condition hanging in the air with nothing to land on. What lands on it is ならない, which is it won't do. 「いかなければ ならない」 is therefore if I don't go it won't do, which is how Japanese says I have to go. Two things follow from that, and they are the whole lesson. First, ならない is not optional in careful speech, so the full form is two pieces and not one. Second, なきゃ already ATE it — that is why nothing can follow なきゃ, and why 「いかなきゃ ならない」 says the same thing twice. There is one more contraction worth recognising. なくては is a second conditional doing the same job, and it contracts to なくちゃ: 「いかなくちゃ」 means exactly what 「いかなきゃ」 means, in exactly the same register. Which one a speaker reaches for is habit, not grammar.",
+      "rule": "なきゃ is a contraction, and this is what it is a contraction of. Start from the ない-form again, but this time treat that ない as the い-adjective it behaves like: drop the い and put ければ there instead. いかない gives いかなければ, のまない gives のまなければ, しない gives しなければ. On its own that half means if I don't go — a condition hanging in the air with nothing to land on. What lands on it is ならない, which is it won't do. 「いかなければ ならない」 is therefore if I don't go it won't do, which is how Japanese says I have to go. Two things follow from that, and they are the whole lesson. First, ならない is not optional in careful speech, so the full form is two pieces and not one. Second, なきゃ already ATE it — that is why nothing can follow なきゃ, and why 「いかなきゃ ならない」 says the same thing twice. There is one more contraction worth recognising. なくては is a second conditional doing the same job, and it contracts to なくちゃ: 「いかなくちゃ」 means exactly what 「いかなきゃ」 means, in exactly the same register. Which one a speaker reaches for is habit, not grammar. Obligations are usually routines, so まいにち — every day — sits in front of one exactly where あした does: 「まいにち かいしゃに いかなければ ならない」, I have to go to the office every day.",
       "examples": [
         {
           "ja": "あした かいしゃに いかなければ ならない。",
@@ -243,7 +243,7 @@
     },
     {
       "id": "hou-ga-ii",
-      "rule": "Having spent four lessons on duties, here is the softer thing beside them: advice. 「くすりを のんだ ほうが いい」 is you'd better take medicine — not a rule, a recommendation, and the strongest one Japanese makes without being rude. You have most of it already. ほう is the ordinary noun from module 20, the ~ side, the ~ one; が marks it as what the sentence is about; いい is good. So the sentence literally says the having-taken-medicine side is good, and the alternative is quietly the loser of a comparison you never had to state. Because ほう is a NOUN, it needs が after it — dropping the particle leaves two nouns stacked with nothing between them. What goes in FRONT of ほう is the surprising bit, and it is the た-form: のんだ, たべた, いった, きいた, みた. Yes, the past tense. No, it is not about the past — the next lesson is entirely about why. For now, build it and hear it: 「やさいを たべた ほうが いい。」 「がっこうに いった ほうが いい。」 Advice comes with its reason as often as a duty does, so から is usually hanging off the front of it.",
+      "rule": "Having spent four lessons on duties, here is the softer thing beside them: advice. 「くすりを のんだ ほうが いい」 is you'd better take medicine — not a rule, a recommendation, and the strongest one Japanese makes without being rude. You have most of it already. ほう is the ordinary noun from module 20, the ~ side, the ~ one; が marks it as what the sentence is about; いい is good. So the sentence literally says the having-taken-medicine side is good, and the alternative is quietly the loser of a comparison you never had to state. Because ほう is a NOUN, it needs が after it — dropping the particle leaves two nouns stacked with nothing between them. What goes in FRONT of ほう is the surprising bit, and it is the た-form: のんだ, たべた, いった, きいた, みた. Yes, the past tense. No, it is not about the past — the next lesson is entirely about why. For now, build it and hear it: 「やさいを たべた ほうが いい。」 「がっこうに いった ほうが いい。」 Advice comes with its reason as often as a duty does, so から is usually hanging off the front of it — and one of the reasons you will reach for most is つよい, strong, powerful: 「この くすりは つよいから いしゃに きいた ほうが いい」, this medicine is strong, so you'd better ask a doctor.",
       "examples": [
         {
           "ja": "ねつが あるから くすりを のんだ ほうが いい。",
@@ -3287,6 +3287,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3787,6 +3788,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4693,14 +4702,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4792,6 +4793,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6691,6 +6699,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

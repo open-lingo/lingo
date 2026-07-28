@@ -37,7 +37,7 @@ notes: |
 grammarPoints:
   - id: numbers-1-10
     variant: one-to-five
-    rule: "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things."
+    rule: "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things. A price is one of these numbers with えん — the yen — glued straight onto its end: ごえん is five yen."
     examples:
       - { ja: "いち に さん", en: "one, two, three" }
       - { ja: "よん ご ろく", en: "four, five, six" }
@@ -58,10 +58,24 @@ grammarPoints:
       - { ja: "ふたつ ある", en: "There are two." }
     antiPattern: { ja: "いちつ", en: "", why: "the 〜つ series uses its own readings — ひとつ, not いちつ" }
   - id: ikura-price
+    variant: how-much
     rule: "いくら asks the price: いくらですか = 'how much is it?'. The answer is a number + えん. Prices are the one place a beginner needs numbers immediately, so this is where the number line gets spent."
     examples:
       - { ja: "いくらですか", en: "How much is it?" }
       - { ja: "ひゃくえんです", en: "It's a hundred yen." }
+  # L5 owned no card, so たかい and かね were BUILT before anything said what
+  # they meant — neither can take a picture (たかい is image-blocked, かね has
+  # no emoji), so the gloss arrived two lessons late (2026-07-27 gloss-debt
+  # scan). Same point, second variant: the words a price is described with.
+  # やすい stays OUT of the examples — it has an emoji, so its image MCQ must
+  # remain its first appearance (image-debut invariant).
+  - id: ikura-price
+    variant: price-words
+    rule: "Two adjectives finish the shop exchange. たかい means expensive — and, of a thing, tall; やすい means cheap. Either one can be the whole predicate: これは たかい, politely これは たかいです. かね is the money itself, which is why かねが ない — 'there is no money' — is how you say you can't afford it."
+    examples:
+      - { ja: "これは たかいです。", en: "This is expensive." }
+      - { ja: "かねが ない。", en: "I have no money." }
+    antiPattern: { ja: "これは たかいだ。", why: "an い-adjective is already a predicate — it takes です politely and never だ: これは たかいです." }
 
 newAtoms:
   - { kana: いち, romaji: ichi, gloss: "one", imageable: false, kind: vocab }
@@ -187,7 +201,7 @@ lessons:
     focus: "いくらですか and a number + えん; the exchange that makes numbers pay"
     introduces: [いくら, ひゃく]
     beats:
-      - { kind: rule, grammarPointId: ikura-price }
+      - { kind: rule, grammarPointId: ikura-price, variant: how-much }
       - { kind: sentence, ja: "これは いくら？", en: "How much is this?", exercises: [ikura-price, kore-sore-are-dore], mode: build }
       - { kind: sentence, ja: "これは いくらですか。", en: "Say politely: How much is this", exercises: [wa-topic, ikura-price, desu-copula, ka-question], mode: build }
       - { kind: sentence, ja: "ひゃくえんです。", en: "Say politely: It's a hundred yen", exercises: [ikura-price, desu-copula], mode: listening }
@@ -209,6 +223,7 @@ lessons:
     focus: "the two adjectives a shopper needs before adjectives are formally taught"
     introduces: [たかい, やすい, かね]
     beats:
+      - { kind: rule, grammarPointId: ikura-price, variant: price-words }
       - { kind: sentence, ja: "これは たかいです。", en: "Say politely: This is expensive", exercises: [wa-topic, desu-copula], mode: translate }
       - { kind: sentence, ja: "これは やすいです。", en: "Say politely: This is cheap", exercises: [wa-topic, desu-copula], mode: build }
       - { kind: sentence, ja: "これは たかいです。", en: "Say politely: This is expensive", exercises: [wa-topic, desu-copula], mode: listening }

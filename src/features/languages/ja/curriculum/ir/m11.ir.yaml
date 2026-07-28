@@ -50,7 +50,7 @@ notes: |
 
 grammarPoints:
   - id: numbers-11-99
-    rule: "Past ten, Japanese counts by ARITHMETIC. Stack a digit on the RIGHT of じゅう and you add: じゅう + ご = じゅうご (15). Stack a digit on the LEFT and you multiply: さん + じゅう = さんじゅう (30). Combine both for everything in between: ろくじゅうご = 65. There is nothing new to memorise — you already know every piece."
+    rule: "Past ten, Japanese counts by ARITHMETIC. Stack a digit on the RIGHT of じゅう and you add: じゅう + ご = じゅうご (15). Stack a digit on the LEFT and you multiply: さん + じゅう = さんじゅう (30), よん + じゅう = よんじゅう (40), ご + じゅう = ごじゅう (50), なな + じゅう = ななじゅう (70). Combine both for everything in between: ろくじゅうご = 65. There is nothing new to memorise — you already know every piece."
     examples:
       - { ja: "じゅうご", en: "fifteen" }
       - { ja: "さんじゅう", en: "thirty" }
@@ -71,7 +71,7 @@ grammarPoints:
     antiPattern: { ja: "さんじ いく。", en: "", why: "a clock time needs に — さんじに いく" }
   - id: ta-form
     variant: table
-    rule: "Plain past is た, and it runs on the SAME sound-change table you bought for て. Swap て for た and で for だ, and you are done. る-verbs: たべる → たべた. う-verbs: む/ぶ/ぬ → んだ (のむ → のんだ); う/つ/る → った (かう → かった); く → いた (きく → きいた); ぐ → いだ. する → した, くる → きた, and いく is the same rebel it was for て: いった."
+    rule: "Plain past is た, and it runs on the SAME sound-change table you bought for て. Swap て for た and で for だ, and you are done. る-verbs: たべる → たべた. う-verbs: む/ぶ/ぬ → んだ (のむ → のんだ); う/つ/る → った (かう → かった); く → いた (きく → きいた); ぐ → いだ. する → した, くる → きた, and いく is the same rebel it was for て: いった. A past sentence usually opens with the time it happened: きのう is 'yesterday', so きのう のんだ is 'I drank it yesterday'."
     examples:
       - { ja: "みずを のんだ。", en: "I drank water." }
       - { ja: "ごはんを たべた。", en: "I ate rice." }

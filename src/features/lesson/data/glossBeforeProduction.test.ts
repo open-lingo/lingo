@@ -75,17 +75,10 @@ function producedJa(step: Record<string, unknown>): string | null {
  * module was authored with a step that outruns its own vocabulary.
  */
 const KNOWN_DEBT = new Set<string>([
-  // m1 — the kana module's example word arrives with the glyph; the gloss follows.
-  "かお", "こえ", "と",
-  // m3-m5 (hand-authored TS)
-  "うみ", "ともだち", "にほんじん", "すみません", "だいじょうぶ", "なまえ", "そう",
-  // m6-m12
-  "いけ", "さん", "アメリカじん", "ええ", "しょくじ", "こめ", "えん", "かね", "たかい",
-  "だめ", "けっこう", "ぼく", "しる", "まあ", "よく", "こちら",
-  "よんじゅう", "ごじゅう", "ななじゅう", "きのう", "どう",
-  // m15-m28 — beyond where the simulation walked; found by this scan, not by a reader.
-  "カメラ", "おんがく", "はいる", "くうこう", "あき", "えいご",
-  "つくえ", "へや", "せまい", "ながい", "まいにち", "つよい",
+  // EMPTY, and it stays empty. All 43 holes were closed on 2026-07-27, the day
+  // this guard was written. An entry appearing here again means a module was
+  // authored with a production step that outruns its own vocabulary, and the
+  // fix is the lesson, not the list.
 ]);
 
 describe("vocabulary is explained before it is demanded", () => {
@@ -113,8 +106,13 @@ describe("vocabulary is explained before it is demanded", () => {
           if (step.type === "match_pairs")
             for (const p of (step.pairs as { source?: string }[]) ?? []) state(p.source);
           if (step.type === "grammar_rule") {
+            // `cultureNote` counts: it is shown on the card and routinely
+            // carries the only gloss a function word ever gets — 「そう」's
+            // lived there and nowhere else, so the first run of this guard
+            // called a taught word untaught.
             const text = [
               step.rule as string,
+              step.cultureNote as string,
               ...(((step.examples as { ja?: string }[]) ?? []).map((e) => e.ja ?? "")),
             ].join(" ");
             for (const w of CONTENT) if (text.includes(w)) state(w);

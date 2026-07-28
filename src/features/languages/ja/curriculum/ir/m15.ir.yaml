@@ -110,8 +110,8 @@ notes: |
     rule; m15 keeps it. Where "that X" was tempting this module reaches for a
     relative clause instead, which is the point of the module.
 
-  PICTURE DEBUTS (inv 30/44): えいが 🎬 (L2), くつ 👞 (L3), いそがしい 😰 (L6),
-  りょこう ✈️ (L7) — four words from m15's OWN registry allocation, each chosen
+  PICTURE DEBUTS (inv 30/44): えいが 🎬 (L2), くつ 👞 (L3), いそがしい 😰 + カメラ
+  📷 (L6), りょこう ✈️ (L7) — four words from m15's OWN registry allocation, each chosen
   because the grammar needs it rather than to decorate it: a relative clause
   wants concrete things you can have bought or seen (えいが, くつ), とき wants a
   state you can be in (いそがしい) and an event you can be before or after
@@ -238,6 +238,13 @@ newAtoms:
   # ══ L6 — とき, and the module's third picture debut.
   - { kana: とき, romaji: toki, gloss: "time, when", shortGloss: "time, when", imageable: false, kind: vocab }
   - { kana: いそがしい, romaji: isogashii, gloss: "busy", imageable: true, kind: vocab }
+  # ══ L6 — カメラ. It already has a courseAtoms row (📷, SRS-attributed to the
+  #    m11 katakana row, where the learner learns to READ it) but no lesson
+  #    ever states what it MEANS, so it arrived here as an untaught carrier and
+  #    the learner had to BUILD it in L7 (glossBeforeProduction). Declared new
+  #    in the first lesson that uses it so it gets a real picture debut; 📷 is
+  #    unique in the registry, so nothing collides.
+  - { kana: カメラ, romaji: kamera, gloss: "camera", imageable: true, kind: vocab }
   # ══ L7
   - { kana: りょこう, romaji: ryokou, gloss: "trip, travel", shortGloss: "trip", imageable: true, kind: vocab }
   # ══ L9 — まえ. Already a courseAtoms row (stale `fromModule: m17`, blocked),
@@ -391,7 +398,7 @@ lessons:
     role: teaching
     title: "いく とき — saying when"
     focus: "とき is the noun 'time' with a clause in front of it; keep both halves in the same tense"
-    introduces: [とき, いそがしい]
+    introduces: [とき, いそがしい, カメラ]
     beats:
       - { kind: rule, grammarPointId: toki }
       - { kind: sentence, ja: "ごはんを たべる とき みずを のむ。", en: "When I eat, I drink water", exercises: [toki, dictionary-form], mode: build }

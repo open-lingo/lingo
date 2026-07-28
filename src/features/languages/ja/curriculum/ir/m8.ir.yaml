@@ -68,6 +68,27 @@ grammarPoints:
       - { ja: "みてください", en: "Please look." }
       - { ja: "たべてください", en: "Please eat." }
     antiPattern: { ja: "たべるください", en: "", why: "ください attaches to the て-form, not the dictionary form — たべてください" }
+  # The two vocabulary lessons (L5 food, L6 shop) owned no card, so しょくじ
+  # and こめ were BUILT before anything said what they meant — neither has an
+  # emoji, so the compiler cannot give them a picture debut and the gloss
+  # arrived a lesson late, in a review match grid (2026-07-27 gloss-debt
+  # scan). Each lesson now re-teaches a prior particle point in its own
+  # context (the ⟳ move) and spends the card's prose on its nouns. Examples
+  # deliberately avoid ごはん/たべもの/みせ: those DO have emoji, so their
+  # first appearance must stay their image MCQ (image-debut invariant).
+  - id: wo-object
+    variant: food
+    rule: "A request needs something to request, and food is where a beginner starts. ごはん is cooked rice — and, by extension, the meal built round it. しょくじ is the meal itself, the sit-down occasion: しょくじを する is 'to have a meal'. たべもの is food in general, and ちゃ is tea. Whatever you eat, drink or ask for takes を."
+    examples:
+      - { ja: "しょくじを する。", en: "I have a meal." }
+      - { ja: "ちゃを のむ。", en: "I drink tea." }
+  - id: de-action
+    variant: shop
+    rule: "で marks WHERE an action happens, and for a beginner that is the shop: みせで かう is 'buy it at the shop'. What you buy there is こめ — uncooked rice, the bag on the shelf, not the cooked bowl on the table (that one is ごはん). Getting to the shop is still に, not で: みせに いく."
+    examples:
+      - { ja: "いえで たべる。", en: "I eat at home." }
+      - { ja: "こめを かう。", en: "I buy rice." }
+    antiPattern: { ja: "いえに たべる。", why: "に is where a thing IS; the place you do something takes で — いえで たべる." }
   - id: te-kudasai
     variant: casual
     rule: "ください is the polite half, and it detaches. みてください → みて: same verb, same て-form, and the whole difference in politeness lives in whether ください is there. Bare て for friends and family; keep ください for teachers, shopkeepers and people you have just met."
@@ -219,6 +240,7 @@ lessons:
     focus: "the vocabulary requests are actually made about"
     introduces: [ごはん, たべもの, しょくじ, ちゃ]
     beats:
+      - { kind: rule, grammarPointId: wo-object, variant: food }
       - { kind: sentence, ja: "ごはんを たべる。", en: "I eat rice", exercises: [wo-object], mode: translate }
       - { kind: sentence, ja: "ちゃを のんで。", en: "Drink the tea", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "たべものが ある。", en: "There's food", exercises: [ga-existence, arimasu], mode: listening }
@@ -233,6 +255,7 @@ lessons:
     focus: "requests in the one place a beginner actually needs them"
     introduces: [みせ, こめ]
     beats:
+      - { kind: rule, grammarPointId: de-action, variant: shop }
       - { kind: sentence, ja: "みせに いく。", en: "I go to the shop", exercises: [ni-location], mode: translate }
       - { kind: sentence, ja: "みせで かう。", en: "I buy it at the shop", exercises: [de-action], mode: build }
       - { kind: sentence, ja: "こめを かってください。", en: "Say politely: Please buy rice", exercises: [te-kudasai, wo-object], mode: build }

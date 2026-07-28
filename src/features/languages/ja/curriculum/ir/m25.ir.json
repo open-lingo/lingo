@@ -210,7 +210,7 @@
     },
     {
       "id": "ni-time",
-      "rule": "The four seasons are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the holiday inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」.",
+      "rule": "The four seasons — はる spring, なつ summer, あき autumn, ふゆ winter — are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the holiday inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」.",
       "examples": [
         {
           "ja": "ふゆは さむいでしょう。",
@@ -3171,6 +3171,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3628,6 +3629,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4534,14 +4543,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4633,6 +4634,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6124,6 +6132,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

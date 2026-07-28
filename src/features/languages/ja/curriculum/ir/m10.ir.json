@@ -96,6 +96,7 @@
     },
     {
       "id": "chotto-softener",
+      "variant": "chotto",
       "rule": "ちょっと literally means 'a little', but its real job is SOFTENING. On its own — ちょっと… — it is a polite refusal that never says no. Japanese avoids flat rejection, so a trailing ちょっと is understood as 'that doesn't work for me'.",
       "examples": [
         {
@@ -107,6 +108,89 @@
           "en": "Today is… a bit difficult (trailing off = a polite no)."
         }
       ]
+    },
+    {
+      "id": "chotto-softener",
+      "variant": "maa-yoku",
+      "rule": "Two more words do the same softening work, and both lead the sentence without a particle. まあ hedges before you commit: まあ、いく is 'well… I'll go' — a yes with a shrug in it. よく is frequency: よく たべる is 'I eat it often'. After a verb of understanding it shades into 'well' — よく わかります, 'I understand it well'.",
+      "examples": [
+        {
+          "ja": "まあ、いく。",
+          "en": "Well, I'll go."
+        },
+        {
+          "ja": "よく たべる。",
+          "en": "I eat it often."
+        }
+      ]
+    },
+    {
+      "id": "yes-no-register",
+      "variant": "declining",
+      "rule": "Turning something down has its own two words. だめ is the blunt one — 'no good', and by extension 'not allowed': それは だめ stops a friend mid-move. けっこう is the gentle refusal you hand a host or a shop assistant; it means 'I'm fine as I am, thank you', so ちゃは けっこうです declines the tea without ever saying no. だめ forbids, けっこう declines — they are not interchangeable.",
+      "examples": [
+        {
+          "ja": "それは だめ。",
+          "en": "That's no good."
+        },
+        {
+          "ja": "けっこうです。",
+          "en": "No thank you."
+        }
+      ]
+    },
+    {
+      "id": "register-audience",
+      "variant": "pronouns",
+      "rule": "Even 'I' carries register. わたし is the neutral one and is safe in any company. ぼく is casual and usually male — friends and family, never a first meeting with a teacher. Most of the time Japanese drops the subject altogether: いく on its own already means 'I'm going', so reach for a pronoun only when you need the contrast.",
+      "examples": [
+        {
+          "ja": "わたしは がくせいです。",
+          "en": "I'm a student."
+        },
+        {
+          "ja": "ぼくは いく。",
+          "en": "I'm going. (to a friend)"
+        }
+      ]
+    },
+    {
+      "id": "masu-negative",
+      "variant": "shiru",
+      "rule": "しる is 'to know' — having a fact, a place or a person in your head. The form you will reach for constantly is its NEGATIVE: しりません to a teacher or a stranger, しらない to a friend, both 'I don't know'. Politeness lives in the tail, exactly as it does for every other verb: しります / しりません.",
+      "examples": [
+        {
+          "ja": "わたしは しりません。",
+          "en": "I don't know. (polite)"
+        },
+        {
+          "ja": "ぼくは しらない。",
+          "en": "I don't know. (to a friend)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "わたしは しるません。",
+        "why": "ません attaches to the ます-stem, not the dictionary form — しる → しり + ません."
+      }
+    },
+    {
+      "id": "kore-sore-are-dore",
+      "variant": "kochira",
+      "rule": "こちら is the polite こ-word. これ points at a thing and ここ at a place; こちら points POLITELY — at a direction ('this way'), at a place, or at a person you are introducing. こちらは せんせいです is how you present someone. Shop staff and hosts use it constantly, so you will hear it long before you need to say it.",
+      "examples": [
+        {
+          "ja": "こちらは せんせいです。",
+          "en": "This is the teacher."
+        },
+        {
+          "ja": "こちらです。",
+          "en": "It's this way."
+        }
+      ],
+      "antiPattern": {
+        "ja": "これは せんせいです。",
+        "why": "これ points at THINGS — presenting a person takes the polite こちら."
+      }
     }
   ],
   "newAtoms": [
@@ -859,7 +943,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "chotto-softener"
+          "grammarPointId": "chotto-softener",
+          "variant": "chotto"
         },
         {
           "kind": "sentence",
@@ -996,6 +1081,11 @@
       ],
       "beats": [
         {
+          "kind": "rule",
+          "grammarPointId": "yes-no-register",
+          "variant": "declining"
+        },
+        {
           "kind": "sentence",
           "ja": "それは だめ。",
           "en": "Say to a friend: That's no good",
@@ -1109,6 +1199,11 @@
         "ぼく"
       ],
       "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "register-audience",
+          "variant": "pronouns"
+        },
         {
           "kind": "sentence",
           "ja": "わたしは いく。",
@@ -1382,6 +1477,11 @@
       ],
       "beats": [
         {
+          "kind": "rule",
+          "grammarPointId": "masu-negative",
+          "variant": "shiru"
+        },
+        {
           "kind": "sentence",
           "ja": "ともだちを しる。",
           "en": "I know the friend",
@@ -1477,6 +1577,11 @@
         "よく"
       ],
       "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "chotto-softener",
+          "variant": "maa-yoku"
+        },
         {
           "kind": "sentence",
           "ja": "まあ、たべる。",
@@ -1581,6 +1686,11 @@
         "こちら"
       ],
       "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "kore-sore-are-dore",
+          "variant": "kochira"
+        },
         {
           "kind": "sentence",
           "ja": "こちらです。",
@@ -2357,6 +2467,13 @@
       "shortGloss": "where it is",
       "imageable": false,
       "kind": "particle"
+    },
+    {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "で",

@@ -159,7 +159,7 @@
     },
     {
       "id": "tsumori-desu",
-      "rule": "つもり is a DECISION. 「なつやすみに にほんに いく つもりだ」 is not I will go and not I want to go — it is I intend to go, I have made up my mind, the plan is made. That is why it is a noun: つもり literally is your intention, and だ finishes it the way だ finishes any noun. The verb in front is the PLAIN DICTIONARY form and nothing else. いく つもり, かう つもり, まつ つもり. Never ます, never たい, never the past — an intention is about something that has not happened yet, so 「いきます つもり」 is wrong in a way a Japanese speaker hears immediately. Everything else behaves normally: hang a reason on から, a contrast on けど, and put the time wherever time goes. 「りょこうに いく つもりだけど じかんが ない」 — I mean to travel, but I have no time, which is a sentence you will want more often than you would like. To ask, drop the だ and let your voice rise: 「なつやすみは なにを する つもり？」 — what are you planning to do in the summer?",
+      "rule": "つもり is a DECISION. 「なつやすみに にほんに いく つもりだ」 is not I will go and not I want to go — it is I intend to go, I have made up my mind, the plan is made. That is why it is a noun: つもり literally is your intention, and だ finishes it the way だ finishes any noun. The verb in front is the PLAIN DICTIONARY form and nothing else. いく つもり, かう つもり, まつ つもり. はいる — to enter, to go in — takes the same slot: 「みせに はいる つもりだ」, I intend to go into the shop. Never ます, never たい, never the past — an intention is about something that has not happened yet, so 「いきます つもり」 is wrong in a way a Japanese speaker hears immediately. Everything else behaves normally: hang a reason on から, a contrast on けど, and put the time wherever time goes. 「りょこうに いく つもりだけど じかんが ない」 — I mean to travel, but I have no time, which is a sentence you will want more often than you would like. To ask, drop the だ and let your voice rise: 「なつやすみは なにを する つもり？」 — what are you planning to do in the summer?",
       "examples": [
         {
           "ja": "なつやすみに にほんに いく つもりだ。",
@@ -189,7 +189,7 @@
     },
     {
       "id": "v-tai",
-      "rule": "たい and つもり are not the same word twice. たい (module 13) says what you WANT: 「にほんに いきたい」 — I want to go to Japan, and whether you ever will is left completely open. つもり says what you have DECIDED: 「にほんに いく つもりだ」 — the plan exists. Wanting is a feeling; intending is a plan; and the four combinations are all real. You can want to and intend to — 「にほんに いきたいから いく つもりだ」. You can want to and NOT intend to, which is the most useful of the four and the one English fumbles: 「にほんに いきたいけど いく つもりは ない」, I'd love to go, but I'm not going to. You can intend to without wanting to, which is what work is. And you can do neither. Notice the negative there: to say you have no intention you do not negate the verb, you say the intention itself does not exist — 「つもりは ない」, with は because it is a contrast. That is the same ある/ない you just used for experience, one lesson later, doing the same job on a different noun.",
+      "rule": "たい and つもり are not the same word twice. たい (module 13) says what you WANT: 「にほんに いきたい」 — I want to go to Japan, and whether you ever will is left completely open. つもり says what you have DECIDED: 「にほんに いく つもりだ」 — the plan exists. Wanting is a feeling; intending is a plan; and the four combinations are all real. You can want to and intend to — 「にほんに いきたいから いく つもりだ」. The place this lesson keeps reaching for is くうこう, the airport: 「くうこうに いきたいから きっぷを かう つもりだ」, I want to go to the airport, so I intend to buy a ticket. You can want to and NOT intend to, which is the most useful of the four and the one English fumbles: 「にほんに いきたいけど いく つもりは ない」, I'd love to go, but I'm not going to. You can intend to without wanting to, which is what work is. And you can do neither. Notice the negative there: to say you have no intention you do not negate the verb, you say the intention itself does not exist — 「つもりは ない」, with は because it is a contrast. That is the same ある/ない you just used for experience, one lesson later, doing the same job on a different noun.",
       "examples": [
         {
           "ja": "にほんに いきたいから いく つもりだ。",
@@ -3127,6 +3127,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3556,6 +3557,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4462,14 +4471,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4561,6 +4562,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5791,6 +5799,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

@@ -101,7 +101,7 @@
     },
     {
       "id": "no-possession",
-      "rule": "の glues two nouns together and the one in FRONT owns the one behind: 「あにの じてんしゃ」 = my older brother's bicycle. Two more うち words arrive with it — あに, my older brother, and あね, my older sister — and like ちち and はは they can only ever mean mine. Notice what Japanese splits on: AGE, before anything else. あに is specifically an OLDER brother and あね an OLDER sister, and there is no word that just means \"brother\". You can chain の as far as you like — 「あにの ともだちの くるま」 = my older brother's friend's car — and you can stop after it, letting の carry the noun on its own: 「この かばんは あねのだ」 = this bag is my older sister's.",
+      "rule": "の glues two nouns together and the one in FRONT owns the one behind: 「あにの じてんしゃ」 = my older brother's bicycle. Two more うち words arrive with it — あに, my older brother, and あね, my older sister — and like ちち and はは they can only ever mean mine. Notice what Japanese splits on: AGE, before anything else. あに is specifically an OLDER brother and あね an OLDER sister, and there is no word that just means \"brother\". You can chain の as far as you like — 「あにの ともだちの くるま」 = my older brother's friend's car — and you can stop after it, letting の carry the noun on its own: 「この かばんは あねのだ」 = this bag is my older sister's. One ordinary noun rides along with them here because you will want it constantly: おんがく, music. 「あには おんがくが すきだ」 = my older brother likes music.",
       "examples": [
         {
           "ja": "あにの じてんしゃは たかかったけど あたらしい。",
@@ -3045,6 +3045,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいませんでした",
     "かいもの",
     "かう",
@@ -3096,6 +3097,7 @@
     "けっこう",
     "けど",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",
@@ -3406,6 +3408,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4312,14 +4322,6 @@
       "derivedFrom": "みせる"
     },
     {
-      "kana": "しらない",
-      "romaji": "shiranai",
-      "gloss": "don't know",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "しる"
-    },
-    {
       "kana": "みせない",
       "romaji": "misenai",
       "gloss": "won't show / don't show",
@@ -4411,6 +4413,13 @@
       "kana": "いそがしい",
       "romaji": "isogashii",
       "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
       "imageable": true,
       "kind": "vocab"
     },
@@ -4940,6 +4949,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

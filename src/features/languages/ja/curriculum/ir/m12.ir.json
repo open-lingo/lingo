@@ -102,6 +102,25 @@
       }
     },
     {
+      "id": "i-adj-present",
+      "variant": "dou-question",
+      "rule": "どう asks what something is LIKE, and an adjective is the answer: ごはんは どう？ — おいしい。 It stands where the adjective would stand and takes no particle of its own. In the past it is どうだった ('how was it?'), and politely どうですか. Unlike だれ (who) or なんじ (what time), どう never asks for a noun — it asks for a description.",
+      "examples": [
+        {
+          "ja": "ごはんは どう？",
+          "en": "How's the rice?"
+        },
+        {
+          "ja": "にほんは どうですか。",
+          "en": "What is Japan like? (polite)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "ごはんは どうに？",
+        "why": "どう takes no particle — it simply sits where the adjective would: ごはんは どう？"
+      }
+    },
+    {
       "id": "i-adj-negative",
       "rule": "To say an い-adjective is NOT true, drop the final い and add くない: たかい → たかくない. The adjective conjugates on its own, exactly like a verb, and still takes no だ. One rebel: いい has a different stem — よくない, never いくない.",
       "examples": [
@@ -2129,6 +2148,11 @@
       ],
       "beats": [
         {
+          "kind": "rule",
+          "grammarPointId": "i-adj-present",
+          "variant": "dou-question"
+        },
+        {
           "kind": "sentence",
           "ja": "ごはんは どう？",
           "en": "Ask a friend: How's the rice",
@@ -3444,6 +3468,13 @@
       "shortGloss": "where it is",
       "imageable": false,
       "kind": "particle"
+    },
+    {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "で",

@@ -89,9 +89,11 @@ notes: |
     lexicon the provenance guard reads. おいしい (#95), いい and おもしろい
     carry the frequency win; adding the other two is a conjugation-table
     change, not an authoring one.
-  - **どう IS here** (L9, CEJC #60) as VOCABULARY rather than a rule card —
-    the registry has no grammar point for it and inv 42 forbids inventing
-    one.
+  - **どう IS here** (L9, CEJC #60). The registry has no grammar point for it
+    and inv 42 forbids inventing one, so it does not get an id of its own —
+    it rides `i-adj-present/dou-question`, the card for the question an
+    adjective answers (added 2026-07-27: as pure vocabulary it was produced
+    before any step stated its meaning, and it is image-blocked).
 
   CONNECTIVES (inv 13): から/ので/けど and て-linking are not taught until
   m16/m14, so this module ramps complexity by STACKING what it owns —
@@ -117,6 +119,18 @@ grammarPoints:
       - { ja: "ほんは たかいです。", en: "The book is expensive. (polite)" }
       - { ja: "ほんは たかくないです。", en: "The book isn't expensive. (polite)" }
     antiPattern: { ja: "ほんは たかいでした。", why: "the adjective carries the tense — the past is たかかったです, never たかいでした." }
+  # L9 owned no card, so どう was BUILT before anything said what it meant —
+  # and it is image-blocked, so no picture debut can carry the gloss
+  # (2026-07-27 gloss-debt scan). No registry id exists for どう and inv 42
+  # forbids inventing one, so the card rides the point the lesson actually
+  # exercises: どう is the QUESTION an い-adjective answers.
+  - id: i-adj-present
+    variant: dou-question
+    rule: "どう asks what something is LIKE, and an adjective is the answer: ごはんは どう？ — おいしい。 It stands where the adjective would stand and takes no particle of its own. In the past it is どうだった ('how was it?'), and politely どうですか. Unlike だれ (who) or なんじ (what time), どう never asks for a noun — it asks for a description."
+    examples:
+      - { ja: "ごはんは どう？", en: "How's the rice?" }
+      - { ja: "にほんは どうですか。", en: "What is Japan like? (polite)" }
+    antiPattern: { ja: "ごはんは どうに？", why: "どう takes no particle — it simply sits where the adjective would: ごはんは どう？" }
   - id: i-adj-negative
     rule: "To say an い-adjective is NOT true, drop the final い and add くない: たかい → たかくない. The adjective conjugates on its own, exactly like a verb, and still takes no だ. One rebel: いい has a different stem — よくない, never いくない."
     examples:
@@ -474,6 +488,7 @@ lessons:
     focus: "the question an adjective answers, in both registers"
     introduces: [どう]
     beats:
+      - { kind: rule, grammarPointId: i-adj-present, variant: dou-question }
       - { kind: sentence, ja: "ごはんは どう？", en: "Ask a friend: How's the rice", exercises: [wa-topic], mode: build }
       - { kind: sentence, ja: "えきは どう？", en: "Ask a friend: What's the station like", exercises: [wa-topic], mode: build }
       - { kind: sentence, ja: "きのうの じゅぎょうは どうだった？", en: "Ask a friend: How was yesterday's class", exercises: [no-possession, wa-topic, desu-past], mode: build }

@@ -2,7 +2,7 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
-  wordImageMcq, listeningBuild, speaking, listeningComp,
+  wordImageMcq, listeningBuild, speaking, listeningComp, matchKanaToRomaji,
   priorRowReviewTail,
 } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
@@ -111,6 +111,13 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     // Single representative row-sweep recog — the module recap covers
     // the full 5-kana sweep.
     recognition(ctx, "ja-ta3-rev-chi", "ち", "chi", "like 'chee'"),
+
+    // Whole-row kana↔sound grid (the m2 rows' closing idiom, pulled into
+    // the row that owns と). GLOSS-BEFORE-PRODUCTION 2026-07-27: と is the
+    // last of these five to arrive and the first the later review tails
+    // ask the learner to write (ひと, とけい) — the row's own review beat
+    // is where it gets stated, not a dakuten card five lessons later.
+    matchKanaToRomaji("ja-ta3-match-row", ctx.allKana),
 
     wordImageMcq(ctx, "ja-ta3-mcq-rev-tsuki", "つき"),
 

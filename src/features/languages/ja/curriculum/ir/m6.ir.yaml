@@ -47,13 +47,14 @@ notes: |
        that atom from `newAtoms` to avoid a double-provenance conflict. I have
        listed each as introduced (が=L4, に=L8, で=L9) on the assumption it is
        NOT yet in the neo taught-set.
-  * m6 introduces ZERO imageable atoms. Every new atom is a negative form, an
-    existence verb, a particle, or a location pointer — all abstract/blocked
-    (invariant 4/6). There is therefore NO word_image_mcq debut in this module;
-    all debuts are grammar_rule / build / listeningComp (invariant 33's
-    intro-capable set). requireImageFirst is vacuously satisfied. Image MCQs
-    still appear in the compiler's review tails over PRIOR imageable atoms
-    (reviewPool words). This is expected, not a defect.
+  * m6 introduces ONE imageable atom (いけ, L8 — added 2026-07-27 so the pond
+    the module builds sentences about is actually glossed). Every OTHER new
+    atom is a negative form, an existence verb, a particle, or a location
+    pointer — all abstract/blocked (invariant 4/6). Apart from いけ's picture
+    debut, all debuts are grammar_rule / build / listeningComp (invariant
+    33's intro-capable set). Image MCQs also appear in the compiler's review
+    tails over PRIOR imageable atoms (reviewPool words). This is expected,
+    not a defect.
   * ここ/そこ/あそこ/どこ are BLOCKED (no image MCQ), exactly as これ/それ/あれ/どれ
     are flagged [no image MCQ] in the pack — a picture on a pointer word is a
     rubric violation.
@@ -141,6 +142,11 @@ newAtoms:
   - { kana: どこ,   romaji: doko,  gloss: "where?", imageable: false, kind: vocab }
   # -- L8 : location-of-existence particle --
   - { kana: に, romaji: ni, gloss: "at / in (location of existence)", shortGloss: "where it is", imageable: false, kind: particle }
+  # いけ is a CARRIER m6 builds with from L8 ("いけに かめが いる") and no neo
+  # module ever glossed it — the learner produced "pond" by elimination and
+  # met its meaning only in m7's review pool (2026-07-27 gloss-debt scan).
+  # Declared here so L8 opens with its picture debut (🦆, courseAtoms).
+  - { kana: いけ, romaji: ike, gloss: "pond", imageable: true, kind: vocab }
   # -- L9 : location-of-action particle --
   - { kana: で, romaji: de, gloss: "at / in (location of action)", shortGloss: "where you do it", imageable: false, kind: particle }
 
@@ -461,7 +467,7 @@ lessons:
   - id: m6-neo-8
     title: "に — where it is"
     focus: "に pins the place of existence: Place に X が ある/いる (あそこに ねこが いる, ここに ほんが ある)"
-    introduces: [に]
+    introduces: [に, いけ]
     beats:
       - { kind: rule, grammarPointId: ni-location-location }
       - { kind: sentence, ja: "あそこに ねこが いる。", en: "There's a cat over there.", exercises: [ni-location, ni-location, ga-existence, imasu], mode: build }

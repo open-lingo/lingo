@@ -218,7 +218,15 @@ export const M3_NEO_1: LessonContent = {
       ["みず", "だ"],
       ["みず"],
     ),
-    vocabMcq("ja-m3-neo-1-vmcq-mid", L1_REVIEW[1], NEO_M1_POOL),
+    // Breather pinned to うみ, not a seeded draw (2026-07-27
+    // gloss-before-production): the learner says うみだ and builds it a few
+    // steps below, and うみ was an m1 pool word the course never actually
+    // glossed — its first stated meaning sat two lessons later.
+    vocabMcq(
+      "ja-m3-neo-1-vmcq-mid",
+      { kana: "うみ", meaningEn: "sea", emoji: "🌊", fromModule: "m1" },
+      NEO_M1_POOL,
+    ),
     // ⑥ だ-drop note — casual speech often drops だ entirely.
     grammarRule({
       id: "ja-m3-neo-1-rule-da-drop",
@@ -411,6 +419,15 @@ export const M3_NEO_2: LessonContent = {
           romaji: "gakusei da.",
           en: "(I'm) a student. (no spotlight — natural when it's already obvious who you mean)",
         },
+        // Carries にほんじん's English (2026-07-27 gloss-before-production):
+        // the lesson closes by asking the learner to BUILD わたしは
+        // にほんじんだ, and nothing before this card ever said what the
+        // word means — the dialogue only shows it.
+        {
+          ja: "ミカは にほんじんだ。",
+          romaji: "mika wa nihonjin da.",
+          en: "Mika is Japanese. (にほんじん = a Japanese person)",
+        },
       ],
       // The with/without-topic contrast (がくせいだ。 is CORRECT when the
       // topic is obvious) moved to examples — invariant 12 semantic
@@ -458,8 +475,15 @@ export const M3_NEO_2: LessonContent = {
       ],
       exercisedAtomKanas: ["みず", "は"],
     }),
-    // Quick gamified breather — emoji word check over an M2 salvage atom.
-    vocabMcq("ja-m3-neo-2-vmcq-mid", L2_REVIEW[3], NEO_M2_POOL),
+    // Was an M2 salvage-atom breather; now ともだち's debut (2026-07-27
+    // gloss-before-production). ともだち is content vocabulary from the
+    // spotlight LC two steps below and gets BUILT right after it — its
+    // meaning was first stated in m4, a whole module too late.
+    vocabMcq(
+      "ja-m3-neo-2-vmcq-mid",
+      { kana: "ともだち", meaningEn: "friend", emoji: "👫", fromModule: "m3" },
+      NEO_M2_POOL,
+    ),
     // Hear-and-assemble on a taught sentence — the template's
     // listening_build beat (L2 previously only had a word-level decode).
     listeningBuildSentence({
@@ -1085,7 +1109,15 @@ export const M3_NEO_4: LessonContent = {
     }),
     // Mid-lesson breather — review match grid between the two MCQ/speaking
     // blocks (step-type variety per the 2026-07 audit; contour LCs stay).
-    reviewMatchPairs("ja-m3-neo-4-mid", L4_REVIEW.slice(6, 11)),
+    // そう rides on the mid grid (2026-07-27 gloss-before-production): it is
+    // recognition-only here — image-blocked, no production step targets it —
+    // but m5 asks the learner to SAY そう おもう, and until now its meaning
+    // was never stated on a teaching surface, only heard in the two LCs
+    // above. A word↔meaning grid is the recognition-safe way to say it.
+    reviewMatchPairs("ja-m3-neo-4-mid", [
+      ...L4_REVIEW.slice(6, 11),
+      { kana: "そう", meaningEn: "that's right", fromModule: "m3" },
+    ]),
     speaking(
       "ja-m3-neo-4-speak-tomu-q",
       "トムは せんせい？",
@@ -1128,6 +1160,21 @@ export const M3_NEO_5: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
+    // ⓪ すみません's picture debut (2026-07-27 gloss-before-production).
+    // The lesson used to open on its listening comp and ask the learner to
+    // SAY it one step later — audio→meaning is teaching, but nothing had
+    // yet stated the pair outright, and すみません is the one chunk here
+    // with an unambiguous gesture (the bow) to hang it on.
+    vocabMcq(
+      "ja-m3-neo-5-vmcq-sumimasen",
+      {
+        kana: "すみません",
+        meaningEn: "Excuse me / sorry",
+        emoji: "🙇",
+        fromModule: "m3",
+      },
+      NEO_M1_M2_POOL,
+    ),
     // ① Situated listening + listen-and-repeat, chunk by chunk.
     listeningCompSentence({
       id: "ja-m3-neo-5-lc-sumimasen",
@@ -1160,6 +1207,19 @@ export const M3_NEO_5: LessonContent = {
       question: "What does this mean?",
       correctMeaningEn: "It's okay — no problem",
       distractorsEn: ["I'm sorry", "Thank you", "Watch out"],
+      exercisedAtomKanas: ["だいじょうぶ"],
+    }),
+    // Act-out MCQ pulled up from the lesson's back half (2026-07-27
+    // gloss-before-production): choosing WHEN a chunk belongs is where its
+    // meaning gets stated, and that has to precede the speaking beat, not
+    // follow it eight steps later. Distractors are the chunks already
+    // introduced above plus m3-neo-4's うん — the old set previewed
+    // はじめまして and ありがとうございます before either had been taught.
+    sentenceMcq({
+      id: "ja-m3-neo-5-mcq-actout-daijoubu",
+      prompt: "Reply to ごめんなさい:",
+      correctKana: "だいじょうぶ",
+      distractorsKana: ["すみません", "うん", "そう"],
       exercisedAtomKanas: ["だいじょうぶ"],
     }),
     speaking(
@@ -1222,13 +1282,6 @@ export const M3_NEO_5: LessonContent = {
       "Nice to meet you.",
       ["はじめまして"],
     ),
-    sentenceMcq({
-      id: "ja-m3-neo-5-mcq-actout-daijoubu",
-      prompt: "Reply to ごめんなさい:",
-      correctKana: "だいじょうぶ",
-      distractorsKana: ["はじめまして", "すみません", "ありがとうございます"],
-      exercisedAtomKanas: ["だいじょうぶ"],
-    }),
     // ② Situation-matching — scene ↔ chunk (6 pairs, floor-proof).
     {
       id: "ja-m3-neo-5-match-scenes",
@@ -1246,7 +1299,8 @@ export const M3_NEO_5: LessonContent = {
       exercisedAtoms: [],
       modality: "recognition",
     } satisfies MatchPairsStep,
-    // ⑤ Act-out MCQs.
+    // ⑤ Act-out MCQs. だいじょうぶ's moved up beside its own listening beat
+    // (see above) — this one keeps the every-chunk-in-a-situation sweep.
     sentenceMcq({
       id: "ja-m3-neo-5-mcq-actout-sumimasen",
       prompt:

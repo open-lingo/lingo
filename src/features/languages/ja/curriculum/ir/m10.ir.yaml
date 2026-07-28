@@ -55,10 +55,58 @@ grammarPoints:
       - { ja: "はい、はい。", en: "Mm-hm, go on." }
       - { ja: "はい、いきます。", en: "Yes, I'll go." }
   - id: chotto-softener
+    variant: chotto
     rule: "ちょっと literally means 'a little', but its real job is SOFTENING. On its own — ちょっと… — it is a polite refusal that never says no. Japanese avoids flat rejection, so a trailing ちょっと is understood as 'that doesn't work for me'."
     examples:
       - { ja: "ちょっと、たかいです。", en: "It's a little expensive." }
       - { ja: "きょうは ちょっと。", en: "Today is… a bit difficult (trailing off = a polite no)." }
+  # ── 2026-07-27 gloss-debt scan. L5-L9 are vocabulary lessons that owned no
+  #    card, so だめ/けっこう/ぼく/しる/まあ/よく/こちら were all BUILT before
+  #    anything stated their meaning — and every one of them is a function
+  #    word with no emoji, so no picture debut can carry the gloss. Each
+  #    lesson now re-teaches a point it already exercises (the ⟳ move) and
+  #    spends the card's prose on its own words. Examples stay clear of any
+  #    atom that HAS an emoji: for those the image MCQ must remain the
+  #    first-ever appearance (image-debut invariant).
+  - id: chotto-softener
+    variant: maa-yoku
+    rule: "Two more words do the same softening work, and both lead the sentence without a particle. まあ hedges before you commit: まあ、いく is 'well… I'll go' — a yes with a shrug in it. よく is frequency: よく たべる is 'I eat it often'. After a verb of understanding it shades into 'well' — よく わかります, 'I understand it well'."
+    examples:
+      - { ja: "まあ、いく。", en: "Well, I'll go." }
+      - { ja: "よく たべる。", en: "I eat it often." }
+    # antiPattern omitted (invariant 12): both words are adverbs that simply
+    # lead the sentence — there is no wrong formation to contrast, only a
+    # register/emphasis choice.
+  - id: yes-no-register
+    variant: declining
+    rule: "Turning something down has its own two words. だめ is the blunt one — 'no good', and by extension 'not allowed': それは だめ stops a friend mid-move. けっこう is the gentle refusal you hand a host or a shop assistant; it means 'I'm fine as I am, thank you', so ちゃは けっこうです declines the tea without ever saying no. だめ forbids, けっこう declines — they are not interchangeable."
+    examples:
+      - { ja: "それは だめ。", en: "That's no good." }
+      - { ja: "けっこうです。", en: "No thank you." }
+    # antiPattern omitted (invariant 12): both sentences are correct Japanese
+    # and the contrast is social, not grammatical.
+  - id: register-audience
+    variant: pronouns
+    rule: "Even 'I' carries register. わたし is the neutral one and is safe in any company. ぼく is casual and usually male — friends and family, never a first meeting with a teacher. Most of the time Japanese drops the subject altogether: いく on its own already means 'I'm going', so reach for a pronoun only when you need the contrast."
+    examples:
+      - { ja: "わたしは がくせいです。", en: "I'm a student." }
+      - { ja: "ぼくは いく。", en: "I'm going. (to a friend)" }
+    # antiPattern omitted (invariant 12): every pronoun here is grammatical —
+    # the wrong choice is a register slip, not a broken sentence.
+  - id: masu-negative
+    variant: shiru
+    rule: "しる is 'to know' — having a fact, a place or a person in your head. The form you will reach for constantly is its NEGATIVE: しりません to a teacher or a stranger, しらない to a friend, both 'I don't know'. Politeness lives in the tail, exactly as it does for every other verb: しります / しりません."
+    examples:
+      - { ja: "わたしは しりません。", en: "I don't know. (polite)" }
+      - { ja: "ぼくは しらない。", en: "I don't know. (to a friend)" }
+    antiPattern: { ja: "わたしは しるません。", why: "ません attaches to the ます-stem, not the dictionary form — しる → しり + ません." }
+  - id: kore-sore-are-dore
+    variant: kochira
+    rule: "こちら is the polite こ-word. これ points at a thing and ここ at a place; こちら points POLITELY — at a direction ('this way'), at a place, or at a person you are introducing. こちらは せんせいです is how you present someone. Shop staff and hosts use it constantly, so you will hear it long before you need to say it."
+    examples:
+      - { ja: "こちらは せんせいです。", en: "This is the teacher." }
+      - { ja: "こちらです。", en: "It's this way." }
+    antiPattern: { ja: "これは せんせいです。", why: "これ points at THINGS — presenting a person takes the polite こちら." }
 
 newAtoms:
   - { kana: ううん, romaji: uun, gloss: "nope (casual no)", shortGloss: "nope", imageable: false, kind: vocab }
@@ -200,7 +248,7 @@ lessons:
     focus: "a little — and the refusal that never says no"
     introduces: [ちょっと]
     beats:
-      - { kind: rule, grammarPointId: chotto-softener }
+      - { kind: rule, grammarPointId: chotto-softener, variant: chotto }
       - { kind: sentence, ja: "ちょっと みる。", en: "Say to a friend: I'll take a quick look", exercises: [chotto-softener], mode: build }
       - { kind: sentence, ja: "ちょっと たかいです。", en: "Say politely: It's a little expensive", exercises: [chotto-softener, desu-copula], mode: build }
       - { kind: sentence, ja: "ちょっと やすいです。", en: "Say politely: It's a little cheap", exercises: [chotto-softener, desu-copula], mode: translate }
@@ -223,6 +271,7 @@ lessons:
     focus: "refusing without rudeness"
     introduces: [だめ, けっこう]
     beats:
+      - { kind: rule, grammarPointId: yes-no-register, variant: declining }
       - { kind: sentence, ja: "それは だめ。", en: "Say to a friend: That's no good", exercises: [wa-topic], mode: build }
       - { kind: sentence, ja: "みずは けっこうです。", en: "Say politely: No water, thank you", exercises: [wa-topic, desu-copula], mode: build }
       - { kind: sentence, ja: "それは だめです。", en: "Say politely: That's no good", exercises: [wa-topic, desu-copula], mode: translate }
@@ -240,6 +289,7 @@ lessons:
     focus: "pronoun register, RECOGNITION only; Japanese usually drops the subject"
     introduces: [わたし, ぼく]
     beats:
+      - { kind: rule, grammarPointId: register-audience, variant: pronouns }
       - { kind: sentence, ja: "わたしは いく。", en: "Say to a friend: I'm going", exercises: [], mode: build }
       - { kind: sentence, ja: "ぼくは たべる。", en: "Say to a friend: I'll eat", exercises: [], mode: build }
       - { kind: sentence, ja: "わたしは がくせいです。", en: "Say politely: I'm a student", exercises: [wa-topic, desu-copula], mode: translate }
@@ -286,6 +336,7 @@ lessons:
     focus: "the two words a conversation keeps needing"
     introduces: [しる, いま]
     beats:
+      - { kind: rule, grammarPointId: masu-negative, variant: shiru }
       - { kind: sentence, ja: "ともだちを しる。", en: "I know the friend", exercises: [], mode: build }
       - { kind: sentence, ja: "いま いく。", en: "Say to a friend: I'm going now", exercises: [], mode: build }
       - { kind: sentence, ja: "いま いきます。", en: "Say politely: I'm going now", exercises: [masu-present], mode: translate }
@@ -302,6 +353,7 @@ lessons:
     focus: "the adverbs that make an answer sound human"
     introduces: [まあ, よく]
     beats:
+      - { kind: rule, grammarPointId: chotto-softener, variant: maa-yoku }
       - { kind: sentence, ja: "まあ、たべる。", en: "Say to a friend: Well, I'll eat", exercises: [], mode: build }
       - { kind: sentence, ja: "よく たべる。", en: "Say to a friend: I eat it often", exercises: [], mode: build }
       - { kind: sentence, ja: "まあ、いく。", en: "Say to a friend: Well, I'll go", exercises: [], mode: build }
@@ -319,6 +371,7 @@ lessons:
     focus: "answer-word plus hedge plus content — how people actually reply"
     introduces: [こちら]
     beats:
+      - { kind: rule, grammarPointId: kore-sore-are-dore, variant: kochira }
       - { kind: sentence, ja: "こちらです。", en: "Say politely: It's this way", exercises: [desu-copula], mode: build }
       - { kind: sentence, ja: "うん、まあ、いく。", en: "Say to a friend: Yeah, well, I'll go", exercises: [yes-no-register], mode: translate }
       - { kind: sentence, ja: "はい、いま いきます。", en: "Say politely: Yes, I'm going now", exercises: [aizuchi, masu-present], mode: build }

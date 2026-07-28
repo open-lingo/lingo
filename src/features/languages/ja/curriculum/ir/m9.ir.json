@@ -44,7 +44,7 @@
     {
       "id": "numbers-1-10",
       "variant": "one-to-five",
-      "rule": "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things.",
+      "rule": "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things. A price is one of these numbers with えん — the yen — glued straight onto its end: ごえん is five yen.",
       "examples": [
         {
           "ja": "いち に さん",
@@ -96,6 +96,7 @@
     },
     {
       "id": "ikura-price",
+      "variant": "how-much",
       "rule": "いくら asks the price: いくらですか = 'how much is it?'. The answer is a number + えん. Prices are the one place a beginner needs numbers immediately, so this is where the number line gets spent.",
       "examples": [
         {
@@ -107,6 +108,25 @@
           "en": "It's a hundred yen."
         }
       ]
+    },
+    {
+      "id": "ikura-price",
+      "variant": "price-words",
+      "rule": "Two adjectives finish the shop exchange. たかい means expensive — and, of a thing, tall; やすい means cheap. Either one can be the whole predicate: これは たかい, politely これは たかいです. かね is the money itself, which is why かねが ない — 'there is no money' — is how you say you can't afford it.",
+      "examples": [
+        {
+          "ja": "これは たかいです。",
+          "en": "This is expensive."
+        },
+        {
+          "ja": "かねが ない。",
+          "en": "I have no money."
+        }
+      ],
+      "antiPattern": {
+        "ja": "これは たかいだ。",
+        "why": "an い-adjective is already a predicate — it takes です politely and never だ: これは たかいです."
+      }
     }
   ],
   "newAtoms": [
@@ -772,7 +792,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "ikura-price"
+          "grammarPointId": "ikura-price",
+          "variant": "how-much"
         },
         {
           "kind": "sentence",
@@ -899,6 +920,11 @@
         "かね"
       ],
       "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ikura-price",
+          "variant": "price-words"
+        },
         {
           "kind": "sentence",
           "ja": "これは たかいです。",
@@ -2274,6 +2300,13 @@
       "shortGloss": "where it is",
       "imageable": false,
       "kind": "particle"
+    },
+    {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "で",

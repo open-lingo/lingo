@@ -120,6 +120,40 @@
       }
     },
     {
+      "id": "wo-object",
+      "variant": "food",
+      "rule": "A request needs something to request, and food is where a beginner starts. ごはん is cooked rice — and, by extension, the meal built round it. しょくじ is the meal itself, the sit-down occasion: しょくじを する is 'to have a meal'. たべもの is food in general, and ちゃ is tea. Whatever you eat, drink or ask for takes を.",
+      "examples": [
+        {
+          "ja": "しょくじを する。",
+          "en": "I have a meal."
+        },
+        {
+          "ja": "ちゃを のむ。",
+          "en": "I drink tea."
+        }
+      ]
+    },
+    {
+      "id": "de-action",
+      "variant": "shop",
+      "rule": "で marks WHERE an action happens, and for a beginner that is the shop: みせで かう is 'buy it at the shop'. What you buy there is こめ — uncooked rice, the bag on the shelf, not the cooked bowl on the table (that one is ごはん). Getting to the shop is still に, not で: みせに いく.",
+      "examples": [
+        {
+          "ja": "いえで たべる。",
+          "en": "I eat at home."
+        },
+        {
+          "ja": "こめを かう。",
+          "en": "I buy rice."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いえに たべる。",
+        "why": "に is where a thing IS; the place you do something takes で — いえで たべる."
+      }
+    },
+    {
       "id": "te-kudasai",
       "variant": "casual",
       "rule": "ください is the polite half, and it detaches. みてください → みて: same verb, same て-form, and the whole difference in politeness lives in whether ください is there. Bare て for friends and family; keep ください for teachers, shopkeepers and people you have just met.",
@@ -1007,6 +1041,11 @@
       ],
       "beats": [
         {
+          "kind": "rule",
+          "grammarPointId": "wo-object",
+          "variant": "food"
+        },
+        {
           "kind": "sentence",
           "ja": "ごはんを たべる。",
           "en": "I eat rice",
@@ -1091,6 +1130,11 @@
         "こめ"
       ],
       "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "de-action",
+          "variant": "shop"
+        },
         {
           "kind": "sentence",
           "ja": "みせに いく。",
@@ -2413,6 +2457,13 @@
       "shortGloss": "where it is",
       "imageable": false,
       "kind": "particle"
+    },
+    {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "で",
