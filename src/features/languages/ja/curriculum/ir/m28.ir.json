@@ -2129,8 +2129,8 @@
             },
             {
               "speaker": "Ken",
-              "ja": "たかいから かわない ほうが いい。にくの ほうが やすい。",
-              "en": "It's expensive, so you'd better not buy it. Meat is cheaper."
+              "ja": "たかいから かわない ほうが いい。やすい にくが いい。",
+              "en": "It's expensive, so you'd better not buy it. The cheap meat is better."
             }
           ],
           "questions": [
@@ -2605,6 +2605,14 @@
           ]
         },
         {
+          "kind": "kanji",
+          "kana": "せんせい",
+          "kanji": "先生",
+          "exercises": [
+            "kanji-set-3"
+          ]
+        },
+        {
           "kind": "sentence",
           "ja": "がいこくに いきたいから ことばを おぼえなきゃ。",
           "en": "I want to go abroad, so I have to learn the words",
@@ -3006,7 +3014,7 @@
         {
           "kind": "sentence",
           "ja": "がいこくに いきたいから まいにち ことばを おぼえなければ なりません。",
-          "en": "Say politely: I want to go abroad, so I have to learn the words every evening",
+          "en": "Say politely: I want to go abroad, so I have to learn the words every day",
           "exercises": [
             "masu-present",
             "v-tai",
@@ -3062,12 +3070,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "せいとは がっこうに いく まえに ことばを おぼえなきゃ。",
-          "answer": "A pupil has to learn the words before going to school",
+          "audio": "まいにち かいしゃに いく まえに でんわを しなきゃ。",
+          "answer": "Every day I have to phone before going to the office",
           "distractors": [
-            "A pupil has to learn the words after school",
-            "A teacher has to learn the words before school",
-            "A pupil has to ask the teacher before school"
+            "Every day I have to phone after going to the office",
+            "Every week I have to phone before going to the office",
+            "Every day I have to phone before going to school"
           ],
           "exercises": [
             "nakereba-naranai",

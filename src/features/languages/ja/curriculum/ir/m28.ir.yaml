@@ -635,7 +635,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この さかなは たかいんだ。", en: "The thing is, this fish is expensive." }
-          - { speaker: "Ken", ja: "たかいから かわない ほうが いい。にくの ほうが やすい。", en: "It's expensive, so you'd better not buy it. Meat is cheaper." }
+          - { speaker: "Ken", ja: "たかいから かわない ほうが いい。やすい にくが いい。", en: "It's expensive, so you'd better not buy it. The cheap meat is better." }
         questions:
           - { q: "What does Ken say about the fish?", options: ["It's expensive, so don't buy it", "It's cheap, so buy it", "It's spicy, so don't eat it", "It's better than meat"], answer: "It's expensive, so don't buy it" }
     reviewPool: [からい, うるさい, つよい, もの, やさい, くすり, てんき, バス, さかな, にく]
@@ -710,6 +710,13 @@ lessons:
       - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai, kedo], mode: build }
       - { kind: sentence, ja: "うちに いきたいけど しごとを しなきゃ。", en: "I want to go home, but I have to do the work", exercises: [v-tai, nakereba-naranai, wo-object], mode: build }
       - { kind: kanji, kana: がいこく, kanji: 外国, exercises: [kanji-set-3] }
+      # 先生 sits HERE rather than in L9 for two reasons, both measured:
+      # its only beat used to be in review-3, which made the review the
+      # learner's first cold read of the glyph (2026-07-27 QA), and L9
+      # already carries five — a sixth trips this module's own "sprinkled
+      # across the module rather than walled into one lesson" guard. The
+      # word itself has been on the page since L3, so only the glyph is new.
+      - { kind: kanji, kana: せんせい, kanji: 先生, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "がいこくに いきたいから ことばを おぼえなきゃ。", en: "I want to go abroad, so I have to learn the words", exercises: [v-tai, nakereba-naranai, kara-because], mode: build }
       - { kind: sentence, ja: "やさいを たべたくないけど たべなきゃ。", en: "I don't want to eat vegetables, but I have to", exercises: [v-tai, nakereba-naranai, i-adj-negative], mode: build }
       - { kind: sentence, ja: "あそびたいけど あした じゅぎょうが あるんだ。", en: "I want to play, but the thing is, I've got a class tomorrow", exercises: [v-tai, n-desu, kedo], mode: listening }
@@ -767,12 +774,12 @@ lessons:
       - { kind: sentence, ja: "ふゆに なったから あたたかい ものを たべた ほうが いい。", en: "Winter has come, so you'd better eat something warm", exercises: [hou-ga-ii, ku-ni-naru, ta-form], mode: listening }
       - { kind: sentence, ja: "この しごとは むずかしすぎるから あにに きかなくちゃ。", en: "This job is too difficult, so I have to ask my older brother", exercises: [sugiru, nakereba-naranai, kara-because], mode: build }
       - { kind: sentence, ja: "さいふに おかねが ないから きょうは かわない ほうが いい。", en: "There's no money in my wallet, so you'd better not buy anything today", exercises: [hou-ga-ii, nai-existence, kara-because], mode: build }
-      - { kind: sentence, ja: "がいこくに いきたいから まいにち ことばを おぼえなければ なりません。", en: "Say politely: I want to go abroad, so I have to learn the words every evening", exercises: [masu-present, v-tai, nakereba-naranai, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "がいこくに いきたいから まいにち ことばを おぼえなければ なりません。", en: "Say politely: I want to go abroad, so I have to learn the words every day", exercises: [masu-present, v-tai, nakereba-naranai, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "にくの ほうが すきだけど やさいを たべなきゃ。", en: "I like meat more, but I have to eat vegetables", exercises: [yori-comparison, nakereba-naranai, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "としょかんは しずかだから でんわを しない ほうが いい。", en: "The library is quiet, so you'd better not make phone calls", exercises: [hou-ga-ii, nai-form, na-adj-present], mode: build }
       - { kind: sentence, ja: "ねつが あるから きょうは しごとを しない ほうが いい。", en: "You'd better not do the work today, because you've got a fever", exercises: [hou-ga-ii, kara-because], mode: translate }
       - { kind: particle-cloze, stem: "ねつが あるから きょうは かいしゃに ", tail: " ほうが いい。", answer: "いかない", options: ["いかない", "いった", "はたらいた"], en: "You'd better not go to the office today, because you've got a fever", explanation: "a fever is a reason to stay away, so the advice is the negative one. いった would send you in with a temperature, and はたらいた would keep you there once you had arrived." }
-      - { kind: listening-comp, audio: "せいとは がっこうに いく まえに ことばを おぼえなきゃ。", answer: "A pupil has to learn the words before going to school", distractors: ["A pupil has to learn the words after school", "A teacher has to learn the words before school", "A pupil has to ask the teacher before school"], exercises: [nakereba-naranai, mae-ni] }
+      - { kind: listening-comp, audio: "まいにち かいしゃに いく まえに でんわを しなきゃ。", answer: "Every day I have to phone before going to the office", distractors: ["Every day I have to phone after going to the office", "Every week I have to phone before going to the office", "Every day I have to phone before going to school"], exercises: [nakereba-naranai, mae-ni] }
       - { kind: listening-comp, audio: "しごとが おそく なったから バスで かえらなきゃ。", answer: "Work has got late, so I have to go home by bus", distractors: ["Work has got late, so I have to go home by bicycle", "Work has got easy, so I am going home by bus", "Work has got late, but I am walking home"], exercises: [ku-ni-naru, nakereba-naranai] }
       - { kind: sentence, ja: "あにの けいたいは たかすぎるから かわない ほうが いい。", en: "My older brother's phone is too expensive, so you'd better not buy one", exercises: [sugiru, hou-ga-ii, kara-because], mode: build }
       - kind: dialogue

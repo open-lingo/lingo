@@ -828,11 +828,26 @@ describe("m28-neo kanji-set-3 is a READING ladder that reads cold", () => {
   const SET_1 = ["人", "水", "食べる", "行く", "聞く", "分かる", "新しい", "高い"];
   const SET_2 = ["山", "川", "海", "上", "下", "小さい", "足", "来る"];
 
-  it("is exactly eight glyphs — the COMPOUND set", () => {
-    expect(kanjiSteps).toHaveLength(8);
-    expect(kanjiSteps.map(([, s]) => s.kanji).sort()).toEqual(
+  it("is exactly eight glyphs — the COMPOUND set — each TAUGHT before reviewed", () => {
+    // Counts DISTINCT GLYPHS, not steps. It asserted `toHaveLength(8)` until
+    // 2026-07-27, which sounds like the same thing and is not: with exactly
+    // one beat per glyph spread over L9/L10/L11/review-3, whichever glyph
+    // landed in the review had its FIRST cold read there. QA caught 先生 that
+    // way. A glyph is now taught in a teaching lesson and may be re-tested in
+    // a review, which is what a review is for — so the step count is a floor
+    // and the glyph SET is the invariant.
+    const glyphs = [...new Set(kanjiSteps.map(([, s]) => s.kanji))];
+    expect(kanjiSteps.length, "no kanji steps at all").toBeGreaterThanOrEqual(8);
+    expect(glyphs.sort()).toEqual(
       ["会社", "先生", "外国", "天気", "学校", "時間", "話す", "電話"].sort(),
     );
+    const firstBeat = new Map<string, string>();
+    for (const [lessonId, s] of kanjiSteps)
+      if (!firstBeat.has(s.kanji)) firstBeat.set(s.kanji, lessonId);
+    const debutsInReview = [...firstBeat]
+      .filter(([, lessonId]) => /review|challenge/.test(lessonId))
+      .map(([k, lessonId]) => `${k} is first read in ${lessonId}`);
+    expect(debutsInReview, debutsInReview.join("\n")).toEqual([]);
   });
 
   it("re-tests nothing from set-1 or set-2", () => {
@@ -863,7 +878,7 @@ describe("m28-neo kanji-set-3 is a READING ladder that reads cold", () => {
           `${lessonId}/${step.id}: ${step.kanji} unlocks at m${entry.unlockModule}, so it still shows furigana at m28`,
         );
     }
-    expect(checked, "no kanji entry resolved — the catalog lookup moved").toBe(8);
+    expect(checked, "no kanji entry resolved — the catalog lookup moved").toBe(kanjiSteps.length);
     expect(offenders, offenders.join("\n")).toEqual([]);
   });
 
@@ -888,7 +903,7 @@ describe("m28-neo kanji-set-3 is a READING ladder that reads cold", () => {
       // Only ONE option may be the answer.
       expect(step.options.filter((o) => o.text === step.reading), where).toHaveLength(1);
     }
-    expect(checked, "no kanji steps scanned").toBe(8);
+    expect(checked, "no kanji steps scanned").toBe(kanjiSteps.length);
   });
 
   it("is sprinkled across the module rather than walled into one lesson", () => {
