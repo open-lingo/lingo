@@ -1256,7 +1256,14 @@ the audit working as intended, not a regression.
   by a course-wide scan of compiled production targets):
   `m15.ir.yaml:597` repeats 「うみで およぐ ことが すきだ。」 from `m15-neo-4`, and
   `m23.ir.yaml:698` repeats 「うみで およいだ ことが ないけど かわで およいだ ことが
-  ある。」 from `m23-neo-2`. Inv 26 says longer-but-familiar is not a challenge,
+  ある。」 from `m23-neo-2`. **Replacements already drafted** (checked against
+  each module's own challenge beats so the vocabulary is attested — still
+  verify against the module's full sentence inventory before applying, which is
+  how three m26 drafts got struck): m15 → 「じゅぎょうに いく まえに うたを きく
+  ことが すきだ。」 (translate; まえに + こと + すき), m23 → 「くうこうで はたらいた
+  ことが ないけど ホテルで はたらいた ことが ある。」 (keeps the contrastive
+  ことがない/ことがある frame, which is the beat's whole point). Inv 26 says
+  longer-but-familiar is not a challenge,
   but the compiler's `challenge-not-novel` diagnostic keys on the **beat kind**
   (`capstone`/`challenge`) and checks only the grammar-point COMBINATION — an
   ordinary `kind: sentence` beat sitting inside the challenge LESSON is never
