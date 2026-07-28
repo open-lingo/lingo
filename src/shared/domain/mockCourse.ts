@@ -262,17 +262,17 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m25 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22, s21, n13) are LIVE via the compiler
-    // pipeline — slice them off so the placeholders begin at m26. NB the
-    // SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
+    // m6-m26 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14) are LIVE via the
+    // compiler pipeline — slice them off so the placeholders begin at m27. NB
+    // the SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
     // draft-4 swapped them, which is why m14 is n06b and m15 is s11. s22 and
     // s21 are already in shipped order here (m23 = s22, m24 = s21). Only the
     // COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(20).map((t, i) => ({
-      id: `m${i + 26}`,
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(21).map((t, i) => ({
+      id: `m${i + 27}`,
       title: t.title,
-      eyebrow: `Module ${i + 26} · Coming soon`,
+      eyebrow: `Module ${i + 27} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -933,6 +933,36 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m25-neo-challenge", title: "Challenge — the whole forecast, and how sure you are of it", status: "available" as const },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          // m26 = spine tile n14, "Comparisons II: いちばん + なかで" — the
+          // DEEPEN beat of the spiral m20 opened. A superlative is a
+          // comparison with the FIELD NAMED: なか is m6's noun "inside", so it
+          // takes の in front and で behind (「たべものの なかで」); the winner
+          // takes が; and いちばん is an ADVERB that never touches the
+          // predicate. Two things still take m20's ほうが…より, three or more
+          // take なかで…いちばん, and the two frames never stack. ほど is
+          // deferred to m37 and appears nowhere.
+          id: "m26",
+          title: "Comparisons II",
+          eyebrow: "Module 26 · Superlatives",
+          summary: "「たべものの なかで すしが いちばん おいしい」 — of all foods, sushi is the most delicious. A superlative in Japanese is just a comparison with the field named: なかで says what group you are choosing from, が marks the winner, and いちばん sits in front of the adjective without changing a thing about it. Ask it with a question word, hang it on a verb you nominalise with の, scale a verb with it, concede the rest of the field with も…けど — and know when to reach back for last module's ほうが…より instead.",
+          lessons: [
+            { id: "ja-m26-neo-1", title: "「すしが いちばん おいしい」 — the top of a whole group", status: "available" as const },
+            { id: "ja-m26-neo-2", title: "「なにが いちばん おいしい？」 — asking which one tops the group", status: "available" as const },
+            { id: "ja-m26-neo-3", title: "「およぐのが いちばん すきだ」 — the thing you like doing most", status: "available" as const },
+            { id: "ja-m26-neo-review-1", title: "Review — a field, a winner, and いちばん in front", status: "available" as const },
+            { id: "ja-m26-neo-5", title: "「ほうが」 と 「いちばん」 — two things, or a whole group", status: "available" as const },
+            { id: "ja-m26-neo-6", title: "「どれが いちばん おもい？」 — naming the field out loud", status: "available" as const },
+            { id: "ja-m26-neo-7", title: "「としょかんが いちばん しずかだ」 — な-adjectives keep their だ", status: "available" as const },
+            { id: "ja-m26-neo-review-2", title: "Review — two frames, a named field, and な-adjectives", status: "available" as const },
+            { id: "ja-m26-neo-9", title: "「どれも いいけど これが いちばん」 — agree first, then choose", status: "available" as const },
+            { id: "ja-m26-neo-10", title: "「ちちが いちばん はたらく」 — the most, of DOING", status: "available" as const },
+            { id: "ja-m26-neo-11", title: "「どれが いちばん やすいですか」 — asking a stranger which one", status: "available" as const },
+            { id: "ja-m26-neo-review-3", title: "Review — conceding, doing, and asking politely", status: "available" as const },
+            { id: "ja-m26-neo-challenge", title: "Challenge — the whole field, the winner, and why", status: "available" as const },
+          ],
+          accent: { from: "#f59e0b", to: "#d97706" },
         },
         // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;

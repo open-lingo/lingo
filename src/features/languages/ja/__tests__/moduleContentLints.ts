@@ -571,8 +571,18 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // is actually spoken, because you say what the morning will do in order to
   // say what the evening will do. Floor set three sentences below the
   // measurement. Raised, never lowered.
+  // m26 recalibrated 0.63 -> 0.89 (2026-07-27). The old value was measured on
+  // the ARCHIVED old-course m26 (a "problems" module) — the THIRD floor in a
+  // row to have been measured on archived content, after m22 and m25. The neo
+  // module -- spine tile n14 -- measures 80/86 = .930, the highest in the
+  // course, and it is structural rather than decorative: a superlative names a
+  // SET, a winner and a predicate before any connective is added
+  // ("たべものの なかで すしが いちばん おいしい" is eight tiles on its own), and
+  // most beats then hang a reason or a concession on m16's から / けど, which
+  // is also how a preference is actually stated. Floor set three sentences
+  // below the measurement, per this block's own rule. Raised, never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.80, m25: 0.76, m26: 0.63, m27: 0.60, m29: 0.39,
+  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.60, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

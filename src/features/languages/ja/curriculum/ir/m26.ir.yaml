@@ -1,0 +1,756 @@
+module: m26
+title: "Comparisons II: 〜の なかで … いちばん"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25]
+
+priorGrammarPoints: [ka-question, desu-copula, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     masu-past, masu-negative, masu-past-negative,
+                     kara-origin, kara-time, made-until, made-ni, mae-ni,
+                     ta-form, nai-form,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-negative, na-adj-past,
+                     ga-hoshii, suki-kirai-no, mada-mou,
+                     kara-because, node-because, kedo, te-iru, te-form, te-kara,
+                     te-kudasai, te-wa-ikemasen, te-mo-ii, kudasai, naide-kudasai,
+                     to-omoimasu, to-quotation, ni-iku, ga-itai, frequency-adverbs,
+                     toki, koto-ga-aru, nai-existence, tsumori-desu, v-tai,
+                     numbers-1-10, numbers-11-99, numbers-100-10000,
+                     counter-ji, counter-fun, counter-tsu, counter-ko,
+                     counter-sai, counter-nin, counter-mai, counter-hai, counter-hon,
+                     wa-topic, ikura-price,
+                     ya-incomplete-list, tari-tari-suru, family-register,
+                     kanji-set-1, kanji-set-2,
+                     potential-form, potential-rareru, dekiru, mieru-kikoeru,
+                     mashou, masenka, no-ga-jouzu, no-ga-heta, deshou]
+
+notes: |
+  m26 = spine tile n14, "Comparisons II: いちばん + なかで". The tile's own two
+  lines: "なかで…がいちばん superlatives (いちばん #158)" and "Comparison review
+  against n09 with all-new sentences (spiral rule)". n09 is m20, which shipped
+  のほうが…より and deliberately withheld いちばん — the s20 split — so this
+  module is the DEEPEN beat of the same spiral and owes the superlative half.
+
+  **DO NOT READ THE ARCHIVED m26.** The old-course m26 was a "problems"
+  module; anything about m26 in `docs/lesson-authoring-guide.md`,
+  `docs/info-step-audit-2026-07-16.md` or `docs/kanji-furigana-plan-2026-07-16.md`
+  describes that archived content, and so did `COMPLEXITY_FLOORS.m26`
+  (recalibrated below — the third cycle running to hit this).
+
+  THE WHOLE POINT — a superlative in Japanese is a COMPARISON WITH THE FIELD
+  NAMED, and it is built from four things the learner already owns.
+
+  1. **なか is m6's ordinary noun "inside".** It takes の in front of it like
+     any other noun — exactly as ほう did at m20 — and で behind it: 「たべものの
+     なかで」 is "inside the set of foods", i.e. "of all foods". Nothing here is
+     a fixed phrase to memorise; it is の + a noun + で, three particles-and-a-
+     noun the learner has had since m6.
+  2. **The winner takes が.** Picking one item out of a named set is が's oldest
+     job (m6), and it is the same が that sat behind ほう at m20. は would make
+     the winner the TOPIC, which says something else.
+  3. **いちばん is an ADVERB and it never touches the predicate.** It sits
+     directly in front of the adjective — or the verb — and changes nothing:
+     たかい is still たかい, しずかだ still needs its だ, はたらく still takes no
+     だ. This is m20's "nothing inflects" promise, kept a second time, and it is
+     the single most reassuring fact in the module.
+  4. **Two things take ほうが…より; three or more take なかで…いちばん.** The two
+     frames NEVER stack (L5's antiPattern), and knowing which one you are in is
+     the whole decision the learner has to make.
+
+  **ほど IS DEFERRED TO m37 AND APPEARS NOWHERE.** spine-n4 §1.1 files the
+  comparison family as "m20 / m26 · ほど joins at m37", and m37's own tile gets
+  ほど's atom row. 〜ほど〜ない is the NEGATIVE comparison and its whole
+  pedagogic value there is that it is the minimal pair of a form the learner
+  already owns — which is only available if it is still new. Pre-empting it
+  here would spend m37's contrast material. Machine-checked in
+  `m26-neo.test.ts`.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation); L11's polite production is an
+  ordinary lesson with explicit "Say politely:" cues, which is what inv 8 asks
+  for and what inv 48 then grades. NO kanji beats — kanji-set-3 is m28's row.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** Both halves of tile n14 ship: なかで…がいちばん
+    superlatives (L1-L3, L6, L7, L9-L11) and the n09 comparison review with
+    ALL-NEW sentences (L5, whose card is `yori-comparison` re-taught and whose
+    every surface is new — machine-checked against m20's compiled surfaces in
+    `m26-neo.test.ts`).
+  - **THE LEDGER ROW IS ONE ID — `ichiban-superlative` — and it is cleared on
+    L1's rule card.** RUN-PLAN-n4's coverage table, row 26, owes exactly that.
+  - **EIGHT POINTS ARE RE-TAUGHT rather than re-assigned, and ZERO ids are
+    invented.** The row owes one id across nine teaching lessons, and inv 42
+    forbids inventing an id where the registry has one — so unlike m24 (four
+    potential-system ids) and m25 (six conjecture rungs), this module declares
+    no IR-local point at all. `dare` (m4 — a question word takes が inside the
+    superlative frame, which is m20's どっちが argument extended from two things
+    to a whole set), `no-ga-suki` (m13 — 「〜のが いちばん すきだ」, the
+    superlative over ACTIVITIES rather than nouns), `yori-comparison` (m20 —
+    the spine's own ⟳ spiral beat), `to-and` (m8 — と ties a list of ANY length,
+    and どっち is for two while どれ is for three or more), `na-adj-present`
+    (m12 — な-adjectives keep だ under いちばん, where "nothing inflects" earns
+    its keep a second time), `mo-also` (m3 — 「AもBも〜けど Cが いちばん〜」, the
+    concede-then-choose move), `dictionary-form` (m7 — いちばん scaling a VERB,
+    which is also where inv 31's だ-drop is restated), and `masu-present` (m7 —
+    the polite superlative question, this module's register home). No ledger row
+    moves: a re-teach is not a re-assignment (the m16 ruling, and m20 made
+    exactly this call for six points).
+  - **TEN ATOMS ARE DECLARED, ZERO NEW `courseAtoms` ROWS, AND THEREFORE NO
+    TOKENIZER RISK AT ALL.** いちばん, くだもの, やさい, にく, さかな, どうぶつ,
+    ぞう, おもい, ことば and えいご every one already carries a courseAtoms row
+    under a stale old-course m22/m8/m9/future tag, and not one of them is in any
+    neo module's `priorVocab` — they are declared here for PROVENANCE, the
+    m15-m25 move. `courseAtoms.ts` is untouched, so the whole-course tokenizer
+    is byte-identical and the m16-ので regression class cannot arise. (m25's own
+    guard lists いちばん among the words "taught by no module before m25"; that
+    is the same finding from the other side.)
+  - **いちばん IS `imageable: false` BECAUSE L1's RULE CARD MUST NAME IT.** 🥇 is
+    an honest glyph for it and the registry carries one, but a `kind: rule` beat
+    compiles to a PINNED step ahead of the interleaved middle, so the card would
+    steal the debut before the picture could be shown (the m14 trap, restated by
+    m20 and m25). A module cannot teach its headline grammar point without
+    saying the word on the card, so the picture is what gives way. **ぞう and
+    えいご are `imageable: false` for the other two documented reasons**: ぞう has
+    no emoji in the registry at all, and えいご's 🇺🇸 is アメリカ's glyph — a MET
+    word — so a debut MCQ would draw a distractor the picture names at least as
+    well as the answer (the m19/m24 ruling). The seven that DO debut on a
+    picture each own their glyph inside this module's usable pool: くだもの 🍎,
+    やさい 🥕, にく 🥩 (とりにく is 🍗 and is not met), さかな 🐟, どうぶつ 🐾,
+    おもい 🏋️, ことば 🔤.
+  - **THE RULE CARD OF A LESSON THAT DEBUTS AN IMAGEABLE WORD NEVER NAMES IT.**
+    L2's `dare` card runs on たべもの / かぞく / にほん / seasons while くだもの and
+    やさい appear only in beats; L3's `no-ga-suki` card avoids にく and さかな;
+    L5's avoids どうぶつ; L6's avoids おもい; L9's avoids ことば.
+  - **はやい IS BANNED, and so is あまい.** m20's course-wide ruling stands:
+    `JA_PRIMARY_ATOM_BY_KANA` resolves the bare kana はやい to `hayai-early`
+    (早い "early", ⏰) rather than `hayai` (速い "quick", 💨), so a comparison
+    glossed "fastest" would credit SRS to the wrong sense — the はな/鼻 class.
+    A superlative module wants 「いちばん はやい」 badly and does not get it;
+    ちかい / とおい / やすい / たかい / おもい carry the physical comparisons
+    instead. あまい, ながい, みじかい, かるい, せまい and やさしい are all in
+    `courseAtoms` and NONE is in `priorVocab`, so none of them can be used
+    without a registration this module has no reason to make.
+  - **THE TOKENIZATION WAS DUMPED BEFORE A SINGLE SENTENCE WAS AUTHORED, not
+    assumed.** 「たべものの なかで すしが いちばん おいしい」 segments as
+    たべもの · の · なか · で · すし · が · いちばん · おいしい, and
+    「コーヒーより ちゃの ほうが すきだ」 as コーヒー · より · ちゃ · の · ほう ·
+    が · すき · だ — WITH OR WITHOUT the space in 「ちゃのほうが」, because the
+    tokenizer is longest-match-first and ほう can only win at an index nothing
+    longer covers. 「およぐのが」 is およぐ · の · が. Two probes came back BAD and
+    were struck from the plan before drafting: **「クラス」 has no atom row**
+    (「クラスで」 emits クラス as an unknown fragment and would trip
+    `unbuildable`), and **おちゃ is not a word here** — the atom is ちゃ, so
+    「おちゃの ほうが」 would tile a bare お. Every carrier below was checked
+    token-exactly against the computed `priorVocab`, not against the context
+    pack.
+  - **NO BOUND ENDER, AND NOTHING NEW FOR THE `BOUND` LIST.** いちばん is a free
+    adverb, not a bound ender — 「いちばん！」 is a complete utterance — but it is
+    kept out of every `reviewPool` anyway, because a pool entry feeds the filler
+    rotation's bare-word `speaking` slot and "Say: the most" is a word card for
+    something this module only ever teaches in a frame. It keeps its SRS credit
+    from the sixty-odd sentences that carry it. `moduleCompiler`'s BOUND list is
+    unchanged: this module registers no bound form.
+  - **NO PARTICLE_CLOZE ON A PARTICLE.** m26 introduces no particle, so a true
+    particle cloze would be a REVIEW use of the type and inv 5 bans it (m25's
+    ruling, unchanged). Every cloze here picks among CONTENT words — nouns,
+    adjectives, verbs, question words and predicate FORMS (しずかだ / しずか /
+    しずかじゃない, やすいですか / やすいです / やすい) — and every option is a
+    taught atom or a taught atom plus a taught ending (inv 40). Frames carry no
+    character name and never end on a bare だ (the m21/m22 findings): a cloze is
+    harvested into the grammar-review deck, whose comprehensibility gate
+    resolves every word through `courseAtoms`, and ミカ / トム / ケン / たなか
+    have no rows.
+  - **EVERY CLOZE HAS A DETERMINATE ANSWER.** A superlative frame invites the
+    lazy cloze 「かぞくの なかで ＿が いちばん いそがしい」 with ちち / はは / あね
+    as options, where all three are equally true — three drafts of that shape
+    were written and deleted. Each surviving cloze is anchored by something in
+    the frame itself (a place for どこ, a reason clause for はたらく, けど +
+    おいしい for すきだ).
+  - **Clause boundaries are SPACES, never 、** — `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    build target AND a run-on TTS key.
+  - **Gloss discipline (inv 17 + the m23 はいる incident).** いちばん is "the
+    most" / "the ~est" / "…the most of all", never "very" (that is とても /
+    たいへん, a different claim). 「〜の なかで」 is "of all ~" / "among ~", never
+    "inside ~" when a set is being named. すき under いちばん glosses "likes ~
+    the most" or "~ is my favourite", never "loves". Plain non-past verbs gloss
+    habitual or intent — 「ちちが いちばん はたらく」 is "my father works the
+    most", not "is working the most" — and only いく / くる / かえる keep the
+    futurate "-ing".
+  - **CARRIER ROTATION (inv 27).** The 2026-07-27 exposure audit's fifteen worst
+    over-exposed carriers — みせ, ともだち, ほん, いる, ごはん, ください, みず,
+    きのう, あたらしい, えき, かった, うみ, いたい, でんしゃ, きっさてん — carry
+    NO sentence in this module, and でんしゃ is the painful one: it is m20's
+    headline comparison carrier and a comparison module reaches for it by
+    reflex. ちかてつ / バス / じてんしゃ / ひこうき / ふね / くるま carry the
+    transport comparisons instead. **Five of the context pack's reinforcement
+    targets are spent by being REGISTERED** — さかな, ぞう, ことば, えいご and
+    おもい — which is the only way to spend them: they were unusable precisely
+    because no neo module had taught them.
+  - **Words the context pack lists as known but the compiler does not.** The
+    pack is derived from `courseAtoms` attribution and OVERSTATES; `priorVocab`
+    is the truth. Verified token-exactly and either REGISTERED here or AVOIDED:
+    いちばん, くだもの, やさい, にく, さかな, どうぶつ, ぞう, おもい, ことば, えいご
+    (all registered), and こうえん, へや, そと, まち, ちかく, そば, はなし,
+    ノート, プール, タクシー, とり, ドア, ペン, かみ, つくえ, おかね, くに,
+    やさしい, ながい, みじかい, おそい, かるい, つよい, よわい, ひろい, せまい,
+    あまい, からい, せいと, さいふ, いりぐち, まいばん, まいあさ, ぷりん, あおい,
+    しょうゆ, なく, あい, えび, すむ, よむ, かく, うたう, とる, いろ, たくさん,
+    でも, また, よっつ (all avoided). Nineteen of the pack's twenty-four
+    "reinforcement targets" are in that avoided list, which is why the five that
+    could be spent were spent by registration instead.
+  - **CONNECTIVES + COMPLEXITY (inv 13).** A superlative names a SET, a winner
+    and a predicate by construction, so its floor length is high before any
+    connective is added; most production beats then hang a reason or a
+    concession on m16's から / けど, which is also how a preference is actually
+    stated ("it's the cheapest, so I'll buy it"). `COMPLEXITY_FLOORS.m26` was
+    measured on the ARCHIVED problems module and is recalibrated in
+    `moduleContentLints.ts` — RAISED, never lowered, per that block's own rule.
+  - **Persona canon.** No 「NAMEは NOUNだ」 assertion appears anywhere: the
+    module compares things and properties, never roles. Where a person is the
+    winner of a set it is by a property (「かぞくの なかで ちちが いちばん
+    はたらく」), which asserts no canon fact. たなか is the teacher and appears
+    only in L11's polite classroom dialogue, answering a student in polite form.
+
+  WHAT THE GATES CAUGHT, and what changed because of it (none of it a guard
+  weakening):
+
+  - **A NAMED FIELD OF EXACTLY TWO NEVER TAKES いちばん.** Four beats shipped in
+    the first draft as 「なつと ふゆの なかで ふゆが いちばん さむい」 and
+    「にくと さかなの なかで さかなが いちばん おいしい」 — which is precisely the
+    frame L5 and L6 tell the learner NOT to use, since two things are the
+    ほうが…より shape and どっち's shape. All four were rewritten to three-item
+    fields, and `m26-neo.test.ts` now carries the crisp half of the rule as a
+    guard: どっち and いちばん may never share a sentence. Two GROUPS
+    (「くだものと やさいの なかで」) are deliberately fine — a category is not an
+    item, and the field there is many things.
+  - **The どっち guard's non-vacuity floor was UNMET and the CONTENT was fixed,
+    not the floor.** Only two どっち surfaces existed, both incidental; a module
+    whose L6 card teaches どっち-versus-どれ ought to PRODUCE the two-item
+    question, so L6 gained 「ふねと ひこうきと どっちが たかい？」 as a build.
+  - **An authored listening-comp must not duplicate a build sentence's audio in
+    the same lesson** (`reviewFillerVariety`): the filler generates its own LC
+    from the lesson's sentences, so four authored LCs collided with one. Each
+    was rewritten to a sentence that appears nowhere else in its lesson.
+  - **Three `reviewPool` orderings were changed for the length-cue ratchet.**
+    `translationMcq` draws distractors within a mora of the target, and the
+    seeded pick handed 3-kana distractors to a 2-kana target three times —
+    which pushed the course-wide "correct answer is uniquely shortest" ratio
+    from .024 to exactly .030 and failed a `< 0.03` ratchet. Reordering L5's,
+    review-2's and L11's pools moved the filler's target word; the ratio is
+    back to .024 and no m26 item is in the residue. The ratchet was not
+    touched.
+  - **L6's challenge beat was re-combined.** Its first shape repeated
+    `[ichiban-superlative + kara-because + to-and + wo-object]` from a beat five
+    steps earlier, which the compiler's `challenge-not-novel` diagnostic reads
+    as longer-but-familiar (inv 26). It now runs on `kedo` + `i-adj-present`.
+  - **ONE GUARD IN THIS MODULE'S OWN TEST WAS NARROWED, with evidence.** The
+    inv-27 fatigue scan originally read every `jaSurfaces` string and fired on
+    「ください」 at `ja-m26-neo-3-debut-0` — a `word_image_mcq` whose options the
+    COMPILER picks out of `emojiPool`. That is neither authored nor a carrier,
+    so the scan was narrowed to multi-token SENTENCES plus every `reviewPool`
+    (a pool entry is an authorial choice and would otherwise have stopped being
+    checked). The genuine hit in the same run — うみ, one of the fourteen
+    fatigued carriers, in six beats — was fixed in the CONTENT: いけ carries the
+    three-place lists and かわ carries the swimming.
+  - **まいにち was cut from two dialogues.** It has a courseAtoms row and the
+    context pack lists it as known, but it is in no neo module's `priorVocab`,
+    so teach-first read it as a bare debut inside a dialogue. よく replaced it.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+  NO CONJUGATION RAMPS. Nothing this module teaches conjugates — いちばん is an
+  adverb, なか is a noun and で / が / の are particles the learner owns — so no
+  `conjugation:` block is declared and no `verbClass` is set on any atom.
+
+grammarPoints:
+  - id: ichiban-superlative
+    rule: "To say something is the MOST, Japanese names the field it is the most of and then points at the winner. 「たべものの なかで すしが いちばん おいしい」 — of all foods, sushi is the most delicious. Three pieces, and you already own all three. なか is the ordinary noun 'inside' from module 6, so it takes の in front of it exactly as ほう did last module, and で behind it: 「たべものの なかで」 is 'inside the set of foods'. The winner takes が, because picking one thing out of a group is what が has always done — は would make the winner the TOPIC, which is a different sentence. And いちばん is an adverb meaning 'number one', which sits directly in front of the adjective. Here is the good news, and it is the same good news as last module: いちばん does not touch the predicate. たかい stays たかい. There is no ending to add, nothing to conjugate, and no word for 'most' hiding inside the adjective. Say the group, say the winner, say いちばん, say the adjective. The field can be a plain noun (かぞくの なかで), a list you name out loud (はると なつと あきと ふゆの なかで), or a set you are pointing at (この みっつの なかで)."
+    examples:
+      - { ja: "たべものの なかで すしが いちばん おいしい。", en: "Of all foods, sushi is the most delicious." }
+      - { ja: "のみものの なかで ちゃが いちばん やすい。", en: "Of the drinks, tea is the cheapest." }
+      - { ja: "かぞくの なかで ちちが いちばん いそがしい。", en: "In my family, my father is the busiest." }
+      - { ja: "はると なつと あきと ふゆの なかで ふゆが いちばん さむい。", en: "Of spring, summer, autumn and winter, winter is the coldest." }
+      - { ja: "この みっつの なかで これが いちばん たかい。", en: "Of these three, this one is the most expensive." }
+    antiPattern: { ja: "たべものの なかで すしが おいしい いちばん。", why: "いちばん goes in FRONT of the word it scales, never after it — it is an adverb, not an ending: たべものの なかで すしが いちばん おいしい。" }
+
+  - id: dare
+    rule: "To ASK which one tops a group, put a question word where the winner would have gone and leave everything else exactly as it was. 「かぞくの なかで だれが いちばん いそがしい？」 — who is the busiest in your family? The question word takes が and never は, for the reason module 20 gave for どっち: a question word cannot be what a sentence is ABOUT, because you do not yet know what it is. Pick the question word by what kind of thing you are asking after. なに for a thing, だれ for a person, どこ for a place, いつ for a time, and どれ when the options have already been named out loud. That last one is worth watching: どれ picks from a set in front of you, so 「この みっつの なかで どれが いちばん たかい？」 works, while なに asks with nothing named at all. The answer comes back in the ordinary frame with が on the winner, and it needs no なかで at all, because the question already named the field: 「ももが いちばん たかい」."
+    examples:
+      - { ja: "たべものの なかで なにが いちばん おいしい？", en: "Of all foods, what's the most delicious?" }
+      - { ja: "かぞくの なかで だれが いちばん いそがしい？", en: "Who's the busiest in your family?" }
+      - { ja: "にほんの なかで どこが いちばん さむい？", en: "Where's the coldest place in Japan?" }
+      - { ja: "はると なつと あきと ふゆの なかで いつが いちばん すずしい？", en: "Of spring, summer, autumn and winter, which one is the coolest?" }
+      - { ja: "この みっつの なかで どれが いちばん やすい？", en: "Of these three, which is the cheapest?" }
+    antiPattern: { ja: "かぞくの なかで だれは いちばん いそがしい？", why: "a question word can never be the topic of a sentence, so だれ always takes が: かぞくの なかで だれが いちばん いそがしい？" }
+
+  - id: no-ga-suki
+    rule: "The winner of a group does not have to be a thing — it can be something you DO, and module 13 already gave you the way to say so. Put の straight after a plain verb and the verb becomes a thing: およぐ becomes およぐの, the swimming of it. Then it takes が like anything else, and いちばん goes in front of the adjective exactly as before: 「およぐのが いちばん すきだ」 — swimming is what I like most. The verb stays in plain form, because の is doing all the nominalising, and everything you hang off the verb comes along with it: 「かわで およぐのが いちばん たのしい」, 「えいがを みるのが いちばん すきだ」. すき is a な-adjective rather than a verb, which is why what you like is marked が and never を, and why it keeps its だ at the end. きらい behaves identically. Two habits worth building here. First, this is the most natural way to answer 「なにが いちばん すき？」 when the honest answer is an activity. Second, たのしい and おもしろい take the same frame, so you can say a thing is the most FUN to do without ever saying you like it."
+    examples:
+      - { ja: "なつやすみに およぐのが いちばん すきだ。", en: "Swimming is what I like most in the summer holidays." }
+      - { ja: "えいがを みるのが いちばん たのしい。", en: "Watching films is the most fun." }
+      - { ja: "かぞくと りょこうを するのが いちばん たのしい。", en: "Travelling with my family is the most fun." }
+      - { ja: "じてんしゃに のるのが いちばん おもしろい。", en: "Riding a bike is the most interesting." }
+      - { ja: "にほんの りょうりを たべるのが いちばん すきだ。", en: "Eating Japanese food is what I like most." }
+    antiPattern: { ja: "なつやすみに およぐが いちばん すきだ。", why: "a verb cannot be marked が on its own — の turns it into a thing first: なつやすみに およぐのが いちばん すきだ。" }
+
+  - id: yori-comparison
+    rule: "You now have two comparison frames and the only thing to get right is which one you are in. TWO things take last module's frame: the winner marked ほうが, the loser marked より, and nothing else. 「バスより ちかてつの ほうが やすい」 — the underground is cheaper than the bus. THREE OR MORE take this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. 「ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい」. Everything else is shared. Neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows — 「バスより やすい」 is a whole answer to a question about the underground, and 「じてんしゃが いちばん やすい」 is a whole answer once the three have been named. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says. Pick your frame by counting the things on the table: two, or more than two."
+    examples:
+      - { ja: "バスより ちかてつの ほうが やすい。", en: "The underground is cheaper than the bus." }
+      - { ja: "ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい。", en: "Of the underground, the bus and the bike, the bike is the cheapest." }
+      - { ja: "ちゃより コーヒーの ほうが たかい。", en: "Coffee is more expensive than tea." }
+      - { ja: "のみものの なかで コーヒーが いちばん たかい。", en: "Of the drinks, coffee is the most expensive." }
+      - { ja: "ふゆより はるの ほうが あたたかい。", en: "Spring is milder than winter." }
+    antiPattern: { ja: "バスより ちかてつの ほうが いちばん やすい。", why: "ほうが has already picked the winner of a PAIR, so there is nothing left for いちばん to top — the two frames never stack: バスより ちかてつの ほうが やすい。" }
+
+  - id: to-and
+    rule: "When the field is not a ready-made word like たべもの, name it out loud with と. 「かばんと くつと ふくの なかで どれが いちばん たかい？」 — of the bag, the shoes and the clothes, which is the most expensive? と is module 8's と and it is doing module 8's job: it ties a CLOSED list, so the listener knows those are all the options there are. Put it between every pair of items and let the last item run straight into の なかで. There is no limit of two here — と will tie three, four, or as many as you can say in one breath. What DOES depend on the count is the question word. どっち asks about exactly two and cannot stretch: 「ちゃと コーヒーと どっちが やすい？」. The moment a third item joins the list, the question word becomes どれ. Their polite twins behave the same way, どちら for two and どれ for more. And the answer to either one comes back with が on the winner: 「くつが いちばん たかい」."
+    examples:
+      - { ja: "かばんと くつと ふくの なかで どれが いちばん たかい？", en: "Of the bag, the shoes and the clothes, which is the most expensive?" }
+      - { ja: "ちゃと コーヒーと どっちが やすい？", en: "Which is cheaper, tea or coffee?" }
+      - { ja: "やまと かわと いけの なかで どれが いちばん とおい？", en: "Of the mountains, the river and the pond, which is the furthest?" }
+      - { ja: "じしょと てがみと しゃしんの なかで どれが いちばん ふるい？", en: "Of the dictionary, the letter and the photo, which is the oldest?" }
+      - { ja: "この みっつの なかで どれが いちばん おおきい？", en: "Of these three, which is the biggest?" }
+    antiPattern: { ja: "かばんと くつと ふくの なかで どっちが いちばん たかい？", why: "どっち asks about exactly TWO things — with three on the table the question word is どれ: かばんと くつと ふくの なかで どれが いちばん たかい？" }
+
+  - id: na-adj-present
+    rule: "な-adjectives go into the superlative frame with nothing removed and nothing added, and they keep their だ. 「がっこうの なかで としょかんが いちばん しずかだ」 — of everywhere in the school, the library is the quietest. This is module 12's rule and module 20's promise meeting each other: a な-adjective is not a verb and cannot finish a sentence on its own, so it needs だ; and いちばん is an adverb, so it cannot supply one. しずか is a quality, しずかだ is a statement, and いちばん しずかだ is a statement about the top of a group. Nothing about the frame changes that in either direction. The words worth practising here are the ones English hears as verbs but Japanese treats as な-adjectives: すき and きらい, which take が on the thing liked, and じょうず and へた, which do the same. 「のみものの なかで ちゃが いちばん すきだ」 is 'tea is my favourite drink' — literally, of the drinks, tea is the most likeable. And the negative behaves exactly as module 12 left it: しずかじゃない."
+    examples:
+      - { ja: "がっこうの なかで としょかんが いちばん しずかだ。", en: "Of everywhere in the school, the library is the quietest." }
+      - { ja: "にほんの なかで さくらが いちばん ゆうめいだ。", en: "In Japan, the cherry blossom is the most famous." }
+      - { ja: "きょうだいの なかで いもうとが いちばん げんきだ。", en: "Of my siblings, my younger sister is the liveliest." }
+      - { ja: "のみものの なかで ちゃが いちばん すきだ。", en: "Tea is my favourite drink." }
+      - { ja: "この みっつの なかで これが いちばん きれいだ。", en: "Of these three, this one is the prettiest." }
+    antiPattern: { ja: "がっこうの なかで としょかんが いちばん しずか。", why: "a な-adjective cannot finish a sentence on its own — it needs だ, and いちばん does not supply one: がっこうの なかで としょかんが いちばん しずかだ。" }
+
+  - id: mo-also
+    rule: "Real preferences are polite about the things they did not pick, and Japanese has a tidy shape for that. Put も on every member of the field to concede that all of them are true, then hang the choice off the end with けど. 「にくも さかなも おいしいけど さかなが いちばん すきだ」 — meat and fish are both delicious, but fish is what I like most. も is module 3's 'too', and repeating it is what turns two separate 'too's into 'both'. The move matters more than the grammar does: saying flatly that one thing is the best implies the others are not, and conceding first takes that sting out. It also works with the field already named — 「どれも たかいけど これが いちばん たかい」, they are all expensive but this is the most expensive — where どれも means 'all of them' and needs no list in front of it. Two things to watch. も REPLACES は and が rather than stacking with them, so it is 「にくも」 and never 「にくがも」. And すき still takes が on the thing liked, however many も have come before it."
+    examples:
+      - { ja: "にくも さかなも おいしいけど さかなが いちばん すきだ。", en: "Meat and fish are both delicious, but fish is what I like most." }
+      - { ja: "どれも たかいけど この とけいが いちばん たかい。", en: "They're all expensive, but this watch is the most expensive." }
+      - { ja: "はるも あきも すずしいけど あきが いちばん すずしい。", en: "Spring and autumn are both cool, but autumn is the coolest." }
+      - { ja: "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。", en: "The underground and the bus are both cheap, but the bike is the cheapest." }
+      - { ja: "いぬも ねこも すきだけど ねこが いちばん すきだ。", en: "I like both dogs and cats, but cats are what I like most." }
+    antiPattern: { ja: "にくも さかなも おいしいけど さかなを いちばん すきだ。", why: "すき is an adjective, not a verb — the thing you like is marked が, never を: にくも さかなも おいしいけど さかなが いちばん すきだ。" }
+
+  - id: dictionary-form
+    rule: "いちばん scales a VERB exactly the way it scales an adjective, and this is where the frame stops being about qualities and starts being about behaviour. 「かぞくの なかで ちちが いちばん はたらく」 — of everyone in my family, my father works the most. Put いちばん directly in front of the verb and leave the verb alone. It stays in the plain dictionary form, and — the thing worth restating because English speakers reach for it — it takes NO だ. A dictionary-form verb has been a complete sentence since module 5; だ finishes NOUNS. 「はたらくだ」 is wrong here for the same reason it was wrong then, and いちばん changes nothing about it. Add よく in front of the verb when you mean 'the most often' rather than 'the most': 「いぬが いちばん よく あるく」. And note what the frame is really claiming — 「おとうとが いちばん たべる」 says he eats more than the rest, not that eating is his favourite thing. For that you want の from the earlier lesson: 「たべるのが いちばん すきだ」."
+    examples:
+      - { ja: "かぞくの なかで ちちが いちばん はたらく。", en: "Of everyone in my family, my father works the most." }
+      - { ja: "きょうだいの なかで おとうとが いちばん たべる。", en: "Of my siblings, my younger brother eats the most." }
+      - { ja: "がくせいの なかで ミカが いちばん あるく。", en: "Of the students, Mika walks the most." }
+      - { ja: "かぞくの なかで ははが いちばん よく はなす。", en: "Of everyone in my family, my mother talks the most." }
+      - { ja: "どうぶつの なかで いぬが いちばん よく あるく。", en: "Of the animals, dogs walk the most." }
+    antiPattern: { ja: "かぞくの なかで ちちが いちばん はたらくだ。", why: "a verb is already a whole sentence and never takes だ — だ finishes NOUNS: かぞくの なかで ちちが いちばん はたらく。" }
+
+  - id: masu-present
+    rule: "The place you will actually need a superlative first is a shop, and a shop means polite. Everything about the frame stays where it is — なかで names the field, が marks the winner, いちばん sits in front of the adjective — and only the ending changes: 「どれが いちばん やすいですか。」 Two halves make that polite question work, and beginners drop one of them constantly. です carries the register, and か makes it a question. Leave か off and you have said a polite STATEMENT and left it hanging; leave です off and you have asked a friend, not a shop assistant. A casual question needs neither, because its rising contour does the work: 「どれが いちばん やすい？」 Same question, different room. The answer comes back polite too, and こちら is the polite twin of これ when you are pointing at goods: 「こちらが いちばん やすいです。」 One habit worth stealing from Japanese shoppers: 「すみません」 in front of the question is not an apology, it is how you open one."
+    examples:
+      - { ja: "どれが いちばん やすいですか。", en: "Which one is the cheapest?" }
+      - { ja: "この みっつの なかで どれが いちばん おおきいですか。", en: "Of these three, which is the biggest?" }
+      - { ja: "こちらが いちばん やすいです。", en: "This one is the cheapest." }
+      - { ja: "すみません のみものの なかで なにが いちばん おいしいですか。", en: "Excuse me, of the drinks, which is the most delicious?" }
+      - { ja: "どれが いちばん やすい？", en: "Which one is the cheapest? — the same question, said to a friend" }
+    antiPattern: { ja: "どれが いちばん やすいです。", why: "a polite QUESTION requires か — without it the sentence is a statement, and an unfinished one: どれが いちばん やすいですか。" }
+
+newAtoms:
+  # ══ L1. The headline. `imageable: false` because L1's rule card must NAME it
+  #    and a rule card compiles to a PINNED step ahead of the interleaved
+  #    middle — the m14 trap, restated by m20 and m25. 🥇 is an honest glyph and
+  #    the registry keeps it; the picture is simply not reachable in the one
+  #    lesson that has to say the word first. Stale m22 tag, absent from every
+  #    neo module's priorVocab, so this row is PROVENANCE only.
+  - { kana: いちばん, romaji: ichiban, gloss: "the most, the ~est (tops a group)", shortGloss: "the most", imageable: false, kind: vocab }
+  # ══ L2. The two food categories a superlative most wants to rank. 🍎 is
+  #    shared with nothing MET (もも is 🍑) and 🥕 with nothing at all.
+  - { kana: くだもの, romaji: kudamono, gloss: "fruit", shortGloss: "fruit", kind: vocab }
+  - { kana: やさい, romaji: yasai, gloss: "vegetable", shortGloss: "vegetable", kind: vocab }
+  # ══ L3. 🥩 is red meat and とりにく — the only met neighbour — is 🍗, so the
+  #    debut picture names the answer better than any distractor. 🐟 is unshared.
+  - { kana: にく, romaji: niku, gloss: "meat", shortGloss: "meat", kind: vocab }
+  - { kana: さかな, romaji: sakana, gloss: "fish", shortGloss: "fish", kind: vocab }
+  # ══ L5. The animal category and its biggest member. ぞう has NO emoji in the
+  #    registry at all, so it cannot debut on a picture and says so explicitly.
+  - { kana: どうぶつ, romaji: doubutsu, gloss: "animal", shortGloss: "animal", kind: vocab }
+  - { kana: ぞう, romaji: zou, gloss: "elephant", shortGloss: "elephant", imageable: false, kind: vocab }
+  # ══ L6. The one new comparison adjective, and a reinforcement target the
+  #    context pack has been asking for since m22 (CEJC #470). 🏋️ is unshared.
+  - { kana: おもい, romaji: omoi, gloss: "heavy", shortGloss: "heavy", kind: vocab }
+  # ══ L9. The non-food field, so the module is not nine lessons of dinner.
+  #    ことば 🔤 is unshared; えいご's 🇺🇸 is アメリカ's glyph and アメリカ is MET,
+  #    so えいご is imageable: false (the m19/m24 ruling).
+  - { kana: ことば, romaji: kotoba, gloss: "word, language", shortGloss: "language", kind: vocab }
+  - { kana: えいご, romaji: eigo, gloss: "English language", shortGloss: "English", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-1
+    role: teaching
+    title: "「すしが いちばん おいしい」 — the top of a whole group"
+    focus: "〜の なかで names the field, が marks the winner, いちばん sits in front"
+    introduces: [いちばん]
+    beats:
+      - { kind: rule, grammarPointId: ichiban-superlative }
+      - { kind: sentence, ja: "きょうだいの なかで あねが いちばん いそがしい。", en: "Of my siblings, my older sister is the busiest", exercises: [ichiban-superlative, ga-existence, no-possession], mode: build }
+      - { kind: sentence, ja: "のみものの なかで ぎゅうにゅうが いちばん やすいから ぎゅうにゅうを かう。", en: "Milk is the cheapest of the drinks, so I'll buy milk", exercises: [ichiban-superlative, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "この みっつの なかで この かばんが いちばん おおきい。", en: "Of these three, this bag is the biggest", exercises: [ichiban-superlative, kono-sono-ano-dono, counter-tsu], mode: build }
+      - { kind: sentence, ja: "はると なつと あきと ふゆの なかで ふゆが いちばん さむい。", en: "Of spring, summer, autumn and winter, winter is the coldest", exercises: [ichiban-superlative, to-and, ni-time], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん いそがしい。", en: "In my family, my father is the busiest", exercises: [ichiban-superlative, ga-existence, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "やまと かわと いけの なかで やまが いちばん とおいけど やまに いく。", en: "Of the mountains, the river and the pond, the mountains are the furthest, but I'm going to the mountains", exercises: [ichiban-superlative, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "たべものの なかで すしが いちばん おいしいから すしを たべる。", en: "Sushi is the most delicious of all foods, so I'll eat sushi", exercises: [ichiban-superlative, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "のみものの なかで ちゃが いちばん やすい。", en: "Tea is the cheapest of the drinks", exercises: [ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "たべものの なかで すしが ", tail: " おいしい。", answer: "いちばん", options: ["いちばん", "ちょっと", "あまり"], en: "Of all foods, sushi is the most delicious", explanation: "いちばん says sushi tops the whole group. ちょっと would only say it is somewhat delicious, and あまり can never stand in front of a positive adjective at all." }
+      - { kind: listening-comp, audio: "かぞくの なかで ははが いちばん いそがしい。", answer: "In my family, my mother is the busiest", distractors: ["In my family, my father is the busiest", "In my family, my mother is the freest", "My mother is busier than my father"], exercises: [ichiban-superlative, family-register] }
+      - { kind: listening-comp, audio: "のみものの なかで ちゃが いちばん やすい。", answer: "Tea is the cheapest of the drinks", distractors: ["Tea is cheaper than coffee", "Tea is the most expensive of the drinks", "Coffee is the cheapest of the drinks"], exercises: [ichiban-superlative, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "たべものの なかで なにが いちばん すき？", en: "Of all foods, what do you like most?" }
+          - { speaker: "Mika", ja: "すし。おいしいから よく たべる。", en: "Sushi. It's delicious, so I eat it a lot." }
+        questions:
+          - { q: "What does Mika like most?", options: ["Sushi", "Bread", "Tea", "Rice"], answer: "Sushi" }
+      - { kind: challenge, ja: "はると なつと ふゆの なかで ふゆが いちばん さむいから ふゆに やまに いかない。", en: "Of spring, summer and winter, winter is the coldest, so I don't go to the mountains in winter", combines: [ichiban-superlative, kara-because, ni-time, nai-form, ni-location], mode: build }
+    reviewPool: [たべもの, のみもの, かぞく, ちち, はは, あね, ちゃ, すし, ぎゅうにゅう, ふゆ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-2
+    role: teaching
+    title: "「なにが いちばん おいしい？」 — asking which one tops the group"
+    focus: "A question word stands where the winner would, and it always takes が"
+    introduces: [くだもの, やさい]
+    beats:
+      - { kind: rule, grammarPointId: dare }
+      - { kind: sentence, ja: "くだものの なかで ももが いちばん たかい。", en: "Of the fruit, peaches are the most expensive", exercises: [dare, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "やさいの なかで きゅうりが いちばん やすい。", en: "Of the vegetables, cucumber is the cheapest", exercises: [dare, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "くだものの なかで どれが いちばん おいしい？", en: "Of the fruit, which is the most delicious", exercises: [dare, ichiban-superlative, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで だれが いちばん おおきい？", en: "Of your siblings, who's the biggest", exercises: [dare, ichiban-superlative, family-register], mode: build }
+      - { kind: sentence, ja: "にほんの なかで どこが いちばん さむい？", en: "Where's the coldest place in Japan", exercises: [dare, ichiban-superlative, koko-soko-asoko], mode: listening }
+      - { kind: sentence, ja: "やさいの なかで なにが いちばん おいしい？", en: "Of the vegetables, which is the most delicious", exercises: [dare, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "はると なつと あきと ふゆの なかで いつが いちばん すずしい？", en: "Of spring, summer, autumn and winter, which one is the coolest", exercises: [dare, ichiban-superlative, to-and, ni-time], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで だれが いちばん いそがしい？", en: "Who's the busiest in your family", exercises: [dare, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "にほんの なかで ", tail: "が いちばん さむい？", answer: "どこ", options: ["どこ", "だれ", "いつ"], en: "Where's the coldest place in Japan?", explanation: "にほん is a place, so the question word is どこ. だれ asks after a person and いつ after a time — neither one can be a country's coldest part." }
+      - { kind: listening-comp, audio: "くだものの なかで ももが いちばん おいしい。", answer: "Of the fruit, peaches are the most delicious", distractors: ["Peaches are more delicious than cucumbers", "Of the fruit, peaches are the cheapest", "Of the vegetables, cucumber is the most delicious"], exercises: [ichiban-superlative, ga-existence] }
+      - { kind: listening-comp, audio: "やさいの なかで なにが いちばん やすい？", answer: "Of the vegetables, which is the cheapest?", distractors: ["Of the fruit, which is the cheapest?", "Of the vegetables, which is the most expensive?", "Which is cheaper, the vegetables or the fruit?"], exercises: [dare, ichiban-superlative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "くだものの なかで どれが いちばん たかい？", en: "Of the fruit, which is the most expensive?" }
+          - { speaker: "Ken", ja: "もも。きゅうりの ほうが やすい。", en: "Peaches. Cucumber is the cheaper one." }
+        questions:
+          - { q: "Which does Ken say is the most expensive?", options: ["Peaches", "Cucumber", "Mushrooms", "Eggs"], answer: "Peaches" }
+      - { kind: challenge, ja: "くだものと やさいの なかで なにが いちばん たかいと おもう？", en: "Of the fruit and the vegetables, what do you think is the most expensive", combines: [dare, ichiban-superlative, to-omoimasu, to-quotation, to-and], mode: build }
+    reviewPool: [くだもの, やさい, もも, きゅうり, きのこ, たまご, なつ, あき, にほん, かぞく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-3
+    role: teaching
+    title: "「およぐのが いちばん すきだ」 — the thing you like doing most"
+    focus: "の makes a verb into a thing, が marks it, いちばん tops the list"
+    introduces: [にく, さかな]
+    beats:
+      - { kind: rule, grammarPointId: no-ga-suki }
+      - { kind: sentence, ja: "にくと さかなと たまごの なかで さかなが いちばん おいしい。", en: "Of the meat, the fish and the eggs, the fish is the most delicious", exercises: [no-ga-suki, ichiban-superlative, to-and], mode: build }
+      - { kind: sentence, ja: "さかなを たべるのが いちばん すきだ。", en: "Eating fish is what I like most", exercises: [no-ga-suki, ichiban-superlative, wo-object], mode: build }
+      - { kind: sentence, ja: "たべものの なかで にくが いちばん たかい。", en: "Of all foods, meat is the most expensive", exercises: [no-ga-suki, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "かわで およぐのが いちばん たのしいから なつが いちばん すきだ。", en: "Swimming in the river is the most fun, so summer is what I like most", exercises: [no-ga-suki, ichiban-superlative, de-action, kara-because], mode: build }
+      - { kind: sentence, ja: "えいがを みるのが いちばん すきだ。", en: "Watching films is what I like most", exercises: [no-ga-suki, ichiban-superlative, wo-object], mode: listening }
+      - { kind: sentence, ja: "かぞくと りょこうを するのが いちばん たのしい。", en: "Travelling with my family is the most fun", exercises: [no-ga-suki, ichiban-superlative, to-and, wo-object], mode: build }
+      - { kind: sentence, ja: "じてんしゃに のるのが いちばん おもしろいけど あるくのも すきだ。", en: "Riding a bike is the most interesting, but I like walking too", exercises: [no-ga-suki, ichiban-superlative, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "およぐのが いちばん すきだ。", en: "Swimming is what I like most", exercises: [no-ga-suki, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "さかなを ", tail: "のが いちばん すきだ。", answer: "たべる", options: ["たべる", "のむ", "みる"], en: "Eating fish is what I like most", explanation: "を on さかな marks it as the thing acted on, and fish is a thing you eat. のむ is for drinks and みる is for watching." }
+      - { kind: listening-comp, audio: "たべものの なかで にくが いちばん たかい。", answer: "Of all foods, meat is the most expensive", distractors: ["Of all foods, fish is the most expensive", "Meat is more expensive than fish", "Of all foods, meat is the cheapest"], exercises: [ichiban-superlative, ga-existence] }
+      - { kind: listening-comp, audio: "かわで およぐのが いちばん たのしい。", answer: "Swimming in the river is the most fun", distractors: ["Swimming in the pond is the most fun", "Swimming in the river is what I like most", "I want to swim in the river"], exercises: [no-ga-suki, de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "なつやすみに なにを するのが いちばん すき？", en: "What do you most like doing in the summer holidays?" }
+          - { speaker: "Tom", ja: "かわで およぐの。いけより かわの ほうが すきだ。", en: "Swimming in the river. I like the river more than the pond." }
+        questions:
+          - { q: "What does Tom most like doing?", options: ["Swimming in the river", "Swimming in the pond", "Travelling with his family", "Watching films"], answer: "Swimming in the river" }
+      - { kind: challenge, ja: "なつやすみに かぞくと かわで およぐのが いちばん たのしい。", en: "Swimming in the river with my family in the summer holidays is the most fun", combines: [no-ga-suki, ichiban-superlative, ni-time, to-and, de-action], mode: build }
+    reviewPool: [にく, さかな, およぐ, たべる, みる, えいが, りょこう, じてんしゃ, なつやすみ, りょうり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-review-1
+    role: review
+    title: "Review — a field, a winner, and いちばん in front"
+    focus: "〜の なかで with nouns, question words and nominalised verbs"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たべものの なかで すしが いちばん おいしいから すしを たべる。", en: "Sushi is the most delicious of all foods, so I'll eat sushi", exercises: [ichiban-superlative, kara-because], mode: build }
+      - { kind: sentence, ja: "くだものの なかで ももが いちばん たかい。", en: "Of the fruit, peaches are the most expensive", exercises: [dare, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "さかなを たべるのが いちばん すきだ。", en: "Eating fish is what I like most", exercises: [no-ga-suki, wo-object], mode: listening }
+      - { kind: sentence, ja: "きょうだいの なかで だれが いちばん おおきい？", en: "Of your siblings, who's the biggest", exercises: [dare, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "やさいの なかで きゅうりが いちばん やすい。", en: "Of the vegetables, cucumber is the cheapest", exercises: [ichiban-superlative, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "はると なつと あきと ふゆの なかで ふゆが ", tail: " さむい。", answer: "いちばん", options: ["いちばん", "ちょっと", "よく"], en: "Of spring, summer, autumn and winter, winter is the coldest", explanation: "いちばん tops the whole list of four. ちょっと would only say winter is a bit cold, and よく counts how OFTEN something happens." }
+      - { kind: sentence, ja: "かわで およぐのが いちばん たのしいから なつが いちばん すきだ。", en: "Swimming in the river is the most fun, so summer is what I like most", exercises: [no-ga-suki, kara-because], mode: build }
+      - { kind: listening-comp, audio: "にほんの なかで どこが いちばん さむい？", answer: "Where's the coldest place in Japan?", distractors: ["Where's the hottest place in Japan?", "Which country is the coldest?", "Is Japan cold?"], exercises: [dare, ichiban-superlative] }
+      - { kind: sentence, ja: "この みっつの なかで この かばんが いちばん おおきい。", en: "Of these three, this bag is the biggest", exercises: [ichiban-superlative, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん いそがしい。", en: "In my family, my father is the busiest", exercises: [ichiban-superlative], mode: translate }
+      - { kind: listening-comp, audio: "かぞくと りょこうを するのが いちばん たのしい。", answer: "Travelling with my family is the most fun", distractors: ["Travelling with my friends is the most fun", "I want to travel with my family", "Travelling with my family is the most expensive"], exercises: [no-ga-suki, to-and] }
+      - { kind: sentence, ja: "にくと さかなと たまごの なかで さかなが いちばん おいしい。", en: "Of the meat, the fish and the eggs, the fish is the most delicious", exercises: [ichiban-superlative, to-and], mode: build }
+      - { kind: sentence, ja: "やまと かわと いけの なかで やまが いちばん とおいけど やまに いく。", en: "Of the mountains, the river and the pond, the mountains are the furthest, but I'm going to the mountains", exercises: [ichiban-superlative, kedo], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "やさいの なかで なにが いちばん すき？", en: "Of the vegetables, which do you like most?" }
+          - { speaker: "Tom", ja: "きゅうり。やすいから よく たべる。", en: "Cucumber. It's cheap, so I eat it a lot." }
+        questions:
+          - { q: "Why does Tom eat cucumber every day?", options: ["It's cheap", "It's expensive", "It's the most delicious", "It's the biggest"], answer: "It's cheap" }
+    reviewPool: [くだもの, やさい, にく, さかな, もも, きゅうり, たべもの, のみもの, ちゃ, すし]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-5
+    role: teaching
+    title: "「ほうが」 と 「いちばん」 — two things, or a whole group"
+    focus: "Count what is on the table: two takes ほうが…より, three or more takes なかで…いちばん"
+    introduces: [どうぶつ, ぞう]
+    beats:
+      - { kind: rule, grammarPointId: yori-comparison }
+      - { kind: sentence, ja: "どうぶつの なかで ぞうが いちばん おおきい。", en: "Of the animals, the elephant is the biggest", exercises: [yori-comparison, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "いぬより ねこの ほうが ちいさい。", en: "A cat is smaller than a dog", exercises: [yori-comparison, no-possession], mode: build }
+      - { kind: sentence, ja: "いぬと ねこと ぞうの なかで ねこが いちばん ちいさい。", en: "Of the dog, the cat and the elephant, the cat is the smallest", exercises: [yori-comparison, ichiban-superlative, to-and], mode: build }
+      - { kind: sentence, ja: "コーヒーより ちゃの ほうが やすいけど ぎゅうにゅうが いちばん やすい。", en: "Tea is cheaper than coffee, but milk is the cheapest", exercises: [yori-comparison, ichiban-superlative, kedo], mode: build }
+      - { kind: sentence, ja: "ふゆより はるの ほうが あたたかい。", en: "Spring is milder than winter", exercises: [yori-comparison, ni-time], mode: listening }
+      - { kind: sentence, ja: "ふねより ひこうきの ほうが たかいけど ひこうきで いく。", en: "A plane is more expensive than a boat, but I'm going by plane", exercises: [yori-comparison, kedo, de-action], mode: build }
+      - { kind: sentence, ja: "のみものの なかで コーヒーが いちばん たかいから ちゃを のむ。", en: "Coffee is the most expensive of the drinks, so I'll drink tea", exercises: [yori-comparison, ichiban-superlative, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが やすい。", en: "The underground is cheaper than the bus", exercises: [yori-comparison], mode: translate }
+      - { kind: particle-cloze, stem: "バスより ちかてつの ", tail: "が やすい。", answer: "ほう", options: ["ほう", "なか", "より"], en: "The underground is cheaper than the bus", explanation: "ほう marks the winner of a PAIR and takes の in front of it. なか needs で after it and names a whole group, and より is already on バス at the front." }
+      - { kind: listening-comp, audio: "いぬと ねこと ぞうの なかで ぞうが いちばん おおきい。", answer: "Of the dog, the cat and the elephant, the elephant is the biggest", distractors: ["Of the dog, the cat and the elephant, the cat is the biggest", "An elephant is bigger than a dog", "Of the dog, the cat and the elephant, the elephant is the smallest"], exercises: [ichiban-superlative, to-and] }
+      - { kind: listening-comp, audio: "コーヒーより ちゃの ほうが やすい。", answer: "Tea is cheaper than coffee", distractors: ["Coffee is cheaper than tea", "Of the drinks, tea is the cheapest", "Tea and coffee are both cheap"], exercises: [yori-comparison, no-possession] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "バスと ちかてつと どっちが やすい？", en: "Which is cheaper, the bus or the underground?" }
+          - { speaker: "Ken", ja: "ちかてつ。じてんしゃが いちばん やすいけど。", en: "The underground. The bike's the cheapest, though." }
+        questions:
+          - { q: "What does Ken say is the cheapest?", options: ["The bike", "The underground", "The bus", "He says they cost the same"], answer: "The bike" }
+      - { kind: challenge, ja: "いぬより ねこの ほうが ちいさいけど どうぶつの なかで ぞうが いちばん おおきい。", en: "A cat is smaller than a dog, but of the animals the elephant is the biggest", combines: [yori-comparison, ichiban-superlative, kedo, i-adj-present], mode: build }
+    reviewPool: [どうぶつ, ちかてつ, ひこうき, コーヒー, ぞう, いぬ, ねこ, バス, ふね, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-6
+    role: teaching
+    title: "「どれが いちばん おもい？」 — naming the field out loud"
+    focus: "と ties a list of any length; どっち is for two and どれ for three or more"
+    introduces: [おもい]
+    beats:
+      - { kind: rule, grammarPointId: to-and }
+      - { kind: sentence, ja: "かばんと くつと ふくの なかで くつが いちばん おもい。", en: "Of the bag, the shoes and the clothes, the shoes are the heaviest", exercises: [to-and, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "この かばんは おもいけど あの かばんの ほうが おもい。", en: "This bag is heavy, but that bag over there is the heavier one", exercises: [to-and, yori-comparison, kedo, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。", en: "Of the dictionary, the letter and the photo, the dictionary is the heaviest", exercises: [to-and, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "ちゃと コーヒーと ぎゅうにゅうの なかで どれが いちばん やすい？", en: "Of the tea, the coffee and the milk, which is the cheapest", exercises: [to-and, ichiban-superlative, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "やまと かわと いけの なかで いけが いちばん とおい。", en: "Of the mountains, the river and the pond, the pond is the furthest", exercises: [to-and, ichiban-superlative], mode: listening }
+      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses", exercises: [to-and, ichiban-superlative, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ふねと ひこうきと どっちが たかい？", en: "Which is more expensive, the boat or the plane", exercises: [to-and, yori-comparison], mode: build }
+      - { kind: sentence, ja: "この みっつの なかで どれが いちばん おもい？", en: "Of these three, which is the heaviest", exercises: [to-and, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "かばんと くつと ふくの なかで ", tail: "が いちばん たかい？", answer: "どれ", options: ["どれ", "どっち", "だれ"], en: "Of the bag, the shoes and the clothes, which is the most expensive?", explanation: "three things are on the table, so the question word is どれ. どっち asks about exactly two, and だれ asks after a person." }
+      - { kind: listening-comp, audio: "この かばんが いちばん おもい。", answer: "This bag is the heaviest", distractors: ["This bag is the lightest", "This bag is heavier than that one", "Which bag is the heaviest?"], exercises: [ichiban-superlative, kono-sono-ano-dono] }
+      - { kind: listening-comp, audio: "じしょと てがみと しゃしんの なかで どれが いちばん ふるい？", answer: "Of the dictionary, the letter and the photo, which is the oldest?", distractors: ["Of the dictionary and the letter, which is the older?", "Of the dictionary, the letter and the photo, which is the newest?", "Is the dictionary older than the letter?"], exercises: [to-and, ichiban-superlative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "かばんと くつと ふくの なかで どれが いちばん おもい？", en: "Of the bag, the shoes and the clothes, which is the heaviest?" }
+          - { speaker: "Ken", ja: "くつ。ふくが いちばん やすいけど。", en: "The shoes. The clothes are the cheapest, though." }
+        questions:
+          - { q: "What does Ken say is the heaviest?", options: ["The shoes", "The bag", "The clothes", "He says they weigh the same"], answer: "The shoes" }
+      - { kind: challenge, ja: "くつと かばんと ぼうしの なかで くつが いちばん おもいけど かばんが いちばん たかい。", en: "Of the shoes, the bag and the hat, the shoes are the heaviest, but the bag is the most expensive", combines: [to-and, ichiban-superlative, kedo, i-adj-present], mode: build }
+    reviewPool: [おもい, くつ, かばん, ふく, ぼうし, めがね, じしょ, てがみ, しゃしん, やま]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-7
+    role: teaching
+    title: "「としょかんが いちばん しずかだ」 — な-adjectives keep their だ"
+    focus: "いちばん is an adverb, so a な-adjective still needs だ to finish the sentence"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: na-adj-present }
+      - { kind: sentence, ja: "がっこうの なかで としょかんが いちばん しずかだ。", en: "Of everywhere in the school, the library is the quietest", exercises: [na-adj-present, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "にほんの なかで さくらが いちばん ゆうめいだ。", en: "In Japan, the cherry blossom is the most famous", exercises: [na-adj-present, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで いもうとが いちばん げんきだ。", en: "Of my siblings, my younger sister is the liveliest", exercises: [na-adj-present, ichiban-superlative, family-register], mode: build }
+      - { kind: sentence, ja: "たべものの なかで さかなが いちばん すきだけど にくも すきだ。", en: "Of all foods, fish is what I like most, but I like meat too", exercises: [na-adj-present, ichiban-superlative, kedo], mode: build }
+      - { kind: sentence, ja: "この みっつの なかで これが いちばん きれいだ。", en: "Of these three, this one is the prettiest", exercises: [na-adj-present, ichiban-superlative, kore-sore-are-dore], mode: listening }
+      - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだ。", en: "Of my siblings, my older brother is the most skilful", exercises: [na-adj-present, ichiban-superlative, no-ga-jouzu], mode: build }
+      - { kind: sentence, ja: "くうこうと だいがくと としょかんの なかで くうこうが いちばん にぎやかだ。", en: "Of the airport, the university and the library, the airport is the liveliest", exercises: [na-adj-present, ichiban-superlative, to-and], mode: build }
+      - { kind: sentence, ja: "のみものの なかで ちゃが いちばん すきだ。", en: "Tea is my favourite drink", exercises: [na-adj-present, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "がっこうの なかで としょかんが いちばん ", tail: "。", answer: "しずかだ", options: ["しずかだ", "しずか", "しずかじゃない"], en: "Of everywhere in the school, the library is the quietest", explanation: "a な-adjective needs だ to finish a sentence, and いちばん does not supply one. しずか on its own leaves the sentence hanging, and しずかじゃない says the opposite." }
+      - { kind: listening-comp, audio: "にほんの なかで さくらが いちばん ゆうめいだ。", answer: "In Japan, the cherry blossom is the most famous", distractors: ["In Japan, the cherry blossom is the prettiest", "The cherry blossom is more famous than the mountains", "In Japan, the cherry blossom isn't famous"], exercises: [na-adj-present, ichiban-superlative] }
+      - { kind: listening-comp, audio: "きょうだいの なかで いもうとが いちばん げんきだ。", answer: "Of my siblings, my younger sister is the liveliest", distractors: ["Of my siblings, my younger brother is the liveliest", "Of my siblings, my younger sister is the busiest", "My younger sister is livelier than my older sister"], exercises: [na-adj-present, family-register] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "がっこうの なかで どこが いちばん しずか？", en: "Where's the quietest place in the school?" }
+          - { speaker: "Mika", ja: "としょかん。だいがくの としょかんが いちばん しずかだ。", en: "The library. The university library is the quietest." }
+        questions:
+          - { q: "Which library does Mika say is the quietest?", options: ["The university library", "The school library", "The town library", "She says they are the same"], answer: "The university library" }
+      - { kind: challenge, ja: "がっこうの なかで としょかんが いちばん しずかだから としょかんで じしょを みる。", en: "Of everywhere in the school, the library is the quietest, so I look at the dictionary in the library", combines: [na-adj-present, ichiban-superlative, kara-because, de-action, wo-object], mode: build }
+    reviewPool: [としょかん, がっこう, さくら, にほん, いもうと, あに, きょうだい, くうこう, だいがく, ちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-review-2
+    role: review
+    title: "Review — two frames, a named field, and な-adjectives"
+    focus: "ほうが against いちばん, と-lists with どれ, and だ under the superlative"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "どうぶつの なかで ぞうが いちばん おおきい。", en: "Of the animals, the elephant is the biggest", exercises: [yori-comparison, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "かばんと くつと ふくの なかで くつが いちばん おもい。", en: "Of the bag, the shoes and the clothes, the shoes are the heaviest", exercises: [to-and, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "がっこうの なかで としょかんが いちばん しずかだ。", en: "Of everywhere in the school, the library is the quietest", exercises: [na-adj-present, ichiban-superlative], mode: listening }
+      - { kind: sentence, ja: "コーヒーより ちゃの ほうが やすいけど ぎゅうにゅうが いちばん やすい。", en: "Tea is cheaper than coffee, but milk is the cheapest", exercises: [yori-comparison, kedo], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで いもうとが いちばん げんきだ。", en: "Of my siblings, my younger sister is the liveliest", exercises: [na-adj-present, family-register], mode: build }
+      - { kind: particle-cloze, stem: "ひこうきと ふねと ちかてつの なかで ", tail: "が いちばん たかい？", answer: "どれ", options: ["どれ", "どっち", "どこ"], en: "Of the plane, the boat and the underground, which is the most expensive?", explanation: "three things are named, so the question word is どれ. どっち asks about exactly two, and どこ asks after a place rather than one of a set." }
+      - { kind: sentence, ja: "いぬより ねこの ほうが ちいさい。", en: "A cat is smaller than a dog", exercises: [yori-comparison], mode: build }
+      - { kind: listening-comp, audio: "くうこうと だいがくと としょかんの なかで くうこうが いちばん にぎやかだ。", answer: "Of the airport, the university and the library, the airport is the liveliest", distractors: ["Of the airport, the university and the library, the library is the liveliest", "The airport is livelier than the university", "Of the airport, the university and the library, the airport is the quietest"], exercises: [na-adj-present, to-and] }
+      - { kind: sentence, ja: "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。", en: "Of the dictionary, the letter and the photo, the dictionary is the heaviest", exercises: [to-and, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "にほんの なかで さくらが いちばん ゆうめいだ。", en: "In Japan, the cherry blossom is the most famous", exercises: [na-adj-present], mode: translate }
+      - { kind: listening-comp, audio: "ふゆより はるの ほうが あたたかい。", answer: "Spring is milder than winter", distractors: ["Winter is milder than spring", "Of the seasons, spring is the mildest", "Spring is cooler than winter"], exercises: [yori-comparison, ni-time] }
+      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses", exercises: [to-and, kara-because], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだ。", en: "Of my siblings, my older brother is the most skilful", exercises: [na-adj-present, no-ga-jouzu], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "いぬと ねこと ぞうの なかで どれが いちばん おおきい？", en: "Of the dog, the cat and the elephant, which is the biggest?" }
+          - { speaker: "Mika", ja: "ぞう。ねこが いちばん ちいさい。", en: "The elephant. The cat's the smallest." }
+        questions:
+          - { q: "Which does Mika say is the smallest?", options: ["The cat", "The dog", "The elephant", "She says the dog and the cat are the same"], answer: "The cat" }
+    reviewPool: [どうぶつ, としょかん, ひこうき, かばん, おもい, さくら, ぞう, いぬ, ねこ, くつ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-9
+    role: teaching
+    title: "「どれも いいけど これが いちばん」 — agree first, then choose"
+    focus: "も on every member concedes the field before いちばん picks one out of it"
+    introduces: [ことば, えいご]
+    beats:
+      - { kind: rule, grammarPointId: mo-also }
+      - { kind: sentence, ja: "ことばの なかで えいごが いちばん むずかしい。", en: "Of all languages, English is the most difficult", exercises: [mo-also, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "えいごも にほんの ことばも むずかしいけど えいごが いちばん むずかしい。", en: "English and Japanese are both difficult, but English is the most difficult", exercises: [mo-also, ichiban-superlative, kedo, no-possession], mode: build }
+      - { kind: sentence, ja: "どれも たかいけど この とけいが いちばん たかい。", en: "They're all expensive, but this watch is the most expensive", exercises: [mo-also, ichiban-superlative, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "はるも あきも すずしいけど あきが いちばん すずしい。", en: "Spring and autumn are both cool, but autumn is the coolest", exercises: [mo-also, ichiban-superlative, ni-time], mode: build }
+      - { kind: sentence, ja: "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。", en: "The underground and the bus are both cheap, but the bike is the cheapest", exercises: [mo-also, ichiban-superlative], mode: listening }
+      - { kind: sentence, ja: "にくも さかなも おいしいけど さかなが いちばん すきだ。", en: "Meat and fish are both delicious, but fish is what I like most", exercises: [mo-also, ichiban-superlative, na-adj-present], mode: build }
+      - { kind: sentence, ja: "じゅぎょうは どれも おもしろいけど えいごの じゅぎょうが いちばん おもしろい。", en: "The classes are all interesting, but the English class is the most interesting", exercises: [mo-also, ichiban-superlative, wa-topic, no-possession], mode: build }
+      - { kind: sentence, ja: "どれも たかいけど これが いちばん たかい。", en: "They're all expensive, but this one is the most expensive", exercises: [mo-also, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "にくも さかなも おいしいけど さかなが いちばん ", tail: "。", answer: "すきだ", options: ["すきだ", "きらいだ", "へただ"], en: "Meat and fish are both delicious, but fish is what I like most", explanation: "けど sets up a choice inside a field the speaker has just praised, so the second half says which one they like most. きらいだ would contradict おいしい, and へただ is about a skill rather than a taste." }
+      - { kind: listening-comp, audio: "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。", answer: "The underground and the bus are both cheap, but the bike is the cheapest", distractors: ["The underground and the bus are both cheap, but the underground is the cheapest", "The bike is cheaper than the bus", "The underground and the bus are both expensive"], exercises: [mo-also, ichiban-superlative] }
+      - { kind: listening-comp, audio: "ことばの なかで えいごが いちばん おもしろい。", answer: "Of all languages, English is the most interesting", distractors: ["Of all languages, Japanese is the most interesting", "English is more interesting than Japanese", "Of all languages, English is the most difficult"], exercises: [ichiban-superlative, ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "じゅぎょうの なかで どれが いちばん むずかしい？", en: "Of the classes, which is the most difficult?" }
+          - { speaker: "Mika", ja: "えいご。どれも むずかしいけど えいごが いちばん むずかしい。", en: "English. They're all difficult, but English is the most difficult." }
+        questions:
+          - { q: "Which class does Mika say is the most difficult?", options: ["English", "None of them", "She says they are all the same", "The one she likes most"], answer: "English" }
+      - { kind: challenge, ja: "ことばの なかで えいごが いちばん むずかしいけど えいごを はなすのが いちばん たのしい。", en: "Of all languages, English is the most difficult, but speaking English is the most fun", combines: [mo-also, ichiban-superlative, no-ga-suki, kedo, wo-object], mode: build }
+    reviewPool: [ことば, えいご, にく, さかな, とけい, じゅぎょう, ちかてつ, じてんしゃ, はる, あき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-10
+    role: teaching
+    title: "「ちちが いちばん はたらく」 — the most, of DOING"
+    focus: "いちばん scales a verb too, and the verb still takes no だ"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: dictionary-form }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん はたらく。", en: "Of everyone in my family, my father works the most", exercises: [dictionary-form, ichiban-superlative, ga-existence], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで おとうとが いちばん たべる。", en: "Of my siblings, my younger brother eats the most", exercises: [dictionary-form, ichiban-superlative, family-register], mode: build }
+      - { kind: sentence, ja: "がくせいの なかで だれが いちばん よく あるく？", en: "Of the students, who walks the most", exercises: [dictionary-form, ichiban-superlative, dare, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ははが いちばん よく はなす。", en: "Of everyone in my family, my mother talks the most", exercises: [dictionary-form, ichiban-superlative, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで あにが いちばん よく およぐ。", en: "Of my siblings, my older brother swims the most", exercises: [dictionary-form, ichiban-superlative, frequency-adverbs], mode: listening }
+      - { kind: sentence, ja: "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。", en: "In the summer holidays, my younger sister plays the most of anyone in my family", exercises: [dictionary-form, ichiban-superlative, ni-time], mode: build }
+      - { kind: sentence, ja: "どうぶつの なかで いぬが いちばん よく あるくから いぬと さんぽを する。", en: "Of the animals, dogs walk the most, so I go for walks with my dog", exercises: [dictionary-form, ichiban-superlative, kara-because, to-and], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん はたらく。", en: "In my family, my father works the most", exercises: [dictionary-form, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "ちちは かいしゃで いちばん ", tail: "から いつも いそがしい。", answer: "はたらく", options: ["はたらく", "あそぶ", "あるく"], en: "My father works the most at his company, so he's always busy", explanation: "いそがしい is the result of working, and a company is where working happens. あそぶ and あるく would both leave the reason clause explaining nothing." }
+      - { kind: listening-comp, audio: "かぞくの なかで ちちが いちばん よく はたらく。", answer: "Of everyone in my family, my father works the most", distractors: ["Of everyone in my family, my mother works the most", "My father works more than my mother", "Of everyone in my family, my father is the busiest"], exercises: [dictionary-form, frequency-adverbs] }
+      - { kind: listening-comp, audio: "きょうだいの なかで いもうとが いちばん よく あそぶ。", answer: "Of my siblings, my younger sister plays the most", distractors: ["Of my siblings, my younger brother plays the most", "Of my siblings, my younger sister eats the most", "My younger sister plays more than my older sister"], exercises: [dictionary-form, frequency-adverbs] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "かぞくの なかで だれが いちばん はたらく？", en: "Of everyone in your family, who works the most?" }
+          - { speaker: "Tom", ja: "ちち。ははも よく はたらくけど。", en: "My father. My mother works a lot too, though." }
+        questions:
+          - { q: "Who does Tom say works the most?", options: ["His father", "His mother", "His younger brother", "He says they work the same amount"], answer: "His father" }
+      - { kind: challenge, ja: "なつやすみに きょうだいの なかで おとうとが いちばん およぐから おとうとが いちばん げんきだ。", en: "In the summer holidays my younger brother swims the most of my siblings, so he's the liveliest", combines: [dictionary-form, ichiban-superlative, kara-because, ni-time, na-adj-present], mode: build }
+    reviewPool: [はたらく, たべる, あるく, およぐ, あそぶ, ちち, はは, おとうと, いもうと, がくせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-11
+    role: teaching
+    title: "「どれが いちばん やすいですか」 — asking a stranger which one"
+    focus: "The polite superlative question: です for the register and か to ask it"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      - { kind: sentence, ja: "すみません どれが いちばん やすいですか。", en: "Say politely: Excuse me, which one is the cheapest", exercises: [masu-present, ichiban-superlative, ka-question], mode: build }
+      - { kind: sentence, ja: "この みっつの なかで どれが いちばん おおきいですか。", en: "Say politely: Of these three, which is the biggest", exercises: [masu-present, ichiban-superlative, ka-question, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "こちらが いちばん やすいです。", en: "Say politely: This one is the cheapest", exercises: [masu-present, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "くだものの なかで これが いちばん たかいです。", en: "Say politely: Of the fruit, this one is the most expensive", exercises: [masu-present, ichiban-superlative, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "のみものの なかで なにが いちばん おいしいですか。", en: "Say politely: Of the drinks, which is the most delicious", exercises: [masu-present, ichiban-superlative, ka-question, dare], mode: listening }
+      - { kind: sentence, ja: "この かばんと あの かばんと どちらが おもいですか。", en: "Say politely: Of this bag and that bag, which is the heavier one", exercises: [masu-present, ka-question, to-and], mode: build }
+      - { kind: sentence, ja: "どれが いちばん おもい？", en: "Say to a friend: Which one is the heaviest", exercises: [ichiban-superlative, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "どれが いちばん やすいですか。", en: "Say politely: Which one is the cheapest", exercises: [masu-present, ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "どれが いちばん ", tail: "。", answer: "やすいですか", options: ["やすいですか", "やすいです", "やすい"], en: "Say politely: Which one is the cheapest?", explanation: "a polite question needs both halves — です for the register and か to make it a question. やすいです is a polite statement, and やすい on its own is what you say to a friend." }
+      - { kind: listening-comp, audio: "こちらが いちばん おおきいです。", answer: "This one is the biggest", distractors: ["That one is the biggest", "This one is the smallest", "Which one is the biggest?"], exercises: [masu-present, ichiban-superlative] }
+      - { kind: listening-comp, audio: "くだものの なかで これが いちばん たかいです。", answer: "Of the fruit, this one is the most expensive", distractors: ["Of the fruit, this one is the cheapest", "Of the vegetables, this one is the most expensive", "Of the fruit, which is the most expensive?"], exercises: [masu-present, ichiban-superlative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "じゅぎょうの なかで どれが いちばん むずかしいですか。", en: "Of the classes, which is the most difficult?" }
+          - { speaker: "Tanaka", ja: "えいごです。ことばの じゅぎょうは どれも むずかしいです。", en: "English. The language classes are all difficult." }
+        questions:
+          - { q: "What does Tanaka say about the language classes?", options: ["They are all difficult", "Only English is difficult", "None of them is difficult", "English is the easiest"], answer: "They are all difficult" }
+      - { kind: challenge, ja: "すみません この みっつの なかで どれが いちばん おもいですか。", en: "Say politely: Excuse me, of these three, which is the heaviest", combines: [masu-present, ichiban-superlative, ka-question, kore-sore-are-dore], mode: build }
+    reviewPool: [すみません, じゅぎょう, くだもの, やさい, とけい, かばん, ホテル, ことば, おもい, こちら]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-review-3
+    role: review
+    title: "Review — conceding, doing, and asking politely"
+    focus: "も…けど, いちばん on a verb, and the polite question"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "にくも さかなも おいしいけど さかなが いちばん すきだ。", en: "Meat and fish are both delicious, but fish is what I like most", exercises: [mo-also, na-adj-present], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん はたらく。", en: "Of everyone in my family, my father works the most", exercises: [dictionary-form, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "すみません どれが いちばん やすいですか。", en: "Say politely: Excuse me, which one is the cheapest", exercises: [masu-present, ka-question], mode: listening }
+      - { kind: sentence, ja: "どれも たかいけど この とけいが いちばん たかい。", en: "They're all expensive, but this watch is the most expensive", exercises: [mo-also, ichiban-superlative], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで おとうとが いちばん たべる。", en: "Of my siblings, my younger brother eats the most", exercises: [dictionary-form, family-register], mode: build }
+      - { kind: particle-cloze, stem: "ことばの なかで ", tail: "が いちばん むずかしい。", answer: "えいご", options: ["えいご", "じしょ", "てがみ"], en: "Of all languages, English is the most difficult", explanation: "ことば names a field of LANGUAGES, and えいご is a language. じしょ is a book about one and てがみ is something written in one." }
+      - { kind: sentence, ja: "こちらが いちばん やすいです。", en: "Say politely: This one is the cheapest", exercises: [masu-present, ichiban-superlative], mode: build }
+      - { kind: listening-comp, audio: "がくせいの なかで だれが いちばん よく あるく？", answer: "Of the students, who walks the most?", distractors: ["Of the students, who eats the most?", "Of the students, who is the busiest?", "Which student walks to school?"], exercises: [dictionary-form, dare] }
+      - { kind: sentence, ja: "はるも あきも すずしいけど あきが いちばん すずしい。", en: "Spring and autumn are both cool, but autumn is the coolest", exercises: [mo-also, ni-time], mode: build }
+      - { kind: sentence, ja: "どれが いちばん おもい？", en: "Say to a friend: Which one is the heaviest", exercises: [ichiban-superlative], mode: translate }
+      - { kind: listening-comp, audio: "くだものの なかで これが いちばん たかいです。", answer: "Of the fruit, this one is the most expensive", distractors: ["Of the fruit, this one is the cheapest", "Of the vegetables, this one is the most expensive", "Of the fruit, which is the most expensive?"], exercises: [masu-present, ichiban-superlative] }
+      - { kind: sentence, ja: "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。", en: "In the summer holidays, my younger sister plays the most of anyone in my family", exercises: [dictionary-form, ni-time], mode: build }
+      - { kind: sentence, ja: "じゅぎょうは どれも おもしろいけど えいごの じゅぎょうが いちばん おもしろい。", en: "The classes are all interesting, but the English class is the most interesting", exercises: [mo-also, wa-topic], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "がくせいの なかで だれが いちばん よく はたらく？", en: "Of the students, who works the most?" }
+          - { speaker: "Ken", ja: "トム。ぼくも はたらくけど トムが いちばん よく はたらく。", en: "Tom. I work a lot too, but Tom works the most." }
+        questions:
+          - { q: "Who does Ken say works the most?", options: ["Tom", "Himself", "Mika", "He says they work the same amount"], answer: "Tom" }
+    reviewPool: [ことば, えいご, おもい, はたらく, あそぶ, とけい, じゅぎょう, こちら, すみません, がくせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m26-neo-challenge
+    role: challenge
+    title: "Challenge — the whole field, the winner, and why"
+    focus: "End-of-module stretch: a named group, a comparison and a reason in one sentence"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "どうぶつの なかで ぞうが いちばん おおきいけど いぬが いちばん よく あるく。", en: "Of the animals, the elephant is the biggest, but dogs walk the most", exercises: [ichiban-superlative, dictionary-form, kedo, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "くだものと やさいの なかで やさいが いちばん やすいから やさいを かう。", en: "Of the fruit and the vegetables, the vegetables are the cheapest, so I'll buy vegetables", exercises: [ichiban-superlative, to-and, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "ことばの なかで えいごが いちばん むずかしいと おもう。", en: "I think English is the most difficult of all languages", exercises: [ichiban-superlative, to-omoimasu, to-quotation], mode: listening }
+      - { kind: sentence, ja: "コーヒーより ちゃの ほうが やすいけど のみものの なかで ぎゅうにゅうが いちばん やすい。", en: "Tea is cheaper than coffee, but of the drinks milk is the cheapest", exercises: [yori-comparison, ichiban-superlative, kedo], mode: build }
+      - { kind: sentence, ja: "すみません この みっつの なかで どれが いちばん おおきいですか。", en: "Say politely: Excuse me, of these three, which is the biggest", exercises: [masu-present, ichiban-superlative, ka-question], mode: build }
+      - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだけど いもうとが いちばん げんきだ。", en: "Of my siblings, my older brother is the most skilful, but my younger sister is the liveliest", exercises: [na-adj-present, ichiban-superlative, kedo, family-register], mode: build }
+      - { kind: sentence, ja: "なつやすみに かわで およぐのが いちばん たのしいから なつが いちばん すきだ。", en: "Swimming in the river in the summer holidays is the most fun, so summer is what I like most", exercises: [no-ga-suki, ichiban-superlative, kara-because, ni-time], mode: build }
+      - { kind: sentence, ja: "たべものの なかで さかなが いちばん おいしい。", en: "Of all foods, fish is the most delicious", exercises: [ichiban-superlative], mode: translate }
+      - { kind: particle-cloze, stem: "どうぶつの なかで ぞうが ", tail: " おおきい。", answer: "いちばん", options: ["いちばん", "ちょっと", "あまり"], en: "Of the animals, the elephant is the biggest", explanation: "いちばん tops the whole group named by なかで. ちょっと would only say the elephant is somewhat big, and あまり never stands in front of a positive adjective." }
+      - { kind: listening-comp, audio: "がっこうの なかで としょかんが いちばん しずかだ。", answer: "Of everywhere in the school, the library is the quietest", distractors: ["Of everywhere in the school, the library is the liveliest", "The library is quieter than the classroom", "Of everywhere in the university, the library is the quietest"], exercises: [na-adj-present, ichiban-superlative] }
+      - { kind: listening-comp, audio: "かばんと くつと ふくの なかで くつが いちばん おもい。", answer: "Of the bag, the shoes and the clothes, the shoes are the heaviest", distractors: ["Of the bag, the shoes and the clothes, the bag is the heaviest", "The shoes are heavier than the bag", "Of the bag, the shoes and the clothes, the shoes are the most expensive"], exercises: [to-and, ichiban-superlative] }
+      - { kind: sentence, ja: "がくせいの なかで トムが いちばん よく にほんの りょうりを たべる。", en: "Of the students, Tom eats Japanese food the most", exercises: [dictionary-form, ichiban-superlative, frequency-adverbs, wo-object], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "のみものの なかで なにが いちばん すき？", en: "Of the drinks, which do you like most?" }
+          - { speaker: "Mika", ja: "ちゃ。コーヒーも すきだけど ちゃが いちばん すきだ。", en: "Tea. I like coffee too, but tea is what I like most." }
+        questions:
+          - { q: "What does Mika like most?", options: ["Tea", "Coffee", "Milk", "She says she likes them equally"], answer: "Tea" }
+      - { kind: challenge, ja: "にくも さかなも たかいけど たべものの なかで さかなが いちばん すきだから さかなを たべる。", en: "Meat and fish are both expensive, but of all foods fish is what I like most, so I'll eat fish", combines: [mo-also, ichiban-superlative, na-adj-present, kara-because, kedo], mode: build }
+    reviewPool: [くだもの, やさい, にく, さかな, どうぶつ, ぞう, おもい, ことば, えいご, とけい]

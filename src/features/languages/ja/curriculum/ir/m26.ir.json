@@ -1,0 +1,6592 @@
+{
+  "module": "m26",
+  "title": "Comparisons II: 〜の なかで … いちばん",
+  "register": "plain",
+  "priorNeoModules": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18",
+    "m19",
+    "m20",
+    "m21",
+    "m22",
+    "m23",
+    "m24",
+    "m25"
+  ],
+  "priorGrammarPoints": [
+    "ka-question",
+    "desu-copula",
+    "no-possession",
+    "kore-sore-are-dore",
+    "kono-sono-ano-dono",
+    "koko-soko-asoko",
+    "location-qa",
+    "ga-existence",
+    "arimasu",
+    "imasu",
+    "wo-object",
+    "ni-location",
+    "ni-time",
+    "de-action",
+    "e-direction",
+    "masu-past",
+    "masu-negative",
+    "masu-past-negative",
+    "kara-origin",
+    "kara-time",
+    "made-until",
+    "made-ni",
+    "mae-ni",
+    "ta-form",
+    "nai-form",
+    "i-adj-present",
+    "i-adj-negative",
+    "i-adj-past",
+    "i-adj-past-negative",
+    "na-adj-negative",
+    "na-adj-past",
+    "ga-hoshii",
+    "suki-kirai-no",
+    "mada-mou",
+    "kara-because",
+    "node-because",
+    "kedo",
+    "te-iru",
+    "te-form",
+    "te-kara",
+    "te-kudasai",
+    "te-wa-ikemasen",
+    "te-mo-ii",
+    "kudasai",
+    "naide-kudasai",
+    "to-omoimasu",
+    "to-quotation",
+    "ni-iku",
+    "ga-itai",
+    "frequency-adverbs",
+    "toki",
+    "koto-ga-aru",
+    "nai-existence",
+    "tsumori-desu",
+    "v-tai",
+    "numbers-1-10",
+    "numbers-11-99",
+    "numbers-100-10000",
+    "counter-ji",
+    "counter-fun",
+    "counter-tsu",
+    "counter-ko",
+    "counter-sai",
+    "counter-nin",
+    "counter-mai",
+    "counter-hai",
+    "counter-hon",
+    "wa-topic",
+    "ikura-price",
+    "ya-incomplete-list",
+    "tari-tari-suru",
+    "family-register",
+    "kanji-set-1",
+    "kanji-set-2",
+    "potential-form",
+    "potential-rareru",
+    "dekiru",
+    "mieru-kikoeru",
+    "mashou",
+    "masenka",
+    "no-ga-jouzu",
+    "no-ga-heta",
+    "deshou"
+  ],
+  "grammarPoints": [
+    {
+      "id": "ichiban-superlative",
+      "rule": "To say something is the MOST, Japanese names the field it is the most of and then points at the winner. 「たべものの なかで すしが いちばん おいしい」 — of all foods, sushi is the most delicious. Three pieces, and you already own all three. なか is the ordinary noun 'inside' from module 6, so it takes の in front of it exactly as ほう did last module, and で behind it: 「たべものの なかで」 is 'inside the set of foods'. The winner takes が, because picking one thing out of a group is what が has always done — は would make the winner the TOPIC, which is a different sentence. And いちばん is an adverb meaning 'number one', which sits directly in front of the adjective. Here is the good news, and it is the same good news as last module: いちばん does not touch the predicate. たかい stays たかい. There is no ending to add, nothing to conjugate, and no word for 'most' hiding inside the adjective. Say the group, say the winner, say いちばん, say the adjective. The field can be a plain noun (かぞくの なかで), a list you name out loud (はると なつと あきと ふゆの なかで), or a set you are pointing at (この みっつの なかで).",
+      "examples": [
+        {
+          "ja": "たべものの なかで すしが いちばん おいしい。",
+          "en": "Of all foods, sushi is the most delicious."
+        },
+        {
+          "ja": "のみものの なかで ちゃが いちばん やすい。",
+          "en": "Of the drinks, tea is the cheapest."
+        },
+        {
+          "ja": "かぞくの なかで ちちが いちばん いそがしい。",
+          "en": "In my family, my father is the busiest."
+        },
+        {
+          "ja": "はると なつと あきと ふゆの なかで ふゆが いちばん さむい。",
+          "en": "Of spring, summer, autumn and winter, winter is the coldest."
+        },
+        {
+          "ja": "この みっつの なかで これが いちばん たかい。",
+          "en": "Of these three, this one is the most expensive."
+        }
+      ],
+      "antiPattern": {
+        "ja": "たべものの なかで すしが おいしい いちばん。",
+        "why": "いちばん goes in FRONT of the word it scales, never after it — it is an adverb, not an ending: たべものの なかで すしが いちばん おいしい。"
+      }
+    },
+    {
+      "id": "dare",
+      "rule": "To ASK which one tops a group, put a question word where the winner would have gone and leave everything else exactly as it was. 「かぞくの なかで だれが いちばん いそがしい？」 — who is the busiest in your family? The question word takes が and never は, for the reason module 20 gave for どっち: a question word cannot be what a sentence is ABOUT, because you do not yet know what it is. Pick the question word by what kind of thing you are asking after. なに for a thing, だれ for a person, どこ for a place, いつ for a time, and どれ when the options have already been named out loud. That last one is worth watching: どれ picks from a set in front of you, so 「この みっつの なかで どれが いちばん たかい？」 works, while なに asks with nothing named at all. The answer comes back in the ordinary frame with が on the winner, and it needs no なかで at all, because the question already named the field: 「ももが いちばん たかい」.",
+      "examples": [
+        {
+          "ja": "たべものの なかで なにが いちばん おいしい？",
+          "en": "Of all foods, what's the most delicious?"
+        },
+        {
+          "ja": "かぞくの なかで だれが いちばん いそがしい？",
+          "en": "Who's the busiest in your family?"
+        },
+        {
+          "ja": "にほんの なかで どこが いちばん さむい？",
+          "en": "Where's the coldest place in Japan?"
+        },
+        {
+          "ja": "はると なつと あきと ふゆの なかで いつが いちばん すずしい？",
+          "en": "Of spring, summer, autumn and winter, which one is the coolest?"
+        },
+        {
+          "ja": "この みっつの なかで どれが いちばん やすい？",
+          "en": "Of these three, which is the cheapest?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "かぞくの なかで だれは いちばん いそがしい？",
+        "why": "a question word can never be the topic of a sentence, so だれ always takes が: かぞくの なかで だれが いちばん いそがしい？"
+      }
+    },
+    {
+      "id": "no-ga-suki",
+      "rule": "The winner of a group does not have to be a thing — it can be something you DO, and module 13 already gave you the way to say so. Put の straight after a plain verb and the verb becomes a thing: およぐ becomes およぐの, the swimming of it. Then it takes が like anything else, and いちばん goes in front of the adjective exactly as before: 「およぐのが いちばん すきだ」 — swimming is what I like most. The verb stays in plain form, because の is doing all the nominalising, and everything you hang off the verb comes along with it: 「かわで およぐのが いちばん たのしい」, 「えいがを みるのが いちばん すきだ」. すき is a な-adjective rather than a verb, which is why what you like is marked が and never を, and why it keeps its だ at the end. きらい behaves identically. Two habits worth building here. First, this is the most natural way to answer 「なにが いちばん すき？」 when the honest answer is an activity. Second, たのしい and おもしろい take the same frame, so you can say a thing is the most FUN to do without ever saying you like it.",
+      "examples": [
+        {
+          "ja": "なつやすみに およぐのが いちばん すきだ。",
+          "en": "Swimming is what I like most in the summer holidays."
+        },
+        {
+          "ja": "えいがを みるのが いちばん たのしい。",
+          "en": "Watching films is the most fun."
+        },
+        {
+          "ja": "かぞくと りょこうを するのが いちばん たのしい。",
+          "en": "Travelling with my family is the most fun."
+        },
+        {
+          "ja": "じてんしゃに のるのが いちばん おもしろい。",
+          "en": "Riding a bike is the most interesting."
+        },
+        {
+          "ja": "にほんの りょうりを たべるのが いちばん すきだ。",
+          "en": "Eating Japanese food is what I like most."
+        }
+      ],
+      "antiPattern": {
+        "ja": "なつやすみに およぐが いちばん すきだ。",
+        "why": "a verb cannot be marked が on its own — の turns it into a thing first: なつやすみに およぐのが いちばん すきだ。"
+      }
+    },
+    {
+      "id": "yori-comparison",
+      "rule": "You now have two comparison frames and the only thing to get right is which one you are in. TWO things take last module's frame: the winner marked ほうが, the loser marked より, and nothing else. 「バスより ちかてつの ほうが やすい」 — the underground is cheaper than the bus. THREE OR MORE take this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. 「ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい」. Everything else is shared. Neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows — 「バスより やすい」 is a whole answer to a question about the underground, and 「じてんしゃが いちばん やすい」 is a whole answer once the three have been named. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says. Pick your frame by counting the things on the table: two, or more than two.",
+      "examples": [
+        {
+          "ja": "バスより ちかてつの ほうが やすい。",
+          "en": "The underground is cheaper than the bus."
+        },
+        {
+          "ja": "ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい。",
+          "en": "Of the underground, the bus and the bike, the bike is the cheapest."
+        },
+        {
+          "ja": "ちゃより コーヒーの ほうが たかい。",
+          "en": "Coffee is more expensive than tea."
+        },
+        {
+          "ja": "のみものの なかで コーヒーが いちばん たかい。",
+          "en": "Of the drinks, coffee is the most expensive."
+        },
+        {
+          "ja": "ふゆより はるの ほうが あたたかい。",
+          "en": "Spring is milder than winter."
+        }
+      ],
+      "antiPattern": {
+        "ja": "バスより ちかてつの ほうが いちばん やすい。",
+        "why": "ほうが has already picked the winner of a PAIR, so there is nothing left for いちばん to top — the two frames never stack: バスより ちかてつの ほうが やすい。"
+      }
+    },
+    {
+      "id": "to-and",
+      "rule": "When the field is not a ready-made word like たべもの, name it out loud with と. 「かばんと くつと ふくの なかで どれが いちばん たかい？」 — of the bag, the shoes and the clothes, which is the most expensive? と is module 8's と and it is doing module 8's job: it ties a CLOSED list, so the listener knows those are all the options there are. Put it between every pair of items and let the last item run straight into の なかで. There is no limit of two here — と will tie three, four, or as many as you can say in one breath. What DOES depend on the count is the question word. どっち asks about exactly two and cannot stretch: 「ちゃと コーヒーと どっちが やすい？」. The moment a third item joins the list, the question word becomes どれ. Their polite twins behave the same way, どちら for two and どれ for more. And the answer to either one comes back with が on the winner: 「くつが いちばん たかい」.",
+      "examples": [
+        {
+          "ja": "かばんと くつと ふくの なかで どれが いちばん たかい？",
+          "en": "Of the bag, the shoes and the clothes, which is the most expensive?"
+        },
+        {
+          "ja": "ちゃと コーヒーと どっちが やすい？",
+          "en": "Which is cheaper, tea or coffee?"
+        },
+        {
+          "ja": "やまと かわと いけの なかで どれが いちばん とおい？",
+          "en": "Of the mountains, the river and the pond, which is the furthest?"
+        },
+        {
+          "ja": "じしょと てがみと しゃしんの なかで どれが いちばん ふるい？",
+          "en": "Of the dictionary, the letter and the photo, which is the oldest?"
+        },
+        {
+          "ja": "この みっつの なかで どれが いちばん おおきい？",
+          "en": "Of these three, which is the biggest?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "かばんと くつと ふくの なかで どっちが いちばん たかい？",
+        "why": "どっち asks about exactly TWO things — with three on the table the question word is どれ: かばんと くつと ふくの なかで どれが いちばん たかい？"
+      }
+    },
+    {
+      "id": "na-adj-present",
+      "rule": "な-adjectives go into the superlative frame with nothing removed and nothing added, and they keep their だ. 「がっこうの なかで としょかんが いちばん しずかだ」 — of everywhere in the school, the library is the quietest. This is module 12's rule and module 20's promise meeting each other: a な-adjective is not a verb and cannot finish a sentence on its own, so it needs だ; and いちばん is an adverb, so it cannot supply one. しずか is a quality, しずかだ is a statement, and いちばん しずかだ is a statement about the top of a group. Nothing about the frame changes that in either direction. The words worth practising here are the ones English hears as verbs but Japanese treats as な-adjectives: すき and きらい, which take が on the thing liked, and じょうず and へた, which do the same. 「のみものの なかで ちゃが いちばん すきだ」 is 'tea is my favourite drink' — literally, of the drinks, tea is the most likeable. And the negative behaves exactly as module 12 left it: しずかじゃない.",
+      "examples": [
+        {
+          "ja": "がっこうの なかで としょかんが いちばん しずかだ。",
+          "en": "Of everywhere in the school, the library is the quietest."
+        },
+        {
+          "ja": "にほんの なかで さくらが いちばん ゆうめいだ。",
+          "en": "In Japan, the cherry blossom is the most famous."
+        },
+        {
+          "ja": "きょうだいの なかで いもうとが いちばん げんきだ。",
+          "en": "Of my siblings, my younger sister is the liveliest."
+        },
+        {
+          "ja": "のみものの なかで ちゃが いちばん すきだ。",
+          "en": "Tea is my favourite drink."
+        },
+        {
+          "ja": "この みっつの なかで これが いちばん きれいだ。",
+          "en": "Of these three, this one is the prettiest."
+        }
+      ],
+      "antiPattern": {
+        "ja": "がっこうの なかで としょかんが いちばん しずか。",
+        "why": "a な-adjective cannot finish a sentence on its own — it needs だ, and いちばん does not supply one: がっこうの なかで としょかんが いちばん しずかだ。"
+      }
+    },
+    {
+      "id": "mo-also",
+      "rule": "Real preferences are polite about the things they did not pick, and Japanese has a tidy shape for that. Put も on every member of the field to concede that all of them are true, then hang the choice off the end with けど. 「にくも さかなも おいしいけど さかなが いちばん すきだ」 — meat and fish are both delicious, but fish is what I like most. も is module 3's 'too', and repeating it is what turns two separate 'too's into 'both'. The move matters more than the grammar does: saying flatly that one thing is the best implies the others are not, and conceding first takes that sting out. It also works with the field already named — 「どれも たかいけど これが いちばん たかい」, they are all expensive but this is the most expensive — where どれも means 'all of them' and needs no list in front of it. Two things to watch. も REPLACES は and が rather than stacking with them, so it is 「にくも」 and never 「にくがも」. And すき still takes が on the thing liked, however many も have come before it.",
+      "examples": [
+        {
+          "ja": "にくも さかなも おいしいけど さかなが いちばん すきだ。",
+          "en": "Meat and fish are both delicious, but fish is what I like most."
+        },
+        {
+          "ja": "どれも たかいけど この とけいが いちばん たかい。",
+          "en": "They're all expensive, but this watch is the most expensive."
+        },
+        {
+          "ja": "はるも あきも すずしいけど あきが いちばん すずしい。",
+          "en": "Spring and autumn are both cool, but autumn is the coolest."
+        },
+        {
+          "ja": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
+          "en": "The underground and the bus are both cheap, but the bike is the cheapest."
+        },
+        {
+          "ja": "いぬも ねこも すきだけど ねこが いちばん すきだ。",
+          "en": "I like both dogs and cats, but cats are what I like most."
+        }
+      ],
+      "antiPattern": {
+        "ja": "にくも さかなも おいしいけど さかなを いちばん すきだ。",
+        "why": "すき is an adjective, not a verb — the thing you like is marked が, never を: にくも さかなも おいしいけど さかなが いちばん すきだ。"
+      }
+    },
+    {
+      "id": "dictionary-form",
+      "rule": "いちばん scales a VERB exactly the way it scales an adjective, and this is where the frame stops being about qualities and starts being about behaviour. 「かぞくの なかで ちちが いちばん はたらく」 — of everyone in my family, my father works the most. Put いちばん directly in front of the verb and leave the verb alone. It stays in the plain dictionary form, and — the thing worth restating because English speakers reach for it — it takes NO だ. A dictionary-form verb has been a complete sentence since module 5; だ finishes NOUNS. 「はたらくだ」 is wrong here for the same reason it was wrong then, and いちばん changes nothing about it. Add よく in front of the verb when you mean 'the most often' rather than 'the most': 「いぬが いちばん よく あるく」. And note what the frame is really claiming — 「おとうとが いちばん たべる」 says he eats more than the rest, not that eating is his favourite thing. For that you want の from the earlier lesson: 「たべるのが いちばん すきだ」.",
+      "examples": [
+        {
+          "ja": "かぞくの なかで ちちが いちばん はたらく。",
+          "en": "Of everyone in my family, my father works the most."
+        },
+        {
+          "ja": "きょうだいの なかで おとうとが いちばん たべる。",
+          "en": "Of my siblings, my younger brother eats the most."
+        },
+        {
+          "ja": "がくせいの なかで ミカが いちばん あるく。",
+          "en": "Of the students, Mika walks the most."
+        },
+        {
+          "ja": "かぞくの なかで ははが いちばん よく はなす。",
+          "en": "Of everyone in my family, my mother talks the most."
+        },
+        {
+          "ja": "どうぶつの なかで いぬが いちばん よく あるく。",
+          "en": "Of the animals, dogs walk the most."
+        }
+      ],
+      "antiPattern": {
+        "ja": "かぞくの なかで ちちが いちばん はたらくだ。",
+        "why": "a verb is already a whole sentence and never takes だ — だ finishes NOUNS: かぞくの なかで ちちが いちばん はたらく。"
+      }
+    },
+    {
+      "id": "masu-present",
+      "rule": "The place you will actually need a superlative first is a shop, and a shop means polite. Everything about the frame stays where it is — なかで names the field, が marks the winner, いちばん sits in front of the adjective — and only the ending changes: 「どれが いちばん やすいですか。」 Two halves make that polite question work, and beginners drop one of them constantly. です carries the register, and か makes it a question. Leave か off and you have said a polite STATEMENT and left it hanging; leave です off and you have asked a friend, not a shop assistant. A casual question needs neither, because its rising contour does the work: 「どれが いちばん やすい？」 Same question, different room. The answer comes back polite too, and こちら is the polite twin of これ when you are pointing at goods: 「こちらが いちばん やすいです。」 One habit worth stealing from Japanese shoppers: 「すみません」 in front of the question is not an apology, it is how you open one.",
+      "examples": [
+        {
+          "ja": "どれが いちばん やすいですか。",
+          "en": "Which one is the cheapest?"
+        },
+        {
+          "ja": "この みっつの なかで どれが いちばん おおきいですか。",
+          "en": "Of these three, which is the biggest?"
+        },
+        {
+          "ja": "こちらが いちばん やすいです。",
+          "en": "This one is the cheapest."
+        },
+        {
+          "ja": "すみません のみものの なかで なにが いちばん おいしいですか。",
+          "en": "Excuse me, of the drinks, which is the most delicious?"
+        },
+        {
+          "ja": "どれが いちばん やすい？",
+          "en": "Which one is the cheapest? — the same question, said to a friend"
+        }
+      ],
+      "antiPattern": {
+        "ja": "どれが いちばん やすいです。",
+        "why": "a polite QUESTION requires か — without it the sentence is a statement, and an unfinished one: どれが いちばん やすいですか。"
+      }
+    }
+  ],
+  "newAtoms": [
+    {
+      "kana": "いちばん",
+      "romaji": "ichiban",
+      "gloss": "the most, the ~est (tops a group)",
+      "shortGloss": "the most",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くだもの",
+      "romaji": "kudamono",
+      "gloss": "fruit",
+      "shortGloss": "fruit",
+      "kind": "vocab"
+    },
+    {
+      "kana": "やさい",
+      "romaji": "yasai",
+      "gloss": "vegetable",
+      "shortGloss": "vegetable",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にく",
+      "romaji": "niku",
+      "gloss": "meat",
+      "shortGloss": "meat",
+      "kind": "vocab"
+    },
+    {
+      "kana": "さかな",
+      "romaji": "sakana",
+      "gloss": "fish",
+      "shortGloss": "fish",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どうぶつ",
+      "romaji": "doubutsu",
+      "gloss": "animal",
+      "shortGloss": "animal",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぞう",
+      "romaji": "zou",
+      "gloss": "elephant",
+      "shortGloss": "elephant",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもい",
+      "romaji": "omoi",
+      "gloss": "heavy",
+      "shortGloss": "heavy",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ことば",
+      "romaji": "kotoba",
+      "gloss": "word, language",
+      "shortGloss": "language",
+      "kind": "vocab"
+    },
+    {
+      "kana": "えいご",
+      "romaji": "eigo",
+      "gloss": "English language",
+      "shortGloss": "English",
+      "imageable": false,
+      "kind": "vocab"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m26-neo-1",
+      "role": "teaching",
+      "title": "「すしが いちばん おいしい」 — the top of a whole group",
+      "focus": "〜の なかで names the field, が marks the winner, いちばん sits in front",
+      "introduces": [
+        "いちばん"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ichiban-superlative"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで あねが いちばん いそがしい。",
+          "en": "Of my siblings, my older sister is the busiest",
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のみものの なかで ぎゅうにゅうが いちばん やすいから ぎゅうにゅうを かう。",
+          "en": "Milk is the cheapest of the drinks, so I'll buy milk",
+          "exercises": [
+            "ichiban-superlative",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みっつの なかで この かばんが いちばん おおきい。",
+          "en": "Of these three, this bag is the biggest",
+          "exercises": [
+            "ichiban-superlative",
+            "kono-sono-ano-dono",
+            "counter-tsu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はると なつと あきと ふゆの なかで ふゆが いちばん さむい。",
+          "en": "Of spring, summer, autumn and winter, winter is the coldest",
+          "exercises": [
+            "ichiban-superlative",
+            "to-and",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ちちが いちばん いそがしい。",
+          "en": "In my family, my father is the busiest",
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence",
+            "i-adj-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまと かわと いけの なかで やまが いちばん とおいけど やまに いく。",
+          "en": "Of the mountains, the river and the pond, the mountains are the furthest, but I'm going to the mountains",
+          "exercises": [
+            "ichiban-superlative",
+            "kedo",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものの なかで すしが いちばん おいしいから すしを たべる。",
+          "en": "Sushi is the most delicious of all foods, so I'll eat sushi",
+          "exercises": [
+            "ichiban-superlative",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のみものの なかで ちゃが いちばん やすい。",
+          "en": "Tea is the cheapest of the drinks",
+          "exercises": [
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "たべものの なかで すしが ",
+          "tail": " おいしい。",
+          "answer": "いちばん",
+          "options": [
+            "いちばん",
+            "ちょっと",
+            "あまり"
+          ],
+          "en": "Of all foods, sushi is the most delicious",
+          "explanation": "いちばん says sushi tops the whole group. ちょっと would only say it is somewhat delicious, and あまり can never stand in front of a positive adjective at all."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぞくの なかで ははが いちばん いそがしい。",
+          "answer": "In my family, my mother is the busiest",
+          "distractors": [
+            "In my family, my father is the busiest",
+            "In my family, my mother is the freest",
+            "My mother is busier than my father"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "family-register"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "のみものの なかで ちゃが いちばん やすい。",
+          "answer": "Tea is the cheapest of the drinks",
+          "distractors": [
+            "Tea is cheaper than coffee",
+            "Tea is the most expensive of the drinks",
+            "Coffee is the cheapest of the drinks"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "たべものの なかで なにが いちばん すき？",
+              "en": "Of all foods, what do you like most?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "すし。おいしいから よく たべる。",
+              "en": "Sushi. It's delicious, so I eat it a lot."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika like most?",
+              "options": [
+                "Sushi",
+                "Bread",
+                "Tea",
+                "Rice"
+              ],
+              "answer": "Sushi"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "はると なつと ふゆの なかで ふゆが いちばん さむいから ふゆに やまに いかない。",
+          "en": "Of spring, summer and winter, winter is the coldest, so I don't go to the mountains in winter",
+          "combines": [
+            "ichiban-superlative",
+            "kara-because",
+            "ni-time",
+            "nai-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "たべもの",
+        "のみもの",
+        "かぞく",
+        "ちち",
+        "はは",
+        "あね",
+        "ちゃ",
+        "すし",
+        "ぎゅうにゅう",
+        "ふゆ"
+      ]
+    },
+    {
+      "id": "m26-neo-2",
+      "role": "teaching",
+      "title": "「なにが いちばん おいしい？」 — asking which one tops the group",
+      "focus": "A question word stands where the winner would, and it always takes が",
+      "introduces": [
+        "くだもの",
+        "やさい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "dare"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くだものの なかで ももが いちばん たかい。",
+          "en": "Of the fruit, peaches are the most expensive",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やさいの なかで きゅうりが いちばん やすい。",
+          "en": "Of the vegetables, cucumber is the cheapest",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くだものの なかで どれが いちばん おいしい？",
+          "en": "Of the fruit, which is the most delicious",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで だれが いちばん おおきい？",
+          "en": "Of your siblings, who's the biggest",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんの なかで どこが いちばん さむい？",
+          "en": "Where's the coldest place in Japan",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "koko-soko-asoko"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やさいの なかで なにが いちばん おいしい？",
+          "en": "Of the vegetables, which is the most delicious",
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はると なつと あきと ふゆの なかで いつが いちばん すずしい？",
+          "en": "Of spring, summer, autumn and winter, which one is the coolest",
+          "exercises": [
+            "dare",
+            "ichiban-superlative",
+            "to-and",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで だれが いちばん いそがしい？",
+          "en": "Who's the busiest in your family",
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "にほんの なかで ",
+          "tail": "が いちばん さむい？",
+          "answer": "どこ",
+          "options": [
+            "どこ",
+            "だれ",
+            "いつ"
+          ],
+          "en": "Where's the coldest place in Japan?",
+          "explanation": "にほん is a place, so the question word is どこ. だれ asks after a person and いつ after a time — neither one can be a country's coldest part."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "くだものの なかで ももが いちばん おいしい。",
+          "answer": "Of the fruit, peaches are the most delicious",
+          "distractors": [
+            "Peaches are more delicious than cucumbers",
+            "Of the fruit, peaches are the cheapest",
+            "Of the vegetables, cucumber is the most delicious"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "やさいの なかで なにが いちばん やすい？",
+          "answer": "Of the vegetables, which is the cheapest?",
+          "distractors": [
+            "Of the fruit, which is the cheapest?",
+            "Of the vegetables, which is the most expensive?",
+            "Which is cheaper, the vegetables or the fruit?"
+          ],
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "くだものの なかで どれが いちばん たかい？",
+              "en": "Of the fruit, which is the most expensive?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "もも。きゅうりの ほうが やすい。",
+              "en": "Peaches. Cucumber is the cheaper one."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which does Ken say is the most expensive?",
+              "options": [
+                "Peaches",
+                "Cucumber",
+                "Mushrooms",
+                "Eggs"
+              ],
+              "answer": "Peaches"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "くだものと やさいの なかで なにが いちばん たかいと おもう？",
+          "en": "Of the fruit and the vegetables, what do you think is the most expensive",
+          "combines": [
+            "dare",
+            "ichiban-superlative",
+            "to-omoimasu",
+            "to-quotation",
+            "to-and"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "くだもの",
+        "やさい",
+        "もも",
+        "きゅうり",
+        "きのこ",
+        "たまご",
+        "なつ",
+        "あき",
+        "にほん",
+        "かぞく"
+      ]
+    },
+    {
+      "id": "m26-neo-3",
+      "role": "teaching",
+      "title": "「およぐのが いちばん すきだ」 — the thing you like doing most",
+      "focus": "の makes a verb into a thing, が marks it, いちばん tops the list",
+      "introduces": [
+        "にく",
+        "さかな"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "no-ga-suki"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にくと さかなと たまごの なかで さかなが いちばん おいしい。",
+          "en": "Of the meat, the fish and the eggs, the fish is the most delicious",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さかなを たべるのが いちばん すきだ。",
+          "en": "Eating fish is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものの なかで にくが いちばん たかい。",
+          "en": "Of all foods, meat is the most expensive",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かわで およぐのが いちばん たのしいから なつが いちばん すきだ。",
+          "en": "Swimming in the river is the most fun, so summer is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "de-action",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいがを みるのが いちばん すきだ。",
+          "en": "Watching films is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくと りょこうを するのが いちばん たのしい。",
+          "en": "Travelling with my family is the most fun",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "to-and",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じてんしゃに のるのが いちばん おもしろいけど あるくのも すきだ。",
+          "en": "Riding a bike is the most interesting, but I like walking too",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "kedo",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "およぐのが いちばん すきだ。",
+          "en": "Swimming is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "さかなを ",
+          "tail": "のが いちばん すきだ。",
+          "answer": "たべる",
+          "options": [
+            "たべる",
+            "のむ",
+            "みる"
+          ],
+          "en": "Eating fish is what I like most",
+          "explanation": "を on さかな marks it as the thing acted on, and fish is a thing you eat. のむ is for drinks and みる is for watching."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "たべものの なかで にくが いちばん たかい。",
+          "answer": "Of all foods, meat is the most expensive",
+          "distractors": [
+            "Of all foods, fish is the most expensive",
+            "Meat is more expensive than fish",
+            "Of all foods, meat is the cheapest"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かわで およぐのが いちばん たのしい。",
+          "answer": "Swimming in the river is the most fun",
+          "distractors": [
+            "Swimming in the pond is the most fun",
+            "Swimming in the river is what I like most",
+            "I want to swim in the river"
+          ],
+          "exercises": [
+            "no-ga-suki",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "なつやすみに なにを するのが いちばん すき？",
+              "en": "What do you most like doing in the summer holidays?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "かわで およぐの。いけより かわの ほうが すきだ。",
+              "en": "Swimming in the river. I like the river more than the pond."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom most like doing?",
+              "options": [
+                "Swimming in the river",
+                "Swimming in the pond",
+                "Travelling with his family",
+                "Watching films"
+              ],
+              "answer": "Swimming in the river"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "なつやすみに かぞくと かわで およぐのが いちばん たのしい。",
+          "en": "Swimming in the river with my family in the summer holidays is the most fun",
+          "combines": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "ni-time",
+            "to-and",
+            "de-action"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "にく",
+        "さかな",
+        "およぐ",
+        "たべる",
+        "みる",
+        "えいが",
+        "りょこう",
+        "じてんしゃ",
+        "なつやすみ",
+        "りょうり"
+      ]
+    },
+    {
+      "id": "m26-neo-review-1",
+      "role": "review",
+      "title": "Review — a field, a winner, and いちばん in front",
+      "focus": "〜の なかで with nouns, question words and nominalised verbs",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "たべものの なかで すしが いちばん おいしいから すしを たべる。",
+          "en": "Sushi is the most delicious of all foods, so I'll eat sushi",
+          "exercises": [
+            "ichiban-superlative",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くだものの なかで ももが いちばん たかい。",
+          "en": "Of the fruit, peaches are the most expensive",
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さかなを たべるのが いちばん すきだ。",
+          "en": "Eating fish is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで だれが いちばん おおきい？",
+          "en": "Of your siblings, who's the biggest",
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やさいの なかで きゅうりが いちばん やすい。",
+          "en": "Of the vegetables, cucumber is the cheapest",
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "はると なつと あきと ふゆの なかで ふゆが ",
+          "tail": " さむい。",
+          "answer": "いちばん",
+          "options": [
+            "いちばん",
+            "ちょっと",
+            "よく"
+          ],
+          "en": "Of spring, summer, autumn and winter, winter is the coldest",
+          "explanation": "いちばん tops the whole list of four. ちょっと would only say winter is a bit cold, and よく counts how OFTEN something happens."
+        },
+        {
+          "kind": "sentence",
+          "ja": "かわで およぐのが いちばん たのしいから なつが いちばん すきだ。",
+          "en": "Swimming in the river is the most fun, so summer is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "にほんの なかで どこが いちばん さむい？",
+          "answer": "Where's the coldest place in Japan?",
+          "distractors": [
+            "Where's the hottest place in Japan?",
+            "Which country is the coldest?",
+            "Is Japan cold?"
+          ],
+          "exercises": [
+            "dare",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みっつの なかで この かばんが いちばん おおきい。",
+          "en": "Of these three, this bag is the biggest",
+          "exercises": [
+            "ichiban-superlative",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ちちが いちばん いそがしい。",
+          "en": "In my family, my father is the busiest",
+          "exercises": [
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぞくと りょこうを するのが いちばん たのしい。",
+          "answer": "Travelling with my family is the most fun",
+          "distractors": [
+            "Travelling with my friends is the most fun",
+            "I want to travel with my family",
+            "Travelling with my family is the most expensive"
+          ],
+          "exercises": [
+            "no-ga-suki",
+            "to-and"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "にくと さかなと たまごの なかで さかなが いちばん おいしい。",
+          "en": "Of the meat, the fish and the eggs, the fish is the most delicious",
+          "exercises": [
+            "ichiban-superlative",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまと かわと いけの なかで やまが いちばん とおいけど やまに いく。",
+          "en": "Of the mountains, the river and the pond, the mountains are the furthest, but I'm going to the mountains",
+          "exercises": [
+            "ichiban-superlative",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "やさいの なかで なにが いちばん すき？",
+              "en": "Of the vegetables, which do you like most?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "きゅうり。やすいから よく たべる。",
+              "en": "Cucumber. It's cheap, so I eat it a lot."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why does Tom eat cucumber every day?",
+              "options": [
+                "It's cheap",
+                "It's expensive",
+                "It's the most delicious",
+                "It's the biggest"
+              ],
+              "answer": "It's cheap"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "くだもの",
+        "やさい",
+        "にく",
+        "さかな",
+        "もも",
+        "きゅうり",
+        "たべもの",
+        "のみもの",
+        "ちゃ",
+        "すし"
+      ]
+    },
+    {
+      "id": "m26-neo-5",
+      "role": "teaching",
+      "title": "「ほうが」 と 「いちばん」 — two things, or a whole group",
+      "focus": "Count what is on the table: two takes ほうが…より, three or more takes なかで…いちばん",
+      "introduces": [
+        "どうぶつ",
+        "ぞう"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "yori-comparison"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どうぶつの なかで ぞうが いちばん おおきい。",
+          "en": "Of the animals, the elephant is the biggest",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いぬより ねこの ほうが ちいさい。",
+          "en": "A cat is smaller than a dog",
+          "exercises": [
+            "yori-comparison",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いぬと ねこと ぞうの なかで ねこが いちばん ちいさい。",
+          "en": "Of the dog, the cat and the elephant, the cat is the smallest",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コーヒーより ちゃの ほうが やすいけど ぎゅうにゅうが いちばん やすい。",
+          "en": "Tea is cheaper than coffee, but milk is the cheapest",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふゆより はるの ほうが あたたかい。",
+          "en": "Spring is milder than winter",
+          "exercises": [
+            "yori-comparison",
+            "ni-time"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふねより ひこうきの ほうが たかいけど ひこうきで いく。",
+          "en": "A plane is more expensive than a boat, but I'm going by plane",
+          "exercises": [
+            "yori-comparison",
+            "kedo",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のみものの なかで コーヒーが いちばん たかいから ちゃを のむ。",
+          "en": "Coffee is the most expensive of the drinks, so I'll drink tea",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "バスより ちかてつの ほうが やすい。",
+          "en": "The underground is cheaper than the bus",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "バスより ちかてつの ",
+          "tail": "が やすい。",
+          "answer": "ほう",
+          "options": [
+            "ほう",
+            "なか",
+            "より"
+          ],
+          "en": "The underground is cheaper than the bus",
+          "explanation": "ほう marks the winner of a PAIR and takes の in front of it. なか needs で after it and names a whole group, and より is already on バス at the front."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いぬと ねこと ぞうの なかで ぞうが いちばん おおきい。",
+          "answer": "Of the dog, the cat and the elephant, the elephant is the biggest",
+          "distractors": [
+            "Of the dog, the cat and the elephant, the cat is the biggest",
+            "An elephant is bigger than a dog",
+            "Of the dog, the cat and the elephant, the elephant is the smallest"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "to-and"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "コーヒーより ちゃの ほうが やすい。",
+          "answer": "Tea is cheaper than coffee",
+          "distractors": [
+            "Coffee is cheaper than tea",
+            "Of the drinks, tea is the cheapest",
+            "Tea and coffee are both cheap"
+          ],
+          "exercises": [
+            "yori-comparison",
+            "no-possession"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "バスと ちかてつと どっちが やすい？",
+              "en": "Which is cheaper, the bus or the underground?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "ちかてつ。じてんしゃが いちばん やすいけど。",
+              "en": "The underground. The bike's the cheapest, though."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken say is the cheapest?",
+              "options": [
+                "The bike",
+                "The underground",
+                "The bus",
+                "He says they cost the same"
+              ],
+              "answer": "The bike"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "いぬより ねこの ほうが ちいさいけど どうぶつの なかで ぞうが いちばん おおきい。",
+          "en": "A cat is smaller than a dog, but of the animals the elephant is the biggest",
+          "combines": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "どうぶつ",
+        "ちかてつ",
+        "ひこうき",
+        "コーヒー",
+        "ぞう",
+        "いぬ",
+        "ねこ",
+        "バス",
+        "ふね",
+        "ちゃ"
+      ]
+    },
+    {
+      "id": "m26-neo-6",
+      "role": "teaching",
+      "title": "「どれが いちばん おもい？」 — naming the field out loud",
+      "focus": "と ties a list of any length; どっち is for two and どれ for three or more",
+      "introduces": [
+        "おもい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "to-and"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かばんと くつと ふくの なかで くつが いちばん おもい。",
+          "en": "Of the bag, the shoes and the clothes, the shoes are the heaviest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんは おもいけど あの かばんの ほうが おもい。",
+          "en": "This bag is heavy, but that bag over there is the heavier one",
+          "exercises": [
+            "to-and",
+            "yori-comparison",
+            "kedo",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。",
+          "en": "Of the dictionary, the letter and the photo, the dictionary is the heaviest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちゃと コーヒーと ぎゅうにゅうの なかで どれが いちばん やすい？",
+          "en": "Of the tea, the coffee and the milk, which is the cheapest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまと かわと いけの なかで いけが いちばん とおい。",
+          "en": "Of the mountains, the river and the pond, the pond is the furthest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。",
+          "en": "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ふねと ひこうきと どっちが たかい？",
+          "en": "Which is more expensive, the boat or the plane",
+          "exercises": [
+            "to-and",
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みっつの なかで どれが いちばん おもい？",
+          "en": "Of these three, which is the heaviest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "かばんと くつと ふくの なかで ",
+          "tail": "が いちばん たかい？",
+          "answer": "どれ",
+          "options": [
+            "どれ",
+            "どっち",
+            "だれ"
+          ],
+          "en": "Of the bag, the shoes and the clothes, which is the most expensive?",
+          "explanation": "three things are on the table, so the question word is どれ. どっち asks about exactly two, and だれ asks after a person."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この かばんが いちばん おもい。",
+          "answer": "This bag is the heaviest",
+          "distractors": [
+            "This bag is the lightest",
+            "This bag is heavier than that one",
+            "Which bag is the heaviest?"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "kono-sono-ano-dono"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "じしょと てがみと しゃしんの なかで どれが いちばん ふるい？",
+          "answer": "Of the dictionary, the letter and the photo, which is the oldest?",
+          "distractors": [
+            "Of the dictionary and the letter, which is the older?",
+            "Of the dictionary, the letter and the photo, which is the newest?",
+            "Is the dictionary older than the letter?"
+          ],
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "かばんと くつと ふくの なかで どれが いちばん おもい？",
+              "en": "Of the bag, the shoes and the clothes, which is the heaviest?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "くつ。ふくが いちばん やすいけど。",
+              "en": "The shoes. The clothes are the cheapest, though."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken say is the heaviest?",
+              "options": [
+                "The shoes",
+                "The bag",
+                "The clothes",
+                "He says they weigh the same"
+              ],
+              "answer": "The shoes"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "くつと かばんと ぼうしの なかで くつが いちばん おもいけど かばんが いちばん たかい。",
+          "en": "Of the shoes, the bag and the hat, the shoes are the heaviest, but the bag is the most expensive",
+          "combines": [
+            "to-and",
+            "ichiban-superlative",
+            "kedo",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "おもい",
+        "くつ",
+        "かばん",
+        "ふく",
+        "ぼうし",
+        "めがね",
+        "じしょ",
+        "てがみ",
+        "しゃしん",
+        "やま"
+      ]
+    },
+    {
+      "id": "m26-neo-7",
+      "role": "teaching",
+      "title": "「としょかんが いちばん しずかだ」 — な-adjectives keep their だ",
+      "focus": "いちばん is an adverb, so a な-adjective still needs だ to finish the sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "na-adj-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がっこうの なかで としょかんが いちばん しずかだ。",
+          "en": "Of everywhere in the school, the library is the quietest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんの なかで さくらが いちばん ゆうめいだ。",
+          "en": "In Japan, the cherry blossom is the most famous",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで いもうとが いちばん げんきだ。",
+          "en": "Of my siblings, my younger sister is the liveliest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものの なかで さかなが いちばん すきだけど にくも すきだ。",
+          "en": "Of all foods, fish is what I like most, but I like meat too",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みっつの なかで これが いちばん きれいだ。",
+          "en": "Of these three, this one is the prettiest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで あにが いちばん じょうずだ。",
+          "en": "Of my siblings, my older brother is the most skilful",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "no-ga-jouzu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くうこうと だいがくと としょかんの なかで くうこうが いちばん にぎやかだ。",
+          "en": "Of the airport, the university and the library, the airport is the liveliest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のみものの なかで ちゃが いちばん すきだ。",
+          "en": "Tea is my favourite drink",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "がっこうの なかで としょかんが いちばん ",
+          "tail": "。",
+          "answer": "しずかだ",
+          "options": [
+            "しずかだ",
+            "しずか",
+            "しずかじゃない"
+          ],
+          "en": "Of everywhere in the school, the library is the quietest",
+          "explanation": "a な-adjective needs だ to finish a sentence, and いちばん does not supply one. しずか on its own leaves the sentence hanging, and しずかじゃない says the opposite."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "にほんの なかで さくらが いちばん ゆうめいだ。",
+          "answer": "In Japan, the cherry blossom is the most famous",
+          "distractors": [
+            "In Japan, the cherry blossom is the prettiest",
+            "The cherry blossom is more famous than the mountains",
+            "In Japan, the cherry blossom isn't famous"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうだいの なかで いもうとが いちばん げんきだ。",
+          "answer": "Of my siblings, my younger sister is the liveliest",
+          "distractors": [
+            "Of my siblings, my younger brother is the liveliest",
+            "Of my siblings, my younger sister is the busiest",
+            "My younger sister is livelier than my older sister"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "family-register"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "がっこうの なかで どこが いちばん しずか？",
+              "en": "Where's the quietest place in the school?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "としょかん。だいがくの としょかんが いちばん しずかだ。",
+              "en": "The library. The university library is the quietest."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which library does Mika say is the quietest?",
+              "options": [
+                "The university library",
+                "The school library",
+                "The town library",
+                "She says they are the same"
+              ],
+              "answer": "The university library"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "がっこうの なかで としょかんが いちばん しずかだから としょかんで じしょを みる。",
+          "en": "Of everywhere in the school, the library is the quietest, so I look at the dictionary in the library",
+          "combines": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "kara-because",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "としょかん",
+        "がっこう",
+        "さくら",
+        "にほん",
+        "いもうと",
+        "あに",
+        "きょうだい",
+        "くうこう",
+        "だいがく",
+        "ちゃ"
+      ]
+    },
+    {
+      "id": "m26-neo-review-2",
+      "role": "review",
+      "title": "Review — two frames, a named field, and な-adjectives",
+      "focus": "ほうが against いちばん, と-lists with どれ, and だ under the superlative",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "どうぶつの なかで ぞうが いちばん おおきい。",
+          "en": "Of the animals, the elephant is the biggest",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かばんと くつと ふくの なかで くつが いちばん おもい。",
+          "en": "Of the bag, the shoes and the clothes, the shoes are the heaviest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がっこうの なかで としょかんが いちばん しずかだ。",
+          "en": "Of everywhere in the school, the library is the quietest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コーヒーより ちゃの ほうが やすいけど ぎゅうにゅうが いちばん やすい。",
+          "en": "Tea is cheaper than coffee, but milk is the cheapest",
+          "exercises": [
+            "yori-comparison",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで いもうとが いちばん げんきだ。",
+          "en": "Of my siblings, my younger sister is the liveliest",
+          "exercises": [
+            "na-adj-present",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ひこうきと ふねと ちかてつの なかで ",
+          "tail": "が いちばん たかい？",
+          "answer": "どれ",
+          "options": [
+            "どれ",
+            "どっち",
+            "どこ"
+          ],
+          "en": "Of the plane, the boat and the underground, which is the most expensive?",
+          "explanation": "three things are named, so the question word is どれ. どっち asks about exactly two, and どこ asks after a place rather than one of a set."
+        },
+        {
+          "kind": "sentence",
+          "ja": "いぬより ねこの ほうが ちいさい。",
+          "en": "A cat is smaller than a dog",
+          "exercises": [
+            "yori-comparison"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "くうこうと だいがくと としょかんの なかで くうこうが いちばん にぎやかだ。",
+          "answer": "Of the airport, the university and the library, the airport is the liveliest",
+          "distractors": [
+            "Of the airport, the university and the library, the library is the liveliest",
+            "The airport is livelier than the university",
+            "Of the airport, the university and the library, the airport is the quietest"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "to-and"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。",
+          "en": "Of the dictionary, the letter and the photo, the dictionary is the heaviest",
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にほんの なかで さくらが いちばん ゆうめいだ。",
+          "en": "In Japan, the cherry blossom is the most famous",
+          "exercises": [
+            "na-adj-present"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ふゆより はるの ほうが あたたかい。",
+          "answer": "Spring is milder than winter",
+          "distractors": [
+            "Winter is milder than spring",
+            "Of the seasons, spring is the mildest",
+            "Spring is cooler than winter"
+          ],
+          "exercises": [
+            "yori-comparison",
+            "ni-time"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。",
+          "en": "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses",
+          "exercises": [
+            "to-and",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで あにが いちばん じょうずだ。",
+          "en": "Of my siblings, my older brother is the most skilful",
+          "exercises": [
+            "na-adj-present",
+            "no-ga-jouzu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "いぬと ねこと ぞうの なかで どれが いちばん おおきい？",
+              "en": "Of the dog, the cat and the elephant, which is the biggest?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ぞう。ねこが いちばん ちいさい。",
+              "en": "The elephant. The cat's the smallest."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which does Mika say is the smallest?",
+              "options": [
+                "The cat",
+                "The dog",
+                "The elephant",
+                "She says the dog and the cat are the same"
+              ],
+              "answer": "The cat"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "どうぶつ",
+        "としょかん",
+        "ひこうき",
+        "かばん",
+        "おもい",
+        "さくら",
+        "ぞう",
+        "いぬ",
+        "ねこ",
+        "くつ"
+      ]
+    },
+    {
+      "id": "m26-neo-9",
+      "role": "teaching",
+      "title": "「どれも いいけど これが いちばん」 — agree first, then choose",
+      "focus": "も on every member concedes the field before いちばん picks one out of it",
+      "introduces": [
+        "ことば",
+        "えいご"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "mo-also"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ことばの なかで えいごが いちばん むずかしい。",
+          "en": "Of all languages, English is the most difficult",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えいごも にほんの ことばも むずかしいけど えいごが いちばん むずかしい。",
+          "en": "English and Japanese are both difficult, but English is the most difficult",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "kedo",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれも たかいけど この とけいが いちばん たかい。",
+          "en": "They're all expensive, but this watch is the most expensive",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はるも あきも すずしいけど あきが いちばん すずしい。",
+          "en": "Spring and autumn are both cool, but autumn is the coolest",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
+          "en": "The underground and the bus are both cheap, but the bike is the cheapest",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にくも さかなも おいしいけど さかなが いちばん すきだ。",
+          "en": "Meat and fish are both delicious, but fish is what I like most",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは どれも おもしろいけど えいごの じゅぎょうが いちばん おもしろい。",
+          "en": "The classes are all interesting, but the English class is the most interesting",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative",
+            "wa-topic",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれも たかいけど これが いちばん たかい。",
+          "en": "They're all expensive, but this one is the most expensive",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "にくも さかなも おいしいけど さかなが いちばん ",
+          "tail": "。",
+          "answer": "すきだ",
+          "options": [
+            "すきだ",
+            "きらいだ",
+            "へただ"
+          ],
+          "en": "Meat and fish are both delicious, but fish is what I like most",
+          "explanation": "けど sets up a choice inside a field the speaker has just praised, so the second half says which one they like most. きらいだ would contradict おいしい, and へただ is about a skill rather than a taste."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
+          "answer": "The underground and the bus are both cheap, but the bike is the cheapest",
+          "distractors": [
+            "The underground and the bus are both cheap, but the underground is the cheapest",
+            "The bike is cheaper than the bus",
+            "The underground and the bus are both expensive"
+          ],
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ことばの なかで えいごが いちばん おもしろい。",
+          "answer": "Of all languages, English is the most interesting",
+          "distractors": [
+            "Of all languages, Japanese is the most interesting",
+            "English is more interesting than Japanese",
+            "Of all languages, English is the most difficult"
+          ],
+          "exercises": [
+            "ichiban-superlative",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "じゅぎょうの なかで どれが いちばん むずかしい？",
+              "en": "Of the classes, which is the most difficult?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "えいご。どれも むずかしいけど えいごが いちばん むずかしい。",
+              "en": "English. They're all difficult, but English is the most difficult."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Which class does Mika say is the most difficult?",
+              "options": [
+                "English",
+                "None of them",
+                "She says they are all the same",
+                "The one she likes most"
+              ],
+              "answer": "English"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ことばの なかで えいごが いちばん むずかしいけど えいごを はなすのが いちばん たのしい。",
+          "en": "Of all languages, English is the most difficult, but speaking English is the most fun",
+          "combines": [
+            "mo-also",
+            "ichiban-superlative",
+            "no-ga-suki",
+            "kedo",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ことば",
+        "えいご",
+        "にく",
+        "さかな",
+        "とけい",
+        "じゅぎょう",
+        "ちかてつ",
+        "じてんしゃ",
+        "はる",
+        "あき"
+      ]
+    },
+    {
+      "id": "m26-neo-10",
+      "role": "teaching",
+      "title": "「ちちが いちばん はたらく」 — the most, of DOING",
+      "focus": "いちばん scales a verb too, and the verb still takes no だ",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "dictionary-form"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ちちが いちばん はたらく。",
+          "en": "Of everyone in my family, my father works the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで おとうとが いちばん たべる。",
+          "en": "Of my siblings, my younger brother eats the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいの なかで だれが いちばん よく あるく？",
+          "en": "Of the students, who walks the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "dare",
+            "frequency-adverbs"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ははが いちばん よく はなす。",
+          "en": "Of everyone in my family, my mother talks the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "frequency-adverbs"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで あにが いちばん よく およぐ。",
+          "en": "Of my siblings, my older brother swims the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "frequency-adverbs"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。",
+          "en": "In the summer holidays, my younger sister plays the most of anyone in my family",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どうぶつの なかで いぬが いちばん よく あるくから いぬと さんぽを する。",
+          "en": "Of the animals, dogs walk the most, so I go for walks with my dog",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "kara-because",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ちちが いちばん はたらく。",
+          "en": "In my family, my father works the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ちちは かいしゃで いちばん ",
+          "tail": "から いつも いそがしい。",
+          "answer": "はたらく",
+          "options": [
+            "はたらく",
+            "あそぶ",
+            "あるく"
+          ],
+          "en": "My father works the most at his company, so he's always busy",
+          "explanation": "いそがしい is the result of working, and a company is where working happens. あそぶ and あるく would both leave the reason clause explaining nothing."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぞくの なかで ちちが いちばん よく はたらく。",
+          "answer": "Of everyone in my family, my father works the most",
+          "distractors": [
+            "Of everyone in my family, my mother works the most",
+            "My father works more than my mother",
+            "Of everyone in my family, my father is the busiest"
+          ],
+          "exercises": [
+            "dictionary-form",
+            "frequency-adverbs"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょうだいの なかで いもうとが いちばん よく あそぶ。",
+          "answer": "Of my siblings, my younger sister plays the most",
+          "distractors": [
+            "Of my siblings, my younger brother plays the most",
+            "Of my siblings, my younger sister eats the most",
+            "My younger sister plays more than my older sister"
+          ],
+          "exercises": [
+            "dictionary-form",
+            "frequency-adverbs"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "かぞくの なかで だれが いちばん はたらく？",
+              "en": "Of everyone in your family, who works the most?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ちち。ははも よく はたらくけど。",
+              "en": "My father. My mother works a lot too, though."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who does Tom say works the most?",
+              "options": [
+                "His father",
+                "His mother",
+                "His younger brother",
+                "He says they work the same amount"
+              ],
+              "answer": "His father"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "なつやすみに きょうだいの なかで おとうとが いちばん およぐから おとうとが いちばん げんきだ。",
+          "en": "In the summer holidays my younger brother swims the most of my siblings, so he's the liveliest",
+          "combines": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "kara-because",
+            "ni-time",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "はたらく",
+        "たべる",
+        "あるく",
+        "およぐ",
+        "あそぶ",
+        "ちち",
+        "はは",
+        "おとうと",
+        "いもうと",
+        "がくせい"
+      ]
+    },
+    {
+      "id": "m26-neo-11",
+      "role": "teaching",
+      "title": "「どれが いちばん やすいですか」 — asking a stranger which one",
+      "focus": "The polite superlative question: です for the register and か to ask it",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "masu-present"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません どれが いちばん やすいですか。",
+          "en": "Say politely: Excuse me, which one is the cheapest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この みっつの なかで どれが いちばん おおきいですか。",
+          "en": "Say politely: Of these three, which is the biggest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative",
+            "ka-question",
+            "kono-sono-ano-dono"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こちらが いちばん やすいです。",
+          "en": "Say politely: This one is the cheapest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くだものの なかで これが いちばん たかいです。",
+          "en": "Say politely: Of the fruit, this one is the most expensive",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "のみものの なかで なにが いちばん おいしいですか。",
+          "en": "Say politely: Of the drinks, which is the most delicious",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative",
+            "ka-question",
+            "dare"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この かばんと あの かばんと どちらが おもいですか。",
+          "en": "Say politely: Of this bag and that bag, which is the heavier one",
+          "exercises": [
+            "masu-present",
+            "ka-question",
+            "to-and"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれが いちばん おもい？",
+          "en": "Say to a friend: Which one is the heaviest",
+          "exercises": [
+            "ichiban-superlative",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれが いちばん やすいですか。",
+          "en": "Say politely: Which one is the cheapest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "どれが いちばん ",
+          "tail": "。",
+          "answer": "やすいですか",
+          "options": [
+            "やすいですか",
+            "やすいです",
+            "やすい"
+          ],
+          "en": "Say politely: Which one is the cheapest?",
+          "explanation": "a polite question needs both halves — です for the register and か to make it a question. やすいです is a polite statement, and やすい on its own is what you say to a friend."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "こちらが いちばん おおきいです。",
+          "answer": "This one is the biggest",
+          "distractors": [
+            "That one is the biggest",
+            "This one is the smallest",
+            "Which one is the biggest?"
+          ],
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "くだものの なかで これが いちばん たかいです。",
+          "answer": "Of the fruit, this one is the most expensive",
+          "distractors": [
+            "Of the fruit, this one is the cheapest",
+            "Of the vegetables, this one is the most expensive",
+            "Of the fruit, which is the most expensive?"
+          ],
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "じゅぎょうの なかで どれが いちばん むずかしいですか。",
+              "en": "Of the classes, which is the most difficult?"
+            },
+            {
+              "speaker": "Tanaka",
+              "ja": "えいごです。ことばの じゅぎょうは どれも むずかしいです。",
+              "en": "English. The language classes are all difficult."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tanaka say about the language classes?",
+              "options": [
+                "They are all difficult",
+                "Only English is difficult",
+                "None of them is difficult",
+                "English is the easiest"
+              ],
+              "answer": "They are all difficult"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "すみません この みっつの なかで どれが いちばん おもいですか。",
+          "en": "Say politely: Excuse me, of these three, which is the heaviest",
+          "combines": [
+            "masu-present",
+            "ichiban-superlative",
+            "ka-question",
+            "kore-sore-are-dore"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "すみません",
+        "じゅぎょう",
+        "くだもの",
+        "やさい",
+        "とけい",
+        "かばん",
+        "ホテル",
+        "ことば",
+        "おもい",
+        "こちら"
+      ]
+    },
+    {
+      "id": "m26-neo-review-3",
+      "role": "review",
+      "title": "Review — conceding, doing, and asking politely",
+      "focus": "も…けど, いちばん on a verb, and the polite question",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "にくも さかなも おいしいけど さかなが いちばん すきだ。",
+          "en": "Meat and fish are both delicious, but fish is what I like most",
+          "exercises": [
+            "mo-also",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくの なかで ちちが いちばん はたらく。",
+          "en": "Of everyone in my family, my father works the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません どれが いちばん やすいですか。",
+          "en": "Say politely: Excuse me, which one is the cheapest",
+          "exercises": [
+            "masu-present",
+            "ka-question"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれも たかいけど この とけいが いちばん たかい。",
+          "en": "They're all expensive, but this watch is the most expensive",
+          "exercises": [
+            "mo-also",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで おとうとが いちばん たべる。",
+          "en": "Of my siblings, my younger brother eats the most",
+          "exercises": [
+            "dictionary-form",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ことばの なかで ",
+          "tail": "が いちばん むずかしい。",
+          "answer": "えいご",
+          "options": [
+            "えいご",
+            "じしょ",
+            "てがみ"
+          ],
+          "en": "Of all languages, English is the most difficult",
+          "explanation": "ことば names a field of LANGUAGES, and えいご is a language. じしょ is a book about one and てがみ is something written in one."
+        },
+        {
+          "kind": "sentence",
+          "ja": "こちらが いちばん やすいです。",
+          "en": "Say politely: This one is the cheapest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がくせいの なかで だれが いちばん よく あるく？",
+          "answer": "Of the students, who walks the most?",
+          "distractors": [
+            "Of the students, who eats the most?",
+            "Of the students, who is the busiest?",
+            "Which student walks to school?"
+          ],
+          "exercises": [
+            "dictionary-form",
+            "dare"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "はるも あきも すずしいけど あきが いちばん すずしい。",
+          "en": "Spring and autumn are both cool, but autumn is the coolest",
+          "exercises": [
+            "mo-also",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "どれが いちばん おもい？",
+          "en": "Say to a friend: Which one is the heaviest",
+          "exercises": [
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "くだものの なかで これが いちばん たかいです。",
+          "answer": "Of the fruit, this one is the most expensive",
+          "distractors": [
+            "Of the fruit, this one is the cheapest",
+            "Of the vegetables, this one is the most expensive",
+            "Of the fruit, which is the most expensive?"
+          ],
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。",
+          "en": "In the summer holidays, my younger sister plays the most of anyone in my family",
+          "exercises": [
+            "dictionary-form",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうは どれも おもしろいけど えいごの じゅぎょうが いちばん おもしろい。",
+          "en": "The classes are all interesting, but the English class is the most interesting",
+          "exercises": [
+            "mo-also",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "がくせいの なかで だれが いちばん よく はたらく？",
+              "en": "Of the students, who works the most?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "トム。ぼくも はたらくけど トムが いちばん よく はたらく。",
+              "en": "Tom. I work a lot too, but Tom works the most."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who does Ken say works the most?",
+              "options": [
+                "Tom",
+                "Himself",
+                "Mika",
+                "He says they work the same amount"
+              ],
+              "answer": "Tom"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "ことば",
+        "えいご",
+        "おもい",
+        "はたらく",
+        "あそぶ",
+        "とけい",
+        "じゅぎょう",
+        "こちら",
+        "すみません",
+        "がくせい"
+      ]
+    },
+    {
+      "id": "m26-neo-challenge",
+      "role": "challenge",
+      "title": "Challenge — the whole field, the winner, and why",
+      "focus": "End-of-module stretch: a named group, a comparison and a reason in one sentence",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "どうぶつの なかで ぞうが いちばん おおきいけど いぬが いちばん よく あるく。",
+          "en": "Of the animals, the elephant is the biggest, but dogs walk the most",
+          "exercises": [
+            "ichiban-superlative",
+            "dictionary-form",
+            "kedo",
+            "frequency-adverbs"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "くだものと やさいの なかで やさいが いちばん やすいから やさいを かう。",
+          "en": "Of the fruit and the vegetables, the vegetables are the cheapest, so I'll buy vegetables",
+          "exercises": [
+            "ichiban-superlative",
+            "to-and",
+            "kara-because",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ことばの なかで えいごが いちばん むずかしいと おもう。",
+          "en": "I think English is the most difficult of all languages",
+          "exercises": [
+            "ichiban-superlative",
+            "to-omoimasu",
+            "to-quotation"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コーヒーより ちゃの ほうが やすいけど のみものの なかで ぎゅうにゅうが いちばん やすい。",
+          "en": "Tea is cheaper than coffee, but of the drinks milk is the cheapest",
+          "exercises": [
+            "yori-comparison",
+            "ichiban-superlative",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すみません この みっつの なかで どれが いちばん おおきいですか。",
+          "en": "Say politely: Excuse me, of these three, which is the biggest",
+          "exercises": [
+            "masu-present",
+            "ichiban-superlative",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうだいの なかで あにが いちばん じょうずだけど いもうとが いちばん げんきだ。",
+          "en": "Of my siblings, my older brother is the most skilful, but my younger sister is the liveliest",
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative",
+            "kedo",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "なつやすみに かわで およぐのが いちばん たのしいから なつが いちばん すきだ。",
+          "en": "Swimming in the river in the summer holidays is the most fun, so summer is what I like most",
+          "exercises": [
+            "no-ga-suki",
+            "ichiban-superlative",
+            "kara-because",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たべものの なかで さかなが いちばん おいしい。",
+          "en": "Of all foods, fish is the most delicious",
+          "exercises": [
+            "ichiban-superlative"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "どうぶつの なかで ぞうが ",
+          "tail": " おおきい。",
+          "answer": "いちばん",
+          "options": [
+            "いちばん",
+            "ちょっと",
+            "あまり"
+          ],
+          "en": "Of the animals, the elephant is the biggest",
+          "explanation": "いちばん tops the whole group named by なかで. ちょっと would only say the elephant is somewhat big, and あまり never stands in front of a positive adjective."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "がっこうの なかで としょかんが いちばん しずかだ。",
+          "answer": "Of everywhere in the school, the library is the quietest",
+          "distractors": [
+            "Of everywhere in the school, the library is the liveliest",
+            "The library is quieter than the classroom",
+            "Of everywhere in the university, the library is the quietest"
+          ],
+          "exercises": [
+            "na-adj-present",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かばんと くつと ふくの なかで くつが いちばん おもい。",
+          "answer": "Of the bag, the shoes and the clothes, the shoes are the heaviest",
+          "distractors": [
+            "Of the bag, the shoes and the clothes, the bag is the heaviest",
+            "The shoes are heavier than the bag",
+            "Of the bag, the shoes and the clothes, the shoes are the most expensive"
+          ],
+          "exercises": [
+            "to-and",
+            "ichiban-superlative"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいの なかで トムが いちばん よく にほんの りょうりを たべる。",
+          "en": "Of the students, Tom eats Japanese food the most",
+          "exercises": [
+            "dictionary-form",
+            "ichiban-superlative",
+            "frequency-adverbs",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "のみものの なかで なにが いちばん すき？",
+              "en": "Of the drinks, which do you like most?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "ちゃ。コーヒーも すきだけど ちゃが いちばん すきだ。",
+              "en": "Tea. I like coffee too, but tea is what I like most."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika like most?",
+              "options": [
+                "Tea",
+                "Coffee",
+                "Milk",
+                "She says she likes them equally"
+              ],
+              "answer": "Tea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "にくも さかなも たかいけど たべものの なかで さかなが いちばん すきだから さかなを たべる。",
+          "en": "Meat and fish are both expensive, but of all foods fish is what I like most, so I'll eat fish",
+          "combines": [
+            "mo-also",
+            "ichiban-superlative",
+            "na-adj-present",
+            "kara-because",
+            "kedo"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "くだもの",
+        "やさい",
+        "にく",
+        "さかな",
+        "どうぶつ",
+        "ぞう",
+        "おもい",
+        "ことば",
+        "えいご",
+        "とけい"
+      ]
+    }
+  ],
+  "priorVocab": [
+    "あき",
+    "あさ",
+    "あし",
+    "あした",
+    "あそこ",
+    "あそびたい",
+    "あそびます",
+    "あそぶ",
+    "あそんだ",
+    "あそんだり",
+    "あそんで",
+    "あたたかい",
+    "あたま",
+    "あたらしい",
+    "あたらしくない",
+    "あつい",
+    "あに",
+    "あね",
+    "あの",
+    "あまり",
+    "あめ",
+    "ありがとう",
+    "ありがとうございます",
+    "あります",
+    "ありません",
+    "ある",
+    "あるく",
+    "あるける",
+    "あれ",
+    "いい",
+    "いう",
+    "いえ",
+    "いかない",
+    "いかなかった",
+    "いきたい",
+    "いきたかった",
+    "いきたくない",
+    "いきたくなかった",
+    "いきました",
+    "いきます",
+    "いきません",
+    "いきませんでした",
+    "いく",
+    "いくら",
+    "いけ",
+    "いけません",
+    "いける",
+    "いしゃ",
+    "いす",
+    "いそがしい",
+    "いたい",
+    "いち",
+    "いちじ",
+    "いっしょ",
+    "いった",
+    "いったり",
+    "いって",
+    "いっぱい",
+    "いっぽん",
+    "いつ",
+    "いつも",
+    "いない",
+    "いぬ",
+    "いま",
+    "いもうと",
+    "いらっしゃいませ",
+    "いる",
+    "いろ",
+    "ううん",
+    "うえ",
+    "うた",
+    "うち",
+    "うま",
+    "うみ",
+    "うる",
+    "うん",
+    "え",
+    "えいが",
+    "ええ",
+    "えき",
+    "えん",
+    "えんぴつ",
+    "おいしい",
+    "おいしかった",
+    "おいしくない",
+    "おいしくなかった",
+    "おおきい",
+    "おおきかった",
+    "おおきくない",
+    "おおきくなかった",
+    "おかあさん",
+    "おさけ",
+    "おしえて",
+    "おしえる",
+    "おとうさん",
+    "おとうと",
+    "おなか",
+    "おにいさん",
+    "おねえさん",
+    "おもう",
+    "おもしろい",
+    "おもしろかった",
+    "おもしろくない",
+    "おもしろくなかった",
+    "およいだ",
+    "およいで",
+    "およがない",
+    "およぐ",
+    "およげる",
+    "おんがく",
+    "か",
+    "かいしゃ",
+    "かいたい",
+    "かいたかった",
+    "かいたくない",
+    "かいたくなかった",
+    "かいました",
+    "かいます",
+    "かいませんでした",
+    "かいもの",
+    "かう",
+    "かえる",
+    "かお",
+    "かぎ",
+    "かさ",
+    "かぜ",
+    "かぞく",
+    "かった",
+    "かって",
+    "かな",
+    "かね",
+    "かばん",
+    "かめ",
+    "からだ",
+    "かわ",
+    "かわない",
+    "かわなかった",
+    "が",
+    "がいこく",
+    "がくせい",
+    "がっこう",
+    "がつ",
+    "き",
+    "きいた",
+    "きいたり",
+    "きいて",
+    "ききます",
+    "きく",
+    "きこえる",
+    "きた",
+    "きっさてん",
+    "きっと",
+    "きっぷ",
+    "きて",
+    "きのう",
+    "きのこ",
+    "きます",
+    "きません",
+    "きませんでした",
+    "きゅう",
+    "きゅうり",
+    "きょう",
+    "きょうだい",
+    "きらい",
+    "きれい",
+    "ぎゅうにゅう",
+    "く",
+    "くうこう",
+    "くじ",
+    "くすり",
+    "ください",
+    "くち",
+    "くつ",
+    "くもり",
+    "くる",
+    "くるま",
+    "くん",
+    "けいたい",
+    "けっこう",
+    "けど",
+    "げんき",
+    "こ",
+    "こえ",
+    "ここ",
+    "こちら",
+    "こと",
+    "こない",
+    "こなかった",
+    "この",
+    "こめ",
+    "こられる",
+    "これ",
+    "ご",
+    "ごご",
+    "ごじ",
+    "ごじゅう",
+    "ごぜん",
+    "ごはい",
+    "ごはん",
+    "ごほん",
+    "ごめんなさい",
+    "さい",
+    "さくら",
+    "さま",
+    "さむい",
+    "さむかった",
+    "さん",
+    "さんじ",
+    "さんじゅう",
+    "さんぜん",
+    "さんにん",
+    "さんばい",
+    "さんびゃく",
+    "さんぼん",
+    "さんぽ",
+    "し",
+    "しずか",
+    "した",
+    "したい",
+    "したかった",
+    "しちじ",
+    "しって",
+    "して",
+    "しない",
+    "しなかった",
+    "しました",
+    "しましょう",
+    "します",
+    "しません",
+    "しませんでした",
+    "しゃしん",
+    "しょくじ",
+    "しらない",
+    "しります",
+    "しりません",
+    "しる",
+    "じかん",
+    "じしょ",
+    "じてんしゃ",
+    "じゃない",
+    "じゃなかった",
+    "じゅう",
+    "じゅうじ",
+    "じゅぎょう",
+    "じゅっぷん",
+    "じょうず",
+    "すき",
+    "すし",
+    "すずしい",
+    "すみません",
+    "する",
+    "すんで",
+    "せ",
+    "せん",
+    "せんせい",
+    "ぜんぜん",
+    "そう",
+    "そこ",
+    "その",
+    "そら",
+    "それ",
+    "たかい",
+    "たかかった",
+    "たかくない",
+    "たかくなかった",
+    "たなか",
+    "たのしい",
+    "たぶん",
+    "たべた",
+    "たべたい",
+    "たべたかった",
+    "たべたくない",
+    "たべたくなかった",
+    "たべたり",
+    "たべて",
+    "たべない",
+    "たべなかった",
+    "たべました",
+    "たべます",
+    "たべません",
+    "たべませんでした",
+    "たべもの",
+    "たべられない",
+    "たべられる",
+    "たべる",
+    "たべれる",
+    "たまご",
+    "だいがく",
+    "だいじょうぶ",
+    "だった",
+    "だめ",
+    "だれ",
+    "だろう",
+    "ちいさい",
+    "ちかい",
+    "ちかてつ",
+    "ちがいます",
+    "ちがう",
+    "ちち",
+    "ちゃ",
+    "ちゃん",
+    "ちょっと",
+    "つき",
+    "つく",
+    "つもり",
+    "て",
+    "てがみ",
+    "てんき",
+    "で",
+    "できない",
+    "できる",
+    "でした",
+    "でしょ",
+    "でしょう",
+    "でんしゃ",
+    "でんわ",
+    "と",
+    "とおい",
+    "とき",
+    "ときどき",
+    "とけい",
+    "としょかん",
+    "ともだち",
+    "とりにく",
+    "どう",
+    "どこ",
+    "どちら",
+    "どっち",
+    "どの",
+    "どれ",
+    "ない",
+    "なか",
+    "なかった",
+    "なつ",
+    "なつやすみ",
+    "など",
+    "なな",
+    "ななじゅう",
+    "なに",
+    "なまえ",
+    "なん",
+    "なんじ",
+    "なんばい",
+    "なんぼん",
+    "に",
+    "にぎやか",
+    "にじ",
+    "にほん",
+    "にほんじん",
+    "にん",
+    "ねこ",
+    "ねつ",
+    "の",
+    "のった",
+    "ので",
+    "のど",
+    "のまない",
+    "のまなかった",
+    "のみたい",
+    "のみたかった",
+    "のみたくない",
+    "のみたくなかった",
+    "のみました",
+    "のみます",
+    "のみません",
+    "のみませんでした",
+    "のみもの",
+    "のむ",
+    "のめない",
+    "のめる",
+    "のる",
+    "のんだ",
+    "のんだり",
+    "のんで",
+    "は",
+    "はい",
+    "はいる",
+    "はじめまして",
+    "はたち",
+    "はたらいた",
+    "はたらいて",
+    "はたらきます",
+    "はたらきません",
+    "はたらく",
+    "はち",
+    "はちじ",
+    "はっせん",
+    "はっぴゃく",
+    "はな",
+    "はなす",
+    "はなせる",
+    "はは",
+    "はる",
+    "はれ",
+    "はん",
+    "ばん",
+    "ひこうき",
+    "ひと",
+    "ひとつ",
+    "ひとり",
+    "ひま",
+    "ひゃく",
+    "びょういん",
+    "びょうき",
+    "ふく",
+    "ふたつ",
+    "ふたり",
+    "ふね",
+    "ふゆ",
+    "ふる",
+    "ふるい",
+    "ふるかった",
+    "ふん",
+    "ぶた",
+    "ぷん",
+    "へ",
+    "へた",
+    "ほう",
+    "ほし",
+    "ほしい",
+    "ほん",
+    "ぼうし",
+    "ぼく",
+    "まあ",
+    "まい",
+    "まえ",
+    "ましょう",
+    "まだ",
+    "まって",
+    "まつ",
+    "まで",
+    "まど",
+    "まん",
+    "みえる",
+    "みず",
+    "みせ",
+    "みせて",
+    "みせない",
+    "みせる",
+    "みた",
+    "みたい",
+    "みたくない",
+    "みたり",
+    "みっつ",
+    "みて",
+    "みない",
+    "みなかった",
+    "みます",
+    "みません",
+    "みませんでした",
+    "みみ",
+    "みられる",
+    "みる",
+    "みれる",
+    "むずかしい",
+    "め",
+    "めがね",
+    "も",
+    "もう",
+    "もの",
+    "もも",
+    "や",
+    "やすい",
+    "やすかった",
+    "やすみ",
+    "やま",
+    "やる",
+    "ゆうめい",
+    "ゆき",
+    "よかった",
+    "よく",
+    "よくない",
+    "よくなかった",
+    "よじ",
+    "よにん",
+    "より",
+    "よん",
+    "よんじゅう",
+    "よんはい",
+    "よんほん",
+    "りょうり",
+    "りょこう",
+    "ろく",
+    "ろくじ",
+    "ろくじゅう",
+    "ろっぱい",
+    "ろっぴゃく",
+    "ろっぽん",
+    "わかった",
+    "わからない",
+    "わかります",
+    "わかる",
+    "わたし",
+    "を",
+    "アメリカ",
+    "アメリカじん",
+    "カメラ",
+    "コーヒー",
+    "バス",
+    "パン",
+    "ホテル",
+    "ミカ"
+  ],
+  "priorAtoms": [
+    {
+      "kana": "ううん",
+      "romaji": "uun",
+      "gloss": "nope (casual no)",
+      "shortGloss": "nope",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちがう",
+      "romaji": "chigau",
+      "gloss": "that's not it, wrong",
+      "shortGloss": "that's wrong",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ちょっと",
+      "romaji": "chotto",
+      "gloss": "a little, a bit",
+      "shortGloss": "a little",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だめ",
+      "romaji": "dame",
+      "gloss": "no good, not allowed",
+      "shortGloss": "no good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けっこう",
+      "romaji": "kekkou",
+      "gloss": "no thank you, that's enough",
+      "shortGloss": "no thanks",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わたし",
+      "romaji": "watashi",
+      "gloss": "I, me (neutral)",
+      "shortGloss": "I (neutral)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぼく",
+      "romaji": "boku",
+      "gloss": "I, me (casual, usually male)",
+      "shortGloss": "I (casual)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こちら",
+      "romaji": "kochira",
+      "gloss": "this way, this person (polite)",
+      "shortGloss": "this way",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しる",
+      "romaji": "shiru",
+      "gloss": "to know",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しります",
+      "romaji": "shirimasu",
+      "gloss": "know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しりません",
+      "romaji": "shirimasen",
+      "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "わかります",
+      "romaji": "wakarimasu",
+      "gloss": "understand (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "ちがいます",
+      "romaji": "chigaimasu",
+      "gloss": "that's not right (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ちがう"
+    },
+    {
+      "kana": "いま",
+      "romaji": "ima",
+      "gloss": "now",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まあ",
+      "romaji": "maa",
+      "gloss": "well, sort of",
+      "shortGloss": "well…",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よく",
+      "romaji": "yoku",
+      "gloss": "often, well",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじゅう",
+      "romaji": "sanjuu",
+      "gloss": "thirty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんじゅう",
+      "romaji": "yonjuu",
+      "gloss": "forty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじゅう",
+      "romaji": "gojuu",
+      "gloss": "fifty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじゅう",
+      "romaji": "rokujuu",
+      "gloss": "sixty",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ななじゅう",
+      "romaji": "nanajuu",
+      "gloss": "seventy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いちじ",
+      "romaji": "ichiji",
+      "gloss": "one o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にじ",
+      "romaji": "niji",
+      "gloss": "two o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんじ",
+      "romaji": "sanji",
+      "gloss": "three o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よじ",
+      "romaji": "yoji",
+      "gloss": "four o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごじ",
+      "romaji": "goji",
+      "gloss": "five o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろくじ",
+      "romaji": "rokuji",
+      "gloss": "six o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しちじ",
+      "romaji": "shichiji",
+      "gloss": "seven o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はちじ",
+      "romaji": "hachiji",
+      "gloss": "eight o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くじ",
+      "romaji": "kuji",
+      "gloss": "nine o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅうじ",
+      "romaji": "juuji",
+      "gloss": "ten o'clock",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんじ",
+      "romaji": "nanji",
+      "gloss": "what time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はん",
+      "romaji": "han",
+      "gloss": "half past (the hour)",
+      "shortGloss": "half past",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごぜん",
+      "romaji": "gozen",
+      "gloss": "a.m., before noon",
+      "shortGloss": "a.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごご",
+      "romaji": "gogo",
+      "gloss": "p.m., afternoon",
+      "shortGloss": "p.m.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あした",
+      "romaji": "ashita",
+      "gloss": "tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きのう",
+      "romaji": "kinou",
+      "gloss": "yesterday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつ",
+      "romaji": "itsu",
+      "gloss": "when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべた",
+      "romaji": "tabeta",
+      "gloss": "ate (eat, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のんだ",
+      "romaji": "nonda",
+      "gloss": "drank (drink, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいた",
+      "romaji": "kiita",
+      "gloss": "heard (hear, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みた",
+      "romaji": "mita",
+      "gloss": "watched (watch, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "かった",
+      "romaji": "katta",
+      "gloss": "bought (buy, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "あそんだ",
+      "romaji": "asonda",
+      "gloss": "played (play, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "した",
+      "romaji": "shita",
+      "gloss": "did (make, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "きた",
+      "romaji": "kita",
+      "gloss": "came (come, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いった",
+      "romaji": "itta",
+      "gloss": "went (travel, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わかった",
+      "romaji": "wakatta",
+      "gloss": "understood (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる"
+    },
+    {
+      "kana": "だった",
+      "romaji": "datta",
+      "gloss": "was, were (plain)",
+      "shortGloss": "was (plain)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "でした",
+      "romaji": "deshita",
+      "gloss": "was, were (polite)",
+      "shortGloss": "was (polite)",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "たべました",
+      "romaji": "tabemashita",
+      "gloss": "ate (eat, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみました",
+      "romaji": "nomimashita",
+      "gloss": "drank (drink, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いきました",
+      "romaji": "ikimashita",
+      "gloss": "went (travel, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しました",
+      "romaji": "shimashita",
+      "gloss": "did (make, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "かいました",
+      "romaji": "kaimashita",
+      "gloss": "bought (buy, polite past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "おおきい",
+      "romaji": "ookii",
+      "gloss": "big",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おいしい",
+      "romaji": "oishii",
+      "gloss": "delicious",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたらしい",
+      "romaji": "atarashii",
+      "gloss": "new",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふるい",
+      "romaji": "furui",
+      "gloss": "old (of things)",
+      "shortGloss": "old",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おもしろい",
+      "romaji": "omoshiroi",
+      "gloss": "interesting",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちいさい",
+      "romaji": "chiisai",
+      "gloss": "small",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いい",
+      "romaji": "ii",
+      "gloss": "good",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかくない",
+      "romaji": "takakunai",
+      "gloss": "isn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくない",
+      "romaji": "ookikunai",
+      "gloss": "isn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくない",
+      "romaji": "oishikunai",
+      "gloss": "isn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "あたらしくない",
+      "romaji": "atarashikunai",
+      "gloss": "isn't new",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "あたらしい"
+    },
+    {
+      "kana": "おもしろくない",
+      "romaji": "omoshirokunai",
+      "gloss": "isn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくない",
+      "romaji": "yokunai",
+      "gloss": "isn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかかった",
+      "romaji": "takakatta",
+      "gloss": "was expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきかった",
+      "romaji": "ookikatta",
+      "gloss": "was big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしかった",
+      "romaji": "oishikatta",
+      "gloss": "was delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "ふるかった",
+      "romaji": "furukatta",
+      "gloss": "was old",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "ふるい"
+    },
+    {
+      "kana": "やすかった",
+      "romaji": "yasukatta",
+      "gloss": "was cheap",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "やすい"
+    },
+    {
+      "kana": "おもしろかった",
+      "romaji": "omoshirokatta",
+      "gloss": "was interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よかった",
+      "romaji": "yokatta",
+      "gloss": "was good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "たかくなかった",
+      "romaji": "takakunakatta",
+      "gloss": "wasn't expensive",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "たかい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おおきくなかった",
+      "romaji": "ookikunakatta",
+      "gloss": "wasn't big",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おおきい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おいしくなかった",
+      "romaji": "oishikunakatta",
+      "gloss": "wasn't delicious",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おいしい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "おもしろくなかった",
+      "romaji": "omoshirokunakatta",
+      "gloss": "wasn't interesting",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "おもしろい"
+    },
+    {
+      "kana": "よくなかった",
+      "romaji": "yokunakatta",
+      "gloss": "wasn't good",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "いい"
+    },
+    {
+      "kana": "しずか",
+      "romaji": "shizuka",
+      "gloss": "quiet",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きれい",
+      "romaji": "kirei",
+      "gloss": "pretty, clean",
+      "shortGloss": "pretty",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にぎやか",
+      "romaji": "nigiyaka",
+      "gloss": "lively, bustling",
+      "shortGloss": "lively",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうめい",
+      "romaji": "yuumei",
+      "gloss": "famous",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゃない",
+      "romaji": "janai",
+      "gloss": "isn't (noun or な-adjective)",
+      "shortGloss": "isn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "じゃなかった",
+      "romaji": "janakatta",
+      "gloss": "wasn't (noun or な-adjective)",
+      "shortGloss": "wasn't",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "どう",
+      "romaji": "dou",
+      "gloss": "how, what's it like",
+      "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたい",
+      "romaji": "tabetai",
+      "gloss": "want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみたい",
+      "romaji": "nomitai",
+      "gloss": "want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "いきたい",
+      "romaji": "ikitai",
+      "gloss": "want to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "みたい",
+      "romaji": "mitai",
+      "gloss": "want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいたい",
+      "romaji": "kaitai",
+      "gloss": "want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "したい",
+      "romaji": "shitai",
+      "gloss": "want to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "あそびたい",
+      "romaji": "asobitai",
+      "gloss": "want to play",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "たべたくない",
+      "romaji": "tabetakunai",
+      "gloss": "don't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくない",
+      "romaji": "nomitakunai",
+      "gloss": "don't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくない",
+      "romaji": "ikitakunai",
+      "gloss": "don't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "みたくない",
+      "romaji": "mitakunai",
+      "gloss": "don't want to watch",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みたい"
+    },
+    {
+      "kana": "かいたくない",
+      "romaji": "kaitakunai",
+      "gloss": "don't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい"
+    },
+    {
+      "kana": "たべたかった",
+      "romaji": "tabetakatta",
+      "gloss": "wanted to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたかった",
+      "romaji": "nomitakatta",
+      "gloss": "wanted to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたかった",
+      "romaji": "kaitakatta",
+      "gloss": "wanted to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたかった",
+      "romaji": "ikitakatta",
+      "gloss": "wanted to go",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "したかった",
+      "romaji": "shitakatta",
+      "gloss": "wanted to do",
+      "imageable": false,
+      "kind": "tai-form"
+    },
+    {
+      "kana": "たべたくなかった",
+      "romaji": "tabetakunakatta",
+      "gloss": "didn't want to eat",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "たべたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "いきたくなかった",
+      "romaji": "ikitakunakatta",
+      "gloss": "didn't want to go",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "いきたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "かいたくなかった",
+      "romaji": "kaitakunakatta",
+      "gloss": "didn't want to buy",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "かいたい",
+      "verbClass": "i-adj"
+    },
+    {
+      "kana": "のみたくなかった",
+      "romaji": "nomitakunakatta",
+      "gloss": "didn't want to drink",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "のみたい"
+    },
+    {
+      "kana": "ほしい",
+      "romaji": "hoshii",
+      "gloss": "want (a thing)",
+      "shortGloss": "want (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すき",
+      "romaji": "suki",
+      "gloss": "likeable, like",
+      "shortGloss": "like",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きらい",
+      "romaji": "kirai",
+      "gloss": "disliked, dislike",
+      "shortGloss": "dislike",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だいがく",
+      "romaji": "daigaku",
+      "gloss": "university",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふく",
+      "romaji": "fuku",
+      "gloss": "clothes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつやすみ",
+      "romaji": "natsuyasumi",
+      "gloss": "summer holiday",
+      "shortGloss": "summer break",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっさてん",
+      "romaji": "kissaten",
+      "gloss": "coffee shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しって",
+      "romaji": "shitte",
+      "gloss": "know (te-form)",
+      "shortGloss": "know (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらいて",
+      "romaji": "hataraite",
+      "gloss": "work (te-form)",
+      "shortGloss": "work (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "shortGloss": "drink (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "すんで",
+      "romaji": "sunde",
+      "gloss": "live in (te-form)",
+      "shortGloss": "live in (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "まつ",
+      "romaji": "matsu",
+      "gloss": "to wait",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みせる",
+      "romaji": "miseru",
+      "gloss": "to show",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "まって",
+      "romaji": "matte",
+      "gloss": "wait (te-form)",
+      "shortGloss": "wait (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "まつ"
+    },
+    {
+      "kana": "みせて",
+      "romaji": "misete",
+      "gloss": "show (te-form)",
+      "shortGloss": "show (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "みせない",
+      "romaji": "misenai",
+      "gloss": "won't show / don't show",
+      "shortGloss": "don't show",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みせる"
+    },
+    {
+      "kana": "もう",
+      "romaji": "mou",
+      "gloss": "already",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まだ",
+      "romaji": "mada",
+      "gloss": "not yet, still",
+      "shortGloss": "not yet",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およぐ",
+      "romaji": "oyogu",
+      "gloss": "to swim",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "およいで",
+      "romaji": "oyoide",
+      "gloss": "swim (te-form)",
+      "shortGloss": "swim (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "いけません",
+      "romaji": "ikemasen",
+      "gloss": "must not, not allowed",
+      "shortGloss": "must not",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "およがない",
+      "romaji": "oyoganai",
+      "gloss": "won't swim / don't swim",
+      "shortGloss": "don't swim",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "えいが",
+      "romaji": "eiga",
+      "gloss": "movie",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くつ",
+      "romaji": "kutsu",
+      "gloss": "shoes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こと",
+      "romaji": "koto",
+      "gloss": "thing, the act of doing",
+      "shortGloss": "thing (act of)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とき",
+      "romaji": "toki",
+      "gloss": "time, when",
+      "shortGloss": "time, when",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いそがしい",
+      "romaji": "isogashii",
+      "gloss": "busy",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "りょこう",
+      "romaji": "ryokou",
+      "gloss": "trip, travel",
+      "shortGloss": "trip",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まえ",
+      "romaji": "mae",
+      "gloss": "before",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さむい",
+      "romaji": "samui",
+      "gloss": "cold (weather)",
+      "shortGloss": "cold",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うち",
+      "romaji": "uchi",
+      "gloss": "home, my place",
+      "shortGloss": "home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ので",
+      "romaji": "node",
+      "gloss": "because (softer)",
+      "shortGloss": "because",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けど",
+      "romaji": "kedo",
+      "gloss": "but",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まで",
+      "romaji": "made",
+      "gloss": "until, as far as",
+      "shortGloss": "until",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がつ",
+      "romaji": "gatsu",
+      "gloss": "month (in a date)",
+      "shortGloss": "month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすみ",
+      "romaji": "yasumi",
+      "gloss": "holiday, time off",
+      "shortGloss": "holiday",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべませんでした",
+      "romaji": "tabemasendeshita",
+      "gloss": "didn't eat (polite)",
+      "shortGloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のみませんでした",
+      "romaji": "nomimasendeshita",
+      "gloss": "didn't drink (polite)",
+      "shortGloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しませんでした",
+      "romaji": "shimasendeshita",
+      "gloss": "didn't do (polite)",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いきませんでした",
+      "romaji": "ikimasendeshita",
+      "gloss": "didn't go (polite)",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みませんでした",
+      "romaji": "mimasendeshita",
+      "gloss": "didn't watch (polite)",
+      "shortGloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かいませんでした",
+      "romaji": "kaimasendeshita",
+      "gloss": "didn't buy (polite)",
+      "shortGloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きませんでした",
+      "romaji": "kimasendeshita",
+      "gloss": "didn't come (polite)",
+      "shortGloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "さむかった",
+      "romaji": "samukatta",
+      "gloss": "was cold",
+      "imageable": false,
+      "kind": "adj-form",
+      "derivedFrom": "さむい"
+    },
+    {
+      "kana": "たべなかった",
+      "romaji": "tabenakatta",
+      "gloss": "didn't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまなかった",
+      "romaji": "nomanakatta",
+      "gloss": "didn't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しなかった",
+      "romaji": "shinakatta",
+      "gloss": "didn't do",
+      "shortGloss": "didn't make/do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いかなかった",
+      "romaji": "ikanakatta",
+      "gloss": "didn't go",
+      "shortGloss": "didn't travel/go",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "みなかった",
+      "romaji": "minakatta",
+      "gloss": "didn't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かわなかった",
+      "romaji": "kawanakatta",
+      "gloss": "didn't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "こなかった",
+      "romaji": "konakatta",
+      "gloss": "didn't come",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "なかった",
+      "romaji": "nakatta",
+      "gloss": "there wasn't, didn't have",
+      "shortGloss": "didn't have",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "ぜんぜん",
+      "romaji": "zenzen",
+      "gloss": "not at all (with a negative)",
+      "shortGloss": "not at all",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まい",
+      "romaji": "mai",
+      "gloss": "counter for flat things",
+      "shortGloss": "flat-thing counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちち",
+      "romaji": "chichi",
+      "gloss": "(my) father",
+      "shortGloss": "my father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はは",
+      "romaji": "haha",
+      "gloss": "(my) mother",
+      "shortGloss": "my mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あに",
+      "romaji": "ani",
+      "gloss": "(my) older brother",
+      "shortGloss": "older brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あね",
+      "romaji": "ane",
+      "gloss": "(my) older sister",
+      "shortGloss": "older sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうと",
+      "romaji": "otouto",
+      "gloss": "(my) younger brother",
+      "shortGloss": "younger brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いもうと",
+      "romaji": "imouto",
+      "gloss": "(my) younger sister",
+      "shortGloss": "younger sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうだい",
+      "romaji": "kyoudai",
+      "gloss": "(my) siblings",
+      "shortGloss": "siblings",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にん",
+      "romaji": "nin",
+      "gloss": "counter for people",
+      "shortGloss": "people counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとり",
+      "romaji": "hitori",
+      "gloss": "one person",
+      "shortGloss": "one person",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたり",
+      "romaji": "futari",
+      "gloss": "two people",
+      "shortGloss": "two people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんにん",
+      "romaji": "sannin",
+      "gloss": "three people",
+      "shortGloss": "three people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よにん",
+      "romaji": "yonin",
+      "gloss": "four people",
+      "shortGloss": "four people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さい",
+      "romaji": "sai",
+      "gloss": "years old (counter for age)",
+      "shortGloss": "years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたち",
+      "romaji": "hatachi",
+      "gloss": "twenty years old",
+      "shortGloss": "twenty years old",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "この",
+      "romaji": "kono",
+      "gloss": "this (+ noun)",
+      "shortGloss": "this …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "その",
+      "romaji": "sono",
+      "gloss": "that (+ noun)",
+      "shortGloss": "that …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あの",
+      "romaji": "ano",
+      "gloss": "that over there (+ noun)",
+      "shortGloss": "that … over there",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どの",
+      "romaji": "dono",
+      "gloss": "which (+ noun)",
+      "shortGloss": "which …",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "むずかしい",
+      "romaji": "muzukashii",
+      "gloss": "difficult",
+      "shortGloss": "difficult",
+      "kind": "vocab"
+    },
+    {
+      "kana": "たのしい",
+      "romaji": "tanoshii",
+      "gloss": "enjoyable, fun",
+      "shortGloss": "enjoyable",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はなす",
+      "romaji": "hanasu",
+      "gloss": "to speak, to talk",
+      "shortGloss": "to speak",
+      "kind": "vocab"
+    },
+    {
+      "kana": "がっこう",
+      "romaji": "gakkou",
+      "gloss": "school",
+      "shortGloss": "school",
+      "kind": "vocab"
+    },
+    {
+      "kana": "としょかん",
+      "romaji": "toshokan",
+      "gloss": "library",
+      "shortGloss": "library",
+      "kind": "vocab"
+    },
+    {
+      "kana": "かえる",
+      "romaji": "kaeru",
+      "gloss": "to go back, to go home",
+      "shortGloss": "go home",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "へ",
+      "romaji": "e (written he)",
+      "gloss": "to, toward (direction)",
+      "shortGloss": "toward",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "びょういん",
+      "romaji": "byouin",
+      "gloss": "hospital",
+      "shortGloss": "hospital",
+      "kind": "vocab"
+    },
+    {
+      "kana": "でんしゃ",
+      "romaji": "densha",
+      "gloss": "train",
+      "shortGloss": "train",
+      "kind": "vocab"
+    },
+    {
+      "kana": "バス",
+      "romaji": "basu",
+      "gloss": "bus",
+      "shortGloss": "bus",
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちかてつ",
+      "romaji": "chikatetsu",
+      "gloss": "underground train, subway",
+      "shortGloss": "subway",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あるく",
+      "romaji": "aruku",
+      "gloss": "to walk",
+      "shortGloss": "to walk",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふん",
+      "romaji": "fun",
+      "gloss": "minutes (after 2, 5, 7, 9)",
+      "shortGloss": "minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ぷん",
+      "romaji": "pun",
+      "gloss": "minutes (after 1, 3, 4, 6, 8, 10)",
+      "shortGloss": "minutes -pun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅっぷん",
+      "romaji": "juppun",
+      "gloss": "ten minutes",
+      "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ほう",
+      "romaji": "hou",
+      "gloss": "the more ~ one, this side",
+      "shortGloss": "the ~ one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "より",
+      "romaji": "yori",
+      "gloss": "than (marks the loser of a comparison)",
+      "shortGloss": "than",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "ちかい",
+      "romaji": "chikai",
+      "gloss": "near, close",
+      "shortGloss": "near",
+      "kind": "vocab"
+    },
+    {
+      "kana": "とおい",
+      "romaji": "tooi",
+      "gloss": "far",
+      "shortGloss": "far",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どっち",
+      "romaji": "dotchi",
+      "gloss": "which (of two)",
+      "shortGloss": "which of two",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どちら",
+      "romaji": "dochira",
+      "gloss": "which (of two) — polite",
+      "shortGloss": "which (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんびゃく",
+      "romaji": "sanbyaku",
+      "gloss": "three hundred",
+      "shortGloss": "300",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぴゃく",
+      "romaji": "roppyaku",
+      "gloss": "six hundred",
+      "shortGloss": "600",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっぴゃく",
+      "romaji": "happyaku",
+      "gloss": "eight hundred",
+      "shortGloss": "800",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せん",
+      "romaji": "sen",
+      "gloss": "thousand",
+      "shortGloss": "1000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まん",
+      "romaji": "man",
+      "gloss": "ten thousand",
+      "shortGloss": "10000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんぜん",
+      "romaji": "sanzen",
+      "gloss": "three thousand",
+      "shortGloss": "3000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はっせん",
+      "romaji": "hassen",
+      "gloss": "eight thousand",
+      "shortGloss": "8000",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こ",
+      "romaji": "ko",
+      "gloss": "counter for small objects",
+      "shortGloss": "-ko counter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たまご",
+      "romaji": "tamago",
+      "gloss": "egg",
+      "shortGloss": "egg",
+      "kind": "vocab"
+    },
+    {
+      "kana": "や",
+      "romaji": "ya",
+      "gloss": "and (an open list — A や B means A and B among others)",
+      "shortGloss": "and (some of)",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "など",
+      "romaji": "nado",
+      "gloss": "and so on, et cetera",
+      "shortGloss": "and so on",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おかあさん",
+      "romaji": "okaasan",
+      "gloss": "(someone else's) mother — honorific",
+      "shortGloss": "their mother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おとうさん",
+      "romaji": "otousan",
+      "gloss": "(someone else's) father — honorific",
+      "shortGloss": "their father",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おにいさん",
+      "romaji": "oniisan",
+      "gloss": "(someone else's) older brother — honorific",
+      "shortGloss": "their big brother",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おねえさん",
+      "romaji": "oneesan",
+      "gloss": "(someone else's) older sister — honorific",
+      "shortGloss": "their big sister",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コーヒー",
+      "romaji": "koohii",
+      "gloss": "coffee",
+      "shortGloss": "coffee",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おさけ",
+      "romaji": "osake",
+      "gloss": "sake, alcohol",
+      "shortGloss": "sake",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いっぱい",
+      "romaji": "ippai",
+      "gloss": "one cupful, one glass",
+      "shortGloss": "1 cup",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんばい",
+      "romaji": "sanbai",
+      "gloss": "three cupfuls",
+      "shortGloss": "3 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんはい",
+      "romaji": "yonhai",
+      "gloss": "four cupfuls",
+      "shortGloss": "4 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごはい",
+      "romaji": "gohai",
+      "gloss": "five cupfuls",
+      "shortGloss": "5 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぱい",
+      "romaji": "roppai",
+      "gloss": "six cupfuls",
+      "shortGloss": "6 cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんばい",
+      "romaji": "nanbai",
+      "gloss": "how many cupfuls",
+      "shortGloss": "how many cups",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべたり",
+      "romaji": "tabetari",
+      "gloss": "eat, and things like that",
+      "shortGloss": "eat, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のんだり",
+      "romaji": "nondari",
+      "gloss": "drink, and things like that",
+      "shortGloss": "drink, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みたり",
+      "romaji": "mitari",
+      "gloss": "watch, and things like that",
+      "shortGloss": "watch, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きいたり",
+      "romaji": "kiitari",
+      "gloss": "listen, and things like that",
+      "shortGloss": "listen, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそんだり",
+      "romaji": "asondari",
+      "gloss": "play, and things like that",
+      "shortGloss": "play, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いったり",
+      "romaji": "ittari",
+      "gloss": "go, and things like that",
+      "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いたい",
+      "romaji": "itai",
+      "gloss": "painful, sore — it hurts",
+      "shortGloss": "it hurts",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたま",
+      "romaji": "atama",
+      "gloss": "head",
+      "shortGloss": "head",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おなか",
+      "romaji": "onaka",
+      "gloss": "stomach, belly",
+      "shortGloss": "stomach",
+      "kind": "vocab"
+    },
+    {
+      "kana": "め",
+      "romaji": "me",
+      "gloss": "eye",
+      "shortGloss": "eye",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みみ",
+      "romaji": "mimi",
+      "gloss": "ear",
+      "shortGloss": "ear",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くち",
+      "romaji": "kuchi",
+      "gloss": "mouth",
+      "shortGloss": "mouth",
+      "kind": "vocab"
+    },
+    {
+      "kana": "て",
+      "romaji": "te",
+      "gloss": "hand",
+      "shortGloss": "hand",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ねつ",
+      "romaji": "netsu",
+      "gloss": "a fever",
+      "shortGloss": "fever",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のど",
+      "romaji": "nodo",
+      "gloss": "throat",
+      "shortGloss": "throat",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "びょうき",
+      "romaji": "byouki",
+      "gloss": "illness, being ill",
+      "shortGloss": "illness",
+      "kind": "vocab"
+    },
+    {
+      "kana": "くすり",
+      "romaji": "kusuri",
+      "gloss": "medicine",
+      "shortGloss": "medicine",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いつも",
+      "romaji": "itsumo",
+      "gloss": "always",
+      "shortGloss": "always",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ときどき",
+      "romaji": "tokidoki",
+      "gloss": "sometimes",
+      "shortGloss": "sometimes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あまり",
+      "romaji": "amari",
+      "gloss": "not much (always with a negative)",
+      "shortGloss": "not much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あし",
+      "romaji": "ashi",
+      "gloss": "foot, leg",
+      "shortGloss": "foot/leg",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いしゃ",
+      "romaji": "isha",
+      "gloss": "a doctor",
+      "shortGloss": "doctor",
+      "kind": "vocab"
+    },
+    {
+      "kana": "いっぽん",
+      "romaji": "ippon",
+      "gloss": "one long thin thing",
+      "shortGloss": "1 (long thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さんぼん",
+      "romaji": "sanbon",
+      "gloss": "three long thin things",
+      "shortGloss": "3 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろっぽん",
+      "romaji": "roppon",
+      "gloss": "six long thin things",
+      "shortGloss": "6 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なんぼん",
+      "romaji": "nanbon",
+      "gloss": "how many long thin things",
+      "shortGloss": "how many?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よんほん",
+      "romaji": "yonhon",
+      "gloss": "four long thin things",
+      "shortGloss": "4 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごほん",
+      "romaji": "gohon",
+      "gloss": "five long thin things",
+      "shortGloss": "5 (long things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "がいこく",
+      "romaji": "gaikoku",
+      "gloss": "a foreign country, abroad",
+      "shortGloss": "abroad",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はたらいた",
+      "romaji": "hataraita",
+      "gloss": "worked (work, past)",
+      "shortGloss": "worked",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひこうき",
+      "romaji": "hikouki",
+      "gloss": "an aeroplane",
+      "shortGloss": "aeroplane",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "のる",
+      "romaji": "noru",
+      "gloss": "to get on, to ride",
+      "shortGloss": "get on",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "のった",
+      "romaji": "notta",
+      "gloss": "got on, rode (get on, past)",
+      "shortGloss": "got on",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "およいだ",
+      "romaji": "oyoida",
+      "gloss": "swam (swim, past)",
+      "shortGloss": "swam",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つもり",
+      "romaji": "tsumori",
+      "gloss": "intention, plan — what you mean to do",
+      "shortGloss": "intend to",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ホテル",
+      "romaji": "hoteru",
+      "gloss": "a hotel",
+      "shortGloss": "hotel",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はいる",
+      "romaji": "hairu",
+      "gloss": "to enter, to go in",
+      "shortGloss": "enter",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "くうこう",
+      "romaji": "kuukou",
+      "gloss": "an airport",
+      "shortGloss": "airport",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つく",
+      "romaji": "tsuku",
+      "gloss": "to arrive, to get there",
+      "shortGloss": "arrive",
+      "kind": "verb"
+    },
+    {
+      "kana": "のめる",
+      "romaji": "nomeru",
+      "gloss": "can drink (potential of のむ)",
+      "shortGloss": "can drink",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "いける",
+      "romaji": "ikeru",
+      "gloss": "can go (potential of いく)",
+      "shortGloss": "can go",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "およげる",
+      "romaji": "oyogeru",
+      "gloss": "can swim (potential of およぐ)",
+      "shortGloss": "can swim",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "たべられる",
+      "romaji": "taberareru",
+      "gloss": "can eat (potential of たべる)",
+      "shortGloss": "can eat",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "みられる",
+      "romaji": "mirareru",
+      "gloss": "can watch (potential of みる)",
+      "shortGloss": "can watch",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "こられる",
+      "romaji": "korareru",
+      "gloss": "can come (potential of くる)",
+      "shortGloss": "can come",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "たべれる",
+      "romaji": "tabereru",
+      "gloss": "can eat (casual ら-dropped form)",
+      "shortGloss": "can eat (casual)",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "みれる",
+      "romaji": "mireru",
+      "gloss": "can watch (casual ら-dropped form)",
+      "shortGloss": "can watch (casual)",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "できる",
+      "romaji": "dekiru",
+      "gloss": "can do it, to be able to",
+      "shortGloss": "can do",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "のめない",
+      "romaji": "nomenai",
+      "gloss": "can't drink (negative potential of のむ)",
+      "shortGloss": "can't drink",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "たべられない",
+      "romaji": "taberarenai",
+      "gloss": "can't eat (negative potential of たべる)",
+      "shortGloss": "can't eat",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "できない",
+      "romaji": "dekinai",
+      "gloss": "can't do it, isn't possible",
+      "shortGloss": "can't do",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "もの",
+      "romaji": "mono",
+      "gloss": "a thing",
+      "shortGloss": "thing",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みえる",
+      "romaji": "mieru",
+      "gloss": "to be visible, to be in sight",
+      "shortGloss": "is visible",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "きこえる",
+      "romaji": "kikoeru",
+      "gloss": "to be audible, to reach the ear",
+      "shortGloss": "is audible",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "じょうず",
+      "romaji": "jouzu",
+      "gloss": "skillful, good at",
+      "shortGloss": "good at",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はなせる",
+      "romaji": "hanaseru",
+      "gloss": "can speak (potential of はなす)",
+      "shortGloss": "can speak",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "へた",
+      "romaji": "heta",
+      "gloss": "unskillful, bad at",
+      "shortGloss": "bad at",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あるける",
+      "romaji": "arukeru",
+      "gloss": "can walk (potential of あるく)",
+      "shortGloss": "can walk",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "ましょう",
+      "romaji": "mashou",
+      "gloss": "let's ~ (polite suggestion, on the ます-stem)",
+      "shortGloss": "let's ~",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しましょう",
+      "romaji": "shimashou",
+      "gloss": "let's do it (polite suggestion)",
+      "shortGloss": "let's do",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いっしょ",
+      "romaji": "issho",
+      "gloss": "together",
+      "shortGloss": "together",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "でしょう",
+      "romaji": "deshou",
+      "gloss": "probably, I expect (conjecture)",
+      "shortGloss": "probably",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "てんき",
+      "romaji": "tenki",
+      "gloss": "weather",
+      "shortGloss": "weather",
+      "kind": "vocab"
+    },
+    {
+      "kana": "はれ",
+      "romaji": "hare",
+      "gloss": "clear weather, fine weather",
+      "shortGloss": "clear weather",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あめ",
+      "romaji": "ame",
+      "gloss": "rain",
+      "shortGloss": "rain",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あつい",
+      "romaji": "atsui",
+      "gloss": "hot",
+      "shortGloss": "hot",
+      "kind": "vocab"
+    },
+    {
+      "kana": "すずしい",
+      "romaji": "suzushii",
+      "gloss": "cool, refreshing",
+      "shortGloss": "cool",
+      "kind": "vocab"
+    },
+    {
+      "kana": "あたたかい",
+      "romaji": "atatakai",
+      "gloss": "warm, mild",
+      "shortGloss": "warm",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふる",
+      "romaji": "furu",
+      "gloss": "to fall — of rain or snow",
+      "shortGloss": "to fall (rain)",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "くもり",
+      "romaji": "kumori",
+      "gloss": "cloudy weather",
+      "shortGloss": "cloudy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はる",
+      "romaji": "haru",
+      "gloss": "spring (the season)",
+      "shortGloss": "spring",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なつ",
+      "romaji": "natsu",
+      "gloss": "summer",
+      "shortGloss": "summer",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あき",
+      "romaji": "aki",
+      "gloss": "autumn",
+      "shortGloss": "autumn",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふゆ",
+      "romaji": "fuyu",
+      "gloss": "winter",
+      "shortGloss": "winter",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たぶん",
+      "romaji": "tabun",
+      "gloss": "probably, maybe",
+      "shortGloss": "probably",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きっと",
+      "romaji": "kitto",
+      "gloss": "surely, definitely",
+      "shortGloss": "surely",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かな",
+      "romaji": "kana",
+      "gloss": "I wonder ~ (thinking out loud)",
+      "shortGloss": "I wonder",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だろう",
+      "romaji": "darou",
+      "gloss": "probably (plain conjecture — mostly heard, not said)",
+      "shortGloss": "probably (plain)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "でしょ",
+      "romaji": "desho",
+      "gloss": "right? (casual でしょう, checking agreement)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うえ",
+      "romaji": "ue",
+      "gloss": "top, above",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なか",
+      "romaji": "naka",
+      "gloss": "inside, middle",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべない",
+      "romaji": "tabenai",
+      "gloss": "won't eat / don't eat",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "みない",
+      "romaji": "minai",
+      "gloss": "won't watch / don't watch",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "のまない",
+      "romaji": "nomanai",
+      "gloss": "won't drink / don't drink",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いかない",
+      "romaji": "ikanai",
+      "gloss": "won't go / isn't going",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かわない",
+      "romaji": "kawanai",
+      "gloss": "won't buy / don't buy",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "わからない",
+      "romaji": "wakaranai",
+      "gloss": "don't understand / don't get it",
+      "shortGloss": "don't understand",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "しない",
+      "romaji": "shinai",
+      "gloss": "won't do / don't do",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "こない",
+      "romaji": "konai",
+      "gloss": "won't come / isn't coming",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "ある",
+      "romaji": "aru",
+      "gloss": "there is / to exist (inanimate)",
+      "shortGloss": "there is (things)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "が",
+      "romaji": "ga",
+      "gloss": "subject marker (spotlights the thing that exists)",
+      "shortGloss": "subject marker",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "いる",
+      "romaji": "iru",
+      "gloss": "there is / to exist (animate)",
+      "shortGloss": "there is (living)",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ない",
+      "romaji": "nai",
+      "gloss": "there isn't (for things)",
+      "shortGloss": "there isn't (things)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "いない",
+      "romaji": "inai",
+      "gloss": "there isn't (for living things)",
+      "shortGloss": "there isn't (living)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いる",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "ここ",
+      "romaji": "koko",
+      "gloss": "here (by me)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "そこ",
+      "romaji": "soko",
+      "gloss": "there (by you)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あそこ",
+      "romaji": "asoko",
+      "gloss": "over there (away from both)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どこ",
+      "romaji": "doko",
+      "gloss": "where?",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "に",
+      "romaji": "ni",
+      "gloss": "at / in (location of existence)",
+      "shortGloss": "where it is",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "で",
+      "romaji": "de",
+      "gloss": "at / in (location of action)",
+      "shortGloss": "where you do it",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "たべます",
+      "romaji": "tabemasu",
+      "gloss": "eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみます",
+      "romaji": "nomimasu",
+      "gloss": "drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みます",
+      "romaji": "mimasu",
+      "gloss": "watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきます",
+      "romaji": "ikimasu",
+      "gloss": "go, travel (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きます",
+      "romaji": "kimasu",
+      "gloss": "come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいます",
+      "romaji": "kaimasu",
+      "gloss": "buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "ききます",
+      "romaji": "kikimasu",
+      "gloss": "listen, ask (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそびます",
+      "romaji": "asobimasu",
+      "gloss": "play (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "あります",
+      "romaji": "arimasu",
+      "gloss": "have, there is (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "たべません",
+      "romaji": "tabemasen",
+      "gloss": "don't eat (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "のみません",
+      "romaji": "nomimasen",
+      "gloss": "don't drink (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ"
+    },
+    {
+      "kana": "みません",
+      "romaji": "mimasen",
+      "gloss": "don't watch (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "いきません",
+      "romaji": "ikimasen",
+      "gloss": "don't go, not travelling (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "きません",
+      "romaji": "kimasen",
+      "gloss": "doesn't come (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "しません",
+      "romaji": "shimasen",
+      "gloss": "don't do, won't make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "はたらきません",
+      "romaji": "hatarakimasen",
+      "gloss": "don't work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "ありません",
+      "romaji": "arimasen",
+      "gloss": "doesn't have, isn't there (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ある"
+    },
+    {
+      "kana": "はたらく",
+      "romaji": "hataraku",
+      "gloss": "to work",
+      "shortGloss": "work",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "はたらきます",
+      "romaji": "hatarakimasu",
+      "gloss": "work (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はたらく"
+    },
+    {
+      "kana": "かいしゃ",
+      "romaji": "kaisha",
+      "gloss": "company, workplace",
+      "shortGloss": "company",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅぎょう",
+      "romaji": "jugyou",
+      "gloss": "class, lesson",
+      "shortGloss": "class",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はい",
+      "romaji": "hai",
+      "gloss": "yes (polite)",
+      "shortGloss": "yes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ええ",
+      "romaji": "ee",
+      "gloss": "yes (softer than はい)",
+      "shortGloss": "yes (soft)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さま",
+      "romaji": "sama",
+      "gloss": "-sama (respectful name suffix)",
+      "shortGloss": "-sama",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "くん",
+      "romaji": "kun",
+      "gloss": "-kun (familiar, usually boys)",
+      "shortGloss": "-kun",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃん",
+      "romaji": "chan",
+      "gloss": "-chan (affectionate)",
+      "shortGloss": "-chan",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべて",
+      "romaji": "tabete",
+      "gloss": "eat (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たべる"
+    },
+    {
+      "kana": "みて",
+      "romaji": "mite",
+      "gloss": "watch, look (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "みる"
+    },
+    {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく"
+    },
+    {
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あそぶ"
+    },
+    {
+      "kana": "いって",
+      "romaji": "itte",
+      "gloss": "go, travel (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いく"
+    },
+    {
+      "kana": "して",
+      "romaji": "shite",
+      "gloss": "do, make (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する"
+    },
+    {
+      "kana": "きて",
+      "romaji": "kite",
+      "gloss": "come (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "くる"
+    },
+    {
+      "kana": "ください",
+      "romaji": "kudasai",
+      "gloss": "please (request)",
+      "shortGloss": "please",
+      "imageable": false,
+      "kind": "grammar-chunk"
+    },
+    {
+      "kana": "おしえる",
+      "romaji": "oshieru",
+      "gloss": "to teach, to tell",
+      "shortGloss": "teach, tell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "おしえて",
+      "romaji": "oshiete",
+      "gloss": "teach, tell (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おしえる"
+    },
+    {
+      "kana": "ごはん",
+      "romaji": "gohan",
+      "gloss": "rice, a meal",
+      "shortGloss": "rice/meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たべもの",
+      "romaji": "tabemono",
+      "gloss": "food",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "しょくじ",
+      "romaji": "shokuji",
+      "gloss": "a meal",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ちゃ",
+      "romaji": "cha",
+      "gloss": "tea",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "こめ",
+      "romaji": "kome",
+      "gloss": "rice (uncooked)",
+      "shortGloss": "rice (raw)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みせ",
+      "romaji": "mise",
+      "gloss": "shop, store",
+      "shortGloss": "shop",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いち",
+      "romaji": "ichi",
+      "gloss": "one",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "さん",
+      "romaji": "san",
+      "gloss": "three",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よん",
+      "romaji": "yon",
+      "gloss": "four",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ご",
+      "romaji": "go",
+      "gloss": "five",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ろく",
+      "romaji": "roku",
+      "gloss": "six",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "なな",
+      "romaji": "nana",
+      "gloss": "seven",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はち",
+      "romaji": "hachi",
+      "gloss": "eight",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きゅう",
+      "romaji": "kyuu",
+      "gloss": "nine",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "じゅう",
+      "romaji": "juu",
+      "gloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひとつ",
+      "romaji": "hitotsu",
+      "gloss": "one thing",
+      "shortGloss": "one (thing)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ふたつ",
+      "romaji": "futatsu",
+      "gloss": "two things",
+      "shortGloss": "two (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "みっつ",
+      "romaji": "mittsu",
+      "gloss": "three things",
+      "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "えん",
+      "romaji": "en",
+      "gloss": "yen",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひゃく",
+      "romaji": "hyaku",
+      "gloss": "hundred",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いくら",
+      "romaji": "ikura",
+      "gloss": "how much",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かね",
+      "romaji": "kane",
+      "gloss": "money",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たかい",
+      "romaji": "takai",
+      "gloss": "expensive, tall",
+      "shortGloss": "expensive",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やすい",
+      "romaji": "yasui",
+      "gloss": "cheap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うる",
+      "romaji": "uru",
+      "gloss": "to sell",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かいもの",
+      "romaji": "kaimono",
+      "gloss": "shopping",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "パン",
+      "romaji": "pan",
+      "gloss": "bread",
+      "imageable": true,
+      "kind": "vocab"
+    }
+  ]
+}
