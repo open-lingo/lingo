@@ -1250,6 +1250,19 @@ the audit working as intended, not a regression.
 - ~~**`scripts/exposure-audit.mjs` reads only `curriculum/m*-neo*.ts`**~~ —
   FIXED in the m21 cycle; it reads `ir/*.ir.yaml` now and the corpus went
   3336 → 9494 surfaces. See the carrier-fatigue section.
+- **⏳ ALSO UNCOMPILED, from m27's QA (verdict FIX):** four fixes are written
+  into `m27.ir.yaml` — the challenge dialogue's opener was byte-identical to
+  L5's, a challenge beat was L5's own capstone with 「じゅぎょうに」 trimmed off
+  (now folds in すぎる, which the original never exercised), review-1's cloze
+  offered 「なんです」 as a wrong answer four lessons before んです debuts, and
+  review-2's focus line named only んだ. **A new guard is PARKED in the
+  scratchpad** at `distractorDebut.test.ts` — it reads `.ir.json`, so it fails
+  until the yaml is compiled, which is why it is not in the tree yet. Move it
+  to `src/features/lesson/data/` during the batch compile.
+  Checking the QA report instead of just applying it found a THIRD instance the
+  review missed: m27's L1 cloze offered 「なんだ」, which debuts in L2. Two of
+  the three came from the machine, one from the reader — that is the argument
+  for doing both.
 - **⏳ IN THE TREE, UNCOMPILED: all eleven replacements are already written into
   the nine `*.ir.yaml` files** (2026-07-27, during the m28 quiet window). A YAML
   edit is INERT until `compile-ir.mjs` regenerates the `.ir.json` the tests
