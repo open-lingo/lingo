@@ -2050,8 +2050,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちゃが ないです。おしえてください。",
-          "en": "Say politely: There's no tea, so please tell me",
+          "ja": "ちゃが ありません。おしえてください。",
+          "en": "Say politely: There's no tea, please tell me",
           "exercises": [
             "ga-existence",
             "nai-existence",
@@ -2543,21 +2543,21 @@
       "verbClass": "u"
     },
     {
-      "kana": "します",
-      "romaji": "shimasu",
-      "gloss": "do, make (polite)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "する",
-      "verbClass": "irregular"
-    },
-    {
       "kana": "きます",
       "romaji": "kimasu",
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
       "verbClass": "irregular"
     },
     {

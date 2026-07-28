@@ -50,6 +50,35 @@ import {
   getTrainerType,
   isSelectionAhead,
 } from "@/features/languages/ja/conjugation/trainerRegistry";
+import {
+  buildTrainerSession,
+  buildCombinedSession,
+} from "@/features/languages/ja/conjugation/trainerSession";
+
+/**
+ * The module each conjugated form is actually TAUGHT in, by the shipped
+ * curriculum. Deliberately hand-written and not derived from
+ * `n5-grammar-points.json` — that file is what drifted out of step with the
+ * course in the first place, so deriving from it would make this guard agree
+ * with the bug it exists to catch.
+ */
+const FORM_TAUGHT_AT: Record<string, number> = {
+  nai: 6, // m6 — る/う/irregular ない cards
+  masu: 7,
+  "masu-neg": 7, // m7 — ません
+  te: 8, // m8 — the て table
+  ta: 11, // m11 — た
+  "masu-past": 11, // m11 — ました
+  negative: 12, // m12 — い-adjective くない
+  past: 12, // m12 — かった
+  "past-negative": 12, // m12 — くなかった
+  tai: 13,
+  "tai-neg": 13,
+  "tai-past": 13,
+  "tai-neg-past": 13, // m13 — all four たい cells
+  "masu-past-neg": 16, // m16 — ませんでした
+  "nai-past": 16, // m16 — なかった
+};
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import {
   assertExplanationDoesntLeakAnswer,
@@ -826,6 +855,29 @@ export function registerJaModuleContentLints(moduleId: string): void {
             isSelectionAhead(tiles as never, reached),
             `${lesson.id} drills tiles not yet unlocked at ${moduleId} — the session would be practice-only and grade nothing`,
           ).toBe(false);
+
+          // AND EVERY FORM THE SESSION CAN EMIT MUST BE TAUGHT BY NOW.
+          //
+          // Tile unlock is not enough, because tiles COMBINE. m13's node
+          // selected v-tai + nai-form + ta-form to reach the four たい cells;
+          // every tile was unlocked, and the combination silently also
+          // unlocked ta+nai → なかった, the plain past negative, which is not
+          // taught until m16. A simulated learner hit it as a wall: a
+          // mandatory gate on a form no card had ever stated. The selection
+          // is now checked by what it PRODUCES, not by what it selects.
+          const emitted =
+            tiles.length === 1
+              ? buildTrainerSession(getTrainerType(tiles[0] as never)!, reached)
+              : buildCombinedSession(tiles as never, reached, { combos: "on" });
+          expect(emitted.length, `${lesson.id} builds no questions`).toBeGreaterThan(0);
+          for (const form of new Set(emitted.map((q) => q.form))) {
+            const taughtAt = FORM_TAUGHT_AT[form];
+            expect(taughtAt, `${lesson.id} drills unknown form '${form}'`).toBeDefined();
+            expect(
+              taughtAt!,
+              `${lesson.id} drills '${form}' but the course does not teach it until m${taughtAt} — the node is mandatory, so this is a wall`,
+            ).toBeLessThanOrEqual(reached);
+          }
           continue;
         }
         expect(

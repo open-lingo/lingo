@@ -405,7 +405,12 @@ lessons:
       - { kind: sentence, ja: "たなかさんの みせで こめを かってください。", en: "Say politely: Please buy rice at Tanaka's shop", exercises: [no-possession, de-action, wo-object, te-kudasai], mode: build }
       - { kind: sentence, ja: "ミカちゃんに たべものを おしえて。", en: "Tell Mika about the food", exercises: [register-audience, ni-location, wo-object, te-form], mode: translate }
       - { kind: sentence, ja: "きょうは みせに いかない。", en: "I'm not going to the shop today", exercises: [wa-topic, ni-location, nai-form], mode: build }
-      - { kind: sentence, ja: "ちゃが ないです。おしえてください。", en: "Say politely: There's no tea, so please tell me", exercises: [ga-existence, nai-existence, te-kudasai], mode: build }
+      # 「ちゃが ないです」 is fine Japanese and unteachable HERE: m7's です card
+      # says flatly that です does not bolt onto a verb (たべるです), ~ないです is
+      # not licensed until m12's い-adjective + です card, and the polite "there
+      # isn't" this learner owns is ありません. The English also promised a
+      # "so" that the tile bank never offered. (Learner walk 2026-07-28.)
+      - { kind: sentence, ja: "ちゃが ありません。おしえてください。", en: "Say politely: There's no tea, please tell me", exercises: [ga-existence, nai-existence, te-kudasai], mode: build }
       - { kind: sentence, ja: "ともだちの いえで ごはんを たべて。", en: "Eat rice at your friend's house", exercises: [no-possession, de-action, wo-object, te-form], mode: build }
       - { kind: sentence, ja: "せんせいに しゃしんを おしえてください。", en: "Say politely: Please tell the teacher about the photo", exercises: [ni-location, wo-object, te-kudasai], mode: listening }
       - { kind: sentence, ja: "みせは あそこに ありますか。", en: "Say politely: Is the shop over there", exercises: [wa-topic, koko-soko-asoko, ni-location, ka-question], mode: listening }

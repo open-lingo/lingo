@@ -152,11 +152,31 @@ describe("buildTrainerSession", () => {
 
   it("respects the reached-module pool (no verbs above the module)", () => {
     const teForm = getTrainerType("te-form")!;
+    // Assert the INVARIANT, not a fixture. This used to pin "m6 yields an
+    // empty pool", which was only true while the table's earliest verb was
+    // m7 — and that number was wrong: m6 teaches しない/こない, so する and くる
+    // belong at m6, and the assertion broke the moment the table was
+    // corrected against the actual course. What must hold at any module is
+    // that nothing above it is ever drilled.
+    for (const reached of [6, 8, 11, 13, 16, 20]) {
+      const pool = new Map(
+        VERB_ENTRIES.map((v) => [v.dictionary, v.introducedAtModule]),
+      );
+      for (const q of buildTrainerSession(teForm, reached)) {
+        expect(
+          pool.get(q.prompt) ?? Infinity,
+          `${q.prompt} drilled at m${reached} but introduced at m${pool.get(q.prompt)}`,
+        ).toBeLessThanOrEqual(reached);
+      }
+    }
     // Below every verb's module → empty pool → no questions.
-    expect(buildTrainerSession(teForm, 6)).toEqual([]);
-    // The i-adj type at M8 has adjectives available.
+    expect(buildTrainerSession(teForm, 3)).toEqual([]);
+    // The i-adj type has adjectives available at its own unlock module. This
+    // used to say m8, from back when the adjective table claimed every
+    // い-adjective was introduced there; the course does not show one until
+    // m9, and the type unlocks at m12.
     const iadj = getTrainerType("i-adj-forms")!;
-    expect(buildTrainerSession(iadj, 8).length).toBeGreaterThan(0);
+    expect(buildTrainerSession(iadj, 12).length).toBeGreaterThan(0);
   });
 
   it("i-adj sessions only use i-adjectives (never na-adjectives)", () => {

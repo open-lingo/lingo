@@ -181,7 +181,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かいて",
       tai: "かきたい",
     },
-    introducedAtModule: 7,
+    introducedAtModule: 99,
   },
 
   // ═══ M10 verbs ══════════════════════════════════════════════════════
@@ -204,7 +204,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "おきて",
       tai: "おきたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 99,
   },
   {
     id: "neru",
@@ -223,7 +223,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "ねて",
       tai: "ねたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 29,
   },
   {
     id: "dekakeru",
@@ -242,7 +242,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "でかけて",
       tai: "でかけたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 99,
   },
 
   // Godan
@@ -263,7 +263,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "あるいて",
       tai: "あるきたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 19,
   },
   {
     id: "hashiru",
@@ -282,7 +282,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "はしって",
       tai: "はしりたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 30,
   },
   {
     id: "oyogu",
@@ -301,7 +301,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "およいで",
       tai: "およぎたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 14,
   },
   {
     id: "asobu",
@@ -359,7 +359,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "して",
       tai: "したい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 6,
   },
   {
     id: "kuru",
@@ -378,7 +378,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "きて",
       tai: "きたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 6,
   },
   {
     id: "benkyousuru",
@@ -397,7 +397,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "べんきょうして",
       tai: "べんきょうしたい",
     },
-    introducedAtModule: 10,
+    introducedAtModule: 30,
   },
 
   // ═══ M11 verbs ══════════════════════════════════════════════════════
@@ -456,7 +456,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "もって",
       tai: "もちたい",
     },
-    introducedAtModule: 11,
+    introducedAtModule: 99,
   },
   {
     id: "kakaru",
@@ -474,7 +474,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かかって",
       tai: "かかりたい",
     },
-    introducedAtModule: 11,
+    introducedAtModule: 99,
   },
 
   // ═══ M13 verbs ══════════════════════════════════════════════════════
@@ -496,7 +496,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "あびて",
       tai: "あびたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
   {
     id: "kiru-wear",
@@ -515,7 +515,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "きて",
       tai: "きたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
   {
     id: "tsukeru",
@@ -533,7 +533,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "つけて",
       tai: "つけたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
 
   // Godan
@@ -553,7 +553,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "みがいて",
       tai: "みがきたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
   {
     id: "arau",
@@ -572,7 +572,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "あらって",
       tai: "あらいたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
   {
     id: "kesu",
@@ -591,7 +591,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "けして",
       tai: "けしたい",
     },
-    introducedAtModule: 13,
+    introducedAtModule: 99,
   },
 
   // ═══ M14 verbs ══════════════════════════════════════════════════════
@@ -673,7 +673,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "てつだって",
       tai: "てつだいたい",
     },
-    introducedAtModule: 14,
+    introducedAtModule: 30,
   },
   {
     id: "kasu",
@@ -692,7 +692,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かして",
       tai: "かしたい",
     },
-    introducedAtModule: 14,
+    introducedAtModule: 99,
   },
   {
     id: "toru",
@@ -711,7 +711,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "とって",
       tai: "とりたい",
     },
-    introducedAtModule: 14,
+    introducedAtModule: 99,
   },
   {
     id: "kau",
@@ -730,7 +730,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かって",
       tai: "かいたい",
     },
-    introducedAtModule: 14,
+    introducedAtModule: 7,
   },
   {
     id: "kaeru",
@@ -794,7 +794,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "でて",
       tai: "でたい",
     },
-    introducedAtModule: 16,
+    introducedAtModule: 99,
   },
 
   // Godan
@@ -815,7 +815,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "すわって",
       tai: "すわりたい",
     },
-    introducedAtModule: 16,
+    introducedAtModule: 30,
   },
   {
     id: "sawaru",
@@ -833,7 +833,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "さわって",
       tai: "さわりたい",
     },
-    introducedAtModule: 16,
+    introducedAtModule: 99,
   },
   {
     id: "hairu",
@@ -852,7 +852,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "はいって",
       tai: "はいりたい",
     },
-    introducedAtModule: 16,
+    introducedAtModule: 23,
   },
 
   // ═══ M17 verbs ══════════════════════════════════════════════════════
@@ -875,7 +875,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "おりて",
       tai: "おりたい",
     },
-    introducedAtModule: 17,
+    introducedAtModule: 99,
   },
 
   // Godan
@@ -896,7 +896,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "のって",
       tai: "のりたい",
     },
-    introducedAtModule: 17,
+    introducedAtModule: 23,
   },
   {
     id: "wataru",
@@ -915,7 +915,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "わたって",
       tai: "わたりたい",
     },
-    introducedAtModule: 17,
+    introducedAtModule: 99,
   },
   {
     id: "magaru",
@@ -934,7 +934,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "まがって",
       tai: "まがりたい",
     },
-    introducedAtModule: 17,
+    introducedAtModule: 99,
   },
   {
     id: "tomaru",
@@ -953,7 +953,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "とまって",
       tai: "とまりたい",
     },
-    introducedAtModule: 17,
+    introducedAtModule: 28,
   },
 ];
 
@@ -974,7 +974,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "おおきかった",
       "past-negative": "おおきくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "chiisai",
@@ -988,7 +988,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ちいさかった",
       "past-negative": "ちいさくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "takai",
@@ -1002,7 +1002,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "たかかった",
       "past-negative": "たかくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 9,
   },
   {
     id: "yasui",
@@ -1016,7 +1016,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "やすかった",
       "past-negative": "やすくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 9,
   },
   {
     id: "atarashii",
@@ -1030,7 +1030,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あたらしかった",
       "past-negative": "あたらしくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "furui",
@@ -1044,7 +1044,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ふるかった",
       "past-negative": "ふるくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "ii",
@@ -1057,7 +1057,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "よかった",
       "past-negative": "よくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "warui",
@@ -1071,7 +1071,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "わるかった",
       "past-negative": "わるくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "oishii",
@@ -1084,7 +1084,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "おいしかった",
       "past-negative": "おいしくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "mazui",
@@ -1097,7 +1097,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "まずかった",
       "past-negative": "まずくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 99,
   },
   {
     id: "atsui",
@@ -1111,7 +1111,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あつかった",
       "past-negative": "あつくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "samui",
@@ -1125,7 +1125,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "さむかった",
       "past-negative": "さむくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 9,
   },
   {
     id: "tsumetai",
@@ -1139,7 +1139,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "つめたかった",
       "past-negative": "つめたくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 99,
   },
   {
     id: "atatakai",
@@ -1153,7 +1153,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あたたかかった",
       "past-negative": "あたたかくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 20,
   },
   {
     id: "nagai",
@@ -1167,7 +1167,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ながかった",
       "past-negative": "ながくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 27,
   },
   {
     id: "mijikai",
@@ -1181,7 +1181,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "みじかかった",
       "past-negative": "みじかくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 27,
   },
   {
     id: "omoshiroi",
@@ -1194,7 +1194,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "おもしろかった",
       "past-negative": "おもしろくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 12,
   },
   {
     id: "tsumaranai",
@@ -1207,7 +1207,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "つまらなかった",
       "past-negative": "つまらなくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "muzukashii",
@@ -1221,7 +1221,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "むずかしかった",
       "past-negative": "むずかしくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "yasashii",
@@ -1234,7 +1234,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "やさしかった",
       "past-negative": "やさしくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "hayai",
@@ -1247,7 +1247,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "はやかった",
       "past-negative": "はやくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 10,
   },
   {
     id: "osoi",
@@ -1261,7 +1261,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "おそかった",
       "past-negative": "おそくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 9,
   },
   {
     id: "chikai",
@@ -1275,7 +1275,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ちかかった",
       "past-negative": "ちかくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 13,
   },
   {
     id: "tooi",
@@ -1289,7 +1289,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "とおかった",
       "past-negative": "とおくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 20,
   },
   {
     id: "hiroi",
@@ -1303,7 +1303,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ひろかった",
       "past-negative": "ひろくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 9,
   },
   {
     id: "semai",
@@ -1317,7 +1317,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "せまかった",
       "past-negative": "せまくなかった",
     },
-    introducedAtModule: 8,
+    introducedAtModule: 27,
   },
 
   // ═══ M9 na-adjectives (15) ═════════════════════════════════════════
@@ -1333,7 +1333,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "きれいでした",
       "past-negative": "きれいじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 12,
   },
   {
     id: "shizuka",
@@ -1347,7 +1347,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "しずかでした",
       "past-negative": "しずかじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 12,
   },
   {
     id: "nigiyaka",
@@ -1360,7 +1360,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "にぎやかでした",
       "past-negative": "にぎやかじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 12,
   },
   {
     id: "yuumei",
@@ -1374,7 +1374,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ゆうめいでした",
       "past-negative": "ゆうめいじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 10,
   },
   {
     id: "suki",
@@ -1388,7 +1388,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "すきでした",
       "past-negative": "すきじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 13,
   },
   {
     id: "kirai",
@@ -1402,7 +1402,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "きらいでした",
       "past-negative": "きらいじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 10,
   },
   {
     id: "jouzu",
@@ -1416,7 +1416,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "じょうずでした",
       "past-negative": "じょうずじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 24,
   },
   {
     id: "heta",
@@ -1430,7 +1430,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "へたでした",
       "past-negative": "へたじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 24,
   },
   {
     id: "genki",
@@ -1457,7 +1457,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ひまでした",
       "past-negative": "ひまじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 12,
   },
   {
     id: "taihen",
@@ -1471,7 +1471,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "たいへんでした",
       "past-negative": "たいへんじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 20,
   },
   {
     id: "benri",
@@ -1485,7 +1485,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "べんりでした",
       "past-negative": "べんりじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 13,
   },
   {
     id: "fubeni",
@@ -1499,7 +1499,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ふべんでした",
       "past-negative": "ふべんじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 99,
   },
   {
     id: "daijoubu",
@@ -1527,7 +1527,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "かんたんでした",
       "past-negative": "かんたんじゃなかったです",
     },
-    introducedAtModule: 9,
+    introducedAtModule: 99,
   },
 ];
 
