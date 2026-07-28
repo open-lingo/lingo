@@ -201,6 +201,7 @@
   "grammarPoints": [
     {
       "id": "nai-form",
+      "variant": "ru",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -229,6 +230,7 @@
     },
     {
       "id": "nai-form",
+      "variant": "u",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -261,6 +263,7 @@
     },
     {
       "id": "nai-form",
+      "variant": "irregular",
       "conjugation": {
         "form": "nai",
         "classes": [
@@ -448,7 +451,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-form"
+          "grammarPointId": "nai-form",
+          "variant": "ru"
         },
         {
           "kind": "sentence",
@@ -580,7 +584,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-form"
+          "grammarPointId": "nai-form",
+          "variant": "u"
         },
         {
           "kind": "sentence",
@@ -662,7 +667,7 @@
             "nai-form",
             "wo-object"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -672,7 +677,7 @@
             "nai-form",
             "wa-topic"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -749,7 +754,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "nai-form"
+          "grammarPointId": "nai-form",
+          "variant": "irregular"
         },
         {
           "kind": "sentence",
@@ -2620,6 +2626,7 @@
     "くるま",
     "けいたい",
     "げんき",
+    "こ",
     "こえ",
     "これ",
     "ご",

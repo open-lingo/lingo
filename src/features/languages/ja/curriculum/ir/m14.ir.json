@@ -97,6 +97,7 @@
     },
     {
       "id": "te-iru",
+      "variant": "ongoing",
       "rule": "Hang いる on the て-form and you get ている: たべる → たべて → たべている. It does not mean \"present tense\"; it says you EXIST IN THE STATE that the action left you in. For an action still in motion that reads as ongoing — いま ごはんを たべている = I'm eating right now. For a verb that describes a CHANGE, it reads as the state after the change: しる is the moment you find out, so しっている is \"I know\". Only いる moves: the negative is ていない (まだ たべていない), and in fast speech people drop the い — たべてる — which you will hear everywhere even though we write the full form.",
       "examples": [
         {
@@ -133,6 +134,25 @@
         "classes": [
           "u"
         ]
+      }
+    },
+    {
+      "id": "te-iru",
+      "variant": "stative",
+      "rule": "Some verbs name a CHANGE rather than an activity, and for those ている is the state you are in once the change has happened — not an action in progress. しる is the moment you come to know something, so しっている means 'I know': you are in the knowing state. すむ is the moment you move in, so すんでいる means 'I live there'. Neither is 'I am knowing' or 'I am moving in', and English has no matching shape, so learn these two as vocabulary.",
+      "examples": [
+        {
+          "ja": "しっている。",
+          "en": "I know."
+        },
+        {
+          "ja": "にほんに すんでいる。",
+          "en": "I live in Japan."
+        }
+      ],
+      "antiPattern": {
+        "ja": "しっていない。",
+        "why": "'don't know' is not the negative of ている — it is しらない."
       }
     },
     {
@@ -640,7 +660,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-iru"
+          "grammarPointId": "te-iru",
+          "variant": "ongoing"
         },
         {
           "kind": "sentence",
@@ -831,7 +852,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-iru"
+          "grammarPointId": "te-iru",
+          "variant": "stative"
         },
         {
           "kind": "sentence",
@@ -3014,6 +3036,7 @@
     "かいたくなかった",
     "かいました",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -3059,6 +3082,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",
@@ -4461,6 +4485,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

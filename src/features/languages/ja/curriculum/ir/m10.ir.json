@@ -47,6 +47,7 @@
   "grammarPoints": [
     {
       "id": "yes-no-register",
+      "variant": "yes-no",
       "rule": "Japanese has three yeses and three noes, and they split by AUDIENCE. Casual: うん / ううん. Neutral-polite: ええ. Formal: はい / いいえ. うん and ううん are one sound apart — the difference is a rising ん versus a falling one, so listen for the shape, not the letters.",
       "examples": [
         {
@@ -63,6 +64,21 @@
         "en": "",
         "why": "うん to a teacher is too casual — はい or ええ"
       }
+    },
+    {
+      "id": "yes-no-register",
+      "variant": "correcting",
+      "rule": "ううん and いいえ are one word in two registers: they answer no to a question. ちがう is not a third register of no — it is a different move. It CORRECTS: someone has said something wrong and you are telling them so. ちがう、ミカの ほんだ = 'no, it's Mika's book'. Politely it is ちがいます. Decline with いいえ; correct with ちがう.",
+      "examples": [
+        {
+          "ja": "ううん、たべない。",
+          "en": "No, I won't eat."
+        },
+        {
+          "ja": "ちがう、ミカの ほんだ。",
+          "en": "No — it's Mika's book."
+        }
+      ]
     },
     {
       "id": "aizuchi",
@@ -184,6 +200,14 @@
       "derivedFrom": "しる"
     },
     {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
       "kana": "わかります",
       "romaji": "wakarimasu",
       "gloss": "understand (polite)",
@@ -232,7 +256,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "yes-no-register"
+          "grammarPointId": "yes-no-register",
+          "variant": "yes-no"
         },
         {
           "kind": "register",
@@ -386,7 +411,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "yes-no-register"
+          "grammarPointId": "yes-no-register",
+          "variant": "correcting"
         },
         {
           "kind": "listening-comp",
@@ -2011,6 +2037,7 @@
     "か",
     "かいしゃ",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -2046,6 +2073,7 @@
     "くん",
     "けいたい",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こない",
@@ -2457,6 +2485,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

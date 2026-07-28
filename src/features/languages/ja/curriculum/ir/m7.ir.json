@@ -34,6 +34,7 @@
   "grammarPoints": [
     {
       "id": "masu-present",
+      "variant": "the-stem",
       "rule": "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes.",
       "examples": [
         {
@@ -49,6 +50,25 @@
         "ja": "たべるます",
         "en": "",
         "why": "the る is dropped before ます — たべます, not たべるます"
+      }
+    },
+    {
+      "id": "masu-present",
+      "variant": "by-class",
+      "rule": "Finding the stem is the whole trick, and each class finds it differently. る-verbs drop る: みる → み + ます. う-verbs shift the last kana up to the い row: いく → いき + ます, かう → かい + ます, きく → きき + ます. する and くる obey neither rule — they are します and きます, and you learn that pair by heart. Every polite form in the language is built on this one move.",
+      "examples": [
+        {
+          "ja": "しゃしんを みます。",
+          "en": "I look at the photo. (polite)"
+        },
+        {
+          "ja": "ほんを かいます。",
+          "en": "I buy the book. (polite)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "しゃしんを みるます。",
+        "why": "る-verbs drop る before ます — みる→みます, never みるます."
       }
     },
     {
@@ -110,6 +130,7 @@
     },
     {
       "id": "register-audience",
+      "variant": "audience",
       "rule": "Japanese picks its form by WHO you're talking to, not by what you mean. Friends and family get plain (たべる). Teachers, strangers, and customers get polite (たべます). Same thought, two skins — you choose by audience, every sentence.",
       "examples": [
         {
@@ -121,6 +142,25 @@
           "en": "I'll eat. (to a teacher)"
         }
       ]
+    },
+    {
+      "id": "register-audience",
+      "variant": "name-suffix",
+      "rule": "A name carries register exactly the way a verb does. さん is the everyday default for anyone who is not family or a close friend — トムさん — and it never goes on your own name. ちゃん and くん are for people you are close to or senior to: ちゃん reads young or affectionate, くん leans male and is what a teacher calls a boy in class. さま is the formal one — envelopes, and shop staff talking to you. With a real friend you drop the suffix altogether.",
+      "examples": [
+        {
+          "ja": "トムさんは アメリカじんです。",
+          "en": "Tom is American. (polite)"
+        },
+        {
+          "ja": "ミカちゃんは がくせいです。",
+          "en": "Mika is a student. (affectionate)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "トムさんは わたしさんです。",
+        "why": "a suffix is something you give other people — never attach さん to your own name."
+      }
     }
   ],
   "newAtoms": [
@@ -245,6 +285,14 @@
       "derivedFrom": "くる"
     },
     {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
+    },
+    {
       "kana": "しません",
       "romaji": "shimasen",
       "gloss": "don't do, won't make (polite)",
@@ -356,7 +404,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "masu-present"
+          "grammarPointId": "masu-present",
+          "variant": "the-stem"
         },
         {
           "kind": "sentence",
@@ -510,7 +559,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "masu-present"
+          "grammarPointId": "masu-present",
+          "variant": "by-class"
         },
         {
           "kind": "sentence",
@@ -1231,7 +1281,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "register-audience"
+          "grammarPointId": "register-audience",
+          "variant": "audience"
         },
         {
           "kind": "sentence",
@@ -1685,7 +1736,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "register-audience"
+          "grammarPointId": "register-audience",
+          "variant": "name-suffix"
         },
         {
           "kind": "sentence",
@@ -2348,6 +2400,7 @@
     "くるま",
     "けいたい",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こない",

@@ -101,6 +101,7 @@ notes: |
 
 grammarPoints:
   - id: i-adj-present
+    variant: plain
     rule: "An い-adjective is ALREADY a sentence. たかい does not mean 'expensive', it means 'is-expensive' — ほんは たかい。 is complete and there is nothing to add. Put it straight in front of a noun and it needs no glue either: ちいさい ねこ. The one thing an い-adjective never takes is だ; だ finishes NOUNS."
     examples:
       - { ja: "ほんは たかい。", en: "The book is expensive." }
@@ -109,6 +110,13 @@ grammarPoints:
       - { ja: "ちいさい ねこ", en: "a small cat" }
       - { ja: "いい ひと", en: "a good person" }
     antiPattern: { ja: "ほんは たかいだ。", why: "たかい is already the whole predicate — an い-adjective never takes だ" }
+  - id: i-adj-present
+    variant: desu
+    rule: "です bolts politeness on top of a finished adjective and changes nothing else: たかい → たかいです. The adjective has already done the tense and the negation, so です has no work left — たかくない → たかくないです, たかかった → たかかったです. たかいでした does not exist. This is the one place です is not the copula: after a noun です IS the sentence; after an い-adjective it is a coat."
+    examples:
+      - { ja: "ほんは たかいです。", en: "The book is expensive. (polite)" }
+      - { ja: "ほんは たかくないです。", en: "The book isn't expensive. (polite)" }
+    antiPattern: { ja: "ほんは たかいでした。", why: "the adjective carries the tense — the past is たかかったです, never たかいでした." }
   - id: i-adj-negative
     rule: "To say an い-adjective is NOT true, drop the final い and add くない: たかい → たかくない. The adjective conjugates on its own, exactly like a verb, and still takes no だ. One rebel: いい has a different stem — よくない, never いくない."
     examples:
@@ -227,7 +235,7 @@ lessons:
     focus: "an い-adjective is a complete predicate — no だ — and attaches straight onto a noun"
     introduces: [おおきい, おいしい, あたらしい, ふるい, おもしろい, ちいさい, いい]
     beats:
-      - { kind: rule, grammarPointId: i-adj-present }
+      - { kind: rule, grammarPointId: i-adj-present, variant: plain }
       - { kind: sentence, ja: "やまは おおきい。", en: "Say to a friend: The mountain is big", exercises: [wa-topic, i-adj-present], mode: build }
       - { kind: sentence, ja: "ねこは ちいさい。", en: "Say to a friend: The cat is small", exercises: [wa-topic, i-adj-present], mode: build }
       - { kind: sentence, ja: "ごはんは おいしい。", en: "Say to a friend: The rice is delicious", exercises: [wa-topic, i-adj-present], mode: build }
@@ -441,7 +449,7 @@ lessons:
     focus: "politeness bolts on top of a finished adjective; たかいでした does not exist"
     introduces: []
     beats:
-      - { kind: rule, grammarPointId: i-adj-present }
+      - { kind: rule, grammarPointId: i-adj-present, variant: desu }
       - { kind: sentence, ja: "やまは たかいです。", en: "Say politely: The mountain is tall", exercises: [wa-topic, i-adj-present, desu-copula], mode: build }
       - { kind: sentence, ja: "ごはんは おいしいです。", en: "Say politely: The rice is delicious", exercises: [wa-topic, i-adj-present, desu-copula], mode: build }
       - { kind: sentence, ja: "いえは しずかです。", en: "Say politely: The house is quiet", exercises: [wa-topic, na-adj-present, desu-copula], mode: build }

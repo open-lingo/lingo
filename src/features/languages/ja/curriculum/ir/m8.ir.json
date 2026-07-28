@@ -40,25 +40,68 @@
   "grammarPoints": [
     {
       "id": "te-form",
-      "rule": "The て-form is the verb's CONNECTOR. る-verbs just swap る for て: たべる → たべて. う-verbs follow a sound-change table by their last kana: む/ぶ/ぬ → んで (のむ → のんで); う/つ/る → って (かう → かって); く → いて (きく → きいて); ぐ → いで. する → して, くる → きて. いく is the one rebel: いって, not いいて.",
+      "variant": "connector",
+      "rule": "The て-form is the shape everything else attaches to — requests now, whole chains of actions later. る-verbs make it by swapping る for て: たべる → たべて, みる → みて. On its own it is what you say to a friend: たべて = 'eat', 'go on, eat'.",
       "examples": [
         {
-          "ja": "たべて",
-          "en": "eat (て-form)"
+          "ja": "しゃしんを みて。",
+          "en": "Look at the photo."
         },
         {
-          "ja": "のんで",
-          "en": "drink (て-form)"
+          "ja": "たべて。",
+          "en": "Go on, eat."
         }
       ],
       "antiPattern": {
-        "ja": "のみて",
-        "en": "",
-        "why": "のむ is an う-verb ending in む — it becomes のんで, not のみて"
+        "ja": "しゃしんを みるて。",
+        "why": "る-verbs drop る before て — みる→みて, never みるて."
+      }
+    },
+    {
+      "id": "te-form",
+      "variant": "sound-change",
+      "rule": "う-verbs change their last kana before て, and which change depends on that kana: む・ぶ・ぬ → んで (のむ→のんで, あそぶ→あそんで); う・つ・る → って (かう→かって); く → いて (きく→きいて); ぐ → いで. Learn this table once and it pays twice — the past form た uses exactly the same rows.",
+      "examples": [
+        {
+          "ja": "みずを のんで。",
+          "en": "Drink the water."
+        },
+        {
+          "ja": "ほんを かって。",
+          "en": "Buy the book."
+        }
+      ],
+      "antiPattern": {
+        "ja": "みずを のみて。",
+        "why": "のむ ends in む, so it takes the んで row — のんで, never のみて."
+      }
+    },
+    {
+      "id": "te-form",
+      "variant": "rebels",
+      "rule": "Three verbs ignore the table. する → して and くる → きて are the two irregulars you already know as a pair. The third is いく: it ends in く, so the table promises いいて — but it is いって, borrowing the う・つ・る row. Memorise these three as a set.",
+      "examples": [
+        {
+          "ja": "いって。",
+          "en": "Go on, go."
+        },
+        {
+          "ja": "これを して。",
+          "en": "Do this one."
+        },
+        {
+          "ja": "きて。",
+          "en": "Come here."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いいて。",
+        "why": "いく looks like a く-verb but skips the く→いて row — its て-form is いって."
       }
     },
     {
       "id": "te-kudasai",
+      "variant": "polite",
       "rule": "て + ください = a polite request: 'please do X'. It is a fixed FORMULA — you attach ください to the て-form and nothing else changes. Drop ください and the bare て-form is the casual version friends use: みて = 'look', みてください = 'please look'.",
       "examples": [
         {
@@ -75,6 +118,21 @@
         "en": "",
         "why": "ください attaches to the て-form, not the dictionary form — たべてください"
       }
+    },
+    {
+      "id": "te-kudasai",
+      "variant": "casual",
+      "rule": "ください is the polite half, and it detaches. みてください → みて: same verb, same て-form, and the whole difference in politeness lives in whether ください is there. Bare て for friends and family; keep ください for teachers, shopkeepers and people you have just met.",
+      "examples": [
+        {
+          "ja": "みて。",
+          "en": "Look. (to a friend)"
+        },
+        {
+          "ja": "みてください。",
+          "en": "Please look. (polite)"
+        }
+      ]
     }
   ],
   "newAtoms": [
@@ -234,7 +292,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-form"
+          "grammarPointId": "te-form",
+          "variant": "connector"
         },
         {
           "kind": "sentence",
@@ -377,7 +436,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-form"
+          "grammarPointId": "te-form",
+          "variant": "sound-change"
         },
         {
           "kind": "sentence",
@@ -506,7 +566,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-form"
+          "grammarPointId": "te-form",
+          "variant": "rebels"
         },
         {
           "kind": "sentence",
@@ -799,7 +860,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-kudasai"
+          "grammarPointId": "te-kudasai",
+          "variant": "polite"
         },
         {
           "kind": "sentence",
@@ -1441,7 +1503,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "te-kudasai"
+          "grammarPointId": "te-kudasai",
+          "variant": "casual"
         },
         {
           "kind": "sentence",
@@ -2057,6 +2120,7 @@
     "か",
     "かいしゃ",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -2086,6 +2150,7 @@
     "くん",
     "けいたい",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こない",
@@ -2476,6 +2541,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

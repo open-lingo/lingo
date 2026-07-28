@@ -43,6 +43,7 @@
   "grammarPoints": [
     {
       "id": "numbers-1-10",
+      "variant": "one-to-five",
       "rule": "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things.",
       "examples": [
         {
@@ -56,6 +57,21 @@
         {
           "ja": "なな はち きゅう じゅう",
           "en": "seven, eight, nine, ten"
+        }
+      ]
+    },
+    {
+      "id": "numbers-1-10",
+      "variant": "six-to-ten",
+      "rule": "The rest of the line: ろく なな はち きゅう じゅう. Seven has a second reading しち, and you will hear it — but なな is what you say when counting things or reading a price, the same way you say よん and not し for four. じゅう is the hinge every larger number is built on, so it is worth over-learning now.",
+      "examples": [
+        {
+          "ja": "ろく、なな、はち。",
+          "en": "Six, seven, eight."
+        },
+        {
+          "ja": "きゅう、じゅう。",
+          "en": "Nine, ten."
         }
       ]
     },
@@ -263,7 +279,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "numbers-1-10"
+          "grammarPointId": "numbers-1-10",
+          "variant": "one-to-five"
         },
         {
           "kind": "sentence",
@@ -365,7 +382,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "numbers-1-10"
+          "grammarPointId": "numbers-1-10",
+          "variant": "six-to-ten"
         },
         {
           "kind": "sentence",
@@ -1952,6 +1970,7 @@
     "か",
     "かいしゃ",
     "かいます",
+    "かいません",
     "かう",
     "かお",
     "かぎ",
@@ -1984,6 +2003,7 @@
     "くん",
     "けいたい",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こない",
@@ -2382,6 +2402,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

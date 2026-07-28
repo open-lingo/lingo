@@ -111,6 +111,7 @@
     },
     {
       "id": "ta-form",
+      "variant": "table",
       "rule": "Plain past is た, and it runs on the SAME sound-change table you bought for て. Swap て for た and で for だ, and you are done. る-verbs: たべる → たべた. う-verbs: む/ぶ/ぬ → んだ (のむ → のんだ); う/つ/る → った (かう → かった); く → いた (きく → きいた); ぐ → いだ. する → した, くる → きた, and いく is the same rebel it was for て: いった.",
       "examples": [
         {
@@ -141,6 +142,25 @@
           "ru",
           "u"
         ]
+      }
+    },
+    {
+      "id": "ta-form",
+      "variant": "rebels",
+      "rule": "The same three verbs that broke the て table break this one, in the same way: する → した, くる → きた, and いく → いった, never いいた. That is the whole exception list — every other verb you know follows the rows. わかる is regular (わかった) but drill it here anyway; you will reach for it constantly.",
+      "examples": [
+        {
+          "ja": "いった。",
+          "en": "I went."
+        },
+        {
+          "ja": "きのう した。",
+          "en": "I did it yesterday."
+        }
+      ],
+      "antiPattern": {
+        "ja": "いいた。",
+        "why": "いく ends in く but skips the く→いた row — its past is いった."
       }
     },
     {
@@ -1083,7 +1103,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "ta-form"
+          "grammarPointId": "ta-form",
+          "variant": "table"
         },
         {
           "kind": "sentence",
@@ -1211,7 +1232,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "ta-form"
+          "grammarPointId": "ta-form",
+          "variant": "rebels"
         },
         {
           "kind": "sentence",
@@ -2393,6 +2415,7 @@
     "か",
     "かいしゃ",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -2429,6 +2452,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",
@@ -2449,6 +2473,7 @@
     "しません",
     "しゃしん",
     "しょくじ",
+    "しらない",
     "しります",
     "しりません",
     "しる",
@@ -2644,6 +2669,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -2982,6 +3015,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

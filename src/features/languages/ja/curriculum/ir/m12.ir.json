@@ -53,6 +53,7 @@
   "grammarPoints": [
     {
       "id": "i-adj-present",
+      "variant": "plain",
       "rule": "An い-adjective is ALREADY a sentence. たかい does not mean 'expensive', it means 'is-expensive' — ほんは たかい。 is complete and there is nothing to add. Put it straight in front of a noun and it needs no glue either: ちいさい ねこ. The one thing an い-adjective never takes is だ; だ finishes NOUNS.",
       "examples": [
         {
@@ -79,6 +80,25 @@
       "antiPattern": {
         "ja": "ほんは たかいだ。",
         "why": "たかい is already the whole predicate — an い-adjective never takes だ"
+      }
+    },
+    {
+      "id": "i-adj-present",
+      "variant": "desu",
+      "rule": "です bolts politeness on top of a finished adjective and changes nothing else: たかい → たかいです. The adjective has already done the tense and the negation, so です has no work left — たかくない → たかくないです, たかかった → たかかったです. たかいでした does not exist. This is the one place です is not the copula: after a noun です IS the sentence; after an い-adjective it is a coat.",
+      "examples": [
+        {
+          "ja": "ほんは たかいです。",
+          "en": "The book is expensive. (polite)"
+        },
+        {
+          "ja": "ほんは たかくないです。",
+          "en": "The book isn't expensive. (polite)"
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんは たかいでした。",
+        "why": "the adjective carries the tense — the past is たかかったです, never たかいでした."
       }
     },
     {
@@ -553,7 +573,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "i-adj-present"
+          "grammarPointId": "i-adj-present",
+          "variant": "plain"
         },
         {
           "kind": "sentence",
@@ -1951,7 +1972,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "i-adj-present"
+          "grammarPointId": "i-adj-present",
+          "variant": "desu"
         },
         {
           "kind": "sentence",
@@ -2612,6 +2634,7 @@
     "かいしゃ",
     "かいました",
     "かいます",
+    "かいません",
     "かいもの",
     "かう",
     "かお",
@@ -2653,6 +2676,7 @@
     "けいたい",
     "けっこう",
     "げんき",
+    "こ",
     "こえ",
     "ここ",
     "こちら",
@@ -2682,6 +2706,7 @@
     "しません",
     "しゃしん",
     "しょくじ",
+    "しらない",
     "しります",
     "しりません",
     "しる",
@@ -2895,6 +2920,14 @@
       "kana": "しりません",
       "romaji": "shirimasen",
       "gloss": "don't know (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しる"
+    },
+    {
+      "kana": "しらない",
+      "romaji": "shiranai",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3539,6 +3572,14 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる"
+    },
+    {
+      "kana": "かいません",
+      "romaji": "kaimasen",
+      "gloss": "don't buy (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう"
     },
     {
       "kana": "しません",

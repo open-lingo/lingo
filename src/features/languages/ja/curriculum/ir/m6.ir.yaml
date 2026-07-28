@@ -152,6 +152,7 @@ newAtoms:
 # ─────────────────────────────────────────────────────────────────────────
 grammarPoints:
   - id: nai-form
+    variant: ru
     conjugation: { form: nai, classes: [ru] }
     rule: "る-verb negative: drop る, add ない. たべる→たべない, みる→みない. A negative verb is still a whole sentence on its own — たべない = 'I won't eat' — and it never takes だ."
     examples:
@@ -161,6 +162,7 @@ grammarPoints:
     antiPattern: { ja: "ごはんを たべるない。", why: "る-verbs drop る before ない — たべる→たべない, never たべるない." }
 
   - id: nai-form
+    variant: u
     conjugation: { form: nai, classes: [u] }
     rule: "う-verb negative: change the final -u kana to its あ-row partner, then add ない. のむ→のまない (む→ま), いく→いかない (く→か), わかる→わからない (る→ら). Verbs ending in う add わ: かう→かわない (never かあない)."
     examples:
@@ -171,6 +173,7 @@ grammarPoints:
     antiPattern: { ja: "みずを のむない。", why: "う-verbs don't tack ない onto the dict form — the final kana shifts to the あ-row: のむ→のまない." }
 
   - id: nai-form
+    variant: irregular
     conjugation: { form: nai, classes: [irregular] }
     rule: "The two irregulars bend their stems: する→しない, くる→こない. There's no rule to derive these — learn the pair by heart, the way you met する and くる."
     examples:
@@ -249,7 +252,7 @@ lessons:
     focus: "plain negative for る-verbs: drop る + ない (たべる→たべない, みる→みない)"
     introduces: [たべない, みない]
     beats:
-      - { kind: rule, grammarPointId: nai-form }
+      - { kind: rule, grammarPointId: nai-form, variant: ru }
       - { kind: sentence, ja: "きゅうりを たべない。", en: "I won't eat the cucumber.", exercises: [nai-form], mode: build }
       - { kind: sentence, ja: "ごはんを たべない。", en: "I don't eat rice.", exercises: [nai-form, wo-object], mode: build }
       - { kind: sentence, ja: "それを みない。", en: "I don't look at that one.", exercises: [nai-form], mode: build }
@@ -274,7 +277,7 @@ lessons:
     focus: "plain negative for う-verbs: final -u → あ-row + ない (のむ→のまない, いく→いかない, かう→かわない, わかる→わからない)"
     introduces: [のまない, いかない, かわない, わからない]
     beats:
-      - { kind: rule, grammarPointId: nai-form }
+      - { kind: rule, grammarPointId: nai-form, variant: u }
       - { kind: sentence, ja: "わたしは のまない。", en: "I won't drink.", exercises: [nai-form, wa-topic], mode: build }
       - { kind: sentence, ja: "みずを のまない。", en: "I don't drink water.", exercises: [nai-form, wo-object], mode: listening }
       - { kind: sentence, ja: "ミカは いかない。", en: "Mika isn't going.", exercises: [nai-form, wa-topic], mode: build }
@@ -294,8 +297,8 @@ lessons:
           wrong: "それを わからない。"
           title: "わかる never takes を"
           why: "わかる isn't 'to get something' — it means 'to be clear (to me)'. The thing you understand is the subject, so it takes が (or は as the topic): それが/それは わからない, never それを."
-      - { kind: sentence, ja: "ぎゅうにゅうを のまない。", en: "I don't drink milk.", exercises: [nai-form, wo-object], mode: build }
-      - { kind: sentence, ja: "きょうは いかない。", en: "Today I'm not going.", exercises: [nai-form, wa-topic], mode: build }
+      - { kind: sentence, ja: "ぎゅうにゅうを のまない。", en: "I don't drink milk.", exercises: [nai-form, wo-object], mode: listening }
+      - { kind: sentence, ja: "きょうは いかない。", en: "Today I'm not going.", exercises: [nai-form, wa-topic], mode: listening }
       - kind: dialogue
         speakers-ok: true
         lines:
@@ -315,7 +318,7 @@ lessons:
     focus: "the two irregular negatives (する→しない, くる→こない) + mixing all three classes"
     introduces: [しない, こない]
     beats:
-      - { kind: rule, grammarPointId: nai-form }
+      - { kind: rule, grammarPointId: nai-form, variant: irregular }
       - { kind: sentence, ja: "きょう しない。", en: "Today I won't do it.", exercises: [nai-form], mode: build }
       - { kind: sentence, ja: "これを しない。", en: "I won't do this one.", exercises: [nai-form, wo-object, kore-sore-are-dore], mode: build }
       - { kind: sentence, ja: "ケンは こない。", en: "Ken isn't coming.", exercises: [nai-form, wa-topic], mode: build }

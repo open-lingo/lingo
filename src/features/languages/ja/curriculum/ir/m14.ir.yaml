@@ -182,6 +182,7 @@ grammarPoints:
       - { ja: "しゃしんを みせて ください。", en: "Please show me the photo." }
     antiPattern: { ja: "みずが ください。", why: "ください takes を — what you are asking for is the object of the request. が would make the water the one doing the asking." }
   - id: te-iru
+    variant: ongoing
     rule: "Hang いる on the て-form and you get ている: たべる → たべて → たべている. It does not mean \"present tense\"; it says you EXIST IN THE STATE that the action left you in. For an action still in motion that reads as ongoing — いま ごはんを たべている = I'm eating right now. For a verb that describes a CHANGE, it reads as the state after the change: しる is the moment you find out, so しっている is \"I know\". Only いる moves: the negative is ていない (まだ たべていない), and in fast speech people drop the い — たべてる — which you will hear everywhere even though we write the full form."
     examples:
       - { ja: "いま ごはんを たべている。", en: "I'm eating right now." }
@@ -196,6 +197,13 @@ grammarPoints:
     # はたらいている, すんでいる), and their bases しる/はたらく/すむ are
     # prior-neo words, so nothing debuts on a transform card.
     conjugation: { form: te, classes: [u] }
+  - id: te-iru
+    variant: stative
+    rule: "Some verbs name a CHANGE rather than an activity, and for those ている is the state you are in once the change has happened — not an action in progress. しる is the moment you come to know something, so しっている means 'I know': you are in the knowing state. すむ is the moment you move in, so すんでいる means 'I live there'. Neither is 'I am knowing' or 'I am moving in', and English has no matching shape, so learn these two as vocabulary."
+    examples:
+      - { ja: "しっている。", en: "I know." }
+      - { ja: "にほんに すんでいる。", en: "I live in Japan." }
+    antiPattern: { ja: "しっていない。", why: "'don't know' is not the negative of ている — it is しらない." }
   - id: mada-mou
     rule: "もう means \"already\" and points at something finished, so it takes the past: もう たべた = I already ate. まだ means \"not yet\", and its partner is the NEGATIVE ている: まだ たべていない = I haven't eaten yet. Hold that pairing — まだ〜ていない says the door is still open, and it is what Japanese uses where English says \"haven't … yet\". まだ on its own also means \"still\": ミカは まだ えきで まっている。"
     examples:
@@ -322,7 +330,7 @@ lessons:
     focus: "the て-form plus いる: you exist in the state the action left you in — for an action in motion, that is ongoing"
     introduces: [しって, はたらいて, のんで]
     beats:
-      - { kind: rule, grammarPointId: te-iru }
+      - { kind: rule, grammarPointId: te-iru, variant: ongoing }
       - { kind: sentence, ja: "いま ごはんを たべている。", en: "I'm eating right now", exercises: [te-iru, wo-object], mode: build }
       - { kind: sentence, ja: "ミカは いま ほんを みている。", en: "Mika is looking at a book right now", exercises: [te-iru, wa-topic], mode: build }
       - { kind: sentence, ja: "トムは えきで まっている。", en: "Tom is waiting at the station", exercises: [te-iru, de-action, wa-topic], mode: build }
@@ -350,7 +358,7 @@ lessons:
     focus: "for a verb that names a CHANGE, ている is the state after it: しっている 'know', すんでいる 'live'"
     introduces: [すんで, しらない]
     beats:
-      - { kind: rule, grammarPointId: te-iru }
+      - { kind: rule, grammarPointId: te-iru, variant: stative }
       - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "I live in Japan", exercises: [te-iru, ni-location, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカの なまえを しっている。", en: "I know Mika's name", exercises: [te-iru, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "トムは アメリカに すんでいる。", en: "Tom lives in America", exercises: [te-iru, ni-location, wa-topic], mode: build }

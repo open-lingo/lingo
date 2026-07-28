@@ -70,6 +70,7 @@ grammarPoints:
       - { ja: "くじに たべる。", en: "I eat at nine." }
     antiPattern: { ja: "さんじ いく。", en: "", why: "a clock time needs に — さんじに いく" }
   - id: ta-form
+    variant: table
     rule: "Plain past is た, and it runs on the SAME sound-change table you bought for て. Swap て for た and で for だ, and you are done. る-verbs: たべる → たべた. う-verbs: む/ぶ/ぬ → んだ (のむ → のんだ); う/つ/る → った (かう → かった); く → いた (きく → きいた); ぐ → いだ. する → した, くる → きた, and いく is the same rebel it was for て: いった."
     examples:
       - { ja: "みずを のんだ。", en: "I drank water." }
@@ -82,6 +83,13 @@ grammarPoints:
     # interleaved middle and a transform card is not intro-capable (inv 37).
     # する/くる stay in the prose and debut on L5's build beats instead.
     conjugation: { form: ta, classes: [ru, u] }
+  - id: ta-form
+    variant: rebels
+    rule: "The same three verbs that broke the て table break this one, in the same way: する → した, くる → きた, and いく → いった, never いいた. That is the whole exception list — every other verb you know follows the rows. わかる is regular (わかった) but drill it here anyway; you will reach for it constantly."
+    examples:
+      - { ja: "いった。", en: "I went." }
+      - { ja: "きのう した。", en: "I did it yesterday." }
+    antiPattern: { ja: "いいた。", why: "いく ends in く but skips the く→いた row — its past is いった." }
   - id: desu-past
     rule: "だ has a past cell too, and it is だった: ねこだ → ねこだった. Verbs take た, nouns take だった — the same split you already know from the present, where a verb stands alone and a noun needs だ. Its polite twin is でした, which arrives beside ました."
     examples:
@@ -258,7 +266,7 @@ lessons:
     focus: "plain past from the て table: る-verbs and the う-verb sound changes"
     introduces: [きのう, たべた, のんだ, きいた, みた, かった, あそんだ]
     beats:
-      - { kind: rule, grammarPointId: ta-form }
+      - { kind: rule, grammarPointId: ta-form, variant: table }
       - { kind: sentence, ja: "きのう ごはんを たべた。", en: "Say to a friend: I ate rice yesterday", exercises: [ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "きのう みずを のんだ。", en: "Say to a friend: I drank water yesterday", exercises: [ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "きのう ほんを みた。", en: "Say to a friend: I looked at a book yesterday", exercises: [ta-form, wo-object], mode: build }
@@ -277,7 +285,7 @@ lessons:
     focus: "する/くる and the one irregular う-verb, in the past this time"
     introduces: [した, きた, いった, わかった]
     beats:
-      - { kind: rule, grammarPointId: ta-form }
+      - { kind: rule, grammarPointId: ta-form, variant: rebels }
       - { kind: sentence, ja: "きのう さんぽを した。", en: "Say to a friend: I took a walk yesterday", exercises: [ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "きのう ミカが きた。", en: "Say to a friend: Mika came yesterday", exercises: [ta-form, ga-existence], mode: build }
       - { kind: sentence, ja: "きのう みせに いった。", en: "Say to a friend: I went to the shop yesterday", exercises: [ta-form, ni-location], mode: build }

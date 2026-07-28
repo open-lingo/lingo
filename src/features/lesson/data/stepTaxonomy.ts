@@ -80,7 +80,15 @@ export function jaSurfaces(step: { type?: string } & Record<string, unknown>): s
   const scrubbed: Record<string, unknown> = { ...step };
   scrubbed.acceptedAnswers = undefined;
   if (step.type === "grammar_rule") scrubbed.antiPattern = undefined;
-  if (step.type === "conjugation_transform") scrubbed.distractors = undefined;
+  if (step.type === "conjugation_transform") {
+    scrubbed.distractors = undefined;
+    // `formLabel` NAMES the paradigm cell being asked for (「ませんでした」) —
+    // it is a UI label, not a sentence the learner reads. Counting it as
+    // vocabulary made the tokenizer find 「せん」 (千, "thousand") inside the
+    // ending and report that m16's conjugation drill was where the course
+    // introduces the number 1000.
+    scrubbed.formLabel = undefined;
+  }
   if (step.type === "kanji_reading") scrubbed.options = undefined;
   return kanaSurfaces(scrubbed);
 }

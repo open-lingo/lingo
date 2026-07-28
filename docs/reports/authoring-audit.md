@@ -7,7 +7,7 @@ guide or the compiler, not the modules one at a time.**
 
 | module | steps | translate % | distinct types | findings | systemic |
 | --- | --- | --- | --- | --- | --- |
-| m6 | 234 | 10.8% | 11 | — | 1 |
+| m6 | 234 | 10.2% | 11 | — | 1 |
 | m7 | 234 | 13.4% | 11 | — | 1 |
 | m8 | 234 | 12.5% | 11 | — | 1 |
 | m9 | 234 | 13.6% | 11 | — | 1 |

@@ -36,11 +36,21 @@ notes: |
 
 grammarPoints:
   - id: numbers-1-10
+    variant: one-to-five
     rule: "いち に さん よん ご ろく なな はち きゅう じゅう. Four and seven have two readings each — よん/し and なな/しち. Use よん and なな: they are the ones that never collide with anything, and native speakers reach for them first when counting things."
     examples:
       - { ja: "いち に さん", en: "one, two, three" }
       - { ja: "よん ご ろく", en: "four, five, six" }
       - { ja: "なな はち きゅう じゅう", en: "seven, eight, nine, ten" }
+  - id: numbers-1-10
+    variant: six-to-ten
+    rule: "The rest of the line: ろく なな はち きゅう じゅう. Seven has a second reading しち, and you will hear it — but なな is what you say when counting things or reading a price, the same way you say よん and not し for four. じゅう is the hinge every larger number is built on, so it is worth over-learning now."
+    examples:
+      - { ja: "ろく、なな、はち。", en: "Six, seven, eight." }
+      - { ja: "きゅう、じゅう。", en: "Nine, ten." }
+    # antiPattern omitted (invariant 12): しち and し are real readings, not
+    # errors — the guidance is which one to REACH FOR, so there is no
+    # incorrect sentence to contrast.
   - id: counter-tsu
     rule: "〜つ is the ALL-PURPOSE counter for things: ひとつ ふたつ みっつ よっつ いつつ. It works for objects when you don't know the specific counter, which as a beginner is most of the time. It stops at とお (10) — past that you use the plain numbers."
     examples:
@@ -94,7 +104,7 @@ lessons:
       # are `imageable: false` because their only emoji are the numeral
       # glyphs (1️⃣ serves BOTH いち and ひとつ — an image MCQ literally
       # cannot discriminate them).
-      - { kind: rule, grammarPointId: numbers-1-10 }
+      - { kind: rule, grammarPointId: numbers-1-10, variant: one-to-five }
       - { kind: sentence, ja: "いち さん よん ご", en: "one, three, four, five", exercises: [numbers-1-10], mode: build }
       - { kind: sentence, ja: "さん よん ご", en: "three, four, five", exercises: [numbers-1-10], mode: listening }
       - { kind: sentence, ja: "これは ごえんだ。", en: "This is five yen", exercises: [kore-sore-are-dore, desu-copula, numbers-1-10], mode: build }
@@ -110,7 +120,7 @@ lessons:
     focus: "the rest of the line; なな and よん over しち and し"
     introduces: [ろく, なな, はち, きゅう, じゅう]
     beats:
-      - { kind: rule, grammarPointId: numbers-1-10 }
+      - { kind: rule, grammarPointId: numbers-1-10, variant: six-to-ten }
       - { kind: sentence, ja: "ろく なな はち", en: "six, seven, eight", exercises: [numbers-1-10], mode: build }
       - { kind: sentence, ja: "はち きゅう じゅう", en: "eight, nine, ten", exercises: [numbers-1-10], mode: build }
       - { kind: sentence, ja: "これは じゅうえんだ。", en: "This is ten yen", exercises: [kore-sore-are-dore, desu-copula, numbers-1-10], mode: build }

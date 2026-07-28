@@ -58,6 +58,13 @@ export type IRAtom = {
 };
 export type IRGrammarPoint = {
   id: string;
+  /**
+   * Names this card when a module writes several under one `id` — the lesson's
+   * rule beat selects it by the same string. One point taught across three
+   * lessons keeps one id (and so one SRS history) while each lesson states its
+   * own rule. Omit it when the id has a single card.
+   */
+  variant?: string;
   rule: string;
   examples: { ja: string; en: string }[];
   antiPattern?: { ja: string; why: string };
@@ -71,7 +78,21 @@ export type IRGrammarPoint = {
   conjugation?: { form: string; classes: string[] };
 };
 export type IRBeat =
-  | { kind: "rule"; grammarPointId: string }
+  /**
+   * `variant` disambiguates when a module writes SEVERAL cards under one
+   * grammarPointId — m6 authors three `nai-form` cards, one each for る-verbs,
+   * う-verbs and the irregulars. They used to be resolved through a
+   * `Map(id -> point)`, so the last one silently won and lessons 1 and 2 both
+   * rendered the する/くる card: the る-verb and う-verb rules were written,
+   * compiled, and unreachable (found by Spencer's learner walk, 2026-07-27 —
+   * the learner could not derive みない from みる because no card said how).
+   * An ambiguous reference is now a compile diagnostic, not a coin flip.
+   *
+   * The id stays SHARED on purpose: one grammar point taught across three
+   * lessons is still one thing to the SRS, and re-keying it would fragment
+   * every learner's review history for that point.
+   */
+  | { kind: "rule"; grammarPointId: string; variant?: string; reteach?: boolean }
   | {
       /** `challenge` is the current name for the per-lesson integration
        *  beat (inv 26); `capstone` is the legacy alias still used by m6's
@@ -337,6 +358,30 @@ const PARTICLES = ["は", "が", "を", "に", "で", "と", "の", "も", "へ"
 const NAMES = ["トム", "ミカ", "ケン", "たなか", "タナカ"];
 const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"];
 /**
+ * Single-character GRAMMATICAL tokens that belong to no lexicon here: the
+ * plain copula 「だ」 and the な-adjective's attributive 「な」. Both tile
+ * correctly already — they are here so the buildability gate can tell them
+ * apart from debris.
+ *
+ * They are the reason that gate used to carry a `t.length > 1` escape, and
+ * that escape is why nine shattered build steps shipped (Spencer's learner
+ * walk, 2026-07-27): 「かいません」 tokenized to かい + ま + せん — "shell",
+ * a stray ま, and せん "thousand" — and every fragment either was a real atom
+ * or was one character long, so the gate saw nothing. Naming the two real
+ * single-char tokens costs one line and lets the gate reject the rest.
+ */
+const COPULA = ["だ", "な"];
+/**
+ * Polite ENDINGS, as bound morphemes. 「ません」 is one ending, but with only
+ * 「せん」 in the lexicon (千, "thousand") the tokenizer read every polite
+ * negative as ま + せん and happily reported that the learner had been
+ * introduced to the word "thousand" — m16's conjugation drill was the debut
+ * of 千 for the whole course. Endings are longest-match-first like everything
+ * else, so a fully registered form (かいません) still wins as a single tile;
+ * this only governs what happens to the tail nobody registered.
+ */
+const POLITE_ENDINGS = ["ます", "ません"];
+/**
  * BOUND ENDERS — real atoms that cannot stand alone as an utterance. They
  * attach to a preceding predicate, so a filler slot that asks the learner to
  * "Say: intend to" and expects 「つもり」 is asking for something no one says.
@@ -507,9 +552,28 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
   return m;
 }
 
+/**
+ * Pick the card a rule beat means.
+ *
+ * Most ids name exactly one card and this is a lookup. Where a module writes
+ * several cards under one id — m6's three `nai-form` cards, one per verb class
+ * — the beat says which with `classes`, matched against the card's own
+ * `conjugation.classes`. Returns undefined when the reference is ambiguous
+ * rather than guessing; `diagnoseModule` turns that into a build failure.
+ */
+function resolveGrammarPoint(
+  ir: ModuleIR,
+  beat: { grammarPointId: string; variant?: string },
+): ModuleIR["grammarPoints"][number] | undefined {
+  const candidates = (ir.grammarPoints ?? []).filter((g) => g.id === beat.grammarPointId);
+  if (candidates.length <= 1) return candidates[0];
+  if (!beat.variant) return undefined;
+  return candidates.find((c) => c.variant === beat.variant);
+}
+
 function makeTokenizer(atoms: Map<string, Atom>) {
   const vocab = [
-    ...new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ, ...STEMS]),
+    ...new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ, ...STEMS, ...COPULA, ...POLITE_ENDINGS]),
   ].sort(
     (a, b) => b.length - a.length,
   );
@@ -726,7 +790,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           // grammar_rule: examples render as kana-only lines the provenance
           // guard reads. The `rule:` prose is mixed-script and invisible to
           // it, so it does NOT count as an intro.
-          for (const e of gpById.get(b.grammarPointId)?.examples ?? [])
+          for (const e of resolveGrammarPoint(ir, b)?.examples ?? [])
             for (const t of tokenize(e.ja)) note(t, li);
         } else if (b.kind === "particle-cloze") {
           for (const t of tokenize(`${b.stem}${b.answer}${b.tail}`)) note(t, li);
@@ -832,7 +896,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
 
     for (const beat of lesson.beats) {
       if (beat.kind === "rule") {
-        const gp = gpById.get(beat.grammarPointId);
+        const gp = resolveGrammarPoint(ir, beat);
         if (!gp) continue;
         ruleSteps.push(
           grammarRule({
@@ -1610,7 +1674,15 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   // an unknown fragment means the tile bank cannot spell the sentence.
   const atoms = atomIndex(ir);
   const tokenize = makeTokenizer(atoms);
-  const KNOWN = new Set([...atoms.keys(), ...PARTICLES, ...NAMES, ...INTERJ, ...STEMS]);
+  const KNOWN = new Set([
+    ...atoms.keys(),
+    ...PARTICLES,
+    ...NAMES,
+    ...INTERJ,
+    ...STEMS,
+    ...COPULA,
+    ...POLITE_ENDINGS,
+  ]);
   for (const lesson of ir.lessons) {
     for (const b of lesson.beats) {
       if (b.kind !== "sentence" && b.kind !== "capstone" && b.kind !== "challenge")
@@ -1619,13 +1691,47 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
       // punctuation, not part of the word being checked for buildability.
       const alien = tokenize(b.ja)
         .map((t) => t.replace(/[。？！]$/, ""))
-        .filter((t) => !KNOWN.has(t) && t.length > 1);
+        .filter((t) => !KNOWN.has(t));
       if (alien.length > 0)
         out.push({
           lesson: lesson.id,
           kind: "unbuildable",
           detail: `"${b.ja}" tokenizes to unknown fragment(s) ${alien.join("・")} — the tile bank cannot spell this sentence; fix the surface or teach the missing atom`,
         });
+    }
+  }
+  // TWO LESSONS MAY NOT OPEN WITH THE SAME CARD.
+  //
+  // A lesson's rule card IS its teaching. When a second lesson points at a
+  // card written for the first, that lesson's own rule is never stated
+  // anywhere in the course — and it looks fine from every angle except a
+  // learner's: the module compiles, the lesson has a card, the card is about
+  // roughly the right topic. Spencer's learner walk (2026-07-27) found ten
+  // of these across m7–m14, each lesson titled after the exact thing its
+  // card fails to explain ("Names carry register too — さん, さま, くん, ちゃん"
+  // opening with the audience card, which never mentions an honorific).
+  //
+  // `reteach: true` is the honest opt-out for a lesson that deliberately
+  // re-shows a card as review.
+  {
+    const cardOwner = new Map<string, string>();
+    for (const lesson of ir.lessons) {
+      for (const b of lesson.beats) {
+        if (b.kind !== "rule" || b.reteach) continue;
+        const gp = resolveGrammarPoint(ir, b);
+        if (!gp) continue;
+        const key = `${gp.id}${gp.variant ? `/${gp.variant}` : ""}`;
+        const first = cardOwner.get(key);
+        if (first === undefined) cardOwner.set(key, lesson.id);
+        else
+          out.push({
+            lesson: lesson.id,
+            kind: "provenance",
+            detail:
+              `opens with the card "${key}" already used by ${first} — "${lesson.title ?? lesson.id}" ` +
+              `never states its own rule. Write a card for it (same id, new \`variant\`), or mark the beat \`reteach: true\` if it really is review`,
+          });
+      }
     }
   }
   // Image-debut invariant (Spencer 2026-07-23): the word_image_mcq is a
@@ -1820,6 +1926,16 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
             });
       if (b.kind === "rule" && !gpById.has(b.grammarPointId))
         out.push({ lesson: lesson.id, kind: "provenance", detail: `unknown grammarPointId ${b.grammarPointId}` });
+      // An id that names several cards must say WHICH. Silently taking one of
+      // them is how m6 shipped two lessons showing the wrong rule.
+      else if (b.kind === "rule" && !resolveGrammarPoint(ir, b) && !b.reteach)
+        out.push({
+          lesson: lesson.id,
+          kind: "provenance",
+          detail:
+            `grammarPointId ${b.grammarPointId} names ${(ir.grammarPoints ?? []).filter((g) => g.id === b.grammarPointId).length} cards — ` +
+            `the beat must pick one with \`classes\`, or the lesson renders whichever the module happened to list last`,
+        });
     }
   }
   return out;

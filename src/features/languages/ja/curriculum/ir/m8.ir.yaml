@@ -35,18 +35,47 @@ notes: |
   one fact that pays twice.
 
 grammarPoints:
+  # Three lessons teach this point and each states its own rule. They shared
+  # one card until 2026-07-27, so lessons 2 and 3 opened with a card about
+  # lesson 1's material and the learner met the sound-change table only as a
+  # clause inside it. The id stays shared: it is one grammar point to the SRS.
   - id: te-form
-    rule: "The て-form is the verb's CONNECTOR. る-verbs just swap る for て: たべる → たべて. う-verbs follow a sound-change table by their last kana: む/ぶ/ぬ → んで (のむ → のんで); う/つ/る → って (かう → かって); く → いて (きく → きいて); ぐ → いで. する → して, くる → きて. いく is the one rebel: いって, not いいて."
+    variant: connector
+    rule: "The て-form is the shape everything else attaches to — requests now, whole chains of actions later. る-verbs make it by swapping る for て: たべる → たべて, みる → みて. On its own it is what you say to a friend: たべて = 'eat', 'go on, eat'."
     examples:
-      - { ja: "たべて", en: "eat (て-form)" }
-      - { ja: "のんで", en: "drink (て-form)" }
-    antiPattern: { ja: "のみて", en: "", why: "のむ is an う-verb ending in む — it becomes のんで, not のみて" }
+      - { ja: "しゃしんを みて。", en: "Look at the photo." }
+      - { ja: "たべて。", en: "Go on, eat." }
+    antiPattern: { ja: "しゃしんを みるて。", why: "る-verbs drop る before て — みる→みて, never みるて." }
+  - id: te-form
+    variant: sound-change
+    rule: "う-verbs change their last kana before て, and which change depends on that kana: む・ぶ・ぬ → んで (のむ→のんで, あそぶ→あそんで); う・つ・る → って (かう→かって); く → いて (きく→きいて); ぐ → いで. Learn this table once and it pays twice — the past form た uses exactly the same rows."
+    examples:
+      - { ja: "みずを のんで。", en: "Drink the water." }
+      - { ja: "ほんを かって。", en: "Buy the book." }
+    antiPattern: { ja: "みずを のみて。", why: "のむ ends in む, so it takes the んで row — のんで, never のみて." }
+  - id: te-form
+    variant: rebels
+    rule: "Three verbs ignore the table. する → して and くる → きて are the two irregulars you already know as a pair. The third is いく: it ends in く, so the table promises いいて — but it is いって, borrowing the う・つ・る row. Memorise these three as a set."
+    examples:
+      - { ja: "いって。", en: "Go on, go." }
+      - { ja: "これを して。", en: "Do this one." }
+      - { ja: "きて。", en: "Come here." }
+    antiPattern: { ja: "いいて。", why: "いく looks like a く-verb but skips the く→いて row — its て-form is いって." }
   - id: te-kudasai
+    variant: polite
     rule: "て + ください = a polite request: 'please do X'. It is a fixed FORMULA — you attach ください to the て-form and nothing else changes. Drop ください and the bare て-form is the casual version friends use: みて = 'look', みてください = 'please look'."
     examples:
       - { ja: "みてください", en: "Please look." }
       - { ja: "たべてください", en: "Please eat." }
     antiPattern: { ja: "たべるください", en: "", why: "ください attaches to the て-form, not the dictionary form — たべてください" }
+  - id: te-kudasai
+    variant: casual
+    rule: "ください is the polite half, and it detaches. みてください → みて: same verb, same て-form, and the whole difference in politeness lives in whether ください is there. Bare て for friends and family; keep ください for teachers, shopkeepers and people you have just met."
+    examples:
+      - { ja: "みて。", en: "Look. (to a friend)" }
+      - { ja: "みてください。", en: "Please look. (polite)" }
+    # antiPattern omitted (invariant 12): both forms are correct Japanese —
+    # the contrast is audience, not grammar, so there is no wrong sentence to show.
 
 newAtoms:
   - { kana: たべて, romaji: tabete, gloss: "eat (te-form)", imageable: false, kind: verb-form, derivedFrom: たべる }
@@ -75,7 +104,7 @@ lessons:
     focus: "る-verbs swap る for て; the form that other things attach to"
     introduces: [たべて, みて]
     beats:
-      - { kind: rule, grammarPointId: te-form }
+      - { kind: rule, grammarPointId: te-form, variant: connector }
       - { kind: sentence, ja: "いえで たべて。", en: "Eat at home", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "ねこを みて。", en: "Look at the cat", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the food", exercises: [te-form, wo-object], mode: build }
@@ -99,7 +128,7 @@ lessons:
     focus: "む/ぶ → んで, う/つ/る → って, く → いて; the table that pays twice"
     introduces: [のんで, かって, きいて, あそんで]
     beats:
-      - { kind: rule, grammarPointId: te-form }
+      - { kind: rule, grammarPointId: te-form, variant: sound-change }
       - { kind: sentence, ja: "いえで のんで。", en: "Drink at home", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "えんぴつを かって。", en: "Buy a pencil", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "ともだちに きいて。", en: "Ask your friend", exercises: [te-form], mode: build }
@@ -118,7 +147,7 @@ lessons:
     focus: "する/くる and the one irregular う-verb; the table's exceptions in one place"
     introduces: [いって, して, きて]
     beats:
-      - { kind: rule, grammarPointId: te-form }
+      - { kind: rule, grammarPointId: te-form, variant: rebels }
       - { kind: sentence, ja: "きょう して。", en: "Do it today", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "きょう きて。", en: "Come today", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "かわに いって。", en: "Go to the river", exercises: [te-form], mode: build }
@@ -166,7 +195,7 @@ lessons:
     focus: "ください as a fixed formula bolted onto て"
     introduces: [ください]
     beats:
-      - { kind: rule, grammarPointId: te-kudasai }
+      - { kind: rule, grammarPointId: te-kudasai, variant: polite }
       - { kind: sentence, ja: "みてください。", en: "Say politely: Please look", exercises: [te-kudasai], mode: build }
       - { kind: sentence, ja: "たべてください。", en: "Say politely: Please eat", exercises: [te-kudasai], mode: build }
       - { kind: sentence, ja: "きいてください。", en: "Say politely: Please listen", exercises: [te-kudasai], mode: build }
@@ -272,7 +301,7 @@ lessons:
     focus: "bare て is the casual request; ください makes it polite"
     introduces: []
     beats:
-      - { kind: rule, grammarPointId: te-kudasai }
+      - { kind: rule, grammarPointId: te-kudasai, variant: casual }
       - { kind: sentence, ja: "これを みて。", en: "Say to a friend: Look at this", exercises: [wo-object, te-form, register-audience], mode: build }
       - { kind: sentence, ja: "これを みて ください。", en: "Say to a teacher: Please look at this", exercises: [wo-object, te-kudasai, register-audience], mode: build }
       - { kind: sentence, ja: "うたを きいて。", en: "Say to a friend: Listen to the song", exercises: [wo-object, te-form, register-audience], mode: translate }

@@ -35,11 +35,20 @@ notes: |
 
 grammarPoints:
   - id: yes-no-register
+    variant: yes-no
     rule: "Japanese has three yeses and three noes, and they split by AUDIENCE. Casual: うん / ううん. Neutral-polite: ええ. Formal: はい / いいえ. うん and ううん are one sound apart — the difference is a rising ん versus a falling one, so listen for the shape, not the letters."
     examples:
       - { ja: "うん", en: "Yeah. (to a friend)" }
       - { ja: "はい", en: "Yes. (to a teacher)" }
     antiPattern: { ja: "せんせい、うん。", en: "", why: "うん to a teacher is too casual — はい or ええ" }
+  - id: yes-no-register
+    variant: correcting
+    rule: "ううん and いいえ are one word in two registers: they answer no to a question. ちがう is not a third register of no — it is a different move. It CORRECTS: someone has said something wrong and you are telling them so. ちがう、ミカの ほんだ = 'no, it's Mika's book'. Politely it is ちがいます. Decline with いいえ; correct with ちがう."
+    examples:
+      - { ja: "ううん、たべない。", en: "No, I won't eat." }
+      - { ja: "ちがう、ミカの ほんだ。", en: "No — it's Mika's book." }
+    # antiPattern omitted (invariant 12): swapping いいえ for ちがう produces
+    # grammatical Japanese that lands wrong socially, not a broken sentence.
   - id: aizuchi
     rule: "はい does not always mean 'yes'. In conversation it is also AIZUCHI — the noise a listener makes to show they're still with you, like English 'mm-hm'. So はい can mean 'I'm listening', not 'I agree'. Watch what follows it: agreement continues the thought, aizuchi just keeps the speaker going."
     examples:
@@ -63,6 +72,11 @@ newAtoms:
   - { kana: しる, romaji: shiru, gloss: "to know", imageable: false, kind: verb, verbClass: u }
   - { kana: しります, romaji: shirimasu, gloss: "know (polite)", imageable: false, kind: verb-form, derivedFrom: しる }
   - { kana: しりません, romaji: shirimasen, gloss: "don't know (polite)", imageable: false, kind: verb-form, derivedFrom: しる }
+  # Four beats build 「しらない」 and it was never registered, so the tokenizer
+  # shattered it into し・ら・ない and the tile bank asked the learner to
+  # assemble a verb out of loose syllables. Registering the form is the fix;
+  # the buildability gate now rejects single-character debris.
+  - { kana: しらない, romaji: shiranai, gloss: "don't know", imageable: false, kind: verb-form, derivedFrom: しる }
   - { kana: わかります, romaji: wakarimasu, gloss: "understand (polite)", imageable: false, kind: verb-form, derivedFrom: わかる }
   - { kana: ちがいます, romaji: chigaimasu, gloss: "that's not right (polite)", imageable: false, kind: verb-form, derivedFrom: ちがう }
   - { kana: いま, romaji: ima, gloss: "now", imageable: true, kind: vocab }
@@ -88,7 +102,7 @@ lessons:
       # met. The 4th option is always the opposite POLARITY, never a 4th
       # register — a wrong-register pick and a wrong-meaning pick are
       # different errors and shouldn't be blended.
-      - { kind: rule, grammarPointId: yes-no-register }
+      - { kind: rule, grammarPointId: yes-no-register, variant: yes-no }
       - { kind: register, stage: 1, audience: grandmother, answer: "ええ", options: ["うん", "はい", "ええ", "ううん"], en: "Say yes.", cheatSheet: { 1: "うん", 2: "はい", 3: "ええ" }, exercises: [yes-no-register, register-audience] }
       - { kind: register, stage: 2, audience: friend, answer: "うん", options: ["うん", "はい", "ええ", "ううん"], en: "Say yes.", exercises: [yes-no-register, register-audience] }
       - { kind: sentence, ja: "うん、いく。", en: "Say to a friend: Yeah, I'll go", exercises: [yes-no-register, register-audience], mode: translate }
@@ -115,7 +129,7 @@ lessons:
     focus: "ううん↔いいえ as register twins; ちがう as a CORRECTION, not a third no"
     introduces: [ううん, ちがう]
     beats:
-      - { kind: rule, grammarPointId: yes-no-register }
+      - { kind: rule, grammarPointId: yes-no-register, variant: correcting }
       # Recognition direction (the module was 100% production). The stimulus
       # is register-neutral on purpose: if the audio carried ます the answer
       # would be derivable from ます alone and the yes-word would be decoration.
