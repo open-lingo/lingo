@@ -151,3 +151,57 @@ paradigm — る→られる, う→える, する→できる, くる→こら�
 entire subject of its module, so it has the same shape as the three gaps
 just closed. The others are auxiliaries and chains, where a transform card
 would be the wrong instrument.
+
+---
+
+## Trainer nodes on the learn path (2026-07-28)
+
+Spencer: たい and the stacked ("double") conjugations don't need an in-lesson
+example card — send the learner to the trainer instead, and make it required.
+
+**Five nodes, each after the review lesson that closes its paradigm** — the
+module-review slot is where a whole-table drill belongs:
+
+| module | node | tiles | drills |
+| --- | --- | --- | --- |
+| m8 | `ja-m8-neo-trainer-te` | `te-form` | て across all three classes |
+| m11 | `ja-m11-neo-trainer-ta` | `ta-form` | た |
+| m12 | `ja-m12-neo-trainer-iadj` | `i-adj-forms`+`nai-form`+`ta-form` | くない / かった / くなかった |
+| m13 | `ja-m13-neo-trainer-tai` | `v-tai`+`nai-form`+`ta-form` | たい / たくない / たかった / たくなかった |
+| m16 | `ja-m16-neo-trainer-masu` | `masu`+`nai-form`+`ta-form` | ます / ません / ました / ませんでした / なかった |
+
+**How it works.** `Lesson.kind: "trainer"` + `trainerTypeIds`, mirroring the
+existing `alphabet` kind. `lessonRoutePath()` (new) is now the SINGLE place
+that decides where a path node goes — the rule used to be duplicated inline in
+LearnPage, ResumeFab and DistrictView, which is why `alphabet` was the only
+kind that ever got one. One tile → the per-type session; two or more → the
+combined session, the only surface that drills stacked forms.
+
+**The node id rides along as `?node=`** and the session marks THAT complete on
+finish (`completeTrainerNode`). This is load-bearing, not bookkeeping:
+`getModuleStatus` gates the next module on every non-review row being
+completed, so without the write the node would wall the learner in forever.
+The trainer is otherwise a standalone practice surface that knows nothing
+about lessons.
+
+**What had to be fixed first.** `n5-grammar-points.json` carried pre-rewrite
+module numbers, and `unlockModuleForType` reads them: v-tai said m15 (taught
+m13), ta-form m14 (m11), i-adj-past / i-adj-past-negative m10 (m12). With
+those, `isSelectionAhead` was TRUE for a たい drill at m13, so the session ran
+"practice-only" and wrote nothing to Track B — a required node that silently
+graded nothing. Corrected to the shipped modules. The json has other stale
+numbers (masu-past, deshou, tari-tari-suru, …); they were left alone because
+widening the edit widens the Track B blast radius for no gain here.
+
+`masu-past-negative` is knowingly LEFT at m11 though it is taught in m16:
+`unlockModuleForType` takes the MAX over a tile's points, so correcting it
+would push the whole `masu` tile's unlock to m16 and lock ます practice out of
+the hub for nine modules. The aggregator is the real bug; this is a note, not
+a fix.
+
+**Guard.** The per-module pathway lint no longer asks "does this row have
+lesson content" — it asks each row the question its own kind answers. A lesson
+needs steps; a routed node needs a destination that exists; a trainer node
+additionally must not be `isSelectionAhead` at its own module, which is what
+would make a required drill ungradeable. Exempting routed nodes instead would
+have left a dead node undetectable.

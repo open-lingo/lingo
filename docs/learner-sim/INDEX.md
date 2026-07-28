@@ -6,21 +6,21 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | # | module | title | lessons | steps |
 | --- | --- | --- | --- | --- |
 | 1 | [m1](m1.md) | The first 46 sounds | 31 | 434 |
-| 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 440 |
-| 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 7 | 155 |
+| 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 441 |
+| 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 7 | 156 |
 | 4 | [m4](m4.md) | 👉 Possession & pointing: の + これ/それ/あれ | 12 | 245 |
 | 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 12 | 242 |
 | 6 | [m6](m6.md) | 🚫 Negatives & Existence | 13 | 234 |
 | 7 | [m7](m7.md) | Politeness as a layer | 15 | 272 |
-| 8 | [m8](m8.md) | Asking for things | 15 | 272 |
+| 8 | [m8](m8.md) | Asking for things | 16 | 272 |
 | 9 | [m9](m9.md) | Numbers and purchases | 15 | 272 |
 | 10 | [m10](m10.md) | Register in the wild | 15 | 266 |
-| 11 | [m11](m11.md) | Time I and the plain past | 15 | 266 |
-| 12 | [m12](m12.md) | Adjectives as mini-predicates | 13 | 235 |
-| 13 | [m13](m13.md) | Wanting: たい and ほしい | 13 | 234 |
+| 11 | [m11](m11.md) | Time I and the plain past | 16 | 266 |
+| 12 | [m12](m12.md) | Adjectives as mini-predicates | 14 | 235 |
+| 13 | [m13](m13.md) | Wanting: たい and ほしい | 14 | 235 |
 | 14 | [m14](m14.md) | て-form II: ている and permission | 13 | 234 |
 | 15 | [m15](m15.md) | Relative clauses + こと / とき | 13 | 234 |
-| 16 | [m16](m16.md) | Connecting: から / ので / けど | 13 | 235 |
+| 16 | [m16](m16.md) | Connecting: から / ので / けど | 14 | 235 |
 | 17 | [m17](m17.md) | Family I: your side (うち) | 13 | 234 |
 | 18 | [m18](m18.md) | Saying & thinking: とおもう + という | 13 | 234 |
 | 19 | [m19](m19.md) | Getting around: motion particles | 13 | 234 |

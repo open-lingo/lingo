@@ -3,6 +3,11 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import {
+  buildTrainerSession,
+  buildCombinedSession,
+} from "@/features/languages/ja/conjugation/trainerSession";
+import { getTrainerType } from "@/features/languages/ja/conjugation/trainerRegistry";
 import { getMockLessonContent } from "../data/mockLessons";
 
 /**
@@ -266,6 +271,37 @@ describe("learner view emitter", () => {
       ];
       let stepCount = 0;
       for (const [li, entry] of mod.lessons.entries()) {
+        // A trainer node is a REAL path stop with no lesson content — render
+        // what it drills, or the walker reads "(no content found)" as a
+        // broken lesson and files a defect against a working feature.
+        if (entry.kind === "trainer" && entry.trainerTypeIds?.length) {
+          const tiles = entry.trainerTypeIds;
+          const reached = parseInt(mod.id.slice(1), 10);
+          const qs =
+            tiles.length === 1
+              ? buildTrainerSession(getTrainerType(tiles[0] as never)!, reached)
+              : buildCombinedSession(tiles as never, reached, { combos: "on" });
+          out.push(
+            `## Stop ${li + 1} — ${entry.title} (${entry.id})`,
+            "",
+            `_Not a lesson: this node sends you to the conjugation trainer and you cannot`,
+            `pass the module without finishing it. Tiles: ${tiles.join(" + ")}._`,
+            "",
+            `Every question is "here is a verb, produce this cell" with four options.`,
+            `Forms drilled: ${[...new Set(qs.map((q) => q.formLabel))].join(", ")}.`,
+            `Sample of the ${qs.length} it builds:`,
+            "",
+            ...qs
+              .slice(0, 4)
+              .map(
+                (q, i) =>
+                  `${i + 1}. 【${q.prompt}】 (${q.meaning}) → ${q.formLabel}?\n   ` +
+                  q.options.map((o, k) => `${"ABCD"[k]}) ${o}`).join("   "),
+              ),
+            "",
+          );
+          continue;
+        }
         const lesson = getMockLessonContent(entry.id);
         if (!lesson) {
           out.push(`## Lesson ${li + 1} — ${entry.title} (${entry.id})\n\n_(no content found)_\n`);

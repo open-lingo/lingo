@@ -5,6 +5,7 @@ import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
 import type { Course, Lesson, SideQuest } from "@/shared/domain/course";
 import { stringsFor } from "../transitStrings";
+import { lessonRoutePath } from "@/shared/domain/lessonRoute";
 import {
   getModuleDisplay,
   getNextLessonIndex,
@@ -69,10 +70,7 @@ export function DistrictView({
     });
   }, [mod, completedSet, status, nextIdx]);
 
-  const lessonHref = (lesson: Lesson) =>
-    lesson.kind === "alphabet" && lesson.alphabetId
-      ? p(`practice/alphabet/${lesson.alphabetId}/learn`)
-      : p(`learn/lessons/${lesson.id}`);
+  const lessonHref = (lesson: Lesson) => p(lessonRoutePath(lesson));
 
   return (
     <div

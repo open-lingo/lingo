@@ -55,6 +55,7 @@ import { YourPathCard } from "./components/YourPathCard";
 import { LearnToolsRow } from "./components/LearnToolsRow";
 import { PageShell } from "@/shared/components/PageShell";
 import { Card } from "@/shared/components/ui";
+import { lessonRoutePath } from "@/shared/domain/lessonRoute";
 
 export function LearnPage({
   variant = "classic",
@@ -270,11 +271,7 @@ export function LearnPage({
   }
 
   const goToLesson = (lesson: Lesson) => {
-    if (lesson.kind === "alphabet" && lesson.alphabetId) {
-      navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
-    } else {
-      navigate(langPath(`learn/lessons/${lesson.id}`));
-    }
+    navigate(langPath(lessonRoutePath(lesson)));
   };
 
   // Sidequest id → lesson id. Map only the wired quests; unmapped ones

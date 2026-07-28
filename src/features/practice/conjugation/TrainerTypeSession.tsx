@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
+import { completeTrainerNode } from "./trainerNodeCompletion";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -15,6 +16,8 @@ import { SessionSummary } from "./SessionSummary";
 /** Route guard: unknown type / no provider → hub. Locked types pass (learn-ahead). */
 export function TrainerTypeSession() {
   const { typeId } = useParams<{ typeId: string }>();
+  const [searchParams] = useSearchParams();
+  const nodeId = searchParams.get("node");
   const reachedModule = useCourseLevel();
   const langPath = useLangPath();
   const conj = useConjugation();
@@ -23,7 +26,15 @@ export function TrainerTypeSession() {
   if (!conj || !type || !typeId) {
     return <Navigate to={langPath("practice/grammar/conjugation")} replace />;
   }
-  return <TrainerSession conj={conj} typeId={typeId} type={type} reachedModule={reachedModule} />;
+  return (
+    <TrainerSession
+      conj={conj}
+      typeId={typeId}
+      type={type}
+      reachedModule={reachedModule}
+      nodeId={nodeId}
+    />
+  );
 }
 
 function TrainerSession({
@@ -31,11 +42,14 @@ function TrainerSession({
   typeId,
   type,
   reachedModule,
+  nodeId,
 }: {
   conj: ConjugationTrainerProvider;
   typeId: string;
   type: ConjTrainerTypeMeta;
   reachedModule: number;
+  /** Path node that launched this drill, when any — see `lessonRoutePath`. */
+  nodeId: string | null;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
@@ -67,7 +81,12 @@ function TrainerSession({
           </div>
         </Card>
       ) : (
-        <DrillSegment conj={conj} typeId={typeId} reachedModule={reachedModule} />
+        <DrillSegment
+          conj={conj}
+          typeId={typeId}
+          reachedModule={reachedModule}
+          nodeId={nodeId}
+        />
       )}
     </div>
   );
@@ -77,10 +96,12 @@ function DrillSegment({
   conj,
   typeId,
   reachedModule,
+  nodeId,
 }: {
   conj: ConjugationTrainerProvider;
   typeId: string;
   reachedModule: number;
+  nodeId: string | null;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
@@ -99,9 +120,12 @@ function DrillSegment({
   useEffect(() => {
     if (finished && !gradedRef.current) {
       conj.gradeSessionIfOnPath(typeId, reachedModule, results);
+      // Launched from a path node → mark that node done, or the module never
+      // unlocks. No-ops for hub-launched drills (no `node` param).
+      completeTrainerNode(nodeId, results);
       gradedRef.current = true;
     }
-  }, [finished, conj, typeId, reachedModule, results]);
+  }, [finished, conj, typeId, reachedModule, results, nodeId]);
 
   const advance = () => {
     if (index + 1 >= questions.length) {

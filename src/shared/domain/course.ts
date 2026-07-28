@@ -21,10 +21,16 @@ export type Lesson = {
   /** When "alphabet", this row links to the alphabet learner instead of learn/lessons/:id.
    *  When "recap", this is the final module-recap node (~15 review items, amber styling).
    *  When "module_review", this lesson belongs to an inter-module review module
-   *  (SRS-style retention cycle between two content modules). */
-  kind?: "lesson" | "alphabet" | "recap" | "module_review";
+   *  (SRS-style retention cycle between two content modules).
+   *  When "trainer", this row links to the conjugation trainer instead of the
+   *  lesson player — a paradigm drill the path REQUIRES rather than offers. */
+  kind?: "lesson" | "alphabet" | "recap" | "module_review" | "trainer";
   /** For kind "alphabet": alphabet id for route practice/alphabet/:alphabetId/learn */
   alphabetId?: string;
+  /** For kind "trainer": which trainer tiles the drill selects. One id runs the
+   *  per-type session; two or more run the combined session, where the stacked
+   *  ("double conjugation") forms live. Order is display order. */
+  trainerTypeIds?: string[];
 };
 
 /** Gradient endpoints used to paint the module-card banner. */

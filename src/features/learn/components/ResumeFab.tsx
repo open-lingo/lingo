@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import type { Course } from "@/shared/domain/course";
+import { lessonRoutePath } from "@/shared/domain/lessonRoute";
 import {
   getCurrentModuleIndex,
   getNextLessonIndex,
@@ -32,10 +33,7 @@ export function ResumeFab({
     if (!mod || mod.lessons.length === 0) return null;
     const lesson = mod.lessons[getNextLessonIndex(mod.lessons, completedSet)];
     if (!lesson) return null;
-    const href =
-      lesson.kind === "alphabet" && lesson.alphabetId
-        ? langPath(`practice/alphabet/${lesson.alphabetId}/learn`)
-        : langPath(`learn/lessons/${lesson.id}`);
+    const href = langPath(lessonRoutePath(lesson));
     return { title: lesson.title, href };
   }, [course, completedSet, langPath]);
 

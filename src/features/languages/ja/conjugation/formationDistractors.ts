@@ -11,7 +11,7 @@
  * (trainer sessions, ConjugationPracticePage, conjugationCloze) shares this
  * one implementation. Do not duplicate.
  */
-import type { VerbGroup } from "../conjugationTables";
+import { VERB_ENTRIES, type VerbGroup } from "../conjugationTables";
 import {
   conjugateVerb,
   conjugateIAdj,
@@ -220,6 +220,45 @@ export function transformDrillIAdjDistractors(
   return out;
 }
 
+
+/**
+ * Every surface that is a real form of some OTHER verb, mapped to the
+ * dictionary forms that own it.
+ *
+ * Most distractors here are real forms ON PURPOSE — the sibling-form family
+ * (のみたかった against のみたい) is the whole point, and those belong to the
+ * SAME verb, so they read as "wrong cell", which is the confusion being
+ * tested. A collision with a DIFFERENT verb is a different thing: しる drilled
+ * to しりたい offered したい, which is する's たい form — a right answer to a
+ * question nobody asked, and it teaches nothing about しる. Spencer
+ * 2026-07-28: "fine if the distractor is accidentally a real word but prefer
+ * it not", so these sink to the back of the candidate list rather than being
+ * banned — a short verb with few candidates still gets three options.
+ */
+let foreignForms: Map<string, Set<string>> | null = null;
+function ownersOf(surface: string): Set<string> {
+  if (!foreignForms) {
+    foreignForms = new Map();
+    for (const entry of VERB_ENTRIES) {
+      const surfaces = [entry.dictionary, ...Object.values(entry.forms)];
+      for (const s of surfaces) {
+        if (!s) continue;
+        const set = foreignForms.get(s) ?? new Set<string>();
+        set.add(entry.dictionary);
+        foreignForms.set(s, set);
+      }
+    }
+  }
+  return foreignForms.get(surface) ?? new Set();
+}
+
+/** True when `surface` is a real form of a verb OTHER than `dictionary`. */
+function collidesWithAnotherVerb(surface: string, dictionary: string): boolean {
+  const owners = ownersOf(surface);
+  for (const owner of owners) if (owner !== dictionary) return true;
+  return false;
+}
+
 export function generateFormationDistractors(
   dictionary: string,
   group: VerbGroup,
@@ -258,5 +297,9 @@ export function generateFormationDistractors(
     if (sib !== form) push(dictionary + CHAIN_SUFFIX[sib]);
   }
 
-  return out.slice(0, 3);
+  // Prefer options that are not a real form of some other verb — stable, so
+  // the priority order above is preserved within each half.
+  const clean = out.filter((c) => !collidesWithAnotherVerb(c, dictionary));
+  const colliding = out.filter((c) => collidesWithAnotherVerb(c, dictionary));
+  return [...clean, ...colliding].slice(0, 3);
 }

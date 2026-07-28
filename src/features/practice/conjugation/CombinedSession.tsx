@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { completeTrainerNode } from "./trainerNodeCompletion";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -32,12 +33,19 @@ export function CombinedSession() {
   }, [conj, params]);
 
   const withCombos = (conj?.supportsCombos ?? false) && params.get("combos") !== "0";
+  const nodeId = params.get("node");
 
   if (!conj || selected.length < 2) {
     return <Navigate to={langPath("practice/grammar/conjugation")} replace />;
   }
   return (
-    <Session conj={conj} selected={selected} reachedModule={reachedModule} withCombos={withCombos} />
+    <Session
+      conj={conj}
+      selected={selected}
+      reachedModule={reachedModule}
+      withCombos={withCombos}
+      nodeId={nodeId}
+    />
   );
 }
 
@@ -46,11 +54,14 @@ function Session({
   selected,
   reachedModule,
   withCombos,
+  nodeId,
 }: {
   conj: ConjugationTrainerProvider;
   selected: string[];
   reachedModule: number;
   withCombos: boolean;
+  /** Path node that launched this drill, when any — see `lessonRoutePath`. */
+  nodeId: string | null;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
@@ -70,9 +81,12 @@ function Session({
     if (finished && !gradedRef.current) {
       const forms = questions.map((q) => q.form);
       conj.gradeCombinedSessionIfOnPath(selected, reachedModule, forms, results);
+      // Launched from a path node → mark that node done, or the module never
+      // unlocks. No-ops for hub-launched drills (no `node` param).
+      completeTrainerNode(nodeId, results);
       gradedRef.current = true;
     }
-  }, [finished, conj, questions, results, selected, reachedModule]);
+  }, [finished, conj, questions, results, selected, reachedModule, nodeId]);
 
   const advance = () => {
     if (index + 1 >= questions.length) {

@@ -357,7 +357,7 @@
     "point": "〜かった",
     "pointEn": "i-adjective past",
     "category": "adjective-form",
-    "module": "m10",
+    "module": "m12",
     "status": "shipped",
     "notes": "Drop い, add かった; いい→よかった irregular",
     "dependsOn": [
@@ -369,7 +369,7 @@
     "point": "〜くなかった",
     "pointEn": "i-adjective past negative",
     "category": "adjective-form",
-    "module": "m10",
+    "module": "m12",
     "status": "shipped",
     "notes": "Drop い, add くなかった; completes i-adj paradigm",
     "dependsOn": [
@@ -394,7 +394,7 @@
     "point": "たーけい",
     "pointEn": "ta-form (plain past)",
     "category": "verb-form",
-    "module": "m14",
+    "module": "m11",
     "status": "shipped",
     "notes": "Shipped in M14 as a derivative of te-form (te->ta swap), not in M10",
     "dependsOn": [
@@ -602,7 +602,7 @@
     "point": "〜たい",
     "pointEn": "Want to do",
     "category": "modal",
-    "module": "m15",
+    "module": "m13",
     "status": "shipped",
     "notes": "ます stem + たい; conjugates like i-adjective",
     "dependsOn": [

@@ -45,6 +45,11 @@ import {
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import { lessonRoutePath } from "@/shared/domain/lessonRoute";
+import {
+  getTrainerType,
+  isSelectionAhead,
+} from "@/features/languages/ja/conjugation/trainerRegistry";
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import {
   assertExplanationDoesntLeakAnswer,
@@ -785,14 +790,48 @@ export function registerJaModuleContentLints(moduleId: string): void {
       expect(lessons.length, `no authored JA lessons tagged ${moduleId}`).toBeGreaterThan(0);
     });
 
-    it("every pathway node resolves to non-empty lesson content", () => {
+    it("every pathway node resolves — to lesson content, or to a real destination", () => {
+      // Most rows are lessons and must compile to steps. A few ROUTE OUT
+      // instead (kana learner, conjugation trainer) and legitimately have no
+      // lesson content — but "has no content" is then the wrong question, and
+      // exempting them would leave a dead node undetectable. Ask each row the
+      // question its own kind answers: a lesson needs steps, a routed node
+      // needs a destination that exists.
       const course = getMockCourse("ja");
       const mod = course.modules.find((m) => m.id === moduleId);
       expect(mod, `course mock has no module ${moduleId}`).toBeDefined();
       for (const lesson of mod!.lessons) {
-        const content = getMockLessonContent(lesson.id);
-        expect(content, `${moduleId} pathway node '${lesson.id}' has no content`).not.toBeNull();
-        expect(content?.steps.length ?? 0, `${lesson.id} is empty`).toBeGreaterThan(0);
+        const route = lessonRoutePath(lesson);
+        if (route.startsWith("learn/lessons/")) {
+          const content = getMockLessonContent(lesson.id);
+          expect(content, `${moduleId} pathway node '${lesson.id}' has no content`).not.toBeNull();
+          expect(content?.steps.length ?? 0, `${lesson.id} is empty`).toBeGreaterThan(0);
+          continue;
+        }
+        if (lesson.kind === "trainer") {
+          const tiles = lesson.trainerTypeIds ?? [];
+          expect(tiles.length, `${lesson.id} is a trainer node with no tiles`).toBeGreaterThan(0);
+          for (const tile of tiles) {
+            expect(
+              getTrainerType(tile as never),
+              `${lesson.id} selects unknown trainer tile '${tile}'`,
+            ).toBeDefined();
+          }
+          // A drill the learner cannot be graded on is a dead end: the node
+          // gates the module, so an "ahead" selection would demand a session
+          // that writes nothing. The module number IS the learner's reached
+          // module at the point this node sits.
+          const reached = parseInt(moduleId.slice(1), 10);
+          expect(
+            isSelectionAhead(tiles as never, reached),
+            `${lesson.id} drills tiles not yet unlocked at ${moduleId} — the session would be practice-only and grade nothing`,
+          ).toBe(false);
+          continue;
+        }
+        expect(
+          lesson.kind === "alphabet" && !!lesson.alphabetId,
+          `${lesson.id} routes out of the lesson player with no destination`,
+        ).toBe(true);
       }
     });
 
