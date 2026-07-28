@@ -48,7 +48,20 @@ const IR_DIR = join(
 // steps that were correct. Widening the POLITE set can only remove FALSE
 // positives here: no plain form ends in ましょう, so nothing that used to fail
 // legitimately now passes.
-const POLITE = /(です|ます|ません|ました|ましょう|ください|でした)(か)?[。？！]?\s*$/;
+//
+// よ / ね ADDED 2026-07-27 (m29, spine tile s25 — the register module). The
+// regex anchored the ですます marker at the very end of the last clause, so a
+// polite sentence carrying a sentence-final particle read as PLAIN. Dumped
+// before the edit: m29's 「ごぜんに たまごを かいましたよ。」, prompted "Say
+// politely: I bought some eggs this morning", was reported three times (once
+// per accepted punctuation variant) as accepting a plain answer — and it is
+// not plain, it is 〜ました with よ on the outside, which is exactly what m29's
+// yo-emphasis card teaches ("the politeness is decided before よ arrives").
+// This is the same widening the ましょう note above describes and it is safe
+// for the same reason: no PLAIN form ends in ますよ, ですね, ませんよ or ましたね,
+// so admitting an optional よ/ね after the marker can only remove FALSE
+// positives. Nothing that used to fail legitimately now passes.
+const POLITE = /(です|ます|ません|ました|ましょう|ください|でした)(か)?(よ|ね)?[。？！]?\s*$/;
 const isPolite = (ja: string): boolean => {
   const clauses = ja.split(/[。？！]/).filter((c) => c.trim());
   return POLITE.test((clauses.at(-1) ?? ja).trim());

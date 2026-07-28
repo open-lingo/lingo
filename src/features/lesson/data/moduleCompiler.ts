@@ -367,12 +367,23 @@ const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"
  * here**: 「いかなきゃ。」 is a complete utterance ("gotta go"), which is the whole
  * reason m28 registers each contraction as one whole atom rather than
  * registering a bare 「なきゃ」 that would have been bound.
+ *
+ * 2026-07-27, m29: よ and ね, on a PRINCIPLE rather than case by case — a form
+ * that carries the PREDICATE is not bound, a form that only decorates one is.
+ * 「よ」 and 「ね」 attach to a sentence that is already finished and contribute
+ * no proposition, so 「よ。」 is not an utterance and a filler slot asking the
+ * learner to "Say: you know" is the つもり defect with a shorter word in it.
+ * NOT added by the same principle: m29's じゃない / じゃないです / じゃありません,
+ * because the negative copula IS the predicate — 「じゃない。」 is a complete
+ * reply ("it's not") and its two polite skins are the same reply said to
+ * somebody else.
  */
 const BOUND = [
   "つもり", "ましょう", "でしょう", "でしょ", "だろう", "かな", "たり",
   "んだ", "んです", "なんだ", "なんです", "すぎる", "すぎた",
   "いかなければ", "のまなければ", "かえらなければ", "しなければ",
   "はたらかなければ", "おぼえなければ", "ならない", "なりません",
+  "よ", "ね",
 ];
 const PUNCT = /[。、？！]/g;
 

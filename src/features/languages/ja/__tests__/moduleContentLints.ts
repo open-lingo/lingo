@@ -605,8 +605,22 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // いい"), so nearly every production beat carries a から / けど / まえに on
   // m15/m16's machinery — which is also how both are actually spoken. Floor
   // set three sentences below the measurement ((78-3)/84 = .893).
+  // m29 recalibrated 0.39 -> 0.65 (2026-07-27), the SIXTH archived-course
+  // value in this block to need raising after m22, m25, m26, m27 and m19. The
+  // 0.39 was measured on an ARCHIVED m29 that was a different module entirely
+  // — the N4 "plain form" pilot, whose lessons the spine renumber absorbed
+  // into N5's core tiles. The neo module — spine tile s25, the N5 capstone —
+  // measures 65/94 = .692. It sits BELOW its neighbours on purpose and the
+  // reason is the module's thesis: register is carried by the LAST word, so
+  // its headline sentences are deliberately short (「ばんは ちょっと。」 is the
+  // whole refusal, in three tiles, and 「かぜが つよいね。」 is the whole ね
+  // lesson in four). The ramp is carried by the beats that hang a reason or a
+  // concession on m15/m16's から / けど / まえに — which is also how register is
+  // actually spoken, because you soften a refusal by giving it a reason. Floor
+  // set three sentences below the measurement ((65-3)/94 = .660). Raised,
+  // never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m28: 0.89, m29: 0.39,
+  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m28: 0.89, m29: 0.65,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

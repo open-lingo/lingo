@@ -55,6 +55,13 @@ const BOUND_ENDERS = [
   "おぼえなければ",
   "ならない",
   "なりません",
+  // m29 (2026-07-27), added with the module. A sentence-final particle
+  // decorates a predicate rather than being one: 「よ。」 and 「ね。」 are not
+  // utterances. m29's じゃない / じゃないです / じゃありません are deliberately
+  // absent — the negative copula IS the predicate, so 「じゃないです。」 is a
+  // complete reply and a legitimate production target.
+  "よ",
+  "ね",
 ];
 
 /**

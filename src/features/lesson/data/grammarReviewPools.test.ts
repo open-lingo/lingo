@@ -297,14 +297,23 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
     });
 
     it("returns null for a point with no tagged rule card", () => {
-      // ne-agreement is a planned point with no authored rule card — the
-      // RUN-PLAN ledger puts it on m29, which is not authored yet. (Was
-      // kanji-set-1 until m18 authored the first reading ladder, then
-      // kanji-set-2 until m23 authored the second, then kanji-set-3 until m28
-      // authored the third and last of them. All three reading ladders have
-      // now landed, so this assertion moves off the kanji sets entirely and
-      // onto the capstone module's row.)
-      expect(getGrammarRuleStepForPoint("ne-agreement")).toBeNull();
+      // THE REAL EXAMPLE RAN OUT (2026-07-27, m29). This assertion has been
+      // walking down the ledger for months: kanji-set-1 until m18 authored the
+      // first reading ladder, kanji-set-2 until m23, kanji-set-3 until m28,
+      // then ne-agreement because the RUN-PLAN put it on the unauthored m29.
+      // m29 is now authored, and with it EVERY id in n5-grammar-points.json
+      // has a tagged rule card somewhere in the course — measured, not
+      // assumed: the filter below is the check, and it is the cleanest
+      // statement available that N5's grammar coverage is complete. So the
+      // "no card" case can only be tested with an id that is not in the
+      // registry at all.
+      const untagged = (
+        grammarPointsJson as unknown as { id: string }[]
+      ).filter((p) => getGrammarRuleStepForPoint(p.id) === null);
+      expect(
+        untagged.map((p) => p.id),
+        "a registry point lost its rule card — N5 coverage regressed",
+      ).toEqual([]);
       expect(getGrammarRuleStepForPoint("__no-such-point__")).toBeNull();
     });
   });

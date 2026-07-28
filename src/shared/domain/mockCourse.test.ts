@@ -111,24 +111,26 @@ describe("curriculum lesson counts", () => {
     expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
   });
 
-  it("m29 is a comingSoon spine placeholder (visible, zero lessons)", () => {
-    // m4/m5/m6 (2026-07-20), m7-m11 (2026-07-26, the first modules on the
-    // 11+3+1 shape), m12 (tile s09), m13 (tile n05), m14 (2026-07-27, tile
-    // n06b), m15 (2026-07-27, tile s11), m16 (2026-07-27, tile s13), m17
-    // (2026-07-27, tile n07), m18 (2026-07-27, tile n08), m19 (2026-07-27,
-    // tile s15), m20 (2026-07-27, tile n09), m21 (2026-07-27, tile s19),
-    // m22 (2026-07-27, tile s17), m23 (2026-07-27, tile s22), m24
-    // (2026-07-27, tile s21), m25 (2026-07-27, tile n13), m26
-    // (2026-07-27, tile n14), m27 (2026-07-27, tile s23) and m28
-    // (2026-07-27, tile s24) are authored via the compiler pipeline. The
-    // frontier advances as rewrite cycles land modules.
-    for (let n = 29; n <= 29; n++) {
-      const mod = course.modules.find((m) => m.id === `m${n}`)!;
-      expect(mod, `m${n} missing`).toBeDefined();
-      expect(mod.comingSoon, `m${n} must be comingSoon`).toBe(true);
-      expect(mod.lessons.length, `m${n} must have no lessons yet`).toBe(0);
-      expect(mod.tier ?? "n5", `m${n} is an N5 station`).toBe("n5");
-    }
+  it("the N5 map has NO comingSoon placeholders left — m29 finished the spine", () => {
+    // 2026-07-27: m29 (tile s25, the N5 capstone) was the last unauthored
+    // spine tile, so `SPINE_COMING_SOON` and its placeholder mapping were
+    // DELETED from mockCourse rather than sliced to an empty tail. This test
+    // was "m28-m29 are comingSoon spine placeholders" and then "m29 is a
+    // comingSoon spine placeholder"; it now asserts the opposite, because
+    // reality changed and the expectation follows reality.
+    const n5 = course.modules.filter((m) => (m.tier ?? "n5") === "n5");
+    expect(n5.length, "no N5 modules found — the map shape moved").toBeGreaterThan(20);
+    const stillComingSoon = n5.filter((m) => m.comingSoon).map((m) => m.id);
+    expect(stillComingSoon, stillComingSoon.join(", ")).toEqual([]);
+  });
+
+  it("m29 is the authored N5 capstone (13 lessons, challenge last)", () => {
+    const m29 = course.modules.find((m) => m.id === "m29")!;
+    expect(m29, "m29 missing").toBeDefined();
+    expect(m29.comingSoon).toBeFalsy();
+    expect(m29.tier ?? "n5").toBe("n5");
+    expect(m29.lessons).toHaveLength(13);
+    expect(m29.lessons[m29.lessons.length - 1].id).toBe("ja-m29-neo-challenge");
   });
 
   it("spine milestones land on the ladder-critical module numbers", () => {

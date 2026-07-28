@@ -106,17 +106,26 @@ describe("deriveDefaultTier", () => {
     expect(deriveDefaultTier(course, new Set(["l1"]))).toBe("n4");
   });
 
-  it("real ja course: fresh learner defaults n5; finishing everything authored still defaults n5 (spine frontier)", () => {
-    // 2026-07-19 rewrite spine: m4-m29 are comingSoon placeholders. A
-    // learner who completed every AUTHORED n5 lesson is standing at the m4
-    // frontier waiting for content — the comingSoon module counts as the
-    // active position, so they must NOT be bounced onto the N4 line.
+  it("real ja course: fresh learner defaults n5; finishing all of n5 now defaults n4", () => {
+    // CHANGED 2026-07-27 with m29. The old assertion — "finishing everything
+    // authored still defaults n5" — was correct while m4-m29 were comingSoon
+    // placeholders: a comingSoon module is a real content frontier INSIDE N5
+    // and must not bounce the learner onto N4. m29 (the N5 capstone) was the
+    // last one, so the N5 map now has zero comingSoon modules and a learner
+    // who has cleared it has finished JLPT N5. `deriveDefaultTier` is
+    // unchanged — the comingSoon branch above still guards the frontier case,
+    // and the synthetic test above still covers it. Reality moved; the
+    // expectation follows reality rather than the other way round.
     const ja = getMockCourse("ja");
     expect(deriveDefaultTier(ja, new Set())).toBe("n5");
+    expect(
+      ja.modules.filter((m) => (m.tier ?? "n5") === "n5" && m.comingSoon),
+      "N5 still has a comingSoon frontier — this test's premise moved",
+    ).toEqual([]);
     const allN5LessonIds = ja.modules
       .filter((m) => (m.tier ?? "n5") === "n5")
       .flatMap((m) => m.lessons.map((l) => l.id));
-    expect(deriveDefaultTier(ja, new Set(allN5LessonIds))).toBe("n5");
+    expect(deriveDefaultTier(ja, new Set(allN5LessonIds))).toBe("n4");
   });
 });
 

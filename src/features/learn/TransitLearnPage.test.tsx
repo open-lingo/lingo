@@ -141,16 +141,28 @@ describe("TransitLearnPage tier switcher", () => {
     expect(n5Tab).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("default-tier derivation: finishing every authored n5 lesson stays on the N5 line (spine frontier)", () => {
-    // 2026-07-19 rewrite spine: m4-m29 are comingSoon placeholders, so a
-    // learner who cleared everything authored is waiting at the m4 frontier
-    // — deriveDefaultTier must keep them on N5, not bounce them to N4.
-    // (The pure active-module-in-n4 → n4 path is covered synthetically in
-    // learnTier.test.ts.)
+  it("default-tier derivation: finishing every n5 lesson now lands on the N4 line", () => {
+    // CHANGED 2026-07-27 with m29, and the change is the POINT rather than a
+    // regression. This test used to assert the opposite ("stays on the N5
+    // line"), and it was right at the time: m4-m29 were comingSoon
+    // placeholders, so a learner who cleared everything AUTHORED was standing
+    // at a content frontier inside N5 and must not be bounced onto N4. m29
+    // (tile s25, the N5 capstone) was the last unauthored tile, so there is no
+    // N5 frontier left — somebody who has finished every N5 lesson has
+    // finished JLPT N5, and the next thing in front of them is the N4 line.
+    // `deriveDefaultTier` is unchanged; reality moved and the expectation
+    // follows it. The frontier behaviour it encodes still matters and is
+    // covered synthetically in learnTier.test.ts.
     const ja = jaCompletedThroughN5();
     renderPage("/ja/learn", "ja", ja);
-    const n5Tab = screen.getByRole("button", { name: "N5 Line" });
-    expect(n5Tab).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "N4 Line" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByRole("button", { name: "N5 Line" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
   });
 
   it("n5 map (27+ stations) draws its own ZONE 1/2/3 from buildLayout — same code path n4 will use once it has 9+ stations", () => {

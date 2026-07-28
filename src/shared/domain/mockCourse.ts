@@ -232,55 +232,17 @@ export function getMockCourse(languageId: string): Course {
     // romaji/kanji ladders via parseModuleIndex, and the spine is engineered
     // so the register module lands on m7 (hiragana-romaji cutoff holds) and
     // navigation on m19 (katakana cutoff re-anchors there).
-    const SPINE_COMING_SOON: {
-      tile: string;
-      title: string;
-      summary: string;
-    }[] = [
-      { tile: "n06a", title: "🚫 Plain negative ない + ある/いる", summary: "ない by class; が subject marker via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics." },
-      { tile: "s07", title: "🎭 The stem grid + ます/です", summary: "Godan stem rows as attachment points; ます/ません; です; か. Register-explicit production starts (romaji cutoff holds at M7)." },
-      { tile: "n02", title: "🙏 て-form + ください", summary: "て via the sound-change table; 〜てください requests; traveler beat — order food, ask someone to wait." },
-      { tile: "n03", title: "🪙 Numbers 1–10 + first purchases", summary: "Sino numerals 1–10; the generic つ counter; いくら/えん shop dialogues in obligatory-polite register." },
-      { tile: "n15", title: "🗣️ Register in the wild", summary: "はい/ええ/うん incl. aizuchi; いいえ/ううん/ちがう; ちょっと softener; わたし/ぼく/おれ recognition." },
-      { tile: "n04", title: "⏰ Time I + plain past た", summary: "Compound numbers 11–99; 〜じ hours; いつ; plain past た/だった with ました/でした beside it." },
-      { tile: "s09", title: "🌈 Adjectives as mini-predicates", summary: "い-adj conjugation parallel to plain verbs; な-adj + だ/です; どう; よ/ね enders; すき/きらい with が." },
-      { tile: "n05", title: "🌟 Wanting: たい + ほしい", summary: "たい as an い-adjective on the i-stem; がほしい; stem + にいく purpose of motion." },
-      { tile: "s11", title: "🔗 Relative clauses + こと/の + とき", summary: "Plain clause + noun; こと/の nominalizers; とき temporal clauses (matched tense)." },
-      { tile: "n06b", title: "🧲 て-form II: ている + permission", summary: "ている progressive vs resultative; もう/まだ; てもいい/てはいけない; ないでください; てから." },
-      { tile: "s13", title: "🧭 Connecting: から/ので + なかった", summary: "から/ので/けど; から…まで; なかった + ませんでした; the full 2×2 paradigm card; は vs が contrast." },
-      { tile: "n07", title: "🏠 Family I: your side", summary: "Your-family terms + humble register logic; 〜さい age; 〜にんかぞく." },
-      { tile: "n08", title: "💭 Saying & thinking: とおもう + という", summary: "Plain clause + とおもう; という naming/quotation; んだ explanatory recognition preview." },
-      { tile: "s15", title: "🚇 Getting around: motion + navigation", summary: "で means / に arrival / へ direction; までに; positions; asking strangers politely (katakana romaji cutoff re-anchors here)." },
-      { tile: "n09", title: "⚖️ Comparisons I: のほうが…より", summary: "AのほうがBより; ほう taught as vocab; どっち/どちら register pair." },
-      { tile: "s19", title: "📋 Listing & describing: や, たり + Family II", summary: "や partial list vs と complete; たりする; others'-family honorifics drilled against Family I; cup counter." },
-      { tile: "s17", title: "🩺 Body, health & help", summary: "〜がいたい; body parts; pharmacy/help dialogues; ないでください spend." },
-      { tile: "s22", title: "🗺️ Experience & intent: たことがある, つもり", summary: "たことがある experience; つもり intent; travel/life-events domain." },
-      { tile: "s21", title: "💪 Can & let's: potential + ましょう", summary: "Full potential system incl. られる/できる; ら抜き recognition; 見える/聞こえる; ましょう/ませんか + casual 〜ない？" },
-      { tile: "n13", title: "⛅ Conjecture: でしょう/だろう + weather", summary: "でしょう production; でしょ(う)/かな casual; たぶん; weather/seasons domain." },
-      { tile: "n14", title: "🏆 Comparisons II: いちばん + なかで", summary: "なかで…がいちばん superlatives; comparison review against のほうが with all-new sentences." },
-      { tile: "s23", title: "💡 Explaining: んだ/んです, すぎる, なる", summary: "んだ/んです explanatory — one item, two skins; すぎる; く/になる change of state." },
-      { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
-      { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
-    ];
-    // m6-m28 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14, s23, s24) are LIVE via
-    // the compiler pipeline — slice them off so the placeholders begin at m29.
-    // NB the SPINE_COMING_SOON array still lists s11 before n06b (draft-3
-    // order); draft-4 swapped them, which is why m14 is n06b and m15 is s11.
-    // s22 and s21 are already in shipped order here (m23 = s22, m24 = s21).
-    // Only the COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(23).map((t, i) => ({
-      id: `m${i + 29}`,
-      title: t.title,
-      eyebrow: `Module ${i + 29} · Coming soon`,
-      summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
-      lessons: [],
-      comingSoon: true as const,
-      accent:
-        t.tile === "s25"
-          ? { from: "#eab308", to: "#ca8a04" } // capstone gold
-          : { from: "#64748b", to: "#475569" }, // muted slate until authored
-    }));
+    // ── THE SPINE IS FULLY AUTHORED (2026-07-27, m29) ────────────────────
+    // `SPINE_COMING_SOON` lived here and mapped the not-yet-authored tail of
+    // the spine into placeholder modules. It is GONE because there is no tail
+    // left: m29 (tile s25, the N5 capstone) is the last N5 module, so every
+    // one of the spine's 24 tiles — n06a s07 n02 n03 n15 n04 s09 n05 s11 n06b
+    // s13 n07 n08 s15 n09 s19 s17 s22 s21 n13 n14 s23 s24 s25 — is now a LIVE
+    // module built by the compiler pipeline, and slicing an empty tail off an
+    // array to spread nothing is worse than deleting it. The N5 map therefore
+    // carries ZERO comingSoon modules; the N4 runway tile (s26) is
+    // deliberately not a module, because the N5 map stops at the capstone.
+    // The spine itself still lives in src/features/lesson/dev/spinePlan.ts.
 
     return {
       id: "mock-1",
@@ -1029,11 +991,44 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
-        // m29 — the rest of the draft-3 spine, comingSoon placeholders
-        // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;
-        // the N4 runway tile (s26) is deliberately NOT a module — the N5 map
-        // stops after the capstone.
-        ...spineComingSoonModules,
+        {
+          // m29 = spine tile s25, "🎓 Register mastery + N5 capstone", and the
+          // LAST module of N5. Not a new-material module: a learner arriving
+          // here can already say almost everything an N5 sentence needs to
+          // say, in exactly one register at a time. What they cannot do yet is
+          // SWITCH, quickly, with somebody in front of them — so every
+          // sentence in this module is a choice, and the choice is who is
+          // listening. The three ledger items all live at the END of a
+          // sentence: 「じゃない / じゃないです / じゃありません」 is one meaning in
+          // three registers, 「よ」 hands over news, 「ね」 collects agreement.
+          // The other six lessons are register TWINS of things the learner
+          // already owns — the switch, the negative, the past, the
+          // explanation, the invitation and the refusal — and every sentence
+          // in the module is new to the course.
+          id: "m29",
+          title: "Register mastery + N5 capstone",
+          eyebrow: "Module 29 · JLPT N5 complete",
+          summary: "The last module of N5, and the one where you stop learning new things and start choosing. 「じゃない」「じゃないです」「じゃありません」 are one meaning in three registers; 「よ」 hands somebody news and 「ね」 asks them to nod. Then the same switch across everything you own — the negative, the past, the explanation 「〜んですよ」, the invitation 「いきませんか」, and the refusal that never says no: 「ばんは ちょっと。」 Every sentence is new.",
+          lessons: [
+            { id: "ja-m29-neo-1", title: "「わたしのじゃない」 — it isn't, said three ways", status: "available" as const },
+            { id: "ja-m29-neo-2", title: "「ゆきが ふるよ」 — telling somebody something new", status: "available" as const },
+            { id: "ja-m29-neo-3", title: "「かぜが つよいね」 — checking that you agree", status: "available" as const },
+            { id: "ja-m29-neo-review-1", title: "Review — the end of the sentence decides everything", status: "available" as const },
+            { id: "ja-m29-neo-5", title: "ともだちと せんせい — the same thing, two ways to say it", status: "available" as const },
+            { id: "ja-m29-neo-6", title: "「いかない」と「いきません」 — saying no to two different people", status: "available" as const },
+            { id: "ja-m29-neo-7", title: "「いった」と「いきました」 — telling somebody what happened", status: "available" as const },
+            { id: "ja-m29-neo-review-2", title: "Review — the switch, in both directions", status: "available" as const },
+            { id: "ja-m29-neo-9", title: "「〜んですよ」と「〜んですね」 — explaining, and hearing an explanation", status: "available" as const },
+            { id: "ja-m29-neo-10", title: "「いかない？」と「いきませんか」 — asking somebody along", status: "available" as const },
+            { id: "ja-m29-neo-11", title: "「ばんは ちょっと。」 — saying no without saying it", status: "available" as const },
+            { id: "ja-m29-neo-review-3", title: "Review — who is listening, and what they already know", status: "available" as const },
+            { id: "ja-m29-neo-challenge", title: "Challenge — N5, all of it, in front of somebody", status: "available" as const },
+          ],
+          accent: { from: "#eab308", to: "#ca8a04" }, // capstone gold
+        },
+        // N5 ENDS HERE. There are no comingSoon placeholders left in the N5
+        // map — m29 is the last tile of the spine, and the N4 runway tile
+        // (s26) is deliberately not a module.
         // ── N4 tier ──────────────────────────────────────────────────────
         // m29 (the capstone) closes the N5 line; `tier: "n4"` modules render
         // on their own map. The old N4 pilot module m29 "Plain form" was

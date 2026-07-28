@@ -14,7 +14,22 @@ const PARTICLES = new Set(["は","が","を","に","で","と","へ","も","の"
 // より added 2026-07-27 (m20, spine n09): it had NO entry, so `intro ===
 // undefined` made every より cloze in every module skip the ratchet entirely.
 // Naming its intro module is what lets the check actually run on it.
-const PARTICLE_INTRO_MODULE: Record<string, number> = {"か":3,"は":3,"も":3,"の":4,"が":4,"から":5,"に":6,"で":6,"を":7,"と":8,"よ":9,"ね":9,"まで":13,"へ":17,"より":20,"や":21};
+//
+// よ / ね CORRECTED 9 → 29 (2026-07-27, m29), with the evidence dumped before
+// the edit. The 9 was ARCHIVED-course attribution — the same staleness
+// `courseAtoms.fromModule` and `n5-grammar-points.json`'s `module` column
+// carry. In the NEO course no module before m29 teaches either particle:
+// scanning every `ir/*.ir.json` for a `newAtoms` entry or an `introduces:`
+// entry naming よ or ね returns **m29 and nothing else**, and m29's own
+// computed `priorVocab` — the union of what every earlier module actually
+// taught — contains neither. m29 (spine tile s25) is where the RUN-PLAN
+// ledger assigns `yo-emphasis` and `ne-agreement`, and it is where they are
+// taught. So this is a stale INPUT being corrected, not a bar being lowered:
+// the ratchet still runs on both particles, and it now bites where it should
+// — a よ cloze in m32 would fail, which under the old 9 it would also have
+// done, while the m29 introduction clozes that inv 5 explicitly permits no
+// longer fail for being in the module that introduces them.
+const PARTICLE_INTRO_MODULE: Record<string, number> = {"か":3,"は":3,"も":3,"の":4,"が":4,"から":5,"に":6,"で":6,"を":7,"と":8,"よ":29,"ね":29,"まで":13,"へ":17,"より":20,"や":21};
 
 const LATE_PARTICLE_CLOZE_EXEMPTIONS = new Set([
   "ja-m10-1-1/ja-m10-1-1-cloze-wo",
