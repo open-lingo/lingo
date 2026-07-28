@@ -138,6 +138,13 @@ grammarPoints:
       - { ja: "きょうは ともだちと あそびたい。", en: "I want to hang out with a friend today." }
       - { ja: "きょうは なにが したい？", en: "What do you want to do today?" }
     antiPattern: { ja: "トムは にほんに いきたい。", why: "たい states YOUR OWN wish — Japanese will not let you assert someone else's from the outside. Ask them (いきたい？) or say it about yourself." }
+    # The card that MAKES たい needs the drill as much as the three cells that
+    # bend it (Spencer 2026-07-28, same gap as m7's ます). Drills たべたい /
+    # のみたい / みたい — the first three in-scope entries, all stated above
+    # (inv 37). No `irregular` arm: したい carries no `derivedFrom` on purpose
+    # (see the atom note below), so it cannot be ramp material — and the
+    # irregular STEM it would test, し-, is already drilled by m7's ます ramp.
+    conjugation: { form: tai, classes: [ru, u] }
   - id: i-adj-negative
     rule: "たい ends in い, and it IS an い-adjective — so its negative is one you already own from m12. Drop the final い, add くない: たべたい → たべたくない. Nothing about the verb changes; たい does all the work, and there is still no だ anywhere. たべない says you will not eat; たべたくない says you do not WANT to."
     examples:
@@ -213,8 +220,8 @@ newAtoms:
   #    gloss-consistency check) and `verbClass` is deliberately ABSENT: these
   #    are the ramp's BASES, and a verbClass here would make L2's ramp try to
   #    conjugate たべる as an い-adjective.
-  - { kana: たべたい, romaji: tabetai, gloss: "want to eat", imageable: false, kind: tai-form, derivedFrom: たべる }
-  - { kana: のみたい, romaji: nomitai, gloss: "want to drink", imageable: false, kind: tai-form, derivedFrom: のむ }
+  - { kana: たべたい, romaji: tabetai, gloss: "want to eat", imageable: false, kind: tai-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のみたい, romaji: nomitai, gloss: "want to drink", imageable: false, kind: tai-form, derivedFrom: のむ, verbClass: u }
   # いきたい and したい carry NO `derivedFrom`. The gloss-consistency
   # diagnostic only compares content words of 3+ characters, and the whole
   # English content of いく ("to go") and する ("to do") is two-letter — so
@@ -222,10 +229,10 @@ newAtoms:
   # cannot check would just produce a permanent false finding. Base verbs:
   # いく and する respectively.
   - { kana: いきたい, romaji: ikitai, gloss: "want to go", imageable: false, kind: tai-form }
-  - { kana: みたい, romaji: mitai, gloss: "want to watch", imageable: false, kind: tai-form, derivedFrom: みる }
-  - { kana: かいたい, romaji: kaitai, gloss: "want to buy", imageable: false, kind: tai-form, derivedFrom: かう }
+  - { kana: みたい, romaji: mitai, gloss: "want to watch", imageable: false, kind: tai-form, derivedFrom: みる, verbClass: ru }
+  - { kana: かいたい, romaji: kaitai, gloss: "want to buy", imageable: false, kind: tai-form, derivedFrom: かう, verbClass: u }
   - { kana: したい, romaji: shitai, gloss: "want to do", imageable: false, kind: tai-form }
-  - { kana: あそびたい, romaji: asobitai, gloss: "want to play", imageable: false, kind: tai-form, derivedFrom: あそぶ }
+  - { kana: あそびたい, romaji: asobitai, gloss: "want to play", imageable: false, kind: tai-form, derivedFrom: あそぶ, verbClass: u }
   # ══ L2 — たくない. Order matters: the ramp takes the FIRST THREE in-scope
   #    entries, so the three drilled are the three the i-adj-negative card
   #    spells out. The rest carry no verbClass at all.
@@ -282,7 +289,7 @@ lessons:
       - { kind: sentence, ja: "ミカの あたらしい しゃしんが みたい。", en: "I want to see Mika's new photo", exercises: [no-possession, i-adj-present, v-tai], mode: listening }
       - { kind: sentence, ja: "あたらしい かさが かいたい。", en: "I want to buy a new umbrella", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは ともだちと あそびたい。", en: "I want to hang out with a friend today", exercises: [wa-topic, v-tai], mode: build }
-      - { kind: sentence, ja: "きょうは にぎやかな みせに いきたい。", en: "I want to go to a lively shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "きょうは にぎやかな みせに いきたい。", en: "I want to go to a lively shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: listening }
       - { kind: sentence, ja: "ミカの ふるい じしょが みたい。", en: "I want to look at Mika's old dictionary", exercises: [no-possession, i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは なにが したい？", en: "Ask a friend: What do you want to do today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは なにを したい？"] }
       - { kind: particle-cloze, stem: "きょうは すしが ", tail: "。", answer: "たべたい", options: ["たべたい", "たべる", "のみたい"], en: "I want to eat sushi today", explanation: "たい on the ます-stem says you WANT to; たべる on its own just says you will." }

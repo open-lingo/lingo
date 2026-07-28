@@ -105,16 +105,40 @@ describe("m13-neo owes the spine's wanting grammar points", () => {
     const ramp = M13_NEO_LESSONS.flatMap((l) => l.steps).filter(
       (s) => s.type === "conjugation_transform",
     ) as unknown as { form: string; verbClass: string; base: string; answer: string }[];
-    // Every ramp card is an ADJECTIVE card — たい conjugates on the i-adj
-    // engine, never on a verb class.
-    expect(ramp.every((s) => s.verbClass === "i-adj")).toBe(true);
-    // Every base is a たい form, never a bare verb.
-    expect(ramp.every((s) => s.base.endsWith("たい"))).toBe(true);
-    // All three derived cells get drilled (たい itself is the base cell).
+
+    // TWO ENGINES, AND THE SPLIT IS THE POINT (revised 2026-07-28).
+    //
+    // This used to assert that EVERY ramp card was an い-adjective card, on
+    // the grounds that "たい needs no new conjugation machinery — it IS an
+    // い-adjective". That rationale is about the registry ids (inv 42: the
+    // three cells reuse m12's `i-adj-*` rather than inventing たい-specific
+    // ones) and it still holds. But it had hardened into a claim about the
+    // ramp, and what it was really describing was an ABSENCE: only the three
+    // derived cells had a `conjugation:` block, so the card that MAKES たい —
+    // the module's headline rule — drilled nothing. Same gap m7 had with ます.
+    //
+    // MAKING たい is a verb operation (find the ます-stem, which is class
+    // -dependent); BENDING it is an adjective operation. So the ramp must
+    // show both, and each half must stay on its own engine.
+    const making = ramp.filter((s) => s.form === "tai");
+    const bending = ramp.filter((s) => s.form !== "tai");
+
+    // Formation: dictionary verb in, たい out, on a VERB class.
+    expect(making.length).toBeGreaterThanOrEqual(3);
+    expect(making.every((s) => s.verbClass !== "i-adj")).toBe(true);
+    expect(making.every((s) => !s.base.endsWith("たい"))).toBe(true);
+    expect(making.every((s) => s.answer.endsWith("たい"))).toBe(true);
+
+    // Cells: たい in, bent たい out, on the i-adj engine — never a bare verb
+    // conjugated as an adjective, which is the bug this half guards.
+    expect(bending.every((s) => s.verbClass === "i-adj")).toBe(true);
+    expect(bending.every((s) => s.base.endsWith("たい"))).toBe(true);
+
+    // The whole four-cell table: たい, たくない, たかった, たくなかった.
     expect(new Set(ramp.map((s) => s.form))).toEqual(
-      new Set(["negative", "past", "past-negative"]),
+      new Set(["tai", "negative", "past", "past-negative"]),
     );
-    expect(ramp.length).toBeGreaterThanOrEqual(9);
+    expect(ramp.length).toBeGreaterThanOrEqual(12);
   });
 
   it("no ramp card can emit a form its rule card did not spell out (inv 37)", () => {

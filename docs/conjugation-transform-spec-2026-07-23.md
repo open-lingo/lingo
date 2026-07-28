@@ -108,3 +108,46 @@ ships with the ない ruleset (already true in m6). 行く→行って flagged w
 Form→form transforms, trick questions, register toggle, adjective rulesets
 (engine must not preclude them — POS axis in the cell key from day one),
 lightning mode, trainer-page redesign to match the new card (follow-up).
+
+---
+
+## Ramp coverage — every form the engine can drill, and where (2026-07-28)
+
+Spencer, after finding ます undrilled at m7: "are any other modules missing
+it?" This is the answer, and the shape of the bug is worth naming. A module
+gets a ramp only if a `grammarPoint` declares a `conjugation:` block AND its
+derived atoms carry `verbClass` — miss either and the module compiles
+cleanly with no drill at all. Three modules had missed one or both.
+
+Every form the engine supports is now drilled:
+
+| form | drilled in |
+| --- | --- |
+| `nai` | m6 ×3 (ru / u / irregular) |
+| `masu` | **m7 L1 (ru+u), L2 (ru+u+irregular)** — added 07-28 |
+| `masu-neg` | **m7 L3** — added 07-28 |
+| `te` | **m8 ×3 (ru / u / u+irregular)** — added 07-28; m14 re-drills う-verbs |
+| `ta`, `masu-past` | m11 |
+| `negative` / `past` / `past-negative` (i-adj) | m12 (plain adjectives), m13 (たい cells) |
+| `tai` | **m13 L1** — added 07-28 |
+| `masu-past-neg`, `nai-past` | m16 |
+
+**The failure mode to watch for.** In all three cases the module drilled the
+*consequences* of its rule and not the rule itself. m7 drilled ません but not
+ます. m13 drilled たくない / たかった / たくなかった but not たい. The card that
+MAKES the form is the one that needs the ramp most, and its absence is
+invisible: the module compiles, the lesson has a rule card, and the derived
+cells all drill. Only trying to produce the form catches it.
+
+**Not drillable — would need new engine forms.** These are taught in the
+course and have no ramp because `ChainForm` cannot express them, not because
+anyone forgot: ている (m14), 〜たり〜たりする (m21), potential る/れる and
+できる (m24), すぎる and くなる/になる (m27), なきゃ/なければ/なくちゃ (m28).
+Also the copula negatives じゃない/じゃありません (m12, m29), which are not
+adjective inflection at all.
+
+**m24 (potential) is the one worth building.** It is a real class-keyed
+paradigm — る→られる, う→える, する→できる, くる→こられる — and it is the
+entire subject of its module, so it has the same shape as the three gaps
+just closed. The others are auxiliaries and chains, where a transform card
+would be the wrong instrument.
