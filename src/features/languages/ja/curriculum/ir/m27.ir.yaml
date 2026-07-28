@@ -428,7 +428,7 @@ lessons:
       - { kind: sentence, ja: "じかんが ないから ちゃを のまないんだ。", en: "I'm not drinking tea, because I haven't got time", exercises: [n-desu, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "コーヒーを のんだんだ。", en: "The thing is, I drank the coffee", exercises: [n-desu, ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "ねつが あるんだ。", en: "The thing is, I've got a fever", exercises: [n-desu], mode: translate }
-      - { kind: particle-cloze, stem: "ねつが ある", tail: "。", answer: "んだ", options: ["んだ", "だ", "なんだ"], en: "The thing is, I've got a fever", explanation: "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and なんだ carries a な that only a noun or a な-adjective may hand it." }
+      - { kind: particle-cloze, stem: "ねつが ある", tail: "。", answer: "んだ", options: ["んだ", "だ", "です"], en: "The thing is, I've got a fever", explanation: "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and です cannot sit on a plain verb either — 「あるです」 is not Japanese. The noun version, なんだ, is the next lesson's job." }
       - { kind: listening-comp, audio: "あしたは いそがしいから いかないんだ。", answer: "I'm not going, because I'm busy tomorrow", distractors: ["I'm going, because I'm free tomorrow", "I'm busy tomorrow, but I'm going", "I'm not going, because I've got a fever"], exercises: [n-desu, kara-because] }
       - { kind: listening-comp, audio: "じかんが あるから コーヒーを のむんだ。", answer: "I drink coffee, because I've got time", distractors: ["I don't drink coffee, because I haven't got time", "I drink tea, because I've got time", "I've got time, but I don't drink coffee"], exercises: [n-desu, kara-because] }
       - kind: dialogue
@@ -508,7 +508,12 @@ lessons:
       - { kind: sentence, ja: "さかなが すきなんだ。", en: "The thing is, I like fish", exercises: [desu-copula, suki-kirai-no], mode: listening }
       - { kind: sentence, ja: "この じゅぎょうは むずかしいんだ。", en: "The thing is, this class is difficult", exercises: [n-desu, wa-topic], mode: build }
       - { kind: sentence, ja: "おかねが ないから かわないんだ。", en: "I'm not buying it, because I haven't got the money", exercises: [kara-because, nai-existence], mode: build }
-      - { kind: particle-cloze, stem: "ぼくの かさ", tail: "。", answer: "なんだ", options: ["なんだ", "んだ", "なんです"], en: "Say to a friend: It's my umbrella, you see", explanation: "かさ is a noun, so な comes first — and the cue says a friend, so the ending is だ. んだ leaves the noun with no copula, and なんです is the polite skin." }
+      # なんです was the third option here until 2026-07-27 QA caught it: this is
+      # review-1, and んです/なんです do not debut until L5, which the course order
+      # delivers AFTER it. A distractor is the worst possible debut — the learner
+      # meets the form first as a wrong answer. だった is taught and wrong for a
+      # better reason: it is the plain past, not an explanation.
+      - { kind: particle-cloze, stem: "ぼくの かさ", tail: "。", answer: "なんだ", options: ["なんだ", "んだ", "だった"], en: "Say to a friend: It's my umbrella, you see", explanation: "かさ is a noun, so な comes first — and the cue says a friend, so the ending is だ. んだ leaves the noun with no copula, and だった only says the umbrella WAS mine: it reports, where なんだ explains." }
       - { kind: sentence, ja: "つくえが おおきいから へやが せまいんだ。", en: "The room is cramped because the desk is big", exercises: [kara-because, n-desu], mode: build }
       - { kind: listening-comp, audio: "あしたは やすみなんだ。", answer: "It's a holiday tomorrow, you see", distractors: ["It was a holiday yesterday, you see", "Tomorrow is a class, you see", "It isn't a holiday tomorrow"], exercises: [desu-copula, ni-time] }
       - { kind: sentence, ja: "どうして たべないんだ？", en: "Why aren't you eating", exercises: [n-desu, dare], mode: build }
@@ -612,7 +617,7 @@ lessons:
   - id: m27-neo-review-2
     role: review
     title: "Review — too much, and explaining it"
-    focus: "すぎる on stems and adjectives, with んだ and から carrying the reason"
+    focus: "すぎる on stems and adjectives, with んだ/んです and から carrying the reason"
     introduces: []
     beats:
       - { kind: sentence, ja: "ばんに たべすぎたんだ。", en: "The thing is, I ate too much in the evening", exercises: [sugiru, n-desu], mode: build }
@@ -759,7 +764,10 @@ lessons:
       - { kind: sentence, ja: "くすりを のみすぎたから びょうきに なったんだ。", en: "I took too much medicine, so I got ill", exercises: [sugiru, na-adj-present, ta-form], mode: listening }
       - { kind: sentence, ja: "えいごが よく なったから じゅぎょうが おもしろく なったんだ。", en: "My English has got better, so the class has become interesting", exercises: [ku-ni-naru, ta-form, kara-because], mode: build }
       - { kind: sentence, ja: "つくえが おおきすぎるから へやが せまく なったんだ。", en: "The desk is too big, so my room has got cramped", exercises: [sugiru, ku-ni-naru, n-desu], mode: build }
-      - { kind: sentence, ja: "すみません ねつが あるから きょうは いかないんです。", en: "Say politely: Excuse me, I'm not going today because I've got a fever", exercises: [masu-present, kara-because, nai-form], mode: build }
+      # Was L5's capstone sentence with 「じゅぎょうに」 trimmed off — the hardest
+      # beat of a teaching lesson handed back as a challenge beat. Rewritten to
+      # fold in すぎる, which the original did not exercise at all.
+      - { kind: sentence, ja: "すみません へやが さむすぎるから きょうは いかないんです。", en: "Say politely: Excuse me, the room is too cold, so I'm not going today", exercises: [masu-present, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "あねは いしゃに なったから びょういんで はたらくんだ。", en: "My older sister became a doctor, so she works at a hospital", exercises: [na-adj-present, ta-form, n-desu], mode: build }
       - { kind: sentence, ja: "コーヒーを のみすぎたから ばんは ちゃを のむんだ。", en: "I drank too much coffee, so I drink tea in the evening", exercises: [sugiru, kara-because, n-desu], mode: build }
       # ── Three beats REPLACED 2026-07-27 (orchestrator, after the m26 QA
@@ -779,7 +787,7 @@ lessons:
       - { kind: sentence, ja: "としょかんは しずかすぎるから へやで はたらくんです。", en: "Say politely: The library is too quiet, so I work in my room", exercises: [i-adj-present, masu-present, kara-because], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "どうして じゅぎょうに こないんですか。", en: "Why don't you come to the class?" }
+          - { speaker: "Tanaka", ja: "えいごの じゅぎょうは どうですか。", en: "How is the English class?" }
           - { speaker: "Mika", ja: "むずかしすぎるんです。えいごは よく なったんですけど。", en: "It's too difficult, you see. My English has got better, though." }
         questions:
           - { q: "What does Mika say has got better?", options: ["Her English", "The class", "Her health", "The teacher"], answer: "Her English" }

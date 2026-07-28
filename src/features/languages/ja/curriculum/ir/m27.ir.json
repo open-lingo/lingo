@@ -695,10 +695,10 @@
           "options": [
             "んだ",
             "だ",
-            "なんだ"
+            "です"
           ],
           "en": "The thing is, I've got a fever",
-          "explanation": "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and なんだ carries a な that only a noun or a な-adjective may hand it."
+          "explanation": "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and です cannot sit on a plain verb either — 「あるです」 is not Japanese. The noun version, なんだ, is the next lesson's job."
         },
         {
           "kind": "listening-comp",
@@ -1240,10 +1240,10 @@
           "options": [
             "なんだ",
             "んだ",
-            "なんです"
+            "だった"
           ],
           "en": "Say to a friend: It's my umbrella, you see",
-          "explanation": "かさ is a noun, so な comes first — and the cue says a friend, so the ending is だ. んだ leaves the noun with no copula, and なんです is the polite skin."
+          "explanation": "かさ is a noun, so な comes first — and the cue says a friend, so the ending is だ. んだ leaves the noun with no copula, and だった only says the umbrella WAS mine: it reports, where なんだ explains."
         },
         {
           "kind": "sentence",
@@ -1956,7 +1956,7 @@
       "id": "m27-neo-review-2",
       "role": "review",
       "title": "Review — too much, and explaining it",
-      "focus": "すぎる on stems and adjectives, with んだ and から carrying the reason",
+      "focus": "すぎる on stems and adjectives, with んだ/んです and から carrying the reason",
       "introduces": [],
       "beats": [
         {
@@ -2968,8 +2968,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "すみません ねつが あるから きょうは いかないんです。",
-          "en": "Say politely: Excuse me, I'm not going today because I've got a fever",
+          "ja": "すみません へやが さむすぎるから きょうは いかないんです。",
+          "en": "Say politely: Excuse me, the room is too cold, so I'm not going today",
           "exercises": [
             "masu-present",
             "kara-because",
@@ -3066,8 +3066,8 @@
           "lines": [
             {
               "speaker": "Tanaka",
-              "ja": "どうして じゅぎょうに こないんですか。",
-              "en": "Why don't you come to the class?"
+              "ja": "えいごの じゅぎょうは どうですか。",
+              "en": "How is the English class?"
             },
             {
               "speaker": "Mika",
