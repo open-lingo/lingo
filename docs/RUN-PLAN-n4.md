@@ -1238,16 +1238,59 @@ the audit working as intended, not a regression.
   89 lines were affected — トム 28, たけし 27, たなか 22, ケン 9, けん 2,
   たなかさん 1. **Still owes a Keita generation pass** — emit-tts-deck will
   now route those lines into the ja-keita deck, but the clips themselves need
-  synthesizing in lingo-core (`scripts/tts/gen_keita_dialogue.py`). Until then
-  they fall back to the whole-line Nanami clip, i.e. no worse than today.
+  synthesizing in lingo-core. **SETTLED 2026-07-27 — verified, not assumed.**
+  The script named here (`gen_keita_dialogue.py`) does not exist; the real one
+  is `gen_dialogue_voices.py`, and every module cycle has been running it. The
+  emitted `ja-keita-dialogue` deck holds 586 male-speaker lines and the TTS
+  manifest holds 600 `ja-keita:` keys; **0 of the 586 are missing a clip**, the
+  89 legacy m8–m10 lines included. Nanami needs no prefix — she is the base
+  `ja` voice. Nothing owed here.
 - **inv 35** ("build tiles carry no authored distractors") flags every IR
   module m6–m11 — the IR has no field to express it. This is a COMPILER/IR gap,
   not a module defect; the 3+-modules rule says fix the tooling, not the
   content.
-- **`scripts/exposure-audit.mjs` reads only `curriculum/m*-neo*.ts`**, which are
-  thin compiler wrappers for every IR module (m6+). Point it at
-  `curriculum/ir/*.ir.yaml` too, or its UNDER/OVER rows keep describing a
-  four-module corpus (found in the m20 cycle).
+- ~~**`scripts/exposure-audit.mjs` reads only `curriculum/m*-neo*.ts`**~~ —
+  FIXED in the m21 cycle; it reads `ir/*.ir.yaml` now and the corpus went
+  3336 → 9494 surfaces. See the carrier-fatigue section.
+- **Two challenge lessons reuse a taught sentence verbatim** (found 2026-07-27
+  by a course-wide scan of compiled production targets):
+  `m15.ir.yaml:597` repeats 「うみで およぐ ことが すきだ。」 from `m15-neo-4`, and
+  `m23.ir.yaml:698` repeats 「うみで およいだ ことが ないけど かわで およいだ ことが
+  ある。」 from `m23-neo-2`. Inv 26 says longer-but-familiar is not a challenge,
+  but the compiler's `challenge-not-novel` diagnostic keys on the **beat kind**
+  (`capstone`/`challenge`) and checks only the grammar-point COMBINATION — an
+  ordinary `kind: sentence` beat sitting inside the challenge LESSON is never
+  checked, and identical text passes as long as the point set differs. Rewrite
+  the two beats with new sentences, then add the ratchet: no sentence in a
+  challenge lesson may equal one authored earlier in the same module.
+  **Scope first, before spending time on it:** the same scan says the pattern
+  is otherwise the intended review ladder (teaching → review-1/2 → review-3),
+  and **m22–m26 have zero sentences appearing in 3+ lessons** — later authoring
+  already fixed itself. 35 such sentences exist course-wide, all in m10–m21,
+  and only these two touch a challenge.
+
+### Course-wide scans run 2026-07-27 — record the CLEAN results too
+
+Ran during the m27 quiet window, over compiled output for all 397 ja lessons.
+Recorded so nobody pays to re-derive them, and because a clean scan is only
+worth anything if you can see what it actually looked at:
+
+- **Answer-in-prompt leaks, `multiple_choice`: 0** of **615** steps checked.
+  Token-matched, never substring (Rule Zero). No MCQ hands the learner its own
+  answer in the prompt text.
+- **Same answer+type twice inside ONE lesson: 4**, of 3,314 answers scanned —
+  `ja-m1-yoon-intro-2` (きょう, a kana drill, deliberate), `ja-m10-neo-1`
+  (はい, the register picker ladder — two beats legitimately answer はい), and
+  two genuine ones: `ja-m6-neo-4` builds 「ほんがある」 at s-0 and s-4, and
+  `ja-m7-neo-2` builds 「ともだちがきます」 at s-3 and s-7. Trivial, pre-IR-era,
+  batch whenever m6/m7 are next touched.
+- **Sentence repeated across 3+ lessons of one module: 35**, all in m10–m21 and
+  all the intended teaching → review-1/2 → review-3 ladder. **m22–m26: zero.**
+
+The scan that found the two challenge repeats above is the same one; it reads
+`targetPhrase` / `acceptedAnswers[0]` / `correctOrder.join("")`, i.e. the three
+real answer fields, and asserts a non-zero scanned count. Copy it, don't
+rewrite it from memory.
 
 Untouched at run start (74): janai-desu kara-origin kudasai counter-nin
 dictionary-form kono-sono-ano-dono i-adj-present i-adj-negative to-and
