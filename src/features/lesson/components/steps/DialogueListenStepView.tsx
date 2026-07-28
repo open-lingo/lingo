@@ -445,12 +445,21 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
                         : "border-border/60 bg-surface"
                   }`}
                 >
+                  {/* The NAME needs the reading aid as much as the line does
+                      (Spencer QA 2026-07-28): ケン and トム are katakana, a
+                      script the course is still teaching at m7, so a bare
+                      chip left the learner unable to tell who was speaking.
+                      Routing it through AnnotatedText gets the per-script
+                      policy for free — katakana names keep their romaji
+                      until m17, hiragana names lose it at m7 like all other
+                      hiragana. English labels ("You", "Server") pass
+                      through untouched. */}
                   <span
                     className={`shrink-0 text-xs font-bold uppercase tracking-wider pt-1 ${
                       isActive ? "text-accent" : "text-text-muted"
                     }`}
                   >
-                    {line.speaker}
+                    <AnnotatedJa text={line.speaker ?? ""} />
                   </span>
                   <p
                     className={`flex-1 font-japanese text-base text-text-primary ${

@@ -75,6 +75,10 @@
         {
           "ja": "いえに いきます。",
           "en": "I go home. (polite)"
+        },
+        {
+          "ja": "ともだちが きます。",
+          "en": "A friend is coming. (polite)"
         }
       ],
       "antiPattern": {
@@ -85,7 +89,8 @@
         "form": "masu",
         "classes": [
           "ru",
-          "u"
+          "u",
+          "irregular"
         ]
       }
     },
@@ -234,21 +239,21 @@
       "verbClass": "u"
     },
     {
-      "kana": "します",
-      "romaji": "shimasu",
-      "gloss": "do, make (polite)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "する",
-      "verbClass": "irregular"
-    },
-    {
       "kana": "きます",
       "romaji": "kimasu",
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
       "verbClass": "irregular"
     },
     {
