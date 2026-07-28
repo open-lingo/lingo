@@ -1,0 +1,785 @@
+module: m28
+title: "Must & should: なきゃ/なければ, ほうがいい"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27]
+
+priorGrammarPoints: [ka-question, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     masu-past, masu-negative, masu-past-negative,
+                     kara-origin, kara-time, made-until, made-ni, mae-ni,
+                     i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-negative, na-adj-past,
+                     ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     node-because, kedo, te-iru, te-form, te-kara,
+                     te-kudasai, te-wa-ikemasen, te-mo-ii, kudasai, naide-kudasai,
+                     to-omoimasu, to-quotation, ni-iku, ga-itai, frequency-adverbs,
+                     toki, koto-ga-aru, nai-existence, tsumori-desu,
+                     numbers-1-10, numbers-11-99, numbers-100-10000,
+                     counter-ji, counter-fun, counter-tsu, counter-ko,
+                     counter-sai, counter-nin, counter-mai, counter-hai, counter-hon,
+                     wa-topic, mo-also, dare, ikura-price, dictionary-form,
+                     ya-incomplete-list, to-and, tari-tari-suru, family-register,
+                     kanji-set-1, kanji-set-2,
+                     potential-form, potential-rareru, dekiru, mieru-kikoeru,
+                     mashou, masenka, no-ga-jouzu, no-ga-heta, deshou,
+                     ichiban-superlative,
+                     desu-copula, i-adj-present, na-adj-present,
+                     n-desu, sugiru, ku-ni-naru]
+
+notes: |
+  m28 = spine tile s24, "✅ Must & should: なきゃ/なければ, ほうがいい". The tile's
+  own line, verbatim: "なければならない + casual なきゃ/なくちゃ; たほうがいい
+  advice." spinePlan s24 adds a third, binding item — "STRONG sentence examples
+  + careful introduction (Spencer's s24 note — binding)". RUN-PLAN-n4's coverage
+  ledger, row 28, owes exactly three ids — `nakereba-naranai`, `hou-ga-ii`,
+  `kanji-set-3` — and all three are TAUGHT here, on L1's, L6's and L9's rule
+  cards.
+
+  **THE ARCHIVED COURSE HAD NO m28 AT ALL.** `docs/INDEX.md` still carries the
+  landmine "m28 does not exist (m27→m29)" — that sentence describes the ARCHIVED
+  course, where the numbering ran m27→m29. In the new spine m28 exists and is
+  tile s24. The one genuinely useful consequence: `COMPLEXITY_FLOORS` had no m28
+  entry to inherit, so for once the number is a first measurement rather than a
+  recalibration off archived content (m22, m25, m26 and m27 all had to be RAISED
+  off bogus archived values).
+
+  THE WHOLE POINT — Japanese has no word for "must". What it has is a sentence
+  that says the alternative is not an option, and the interesting half is the
+  one that gets dropped.
+
+  1. **「いかなきゃ」 is the ない-form with its ない swapped for なきゃ.** いかない
+     → いかなきゃ, のまない → のまなきゃ, しない → しなきゃ. Nothing else in the
+     sentence moves. That is the whole formation and it is the FIRST thing the
+     module teaches, because it is what a learner will actually hear.
+  2. **The full form is 「いかなければ ならない」**, and なきゃ is a contraction of
+     it: なければ plus a ならない that spoken Japanese swallows. Teaching the
+     contraction first and the source second is deliberate — the source is the
+     WRITTEN and the POLITE form, and a learner who meets it first spends a
+     month building six-syllable sentences nobody says out loud.
+  3. **なくちゃ is the same move on a different conditional** (なくては rather
+     than なければ). Identical meaning, identical register; the module ships it
+     as a recognised variant on two verbs, never as a second rule.
+  4. **The polite pole is 「いかなければ なりません」.** Only the last piece
+     changes — the clause in front of it stays plain, exactly as m27's
+     んだ/んです did. L5 is the register lesson; every production prompt in it
+     carries an explicit cue (inv 8) and is graded so the other register is
+     never accepted (inv 48).
+  5. **「〜た ほうが いい」 is advice, and the た in it is not a past tense.**
+     ほう is m20's ordinary noun ("the ~ side") doing its job again, which is
+     why it takes が and why nothing in front of it inflects further. The
+     negative half is not a past negative — it is the plain ない-form:
+     「たべない ほうが いい」.
+
+  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
+  (the programme ended at m11). NO `kind: register` beats — that machinery is
+  m10 + m29 only (registerScaffoldIsolation); L5's polite production is an
+  ORDINARY lesson with explicit "Say politely:" cues.
+
+  DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
+
+  - **NO SPINE DEVIATION.** All three of tile s24's items ship: なければならない
+    with its casual skins (L1-L3, L5), たほうがいい advice (L6, L7, L10), and the
+    "ほう pays out again" link back to m20 (L10 re-teaches `yori-comparison` so
+    the learner sees that 「〜た ほうが いい」 is the SAME ほう they already own).
+  - **SIX POINTS ARE RE-TAUGHT rather than re-assigned, and ZERO ids are
+    invented (inv 42).** The row owes three ids across nine teaching lessons.
+    Every remaining card is a REGISTRY point re-taught inside the new frame:
+    `nai-form` (m6 — the ない-form is the raw material of every must-form here),
+    `kara-because` (m16 — an obligation is almost never stated without its
+    reason), `masu-present` (m7 — なりません, the polite pole),
+    `ta-form` (m11 — the た in たほうがいい, which is the one place it does not
+    mean the past), `yori-comparison` (m20 — ほう and より, the frame
+    ほうがいい is built out of) and `v-tai` (m13 — want against must is the
+    contrast that makes an obligation feel like one). No ledger row moves: a
+    re-teach is not a re-assignment (the m16 ruling; m20, m26 and m27 made the
+    same call). Asserted against the SHIPPED registry in `m28-neo.test.ts`,
+    with a non-vacuity floor on the registry size — not against a hand-copied
+    list.
+  - **TWENTY-FOUR ATOMS ARE DECLARED AND `courseAtoms.ts` IS UNTOUCHED.** Seven
+    are ordinary words that already carry a row under a stale old-course tag
+    (しごと, せいと, つよい, からい, うるさい, さいふ, まいにち) and are declared here for
+    PROVENANCE, the m15-m27 move. The other seventeen are DERIVED FORMS with no
+    row and no need of one — the m11/m12/m13/m14/m16/m24/m27 precedent, which
+    registered 68 inflections in IR `newAtoms` alone precisely because
+    registering inflections in courseAtoms regresses flashcard import and
+    `annotateJapaneseText`.
+  - **EVERY MUST-FORM IS REGISTERED WHOLE, AND THE TOKENIZER FORCED IT.** A
+    なきゃ-form attaches to the ない-STEM, and that stem exists in no lexicon in
+    this repo: `moduleCompiler.STEMS` stores the ます-stem (いき) and the
+    く-stem (たかく), never the あ-row negative stem (いか). Probed before a
+    sentence was written: with なきゃ registered as a bare atom and 「いかなきゃ」
+    not, 「いかなきゃ。」 tokenizes to い · かな · き · ゃ — the m25 atom かな
+    ("I wonder") eating the middle of the word and junk fragments either side.
+    Registering the whole surface fixes it by longest-match:
+    「きょうは かいしゃに いかなきゃ。」 → きょう · は · かいしゃ · に · いかなきゃ.
+    Only ichidan verbs would have worked with a bare なきゃ (たべ IS a ます-stem),
+    and a module that could only impose obligations with る-verbs is not a
+    module. m27 registered its seven 〜すぎる ADJECTIVE composites whole for
+    exactly this reason; this is the same ruling, applied to fifteen forms.
+  - **BARE 「なきゃ」「なくちゃ」「なければ」 ARE DELIBERATELY *NOT* REGISTERED, and
+    that is a safety property rather than an omission.** Because they are not
+    atoms, any 〜なきゃ surface the module has not registered whole fragments
+    loudly and trips the `unbuildable` gate — probed: 「かわで およがなきゃ。」 →
+    およ · が · な · き · ゃ, 「かわを みなきゃ。」 → み · な · き · ゃ. The module
+    therefore cannot silently grow a must-form it never taught.
+  - **THE 「なきゃ」 BOUND RULING, made explicitly because the brief asks for it.**
+    Casual 「なきゃ」 IS a complete utterance in speech — but the utterance is
+    「いかなきゃ」, not 「なきゃ」, and 「いかなきゃ」 is what this module registers.
+    So: the seven 〜なきゃ forms and the two 〜なくちゃ forms are **NOT bound** —
+    「いかなきゃ。」 is a whole sentence ("gotta go") and a perfectly good
+    `speaking` target. The six 〜なければ forms **ARE bound**: 「いかなければ」 on
+    its own is a dangling conditional ("if I don't go…") and nobody stops there.
+    So are ならない and なりません, which are the halves that finish it. All eight
+    are in `moduleCompiler.BOUND` (which filters the filler generator's pools)
+    and in `BOUND_ENDERS` in `boundEnderProduction.test.ts` (the course-wide
+    ratchet), added WITH the module rather than after it — the つもり / ましょう
+    lesson applied before the defect ships. They are also kept out of every
+    `reviewPool`, belt and braces.
+  - **「〜た ほうが いい」 NEEDED NO NEW ATOM AT ALL, which is the point.** ほう is
+    m20's noun, が is a particle, いい is an m12 atom, and every past form the
+    advice needs is already registered: 「ねつが あるから くすりを のんだ ほうが
+    いい。」 tiles ねつ · が · ある · から · くすり · を · のんだ · ほう · が · いい.
+    Ten tiles, the particles on their own (inv 34), and the learner assembling a
+    grammar point out of parts they already own. The た-forms actually available
+    are たべた / のんだ / きいた / みた / あそんだ / いった / わかった / のった /
+    およいだ / はたらいた, and the ない-forms たべない / みない / のまない / いかない /
+    かわない / しない / およがない — which is the whole repertoire this module's
+    advice is built from.
+  - **する's PLAIN PAST 「した」 IS BANNED, m23's finding restated.** した is the
+    registered atom for 下 "below" (m17), so 「でんわを した ほうが いい」 would
+    credit "below" and nothing would error. Advice about phoning is therefore
+    always 「でんわを しなきゃ」 or 「でんわを しなければ ならない」, never the
+    た-form. **くる's 「きた」 (北 "north") and 「はいった」 (fragments to はい ·
+    った) stay banned for the same reasons.**
+  - **おぼえた / はなした / あるいた / かえった ARE NOT AVAILABLE and no sentence
+    reaches for them.** None has an atom row and none was worth a registration
+    on top of fifteen must-forms — 「ことばを おぼえた ほうが いい」 would have
+    tiled おぼえ · た with た as a junk fragment. The advice beats use the ten
+    past forms that DO exist.
+  - **「かった」 IS BANNED FOR A DIFFERENT REASON — carrier fatigue** (it is on
+    m26/m27's audit list), which costs this module 「かった ほうが いい」, the
+    most obvious shopping sentence in the language. 「かわない ほうが いい」
+    carries the shopping beats instead, and it is the more useful advice anyway.
+  - **FOUR IMAGE DEBUTS, every glyph checked against the whole registry** (the
+    m19/m24/m26 shared-glyph ruling): からい 🌶️, うるさい 📢, さいふ 👛 and
+    せいと 🎒 are each UNIQUE in `courseAtoms` — no other atom carries the emoji.
+    Two words that COULD have had a picture do not: しごと 💼 shares with
+    はたらく, a MET word (and with つとめる / じょうし, untaught), and つよい 💪
+    shares with げんき and じょうぶ, both MET. **The rule card of a lesson that
+    debuts an imageable word never names it** (the m14 trap: a `kind: rule` beat
+    compiles to a PINNED step ahead of the interleaved middle and would steal
+    the debut) — L3's card avoids せいと, L7's avoids からい and うるさい, L10's
+    avoids さいふ.
+  - **もの AND はいる, the brief's two named under-exposed words, are spent as
+    carriers.** Both are already in m28's computed `priorVocab`, so neither can
+    be registered; they are spent by USE. もの carries 「からい ものは たべない
+    ほうが いい」 — which is also the sentence that spends からい — and はいる
+    carries 「だいがくに はいる まえに ことばを おぼえなきゃ」. はいる is used in
+    the NON-PAST only; m23's finding that 「はいった」 fragments to はい · った
+    stands.
+  - **kanji-set-3 IS THE COMPOUND SET, and the choice is pedagogical rather
+    than alphabetical.** m18's set-1 was single kun glyphs plus verbs; m23's
+    set-2 was nature glyphs plus adjectives, and its card introduced on-vs-kun.
+    Set-3 pays that lesson out: **会社 · 時間 · 電話 · 学校 · 先生 · 天気 ·
+    外国** are all two-glyph jukugo taking their Chinese (on) readings, and
+    **話す** is the eighth — the SAME 話 the learner has just read as わ inside
+    でんわ, now read はな as a verb. That contrast is the whole card. Every one
+    of the eight is a word the course TAUGHT, and every unlock is m13-m25, so
+    all eight are past unlock+FURIGANA_WINDOW at m28 and read BARE — the step is
+    an honest recognition check rather than a first sighting. Each has at least
+    three GENERATED near-misses, so none needs hand-authored distractors.
+  - **REJECTED FROM THE KANJI SET, on purpose and for reasons.** 月 and 木 stay
+    rejected on m18/m23's own rulings (月's げつ/がつ are real readings of the
+    glyph in other words; 木's generated distractor ぼく is a taught pronoun).
+    **魚 (さかな) is rejected on the SAME rule as 月**: 魚 alone is genuinely
+    read うお as well as さかな, and うお is the generator's second option.
+    **お金 (おかね) is rejected because its generated near-misses include かね
+    and かな — the first is a taught atom and the second is m25's "I wonder"**,
+    so two of three options would be real words the learner has met elsewhere.
+    **電車 is rejected for carrier fatigue** (でんしゃ is on the audit list).
+    **空 (m27) is rejected because it is still INSIDE its furigana window at
+    m28** (27 + 2 = 29), so it would not read cold. **長い is rejected for
+    having only two generated distractors.** And all sixteen of set-1 and set-2
+    are rejected outright — a set-3 that re-tested them would measure nothing.
+  - **NO PARTICLE_CLOZE ON A PARTICLE (inv 5).** m28 introduces no particle, so
+    a true particle cloze would be a REVIEW use of the type. Every cloze here
+    picks among CONTENT words and predicate FORMS (のまなきゃ / いかなきゃ /
+    かえらなきゃ, なりません / ならない / なる, のんだ / たべた / みた), and every
+    option is a taught atom or this module's own `newAtoms` (inv 40). No cloze
+    frame names a character (the frames are harvested into the grammar-review
+    deck, whose comprehensibility gate resolves words through `courseAtoms` and
+    ミカ / トム / ケン / たなか have no rows — m22's finding) and none ends on a
+    bare だ (m21's finding).
+  - **NO CONJUGATION RAMPS.** `conjugationTransform` runs on `conjugateVerb` /
+    `conjugateIAdj`, and `ChainForm` has no `nakereba` cell — there is nothing
+    to name — so no `conjugation:` block is declared and no `verbClass` is set
+    on any atom. The derivation ない → なきゃ is taught on the card and drilled
+    in builds and clozes instead, which is m24-m27's standing answer.
+  - **Clause boundaries are SPACES, never 、** — `moduleCompiler.clean()` strips
+    、 with nothing in its place, so an authored comma compiles to a run-on
+    build target AND a run-on TTS key.
+  - **Gloss discipline (inv 17).** A なきゃ-form glosses "have to ~" / "gotta ~",
+    never "should ~" — 「いかなきゃ」 is not advice, it is a duty, and the module
+    spends a whole lesson on the difference. 〜た ほうが いい glosses "you'd
+    better ~", never "you must ~". Plain non-past activity verbs gloss habitual
+    or intent; only いく / くる / かえる keep the futurate "-ing".
+  - **CARRIER ROTATION (inv 27).** The brief's nine worst carriers — みせ,
+    ともだち, ほん, ごはん, いる, きのう, あたらしい, えき, かばん — carry NO
+    sentence in this module, and neither do the seven m26/m27 added from the
+    same audit (みず, かった, うみ, いたい, でんしゃ, ください, きっさてん). しごと,
+    かいしゃ, くすり, やさい, ことば, じかん, でんわ, がっこう, てんき, がいこく,
+    せいと, さいふ, からい, うるさい, つよい and もの carry the sentences instead.
+  - **Persona canon.** Tom = student, American, Mika's friend; Mika = student,
+    Japanese; Ken = student, Japanese; Tanaka = the teacher. No 「NAMEは NOUNだ」
+    assertion appears anywhere: the module states duties and advice, never
+    roles. たなか appears only in the polite dialogues (L5 and the challenge).
+  - **「なんですか」 IS WRITTEN NOWHERE.** m27's atoms come forward as
+    `priorAtoms`, so the string now tokenizes as なんです · か and would credit
+    the explanatory ending inside a question meaning "what is it?". The guard is
+    in `m28-neo.test.ts`, over the COMPILED output.
+  - **THE CHALLENGE LESSON WAS WRITTEN FROM SCRATCH.** Not one of its sentences
+    appears anywhere else in the module — no lifted teaching beat, no two review
+    beats spliced with けど. `challengeNovelty.test.ts` is the course-wide
+    ratchet and m28 adds nothing to its debt list.
+  - **CONNECTIVES + COMPLEXITY (inv 13).** An obligation is a reason plus a duty
+    by construction, and advice is a situation plus a recommendation, so most
+    production beats hang a から / けど / まえに on m15/m16's machinery — which is
+    also how both are actually spoken. `COMPLEXITY_FLOORS.m28` is a FIRST
+    measurement, taken on the finished module and set three sentences below it.
+
+  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
+  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
+  grammar_rule steps and fail the adjacency bar.
+
+grammarPoints:
+  - id: nakereba-naranai
+    rule: "Japanese has no word for must. What it has is a sentence that says the other thing is not an option, and the useful half of it is short. Take the ない-form you have had since module 6 — 「いかない」, I'm not going — and swap that ない for なきゃ. いかない gives いかなきゃ, のまない gives のまなきゃ, しない gives しなきゃ, たべない gives たべなきゃ. Nothing else in the sentence moves: the topic, the object and the particles all stay exactly where they were, so 「きょうは かいしゃに いかない」 becomes 「きょうは かいしゃに いかなきゃ」 and the only thing that changed is the end of the verb. What it MEANS is have to, and it is a duty rather than a suggestion — a train to catch, a fever to treat, an office expecting you. It is also the shape you will hear most, because it is short and it is spoken. There is a longer, more formal version underneath it, and the next lesson takes that apart; for now, notice that なきゃ ends the sentence on its own. Nothing follows it. 「もう かえらなきゃ。」 is a complete thing to say, and it is what somebody says to you when they are standing up to leave."
+    examples:
+      - { ja: "きょうは かいしゃに いかなきゃ。", en: "I have to go to the office today." }
+      - { ja: "じかんが ないから もう かえらなきゃ。", en: "I have to go home now, because I haven't got time." }
+      - { ja: "ねつが あるから くすりを のまなきゃ。", en: "I have to take medicine, because I've got a fever." }
+      - { ja: "あしたも しごとを しなきゃ。", en: "I have to do the work tomorrow as well." }
+      - { ja: "うちに かえらなきゃ。", en: "I have to go home." }
+    antiPattern: { ja: "きょうは かいしゃに いくなきゃ。", why: "なきゃ replaces the ない of the ない-form, so it can never sit on a dictionary form: きょうは かいしゃに いかなきゃ。" }
+
+  - id: nai-form
+    rule: "なきゃ is a contraction, and this is what it is a contraction of. Start from the ない-form again, but this time treat that ない as the い-adjective it behaves like: drop the い and put ければ there instead. いかない gives いかなければ, のまない gives のまなければ, しない gives しなければ. On its own that half means if I don't go — a condition hanging in the air with nothing to land on. What lands on it is ならない, which is it won't do. 「いかなければ ならない」 is therefore if I don't go it won't do, which is how Japanese says I have to go. Two things follow from that, and they are the whole lesson. First, ならない is not optional in careful speech, so the full form is two pieces and not one. Second, なきゃ already ATE it — that is why nothing can follow なきゃ, and why 「いかなきゃ ならない」 says the same thing twice. There is one more contraction worth recognising. なくては is a second conditional doing the same job, and it contracts to なくちゃ: 「いかなくちゃ」 means exactly what 「いかなきゃ」 means, in exactly the same register. Which one a speaker reaches for is habit, not grammar."
+    examples:
+      - { ja: "あした かいしゃに いかなければ ならない。", en: "I have to go to the office tomorrow." }
+      - { ja: "ねつが あるから くすりを のまなければ ならない。", en: "I have to take medicine, because I've got a fever." }
+      - { ja: "じかんが ないから かえらなければ ならない。", en: "I have to go home, because I haven't got time." }
+      - { ja: "もう おそいから いかなくちゃ。", en: "It's late, so I have to go." }
+      - { ja: "じかんが ないんだ。もう いかなくちゃ。", en: "I haven't got time, you see. I have to go now." }
+    antiPattern: { ja: "あした かいしゃに いかない ならない。", why: "the ない-form has to become なければ before ならない — the plain negative cannot sit in front of it: あした かいしゃに いかなければ ならない。" }
+
+  - id: kara-because
+    rule: "An obligation almost never travels alone. Somebody says they have to do something and you immediately want to know why, so the reason comes with it — and から is the particle that carries one, exactly as it did in module 16. The reason clause comes FIRST, から goes on its end, and the duty comes last: 「おかねが ないから まいにち はたらかなきゃ。」 The order matters and it is the reverse of English, which puts because in the middle. Think of it as the reason building up to the thing it forces. Every must-form works in that slot without changing: なきゃ, なくちゃ and the full なければ ならない all sit happily at the end of a から sentence. And the reason itself can be anything you can already say — a fever, a lack of money, a class tomorrow, a shop that closes. Two extras worth having now. まえに still does its module-15 job in front of a duty: 「だいがくに はいる まえに ことばを おぼえなきゃ。」 And a duty is a perfectly good answer to どうして, which means the shortest useful exchange in this module is two lines long: why aren't you coming — I have to work."
+    examples:
+      - { ja: "おかねが ないから まいにち はたらかなきゃ。", en: "I have to work every day, because I haven't got the money." }
+      - { ja: "あした じゅぎょうが あるから ことばを おぼえなきゃ。", en: "I have to learn the words, because I've got a class tomorrow." }
+      - { ja: "わからないから せんせいに きかなくちゃ。", en: "I have to ask the teacher, because I don't understand." }
+      - { ja: "びょうきだから やさいを たべなきゃ。", en: "I have to eat vegetables, because I'm ill." }
+      - { ja: "だいがくに はいる まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I get into university." }
+    antiPattern: { ja: "おかねが ない まいにち はたらかなきゃ。", why: "the reason clause needs から on its end — without it the two halves are just two sentences pushed together: おかねが ないから まいにち はたらかなきゃ。" }
+
+  - id: masu-present
+    rule: "なきゃ is what you say to a friend. This is what you say to everybody else. The polite pole of the same rule swaps ならない for なりません, and that is the only change: 「あした びょういんに いかなければ なりません。」 Everything in front of なりません stays PLAIN — the なければ half never becomes いきませんければ, which is not a thing, because politeness in Japanese is carried once and it is carried at the end. That is the same lesson module 27's んです taught with a different word on it. Now the part that catches people. なきゃ and なくちゃ have already swallowed the ending, so there is nothing left to make polite — there is no polite なきゃ. If you need the polite register you have to go back to the full なければ and finish it with なりません. This is why the long form is worth having even though the short one is what you hear: the long one is the only one that can be dressed up. Where does each belong? なきゃ and なくちゃ with friends, with family, and in your own head. なければ なりません with a teacher, at a counter, on the phone to a company, and in anything written down."
+    examples:
+      - { ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow." }
+      - { ja: "ねつが あるから くすりを のまなければ なりません。", en: "Say politely: I have to take medicine, because I've got a fever." }
+      - { ja: "じゅぎょうの まえに ことばを おぼえなければ なりません。", en: "Say politely: I have to learn the words before the class." }
+      - { ja: "あしたも はたらかなければ なりません。", en: "Say politely: I have to work tomorrow as well." }
+      - { ja: "きょうは しごとを しなきゃ。", en: "Say to a friend: I have to do the work today." }
+    antiPattern: { ja: "あした びょういんに いかなきゃ なりません。", why: "なきゃ has already swallowed the ending, so nothing can follow it — the polite form needs the full なければ: あした びょういんに いかなければ なりません。" }
+
+  - id: hou-ga-ii
+    rule: "Having spent four lessons on duties, here is the softer thing beside them: advice. 「くすりを のんだ ほうが いい」 is you'd better take medicine — not a rule, a recommendation, and the strongest one Japanese makes without being rude. You have most of it already. ほう is the ordinary noun from module 20, the ~ side, the ~ one; が marks it as what the sentence is about; いい is good. So the sentence literally says the having-taken-medicine side is good, and the alternative is quietly the loser of a comparison you never had to state. Because ほう is a NOUN, it needs が after it — dropping the particle leaves two nouns stacked with nothing between them. What goes in FRONT of ほう is the surprising bit, and it is the た-form: のんだ, たべた, いった, きいた, みた. Yes, the past tense. No, it is not about the past — the next lesson is entirely about why. For now, build it and hear it: 「やさいを たべた ほうが いい。」 「がっこうに いった ほうが いい。」 Advice comes with its reason as often as a duty does, so から is usually hanging off the front of it."
+    examples:
+      - { ja: "ねつが あるから くすりを のんだ ほうが いい。", en: "You'd better take medicine, because you've got a fever." }
+      - { ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables." }
+      - { ja: "がっこうに いった ほうが いい。", en: "You'd better go to school." }
+      - { ja: "じかんが ないから バスに のった ほうが いい。", en: "You'd better take the bus, because you haven't got time." }
+      - { ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow." }
+    antiPattern: { ja: "ねつが あるから くすりを のんだ ほう いい。", why: "ほう is a NOUN, so it needs が to be what the sentence is about — without the particle two nouns are stacked with nothing between them: ねつが あるから くすりを のんだ ほうが いい。" }
+
+  - id: ta-form
+    rule: "The た in 「のんだ ほうが いい」 is the plain past you learned in module 11, and it is doing something it does nowhere else: nothing. It is not about yesterday. 「くすりを のんだ ほうが いい」 is advice about the next ten minutes. Japanese is picturing the situation in which the thing has already been done and calling THAT the better side, which is why the finished form of the verb turns up in a sentence about what to do next. English does something similar in you'd better have eaten first, and then loses its nerve. Here is the consequence that matters, and it is the half learners get wrong every time. The NEGATIVE side of this advice does NOT take a past. It takes the plain ない-form, unchanged: 「ねつが あるから いかない ほうが いい。」 「この くすりは のまない ほうが いい。」 The symmetry your ear wants — a past for the positive and a past negative for the negative — is not there, because 〜なかった ほうが いい would be regret about something already done rather than advice about something not yet done. So: た for the thing you should do, ない for the thing you shouldn't, and both of them sitting in front of the same ほうが いい."
+    examples:
+      - { ja: "ねつが あるから いかない ほうが いい。", en: "You'd better not go, because you've got a fever." }
+      - { ja: "にくは たべない ほうが いい。", en: "You'd better not eat meat." }
+      - { ja: "この くすりは つよいから のまない ほうが いい。", en: "This medicine is strong, so you'd better not take it." }
+      - { ja: "たかいから かわない ほうが いい。", en: "You'd better not buy it, because it's expensive." }
+      - { ja: "あめが ふるから かわで およがない ほうが いい。", en: "It's going to rain, so you'd better not swim in the river." }
+    antiPattern: { ja: "ねつが あるから いかなかった ほうが いい。", why: "the negative side of this advice takes the plain ない-form, never a past negative — 〜なかった ほうが いい is regret about something already done: ねつが あるから いかない ほうが いい。" }
+
+  - id: kanji-set-3
+    rule: "Third reading set, and it has a theme. Module 23 said that a glyph usually answers to two readings — a native Japanese one and a borrowed Chinese one — and that the WORD picks which. This set is what that rule was for. When two kanji are pushed together into a single word they almost always both take their Chinese readings, and the result sounds nothing like either word standing alone. 山 is やま by itself and さん inside a compound; 人 is ひと by itself and にん inside one. Seven of the words below work exactly that way, and the eighth is the pair that proves it: one glyph appears twice in this set, once buried inside a two-kanji word and once standing on its own with kana behind it, and it sounds completely different in the two places. That is not an exception, it is the system. You are never asked to write one of these. Reading is the whole job, and every word here is one you have been reading for modules with its kana floating overhead. Now it reads cold."
+    examples:
+      - { ja: "かいしゃの しごとは いそがしいんだ。", en: "The thing is, the work at the office is busy." }
+      - { ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the underground, because you haven't got time." }
+      - { ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back." }
+      - { ja: "せんせいと はなす まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I speak to the teacher." }
+      - { ja: "せいとは がっこうに いかなくちゃ。", en: "A pupil has to go to school." }
+    antiPattern: { ja: "かいしゃの しごとは いそがしいだ。", why: "an い-adjective finishes a sentence on its own and never takes だ — the explanatory ん is what goes there: かいしゃの しごとは いそがしいんだ。" }
+
+  - id: yori-comparison
+    rule: "ほう has been doing quiet work for two lessons and it is time to say where it came from. Module 20 taught 「AのほうがBより〜」: the winner takes ほうが and the loser takes より. 「バスより ちかてつの ほうが いい」 is the underground is better than the bus — and 「ちかてつに のった ほうが いい」, the advice you have been building, is the SAME sentence with the losing side left unsaid. That is why advice uses ほう at all. It is a comparison of two courses of action in which only the winner gets named. Once you see it, two things become easy. You can put the loser back in whenever you want to be explicit: 「バスより ちかてつの ほうが いい。」 And you can compare two things that are not actions at all, which is exactly module 20's frame: 「この さいふより あの さいふの ほうが やすい。」 Note where the particles sit, because it is the one thing that goes wrong. ほう is a noun, so a noun in front of it needs の. より goes straight onto the losing side with nothing in front of it. Neither word inflects, ever."
+    examples:
+      - { ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus." }
+      - { ja: "この くつより あの くつの ほうが やすい。", en: "Those shoes over there are cheaper than these." }
+      - { ja: "この くすりは あの くすりより つよいから のまない ほうが いい。", en: "This medicine is stronger than that one, so you'd better not take it." }
+      - { ja: "にくより さかなを たべた ほうが いい。", en: "You'd better eat fish rather than meat." }
+      - { ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better." }
+    antiPattern: { ja: "バス ちかてつの ほうが いい。", why: "the losing side needs より on it — without the particle the two things are just sitting next to each other: バスより ちかてつの ほうが いい。" }
+
+  - id: v-tai
+    rule: "Duties are only interesting because of what they are competing with, so here is the other side. 〜たい from module 13 says what you WANT: あそびたい, いきたい, たべたい, したい. Put it against a duty with けど in between and you have the most human sentence in this module: 「あそびたいけど はたらかなきゃ。」 I want to play, but I have to work. Two mechanical reminders, because both come back to bite. たい goes on the ます-stem — あそび, いき, たべ — never on the dictionary form, so it is あそびたい and never あそぶたい. And たい behaves as an い-adjective, which is why けど attaches straight to it with nothing in between, and why the negative is たべたくない. The pattern generalises further than it looks. Want against advice: 「コーヒーを のみたいけど のまない ほうが いい。」 Want against a reason: 「がいこくに いきたいから ことばを おぼえなきゃ。」 And the order can flip, with the duty first and the wish trailing behind it. What you cannot do is state both as plain facts side by side and hope the listener notices the tension — けど is what marks it."
+    examples:
+      - { ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work." }
+      - { ja: "うちに いきたいけど しごとを しなきゃ。", en: "I want to go home, but I have to do the work." }
+      - { ja: "がいこくに いきたいから ことばを おぼえなきゃ。", en: "I want to go abroad, so I have to learn the words." }
+      - { ja: "やさいを たべたくないけど たべなきゃ。", en: "I don't want to eat vegetables, but I have to." }
+      - { ja: "あそびたいけど あした じゅぎょうが あるんだ。", en: "I want to play, but the thing is, I've got a class tomorrow." }
+    antiPattern: { ja: "あそぶたいけど はたらかなきゃ。", why: "たい goes on the ます-stem, never on the dictionary form: あそびたいけど はたらかなきゃ。" }
+
+newAtoms:
+  # ══ L1. THE HEADLINE FORMS. Registered WHOLE because the ない-STEM they attach
+  #    to (いか / のま / かえら) exists in no lexicon here — moduleCompiler.STEMS
+  #    carries the ます-stem and the く-stem, never the あ-row negative stem.
+  #    Probed: with a bare なきゃ atom and no whole form, 「いかなきゃ。」 →
+  #    い · かな · き · ゃ (m25's かな eating the middle). IR-LOCAL — no
+  #    courseAtoms row, the m11-m27 precedent for derived forms. NOT bound:
+  #    「いかなきゃ。」 is a complete utterance ("gotta go").
+  - { kana: いかなきゃ, romaji: "ikanakya", gloss: "have to go (casual)", shortGloss: "gotta go", imageable: false, kind: vocab, derivedFrom: いく }
+  - { kana: かえらなきゃ, romaji: "kaeranakya", gloss: "have to go back (casual)", shortGloss: "gotta go back", imageable: false, kind: vocab, derivedFrom: かえる }
+  - { kana: のまなきゃ, romaji: "nomanakya", gloss: "have to drink (casual)", shortGloss: "gotta drink", imageable: false, kind: vocab, derivedFrom: のむ }
+  - { kana: しなきゃ, romaji: "shinakya", gloss: "have to do (casual)", shortGloss: "gotta do", imageable: false, kind: vocab, derivedFrom: する }
+  # ══ L1. 💼 is はたらく's glyph and はたらく is MET, so no picture (the
+  #    m19/m24/m26 shared-glyph ruling). Stale courseAtoms tag (m12), absent from
+  #    every neo module's priorVocab — PROVENANCE only.
+  - { kana: しごと, romaji: shigoto, gloss: "job, work", shortGloss: "job", imageable: false, kind: vocab }
+
+  # ══ L2. The FULL form, and the halves that make it. All six 〜なければ forms
+  #    are BOUND — 「いかなければ」 alone is a dangling conditional ("if I don't
+  #    go…") — as are ならない and なりません, which are what finishes it. Added to
+  #    moduleCompiler.BOUND and boundEnderProduction's BOUND_ENDERS, and kept out
+  #    of every reviewPool.
+  - { kana: いかなければ, romaji: "ikanakereba", gloss: "if one does not go (the half なきゃ contracts)", shortGloss: "if not go", imageable: false, kind: vocab, derivedFrom: いく }
+  - { kana: のまなければ, romaji: "nomanakereba", gloss: "if one does not drink (the half なきゃ contracts)", shortGloss: "if not drink", imageable: false, kind: vocab, derivedFrom: のむ }
+  - { kana: かえらなければ, romaji: "kaeranakereba", gloss: "if one does not go back (the half なきゃ contracts)", shortGloss: "if not go back", imageable: false, kind: vocab, derivedFrom: かえる }
+  - { kana: ならない, romaji: "naranai", gloss: "it won't do (finishes なければ)", shortGloss: "it won't do", imageable: false, kind: vocab }
+  # ══ L2. 「まいにち」 has a courseAtoms row (no emoji — the registry marks it
+  #    un-imageable) but NO neo module ever taught it, so the context pack's
+  #    "already knows" list is wrong about it exactly as m23/m26/m27 warned.
+  #    Registered for PROVENANCE. It also has to be a WHOLE atom for the
+  #    tokenizer's sake: まい is the registered counter for flat things, so a
+  #    shorter match would tile まい · にち. まいあさ and まいばん are the same
+  #    class and are NOT registered — the module says まいにち or ばん instead,
+  #    because three "every ~" adverbs would be a vocabulary table.
+  - { kana: まいにち, romaji: mainichi, gloss: "every day", shortGloss: "every day", imageable: false, kind: vocab }
+  # ══ L2. なくては's contraction. Same meaning and same register as なきゃ, so it
+  #    is a recognised VARIANT rather than a second rule — and いかなきゃ /
+  #    いかなくちゃ never share a reviewPool, because two tiles reading "gotta go"
+  #    would make a match grid ambiguous. NOT bound.
+  - { kana: いかなくちゃ, romaji: "ikanakucha", gloss: "have to go (casual, なくちゃ)", shortGloss: "gotta go (なくちゃ)", imageable: false, kind: vocab, derivedFrom: いく }
+
+  # ══ L3. More must-forms, spent on the reason lesson.
+  - { kana: はたらかなきゃ, romaji: "hatarakanakya", gloss: "have to work (casual)", shortGloss: "gotta work", imageable: false, kind: vocab, derivedFrom: はたらく }
+  - { kana: おぼえなきゃ, romaji: "oboenakya", gloss: "have to learn (casual)", shortGloss: "gotta learn", imageable: false, kind: vocab, derivedFrom: おぼえる }
+  - { kana: たべなきゃ, romaji: "tabenakya", gloss: "have to eat (casual)", shortGloss: "gotta eat", imageable: false, kind: vocab, derivedFrom: たべる }
+  - { kana: きかなくちゃ, romaji: "kikanakucha", gloss: "have to ask (casual, なくちゃ)", shortGloss: "gotta ask", imageable: false, kind: vocab, derivedFrom: きく }
+  # ══ L3. 🎒 is UNIQUE in the registry, so せいと debuts on a picture. Stale tag
+  #    (m19), a context-pack reinforcement target spent by REGISTERING it.
+  - { kana: せいと, romaji: seito, gloss: "pupil", shortGloss: "pupil", kind: vocab }
+
+  # ══ L5. The polite pole. なりません is BOUND for the same reason ならない is.
+  - { kana: なりません, romaji: "narimasen", gloss: "it won't do (polite, finishes なければ)", shortGloss: "it won't do (polite)", imageable: false, kind: vocab }
+  - { kana: しなければ, romaji: "shinakereba", gloss: "if one does not do (the half なきゃ contracts)", shortGloss: "if not do", imageable: false, kind: vocab, derivedFrom: する }
+  - { kana: はたらかなければ, romaji: "hatarakanakereba", gloss: "if one does not work (the half なきゃ contracts)", shortGloss: "if not work", imageable: false, kind: vocab, derivedFrom: はたらく }
+  - { kana: おぼえなければ, romaji: "oboenakereba", gloss: "if one does not learn (the half なきゃ contracts)", shortGloss: "if not learn", imageable: false, kind: vocab, derivedFrom: おぼえる }
+
+  # ══ L6. 💪 is げんき's and じょうぶ's as much as つよい's, and both are MET, so
+  #    no picture. Reinforcement target (seen ~2×), stale tag (m27).
+  - { kana: つよい, romaji: tsuyoi, gloss: "strong, powerful", shortGloss: "strong", imageable: false, kind: vocab }
+
+  # ══ L7. 🌶️ and 📢 are each UNIQUE in the registry, so both debut on a picture
+  #    — and L7's card names neither (the m14 trap). からい is the pack's most
+  #    under-exposed target (CEJC #498, seen ~1×) and it is what lets
+  #    「からい ものは たべない ほうが いい」 spend もの as well.
+  - { kana: からい, romaji: karai, gloss: "spicy", shortGloss: "spicy", kind: vocab }
+  - { kana: うるさい, romaji: urusai, gloss: "noisy, annoying", shortGloss: "noisy", kind: vocab }
+
+  # ══ L10. 👛 is UNIQUE. Reinforcement target, stale tag (m14).
+  - { kana: さいふ, romaji: saifu, gloss: "wallet", shortGloss: "wallet", kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-1
+    role: teaching
+    title: "「いかなきゃ」 — the thing you have to do"
+    focus: "Swap the ない of a ない-form for なきゃ and don't go becomes have to go"
+    introduces: [いかなきゃ, かえらなきゃ, のまなきゃ, しなきゃ, しごと]
+    beats:
+      - { kind: rule, grammarPointId: nakereba-naranai }
+      - { kind: sentence, ja: "きょうは かいしゃに いかなきゃ。", en: "I have to go to the office today", exercises: [nakereba-naranai, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "じかんが ないから もう かえらなきゃ。", en: "I have to go home now, because I haven't got time", exercises: [nakereba-naranai, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "ねつが あるから くすりを のまなきゃ。", en: "I have to take medicine, because I've got a fever", exercises: [nakereba-naranai, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "あしたも しごとを しなきゃ。", en: "I have to do the work tomorrow as well", exercises: [nakereba-naranai, mo-also, wo-object], mode: build }
+      - { kind: sentence, ja: "あさ しごとに いかなきゃ。", en: "I have to go to work in the morning", exercises: [nakereba-naranai, ni-location, ni-time], mode: listening }
+      - { kind: sentence, ja: "くすりを のまなきゃ。びょうきなんだ。", en: "I have to take medicine — the thing is, I'm ill", exercises: [nakereba-naranai, n-desu, desu-copula], mode: build }
+      - { kind: sentence, ja: "うちに かえらなきゃ。あしたは しごとが あるんだ。", en: "I have to go home — the thing is, I've got work tomorrow", exercises: [nakereba-naranai, n-desu, ga-existence], mode: build }
+      - { kind: sentence, ja: "きょうは かえらなきゃ。", en: "I have to go home today", exercises: [nakereba-naranai], mode: translate }
+      - { kind: particle-cloze, stem: "ねつが あるから くすりを ", tail: "。", answer: "のまなきゃ", options: ["のまなきゃ", "いかなきゃ", "かえらなきゃ"], en: "I have to take medicine, because I've got a fever", explanation: "medicine is something you drink, so the duty belongs to のむ. いかなきゃ and かえらなきゃ are both about going somewhere, and neither of them does anything about a fever." }
+      - { kind: listening-comp, audio: "じかんが ないから もう かえらなきゃ。", answer: "I have to go home now, because I haven't got time", distractors: ["I've got time, so I'm going home now", "I have to go to the office now, because I haven't got time", "I haven't got time, but I'm not going home"], exercises: [nakereba-naranai, kara-because] }
+      - { kind: listening-comp, audio: "あしたも かいしゃに いかなきゃ。", answer: "I have to go to the office tomorrow as well", distractors: ["I have to go to the hospital tomorrow as well", "I'm not going to the office tomorrow", "I have to go to the office in the morning"], exercises: [nakereba-naranai, mo-also] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうして もう かえるんだ？", en: "Why are you going home already?" }
+          - { speaker: "Tom", ja: "あしたは しごとが あるんだ。あさ かいしゃに いかなきゃ。", en: "I've got work tomorrow. I have to go to the office in the morning." }
+        questions:
+          - { q: "Why does Tom say he is going home?", options: ["He has to go to the office in the morning", "He has to go to the hospital", "He hasn't got any money", "He's ill"], answer: "He has to go to the office in the morning" }
+      - { kind: challenge, ja: "ねつが あるから しごとに いかないけど くすりを のまなきゃ。", en: "I'm not going to work because I've got a fever, but I have to take medicine", combines: [nakereba-naranai, kara-because, kedo, nai-form, wo-object], mode: build }
+    reviewPool: [しごと, かいしゃ, くすり, じかん, ねつ, びょうき, うち, あさ, いそがしい, まいにち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-2
+    role: teaching
+    title: "「いかなければ ならない」 — what なきゃ is short for"
+    focus: "ない drops its い for ければ, and ならない is what なきゃ swallowed"
+    introduces: [いかなければ, ならない, のまなければ, かえらなければ, いかなくちゃ, まいにち]
+    beats:
+      - { kind: rule, grammarPointId: nai-form }
+      - { kind: sentence, ja: "あした かいしゃに いかなければ ならない。", en: "I have to go to the office tomorrow", exercises: [nai-form, nakereba-naranai, ni-location], mode: build }
+      - { kind: sentence, ja: "ねつが あるから くすりを のまなければ ならない。", en: "I have to take medicine, because I've got a fever", exercises: [nai-form, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "じかんが ないから かえらなければ ならない。", en: "I have to go home, because I haven't got time", exercises: [nai-form, nakereba-naranai, nai-existence], mode: build }
+      - { kind: sentence, ja: "もう おそいから いかなくちゃ。", en: "It's late, so I have to go", exercises: [nai-form, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "あさ くすりを のまなければ ならない。", en: "I have to take medicine in the morning", exercises: [nai-form, nakereba-naranai, ni-time], mode: listening }
+      - { kind: sentence, ja: "しごとが いそがしいから まいにち かいしゃに いかなければ ならない。", en: "I have to go to the office every day, because work is busy", exercises: [nai-form, nakereba-naranai, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "じかんが ないんだ。もう いかなくちゃ。", en: "I haven't got time, you see — I have to go now", exercises: [nai-form, n-desu, nakereba-naranai], mode: build }
+      - { kind: sentence, ja: "あした いかなければ ならない。", en: "I have to go tomorrow", exercises: [nai-form, nakereba-naranai], mode: translate }
+      - { kind: particle-cloze, stem: "くすりを ", tail: " ならない。", answer: "のまなければ", options: ["のまなければ", "のまなきゃ", "のまない"], en: "I have to take medicine", explanation: "ならない needs the なければ half in front of it. のまなきゃ is the contraction that has already swallowed ならない, and のまない is the plain negative with no conditional on it at all." }
+      - { kind: listening-comp, audio: "じかんが ないから かえらなければ ならない。", answer: "I have to go home, because I haven't got time", distractors: ["I have to go to the office, because I haven't got time", "I've got time, so I'm not going home", "I haven't got time, but I'm not going home"], exercises: [nai-form, nakereba-naranai] }
+      - { kind: listening-comp, audio: "もう おそいから いかなくちゃ。", answer: "It's late, so I have to go", distractors: ["It's late, so I'm not going", "It's late, so I have to go home", "It's late, but I'm staying"], exercises: [nai-form, kara-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうして きょう としょかんに いかないんだ？", en: "Why aren't you going to the library today?" }
+          - { speaker: "Ken", ja: "じかんが ないんだ。あした かいしゃに いかなければ ならない。", en: "I haven't got time. I have to go to the office tomorrow." }
+        questions:
+          - { q: "What does Ken say he has to do tomorrow?", options: ["Go to the office", "Go to the library", "Take medicine", "Go home"], answer: "Go to the office" }
+      - { kind: challenge, ja: "きょうは じかんが あるけど あした かいしゃに いかなければ ならないんだ。", en: "I've got time today, but the thing is, I have to go to the office tomorrow", combines: [nai-form, nakereba-naranai, kedo, n-desu, ga-existence], mode: build }
+    reviewPool: [しごと, かいしゃ, くすり, じかん, としょかん, うち, おそい, いそがしい, まいにち, あさ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-3
+    role: teaching
+    title: "「おかねが ないから はたらかなきゃ」 — the reason you have to"
+    focus: "から carries the reason and the must-form closes the sentence"
+    introduces: [はたらかなきゃ, おぼえなきゃ, たべなきゃ, きかなくちゃ, せいと]
+    beats:
+      - { kind: rule, grammarPointId: kara-because }
+      - { kind: sentence, ja: "おかねが ないから まいにち はたらかなきゃ。", en: "I have to work every day, because I haven't got the money", exercises: [kara-because, nakereba-naranai, nai-existence], mode: build }
+      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえなきゃ。", en: "I have to learn the words, because I've got a class tomorrow", exercises: [kara-because, nakereba-naranai, ga-existence], mode: build }
+      - { kind: sentence, ja: "わからないから せんせいに きかなくちゃ。", en: "I have to ask the teacher, because I don't understand", exercises: [kara-because, nakereba-naranai, nai-form], mode: build }
+      - { kind: sentence, ja: "びょうきだから やさいを たべなきゃ。", en: "I have to eat vegetables, because I'm ill", exercises: [kara-because, nakereba-naranai, desu-copula], mode: build }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [kara-because, nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "だいがくに はいる まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I get into university", exercises: [kara-because, nakereba-naranai, mae-ni], mode: build }
+      - { kind: sentence, ja: "しごとが いそがしいから ばんも はたらかなきゃ。", en: "I have to work every evening, because work is busy", exercises: [kara-because, nakereba-naranai, frequency-adverbs], mode: listening }
+      - { kind: sentence, ja: "まいにち はたらかなきゃ。", en: "I have to work every day", exercises: [kara-because, nakereba-naranai], mode: translate }
+      - { kind: particle-cloze, stem: "あした じゅぎょうが あるから ことばを ", tail: "。", answer: "おぼえなきゃ", options: ["おぼえなきゃ", "たべなきゃ", "はたらかなきゃ"], en: "I have to learn the words, because I've got a class tomorrow", explanation: "a class is a reason to learn something, so the duty belongs to おぼえる. たべなきゃ does nothing with words, and はたらかなきゃ answers a question about money rather than about a class." }
+      - { kind: listening-comp, audio: "じゅぎょうが むずかしいから まいにち ことばを おぼえなきゃ。", answer: "I have to learn the words every day, because the class is difficult", distractors: ["I have to work every day, because the class is difficult", "The class is difficult, but I don't learn the words", "I have to learn the words every day, because the class is fun"], exercises: [kara-because, nakereba-naranai] }
+      - { kind: listening-comp, audio: "わからないから せんせいに きかなくちゃ。", answer: "I have to ask the teacher, because I don't understand", distractors: ["I understand, so I'm not asking the teacher", "I have to ask my older brother, because I don't understand", "I don't understand, but I'm not asking anybody"], exercises: [kara-because, nai-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "どうして まいにち はたらくんだ？", en: "Why do you work every day?" }
+          - { speaker: "Mika", ja: "おかねが ないんだ。だいがくの じゅぎょうも あるから いそがしい。", en: "I haven't got any money. And I've got university classes too, so I'm busy." }
+        questions:
+          - { q: "Why does Mika say she works every day?", options: ["She hasn't got any money", "She likes the work", "She has no classes", "She's going abroad"], answer: "She hasn't got any money" }
+      - { kind: challenge, ja: "せいとは じゅぎょうの まえに ことばを おぼえなきゃ。じゅぎょうが むずかしいんだ。", en: "A pupil has to learn the words before the class — the thing is, the class is difficult", combines: [kara-because, nakereba-naranai, mae-ni, n-desu, i-adj-present], mode: build }
+    reviewPool: [せいと, ことば, がっこう, せんせい, じゅぎょう, おかね, だいがく, やさい, まいにち, まいにち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-review-1
+    role: review
+    title: "Review — what you have to do, and why"
+    focus: "なきゃ / なくちゃ / なければ ならない, with から carrying the reason"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうは かいしゃに いかなきゃ。", en: "I have to go to the office today", exercises: [nakereba-naranai, ni-location], mode: build }
+      - { kind: sentence, ja: "ねつが あるから くすりを のまなければ ならない。", en: "I have to take medicine, because I've got a fever", exercises: [nai-form, nakereba-naranai], mode: build }
+      - { kind: sentence, ja: "おかねが ないから まいにち はたらかなきゃ。", en: "I have to work every day, because I haven't got the money", exercises: [kara-because, nakereba-naranai], mode: listening }
+      - { kind: sentence, ja: "じかんが ないから もう かえらなきゃ。", en: "I have to go home now, because I haven't got time", exercises: [nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "わからないから せんせいに きかなくちゃ。", en: "I have to ask the teacher, because I don't understand", exercises: [kara-because, nai-form], mode: build }
+      - { kind: particle-cloze, stem: "じかんが ないから もう ", tail: "。", answer: "かえらなきゃ", options: ["かえらなきゃ", "はたらかなきゃ", "おぼえなきゃ"], en: "I have to go home now, because I haven't got time", explanation: "no time left is a reason to leave, so the duty is かえる's. はたらかなきゃ would keep you where you are, and おぼえなきゃ has nothing to do with the clock." }
+      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえなきゃ。", en: "I have to learn the words, because I've got a class tomorrow", exercises: [kara-because, ga-existence], mode: build }
+      - { kind: listening-comp, audio: "もう おそいから いかなくちゃ。", answer: "It's late, so I have to go", distractors: ["It's late, so I'm staying", "It's late, so I have to go home", "It was late, so I went"], exercises: [nai-form, kara-because] }
+      - { kind: sentence, ja: "びょうきだから やさいを たべなきゃ。", en: "I have to eat vegetables, because I'm ill", exercises: [kara-because, desu-copula], mode: build }
+      - { kind: sentence, ja: "まいにち はたらかなきゃ。", en: "I have to work every day", exercises: [nakereba-naranai], mode: translate }
+      - { kind: listening-comp, audio: "あした かいしゃに いかなければ ならない。", answer: "I have to go to the office tomorrow", distractors: ["I have to go to school tomorrow", "I'm not going to the office tomorrow", "I have to go to the office every day"], exercises: [nai-form, nakereba-naranai] }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "だいがくに はいる まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I get into university", exercises: [kara-because, mae-ni], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あした かわで あそぶ？", en: "Are you playing at the river tomorrow?" }
+          - { speaker: "Mika", ja: "しごとが あるんだ。あさ かいしゃに いかなくちゃ。", en: "I've got work. I have to go to the office in the morning." }
+        questions:
+          - { q: "What does Mika say she has to do in the morning?", options: ["Go to the office", "Play at the river", "Take medicine", "Learn the words"], answer: "Go to the office" }
+    reviewPool: [しごと, せいと, かいしゃ, くすり, じかん, ことば, おかね, やさい, がっこう, じゅぎょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-5
+    role: teaching
+    title: "「いかなければ なりません」 — saying it to a teacher"
+    focus: "One rule, two skins: only ならない changes, and なきゃ cannot be dressed up"
+    introduces: [なりません, しなければ, はたらかなければ, おぼえなければ]
+    beats:
+      - { kind: rule, grammarPointId: masu-present }
+      - { kind: sentence, ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow", exercises: [masu-present, nakereba-naranai, ni-location], mode: build }
+      - { kind: sentence, ja: "ねつが あるから くすりを のまなければ なりません。", en: "Say politely: I have to take medicine, because I've got a fever", exercises: [masu-present, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "じゅぎょうの まえに ことばを おぼえなければ なりません。", en: "Say politely: I have to learn the words before the class", exercises: [masu-present, nakereba-naranai, mae-ni], mode: build }
+      - { kind: sentence, ja: "あしたも はたらかなければ なりません。", en: "Say politely: I have to work tomorrow as well", exercises: [masu-present, nakereba-naranai, mo-also], mode: build }
+      - { kind: sentence, ja: "きょうは しごとを しなければ なりません。", en: "I have to do the work today", exercises: [masu-present, nakereba-naranai, wo-object], mode: listening }
+      - { kind: sentence, ja: "せんせいに でんわを しなければ なりません。", en: "Say politely: I have to phone the teacher", exercises: [masu-present, nakereba-naranai, ni-location], mode: build }
+      - { kind: sentence, ja: "きょうは しごとを しなきゃ。", en: "Say to a friend: I have to do the work today", exercises: [nakereba-naranai, wo-object], mode: build }
+      - { kind: sentence, ja: "あした いかなければ なりません。", en: "Say politely: I have to go tomorrow", exercises: [masu-present, nakereba-naranai], mode: translate }
+      - { kind: particle-cloze, stem: "あした びょういんに いかなければ ", tail: "。", answer: "なりません", options: ["なりません", "ならない", "なる"], en: "Say politely: I have to go to the hospital tomorrow", explanation: "the cue names somebody you owe politeness to, so the ending is なりません. ならない is the same sentence said to a friend, and bare なる says that something is turning into something else." }
+      - { kind: listening-comp, audio: "ねつが あるから くすりを のまなければ なりません。", answer: "I have to take medicine, because I've got a fever", distractors: ["I have to take medicine, because I'm busy", "I've got a fever, but I'm not taking medicine", "I have to eat vegetables, because I've got a fever"], exercises: [masu-present, kara-because] }
+      - { kind: listening-comp, audio: "じゅぎょうの まえに ことばを おぼえなければ なりません。", answer: "I have to learn the words before the class", distractors: ["I have to learn the words after the class", "I have to hear the words before the class", "I have to learn the words before work"], exercises: [masu-present, mae-ni] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あした じゅぎょうに きますか。", en: "Are you coming to class tomorrow?" }
+          - { speaker: "Tom", ja: "すみません びょういんに いかなければ なりません。", en: "I'm sorry — I have to go to the hospital." }
+        questions:
+          - { q: "What does Tom say he has to do?", options: ["Go to the hospital", "Come to the class", "Take medicine", "Do the work"], answer: "Go to the hospital" }
+      - { kind: challenge, ja: "すみません あしたも はたらかなければ ならないから じゅぎょうに いきません。", en: "Say politely: I'm sorry, I have to work tomorrow as well, so I'm not going to the class", combines: [masu-present, nakereba-naranai, kara-because, masu-negative, mo-also], mode: build }
+    reviewPool: [しごと, でんわ, びょういん, くすり, ことば, じゅぎょう, せんせい, すみません, ねつ, かいしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-6
+    role: teaching
+    title: "「くすりを のんだ ほうが いい」 — the better move"
+    focus: "〜た ほうが いい recommends one course of action and leaves the other unsaid"
+    introduces: [つよい]
+    beats:
+      - { kind: rule, grammarPointId: hou-ga-ii }
+      - { kind: sentence, ja: "ねつが あるから くすりを のんだ ほうが いい。", en: "You'd better take medicine, because you've got a fever", exercises: [hou-ga-ii, kara-because, ta-form], mode: build }
+      - { kind: sentence, ja: "びょうきだから やさいを たべた ほうが いい。", en: "You'd better eat vegetables, because you're ill", exercises: [hou-ga-ii, ta-form, desu-copula], mode: build }
+      - { kind: sentence, ja: "じゅぎょうが あるから がっこうに いった ほうが いい。", en: "You'd better go to school, because you've got a class", exercises: [hou-ga-ii, kara-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "この くすりは つよいから いしゃに きいた ほうが いい。", en: "This medicine is strong, so you'd better ask a doctor", exercises: [hou-ga-ii, kara-because, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あしたの てんきを みた ほうが いい。", en: "You'd better look at tomorrow's weather", exercises: [hou-ga-ii, ta-form, no-possession], mode: listening }
+      - { kind: sentence, ja: "じかんが ないから バスに のった ほうが いい。", en: "You'd better take the bus, because you haven't got time", exercises: [hou-ga-ii, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow", exercises: [hou-ga-ii, ta-form, desu-copula], mode: build }
+      - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
+      - { kind: particle-cloze, stem: "ねつが あるから くすりを ", tail: " ほうが いい。", answer: "のんだ", options: ["のんだ", "たべた", "みた"], en: "You'd better take medicine, because you've got a fever", explanation: "medicine is something you drink, so the advice is のむ's た-form. たべた belongs to food and みた to something you look at, and neither does anything about a fever." }
+      - { kind: listening-comp, audio: "じかんが ないから バスに のった ほうが いい。", answer: "You'd better take the bus, because you haven't got time", distractors: ["You'd better walk, because you haven't got time", "You've got time, so you'd better take the bus", "You haven't got time, but you'd better not take the bus"], exercises: [hou-ga-ii, kara-because] }
+      - { kind: listening-comp, audio: "この くすりは つよいから いしゃに きいた ほうが いい。", answer: "This medicine is strong, so you'd better ask a doctor", distractors: ["This medicine is cheap, so you'd better ask a doctor", "This medicine is strong, so you'd better take it", "This medicine is strong, so you'd better ask a teacher"], exercises: [hou-ga-ii, i-adj-present] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "ねつが あるんだ。", en: "The thing is, I've got a fever." }
+          - { speaker: "Mika", ja: "くすりを のんだ ほうが いい。いしゃに きいた ほうが いい。", en: "You'd better take medicine. And you'd better ask a doctor." }
+        questions:
+          - { q: "What does Mika tell Ken to do?", options: ["Take medicine", "Go to work", "Eat vegetables", "Go abroad"], answer: "Take medicine" }
+      - { kind: challenge, ja: "びょうきだから がっこうに いかない ほうが いいけど せんせいに でんわを しなきゃ。", en: "You're ill, so you'd better not go to school, but you have to phone the teacher", combines: [hou-ga-ii, nakereba-naranai, kedo, nai-form, desu-copula], mode: build }
+    reviewPool: [つよい, くすり, やさい, いしゃ, てんき, えいが, バス, がっこう, じゅぎょう, せんせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-7
+    role: teaching
+    title: "「たべない ほうが いい」 — the た that is not a past"
+    focus: "た in front of ほう is not about yesterday, and the negative side just uses ない"
+    introduces: [からい, うるさい]
+    beats:
+      - { kind: rule, grammarPointId: ta-form }
+      - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, hou-ga-ii, nai-form], mode: build }
+      - { kind: sentence, ja: "ねつが あるから いかない ほうが いい。", en: "You'd better not go, because you've got a fever", exercises: [ta-form, hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "この くすりは つよいから のまない ほうが いい。", en: "This medicine is strong, so you'd better not take it", exercises: [ta-form, hou-ga-ii, i-adj-present], mode: build }
+      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This film is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "たかいから かわない ほうが いい。", en: "You'd better not buy it, because it's expensive", exercises: [ta-form, hou-ga-ii, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "あめが ふるから かわで およがない ほうが いい。", en: "It's going to rain, so you'd better not swim in the river", exercises: [ta-form, hou-ga-ii, de-action], mode: build }
+      - { kind: sentence, ja: "じかんが ないから きょうは しない ほうが いい。", en: "You'd better not do it today, because you haven't got time", exercises: [ta-form, hou-ga-ii, nai-existence], mode: build }
+      - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, nai-form], mode: translate }
+      - { kind: particle-cloze, stem: "ねつが あるから きょうは ", tail: " ほうが いい。", answer: "いかない", options: ["いかない", "いった", "かわない"], en: "You'd better not go today, because you've got a fever", explanation: "a fever is a reason to stay put, so the advice has to be the negative one. いった would send you out with a temperature, and かわない answers a question about shopping." }
+      - { kind: listening-comp, audio: "からい りょうりは たべない ほうが いい。", answer: "You'd better not eat spicy food", distractors: ["You'd better eat spicy food", "You'd better not buy spicy food", "You'd better not eat this fish"], exercises: [ta-form, nai-form] }
+      - { kind: listening-comp, audio: "この えいがは うるさいから みない ほうが いい。", answer: "This film is noisy, so you'd better not watch it", distractors: ["This film is noisy, so you'd better watch it", "This film is long, so you'd better not watch it", "This room is noisy, so you'd better not watch the film"], exercises: [ta-form, hou-ga-ii] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "この りょうりは からいんだ。", en: "The thing is, this dish is spicy." }
+          - { speaker: "Mika", ja: "ねつが あるから からい ものは たべない ほうが いい。", en: "You've got a fever, so you'd better not eat spicy things." }
+        questions:
+          - { q: "What does Mika say Tom had better not do?", options: ["Eat spicy things", "Take medicine", "Go home", "Watch the film"], answer: "Eat spicy things" }
+      - { kind: challenge, ja: "この くすりは つよいけど ねつが あるから のんだ ほうが いいんだ。", en: "This medicine is strong, but you've got a fever, so you'd better take it — that's the thing", combines: [ta-form, hou-ga-ii, kedo, kara-because, n-desu], mode: build }
+    reviewPool: [からい, うるさい, つよい, もの, りょうり, えいが, やさい, あめ, かわ, くすり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-review-2
+    role: review
+    title: "Review — the better move, and the one to avoid"
+    focus: "〜た ほうが いい and 〜ない ほうが いい, against the duties they compete with"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ねつが あるから くすりを のんだ ほうが いい。", en: "You'd better take medicine, because you've got a fever", exercises: [hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, nai-form], mode: build }
+      - { kind: sentence, ja: "じゅぎょうが あるから がっこうに いった ほうが いい。", en: "You'd better go to school, because you've got a class", exercises: [hou-ga-ii, ga-existence], mode: listening }
+      - { kind: sentence, ja: "この くすりは つよいから のまない ほうが いい。", en: "This medicine is strong, so you'd better not take it", exercises: [ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "じかんが ないから バスに のった ほうが いい。", en: "You'd better take the bus, because you haven't got time", exercises: [hou-ga-ii, nai-existence], mode: build }
+      - { kind: particle-cloze, stem: "びょうきだから やさいを ", tail: " ほうが いい。", answer: "たべた", options: ["たべた", "のんだ", "かわない"], en: "You'd better eat vegetables, because you're ill", explanation: "vegetables are something you eat, so the advice is たべる's た-form. のんだ belongs to a drink, and かわない turns the advice into a shopping decision." }
+      - { kind: sentence, ja: "あしたの てんきを みた ほうが いい。", en: "You'd better look at tomorrow's weather", exercises: [hou-ga-ii, no-possession], mode: build }
+      - { kind: listening-comp, audio: "たかいから かわない ほうが いい。", answer: "You'd better not buy it, because it's expensive", distractors: ["You'd better buy it, because it's cheap", "You'd better not eat it, because it's expensive", "It's expensive, but you'd better buy it"], exercises: [ta-form, hou-ga-ii] }
+      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow", exercises: [hou-ga-ii, desu-copula], mode: build }
+      - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
+      - { kind: listening-comp, audio: "あめが ふるから かわで およがない ほうが いい。", answer: "It's going to rain, so you'd better not swim in the river", distractors: ["It's going to rain, so you'd better swim in the river", "It's going to snow, so you'd better not swim in the river", "It's going to rain, so you'd better not go to the river"], exercises: [ta-form, de-action] }
+      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This film is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii], mode: build }
+      - { kind: sentence, ja: "きょうは しごとを しなきゃ。", en: "Say to a friend: I have to do the work today", exercises: [nakereba-naranai, wo-object], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "この さかなは たかいんだ。", en: "The thing is, this fish is expensive." }
+          - { speaker: "Ken", ja: "たかいから かわない ほうが いい。にくの ほうが やすい。", en: "It's expensive, so you'd better not buy it. Meat is cheaper." }
+        questions:
+          - { q: "What does Ken say about the fish?", options: ["It's expensive, so don't buy it", "It's cheap, so buy it", "It's spicy, so don't eat it", "It's better than meat"], answer: "It's expensive, so don't buy it" }
+    reviewPool: [からい, うるさい, つよい, もの, やさい, くすり, てんき, バス, さかな, にく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-9
+    role: teaching
+    title: "会社 · 時間 · 電話 — reading the compounds"
+    focus: "Two kanji pushed together take their Chinese readings, and 話 proves it twice"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: kanji-set-3 }
+      - { kind: kanji, kana: かいしゃ, kanji: 会社, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "かいしゃの しごとは いそがしいんだ。", en: "The thing is, the work at the office is busy", exercises: [kanji-set-3, n-desu, no-possession], mode: build }
+      - { kind: kanji, kana: じかん, kanji: 時間, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the underground, because you haven't got time", exercises: [kanji-set-3, hou-ga-ii, nai-existence], mode: build }
+      - { kind: kanji, kana: でんわ, kanji: 電話, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back", exercises: [kanji-set-3, nakereba-naranai, mae-ni], mode: build }
+      - { kind: kanji, kana: はなす, kanji: 話す, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "せんせいと はなす まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I speak to the teacher", exercises: [kanji-set-3, nakereba-naranai, mae-ni], mode: listening }
+      - { kind: kanji, kana: がっこう, kanji: 学校, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "せいとは がっこうに いかなくちゃ。", en: "A pupil has to go to school", exercises: [kanji-set-3, nakereba-naranai, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "かえる まえに うちに でんわを ", tail: "。", answer: "しなきゃ", options: ["しなきゃ", "のまなきゃ", "たべなきゃ"], en: "I have to phone home before I go back", explanation: "a phone call is something you DO, so the duty belongs to する. のまなきゃ and たべなきゃ belong to a drink and a meal, and neither of them reaches anybody at home." }
+      - { kind: listening-comp, audio: "かいしゃの しごとは むずかしいんだ。", answer: "The thing is, the work at the office is difficult", distractors: ["The thing is, the work at school is difficult", "The thing is, the work at the office is easy", "The thing is, the office is far away"], exercises: [kanji-set-3, n-desu] }
+      - { kind: listening-comp, audio: "せいとは がっこうに いかなくちゃ。", answer: "A pupil has to go to school", distractors: ["A pupil has to go to the office", "A teacher has to go to school", "A pupil isn't going to school"], exercises: [kanji-set-3, nakereba-naranai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back." }
+          - { speaker: "Mika", ja: "わたしも せんせいに でんわを しなきゃ。", en: "I have to phone the teacher too." }
+        questions:
+          - { q: "Who does Mika say she has to phone?", options: ["The teacher", "Her home", "The office", "The doctor"], answer: "The teacher" }
+      - { kind: challenge, ja: "かいしゃの しごとが いそがしいから せんせいと はなす じかんが ないんだ。", en: "The work at the office is busy, so the thing is, I haven't got time to speak to the teacher", combines: [kanji-set-3, kara-because, n-desu, nai-existence, no-possession], mode: build }
+    reviewPool: [かいしゃ, じかん, でんわ, がっこう, せんせい, せいと, しごと, ことば, ちかてつ, うち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-10
+    role: teaching
+    title: "「バスより ちかてつの ほうが いい」 — choosing between two"
+    focus: "ほう names the winning side and より names the loser — the frame advice was built from"
+    introduces: [さいふ]
+    beats:
+      - { kind: rule, grammarPointId: yori-comparison }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison, hou-ga-ii, no-possession], mode: build }
+      - { kind: sentence, ja: "この さいふより あの さいふの ほうが やすい。", en: "That wallet over there is cheaper than this one", exercises: [yori-comparison, kono-sono-ano-dono, i-adj-present], mode: build }
+      - { kind: kanji, kana: てんき, kanji: 天気, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "がいこくに いく まえに てんきを きいた ほうが いい。", en: "You'd better ask about the weather before you go abroad", exercises: [yori-comparison, hou-ga-ii, mae-ni], mode: build }
+      - { kind: sentence, ja: "この くすりは あの くすりより つよいから のまない ほうが いい。", en: "This medicine is stronger than that one, so you'd better not take it", exercises: [yori-comparison, hou-ga-ii, i-adj-present], mode: build }
+      - { kind: sentence, ja: "にくより さかなを たべた ほうが いい。", en: "You'd better eat fish rather than meat", exercises: [yori-comparison, hou-ga-ii, ta-form], mode: listening }
+      - { kind: sentence, ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better", exercises: [yori-comparison, kara-because, wa-topic], mode: build }
+      - { kind: sentence, ja: "この さいふは たかいから かわない ほうが いい。", en: "This wallet is expensive, so you'd better not buy it", exercises: [yori-comparison, hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison], mode: translate }
+      - { kind: particle-cloze, stem: "この さいふより あの さいふの ほうが ", tail: "。", answer: "やすい", options: ["やすい", "たかい", "うるさい"], en: "That wallet over there is cheaper than this one", explanation: "ほうが names the winning side of the comparison, and the thing a shopper wants to win on is price. たかい would make the winner the costlier one, and うるさい says nothing a wallet can be." }
+      - { kind: listening-comp, audio: "バスは うるさいから ちかてつの ほうが いい。", answer: "The bus is noisy, so the underground is better", distractors: ["The underground is noisy, so the bus is better", "The bus is cheap, so the bus is better", "The bus is noisy, but the bus is better"], exercises: [yori-comparison, kara-because] }
+      - { kind: listening-comp, audio: "この さいふより あの さいふの ほうが やすい。", answer: "That wallet over there is cheaper than this one", distractors: ["This wallet is cheaper than that one over there", "That wallet over there is more expensive than this one", "That bag over there is cheaper than this one"], exercises: [yori-comparison, kono-sono-ano-dono] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "バスと ちかてつと どっちが いい？", en: "Which is better, the bus or the underground?" }
+          - { speaker: "Mika", ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better." }
+        questions:
+          - { q: "Which does Mika say is better?", options: ["The underground", "The bus", "The bicycle", "She doesn't say"], answer: "The underground" }
+      - { kind: challenge, ja: "この さいふは あの さいふより たかいけど おかねが ないから かわない ほうが いい。", en: "This wallet is more expensive than that one, but I haven't got the money, so you'd better not buy it", combines: [yori-comparison, hou-ga-ii, kedo, kara-because, nai-existence], mode: build }
+    reviewPool: [さいふ, てんき, うるさい, つよい, バス, ちかてつ, にく, さかな, がいこく, くすり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-11
+    role: teaching
+    title: "「あそびたいけど はたらかなきゃ」 — want against must"
+    focus: "たい says what you want, なきゃ says what you owe, and けど puts them together"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: v-tai }
+      - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai, kedo], mode: build }
+      - { kind: sentence, ja: "うちに いきたいけど しごとを しなきゃ。", en: "I want to go home, but I have to do the work", exercises: [v-tai, nakereba-naranai, wo-object], mode: build }
+      - { kind: kanji, kana: がいこく, kanji: 外国, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "がいこくに いきたいから ことばを おぼえなきゃ。", en: "I want to go abroad, so I have to learn the words", exercises: [v-tai, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "やさいを たべたくないけど たべなきゃ。", en: "I don't want to eat vegetables, but I have to", exercises: [v-tai, nakereba-naranai, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あそびたいけど あした じゅぎょうが あるんだ。", en: "I want to play, but the thing is, I've got a class tomorrow", exercises: [v-tai, n-desu, kedo], mode: listening }
+      - { kind: sentence, ja: "コーヒーを のみたいけど ねつが あるから のまない ほうが いい。", en: "I want to drink coffee, but I've got a fever, so I'd better not", exercises: [v-tai, hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "えいがを みたいけど じかんが ないんだ。", en: "I want to watch the film, but the thing is, I haven't got time", exercises: [v-tai, n-desu, nai-existence], mode: build }
+      - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai], mode: translate }
+      - { kind: particle-cloze, stem: "がいこくに ", tail: "から ことばを おぼえなきゃ。", answer: "いきたい", options: ["いきたい", "いきたくない", "みたい"], en: "I want to go abroad, so I have to learn the words", explanation: "learning the words is what wanting to go abroad costs you, so the first half has to be the positive wish. いきたくない would remove the reason, and みたい is about watching rather than going." }
+      - { kind: listening-comp, audio: "えいがを みたいけど しごとを しなきゃ。", answer: "I want to watch a film, but I have to do the work", distractors: ["I want to watch a film, so I'm not doing the work", "I want to do the work, but I have to watch a film", "I don't want to watch a film, and I have to do the work"], exercises: [v-tai, nakereba-naranai] }
+      - { kind: listening-comp, audio: "やさいを たべたくないけど たべなきゃ。", answer: "I don't want to eat vegetables, but I have to", distractors: ["I want to eat vegetables, so I'm eating them", "I don't want to eat vegetables, so I'm not eating them", "I don't want to buy vegetables, but I have to"], exercises: [v-tai, nakereba-naranai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "なつやすみに かわで あそびたい。", en: "I want to play at the river over the summer holidays." }
+          - { speaker: "Mika", ja: "わたしも あそびたいけど まいにち はたらかなきゃ。", en: "I want to as well, but I have to work every day." }
+        questions:
+          - { q: "What does Mika say she has to do every day?", options: ["Work", "Play at the river", "Learn the words", "Go abroad"], answer: "Work" }
+      - { kind: challenge, ja: "なつやすみに がいこくに いきたいけど おかねが ないから まいにち はたらかなきゃ。", en: "I want to go abroad over the summer holidays, but I haven't got the money, so I have to work every day", combines: [v-tai, nakereba-naranai, kedo, kara-because, nai-existence], mode: build }
+    reviewPool: [がいこく, ことば, しごと, やさい, えいが, じゅぎょう, なつやすみ, かわ, コーヒー, じかん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-review-3
+    role: review
+    title: "Review — duty, advice and the wish underneath"
+    focus: "なきゃ against ほうが いい against たい, in both registers"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai], mode: build }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison, hou-ga-ii], mode: build }
+      - { kind: kanji, kana: せんせい, kanji: 先生, exercises: [kanji-set-3] }
+      - { kind: sentence, ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow", exercises: [masu-present, nakereba-naranai], mode: build }
+      - { kind: sentence, ja: "がいこくに いきたいから ことばを おぼえなきゃ。", en: "I want to go abroad, so I have to learn the words", exercises: [v-tai, kara-because], mode: listening }
+      - { kind: sentence, ja: "この くすりは つよいから のまない ほうが いい。", en: "This medicine is strong, so you'd better not take it", exercises: [ta-form, hou-ga-ii], mode: build }
+      - { kind: particle-cloze, stem: "あそびたいけど ", tail: "。", answer: "はたらかなきゃ", options: ["はたらかなきゃ", "はたらかなければ", "はたらく"], en: "I want to play, but I have to work", explanation: "はたらかなければ is only half of the grammar and needs ならない behind it, and plain はたらく just says that you work rather than that you have to." }
+      - { kind: sentence, ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back", exercises: [kanji-set-3, mae-ni], mode: build }
+      - { kind: listening-comp, audio: "にくより さかなを たべた ほうが いい。", answer: "You'd better eat fish rather than meat", distractors: ["You'd better eat meat rather than fish", "You'd better not eat fish or meat", "You'd better buy fish rather than meat"], exercises: [yori-comparison, hou-ga-ii] }
+      - { kind: sentence, ja: "せいとは まいにち がっこうに いかなきゃ。", en: "A pupil has to go to school every morning", exercises: [nakereba-naranai, wa-topic], mode: build }
+      - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
+      - { kind: listening-comp, audio: "やさいを たべたくないけど たべなきゃ。", answer: "I don't want to eat vegetables, but I have to", distractors: ["I want to eat vegetables, and I have to", "I don't want to eat vegetables, so I'm not eating them", "I don't want to eat fish, but I have to"], exercises: [v-tai, nakereba-naranai] }
+      - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, nai-form], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "あした やまに いく？", en: "Are you going to the mountains tomorrow?" }
+          - { speaker: "Ken", ja: "あそびたいけど かいしゃに いかなきゃ。", en: "I want to, but I have to go to the office." }
+        questions:
+          - { q: "What does Ken say he has to do tomorrow?", options: ["Go to the office", "Go to the mountains", "Take medicine", "Go to school"], answer: "Go to the office" }
+    reviewPool: [せんせい, がいこく, さいふ, からい, もの, やさい, くすり, ことば, せいと, でんわ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m28-neo-challenge
+    role: challenge
+    title: "Challenge — the duty, the advice and the wish"
+    focus: "End-of-module stretch: what you owe, what you'd be wiser to do, and what you wanted instead"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あねは びょうきだから びょういんに いかなければ なりません。", en: "Say politely: My older sister is ill, so she has to go to the hospital", exercises: [masu-present, nakereba-naranai, kara-because, family-register], mode: build }
+      - { kind: sentence, ja: "ふゆに なったから あたたかい ものを たべた ほうが いい。", en: "Winter has come, so you'd better eat something warm", exercises: [hou-ga-ii, ku-ni-naru, ta-form], mode: listening }
+      - { kind: sentence, ja: "この しごとは むずかしすぎるから あにに きかなくちゃ。", en: "This job is too difficult, so I have to ask my older brother", exercises: [sugiru, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "さいふに おかねが ないから きょうは かわない ほうが いい。", en: "There's no money in my wallet, so you'd better not buy anything today", exercises: [hou-ga-ii, nai-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "がいこくに いきたいから まいにち ことばを おぼえなければ なりません。", en: "Say politely: I want to go abroad, so I have to learn the words every evening", exercises: [masu-present, v-tai, nakereba-naranai, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "にくの ほうが すきだけど やさいを たべなきゃ。", en: "I like meat more, but I have to eat vegetables", exercises: [yori-comparison, nakereba-naranai, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "としょかんは しずかだから でんわを しない ほうが いい。", en: "The library is quiet, so you'd better not make phone calls", exercises: [hou-ga-ii, nai-form, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ねつが あるから きょうは しごとを しない ほうが いい。", en: "You'd better not do the work today, because you've got a fever", exercises: [hou-ga-ii, kara-because], mode: translate }
+      - { kind: particle-cloze, stem: "ねつが あるから きょうは かいしゃに ", tail: " ほうが いい。", answer: "いかない", options: ["いかない", "いった", "はたらいた"], en: "You'd better not go to the office today, because you've got a fever", explanation: "a fever is a reason to stay away, so the advice is the negative one. いった would send you in with a temperature, and はたらいた would keep you there once you had arrived." }
+      - { kind: listening-comp, audio: "せいとは がっこうに いく まえに ことばを おぼえなきゃ。", answer: "A pupil has to learn the words before going to school", distractors: ["A pupil has to learn the words after school", "A teacher has to learn the words before school", "A pupil has to ask the teacher before school"], exercises: [nakereba-naranai, mae-ni] }
+      - { kind: listening-comp, audio: "しごとが おそく なったから バスで かえらなきゃ。", answer: "Work has got late, so I have to go home by bus", distractors: ["Work has got late, so I have to go home by bicycle", "Work has got easy, so I am going home by bus", "Work has got late, but I am walking home"], exercises: [ku-ni-naru, nakereba-naranai] }
+      - { kind: sentence, ja: "あにの けいたいは たかすぎるから かわない ほうが いい。", en: "My older brother's phone is too expensive, so you'd better not buy one", exercises: [sugiru, hou-ga-ii, kara-because], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "なつやすみに がいこくに いくんですか。", en: "Are you going abroad over the summer holidays?" }
+          - { speaker: "Mika", ja: "はい ことばを おぼえなければ なりません。まいにち じゅぎょうが あるんです。", en: "Yes. I have to learn the words. I have a class every day." }
+        questions:
+          - { q: "What does Mika say she has to do?", options: ["Learn the words", "Buy a ticket", "Phone the teacher", "Work every day"], answer: "Learn the words" }
+      - { kind: challenge, ja: "あめが ふる ときは いく まえに てんきを みた ほうが いいんです。", en: "Say politely: When it rains, you'd better look at the weather before you go", combines: [hou-ga-ii, masu-present, toki, mae-ni, n-desu], mode: build }
+    reviewPool: [さいふ, せいと, てんき, がいこく, ことば, しごと, りょうり, もの, じかん, でんわ]

@@ -262,17 +262,17 @@ export function getMockCourse(languageId: string): Course {
       { tile: "s24", title: "✅ Must & should: なきゃ/なければ, ほうがいい", summary: "なければならない + casual なきゃ/なくちゃ; たほうがいい advice." },
       { tile: "s25", title: "🎓 Register mastery + N5 capstone", summary: "Mixed-register speed drills; total concept coverage with all-new sentences; fail-routing back to the owning module. JLPT N5 complete." },
     ];
-    // m6-m27 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
-    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14, s23) are LIVE via the
-    // compiler pipeline — slice them off so the placeholders begin at m28. NB
-    // the SPINE_COMING_SOON array still lists s11 before n06b (draft-3 order);
-    // draft-4 swapped them, which is why m14 is n06b and m15 is s11. s22 and
-    // s21 are already in shipped order here (m23 = s22, m24 = s21). Only the
-    // COUNT sliced matters.
-    const spineComingSoonModules = SPINE_COMING_SOON.slice(22).map((t, i) => ({
-      id: `m${i + 28}`,
+    // m6-m28 (tiles n06a, s07, n02, n03, n15, n04, s09, n05, s11, n06b, s13,
+    // n07, n08, s15, n09, s19, s17, s22, s21, n13, n14, s23, s24) are LIVE via
+    // the compiler pipeline — slice them off so the placeholders begin at m29.
+    // NB the SPINE_COMING_SOON array still lists s11 before n06b (draft-3
+    // order); draft-4 swapped them, which is why m14 is n06b and m15 is s11.
+    // s22 and s21 are already in shipped order here (m23 = s22, m24 = s21).
+    // Only the COUNT sliced matters.
+    const spineComingSoonModules = SPINE_COMING_SOON.slice(23).map((t, i) => ({
+      id: `m${i + 29}`,
       title: t.title,
-      eyebrow: `Module ${i + 28} · Coming soon`,
+      eyebrow: `Module ${i + 29} · Coming soon`,
       summary: `${t.summary} (Rewrite spine tile ${t.tile} — content not yet authored.)`,
       lessons: [],
       comingSoon: true as const,
@@ -995,7 +995,41 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
-        // m7..m29 — the rest of the draft-3 spine, comingSoon placeholders
+        {
+          // m28 = spine tile s24, "✅ Must & should: なきゃ/なければ, ほうがいい".
+          // Japanese has no word for "must" — it has a sentence saying the
+          // alternative is not an option, and the interesting half is the one
+          // that gets dropped. 「いかなきゃ」 is the ない-form with its ない
+          // swapped out, and it ends the sentence on its own; 「いかなければ
+          // ならない」 is what it contracts FROM and 「なくちゃ」 is the same
+          // move on なくては. The polite pole swaps ならない for なりません and
+          // nothing else — there is no polite なきゃ, because なきゃ already
+          // ate the ending. Beside the duties sits the advice: 〜た ほうが いい
+          // is built entirely from parts the learner owns (m20's ほう, が,
+          // いい, m11's た-forms), and its negative half is the plain ない-form
+          // rather than a past negative. kanji-set-3 is the COMPOUND set.
+          id: "m28",
+          title: "Must & should",
+          eyebrow: "Module 28 · Must & should",
+          summary: "「いかなきゃ」 — gotta go. Japanese says you must do something by saying that not doing it won't do, and the second half gets swallowed: なきゃ and なくちゃ with friends, なければ ならない written down, なければ なりません to anybody you owe politeness to. Then the softer thing beside it — 「くすりを のんだ ほうが いい」, you'd better take medicine — where the た is not a past tense at all and the negative side is just ない. Eight compound kanji close the module: 会社 · 時間 · 電話 · 話す · 学校 · 先生 · 天気 · 外国.",
+          lessons: [
+            { id: "ja-m28-neo-1", title: "「いかなきゃ」 — the thing you have to do", status: "available" as const },
+            { id: "ja-m28-neo-2", title: "「いかなければ ならない」 — what なきゃ is short for", status: "available" as const },
+            { id: "ja-m28-neo-3", title: "「おかねが ないから はたらかなきゃ」 — the reason you have to", status: "available" as const },
+            { id: "ja-m28-neo-review-1", title: "Review — what you have to do, and why", status: "available" as const },
+            { id: "ja-m28-neo-5", title: "「いかなければ なりません」 — saying it to a teacher", status: "available" as const },
+            { id: "ja-m28-neo-6", title: "「くすりを のんだ ほうが いい」 — the better move", status: "available" as const },
+            { id: "ja-m28-neo-7", title: "「たべない ほうが いい」 — the た that is not a past", status: "available" as const },
+            { id: "ja-m28-neo-review-2", title: "Review — the better move, and the one to avoid", status: "available" as const },
+            { id: "ja-m28-neo-9", title: "会社 · 時間 · 電話 — reading the compounds", status: "available" as const },
+            { id: "ja-m28-neo-10", title: "「バスより ちかてつの ほうが いい」 — choosing between two", status: "available" as const },
+            { id: "ja-m28-neo-11", title: "「あそびたいけど はたらかなきゃ」 — want against must", status: "available" as const },
+            { id: "ja-m28-neo-review-3", title: "Review — duty, advice and the wish underneath", status: "available" as const },
+            { id: "ja-m28-neo-challenge", title: "Challenge — the duty, the advice and the wish", status: "available" as const },
+          ],
+          accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        // m29 — the rest of the draft-3 spine, comingSoon placeholders
         // (see SPINE_COMING_SOON above). m29 = tile s25 = the N5 capstone;
         // the N4 runway tile (s26) is deliberately NOT a module — the N5 map
         // stops after the capstone.

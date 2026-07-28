@@ -359,10 +359,20 @@ const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"
  * defect with a different word in it. NOT added: なる / なった and the seven
  * 〜すぎる ADJECTIVE composites (たかすぎる …), because those are complete
  * utterances — 「たかすぎる」 is a whole sentence.
+ *
+ * 2026-07-27, m28: eight more, again added WITH the module. The six 〜なければ
+ * forms are dangling conditionals — 「いかなければ」 is "if I don't go…" and
+ * nobody stops there — and ならない / なりません are the halves that finish them.
+ * **The seven 〜なきゃ forms and the two 〜なくちゃ forms are deliberately NOT
+ * here**: 「いかなきゃ。」 is a complete utterance ("gotta go"), which is the whole
+ * reason m28 registers each contraction as one whole atom rather than
+ * registering a bare 「なきゃ」 that would have been bound.
  */
 const BOUND = [
   "つもり", "ましょう", "でしょう", "でしょ", "だろう", "かな", "たり",
   "んだ", "んです", "なんだ", "なんです", "すぎる", "すぎた",
+  "いかなければ", "のまなければ", "かえらなければ", "しなければ",
+  "はたらかなければ", "おぼえなければ", "ならない", "なりません",
 ];
 const PUNCT = /[。、？！]/g;
 
@@ -1684,12 +1694,31 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
     // "to see" beside みない "won't watch" reads as two different verbs).
     // The derived tile's content words, negation stripped, must appear in
     // the base atom's gloss.
+    //
+    // NARROWED 2026-07-27 (m28), with the evidence dumped first. The strip
+    // list was NEGATION only, because until m28 every derived form in the
+    // course was a negative. m28's must-forms add a MODAL to the gloss the
+    // same way ない adds a negation — 「いかなきゃ」 is "gotta go" — and the
+    // guard fired on いかなきゃ / しなきゃ / いかなくちゃ for a reason that has
+    // nothing to do with sense: after the `length > 2` stopword filter,
+    // "gotta go" keeps only "gotta" and "gotta do" only "gotta", because
+    // *go* and *do* are two letters. m6's 「いかない」 ("won't go") passes
+    // this check ONLY because its content list comes out EMPTY once "won't"
+    // is stripped — i.e. the negation strip is what makes short verbs work,
+    // and the modal strip is the same fix for the same reason. The guard
+    // still bites: 「たべなきゃ」 "gotta eat" keeps "eat" and 「おぼえなきゃ」
+    // "gotta learn" keeps "learn", so a must-form glossed against the wrong
+    // base is still caught. Narrowed, never deleted — and narrowed to the two
+    // words that are MODALS and nothing else: a first attempt that also
+    // stripped "have" immediately broke m16's なかった ("didn't have" against
+    // ある "to have"), which is the guard working exactly as intended.
     if (a.derivedFrom) {
       const base = baseGlossOf(a.derivedFrom);
       if (base) {
         const content = tile
           .toLowerCase()
           .replace(/\b(won't|don't|doesn't|isn't|aren't|not|no|there)\b/g, " ")
+          .replace(/\b(gotta|must)\b/g, " ")
           .replace(/[^a-z']+/g, " ")
           .split(/\s+/)
           .filter((w) => w.length > 2);

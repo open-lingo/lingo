@@ -594,8 +594,19 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // plus a consequence is two clauses by construction. Floor set three
   // sentences below the measurement ((66-3)/88 = .716), per this block's own
   // rule. Raised, never lowered.
+  // m28 is the FIRST measurement in this block rather than a recalibration:
+  // the ARCHIVED course had no m28 at all (its numbering ran m27→m29), so
+  // there was no bogus archived value to inherit — the first time that has
+  // been true since m21. Measured on the finished neo module — spine tile s24
+  // — at 78/84 = .929, the joint-highest in the course with m26, and it is
+  // structural rather than decorative: an obligation is a REASON plus a duty
+  // by construction ("おかねが ないから まいにち はたらかなきゃ") and advice is
+  // a SITUATION plus a recommendation ("ねつが あるから くすりを のんだ ほうが
+  // いい"), so nearly every production beat carries a から / けど / まえに on
+  // m15/m16's machinery — which is also how both are actually spoken. Floor
+  // set three sentences below the measurement ((78-3)/84 = .893).
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
-  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m29: 0.39,
+  m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m28: 0.89, m29: 0.39,
   // m30: measured 44/103 = 0.427 at stage-2 authoring completion
   // (2026-07-17). Floor set ~1.5 sentences below that measurement.
   m30: 0.41,

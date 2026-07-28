@@ -41,6 +41,20 @@ const BOUND_ENDERS = [
   "なんです",
   "すぎる",
   "すぎた",
+  // m28 (2026-07-27), added with the module. A 〜なければ form is a dangling
+  // conditional ("if I don't go…") and ならない / なりません are the halves that
+  // finish it, so none of the eight can stand alone as an utterance. The
+  // 〜なきゃ and 〜なくちゃ contractions are deliberately absent — 「いかなきゃ。」
+  // IS a complete utterance ("gotta go"), which is why m28 registers each
+  // contraction whole instead of registering a bare 「なきゃ」.
+  "いかなければ",
+  "のまなければ",
+  "かえらなければ",
+  "しなければ",
+  "はたらかなければ",
+  "おぼえなければ",
+  "ならない",
+  "なりません",
 ];
 
 /**

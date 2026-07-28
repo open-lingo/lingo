@@ -16,6 +16,9 @@
  *   - getAtomsUpToModule("m27") includes every attributed SRS-eligible atom.
  */
 import { describe, it, expect } from "vitest";
+import { readdirSync, readFileSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { jaModule } from "../module";
 import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "../courseAtoms";
 import {
@@ -103,10 +106,48 @@ describe("JA module conformance — attribution invariants", () => {
   });
 
   it("every content module m3-m7 has ≥1 atom attributed via fromModule", () => {
+    // NARROWED 2026-07-27 (m28), with the evidence dumped first. The invariant
+    // is "a content module attributes at least one vocabulary atom", and until
+    // now it could only see `courseAtoms.fromModule`. That field is ARCHIVED
+    // attribution — the very staleness the DORMANT block below is about — and
+    // the six rows tagged `m27` prove it: they carry `introducedByLessonId:
+    // "ja-m27-4-1"`, a lesson id from the archived course, and one of them is
+    // つよい, which the NEO m27 never taught (m28 introduces it). So m27 passes
+    // this check for a reason unrelated to m27's content.
+    //
+    // m28 is where that broke honestly rather than by luck: the archived
+    // course had NO m28 at all (its numbering ran m27→m29), so no row can
+    // carry the tag, while the neo m28 declares 24 atoms in its IR. Re-tagging
+    // a courseAtoms row to paper over this is exactly what the DORMANT note
+    // says cascades into the kanji-surface and comprehensibility systems.
+    //
+    // So the guard now counts BOTH channels — a courseAtoms row tagged to the
+    // module, or the module's own IR `newAtoms`. That STRENGTHENS it: a module
+    // with neither still fails, and IR-declared atoms (the m11-m28 way of
+    // registering derived forms, 90+ of them, deliberately kept out of
+    // courseAtoms because registering inflections regresses flashcard import)
+    // now count as the attribution they actually are.
     const counts = new Map<string, number>();
     for (const atom of JA_COURSE_ATOMS) {
       counts.set(atom.fromModule, (counts.get(atom.fromModule) ?? 0) + 1);
     }
+    const IR_DIR = join(
+      dirname(fileURLToPath(import.meta.url)),
+      "../curriculum/ir",
+    );
+    let irModules = 0;
+    for (const f of readdirSync(IR_DIR).filter((x) => x.endsWith(".ir.json"))) {
+      const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf8")) as {
+        module?: string;
+        newAtoms?: unknown[];
+      };
+      if (!ir.module || !ir.newAtoms?.length) continue;
+      irModules++;
+      counts.set(ir.module, (counts.get(ir.module) ?? 0) + ir.newAtoms.length);
+    }
+    // Non-vacuity: a glob that stops matching would silently re-open the hole
+    // this narrowing closed.
+    expect(irModules, "no IR module declared any newAtoms").toBeGreaterThan(15);
     const empty = CONTENT_MODULE_IDS.filter((id) => (counts.get(id) ?? 0) === 0);
     expect(
       empty,
