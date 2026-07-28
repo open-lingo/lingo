@@ -353,3 +353,27 @@ Open questions for when this is picked up:
   just `correctOrder`, or scrambled-but-valid answers get flagged as errors.
 - One tile wrong on a 5-tile sentence is 20% — tune the threshold against
   real answers before shipping a fixed rule.
+
+## 2026-07-28 — Spencer QA walk (m7), open notes
+
+1. **Overhaul `translate`, or repoint `listening_build` at English.** Two
+   directions, not yet chosen, nothing touched:
+   (a) make typed translation more Duolingo-like;
+   (b) change `listening_build` so the learner hears the JAPANESE and builds
+   the ENGLISH, with words blanked/unblanked the way the dialogue step masks
+   its transcript. Decide before either is built — (b) changes what the step
+   type means everywhere it is already authored.
+2. **`particle-cloze` is a keeper.** Spencer, on ja-m7-neo-3: "this is a
+   great lesson type" — the sentence shown with one slot open, 3 options, the
+   audio, and a one-line explanation on commit. Bias new authoring toward it.
+3. **Typed production is now thin in m11/m12.** Killing the word-typing
+   filler dropped translate share to 2.4% (m11) and 3.4% (m12) — under one
+   typed step per sub-lesson, against a guide target of one per sub-lesson.
+   The fix is more authored `mode: translate` SENTENCE beats in those two
+   modules, not restoring word-typing. Every other module sits at 9-11%.
+4. **Romaji on the dialogue transcript is working as designed** — not a bug.
+   `HIRAGANA_ROMAJI_OFF_MODULE = 7`, so hiragana romaji retires entering m7,
+   one module ahead of kanji at m8 (never-mix policy, Spencer 2026-07-16).
+   The transcript renders through the same `AnnotatedText` as every other
+   step. If m7 should still show it, the knob is that constant, not the
+   dialogue step.
