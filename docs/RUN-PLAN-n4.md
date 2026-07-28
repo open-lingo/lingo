@@ -20,19 +20,40 @@ and then I will go review everything."*
 ### The remaining work, in order
 
 **N5 IS COMPLETE.** m29 landed 2026-07-27 (`d8e1dadb`) — m11 through m29
-authored this run, 8,333 tests passing, every audit row `findings = —`, all
-103 registry grammar points now carry a tagged rule card somewhere in the
-course. The learner simulation is RUNNING (one Opus agent, sequential).
+authored this run, every audit row `findings = —`, all 103 registry grammar
+points now carry a tagged rule card somewhere in the course.
 
+**THE SIMULATION IS COMPLETE.** Three Opus agents walked m1–m29 in order as one
+continuous zero-knowledge learner, handing off at context limit. 185 findings:
+53 BLOCKER, 67 CONFUSING, 63 NIT, 2 withdrawn. **Read
+`docs/learner-sim/TRIAGE.md` first** — it ranks everything and records what is
+fixed, what was withdrawn, and what is open. `FINDINGS.md` is the raw log in
+walk order.
 
-1. **Land m29** (in flight when this was written — the N5 capstone, spine tile
-   s25, ledger `janai-desu yo-emphasis ne-agreement`). Same loop: compile →
-   tsc → full suite → audit → verify the agent's claims by dumping data
-   yourself → commit. Then N5 is COMPLETE.
-2. **Regenerate the learner view** — `npm run learner-view` — so m29 is in it.
-3. **Run the learner simulation** (below).
-4. **Fix what it finds.**
-5. **STOP.** Do not start N4. Spencer reviews from there.
+1. ~~Land m29~~ · ~~Regenerate the learner view~~ · ~~Run the simulation~~ —
+   all done.
+2. **Fix what it found** — in progress; see TRIAGE.md's "Open, ranked".
+3. **STOP.** Do not start N4. Spencer reviews from there.
+
+### What the simulation taught about running one
+
+- **Check the instrument before believing an absence.** Both withdrawn
+  findings were this repo's own emitter, not the course. It stripped
+  annotations (hiding all 1,852 kanji segments, so the learner "proved" the
+  course never showed a kanji) and rendered screen-reader alt text plus a 1–3
+  politeness tier as visible prose. Redactions written to hide ANSWERS were
+  hiding TEACHING. A simulated reader reporting "this was never taught" is a
+  claim about the emitter until you check.
+- **The reader finds the class; the machine finds the instances.** One
+  shattered verb → nine. One wrong rule card → ten. ~20 untaught words in the
+  modules walked carefully → 43 course-wide, thirteen of them past where any
+  learner had reached. Neither alone gets them all.
+- **The agents self-corrected across handoffs** — leg 2 withdrew leg 1's claim
+  that the マ row is untaught; leg 3 withdrew two more. Tell each successor
+  that withdrawing a predecessor's finding is expected, and they will.
+- **No test in 8,300 would have caught the headline defects**, because every
+  test the course has asks whether content is well-formed, not whether it
+  teaches. That gap is the whole argument for this exercise.
 
 ### The learner-simulation harness (built 2026-07-27, ready to use)
 
