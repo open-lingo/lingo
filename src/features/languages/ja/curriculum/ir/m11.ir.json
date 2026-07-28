@@ -92,7 +92,7 @@
     },
     {
       "id": "ni-time",
-      "rule": "A point on the CLOCK takes に: さんじに いく. It is the same に you already use for a destination — Japanese treats a moment in time like a place you arrive at. Words that are not clock readings take NO に at all: きょう いく, あした いく. ごぜん (a.m.) and ごご (p.m.) sit in front of the hour: ごご さんじに.",
+      "rule": "A point on the CLOCK takes に: さんじに いく. It is the same に you already use for a destination — Japanese treats a moment in time like a place you arrive at. RELATIVE time words — きょう, あした, いま — take NO に at all: きょう いく, あした いく. (A named point on the calendar takes に the way a clock time does; those arrive later.) ごぜん (a.m.) and ごご (p.m.) sit in front of the hour: ごご さんじに.",
       "examples": [
         {
           "ja": "さんじに いく。",

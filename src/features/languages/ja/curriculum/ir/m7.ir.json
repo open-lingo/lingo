@@ -35,7 +35,7 @@
     {
       "id": "masu-present",
       "variant": "the-stem",
-      "rule": "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own.",
+      "rule": "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own. When you name who you did it WITH, that person takes と: 「ともだちと のみます」 = I drink with a friend. と joins people to the action; に, which you met marking where something is, never does this job.",
       "examples": [
         {
           "ja": "たべます",
@@ -907,7 +907,7 @@
             "いきません",
             "みます"
           ],
-          "en": "I'm going to the party. (polite)",
+          "en": "I'm going to the sea. (polite)",
           "explanation": "いく → い-き-ます."
         },
         {

@@ -55,7 +55,7 @@ export const MOCK_LESSON_JA_M1_RA_1: LessonContent = {
     traceTwice("ja-ra1-trace-ra", "ら", "ra", "soft tap, between 'la' and 'ra'"),
     recognition(ctx, "ja-ra1-recog-ra", "ら", "ra", "tongue tap 'ra'"),
 
-    symbolIntro("ja-ra1-intro-ri", "り", "ri", "/ɾi/", "like a tapped 'ri' — soft", "さくら (cherry blossom)"),
+    symbolIntro("ja-ra1-intro-ri", "り", "ri", "/ɾi/", "like a tapped 'ri' — soft", "りす (squirrel)"),
     traceTwice("ja-ra1-trace-ri", "り", "ri", "soft tap 'ri'"),
     recognition(ctx, "ja-ra1-recog-ri", "り", "ri", "soft tap 'ri'"),
 

@@ -184,7 +184,7 @@ export const MOCK_LESSON_JA_M2_P_2: LessonContent = {
       "po",
       "po",
       "ほ + ゜ → 'po'",
-      "ぷりん (purin) = pudding",
+      "たんぽぽ (dandelion)",
     ),
     wordImageMcq(ctxSub2, "ja-p2-mcq-pen", "ぺん"),
     wordImageMcq(ctxSub2, "ja-p2-mcq-purin", "ぷりん"),

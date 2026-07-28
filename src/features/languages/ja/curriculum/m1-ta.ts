@@ -46,7 +46,7 @@ export const MOCK_LESSON_JA_M1_TA_1: LessonContent = {
     traceTwice("ja-ta1-trace-ta", "た", "ta", "like 'ta' in 'taco'"),
     recognition(ctx, "ja-ta1-recog-ta", "た", "ta", "like 'ta' in 'taco'"),
 
-    symbolIntro("ja-ta1-intro-chi", "ち", "chi", "/tɕi/", "like 'chee' in 'cheese'", "うた (song)",
+    symbolIntro("ja-ta1-intro-chi", "ち", "chi", "/tɕi/", "like 'chee' in 'cheese'", "くち (mouth)",
       "Pronounced 'chi', not 'ki'."),
     traceTwice("ja-ta1-trace-chi", "ち", "chi", "like 'chee' in 'cheese'"),
     recognition(ctx, "ja-ta1-recog-chi", "ち", "chi", "like 'chee' in 'cheese'"),

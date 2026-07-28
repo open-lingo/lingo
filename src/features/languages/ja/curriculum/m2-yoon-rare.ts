@@ -168,7 +168,12 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_2: LessonContent = {
       "rya",
       "ɾja",
       "ri + small ya — 'rya'",
-      "りょうり (ryouri) = cooking",
+      // Deliberately a SHAPE HINT, not an anchor word. りゃ is genuinely rare
+      // — there is no beginner word that contains it, which is why this is the
+      // "rare yōon" row. It used to borrow りょうり, which contains りょ and not
+      // りゃ, and a learner hunting the new shape inside the word cannot find
+      // it and concludes they have misread the glyph.
+      "Same build as りょ and りゅ — り with a small ゃ.",
     ),
     symbolIntro(
       "ja-yr2-intro-ryu",
@@ -284,6 +289,25 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_3: LessonContent = {
     },
 
     wordImageMcq(ctxSub3, "ja-yr3-mcq-hyaku", "ひゃく"),
+    {
+      // Japanese has a SECOND alphabet, and the course starts using it in the
+      // very next module — ミカ, トム, ケン are katakana from m3, アメリカ from
+      // m4, and コート/ドア are match-pair ANSWERS in m6 — while the katakana
+      // rows themselves are not taught until m7. Spencer's learner walk spent
+      // four modules unable to read glyphs nobody had told them were a
+      // different script; they assumed they had failed to learn something.
+      // The rows stay where the schedule ruling put them; what was missing was
+      // anyone saying the second script exists.
+      id: "ja-yr3-info-katakana-ahead",
+      type: "grammar_rule",
+      title: "The other alphabet — katakana",
+      rule:
+        "Hiragana is now complete, and Japanese has a second alphabet that writes the same sounds: KATAKANA. It is used for foreign names and borrowed words, so ミカ, トム and ケン are names written in it, and コート (coat) is a borrowed word. You will learn to read katakana row by row from module 7. Until then, treat these shapes as labels you recognise rather than letters you can sound out — they are not hiragana you have forgotten.",
+      examples: [
+        { ja: "ミカ", romaji: "Mika", en: "a name — katakana, not hiragana" },
+        { ja: "みか → ミカ", romaji: "mika → Mika", en: "same sounds, other alphabet" },
+      ],
+    },
     symbolToSound(ctxSub3, "ja-yr3-s2s-ryo", "りょ", "ryo", "ri + small yo"),
     wordImageMcq(ctxSub3, "ja-yr3-mcq-ryouri", "りょうり"),
 

@@ -207,7 +207,18 @@ for (const t of Array.from(kanaSet)) {
 // question (m11 shipped four). Emit BOTH: the ？-bearing string keeps its
 // question intonation for dialogue playback, the stripped twin gives the
 // compiled build step something to play.
+// The twin must match `clean()` EXACTLY, and clean() changed on 2026-07-28:
+// a 、 now becomes a SPACE rather than nothing, because deleting it fused the
+// words either side (「うん、いえに いく」 was spoken as 「うんいえに いく」).
+// Emit the old comma-deleted form too — clips keyed on it already exist and
+// are still referenced by anything not yet recompiled.
 for (const t of Array.from(kanaSet)) {
+  const spaced = t
+    .replace(/、/g, " ")
+    .replace(/[。？！]/g, "")
+    .replace(/[ 　]+/g, " ")
+    .trim();
+  if (spaced && spaced !== t) kanaSet.add(spaced);
   const bare = t.replace(/[。、？！]/g, "").trim();
   if (bare && bare !== t) kanaSet.add(bare);
 }

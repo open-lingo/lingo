@@ -122,7 +122,7 @@
     {
       "id": "wo-object",
       "variant": "food",
-      "rule": "A request needs something to request, and food is where a beginner starts. ごはん is cooked rice — and, by extension, the meal built round it. しょくじ is the meal itself, the sit-down occasion: しょくじを する is 'to have a meal'. たべもの is food in general, and ちゃ is tea. Whatever you eat, drink or ask for takes を.",
+      "rule": "A request needs something to request, and food is where a beginner starts. ごはん is cooked rice — and, by extension, the meal built round it. しょくじ is the meal itself, the sit-down occasion: しょくじを する is 'to have a meal'. たべもの is food in general, and ちゃ is tea. Whatever you eat, drink or ask for takes を. And to ask someone NOT to do something, you swap the て-form for the ない-form and add で: たべて → たべないで = 'don't eat it'. Same shape, opposite instruction — 「ミカの たべものを たべないで」 is 'don't eat Mika's food'.",
       "examples": [
         {
           "ja": "しょくじを する。",

@@ -718,7 +718,23 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     }
     return [...out];
   };
-  const clean = (ja: string) => ja.replace(PUNCT, "").trim();
+  /**
+   * Strip punctuation — but a 、 becomes a SPACE, not nothing.
+   *
+   * 、 is a prosodic break, and deleting it fuses the words on either side:
+   * 「うん、いえに いく。」 rendered and was SPOKEN as 「うんいえに いく」, which
+   * reads as one unfamiliar word. Spencer's learner walk hit six of these in
+   * m10, where the fused word happened to start with a yes/no word it
+   * recognised; a scan then found 175 across 24 modules, fusing silently
+   * mid-sentence everywhere else.
+   *
+   * A space is what the rest of the pipeline already uses for a word
+   * boundary, so tiles are unaffected (the tokenizer was longest-matching
+   * across the fusion correctly) — this changes what is DISPLAYED and what
+   * TTS is handed.
+   */
+  const clean = (ja: string) =>
+    ja.replace(/、/g, " ").replace(PUNCT, "").replace(/[ 　]+/g, " ").trim();
   /**
    * Target text for a BUILD step. Same as `clean`, except an internal
    * sentence boundary survives — otherwise a two-sentence beat renders (and

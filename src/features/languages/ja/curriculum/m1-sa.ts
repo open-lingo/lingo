@@ -274,7 +274,7 @@ export const MOCK_LESSON_JA_M1_SA_1: LessonContent = {
       "shi",
       "/ɕi/",
       "like 'she' in 'sheet'",
-      "あさ (morning)",
+      "うし (cow)",
       // Single mention of the 'shi not si' quirk lives here — no longer
       // repeated in the opener info card or the hint string.
       "Pronounced 'shi', not 'si'.",

@@ -71,7 +71,7 @@ export const MOCK_LESSON_JA_M1_KA_1: LessonContent = {
     traceTwice("ja-ka1-trace-ka", "か", "ka", "like 'ka' in 'car'"),
     recognition(ctx, "ja-ka1-recog-ka", "か", "ka", "like 'ka' in 'car'"),
 
-    symbolIntro("ja-ka1-intro-ki", "き", "ki", "/ki/", "like 'kee' in 'key'", "かい (shell)"),
+    symbolIntro("ja-ka1-intro-ki", "き", "ki", "/ki/", "like 'kee' in 'key'", "かき (persimmon)"),
     traceTwice("ja-ka1-trace-ki", "き", "ki", "like 'kee' in 'key'"),
     recognition(ctx, "ja-ka1-recog-ki", "き", "ki", "like 'kee' in 'key'"),
 
@@ -104,7 +104,7 @@ export const MOCK_LESSON_JA_M1_KA_2: LessonContent = {
   introducesVocabIds: ["ike"],
   steps: [
 
-    symbolIntro("ja-ka2-intro-ku", "く", "ku", "/kɯ/", "like 'koo' in 'cuckoo'", "いけ (pond)"),
+    symbolIntro("ja-ka2-intro-ku", "く", "ku", "/kɯ/", "like 'koo' in 'cuckoo'", "きく (to hear)"),
     traceTwice("ja-ka2-trace-ku", "く", "ku", "like 'koo' in 'cuckoo'"),
     recognition(ctx, "ja-ka2-recog-ku", "く", "ku", "like 'koo' in 'cuckoo'"),
 

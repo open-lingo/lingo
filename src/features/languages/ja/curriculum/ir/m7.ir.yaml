@@ -38,7 +38,7 @@ notes: |
 grammarPoints:
   - id: masu-present
     variant: the-stem
-    rule: "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own."
+    rule: "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own. When you name who you did it WITH, that person takes と: 「ともだちと のみます」 = I drink with a friend. と joins people to the action; に, which you met marking where something is, never does this job."
     examples:
       - { ja: "たべます", en: "I eat. (polite)" }
       - { ja: "みずを のみます", en: "I drink water. (polite)" }
@@ -202,7 +202,7 @@ lessons:
       - { kind: sentence, ja: "いぬが きます。", en: "Say politely: The dog is coming", exercises: [masu-present, ga-existence], mode: listening }
       - { kind: sentence, ja: "かわで あそびます。", en: "Say politely: I play at the river", exercises: [masu-present, de-action], mode: build }
       - { kind: sentence, ja: "きょうは しません。", en: "Say politely: I won't do it today", exercises: [masu-negative, wa-topic], mode: build }
-      - { kind: particle-cloze, stem: "うみに ", tail: "。", answer: "いきます", options: ["いきます", "いきません", "みます"], en: "I'm going to the party. (polite)", explanation: "いく → い-き-ます." }
+      - { kind: particle-cloze, stem: "うみに ", tail: "。", answer: "いきます", options: ["いきます", "いきません", "みます"], en: "I'm going to the sea. (polite)", explanation: "いく → い-き-ます." }
       - { kind: sentence, ja: "ねこを みます。", en: "Say politely: I look at the cat", exercises: [masu-present, wo-object], mode: build }
       - { kind: sentence, ja: "みずを のみません。", en: "Say politely: I don't drink water", exercises: [masu-negative, wo-object], mode: listening }
       - { kind: sentence, ja: "ともだちと いきます。", en: "Say politely: I'm going with a friend", exercises: [masu-present], mode: listening }
