@@ -108,3 +108,63 @@ The converse holds too, and is the reason to keep doing this: no test in 8,300
 would ever have reported that a module's headline rule is missing, because
 every test the course has asks whether the content is well-formed, not whether
 it teaches.
+
+---
+
+# Second walk — 2026-07-28 (m7, m8, m11, m12, m13, m16)
+
+One Opus agent walked m1–m6 to build state, then the six modules touched by
+the conjugation-ramp and trainer-node work, reading only `docs/learner-sim/*`.
+
+## Fixed
+
+| what | scope |
+| --- | --- |
+| Required drills emitting なかった (m16 grammar) at m12 and m13 | tiles combine — the selection was checked for unlock, not for what it PRODUCES; both nodes retiled, lint now checks emitted forms |
+| Drill pool full of words the course never teaches | 37 entries corrected against measured first exposure; 11 (かく, もつ, かかる, みがく, かす, でる, きる, まずい, つめたい, ふべん, かんたん) appear nowhere in the course and are parked above it; guarded by `drillPoolIsTaught.test.ts` |
+| 「ちゃが ないです」 at m8 | contradicts m7's です card, and ~ないです isn't licensed until m12 → ありません |
+
+## Open — Spencer's call, none of them introduced by this work
+
+1. **な-adjectives that end in い are never flagged.** きれい and ゆうめい are
+   な-adjectives; m12 L1 says "an い-adjective never takes だ" and L7 says
+   "never くない — that ending belongs to い-adjectives", so きれいだ and
+   きれいじゃない read as the module contradicting itself. No card ever says
+   these two are the trap they are. **This is the strongest finding of the
+   walk.**
+2. **が as an ordinary subject arrives nine modules late.** Required from m7
+   L3 (ともだちが きます), m8 L12, m11 L7 — the learner has only been taught
+   が for ある/いる, and the は/が card doesn't land until m16 L2.
+3. **The recipient に is never stated.** m8 L3 "Ask your friend" wants
+   ともだちに きいて with both に and を in the bank; same in m8 L12 and L13
+   ("buy tea for Tanaka"). No rule anywhere says the person you ask, tell or
+   buy for takes に. Pure coin flip.
+4. **Kanji window opens on words the module is currently teaching.** m12 L1
+   introduces おおきい/あたらしい/ふるい/ちいさい as new, then writes 大きい bare in
+   step 16 of that same lesson; 古い, 新しい, 小さい follow in L4/L8/L12.
+5. **m7 L15 needs あそこの ひと** — place-noun + の + noun was never taught
+   (の has been owner and origin only).
+6. **m7 L2 builds はい、たべます before はい is glossed** — reachable only by
+   eliminating おもう and あに.
+7. **m16 L9 prints a whole paradigm in romaji** (taberu / tabemasu /
+   tabenakatta / tabemasendeshita), as do L11's counters (ichimai, sanmai),
+   in a course that has been kana-only since m1. L7's card has a typo:
+   「ななかがつ」.
+8. **m11 L13 is titled でした and has no rule card** — the only statement of
+   でした is a clause inside L8's だった card.
+9. **うち and いえ share a bank at m16 L1** with the difference never drawn,
+   though うち is MCQ-tested five times. Same shape: m8 L8 introduces ちゃ
+   without linking it to the おちゃ from m2.
+10. **こめ / ごはん read as one English word.** The m8 card draws the
+    distinction properly, but the prompts say "rice" for both, so "Eat rice"
+    (ごはん) and "Please buy rice" (こめ) look like the same question with two
+    different answers.
+
+## Method note
+
+The walker found the class; the machine found the extent — again. It named
+seven untaught drill verbs; the scan found 37 wrong entries and 11 words the
+course never shows at all. And the two tests that should have caught the pool
+drift were instead pinning it: "m6 yields an empty pool" and "the i-adj type
+has adjectives at m8" were both true only because the table was wrong. A test
+written from observed behaviour rather than from the rule will do that.
