@@ -544,7 +544,7 @@ lessons:
       - { kind: sentence, ja: "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。", en: "Of the dictionary, the letter and the photo, the dictionary is the heaviest", exercises: [to-and, ichiban-superlative], mode: build }
       - { kind: sentence, ja: "ちゃと コーヒーと ぎゅうにゅうの なかで どれが いちばん やすい？", en: "Of the tea, the coffee and the milk, which is the cheapest", exercises: [to-and, ichiban-superlative, kore-sore-are-dore], mode: build }
       - { kind: sentence, ja: "やまと かわと いけの なかで いけが いちばん とおい。", en: "Of the mountains, the river and the pond, the pond is the furthest", exercises: [to-and, ichiban-superlative], mode: listening }
-      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses", exercises: [to-and, ichiban-superlative, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで めがねが いちばん やすいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the glasses are the cheapest, so I'll buy the glasses", exercises: [to-and, ichiban-superlative, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "ふねと ひこうきと どっちが たかい？", en: "Which is more expensive, the boat or the plane", exercises: [to-and, yori-comparison], mode: build }
       - { kind: sentence, ja: "この みっつの なかで どれが いちばん おもい？", en: "Of these three, which is the heaviest", exercises: [to-and, ichiban-superlative], mode: translate }
       - { kind: particle-cloze, stem: "かばんと くつと ふくの なかで ", tail: "が いちばん たかい？", answer: "どれ", options: ["どれ", "どっち", "だれ"], en: "Of the bag, the shoes and the clothes, which is the most expensive?", explanation: "three things are on the table, so the question word is どれ. どっち asks about exactly two, and だれ asks after a person." }
@@ -605,7 +605,7 @@ lessons:
       - { kind: sentence, ja: "じしょと てがみと しゃしんの なかで じしょが いちばん おもい。", en: "Of the dictionary, the letter and the photo, the dictionary is the heaviest", exercises: [to-and, ichiban-superlative], mode: build }
       - { kind: sentence, ja: "にほんの なかで さくらが いちばん ゆうめいだ。", en: "In Japan, the cherry blossom is the most famous", exercises: [na-adj-present], mode: translate }
       - { kind: listening-comp, audio: "ふゆより はるの ほうが あたたかい。", answer: "Spring is milder than winter", distractors: ["Winter is milder than spring", "Of the seasons, spring is the mildest", "Spring is cooler than winter"], exercises: [yori-comparison, ni-time] }
-      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses", exercises: [to-and, kara-because], mode: build }
+      - { kind: sentence, ja: "くつと ぼうしと めがねの なかで めがねが いちばん やすいから めがねを かう。", en: "Of the shoes, the hat and the glasses, the glasses are the cheapest, so I'll buy the glasses", exercises: [to-and, kara-because], mode: build }
       - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだ。", en: "Of my siblings, my older brother is the most skilful", exercises: [na-adj-present, no-ga-jouzu], mode: build }
       - kind: dialogue
         lines:
@@ -737,14 +737,39 @@ lessons:
       - { kind: sentence, ja: "どうぶつの なかで ぞうが いちばん おおきいけど いぬが いちばん よく あるく。", en: "Of the animals, the elephant is the biggest, but dogs walk the most", exercises: [ichiban-superlative, dictionary-form, kedo, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "くだものと やさいの なかで やさいが いちばん やすいから やさいを かう。", en: "Of the fruit and the vegetables, the vegetables are the cheapest, so I'll buy vegetables", exercises: [ichiban-superlative, to-and, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "ことばの なかで えいごが いちばん むずかしいと おもう。", en: "I think English is the most difficult of all languages", exercises: [ichiban-superlative, to-omoimasu, to-quotation], mode: listening }
-      - { kind: sentence, ja: "コーヒーより ちゃの ほうが やすいけど のみものの なかで ぎゅうにゅうが いちばん やすい。", en: "Tea is cheaper than coffee, but of the drinks milk is the cheapest", exercises: [yori-comparison, ichiban-superlative, kedo], mode: build }
-      - { kind: sentence, ja: "すみません この みっつの なかで どれが いちばん おおきいですか。", en: "Say politely: Excuse me, of these three, which is the biggest", exercises: [masu-present, ichiban-superlative, ka-question], mode: build }
-      - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだけど いもうとが いちばん げんきだ。", en: "Of my siblings, my older brother is the most skilful, but my younger sister is the liveliest", exercises: [na-adj-present, ichiban-superlative, kedo, family-register], mode: build }
-      - { kind: sentence, ja: "なつやすみに かわで およぐのが いちばん たのしいから なつが いちばん すきだ。", en: "Swimming in the river in the summer holidays is the most fun, so summer is what I like most", exercises: [no-ga-suki, ichiban-superlative, kara-because, ni-time], mode: build }
+      # ── The four beats below were REPLACED 2026-07-27 after QA. Each was a
+      #    recycle of a teaching beat: 「コーヒーより ちゃの ほうが…」 was neo-5's
+      #    sentence with 「のみものの なかで」 inserted; the polite question was
+      #    neo-11's with すみません prepended; the sibling one spliced two neo-7
+      #    beats with けど; the summer one was neo-3's with なつやすみに in front.
+      #    Inv 26 wants a new SHAPE, and a sentence the learner has already
+      #    built twice is longer-but-familiar however its grammar tags read.
+      #    The grammar-point sets and modes are UNCHANGED — only the content is
+      #    new, because the tags are what the ledger and the guards read.
+      #    Every replacement was checked against the module's full sentence
+      #    inventory first: three earlier drafts were struck for colliding with
+      #    beats already here (「にほんの なかで さくらが いちばん ゆうめいだ」 and
+      #    「くうこうと だいがくと としょかんの なかで…にぎやかだ」 both already exist,
+      #    and やま/かわ/いけ already owns とおい).
+      - { kind: sentence, ja: "えんぴつより カメラの ほうが たかいけど けいたいが いちばん たかい。", en: "A camera is more expensive than a pencil, but the mobile is the most expensive", exercises: [yori-comparison, ichiban-superlative, kedo], mode: build }
+      - { kind: sentence, ja: "すみません この ホテルの なかで どこが いちばん しずかですか。", en: "Say politely: Excuse me, where is the quietest place in this hotel", exercises: [masu-present, ichiban-superlative, ka-question], mode: build }
+      - { kind: sentence, ja: "かぞくの なかで ちちが いちばん しずかだけど ははが いちばん にぎやかだ。", en: "Of my family, my father is the quietest, but my mother is the liveliest", exercises: [na-adj-present, ichiban-superlative, kedo, family-register], mode: build }
+      # うみ was my first draft here and the module's own inv-27 guard rejected
+      # it — うみ is on m26's fatigued-carrier list. The guard was right and the
+      # sentence was wrong, which is the rule this project keeps having to
+      # relearn: if a guard fires, the content moves, not the guard.
+      - { kind: sentence, ja: "ろくじに おんがくを きくのが いちばん すきだから あさが いちばん いい。", en: "Listening to music at six is what I like most, so mornings are the best", exercises: [no-ga-suki, ichiban-superlative, kara-because, ni-time], mode: build }
       - { kind: sentence, ja: "たべものの なかで さかなが いちばん おいしい。", en: "Of all foods, fish is the most delicious", exercises: [ichiban-superlative], mode: translate }
       - { kind: particle-cloze, stem: "どうぶつの なかで ぞうが ", tail: " おおきい。", answer: "いちばん", options: ["いちばん", "ちょっと", "あまり"], en: "Of the animals, the elephant is the biggest", explanation: "いちばん tops the whole group named by なかで. ちょっと would only say the elephant is somewhat big, and あまり never stands in front of a positive adjective." }
-      - { kind: listening-comp, audio: "がっこうの なかで としょかんが いちばん しずかだ。", answer: "Of everywhere in the school, the library is the quietest", distractors: ["Of everywhere in the school, the library is the liveliest", "The library is quieter than the classroom", "Of everywhere in the university, the library is the quietest"], exercises: [na-adj-present, ichiban-superlative] }
-      - { kind: listening-comp, audio: "かばんと くつと ふくの なかで くつが いちばん おもい。", answer: "Of the bag, the shoes and the clothes, the shoes are the heaviest", distractors: ["Of the bag, the shoes and the clothes, the bag is the heaviest", "The shoes are heavier than the bag", "Of the bag, the shoes and the clothes, the shoes are the most expensive"], exercises: [to-and, ichiban-superlative] }
+      # ── Both dictations were BYTE-IDENTICAL to a teaching beat and to a
+      #    review-2 beat — 「がっこうの なかで としょかんが いちばん しずかだ。」 is
+      #    neo-7's opening line and 「かばんと くつと ふくの なかで くつが いちばん
+      #    おもい。」 is neo-6's, each already heard three times by here. Replaced
+      #    2026-07-27; the distractor SHAPES are kept (wrong winner / wrong
+      #    adjective / comparison-instead-of-superlative), because that trio is
+      #    what makes the item test the frame rather than the vocabulary.
+      - { kind: listening-comp, audio: "にほんの りょうりの なかで すしが いちばん ゆうめいだ。", answer: "Of Japanese food, sushi is the most famous", distractors: ["Of Japanese food, sushi is the most delicious", "Of Japanese food, fish is the most famous", "Sushi is more famous than fish"], exercises: [na-adj-present, ichiban-superlative] }
+      - { kind: listening-comp, audio: "いすと まどと とけいの なかで まどが いちばん おおきい。", answer: "Of the chair, the window and the clock, the window is the biggest", distractors: ["Of the chair, the window and the clock, the chair is the biggest", "Of the chair, the window and the clock, the window is the oldest", "The window is bigger than the chair"], exercises: [to-and, ichiban-superlative] }
       - { kind: sentence, ja: "がくせいの なかで トムが いちばん よく にほんの りょうりを たべる。", en: "Of the students, Tom eats Japanese food the most", exercises: [dictionary-form, ichiban-superlative, frequency-adverbs, wo-object], mode: build }
       - kind: dialogue
         lines:

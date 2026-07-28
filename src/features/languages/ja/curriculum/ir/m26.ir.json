@@ -1499,8 +1499,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。",
-          "en": "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses",
+          "ja": "くつと ぼうしと めがねの なかで めがねが いちばん やすいから めがねを かう。",
+          "en": "Of the shoes, the hat and the glasses, the glasses are the cheapest, so I'll buy the glasses",
           "exercises": [
             "to-and",
             "ichiban-superlative",
@@ -1943,8 +1943,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くつと ぼうしと めがねの なかで くつが いちばん たかいから めがねを かう。",
-          "en": "Of the shoes, the hat and the glasses, the shoes are the most expensive, so I'll buy the glasses",
+          "ja": "くつと ぼうしと めがねの なかで めがねが いちばん やすいから めがねを かう。",
+          "en": "Of the shoes, the hat and the glasses, the glasses are the cheapest, so I'll buy the glasses",
           "exercises": [
             "to-and",
             "kara-because"
@@ -2818,8 +2818,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーより ちゃの ほうが やすいけど のみものの なかで ぎゅうにゅうが いちばん やすい。",
-          "en": "Tea is cheaper than coffee, but of the drinks milk is the cheapest",
+          "ja": "えんぴつより カメラの ほうが たかいけど けいたいが いちばん たかい。",
+          "en": "A camera is more expensive than a pencil, but the mobile is the most expensive",
           "exercises": [
             "yori-comparison",
             "ichiban-superlative",
@@ -2829,8 +2829,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "すみません この みっつの なかで どれが いちばん おおきいですか。",
-          "en": "Say politely: Excuse me, of these three, which is the biggest",
+          "ja": "すみません この ホテルの なかで どこが いちばん しずかですか。",
+          "en": "Say politely: Excuse me, where is the quietest place in this hotel",
           "exercises": [
             "masu-present",
             "ichiban-superlative",
@@ -2840,8 +2840,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうだいの なかで あにが いちばん じょうずだけど いもうとが いちばん げんきだ。",
-          "en": "Of my siblings, my older brother is the most skilful, but my younger sister is the liveliest",
+          "ja": "かぞくの なかで ちちが いちばん しずかだけど ははが いちばん にぎやかだ。",
+          "en": "Of my family, my father is the quietest, but my mother is the liveliest",
           "exercises": [
             "na-adj-present",
             "ichiban-superlative",
@@ -2852,8 +2852,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "なつやすみに かわで およぐのが いちばん たのしいから なつが いちばん すきだ。",
-          "en": "Swimming in the river in the summer holidays is the most fun, so summer is what I like most",
+          "ja": "ろくじに おんがくを きくのが いちばん すきだから あさが いちばん いい。",
+          "en": "Listening to music at six is what I like most, so mornings are the best",
           "exercises": [
             "no-ga-suki",
             "ichiban-superlative",
@@ -2886,12 +2886,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "がっこうの なかで としょかんが いちばん しずかだ。",
-          "answer": "Of everywhere in the school, the library is the quietest",
+          "audio": "にほんの りょうりの なかで すしが いちばん ゆうめいだ。",
+          "answer": "Of Japanese food, sushi is the most famous",
           "distractors": [
-            "Of everywhere in the school, the library is the liveliest",
-            "The library is quieter than the classroom",
-            "Of everywhere in the university, the library is the quietest"
+            "Of Japanese food, sushi is the most delicious",
+            "Of Japanese food, fish is the most famous",
+            "Sushi is more famous than fish"
           ],
           "exercises": [
             "na-adj-present",
@@ -2900,12 +2900,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "かばんと くつと ふくの なかで くつが いちばん おもい。",
-          "answer": "Of the bag, the shoes and the clothes, the shoes are the heaviest",
+          "audio": "いすと まどと とけいの なかで まどが いちばん おおきい。",
+          "answer": "Of the chair, the window and the clock, the window is the biggest",
           "distractors": [
-            "Of the bag, the shoes and the clothes, the bag is the heaviest",
-            "The shoes are heavier than the bag",
-            "Of the bag, the shoes and the clothes, the shoes are the most expensive"
+            "Of the chair, the window and the clock, the chair is the biggest",
+            "Of the chair, the window and the clock, the window is the oldest",
+            "The window is bigger than the chair"
           ],
           "exercises": [
             "to-and",
