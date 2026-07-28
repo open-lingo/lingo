@@ -12,7 +12,21 @@ make and document; he'll flag them later if he disagrees.
 - **DONE and committed: m11–m25.** QA verdict SHIP for m20–m25 (every module
   QA'd this run has shipped). Remaining N5 points: ~8. Suite 7719 passing.
 - **IN FLIGHT:** one authoring agent on **m26** (comparisons のほうが /
-  いちばん; ほど is deferred to m37). Not committed.
+  いちばん; ほど is deferred to m37). Not committed. Its files, as of the
+  handoff — stage exactly these plus `src/pub/tts`, and re-check for
+  `courseAtoms.ts` (it had not registered atoms yet at this point):
+  ```
+  docs/context/m26-context.md
+  docs/reports/authoring-audit.md
+  src/features/languages/ja/__tests__/moduleContentLints.ts
+  src/features/languages/ja/curriculum/__tests__/m26-neo.test.ts
+  src/features/languages/ja/curriculum/ir/m26.ir.{json,yaml}
+  src/features/languages/ja/curriculum/m26-neo.ts
+  src/features/lesson/data/mockLessons.ts
+  src/shared/domain/mockCourse.{ts,test.ts}
+  ```
+  Anything OUTSIDE that list at commit time is either mine or a surprise —
+  look before staging it.
 - **NEXT after m26 lands**, in this order:
   1. `node scripts/compile-ir.mjs m26 && npx tsc --noEmit && npx vitest run && npm run authoring-audit`
      — the m26 row must read `findings = —`; `systemic` may be 1.
