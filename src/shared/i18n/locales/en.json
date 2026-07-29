@@ -167,6 +167,11 @@
   },
   "learn": {
     "intro": "Your learning path, courses, and community modules.",
+    "frequencyBacklog": {
+      "title": "{{count}} new words ready to review",
+      "desc": "Optional high-frequency words you've unlocked. Review them alongside your cards.",
+      "cta": "Review now"
+    },
     "officialCourseDesc": "Structured lessons from basics to fluency.",
     "communityModules": "Community courses",
     "communityModulesDesc": "Community-created courses. Subscribe to as many as you want.",
@@ -669,6 +674,8 @@
     "simpleDidntKnow": "Didn't know",
     "simpleKnewIt": "Knew it",
     "showIntervalPreviews": "Show scheduling intervals",
+    "frequencyVocabLabel": "Frequency vocabulary (optional words)",
+    "frequencyVocabHelp": "Unlock common words beyond your lessons as you reach each module — reviewed alongside your cards.",
     "reviewModeWordFirst": "Word → Image + translation (default)",
     "reviewModeImageFirst": "Image + word → Translation + image",
     "reviewModeBackFirst": "Translation → Word",

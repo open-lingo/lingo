@@ -53,6 +53,7 @@ import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
 import { LearnToolsRow } from "./components/LearnToolsRow";
+import { FrequencyBacklogCard } from "./components/FrequencyBacklogCard";
 import { PageShell } from "@/shared/components/PageShell";
 import { Card } from "@/shared/components/ui";
 import { lessonRoutePath } from "@/shared/domain/lessonRoute";
@@ -501,6 +502,7 @@ export function LearnPage({
               revealModuleId={revealModuleId?.id ?? null}
             />
           </Card>
+          <FrequencyBacklogCard />
           <LearnToolsRow course={course} completedSet={completedSet} />
         </div>
         <div className="hidden lg:block">

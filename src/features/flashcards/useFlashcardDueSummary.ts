@@ -15,6 +15,8 @@ import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { DeckResponse } from "@/shared/api/decks";
 import { buildEnrichedCourseDeck } from "./data/courseDeck";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useCourseLevel } from "@/features/practice/useCourseLevel";
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
   return {
@@ -88,6 +90,11 @@ function computeDeckRetention(
 export function useFlashcardDueSummary(langId: string) {
   const { subscribedDecks, isLoading } = useSubscribedDecks();
   const srsRevision = useSRSStoreRevision();
+  const { settings } = useSettings();
+  // Opt-in frequency ("optional") vocab: module-gated words beyond the lessons.
+  // Off (default) → the course deck is unchanged, so the backlog is unaffected.
+  const freqEnabled = settings.flashcards?.frequencyVocab ?? false;
+  const reachedModule = useCourseLevel();
 
   return useMemo(() => {
     const byLang = subscribedDecks.filter(
@@ -103,7 +110,10 @@ export function useFlashcardDueSummary(langId: string) {
     // populate — the old course-deck wiring was a 5-card stub keyed off a
     // stale lesson→card map. Only unlocked cards enter the queue. Null for
     // languages without an atom catalog.
-    const courseDeck = buildEnrichedCourseDeck(langId);
+    const courseDeck = buildEnrichedCourseDeck(langId, undefined, {
+      enabled: freqEnabled,
+      reachedModule,
+    });
     const courseUnlocked = (courseDeck?.cards ?? []).filter(
       (c) => c.unlocked,
     );
@@ -179,5 +189,5 @@ export function useFlashcardDueSummary(langId: string) {
       communityPacksWithDecks: packs,
       isLoading,
     };
-  }, [subscribedDecks, langId, srsRevision, isLoading]);
+  }, [subscribedDecks, langId, srsRevision, isLoading, freqEnabled, reachedModule]);
 }

@@ -74,6 +74,22 @@ describe("settings backend persistence", () => {
     expect(hydrated.learning?.showRomaji).toBe(false);
   });
 
+  it("round-trips the frequency-vocab opt-in through the backend blob", () => {
+    const withFreq: UserSettings = {
+      ...customized,
+      flashcards: {
+        ...DEFAULT_SETTINGS.flashcards!,
+        frequencyVocab: true,
+      },
+    };
+    const stored = toBackendPatch(withFreq) as Record<string, unknown>;
+    expect((stored.flashcards as Record<string, unknown>).frequencyVocab).toBe(
+      true,
+    );
+    const hydrated = fromBackendResponse(stored);
+    expect(hydrated.flashcards?.frequencyVocab).toBe(true);
+  });
+
   it("hydrates from legacy flat-only blobs and infers onboarding", () => {
     const hydrated = fromBackendResponse({
       theme: "sepia",

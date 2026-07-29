@@ -708,6 +708,30 @@ export function FlashcardTester() {
                     )}
                   </p>
                 </div>
+                <div>
+                  <label className="flex items-start gap-2 text-sm text-text-secondary">
+                    <input
+                      type="checkbox"
+                      checked={settings.flashcards?.frequencyVocab ?? false}
+                      onChange={(e) =>
+                        updateFlashcards({ frequencyVocab: e.target.checked })
+                      }
+                      className="mt-0.5 rounded border-border accent-accent"
+                    />
+                    <span>
+                      {t(
+                        "flashcards.frequencyVocabLabel",
+                        "Frequency vocabulary (optional words)",
+                      )}
+                    </span>
+                  </label>
+                  <p className="mt-1 text-[11px] leading-snug text-text-muted">
+                    {t(
+                      "flashcards.frequencyVocabHelp",
+                      "Unlock common words beyond your lessons as you reach each module — reviewed alongside your cards.",
+                    )}
+                  </p>
+                </div>
               </div>
             </>
           )}

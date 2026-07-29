@@ -4,6 +4,7 @@ import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
 import { buildEnrichedCourseDeck } from "./data/courseDeck";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useCourseLevel } from "@/features/practice/useCourseLevel";
 
 export type CardsDueResult = { count: number; isLoading: boolean };
 
@@ -19,6 +20,10 @@ export function useCardsDueCount(languageId: string): CardsDueResult {
   const srsRevision = useSRSStoreRevision();
   const { subscriptions, deckResponses, isLoading } = useDeckSubscriptions();
   const { settings } = useSettings();
+  // Opt-in frequency ("optional") vocab flows through the same unlocked-course
+  // path, gated by the learner's reached module. Off (default) → no-op.
+  const freqEnabled = settings.flashcards?.frequencyVocab ?? false;
+  const reachedModule = useCourseLevel();
 
   const enabledDeckIds = useMemo(
     () =>
@@ -38,11 +43,20 @@ export function useCardsDueCount(languageId: string): CardsDueResult {
 
   const courseCards = useMemo(() => {
     if (settings.flashcards?.hideCourseDeck) return [];
-    const courseDeck = buildEnrichedCourseDeck(languageId);
+    const courseDeck = buildEnrichedCourseDeck(languageId, undefined, {
+      enabled: freqEnabled,
+      reachedModule,
+    });
     return (courseDeck?.cards ?? []).filter((c) => c.unlocked);
     // srsRevision: newly-unlocked words re-derive the course deck.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [languageId, settings.flashcards?.hideCourseDeck, srsRevision]);
+  }, [
+    languageId,
+    settings.flashcards?.hideCourseDeck,
+    freqEnabled,
+    reachedModule,
+    srsRevision,
+  ]);
 
   const count = countCardsDue([...subscribedCards, ...courseCards]);
 

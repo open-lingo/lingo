@@ -209,6 +209,9 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
     if (typeof fc.showIntervalPreviews === "boolean") {
       flashcards.showIntervalPreviews = fc.showIntervalPreviews;
     }
+    if (typeof fc.frequencyVocab === "boolean") {
+      flashcards.frequencyVocab = fc.frequencyVocab;
+    }
     partial.flashcards = flashcards;
   }
 

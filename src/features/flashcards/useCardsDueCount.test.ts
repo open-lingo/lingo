@@ -8,7 +8,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook } from "@testing-library/react";
 
-const mockSettings: { flashcards?: { hideCourseDeck?: boolean } } = {};
+const mockSettings: {
+  flashcards?: { hideCourseDeck?: boolean; frequencyVocab?: boolean };
+} = {};
 
 vi.mock("./engine", () => ({
   // Count = number of cards passed; lets assertions target scope, not FSRS.
@@ -21,6 +23,10 @@ vi.mock("./SRSStoreRevisionContext", () => ({
 
 vi.mock("@/shared/contexts/SettingsContext", () => ({
   useSettings: () => ({ settings: mockSettings }),
+}));
+
+vi.mock("@/features/practice/useCourseLevel", () => ({
+  useCourseLevel: () => 5,
 }));
 
 vi.mock("./useDeckSubscriptions", () => ({
@@ -40,7 +46,11 @@ vi.mock("./useDeckSubscriptions", () => ({
 }));
 
 vi.mock("./data/courseDeck", () => ({
-  buildEnrichedCourseDeck: (languageId: string) =>
+  buildEnrichedCourseDeck: (
+    languageId: string,
+    _unlockedIds?: unknown,
+    freq?: { enabled: boolean; reachedModule: number },
+  ) =>
     languageId === "ko"
       ? {
           id: "course-ko",
@@ -48,6 +58,11 @@ vi.mock("./data/courseDeck", () => ({
             { id: "k1", unlocked: true },
             { id: "k2", unlocked: true },
             { id: "k3", unlocked: false },
+            // A frequency ("optional") word, unlocked only when the opt-in
+            // flag threads through as `freq.enabled`.
+            ...(freq?.enabled
+              ? [{ id: "kf1", unlocked: true, source: "freq" }]
+              : []),
           ],
         }
       : null,
@@ -78,5 +93,12 @@ describe("useCardsDueCount", () => {
     const { result } = renderHook(() => useCardsDueCount("ja"));
     // Only deck-c (1 card); buildEnrichedCourseDeck returns null for ja here.
     expect(result.current.count).toBe(1);
+  });
+
+  it("includes frequency cards when the opt-in flag is on", () => {
+    mockSettings.flashcards = { frequencyVocab: true };
+    const { result } = renderHook(() => useCardsDueCount("ko"));
+    // deck-a (2) + course unlocked (2) + freq card kf1 (1) = 5.
+    expect(result.current.count).toBe(5);
   });
 });
