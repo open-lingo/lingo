@@ -140,7 +140,9 @@
     clip internals (the silence-splice experiment cut がくせい in half).
     Lines chain per-sentence with a 350ms gap; whole-line clip is the
     fallback. New male dialogue lines: run emit-tts-deck.mjs then
-    lingo-core scripts/tts/gen_keita_dialogue.py. EVERY new speaker label —
+    `cd ../lingo-data && python -m pipeline.tts.generate --lang ja-keita`
+    (the old `lingo-core scripts/tts/gen_keita_dialogue.py` no longer exists;
+    its 679 clips survive only as manifest overrides). EVERY new speaker label —
     male, female or role — must be classified in dialogueSpeakers.json;
     `dialogueSpeakerRegistry.test.ts` fails the build on an unclassified one,
     because the default is the female voice and that is silently wrong for a

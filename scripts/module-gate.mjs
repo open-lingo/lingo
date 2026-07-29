@@ -27,7 +27,10 @@
  *      ALL curriculum sources — not module-scoped, mirrors the script's own
  *      scope) then a coverage diff: every deck card's `front` (and its
  *      trailing-。-stripped variant, matching the runtime TTS lookup
- *      fallback) must resolve to a `ja:` key in `src/pub/tts/manifest.json`.
+ *      fallback) must resolve to a published clip. Resolution mirrors
+ *      `src/shared/tts/manifest.ts` against the schema-2 manifest at
+ *      `src/shared/tts/manifests/ja.json` — an `overrides` hit, else
+ *      sha256("ja:<text>")[:16] present in the packed `hashes` string.
  *   3. `npx tsc --noEmit` (whole-project — matches `npm run build`'s own
  *      typecheck step; there's no cheaper module-scoped tsc).
  *   4. OPTIONAL, gated on `MODULE_GATE_CAPTURE=1`: the Gate 10 visual-QA
@@ -37,6 +40,7 @@
  *      clear reason when the flag is unset or `--lessons` is missing.
  */
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
@@ -44,8 +48,15 @@ import { dirname, resolve } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
-const MANIFEST_PATH = resolve(ROOT, "src/pub/tts/manifest.json");
-const DECK_PATH = resolve(ROOT, "../lingo-core/test_decks/ja-hiragana-curriculum.json");
+/** Same derivation as src/shared/tts/sha256.ts and the Python generator. */
+const sha256Hex16 = (s) =>
+  createHash("sha256").update(s, "utf8").digest("hex").slice(0, 16);
+
+const MANIFEST_PATH = resolve(ROOT, "src/shared/tts/manifests/ja.json");
+const DECK_PATH = resolve(
+  ROOT,
+  "../lingo-data/data/test_decks/ja-hiragana-curriculum.json",
+);
 
 // ── CLI args ────────────────────────────────────────────────────────────
 
@@ -132,18 +143,28 @@ stage("TTS deck emit + manifest coverage", () => {
     };
   }
 
+  // Schema 2 packs every existing hash16 into one sorted string; slice it
+  // back into a Set the same way the runtime resolver does.
+  const hashes = new Set();
+  const packed = typeof manifest.hashes === "string" ? manifest.hashes : "";
+  for (let i = 0; i + 16 <= packed.length; i += 16) {
+    hashes.add(packed.slice(i, i + 16));
+  }
+  const overrides = manifest.overrides ?? {};
+  const covered = (text) =>
+    text in overrides || hashes.has(sha256Hex16(`ja:${text}`));
+
   const cards = Array.isArray(deck.cards) ? deck.cards : [];
   const missing = [];
   for (const card of cards) {
     const front = card.front;
     if (typeof front !== "string") continue;
     const stripped = front.endsWith("。") ? front.slice(0, -1) : front;
-    const hasKey = `ja:${front}` in manifest || `ja:${stripped}` in manifest;
-    if (!hasKey) missing.push(card);
+    if (!covered(front) && !covered(stripped)) missing.push(card);
   }
 
   if (missing.length > 0) {
-    console.log(`${missing.length} of ${cards.length} deck cards have no ja: manifest entry:`);
+    console.log(`${missing.length} of ${cards.length} deck cards have no ja clip:`);
     for (const c of missing.slice(0, 25)) {
       console.log(`  - ${c.id}: "${c.front}"`);
     }

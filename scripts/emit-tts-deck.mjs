@@ -2,12 +2,17 @@
 /**
  * Reads the hiragana curriculum (TS source) and emits a flat JSON deck of
  * every phrase that needs TTS audio. The Python TTS generator picks up
- * `lingo-core/test_decks/*.json`, so this writes there.
+ * `lingo-data/data/test_decks/*.json`, so this writes there.
  *
  * Re-run whenever the curriculum changes:
  *   node scripts/emit-tts-deck.mjs
- *   (then) cd ../lingo-core && .venv-tts/bin/python -m scripts.tts.generate \
+ *   (then) cd ../lingo-data && python -m pipeline.tts.generate \
  *           --lang ja --provider edge
+ *
+ * Generation writes mp3s to `lingo-data/out/tts`; `pipeline.tts.emit_manifest`
+ * + `pipeline.tts.upload` publish them to CloudFront. The app never sees a
+ * path table — it derives `tts/v1/<lang>/<hash>.mp3` from
+ * sha256("<lang>:<text>")[:16] (src/shared/tts/manifest.ts).
  */
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -26,7 +31,7 @@ const JA_CURRICULUM_DIR = resolve(
 const CURRICULUM = resolve(DATA_DIR, "hiraganaCurriculum.ts");
 const OUT = resolve(
   __dirname,
-  "../../lingo-core/test_decks/ja-hiragana-curriculum.json",
+  "../../lingo-data/data/test_decks/ja-hiragana-curriculum.json",
 );
 
 // Sources to scan. Curriculum is the source of truth for kana intros and
@@ -239,8 +244,12 @@ const cards = Array.from(deduped)
 // Dialogue speakers get REAL distinct voices (Spencer 2026-07-19: "just
 // generate the two different voices per speaker and do not pitch
 // anything"). Male-named speakers' lines (+ sentence splits) go into a
-// second deck synthesized with ja-JP-KeitaNeural by
-// lingo-core scripts/tts/gen_keita_dialogue.py under `ja-keita:` keys.
+// second deck synthesized with ja-JP-KeitaNeural under `ja-keita:` keys.
+// The original synthesizer (lingo-core scripts/tts/gen_keita_dialogue.py) no
+// longer exists in any repo; its 679 clips survive only as manifest overrides
+// because their hashes aren't reconstructible. `ja-keita` is a first-class
+// language in lingo-data's generate.py now, so regenerating from this deck
+// retires those overrides.
 // Roster shared with DialogueListenStepView so generation and playback cannot
 // disagree — they were hand-copied twins holding only the romanized names,
 // which left every kana-labelled male speaker (トム/たけし/たなか/ケン) playing
@@ -294,7 +303,7 @@ try {
   /* no ir/ dir yet — pre-compiler modules */
 }
 function writeDialogueDeck(file, name, set, note) {
-  const out = resolve(__dirname, `../../lingo-core/test_decks/${file}`);
+  const out = resolve(__dirname, `../../lingo-data/data/test_decks/${file}`);
   writeFileSync(
     out,
     JSON.stringify(
@@ -317,15 +326,15 @@ writeDialogueDeck(
   "ja-keita-dialogue.json",
   "ja-keita-dialogue",
   keitaSet,
-  "Male dialogue speakers' lines — synthesized with ja-JP-KeitaNeural by " +
-    "scripts/tts/gen_dialogue_voices.py under ja-keita: keys. Auto-emitted.",
+  "Male dialogue speakers' lines — synthesized with ja-JP-KeitaNeural under " +
+    "ja-keita: keys by lingo-data's pipeline.tts.generate. Auto-emitted.",
 );
 writeDialogueDeck(
   "ja-nanami-dialogue.json",
   "ja-nanami-dialogue",
   nanamiSet,
   "Female/neutral dialogue speakers' lines — refreshed as ONE Nanami batch " +
-    "(consistent takes) by scripts/tts/gen_dialogue_voices.py over plain " +
+    "(consistent takes) by lingo-data's pipeline.tts.generate over plain " +
     "ja: keys. Auto-emitted.",
 );
 

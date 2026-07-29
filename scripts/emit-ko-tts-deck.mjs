@@ -6,7 +6,7 @@
  *
  * Re-run whenever the KO curriculum changes:
  *   node scripts/emit-ko-tts-deck.mjs
- *   (then) cd ../lingo-core && .venv-tts/bin/python -m scripts.tts.generate \
+ *   (then) cd ../lingo-data && python -m pipeline.tts.generate \
  *           --lang ko --provider edge
  *
  * Strategy: unlike the JA emitter (which matches per-factory patterns), KO
@@ -26,7 +26,10 @@ const __dirname = dirname(__filename);
 
 const KO_DIR = resolve(__dirname, "../src/features/languages/ko");
 const CURRICULUM_DIR = join(KO_DIR, "curriculum");
-const OUT = resolve(__dirname, "../../lingo-core/test_decks/ko-curriculum.json");
+const OUT = resolve(
+  __dirname,
+  "../../lingo-data/data/test_decks/ko-curriculum.json",
+);
 
 const sources = [];
 for (const f of readdirSync(CURRICULUM_DIR)) {

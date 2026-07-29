@@ -13,8 +13,9 @@
  * (`pipeline/tts/generate.py`) and published to S3/CloudFront under
  * `tts/<version>/<lang>/<hash16>.mp3`. The app derives that path from the
  * text itself rather than shipping a path table — see `./manifest` for the
- * scheme and `./sha256` for the hash. Set `VITE_ASSET_BASE_URL` to serve
- * from the CDN; unset means same-origin (local `src/pub/`).
+ * scheme and `./sha256` for the hash. The mp3s no longer live in the repo:
+ * `VITE_ASSET_BASE_URL` (set in the committed `.env`) points at the CDN they
+ * are published to.
  *
  * Playback uses **Web Audio API** (AudioBufferSourceNode), not
  * HTMLAudioElement. For short clips (~300ms–1.5s) this avoids:
@@ -207,6 +208,38 @@ function speakViaSynthesis(text: string, lang: string): SpeechSynthesisUtterance
   return u;
 }
 
+/** Speak via the platform voice and resolve when it FINISHES, so dialogue
+ *  sequencers don't stack turns. Resolves immediately for JA / unsupported
+ *  synthesis. The timeout guards a suspended or blocked synth engine from
+ *  hanging the sequence forever — ~90ms/char is a generous upper bound for
+ *  platform TTS pacing. */
+async function speakViaSynthesisToEnd(text: string, lang: string): Promise<void> {
+  const u = speakViaSynthesis(text, lang);
+  if (!u) return;
+  await new Promise<void>((resolve) => {
+    let done = false;
+    const finish = () => {
+      if (!done) {
+        done = true;
+        resolve();
+      }
+    };
+    // Chain, don't clobber: `speakViaSynthesis` installed the handler that
+    // releases the audio channel and clears `activeUtterance`.
+    const onEnd = u.onend;
+    const onError = u.onerror;
+    u.onend = function (ev) {
+      onEnd?.call(this, ev);
+      finish();
+    };
+    u.onerror = function (ev) {
+      onError?.call(this, ev);
+      finish();
+    };
+    setTimeout(finish, text.length * 90 + 2000);
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Web Audio context — lazy + gesture-unlocked.
 // ---------------------------------------------------------------------------
@@ -300,10 +333,18 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
   const cached = bufferCache.get(url);
   if (cached) return cached;
   const pending = inflight.get(url);
-  if (pending) return pending;
+  // Coalesced callers must not inherit the raw rejection: `await loadBuffer()`
+  // would throw past the `if (!buf)` checks below instead of degrading to
+  // synthesis. The originating caller logs the reason.
+  if (pending) return await pending.catch(() => null);
 
   const p = (async () => {
     const res = await fetch(url);
+    // The mp3s are served by the CDN, not this origin — a 403/404/504 comes
+    // back as a resolved Response, and decodeAudioData would then choke on an
+    // error page. Fail here so callers reach the synthesis fallback with a
+    // meaningful reason.
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const arr = await res.arrayBuffer();
     // Chromium prefers the promise form; older Safari only honored the
     // callback form, but we target current evergreens.
@@ -317,7 +358,7 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
     return await p;
   } catch (e) {
     inflight.delete(url);
-    console.warn("[tts] decodeAudioData failed:", url, e);
+    console.warn("[tts] audio fetch/decode failed:", url, e);
     return null;
   }
 }
@@ -402,7 +443,14 @@ export async function playJaAudio(text: string, lang: string = defaultTtsLang): 
     return;
   }
   const buf = await loadBuffer(url);
-  if (!buf) return;
+  if (!buf) {
+    // The clip exists in the manifest but the CDN fetch (or decode) failed —
+    // offline dev, a blocked request, a bad edge response. Same remedy as a
+    // manifest miss: speak it, for every language that allows synthesis. JA
+    // stays silent because `canSynthesize("ja")` is false by design.
+    speakViaSynthesis(text, lang);
+    return;
+  }
   playBuffer(buf);
 }
 
@@ -429,27 +477,17 @@ export async function playJaAudioToEnd(
   const url = getTtsUrl(text, lang);
   if (!url) {
     // Non-JA fallback: speak via the platform voice and resolve when it
-    // finishes, so dialogue sequencers don't stack turns. Timeout guards a
-    // suspended/blocked synth engine from hanging the sequence forever.
-    const u = speakViaSynthesis(text, lang);
-    if (!u) return;
-    await new Promise<void>((resolve) => {
-      let done = false;
-      const finish = () => {
-        if (!done) {
-          done = true;
-          resolve();
-        }
-      };
-      u.onend = finish;
-      u.onerror = finish;
-      // ~90ms/char is a generous upper bound for platform TTS pacing.
-      setTimeout(finish, text.length * 90 + 2000);
-    });
+    // finishes, so dialogue sequencers don't stack turns.
+    await speakViaSynthesisToEnd(text, lang);
     return;
   }
   const buf = await loadBuffer(url);
-  if (!buf) return;
+  if (!buf) {
+    // CDN fetch/decode failed for a clip the manifest knows about — degrade to
+    // synthesis rather than resolving into silence (JA stays silent).
+    await speakViaSynthesisToEnd(text, lang);
+    return;
+  }
   const c = getContext();
   if (!c) return;
   if (c.state === "suspended") {
@@ -510,7 +548,13 @@ export async function autoPlayJaAudio(
   }
   playedAutoKeys.add(key);
   const buf = await loadBuffer(url);
-  if (!buf) return;
+  if (!buf) {
+    // Autoplay is how most lesson audio fires, so a CDN failure here is what a
+    // learner actually notices. Degrade to synthesis on the same terms as the
+    // manifest-miss branch above.
+    speakViaSynthesis(text, lang);
+    return;
+  }
   playBuffer(buf);
 }
 

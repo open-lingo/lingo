@@ -70,11 +70,23 @@ const MANIFESTS: Record<string, TtsManifest> = {
 /**
  * Base URL every relative manifest path is resolved against.
  *
- * Unset (dev, and any build that hasn't been pointed at the CDN) means
- * same-origin: paths resolve to `/tts/v1/...`, which Vite serves out of the
- * public dir exactly as before. Set `VITE_ASSET_BASE_URL` to the CloudFront
- * origin to serve audio from the CDN instead. Trailing slashes are
- * normalized so both `https://cdn.example.com` and `.../` behave.
+ * **Empty by default, and that is deliberate.** CloudFront fronts both the app
+ * and `/tts/*` from a single distribution, so a relative path is same-origin
+ * in production — on the apex AND on `www`, which serves the same SPA without
+ * redirecting. Local dev is kept same-origin too, via the `/tts` proxy in
+ * `vite.config.ts`.
+ *
+ * Do not "fix" this by pointing it at the CDN absolutely. `loadBuffer` fetches
+ * clips and hands them to `decodeAudioData`, which is CORS-enforced, and the
+ * bucket serves no `Access-Control-Allow-Origin`. An absolute base makes every
+ * Web Audio clip fail on any origin but the apex — and because `canSynthesize`
+ * returns false for `ja`, Japanese goes completely silent rather than
+ * degrading. The `<audio>`-element paths keep working, so it fails *halfway*,
+ * which is the hardest version to notice.
+ *
+ * `VITE_ASSET_BASE_URL` remains supported for the day assets move to their own
+ * domain — that move needs a CORS response-headers policy on the distribution
+ * first. Trailing slashes are normalized.
  */
 const ASSET_BASE = (import.meta.env.VITE_ASSET_BASE_URL ?? "").replace(/\/+$/, "");
 

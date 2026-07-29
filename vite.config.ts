@@ -31,15 +31,23 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
   const apiOrigin = originOf(env.VITE_API_BASE_URL);
   const opsOrigin = originOf(env.VITE_OPS_API_BASE_URL);
   const auth0Origin = env.VITE_AUTH0_DOMAIN ? `https://${env.VITE_AUTH0_DOMAIN}` : null;
+  // TTS mp3s live on the asset CDN, not in the bundle. Same-origin in prod
+  // (the site and the audio share openlingoapp.com), but a build served from
+  // any other host — `vite preview`, staging — needs the origin spelled out
+  // or every clip is blocked: `fetch`+decodeAudioData by connect-src, the
+  // <audio> element path by media-src falling back to default-src.
+  const assetOrigin = originOf(env.VITE_ASSET_BASE_URL);
+  const mediaHosts = [
+    assetOrigin,
+    // Third-party Hangul letter clips (shared/audio/alphabetAudio.ts).
+    "https://d27hu3tsvatwlt.cloudfront.net",
+  ].filter(Boolean) as string[];
 
-  // AdSense pulls scripts/iframes/pixels from a spread of Google ad hosts.
-  const adSense = [
-    "https://pagead2.googlesyndication.com",
-    "https://*.googlesyndication.com",
-    "https://*.google.com",
-    "https://*.doubleclick.net",
-    "https://*.adtrafficquality.google",
-  ];
+  // AdSense hosts were removed 2026-07-29 — ads + subscriptions are deferred,
+  // and the allowances were doing active harm: `frame-src` listed ONLY the ad
+  // hosts plus 'self', so Auth0's silent-auth iframe was blocked outright
+  // ("Framing 'https://dev-...auth0.com/' violates ... frame-src"). Re-add a
+  // scoped list when ads actually ship; do not restore this wholesale.
   const backends = [
     apiOrigin,
     opsOrigin,
@@ -52,18 +60,27 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
     `default-src 'self'`,
     `base-uri 'self'`,
     `object-src 'none'`,
-    `frame-ancestors 'self'`,
+    // NOTE: `frame-ancestors` is deliberately absent. Browsers IGNORE it when
+    // delivered via <meta> and log a warning for every script that reads the
+    // policy — it was pure console noise here. Clickjacking protection has to
+    // come from a real response header; add it to the CloudFront
+    // response-headers policy in lingo-infra, not here.
     // 'wasm-unsafe-eval': onnxruntime-web (Whisper STT) instantiates WASM.
-    `script-src 'self' 'wasm-unsafe-eval' ${adSense.join(" ")}`,
+    `script-src 'self' 'wasm-unsafe-eval'`,
     // 'unsafe-inline': React inline style attrs + libs (md-editor, charts);
     // Google Fonts stylesheet is loaded from fonts.googleapis.com.
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' data: https://fonts.gstatic.com`,
-    // data:/blob: for Noto emoji SVGs + generated art; https: for avatars + ad pixels.
+    // data:/blob: for Noto emoji SVGs + generated art; https: for avatars.
     `img-src 'self' data: blob: https:`,
-    `connect-src 'self' ${[...backends, ...adSense].join(" ")}`,
-    // AdSense renders creatives inside iframes.
-    `frame-src 'self' ${adSense.join(" ")}`,
+    `connect-src 'self' ${[...backends, ...mediaHosts].join(" ")}`,
+    // <audio> playback: TTS clips off the asset CDN plus the third-party
+    // Hangul alphabet clips (shared/audio/alphabetAudio.ts). Without this
+    // media-src falls back to default-src 'self' and both are blocked.
+    `media-src 'self' blob: ${mediaHosts.join(" ")}`.trim(),
+    // Auth0 frames its own domain for silent auth (`checkSession`). This was
+    // missing while the ad hosts were listed, which is what broke login.
+    `frame-src ${["'self'", auth0Origin].filter(Boolean).join(" ")}`,
     // Whisper STT spins up a module worker from a blob URL.
     `worker-src 'self' blob:`,
   ].join("; ");
@@ -310,6 +327,26 @@ export default defineConfig(({ mode }) => {
     cspMetaPlugin(env),
   ],
   publicDir: "src/pub",
+
+  // Audio is served SAME-ORIGIN in production: CloudFront fronts both the app
+  // and `/tts/*` from one distribution, so the app resolves relative paths and
+  // never needs CORS. That matters because `loadBuffer` uses
+  // fetch + decodeAudioData, which IS CORS-enforced — an absolute CDN base
+  // silently killed every Web Audio clip on any origin except the apex (and
+  // `www` serves the same SPA with no redirect, so it broke there too).
+  //
+  // Dev has no such luxury: localhost is a genuinely different origin, and the
+  // mp3s no longer live in the repo. Proxying `/tts` keeps dev same-origin as
+  // well, so local and prod exercise the identical code path.
+  server: {
+    proxy: {
+      "/tts": {
+        target: env.VITE_TTS_PROXY_TARGET || "https://openlingoapp.com",
+        changeOrigin: true,
+      },
+    },
+  },
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
