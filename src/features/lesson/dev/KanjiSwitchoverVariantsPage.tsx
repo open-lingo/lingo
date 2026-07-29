@@ -130,6 +130,18 @@ export const DEMO_STEPS = {
     "せんせい",
     "がくせい",
   ]),
+  /**
+   * G step 1 — the cold graded attempt. NO `meaningEn`: the gloss is a
+   * disambiguating cue for homographs, but on a first-contact attempt it
+   * hands over the answer, since "friend" + four known words is solvable
+   * without reading the kanji at all. Caught by looking at the rendered
+   * page — the same defect the binge simulation found in the context MCQ.
+   */
+  coldAttempt: readingStep("ksv-g", "友達", "ともだち", "", [
+    "かぞく",
+    "せんせい",
+    "がくせい",
+  ]),
   /** E step 1 — cold pretest on a compound whose glyphs are both taught. */
   pretest: readingStep("ksv-e1", "明日", "あした", "", [
     "きょう",
@@ -362,6 +374,46 @@ function variants(rerenderKey: number, bump: () => void): Variant[] {
                 { surface: "いきます", reading: "いきます" },
               ],
               en: "I'll go tomorrow.",
+            }}
+            ruleLine="Furigana stays on this word until you have it down."
+          />
+        </div>
+      ),
+    },
+    {
+      id: "g-attempt-first",
+      label: "G · Graded attempt FIRST, reveal as its feedback  ⭐ survives review",
+      modelledOn:
+        "Pretesting / errorful generation (Kornell 2009; Richland 2009) + both learner sims",
+      pitch:
+        "The only variant here that survived simulation and the literature together. The learner's first contact is a GRADED guess they cannot skip; the reveal is then the answer screen, read because they just committed and want to know if they were right. Two steps, not three.",
+      cost: "New `kanji_reveal` step type, but as a FEEDBACK panel on kanji_reading rather than a standalone card. Fits capacity: 112×2 = 224 slots vs 294 hostable m8+ lessons.",
+      risk:
+        "The attempt is a cold guess by construction, so most learners get it wrong the first time — that is the mechanism, not a bug, but the copy has to make it feel like a reveal rather than a failure.",
+      render: () => (
+        <div className="space-y-3">
+          <p className="text-xs font-semibold text-text-muted">
+            Step 1 — graded, cold, and no gloss (it would give the answer away):
+          </p>
+          {stage(DEMO_STEPS.coldAttempt)}
+          <p className="text-xs font-semibold text-text-muted">
+            Step 2 — the same screen’s feedback, not a separate card:
+          </p>
+          <RevealCard
+            kana="ともだち"
+            kanji="友達"
+            gloss="friend"
+            parts={[
+              { glyph: "友", sense: "friend" },
+              { glyph: "達", sense: "(plural)" },
+            ]}
+            goingForward={{
+              segments: [
+                { surface: "友達", reading: "ともだち" },
+                { surface: "と", reading: "と" },
+                { surface: "いきます", reading: "いきます" },
+              ],
+              en: "I'll go with a friend.",
             }}
             ruleLine="Furigana stays on this word until you have it down."
           />

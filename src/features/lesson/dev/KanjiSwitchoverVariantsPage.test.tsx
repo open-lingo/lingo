@@ -8,7 +8,11 @@ import { describe, it, expect } from "vitest";
 import { isKana } from "@/shared/japanese/kanaTable";
 import { DEMO_STEPS } from "./KanjiSwitchoverVariantsPage";
 
-const READING_STEPS = [DEMO_STEPS.bareRead, DEMO_STEPS.pretest] as const;
+const READING_STEPS = [
+  DEMO_STEPS.bareRead,
+  DEMO_STEPS.pretest,
+  DEMO_STEPS.coldAttempt,
+] as const;
 
 describe("kanji switchover demo steps", () => {
   it("kanji_reading never offers a kanji option (no-kanji-production policy)", () => {
@@ -54,6 +58,17 @@ describe("kanji switchover demo steps", () => {
         expect(seg.reading).toBe(seg.surface);
       }
       expect(s.promptAnnotation.map((x) => x.surface).join("")).toBe(s.kanji);
+    }
+  });
+
+  it("first-contact attempts carry no English gloss — it hands over the answer", () => {
+    // On a cold attempt the learner picks among four words they already know,
+    // so a gloss makes the step solvable without reading the kanji at all.
+    // Only later, sprinkled kanji_reading steps use meaningEn to disambiguate
+    // homographs — by then the form itself is the thing being tested.
+    for (const step of [DEMO_STEPS.coldAttempt, DEMO_STEPS.pretest]) {
+      const s = step as unknown as { meaningEn?: string };
+      expect(s.meaningEn ?? "").toBe("");
     }
   });
 

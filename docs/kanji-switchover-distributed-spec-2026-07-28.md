@@ -165,7 +165,78 @@ learner solved it *"without the kanji itself mattering."*
 
 ---
 
-## 7. What to attack
+## 7. The literature — and why it points at ORDER, not spacing
+
+Third input, run in parallel with the simulations. Confidence labels are the
+researcher's own and are preserved.
+
+**Attempt-before-reveal beats reveal-then-test.** Kornell, Hays & Bjork 2009
+(*JEPLMC*, verified): unsuccessful retrieval attempts before feedback beat
+pure study. Richland, Kornell & Kao 2009 (*JEP:Applied*, verified): pretest-
+then-study beat extended-study-only across five experiments, **and the benefit
+held counting only items the learner never guessed correctly** — so the gain
+comes from the attempt itself, not from lucky hits. This is the
+best-supported finding in the whole pass.
+
+**Spacing is real but a weaker lever here.** Bahrick 1993 (9-year L2 vocab
+paired-associate study): wider spacing slowed initial acquisition slightly but
+produced much better long-term retention. Toppino, Phelan & Gerbier 2018
+(*Memory & Cognition*, verified) cuts against the "mass first, then space"
+intuition — the expanding-schedule advantage appeared *specifically after LOW
+initial training*, so undertrained material benefits **more** from expansion,
+not less. Cepeda et al. 2006 meta-analysis (839 effects): optimal gap scales
+with how long the memory must last.
+
+**Expanding vs equal-interval is unsettled, not settled either way.** Karpicke
+& Roediger 2007 (verified): expanding won at a 10-minute delay, equal-interval
+won at 2 days. Read with Toppino 2018, the honest summary is that expanding
+helps weak/early learning and equal-interval wins once material is secure —
+a moderator, not a contradiction. Landauer & Bjork 1978 was not independently
+verified here.
+
+**Two honest gaps.** (a) *No study* was found measuring how many exposures or
+retrievals bind a new script form to an already-known spoken word, in kanji or
+any writing system. Every finding above is general-memory or L2-word-pair
+evidence and must not be dressed as kanji-specific. (b) There is *no research*
+on whether learners skip ungraded instructional cards — on that, our two
+simulations are the only evidence we have.
+
+### 7a. The resolution — one change fixes all three failures
+
+The research and the simulations arrived at the same fix from opposite
+directions:
+
+- The simulations found the ungraded reveal gets skipped **because it is
+  ungraded**.
+- The literature found an attempt should come **before** the reveal anyway.
+
+So invert the order and fold the reveal into the attempt's feedback:
+
+| | Was (§3) | Now |
+| --- | --- | --- |
+| 1 | Reveal (ungraded) | **Graded attempt** — 友達 cold, four kana options. Cannot be skipped; it is graded. |
+| 2 | Retrieval (graded) | **The reveal is the feedback screen** for that attempt — composition, gloss, "from now on you'll see". Read precisely because the learner just committed and wants to know if they were right. |
+| 3 | Context MCQ (graded) | **Context MCQ**, spaced later. Unchanged. |
+
+This is Spencer's *"step 2 then 1"* run the other way — and it is worth being
+explicit that the evidence contradicts that particular reordering, while
+supporting the distribution instinct behind it.
+
+**It also closes the capacity gap.** Three beats become two steps: 112 × 2 =
+**224 slots against 294 ordinary m8+ lessons = 0.76 per lesson**. That fits,
+where 1.14 did not.
+
+**And it answers the steady learner's "brace yourself" point.** A cold graded
+attempt IS the warning — the learner cannot miss that something changed,
+because they were just asked to do something new. No announcement needed.
+
+Still open after this: the unfair-trigger problem (§6d.1), the invisible latch
+(§6d.2), and beat 3's distractor composition (§6f). None are fixed by the
+reordering.
+
+---
+
+## 8. What to attack
 
 This spec is deliberately unhedged so it can be argued with. The open
 questions:
