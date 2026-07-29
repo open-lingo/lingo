@@ -44,6 +44,14 @@ export type FlashcardBase = {
   examples?: Example[];
   /** For course decks: set at load based on lesson progress. Omitted = unlocked (e.g. community decks). */
   unlocked?: boolean;
+  /**
+   * Card provenance within the auto course deck. Omitted / "course" = an
+   * authored curriculum atom, unlocked by lesson progress. "freq" = a
+   * frequency ("optional") word surfaced by the opt-in frequency-vocab feature
+   * (module-gated, distinguishable so surfaces can label it "optional"). See
+   * `features/languages/frequencyResolver`.
+   */
+  source?: "course" | "freq";
 };
 
 export type FlashcardWord = FlashcardBase & {

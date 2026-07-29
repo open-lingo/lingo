@@ -43,6 +43,16 @@ export type FlashcardsSettings = {
    * the "Show scheduling intervals" toggle re-enables them.
    */
   showIntervalPreviews?: boolean;
+  /**
+   * Opt-in frequency ("optional") vocabulary. When true, high-frequency words
+   * beyond the authored lessons are unlocked as the learner reaches the module
+   * that gates them (`frequencyRankToModule`), flow through the SAME throttled
+   * new-card intake as lesson vocab, and are tagged `source: "freq"` on the
+   * card so surfaces can label them "optional". Default OFF — off means
+   * frequency atoms never enter the deck or intake, and lesson-driven unlocks
+   * are untouched. See `features/languages/frequencyResolver`.
+   */
+  frequencyVocab?: boolean;
 };
 
 export type UserSettings = {
@@ -239,5 +249,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   display: {},
   flashcards: {
     studyOptions: [],
+    // Opt-in: frequency ("optional") vocab is off until the learner enables it.
+    frequencyVocab: false,
   },
 };

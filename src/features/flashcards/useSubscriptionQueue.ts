@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import {
   buildQueueFromSubscriptions,
   getSRSStore,
+  canonicalize,
+  adaptiveNewCardsPerDay,
   type DeckSubscription,
   type DeckWithCards,
   type ReviewQueue,
@@ -9,6 +11,7 @@ import {
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useCourseLevel } from "@/features/practice/useCourseLevel";
 import { buildEnrichedCourseDeck } from "./data/courseDeck";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { DeckStudyPreset } from "./deckScope";
@@ -33,6 +36,14 @@ export type SubscriptionQueueFilter =
 /** Deck id of a language's client-generated course deck (`ja-course`). */
 export function courseDeckIdFor(languageId: string): string {
   return `${languageId}-course`;
+}
+
+/** Unlocked-but-never-studied count — the backlog the adaptive cap drains. */
+function countUnseen(cards: DeckWithCards["cards"]): number {
+  const store = getSRSStore();
+  let n = 0;
+  for (const c of cards) if (!store[canonicalize(c.id)]) n++;
+  return n;
 }
 
 /** Whether the auto course deck should appear under the active review scope. */
@@ -64,6 +75,10 @@ export function useSubscriptionQueue(
   } = useDeckSubscriptions();
   const { settings } = useSettings();
   const srsRevision = useSRSStoreRevision();
+  // Opt-in frequency ("optional") vocab: unlock words beyond the lessons at
+  // the learner's reached module. Off (default) → the course deck is unchanged.
+  const freqEnabled = settings.flashcards?.frequencyVocab ?? false;
+  const reachedModule = useCourseLevel();
 
   const subscriptions = useMemo((): DeckSubscription[] => {
     return rawSubs
@@ -103,7 +118,10 @@ export function useSubscriptionQueue(
     if (settings.flashcards?.hideCourseDeck) return null;
     if (!courseDeckPassesFilter(filter, courseDeckIdFor(languageId)))
       return null;
-    const courseDeck = buildEnrichedCourseDeck(languageId);
+    const courseDeck = buildEnrichedCourseDeck(languageId, undefined, {
+      enabled: freqEnabled,
+      reachedModule,
+    });
     if (!courseDeck) return null;
     const unlocked = (courseDeck.cards ?? []).filter((c) => c.unlocked);
     if (unlocked.length === 0) return null;
@@ -118,12 +136,28 @@ export function useSubscriptionQueue(
         // D5 (srs-scheduling-model-2026-06-15): default to NO intake cap —
         // every unlocked word is reviewable; lesson pace is the throttle.
         // Optional user cap via settings.flashcards.maxNewCardsPerDay.
+        //
+        // Frequency vocab, when on, can unlock hundreds of words at once, so an
+        // uncapped intake would flood. Ride the SAME adaptive backlog-draining
+        // cap the hub uses (`adaptiveNewCardsPerDay`) instead of admitting them
+        // all — no new throttle mechanism. An explicit user cap still wins.
         newCardsPerDay:
-          settings.flashcards?.maxNewCardsPerDay ?? unlocked.length,
+          settings.flashcards?.maxNewCardsPerDay ??
+          (freqEnabled
+            ? adaptiveNewCardsPerDay(countUnseen(unlocked))
+            : unlocked.length),
         newCardOrder: "ordered",
       },
     };
-  }, [languageId, settings.flashcards?.hideCourseDeck, filter, srsRevision]);
+  }, [
+    languageId,
+    settings.flashcards?.hideCourseDeck,
+    settings.flashcards?.maxNewCardsPerDay,
+    freqEnabled,
+    reachedModule,
+    filter,
+    srsRevision,
+  ]);
 
   const decks = useMemo(
     (): DeckWithCards[] =>

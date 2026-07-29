@@ -32,8 +32,15 @@ export {
   getLastSrsSyncAt,
   getNextSrsSyncAt,
   setNextSrsSyncAt,
+  canonicalize,
 } from "./srsStorage";
-export { buildReviewQueue, buildQueueFromSubscriptions, countCardsDue, getEffectiveState } from "./reviewQueue";
+export {
+  buildReviewQueue,
+  buildQueueFromSubscriptions,
+  countCardsDue,
+  getEffectiveState,
+  adaptiveNewCardsPerDay,
+} from "./reviewQueue";
 export { rollbackStats, rollbackRepeatQueue, restoreStateForUndo } from "./undo";
 export type { GradeSnapshot, SessionStats } from "./undo";
 export { resolveGradingLayout, hasAnyReviewedCard, SIMPLE_RATING } from "./gradingLayout";
