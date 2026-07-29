@@ -22,6 +22,7 @@ Read this file FIRST when researching the project, then jump straight to the nam
 | SRS / scheduling | CLAUDE.md §SRS (six write surfaces, binding) + `srs-scheduling-model-2026-06-15.md`; research: `srs-memory-retention-research-2026-07-19.md` |
 | Max-acceptance grading, sibling distractor banks | **NOT in docs/** — code comments in `src/features/languages/ja/jaAcceptedForms.ts` + `jaSiblingSets.ts` (2026-07-24, newer than all docs) |
 | Gate 10 visual QA | `visual-qa-gate-2026-07-17.md` + `scripts/visual-qa/judge-prompt.md` (judge protocol, abort-don't-improvise); run: `npm run visual-qa:contracts` / `visual-qa:capture` |
+| Learner-sim QA / course walk audit | `learner-sim/FINDINGS.md` (raw log, 185 findings: 53 BLOCKER/67 CONFUSING/63 NIT); `STATE.md` (learner state, m1–m29 COMPLETE); `TRIAGE.md` (triage record, open sections → backlog/items.yaml 07-28); `INDEX.md` (generated per-module view, `npm run learner-view`) |
 | Module readiness gate | `npm run module-gate -- mN` (vitest + TTS coverage + tsc + optional capture/exposure) |
 | Pedagogy / what explanations may claim | `pedagogy-principles-2026-07-05.md` (binding); source recon: `jouzu-juls-cure-dolly-recon-2026-07-02.md` |
 | Rewrite status / spine | `rewrite-cycle-report-2026-07-20.md` (living log); `spine-draft2-adversarial-audit-2026-07-19.md`, `vocab-frequency-audit-2026-07-19.md`; module specs: `m4-neo-` / `m5-neo-authoring-spec-2026-07-20.md` |
