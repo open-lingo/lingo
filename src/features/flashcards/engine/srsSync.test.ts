@@ -98,14 +98,16 @@ describe("srsSync", () => {
 
     it("stamps a top-level lastReviewedAt onto the payload entry when missing", () => {
       // Legacy/derived cards may lack the top-level field; getDirtyCards
-      // must still ship one (server requires it as the LWW key).
+      // must still ship one (server requires it as the LWW key). Derived from
+      // the later lastReviewDate expanded to START-of-day (see cardLastReviewedAt
+      // — start-of-day, not noon, so a same-day sync clears never-reviewed seeds).
       const state: SRSCardState = {
         recognition: learnedSub({ lastReviewDate: "2026-05-30" }),
         production: newSub({ lastReviewDate: "2026-05-20" }),
       };
       setCardState("ja:a", state);
       const dirty = getDirtyCards();
-      expect(dirty["ja:a"].lastReviewedAt).toBe("2026-05-30T12:00:00.000Z");
+      expect(dirty["ja:a"].lastReviewedAt).toBe("2026-05-30T00:00:00.000Z");
     });
   });
 

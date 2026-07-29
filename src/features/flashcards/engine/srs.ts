@@ -409,11 +409,20 @@ export function cardLastReviewDate(state: SRSCardState): string {
  * ISO timestamp of the most recent review across modalities. Prefers the
  * top-level ``lastReviewedAt`` (set by ``reviewCard``), falling back to the
  * later of the per-modality YYYY-MM-DD ``lastReviewDate`` strings expanded
- * to UTC midday so older states still produce a sortable ISO string for
- * the backend LWW merge.
+ * to UTC START-of-day so older states still produce a sortable ISO string
+ * for the backend LWW merge.
+ *
+ * Start-of-day (not midday) is deliberate: seeded, never-reviewed cards have
+ * no top-level ``lastReviewedAt``, so a same-day sync stamps ``lastSyncedAt``
+ * at the actual wall-clock time — which is BEFORE noon during 00:00–12:00 UTC
+ * active hours. A midday fallback made ``lastReview > lastSyncedAt`` stay true
+ * after the push, so ``getDirtyCards`` re-counted every fresh seed dirty on
+ * every poll and the sync badge parked at the day's new-card count. Start-of-
+ * day is ≤ any same-day sync (clears seeds/placement/resets at any hour) and
+ * is LWW-conservative — a never-reviewed seed loses to real server progress.
  */
 export function cardLastReviewedAt(state: SRSCardState): string {
   if (state.lastReviewedAt) return state.lastReviewedAt;
   const day = cardLastReviewDate(state);
-  return `${day}T12:00:00.000Z`;
+  return `${day}T00:00:00.000Z`;
 }

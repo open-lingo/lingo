@@ -15,6 +15,7 @@ import {
   addDays,
   getTargetRetention,
   getDueModalities,
+  cardLastReviewedAt,
   MASTERED_INTERVAL_DAYS,
 } from "./srs";
 import type { SRSCardState, SRSModalityState } from "../data/types";
@@ -26,6 +27,30 @@ function dayAfterSubState(sub: SRSModalityState, days: number): Date {
   d.setUTCDate(d.getUTCDate() + days);
   return d;
 }
+
+describe("cardLastReviewedAt — never-reviewed fallback (perpetual-dirty regression, 2026-07-24)", () => {
+  // A seeded card (unlock/placement) has no top-level lastReviewedAt — only a
+  // per-modality lastReviewDate (YYYY-MM-DD). The derived ISO must be <= any
+  // sync that lands later the SAME day, or getDirtyCards (lastReview >
+  // lastSyncedAt) re-counts the card dirty on every 2s poll forever, so the
+  // sync badge parks at the count of today's new cards.
+  it("falls back to START-of-day, not noon, so a same-day sync clears it", () => {
+    const seeded = {
+      recognition: { lastReviewDate: "2026-07-24" },
+      production: { lastReviewDate: "2026-07-24" },
+    } as unknown as SRSCardState;
+    expect(cardLastReviewedAt(seeded)).toBe("2026-07-24T00:00:00.000Z");
+  });
+
+  it("still prefers an explicit top-level lastReviewedAt when present", () => {
+    const reviewed = {
+      lastReviewedAt: "2026-07-24T15:30:00.000Z",
+      recognition: { lastReviewDate: "2026-07-24" },
+      production: { lastReviewDate: "2026-07-24" },
+    } as unknown as SRSCardState;
+    expect(cardLastReviewedAt(reviewed)).toBe("2026-07-24T15:30:00.000Z");
+  });
+});
 
 describe("FSRS-6 engine — modal", () => {
   describe("createInitialState", () => {
