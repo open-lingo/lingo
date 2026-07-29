@@ -230,7 +230,11 @@ export interface VocabArtResolver {
 
 // ─── ttsManifest ─────────────────────────────────────────────────────────
 
-export type TtsManifest = Record<string, string | string[]>;
+// The per-language schema-2 document (hash set + overrides). Re-exported
+// from the TTS layer so language modules describe their audio coverage
+// without importing manifest JSON directly — they previously pulled in the
+// whole ~1.0 MB legacy table to populate a field nothing reads.
+export type { TtsManifest } from "@/shared/tts/manifest";
 
 // ─── placementBank ───────────────────────────────────────────────────────
 

@@ -110,7 +110,7 @@ export function pointsBelowMinPool(): string[];
 - Modify: `src/features/lesson/data/grammarReviewPools.ts` (fill `AUTHORED_GRAMMAR_POOLS`)
 - Modify: `src/features/lesson/data/grammarReviewPools.test.ts` (shrink `POOL_GAP_EXEMPTIONS` to `[]`)
 - Modify: `scripts/emit-tts-deck.mjs` (add `grammarReviewPools` to the file glob; verify factory regexes match the shapes used)
-- Generated: mp3s under `src/pub/tts/ja/` + `src/pub/tts/manifest.json`
+- Generated: mp3s in `lingo-data/out/tts/ja/`, published to CloudFront; coverage tracked by `src/shared/tts/manifests/ja.json`
 
 **Interfaces:** consumes Task 1's `AUTHORED_GRAMMAR_POOLS` shape + gate test. Produces content only — no new APIs.
 
@@ -123,7 +123,7 @@ export function pointsBelowMinPool(): string[];
   - **Comprehensibility is the law:** every content word must be an atom with `fromModule` ≤ the point's module. Check `courseAtoms.ts` BEFORE writing each sentence; the Task 1 gate will fail the build otherwise. Do not add words to courseAtoms to make sentences work — pick different words.
   - Keep sentences short (4-8 tiles/tokens). New sentence per step — don't recycle one sentence across a point's pool (rotation exists to vary surface forms).
 - [ ] **2.3** Shrink `POOL_GAP_EXEMPTIONS` to `[]`; gate + ratchet tests green. If a specific point genuinely cannot be exercised comprehensibly (no early-enough vocab exists), leave it in the exemption list with an inline comment explaining why, and report it.
-- [ ] **2.4** TTS: add the file to the emitter glob; run `node scripts/emit-tts-deck.mjs` then `cd ../lingo-core && .venv-tts/bin/python -m scripts.tts.generate --provider edge`; **verify every new `promptAudioText`/`audioText`/`targetSentence` phrase exists in `src/pub/tts/manifest.json`** (python one-liner in CLAUDE.md TTS section). "wrote=0" without manifest verification = not done.
+- [ ] **2.4** TTS: add the file to the emitter glob; run `node scripts/emit-tts-deck.mjs` then `cd ../lingo-data && python -m pipeline.tts.generate --provider edge` (then publish: `python -m pipeline.tts.emit_manifest` + `python -m pipeline.tts.upload`); **verify every new `promptAudioText`/`audioText`/`targetSentence` phrase resolves against `src/shared/tts/manifests/ja.json`** (`npm run module-gate -- mN` stage 2 does this). "wrote=0" without manifest verification = not done.
 - [ ] **2.5** Full verify: tsc clean + full suite green.
 
 ### Task 3: Grammar review session UI + practice-page wiring

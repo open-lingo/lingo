@@ -58,7 +58,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { isKana, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
-import jaManifest from "../../../pub/tts/manifest.json";
+import { getTtsManifest } from "@/shared/tts/manifest";
 
 import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
 import {
@@ -225,9 +225,12 @@ const jaVocabArt: VocabArtResolver = {
   },
 };
 
-// ── ttsManifest (existing JA-only manifest pass-through) ─────────────────
+// ── ttsManifest ──────────────────────────────────────────────────────────
+// Coverage descriptor only — resolution goes through `shared/tts`, which
+// derives paths from the text. JA is the one language with a complete
+// recorded corpus.
 
-const jaTtsManifest: TtsManifest = jaManifest as TtsManifest;
+const jaTtsManifest: TtsManifest = getTtsManifest("ja");
 
 // ── alphabetConfig (from existing languageConfig hiragana/katakana) ──────
 

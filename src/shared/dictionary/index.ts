@@ -25,6 +25,7 @@ import {
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { getFrequencyAtoms } from "@/features/languages/frequencyResolver";
 import type { ConjugationTable, PartOfSpeech } from "@/shared/language/types";
+import { getTtsUrl } from "@/shared/tts";
 import { foldText } from "./normalize";
 import type {
   DictionaryEntry,
@@ -132,9 +133,14 @@ function buildIndex(languageId: string): DictionaryIndex {
   const tableById = new Map<string, ConjugationTable>(
     (module?.conjugation?.tables ?? []).map((t) => [t.lemmaAtomId, t]),
   );
-  const ttsManifest = module?.ttsManifest ?? {};
+  // Audio coverage goes through the resolver, not a raw manifest lookup. The
+  // manifest stopped being a flat `"<lang>:<text>" -> path` table when clips
+  // moved to the CDN: it is now a set of hashes the client derives against, so
+  // indexing it by cache key silently reported "no audio" for every word.
+  // `getTtsUrl` also picks up the punctuation-variant and katakana-twin
+  // fallbacks, so coverage here matches what actually plays.
   const hasAudio = (surface: string): boolean =>
-    ttsManifest[`${languageId}:${surface}`] != null;
+    getTtsUrl(surface, languageId) !== null;
 
   const byId = new Map<string, DictionaryEntry>();
   const entries: DictionaryEntry[] = [];

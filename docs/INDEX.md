@@ -30,7 +30,7 @@ Read this file FIRST when researching the project, then jump straight to the nam
 | Kanji behavior | CLAUDE.md (LIVE from M8 via `applyKanjiSurfaces.ts`) — all three kanji docs (furigana-plan / implementation-spec / timing-research) are STALE |
 | Grammar deck / conjugation trainer | `grammar-deck-v1-spec-2026-07-02.md`, `conjugation-trainer-v1-spec-2026-07-02.md`; new step type draft: `conjugation-transform-spec-2026-07-23.md` |
 | Placement / test-out | 2026-07-15 specs in `superpowers/specs/` (placement-level-gate, testout-improvements); the 07-08 placement proposals are STALE |
-| TTS | CLAUDE.md §TTS (emitter landmine) + `../lingo-core/docs/TTS.md`; voice QA tooling: `lingo-core/scripts/tts/` |
+| TTS | CLAUDE.md §TTS (emitter landmine); pipeline + voice QA tooling now lives in `../lingo-data/pipeline/tts/` (`pipeline/README.md`) — the lingo-core copy and `lingo-core/docs/TTS.md` are gone. CDN cutover: `../docs/tts-cdn-migration-2026-07-28.md` |
 | Emoji / vocab art | `n5-vocab-emoji-reference-2026-05-18.md` (canonical map) + `emoji-blocked-words-2026-05-18.md` (blocklist current; its ja phrase_card advice stale) |
 | Architecture | `ARCHITECTURE_REVIEW_2026-06-14.md` (cross-repo); backend: `../lingo-core/docs/INDEX.md` |
 | **Outstanding work / gaps / bugs** | **`backlog/items.yaml` — query it with `node scripts/backlog.mjs`, never read it top to bottom. Schema: `backlog/README.md`. This supersedes the open sections of `followups.md` and `learner-sim/TRIAGE.md`.** |

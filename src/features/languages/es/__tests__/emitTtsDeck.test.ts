@@ -3,8 +3,8 @@
  *
  *   EMIT_ES_TTS_DECK=1 npx vitest run src/features/languages/es/__tests__/emitTtsDeck.test.ts
  *
- * Writes ../lingo-core/test_decks/es-course.json for the Python generator
- * (`python -m scripts.tts.generate --provider edge --lang es`).
+ * Writes ../lingo-data/data/test_decks/es-course.json for the Python generator
+ * (`cd ../lingo-data && python -m pipeline.tts.generate --provider edge --lang es`).
  *
  * Lives as an env-gated vitest file (skipped in normal runs) because the
  * ja emitter's approach — regex over source with a charset filter — can't
@@ -22,7 +22,7 @@ import { getEsCourseAtoms } from "../courseAtoms";
 import { ES_VERB_ENTRIES } from "../conjugationTables";
 import { ES_PLACEMENT_BANK } from "../placementBank";
 
-const OUT = resolve(process.cwd(), "../lingo-core/test_decks/es-course.json");
+const OUT = resolve(process.cwd(), "../lingo-data/data/test_decks/es-course.json");
 
 /** Spanish text + digits + punctuation the course uses. Guards against a
  *  wrongly-walked English field silently entering the deck. */
