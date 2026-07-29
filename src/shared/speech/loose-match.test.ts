@@ -330,3 +330,46 @@ describe("scoreAlternativesGeneric (non-JA / Korean)", () => {
     expect(r.verdict).toBe("perfect");
   });
 });
+
+describe("scoreAlternativesGeneric — Korean number ITN (Whisper transcribes spoken numbers as digits)", () => {
+  // Whisper inverse-text-normalizes spoken Korean numbers to ASCII digits:
+  // say "세 시" and the transcript comes back "3시". Time uses NATIVE numbers
+  // for the hour (세=3) and SINO for the minutes (삼십=30) — both spoken forms
+  // collapse to the same digit, so resolution must be target-aware.
+  it("native-number hour said as a digit scores perfect (세 시 vs 3시)", () => {
+    const r = scoreAlternativesGeneric("세 시", [{ transcript: "3시" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("half-past resolves across the digit boundary (세 시 반 vs 3시 반)", () => {
+    const r = scoreAlternativesGeneric("세 시 반", [{ transcript: "3시 반" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("Sino minutes said as digits score perfect (삼십 분 vs 30분)", () => {
+    const r = scoreAlternativesGeneric("삼십 분", [{ transcript: "30분" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("full time resolves hour-as-native and minute-as-Sino together", () => {
+    const r = scoreAlternativesGeneric("세 시 삼십 분", [{ transcript: "3시 30분" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("a genuinely wrong hour still fails (세 시 vs 네 시 / 4시)", () => {
+    const r = scoreAlternativesGeneric("세 시", [{ transcript: "4시" }]);
+    expect(r.verdict).not.toBe("perfect");
+  });
+
+  it("does NOT corrupt non-number Korean words (네 = 'yes' stays 네)", () => {
+    // Guard: we substitute digits→words, never words→digits, so 네/열/오/사
+    // used as real words are never mangled into numbers.
+    const r = scoreAlternativesGeneric("네", [{ transcript: "네" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("is a no-op for non-Korean targets (Spanish digit unchanged)", () => {
+    const r = scoreAlternativesGeneric("3", [{ transcript: "3" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+});

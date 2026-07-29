@@ -269,6 +269,54 @@ export function numbersToKana(s: string, target: string): string {
   });
 }
 
+/**
+ * Korean analog of {@link numbersToKana}. Whisper inverse-text-normalizes
+ * spoken Korean numbers into ASCII digits — say "세 시" and the transcript
+ * comes back "3시", which then never matches the native-numeral target
+ * (Trevor QA, 2026-07: the 세 시 / 세 시 반 time speaking steps graded wrong).
+ *
+ * Korean time mixes two number systems — NATIVE for the hour (세 = 3 o'clock)
+ * and SINO for the minutes (삼십 = 30 minutes) — and both spoken forms collapse
+ * to the same digit. So substitute each digit token with whichever Korean
+ * reading the TARGET actually contains (native 세 vs Sino 삼 for "3"), leaving
+ * the digit untouched when the target has neither (no false match, and a no-op
+ * for non-Korean targets like Spanish). Direction is digits→words ONLY, never
+ * words→digits, so real words that happen to be number syllables (네 "yes",
+ * 열 "fever", 오 "come") are never mangled.
+ */
+const KO_NATIVE_COUNTER: Record<number, string> = {
+  1: "한", 2: "두", 3: "세", 4: "네", 5: "다섯", 6: "여섯",
+  7: "일곱", 8: "여덟", 9: "아홉", 10: "열", 11: "열한", 12: "열두", 20: "스무",
+};
+const KO_SINO_ONES = ["영", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+
+function koreanSino(n: number): string {
+  if (n < 0 || n > 99) return "";
+  if (n <= 9) return KO_SINO_ONES[n];
+  const tens = Math.floor(n / 10);
+  const unit = n % 10;
+  return (tens === 1 ? "" : KO_SINO_ONES[tens]) + "십" + (unit ? KO_SINO_ONES[unit] : "");
+}
+
+function koreanReadingsForNumber(n: number): string[] {
+  const out: string[] = [];
+  if (KO_NATIVE_COUNTER[n]) out.push(KO_NATIVE_COUNTER[n]);
+  const sino = koreanSino(n);
+  if (sino) out.push(sino);
+  return out;
+}
+
+const KO_DIGIT_RE = /[0-9]{1,2}/g;
+
+export function numbersToKorean(s: string, target: string): string {
+  return s.replace(KO_DIGIT_RE, (tok) => {
+    const n = Number(tok);
+    if (!Number.isFinite(n)) return tok;
+    const readings = koreanReadingsForNumber(n);
+    return readings.find((r) => target.includes(r)) ?? tok;
+  });
+}
+
 export function normalizeForCompare(s: string, target: string): string {
   if (!s) return "";
 
@@ -640,7 +688,9 @@ export function scoreAlternativesGeneric(
 ): MatchResult {
   const targetNorm = normalizeGeneric(target);
   const scored: AlternativeScore[] = alternatives.map((a) => {
-    const normalized = normalizeGeneric(a.transcript);
+    // Whisper renders spoken Korean numbers as digits; map them back to the
+    // reading the target uses (native hour vs Sino minute) before comparing.
+    const normalized = normalizeGeneric(numbersToKorean(a.transcript, target));
     let score: number;
     if (!normalized || !targetNorm) score = 0;
     else if (normalized === targetNorm) score = 1;
