@@ -37,6 +37,18 @@ const LEADING_TOPIC = /^(わたくし|わたし|ぼく)は\s*/;
 const LEADING_TEMPORAL_TOPIC =
   /^(きょう|あした|あす|きのう|いま|けさ|こんばん|よる|あさ|まいにち)は\s*/;
 
+/** Rules 1 and 4 again, but at the head of ANY sentence in the answer.
+ *  Both were anchored to the start of the whole string, so in a build with
+ *  two sentences — 「うちに かえらなきゃ。あしたは しごとが あるんだ」 — the
+ *  second clause's topic sat behind a 。 where `^` could never reach it, and
+ *  a learner who dropped that は was marked wrong (Spencer m28 build,
+ *  2026-07-28). The droppability has nothing to do with being first in the
+ *  string; it comes from opening a clause. 320 targets in the course are
+ *  multi-sentence. */
+const CLAUSE_TOPIC = /(^|。\s*)(わたくし|わたし|ぼく)は\s*/g;
+const CLAUSE_TEMPORAL_TOPIC =
+  /(^|。\s*)(きょう|あした|あす|きのう|いま|けさ|こんばん|よる|あさ|まいにち)は\s*/g;
+
 export function expandAcceptedAnswers(
   accepted: readonly string[],
   options: { moduleIndex?: number | null } = {},
@@ -67,14 +79,18 @@ export function expandAcceptedAnswers(
     const bare = a.replace(/[。．.、]\s*$/, "");
     if (bare !== a) queue.push(bare);
 
-    const topic = a.match(LEADING_TOPIC);
-    if (topic && a.length > topic[0].length + 1) {
-      queue.push(a.slice(topic[0].length));
+    // Drop a first-person topic, or a temporal adverb's は, at the head of
+    // any clause. `m[1]` is the clause opener ("" or "。") and is put back
+    // so only the topic marking changes.
+    for (const m of a.matchAll(CLAUSE_TOPIC)) {
+      const rest = a.slice(m.index + m[0].length);
+      if (rest.length > 1) queue.push(`${a.slice(0, m.index)}${m[1]}${rest}`);
     }
 
-    const temporal = a.match(LEADING_TEMPORAL_TOPIC);
-    if (temporal && a.length > temporal[0].length + 1) {
-      queue.push(`${temporal[1]} ${a.slice(temporal[0].length)}`);
+    for (const m of a.matchAll(CLAUSE_TEMPORAL_TOPIC)) {
+      const rest = a.slice(m.index + m[0].length);
+      if (rest.length > 1)
+        queue.push(`${a.slice(0, m.index)}${m[1]}${m[2]} ${rest}`);
     }
 
     // Rule 1's MIRROR (Fable sweep 2026-07-24): dropping an authored topic

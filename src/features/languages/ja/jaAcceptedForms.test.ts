@@ -158,4 +158,40 @@ describe("expandAcceptedAnswers composition", () => {
     expect(out.length).toBeLessThanOrEqual(600);
     expect(out.length).toBeGreaterThan(5);
   });
+
+  /**
+   * A TOPIC IS DROPPABLE BECAUSE IT OPENS A CLAUSE, NOT BECAUSE IT OPENS THE
+   * STRING. The temporal-は and first-person-topic rules were both anchored
+   * with `^`, so in a two-sentence answer the second clause's topic sat
+   * behind a 。 and was unreachable. Spencer built m28's 「うちに かえらなきゃ。
+   * あした しごとが あるんだ」 and was marked wrong for the missing は — correct
+   * Japanese, and the bare adverb is at least as natural as あしたは.
+   *
+   * Asserted as the rule (any clause), not as the two sentences that
+   * happened to be on screen.
+   */
+  it("drops a clause-opening topic in ANY sentence, not just the first", () => {
+    const authored = "うちに かえらなきゃ。あしたは しごとが あるんだ";
+    const out = expandAcceptedAnswers([authored]);
+    expect(out).toContain("うちに かえらなきゃ。あした しごとが あるんだ");
+
+    // The first-person topic drops mid-answer on the same grounds.
+    expect(
+      expandAcceptedAnswers(["いえに いる。わたしは ごはんを たべない"]),
+    ).toContain("いえに いる。ごはんを たべない");
+
+    // Still true at the head of the string — the old behaviour is a special
+    // case of the new rule, not something it replaced.
+    expect(expandAcceptedAnswers(["あしたは しごとが ある"])).toContain(
+      "あした しごとが ある",
+    );
+    expect(expandAcceptedAnswers(["わたしは しゃしんを みない"])).toContain(
+      "しゃしんを みない",
+    );
+
+    // A は that does NOT open a clause is load-bearing and must survive.
+    expect(expandAcceptedAnswers(["しごとは あしたは ない"])).not.toContain(
+      "しごと あしたは ない",
+    );
+  });
 });

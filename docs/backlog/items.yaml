@@ -1119,3 +1119,60 @@
     'bag, basket'" — unverified, left alone. Two of five auditors produced at
     least one fabricated quote, so quotes from a reading agent get grepped
     before they get filed.
+
+- id: B055
+  title: a clause-opening topic behind a 。 was undroppable — every topic rule was anchored to the start of the whole answer
+  status: fixed
+  severity: major
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [step/build_sentence, step/translate, module/m28, system/grading, class/max-acceptance-gap]
+  found: 2026-07-28
+  source: spencer-play
+  detail: >
+    Rules 1 and 4 of the accepted-answer expander (drop a leading first-person
+    topic; drop a leading temporal adverb's は) were both ^-anchored to the
+    start of the whole string. In a two-sentence answer the second clause's
+    topic sits behind a 。 where ^ cannot reach, so a learner who wrote the
+    bare adverb was marked wrong. Droppability comes from opening a CLAUSE,
+    not from opening the string.
+  evidence: >
+    m28 build 「うちに かえらなきゃ。あしたは しごとが あるんだ」 — Spencer built
+    it with あした bare and was failed. 320 targets in the course are
+    multi-sentence; 8 carry a clause-initial topic behind a 。.
+  fix: >
+    FIXED — added CLAUSE_TOPIC / CLAUSE_TEMPORAL_TOPIC (matching at string
+    start OR after 。) and expanded per match, restoring the clause opener.
+    Test asserts the rule for any clause, that a non-clause-opening は
+    survives, and that the old leading-position behaviour still holds.
+
+- id: B056
+  title: うちに is treated as required in m28's かえらなきゃ build, but かえる already means return-home
+  status: decision-needed
+  severity: minor
+  effort: M
+  confidence: verified
+  area: pedagogy
+  tags: [module/m28, lesson/ja-m28-neo-1, step/build_sentence, class/max-acceptance-gap]
+  found: 2026-07-28
+  source: spencer-play
+  detail: >
+    「かえらなきゃ。あしたは しごとが あるんだ」 is correct and natural for "I
+    have to go home" — もう かえらなきゃ is what people actually say, and うちに
+    かえる is the more explicit of two good options. The build only accepts the
+    うちに version.
+    THE GENERAL QUESTION, which is why this is decision-needed: the expander
+    handles particle and register variants, but never omits a CONTENT word.
+    Accepting "うちに is optional here" means either a per-step alternative
+    list for builds (they grade off correctOrder + the expanded targetSentence,
+    with no per-step accepted list today) or a small lexicon of
+    semantically-redundant complements (うちに+かえる, ごはんを+たべる). The
+    second is powerful and risky; the first is safe and does not generalise.
+  evidence: >
+    Spencer, 2026-07-28: "technically this sentence is right without uchi ni
+    right?" — yes. Tile bank offers うち and に as separate tiles with no cue
+    that the prompt requires them.
+  fix: >
+    Needs Spencer's ruling on which of the two mechanisms (or neither — the
+    prompt could simply be reworded to demand うち).
