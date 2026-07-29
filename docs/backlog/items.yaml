@@ -1276,3 +1276,41 @@
     would let the words show kanji without claiming they are N5 — but it does
     widen what the course asks a learner to read. Relates to the existing
     kanji ruling that exposure beats protection.
+
+- id: B060
+  title: exposure kanji tier — 35 non-N5 glyphs added so high-frequency taught words stop rendering as kana forever
+  status: fixed
+  severity: major
+  effort: M
+  confidence: verified
+  area: data
+  tags: [system/kanji, class/kanji-scope, page/lesson-player]
+  found: 2026-07-28
+  source: spencer-play
+  detail: >
+    Supersedes B059's decision-needed. The eligibility gate needs EVERY
+    component glyph in the catalog, so one missing character kept a taught
+    word in kana at every module — 279 taught atoms had a kanji form that
+    never rendered. Spencer chose the "top 20 + compounds" tranche.
+  evidence: >
+    Added 35 glyphs on m14-m25, marked tier "exposure" so the catalog stops
+    claiming they are N5: 思 明 昨 家 / 帽 傘 達 遊 / 写 真 眼 鏡 / 切 符 映 画 /
+    好 自 転 図 / 館 猫 池 喫 / 船 計 族 料 / 理 朝 痛 窓 / 辞 / 歌 / 物.
+    Eligible atoms 119 → 154. Unlocks 明日, 家, 友達(m19), 時計(m20), 写真,
+    眼鏡, 切符, 映画, 自転車(m22), 図書館, 家族, 料理, 買い物/食べ物/飲み物,
+    今朝/毎朝, 昨日/一昨日/一昨年 and more.
+  fix: >
+    FIXED. Scheduling rule: every glyph unlocks at least one module AFTER the
+    last of its anchor words is taught (so it never opens on a word the module
+    is still introducing — the B004 complaint), which is why 物 is m25, 歌 m24
+    and 朝 m21 rather than all landing at the m8 floor. A new test asserts
+    that rule over the whole tier rather than spot-checking it.
+    FOUR TESTS had to be updated because they used ともだち or ねこ as their
+    example of "a word with no eligible kanji" — the RULE was unchanged, only
+    which words are gaps, so each was re-pointed at 授業/御飯/寿司/鉛筆 rather
+    than weakened. See B034.
+  note: >
+    Still blocked, each needing 2+ new glyphs: 御飯, 寿司, 鉛筆, 授業, 手伝う.
+    かえる/帰る was NOT included — it falls just outside the top-30 on a
+    dictionary-form frequency count, which undercounts verbs (かえる's family
+    is 67 uses, not the 49 bare tokens). Worth revisiting on a fair metric.

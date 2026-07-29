@@ -11,7 +11,11 @@ import {
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { getTtsUrl } from "@/shared/tts";
-import { JA_COURSE_ATOMS_BY_ID } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS_BY_ID,
+  JA_COURSE_ATOMS,
+} from "@/features/languages/ja/courseAtoms";
+import { N5_KANJI } from "./n5Kanji";
 import {
   getAvailableMockLessonIds,
   getMockLessonContent,
@@ -188,12 +192,63 @@ describe("KANJI_ELIGIBLE_ATOMS", () => {
   });
 
   it("excludes words whose component kanji are not yet in the catalog", () => {
-    // 時計 (tokei) needs 計 and 友達 (tomodachi) needs 達 — neither glyph is
-    // N5, so neither has an N5_KANJI entry → not eligible even though both
-    // atoms sit in an entry's anchorVocab (時 / 友). They stay kana until a
-    // natively-reviewed catalog extension makes those glyphs teachable.
-    expect(KANJI_ELIGIBLE_ATOMS.has("tokei")).toBe(false);
-    expect(KANJI_ELIGIBLE_ATOMS.has("ja-m3-3-v-tomodachi")).toBe(false);
+    // The gate itself, asserted on words that STILL have no entry for one of
+    // their glyphs: 御飯 (御/飯), 寿司 (寿/司), 鉛筆 (鉛/筆), 授業 (授/業).
+    // Each needs two new glyphs, so the exposure tier left them out.
+    for (const id of [
+      "ja-m7-4-v-gohan",
+      "ja-m7-4-v-sushi",
+      "enpitsu",
+      "jugyou",
+    ]) {
+      expect(
+        KANJI_ELIGIBLE_ATOMS.has(id),
+        `${id} should still be catalog-blocked`,
+      ).toBe(false);
+    }
+  });
+
+  it("the exposure tier unblocked the words it was added for", () => {
+    // 時計 and 友達 were the two this test used to pin as permanently kana —
+    // "until a natively-reviewed catalog extension makes those glyphs
+    // teachable" (the old comment). That extension is the 2026-07-28
+    // exposure tier, so the expectation inverts rather than the rule.
+    // Each unlock is still MAX over components, so a new glyph only moves a
+    // word as early as its LATEST component allows.
+    expect(KANJI_ELIGIBLE_ATOMS.get("tokei")?.unlockModule).toBe(20); // 時 m10, 計 m20
+    expect(KANJI_ELIGIBLE_ATOMS.get("ja-m3-3-v-tomodachi")?.unlockModule).toBe(
+      19,
+    ); // 友 m19 wins over 達 m15
+    expect(KANJI_ELIGIBLE_ATOMS.get("ashita")?.unlockModule).toBe(14);
+    expect(KANJI_ELIGIBLE_ATOMS.get("ja-m4-3-v-jitensha")?.unlockModule).toBe(
+      22,
+    ); // 車 m22 wins over 自/転 m18
+  });
+
+  /**
+   * NO EXPOSURE GLYPH MAY OPEN ON A WORD ITS MODULE IS STILL TEACHING.
+   * The scheduling rule for the tier (and the reason 物 is m25 rather than
+   * sitting at the m8 floor with everything else): a learner should meet the
+   * word in kana first and see it become kanji later, never both at once.
+   */
+  it("every exposure glyph unlocks after its anchor words are taught", () => {
+    const moduleOf = (m: string | number) =>
+      typeof m === "number" ? m : parseInt(String(m).replace(/^m/, ""), 10);
+    let checked = 0;
+    for (const k of N5_KANJI.filter((e) => e.tier === "exposure")) {
+      for (const id of k.anchorVocab) {
+        const atom = JA_COURSE_ATOMS.find((a) => a.id === id);
+        expect(atom, `${k.character} anchors missing atom ${id}`).toBeTruthy();
+        const taught = moduleOf(atom!.fromModule);
+        if (!Number.isFinite(taught)) continue; // "future" — never rendered
+        expect(
+          k.introducedAtModule,
+          `${k.character} unlocks at m${k.introducedAtModule} but ${id} is taught at m${taught}`,
+        ).toBeGreaterThan(taught);
+        checked++;
+      }
+    }
+    expect(checked, "no exposure anchors scanned — the filter is wrong").toBeGreaterThan(35);
   });
 
   it("m23–27 backfill (2026-07-18) unblocks the former catalog-gap words", () => {
@@ -511,14 +566,26 @@ describe("sentence-level kanji substitution (multi-segment annotations)", () => 
     expect(mainichi.reading).toBe("まいにち");
     expect(mainichi.furiganaWindowOpen).toBe(false);
 
-    // Every OTHER sentence segment stays pure kana — ともだち (友達, catalog gap),
-    // を (particle), てつだう (手伝う, catalog gap) are NEVER substituted.
+    // ともだち now substitutes too: 達 joined the catalog in the 2026-07-28
+    // exposure tier, so 友達 unlocks at m19 and this m29 sentence is past it.
+    // The rule under test is unchanged — what moved is which words are gaps.
+    const tomodachi = segs.find(
+      (s) => s.atomId === "ja-m3-3-v-tomodachi",
+    )!;
+    expect(tomodachi.surface).toBe("友達");
+    expect(tomodachi.reading).toBe("ともだち");
+
+    // The two categories that are NEVER substituted at any module, whatever
+    // the catalog holds: particles, and conjugated verb forms in a sentence.
+    // てつだう (手伝う) is also still a genuine catalog gap — 伝 has no entry.
     for (const s of segs) {
-      if (s.atomId === "mainichi") continue;
-      expect(HAS_HAN.test(s.surface)).toBe(false);
+      if (s.atomId === "mainichi" || s.atomId === "ja-m3-3-v-tomodachi") continue;
+      expect(HAS_HAN.test(s.surface), `${s.surface} should stay kana`).toBe(
+        false,
+      );
     }
-    // Reference display reconstructs the sentence with only 毎日 in kanji.
-    expect(segs.map((s) => s.surface).join("")).toBe("毎日 ともだちを てつだう");
+    // Reference display reconstructs the sentence with both nouns in kanji.
+    expect(segs.map((s) => s.surface).join("")).toBe("毎日 友達を てつだう");
 
     // Grading + audio fields byte-identical (KANA) — recognize-kanji /
     // assemble-from-kana asymmetry is intended.

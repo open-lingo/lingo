@@ -61,9 +61,10 @@
  * kanji_reading (5 total, sprinkle-not-saturate, per spine + guide §4f): all
  * land on review-tier words whose kanji unlocked well before m30 and are
  * KANJI_ELIGIBLE_ATOMS-eligible (secondScript/n5Kanji.ts anchorVocab — note
- * ともだち/友達 is NOT eligible despite being an anchorVocab entry: its second
- * kanji 達 has no N5_KANJI catalog entry, so the "every component kanji
- * known" gate skips it) — いく (行く, m7) in 1-1, なに (何, m1) in 3-1 (ties
+ * ともだち/友達 WAS excluded here because 達 had no catalog entry; the
+ * 2026-07-28 exposure tier added it, so 友達 is eligible from m19 and is now
+ * a legitimate candidate if this module is ever re-cut) — いく (行く, m7) in
+ * 1-1, なに (何, m1) in 3-1 (ties
  * to the なにしてるの？ pattern this pair teaches), せんせい (先生, m3) in 4-1
  * (an authority-figure review word fitting the register-awareness theme),
  * plus stage 2's two: はいる (入る, m16) in 6-2, きく (聞く, m24) in 7-1. None

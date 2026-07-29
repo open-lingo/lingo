@@ -114,7 +114,7 @@ describe("resolveEligibleKanjiAtomId — never returns an atomId for an ambiguou
   });
 
   it("returns undefined for words with no eligible kanji, particles, and conjugated forms", () => {
-    expect(resolveEligibleKanjiAtomId("ともだち")).toBeUndefined(); // 友達: 達 not in catalog
+    expect(resolveEligibleKanjiAtomId("じゅぎょう")).toBeUndefined(); // 授業: 授/業 not in catalog
     expect(resolveEligibleKanjiAtomId("てつだう")).toBeUndefined(); // 手伝う: 伝 not in catalog
     expect(resolveEligibleKanjiAtomId("を")).toBeUndefined(); // particle
     expect(resolveEligibleKanjiAtomId("のまない")).toBeUndefined(); // conjugated, not an atom
@@ -129,17 +129,21 @@ describe("buildSentenceAnnotation — multi-segment, atomIds only on unambiguous
     const segs = buildSentenceAnnotation(SENTENCE);
     // Concatenation reproduces the sentence byte-for-byte.
     expect(joinSurfaces(segs)).toBe(SENTENCE);
-    // Exactly one segment carries an atomId, and it is まいにち (毎日).
+    // Two segments carry an atomId: まいにち (毎日) and ともだち (友達 — 達
+    // joined the catalog in the 2026-07-28 exposure tier). The rule is
+    // unchanged; what moved is which words are still catalog gaps.
     const withAtom = segs.filter((s) => s.atomId);
-    expect(withAtom).toHaveLength(1);
+    expect(withAtom.map((s) => s.atomId)).toEqual([
+      "mainichi",
+      "ja-m3-3-v-tomodachi",
+    ]);
     expect(withAtom[0]).toMatchObject({
       surface: "まいにち",
       reading: "まいにち",
       atomId: "mainichi",
     });
-    // ともだち / を / てつだう are all bare kana in some other segment (no atomId).
+    // を (particle) and てつだう (手伝う — 伝 has no entry) stay bare kana.
     const rest = segs.filter((s) => !s.atomId).map((s) => s.surface).join("");
-    expect(rest).toContain("ともだち");
     expect(rest).toContain("を");
     expect(rest).toContain("てつだう");
     // No segment carries kanji yet (that's the pass's job).
@@ -170,6 +174,7 @@ describe("sentence factories emit multi-segment annotations", () => {
     expect(joinSurfaces(step.targetAnnotation!)).toBe(SENTENCE);
     expect(step.targetAnnotation!.filter((s) => s.atomId).map((s) => s.atomId)).toEqual([
       "mainichi",
+      "ja-m3-3-v-tomodachi", // 友達, eligible since the exposure tier
     ]);
     // Grading fields are untouched, pure kana.
     expect(step.tiles).toEqual(tiles);

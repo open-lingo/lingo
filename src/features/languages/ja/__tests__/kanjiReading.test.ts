@@ -194,11 +194,14 @@ describe("kanjiReading", () => {
   });
 
   it("throws for an atom with no kanji surface in the rollout catalog", () => {
+    // ねこ used to be the example here; 猫 joined the catalog in the
+    // 2026-07-28 exposure tier. じゅぎょう (授業) still needs two glyphs that
+    // have no entry, so it is the current shape of "not in the catalog".
     expect(() =>
-      kanjiReading("ja-m3-1-kr-neko", {
-        kana: "ねこ",
-        meaningEn: "cat",
-        fromModule: "m3",
+      kanjiReading("ja-m7-1-kr-jugyou", {
+        kana: "じゅぎょう",
+        meaningEn: "class",
+        fromModule: "m7",
       }),
     ).toThrow(/no kanji-eligible surface/);
   });

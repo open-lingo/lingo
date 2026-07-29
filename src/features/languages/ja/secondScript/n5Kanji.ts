@@ -17,6 +17,13 @@ export type KanjiEntry = {
   introducedAtModule: number;
   anchorVocab: string[];
   category: KanjiCategory;
+  /** `"n5"` (default) or `"exposure"` — a glyph that is NOT on the N5 list
+   *  but writes a word this course teaches and uses constantly (明日, 家,
+   *  友達, 時計). Recognition only, furigana until mastered, never produced;
+   *  see the EXPOSURE TIER block below for why they are here. Kept as a flag
+   *  rather than a second array so every consumer — the rollout gate, the
+   *  kanji browser, reading distractors — picks them up without changes. */
+  tier?: "n5" | "exposure";
 };
 
 export const N5_KANJI: KanjiEntry[] = [
@@ -1186,6 +1193,434 @@ export const N5_KANJI: KanjiEntry[] = [
     introducedAtModule: 27,
     anchorVocab: [],
     category: "other",
+  },
+
+  // ══ EXPOSURE TIER (Spencer ruling, 2026-07-28) ═══════════════════════
+  //
+  // The eligibility gate needs EVERY component glyph in this catalog, so a
+  // single missing character kept a taught word in kana forever. 279 taught
+  // atoms had a kanji form that never rendered — including 明日, 家, 友達,
+  // 時計, 写真 — because one glyph sat outside the N5 list. Spencer, seeing
+  // あした and かえる as kana in m28: "some of these words that we teach
+  // super early but dont give kanji should probably have their kanji
+  // exposed... weave those in effectively on the more frequent words."
+  //
+  // These 35 are the highest-use single-glyph unlocks plus the compounds the
+  // course leans on. They are NOT N5 — hence `tier: "exposure"` — and they
+  // are safe because the kanji layer is recognition-only: the surface is
+  // substituted at render time with furigana above it until FSRS says the
+  // word is mastered, and there is no kanji production anywhere in the app.
+  //
+  // SCHEDULING RULE: every entry sits at least one module AFTER the last of
+  // its anchor words is taught, so the kanji never opens on a word the
+  // module is still introducing (the B004 complaint). That is why 物 is m25
+  // (もの is m24), 歌 is m24 (歌う is m23) and 朝 is m21 (毎朝 is m20),
+  // rather than all landing together at the m8 floor.
+  //
+  // Words still blocked after this tier need 2+ new glyphs each and were
+  // left out: 御飯, 寿司, 鉛筆, 授業.
+
+  // ─── M14: high-frequency singles ────────────────────────────────────
+  {
+    character: "思",
+    onyomi: ["シ"],
+    kunyomi: ["おも.う"],
+    meaning: ["think"],
+    strokeCount: 9,
+    introducedAtModule: 14,
+    anchorVocab: ["omou"],
+    category: "verb",
+    tier: "exposure",
+  },
+  {
+    character: "明",
+    onyomi: ["メイ", "ミョウ"],
+    kunyomi: ["あか.るい", "あ.ける"],
+    meaning: ["bright", "next"],
+    strokeCount: 8,
+    introducedAtModule: 14,
+    anchorVocab: ["ashita"],
+    category: "time",
+    tier: "exposure",
+  },
+  {
+    character: "昨",
+    onyomi: ["サク"],
+    kunyomi: [],
+    meaning: ["previous", "last"],
+    strokeCount: 9,
+    introducedAtModule: 14,
+    anchorVocab: ["kinou", "ototoi", "ototoshi"],
+    category: "time",
+    tier: "exposure",
+  },
+  {
+    character: "家",
+    onyomi: ["カ", "ケ"],
+    kunyomi: ["いえ", "や"],
+    meaning: ["house", "home"],
+    strokeCount: 10,
+    introducedAtModule: 14,
+    anchorVocab: ["ie", "kazoku"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M15: everyday objects and people ───────────────────────────────
+  {
+    character: "帽",
+    onyomi: ["ボウ"],
+    kunyomi: [],
+    meaning: ["hat", "cap"],
+    strokeCount: 12,
+    introducedAtModule: 15,
+    anchorVocab: ["boushi"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "傘",
+    onyomi: ["サン"],
+    kunyomi: ["かさ"],
+    meaning: ["umbrella"],
+    strokeCount: 12,
+    introducedAtModule: 15,
+    anchorVocab: ["ja-m4-3-v-kasa"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "達",
+    onyomi: ["タツ"],
+    kunyomi: [],
+    meaning: ["attain", "plural suffix"],
+    strokeCount: 12,
+    introducedAtModule: 15,
+    anchorVocab: ["ja-m3-3-v-tomodachi"],
+    category: "person",
+    tier: "exposure",
+  },
+  {
+    character: "遊",
+    onyomi: ["ユウ"],
+    kunyomi: ["あそ.ぶ"],
+    meaning: ["play"],
+    strokeCount: 12,
+    introducedAtModule: 15,
+    anchorVocab: ["asobu"],
+    category: "verb",
+    tier: "exposure",
+  },
+
+  // ─── M16: 写真 / 眼鏡 ────────────────────────────────────────────────
+  {
+    character: "写",
+    onyomi: ["シャ"],
+    kunyomi: ["うつ.す"],
+    meaning: ["copy", "photograph"],
+    strokeCount: 5,
+    introducedAtModule: 16,
+    anchorVocab: ["shashin"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "真",
+    onyomi: ["シン"],
+    kunyomi: ["ま"],
+    meaning: ["true", "real"],
+    strokeCount: 10,
+    introducedAtModule: 16,
+    anchorVocab: ["shashin"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "眼",
+    onyomi: ["ガン"],
+    kunyomi: ["まなこ"],
+    meaning: ["eyeball", "eye"],
+    strokeCount: 11,
+    introducedAtModule: 16,
+    anchorVocab: ["megane"],
+    category: "person",
+    tier: "exposure",
+  },
+  {
+    character: "鏡",
+    onyomi: ["キョウ"],
+    kunyomi: ["かがみ"],
+    meaning: ["mirror"],
+    strokeCount: 19,
+    introducedAtModule: 16,
+    anchorVocab: ["megane"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M17: 切符 / 映画 ────────────────────────────────────────────────
+  {
+    character: "切",
+    onyomi: ["セツ", "サイ"],
+    kunyomi: ["き.る"],
+    meaning: ["cut"],
+    strokeCount: 4,
+    introducedAtModule: 17,
+    anchorVocab: ["kippu"],
+    category: "verb",
+    tier: "exposure",
+  },
+  {
+    character: "符",
+    onyomi: ["フ"],
+    kunyomi: [],
+    meaning: ["token", "tally"],
+    strokeCount: 11,
+    introducedAtModule: 17,
+    anchorVocab: ["kippu"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "映",
+    onyomi: ["エイ"],
+    kunyomi: ["うつ.る"],
+    meaning: ["reflect", "project"],
+    strokeCount: 9,
+    introducedAtModule: 17,
+    anchorVocab: ["eiga"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "画",
+    onyomi: ["ガ", "カク"],
+    kunyomi: [],
+    meaning: ["picture", "stroke"],
+    strokeCount: 8,
+    introducedAtModule: 17,
+    anchorVocab: ["eiga"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M18: 好き / 自転車 / 図書館 ─────────────────────────────────────
+  {
+    character: "好",
+    onyomi: ["コウ"],
+    kunyomi: ["す.き", "この.む"],
+    meaning: ["fond", "like"],
+    strokeCount: 6,
+    introducedAtModule: 18,
+    anchorVocab: ["suki"],
+    category: "adjective",
+    tier: "exposure",
+  },
+  {
+    character: "自",
+    onyomi: ["ジ", "シ"],
+    kunyomi: ["みずか.ら"],
+    meaning: ["self"],
+    strokeCount: 6,
+    introducedAtModule: 18,
+    anchorVocab: ["ja-m4-3-v-jitensha"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "転",
+    onyomi: ["テン"],
+    kunyomi: ["ころ.ぶ"],
+    meaning: ["revolve", "turn"],
+    strokeCount: 11,
+    introducedAtModule: 18,
+    anchorVocab: ["ja-m4-3-v-jitensha"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "図",
+    onyomi: ["ズ", "ト"],
+    kunyomi: [],
+    meaning: ["diagram", "plan"],
+    strokeCount: 7,
+    introducedAtModule: 18,
+    anchorVocab: ["toshokan"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M19: places and animals ────────────────────────────────────────
+  {
+    character: "館",
+    onyomi: ["カン"],
+    kunyomi: ["やかた"],
+    meaning: ["building", "hall"],
+    strokeCount: 16,
+    introducedAtModule: 19,
+    anchorVocab: ["toshokan"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "猫",
+    onyomi: ["ビョウ"],
+    kunyomi: ["ねこ"],
+    meaning: ["cat"],
+    strokeCount: 11,
+    introducedAtModule: 19,
+    anchorVocab: ["neko"],
+    category: "nature",
+    tier: "exposure",
+  },
+  {
+    character: "池",
+    onyomi: ["チ"],
+    kunyomi: ["いけ"],
+    meaning: ["pond"],
+    strokeCount: 6,
+    introducedAtModule: 19,
+    anchorVocab: ["ike"],
+    category: "nature",
+    tier: "exposure",
+  },
+  {
+    character: "喫",
+    onyomi: ["キツ"],
+    kunyomi: [],
+    meaning: ["consume", "drink"],
+    strokeCount: 12,
+    introducedAtModule: 19,
+    anchorVocab: ["kissaten"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M20: 船 / 時計 / 家族 / 料理 ────────────────────────────────────
+  {
+    character: "船",
+    onyomi: ["セン"],
+    kunyomi: ["ふね"],
+    meaning: ["ship", "boat"],
+    strokeCount: 11,
+    introducedAtModule: 20,
+    anchorVocab: ["fune"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "計",
+    onyomi: ["ケイ"],
+    kunyomi: ["はか.る"],
+    meaning: ["measure", "plan"],
+    strokeCount: 9,
+    introducedAtModule: 20,
+    anchorVocab: ["tokei"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "族",
+    onyomi: ["ゾク"],
+    kunyomi: [],
+    meaning: ["tribe", "family"],
+    strokeCount: 11,
+    introducedAtModule: 20,
+    anchorVocab: ["kazoku"],
+    category: "person",
+    tier: "exposure",
+  },
+  {
+    character: "料",
+    onyomi: ["リョウ"],
+    kunyomi: [],
+    meaning: ["fee", "materials"],
+    strokeCount: 10,
+    introducedAtModule: 20,
+    anchorVocab: ["ryouri"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M21: 料理 completes, morning, pain, window ─────────────────────
+  {
+    character: "理",
+    onyomi: ["リ"],
+    kunyomi: [],
+    meaning: ["logic", "reason"],
+    strokeCount: 11,
+    introducedAtModule: 21,
+    anchorVocab: ["ryouri"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "朝",
+    onyomi: ["チョウ"],
+    kunyomi: ["あさ"],
+    meaning: ["morning"],
+    strokeCount: 12,
+    introducedAtModule: 21,
+    anchorVocab: ["asa", "kesa", "maiasa"],
+    category: "time",
+    tier: "exposure",
+  },
+  {
+    character: "痛",
+    onyomi: ["ツウ"],
+    kunyomi: ["いた.い"],
+    meaning: ["pain", "hurt"],
+    strokeCount: 12,
+    introducedAtModule: 21,
+    anchorVocab: ["itai"],
+    category: "adjective",
+    tier: "exposure",
+  },
+  {
+    character: "窓",
+    onyomi: ["ソウ"],
+    kunyomi: ["まど"],
+    meaning: ["window"],
+    strokeCount: 11,
+    introducedAtModule: 21,
+    anchorVocab: ["mado"],
+    category: "other",
+    tier: "exposure",
+  },
+
+  // ─── M22 / M24 / M25: gated by their anchor words' own modules ──────
+  {
+    character: "辞",
+    onyomi: ["ジ"],
+    kunyomi: ["や.める"],
+    meaning: ["word", "resign"],
+    strokeCount: 13,
+    introducedAtModule: 22,
+    anchorVocab: ["ja-m4-3-v-jisho"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "歌",
+    onyomi: ["カ"],
+    kunyomi: ["うた", "うた.う"],
+    meaning: ["song", "sing"],
+    strokeCount: 14,
+    introducedAtModule: 24, // 歌う (utau) is taught in m23
+    anchorVocab: ["uta", "utau"],
+    category: "other",
+    tier: "exposure",
+  },
+  {
+    character: "物",
+    onyomi: ["ブツ", "モツ"],
+    kunyomi: ["もの"],
+    meaning: ["thing", "object"],
+    strokeCount: 8,
+    introducedAtModule: 25, // もの (mono) is taught in m24
+    anchorVocab: ["mono", "kaimono", "tabemono", "nomimono"],
+    category: "other",
+    tier: "exposure",
   },
 ];
 
