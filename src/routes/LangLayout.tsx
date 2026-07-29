@@ -4,6 +4,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
 import { CommunityContentProvider } from "@/features/community/CommunityContentContext";
+import { DictionaryModalProvider } from "@/features/dictionary/DictionaryModalContext";
 
 export function LangLayout() {
   const { lang } = useParams<{ lang: string }>();
@@ -32,7 +33,9 @@ export function LangLayout() {
 
   return (
     <CommunityContentProvider>
-      <Outlet />
+      <DictionaryModalProvider>
+        <Outlet />
+      </DictionaryModalProvider>
     </CommunityContentProvider>
   );
 }

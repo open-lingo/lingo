@@ -577,7 +577,7 @@
     "subtitle": "Look up any word — course vocabulary and the frequency list, with readings, meanings, and conjugations.",
     "searchPlaceholder": "Search word, reading, or meaning…",
     "searchLabel": "Search the dictionary",
-    "languageSwitch": "Dictionary language",
+    "lookUp": "Look up a word",
     "searchCount": "{{count}} results for “{{query}}”",
     "browseCount": "Showing {{count}} of {{total}} words",
     "showMore": "Show more",
@@ -586,6 +586,15 @@
     "unlockBadge": "Unlocks {{module}}",
     "conjugation": "Conjugation",
     "practiceConjugation": "Practice",
+    "modal": {
+      "title": "Look up a word",
+      "back": "Back to search",
+      "hint": "Type a word, reading, or meaning to look it up.",
+      "notFound": {
+        "title": "Word not found",
+        "body": "No dictionary entry for “{{query}}”."
+      }
+    },
     "facet": {
       "source": "Source",
       "pos": "Part of speech",

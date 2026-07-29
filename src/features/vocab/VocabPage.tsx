@@ -16,6 +16,7 @@ import {
   type VocabRow,
   type VocabTier,
 } from "./vocabData";
+import { useDictionaryModal } from "@/features/dictionary/DictionaryModalContext";
 import { VocabArt } from "./VocabArt";
 import { VocabCardSheet } from "./VocabCardSheet";
 
@@ -46,6 +47,7 @@ export function VocabPage() {
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
   const langPath = useLangPath();
+  const dictionaryModal = useDictionaryModal();
   const [searchParams, setSearchParams] = useSearchParams();
   // Re-derive rows when the SRS store changes (reviews, sync, unlocks).
   const srsRevision = useSRSStoreRevision();
@@ -175,17 +177,27 @@ export function VocabPage() {
 
   return (
     <div>
-      <header className="mb-4">
-        <h1 className="text-2xl font-bold text-text-primary">{t("vocab.title", "Vocab")}</h1>
-        <p className="mt-1 text-sm text-text-muted">
-          {t("vocab.subtitle", "Every word in your course — filter by mastery to find what to review.")}
-        </p>
-        <p className="mt-1 text-sm font-medium text-text-secondary">
-          {t("vocab.learnedCount", "{{learned}} of {{total}} words learned", {
-            learned: learnedCount,
-            total: rows.length,
-          })}
-        </p>
+      <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-text-primary">{t("vocab.title", "Vocab")}</h1>
+          <p className="mt-1 text-sm text-text-muted">
+            {t("vocab.subtitle", "Every word in your course — filter by mastery to find what to review.")}
+          </p>
+          <p className="mt-1 text-sm font-medium text-text-secondary">
+            {t("vocab.learnedCount", "{{learned}} of {{total}} words learned", {
+              learned: learnedCount,
+              total: rows.length,
+            })}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => dictionaryModal.open()}
+          className="flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-2 text-sm font-medium text-text-secondary transition hover:border-accent hover:text-accent"
+        >
+          <Icon name="search" size={16} aria-hidden />
+          {t("dictionary.lookUp", "Look up a word")}
+        </button>
       </header>
 
       <div className="flex flex-col gap-5 lg:flex-row">
