@@ -33,11 +33,11 @@ describe("frequencyRankToModule", () => {
   });
 
   it("buckets by wordsPerModule: the Nth bucket boundary advances the module", () => {
-    // Default 8 words/module, first module 3.
-    expect(frequencyRankToModule(8)).toBe(3); // last of bucket 0
-    expect(frequencyRankToModule(9)).toBe(4); // first of bucket 1
-    expect(frequencyRankToModule(16)).toBe(4);
-    expect(frequencyRankToModule(17)).toBe(5);
+    // Default 20 words/module, first module 3.
+    expect(frequencyRankToModule(20)).toBe(3); // last of bucket 0
+    expect(frequencyRankToModule(21)).toBe(4); // first of bucket 1
+    expect(frequencyRankToModule(40)).toBe(4);
+    expect(frequencyRankToModule(41)).toBe(5);
   });
 
   it("respects override tuning", () => {

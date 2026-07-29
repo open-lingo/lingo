@@ -51,14 +51,18 @@ export type FrequencyAtom<Conj = never> = {
  * - Frequency words never appear before {@link FREQ_FIRST_MODULE}: the learner
  *   needs basic sentence grammar (post-kana, first grammar modules) before
  *   free vocabulary is useful.
- * - {@link FREQ_WORDS_PER_MODULE} words unlock per module thereafter — a gentle
- *   drip that, combined with the SRS intake throttle, never floods.
+ * - {@link FREQ_WORDS_PER_MODULE} words unlock per module thereafter — a fixed,
+ *   controlled drip. A large deck (KO ~3k) does NOT spread evenly across every
+ *   module (that floods each one); it drips the fixed rate and lets the
+ *   overflow — the "extra" words past what the drip covers over the course —
+ *   pile at the last module, available once the learner has progressed that far.
+ *   Combined with the SRS intake throttle, never floods.
  * - Bounded above by {@link FREQ_LAST_MODULE_DEFAULT} (min of JA=30 / KO=27
- *   content modules) so a bare call can't gate a word past the shortest
- *   course. Each registry passes its own `lastModule` for its true range.
+ *   content modules): the last module is the catch-all where that overflow
+ *   lands. Each registry passes its own `lastModule` for its true range.
  */
 export const FREQ_FIRST_MODULE = 3;
-export const FREQ_WORDS_PER_MODULE = 8;
+export const FREQ_WORDS_PER_MODULE = 20;
 export const FREQ_LAST_MODULE_DEFAULT = 27;
 
 /** Tuning overrides for {@link frequencyRankToModule}. */
