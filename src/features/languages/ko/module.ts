@@ -41,6 +41,7 @@ import { annotateKorean, romanizeKorean } from "./romanization/hangulRomanize";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { getTtsManifest } from "@/shared/tts/manifest";
 
 // ── Course id ────────────────────────────────────────────────────────────
 
@@ -138,14 +139,13 @@ const koVocabArt: VocabArtResolver = {
   },
 };
 
-// ── ttsManifest (empty — KO ships no recorded TTS clips yet). Audio is no
-//      longer silent: `shared/tts` now falls back to the browser
-//      `speechSynthesis` voice for non-JA manifest misses, forced to the
-//      ko-KR locale (2026-07-17). A generated mp3 corpus (per the ES
-//      precedent) is still the higher-quality end state; the synthesis
-//      fallback is the runtime stopgap until then. ─────────────────────────
+// ── ttsManifest ──────────────────────────────────────────────────────────
+// KO now has 1,526 recorded ko-KR-SunHiNeural clips (the comment here
+// previously said none existed — that predated the KO generation pass).
+// `shared/tts` still falls back to the browser `speechSynthesis` voice,
+// forced to the ko-KR locale, for text with no recording.
 
-const koTtsManifest: TtsManifest = {};
+const koTtsManifest: TtsManifest = getTtsManifest("ko");
 
 // ── alphabetConfig (from existing languageConfig hangul section) ────────
 

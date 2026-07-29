@@ -37,7 +37,7 @@ import { ES_PLACEMENT_BANK } from "./placementBank";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
-import sharedTtsManifest from "../../../pub/tts/manifest.json";
+import { getTtsManifest } from "@/shared/tts/manifest";
 
 // ── Course id ────────────────────────────────────────────────────────────
 
@@ -102,14 +102,11 @@ const esVocabArt: VocabArtResolver = {
   },
 };
 
-// ── ttsManifest (shared manifest filtered to es: keys — none generated
-//     yet, so this is empty until the es-MX-DaliaNeural clips land) ──────
+// ── ttsManifest ──────────────────────────────────────────────────────────
+// 1,255 es-MX-DaliaNeural clips are generated and published. Coverage
+// descriptor only — `shared/tts` derives the actual paths.
 
-const esTtsManifest: TtsManifest = Object.fromEntries(
-  Object.entries(sharedTtsManifest as Record<string, string | string[]>).filter(
-    ([key]) => key.startsWith("es:"),
-  ),
-);
+const esTtsManifest: TtsManifest = getTtsManifest("es");
 
 // ── placementBank (aggregated from curriculum/m{n} in placementBank.ts) ─
 

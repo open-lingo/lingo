@@ -10,24 +10,23 @@ describe("getTtsUrl", () => {
     expect(getTtsUrl("これは絶対にマニフェストに無い文字列です")).toBeNull();
   });
 
-  it("resolves a known JA M3 phrase to a stable /tts/ja/ URL", () => {
-    // Locks in the moved-file behavior: any JA phrase known to be in the
-    // manifest should resolve to a path beginning with `/tts/ja/`. This is
-    // the snapshot guard for Phase 1 step 1 (move shared/japanese/tts.ts
-    // -> shared/tts/index.ts).
+  it("resolves a known JA M3 phrase to a stable versioned URL", () => {
+    // Locks in the client-derived path: the hash is computed from
+    // `sha256("ja:こんにちは")[:16]`, so this exact value is the contract
+    // between the app and the Python pipeline. If it changes, every audio
+    // URL 404s.
     const url = getTtsUrl("こんにちは");
-    expect(url).not.toBeNull();
-    expect(url).toMatch(/^\/tts\/ja\/[0-9a-f]+\.mp3$/);
+    expect(url).toBe("/tts/v1/ja/c34e1a1b60652761.mp3");
   });
 
   it("defaults lang to ja", () => {
     expect(getTtsUrl("こんにちは")).toBe(getTtsUrl("こんにちは", "ja"));
   });
 
-  it("returns null for the same text under a different (missing) lang", () => {
-    // The manifest is JA-only today (Phase 4 will add per-language manifests).
-    // A KO lookup for a JA-keyed text must miss, not silently return the
-    // JA URL.
+  it("returns null for the same text under a different lang", () => {
+    // Each language has its own manifest and the hash is salted by the lang
+    // prefix, so a KO lookup for JA text must miss rather than resolve to
+    // the JA recording.
     expect(getTtsUrl("こんにちは", "ko")).toBeNull();
   });
 
@@ -38,9 +37,9 @@ describe("getTtsUrl", () => {
     const withoutDot = getTtsUrl("はい");
     expect(withoutDot).not.toBeNull();
     // At least one form should resolve; if both forms resolve they may
-    // differ (different recordings), but both must be /tts/ja/ paths.
-    if (withDot) expect(withDot).toMatch(/^\/tts\/ja\/[0-9a-f]+\.mp3$/);
-    expect(withoutDot).toMatch(/^\/tts\/ja\/[0-9a-f]+\.mp3$/);
+    // differ (different recordings), but both must be versioned ja paths.
+    if (withDot) expect(withDot).toMatch(/^\/tts\/v1\/ja\/[0-9a-f]{16}\.mp3$/);
+    expect(withoutDot).toMatch(/^\/tts\/v1\/ja\/[0-9a-f]{16}\.mp3$/);
   });
 });
 
