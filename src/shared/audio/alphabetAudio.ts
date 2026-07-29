@@ -11,7 +11,9 @@ export function getAlphabetAudioUrl(audioKey: string): string {
   if (!audioKey) return "";
 
   // If the key already looks like a full or root-relative URL, return it
-  // as-is. JA TTS resolves to root-relative `/pub/tts/...` paths.
+  // as-is. JA TTS resolves to root-relative `/tts/v1/<lang>/<hash>.mp3` —
+  // same-origin through CloudFront in prod, through the Vite `/tts` proxy in
+  // dev. An absolute URL only appears if VITE_ASSET_BASE_URL is set.
   if (/^https?:\/\//.test(audioKey) || audioKey.startsWith("/")) {
     return audioKey;
   }

@@ -302,14 +302,22 @@ try {
 } catch {
   /* no ir/ dir yet — pre-compiler modules */
 }
-function writeDialogueDeck(file, name, set, note) {
+/**
+ * `languageId` is the VOICE bucket the pipeline generates under, and it is
+ * deliberately separate from the deck `name`. It used to be `languageId: name`,
+ * which emitted `ja-keita-dialogue` / `ja-nanami-dialogue` — neither is in
+ * `generate.py`'s supported set (`ja`, `es`, `ko`, `ja-keita`), so
+ * `collect_deck_jobs` skipped both decks and the documented regeneration
+ * command collected zero jobs.
+ */
+function writeDialogueDeck(file, name, languageId, set, note) {
   const out = resolve(__dirname, `../../lingo-data/data/test_decks/${file}`);
   writeFileSync(
     out,
     JSON.stringify(
       {
         name,
-        languageId: name,
+        languageId,
         _note: note,
         cards: Array.from(set)
           .sort()
@@ -325,6 +333,7 @@ function writeDialogueDeck(file, name, set, note) {
 writeDialogueDeck(
   "ja-keita-dialogue.json",
   "ja-keita-dialogue",
+  "ja-keita",
   keitaSet,
   "Male dialogue speakers' lines — synthesized with ja-JP-KeitaNeural under " +
     "ja-keita: keys by lingo-data's pipeline.tts.generate. Auto-emitted.",
@@ -332,6 +341,7 @@ writeDialogueDeck(
 writeDialogueDeck(
   "ja-nanami-dialogue.json",
   "ja-nanami-dialogue",
+  "ja",
   nanamiSet,
   "Female/neutral dialogue speakers' lines — refreshed as ONE Nanami batch " +
     "(consistent takes) by lingo-data's pipeline.tts.generate over plain " +

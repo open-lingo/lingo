@@ -338,6 +338,10 @@ export default defineConfig(({ mode }) => {
   // Dev has no such luxury: localhost is a genuinely different origin, and the
   // mp3s no longer live in the repo. Proxying `/tts` keeps dev same-origin as
   // well, so local and prod exercise the identical code path.
+  //
+  // This covers `vite preview` too — `preview.proxy` defaults to `server.proxy`,
+  // verified by the `via: ...cloudfront.net` header on a preview response. Do
+  // not add a separate `preview` block for this.
   server: {
     proxy: {
       "/tts": {

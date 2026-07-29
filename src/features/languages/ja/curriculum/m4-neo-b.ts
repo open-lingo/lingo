@@ -66,7 +66,7 @@ const LANG = "ja";
  * FIXED words only: the mora arrays are hand-tokenized, so targets must
  * never come from a seeded `pickReviewAtoms` draw (the struggle-weighted
  * path re-picks per learner and the hand mora would drift out of sync).
- * Every `word` here must already be clipped in src/pub/tts/manifest.json
+ * Every `word` here must already be clipped — see src/shared/tts/manifests/ja.json
  * (keyed `ja:<word>`) — all m1/m2 pool atoms are.
  */
 function listeningBuildWord(

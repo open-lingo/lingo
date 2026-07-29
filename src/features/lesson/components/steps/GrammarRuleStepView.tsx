@@ -192,7 +192,7 @@ function ReadGateBar({
 // TTS read-aloud — feasibility note (2026-07-11 QA task):
 //
 // The app's real TTS (`shared/tts`) resolves `"<lang>:<text>"` against a
-// manifest of pre-generated JA clips (`src/pub/tts/manifest.json`). Grammar
+// manifest of pre-generated JA clips (`src/shared/tts/manifests/<lang>.json`). Grammar
 // card `title`/`rule` text is English prose written for the card, not a
 // curriculum JA phrase, so it will essentially never have a manifest
 // entry — `getTtsUrl` would just return null. That pipeline isn't usable

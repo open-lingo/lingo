@@ -16,7 +16,7 @@
  *   - Lead with words a zero-knowledge English speaker half-knows
  *     (loanwords/cognates) for early wins; romaji stays on (teaching aid
  *     for a never-learned user, weaned later in the real lessons).
- *   - Every term must have TTS in `src/pub/tts/manifest.json` (or rely on
+ *   - Every term must have TTS in `src/shared/tts/manifests/<lang>.json` (or rely on
  *     the runtime speech-synth fallback for languages without a manifest,
  *     e.g. KO) and a vendored emoji for any picture step.
  *   - No tracing, no grind, no row tests. Fun > coverage.
@@ -48,7 +48,7 @@ export type PreviewLesson = {
 // Vocab is the food/drink + greeting set everyone half-knows already (sushi is
 // a loanword). Romaji stays ON throughout — for a never-learned user it's a
 // teaching aid, not a crutch; the real lessons wean it later. Every term has
-// TTS in src/pub/tts/manifest.json (こんにちは/すし/みず/おちゃ) and a vendored
+// TTS in src/shared/tts/manifests/<lang>.json (こんにちは/すし/みず/おちゃ) and a vendored
 // emoji (🍣/💧/🍵).
 const japanesePreview: PreviewLesson = {
   languageId: "ja",
