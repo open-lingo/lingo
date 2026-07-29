@@ -1356,6 +1356,21 @@
     kanji_reading (35 in the course, kanji→kana recall), and it is
     "sprinkle-not-saturate" — it tests words whose kanji unlocked long ago,
     deliberately NOT at the switchover.
+    MEASURED 2026-07-28: 112 switchover events (154 eligible atoms, 42 born with
+    kanji), gap min 1 / median 11 / max 26 modules. 90 of the 112 are never
+    graded by anything, and ZERO are graded inside the unlock window — so
+    "spends it on nothing" is now a number, not an impression. The events clump:
+    m22 has 18, m8 and m14 have 12 each, m24 has 9, m21 has 8, which is what
+    constrains how the beat can be scheduled.
+    Research pass done (3 surveys, summarized in the design doc): no surveyed
+    tool stages a discrete switchover beat; furigana presence is the universal
+    graded lever; learner complaints track UNPREDICTABILITY, not difficulty
+    (Duolingo does what we do and that is the documented gripe); Genki's answer
+    is to state the rule. Literature is thin — kanji form-binding is a distinct
+    lexical event (dual-route models), self-teaching-by-exposure is established
+    only for Chinese and never extended to Japanese, so active retrieval at the
+    switchover is defensible by extrapolation but is NOT a Japanese-specific
+    empirical result.
   fix: >
     Spencer's proposed method, in his words: "maybe we do the same process we
     did earlier where we think of good ideas to teach this, check other
@@ -1416,3 +1431,44 @@
     dialogue_listen 333, translate 331, particle_cloze 307, word_image_mcq
     304, symbol_recognition 256, grammar_rule 243, conjugation_transform 59,
     kanji_reading 35, self_explanation_mcq 14.
+
+- id: B064
+  title: furigana is removed based on how well the learner knows the WORD, which says nothing about whether they can read the KANJI
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: engine
+  tags: [system/kanji, system/srs, class/kanji-scope]
+  detail: >
+    SRSModality is exactly "recognition" | "production" (flashcards/data/types.ts:96)
+    — there is NO orthography modality anywhere in the SRS. isMastered() returns
+    true when both of those intervals clear MASTERED_INTERVAL_DAYS, i.e. it
+    measures knowledge of the WORD, by sound and by meaning.
+    Furigana removal is gated on precisely that: applyKanjiSurfaces.ts:205 sets
+    furiganaWindowOpen from furiganaVisibleAt (window = unlock+2), and past the
+    window furigana persists only until isMastered(atom).
+    Consequence: for a word taught early and drilled for many modules, the atom
+    is long-since mastered before its kanji ever renders, so the ONLY thing
+    holding furigana up is the unlock+2 floor. ともだち is taught m3; 友達 first
+    renders m19; furigana disappears at m21 — on a written form the learner has
+    seen for two modules and has never once been graded on. The gate removes the
+    scaffold on the basis of evidence that is irrelevant to whether the scaffold
+    is still needed.
+  evidence: >
+    Probe over the compiled course crossed with KANJI_ELIGIBLE_ATOMS: 154
+    eligible atoms, 42 born with kanji, 112 SWITCHOVER events (taught in kana,
+    kanji arrives later), gap min 1 / median 11 / max 26 modules. Of those 112,
+    22 are ever graded by a kanji_reading step and 0 are graded within the
+    unlock window; 90 are never graded at all. The 35 kanji_reading steps sit in
+    only five modules (m18, m23, m28, m29, m30-n4), which matches B063's
+    independent step-mix count.
+  fix: >
+    Add a third SRS modality (reading) or an orthography sub-state on the card,
+    graded only by kanji-facing steps, and gate furigana on THAT instead of
+    isMastered(). This is WaniKani's reading/meaning split and Renshuu's
+    known-kanji toggle. Needs a card-state migration (see srsMigration.ts).
+    B061's teaching beat has nothing to grade into until this lands.
+  found: 2026-07-28
+  source: claude-probe
+  see_also: docs/kanji-switchover-design-2026-07-28.md
