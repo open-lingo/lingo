@@ -1176,3 +1176,103 @@
   fix: >
     Needs Spencer's ruling on which of the two mechanisms (or neither — the
     prompt could simply be reworded to demand うち).
+
+- id: B057
+  title: max-acceptance has only ever been extended where a learner happened to hit it — no surface has been swept systematically
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: engine
+  tags: [step/build_sentence, step/translate, step/fill_blank, step/particle_cloze, system/grading, class/max-acceptance-gap]
+  found: 2026-07-28
+  source: spencer-play
+  detail: >
+    Spencer's ruling, 2026-07-28: "we need to scrub EVERY surface that can
+    occur and add more exceptions." Every acceptance rule in the expander was
+    written the day a learner was wrongly failed — the leading-topic drop (m6
+    walk), the polite-register pair, free scrambling, and now the clause-topic
+    anchoring of B055. That is a queue of individual incidents, not coverage.
+    The work is to enumerate what a learner can legitimately produce, per
+    step type, and decide each case ONCE rather than on report.
+    Known axes, none of them swept: (a) droppable elements — established
+    topics, redundant complements (B056), pronouns Japanese omits;
+    (b) register — polite/plain, です/だ, じゃない/じゃないです/じゃありません;
+    (c) word order beyond the current particle-phrase scramble;
+    (d) orthography — kana vs kanji vs mixed, 、/。 presence, spacing;
+    (e) synonym pairs the course itself teaches as equivalent (うち/いえ, B010);
+    (f) contracted vs full forms — なきゃ/なければ, てる/ている, じゃ/では.
+    Step types differ: translate has acceptedAnswers, builds grade off
+    correctOrder plus the expanded target and have no per-step list at all,
+    fill_blank has per-blank acceptedAnswers, particle_cloze has neither.
+  evidence: >
+    Sources of the existing rules, in order of the incident that caused them:
+    2026-07-12 typed translation, 2026-07-23 m6 walk (きょうたべない),
+    2026-07-24 Fable sweep (topic mirror), 2026-07-24 Spencer scramble
+    ruling, 2026-07-28 B055 (clause anchoring). Five rules, five incidents.
+  fix: >
+    A generated report first, not code: for each production step in the
+    course, emit the authored answer and every variant the expander accepts,
+    then read for what is missing. That turns "add more exceptions" into a
+    finite reviewable list. Then decide B056's mechanism question, since
+    content-word omission is the one axis with no home today.
+
+- id: B058
+  title: contracted paradigms outside ChainForm never kanji-fy on build tiles, so m28's verbs all fall back to kana
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [module/m28, step/build_sentence, system/kanji, class/paradigm-not-modelled]
+  found: 2026-07-28
+  source: spencer-play
+  blocked_by: [B019]
+  detail: >
+    `inflectedTileKanjiMap` enumerates a verb's kanji surfaces by walking
+    ChainForm, so any paradigm the conjugation engine does not model is
+    invisible to it and its tiles stay kana. m28 IS the なきゃ module, so
+    every verb tile in it loses the kanji it would carry in any other form —
+    the learner's kanji exposure silently switches off for a whole module.
+  evidence: >
+    Probe at moduleIndex 28: のむ→飲む, のみます→飲みます, のまない→飲まない,
+    のんだ→飲んだ, たべる→食べる, いく→行く, いかない→行かない — but
+    のまなきゃ, のまなければ, いかなきゃ, たべなきゃ all resolve to kana.
+    m28 tile set: いかなきゃ, おぼえなきゃ, かえらなきゃ, しなきゃ, たべなきゃ,
+    のまなきゃ, はたらかなきゃ. A substring scan finds 169 tiles course-wide in
+    なきゃ/なければ/ている/たり/すぎ/じゃない shapes (over-counted — ふたり is
+    not a たり-form — but the m28 set alone is seven distinct verbs).
+  fix: >
+    Modelling なきゃ/なければ in the engine fixes this AND B019's drill gap
+    from one change. A narrower alternative is a derivation rule in
+    buildTileKanji (nai-form minus い plus きゃ) that does not touch the
+    engine, but it would have to be repeated per paradigm.
+
+- id: B059
+  title: 帰る, 明日, 薬, 熱 and other taught high-frequency words can never show kanji — their glyphs are outside the 113-kanji N5 catalog
+  status: decision-needed
+  severity: minor
+  effort: M
+  confidence: verified
+  area: data
+  tags: [system/kanji, module/m12, module/m28, class/kanji-scope]
+  found: 2026-07-28
+  source: spencer-play
+  detail: >
+    `KANJI_ELIGIBLE_ATOMS` only admits an atom when EVERY component glyph is
+    in `N5_KANJI` (113 entries) and some entry anchors that atom. 明, 帰, 薬
+    and 熱 are all absent, so あした (taught m12, used constantly), かえる,
+    くすり and ねつ display as kana at every module, in every form. This is
+    the catalog behaving as designed — those glyphs are conventionally N4 —
+    so the question is whether N5-strictness or exposure wins for a handful
+    of very common taught words.
+  evidence: >
+    Probe at moduleIndex 28: かえる, かえります, かえらなきゃ, あした, くすり,
+    ねつ all resolve to kana, while 見る/飲む/行く/食べる resolve. Catalog has
+    113 characters; 明/帰/薬/熱 are not among them. Note あした's atom carries
+    blocked: true, but that flag is about image MCQs and is unrelated.
+  fix: >
+    Spencer's call. Adding the four glyphs with a late introducedAtModule
+    would let the words show kanji without claiming they are N5 — but it does
+    widen what the course asks a learner to read. Relates to the existing
+    kanji ruling that exposure beats protection.
