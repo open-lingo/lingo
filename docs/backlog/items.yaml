@@ -674,3 +674,448 @@
     pool" and "the i-adj type has adjectives at m8". Both were true only
     BECAUSE the data was wrong, and both would have blocked the fix if taken
     at face value. Assert the rule, not the current output.
+
+# ── 2026-07-28 five-auditor sweep (m1-m7, m8-m13, m14-m19, m20-m24, m25-m29) ──
+# Each auditor read its band sequentially under one lens. Every record below
+# was re-verified against source by the orchestrator before filing; findings
+# that did not survive verification were dropped and are listed in B054.
+
+- id: B035
+  title: あります / ありません are required in m7 production and comprehension with no card, no gloss, and no dictionary form
+  status: open
+  severity: blocker
+  effort: M
+  confidence: verified
+  area: content
+  tags: [module/m7, step/build_sentence, step/listening_build, step/dialogue_listen, class/untaught-before-required]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  detail: >
+    The existence verb arrives fully formed and unannounced. m7 has seven rule
+    cards (ます, the three classes, ません, です, か, register, さん/さま/くん/ちゃん)
+    and not one of them introduces ある. The dictionary form appears nowhere in
+    m1-m7.
+  evidence: >
+    7 uses in m7: build_sentence "There's a class today" (tiles include
+    あります) and "There's no class today" (ありません); dialogue turn
+    「きょう じゅぎょうが ありますか」/「いいえ、きょうは ありません」; listening_build
+    「かぜが あります」; and a listening_comprehension whose distractors are
+    "There's a class today" / "There's no class today", so the form must be
+    understood to answer. grep 'ある' docs/learner-sim/m1..m7 = 0 hits.
+  fix: >
+    A rule card in m7 for ある/あります as existence, or move these beats later.
+    Note ある is the classic fake る-verb — its plain negative is ない, not
+    あらない — so the card has to say so or it contradicts the three-classes card.
+
+- id: B036
+  title: the "There's a class today" beat in m7 also requires が as a subject marker, which B002 says is unexplained until m16
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m7, step/build_sentence, class/untaught-before-required]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  blocked_by: [B002, B035]
+  detail: >
+    One step needs two untaught things at once. The tile bank for "Say
+    politely: There's a class today" is えき | あさ | あります | きょう | に |
+    が | じゅぎょう — the learner must select が as じゅぎょう's subject marker
+    AND know あります.
+  evidence: >
+    m7, build_sentence, tiles as above; paired with B002 (が as an ordinary
+    verb's subject is required from m7 and not explained until m16).
+  fix: >
+    Fixing B002 and B035 probably resolves this, but it is worth keeping
+    separate because this beat is the earliest place the two collide.
+
+- id: B037
+  title: m4 tells the learner なん is deferred, then uses なん in the same module's dialogue and quiz options
+  status: open
+  severity: major
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m4, lesson/ja-m4-neo-3, step/grammar_rule, step/dialogue_listen]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  detail: >
+    The L3 card draws the なに/なん distinction and explicitly defers the fused
+    form. Two lessons later the fused form is in a dialogue and on a quiz.
+  evidence: >
+    m4 L3 card note: "'What' has two sounds in Japanese: なに on its own, なん
+    when fused to what follows. This module only needs なに — the fused shapes
+    arrive with their own patterns." Then m4.md:602 「Tom: それ、なん？」 and
+    m4.md:684 option A 「それ、なん？」.
+  fix: >
+    Either drop the deferral sentence and teach なん here, or change the two
+    later uses to なに. The dialogue line is the one that matters — a quiz
+    option can be swapped freely.
+
+- id: B038
+  title: attributive adjective-before-noun is used from m9 and the only card explaining it is m15's relative-clause card
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: content
+  tags: [module/m9, module/m12, module/m13, step/grammar_rule, class/untaught-before-required]
+  found: 2026-07-28
+  source: audit-grammar-m8-m13
+  detail: >
+    m9's card teaches い-adjectives as PREDICATES only ("これは たかいです",
+    with an anti-pattern against たかいだ). Putting an adjective in front of a
+    noun is never stated as a rule. Learners meet it in m9 and are producing it
+    heavily by m13, six modules before anything explains it — and when the
+    explanation lands in m15 it is framed as a relative clause (a whole
+    sentence parked in front of a noun), not as adjective modification.
+  evidence: >
+    Attributive adj+noun by module: m9=2, m12=6, m13=36, m14=4, m15=3, m17=1,
+    m23=2, m28=2 (あたらしい じてんしゃ, たかい かばん, ちいさい ねこ, やすい にく…).
+    Only file matching "in front of the noun|before a noun|before the noun"
+    across all 29 modules is m15.md.
+  fix: >
+    One or two lines on the m9 "Cheap and expensive" card, or a small card of
+    its own before m13. m15 can then present the relative clause as the
+    general case of a shape the learner already knows.
+
+- id: B039
+  title: the course teaches no conditional at all — たら, ば, なら and the と-conditional are absent from all 29 modules
+  status: open
+  severity: major
+  effort: XL
+  confidence: verified
+  area: content
+  tags: [system/coverage, class/n5-gap]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    Conditionals are core N5 and a learner cannot say "if" in any form after
+    finishing this course. This is the single largest coverage gap found.
+  evidence: >
+    A naive substring scan reports 364 たら, 66 ければ and 34 なら — and every
+    one is a false positive: たら is inside あたらしい (147) and はたらく (115,
+    plus 96 other stems), ければ is inside なければ (obligation, m25), なら is
+    inside ならない. Decomposed counts of genuine conditional forms: zero.
+    A textbook Rule Zero case — 464 apparent hits, none real.
+  fix: >
+    New content. たら is the one to add first if only one is possible.
+
+- id: B040
+  title: giving and receiving — あげる, もらう, くれる — never appear in the course
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: content
+  tags: [system/coverage, class/n5-gap]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    Core N5 and unavoidable in ordinary conversation; the くれる/もらう
+    direction distinction is one of the things beginners most need drilled.
+  evidence: >
+    grep -l for あげる, もらう, くれる, あげます, もらいます, くれます across
+    docs/learner-sim/m*.md returns zero files for all six.
+  fix: >
+    New content — at minimum a module covering the three verbs and the
+    direction of the transfer.
+
+- id: B041
+  title: ながら and くらい/ぐらい never appear in the course
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: content
+  tags: [system/coverage, class/n5-gap]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    Two smaller N5 items with no coverage: ながら (doing one thing while doing
+    another) and くらい/ぐらい (approximation — "about ten minutes"), the
+    latter awkward to live without once numbers and counters are taught.
+  evidence: >
+    grep -l ながら / ぐらい / くらい across docs/learner-sim/m*.md: zero files each.
+  fix: >
+    ぐらい can ride along with the m20 counter/number material. ながら needs
+    the て-form and a small card of its own.
+
+- id: B042
+  title: m15's module header mistranslates its own headline example — みる glossed as "reads", contradicted by its rule card two lines later
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m15, step/grammar_rule]
+  found: 2026-07-28
+  source: audit-naturalness-m14-m19
+  detail: >
+    The module framing text says ほんを みる ひと is "the person who reads
+    books". みる is not よむ, and よむ was taught in m1 and drilled in m11, so
+    the learner has both words and is being shown the wrong equivalence at the
+    top of the module.
+  evidence: >
+    m15.md:5 "ほんを みる ひと is the person who reads books" vs m15.md:10-11
+    (the rule card) "「ほんを みる ひと」 is the person who looks at books" and
+    "There is a person who looks at books."
+  fix: >
+    One word in the module header — "reads" to "looks at".
+
+- id: B043
+  title: m18 L12's dialogue has Mika introduce a friend who is also called Mika
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m18, lesson/ja-m18-neo-12, step/dialogue_listen]
+  found: 2026-07-28
+  source: audit-naturalness-m14-m19
+  detail: >
+    The speaker label is Mika and her line names the person she is describing
+    as Mika. The comprehension question then asks what Mika says about the
+    person, which is ambiguous on its face.
+  evidence: >
+    m18 L12 dialogue: 「Mika: ミカと いう。わたしの ともだちだ。」 followed by
+    "Q1: What does Mika say about the person?"
+  fix: >
+    Rename the friend. The course already has ケン, トム, たなか, ゆき in
+    rotation.
+
+- id: B044
+  title: m16 L14's dialogue explains a June-to-September beach trip by the absence of snow
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m16, lesson/ja-m16-neo-14, step/dialogue_listen, class/form-driven-nonsense]
+  found: 2026-07-28
+  source: audit-naturalness-m14-m19
+  detail: >
+    Grammatically a clean ので + ぜんぜん + past-negative sentence; semantically
+    a reason nobody would ever give, since summer snow was never a possibility.
+    The form drove the sentence and the meaning was not checked.
+  evidence: >
+    m16 L14: 「Tom: ろくがつから くがつまで にほんに いきました。ゆきが ぜんぜん
+    なかったので うみに いきました。」
+  fix: >
+    Any real reason works — あつかったので, やすみだったので.
+
+- id: B045
+  title: かぜが あります is not how Japanese says either "I have a cold" or "it is windy"
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m7, step/listening_build, class/form-driven-nonsense]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  detail: >
+    For illness Japanese uses かぜを ひいて います (or かぜを ひきました); for
+    weather, かぜが つよいです. かぜが あります is a literal calque and reads as
+    neither.
+  evidence: >
+    m7 listening_build, AUDIO: かぜが あります, tiles かぜ | が | あります |
+    アメリカじん | に | を.
+  fix: >
+    Swap the sentence. Ties to B035 — this beat also needs あります taught.
+
+- id: B046
+  title: m1's を card is built entirely from words the learner does not have, one of them in a script m1 has not taught
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m1, step/symbol_intro, system/romaji, class/untaught-before-required]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  detail: >
+    The first example a learner ever sees for を is パン を たべる. パン is
+    katakana, which m1 has not introduced, and the word then disappears from
+    the course until m9. のむ does not appear until m5.
+  evidence: >
+    m1.md:848-850 「パン を たべる」/「みず を のむ」 on the を symbol_intro.
+    パン by module: m1=2 (both on this card), then nothing until m9=37.
+    のみ: absent m1-m4, first at m5.
+  fix: >
+    Use words m1 has. The card only needs a transitive verb and an object.
+
+- id: B047
+  title: m3-m5 translate prompts begin with the literal string "Translate: " while every other module's do not
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m3, module/m4, module/m5, step/translate]
+  found: 2026-07-28
+  source: audit-beginner-m1-m7
+  blocked_by: [B028]
+  detail: >
+    TranslateStepView renders sourceText bare, so the learner literally reads
+    "Translate: It's mine." in these three modules and "It's mine." everywhere
+    else. Same three hand-authored modules as B028.
+  evidence: >
+    34 occurrences across m3-m5. Source: src/features/languages/ja/curriculum/
+    m4-neo-b.ts promptEn values, e.g. "Translate: It's mine.",
+    "Translate: It's a Japanese phone.", "Translate: It's my bicycle."
+    (The doubled "Translate into Japanese: Translate:" seen in the learner-view
+    files is the emitter's own label and is NOT what the learner sees.)
+  fix: >
+    Strip the prefix from the authored promptEn strings.
+
+- id: B048
+  title: self_explanation_mcq is implemented and linted for but the Japanese course never emits a single one
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: pedagogy
+  tags: [step/self_explanation_mcq, system/step-types]
+  found: 2026-07-28
+  source: audit-motivation-m20-m24
+  detail: >
+    The one step type that asks WHY rather than WHAT is unused across all 29
+    modules, in a course full of conceptual traps that would suit it — が for
+    pain, みえる vs みられる, つもり vs たい, は vs が.
+  evidence: >
+    grep self_explanation_mcq: 31 references in src/ (grammarHelpers.ts,
+    moduleContentLints.ts, es-quality.test.ts) and 0 occurrences across
+    docs/learner-sim/m*.md.
+  fix: >
+    Decide whether it is wanted. If yes it is a natural fit for review lessons.
+
+- id: B049
+  title: conjugation_transform stops at m16 — the back half of the course never drills a bare form change, including m24's potential-form module
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: content
+  tags: [step/conjugation_transform, module/m24, page/trainer]
+  found: 2026-07-28
+  source: audit-motivation-m20-m24
+  blocked_by: [B018]
+  detail: >
+    Every conjugation_transform in the course sits in m6-m16. From m17 to m29
+    there are none at all, so the paradigms taught in the back half are only
+    ever practised inside whole sentences.
+  evidence: >
+    conjugation_transform by module: m6=7, m7=8, m8=8, m11=6, m12=9, m13=12,
+    m14=3, m16=6, m17-m29=0.
+  fix: >
+    Overlaps B018 (potential form has no ChainForm) and B019 (six paradigms
+    cannot be drilled) — the engine gap is why the step type dies out.
+
+- id: B050
+  title: m20-m24 run the same lesson template 65 times — 7 or 8 build_sentence steps out of 18, every lesson
+  status: open
+  severity: major
+  effort: L
+  confidence: reported
+  area: pedagogy
+  tags: [module/m20, module/m21, module/m22, module/m23, module/m24, step/build_sentence]
+  found: 2026-07-28
+  source: audit-motivation-m20-m24
+  detail: >
+    The mix never varies with the content. Reported alongside three modules
+    running (m20 L7, m21 L6-7, m22 L7) that each spend a lesson introducing a
+    counter word through an identical card-then-drill shape, and a 72-step
+    stretch of yen amounts and small-object counting in m20 L5-L8.
+  evidence: >
+    Auditor counted every lesson in the five files. Not re-derived here — the
+    step-type ratio claim should be re-counted before acting.
+  fix: >
+    Vary the rotation by module intent. Related: B048 (an unused step type
+    that would break the monotony), B049.
+
+- id: B051
+  title: m25's conjecture system and m26's superlative system get no reinforcement anywhere in m27-m29
+  status: open
+  severity: major
+  effort: M
+  confidence: reported
+  area: pedagogy
+  tags: [module/m25, module/m26, module/m29, class/taught-then-abandoned]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    でしょう/だろう/でしょ/かな (all of m25) and いちばん (all of m26) never
+    recur after their own modules, including in m29, which is billed as the
+    course's closing integration.
+  evidence: >
+    Auditor scanned m27-m29 for both systems and found zero occurrences.
+    Worth a direct re-grep before acting.
+  fix: >
+    m29 is the natural home — it already revisits register across the course.
+
+- id: B052
+  title: m29 does not close the course — it reviews register only, and by its own text stops teaching
+  status: open
+  severity: major
+  effort: L
+  confidence: reported
+  area: pedagogy
+  tags: [module/m29, class/ending]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    The last module a learner ever sees introduces no new grammar, revisits
+    only the plain/polite pairing, and contains none of でしょう, いちばん,
+    なきゃ or ほうがいい. The difficulty curve peaks at m27-m28 and then sags.
+    m29 L11 also re-teaches ちょっと's refusal function nearly verbatim from
+    m10 L6, framed as "the last thing N5 owes you", without citing m10 — the
+    one place the course's own citation convention breaks.
+  evidence: >
+    Auditor read m25-m29 in full. m29's own text: "you stop learning new
+    things."
+  fix: >
+    Design decision, not a content edit. Related: B051.
+
+- id: B053
+  title: m25's かな card defers a nuance to "later" and there is no later
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m25, step/grammar_rule, class/deferred-forever]
+  found: 2026-07-28
+  source: audit-endgame-m25-m29
+  detail: >
+    A rule card promises a subtlety will be covered subsequently; the course
+    ends four modules later without returning to it. Same shape as B037, where
+    m4 defers なん and then uses it anyway — worth checking every "later" in
+    the course against where the course actually stops.
+  evidence: >
+    m25 かな rule card, "a subtlety for later".
+  fix: >
+    Either state it or drop the promise. A lint for deferral language in the
+    last modules would catch the class.
+
+- id: B054
+  title: auditor findings that did not survive verification, kept so they are not re-filed
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [class/check-the-instrument]
+  found: 2026-07-28
+  source: session-note
+  note: >
+    From the 2026-07-28 sweep. (1) "Every translate prompt reads 'Translate
+    into Japanese: Translate: X'" — the outer label is learnerView.emit's own
+    prefix, not UI text; only the inner one is real (B047). (2) "m9 drills
+    attributive やすいパン / たかいめがね three modules early" — those strings do
+    not exist; m9-m11 use たかい/やすい predicatively only. The underlying
+    concern was real but different, and is filed as B038. (3) "かばん glossed
+    'bag, basket'" — unverified, left alone. Two of five auditors produced at
+    least one fabricated quote, so quotes from a reading agent get grepped
+    before they get filed.
