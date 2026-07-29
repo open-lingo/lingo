@@ -12,6 +12,7 @@ const atom: CourseAtom = {
   romaji: "biiru",
   meaningEn: "beer",
   emoji: "🍺",
+  pos: "noun",
   fromModule: "m3",
   kind: "vocab",
 };

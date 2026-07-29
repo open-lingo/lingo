@@ -14,8 +14,23 @@
  * equivalent needed.
  */
 import type { Atom, AtomId, PartOfSpeech } from "@/shared/language/types";
+import type { KoStemClass } from "./conjugationEngine";
+import { KO_LEMMAS } from "./conjugationTables";
 
 export type KoAtomKind = "vocab" | "particle" | "phrase" | "jamo" | "syllable";
+
+/**
+ * Links a dictionary-form (…다) atom to the KO conjugation engine. `class` is
+ * the exact `KoStemClass` `conjugateKo(lemma, class, form)` consumes. Present
+ * only on lemma atoms whose surface is in `KO_LEMMAS` (the classed set);
+ * conjugated-form atoms (가요, 먹었어요, …) and verb/adjective atoms without a
+ * table row carry `partOfSpeech` but no link.
+ */
+export interface KoConjugationLink {
+  class: KoStemClass;
+  /** Matching `KO_LEMMAS` id, when this lemma is in the drilled table. */
+  lemmaId?: string;
+}
 
 export type KoAtomSource =
   | "m1"
@@ -60,6 +75,8 @@ export type KoAtom = Atom & {
   emoji?: string;
   /** Optional pronunciation hint for the alphabet trainer. */
   hint?: string;
+  /** Conjugation-engine link, on conjugable lemma atoms only. */
+  conjugation?: KoConjugationLink;
 };
 
 function atom(opts: {
@@ -947,7 +964,46 @@ const M27_VOCAB: KoAtom[] = [
  * map below; the later-module copies are marked `srsEligible: false` so the
  * SRS pool keeps one canonical card per surface.
  */
-export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
+/** lemma surface → conjugation link, from the classed `KO_LEMMAS` table. */
+const KO_CONJUGATION_BY_SURFACE: ReadonlyMap<string, KoConjugationLink> = new Map(
+  KO_LEMMAS.map((l) => [l.lemma, { class: l.cls, lemmaId: l.id }]),
+);
+
+/**
+ * Verb/adjective lemma atoms that aren't drilled in `KO_LEMMAS` but are still
+ * mechanically conjugable — the engine only needs the class, not a table row.
+ * All are regular/하다 stems (no irregular jamo rule), so a class-only link is
+ * safe. Adding them here (rather than to `KO_LEMMAS`) keeps them out of the
+ * trainer pools while still lighting up "show conjugations".
+ */
+const KO_EXTRA_CLASS: Record<string, KoStemClass> = {
+  타다: "regular", // ride / board
+  싸다: "regular", // cheap
+  짜다: "regular", // salty
+  맛있다: "regular", // delicious
+  비싸다: "regular", // expensive
+  쉬다: "regular", // rest
+  내리다: "regular", // get off
+  맑다: "regular", // clear / sunny
+  흐리다: "regular", // cloudy
+  춤추다: "regular", // dance
+  잊어버리다: "regular", // forget
+  싫어하다: "hada", // dislike
+  결정하다: "hada", // decide
+  조심하다: "hada", // be careful
+};
+
+/** Attach the conjugation link to any conjugable lemma-form atom. */
+function linkKoConjugation(atoms: KoAtom[]): KoAtom[] {
+  return atoms.map((a) => {
+    const link =
+      KO_CONJUGATION_BY_SURFACE.get(a.surface) ??
+      (KO_EXTRA_CLASS[a.surface] ? { class: KO_EXTRA_CLASS[a.surface] } : undefined);
+    return link ? { ...a, conjugation: link } : a;
+  });
+}
+
+export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = linkKoConjugation([
   ...M1_VOCAB,
   ...M2_VOCAB,
   ...M3_VOCAB,
@@ -978,7 +1034,7 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
-];
+]);
 
 /** Surface → atom lookup (used by `grammarHelpers.ts` to resolve atom ids
  *  during step authoring). First-write-wins on duplicates — the dup atom

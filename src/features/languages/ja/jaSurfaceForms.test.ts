@@ -11,6 +11,7 @@ function atom(partial: Partial<CourseAtom> & Pick<CourseAtom, "kana" | "meaningE
     meaningEn: partial.meaningEn,
     fromModule: partial.fromModule ?? "m7",
     kind: partial.kind ?? "vocab",
+    pos: partial.pos ?? "noun",
   };
 }
 

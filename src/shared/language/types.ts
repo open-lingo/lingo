@@ -41,13 +41,33 @@ export type AtomId = `${string}:${string}`;
 export type ModuleId = string;
 export type SymbolId = `${string}:${string}`;
 
+/**
+ * Language-shared part-of-speech taxonomy.
+ *
+ * Adjective nuance is language-specific: JA splits i-adjective vs na-adjective
+ * (see `JaConjugationClass`), and KO treats descriptive verbs as adjectives
+ * (see `KoStemClass` — the same jamo engine conjugates both). Both surface as
+ * `"adjective"` here; the conjugation class carries the sub-distinction.
+ *
+ * `phrase` / `grammar` / `other` are legacy buckets still used by the KO atom
+ * table (jamo → `other`, function bits → `grammar`, set phrases → `phrase`).
+ * New JA tagging uses `expression` for set phrases/greetings.
+ */
 export type PartOfSpeech =
   | "noun"
   | "verb"
   | "adjective"
   | "adverb"
   | "particle"
+  | "counter"
+  | "number"
   | "pronoun"
+  | "determiner"
+  | "conjunction"
+  | "interjection"
+  | "expression"
+  | "proper-noun"
+  // ── legacy buckets (KO atom table) ──
   | "phrase"
   | "grammar"
   | "other";

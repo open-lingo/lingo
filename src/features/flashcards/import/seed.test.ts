@@ -32,6 +32,7 @@ const stubAtom: CourseAtom = {
   kana: "すたぶ",
   romaji: "stub",
   meaningEn: "stub",
+  pos: "noun",
   fromModule: "m7",
   kind: "vocab",
 };

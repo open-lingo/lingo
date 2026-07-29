@@ -152,6 +152,8 @@ function toCourseAtomView(atom: NormalizedAtom): CourseAtom {
     emoji: atom.emoji,
     fromModule: atom.module as CourseAtom["fromModule"],
     kind: atom.kind === "other" ? "vocab" : atom.kind,
+    // Synthetic view — no linguistic pos on NormalizedAtom, derive from kind.
+    pos: atom.kind === "particle" ? "particle" : atom.kind === "phrase" ? "expression" : "noun",
     excludeFromSrs: atom.srsEligible ? undefined : true,
   };
 }
