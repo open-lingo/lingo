@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { formatTimeAgo } from "@/shared/utils/formatDate";
@@ -31,10 +31,19 @@ export type SyncManagerProps = {
 };
 
 const HOVER_LEAVE_DELAY_MS = 150;
+/** Panel width — must stay in sync with the `w-[210px]` class on the menu. */
+const PANEL_WIDTH = 210;
+const VIEWPORT_MARGIN = 8;
 
 export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  // The panel defaults to right-anchored (opens leftward), which fits the
+  // far-right position it holds in the top header. In the sidebar rail the
+  // trigger sits at the far LEFT of the screen, so opening leftward would push
+  // the 210px panel off the left viewport edge. Measure on open and flip to
+  // left-anchored (open rightward) when the right-anchored panel would clip.
+  const [alignLeft, setAlignLeft] = useState(false);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
   const [syncFailed, setSyncFailed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -64,6 +73,15 @@ export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProp
       setSyncFailed(false);
     }
   }, [hasDirty, anySyncing]);
+
+  // Pick the horizontal anchor whenever the panel opens. Right-anchored by
+  // default; flip to left-anchored only when opening leftward would clip the
+  // left viewport edge. Runs pre-paint so there's no flash of misalignment.
+  useLayoutEffect(() => {
+    if (!open || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    setAlignLeft(rect.right - PANEL_WIDTH < VIEWPORT_MARGIN);
+  }, [open]);
 
   const scheduleClose = () => {
     if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
@@ -182,7 +200,8 @@ export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProp
       {open && (
         <div
           className={cn(
-            "absolute right-0 z-50 w-[210px] rounded-lg border border-border bg-surface py-2 shadow-popover",
+            "absolute z-50 w-[210px] rounded-lg border border-border bg-surface py-2 shadow-popover",
+            alignLeft ? "left-0" : "right-0",
             dropUp ? "bottom-full mb-1" : "top-full -mt-1",
           )}
           role="menu"
