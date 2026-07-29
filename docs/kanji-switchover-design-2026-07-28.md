@@ -175,7 +175,76 @@ the learner-experience research, addresses the actual reported pain.
 
 ---
 
-## 4. What this does not do
+## 4. Feasibility — Spencer's objection, answered
+
+> "we have trouble adding things like these and then it would be hard to
+> dynamically add in a lesson step once they have the fsrs down right?"
+
+Two separable worries. The first turns out to be cheap; the second is real and
+points at a lighter design than the one proposed above.
+
+### 4a. Injecting the step is a solved problem here
+
+`getMockLessonContent` (mockLessons.ts:726) is **already a derivation stack**:
+
+```
+withKanaReviewTail( augmentWithReviewTail( deriveGrammarMicroSteps(base) ) )
+  → shape → padMatchPairsFloor → padBuildTileFloor → applyKanjiSurfaces
+```
+
+The beat is **one more pass in that stack**, not 112 authored edits.
+`applyKanjiSurfaces` already computes the exact fact required — it holds each
+atom's `unlockModule` and the lesson's module — so a sibling
+`deriveKanjiSwitchoverBeat` derives "atoms whose kanji unlocks at THIS module
+and that were taught earlier," picks pretest-vs-reveal from whether every
+component glyph unlocked in an earlier module, and injects the steps. Pure
+function of the lesson, unit-testable, zero new authoring surface. This is the
+cheapest piece of the whole design.
+
+**And the beat needs no per-learner FSRS state at all.** It fires on the
+lesson's module, which is a property of the content, not of the learner's
+memory. The FSRS question only arises *after* the beat, for the spaced return
+and the furigana gate — by which point the card exists because the beat created
+it.
+
+*Edge case:* a learner reaching m19 with ともだち still shaky gets the
+switchover beat on a wobbly word. Fire it anyway. Deferring per-learner
+reintroduces exactly the dynamic complexity worth avoiding, and the module is
+teaching that word's content regardless.
+
+### 4b. The SRS half — don't add a modality, add a card
+
+A third `reading` modality would touch `SRSCardState`, `srsMigration`,
+`isMastered` and every caller, plus the backend sync shape. That is the heavy
+path and the instinct against it is correct.
+
+The lighter path the code already invites:
+
+- SRS state is stored as **`Record<string, SRSCardState>`** — an open,
+  string-keyed map (`srsSync.ts:145`). New card IDs simply appear; there is no
+  fixed enum and **no migration of existing learner state**.
+- The course deck is **derived from atoms**, not hand-listed:
+  `buildEnrichedCourseDeck` maps atoms → cards with `id`, `type`, and
+  `unlocked: unlockedIds.has(atom.id)` (courseDeck.ts:92). Cards already carry
+  a `type` field (`"word"`).
+
+So: **give the written form its own card.** `友達` as a `type: "kanji"` card
+beside the `tomodachi` word card, `unlocked` gated on the kanji's unlock module,
+recognition sub-state = kanji→reading, production unused (we never produce
+kanji). Furigana then gates on `isMastered(store["<kanji card>"])` —
+orthographic evidence — and **B064 is fixed without touching the card schema.**
+
+This is also what the two closest tools do: jpdb and WaniKani both treat the
+kanji as its own item, subordinate to the vocabulary.
+
+**Remaining real cost**, not hidden: the new cards surface in the Card Manager
+and the review queue, and enrolling all 112 is a meaningful bump to the pool.
+Mitigation is to enroll a kanji card only once its beat has fired, so the queue
+grows with the learner rather than all at once.
+
+---
+
+## 5. What this does not do
 
 - **No kanji production, anywhere.** Unchanged, and supported (weakly but
   consistently) by the receptive-before-productive literature.
