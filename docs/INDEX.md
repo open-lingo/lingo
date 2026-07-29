@@ -32,6 +32,7 @@ Read this file FIRST when researching the project, then jump straight to the nam
 | TTS | CLAUDE.md §TTS (emitter landmine) + `../lingo-core/docs/TTS.md`; voice QA tooling: `lingo-core/scripts/tts/` |
 | Emoji / vocab art | `n5-vocab-emoji-reference-2026-05-18.md` (canonical map) + `emoji-blocked-words-2026-05-18.md` (blocklist current; its ja phrase_card advice stale) |
 | Architecture | `ARCHITECTURE_REVIEW_2026-06-14.md` (cross-repo); backend: `../lingo-core/docs/INDEX.md` |
+| **Outstanding work / gaps / bugs** | **`backlog/items.yaml` — query it with `node scripts/backlog.mjs`, never read it top to bottom. Schema: `backlog/README.md`. This supersedes the open sections of `followups.md` and `learner-sim/TRIAGE.md`.** |
 | Product backlog / current tasks | `TODO.md` (LIVE 07-17); ignore FEATURES / PRODUCT_BACKLOG / MVP_* (all pre-launch-era STALE) |
 | Frontend follow-ups | `followups.md` (LIVE 07-26) — backend/frontend contract gaps and deferred cleanups |
 | Real-user feedback | `user-feedback/` (higher product signal than synthesized audits) |

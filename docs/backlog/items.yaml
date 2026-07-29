@@ -1,0 +1,666 @@
+# The backlog. Schema + conventions: ./README.md
+# Query with `node scripts/backlog.mjs` — do not read this top to bottom.
+#
+# Sources used so far:
+#   learner-walk-1  three Opus agents, m1-m29, 2026-07-27
+#   learner-walk-2  one Opus agent, m7/m8/m11/m12/m13/m16, 2026-07-28
+#   spencer-qa      Spencer playing the app, 2026-07-28
+#   scan            a machine scan that generalised somebody else's finding
+#   session-note    something learned while building, worth not re-learning
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CONTENT — the course teaches something wrong, late, or not at all
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B001
+  title: な-adjectives that end in い are never flagged, and m12 states two rules that make them look like contradictions
+  status: open
+  severity: major
+  effort: S
+  confidence: reported
+  area: content
+  tags: [module/m12, lesson/ja-m12-neo-5, lesson/ja-m12-neo-6, step/grammar_rule, class/rule-contradicts-rule]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    きれい and ゆうめい end in い and are な-adjectives. No card anywhere says
+    so. m12 L1 tells the learner "an い-adjective never takes だ" and L7 tells
+    them "never くない — that ending belongs to い-adjectives", so きれいだ and
+    きれいじゃない read as the module breaking its own rules two lessons after
+    stating them.
+  evidence: >
+    Walker called this the strongest finding of the walk. Both words are
+    introduced in m12's な-adjective lessons with no note on the ending.
+  fix: >
+    One paragraph on the な-adjective card: the ending tells you nothing, the
+    word does, and these two are the pair everybody trips on. Probably an
+    antiPattern too (きれくない). Watch Gate 6 — antiPattern must be a minimal
+    pair of examples[0].
+
+- id: B002
+  title: が as an ordinary verb's subject is required from m7 and not explained until m16
+  status: open
+  severity: major
+  effort: M
+  confidence: reported
+  area: content
+  tags: [module/m7, module/m8, module/m11, module/m16, lesson/ja-m7-neo-3, step/build_sentence, class/untaught-before-required]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    ともだちが きます (m7 L3), せんせいが おしえる (m8 L12), ミカの こえが わかった
+    (m11 L7) all need が marking an ordinary subject. The learner has only
+    been taught が for existence (ある/いる). The は/が card does not arrive
+    until m16 L2 — nine modules of doing it by feel.
+  evidence: >
+    Three cited instances across three modules; the walker had m6's が-for-
+    existence card and nothing else.
+  fix: >
+    Either state が-as-subject in m7 alongside the ます card, or move enough of
+    m16 L2 forward. Prefer the former — m16's card is about the CONTRAST,
+    which genuinely needs the maturity.
+
+- id: B003
+  title: the recipient に (ask/tell/buy-for somebody) is never stated, and both に and を sit in the bank
+  status: open
+  severity: major
+  effort: S
+  confidence: reported
+  area: content
+  tags: [module/m8, lesson/ja-m8-neo-3, lesson/ja-m8-neo-7, step/build_sentence, class/untaught-before-required]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    m8 L3 step 9 "Ask your friend" wants ともだちに きいて with に AND を both
+    offered. Same shape in m8 L12 (s5/s9/s16) and L13 s16 "buy tea for
+    Tanaka". No rule anywhere says the person you ask, tell or buy for takes
+    に. It is a coin flip the learner cannot reason about.
+  evidence: >
+    Four instances named by the walker across two lessons.
+  fix: >
+    A clause on m8's てください or wo-object card: the THING takes を, the
+    PERSON takes に. Cheap, and it retires four coin flips.
+
+- id: B004
+  title: the kanji window opens on words the module is still teaching
+  status: open
+  severity: minor
+  effort: M
+  confidence: reported
+  area: content
+  tags: [module/m12, lesson/ja-m12-neo-1, system/kanji, class/scaffold-timing]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    m12 L1 introduces おおきい / あたらしい / ふるい / ちいさい as brand-new words,
+    then step 16 of that same lesson prints 大きい bare. 古い (L4 s6), 新しい
+    (L8 s14) and 小さい (L12 s2) follow. The rolling furigana window is being
+    computed from an unlock date that is the same lesson.
+  evidence: >
+    Four instances inside the module that introduces the words.
+  fix: >
+    The window should open N lessons after the word's DEBUT, not at module
+    granularity. Check `kanjiRollout.ts` / `applyKanjiSurfaces.ts`.
+
+- id: B005
+  title: m7 L15 requires あそこの ひと — place-noun + の + noun was never taught
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m7, lesson/ja-m7-neo-9, step/build_sentence, class/untaught-before-required]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    "Is the person over there a teacher?" needs あそこの ひと. の has been
+    owner (ミカの) and origin (にほんの) only.
+  fix: >
+    One clause on m7's の usage, or swap the sentence.
+
+- id: B006
+  title: m7 L2 builds はい、たべます before はい has been glossed
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m7, lesson/ja-m7-neo-1, step/build_sentence, class/untaught-before-required]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    はい is in m7 L1's `introduces` but nothing intro-capable surfaces it (no
+    emoji, so no image debut), and the yes/no register card is m10. The
+    learner reaches it by eliminating おもう and あに.
+  evidence: >
+    glossBeforeProduction passes, so はい IS glossed somewhere — verify where
+    before "fixing". Possible instrument problem.
+  fix: >
+    Gloss はい on m7 L1's card, or move the build later.
+
+- id: B007
+  title: m16 L9 prints a whole paradigm in romaji in a course that has been kana-only since m1
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m16, lesson/ja-m16-neo-7, step/grammar_rule, system/romaji]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    taberu / tabemasu / tabenakatta / tabemasendeshita printed as romaji, and
+    L11's counters likewise (ichimai, sanmai). Hiragana romaji retired
+    entering m7; this is nine modules past that.
+  evidence: Same class as the m16 month-readings fix from walk 1.
+  fix: Kana. Same edit shape as the から…まで card fix.
+
+- id: B008
+  title: m16 L7's card has a typo — ななかがつ
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m16, lesson/ja-m16-neo-5, step/grammar_rule]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: ななかがつ should be ななかげつ (or しちがつ — check which the card means).
+
+- id: B009
+  title: m11 L13 is titled でした and contains no rule card
+  status: open
+  severity: minor
+  effort: S
+  confidence: reported
+  area: content
+  tags: [module/m11, lesson/ja-m11-neo-8, step/grammar_rule, class/lesson-owns-no-card]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    The only statement of でした anywhere is one clause inside L8's だった
+    card. Same class as the ten wrong/missing cards fixed after walk 1 — the
+    diagnostic there caught lessons pointing at ANOTHER lesson's card, not
+    lessons whose card under-teaches their own title.
+  fix: A でした card. Check the "two lessons may not open with the same card" diagnostic still passes.
+
+- id: B010
+  title: うち and いえ share a tile bank with the difference never drawn
+  status: open
+  severity: minor
+  effort: XS
+  confidence: reported
+  area: content
+  tags: [module/m16, lesson/ja-m16-neo-1, step/build_sentence]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    Both gloss as "home" and sit in the same bank at m16 L1; うち is then
+    MCQ-tested five times. Same shape: m8 L8 introduces ちゃ as "tea" without
+    linking it to the おちゃ taught in m2.
+  fix: A gloss distinction, or keep them out of one bank.
+
+- id: B011
+  title: こめ and ごはん both render as the English word "rice"
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m8, lesson/ja-m8-neo-6, step/build_sentence]
+  found: 2026-07-28
+  source: learner-walk-2
+  detail: >
+    m8's card draws the distinction properly (こめ is the bag on the shelf,
+    ごはん the cooked bowl) but every English prompt says "rice", so "Eat rice
+    at your friend's house" (ごはん) and "Please buy rice" (こめ) look like one
+    question with two different right answers. The content is CORRECT; the
+    glosses are what collide.
+  fix: >
+    Disambiguate the prompts — "Eat a bowl of rice" / "Buy rice (the bag)".
+    Prompt text only, no Japanese changes, no TTS.
+
+- id: B012
+  title: the audience cue is absent for twelve modules — ~460 consecutive production steps never say which register they want
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: pedagogy
+  tags: [module/m13, module/m14, module/m15, module/m17, module/m23, step/build_sentence, class/scaffold-inconsistent]
+  found: 2026-07-27
+  source: learner-walk-1
+  detail: >
+    Register is named in the English prompt in 83-93 of ~90 builds in
+    m7/m11/m12/m29, and in ZERO of ~93 in m13, m14, m15, m17 and m23. All
+    five are `register: plain` and grading is max-acceptance, so nobody is
+    marked wrong — the course simply stops saying what it wants.
+  evidence: "0 of ~93 across five modules; counted."
+  fix: >
+    Decide whether the cue is required (then backfill ~460 prompts, probably
+    at the compiler) or optional once register is mature (then say so in the
+    guide and stop calling it a gap).
+  note: >
+    Spencer's call. Separately: the audience PICTURE scaffold (audienceEmoji +
+    politeness meter) exists in only 2 of 29 modules, m10 and m29, 5 steps
+    each. Whether that is the design or an abandoned experiment is also his.
+
+- id: B013
+  title: m3's survival phrases are still first met as a graded listening question
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: pedagogy
+  tags: [module/m3, lesson/ja-m3-neo-3, step/listening_comprehension, class/cold-guess-debut]
+  found: 2026-07-27
+  source: learner-walk-1
+  detail: >
+    すみません now has a picture debut and だいじょうぶ's act-out moved beside its
+    listening beat, but ごめんなさい, ありがとうございます and はじめまして still have
+    a graded listening question as their first exposure.
+  evidence: The lesson is at its 24-step band ceiling, so buying room means cutting something.
+  fix: Cut something, or split the lesson.
+
+- id: B014
+  title: 【下】's reading した collides with した, the past of する
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: content
+  tags: [system/kanji, module/m11, step/kanji_reading]
+  found: 2026-07-27
+  source: learner-walk-1
+  detail: >
+    The glyph drill is the learner's first meeting with the "below" sense, and
+    nothing disambiguates it from the past tense the course teaches in m11.
+  fix: Gloss the drill, or move the glyph.
+
+- id: B015
+  title: おぼえる exists in the course only as おぼえなきゃ / おぼえなければ, never in dictionary form
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m28, class/derived-without-base]
+  found: 2026-07-27
+  source: learner-walk-1
+  detail: The base verb is the premise of both forms and is never shown.
+  fix: One debut for おぼえる before m28.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ENGINE / DATA — the machinery is wrong or lying
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B016
+  title: unlockModuleForType takes the MAX over a tile's grammar points, so one late point locks the whole tile
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [page/trainer, system/gating, class/wrong-aggregator]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    The `masu` tile carries masu-negative (m7) and masu-past-negative (m16).
+    MAX means correcting masu-past-negative to its true module would lock ます
+    practice out of the hub from m7 to m16 — so the json is knowingly left
+    WRONG (m11) to keep the tile reachable. The data is lying to work around
+    the aggregator.
+  evidence: >
+    n5-grammar-points.json still says masu-past-negative m11; the course
+    teaches it in m16. Deliberate, documented in the conjugation-transform
+    spec.
+  fix: >
+    Unlock per FORM rather than per tile — a tile is available when its
+    EARLIEST form is taught, and the session only draws forms already taught.
+    Then correct the json and delete this workaround.
+  blocked_by: []
+
+- id: B017
+  title: n5-grammar-points.json carries pre-rewrite module numbers for ~16 points
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: data
+  tags: [system/srs, class/stale-registry]
+  found: 2026-07-28
+  source: scan
+  detail: >
+    Four blocking entries were corrected for the trainer nodes (v-tai m15→13,
+    ta-form m14→11, i-adj-past and i-adj-past-negative m10→12). The rest were
+    left because widening the edit widens the Track B blast radius.
+  evidence: >
+    Known wrong, from the shipped curriculum — masu-past m10 (m11), te-iru
+    m15 (m14), ga-hoshii m15 (m13), suki-kirai-no m16 (m13), ni-iku m25
+    (m19), ga-itai m20 (m22), no-ga-jouzu/heta m23 (m24), mashou/masenka m23
+    (m24), tsumori-desu m25 (m23), koto-ga-aru m25 (m23), tari-tari-suru m24
+    (m21), deshou m18 (m25), n-desu m26 (m27), sugiru m26 (m27),
+    nakereba-naranai m27 (m28), hou-ga-ii m27 (m28).
+  fix: >
+    Correct them all in one pass, then add a guard deriving each point's
+    module from where its card actually compiles. Do B016 first — otherwise
+    the masu tile regresses.
+  blocked_by: [B016]
+
+- id: B018
+  title: the potential form has no ChainForm, so m24 — a whole module of one paradigm — cannot be drilled
+  status: open
+  severity: minor
+  effort: L
+  confidence: verified
+  area: engine
+  tags: [module/m24, page/trainer, step/conjugation_transform]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    る→られる, う→える, する→できる, くる→こられる is a real class-keyed paradigm
+    and the entire subject of its module — the same shape as the three ramp
+    gaps closed on 2026-07-28 (ます, て, たい). It is the only remaining one
+    the engine could express and does not.
+  evidence: >
+    Every other engine form is now drilled; coverage table is in
+    docs/conjugation-transform-spec-2026-07-23.md.
+  fix: >
+    Add `potential` to ChainForm + conjugationEngine + VERB_ENTRIES columns,
+    then a ramp on m24's card and a trainer tile.
+
+- id: B019
+  title: six taught paradigms cannot be drilled at all — ている, たり, すぎる, くなる, なきゃ, じゃない
+  status: open
+  severity: note
+  effort: XL
+  confidence: verified
+  area: engine
+  tags: [module/m14, module/m21, module/m27, module/m28, module/m29, page/trainer]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    ている (m14), 〜たり〜たりする (m21), すぎる and くなる/になる (m27),
+    なきゃ/なければ/なくちゃ (m28), じゃない/じゃないです/じゃありません (m12, m29).
+    ChainForm cannot express them. These are auxiliaries and chains, where a
+    transform card is arguably the wrong instrument anyway.
+  fix: Left as a record, not a task. Revisit only if the trainer becomes the main review surface.
+
+- id: B020
+  title: the i-adjective distractor generator has no foreign-collision preference
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: engine
+  tags: [page/trainer, step/conjugation_transform]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    `generateFormationDistractors` (verbs) now sinks options that are a real
+    form of ANOTHER verb to the back of the candidate list — 37 collisions
+    across the table went to 0. `generateIAdjFormationDistractors` never got
+    the same treatment.
+  fix: Same partition, ADJ_ENTRIES instead of VERB_ENTRIES.
+  note: >
+    Spencer 2026-07-28: "its fine if the distractor is accidentally a real
+    word but prefer it not". So: prefer, never ban — a short word must still
+    fill three options.
+
+- id: B021
+  title: m12's trainer node drills three of the four adjective cells, m13's two of four たい cells
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [module/m12, module/m13, page/trainer, class/combo-model-limit]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    くなかった needs the nai-form tile, and selecting nai+ta ALSO unlocks the
+    verb past-negative なかった, which is m16 grammar. Same for たかった and
+    たくなかった. The nodes were retiled to the safe subset, so the missing
+    cells are drilled only by the in-lesson ramps.
+  evidence: >
+    COMBO_MAP keys on tile SETS, so a selection cannot ask for one stacked
+    form without every other stack its tiles imply.
+  fix: >
+    Let a node name the combo forms it wants (or exclude some), rather than
+    inferring them from the tile set.
+
+- id: B022
+  title: any future required path node needs the trainer-node backfill treatment or it strands existing learners
+  status: open
+  severity: note
+  effort: XS
+  confidence: verified
+  area: engine
+  tags: [system/gating, page/learn-map, class/migration-required]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    `getCurrentModuleIndex` returns the FIRST module that is not fully
+    complete, and `useCourseLevel` reads that index — so inserting ANY
+    required row into a shipped module rolls every existing learner back to
+    it, taking drill pools, kanji exposure and the learn map with them.
+    `backfillTrainerNodes` handles the five trainer nodes; the next insertion
+    needs its own one-time migration.
+  fix: A record, not a task. Read `trainerNodeBackfill.ts` before adding a required node.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# UI / SURFACES
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B023
+  title: the m12 trainer node's map glyph falls back to a latin letter
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: ui
+  tags: [page/learn-map, module/m12]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    `pickGlyph` takes the first Japanese character in the title. "Drill — all
+    four adjective cells" has none, so the node shows "a" from "all". The
+    other four nodes get て / た / た / ま correctly.
+  fix: >
+    Put a Japanese character in the title (e.g. "Drill — the い-adjective's
+    four cells"), or give kind:"trainer" its own glyph the way kind:"recap"
+    has its own badge.
+
+- id: B024
+  title: trainer nodes are indistinguishable from lessons on the pathway
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: ui
+  tags: [page/learn-map]
+  found: 2026-07-28
+  source: session-note
+  detail: >
+    `kind: "recap"` gets a badge, a colour and extra spacing in DistrictView
+    and ModulePathway. `kind: "trainer"` gets none of that — it renders as an
+    ordinary lesson labelled "L{n}", so a required drill looks like a lesson
+    and then opens a different surface.
+  fix: Mirror the recap treatment.
+
+- id: B025
+  title: match-pairs uses full sentences as match items
+  status: open
+  severity: minor
+  effort: S
+  confidence: reported
+  area: ui
+  tags: [step/match_pairs]
+  found: 2026-07-01
+  source: spencer-qa
+  detail: Spencer flagged it — looks tacky. Prefer single words / short phrases.
+  fix: Cap the item length in the reviewMatchPairs factory, or in the pools it draws from.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DECISIONS NEEDED — no work until Spencer picks
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B026
+  title: overhaul translate, or repoint listening_build at English
+  status: decision-needed
+  severity: note
+  effort: XL
+  confidence: verified
+  area: pedagogy
+  tags: [step/translate, step/listening_build]
+  found: 2026-07-28
+  source: spencer-qa
+  detail: >
+    Two directions, neither taken, nothing touched.
+    (a) make typed translation more Duolingo-like;
+    (b) change listening_build so the learner HEARS the Japanese and BUILDS
+    the English, with words blanked/unblanked the way the dialogue step masks
+    its transcript.
+  note: >
+    Spencer 2026-07-28: "dont touch or update anything there yet but note".
+    (b) changes what the step type means everywhere it is already authored —
+    decide before either is built.
+
+- id: B027
+  title: typed production is thin in m11 and m12 after the word-typing filler was removed
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m11, module/m12, step/translate]
+  found: 2026-07-28
+  source: scan
+  detail: >
+    Killing the single-word typed filler dropped translate share to 2.4% in
+    m11 and 3.4% in m12 — under one typed step per sub-lesson, against a guide
+    target of one per sub-lesson. Every other module sits at 9-11%.
+  evidence: docs/reports/authoring-audit.md, translate % column.
+  fix: >
+    More authored `mode: translate` SENTENCE beats in those two modules. NOT
+    by restoring word-typing — see B031.
+
+- id: B028
+  title: m3-m5 still contain hand-authored single-word typed translate steps
+  status: open
+  severity: note
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m3, module/m4, module/m5, step/translate]
+  found: 2026-07-28
+  source: scan
+  detail: >
+    Twelve remain, e.g. いぬだ for "Translate: It's a dog.", ほん？ for "Is it a
+    book?", たべる？ for "Gonna eat?". They were LEFT deliberately: the guard
+    keys on the PROMPT, and these prompts are English utterances, so the
+    retrieval is a predicate (which copula, which register) rather than a
+    vocabulary lookup. Guide §4b also says word-level items stay legitimate
+    in M1-M4.
+  fix: Nothing unless Spencer disagrees. Recorded so the decision is not re-litigated.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# NOTES — rulings and preferences. Never work; never in --next.
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B029
+  title: particle-cloze is finished, not a template
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: pedagogy
+  tags: [step/particle_cloze]
+  found: 2026-07-28
+  source: spencer-qa
+  note: >
+    Spencer, on ja-m7-neo-3: "this is a great lesson type… I think that lesson
+    type is polished and complete". Nothing to change. It carries no
+    instruction to author more of them.
+
+- id: B030
+  title: word-level RECALL is multiple choice, never typed
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: pedagogy
+  tags: [step/translate, step/multiple_choice]
+  found: 2026-07-28
+  source: spencer-qa
+  note: >
+    Spencer: "we wanted single word to always be multiple choice of some kind
+    IF it was the recall type of question." Shipped: guide §4a2 +
+    typedProductionIsUtterance.test.ts. 57 generated steps converted. The line
+    is drawn at the PROMPT, not the answer's length.
+
+- id: B031
+  title: the reviewFiller no longer emits translate at all
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: engine
+  tags: [step/translate]
+  found: 2026-07-28
+  source: session-note
+  note: >
+    The 15%-of-production translate budget that gated the filler's typed slot
+    went away with the slot. Every compiled translate step is now an authored
+    sentence beat. If translate share needs raising (B027), author beats —
+    do not restore the filler.
+
+- id: B032
+  title: romaji policy — hiragana retires entering m7, katakana at m17
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: ui
+  tags: [system/romaji]
+  found: 2026-07-16
+  source: spencer-qa
+  note: >
+    HIRAGANA_ROMAJI_OFF_MODULE = 7, KATAKANA_ROMAJI_OFF_MODULE = 17. Hiragana
+    goes one module ahead of kanji (m8) because romaji must never render
+    beside kanji. A report of "missing romaji" at m7+ on hiragana is CORRECT
+    BEHAVIOUR — check the script before treating it as a bug. Katakana at m7
+    is a real bug (that was the dialogue speaker-name fix).
+
+- id: B033
+  title: check the instrument before believing an absence
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [class/instrument-not-content]
+  found: 2026-07-27
+  source: session-note
+  note: >
+    Three times now a reader has reported the course never teaches X when the
+    EMITTER was hiding X — stripped annotations "proved" no kanji exists,
+    alt-text rendered as prose "proved" prompts leak internal data, and a
+    routed path node rendered as "(no content found)". Anything reported as
+    MISSING gets verified against source before it gets fixed.
+
+- id: B034
+  title: a test written from observed behaviour will pin the bug
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [class/test-pins-the-bug]
+  found: 2026-07-28
+  source: session-note
+  note: >
+    Two tests broke when the verb table was corrected — "m6 yields an empty
+    pool" and "the i-adj type has adjectives at m8". Both were true only
+    BECAUSE the data was wrong, and both would have blocked the fix if taken
+    at face value. Assert the rule, not the current output.

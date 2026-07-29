@@ -1,5 +1,10 @@
 # Learner simulation — what it found, what was fixed, what is open
 
+> **The "Open" sections below are MIGRATED (2026-07-28).** They now live in
+> `docs/backlog/items.yaml` (query: `node scripts/backlog.mjs`). Kept here as
+> the record of the walks; add nothing new.
+
+
 Three Opus agents walked m1–m29 in order as one continuous zero-knowledge
 learner (2026-07-27), reading only `docs/learner-sim/*` — no source, no IR, no
 tests. 185 findings: 53 BLOCKER, 67 CONFUSING, 63 NIT, 2 withdrawn.

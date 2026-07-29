@@ -1,5 +1,10 @@
 # Follow-ups
 
+> **MIGRATED 2026-07-28.** Everything still live in this file moved to
+> `docs/backlog/items.yaml` (query: `node scripts/backlog.mjs`). This file is
+> history — do not add new items here.
+
+
 One-line follow-ups discovered while finishing the social/community surfaces.
 Each entry: `file:line — note`.
 
