@@ -971,25 +971,38 @@
     Strip the prefix from the authored promptEn strings.
 
 - id: B048
-  title: self_explanation_mcq is implemented and linted for but the Japanese course never emits a single one
+  title: self_explanation_mcq is used only in m30 — the whole N5 course (m1-m29) never asks the learner WHY
   status: open
   severity: minor
   effort: M
   confidence: verified
   area: pedagogy
-  tags: [step/self_explanation_mcq, system/step-types]
+  tags: [step/self_explanation_mcq, system/step-types, class/check-the-instrument]
   found: 2026-07-28
   source: audit-motivation-m20-m24
   detail: >
-    The one step type that asks WHY rather than WHAT is unused across all 29
-    modules, in a course full of conceptual traps that would suit it — が for
-    pain, みえる vs みられる, つもり vs たい, は vs が.
+    The one step type that asks WHY rather than WHAT appears 14 times, all of
+    them in m30 — the first N4 module, authored after N5. Across all 29 N5
+    modules it appears zero times, in a course full of conceptual traps that
+    would suit it: が for pain, みえる vs みられる, つもり vs たい, は vs が.
+    That m30 reaches for it and N5 never does suggests it was adopted late
+    rather than rejected.
   evidence: >
-    grep self_explanation_mcq: 31 references in src/ (grammarHelpers.ts,
-    moduleContentLints.ts, es-quality.test.ts) and 0 occurrences across
-    docs/learner-sim/m*.md.
+    Counted from the compiled course, not the learner-view: 14 occurrences,
+    one each in ja-m30-1-1 … ja-m30-7-2. Zero in m1-m29.
   fix: >
-    Decide whether it is wanted. If yes it is a natural fit for review lessons.
+    Decide whether to backfill it into N5 review lessons. m30's 14 are the
+    worked precedent for how they read.
+  note: >
+    CORRECTED 2026-07-28. Originally filed as "the Japanese course never emits
+    a single one", on the evidence "0 occurrences across docs/learner-sim/
+    m*.md". Wrong twice over: the learner-view corpus only covers m1-m29 (m30
+    is tier n4 and is not emitted), and the count that mattered was never in
+    the markdown at all — it is in the compiled course. The emitter DOES
+    handle the step type, so its absence from the files looked like absence
+    from the course. Third instance of [[check the instrument]] in two days,
+    and this one was mine. Counts about what the course CONTAINS come from
+    the compiled course; the learner-view is for reading, not for counting.
 
 - id: B049
   title: conjugation_transform stops at m16 — the back half of the course never drills a bare form change, including m24's potential-form module
@@ -1314,3 +1327,92 @@
     かえる/帰る was NOT included — it falls just outside the top-30 on a
     dictionary-form frequency count, which undercounts verbs (かえる's family
     is 67 uses, not the 49 bare tokens). Worth revisiting on a fair metric.
+
+- id: B061
+  title: a word switching from kana to kanji happens silently — a known word's new written form deserves a teaching beat
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: pedagogy
+  tags: [system/kanji, step/self_explanation_mcq, step/kanji_reading, class/kanji-scope]
+  found: 2026-07-28
+  source: spencer-play
+  blocked_by: [B060]
+  detail: >
+    Spencer, 2026-07-28: "once we re-introduce a word with kanji (only applies
+    to already known hiragana only words) we should do a mcq or some sort of
+    better exposure."
+    Today the kanji layer substitutes at render time: a learner who has known
+    ともだち in kana since m3 simply meets 友達 one day, furigana above it, with
+    no beat marking the change. The B060 exposure tier makes this much more
+    frequent — 35 new glyphs, so many more words now have a switchover moment.
+    The switch is the single best teachable instant for that word's written
+    form and the course currently spends it on nothing.
+  evidence: >
+    Kanji recognition is render-time surface substitution
+    (secondScript/applyKanjiSurfaces.ts, KANJI_RECOGNITION_MODULE=8) with a
+    furigana window of unlock+2. The only kanji-facing step type is
+    kanji_reading (35 in the course, kanji→kana recall), and it is
+    "sprinkle-not-saturate" — it tests words whose kanji unlocked long ago,
+    deliberately NOT at the switchover.
+  fix: >
+    Spencer's proposed method, in his words: "maybe we do the same process we
+    did earlier where we think of good ideas to teach this, check other
+    learning tools and see what they do." So: research pass first (what do
+    WaniKani, Anki/Core2k, Duolingo, Bunpro, Renshuu, JPDB do at the moment a
+    known word gains its written form?), then design, then a step type.
+    Budget is available — see B063.
+
+- id: B062
+  title: the exposure kanji tier should extend into N4 rather than stopping at the N5 glyph list
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: data
+  tags: [system/kanji, module/m30, class/kanji-scope]
+  found: 2026-07-28
+  source: spencer-play
+  blocked_by: [B060]
+  detail: >
+    Spencer, 2026-07-28: "we can introduce other kanji into N4." The tier
+    field added in B060 already models this — the 35 exposure glyphs are not
+    N5 and say so. N4 content has started (m30, tier "n4", "Casual register",
+    14 lessons), so the natural next step is a proper N4 glyph set rather
+    than more one-off exposure additions.
+  evidence: >
+    getMockCourse("ja") returns 30 modules; m30 alone carries tier "n4".
+    KanjiEntry now carries tier "n5" | "exposure"; an "n4" value is the
+    obvious extension and every consumer already reads the catalog whole.
+  fix: >
+    Add tier "n4" and a real N4 glyph list. The words still blocked after
+    B060 — 御飯, 寿司, 鉛筆, 授業, 手伝う — come free with it, as does 帰る,
+    which B060 left out on a frequency metric that undercounts verbs.
+
+- id: B063
+  title: the N5 course is ~37 authored hours against a 60-hour budget — about 23 hours of headroom
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: pedagogy
+  tags: [system/scope]
+  found: 2026-07-28
+  source: spencer-play
+  note: >
+    Spencer, 2026-07-28: "the whole course for N5 should take maybe 60 hours
+    max which is a good amount of time to teach everything outside of things
+    like flashcard review."
+    MEASURED, so the budget is not a guess. 427 lessons, 7,580 steps, and the
+    authored estimatedMinutes sum to 2,244 minutes = 37.4 hours across all 30
+    modules (m30 is N4 and is a small share). A step-time cross-check agrees:
+    at 12s/step 25h, at 15s/step 32h, at 20s/step 42h.
+    So roughly 23 hours of headroom under the ceiling — the kanji-switchover
+    beats (B061), the conditional and giving/receiving gaps (B039, B040), and
+    backfilled self_explanation_mcq (B048) all fit inside it comfortably.
+    Step mix for reference: build_sentence 2284, listening_comprehension 952,
+    multiple_choice 692, listening_build 512, speaking 499, match_pairs 392,
+    dialogue_listen 333, translate 331, particle_cloze 307, word_image_mcq
+    304, symbol_recognition 256, grammar_rule 243, conjugation_transform 59,
+    kanji_reading 35, self_explanation_mcq 14.
