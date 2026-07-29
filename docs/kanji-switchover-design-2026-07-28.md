@@ -244,6 +244,75 @@ grows with the learner rather than all at once.
 
 ---
 
+## 4c. CHOSEN SHAPE — gate on the word's own SRS, latch the result
+
+Spencer, 2026-07-28: *"maybe we just gate on the word srs itself and once it is
+over like 14 days then we do 1. if they get the next fsrs answer right, then
+enable the kanji to be shown and played as a lesson step seeded in review? or 2.
+they get it wrong and dont see the kanji… put the correct in review tail steps…
+can just be 1 of the 4."*
+
+This supersedes both options in §3/§4b. It needs **no new card and no new
+modality** — it reuses the word's existing SRS as the readiness signal. The
+switchover stops being a property of the module and becomes a property of the
+learner, which also dissolves the clumping problem (m22's 18 events spread
+across each learner's own timeline).
+
+**Why it fits the code almost exactly:**
+
+1. **The renderer already holds both forms.** `JapaneseAnnotation` carries
+   `surface` (kanji, post-substitution) *and* `reading` (kana). So withholding
+   the kanji is a **render-time** decision — `applyKanjiSurfaces` stays
+   deterministic and module-gated, and the existing test suite keeps passing.
+2. **The render-time SRS read already exists.** `kanjiFuriganaSrsVisible`
+   (AnnotatedText.tsx:52) is a pure store read via `getCardState(atomId)`,
+   reactive on `useSRSStoreRevision()`. A sibling `kanjiSurfaceSrsVisible` is
+   the same shape — choose `surface` or fall back to `reading`.
+3. **The review tail is already per-learner and dynamic.**
+   `augmentWithReviewTail` (mockLessons.ts:593) reads
+   `getMockCompletedLessonIds()`, calls `buildReviewTailSteps`, and inserts
+   **before the trailing wrap-up info step for recency**. Seeding the beat there
+   is exactly the precedent.
+4. Threshold: `MASTERED_INTERVAL_DAYS = 21` already exists; 14 is deliberately
+   *lower*, so the kanji arrives while the word is strong but still has review
+   traffic to carry it. Name it separately — `KANJI_REVEAL_INTERVAL_DAYS = 14`.
+
+**The gate is a conjunction, not just the interval.** The module floor must
+stay: `learnerModule >= unlockModule` AND `interval >= 14` AND the triggering
+answer was correct. Otherwise 友達 could render at m3 on a mature ともだち
+before its component glyphs are taught.
+
+### The flaw: without a latch, the kanji flickers
+
+If the gate is a pure predicate on the *current* interval, a lapse drops the
+word under 14 days and 友達 reverts to ともだち. That is precisely the failure
+the learner research identified as the single most-reported complaint —
+Duolingo's *"words that used to be [kanji] now just aren't."* Reverting is worse
+than never switching.
+
+So **latch it**: once the switch fires for a word, it stays. One persisted set
+of atom ids plus the date each fired. No FSRS math, no card-schema change, no
+scheduler involvement — strictly smaller than §4b's extra card.
+
+### The latch date also fixes B064, for free
+
+Store *when* the switch fired and drive furigana from that, not from the module
+window. Without this there is a bad edge: a learner who latches at m25 on a word
+that unlocked at m19 is past the unlock+2 window *and* mastered, so the kanji
+would appear **bare on first sight, with no furigana at all**. Latch-date-driven
+furigana (stay for N days / N exposures after the switch) removes that edge and
+is the correct reading of "gate the crutch on mastery, not module counts."
+
+### Branch 2 — exposure before the switch
+
+Where the answer was wrong, the kanji stays hidden but its form still appears in
+a review-tail step as one of four options. **Constraint:** in a step about
+ともだち, 友達 must be the *correct* option, never a distractor — otherwise the
+learner is trained that the kanji form is wrong. Distractors must be other
+words' kanji.
+
+---
+
 ## 5. What this does not do
 
 - **No kanji production, anywhere.** Unchanged, and supported (weakly but
