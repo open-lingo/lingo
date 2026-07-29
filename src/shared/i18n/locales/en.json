@@ -566,8 +566,57 @@
     "pillars": {
       "vocabulary": {
         "vocabBrowser": "Your vocabulary",
-        "vocabBrowserDesc": "Every word in your course, with your progress"
+        "vocabBrowserDesc": "Every word in your course, with your progress",
+        "dictionary": "Dictionary",
+        "dictionaryDesc": "Look up any word, including words you haven't learned yet"
       }
+    }
+  },
+  "dictionary": {
+    "title": "Dictionary",
+    "subtitle": "Look up any word — course vocabulary and the frequency list, with readings, meanings, and conjugations.",
+    "searchPlaceholder": "Search word, reading, or meaning…",
+    "searchLabel": "Search the dictionary",
+    "languageSwitch": "Dictionary language",
+    "searchCount": "{{count}} results for “{{query}}”",
+    "browseCount": "Showing {{count}} of {{total}} words",
+    "showMore": "Show more",
+    "playAudio": "Play pronunciation",
+    "rankBadge": "#{{rank}} most frequent",
+    "unlockBadge": "Unlocks {{module}}",
+    "conjugation": "Conjugation",
+    "practiceConjugation": "Practice",
+    "facet": {
+      "source": "Source",
+      "pos": "Part of speech",
+      "module": "Unlocks at"
+    },
+    "source": {
+      "course": "In your course",
+      "frequency": "Frequency list",
+      "both": "Course + frequency"
+    },
+    "pos": {
+      "noun": "Noun",
+      "verb": "Verb",
+      "adjective": "Adjective",
+      "adverb": "Adverb",
+      "particle": "Particle",
+      "counter": "Counter",
+      "number": "Number",
+      "pronoun": "Pronoun",
+      "determiner": "Determiner",
+      "conjunction": "Conjunction",
+      "interjection": "Interjection",
+      "expression": "Expression",
+      "proper-noun": "Proper noun",
+      "phrase": "Phrase",
+      "grammar": "Grammar",
+      "other": "Other"
+    },
+    "noMatches": {
+      "title": "No words found",
+      "body": "Try a different search or clear a filter."
     }
   },
   "vocab": {

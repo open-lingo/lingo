@@ -51,6 +51,11 @@ const AboutPage = lazyRetry(() =>
 const VocabPage = lazyRetry(() =>
   import("@/features/vocab/VocabPage").then((m) => ({ default: m.VocabPage })),
 );
+const DictionaryPage = lazyRetry(() =>
+  import("@/features/dictionary/DictionaryPage").then((m) => ({
+    default: m.DictionaryPage,
+  })),
+);
 const ProgressPage = lazyRetry(() =>
   import("@/features/progress/ProgressPage").then((m) => ({ default: m.ProgressPage })),
 );
@@ -502,6 +507,7 @@ const router = createBrowserRouter([
                 ],
               },
               { path: "vocab", element: <VocabPage /> },
+              { path: "dictionary", element: <DictionaryPage /> },
               { path: "shop", element: <ShopPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },

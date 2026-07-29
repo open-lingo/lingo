@@ -77,6 +77,14 @@ const PILLARS: Pillar[] = [
         route: "vocab",
       },
       {
+        id: "dictionary",
+        titleKey: "practice.pillars.vocabulary.dictionary",
+        titleDefault: "Dictionary",
+        descKey: "practice.pillars.vocabulary.dictionaryDesc",
+        descDefault: "Look up any word, including words you haven't learned yet",
+        route: "dictionary",
+      },
+      {
         id: "deck-manager",
         titleKey: "flashcards.deckManager.title",
         titleDefault: "Deck manager",
