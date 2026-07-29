@@ -229,7 +229,7 @@ grammarPoints:
       - { ja: "ごごから じゅぎょうが ある。", en: "I have class from the afternoon." }
     antiPattern: { ja: "トムは アメリカを くる。", why: "から marks where you come FROM — を marks a direct object, and くる has none: トムは アメリカから くる。" }
   - id: made-until
-    rule: "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ. Three of them bend the number and are worth learning as their own words: April is しがつ, July is しちがつ, September is くがつ — never よんがつ, ななかがつ or きゅうがつ."
+    rule: "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ. Three of them bend the number and are worth learning as their own words: April is しがつ, July is しちがつ, September is くがつ — never よんがつ, なながつ or きゅうがつ."
     examples:
       - { ja: "くじから ごじまで はたらく。", en: "I work from nine to five." }
       - { ja: "ごじまで まつ。", en: "I'll wait until five." }
@@ -238,7 +238,7 @@ grammarPoints:
       - { ja: "あさから ばんまで えいがを みた。", en: "I watched movies from morning till evening." }
     antiPattern: { ja: "くじから ごじから はたらく。", why: "the end of a span is まで, never a second から: くじから ごじまで はたらく。" }
   - id: masu-past-negative
-    rule: "You already own three quarters of the ます table — たべます, たべません, たべました — and this is the last cell: \"didn't\". Take the ません you already say and add the でした you already say. たべません + でした → たべませんでした. Nothing is rebuilt and nothing is irregular; every verb does it the same way. Here is the whole thing in one place for the first time, plain on the left and polite on the right. Non-past: taberu / tabemasu. Non-past negative: tabenai / tabemasen. Past: tabeta / tabemashita. Past negative: tabenakatta / tabemasendeshita. Plain is still your default; the polite column is the register you switch into for a teacher, a shop, or a stranger."
+    rule: "You already own three quarters of the ます table — たべます, たべません, たべました — and this is the last cell: \"didn't\". Take the ません you already say and add the でした you already say. たべません + でした → たべませんでした. Nothing is rebuilt and nothing is irregular; every verb does it the same way. Here is the whole thing in one place for the first time, plain on the left and polite on the right. Non-past: たべる / たべます. Non-past negative: たべない / たべません. Past: たべた / たべました. Past negative: たべなかった / たべませんでした. Plain is still your default; the polite column is the register you switch into for a teacher, a shop, or a stranger."
     conjugation: { form: masu-past-neg, classes: [ru, u, irregular] }
     examples:
       - { ja: "きのう ごはんを たべませんでした。", en: "I didn't eat yesterday." }
@@ -258,7 +258,7 @@ grammarPoints:
       - { ja: "ぜんぜん おもしろくなかった。", en: "It wasn't interesting at all." }
     antiPattern: { ja: "きのう ごはんを たべないかった。", why: "ない drops its い before かった, exactly like たかい → たかかった: きのう ごはんを たべなかった。" }
   - id: counter-mai
-    rule: "Flat things — tickets, photographs, letters, shirts, plates — are counted with 〜まい, and it is the kindest counter in the language: no reading ever changes. ichimai, sanmai, yonmai, gomai, all the way up, exactly as you already say the numbers. It sits after the thing being counted and in front of the verb: 「きっぷを さんまい かった」 = I bought three tickets. To ask how many, なんまい: 「きっぷを なんまい かう？」"
+    rule: "Flat things — tickets, photographs, letters, shirts, plates — are counted with 〜まい, and it is the kindest counter in the language: no reading ever changes. いちまい, さんまい, よんまい, ごまい, all the way up, exactly as you already say the numbers. It sits after the thing being counted and in front of the verb: 「きっぷを さんまい かった」 = I bought three tickets. To ask how many, なんまい: 「きっぷを なんまい かう？」"
     examples:
       - { ja: "きっぷを さんまい かった。", en: "I bought three tickets." }
       - { ja: "しゃしんを ごまい みた。", en: "I looked at five photos." }

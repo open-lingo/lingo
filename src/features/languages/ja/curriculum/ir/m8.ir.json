@@ -1257,7 +1257,7 @@
         },
         {
           "kind": "challenge",
-          "ja": "みせで ごはんを かってください。",
+          "ja": "みせで こめを かってください。",
           "en": "Say politely: Please buy rice at the shop",
           "combines": [
             "de-action",

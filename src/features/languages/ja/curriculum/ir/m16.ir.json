@@ -218,7 +218,7 @@
     },
     {
       "id": "made-until",
-      "rule": "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ. Three of them bend the number and are worth learning as their own words: April is しがつ, July is しちがつ, September is くがつ — never よんがつ, ななかがつ or きゅうがつ.",
+      "rule": "から says where something starts; まで says where it STOPS. Put the pair together and you have a span: 「くじから ごじまで はたらく」 = I work from nine to five. It spans times, places and months alike, and まで is perfectly happy on its own with no から in front of it: 「ごじまで まつ」 = I'll wait until five. Months are a number plus がつ — いちがつ, ろくがつ, じゅうがつ. Three of them bend the number and are worth learning as their own words: April is しがつ, July is しちがつ, September is くがつ — never よんがつ, なながつ or きゅうがつ.",
       "examples": [
         {
           "ja": "くじから ごじまで はたらく。",
@@ -248,7 +248,7 @@
     },
     {
       "id": "masu-past-negative",
-      "rule": "You already own three quarters of the ます table — たべます, たべません, たべました — and this is the last cell: \"didn't\". Take the ません you already say and add the でした you already say. たべません + でした → たべませんでした. Nothing is rebuilt and nothing is irregular; every verb does it the same way. Here is the whole thing in one place for the first time, plain on the left and polite on the right. Non-past: taberu / tabemasu. Non-past negative: tabenai / tabemasen. Past: tabeta / tabemashita. Past negative: tabenakatta / tabemasendeshita. Plain is still your default; the polite column is the register you switch into for a teacher, a shop, or a stranger.",
+      "rule": "You already own three quarters of the ます table — たべます, たべません, たべました — and this is the last cell: \"didn't\". Take the ません you already say and add the でした you already say. たべません + でした → たべませんでした. Nothing is rebuilt and nothing is irregular; every verb does it the same way. Here is the whole thing in one place for the first time, plain on the left and polite on the right. Non-past: たべる / たべます. Non-past negative: たべない / たべません. Past: たべた / たべました. Past negative: たべなかった / たべませんでした. Plain is still your default; the polite column is the register you switch into for a teacher, a shop, or a stranger.",
       "conjugation": {
         "form": "masu-past-neg",
         "classes": [
@@ -324,7 +324,7 @@
     },
     {
       "id": "counter-mai",
-      "rule": "Flat things — tickets, photographs, letters, shirts, plates — are counted with 〜まい, and it is the kindest counter in the language: no reading ever changes. ichimai, sanmai, yonmai, gomai, all the way up, exactly as you already say the numbers. It sits after the thing being counted and in front of the verb: 「きっぷを さんまい かった」 = I bought three tickets. To ask how many, なんまい: 「きっぷを なんまい かう？」",
+      "rule": "Flat things — tickets, photographs, letters, shirts, plates — are counted with 〜まい, and it is the kindest counter in the language: no reading ever changes. いちまい, さんまい, よんまい, ごまい, all the way up, exactly as you already say the numbers. It sits after the thing being counted and in front of the verb: 「きっぷを さんまい かった」 = I bought three tickets. To ask how many, なんまい: 「きっぷを なんまい かう？」",
       "examples": [
         {
           "ja": "きっぷを さんまい かった。",
@@ -4086,7 +4086,8 @@
       "gloss": "want to eat",
       "imageable": false,
       "kind": "tai-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみたい",
@@ -4094,7 +4095,8 @@
       "gloss": "want to drink",
       "imageable": false,
       "kind": "tai-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "いきたい",
@@ -4109,7 +4111,8 @@
       "gloss": "want to watch",
       "imageable": false,
       "kind": "tai-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "かいたい",
@@ -4117,7 +4120,8 @@
       "gloss": "want to buy",
       "imageable": false,
       "kind": "tai-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "したい",
@@ -4132,7 +4136,8 @@
       "gloss": "want to play",
       "imageable": false,
       "kind": "tai-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "たべたくない",
@@ -4476,6 +4481,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "カメラ",
+      "romaji": "kamera",
+      "gloss": "camera",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "りょこう",
       "romaji": "ryokou",
       "gloss": "trip, travel",
@@ -4660,6 +4672,13 @@
       "kind": "particle"
     },
     {
+      "kana": "いけ",
+      "romaji": "ike",
+      "gloss": "pond",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "で",
       "romaji": "de",
       "gloss": "at / in (location of action)",
@@ -4673,7 +4692,8 @@
       "gloss": "eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみます",
@@ -4681,7 +4701,8 @@
       "gloss": "drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みます",
@@ -4689,7 +4710,8 @@
       "gloss": "watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきます",
@@ -4697,15 +4719,8 @@
       "gloss": "go, travel (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
-    },
-    {
-      "kana": "します",
-      "romaji": "shimasu",
-      "gloss": "do, make (polite)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きます",
@@ -4713,7 +4728,17 @@
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいます",
@@ -4721,7 +4746,8 @@
       "gloss": "buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "ききます",
@@ -4729,7 +4755,8 @@
       "gloss": "listen, ask (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそびます",
@@ -4737,7 +4764,8 @@
       "gloss": "play (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "あります",
@@ -4745,7 +4773,8 @@
       "gloss": "have, there is (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "たべません",
@@ -4753,7 +4782,8 @@
       "gloss": "don't eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみません",
@@ -4761,7 +4791,8 @@
       "gloss": "don't drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みません",
@@ -4769,7 +4800,8 @@
       "gloss": "don't watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきません",
@@ -4777,7 +4809,8 @@
       "gloss": "don't go, not travelling (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きません",
@@ -4785,7 +4818,8 @@
       "gloss": "doesn't come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいません",
@@ -4793,7 +4827,8 @@
       "gloss": "don't buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "しません",
@@ -4801,7 +4836,8 @@
       "gloss": "don't do, won't make (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "はたらきません",
@@ -4809,7 +4845,8 @@
       "gloss": "don't work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "ありません",
@@ -4817,7 +4854,8 @@
       "gloss": "doesn't have, isn't there (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "はたらく",
@@ -4834,7 +4872,8 @@
       "gloss": "work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "かいしゃ",
@@ -4898,7 +4937,8 @@
       "gloss": "eat (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "みて",
@@ -4906,7 +4946,8 @@
       "gloss": "watch, look (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "かって",
@@ -4914,7 +4955,8 @@
       "gloss": "buy (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "きいて",
@@ -4922,7 +4964,8 @@
       "gloss": "listen, ask (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそんで",
@@ -4930,7 +4973,8 @@
       "gloss": "play (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "いって",
@@ -4938,7 +4982,8 @@
       "gloss": "go, travel (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "して",
@@ -4946,7 +4991,8 @@
       "gloss": "do, make (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "きて",
@@ -4954,7 +5000,8 @@
       "gloss": "come (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "ください",
@@ -4979,7 +5026,8 @@
       "gloss": "teach, tell (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "おしえる"
+      "derivedFrom": "おしえる",
+      "verbClass": "ru"
     },
     {
       "kana": "ごはん",

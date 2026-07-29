@@ -514,7 +514,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m12-neo-8", title: "です \u2014 the coat that never conjugates", status: "available" as const },
             { id: "ja-m12-neo-9", title: "どう？ \u2014 asking what something is like", status: "available" as const },
             { id: "ja-m12-neo-review-3", title: "Review \u2014 both classes, all four cells", status: "available" as const },
-            { id: "ja-m12-neo-trainer-iadj", title: "Drill — all four adjective cells", status: "available" as const,
+            { id: "ja-m12-neo-trainer-iadj", title: "Drill — the い-adjective's cells", status: "available" as const,
               kind: "trainer" as const, trainerTypeIds: ["i-adj-forms", "ta-form"] },
             { id: "ja-m12-neo-challenge", title: "Challenge \u2014 describe it, then describe it in the past", status: "available" as const },
           ],

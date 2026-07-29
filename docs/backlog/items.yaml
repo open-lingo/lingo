@@ -140,7 +140,7 @@
 
 - id: B007
   title: m16 L9 prints a whole paradigm in romaji in a course that has been kana-only since m1
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: reported
@@ -154,10 +154,12 @@
     entering m7; this is nine modules past that.
   evidence: Same class as the m16 month-readings fix from walk 1.
   fix: Kana. Same edit shape as the から…まで card fix.
+  resolution: >
+    fixed 2026-07-28 — paradigm and counters now kana
 
 - id: B008
   title: m16 L7's card has a typo — ななかがつ
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: reported
@@ -166,6 +168,8 @@
   found: 2026-07-28
   source: learner-walk-2
   detail: ななかがつ should be ななかげつ (or しちがつ — check which the card means).
+  resolution: >
+    fixed 2026-07-28 — ななかがつ → なながつ, matching よんがつ/きゅうがつ beside it
 
 - id: B009
   title: m11 L13 is titled でした and contains no rule card
@@ -202,7 +206,7 @@
 
 - id: B011
   title: こめ and ごはん both render as the English word "rice"
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: verified
@@ -219,6 +223,8 @@
   fix: >
     Disambiguate the prompts — "Eat a bowl of rice" / "Buy rice (the bag)".
     Prompt text only, no Japanese changes, no TTS.
+  resolution: >
+    fixed 2026-07-28 — the shop beat used ごはん against its own card; now こめ, so every buy-rice is こめ and every eat-rice is ごはん
 
 - id: B012
   title: the audience cue is absent for twelve modules — ~460 consecutive production steps never say which register they want
@@ -388,7 +394,7 @@
 
 - id: B020
   title: the i-adjective distractor generator has no foreign-collision preference
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: verified
@@ -406,6 +412,8 @@
     Spencer 2026-07-28: "its fine if the distractor is accidentally a real
     word but prefer it not". So: prefer, never ban — a short word must still
     fill three options.
+  resolution: >
+    fixed 2026-07-28 — same stable partition as the verb generator
 
 - id: B021
   title: m12's trainer node drills three of the four adjective cells, m13's two of four たい cells
@@ -454,7 +462,7 @@
 
 - id: B023
   title: the m12 trainer node's map glyph falls back to a latin letter
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: verified
@@ -470,6 +478,8 @@
     Put a Japanese character in the title (e.g. "Drill — the い-adjective's
     four cells"), or give kind:"trainer" its own glyph the way kind:"recap"
     has its own badge.
+  resolution: >
+    fixed 2026-07-28 — title now carries い, so pickGlyph finds a Japanese character
 
 - id: B024
   title: trainer nodes are indistinguishable from lessons on the pathway

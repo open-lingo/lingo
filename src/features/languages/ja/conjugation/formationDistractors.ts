@@ -11,7 +11,7 @@
  * (trainer sessions, ConjugationPracticePage, conjugationCloze) shares this
  * one implementation. Do not duplicate.
  */
-import { VERB_ENTRIES, type VerbGroup } from "../conjugationTables";
+import { VERB_ENTRIES, ADJ_ENTRIES, type VerbGroup } from "../conjugationTables";
 import {
   conjugateVerb,
   conjugateIAdj,
@@ -160,6 +160,27 @@ const ADJ_SUFFIX: Record<IAdjForm, string> = {
  * ramp, and importing `trainerSession` there closes an import cycle back
  * into the curriculum. `trainerSession` re-exports it — still ONE source.
  */
+
+/** Same rule as `collidesWithAnotherVerb`, over the adjective table. */
+let foreignAdjForms: Map<string, Set<string>> | null = null;
+function collidesWithAnotherAdj(surface: string, dictionary: string): boolean {
+  if (!foreignAdjForms) {
+    foreignAdjForms = new Map();
+    for (const entry of ADJ_ENTRIES) {
+      for (const s of [entry.dictionary, ...Object.values(entry.forms)]) {
+        if (!s) continue;
+        const set = foreignAdjForms.get(s) ?? new Set<string>();
+        set.add(entry.dictionary);
+        foreignAdjForms.set(s, set);
+      }
+    }
+  }
+  const owners = foreignAdjForms.get(surface);
+  if (!owners) return false;
+  for (const owner of owners) if (owner !== dictionary) return true;
+  return false;
+}
+
 export function generateIAdjFormationDistractors(
   dictionary: string,
   form: IAdjForm,
@@ -184,7 +205,12 @@ export function generateIAdjFormationDistractors(
   const stem = dictionary.slice(0, -1);
   for (const e of ["くない", "かった", "くなかった"]) push(stem + e);
 
-  return out.slice(0, 3);
+  // Prefer options that are not a real form of some other adjective —
+  // stable, so the priority order above survives inside each half. Same
+  // rule as the verb generator (Spencer: prefer it not, never ban it).
+  const clean = out.filter((c) => !collidesWithAnotherAdj(c, dictionary));
+  const colliding = out.filter((c) => collidesWithAnotherAdj(c, dictionary));
+  return [...clean, ...colliding].slice(0, 3);
 }
 
 /**

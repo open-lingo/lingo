@@ -276,7 +276,7 @@ lessons:
           - { speaker: "ケン", ja: "あそこだ。", en: "Over there." }
         questions:
           - { q: "Where is the shop?", options: ["Over there", "Here", "At Mika's house", "Not stated"], answer: "Over there" }
-      - { kind: challenge, ja: "みせで ごはんを かってください。", en: "Say politely: Please buy rice at the shop", combines: [de-action, wo-object, te-kudasai], mode: build }
+      - { kind: challenge, ja: "みせで こめを かってください。", en: "Say politely: Please buy rice at the shop", combines: [de-action, wo-object, te-kudasai], mode: build }
     reviewPool: [いく, かう, ちゃ, ごはん, いえ, ひと, きょう, ともだち]
 
   - id: m8-neo-r2
