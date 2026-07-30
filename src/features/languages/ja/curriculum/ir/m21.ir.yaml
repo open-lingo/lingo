@@ -316,8 +316,9 @@ newAtoms:
   - { kana: コーヒー, romaji: koohii, gloss: "coffee", shortGloss: "coffee", imageable: false, kind: vocab }
   - { kana: おさけ, romaji: osake, gloss: "sake, alcohol", shortGloss: "sake", kind: vocab }
   # ══ L5-L6. THE CUP COUNTER, cell by cell. See the notes block: はい cannot be
-  #    registered (it is the m3 interjection "yes", and the by-kana map is
-  #    last-wins), so no cell composes and every cell that reaches a tile is a
+  #    registered (it is the m3 interjection "yes", which owns the kana in the
+  #    by-kana map — first-wins + ruling table), so no cell composes and every
+  #    cell that reaches a tile is a
   #    whole atom. にはい is banned twice over — the に/二 homograph and the
   #    はい/はい one — and ななはい / はっぱい / きゅうはい / じゅっぱい live in
   #    the L5 card's prose, which is mixed-script and invisible to jaSurfaces.

@@ -22,7 +22,8 @@
  * The ledger row also owes the cup counter 〜はい (moved m22→m21 because a
  * listing module is where a counter is actually used). **Every 〜はい cell is a
  * WHOLE ATOM**: the base form はい cannot be registered — it is already the m3
- * interjection "yes", and `JA_COURSE_ATOMS_BY_KANA` is last-wins — so no cell
+ * interjection "yes", which owns the kana in `JA_COURSE_ATOMS_BY_KANA`
+ * (first-wins + ruling table; a second はい row would need a ruling) — so no cell
  * can compose the way m19's さん + ぷん and m20's ご + ひゃく did.
  * `m21-neo.test.ts` checks every 〜はい surface against the number in front of
  * it.

@@ -24,7 +24,8 @@
  *
  * The 本 counter drips here as ordinary vocabulary (RUN-PLAN reconciliation,
  * `counter-hon` m21→m22). **Every 本 cell is a WHOLE ATOM**: the base form ほん
- * is already the m3 atom for "book" and `JA_COURSE_ATOMS_BY_KANA` is last-wins,
+ * is already the m3 atom for "book", which owns the kana in
+ * `JA_COURSE_ATOMS_BY_KANA` (first-wins + ruling table),
  * so nothing can compose — 「ごほん」 would tile a library. 「にほん」 is banned
  * three times over. `m22-neo.test.ts` checks every 〜ほん surface against the
  * number in front of it.
