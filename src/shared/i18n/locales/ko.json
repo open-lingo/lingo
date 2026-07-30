@@ -568,7 +568,65 @@
         "vocabBrowser": "내 어휘",
         "vocabBrowserDesc": "코스의 모든 단어를 내 진도와 함께",
         "dictionary": "사전",
-        "dictionaryDesc": "아직 배우지 않은 단어까지 무엇이든 찾아보세요"
+        "dictionaryDesc": "아직 배우지 않은 단어까지 무엇이든 찾아보세요",
+        "title": "어휘",
+        "tagline": "간격 반복 일정으로 배우는 단어와 표현",
+        "review": "플래시카드 복습",
+        "reviewDesc": "SRS 대기열",
+        "decksDesc": "덱 정리하기",
+        "cardsDesc": "카드 보기 및 편집",
+        "browseDesc": "다른 학습자가 공유한 덱"
+      },
+      "grammar": {
+        "title": "문법",
+        "tagline": "단어를 이어 주는 규칙",
+        "drills": "복습 드릴",
+        "drillsDesc": "레슨과 연계된 맞춤 드릴",
+        "conjugation": "활용 연습",
+        "conjugationDesc": "동사와 형용사 활용 드릴",
+        "particlesDesc": "참고 가이드와 의미",
+        "counters": "수 세는 말",
+        "countersDesc": "불규칙 조수사 읽기"
+      },
+      "reading": {
+        "title": "읽기",
+        "tagline": "수준에 맞는 글을 이해하세요",
+        "passages": "읽기 지문",
+        "passagesDesc": "이해 문제가 있는 짧은 지문",
+        "storiesDesc": "오디오가 있는 이야기 읽기",
+        "alphabet": "문자 인식",
+        "alphabetDesc": "목표 언어의 문자를 유창하게 읽기",
+        "externalDesc": "커뮤니티의 실제 자료"
+      },
+      "listening": {
+        "title": "듣기",
+        "tagline": "원어민 속도의 오디오로 귀를 훈련하세요",
+        "listenChoose": "듣고 고르기",
+        "listenChooseDesc": "표현을 듣고 뜻을 고르세요",
+        "conversation": "대화",
+        "conversationDesc": "대화를 듣고 직접 말해 보세요",
+        "stories": "스토리 (오디오)",
+        "storiesDesc": "낭독되는 이야기를 따라가세요",
+        "echo": "따라 말하기 연습",
+        "echoDesc": "듣고 나서 들은 내용을 따라 말하세요"
+      },
+      "speaking": {
+        "title": "말하기",
+        "tagline": "소리 내어 말하기 — 발음과 응답",
+        "drills": "말하기 연습",
+        "drillsDesc": "음성 인식을 활용한 따라 말하기와 응답 드릴",
+        "micTuning": "마이크 조정",
+        "micTuningDesc": "내 목소리에 맞게 음성 인식 보정"
+      },
+      "writing": {
+        "title": "쓰기",
+        "tagline": "글자 하나하나 직접 써 보세요",
+        "typeIt": "입력하기",
+        "typeItDesc": "뜻을 보고 표현을 입력하세요",
+        "alphabet": "문자 드릴",
+        "alphabetDesc": "읽기, 쓰기, 듣기 드릴",
+        "kanjiDesc": "인식과 읽기",
+        "componentsDesc": "부수와 글자 구성 요소"
       }
     },
     "speaking": {
@@ -619,7 +677,42 @@
       "answerWas": "정답: {{answer}}",
       "next": "다음",
       "finish": "완료",
-      "gotIt": "이해했어요"
+      "gotIt": "이해했어요",
+      "subtitle": "읽을 수 있는 만큼 읽어 보세요 — 모르는 단어는 탭하세요.",
+      "modeAria": "읽기 모드",
+      "mode": {
+        "stories": "스토리",
+        "cloze": "빈칸 채우기"
+      },
+      "storyProgress": "{{total}}개 중 {{n}}번째 이야기",
+      "hideEnglish": "영어 숨기기",
+      "showEnglish": "영어 보기",
+      "anotherStory": "다른 이야기",
+      "check": "이해도 확인",
+      "markRead": "읽음으로 표시",
+      "quiz": {
+        "doneTitle": "잘 읽었어요",
+        "score": "{{total}}개 중 {{correct}}개를 맞혔어요.",
+        "reread": "다시 읽기",
+        "heading": "“{{title}}” 내용을 이해했나요?",
+        "finish": "결과 보기"
+      },
+      "cloze": {
+        "empty": {
+          "title": "아직 빈칸 채우기가 없어요",
+          "description": "단어를 조금 더 배우면 읽을거리를 빈칸 채우기 연습으로 만들어 드려요."
+        },
+        "doneTitle": "세션 완료",
+        "doneScore": "{{total}}개 중 {{correct}}개를 정확히 채웠어요.",
+        "again": "새 세트",
+        "progress": "{{total}}개 중 {{n}}번째",
+        "scoreLabel": "점수 {{correct}}/{{total}}",
+        "meaning": "뜻",
+        "correct": "잘 읽었어요.",
+        "answerWas": "정답: {{answer}}",
+        "next": "다음",
+        "finish": "완료"
+      }
     },
     "listening": {
       "title": "듣기",
@@ -670,6 +763,60 @@
       "answerLabel": "정답은:",
       "playAria": "오디오 재생",
       "next": "다음"
+    },
+    "conversation": {
+      "back": "뒤로",
+      "replayAria": "대화 다시 재생",
+      "playing": "재생 중…",
+      "replay": "대화 다시 재생",
+      "transcript": "대본",
+      "playLine": "문장 재생",
+      "readAlong": "들으면서 따라 읽으세요 — 모르는 단어는 탭하세요.",
+      "followed": "{{total}}개 중 {{correct}}개를 이해했어요",
+      "backToList": "대화 목록으로",
+      "question": "{{total}}개 중 {{n}}번째 질문",
+      "whatSaid": "{{speaker}}이(가) 뭐라고 했나요?",
+      "finish": "완료",
+      "next": "다음",
+      "title": "대화",
+      "subtitle": "실제 대화를 듣고 직접 말해 보세요",
+      "empty": {
+        "title": "아직 대화가 없어요",
+        "desc": "레슨을 계속 진행하세요 — 해당 모듈에 도달하면 대화가 열립니다."
+      },
+      "moduleTag": "M{{n}}",
+      "listen": "듣기",
+      "roleplay": "역할극",
+      "roleplayDone": "역할극 완료",
+      "produced": "{{total}}개 문장 중 {{correct}}개를 말했어요.",
+      "lineProgress": "{{total}}개 중 {{n}}번째 문장",
+      "modeAria": "발화 모드",
+      "modeRamp": "단계별",
+      "modeTiles": "타일",
+      "modeType": "입력",
+      "modeSpeak": "말하기",
+      "continue": "계속",
+      "youSaid": "좋아요 — 이렇게 말했어요",
+      "theLineWas": "정답 문장은",
+      "playAudio": "오디오 재생",
+      "yourLine": "당신의 차례 — 직접 말해 보세요",
+      "tapTiles": "타일을 순서대로 탭하세요",
+      "tilesWrong": "아쉬워요 — 타일 순서를 바꿔 다시 확인하세요.",
+      "check": "확인",
+      "showAnswer": "정답 보기",
+      "yourLineAria": "당신의 문장",
+      "typePlaceholderKo": "한국어 또는 영어로 입력하세요…",
+      "typePlaceholder": "문장을 입력하세요…",
+      "kana": "가나",
+      "hangul": "한글",
+      "typeWrong": "아쉬워요 — 다시 시도하거나 문장을 확인하세요.",
+      "hint": "힌트",
+      "showLine": "문장 보기",
+      "stopRecording": "녹음 중지",
+      "tapToSpeak": "탭하여 말하기",
+      "listeningStop": "듣는 중 — 탭하여 중지",
+      "heard": "들린 내용",
+      "speakWrong": "아쉬워요 — 다시 해 보세요."
     }
   },
   "vocab": {

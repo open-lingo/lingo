@@ -568,7 +568,65 @@
         "vocabBrowser": "Tu vocabulario",
         "vocabBrowserDesc": "Todas las palabras del curso, con tu progreso",
         "dictionary": "Diccionario",
-        "dictionaryDesc": "Busca cualquier palabra, incluidas las que aún no has aprendido"
+        "dictionaryDesc": "Busca cualquier palabra, incluidas las que aún no has aprendido",
+        "title": "Vocabulario",
+        "tagline": "Palabras y frases con repetición espaciada",
+        "review": "Repasar tarjetas",
+        "reviewDesc": "Tu cola de SRS",
+        "decksDesc": "Organiza tus mazos",
+        "cardsDesc": "Explora y edita tarjetas",
+        "browseDesc": "Compartidos por otros estudiantes"
+      },
+      "grammar": {
+        "title": "Gramática",
+        "tagline": "Los sistemas que unen las palabras",
+        "drills": "Ejercicios de repaso",
+        "drillsDesc": "Ejercicios específicos ligados a las lecciones",
+        "conjugation": "Entrenador de conjugación",
+        "conjugationDesc": "Ejercicios de formas verbales y adjetivales",
+        "particlesDesc": "Guía de referencia y significados",
+        "counters": "Contadores",
+        "countersDesc": "Lecturas de contadores irregulares"
+      },
+      "reading": {
+        "title": "Lectura",
+        "tagline": "Entiende el lenguaje escrito a tu nivel",
+        "passages": "Textos de lectura",
+        "passagesDesc": "Textos breves con preguntas de comprensión",
+        "storiesDesc": "Lectura narrativa con audio",
+        "alphabet": "Reconocimiento de escritura",
+        "alphabetDesc": "Lee con fluidez la escritura de tu idioma",
+        "externalDesc": "Material real de la comunidad"
+      },
+      "listening": {
+        "title": "Escucha",
+        "tagline": "Entrena el oído con audio a velocidad nativa",
+        "listenChoose": "Escucha y elige",
+        "listenChooseDesc": "Escucha una frase y elige su significado",
+        "conversation": "Conversaciones",
+        "conversationDesc": "Escucha diálogos y luego responde",
+        "stories": "Historias (audio)",
+        "storiesDesc": "Sigue historias narradas",
+        "echo": "Práctica de repetición",
+        "echoDesc": "Escucha y luego repite lo que oíste"
+      },
+      "speaking": {
+        "title": "Expresión oral",
+        "tagline": "Dilo en voz alta — pronunciación y respuestas",
+        "drills": "Práctica de habla",
+        "drillsDesc": "Ejercicios de repetición y respuesta con reconocimiento de voz",
+        "micTuning": "Ajuste del micrófono",
+        "micTuningDesc": "Calibra el reconocimiento de voz para tu voz"
+      },
+      "writing": {
+        "title": "Escritura",
+        "tagline": "Produce el idioma, carácter a carácter",
+        "typeIt": "Escríbelo",
+        "typeItDesc": "Mira el significado y escribe la frase",
+        "alphabet": "Ejercicios de alfabeto",
+        "alphabetDesc": "Ejercicios de lectura, escritura y escucha",
+        "kanjiDesc": "Reconocimiento y lecturas",
+        "componentsDesc": "Radicales y partes de los caracteres"
       }
     },
     "speaking": {
@@ -619,7 +677,42 @@
       "answerWas": "Respuesta: {{answer}}",
       "next": "Siguiente",
       "finish": "Finalizar",
-      "gotIt": "Entendido"
+      "gotIt": "Entendido",
+      "subtitle": "Lee lo que puedas — toca cualquier palabra que no conozcas.",
+      "modeAria": "Modo de lectura",
+      "mode": {
+        "stories": "Historias",
+        "cloze": "Completa el hueco"
+      },
+      "storyProgress": "Historia {{n}} de {{total}}",
+      "hideEnglish": "Ocultar inglés",
+      "showEnglish": "Mostrar inglés",
+      "anotherStory": "Otra historia",
+      "check": "Comprobar comprensión",
+      "markRead": "Marcar como leído",
+      "quiz": {
+        "doneTitle": "Bien leído",
+        "score": "Acertaste {{correct}} de {{total}}.",
+        "reread": "Leer de nuevo",
+        "heading": "¿Entendiste «{{title}}»?",
+        "finish": "Ver tu resultado"
+      },
+      "cloze": {
+        "empty": {
+          "title": "Aún no hay ejercicios de huecos",
+          "description": "Aprende algunas palabras más y convertiremos tu lectura en práctica de completar huecos."
+        },
+        "doneTitle": "Sesión completa",
+        "doneScore": "Completaste correctamente {{correct}} de {{total}}.",
+        "again": "Nuevo conjunto",
+        "progress": "{{n}} de {{total}}",
+        "scoreLabel": "Puntuación {{correct}}/{{total}}",
+        "meaning": "Significado",
+        "correct": "Bien leído.",
+        "answerWas": "Respuesta: {{answer}}",
+        "next": "Siguiente",
+        "finish": "Finalizar"
+      }
     },
     "listening": {
       "title": "Escucha",
@@ -670,6 +763,60 @@
       "answerLabel": "La respuesta era:",
       "playAria": "Reproducir audio",
       "next": "Siguiente"
+    },
+    "conversation": {
+      "back": "Atrás",
+      "replayAria": "Repetir conversación",
+      "playing": "Reproduciendo…",
+      "replay": "Repetir la conversación",
+      "transcript": "Transcripción",
+      "playLine": "Reproducir línea",
+      "readAlong": "Escucha y lee a la vez — toca cualquier palabra que no conozcas.",
+      "followed": "Seguiste {{correct}} de {{total}}",
+      "backToList": "Volver a las conversaciones",
+      "question": "Pregunta {{n}} de {{total}}",
+      "whatSaid": "¿Qué dijo {{speaker}}?",
+      "finish": "Finalizar",
+      "next": "Siguiente",
+      "title": "Conversaciones",
+      "subtitle": "Escucha diálogos reales y luego responde",
+      "empty": {
+        "title": "Aún no hay conversaciones",
+        "desc": "Sigue avanzando en tus lecciones — los diálogos se desbloquean cuando llegas a los módulos a los que pertenecen."
+      },
+      "moduleTag": "M{{n}}",
+      "listen": "Escuchar",
+      "roleplay": "Juego de roles",
+      "roleplayDone": "Juego de roles completo",
+      "produced": "Produjiste {{correct}} de {{total}} líneas.",
+      "lineProgress": "Línea {{n}} de {{total}}",
+      "modeAria": "Modo de producción",
+      "modeRamp": "Progresivo",
+      "modeTiles": "Fichas",
+      "modeType": "Escribir",
+      "modeSpeak": "Hablar",
+      "continue": "Continuar",
+      "youSaid": "Bien — dijiste",
+      "theLineWas": "La línea era",
+      "playAudio": "Reproducir audio",
+      "yourLine": "Tu línea — dila",
+      "tapTiles": "Toca las fichas en orden",
+      "tilesWrong": "Casi — reordena las fichas y compruébalo de nuevo.",
+      "check": "Comprobar",
+      "showAnswer": "Mostrar respuesta",
+      "yourLineAria": "Tu línea",
+      "typePlaceholderKo": "Escribe en coreano o con letras latinas…",
+      "typePlaceholder": "Escribe tu línea…",
+      "kana": "Kana",
+      "hangul": "Hangul",
+      "typeWrong": "Casi — inténtalo de nuevo o muestra la línea.",
+      "hint": "Pista",
+      "showLine": "Mostrar línea",
+      "stopRecording": "Detener grabación",
+      "tapToSpeak": "Toca para hablar",
+      "listeningStop": "Escuchando — toca para detener",
+      "heard": "Escuchado",
+      "speakWrong": "Casi — inténtalo otra vez."
     }
   },
   "vocab": {

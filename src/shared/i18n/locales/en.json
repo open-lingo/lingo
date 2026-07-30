@@ -568,7 +568,65 @@
         "vocabBrowser": "Your vocabulary",
         "vocabBrowserDesc": "Every word in your course, with your progress",
         "dictionary": "Dictionary",
-        "dictionaryDesc": "Look up any word, including words you haven't learned yet"
+        "dictionaryDesc": "Look up any word, including words you haven't learned yet",
+        "title": "Vocabulary",
+        "tagline": "Words and phrases on a spaced-repetition schedule",
+        "review": "Review flashcards",
+        "reviewDesc": "Your SRS queue",
+        "decksDesc": "Organize your decks",
+        "cardsDesc": "Browse and edit cards",
+        "browseDesc": "Shared by other learners"
+      },
+      "grammar": {
+        "title": "Grammar",
+        "tagline": "The systems that glue words together",
+        "drills": "Review drills",
+        "drillsDesc": "Targeted drills tied to lessons",
+        "conjugation": "Conjugation trainer",
+        "conjugationDesc": "Verb and adjective form drills",
+        "particlesDesc": "Reference guide and meanings",
+        "counters": "Counters",
+        "countersDesc": "Irregular counter word readings"
+      },
+      "reading": {
+        "title": "Reading",
+        "tagline": "Understand written language at your level",
+        "passages": "Reading passages",
+        "passagesDesc": "Short passages with comprehension questions",
+        "storiesDesc": "Narrative reading with audio",
+        "alphabet": "Script recognition",
+        "alphabetDesc": "Read your target script fluently",
+        "externalDesc": "Real-world material from the community"
+      },
+      "listening": {
+        "title": "Listening",
+        "tagline": "Train your ear on native-speed audio",
+        "listenChoose": "Listen & choose",
+        "listenChooseDesc": "Hear a phrase, pick its meaning",
+        "conversation": "Conversations",
+        "conversationDesc": "Listen to dialogues, then talk back",
+        "stories": "Stories (audio)",
+        "storiesDesc": "Follow narrated stories",
+        "echo": "Echo practice",
+        "echoDesc": "Listen, then repeat what you heard"
+      },
+      "speaking": {
+        "title": "Speaking",
+        "tagline": "Say it out loud — pronunciation and responses",
+        "drills": "Speaking practice",
+        "drillsDesc": "Echo and response drills with speech recognition",
+        "micTuning": "Mic tuning",
+        "micTuningDesc": "Calibrate speech recognition for your voice"
+      },
+      "writing": {
+        "title": "Writing",
+        "tagline": "Produce the language, character by character",
+        "typeIt": "Type it",
+        "typeItDesc": "See the meaning, type the phrase",
+        "alphabet": "Alphabet drills",
+        "alphabetDesc": "Reading, writing, and listening drills",
+        "kanjiDesc": "Recognition and readings",
+        "componentsDesc": "Radicals and character parts"
       }
     },
     "speaking": {
@@ -619,7 +677,42 @@
       "answerWas": "Answer: {{answer}}",
       "next": "Next",
       "finish": "Finish",
-      "gotIt": "Got it"
+      "gotIt": "Got it",
+      "subtitle": "Read what you can handle — tap any word you don't know.",
+      "modeAria": "Reading mode",
+      "mode": {
+        "stories": "Stories",
+        "cloze": "Fill the blank"
+      },
+      "storyProgress": "Story {{n}} of {{total}}",
+      "hideEnglish": "Hide English",
+      "showEnglish": "Show English",
+      "anotherStory": "Another story",
+      "check": "Check understanding",
+      "markRead": "Mark as read",
+      "quiz": {
+        "doneTitle": "Nice reading",
+        "score": "You got {{correct}} of {{total}} right.",
+        "reread": "Read again",
+        "heading": "Did you follow “{{title}}”?",
+        "finish": "See how you did"
+      },
+      "cloze": {
+        "empty": {
+          "title": "No fill-the-blanks yet",
+          "description": "Learn a few more words and we'll turn your reading into fill-the-blank practice."
+        },
+        "doneTitle": "Session complete",
+        "doneScore": "You filled {{correct}} of {{total}} correctly.",
+        "again": "New set",
+        "progress": "{{n}} of {{total}}",
+        "scoreLabel": "Score {{correct}}/{{total}}",
+        "meaning": "Meaning",
+        "correct": "Nice reading.",
+        "answerWas": "Answer: {{answer}}",
+        "next": "Next",
+        "finish": "Finish"
+      }
     },
     "listening": {
       "title": "Listening",
@@ -670,6 +763,60 @@
       "answerLabel": "The answer was:",
       "playAria": "Play audio",
       "next": "Next"
+    },
+    "conversation": {
+      "back": "Back",
+      "replayAria": "Replay conversation",
+      "playing": "Playing…",
+      "replay": "Replay the conversation",
+      "transcript": "Transcript",
+      "playLine": "Play line",
+      "readAlong": "Listen and read along — tap any word you don't know.",
+      "followed": "You followed {{correct}} of {{total}}",
+      "backToList": "Back to conversations",
+      "question": "Question {{n}} of {{total}}",
+      "whatSaid": "What did {{speaker}} say?",
+      "finish": "Finish",
+      "next": "Next",
+      "title": "Conversations",
+      "subtitle": "Listen to real dialogues, then talk back",
+      "empty": {
+        "title": "No conversations yet",
+        "desc": "Keep working through your lessons — dialogues unlock as you reach the modules they belong to."
+      },
+      "moduleTag": "M{{n}}",
+      "listen": "Listen",
+      "roleplay": "Roleplay",
+      "roleplayDone": "Roleplay complete",
+      "produced": "You produced {{correct}} of {{total}} lines.",
+      "lineProgress": "Line {{n}} of {{total}}",
+      "modeAria": "Production mode",
+      "modeRamp": "Ramp",
+      "modeTiles": "Tiles",
+      "modeType": "Type",
+      "modeSpeak": "Speak",
+      "continue": "Continue",
+      "youSaid": "Nice — you said",
+      "theLineWas": "The line was",
+      "playAudio": "Play audio",
+      "yourLine": "Your line — produce it",
+      "tapTiles": "Tap the tiles in order",
+      "tilesWrong": "Not quite — reorder the tiles and check again.",
+      "check": "Check",
+      "showAnswer": "Show answer",
+      "yourLineAria": "Your line",
+      "typePlaceholderKo": "Type Korean, or English letters…",
+      "typePlaceholder": "Type your line…",
+      "kana": "Kana",
+      "hangul": "Hangul",
+      "typeWrong": "Not quite — try again, or reveal the line.",
+      "hint": "Hint",
+      "showLine": "Show line",
+      "stopRecording": "Stop recording",
+      "tapToSpeak": "Tap to speak",
+      "listeningStop": "Listening — tap to stop",
+      "heard": "Heard",
+      "speakWrong": "Not quite — give it another go."
     }
   },
   "dictionary": {
