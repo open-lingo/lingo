@@ -44,16 +44,26 @@ registerModuleBarGuards({
   canon: COURSE_CANON,
   requireChallengeStep: true,
   requireTeachFirst: true,
+  // B075 (2026-07-29): previously the one module test without this flag,
+  // which masked the weekday blocked-flag inconsistency. All of m11's
+  // no-glyph words (the seven 〜ようび names, あさって, the time abstractions)
+  // are `blocked: true` in courseAtoms — none can be discriminated by the
+  // generic 📅 — so inv 30 binds exactly おぼえる (🧠), which debuts on its
+  // word_image_mcq in ja-m11-neo-11.
+  requireImageFirst: true,
 });
 
 describe("m11-neo module shape (invariant 25)", () => {
-  it("ships 15 lessons: 11 teaching + 3 review + 1 challenge", () => {
-    expect(M11_NEO_LESSONS).toHaveLength(15);
+  // 17 = the inv-25 15 plus the two 2026-07-29 vocab-pack insertions
+  // (B065/B067, Spencer-approved wave plan): ja-m11-neo-10 (weekdays) and
+  // ja-m11-neo-11 (wider calendar).
+  it("ships 17 lessons: 13 teaching + 3 review + 1 challenge", () => {
+    expect(M11_NEO_LESSONS).toHaveLength(17);
     const reviews = M11_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M11_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M11_NEO_LESSONS.length - reviews.length - challenge.length).toBe(11);
+    expect(M11_NEO_LESSONS.length - reviews.length - challenge.length).toBe(13);
   });
 
   it("the CHALLENGE lesson is last", () => {

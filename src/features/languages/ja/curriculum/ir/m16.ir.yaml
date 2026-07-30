@@ -184,7 +184,7 @@ notes: |
 
 grammarPoints:
   - id: kara-because
-    rule: "から means \"because\" — and the piece that catches every English speaker is WHERE it goes. The reason comes FIRST in Japanese, and から hangs on the END of it: 「いそがしいから うちに いる」 = I'm busy, so I'm staying home. English says the result first and the reason second; Japanese always says the reason first and lets から close it off. Whatever sits in front of から stays in its PLAIN form — a verb, an い-adjective, anything. A noun or a な-adjective needs だ first: 「ゆきだから いかない」."
+    rule: "から means \"because\" — and the piece that catches every English speaker is WHERE it goes. The reason comes FIRST in Japanese, and から hangs on the END of it: 「いそがしいから うちに いる」 = I'm busy, so I'm staying home. English says the result first and the reason second; Japanese always says the reason first and lets から close it off. Whatever sits in front of から stays in its PLAIN form — a verb, an い-adjective, anything. A noun or a な-adjective needs だ first: 「ゆきだから いかない」. One word here is new: うち is home as YOUR place — the one you live in and stay at. It is not いえ, which points at the house as a building; 「うちに いる」 = I'm (staying) at home."
     examples:
       - { ja: "いそがしいから うちに いる。", en: "I'm busy, so I'm staying home." }
       - { ja: "たかいから かわない。", en: "It's expensive, so I won't buy it." }
@@ -276,7 +276,7 @@ newAtoms:
   - { kana: さむい, romaji: samui, gloss: "cold (weather)", shortGloss: "cold", imageable: true, kind: vocab }
   #    うち: CEJC #127, seen ONCE in the whole course so far (inv 27). No emoji
   #    in the registry, so the L1 rule card is its introduction.
-  - { kana: うち, romaji: uchi, gloss: "home, my place", shortGloss: "home", imageable: false, kind: vocab }
+  - { kana: うち, romaji: uchi, gloss: "home, my place (where you live)", shortGloss: "home (my place)", imageable: false, kind: vocab }
   # ══ L3
   - { kana: ので, romaji: node, gloss: "because (softer)", shortGloss: "because", imageable: false, kind: vocab }
   # ══ L4

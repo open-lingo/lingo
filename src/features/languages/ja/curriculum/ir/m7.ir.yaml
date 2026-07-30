@@ -38,7 +38,7 @@ notes: |
 grammarPoints:
   - id: masu-present
     variant: the-stem
-    rule: "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own. When you name who you did it WITH, that person takes と: 「ともだちと のみます」 = I drink with a friend. と joins people to the action; に, which you met marking where something is, never does this job."
+    rule: "Polite verbs are built from the i-STEM: drop the final -u to the い row, then add ます. のむ → のみ + ます. る-verbs just drop る: たべる → たべ + ます. する → します, くる → きます. The MEANING doesn't change — たべる and たべます both mean 'eat'. Only the audience changes. The people you talk about politely wear さん — the everyday 'Mr./Ms.' you attach to someone else's name (たなか → たなかさん), never to your own. When you name who you did it WITH, that person takes と: 「ともだちと のみます」 = I drink with a friend. と joins people to the action; に, which you met marking where something is, never does this job. One more polite word arrives with ます: はい, the polite 'yes'. 「はい、たべます。」 = Yes, I'll eat."
     examples:
       - { ja: "たべます", en: "I eat. (polite)" }
       - { ja: "みずを のみます", en: "I drink water. (polite)" }
@@ -76,7 +76,7 @@ grammarPoints:
     # taught します/きます. The irregularity lives in the stem, not here.
     conjugation: { form: masu-neg, classes: [ru, u] }
   - id: desu-copula
-    rule: "です finishes NOUNS politely, the way だ finishes them plainly: ねこだ → ねこです. です is NOT 'polite だ' you can bolt onto verbs — たべるです is not a sentence. Verbs get ます; nouns get です. Any noun sits in that slot: がくせい (a student), せんせい (a teacher), アメリカじん (an American — a country name plus じん 'person' names the nationality)."
+    rule: "です finishes NOUNS politely, the way だ finishes them plainly: ねこだ → ねこです. です is NOT 'polite だ' you can bolt onto verbs — たべるです is not a sentence. Verbs get ます; nouns get です. Any noun sits in that slot: がくせい (a student), せんせい (a teacher), アメリカじん (an American — a country name plus じん 'person' names the nationality). Place words are nouns too, so あそこ ('over there') takes です — 「じゅぎょうは あそこです」 — and, like any noun, a place can pin down another noun with の: 「あそこの ひと」 is 'the person over there', the same の you know from 「ミカの ほん」."
     examples:
       - { ja: "がくせいです", en: "I'm a student. (polite)" }
       - { ja: "たなかさんは せんせいです", en: "Tanaka is a teacher. (polite)" }

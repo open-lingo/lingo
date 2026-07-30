@@ -1025,7 +1025,7 @@ export const M4_NEO_11: LessonContent = {
     dialogueListen({
       id: "ja-m4-neo-11-dlg-scene1",
       lines: [
-        { speaker: "Tom", kana: "それ、なん？" },
+        { speaker: "Tom", kana: "それ、なに？" },
         { speaker: "Mika", kana: "じしょだ。" },
         { speaker: "Tom", kana: "だれの じしょ？" },
         { speaker: "Mika", kana: "たなかのだ。" },
@@ -1048,7 +1048,7 @@ export const M4_NEO_11: LessonContent = {
           distractors: ["Mika's", "Tom's", "Ken's"],
         },
       ],
-      exercisedAtomKanas: ["それ", "なん", "じしょ", "だれ", "の"],
+      exercisedAtomKanas: ["それ", "なに", "じしょ", "だれ", "の"],
     }),
     build(
       "ja-m4-neo-11-build-tanakano",
@@ -1336,9 +1336,9 @@ export const M4_NEO_REVIEW: LessonContent = {
     sentenceMcq({
       id: "ja-m4-neo-rev-mcq-nan",
       prompt: "A friend holds up something you can't make out. Ask what it is.",
-      correctKana: "それ、なん？",
+      correctKana: "それ、なに？",
       distractorsKana: ["だれ？", "どれ？", "それだ。"],
-      exercisedAtomKanas: ["それ", "なん"],
+      exercisedAtomKanas: ["それ", "なに"],
     }),
     listeningCompSentence({
       id: "ja-m4-neo-rev-lc-dareno-boushi",

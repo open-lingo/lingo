@@ -158,6 +158,34 @@ notes: |
     the taught-set the guards actually use comes from prior neo LESSONS. かいて
     (write) would have been the natural fourth ramp verb; it is not available.
 
+  VOCAB PACK 4 (B065/B067, 2026-07-29 wave plan, Spencer-approved): one
+  inserted teaching lesson, m14-neo-10 "doors and lights" — あける, しめる,
+  もつ, ひく, ドア, でんき, つめたい. Mixed-POS by design (4 verbs + 2 nouns +
+  1 adjective); the て-family is the whole reason these words live HERE:
+  ドアを あけて ください / あけては いけません / あけないで ください are the
+  canonical spends, and もっている is the stative reading L3 taught
+  (もつ is the moment you take hold; もっている is having it — same shape as
+  しる/しっている). R3 carries the pack's review block (the pack atoms'
+  Track-A write surface), and — measured on pack 3 — SRS credit rides EXACT
+  atom-kana matches, so each verb's DICTIONARY form appears in an R3 graded
+  step, not just its て/た cells.
+  Lexicon: あける/しめる/ひく got real VERB_ENTRIES rows (introducedAtModule
+  14; every derived surface greps to zero existing occurrences, so nothing
+  re-tokenizes); もつ was un-parked 99 → 14 and つめたい's ADJ row likewise.
+  The derived cells the pack spends (あけて/あけない/しめて/しめた/もって/
+  もった/ひいて) are declared as IR atoms because the module compiler
+  tokenizes over atoms + stems, not ChainForm outputs (m13 pack finding).
+  でんき is honest but verb-poor here: its natural partners つける/けす are
+  outside the pack, so it rides existence/ほしい/かいたい sentences — noted
+  for the m22-era packs to pick the pair up.
+  つめたい is OBJECT-cold (water, tea, hands) and its gloss keeps that:
+  さむい stays the weather word (the m16 kara card leans on it) — the two
+  are never offered against each other.
+  Emoji: もつ ✊, ひく 🪝, つめたい 🧊 are unshared and debut on pictures.
+  ドア cedes 🚪 (shared five ways — the m23/m27 ruling), でんき cedes 💡 to
+  わかる/しる, and あける forfeits its weak 🔓 so the あける/しめる pair can
+  debut together on the rule card — all imageable:false.
+
   NO この/その/あの (m17's `kono-sono-ano-dono`). They are courseAtoms, so the
   compiler treats them as "already known" and they leak silently — the exact
   defect the m13 QA pass caught with だいがく on 2026-07-27. m13's IR flagged
@@ -240,6 +268,21 @@ grammarPoints:
       - { ja: "きょうは いかないで ください。", en: "Please don't go today." }
       - { ja: "みずを のまないで ください。", en: "Please don't drink the water." }
     antiPattern: { ja: "ここで たべない ください。", why: "で is what turns the ない-form into a request — without it the sentence just stops halfway: ここで たべないで ください。" }
+  # Vocab pack 4 (B065/B067, 2026-07-29): the doors-and-lights card. IR-local
+  # vocabulary point like m11's youbi-days and m13's asa-routine. Its
+  # examples name only imageable:false pack words (あける/しめる/ドア/でんき)
+  # and て-forms — もつ/ひく/つめたい stay out so their picture debuts stay
+  # first (ひいて is not the atom kana ひく, so it is safe in ex4).
+  - id: akeru-shimeru
+    rule: "あける opens a thing and しめる closes it — a pair, and both take を because you act ON the door: ドアを あけて ください, まどを しめて ください. Both are る-verbs, so the て-forms you need for every request are just あけて and しめて. ドア is the Western door itself; でんき is the electric light. Some doors you pull instead of push — that verb's て-form is ひいて, the same く→いて row as きく. And said plain, あける/しめる is what a shop does with its doors every day: みせは くじに ドアを あける."
+    examples:
+      - { ja: "ドアを あけて ください。", en: "Please open the door." }
+      - { ja: "まどを しめて ください。", en: "Please close the window." }
+      - { ja: "みせは くじに ドアを あける。", en: "The shop opens its doors at nine." }
+      - { ja: "みせは ごじに ドアを しめる。", en: "The shop closes its doors at five." }
+      - { ja: "ドアを ひいて ください。", en: "Please pull the door." }
+      - { ja: "ふるい いえに でんきが ない。", en: "The old house has no electric light." }
+    antiPattern: { ja: "ドアが あけて ください。", why: "あける acts ON the door, so the door takes を — が would make the door the one doing the opening: ドアを あけて ください." }
   - id: te-form
     rule: "The て-form's other job is a comma. It links one action to the next in the order they happen: あさ ごはんを たべて、だいがくに いく = in the morning I eat, then go to university. Only the LAST verb carries the tense — everything before it stays in て, however long the chain gets. Same table you have used all module, longer sentences."
     examples:
@@ -292,6 +335,27 @@ newAtoms:
   #    registration) and the ない-form およぐ needs for ないでください.
   - { kana: いけません, romaji: ikemasen, gloss: "must not, not allowed", shortGloss: "must not", imageable: false, kind: grammar-chunk }
   - { kana: およがない, romaji: oyoganai, gloss: "won't swim / don't swim", shortGloss: "don't swim", imageable: false, kind: verb-form, derivedFrom: およぐ }
+  # ══ Vocab pack 4 (B065/B067, 2026-07-29) — doors and lights (L10). Verbs
+  #    carry verbClass but the pack's card has no `conjugation:` key, so none
+  #    can be ramp material. The derived cells the pack spends are declared
+  #    (compiler tokenizes over atoms + stems, not ChainForm outputs — m13
+  #    pack finding); all are real lexicon surfaces via the new
+  #    akeru/shimeru/hiku VERB_ENTRIES rows + motsu. No verbClass on any
+  #    derived form. Emoji rationale in the module notes.
+  - { kana: あける, romaji: akeru, gloss: "to open", imageable: false, kind: verb, verbClass: ru }
+  - { kana: しめる, romaji: shimeru, gloss: "to close something", shortGloss: "close", imageable: false, kind: verb, verbClass: ru }
+  - { kana: もつ, romaji: motsu, gloss: "to hold", imageable: true, kind: verb, verbClass: u }
+  - { kana: ひく, romaji: hiku, gloss: "to pull", imageable: true, kind: verb, verbClass: u }
+  - { kana: ドア, romaji: doa, gloss: "door", imageable: false, kind: vocab }
+  - { kana: でんき, romaji: denki, gloss: "electricity, electric light", shortGloss: "electric light", imageable: false, kind: vocab }
+  - { kana: つめたい, romaji: tsumetai, gloss: "cold to the touch", shortGloss: "cold (touch)", imageable: true, kind: vocab }
+  - { kana: あけて, romaji: akete, gloss: "open (te-form)", shortGloss: "open (te)", imageable: false, kind: verb-form, derivedFrom: あける }
+  - { kana: あけない, romaji: akenai, gloss: "won't open / don't open", shortGloss: "don't open", imageable: false, kind: verb-form, derivedFrom: あける }
+  - { kana: しめて, romaji: shimete, gloss: "close (te-form)", shortGloss: "close (te)", imageable: false, kind: verb-form, derivedFrom: しめる }
+  - { kana: しめた, romaji: shimeta, gloss: "closed (close, past)", shortGloss: "close (past)", imageable: false, kind: verb-form, derivedFrom: しめる }
+  - { kana: もって, romaji: motte, gloss: "hold (te-form)", shortGloss: "hold (te)", imageable: false, kind: verb-form, derivedFrom: もつ }
+  - { kana: もった, romaji: motta, gloss: "held (hold, past)", shortGloss: "hold (past)", imageable: false, kind: verb-form, derivedFrom: もつ }
+  - { kana: ひいて, romaji: hiite, gloss: "pull (te-form)", shortGloss: "pull (te)", imageable: false, kind: verb-form, derivedFrom: ひく }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -603,6 +667,51 @@ lessons:
     reviewPool: [ごはん, だいがく, きっさてん, ちゃ, みせ, ふく, うた, えき, うみ, しゃしん]
 
   # ═══════════════════════════════════════════════════════════════════════
+  # Vocab pack 4 (B065/B067, 2026-07-29) — doors and lights. Sits after L9 so
+  # the whole て-family is available to the pack words; id is m14-neo-10,
+  # positioned where it teaches (m11-neo-10/11 precedent).
+  - id: m14-neo-10
+    role: teaching
+    title: "ドアを あけて — doors and lights"
+    focus: "あける/しめる ride the whole て-family; もっている is having, like しっている; つめたい is cold to the TOUCH"
+    introduces: [もつ, ひく, つめたい, あける, しめる, ドア, でんき, あけて, あけない, しめて, しめた, もって, もった, ひいて]
+    beats:
+      - { kind: rule, grammarPointId: akeru-shimeru }
+      - { kind: sentence, ja: "ドアを しめて ください。", en: "Please close the door", exercises: [akeru-shimeru, te-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "まどを あけても いい？", en: "Is it OK if I open the window?", exercises: [te-mo-ii, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカは あたらしい かばんを もっている。", en: "Mika has a new bag", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: build }
+      - { kind: sentence, ja: "つめたい みずが のみたい。", en: "I want to drink cold water", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "みせは ろくじに ドアを しめる。", en: "The shop closes its doors at six", exercises: [akeru-shimeru, wa-topic, ni-time, wo-object], mode: listening }
+      - { kind: sentence, ja: "ここで ドアを あけては いけません。", en: "You must not open the door here", exercises: [te-wa-ikemasen, koko-soko-asoko, wo-object], mode: build }
+      - { kind: sentence, ja: "トムは つめたい ちゃを もっている。", en: "Tom is holding a cold tea", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "あたらしい でんきが かいたい。", en: "I want to buy a new light", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "ドアを あけないで ください。", en: "Please don't open the door", exercises: [naide-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "もう ちゃを のんだ。", en: "Say to a friend: I already drank the tea", exercises: [mada-mou, ta-form, wo-object], mode: translate }
+      - { kind: particle-cloze, stem: "かばんを ", tail: " ください。", answer: "もって", options: ["もって", "もつ", "もった"], en: "Please hold the bag", explanation: "ください takes the て-form — もつ is the dictionary form and もった is the past." }
+      - { kind: listening-comp, audio: "つめたい みずを のまないで ください。", answer: "Please don't drink the cold water", distractors: ["Please drink the cold water", "You must not drink water here", "Please don't drink the cold tea"], exercises: [naide-kudasai, i-adj-present, wo-object] }
+      - { kind: listening-comp, audio: "もう ドアを しめた。", answer: "I already closed the door", distractors: ["I haven't closed the door yet", "I already opened the door", "Please close the door"], exercises: [mada-mou, ta-form, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ドアを ひく？", en: "Do I pull the door?" }
+          - { speaker: "Mika", ja: "ううん。ひいては いけません。", en: "No — you must not pull it." }
+        questions:
+          - { q: "What does Mika say about the door?", options: ["You must not pull it", "You may pull it", "Please pull it", "It is already open"], answer: "You must not pull it" }
+      # Recognition beats (learner-sim MAJOR finding 2, 2026-07-29): あける and
+      # しめる — the rule card's own paired headline verbs — are imageable:false
+      # (they forfeited their weak 🔓 emoji to debut together on the rule card),
+      # so neither got an image-MCQ debut and every graded touch was
+      # production. The cloze drills the pair contrast with あける as the
+      # ANSWER in dictionary form; the listening-comp gives しめる a
+      # dictionary-form aural recognition rep (the earlier もう ドアを しめた
+      # listening-comp credits no atom — derived cells carry no registry row,
+      # so SRS/exposure credit rides the dict form only). Both sentences are
+      # existing lesson/R3 sentences, so their TTS clips already exist.
+      - { kind: particle-cloze, stem: "みせは じゅうじに ドアを ", tail: "。", answer: "あける", options: ["あける", "しめる", "もつ"], en: "The shop opens its doors at ten", explanation: "あける opens a thing and しめる closes it — a pair. もつ is holding. The English says opens, so あける." }
+      - { kind: listening-comp, audio: "みせは ろくじに ドアを しめる。", answer: "The shop closes its doors at six", distractors: ["The shop opens its doors at six", "The shop closes its doors at ten", "The shop closed its doors at six"], exercises: [akeru-shimeru, wa-topic, ni-time, wo-object] }
+      - { kind: challenge, ja: "ミカは まだ つめたい ちゃを のんでいる。", en: "Mika is still drinking the cold tea", combines: [mada-mou, te-iru, i-adj-present, wo-object], mode: build }
+    reviewPool: [まど, かばん, みず, ちゃ, じしょ, みせ, いえ, えき, きっさてん, ろくじ]
+
+  # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-r3
     role: review
     title: "Review — the whole て family"
@@ -622,6 +731,19 @@ lessons:
       - { kind: listening-comp, audio: "うみで およいでも いい。", answer: "You may swim in the sea", distractors: ["You must not swim in the sea", "I'm swimming in the sea", "Please don't swim in the sea"], exercises: [te-mo-ii, de-action] }
       - { kind: sentence, ja: "ともだちは にほんの かいしゃで はたらいている。", en: "My friend works at a Japanese company", exercises: [te-iru, no-possession, de-action], mode: build }
       - { kind: sentence, ja: "みずを のまないで ください。", en: "Please don't drink the water", exercises: [naide-kudasai, wo-object], mode: build }
+      # Pack-4 coverage (2026-07-29): the doors-and-lights words land in L10
+      # before this review — same rationale as m13-R3's morning block. Each
+      # verb appears in DICTIONARY form on purpose: SRS credit rides exact
+      # atom-kana matches (measured on pack 3), and a review appearance is
+      # the pack atoms' Track-A write surface.
+      - { kind: sentence, ja: "きっさてんは しちじに ドアを しめる。", en: "The coffee shop closes its doors at seven", exercises: [akeru-shimeru, wa-topic, ni-time, wo-object], mode: listening }
+      - { kind: sentence, ja: "みせは じゅうじに ドアを あける。", en: "The shop opens its doors at ten", exercises: [akeru-shimeru, wa-topic, ni-time, wo-object], mode: build }
+      - { kind: listening-comp, audio: "あした ミカの かばんを もつ。", answer: "I'll carry Mika's bag tomorrow", distractors: ["I carried Mika's bag yesterday", "I'll carry Mika's umbrella tomorrow", "Mika is holding my bag"], exercises: [no-possession, wo-object] }
+      # Statement, not a question: a trailing ？ glues to the final token and
+      # its SRS credit drops (measured — ひく？ never credited hiku).
+      - { kind: sentence, ja: "ここでは ドアを ひく。", en: "Here, you pull the door", exercises: [koko-soko-asoko, wa-topic, wo-object], mode: build }
+      - { kind: sentence, ja: "つめたい みずを のんでも いい？", en: "Is it OK if I drink the cold water?", exercises: [te-mo-ii, i-adj-present, wo-object], mode: listening }
+      - { kind: listening-comp, audio: "あたらしい でんきが ほしい。", answer: "I want a new light", distractors: ["I want a new door", "I bought a new light", "I don't want a new light"], exercises: [i-adj-present, ga-hoshii] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "ここで ちゃを のんでも いい？", en: "Is it OK if I drink tea here?" }

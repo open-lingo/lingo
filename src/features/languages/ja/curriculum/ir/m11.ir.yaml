@@ -14,9 +14,11 @@ priorGrammarPoints: [wa-topic, ga-existence, wo-object, no-possession, ni-locati
 notes: |
   m11 = spine tile n04. TIME I + PLAIN PAST た.
 
-  Shape (inv 25): 15 lessons = 11 teaching + 3 review + 1 challenge. Two
-  teaching slots are KATAKANA rows (ラ, ワ — neoModuleIndex 11), wired at
-  module level; this IR carries 9 teaching + 3 review + 1 challenge = 13.
+  Shape: 17 lessons = 13 teaching + 3 review + 1 challenge. Two teaching
+  slots are KATAKANA rows (ラ, ワ — neoModuleIndex 11), wired at module
+  level; this IR carries 11 teaching + 3 review + 1 challenge = 15. The two
+  slots past inv 25's 15-ceiling are the 2026-07-29 vocab-pack insertions
+  (B065/B067, Spencer-approved wave plan — packs slot INTO the course).
 
   COMPOSITIONAL NUMBERS (Spencer's s10 note): 11-99 is ARITHMETIC, not
   vocabulary. じゅう+X stacks on the right, X+じゅう on the left, and the
@@ -110,6 +112,24 @@ grammarPoints:
       - { ja: "いつ いく？", en: "When are you going?" }
       - { ja: "いつ たべる？", en: "When do you eat?" }
     antiPattern: { ja: "いつに いく？", en: "", why: "いつ takes no に — the particle belongs to a clock time, not to the question word" }
+  - id: youbi-days
+    rule: "Every day of the week ends in 〜ようび, and the piece in front is an element you can picture: げつようび Monday (げつ is the moon of つき), かようび Tuesday (fire), すいようび Wednesday (water — みず), もくようび Thursday (wood — き, the tree), きんようび Friday (gold), どようび Saturday (earth), にちようび Sunday (the sun). A day name is a NAMED point on the calendar, so it takes に like a clock time: どようびに いく. Two days joined by と share ONE に at the end of the pair: げつようびと かようびに はたらく — never a に on each day. あさって — the day after tomorrow — is RELATIVE like きょう and あした, so it takes no に at all."
+    examples:
+      - { ja: "げつようび かようび すいようび もくようび", en: "Monday, Tuesday, Wednesday, Thursday" }
+      - { ja: "きんようび どようび にちようび", en: "Friday, Saturday, Sunday" }
+      - { ja: "どようびに みせに いく。", en: "I'll go to the shop on Saturday." }
+      - { ja: "げつようびと かようびに はたらく。", en: "I work on Monday and Tuesday." }
+      - { ja: "あさって うみに いく。", en: "I'll go to the sea the day after tomorrow." }
+    antiPattern: { ja: "あさってに いく。", en: "", why: "あさって is relative, like きょう and あした — it takes no に; only a NAMED day does (どようびに)" }
+  - id: time-spans
+    rule: "The wider calendar stacks from pieces. せん points back: せんしゅう is last week, せんげつ last month. らい points forward: らいげつ is next month. まい means every: まいとし is every year. ことし is this year and きょねん last year. All of them are RELATIVE words like きょう and あした, so none of them takes に: せんしゅう かった, らいげつ いく. One more calendar word rides along: はじめて means 'for the first time' and sits in front of the verb phrase — はじめて たべた is 'I ate it for the first time'."
+    examples:
+      - { ja: "せんしゅう せんげつ きょねん", en: "last week, last month, last year" }
+      - { ja: "ことし らいげつ まいとし", en: "this year, next month, every year" }
+      - { ja: "きょねん にほんに いった。", en: "I went to Japan last year." }
+      - { ja: "らいげつ アメリカに いく。", en: "I'm going to America next month." }
+      - { ja: "はじめて すしを たべた。", en: "I ate sushi for the first time." }
+    antiPattern: { ja: "きょねんに いった。", en: "", why: "きょねん is relative, like きょう and きのう — it takes no に" }
 
 newAtoms:
   # ── multiples of ten. Declared as ATOMS, not as じゅう+X tiles, for a
@@ -162,6 +182,33 @@ newAtoms:
   # verbClass deliberately omitted: わかった has no rule-card example line,
   #    so it must never be picked up as transform-ramp material.
   - { kana: わかった, romaji: wakatta, gloss: "understood (past)", imageable: false, kind: verb-form, derivedFrom: わかる }
+  # ── vocab pack 1 (B065/B067, 2026-07-29): the seven day names + あさって.
+  #    All imageable:false for the same reason ごぜん/ごご are — the canonical
+  #    art is the generic 📅, which already belongs to きょう and cannot
+  #    discriminate Monday from Wednesday (the emoji-blocked-words rubric
+  #    blocks かようび/もくようび/きんようび outright). They debut on the
+  #    youbi-days rule card's enumeration, the same pattern counter-ji uses
+  #    for the hours.
+  - { kana: げつようび, romaji: getsuyoubi, gloss: "Monday", imageable: false, kind: vocab }
+  - { kana: かようび, romaji: kayoubi, gloss: "Tuesday", imageable: false, kind: vocab }
+  - { kana: すいようび, romaji: suiyoubi, gloss: "Wednesday", imageable: false, kind: vocab }
+  - { kana: もくようび, romaji: mokuyoubi, gloss: "Thursday", imageable: false, kind: vocab }
+  - { kana: きんようび, romaji: kinyoubi, gloss: "Friday", imageable: false, kind: vocab }
+  - { kana: どようび, romaji: doyoubi, gloss: "Saturday", imageable: false, kind: vocab }
+  - { kana: にちようび, romaji: nichiyoubi, gloss: "Sunday", imageable: false, kind: vocab }
+  - { kana: あさって, romaji: asatte, gloss: "day after tomorrow", shortGloss: "day after tomorrow", imageable: false, kind: vocab }
+  # ── vocab pack 2 (B065/B067, 2026-07-29): the wider calendar (せん/らい/まい
+  #    stacks + ことし/きょねん), plus the pack's verb おぼえる and adverb
+  #    はじめて. The time words are all registry-blocked abstractions (no
+  #    honest image); おぼえる keeps its honest 🧠 and debuts on an image MCQ.
+  - { kana: ことし, romaji: kotoshi, gloss: "this year", imageable: false, kind: vocab }
+  - { kana: きょねん, romaji: kyonen, gloss: "last year", imageable: false, kind: vocab }
+  - { kana: せんしゅう, romaji: senshuu, gloss: "last week", imageable: false, kind: vocab }
+  - { kana: せんげつ, romaji: sengetsu, gloss: "last month", imageable: false, kind: vocab }
+  - { kana: らいげつ, romaji: raigetsu, gloss: "next month", imageable: false, kind: vocab }
+  - { kana: まいとし, romaji: maitoshi, gloss: "every year", imageable: false, kind: vocab }
+  - { kana: おぼえる, romaji: oboeru, gloss: "to memorise, to learn", shortGloss: "memorise", imageable: true, kind: verb, verbClass: ru }
+  - { kana: はじめて, romaji: hajimete, gloss: "for the first time", shortGloss: "first time", imageable: false, kind: vocab }
   # ── copula past
   - { kana: だった, romaji: datta, gloss: "was, were (plain)", shortGloss: "was (plain)", imageable: false, kind: grammar-chunk }
   - { kana: でした, romaji: deshita, gloss: "was, were (polite)", shortGloss: "was (polite)", imageable: false, kind: grammar-chunk }
@@ -235,6 +282,52 @@ lessons:
     reviewPool: [じゅぎょう, みせ, いえ, ともだち, ごはん, いま, とけい, いちじ, さんじ]
 
   # ═══════════════════════════════════════════════════════════════════════
+  # Vocab pack 1 (B065/B067, 2026-07-29) — the weekday debt named in the
+  # ni-time card ("a named point on the calendar takes に … those arrive
+  # later"). Sits right after 〜じに so the calendar-に lands while the
+  # clock-に is fresh. Ids are m11-neo-10/-11 — numbered after the module's
+  # nine authored teaching slots, positioned where they teach (id ≠ position
+  # is established precedent — see the m2 id landmine in CLAUDE.md).
+  - id: m11-neo-10
+    role: teaching
+    title: "The week — 〜ようび"
+    focus: "the seven day names; a NAMED day takes に like a clock time, あさって is relative and takes none"
+    introduces: [げつようび, かようび, すいようび, もくようび, きんようび, どようび, にちようび, あさって]
+    beats:
+      - { kind: rule, grammarPointId: youbi-days }
+      # Recognition-before-production (B075, learner-sim 2026-07-29 finding 2):
+      # every day name gets a PURE recognition rep — a word-choice cloze
+      # (meaning → pick the day, same device numbers-11-99/counter-ji use) or
+      # a listening MCQ whose distractors differ ONLY on the day — authored
+      # ahead of that day's build. Days can't be image-discriminated (generic
+      # 📅), so recognition is text/audio shaped by design. Sentences are
+      # REUSED from this lesson's own builds (≤3 exposures each, every clip
+      # already in the TTS manifest — no new audio).
+      - { kind: sentence, ja: "あさって みせに いく。", en: "Say to a friend: I'm going to the shop the day after tomorrow", exercises: [ni-location], mode: build }
+      - { kind: particle-cloze, stem: "", tail: "に さんぽを する。", answer: "どようび", options: ["どようび", "かようび", "すいようび"], en: "I'll take a walk on Saturday", explanation: "ど is earth — どようび is Saturday. か (fire) is Tuesday and すい (water) is Wednesday." }
+      - { kind: sentence, ja: "どようびに さんぽを する。", en: "Say to a friend: I'll take a walk on Saturday", exercises: [youbi-days, ni-time, wo-object], mode: build }
+      - { kind: listening-comp, audio: "すいようびに かいものを する。", answer: "I'll do the shopping on Wednesday", distractors: ["I'll do the shopping on Thursday", "I'll do the shopping on Saturday", "I'll do the shopping on Tuesday"], exercises: [youbi-days, ni-time, wo-object] }
+      - { kind: sentence, ja: "すいようびに かいものを する。", en: "Say to a friend: I'll do the shopping on Wednesday", exercises: [youbi-days, ni-time, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "", tail: "に じゅぎょうが あります。", answer: "げつようび", options: ["げつようび", "にちようび", "どようび"], en: "There's class on Monday", explanation: "げつ is the moon of つき — げつようび is Monday. にち (the sun) is Sunday and ど (earth) is Saturday." }
+      - { kind: sentence, ja: "げつようびに じゅぎょうが あります。", en: "Say politely: There's class on Monday", exercises: [youbi-days, ni-time, ga-existence, arimasu], mode: build }
+      - { kind: listening-comp, audio: "にちようびに うみに いく。", answer: "I'm going to the sea on Sunday", distractors: ["I'm going to the sea on Monday", "I'm going to the sea on Saturday", "I'm going to the sea on Tuesday"], exercises: [youbi-days, ni-time, ni-location] }
+      - { kind: sentence, ja: "にちようびに うみに いく。", en: "Say to a friend: I'm going to the sea on Sunday", exercises: [youbi-days, ni-time, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "", tail: "に はたらく。", answer: "きんようび", options: ["きんようび", "もくようび", "にちようび"], en: "I work on Friday", explanation: "きん is gold — きんようび is Friday. もく (wood) is Thursday and にち (the sun) is Sunday." }
+      - { kind: listening-comp, audio: "かようびに ともだちが くる。", answer: "A friend is coming on Tuesday", distractors: ["A friend is coming on Wednesday", "A friend is coming on Sunday", "A friend is coming on Friday"], exercises: [youbi-days, ni-time, ga-existence] }
+      - { kind: sentence, ja: "きんようびに はたらく。", en: "Say to a friend: I work on Friday", exercises: [youbi-days, ni-time], mode: build }
+      - { kind: particle-cloze, stem: "", tail: "に じゅぎょうが ある。", answer: "もくようび", options: ["もくようび", "きんようび", "げつようび"], en: "There's class on Thursday", explanation: "もく is the wood of き, the tree — もくようび is Thursday. きん (gold) is Friday and げつ (the moon of つき) is Monday." }
+      - { kind: listening-comp, audio: "もくようびに うたを きく。", answer: "I listen to a song on Thursday", distractors: ["I listen to a song on Monday", "I buy a song on Thursday", "I play with a friend on Thursday"], exercises: [youbi-days, ni-time, wo-object] }
+      - { kind: sentence, ja: "かようびに ともだちが くる。", en: "A friend is coming on Tuesday", exercises: [youbi-days, ni-time, ga-existence], mode: listening }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "どようびに なにを する？", en: "What are you doing on Saturday?" }
+          - { speaker: "Mika", ja: "うみに いく。にちようびは いえに いる。", en: "I'm going to the sea. On Sunday I'll be at home." }
+        questions:
+          - { q: "What will Mika do on Saturday?", options: ["Go to the sea", "Stay home", "Go to a party", "Do the shopping"], answer: "Go to the sea" }
+      - { kind: challenge, ja: "にちようびに ミカの いえで ごはんを たべる。", en: "Say to a friend: I'm eating at Mika's house on Sunday", combines: [youbi-days, ni-time, no-possession, de-action, wo-object], mode: build }
+    reviewPool: [じゅぎょう, うみ, ともだち, かいもの, みせ, いえ, うた, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
   - id: m11-neo-r1
     role: review
     title: "Review — numbers and the clock"
@@ -251,6 +344,14 @@ lessons:
       - { kind: sentence, ja: "かさは ごじゅうえんです。", en: "Say politely: The umbrella is fifty yen", exercises: [wa-topic, desu-copula, numbers-11-99], mode: build }
       - { kind: sentence, ja: "ろくじに ともだちが くる。", en: "A friend is coming at six", exercises: [ni-time, counter-ji, ga-existence], mode: listening }
       - { kind: sentence, ja: "なんじに いく？", en: "Say to a friend: What time are you going", exercises: [counter-ji, ni-time], mode: build }
+      # Pack-1 coverage (2026-07-29): the weekdays land in L10 before this
+      # review, so R1 drills them — reviews cover what was taught since the
+      # previous review, and a review appearance is also the pack words'
+      # Track-A write surface (same-module content grades don't write).
+      - { kind: sentence, ja: "すいようびと もくようびに じゅぎょうが ある。", en: "There's class on Wednesday and Thursday", exercises: [youbi-days, ni-time, ga-existence, arimasu], mode: listening }
+      - { kind: sentence, ja: "げつようびと かようびに はたらく。", en: "Say to a friend: I work on Monday and Tuesday", exercises: [youbi-days, ni-time], mode: build }
+      - { kind: sentence, ja: "きんようびと どようびに あそぶ。", en: "I play on Friday and Saturday", exercises: [youbi-days, ni-time], mode: listening }
+      - { kind: sentence, ja: "にちようびに かわに いく。あさっても いく。", en: "Say to a friend: I'm going to the river on Sunday — the day after tomorrow too", exercises: [youbi-days, ni-time, ni-location, mo-also], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "じゅぎょうは なんじ？", en: "What time is class?" }
@@ -421,6 +522,37 @@ lessons:
     reviewPool: [きのう, あした, ごぜん, ごご, みせ, うみ, いえ, なんじ]
 
   # ═══════════════════════════════════════════════════════════════════════
+  # Vocab pack 2 (B065/B067, 2026-07-29) — the wider calendar. Sits after
+  # いつ so the pack's words are natural ANSWERS to the question the learner
+  # just acquired, and after both pasts so the back-pointing words (せん〜,
+  # きょねん) can ride real past sentences.
+  - id: m11-neo-11
+    role: teaching
+    title: "This year, last year — the wider calendar"
+    focus: "せん/らい/まい stack onto week, month and year; はじめて marks a first; おぼえる puts the calendar to work"
+    introduces: [ことし, きょねん, せんしゅう, せんげつ, らいげつ, まいとし, おぼえる, はじめて]
+    beats:
+      - { kind: rule, grammarPointId: time-spans }
+      - { kind: sentence, ja: "きょねん うみに いった。", en: "Say to a friend: I went to the sea last year", exercises: [time-spans, ta-form, ni-location], mode: build }
+      - { kind: sentence, ja: "せんしゅう うたを きいた。", en: "Say to a friend: I listened to a song last week", exercises: [time-spans, ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "はじめて すしを たべた。", en: "Say to a friend: I ate sushi for the first time", exercises: [ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "ミカの なまえを おぼえる。", en: "Say to a friend: I'll remember Mika's name", exercises: [no-possession, wo-object], mode: build }
+      - { kind: sentence, ja: "せんげつ とけいを かいました。", en: "Say politely: I bought a watch last month", exercises: [time-spans, masu-past, wo-object], mode: build }
+      - { kind: sentence, ja: "らいげつ にほんに いく。", en: "I'm going to Japan next month", exercises: [time-spans, ni-location], mode: listening }
+      - { kind: sentence, ja: "まいとし うみに いく。", en: "Say to a friend: I go to the sea every year", exercises: [time-spans, ni-location], mode: build }
+      - { kind: sentence, ja: "ことし にほんの うたを おぼえる。", en: "Say to a friend: I'll learn a Japanese song this year", exercises: [time-spans, no-possession, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "", tail: " かばんを かった。", answer: "せんしゅう", options: ["せんしゅう", "らいげつ", "まいとし"], en: "I bought a bag last week", explanation: "かった already happened and せん points back — せんしゅう is last week. らいげつ points forward, and まいとし says every year." }
+      - { kind: listening-comp, audio: "はじめて にほんの うたを きいた。", answer: "I listened to a Japanese song for the first time", distractors: ["I listened to a Japanese song last week", "I sang a Japanese song for the first time", "I memorised a Japanese song"], exercises: [ta-form, no-possession, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いつ かばんを かった？", en: "When did you buy the bag?" }
+          - { speaker: "Tom", ja: "せんげつ かった。", en: "I bought it last month." }
+        questions:
+          - { q: "When did Tom buy the bag?", options: ["Last month", "Last week", "Last year", "Next month"], answer: "Last month" }
+      - { kind: challenge, ja: "きょねん はじめて にほんに いきました。", en: "Say politely: Last year I went to Japan for the first time", combines: [time-spans, masu-past, ni-location], mode: build }
+    reviewPool: [うみ, うた, すし, なまえ, とけい, かばん, にほん, アメリカ]
+
+  # ═══════════════════════════════════════════════════════════════════════
   - id: m11-neo-r3
     role: review
     title: "Review — clock, calendar and past"
@@ -437,6 +569,14 @@ lessons:
       - { kind: sentence, ja: "パンは ななじゅうえんでした。", en: "Say politely: The bread was seventy yen", exercises: [desu-past, wa-topic, numbers-11-99], mode: build }
       - { kind: sentence, ja: "いつ みせに いきましたか。", en: "When did you go to the shop?", exercises: [itsu-when, masu-past, ni-location, ka-question], mode: listening }
       - { kind: sentence, ja: "きのう たなかさんが きた。", en: "Say to a friend: Tanaka came yesterday", exercises: [ta-form, ga-existence], mode: build }
+      # Pack-2 coverage (2026-07-29): the wider-calendar words land in L11
+      # before this review — same rationale as R1's weekday block.
+      - { kind: sentence, ja: "せんしゅう とけいを かった。", en: "I bought a watch last week", exercises: [time-spans, ta-form, wo-object], mode: listening }
+      - { kind: sentence, ja: "きょねんは がくせいだった。", en: "Say to a friend: Last year I was a student", exercises: [time-spans, desu-past, wa-topic], mode: build }
+      - { kind: sentence, ja: "せんげつ はじめて うみに いった。", en: "Last month I went to the sea for the first time", exercises: [time-spans, ta-form, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "まいとし ミカの いえに いく。", answer: "I go to Mika's house every year", distractors: ["I went to Mika's house last year", "I go to Mika's shop every year", "I'm going to Mika's house tomorrow"], exercises: [time-spans, no-possession, ni-location] }
+      - { kind: sentence, ja: "らいげつ アメリカに いきます。", en: "I'm going to America next month", exercises: [time-spans, ni-location, masu-present], mode: listening }
+      - { kind: sentence, ja: "ことし うたを おぼえる。", en: "Say to a friend: I'll learn a song this year", exercises: [time-spans, wo-object], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "きのう みせに いきましたか。", en: "Did you go to the shop yesterday?" }
