@@ -31,9 +31,11 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   agreement_cloze: 19,
   conjugation_cloze: 24,
   conjugation_transform: 25,
+  kanji_reveal: 24.5,
   kanji_reading: 23,
   self_explanation_mcq: 20,
   dialogue_listen: 21,
+  dialogue_sim: 21.5,
   row_test: 22,
 };
 
@@ -53,6 +55,13 @@ export const ALL_STEP_TYPES = (
  * genuinely unused everywhere.
  */
 export const UNUSED_STEP_TYPES: StepType[] = [
+  // No STATIC lesson can use these two: both halves of the kana→kanji
+  // switchover beat (B061) are emitted by `buildSrsReviewLesson` at build time,
+  // because which word is ready to be introduced is a per-learner FSRS
+  // question. `fill_blank` was already pinned here as genuinely unused and is
+  // now adopted as the beat's graded half — same pin, different reason.
+  // Drive them from /ja/qa/kanji-reveal, not from a lesson link.
+  "kanji_reveal",
   "fill_blank",
   "symbol_production",
   // Ships only in the es course (agreement drills, m3+). No ja lesson uses
@@ -75,6 +84,13 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // moment content starts using it (same pattern as kanji_reading's old pin);
   // unpin then.
   "conjugation_cloze",
+  // PROTOTYPE (2026-07-29), deliberately wired into NO live course lesson:
+  // the simulation-dialogue step type. Its home is the Travel Sprint side
+  // quest, which is `comingSoon` and blocked on B066, so there is nothing to
+  // author it into yet. Drive it from /ja/qa/dialogue-sim (scene + variant
+  // toggles) or the previewer fixture. Unpin when a Travel Sprint lesson
+  // ships it.
+  "dialogue_sim",
 ];
 
 export type QaLessonPick = {

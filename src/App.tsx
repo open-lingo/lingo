@@ -98,6 +98,12 @@ const RegisterVariantsPage = lazyRetry(
 const KanjiSwitchoverVariantsPage = lazyRetry(
   () => import("@/features/lesson/dev/KanjiSwitchoverVariantsPage"),
 );
+const KanjiRevealAnimPage = lazyRetry(
+  () => import("@/features/lesson/dev/kanjiReveal/KanjiRevealAnimPage"),
+);
+const DialogueSimPage = lazyRetry(
+  () => import("@/features/lesson/dev/dialogueSim/DialogueSimPage"),
+);
 const QaTestDrivePage = lazyRetry(
   () => import("@/features/lesson/dev/QaTestDrivePage"),
 );
@@ -521,6 +527,8 @@ const router = createBrowserRouter([
                 path: "qa/kanji-switchover",
                 element: <KanjiSwitchoverVariantsPage />,
               },
+              { path: "qa/kanji-reveal", element: <KanjiRevealAnimPage /> },
+              { path: "qa/dialogue-sim", element: <DialogueSimPage /> },
               { path: "spine-plan", element: <SpinePlannerPage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "transit-preview", element: <TransitLearnPage preview /> },

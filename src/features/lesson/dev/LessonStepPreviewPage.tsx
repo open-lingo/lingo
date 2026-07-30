@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { StepRenderer } from "../components/StepRenderer";
 import type { LessonStep } from "../types";
+import { KONBINI_SIM_STEP } from "./dialogueSim/konbiniScenario";
 
 /**
  * Mount children only once scrolled near the viewport. Without this every
@@ -478,6 +479,26 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "kanji_reveal",
+      title: "kanji_reveal",
+      whenToUse:
+        "The kana\u2192kanji switchover introduction (B061). Step 1 of a two-step beat: this UNGRADED animated reveal, then a graded kanji cloze (fill_blank) for the same word. NEVER authored \u2014 buildSrsReviewLesson emits it at the FRONT of a dynamic review when a word crosses KANJI_REVEAL_INTERVAL_DAYS, because which word is ready is a per-learner FSRS question. Continue is held until the animation finishes, which is the mitigation for learners tapping past ungraded cards. Completing the paired cloze CORRECTLY latches the switchover; until it latches, the render gate keeps the word in kana, so the beat is the learner's first sight of the written form.",
+      step: {
+        id: "preview-kv",
+        type: "kanji_reveal",
+        atomId: "ja-m3-3-v-tomodachi",
+        kana: "\u3068\u3082\u3060\u3061",
+        kanji: "\u53cb\u9054",
+        gloss: "friend",
+        // 達 is a pluralising suffix with no useful standalone sense; `null`
+        // renders a dash rather than inventing folk etymology.
+        parts: [
+          { glyph: "\u53cb", sense: "friend" },
+          { glyph: "\u9054", sense: null },
+        ],
+      },
+    },
+    {
       type: "self_explanation_mcq",
       title: "self_explanation_mcq",
       whenToUse:
@@ -538,6 +559,13 @@ export function fixtures(): Fixture[] {
         ],
         transcriptRevealAfter: "first-answer",
       },
+    },
+    {
+      type: "dialogue_sim",
+      title: "dialogue_sim",
+      whenToUse:
+        "PROTOTYPE (2026-07-29). Simulation dialogue: an NPC speaks one turn, the learner IS the other speaker (tile-build or pick a reply), and the scenario advances turn by turn with the transcript growing under a scene header. One step = one scenario; correct only if every turn was right. Max-acceptance per turn (alsoAccepted / alsoCorrectOptionIds) because a real counter has more than one right move. Target home: the Travel Sprint side quest (Pimsleur listen-and-respond) and later a local-AI TTSD lesson. Wired into NO course lesson — drive it from /ja/qa/dialogue-sim, which frames it at lesson-shell heights and toggles listen-first mode.",
+      step: KONBINI_SIM_STEP,
     },
     {
       type: "row_test",

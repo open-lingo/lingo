@@ -19,6 +19,7 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "self_explanation_mcq", label: "Self-explanation MCQ", group: "Drill" },
   { value: "word_image_mcq", label: "Word ↔ image MCQ", group: "Drill" },
   { value: "dialogue_listen", label: "Dialogue (listen)", group: "Listening" },
+  { value: "dialogue_sim", label: "Dialogue (simulation)", group: "Listening" },
   { value: "listening_comprehension", label: "Listening comp.", group: "Listening" },
   { value: "listening_build", label: "Listening build", group: "Listening" },
   { value: "speaking", label: "Speaking", group: "Listening" },
@@ -134,6 +135,19 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         options: [],
         correctOptionId: "",
       };
+    case "kanji_reveal":
+      // Emitted by buildSrsReviewLesson only — which word is ready to be
+      // introduced is a per-learner FSRS question, so it is not authorable. The
+      // shell exists so the editor's exhaustive switch compiles, and it is
+      // deliberately inert: no atomId means no latch on completion.
+      return {
+        ...base,
+        type: "kanji_reveal",
+        atomId: "",
+        kana: "",
+        kanji: "",
+        gloss: "",
+      };
     case "self_explanation_mcq":
       return {
         ...base,
@@ -153,6 +167,17 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
       };
     case "dialogue_listen":
       return { ...base, type: "dialogue_listen", lines: [], questions: [] };
+    case "dialogue_sim":
+      // PROTOTYPE (2026-07-29). Authorable in principle — a scenario is
+      // hand-written content, unlike kanji_reveal — but the shell is empty
+      // because every field is scenario-specific. Copy the konbini demo in
+      // `lesson/dev/dialogueSim/konbiniScenario.ts` as the starting point.
+      return {
+        ...base,
+        type: "dialogue_sim",
+        scene: { emoji: "🏪", title: "" },
+        turns: [],
+      };
     case "listening_comprehension":
       return {
         ...base,
@@ -267,10 +292,14 @@ export function summariseStep(step: LessonStep): string {
       return truncate(`${step.base} → ${step.answer} (${step.formLabel})`);
     case "kanji_reading":
       return `${step.kanji} → ${step.reading}`;
+    case "kanji_reveal":
+      return `${step.kana} → ${step.kanji}`;
     case "match_pairs":
       return `${step.pairs.length} pair${step.pairs.length === 1 ? "" : "s"}`;
     case "dialogue_listen":
       return `${step.lines.length} line${step.lines.length === 1 ? "" : "s"}`;
+    case "dialogue_sim":
+      return `${step.scene.emoji} ${step.scene.title} · ${step.turns.length} turn${step.turns.length === 1 ? "" : "s"}`;
     case "symbol_intro":
     case "symbol_trace":
     case "symbol_recognition":

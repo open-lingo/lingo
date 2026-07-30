@@ -206,3 +206,44 @@ describe("shouldWriteSrs", () => {
     ).toBe(true);
   });
 });
+
+/**
+ * `dialogue_sim` classification (prototype, 2026-07-29). The decision and its
+ * reasoning live in the TEACH_STEP_KINDS comment in `_stepPredicates.ts`;
+ * these tests pin it so a later "tidy-up" can't silently reclassify an
+ * interactive step as a teach card (which would zero its progress weight) or
+ * turn a scenario that TEACHES its phrases into a same-session FSRS write.
+ */
+describe("dialogue_sim classification", () => {
+  const sim = { id: "x", type: "dialogue_sim" } as LessonStep;
+
+  it("is GRADED — a simulation turn is retrieval the learner can get wrong", () => {
+    expect(isGradedStep(sim)).toBe(true);
+    expect(isPassiveStep(sim)).toBe(false);
+  });
+
+  it("carries one progress tick per scenario, not one per turn", () => {
+    expect(
+      computeGradedProgress([sim], 1, { x: true }),
+    ).toEqual({ current: 1, total: 1 });
+  });
+
+  it("writes NO SRS without exercisedAtoms (the teaching-scenario case)", () => {
+    // The prototype scenario tags exposure via `exercisedAtomIds` only, so
+    // it can introduce shop phrases without grading them same-session.
+    expect(shouldWriteSrs({ type: "dialogue_sim" })).toBe(false);
+    expect(shouldWriteSrs({ type: "dialogue_sim", exercisedAtoms: [] })).toBe(
+      false,
+    );
+  });
+
+  it("writes SRS when an author deliberately tags atoms (review context)", () => {
+    expect(
+      shouldWriteSrs({ type: "dialogue_sim", exercisedAtoms: ["v-fukuro"] }),
+    ).toBe(true);
+  });
+
+  it("counts as sentence content for the review sentence-mix rule", () => {
+    expect(stepHasSentenceContent(sim)).toBe(true);
+  });
+});
