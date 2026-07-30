@@ -7,9 +7,11 @@
  * (`node scripts/compile-ir.mjs m16`), laid out by `compileModule` at import.
  * DO NOT hand-edit lessons here — edit the IR and recompile.
  *
- * Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, challenge
- * LAST. NO katakana rows — the katakana programme ended at m11, so the
- * compiled order IS the shipped order.
+ * Shape (inv 25): 15 lessons = 11 teaching + 3 review + 1 challenge,
+ * challenge LAST — the inv-25 base shape plus the two 2026-07-30 vocab-pack
+ * insertions (B065/B067): ja-m16-neo-10 (the classroom) and ja-m16-neo-11
+ * (habits and health). NO katakana rows — the katakana programme ended at
+ * m11, so the compiled order IS the shipped order.
  */
 import type { LessonContent } from "@/features/lesson/types";
 import { compileModule, type ModuleIR } from "@/features/lesson/data/moduleCompiler";
@@ -34,6 +36,8 @@ export const M16_NEO_LESSONS: LessonContent[] = [
   byId("ja-m16-neo-7"),
   byId("ja-m16-neo-8"),
   byId("ja-m16-neo-9"),
+  byId("ja-m16-neo-10"),
+  byId("ja-m16-neo-11"),
   byId("ja-m16-neo-review-3"),
   byId("ja-m16-neo-challenge"),
 ];

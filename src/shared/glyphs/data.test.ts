@@ -2,10 +2,12 @@ import { describe, it, expect } from "vitest";
 import hiragana from "./data/hiragana.json";
 import katakana from "./data/katakana.json";
 import hangul from "./data/hangul.json";
+import kanji from "./data/kanji.json";
 import {
   getAlphabetById,
   getAlphabetDisplaySections,
 } from "@/shared/domain/languageConfig";
+import { N5_KANJI } from "@/features/languages/ja/secondScript/n5Kanji";
 
 type GlyphFile = {
   viewBox: [number, number, number, number];
@@ -101,11 +103,35 @@ describe("kana glyph data", () => {
     expect(missing).toEqual([]);
   });
 
+  // The kanji file is NOT an alphabet — no AlphabetDef points at it and kanji
+  // production is out of scope. Its consumer is the reading side (the kana→kanji
+  // reveal draws a glyph stroke by stroke), and the failure mode there is
+  // silent: `KanjiStrokeDraw` falls back to rendering the plain character, so a
+  // catalog glyph with no data looks like a static reveal rather than an error.
+  // Hence the coverage check — add a glyph to N5_KANJI without re-running
+  // `node scripts/build-kanjivg-data.mjs` and this is what tells you.
+  it("every N5_KANJI glyph has stroke data", () => {
+    const file = kanji as unknown as GlyphFile;
+    expect(N5_KANJI.length).toBeGreaterThan(0);
+    const missing = N5_KANJI.map((e) => e.character).filter(
+      (ch) => !file.characters[ch]?.strokes?.length,
+    );
+    expect(missing).toEqual([]);
+  });
+
+  it("kanji file has a non-empty viewBox", () => {
+    const file = kanji as unknown as GlyphFile;
+    expect(file.viewBox).toHaveLength(4);
+    expect(file.viewBox[2]).toBeGreaterThan(0);
+    expect(file.viewBox[3]).toBeGreaterThan(0);
+  });
+
   it("every stroke entry has a path and a start point", () => {
     const all: Array<[string, GlyphFile]> = [
       ["hiragana", hiragana as unknown as GlyphFile],
       ["katakana", katakana as unknown as GlyphFile],
       ["hangul", hangul as unknown as GlyphFile],
+      ["kanji", kanji as unknown as GlyphFile],
     ];
     const broken: string[] = [];
     for (const [scriptId, file] of all) {

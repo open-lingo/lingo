@@ -56,9 +56,9 @@ function fromModuleIdx(fromModule: string): number {
  *     Condition 1 alone would mis-grade those same-day.
  *
  * Returns false for non-JA / unknown atoms, so Korean +未resolved ids never
- * write. Dedicated review lessons bypass this gate entirely (they grade all
- * exercised atoms) — callers should check {@link isDedicatedReviewLesson}
- * first.
+ * write. Dedicated review lessons bypass this gate entirely — but NOT the
+ * collision guard {@link shouldWriteReviewLessonAtom} below — callers should
+ * check {@link isDedicatedReviewLesson} first.
  */
 export function shouldWriteContentReviewAtom(
   atomId: string,
@@ -75,4 +75,36 @@ export function shouldWriteContentReviewAtom(
   const src = atom.introducedByLessonId;
   if (src && (lessonId === src || lessonId.startsWith(`${src}-`))) return false;
   return true;
+}
+
+/**
+ * Review-lesson collision guard (2026-07-29, learner-sim BLOCKER on m11):
+ * dedicated review lessons grade every exercised atom unconditionally, which
+ * is right for the review's own material — but `exercisedAtoms` entries are
+ * bare strings, and a string can collide with an unrelated registry row. The
+ * m11 plain-past beats emitted `"shita"` / `"kita"` for した/きた (irregular
+ * pasts, deliberately unregistered), which are ALSO the registry ids of 下
+ * ("below", m17) and 北 ("north", future): every completion of
+ * ja-m11-neo-review-3 wrote FSRS history onto flashcards for words the
+ * learner meets 5+ modules later — silently, through the flat card keystore.
+ *
+ * A review lesson may legitimately grade same-module and earlier words only
+ * (intro-before-review law), so: skip any id that RESOLVES to a registry row
+ * whose module is strictly LATER than the review's own, or whose home isn't a
+ * course module at all ("future", quest tags). Ids with no registry row keep
+ * grading — IR-only inflection ids (わかった …) are deliberate, and their
+ * cards are unreachable by any review surface, so writing them is inert.
+ * The content-side rename (した → e.g. `shita-suru`, mirroring `itta-iku`)
+ * remains the right cleanup; this guard kills the whole collision class.
+ */
+export function shouldWriteReviewLessonAtom(
+  atomId: string,
+  lessonId: string,
+): boolean {
+  const atom = JA_COURSE_ATOMS_BY_ID.get(atomId);
+  if (!atom) return true;
+  const lessonModuleIdx = parseModuleIndex(lessonId);
+  if (lessonModuleIdx <= 0) return true;
+  const atomModuleIdx = fromModuleIdx(atom.fromModule);
+  return atomModuleIdx > 0 && atomModuleIdx <= lessonModuleIdx;
 }

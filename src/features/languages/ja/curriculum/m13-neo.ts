@@ -32,6 +32,9 @@ export const M13_NEO_LESSONS: LessonContent[] = [
   byId("ja-m13-neo-7"),
   byId("ja-m13-neo-8"),
   byId("ja-m13-neo-9"),
+  // Vocab pack 3 (B065/B067, 2026-07-29): the morning routine, after L9 so
+  // the whole module's grammar is available; R3 reviews it.
+  byId("ja-m13-neo-10"),
   byId("ja-m13-neo-review-3"),
   byId("ja-m13-neo-challenge"),
 ];

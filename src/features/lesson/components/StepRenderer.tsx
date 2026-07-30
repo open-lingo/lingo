@@ -21,8 +21,10 @@ import { AgreementClozeStepView } from "./steps/AgreementClozeStepView";
 import { ConjugationClozeStepView } from "./steps/ConjugationClozeStepView";
 import { ConjugationTransformStepView } from "./steps/ConjugationTransformStepView";
 import { KanjiReadingStepView } from "./steps/KanjiReadingStepView";
+import { KanjiRevealStepView } from "./steps/KanjiRevealStepView";
 import { SelfExplanationMcqStepView } from "./steps/SelfExplanationMcqStepView";
 import { DialogueListenStepView } from "./steps/DialogueListenStepView";
+import { DialogueSimStepView } from "./steps/DialogueSimStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
@@ -235,6 +237,14 @@ export function StepRenderer({
           onContinue={onContinue}
         />
       );
+    case "kanji_reveal":
+      return (
+        <KanjiRevealStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     case "self_explanation_mcq":
       return (
         <SelfExplanationMcqStepView
@@ -246,6 +256,14 @@ export function StepRenderer({
     case "dialogue_listen":
       return (
         <DialogueListenStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "dialogue_sim":
+      return (
+        <DialogueSimStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

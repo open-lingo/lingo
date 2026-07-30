@@ -497,6 +497,18 @@ export default function KanjiSwitchoverVariantsPage() {
           Graded steps are the real <code>StepRenderer</code>. Reveal cards are
           mockups — no step type hosts them yet, which is what this page is for.
         </p>
+        <p className="mt-3 rounded-lg border border-green-500/40 bg-green-500/5 px-3 py-2 text-xs leading-relaxed">
+          <strong>Decided 2026-07-29 — variant C</strong>, restructured to two
+          steps: one animated reveal, then a graded sentence question. Which
+          animation is still open →{" "}
+          <Link
+            to="/ja/qa/kanji-reveal"
+            className="font-semibold text-sky-500 hover:underline"
+          >
+            the animation bake-off
+          </Link>
+          .
+        </p>
         <button
           type="button"
           onClick={exportMd}

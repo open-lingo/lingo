@@ -21,6 +21,32 @@ const TEACH_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
   "info",
   "grammar_rule",
   "symbol_intro",
+  // The switchover reveal is an introduction ("UNGRADED by design",
+  // KanjiRevealStepView) — it emits onComplete(id, true) for resume
+  // bookkeeping only. Outside this set it fired the combo/chime and padded
+  // the accuracy denominator with an always-correct step (2026-07-29 review).
+  "kanji_reveal",
+  // NOTE — `dialogue_sim` is deliberately NOT in this set (2026-07-29
+  // prototype). GRADING DECISION, recorded here because this is where the
+  // question gets answered:
+  //
+  //   A simulation turn is RETRIEVAL — the learner produces or picks a reply
+  //   and can get it wrong — so `isGradedStep` must be true: the step earns
+  //   its progress-bar tick, the combo fires once per scenario, and
+  //   `LessonPage.handleContinue`'s advance guard refuses to skip an
+  //   unanswered scenario. Treating it as a teach card would make an
+  //   interactive 4-turn exchange worth zero progress and let it be tapped
+  //   past. Same call `dialogue_listen` already carries.
+  //
+  //   That is NOT a licence to write FSRS. The house rule (grading is
+  //   review-only/deliberate; just-introduced content is never graded
+  //   same-session) is enforced by the two gates that already exist:
+  //   `shouldWriteSrs` needs a non-empty `exercisedAtoms`, which authors
+  //   add ONLY in review contexts, and in content lessons D2's
+  //   `shouldWriteContentReviewAtom` still filters out the lesson's own
+  //   just-introduced atoms. A scenario that TEACHES its phrases carries
+  //   `exercisedAtomIds` (exposure) and no `exercisedAtoms` — which is
+  //   exactly what the prototype scenario does, so it writes nothing.
 ]);
 
 export function isPassiveStep(step: LessonStep): boolean {
@@ -67,6 +93,9 @@ const ALWAYS_SENTENCE: ReadonlySet<LessonStep["type"]> = new Set([
   "particle_cloze",
   "agreement_cloze",
   "dialogue_listen",
+  // Every sim turn is a sentence-context exchange (NPC line + produced
+  // reply), so it counts toward the ≥60% sentence-context review mix.
+  "dialogue_sim",
   "speaking",
 ]);
 

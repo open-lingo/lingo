@@ -113,9 +113,12 @@ function buildSingletonAnnotation(
  * How many course atoms share a given kana surface. Built once. A kana with a
  * count > 1 is a HOMOGRAPH (はな = 花 flower / 鼻 nose; に = 二 two / particle
  * に; はし = 橋 bridge / 箸 chopsticks) — its kana→atom collapse in
- * `JA_COURSE_ATOMS_BY_KANA` is last-write-wins, so trusting it could attach the
- * WRONG atom and render the WRONG kanji. We refuse to attach an atomId to any
- * homograph token (see `resolveEligibleKanjiAtomId`).
+ * `JA_COURSE_ATOMS_BY_KANA` collapses it to ONE ruled sense (first-wins plus
+ * the `JA_PRIMARY_ATOM_BY_KANA` ruling table — see its note in courseAtoms.ts;
+ * this comment predates the 2026-07 ruling-table fix and used to say
+ * "last-write-wins"), so trusting it could attach the WRONG atom and render
+ * the WRONG kanji. We refuse to attach an atomId to any homograph token (see
+ * `resolveEligibleKanjiAtomId`).
  */
 let _kanaAtomCount: Map<string, number> | null = null;
 function kanaAtomCount(): Map<string, number> {

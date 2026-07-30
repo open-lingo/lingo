@@ -10,8 +10,12 @@ import {
   reviewCard,
   setCardState,
   getEffectiveState,
+  getSRSStore,
   shouldRepeatInSession,
   getDueModalities,
+  countRemainingNewCards,
+  countRemainingDueCards,
+  dueModalityBreakdown,
   rollbackStats,
   rollbackRepeatQueue,
   restoreStateForUndo,
@@ -29,6 +33,7 @@ import { useImagePreload } from "./useImagePreload";
 import { getModalityTheme } from "./modalityTheme";
 import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
+import { Tooltip } from "@/shared/components/ui/Tooltip";
 import { PlainText } from "@/shared/components/PlainText";
 import { FlashcardsInfoModal } from "./components/FlashcardsInfoModal";
 import { FlashcardDetailSidebar } from "./components/FlashcardDetailSidebar";
@@ -241,6 +246,30 @@ export function FlashcardTester() {
 
   const card: Flashcard | undefined = allCards[index];
   const isSessionDone = !card;
+
+  // Live session tallies. `queue.newCount` / `queue.dueCount` are snapshots
+  // taken when the queue is built and never change mid-session (grading writes
+  // to the SRS store but doesn't bump the store revision the queue subscribes
+  // to — see setCardState). So the header "New"/"Due" numbers froze. Recompute
+  // remaining-new / remaining-due against the live store, keyed on session
+  // progress, so they decrement as cards are introduced / cleared. Undo rolls
+  // `sessionStats.reviewed` back, which re-derives these too.
+  const liveCounts = useMemo(() => {
+    if (!queue) {
+      return {
+        newRemaining: 0,
+        dueRemaining: 0,
+        dueBreakdown: { recognition: 0, production: 0 },
+      };
+    }
+    const store = getSRSStore();
+    return {
+      newRemaining: countRemainingNewCards(queue.newCards, store),
+      dueRemaining: countRemainingDueCards(queue.review, store),
+      dueBreakdown: dueModalityBreakdown(queue.review, store),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queue, sessionStats.reviewed]);
 
   // Front-of-card audio: play the target word/sentence when the card shows.
   // Course word cards put the target script on `front`. This ONLY fires on
@@ -796,7 +825,7 @@ export function FlashcardTester() {
             className="mb-3 max-h-32 w-auto rounded object-contain"
           />
         )}
-        <p className="text-center text-2xl font-medium text-text-primary">
+        <p className="text-center text-3xl font-medium text-text-primary">
           <CardFace
             card={currentCard}
             side={
@@ -938,12 +967,30 @@ export function FlashcardTester() {
           </span>
           <span className="text-border">·</span>
           <span className="text-sm text-text-muted">
-            {t("flashcards.newCount")}: <strong className="text-text-primary">{queue.newCount}</strong>
+            {t("flashcards.newCount")}: <strong className="text-text-primary">{liveCounts.newRemaining}</strong>
           </span>
           <span className="text-border">·</span>
-          <span className="text-sm text-text-muted">
-            {t("flashcards.dueCount")}: <strong className="text-text-primary">{queue.dueCount}</strong>
-          </span>
+          <Tooltip
+            side="top"
+            label={
+              <span className="block whitespace-nowrap">
+                <span className="block">
+                  {t("flashcards.dueBreakdownRecognition", "{{count}} due for recognition", {
+                    count: liveCounts.dueBreakdown.recognition,
+                  })}
+                </span>
+                <span className="block">
+                  {t("flashcards.dueBreakdownProduction", "{{count}} due for production", {
+                    count: liveCounts.dueBreakdown.production,
+                  })}
+                </span>
+              </span>
+            }
+          >
+            <span className="text-sm text-text-muted">
+              {t("flashcards.dueCount")}: <strong className="text-text-primary">{liveCounts.dueRemaining}</strong>
+            </span>
+          </Tooltip>
           <span className="text-border">·</span>
           <span className="text-sm text-text-muted">
             {t("flashcards.againCount")}: <strong className="text-warning">{repeatCards.length}</strong>

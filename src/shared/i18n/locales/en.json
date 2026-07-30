@@ -718,6 +718,8 @@
     "reviewed": "Reviewed",
     "newCount": "New",
     "dueCount": "Due",
+    "dueBreakdownRecognition": "{{count}} due for recognition",
+    "dueBreakdownProduction": "{{count}} due for production",
     "againCount": "Again",
     "accuracy": "Accuracy",
     "sessionDone": "Review Complete!",

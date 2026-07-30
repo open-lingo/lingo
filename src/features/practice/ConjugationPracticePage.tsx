@@ -74,7 +74,7 @@ export function ConjugationPracticePage() {
         type,
         unlocked,
         mastery: unlocked ? conj.typeMasteryPercent(id) : 0,
-        due: unlocked ? conj.dueCount(id) : 0,
+        due: unlocked ? conj.dueCount(id, reachedModule) : 0,
         unlockModule: type.unlockModule,
       };
     });

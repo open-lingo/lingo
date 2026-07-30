@@ -230,6 +230,68 @@
         "en": "",
         "why": "いつ takes no に — the particle belongs to a clock time, not to the question word"
       }
+    },
+    {
+      "id": "youbi-days",
+      "rule": "Every day of the week ends in 〜ようび, and the piece in front is an element you can picture: げつようび Monday (げつ is the moon of つき), かようび Tuesday (fire), すいようび Wednesday (water — みず), もくようび Thursday (wood — き, the tree), きんようび Friday (gold), どようび Saturday (earth), にちようび Sunday (the sun). A day name is a NAMED point on the calendar, so it takes に like a clock time: どようびに いく. Two days joined by と share ONE に at the end of the pair: げつようびと かようびに はたらく — never a に on each day. あさって — the day after tomorrow — is RELATIVE like きょう and あした, so it takes no に at all.",
+      "examples": [
+        {
+          "ja": "げつようび かようび すいようび もくようび",
+          "en": "Monday, Tuesday, Wednesday, Thursday"
+        },
+        {
+          "ja": "きんようび どようび にちようび",
+          "en": "Friday, Saturday, Sunday"
+        },
+        {
+          "ja": "どようびに みせに いく。",
+          "en": "I'll go to the shop on Saturday."
+        },
+        {
+          "ja": "げつようびと かようびに はたらく。",
+          "en": "I work on Monday and Tuesday."
+        },
+        {
+          "ja": "あさって うみに いく。",
+          "en": "I'll go to the sea the day after tomorrow."
+        }
+      ],
+      "antiPattern": {
+        "ja": "あさってに いく。",
+        "en": "",
+        "why": "あさって is relative, like きょう and あした — it takes no に; only a NAMED day does (どようびに)"
+      }
+    },
+    {
+      "id": "time-spans",
+      "rule": "The wider calendar stacks from pieces. せん points back: せんしゅう is last week, せんげつ last month. らい points forward: らいげつ is next month. まい means every: まいとし is every year. ことし is this year and きょねん last year. All of them are RELATIVE words like きょう and あした, so none of them takes に: せんしゅう かった, らいげつ いく. One more calendar word rides along: はじめて means 'for the first time' and sits in front of the verb phrase — はじめて たべた is 'I ate it for the first time'.",
+      "examples": [
+        {
+          "ja": "せんしゅう せんげつ きょねん",
+          "en": "last week, last month, last year"
+        },
+        {
+          "ja": "ことし らいげつ まいとし",
+          "en": "this year, next month, every year"
+        },
+        {
+          "ja": "きょねん にほんに いった。",
+          "en": "I went to Japan last year."
+        },
+        {
+          "ja": "らいげつ アメリカに いく。",
+          "en": "I'm going to America next month."
+        },
+        {
+          "ja": "はじめて すしを たべた。",
+          "en": "I ate sushi for the first time."
+        }
+      ],
+      "antiPattern": {
+        "ja": "きょねんに いった。",
+        "en": "",
+        "why": "きょねん is relative, like きょう and きのう — it takes no に"
+      }
     }
   ],
   "newAtoms": [
@@ -478,6 +540,122 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
+    },
+    {
+      "kana": "げつようび",
+      "romaji": "getsuyoubi",
+      "gloss": "Monday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かようび",
+      "romaji": "kayoubi",
+      "gloss": "Tuesday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すいようび",
+      "romaji": "suiyoubi",
+      "gloss": "Wednesday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "もくようび",
+      "romaji": "mokuyoubi",
+      "gloss": "Thursday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きんようび",
+      "romaji": "kinyoubi",
+      "gloss": "Friday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どようび",
+      "romaji": "doyoubi",
+      "gloss": "Saturday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にちようび",
+      "romaji": "nichiyoubi",
+      "gloss": "Sunday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あさって",
+      "romaji": "asatte",
+      "gloss": "day after tomorrow",
+      "shortGloss": "day after tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ことし",
+      "romaji": "kotoshi",
+      "gloss": "this year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょねん",
+      "romaji": "kyonen",
+      "gloss": "last year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せんしゅう",
+      "romaji": "senshuu",
+      "gloss": "last week",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せんげつ",
+      "romaji": "sengetsu",
+      "gloss": "last month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "らいげつ",
+      "romaji": "raigetsu",
+      "gloss": "next month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まいとし",
+      "romaji": "maitoshi",
+      "gloss": "every year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おぼえる",
+      "romaji": "oboeru",
+      "gloss": "to memorise, to learn",
+      "shortGloss": "memorise",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "はじめて",
+      "romaji": "hajimete",
+      "gloss": "for the first time",
+      "shortGloss": "first time",
+      "imageable": false,
+      "kind": "vocab"
     },
     {
       "kana": "だった",
@@ -933,6 +1111,265 @@
       ]
     },
     {
+      "id": "m11-neo-10",
+      "role": "teaching",
+      "title": "The week — 〜ようび",
+      "focus": "the seven day names; a NAMED day takes に like a clock time, あさって is relative and takes none",
+      "introduces": [
+        "げつようび",
+        "かようび",
+        "すいようび",
+        "もくようび",
+        "きんようび",
+        "どようび",
+        "にちようび",
+        "あさって"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "youbi-days"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさって みせに いく。",
+          "en": "Say to a friend: I'm going to the shop the day after tomorrow",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "に さんぽを する。",
+          "answer": "どようび",
+          "options": [
+            "どようび",
+            "かようび",
+            "すいようび"
+          ],
+          "en": "I'll take a walk on Saturday",
+          "explanation": "ど is earth — どようび is Saturday. か (fire) is Tuesday and すい (water) is Wednesday."
+        },
+        {
+          "kind": "sentence",
+          "ja": "どようびに さんぽを する。",
+          "en": "Say to a friend: I'll take a walk on Saturday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "すいようびに かいものを する。",
+          "answer": "I'll do the shopping on Wednesday",
+          "distractors": [
+            "I'll do the shopping on Thursday",
+            "I'll do the shopping on Saturday",
+            "I'll do the shopping on Tuesday"
+          ],
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "wo-object"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "すいようびに かいものを する。",
+          "en": "Say to a friend: I'll do the shopping on Wednesday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "に じゅぎょうが あります。",
+          "answer": "げつようび",
+          "options": [
+            "げつようび",
+            "にちようび",
+            "どようび"
+          ],
+          "en": "There's class on Monday",
+          "explanation": "げつ is the moon of つき — げつようび is Monday. にち (the sun) is Sunday and ど (earth) is Saturday."
+        },
+        {
+          "kind": "sentence",
+          "ja": "げつようびに じゅぎょうが あります。",
+          "en": "Say politely: There's class on Monday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "にちようびに うみに いく。",
+          "answer": "I'm going to the sea on Sunday",
+          "distractors": [
+            "I'm going to the sea on Monday",
+            "I'm going to the sea on Saturday",
+            "I'm going to the sea on Tuesday"
+          ],
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "にちようびに うみに いく。",
+          "en": "Say to a friend: I'm going to the sea on Sunday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "に はたらく。",
+          "answer": "きんようび",
+          "options": [
+            "きんようび",
+            "もくようび",
+            "にちようび"
+          ],
+          "en": "I work on Friday",
+          "explanation": "きん is gold — きんようび is Friday. もく (wood) is Thursday and にち (the sun) is Sunday."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かようびに ともだちが くる。",
+          "answer": "A friend is coming on Tuesday",
+          "distractors": [
+            "A friend is coming on Wednesday",
+            "A friend is coming on Sunday",
+            "A friend is coming on Friday"
+          ],
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "きんようびに はたらく。",
+          "en": "Say to a friend: I work on Friday",
+          "exercises": [
+            "youbi-days",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "に じゅぎょうが ある。",
+          "answer": "もくようび",
+          "options": [
+            "もくようび",
+            "きんようび",
+            "げつようび"
+          ],
+          "en": "There's class on Thursday",
+          "explanation": "もく is the wood of き, the tree — もくようび is Thursday. きん (gold) is Friday and げつ (the moon of つき) is Monday."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "もくようびに うたを きく。",
+          "answer": "I listen to a song on Thursday",
+          "distractors": [
+            "I listen to a song on Monday",
+            "I buy a song on Thursday",
+            "I play with a friend on Thursday"
+          ],
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "wo-object"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "かようびに ともだちが くる。",
+          "en": "A friend is coming on Tuesday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "どようびに なにを する？",
+              "en": "What are you doing on Saturday?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うみに いく。にちようびは いえに いる。",
+              "en": "I'm going to the sea. On Sunday I'll be at home."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What will Mika do on Saturday?",
+              "options": [
+                "Go to the sea",
+                "Stay home",
+                "Go to a party",
+                "Do the shopping"
+              ],
+              "answer": "Go to the sea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "にちようびに ミカの いえで ごはんを たべる。",
+          "en": "Say to a friend: I'm eating at Mika's house on Sunday",
+          "combines": [
+            "youbi-days",
+            "ni-time",
+            "no-possession",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "じゅぎょう",
+        "うみ",
+        "ともだち",
+        "かいもの",
+        "みせ",
+        "いえ",
+        "うた",
+        "ごはん"
+      ]
+    },
+    {
       "id": "m11-neo-r1",
       "role": "review",
       "title": "Review — numbers and the clock",
@@ -1043,6 +1480,50 @@
           "exercises": [
             "counter-ji",
             "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "すいようびと もくようびに じゅぎょうが ある。",
+          "en": "There's class on Wednesday and Thursday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ga-existence",
+            "arimasu"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "げつようびと かようびに はたらく。",
+          "en": "Say to a friend: I work on Monday and Tuesday",
+          "exercises": [
+            "youbi-days",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きんようびと どようびに あそぶ。",
+          "en": "I play on Friday and Saturday",
+          "exercises": [
+            "youbi-days",
+            "ni-time"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "にちようびに かわに いく。あさっても いく。",
+          "en": "Say to a friend: I'm going to the river on Sunday — the day after tomorrow too",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ni-location",
+            "mo-also"
           ],
           "mode": "build"
         },
@@ -2053,6 +2534,188 @@
       ]
     },
     {
+      "id": "m11-neo-11",
+      "role": "teaching",
+      "title": "This year, last year — the wider calendar",
+      "focus": "せん/らい/まい stack onto week, month and year; はじめて marks a first; おぼえる puts the calendar to work",
+      "introduces": [
+        "ことし",
+        "きょねん",
+        "せんしゅう",
+        "せんげつ",
+        "らいげつ",
+        "まいとし",
+        "おぼえる",
+        "はじめて"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "time-spans"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょねん うみに いった。",
+          "en": "Say to a friend: I went to the sea last year",
+          "exercises": [
+            "time-spans",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんしゅう うたを きいた。",
+          "en": "Say to a friend: I listened to a song last week",
+          "exercises": [
+            "time-spans",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はじめて すしを たべた。",
+          "en": "Say to a friend: I ate sushi for the first time",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカの なまえを おぼえる。",
+          "en": "Say to a friend: I'll remember Mika's name",
+          "exercises": [
+            "no-possession",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんげつ とけいを かいました。",
+          "en": "Say politely: I bought a watch last month",
+          "exercises": [
+            "time-spans",
+            "masu-past",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "らいげつ にほんに いく。",
+          "en": "I'm going to Japan next month",
+          "exercises": [
+            "time-spans",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "まいとし うみに いく。",
+          "en": "Say to a friend: I go to the sea every year",
+          "exercises": [
+            "time-spans",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ことし にほんの うたを おぼえる。",
+          "en": "Say to a friend: I'll learn a Japanese song this year",
+          "exercises": [
+            "time-spans",
+            "no-possession",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": " かばんを かった。",
+          "answer": "せんしゅう",
+          "options": [
+            "せんしゅう",
+            "らいげつ",
+            "まいとし"
+          ],
+          "en": "I bought a bag last week",
+          "explanation": "かった already happened and せん points back — せんしゅう is last week. らいげつ points forward, and まいとし says every year."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "はじめて にほんの うたを きいた。",
+          "answer": "I listened to a Japanese song for the first time",
+          "distractors": [
+            "I listened to a Japanese song last week",
+            "I sang a Japanese song for the first time",
+            "I memorised a Japanese song"
+          ],
+          "exercises": [
+            "ta-form",
+            "no-possession",
+            "wo-object"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "いつ かばんを かった？",
+              "en": "When did you buy the bag?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "せんげつ かった。",
+              "en": "I bought it last month."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When did Tom buy the bag?",
+              "options": [
+                "Last month",
+                "Last week",
+                "Last year",
+                "Next month"
+              ],
+              "answer": "Last month"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "きょねん はじめて にほんに いきました。",
+          "en": "Say politely: Last year I went to Japan for the first time",
+          "combines": [
+            "time-spans",
+            "masu-past",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "うみ",
+        "うた",
+        "すし",
+        "なまえ",
+        "とけい",
+        "かばん",
+        "にほん",
+        "アメリカ"
+      ]
+    },
+    {
       "id": "m11-neo-r3",
       "role": "review",
       "title": "Review — clock, calendar and past",
@@ -2168,6 +2831,75 @@
           "exercises": [
             "ta-form",
             "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんしゅう とけいを かった。",
+          "en": "I bought a watch last week",
+          "exercises": [
+            "time-spans",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょねんは がくせいだった。",
+          "en": "Say to a friend: Last year I was a student",
+          "exercises": [
+            "time-spans",
+            "desu-past",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんげつ はじめて うみに いった。",
+          "en": "Last month I went to the sea for the first time",
+          "exercises": [
+            "time-spans",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "まいとし ミカの いえに いく。",
+          "answer": "I go to Mika's house every year",
+          "distractors": [
+            "I went to Mika's house last year",
+            "I go to Mika's shop every year",
+            "I'm going to Mika's house tomorrow"
+          ],
+          "exercises": [
+            "time-spans",
+            "no-possession",
+            "ni-location"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "らいげつ アメリカに いきます。",
+          "en": "I'm going to America next month",
+          "exercises": [
+            "time-spans",
+            "ni-location",
+            "masu-present"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ことし うたを おぼえる。",
+          "en": "Say to a friend: I'll learn a song this year",
+          "exercises": [
+            "time-spans",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2909,7 +3641,8 @@
       "gloss": "eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみます",
@@ -2917,7 +3650,8 @@
       "gloss": "drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みます",
@@ -2925,7 +3659,8 @@
       "gloss": "watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきます",
@@ -2933,15 +3668,8 @@
       "gloss": "go, travel (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
-    },
-    {
-      "kana": "します",
-      "romaji": "shimasu",
-      "gloss": "do, make (polite)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きます",
@@ -2949,7 +3677,17 @@
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいます",
@@ -2957,7 +3695,8 @@
       "gloss": "buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "ききます",
@@ -2965,7 +3704,8 @@
       "gloss": "listen, ask (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそびます",
@@ -2973,7 +3713,8 @@
       "gloss": "play (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "あります",
@@ -2981,7 +3722,8 @@
       "gloss": "have, there is (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "たべません",
@@ -2989,7 +3731,8 @@
       "gloss": "don't eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみません",
@@ -2997,7 +3740,8 @@
       "gloss": "don't drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みません",
@@ -3005,7 +3749,8 @@
       "gloss": "don't watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきません",
@@ -3013,7 +3758,8 @@
       "gloss": "don't go, not travelling (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きません",
@@ -3021,7 +3767,8 @@
       "gloss": "doesn't come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいません",
@@ -3029,7 +3776,8 @@
       "gloss": "don't buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "しません",
@@ -3037,7 +3785,8 @@
       "gloss": "don't do, won't make (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "はたらきません",
@@ -3045,7 +3794,8 @@
       "gloss": "don't work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "ありません",
@@ -3053,7 +3803,8 @@
       "gloss": "doesn't have, isn't there (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "はたらく",
@@ -3070,7 +3821,8 @@
       "gloss": "work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "かいしゃ",
@@ -3134,7 +3886,8 @@
       "gloss": "eat (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "みて",
@@ -3142,7 +3895,8 @@
       "gloss": "watch, look (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "のんで",
@@ -3150,7 +3904,8 @@
       "gloss": "drink (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "かって",
@@ -3158,7 +3913,8 @@
       "gloss": "buy (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "きいて",
@@ -3166,7 +3922,8 @@
       "gloss": "listen, ask (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそんで",
@@ -3174,7 +3931,8 @@
       "gloss": "play (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "いって",
@@ -3182,7 +3940,8 @@
       "gloss": "go, travel (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "して",
@@ -3190,7 +3949,8 @@
       "gloss": "do, make (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "きて",
@@ -3198,7 +3958,8 @@
       "gloss": "come (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "ください",
@@ -3223,7 +3984,8 @@
       "gloss": "teach, tell (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "おしえる"
+      "derivedFrom": "おしえる",
+      "verbClass": "ru"
     },
     {
       "kana": "ごはん",

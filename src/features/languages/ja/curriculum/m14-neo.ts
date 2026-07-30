@@ -32,6 +32,9 @@ export const M14_NEO_LESSONS: LessonContent[] = [
   byId("ja-m14-neo-7"),
   byId("ja-m14-neo-8"),
   byId("ja-m14-neo-9"),
+  // Vocab pack 4 (B065/B067, 2026-07-29): doors and lights, after L9 so the
+  // whole て-family is available; R3 reviews it.
+  byId("ja-m14-neo-10"),
   byId("ja-m14-neo-review-3"),
   byId("ja-m14-neo-challenge"),
 ];

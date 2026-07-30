@@ -29,6 +29,7 @@ import type { SRSRating } from "@/features/flashcards/data/types";
 import {
   getTrainerType,
   isSelectionAhead,
+  formUnlockModule,
   type ConjugationTrainerType,
   type TrainerTypeId,
 } from "./trainerRegistry";
@@ -161,6 +162,11 @@ function makeAdjQuestion(item: AdjItem, form: IAdjForm): TrainerQuestion {
  * forms round-robin, and no repeated (item, form) pair while the pool allows.
  * MCQ options reuse the page's distractor strategy (3 distractors + correct,
  * shuffled). Returns [] when the reached-module pool has no eligible items.
+ *
+ * Per-form gating (B016): only forms the pool module has reached are drilled
+ * (`formUnlockModule`) — a tile unlocks at its EARLIEST form, so a later form
+ * must wait for its own module instead of locking the whole tile (or leaking
+ * into a drill before the course teaches it).
  */
 export function buildTrainerSession(
   type: ConjugationTrainerType,
@@ -169,7 +175,7 @@ export function buildTrainerSession(
 ): TrainerQuestion[] {
   if (type.category === "verb") {
     const pool = getVerbsUpToModule(reachedModule);
-    const forms = type.verbForms ?? [];
+    const forms = (type.verbForms ?? []).filter((f) => formUnlockModule(f) <= reachedModule);
     if (pool.length === 0 || forms.length === 0) return [];
     const target = clamp(opts?.count ?? forms.length * 2, MIN_QUESTIONS, MAX_QUESTIONS);
     return buildQuestions(pool, forms, target, makeVerbQuestion);
@@ -177,7 +183,7 @@ export function buildTrainerSession(
 
   // i-adj category
   const pool = getAdjsUpToModule(reachedModule).filter((a) => a.type === "i-adj");
-  const forms = type.adjForms ?? [];
+  const forms = (type.adjForms ?? []).filter((f) => formUnlockModule(f) <= reachedModule);
   if (pool.length === 0 || forms.length === 0) return [];
   const target = clamp(opts?.count ?? forms.length * 2, MIN_QUESTIONS, MAX_QUESTIONS);
   return buildQuestions(pool, forms, target, makeAdjQuestion);
@@ -251,12 +257,18 @@ const FORM_TO_POINT: Record<string, string | null> = {
 };
 
 /** The Track B points a type grades through its OWN individual forms (empty for
- *  masu — it drills only ます, which maps to no point). */
-function gradablePointsForType(type: ConjugationTrainerType): string[] {
+ *  masu — it drills only ます, which maps to no point). `maxModule` mirrors the
+ *  builders' per-form gating (B016): a form the learner hasn't reached was not
+ *  drilled, so its point must not be graded. */
+function gradablePointsForType(
+  type: ConjugationTrainerType,
+  maxModule: number = Number.POSITIVE_INFINITY,
+): string[] {
   const forms: string[] =
     type.category === "verb" ? type.verbForms ?? [] : type.adjForms ?? [];
   const points = new Set<string>();
   for (const f of forms) {
+    if (formUnlockModule(f) > maxModule) continue;
     const p = FORM_TO_POINT[f];
     if (p) points.add(p);
   }
@@ -401,8 +413,16 @@ export function buildCombinedSession(
   const verbPool = getVerbsUpToModule(reachedModule) as VerbItem[];
   const adjPool = getAdjsUpToModule(reachedModule).filter((a) => a.type === "i-adj") as AdjItem[];
 
-  const verbForms = [...new Set(types.flatMap((t) => (t.category === "verb" ? t.verbForms ?? [] : [])))];
-  const adjForms = [...new Set(types.flatMap((t) => (t.category === "i-adj" ? t.adjForms ?? [] : [])))];
+  // Per-form gating (B016): individuals AND combos only drill forms the pool
+  // module has reached — the combined toggle can't surface a stacked form
+  // (e.g. ませんでした) before the course teaches its point.
+  const reachedForm = (f: string) => formUnlockModule(f) <= reachedModule;
+  const verbForms = [
+    ...new Set(types.flatMap((t) => (t.category === "verb" ? t.verbForms ?? [] : []))),
+  ].filter(reachedForm);
+  const adjForms = [
+    ...new Set(types.flatMap((t) => (t.category === "i-adj" ? t.adjForms ?? [] : []))),
+  ].filter(reachedForm);
 
   const comboMode = opts?.combos ?? "auto";
   const unlocked =
@@ -411,7 +431,9 @@ export function buildCombinedSession(
       : comboMode === "off"
         ? false
         : selected.length > 0 && selected.every((id) => isTypeProficient(id));
-  const comboEntries = unlocked ? combosForSelection(new Set(selected)) : [];
+  const comboEntries = (unlocked ? combosForSelection(new Set(selected)) : []).filter((e) =>
+    reachedForm(e.form),
+  );
 
   const total = clamp(
     opts?.count ?? COMBO_DEFAULT_QUESTIONS,
@@ -484,7 +506,10 @@ export function sessionRating(results: QuestionCredit[]): SRSRating {
 
 /**
  * Grade a finished session into Track B: one production-modality review per
- * covered grammar point, at the session-level rating.
+ * covered grammar point, at the session-level rating. `maxModule` (the
+ * learner's reached module; default unbounded) mirrors the builder's per-form
+ * gating — a partially-unlocked tile never grades a point the learner hasn't
+ * reached (B016).
  *
  * NOTE: this writes on every call — it has no double-fire guard. The UI must
  * call it EXACTLY ONCE per completed session (Task 2's summary screen owns
@@ -493,12 +518,13 @@ export function sessionRating(results: QuestionCredit[]): SRSRating {
 export function gradeTrainerSession(
   type: ConjugationTrainerType,
   results: QuestionCredit[],
+  maxModule: number = Number.POSITIVE_INFINITY,
 ): void {
   const rating = sessionRating(results);
   // Grade only the points this type reaches through its own drilled forms
   // (FORM_TO_POINT). For masu this set is empty — its polite-negative points are
   // combo-only, so an individual masu drill writes NOTHING to Track B.
-  for (const pointId of gradablePointsForType(type)) {
+  for (const pointId of gradablePointsForType(type, maxModule)) {
     reviewGrammarPoint(pointId, "production", rating);
   }
   // masu has no Track B point of its own; record the completed drill so combo
@@ -519,9 +545,14 @@ export function gradeTrainerSession(
 export function gradeCombinedSession(
   formsDrilled: Array<ChainForm | IAdjForm>,
   results: QuestionCredit[],
+  maxModule: number = Number.POSITIVE_INFINITY,
 ): void {
   const byPoint = new Map<string, QuestionCredit[]>();
   formsDrilled.forEach((form, i) => {
+    // Per-form gate (B016): a form beyond the learner's module should never
+    // have been drilled on-path — defensively refuse to grade it (its gate
+    // points include the very point it grades).
+    if (formUnlockModule(form) > maxModule) return;
     const point = FORM_TO_POINT[form as string];
     if (!point) return;
     const arr = byPoint.get(point) ?? [];
@@ -550,7 +581,7 @@ export function gradeTrainerSessionIfOnPath(
   results: QuestionCredit[],
 ): boolean {
   if (isSelectionAhead([type.id], reachedModule)) return false;
-  gradeTrainerSession(type, results);
+  gradeTrainerSession(type, results, reachedModule);
   return true;
 }
 
@@ -564,6 +595,6 @@ export function gradeCombinedSessionIfOnPath(
   results: QuestionCredit[],
 ): boolean {
   if (isSelectionAhead(selected, reachedModule)) return false;
-  gradeCombinedSession(formsDrilled, results);
+  gradeCombinedSession(formsDrilled, results, reachedModule);
   return true;
 }

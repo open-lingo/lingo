@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import {
   ALL_STEP_TYPES,
@@ -124,6 +125,16 @@ function buildSections(lang: string): QaSection[] {
           links: [
             { label: "hiragana learn", href: p("/practice/alphabet/hiragana/learn") },
             { label: "katakana learn", href: p("/practice/alphabet/katakana/learn") },
+            { label: "fixture", href: p(`/lesson-preview#step-${t}`) },
+          ],
+        }
+      : t === "dialogue_sim"
+      ? {
+          id: `step:${t}`,
+          title: `${t} — PROTOTYPE, not in any lesson yet`,
+          hint: "Simulation dialogue (2026-07-29): the learner IS the second speaker, one scenario per step. Its home is the Travel Sprint side quest, which is comingSoon/blocked on B066, so nothing authors it yet. The driver page frames it at lesson-shell heights and toggles listen-first mode.",
+          links: [
+            { label: "konbini driver", href: p("/qa/dialogue-sim") },
             { label: "fixture", href: p(`/lesson-preview#step-${t}`) },
           ],
         }
@@ -857,6 +868,39 @@ export default function QaTestDrivePage() {
             );
           })}
         </nav>
+        {/* Design galleries — NOT part of the marked walk above, so they have no
+            row and no status. They live here because the only other way in was
+            typing the URL, and a gallery nobody can find is a gallery nobody
+            uses (2026-07-29). */}
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="font-semibold uppercase tracking-wide text-text-muted">
+            Design galleries
+          </span>
+          <Link
+            to={`/${langId}/qa/kanji-reveal`}
+            className="rounded border border-accent px-2 py-0.5 font-semibold text-accent hover:bg-surface-muted"
+          >
+            kana→kanji reveal animations
+          </Link>
+          <Link
+            to={`/${langId}/qa/kanji-switchover`}
+            className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
+          >
+            switchover variants
+          </Link>
+          <Link
+            to={`/${langId}/qa/register`}
+            className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
+          >
+            register variants
+          </Link>
+          <Link
+            to={`/${langId}/qa/review-prefix`}
+            className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
+          >
+            dynamic review prefix (B069)
+          </Link>
+        </div>
       </header>
 
       <section className="mb-8 rounded-xl border border-border bg-surface p-4">

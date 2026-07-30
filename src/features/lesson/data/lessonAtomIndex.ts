@@ -68,6 +68,32 @@ function getLessonContentLookup(): LessonContentLookup | undefined {
  */
 const fallbackAtomsCache = new Map<string, CourseAtom[]>();
 
+/**
+ * B068: honor a static `introducedByLessonId` only if the lesson it names
+ * still exists. The rewrite renumbered modules and deleted lessons, leaving
+ * 234 atoms attributed to lessons that are gone (ja-m1-l1, ja-m4-1-1, …) —
+ * and because the fallback filter below excluded ANY atom with a static
+ * attribution, each dangling pointer suppressed the module fallback forever:
+ * the atom was taught and graded by a live lesson but never unlocked, so no
+ * review surface could ever select it again. A dangling attribution is DEAD
+ * and the atom is fallback-eligible again. (Attributions to registered but
+ * off-map lessons are still honored — those lessons remain completable via
+ * deep link; the conformance ratchet in lessonAtomAttribution.test.ts pins
+ * both populations.)
+ */
+const deadAttributionCache = new Map<string, boolean>();
+
+function isDeadAttribution(lessonId: string): boolean {
+  const cached = deadAttributionCache.get(lessonId);
+  if (cached !== undefined) return cached;
+  const getContent = getLessonContentLookup();
+  // No registry to ask (lookup global not yet installed): assume alive —
+  // suppressing the fallback is the conservative pre-B068 behaviour.
+  const dead = getContent ? !getContent(lessonId) : false;
+  deadAttributionCache.set(lessonId, dead);
+  return dead;
+}
+
 function atomSurfaces(atom: CourseAtom): string[] {
   const out = atom.kana.split("/").map((s) => s.trim());
   if (atom.kanji) out.push(...atom.kanji.split("/").map((s) => s.trim()));
@@ -89,7 +115,8 @@ function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
         (a) =>
           isSrsEligibleAtom(a) &&
           a.fromModule === moduleId &&
-          !a.introducedByLessonId,
+          (!a.introducedByLessonId ||
+            isDeadAttribution(a.introducedByLessonId)),
       );
 
       // EXACT FIRST. The compiler already decided which atoms a step exercises

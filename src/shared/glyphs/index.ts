@@ -6,6 +6,7 @@ export type {
   SymbolReferenceRenderOpts,
 } from "./types";
 export {
+  getGlyphData,
   getReferenceFor,
   getSystemFontReferenceFor,
   hasBundledData,

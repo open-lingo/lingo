@@ -83,7 +83,7 @@ capture + ONE continuity judge (give the judge the context pack too).
 Per-lesson re-reading raises compliance; it does not guarantee it. So the
 mechanical half of the law is also checked in BULK over compiled output,
 across every module at once, independent of whoever authored it:
-`npm run authoring-audit` (→ `scripts/authoring-audit.mjs`).
+`npm run authoring-audit` (→ `vitest run src/features/lesson/dev/authoringAudit.emit.test.ts`; there is no `scripts/authoring-audit.mjs` — this line pointed at that nonexistent file until 2026-07-29).
 
 It reports per module and course-wide, and its job is to catch a rule being
 ignored *repeatedly* — the pattern a single module's test run can't see:

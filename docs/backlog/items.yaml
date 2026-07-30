@@ -104,7 +104,7 @@
 
 - id: B005
   title: m7 L15 requires あそこの ひと — place-noun + の + noun was never taught
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: reported
@@ -117,10 +117,11 @@
     owner (ミカの) and origin (にほんの) only.
   fix: >
     One clause on m7's の usage, or swap the sentence.
+    FIXED 2026-07-29 — desu-copula rule card in m7.ir.yaml (lesson m7-neo-4, before the challenge build) now teaches place-noun+です and あそこの ひと via the known ミカの ほん pattern; recompiled.
 
 - id: B006
   title: m7 L2 builds はい、たべます before はい has been glossed
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: reported
@@ -137,6 +138,7 @@
     before "fixing". Possible instrument problem.
   fix: >
     Gloss はい on m7 L1's card, or move the build later.
+    FIXED 2026-07-29 — m7 L1 masu-present card now glosses はい ("the polite yes") with 「はい、たべます。」 example; rule cards pin first so it precedes the build; recompiled.
 
 - id: B007
   title: m16 L9 prints a whole paradigm in romaji in a course that has been kana-only since m1
@@ -190,7 +192,7 @@
 
 - id: B010
   title: うち and いえ share a tile bank with the difference never drawn
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: reported
@@ -203,6 +205,8 @@
     MCQ-tested five times. Same shape: m8 L8 introduces ちゃ as "tea" without
     linking it to the おちゃ taught in m2.
   fix: A gloss distinction, or keep them out of one bank.
+  fix: >
+    FIXED 2026-07-29 — うち/いえ difference drawn on うち's designated intro (m16 L1 kara-because card: your place vs the building) and うち's gloss disambiguated to "home, my place (where you live)" / shortGloss "home (my place)"; GATE 5 distractor-echo lint kept いえ out of the gloss itself; recompiled.
 
 - id: B011
   title: こめ and ごはん both render as the English word "rice"
@@ -302,7 +306,7 @@
 
 - id: B016
   title: unlockModuleForType takes the MAX over a tile's grammar points, so one late point locks the whole tile
-  status: open
+  status: fixed
   severity: major
   effort: M
   confidence: verified
@@ -325,6 +329,16 @@
     EARLIEST form is taught, and the session only draws forms already taught.
     Then correct the json and delete this workaround.
   blocked_by: []
+    FIXED 2026-07-29 -- per-form gating: FORM_GATE_POINTS/formUnlockModule in
+    trainerRegistry.ts (fails closed on unmapped forms), unlockModuleForType =
+    MIN over the tile's forms (masu tile m11 -> m7), both session builders
+    filter forms beyond the pool module, grading double-gated via
+    reachedModule, dueGrammarPointCount gated the same way. Data-derived
+    regression tests in trainerRegistry.test.ts + trainerSession.test.ts.
+    UNBLOCKS B017 (masu-past-negative module correction -- the json
+    workaround can then be deleted). Known cosmetic gap left open: hub combo
+    chips (combosForSelection) can advertise a stacked form the session
+    won't drill until its module.
 
 - id: B017
   title: n5-grammar-points.json carries pre-rewrite module numbers for ~16 points
@@ -732,7 +746,7 @@
 
 - id: B037
   title: m4 tells the learner なん is deferred, then uses なん in the same module's dialogue and quiz options
-  status: open
+  status: fixed
   severity: major
   effort: XS
   confidence: verified
@@ -752,6 +766,7 @@
     Either drop the deferral sentence and teach なん here, or change the two
     later uses to なに. The dialogue line is the one that matters — a quiz
     option can be swapped freely.
+    FIXED 2026-07-29 — took the change-to-なに arm: L11 dialogue それ、なん？→それ、なに？ and review MCQ likewise (exercisedAtomKanas follow); deferral card stays; ja:それ、なに？ already in the TTS manifest; m4 now matches its own L3 card.
 
 - id: B038
   title: attributive adjective-before-noun is used from m9 and the only card explaining it is m15's relative-clause card
@@ -844,7 +859,7 @@
 
 - id: B042
   title: m15's module header mistranslates its own headline example — みる glossed as "reads", contradicted by its rule card two lines later
-  status: open
+  status: fixed
   severity: minor
   effort: XS
   confidence: verified
@@ -863,6 +878,7 @@
     "There is a person who looks at books."
   fix: >
     One word in the module header — "reads" to "looks at".
+    FIXED 2026-07-29 — mockCourse.ts m15 summary: "who reads books" → "who looks at books" (single-occurrence replace, count-asserted).
 
 - id: B043
   title: m18 L12's dialogue has Mika introduce a friend who is also called Mika
@@ -1372,12 +1388,46 @@
     switchover is defensible by extrapolation but is NOT a Japanese-specific
     empirical result.
   fix: >
-    Spencer's proposed method, in his words: "maybe we do the same process we
-    did earlier where we think of good ideas to teach this, check other
-    learning tools and see what they do." So: research pass first (what do
-    WaniKani, Anki/Core2k, Duolingo, Bunpro, Renshuu, JPDB do at the moment a
-    known word gains its written form?), then design, then a step type.
-    Budget is available — see B063.
+    DESIGN SETTLED 2026-07-29 (Spencer): variant C, restructured to TWO steps —
+    (1) an animated kana→kanji reveal, ungraded, holding its own Continue until
+    the animation finishes; (2) a graded sentence question with furigana OFF on
+    the switched word and four options that differ only at that word. Written up
+    in docs/kanji-switchover-design-2026-07-28.md §6. Note this deliberately
+    overrules the research pass's recommended order (attempt-first, reveal-as-
+    feedback, §7a of the distributed spec) — Spencer's call, recorded not
+    reconciled.
+    What is BUILT: kanji.json (147 KanjiVG glyphs, all of N5_KANJI incl. the
+    exposure tier) + KanjiStrokeDraw + six candidate animations, live at
+    /ja/qa/kanji-reveal, coverage test-enforced in glyphs/data.test.ts.
+    Step 2 SETTLED 2026-07-29: a kanji CLOZE on `fill_blank` (adopting the unused
+    step type) — English cue + blanked sentence + four shape-matched kanji tiles,
+    tile readings suppressed via the new `wordBankHideHelper`. Distractors are
+    real course-registry words matched on glyph count and MAY use untaught kanji
+    (Spencer: "use kanji they dont even know ... still getting good distractors if
+    we can get two symbol words"); pool is 166 two-glyph / 138 one-glyph words.
+    That relaxation is what makes the step viable at m8, where the
+    already-taught-only pool was 0.
+    WIRED IN 2026-07-29 (Spencer: "gracefully implement it in as one of the
+    possible review steps ... checking for an available one to promote to kanji as
+    a first step"): `buildSrsReviewLesson` now prepends up to 2 beats per dynamic
+    review via `pickSwitchoverCandidates`; the `kanji_reveal` step type + view
+    ship; the latch (`kanjiSwitchoverLatch`) is written on lesson COMPLETION in
+    LessonPage gated on the cloze being correct; and `kanjiSurfaceLatchVisible` in
+    AnnotatedText withholds an un-introduced switchover kanji so the beat is the
+    learner's FIRST sight of the written form. Capacity math forced 2 beats per
+    review: 66 review hosts at m8+ vs 124 switchovers, so 1/review left 58 words
+    permanently in kana. SWITCHOVER_GRACE_MODULES=3 fails open so no word can be
+    hidden forever. Full write-up: design doc §7.
+    What REMAINS: pick one animation (7 is Spencer's, unconfirmed as final);
+    promote the cloze's English cue out of `hint`; make FillBlankStepView honour
+    `sentenceAnnotation` (declared but ignored);
+    wire the trigger + latch into buildSrsReviewLesson (the 44 derived review
+    lessons are the only per-learner host — review TAILS do not exist at m8+,
+    see the distributed spec §6a) with the latch written on lesson COMPLETION,
+    never at build time, because buildSrsReviewLesson is pure.
+    Still open independently: the 14-day trigger reads as unfair when intervals
+    oscillate; the latch is invisible and irreversible off one correct answer;
+    and B064 (no orthography modality to grade into).
 
 - id: B062
   title: the exposure kanji tier should extend into N4 rather than stopping at the N5 glyph list
@@ -1472,3 +1522,836 @@
   found: 2026-07-28
   source: claude-probe
   see_also: docs/kanji-switchover-design-2026-07-28.md
+
+- id: B065
+  title: The live course teaches 208 of 678 registered vocab atoms; 96 it never touches at all
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: content
+  tags: [system/srs, class/exposure, class/coverage]
+  found: 2026-07-29
+  source: kanji-switchover-probe
+  detail: >
+    A COVERAGE gap, not a reinforcement gap -- both earlier filings framed it
+    wrong. The rewrite authored tight per-module word lists; the atom registry
+    still carries the pre-rewrite course's vocabulary, and 470 of those rows are
+    unlocked by nothing (by the course walk; placement test-out is a real second
+    unlock path). For the 96 whose surface never appears in any live lesson at
+    all, no lesson surface can reach them: the flashcard deck and the dynamic
+    review pool both filter on the unlock store. 73 of the 216 real never-graded
+    are CEJC top-500 spoken-Japanese words (lemma-disambiguated 2026-07-29;
+    earlier 78-82 counts included particle-row/homograph collisions -- 歯 "#12"
+    was topic-は, 暗い "#61" was extent-くらい, 会う/合う and 止まる/泊まる were
+    swapped) -- ほんとう #57, ところ #69, みんな #89, 話 #99, 取る/撮る #100,
+    使う #103, 書く #110, 自分 #112, 子供 #209, どうぞ #252, 左 #491, 右 #496 --
+    core conversational vocabulary, not breadth trivia. (歯 is real but not in
+    the CEJC-500; ほんとう is in the never-GRADED 220, not the never-touched 96.)
+    Full 73 + late-teaching findings in audit doc §7. Independently audited 2026-07-29: all §1 figures
+    reproduced except the never-touched count, corrected 99/100 -> 96; scope
+    correction in B070 (three non-lesson surfaces DO show a few of these words).
+  evidence: >
+    Measured 2026-07-29 over the LIVE course map in learner order (432 lessons,
+    7580 steps, 5455 carrying exercisedAtoms). Checked in as a ratchet:
+    `src/features/languages/ja/__tests__/atomExposureAudit.test.ts`
+    (`EXPOSURE_REPORT=1` writes /tmp/ja-atom-exposure.txt and
+    /tmp/ja-atom-untouched.txt). Of 678 SRS-eligible atoms attributed to a live
+    module: 208 are unlocked by walking the whole course, 220 are graded by no
+    authored step, 96 have no surface anywhere in any live lesson (three-detector
+    instrument: atom id verbatim, kana variants split on /、, kanji variants;
+    known blind spot: single-kana words like 歯 are unmeasurable because the
+    particle は shares the surface), 0 are attributed to a teach step instead,
+    and 37 more are graded but never advance FSRS (D2 same-module gate; 19 of
+    those are m30, structural -- no later module exists). 11 of the 220 share a
+    surface with a taught atom; only 4 are genuinely the same word under another
+    id (いい/よい, 四, 七, より・ほう) -- わたくし and 熱い are NOT covered,
+    contra the first draft -- so 216 are real.
+    Partly known already: curriculum/__tests__/m19-neo.test.ts guards のる おりる
+    つく でる かかる ひこうき くうこう こうえん タクシー まっすぐ みぎ ひだり so
+    authors don't reach for them (its corpus is m19's own lessons ONLY, despite
+    a comment claiming course-wide scope). Nobody had measured how many words
+    are in that state.
+    LANDMINE: atom.fromModule is PRE-REWRITE numbering (compile-ir.mjs: "those
+    tags are stale by construction"). 右/左 say m17 but live m17 is Family I.
+    Do not read it as where the course teaches a word.
+    SUPERSEDES two earlier filings: "28 words" measured only the 124 kanji-
+    switchover words; "the flashcard deck is its only surface" was wrong (it is
+    not a surface for them at all). The "numbers are an attribution gap" guess
+    also died: 四 and 七 ARE taught as ja-m5-1-v-4 / ja-m5-2-v-7, and 二 is
+    deliberately never drilled because に is also the particle (m11 IR notes).
+  fix: >
+    (a) THROUGHPUT -- code landed 2026-07-29 but DORMANT (see B069: nothing on
+    the live map routes to buildSrsReviewLesson). The builder reserves the
+    new-card seats instead of merging them with the due queue, and
+    composeAtomSteps stamps the target atom on every step (the speaking and
+    listeningCompSentence fallbacks emitted NO exercisedAtoms -- 133 + 104 steps
+    measured -- so a new card landing there stayed new forever). Hardened after
+    independent review: homophone mis-credit stripped, blank-option MCQ fixed,
+    MAX_ATOMS hard cap restored, kanji_reveal made a teach step. Helps only
+    words that are unlocked -- not the 96 -- and only once B069 wires it in.
+    (b) COVERAGE -- author one vocab-pack lesson per module for the themed
+    clusters. That is the real fix and it is content work; see B067 for the
+    per-module slot plan and the four mechanical constraints.
+    (c) SIDE QUESTS for what has no home in the spine; needs B066 first.
+    PROGRESS 2026-07-29 -- packs 1-2 landed in m11 (lever b): ja-m11-neo-10
+    (weekdays: げつようび かようび すいようび もくようび きんようび どようび
+    にちようび + あさって) and ja-m11-neo-11 (ことし きょねん せんしゅう
+    せんげつ らいげつ まいとし + V:おぼえる + はじめて); R1/R3 extended to
+    review them (also their Track-A write surface). Ratchets re-pinned:
+    MAX_NEVER_GRADED 220 -> 204, MAX_NEVER_TOUCHED 96 -> 91.
+    PROGRESS 2026-07-29 (later) -- packs 3-4 landed: ja-m13-neo-10 "the
+    morning routine" (おきる あらう みがく せっけん シャワー ゆうべ けさ +
+    A:はやい 早い) and ja-m14-neo-10 "doors and lights" (あける しめる もつ
+    ひく ドア でんき + A:つめたい); each module's R3 gained a coverage block
+    (measured: SRS credit rides EXACT atom-kana matches, so the R3 beats carry
+    dictionary forms -- and a trailing ？ glues to the last token and drops its
+    credit). Ratchets re-pinned: MAX_NEVER_GRADED 204 -> 188,
+    MAX_NEVER_TOUCHED 91 -> 82 (net smaller than the word count: "touched"
+    for ~8 words was seeded-distractor luck that the registry re-homes
+    reshuffled away -- it was never a taught-status signal).
+  see_also: docs/vocab-exposure-audit-2026-07-29.md
+  progress_2026_07_30: >
+    Packs 5-6 SHIPPED (ja-m16-neo-10 classroom / ja-m16-neo-11 habits+health,
+    15 words; taisetsu substituted for homograph-loser ha(tooth) -> B085).
+    Ratchets: never-graded 188->173, never-touched 82->71, dangling 232->227,
+    early-tag 194->193. 55 TTS clips pending Trevor's upload. Learner-sim +
+    Gate 10 for m16 packs still owed (wave plan phase-3).
+
+
+- id: B066
+  title: Side quests are inert and cannot grade anything -- prerequisite for B065(b)
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [system/srs, system/content]
+  found: 2026-07-29
+  source: claude-probe
+  detail: >
+    Side quests exist as map tiles and nothing else, so "put the un-drilled words
+    in a side quest" cannot work until the surface is real. Three separate
+    blockers, each verified by probe 2026-07-29.
+  evidence: >
+    1. NO ROUTING. Every ja quest in mockCourse.ts carries `comingSoon: true`, and
+    both `SIDEQUEST_TO_LESSON` and `SIDEQUEST_TO_ROUTE` are empty object literals
+    in LearnPage.tsx and TransitLearnPage.tsx. The quest lessons themselves were
+    deleted 2026-07-16.
+    2. NO SRS WRITE. A side-quest lesson id is not a dedicated review lesson, and
+    the D2 gate needs `parseModuleIndex(lessonId) > 0`, so `ja-sidequest-days`
+    writes nothing. Anchoring the id to a module does NOT fix it either: for
+    `ja-m12-sidequest-days` + the m12 atom どようび, D2 still returns false,
+    because it requires the atom's module to be STRICTLY PRIOR to the lesson's.
+    A quest can only grade words from modules before its anchor.
+    3. QUEST-SOURCED ATOMS ARE INVISIBLE TO REVIEWS. `getAtomsUpToModule` filters
+    on live module ids, so the 10 existing `fromModule: "sidequest-survival"`
+    atoms appear in 0 review pools (m30 pool = 678 atoms, none of them). Any NEW
+    word authored into a quest inherits that dead end.
+    Secondary: the script ladders key off parseModuleIndex too, so a non-`mN`
+    lesson id renders as module 0 -- romaji on everything, no kanji substitution.
+  fix: >
+    Make side-quest lessons a seventh SRS write surface with an explicit anchor
+    module on the LessonContent (not parsed out of the id), gate writes on "atom
+    is already unlocked AND not introduced by this quest" so D6 still holds, and
+    either give quest-sourced atoms a live-module anchor or teach
+    getAtomsUpToModule about them. Then restore the routing maps and drop
+    comingSoon per quest as its content lands.
+  see_also: docs/vocab-exposure-audit-2026-07-29.md
+
+- id: B067
+  title: Vocab-pack lessons -- slot the untaught N5 clusters back into the live modules
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: content
+  tags: [system/content, class/coverage]
+  found: 2026-07-29
+  source: claude-probe
+  detail: >
+    The content half of B065. One extra teaching lesson per module, themed to the
+    module it lands in, teaching the words the rewrite has not re-taught. Order
+    by visibility: m11 weekdays and m19 directions first -- a course that never
+    asks 土曜日, 右 or 左 is a hole a learner notices.
+  evidence: >
+    Homes proposed per live-module theme in the audit doc §3: weekdays+calendar
+    ~15 to m11 (Time I; m11's own IR defers calendar points -- "those arrive
+    later" -- so this is that debt), directions+landmarks ~18 to m19 (Getting
+    around; the m19 guard test names these exact words), family+people ~14 to m17,
+    tableware+ordering ~13 to m8/m9, body+routine ~20 to m22/m14, adjectives ~12
+    to m12, comparatives ~7 to m20/m26, connectives ~8 to m16, time expressions
+    ~16 to m11/m23, katakana loanwords ~16 into the existing katakana row lessons,
+    verbs ~18 to m24/m29. ~25 residual singletons fit no cluster.
+    TTS is ALREADY DONE -- spot-checked 28 cluster words against
+    src/pub/tts/manifest.json, 28/28 present from the old course's run. Registry
+    rows exist too. So the cost is authoring, not pipeline.
+  fix: >
+    Per pack: declare the words in curriculum/ir/mN.ir.yaml (lessons + newAtoms),
+    run `node scripts/compile-ir.mjs mN`, add the lesson tile to the module's
+    literal lesson list in mockCourse.ts. Four constraints, each a real trap:
+    (1) the atom needs a courseAtoms ROW, not an IR-only newAtoms entry -- IR-only
+    atoms are invisible to the compiler's tokenizer and to SRS (see the `ii`
+    backfill postmortem in courseAtoms.ts, where 「たべても いい」 tokenized to
+    たべて・も・<unknown> and tripped the unbuildable gate). These words already
+    have rows.
+    (2) fromModule MUST be updated to the teaching module -- getAtomsUpToModule
+    (the review pool) and the D2 gate both read it, so a word taught in m11 but
+    still tagged m12 is excluded from m11's reviews AND never graded by D2.
+    (3) unlock is automatic once a step names the atom in exercisedAtoms or a
+    tile (fallbackAtomsForLesson, exact match only) -- but LEAVE
+    introducedByLessonId UNSET: a static attribution suppresses the fallback
+    forever, and a later rename/delete of the lesson strands the atom, which is
+    exactly how B068's 234 dangling attributions happened.
+    (4) relax the m19-neo guard test as its words land, or the pack fails CI.
+    PROGRESS 2026-07-29 -- packs 1-2 (m11) SHIPPED: ja-m11-neo-10 "The week --
+    〜ようび" (7 weekdays + あさって, youbi-days rule card extends ni-time to
+    named calendar points) and ja-m11-neo-11 "This year, last year" (ことし
+    きょねん せんしゅう せんげつ らいげつ まいとし おぼえる はじめて,
+    time-spans rule card). All 16 registry rows re-homed fromModule -> m11;
+    dead attributions ja-m25-4-2 (はじめて) / ja-m29-2-1 (おぼえる) deleted
+    (MAX_DANGLING_ATTRIBUTIONS 234 -> 232). m11 R1/R3 gained coverage beats so
+    the pack words get review-lesson SRS writes. Two trap-2 casualties fixed
+    en route: あした re-homed m12 -> m11, かえる m14 -> m19 (+blocked, made-ni
+    gate exemptions x2). Exposure ratchets 220 -> 204 / 96 -> 91;
+    never-unlockable back at the 226 pin. TTS emitted+generated+verified
+    (39+15 nanami clips, 2 keita dialogue lines). Packs 3-16 remain.
+    PROGRESS 2026-07-29 (later) -- packs 3-4 SHIPPED. Pack 3 (m13):
+    ja-m13-neo-10 "けさ -- the morning routine" (V:おきる V:あらう V:みがく
+    せっけん シャワー ゆうべ けさ A:はやい早い; IR-local asa-routine card; no
+    substitutions -- all 8 verified untaught), R3 extended; okiru/arau/migaku
+    VERB_ENTRIES un-parked 99 -> 13 (trainer path node now drills them);
+    sekken meaningEn fixed from the mislabeled "economy". Pack 4 (m14):
+    ja-m14-neo-10 "ドアを あけて -- doors and lights" (V:あける V:しめる
+    V:もつ V:ひく ドア でんき A:つめたい; akeru-shimeru card; no
+    substitutions), R3 extended; NEW VERB_ENTRIES rows akeru/shimeru/hiku
+    (m14) + motsu/tsumetai un-parked -> 14; ドア's dead ja-m6-kata
+    attribution deleted. Adjacent trap-2 fixes: すき/きらい/ほしい re-homed
+    to m13 (their live teaching lessons) + blocked (rule-card debuts);
+    MAX_GRADED_NEVER_UNLOCKABLE 226 -> 223. Two mechanical findings for the
+    remaining packs: (a) the module compiler tokenizes over atoms + stems,
+    so every derived cell a pack spends must be an IR newAtom; (b) registry
+    re-homes reshuffle the seeded distractor fill, which can silently move
+    the drillPoolIsTaught "first exposure" of luck-exposed adjectives --
+    nine entries got measured-and-pinned values this wave. Packs 5-16 remain.
+
+- id: B068
+  title: 287 words the live course teaches and grades are never UNLOCKED, so no review surface can reach them
+  status: open
+  severity: blocker
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [system/srs, class/exposure, class/attribution]
+  found: 2026-07-29
+  source: claude-probe
+  detail: >
+    Distinct from B065 (words never taught). These ARE taught and graded, and a
+    lesson grade creates their FSRS card -- but they never enter the unlock store,
+    and unlock gates BOTH review surfaces: the flashcard course deck
+    (buildCourseDeck(unlockedIds)) and every dynamic review pool
+    (buildSrsReviewLesson filters candidates on getUnlockedAtomIds). So the card
+    is created once and can never be selected again. Silent retention loss on
+    core vocabulary -- ねこ, いぬ, ひと, なに, やま, あさ, さくら are all in it.
+  evidence: >
+    Measured 2026-07-29 by cross-tabbing taught (named by a graded step in a live
+    lesson) against unlocked (returned by getAtomsForLesson for a live lesson),
+    over all 917 SRS-eligible JA atoms: 488 graded by a live lesson, 208 unlocked
+    by a live lesson, 287 graded-but-never-unlocked. 234 atoms carry an
+    `introducedByLessonId` pointing at a lesson that no longer exists in the
+    registry at all (ja-m1-l1, ja-m1-l6-ha, ja-m3-3, ja-m4-1-1); 20 more point at
+    a registered but off-map lesson.
+    PROOF CASE: ちち / はは are the headline words of live ja-m17-neo-1
+    ("ちちと はは"), taught and graded there, but their rows say
+    `fromModule: "m8", introducedByLessonId: "ja-m4-1-1"` -- a deleted lesson --
+    so they are never unlocked.
+    TWO INDEPENDENT CAUSES, both in fallbackAtomsForLesson (lessonAtomIndex.ts):
+    it only fires when `lessonToAtoms` has no entry for the lesson, and it filters
+    on `!a.introducedByLessonId && a.fromModule === <lesson's module>`. So (A) a
+    dangling/off-map attribution suppresses the fallback forever, and (B) an atom
+    whose legacy fromModule differs from the live module that teaches it can never
+    match. The rewrite renumbered modules, so (B) is systemic.
+    ALREADY KNOWN IN ONE PLACE: applyPlacement.ts ~line 147 comments "M8+ atoms
+    carry module-level attribution only (no introducedByLessonId), so the
+    per-lesson unlock above can't reach them -- unlock the seeded atoms directly
+    or SRS review lessons will skip them", and calls unlockAtomIds(seededIds) to
+    work around it. That path runs ONLY for placement-test takers. A learner who
+    starts from scratch and walks the course never gets it.
+    THIRD-PARTY-CONFIRMED 2026-07-29: the independent audit reproduced
+    917/488/208/287 exactly, verified the unlock path (LessonPage.tsx ->
+    unlockLessonAtoms -> getAtomsForLesson, unconditional on completion), and
+    confirmed 208 is not a zero-fallback artifact (169 static + 39 fallback).
+    One boundary: applyPlacement.ts unlockAtomIds(seededIds) is a real second
+    unlock path, so "never unlocked" is exact for course-walk learners only --
+    a test-out past m17 DOES unlock 右/左. Also note per B069 the dynamic
+    review pool is currently unreachable anyway, so the live cost today is the
+    flashcard course deck alone -- still every non-placement learner's only
+    review surface for these words.
+  fix: >
+    Decide the source of truth for "this lesson introduces this atom" and make it
+    survive renumbering. Options: (1) repoint or delete the 254 stale
+    introducedByLessonId values and re-home fromModule to the live teaching
+    module -- correct but touches ~500 rows; (2) let the fallback ALSO fire when a
+    static attribution points at a lesson that is not on the live map (cheap,
+    fixes 234 immediately, keeps the landmine for live attributions);
+    (3) derive unlock from `exercisedAtoms`/tiles alone and retire the attribution
+    field. Add a conformance test that every introducedByLessonId names a
+    registered lesson -- that alone would have caught this.
+    PROGRESS 2026-07-29: option 2 SHIPPED (lessonAtomIndex isDeadAttribution --
+    an attribution the lesson registry cannot resolve is treated as unset, so
+    the module fallback fires again). Measured with the new instrument in
+    lessonAtomAttribution.test.ts ("attribution integrity (B068)"): 287 -> 226
+    graded-but-never-unlockable (positive-controlled: neutering the fix reads
+    287 exactly). Both counts are now ratcheted tests: MAX_DANGLING_ATTRIBUTIONS
+    234, MAX_GRADED_NEVER_UNLOCKABLE 226. The 226 residual is cause (B) in both
+    flavours (131 no attribution + 95 dead attribution; legacy fromModule names
+    a module whose live lessons never surface the word) -- fixed only by
+    re-homing fromModule to the live teaching module, which the vocab-pack wave
+    (docs/vocab-pack-wave-plan-2026-07-29.md) does per pack; lower the ratchet
+    with each pack. Registered-but-off-map attributions (20) still honored
+    deliberately (deep-link completable).
+  see_also: docs/vocab-exposure-audit-2026-07-29.md
+
+- id: B069
+  title: Nothing on the live map routes to buildSrsReviewLesson -- the dynamic review picker AND the kanji-switchover beat (B061) are dormant
+  status: fixed
+  severity: blocker
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [system/srs, system/content, class/wiring]
+  found: 2026-07-29
+  source: independent-code-review
+  detail: >
+    The 73 live ja-mN-neo-review-* lessons are STATIC IR-compiled entries in
+    LESSONS. The only route into the dynamic buildSrsReviewLesson builder is the
+    id shape ^ja-mN-review-[12]$ (mockLessons.ts getMockLessonContent), and zero
+    live lessons carry it -- verified twice, independently and by probe over
+    getMockCourse("ja") (432 lessons, 0 matches). So everything that lives only
+    inside that builder ships no learner-visible behaviour: the B065 lever (a)
+    reserved-seat intake fix, the per-step atom crediting, AND the entire
+    kana-to-kanji switchover beat (B061, decided 2026-07-29) whose only call
+    site is buildSrsReviewLesson.ts. The builder is reachable today only by
+    hand-typing a deep link (learn/lessons/ja-m9-review-1).
+  evidence: >
+    mockLessons.ts:747 `/^ja-(m\d+)-review-([12])$/` is the sole functional
+    reference; every other buildSrsReviewLesson mention in src is a comment.
+    buildSwitchoverBeat's only call site is buildSrsReviewLesson.ts:505 (grep
+    2026-07-29). The static neo-review lessons return byte-identical steps
+    across calls (step ids like ja-m9-neo-review-1-s-0). The atomExposureAudit
+    header and the B065 fix notes previously claimed the neo-review lessons
+    were dynamic -- both corrected 2026-07-29.
+  fix: >
+    Product call needed on the wiring: (1) route the existing ja-mN-neo-review-*
+    ids to the dynamic builder (replaces authored review content -- the IR
+    review lessons are real authored assets, so this discards work); (2) add
+    the dynamic ja-mN-review-1/2 tiles to each module's map entry alongside the
+    authored reviews; or (3) attach the switchover beat + reserved-seat intake
+    to the STATIC review lessons at getMockLessonContent time (a render-time
+    prepend, same pattern as kanaReviewTails). Whichever lands, add a
+    conformance test that at least one live lesson per module routes to the
+    dynamic builder (or that the beat has a live call site) so this cannot
+    silently regress.
+  see_also: docs/kanji-switchover-design-2026-07-28.md
+  resolution: >
+    PHASE 1 SHIPPED 2026-07-30 (Spencer approved option 3, verified +
+    positive-controlled by orchestrator). withDynamicReviewPrefix
+    (lesson/data/dynamicReviewPrefix.ts, hooked getMockLessonContent
+    mockLessons.ts:743, kanaReviewTails layer) prepends a capped dynamic
+    segment (cap 10, due-first) to every ja-mN-neo-review-*: switchover
+    beat (B061 now LIVE) -> due atoms (miner >=60% sentence-context) ->
+    due Track B grammar -> reserved new-card seats (B065 intake live;
+    MAX_NEW 5->8 per Spencer's "more max is good"). D6 structural in the
+    prefix (seats require due -- same-day seeds can never seat); empty
+    state byte-identical (same object reference); grading rides the
+    unchanged isDedicatedReviewLesson gates incl. B074 collision guard;
+    no LessonPage edits. Conformance: dynamicReviewPrefix.test.ts (14
+    tests) incl. the demanded live-call-site test -- neutering the hook
+    fails 5 tests (verified twice). QA preview /ja/qa/review-prefix with
+    URL-addressable synthetic states for Gate 10. Drive-by fix: same-type
+    re-pick guard in composeAtomSteps skipped the last pick. PHASE 2
+    (deferred until Spencer plays phase 1): IR dynamic-slot mid-lesson
+    interleaving; optionally fold full-builder match/end beats into the
+    prefix or retire the old ja-mN-review-1/2 deep-link shape.
+
+
+- id: B070
+  title: Untaught words are live on non-lesson surfaces, green-lit by stale fromModule tags in the comprehensibility gate
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: content
+  tags: [system/srs, class/coverage, class/gate]
+  found: 2026-07-29
+  source: independent-audit
+  detail: >
+    "Never taught by the course" (B065) does not mean "never shown to a
+    learner": three live surfaces sit outside lesson content and the exposure
+    instrument's walk, and they use words the course never taught. Worse, the
+    gate that should catch this passes BECAUSE of the stale legacy fromModule
+    tags: grammarReviewPools.test.ts gates authored pool steps on "every content
+    word decomposes into atoms with fromModule <= the point's module", and
+    どようび's stale fromModule "m12" satisfies that even though no live lesson
+    teaches it. The gate's own GATE_EXEMPTIONS comment concedes it "resolves
+    words through courseAtoms OLD-course fromModule tags".
+  evidence: >
+    grammarReviewPools.ts:141-143 authors the ni-time pool with にちようび /
+    げつようび / どようび; consumed by useGrammarReviewSession.ts (SRS write
+    surface #5, /practice/grammar/review); ni-time is introduced in
+    m11.ir.json, so any learner past m11 can be shown weekday words the course
+    never taught. ja-reading-passages.ts:116 (Practice hub) uses どようび and
+    にちようび. placement/questionBank.ts:803-804 uses こども. Additionally 4 of
+    the 96 never-taught words exist only in off-map deep-linkable retired
+    katakana rows still registered in LESSONS: コンビニ (ja-m12-kata), カップ
+    (ja-m6-kata), ナイフ/ノート (ja-m7/m8-kata).
+  fix: >
+    Short term: the B067 weekday pack (m11) fixes the worst instance by teaching
+    the words the pool already shows. Structural: re-base the
+    grammarReviewPools comprehensibility gate on live teaching (the unlock
+    index or the atomExposureAudit instrument) instead of legacy fromModule
+    tags, and sweep the reading passages + placement bank against the
+    never-taught list. Decide whether the retired -kata rows should stay
+    registered (deep-linkable) or be dropped from LESSONS.
+  see_also: docs/vocab-exposure-audit-2026-07-29.md
+
+- id: B071
+  title: manualResetAt is silently dropped by the server SRS schema -- deliberate card resets die on cross-device hydration
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [system/srs, class/cross-repo-drift]
+  found: 2026-07-29
+  source: project-health-audit
+  detail: >
+    The client merge rule "only marked resets beat server state" requires
+    SRSCardState.manualResetAt (srsSync.ts:86, grammarSync same semantics), but
+    lingo-core app/srs/schemas.py SRSCardState has no such field and pydantic's
+    default extra-handling drops it on push. Same-device resets work (local
+    store keeps the marker); any server hydration on another device -- or after
+    a local wipe -- loses it, and the unlock-seeded/learned server state wins
+    over the learner's deliberate reset. Same failure family as the kanji-latch
+    device-sync carryover.
+  fix: >
+    Add manualResetAt (str | None) to the server SRSCardState schema and
+    persist/round-trip it; client-side round-trip test that a pushed reset
+    marker survives a fresh hydration.
+  see_also: docs/project-health-audit-2026-07-29.md
+
+- id: B072
+  title: 9 skipped m8+ kanji/romaji tests -- the skip-premise (module not authored) died with the IR wave
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [system/content, class/test-coverage]
+  found: 2026-07-29
+  source: project-health-audit
+  detail: >
+    it.skip'd tests including the f67479f regression guard
+    (renderSmoke.test.tsx:440, "DORMANT since the 2026-07-26 ARCHIVE ...
+    re-enable as each module is authored") assert kanji/romaji rendering
+    behaviour at m8+ against OLD-course fixtures (ja-m8-6-1) that were
+    archived. m8+ is now fully authored (neo/IR), so the behaviour is live and
+    unguarded; each test needs its fixture re-pointed at an equivalent live
+    ja-mN-neo-* lesson, not a bare unskip.
+  fix: >
+    Per skipped test: find a live neo lesson exhibiting the same shape (the
+    f67479f one needs a speaking step with kanji-free filler segments), repoint,
+    unskip, verify it can still catch the named defect (mutation-check the
+    guard once).
+  see_also: docs/project-health-audit-2026-07-29.md
+
+- id: B073
+  title: dialogue_sim -- productionize behind B066 and run the design/QA iteration wave
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: content
+  tags: [system/content, page/quests, class/prototype]
+  found: 2026-07-29
+  source: spencer-play
+  detail: >
+    The simulation-dialogue step prototype (konbini checkout, /ja/qa/dialogue-sim;
+    graded, writes no FSRS, pinned in UNUSED_STEP_TYPES) is KEPT per Spencer:
+    "awesome conceptually ... ui/ux wise it needs a better design, visual audit
+    and user simulation, and missing emojis or theming in some small way."
+    It is the native format for the Travel Sprint quest lessons and the seam
+    for the planned local-AI TTSD conversational lesson.
+  fix: >
+    Two tracks. (1) Iteration wave: design pass, Gate 10-style visual audit,
+    learner-sim run, emoji/theming fill. (2) Productionize (after B066): five
+    rulings in decision-brief-2026-07-29.md section 4 (survival-register
+    carve-out, retry semantics, kanji on sim tiles, scene inventory/cast,
+    progress weight), move scenario out of dev/ into the IR, TTS emit+generate,
+    unpin from UNUSED_STEP_TYPES with a conformance test.
+  see_also: docs/decision-brief-2026-07-29.md
+
+- id: B074
+  title: Review lessons graded exercised-atom ids unconditionally -- kana/id collisions wrote FSRS history onto unmet words (した/きた vs 下/北)
+  status: fixed
+  severity: blocker
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [system/srs, module/m11, class/id-collision]
+  found: 2026-07-29
+  source: learner-sim
+  detail: >
+    Found by the m11-packs learner-sim walk (docs/learner-sim/m11-packs-2026-07-29.md
+    finding 1, code-traced). ja-m11-neo-review-3 steps s-3/s-9 exercise
+    "shita"/"kita" -- the IR's unregistered irregular pasts した/きた -- which
+    are ALSO the registry ids of 下 (fromModule m17) and 北 (fromModule
+    "future"). LessonPage's review-lesson grading path wrote every exercised id
+    unconditionally through the flat card keystore, so completing the review
+    wrote FSRS history onto flashcards for words the learner meets 5+ modules
+    later. Content lessons were already safe (D2 gate resolves and skips);
+    ONLY the dedicated-review path lacked a guard.
+  fix: >
+    FIXED 2026-07-29 -- shouldWriteReviewLessonAtom in reviewTailSrs.ts: a
+    review lesson skips any exercised id that resolves to a registry row whose
+    module is strictly later than the review's own, or whose home is not a
+    course module ("future"/quest tags); unresolvable ids (IR-only inflections,
+    non-JA canonical ids) keep grading. Wired in LessonPage.tsx next to the D2
+    gate; 5 regression tests incl. a positive control pinning the collision
+    precondition. REMAINING CLEANUP (content-side, recommended): give した/きた
+    non-colliding ids in the m11 IR mirroring the itta-iku pattern, so the
+    inert content-lesson emissions stop colliding too.
+  see_also: docs/learner-sim/m11-packs-2026-07-29.md
+
+- id: B075
+  title: m11 weekday pack -- 6 of 7 weekday words get zero pure-recognition practice; blocked-flag inconsistency masks it
+  status: fixed
+  severity: major
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m11, class/recognition-gap, system/content]
+  found: 2026-07-29
+  source: learner-sim
+  detail: >
+    Learner-sim finding 2 on ja-m11-neo-10: every weekday touch except
+    もくようび is production (build_sentence) -- no MCQ, image-MCQ or
+    match-pairs anywhere; どようび's first-ever course exposure is a production
+    build. 4 of the 7 weekday atoms are un-blocked for the invariant-30
+    image-MCQ guard while 3 siblings with the identical
+    no-glyph-distinguishes problem are blocked: true; and m11-neo.test.ts
+    never enables requireImageFirst, masking the gap. Finding 3 (minor, same
+    report): the "AとBに" two-days-one-に pattern is drilled 3x in review-1
+    without ever being modeled in the teaching lesson -- mitigated by tile
+    scaffolding.
+  fix: >
+    Add recognition beats to ja-m11-neo-10 (text-MCQ or match-pairs over day
+    names -- images can't discriminate days, so use text/audio recognition
+    shapes); make the blocked flag consistent across all 7 weekday rows; model
+    AとBに once on the youbi-days card or a build example; align
+    m11-neo.test.ts with the module-test template's requireImageFirst usage.
+    FIXED 2026-07-29 -- (1) ja-m11-neo-10 now gives every day name a pure
+    recognition rep BEFORE its build: word-choice clozes (どようび/げつようび/
+    きんようび; もくようび kept its existing cloze) + day-discriminating
+    listening MCQs (すいようび/にちようび/かようび/もくようび), all reusing
+    the lesson's own sentences (<=3 exposures each, zero new TTS; lesson is
+    19 compiled steps, recognition interleaves ahead of each day's
+    production). (2) All 7 weekday rows in courseAtoms.ts now blocked: true
+    with the "day-of-week label; needs text not image" wording (plus
+    あさって, same generic-📅 class, required for requireImageFirst).
+    (3) AとBに modeled on the youbi-days rule card: rule prose + example
+    げつようびと かようびに はたらく before review-1 drills it. (4)
+    m11-neo.test.ts enables requireImageFirst -- inv 30 now binds おぼえる,
+    which already debuts on word_image_mcq. Gates green, no ratchet moves.
+  see_also: docs/learner-sim/m11-packs-2026-07-29.md
+
+- id: B076
+  title: Reverse-teaching readiness -- research instruction-language decoupling now so ko->ja / ko->en are cheap in 3-4 months
+  status: fixed
+  severity: major
+  effort: M
+  confidence: reported
+  area: data
+  tags: [system/content, class/architecture, class/i18n]
+  found: 2026-07-29
+  source: spencer-play
+  detail: >
+    Spencer 2026-07-29: reverse teaching (e.g. Korean-source learners studying
+    ja or en) is 3-4 months out, but "if there is better discipline there maybe
+    we want to schedule some research into better housekeeping ... or data
+    structure to support the ease in the future." The known entanglement:
+    instruction English is baked into CONTENT, not just chrome -- meaningEn on
+    every atom, English rule-card prose in the IR, prompts/distractor text --
+    while i18next only covers UI strings. Every lesson authored in the current
+    shape adds migration debt; the vocab-pack wave is authoring ~90 more
+    lessons right now.
+  fix: >
+    Research first (dispatched 2026-07-29, deliverable
+    docs/reverse-teaching-readiness-2026-07-29.md): inventory every
+    instruction-language touchpoint, assess what ADR-005/normalizedAtoms
+    already abstracts, propose the schema evolution (per-language gloss/prose
+    tables vs sidecar files), estimate migration cost, sketch ko->ja as the
+    cheapest first reverse course (reuses ALL ja target machinery), and --
+    most urgent -- define the zero-cost authoring discipline rules packs 5-16
+    should follow NOW so new content stays gloss-separable.
+    RESEARCH LANDED 2026-07-30, key claims spot-verified (jaAcceptedForms.ts
+    ^to-gloss coupling, compiler cue regex, no lesson i18n namespace, 0
+    Latin-in-ja-fields baseline): grading is already instruction-language-
+    clean inside the lesson player (translate grades JA acceptedAnswers;
+    builds compare kana; MCQs by option id) EXCEPT four English-SHAPE
+    couplings (worst: jaAcceptedForms.ts:127 classifies verbs by /^to /
+    on meaningEn -- Korean glosses would corrupt grading; also
+    matchPairsFloor.ts Latin-gating, jaSurfaceForms.ts:91, compiler cue
+    regexes). Measured content-English surface ~14,960 strings. Schema rec:
+    build-time extraction pass (sibling of compile-ir.mjs) emitting
+    per-module catalogs keyed on existing anchors, per-language sidecars
+    (m13.ko.json) resolved at compile time with en fallback + coverage
+    ratchet; inline {en,ko} maps and minted-id sidecars both rejected (beats
+    have no stable ids -- steps numbered positionally). Doc SS4 has the eight
+    D1-D8 discipline rules for packs 5-16 -- pending Spencer yes/no before
+    they pin into pack-agent briefs. ko->ja honest minimum: m3 ~403 strings
+    /~1,650 words. Caveat: the es/ko per-step sweep audit never reported;
+    SS6's multi-course total understates -- logged in-doc as unverified.
+
+- id: B077
+  title: fromModule drift burn-down -- 238 atoms still mis-tagged (194 gate-dishonesty / 44 unlock-blocker)
+  status: open
+  severity: major
+  effort: L
+  confidence: verified
+  area: data
+  tags: [system/srs, class/coverage, class/gate]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    The systematic measurement behind the ちち/どようび/かえる finds
+    (stale-reference-audit 2026-07-29): atoms whose fromModule contradicts the
+    live course's first-exercised module. Early-tags make the comprehensibility
+    gate green-light untaught words (B070 mechanism) and enable premature D2
+    writes; late-tags block the fallback unlock (B068 residual). Ratcheted both
+    directions in fromModuleDrift.test.ts; pins tightened to measured 194/44
+    on 2026-07-29 (was 196/44 pre-packs). Full table: STALE_REPORT=1 npx
+    vitest run fromModuleDrift -> /tmp/ja-frommodule-drift.txt.
+  fix: >
+    The vocab-pack wave re-homes per pack (packs 1-4 already moved 196->194);
+    for atoms no pack will touch, re-home in themed batches against the drift
+    table and lower the pins in the same commit.
+  see_also: docs/stale-reference-audit-2026-07-29.md
+
+- id: B078
+  title: QaTestDrivePage deep-links 22 dead old-course lessons
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [page/qa, class/dead-reference]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    The QA test-drive dev page links 22 lesson ids that resolve to nothing
+    (staleLessonIdReferences STALE_REPORT dump). Dev-only surface, but it makes
+    the QA drive silently unrepresentative.
+  fix: Repoint or prune the dead rows; the shrink-only pin in staleLessonIdReferences.test.ts tracks it.
+  see_also: docs/stale-reference-audit-2026-07-29.md
+
+- id: B079
+  title: Retired ja-mN-kata lessons still registered -- keep deep-linkable or drop
+  status: decision-needed
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [system/content, class/dead-reference]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    86 registered-but-off-map tokens trace to the retired one-row-per-module
+    katakana lessons (ja-m4-kata..ja-m12-kata) still imported into LESSONS.
+    Four never-taught words live ONLY there (コンビニ/カップ/ナイフ/ノート --
+    all covered by wave packs 5/10). Spencer ruling requested in
+    decision-brief-2026-07-29.md section 2; recommendation there: drop after
+    packs 5/10 land.
+  see_also: docs/decision-brief-2026-07-29.md
+
+- id: B080
+  title: particleClozePlacement grandfather list is 100% dead ids + old-course intro-module table
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [class/dead-reference, system/content]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    All 164 tokens in LATE_PARTICLE_CLOZE_EXEMPTIONS are dead old-course ids,
+    and the file carries an old-course intro-module table; the exemption list
+    grandfathers nothing that exists. Invariant 5 wants the same-module
+    tightening the dead list was deferring.
+  fix: Delete the dead exemptions, re-measure what actually violates, tighten to same-module with a fresh (live-id) exemption list if needed.
+  see_also: docs/stale-reference-audit-2026-07-29.md
+
+- id: B081
+  title: grammarReviewIndex -neo- harvest filter excludes ja-m30-* (latent)
+  status: open
+  severity: minor
+  effort: XS
+  confidence: verified
+  area: engine
+  tags: [system/srs, class/latent]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    The registry harvest keeps only lessons whose id contains -neo-, and the
+    m30 N4 opener ships without that infix -- its future particle_cloze steps
+    would silently never harvest into grammar pools. Inert today (m30 ships 0
+    such steps); warning comment now sits at the filter.
+  fix: Widen the filter (or add the conformance check) when m30 authors cloze content; the comment at grammarReviewIndex.ts marks the spot.
+  see_also: docs/stale-reference-audit-2026-07-29.md
+
+- id: B082
+  title: Side-quest unlockAfter "ja-m2-complete" resolves to nothing
+  status: open
+  severity: note
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [page/quests, class/dead-reference]
+  found: 2026-07-29
+  source: stale-reference-audit
+  detail: >
+    mockCourse.ts side-quest tiles carry unlockAfter "ja-m2-complete", an id
+    that resolves to nothing -- the unlock could never fire. Harmless today
+    (every quest tile is comingSoon) but it belongs to the B066 quest-engine
+    work's checklist.
+  fix: Fold into B066 -- define real unlock conditions when the quest engine lands.
+
+- id: B083
+  title: m13/m14 packs -- 5 imageable:false headline words had zero recognition-only exposure
+  status: fixed
+  severity: major
+  effort: S
+  confidence: verified
+  area: content
+  tags: [module/m13, module/m14, class/recognition-gap, system/content]
+  found: 2026-07-29
+  source: learner-sim
+  detail: >
+    Learner-sim m13/m14 walk (2 MAJOR, 0 BLOCKER): in ja-m13-neo-10 the
+    headline words おきる, あらう, ゆうべ, はやい -- and in ja-m14-neo-10
+    あける -- had zero recognition-only exposure across their entire course
+    life; every graded touch was build/listening_build/translate. Same
+    root-cause class as B075 (third occurrence): imageable:false new words
+    get no compiler image-MCQ debut and nothing guarded the gap. しめる's
+    one aural touch (もうドアをしめた listening-comp) credited no atom --
+    しめた is a derived cell with no registry row.
+  fix: >
+    FIXED 2026-07-29 via IR-only edits + recompile. ja-m13-neo-10 (now 23
+    steps): word-as-answer clozes for おきる (siblings おきる/あらう/みがく)
+    and ゆうべ (now the ANSWER of the time-contrast cloze, mirroring けさ's),
+    listening-comps for あらう and はやい. ja-m14-neo-10 (now 22 steps):
+    pair-contrast cloze for あける (あける/しめる/もつ) and a dict-form
+    listening-comp for しめる that actually credits shimeru. All six audio
+    strings reuse existing TTS clips -- zero new generation, manifest
+    untouched. NEW durable detector recognitionExposure.test.ts (house
+    ratchet style): course-wide production-only introduced atoms pinned at
+    MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 21 (was 27 pre-fix; positive-
+    controlled -- detector flagged exactly the six target words before the
+    fix, none after; あさって pinned in-test as a hand-verified permanent
+    control). RECOGNITION_REPORT=1 dumps offenders to
+    /tmp/ja-production-only-exposure.txt. Suite 8702/0, tsc clean,
+    module-gate m13+m14 pass. Authoring rule promoted to BINDING for packs
+    5-16: every imageable:false headline word ships with >=1 explicit
+    recognition beat (cloze-as-answer or listening-comp).
+  see_also: docs/learner-sim/m13-m14-packs-2026-07-29.md
+
+- id: B084
+  title: 21 legacy production-only atoms -- introduced words with graded exposure but zero recognition reps
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: content
+  tags: [class/recognition-gap, module/m7, module/m11, module/m20, system/content]
+  found: 2026-07-29
+  source: detector
+  detail: >
+    The B083 detector's residual baseline: 21 of 328 IR-introduced atoms
+    (m6-m29) have graded exposure but zero recognition-only touches, all
+    imageable:false and all predating the pack wave -- m7 ええ/さま/くん/
+    ちゃん, m9 はち, m10 ちがう, m11 さんじゅう/ななじゅう/いちじ/さんじ/
+    しちじ/はん/あさって/ことし/きょねん/せんげつ/らいげつ, m12 じゃなかった,
+    m20 どちら/さんびゃく/はっせん. Full list:
+    RECOGNITION_REPORT=1 -> /tmp/ja-production-only-exposure.txt.
+  fix: >
+    Burn down by giving each a cloze-as-answer or listening-comp beat in its
+    teaching module's IR (prefer reusing already-TTS'd sentences), lowering
+    MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS in the same change. NOTE: あさって
+    is the detector's pinned positive control -- whoever fixes it must swap
+    the in-test control to another hand-verified offender in the same
+    change. Number/time words (m11 cluster) suit digit-to-word clozes;
+    honorifics (m7) suit register-contrast clozes.
+
+- id: B085
+  title: Homograph-LOSER words (ha tooth, hana nose, kaze cold) are unteachable -- kana-only surfaces resolve to the winning sense
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [module/m22, class/homograph, system/kanji, class/decision-needed]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    JA_PRIMARY_ATOM_BY_KANA resolves bare kana to the winning sense (ha ->
+    topic particle), and homographTeaching.test.ts fails any lesson that
+    teaches a losing sense -- correctly, because tiles/credit would misroute.
+    So the m16 habits pack could not teach 歯 (deferred; taisetsu subbed in),
+    and the m22 body cluster wants 歯/鼻/風邪 -- all losers. Teaching these
+    words requires a kanji-surface teaching mechanism (teach 歯 AS 歯 with
+    furigana from debut, bypassing the kana map), which doesn't exist yet.
+  fix: >
+    Scope the mechanism before the m22 pack: likely a kanjiSurface flag on
+    the atom + tile/credit paths that key on the kanji surface, riding the
+    existing FSRS-gated-furigana machinery. Decision-needed on the exact
+    shape; blocks the m22 body-parts pack (pack 12 band).
+
+- id: B086
+  title: Trainer drill pins move on distractor LUCK -- fromModule re-homes silently shift drillPoolIsTaught first-exposures (3rd occurrence)
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [system/trainer, class/ratchet-churn]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    drillPoolIsTaught pins record where a word is FIRST EXERCISED, but seeded
+    distractor backfill draws on fromModule -- so re-homing unrelated words
+    shifts which distractors get seeded and silently moves other words' pins.
+    3rd occurrence: samui 10->16, atatakai 24->25, hiroi 18->27 during the
+    m16 packs; previously the m11 and m13/m14 waves each remeasured pins the
+    same way. Pins are currently distractor luck, not teaching truth.
+  fix: >
+    Consider pinning trainer unlocks to TEACHING modules only (introducedAt
+    from the registry), not incidental distractor exposure -- one measured
+    migration, then the pins stop churning with every re-home.
+
+- id: B087
+  title: tsuyoi/yowai contrast cannot be drilled until m28 -- pair them in an m28 review beat
+  status: open
+  severity: note
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m16, module/m28, class/pair-contrast]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    yowai taught in the m16 habits pack; tsuyoi stays m28's image debut
+    (word_image_mcq is first-exposure-only, inv 44). The natural strong/weak
+    contrast has no drill site until m28.
+  fix: Add a yowai/tsuyoi contrast beat to an m28 R-review when authoring reaches it.
+

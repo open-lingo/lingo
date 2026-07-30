@@ -4,13 +4,17 @@
 
 > **2026-07-20 REWRITE-ERA ADDENDUM (m3-neo pilot walk — READ FIRST).**
 > [authoring-invariants-pinned.md](authoring-invariants-pinned.md) is the
-> AUTHORITATIVE constraint set (25 invariants) and travels verbatim with
-> every dispatch; where this guide disagrees, the invariants win. Deltas
-> vs the guide body below:
+> AUTHORITATIVE constraint set (47 invariants as of 2026-07-26 — don't trust
+> a count here, trust the file) and travels verbatim with every dispatch;
+> where this guide disagrees, the invariants win. Deltas vs the guide body
+> below (NOTE: several of these deltas have themselves been superseded by
+> later invariants — the module-shape bullet below is one):
 > - **selfExplain is BANNED in ja** (metalinguistic quiz — Spencer
 >   2026-07-19). Ignore every selfExplain slot in §2/§3/§4; understanding
 >   is tested by USE (choice-under-contrast clozes, forced-choice).
-> - **≥12 lessons per module from m4 on** (11 teaching + 1 review).
+> - ~~≥12 lessons per module from m4 on (11 teaching + 1 review)~~ —
+>   **SUPERSEDED by invariant 25 (2026-07-26): 12–15 lessons = 8–11 teaching
+>   + 3 review + 1 challenge, challenge lesson always last.**
 > - **Persona canon** (invariant 21): Tom=student/American/Mika's friend,
 >   Mika=student/Japanese, Tanaka=the teacher, Ken=student/Japanese —
 >   across ALL surfaces including slot-filler practice sentences.
@@ -53,13 +57,13 @@ How to author a Lingo JA sub-lesson that passes every standard we've accumulated
 > script ladder (romaji off at m7, kanji recognition at m8, furigana unlock+2, never
 > romaji+kanji, no typed kanji) is in §4e, and the new `kanjiReading` step is in §4f.
 
-**Read this before authoring any new JA lesson.** Read `docs/n5-content-spec-2026-05-25.md` (curriculum-level scope) + `docs/m3-m7-rebuild-spec-2026-05-18.md` (M3-M7 contract) + `docs/user-feedback/` (real-user evidence) for context. **Also read `docs/pedagogy-principles-2026-07-05.md`** — the binding rules for what explanations may claim about Japanese (が/は model, helpers-not-conjugation, structure-true glosses); this guide covers lesson mechanics, that one covers linguistic framing.
+**Read this before authoring any new JA lesson.** For context read the module's generated context pack (`node scripts/authoring-context.mjs mN`) + `docs/user-feedback/` (real-user evidence). (~~`docs/n5-content-spec-2026-05-25.md` + `docs/m3-m7-rebuild-spec-2026-05-18.md`~~ — both are launch-era/archived; this line steered authors at them until 2026-07-29.) **Also read `docs/pedagogy-principles-2026-07-05.md`** — the binding rules for what explanations may claim about Japanese (が/は model, helpers-not-conjugation, structure-true glosses); this guide covers lesson mechanics, that one covers linguistic framing.
 
 ---
 
 ## 1. The one-paragraph contract
 
-A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new atoms (vocab or grammar), drill them with rotating-answer MCQs + 1 typed translate + 1 speaking, fold in a `selfExplain` at position N-1 (after the learner has committed 2-3 times), and close with a 3-5 step **compounding-review tail** drawing from prior modules' `M3_M7_REVIEW_POOL`. Every introduced atom must re-surface ≥3 times across the M3-M7 corpus. No same-answer cloze clusters, no auto-pass on speaking, no hardcoded MCQ slot, no match-pairs grid below 4 pairs. The lesson is fun because every step is a chance to win; it teaches because every step makes the learner retrieve, not re-read; it sticks because every prior atom you've seen comes back when you'd start forgetting.
+A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new atoms (vocab or grammar), drill them with rotating-answer MCQs + 1 typed translate + 1 speaking, fold in a `selfExplain` at position N-1 (after the learner has committed 2-3 times), and close with a 3-5 step **compounding-review tail** drawing from prior modules' `M3_M7_REVIEW_POOL`. Every introduced atom must re-surface ≥3 times across the M3-M7 corpus. No same-answer cloze clusters, no auto-pass on speaking, no hardcoded MCQ slot, no match-pairs grid below 6 pairs (`MATCH_PAIRS_FLOOR = 6` — this sentence said 4 until 2026-07-29; the code is the truth, invariant 36). The lesson is fun because every step is a chance to win; it teaches because every step makes the learner retrieve, not re-read; it sticks because every prior atom you've seen comes back when you'd start forgetting.
 
 ---
 
@@ -82,9 +86,15 @@ A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new 
 > **Variety (two rules):** (1) **No two adjacent steps of the same `type`** — machine-enforced (`previewLessons.test.ts`). (2) **No more than two selection-MCQ steps in a row**, *even when their `type` differs*. Many types are the same interaction under the hood — `vocabMcq`, `sentenceMcq`, `particle_cloze`, `listeningCompSentence`, `self_explanation_mcq` are all "tap one of N." Rule (1) stops the identical repeat; this cap stops an MCQ marathon (three+ taps in a row reads as the same drill even with different type strings). Break a run with a generation step (`build`, `translateStep`, `speaking`) or a teach/`info` beat. *(Guidance, not yet a test — added 2026-06-30.)*
 
 Hard guards (vitest):
-- `src/features/lesson/data/sub-lesson-density.test.ts` — fails if any sub-lesson < 12 or > 25 steps.
-- `src/features/lesson/data/atom-coverage.test.ts` — fails if any introduced atom has < 3 occurrences across the corpus.
-- `src/features/lesson/data/mcq-position-distribution.test.ts` — fails if any MCQ-type's correct slot has > 55% concentration.
+> ⚠️ **2026-07-29:** the three per-corpus tests below moved to
+> `curriculum/_archive/tests/` with the old course and NO LONGER RUN. The
+> live mechanical bar for neo modules is `registerModuleBarGuards(...)`
+> (`ja/__tests__/moduleBarGuards.ts`) + `lessonDensity.test.ts` + the
+> compiler diagnostics; the import-time `grammarHelpers` assertions below
+> still run wherever they are called.
+- ~~`src/features/lesson/data/sub-lesson-density.test.ts`~~ (archived) — failed if any sub-lesson < 12 or > 25 steps.
+- ~~`src/features/lesson/data/atom-coverage.test.ts`~~ (archived) — failed if any introduced atom had < 3 occurrences across the corpus.
+- ~~`src/features/lesson/data/mcq-position-distribution.test.ts`~~ (archived) — failed if any MCQ-type's correct slot had > 55% concentration.
 - `grammarHelpers.ts:assertNoSameAnswerCluster` — throws at import if a sub-lesson's cloze block has ≥3 consecutive same-particle answers.
 - `grammarHelpers.ts:assertAnswerRotation(steps, minDistinct=2)` — throws at import if a sub-lesson's cloze block has < 2 distinct correct particles (3 for drill-only sub-lessons).
 
@@ -149,7 +159,7 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 | Goal | Use | Notes |
 |---|---|---|
 | Show a new vocab word | ~~`vocab(...)` / `phrase(...)`~~ | **BANNED in ja** — both produce `phrase_card`, which is shelved (§4b2). Zero call sites remain. Introduce via `vocabMcq` / `listeningCompSentence`+`speaking` / `build` instead. Still valid for es/ko. |
-| Introduce a grammar concept | `grammarRule(...)` | Include 2-3 examples + antiPattern + cultureNote. **`antiPattern.ja` MUST be a full sentence forming a minimal pair with `examples[0].ja`** — `deriveGrammarMicroSteps` auto-injects a "One of these is wrong — pick the correct sentence" step pairing `examples[0].ja` (correct) against `antiPattern.ja` (wrong). A bare word fragment (`のみる`) paired against a full sentence is a giveaway that tests nothing; the wrong sentence must also be *unambiguously* wrong (avoid an anti-pattern that's a valid alternative reading — e.g. くる→きる fails because きる="wear" is a real word). m26/m27 do this right; m29 shipped bare fragments and had to be fixed. |
+| Introduce a grammar concept | `grammarRule(...)` | Include 2-3 examples + antiPattern + cultureNote. **`antiPattern.ja` MUST be a full sentence forming a minimal pair with `examples[0].ja`** — antiPattern feeds the reactive ✗/✓ tip (the derived "One of these is wrong" spot step was RETIRED 2026-07-20, invariant 32; this row described it as live until 2026-07-29). A bare word fragment (`のみる`) paired against a full sentence is a giveaway that tests nothing; the wrong sentence must also be *unambiguously* wrong (avoid an anti-pattern that's a valid alternative reading — e.g. くる→きる fails because きる="wear" is a real word). m26/m27 do this right; m29 shipped bare fragments and had to be fixed. |
 | Cloze a particle answer | `cloze(...)` | Authors pass options in any order; the factory rotates the correct slot deterministically. Must hit `assertAnswerRotation(steps, 2+)` across the block. |
 | Visual MCQ on a vocab word | `vocabMcq(...)` | Distractors auto-drawn from the supplied pool. Throws if pool can't yield 3 emoji-bearing foils. Skips `WORD_IMAGE_MCQ_BLOCKLIST` kana. |
 | Kana sentence selection from EN prompt | `sentenceMcq(...)` | Slot-rotated. Three explicit kana distractors. |
@@ -158,7 +168,7 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 | Listening + reassemble in mora tiles | `listeningBuildSentence(...)` | For ≥4-mora sentences. |
 | Build a short sentence from word tiles | `build(...)` | Only for ≤4-mora sentences. ≥5-mora → use `translateStep` + `listeningBuildSentence` + `speaking` instead. |
 | Production by voice | `speaking(...)` | Whisper-graded, 2-fail-then-choice flow. NOT stubbed in M3-M7 (was a bug, fixed 2026-05-18). |
-| Match Japanese ↔ English | `reviewMatchPairs(...)` | Auto-padded to ≥4 pairs from `M1_REVIEW_POOL` if local pool is thin. |
+| Match Japanese ↔ English | `reviewMatchPairs(...)` | Auto-padded to ≥6 pairs (`MATCH_PAIRS_FLOOR = 6`, `matchPairsFloor.ts`) if local pool is thin. |
 | Multi-turn dialogue + comprehension MCQs | `dialogueListen(...)` | NEW 2026-05-18. Replaces the legacy `dialogueLesson()` phrase-card chain. Use for every module's dialogue closer (M3-7, M4-7, M5-7, M6-8, M7-8). |
 | Metacognitive "why is X correct" | `selfExplain(...)` | Place at sub-lesson position N-1 — AFTER 2-3 commits, NOT immediate. Rule-citing-wrong distractor (not "obvious nonsense"). |
 | Read a kanji word (kanji → kana) | `kanjiReading(...)` | **NEW 2026-07-16.** MCQ over kana readings. Atom-keyed (auto-tags `exercisedAtoms`), slot-rotated. Kanji surface resolves from the shipped rollout catalog, so it can't test a word the ladder hasn't cleared — a throw means "pick another word," not "work around it." Distractors default to generated near-misses. See §4f. |
@@ -424,7 +434,7 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 - **M4** atoms (の, demonstratives, objects) should appear in M5-M7. Question word `だれ` is high-value — re-surface.
 - **M5** atoms (numbers, counters, ください) have the **heaviest leakage** in the original M3-M7 — counter forms and `X です` duplicates often appeared once and never again. Collapse duplicates: teach bare counters once, use them in carrier sentences without re-introducing.
 - **M6** atoms (locations, に/で/が) should appear in M7 verb-of-motion sentences (every motion verb takes a location particle — natural compounding).
-- **M7** atoms: this note dates from when M7 was the last authored module. The shipped spine is now **M1–M27 (N5) + M28 capstone + M29 (first N4 module)** (`curriculum/m1*.ts … m29.ts`), so M7 *does* have downstream modules — the review pool (still named `M3_M7_REVIEW_POOL` for historical reasons) is imported by m8…m27, so M7 atoms can compound forward. Still author strong internal review tails, but the "must re-surface entirely within M7" constraint no longer holds.
+- **M7** atoms: this note dates from when M7 was the last authored module. The live spine is now **m1–m29 (N5, `ja-m*-neo-*` lessons) + m30 (first N4 module)** — the "M1–M27 + M28 capstone + M29 first-N4" claim that stood here until 2026-07-29 described the ARCHIVED old course. M7 *does* have downstream modules, so M7 atoms can compound forward. Still author strong internal review tails, but the "must re-surface entirely within M7" constraint no longer holds. (The whole §6 mechanism — `M3_M7_REVIEW_POOL` — is old-course machinery; neo review tails come from the IR compiler and `kanaReviewTails.ts`.)
 
 **Cross-module compounding rule** (in the test): atoms introduced in an early module must appear in at least one later-numbered module's review tail. (Historically framed as "M3–M5 must compound in M6/M7"; with M8–M27 shipped, the same forward-compounding rule applies across the full spine — verify against `atom-coverage.test.ts` for the current enforced check.)
 
@@ -802,7 +812,9 @@ One per module, placed **mid-module** after the main grammar drills but before p
 ### 14.3 Constraints
 
 - **Only previously-learned material.** No new vocab, no new grammar. Every word in the story must have been introduced in an earlier lesson within this module or a prior module.
-- **Formal/polite language only.** All sentences use です/ます forms.
+- ~~Formal/polite language only. All sentences use です/ます forms.~~ **STALE
+  (2026-07-29): dict-form-first (invariant 7) supersedes this for every
+  rewritten module — story register follows the module's taught register.**
 - **Practical scenarios.** Meeting someone, ordering food, asking about daily life — not abstract grammar exercises.
 - **Distinct from the module's dialogue_listen closer.** Each module already has a dialogue closer at lesson 7-8. The story lesson should use a different scenario.
 - **No review tail.** Story lessons are pure comprehension/production — no `pickReviewAtoms` tail.

@@ -8,9 +8,11 @@ import { applyTraceGateQueryParam, applyTrayOverrideParam, consumeStepJumpParam 
 import { getMockLessonContent } from "./data/mockLessons";
 import { unlockLessonAtoms } from "./data/unlockLessonAtoms";
 import { seedUnlockedAtomsDueNextDay } from "./data/seedSchedule";
+import { latchCompletedSwitchover } from "./data/latchSwitchover";
 import {
   isDedicatedReviewLesson,
   shouldWriteContentReviewAtom,
+  shouldWriteReviewLessonAtom,
 } from "./data/reviewTailSrs";
 import { resetLessonJuice, reportGradedAnswer } from "./juice";
 import { expectedXp, isTestLessonId, XP_LESSON_COMPLETE, XP_TEST_BONUS } from "@/features/progress/xpRules";
@@ -402,6 +404,18 @@ export function LessonPage() {
     if (!isReview) {
       seedUnlockedAtomsDueNextDay(lesson.id);
     }
+    // B061 — latch the kana→kanji switchover the beat just introduced.
+    //
+    // Written HERE, on completion, and never at build time: `buildSrsReviewLesson`
+    // is pure, and the one time it wrote state during construction it seeded every
+    // unlocked atom due-today on any course-deck build (the sentence-miner
+    // materializes every lesson).
+    //
+    // Gated on the CLOZE being correct. A wrong answer leaves the word unlatched,
+    // so it stays kana and the beat is offered again in a later review — a
+    // re-introduction rather than a silent switch on a form the learner just
+    // failed to recognise. That re-queue is the intended behaviour, not a gap.
+    latchCompletedSwitchover(lesson.steps, results);
     // Buffer the attempt for server sync. SyncManager flushes the buffer
     // (manual / periodic / on exit) — no per-completion API call.
     // Replays of completed lessons are still recorded so the server has
@@ -607,6 +621,11 @@ export function LessonPage() {
       // mixed step still credits prior atoms while skipping current ones.
       for (const atomId of exercised) {
         if (!isReviewLesson && !shouldWriteContentReviewAtom(atomId, lesson.id)) {
+          continue;
+        }
+        // Collision guard: a review-lesson id that resolves to a LATER-module
+        // registry row is a kana/id collision (した→下), not review material.
+        if (isReviewLesson && !shouldWriteReviewLessonAtom(atomId, lesson.id)) {
           continue;
         }
         let state = getCardState(atomId) ?? createInitialState();

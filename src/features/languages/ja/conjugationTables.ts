@@ -181,7 +181,51 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かいて",
       tai: "かきたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) — un-parked 99 → 16.
+    introducedAtModule: 16,
+  },
+  {
+    id: "tsukau",
+    dictionary: "つかう",
+    kanji: "使う",
+    meaning: "to use",
+    group: "godan",
+    forms: {
+      dictionary: "つかう",
+      masu: "つかいます",
+      "masu-neg": "つかいません",
+      "masu-past": "つかいました",
+      "masu-past-neg": "つかいませんでした",
+      nai: "つかわない",
+      ta: "つかった",
+      te: "つかって",
+      tai: "つかいたい",
+    },
+    // New row with ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) so the
+    // pack's derived cells (つかって) are real lexicon surfaces.
+    introducedAtModule: 16,
+  },
+  {
+    id: "suu",
+    dictionary: "すう",
+    kanji: "吸う",
+    meaning: "to smoke",
+    group: "godan",
+    forms: {
+      dictionary: "すう",
+      masu: "すいます",
+      "masu-neg": "すいません",
+      "masu-past": "すいました",
+      "masu-past-neg": "すいませんでした",
+      nai: "すわない",
+      ta: "すった",
+      te: "すって",
+      tai: "すいたい",
+    },
+    // New row with ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) so すわない
+    // is a real lexicon surface. The すい stem is safe: every corpus すい sits
+    // inside すいようび / やすい, which longest-match consumes whole.
+    introducedAtModule: 16,
   },
 
   // ═══ M10 verbs ══════════════════════════════════════════════════════
@@ -204,7 +248,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "おきて",
       tai: "おきたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m13-neo-10 (vocab pack 3, 2026-07-29 B067) — un-parked 99 → 13.
+    introducedAtModule: 13,
   },
   {
     id: "neru",
@@ -223,7 +268,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "ねて",
       tai: "ねたい",
     },
-    introducedAtModule: 29,
+    // untaught today -- parked out of every pool; vocab pack 13 (m22, wave plan) teaches ねる: restore to 22 with that pack
+    introducedAtModule: 99,
   },
   {
     id: "dekakeru",
@@ -282,7 +328,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "はしって",
       tai: "はしりたい",
     },
-    introducedAtModule: 30,
+    // Taught by ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) — moved 30 → 16
+    // (measured: the pack lesson is now the word's first course surface).
+    introducedAtModule: 16,
   },
   {
     id: "oyogu",
@@ -456,7 +504,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "もって",
       tai: "もちたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m14-neo-10 (vocab pack 4, 2026-07-29 B067) — un-parked 99 → 14.
+    introducedAtModule: 14,
   },
   {
     id: "kakaru",
@@ -553,7 +602,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "みがいて",
       tai: "みがきたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m13-neo-10 (vocab pack 3, 2026-07-29 B067) — un-parked 99 → 13.
+    introducedAtModule: 13,
   },
   {
     id: "arau",
@@ -572,7 +622,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "あらって",
       tai: "あらいたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m13-neo-10 (vocab pack 3, 2026-07-29 B067) — un-parked 99 → 13.
+    introducedAtModule: 13,
   },
   {
     id: "kesu",
@@ -597,6 +648,48 @@ export const VERB_ENTRIES: VerbEntry[] = [
   // ═══ M14 verbs ══════════════════════════════════════════════════════
 
   // Ichidan
+  // あける / しめる / ひく (below, godan): new entries for ja-m14-neo-10
+  // (vocab pack 4, 2026-07-29 B067). Every derived surface was checked
+  // against the live corpus first — zero existing occurrences, so
+  // registering them cannot re-tokenize anything (the m16-ので class).
+  {
+    id: "akeru",
+    dictionary: "あける",
+    kanji: "開ける",
+    meaning: "to open",
+    group: "ichidan",
+    forms: {
+      dictionary: "あける",
+      masu: "あけます",
+      "masu-neg": "あけません",
+      "masu-past": "あけました",
+      "masu-past-neg": "あけませんでした",
+      nai: "あけない",
+      ta: "あけた",
+      te: "あけて",
+      tai: "あけたい",
+    },
+    introducedAtModule: 14,
+  },
+  {
+    id: "shimeru",
+    dictionary: "しめる",
+    kanji: "閉める",
+    meaning: "to close (something)",
+    group: "ichidan",
+    forms: {
+      dictionary: "しめる",
+      masu: "しめます",
+      "masu-neg": "しめません",
+      "masu-past": "しめました",
+      "masu-past-neg": "しめませんでした",
+      nai: "しめない",
+      ta: "しめた",
+      te: "しめて",
+      tai: "しめたい",
+    },
+    introducedAtModule: 14,
+  },
   {
     id: "miseru",
     dictionary: "みせる",
@@ -653,6 +746,27 @@ export const VERB_ENTRIES: VerbEntry[] = [
       ta: "まった",
       te: "まって",
       tai: "まちたい",
+    },
+    introducedAtModule: 14,
+  },
+  {
+    // 引く "to pull" (ja-m14-neo-10, vocab pack 4 2026-07-29 B067) — the
+    // ambiguity map pins the bare kana ひく to this sense; 弾く stays untaught.
+    id: "hiku",
+    dictionary: "ひく",
+    kanji: "引く",
+    meaning: "to pull",
+    group: "godan",
+    forms: {
+      dictionary: "ひく",
+      masu: "ひきます",
+      "masu-neg": "ひきません",
+      "masu-past": "ひきました",
+      "masu-past-neg": "ひきませんでした",
+      nai: "ひかない",
+      ta: "ひいた",
+      te: "ひいて",
+      tai: "ひきたい",
     },
     introducedAtModule: 14,
   },
@@ -749,7 +863,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かえって",
       tai: "かえりたい",
     },
-    introducedAtModule: 14,
+    // measured first exposure m19 (drillPoolIsTaught); registry re-homed m14->m19 2026-07-29
+    introducedAtModule: 19,
   },
 
   // ═══ M15 verbs ══════════════════════════════════════════════════════
@@ -953,7 +1068,8 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "とまって",
       tai: "とまりたい",
     },
-    introducedAtModule: 28,
+    // untaught today -- parked out of every pool; vocab pack 9 (m19, wave plan) teaches とまる: restore to 19 with that pack
+    introducedAtModule: 99,
   },
 ];
 
@@ -988,7 +1104,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ちいさかった",
       "past-negative": "ちいさくなかった",
     },
-    introducedAtModule: 10,
+    // measured first exposure m12 (drillPoolIsTaught 2026-07-29)
+    introducedAtModule: 12,
   },
   {
     id: "takai",
@@ -1071,7 +1188,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "わるかった",
       "past-negative": "わるくなかった",
     },
-    introducedAtModule: 10,
+    // Taught by ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) — restored to 16
+    // exactly as the parking note called for.
+    introducedAtModule: 16,
   },
   {
     id: "oishii",
@@ -1111,7 +1230,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あつかった",
       "past-negative": "あつくなかった",
     },
-    introducedAtModule: 10,
+    // measured first exposure m25 (drillPoolIsTaught 2026-07-29)
+    introducedAtModule: 25,
   },
   {
     id: "samui",
@@ -1125,7 +1245,11 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "さむかった",
       "past-negative": "さむくなかった",
     },
-    introducedAtModule: 9,
+    // Taught by ja-m16-neo-1 (its debut word_image_mcq). The old m10 pin was
+    // distractor-backfill luck, displaced by the 2026-07-30 m16 pack
+    // re-homes (measured: drillPoolIsTaught now first sees it m13, taught
+    // m16 — pin to the teaching module).
+    introducedAtModule: 16,
   },
   {
     id: "tsumetai",
@@ -1139,7 +1263,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "つめたかった",
       "past-negative": "つめたくなかった",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m14-neo-10 (vocab pack 4, 2026-07-29 B067) — un-parked 99 → 14.
+    introducedAtModule: 14,
   },
   {
     id: "atatakai",
@@ -1153,7 +1278,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あたたかかった",
       "past-negative": "あたたかくなかった",
     },
-    introducedAtModule: 20,
+    // measured first exposure m25 (drillPoolIsTaught, remeasured 2026-07-30
+    // after the m16 pack re-homes shifted the distractor backfill)
+    introducedAtModule: 25,
   },
   {
     id: "nagai",
@@ -1207,7 +1334,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "つまらなかった",
       "past-negative": "つまらなくなかった",
     },
-    introducedAtModule: 10,
+    // measured first exposure m30 (drillPoolIsTaught 2026-07-29 pack wave)
+    introducedAtModule: 30,
   },
   {
     id: "muzukashii",
@@ -1221,7 +1349,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "むずかしかった",
       "past-negative": "むずかしくなかった",
     },
-    introducedAtModule: 10,
+    // measured first exposure m18 (drillPoolIsTaught 2026-07-29 pack wave)
+    introducedAtModule: 18,
   },
   {
     id: "yasashii",
@@ -1234,7 +1363,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "やさしかった",
       "past-negative": "やさしくなかった",
     },
-    introducedAtModule: 10,
+    // Taught by ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) — moved 24 → 16
+    // (the pack lesson is now the measured first exposure).
+    introducedAtModule: 16,
   },
   {
     id: "hayai",
@@ -1247,7 +1378,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "はやかった",
       "past-negative": "はやくなかった",
     },
-    introducedAtModule: 10,
+    // measured first exposure m13 — 早い taught by ja-m13-neo-10 (vocab pack 3, B067)
+    introducedAtModule: 13,
   },
   {
     id: "osoi",
@@ -1261,7 +1393,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "おそかった",
       "past-negative": "おそくなかった",
     },
-    introducedAtModule: 9,
+    // measured first exposure m27 (drillPoolIsTaught 2026-07-29 pack wave)
+    introducedAtModule: 27,
   },
   {
     id: "chikai",
@@ -1275,7 +1408,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ちかかった",
       "past-negative": "ちかくなかった",
     },
-    introducedAtModule: 13,
+    // measured first exposure m20 (drillPoolIsTaught 2026-07-29)
+    introducedAtModule: 20,
   },
   {
     id: "tooi",
@@ -1303,7 +1437,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ひろかった",
       "past-negative": "ひろくなかった",
     },
-    introducedAtModule: 9,
+    // measured first exposure m27 (drillPoolIsTaught, remeasured 2026-07-30
+    // after the m16 pack re-homes shifted the distractor backfill)
+    introducedAtModule: 27,
   },
   {
     id: "semai",
@@ -1374,7 +1510,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ゆうめいでした",
       "past-negative": "ゆうめいじゃなかったです",
     },
-    introducedAtModule: 10,
+    // measured first exposure m12 (drillPoolIsTaught 2026-07-29 pack wave)
+    introducedAtModule: 12,
   },
   {
     id: "suki",
@@ -1402,7 +1539,8 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "きらいでした",
       "past-negative": "きらいじゃなかったです",
     },
-    introducedAtModule: 10,
+    // taught by ja-m13-neo-7 (すき/きらい) — aligned with the 2026-07-29 fromModule re-home
+    introducedAtModule: 13,
   },
   {
     id: "jouzu",
@@ -1471,7 +1609,10 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "たいへんでした",
       "past-negative": "たいへんじゃなかったです",
     },
-    introducedAtModule: 20,
+    // untaught today -- parked out of every pool (earlier exposure was
+    // distractor-fill luck, displaced by the m13 pack re-homes); vocab
+    // pack 13 (m22, wave plan) teaches たいへん: restore to 22 with that pack
+    introducedAtModule: 99,
   },
   {
     id: "benri",
@@ -1485,7 +1626,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "べんりでした",
       "past-negative": "べんりじゃなかったです",
     },
-    introducedAtModule: 13,
+    // measured first exposure m30 (drillPoolIsTaught 2026-07-29 — earlier
+    // exposure was distractor-fill luck, displaced by the m13 pack re-homes)
+    introducedAtModule: 30,
   },
   {
     id: "fubeni",

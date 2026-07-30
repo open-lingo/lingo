@@ -23,8 +23,10 @@ export type StepType =
   | "conjugation_cloze"
   | "conjugation_transform"
   | "kanji_reading"
+  | "kanji_reveal"
   | "self_explanation_mcq"
   | "dialogue_listen"
+  | "dialogue_sim"
   | "row_test";
 
 /**
@@ -289,6 +291,45 @@ export type FillBlankStep = StepBase & {
   blanks: Blank[];
   wordBank?: string[];
   sentenceAnnotation?: JapaneseAnnotation[];
+  /**
+   * Suppress the reading helper on the word-bank tiles.
+   *
+   * Needed the moment the bank holds KANJI options: the tiles render through
+   * `AnnotatedText` in bare mode, which floats each word's kana above it — so a
+   * bank of 友達 / 家族 / 先生 / 学生 hands over every reading and the learner
+   * picks by kana without reading a single kanji. Same class of defect as
+   * `optionsHideRomaji` on `multiple_choice`, and the same fix.
+   *
+   * Leave unset for kana banks, where the helper is the intended scaffold.
+   */
+  wordBankHideHelper?: boolean;
+};
+
+/**
+ * Step 1 of the kana→kanji switchover beat (B061) — an UNGRADED introduction of a
+ * known word's written form, animated. Emitted only by `buildSrsReviewLesson`,
+ * never authored: which word is ready is a per-learner FSRS question, so a static
+ * lesson could not know it.
+ *
+ * Always immediately followed by the graded cloze (`fill_blank`) for the same
+ * word. The pair is the beat; neither half stands alone — the reveal has no
+ * retrieval and the cloze has no teaching.
+ */
+export type KanjiRevealStep = StepBase & {
+  type: "kanji_reveal";
+  /** Course-atom id, so lesson completion knows what to latch. */
+  atomId: string;
+  /** The reading the learner already knows, e.g. ともだち. */
+  kana: string;
+  /** The written form being introduced, e.g. 友達. */
+  kanji: string;
+  gloss: string;
+  /**
+   * Per-character senses. `null` where the catalog has no honest standalone
+   * meaning — 達 is a pluralising suffix, and inventing a gloss for it would
+   * teach folk etymology, so the renderer shows a dash instead.
+   */
+  parts?: { glyph: string; sense: string | null }[];
 };
 
 export type TranslateStep = StepBase & {
@@ -809,6 +850,121 @@ export type DialogueListenStep = StepBase & {
   exercisedAtomIds?: string[];
 };
 
+/**
+ * Simulation-dialogue step (`dialogue_sim`) — PROTOTYPE, 2026-07-29.
+ *
+ * Spencer's ask: "a simulation style dialogue walking you through certain
+ * interactions… a playful 'shopfront emoji' — 'worker says: do you need a
+ * bag?' — great for travel sprint and overall learning, good to not dumb it
+ * down too much." Target surfaces: the Travel Sprint side quest
+ * (Pimsleur-style listen-and-respond) and, later, a local-AI TTSD
+ * conversational lesson.
+ *
+ * HOW IT DIFFERS FROM `dialogue_listen`: that step is *comprehension* — the
+ * whole exchange plays, then the learner answers MCQs ABOUT it. This one is
+ * *participation* — an NPC speaks one turn at a time and the learner IS the
+ * other speaker, producing (tile-build) or choosing (MCQ) the reply that
+ * moves the scenario forward. The two coexist: listen for comprehension,
+ * sim for interaction.
+ *
+ * ONE STEP = ONE SCENARIO (several turns). Rationale: LessonPage keys one
+ * result per step id and `computeGradedProgress` counts one tick per graded
+ * step, so a 4-turn scenario split across 4 steps would let the learner
+ * exit mid-conversation, would fire the combo/chime 4× on what is one
+ * social exchange, and would make the transcript-so-far unreachable across
+ * step boundaries. `dialogue_listen` already established the
+ * many-questions-inside-one-step shape (it fires `onComplete` once with
+ * overall correctness); this follows it.
+ *
+ * GRADING: see `_stepPredicates.ts` — `dialogue_sim` is deliberately NOT in
+ * TEACH_STEP_KINDS (the learner can get a turn wrong, so it is retrieval),
+ * but a scenario only writes FSRS when it carries `exercisedAtoms`, which
+ * authors add ONLY in review contexts. `exercisedAtomIds` below is the
+ * exposure-only channel, same split as `dialogue_listen`.
+ */
+export type DialogueSimNpcLine = {
+  /** Speaker label — MUST be classified in `dialogueSpeakers.json` (inv 23)
+   *  or it silently plays the female Nanami voice. */
+  speaker: string;
+  /** Kana form of the line — TTS lookup + the transcript bubble. */
+  kana: string;
+  /** Override for TTS lookup when the manifest key differs from the display
+   *  kana (the deck is keyed on unspaced text for some phrases). */
+  audioText?: string;
+  /** English meaning. Revealed with the kana — see `listenFirst`. */
+  gloss: string;
+};
+
+/**
+ * The learner's half of a turn. Two modes, both max-acceptance:
+ *
+ *  - `build` — tap tiles to produce the reply. Graded through the same
+ *    `expandAcceptedAnswers` pipeline the build/translate steps use, so
+ *    polite/plain register and particle-phrase scrambles pass, plus any
+ *    author-listed `alsoAccepted` rendering (これを ください /
+ *    これを おねがいします are both what a person says at a till).
+ *  - `choice` — pick a reply. `alsoCorrectOptionIds` exists because a real
+ *    interaction has more than one right move: けっこうです and
+ *    だいじょうぶです both decline the bag.
+ */
+export type DialogueSimReply =
+  | {
+      mode: "build";
+      /** Bank tiles, including distractors. Seeded-shuffled per step id. */
+      tiles: string[];
+      /** Canonical rendering — the model answer shown/played after commit. */
+      answer: string;
+      /** Additional full renderings accepted verbatim (max-acceptance). */
+      alsoAccepted?: string[];
+      /** TTS key for the model answer when it differs from `answer`. */
+      audioText?: string;
+    }
+  | {
+      mode: "choice";
+      options: Option[];
+      correctOptionId: string;
+      /** Other options that are ALSO right (accepted, no correction). */
+      alsoCorrectOptionIds?: string[];
+      /** TTS key for the correct option's text, when the manifest differs. */
+      audioText?: string;
+    };
+
+export type DialogueSimTurn = {
+  id: string;
+  npc: DialogueSimNpcLine;
+  /** English cue for what the learner is trying to accomplish this turn
+   *  ("You brought your own bag — turn it down."). This is the prompt; it
+   *  never quotes the Japanese answer. */
+  goal: string;
+  reply: DialogueSimReply;
+  /** English gloss of the model reply, shown once the turn commits. */
+  replyGloss?: string;
+  /** Post-commit rationale (why that reply, why the near-miss is wrong). */
+  explanation?: string;
+};
+
+export type DialogueSimStep = StepBase & {
+  type: "dialogue_sim";
+  /** Playful-but-not-childish framing: storefront emoji + scene name. */
+  scene: {
+    emoji: string;
+    title: string;
+    /** One-line English situation ("You are buying a drink."). */
+    setting?: string;
+  };
+  turns: DialogueSimTurn[];
+  /**
+   * Listen-first (Pimsleur mode): the NPC line's kana + gloss stay masked
+   * until its clip has played once, the learner taps "Show text", the turn
+   * commits, or NO clip exists. That last escape hatch is load-bearing —
+   * an un-generated line must never trap the learner behind silence.
+   */
+  listenFirst?: boolean;
+  /** Exposure-only atom tagging (review-tail planning / lint). SEPARATE
+   *  from `exercisedAtoms` on StepBase, which drives FSRS grading. */
+  exercisedAtomIds?: string[];
+};
+
 export type RowTestStep = StepBase & {
   type: "row_test";
   rowId: string;
@@ -842,8 +998,10 @@ export type LessonStep =
   | ConjugationClozeStep
   | ConjugationTransformStep
   | KanjiReadingStep
+  | KanjiRevealStep
   | SelfExplanationMcqStep
   | DialogueListenStep
+  | DialogueSimStep
   | RowTestStep;
 
 export type LessonContent = {

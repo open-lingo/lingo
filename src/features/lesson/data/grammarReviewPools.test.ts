@@ -158,6 +158,13 @@ const GATE_EXEMPTIONS: string[] = [
   "wo-object::ja-m5-neo-6-cloze-are",
   "wo-object::ja-m5-neo-7-cloze-wo",
   "wo-object::ja-m5-neo-rev-cloze-wo",
+  // 2026-07-29 (B068/B067 wave): かえる re-homed m14→m19, its TRUE teaching
+  // module. These two m19-sourced clozes hang off made-ni (m17) via the
+  // harvest window (class 3 above); with the stale m14 tag they passed the
+  // gate dishonestly — the learner at m17 has never met かえる either way.
+  // Same session-builder debt as the rest of the list.
+  "made-ni::ja-m19-neo-7-cloze-8",
+  "made-ni::ja-m19-neo-review-3-cloze-5",
 ];
 
 describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {

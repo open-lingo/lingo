@@ -348,8 +348,9 @@ newAtoms:
   # ══ L6. The person you are being polite to. 👨‍⚕️ is unique in the registry.
   - { kana: いしゃ, romaji: isha, gloss: "a doctor", shortGloss: "doctor", kind: vocab }
   # ══ L7 + L9. THE 本 COUNTER, cell by cell. See the notes block: ほん cannot
-  #    be registered as the counter (it is the m3 atom for "book" and the
-  #    by-kana map is last-wins), so no cell composes and every cell that
+  #    be registered as the counter (it is the m3 atom for "book", which owns
+  #    the kana in the by-kana map — first-wins + ruling table), so no cell
+  #    composes and every cell that
   #    reaches a tile is a whole atom. にほん is banned three times over — the
   #    に/二 homograph, に + ほん splitting into numeral + "book", and にほん
   #    being the atom for JAPAN. ななほん / はっぽん / きゅうほん / じゅっぽん

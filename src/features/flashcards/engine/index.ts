@@ -40,6 +40,9 @@ export {
   countCardsDue,
   getEffectiveState,
   adaptiveNewCardsPerDay,
+  countRemainingNewCards,
+  countRemainingDueCards,
+  dueModalityBreakdown,
 } from "./reviewQueue";
 export { rollbackStats, rollbackRepeatQueue, restoreStateForUndo } from "./undo";
 export type { GradeSnapshot, SessionStats } from "./undo";

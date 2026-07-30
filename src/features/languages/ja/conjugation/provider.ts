@@ -353,9 +353,9 @@ export const jaConjugationTrainer: ConjugationTrainerProvider = {
     }).map(toQuestion),
 
   typeMasteryPercent: (typeId) => typeMasteryPercent(typeId as TrainerTypeId),
-  dueCount: (typeId) => {
+  dueCount: (typeId, reachedModule) => {
     const t = getTrainerType(typeId);
-    return t ? dueGrammarPointCount(t) : 0;
+    return t ? dueGrammarPointCount(t, reachedModule) : 0;
   },
 
   gradeSessionIfOnPath: (typeId, reachedModule, results) => {

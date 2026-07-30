@@ -58,13 +58,16 @@ registerModuleBarGuards({
 });
 
 describe("m16-neo module shape (invariant 25)", () => {
-  it("ships 13 lessons: 9 teaching + 3 review + 1 challenge", () => {
-    expect(M16_NEO_LESSONS).toHaveLength(13);
+  // 15 = the inv-25 shape plus the 2026-07-30 vocab-pack insertions
+  // (B065/B067, Spencer-approved wave plan): ja-m16-neo-10 (the classroom)
+  // and ja-m16-neo-11 (habits and health).
+  it("ships 15 lessons: 11 teaching + 3 review + 1 challenge", () => {
+    expect(M16_NEO_LESSONS).toHaveLength(15);
     const reviews = M16_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M16_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M16_NEO_LESSONS.length - reviews.length - challenge.length).toBe(9);
+    expect(M16_NEO_LESSONS.length - reviews.length - challenge.length).toBe(11);
   });
 
   it("the CHALLENGE lesson is last", () => {

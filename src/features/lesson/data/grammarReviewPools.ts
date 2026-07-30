@@ -113,7 +113,10 @@ export const AUTHORED_GRAMMAR_POOLS: Readonly<Record<string, LessonStep[]>> = {
     g("numbers-100-10000", sentenceMcq({ id: "ja-gpool-numbers-100-10000-3", prompt: "Which word is 10,000?", correctKana: "いちまん", distractorsKana: ["まんいち", "いちせん", "じゅうせん"], explanation: "10,000 = いち + まん.", exercisedAtomKanas: ["いち", "まん"] })),
   ],
   "i-adj-present": [
-    g("i-adj-present", sentenceMcq({ id: "ja-gpool-i-adj-present-1", prompt: "Say politely: 'This water is cold.'", correctKana: "このみずはつめたいです", distractorsKana: ["このみずはつめたです", "このみずはつめたいだ", "このみずはつめたくないです"], explanation: "い-adjective keeps い, then adds です.", exercisedAtomKanas: ["みず", "つめたい"] })),
+    // 2026-07-29: was 「このみずはつめたいです」 — つめたい is now honestly
+    // fromModule m14 (vocab pack 4 re-home), which exposed this m12-point
+    // step as teach-before-taught; おいしい is m12's own.
+    g("i-adj-present", sentenceMcq({ id: "ja-gpool-i-adj-present-1", prompt: "Say politely: 'This tea is delicious.'", correctKana: "このちゃはおいしいです", distractorsKana: ["このちゃはおいしです", "このちゃはおいしいだ", "このちゃはおいしくないです"], explanation: "い-adjective keeps い, then adds です.", exercisedAtomKanas: ["ちゃ", "おいしい"] })),
     g("i-adj-present", sentenceMcq({ id: "ja-gpool-i-adj-present-2", prompt: "Say politely: 'This town is big.'", correctKana: "このまちはおおきいです", distractorsKana: ["このまちはおおきです", "このまちはおおきいだ", "このまちはおおきくないです"], explanation: "おおきい + です — never drop the い before です.", exercisedAtomKanas: ["まち", "おおきい"] })),
     g("i-adj-present", sentenceMcq({ id: "ja-gpool-i-adj-present-3", prompt: "Say politely: 'This book is cheap.'", correctKana: "このほんはやすいです", distractorsKana: ["このほんはやすです", "このほんはやすいだ", "このほんはやすかったです"], explanation: "い-adjective + です for a polite present statement.", exercisedAtomKanas: ["ほん", "やすい"] })),
   ],

@@ -63,3 +63,111 @@ export function furiganaVisibleAt(
 ): boolean {
   return learnerModule < unlockModule + FURIGANA_WINDOW;
 }
+
+/**
+ * SWITCHOVER BEAT (B061, 2026-07-29). The kana→kanji introduction: an animated
+ * `kanji_reveal` step followed by a graded kanji cloze, promoted to the FRONT of
+ * a dynamic review lesson when a word is ready.
+ *
+ * Set false to take the whole feature out in one line — the beat stops being
+ * offered AND `applyKanjiSurfaces`' output stops being latch-gated, so rendering
+ * reverts exactly to the module-only ladder above. Kept as a constant beside the
+ * other two numbers for the same reason they are here: this is policy, and policy
+ * should be a one-place edit rather than a content change.
+ */
+export const SWITCHOVER_BEAT_ENABLED = true;
+
+/**
+ * RETIRED 2026-07-29 — kept only to document why an FSRS-interval trigger was
+ * dropped, because "just require N days of interval" is the obvious idea and it
+ * does not work.
+ *
+ * Measured, reviewing strictly on schedule from a fresh card:
+ *
+ *   all-Good:  rep1 0d → rep2 5d → rep3 28d → rep4 102d
+ *   all-Easy:  rep1 9d → rep2 77d → rep3 420d
+ *   all-Hard:  0d forever
+ *
+ * Two consequences killed the idea. First, **7 days and 14 days are the same
+ * trigger** — both are crossed at rep 3, because FSRS jumps 5d→28d and steps
+ * clean over the whole range. Tuning the threshold buys nothing. Second, a learner
+ * who answers Hard never reaches ANY threshold, so the shakiest learners would
+ * never be shown a kanji at all, which is the opposite of what a reading ladder
+ * should do.
+ *
+ * Spencer's call: use the MODULE as the trigger (predictable, and the research
+ * pass found learner complaints track unpredictability rather than difficulty),
+ * and let the graded cloze — not the schedule — decide whether it sticks.
+ */
+export const RETIRED_KANJI_REVEAL_INTERVAL_DAYS = 14;
+
+/**
+ * Failed beats a word gets before it latches anyway.
+ *
+ * Spencer 2026-07-29: *"it should unlock immediately UNLESS they get the kanji
+ * question wrong, then it will stay kana and then show them the card one more
+ * time in reviews."*
+ *
+ * One retry, not unlimited: a learner who keeps missing one word would otherwise
+ * hold a beat slot forever and keep that word in kana for the rest of the course.
+ * After the retry the word latches regardless — it has now had two introductions
+ * and two graded attempts, which is more than any other word in the course gets.
+ */
+export const MAX_SWITCHOVER_MISSES = 1;
+
+/**
+ * Switchover beats offered per dynamic review lesson.
+ *
+ * Two, not one, because the queue has to DRAIN. Measured 2026-07-29: 124
+ * switchover words against **66 review lessons at m8+** (3 per module, m8–m29).
+ * At one beat per review, 58 words could never be introduced at all — and since
+ * the render gate withholds an un-introduced kanji, those words would stay kana
+ * permanently, which is strictly worse than the silent switch this feature exists
+ * to remove. Two beats gives 132 slots against 124 words, and ~6 per module
+ * against ~5.6 newly-eligible per module, so it keeps pace rather than falling
+ * behind.
+ *
+ * Each beat is 2 steps, so this caps the beat's cost at 4 steps on a review that
+ * otherwise runs ~18 atoms plus grammar.
+ */
+export const MAX_SWITCHOVER_BEATS_PER_REVIEW = 2;
+
+/**
+ * FAIL-OPEN: modules past unlock after which a word's kanji renders whether or
+ * not its beat ever fired.
+ *
+ * Non-negotiable safety valve, not a tuning knob. The render gate withholds kanji
+ * until the beat introduces it, which means any word the queue fails to reach —
+ * a learner who skips reviews, a straggler at the end of the backlog, a future
+ * regression in the selector — would be stuck in kana for the rest of the course.
+ * Silently never showing a kanji is a worse failure than showing it without
+ * ceremony, so after this many modules the old module-gated behaviour resumes.
+ *
+ * FIVE, sized from the measured drain. Under the module trigger the backlog peaks
+ * at 22 words after m22 (that module alone makes 22 words eligible at once) and
+ * takes about four modules to clear at 6 slots per module. A grace of 3 would have
+ * failed those words open BEFORE their beat ever ran, which defeats the feature
+ * precisely where it is under most load.
+ *
+ * Furigana on a failed-open word is handled separately and correctly now: it rides
+ * the LATCH DATE when there is one, and an un-latched word past its module window
+ * keeps furigana while unmastered. See `furiganaVisibleForSwitchover`.
+ */
+export const SWITCHOVER_GRACE_MODULES = 5;
+
+/**
+ * Days of furigana a word keeps after its written form is INTRODUCED, measured
+ * from the latch date rather than from the module.
+ *
+ * This is the B064 fix, and the module trigger alone does not cover it. On-time
+ * introductions are fine — the beat fires at the unlock module, so
+ * `furiganaVisibleAt(unlock, unlock)` is true and the module window already holds.
+ * The hole is the BACKLOG: m22 makes 22 words eligible at once and takes ~4
+ * modules to drain, so a word introduced at m26 is past its unlock+2 window on the
+ * very first sentence after its own reveal. If it is also FSRS-mastered — likely,
+ * for a word known since m1 — it appears BARE seconds after being introduced.
+ *
+ * 21 days ≈ three weeks of review traffic, which at the measured FSRS growth
+ * (5d → 28d on rep 3) is a handful of scheduled reps on the word itself.
+ */
+export const FURIGANA_DAYS_AFTER_LATCH = 21;
