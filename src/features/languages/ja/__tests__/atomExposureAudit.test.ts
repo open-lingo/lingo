@@ -38,8 +38,12 @@ import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
  *  204 → 196 on 2026-07-29: m13 vocab pack 3 (B067) — the morning routine
  *  (ja-m13-neo-10): おきる/あらう/みがく/せっけん/シャワー/ゆうべ/けさ/早い.
  *  196 → 188 on 2026-07-29: m14 vocab pack 4 (B067) — doors and lights
- *  (ja-m14-neo-10): あける/しめる/もつ/ひく/ドア/でんき/つめたい. */
-const MAX_NEVER_GRADED = 188;
+ *  (ja-m14-neo-10): あける/しめる/もつ/ひく/ドア/でんき/つめたい.
+ *  188 → 173 on 2026-07-30: m16 vocab packs 5-6 (B067) — the classroom
+ *  (ja-m16-neo-10): かく/よむ/つかう/ノート/きょうしつ/クラス/いみ/やさしい, and
+ *  habits and health (ja-m16-neo-11): すう/たばこ/はしる/スポーツ/わるい/よわい/
+ *  たいせつ. */
+const MAX_NEVER_GRADED = 173;
 /**
  * The sharper number: atoms the live course does not TOUCH — no graded step, no
  * teach step, their surface not even present as text in any live lesson. These
@@ -61,8 +65,9 @@ const MAX_NEVER_GRADED = 188;
  * seeded distractor fill, and four words whose only "touch" was
  * distractor-fill luck fell back in — "touched" was never a taught-status
  * signal for those.
- * 90 → 82 on 2026-07-29: m14 vocab pack 4 (B067). */
-const MAX_NEVER_TOUCHED = 82;
+ * 90 → 82 on 2026-07-29: m14 vocab pack 4 (B067).
+ * 82 → 71 on 2026-07-30: m16 vocab packs 5-6 (B067). */
+const MAX_NEVER_TOUCHED = 71;
 /** Graded somewhere, but every exposure is blocked by the D2 same-module gate.
  *  19 of these are m30 atoms, which is structural: m30 is the last module, so
  *  there is no later module whose lessons could review them. */

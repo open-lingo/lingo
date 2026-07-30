@@ -145,7 +145,10 @@ describe("attribution integrity (B068)", () => {
   // 234 → 232 on 2026-07-29: the m11 vocab packs (B067) deleted the dead
   // ja-m25-4-2 / ja-m29-2-1 attributions on はじめて / おぼえる when re-homing
   // them to m11 (fallback attribution now derives from the pack lessons).
-  const MAX_DANGLING_ATTRIBUTIONS = 232;
+  // 232 → 227 on 2026-07-30: the m16 vocab packs (B067) deleted the dead
+  // ja-m7-1 (かく/よむ), ja-m13-6-1 (クラス), ja-m26-5-1 (いみ) and
+  // ja-m29-1-1 (つかう) attributions when re-homing them to m16.
+  const MAX_DANGLING_ATTRIBUTIONS = 227;
 
   it("dangling introducedByLessonId count only goes DOWN", () => {
     const dangling = eligible.filter(

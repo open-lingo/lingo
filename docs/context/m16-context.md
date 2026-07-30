@@ -12,40 +12,52 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 
 ## Words the learner already knows (usable as carriers/review)
 
-### Verbs (dictionary form) (31)
+### Verbs (dictionary form) (43)
 - あそぶ 🎲 — to play
 - かく ✍️ — to write
 - いく 🚶 — to go, to travel
 - みる 👁️ — to watch, to look at
 - たべる 🍽️ — to eat
 - のむ 🥤 — to drink
+- あびる 🚿 — to bathe, to shower
 - ある — to be, to have (used for inanimate objects) [no image MCQ]
 - する — to do, to make [no image MCQ]
+- つける 💡 — to turn on
 - なる 🔄 — to become [no image MCQ]
 - やる — to do [no image MCQ]
 - すむ 🏠 — to live in
 - はたらく 💼 — to work
 - わかる 💡 — to be understood [no image MCQ]
+- きる ✂️ — to cut
 - ふく 💨 — to blow
 - さく 🌷 — to bloom
 - うる 🏷️ — to sell
 - いる — to be, to have (used for people and animals) [no image MCQ]
+- ひく 🪝 — to pull
 - まつ ⏳ — to wait
+- もつ ✊ — to hold
 - おしえる 👨‍🏫 — to teach, to tell
 - くる — to come [no image MCQ]
 - うたう 🎤 — to sing
 - およぐ 🏊 — to swim
+- あらう 🧼 — to wash [no image MCQ]
+- けす 🧽 — to erase, to turn off power
 - しる 💡 — to know [no image MCQ]
+- みがく 🪥 — to brush teeth, to polish
 - たつ 🧍 — to stand
+- しめる 🎀 — to tie
 - きく 👂 — to hear, to listen to, to ask
 - みせる 👀 — to show
+- おぼえる 🧠 — to memorise, to learn
 - いう 💬 — to say
 - おもう 💭 — to think
 - かう 🛒 — to buy
+- おきる ⏰ — to get up [no image MCQ]
 - ちがう ❌ — to differ
+- あける 🔓 — to open [no image MCQ]
 - ふる 🌧️ — to fall, e.g. rain or snow
 
-### Particles (9)
+### Particles (10)
 - か — question particle
 - は — topic marker
 - が — subject marker
@@ -55,8 +67,9 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - で — at / by means of
 - に — to / at / location
 - を — direct object marker
+- や — and (an open list — A や B means A and B among others) [no image MCQ]
 
-### Nouns / vocab (294)
+### Nouns / vocab (328)
 - あい — love
 - いいえ — no [no image MCQ]
 - うま — horse
@@ -184,6 +197,7 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - みます 👀 — watch (polite)
 - パン 🍞 — bread
 - ごはん 🍚 — cooked rice, meal
+- あさって — day after tomorrow [no image MCQ]
 - あそこ — over there [no image MCQ]
 - あの — that over there [no image MCQ]
 - あれ — that [no image MCQ]
@@ -194,6 +208,7 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - ここ — here [no image MCQ]
 - こちら — this person or way [no image MCQ]
 - この — this [no image MCQ]
+- せっけん 🧼 — soap
 - そこ — that place [no image MCQ]
 - その — that [no image MCQ]
 - それ — that [no image MCQ]
@@ -205,7 +220,8 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - もう — already [no image MCQ]
 - よく — often, well [no image MCQ]
 - シャツ 👕 — shirt
-- ドア 🚪 — Western style door
+- シャワー 🚿 — shower
+- ドア 🚪 — Western style door [no image MCQ]
 - ノート 📓 — notebook, exercise book
 - とりにく 🍗 — chicken meat
 - しち 7️⃣ — seven
@@ -215,9 +231,15 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - く 9️⃣ — nine
 - いつつ 5️⃣ — five
 - いま ⏰ — now
+- ことし — this year [no image MCQ]
+- けさ 🌅 — this morning [no image MCQ]
 - やすみ 😴 — rest, holiday
 - かいしゃ 🏢 — company
+- せんげつ — last month [no image MCQ]
+- せんしゅう — last week [no image MCQ]
+- つめたい 🧊 — cold to the touch
 - はじめ 🏁 — beginning
+- はじめて — for the first time [no image MCQ]
 - まえ — before [no image MCQ]
 - きた 🧭 — north
 - いしゃ 👨‍⚕️ — medical doctor
@@ -226,41 +248,54 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - ごぜん 🌅 — morning
 - ごご 🌇 — afternoon
 - はん 🌗 — half
+- きょねん — last year [no image MCQ]
 - ふるい 🏚️ — old (not used for people)
 - きっさてん ☕ — coffee lounge
 - し 4️⃣ — four [no image MCQ]
 - よっつ 4️⃣ — four
 - くに 🗾 — country
+- どようび — Saturday [no image MCQ]
 - なつ 🌻 — summer
 - なつやすみ 🏖️ — summer holiday
 - おおきい 🐘 — big
 - だいじょうぶ 👌 — all right
 - だいがく 🎓 — university
-- すき ❤️ — likeable
-- きらい 🙅 — hate
+- すき ❤️ — likeable [no image MCQ]
+- きらい 🙅 — hate [no image MCQ]
 - やすい 🪙 — cheap
+- さむい 🥶 — cold
 - ちいさい — little [no image MCQ]
+- とし 📅 — year
 - いそがしい 😰 — busy, irritated
 - と 🚪 — Japanese style door
 - て ✋ — hand
 - じゅぎょう 👨‍🏫 — lesson, class work
 - あたらしい 🆕 — new
 - りょこう ✈️ — travel
+- にちようび — Sunday [no image MCQ]
+- はやい ⏰ — early [no image MCQ]
 - あした — tomorrow [no image MCQ]
 - えいが 🎬 — movie
+- ゆうべ 🌙 — last night [no image MCQ]
 - きのう 📅 — yesterday
 - ばん 🌆 — evening
 - ひま 🛋️ — free time
+- げつようび — Monday [no image MCQ]
 - ゆうめい ⭐ — famous
 - ふく 👕 — clothes
 - き 🌳 — tree, wood
-- ほしい 🤲 — want
+- もくようび — Thursday [no image MCQ]
+- らいげつ — next month [no image MCQ]
+- ほしい 🤲 — want [no image MCQ]
 - は 🦷 — tooth
+- まいとし — every year [no image MCQ]
+- すいようび — Wednesday [no image MCQ]
+- かようび — Tuesday [no image MCQ]
 - もの — thing [no image MCQ]
 - いたい 🤕 — painful
 - しろ ⚪ — white
 - しろい ⬜ — white
-- め 👁️ — eye
+- め 👁️ — eye [no image MCQ]
 - けっこう — splendid, enough [no image MCQ]
 - え 🖼️ — picture
 - にく 🥩 — meat
@@ -270,7 +305,9 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - あか 🟥 — red
 - あかい 🟥 — red
 - あし 🦶 — foot, leg
+- きんようび — Friday [no image MCQ]
 - れい 0️⃣ — zero
+- でんき 💡 — electricity, electric light [no image MCQ]
 - あお 🔵 — blue
 - しずか 🤫 — quiet
 - くつ 👞 — shoes
@@ -351,6 +388,16 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 - いけません — must not, not allowed [no image MCQ]
 - こと — thing, the act of doing [no image MCQ]
 - とき — time, when [no image MCQ]
+- ので — because (softer) [no image MCQ]
+- けど — but [no image MCQ]
+- まで — until, as far as [no image MCQ]
+- まい — counter for flat things [no image MCQ]
+- なかった — there wasn't, didn't have [no image MCQ]
+- さい — years old (counter for age) [no image MCQ]
+- にん — counter for people [no image MCQ]
+- こ — counter for small objects [no image MCQ]
+- いける — can go (potential of いく) [no image MCQ]
+- かな — I wonder (thinking out loud) [no image MCQ]
 
 ### Chunks / greetings / phrases (12)
 - コーヒー ☕ — coffee
@@ -368,12 +415,49 @@ Auto-generated from courseAtoms.ts. The learner arriving at m16 has been taught 
 
 ## THIS module (m16) introduces
 
+### New verbs (4)
+- よむ 📖 — to read [no image MCQ]
+- つかう 🔧 — to use
+- すう 🚬 — to smoke [no image MCQ]
+- はしる 🏃 — to run
+
+### New vocab/nouns (25)
+- そば — near, beside [no image MCQ]
+- たばこ 🚬 — tobacco, cigarettes
+- はし 🥢 — chopsticks
+- クラス 🏫 — class [no image MCQ]
+- スポーツ ⚽ — sport
+- むいか — six days, sixth day of the month [no image MCQ]
+- たいせつ ❗ — important [no image MCQ]
+- よわい 🪶 — weak [no image MCQ]
+- つよい 💪 — powerful
+- わるい 👎 — bad [no image MCQ]
+- いみ — meaning [no image MCQ]
+- きょうしつ 🏫 — classroom
+- やさしい — easy, simple [no image MCQ]
+- まいねん — every year [no image MCQ]
+- まいにち — every day [no image MCQ]
+- まいばん 🌙 — every night
+- まいげつ — every month [no image MCQ]
+- まいつき — every month [no image MCQ]
+- まいあさ 🌅 — every morning
+- まいしゅう — every week [no image MCQ]
+- せまい ↔️ — narrow [no image MCQ]
+- あまい 🍬 — sweet
+- がつ — month (in a date) [no image MCQ]
+- ぜんぜん — not at all (with a negative) [no image MCQ]
+- はたらいた — worked (work, past) [no image MCQ]
+
+### New particles (1)
+- へ — to, toward (direction) [no image MCQ]
+
 Imageable new atoms (honest emoji, NOT [no image MCQ]) MUST debut on a word_image_mcq (invariant 30). Blocked ones intro via build / listeningComp+speaking / rule card.
 
 ## Reinforcement targets — PREFER these as carriers/review (invariant 27)
 Known words seen few times so far; balance exposure by reusing them
 (esp. high CEJC rank) instead of over-using this lesson's headline nouns:
 - うち — Home / my place (seen ~1×, CEJC #127)
+- さむい 🥶 — cold (seen ~1×, CEJC #416)
 - あい — love (seen ~1×)
 - あおい 🟦 — blue (seen ~1×)
 - どあ — door (seen ~1×)
@@ -388,10 +472,9 @@ Known words seen few times so far; balance exposure by reusing them
 - ぺん — pen (seen ~2×)
 - あか 🟥 — red (seen ~2×)
 - あかい 🟥 — red (seen ~2×)
-- ちがいます — that's not right (polite) (seen ~2×)
 - えび — shrimp (seen ~3×)
 - ぞう — elephant (seen ~3×)
-- しります — know (polite) (seen ~3×)
+- ちがいます — that's not right (polite) (seen ~3×)
 - いろ 🎨 — colour (seen ~4×, CEJC #351)
 - にく 🥩 — meat (seen ~4×, CEJC #378)
 - からだ 🧍 — body (seen ~4×, CEJC #432)
@@ -401,8 +484,8 @@ Known words seen few times so far; balance exposure by reusing them
 
 ## Distractor sibling-sets (invariant 10 — real confusions, not noise)
 - **Verb MCQ/build distractors:** draw from OTHER taught verbs (cross-verb
-  confusion), never invented non-words. Pool: あそぶ / かく / いく / みる / たべる / のむ / ある / する / なる / やる / すむ / はたらく / わかる / ふく / さく / うる / いる / まつ / おしえる / くる / うたう / およぐ / しる / たつ / きく / みせる / いう / おもう / かう / ちがう / ふる.
-- **Particle cloze options:** the sibling particles — か / は / が / と / の / も / で / を.
+  confusion), never invented non-words. Pool: あそぶ / かく / いく / みる / たべる / のむ / あびる / ある / する / つける / なる / やる / すむ / はたらく / わかる / きる / ふく / さく / うる / いる / ひく / まつ / もつ / おしえる / くる / うたう / およぐ / あらう / けす / しる / みがく / たつ / しめる / きく / みせる / おぼえる / いう / おもう / かう / おきる / ちがう / あける / ふる / よむ / つかう / すう / はしる.
+- **Particle cloze options:** the sibling particles — か / は / が / と / の / も / で / を / や.
 - **Demonstratives:** これ/それ/あれ/どれ are each other's distractors.
 - **Meaning-MCQ (LC) distractors:** plausible near-meanings from the known
   set above, never words the learner can't read.

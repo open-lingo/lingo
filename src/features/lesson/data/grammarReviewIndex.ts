@@ -92,8 +92,13 @@ const VERB_FORM_PAIRS: ReadonlyArray<{ dict: string; masu: string; en: string }>
   { dict: "のむ", masu: "のみます", en: "drink" },
   { dict: "たべる", masu: "たべます", en: "eat" },
   { dict: "みる", masu: "みます", en: "watch" },
-  { dict: "よむ", masu: "よみます", en: "read" },
-  { dict: "かく", masu: "かきます", en: "write" },
+  // よむ / かく sat here until 2026-07-30: the m16 vocab pack re-homed their
+  // stale m7 fromModule tags to m16 (where the live course actually teaches
+  // them), which correctly makes them too advanced for this m5-era pool —
+  // the comprehensibility gate resolves through fromModule. あそぶ (m2) and
+  // はたらく (m7, taught by ja-m7-neo-7) carry the slots instead.
+  { dict: "あそぶ", masu: "あそびます", en: "play" },
+  { dict: "はたらく", masu: "はたらきます", en: "work" },
   { dict: "いく", masu: "いきます", en: "go" },
 ];
 

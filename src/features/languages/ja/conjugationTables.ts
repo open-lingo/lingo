@@ -181,7 +181,51 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "かいて",
       tai: "かきたい",
     },
-    introducedAtModule: 99,
+    // Taught by ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) — un-parked 99 → 16.
+    introducedAtModule: 16,
+  },
+  {
+    id: "tsukau",
+    dictionary: "つかう",
+    kanji: "使う",
+    meaning: "to use",
+    group: "godan",
+    forms: {
+      dictionary: "つかう",
+      masu: "つかいます",
+      "masu-neg": "つかいません",
+      "masu-past": "つかいました",
+      "masu-past-neg": "つかいませんでした",
+      nai: "つかわない",
+      ta: "つかった",
+      te: "つかって",
+      tai: "つかいたい",
+    },
+    // New row with ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) so the
+    // pack's derived cells (つかって) are real lexicon surfaces.
+    introducedAtModule: 16,
+  },
+  {
+    id: "suu",
+    dictionary: "すう",
+    kanji: "吸う",
+    meaning: "to smoke",
+    group: "godan",
+    forms: {
+      dictionary: "すう",
+      masu: "すいます",
+      "masu-neg": "すいません",
+      "masu-past": "すいました",
+      "masu-past-neg": "すいませんでした",
+      nai: "すわない",
+      ta: "すった",
+      te: "すって",
+      tai: "すいたい",
+    },
+    // New row with ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) so すわない
+    // is a real lexicon surface. The すい stem is safe: every corpus すい sits
+    // inside すいようび / やすい, which longest-match consumes whole.
+    introducedAtModule: 16,
   },
 
   // ═══ M10 verbs ══════════════════════════════════════════════════════
@@ -284,7 +328,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "はしって",
       tai: "はしりたい",
     },
-    introducedAtModule: 30,
+    // Taught by ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) — moved 30 → 16
+    // (measured: the pack lesson is now the word's first course surface).
+    introducedAtModule: 16,
   },
   {
     id: "oyogu",
@@ -1142,10 +1188,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "わるかった",
       "past-negative": "わるくなかった",
     },
-    // untaught today -- parked out of every pool (earlier exposure was
-    // distractor-fill luck, displaced by the 2026-07-29 pack re-homes); vocab
-    // pack 6 (m16, wave plan) teaches わるい: restore to 16 with that pack
-    introducedAtModule: 99,
+    // Taught by ja-m16-neo-11 (vocab pack 6, 2026-07-30 B067) — restored to 16
+    // exactly as the parking note called for.
+    introducedAtModule: 16,
   },
   {
     id: "oishii",
@@ -1200,8 +1245,11 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "さむかった",
       "past-negative": "さむくなかった",
     },
-    // measured first exposure m10 (drillPoolIsTaught 2026-07-29 pack wave)
-    introducedAtModule: 10,
+    // Taught by ja-m16-neo-1 (its debut word_image_mcq). The old m10 pin was
+    // distractor-backfill luck, displaced by the 2026-07-30 m16 pack
+    // re-homes (measured: drillPoolIsTaught now first sees it m13, taught
+    // m16 — pin to the teaching module).
+    introducedAtModule: 16,
   },
   {
     id: "tsumetai",
@@ -1230,8 +1278,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "あたたかかった",
       "past-negative": "あたたかくなかった",
     },
-    // measured first exposure m24 (drillPoolIsTaught 2026-07-29)
-    introducedAtModule: 24,
+    // measured first exposure m25 (drillPoolIsTaught, remeasured 2026-07-30
+    // after the m16 pack re-homes shifted the distractor backfill)
+    introducedAtModule: 25,
   },
   {
     id: "nagai",
@@ -1314,8 +1363,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "やさしかった",
       "past-negative": "やさしくなかった",
     },
-    // measured first exposure m24 (drillPoolIsTaught 2026-07-29 pack wave)
-    introducedAtModule: 24,
+    // Taught by ja-m16-neo-10 (vocab pack 5, 2026-07-30 B067) — moved 24 → 16
+    // (the pack lesson is now the measured first exposure).
+    introducedAtModule: 16,
   },
   {
     id: "hayai",
@@ -1387,8 +1437,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ひろかった",
       "past-negative": "ひろくなかった",
     },
-    // measured first exposure m18 (drillPoolIsTaught 2026-07-29 pack wave)
-    introducedAtModule: 18,
+    // measured first exposure m27 (drillPoolIsTaught, remeasured 2026-07-30
+    // after the m16 pack re-homes shifted the distractor backfill)
+    introducedAtModule: 27,
   },
   {
     id: "semai",

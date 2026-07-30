@@ -351,6 +351,66 @@
         "ja": "きっぷを さん かった。",
         "why": "a bare number cannot count a noun in Japanese — flat things need まい: きっぷを さんまい かった。"
       }
+    },
+    {
+      "id": "yomu-imi",
+      "rule": "よむ is to read: ほんを よむ. When what you read makes no sense, the word you need is いみ — meaning: いみが わからない says the meaning doesn't come through to you. クラス is your class, the hour and the group both, and it takes the span you already own: クラスは くじから じゅうじまでだ. やさしい is easy — the kindest thing a book can be: やさしい ほん. One more piece you half-own already: the て-form かいて is how you ask for writing, the same て + ください you have used all along — ここに なまえを かいて ください, please write your name here.",
+      "examples": [
+        {
+          "ja": "やさしい ほんを よむ。",
+          "en": "I read easy books."
+        },
+        {
+          "ja": "いみが わからないので せんせいに きく。",
+          "en": "I don't understand the meaning, so I'll ask the teacher."
+        },
+        {
+          "ja": "クラスは くじから じゅうじまでだ。",
+          "en": "Class runs from nine to ten."
+        },
+        {
+          "ja": "ここに なまえを かいて ください。",
+          "en": "Please write your name here."
+        },
+        {
+          "ja": "クラスの まえに やさしい ほんを よんだ。",
+          "en": "I read an easy book before class."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんを よむだ。",
+        "why": "a dictionary-form verb is already a complete sentence — だ finishes nouns, never verbs: ほんを よむ。"
+      }
+    },
+    {
+      "id": "karada-ni-warui",
+      "rule": "わるい is bad — いい's opposite — and Japanese says a thing is bad FOR you with に: からだに わるい, bad for the body; めに わるい, bad for the eyes. すう is to smoke, and its plain negative すわない is how you refuse the habit: すわない = I don't smoke. よわい is weak — a weak wind, a weak body. And たいせつ is important. It is a な-adjective like しずか, so it is たいせつな しゃしん in front of a noun — and in front of ので it takes な, never だ: たいせつなので.",
+      "examples": [
+        {
+          "ja": "けいたいは めに わるい。",
+          "en": "Phones are bad for your eyes."
+        },
+        {
+          "ja": "からだに わるいから すわない。",
+          "en": "It's bad for me, so I don't smoke."
+        },
+        {
+          "ja": "かぜが よわいから うみで およぐ。",
+          "en": "The wind is weak, so I'll swim in the sea."
+        },
+        {
+          "ja": "かぞくは たいせつだ。",
+          "en": "Family is important."
+        },
+        {
+          "ja": "たいせつな しゃしんなので みせない。",
+          "en": "It's an important photo, so I won't show it."
+        }
+      ],
+      "antiPattern": {
+        "ja": "けいたいは めで わるい。",
+        "why": "bad FOR something takes に — で would make the eye the place where the badness happens: けいたいは めに わるい。"
+      }
     }
   ],
   "newAtoms": [
@@ -568,6 +628,181 @@
       "shortGloss": "flat-thing counter",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "かく",
+      "romaji": "kaku",
+      "gloss": "to write",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "よむ",
+      "romaji": "yomu",
+      "gloss": "to read",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "つかう",
+      "romaji": "tsukau",
+      "gloss": "to use",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ノート",
+      "romaji": "nooto",
+      "gloss": "notebook, exercise book",
+      "shortGloss": "notebook",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょうしつ",
+      "romaji": "kyoushitsu",
+      "gloss": "classroom",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "クラス",
+      "romaji": "kurasu",
+      "gloss": "class",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "いみ",
+      "romaji": "imi",
+      "gloss": "meaning",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "やさしい",
+      "romaji": "yasashii",
+      "gloss": "easy, simple",
+      "shortGloss": "easy",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいて",
+      "romaji": "kaite",
+      "gloss": "write (te-form)",
+      "shortGloss": "write (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かく"
+    },
+    {
+      "kana": "かいた",
+      "romaji": "kaita",
+      "gloss": "wrote (write, past)",
+      "shortGloss": "write (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かく"
+    },
+    {
+      "kana": "かかなかった",
+      "romaji": "kakanakatta",
+      "gloss": "didn't write",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かく"
+    },
+    {
+      "kana": "よんで",
+      "romaji": "yonde",
+      "gloss": "read (te-form)",
+      "shortGloss": "read (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "よむ"
+    },
+    {
+      "kana": "よんだ",
+      "romaji": "yonda",
+      "gloss": "read (read, past)",
+      "shortGloss": "read (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "よむ"
+    },
+    {
+      "kana": "つかって",
+      "romaji": "tsukatte",
+      "gloss": "use (te-form)",
+      "shortGloss": "use (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "つかう"
+    },
+    {
+      "kana": "すう",
+      "romaji": "suu",
+      "gloss": "to smoke",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たばこ",
+      "romaji": "tabako",
+      "gloss": "tobacco, cigarettes",
+      "shortGloss": "cigarettes",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はしる",
+      "romaji": "hashiru",
+      "gloss": "to run",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "スポーツ",
+      "romaji": "supootsu",
+      "gloss": "sport",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "わるい",
+      "romaji": "warui",
+      "gloss": "bad",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "よわい",
+      "romaji": "yowai",
+      "gloss": "weak",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たいせつ",
+      "romaji": "taisetsu",
+      "gloss": "important",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すわない",
+      "romaji": "suwanai",
+      "gloss": "won't smoke / don't smoke",
+      "shortGloss": "don't smoke",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "すう"
     }
   ],
   "lessons": [
@@ -2663,6 +2898,448 @@
       ]
     },
     {
+      "id": "m16-neo-10",
+      "role": "teaching",
+      "title": "やさしい ほんを よむ — the classroom",
+      "focus": "かく/よむ/つかう carry the classroom; いみ is what you ask about; クラス takes the から…まで span",
+      "introduces": [
+        "かく",
+        "よむ",
+        "つかう",
+        "ノート",
+        "きょうしつ",
+        "クラス",
+        "いみ",
+        "やさしい",
+        "かいて",
+        "かいた",
+        "かかなかった",
+        "よんで",
+        "よんだ",
+        "つかって"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "yomu-imi"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ノートに なまえを かく。",
+          "en": "I'll write my name in the notebook",
+          "exercises": [
+            "ni-location",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ここに なまえを かいて ください。",
+          "en": "Please write your name here",
+          "exercises": [
+            "kudasai",
+            "koko-soko-asoko"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうしつで ほんを よむ。",
+          "en": "I read books in the classroom",
+          "exercises": [
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "クラスは くじから じゅうじまでだ。",
+          "en": "Class runs from nine to ten",
+          "exercises": [
+            "made-until",
+            "kara-origin",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じゅぎょうで えんぴつを つかう。",
+          "en": "I use a pencil in class",
+          "exercises": [
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつを つかって ノートに かく。",
+          "en": "I use a pencil and write in my notebook",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やさしい ほんを よんでいる。",
+          "en": "I'm reading an easy book",
+          "exercises": [
+            "te-iru",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "クラスの まえに やさしい ほんを よんだ。",
+          "en": "I read an easy book before class",
+          "exercises": [
+            "ta-form",
+            "i-adj-present",
+            "no-possession"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "じかんが なかったから てがみを かかなかった。",
+          "en": "I had no time, so I didn't write the letter",
+          "exercises": [
+            "kara-because",
+            "nai-form",
+            "nai-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ゆうべ ほんを よんだ。",
+          "en": "Say to a friend: I read a book last night",
+          "exercises": [
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "きょうしつで ほんを ",
+          "tail": "。",
+          "answer": "よむ",
+          "options": [
+            "よむ",
+            "かく",
+            "つかう"
+          ],
+          "en": "I read books in the classroom",
+          "explanation": "よむ is to read and かく is to write — the English says read. つかう is to use."
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "じゅぎょうは ",
+          "tail": "から すきだ。",
+          "answer": "やさしい",
+          "options": [
+            "やさしい",
+            "おもしろい",
+            "ふるい"
+          ],
+          "en": "The class is easy, so I like it",
+          "explanation": "the English says easy — やさしい. おもしろい is interesting and ふるい is old."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "クラスは くじから じゅうじまでだ。",
+          "answer": "Class runs from nine to ten",
+          "distractors": [
+            "Class runs from ten to eleven",
+            "Class ran from nine to ten yesterday",
+            "There is no class today"
+          ],
+          "exercises": [
+            "made-until",
+            "kara-origin"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いみが わからないので せんせいに きく。",
+          "answer": "I don't understand the meaning, so I'll ask the teacher",
+          "distractors": [
+            "I understand the meaning, so I won't ask",
+            "The teacher doesn't know the meaning",
+            "It's easy, so I won't ask the teacher"
+          ],
+          "exercises": [
+            "node-because"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "いま なにを している？",
+              "en": "What are you doing right now?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ノートに かいている。あした クラスが あるから。",
+              "en": "I'm writing in my notebook. Because I have class tomorrow."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Tom doing?",
+              "options": [
+                "Writing in his notebook",
+                "Reading an easy book",
+                "Using his phone",
+                "Asking the teacher"
+              ],
+              "answer": "Writing in his notebook"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "やさしい ほんだけど いみが わからない。",
+          "en": "It's an easy book, but I don't understand the meaning",
+          "combines": [
+            "kedo",
+            "i-adj-present",
+            "nai-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ほん",
+        "てがみ",
+        "えんぴつ",
+        "なまえ",
+        "じゅぎょう",
+        "せんせい",
+        "けいたい",
+        "だいがく",
+        "じしょ",
+        "かばん"
+      ]
+    },
+    {
+      "id": "m16-neo-11",
+      "role": "teaching",
+      "title": "からだに わるい — habits and health",
+      "focus": "わるい/よわい judge the habit; に marks who it's bad for; たいせつ takes な like しずか",
+      "introduces": [
+        "すう",
+        "たばこ",
+        "はしる",
+        "スポーツ",
+        "わるい",
+        "よわい",
+        "たいせつ",
+        "すわない"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "karada-ni-warui"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たばこは からだに わるい。",
+          "en": "Cigarettes are bad for you",
+          "exercises": [
+            "wa-topic",
+            "ni-location",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "からだに わるいから たばこを すわない。",
+          "en": "It's bad for me, so I don't smoke",
+          "exercises": [
+            "kara-because",
+            "nai-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "スポーツが すきだから よく はしる。",
+          "en": "I like sports, so I run often",
+          "exercises": [
+            "kara-because",
+            "suki-kirai-no"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ えきまで はしる。",
+          "en": "I run as far as the station in the morning",
+          "exercises": [
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "スポーツは からだに いい。",
+          "en": "Sports are good for you",
+          "exercises": [
+            "wa-topic",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "けいたいは めに わるい。",
+          "en": "Phones are bad for your eyes",
+          "exercises": [
+            "wa-topic",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たいせつな とけいだから ミカに みせない。",
+          "en": "It's an important watch, so I won't show it to Mika",
+          "exercises": [
+            "kara-because",
+            "na-adj-present",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "からだに わるいから すわない。",
+          "en": "Say to a friend: It's bad for me, so I don't smoke",
+          "exercises": [
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "たばこを ",
+          "tail": "。",
+          "answer": "すう",
+          "options": [
+            "すう",
+            "すわない",
+            "かう"
+          ],
+          "en": "I smoke",
+          "explanation": "the English is the plain habit, so すう. すわない says I don't, and かう would mean buying them."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぜが よわいから うみで およぐ。",
+          "answer": "The wind is weak, so I'll swim in the sea",
+          "distractors": [
+            "The wind is strong, so I won't swim in the sea",
+            "It's cold, so I'm not going to the sea",
+            "The wind was weak, so I swam yesterday"
+          ],
+          "exercises": [
+            "kara-because",
+            "de-action"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぞくは たいせつだ。",
+          "answer": "Family is important",
+          "distractors": [
+            "Family is fun",
+            "My family is busy",
+            "Time is important"
+          ],
+          "exercises": [
+            "wa-topic"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "スポーツが すきだから よく はしる。",
+          "answer": "I like sports, so I run often",
+          "distractors": [
+            "I like sports, but I don't run",
+            "I don't like sports, so I don't run",
+            "I run because I have no time"
+          ],
+          "exercises": [
+            "kara-because",
+            "suki-kirai-no"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "スポーツを する？",
+              "en": "Do you play sports?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "うん。よく うみまで はしる。",
+              "en": "Yeah. I often run as far as the sea."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken often do?",
+              "options": [
+                "Runs as far as the sea",
+                "Swims in the sea",
+                "Buys cigarettes",
+                "Watches sports at home"
+              ],
+              "answer": "Runs as far as the sea"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "たばこは からだに わるいから ぜんぜん すわない。",
+          "en": "Cigarettes are bad for you, so I don't smoke at all",
+          "combines": [
+            "wa-topic",
+            "kara-because",
+            "nai-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "からだ",
+        "かぜ",
+        "うみ",
+        "えき",
+        "かぞく",
+        "しゃしん",
+        "ちゃ",
+        "みず",
+        "げんき",
+        "とけい"
+      ]
+    },
+    {
       "id": "m16-neo-review-3",
       "role": "review",
       "title": "Review — reasons, spans, and what didn't happen",
@@ -2808,6 +3485,107 @@
             "kara-because"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつを つかって ノートに かく。",
+          "en": "I use a pencil and write in my notebook",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょうしつで やさしい ほんを よむ。",
+          "en": "I read easy books in the classroom",
+          "exercises": [
+            "de-action",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いみが わからないので せんせいに きく。",
+          "answer": "I don't understand the meaning, so I'll ask the teacher",
+          "distractors": [
+            "I know the meaning, so I won't ask",
+            "The teacher asked me the meaning",
+            "I'll read it because it's easy"
+          ],
+          "exercises": [
+            "node-because"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "クラスで あたらしい けいたいを つかう。",
+          "en": "I use the new phone in class",
+          "exercises": [
+            "de-action",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "たばこを ",
+          "tail": "。",
+          "answer": "すう",
+          "options": [
+            "すう",
+            "すわない",
+            "はしる"
+          ],
+          "en": "I smoke",
+          "explanation": "the English is the plain habit — すう. すわない says I don't, and はしる is to run."
+        },
+        {
+          "kind": "sentence",
+          "ja": "スポーツが すきだから えきまで はしる。",
+          "en": "I like sports, so I run as far as the station",
+          "exercises": [
+            "kara-because",
+            "made-until"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "たばこは からだに わるいから すわない。",
+          "answer": "Cigarettes are bad for you, so I don't smoke",
+          "distractors": [
+            "Cigarettes are expensive, so I don't buy them",
+            "It's bad for me, but I smoke",
+            "Running is good for you, so I run"
+          ],
+          "exercises": [
+            "kara-because",
+            "nai-form"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぜが よわいから うみで およぐ。",
+          "en": "The wind is weak, so I'll swim in the sea",
+          "exercises": [
+            "kara-because",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たいせつな しゃしんを ミカに みせる。",
+          "en": "I'll show Mika the important photo",
+          "exercises": [
+            "na-adj-present",
+            "ni-location",
+            "wo-object"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "dialogue",
@@ -3043,6 +3821,9 @@
     }
   ],
   "priorVocab": [
+    "あけて",
+    "あけない",
+    "あける",
     "あさ",
     "あさって",
     "あした",
@@ -3054,6 +3835,8 @@
     "あそんで",
     "あたらしい",
     "あたらしくない",
+    "あらう",
+    "あらった",
     "ありがとう",
     "ありがとうございます",
     "あります",
@@ -3109,6 +3892,9 @@
     "おおきかった",
     "おおきくない",
     "おおきくなかった",
+    "おきた",
+    "おきたい",
+    "おきる",
     "おしえて",
     "おしえる",
     "おぼえる",
@@ -3176,6 +3962,7 @@
     "くるま",
     "くん",
     "けいたい",
+    "けさ",
     "けっこう",
     "げつようび",
     "げんき",
@@ -3213,6 +4000,9 @@
     "しました",
     "します",
     "しません",
+    "しめた",
+    "しめて",
+    "しめる",
     "しゃしん",
     "しょくじ",
     "しらない",
@@ -3234,6 +4024,7 @@
     "する",
     "すんで",
     "せ",
+    "せっけん",
     "せんげつ",
     "せんしゅう",
     "せんせい",
@@ -3270,10 +4061,12 @@
     "ちゃん",
     "ちょっと",
     "つき",
+    "つめたい",
     "て",
     "てがみ",
     "で",
     "でした",
+    "でんき",
     "でんわ",
     "と",
     "とき",
@@ -3324,7 +4117,10 @@
     "はち",
     "はちじ",
     "はな",
+    "はやい",
     "はん",
+    "ひいて",
+    "ひく",
     "ひと",
     "ひとつ",
     "ひゃく",
@@ -3346,6 +4142,8 @@
     "まって",
     "まつ",
     "まど",
+    "みがきたい",
+    "みがく",
     "みず",
     "みせ",
     "みせて",
@@ -3365,11 +4163,15 @@
     "も",
     "もう",
     "もくようび",
+    "もった",
+    "もって",
+    "もつ",
     "もも",
     "やすい",
     "やすかった",
     "やま",
     "やる",
+    "ゆうべ",
     "ゆうめい",
     "ゆき",
     "よかった",
@@ -3394,8 +4196,9 @@
     "アメリカ",
     "アメリカじん",
     "カメラ",
+    "シャワー",
+    "ドア",
     "パン",
-    "パーティー",
     "ミカ"
   ],
   "priorAtoms": [
@@ -4445,6 +5248,98 @@
       "kind": "vocab"
     },
     {
+      "kana": "おきる",
+      "romaji": "okiru",
+      "gloss": "to get up",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "あらう",
+      "romaji": "arau",
+      "gloss": "to wash",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "みがく",
+      "romaji": "migaku",
+      "gloss": "to brush teeth, to polish",
+      "shortGloss": "polish",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "おきた",
+      "romaji": "okita",
+      "gloss": "got up (get up, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "おきる"
+    },
+    {
+      "kana": "おきたい",
+      "romaji": "okitai",
+      "gloss": "want to get up",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "おきる"
+    },
+    {
+      "kana": "あらった",
+      "romaji": "aratta",
+      "gloss": "washed (wash, past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あらう"
+    },
+    {
+      "kana": "みがきたい",
+      "romaji": "migakitai",
+      "gloss": "want to polish",
+      "imageable": false,
+      "kind": "tai-form",
+      "derivedFrom": "みがく"
+    },
+    {
+      "kana": "せっけん",
+      "romaji": "sekken",
+      "gloss": "soap",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "シャワー",
+      "romaji": "shawaa",
+      "gloss": "shower",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ゆうべ",
+      "romaji": "yuube",
+      "gloss": "last night",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "けさ",
+      "romaji": "kesa",
+      "gloss": "this morning",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "はやい",
+      "romaji": "hayai",
+      "gloss": "early",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "しって",
       "romaji": "shitte",
       "gloss": "know (te-form)",
@@ -4575,6 +5470,125 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "およぐ"
+    },
+    {
+      "kana": "あける",
+      "romaji": "akeru",
+      "gloss": "to open",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "しめる",
+      "romaji": "shimeru",
+      "gloss": "to close something",
+      "shortGloss": "close",
+      "imageable": false,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "もつ",
+      "romaji": "motsu",
+      "gloss": "to hold",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ひく",
+      "romaji": "hiku",
+      "gloss": "to pull",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "ドア",
+      "romaji": "doa",
+      "gloss": "door",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "でんき",
+      "romaji": "denki",
+      "gloss": "electricity, electric light",
+      "shortGloss": "electric light",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つめたい",
+      "romaji": "tsumetai",
+      "gloss": "cold to the touch",
+      "shortGloss": "cold (touch)",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あけて",
+      "romaji": "akete",
+      "gloss": "open (te-form)",
+      "shortGloss": "open (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あける"
+    },
+    {
+      "kana": "あけない",
+      "romaji": "akenai",
+      "gloss": "won't open / don't open",
+      "shortGloss": "don't open",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "あける"
+    },
+    {
+      "kana": "しめて",
+      "romaji": "shimete",
+      "gloss": "close (te-form)",
+      "shortGloss": "close (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しめる"
+    },
+    {
+      "kana": "しめた",
+      "romaji": "shimeta",
+      "gloss": "closed (close, past)",
+      "shortGloss": "close (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "しめる"
+    },
+    {
+      "kana": "もって",
+      "romaji": "motte",
+      "gloss": "hold (te-form)",
+      "shortGloss": "hold (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "もつ"
+    },
+    {
+      "kana": "もった",
+      "romaji": "motta",
+      "gloss": "held (hold, past)",
+      "shortGloss": "hold (past)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "もつ"
+    },
+    {
+      "kana": "ひいて",
+      "romaji": "hiite",
+      "gloss": "pull (te-form)",
+      "shortGloss": "pull (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "ひく"
     },
     {
       "kana": "えいが",

@@ -113,7 +113,8 @@ describe("fromModule vs live first-exercised module (truth table)", () => {
     // modules; tighten to the measured value once the wave settles.
     // Measured 194 on 2026-07-29 after packs 1-4's re-homes (was 196 at
     // first measurement). The pack wave lowers this per pack -- re-pin down.
-    const MAX_EARLY_TAG = 194;
+    // Measured 193 on 2026-07-30 after the m16 packs 5-6 re-homes.
+    const MAX_EARLY_TAG = 193;
     expect(
       early.length,
       `early-tagged atoms (fromModule earlier than the live course teaches):\n` +

@@ -630,6 +630,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m16-neo-7", title: "たべませんでした — the last polite cell", status: "available" as const },
             { id: "ja-m16-neo-8", title: "いかなかった — didn't, and why", status: "available" as const },
             { id: "ja-m16-neo-9", title: "きっぷを さんまい — counting flat things", status: "available" as const },
+            { id: "ja-m16-neo-10", title: "やさしい ほんを よむ — the classroom", status: "available" as const },
+            { id: "ja-m16-neo-11", title: "からだに わるい — habits and health", status: "available" as const },
             { id: "ja-m16-neo-review-3", title: "Review — reasons, spans, and what didn't happen", status: "available" as const },
             { id: "ja-m16-neo-trainer-masu", title: "Drill — every polite cell, and なかった", status: "available" as const,
               kind: "trainer" as const, trainerTypeIds: ["masu", "nai-form", "ta-form"] },

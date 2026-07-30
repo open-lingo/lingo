@@ -162,6 +162,69 @@ notes: |
   carries exactly one, because this module owes nine points across nine teaching
   lessons.
 
+  VOCAB PACKS 5 + 6 (B065/B067, 2026-07-29 wave plan, Spencer-approved;
+  authored 2026-07-30): two inserted teaching lessons after L9, before R3, ids
+  m16-neo-10 / m16-neo-11 positioned where they teach (m11-neo-10/11 and
+  m13/m14-neo-10 precedent).
+  - **Pack 5, m16-neo-10 "the classroom"** — かく, よむ, つかう, ノート,
+    きょうしつ, クラス, いみ(意味), やさしい(易しい). Mixed-POS (3 verbs +
+    4 nouns + 1 adjective); the module's grammar is why they live HERE:
+    クラスは くじから じゅうじまでだ spends から…まで, かかなかった spends L8's
+    なかった, and いみが わからないので spends ので. No substitutions from the
+    plan's draft row.
+  - **Pack 6, m16-neo-11 "habits and health"** — すう, たばこ, はしる,
+    スポーツ, わるい(悪い), よわい(弱い) + たいせつ(大切). ONE substitution:
+    the plan's draft had 歯(は), but は is a HOMOGRAPH LOSER
+    (JA_PRIMARY_ATOM_BY_KANA resolves the bare kana to the topic particle;
+    homographTeaching.test.ts fails the build on teaching a losing sense), so
+    歯 stays with the m22 body cluster where a kanji-surface mechanism can
+    carry it. たいせつ substitutes in from the audit's own §6 m16
+    habits-&-health row — a な-adjective, so the pack also spends the
+    module's headline な-before-ので trap (たいせつな しゃしんなので).
+    つよい was considered and REJECTED: m28 declares and picture-debuts it
+    (💪), and word_image_mcq is first-exposure-ONLY (inv 44).
+  - Emoji: かく ✍️, つかう 🔧 (vendored this cycle), ノート 📓, きょうしつ 🏫,
+    たばこ 🚬, はしる 🏃, スポーツ ⚽ debut on pictures. よむ cedes 📖 to ほん,
+    クラス cedes 🏫 to きょうしつ (same lesson), すう cedes 🚬 to たばこ (same
+    lesson), わるい forfeits 👎 (a gesture, reads "no/dislike" not "bad") so
+    the わるい/よわい pair can debut on the rule card, よわい's 🪶 cannot
+    honestly cue "weak", たいせつ's ❗ cannot name importance — all six are
+    imageable:false with registry blocked flags, and each gets an explicit
+    recognition beat (cloze-as-answer or listening-comp) per the
+    recognitionExposure ratchet (the m13/m14 learner-sim finding, applied at
+    authoring time instead of after).
+  - Rule cards name ONLY imageable:false pack words (よむ/いみ/クラス/やさしい;
+    わるい/よわい/たいせつ/すう) plus derived cells (かいて, すわない) — an
+    imageable word on a pinned card steals its picture debut (the m14/m16
+    さむい lesson).
+  - Lexicon: kaku un-parked 99→16, hashiru 30→16, warui 99→16 (its own note
+    called for pack 6), yasashii 24→16 — each measured: the words' first
+    course surfaces are now these lessons. NEW VERB_ENTRIES rows tsukau + suu
+    (godan, introducedAtModule 16) so every derived cell the packs spend is a
+    real lexicon surface. すう's masu row すいます stems to すい — checked:
+    every corpus occurrence of すい sits inside すいようび/やすい, which
+    longest-match consumes whole.
+  - Derived cells spent (declared as IR atoms — the compiler tokenizes over
+    atoms + stems, not ChainForm outputs; m13 pack finding): かいて, かいた,
+    かかなかった, よんで, よんだ, つかって, すわない. Each grepped to zero
+    existing corpus occurrences before declaring (かいた exists only inside
+    かいたい/かいたかった/かいたくなかった, all longer atoms that win
+    longest-match — verified, not assumed). No verbClass on any of them, so
+    the L7/L8 ramps (scoped to their own `introduces` anyway) cannot pick
+    them up.
+  - R3 carries the packs' review block — the pack atoms' Track-A write
+    surface. Every pack word appears there in DICTIONARY form in a graded
+    step (SRS credit rides exact atom-kana matches, measured on pack 3), and
+    every credited sentence is a statement (a trailing ？ glues to the final
+    token and drops its credit — measured on pack 4).
+  - registry re-homes (fromModule → m16): かく/よむ/ノート were m7 with dead
+    ja-m7-1 / ja-m7-kata attributions (deleted — the kata row lesson never
+    tiles ノート), クラス was m13 with dead ja-m13-6-1, いみ was m26 with dead
+    ja-m26-5-1, つかう was m29 with dead ja-m29-1-1, やさしい/わるい were m8,
+    スポーツ was m15, よわい was m18, たいせつ was m27. introducedByLessonId
+    left UNSET everywhere so the module-fallback unlock fires (audit §3
+    trap 3).
+
   CONJUGATION RAMPS (inv 37). Two, and only two: L7 (`masu-past-neg`) and L8
   (`nai-past`). The ramp is pinned ahead of the interleaved middle and is NOT
   intro-capable, so for each one the three forms it can emit — たべませんでした /
@@ -266,6 +329,34 @@ grammarPoints:
       - { ja: "きっぷを なんまい かう？", en: "How many tickets are you buying?" }
       - { ja: "しゃしんを いちまい ください。", en: "One photo, please." }
     antiPattern: { ja: "きっぷを さん かった。", why: "a bare number cannot count a noun in Japanese — flat things need まい: きっぷを さんまい かった。" }
+  # Vocab pack 5 (B065/B067, 2026-07-30): the classroom card. IR-local
+  # vocabulary point like m11's youbi-days, m13's asa-routine and m14's
+  # akeru-shimeru. Its examples name only imageable:false pack words
+  # (よむ/いみ/クラス/やさしい) and derived cells (かいて/よんだ) — かく,
+  # つかう, ノート and きょうしつ stay out so their picture debuts stay first.
+  - id: yomu-imi
+    rule: "よむ is to read: ほんを よむ. When what you read makes no sense, the word you need is いみ — meaning: いみが わからない says the meaning doesn't come through to you. クラス is your class, the hour and the group both, and it takes the span you already own: クラスは くじから じゅうじまでだ. やさしい is easy — the kindest thing a book can be: やさしい ほん. One more piece you half-own already: the て-form かいて is how you ask for writing, the same て + ください you have used all along — ここに なまえを かいて ください, please write your name here."
+    examples:
+      - { ja: "やさしい ほんを よむ。", en: "I read easy books." }
+      - { ja: "いみが わからないので せんせいに きく。", en: "I don't understand the meaning, so I'll ask the teacher." }
+      - { ja: "クラスは くじから じゅうじまでだ。", en: "Class runs from nine to ten." }
+      - { ja: "ここに なまえを かいて ください。", en: "Please write your name here." }
+      - { ja: "クラスの まえに やさしい ほんを よんだ。", en: "I read an easy book before class." }
+    antiPattern: { ja: "ほんを よむだ。", why: "a dictionary-form verb is already a complete sentence — だ finishes nouns, never verbs: ほんを よむ。" }
+  # Vocab pack 6 (B065/B067, 2026-07-30): the habits-and-health card. Same
+  # IR-local shape. Names only imageable:false pack words (わるい/よわい/
+  # たいせつ/すう) and すわない — たばこ, はしる and スポーツ stay out so
+  # their picture debuts stay first. つよい is deliberately NOT named: m28
+  # picture-debuts it.
+  - id: karada-ni-warui
+    rule: "わるい is bad — いい's opposite — and Japanese says a thing is bad FOR you with に: からだに わるい, bad for the body; めに わるい, bad for the eyes. すう is to smoke, and its plain negative すわない is how you refuse the habit: すわない = I don't smoke. よわい is weak — a weak wind, a weak body. And たいせつ is important. It is a な-adjective like しずか, so it is たいせつな しゃしん in front of a noun — and in front of ので it takes な, never だ: たいせつなので."
+    examples:
+      - { ja: "けいたいは めに わるい。", en: "Phones are bad for your eyes." }
+      - { ja: "からだに わるいから すわない。", en: "It's bad for me, so I don't smoke." }
+      - { ja: "かぜが よわいから うみで およぐ。", en: "The wind is weak, so I'll swim in the sea." }
+      - { ja: "かぞくは たいせつだ。", en: "Family is important." }
+      - { ja: "たいせつな しゃしんなので みせない。", en: "It's an important photo, so I won't show it." }
+    antiPattern: { ja: "けいたいは めで わるい。", why: "bad FOR something takes に — で would make the eye the place where the badness happens: けいたいは めに わるい。" }
 
 newAtoms:
   # ══ L1. さむい already has a courseAtoms row (stale fromModule m8, emoji 🥶),
@@ -315,6 +406,39 @@ newAtoms:
   - { kana: ぜんぜん, romaji: zenzen, gloss: "not at all (with a negative)", shortGloss: "not at all", imageable: false, kind: vocab }
   # ══ L9
   - { kana: まい, romaji: mai, gloss: "counter for flat things", shortGloss: "flat-thing counter", imageable: false, kind: vocab }
+  # ══ Vocab pack 5 (B065/B067, 2026-07-30) — the classroom (L10). Base verbs
+  #    carry verbClass for documentation only: the pack card has no
+  #    `conjugation:` key and the L7/L8 ramps are scoped to their own
+  #    `introduces`, so nothing here can ride a ramp. Derived cells carry NO
+  #    verbClass and are all real lexicon surfaces (kaku/yomu rows existed;
+  #    tsukau is a new VERB_ENTRIES row). Emoji rationale in the module notes.
+  - { kana: かく, romaji: kaku, gloss: "to write", imageable: true, kind: verb, verbClass: u }
+  - { kana: よむ, romaji: yomu, gloss: "to read", imageable: false, kind: verb, verbClass: u }
+  - { kana: つかう, romaji: tsukau, gloss: "to use", imageable: true, kind: verb, verbClass: u }
+  - { kana: ノート, romaji: nooto, gloss: "notebook, exercise book", shortGloss: "notebook", imageable: true, kind: vocab }
+  - { kana: きょうしつ, romaji: kyoushitsu, gloss: "classroom", imageable: true, kind: vocab }
+  - { kana: クラス, romaji: kurasu, gloss: "class", imageable: false, kind: vocab }
+  - { kana: いみ, romaji: imi, gloss: "meaning", imageable: false, kind: vocab }
+  - { kana: やさしい, romaji: yasashii, gloss: "easy, simple", shortGloss: "easy", imageable: false, kind: vocab }
+  - { kana: かいて, romaji: kaite, gloss: "write (te-form)", shortGloss: "write (te)", imageable: false, kind: verb-form, derivedFrom: かく }
+  # shortGloss keeps the base's content word ("write") so the gloss-mismatch
+  # diagnostic can see the sense agreement — the なかった/"didn't have" move.
+  - { kana: かいた, romaji: kaita, gloss: "wrote (write, past)", shortGloss: "write (past)", imageable: false, kind: verb-form, derivedFrom: かく }
+  - { kana: かかなかった, romaji: kakanakatta, gloss: "didn't write", imageable: false, kind: verb-form, derivedFrom: かく }
+  - { kana: よんで, romaji: yonde, gloss: "read (te-form)", shortGloss: "read (te)", imageable: false, kind: verb-form, derivedFrom: よむ }
+  - { kana: よんだ, romaji: yonda, gloss: "read (read, past)", shortGloss: "read (past)", imageable: false, kind: verb-form, derivedFrom: よむ }
+  - { kana: つかって, romaji: tsukatte, gloss: "use (te-form)", shortGloss: "use (te)", imageable: false, kind: verb-form, derivedFrom: つかう }
+  # ══ Vocab pack 6 (B065/B067, 2026-07-30) — habits and health (L11). Same
+  #    rules as pack 5. すう's registry gloss is trimmed to the one sense the
+  #    course teaches (D4).
+  - { kana: すう, romaji: suu, gloss: "to smoke", imageable: false, kind: verb, verbClass: u }
+  - { kana: たばこ, romaji: tabako, gloss: "tobacco, cigarettes", shortGloss: "cigarettes", imageable: true, kind: vocab }
+  - { kana: はしる, romaji: hashiru, gloss: "to run", imageable: true, kind: verb, verbClass: u }
+  - { kana: スポーツ, romaji: supootsu, gloss: "sport", imageable: true, kind: vocab }
+  - { kana: わるい, romaji: warui, gloss: "bad", imageable: false, kind: vocab }
+  - { kana: よわい, romaji: yowai, gloss: "weak", imageable: false, kind: vocab }
+  - { kana: たいせつ, romaji: taisetsu, gloss: "important", imageable: false, kind: vocab }
+  - { kana: すわない, romaji: suwanai, gloss: "won't smoke / don't smoke", shortGloss: "don't smoke", imageable: false, kind: verb-form, derivedFrom: すう }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -626,6 +750,82 @@ lessons:
     reviewPool: [さむい, うち, ので, けど, まで, やすみ, きっぷ, しゃしん, てがみ, えいが]
 
   # ═══════════════════════════════════════════════════════════════════════
+  # Vocab pack 5 (B065/B067, 2026-07-30) — the classroom. Sits after L9 so
+  # the whole module (から/ので/けど, から…まで, なかった) is available to the
+  # pack words; id is m16-neo-10, positioned where it teaches
+  # (m11/m13/m14-neo-10 precedent).
+  - id: m16-neo-10
+    role: teaching
+    title: "やさしい ほんを よむ — the classroom"
+    focus: "かく/よむ/つかう carry the classroom; いみ is what you ask about; クラス takes the から…まで span"
+    introduces: [かく, よむ, つかう, ノート, きょうしつ, クラス, いみ, やさしい, かいて, かいた, かかなかった, よんで, よんだ, つかって]
+    beats:
+      - { kind: rule, grammarPointId: yomu-imi }
+      - { kind: sentence, ja: "ノートに なまえを かく。", en: "I'll write my name in the notebook", exercises: [ni-location, wo-object], mode: build }
+      - { kind: sentence, ja: "ここに なまえを かいて ください。", en: "Please write your name here", exercises: [kudasai, koko-soko-asoko], mode: listening }
+      - { kind: sentence, ja: "きょうしつで ほんを よむ。", en: "I read books in the classroom", exercises: [de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "クラスは くじから じゅうじまでだ。", en: "Class runs from nine to ten", exercises: [made-until, kara-origin, wa-topic], mode: build }
+      - { kind: sentence, ja: "じゅぎょうで えんぴつを つかう。", en: "I use a pencil in class", exercises: [de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "えんぴつを つかって ノートに かく。", en: "I use a pencil and write in my notebook", exercises: [te-form, ni-location], mode: build }
+      - { kind: sentence, ja: "やさしい ほんを よんでいる。", en: "I'm reading an easy book", exercises: [te-iru, i-adj-present], mode: build }
+      - { kind: sentence, ja: "クラスの まえに やさしい ほんを よんだ。", en: "I read an easy book before class", exercises: [ta-form, i-adj-present, no-possession], mode: listening }
+      - { kind: sentence, ja: "じかんが なかったから てがみを かかなかった。", en: "I had no time, so I didn't write the letter", exercises: [kara-because, nai-form, nai-existence], mode: build }
+      - { kind: sentence, ja: "ゆうべ ほんを よんだ。", en: "Say to a friend: I read a book last night", exercises: [ta-form, wo-object], mode: translate }
+      # Recognition beats (recognitionExposure ratchet — the m13/m14 finding,
+      # applied at authoring time): よむ and やさしい get cloze-as-answer reps
+      # in dictionary form; クラス and いみ get dictionary-form aural reps.
+      # The cloze full texts and クラス's audio reuse this lesson's own
+      # sentences, so no extra clips.
+      - { kind: particle-cloze, stem: "きょうしつで ほんを ", tail: "。", answer: "よむ", options: ["よむ", "かく", "つかう"], en: "I read books in the classroom", explanation: "よむ is to read and かく is to write — the English says read. つかう is to use." }
+      - { kind: particle-cloze, stem: "じゅぎょうは ", tail: "から すきだ。", answer: "やさしい", options: ["やさしい", "おもしろい", "ふるい"], en: "The class is easy, so I like it", explanation: "the English says easy — やさしい. おもしろい is interesting and ふるい is old." }
+      - { kind: listening-comp, audio: "クラスは くじから じゅうじまでだ。", answer: "Class runs from nine to ten", distractors: ["Class runs from ten to eleven", "Class ran from nine to ten yesterday", "There is no class today"], exercises: [made-until, kara-origin] }
+      - { kind: listening-comp, audio: "いみが わからないので せんせいに きく。", answer: "I don't understand the meaning, so I'll ask the teacher", distractors: ["I understand the meaning, so I won't ask", "The teacher doesn't know the meaning", "It's easy, so I won't ask the teacher"], exercises: [node-because] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いま なにを している？", en: "What are you doing right now?" }
+          - { speaker: "Tom", ja: "ノートに かいている。あした クラスが あるから。", en: "I'm writing in my notebook. Because I have class tomorrow." }
+        questions:
+          - { q: "What is Tom doing?", options: ["Writing in his notebook", "Reading an easy book", "Using his phone", "Asking the teacher"], answer: "Writing in his notebook" }
+      - { kind: challenge, ja: "やさしい ほんだけど いみが わからない。", en: "It's an easy book, but I don't understand the meaning", combines: [kedo, i-adj-present, nai-form], mode: build }
+    reviewPool: [ほん, てがみ, えんぴつ, なまえ, じゅぎょう, せんせい, けいたい, だいがく, じしょ, かばん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Vocab pack 6 (B065/B067, 2026-07-30) — habits and health. 歯(は) from the
+  # plan's draft row is substituted with たいせつ (homograph loser — see the
+  # module notes).
+  - id: m16-neo-11
+    role: teaching
+    title: "からだに わるい — habits and health"
+    focus: "わるい/よわい judge the habit; に marks who it's bad for; たいせつ takes な like しずか"
+    introduces: [すう, たばこ, はしる, スポーツ, わるい, よわい, たいせつ, すわない]
+    beats:
+      - { kind: rule, grammarPointId: karada-ni-warui }
+      - { kind: sentence, ja: "たばこは からだに わるい。", en: "Cigarettes are bad for you", exercises: [wa-topic, ni-location, i-adj-present], mode: build }
+      - { kind: sentence, ja: "からだに わるいから たばこを すわない。", en: "It's bad for me, so I don't smoke", exercises: [kara-because, nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "スポーツが すきだから よく はしる。", en: "I like sports, so I run often", exercises: [kara-because, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "あさ えきまで はしる。", en: "I run as far as the station in the morning", exercises: [made-until], mode: build }
+      - { kind: sentence, ja: "スポーツは からだに いい。", en: "Sports are good for you", exercises: [wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "けいたいは めに わるい。", en: "Phones are bad for your eyes", exercises: [wa-topic, ni-location], mode: listening }
+      - { kind: sentence, ja: "たいせつな とけいだから ミカに みせない。", en: "It's an important watch, so I won't show it to Mika", exercises: [kara-because, na-adj-present, nai-form], mode: build }
+      - { kind: sentence, ja: "からだに わるいから すわない。", en: "Say to a friend: It's bad for me, so I don't smoke", exercises: [kara-because, nai-form], mode: translate }
+      # Recognition beats: すう gets the cloze-as-answer rep in dictionary
+      # form; よわい and たいせつ get dictionary-form aural reps (よわい's
+      # audio is the rule card's own example, so the clip is shared). わるい's
+      # recognition rep rides R3's listening-comp.
+      - { kind: particle-cloze, stem: "たばこを ", tail: "。", answer: "すう", options: ["すう", "すわない", "かう"], en: "I smoke", explanation: "the English is the plain habit, so すう. すわない says I don't, and かう would mean buying them." }
+      - { kind: listening-comp, audio: "かぜが よわいから うみで およぐ。", answer: "The wind is weak, so I'll swim in the sea", distractors: ["The wind is strong, so I won't swim in the sea", "It's cold, so I'm not going to the sea", "The wind was weak, so I swam yesterday"], exercises: [kara-because, de-action] }
+      - { kind: listening-comp, audio: "かぞくは たいせつだ。", answer: "Family is important", distractors: ["Family is fun", "My family is busy", "Time is important"], exercises: [wa-topic] }
+      - { kind: listening-comp, audio: "スポーツが すきだから よく はしる。", answer: "I like sports, so I run often", distractors: ["I like sports, but I don't run", "I don't like sports, so I don't run", "I run because I have no time"], exercises: [kara-because, suki-kirai-no] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "スポーツを する？", en: "Do you play sports?" }
+          - { speaker: "Ken", ja: "うん。よく うみまで はしる。", en: "Yeah. I often run as far as the sea." }
+        questions:
+          - { q: "What does Ken often do?", options: ["Runs as far as the sea", "Swims in the sea", "Buys cigarettes", "Watches sports at home"], answer: "Runs as far as the sea" }
+      - { kind: challenge, ja: "たばこは からだに わるいから ぜんぜん すわない。", en: "Cigarettes are bad for you, so I don't smoke at all", combines: [wa-topic, kara-because, nai-form], mode: build }
+    reviewPool: [からだ, かぜ, うみ, えき, かぞく, しゃしん, ちゃ, みず, げんき, とけい]
+
+  # ═══════════════════════════════════════════════════════════════════════
   - id: m16-neo-review-3
     role: review
     title: "Review — reasons, spans, and what didn't happen"
@@ -645,6 +845,22 @@ lessons:
       - { kind: listening-comp, audio: "ぜんぜん おもしろくなかった。", answer: "It wasn't interesting at all", distractors: ["It was interesting", "It wasn't expensive at all", "It wasn't quiet at all"], exercises: [nai-form, i-adj-past-negative] }
       - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin], mode: build }
       - { kind: sentence, ja: "さむかったから いきませんでした。", en: "Say politely: I didn't go because it was cold", exercises: [masu-past-negative, kara-because], mode: build }
+      # Packs 5+6 coverage (2026-07-30): the classroom and habits words land
+      # in L10/L11 before this review — same rationale as m13/m14's R3
+      # blocks. Every pack word appears in DICTIONARY form in a graded step
+      # (SRS credit rides exact atom-kana matches, measured on pack 3), and
+      # every credited sentence is a statement (a trailing ？ glues to the
+      # final token and drops its credit, measured on pack 4). This is the
+      # pack atoms' Track-A write surface.
+      - { kind: sentence, ja: "えんぴつを つかって ノートに かく。", en: "I use a pencil and write in my notebook", exercises: [te-form, ni-location], mode: listening }
+      - { kind: sentence, ja: "きょうしつで やさしい ほんを よむ。", en: "I read easy books in the classroom", exercises: [de-action, i-adj-present], mode: build }
+      - { kind: listening-comp, audio: "いみが わからないので せんせいに きく。", answer: "I don't understand the meaning, so I'll ask the teacher", distractors: ["I know the meaning, so I won't ask", "The teacher asked me the meaning", "I'll read it because it's easy"], exercises: [node-because] }
+      - { kind: sentence, ja: "クラスで あたらしい けいたいを つかう。", en: "I use the new phone in class", exercises: [de-action, i-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "たばこを ", tail: "。", answer: "すう", options: ["すう", "すわない", "はしる"], en: "I smoke", explanation: "the English is the plain habit — すう. すわない says I don't, and はしる is to run." }
+      - { kind: sentence, ja: "スポーツが すきだから えきまで はしる。", en: "I like sports, so I run as far as the station", exercises: [kara-because, made-until], mode: build }
+      - { kind: listening-comp, audio: "たばこは からだに わるいから すわない。", answer: "Cigarettes are bad for you, so I don't smoke", distractors: ["Cigarettes are expensive, so I don't buy them", "It's bad for me, but I smoke", "Running is good for you, so I run"], exercises: [kara-because, nai-form] }
+      - { kind: sentence, ja: "かぜが よわいから うみで およぐ。", en: "The wind is weak, so I'll swim in the sea", exercises: [kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "たいせつな しゃしんを ミカに みせる。", en: "I'll show Mika the important photo", exercises: [na-adj-present, ni-location, wo-object], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "きのう なにを した？", en: "What did you do yesterday?" }
