@@ -253,6 +253,85 @@ function qaNotesMiddleware(): Plugin {
  * `Content-Encoding: identity` so kuromoji gets the gzipped bytes it
  * expects to decompress itself.
  */
+/**
+ * Serve TTS clips from disk in dev, falling back to the CDN and caching what
+ * it fetches.
+ *
+ * The mp3s no longer live in the repo, so without this every dev session
+ * depends on the network for audio — and offline work has none at all. This
+ * makes local dev self-sufficient after first use:
+ *
+ *   1. `$TTS_LOCAL_DIR` (default `../lingo-data/out/tts`) — whatever the
+ *      pipeline last generated. Read-only; nothing is written back here.
+ *   2. `.tts-cache/` — clips previously pulled from the CDN.
+ *   3. The CDN, which is then written into `.tts-cache/` for next time.
+ *
+ * So a fresh clone works with no setup (path 3), an offline laptop works for
+ * anything already played (path 2), and someone iterating on generation sees
+ * their own output immediately without publishing (path 1).
+ *
+ * Registered ahead of `server.proxy` so it wins for `/tts/*`; anything it
+ * declines falls through to the proxy.
+ */
+function serveTtsLocally(): Plugin {
+  const sourceDir = process.env.TTS_LOCAL_DIR
+    ? path.resolve(process.env.TTS_LOCAL_DIR)
+    : path.resolve(__dirname, "../lingo-data/out/tts");
+  const cacheDir = path.resolve(__dirname, ".tts-cache");
+  const origin = (process.env.VITE_TTS_PROXY_TARGET || "https://openlingoapp.com").replace(/\/+$/, "");
+
+  return {
+    name: "serve-tts-locally",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/tts", async (req, res, next) => {
+        const rel = (req.url ?? "").split("?")[0].replace(/^\//, "");
+        // Path traversal guard — `rel` comes straight off the request.
+        if (!rel || rel.includes("..")) return next();
+
+        // `/tts/v1/ja/x.mp3` arrives here as `v1/ja/x.mp3`; the pipeline's own
+        // output has no version segment, so try both shapes.
+        const unversioned = rel.replace(/^v\d+\//, "");
+        const candidates = [
+          path.join(cacheDir, rel),
+          path.join(sourceDir, unversioned),
+          path.join(sourceDir, rel),
+        ];
+        for (const file of candidates) {
+          if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
+          res.setHeader("Content-Type", rel.endsWith(".json") ? "application/json" : "audio/mpeg");
+          res.setHeader("X-Tts-Source", file.startsWith(cacheDir) ? "cache" : "local");
+          res.end(fs.readFileSync(file));
+          return;
+        }
+
+        // Not local — pull it once, hand it back, and keep a copy.
+        try {
+          const upstream = await fetch(`${origin}/tts/${rel}`);
+          const type = upstream.headers.get("content-type") ?? "";
+          // A missing clip comes back as the SPA shell with a 200, not a 404
+          // (the distribution maps 403/404 to index.html). Caching that would
+          // poison the dir with HTML named .mp3, so only keep real audio.
+          if (!upstream.ok || (rel.endsWith(".mp3") && !type.includes("audio"))) {
+            res.statusCode = 404;
+            res.end();
+            return;
+          }
+          const buf = Buffer.from(await upstream.arrayBuffer());
+          const dest = path.join(cacheDir, rel);
+          fs.mkdirSync(path.dirname(dest), { recursive: true });
+          fs.writeFileSync(dest, buf);
+          res.setHeader("Content-Type", type || "audio/mpeg");
+          res.setHeader("X-Tts-Source", "cdn");
+          res.end(buf);
+        } catch {
+          next(); // offline and not cached — let the proxy produce the error
+        }
+      });
+    },
+  };
+}
+
 function serveDictAsBinary(): Plugin {
   return {
     name: "serve-dict-as-binary",
@@ -319,6 +398,7 @@ export default defineConfig(({ mode }) => {
   return {
   plugins: [
     react(),
+    serveTtsLocally(),
     serveDictAsBinary(),
     copyKuromojiDict(),
     devLogMiddleware(),
