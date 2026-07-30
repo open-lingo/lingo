@@ -222,6 +222,16 @@ const PILLARS: Pillar[] = [
         isNew: true,
       },
       {
+        id: "conversation",
+        titleKey: "practice.pillars.listening.conversation",
+        titleDefault: "Conversations",
+        descKey: "practice.pillars.listening.conversationDesc",
+        descDefault: "Listen to dialogues, then talk back",
+        route: "practice/conversation",
+        languages: ["ja", "ko"],
+        isNew: true,
+      },
+      {
         id: "stories-listen",
         titleKey: "practice.pillars.listening.stories",
         titleDefault: "Stories (audio)",

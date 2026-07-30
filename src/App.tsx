@@ -264,6 +264,11 @@ const ListeningPracticePage = lazyRetry(() =>
 const WritingPracticePage = lazyRetry(() =>
   import("@/features/practice/WritingPracticePage").then((m) => ({ default: m.WritingPracticePage })),
 );
+const ConversationPracticePage = lazyRetry(() =>
+  import("@/features/practice/conversation/ConversationPracticePage").then((m) => ({
+    default: m.ConversationPracticePage,
+  })),
+);
 const PillarHubPage = lazyRetry(() =>
   import("@/features/practice/PillarHubPage").then((m) => ({ default: m.PillarHubPage })),
 );
@@ -511,6 +516,7 @@ const router = createBrowserRouter([
                   { path: "reading", element: <ReadingPracticePage /> },
                   { path: "speaking", element: <SpeakingPracticePage /> },
                   { path: "listening", element: <ListeningPracticePage /> },
+                  { path: "conversation", element: <ConversationPracticePage /> },
                   { path: "writing", element: <WritingPracticePage /> },
                   { path: "pillar/:pillarId", element: <PillarHubPage /> },
                   { path: "counters", element: <CounterPracticePage /> },

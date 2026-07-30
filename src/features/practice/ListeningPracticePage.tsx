@@ -2,11 +2,17 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Card, EmptyState } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { TappableText } from "@/features/dictionary/TappableText";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { getTtsLang } from "./data/practiceDataLoader";
 import { usePrefetchAudio } from "@/shared/tts/prefetch";
-import { generatePracticeItems, type PracticeItem } from "./engine";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getStories, getConversations } from "@/features/practice/content";
+import { useCourseLevel } from "./useCourseLevel";
+import {
+  playConversationLine,
+  conversationLineHasAudio,
+} from "./conversation/conversationAudio";
+import { lineAtomIds } from "./conversation/conversationSrs";
 import {
   getCardState,
   setCardState,
@@ -17,50 +23,115 @@ import {
 const SESSION_COUNT = 12;
 
 /**
- * Listening practice — a calm comprehension session generated from the
- * learner's own learned vocab (not a fixed clip list). Each item TTS-speaks a
- * sentence built from words the learner knows; they pick what it meant from
- * same-set English choices, then the sentence + reading + meaning are revealed.
+ * Listening practice — a calm comprehension session sourced from AUTHORED
+ * content (story sentences + conversation lines) rather than generated
+ * sentences, so every clip is a real, module-appropriate line the learner can
+ * actually parse. Each item plays the audio (in a conversation line's speaker
+ * voice when present), asks what it meant among same-set English choices, then
+ * reveals the sentence with inline dictionary lookup (`<TappableText>`).
  * Correct answers lightly credit the recognition modality of the atoms the
- * sentence exercised (conservative SRS reinforcement).
+ * line exercises (conservative SRS reinforcement).
  */
+
+/** One listening comprehension item derived from an authored line. */
+interface ListeningItem {
+  id: string;
+  text: string;
+  translation: string;
+  reading?: string;
+  /** Voice tag for a conversation-line speaker (undefined = default voice). */
+  voice?: string;
+  /** Course-atom ids this line exercises (recognition credit on correct). */
+  atomIds: string[];
+}
+
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  const out = arr.slice();
+  let state = seed || 1;
+  for (let i = out.length - 1; i > 0; i--) {
+    state = (Math.imul(state, 1103515245) + 12345) & 0x7fffffff;
+    const j = state % (i + 1);
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+/**
+ * Assemble the listening pool from authored stories + conversations up to the
+ * reached module, dedup by target text, shuffle by seed, cap the session.
+ */
+function buildListeningItems(
+  langId: string,
+  reachedModule: number,
+  seed: number,
+): ListeningItem[] {
+  const raw: ListeningItem[] = [];
+  const seenText = new Set<string>();
+
+  for (const story of getStories(langId, reachedModule)) {
+    for (const s of story.sentences) {
+      if (!s.translation || seenText.has(s.text)) continue;
+      seenText.add(s.text);
+      raw.push({
+        id: `${story.id}:${s.text}`,
+        text: s.text,
+        translation: s.translation,
+        reading: s.reading,
+        atomIds: lineAtomIds(s.text, langId),
+      });
+    }
+  }
+
+  for (const conv of getConversations(langId, reachedModule)) {
+    const voiceById = new Map(conv.speakers.map((sp) => [sp.id, sp.voice]));
+    for (const line of conv.lines) {
+      if (!line.translation || seenText.has(line.text)) continue;
+      seenText.add(line.text);
+      raw.push({
+        id: `${conv.id}:${line.text}`,
+        text: line.text,
+        translation: line.translation,
+        reading: line.reading,
+        voice: voiceById.get(line.speaker),
+        atomIds: lineAtomIds(line.text, langId),
+      });
+    }
+  }
+
+  // A 2-option minimum is required for a meaningful MCQ.
+  if (raw.length < 2) return [];
+  return seededShuffle(raw, seed).slice(0, SESSION_COUNT);
+}
+
 export function ListeningPracticePage() {
   const { t } = useTranslation();
   const langId = useLang();
   const ttsLang = getTtsLang(langId);
+  const reachedModule = useCourseLevel();
 
-  // A stable per-session seed keeps the generated set fixed while the learner
-  // works through it; "Practice again" mints a fresh one for a new set.
+  // Stable per-session seed; "Practice again" mints a fresh set.
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 1e9));
 
   const items = useMemo(
-    () =>
-      generatePracticeItems(langId, {
-        surface: "listening",
-        count: SESSION_COUNT,
-        seed,
-      }),
-    [langId, seed],
+    () => buildListeningItems(langId, reachedModule, seed),
+    [langId, reachedModule, seed],
   );
 
-  // Warm this session's clips up front (audio is served from the CDN).
-  const prefetchTexts = useMemo(
-    () => items.map((it) => it.promptAudioText ?? it.target),
-    [items],
-  );
+  // Warm this session's clips up front (served from the CDN).
+  const prefetchTexts = useMemo(() => items.map((it) => it.text), [items]);
   usePrefetchAudio(prefetchTexts, ttsLang);
 
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [score, setScore] = useState({ correct: 0, total: 0 });
 
-  const item = items[idx] as PracticeItem | undefined;
+  const item = items[idx] as ListeningItem | undefined;
   const done = items.length > 0 && idx >= items.length;
 
-  const audioText = item ? item.promptAudioText ?? item.target : "";
   const hasAudio = useMemo(
-    () => (audioText ? getTtsUrl(audioText, ttsLang) !== null : false),
-    [audioText, ttsLang],
+    () =>
+      item ? conversationLineHasAudio(item.text, item.voice, ttsLang) : false,
+    [item, ttsLang],
   );
 
   const choices = useMemo(
@@ -69,13 +140,12 @@ export function ListeningPracticePage() {
   );
 
   const play = useCallback(() => {
-    if (audioText) void playJaAudio(audioText, ttsLang);
-  }, [audioText, ttsLang]);
+    if (item) void playConversationLine(item.text, item.voice, ttsLang);
+  }, [item, ttsLang]);
 
-  // Auto-play when a fresh item comes up — this is a listening surface, so the
-  // audio leading the question is the point. Replays are on the Play button.
+  // Auto-play a fresh item — the audio leading the question is the point.
   useEffect(() => {
-    if (item) void playJaAudio(item.promptAudioText ?? item.target, ttsLang);
+    if (item) void playConversationLine(item.text, item.voice, ttsLang);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- fire once per item
   }, [item?.id, ttsLang]);
 
@@ -106,13 +176,13 @@ export function ListeningPracticePage() {
       </h1>
       <p className="text-sm text-text-secondary">
         {t("practice.listening.subtitle", {
-          defaultValue: "From words you're learning",
+          defaultValue: "Real lines you can already read",
         })}
       </p>
     </div>
   );
 
-  // Low-vocab / nothing to generate — encourage, don't scold.
+  // Nothing authored at this level yet — encourage, don't scold.
   if (items.length === 0) {
     return (
       <div className="space-y-4">
@@ -120,11 +190,11 @@ export function ListeningPracticePage() {
         <EmptyState
           icon={<Icon name="volume" size={28} aria-hidden />}
           title={t("practice.listening.empty.title", {
-            defaultValue: "Not enough words yet",
+            defaultValue: "No listening content yet",
           })}
           description={t("practice.listening.empty.desc", {
             defaultValue:
-              "Learn a few more words in your lessons and they'll show up here as listening practice built just from what you know.",
+              "Keep working through your lessons — stories and conversations unlock as you reach the modules they belong to.",
           })}
         />
       </div>
@@ -243,10 +313,12 @@ export function ListeningPracticePage() {
           })}
         </div>
 
-        {/* Reveal — the sentence, its reading, and its meaning */}
+        {/* Reveal — the sentence (tappable), its reading, and its meaning */}
         {revealed && (
           <div className="mx-auto mt-5 max-w-md rounded-lg border border-border bg-surface-muted p-4">
-            <p className="text-xl font-bold text-text-primary">{item.target}</p>
+            <p className="text-xl font-bold text-text-primary" lang={langId}>
+              <TappableText text={item.text} lang={langId} />
+            </p>
             {item.reading && (
               <p className="mt-0.5 text-sm text-text-muted">{item.reading}</p>
             )}
@@ -266,12 +338,10 @@ export function ListeningPracticePage() {
 }
 
 /**
- * Build the comprehension choices for `items[idx]`: the correct English meaning
- * plus up to three DISTINCT distractor meanings pulled from the OTHER generated
- * items in the same session (so distractors are plausibly same-set vocab).
- * Deterministic — stable across re-renders and rotated per index for variety.
+ * Correct English meaning + up to three DISTINCT distractor meanings pulled
+ * from the OTHER items in the same session. Deterministic + rotated per index.
  */
-function buildComprehensionChoices(items: PracticeItem[], idx: number): string[] {
+function buildComprehensionChoices(items: ListeningItem[], idx: number): string[] {
   const correct = items[idx].translation;
   const seen = new Set([correct]);
   const distractors: string[] = [];
@@ -283,19 +353,17 @@ function buildComprehensionChoices(items: PracticeItem[], idx: number): string[]
     }
   }
   const all = [correct, ...distractors];
-  // Rotate placement so the correct answer isn't always first, deterministically.
   const rot = idx % all.length;
   return all.slice(rot).concat(all.slice(0, rot));
 }
 
 /**
  * Conservative SRS credit — on a correct comprehension answer, nudge the
- * `recognition` modality of each atom the sentence exercised via the same
- * `gradeFromLesson` path lessons use. Only correct answers credit; seeds carry
- * no atoms so they're inert.
+ * `recognition` modality of each atom the line exercises via the same
+ * `gradeFromLesson` path lessons use.
  */
-function creditSrs(item: PracticeItem): void {
-  for (const atomId of item.exercisedAtomIds) {
+function creditSrs(item: ListeningItem): void {
+  for (const atomId of item.atomIds) {
     const state = getCardState(atomId) ?? createInitialState();
     setCardState(atomId, gradeFromLesson(state, "recognition", { correct: true }));
   }

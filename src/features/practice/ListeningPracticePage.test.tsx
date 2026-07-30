@@ -1,6 +1,11 @@
+/**
+ * ListeningPracticePage smoke — now sourced from AUTHORED content (stories +
+ * conversations) rather than generated sentences. Content, course level, TTS,
+ * inline lookup, and SRS are mocked; the page's own item assembly + MCQ +
+ * reveal flow run for real.
+ */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import type { PracticeItem } from "./engine";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -17,90 +22,98 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p}`,
 }));
 
-const playJaAudio = vi.fn();
-vi.mock("@/shared/tts", () => ({
-  playJaAudio: (...args: unknown[]) => playJaAudio(...args),
-  // Report audio available so the "no audio" hint stays hidden in these tests.
-  getTtsUrl: () => "https://cdn/audio.mp3",
+vi.mock("./useCourseLevel", () => ({ useCourseLevel: () => 7 }));
+
+vi.mock("@/shared/tts/prefetch", () => ({ usePrefetchAudio: () => {} }));
+
+const playConversationLine = vi.fn();
+vi.mock("./conversation/conversationAudio", () => ({
+  playConversationLine: (...a: unknown[]) => playConversationLine(...a),
+  conversationLineHasAudio: () => true,
+}));
+
+vi.mock("./conversation/conversationSrs", () => ({
+  lineAtomIds: () => ["atom:1"],
+}));
+
+vi.mock("@/features/dictionary/TappableText", () => ({
+  TappableText: ({ text }: { text: string }) => <span>{text}</span>,
 }));
 
 const setCardState = vi.fn();
 vi.mock("@/features/flashcards/engine", () => ({
   getCardState: () => undefined,
-  setCardState: (...args: unknown[]) => setCardState(...args),
+  setCardState: (...a: unknown[]) => setCardState(...a),
   createInitialState: () => ({ recognition: {}, production: {} }),
   gradeFromLesson: (state: unknown) => state,
 }));
 
-let mockItems: PracticeItem[] = [];
-vi.mock("./engine", () => ({
-  generatePracticeItems: () => mockItems,
+const getStories = vi.fn();
+const getConversations = vi.fn();
+vi.mock("@/features/practice/content", () => ({
+  getStories: (...a: unknown[]) => getStories(...a),
+  getConversations: (...a: unknown[]) => getConversations(...a),
 }));
 
 import { ListeningPracticePage } from "./ListeningPracticePage";
 
-function item(n: number, translation: string, atomIds: string[]): PracticeItem {
-  return {
-    id: `ja:gen:t:${n}`,
-    languageId: "ja",
-    target: `文${n}`,
-    reading: `bun${n}`,
-    translation,
-    exercisedAtomIds: atomIds,
-    promptAudioText: `文${n}`,
-    sourceTemplateId: "t",
-  };
-}
+const STORY = {
+  id: "ja-m3-day",
+  languageId: "ja",
+  module: 3,
+  title: "A day",
+  theme: "",
+  sentences: [
+    { text: "コーヒーをのむ。", translation: "I drink coffee", reading: "koohii" },
+    { text: "すしをたべる。", translation: "I eat sushi", reading: "sushi" },
+    { text: "ほんをよむ。", translation: "I read a book", reading: "hon" },
+  ],
+};
 
-describe("ListeningPracticePage", () => {
-  beforeEach(() => {
-    playJaAudio.mockClear();
-    setCardState.mockClear();
-  });
+beforeEach(() => {
+  cleanup();
+  playConversationLine.mockClear();
+  setCardState.mockClear();
+  getStories.mockReturnValue([STORY]);
+  getConversations.mockReturnValue([]);
+  // Fixed seed → deterministic session order ([book, sushi, coffee]).
+  vi.spyOn(Math, "random").mockReturnValue(0);
+});
 
-  it("renders a generated item with a play control and comprehension choices", () => {
-    mockItems = [
-      item(1, "I drink coffee", ["ja:coffee"]),
-      item(2, "I eat sushi", ["ja:sushi"]),
-      item(3, "I read a book", ["ja:book"]),
-    ];
+describe("ListeningPracticePage (curated)", () => {
+  it("renders a play control + comprehension choices from authored lines", () => {
     render(<ListeningPracticePage />);
-
     expect(screen.getByRole("button", { name: "Play audio" })).toBeInTheDocument();
-    // Correct meaning + same-set distractors are all offered.
-    expect(screen.getByRole("button", { name: "I drink coffee" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "I drink coffee" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "I eat sushi" })).toBeInTheDocument();
-    // Autoplay fired for the first item.
-    expect(playJaAudio).toHaveBeenCalled();
+    // Auto-play fired for the first item.
+    expect(playConversationLine).toHaveBeenCalled();
   });
 
-  it("reveals the sentence, credits SRS, and advances on a correct choice", () => {
-    mockItems = [
-      item(1, "I drink coffee", ["ja:coffee"]),
-      item(2, "I eat sushi", ["ja:sushi"]),
-      item(3, "I read a book", ["ja:book"]),
-    ];
+  it("reveals the line (tappable), credits SRS, and advances on a correct choice", () => {
     render(<ListeningPracticePage />);
+    // Fixed seed → the first item is the "book" line. The sentence is hidden
+    // until the learner answers.
+    expect(screen.queryByText("ほんをよむ。")).not.toBeInTheDocument();
 
-    // Sentence text is hidden until answered.
-    expect(screen.queryByText("文1")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "I read a book" }));
 
-    fireEvent.click(screen.getByRole("button", { name: "I drink coffee" }));
+    // Reveal shows the (tappable) target line + its reading, and SRS is credited.
+    expect(screen.getByText("ほんをよむ。")).toBeInTheDocument();
+    expect(screen.getByText("hon")).toBeInTheDocument();
+    expect(setCardState).toHaveBeenCalledWith("atom:1", expect.anything());
 
-    // Reveal shows the target sentence + reading.
-    expect(screen.getByText("文1")).toBeInTheDocument();
-    expect(screen.getByText("bun1")).toBeInTheDocument();
-    // Correct answer credits the exercised atom's SRS state.
-    expect(setCardState).toHaveBeenCalledWith("ja:coffee", expect.anything());
-
-    // Advancing moves to item 2.
+    // Advancing moves to the next item.
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
     expect(screen.getByText("Item 2 of 3")).toBeInTheDocument();
   });
 
-  it("shows an encouraging empty state when no items generate", () => {
-    mockItems = [];
+  it("shows an empty state when the language has no authored content", () => {
+    getStories.mockReturnValue([]);
+    getConversations.mockReturnValue([]);
     render(<ListeningPracticePage />);
-    expect(screen.getByText("Not enough words yet")).toBeInTheDocument();
+    expect(screen.getByText("No listening content yet")).toBeInTheDocument();
   });
 });
