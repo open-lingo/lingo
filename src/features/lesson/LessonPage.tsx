@@ -68,6 +68,7 @@ import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
 import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { stopAllAudio } from "@/shared/tts";
+import { usePrefetchLessonAudio } from "@/shared/tts/prefetch";
 import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
@@ -494,6 +495,13 @@ export function LessonPage() {
       );
     }
   }, [finished, lesson, results, isReview, settings, updateSetting, showToast]);
+
+  // Warm every clip this lesson speaks, at mount. Audio comes from the CDN
+  // now, so the old load-on-play path paid a round trip + decode at the moment
+  // the learner expected sound — worst on the 350ms autoplay, which could
+  // arrive after the step advanced. Best-effort and abortable; a miss just
+  // falls back to loading on play.
+  usePrefetchLessonAudio(lesson?.steps, language?.id);
 
   const totalSteps = lesson?.steps.length ?? 0;
   // Graded steps drive the bar when present; all-info lessons (e.g. ko-m1-intro)

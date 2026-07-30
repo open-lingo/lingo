@@ -327,6 +327,30 @@ if (typeof window !== "undefined") {
 const bufferCache = new Map<string, AudioBuffer>();
 const inflight = new Map<string, Promise<AudioBuffer>>();
 
+/**
+ * Warm the decode cache for `text` without playing it. See `./prefetch` for
+ * the batching wrapper the lesson player uses.
+ *
+ * Safe before any user gesture: an AudioContext may be created suspended, and
+ * `decodeAudioData` works fine on a suspended context — only `start()` needs
+ * the gesture. Never throws and never plays audio.
+ */
+export async function prefetchTtsAudio(
+  text: string,
+  lang: string = defaultTtsLang,
+): Promise<boolean> {
+  const url = getTtsUrl(text, lang);
+  if (!url) return false;
+  if (bufferCache.has(url)) return true;
+  return (await loadBuffer(url)) !== null;
+}
+
+/** Whether `text` is already decoded and will play with no network wait. */
+export function isTtsAudioReady(text: string, lang: string = defaultTtsLang): boolean {
+  const url = getTtsUrl(text, lang);
+  return url !== null && bufferCache.has(url);
+}
+
 async function loadBuffer(url: string): Promise<AudioBuffer | null> {
   const c = getContext();
   if (!c) return null;

@@ -21,10 +21,12 @@
  *
  *   1. Multi-voice entries (67) — a second recording hashed with the voice ID
  *      appended, kept so the app can rotate voices.
- *   2. `ja-keita` dialogue lines (679) — produced by a generator script that
- *      no longer exists in any repo; their hashes are not reconstructible, so
- *      the legacy mapping is carried verbatim. Regenerating them through the
- *      normal pipeline collapses this class to zero.
+ *   2. `ja-keita` dialogue lines (679) — produced by `gen_dialogue_voices.py`,
+ *      which hashes with **SHA-1** (not SHA-256) and writes into `tts/ja/`
+ *      regardless of the key's language prefix. Since this resolver computes
+ *      SHA-256, they cannot be derived here and are listed explicitly.
+ *      Regenerating them under the standard scheme collapses this class to
+ *      zero; until then the overrides work and the audio plays.
  *
  * ## Loading strategy — deliberately static, for now
  *

@@ -28,13 +28,13 @@ import { getTtsUrl } from "@/shared/tts";
  * If this fails after authoring, the fix is a TTS regen, not an edit here:
  *   node scripts/emit-tts-deck.mjs
  *   cd ../lingo-data && python -m pipeline.tts.generate --lang ja --provider edge
- *   cd ../lingo-data && python -m pipeline.tts.generate --lang ja-keita --provider edge
+ *   cd ../lingo-data && python -m pipeline.tts.gen_dialogue_voices
  *   cd ../lingo-data && python -m pipeline.tts.emit_manifest
  *   cd ../lingo-data && python -m pipeline.tts.upload --revision "$(git -C ../lingo rev-parse --short HEAD)"
  * then copy the emitted manifest/*.json into src/shared/tts/manifests/.
  *
- * The pipeline moved out of lingo-core (which had no venv-tts and no
- * gen_dialogue_voices script) to lingo-data in the 2026-07 CDN migration.
+ * The pipeline moved out of lingo-core to lingo-data in the 2026-07 CDN
+ * migration; gen_dialogue_voices.py came with it.
  */
 
 const IR_DIR = join(__dirname, "..", "..", "languages", "ja", "curriculum", "ir");
