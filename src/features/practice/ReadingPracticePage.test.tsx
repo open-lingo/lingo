@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
-import type { PracticeItem } from "./engine";
+import { render, screen, fireEvent } from "@testing-library/react";
+import type { Conversation, Story } from "./content";
+import type { KnownAtom } from "./engine";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -16,9 +17,29 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p}`,
 }));
 
-const generatePracticeItems = vi.fn();
+// Reached module — enough to unlock the mocked content.
+vi.mock("./useCourseLevel", () => ({ useCourseLevel: () => 7 }));
+
+// Render TappableText as plain (tagged) text so tests don't need the
+// dictionary-modal provider; the real component is exercised in its own test.
+vi.mock("@/features/dictionary/TappableText", () => ({
+  TappableText: ({ text, className }: { text: string; className?: string }) => (
+    <span data-testid="tappable" className={className}>
+      {text}
+    </span>
+  ),
+}));
+
+const getStories = vi.fn((): Story[] => []);
+const getConversations = vi.fn((): Conversation[] => []);
+vi.mock("./content", () => ({
+  getStories: () => getStories(),
+  getConversations: () => getConversations(),
+}));
+
+const getKnownAtomsByPos = vi.fn((): KnownAtom[] => []);
 vi.mock("./engine", () => ({
-  generatePracticeItems: (...args: unknown[]) => generatePracticeItems(...args),
+  getKnownAtomsByPos: () => getKnownAtomsByPos(),
 }));
 
 const getCardState = vi.fn((..._a: unknown[]) => undefined as unknown);
@@ -32,68 +53,101 @@ vi.mock("@/features/flashcards/engine", () => ({
 
 import { ReadingPracticePage } from "./ReadingPracticePage";
 
-const clozeItem: PracticeItem = {
-  id: "ja:gen:like:0",
+function noun(id: string, surface: string, reading: string, meaningEn: string): KnownAtom {
+  return { id, surface, reading, meaningEn, pos: "noun", tier: "reviewing", due: false, weight: 1 };
+}
+
+const STORY_A: Story = {
+  id: "ja-test-cafe",
   languageId: "ja",
-  target: "わたしは すし が すきです",
-  reading: "watashi wa sushi ga suki desu",
-  translation: "I like sushi",
-  exercisedAtomIds: ["ja:sushi", "ja:watashi"],
-  blank: {
-    slotKey: "obj",
-    answer: "すし",
-    answerReading: "sushi",
-    distractors: [
-      { surface: "みず", reading: "mizu", meaningEn: "water" },
-      { surface: "ねこ", reading: "neko", meaningEn: "cat" },
-      { surface: "ほん", reading: "hon", meaningEn: "book" },
-    ],
-  },
+  module: 3,
+  title: "At the cafe",
+  theme: "A quiet morning.",
+  sentences: [{ text: "コーヒーを のみます。", translation: "I drink coffee.", reading: "koohii o nomimasu" }],
 };
 
-describe("ReadingPracticePage (madlibs cloze)", () => {
+const STORY_B: Story = {
+  id: "ja-test-park",
+  languageId: "ja",
+  module: 3,
+  title: "In the park",
+  theme: "A walk in the park.",
+  sentences: [{ text: "さんぽします。", translation: "I take a walk." }],
+};
+
+// Only コーヒー appears verbatim in a story sentence → exactly one cloze card.
+const KNOWN = [
+  noun("ja:coffee", "コーヒー", "koohii", "coffee"),
+  noun("ja:water", "みず", "mizu", "water"),
+  noun("ja:book", "ほん", "hon", "book"),
+];
+
+describe("ReadingPracticePage", () => {
   beforeEach(() => {
-    generatePracticeItems.mockReset();
+    getStories.mockReset();
+    getConversations.mockReset();
+    getKnownAtomsByPos.mockReset();
     getCardState.mockReset();
     setCardState.mockReset();
     gradeFromLesson.mockClear();
+    getConversations.mockReturnValue([]);
   });
 
-  it("renders a cloze item with a masked blank and shuffled options including the answer", () => {
-    generatePracticeItems.mockReturnValue([clozeItem]);
+  it("renders an authored story as tappable text and a comprehension question", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
-    // Meaning hint present.
-    expect(screen.getByText("I like sushi")).toBeInTheDocument();
-    // Progress indicator.
-    expect(screen.getByText("1 of 1")).toBeInTheDocument();
+    // Story reads via TappableText (inline lookup surface).
+    expect(screen.getByText("At the cafe")).toBeInTheDocument();
+    const tappable = screen.getAllByTestId("tappable");
+    expect(tappable.some((el) => el.textContent === "コーヒーを のみます。")).toBe(true);
 
-    // The answer is masked out of the sentence (not shown as plain text yet),
-    // but all four options are offered as tappable buttons.
-    const buttons = screen.getAllByRole("button");
-    const optionLabels = buttons.map((b) => b.textContent ?? "");
-    expect(optionLabels.some((l) => l.includes("すし"))).toBe(true);
-    expect(optionLabels.some((l) => l.includes("みず"))).toBe(true);
-    expect(optionLabels.some((l) => l.includes("ねこ"))).toBe(true);
-    expect(optionLabels.some((l) => l.includes("ほん"))).toBe(true);
+    // Move to the comprehension check.
+    fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
+    expect(screen.getByText("What is this story mostly about?")).toBeInTheDocument();
+    // The correct gist is offered alongside a distractor drawn from other content.
+    expect(screen.getByRole("button", { name: "A quiet morning." })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "A walk in the park." })).toBeInTheDocument();
   });
 
-  it("marks correct, credits SRS for exercised atoms, and reveals the filled sentence", () => {
-    generatePracticeItems.mockReturnValue([clozeItem]);
-    // Both atoms already have SRS state → both should be credited.
+  it("grades a comprehension answer and shows the score", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    render(<ReadingPracticePage />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
+    // Answer every question, then finish.
+    fireEvent.click(screen.getByRole("button", { name: "A quiet morning." }));
+    fireEvent.click(screen.getByRole("button", { name: "I drink coffee." }));
+    fireEvent.click(screen.getByRole("button", { name: /See how you did/ }));
+
+    expect(screen.getByText("Nice reading")).toBeInTheDocument();
+    expect(screen.getByText("You got 2 of 2 right.")).toBeInTheDocument();
+  });
+
+  it("renders a cloze over an authored sentence, blanks a word, and grades it", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    // Card state exists → a correct answer credits recognition SRS.
     getCardState.mockReturnValue({ existing: true });
     render(<ReadingPracticePage />);
 
-    const answerBtn = screen
-      .getAllByRole("button")
-      .find((b) => (b.textContent ?? "").includes("すし"))!;
-    fireEvent.click(answerBtn);
+    // Switch to the cloze beat (SegmentedControl cells are radios).
+    fireEvent.click(screen.getByRole("radio", { name: /Fill the blank/ }));
 
+    // Meaning hint for the authored sentence is shown.
+    expect(screen.getByText("I drink coffee.")).toBeInTheDocument();
+    // Options include the answer + same-POS known distractors.
+    const optionButtons = screen.getAllByRole("button");
+    const labels = optionButtons.map((b) => b.textContent ?? "");
+    expect(labels.some((l) => l.includes("コーヒー"))).toBe(true);
+    expect(labels.some((l) => l.includes("みず"))).toBe(true);
+
+    // Pick the correct answer → reveal + credit.
+    fireEvent.click(optionButtons.find((b) => (b.textContent ?? "").includes("コーヒー"))!);
     expect(screen.getByText("Nice reading.")).toBeInTheDocument();
     expect(screen.getByText("Score 1/1")).toBeInTheDocument();
-    // Conservative SRS credit ran for each exercised atom that had state.
-    expect(gradeFromLesson).toHaveBeenCalledTimes(2);
-    expect(setCardState).toHaveBeenCalledTimes(2);
     expect(gradeFromLesson).toHaveBeenCalledWith(
       { existing: true },
       "recognition",
@@ -101,70 +155,13 @@ describe("ReadingPracticePage (madlibs cloze)", () => {
     );
   });
 
-  it("marks wrong, shows the correct answer, and does not credit SRS", () => {
-    generatePracticeItems.mockReturnValue([clozeItem]);
-    getCardState.mockReturnValue({ existing: true });
+  it("shows an encouraging empty state when there is no content at the learner's level", () => {
+    getStories.mockReturnValue([]);
+    getConversations.mockReturnValue([]);
+    getKnownAtomsByPos.mockReturnValue([]);
     render(<ReadingPracticePage />);
 
-    const wrongBtn = screen
-      .getAllByRole("button")
-      .find((b) => (b.textContent ?? "").includes("みず"))!;
-    fireEvent.click(wrongBtn);
-
-    expect(screen.getByText("Answer: すし")).toBeInTheDocument();
-    expect(screen.getByText("Score 0/1")).toBeInTheDocument();
-    expect(gradeFromLesson).not.toHaveBeenCalled();
-  });
-
-  it("advances to the next item and finishes to a summary", () => {
-    generatePracticeItems.mockReturnValue([
-      clozeItem,
-      { ...clozeItem, id: "ja:gen:like:1" },
-    ]);
-    getCardState.mockReturnValue(undefined);
-    render(<ReadingPracticePage />);
-
-    // Answer item 1.
-    fireEvent.click(
-      screen.getAllByRole("button").find((b) => (b.textContent ?? "").includes("すし"))!,
-    );
-    fireEvent.click(screen.getByRole("button", { name: /Next/ }));
-    expect(screen.getByText("2 of 2")).toBeInTheDocument();
-
-    // Answer item 2 → Finish → summary.
-    fireEvent.click(
-      screen.getAllByRole("button").find((b) => (b.textContent ?? "").includes("すし"))!,
-    );
-    fireEvent.click(screen.getByRole("button", { name: /Finish/ }));
-
-    expect(screen.getByText("Session complete")).toBeInTheDocument();
-    expect(screen.getByText("You read 2 of 2 correctly.")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /New session/ })).toBeInTheDocument();
-  });
-
-  it("shows an encouraging empty state when no items generate (low vocab)", () => {
-    generatePracticeItems.mockReturnValue([]);
-    render(<ReadingPracticePage />);
-
-    expect(screen.getByText("Learn a few more words first")).toBeInTheDocument();
+    expect(screen.getByText("Nothing to read just yet")).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
-  });
-
-  it("supports a straight-read beat for items without a blank", () => {
-    const readOnly: PracticeItem = {
-      id: "ja:seed:hello",
-      languageId: "ja",
-      target: "こんにちは",
-      reading: "konnichiwa",
-      translation: "hello",
-      exercisedAtomIds: [],
-    };
-    generatePracticeItems.mockReturnValue([readOnly]);
-    render(<ReadingPracticePage />);
-
-    const gotIt = screen.getByRole("button", { name: /Got it/ });
-    expect(within(gotIt).getByText("Got it")).toBeInTheDocument();
-    fireEvent.click(gotIt);
-    expect(screen.getByText("Session complete")).toBeInTheDocument();
   });
 });
