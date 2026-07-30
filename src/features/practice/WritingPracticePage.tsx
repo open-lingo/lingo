@@ -1,137 +1,275 @@
-import { useState, useMemo, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Card } from "@/shared/components/ui";
+import * as wanakana from "wanakana";
+import { Button, Card, EmptyState } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useCourseLevel } from "./useCourseLevel";
-import type { SpeakingPrompt } from "./data/ja-speaking-prompts";
-import { getSpeakingPrompts, getTtsLang } from "./data/practiceDataLoader";
-import { normalizeTypedAnswer } from "./data/drillUtils";
-import { playJaAudio } from "@/shared/tts";
+import { useLang } from "@/shared/hooks/useLangPath";
+import {
+  generatePracticeItems,
+  type PracticeItem,
+} from "@/features/practice/engine";
+import { getTtsLang } from "./data/practiceDataLoader";
 import { usePrefetchAudio } from "@/shared/tts/prefetch";
-import { recordPracticeResult } from "./practiceStats";
+import { playJaAudio } from "@/shared/tts";
+import { gradeTypedAnswer } from "@/shared/speech/loose-match";
 import {
   romajaToHangul,
   koreanInputMatches,
 } from "@/features/languages/ko/romanization/romajaToHangul";
+import {
+  createInitialState,
+  getCardState,
+  gradeFromLesson,
+  setCardState,
+} from "@/features/flashcards/engine";
 
 /**
- * Type it — the minimal writing trainer for the Writing pillar. Shows a
- * phrase's meaning; the learner types it in the target script (IME input
- * is the writing practice). Audio replay unlocks after answering so it
- * can't leak the answer.
+ * Writing practice — a calm typing session generated from the words the
+ * learner has actually learned. Each item shows an English prompt; the
+ * learner writes it in the target language and we grade the typed answer.
+ *
+ * The whole session is built by the tailored-practice engine
+ * (`generatePracticeItems(surface: "writing")`) from unlocked vocab + reached
+ * grammar, so prompts are always comprehensible and never the same ten.
+ *
+ * Grading reuses the lesson production-typing path: `gradeTypedAnswer`
+ * (NFKC + whitespace/case fold, trailing-punctuation strip, kana + accent
+ * leniency) for JA/ES, with a `wanakana.toKana` compose so learners without an
+ * IME can type romaji; Korean grades romaja-or-Hangul via `koreanInputMatches`
+ * with a live Hangul preview.
  */
+
+const SESSION_COUNT = 12;
+
+/** Human label for the "write this in {language}" prompt. Kept local so this
+ *  leaf page doesn't depend on the LanguageContext provider (also simpler to
+ *  test); falls back to the id for any language without an entry. */
+const LANGUAGE_NAMES: Record<string, string> = {
+  ja: "Japanese",
+  ko: "Korean",
+  es: "Spanish",
+};
+
+type ItemStatus = "typing" | "wrong" | "correct" | "revealed";
+
 export function WritingPracticePage() {
   const { t } = useTranslation();
-  const courseLevel = useCourseLevel();
-  const { language } = useLanguage();
-  const langId = language?.id ?? "ja";
-  const ttsLang = getTtsLang(langId);
+  const langId = useLang();
   const isKo = langId === "ko";
+  const isJa = langId === "ja";
+  const ttsLang = getTtsLang(langId);
+  const languageName = LANGUAGE_NAMES[langId] ?? langId.toUpperCase();
 
-  const allPrompts = useMemo(() => getSpeakingPrompts(langId), [langId]);
-  const minLevel =
-    allPrompts.length > 0 ? Math.min(...allPrompts.map((p) => p.minModule)) : 1;
-
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, minLevel));
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [typed, setTyped] = useState("");
-  const [checked, setChecked] = useState<null | boolean>(null);
-  const [score, setScore] = useState({ correct: 0, total: 0 });
-
-  const prompts = useMemo(
-    () => allPrompts.filter((p) => p.minModule <= maxModule),
-    [allPrompts, maxModule],
+  // Stable per-session seed: the same session stays put across re-renders but
+  // "New session" bumps it for a fresh set.
+  const [seed, setSeed] = useState(() => Date.now());
+  const items = useMemo<PracticeItem[]>(
+    () =>
+      generatePracticeItems(langId, {
+        surface: "writing",
+        count: SESSION_COUNT,
+        seed,
+      }),
+    [langId, seed],
   );
 
-  // Warm this surface's clips up front — audio is fetched from the CDN, so
-  // load-on-play costs a round trip exactly when the learner taps.
-  usePrefetchAudio(prompts, ttsLang);
+  // Warm this session's clips up front — audio is served from the CDN, so a
+  // cold play costs a round trip exactly when the learner taps.
+  const prefetchTexts = useMemo(
+    () => items.map((it) => it.promptAudioText ?? it.target),
+    [items],
+  );
+  usePrefetchAudio(prefetchTexts, ttsLang);
 
-  const prompt = prompts[currentIdx] as SpeakingPrompt | undefined;
+  const [idx, setIdx] = useState(0);
+  const [typed, setTyped] = useState("");
+  const [status, setStatus] = useState<ItemStatus>("typing");
+  const [hadWrong, setHadWrong] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
 
-  const handlePlay = useCallback(() => {
-    if (prompt) {
-      void playJaAudio(prompt.targetPhrase, ttsLang);
+  const item = items[idx] as PracticeItem | undefined;
+  const done = items.length > 0 && idx >= items.length;
+
+  // Live target-script compose (IME-safe: mirrors input, never mutates it).
+  const koreanPreview = isKo ? romajaToHangul(typed) : "";
+  const showKoreanPreview =
+    isKo && koreanPreview !== typed && /[가-힣]/.test(koreanPreview);
+  const japanesePreview = isJa ? wanakana.toKana(typed) : "";
+  const showJapanesePreview = isJa && japanesePreview !== typed;
+
+  const play = useCallback(
+    (text: string) => {
+      void playJaAudio(text, ttsLang);
+    },
+    [ttsLang],
+  );
+
+  /** Conservative SRS credit: only a correct answer touches the production
+   *  modality of each atom the item exercised (never demotes — Spencer's
+   *  "only review cards count" invariant respected). */
+  const creditSrs = useCallback((current: PracticeItem, retried: boolean) => {
+    for (const atomId of current.exercisedAtomIds) {
+      const state = getCardState(atomId) ?? createInitialState();
+      const next = gradeFromLesson(state, "production", {
+        correct: true,
+        retried,
+      });
+      setCardState(atomId, next);
     }
-  }, [prompt, ttsLang]);
+  }, []);
 
-  // Korean: accept Hangul (IME) OR romaja typed on a plain keyboard. Every
-  // other language keeps the exact normalized compare.
-  const korePreview = isKo ? romajaToHangul(typed) : "";
-  const showPreview = isKo && korePreview !== typed && /[가-힣]/.test(korePreview);
+  const gradeTyped = useCallback(
+    (current: PracticeItem): boolean => {
+      if (isKo) return koreanInputMatches(typed, current.target);
+      const candidate = isJa ? wanakana.toKana(typed) : typed;
+      return gradeTypedAnswer([current.target], candidate).correct;
+    },
+    [isJa, isKo, typed],
+  );
 
   const handleCheck = () => {
-    if (!prompt || checked !== null || typed.trim() === "") return;
-    const correct = isKo
-      ? koreanInputMatches(typed, prompt.targetPhrase)
-      : normalizeTypedAnswer(typed) === normalizeTypedAnswer(prompt.targetPhrase);
-    setChecked(correct);
-    setScore((s) => ({ correct: s.correct + (correct ? 1 : 0), total: s.total + 1 }));
-    recordPracticeResult("writing", prompt.id, correct);
+    if (!item || typed.trim() === "") return;
+    if (status === "correct" || status === "revealed") return;
+    const correct = gradeTyped(item);
+    if (correct) {
+      setStatus("correct");
+      setCorrectCount((n) => n + 1);
+      creditSrs(item, hadWrong);
+    } else {
+      setStatus("wrong");
+      setHadWrong(true);
+    }
+  };
+
+  const handleReveal = () => {
+    if (!item) return;
+    setStatus("revealed");
   };
 
   const handleNext = () => {
     setTyped("");
-    setChecked(null);
-    setCurrentIdx((i) => (i + 1) % Math.max(1, prompts.length));
+    setStatus("typing");
+    setHadWrong(false);
+    setIdx((i) => i + 1);
   };
+
+  const handleNewSession = () => {
+    setIdx(0);
+    setTyped("");
+    setStatus("typing");
+    setHadWrong(false);
+    setCorrectCount(0);
+    setSeed(Date.now());
+  };
+
+  const header = (
+    <div>
+      <h1 className="text-2xl font-bold text-text-primary">
+        {t("practice.writing.title", { defaultValue: "Writing" })}
+      </h1>
+      <p className="text-sm text-text-secondary">
+        {t("practice.writing.subtitle", {
+          defaultValue: "Write sentences using words you know",
+        })}
+      </p>
+    </div>
+  );
+
+  // Low-vocab / no-content — the engine returned nothing it could build from.
+  if (items.length === 0) {
+    return (
+      <div className="space-y-4">
+        {header}
+        <EmptyState
+          icon={<Icon name="pencil" size={28} aria-hidden />}
+          title={t("practice.writing.empty.title", {
+            defaultValue: "Not enough words yet",
+          })}
+          description={t("practice.writing.empty.description", {
+            defaultValue:
+              "Keep learning to unlock writing practice — every prompt here is built from words you've already learned.",
+          })}
+        />
+      </div>
+    );
+  }
+
+  if (done) {
+    return (
+      <div className="space-y-4">
+        {header}
+        <Card padding="lg" className="text-center">
+          <Icon
+            name="checkCircle"
+            size={32}
+            className="mx-auto text-success"
+            aria-hidden
+          />
+          <p className="mt-3 text-lg font-bold text-text-primary">
+            {t("practice.writing.done.title", { defaultValue: "Session complete" })}
+          </p>
+          <p className="mt-1 text-sm text-text-secondary">
+            {t("practice.writing.done.summary", {
+              defaultValue: "You got {{correct}} of {{total}} right.",
+              correct: correctCount,
+              total: items.length,
+            })}
+          </p>
+          <Button
+            variant="primary"
+            className="mt-5"
+            onClick={handleNewSession}
+          >
+            {t("practice.writing.done.restart", { defaultValue: "New session" })}
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
+  const resolved = status === "correct" || status === "revealed";
+  const progress = items.length ? ((idx + 1) / items.length) * 100 : 0;
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("practice.typeIt.title", { defaultValue: "Type It" })}
-        </h1>
-        <p className="text-sm text-text-secondary">
-          {t("practice.typeIt.subtitle", {
-            defaultValue: "See the meaning, type the phrase",
-          })}
-        </p>
+      {header}
+
+      {/* Progress */}
+      <div className="space-y-1.5">
+        <div className="flex items-center justify-between text-xs font-medium text-text-secondary">
+          <span>
+            {t("practice.writing.progress", {
+              defaultValue: "{{current}} of {{total}}",
+              current: idx + 1,
+              total: items.length,
+            })}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Icon name="sparkles" size={12} aria-hidden />
+            {t("practice.writing.usingKnown", {
+              defaultValue: "using words you know",
+            })}
+          </span>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+          <div
+            className="h-full rounded-full bg-accent transition-[width] duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
 
-      {/* Controls */}
-      <Card padding="sm">
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            {t("practice.typeIt.level", { defaultValue: "Level" })}
-            <select
-              value={maxModule}
-              onChange={(e) => {
-                setMaxModule(Number(e.target.value));
-                setCurrentIdx(0);
-                setTyped("");
-                setChecked(null);
-              }}
-              className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-            >
-              {Array.from(
-                { length: Math.max(1, courseLevel - (minLevel - 1)) },
-                (_, i) => i + minLevel,
-              ).map((m) => (
-                <option key={m} value={m}>
-                  {t("practice.typeIt.upToModule", {
-                    defaultValue: "Up to M{{module}}",
-                    module: m,
-                  })}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </Card>
-
-      {/* Prompt card */}
-      {prompt ? (
+      {item && (
         <Card padding="lg" className="text-center">
           <p className="text-xs font-medium uppercase tracking-wider text-text-muted">
-            {t("practice.typeIt.instruction", {
-              defaultValue: "Type this in {{language}}:",
-              language: language?.name ?? langId,
+            {t("practice.writing.instruction", {
+              defaultValue: "Write this in {{language}}:",
+              language: languageName,
             })}
           </p>
-
-          <p className="mt-4 text-2xl font-bold text-text-primary">{prompt.translation}</p>
+          <p className="mt-4 text-2xl font-bold text-text-primary">
+            {item.translation}
+          </p>
 
           <form
             className="mx-auto mt-5 flex max-w-md items-center gap-2"
@@ -145,119 +283,151 @@ export function WritingPracticePage() {
               lang={ttsLang}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
-              disabled={checked !== null}
+              disabled={resolved}
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
+              aria-label={t("practice.writing.inputAria", {
+                defaultValue: "Your answer",
+              })}
               placeholder={
                 isKo
-                  ? t("practice.typeIt.placeholderKo", {
-                      defaultValue: "Type Korean or romanization…",
+                  ? t("practice.writing.placeholderKo", {
+                      defaultValue: "Type Korean, or English letters…",
                     })
-                  : t("practice.typeIt.placeholder", {
+                  : t("practice.writing.placeholder", {
                       defaultValue: "Type your answer…",
                     })
               }
-              className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2.5 text-lg text-text-primary focus:border-accent focus:outline-none"
+              className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2.5 text-lg text-text-primary focus:border-accent focus:outline-none disabled:opacity-60"
             />
-            <button
-              type="submit"
-              disabled={checked !== null || typed.trim() === ""}
-              className="rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {t("practice.typeIt.check", { defaultValue: "Check" })}
-            </button>
+            {!resolved && (
+              <Button type="submit" variant="primary" disabled={typed.trim() === ""}>
+                {t("practice.writing.check", { defaultValue: "Check" })}
+              </Button>
+            )}
           </form>
 
-          {/* Korean romaja → Hangul live preview: type "annyeong" on a plain
-              keyboard, see 안녕. Keeps the raw input intact (IME-safe) and just
-              mirrors the composed form so the learner can confirm it. */}
-          {showPreview && checked === null && (
-            <p className="mx-auto mt-3 max-w-md text-center text-sm text-text-secondary">
-              <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                {t("practice.typeIt.hangul", { defaultValue: "Hangul" })}
-              </span>
-              <span lang="ko" className="text-lg font-semibold text-text-primary">
-                {korePreview}
-              </span>
-            </p>
+          {/* Live target-script compose preview (romaji → kana / Hangul). */}
+          {!resolved && showJapanesePreview && (
+            <PreviewLine
+              label={t("practice.writing.kana", { defaultValue: "Kana" })}
+              value={japanesePreview}
+              lang="ja"
+            />
           )}
-          {isKo && checked === null && (
+          {!resolved && showKoreanPreview && (
+            <PreviewLine
+              label={t("practice.writing.hangul", { defaultValue: "Hangul" })}
+              value={koreanPreview}
+              lang="ko"
+            />
+          )}
+          {!resolved && isKo && (
             <p className="mx-auto mt-1 max-w-md text-center text-xs text-text-muted">
-              {t("practice.typeIt.koHint", {
+              {t("practice.writing.koHint", {
                 defaultValue:
-                  "No Korean keyboard? Just type it in English letters — it converts to Hangul.",
+                  "No Korean keyboard? Type in English letters — it converts to Hangul.",
               })}
             </p>
           )}
 
-          {checked !== null && (
-            <div
-              className={`mx-auto mt-4 max-w-md rounded-lg border p-3 ${
-                checked
-                  ? "border-success bg-success/10"
-                  : "border-error bg-error/10"
-              }`}
-            >
+          {/* Wrong: a nudge (the reading) + retry / reveal, without giving the
+              whole answer away yet. */}
+          {status === "wrong" && (
+            <div className="mx-auto mt-4 max-w-md rounded-lg border border-error bg-error/10 p-3">
               <p className="text-xs text-text-muted">
-                {checked
-                  ? t("practice.typeIt.correct", { defaultValue: "Correct!" })
-                  : t("practice.typeIt.incorrect", { defaultValue: "Not quite — the answer was:" })}
+                {t("practice.writing.notQuite", {
+                  defaultValue: "Not quite — try again, or reveal the answer.",
+                })}
               </p>
-              <div className="mt-1 flex items-center justify-center gap-2">
-                <p className="text-xl font-bold text-text-primary">{prompt.targetPhrase}</p>
-                <button
-                  type="button"
-                  onClick={handlePlay}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface transition hover:bg-surface-muted"
-                  aria-label={t("practice.typeIt.playAria", { defaultValue: "Play audio" })}
-                >
-                  <Icon name="volume" size={16} className="text-accent" />
-                </button>
+              {item.reading && (
+                <p className="mt-1 text-sm text-text-secondary">
+                  <span className="mr-1.5 text-xs font-bold uppercase tracking-wider text-text-muted">
+                    {t("practice.writing.hint", { defaultValue: "Hint" })}
+                  </span>
+                  {item.reading}
+                </p>
+              )}
+              <div className="mt-2 flex items-center justify-center gap-2">
+                <Button variant="outline" size="sm" onClick={handleReveal}>
+                  <Icon name="eye" size={14} aria-hidden />
+                  {t("practice.writing.reveal", { defaultValue: "Reveal answer" })}
+                </Button>
               </div>
             </div>
           )}
 
-          {checked !== null && (
+          {/* Resolved: show the expected answer + reading + audio. */}
+          {resolved && (
+            <div
+              className={`mx-auto mt-4 max-w-md rounded-lg border p-3 ${
+                status === "correct"
+                  ? "border-success bg-success/10"
+                  : "border-border bg-surface-muted"
+              }`}
+            >
+              <p className="text-xs text-text-muted">
+                {status === "correct"
+                  ? t("practice.writing.correct", { defaultValue: "Correct!" })
+                  : t("practice.writing.answerLabel", {
+                      defaultValue: "The answer was:",
+                    })}
+              </p>
+              <div className="mt-1 flex items-center justify-center gap-2">
+                <p className="text-xl font-bold text-text-primary" lang={ttsLang}>
+                  {item.target}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => play(item.target)}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface transition hover:bg-surface-muted"
+                  aria-label={t("practice.writing.playAria", {
+                    defaultValue: "Play audio",
+                  })}
+                >
+                  <Icon name="volume" size={16} className="text-accent" />
+                </button>
+              </div>
+              {item.reading && (
+                <p className="mt-1 text-sm text-text-secondary">{item.reading}</p>
+              )}
+            </div>
+          )}
+
+          {resolved && (
             <div className="mt-4 flex items-center justify-center">
-              <button
-                type="button"
-                onClick={handleNext}
-                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-accent-foreground hover:bg-accent-hover"
-              >
-                {t("practice.typeIt.next", { defaultValue: "Next →" })}
-              </button>
+              <Button variant="primary" size="sm" onClick={handleNext}>
+                {t("practice.writing.next", { defaultValue: "Next" })}
+                <Icon name="arrowRight" size={14} aria-hidden />
+              </Button>
             </div>
           )}
         </Card>
-      ) : (
-        <Card padding="lg" className="text-center">
-          <p className="text-text-muted">
-            {t("practice.typeIt.empty", {
-              defaultValue: "No prompts available at this level.",
-            })}
-          </p>
-        </Card>
       )}
-
-      {/* Score bar */}
-      <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-2">
-        <span className="text-sm text-text-secondary">
-          {t("practice.typeIt.progress", {
-            defaultValue: "Progress: {{current}}/{{total}}",
-            current: prompts.length ? currentIdx + 1 : 0,
-            total: prompts.length,
-          })}
-        </span>
-        <span className="text-sm text-text-secondary">
-          {t("practice.typeIt.score", {
-            defaultValue: "Score: {{correct}}/{{total}}",
-            correct: score.correct,
-            total: score.total,
-          })}
-        </span>
-      </div>
     </div>
+  );
+}
+
+/** Small romaji → target-script mirror shown under the input. */
+function PreviewLine({
+  label,
+  value,
+  lang,
+}: {
+  label: string;
+  value: string;
+  lang: string;
+}) {
+  return (
+    <p className="mx-auto mt-3 max-w-md text-center text-sm text-text-secondary">
+      <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+        {label}
+      </span>
+      <span lang={lang} className="text-lg font-semibold text-text-primary">
+        {value}
+      </span>
+    </p>
   );
 }
