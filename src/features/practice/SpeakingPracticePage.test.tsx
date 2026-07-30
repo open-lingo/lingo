@@ -18,7 +18,7 @@ vi.mock("@/features/practice/engine", () => ({
 }));
 
 // TTS + stats touch the DOM / localStorage — stub them out.
-vi.mock("@/shared/tts", () => ({ playJaAudio: vi.fn() }));
+vi.mock("@/shared/tts", () => ({ playJaAudio: vi.fn(), getTtsUrl: vi.fn(() => null) }));
 vi.mock("./practiceStats", () => ({ recordPracticeResult: vi.fn() }));
 
 // SRS credit path — spy so we can assert the conservative wiring.
