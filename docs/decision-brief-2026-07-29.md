@@ -21,6 +21,10 @@ behaviour. Three options from the backlog, with a recommendation:
 have a live call site or CI fails). It ships the switchover beat and the
 intake fix without discarding authored work or changing the map. Option (2)
 can still be added later if a pure-dynamic review surface proves wanted.
+**→ APPROVED (Spencer, 2026-07-30): phase 1 = render-time prepend (capped
+segment, empty-state degradation, conformance tests, QA preview) —
+IMPLEMENTATION DISPATCHED same day. Phase 2 (IR `dynamic-slot` mid-lesson
+interleaving) deliberately deferred until Spencer has played phase 1.**
 
 ## 2. B070 — retired katakana rows: keep deep-linkable or drop?
 
@@ -82,8 +86,9 @@ productionized shape.
 
 ## 5. MAX_NEW raise (carried from 2026-07-29)
 
-Still deliberately your call on session length — unchanged, listed so it
-doesn't get lost.
+**→ RESOLVED (Spencer, 2026-07-30): "More max is good, increase as needed."
+MAX_NEW raised 5→8 with the B069 phase-1 wiring; future raises are at
+implementer discretion, measured against session length.**
 
 ## 6. Reverse-teaching discipline rules D1–D8 (2026-07-30) — yes/no gates packs 5–16
 
@@ -102,6 +107,7 @@ English. All are measured as zero-cost against packs 1–4 practice.
 
 **Decision:** approve D1–D8 as binding for packs 5–16 (they get pinned into
 every pack-agent brief alongside the three measured authoring rules)?
+**→ APPROVED (Spencer, 2026-07-30). Binding from pack 5 onward.**
 Schema direction — build-time string extraction with per-language sidecar
 files (`m13.ko.json`), en fallback, coverage ratchet — needs no decision now;
 it's the recommended shape when reverse work actually starts (~3–4 months).

@@ -1611,6 +1611,13 @@
     for ~8 words was seeded-distractor luck that the registry re-homes
     reshuffled away -- it was never a taught-status signal).
   see_also: docs/vocab-exposure-audit-2026-07-29.md
+  progress_2026_07_30: >
+    Packs 5-6 SHIPPED (ja-m16-neo-10 classroom / ja-m16-neo-11 habits+health,
+    15 words; taisetsu substituted for homograph-loser ha(tooth) -> B085).
+    Ratchets: never-graded 188->173, never-touched 82->71, dangling 232->227,
+    early-tag 194->193. 55 TTS clips pending Trevor's upload. Learner-sim +
+    Gate 10 for m16 packs still owed (wave plan phase-3).
+
 
 - id: B066
   title: Side quests are inert and cannot grade anything -- prerequisite for B065(b)
@@ -1807,7 +1814,7 @@
 
 - id: B069
   title: Nothing on the live map routes to buildSrsReviewLesson -- the dynamic review picker AND the kanji-switchover beat (B061) are dormant
-  status: open
+  status: fixed
   severity: blocker
   effort: M
   confidence: verified
@@ -1846,6 +1853,27 @@
     dynamic builder (or that the beat has a live call site) so this cannot
     silently regress.
   see_also: docs/kanji-switchover-design-2026-07-28.md
+  resolution: >
+    PHASE 1 SHIPPED 2026-07-30 (Spencer approved option 3, verified +
+    positive-controlled by orchestrator). withDynamicReviewPrefix
+    (lesson/data/dynamicReviewPrefix.ts, hooked getMockLessonContent
+    mockLessons.ts:743, kanaReviewTails layer) prepends a capped dynamic
+    segment (cap 10, due-first) to every ja-mN-neo-review-*: switchover
+    beat (B061 now LIVE) -> due atoms (miner >=60% sentence-context) ->
+    due Track B grammar -> reserved new-card seats (B065 intake live;
+    MAX_NEW 5->8 per Spencer's "more max is good"). D6 structural in the
+    prefix (seats require due -- same-day seeds can never seat); empty
+    state byte-identical (same object reference); grading rides the
+    unchanged isDedicatedReviewLesson gates incl. B074 collision guard;
+    no LessonPage edits. Conformance: dynamicReviewPrefix.test.ts (14
+    tests) incl. the demanded live-call-site test -- neutering the hook
+    fails 5 tests (verified twice). QA preview /ja/qa/review-prefix with
+    URL-addressable synthetic states for Gate 10. Drive-by fix: same-type
+    re-pick guard in composeAtomSteps skipped the last pick. PHASE 2
+    (deferred until Spencer plays phase 1): IR dynamic-slot mid-lesson
+    interleaving; optionally fold full-builder match/end beats into the
+    prefix or retire the old ja-mN-review-1/2 deep-link shape.
+
 
 - id: B070
   title: Untaught words are live on non-lesson surfaces, green-lit by stale fromModule tags in the comprehensibility gate
@@ -2039,7 +2067,7 @@
 
 - id: B076
   title: Reverse-teaching readiness -- research instruction-language decoupling now so ko->ja / ko->en are cheap in 3-4 months
-  status: open
+  status: fixed
   severity: major
   effort: M
   confidence: reported
@@ -2264,3 +2292,66 @@
     the in-test control to another hand-verified offender in the same
     change. Number/time words (m11 cluster) suit digit-to-word clozes;
     honorifics (m7) suit register-contrast clozes.
+
+- id: B085
+  title: Homograph-LOSER words (ha tooth, hana nose, kaze cold) are unteachable -- kana-only surfaces resolve to the winning sense
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [module/m22, class/homograph, system/kanji, class/decision-needed]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    JA_PRIMARY_ATOM_BY_KANA resolves bare kana to the winning sense (ha ->
+    topic particle), and homographTeaching.test.ts fails any lesson that
+    teaches a losing sense -- correctly, because tiles/credit would misroute.
+    So the m16 habits pack could not teach 歯 (deferred; taisetsu subbed in),
+    and the m22 body cluster wants 歯/鼻/風邪 -- all losers. Teaching these
+    words requires a kanji-surface teaching mechanism (teach 歯 AS 歯 with
+    furigana from debut, bypassing the kana map), which doesn't exist yet.
+  fix: >
+    Scope the mechanism before the m22 pack: likely a kanjiSurface flag on
+    the atom + tile/credit paths that key on the kanji surface, riding the
+    existing FSRS-gated-furigana machinery. Decision-needed on the exact
+    shape; blocks the m22 body-parts pack (pack 12 band).
+
+- id: B086
+  title: Trainer drill pins move on distractor LUCK -- fromModule re-homes silently shift drillPoolIsTaught first-exposures (3rd occurrence)
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [system/trainer, class/ratchet-churn]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    drillPoolIsTaught pins record where a word is FIRST EXERCISED, but seeded
+    distractor backfill draws on fromModule -- so re-homing unrelated words
+    shifts which distractors get seeded and silently moves other words' pins.
+    3rd occurrence: samui 10->16, atatakai 24->25, hiroi 18->27 during the
+    m16 packs; previously the m11 and m13/m14 waves each remeasured pins the
+    same way. Pins are currently distractor luck, not teaching truth.
+  fix: >
+    Consider pinning trainer unlocks to TEACHING modules only (introducedAt
+    from the registry), not incidental distractor exposure -- one measured
+    migration, then the pins stop churning with every re-home.
+
+- id: B087
+  title: tsuyoi/yowai contrast cannot be drilled until m28 -- pair them in an m28 review beat
+  status: open
+  severity: note
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [module/m16, module/m28, class/pair-contrast]
+  found: 2026-07-30
+  source: pack-agent
+  detail: >
+    yowai taught in the m16 habits pack; tsuyoi stays m28's image debut
+    (word_image_mcq is first-exposure-only, inv 44). The natural strong/weak
+    contrast has no drill site until m28.
+  fix: Add a yowai/tsuyoi contrast beat to an m28 R-review when authoring reaches it.
+
