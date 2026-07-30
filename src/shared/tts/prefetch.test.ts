@@ -41,6 +41,37 @@ describe("collectAudioTexts", () => {
     );
   });
 
+  it("collects spoken text from fields no allow-list would have named", () => {
+    // REGRESSION (2026-07-29). The first version of collectAudioTexts used a
+    // four-name allow-list copied from audioCoverage.test.ts — audioKey,
+    // audioText, transcript, promptAudioText. The step views actually resolve
+    // audio from a dozen more, so most lessons prefetched nothing and every
+    // clip still loaded on play. These field names are all real call sites
+    // (SpeakingStepView, BuildSentenceStepView, GrammarRuleStepView,
+    // MatchPairsStepView, SymbolIntroStepView) and none is in that old list.
+    const steps = [
+      { type: "speaking", targetPhrase: "こんにちは" },
+      { type: "build_sentence", targetSentence: "すし" },
+      { type: "grammar_rule", examples: [{ ja: "みず" }] },
+      { type: "match_pairs", pairs: [{ source: "おちゃ" }] },
+      { type: "symbol_intro", payload: { symbol: "あ" } },
+    ];
+    const got = collectAudioTexts(steps, "ja");
+    for (const expected of ["こんにちは", "すし", "みず", "おちゃ", "あ"]) {
+      expect(got, `missing ${expected}`).toContain(expected);
+    }
+  });
+
+  it("ignores strings the manifest has no clip for", () => {
+    // Resolution is the filter, so prose and identifiers cost nothing.
+    const steps = [
+      { id: "ja-m4-neo-1-vmcq", title: "Some English lesson title" },
+      { explanation: "A long English explanation that is never spoken aloud." },
+      { audioText: "こんにちは" },
+    ];
+    expect(collectAudioTexts(steps, "ja")).toEqual(["こんにちは"]);
+  });
+
   it("dedupes repeats", () => {
     const steps = [{ audioText: "すし" }, { transcript: "すし" }, { audioText: "すし" }];
     expect(collectAudioTexts(steps)).toEqual(["すし"]);

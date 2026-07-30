@@ -64,13 +64,49 @@ jobs:
       - name: sync to S3
         run: |
           # Hashed assets: cache forever (filenames change every build).
+          #
+          # `--exclude "tts/*"` is LOAD-BEARING, do not remove it. This sync
+          # mirrors dist/ onto the bucket root with --delete, and the TTS audio
+          # corpus (~14.7k mp3s under tts/) lives in the same bucket but is NOT
+          # part of dist/ — it is published separately by lingo-data's
+          # pipeline.tts.upload. Without this exclude, every deploy deletes the
+          # entire audio corpus, and CloudFront keeps serving the stale cache
+          # for a while so the breakage surfaces hours later as "some sounds
+          # don't play". That happened on 2026-07-29.
           aws s3 sync dist/ "s3://${{ vars.LINGO_S3_BUCKET }}" \
             --delete \
             --exclude index.html \
+            --exclude "tts/*" \
             --cache-control "public,max-age=31536000,immutable"
           # index.html: never cache — it's the pointer to the hashed assets.
           aws s3 cp dist/index.html "s3://${{ vars.LINGO_S3_BUCKET }}/index.html" \
             --cache-control "no-cache"
+      - name: assert the TTS corpus survived the sync
+        # Backstop for the --exclude above, and for any future tooling that
+        # syncs this bucket. The audio corpus is not in dist/, so anything
+        # mirroring dist/ with --delete will silently wipe it; CloudFront then
+        # serves its cache for hours, so the damage is invisible at deploy time
+        # and surfaces later as intermittently missing lesson audio.
+        #
+        # Failing here is much cheaper than discovering it from a user report:
+        # re-publishing means re-uploading ~240 MB.
+        run: |
+          # `s3 ls --summarize` paginates for us. `list-objects-v2` with
+          # --query 'length(Contents)' can report a single page, which would
+          # make this guard lie once the corpus exceeds 1000 objects.
+          COUNT=$(aws s3 ls "s3://${{ vars.LINGO_S3_BUCKET }}/tts/v1/" \
+            --recursive --summarize 2>/dev/null \
+            | awk '/Total Objects:/ {print $3}')
+          COUNT=${COUNT:-0}
+          echo "tts/v1 objects: $COUNT"
+          if [ "$COUNT" -lt 10000 ]; then
+            echo "::error::TTS audio corpus is missing or truncated ($COUNT objects under tts/v1/)."
+            echo "Expected ~14.7k. Something deleted it — check for an s3 sync"
+            echo "without --exclude \"tts/*\". Re-publish from lingo-data:"
+            echo "  python -m pipeline.tts.upload --revision <lingo-sha>"
+            exit 1
+          fi
+
       - name: invalidate CloudFront
         run: |
           aws cloudfront create-invalidation \

@@ -27,51 +27,67 @@
  * silent-mode note in `./index`). Prefetching keeps that responsive.
  */
 import { useEffect } from "react";
-import { prefetchTtsAudio } from "./index";
+import { getTtsUrl, prefetchTtsAudio } from "./index";
 
 /**
- * Step fields whose value is spoken aloud. Kept in sync with the same list in
- * `features/lesson/data/audioCoverage.test.ts` — that test walks compiled
- * lessons for exactly these keys to prove every spoken surface has a clip, so
- * the two lists describing "what gets spoken" must not drift.
+ * Longest string worth testing as a manifest key. Clips are words and single
+ * sentences; anything longer is prose (explanations, rule bodies) that is never
+ * spoken, and hashing it would be wasted work.
  */
-const AUDIO_FIELDS = ["audioKey", "audioText", "transcript", "promptAudioText"];
+const MAX_KEY_LENGTH = 200;
 
 /** How many clips to fetch at once. Enough to hide latency, few enough not to
  *  contend with the lesson's own images and chunks on a slow connection. */
 const CONCURRENCY = 6;
 
 /**
- * Every spoken string reachable from `node`, deduped and in encounter order.
+ * Every string reachable from `node` that the manifest has a clip for.
  *
- * Walks the whole structure rather than reading known step shapes: step types
- * nest spoken text at varying depths (dialogue lines, review tails, anchors),
- * and a shape-aware reader silently misses new ones. `audioKey` may already be
- * a resolved URL rather than text — those are skipped, since they are resolved
- * at build time and need no lookup.
+ * ## Why this doesn't use a field allow-list
+ *
+ * It did, and it was wrong. The first version copied the four field names from
+ * `audioCoverage.test.ts` (`audioKey`, `audioText`, `transcript`,
+ * `promptAudioText`) on the assumption they enumerated "what gets spoken". They
+ * don't — the step views resolve audio from at least a dozen more:
+ * `targetPhrase`, `targetSentence`, `example.ja`, `pair.source`,
+ * `payload.symbol`, `opt.symbol`, `fullAudio`, `answer`, `meaningEn`, `kana`,
+ * `word`. So for most step types the prefetch collected nothing and every clip
+ * still loaded on play.
+ *
+ * Any allow-list has that failure mode, and it fails silently — a new step type
+ * just quietly stops being prefetched. So instead we test every string against
+ * the manifest and let resolution be the filter: if there's a clip for it, it's
+ * spoken. That cannot drift, because it consults the same resolver playback
+ * uses.
+ *
+ * Cost is a SHA-256 over each candidate string — microseconds each, a few
+ * hundred per lesson. A string that coincidentally matches a clip but is never
+ * spoken costs one wasted (cached, immutable) fetch.
  */
-export function collectAudioTexts(node: unknown): string[] {
+export function collectAudioTexts(node: unknown, lang?: string): string[] {
   const found = new Set<string>();
+  const seen = new Set<string>();
+
+  const consider = (s: string): void => {
+    if (!s || s.length > MAX_KEY_LENGTH) return;
+    // Already-resolved paths/URLs are not manifest keys.
+    if (s.startsWith("/") || /^https?:\/\//.test(s)) return;
+    if (seen.has(s)) return;
+    seen.add(s);
+    if (getTtsUrl(s, lang)) found.add(s);
+  };
 
   const walk = (value: unknown): void => {
+    if (typeof value === "string") {
+      consider(value);
+      return;
+    }
     if (!value || typeof value !== "object") return;
     if (Array.isArray(value)) {
       for (const item of value) walk(item);
       return;
     }
-    for (const [key, child] of Object.entries(value as Record<string, unknown>)) {
-      if (
-        AUDIO_FIELDS.includes(key) &&
-        typeof child === "string" &&
-        child &&
-        // Already-resolved paths/URLs are not manifest keys.
-        !child.startsWith("/") &&
-        !/^https?:\/\//.test(child)
-      ) {
-        found.add(child);
-      }
-      walk(child);
-    }
+    for (const child of Object.values(value as Record<string, unknown>)) walk(child);
   };
 
   walk(node);
