@@ -89,7 +89,10 @@ function toAtom(c: CourseAtom): Atom {
     languageId: "ja",
     surface: c.kanji ?? c.kana,
     gloss: c.meaningEn,
-    partOfSpeech: kindToPartOfSpeech(c.kind),
+    // Authoritative part of speech lives on the atom (`c.pos` — verb/adjective/
+    // adverb/…). `kindToPartOfSpeech` only knows the coarse particle/phrase/noun
+    // split from `kind`, so it's the fallback for the rare atom missing `pos`.
+    partOfSpeech: c.pos ?? kindToPartOfSpeech(c.kind),
     fromModule: c.fromModule === "future" ? undefined : c.fromModule,
     srsEligible: c.excludeFromSrs !== true,
   };
