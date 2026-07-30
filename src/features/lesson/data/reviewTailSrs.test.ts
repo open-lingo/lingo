@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   isDedicatedReviewLesson,
   shouldWriteContentReviewAtom,
+  shouldWriteReviewLessonAtom,
 } from "./reviewTailSrs";
 
 /**
@@ -57,5 +58,43 @@ describe("shouldWriteContentReviewAtom (D2 prior-atom gate)", () => {
 
   it("SKIPS when the lesson id has no parseable module (sidequests etc.)", () => {
     expect(shouldWriteContentReviewAtom("neko", "ja-sidequest-travel")).toBe(false);
+  });
+});
+
+/**
+ * Review-lesson collision guard (learner-sim BLOCKER, 2026-07-29): review
+ * lessons grade exercised atoms unconditionally, so an id colliding with an
+ * unrelated later-module registry row silently wrote FSRS history onto
+ * flashcards for unmet words. Real case: m11's plain-past beats emit
+ * "shita"/"kita" (した/きた), which are the registry ids of 下 (m17) and
+ * 北 (fromModule "future").
+ */
+describe("shouldWriteReviewLessonAtom (collision guard)", () => {
+  it("skips ids that resolve to a LATER-module registry row", () => {
+    // した → 下, fromModule m17: 17 > 11 → collision, never grade in m11.
+    expect(shouldWriteReviewLessonAtom("shita", "ja-m11-neo-review-3")).toBe(false);
+  });
+
+  it("skips ids that resolve to a non-module home (future / quest tags)", () => {
+    // きた → 北, fromModule "future" → parses to 0 → skip.
+    expect(shouldWriteReviewLessonAtom("kita", "ja-m11-neo-review-3")).toBe(false);
+  });
+
+  it("grades same-module and earlier-module atoms (legit review material)", () => {
+    // どようび re-homed to m11 by the vocab pack — same module as the review.
+    expect(shouldWriteReviewLessonAtom("doyoubi", "ja-m11-neo-review-1")).toBe(true);
+    // ねこ (m1) reviewed anywhere later is fine.
+    expect(shouldWriteReviewLessonAtom("neko", "ja-m11-neo-review-1")).toBe(true);
+  });
+
+  it("keeps grading ids with no registry row (IR-only inflections, non-JA)", () => {
+    expect(shouldWriteReviewLessonAtom("wakatta-not-a-registry-id", "ja-m11-neo-review-3")).toBe(true);
+    expect(shouldWriteReviewLessonAtom("es:hola", "es-m2-review-1")).toBe(true);
+  });
+
+  it("positive control: the colliding rows exist and are why the guard fires", () => {
+    // If 下/北 are ever renamed or removed, the two skip-assertions above go
+    // vacuous — this pins the collision precondition itself.
+    expect(shouldWriteReviewLessonAtom("shita", "ja-m17-neo-review-1")).toBe(true);
   });
 });

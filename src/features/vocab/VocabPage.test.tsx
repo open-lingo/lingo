@@ -23,11 +23,14 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
 
 import { VocabPage } from "./VocabPage";
 import { buildVocabRows } from "./vocabData";
+import { DictionaryModalProvider } from "@/features/dictionary/DictionaryModalContext";
 
 function renderPage(initialEntry = "/ja/vocab") {
   return render(
     <MemoryRouter initialEntries={[initialEntry]}>
-      <VocabPage />
+      <DictionaryModalProvider>
+        <VocabPage />
+      </DictionaryModalProvider>
     </MemoryRouter>,
   );
 }

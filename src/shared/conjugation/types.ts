@@ -203,7 +203,9 @@ export interface ConjugationTrainerProvider {
 
   // ── hub tile stats ──
   typeMasteryPercent(typeId: string): number;
-  dueCount(typeId: string): number;
+  /** Due badge for a tile. `reachedModule` lets per-form unlocks (B016) skip
+   *  points the learner hasn't reached — an unreachable point must not count. */
+  dueCount(typeId: string, reachedModule: number): number;
 
   // ── grading (returns true if graded on-path, false if practice-only) ──
   gradeSessionIfOnPath(

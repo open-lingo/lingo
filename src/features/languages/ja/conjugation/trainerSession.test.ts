@@ -14,6 +14,8 @@ import {
   getTrainerType,
   unlockModuleForType,
   effectivePoolModule,
+  formUnlockModule,
+  grammarPointModule,
   type ConjugationTrainerType,
   type TrainerTypeId,
 } from "./trainerRegistry";
@@ -571,5 +573,92 @@ describe("learn-ahead pool override — effectivePoolModule feeds the builders",
       { combos: "off" },
     );
     expect(questions.length).toBeGreaterThan(0);
+  });
+});
+
+// ─── Per-form gating (B016): a tile unlocks at its EARLIEST form; the ────
+// session draws only forms the pool module has reached, and grading never
+// writes a point the learner hasn't reached.
+
+describe("per-form gating (B016)", () => {
+  beforeEach(() => {
+    clearGrammarStore();
+    clearMasuDrillReps();
+  });
+
+  // A synthetic multi-form tile with one early and one late form, gates
+  // derived from data (nai teaches before ta on the current spine).
+  const naiGate = formUnlockModule("nai");
+  const taGate = formUnlockModule("ta");
+  const earlyLateType: ConjugationTrainerType = {
+    id: "nai-form",
+    title: "synthetic early+late",
+    subtitle: "",
+    category: "verb",
+    verbForms: ["nai", "ta"],
+    grammarPointIds: [],
+    formation: [],
+  };
+
+  it("premise: the synthetic tile's forms straddle a module boundary", () => {
+    expect(naiGate).toBeLessThan(taGate);
+  });
+
+  it("an individual session drills only the forms the pool module has reached", () => {
+    const below = buildTrainerSession(earlyLateType, taGate - 1);
+    expect(below.length).toBeGreaterThan(0); // the reached form still drills
+    for (const q of below) expect(q.form).toBe("nai");
+
+    const at = buildTrainerSession(earlyLateType, taGate);
+    expect(new Set(at.map((q) => q.form))).toEqual(new Set(["nai", "ta"]));
+  });
+
+  it("a combined session never drills a form whose module is beyond the pool", () => {
+    const late = formUnlockModule("masu-past-neg");
+    const pool = late - 1;
+    // Premise (from data): the other masu-family gates are reached at `pool`.
+    expect(formUnlockModule("masu")).toBeLessThanOrEqual(pool);
+    expect(formUnlockModule("masu-neg")).toBeLessThanOrEqual(pool);
+
+    const q = buildCombinedSession(["masu", "nai-form", "ta-form"], pool, {
+      count: 14,
+      combos: "on",
+    });
+    expect(q.length).toBeGreaterThan(0);
+    const forms = new Set(q.map((x) => x.form));
+    // The unreached stacked form stays out…
+    expect(forms.has("masu-past-neg")).toBe(false);
+    // …while every reached form family is still drilled (nothing is lost).
+    expect(forms.has("masu")).toBe(true);
+    expect(forms.has("masu-neg")).toBe(true);
+    // Generic invariant: every drilled form's gate is within the pool module.
+    for (const x of q) {
+      expect(
+        formUnlockModule(x.form),
+        `${x.form} drilled at pool m${pool}`,
+      ).toBeLessThanOrEqual(pool);
+    }
+  });
+
+  it("gradeTrainerSession skips points whose form the learner hasn't reached", () => {
+    gradeTrainerSession(earlyLateType, [true, true, true, true, true, true], taGate - 1);
+    expect(getGrammarCardState("nai-form")?.production.reps).toBe(1);
+    expect(getGrammarCardState("ta-form")).toBeUndefined();
+  });
+
+  it("gradeCombinedSession refuses forms beyond the reached module", () => {
+    const late = formUnlockModule("masu-past-neg");
+    gradeCombinedSession(["masu-neg", "masu-past-neg"], [true, true], late - 1);
+    expect(getGrammarCardState("masu-negative")?.production.reps).toBe(1);
+    expect(getGrammarCardState("masu-past-negative")).toBeUndefined();
+  });
+
+  it("the masu tile opens at ます (polite present), not its latest point", () => {
+    const masu = getTrainerType("masu")!;
+    expect(unlockModuleForType(masu)).toBe(grammarPointModule("masu-present"));
+    // At its unlock module the tile builds a real ます-only session.
+    const q = buildTrainerSession(masu, unlockModuleForType(masu));
+    expect(q.length).toBeGreaterThan(0);
+    for (const x of q) expect(x.form).toBe("masu");
   });
 });

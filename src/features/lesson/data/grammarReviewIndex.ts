@@ -183,13 +183,17 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
   if (index) return index;
   const tokenToPoint = buildTokenToPoint();
   const out = new Map<string, LessonStep[]>();
-  // 2026-07-19 (rewrite spine): harvest from the LESSON REGISTRY, not the
-  // course map. The map now carries the dict-form-first spine whose m4-m29
-  // are unauthored comingSoon placeholders — walking it would collapse every
-  // harvested pool. The old-course lessons stay registered in mockLessons
-  // (deep-link only) and each lesson's own `moduleId` carries the exact
-  // attribution the map walk used to provide, so the harvest is unchanged
-  // in content while the map is free to be rewritten around it.
+  // Harvest from the LESSON REGISTRY, not the course map. (The 2026-07-19
+  // rationale — "the map's m4-m29 are unauthored comingSoon placeholders and
+  // the old course stays registered for deep links" — is DEAD: the IR wave
+  // authored m4-m29 and the old course was archived out of the registry on
+  // 2026-07-26. The registry walk survives because each lesson's own
+  // `moduleId` carries attribution, and the neo-only filter below now does
+  // the real source selection.)
+  // ⚠️ The `-neo-` substring filter also excludes ja-m30-* (the N4 opener
+  // ships without the -neo- infix) and the ja-mN-neo-kata rows are included
+  // by it — if m30 ever authors particle_cloze steps they will silently not
+  // harvest. Flagged in docs/stale-reference-audit-2026-07-29.md.
   for (const lessonId of getAvailableMockLessonIds()) {
     if (/-review-[12]$/.test(lessonId)) continue; // avoid recursion; reviews aren't sources
     // NEO-ONLY (2026-07-26). This used to be the inverse — neo lessons were

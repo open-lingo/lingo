@@ -18,7 +18,11 @@ import {
   isSelectionAhead,
   effectivePoolModule,
   dueGrammarPointCount,
+  formUnlockModule,
+  grammarPointModule,
+  FORM_GATE_POINTS,
 } from "./trainerRegistry";
+import { COMBO_MAP } from "./comboForms";
 
 const GRAMMAR_POINTS = grammarPointsJson as GrammarPoint[];
 
@@ -58,32 +62,72 @@ describe("conjugation trainer registry", () => {
     expect(getTrainerType("nonexistent")).toBeUndefined();
   });
 
-  it("unlockModuleForType derives the latest module across covered points", () => {
+  it("unlockModuleForType derives the EARLIEST drilled form's module (B016)", () => {
     // Asserted against the actual data, not hand-copied numbers.
     const teForm = getTrainerType("te-form")!;
-    const teModule = parseInt(
-      GRAMMAR_POINTS.find((p) => p.id === "te-form")!.module.slice(1),
-      10,
-    );
-    expect(unlockModuleForType(teForm)).toBe(teModule);
+    expect(unlockModuleForType(teForm)).toBe(grammarPointModule("te-form"));
 
-    // masu spans two points; unlock = the max of the two.
+    // masu drills only ます — the tile opens when the polite present is taught,
+    // NOT at the latest covered point (masu-past-negative comes much later).
     const masu = getTrainerType("masu")!;
-    const masuMax = Math.max(
-      ...masu.grammarPointIds.map((id) =>
-        parseInt(GRAMMAR_POINTS.find((p) => p.id === id)!.module.slice(1), 10),
-      ),
-    );
-    expect(unlockModuleForType(masu)).toBe(masuMax);
+    expect(unlockModuleForType(masu)).toBe(grammarPointModule("masu-present"));
 
-    // i-adj-forms spans m8/m10/m10 → 10.
+    // i-adj-forms drills its base form (くない) → i-adj-negative's module.
     const iadj = getTrainerType("i-adj-forms")!;
-    const iadjMax = Math.max(
-      ...iadj.grammarPointIds.map((id) =>
-        parseInt(GRAMMAR_POINTS.find((p) => p.id === id)!.module.slice(1), 10),
-      ),
-    );
-    expect(unlockModuleForType(iadj)).toBe(iadjMax);
+    expect(unlockModuleForType(iadj)).toBe(grammarPointModule("i-adj-negative"));
+  });
+
+  it("one late covered point does NOT lock a whole tile (B016 regression)", () => {
+    // Premise (from data): masu's covered points span more than one module.
+    const masu = getTrainerType("masu")!;
+    const pointModules = masu.grammarPointIds.map(grammarPointModule);
+    expect(Math.min(...pointModules)).toBeLessThan(Math.max(...pointModules));
+    // The tile must be reachable before the LATEST point's module.
+    expect(unlockModuleForType(masu)).toBeLessThan(Math.max(...pointModules));
+    expect(isTypeUnlocked(masu, Math.max(...pointModules) - 1)).toBe(true);
+  });
+
+  describe("formUnlockModule — per-form gates (B016)", () => {
+    it("every drilled form (individual base + combo) has a finite gate", () => {
+      const drilled = new Set<string>();
+      for (const type of CONJUGATION_TRAINER_TYPES) {
+        for (const f of type.verbForms ?? []) drilled.add(f);
+        for (const f of type.adjForms ?? []) drilled.add(f);
+      }
+      for (const entry of COMBO_MAP) drilled.add(entry.form);
+      for (const form of drilled) {
+        expect(
+          Number.isFinite(formUnlockModule(form)),
+          `form ${form} must map to a taught gate`,
+        ).toBe(true);
+      }
+    });
+
+    it("every gate point resolves to a real grammar point", () => {
+      for (const [form, points] of Object.entries(FORM_GATE_POINTS)) {
+        for (const id of points) {
+          expect(
+            GRAMMAR_POINTS.some((p) => p.id === id),
+            `gate point ${id} (form ${form}) must exist`,
+          ).toBe(true);
+        }
+      }
+    });
+
+    it("an unmapped form fails CLOSED (never drillable on-path)", () => {
+      expect(formUnlockModule("potential")).toBe(Number.POSITIVE_INFINITY);
+    });
+
+    it("a stacked form gates on the LATEST of its ingredient points", () => {
+      // なかった needs both ない and た taught.
+      expect(formUnlockModule("nai-past")).toBe(
+        Math.max(grammarPointModule("nai-form"), grammarPointModule("ta-form")),
+      );
+      // ませんでした waits for its own (late) point, independent of the tile.
+      expect(formUnlockModule("masu-past-neg")).toBe(
+        grammarPointModule("masu-past-negative"),
+      );
+    });
   });
 
   it("isTypeUnlocked gates on reached >= unlock module", () => {
@@ -151,13 +195,17 @@ describe("conjugation trainer registry", () => {
   describe("dueGrammarPointCount", () => {
     beforeEach(() => clearGrammarStore());
 
+    // Reached module well past every covered point — the per-point unlock
+    // gate is exercised separately below.
+    const REACHED = 99;
+
     it("counts unseen (never-reviewed) points as due", () => {
       const teForm = getTrainerType("te-form")!;
       // No Track B state written → the single point is unseen-but-unlocked.
-      expect(dueGrammarPointCount(teForm)).toBe(1);
+      expect(dueGrammarPointCount(teForm, REACHED)).toBe(1);
 
       const iadj = getTrainerType("i-adj-forms")!;
-      expect(dueGrammarPointCount(iadj)).toBe(3); // all three unseen
+      expect(dueGrammarPointCount(iadj, REACHED)).toBe(3); // all three unseen
     });
 
     it("does not count a point scheduled into the future", () => {
@@ -166,13 +214,13 @@ describe("conjugation trainer registry", () => {
       future.setFullYear(future.getFullYear() + 1);
       const futureStr = future.toISOString().slice(0, 10);
       setGrammarCardState("te-form", createSeededState(futureStr));
-      expect(dueGrammarPointCount(teForm, new Date())).toBe(0);
+      expect(dueGrammarPointCount(teForm, REACHED, new Date())).toBe(0);
     });
 
     it("counts a seeded (due-today) point as due", () => {
       const teForm = getTrainerType("te-form")!;
       setGrammarCardState("te-form", createInitialState()); // due today
-      expect(dueGrammarPointCount(teForm)).toBe(1);
+      expect(dueGrammarPointCount(teForm, REACHED)).toBe(1);
     });
 
     it("sums per-point across a multi-point type", () => {
@@ -184,7 +232,18 @@ describe("conjugation trainer registry", () => {
         "i-adj-negative",
         createSeededState(future.toISOString().slice(0, 10)),
       );
-      expect(dueGrammarPointCount(iadj)).toBe(2);
+      expect(dueGrammarPointCount(iadj, REACHED)).toBe(2);
+    });
+
+    it("skips points beyond the learner's reached module (B016)", () => {
+      // The masu tile is open from its earliest point, but the late point
+      // must not badge — no session could ever clear it before its module.
+      const masu = getTrainerType("masu")!;
+      const early = grammarPointModule("masu-negative");
+      const late = grammarPointModule("masu-past-negative");
+      expect(early).toBeLessThan(late); // premise, from data
+      expect(dueGrammarPointCount(masu, early)).toBe(1); // masu-negative only
+      expect(dueGrammarPointCount(masu, late)).toBe(2); // both unseen → due
     });
   });
 });

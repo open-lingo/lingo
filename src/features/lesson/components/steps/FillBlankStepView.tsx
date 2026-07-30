@@ -65,7 +65,13 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <div className="flex flex-wrap items-baseline gap-1 text-2xl font-bold text-text-primary">
+      {/* 3xl, not 2xl (Spencer 2026-07-29: "make the tiles and sentence text
+          bigger ... fill some more space"). `leading-relaxed` comes with it —
+          furigana rides above the line, and at 3xl a tight leading clips it.
+          The blank narrows below `sm`: at 3xl a 128px blank plus といきます
+          exceeds the ~300px available at 390px wide and the sentence wrapped,
+          leaving the blank stranded on its own line. */}
+      <div className="flex flex-wrap items-baseline gap-1.5 text-3xl font-bold leading-relaxed text-text-primary">
         {parts.map((part, i) => (
           <span key={i} className="flex items-baseline gap-1">
             <span><AnnotatedJa text={part} /></span>
@@ -82,7 +88,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                         [step.blanks[i].id]: e.target.value,
                       }))
                     }
-                    className={`w-24 border-b-[2.5px] bg-transparent text-center text-2xl font-bold outline-none transition-colors ${
+                    className={`w-24 border-b-[2.5px] bg-transparent text-center text-3xl font-bold outline-none transition-colors sm:w-32 ${
                       submitted
                         ? isCorrect
                           ? "border-accent text-accent"
@@ -91,7 +97,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                     }`}
                   />
                 ) : (
-                  <span className="inline-block w-16 border-b-[2.5px] border-border" />
+                  <span className="inline-block w-20 border-b-[2.5px] border-border sm:w-24" />
                 )}
               </span>
             )}
@@ -100,7 +106,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
       </div>
 
       {step.wordBank && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           {step.wordBank.map((word, i) => {
             const isUsed = Object.values(answers).includes(word);
             return (
@@ -109,13 +115,13 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                 type="button"
                 disabled={submitted || isUsed}
                 onClick={() => handleBankSelect(word)}
-                className={`rounded-xl border-[1.5px] px-3.5 py-1.5 text-base font-medium transition-colors duration-150 ${
+                className={`rounded-xl border-[1.5px] px-5 py-2.5 text-2xl font-medium leading-normal transition-colors duration-150 ${
                   isUsed
                     ? "border-border bg-surface-muted text-text-muted opacity-60"
                     : "border-border bg-surface text-text-primary hover:border-accent"
                 }`}
               >
-                <AnnotatedJa text={word} />
+                <AnnotatedJa text={word} hideHelper={step.wordBankHideHelper} />
               </button>
             );
           })}

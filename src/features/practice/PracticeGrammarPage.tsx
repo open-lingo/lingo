@@ -45,7 +45,8 @@ export function PracticeGrammarPage() {
   const conjugationDue = useMemo(() => {
     if (!conj) return 0;
     return conj.getTypes().reduce(
-      (sum, type) => sum + (conj.isTypeUnlocked(type.id, reachedModule) ? conj.dueCount(type.id) : 0),
+      (sum, type) =>
+        sum + (conj.isTypeUnlocked(type.id, reachedModule) ? conj.dueCount(type.id, reachedModule) : 0),
       0,
     );
   }, [conj, reachedModule]);

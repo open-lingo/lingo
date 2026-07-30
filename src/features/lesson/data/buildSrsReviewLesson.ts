@@ -1,5 +1,8 @@
 import type { LessonContent, LessonStep } from "../types";
-import type { CourseAtom } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS_BY_KANA,
+  type CourseAtom,
+} from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import {
   getCardState,
@@ -7,6 +10,11 @@ import {
 } from "@/features/flashcards/engine/srsStorage";
 import { isDue, isNew, getDueModalities, createInitialState } from "@/features/flashcards/engine/srs";
 import { getUnlockedAtomIds } from "./unlockLessonAtoms";
+import { pickSwitchoverCandidates } from "@/features/languages/ja/secondScript/switchoverCandidate";
+import { getLatchedKanjiIds } from "@/features/languages/ja/secondScript/kanjiSwitchoverLatch";
+import { SWITCHOVER_BEAT_ENABLED } from "@/features/languages/ja/secondScript/kanjiRollout";
+import { buildKanjiClozeStep } from "./kanjiClozeStep";
+import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
 import {
   getGrammarReviewIndex,
@@ -31,6 +39,88 @@ import {
   type ReviewAtom,
   withoutMcqBlocked,
 } from "@/features/languages/ja/grammarHelpers";
+
+/**
+ * The kana→kanji switchover beat (B061), prepended when a word is ready.
+ *
+ * Two steps at the FRONT of the review, not the tail: the reveal is an
+ * introduction, and an introduction that lands after eight retrieval steps is
+ * competing with fatigue. It is also the only position where the learner has
+ * definitely not yet met the word in kanji inside this same lesson.
+ *
+ * Up to `MAX_SWITCHOVER_BEATS_PER_REVIEW` (2) words per review, each adding a
+ * reveal + graded cloze ON TOP of `MAX_ATOMS`. Candidate selection is
+ * deliberately NOT FSRS-gated (`switchoverCandidate.ts` — curriculum-driven,
+ * `RETIRED_KANJI_REVEAL_INTERVAL_DAYS` is retired), so the beat's word may not
+ * be in the review's own atom set and its cloze can be an extra FSRS write on
+ * an atom the review wouldn't otherwise touch. Accepted: the cloze is a genuine
+ * retrieval either way. (Corrected 2026-07-29 after the independent review — an
+ * earlier version of this comment claimed one word, a 14-day maturity gate, and
+ * atom-set overlap; all three were wrong.)
+ */
+function buildSwitchoverBeat(
+  lessonId: string,
+  learnerModule: number,
+  unlockedIds: ReadonlySet<string>,
+  mined: ReadonlyMap<string, MinedTranslatedSentence>,
+): LessonStep[] {
+  if (!SWITCHOVER_BEAT_ENABLED) return [];
+  const out: LessonStep[] = [];
+  // FIRST-EVER switchover: explain the mechanic once, then never again.
+  //
+  // Spencer 2026-07-29: *"maybe we give them the first kanji they learn at the
+  // first intro point, insert maybe an info card, one example of this card inside
+  // the lesson."* Without it the learner gets a permanent, irreversible change to
+  // how a word is written off one correct answer, with nothing naming it — the
+  // steady learner in the simulation called that "the scariest line in here".
+  //
+  // Keyed on the latch store being EMPTY rather than on a separate "seen" flag:
+  // the store is the fact we already track, and a learner with nothing latched has
+  // by definition never had a switchover.
+  const isFirstEver = getLatchedKanjiIds().size === 0;
+
+  for (const candidate of pickSwitchoverCandidates({
+    learnerModule,
+    unlockedAtomIds: unlockedIds,
+  })) {
+    // Beat ids are SUFFIXED per word, because the latch pairs reveal↔cloze by id
+    // and two beats in one lesson would otherwise collide on `-kanji-reveal`.
+    const slug = candidate.atomId.replace(/[^a-zA-Z0-9]+/g, "-");
+    const cloze = buildKanjiClozeStep(
+      `${lessonId}-kanji-cloze-${slug}`,
+      candidate,
+      mined.get(canonicalizeCardId(candidate.atomId)),
+    );
+    // Both halves or neither. A reveal with no retrieval is the ungraded card
+    // both simulated learners tapped past (distributed spec §6c), and a cloze
+    // with no introduction grades a form that was never taught. A word with no
+    // mined sentence is skipped, not half-shipped.
+    if (!cloze) continue;
+    if (isFirstEver && out.length === 0) {
+      out.push(
+        infoStep(
+          `${lessonId}-kanji-intro`,
+          "Words start showing their kanji",
+          "You already know this word by sound and meaning. From here on, words you know well will start appearing in their written form \u2014 with the reading above it until you have it down. Nothing new to memorise right now: just read along.",
+          "grammar",
+        ),
+      );
+    }
+    out.push(
+      {
+        id: `${lessonId}-kanji-reveal-${slug}`,
+        type: "kanji_reveal",
+        atomId: candidate.atomId,
+        kana: candidate.kana,
+        kanji: candidate.kanji,
+        gloss: candidate.gloss,
+        parts: candidate.parts,
+      } as LessonStep,
+      cloze,
+    );
+  }
+  return out;
+}
 
 const MAX_ATOMS = 18;
 const MAX_NEW = 5;
@@ -82,14 +172,33 @@ function pickRecognitionStep(
     try { return audioMeaningMcq(idPrefix, target, pool); } catch { /* fall through */ }
   }
   try { return vocabMcq(idPrefix, target, pool); } catch { /* fall through */ }
+  // Last resort. The carded pool can be tiny — a fresh learner has unlocks but
+  // no card state yet — and taking the FIRST three entries gave every step the
+  // same distractors. Worse, an empty pool emitted textless options that still
+  // wrote FSRS once steps were credited (2026-07-29 review). Shuffle per step,
+  // dedupe against the answer, and pad from a fixed bank rather than emit a
+  // blank-option MCQ.
+  const distractorsEn = [
+    ...new Set(
+      seededShuffle(
+        pool.filter(
+          (a) => a.kana !== target.kana && a.meaningEn !== target.meaningEn,
+        ),
+        idPrefix,
+      ).map((a) => a.meaningEn),
+    ),
+  ].slice(0, 3);
+  for (const filler of ["water", "mountain", "teacher", "station", "blue"]) {
+    if (distractorsEn.length >= 3) break;
+    if (filler !== target.meaningEn && !distractorsEn.includes(filler)) {
+      distractorsEn.push(filler);
+    }
+  }
   return listeningCompSentence({
     id: idPrefix,
     audioText: target.kana,
     correctMeaningEn: target.meaningEn,
-    distractorsEn: pool
-      .filter((a) => a.kana !== target.kana)
-      .slice(0, 3)
-      .map((a) => a.meaningEn) as [string, string, string],
+    distractorsEn: distractorsEn as [string, string, string],
   });
 }
 
@@ -231,6 +340,43 @@ export type ReviewPick = {
  * miner-less fallbacks. Same-type adjacency guard preserved. Pure
  * construction (D4): no state writes here.
  */
+/**
+ * Guarantee the step credits the atom it was built for (2026-07-29).
+ *
+ * Two ways a step could otherwise drill a word and grade the wrong thing:
+ *
+ *  - Steps built with NO `exercisedAtoms` graded nothing (`shouldWriteSrs`
+ *    requires a non-empty list), so a new card that landed there stayed new
+ *    forever, holding a reserved seat every review. Measured 2026-07-29: the
+ *    `speaking` production fallback (no `exercisedAtomKanas` passed) and the
+ *    last-resort `listeningCompSentence` — 133 + 104 such steps over the m30
+ *    atom set with an empty miner.
+ *  - The word-level generators credit `resolveAtomIds([target.kana])`, i.e.
+ *    they look the atom back up BY KANA. `JA_COURSE_ATOMS_BY_KANA` is
+ *    first-wins with the `JA_PRIMARY_ATOM_BY_KANA` ruling table, so for a
+ *    kana collision (鼻/花, 歯/は-particle) the lookup returns the OTHER
+ *    atom — a card the learner wasn't shown. Adding the target on top would
+ *    leave that wrong credit in place, so it is stripped here: an existing id
+ *    that is exactly the target-kana's map resolution but not the target is
+ *    the mis-resolution artifact, never a legitimate ride-along.
+ *
+ * Otherwise additive: whatever else the generator credited stays (sentence
+ * steps legitimately credit ride-along vocab).
+ */
+function creditTarget(step: LessonStep, atom: CourseAtom): LessonStep {
+  const collision = JA_COURSE_ATOMS_BY_KANA.get(atom.kana)?.id;
+  const existing = (step.exercisedAtoms ?? []).filter(
+    (id) => !(id === collision && id !== atom.id),
+  );
+  if (existing.includes(atom.id) && existing.length === (step.exercisedAtoms?.length ?? 0)) {
+    return step;
+  }
+  return {
+    ...step,
+    exercisedAtoms: existing.includes(atom.id) ? existing : [atom.id, ...existing],
+  } as LessonStep;
+}
+
 export function composeAtomSteps(opts: {
   lessonId: string;
   picks: ReviewPick[];
@@ -309,7 +455,7 @@ export function composeAtomSteps(opts: {
     }
 
     lastType = step.type;
-    steps.push(step);
+    steps.push(creditTarget(step, pick.atom));
   }
   return steps;
 }
@@ -364,10 +510,31 @@ export function buildSrsReviewLesson(opts: {
     };
   }
 
+  // Reserved seats for never-reviewed words (B065, 2026-07-29). This used to
+  // merge `due` and `newCards` into one list and shuffle it down to MAX_ATOMS,
+  // which made every new word's odds 18/(due + 5): a learner with a healthy due
+  // queue crowded out their OWN new-word intake. (⚠️ Scope, per the 2026-07-29
+  // independent review: NOTHING on the live JA map routes here — the 73 live
+  // `ja-mN-neo-review-*` lessons are static IR lessons; only the
+  // `ja-mN-review-1/2` id shape reaches this builder, and no map tile carries
+  // it. This fix is real but dormant until that wiring lands — see backlog.)
+  //
+  // `newCards` is deliberately NOT shuffled: registry order puts the OLDEST
+  // never-reviewed atoms first, which is what keeps same-day just-introduced
+  // words out of the seats (D6). Shuffling it would silently break that.
+  // The trailing slice is the only hard cap on lesson length — keep it even
+  // though MAX_NEW < MAX_ATOMS makes it look redundant today.
   const due = candidates.filter((c) => !c.isNewCard);
   const newCards = candidates.filter((c) => c.isNewCard).slice(0, MAX_NEW);
-  const merged = [...due, ...newCards];
-  const picked = seededShuffle(merged, `${id}-${Date.now()}`).slice(0, MAX_ATOMS);
+  const seed = `${id}-${Date.now()}`;
+  const pickedDue = seededShuffle(due, seed).slice(
+    0,
+    Math.max(0, MAX_ATOMS - newCards.length),
+  );
+  const picked = seededShuffle([...pickedDue, ...newCards], `${seed}-order`).slice(
+    0,
+    MAX_ATOMS,
+  );
 
   const pool: ReviewAtom[] = withoutMcqBlocked(
     allAtoms
@@ -375,7 +542,15 @@ export function buildSrsReviewLesson(opts: {
       .map(atomToReviewAtom),
   );
 
+  const mined =
+    languageId === "ja"
+      ? getMinedTranslatedSentences()
+      : new Map<string, MinedTranslatedSentence>();
+
   const steps: LessonStep[] = [
+    // Before the "Recognition review" intro card: the beat is the reason this
+    // lesson is different today, so it leads.
+    ...buildSwitchoverBeat(id, parseModuleIndex(moduleId), unlockedIds, mined),
     infoStep(
       `${id}-info-start`,
       isRecognitionHeavy ? "Recognition review" : "Production review",
@@ -384,11 +559,6 @@ export function buildSrsReviewLesson(opts: {
         : "Time to produce! Say the words aloud and build sentences from tiles.",
     ),
   ];
-
-  const mined =
-    languageId === "ja"
-      ? getMinedTranslatedSentences()
-      : new Map<string, MinedTranslatedSentence>();
 
   steps.push(
     ...composeAtomSteps({

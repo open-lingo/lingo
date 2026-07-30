@@ -373,21 +373,84 @@ export function getTrainerType(id: string): ConjugationTrainerType | undefined {
 }
 
 /**
- * Unlock module = the LATEST module across the type's grammar points, resolved
- * from the Track B `GrammarPoint` records (`module: "mN"`). Learning-path
- * aligned: the type unlocks only once every form it drills has been taught.
- * A point id with no record contributes 0 (defensive — the registry test
- * asserts every id resolves).
+ * Module (the N of `module: "mN"`) where a Track B grammar point is taught.
+ * Unknown ids resolve to +Infinity — a gate on a missing point FAILS CLOSED
+ * (the form never drills on-path) instead of silently unlocking at m0.
+ */
+export function grammarPointModule(pointId: string): number {
+  const point = GRAMMAR_POINTS.find((p) => p.id === pointId);
+  if (!point) return Number.POSITIVE_INFINITY;
+  const n = parseInt(point.module.slice(1), 10);
+  return Number.isFinite(n) ? n : Number.POSITIVE_INFINITY;
+}
+
+// ─── Per-form unlock gates (B016) ────────────────────────────────────────
+//
+// Availability is PER FORM, not per tile. Each drillable form (individual
+// base forms AND combo/stacked forms) lists the grammar point(s) that must be
+// taught before an on-path session may drill it; the gate module is the
+// latest of those points. Tiles unlock at their EARLIEST drilled form's gate
+// (see unlockModuleForType), and the session builders draw only forms whose
+// gate the pool module has reached — so one late point (masu-past-negative)
+// no longer locks a whole tile, and a form is never drilled before the
+// course teaches it (intro-before-review).
+
+/**
+ * FORM → grammar point(s) that teach it. Forms grading to `null` in
+ * FORM_TO_POINT (trainerSession.ts) still gate on their POOLED points here
+ * (ます on masu-present, ました on masu-past) — null there only means "don't
+ * double-grade", not "always available". Stacked forms also list their
+ * morphological ingredients (なかった needs both ない and た).
+ */
+export const FORM_GATE_POINTS: Record<string, string[]> = {
+  te: ["te-form"],
+  ta: ["ta-form"],
+  nai: ["nai-form"],
+  "nai-past": ["nai-form", "ta-form"],
+  tai: ["v-tai"],
+  "tai-neg": ["v-tai", "nai-form"],
+  "tai-past": ["v-tai", "ta-form"],
+  "tai-neg-past": ["v-tai", "nai-form", "ta-form"],
+  masu: ["masu-present"],
+  "masu-neg": ["masu-negative"],
+  "masu-past": ["masu-past"],
+  "masu-past-neg": ["masu-past-negative"],
+  // i-adj forms — each stacked form is its own taught point.
+  negative: ["i-adj-negative"],
+  past: ["i-adj-past"],
+  "past-negative": ["i-adj-past-negative"],
+};
+
+/**
+ * The module a form becomes drillable on-path: the latest module across its
+ * gate points. An unmapped form returns +Infinity (fails closed — the
+ * registry test asserts every drilled form is mapped).
+ */
+export function formUnlockModule(form: string): number {
+  const points = FORM_GATE_POINTS[form];
+  if (!points || points.length === 0) return Number.POSITIVE_INFINITY;
+  return Math.max(...points.map(grammarPointModule));
+}
+
+/**
+ * Unlock module = the EARLIEST gate across the forms the tile itself drills
+ * (B016). The old MAX-over-grammar-points aggregator meant one late point
+ * locked the whole tile — e.g. masu-past-negative would have locked ます
+ * practice out of the hub until its own (much later) module even though ます
+ * is taught at m7. The tile opens when its first form is teachable; later
+ * forms stay out of the drill pool until reached (formUnlockModule filtering
+ * in trainerSession.ts).
  */
 export function unlockModuleForType(type: ConjugationTrainerType): number {
-  let max = 0;
-  for (const id of type.grammarPointIds) {
-    const point = GRAMMAR_POINTS.find((p) => p.id === id);
-    if (!point) continue;
-    const n = parseInt(point.module.slice(1), 10);
-    if (Number.isFinite(n) && n > max) max = n;
-  }
-  return max;
+  const forms: string[] =
+    type.category === "verb" ? type.verbForms ?? [] : type.adjForms ?? [];
+  const gates = forms.map(formUnlockModule).filter((n) => Number.isFinite(n));
+  if (gates.length > 0) return Math.min(...gates);
+  // Defensive fallback (no mapped forms): earliest covered grammar point.
+  const points = type.grammarPointIds
+    .map(grammarPointModule)
+    .filter((n) => Number.isFinite(n));
+  return points.length > 0 ? Math.min(...points) : 0;
 }
 
 export function isTypeUnlocked(
@@ -446,16 +509,20 @@ export function effectivePoolModule(
  *     (it needs its first session; the queue routes these into `newItems`);
  *   - a point WITH state counts when a sub-state is due (mirrors `isDue`:
  *     `sub.dueDate <= now`, honouring `buriedUntil`).
- * Callers only invoke this for UNLOCKED types (locked types show no badge), so
- * this function does not re-check the unlock gate itself.
+ * Callers only invoke this for UNLOCKED types (locked types show no badge),
+ * but with per-form unlocks (B016) a tile can be open while some of its
+ * points are still ahead of the learner — those are skipped (an unreached
+ * point has no session that could ever clear its badge).
  */
 export function dueGrammarPointCount(
   type: ConjugationTrainerType,
+  reachedModule: number,
   now: Date = new Date(),
 ): number {
   const nowStr = now.toISOString().slice(0, 10);
   let count = 0;
   for (const id of type.grammarPointIds) {
+    if (grammarPointModule(id) > reachedModule) continue; // not taught yet
     const state = getGrammarCardState(id);
     if (!state) {
       // unseen-but-unlocked — mirrors the queue's `if (!state)` unseen branch.

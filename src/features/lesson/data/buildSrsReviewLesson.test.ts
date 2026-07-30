@@ -21,7 +21,10 @@ import {
   type MinedTranslatedSentence,
 } from "./minedSentences";
 import type { LessonStep } from "../types";
-import type { CourseAtom } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS_BY_KANA,
+  type CourseAtom,
+} from "@/features/languages/ja/courseAtoms";
 
 /**
  * ES review lessons assemble once the lesson atom index is generalized
@@ -244,6 +247,79 @@ describe("buildSrsReviewLesson — sentence-context composition (ja)", () => {
     // The word-level production rotation is speaking ↔ translationMcq now —
     // never the retired single-tile build.
     expect(steps.some(isSingleTileBuild)).toBe(false);
+  });
+
+  it("reserves seats for never-reviewed words even under a huge due queue", () => {
+    // B065, 2026-07-29. The picker used to merge `due` and `newCards` into one
+    // list and shuffle it down to MAX_ATOMS, so a new word's odds were
+    // 18/(due + 5) — a learner with a healthy due queue crowded out their own
+    // intake. (The builder is not yet reachable from the live map — see the
+    // scope warning at the picker — but the seats are the contract this test
+    // pins for when the wiring lands.)
+    const atoms = getAtomsUpToModule("m20", "ja");
+    // Word-level steps credit `resolveAtomIds([target.kana])`, i.e. they look the
+    // atom back up BY KANA — and JA_COURSE_ATOMS_BY_KANA is first-wins with the
+    // JA_PRIMARY_ATOM_BY_KANA ruling table, so a homophone's step credits
+    // whichever atom the ruling gives the kana to. Pick fixtures whose kana
+    // round-trips, or this test measures that quirk instead of the seats.
+    const roundTrips = (a: CourseAtom) =>
+      JA_COURSE_ATOMS_BY_KANA.get(a.kana)?.id === a.id;
+    // A due queue far past MAX_ATOMS: under the old picker the new words would
+    // be a lottery ticket, not a guarantee.
+    const NEW_COUNT = 8;
+    const newAtoms = atoms.filter(roundTrips).slice(0, NEW_COUNT);
+    const newIds = new Set(newAtoms.map((a) => a.id));
+    const dueAtoms = atoms.filter((a) => !newIds.has(a.id));
+    expect(dueAtoms.length).toBeGreaterThan(40);
+
+    unlockAtomIds(atoms.map((a) => a.id));
+    for (const a of dueAtoms) seedDueState(a.id);
+    // newAtoms get NO card state at all — reps 0, exactly what unlock-seeding
+    // leaves behind.
+
+    const lesson = buildSrsReviewLesson({
+      moduleId: "m20",
+      position: 1,
+      courseId: "mock-1",
+      languageId: "ja",
+    });
+    const atomSteps = lesson.steps.filter((s) => /-step-\d+$/.test(s.id));
+    const exercised = new Set(atomSteps.flatMap((s) => s.exercisedAtoms ?? []));
+    const seated = newAtoms.filter((a) => exercised.has(a.id));
+
+    // MAX_NEW is module-private; assert the property, not the constant.
+    expect(seated.length).toBeGreaterThanOrEqual(5);
+    // Session length is unchanged — the seats come off the top of MAX_ATOMS,
+    // they are not added to it.
+    expect(atomSteps.length).toBeLessThanOrEqual(18);
+    // ...and the due queue still gets the rest of the lesson.
+    expect(atomSteps.length - seated.length).toBeGreaterThan(5);
+  });
+
+  it("credits the target atom on EVERY atom step, whichever generator won", () => {
+    // A reserved seat is worthless if the step it produces grades nothing.
+    // `listeningCompSentence` — the last-resort fallback in pickRecognitionStep —
+    // emits no exercisedAtoms, and shouldWriteSrs needs a non-empty list, so a
+    // new card that landed there stayed new forever and held its seat every
+    // review. Verified against the whole m20 pool, not a happy-path slice.
+    const atoms = getAtomsUpToModule("m20", "ja");
+    const picks = atoms.slice(0, 40).map(duePick);
+    const pool = atoms.map(toReviewAtom);
+    for (const isRecognitionHeavy of [true, false]) {
+      const steps = composeAtomSteps({
+        lessonId: "ja-test-credit-all",
+        picks,
+        pool,
+        isRecognitionHeavy,
+        mined: getMinedTranslatedSentences(),
+      });
+      expect(steps).toHaveLength(picks.length);
+      steps.forEach((step, i) => {
+        expect(step.exercisedAtoms ?? [], `${step.type} @ ${i}`).toContain(
+          picks[i].atom.id,
+        );
+      });
+    }
   });
 
   it("credits the target atom (plus ride-along vocab) on sentence steps", () => {
