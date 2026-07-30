@@ -37,8 +37,22 @@ import { getTtsUrl, prefetchTtsAudio } from "./index";
 const MAX_KEY_LENGTH = 200;
 
 /** How many clips to fetch at once. Enough to hide latency, few enough not to
- *  contend with the lesson's own images and chunks on a slow connection. */
+ *  contend with the surface's own images and chunks on a slow connection. */
 const CONCURRENCY = 6;
+
+/**
+ * How many items ahead of the learner to warm.
+ *
+ * Surfaces hand us their whole collection — a flashcard queue can be hundreds
+ * of cards, and warming all of it would pull tens of MB the learner will
+ * probably never reach in this session. A window keeps the cost proportional
+ * to what is actually about to be played.
+ *
+ * It self-extends: the effect re-runs as the index advances, and items already
+ * decoded are cache hits, so each step pulls only what newly entered the
+ * window.
+ */
+const DEFAULT_WINDOW = 20;
 
 /**
  * Every string reachable from `node` that the manifest has a clip for.
@@ -132,19 +146,40 @@ export async function prefetchTtsTexts(
 }
 
 /**
- * Prefetch every clip a lesson (or any step-bearing structure) will speak.
+ * Prefetch every clip reachable from `source` will speak.
  *
- * Pass the steps themselves; the walk finds the spoken fields. Re-runs when
- * `steps` or `lang` change, and aborts in-flight work on unmount so leaving a
- * lesson early stops the queue.
+ * `source` is deliberately untyped: lesson steps, a flashcard queue, a list of
+ * practice prompts, a single dictionary entry — the walk finds spoken strings
+ * by asking the manifest, so every surface passes whatever collection it
+ * already has. Anything that plays audio should call this.
+ *
+ * Re-runs when `source` or `lang` change, and aborts in-flight work on unmount
+ * so leaving a surface early stops the queue rather than draining it.
+ *
+ * NOTE: `source` is a dependency by identity. Pass a memoized value (most
+ * callers already hold one from `useMemo`/`useState`); an array rebuilt every
+ * render would restart the queue every render. The abort makes that merely
+ * wasteful rather than harmful, but it is worth getting right.
  */
-export function usePrefetchLessonAudio(steps: unknown, lang?: string): void {
+export function usePrefetchAudio(
+  source: unknown,
+  lang?: string,
+  opts?: { index?: number; window?: number },
+): void {
+  const index = opts?.index ?? 0;
+  const size = opts?.window ?? DEFAULT_WINDOW;
+
   useEffect(() => {
-    if (!steps) return;
-    const texts = collectAudioTexts(steps);
+    if (!source) return;
+    // Arrays are windowed; anything else (a single entry, an object) is walked
+    // whole because there is no order to window along.
+    const slice = Array.isArray(source)
+      ? source.slice(Math.max(0, index), Math.max(0, index) + size)
+      : source;
+    const texts = collectAudioTexts(slice, lang);
     if (texts.length === 0) return;
     const controller = new AbortController();
     void prefetchTtsTexts(texts, lang, controller.signal);
     return () => controller.abort();
-  }, [steps, lang]);
+  }, [source, lang, index, size]);
 }

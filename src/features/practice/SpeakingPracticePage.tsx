@@ -7,6 +7,7 @@ import { useCourseLevel } from "./useCourseLevel";
 import type { SpeakingPrompt } from "./data/ja-speaking-prompts";
 import { getSpeakingPrompts, getTtsLang, getSpeechRecognitionLang } from "./data/practiceDataLoader";
 import { playJaAudio } from "@/shared/tts";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import { recordPracticeResult } from "./practiceStats";
 
 type SpeakingMode = "echo" | "response";
@@ -37,6 +38,10 @@ export function SpeakingPracticePage() {
       ),
     [allPrompts, maxModule, mode],
   );
+
+  // Warm this surface's clips up front — audio is fetched from the CDN, so
+  // load-on-play costs a round trip exactly when the learner taps.
+  usePrefetchAudio(prompts, ttsLang);
 
   const prompt = prompts[currentIdx] as SpeakingPrompt | undefined;
 

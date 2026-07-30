@@ -148,6 +148,16 @@ describe("prefetchTtsTexts", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("respects concurrency without dropping work", async () => {
+    // 14 distinct known-good keys; all must be fetched exactly once even
+    // though only CONCURRENCY workers run at a time.
+    const texts = ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ"];
+    const { attempted } = await prefetchTtsTexts(texts);
+    expect(attempted).toBe(texts.length);
+    const urls = new Set(fetchMock.mock.calls.map((c) => String(c[0])));
+    expect(urls.size).toBe(fetchMock.mock.calls.length); // no duplicate fetches
+  });
+
   it("handles an empty list without spawning workers", async () => {
     await expect(prefetchTtsTexts([])).resolves.toEqual({ attempted: 0, ready: 0 });
     expect(fetchMock).not.toHaveBeenCalled();

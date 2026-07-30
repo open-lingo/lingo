@@ -19,6 +19,7 @@ import {
   getAlphabetAudioUrl,
 } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
+import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import {
   getReferenceFor,
@@ -59,9 +60,19 @@ export function SymbolProductionStepView({
 
   const passed = correctCount >= step.minCorrectAttempts;
 
+  // Prefer a real recording when the manifest has one; the alphabet-CDN path
+  // needs an audioKey, and KO symbol steps carry none — that gap made every
+  // Korean symbol step silent.
+  const hasTtsClip = Boolean(getTtsUrl(step.payload.symbol));
+  useAutoPlayJaAudio(
+    hasTtsClip ? step.payload.symbol : undefined,
+    `production-tts-${step.id}`,
+  );
+
   useEffect(() => {
+    if (hasTtsClip) return;
     autoPlayAlphabetAudio(step.payload.audioKey, `production-${step.id}`);
-  }, [step.payload.audioKey, step.id]);
+  }, [step.payload.audioKey, step.id, hasTtsClip]);
 
   useEffect(() => {
     let alive = true;
@@ -74,6 +85,10 @@ export function SymbolProductionStepView({
   }, [step.payload.scriptId, step.payload.symbol]);
 
   function handlePlay() {
+    if (hasTtsClip) {
+      playJaAudio(step.payload.symbol);
+      return;
+    }
     if (!step.payload.audioKey) return;
     playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
   }

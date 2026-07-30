@@ -76,10 +76,17 @@ export function SymbolIntroStepView({
     autoPlayAlphabetAudio(payload.audioKey, `intro-${step.id}`);
   }, [payload.audioKey, step.id]);
 
-  const isJaKana =
-    payload.scriptId === "hiragana" || payload.scriptId === "katakana";
+  // Gate on whether a RECORDING EXISTS, not on which script this is.
+  //
+  // This used to be `scriptId === "hiragana" || "katakana"`, which excluded
+  // hangul by construction — so Korean fell through to the legacy alphabet-CDN
+  // path, where `payload.audioKey` is null for every KO symbol step. The result
+  // was total silence with no network request at all (Spencer, 2026-07-29).
+  // The manifest does carry ko: clips for the vowels, so asking the resolver
+  // fixes Korean and stays correct for any script added later.
+  const hasTtsClip = Boolean(getTtsUrl(payload.symbol));
   useAutoPlayJaAudio(
-    isJaKana ? payload.symbol : undefined,
+    hasTtsClip ? payload.symbol : undefined,
     `intro-tts-${step.id}`,
   );
 
@@ -107,7 +114,7 @@ export function SymbolIntroStepView({
     // Replay both: audio + stroke animation, so the learner gets the
     // same paired experience as the initial mount.
     setReplayKey((k) => k + 1);
-    if (isJaKana && getTtsUrl(payload.symbol)) {
+    if (hasTtsClip) {
       playJaAudio(payload.symbol);
       return;
     }

@@ -139,10 +139,11 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         // of writing it with the sound. Only on success (failure already
         // shows the "try again" feedback; piling audio on top of a miss
         // muddies the feedback signal).
-        const isJaKana =
-          step.payload.scriptId === "hiragana" ||
-          step.payload.scriptId === "katakana";
-        if (isJaKana && getTtsUrl(step.payload.symbol)) {
+        // Gate on clip existence, not script: the old
+        // `scriptId === hiragana|katakana` test excluded hangul, and KO symbol
+        // steps carry no audioKey either, so tracing a Korean letter was
+        // silent.
+        if (getTtsUrl(step.payload.symbol)) {
           playJaAudio(step.payload.symbol);
         } else if (step.payload.audioKey) {
           playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));

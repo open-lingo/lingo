@@ -5,6 +5,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import { useAutoPlayJaAudio } from "@/shared/tts";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import {
   reviewCard,
   setCardState,
@@ -291,6 +292,11 @@ export function FlashcardTester() {
 
   // Warm the next few cards' artwork so images don't pop in after flip.
   useImagePreload(allCards, index, 3);
+
+  // Same idea for audio. Front-of-card audio autoplays the moment a card
+  // shows, so fetching on play means a CDN round trip inside that window —
+  // the clip lands late or after the learner has already graded and moved on.
+  usePrefetchAudio(allCards, languageId, { index });
 
   // Pick which modality to test whenever the current card changes.
   useEffect(() => {

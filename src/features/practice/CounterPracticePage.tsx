@@ -7,6 +7,7 @@ import { useCourseLevel } from "./useCourseLevel";
 import type { CounterDef } from "@/features/languages/ja/classifiers";
 import { getCounterDefs, getTtsLang } from "./data/practiceDataLoader";
 import { playJaAudio } from "@/shared/tts";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 function shuffle<T>(arr: T[]): T[] {
@@ -74,6 +75,10 @@ export function CounterPracticePage() {
     () => allCounters.filter((c) => c.introducedAtModule <= maxModule),
     [allCounters, maxModule],
   );
+
+  // Warm this surface's clips up front — audio is fetched from the CDN, so
+  // load-on-play costs a round trip exactly when the learner taps.
+  usePrefetchAudio(counters, ttsLang);
 
   const pool = useMemo(
     () => (selectedCounter === "all" ? counters : counters.filter((c) => c.id === selectedCounter)),

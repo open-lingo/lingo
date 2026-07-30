@@ -36,25 +36,26 @@ export function SymbolRecognitionStepView({
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  const isJaKana =
-    step.payload.scriptId === "hiragana" ||
-    step.payload.scriptId === "katakana";
+  // Gate on whether a RECORDING EXISTS, not on which script this is. The old
+  // `scriptId === hiragana|katakana` test excluded hangul, so Korean fell to
+  // the alphabet-CDN path below — where every KO symbol step has a null
+  // audioKey, producing silence with no request at all.
+  const hasTtsClip = Boolean(getTtsUrl(step.payload.symbol));
 
-  // Legacy Korean-CDN path for non-JA scripts only. JA kana auto-play
-  // through the manifest-driven TTS resolver below — running both
-  // double-fires the audio on JA steps that ship an audioKey.
+  // Legacy alphabet-CDN path, used only when no recording exists. Running both
+  // would double-fire on steps that have a clip AND an audioKey.
   useEffect(() => {
-    if (isJaKana) return;
+    if (hasTtsClip) return;
     autoPlayAlphabetAudio(step.payload.audioKey, `recognition-${step.id}`);
-  }, [step.payload.audioKey, step.id, isJaKana]);
+  }, [step.payload.audioKey, step.id, hasTtsClip]);
 
   useAutoPlayJaAudio(
-    isJaKana ? step.payload.symbol : undefined,
+    hasTtsClip ? step.payload.symbol : undefined,
     `recog-tts-${step.id}`,
   );
 
   function handlePlay() {
-    if (isJaKana && getTtsUrl(step.payload.symbol)) {
+    if (hasTtsClip) {
       playJaAudio(step.payload.symbol);
       return;
     }
@@ -89,7 +90,7 @@ export function SymbolRecognitionStepView({
 
   const hasAudio =
     Boolean(step.payload.audioKey) ||
-    (isJaKana && Boolean(getTtsUrl(step.payload.symbol)));
+    hasTtsClip;
   const romanization = step.payload.romanization;
   return (
     <div className="flex flex-1 flex-col gap-4">
@@ -147,7 +148,7 @@ export function SymbolRecognitionStepView({
               onClick={() => {
                 // Preview-on-tap: play the kana's own audio when picked.
                 // Same interaction as symbol_to_sound but with kana buttons.
-                if (isJaKana && getTtsUrl(opt.symbol)) {
+                if (getTtsUrl(opt.symbol)) {
                   playJaAudio(opt.symbol);
                 }
                 setSelected(opt.id);

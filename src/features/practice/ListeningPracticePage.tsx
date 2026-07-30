@@ -8,6 +8,7 @@ import type { SpeakingPrompt } from "./data/ja-speaking-prompts";
 import { getSpeakingPrompts, getTtsLang } from "./data/practiceDataLoader";
 import { buildListeningOptions } from "./data/drillUtils";
 import { playJaAudio } from "@/shared/tts";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import { recordPracticeResult } from "./practiceStats";
 
 /**
@@ -36,6 +37,10 @@ export function ListeningPracticePage() {
     () => allPrompts.filter((p) => p.minModule <= maxModule),
     [allPrompts, maxModule],
   );
+
+  // Warm this surface's clips up front — audio is fetched from the CDN, so
+  // load-on-play costs a round trip exactly when the learner taps.
+  usePrefetchAudio(prompts, ttsLang);
 
   const prompt = prompts[currentIdx] as SpeakingPrompt | undefined;
   const options = useMemo(

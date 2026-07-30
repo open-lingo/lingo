@@ -13,6 +13,7 @@ import {
   type KanjiCategory,
 } from "@/features/languages/ja/secondScript/n5Kanji";
 import { playJaAudio } from "@/shared/tts";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 type KanjiMode = "kanji-meaning" | "meaning-kanji" | "kanji-reading";
@@ -111,6 +112,10 @@ export function KanjiPracticePage() {
     () => (categoryFilter === "all" ? allAvailable : allAvailable.filter((k) => k.category === categoryFilter)),
     [allAvailable, categoryFilter],
   );
+
+  // Warm this surface's clips up front — audio is fetched from the CDN, so
+  // load-on-play costs a round trip exactly when the learner taps.
+  usePrefetchAudio(pool);
 
   const [question, setQuestion] = useState<Question | null>(() =>
     generateQuestion(pool, mode, allAvailable),

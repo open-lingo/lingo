@@ -68,7 +68,7 @@ import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
 import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { stopAllAudio } from "@/shared/tts";
-import { usePrefetchLessonAudio } from "@/shared/tts/prefetch";
+import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
@@ -501,7 +501,7 @@ export function LessonPage() {
   // the learner expected sound — worst on the 350ms autoplay, which could
   // arrive after the step advanced. Best-effort and abortable; a miss just
   // falls back to loading on play.
-  usePrefetchLessonAudio(lesson?.steps, language?.id);
+  usePrefetchAudio(lesson?.steps, language?.id, { index: currentStepIdx });
 
   const totalSteps = lesson?.steps.length ?? 0;
   // Graded steps drive the bar when present; all-info lessons (e.g. ko-m1-intro)
