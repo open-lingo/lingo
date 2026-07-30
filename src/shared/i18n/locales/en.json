@@ -570,6 +570,106 @@
         "dictionary": "Dictionary",
         "dictionaryDesc": "Look up any word, including words you haven't learned yet"
       }
+    },
+    "speaking": {
+      "emptyTitle": "Keep learning to unlock speaking practice",
+      "emptyBody": "Speaking prompts are built from the words you've learned. Complete a few more lessons and they'll show up here.",
+      "doneTitle": "Nice speaking session",
+      "doneScore": "You got {{correct}} of {{total}} out loud.",
+      "newSession": "New session",
+      "instructionRespond": "Listen, then answer aloud:",
+      "instructionRepeat": "Listen, then say it aloud:",
+      "listening": "Listening…",
+      "perfect": "Perfect!",
+      "closeFeedback": "Close — nicely done.",
+      "tryAgainFeedback": "Not quite — give it another go.",
+      "selfRatePrompt": "Say it aloud, then rate yourself.",
+      "prompt": "Tap the mic and speak.",
+      "progress": "Item {{current}} of {{total}}",
+      "questionHidden": "Play the question, then answer in the target language.",
+      "playAria": "Play audio",
+      "recordingAria": "Recording…",
+      "recordAria": "Tap to speak",
+      "revealAria": "Reveal answer",
+      "youSaid": "You said",
+      "next": "Next",
+      "tryAgain": "Try again",
+      "skip": "Skip",
+      "gotIt": "I said it",
+      "notYet": "Not yet",
+      "title": "Speaking Practice",
+      "subtitle": "Built from the words you're learning."
+    },
+    "reading": {
+      "title": "Reading",
+      "builtFromKnown": "Sentences built from words you already know — read, then fill the blank.",
+      "empty": {
+        "title": "Learn a few more words first",
+        "description": "Reading practice builds sentences from the vocabulary you've learned. Complete a lesson or two and we'll have plenty to read."
+      },
+      "summary": {
+        "title": "Session complete",
+        "score": "You read {{correct}} of {{total}} correctly."
+      },
+      "newSession": "New session",
+      "progress": "{{n}} of {{total}}",
+      "scoreLabel": "Score {{correct}}/{{total}}",
+      "meaningHint": "Meaning",
+      "correct": "Nice reading.",
+      "answerWas": "Answer: {{answer}}",
+      "next": "Next",
+      "finish": "Finish",
+      "gotIt": "Got it"
+    },
+    "listening": {
+      "title": "Listening",
+      "subtitle": "From words you're learning",
+      "empty": {
+        "title": "Not enough words yet",
+        "desc": "Learn a few more words in your lessons and they'll show up here as listening practice built just from what you know."
+      },
+      "done": {
+        "title": "Session complete",
+        "score": "You understood {{correct}} of {{total}}",
+        "again": "Practice again"
+      },
+      "progress": "Item {{current}} of {{total}}",
+      "score": "{{correct}} correct",
+      "instruction": "What did you hear?",
+      "playAria": "Play audio",
+      "noAudio": "Audio isn't available for this one — reveal the answer below.",
+      "finish": "Finish",
+      "next": "Next"
+    },
+    "writing": {
+      "title": "Writing",
+      "subtitle": "Write sentences using words you know",
+      "empty": {
+        "title": "Not enough words yet",
+        "description": "Keep learning to unlock writing practice — every prompt here is built from words you've already learned."
+      },
+      "done": {
+        "title": "Session complete",
+        "summary": "You got {{correct}} of {{total}} right.",
+        "restart": "New session"
+      },
+      "progress": "{{current}} of {{total}}",
+      "usingKnown": "using words you know",
+      "instruction": "Write this in {{language}}:",
+      "inputAria": "Your answer",
+      "placeholderKo": "Type Korean, or English letters…",
+      "placeholder": "Type your answer…",
+      "check": "Check",
+      "kana": "Kana",
+      "hangul": "Hangul",
+      "koHint": "No Korean keyboard? Type in English letters — it converts to Hangul.",
+      "notQuite": "Not quite — try again, or reveal the answer.",
+      "hint": "Hint",
+      "reveal": "Reveal answer",
+      "correct": "Correct!",
+      "answerLabel": "The answer was:",
+      "playAria": "Play audio",
+      "next": "Next"
     }
   },
   "dictionary": {

@@ -290,6 +290,11 @@
         "reviewCta": "Repasar tarjetas pendientes",
         "practiceCta": "Practicar"
       }
+    },
+    "frequencyBacklog": {
+      "title": "{{count}} palabras nuevas listas para repasar",
+      "desc": "Palabras de alta frecuencia opcionales que has desbloqueado. Repásalas junto con tus tarjetas.",
+      "cta": "Repasar ahora"
     }
   },
   "alphabet": {
@@ -561,8 +566,110 @@
     "pillars": {
       "vocabulary": {
         "vocabBrowser": "Tu vocabulario",
-        "vocabBrowserDesc": "Todas las palabras del curso, con tu progreso"
+        "vocabBrowserDesc": "Todas las palabras del curso, con tu progreso",
+        "dictionary": "Diccionario",
+        "dictionaryDesc": "Busca cualquier palabra, incluidas las que aún no has aprendido"
       }
+    },
+    "speaking": {
+      "emptyTitle": "Sigue aprendiendo para desbloquear la práctica de habla",
+      "emptyBody": "Los ejercicios de habla se crean a partir de las palabras que has aprendido. Completa algunas lecciones más y aparecerán aquí.",
+      "doneTitle": "Buena sesión de habla",
+      "doneScore": "Dijiste bien {{correct}} de {{total}} en voz alta.",
+      "newSession": "Nueva sesión",
+      "instructionRespond": "Escucha y responde en voz alta:",
+      "instructionRepeat": "Escucha y dilo en voz alta:",
+      "listening": "Escuchando…",
+      "perfect": "¡Perfecto!",
+      "closeFeedback": "Casi — bien hecho.",
+      "tryAgainFeedback": "No del todo — inténtalo otra vez.",
+      "selfRatePrompt": "Dilo en voz alta y luego evalúate.",
+      "prompt": "Toca el micrófono y habla.",
+      "progress": "Elemento {{current}} de {{total}}",
+      "questionHidden": "Reproduce la pregunta y responde en el idioma que aprendes.",
+      "playAria": "Reproducir audio",
+      "recordingAria": "Grabando…",
+      "recordAria": "Toca para hablar",
+      "revealAria": "Mostrar la respuesta",
+      "youSaid": "Dijiste",
+      "next": "Siguiente",
+      "tryAgain": "Intentar de nuevo",
+      "skip": "Omitir",
+      "gotIt": "Lo dije",
+      "notYet": "Aún no",
+      "title": "Práctica de habla",
+      "subtitle": "Creada a partir de las palabras que estás aprendiendo."
+    },
+    "reading": {
+      "title": "Lectura",
+      "builtFromKnown": "Frases creadas con palabras que ya conoces — lee y completa el hueco.",
+      "empty": {
+        "title": "Aprende algunas palabras más primero",
+        "description": "La práctica de lectura crea frases con el vocabulario que has aprendido. Completa una o dos lecciones y tendremos mucho para leer."
+      },
+      "summary": {
+        "title": "Sesión completa",
+        "score": "Leíste correctamente {{correct}} de {{total}}."
+      },
+      "newSession": "Nueva sesión",
+      "progress": "{{n}} de {{total}}",
+      "scoreLabel": "Puntuación {{correct}}/{{total}}",
+      "meaningHint": "Significado",
+      "correct": "Bien leído.",
+      "answerWas": "Respuesta: {{answer}}",
+      "next": "Siguiente",
+      "finish": "Finalizar",
+      "gotIt": "Entendido"
+    },
+    "listening": {
+      "title": "Escucha",
+      "subtitle": "A partir de las palabras que aprendes",
+      "empty": {
+        "title": "Aún no hay suficientes palabras",
+        "desc": "Aprende algunas palabras más en tus lecciones y aparecerán aquí como práctica auditiva creada solo con lo que ya sabes."
+      },
+      "done": {
+        "title": "Sesión completa",
+        "score": "Entendiste {{correct}} de {{total}}",
+        "again": "Practicar de nuevo"
+      },
+      "progress": "Elemento {{current}} de {{total}}",
+      "score": "{{correct}} correctas",
+      "instruction": "¿Qué escuchaste?",
+      "playAria": "Reproducir audio",
+      "noAudio": "No hay audio para este — muestra la respuesta abajo.",
+      "finish": "Finalizar",
+      "next": "Siguiente"
+    },
+    "writing": {
+      "title": "Escritura",
+      "subtitle": "Escribe frases usando palabras que conoces",
+      "empty": {
+        "title": "Aún no hay suficientes palabras",
+        "description": "Sigue aprendiendo para desbloquear la práctica de escritura — cada ejercicio aquí se crea con palabras que ya has aprendido."
+      },
+      "done": {
+        "title": "Sesión completa",
+        "summary": "Acertaste {{correct}} de {{total}}.",
+        "restart": "Nueva sesión"
+      },
+      "progress": "{{current}} de {{total}}",
+      "usingKnown": "usando palabras que conoces",
+      "instruction": "Escribe esto en {{language}}:",
+      "inputAria": "Tu respuesta",
+      "placeholderKo": "Escribe en coreano o con letras latinas…",
+      "placeholder": "Escribe tu respuesta…",
+      "check": "Comprobar",
+      "kana": "Kana",
+      "hangul": "Hangul",
+      "koHint": "¿No tienes teclado coreano? Escribe con letras latinas y se convertirá en Hangul.",
+      "notQuite": "No del todo — inténtalo de nuevo o muestra la respuesta.",
+      "hint": "Pista",
+      "reveal": "Mostrar la respuesta",
+      "correct": "¡Correcto!",
+      "answerLabel": "La respuesta era:",
+      "playAria": "Reproducir audio",
+      "next": "Siguiente"
     }
   },
   "vocab": {
@@ -833,7 +940,11 @@
     "cardCounter": "{{current}} de {{total}}",
     "statsUnavailable": "Estadísticas detalladas no disponibles para este paquete.",
     "subscribedHint": "Repasa estas tarjetas desde tu práctica de tarjetas.",
-    "subscribeHint": "Suscríbete para añadir este mazo a tus repasos."
+    "subscribeHint": "Suscríbete para añadir este mazo a tus repasos.",
+    "dueBreakdownRecognition": "{{count}} pendientes de reconocimiento",
+    "dueBreakdownProduction": "{{count}} pendientes de producción",
+    "frequencyVocabLabel": "Vocabulario de frecuencia (palabras opcionales)",
+    "frequencyVocabHelp": "Desbloquea palabras comunes más allá de tus lecciones a medida que llegas a cada módulo — se repasan junto con tus tarjetas."
   },
   "home": {
     "welcomeBack": "Bienvenido de nuevo, {{name}}",
@@ -2586,5 +2697,61 @@
     "noBankTitle": "Aún no hay preguntas de examen",
     "noBankDesc": "El motor de prueba de nivel aún no tiene preguntas de examen para {{module}} en este curso. Cada curso necesita su propio banco de preguntas antes de poder examinar un módulo.",
     "backToLearn": "Volver a Aprender"
+  },
+  "dictionary": {
+    "title": "Diccionario",
+    "subtitle": "Busca cualquier palabra — el vocabulario del curso y la lista de frecuencia, con lecturas, significados y conjugaciones.",
+    "searchPlaceholder": "Busca por palabra, lectura o significado…",
+    "searchLabel": "Buscar en el diccionario",
+    "lookUp": "Buscar una palabra",
+    "searchCount": "{{count}} resultados para “{{query}}”",
+    "browseCount": "Mostrando {{count}} de {{total}} palabras",
+    "showMore": "Mostrar más",
+    "playAudio": "Reproducir pronunciación",
+    "rankBadge": "N.º {{rank}} más frecuente",
+    "unlockBadge": "Desbloquea {{module}}",
+    "conjugation": "Conjugación",
+    "practiceConjugation": "Practicar",
+    "modal": {
+      "title": "Buscar una palabra",
+      "back": "Volver a la búsqueda",
+      "hint": "Escribe una palabra, lectura o significado para buscarla.",
+      "notFound": {
+        "title": "Palabra no encontrada",
+        "body": "No hay ninguna entrada de diccionario para “{{query}}”."
+      }
+    },
+    "facet": {
+      "source": "Fuente",
+      "pos": "Categoría gramatical",
+      "module": "Se desbloquea en"
+    },
+    "source": {
+      "course": "En tu curso",
+      "frequency": "Lista de frecuencia",
+      "both": "Curso + frecuencia"
+    },
+    "pos": {
+      "noun": "Sustantivo",
+      "verb": "Verbo",
+      "adjective": "Adjetivo",
+      "adverb": "Adverbio",
+      "particle": "Partícula",
+      "counter": "Contador",
+      "number": "Número",
+      "pronoun": "Pronombre",
+      "determiner": "Determinante",
+      "conjunction": "Conjunción",
+      "interjection": "Interjección",
+      "expression": "Expresión",
+      "proper-noun": "Nombre propio",
+      "phrase": "Frase",
+      "grammar": "Gramática",
+      "other": "Otro"
+    },
+    "noMatches": {
+      "title": "No se encontraron palabras",
+      "body": "Prueba otra búsqueda o quita un filtro."
+    }
   }
 }

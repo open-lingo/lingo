@@ -290,6 +290,11 @@
         "reviewCta": "복습할 카드 풀기",
         "practiceCta": "연습"
       }
+    },
+    "frequencyBacklog": {
+      "title": "복습할 새 단어 {{count}}개",
+      "desc": "해금한 선택형 고빈도 단어입니다. 카드와 함께 복습하세요.",
+      "cta": "지금 복습"
     }
   },
   "alphabet": {
@@ -561,8 +566,110 @@
     "pillars": {
       "vocabulary": {
         "vocabBrowser": "내 어휘",
-        "vocabBrowserDesc": "코스의 모든 단어를 내 진도와 함께"
+        "vocabBrowserDesc": "코스의 모든 단어를 내 진도와 함께",
+        "dictionary": "사전",
+        "dictionaryDesc": "아직 배우지 않은 단어까지 무엇이든 찾아보세요"
       }
+    },
+    "speaking": {
+      "emptyTitle": "말하기 연습을 열려면 계속 학습하세요",
+      "emptyBody": "말하기 문제는 배운 단어로 만들어집니다. 레슨을 몇 개 더 완료하면 여기에 나타납니다.",
+      "doneTitle": "멋진 말하기 세션이었어요",
+      "doneScore": "소리 내어 {{total}}개 중 {{correct}}개를 맞혔어요.",
+      "newSession": "새 세션",
+      "instructionRespond": "듣고 소리 내어 답하세요:",
+      "instructionRepeat": "듣고 소리 내어 따라 하세요:",
+      "listening": "듣는 중…",
+      "perfect": "완벽해요!",
+      "closeFeedback": "거의 정확해요 — 잘했어요.",
+      "tryAgainFeedback": "아직이에요 — 다시 시도해 보세요.",
+      "selfRatePrompt": "소리 내어 말한 뒤 스스로 평가하세요.",
+      "prompt": "마이크를 누르고 말하세요.",
+      "progress": "{{total}}개 중 {{current}}번째",
+      "questionHidden": "질문을 재생한 뒤 목표 언어로 답하세요.",
+      "playAria": "오디오 재생",
+      "recordingAria": "녹음 중…",
+      "recordAria": "눌러서 말하기",
+      "revealAria": "정답 보기",
+      "youSaid": "내가 말한 내용",
+      "next": "다음",
+      "tryAgain": "다시 시도",
+      "skip": "건너뛰기",
+      "gotIt": "말했어요",
+      "notYet": "아직요",
+      "title": "말하기 연습",
+      "subtitle": "지금 배우는 단어로 만들었어요."
+    },
+    "reading": {
+      "title": "읽기",
+      "builtFromKnown": "이미 아는 단어로 만든 문장 — 읽고 빈칸을 채우세요.",
+      "empty": {
+        "title": "먼저 단어를 조금 더 배우세요",
+        "description": "읽기 연습은 배운 어휘로 문장을 만듭니다. 레슨을 한두 개 완료하면 읽을거리가 충분해집니다."
+      },
+      "summary": {
+        "title": "세션 완료",
+        "score": "{{total}}개 중 {{correct}}개를 정확히 읽었어요."
+      },
+      "newSession": "새 세션",
+      "progress": "{{total}}개 중 {{n}}번째",
+      "scoreLabel": "점수 {{correct}}/{{total}}",
+      "meaningHint": "뜻",
+      "correct": "잘 읽었어요.",
+      "answerWas": "정답: {{answer}}",
+      "next": "다음",
+      "finish": "완료",
+      "gotIt": "이해했어요"
+    },
+    "listening": {
+      "title": "듣기",
+      "subtitle": "지금 배우는 단어로",
+      "empty": {
+        "title": "아직 단어가 부족해요",
+        "desc": "레슨에서 단어를 조금 더 배우면 아는 단어로 만든 듣기 연습이 여기에 나타납니다."
+      },
+      "done": {
+        "title": "세션 완료",
+        "score": "{{total}}개 중 {{correct}}개를 이해했어요",
+        "again": "다시 연습"
+      },
+      "progress": "{{total}}개 중 {{current}}번째",
+      "score": "정답 {{correct}}개",
+      "instruction": "무엇을 들었나요?",
+      "playAria": "오디오 재생",
+      "noAudio": "이 항목은 오디오가 없어요 — 아래에서 정답을 확인하세요.",
+      "finish": "완료",
+      "next": "다음"
+    },
+    "writing": {
+      "title": "쓰기",
+      "subtitle": "아는 단어로 문장을 써 보세요",
+      "empty": {
+        "title": "아직 단어가 부족해요",
+        "description": "쓰기 연습을 열려면 계속 학습하세요 — 이곳의 모든 문제는 이미 배운 단어로 만들어집니다."
+      },
+      "done": {
+        "title": "세션 완료",
+        "summary": "{{total}}개 중 {{correct}}개를 맞혔어요.",
+        "restart": "새 세션"
+      },
+      "progress": "{{total}}개 중 {{current}}번째",
+      "usingKnown": "아는 단어 사용",
+      "instruction": "{{language}}(으)로 써 보세요:",
+      "inputAria": "답",
+      "placeholderKo": "한국어 또는 영어 알파벳 입력…",
+      "placeholder": "답을 입력하세요…",
+      "check": "확인",
+      "kana": "가나",
+      "hangul": "한글",
+      "koHint": "한국어 키보드가 없나요? 영어 알파벳으로 입력하면 한글로 변환됩니다.",
+      "notQuite": "아직이에요 — 다시 시도하거나 정답을 확인하세요.",
+      "hint": "힌트",
+      "reveal": "정답 보기",
+      "correct": "정답!",
+      "answerLabel": "정답은:",
+      "playAria": "오디오 재생",
+      "next": "다음"
     }
   },
   "vocab": {
@@ -833,7 +940,11 @@
     "cardCounter": "{{total}}개 중 {{current}}",
     "statsUnavailable": "이 팩에 대한 세부 통계를 사용할 수 없습니다.",
     "subscribedHint": "플래시카드 연습에서 이 카드를 복습하세요.",
-    "subscribeHint": "구독하여 이 덱을 복습에 추가하세요."
+    "subscribeHint": "구독하여 이 덱을 복습에 추가하세요.",
+    "dueBreakdownRecognition": "인식 복습 {{count}}장",
+    "dueBreakdownProduction": "생성 복습 {{count}}장",
+    "frequencyVocabLabel": "빈도 어휘 (선택 단어)",
+    "frequencyVocabHelp": "각 모듈에 도달하면 레슨 밖의 자주 쓰는 단어를 해금해 카드와 함께 복습합니다."
   },
   "home": {
     "welcomeBack": "{{name}}님, 다시 오신 걸 환영해요",
@@ -2586,5 +2697,61 @@
     "noBankTitle": "아직 테스트 아웃 문제가 없습니다",
     "noBankDesc": "배치 엔진에 이 코스의 {{module}} 테스트 아웃 문항이 아직 없습니다. 각 코스는 테스트 아웃으로 모듈을 평가하려면 자체 문제 은행이 필요합니다.",
     "backToLearn": "학습으로 돌아가기"
+  },
+  "dictionary": {
+    "title": "사전",
+    "subtitle": "어떤 단어든 찾아보세요 — 읽기·뜻·활용과 함께 코스 어휘와 빈도 목록을 제공합니다.",
+    "searchPlaceholder": "단어, 읽기, 뜻으로 검색…",
+    "searchLabel": "사전 검색",
+    "lookUp": "단어 찾기",
+    "searchCount": "“{{query}}” 검색 결과 {{count}}개",
+    "browseCount": "단어 {{total}}개 중 {{count}}개 표시",
+    "showMore": "더 보기",
+    "playAudio": "발음 재생",
+    "rankBadge": "빈도 {{rank}}위",
+    "unlockBadge": "{{module}} 해금",
+    "conjugation": "활용",
+    "practiceConjugation": "연습",
+    "modal": {
+      "title": "단어 찾기",
+      "back": "검색으로 돌아가기",
+      "hint": "찾을 단어, 읽기, 뜻을 입력하세요.",
+      "notFound": {
+        "title": "단어를 찾을 수 없음",
+        "body": "“{{query}}”에 대한 사전 항목이 없습니다."
+      }
+    },
+    "facet": {
+      "source": "출처",
+      "pos": "품사",
+      "module": "해금 시점"
+    },
+    "source": {
+      "course": "내 코스에 포함",
+      "frequency": "빈도 목록",
+      "both": "코스 + 빈도"
+    },
+    "pos": {
+      "noun": "명사",
+      "verb": "동사",
+      "adjective": "형용사",
+      "adverb": "부사",
+      "particle": "조사",
+      "counter": "조수사",
+      "number": "숫자",
+      "pronoun": "대명사",
+      "determiner": "관형사",
+      "conjunction": "접속사",
+      "interjection": "감탄사",
+      "expression": "표현",
+      "proper-noun": "고유명사",
+      "phrase": "구",
+      "grammar": "문법",
+      "other": "기타"
+    },
+    "noMatches": {
+      "title": "단어를 찾을 수 없음",
+      "body": "다른 검색어를 시도하거나 필터를 지워 보세요."
+    }
   }
 }
