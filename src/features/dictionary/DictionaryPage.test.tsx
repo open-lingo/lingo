@@ -63,6 +63,11 @@ describe("DictionaryPage", () => {
     expect(screen.getByText("Part of speech")).toBeInTheDocument();
   });
 
+  it("does not render a language switcher (scoped to the active course language)", () => {
+    renderPage("ja");
+    expect(screen.queryByLabelText("Dictionary language")).not.toBeInTheDocument();
+  });
+
   it("narrows to no results for a nonsense query", () => {
     renderPage("ja");
     const search = screen.getByLabelText("Search the dictionary");

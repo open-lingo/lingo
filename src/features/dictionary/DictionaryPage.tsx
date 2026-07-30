@@ -2,21 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
-import { SearchInput, EmptyState, Badge } from "@/shared/components/ui";
-import { SegmentedControl } from "@/shared/components/ui/SegmentedControl";
+import { SearchInput, EmptyState } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useLangPath } from "@/shared/hooks/useLangPath";
-import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getDictionaryEntries,
-  getDictionaryLanguageIds,
   searchDictionary,
   type DictionaryEntry,
   type DictionarySource,
   type PartOfSpeech,
 } from "@/shared/dictionary";
 import { DictionaryEntrySheet } from "./DictionaryEntrySheet";
+import { DictionaryResultsList } from "./DictionaryResultsList";
 import { posLabel, sourceLabel, unlockModuleOrder } from "./dictionaryLabels";
 
 /** How many browse rows to render before "show more" is required. */
@@ -26,67 +23,12 @@ const SEARCH_LIMIT = 60;
 
 const SOURCE_ORDER: DictionarySource[] = ["course", "both", "frequency"];
 
-const SOURCE_BADGE: Record<DictionarySource, "neutral" | "accent" | "success"> = {
-  course: "success",
-  frequency: "accent",
-  both: "accent",
-};
-
-function isLangId(id: string): boolean {
-  return (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(id);
-}
-
-/** One scannable dictionary row: surface, reading, meaning, source/freq badge. */
-function EntryRow({
-  entry,
-  onOpen,
-  sourceText,
-}: {
-  entry: DictionaryEntry;
-  onOpen: () => void;
-  sourceText: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="flex w-full items-center gap-3 rounded-card border border-border bg-surface px-3 py-2.5 text-left transition hover:border-accent hover:shadow-card"
-    >
-      <div className="min-w-0 flex-1">
-        <p className="flex items-baseline gap-2">
-          <span className="truncate text-lg font-semibold text-text-primary">
-            {entry.surface}
-          </span>
-          {entry.reading && entry.reading !== entry.surface && (
-            <span className="truncate text-xs text-text-muted">{entry.reading}</span>
-          )}
-        </p>
-        <p className="truncate text-sm text-text-secondary">{entry.meaningEn}</p>
-      </div>
-      <div className="flex shrink-0 items-center gap-1.5">
-        {entry.frequencyRank != null && (
-          <span className="text-[11px] tabular-nums text-text-muted">
-            #{entry.frequencyRank}
-          </span>
-        )}
-        <Badge variant={SOURCE_BADGE[entry.source]} size="sm" pill>
-          {sourceText}
-        </Badge>
-      </div>
-    </button>
-  );
-}
-
 export function DictionaryPage() {
   const { t } = useTranslation();
-  const { language } = useLanguage();
+  // Scope the dictionary to the active course language (from `/:lang/…`).
+  const activeLang = useLang();
   const langPath = useLangPath();
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const dictLangs = useMemo(() => getDictionaryLanguageIds(), []);
-  const routeLang = language?.id ?? AVAILABLE_LEARNING_LANGUAGE_IDS[0];
-  const initialLang = dictLangs.includes(routeLang) ? routeLang : dictLangs[0] ?? routeLang;
-  const [viewLang, setViewLang] = useState(initialLang);
 
   const [query, setQuery] = useState("");
   const [selections, setSelections] = useState<Record<string, string[]>>({
@@ -98,7 +40,7 @@ export function DictionaryPage() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   // Whole-language entry list (frequency-sorted) — drives facet counts.
-  const allEntries = useMemo(() => getDictionaryEntries(viewLang), [viewLang]);
+  const allEntries = useMemo(() => getDictionaryEntries(activeLang), [activeLang]);
 
   // Reset transient view state when the language changes.
   useEffect(() => {
@@ -106,7 +48,7 @@ export function DictionaryPage() {
     setQuery("");
     setVisibleCount(PAGE_SIZE);
     setOpenId(null);
-  }, [viewLang]);
+  }, [activeLang]);
 
   // Deep link: ?word=ja:inu opens that entry.
   useEffect(() => {
@@ -162,7 +104,7 @@ export function DictionaryPage() {
   const browseEntries = useMemo(() => {
     const pos = selections.pos as PartOfSpeech[];
     const source = selections.source as DictionarySource[];
-    const base = getDictionaryEntries(viewLang, {
+    const base = getDictionaryEntries(activeLang, {
       sort: "frequency",
       ...(pos.length ? { pos } : {}),
       ...(source.length ? { source } : {}),
@@ -171,13 +113,13 @@ export function DictionaryPage() {
     if (modules.length === 0) return base;
     const allowed = new Set(modules);
     return base.filter((e) => e.unlockModule != null && allowed.has(e.unlockModule));
-  }, [viewLang, selections]);
+  }, [activeLang, selections]);
 
   const trimmed = query.trim();
   const searchResults = useMemo(
     () =>
-      trimmed ? searchDictionary(viewLang, trimmed, { limit: SEARCH_LIMIT }) : [],
-    [viewLang, trimmed],
+      trimmed ? searchDictionary(activeLang, trimmed, { limit: SEARCH_LIMIT }) : [],
+    [activeLang, trimmed],
   );
 
   const isSearching = trimmed.length > 0;
@@ -210,33 +152,18 @@ export function DictionaryPage() {
     }
   };
 
-  const langOptions = dictLangs
-    .filter(isLangId)
-    .map((id) => ({ value: id, label: id.toUpperCase() }));
-
   return (
     <div>
-      <header className="mb-4 flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
-            {t("dictionary.title", "Dictionary")}
-          </h1>
-          <p className="mt-1 text-sm text-text-muted">
-            {t(
-              "dictionary.subtitle",
-              "Look up any word — course vocabulary and the frequency list, with readings, meanings, and conjugations.",
-            )}
-          </p>
-        </div>
-        {langOptions.length > 1 && (
-          <SegmentedControl
-            value={viewLang}
-            onChange={setViewLang}
-            options={langOptions}
-            size="sm"
-            ariaLabel={t("dictionary.languageSwitch", "Dictionary language")}
-          />
-        )}
+      <header className="mb-4">
+        <h1 className="text-2xl font-bold text-text-primary">
+          {t("dictionary.title", "Dictionary")}
+        </h1>
+        <p className="mt-1 text-sm text-text-muted">
+          {t(
+            "dictionary.subtitle",
+            "Look up any word — course vocabulary and the frequency list, with readings, meanings, and conjugations.",
+          )}
+        </p>
       </header>
 
       <div className="mb-4">
@@ -290,17 +217,10 @@ export function DictionaryPage() {
             />
           ) : (
             <>
-              <ul className="space-y-2">
-                {visible.map((entry) => (
-                  <li key={entry.id}>
-                    <EntryRow
-                      entry={entry}
-                      onOpen={() => setOpenId(entry.id)}
-                      sourceText={sourceLabel(t, entry.source)}
-                    />
-                  </li>
-                ))}
-              </ul>
+              <DictionaryResultsList
+                entries={visible}
+                onOpen={(entry) => setOpenId(entry.id)}
+              />
 
               {!isSearching && visible.length < rows.length && (
                 <div className="mt-4 flex justify-center">
