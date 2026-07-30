@@ -29,7 +29,20 @@ import {
 } from "@/shared/settings/romajiAutoFlip";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
-import { getCardState, isMastered } from "@/features/flashcards/engine";
+import { getCardState, isMastered, getToday } from "@/features/flashcards/engine";
+import {
+  FURIGANA_DAYS_AFTER_LATCH,
+  SWITCHOVER_BEAT_ENABLED,
+  SWITCHOVER_GRACE_MODULES,
+} from "@/features/languages/ja/secondScript/kanjiRollout";
+import {
+  isKanjiLatched,
+  withinFuriganaLatchWindow,
+} from "@/features/languages/ja/secondScript/kanjiSwitchoverLatch";
+import {
+  isSwitchoverAtom,
+  switchoverUnlockModule,
+} from "@/features/languages/ja/secondScript/switchoverCandidate";
 import { KanjiRuby } from "./KanjiRuby";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { tryGetLanguageModule } from "@/shared/language/registry";
@@ -54,9 +67,68 @@ export function kanjiFuriganaSrsVisible(
   if (segment.furiganaWindowOpen === undefined || !segment.atomId) {
     return true; // unstamped segment → legacy reading!==surface behavior
   }
+  // Post-introduction window (B061/B064): a word introduced from the BACKLOG can
+  // be past its module window on the very first sentence after its own reveal —
+  // m22 makes 22 words eligible at once and takes ~4 modules to drain, so a word
+  // introduced at m26 unlocked at m22. Measured from the latch date, the scaffold
+  // follows the introduction instead of the calendar of the course.
+  if (
+    SWITCHOVER_BEAT_ENABLED &&
+    withinFuriganaLatchWindow(segment.atomId, getToday(), FURIGANA_DAYS_AFTER_LATCH)
+  ) {
+    return true;
+  }
   return (
     segment.furiganaWindowOpen || !isMastered(getCardState(segment.atomId))
   );
+}
+
+/**
+ * SURFACE visibility, latch side (B061, Spencer 2026-07-29).
+ *
+ * Sibling of `kanjiFuriganaSrsVisible` above, and the same shape: a pure store
+ * read on a pass-stamped segment. Where that one decides whether the READING
+ * floats, this decides whether the KANJI shows at all.
+ *
+ * False → the segment renders as its kana reading, exactly as it did before the
+ * substitution pass touched it. That is what makes the switchover beat an
+ * introduction rather than a footnote: without this gate the kanji appears the
+ * moment the module unlocks it and the beat arrives later, which is the silent
+ * switch we set out to remove, plus a card about it.
+ *
+ * Only SWITCHOVER atoms are gated. Roughly 30 eligible words are taught at or
+ * after their kanji unlocks — born with kanji, nothing to switch — and gating
+ * those would hide a form the learner met on day one.
+ *
+ * `applyKanjiSurfaces` stays deterministic and module-gated; withholding is a
+ * render-time decision, so every existing test of the pass keeps passing and the
+ * data always carries BOTH forms.
+ */
+export function kanjiSurfaceLatchVisible(
+  segment: Pick<JapaneseAnnotation, "atomId" | "furiganaWindowOpen" | "surface" | "reading">,
+  /** Learner's current module, for the fail-open. Null = unknown → fail open. */
+  learnerModule?: number | null,
+): boolean {
+  if (!SWITCHOVER_BEAT_ENABLED) return true;
+  // Unstamped segments (hand-authored kanji, kanji_reading prompts, all kana)
+  // are not the pass's output and are never withheld.
+  if (segment.furiganaWindowOpen === undefined || !segment.atomId) return true;
+  if (segment.surface === segment.reading) return true;
+  if (!isSwitchoverAtom(segment.atomId)) return true;
+  if (isKanjiLatched(segment.atomId)) return true;
+
+  // FAIL OPEN. The beat queue is finite — 124 switchover words against 66 review
+  // hosts, two beats each — and a learner who skips reviews drains it slower
+  // still. Without this a word the queue never reaches would render as kana for
+  // the rest of the course, which is a worse failure than an un-introduced
+  // switch. Past the grace window the old module-gated behaviour resumes.
+  //
+  // An unknown module also fails open: surfaces outside a lesson (vocab browser,
+  // dictionary, flashcard reviewer) have no module context, and hiding kanji
+  // there would make the word look different depending on where it is read.
+  const unlock = switchoverUnlockModule(segment.atomId);
+  if (learnerModule == null || unlock == null) return true;
+  return learnerModule >= unlock + SWITCHOVER_GRACE_MODULES;
 }
 
 type CommonProps = {
@@ -213,7 +285,20 @@ function SegmentRender({
   forceShowHelper: boolean;
   hideHelper?: boolean;
 }) {
-  const { surface, reading, romaji, role } = segment;
+  const revisionForLatch = useSRSStoreRevision();
+  // Withhold the kanji until the beat has introduced it. Done by rewriting the
+  // segment to its kana form rather than by branching further down, so every
+  // downstream path (pure-kana annotation, romaji helpers, the never-mix gate)
+  // behaves exactly as it did before the substitution pass ran.
+  const learnerModule = useLessonModuleIndex();
+  const latchVisible = useMemo(
+    () => kanjiSurfaceLatchVisible(segment, learnerModule),
+    [segment, revisionForLatch, learnerModule],
+  );
+  const effective = latchVisible
+    ? segment
+    : { ...segment, surface: segment.reading, furiganaWindowOpen: undefined };
+  const { surface, reading, romaji, role } = effective;
   // FURIGANA VISIBILITY, SRS side (Spencer 2026-07-17 — uniform with build
   // tiles): for a kanji segment the substitution pass stamped
   // (`furiganaWindowOpen` + `atomId`), furigana is visible while the module
@@ -232,9 +317,9 @@ function SegmentRender({
   // null-safe).
   const revision = useSRSStoreRevision();
   const furiganaMasteryVisible = useMemo(
-    () => kanjiFuriganaSrsVisible(segment),
+    () => kanjiFuriganaSrsVisible(effective),
     // `revision` re-reads mastery after an SRS store change (sync/review).
-    [segment, revision],
+    [effective, revision],
   );
   // Pure non-Japanese segments (English prose, punctuation, numbers) render
   // as plain text — no <ruby>, no helper. This keeps "What does あい mean?"
