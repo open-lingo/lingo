@@ -894,6 +894,12 @@ export default function QaTestDrivePage() {
           >
             register variants
           </Link>
+          <Link
+            to={`/${langId}/qa/review-prefix`}
+            className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
+          >
+            dynamic review prefix (B069)
+          </Link>
         </div>
       </header>
 

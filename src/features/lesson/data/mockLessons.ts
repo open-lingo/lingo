@@ -197,6 +197,7 @@ import {
 // jaReviewPools builder was deleted as dead code (2026-07-01).
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
+import { withDynamicReviewPrefix } from "./dynamicReviewPrefix";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
 import { padBuildTileFloor } from "./buildTileFloor";
 import { applyKanjiSurfaces } from "@/features/languages/ja/secondScript/applyKanjiSurfaces";
@@ -734,12 +735,18 @@ export function getMockLessonContent(
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;
+    // B069 phase 1: dedicated review lessons get their dynamic segment
+    // (switchover beat + due atoms + due grammar + new-card seats) prepended
+    // from live FSRS state HERE — before the pads/kanji passes so dynamic
+    // steps get tile floors and kanji surfaces exactly like authored ones.
+    // Empty learner state returns `shaped` untouched (byte-identical).
+    const withPrefix = withDynamicReviewPrefix(shaped);
     // Kanji surface pass runs on the fully-shaped lesson (needs moduleId),
     // beside the tile/pair pads. It edits ONLY *Annotation display fields, so
     // it commutes with the pads (disjoint fields) — see applyKanjiSurfaces.
     return applyKanjiSurfaces(
       padBuildTileFloor(
-        padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId)),
+        padMatchPairsFloor(withPrefix, getMatchPadContext(withPrefix.languageId)),
       ),
     );
   }

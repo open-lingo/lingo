@@ -58,7 +58,7 @@ import {
  * earlier version of this comment claimed one word, a 14-day maturity gate, and
  * atom-set overlap; all three were wrong.)
  */
-function buildSwitchoverBeat(
+export function buildSwitchoverBeat(
   lessonId: string,
   learnerModule: number,
   unlockedIds: ReadonlySet<string>,
@@ -123,17 +123,70 @@ function buildSwitchoverBeat(
 }
 
 const MAX_ATOMS = 18;
-const MAX_NEW = 5;
+// Reserved new-card seats per review (B065). Raised 5 → 8 per Spencer's
+// 2026-07-30 ruling on new-card intake ("more max is good, increase as
+// needed") — the reviews are the course's intake valve now that the prefix
+// wiring (B069 phase 1) gives this machinery live call sites.
+const MAX_NEW = 8;
 /** Track B grammar-point review steps appended per review lesson. Kept small
  *  so vocab still dominates; production-2 lessons lean a touch heavier. */
 const MAX_GRAMMAR = 4;
 
-type AtomWithState = {
+/** One unlocked atom that qualifies for review (due, new, or both), plus the
+ *  scheduling facts selection needs. Exported for the dynamic review prefix
+ *  (B069 phase 1), which runs the same scan the full builder does. */
+export type ReviewCandidate = {
   atom: CourseAtom;
   state: SRSCardState;
   dueModalities: Array<"recognition" | "production">;
   isNewCard: boolean;
 };
+
+export type ReviewCandidateScan = {
+  /** Canonical (`ja:`-prefixed) unlocked atom ids. */
+  unlockedIds: ReadonlySet<string>;
+  /** Registry-ordered: oldest-introduced atoms first (D6 relies on this). */
+  candidates: ReviewCandidate[];
+  /** Distractor pool — carded atoms only, MCQ-blocklist filtered. */
+  pool: ReviewAtom[];
+};
+
+/**
+ * Scan the learner's live FSRS/unlock state for review material up to
+ * `moduleId`. Pure read (D4): no writes, in-memory initial states only.
+ * Shared by `buildSrsReviewLesson` and `buildDynamicReviewPrefix` so the two
+ * surfaces can never disagree about what counts as due/new.
+ */
+export function scanReviewCandidates(
+  moduleId: string,
+  languageId: string,
+): ReviewCandidateScan {
+  const allAtoms = getAtomsUpToModule(moduleId, languageId);
+  const unlockedIds = getUnlockedAtomIds();
+  const candidates: ReviewCandidate[] = [];
+  for (const atom of allAtoms) {
+    // The unlock store keys are canonical (`ja:<id>`); CourseAtom ids are
+    // bare. Canonicalize before the membership check or nothing matches.
+    if (!unlockedIds.has(canonicalizeCardId(atom.id))) continue;
+    // Pure construction (D4, scheduling-model-2026-06-15): NEVER persist
+    // state at build time — that seeded due-today on every course-deck build
+    // (the sentence-miner constructs every review lesson). Use an in-memory
+    // initial state for selection/step-building; the real write happens on
+    // grade (LessonPage) or on unlock (seedUnlockedAtomsDueNextDay).
+    const state = getCardState(atom.id) ?? createInitialState();
+    const isNewCard = isNew(state); // reps 0 — includes unlock-seeded atoms
+    const dueModalities = isDue(state) ? getDueModalities(state) : [];
+    if (dueModalities.length > 0 || isNewCard) {
+      candidates.push({ atom, state, dueModalities, isNewCard });
+    }
+  }
+  const pool: ReviewAtom[] = withoutMcqBlocked(
+    allAtoms
+      .filter((a) => getCardState(a.id))
+      .map(atomToReviewAtom),
+  );
+  return { unlockedIds, candidates, pool };
+}
 
 function atomToReviewAtom(a: CourseAtom): ReviewAtom {
   return {
@@ -450,7 +503,13 @@ export function composeAtomSteps(opts: {
 
     let step = pickStep(stepId, pick, useProduction, i);
 
-    if (step.type === lastType && i < picks.length - 1) {
+    // Same-type adjacency: re-pick with the other modality/variant. This
+    // used to skip the LAST pick (`i < picks.length - 1`) — harmless when
+    // the builder always appended grammar/match steps after, but the B069
+    // dynamic prefix composes short pick lists whose last step sits directly
+    // against other content, and a trailing same-type pair there got the
+    // seat DROPPED by the prefix's adjacency placer (2026-07-30).
+    if (step.type === lastType) {
       step = pickStep(stepId, pick, !useProduction, i + 7);
     }
 
@@ -467,28 +526,13 @@ export function buildSrsReviewLesson(opts: {
   languageId: string;
 }): LessonContent {
   const { moduleId, position, courseId, languageId } = opts;
-  const allAtoms = getAtomsUpToModule(moduleId, languageId);
   const id = `${languageId}-${moduleId}-review-${position}`;
   const isRecognitionHeavy = position === 1;
 
-  const unlockedIds = getUnlockedAtomIds();
-  const candidates: AtomWithState[] = [];
-  for (const atom of allAtoms) {
-    // The unlock store keys are canonical (`ja:<id>`); CourseAtom ids are
-    // bare. Canonicalize before the membership check or nothing matches.
-    if (!unlockedIds.has(canonicalizeCardId(atom.id))) continue;
-    // Pure construction (D4, scheduling-model-2026-06-15): NEVER persist
-    // state at build time — that seeded due-today on every course-deck build
-    // (the sentence-miner constructs every review lesson). Use an in-memory
-    // initial state for selection/step-building; the real write happens on
-    // grade (LessonPage) or on unlock (seedUnlockedAtomsDueNextDay).
-    const state = getCardState(atom.id) ?? createInitialState();
-    const isNewCard = isNew(state); // reps 0 — includes unlock-seeded atoms
-    const dueModalities = isDue(state) ? getDueModalities(state) : [];
-    if (dueModalities.length > 0 || isNewCard) {
-      candidates.push({ atom, state, dueModalities, isNewCard });
-    }
-  }
+  const { unlockedIds, candidates, pool } = scanReviewCandidates(
+    moduleId,
+    languageId,
+  );
 
   if (candidates.length < 4) {
     return {
@@ -534,12 +578,6 @@ export function buildSrsReviewLesson(opts: {
   const picked = seededShuffle([...pickedDue, ...newCards], `${seed}-order`).slice(
     0,
     MAX_ATOMS,
-  );
-
-  const pool: ReviewAtom[] = withoutMcqBlocked(
-    allAtoms
-      .filter((a) => getCardState(a.id))
-      .map(atomToReviewAtom),
   );
 
   const mined =

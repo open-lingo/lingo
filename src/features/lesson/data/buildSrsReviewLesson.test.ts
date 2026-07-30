@@ -288,7 +288,9 @@ describe("buildSrsReviewLesson — sentence-context composition (ja)", () => {
     const seated = newAtoms.filter((a) => exercised.has(a.id));
 
     // MAX_NEW is module-private; assert the property, not the constant.
-    expect(seated.length).toBeGreaterThanOrEqual(5);
+    // 8 seats since Spencer's 2026-07-30 intake ruling ("more max is good") —
+    // raised from 5 alongside the B069 phase-1 wiring.
+    expect(seated.length).toBeGreaterThanOrEqual(8);
     // Session length is unchanged — the seats come off the top of MAX_ATOMS,
     // they are not added to it.
     expect(atomSteps.length).toBeLessThanOrEqual(18);

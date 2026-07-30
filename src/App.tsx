@@ -104,6 +104,9 @@ const KanjiRevealAnimPage = lazyRetry(
 const DialogueSimPage = lazyRetry(
   () => import("@/features/lesson/dev/dialogueSim/DialogueSimPage"),
 );
+const ReviewPrefixQaPage = lazyRetry(
+  () => import("@/features/lesson/dev/reviewPrefix/ReviewPrefixQaPage"),
+);
 const QaTestDrivePage = lazyRetry(
   () => import("@/features/lesson/dev/QaTestDrivePage"),
 );
@@ -529,6 +532,7 @@ const router = createBrowserRouter([
               },
               { path: "qa/kanji-reveal", element: <KanjiRevealAnimPage /> },
               { path: "qa/dialogue-sim", element: <DialogueSimPage /> },
+              { path: "qa/review-prefix", element: <ReviewPrefixQaPage /> },
               { path: "spine-plan", element: <SpinePlannerPage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "transit-preview", element: <TransitLearnPage preview /> },
