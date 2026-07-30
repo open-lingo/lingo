@@ -3,9 +3,12 @@ import {
   buildReviewQueue,
   countCardsDue,
   adaptiveNewCardsPerDay,
+  countRemainingNewCards,
+  countRemainingDueCards,
+  dueModalityBreakdown,
 } from "./reviewQueue";
 import { setCardState, clearSRSStore } from "./srsStorage";
-import { createInitialState } from "./srs";
+import { createInitialState, reviewCard, addDays, getToday } from "./srs";
 import type { Flashcard } from "../data/types";
 
 /**
@@ -78,5 +81,47 @@ describe("adaptiveNewCardsPerDay (Phase 2)", () => {
     const q = buildReviewQueue(cards, 5);
     expect(q.newCardsAllowed).toBe(5);
     expect(q.newCount).toBe(5);
+  });
+});
+
+describe("live session counts (reviewer headline)", () => {
+  beforeEach(() => clearSRSStore());
+
+  it("counts a new card as new until it is graded, then drops it", () => {
+    const newCards = [card("n-0"), card("n-1")];
+    // Both unseen (no SRS state) → both still "new".
+    expect(countRemainingNewCards(newCards)).toBe(2);
+
+    // Introduce n-0: first grade transitions it new→learning.
+    setCardState("n-0", reviewCard(createInitialState(), "recognition", "good"));
+    expect(countRemainingNewCards(newCards)).toBe(1);
+
+    // Introduce n-1 too → none remain new.
+    setCardState("n-1", reviewCard(createInitialState(), "recognition", "again"));
+    expect(countRemainingNewCards(newCards)).toBe(0);
+  });
+
+  it("drops a due card from the remaining-due tally once it is no longer due", () => {
+    // Fresh state is due today (recognition dueDate = today) → in review pile.
+    setCardState("d-0", createInitialState());
+    const reviewCards = [card("d-0")];
+    expect(countRemainingDueCards(reviewCards)).toBe(1);
+
+    // Scheduled out past today on both modalities → no longer due.
+    const scheduled = createInitialState();
+    const future = addDays(getToday(), 5);
+    scheduled.recognition.dueDate = future;
+    scheduled.recognition.reps = 1;
+    scheduled.production.dueDate = future;
+    setCardState("d-0", scheduled);
+    expect(countRemainingDueCards(reviewCards)).toBe(0);
+  });
+
+  it("breaks the due total into recognition vs production sub-states", () => {
+    // createInitialState: recognition due today, production staggered +3d.
+    setCardState("m-0", createInitialState());
+    const b = dueModalityBreakdown([card("m-0")]);
+    expect(b.recognition).toBe(1);
+    expect(b.production).toBe(0);
   });
 });

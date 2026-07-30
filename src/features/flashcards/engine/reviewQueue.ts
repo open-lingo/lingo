@@ -1,5 +1,13 @@
 import type { Flashcard, SRSCardState } from "../data/types";
-import { isDue, isBuried, createInitialState, cardMaxDifficulty, cardEarliestDueDate } from "./srs";
+import {
+  isDue,
+  isNew,
+  isBuried,
+  getDueModalities,
+  createInitialState,
+  cardMaxDifficulty,
+  cardEarliestDueDate,
+} from "./srs";
 import { getSRSStore, canonicalize } from "./srsStorage";
 
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
@@ -265,4 +273,62 @@ export function countCardsDue(
 export function getEffectiveState(cardId: string, defaultEase?: number): SRSCardState {
   const store = getSRSStore();
   return store[canonicalize(cardId)] ?? createInitialState(defaultEase);
+}
+
+/**
+ * Live count of a session's new cards still awaiting introduction. The queue's
+ * `newCount` is a snapshot taken at build time and never changes mid-session,
+ * so the reviewer's "New: N" headline froze even as the learner introduced
+ * cards. A new card transitions new→learning on its first grade, so recompute
+ * against the live SRS store (after each grade) and count only the still-`isNew`
+ * ones — the count then decrements as cards are introduced.
+ */
+export function countRemainingNewCards(
+  newCards: Flashcard[],
+  store: Record<string, SRSCardState> = getSRSStore(),
+): number {
+  let n = 0;
+  for (const c of newCards) {
+    if (isNew(store[canonicalize(c.id)])) n++;
+  }
+  return n;
+}
+
+/**
+ * Live count of a session's due review cards that are still due. A Good/Easy
+ * grade pushes the card out to a future date so it drops from the tally; an
+ * Again/Hard grade keeps it due (it genuinely still needs work). Recomputed
+ * from the live store so the "Due: N" headline decrements alongside "New".
+ */
+export function countRemainingDueCards(
+  reviewCards: Flashcard[],
+  store: Record<string, SRSCardState> = getSRSStore(),
+): number {
+  let n = 0;
+  for (const c of reviewCards) {
+    const state = store[canonicalize(c.id)];
+    if (state && isDue(state)) n++;
+  }
+  return n;
+}
+
+/**
+ * Per-modality due breakdown across a set of cards. A card can be due in BOTH
+ * directions, so `recognition + production` may exceed the number of due cards
+ * — that's expected (the tooltip explains "a card can be in both").
+ */
+export function dueModalityBreakdown(
+  cards: Flashcard[],
+  store: Record<string, SRSCardState> = getSRSStore(),
+): { recognition: number; production: number } {
+  let recognition = 0;
+  let production = 0;
+  for (const c of cards) {
+    const state = store[canonicalize(c.id)];
+    if (!state) continue;
+    const due = getDueModalities(state);
+    if (due.includes("recognition")) recognition++;
+    if (due.includes("production")) production++;
+  }
+  return { recognition, production };
 }
