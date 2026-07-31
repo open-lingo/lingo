@@ -718,7 +718,15 @@
       "read": "Read",
       "fillBlanks": "Fill in the blanks",
       "backToStories": "All stories",
-      "detailModeAria": "Story activity"
+      "detailModeAria": "Story activity",
+      "preview": {
+        "difficultyAria": "Difficulty: {{tier}}",
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "wordsHeading": "Words you'll see",
+        "wordsEmpty": "Open the story to discover the words it uses."
+      }
     },
     "listening": {
       "title": "Listening",

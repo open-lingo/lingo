@@ -718,7 +718,15 @@
       "read": "Leer",
       "fillBlanks": "Completa los huecos",
       "backToStories": "Todas las historias",
-      "detailModeAria": "Actividad de la historia"
+      "detailModeAria": "Actividad de la historia",
+      "preview": {
+        "difficultyAria": "Dificultad: {{tier}}",
+        "beginner": "Principiante",
+        "intermediate": "Intermedio",
+        "advanced": "Avanzado",
+        "wordsHeading": "Palabras que verás",
+        "wordsEmpty": "Abre la historia para descubrir las palabras que usa."
+      }
     },
     "listening": {
       "title": "Escucha",

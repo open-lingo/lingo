@@ -1,9 +1,10 @@
 import { useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Card, Button, EmptyState, SegmentedControl } from "@/shared/components/ui";
+import { Card, Button, EmptyState, SegmentedControl, Modal } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { TappableText } from "@/features/dictionary/TappableText";
+import { useDictionaryModal } from "@/features/dictionary/DictionaryModalContext";
 import { getStories, getConversations, type Story } from "@/features/practice/content";
 import { getKnownAtomsByPos } from "@/features/practice/engine";
 import { getCardState, setCardState, gradeFromLesson } from "@/features/flashcards/engine";
@@ -19,6 +20,9 @@ import {
   type SentenceSource,
   type StoryQuestion,
 } from "./reading/readingBuilders";
+import { storyDifficulty, type DifficultyTier } from "./reading/storyDifficulty";
+import { extractStoryWords } from "./reading/storyWords";
+import { useShowReadingRomaji } from "./reading/useShowReadingRomaji";
 
 /** Cloze cards per session — a short, unhurried read. */
 const CLOZE_SESSION = 8;
@@ -59,10 +63,22 @@ export function ReadingPracticePage() {
     [langId],
   );
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selectedStory = selectedId
-    ? stories.find((s) => s.id === selectedId) ?? null
+  // The story shown in the preview modal (browsing) vs. the one being worked
+  // (read / cloze) with the mode the learner chose in that preview.
+  const [previewId, setPreviewId] = useState<string | null>(null);
+  const [selected, setSelected] = useState<{ id: string; mode: DetailMode } | null>(null);
+
+  const previewStory = previewId
+    ? stories.find((s) => s.id === previewId) ?? null
     : null;
+  const selectedStory = selected
+    ? stories.find((s) => s.id === selected.id) ?? null
+    : null;
+
+  const start = useCallback((id: string, mode: DetailMode) => {
+    setPreviewId(null);
+    setSelected({ id, mode });
+  }, []);
 
   const header = (
     <div>
@@ -97,20 +113,155 @@ export function ReadingPracticePage() {
   return (
     <div className="space-y-4">
       {header}
-      {selectedStory ? (
+      {selectedStory && selected ? (
         <StoryDetail
           key={selectedStory.id}
           story={selectedStory}
+          initialMode={selected.mode}
           allStories={stories}
           conversations={conversations}
           knownContent={knownContent}
           langId={langId}
-          onBack={() => setSelectedId(null)}
+          onBack={() => setSelected(null)}
         />
       ) : (
-        <StoryList stories={stories} onSelect={setSelectedId} />
+        <StoryList stories={stories} onSelect={setPreviewId} />
       )}
+
+      <StoryPreviewModal
+        story={previewStory}
+        langId={langId}
+        onClose={() => setPreviewId(null)}
+        onRead={(id) => start(id, "read")}
+        onCloze={(id) => start(id, "cloze")}
+      />
     </div>
+  );
+}
+
+/* ==========================================================================
+ * Preview modal — the entry gate: difficulty + "words you'll see" before the
+ * learner commits to reading (or filling blanks).
+ * ======================================================================== */
+
+const DIFFICULTY_DEFAULTS: Record<DifficultyTier, string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+
+interface StoryPreviewModalProps {
+  story: Story | null;
+  langId: string;
+  onClose: () => void;
+  onRead: (id: string) => void;
+  onCloze: (id: string) => void;
+}
+
+function StoryPreviewModal({ story, langId, onClose, onRead, onCloze }: StoryPreviewModalProps) {
+  const { t } = useTranslation();
+  const { openWord } = useDictionaryModal();
+  const showRomaji = useShowReadingRomaji(langId);
+
+  const words = useMemo(
+    () => (story ? extractStoryWords(story, langId) : []),
+    [story, langId],
+  );
+  const difficulty = useMemo(
+    () => (story ? storyDifficulty(story, { contentWordCount: words.length }) : null),
+    [story, words.length],
+  );
+
+  return (
+    <Modal
+      open={!!story}
+      onClose={onClose}
+      title={story?.title}
+      subtitle={story?.theme}
+      size="lg"
+      footer={
+        story && (
+          <>
+            <Button variant="secondary" onClick={() => onCloze(story.id)}>
+              <Icon name="layers" size={16} className="mr-1.5" aria-hidden />
+              {t("practice.reading.fillBlanks", { defaultValue: "Fill in the blanks" })}
+            </Button>
+            <Button variant="primary" onClick={() => onRead(story.id)}>
+              <Icon name="bookOpen" size={16} className="mr-1.5" aria-hidden />
+              {t("practice.reading.read", { defaultValue: "Read" })}
+            </Button>
+          </>
+        )
+      }
+    >
+      {story && difficulty && (
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-text-muted">
+              {t("practice.reading.moduleBadge", { defaultValue: "Module {{n}}", n: story.module })}
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5"
+              aria-label={t("practice.reading.preview.difficultyAria", {
+                defaultValue: "Difficulty: {{tier}}",
+                tier: t(`practice.reading.preview.${difficulty.tier}`, {
+                  defaultValue: DIFFICULTY_DEFAULTS[difficulty.tier],
+                }),
+              })}
+            >
+              <span className="flex items-center gap-1" aria-hidden>
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    className={`size-1.5 rounded-full ${
+                      i < difficulty.level ? "bg-accent" : "bg-border"
+                    }`}
+                  />
+                ))}
+              </span>
+              <span className="text-xs font-medium text-text-secondary">
+                {t(`practice.reading.preview.${difficulty.tier}`, {
+                  defaultValue: DIFFICULTY_DEFAULTS[difficulty.tier],
+                })}
+              </span>
+            </span>
+          </div>
+
+          <div>
+            <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-text-muted">
+              {t("practice.reading.preview.wordsHeading", { defaultValue: "Words you'll see" })}
+            </h3>
+            {words.length === 0 ? (
+              <p className="text-sm text-text-secondary">
+                {t("practice.reading.preview.wordsEmpty", {
+                  defaultValue: "Open the story to discover the words it uses.",
+                })}
+              </p>
+            ) : (
+              <ul className="flex flex-wrap gap-2">
+                {words.map((w) => (
+                  <li key={w.id}>
+                    <button
+                      type="button"
+                      onClick={() => openWord(w.surface)}
+                      className="flex items-baseline gap-1.5 rounded-lg border border-border bg-surface px-2.5 py-1.5 text-left transition hover:border-accent hover:bg-surface-muted"
+                    >
+                      <span className="text-sm font-medium text-text-primary" lang={langId}>
+                        {w.surface}
+                      </span>
+                      {showRomaji && w.reading && w.reading !== w.surface && (
+                        <span className="text-xs text-text-muted">{w.reading}</span>
+                      )}
+                      <span className="text-xs text-text-secondary">{w.meaningEn}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+    </Modal>
   );
 }
 
@@ -182,6 +333,8 @@ function StoryList({ stories, onSelect }: StoryListProps) {
 
 interface StoryDetailProps {
   story: Story;
+  /** Mode the learner chose in the preview modal (read / cloze). */
+  initialMode: DetailMode;
   allStories: Story[];
   conversations: ReturnType<typeof getConversations>;
   knownContent: ReturnType<typeof getKnownAtomsByPos>;
@@ -191,6 +344,7 @@ interface StoryDetailProps {
 
 function StoryDetail({
   story,
+  initialMode,
   allStories,
   conversations,
   knownContent,
@@ -206,7 +360,7 @@ function StoryDetail({
     [storySentences, knownContent],
   );
 
-  const [mode, setMode] = useState<DetailMode>("read");
+  const [mode, setMode] = useState<DetailMode>(initialMode);
   const effectiveMode: DetailMode = mode === "cloze" && !hasCloze ? "read" : mode;
 
   return (
@@ -279,6 +433,7 @@ function StoryReader({
   onBack,
 }: StoryReaderProps) {
   const { t } = useTranslation();
+  const showRomaji = useShowReadingRomaji(langId);
 
   const [phase, setPhase] = useState<"read" | "quiz">("read");
   const [showEnglish, setShowEnglish] = useState(false);
@@ -329,7 +484,7 @@ function StoryReader({
                 lang={langId}
                 className="text-xl leading-relaxed text-text-primary"
               />
-              {sentence.reading && (
+              {showRomaji && sentence.reading && (
                 <p className="text-xs text-text-muted">{sentence.reading}</p>
               )}
               {showEnglish && (
@@ -506,6 +661,7 @@ interface ClozeBeatProps {
 
 function ClozeBeat({ sentences, knownContent, langId }: ClozeBeatProps) {
   const { t } = useTranslation();
+  const showRomaji = useShowReadingRomaji(langId);
 
   const [seed, setSeed] = useState(() => Date.now());
   const cards = useMemo(
@@ -627,7 +783,7 @@ function ClozeBeat({ sentences, knownContent, langId }: ClozeBeatProps) {
           </p>
         )}
 
-        {revealed && card.reading && (
+        {revealed && showRomaji && card.reading && (
           <p className="mt-2 text-sm text-text-muted">{card.reading}</p>
         )}
       </Card>
@@ -655,7 +811,7 @@ function ClozeBeat({ sentences, knownContent, langId }: ClozeBeatProps) {
               lang={langId}
             >
               <span className="text-lg font-medium">{opt.surface}</span>
-              <span className="text-xs text-text-muted">{opt.reading}</span>
+              {showRomaji && <span className="text-xs text-text-muted">{opt.reading}</span>}
             </button>
           );
         })}

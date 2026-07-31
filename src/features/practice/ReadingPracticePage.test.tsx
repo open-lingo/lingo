@@ -30,6 +30,37 @@ vi.mock("@/features/dictionary/TappableText", () => ({
   ),
 }));
 
+// App-wide dictionary modal (tap-a-word) — a no-op stub in tests.
+const openWord = vi.fn();
+vi.mock("@/features/dictionary/DictionaryModalContext", () => ({
+  useDictionaryModal: () => ({ openWord, open: vi.fn(), close: vi.fn() }),
+}));
+
+// Settings drive the romaji reading-aid gate; mutable so tests flip showRomaji.
+const mockSettings = {
+  learning: {
+    showRomaji: true,
+    showRomanization: true,
+    hiraganaRomajiAutoOff: false,
+    katakanaRomajiAutoOff: false,
+    romajiOnForDay: null as string | null,
+  },
+};
+vi.mock("@/shared/contexts/SettingsContext", () => ({
+  useSettings: () => ({ settings: mockSettings }),
+}));
+
+// Dictionary service — deterministic entries for the preview word extractor.
+const DICT_ENTRIES = [
+  { id: "ja:coffee", languageId: "ja", surface: "コーヒー", reading: "koohii", meaningEn: "coffee", pos: "noun", source: "course" },
+  { id: "ja:drink", languageId: "ja", surface: "のみます", reading: "nomimasu", meaningEn: "drink", pos: "verb", source: "course" },
+];
+vi.mock("@/shared/dictionary", () => ({
+  getDictionaryEntries: (_lang: string) => DICT_ENTRIES,
+  lookupWord: (_lang: string, surface: string) =>
+    DICT_ENTRIES.find((e) => e.surface === surface) ?? null,
+}));
+
 const getStories = vi.fn((): Story[] => []);
 const getConversations = vi.fn((): Conversation[] => []);
 vi.mock("./content", () => ({
@@ -82,6 +113,11 @@ const KNOWN = [
   noun("ja:book", "ほん", "hon", "book"),
 ];
 
+/** Open a story's preview modal, then enter one of its activities. */
+function openPreview(title: RegExp) {
+  fireEvent.click(screen.getByRole("button", { name: title }));
+}
+
 describe("ReadingPracticePage", () => {
   beforeEach(() => {
     getStories.mockReset();
@@ -90,23 +126,29 @@ describe("ReadingPracticePage", () => {
     getCardState.mockReset();
     setCardState.mockReset();
     gradeFromLesson.mockClear();
+    openWord.mockClear();
     getConversations.mockReturnValue([]);
+    mockSettings.learning.showRomaji = true;
+    mockSettings.learning.showRomanization = true;
+    mockSettings.learning.romajiOnForDay = null;
   });
 
-  it("lists available stories and opens the picked one as tappable text + a question", () => {
+  it("opens a preview modal (difficulty + module words) then Read proceeds to the reader", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
     // Landing view: browse the module-gated story list first.
     expect(screen.getByText("Choose a story")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /At the cafe/ })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /In the park/ })).toBeInTheDocument();
 
-    // Pick a story → it opens.
-    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+    // Picking a story opens the PREVIEW modal (gate), not the reader.
+    openPreview(/At the cafe/);
+    expect(screen.getByText("Beginner")).toBeInTheDocument();
+    // "Words you'll see": at least one module word, tappable.
+    expect(screen.getByRole("button", { name: /コーヒー/ })).toBeInTheDocument();
 
-    // Story reads via TappableText (inline lookup surface).
+    // The Read button proceeds to the reader.
+    fireEvent.click(screen.getByRole("button", { name: "Read" }));
     expect(screen.getByRole("heading", { name: "At the cafe" })).toBeInTheDocument();
     const tappable = screen.getAllByTestId("tappable");
     expect(tappable.some((el) => el.textContent === "コーヒーを のみます。")).toBe(true);
@@ -114,7 +156,6 @@ describe("ReadingPracticePage", () => {
     // Move to the comprehension check.
     fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
     expect(screen.getByText("What is this story mostly about?")).toBeInTheDocument();
-    // The correct gist is offered alongside a distractor drawn from other content.
     expect(screen.getByRole("button", { name: "A quiet morning." })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "A walk in the park." })).toBeInTheDocument();
   });
@@ -124,7 +165,8 @@ describe("ReadingPracticePage", () => {
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
-    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+    openPreview(/At the cafe/);
+    fireEvent.click(screen.getByRole("button", { name: "Read" }));
     expect(screen.getByRole("heading", { name: "At the cafe" })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /All stories/ }));
@@ -136,7 +178,8 @@ describe("ReadingPracticePage", () => {
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
-    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+    openPreview(/At the cafe/);
+    fireEvent.click(screen.getByRole("button", { name: "Read" }));
     fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
     // Answer every question, then finish.
     fireEvent.click(screen.getByRole("button", { name: "A quiet morning." }));
@@ -147,16 +190,16 @@ describe("ReadingPracticePage", () => {
     expect(screen.getByText("You got 2 of 2 right.")).toBeInTheDocument();
   });
 
-  it("runs fill-in-the-blanks over the chosen story, blanks a word, and grades it", () => {
+  it("runs fill-in-the-blanks from the preview, blanks a word, and grades it", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     // Card state exists → a correct answer credits recognition SRS.
     getCardState.mockReturnValue({ existing: true });
     render(<ReadingPracticePage />);
 
-    // Open the story, then switch to the fill-in-the-blanks beat (radios).
-    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
-    fireEvent.click(screen.getByRole("radio", { name: /Fill in the blanks/ }));
+    // Open the story, then choose "Fill in the blanks" in the preview.
+    openPreview(/At the cafe/);
+    fireEvent.click(screen.getByRole("button", { name: /Fill in the blanks/ }));
 
     // Meaning hint for the authored sentence is shown.
     expect(screen.getByText("I drink coffee.")).toBeInTheDocument();
@@ -175,6 +218,26 @@ describe("ReadingPracticePage", () => {
       "recognition",
       { correct: true, retried: false },
     );
+  });
+
+  it("gates the reading line on the romaji setting", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+
+    // Romaji OFF → the reading aid is not rendered.
+    mockSettings.learning.showRomaji = false;
+    const { unmount } = render(<ReadingPracticePage />);
+    openPreview(/At the cafe/);
+    fireEvent.click(screen.getByRole("button", { name: "Read" }));
+    expect(screen.queryByText("koohii o nomimasu")).not.toBeInTheDocument();
+    unmount();
+
+    // Romaji ON → the reading aid renders under the sentence.
+    mockSettings.learning.showRomaji = true;
+    render(<ReadingPracticePage />);
+    openPreview(/At the cafe/);
+    fireEvent.click(screen.getByRole("button", { name: "Read" }));
+    expect(screen.getByText("koohii o nomimasu")).toBeInTheDocument();
   });
 
   it("shows an encouraging empty state when there is no content at the learner's level", () => {

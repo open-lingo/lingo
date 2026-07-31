@@ -718,7 +718,15 @@
       "read": "읽기",
       "fillBlanks": "빈칸 채우기",
       "backToStories": "모든 이야기",
-      "detailModeAria": "이야기 활동"
+      "detailModeAria": "이야기 활동",
+      "preview": {
+        "difficultyAria": "난이도: {{tier}}",
+        "beginner": "초급",
+        "intermediate": "중급",
+        "advanced": "고급",
+        "wordsHeading": "나올 단어",
+        "wordsEmpty": "이야기를 열어 사용된 단어를 확인해 보세요."
+      }
     },
     "listening": {
       "title": "듣기",
