@@ -27,22 +27,24 @@ import { useShowReadingRomaji } from "./reading/useShowReadingRomaji";
 /** Cloze cards per session — a short, unhurried read. */
 const CLOZE_SESSION = 8;
 
-type DetailMode = "read" | "cloze";
+/** The two top-level activities of the reading surface. */
+type ReadingTab = "stories" | "cloze";
 
 /**
  * Reading practice — built on CURATED, authored content (never the random
- * sentence generator). The learner first BROWSES a module-gated list of
- * stories, picks one, and then works that single story two ways:
+ * sentence generator). The surface splits into two top-level tabs:
  *
- *  - **Read** — read the authored narrative with inline dictionary lookup (tap
- *    any word), optionally reveal English, then answer a couple of comprehension
+ *  - **Stories** — browse a module-gated list, preview a story (difficulty +
+ *    the words it uses), then READ it with inline dictionary lookup (tap any
+ *    word), optionally reveal English, and answer a couple of comprehension
  *    questions whose distractors are drawn from other authored content.
- *  - **Fill in the blanks** — a cloze over THAT story's own sentences (the base
- *    is hand-written, so it is never nonsense); pick the missing content word
- *    from same-part-of-speech words you already know.
+ *  - **Fill in the blank** — a standalone cloze session pooled from ALL
+ *    authored sentences at the learner's level (stories + conversations), not
+ *    tied to any single story; pick the missing content word from same-part-of-
+ *    speech words you already know.
  *
  * Correct answers lightly credit the `recognition` modality of the atoms the
- * read exercised — conservative reinforcement that only touches cards which
+ * activity exercised — conservative reinforcement that only touches cards which
  * already have SRS state ("only review cards count").
  */
 export function ReadingPracticePage() {
@@ -63,21 +65,29 @@ export function ReadingPracticePage() {
     [langId],
   );
 
-  // The story shown in the preview modal (browsing) vs. the one being worked
-  // (read / cloze) with the mode the learner chose in that preview.
+  // The whole authored-sentence pool (stories + conversations) — the source for
+  // the standalone fill-in-the-blank tab.
+  const allSentences = useMemo(
+    () => collectSentences(stories, conversations),
+    [stories, conversations],
+  );
+
+  // Which top-level tab we're on (remembered for the session), the story shown
+  // in the preview modal (browsing), and the story being read.
+  const [tab, setTab] = useState<ReadingTab>("stories");
   const [previewId, setPreviewId] = useState<string | null>(null);
-  const [selected, setSelected] = useState<{ id: string; mode: DetailMode } | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const previewStory = previewId
     ? stories.find((s) => s.id === previewId) ?? null
     : null;
-  const selectedStory = selected
-    ? stories.find((s) => s.id === selected.id) ?? null
+  const selectedStory = selectedId
+    ? stories.find((s) => s.id === selectedId) ?? null
     : null;
 
-  const start = useCallback((id: string, mode: DetailMode) => {
+  const startRead = useCallback((id: string) => {
     setPreviewId(null);
-    setSelected({ id, mode });
+    setSelectedId(id);
   }, []);
 
   const header = (
@@ -93,8 +103,9 @@ export function ReadingPracticePage() {
     </div>
   );
 
-  // Nothing unlocked at the learner's level yet.
-  if (stories.length === 0) {
+  // Nothing unlocked at the learner's level yet — no stories AND no sentences to
+  // build a cloze from. A single page-level empty state (no tabs).
+  if (stories.length === 0 && allSentences.length === 0) {
     return (
       <div className="space-y-4">
         {header}
@@ -110,30 +121,66 @@ export function ReadingPracticePage() {
     );
   }
 
+  // While a story is open in the reader, hide the tab switcher for an immersive
+  // read — the reader carries its own "All stories" back control.
+  const inReader = tab === "stories" && !!selectedStory;
+
   return (
     <div className="space-y-4">
       {header}
-      {selectedStory && selected ? (
-        <StoryDetail
-          key={selectedStory.id}
-          story={selectedStory}
-          initialMode={selected.mode}
-          allStories={stories}
-          conversations={conversations}
-          knownContent={knownContent}
-          langId={langId}
-          onBack={() => setSelected(null)}
+
+      {!inReader && (
+        <SegmentedControl<ReadingTab>
+          value={tab}
+          onChange={setTab}
+          ariaLabel={t("practice.reading.modeAria", { defaultValue: "Reading mode" })}
+          options={[
+            {
+              value: "stories",
+              label: t("practice.reading.mode.stories", { defaultValue: "Stories" }),
+              leading: <Icon name="bookOpen" size={15} aria-hidden />,
+            },
+            {
+              value: "cloze",
+              label: t("practice.reading.mode.cloze", { defaultValue: "Fill in the blank" }),
+              leading: <Icon name="layers" size={15} aria-hidden />,
+            },
+          ]}
         />
+      )}
+
+      {tab === "stories" ? (
+        selectedStory ? (
+          <StoryReader
+            key={selectedStory.id}
+            story={selectedStory}
+            allStories={stories}
+            conversations={conversations}
+            knownContent={knownContent}
+            langId={langId}
+            onBack={() => setSelectedId(null)}
+          />
+        ) : stories.length === 0 ? (
+          <EmptyState
+            icon={<Icon name="bookOpen" size={28} aria-hidden />}
+            title={t("practice.reading.empty.title", { defaultValue: "Nothing to read just yet" })}
+            description={t("practice.reading.empty.description", {
+              defaultValue:
+                "Keep going in your lessons — as you learn more words, short stories and reading exercises you can actually read will unlock here.",
+            })}
+          />
+        ) : (
+          <StoryList stories={stories} onSelect={setPreviewId} />
+        )
       ) : (
-        <StoryList stories={stories} onSelect={setPreviewId} />
+        <ClozeBeat sentences={allSentences} knownContent={knownContent} langId={langId} />
       )}
 
       <StoryPreviewModal
         story={previewStory}
         langId={langId}
         onClose={() => setPreviewId(null)}
-        onRead={(id) => start(id, "read")}
-        onCloze={(id) => start(id, "cloze")}
+        onRead={startRead}
       />
     </div>
   );
@@ -141,7 +188,7 @@ export function ReadingPracticePage() {
 
 /* ==========================================================================
  * Preview modal — the entry gate: difficulty + "words you'll see" before the
- * learner commits to reading (or filling blanks).
+ * learner commits to reading a story.
  * ======================================================================== */
 
 const DIFFICULTY_DEFAULTS: Record<DifficultyTier, string> = {
@@ -155,10 +202,9 @@ interface StoryPreviewModalProps {
   langId: string;
   onClose: () => void;
   onRead: (id: string) => void;
-  onCloze: (id: string) => void;
 }
 
-function StoryPreviewModal({ story, langId, onClose, onRead, onCloze }: StoryPreviewModalProps) {
+function StoryPreviewModal({ story, langId, onClose, onRead }: StoryPreviewModalProps) {
   const { t } = useTranslation();
   const { openWord } = useDictionaryModal();
   const showRomaji = useShowReadingRomaji(langId);
@@ -181,16 +227,10 @@ function StoryPreviewModal({ story, langId, onClose, onRead, onCloze }: StoryPre
       size="lg"
       footer={
         story && (
-          <>
-            <Button variant="secondary" onClick={() => onCloze(story.id)}>
-              <Icon name="layers" size={16} className="mr-1.5" aria-hidden />
-              {t("practice.reading.fillBlanks", { defaultValue: "Fill in the blanks" })}
-            </Button>
-            <Button variant="primary" onClick={() => onRead(story.id)}>
-              <Icon name="bookOpen" size={16} className="mr-1.5" aria-hidden />
-              {t("practice.reading.read", { defaultValue: "Read" })}
-            </Button>
-          </>
+          <Button variant="primary" onClick={() => onRead(story.id)}>
+            <Icon name="bookOpen" size={16} className="mr-1.5" aria-hidden />
+            {t("practice.reading.read", { defaultValue: "Read" })}
+          </Button>
         )
       }
     >
@@ -278,7 +318,7 @@ function creditSrs(atomIds: string[]): void {
 }
 
 /* ==========================================================================
- * Story list — the entry point: browse + pick a story to read.
+ * Story list — the Stories-tab entry point: browse + pick a story to read.
  * ======================================================================== */
 
 interface StoryListProps {
@@ -323,90 +363,6 @@ function StoryList({ stories, onSelect }: StoryListProps) {
           </button>
         ))}
       </div>
-    </div>
-  );
-}
-
-/* ==========================================================================
- * Story detail — read + fill-in-the-blanks over the CHOSEN story.
- * ======================================================================== */
-
-interface StoryDetailProps {
-  story: Story;
-  /** Mode the learner chose in the preview modal (read / cloze). */
-  initialMode: DetailMode;
-  allStories: Story[];
-  conversations: ReturnType<typeof getConversations>;
-  knownContent: ReturnType<typeof getKnownAtomsByPos>;
-  langId: string;
-  onBack: () => void;
-}
-
-function StoryDetail({
-  story,
-  initialMode,
-  allStories,
-  conversations,
-  knownContent,
-  langId,
-  onBack,
-}: StoryDetailProps) {
-  const { t } = useTranslation();
-
-  // Cloze runs over THIS story's sentences only.
-  const storySentences = useMemo(() => collectSentences([story], []), [story]);
-  const hasCloze = useMemo(
-    () => buildClozeCards(storySentences, knownContent, 1, 1).length > 0,
-    [storySentences, knownContent],
-  );
-
-  const [mode, setMode] = useState<DetailMode>(initialMode);
-  const effectiveMode: DetailMode = mode === "cloze" && !hasCloze ? "read" : mode;
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={onBack}
-          className="inline-flex items-center gap-1 text-sm font-medium text-text-secondary transition hover:text-text-primary"
-        >
-          <Icon name="arrowLeft" size={16} aria-hidden />
-          {t("practice.reading.backToStories", { defaultValue: "All stories" })}
-        </button>
-        {hasCloze && (
-          <SegmentedControl<DetailMode>
-            value={effectiveMode}
-            onChange={setMode}
-            ariaLabel={t("practice.reading.detailModeAria", { defaultValue: "Story activity" })}
-            options={[
-              {
-                value: "read",
-                label: t("practice.reading.read", { defaultValue: "Read" }),
-                leading: <Icon name="bookOpen" size={15} aria-hidden />,
-              },
-              {
-                value: "cloze",
-                label: t("practice.reading.fillBlanks", { defaultValue: "Fill in the blanks" }),
-                leading: <Icon name="layers" size={15} aria-hidden />,
-              },
-            ]}
-          />
-        )}
-      </div>
-
-      {effectiveMode === "read" ? (
-        <StoryReader
-          story={story}
-          allStories={allStories}
-          conversations={conversations}
-          knownContent={knownContent}
-          langId={langId}
-          onBack={onBack}
-        />
-      ) : (
-        <ClozeBeat sentences={storySentences} knownContent={knownContent} langId={langId} />
-      )}
     </div>
   );
 }
@@ -457,7 +413,15 @@ function StoryReader({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex items-center gap-1 text-sm font-medium text-text-secondary transition hover:text-text-primary"
+        >
+          <Icon name="arrowLeft" size={16} aria-hidden />
+          {t("practice.reading.backToStories", { defaultValue: "All stories" })}
+        </button>
         <button
           type="button"
           onClick={() => setShowEnglish((v) => !v)}
@@ -650,7 +614,8 @@ function StoryQuiz({ story, questions, knownContent, onReadAgain, onBack }: Stor
 }
 
 /* ==========================================================================
- * Fill-in-the-blanks beat — cloze over the chosen story's sentences.
+ * Fill-in-the-blank beat — a standalone cloze session pooled from ALL
+ * authored sentences at the learner's level (stories + conversations).
  * ======================================================================== */
 
 interface ClozeBeatProps {

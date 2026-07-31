@@ -113,9 +113,14 @@ const KNOWN = [
   noun("ja:book", "ほん", "hon", "book"),
 ];
 
-/** Open a story's preview modal, then enter one of its activities. */
+/** Open a story's preview modal from the Stories tab. */
 function openPreview(title: RegExp) {
   fireEvent.click(screen.getByRole("button", { name: title }));
+}
+
+/** Switch top-level tab via the segmented control (rendered as radios). */
+function switchTab(name: RegExp) {
+  fireEvent.click(screen.getByRole("radio", { name }));
 }
 
 describe("ReadingPracticePage", () => {
@@ -133,7 +138,27 @@ describe("ReadingPracticePage", () => {
     mockSettings.learning.romajiOnForDay = null;
   });
 
-  it("opens a preview modal (difficulty + module words) then Read proceeds to the reader", () => {
+  it("renders the two top-level tabs and switches between them", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    render(<ReadingPracticePage />);
+
+    // Both tabs are present; Stories is the default (its list is shown).
+    expect(screen.getByRole("radio", { name: /Stories/ })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: /Fill in the blank/ })).toBeInTheDocument();
+    expect(screen.getByText("Choose a story")).toBeInTheDocument();
+
+    // Switching to Fill in the blank leaves the story list behind and enters cloze.
+    switchTab(/Fill in the blank/);
+    expect(screen.queryByText("Choose a story")).not.toBeInTheDocument();
+    expect(screen.getByText("I drink coffee.")).toBeInTheDocument();
+
+    // ...and back to Stories.
+    switchTab(/Stories/);
+    expect(screen.getByText("Choose a story")).toBeInTheDocument();
+  });
+
+  it("Stories tab: list -> preview (difficulty + words) -> read -> comprehension", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
@@ -146,12 +171,17 @@ describe("ReadingPracticePage", () => {
     expect(screen.getByText("Beginner")).toBeInTheDocument();
     // "Words you'll see": at least one module word, tappable.
     expect(screen.getByRole("button", { name: /コーヒー/ })).toBeInTheDocument();
+    // The preview no longer offers a fill-in-the-blanks shortcut — Read only.
+    expect(screen.queryByRole("button", { name: /Fill in the blank/ })).not.toBeInTheDocument();
 
     // The Read button proceeds to the reader.
     fireEvent.click(screen.getByRole("button", { name: "Read" }));
     expect(screen.getByRole("heading", { name: "At the cafe" })).toBeInTheDocument();
     const tappable = screen.getAllByTestId("tappable");
     expect(tappable.some((el) => el.textContent === "コーヒーを のみます。")).toBe(true);
+
+    // The tab switcher is hidden while reading (immersive).
+    expect(screen.queryByRole("radio", { name: /Fill in the blank/ })).not.toBeInTheDocument();
 
     // Move to the comprehension check.
     fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
@@ -190,18 +220,17 @@ describe("ReadingPracticePage", () => {
     expect(screen.getByText("You got 2 of 2 right.")).toBeInTheDocument();
   });
 
-  it("runs fill-in-the-blanks from the preview, blanks a word, and grades it", () => {
+  it("Fill-in-the-blank tab: runs a cloze over the authored pool without picking a story", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     // Card state exists → a correct answer credits recognition SRS.
     getCardState.mockReturnValue({ existing: true });
     render(<ReadingPracticePage />);
 
-    // Open the story, then choose "Fill in the blanks" in the preview.
-    openPreview(/At the cafe/);
-    fireEvent.click(screen.getByRole("button", { name: /Fill in the blanks/ }));
+    // Enter the standalone cloze tab directly — no story selection required.
+    switchTab(/Fill in the blank/);
 
-    // Meaning hint for the authored sentence is shown.
+    // Meaning hint for an authored sentence from the pool is shown.
     expect(screen.getByText("I drink coffee.")).toBeInTheDocument();
     // Options include the answer + same-POS known distractors.
     const optionButtons = screen.getAllByRole("button");
@@ -218,6 +247,17 @@ describe("ReadingPracticePage", () => {
       "recognition",
       { correct: true, retried: false },
     );
+  });
+
+  it("Fill-in-the-blank tab: shows a graceful empty state when no cloze can be built", () => {
+    // Stories exist (so the page isn't fully empty), but no known content words
+    // → no blankable sentence → the cloze tab shows its own empty state.
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue([]);
+    render(<ReadingPracticePage />);
+
+    switchTab(/Fill in the blank/);
+    expect(screen.getByText("No fill-the-blanks yet")).toBeInTheDocument();
   });
 
   it("gates the reading line on the romaji setting", () => {
@@ -247,6 +287,8 @@ describe("ReadingPracticePage", () => {
     render(<ReadingPracticePage />);
 
     expect(screen.getByText("Nothing to read just yet")).toBeInTheDocument();
+    // Fully empty → no tabs, no actions.
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.queryByRole("radio")).not.toBeInTheDocument();
   });
 });
