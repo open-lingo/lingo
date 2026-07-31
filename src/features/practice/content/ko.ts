@@ -542,8 +542,9 @@ const AUTHORED_CONVERSATIONS: Conversation[] = [
   },
 ];
 
-// ── Newly authored stories (m3-m12) ─────────────────────────────────────────
+// ── Newly authored stories (density ramp: sparse early → richer late) ────────
 const STORIES_RAW: Story[] = [
+  // ── Early (m3-m8): sparse, ~1 story per 2 modules ──────────────────────────
   {
     id: "ko-m3-new-friend",
     languageId: "ko",
@@ -554,22 +555,9 @@ const STORIES_RAW: Story[] = [
       { text: "안녕하세요.", translation: "Hello." },
       { text: "저는 학생이에요.", translation: "I'm a student." },
       { text: "이름이 민수예요.", translation: "My name is Minsu." },
+      { text: "이름이 뭐예요?", translation: "What's your name?" },
       { text: "친구도 학생이에요.", translation: "My friend is a student too." },
       { text: "반갑습니다.", translation: "Nice to meet you." },
-    ],
-  },
-  {
-    id: "ko-m4-whose-bag",
-    languageId: "ko",
-    module: 4,
-    title: "Whose bag?",
-    theme: "Sorting out what belongs to whom.",
-    sentences: [
-      { text: "이게 뭐예요?", translation: "What is this?" },
-      { text: "가방이에요.", translation: "It's a bag." },
-      { text: "이 가방은 제 거예요.", translation: "This bag is mine." },
-      { text: "저 책은 친구 거예요.", translation: "That book is my friend's." },
-      { text: "그거는 누구 거예요?", translation: "Whose is that one?" },
     ],
   },
   {
@@ -581,23 +569,10 @@ const STORIES_RAW: Story[] = [
     sentences: [
       { text: "커피 두 잔 주세요.", translation: "Two coffees, please." },
       { text: "물도 한 잔 주세요.", translation: "One water too, please." },
+      { text: "빵도 주세요.", translation: "Bread too, please." },
       { text: "이거 얼마예요?", translation: "How much is this?" },
       { text: "사천 원이에요.", translation: "It's 4,000 won." },
       { text: "감사합니다.", translation: "Thank you." },
-    ],
-  },
-  {
-    id: "ko-m6-lost-friend",
-    languageId: "ko",
-    module: 6,
-    title: "Where is everyone?",
-    theme: "Finding your friends around town.",
-    sentences: [
-      { text: "친구가 어디에 있어요?", translation: "Where is my friend?" },
-      { text: "학교에 있어요.", translation: "They're at school." },
-      { text: "선생님은 식당에 있어요.", translation: "The teacher is at the restaurant." },
-      { text: "저는 역에 있어요.", translation: "I'm at the station." },
-      { text: "친구도 역에 있어요.", translation: "My friend is at the station too." },
     ],
   },
   {
@@ -610,52 +585,12 @@ const STORIES_RAW: Story[] = [
       { text: "저는 집에 있어요.", translation: "I'm at home." },
       { text: "밥을 먹어요.", translation: "I eat a meal." },
       { text: "커피를 마셔요.", translation: "I drink coffee." },
-      { text: "영화를 봐요.", translation: "I watch a movie." },
+      { text: "영화도 봐요.", translation: "I watch a movie too." },
+      { text: "친구는 학교에 있어요.", translation: "My friend is at school." },
       { text: "친구는 공부해요.", translation: "My friend studies." },
     ],
   },
-  {
-    id: "ko-m8-market-day",
-    languageId: "ko",
-    module: 8,
-    title: "At the market",
-    theme: "Browsing and reacting to what you see.",
-    sentences: [
-      { text: "이 가방은 예뻐요.", translation: "This bag is pretty." },
-      { text: "그런데 비싸요.", translation: "But it's expensive." },
-      { text: "저 책은 싸요.", translation: "That book is cheap." },
-      { text: "이 책은 좋아요.", translation: "This book is good." },
-      { text: "저는 이 책이 좋아요.", translation: "I like this book." },
-    ],
-  },
-  {
-    id: "ko-m10-yesterday",
-    languageId: "ko",
-    module: 10,
-    title: "Yesterday",
-    theme: "Looking back on a good day.",
-    sentences: [
-      { text: "어제 뭐 했어요?", translation: "What did I do yesterday?" },
-      { text: "친구하고 커피를 마셨어요.", translation: "I drank coffee with a friend." },
-      { text: "영화를 봤어요.", translation: "I watched a movie." },
-      { text: "영화가 좋았어요.", translation: "The movie was good." },
-      { text: "저는 집에서 밥을 먹었어요.", translation: "I ate at home." },
-    ],
-  },
-  {
-    id: "ko-m12-friday-plan",
-    languageId: "ko",
-    module: 12,
-    title: "A plan for Friday",
-    theme: "Setting a time and place to meet.",
-    sentences: [
-      { text: "금요일에 시간이 있어요.", translation: "I have time on Friday." },
-      { text: "친구하고 영화를 보고 싶어요.", translation: "I want to watch a movie with a friend." },
-      { text: "지금 몇 시예요?", translation: "What time is it now?" },
-      { text: "두 시예요.", translation: "It's 2 o'clock." },
-      { text: "세 시에 만나요.", translation: "Let's meet at 3:00." },
-    ],
-  },
+  // ── Mid (m9-m17): ~1 story per module ──────────────────────────────────────
   {
     id: "ko-m9-a-snack",
     languageId: "ko",
@@ -665,9 +600,27 @@ const STORIES_RAW: Story[] = [
     sentences: [
       { text: "저는 집에 있어요.", translation: "I'm at home." },
       { text: "빵하고 우유가 있어요.", translation: "There's bread and milk." },
+      { text: "사과도 있어요.", translation: "There's an apple too." },
       { text: "빵을 먹어요.", translation: "I eat the bread." },
-      { text: "우유도 마셔요.", translation: "I drink the milk too." },
+      { text: "우유를 마셔요.", translation: "I drink the milk." },
       { text: "빵하고 우유가 맛있어요.", translation: "The bread and milk are tasty." },
+      { text: "사과는 커요.", translation: "The apple is big." },
+    ],
+  },
+  {
+    id: "ko-m10-yesterday",
+    languageId: "ko",
+    module: 10,
+    title: "Yesterday",
+    theme: "Looking back on a good day.",
+    sentences: [
+      { text: "어제 친구하고 커피를 마셨어요.", translation: "Yesterday I had coffee with a friend." },
+      { text: "우리는 영화를 봤어요.", translation: "We watched a movie." },
+      { text: "영화가 좋았어요.", translation: "The movie was good." },
+      { text: "저는 집에서 밥을 먹었어요.", translation: "I ate at home." },
+      { text: "친구는 공부했어요.", translation: "My friend studied." },
+      { text: "우유도 마셨어요.", translation: "I drank milk too." },
+      { text: "오늘도 커피를 마셔요.", translation: "Today I drink coffee too." },
     ],
   },
   {
@@ -675,13 +628,31 @@ const STORIES_RAW: Story[] = [
     languageId: "ko",
     module: 11,
     title: "A day off",
-    theme: "Staying in and wanting to relax.",
+    theme: "Staying in on a quiet day.",
     sentences: [
       { text: "오늘은 학교에 안 가요.", translation: "Today I don't go to school." },
       { text: "저는 집에 있어요.", translation: "I stay at home." },
       { text: "영화를 보고 싶어요.", translation: "I want to watch a movie." },
-      { text: "그런데 지금 커피가 없어요.", translation: "But there's no coffee right now." },
+      { text: "그런데 커피가 없어요.", translation: "But there's no coffee." },
       { text: "커피를 못 마셔요.", translation: "I can't have my coffee." },
+      { text: "빵도 없어요.", translation: "There's no bread either." },
+      { text: "그런데 밥도 안 먹어요.", translation: "But I don't eat, either." },
+    ],
+  },
+  {
+    id: "ko-m12-friday-plan",
+    languageId: "ko",
+    module: 12,
+    title: "A plan for Friday",
+    theme: "Setting a time to meet.",
+    sentences: [
+      { text: "금요일에 시간이 있어요.", translation: "I have time on Friday." },
+      { text: "친구하고 영화를 보고 싶어요.", translation: "I want to watch a movie with a friend." },
+      { text: "지금 몇 시예요?", translation: "What time is it now?" },
+      { text: "두 시예요.", translation: "It's 2 o'clock." },
+      { text: "세 시에 만나요.", translation: "Let's meet at 3:00." },
+      { text: "우리는 영화를 봐요.", translation: "We watch a movie." },
+      { text: "우리는 밥도 먹어요.", translation: "We eat a meal too." },
     ],
   },
   {
@@ -697,6 +668,7 @@ const STORIES_RAW: Story[] = [
       { text: "저는 커피를 좋아해요.", translation: "I like coffee." },
       { text: "그리고 운동도 좋아해요.", translation: "And I like exercise too." },
       { text: "가끔 영화를 봐요.", translation: "Sometimes I watch a movie." },
+      { text: "토요일에는 항상 집에 있어요.", translation: "On Saturdays I always stay home." },
     ],
   },
   {
@@ -708,10 +680,11 @@ const STORIES_RAW: Story[] = [
     sentences: [
       { text: "저는 바빠서 시간이 없어요.", translation: "I'm busy, so I have no time." },
       { text: "오늘 회사에 가요.", translation: "I go to work today." },
-      { text: "회사에서 공부해요.", translation: "I study at work." },
+      { text: "회사에서 공부하고 밥을 먹어요.", translation: "At work I study and eat." },
       { text: "친구가 와요.", translation: "A friend comes over." },
-      { text: "친구하고 밥을 먹어요.", translation: "I eat with my friend." },
-      { text: "저는 바빠서 커피를 못 마셔요.", translation: "I'm so busy I can't even drink coffee." },
+      { text: "친구는 커피를 마셔요.", translation: "My friend drinks coffee." },
+      { text: "저는 바빠서 커피를 못 마셔요.", translation: "But I'm too busy for coffee." },
+      { text: "기다려 주세요.", translation: "Please wait." },
     ],
   },
   {
@@ -727,6 +700,7 @@ const STORIES_RAW: Story[] = [
       { text: "친구가 전화해요.", translation: "A friend calls." },
       { text: "친구도 집에 와요.", translation: "My friend comes over too." },
       { text: "여기 앉아도 돼요.", translation: "You can sit here." },
+      { text: "우리는 커피를 마시고 영화를 봐요.", translation: "We drink coffee and watch a movie." },
     ],
   },
   {
@@ -742,6 +716,7 @@ const STORIES_RAW: Story[] = [
       { text: "네, 알겠어요.", translation: "OK, got it." },
       { text: "친구는 커피를 좋아해요.", translation: "My friend likes coffee." },
       { text: "저도 커피를 좋아해요.", translation: "I like coffee too." },
+      { text: "우리는 커피를 마시고 영화를 봐요.", translation: "We drink coffee and watch a movie." },
     ],
   },
   {
@@ -756,9 +731,11 @@ const STORIES_RAW: Story[] = [
       { text: "다음 역에서 내려요.", translation: "I get off at the next stop." },
       { text: "그리고 지하철을 타요.", translation: "And then I take the subway." },
       { text: "회사까지 똑바로 가요.", translation: "I go straight to the office." },
-      { text: "왼쪽으로 가세요.", translation: "Go to the left." },
+      { text: "회사는 왼쪽에 있어요.", translation: "The office is on the left." },
+      { text: "저는 회사에서 공부해요.", translation: "I study at work." },
     ],
   },
+  // ── Late (m18-m27): ramp up — 1, sometimes 2 stories per module ────────────
   {
     id: "ko-m18-tomorrows-weather",
     languageId: "ko",
@@ -772,6 +749,7 @@ const STORIES_RAW: Story[] = [
       { text: "내일은 추워요.", translation: "Tomorrow it's cold." },
       { text: "저는 겨울을 좋아해요.", translation: "I like winter." },
       { text: "겨울에는 눈이 와요.", translation: "In winter it snows." },
+      { text: "여름에는 더워요.", translation: "In summer it's hot." },
     ],
   },
   {
@@ -787,6 +765,7 @@ const STORIES_RAW: Story[] = [
       { text: "저는 학생이에요.", translation: "I'm a student." },
       { text: "형은 회사에 가요.", translation: "My brother goes to work." },
       { text: "우리 가족은 커피를 좋아해요.", translation: "My family likes coffee." },
+      { text: "저는 우리 가족을 좋아해요.", translation: "I love my family." },
     ],
   },
   {
@@ -802,6 +781,7 @@ const STORIES_RAW: Story[] = [
       { text: "저는 병원에 가요.", translation: "I go to the hospital." },
       { text: "약을 먹어요.", translation: "I take medicine." },
       { text: "약을 먹으면 괜찮을 거예요.", translation: "If I take medicine, I'll be fine." },
+      { text: "그리고 집에 있어요.", translation: "And I stay home." },
     ],
   },
   {
@@ -816,7 +796,24 @@ const STORIES_RAW: Story[] = [
       { text: "김치도 맛있어요.", translation: "The kimchi is tasty too." },
       { text: "라면도 좋아해요.", translation: "I like ramen too." },
       { text: "친구는 생선하고 채소를 먹어요.", translation: "My friend eats fish and vegetables." },
+      { text: "과일도 먹어요.", translation: "We eat fruit too." },
       { text: "커피 한 잔 주세요.", translation: "One coffee, please." },
+    ],
+  },
+  {
+    id: "ko-m21-cooking-dinner",
+    languageId: "ko",
+    module: 21,
+    title: "Cooking dinner",
+    theme: "A meal at home with a friend.",
+    sentences: [
+      { text: "오늘은 집에서 밥을 먹어요.", translation: "Today I eat at home." },
+      { text: "저는 불고기를 좋아해요.", translation: "I like bulgogi." },
+      { text: "그래서 불고기하고 밥을 먹어요.", translation: "So I have bulgogi and rice." },
+      { text: "김치도 있어요.", translation: "There's kimchi too." },
+      { text: "친구도 집에 와요.", translation: "My friend comes over too." },
+      { text: "우리는 라면하고 과일도 먹어요.", translation: "We eat ramen and fruit too." },
+      { text: "저는 커피를 마시고 친구는 우유를 마셔요.", translation: "I drink coffee and my friend drinks milk." },
     ],
   },
   {
@@ -832,6 +829,23 @@ const STORIES_RAW: Story[] = [
       { text: "친구는 차를 더 좋아해요.", translation: "My friend likes tea more." },
       { text: "뭐가 제일 좋아요?", translation: "What do you like best?" },
       { text: "커피가 가장 좋아요.", translation: "I like coffee best." },
+      { text: "저는 커피를 자주 마셔요.", translation: "I drink coffee often." },
+    ],
+  },
+  {
+    id: "ko-m22-bibimbap-or-ramen",
+    languageId: "ko",
+    module: 22,
+    title: "Bibimbap or ramen?",
+    theme: "Picking a favorite at the restaurant.",
+    sentences: [
+      { text: "저는 비빔밥하고 라면 중에서 비빔밥이 더 좋아요.", translation: "Between bibimbap and ramen, I like bibimbap more." },
+      { text: "라면은 비빔밥보다 싸요.", translation: "Ramen is cheaper than bibimbap." },
+      { text: "그래도 비빔밥이 제일 맛있어요.", translation: "Still, bibimbap is the tastiest." },
+      { text: "친구는 라면을 더 좋아해요.", translation: "My friend likes ramen more." },
+      { text: "우리는 식당에서 밥을 먹어요.", translation: "We eat at a restaurant." },
+      { text: "이 식당은 불고기가 가장 맛있어요.", translation: "This restaurant's bulgogi is the tastiest." },
+      { text: "그래서 저는 이 식당을 좋아해요.", translation: "So I like this place." },
     ],
   },
   {
@@ -847,6 +861,7 @@ const STORIES_RAW: Story[] = [
       { text: "저는 수영도 잘해요.", translation: "I'm good at swimming too." },
       { text: "그런데 노래는 못해요.", translation: "But I can't sing." },
       { text: "주말에 같이 운동합시다.", translation: "Let's exercise together on the weekend." },
+      { text: "그리고 같이 밥도 먹어요.", translation: "And let's eat together too." },
     ],
   },
   {
@@ -861,7 +876,24 @@ const STORIES_RAW: Story[] = [
       { text: "사진도 좋아해요.", translation: "I like photography too." },
       { text: "노래도 할 줄 알아요.", translation: "I also know how to sing." },
       { text: "일주일에 두 번 게임을 해요.", translation: "I play games twice a week." },
+      { text: "저는 그림도 좋아해요.", translation: "I like drawing too." },
       { text: "주말에 같이 할까요?", translation: "Shall we do it together on the weekend?" },
+    ],
+  },
+  {
+    id: "ko-m24-music-and-games",
+    languageId: "ko",
+    module: 24,
+    title: "Music and games",
+    theme: "Sharing hobbies with a friend.",
+    sentences: [
+      { text: "저는 음악을 좋아해요.", translation: "I like music." },
+      { text: "저는 노래도 할 줄 알아요.", translation: "I also know how to sing." },
+      { text: "일주일에 세 번 노래해요.", translation: "I sing three times a week." },
+      { text: "친구는 게임을 좋아해요.", translation: "My friend likes games." },
+      { text: "우리는 같이 게임을 해요.", translation: "We play games together." },
+      { text: "저는 사진도 좋아해요.", translation: "I like photos too." },
+      { text: "취미가 뭐예요?", translation: "What's your hobby?" },
     ],
   },
   {
@@ -877,6 +909,23 @@ const STORIES_RAW: Story[] = [
       { text: "온천에 가고 싶어요.", translation: "I want to go to a hot spring." },
       { text: "축제도 보고 싶어요.", translation: "I want to see a festival too." },
       { text: "다음 주말에 출발해요.", translation: "I leave next weekend." },
+      { text: "저는 여행을 좋아해요.", translation: "I like traveling." },
+    ],
+  },
+  {
+    id: "ko-m25-trip-with-a-friend",
+    languageId: "ko",
+    module: 25,
+    title: "A trip with a friend",
+    theme: "Two friends heading to Japan.",
+    sentences: [
+      { text: "친구하고 여행 계획이 있어요.", translation: "My friend and I have travel plans." },
+      { text: "우리는 일본에 가려고 해요.", translation: "We intend to go to Japan." },
+      { text: "친구는 일본에 간 적이 있어요.", translation: "My friend has been to Japan before." },
+      { text: "저는 온천에 가고 싶어요.", translation: "I want to go to a hot spring." },
+      { text: "친구는 축제를 보고 싶어요.", translation: "My friend wants to see a festival." },
+      { text: "우리는 다음 주말에 출발해요.", translation: "We leave next weekend." },
+      { text: "일본에서 비빔밥을 먹어요.", translation: "We'll eat bibimbap in Japan." },
     ],
   },
   {
@@ -892,6 +941,7 @@ const STORIES_RAW: Story[] = [
       { text: "저는 너무 피곤해요.", translation: "I'm so tired." },
       { text: "그리고 실수도 했어요.", translation: "And I made a mistake too." },
       { text: "저는 피곤해서 집에 가고 싶어요.", translation: "I'm tired, so I want to go home." },
+      { text: "하지만 내일은 회사에 가요.", translation: "But tomorrow I go to work." },
     ],
   },
   {
@@ -906,6 +956,7 @@ const STORIES_RAW: Story[] = [
       { text: "오늘은 연습해요.", translation: "Today I practice." },
       { text: "저는 너무 피곤해요.", translation: "I'm so tired." },
       { text: "쉬면 건강해져요.", translation: "If I rest, I'll get healthy." },
+      { text: "그래서 저는 약속을 안 해요.", translation: "So I don't make plans." },
       { text: "조심하세요.", translation: "Take care." },
     ],
   },
