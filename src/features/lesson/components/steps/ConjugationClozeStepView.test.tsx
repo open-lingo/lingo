@@ -25,7 +25,6 @@ vi.mock("@/shared/contexts/SettingsContext", () => ({
   useSettings: () => ({
     settings: {
       learning: {
-        showRomaji: false,
         showRomanization: false,
         hiraganaRomajiAutoOff: true,
         katakanaRomajiAutoOff: true,

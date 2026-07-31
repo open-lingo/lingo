@@ -24,7 +24,7 @@ import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
   HIRAGANA_ROMAJI_OFF_MODULE,
   KATAKANA_ROMAJI_OFF_MODULE,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 import { KANJI_RECOGNITION_MODULE } from "@/features/languages/ja/secondScript/kanjiRollout";
 
 /**

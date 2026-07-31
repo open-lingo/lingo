@@ -112,48 +112,49 @@ export type UserSettings = {
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     /**
-     * Global "show romaji reading aid" master toggle. When true (the
-     * default), kana surfaces render romaji above the kana — speaking,
-     * MCQ options, build-sentence tiles, dialogue transcripts, etc.
+     * Cross-language "show romanization reading aid" master toggle. When true
+     * (the default), phonetic scripts render their romanization as a reading
+     * aid — JA romaji above kana (speaking, MCQ options, build-sentence tiles,
+     * dialogue transcripts, etc.) and KO Revised Romanization above Hangul.
+     * Consumed by the shared reading-annotation renderer for any language that
+     * ships a `readingAnnotation` capability.
      *
-     * Romaji retires per script on its own: the render gate hides a kana's
-     * romaji once that script's auto-off guard is set — hiragana at Module
-     * 7, katakana at Module 17 (see romajiAutoFlip.ts). This single toggle
-     * still masters both scripts (off here = no romaji anywhere); the
-     * `romajiOnForDay` escape hatch can force it back on for one day.
-     */
-    showRomaji?: boolean;
-    /**
-     * Show romanization as a reading aid for phonetic scripts (Korean Revised
-     * Romanization above Hangul). Language-neutral counterpart to the JA
-     * `showRomaji` reading aid — consumed by the shared reading-annotation
-     * renderer for any non-JA language that ships a `readingAnnotation`
-     * capability. Default on.
+     * For Japanese the aid retires per script on its own: the render gate hides
+     * a kana's romaji once that script's auto-off guard is set — hiragana at
+     * Module 7, katakana at Module 17 (see romanizationAutoFlip.ts). This single
+     * toggle still masters both scripts (off here = no romanization anywhere);
+     * the `romanizationOnForDay` escape hatch can force it back on for one day.
+     *
+     * Was named `showRomaji` (JA-only) before the reading aid generalized to
+     * non-JA scripts; legacy stored blobs are migrated on hydrate (see
+     * `migrateReadingAidKeys` in SettingsContext).
      */
     showRomanization?: boolean;
     /** @deprecated Legacy single-flip guard (pre per-script model). Kept
-     *  only for settings-blob back-compat; no longer read. */
-    romajiAutoFlipped?: boolean;
+     *  only for settings-blob back-compat; no longer read. Was
+     *  `romajiAutoFlipped`. */
+    romanizationAutoFlipped?: boolean;
     /**
-     * Per-script one-time auto-off guards for the romaji reading aid,
+     * Per-script one-time auto-off guards for the JA romaji reading aid,
      * flipped when the learner crosses that script's fluency milestone
      * (hiragana M7 / katakana M17). The render gate hides that script's
-     * romaji once set — unless `showRomaji` is toggled back on or
-     * `romajiOnForDay` is today. Two guards, one user-facing toggle.
+     * romaji once set — unless `showRomanization` is toggled back on or
+     * `romanizationOnForDay` is today. Two guards, one user-facing toggle.
      */
     hiraganaRomajiAutoOff?: boolean;
     katakanaRomajiAutoOff?: boolean;
     /**
      * Escape hatch: an ISO local date (YYYY-MM-DD). While it equals today,
-     * romaji is forced ON for every script regardless of the per-script
-     * auto-off guards — "show romaji for today", auto-expires at midnight.
+     * romanization is forced ON for every script regardless of the per-script
+     * auto-off guards — "show romanization for today", auto-expires at midnight.
+     * Was named `romajiOnForDay`; legacy blobs migrated on hydrate.
      */
-    romajiOnForDay?: string | null;
+    romanizationOnForDay?: string | null;
     /**
      * When true, character-build tile banks ("Build the word for X") hide
      * the per-kana romaji label until the learner taps a tile (also plays
      * its sound) or hovers it briefly — forcing kana reading instead of
-     * matching romaji to the English prompt. Independent of `showRomaji`:
+     * matching romaji to the English prompt. Independent of `showRomanization`:
      * romaji can stay on everywhere else while build tiles fade first.
      *
      * Default OFF (romaji shown) as a beginner scaffold; auto-flips ON
@@ -234,12 +235,11 @@ export const DEFAULT_SETTINGS: UserSettings = {
     onboardingCompleted: false,
     uiLocale: "en",
     showAlphabetRomanization: true,
-    showRomaji: true,
     showRomanization: true,
-    romajiAutoFlipped: false,
+    romanizationAutoFlipped: false,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
-    romajiOnForDay: null,
+    romanizationOnForDay: null,
     hideBuildTileRomaji: false,
     buildTileRomajiAutoFlipped: false,
     dailyGoalMinutes: 10,

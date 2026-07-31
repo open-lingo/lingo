@@ -61,7 +61,7 @@ import {
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
 import { N5_KANJI } from "./n5Kanji";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import {
   KANJI_RECOGNITION_MODULE,
   furiganaVisibleAt,

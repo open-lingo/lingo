@@ -15,7 +15,7 @@ import {
 } from "./grammarReviewIndex";
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
 import { isDue, getToday } from "@/features/flashcards/engine/srs";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 
 /**

@@ -403,7 +403,7 @@ export function AlphabetLessonPage() {
       if (sectionId) markSectionTestPassed(progress, sectionId);
       else markFullTestPassed(progress);
       // Romaji fade is governed centrally by per-script module thresholds
-      // (romajiAutoFlip.ts); passing the alphabet test no longer flips it,
+      // (romanizationAutoFlip.ts); passing the alphabet test no longer flips it,
       // so a katakana pass can't silently kill hiragana romaji.
     }
   }, [finished, mode, progress, sectionId, results]);

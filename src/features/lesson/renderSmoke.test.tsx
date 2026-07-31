@@ -19,7 +19,7 @@
  * UNFLIPPED — the QA-jump / deep-link scenario. All gating asserted here
  * must therefore come from module POSITION via `LessonModuleProvider`,
  * which is exactly what regression #1 broke. Ladder thresholds are imported
- * from `romajiAutoFlip.ts` / `kanjiRollout.ts`, never hard-coded.
+ * from `romanizationAutoFlip.ts` / `kanjiRollout.ts`, never hard-coded.
  *
  * Contexts that don't spin up in happy-dom (settings, i18n, TTS, sfx) are
  * stubbed the same way KanjiReadingStepView.test.tsx stubs them. The JA
@@ -53,7 +53,6 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
 // Defaults with NO auto-off guard flipped (the deep-link scenario): any
 // hiding asserted below must come from the module-position gate.
 const defaultLearning = () => ({
-  showRomaji: true,
   showRomanization: true,
   hiraganaRomajiAutoOff: false,
   katakanaRomajiAutoOff: false,
@@ -94,7 +93,7 @@ import {
   BUILD_TILE_ROMAJI_FADE_MODULE,
   parseModuleIndex,
   shouldAutoFadeBuildTileRomaji,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 import {
   KANJI_RECOGNITION_MODULE,
   FURIGANA_WINDOW,

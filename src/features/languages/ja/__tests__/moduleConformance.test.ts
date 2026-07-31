@@ -27,7 +27,7 @@ import {
 } from "@/features/lesson/data/mockLessons";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import vocabMap from "@/features/lesson/data/n5-module-vocab-map.json";
 import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
 

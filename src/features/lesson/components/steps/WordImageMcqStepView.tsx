@@ -71,7 +71,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // pure reading aid — honor the global show-romaji setting (defaults on) so a
   // never-learned learner can actually read each option. Weans off with the
   // setting; mastery gating alone would hide it for users with no record.
-  const showRomaji = useSettings().settings.learning.showRomaji ?? false;
+  const showRomaji = useSettings().settings.learning.showRomanization ?? false;
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);

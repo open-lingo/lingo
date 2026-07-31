@@ -8,7 +8,7 @@ import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { TransformRuleTable } from "./TransformRuleTable";
-import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
+import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
 
 /**
  * Rule-card example romaji follows the same ladder as every other romaji

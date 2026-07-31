@@ -32,7 +32,7 @@ import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
   shouldAutoFadeBuildTileRomaji,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
 import { stopAllAudio } from "@/shared/tts";

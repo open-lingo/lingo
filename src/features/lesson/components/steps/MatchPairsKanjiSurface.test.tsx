@@ -25,7 +25,7 @@ vi.mock("@/shared/tts", () => ({
 vi.mock("@/shared/audio/sfx", () => ({ playSfx: vi.fn() }));
 vi.mock("@/shared/contexts/SettingsContext", () => ({
   useSettings: () => ({
-    settings: { learning: { showRomaji: false } },
+    settings: { learning: { showRomanization: false } },
     updateSetting: vi.fn(),
   }),
 }));

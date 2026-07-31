@@ -2539,7 +2539,10 @@
     "themeCorners": "모서리",
     "soundGroup": "소리",
     "showRomanization": "로마자 표기 보기",
-    "showRomanizationHelp": "한글 위에 로마자 표기(개정 로마자)를 읽기 보조로 표시합니다."
+    "showRomanizationHelp": "한글 위에 로마자 표기(개정 로마자)를 읽기 보조로 표시합니다.",
+    "showRomanizationJaHelp": "앱 전체에서 가나 위에 로마자를 표시합니다. 각 문자를 익히면 자동으로 줄어듭니다 — 히라가나는 약 7단원, 가타카나는 약 17단원. 여기에서 언제든지 완전히 켜거나 끌 수 있습니다.",
+    "romanizationForToday": "오늘 하루 로마자 표기 보기",
+    "romanizationForTodayHelp": "잠깐 보기: 이미 넘어간 문자까지 포함해 오늘 하루 동안 로마자 표기를 다시 표시했다가, 내일 초기화되어 스스로 읽기를 이어가도록 합니다."
   },
   "adFree": {
     "pill": {

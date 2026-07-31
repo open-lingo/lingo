@@ -62,7 +62,6 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLang: () => "ja",
 }));
 const defaultLearning = () => ({
-  showRomaji: true,
   showRomanization: true,
   hiraganaRomajiAutoOff: false,
   katakanaRomajiAutoOff: false,
@@ -100,7 +99,7 @@ import { StepRenderer } from "@/features/lesson/components/StepRenderer";
 import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import {
   buildLessonContracts,
   type StepContract,

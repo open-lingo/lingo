@@ -6,7 +6,7 @@ import { render } from "@testing-library/react";
 // bypasses mastery/fade anyway).
 vi.mock("@/shared/contexts/SettingsContext", () => ({
   useSettings: () => ({
-    settings: { learning: { showRomaji: true } },
+    settings: { learning: { showRomanization: true } },
   }),
 }));
 

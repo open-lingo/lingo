@@ -23,7 +23,7 @@ describe("settings backend persistence", () => {
       learningLanguageId: "ja",
       uiLocale: "ko",
       onboardingCompleted: true,
-      showRomaji: false,
+      showRomanization: false,
     },
   };
 
@@ -71,7 +71,51 @@ describe("settings backend persistence", () => {
     expect(hydrated.notifications?.dailyReminderTime).toBe("13:30");
     expect(hydrated.learning?.learningLanguageId).toBe("ja");
     expect(hydrated.learning?.uiLocale).toBe("ko");
-    expect(hydrated.learning?.showRomaji).toBe(false);
+    expect(hydrated.learning?.showRomanization).toBe(false);
+  });
+
+  describe("reading-aid romaji→romanization migration", () => {
+    it("carries a legacy showRomaji=false blob over to showRomanization (backend hydrate)", () => {
+      // A JA learner who turned the reading aid OFF before the rename has
+      // `showRomaji: false` (and no `showRomanization`) in the opaque server
+      // `learning` blob. A raw rename would read the absent `showRomanization`
+      // and reset them back to the default ON.
+      const legacy = { learning: { showRomaji: false } } as Record<string, unknown>;
+      const hydrated = fromBackendResponse(legacy);
+      expect(hydrated.learning?.showRomanization).toBe(false);
+      expect(
+        (hydrated.learning as Record<string, unknown>).showRomaji,
+      ).toBeUndefined();
+    });
+
+    it("carries legacy showRomaji=false over during localStorage (mergeWithDefaults) hydration", () => {
+      const merged = mergeWithDefaults({
+        learning: { showRomaji: false },
+      } as unknown as Partial<UserSettings>);
+      expect(merged.learning.showRomanization).toBe(false);
+      expect(
+        (merged.learning as Record<string, unknown>).showRomaji,
+      ).toBeUndefined();
+    });
+
+    it("migrates romajiOnForDay and romajiAutoFlipped to their romanization names", () => {
+      const legacy = {
+        learning: { romajiOnForDay: "2026-07-30", romajiAutoFlipped: true },
+      } as Record<string, unknown>;
+      const hydrated = fromBackendResponse(legacy);
+      expect(hydrated.learning?.romanizationOnForDay).toBe("2026-07-30");
+      expect(hydrated.learning?.romanizationAutoFlipped).toBe(true);
+    });
+
+    it("does not clobber an explicit new-key value with the legacy one", () => {
+      // A learner who has already written the new key (e.g. via a newer client)
+      // keeps it — the legacy value must not override it.
+      const blob = {
+        learning: { showRomaji: true, showRomanization: false },
+      } as Record<string, unknown>;
+      const hydrated = fromBackendResponse(blob);
+      expect(hydrated.learning?.showRomanization).toBe(false);
+    });
   });
 
   it("round-trips the frequency-vocab opt-in through the backend blob", () => {

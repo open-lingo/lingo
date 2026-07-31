@@ -4,8 +4,8 @@
  * Consumes the SAME setting-aware decision the shared annotator uses
  * (`romajiVisibleForScript` for JA kana scripts + the `showRomanization` toggle
  * for other phonetic scripts), so the reading surface honors
- * `settings.learning.showRomaji`, the `romajiOnForDay` escape hatch, and the
- * per-script auto-flip guards exactly like `AnnotatedText`.
+ * `settings.learning.showRomanization`, the `romanizationOnForDay` escape hatch,
+ * and the per-script auto-flip guards exactly like `AnnotatedText`.
  *
  * Reading practice runs OUTSIDE a lesson, so there is no module context —
  * `moduleIndex: null` keeps the JA gate guard-only (master toggle + "for today"
@@ -16,7 +16,7 @@ import {
   romajiVisibleForScript,
   todayLocalDate,
   type KanaScript,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 
 const JA_SCRIPTS: KanaScript[] = ["hiragana", "katakana"];
 

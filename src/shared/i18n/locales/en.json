@@ -2595,7 +2595,10 @@
     "themeCorners": "Corners",
     "soundGroup": "Sound",
     "showRomanization": "Show romanization",
-    "showRomanizationHelp": "Show Revised Romanization above Hangul as a reading aid."
+    "showRomanizationHelp": "Show Revised Romanization above Hangul as a reading aid.",
+    "showRomanizationJaHelp": "Shows romaji above kana across the app. It steps back on its own as you learn each script — hiragana around Module 7, katakana around Module 17. Turn it fully on or off here any time.",
+    "romanizationForToday": "Show romanization for today",
+    "romanizationForTodayHelp": "A temporary peek: bring romanization back for the rest of today — even for scripts you've moved past — then it resets tomorrow so you keep reading on your own."
   },
   "adFree": {
     "pill": {

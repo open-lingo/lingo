@@ -26,7 +26,7 @@ import {
   todayLocalDate,
   HIRAGANA_ROMAJI_OFF_MODULE,
   KATAKANA_ROMAJI_OFF_MODULE,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import { getCardState, isMastered, getToday } from "@/features/flashcards/engine";
@@ -438,7 +438,7 @@ function KanaSegment({
 type KanaScript = "hiragana" | "katakana";
 
 /**
- * Per-script romaji fade: the single `showRomaji` master toggle gates
+ * Per-script romaji fade: the single `showRomanization` master toggle gates
  * both scripts; each script's romaji auto-hides once the learner crosses
  * its module milestone (hiragana M7 / katakana M17), unless the "show
  * romaji for today" escape hatch is active. `hideHelper` is a hard OFF
@@ -455,7 +455,7 @@ type KanaScript = "hiragana" | "katakana";
  * ever, looks tacky and is bad practice"): `surface` is the raw rendered
  * text (the word or symbol, pre-annotation). If it contains any kanji,
  * this returns false unconditionally — before the settings/script checks
- * below, so it wins over `forceShowHelper`, over `showRomaji`, and over
+ * below, so it wins over `forceShowHelper`, over `showRomanization`, and over
  * the "romaji for today" escape hatch alike. Dormant today (the JA
  * annotator only emits kana fragments pre-kanji-layer), but real so the
  * kanji-substitution layer can't accidentally resurrect romaji-over-kanji

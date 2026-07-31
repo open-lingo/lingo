@@ -12,7 +12,7 @@ import { useMe } from "@/shared/hooks/useMe";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
-import { todayLocalDate } from "@/shared/settings/romajiAutoFlip";
+import { todayLocalDate } from "@/shared/settings/romanizationAutoFlip";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
@@ -644,38 +644,38 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           />
           <SettingRow
             asLabel
-            label={t("settings.showRomaji", "Show romaji as a reading aid")}
+            label={t("settings.showRomanization", "Show romanization")}
             help={t(
-              "settings.showRomajiHelp",
+              "settings.showRomanizationJaHelp",
               "Shows romaji above kana across the app. It steps back on its own as you learn each script — hiragana around Module 7, katakana around Module 17. Turn it fully on or off here any time.",
             )}
             control={
               <Switch
-                checked={settings.learning.showRomaji ?? true}
+                checked={settings.learning.showRomanization ?? true}
                 onCheckedChange={(next) =>
-                  updateSetting("learning.showRomaji", next)
+                  updateSetting("learning.showRomanization", next)
                 }
-                ariaLabel={t("settings.showRomaji", "Show romaji as a reading aid")}
+                ariaLabel={t("settings.showRomanization", "Show romanization")}
               />
             }
           />
           <SettingRow
             asLabel
-            label={t("settings.romajiForToday", "Show romaji for today")}
+            label={t("settings.romanizationForToday", "Show romanization for today")}
             help={t(
-              "settings.romajiForTodayHelp",
-              "A temporary peek: bring romaji back for the rest of today — even for scripts you've moved past — then it resets tomorrow so you keep reading on your own.",
+              "settings.romanizationForTodayHelp",
+              "A temporary peek: bring romanization back for the rest of today — even for scripts you've moved past — then it resets tomorrow so you keep reading on your own.",
             )}
             control={
               <Switch
-                checked={settings.learning.romajiOnForDay === todayLocalDate()}
+                checked={settings.learning.romanizationOnForDay === todayLocalDate()}
                 onCheckedChange={(next) =>
                   updateSetting(
-                    "learning.romajiOnForDay",
+                    "learning.romanizationOnForDay",
                     next ? todayLocalDate() : null,
                   )
                 }
-                ariaLabel={t("settings.romajiForToday", "Show romaji for today")}
+                ariaLabel={t("settings.romanizationForToday", "Show romanization for today")}
               />
             }
           />

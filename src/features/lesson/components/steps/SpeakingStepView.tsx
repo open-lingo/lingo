@@ -11,7 +11,7 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
-import { KATAKANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
+import { KATAKANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
 import {
   getSpeechConfig,
   isSpeechFlagEnabled,
@@ -333,9 +333,9 @@ function SpeakingStepRecognized({
   // explicit opt-in via Settings → Alphabet display.
   const { settings: romajiSettings, updateSetting: updateRomajiSetting } =
     useSettings();
-  const showRomaji = romajiSettings.learning.showRomaji ?? false;
+  const showRomaji = romajiSettings.learning.showRomanization ?? false;
   const toggleRomaji = useCallback(() => {
-    updateRomajiSetting("learning.showRomaji", !showRomaji);
+    updateRomajiSetting("learning.showRomanization", !showRomaji);
   }, [showRomaji, updateRomajiSetting]);
   const lessonModuleIndex = useLessonModuleIndex();
   // Same module gate as the toggle below: past the katakana cutoff the

@@ -36,14 +36,13 @@ vi.mock("@/features/dictionary/DictionaryModalContext", () => ({
   useDictionaryModal: () => ({ openWord, open: vi.fn(), close: vi.fn() }),
 }));
 
-// Settings drive the romaji reading-aid gate; mutable so tests flip showRomaji.
+// Settings drive the romaji reading-aid gate; mutable so tests flip showRomanization.
 const mockSettings = {
   learning: {
-    showRomaji: true,
     showRomanization: true,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
-    romajiOnForDay: null as string | null,
+    romanizationOnForDay: null as string | null,
   },
 };
 vi.mock("@/shared/contexts/SettingsContext", () => ({
@@ -133,9 +132,8 @@ describe("ReadingPracticePage", () => {
     gradeFromLesson.mockClear();
     openWord.mockClear();
     getConversations.mockReturnValue([]);
-    mockSettings.learning.showRomaji = true;
     mockSettings.learning.showRomanization = true;
-    mockSettings.learning.romajiOnForDay = null;
+    mockSettings.learning.romanizationOnForDay = null;
   });
 
   it("renders the two top-level tabs and switches between them", () => {
@@ -265,7 +263,7 @@ describe("ReadingPracticePage", () => {
     getKnownAtomsByPos.mockReturnValue(KNOWN);
 
     // Romaji OFF → the reading aid is not rendered.
-    mockSettings.learning.showRomaji = false;
+    mockSettings.learning.showRomanization = false;
     const { unmount } = render(<ReadingPracticePage />);
     openPreview(/At the cafe/);
     fireEvent.click(screen.getByRole("button", { name: "Read" }));
@@ -273,7 +271,7 @@ describe("ReadingPracticePage", () => {
     unmount();
 
     // Romaji ON → the reading aid renders under the sentence.
-    mockSettings.learning.showRomaji = true;
+    mockSettings.learning.showRomanization = true;
     render(<ReadingPracticePage />);
     openPreview(/At the cafe/);
     fireEvent.click(screen.getByRole("button", { name: "Read" }));

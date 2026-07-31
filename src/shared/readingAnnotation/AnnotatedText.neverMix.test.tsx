@@ -6,7 +6,7 @@ import { render } from "@testing-library/react";
 // these tests is proving kanji wins over all of them.
 const settingsRef: { learning: Record<string, unknown> } = {
   learning: {
-    showRomaji: true,
+    showRomanization: true,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
   },
@@ -41,14 +41,14 @@ import { AnnotatedText } from "./AnnotatedText";
 
 beforeEach(() => {
   settingsRef.learning = {
-    showRomaji: true,
+    showRomanization: true,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
   };
 });
 
 describe("AnnotatedText — never-mix romaji/kanji gate (bare mode)", () => {
-  it("renders no romaji for a kanji-bearing surface, even with showRomaji on, forceShowHelper on, and the script threshold not yet reached", () => {
+  it("renders no romaji for a kanji-bearing surface, even with showRomanization on, forceShowHelper on, and the script threshold not yet reached", () => {
     const { container } = render(<AnnotatedText text="学生" forceShowHelper />);
     const rt = container.querySelector("rt");
     expect(rt).not.toBeNull();

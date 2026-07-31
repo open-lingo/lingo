@@ -3,7 +3,7 @@ import { writeFileSync } from "node:fs";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 
 /**
  * FROMMODULE TRUTH TABLE (stale-reference audit 2026-07-29, regression

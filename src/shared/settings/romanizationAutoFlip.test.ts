@@ -8,7 +8,7 @@ import {
   romajiVisibleForScript,
   todayLocalDate,
   shouldAutoFadeBuildTileRomaji,
-} from "./romajiAutoFlip";
+} from "./romanizationAutoFlip";
 import { DEFAULT_SETTINGS, type UserSettings } from "./types";
 
 function settingsWith(overrides: Partial<UserSettings["learning"]>): UserSettings {
@@ -109,8 +109,8 @@ describe("romajiVisibleForScript", () => {
     );
   });
 
-  it("master showRomaji=false hides both scripts", () => {
-    const s = settingsWith({ showRomaji: false });
+  it("master showRomanization=false hides both scripts", () => {
+    const s = settingsWith({ showRomanization: false });
     expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
       false,
     );
@@ -119,17 +119,17 @@ describe("romajiVisibleForScript", () => {
     );
   });
 
-  it("romajiOnForDay===today forces romaji on despite a guard", () => {
-    const s = settingsWith({ katakanaRomajiAutoOff: true, romajiOnForDay: today });
+  it("romanizationOnForDay===today forces romaji on despite a guard", () => {
+    const s = settingsWith({ katakanaRomajiAutoOff: true, romanizationOnForDay: today });
     expect(romajiVisibleForScript({ settings: s, script: "katakana", today })).toBe(
       true,
     );
   });
 
-  it("a stale romajiOnForDay (not today) does not force it on", () => {
+  it("a stale romanizationOnForDay (not today) does not force it on", () => {
     const s = settingsWith({
       hiraganaRomajiAutoOff: true,
-      romajiOnForDay: "2020-01-01",
+      romanizationOnForDay: "2020-01-01",
     });
     expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
       false,
@@ -176,15 +176,15 @@ describe("romajiVisibleForScript", () => {
     ).toBe(true);
   });
 
-  it("romajiOnForDay escape hatch STILL wins over a past-threshold module", () => {
-    const s = settingsWith({ romajiOnForDay: today });
+  it("romanizationOnForDay escape hatch STILL wins over a past-threshold module", () => {
+    const s = settingsWith({ romanizationOnForDay: today });
     expect(
       romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 29 }),
     ).toBe(true);
   });
 
-  it("showRomaji=false still hard-hides regardless of module", () => {
-    const s = settingsWith({ showRomaji: false });
+  it("showRomanization=false still hard-hides regardless of module", () => {
+    const s = settingsWith({ showRomanization: false });
     expect(
       romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 3 }),
     ).toBe(false);
@@ -214,10 +214,10 @@ describe("shouldAutoFadeBuildTileRomaji", () => {
     ).toBe(false);
   });
 
-  it("is independent of the global showRomaji aid (still fades while romaji on)", () => {
+  it("is independent of the global showRomanization aid (still fades while romaji on)", () => {
     expect(
       shouldAutoFadeBuildTileRomaji({
-        settings: settingsWith({ showRomaji: true }),
+        settings: settingsWith({ showRomanization: true }),
         reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
       }),
     ).toBe(true);

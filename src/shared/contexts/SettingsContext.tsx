@@ -134,6 +134,36 @@ function isObj(v: unknown): v is Record<string, unknown> {
   return v != null && typeof v === "object" && !Array.isArray(v);
 }
 
+/**
+ * One-time migration of the reading-aid settings from their legacy JA-only
+ * "romaji" names to the cross-language "romanization" names. The reading aid
+ * now governs JA romaji AND KO Revised Romanization, so the fields were
+ * renamed: showRomaji→showRomanization, romajiOnForDay→romanizationOnForDay,
+ * romajiAutoFlipped→romanizationAutoFlipped. Persisted blobs (the localStorage
+ * cache + the opaque server `learning` object) still carry the old keys; carry
+ * a stored value over ONLY when the new key was never persisted, so a toggle
+ * the user explicitly set — especially one turned OFF — is never silently
+ * reset. `source` is the raw stored blob (pre default-fill); `target` is the
+ * default-filled learning object being hydrated. Idempotent.
+ */
+function migrateReadingAidKeys(
+  target: Record<string, unknown>,
+  source: Record<string, unknown>,
+): void {
+  const renames: ReadonlyArray<readonly [legacy: string, next: string]> = [
+    ["showRomaji", "showRomanization"],
+    ["romajiOnForDay", "romanizationOnForDay"],
+    ["romajiAutoFlipped", "romanizationAutoFlipped"],
+  ];
+  for (const [legacy, next] of renames) {
+    if (source[next] === undefined && source[legacy] !== undefined) {
+      target[next] = source[legacy];
+    }
+    // Drop the stale legacy key so the re-persisted blob stays clean.
+    delete target[legacy];
+  }
+}
+
 /** Presets removed from the built-in list map to their successor. */
 function normalizeThemeId(id: string): string {
   return id === "sepia" ? "light" : id;
@@ -222,6 +252,9 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
   }
   if (typeof backend.uiLocale === "string") learning.uiLocale = backend.uiLocale;
   if (isObj(backend.learning)) Object.assign(learning, backend.learning);
+  // Reading-aid romaji→romanization rename: fold a legacy stored value into
+  // the new key before the app reads it, so the toggle isn't reset.
+  migrateReadingAidKeys(learning, isObj(backend.learning) ? backend.learning : {});
   // A saved learning language (nested or legacy flat) implies onboarding done,
   // so clearing site data never replays the first-launch language modal.
   if (learning.learningLanguageId && learning.onboardingCompleted !== true) {
@@ -246,7 +279,16 @@ export function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings 
   if (partial.audio) merged.audio = { ...merged.audio, ...partial.audio };
   if (partial.notifications)
     merged.notifications = { ...merged.notifications, ...partial.notifications };
-  if (partial.learning) merged.learning = { ...merged.learning, ...partial.learning };
+  if (partial.learning) {
+    merged.learning = { ...merged.learning, ...partial.learning };
+    // localStorage (Phase-1) + error-fallback hydration seam: fold a legacy
+    // `showRomaji`/`romajiOnForDay`/`romajiAutoFlipped` value into its
+    // romanization successor before the app reads it.
+    migrateReadingAidKeys(
+      merged.learning as unknown as Record<string, unknown>,
+      partial.learning as unknown as Record<string, unknown>,
+    );
+  }
   if (partial.display) merged.display = { ...merged.display, ...partial.display };
   if (partial.flashcards) {
     merged.flashcards = {

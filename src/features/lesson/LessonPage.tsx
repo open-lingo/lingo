@@ -75,7 +75,7 @@ import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
   shouldAutoFadeBuildTileRomaji,
-} from "@/shared/settings/romajiAutoFlip";
+} from "@/shared/settings/romanizationAutoFlip";
 
 const LESSON_PASS_THRESHOLD = 0.7;
 
@@ -473,7 +473,7 @@ export function LessonPage() {
 
     // Auto-disable the romaji reading aid per script as the learner crosses
     // that script's fluency milestone (hiragana M7, katakana M17 — see
-    // src/shared/settings/romajiAutoFlip.ts). One-shot per script, idempotent.
+    // src/shared/settings/romanizationAutoFlip.ts). One-shot per script, idempotent.
     const reachedModuleIndex = parseModuleIndex(lesson.moduleId);
     if (
       shouldAutoOffScriptRomaji({ settings, reachedModuleIndex, script: "hiragana" })

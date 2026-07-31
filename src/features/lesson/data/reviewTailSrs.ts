@@ -1,5 +1,5 @@
 import { JA_COURSE_ATOMS_BY_ID } from "@/features/languages/ja/courseAtoms";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 
 /**
  * D2 — sub-lesson vocab review tails write Track A FSRS.

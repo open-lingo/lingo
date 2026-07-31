@@ -17,7 +17,7 @@ import type { UserSettings } from "./types";
  * ends), independent of the hiragana/kanji collision above since katakana
  * isn't part of it.
  *
- * Two thresholds, one user-facing `showRomaji` toggle.
+ * Two thresholds, one user-facing `showRomanization` toggle.
  */
 export const HIRAGANA_ROMAJI_OFF_MODULE = 7;
 export const KATAKANA_ROMAJI_OFF_MODULE = 17;
@@ -37,7 +37,7 @@ export const BUILD_TILE_ROMAJI_FADE_MODULE = 5;
  * Decide whether the character-build romaji should auto-fade for this
  * learner. Mirrors the per-script romaji auto-off but keyed on its own one-shot
  * guard (`buildTileRomajiAutoFlipped`) and earlier module threshold, and
- * INDEPENDENT of `showRomaji` — build tiles fade first while romaji can
+ * INDEPENDENT of `showRomanization` — build tiles fade first while romaji can
  * stay on everywhere else.
  *
  * Pure decision function — callers handle the `updateSetting` writes.
@@ -81,8 +81,8 @@ export function shouldAutoOffScriptRomaji(opts: {
 
 /**
  * Pure render-gate decision: should romaji show for a kana of `script`?
- * The `showRomaji` master toggle gates both scripts; the per-script
- * auto-off guard hides that script once crossed; `romajiOnForDay === today`
+ * The `showRomanization` master toggle gates both scripts; the per-script
+ * auto-off guard hides that script once crossed; `romanizationOnForDay === today`
  * forces romaji back on for every script (the "for today" escape hatch).
  *
  * `moduleIndex` (when known) makes the gate honor the ladder by POSITION,
@@ -90,9 +90,9 @@ export function shouldAutoOffScriptRomaji(opts: {
  * script's off-threshold hides romaji even if the guard never flipped
  * (e.g. a lesson opened without completing an M7+ lesson first — QA jump,
  * deep link). It is deliberately folded into the `off` term, BELOW the
- * `romajiOnForDay` escape hatch and the `showRomaji` master switch, so
- * neither is affected: "romaji for today" still forces romaji on at any
- * module, and `showRomaji: false` still hard-hides. Pass `undefined`
+ * `romanizationOnForDay` escape hatch and the `showRomanization` master switch, so
+ * neither is affected: "romanization for today" still forces romaji on at any
+ * module, and `showRomanization: false` still hard-hides. Pass `undefined`
  * (the default outside a lesson) to keep the pre-existing guard-only
  * behavior exactly.
  */
@@ -103,8 +103,8 @@ export function romajiVisibleForScript(opts: {
   moduleIndex?: number | null;
 }): boolean {
   const l = opts.settings.learning;
-  if (l.romajiOnForDay && l.romajiOnForDay === opts.today) return true;
-  if (!(l.showRomaji ?? true)) return false;
+  if (l.romanizationOnForDay && l.romanizationOnForDay === opts.today) return true;
+  if (!(l.showRomanization ?? true)) return false;
   const guardOff =
     opts.script === "katakana"
       ? l.katakanaRomajiAutoOff
@@ -117,7 +117,7 @@ export function romajiVisibleForScript(opts: {
   return !(guardOff || moduleOff);
 }
 
-/** Local calendar date (YYYY-MM-DD) for the "romaji for today" escape hatch. */
+/** Local calendar date (YYYY-MM-DD) for the "romanization for today" escape hatch. */
 export function todayLocalDate(): string {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(

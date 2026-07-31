@@ -14,7 +14,7 @@ import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { buildLessonContracts } from "./visualQaContracts";
-import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
+import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
 
 // NOT under test-results/ — Playwright clears that dir at every run start.
 const OUT_ROOT = path.resolve(__dirname, "../../../../artifacts/visual-qa");

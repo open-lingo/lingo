@@ -2539,7 +2539,10 @@
     "themeCorners": "Esquinas",
     "soundGroup": "Sonido",
     "showRomanization": "Mostrar romanización",
-    "showRomanizationHelp": "Muestra la romanización revisada sobre el Hangul como ayuda de lectura."
+    "showRomanizationHelp": "Muestra la romanización revisada sobre el Hangul como ayuda de lectura.",
+    "showRomanizationJaHelp": "Muestra el romaji sobre los kana en toda la app. Se retira por sí solo a medida que aprendes cada silabario: hiragana hacia el Módulo 7, katakana hacia el Módulo 17. Actívalo o desactívalo por completo aquí cuando quieras.",
+    "romanizationForToday": "Mostrar romanización por hoy",
+    "romanizationForTodayHelp": "Un vistazo temporal: recupera la romanización durante el resto del día — incluso para los silabarios que ya has superado — y luego se restablece mañana para que sigas leyendo por tu cuenta."
   },
   "adFree": {
     "pill": {

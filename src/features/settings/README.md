@@ -29,7 +29,7 @@ Settings are a **wide modal** (`max-w-4xl`), not a standalone page. Learners can
 
 ### Language sidebar panels
 
-- **Japanese (`lang-ja`):** `showAlphabetRomanization`, `showRomaji` (stored under global `learning.*` today; UI is per-language).
+- **Japanese (`lang-ja`):** `showAlphabetRomanization`, `showRomanization` (the cross-language reading-aid toggle; stored under global `learning.*` today; UI is per-language).
 - **Korean (`lang-ko`):** Placeholder until KO-specific options exist.
 
 ### Related modals
@@ -68,13 +68,13 @@ signed-in users.
 | `accessibility` | `reducedMotion`, `dyslexiaFont`, `fontSize` | Accessibility | Yes | Yes (root dataset, ThemeContext) |
 | `audio` | `silentMode`, `volume` | Audio | Yes | Yes (tts, volume.ts) |
 | `notifications` | `reminderEnabled`, `dailyReminderTime` (UTC) | Notifications | Yes | Stored only — no server delivery job yet |
-| `learning` | `learningLanguageId`, `uiLocale`, `showAlphabetRomanization`, `showRomaji`, `onboardingCompleted` | Partial | Yes (`learningLanguage`/`uiLocale` flat + nested) | Yes |
+| `learning` | `learningLanguageId`, `uiLocale`, `showAlphabetRomanization`, `showRomanization`, `onboardingCompleted` | Partial | Yes (`learningLanguage`/`uiLocale` flat + nested) | Yes |
 | `display` | `dateLocale`, `timezoneOverride` | Not yet | Yes (when set) | — |
 | `flashcards` | `studyOptions[]` | Flashcards page editor | Yes | Yes |
 
 Removed (were dead/no-op): `audio.soundEnabled` (no UI, no consumer) and
 `learning.showAlphabetFurigana` (toggle existed but nothing read it; the real
-reading aid is `showRomaji`).
+reading aid is `showRomanization`).
 
 See `lingo/docs/SETTINGS_AND_DATES.md` for date/locale and theme interaction notes.
 

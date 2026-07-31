@@ -14,7 +14,7 @@ import { pickSwitchoverCandidates } from "@/features/languages/ja/secondScript/s
 import { getLatchedKanjiIds } from "@/features/languages/ja/secondScript/kanjiSwitchoverLatch";
 import { SWITCHOVER_BEAT_ENABLED } from "@/features/languages/ja/secondScript/kanjiRollout";
 import { buildKanjiClozeStep } from "./kanjiClozeStep";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
 import {
   getGrammarReviewIndex,

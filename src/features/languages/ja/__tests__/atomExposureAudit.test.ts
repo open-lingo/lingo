@@ -8,7 +8,7 @@ import {
   isDedicatedReviewLesson,
   shouldWriteContentReviewAtom,
 } from "@/features/lesson/data/reviewTailSrs";
-import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 
 /**
  * AUTHORED-EXPOSURE AUDIT (B065).

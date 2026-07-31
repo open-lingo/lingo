@@ -37,7 +37,7 @@ import {
   BUILD_TILE_ROMAJI_FADE_MODULE,
   HIRAGANA_ROMAJI_OFF_MODULE,
   KATAKANA_ROMAJI_OFF_MODULE,
-} from "../shared/settings/romajiAutoFlip";
+} from "../shared/settings/romanizationAutoFlip";
 import {
   FURIGANA_WINDOW,
   KANJI_RECOGNITION_MODULE,
