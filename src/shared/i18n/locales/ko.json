@@ -619,7 +619,7 @@
         "micTuningDesc": "내 목소리에 맞게 음성 인식 보정"
       },
       "writing": {
-        "title": "쓰기",
+        "title": "쓰기와 문자",
         "tagline": "글자 하나하나 직접 써 보세요",
         "typeIt": "입력하기",
         "typeItDesc": "뜻을 보고 표현을 입력하세요",
@@ -712,7 +712,13 @@
         "answerWas": "정답: {{answer}}",
         "next": "다음",
         "finish": "완료"
-      }
+      },
+      "listHeading": "이야기를 골라 보세요",
+      "moduleBadge": "모듈 {{n}}",
+      "read": "읽기",
+      "fillBlanks": "빈칸 채우기",
+      "backToStories": "모든 이야기",
+      "detailModeAria": "이야기 활동"
     },
     "listening": {
       "title": "듣기",

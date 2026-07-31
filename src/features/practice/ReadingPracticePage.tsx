@@ -13,26 +13,29 @@ import {
   buildClozeCards,
   buildStoryQuestions,
   collectSentences,
+  hashSeed,
   storyExercisedAtomIds,
   type ClozeCard,
+  type SentenceSource,
   type StoryQuestion,
 } from "./reading/readingBuilders";
 
 /** Cloze cards per session — a short, unhurried read. */
 const CLOZE_SESSION = 8;
 
-type Mode = "stories" | "cloze";
+type DetailMode = "read" | "cloze";
 
 /**
  * Reading practice — built on CURATED, authored content (never the random
- * sentence generator). Two calm beats the learner can switch between:
+ * sentence generator). The learner first BROWSES a module-gated list of
+ * stories, picks one, and then works that single story two ways:
  *
- *  - **Stories** — read a module-appropriate authored narrative with inline
- *    dictionary lookup (tap any word), then answer a couple of comprehension
+ *  - **Read** — read the authored narrative with inline dictionary lookup (tap
+ *    any word), optionally reveal English, then answer a couple of comprehension
  *    questions whose distractors are drawn from other authored content.
- *  - **Fill the blank** — a cloze over an authored sentence (the base is
- *    hand-written, so it is never nonsense); pick the missing content word from
- *    same-part-of-speech words you already know.
+ *  - **Fill in the blanks** — a cloze over THAT story's own sentences (the base
+ *    is hand-written, so it is never nonsense); pick the missing content word
+ *    from same-part-of-speech words you already know.
  *
  * Correct answers lightly credit the `recognition` modality of the atoms the
  * read exercised — conservative reinforcement that only touches cards which
@@ -56,57 +59,26 @@ export function ReadingPracticePage() {
     [langId],
   );
 
-  const sentences = useMemo(
-    () => collectSentences(stories, conversations),
-    [stories, conversations],
-  );
-
-  const hasStories = stories.length > 0;
-  const clozeProbe = useMemo(
-    () => buildClozeCards(sentences, knownContent, 1, 1),
-    [sentences, knownContent],
-  );
-  const hasCloze = clozeProbe.length > 0;
-
-  const [mode, setMode] = useState<Mode>(() => (hasStories ? "stories" : "cloze"));
-  const effectiveMode: Mode = mode === "stories" && !hasStories ? "cloze" : mode;
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selectedStory = selectedId
+    ? stories.find((s) => s.id === selectedId) ?? null
+    : null;
 
   const header = (
-    <div className="space-y-3">
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("practice.reading.title", { defaultValue: "Reading" })}
-        </h1>
-        <p className="text-sm text-text-secondary">
-          {t("practice.reading.subtitle", {
-            defaultValue: "Read what you can handle — tap any word you don't know.",
-          })}
-        </p>
-      </div>
-      {hasStories && hasCloze && (
-        <SegmentedControl<Mode>
-          value={effectiveMode}
-          onChange={setMode}
-          ariaLabel={t("practice.reading.modeAria", { defaultValue: "Reading mode" })}
-          options={[
-            {
-              value: "stories",
-              label: t("practice.reading.mode.stories", { defaultValue: "Stories" }),
-              leading: <Icon name="bookOpen" size={15} aria-hidden />,
-            },
-            {
-              value: "cloze",
-              label: t("practice.reading.mode.cloze", { defaultValue: "Fill the blank" }),
-              leading: <Icon name="layers" size={15} aria-hidden />,
-            },
-          ]}
-        />
-      )}
+    <div>
+      <h1 className="text-2xl font-bold text-text-primary">
+        {t("practice.reading.title", { defaultValue: "Reading" })}
+      </h1>
+      <p className="text-sm text-text-secondary">
+        {t("practice.reading.subtitle", {
+          defaultValue: "Read what you can handle — tap any word you don't know.",
+        })}
+      </p>
     </div>
   );
 
-  // Nothing available at the learner's level yet.
-  if (!hasStories && !hasCloze) {
+  // Nothing unlocked at the learner's level yet.
+  if (stories.length === 0) {
     return (
       <div className="space-y-4">
         {header}
@@ -125,14 +97,18 @@ export function ReadingPracticePage() {
   return (
     <div className="space-y-4">
       {header}
-      {effectiveMode === "stories" ? (
-        <StoriesBeat
-          stories={stories}
+      {selectedStory ? (
+        <StoryDetail
+          key={selectedStory.id}
+          story={selectedStory}
+          allStories={stories}
           conversations={conversations}
           knownContent={knownContent}
+          langId={langId}
+          onBack={() => setSelectedId(null)}
         />
       ) : (
-        <ClozeBeat sentences={sentences} knownContent={knownContent} langId={langId} />
+        <StoryList stories={stories} onSelect={setSelectedId} />
       )}
     </div>
   );
@@ -151,66 +127,186 @@ function creditSrs(atomIds: string[]): void {
 }
 
 /* ==========================================================================
- * Stories beat
+ * Story list — the entry point: browse + pick a story to read.
  * ======================================================================== */
 
-interface StoriesBeatProps {
+interface StoryListProps {
   stories: Story[];
-  conversations: ReturnType<typeof getConversations>;
-  knownContent: ReturnType<typeof getKnownAtomsByPos>;
+  onSelect: (id: string) => void;
 }
 
-function StoriesBeat({ stories, conversations, knownContent }: StoriesBeatProps) {
+function StoryList({ stories, onSelect }: StoryListProps) {
   const { t } = useTranslation();
-  const langId = useLang();
 
-  const [storyIdx, setStoryIdx] = useState(0);
+  return (
+    <div className="space-y-3">
+      <h2 className="text-sm font-medium text-text-muted">
+        {t("practice.reading.listHeading", { defaultValue: "Choose a story" })}
+      </h2>
+      <div className="space-y-2">
+        {stories.map((story) => (
+          <button
+            key={story.id}
+            type="button"
+            onClick={() => onSelect(story.id)}
+            className="flex w-full items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-left transition hover:border-accent hover:bg-surface-muted"
+          >
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-surface-muted text-text-secondary">
+              <Icon name="bookOpen" size={18} aria-hidden />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2">
+                <span className="truncate font-semibold text-text-primary">{story.title}</span>
+                <span className="shrink-0 rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-text-muted">
+                  {t("practice.reading.moduleBadge", {
+                    defaultValue: "Module {{n}}",
+                    n: story.module,
+                  })}
+                </span>
+              </span>
+              <span className="mt-0.5 block truncate text-sm text-text-secondary">
+                {story.theme}
+              </span>
+            </span>
+            <Icon name="chevronRight" size={18} className="shrink-0 text-text-muted" aria-hidden />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ==========================================================================
+ * Story detail — read + fill-in-the-blanks over the CHOSEN story.
+ * ======================================================================== */
+
+interface StoryDetailProps {
+  story: Story;
+  allStories: Story[];
+  conversations: ReturnType<typeof getConversations>;
+  knownContent: ReturnType<typeof getKnownAtomsByPos>;
+  langId: string;
+  onBack: () => void;
+}
+
+function StoryDetail({
+  story,
+  allStories,
+  conversations,
+  knownContent,
+  langId,
+  onBack,
+}: StoryDetailProps) {
+  const { t } = useTranslation();
+
+  // Cloze runs over THIS story's sentences only.
+  const storySentences = useMemo(() => collectSentences([story], []), [story]);
+  const hasCloze = useMemo(
+    () => buildClozeCards(storySentences, knownContent, 1, 1).length > 0,
+    [storySentences, knownContent],
+  );
+
+  const [mode, setMode] = useState<DetailMode>("read");
+  const effectiveMode: DetailMode = mode === "cloze" && !hasCloze ? "read" : mode;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex items-center gap-1 text-sm font-medium text-text-secondary transition hover:text-text-primary"
+        >
+          <Icon name="arrowLeft" size={16} aria-hidden />
+          {t("practice.reading.backToStories", { defaultValue: "All stories" })}
+        </button>
+        {hasCloze && (
+          <SegmentedControl<DetailMode>
+            value={effectiveMode}
+            onChange={setMode}
+            ariaLabel={t("practice.reading.detailModeAria", { defaultValue: "Story activity" })}
+            options={[
+              {
+                value: "read",
+                label: t("practice.reading.read", { defaultValue: "Read" }),
+                leading: <Icon name="bookOpen" size={15} aria-hidden />,
+              },
+              {
+                value: "cloze",
+                label: t("practice.reading.fillBlanks", { defaultValue: "Fill in the blanks" }),
+                leading: <Icon name="layers" size={15} aria-hidden />,
+              },
+            ]}
+          />
+        )}
+      </div>
+
+      {effectiveMode === "read" ? (
+        <StoryReader
+          story={story}
+          allStories={allStories}
+          conversations={conversations}
+          knownContent={knownContent}
+          langId={langId}
+          onBack={onBack}
+        />
+      ) : (
+        <ClozeBeat sentences={storySentences} knownContent={knownContent} langId={langId} />
+      )}
+    </div>
+  );
+}
+
+/* ==========================================================================
+ * Read beat — a single authored story + comprehension check.
+ * ======================================================================== */
+
+interface StoryReaderProps {
+  story: Story;
+  allStories: Story[];
+  conversations: ReturnType<typeof getConversations>;
+  knownContent: ReturnType<typeof getKnownAtomsByPos>;
+  langId: string;
+  onBack: () => void;
+}
+
+function StoryReader({
+  story,
+  allStories,
+  conversations,
+  knownContent,
+  langId,
+  onBack,
+}: StoryReaderProps) {
+  const { t } = useTranslation();
+
   const [phase, setPhase] = useState<"read" | "quiz">("read");
   const [showEnglish, setShowEnglish] = useState(false);
 
-  const story = stories[storyIdx];
-
   const questions = useMemo(
-    () => (story ? buildStoryQuestions(story, stories, conversations, storyIdx + 1) : []),
-    [story, stories, conversations, storyIdx],
+    () => buildStoryQuestions(story, allStories, conversations, hashSeed(story.id)),
+    [story, allStories, conversations],
   );
-
-  const nextStory = useCallback(() => {
-    setStoryIdx((i) => (i + 1) % stories.length);
-    setPhase("read");
-    setShowEnglish(false);
-  }, [stories.length]);
-
-  if (!story) return null;
 
   if (phase === "quiz") {
     return (
       <StoryQuiz
-        key={story.id}
         story={story}
         questions={questions}
         knownContent={knownContent}
         onReadAgain={() => setPhase("read")}
-        onNextStory={nextStory}
-        multipleStories={stories.length > 1}
+        onBack={onBack}
       />
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between text-xs font-medium text-text-muted">
-        <span>
-          {t("practice.reading.storyProgress", {
-            defaultValue: "Story {{n}} of {{total}}",
-            n: storyIdx + 1,
-            total: stories.length,
-          })}
-        </span>
+      <div className="flex items-center justify-end">
         <button
           type="button"
           onClick={() => setShowEnglish((v) => !v)}
-          className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-text-secondary transition hover:text-text-primary"
+          className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium text-text-secondary transition hover:text-text-primary"
         >
           <Icon name="eye" size={14} aria-hidden />
           {showEnglish
@@ -245,11 +341,6 @@ function StoriesBeat({ stories, conversations, knownContent }: StoriesBeatProps)
       </Card>
 
       <div className="flex items-center justify-end gap-2">
-        {stories.length > 1 && (
-          <Button variant="ghost" onClick={nextStory}>
-            {t("practice.reading.anotherStory", { defaultValue: "Another story" })}
-          </Button>
-        )}
         {questions.length > 0 ? (
           <Button variant="primary" onClick={() => setPhase("quiz")}>
             {t("practice.reading.check", { defaultValue: "Check understanding" })}
@@ -260,7 +351,7 @@ function StoriesBeat({ stories, conversations, knownContent }: StoriesBeatProps)
             variant="primary"
             onClick={() => {
               creditSrs(storyExercisedAtomIds(story, knownContent));
-              nextStory();
+              onBack();
             }}
           >
             <Icon name="check" size={16} className="mr-1.5" aria-hidden />
@@ -277,18 +368,10 @@ interface StoryQuizProps {
   questions: StoryQuestion[];
   knownContent: ReturnType<typeof getKnownAtomsByPos>;
   onReadAgain: () => void;
-  onNextStory: () => void;
-  multipleStories: boolean;
+  onBack: () => void;
 }
 
-function StoryQuiz({
-  story,
-  questions,
-  knownContent,
-  onReadAgain,
-  onNextStory,
-  multipleStories,
-}: StoryQuizProps) {
+function StoryQuiz({ story, questions, knownContent, onReadAgain, onBack }: StoryQuizProps) {
   const { t } = useTranslation();
 
   const [picks, setPicks] = useState<Record<string, string>>({});
@@ -298,12 +381,9 @@ function StoryQuiz({
   const allAnswered = answeredCount >= questions.length;
   const correctCount = questions.filter((q) => picks[q.id] === q.answer).length;
 
-  const pick = useCallback(
-    (questionId: string, option: string) => {
-      setPicks((prev) => (prev[questionId] ? prev : { ...prev, [questionId]: option }));
-    },
-    [],
-  );
+  const pick = useCallback((questionId: string, option: string) => {
+    setPicks((prev) => (prev[questionId] ? prev : { ...prev, [questionId]: option }));
+  }, []);
 
   const finish = useCallback(() => {
     setDone(true);
@@ -334,12 +414,10 @@ function StoryQuiz({
           <Button variant="secondary" onClick={onReadAgain}>
             {t("practice.reading.quiz.reread", { defaultValue: "Read again" })}
           </Button>
-          {multipleStories && (
-            <Button variant="primary" onClick={onNextStory}>
-              {t("practice.reading.anotherStory", { defaultValue: "Another story" })}
-              <Icon name="arrowRight" size={16} className="ml-1.5" aria-hidden />
-            </Button>
-          )}
+          <Button variant="primary" onClick={onBack}>
+            <Icon name="arrowLeft" size={16} className="mr-1.5" aria-hidden />
+            {t("practice.reading.backToStories", { defaultValue: "All stories" })}
+          </Button>
         </div>
       </Card>
     );
@@ -417,11 +495,11 @@ function StoryQuiz({
 }
 
 /* ==========================================================================
- * Cloze beat
+ * Fill-in-the-blanks beat — cloze over the chosen story's sentences.
  * ======================================================================== */
 
 interface ClozeBeatProps {
-  sentences: ReturnType<typeof collectSentences>;
+  sentences: SentenceSource[];
   knownContent: ReturnType<typeof getKnownAtomsByPos>;
   langId: string;
 }

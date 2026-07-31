@@ -619,7 +619,7 @@
         "micTuningDesc": "Calibra el reconocimiento de voz para tu voz"
       },
       "writing": {
-        "title": "Escritura",
+        "title": "Escritura y alfabeto",
         "tagline": "Produce el idioma, carácter a carácter",
         "typeIt": "Escríbelo",
         "typeItDesc": "Mira el significado y escribe la frase",
@@ -712,7 +712,13 @@
         "answerWas": "Respuesta: {{answer}}",
         "next": "Siguiente",
         "finish": "Finalizar"
-      }
+      },
+      "listHeading": "Elige una historia",
+      "moduleBadge": "Módulo {{n}}",
+      "read": "Leer",
+      "fillBlanks": "Completa los huecos",
+      "backToStories": "Todas las historias",
+      "detailModeAria": "Actividad de la historia"
     },
     "listening": {
       "title": "Escucha",

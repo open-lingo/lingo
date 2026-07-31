@@ -93,13 +93,21 @@ describe("ReadingPracticePage", () => {
     getConversations.mockReturnValue([]);
   });
 
-  it("renders an authored story as tappable text and a comprehension question", () => {
+  it("lists available stories and opens the picked one as tappable text + a question", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
+    // Landing view: browse the module-gated story list first.
+    expect(screen.getByText("Choose a story")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /At the cafe/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /In the park/ })).toBeInTheDocument();
+
+    // Pick a story → it opens.
+    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+
     // Story reads via TappableText (inline lookup surface).
-    expect(screen.getByText("At the cafe")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "At the cafe" })).toBeInTheDocument();
     const tappable = screen.getAllByTestId("tappable");
     expect(tappable.some((el) => el.textContent === "コーヒーを のみます。")).toBe(true);
 
@@ -111,11 +119,24 @@ describe("ReadingPracticePage", () => {
     expect(screen.getByRole("button", { name: "A walk in the park." })).toBeInTheDocument();
   });
 
+  it("returns to the story list via the back control", () => {
+    getStories.mockReturnValue([STORY_A, STORY_B]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    render(<ReadingPracticePage />);
+
+    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+    expect(screen.getByRole("heading", { name: "At the cafe" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /All stories/ }));
+    expect(screen.getByText("Choose a story")).toBeInTheDocument();
+  });
+
   it("grades a comprehension answer and shows the score", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     render(<ReadingPracticePage />);
 
+    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
     fireEvent.click(screen.getByRole("button", { name: /Check understanding/ }));
     // Answer every question, then finish.
     fireEvent.click(screen.getByRole("button", { name: "A quiet morning." }));
@@ -126,15 +147,16 @@ describe("ReadingPracticePage", () => {
     expect(screen.getByText("You got 2 of 2 right.")).toBeInTheDocument();
   });
 
-  it("renders a cloze over an authored sentence, blanks a word, and grades it", () => {
+  it("runs fill-in-the-blanks over the chosen story, blanks a word, and grades it", () => {
     getStories.mockReturnValue([STORY_A, STORY_B]);
     getKnownAtomsByPos.mockReturnValue(KNOWN);
     // Card state exists → a correct answer credits recognition SRS.
     getCardState.mockReturnValue({ existing: true });
     render(<ReadingPracticePage />);
 
-    // Switch to the cloze beat (SegmentedControl cells are radios).
-    fireEvent.click(screen.getByRole("radio", { name: /Fill the blank/ }));
+    // Open the story, then switch to the fill-in-the-blanks beat (radios).
+    fireEvent.click(screen.getByRole("button", { name: /At the cafe/ }));
+    fireEvent.click(screen.getByRole("radio", { name: /Fill in the blanks/ }));
 
     // Meaning hint for the authored sentence is shown.
     expect(screen.getByText("I drink coffee.")).toBeInTheDocument();

@@ -32,6 +32,15 @@ describe("getPillarsForLanguage", () => {
     expect(ko).toContain("conjugation");
   });
 
+  it("moves alphabet fully under Writing & Alphabet (reading has no alphabet-read)", () => {
+    const ps = getPillarsForLanguage("ja", flags);
+    const reading = ps.find((p) => p.id === "reading");
+    const writing = ps.find((p) => p.id === "writing");
+    expect(reading?.activities.map((a) => a.id)).not.toContain("alphabet-read");
+    expect(writing?.activities.map((a) => a.id)).toContain("alphabet-write");
+    expect(writing?.titleDefault).toBe("Writing & Alphabet");
+  });
+
   it("drops stories activities when the stories flag is off", () => {
     const noStories: FeatureFlags = {
       ...flags,

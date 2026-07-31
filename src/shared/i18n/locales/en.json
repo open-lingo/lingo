@@ -619,7 +619,7 @@
         "micTuningDesc": "Calibrate speech recognition for your voice"
       },
       "writing": {
-        "title": "Writing",
+        "title": "Writing & Alphabet",
         "tagline": "Produce the language, character by character",
         "typeIt": "Type it",
         "typeItDesc": "See the meaning, type the phrase",
@@ -712,7 +712,13 @@
         "answerWas": "Answer: {{answer}}",
         "next": "Next",
         "finish": "Finish"
-      }
+      },
+      "listHeading": "Choose a story",
+      "moduleBadge": "Module {{n}}",
+      "read": "Read",
+      "fillBlanks": "Fill in the blanks",
+      "backToStories": "All stories",
+      "detailModeAria": "Story activity"
     },
     "listening": {
       "title": "Listening",
