@@ -14,30 +14,16 @@ const LANGS = ["ja", "ko"] as const;
 /**
  * Gist questions must reach 3+ options — a 2-way gist is a 50% coin flip,
  * unlike the 4-way generated `detail` questions (see `storyQuestions.ts`).
- * These stories are the documented exceptions: at their module, the course
- * atom catalog genuinely does not yet supply a third same-category,
- * single-defensible-truth distractor (verified against the real gate, not
- * assumed) — see Task 14 fix-round-1 report for the per-story vocabulary
- * gap. Don't add to this list to dodge the bar; extend it only after
- * confirming no third option exists at that module.
+ * Fix-round-2 (2026-07-31) re-verified all 13 fix-round-1 "exceptions"
+ * against the real gate and found every one had a genuine third option once
+ * the prompt was reframed away from the binary the author happened to pick
+ * (or, for the two-price/turn cases, once a same-category distractor from
+ * the module's own catalog was added). None survived — see Task 14
+ * fix-round-2 report. Empty on purpose: don't add to this list to dodge the
+ * bar; only add an entry after confirming, with an actual `gateResidual()`
+ * run at the story's module, that no coherent third option exists.
  */
-const TWO_OPTION_EXCEPTIONS = new Set([
-  // JA — early-module vocabulary ceilings.
-  "ja-m5-shop-errand", // only two prices in the m3-m5 catalog; せん (thousand) lands at m14
-  "ja-m7-my-day", // only ほん/ニュース read at the library; しんぶん lands at m8, one module late
-  // KO — genuine vocabulary/structure ceilings at their module.
-  "ko-m5-cafe-morning", // only two prices before 백/천 (hundred/thousand) land at m14
-  "ko-m7-my-day", // no third location established this early
-  "ko-m9-a-snack", // no third size adjective (커요/작아요 is the whole pair)
-  "ko-m11-a-day-off", // "고 싶어요" only registered for 보다 (m11); 먹다/마시다 aren't whitelisted with -고 until m15+
-  "ko-m13-my-week", // no third location established in this story
-  "ko-m14-a-busy-day", // 사람/누가 unavailable (see KO's missing "person" word); binary capability question has no safe third option
-  "ko-m15-relaxing-at-home", // no third location established in this story
-  "ko-m16-friends-house", // binary preference (like/dislike) has no coherent third state
-  "ko-m17-my-commute", // 왼쪽/오른쪽 — only two sides exist
-  "ko-m25-planning-a-trip", // KO course teaches only 한국/일본 as countries — no third
-  "ko-m25-trip-with-a-friend", // same — no third want-item without reusing the other true one
-]);
+const TWO_OPTION_EXCEPTIONS = new Set<string>([]);
 
 /** Every target string an item exposes, with the glosses that clear it. */
 function storyTexts(s: Story): { label: string; text: string }[] {
