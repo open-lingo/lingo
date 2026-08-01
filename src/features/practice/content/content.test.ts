@@ -11,6 +11,34 @@ import type { Conversation, Story } from "./types";
 
 const LANGS = ["ja", "ko"] as const;
 
+/**
+ * Gist questions must reach 3+ options — a 2-way gist is a 50% coin flip,
+ * unlike the 4-way generated `detail` questions (see `storyQuestions.ts`).
+ * These stories are the documented exceptions: at their module, the course
+ * atom catalog genuinely does not yet supply a third same-category,
+ * single-defensible-truth distractor (verified against the real gate, not
+ * assumed) — see Task 14 fix-round-1 report for the per-story vocabulary
+ * gap. Don't add to this list to dodge the bar; extend it only after
+ * confirming no third option exists at that module.
+ */
+const TWO_OPTION_EXCEPTIONS = new Set([
+  // JA — early-module vocabulary ceilings.
+  "ja-m5-shop-errand", // only two prices in the m3-m5 catalog; せん (thousand) lands at m14
+  "ja-m7-my-day", // only ほん/ニュース read at the library; しんぶん lands at m8, one module late
+  // KO — genuine vocabulary/structure ceilings at their module.
+  "ko-m5-cafe-morning", // only two prices before 백/천 (hundred/thousand) land at m14
+  "ko-m7-my-day", // no third location established this early
+  "ko-m9-a-snack", // no third size adjective (커요/작아요 is the whole pair)
+  "ko-m11-a-day-off", // "고 싶어요" only registered for 보다 (m11); 먹다/마시다 aren't whitelisted with -고 until m15+
+  "ko-m13-my-week", // no third location established in this story
+  "ko-m14-a-busy-day", // 사람/누가 unavailable (see KO's missing "person" word); binary capability question has no safe third option
+  "ko-m15-relaxing-at-home", // no third location established in this story
+  "ko-m16-friends-house", // binary preference (like/dislike) has no coherent third state
+  "ko-m17-my-commute", // 왼쪽/오른쪽 — only two sides exist
+  "ko-m25-planning-a-trip", // KO course teaches only 한국/일본 as countries — no third
+  "ko-m25-trip-with-a-friend", // same — no third want-item without reusing the other true one
+]);
+
 /** Every target string an item exposes, with the glosses that clear it. */
 function storyTexts(s: Story): { label: string; text: string }[] {
   const lines = s.sentences.map((line, i) => ({ label: `${s.id}[${i}]`, text: line.text }));
@@ -220,8 +248,9 @@ describe("curated content — level discipline", () => {
           if (!q.options.includes(q.answer)) {
             failures.push(`${s.id} q:${q.id}: answer "${q.answer}" is not among its options`);
           }
-          if (q.options.length < 2) {
-            failures.push(`${s.id} q:${q.id}: needs at least 2 options`);
+          const minOptions = TWO_OPTION_EXCEPTIONS.has(s.id) ? 2 : 3;
+          if (q.options.length < minOptions) {
+            failures.push(`${s.id} q:${q.id}: needs at least ${minOptions} options`);
           }
           if (new Set(q.options).size !== q.options.length) {
             failures.push(`${s.id} q:${q.id}: duplicate options`);
