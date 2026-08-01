@@ -206,6 +206,28 @@ whether the characters are covered. Two consequences:
     `gloss "まちます" is already known` — so at m8-m13 the only correct move is
     to **write a story that does not need the word**.
 
+  **Korean false positives, measured.** Every row below was probed with
+  `gateResidual(surface, "ko", M)` and is a word the matcher accepts but the
+  learner cannot read. "Clean from" is the first module at which the residual is
+  `""`; the decomposition column is why. **Do not use any of these** — none is a
+  word the KO course teaches at the module where it starts passing:
+
+  | surface | clean from | how it decomposes |
+  |---|---|---|
+  | `준비` "preparation" | **m1** | `준` (a PROPER_NOUNS entry) + `비` "rain" (m1) |
+  | `준비해요` | **m7** | `준` + `비` + `해요` (m7) |
+  | `준비했어요` | **m10** | `준` + `비` + `했어요` (m10) |
+  | `의사` "doctor" | **m4** | `의` possessive (m4) + `사` "four" (m1) |
+  | `이제` "now" | **m4** | `이` "this" (m3/m4) + `제` "my" (m4) |
+  | `일해요` "works" | **m7** | `일` "one" Sino (m3) + `해요` (m7) |
+  | `사과했어요` "apologized" | **m10** | `사과` "apple" (m9) + `했어요` (m10) |
+  | `회사원` "office worker" | **m13** | `회사` (m13) + `원` "won" currency (m5) |
+
+  `준비` is the worst of them: a name on the allowlist plus a weather noun makes
+  it clean at *every* module in the course, and it is only a genuine word from
+  m27, where `준비` is a real atom. For "now" use `지금` (m10); for "works"
+  write `회사에 가요` / `회사에서 공부해요`; for "doctor" write `병원 선생님`.
+
   **The gate passing is necessary, not sufficient.** If you know a word is above
   level, treat it as above level even when the gate shrugs. `content.test.ts`
   will refuse to let you *gloss* such a word — `gloss "でも" is already known at
