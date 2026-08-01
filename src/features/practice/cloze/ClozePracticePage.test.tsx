@@ -77,6 +77,7 @@ const STORY_A: Story = {
   level: 1,
   title: "At the cafe",
   theme: "A quiet morning.",
+  questions: [],
   sentences: [{ text: "コーヒーを のみます。", translation: "I drink coffee.", reading: "koohii o nomimasu" }],
 };
 

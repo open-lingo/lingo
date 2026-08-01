@@ -93,7 +93,7 @@ describe("buildQuestions", () => {
   });
 
   it("returns [] for a story with neither authored questions nor swappable text", () => {
-    const bare: Story = { ...story, questions: undefined, sentences: [
+    const bare: Story = { ...story, questions: [], sentences: [
       { text: "あ。", translation: "Ah." },
       { text: "い。", translation: "Ee." },
       { text: "う。", translation: "Oo." },

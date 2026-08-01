@@ -13,6 +13,15 @@ export const KO_STORIES: Story[] = [
     level: 1,
     title: "A new classmate",
     theme: "Introducing yourself on the first day.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "이름이 뭐예요?",
+        options: ["민수예요", "미나예요", "지수예요"],
+        answer: "민수예요",
+      },
+    ],
     sentences: [
       { text: "안녕하세요.", translation: "Hello." },
       { text: "저는 학생이에요.", translation: "I'm a student." },
@@ -29,6 +38,15 @@ export const KO_STORIES: Story[] = [
     level: 1,
     title: "Morning at the cafe",
     theme: "A quick coffee run.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "이거 얼마예요?",
+        options: ["사천 원이에요", "오천 원이에요"],
+        answer: "사천 원이에요",
+      },
+    ],
     sentences: [
       { text: "커피 두 잔 주세요.", translation: "Two coffees, please." },
       { text: "물도 한 잔 주세요.", translation: "One water too, please." },
@@ -45,6 +63,15 @@ export const KO_STORIES: Story[] = [
     level: 1,
     title: "My afternoon",
     theme: "A simple run-through of an afternoon.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구는 어디에 있어요?",
+        options: ["학교에 있어요", "집에 있어요"],
+        answer: "학교에 있어요",
+      },
+    ],
     sentences: [
       { text: "저는 집에 있어요.", translation: "I'm at home." },
       { text: "밥을 먹어요.", translation: "I eat a meal." },
@@ -62,6 +89,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A snack at home",
     theme: "Bread, milk, and an apple.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "사과는 커요, 작아요?",
+        options: ["커요", "작아요"],
+        answer: "커요",
+      },
+    ],
     sentences: [
       { text: "저는 집에 있어요.", translation: "I'm at home." },
       { text: "빵하고 우유가 있어요.", translation: "There's bread and milk." },
@@ -79,6 +115,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Yesterday",
     theme: "Looking back on a good day.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "어제 누구하고 커피를 마셨어요?",
+        options: ["친구하고 마셨어요", "민수하고 마셨어요"],
+        answer: "친구하고 마셨어요",
+      },
+    ],
     sentences: [
       { text: "어제 친구하고 커피를 마셨어요.", translation: "Yesterday I had coffee with a friend." },
       { text: "우리는 영화를 봤어요.", translation: "We watched a movie." },
@@ -96,6 +141,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A day off",
     theme: "Staying in on a quiet day.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "오늘 학교에 가요, 안 가요?",
+        options: ["가요", "안 가요"],
+        answer: "안 가요",
+      },
+    ],
     sentences: [
       { text: "오늘은 학교에 안 가요.", translation: "Today I don't go to school." },
       { text: "저는 집에 있어요.", translation: "I stay at home." },
@@ -113,6 +167,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A plan for Friday",
     theme: "Setting a time to meet.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "몇 시에 만나요?",
+        options: ["세 시에 만나요", "두 시에 만나요"],
+        answer: "세 시에 만나요",
+      },
+    ],
     sentences: [
       { text: "금요일에 시간이 있어요.", translation: "I have time on Friday." },
       { text: "친구하고 영화를 보고 싶어요.", translation: "I want to watch a movie with a friend." },
@@ -130,6 +193,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "My week",
     theme: "Work, study, and a bit of exercise.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "토요일에는 뭐 해요?",
+        options: ["집에 있어요", "회사에 가요"],
+        answer: "집에 있어요",
+      },
+    ],
     sentences: [
       { text: "저는 자주 운동해요.", translation: "I exercise often." },
       { text: "월요일부터 금요일까지 회사에 가요.", translation: "I go to work from Monday to Friday." },
@@ -147,6 +219,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A busy day",
     theme: "Too much to do, too little time.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 커피를 마셔요, 못 마셔요?",
+        options: ["못 마셔요", "마셔요"],
+        answer: "못 마셔요",
+      },
+    ],
     sentences: [
       { text: "저는 바빠서 시간이 없어요.", translation: "I'm busy, so I have no time." },
       { text: "오늘 회사에 가요.", translation: "I go to work today." },
@@ -164,6 +245,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Relaxing at home",
     theme: "A quiet afternoon with a friend.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "오늘 저는 어디에 있어요?",
+        options: ["집에 있어요", "학교에 있어요"],
+        answer: "집에 있어요",
+      },
+    ],
     sentences: [
       { text: "오늘은 집에 있어요.", translation: "Today I'm at home." },
       { text: "커피를 마시고 있어요.", translation: "I'm drinking coffee." },
@@ -181,6 +271,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "At a friend's house",
     theme: "Visiting a friend's place.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 담배를 좋아해요, 싫어해요?",
+        options: ["싫어해요", "좋아해요"],
+        answer: "싫어해요",
+      },
+    ],
     sentences: [
       { text: "오늘 친구 집에 가요.", translation: "Today I go to my friend's house." },
       { text: "친구 집에서는 담배를 피우면 안 돼요.", translation: "You can't smoke at my friend's house." },
@@ -198,6 +297,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "My commute",
     theme: "Bus, subway, and a left turn.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "회사는 어디에 있어요?",
+        options: ["왼쪽에 있어요", "오른쪽에 있어요"],
+        answer: "왼쪽에 있어요",
+      },
+    ],
     sentences: [
       { text: "저는 회사에 가요.", translation: "I go to work." },
       { text: "버스를 타요.", translation: "I take the bus." },
@@ -216,6 +324,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Tomorrow's weather",
     theme: "A clear day, then rain.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "내일은 뭐가 올 거예요?",
+        options: ["비가 올 거예요", "눈이 올 거예요"],
+        answer: "비가 올 거예요",
+      },
+    ],
     sentences: [
       { text: "오늘은 날씨가 좋아요.", translation: "The weather is nice today." },
       { text: "맑아요.", translation: "It's clear." },
@@ -233,6 +350,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "My family",
     theme: "Four of us, and an older brother.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "우리 가족은 몇 명이에요?",
+        options: ["네 명이에요", "세 명이에요"],
+        answer: "네 명이에요",
+      },
+    ],
     sentences: [
       { text: "우리 가족은 네 명이에요.", translation: "There are four people in my family." },
       { text: "엄마, 아빠, 형, 그리고 저요.", translation: "Mom, dad, my older brother, and me." },
@@ -250,6 +376,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A cold",
     theme: "Aches, a fever, and some medicine.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "어디가 아파요?",
+        options: ["머리하고 배가 아파요", "다리가 아파요"],
+        answer: "머리하고 배가 아파요",
+      },
+    ],
     sentences: [
       { text: "오늘은 머리가 아파요.", translation: "My head hurts today." },
       { text: "그리고 배도 아파요.", translation: "And my stomach hurts too." },
@@ -267,6 +402,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A Korean meal",
     theme: "Bibimbap, bulgogi, and kimchi.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구는 뭐를 먹어요?",
+        options: ["생선하고 채소를 먹어요", "비빔밥을 먹어요"],
+        answer: "생선하고 채소를 먹어요",
+      },
+    ],
     sentences: [
       { text: "저는 식당에 가요.", translation: "I go to a restaurant." },
       { text: "비빔밥하고 불고기를 먹어요.", translation: "I eat bibimbap and bulgogi." },
@@ -284,6 +428,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Cooking dinner",
     theme: "A meal at home with a friend.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구는 뭐를 마셔요?",
+        options: ["우유를 마셔요", "커피를 마셔요"],
+        answer: "우유를 마셔요",
+      },
+    ],
     sentences: [
       { text: "오늘은 집에서 밥을 먹어요.", translation: "Today I eat at home." },
       { text: "저는 불고기를 좋아해요.", translation: "I like bulgogi." },
@@ -301,6 +454,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Which I like more",
     theme: "Comparing coffee and tea.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "뭐가 제일 좋아요?",
+        options: ["커피예요", "차예요"],
+        answer: "커피예요",
+      },
+    ],
     sentences: [
       { text: "저는 커피하고 차 중에서 커피가 더 좋아요.", translation: "Between coffee and tea, I like coffee more." },
       { text: "차는 커피보다 싸요.", translation: "Tea is cheaper than coffee." },
@@ -318,6 +480,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Bibimbap or ramen?",
     theme: "Picking a favorite at the restaurant.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "이 식당은 뭐가 가장 맛있어요?",
+        options: ["불고기예요", "비빔밥이에요"],
+        answer: "불고기예요",
+      },
+    ],
     sentences: [
       { text: "저는 비빔밥하고 라면 중에서 비빔밥이 더 좋아요.", translation: "Between bibimbap and ramen, I like bibimbap more." },
       { text: "라면은 비빔밥보다 싸요.", translation: "Ramen is cheaper than bibimbap." },
@@ -335,6 +506,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Weekend plans",
     theme: "Cooking and doing things together.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 뭐를 못해요?",
+        options: ["노래를 못해요", "요리를 못해요"],
+        answer: "노래를 못해요",
+      },
+    ],
     sentences: [
       { text: "주말에 뭐 할까요?", translation: "What shall we do on the weekend?" },
       { text: "저는 요리를 잘해요.", translation: "I'm good at cooking." },
@@ -352,6 +532,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "My hobbies",
     theme: "Music, photos, and a bit of singing.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "제 취미는 뭐예요?",
+        options: ["음악이에요", "게임이에요"],
+        answer: "음악이에요",
+      },
+    ],
     sentences: [
       { text: "제 취미는 음악이에요.", translation: "My hobby is music." },
       { text: "저는 음악을 자주 들어요.", translation: "I listen to music often." },
@@ -369,6 +558,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Music and games",
     theme: "Sharing hobbies with a friend.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구는 뭐를 좋아해요?",
+        options: ["게임을 좋아해요", "노래를 좋아해요"],
+        answer: "게임을 좋아해요",
+      },
+    ],
     sentences: [
       { text: "저는 음악을 좋아해요.", translation: "I like music." },
       { text: "저는 노래도 할 줄 알아요.", translation: "I also know how to sing." },
@@ -386,6 +584,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Planning a trip",
     theme: "A trip to Japan and a hot spring.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "어디에 가려고 해요?",
+        options: ["일본에 가려고 해요", "한국에 가려고 해요"],
+        answer: "일본에 가려고 해요",
+      },
+    ],
     sentences: [
       { text: "저는 여행 계획이 있어요.", translation: "I have travel plans." },
       { text: "저는 일본에 가려고 해요.", translation: "I intend to go to Japan." },
@@ -403,6 +610,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A trip with a friend",
     theme: "Two friends heading to Japan.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 뭐를 하고 싶어요?",
+        options: ["온천에 가고 싶어요", "축제를 보고 싶어요"],
+        answer: "온천에 가고 싶어요",
+      },
+    ],
     sentences: [
       { text: "친구하고 여행 계획이 있어요.", translation: "My friend and I have travel plans." },
       { text: "우리는 일본에 가려고 해요.", translation: "We intend to go to Japan." },
@@ -420,6 +636,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "A rough morning",
     theme: "Late, tired, and a traffic jam.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "왜 회사에 늦었어요?",
+        options: ["길이 막혔거든요", "피곤해요"],
+        answer: "길이 막혔거든요",
+      },
+    ],
     sentences: [
       { text: "오늘 회사에 늦었어요.", translation: "I was late for work today." },
       { text: "길이 너무 막혔거든요.", translation: "The road was really jammed, you see." },
@@ -437,6 +662,15 @@ export const KO_STORIES: Story[] = [
     level: 2,
     title: "Before the exam",
     theme: "Getting ready, and taking care.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "쉬면 어떻게 돼요?",
+        options: ["건강해져요", "피곤해요"],
+        answer: "건강해져요",
+      },
+    ],
     sentences: [
       { text: "내일은 시험이 있어요.", translation: "I have an exam tomorrow." },
       { text: "저는 시험 준비를 해요.", translation: "I'm getting ready for the exam." },

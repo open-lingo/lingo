@@ -82,12 +82,8 @@ export interface Story {
   glosses?: StoryGloss[];
   /** Ordered sentences. Count is bounded by the level's band. */
   sentences: StorySentence[];
-  /**
-   * Authored comprehension questions. At least one `gist` once the content
-   * backfill (Task 14) lands; optional until then so the schema change and the
-   * content pass can ship separately.
-   */
-  questions?: StoryQuestion[];
+  /** Authored comprehension questions. At least one must be `kind: "gist"`. */
+  questions: StoryQuestion[];
 }
 
 /** A speaker in a conversation. */

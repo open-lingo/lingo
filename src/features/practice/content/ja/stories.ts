@@ -10,6 +10,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "About me",
     theme: "A short self-introduction.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "たなかせんせいは にほんじんですか、アメリカじんですか。",
+        options: ["にほんじんです", "アメリカじんです"],
+        answer: "にほんじんです",
+      },
+    ],
     sentences: [
       { text: "はじめまして。", translation: "Nice to meet you." },
       { text: "トムです。", translation: "I'm Tom." },
@@ -27,6 +36,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "At the shop",
     theme: "Asking prices on a quick errand.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "あれは いくらですか。",
+        options: ["ひゃくえんです", "ごひゃくえんです"],
+        answer: "ごひゃくえんです",
+      },
+    ],
     sentences: [
       { text: "すみません。", translation: "Excuse me." },
       { text: "これは いくらですか。", translation: "How much is this?" },
@@ -44,6 +62,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "My day",
     theme: "A simple run through a day.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "としょかんで なにを よみますか。",
+        options: ["ほんです", "ニュースです"],
+        answer: "ほんです",
+      },
+    ],
     sentences: [
       { text: "わたしは がくせいです。", translation: "I'm a student." },
       { text: "ごはんを たべます。", translation: "I eat a meal." },
@@ -62,6 +89,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A lively town",
     theme: "First impressions of the neighborhood.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "こうえんは しずかですか、にぎやかですか。",
+        options: ["しずかです", "にぎやかです", "べんりです"],
+        answer: "しずかです",
+      },
+    ],
     sentences: [
       { text: "このまちは とても にぎやかです。", translation: "This town is very lively." },
       { text: "えきは べんりです。", translation: "The station is convenient." },
@@ -79,6 +115,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Back to school",
     theme: "The first day after a break.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "きのうは なんでしたか。",
+        options: ["やすみでした", "じゅぎょうでした"],
+        answer: "やすみでした",
+      },
+    ],
     sentences: [
       { text: "ぼくは がくせいです。", translation: "I'm a student." },
       { text: "きのうは やすみでした。", translation: "Yesterday was a day off." },
@@ -96,6 +141,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Last Saturday",
     theme: "Looking back on the weekend.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "みせで なにを かいましたか。",
+        options: ["ぼうしです", "テレビです", "うたです"],
+        answer: "ぼうしです",
+      },
+    ],
     sentences: [
       { text: "せんしゅうの どようびは やすみだった。", translation: "Last Saturday was a day off." },
       { text: "あさ、コーヒーを のんだ。", translation: "In the morning I drank coffee." },
@@ -113,6 +167,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A workday",
     theme: "Morning to night, hour by hour.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ひるは なにを たべますか。",
+        options: ["ラーメンです", "コーヒーです"],
+        answer: "ラーメンです",
+      },
+    ],
     sentences: [
       { text: "きょうは しごとが あります。", translation: "I have work today." },
       { text: "ごぜんは かいしゃに いきます。", translation: "In the morning I go to the office." },
@@ -130,6 +193,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Likes and wants",
     theme: "A few honest preferences.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "おちゃは すきですか、すきじゃないですか。",
+        options: ["すきです", "すきじゃないです"],
+        answer: "すきじゃないです",
+      },
+    ],
     sentences: [
       { text: "ぼくは コーヒーが すきだ。", translation: "I like coffee." },
       { text: "まいにち きっさてんに いく。", translation: "Every day I go to the coffee shop." },
@@ -147,6 +219,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A visitor",
     theme: "A friend drops by.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "この はなしは だれの はなしですか。",
+        options: ["ともだちの はなしです", "せんせいの はなしです"],
+        answer: "ともだちの はなしです",
+      },
+    ],
     sentences: [
       { text: "きょう ともだちが うちに くる。", translation: "A friend is coming over today." },
       { text: "ぼくは ともだちを まつ。", translation: "I wait for my friend." },
@@ -164,6 +245,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "The weekend ahead",
     theme: "A busy day, then a fun one.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "あしたは なにを しますか。",
+        options: ["りょこうです", "しごとです", "かいものです"],
+        answer: "りょこうです",
+      },
+    ],
     sentences: [
       { text: "きょうは しごとを する。", translation: "Today I work." },
       { text: "とても いそがしい。", translation: "I'm very busy." },
@@ -181,6 +271,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A day at school",
     theme: "Class, notes, and homework.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "しゅくだいは やさしいですか、むずかしいですか。",
+        options: ["やさしいです", "むずかしいです"],
+        answer: "やさしいです",
+      },
+    ],
     sentences: [
       { text: "あさごはんを たべて、がっこうに はしる。", translation: "I eat breakfast and run to school." },
       { text: "きょうは クラスが ある。", translation: "Today there's a class." },
@@ -198,6 +297,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "To the station",
     theme: "Following the street to the train.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "びょういんの まえで まがるのは みぎですか、ひだりですか。",
+        options: ["みぎです", "ひだりです"],
+        answer: "みぎです",
+      },
+    ],
     sentences: [
       { text: "わたしは えきに いく。", translation: "I go to the station." },
       { text: "みちを まっすぐ あるく。", translation: "I walk straight down the street." },
@@ -216,6 +324,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A warm day",
     theme: "The weather and the garden.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "あしたは てんきが どうですか。",
+        options: ["あめです", "はれです"],
+        answer: "あめです",
+      },
+    ],
     sentences: [
       { text: "きょうは てんきが いい。", translation: "The weather is nice today." },
       { text: "そらは はれだ。", translation: "The sky is clear." },
@@ -233,6 +350,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "My family",
     theme: "Four of us, and a birthday.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "かぞくは なんにんですか。",
+        options: ["よにんです", "さんにんです"],
+        answer: "よにんです",
+      },
+    ],
     sentences: [
       { text: "わたしの かぞくは よにんです。", translation: "There are four people in my family." },
       { text: "ちちと ははと あにと わたしです。", translation: "My father, mother, older brother, and me." },
@@ -250,6 +376,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Feeling sick",
     theme: "A trip to the doctor.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "どこが いたいですか。",
+        options: ["あたまです", "あしです", "てです"],
+        answer: "あたまです",
+      },
+    ],
     sentences: [
       { text: "きょうは あたまが いたい。", translation: "My head hurts today." },
       { text: "おなかも いたい。", translation: "My stomach hurts too." },
@@ -267,6 +402,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Dinner at home",
     theme: "Setting the table for a meal.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "のみものは なにですか。",
+        options: ["おちゃです", "おさけです"],
+        answer: "おちゃです",
+      },
+    ],
     sentences: [
       { text: "きょうは うちで しょくじを する。", translation: "Today I have a meal at home." },
       { text: "おさらと はしが ある。", translation: "There are plates and chopsticks." },
@@ -284,6 +428,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A packed lunch",
     theme: "A lunchbox for a day out.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "どこで たべますか。",
+        options: ["こうえんです", "がっこうです"],
+        answer: "こうえんです",
+      },
+    ],
     sentences: [
       { text: "あした ともだちと こうえんに いく。", translation: "Tomorrow I go to the park with a friend." },
       { text: "わたしは おべんとうを もつ。", translation: "I bring a boxed lunch." },
@@ -301,6 +454,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "What I like to eat",
     theme: "Ranking food, honestly.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "なにが いちばん すきですか。",
+        options: ["にくです", "さかなです", "やさいです"],
+        answer: "にくです",
+      },
+    ],
     sentences: [
       { text: "わたしは にくが いちばん すきだ。", translation: "I like meat the most." },
       { text: "さかなより にくの ほうが すきだ。", translation: "I like meat more than fish." },
@@ -318,6 +480,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A party tomorrow",
     theme: "Plans with friends.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "きのうは はたらいたか、あそんだか。",
+        options: ["はたらいた", "あそんだ"],
+        answer: "はたらいた",
+      },
+    ],
     sentences: [
       { text: "あした ともだちの パーティーが ある。", translation: "There's a friend's party tomorrow." },
       { text: "わたしも いっしょに いく。", translation: "I'll go along too." },
@@ -335,6 +506,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A day at the sea",
     theme: "Swimming with a friend.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "だれが じょうずに およいだか。",
+        options: ["ともだちです", "わたしです"],
+        answer: "ともだちです",
+      },
+    ],
     sentences: [
       { text: "なつやすみに ともだちと うみに いった。", translation: "In summer vacation I went to the sea with a friend." },
       { text: "ふたりで たくさん およいだ。", translation: "The two of us swam a lot." },
@@ -352,6 +532,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Things I can do",
     theme: "A small list of skills.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "うたは じょうずですか、じょうずじゃないですか。",
+        options: ["じょうずです", "じょうずじゃないです"],
+        answer: "じょうずじゃないです",
+      },
+    ],
     sentences: [
       { text: "わたしは りょうりが できる。", translation: "I can cook." },
       { text: "あたらしい ものを つくる。", translation: "I make new things." },
@@ -369,6 +558,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Studying abroad",
     theme: "Plans for next year.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "らいねん どこに いきますか。",
+        options: ["がいこくです", "がっこうです"],
+        answer: "がいこくです",
+      },
+    ],
     sentences: [
       { text: "らいねん わたしは がいこくに いく。", translation: "Next year I go abroad." },
       { text: "わたしは りゅうがくせいだ。", translation: "I'm an exchange student." },
@@ -386,6 +584,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Meeting an old friend",
     theme: "A reunion at the station.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "どこで ともだちに あいますか。",
+        options: ["えきです", "がっこうです"],
+        answer: "えきです",
+      },
+    ],
     sentences: [
       { text: "あした えきで ともだちに あう。", translation: "Tomorrow I meet a friend at the station." },
       { text: "ともだちは きょねん がいこくに いった。", translation: "My friend went abroad last year." },
@@ -403,6 +610,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "A tiring day",
     theme: "Worn out, but still eating.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "へやは おおきいですか、せまいですか。",
+        options: ["おおきいです", "せまいです"],
+        answer: "せまいです",
+      },
+    ],
     sentences: [
       { text: "きょうは しごとが おおい。", translation: "There's a lot of work today." },
       { text: "わたしは とても つかれる。", translation: "I get very tired." },
@@ -420,6 +636,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Practice every day",
     theme: "Getting a little better, daily.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "まいにち なにを れんしゅうするか。",
+        options: ["えいごです", "りょうりです"],
+        answer: "えいごです",
+      },
+    ],
     sentences: [
       { text: "わたしは まいにち えいごを れんしゅうする。", translation: "I practice English every day." },
       { text: "だんだん じょうずに なる。", translation: "Little by little I get better." },
@@ -437,6 +662,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Getting stronger",
     theme: "A morning running habit.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "まいあさ どこを はしるか。",
+        options: ["こうえんです", "がっこうです"],
+        answer: "こうえんです",
+      },
+    ],
     sentences: [
       { text: "わたしは まいあさ こうえんを はしる。", translation: "Every morning I run in the park." },
       { text: "まえは たいへんだった。", translation: "It used to be tough." },
@@ -454,6 +688,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "Cleaning day",
     theme: "Tidying up with help.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "だれが いすを なおすか。",
+        options: ["ともだちです", "わたしです"],
+        answer: "ともだちです",
+      },
+    ],
     sentences: [
       { text: "きょうは とても いそがしい。", translation: "Today I'm very busy." },
       { text: "わたしは うちを かたづける。", translation: "I tidy up the house." },
@@ -471,6 +714,15 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "People at work",
     theme: "Seniors, coworkers, and juniors.",
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "じょうしは どうですか。",
+        options: ["ていねいです", "したしいです"],
+        answer: "ていねいです",
+      },
+    ],
     sentences: [
       { text: "かいしゃに せんぱいが いる。", translation: "There's a senior colleague at work." },
       { text: "せんぱいは とても したしい。", translation: "The senior is very friendly." },

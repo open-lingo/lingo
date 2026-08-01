@@ -14,7 +14,7 @@ const LANGS = ["ja", "ko"] as const;
 /** Every target string an item exposes, with the glosses that clear it. */
 function storyTexts(s: Story): { label: string; text: string }[] {
   const lines = s.sentences.map((line, i) => ({ label: `${s.id}[${i}]`, text: line.text }));
-  const questions = (s.questions ?? []).flatMap((q) => [
+  const questions = s.questions.flatMap((q) => [
     { label: `${s.id} q:${q.id} prompt`, text: q.prompt },
     ...q.options.map((o, i) => ({ label: `${s.id} q:${q.id} opt${i}`, text: o })),
   ]);
@@ -216,7 +216,7 @@ describe("curated content — level discipline", () => {
     it(`${lang}: every question's answer is one of its options`, () => {
       const failures: string[] = [];
       for (const s of allStories(lang)) {
-        for (const q of s.questions ?? []) {
+        for (const q of s.questions) {
           if (!q.options.includes(q.answer)) {
             failures.push(`${s.id} q:${q.id}: answer "${q.answer}" is not among its options`);
           }
@@ -226,6 +226,16 @@ describe("curated content — level discipline", () => {
           if (new Set(q.options).size !== q.options.length) {
             failures.push(`${s.id} q:${q.id}: duplicate options`);
           }
+        }
+      }
+      expect(failures, failures.join("\n")).toEqual([]);
+    });
+
+    it(`${lang}: every story has at least one authored gist question`, () => {
+      const failures: string[] = [];
+      for (const s of allStories(lang)) {
+        if (!s.questions.some((q) => q.kind === "gist")) {
+          failures.push(`${s.id}: no authored gist question`);
         }
       }
       expect(failures, failures.join("\n")).toEqual([]);

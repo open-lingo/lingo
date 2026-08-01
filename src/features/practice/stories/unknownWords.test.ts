@@ -20,6 +20,7 @@ const story: Story = {
   level: 1,
   title: "Test",
   theme: "A test.",
+  questions: [],
   glosses: [{ surface: "はなみ", meaning: "flower viewing", reading: "hanami" }],
   sentences: [
     { text: "はなみに いきます。", translation: "I go flower viewing." },

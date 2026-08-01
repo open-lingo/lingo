@@ -90,7 +90,7 @@ export function buildQuestions(
   knownContent: KnownAtom[],
   seed: number,
 ): StoryQuestion[] {
-  const authored = (story.questions ?? []).filter((q) => q.kind === "gist");
+  const authored = story.questions.filter((q) => q.kind === "gist");
   const out: StoryQuestion[] = authored.map((q) => ({
     ...q,
     options: seededShuffle(q.options, hashSeed(`${story.id}:${q.id}`)),
