@@ -13,16 +13,34 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from "@/shared/auth/useAuth";
+import { useMe } from "@/shared/hooks/useMe";
+import { canAccessSiteAdmin } from "@/shared/auth/roles";
 import { AdminSidebar } from "./AdminSidebar";
 import { usePendingReviewCount } from "./usePendingReviewCount";
 
 // ── Auth guard ────────────────────────────────────────────────────────────────
 
+/**
+ * Gate on ROLE, not just authentication.
+ *
+ * This checked `isAuthenticated` alone until 2026-08-01, so any signed-in
+ * learner who typed `/admin` got the console shell — and the shell body
+ * immediately fires `usePendingReviewCount` → `listAdminDecks({status:"draft"})`.
+ * The only thing keeping people out was that the nav link is conditionally
+ * rendered (`AuthMenu`), which is not a gate. The server-side fix (every admin
+ * handler on `AdminUser`) is the real boundary; this stops a non-admin landing
+ * on a shell that renders errors and fires requests it can't make.
+ *
+ * Fails CLOSED: if the role lookup errors, `me` is null and access is denied.
+ */
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading } = useAuth();
+  const { me, isLoading: roleLoading } = useMe();
 
-  if (isLoading) {
+  // Wait for the role before deciding, or a real admin gets bounced on every
+  // page load while `getMe` is still in flight.
+  if (isLoading || (isAuthenticated && roleLoading)) {
     return (
       <div className="flex justify-center py-12">
         <p className="text-text-muted">{t("common.loading")}</p>
@@ -32,6 +50,11 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (!isAuthenticated) {
     return <Navigate to="/landing" replace />;
+  }
+
+  if (!canAccessSiteAdmin(me?.role)) {
+    // Signed in, just not an admin — send them to the app, not the landing page.
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
