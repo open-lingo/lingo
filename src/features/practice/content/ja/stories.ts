@@ -30,6 +30,82 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m3 stretch read. The pool at m3 is copula-only — は / も / か are the only
+    // particles and no verb takes an argument — so the arc has to be carried by
+    // state descriptions and でした. Both glosses are one and eight modules out
+    // and each buys a beat the pool cannot otherwise write: わたし a subject who
+    // persists, あした the closing change of state.
+    id: "ja-m3-a-cold",
+    languageId: "ja",
+    module: 3,
+    level: 2,
+    title: "A cold",
+    theme: "Fine in the morning, not by the afternoon.",
+    tags: ["health", "friends"],
+    glosses: [
+      { surface: "わたし", meaning: "I, me", atomId: "ja:watashi" },
+      { surface: "あした", meaning: "tomorrow", atomId: "ja:ashita" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "かぜは ケンですか、ユミですか、せんせいですか。",
+        options: ["ケンです", "ユミです", "せんせいです"],
+        answer: "ケンです",
+      },
+    ],
+    sentences: [
+      { text: "こんにちは。わたしは ケンです。", translation: "Hello. I'm Ken." },
+      { text: "わたしは がくせいです。", translation: "I'm a student." },
+      { text: "あさは げんきでした。", translation: "This morning I was fine." },
+      { text: "きょうは かぜです。", translation: "Today I have a cold." },
+      { text: "げんきじゃないです。", translation: "I'm not well." },
+      { text: "きょうは いえです。", translation: "Today I'm at home." },
+      { text: "ともだちは ユミです。", translation: "My friend is Yumi." },
+      { text: "ユミも かぜですか。", translation: "Does Yumi have a cold too?" },
+      { text: "いいえ、ユミは げんきです。", translation: "No — Yumi is fine." },
+      { text: "あしたは げんきです。", translation: "Tomorrow I'll be fine." },
+    ],
+  },
+  {
+    // m4 stretch read. m4 adds の / が / と and the これ-それ-あれ set, which is
+    // exactly enough for a whose-is-this hunt. それから is glossed here and NOT
+    // at m5+: it decomposes as それ (m4) + から (m5), so from m5 the gate — and
+    // the learner — read it for free.
+    id: "ja-m4-whose-bag",
+    languageId: "ja",
+    module: 4,
+    level: 2,
+    title: "Whose bag?",
+    theme: "An unclaimed bag, and a name inside it.",
+    tags: ["school", "mystery"],
+    glosses: [
+      { surface: "あります", meaning: "there is (a thing)", atomId: "ja:arimasu" },
+      { surface: "それから", meaning: "after that, and then", atomId: "ja:sorekara" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "かばんは だれのですか。",
+        options: ["たなかせんせいのです", "ユミのです", "わたしのです"],
+        answer: "たなかせんせいのです",
+      },
+    ],
+    sentences: [
+      { text: "かばんが あります。", translation: "There's a bag here." },
+      { text: "わたしの かばんじゃないです。", translation: "It isn't my bag." },
+      { text: "だれの かばんですか。", translation: "Whose bag is it?" },
+      { text: "これは ユミの かばんですか。", translation: "Is this Yumi's bag?" },
+      { text: "いいえ、ユミの かばんは あれです。", translation: "No — Yumi's bag is that one over there." },
+      { text: "かばんの じしょと てがみです。", translation: "Inside the bag: a dictionary and a letter." },
+      { text: "それから、てがみの なまえは たなかです。", translation: "And the name on the letter is Tanaka." },
+      { text: "これは たなかせんせいの かばんです。", translation: "So this is Mr. Tanaka's bag." },
+      { text: "たなかせんせいは わたしの せんせいです。", translation: "And Mr. Tanaka is my own teacher." },
+    ],
+  },
+  {
     id: "ja-m5-shop-errand",
     languageId: "ja",
     module: 5,
@@ -56,6 +132,79 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m5 stretch read. Sits above ja-m5-shop-errand's price-asking errand: same
+    // counter, but a problem and a fix. Numbers are constrained — the rendaku
+    // hundreds (さんびゃく / ろっぴゃく / はっぴゃく) are their own atoms at m20,
+    // so only よん / ご / なな / に + ひゃく are writable here, and the arithmetic
+    // was built to land on 500.
+    id: "ja-m5-not-quite-enough",
+    languageId: "ja",
+    module: 5,
+    level: 2,
+    title: "Not quite enough",
+    theme: "Two friends, one snack, and a hundred yen missing.",
+    tags: ["shopping", "friends", "money"],
+    glosses: [{ surface: "たかい", meaning: "expensive, tall", atomId: "ja:takai" }],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "おちゃと ぱんは いくらですか。",
+        options: ["ごひゃくえんです", "よんひゃくえんです", "ひゃくえんです"],
+        answer: "ごひゃくえんです",
+      },
+    ],
+    sentences: [
+      { text: "きょうは ユミと ふたりです。", translation: "Today it's Yumi and me." },
+      { text: "わたしの おかねは よんひゃくえんです。", translation: "I have four hundred yen." },
+      { text: "おちゃは ひゃくえんです。", translation: "The tea is a hundred yen." },
+      { text: "ぱんは よんひゃくえんです。", translation: "The bread is four hundred yen." },
+      { text: "ぱんは たかいです。", translation: "The bread is expensive." },
+      { text: "おちゃと ぱんは ごひゃくえんです。", translation: "Tea and bread together are five hundred yen." },
+      { text: "わたしの おかねは ごひゃくえんじゃないです。", translation: "I don't have five hundred yen." },
+      { text: "ユミの おかねは ひゃくえんです。", translation: "Yumi has a hundred yen." },
+      { text: "ユミと わたしは ごひゃくえんです。", translation: "Yumi and I together have five hundred." },
+      { text: "それから、おちゃと ぱん、ください。ありがとうございます。", translation: "And so: the tea and the bread, please. Thank you." },
+    ],
+  },
+  {
+    // m6 stretch read. m6 hands over に / で / あります / います and the place
+    // nouns, but every positive verb is still one module away — only the plain
+    // NEGATIVES (たべない, いかない…) are in pool — so nobody can go anywhere.
+    // A static location hunt is what the module can actually tell. ありません is
+    // glossed one module out to hold the polite register the m3-m10 run uses.
+    id: "ja-m6-the-missing-phone",
+    languageId: "ja",
+    module: 6,
+    level: 2,
+    title: "The missing phone",
+    theme: "Not in the room, not in the bag, not at school.",
+    tags: ["school", "friends", "town"],
+    glosses: [
+      { surface: "ありません", meaning: "there isn't (polite)", atomId: "ja:arimasen" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "けいたいは どこに ありますか。",
+        options: ["ユミの かばんに あります", "わたしの へやに あります", "がっこうに あります"],
+        answer: "ユミの かばんに あります",
+      },
+    ],
+    sentences: [
+      { text: "わたしの けいたいが ありません。", translation: "My phone is gone." },
+      { text: "へやに ありません。", translation: "It isn't in my room." },
+      { text: "かばんにも ありません。", translation: "It isn't in my bag either." },
+      { text: "がっこうにも ありません。", translation: "It isn't at school either." },
+      { text: "けいたいは どこですか。", translation: "Where is my phone?" },
+      { text: "ともだちの ユミは こうえんに います。", translation: "My friend Yumi is at the park." },
+      { text: "こうえんは がっこうから ちかいです。", translation: "The park is close to the school." },
+      { text: "それから、ユミの かばんに わたしの けいたいが あります。", translation: "And there, in Yumi's bag, is my phone." },
+      { text: "ユミ、ありがとう。", translation: "Thank you, Yumi." },
+    ],
+  },
+  {
     id: "ja-m7-my-day",
     languageId: "ja",
     module: 7,
@@ -79,6 +228,91 @@ export const JA_STORIES: Story[] = [
       { text: "としょかんで ほんを よみます。", translation: "I read a book at the library." },
       { text: "ともだちも きます。", translation: "My friend comes too." },
       { text: "うちで ニュースを みます。", translation: "I watch the news at home." },
+    ],
+  },
+  {
+    // m7 stretch read, and the counter-example to ja-m7-my-day's seven
+    // unrelated drills: same module, same verbs, but one waiting man and an
+    // arrival. m7 has no adjectives at all (they start at m8), so the only
+    // descriptive word in the story is the glossed おいしい.
+    id: "ja-m7-at-the-airport",
+    languageId: "ja",
+    module: 7,
+    level: 3,
+    title: "At the airport",
+    theme: "Waiting for a friend who doesn't get off the first plane.",
+    tags: ["travel", "friends", "food"],
+    glosses: [
+      { surface: "まちます", meaning: "to wait (polite)", atomId: "ja:matsu" },
+      { surface: "まだ", meaning: "still, not yet", atomId: "ja:mada" },
+      { surface: "おいしい", meaning: "delicious", atomId: "ja:oishii" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ふたりは くうこうで なにを たべますか。",
+        options: ["すしです", "ごはんです", "ぱんです"],
+        answer: "すしです",
+      },
+    ],
+    sentences: [
+      { text: "きょう、ともだちが アメリカから きます。", translation: "Today a friend is coming from America." },
+      { text: "ともだちの なまえは トムです。", translation: "My friend's name is Tom." },
+      { text: "わたしは でんしゃで くうこうに いきます。", translation: "I take the train to the airport." },
+      { text: "くうこうで トムを まちます。", translation: "I wait for Tom at the airport." },
+      { text: "トムは きません。", translation: "Tom doesn't come." },
+      { text: "わたしは かばんの ほんを よみます。", translation: "I read the book in my bag." },
+      { text: "それから、おちゃを のみます。", translation: "After that I drink some tea." },
+      { text: "トムは まだ きません。", translation: "Tom still isn't here." },
+      { text: "わたしは くうこうで ニュースを みます。", translation: "I watch the news at the airport." },
+      { text: "トムが きます。", translation: "Tom arrives." },
+      { text: "ふたりで すしを たべます。", translation: "The two of us eat sushi." },
+      { text: "すしは おいしいです。", translation: "The sushi is delicious." },
+      { text: "それから、ふたりで うちに いきます。", translation: "And then the two of us head home." },
+    ],
+  },
+  {
+    // m8 stretch read. m8 is the adjective module, so this is the first story in
+    // the m3-m15 run that can compare two things — which is the plot. けど is
+    // the nearest atom carrying "but" (m16); でも and そして are m26 and でも
+    // false-positives through the gate as で + も, so it is not an option here.
+    id: "ja-m8-the-old-hat",
+    languageId: "ja",
+    module: 8,
+    level: 3,
+    title: "The old hat",
+    theme: "Out to buy a new hat, home with an old one.",
+    tags: ["shopping", "town"],
+    glosses: [
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+      { surface: "とても", meaning: "very", atomId: "ja:totemo" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "わたしは どの ぼうしを かいますか。",
+        options: ["ふるい ぼうしです", "あたらしい ぼうしです", "おおきい ぼうしです"],
+        answer: "ふるい ぼうしです",
+      },
+    ],
+    sentences: [
+      { text: "きょう、わたしは あたらしい ぼうしを かいます。", translation: "Today I'm going to buy a new hat." },
+      { text: "うちから まちは とおいです。", translation: "Town is far from my house." },
+      { text: "わたしは バスで まちに いきます。", translation: "I take the bus into town." },
+      { text: "バスは おそいです。", translation: "The bus is slow." },
+      { text: "まちの おおきい みせに いきます。", translation: "I go to the big shop in town." },
+      { text: "その みせの ぼうしは あたらしいです。", translation: "That shop's hats are new." },
+      { text: "あたらしいけど、とても たかいです。", translation: "New — but very expensive." },
+      { text: "わたしは その ぼうしを かいません。", translation: "I don't buy that hat." },
+      { text: "それから、ちいさい みせに いきます。", translation: "After that I go to a small shop." },
+      { text: "その みせの ぼうしは ふるいけど、やすいです。", translation: "That shop's hat is old, but cheap." },
+      { text: "わたしは その ぼうしを かいます。", translation: "I buy that one." },
+      { text: "ぼうしは おもしろいです。", translation: "The hat is interesting." },
+      { text: "それから、コーヒーを のんで、しんぶんを よみます。", translation: "Then I drink a coffee and read the paper." },
+      { text: "コーヒーは おいしいです。", translation: "The coffee is good." },
+      { text: "わたしは バスで うちに いきます。", translation: "I take the bus home." },
     ],
   },
   // ── Mid (m9-m17): ~1 story per module ──────────────────────────────────────
@@ -109,6 +343,48 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m9 stretch read. Polite present throughout: the polite PAST is mostly
+    // unwritable — いきました / たべました / のみました never gate at any module
+    // — so the one past beat the arc needs rides on わかりました, which is a
+    // survival phrase and therefore in pool from m1.
+    id: "ja-m9-the-english-test",
+    languageId: "ja",
+    module: 9,
+    level: 3,
+    title: "The English test",
+    theme: "Bad at English, with a test tomorrow and a friend who isn't.",
+    tags: ["school", "friends", "study"],
+    glosses: [
+      { surface: "あした", meaning: "tomorrow", atomId: "ja:ashita" },
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "わたしの えいごは どうですか。",
+        options: ["すこし じょうずです", "とても じょうずです", "へたです"],
+        answer: "すこし じょうずです",
+      },
+    ],
+    sentences: [
+      { text: "わたしは えいごが へたです。", translation: "I'm bad at English." },
+      { text: "あしたは えいごの テストです。", translation: "Tomorrow is the English test." },
+      { text: "テストは とても むずかしいです。", translation: "The test is very hard." },
+      { text: "ともだちの ユミは えいごが じょうずです。", translation: "My friend Yumi is good at English." },
+      { text: "ユミ、えいごを おしえて ください。", translation: "Yumi, please teach me English." },
+      { text: "ユミは としょかんに きます。", translation: "Yumi comes to the library." },
+      { text: "ふたりで えいごの ほんを よみます。", translation: "The two of us read an English book." },
+      { text: "それから、えいごの ニュースも ききます。", translation: "After that we listen to the English news too." },
+      { text: "えいごは ちょっと むずかしいです。", translation: "English is a bit hard." },
+      { text: "けど、すこし わかりました。", translation: "But I understood a little." },
+      { text: "あさ、テストです。", translation: "Morning — the test." },
+      { text: "テストは むずかしいけど、だいじょうぶです。", translation: "The test is hard, but I'm all right." },
+      { text: "わたしの えいごは すこし じょうずです。", translation: "My English is a little better." },
+      { text: "ユミ、ありがとうございます。", translation: "Thank you, Yumi." },
+    ],
+  },
+  {
     id: "ja-m10-back-to-school",
     languageId: "ja",
     module: 10,
@@ -135,6 +411,48 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m10 stretch read. Only one gloss: m10 finally has それから as a real atom
+    // and しります / ちがいます / わかります for the confusion beat, so the pool
+    // carries the arc almost unaided. まちます is deliberately NOT used — from
+    // m8 it decomposes as まち "town" + ます and sails through the gate, which is
+    // a false positive, not a licence (guide §2).
+    id: "ja-m10-the-wrong-train",
+    languageId: "ja",
+    module: 10,
+    level: 3,
+    title: "The wrong train",
+    theme: "A day off, a friend at the park, and a train going the other way.",
+    tags: ["travel", "friends", "town"],
+    glosses: [{ surface: "けど", meaning: "but, although", atomId: "ja:kedo" }],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ふたりは どこで あそびますか。",
+        options: ["こうえんです", "えきです", "がっこうです"],
+        answer: "こうえんです",
+      },
+    ],
+    sentences: [
+      { text: "きょうは やすみです。", translation: "Today is a day off." },
+      { text: "わたしは ともだちの ユミと こうえんに いきます。", translation: "I'm going to the park with my friend Yumi." },
+      { text: "ユミは こうえんに います。", translation: "Yumi is at the park." },
+      { text: "わたしは えきに いきます。", translation: "I go to the station." },
+      { text: "わたしは でんしゃで こうえんに いきます。", translation: "I take the train towards the park." },
+      { text: "けど、その でんしゃは ちがいます。", translation: "But that train is the wrong one." },
+      { text: "わたしは しりません。", translation: "I don't realise it." },
+      { text: "でんしゃは とおい えきに いきます。", translation: "The train goes to a far-off station." },
+      { text: "ここは どこですか。", translation: "Where am I?" },
+      { text: "わたしは えきの ひとに ききます。", translation: "I ask someone at the station." },
+      { text: "わたしは わかりました。", translation: "Now I understand." },
+      { text: "それから、あたらしい でんしゃで こうえんに いきます。", translation: "After that I take another train to the park." },
+      { text: "ユミは こうえんで ほんを よみます。", translation: "Yumi is reading a book at the park." },
+      { text: "わたしは ちょっと おそいです。", translation: "I'm a little late." },
+      { text: "けど、ふたりで こうえんで あそびます。", translation: "But the two of us have our day in the park." },
+      { text: "きょうは たいへんでした。", translation: "Today was rough." },
+    ],
+  },
+  {
     id: "ja-m11-last-saturday",
     languageId: "ja",
     module: 11,
@@ -158,6 +476,51 @@ export const JA_STORIES: Story[] = [
       { text: "うたも きいた。", translation: "I listened to music too." },
       { text: "ひるごはんを たべた。", translation: "I ate lunch." },
       { text: "ともだちと よく あそんだ。", translation: "I had a lot of fun with my friend." },
+    ],
+  },
+  {
+    // m11 stretch read. m11 is where plain past opens up, so unlike the m3-m10
+    // run this one can actually be told in the past — but only for the nine
+    // verbs the module registers (たべた のんだ きいた みた かった あそんだ
+    // いった わかった だった). The clock atoms (にじ / さんじ / よじ) carry the
+    // pacing; the letter planted at line 10 is the payoff.
+    id: "ja-m11-two-oclock-at-the-station",
+    languageId: "ja",
+    module: 11,
+    level: 3,
+    title: "Two o'clock at the station",
+    theme: "A friend who never comes, and a letter read one more time.",
+    tags: ["friends", "town"],
+    glosses: [
+      { surface: "まつ", meaning: "to wait", atomId: "ja:matsu" },
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ユミと ぼくは いつ こうえんで あそびますか。",
+        options: ["にちようびです", "どようびです", "げつようびです"],
+        answer: "にちようびです",
+      },
+    ],
+    sentences: [
+      { text: "せんしゅうの どようびは やすみだった。", translation: "Last Saturday was a day off." },
+      { text: "ぼくは ユミと こうえんで あそぶ。", translation: "Yumi and I were to spend it at the park." },
+      { text: "ぼくは にじに えきに いった。", translation: "I went to the station at two." },
+      { text: "けど、ユミは いない。", translation: "But Yumi isn't there." },
+      { text: "ぼくは えきで ユミを まつ。", translation: "I wait for Yumi at the station." },
+      { text: "ぼくは ニュースを みた。", translation: "I watched the news." },
+      { text: "さんじ。ユミは まだ こない。", translation: "Three o'clock. Yumi still doesn't come." },
+      { text: "ぼくは コーヒーを のんだ。", translation: "I drank a coffee." },
+      { text: "よじ。ユミは まだ こない。", translation: "Four o'clock. Yumi still doesn't come." },
+      { text: "ぼくは ユミの てがみを もういちど みた。", translation: "I looked at Yumi's letter one more time." },
+      { text: "てがみは にちようびだった。", translation: "The letter said Sunday." },
+      { text: "きょうは どようびだ。", translation: "Today is Saturday." },
+      { text: "ぼくは わかった。", translation: "I understood." },
+      { text: "あしたは にちようびだ。", translation: "Tomorrow is Sunday." },
+      { text: "あした、また えきに いく。", translation: "Tomorrow I'll come to the station again." },
+      { text: "きょうは ほんとうに たいへんだった。", translation: "Today really was something." },
     ],
   },
   {
@@ -273,6 +636,69 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // FIRST L4 STORY IN THE CODEBASE (with m14/m15 below it). 24 sentences,
+    // where every story in both languages used to top out at 8.
+    //
+    // Length is what makes the twist affordable: the reader spends eighteen
+    // lines inside a panic before the office turns out to be empty. Plain form,
+    // per the m13-m30 default. Past ta-forms appear only where m11 registered
+    // them (みた / だった / わかった); the rest is narrative present.
+    id: "ja-m13-the-day-off",
+    languageId: "ja",
+    module: 13,
+    level: 4,
+    title: "The day off",
+    theme: "A frantic morning, and an office with nobody in it.",
+    tags: ["work", "morning", "town"],
+    glosses: [
+      { surface: "いそがしい", meaning: "busy", atomId: "ja:isogashii" },
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+      { surface: "はしる", meaning: "to run", atomId: "ja:hashiru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "きょうは なんですか。",
+        options: ["やすみです", "しごとです", "テストです"],
+        answer: "やすみです",
+      },
+      {
+        id: "train",
+        kind: "detail",
+        prompt: "つぎの でんしゃは なんじですか。",
+        options: ["はちじはんです", "しちじです", "くじです"],
+        answer: "はちじはんです",
+      },
+    ],
+    sentences: [
+      { text: "こんしゅうは とても いそがしい。", translation: "This week is very busy." },
+      { text: "ゆうべ、ぼくは よるに テレビを みた。", translation: "Last night I watched TV." },
+      { text: "じゅうじの ニュースも みた。", translation: "I watched the ten o'clock news too." },
+      { text: "それから、また テレビを みた。", translation: "And after that, more TV." },
+      { text: "けさ、ぼくは しちじに おきる。", translation: "This morning I get up at seven." },
+      { text: "しごとは はちじだ。", translation: "Work starts at eight." },
+      { text: "ぼくは たいへんだ。", translation: "I'm in trouble." },
+      { text: "シャワーも おふろも ない。", translation: "No shower, no bath." },
+      { text: "ぼくは かおを あらう。", translation: "I wash my face." },
+      { text: "あたらしい ふくも ない。", translation: "There are no clean clothes either." },
+      { text: "あさ、パンを たべない。", translation: "I skip breakfast." },
+      { text: "ぼくは えきに はしる。", translation: "I run to the station." },
+      { text: "でんしゃが ない。", translation: "There's no train." },
+      { text: "つぎの でんしゃは はちじはんだ。", translation: "The next one is half past eight." },
+      { text: "ぼくは コンビニの パンを たべる。", translation: "I eat bread from the convenience store." },
+      { text: "パンは ふるいけど、おいしい。", translation: "The bread is old, but good." },
+      { text: "それから、でんしゃで かいしゃに いく。", translation: "Then I take the train to the office." },
+      { text: "かいしゃに ひとが いない。", translation: "There's nobody at the office." },
+      { text: "どうして ひとが いない?", translation: "Why is nobody here?" },
+      { text: "きょうは やすみだった。", translation: "Today was a holiday." },
+      { text: "ぼくは わかった。", translation: "I got it." },
+      { text: "いまは ごぜん くじだ。", translation: "It's nine in the morning." },
+      { text: "ぼくは きっさてんで コーヒーを のむ。", translation: "I have a coffee at the coffee shop." },
+      { text: "きょうは しごとが ない。ほんとうに いい やすみだ。", translation: "No work today. A really good day off." },
+    ],
+  },
+  {
     id: "ja-m14-a-visitor",
     languageId: "ja",
     module: 14,
@@ -299,6 +725,64 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m14 L4. m14 is the module that hands over まつ / はなす / みせる / かす /
+    // はる and the whole postal set (きって / ふうとう / はがき / ポスト), so the
+    // errand plot is the one the pool was built for. かう is m25, so the single
+    // purchase is written in the past (かった, m11) inside an otherwise present
+    // narration — normal Japanese, and the only form the pool allows.
+    id: "ja-m14-the-letter-to-tom",
+    languageId: "ja",
+    module: 14,
+    level: 4,
+    title: "The letter to Tom",
+    theme: "A reply posted a few hours too late.",
+    tags: ["friends", "letters", "town"],
+    glosses: [
+      { surface: "かく", meaning: "to write", atomId: "ja:ja-m7-1-v-kaku" },
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "トムは いま どこに いますか。",
+        options: ["とうきょうに います", "アメリカに います", "うちに います"],
+        answer: "とうきょうに います",
+      },
+      {
+        id: "money",
+        kind: "detail",
+        prompt: "ユミは いくら かしますか。",
+        options: ["ごひゃくえんです", "ひゃくえんです", "よんひゃくえんです"],
+        answer: "ごひゃくえんです",
+      },
+    ],
+    sentences: [
+      { text: "けさ、ポストに トムの はがきが ある。", translation: "This morning there's a postcard from Tom in the postbox." },
+      { text: "トムは アメリカの ともだちだ。", translation: "Tom is my friend in America." },
+      { text: "はがきの はなしは とても いい。", translation: "The news on the postcard is very good." },
+      { text: "トムは らいげつ にほんに くる。", translation: "Tom is coming to Japan next month." },
+      { text: "ぼくは トムに てがみを かく。", translation: "I write Tom a letter." },
+      { text: "あたらしい ふうとうも ある。", translation: "I have a new envelope too." },
+      { text: "けど、きってが ない。", translation: "But I have no stamp." },
+      { text: "ぼくは さいふを みる。", translation: "I look in my wallet." },
+      { text: "さいふに おかねが ない。", translation: "There's no money in my wallet." },
+      { text: "ぼくは ともだちの ユミに はなす。", translation: "I talk to my friend Yumi." },
+      { text: "ユミは ぼくに ごひゃくえんを かす。", translation: "Yumi lends me five hundred yen." },
+      { text: "ぼくは みせで きってを かった。", translation: "I bought a stamp at the shop." },
+      { text: "きってを ふうとうに はる。", translation: "I stick the stamp on the envelope." },
+      { text: "それから、ポストに いく。", translation: "Then I go to the postbox." },
+      { text: "いま、てがみは ポストに ある。", translation: "Now the letter is in the postbox." },
+      { text: "ぼくは うちに いく。", translation: "I go home." },
+      { text: "よる、トムが でんわを かける。", translation: "In the evening, Tom calls." },
+      { text: "トムは いま とうきょうに いる。", translation: "Tom is in Tokyo right now." },
+      { text: "らいげつ じゃない。きょうだ。", translation: "Not next month. Today." },
+      { text: "ぼくの てがみは まだ ポストに ある。", translation: "And my letter is still sitting in the postbox." },
+      { text: "あした、トムが うちに くる。", translation: "Tomorrow Tom is coming over." },
+      { text: "ぼくは トムに はなしを する。", translation: "I'll just tell him the whole thing myself." },
+    ],
+  },
+  {
     id: "ja-m15-the-weekend-ahead",
     languageId: "ja",
     module: 15,
@@ -322,6 +806,66 @@ export const JA_STORIES: Story[] = [
       { text: "それから かいものを する。", translation: "After that I go shopping." },
       { text: "あたらしい くつが ほしい。", translation: "I want new shoes." },
       { text: "りょこうは たのしい。", translation: "The trip is fun." },
+    ],
+  },
+  {
+    // m15 L4. The change of state here is an OPINION, not an object: the
+    // narrator opens disliking travel and closes planning the next trip, and
+    // lines 4/22/23 are the three points on that curve. m15 supplies りょこう /
+    // たのしい / おんがく / くつ and m14 supplies およぐ / つめたい / もつ, which
+    // is the whole day at the sea.
+    id: "ja-m15-the-trip-i-didnt-want",
+    languageId: "ja",
+    module: 15,
+    level: 4,
+    title: "The trip I didn't want",
+    theme: "Dragged to the sea on a Saturday, and talked round by evening.",
+    tags: ["travel", "friends", "sea"],
+    glosses: [
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+      { surface: "ねる", meaning: "to sleep, to go to bed", atomId: "ja:neru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ぼくの りょこうは どうですか。",
+        options: ["たのしいです", "たいへんです", "いそがしいです"],
+        answer: "たのしいです",
+      },
+      {
+        id: "where",
+        kind: "detail",
+        prompt: "つぎの りょこうは どこですか。",
+        options: ["やまです", "うみです", "こうえんです"],
+        answer: "やまです",
+      },
+    ],
+    sentences: [
+      { text: "こんしゅうは とても いそがしい。", translation: "This week is very busy." },
+      { text: "ぼくは まいにち かいしゃで はたらく。", translation: "Every day I work at the office." },
+      { text: "よるは うちで テレビを みる。", translation: "At night I watch TV at home." },
+      { text: "ぼくは りょこうが すきじゃない。", translation: "I don't like travelling." },
+      { text: "りょこうは たいへんだ。", translation: "Trips are a hassle." },
+      { text: "けど、ともだちの ユミは りょこうが すきだ。", translation: "But my friend Yumi loves them." },
+      { text: "ユミは どようびに うみに いく。", translation: "Yumi is going to the sea on Saturday." },
+      { text: "ユミは ぼくを まつ。", translation: "Yumi waits for me." },
+      { text: "どようび、ぼくは ろくじに おきる。", translation: "On Saturday I get up at six." },
+      { text: "あたらしい くつを もつ。", translation: "I take my new shoes." },
+      { text: "ふたりで でんしゃで うみに いく。", translation: "The two of us take the train to the sea." },
+      { text: "でんしゃは ながい。", translation: "The ride is long." },
+      { text: "うみは とても きれいだ。", translation: "The sea is beautiful." },
+      { text: "ユミは よく およぐ。", translation: "Yumi swims and swims." },
+      { text: "ぼくも およぐ。", translation: "I swim too." },
+      { text: "うみの みずは つめたい。", translation: "The water is cold." },
+      { text: "ひるごはんに すしを たべる。", translation: "For lunch we eat sushi." },
+      { text: "あとで、ふたりで おんがくを きいた。", translation: "Afterwards the two of us listened to music." },
+      { text: "うみは ほんとうに たのしい。", translation: "The sea really is fun." },
+      { text: "よる、でんしゃで うちに いく。", translation: "At night we take the train home." },
+      { text: "ぼくは よく ねる。", translation: "I sleep well." },
+      { text: "ぼくは りょこうが きらいじゃない。", translation: "I don't dislike travelling after all." },
+      { text: "いまは りょこうが すきだ。", translation: "Now I like it." },
+      { text: "つぎの りょこうは やまだ。", translation: "The next trip is the mountains." },
     ],
   },
   {
