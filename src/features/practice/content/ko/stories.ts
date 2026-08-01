@@ -190,6 +190,12 @@ export const KO_STORIES: Story[] = [
     // L3 EXEMPLAR for docs/story-authoring-guide.md. m12 caps at L3, so this is
     // the stretch read that sits above ko-m12-friday-plan's L2. Polite 해요
     // register throughout, matching the course's spine.
+    //
+    // Present-tense narration is a POOL CONSTRAINT at m12, not a style pick:
+    // the past action verbs have landed (갔어요 / 왔어요 / 봤어요 / 마셨어요),
+    // but 있었어요 / 없었어요 / 싶었어요 have not, so a past telling breaks on
+    // exactly the "was at" / "wanted to" beats this arc turns on. From m13+,
+    // check those three before defaulting to present — see the guide §6.
     id: "ko-m12-waiting-for-a-friend",
     languageId: "ko",
     module: 12,
@@ -229,7 +235,7 @@ export const KO_STORIES: Story[] = [
       { text: "저는 식당에서 친구를 기다려요.", translation: "I wait for my friend at the restaurant." },
       { text: "그런데 친구가 안 와요.", translation: "But my friend doesn't come." },
       { text: "저는 한 시간 기다려요.", translation: "I wait for an hour." },
-      { text: "친구가 없어요.", translation: "My friend still isn't here." },
+      { text: "지금도 친구가 안 와요.", translation: "Even now my friend doesn't come." },
       { text: "저는 전화해요.", translation: "I call." },
       { text: "친구는 집에 있어요.", translation: "My friend is at home." },
       { text: "친구는 머리가 아파요.", translation: "My friend has a headache." },

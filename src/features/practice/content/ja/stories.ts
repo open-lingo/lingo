@@ -188,9 +188,13 @@ export const JA_STORIES: Story[] = [
   },
   {
     // L3 EXEMPLAR for docs/story-authoring-guide.md. m12 caps at L3, so this is
-    // the stretch read that sits above ja-m12-a-workday's L2. Plain-form
-    // narrative present throughout (m11's plain past has no adjective or ある
-    // forms, which strands a past-tense story mid-scene).
+    // the stretch read that sits above ja-m12-a-workday's L2.
+    //
+    // Narrative present throughout, closing on a past-tense coda — the standard
+    // Japanese storytelling shape, and also what the m12 pool allows: past
+    // あった / おいしかった / たのしかった are not atom surfaces, so a fully
+    // past-tense telling strands mid-scene. The one past form the story needs
+    // (たのしかった, for a day that has ended) is bought with a gloss.
     id: "ja-m12-the-lost-key",
     languageId: "ja",
     module: 12,
@@ -200,8 +204,8 @@ export const JA_STORIES: Story[] = [
     tags: ["shopping", "friends", "town"],
     glosses: [
       { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
-      { surface: "なくす", meaning: "to lose (something)", atomId: "ja:nakusu" },
-      { surface: "たのしい", meaning: "fun, enjoyable", atomId: "ja:tanoshii" },
+      { surface: "さがす", meaning: "to look for, to search", atomId: "ja:sagasu" },
+      { surface: "たのしかった", meaning: "was fun (past of たのしい)", atomId: "ja:tanoshii" },
     ],
     questions: [
       {
@@ -222,19 +226,18 @@ export const JA_STORIES: Story[] = [
     sentences: [
       { text: "きょうは やすみだ。", translation: "Today is a day off." },
       { text: "わたしは ともだちと まちに いく。", translation: "I go into town with a friend." },
-      { text: "まちは とても にぎやかだ。", translation: "The town is very lively." },
+      { text: "かばんに うちの かぎが ある。", translation: "My house key is in my bag." },
       { text: "ふたりで みせに いく。", translation: "The two of us go into a shop." },
       { text: "みせの ぼうしは あたらしいけど、とても たかい。", translation: "The shop's hat is new, but it's very expensive." },
       { text: "わたしは ぼうしを かわない。", translation: "I don't buy the hat." },
       { text: "それから レストランで おいしい ラーメンを たべる。", translation: "After that we eat delicious ramen at a restaurant." },
-      { text: "ゆうがた、わたしは かばんを みる。", translation: "In the evening I look in my bag." },
-      { text: "かばんに うちの かぎが ない。", translation: "My house key isn't in the bag." },
-      { text: "わたしは かぎを なくす。", translation: "I've lost my key." },
+      { text: "ゆうがた、かばんに かぎが ない。", translation: "In the evening, the key isn't in my bag." },
       { text: "とても たいへんだ。", translation: "This is really bad." },
-      { text: "ふたりで また みせに いく。", translation: "The two of us go back to the shop." },
+      { text: "ふたりで かぎを さがす。", translation: "The two of us look for the key." },
+      { text: "また みせに いく。", translation: "We go back to the shop." },
       { text: "みせに かぎが ある。", translation: "The key is at the shop." },
       { text: "いまは だいじょうぶだ。", translation: "Now everything's fine." },
-      { text: "きょうは ほんとうに たのしい。", translation: "Today really was fun." },
+      { text: "きょうは ほんとうに たのしかった。", translation: "Today really was fun." },
     ],
   },
   {
