@@ -69,6 +69,19 @@ describe("resolveStoryWords", () => {
     expect(map.get("おちゃ")?.unknown).toBe(true);
   });
 
+  it("treats a card as learned once EITHER modality leaves `new` (mixed state)", () => {
+    // recognition still "new" but production has progressed — this pins the
+    // `||` semantics in `hasLearned`. Flipping it to `&&` would keep this
+    // atom "unlearned" and this assertion would fail.
+    getCardState.mockImplementation((id: string) =>
+      id === "ja:sushi"
+        ? { recognition: { state: "new" }, production: { state: "review" } }
+        : { recognition: { state: "review" }, production: { state: "review" } },
+    );
+    const map = resolveStoryWords(story, "ja");
+    expect(map.has("すし")).toBe(false);
+  });
+
   it("omits atoms the learner already knows", () => {
     getCardState.mockReturnValue({ recognition: { state: "review" }, production: { state: "review" } });
     const map = resolveStoryWords(story, "ja");
@@ -78,15 +91,27 @@ describe("resolveStoryWords", () => {
 
   it("ignores atoms that do not appear in the story text", () => {
     getCardState.mockReturnValue(null);
-    const map = resolveStoryWords(story, "ja");
-    // すし/おちゃ/ほん all appear; a non-appearing atom must not be added.
     getKnownAtomsByPos.mockReturnValue([
       ...atoms,
       { id: "ja:kuruma", surface: "くるま", reading: "kuruma", meaningEn: "car", pos: "noun", tier: "known", due: false },
     ]);
-    const map2 = resolveStoryWords(story, "ja");
-    expect(map2.has("くるま")).toBe(false);
-    expect(map.size).toBeGreaterThan(0);
+    const map = resolveStoryWords(story, "ja");
+    // くるま never appears in the story body — must not be added...
+    expect(map.has("くるま")).toBe(false);
+    // ...while すし, which does appear, still is.
+    expect(map.has("すし")).toBe(true);
+  });
+
+  it("skips single-character atoms even when unlearned", () => {
+    getCardState.mockReturnValue(undefined);
+    getKnownAtomsByPos.mockReturnValue([
+      ...atoms,
+      { id: "ja:i", surface: "い", reading: "i", meaningEn: "(single-char placeholder)", pos: "noun", tier: "known", due: false },
+    ]);
+    const map = resolveStoryWords(story, "ja");
+    // "い" appears inside "いきます" in the first sentence but is filtered
+    // for being a single character — likely noise (particles etc).
+    expect(map.has("い")).toBe(false);
   });
 
   it("a gloss wins over an atom of the same surface", () => {
