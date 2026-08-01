@@ -728,6 +728,11 @@
         "wordsEmpty": "Open the story to discover the words it uses."
       }
     },
+    "cloze": {
+      "title": "Fill in the blank",
+      "subtitle": "Sentences from your stories, with one word missing.",
+      "tileDesc": "One word missing from a sentence you've read"
+    },
     "listening": {
       "title": "Listening",
       "subtitle": "From words you're learning",

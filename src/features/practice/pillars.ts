@@ -175,6 +175,15 @@ const PILLARS: Pillar[] = [
         route: "practice/reading",
       },
       {
+        id: "cloze",
+        titleKey: "practice.cloze.title",
+        titleDefault: "Fill in the blank",
+        descKey: "practice.cloze.tileDesc",
+        descDefault: "One word missing from a sentence you've read",
+        route: "practice/cloze",
+        isNew: true,
+      },
+      {
         id: "stories-read",
         titleKey: "nav.stories",
         titleDefault: "Stories",

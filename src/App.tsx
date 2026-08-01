@@ -263,6 +263,9 @@ function RequireSocialProfile({ children }: { children: ReactNode }) {
 const ReadingPracticePage = lazyRetry(() =>
   import("@/features/practice/ReadingPracticePage").then((m) => ({ default: m.ReadingPracticePage })),
 );
+const ClozePracticePage = lazyRetry(() =>
+  import("@/features/practice/cloze/ClozePracticePage").then((m) => ({ default: m.ClozePracticePage })),
+);
 const SpeakingPracticePage = lazyRetry(() =>
   import("@/features/practice/SpeakingPracticePage").then((m) => ({ default: m.SpeakingPracticePage })),
 );
@@ -532,6 +535,7 @@ const router = createBrowserRouter([
                   { path: "grammar/conjugation/train", element: <ConjugationCombinedSession /> },
                   { path: "grammar/conjugation/:typeId", element: <TrainerTypeSession /> },
                   { path: "reading", element: <ReadingPracticePage /> },
+                  { path: "cloze", element: <ClozePracticePage /> },
                   { path: "speaking", element: <SpeakingPracticePage /> },
                   { path: "listening", element: <ListeningPracticePage /> },
                   { path: "conversation", element: <ConversationPracticePage /> },
