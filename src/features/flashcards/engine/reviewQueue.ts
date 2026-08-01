@@ -313,6 +313,27 @@ export function countRemainingDueCards(
 }
 
 /**
+ * Live count of REVIEWS (card × direction) still owed by a session's due pile.
+ *
+ * `countRemainingDueCards` counts cards, but the reviewer grades one modality
+ * at a time and a card due in both directions is two gradings. Counting cards
+ * made the "Due" headline hit 0 while production reviews were still queued —
+ * the same off-by-a-modality gap that used to end the session early. Counting
+ * due directions makes the headline reach 0 exactly when the session does.
+ */
+export function countRemainingDueReviews(
+  reviewCards: Flashcard[],
+  store: Record<string, SRSCardState> = getSRSStore(),
+): number {
+  let n = 0;
+  for (const c of reviewCards) {
+    const state = store[canonicalize(c.id)];
+    if (state) n += getDueModalities(state).length;
+  }
+  return n;
+}
+
+/**
  * Per-modality due breakdown across a set of cards. A card can be due in BOTH
  * directions, so `recognition + production` may exceed the number of due cards
  * — that's expected (the tooltip explains "a card can be in both").

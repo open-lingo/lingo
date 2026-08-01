@@ -11,10 +11,10 @@ import {
   setCardState,
   getEffectiveState,
   getSRSStore,
-  shouldRepeatInSession,
-  getDueModalities,
+  requeueReason,
+  buildSessionSlots,
   countRemainingNewCards,
-  countRemainingDueCards,
+  countRemainingDueReviews,
   dueModalityBreakdown,
   rollbackStats,
   rollbackRepeatQueue,
@@ -22,7 +22,7 @@ import {
   resolveGradingLayout,
   hasAnyReviewedCard,
 } from "./engine";
-import type { GradeSnapshot } from "./engine";
+import type { GradeSnapshot, SessionSlot, RequeueReason } from "./engine";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
@@ -43,6 +43,9 @@ import {
 } from "./components/FlashcardsOnboardingGate";
 import type { Flashcard, CardSegment, SRSRating, SRSModality } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
+
+/** A slot coming back within the session, tagged with why (see requeueReason). */
+type RepeatSlot = SessionSlot & { reason: RequeueReason };
 
 function getParticleById(particles: ParticleDef[] | null, id: string): ParticleDef | undefined {
   return particles?.find((p) => p.id === id);
@@ -231,21 +234,43 @@ export function FlashcardTester() {
   const [flipped, setFlipped] = useState(false);
   const [highlightMode, setHighlightMode] = useState(true);
   const [sessionStats, setSessionStats] = useState({ reviewed: 0, correct: 0 });
-  // SM-2 step 7: cards scoring < 4 are appended for re-review within the session
-  const [repeatCards, setRepeatCards] = useState<Flashcard[]>([]);
-  const [testedModality, setTestedModality] = useState<SRSModality>("recognition");
+  // Slots the scheduler still wants today — a missed grade (Again/Hard) or a
+  // card sitting on an FSRS same-day learning step — appended for re-review
+  // within this session rather than left for the next one.
+  const [repeatSlots, setRepeatSlots] = useState<RepeatSlot[]>([]);
   // One-step UNDO — snapshot of the most recent grade (null before the first
   // grade and after the session ends). Depth is exactly one; each grade
   // overwrites it.
   const [lastGrade, setLastGrade] = useState<GradeSnapshot | null>(null);
 
-  const allCards = useMemo(() => {
-    const base = queue?.queue ?? [];
-    return [...base, ...repeatCards];
-  }, [queue, repeatCards]);
+  // The session is a list of SLOTS (card × direction), not cards. The reviewer
+  // grades one modality per answer, so a card due for BOTH recognition and
+  // production is two units of work. Treating it as one card-shaped entry meant
+  // the recognition grade consumed the card and the still-due production half
+  // dropped out of the session — "Review Complete!" with work left over, and
+  // the same words reappearing as production on the next visit. Built once per
+  // queue (not per grade) so grading can't reshuffle the session underfoot.
+  const baseSlots = useMemo(
+    () => buildSessionSlots(queue?.queue ?? []),
+    [queue],
+  );
 
-  const card: Flashcard | undefined = allCards[index];
-  const isSessionDone = !card;
+  const allSlots = useMemo(
+    () => [...baseSlots, ...repeatSlots],
+    [baseSlots, repeatSlots],
+  );
+  const allCards = useMemo(() => allSlots.map((s) => s.card), [allSlots]);
+  // The "Again" chip counts only MISSED slots. Same-day learning-step requeues
+  // also lengthen the session, but calling them "Again" would misreport a
+  // correct answer — they show up in the progress bar's denominator instead.
+  const againQueued = repeatSlots.filter((s) => s.reason === "again").length;
+
+  const slot: SessionSlot | undefined = allSlots[index];
+  const card: Flashcard | undefined = slot?.card;
+  // Fixed by the slot, not re-derived from live state — grading the current
+  // slot changes that state, so deriving would race the render.
+  const testedModality: SRSModality = slot?.modality ?? "recognition";
+  const isSessionDone = !slot;
 
   // Live session tallies. `queue.newCount` / `queue.dueCount` are snapshots
   // taken when the queue is built and never change mid-session (grading writes
@@ -254,6 +279,10 @@ export function FlashcardTester() {
   // remaining-new / remaining-due against the live store, keyed on session
   // progress, so they decrement as cards are introduced / cleared. Undo rolls
   // `sessionStats.reviewed` back, which re-derives these too.
+  //
+  // "Due" counts REVIEWS (card × due direction), matching the slot queue — a
+  // card due both ways is two gradings, and counting it once made the headline
+  // hit 0 with production reviews still ahead.
   const liveCounts = useMemo(() => {
     if (!queue) {
       return {
@@ -265,7 +294,7 @@ export function FlashcardTester() {
     const store = getSRSStore();
     return {
       newRemaining: countRemainingNewCards(queue.newCards, store),
-      dueRemaining: countRemainingDueCards(queue.review, store),
+      dueRemaining: countRemainingDueReviews(queue.review, store),
       dueBreakdown: dueModalityBreakdown(queue.review, store),
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -277,17 +306,20 @@ export function FlashcardTester() {
   // so audio reinforces pronunciation without leaking anything. On PRODUCTION
   // reviews the learner is cued by the meaning (back) and must produce the
   // word; `front` is the hidden answer, so playing it aloud would give it away
-  // — hence gated off. Keyed by card id → plays once per card; honors
-  // silentMode inside the hook. The 350ms hook delay + effect cleanup absorbs
-  // the transient render where `testedModality` still holds the prior card's
-  // value before its selection effect runs.
+  // — hence gated off. Honors silentMode inside the hook.
+  //
+  // Keyed by SLOT position, not card id: `autoPlayJaAudio` remembers played
+  // keys for the page's lifetime, so a card-id key played once and stayed
+  // silent on every re-exposure — and a card now comes back within a session
+  // routinely (same-day learning step, missed grade, second direction). The
+  // position makes each exposure its own key.
   const frontAudioText =
     card &&
     testedModality === "recognition" &&
     (card.type === "word" || card.type === "sentence")
       ? card.front
       : undefined;
-  useAutoPlayJaAudio(frontAudioText, `fc-front-${card?.id ?? "none"}`);
+  useAutoPlayJaAudio(frontAudioText, `fc-front-${index}-${card?.id ?? "none"}`);
 
   // ── Daily "Review N cards" quest (retention 1b) ──
   // Report this session's reviews to the server quest ONCE when the session
@@ -327,48 +359,40 @@ export function FlashcardTester() {
   // the clip lands late or after the learner has already graded and moved on.
   usePrefetchAudio(allCards, languageId, { index });
 
-  // Pick which modality to test whenever the current card changes.
-  useEffect(() => {
-    if (!card) return;
-    const defaultEase = cardIdToDefaultEase?.[card.id];
-    const state = getEffectiveState(card.id, defaultEase);
-    const due = getDueModalities(state);
-    // Both due → recognition first (easier → harder). Neither due (new) → recognition.
-    if (due.includes("recognition")) {
-      setTestedModality("recognition");
-    } else if (due.includes("production")) {
-      setTestedModality("production");
-    } else {
-      setTestedModality("recognition");
-    }
-  }, [card, cardIdToDefaultEase]);
-
   const handleRate = useCallback(
     (rating: SRSRating) => {
       if (!card) return;
       const defaultEase = cardIdToDefaultEase?.[card.id];
       const current = getEffectiveState(card.id, defaultEase);
-      // Snapshot the PRE-grade state (deep copy) so undo can restore it
-      // verbatim without recomputing via FSRS.
-      const requeued = shouldRepeatInSession(rating);
-      setLastGrade({
-        cardId: card.id,
-        prevState: structuredClone(current),
-        index,
-        modality: testedModality,
-        rating,
-        requeued,
-      });
 
       // Grade ONLY the tested modality so recognition and production
       // advance independently based on actual performance.
       const next = reviewCard(current, testedModality, rating);
       setCardState(card.id, next);
 
-      // SM-2 step 7: if quality < 4, re-show at end of session
-      if (requeued) {
-        setRepeatCards((prev) => [...prev, card]);
+      // Re-show within THIS session when the scheduler still wants this
+      // direction today — a missed grade, or a same-day FSRS learning step.
+      // Decided from the POST-grade state, so a new card graded Good on its
+      // 10-minute step comes back now instead of after "Review Complete!".
+      // Always the SAME direction that was graded, not whatever is due later.
+      const reason = requeueReason(next, testedModality, rating);
+      if (reason) {
+        setRepeatSlots((prev) => [
+          ...prev,
+          { card, modality: testedModality, reason },
+        ]);
       }
+
+      // Snapshot the PRE-grade state (deep copy) so undo can restore it
+      // verbatim without recomputing via FSRS.
+      setLastGrade({
+        cardId: card.id,
+        prevState: structuredClone(current),
+        index,
+        modality: testedModality,
+        rating,
+        requeued: reason !== null,
+      });
 
       setSessionStats((s) => ({
         reviewed: s.reviewed + 1,
@@ -390,11 +414,10 @@ export function FlashcardTester() {
     setLastGrade((snap) => {
       if (!snap) return null;
       setCardState(snap.cardId, restoreStateForUndo(snap.prevState));
-      setRepeatCards((prev) => rollbackRepeatQueue(prev, snap.requeued));
+      setRepeatSlots((prev) => rollbackRepeatQueue(prev, snap.requeued));
       setSessionStats((s) => rollbackStats(s, snap.rating));
-      // Return to the graded card. The tested-modality effect re-derives the
-      // same modality from the restored due-set, so the graded side is
-      // re-shown; reveal it directly.
+      // Return to the graded slot — it carries the graded direction, so the
+      // same side comes back regardless of state; reveal it directly.
       setIndex(snap.index);
       setFlipped(true);
       return null;
@@ -462,7 +485,7 @@ export function FlashcardTester() {
   const restartSession = useCallback(() => {
     setIndex(0);
     setFlipped(false);
-    setRepeatCards([]);
+    setRepeatSlots([]);
     setSessionStats({ reviewed: 0, correct: 0 });
     setLastGrade(null);
     setQueueVersion((v) => v + 1);
@@ -618,9 +641,14 @@ export function FlashcardTester() {
     </>
   );
 
+  // Denominator is the session's live SLOT count, not the card count. A card
+  // due in both directions is two gradings, so `queue.totalCount` overstated
+  // progress and the bar hit 100% with production reviews still ahead. Counting
+  // requeued slots too means the bar re-scales as the session grows instead of
+  // pinning at 100% while work remains.
   const progressPct =
-    queue.totalCount > 0
-      ? Math.min(100, Math.round((sessionStats.reviewed / queue.totalCount) * 100))
+    allSlots.length > 0
+      ? Math.min(100, Math.round((sessionStats.reviewed / allSlots.length) * 100))
       : 0;
 
   return (
@@ -787,9 +815,9 @@ export function FlashcardTester() {
               style={{ width: `${progressPct}%` }}
             />
           </div>
-          {repeatCards.length > 0 && (
+          {againQueued > 0 && (
             <span className="shrink-0 text-xs text-warning">
-              +{repeatCards.length} {t("flashcards.againCount")}
+              +{againQueued} {t("flashcards.againCount")}
             </span>
           )}
         </div>
@@ -993,7 +1021,7 @@ export function FlashcardTester() {
           </Tooltip>
           <span className="text-border">·</span>
           <span className="text-sm text-text-muted">
-            {t("flashcards.againCount")}: <strong className="text-warning">{repeatCards.length}</strong>
+            {t("flashcards.againCount")}: <strong className="text-warning">{againQueued}</strong>
           </span>
           {freeReview && (queue.extraCount ?? 0) > 0 && (
             <>

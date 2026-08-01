@@ -1,4 +1,4 @@
-import type { Flashcard, SRSCardState, SRSModality, SRSRating } from "../data/types";
+import type { SRSCardState, SRSModality, SRSRating } from "../data/types";
 
 /**
  * One-step UNDO for the flashcard reviewer.
@@ -25,15 +25,16 @@ export interface GradeSnapshot {
    * applied. Restored verbatim (never recomputed via FSRS) on undo.
    */
   prevState: SRSCardState;
-  /** allCards index the graded card occupied — where it returns on undo. */
+  /** Session-slot index the graded card occupied — where it returns on undo. */
   index: number;
-  /** The modality that was graded (restored so the same side is re-tested). */
+  /** The modality that was graded (the slot carries it; kept for the record). */
   modality: SRSModality;
   /** The rating the user gave (drives stat rollback). */
   rating: SRSRating;
   /**
-   * True when this grade appended the card to the in-session repeat queue
-   * (`shouldRepeatInSession`). Undo must pop that re-insertion.
+   * True when this grade appended a slot to the in-session repeat queue
+   * (`requeueReason` — a missed grade OR a same-day learning step). Undo must
+   * pop that re-insertion.
    */
   requeued: boolean;
 }
@@ -51,15 +52,17 @@ export function rollbackStats(stats: SessionStats, rating: SRSRating): SessionSt
 }
 
 /**
- * Reverse the in-session requeue: the forward path appends the graded card to
- * the END of `repeatCards` when the rating was Again/Hard, so undo drops the
- * last element — and only when this grade actually added one. Mirrors the
- * forward `[...prev, card]` exactly in reverse.
+ * Reverse the in-session requeue: the forward path appends the graded slot to
+ * the END of the repeat queue when the scheduler still wants it today (see
+ * `requeueReason`), so undo drops the last element — and only when this grade
+ * actually added one. Mirrors the forward `[...prev, slot]` exactly in reverse.
+ *
+ * Generic in the element type: only the append/pop shape matters here.
  */
-export function rollbackRepeatQueue(
-  repeatCards: Flashcard[],
+export function rollbackRepeatQueue<T>(
+  repeatCards: T[],
   requeued: boolean,
-): Flashcard[] {
+): T[] {
   if (!requeued) return repeatCards;
   return repeatCards.slice(0, -1);
 }

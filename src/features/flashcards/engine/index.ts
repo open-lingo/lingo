@@ -42,8 +42,11 @@ export {
   adaptiveNewCardsPerDay,
   countRemainingNewCards,
   countRemainingDueCards,
+  countRemainingDueReviews,
   dueModalityBreakdown,
 } from "./reviewQueue";
+export { buildSessionSlots, requeueReason } from "./sessionSlots";
+export type { SessionSlot, RequeueReason } from "./sessionSlots";
 export { rollbackStats, rollbackRepeatQueue, restoreStateForUndo } from "./undo";
 export type { GradeSnapshot, SessionStats } from "./undo";
 export { resolveGradingLayout, hasAnyReviewedCard, SIMPLE_RATING } from "./gradingLayout";
