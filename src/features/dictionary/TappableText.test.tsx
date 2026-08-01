@@ -94,3 +94,119 @@ describe("TappableText", () => {
     expect(container.textContent).toBe("あいうえお");
   });
 });
+
+// はなみ / さくら are deliberately absent from the mocked JA dictionary above,
+// so anything tappable here can only have come from `extraSurfaces`.
+describe("TappableText — story affordances", () => {
+  it("routes taps to onWordTap when provided, not the dictionary", () => {
+    const onWordTap = vi.fn();
+    render(
+      <TappableText
+        text="はなみ"
+        lang="ja"
+        extraSurfaces={["はなみ"]}
+        onWordTap={onWordTap}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "はなみ" }));
+    expect(onWordTap).toHaveBeenCalledWith("はなみ");
+    expect(openWord).not.toHaveBeenCalled();
+  });
+
+  it("falls back to the dictionary modal when no handler is given", () => {
+    render(<TappableText text="はなみ" lang="ja" extraSurfaces={["はなみ"]} />);
+    fireEvent.click(screen.getByRole("button", { name: "はなみ" }));
+    expect(openWord).toHaveBeenCalledWith("はなみ");
+  });
+
+  it("makes extraSurfaces tappable even though the dictionary lacks them", () => {
+    render(<TappableText text="はなみ" lang="ja" extraSurfaces={["はなみ"]} />);
+    expect(screen.getByRole("button", { name: "はなみ" })).toBeInTheDocument();
+  });
+
+  it("adds the highlight class on top of the base word class, never replacing it", () => {
+    render(
+      <TappableText
+        text="はなみとさくら"
+        lang="ja"
+        extraSurfaces={["はなみ", "さくら"]}
+        highlightSurfaces={new Set(["はなみ"])}
+      />,
+    );
+    const hanami = screen.getByRole("button", { name: "はなみ" });
+    const sakura = screen.getByRole("button", { name: "さくら" });
+
+    // Highlighted word carries the highlight decoration …
+    expect(hanami.className).toContain("decoration-accent/60");
+    expect(hanami.className).toContain("underline-offset-4");
+    // … on TOP of the base affordance, which is still fully present.
+    expect(hanami.className).toContain("decoration-dotted");
+    expect(hanami.className).toContain("underline-offset-[3px]");
+
+    // Non-highlighted word keeps only the base affordance.
+    expect(sakura.className).not.toContain("decoration-accent/60");
+    expect(sakura.className).toContain("decoration-dotted");
+  });
+
+  // Regression guard: both module-scope memo caches are keyed by language only
+  // in the original implementation, so the FIRST story rendered for a language
+  // would poison every later story that declares different extra surfaces.
+  it("keys its memo caches by extraSurfaces, not language alone", () => {
+    const first = render(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["はなみ"]} />,
+    );
+    expect(screen.getByRole("button", { name: "はなみ" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "さくら" }),
+    ).not.toBeInTheDocument();
+    first.unmount();
+
+    // Same language, same text, DIFFERENT extras — and deliberately no cache
+    // reset, to prove the second render is not served the first one's tokens.
+    render(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["さくら"]} />,
+    );
+    expect(screen.getByRole("button", { name: "さくら" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "はなみ" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("keys its memo caches by extraSurfaces (control: caches cleared between renders)", () => {
+    const first = render(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["はなみ"]} />,
+    );
+    expect(screen.getByRole("button", { name: "はなみ" })).toBeInTheDocument();
+    first.unmount();
+
+    __resetTappableTextCaches();
+
+    render(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["さくら"]} />,
+    );
+    expect(screen.getByRole("button", { name: "さくら" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "はなみ" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("re-tokenizes when extraSurfaces changes identity but not content", () => {
+    const { rerender } = render(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["はなみ"]} />,
+    );
+    // New array, same contents — must not thrash, and must stay correct.
+    rerender(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["はなみ"]} />,
+    );
+    expect(screen.getByRole("button", { name: "はなみ" })).toBeInTheDocument();
+
+    // New contents — must re-tokenize.
+    rerender(
+      <TappableText text="はなみさくら" lang="ja" extraSurfaces={["さくら"]} />,
+    );
+    expect(screen.getByRole("button", { name: "さくら" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "はなみ" }),
+    ).not.toBeInTheDocument();
+  });
+});
