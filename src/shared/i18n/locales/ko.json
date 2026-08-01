@@ -733,6 +733,23 @@
       "subtitle": "이야기 속 문장에서 한 단어가 빠져 있어요.",
       "tileDesc": "읽은 문장에서 빠진 한 단어 맞히기"
     },
+    "stories": {
+      "title": "이야기",
+      "subtitle": "감당할 수 있는 만큼 읽어보세요 — 모르는 단어는 눌러서 확인하세요.",
+      "peek": "미리 보기",
+      "meta": "문장 {{count}}개 · {{module}}단원",
+      "readCount": "{{n}}회 읽음",
+      "filterAria": "이야기 필터",
+      "filterAll": "전체",
+      "filterUnread": "안 읽음",
+      "filterRead": "읽음",
+      "paginationAria": "이야기 페이지",
+      "level": { "1": "입문", "2": "쉬움", "3": "보통", "4": "도전", "5": "고난도" },
+      "empty": {
+        "title": "아직 읽을 이야기가 없어요",
+        "description": "수업을 계속 진행하세요 — 단어를 더 배우면 실제로 읽을 수 있는 이야기가 여기에 열립니다."
+      }
+    },
     "listening": {
       "title": "듣기",
       "subtitle": "지금 배우는 단어로",

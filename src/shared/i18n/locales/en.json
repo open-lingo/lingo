@@ -733,6 +733,23 @@
       "subtitle": "Sentences from your stories, with one word missing.",
       "tileDesc": "One word missing from a sentence you've read"
     },
+    "stories": {
+      "title": "Stories",
+      "subtitle": "Read what you can handle — tap any word you don't know.",
+      "peek": "Preview",
+      "meta": "{{count}} sentences · Module {{module}}",
+      "readCount": "read {{n}}×",
+      "filterAria": "Filter stories",
+      "filterAll": "All",
+      "filterUnread": "Unread",
+      "filterRead": "Read",
+      "paginationAria": "Stories pages",
+      "level": { "1": "Starter", "2": "Easy", "3": "Steady", "4": "Stretch", "5": "Challenge" },
+      "empty": {
+        "title": "Nothing to read just yet",
+        "description": "Keep going in your lessons — as you learn more words, stories you can actually read will unlock here."
+      }
+    },
     "listening": {
       "title": "Listening",
       "subtitle": "From words you're learning",

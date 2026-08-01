@@ -4,7 +4,7 @@ import { useApi } from "@/shared/api/provider";
 export type BrowseSubscribedTab = "browse" | "subscribed" | "mine";
 
 /**
- * Shared hook for Browse | Subscribed | Mine tab UIs (ContentBrowserPage, StoriesPage).
+ * Shared hook for Browse | Subscribed | Mine tab UIs (ContentBrowserPage, SubscribedPage).
  * Manages active tab, search, and subscribe/unsubscribe with loading state.
  */
 export function useBrowseSubscribedContent(options: {

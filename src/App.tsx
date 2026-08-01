@@ -135,11 +135,8 @@ const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 // Practice subroutes + placement + stories — reached only via the
 // Practice tab or onboarding. Keeping them out of the main bundle drops
 // ~200KB raw / ~50KB gzip from first-paint chunks.
-const StoriesPage = lazyRetry(() =>
-  import("@/features/stories/StoriesPage").then((m) => ({ default: m.StoriesPage })),
-);
-const StoryDetailPage = lazyRetry(() =>
-  import("@/features/stories/StoryDetailPage").then((m) => ({ default: m.StoryDetailPage })),
+const StoryLibraryPage = lazyRetry(() =>
+  import("@/features/practice/stories/StoryLibraryPage").then((m) => ({ default: m.StoryLibraryPage })),
 );
 const PracticeGrammarPage = lazyRetry(() =>
   import("@/features/practice/PracticeGrammarPage").then((m) => ({ default: m.PracticeGrammarPage })),
@@ -520,8 +517,7 @@ const router = createBrowserRouter([
                   { path: "flashcards/cards", element: <CardManagerPage /> },
                   { path: "flashcards/decks", element: <DeckManagerPage /> },
                   { path: "flashcards", element: <FlashcardsPage /> },
-                  { path: "stories", element: <StoriesPage /> },
-                  { path: "stories/:storyId", element: <StoryDetailPage /> },
+                  { path: "stories", element: <StoryLibraryPage /> },
                   { path: "grammar/particles", element: <ParticlePracticePage /> },
                   { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
                   { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },
