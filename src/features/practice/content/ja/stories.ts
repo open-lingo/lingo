@@ -187,6 +187,57 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // L3 EXEMPLAR for docs/story-authoring-guide.md. m12 caps at L3, so this is
+    // the stretch read that sits above ja-m12-a-workday's L2. Plain-form
+    // narrative present throughout (m11's plain past has no adjective or ある
+    // forms, which strands a past-tense story mid-scene).
+    id: "ja-m12-the-lost-key",
+    languageId: "ja",
+    module: 12,
+    level: 3,
+    title: "The lost key",
+    theme: "A day out in town turns into a search.",
+    tags: ["shopping", "friends", "town"],
+    glosses: [
+      { surface: "けど", meaning: "but, although", atomId: "ja:kedo" },
+      { surface: "なくす", meaning: "to lose (something)", atomId: "ja:nakusu" },
+      { surface: "たのしい", meaning: "fun, enjoyable", atomId: "ja:tanoshii" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "かぎは どこに ありますか。",
+        options: ["みせに あります", "うちに あります", "レストランに あります"],
+        answer: "みせに あります",
+      },
+      {
+        id: "lunch",
+        kind: "detail",
+        prompt: "ふたりは レストランで なにを たべますか。",
+        options: ["ラーメンです", "すしです", "ごはんです"],
+        answer: "ラーメンです",
+      },
+    ],
+    sentences: [
+      { text: "きょうは やすみだ。", translation: "Today is a day off." },
+      { text: "わたしは ともだちと まちに いく。", translation: "I go into town with a friend." },
+      { text: "まちは とても にぎやかだ。", translation: "The town is very lively." },
+      { text: "ふたりで みせに いく。", translation: "The two of us go into a shop." },
+      { text: "みせの ぼうしは あたらしいけど、とても たかい。", translation: "The shop's hat is new, but it's very expensive." },
+      { text: "わたしは ぼうしを かわない。", translation: "I don't buy the hat." },
+      { text: "それから レストランで おいしい ラーメンを たべる。", translation: "After that we eat delicious ramen at a restaurant." },
+      { text: "ゆうがた、わたしは かばんを みる。", translation: "In the evening I look in my bag." },
+      { text: "かばんに うちの かぎが ない。", translation: "My house key isn't in the bag." },
+      { text: "わたしは かぎを なくす。", translation: "I've lost my key." },
+      { text: "とても たいへんだ。", translation: "This is really bad." },
+      { text: "ふたりで また みせに いく。", translation: "The two of us go back to the shop." },
+      { text: "みせに かぎが ある。", translation: "The key is at the shop." },
+      { text: "いまは だいじょうぶだ。", translation: "Now everything's fine." },
+      { text: "きょうは ほんとうに たのしい。", translation: "Today really was fun." },
+    ],
+  },
+  {
     id: "ja-m13-likes-and-wants",
     languageId: "ja",
     module: 13,

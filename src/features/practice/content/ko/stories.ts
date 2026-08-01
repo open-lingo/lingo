@@ -187,6 +187,57 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // L3 EXEMPLAR for docs/story-authoring-guide.md. m12 caps at L3, so this is
+    // the stretch read that sits above ko-m12-friday-plan's L2. Polite 해요
+    // register throughout, matching the course's spine.
+    id: "ko-m12-waiting-for-a-friend",
+    languageId: "ko",
+    module: 12,
+    level: 3,
+    title: "Waiting for a friend",
+    theme: "A plan to see a movie falls apart, then comes back together.",
+    tags: ["friends", "food", "daily-life"],
+    glosses: [
+      { surface: "기다려요", meaning: "wait(s)", atomId: "ko:기다리다" },
+      { surface: "전화", meaning: "phone, phone call", atomId: "ko:전화" },
+      { surface: "아파요", meaning: "hurts, is unwell", atomId: "ko:아파요" },
+      { surface: "그래서", meaning: "so, therefore", atomId: "ko:그래서" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "우리는 어디에서 영화를 봐요?",
+        options: ["친구 집에서 봐요", "식당에서 봐요", "학교에서 봐요"],
+        answer: "친구 집에서 봐요",
+      },
+      {
+        id: "time",
+        kind: "detail",
+        prompt: "우리는 몇 시에 만나요?",
+        options: ["세 시에 만나요", "두 시에 만나요", "한 시에 만나요"],
+        answer: "세 시에 만나요",
+      },
+    ],
+    sentences: [
+      { text: "오늘은 학교에 안 가요.", translation: "Today I don't go to school." },
+      { text: "저는 친구하고 영화를 보고 싶어요.", translation: "I want to watch a movie with my friend." },
+      { text: "우리는 세 시에 만나요.", translation: "We're meeting at three." },
+      { text: "지금 두 시예요.", translation: "It's two o'clock now." },
+      { text: "저는 식당에 가요.", translation: "I go to the restaurant." },
+      { text: "식당에서 커피를 마셔요.", translation: "I drink coffee at the restaurant." },
+      { text: "저는 식당에서 친구를 기다려요.", translation: "I wait for my friend at the restaurant." },
+      { text: "그런데 친구가 안 와요.", translation: "But my friend doesn't come." },
+      { text: "저는 한 시간 기다려요.", translation: "I wait for an hour." },
+      { text: "친구가 없어요.", translation: "My friend still isn't here." },
+      { text: "저는 전화해요.", translation: "I call." },
+      { text: "친구는 집에 있어요.", translation: "My friend is at home." },
+      { text: "친구는 머리가 아파요.", translation: "My friend has a headache." },
+      { text: "그래서 저는 친구 집에 가요.", translation: "So I go to my friend's house." },
+      { text: "우리는 집에서 영화를 봐요.", translation: "We watch the movie at the house." },
+    ],
+  },
+  {
     id: "ko-m13-my-week",
     languageId: "ko",
     module: 13,
