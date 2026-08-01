@@ -19,6 +19,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { getMockCourse } from "./mockCourse";
+import { allStories } from "@/features/practice/content";
 
 describe("curriculum lesson counts", () => {
   const course = getMockCourse("ja");
@@ -99,7 +100,10 @@ describe("curriculum lesson counts", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     expect(m3).toBeDefined();
     expect(m3.comingSoon).toBeFalsy();
-    expect(m3.lessons.map((l) => l.id)).toEqual([
+    // The story capstone (2026-07-31) sits AFTER the taught lessons — assert
+    // the lesson spine separately so it stays pinned to the content.
+    const taught = m3.lessons.filter((l) => l.kind !== "story");
+    expect(taught.map((l) => l.id)).toEqual([
       "ja-m3-neo-1",
       "ja-m3-neo-2",
       "ja-m3-neo-3",
@@ -108,7 +112,8 @@ describe("curriculum lesson counts", () => {
       "ja-m3-neo-6",
       "ja-m3-neo-review",
     ]);
-    expect(m3.lessons[m3.lessons.length - 1].title).toMatch(/review/i);
+    expect(taught[taught.length - 1].title).toMatch(/review/i);
+    expect(m3.lessons[m3.lessons.length - 1].id).toBe("story:ja-m3-about-me");
   });
 
   it("the N5 map has NO comingSoon placeholders left — m29 finished the spine", () => {
@@ -129,8 +134,11 @@ describe("curriculum lesson counts", () => {
     expect(m29, "m29 missing").toBeDefined();
     expect(m29.comingSoon).toBeFalsy();
     expect(m29.tier ?? "n5").toBe("n5");
-    expect(m29.lessons).toHaveLength(13);
-    expect(m29.lessons[m29.lessons.length - 1].id).toBe("ja-m29-neo-challenge");
+    const taught = m29.lessons.filter((l) => l.kind !== "story");
+    expect(taught).toHaveLength(13);
+    expect(taught[taught.length - 1].id).toBe("ja-m29-neo-challenge");
+    // …then the capstone read, which is the module's last node.
+    expect(m29.lessons[m29.lessons.length - 1].id).toBe("story:ja-m29-cleaning-day");
   });
 
   it("spine milestones land on the ladder-critical module numbers", () => {
@@ -186,4 +194,59 @@ describe("curriculum lesson counts", () => {
       "yoon-capstone lesson should have been removed",
     ).toBe(false);
   });
+});
+
+/**
+ * Story capstone nodes (2026-07-31) — one promoted read per module, LAST in
+ * the module so it reads as the capstone.
+ *
+ * These are MANDATORY rows: `getModuleStatus` counts every non-review row, so
+ * a node whose story does not resolve is a module the learner can never
+ * finish. And a story authored above its module's level would be an
+ * unreadable wall, since the pathway hands it to them at that module.
+ */
+describe("story pathway nodes", () => {
+  for (const langId of ["ja", "ko"]) {
+    describe(langId, () => {
+      const course = getMockCourse(langId);
+      const stories = allStories(langId);
+      const rows = course.modules.flatMap((m) =>
+        (m.lessons ?? []).filter((l) => l.kind === "story").map((l) => ({ mod: m, row: l })),
+      );
+
+      it("the course promotes story nodes at all", () => {
+        expect(rows.length).toBeGreaterThan(0);
+      });
+
+      it("every story node resolves to authored content at or below its module", () => {
+        for (const { mod, row } of rows) {
+          const story = stories.find((s) => s.id === row.storyId);
+          expect(story, `${row.id} points at a story that does not exist`).toBeDefined();
+          expect(
+            story!.module,
+            `${row.id} promotes a story authored for m${story!.module} into ${mod.id}`,
+          ).toBeLessThanOrEqual(parseInt(mod.id.slice(1), 10));
+        }
+      });
+
+      it("the row id is the story id under the `story:` namespace", () => {
+        for (const { row } of rows) {
+          expect(row.id).toBe(`story:${row.storyId}`);
+        }
+      });
+
+      it("at most one per module, and always the module's last node", () => {
+        for (const mod of course.modules) {
+          const lessons = mod.lessons ?? [];
+          const storyRows = lessons.filter((l) => l.kind === "story");
+          expect(storyRows.length, `${mod.id} has ${storyRows.length} story nodes`).toBeLessThan(2);
+          if (storyRows.length === 1) {
+            expect(lessons[lessons.length - 1].id, `${mod.id}'s story is not last`).toBe(
+              storyRows[0].id,
+            );
+          }
+        }
+      });
+    });
+  }
 });

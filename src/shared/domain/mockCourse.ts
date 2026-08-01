@@ -281,6 +281,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m3-neo-5", title: "Survival sounds", status: "available" as const },
             { id: "ja-m3-neo-6", title: "Story: meeting someone", status: "available" as const },
             { id: "ja-m3-neo-review", title: "Plain sentences — review", status: "available" as const },
+            { id: "story:ja-m3-about-me", title: "Read — About me", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m3-about-me" },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
@@ -327,6 +329,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m5-neo-10", title: "Verb drills + ごはん", status: "available" as const },
             { id: "ja-m5-neo-11", title: "Story: dinner plans", status: "available" as const },
             { id: "ja-m5-neo-review", title: "Verbs I — review", status: "available" as const },
+            { id: "story:ja-m5-shop-errand", title: "Read — At the shop", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m5-shop-errand" },
           ],
           accent: { from: "#10b981", to: "#059669" },
         },
@@ -380,6 +384,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m7-neo-9", title: "Switching skins", status: "available" as const },
             { id: "ja-m7-neo-review-3", title: "Review — the whole polite layer", status: "available" as const },
             { id: "ja-m7-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+            { id: "story:ja-m7-my-day", title: "Read — My day", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m7-my-day" },
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
@@ -434,6 +440,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m9-neo-9", title: "A whole purchase", status: "available" as const },
             { id: "ja-m9-neo-review-3", title: "Review — numbers, prices, purchases", status: "available" as const },
             { id: "ja-m9-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+            { id: "story:ja-m9-a-lively-town", title: "Read — A lively town", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m9-a-lively-town" },
           ],
           accent: { from: "#10b981", to: "#059669" },
         },
@@ -460,6 +468,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m10-neo-9", title: "A conversation that sounds real", status: "available" as const },
             { id: "ja-m10-neo-review-3", title: "Review — the whole register kit", status: "available" as const },
             { id: "ja-m10-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+            { id: "story:ja-m10-back-to-school", title: "Read — Back to school", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m10-back-to-school" },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
@@ -491,6 +501,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m11-neo-11", title: "This year, last year \u2014 the wider calendar", status: "available" as const },
             { id: "ja-m11-neo-review-3", title: "Review \u2014 clock, calendar and past", status: "available" as const },
             { id: "ja-m11-neo-challenge", title: "Challenge \u2014 put it all together", status: "available" as const },
+            { id: "story:ja-m11-last-saturday", title: "Read — Last Saturday", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m11-last-saturday" },
           ],
           accent: { from: "#f97316", to: "#ea580c" },
         },
@@ -519,6 +531,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m12-neo-trainer-iadj", title: "Drill — the い-adjective's cells", status: "available" as const,
               kind: "trainer" as const, trainerTypeIds: ["i-adj-forms", "ta-form"] },
             { id: "ja-m12-neo-challenge", title: "Challenge \u2014 describe it, then describe it in the past", status: "available" as const },
+            { id: "story:ja-m12-a-workday", title: "Read — A workday", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m12-a-workday" },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
         },
@@ -548,6 +562,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m13-neo-10", title: "けさ — the morning routine", status: "available" as const },
             { id: "ja-m13-neo-review-3", title: "Review — wanting, liking, doing", status: "available" as const },
             { id: "ja-m13-neo-challenge", title: "Challenge — say what you want, then say what you like", status: "available" as const },
+            { id: "story:ja-m13-likes-and-wants", title: "Read — Likes and wants", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m13-likes-and-wants" },
           ],
           accent: { from: "#a855f7", to: "#9333ea" },
         },
@@ -576,6 +592,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m14-neo-10", title: "ドアを あけて — doors and lights", status: "available" as const },
             { id: "ja-m14-neo-review-3", title: "Review — the whole て family", status: "available" as const },
             { id: "ja-m14-neo-challenge", title: "Challenge — say what's happening, then say what's allowed", status: "available" as const },
+            { id: "story:ja-m14-a-visitor", title: "Read — A visitor", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m14-a-visitor" },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
@@ -604,6 +622,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m15-neo-9", title: "まえに と てから — putting two actions in order", status: "available" as const },
             { id: "ja-m15-neo-review-3", title: "Review — clauses, things, times and order", status: "available" as const },
             { id: "ja-m15-neo-challenge", title: "Challenge — say what, say when, say in what order", status: "available" as const },
+            { id: "story:ja-m15-the-weekend-ahead", title: "Read — The weekend ahead", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m15-the-weekend-ahead" },
           ],
           accent: { from: "#f97316", to: "#ea580c" },
         },
@@ -636,6 +656,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m16-neo-trainer-masu", title: "Drill — every polite cell, and なかった", status: "available" as const,
               kind: "trainer" as const, trainerTypeIds: ["masu", "nai-form", "ta-form"] },
             { id: "ja-m16-neo-challenge", title: "Challenge — say why, say how long, say what didn't happen", status: "available" as const },
+            { id: "story:ja-m16-a-day-at-school", title: "Read — A day at school", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m16-a-day-at-school" },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
         },
@@ -666,6 +688,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m17-neo-9", title: "あの ひとは だれ？ — asking about people", status: "available" as const },
             { id: "ja-m17-neo-review-3", title: "Review — うちの かぞく, start to finish", status: "available" as const },
             { id: "ja-m17-neo-challenge", title: "Challenge — introduce your family", status: "available" as const },
+            { id: "story:ja-m17-to-the-station", title: "Read — To the station", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m17-to-the-station" },
           ],
           accent: { from: "#e11d48", to: "#be123c" },
         },
@@ -696,6 +720,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m18-neo-9", title: "「どう おもう？」 — asking for an opinion", status: "available" as const },
             { id: "ja-m18-neo-review-3", title: "Review — saying, thinking and asking", status: "available" as const },
             { id: "ja-m18-neo-challenge", title: "Challenge — say what you think", status: "available" as const },
+            { id: "story:ja-m18-a-warm-day", title: "Read — A warm day", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m18-a-warm-day" },
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
@@ -725,6 +751,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m19-neo-9", title: "「えきは どこですか」 — asking a stranger", status: "available" as const },
             { id: "ja-m19-neo-review-3", title: "Review — getting around, start to finish", status: "available" as const },
             { id: "ja-m19-neo-challenge", title: "Challenge — plan the whole trip", status: "available" as const },
+            { id: "story:ja-m19-my-family", title: "Read — My family", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m19-my-family" },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
@@ -755,6 +783,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m20-neo-9", title: "「どちらが やすいですか」 — asking a stranger which", status: "available" as const },
             { id: "ja-m20-neo-review-3", title: "Review — comparing anything, in either register", status: "available" as const },
             { id: "ja-m20-neo-challenge", title: "Challenge — pick one and say why", status: "available" as const },
+            { id: "story:ja-m20-feeling-sick", title: "Read — Feeling sick", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m20-feeling-sick" },
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
         },
@@ -784,6 +814,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m21-neo-9", title: "\u300Cコーヒーを いっぱい ください\u300D — ordering", status: "available" as const },
             { id: "ja-m21-neo-review-3", title: "Review — open lists, closed lists and everything in the cup", status: "available" as const },
             { id: "ja-m21-neo-challenge", title: "Challenge — say what you do and who you do it with", status: "available" as const },
+            { id: "story:ja-m21-dinner-at-home", title: "Read — Dinner at home", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m21-dinner-at-home" },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
@@ -814,6 +846,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m22-neo-11", title: "\u300Cたべても いい？\u300D — asking whether you may", status: "available" as const },
             { id: "ja-m22-neo-review-3", title: "Review — the pharmacy, the don'ts and the may-I's", status: "available" as const },
             { id: "ja-m22-neo-challenge", title: "Challenge — say what hurts, and ask what you may do about it", status: "available" as const },
+            { id: "story:ja-m22-what-i-eat", title: "Read — What I like to eat", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m22-what-i-eat" },
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
         },
@@ -846,6 +880,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m23-neo-11", title: "\u300Cいく つもりだと おもう\u300D — quoting a whole plan", status: "available" as const },
             { id: "ja-m23-neo-review-3", title: "Review — the when, the order and the quoted plan", status: "available" as const },
             { id: "ja-m23-neo-challenge", title: "Challenge — everything you have ever done, and everything you mean to", status: "available" as const },
+            { id: "story:ja-m23-a-party", title: "Read — A party tomorrow", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m23-a-party" },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
@@ -877,6 +913,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m24-neo-11", title: "\u300Cたべませんか\u300D と \u300Cたべない？\u300D — one invitation, three registers", status: "available" as const },
             { id: "ja-m24-neo-review-3", title: "Review — bad at it, let's anyway", status: "available" as const },
             { id: "ja-m24-neo-challenge", title: "Challenge — everything you can do, and everything you're inviting them to", status: "available" as const },
+            { id: "story:ja-m24-things-i-can-do", title: "Read — Things I can do", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m24-things-i-can-do" },
           ],
           accent: { from: "#f97316", to: "#ea580c" },
         },
@@ -909,6 +947,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m25-neo-11", title: "「ふると おもう」 と 「ふるでしょう」 — whose view, or how likely", status: "available" as const },
             { id: "ja-m25-neo-review-3", title: "Review — every ending, and the one that isn't one", status: "available" as const },
             { id: "ja-m25-neo-challenge", title: "Challenge — the whole forecast, and how sure you are of it", status: "available" as const },
+            { id: "story:ja-m25-studying-abroad", title: "Read — Studying abroad", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m25-studying-abroad" },
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
@@ -939,6 +979,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m26-neo-11", title: "「どれが いちばん やすいですか」 — asking a stranger which one", status: "available" as const },
             { id: "ja-m26-neo-review-3", title: "Review — conceding, doing, and asking politely", status: "available" as const },
             { id: "ja-m26-neo-challenge", title: "Challenge — the whole field, the winner, and why", status: "available" as const },
+            { id: "story:ja-m26-a-tiring-day", title: "Read — A tiring day", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m26-a-tiring-day" },
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
         },
@@ -970,6 +1012,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m27-neo-11", title: "「さむく なったんだ」 — reporting what has changed", status: "available" as const },
             { id: "ja-m27-neo-review-3", title: "Review — changing, and saying why", status: "available" as const },
             { id: "ja-m27-neo-challenge", title: "Challenge — the reason, the excess and the change", status: "available" as const },
+            { id: "story:ja-m27-practice-every-day", title: "Read — Practice every day", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m27-practice-every-day" },
           ],
           accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
@@ -1039,6 +1083,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m29-neo-11", title: "「ばんは ちょっと。」 — saying no without saying it", status: "available" as const },
             { id: "ja-m29-neo-review-3", title: "Review — who is listening, and what they already know", status: "available" as const },
             { id: "ja-m29-neo-challenge", title: "Challenge — N5, all of it, in front of somebody", status: "available" as const },
+            { id: "story:ja-m29-cleaning-day", title: "Read — Cleaning day", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m29-cleaning-day" },
           ],
           accent: { from: "#eab308", to: "#ca8a04" }, // capstone gold
         },
@@ -1082,6 +1128,8 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m30-story", title: "Story — ゆき invites twice", status: "available" as const },
             { id: "ja-m30-7-1", title: "Comprehension drill — register", status: "available" as const },
             { id: "ja-m30-7-2", title: "Final production — M30", status: "available" as const },
+            { id: "story:ja-m30-people-at-work", title: "Read — People at work", status: "available" as const,
+              kind: "story" as const, storyId: "ja-m30-people-at-work" },
           ],
           accent: { from: "#7c3aed", to: "#5b21b6" },
         },
@@ -1167,6 +1215,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m3-6", title: "Numbers 1–10 (Sino-Korean)",       status: "available" as const },
       { id: "ko-m3-7", title: "Mini-dialogue — meeting someone",   status: "available" as const },
       { id: "ko-m3-8", title: "M3 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m3-new-friend", title: "Read — A new classmate", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m3-new-friend" },
     ];
 
     // M4-M6 (2026-06-13): the N5 spine after first-phrases. Mirrors the JA
@@ -1193,6 +1243,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m5-6", title: "얼마예요? — how much?",             status: "available" as const },
       { id: "ko-m5-7", title: "Mini-dialogue — at a cafe",         status: "available" as const },
       { id: "ko-m5-8", title: "M5 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m5-cafe-morning", title: "Read — Morning at the cafe", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m5-cafe-morning" },
     ];
 
     const m6Lessons = [
@@ -1219,6 +1271,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m7-6", title: "Building full sentences",           status: "available" as const },
       { id: "ko-m7-7", title: "Mini-dialogue — what are you doing?", status: "available" as const },
       { id: "ko-m7-8", title: "M7 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m7-my-day", title: "Read — My afternoon", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m7-my-day" },
     ];
 
     const m8Lessons = [
@@ -1241,6 +1295,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m9-6", title: "Lists & company",                  status: "available" as const },
       { id: "ko-m9-7", title: "Mini-dialogue — ordering together", status: "available" as const },
       { id: "ko-m9-8", title: "M9 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m9-a-snack", title: "Read — A snack at home", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m9-a-snack" },
     ];
 
     const m10Lessons = [
@@ -1252,6 +1308,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m10-6", title: "Narrating a day",                 status: "available" as const },
       { id: "ko-m10-7", title: "Mini-dialogue — how was it?",      status: "available" as const },
       { id: "ko-m10-8", title: "M10 Mastery Test",                status: "available" as const },
+      { id: "story:ko-m10-yesterday", title: "Read — Yesterday", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m10-yesterday" },
     ];
 
     const m11Lessons = [
@@ -1263,6 +1321,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m11-6", title: "고 싶어요 — want to",              status: "available" as const },
       { id: "ko-m11-7", title: "Mini-dialogue — declining politely", status: "available" as const },
       { id: "ko-m11-8", title: "M11 Mastery Test",                status: "available" as const },
+      { id: "story:ko-m11-a-day-off", title: "Read — A day off", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m11-a-day-off" },
     ];
 
     const m12Lessons = [
@@ -1274,6 +1334,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m12-6", title: "Scheduling — day + time + action", status: "available" as const },
       { id: "ko-m12-7", title: "Mini-dialogue — making plans",     status: "available" as const },
       { id: "ko-m12-8", title: "M12 Mastery Test",                status: "available" as const },
+      { id: "story:ko-m12-friday-plan", title: "Read — A plan for Friday", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m12-friday-plan" },
     ];
 
     const m13Lessons = [
@@ -1285,6 +1347,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m13-6", title: "Schedules — ranges + actions",      status: "available" as const },
       { id: "ko-m13-7", title: "Mini-dialogue — your routine",      status: "available" as const },
       { id: "ko-m13-8", title: "M13 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m13-my-week", title: "Read — My week", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m13-my-week" },
     ];
 
     const m14Lessons = [
@@ -1296,6 +1360,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m14-6", title: "아 / 어 주세요 — please do",         status: "available" as const },
       { id: "ko-m14-7", title: "Mini-dialogue — asking for help",   status: "available" as const },
       { id: "ko-m14-8", title: "M14 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m14-a-busy-day", title: "Read — A busy day", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m14-a-busy-day" },
     ];
 
     const m15Lessons = [
@@ -1307,6 +1373,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m15-6", title: "Ongoing actions + contrast",       status: "available" as const },
       { id: "ko-m15-7", title: "Mini-dialogue — at the café",       status: "available" as const },
       { id: "ko-m15-8", title: "M15 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m15-relaxing-at-home", title: "Read — Relaxing at home", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m15-relaxing-at-home" },
     ];
 
     const m16Lessons = [
@@ -1318,6 +1386,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m16-6", title: "Rules & preferences",              status: "available" as const },
       { id: "ko-m16-7", title: "Mini-dialogue — house rules",       status: "available" as const },
       { id: "ko-m16-8", title: "M16 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m16-friends-house", title: "Read — At a friend's house", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m16-friends-house" },
     ];
 
     const m17Lessons = [
@@ -1329,6 +1399,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m17-6", title: "Getting somewhere",                status: "available" as const },
       { id: "ko-m17-7", title: "Mini-dialogue — asking the way",    status: "available" as const },
       { id: "ko-m17-8", title: "M17 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m17-my-commute", title: "Read — My commute", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m17-my-commute" },
     ];
 
     const m18Lessons = [
@@ -1340,6 +1412,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m18-6", title: "Forecasting",                      status: "available" as const },
       { id: "ko-m18-7", title: "Mini-dialogue — the weather",       status: "available" as const },
       { id: "ko-m18-8", title: "M18 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m18-tomorrows-weather", title: "Read — Tomorrow's weather", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m18-tomorrows-weather" },
     ];
 
     const m19Lessons = [
@@ -1351,6 +1425,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m19-6", title: "Describing your family",            status: "available" as const },
       { id: "ko-m19-7", title: "Mini-dialogue — family",            status: "available" as const },
       { id: "ko-m19-8", title: "M19 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m19-my-family", title: "Read — My family", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m19-my-family" },
     ];
 
     const m20Lessons = [
@@ -1362,6 +1438,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m20-6", title: "Explaining you're sick",            status: "available" as const },
       { id: "ko-m20-7", title: "Mini-dialogue — at the doctor's",    status: "available" as const },
       { id: "ko-m20-8", title: "M20 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m20-a-cold", title: "Read — A cold", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m20-a-cold" },
     ];
 
     const m21Lessons = [
@@ -1373,6 +1451,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m21-6", title: "Ordering food",                     status: "available" as const },
       { id: "ko-m21-7", title: "Mini-dialogue — at a restaurant",    status: "available" as const },
       { id: "ko-m21-8", title: "M21 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m21-a-korean-meal", title: "Read — A Korean meal", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m21-a-korean-meal" },
     ];
 
     const m22Lessons = [
@@ -1384,6 +1464,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m22-6", title: "Comparing food & places",           status: "available" as const },
       { id: "ko-m22-7", title: "Mini-dialogue — which is better?",   status: "available" as const },
       { id: "ko-m22-8", title: "M22 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m22-which-i-like-more", title: "Read — Which I like more", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m22-which-i-like-more" },
     ];
 
     const m23Lessons = [
@@ -1395,6 +1477,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m23-6", title: "Making plans",                      status: "available" as const },
       { id: "ko-m23-7", title: "Mini-dialogue — let's do something", status: "available" as const },
       { id: "ko-m23-8", title: "M23 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m23-weekend-plans", title: "Read — Weekend plans", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m23-weekend-plans" },
     ];
 
     const m24Lessons = [
@@ -1406,6 +1490,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m24-6", title: "Describing your hobbies",           status: "available" as const },
       { id: "ko-m24-7", title: "Mini-dialogue — hobbies",           status: "available" as const },
       { id: "ko-m24-8", title: "M24 Mastery Test",                  status: "available" as const },
+      { id: "story:ko-m24-my-hobbies", title: "Read — My hobbies", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m24-my-hobbies" },
     ];
 
     const m25Lessons = [
@@ -1417,6 +1503,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m25-6", title: "(으)ㄹ 때 — when",                    status: "available" as const },
       { id: "ko-m25-7", title: "Mini-dialogue — planning a trip",     status: "available" as const },
       { id: "ko-m25-8", title: "M25 Mastery Test",                   status: "available" as const },
+      { id: "story:ko-m25-planning-a-trip", title: "Read — Planning a trip", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m25-planning-a-trip" },
     ];
 
     const m26Lessons = [
@@ -1428,6 +1516,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m26-6", title: "Explaining why",                      status: "available" as const },
       { id: "ko-m26-7", title: "Mini-dialogue — why are you late?",   status: "available" as const },
       { id: "ko-m26-8", title: "M26 Mastery Test",                   status: "available" as const },
+      { id: "story:ko-m26-a-rough-morning", title: "Read — A rough morning", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m26-a-rough-morning" },
     ];
 
     const m27Lessons = [
@@ -1439,6 +1529,8 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m27-6", title: "이/가 되다 — become (a …)",           status: "available" as const },
       { id: "ko-m27-7", title: "Mini-dialogue — giving advice",       status: "available" as const },
       { id: "ko-m27-8", title: "M27 Mastery Test",                   status: "available" as const },
+      { id: "story:ko-m27-before-the-exam", title: "Read — Before the exam", status: "available" as const,
+        kind: "story" as const, storyId: "ko-m27-before-the-exam" },
     ];
 
     const sideQuests: SideQuest[] = [

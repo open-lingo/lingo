@@ -3,9 +3,10 @@ import type { Lesson } from "./course";
 /**
  * Where a path node goes when you tap it.
  *
- * Most rows are lessons and open the lesson player. Two kinds route OUT to a
- * different surface: `alphabet` to the kana/hangul learner, and `trainer` to
- * the conjugation trainer. The rule lived inline in three places — LearnPage,
+ * Most rows are lessons and open the lesson player. Three kinds route OUT to a
+ * different surface: `alphabet` to the kana/hangul learner, `trainer` to the
+ * conjugation trainer, and `story` to the story reader. The rule lived inline
+ * in three places — LearnPage,
  * ResumeFab and DistrictView — which is why `alphabet` was the only kind that
  * ever got one: a fourth copy is easy to forget. One function now, three
  * callers, and a new kind is a single edit.
@@ -13,12 +14,12 @@ import type { Lesson } from "./course";
  * Returns a LANGUAGE-RELATIVE path; every caller wraps it in its own
  * `langPath` / `p` helper.
  *
- * `node` on the trainer link is what closes the loop back to the path. The
- * trainer is a standalone practice surface that knows nothing about lessons,
+ * `node` on the trainer and story links is what closes the loop back to the
+ * path. Both are standalone practice surfaces that know nothing about lessons,
  * so the session carries its origin node id and marks THAT complete on
- * finish — without it the drill would be unskippable, since a node the
- * learner can never complete blocks the module (`getModuleStatus` counts
- * every non-review row).
+ * finish — without it the drill (or the read) would be unskippable, since a
+ * node the learner can never complete blocks the module (`getModuleStatus`
+ * counts every non-review row).
  */
 export function lessonRoutePath(lesson: Lesson): string {
   if (lesson.kind === "alphabet" && lesson.alphabetId) {
@@ -32,6 +33,11 @@ export function lessonRoutePath(lesson: Lesson): string {
     return types.length === 1
       ? `practice/grammar/conjugation/${types[0]}?node=${node}`
       : `practice/grammar/conjugation/train?types=${types.join(",")}&combos=1&node=${node}`;
+  }
+  if (lesson.kind === "story" && lesson.storyId) {
+    // Same `node` handshake the trainer uses — the reader marks the origin
+    // node complete on finish, so a library re-read never touches the path.
+    return `practice/stories/${lesson.storyId}?node=${encodeURIComponent(lesson.id)}`;
   }
   return `learn/lessons/${lesson.id}`;
 }

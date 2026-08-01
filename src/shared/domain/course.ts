@@ -23,10 +23,16 @@ export type Lesson = {
    *  When "module_review", this lesson belongs to an inter-module review module
    *  (SRS-style retention cycle between two content modules).
    *  When "trainer", this row links to the conjugation trainer instead of the
-   *  lesson player — a paradigm drill the path REQUIRES rather than offers. */
-  kind?: "lesson" | "alphabet" | "recap" | "module_review" | "trainer";
+   *  lesson player — a paradigm drill the path REQUIRES rather than offers.
+   *  When "story", this row links to the story reader — the module's capstone
+   *  read, which the path REQUIRES rather than offers. */
+  kind?: "lesson" | "alphabet" | "recap" | "module_review" | "trainer" | "story";
   /** For kind "alphabet": alphabet id for route practice/alphabet/:alphabetId/learn */
   alphabetId?: string;
+  /** For kind "story": the `Story.id` this node reads. The row id is always
+   *  `story:` + this value (see `storyNodeId`), so the backfill, the pathway
+   *  and the reader's `?node=` handshake all agree on one key. */
+  storyId?: string;
   /** For kind "trainer": which trainer tiles the drill selects. One id runs the
    *  per-type session; two or more run the combined session, where the stacked
    *  ("double conjugation") forms live. Order is display order. */

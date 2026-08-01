@@ -46,6 +46,7 @@ import {
 } from "@/features/lesson/data/mockLessons";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { lessonRoutePath } from "@/shared/domain/lessonRoute";
+import { allStories } from "@/features/practice/content";
 import {
   getTrainerType,
   isSelectionAhead,
@@ -878,6 +879,21 @@ export function registerJaModuleContentLints(moduleId: string): void {
               `${lesson.id} drills '${form}' but the course does not teach it until m${taughtAt} — the node is mandatory, so this is a wall`,
             ).toBeLessThanOrEqual(reached);
           }
+          continue;
+        }
+        if (lesson.kind === "story") {
+          // Same question, story flavour: the reader resolves the id against
+          // authored content, so a typo'd id is a 404 on a MANDATORY node —
+          // which would block the module outright.
+          const story = allStories("ja").find((s) => s.id === lesson.storyId);
+          expect(story, `${lesson.id} points at story '${lesson.storyId}', which does not exist`)
+            .toBeDefined();
+          // And it must be readable HERE: the node sits in this module, so a
+          // story authored above it would be an unreadable wall.
+          expect(
+            story!.module,
+            `${lesson.id} promotes a story authored for m${story!.module} into ${moduleId}`,
+          ).toBeLessThanOrEqual(parseInt(moduleId.slice(1), 10));
           continue;
         }
         expect(

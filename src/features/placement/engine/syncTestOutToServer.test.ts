@@ -45,7 +45,10 @@ describe("buildTestOutAttempts", () => {
     const attempts = buildTestOutAttempts(["m3"], "ko");
     expect(attempts.length).toBeGreaterThan(0);
     for (const a of attempts) {
-      expect(a.lessonId.startsWith("ko-")).toBe(true);
+      // Story capstones carry the `story:` namespace prefix (see
+      // `storyNodeId`) — they are still KO course rows, and testing out has
+      // to credit them or the module would stay incomplete.
+      expect(a.lessonId).toMatch(/^(story:)?ko-/);
     }
   });
 });

@@ -13,7 +13,7 @@
  */
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Card, Button, EmptyState } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { Icon } from "@/shared/components/Icon";
@@ -23,7 +23,8 @@ import { playJaAudio, playJaAudioToEnd } from "@/shared/tts";
 import { allStories } from "@/features/practice/content";
 import { getKnownAtomsByPos } from "@/features/practice/engine";
 import { getCardState, setCardState, gradeFromLesson } from "@/features/flashcards/engine";
-import { recordStoryRead, type StoryScore } from "@/shared/storyProgress";
+import { getStoryProgress, recordStoryRead, type StoryScore } from "@/shared/storyProgress";
+import { markLessonCompleted } from "@/shared/domain/mockProgress";
 import { recordPracticeResult } from "@/features/practice/practiceStats";
 import { hashSeed, storyExercisedAtomIds } from "@/features/practice/reading/readingBuilders";
 import { useShowReadingRomaji } from "@/features/practice/reading/useShowReadingRomaji";
@@ -49,6 +50,11 @@ function creditSrs(atomIds: string[]): void {
 export function StoryReaderPage() {
   const { t } = useTranslation();
   const { storyId } = useParams<{ storyId: string }>();
+  // Present only when the learner arrived from a Learn pathway story node —
+  // the id of that node, which `finish` marks complete. A library re-read has
+  // no `node` and so never touches course progress.
+  const [searchParams] = useSearchParams();
+  const originNode = searchParams.get("node");
   const langId = useLang();
   const langPath = useLangPath();
   const showRomaji = useShowReadingRomaji(langId);
@@ -85,14 +91,27 @@ export function StoryReaderPage() {
   const finish = useCallback(
     (result?: StoryScore) => {
       if (!story) return;
+      // Read BEFORE recordStoryRead bumps the counter — otherwise every finish
+      // looks like a re-read.
+      const before = getStoryProgress(story.id);
       recordStoryRead(story.id, result);
       recordPracticeResult("reading", story.id, result ? result.correct === result.total : true);
       // Credit only on a clean run — a bare "mark as read" is not comprehension.
       if (result && result.correct === result.total) {
         creditSrs(storyExercisedAtomIds(story, knownContent));
       }
+      // Close the loop back to the path. A story node the learner can never
+      // complete would block its whole module (`getModuleStatus` counts every
+      // non-review row), so this is not optional bookkeeping.
+      if (originNode) {
+        markLessonCompleted(originNode, {
+          accuracy: result ? result.correct / Math.max(1, result.total) : 1,
+          xpEarned: 0,
+          isReview: (before?.reads ?? 0) > 0,
+        });
+      }
     },
-    [story, knownContent],
+    [story, knownContent, originNode],
   );
 
   const playAll = useCallback(async () => {

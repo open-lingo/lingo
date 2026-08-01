@@ -27,8 +27,13 @@ describe("KO M26 curriculum", () => {
     const course = getMockCourse("ko");
     const m26 = course.modules.find((m) => m.id === "m26");
     expect(m26).toBeDefined();
-    expect(m26?.lessons.length ?? 0).toBe(8);
-    for (const lesson of m26!.lessons) {
+    // The story capstone routes OUT of the lesson player (the reader owns
+    // it), so it is exempt from the has-content check — but it still has to
+    // be here, which `mockCourse.test.ts` asserts.
+    const taught = m26!.lessons.filter((l) => l.kind !== "story");
+    expect(m26!.lessons.some((l) => l.kind === "story")).toBe(true);
+    expect(taught.length).toBe(8);
+    for (const lesson of taught) {
       const content = getMockLessonContent(lesson.id);
       expect(content, `M26 pathway node '${lesson.id}' has no content`).not.toBeNull();
       expect(content?.steps.length ?? 0).toBeGreaterThan(0);
