@@ -24,24 +24,70 @@ export interface StorySentence {
   reading?: string;
 }
 
+/** Story difficulty, independent of the module that unlocks it. */
+export type StoryLevel = 1 | 2 | 3 | 4 | 5;
+
 /**
- * A short (4-8 sentence) coherent narrative gated to a module. Uses ONLY
- * vocab/grammar available at `module`. Consumed by the reading surface
- * (read + inline lookup + comprehension questions).
+ * An above-level word the story is allowed to use. Declaring it is what lets
+ * the comprehensibility gate pass — the word is taught in place rather than
+ * being an accidental unknown.
+ */
+export interface StoryGloss {
+  /** Surface exactly as it appears in the story text. */
+  surface: string;
+  /** Reading aid, derived at first access like sentence readings. */
+  reading?: string;
+  /** Short English meaning shown when the learner taps the word. */
+  meaning: string;
+  /**
+   * Set when the word IS a course atom the learner meets at a later module, so
+   * "Add to my words" seeds the canonical card. Omitted for story-only culture
+   * words (추석, 花見) that have no atom anywhere in the course.
+   */
+  atomId?: string;
+}
+
+/** A comprehension question. Prompts and options are in the TARGET language. */
+export interface StoryQuestion {
+  id: string;
+  kind: "gist" | "detail";
+  prompt: string;
+  options: string[];
+  /** Must be one of `options`. */
+  answer: string;
+}
+
+/**
+ * A coherent narrative gated to a module. Uses only vocab/grammar available at
+ * `module`, plus the above-level words it declares in `glosses`. Length and
+ * gloss budget are set by `level` (see `levels.ts`), enforced by
+ * `content.test.ts`. Consumed by the story reader.
  */
 export interface Story {
   /** Stable id, e.g. "ko-m5-cafe-morning". Never renumbered once shipped. */
   id: string;
   /** Owning language, e.g. "ja" | "ko". */
   languageId: string;
-  /** Unlock module (1-indexed, matches curriculum `mN`). Gated `<=` reached. */
+  /** UNLOCK module (1-indexed, matches curriculum `mN`). Gated `<=` reached. */
   module: number;
+  /** DIFFICULTY, independent of `module`. Drives length + gloss budget. */
+  level: StoryLevel;
   /** Short display title. */
   title: string;
   /** One-line theme / setup shown before the read. */
   theme: string;
-  /** Ordered sentences. */
+  /** Browse filters: "festival" | "food" | "work" | "travel" | "school" | … */
+  tags?: string[];
+  /** Declared above-level words. Count is bounded by the level's budget. */
+  glosses?: StoryGloss[];
+  /** Ordered sentences. Count is bounded by the level's band. */
   sentences: StorySentence[];
+  /**
+   * Authored comprehension questions. At least one `gist` once the content
+   * backfill (Task 14) lands; optional until then so the schema change and the
+   * content pass can ship separately.
+   */
+  questions?: StoryQuestion[];
 }
 
 /** A speaker in a conversation. */

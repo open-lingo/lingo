@@ -115,6 +115,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m3-about-me",
     languageId: "ja",
     module: 3,
+    level: 2,
     title: "About me",
     theme: "A short self-introduction.",
     sentences: [
@@ -131,6 +132,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m5-shop-errand",
     languageId: "ja",
     module: 5,
+    level: 2,
     title: "At the shop",
     theme: "Asking prices on a quick errand.",
     sentences: [
@@ -147,6 +149,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m7-my-day",
     languageId: "ja",
     module: 7,
+    level: 2,
     title: "My day",
     theme: "A simple run through a day.",
     sentences: [
@@ -164,6 +167,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m9-a-lively-town",
     languageId: "ja",
     module: 9,
+    level: 2,
     title: "A lively town",
     theme: "First impressions of the neighborhood.",
     sentences: [
@@ -180,6 +184,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m10-back-to-school",
     languageId: "ja",
     module: 10,
+    level: 2,
     title: "Back to school",
     theme: "The first day after a break.",
     sentences: [
@@ -196,6 +201,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m11-last-saturday",
     languageId: "ja",
     module: 11,
+    level: 2,
     title: "Last Saturday",
     theme: "Looking back on the weekend.",
     sentences: [
@@ -212,6 +218,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m12-a-workday",
     languageId: "ja",
     module: 12,
+    level: 2,
     title: "A workday",
     theme: "Morning to night, hour by hour.",
     sentences: [
@@ -228,6 +235,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m13-likes-and-wants",
     languageId: "ja",
     module: 13,
+    level: 2,
     title: "Likes and wants",
     theme: "A few honest preferences.",
     sentences: [
@@ -244,6 +252,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m14-a-visitor",
     languageId: "ja",
     module: 14,
+    level: 2,
     title: "A visitor",
     theme: "A friend drops by.",
     sentences: [
@@ -260,6 +269,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m15-the-weekend-ahead",
     languageId: "ja",
     module: 15,
+    level: 2,
     title: "The weekend ahead",
     theme: "A busy day, then a fun one.",
     sentences: [
@@ -276,6 +286,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m16-a-day-at-school",
     languageId: "ja",
     module: 16,
+    level: 2,
     title: "A day at school",
     theme: "Class, notes, and homework.",
     sentences: [
@@ -292,6 +303,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m17-to-the-station",
     languageId: "ja",
     module: 17,
+    level: 2,
     title: "To the station",
     theme: "Following the street to the train.",
     sentences: [
@@ -309,6 +321,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m18-a-warm-day",
     languageId: "ja",
     module: 18,
+    level: 2,
     title: "A warm day",
     theme: "The weather and the garden.",
     sentences: [
@@ -325,6 +338,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m19-my-family",
     languageId: "ja",
     module: 19,
+    level: 2,
     title: "My family",
     theme: "Four of us, and a birthday.",
     sentences: [
@@ -341,6 +355,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m20-feeling-sick",
     languageId: "ja",
     module: 20,
+    level: 2,
     title: "Feeling sick",
     theme: "A trip to the doctor.",
     sentences: [
@@ -357,6 +372,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m21-dinner-at-home",
     languageId: "ja",
     module: 21,
+    level: 2,
     title: "Dinner at home",
     theme: "Setting the table for a meal.",
     sentences: [
@@ -373,6 +389,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m21-a-packed-lunch",
     languageId: "ja",
     module: 21,
+    level: 2,
     title: "A packed lunch",
     theme: "A lunchbox for a day out.",
     sentences: [
@@ -389,6 +406,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m22-what-i-eat",
     languageId: "ja",
     module: 22,
+    level: 2,
     title: "What I like to eat",
     theme: "Ranking food, honestly.",
     sentences: [
@@ -405,6 +423,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m23-a-party",
     languageId: "ja",
     module: 23,
+    level: 2,
     title: "A party tomorrow",
     theme: "Plans with friends.",
     sentences: [
@@ -421,6 +440,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m23-a-day-at-the-sea",
     languageId: "ja",
     module: 23,
+    level: 2,
     title: "A day at the sea",
     theme: "Swimming with a friend.",
     sentences: [
@@ -437,6 +457,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m24-things-i-can-do",
     languageId: "ja",
     module: 24,
+    level: 2,
     title: "Things I can do",
     theme: "A small list of skills.",
     sentences: [
@@ -453,6 +474,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m25-studying-abroad",
     languageId: "ja",
     module: 25,
+    level: 2,
     title: "Studying abroad",
     theme: "Plans for next year.",
     sentences: [
@@ -469,6 +491,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m25-an-old-friend",
     languageId: "ja",
     module: 25,
+    level: 2,
     title: "Meeting an old friend",
     theme: "A reunion at the station.",
     sentences: [
@@ -485,6 +508,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m26-a-tiring-day",
     languageId: "ja",
     module: 26,
+    level: 2,
     title: "A tiring day",
     theme: "Worn out, but still eating.",
     sentences: [
@@ -501,6 +525,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m27-practice-every-day",
     languageId: "ja",
     module: 27,
+    level: 2,
     title: "Practice every day",
     theme: "Getting a little better, daily.",
     sentences: [
@@ -517,6 +542,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m27-getting-stronger",
     languageId: "ja",
     module: 27,
+    level: 2,
     title: "Getting stronger",
     theme: "A morning running habit.",
     sentences: [
@@ -533,6 +559,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m29-cleaning-day",
     languageId: "ja",
     module: 29,
+    level: 2,
     title: "Cleaning day",
     theme: "Tidying up with help.",
     sentences: [
@@ -549,6 +576,7 @@ const STORIES_RAW: Story[] = [
     id: "ja-m30-people-at-work",
     languageId: "ja",
     module: 30,
+    level: 2,
     title: "People at work",
     theme: "Seniors, coworkers, and juniors.",
     sentences: [

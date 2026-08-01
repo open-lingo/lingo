@@ -52,5 +52,9 @@ export type {
   ConversationLine,
   ConversationSpeaker,
   StorySentence,
+  StoryLevel,
+  StoryGloss,
+  StoryQuestion,
 } from "./types";
+export { LEVEL_BANDS, levelBand, levelCeiling, type LevelBand } from "./levels";
 export { isComprehensible, gateResidual, moduleOrder } from "./gate";

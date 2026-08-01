@@ -7,6 +7,7 @@ function story(module: number, sentenceCount: number): Story {
     id: `ja-m${module}-x`,
     languageId: "ja",
     module,
+    level: 1,
     title: "t",
     theme: "th",
     sentences: Array.from({ length: sentenceCount }, () => ({

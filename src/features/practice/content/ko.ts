@@ -549,6 +549,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m3-new-friend",
     languageId: "ko",
     module: 3,
+    level: 1,
     title: "A new classmate",
     theme: "Introducing yourself on the first day.",
     sentences: [
@@ -564,6 +565,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m5-cafe-morning",
     languageId: "ko",
     module: 5,
+    level: 1,
     title: "Morning at the cafe",
     theme: "A quick coffee run.",
     sentences: [
@@ -579,6 +581,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m7-my-day",
     languageId: "ko",
     module: 7,
+    level: 1,
     title: "My afternoon",
     theme: "A simple run-through of an afternoon.",
     sentences: [
@@ -595,6 +598,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m9-a-snack",
     languageId: "ko",
     module: 9,
+    level: 2,
     title: "A snack at home",
     theme: "Bread, milk, and an apple.",
     sentences: [
@@ -611,6 +615,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m10-yesterday",
     languageId: "ko",
     module: 10,
+    level: 2,
     title: "Yesterday",
     theme: "Looking back on a good day.",
     sentences: [
@@ -627,6 +632,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m11-a-day-off",
     languageId: "ko",
     module: 11,
+    level: 2,
     title: "A day off",
     theme: "Staying in on a quiet day.",
     sentences: [
@@ -643,6 +649,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m12-friday-plan",
     languageId: "ko",
     module: 12,
+    level: 2,
     title: "A plan for Friday",
     theme: "Setting a time to meet.",
     sentences: [
@@ -659,6 +666,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m13-my-week",
     languageId: "ko",
     module: 13,
+    level: 2,
     title: "My week",
     theme: "Work, study, and a bit of exercise.",
     sentences: [
@@ -675,6 +683,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m14-a-busy-day",
     languageId: "ko",
     module: 14,
+    level: 2,
     title: "A busy day",
     theme: "Too much to do, too little time.",
     sentences: [
@@ -691,6 +700,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m15-relaxing-at-home",
     languageId: "ko",
     module: 15,
+    level: 2,
     title: "Relaxing at home",
     theme: "A quiet afternoon with a friend.",
     sentences: [
@@ -707,6 +717,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m16-friends-house",
     languageId: "ko",
     module: 16,
+    level: 2,
     title: "At a friend's house",
     theme: "Visiting a friend's place.",
     sentences: [
@@ -723,6 +734,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m17-my-commute",
     languageId: "ko",
     module: 17,
+    level: 2,
     title: "My commute",
     theme: "Bus, subway, and a left turn.",
     sentences: [
@@ -740,6 +752,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m18-tomorrows-weather",
     languageId: "ko",
     module: 18,
+    level: 2,
     title: "Tomorrow's weather",
     theme: "A clear day, then rain.",
     sentences: [
@@ -756,6 +769,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m19-my-family",
     languageId: "ko",
     module: 19,
+    level: 2,
     title: "My family",
     theme: "Four of us, and an older brother.",
     sentences: [
@@ -772,6 +786,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m20-a-cold",
     languageId: "ko",
     module: 20,
+    level: 2,
     title: "A cold",
     theme: "Aches, a fever, and some medicine.",
     sentences: [
@@ -788,6 +803,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m21-a-korean-meal",
     languageId: "ko",
     module: 21,
+    level: 2,
     title: "A Korean meal",
     theme: "Bibimbap, bulgogi, and kimchi.",
     sentences: [
@@ -804,6 +820,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m21-cooking-dinner",
     languageId: "ko",
     module: 21,
+    level: 2,
     title: "Cooking dinner",
     theme: "A meal at home with a friend.",
     sentences: [
@@ -820,6 +837,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m22-which-i-like-more",
     languageId: "ko",
     module: 22,
+    level: 2,
     title: "Which I like more",
     theme: "Comparing coffee and tea.",
     sentences: [
@@ -836,6 +854,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m22-bibimbap-or-ramen",
     languageId: "ko",
     module: 22,
+    level: 2,
     title: "Bibimbap or ramen?",
     theme: "Picking a favorite at the restaurant.",
     sentences: [
@@ -852,6 +871,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m23-weekend-plans",
     languageId: "ko",
     module: 23,
+    level: 2,
     title: "Weekend plans",
     theme: "Cooking and doing things together.",
     sentences: [
@@ -868,6 +888,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m24-my-hobbies",
     languageId: "ko",
     module: 24,
+    level: 2,
     title: "My hobbies",
     theme: "Music, photos, and a bit of singing.",
     sentences: [
@@ -884,6 +905,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m24-music-and-games",
     languageId: "ko",
     module: 24,
+    level: 2,
     title: "Music and games",
     theme: "Sharing hobbies with a friend.",
     sentences: [
@@ -900,6 +922,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m25-planning-a-trip",
     languageId: "ko",
     module: 25,
+    level: 2,
     title: "Planning a trip",
     theme: "A trip to Japan and a hot spring.",
     sentences: [
@@ -916,6 +939,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m25-trip-with-a-friend",
     languageId: "ko",
     module: 25,
+    level: 2,
     title: "A trip with a friend",
     theme: "Two friends heading to Japan.",
     sentences: [
@@ -932,6 +956,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m26-a-rough-morning",
     languageId: "ko",
     module: 26,
+    level: 2,
     title: "A rough morning",
     theme: "Late, tired, and a traffic jam.",
     sentences: [
@@ -948,6 +973,7 @@ const STORIES_RAW: Story[] = [
     id: "ko-m27-before-the-exam",
     languageId: "ko",
     module: 27,
+    level: 2,
     title: "Before the exam",
     theme: "Getting ready, and taking care.",
     sentences: [
