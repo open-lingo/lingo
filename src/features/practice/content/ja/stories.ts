@@ -64,7 +64,7 @@ export const JA_STORIES: Story[] = [
       { text: "きょうは いえです。", translation: "Today I'm at home." },
       { text: "ともだちは ユミです。", translation: "My friend is Yumi." },
       { text: "ユミも かぜですか。", translation: "Does Yumi have a cold too?" },
-      { text: "いいえ、ユミは げんきです。", translation: "No — Yumi is fine." },
+      { text: "いいえ、ユミも たなかせんせいも げんきです。", translation: "No — Yumi and Mr. Tanaka are both fine." },
       { text: "あしたは げんきです。", translation: "Tomorrow I'll be fine." },
     ],
   },
@@ -99,7 +99,7 @@ export const JA_STORIES: Story[] = [
       { text: "だれの かばんですか。", translation: "Whose bag is it?" },
       { text: "これは ユミの かばんですか。", translation: "Is this Yumi's bag?" },
       { text: "いいえ、ユミの かばんは あれです。", translation: "No — Yumi's bag is that one over there." },
-      { text: "かばんの じしょと てがみです。", translation: "Inside the bag: a dictionary and a letter." },
+      { text: "じしょと てがみが あります。", translation: "There's a dictionary, and a letter." },
       { text: "それから、てがみの なまえは たなかです。", translation: "And the name on the letter is Tanaka." },
       { text: "これは たなかせんせいの かばんです。", translation: "So this is Mr. Tanaka's bag." },
       { text: "たなかせんせいは わたしの せんせいです。", translation: "And Mr. Tanaka is my own teacher." },
@@ -137,6 +137,11 @@ export const JA_STORIES: Story[] = [
     // hundreds (さんびゃく / ろっぴゃく / はっぴゃく) are their own atoms at m20,
     // so only よん / ご / なな / に + ひゃく are writable here, and the arithmetic
     // was built to land on 500.
+    //
+    // The goods are じしょ (m4) and ジュース (m5), NOT ぱん: the m2 ぱん atom is
+    // the kana-drill spelling, and the real word パン is m12. When the only
+    // available spelling of a noun is its kana-practice form, pick a different
+    // noun.
     id: "ja-m5-not-quite-enough",
     languageId: "ja",
     module: 5,
@@ -149,7 +154,7 @@ export const JA_STORIES: Story[] = [
       {
         id: "gist",
         kind: "gist",
-        prompt: "おちゃと ぱんは いくらですか。",
+        prompt: "ジュースと じしょは いくらですか。",
         options: ["ごひゃくえんです", "よんひゃくえんです", "ひゃくえんです"],
         answer: "ごひゃくえんです",
       },
@@ -157,14 +162,14 @@ export const JA_STORIES: Story[] = [
     sentences: [
       { text: "きょうは ユミと ふたりです。", translation: "Today it's Yumi and me." },
       { text: "わたしの おかねは よんひゃくえんです。", translation: "I have four hundred yen." },
-      { text: "おちゃは ひゃくえんです。", translation: "The tea is a hundred yen." },
-      { text: "ぱんは よんひゃくえんです。", translation: "The bread is four hundred yen." },
-      { text: "ぱんは たかいです。", translation: "The bread is expensive." },
-      { text: "おちゃと ぱんは ごひゃくえんです。", translation: "Tea and bread together are five hundred yen." },
+      { text: "ジュースは ひゃくえんです。", translation: "The juice is a hundred yen." },
+      { text: "じしょは よんひゃくえんです。", translation: "The dictionary is four hundred yen." },
+      { text: "じしょは たかいです。", translation: "The dictionary is expensive." },
+      { text: "ジュースと じしょは ごひゃくえんです。", translation: "Juice and dictionary together are five hundred yen." },
       { text: "わたしの おかねは ごひゃくえんじゃないです。", translation: "I don't have five hundred yen." },
       { text: "ユミの おかねは ひゃくえんです。", translation: "Yumi has a hundred yen." },
       { text: "ユミと わたしは ごひゃくえんです。", translation: "Yumi and I together have five hundred." },
-      { text: "それから、おちゃと ぱん、ください。ありがとうございます。", translation: "And so: the tea and the bread, please. Thank you." },
+      { text: "それから、ジュースと じしょ、ください。ありがとうございます。", translation: "And so: the juice and the dictionary, please. Thank you." },
     ],
   },
   {
@@ -252,7 +257,7 @@ export const JA_STORIES: Story[] = [
         id: "gist",
         kind: "gist",
         prompt: "ふたりは くうこうで なにを たべますか。",
-        options: ["すしです", "ごはんです", "ぱんです"],
+        options: ["すしです", "ごはんです", "おちゃです"],
         answer: "すしです",
       },
     ],
@@ -265,7 +270,8 @@ export const JA_STORIES: Story[] = [
       { text: "わたしは かばんの ほんを よみます。", translation: "I read the book in my bag." },
       { text: "それから、おちゃを のみます。", translation: "After that I drink some tea." },
       { text: "トムは まだ きません。", translation: "Tom still isn't here." },
-      { text: "わたしは くうこうで ニュースを みます。", translation: "I watch the news at the airport." },
+      { text: "わたしは くうこうで ごはんを たべます。", translation: "I eat a meal at the airport." },
+      { text: "ニュースも みます。", translation: "I watch the news too." },
       { text: "トムが きます。", translation: "Tom arrives." },
       { text: "ふたりで すしを たべます。", translation: "The two of us eat sushi." },
       { text: "すしは おいしいです。", translation: "The sushi is delicious." },
@@ -309,7 +315,7 @@ export const JA_STORIES: Story[] = [
       { text: "それから、ちいさい みせに いきます。", translation: "After that I go to a small shop." },
       { text: "その みせの ぼうしは ふるいけど、やすいです。", translation: "That shop's hat is old, but cheap." },
       { text: "わたしは その ぼうしを かいます。", translation: "I buy that one." },
-      { text: "ぼうしは おもしろいです。", translation: "The hat is interesting." },
+      { text: "その ぼうしは とても いいです。", translation: "That hat is a very good one." },
       { text: "それから、コーヒーを のんで、しんぶんを よみます。", translation: "Then I drink a coffee and read the paper." },
       { text: "コーヒーは おいしいです。", translation: "The coffee is good." },
       { text: "わたしは バスで うちに いきます。", translation: "I take the bus home." },
@@ -362,9 +368,12 @@ export const JA_STORIES: Story[] = [
       {
         id: "gist",
         kind: "gist",
-        prompt: "わたしの えいごは どうですか。",
-        options: ["すこし じょうずです", "とても じょうずです", "へたです"],
-        answer: "すこし じょうずです",
+        // NOT "わたしの えいごは どうですか": the story states both へたです
+        // (line 1) and すこし じょうずです (line 13), so that framing has two
+        // defensible answers. The test cannot catch this — only reading can.
+        prompt: "わたしは テストが だいじょうぶですか。",
+        options: ["はい、だいじょうぶです", "いいえ、へたです", "いいえ、むずかしいです"],
+        answer: "はい、だいじょうぶです",
       },
     ],
     sentences: [
@@ -429,7 +438,7 @@ export const JA_STORIES: Story[] = [
         id: "gist",
         kind: "gist",
         prompt: "ふたりは どこで あそびますか。",
-        options: ["こうえんです", "えきです", "がっこうです"],
+        options: ["こうえんです", "とうきょうです", "えきです"],
         answer: "こうえんです",
       },
     ],
@@ -441,7 +450,7 @@ export const JA_STORIES: Story[] = [
       { text: "わたしは でんしゃで こうえんに いきます。", translation: "I take the train towards the park." },
       { text: "けど、その でんしゃは ちがいます。", translation: "But that train is the wrong one." },
       { text: "わたしは しりません。", translation: "I don't realise it." },
-      { text: "でんしゃは とおい えきに いきます。", translation: "The train goes to a far-off station." },
+      { text: "でんしゃは とおい とうきょうに いきます。", translation: "The train goes to far-off Tokyo." },
       { text: "ここは どこですか。", translation: "Where am I?" },
       { text: "わたしは えきの ひとに ききます。", translation: "I ask someone at the station." },
       { text: "わたしは わかりました。", translation: "Now I understand." },
@@ -479,11 +488,17 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
-    // m11 stretch read. m11 is where plain past opens up, so unlike the m3-m10
-    // run this one can actually be told in the past — but only for the nine
-    // verbs the module registers (たべた のんだ きいた みた かった あそんだ
-    // いった わかった だった). The clock atoms (にじ / さんじ / よじ) carry the
-    // pacing; the letter planted at line 10 is the payoff.
+    // m11 stretch read. ONE temporal frame, held throughout: narrative present
+    // with a past coda (わかった / たいへんだった), the same shape as the m12
+    // exemplar. A fully past telling is not available even at m11, because the
+    // negatives the arc turns on have no past form in pool — こなかった and
+    // いなかった both residual (なかった is m16), so "Yumi didn't come" can only
+    // be said in the present.
+    //
+    // Deliberately NOT opened on a weekend recap: ja-m11-last-saturday already
+    // owns that premise at this module. This one opens on the appointment.
+    // The clock atoms (にじ / さんじ / よじ) carry the pacing; the letter
+    // planted at line 9 is the payoff.
     id: "ja-m11-two-oclock-at-the-station",
     languageId: "ja",
     module: 11,
@@ -499,26 +514,29 @@ export const JA_STORIES: Story[] = [
       {
         id: "gist",
         kind: "gist",
+        // All three days are named in the story: にちようび is the letter,
+        // どようび is the day the narrator actually turned up, げつようび is the
+        // school day that rules the meet-up out.
         prompt: "ユミと ぼくは いつ こうえんで あそびますか。",
         options: ["にちようびです", "どようびです", "げつようびです"],
         answer: "にちようびです",
       },
     ],
     sentences: [
-      { text: "せんしゅうの どようびは やすみだった。", translation: "Last Saturday was a day off." },
-      { text: "ぼくは ユミと こうえんで あそぶ。", translation: "Yumi and I were to spend it at the park." },
-      { text: "ぼくは にじに えきに いった。", translation: "I went to the station at two." },
+      { text: "きょうは ユミと こうえんで あそぶ。", translation: "Today Yumi and I are spending the day at the park." },
+      { text: "ぼくは にじに えきに いく。", translation: "I go to the station at two." },
       { text: "けど、ユミは いない。", translation: "But Yumi isn't there." },
       { text: "ぼくは えきで ユミを まつ。", translation: "I wait for Yumi at the station." },
-      { text: "ぼくは ニュースを みた。", translation: "I watched the news." },
+      { text: "ぼくは ニュースを みる。", translation: "I watch the news." },
       { text: "さんじ。ユミは まだ こない。", translation: "Three o'clock. Yumi still doesn't come." },
-      { text: "ぼくは コーヒーを のんだ。", translation: "I drank a coffee." },
+      { text: "ぼくは コーヒーを のむ。", translation: "I drink a coffee." },
       { text: "よじ。ユミは まだ こない。", translation: "Four o'clock. Yumi still doesn't come." },
-      { text: "ぼくは ユミの てがみを もういちど みた。", translation: "I looked at Yumi's letter one more time." },
-      { text: "てがみは にちようびだった。", translation: "The letter said Sunday." },
+      { text: "ぼくは ユミの てがみを もういちど みる。", translation: "I look at Yumi's letter one more time." },
+      { text: "てがみは にちようびだ。", translation: "The letter says Sunday." },
       { text: "きょうは どようびだ。", translation: "Today is Saturday." },
       { text: "ぼくは わかった。", translation: "I understood." },
       { text: "あしたは にちようびだ。", translation: "Tomorrow is Sunday." },
+      { text: "あさっては げつようびだ。げつようびは がっこうだ。", translation: "The day after is Monday, and Monday is school." },
       { text: "あした、また えきに いく。", translation: "Tomorrow I'll come to the station again." },
       { text: "きょうは ほんとうに たいへんだった。", translation: "Today really was something." },
     ],
@@ -660,8 +678,8 @@ export const JA_STORIES: Story[] = [
         id: "gist",
         kind: "gist",
         prompt: "きょうは なんですか。",
-        options: ["やすみです", "しごとです", "テストです"],
-        answer: "やすみです",
+        options: ["にちようびです", "げつようびです", "しごとです"],
+        answer: "にちようびです",
       },
       {
         id: "train",
@@ -673,15 +691,15 @@ export const JA_STORIES: Story[] = [
     ],
     sentences: [
       { text: "こんしゅうは とても いそがしい。", translation: "This week is very busy." },
-      { text: "ゆうべ、ぼくは よるに テレビを みた。", translation: "Last night I watched TV." },
+      { text: "ゆうべ、ぼくは テレビを みた。", translation: "Last night I watched TV." },
       { text: "じゅうじの ニュースも みた。", translation: "I watched the ten o'clock news too." },
       { text: "それから、また テレビを みた。", translation: "And after that, more TV." },
       { text: "けさ、ぼくは しちじに おきる。", translation: "This morning I get up at seven." },
       { text: "しごとは はちじだ。", translation: "Work starts at eight." },
-      { text: "ぼくは たいへんだ。", translation: "I'm in trouble." },
+      { text: "きょうは げつようびだ。", translation: "Today is Monday." },
       { text: "シャワーも おふろも ない。", translation: "No shower, no bath." },
       { text: "ぼくは かおを あらう。", translation: "I wash my face." },
-      { text: "あたらしい ふくも ない。", translation: "There are no clean clothes either." },
+      { text: "あたらしい ふくも ない。", translation: "There are no new clothes either." },
       { text: "あさ、パンを たべない。", translation: "I skip breakfast." },
       { text: "ぼくは えきに はしる。", translation: "I run to the station." },
       { text: "でんしゃが ない。", translation: "There's no train." },
@@ -690,8 +708,8 @@ export const JA_STORIES: Story[] = [
       { text: "パンは ふるいけど、おいしい。", translation: "The bread is old, but good." },
       { text: "それから、でんしゃで かいしゃに いく。", translation: "Then I take the train to the office." },
       { text: "かいしゃに ひとが いない。", translation: "There's nobody at the office." },
-      { text: "どうして ひとが いない?", translation: "Why is nobody here?" },
-      { text: "きょうは やすみだった。", translation: "Today was a holiday." },
+      { text: "どうして ひとが いない。", translation: "Why is nobody here?" },
+      { text: "きょうは げつようびじゃない。にちようびだ。", translation: "Today isn't Monday. It's Sunday." },
       { text: "ぼくは わかった。", translation: "I got it." },
       { text: "いまは ごぜん くじだ。", translation: "It's nine in the morning." },
       { text: "ぼくは きっさてんで コーヒーを のむ。", translation: "I have a coffee at the coffee shop." },
@@ -811,9 +829,11 @@ export const JA_STORIES: Story[] = [
   {
     // m15 L4. The change of state here is an OPINION, not an object: the
     // narrator opens disliking travel and closes planning the next trip, and
-    // lines 4/22/23 are the three points on that curve. m15 supplies りょこう /
-    // たのしい / おんがく / くつ and m14 supplies およぐ / つめたい / もつ, which
-    // is the whole day at the sea.
+    // lines 4/21/22 are the three points on that curve.
+    //
+    // Kept clear of ja-m15-the-weekend-ahead's motif stack (いそがしい +
+    // あたらしい くつ + えいが + かいもの) — same module, and a stretch read
+    // that recycles the comfortable read's furniture is not a second story.
     id: "ja-m15-the-trip-i-didnt-want",
     languageId: "ja",
     module: 15,
@@ -829,20 +849,25 @@ export const JA_STORIES: Story[] = [
       {
         id: "gist",
         kind: "gist",
-        prompt: "ぼくの りょこうは どうですか。",
-        options: ["たのしいです", "たいへんです", "いそがしいです"],
-        answer: "たのしいです",
+        // Keyed on line 22, which states it outright. The earlier framing
+        // ("りょこうは どうですか" / answer たのしいです) was unanswerable as
+        // written: たのしい is said of うみ, never of りょこう, while the
+        // distractor たいへん IS said of りょこう at line 5 — so the careful
+        // reader was steered to the wrong option.
+        prompt: "ぼくは いま りょこうが すきですか。",
+        options: ["はい、すきです", "いいえ、きらいです", "いいえ、たいへんです"],
+        answer: "はい、すきです",
       },
       {
         id: "where",
         kind: "detail",
-        prompt: "つぎの りょこうは どこですか。",
-        options: ["やまです", "うみです", "こうえんです"],
-        answer: "やまです",
+        prompt: "ふたりは どようびに どこに いきますか。",
+        options: ["うみです", "やまです", "かいしゃです"],
+        answer: "うみです",
       },
     ],
     sentences: [
-      { text: "こんしゅうは とても いそがしい。", translation: "This week is very busy." },
+      { text: "ぼくは うちが すきだ。", translation: "I like being at home." },
       { text: "ぼくは まいにち かいしゃで はたらく。", translation: "Every day I work at the office." },
       { text: "よるは うちで テレビを みる。", translation: "At night I watch TV at home." },
       { text: "ぼくは りょこうが すきじゃない。", translation: "I don't like travelling." },
@@ -851,9 +876,8 @@ export const JA_STORIES: Story[] = [
       { text: "ユミは どようびに うみに いく。", translation: "Yumi is going to the sea on Saturday." },
       { text: "ユミは ぼくを まつ。", translation: "Yumi waits for me." },
       { text: "どようび、ぼくは ろくじに おきる。", translation: "On Saturday I get up at six." },
-      { text: "あたらしい くつを もつ。", translation: "I take my new shoes." },
       { text: "ふたりで でんしゃで うみに いく。", translation: "The two of us take the train to the sea." },
-      { text: "でんしゃは ながい。", translation: "The ride is long." },
+      { text: "うみは とおい。", translation: "The sea is a long way off." },
       { text: "うみは とても きれいだ。", translation: "The sea is beautiful." },
       { text: "ユミは よく およぐ。", translation: "Yumi swims and swims." },
       { text: "ぼくも およぐ。", translation: "I swim too." },

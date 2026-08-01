@@ -174,17 +174,37 @@ whether the characters are covered. Two consequences:
   do without with a gloss.
 
   **They are per-surface, not per-category.** `おいしかった` never gates, but
-  `ほしかった` is clean from m11; `たべました` never gates, but `まちました` is
-  clean from m8. You cannot predict which from the atom list — probe the exact
+  `ほしかった` is clean from m11; `たべました` never gates, but `かきました` is
+  clean from m18. You cannot predict which from the atom list — probe the exact
   surface you want. §6 lists the measured ones.
+
+  **A clean result is not the same as an available form.** Some surfaces come
+  back clean because the matcher assembled them out of unrelated atoms, which is
+  the next bullet. When a probe surprises you by passing, work out *why* it
+  passed before you use it.
 - **False positives** (gate accepts content the learner cannot read): the
-  matcher will happily assemble a word out of unrelated pieces. Three real ones:
+  matcher will happily assemble a word out of unrelated pieces. Four real ones:
   - `でも` "but" passes as the particle `で` (m6) + `も` "also" (m3). The learner
     has never met `でも` as a connective.
   - `よんだ` "read (past)" passes as `よん` = 四 "four" (m5) + `だ` (copula) —
     the matcher reads it as "is four". `よむ` is not an atom until m16.
   - `はなし` "talk, story" gates clean from **m13**, one module before its own
     atom (`ja:hanashi`, m14). Gating early is not the same as being taught.
+  - **`まちます` / `まちました` "wait" gate clean from m8** — as `まち` 町 "town"
+    (m8) + `ます` / `ました`. The matcher reads 待ちます as "town-ます". `まつ`
+    itself residuals whole until its own atom at **m14**, so every module in
+    **m8-m13** accepts a word the learner has no way to read. Measured sweep:
+
+    | surface | m5 | m6 | m7 | m8 | … | m13 | m14 |
+    |---|---|---|---|---|---|---|---|
+    | `まちます` | `まち` | `まち` | `まち` | **clean** | clean | clean | clean |
+    | `まちました` | `まち` | `まち` | `まち` | **clean** | clean | clean | clean |
+    | `まつ` | `まつ` | `まつ` | `まつ` | `まつ` | `まつ` | `まつ` | **clean** |
+
+    Below m8 the gate rejects it and you can gloss it honestly (`ja:matsu`).
+    From m8 it is unglossable — `content.test.ts` answers
+    `gloss "まちます" is already known` — so at m8-m13 the only correct move is
+    to **write a story that does not need the word**.
 
   **The gate passing is necessary, not sufficient.** If you know a word is above
   level, treat it as above level even when the gate shrugs. `content.test.ts`
@@ -326,10 +346,25 @@ the themed sentence list gets written.
 and consequence. Check the module — several of these are above level early and
 have to be glossed or replaced:
 
-- **JA m12**: only `それから` (m10) and `また` (m11) are genuinely in-pool.
+- **JA, `それから` — usable from m5, not m10.** Its atom is m10, but it clears
+  the gate from **m5** as `それ` (m4) + `から` (m5), and that decomposition is
+  one a learner genuinely reads: "from that" *is* "after that". So it is the
+  default JA connective for every module from m5 up, and it needs no gloss
+  there. Measured: m3 → `それら`, m4 → `ら`, **m5 → clean**, and clean at every
+  module above. At m4 and below it residuals and must be glossed (`ja:sorekara`)
+  or replaced. This is the one false positive in the guide that is safe to
+  exploit — contrast `でも` below.
+- **JA m3-m4 have no connective at all.** `それから` needs `から` (m5); `また` is
+  m11, `けど` m16, `でも` / `そして` m26. At m4 gloss `それから`. At m3 nothing
+  works — `それから` has nothing to sequence when the pool has no verb that
+  takes an argument — so m3 is the one module where the connective requirement
+  cannot be met, and linkage falls to topic contrast (`あさは … きょうは …
+  あしたは`) and `も`. Do not burn a gloss slot pretending otherwise.
+- **JA m12**: `それから` (free since m5) and `また` (m11) are in-pool.
   `けど` (m16) must be glossed. `でも` and `そして` are m26. Watch out: `でも`
   *passes the gate* at m12 as `で` + `も` (§2), so nothing will stop you using
-  it — don't.
+  it — don't. (Unlike `それから`, this decomposition is NOT one the learner can
+  read: `で` + `も` means "also, at/by", not "but".)
 - **KO m12**: only `그런데` (m8, via `TAUGHT_LEXICON`) is in-pool. `그래서` is
   m13, `그리고` m13, `하지만` m26 — gloss or replace.
 
@@ -443,9 +478,11 @@ generalize from one probe to a rule; the following are the measured facts:
 - **No past `ある`.** `あった` residuals whole at every module 1–40, even though
   `ある` is an m11 atom.
 - **Some `ました` forms gate and many do not — probe the specific verb.**
-  Clean: `まちました` from m8, `はなしました` from m13, `うたいました` from m17,
+  Clean: `はなしました` from m13, `うたいました` from m17,
   `あるきました` / `かきました` / `ききました` from m18, and `かいました` from m1
-  (odd decomposition, genuinely readable — see §2). Never clean at any module:
+  (odd decomposition, genuinely readable — see §2). **`まちました` also comes
+  back clean from m8, but do NOT use it** — that one is the `まち` 町 "town"
+  false positive in §2, not an available form; `まつ` is m14. Never clean at any module:
   `たべました`, `いきました`, `のみました`. There is no rule to memorize here;
   run the probe.
 - **`でした` after a noun is fine** at any module and in any register, and
