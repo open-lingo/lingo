@@ -17,13 +17,14 @@ import {
   todayLocalDate,
   type KanaScript,
 } from "@/shared/settings/romanizationAutoFlip";
+import { isRomanizationOn } from "@/shared/settings/types";
 
 const JA_SCRIPTS: KanaScript[] = ["hiragana", "katakana"];
 
 export function useShowReadingRomaji(languageId: string): boolean {
   const { settings } = useSettings();
   if (languageId !== "ja") {
-    return settings.learning.showRomanization ?? true;
+    return isRomanizationOn(settings.learning, languageId);
   }
   const today = todayLocalDate();
   return JA_SCRIPTS.some((script) =>

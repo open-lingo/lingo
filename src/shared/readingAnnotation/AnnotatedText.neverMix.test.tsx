@@ -6,7 +6,7 @@ import { render } from "@testing-library/react";
 // these tests is proving kanji wins over all of them.
 const settingsRef: { learning: Record<string, unknown> } = {
   learning: {
-    showRomanization: true,
+    showRomanization: {},
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
   },
@@ -41,7 +41,7 @@ import { AnnotatedText } from "./AnnotatedText";
 
 beforeEach(() => {
   settingsRef.learning = {
-    showRomanization: true,
+    showRomanization: {},
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
   };

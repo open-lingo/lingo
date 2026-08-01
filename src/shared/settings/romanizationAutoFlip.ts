@@ -1,4 +1,4 @@
-import type { UserSettings } from "./types";
+import { isRomanizationOn, type UserSettings } from "./types";
 
 /**
  * Per-script modules at which the romaji reading aid auto-disables.
@@ -17,7 +17,8 @@ import type { UserSettings } from "./types";
  * ends), independent of the hiragana/kanji collision above since katakana
  * isn't part of it.
  *
- * Two thresholds, one user-facing `showRomanization` toggle.
+ * Two thresholds, one user-facing "Show romanization" toggle per language
+ * (the JA entry of the per-language `showRomanization` map).
  */
 export const HIRAGANA_ROMAJI_OFF_MODULE = 7;
 export const KATAKANA_ROMAJI_OFF_MODULE = 17;
@@ -81,8 +82,9 @@ export function shouldAutoOffScriptRomaji(opts: {
 
 /**
  * Pure render-gate decision: should romaji show for a kana of `script`?
- * The `showRomanization` master toggle gates both scripts; the per-script
- * auto-off guard hides that script once crossed; `romanizationOnForDay === today`
+ * The JA entry of the per-language `showRomanization` map (resolved via
+ * `isRomanizationOn(l, "ja")`) gates both scripts; the per-script auto-off
+ * guard hides that script once crossed; `romanizationOnForDay === today`
  * forces romaji back on for every script (the "for today" escape hatch).
  *
  * `moduleIndex` (when known) makes the gate honor the ladder by POSITION,
@@ -92,7 +94,7 @@ export function shouldAutoOffScriptRomaji(opts: {
  * deep link). It is deliberately folded into the `off` term, BELOW the
  * `romanizationOnForDay` escape hatch and the `showRomanization` master switch, so
  * neither is affected: "romanization for today" still forces romaji on at any
- * module, and `showRomanization: false` still hard-hides. Pass `undefined`
+ * module, and a JA `showRomanization` of false still hard-hides. Pass `undefined`
  * (the default outside a lesson) to keep the pre-existing guard-only
  * behavior exactly.
  */
@@ -104,7 +106,9 @@ export function romajiVisibleForScript(opts: {
 }): boolean {
   const l = opts.settings.learning;
   if (l.romanizationOnForDay && l.romanizationOnForDay === opts.today) return true;
-  if (!(l.showRomanization ?? true)) return false;
+  // This helper is inherently Japanese (its scripts are hiragana/katakana), so
+  // the per-language romanization toggle is always resolved for the "ja" key.
+  if (!isRomanizationOn(l, "ja")) return false;
   const guardOff =
     opts.script === "katakana"
       ? l.katakanaRomajiAutoOff

@@ -13,6 +13,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
 import { todayLocalDate } from "@/shared/settings/romanizationAutoFlip";
+import { isRomanizationOn } from "@/shared/settings/types";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
@@ -651,9 +652,12 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
             )}
             control={
               <Switch
-                checked={settings.learning.showRomanization ?? true}
+                checked={isRomanizationOn(settings.learning, languageId)}
                 onCheckedChange={(next) =>
-                  updateSetting("learning.showRomanization", next)
+                  updateSetting("learning.showRomanization", {
+                    ...(settings.learning.showRomanization ?? {}),
+                    [languageId]: next,
+                  })
                 }
                 ariaLabel={t("settings.showRomanization", "Show romanization")}
               />
@@ -730,9 +734,12 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           )}
           control={
             <Switch
-              checked={settings.learning.showRomanization ?? true}
+              checked={isRomanizationOn(settings.learning, languageId)}
               onCheckedChange={(next) =>
-                updateSetting("learning.showRomanization", next)
+                updateSetting("learning.showRomanization", {
+                  ...(settings.learning.showRomanization ?? {}),
+                  [languageId]: next,
+                })
               }
               ariaLabel={t("settings.showRomanization", "Show romanization")}
             />

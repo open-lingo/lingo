@@ -53,7 +53,7 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
 // Defaults with NO auto-off guard flipped (the deep-link scenario): any
 // hiding asserted below must come from the module-position gate.
 const defaultLearning = () => ({
-  showRomanization: true,
+  showRomanization: {},
   hiraganaRomajiAutoOff: false,
   katakanaRomajiAutoOff: false,
   hideBuildTileRomaji: false,

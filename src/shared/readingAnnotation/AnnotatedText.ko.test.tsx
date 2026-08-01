@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 // Mutable so each test can flip the reading-aid setting.
 const settingsRef: { learning: Record<string, unknown> } = {
-  learning: { showRomanization: true },
+  learning: { showRomanization: {} },
 };
 vi.mock("@/shared/contexts/SettingsContext", () => ({
   useSettings: () => ({ settings: settingsRef }),
@@ -16,7 +16,7 @@ vi.mock("@/shared/contexts/LanguageContext", () => ({
 import { AnnotatedText } from "./AnnotatedText";
 
 beforeEach(() => {
-  settingsRef.learning = { showRomanization: true };
+  settingsRef.learning = { showRomanization: {} };
   localStorage.clear();
 });
 
@@ -39,7 +39,7 @@ describe("AnnotatedText — Korean Revised Romanization reading aid", () => {
   });
 
   it("hides the reading when showRomanization is off", () => {
-    settingsRef.learning = { showRomanization: false };
+    settingsRef.learning = { showRomanization: { ko: false } };
     const { container } = render(<AnnotatedText text="학교" />);
     const rt = container.querySelector("rt");
     expect(rt).not.toBeNull();

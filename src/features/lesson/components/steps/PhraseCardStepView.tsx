@@ -7,6 +7,7 @@ import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { isRomanizationOn } from "@/shared/settings/types";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 
 type Props = {
@@ -46,7 +47,7 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
   // Hangul reading aids. Native script renders regardless.
   const { settings } = useSettings();
   const showRomanization =
-    langId === "ja" ? true : (settings.learning.showRomanization ?? true);
+    langId === "ja" ? true : isRomanizationOn(settings.learning, langId);
 
   useLessonKeyboard({
     onEnter: () => {

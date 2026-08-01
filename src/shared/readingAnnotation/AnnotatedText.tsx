@@ -27,6 +27,7 @@ import {
   HIRAGANA_ROMAJI_OFF_MODULE,
   KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romanizationAutoFlip";
+import { isRomanizationOn } from "@/shared/settings/types";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import { getCardState, isMastered, getToday } from "@/features/flashcards/engine";
@@ -487,7 +488,7 @@ function useRomajiHelperVisible({
   // model. The kana-script logic below is JA-specific.
   if (languageId && languageId !== "ja") {
     if (hideHelper) return false;
-    return !!forceShowHelper || (settings.learning.showRomanization ?? true);
+    return !!forceShowHelper || isRomanizationOn(settings.learning, languageId);
   }
   const romajiVisible = scripts.some((script) =>
     romajiVisibleForScript({ settings, script, today, moduleIndex }),

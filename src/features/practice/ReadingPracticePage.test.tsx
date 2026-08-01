@@ -39,7 +39,7 @@ vi.mock("@/features/dictionary/DictionaryModalContext", () => ({
 // Settings drive the romaji reading-aid gate; mutable so tests flip showRomanization.
 const mockSettings = {
   learning: {
-    showRomanization: true,
+    showRomanization: {} as Record<string, boolean>,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
     romanizationOnForDay: null as string | null,
@@ -132,7 +132,7 @@ describe("ReadingPracticePage", () => {
     gradeFromLesson.mockClear();
     openWord.mockClear();
     getConversations.mockReturnValue([]);
-    mockSettings.learning.showRomanization = true;
+    mockSettings.learning.showRomanization = {};
     mockSettings.learning.romanizationOnForDay = null;
   });
 
@@ -263,7 +263,7 @@ describe("ReadingPracticePage", () => {
     getKnownAtomsByPos.mockReturnValue(KNOWN);
 
     // Romaji OFF → the reading aid is not rendered.
-    mockSettings.learning.showRomanization = false;
+    mockSettings.learning.showRomanization = { ja: false };
     const { unmount } = render(<ReadingPracticePage />);
     openPreview(/At the cafe/);
     fireEvent.click(screen.getByRole("button", { name: "Read" }));
@@ -271,7 +271,7 @@ describe("ReadingPracticePage", () => {
     unmount();
 
     // Romaji ON → the reading aid renders under the sentence.
-    mockSettings.learning.showRomanization = true;
+    mockSettings.learning.showRomanization = {};
     render(<ReadingPracticePage />);
     openPreview(/At the cafe/);
     fireEvent.click(screen.getByRole("button", { name: "Read" }));

@@ -136,22 +136,22 @@ function isObj(v: unknown): v is Record<string, unknown> {
 
 /**
  * One-time migration of the reading-aid settings from their legacy JA-only
- * "romaji" names to the cross-language "romanization" names. The reading aid
- * now governs JA romaji AND KO Revised Romanization, so the fields were
- * renamed: showRomaji→showRomanization, romajiOnForDay→romanizationOnForDay,
- * romajiAutoFlipped→romanizationAutoFlipped. Persisted blobs (the localStorage
- * cache + the opaque server `learning` object) still carry the old keys; carry
- * a stored value over ONLY when the new key was never persisted, so a toggle
- * the user explicitly set — especially one turned OFF — is never silently
- * reset. `source` is the raw stored blob (pre default-fill); `target` is the
- * default-filled learning object being hydrated. Idempotent.
+ * "romaji" names to the cross-language "romanization" names, AND from the old
+ * scalar on/off toggle to the per-language `showRomanization` map. The reading
+ * aid governs JA romaji AND KO Revised Romanization; its on/off is now stored
+ * per language (keyed by languageId; absent = on). Persisted blobs (the
+ * localStorage cache + the opaque server `learning` object) still carry the old
+ * keys; carry a stored value over ONLY when the new value was never persisted,
+ * so a toggle the user explicitly set — especially one turned OFF — is never
+ * silently reset. `source` is the raw stored blob (pre default-fill); `target`
+ * is the default-filled learning object being hydrated. Idempotent.
  */
 function migrateReadingAidKeys(
   target: Record<string, unknown>,
   source: Record<string, unknown>,
 ): void {
+  // Plain 1:1 scalar renames (unchanged).
   const renames: ReadonlyArray<readonly [legacy: string, next: string]> = [
-    ["showRomaji", "showRomanization"],
     ["romajiOnForDay", "romanizationOnForDay"],
     ["romajiAutoFlipped", "romanizationAutoFlipped"],
   ];
@@ -162,6 +162,28 @@ function migrateReadingAidKeys(
     // Drop the stale legacy key so the re-persisted blob stays clean.
     delete target[legacy];
   }
+
+  // Legacy scalars: `showRomaji` was JA-only; a scalar `showRomanization` was
+  // the earlier cross-language boolean (and briefly the KO field). Fold both
+  // into the per-language map. Preserve an explicit OFF in all cases; where the
+  // post-merge blob is ambiguous, seed both ja and ko so a deliberate "off"
+  // is never silently lost. An already-migrated object is kept as-is.
+  const legacyScalar =
+    typeof source.showRomanization === "boolean" ? source.showRomanization : undefined;
+  const legacyRomaji =
+    typeof source.showRomaji === "boolean" ? source.showRomaji : undefined;
+  const map: Record<string, boolean> = isObj(source.showRomanization)
+    ? { ...(source.showRomanization as Record<string, boolean>) }
+    : {};
+  const jaVal = legacyRomaji ?? legacyScalar;
+  if (jaVal !== undefined && map.ja === undefined) map.ja = jaVal;
+  if (legacyScalar !== undefined && map.ko === undefined) map.ko = legacyScalar;
+  if (Object.keys(map).length > 0) {
+    // Replaces a legacy scalar (or the default {}) with the resolved map.
+    target.showRomanization = map;
+  }
+  // Drop the legacy JA on/off key so re-persisted blobs stay clean.
+  delete target.showRomaji;
 }
 
 /** Presets removed from the built-in list map to their successor. */

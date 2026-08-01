@@ -9,7 +9,7 @@ import {
   todayLocalDate,
   shouldAutoFadeBuildTileRomaji,
 } from "./romanizationAutoFlip";
-import { DEFAULT_SETTINGS, type UserSettings } from "./types";
+import { DEFAULT_SETTINGS, isRomanizationOn, type UserSettings } from "./types";
 
 function settingsWith(overrides: Partial<UserSettings["learning"]>): UserSettings {
   return {
@@ -17,6 +17,20 @@ function settingsWith(overrides: Partial<UserSettings["learning"]>): UserSetting
     learning: { ...DEFAULT_SETTINGS.learning, ...overrides },
   };
 }
+
+describe("isRomanizationOn", () => {
+  it("defaults to true for any language when the map is empty", () => {
+    expect(isRomanizationOn({ showRomanization: {} }, "ja")).toBe(true);
+    expect(isRomanizationOn({ showRomanization: {} }, "ko")).toBe(true);
+    expect(isRomanizationOn({}, "ja")).toBe(true);
+  });
+
+  it("resolves per-language (an explicit OFF only affects that language)", () => {
+    const learning = { showRomanization: { ja: false } };
+    expect(isRomanizationOn(learning, "ja")).toBe(false);
+    expect(isRomanizationOn(learning, "ko")).toBe(true);
+  });
+});
 
 describe("parseModuleIndex", () => {
   it("extracts the module number from ja-m{N}-... IDs", () => {
@@ -110,7 +124,7 @@ describe("romajiVisibleForScript", () => {
   });
 
   it("master showRomanization=false hides both scripts", () => {
-    const s = settingsWith({ showRomanization: false });
+    const s = settingsWith({ showRomanization: { ja: false } });
     expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
       false,
     );
@@ -184,7 +198,7 @@ describe("romajiVisibleForScript", () => {
   });
 
   it("showRomanization=false still hard-hides regardless of module", () => {
-    const s = settingsWith({ showRomanization: false });
+    const s = settingsWith({ showRomanization: { ja: false } });
     expect(
       romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 3 }),
     ).toBe(false);
@@ -217,7 +231,7 @@ describe("shouldAutoFadeBuildTileRomaji", () => {
   it("is independent of the global showRomanization aid (still fades while romaji on)", () => {
     expect(
       shouldAutoFadeBuildTileRomaji({
-        settings: settingsWith({ showRomanization: true }),
+        settings: settingsWith({ showRomanization: { ja: true } }),
         reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
       }),
     ).toBe(true);

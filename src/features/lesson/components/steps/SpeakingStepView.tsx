@@ -12,6 +12,7 @@ import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { KATAKANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
+import { isRomanizationOn } from "@/shared/settings/types";
 import {
   getSpeechConfig,
   isSpeechFlagEnabled,
@@ -333,10 +334,15 @@ function SpeakingStepRecognized({
   // explicit opt-in via Settings → Alphabet display.
   const { settings: romajiSettings, updateSetting: updateRomajiSetting } =
     useSettings();
-  const showRomaji = romajiSettings.learning.showRomanization ?? false;
+  // Per-language reading aid: resolve + write the toggle under the active
+  // course language (`lang`, above) rather than a global boolean.
+  const showRomaji = isRomanizationOn(romajiSettings.learning, lang);
   const toggleRomaji = useCallback(() => {
-    updateRomajiSetting("learning.showRomanization", !showRomaji);
-  }, [showRomaji, updateRomajiSetting]);
+    updateRomajiSetting("learning.showRomanization", {
+      ...(romajiSettings.learning.showRomanization ?? {}),
+      [lang]: !showRomaji,
+    });
+  }, [lang, showRomaji, romajiSettings.learning.showRomanization, updateRomajiSetting]);
   const lessonModuleIndex = useLessonModuleIndex();
   // Same module gate as the toggle below: past the katakana cutoff the
   // setting may still be ON (it's global), but no romaji surface in this

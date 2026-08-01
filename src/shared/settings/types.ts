@@ -112,24 +112,32 @@ export type UserSettings = {
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     /**
-     * Cross-language "show romanization reading aid" master toggle. When true
-     * (the default), phonetic scripts render their romanization as a reading
-     * aid — JA romaji above kana (speaking, MCQ options, build-sentence tiles,
-     * dialogue transcripts, etc.) and KO Revised Romanization above Hangul.
-     * Consumed by the shared reading-annotation renderer for any language that
-     * ships a `readingAnnotation` capability.
+     * PER-LANGUAGE "show romanization reading aid" toggle, keyed by
+     * languageId (e.g. `{ ja: true, ko: false }`). An ABSENT key means "on" —
+     * the default is true, so a language with no stored entry shows its
+     * romanization aid. Resolve through `isRomanizationOn(learning, langId)`;
+     * never read a bare boolean off this field.
+     *
+     * When on for a language, phonetic scripts render their romanization as a
+     * reading aid — JA romaji above kana (speaking, MCQ options, build-sentence
+     * tiles, dialogue transcripts, etc.) and KO Revised Romanization above
+     * Hangul. The toggle surface stays language-agnostic (one "Show
+     * romanization" row per language section); only the STORAGE is per-language,
+     * so JA-on + KO-off (and vice versa) is possible.
      *
      * For Japanese the aid retires per script on its own: the render gate hides
      * a kana's romaji once that script's auto-off guard is set — hiragana at
-     * Module 7, katakana at Module 17 (see romanizationAutoFlip.ts). This single
-     * toggle still masters both scripts (off here = no romanization anywhere);
-     * the `romanizationOnForDay` escape hatch can force it back on for one day.
+     * Module 7, katakana at Module 17 (see romanizationAutoFlip.ts). The `ja`
+     * key still masters both scripts (off there = no romanization anywhere in
+     * JA); the `romanizationOnForDay` escape hatch can force it back on for one
+     * day.
      *
-     * Was named `showRomaji` (JA-only) before the reading aid generalized to
-     * non-JA scripts; legacy stored blobs are migrated on hydrate (see
-     * `migrateReadingAidKeys` in SettingsContext).
+     * Was a single JA-only boolean `showRomaji`, then a single cross-language
+     * boolean `showRomanization`, before becoming per-language; legacy scalar
+     * blobs are folded into the map on hydrate (see `migrateReadingAidKeys` in
+     * SettingsContext).
      */
-    showRomanization?: boolean;
+    showRomanization?: Record<string, boolean>;
     /** @deprecated Legacy single-flip guard (pre per-script model). Kept
      *  only for settings-blob back-compat; no longer read. Was
      *  `romajiAutoFlipped`. */
@@ -235,7 +243,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
     onboardingCompleted: false,
     uiLocale: "en",
     showAlphabetRomanization: true,
-    showRomanization: true,
+    showRomanization: {},
     romanizationAutoFlipped: false,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,
@@ -253,3 +261,16 @@ export const DEFAULT_SETTINGS: UserSettings = {
     frequencyVocab: false,
   },
 };
+
+/**
+ * Resolve the per-language "show romanization" reading-aid toggle. An absent
+ * key means "on" (default true), so a language the learner has never toggled
+ * shows its romanization aid. This is the ONLY correct way to read
+ * `learning.showRomanization` — it is a per-language map, not a boolean.
+ */
+export function isRomanizationOn(
+  learning: Pick<UserSettings["learning"], "showRomanization">,
+  languageId: string,
+): boolean {
+  return learning.showRomanization?.[languageId] ?? true;
+}

@@ -62,7 +62,7 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLang: () => "ja",
 }));
 const defaultLearning = () => ({
-  showRomanization: true,
+  showRomanization: {},
   hiraganaRomajiAutoOff: false,
   katakanaRomajiAutoOff: false,
   hideBuildTileRomaji: false,

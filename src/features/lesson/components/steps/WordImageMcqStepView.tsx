@@ -9,6 +9,7 @@ import { AnnotatedText } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { isRomanizationOn } from "@/shared/settings/types";
 import { Icon } from "@/shared/components/Icon";
 
 const CELEBRATE_MS = 1100;
@@ -68,10 +69,12 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
 export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
   // The picture is the answer here, not the romaji, so the romaji helper is a
-  // pure reading aid — honor the global show-romaji setting (defaults on) so a
-  // never-learned learner can actually read each option. Weans off with the
-  // setting; mastery gating alone would hide it for users with no record.
-  const showRomaji = useSettings().settings.learning.showRomanization ?? false;
+  // pure reading aid — honor the per-language show-romanization setting
+  // (defaults on) so a never-learned learner can actually read each option.
+  // Weans off with the setting; mastery gating alone would hide it for users
+  // with no record. This is a JA-only vocab step (romaji above kana options),
+  // so the setting is resolved for the "ja" language key.
+  const showRomaji = isRomanizationOn(useSettings().settings.learning, "ja");
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
