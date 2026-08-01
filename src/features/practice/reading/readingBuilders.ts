@@ -6,9 +6,9 @@
  * learner only ever reads hand-written sentences that make sense. These helpers
  * turn that authored content into the two reading beats:
  *
- *  - **Stories** — a module-appropriate narrative to read, followed by a few
- *    comprehension questions whose distractors are drawn from OTHER authored
- *    content (so a wrong answer is plausible, not nonsense).
+ * Story comprehension questions now live in `features/practice/stories/storyQuestions.ts`
+ * (target-language questions with swap distractors, not this file).
+ *
  *  - **Cloze** — blank ONE content word in an authored sentence and offer the
  *    answer alongside same-part-of-speech words the learner already knows.
  *
@@ -53,14 +53,6 @@ export interface ClozeCard {
   answer: { surface: string; reading: string; atomId: string };
   /** Answer + same-POS known distractors, shuffled. */
   options: ClozeOption[];
-}
-
-/** One story comprehension question — English gist / detail multiple choice. */
-export interface StoryQuestion {
-  id: string;
-  prompt: string;
-  options: string[];
-  answer: string;
 }
 
 /* --------------------------------------------------------------------------
@@ -196,76 +188,6 @@ export function buildClozeCards(
   }
 
   return cards;
-}
-
-/* --------------------------------------------------------------------------
- * Story comprehension
- * ------------------------------------------------------------------------ */
-
-const MAX_OPTIONS = 4;
-const MAX_QUESTIONS = 3;
-
-/**
- * Build 1-3 comprehension questions for a story. Distractors are drawn from
- * OTHER authored content (other stories' themes / sentences, all conversation
- * lines) so every wrong option is a real, plausible sentence. Returns `[]` when
- * there isn't enough surrounding content to form a fair question — the caller
- * then falls back to a simple "mark as read".
- */
-export function buildStoryQuestions(
-  story: Story,
-  allStories: Story[],
-  allConversations: Conversation[],
-  seed: number,
-): StoryQuestion[] {
-  const ownTranslations = new Set(story.sentences.map((s) => s.translation));
-
-  // Detail distractors: translations from everything EXCEPT this story.
-  const detailPool = uniq([
-    ...allStories.filter((s) => s.id !== story.id).flatMap((s) => s.sentences.map((x) => x.translation)),
-    ...allConversations.flatMap((c) => c.lines.map((l) => l.translation)),
-  ]).filter((t) => !ownTranslations.has(t));
-
-  // Gist distractors: other stories' themes + conversation situations.
-  const gistPool = uniq([
-    ...allStories.filter((s) => s.id !== story.id).map((s) => s.theme),
-    ...allConversations.map((c) => c.situation),
-  ]).filter((t) => t !== story.theme);
-
-  const questions: StoryQuestion[] = [];
-
-  if (gistPool.length >= 1) {
-    const options = seededShuffle(
-      [story.theme, ...seededShuffle(gistPool, seed).slice(0, MAX_OPTIONS - 1)],
-      hashSeed(`${story.id}:gist`),
-    );
-    questions.push({
-      id: `${story.id}:gist`,
-      prompt: "What is this story mostly about?",
-      options,
-      answer: story.theme,
-    });
-  }
-
-  if (detailPool.length >= 1) {
-    const sentences = seededShuffle(story.sentences, seed).slice(0, MAX_QUESTIONS);
-    for (const sentence of sentences) {
-      if (questions.length >= MAX_QUESTIONS) break;
-      const distractors = seededShuffle(detailPool, hashSeed(sentence.translation)).slice(0, MAX_OPTIONS - 1);
-      const options = seededShuffle(
-        [sentence.translation, ...distractors],
-        hashSeed(`${sentence.translation}:opts`),
-      );
-      questions.push({
-        id: `${story.id}:detail:${sentence.translation}`,
-        prompt: "Which of these is said in the story?",
-        options,
-        answer: sentence.translation,
-      });
-    }
-  }
-
-  return questions.slice(0, MAX_QUESTIONS);
 }
 
 /**
