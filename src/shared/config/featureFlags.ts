@@ -10,8 +10,6 @@ export type FeatureFlags = {
     transitMapHome: boolean;
   };
   practice: {
-    /** /practice/stories and story reader under practice */
-    stories: boolean;
     /** /practice/external-content */
     externalContent: boolean;
   };
@@ -46,7 +44,6 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
     transitMapHome: true,
   },
   practice: {
-    stories: false,
     externalContent: false,
   },
   // MVP (Spencer + Trevor, 2026-07-16): social + community ship dark. Code
@@ -95,7 +92,6 @@ export function mergeFeatureFlags(
   }
   if (isPlainObject(override.practice)) {
     const p = override.practice;
-    if (typeof p.stories === "boolean") out.practice.stories = p.stories;
     if (typeof p.externalContent === "boolean")
       out.practice.externalContent = p.externalContent;
   }

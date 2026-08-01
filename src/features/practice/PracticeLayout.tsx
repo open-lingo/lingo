@@ -24,10 +24,6 @@ export function PracticeLayout() {
 
   // Redirect when a disabled practice surface is hit directly (bookmark / old link)
   useEffect(() => {
-    if (!flags.practice.stories && /\/practice\/stories(\/|$)/.test(pathname)) {
-      navigate(practiceHubPath, { replace: true });
-      return;
-    }
     if (!flags.practice.externalContent && pathname.includes("/practice/external-content")) {
       navigate(practiceHubPath, { replace: true });
       return;

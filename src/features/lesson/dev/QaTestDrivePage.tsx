@@ -564,8 +564,9 @@ function buildSections(lang: string): QaSection[] {
           links: [
             { label: "m4 story", href: p("/learn/lessons/ja-m4-story") },
             { label: "m10 story", href: p("/learn/lessons/ja-m10-story") },
+            { label: "story library", href: p("/practice/stories") },
           ],
-          hint: "The /practice/stories browse page is behind the `stories` feature flag (ships OFF; only /feature-flags.json flips it) — it bounces to the hub, so it's not linked. Capstone lessons above are the shipped surface.",
+          hint: "The story library is a shipped, unflagged surface (no feature flag gates it anymore). Capstone lessons above route into it as required pathway nodes.",
         },
         {
           id: "route:ftue",

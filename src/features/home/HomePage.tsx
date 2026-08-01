@@ -125,14 +125,12 @@ export function HomePage() {
       ) : null}
       <FlashcardsCard />
       <PracticeCard />
-      {flags.practice.stories ? (
-        <HomeNavCard
-          to={langPath(storyCard.to)}
-          iconName={storyCard.iconName}
-          title={t(storyCard.titleKey)}
-          description={t(storyCard.descKey)}
-        />
-      ) : null}
+      <HomeNavCard
+        to={langPath(storyCard.to)}
+        iconName={storyCard.iconName}
+        title={t(storyCard.titleKey)}
+        description={t(storyCard.descKey)}
+      />
       {isCommunityEnabled(flags) ? (
         <HomeNavCard
           to={langPath("community/explore")}

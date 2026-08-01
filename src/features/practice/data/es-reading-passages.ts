@@ -13,29 +13,29 @@
  * the comprehension-passage practice page these were authored for was
  * removed in favor of the story library (features/practice/stories/).
  */
-export type ReadingOption = {
+export type EsReadingOption = {
   id: string;
   text: string;
 };
 
-export type ReadingQuestion = {
+export type EsReadingQuestion = {
   id: string;
   prompt: string;
-  options: ReadingOption[];
+  options: EsReadingOption[];
   correctOptionId: string;
   explanation?: string;
 };
 
-export type ReadingPassage = {
+export type EsReadingPassage = {
   id: string;
   level: number;
   contextHint?: string;
   passage: string;
-  questions: ReadingQuestion[];
+  questions: EsReadingQuestion[];
   topic: "daily" | "travel" | "school" | "work" | "food";
 };
 
-export const ES_READING_PASSAGES: ReadingPassage[] = [
+export const ES_READING_PASSAGES: EsReadingPassage[] = [
   // ─── Level 1 — self-intro (m1–m2 vocab) ─────────────────────────────────
   {
     id: "es-l1-selfintro",

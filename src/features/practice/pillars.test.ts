@@ -4,7 +4,7 @@ import { DEFAULT_FEATURE_FLAGS, type FeatureFlags } from "@/shared/config/featur
 
 const flags: FeatureFlags = {
   ...DEFAULT_FEATURE_FLAGS,
-  practice: { stories: true, externalContent: true },
+  practice: { externalContent: true },
 };
 
 const allActivityIds = (ps: ReturnType<typeof getPillarsForLanguage>) =>
@@ -41,12 +41,9 @@ describe("getPillarsForLanguage", () => {
     expect(writing?.titleDefault).toBe("Writing & Alphabet");
   });
 
-  it("puts the story library in the reading pillar unconditionally (no flag)", () => {
-    const noStories: FeatureFlags = {
-      ...flags,
-      practice: { ...flags.practice, stories: false },
-    };
-    const reading = getPillarsForLanguage("ja", noStories).find((p) => p.id === "reading");
+  it("always includes the story library in the reading pillar (no flag gate)", () => {
+    // DEFAULT_FEATURE_FLAGS has no "stories" flag at all — the tile isn't gated.
+    const reading = getPillarsForLanguage("ja", DEFAULT_FEATURE_FLAGS).find((p) => p.id === "reading");
     expect(reading?.activities.map((a) => a.id)).toContain("stories");
   });
 

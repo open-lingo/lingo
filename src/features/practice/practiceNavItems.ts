@@ -29,14 +29,8 @@ export function getPracticeItemsForLanguage(
   const prefix = `/${lang}`;
   const base: PracticeNavItem[] = [
     { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", iconName: "graduationCap" },
+    { to: `${prefix}/practice/stories`, labelKey: "nav.stories", iconName: "stories" },
   ];
-  if (flags.practice.stories) {
-    base.push({
-      to: `${prefix}/practice/stories`,
-      labelKey: "nav.stories",
-      iconName: "stories",
-    });
-  }
   if (flags.practice.externalContent) {
     base.push({
       to: `${prefix}/practice/external-content`,
