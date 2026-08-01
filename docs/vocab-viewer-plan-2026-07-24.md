@@ -1,6 +1,6 @@
 # Vocab Viewer + Dictionary Lookup Service — plan
 
-**Branch:** `vocab-viewer` (off `freq-vocab`) · **Date:** 2026-07-24 · **Status:** BUILDING (full autonomy; merge after ~2h once the other session settles)
+**Branch:** `vocab-viewer` (off `freq-vocab`) · **Date:** 2026-07-24 · **Status:** ✅ SHIPPED to `main` (2026-07). Language-agnostic dictionary lookup service (`shared/dictionary/`: `lookupWord`/`searchDictionary`/`foldText`) + vocab viewer UI. Powers the `<TappableText>` inline lookup used across curated content.
 
 ## Goal
 A **language-agnostic**, dictionary-style **vocab viewer** — search/browse every word we have (authored course vocab + the frequency vocab) with its **frequency, definition, reading, POS**, and (for conjugables) its **paradigm** — plus a reusable **definition-lookup service** the rest of the site can call for on-the-fly definitions (e.g. tapping a word in a future story).

@@ -1,6 +1,6 @@
 # Frequency Vocab ("optional words") — implementation plan
 
-**Branch:** `freq-vocab` · **Date:** 2026-07-24 · **Status:** BUILDING (full autonomy; review after)
+**Branch:** `freq-vocab` · **Date:** 2026-07-24 · **Status:** ✅ SHIPPED to `main` (2026-07). Optional frequency-ranked vocab: model + resolver + deck + settings toggle + learn-path indicator.
 
 ## Goal
 Optional, module-gated frequency vocabulary for **KO and JA**: words beyond the authored lessons that **unlock at ≤ the learner's reached module** (so they already have the grammar to handle them), flow through the existing SRS intake, and surface an "**X new words accumulated**" indicator in the learn path. Opt-in. The words are POS-tagged, so conjugable ones are ready for the conjugation trainer ("learn grammar as well").

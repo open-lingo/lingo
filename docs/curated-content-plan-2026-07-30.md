@@ -1,6 +1,6 @@
 # Curated Content + Conversations + Inline Lookup — plan
 
-**Branch:** `curated-content` (off `origin/main`) · **Date:** 2026-07-30 · **Status:** BUILDING (full autonomy)
+**Branch:** `curated-content` (off `origin/main`) · **Date:** 2026-07-30 · **Status:** ✅ SHIPPED to `main` (2026-07-30). Reading = Stories | Fill-in-the-blank tabs, story preview modal (difficulty + module words), conversation listener + roleplay, `<TappableText>` inline lookup. Later refined: density ramp + longer stories, per-language romanization gate.
 
 ## Why
 Random sentence generation produces nonsense ("I can't drink a leg") — grammatical but meaningless slot-fills. For comprehension surfaces (reading, listening), content must make sense and be engaging. Fix: **authored, module-gated stories + conversations**, comprehensibility-gated, with **inline dictionary lookup** (tap any word → the dictionary modal). Keep the dynamic generator only where it's semantically safe (speaking echo/production, writing, and cloze over *authored* sentences). Add two conversation listening modes.

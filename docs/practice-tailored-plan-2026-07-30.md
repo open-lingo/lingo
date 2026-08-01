@@ -1,6 +1,6 @@
 # Tailored Practice — plan (speaking / reading-madlibs / listening / writing from learned content)
 
-**Branch:** `practice-tailored` (off `origin/main`) · **Date:** 2026-07-30 · **Status:** BUILDING (full autonomy; review after)
+**Branch:** `practice-tailored` (off `origin/main`) · **Date:** 2026-07-30 · **Status:** ✅ SHIPPED to `main` (2026-07-30). Speaking/Writing/Listening/reading-cloze generated from learned content via the practice engine (`learnedContent` + templates + `generatePracticeItems`). Note: Reading & Listening comprehension later moved to curated authored content (see `curated-content-plan-2026-07-30.md`); the generator remains for Speaking/Writing + cloze over authored sentences.
 
 ## Goal
 Make the four practice surfaces (Speaking, Reading, Listening, Writing) draw from **what the learner has actually learned** (their unlocked/SRS vocab + reached grammar), instead of small static hand-authored lists filtered only by a module slider. Content is **generated fresh + relevant** from the learner's known words — always comprehensible, varied, never the same 10 prompts. Clean/calm UI with light progress feedback (not game-y). Reading gets **madlibs** (blanks filled by words you know). **Language-agnostic.**
