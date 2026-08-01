@@ -11,6 +11,8 @@
  * pathway's boolean completion cannot express.
  */
 
+import { safeLocalStorageWrite } from "@/shared/utils/storageQuota";
+
 const STORAGE_KEY = "lingo:story-progress:v1";
 
 export interface StoryScore {
@@ -46,11 +48,10 @@ function load(): StoryProgressStore {
 
 function save(store: StoryProgressStore): void {
   if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-  } catch {
-    // quota — read state is a nicety, never block the read on it
-  }
+  // Quota errors are surfaced via safeLocalStorageWrite (emits warning event);
+  // the write failure does not suppress listener notification — a failed
+  // persist must not skip the update signal or throw to the caller.
+  safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(store));
   for (const fn of listeners) fn();
 }
 

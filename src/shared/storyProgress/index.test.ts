@@ -51,6 +51,15 @@ describe("story progress", () => {
     expect(getStoryProgress("s1")?.bestScore).toEqual({ correct: 2, total: 2 });
   });
 
+  it("does not replace best score when a tie occurs", () => {
+    const score1 = { correct: 2, total: 3 };
+    recordStoryRead("s1", score1);
+    const score2 = { correct: 2, total: 4 };
+    recordStoryRead("s1", score2);
+    // The original object (score1) should be retained, not replaced by score2
+    expect(getStoryProgress("s1")!.bestScore).toEqual(score1);
+  });
+
   it("notifies subscribers and unsubscribes cleanly", () => {
     let calls = 0;
     const off = subscribeStoryProgress(() => { calls += 1; });
@@ -66,5 +75,15 @@ describe("story progress", () => {
     expect(getStoryProgress("s1")).toBeNull();
     recordStoryRead("s1");
     expect(getStoryProgress("s1")?.reads).toBe(1);
+  });
+
+  it("notifies subscribers when clearing progress", () => {
+    let calls = 0;
+    const off = subscribeStoryProgress(() => { calls += 1; });
+    recordStoryRead("s1");
+    expect(calls).toBe(1);
+    clearStoryProgress();
+    expect(calls).toBe(2);
+    off();
   });
 });
