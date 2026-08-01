@@ -13,6 +13,9 @@
  *   - the live JA course map (`getMockCourse("ja")`),
  *   - the one dynamic id family (`ja-m<N>-review-1/2` → buildSrsReviewLesson,
  *     currently DORMANT per B069 but code-resolvable),
+ *   - sibling namespaces that share the token shape but are self-identifiers,
+ *     not lesson references: course atom ids and curated story/conversation
+ *     ids (`practice/content`),
  * accepting a token when it IS a live id, is a live id plus a suffix (step
  * ids, exemption keys), or is a live id family prefix (`ja-m11-neo`).
  * Everything else is DEAD.
@@ -38,6 +41,7 @@ import {
 } from "@/features/lesson/data/mockLessons";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
+import { allStories, allConversations } from "@/features/practice/content";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -104,6 +108,16 @@ function buildResolver() {
   // 2026-05-19 generator ("ja-m5-1-v-1" is the atom いち). They are stable
   // forever by contract — never stale, never lesson references.
   const atomIds = new Set(JA_COURSE_ATOMS.map((a) => a.id));
+  // Live CURATED-CONTENT ids: stories and conversations get module-scoped ids
+  // in their own namespace ("ja-m3-introductions"), which collides with the
+  // lesson-id token shape. Same situation as the atom ids above — these are
+  // self-identifiers, never references to a lesson, so a "dead" verdict on one
+  // is meaningless. Resolved against the live registry (not a regex allowance)
+  // so a genuinely dangling lesson reference in these files still fails.
+  const contentIds = new Set([
+    ...allStories("ja").map((s) => s.id),
+    ...allConversations("ja").map((c) => c.id),
+  ]);
   const classify = (token: string): Bucket => {
     const resolvesIn = (ids: Set<string>): boolean => {
       if (ids.has(token)) return true;
@@ -114,6 +128,7 @@ function buildResolver() {
       return false;
     };
     if (atomIds.has(token)) return "live";
+    if (contentIds.has(token)) return "live";
     if (stepIds.has(token)) return "live";
     if (resolvesIn(mapIds)) return "live";
     // Suffixed step references (exemption keys quote step ids verbatim, but a
@@ -192,6 +207,11 @@ describe("stale lesson-id references", () => {
     expect(classify("ja-m11-neo")).toBe("live");
     // The dormant dynamic-builder shape must NOT read as dead (B069).
     expect(classify("ja-m4-review-1")).toBe("dynamic-dormant");
+    // Curated-content self-ids resolve live, but the carve-out is registry-
+    // backed: an unregistered id in the same shape must still read as dead,
+    // or the exemption would be a hole a real dangling reference slips through.
+    expect(classify("ja-m3-introductions")).toBe("live");
+    expect(classify("ja-m3-not-a-real-story")).toBe("dead");
   });
 
   it("extractor positive control: finds a planted dead id in text", () => {
