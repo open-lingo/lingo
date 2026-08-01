@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { playSfx } from "@/shared/audio/sfx";
 import type { Quest } from "../types";
 import { questIcon } from "../questIcon";
 import { QuestProgressBar } from "./QuestProgressBar";
@@ -31,6 +30,8 @@ function QuestIcon({ quest, tint }: { quest: Quest; tint: string }) {
 export type QuestRowProps = {
   quest: Quest;
   onClaim?: (id: string) => void;
+  /** A claim is in flight — block re-fires. */
+  claiming?: boolean;
 };
 
 function formatTimeRemaining(expiresAt?: number): string | null {
@@ -54,7 +55,7 @@ function formatTimeRemaining(expiresAt?: number): string | null {
  *   - "completed" rows get a subtle muted tint + a check.
  *   - "expired" rows are dimmed and not interactive.
  */
-export function QuestRow({ quest, onClaim }: QuestRowProps) {
+export function QuestRow({ quest, onClaim, claiming = false }: QuestRowProps) {
   const { t } = useTranslation();
   const { progress, status, rewards, expiresAt } = quest;
   const percent =
@@ -164,10 +165,8 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
         <Button
           type="button"
           variant="primary-3d"
-          onClick={() => {
-            playSfx("match");
-            onClaim?.(quest.id);
-          }}
+          onClick={() => onClaim?.(quest.id)}
+          disabled={claiming}
           className="w-full"
         >
           <span className="inline-flex items-center gap-1.5">

@@ -17,7 +17,7 @@ import { QuestsPanel } from "./QuestsPanel";
  */
 export function QuestSpotlightCard() {
   const { t } = useTranslation();
-  const { quests, summary, claim } = useQuests();
+  const { quests, summary, claim, isClaiming } = useQuests();
   const { isOpen, open, close } = useQuestsModalUrl();
 
   const spotlight = useMemo(() => {
@@ -112,6 +112,7 @@ export function QuestSpotlightCard() {
               <button
                 type="button"
                 onClick={() => claim(spotlight.id)}
+                disabled={isClaiming}
                 className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-accent-hover"
               >
                 <Icon name="sparkles" size={12} aria-hidden />

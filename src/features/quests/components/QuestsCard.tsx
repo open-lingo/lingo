@@ -43,7 +43,7 @@ export function QuestsCardBody({
   onSideQuestClick,
 }: QuestsCardProps) {
   const { t } = useTranslation();
-  const { quests, summary, claim } = useQuests();
+  const { quests, summary, claim, isClaiming } = useQuests();
   const { isOpen, open, close } = useQuestsModalUrl();
 
   const spotlightFor = (type: "daily" | "weekly") => {
@@ -110,6 +110,7 @@ export function QuestsCardBody({
                 quest={dailySpotlight}
                 tone="warning"
                 onClaim={() => claim(dailySpotlight.id)}
+                claiming={isClaiming}
               />
             ) : null}
             {weeklySpotlight ? (
@@ -117,6 +118,7 @@ export function QuestsCardBody({
                 quest={weeklySpotlight}
                 tone="primary"
                 onClaim={() => claim(weeklySpotlight.id)}
+                claiming={isClaiming}
               />
             ) : null}
             {hiddenQuests.length > 0 ? (
@@ -194,11 +196,13 @@ const fraction = (q: QuestItem) =>
 function QuestRow({
   quest,
   onClaim,
+  claiming,
   tone = "warning",
   className,
 }: {
   quest: QuestItem;
   onClaim: () => void;
+  claiming?: boolean;
   tone?: "warning" | "primary";
   className?: string;
 }) {
@@ -224,7 +228,8 @@ function QuestRow({
         <button
           type="button"
           onClick={onClaim}
-          className="inline-flex shrink-0 items-center gap-1 rounded-md bg-accent px-2 py-1 text-[11px] font-semibold text-white transition hover:bg-accent-hover"
+          disabled={claiming}
+          className="inline-flex shrink-0 items-center gap-1 rounded-md bg-accent px-2 py-1 text-[11px] font-semibold text-white transition hover:bg-accent-hover disabled:opacity-60"
         >
           <Icon name="sparkles" size={11} aria-hidden />
           {t("quests.claim", { defaultValue: "Claim reward" })}

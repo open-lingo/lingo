@@ -63,3 +63,15 @@ export function useToast() {
   if (!ctx) throw new Error("useToast must be used within ToastProvider");
   return ctx;
 }
+
+/**
+ * Toast access for hooks that must survive being called without providers.
+ *
+ * Mirrors `useApiOptional`: shared hooks like `useQuests` are deliberately
+ * mountable in component tests (and preview surfaces) with no provider tree,
+ * so reaching for the throwing `useToast` there turns a notification into a
+ * crash. Returns null when there is no provider; callers no-op.
+ */
+export function useToastOptional(): ToastContextValue | null {
+  return useContext(ToastContext);
+}

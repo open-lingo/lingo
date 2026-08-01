@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useApi } from "@/shared/api/provider";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { useSubscriptions } from "@/features/flashcards/useSubscriptions";
 import { Icon } from "@/shared/components/Icon";
 import { Modal } from "@/shared/components/ui/Modal";
@@ -38,6 +39,7 @@ export function DeckPreviewModal({
   onSubscriptionChange,
 }: DeckPreviewModalProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
   const { formatDateOnly } = useDateFormat();
   const { users: usersApi } = useApi();
   const { subscriptions, isLoading: subsQueryLoading } = useSubscriptions();
@@ -51,14 +53,26 @@ export function DeckPreviewModal({
   const isSubscribed =
     canSubscribe && subscriptions.some((s) => s.contentId === deckId);
 
+  // Both handlers had `.then().finally()` and no `.catch`: a failed
+  // subscribe/unsubscribe spun the button, snapped it back unchanged, and
+  // surfaced only as an unhandled rejection in the console. The learner is
+  // left thinking the click didn't register.
   const handleSubscribe = useCallback(() => {
     if (!canSubscribe) return;
     setSubscribeLoading(true);
     usersApi
       .addSubscription({ contentType: "deck", contentId: deckId })
       .then(() => onSubscriptionChange?.())
+      .catch(() =>
+        showToast(
+          t("decks.subscribeFailed", {
+            defaultValue: "Couldn't subscribe to that deck — try again.",
+          }),
+          "error",
+        ),
+      )
       .finally(() => setSubscribeLoading(false));
-  }, [usersApi, deckId, canSubscribe, onSubscriptionChange]);
+  }, [usersApi, deckId, canSubscribe, onSubscriptionChange, showToast, t]);
 
   const handleUnsubscribe = useCallback(() => {
     if (!canSubscribe) return;
@@ -66,8 +80,16 @@ export function DeckPreviewModal({
     usersApi
       .removeSubscription("deck", deckId)
       .then(() => onSubscriptionChange?.())
+      .catch(() =>
+        showToast(
+          t("decks.unsubscribeFailed", {
+            defaultValue: "Couldn't unsubscribe from that deck — try again.",
+          }),
+          "error",
+        ),
+      )
       .finally(() => setSubscribeLoading(false));
-  }, [usersApi, deckId, canSubscribe, onSubscriptionChange]);
+  }, [usersApi, deckId, canSubscribe, onSubscriptionChange, showToast, t]);
 
   const cards = deck?.cards ?? [];
   const hasCards = cards.length > 0;

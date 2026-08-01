@@ -40,7 +40,7 @@ export function QuestsPanel({
   initialTab,
 }: QuestsPanelProps) {
   const { t } = useTranslation();
-  const { quests, claim } = useQuests();
+  const { quests, claim, isClaiming } = useQuests();
   const { stats } = useUserStats();
   const { tab: urlTab, open: openTab } = useQuestsModalUrl();
   const tab: QuestType | "all" = initialTab ?? (urlTab as QuestType | "all");
@@ -184,7 +184,7 @@ export function QuestsPanel({
                 className="motion-safe:animate-fade-up"
                 style={{ animationDelay: `${Math.min(i, 6) * 60}ms` }}
               >
-                <QuestRow quest={q} onClaim={claim} />
+                <QuestRow quest={q} onClaim={claim} claiming={isClaiming} />
               </div>
             ))
           )}
