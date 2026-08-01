@@ -32,6 +32,80 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m3 stretch read (m3 caps at L2). Copula-only pool: the ONLY predicate
+    // available is 이에요/예요, so the arc has to be carried by identity —
+    // hence a mistaken-identity turn. 있어요 (m6) and 그런데 (m8) are the two
+    // gloss slots; without 그런데 m3 has no connective at all.
+    id: "ko-m3-who-is-that",
+    languageId: "ko",
+    module: 3,
+    level: 2,
+    title: "Is that Jisu?",
+    theme: "A cheerful hello to entirely the wrong person.",
+    tags: ["school", "greetings"],
+    glosses: [
+      { surface: "있어요", meaning: "there is, is (here)", atomId: "ko:있어요" },
+      { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "유진은 누구예요?",
+        options: ["선생님이에요", "학생이에요", "친구예요"],
+        answer: "선생님이에요",
+      },
+    ],
+    sentences: [
+      { text: "여기는 교실이에요.", translation: "This is the classroom." },
+      { text: "교실에 학생이 있어요.", translation: "There are students in the classroom." },
+      { text: "저는 민수예요.", translation: "I'm Minsu." },
+      { text: "거기에 지수가 있어요?", translation: "Is that Jisu over there?" },
+      { text: "안녕, 지수!", translation: "Hi, Jisu!" },
+      { text: "아니요. 저는 유진이에요.", translation: "No. I'm Yujin." },
+      { text: "그런데 유진은 선생님이에요.", translation: "But Yujin is the teacher." },
+      { text: "죄송합니다!", translation: "I'm so sorry!" },
+      { text: "괜찮아요. 반갑습니다.", translation: "It's all right. Nice to meet you." },
+    ],
+  },
+  {
+    // m4 stretch read. Same copula-only constraint as m3, so the arc is a
+    // small identification mystery built out of m4's object nouns plus the
+    // 제 거예요 / 누구 거예요 possessive frame m4 teaches.
+    id: "ko-m4-whose-bag",
+    languageId: "ko",
+    module: 4,
+    level: 2,
+    title: "Whose bag?",
+    theme: "A bag on a chair, and nobody claiming it.",
+    tags: ["school", "objects"],
+    glosses: [
+      { surface: "있어요", meaning: "there is, is (here)", atomId: "ko:있어요" },
+      { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "이 가방은 누구 거예요?",
+        options: ["유진 거예요", "지수 거예요", "제 거예요"],
+        answer: "유진 거예요",
+      },
+    ],
+    sentences: [
+      { text: "의자에 가방이 있어요.", translation: "There's a bag on a chair." },
+      { text: "이거는 제 가방이에요?", translation: "Is this my bag?" },
+      { text: "아니요. 제 가방은 여기에 있어요.", translation: "No. My bag is right here." },
+      { text: "그런데 이 가방은 누구 거예요?", translation: "So whose bag is this one?" },
+      { text: "지수 거예요?", translation: "Is it Jisu's?" },
+      { text: "지수 가방은 저거예요.", translation: "Jisu's bag is that one over there." },
+      { text: "가방에 책이 있어요.", translation: "There's a book in the bag." },
+      { text: "책에 이름이 있어요.", translation: "There's a name in the book." },
+      { text: "이름이 유진이에요.", translation: "The name is Yujin." },
+      { text: "이 가방은 유진 거예요.", translation: "So this bag is Yujin's." },
+    ],
+  },
+  {
     id: "ko-m5-cafe-morning",
     languageId: "ko",
     module: 5,
@@ -57,6 +131,77 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m5 stretch read. m5 has no place nouns and no verbs yet, so the whole
+    // story is a counter drill turned into a miscount-and-fix: counters +
+    // 주세요 + prices are the module's entire content, and the arc is the
+    // number that changes under the narrator.
+    id: "ko-m5-one-more-bread",
+    languageId: "ko",
+    module: 5,
+    level: 2,
+    title: "One more piece of bread",
+    theme: "A count that comes up one short at the counter.",
+    tags: ["food", "shopping", "numbers"],
+    glosses: [{ surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" }],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "빵 다섯 개는 얼마예요?",
+        options: ["오천 원이에요", "사천 원이에요", "삼천 원이에요"],
+        answer: "오천 원이에요",
+      },
+    ],
+    sentences: [
+      { text: "제 친구는 네 명이에요.", translation: "I have four friends." },
+      { text: "빵 네 개 주세요.", translation: "Four pieces of bread, please." },
+      { text: "얼마예요?", translation: "How much is that?" },
+      { text: "사천 원이에요.", translation: "That's 4,000 won." },
+      { text: "네, 감사합니다.", translation: "Yes, thank you." },
+      { text: "그런데 우리 친구는 다섯 명이에요!", translation: "But hold on — there are five of us!" },
+      { text: "빵 한 개 주세요.", translation: "One more piece of bread, please." },
+      { text: "얼마예요?", translation: "And how much now?" },
+      { text: "오천 원이에요.", translation: "It's 5,000 won." },
+      { text: "빵이 다섯 개예요.", translation: "Five pieces of bread. That's everyone." },
+    ],
+  },
+  {
+    // m6 stretch read. m6 finally supplies places + 있어요/없어요, so this is
+    // the first KO story with somewhere to be. Motion is bought with one
+    // gloss (가요, m7) so the last line can actually leave.
+    id: "ko-m6-no-restaurant-at-the-station",
+    languageId: "ko",
+    module: 6,
+    level: 2,
+    title: "No restaurant at the station",
+    theme: "Hungry, out of time, and in the wrong building.",
+    tags: ["travel", "food"],
+    glosses: [
+      { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
+      { surface: "가요", meaning: "go, am going", atomId: "ko:가요" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "역에 뭐가 있어요?",
+        options: ["가게가 있어요", "식당이 있어요", "병원이 있어요"],
+        answer: "가게가 있어요",
+      },
+    ],
+    sentences: [
+      { text: "여기는 역이에요.", translation: "I'm at the station." },
+      { text: "저는 시간이 없어요.", translation: "I don't have much time." },
+      { text: "역에 식당이 있어요?", translation: "Is there a restaurant in the station?" },
+      { text: "아니요, 식당이 없어요.", translation: "No — there's no restaurant." },
+      { text: "그런데 가게가 있어요.", translation: "But there is a shop." },
+      { text: "가게에 빵이 있어요.", translation: "The shop has bread." },
+      { text: "빵 두 개 주세요.", translation: "Two pieces of bread, please." },
+      { text: "제 가방에 빵이 있어요.", translation: "Now there's bread in my bag." },
+      { text: "저는 학교에 가요.", translation: "And I'm off to school." },
+    ],
+  },
+  {
     id: "ko-m7-my-day",
     languageId: "ko",
     module: 7,
@@ -79,6 +224,94 @@ export const KO_STORIES: Story[] = [
       { text: "영화도 봐요.", translation: "I watch a movie too." },
       { text: "친구는 학교에 있어요.", translation: "My friend is at school." },
       { text: "친구는 공부해요.", translation: "My friend studies." },
+    ],
+  },
+  {
+    // m7 stretch read (m7 caps at L3). Present tense throughout — m7 has no
+    // past forms and no time adverbs at all (오늘/어제 are m10), so the arc has
+    // to run on sequence rather than on when. 하고 (m9) buys the companionship
+    // the last line pays off.
+    id: "ko-m7-the-teacher-at-the-door",
+    languageId: "ko",
+    module: 7,
+    level: 3,
+    title: "The teacher at the door",
+    theme: "A study session that quietly stops being a study session.",
+    tags: ["school", "movies", "friends"],
+    glosses: [
+      { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
+      { surface: "하고", meaning: "with, and", atomId: "ko:하고" },
+      { surface: "좋아요", meaning: "is good, is nice", atomId: "ko:좋아요" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "우리는 선생님하고 뭐를 해요?",
+        options: ["영화를 봐요", "공부해요", "빵을 먹어요"],
+        answer: "영화를 봐요",
+      },
+    ],
+    sentences: [
+      { text: "저는 학교에 가요.", translation: "I go to school." },
+      { text: "교실에서 공부해요.", translation: "I study in the classroom." },
+      { text: "교실에 선생님이 없어요.", translation: "The teacher isn't in the classroom." },
+      { text: "그런데 친구가 와요.", translation: "But a friend comes in." },
+      { text: "친구 핸드폰에 영화가 있어요.", translation: "My friend has a movie on their phone." },
+      { text: "저는 친구하고 영화를 봐요.", translation: "I watch the movie with my friend." },
+      { text: "영화가 좋아요.", translation: "The movie is good." },
+      { text: "우리는 커피도 마셔요.", translation: "We drink coffee too." },
+      { text: "빵도 먹어요.", translation: "We eat bread too." },
+      { text: "그런데 문에 선생님이 있어요!", translation: "But the teacher is at the door!" },
+      { text: "선생님이 교실에 와요.", translation: "The teacher comes into the classroom." },
+      { text: "우리는 책을 봐요.", translation: "We look at our books." },
+      { text: "선생님도 핸드폰을 봐요.", translation: "The teacher looks at the phone too." },
+      { text: "선생님도 영화를 봐요!", translation: "The teacher watches the movie too!" },
+      { text: "우리는 선생님하고 영화를 봐요.", translation: "We watch the movie with the teacher." },
+    ],
+  },
+  {
+    // m8 stretch read. m8 is the adjective module, so the arc is a comparison
+    // the learner can only follow by holding three bags in mind at once —
+    // 커요/작아요/비싸요/싸요/예뻐요 all load-bearing, none decorative.
+    id: "ko-m8-the-right-bag",
+    languageId: "ko",
+    module: 8,
+    level: 3,
+    title: "The right bag",
+    theme: "Too big, too small, too expensive — and then the right one.",
+    tags: ["shopping", "school"],
+    glosses: [
+      { surface: "하고", meaning: "and, with", atomId: "ko:하고" },
+      { surface: "그래서", meaning: "so, therefore", atomId: "ko:그래서" },
+      { surface: "그리고", meaning: "and, and also", atomId: "ko:그리고" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "좋은 가방은 얼마예요?",
+        options: ["사천 원이에요", "구천 원이에요", "오천 원이에요"],
+        answer: "사천 원이에요",
+      },
+    ],
+    sentences: [
+      { text: "제 가방은 작아요.", translation: "My bag is small." },
+      { text: "그런데 제 책하고 핸드폰은 커요.", translation: "But my book and my phone are big." },
+      { text: "그래서 저는 가게에 가요.", translation: "So I go to the shop." },
+      { text: "가게에 가방이 있어요.", translation: "The shop has bags." },
+      { text: "이 가방은 커요.", translation: "This bag is big." },
+      { text: "그런데 비싸요.", translation: "But it's expensive." },
+      { text: "구천 원이에요.", translation: "It's 9,000 won." },
+      { text: "저 가방은 싸요.", translation: "That bag over there is cheap." },
+      { text: "그런데 작아요.", translation: "But it's small." },
+      { text: "거기에 좋은 가방이 있어요.", translation: "Over there is a good bag." },
+      { text: "그 가방은 커요.", translation: "That bag is big." },
+      { text: "그리고 예뻐요.", translation: "And it's pretty." },
+      { text: "그거 얼마예요?", translation: "How much is that one?" },
+      { text: "사천 원이에요.", translation: "It's 4,000 won." },
+      { text: "그거 주세요!", translation: "I'll take it!" },
+      { text: "제 책하고 핸드폰이 가방에 있어요.", translation: "My book and my phone are in the bag." },
     ],
   },
   // ── Mid (m9-m17): ~1 story per module ──────────────────────────────────────
@@ -109,6 +342,47 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m9 stretch read. m9 adds the "and" particles (하고 / 과 / 와) plus 빵,
+    // 우유, 사과 — so the story is built on sharing, which is what those
+    // particles are for. Still present tense: past lands at m10.
+    id: "ko-m9-the-apple-in-the-bag",
+    languageId: "ko",
+    module: 9,
+    level: 3,
+    title: "The apple in the bag",
+    theme: "One lunch between two people, and then a surprise.",
+    tags: ["food", "friends", "school"],
+    glosses: [
+      { surface: "그래서", meaning: "so, therefore", atomId: "ko:그래서" },
+      { surface: "좋아해요", meaning: "like(s)", atomId: "ko:좋아해요" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구 가방에 뭐가 있어요?",
+        options: ["사과가 있어요", "빵이 있어요", "우유가 있어요"],
+        answer: "사과가 있어요",
+      },
+    ],
+    sentences: [
+      { text: "저는 학교에 가요.", translation: "I go to school." },
+      { text: "제 가방에 빵과 우유가 있어요.", translation: "In my bag there's bread and milk." },
+      { text: "교실에서 친구를 봐요.", translation: "In the classroom I see my friend." },
+      { text: "그런데 친구 가방에 빵이 없어요.", translation: "But there's no bread in my friend's bag." },
+      { text: "우유도 없어요.", translation: "No milk either." },
+      { text: "그래서 저는 친구하고 빵을 먹어요.", translation: "So I eat the bread with my friend." },
+      { text: "우유도 마셔요.", translation: "We drink the milk too." },
+      { text: "그런데 친구 가방에 사과가 있어요!", translation: "But there's an apple in my friend's bag!" },
+      { text: "사과는 커요.", translation: "The apple is big." },
+      { text: "우리는 사과를 먹어요.", translation: "We eat the apple." },
+      { text: "사과가 맛있어요.", translation: "The apple is delicious." },
+      { text: "우리 가방에 빵도 우유도 사과도 없어요.", translation: "Now our bags have no bread, no milk, no apple." },
+      { text: "그런데 괜찮아요.", translation: "But that's fine." },
+      { text: "저는 친구를 좋아해요.", translation: "I like my friend." },
+    ],
+  },
+  {
     id: "ko-m10-yesterday",
     languageId: "ko",
     module: 10,
@@ -135,6 +409,53 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m10 stretch read — the FIRST fully past-tense KO story in the file.
+    // m10's past action verbs (갔어요 / 왔어요 / 마셨어요 / 먹었어요 /
+    // 맛있었어요) all gate; 있었어요 and 없었어요 never gate at ANY module, so
+    // they are bought with two of the four gloss slots. They earn them: the
+    // whole arc is a sequence of absences ending in a presence.
+    id: "ko-m10-looking-for-a-friend",
+    languageId: "ko",
+    module: 10,
+    level: 3,
+    title: "Looking for a friend",
+    theme: "Two people spend a whole day missing each other.",
+    tags: ["friends", "town"],
+    glosses: [
+      { surface: "없었어요", meaning: "wasn't there, wasn't in", atomId: "ko:없어요" },
+      { surface: "있었어요", meaning: "was there, was in", atomId: "ko:있어요" },
+      { surface: "그래서", meaning: "so, therefore", atomId: "ko:그래서" },
+      { surface: "그리고", meaning: "and, and then", atomId: "ko:그리고" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "친구는 어디에 있었어요?",
+        options: ["식당에 있었어요", "집에 있었어요", "학교에 있었어요"],
+        answer: "식당에 있었어요",
+      },
+    ],
+    sentences: [
+      { text: "어제 저는 친구 집에 갔어요.", translation: "Yesterday I went to my friend's house." },
+      { text: "그런데 친구가 집에 없었어요.", translation: "But my friend wasn't home." },
+      { text: "그래서 저는 학교에 갔어요.", translation: "So I went to the school." },
+      { text: "학교에도 친구가 없었어요.", translation: "My friend wasn't at school either." },
+      { text: "저는 교실에서 커피를 마셨어요.", translation: "I drank a coffee in the classroom." },
+      { text: "그리고 가게에 갔어요.", translation: "And then I went to the shop." },
+      { text: "가게에도 친구가 없었어요.", translation: "My friend wasn't at the shop either." },
+      { text: "저는 식당에 갔어요.", translation: "I went to the restaurant." },
+      { text: "식당에 친구가 있었어요!", translation: "My friend was at the restaurant!" },
+      { text: "친구는 밥을 먹었어요.", translation: "My friend had had a meal." },
+      { text: "저도 밥을 먹었어요.", translation: "I ate too." },
+      { text: "밥이 맛있었어요.", translation: "The food was delicious." },
+      { text: "친구도 어제 우리 집에 갔어요!", translation: "My friend had gone to my house yesterday too!" },
+      { text: "그런데 저는 집에 없었어요.", translation: "But I wasn't home." },
+      { text: "우리는 식당에서 커피를 마셨어요.", translation: "We drank coffee at the restaurant." },
+      { text: "어제는 좋았어요.", translation: "Yesterday turned out well." },
+    ],
+  },
+  {
     id: "ko-m11-a-day-off",
     languageId: "ko",
     module: 11,
@@ -158,6 +479,52 @@ export const KO_STORIES: Story[] = [
       { text: "커피를 못 마셔요.", translation: "I can't have my coffee." },
       { text: "빵도 없어요.", translation: "There's no bread either." },
       { text: "그런데 밥도 안 먹어요.", translation: "But I don't eat, either." },
+    ],
+  },
+  {
+    // m11 stretch read. m11 adds 안 / 못 / …고 싶어요, which is what makes a
+    // frustrated-desire arc writable at all. Note 보고 싶어요 is the ONLY
+    // want-form available here: 가고 / 먹고 residual until 고 lands at m14, so
+    // the atoms "가고 싶어요" / "먹고 싶어요" are unusable as written text.
+    id: "ko-m11-the-restaurant-i-cant-go-to",
+    languageId: "ko",
+    module: 11,
+    level: 3,
+    title: "The restaurant I can't go to",
+    theme: "An expensive craving, and a cheaper thing that beats it.",
+    tags: ["food", "friends", "home"],
+    glosses: [
+      { surface: "좋아해요", meaning: "like(s)", atomId: "ko:좋아해요" },
+      { surface: "그래서", meaning: "so, therefore", atomId: "ko:그래서" },
+      { surface: "있었어요", meaning: "was there, was in", atomId: "ko:있어요" },
+      { surface: "그리고", meaning: "and, and then", atomId: "ko:그리고" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 어디에서 빵을 먹었어요?",
+        options: ["집에서 먹었어요", "식당에서 먹었어요", "학교에서 먹었어요"],
+        answer: "집에서 먹었어요",
+      },
+    ],
+    sentences: [
+      { text: "저는 그 식당을 좋아해요.", translation: "I love that restaurant." },
+      { text: "그 식당은 밥이 맛있어요.", translation: "The food there is delicious." },
+      { text: "그런데 그 식당은 비싸요.", translation: "But that restaurant is expensive." },
+      { text: "그래서 저는 그 식당에 못 가요.", translation: "So I can't go there." },
+      { text: "저는 영화를 보고 싶어요.", translation: "I want to watch a movie." },
+      { text: "어제 저는 집에 있었어요.", translation: "Yesterday I was at home." },
+      { text: "저는 밥을 안 먹었어요.", translation: "I didn't eat." },
+      { text: "그런데 친구가 우리 집에 왔어요.", translation: "But my friend came over." },
+      { text: "친구 가방에 빵하고 우유가 있었어요.", translation: "There was bread and milk in my friend's bag." },
+      { text: "우리는 집에서 빵을 먹었어요.", translation: "We ate the bread at home." },
+      { text: "빵이 맛있었어요.", translation: "The bread was delicious." },
+      { text: "그리고 우리는 영화를 봤어요.", translation: "And we watched a movie." },
+      { text: "영화가 좋았어요.", translation: "The movie was good." },
+      { text: "저는 그 식당에 못 가요.", translation: "I can't go to that restaurant." },
+      { text: "그런데 괜찮아요!", translation: "But that's all right!" },
+      { text: "우리 집이 좋아요.", translation: "Home is good." },
     ],
   },
   {
@@ -273,6 +640,57 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m13 stretch read — first KO L4 (17-24 sentences). m13 hands over the
+    // frequency adverbs (항상 / 자주 / 가끔 / 별로 / 전혀), 부터…까지, month
+    // names and both 그래서 / 그리고, which is exactly enough to write a habit
+    // that CHANGES rather than a habit that is merely listed.
+    id: "ko-m13-from-june-to-october",
+    languageId: "ko",
+    module: 13,
+    level: 4,
+    title: "From June to October",
+    theme: "Someone drags me out to exercise. Months later the roles swap.",
+    tags: ["exercise", "work", "friends"],
+    glosses: [
+      { surface: "같이", meaning: "together" },
+      { surface: "아팠어요", meaning: "hurt, was sore", atomId: "ko:아파요" },
+      { surface: "혼자", meaning: "alone, by myself" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "지금 친구는 어디에 있어요?",
+        options: ["회사에 있어요", "집에 있어요", "학교에 있어요"],
+        answer: "회사에 있어요",
+      },
+    ],
+    sentences: [
+      { text: "저는 아홉 시부터 여섯 시까지 회사에 있어요.", translation: "I'm at the office from nine until six." },
+      { text: "저는 회사에서 커피를 자주 마셔요.", translation: "I drink coffee at the office a lot." },
+      { text: "그런데 저는 운동을 전혀 안 해요.", translation: "But I never exercise at all." },
+      { text: "제 친구는 항상 운동해요.", translation: "My friend always exercises." },
+      { text: "유월에 친구가 우리 집에 왔어요.", translation: "In June my friend came to my house." },
+      { text: "민수, 같이 운동해요!", translation: "\"Minsu, let's exercise together!\"" },
+      { text: "저는 운동을 별로 안 좋아해요.", translation: "I don't much like exercise." },
+      { text: "그런데 저는 친구하고 운동했어요.", translation: "But I exercised with my friend anyway." },
+      { text: "운동이 별로 안 좋았어요.", translation: "I didn't enjoy it much." },
+      { text: "제 다리가 아팠어요.", translation: "My legs hurt." },
+      { text: "그래서 저는 운동을 안 했어요.", translation: "So I didn't exercise." },
+      { text: "그런데 친구가 토요일에 항상 우리 집에 왔어요.", translation: "But my friend came to my house every Saturday." },
+      { text: "그리고 우리는 같이 운동했어요.", translation: "And we exercised together." },
+      { text: "칠월에도 친구가 왔어요.", translation: "In July my friend came too." },
+      { text: "팔월에도 왔어요.", translation: "In August too." },
+      { text: "시월부터 저는 운동을 좋아해요.", translation: "From October on, I like exercise." },
+      { text: "지금 저는 자주 운동해요.", translation: "Now I exercise often." },
+      { text: "그런데 지금 친구는 운동을 안 해요.", translation: "But now my friend doesn't exercise." },
+      { text: "친구는 항상 회사에 있어요.", translation: "My friend is always at the office." },
+      { text: "그래서 저는 토요일에 혼자 운동해요.", translation: "So on Saturdays I exercise alone." },
+      { text: "지금 저는 친구 회사에 가요.", translation: "Now I'm on my way to my friend's office." },
+      { text: "친구, 같이 운동해요!", translation: "\"Come on — let's exercise together!\"" },
+    ],
+  },
+  {
     id: "ko-m14-a-busy-day",
     languageId: "ko",
     module: 14,
@@ -299,6 +717,58 @@ export const KO_STORIES: Story[] = [
     ],
   },
   {
+    // m14 stretch read. m14 lands 고 (clause join), 바빠서, the 백/천/만
+    // number scale and 기다리다 — so this is the first KO story that can both
+    // wait and explain why someone else couldn't come. 기다렸어요 never gates
+    // at any module and is bought with a gloss; 마시고 / 먹고 are NOT available
+    // yet (마시고 is m15, 먹고 never), so the meal is two short sentences.
+    id: "ko-m14-the-child-at-the-station",
+    languageId: "ko",
+    module: 14,
+    level: 4,
+    title: "The child at the station",
+    theme: "A small stranger asks for help, and the wait gets long.",
+    tags: ["town", "family", "help"],
+    glosses: [
+      { surface: "기다렸어요", meaning: "waited", atomId: "ko:기다리다" },
+      { surface: "있었어요", meaning: "was there, was in", atomId: "ko:있어요" },
+      { surface: "같이", meaning: "together" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "미나 어머니는 어디에 있었어요?",
+        options: ["병원에 있었어요", "역에 있었어요", "가게에 있었어요"],
+        answer: "병원에 있었어요",
+      },
+    ],
+    sentences: [
+      { text: "어제 저는 역에 갔어요.", translation: "Yesterday I went to the station." },
+      { text: "역에서 작은 아이를 봤어요.", translation: "At the station I saw a small child." },
+      { text: "아이가 저를 봤어요.", translation: "The child looked at me." },
+      { text: "어머니가 없어요. 도와주세요.", translation: "\"My mother isn't here. Please help me.\"" },
+      { text: "아이 이름은 미나예요.", translation: "The child's name is Mina." },
+      { text: "미나는 학생이에요.", translation: "Mina is a schoolchild." },
+      { text: "저는 미나하고 어머니를 기다렸어요.", translation: "I waited with Mina for her mother." },
+      { text: "그런데 어머니가 안 왔어요.", translation: "But her mother didn't come." },
+      { text: "우리는 한 시간 기다렸어요.", translation: "We waited for an hour." },
+      { text: "미나는 밥을 안 먹었어요.", translation: "Mina hadn't eaten." },
+      { text: "그래서 우리는 가게에 갔어요.", translation: "So we went to the shop." },
+      { text: "빵 두 개하고 우유를 주세요.", translation: "\"Two pieces of bread and a milk, please.\"" },
+      { text: "이천 원이에요.", translation: "\"That's 2,000 won.\"" },
+      { text: "우리는 빵을 먹었어요.", translation: "We ate the bread." },
+      { text: "그리고 우유를 마셨어요.", translation: "And we drank the milk." },
+      { text: "우리 어머니는 병원에 있어요.", translation: "\"My mother is at the hospital.\"" },
+      { text: "그래서 우리는 같이 병원에 갔어요.", translation: "So we went to the hospital together." },
+      { text: "병원에 미나 어머니가 있었어요!", translation: "Mina's mother was at the hospital!" },
+      { text: "어머니는 바빠서 역에 못 왔어요.", translation: "She was busy, so she couldn't come to the station." },
+      { text: "고마워요! 감사합니다!", translation: "\"Thank you! Thank you so much!\"" },
+      { text: "미나는 어머니하고 집에 가고 저는 역에 갔어요.", translation: "Mina went home with her mother, and I went back to the station." },
+      { text: "어제는 좋았어요.", translation: "Yesterday was a good day." },
+    ],
+  },
+  {
     id: "ko-m15-relaxing-at-home",
     languageId: "ko",
     module: 15,
@@ -322,6 +792,55 @@ export const KO_STORIES: Story[] = [
       { text: "친구도 집에 와요.", translation: "My friend comes over too." },
       { text: "여기 앉아도 돼요.", translation: "You can sit here." },
       { text: "우리는 커피를 마시고 영화를 봐요.", translation: "We drink coffee and watch a movie." },
+    ],
+  },
+  {
+    // m15 stretch read. m15 gives …고 있어요, 이지만 and 전화, so the phone can
+    // finally ring and a sentence can finally concede something. Narration is
+    // past; the progressive appears where it belongs — inside the phone call,
+    // where present tense is what a speaker would actually use.
+    id: "ko-m15-the-saturday-call",
+    languageId: "ko",
+    module: 15,
+    level: 4,
+    title: "The Saturday call",
+    theme: "A day off, one phone call, and an office with nobody in it.",
+    tags: ["work", "phone", "home"],
+    glosses: [
+      { surface: "사람", meaning: "person, people" },
+      { surface: "없었어요", meaning: "wasn't there, wasn't in", atomId: "ko:없어요" },
+      { surface: "기다렸어요", meaning: "waited", atomId: "ko:기다리다" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "저는 회사에 언제 가요?",
+        options: ["일요일에 가요", "토요일에 가요", "금요일에 가요"],
+        answer: "일요일에 가요",
+      },
+    ],
+    sentences: [
+      { text: "오늘은 토요일이에요.", translation: "Today is Saturday." },
+      { text: "저는 회사에 안 가요.", translation: "I don't go to the office on Saturdays." },
+      { text: "저는 집에서 영화를 봤어요.", translation: "I watched a movie at home." },
+      { text: "커피도 마셨어요.", translation: "I drank coffee too." },
+      { text: "그런데 회사에서 전화했어요.", translation: "But the office called." },
+      { text: "지금 뭐 해요?", translation: "\"What are you doing right now?\"" },
+      { text: "저는 집에서 영화를 보고 있어요.", translation: "\"I'm at home watching a movie.\"" },
+      { text: "오늘 회사에 와요.", translation: "\"Come in to the office today.\"" },
+      { text: "오늘은 토요일이지만 저는 회사에 갔어요.", translation: "It was Saturday, but I went in." },
+      { text: "그런데 회사에 사람이 없었어요.", translation: "But there was nobody at the office." },
+      { text: "저는 한 시간 기다렸어요.", translation: "I waited for an hour." },
+      { text: "그런데 사람이 안 왔어요.", translation: "But nobody came." },
+      { text: "그래서 저는 회사에 전화했어요.", translation: "So I called the office." },
+      { text: "일요일에 회사에 와요.", translation: "\"Come in to the office on Sunday.\"" },
+      { text: "오늘은 토요일이에요!", translation: "But today is Saturday!" },
+      { text: "저는 집에 갔어요.", translation: "I went home." },
+      { text: "집에서 커피를 마시고 영화를 봤어요.", translation: "At home I drank coffee and watched my movie." },
+      { text: "지금 저는 자고 싶어요.", translation: "Right now I just want to sleep." },
+      { text: "일요일에 저는 회사에 가요.", translation: "On Sunday I go in to the office." },
+      { text: "그런데 일요일에도 회사에 사람이 없어요?", translation: "But on Sunday — will anyone be at the office?" },
     ],
   },
   {
