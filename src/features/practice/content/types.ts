@@ -10,7 +10,7 @@
  * sentences the learner can't yet read" problem.
  *
  * Structure is LANGUAGE-AGNOSTIC; the actual content lives in per-language
- * data files (`ja.ts`, `ko.ts`) and is surfaced through the module-gated
+ * directories (`ja/`, `ko/`) and is surfaced through the module-gated
  * registry in `index.ts`.
  */
 

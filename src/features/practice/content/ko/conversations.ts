@@ -1,0 +1,542 @@
+/**
+ * CONVERSATIONS m3-m27 are converted verbatim from the per-module
+ * "Mini-dialogue" lessons (`languages/ko/curriculum/m*.ts`): the exchange
+ * that lived as an `infoStep` script is lifted into structured `lines` split
+ * by speaker, each with its translation. They are already module-calibrated,
+ * so they pass the comprehensibility gate at their module by construction.
+ *
+ * The AUTHORED set below is newly authored for early-mid modules using only
+ * in-module vocab (gate-verified) — richer conversations than the converted
+ * mini-dialogues above.
+ */
+import type { Conversation } from "../types";
+
+const YOU = "You";
+
+// ── Converted mini-dialogues (m3-m27) ───────────────────────────────────────
+const CONVERTED_CONVERSATIONS: Conversation[] = [
+  {
+    id: "ko-m3-meeting",
+    languageId: "ko",
+    module: 3,
+    title: "Meeting someone",
+    situation: "A first meeting — greet, introduce yourself, ask a name.",
+    speakers: [
+      { id: "A", label: "Minsu" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "안녕하세요! 저는 민수예요.", translation: "Hello! I'm Minsu." },
+      { speaker: "B", text: "안녕하세요. 이름이 뭐예요?", translation: "Hello. What's your name?" },
+      { speaker: "A", text: "반갑습니다!", translation: "Nice to meet you!" },
+    ],
+  },
+  {
+    id: "ko-m4-shop-pointing",
+    languageId: "ko",
+    module: 4,
+    title: "At a shop",
+    situation: "Point at things, ask what they are and whose they are.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Shopkeeper" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "이게 뭐예요?", translation: "What is this?" },
+      { speaker: "B", text: "그거 가방이에요.", translation: "That's a bag." },
+      { speaker: "A", text: "저거는 누구 거예요?", translation: "Whose is that one over there?" },
+      { speaker: "B", text: "제 거예요.", translation: "It's mine." },
+    ],
+  },
+  {
+    id: "ko-m5-cafe",
+    languageId: "ko",
+    module: 5,
+    title: "At a cafe",
+    situation: "Order, ask the price, and count — all together.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Staff" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "커피 두 잔 주세요.", translation: "Two coffees, please." },
+      { speaker: "B", text: "네.", translation: "Sure." },
+      { speaker: "A", text: "이거 얼마예요?", translation: "How much is this?" },
+      { speaker: "B", text: "사천 원이에요.", translation: "It's 4,000 won." },
+    ],
+  },
+  {
+    id: "ko-m6-finding-way",
+    languageId: "ko",
+    module: 6,
+    title: "Finding your way",
+    situation: "Ask where a place is and say where you are.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Passer-by" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "식당이 어디에 있어요?", translation: "Where's the restaurant?" },
+      { speaker: "B", text: "역에 있어요.", translation: "It's at the station." },
+      { speaker: "A", text: "친구가 학교에 있어요.", translation: "My friend is at school." },
+    ],
+  },
+  {
+    id: "ko-m7-what-doing",
+    languageId: "ko",
+    module: 7,
+    title: "What are you doing?",
+    situation: "Ask and answer about everyday actions.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "뭐 해요?", translation: "What are you doing?" },
+      { speaker: "B", text: "영화를 봐요.", translation: "I'm watching a movie." },
+      { speaker: "A", text: "저는 공부해요.", translation: "I'm studying." },
+    ],
+  },
+  {
+    id: "ko-m8-shop-reacting",
+    languageId: "ko",
+    module: 8,
+    title: "Reacting in a shop",
+    situation: "React to things you see and try.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "이 가방 예뻐요?", translation: "Is this bag pretty?" },
+      { speaker: "B", text: "예뻐요! 비싸요.", translation: "It's pretty! It's expensive." },
+      { speaker: "A", text: "이 책은 좋아요.", translation: "This book is good." },
+    ],
+  },
+  {
+    id: "ko-m9-ordering-together",
+    languageId: "ko",
+    module: 9,
+    title: "Ordering together",
+    situation: "Order for two and say 'me too'.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "커피하고 빵 주세요.", translation: "Coffee and bread, please." },
+      { speaker: "B", text: "저도 커피 주세요.", translation: "Coffee for me too, please." },
+      { speaker: "A", text: "친구하고 가요.", translation: "I'm going with a friend." },
+    ],
+  },
+  {
+    id: "ko-m10-how-was-it",
+    languageId: "ko",
+    module: 10,
+    title: "How was it?",
+    situation: "Ask about the past and react.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "어제 뭐 했어요?", translation: "What did you do yesterday?" },
+      { speaker: "B", text: "영화를 봤어요. 좋았어요.", translation: "I watched a movie. It was good." },
+      { speaker: "A", text: "저는 친구하고 밥을 먹었어요.", translation: "I ate with a friend." },
+    ],
+  },
+  {
+    id: "ko-m11-declining",
+    languageId: "ko",
+    module: 11,
+    title: "Declining politely",
+    situation: "Turn something down and say what you'd rather do.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "커피 마셔요?", translation: "Are you drinking coffee?" },
+      { speaker: "B", text: "아니요, 커피 안 마셔요.", translation: "No, I don't drink coffee." },
+      { speaker: "A", text: "영화 보고 싶어요?", translation: "Do you want to watch a movie?" },
+      { speaker: "B", text: "오늘은 못 봐요.", translation: "I can't today." },
+    ],
+  },
+  {
+    id: "ko-m12-making-plans",
+    languageId: "ko",
+    module: 12,
+    title: "Making plans",
+    situation: "Ask the time, pick a day, make a plan.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Friend" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "지금 몇 시예요?", translation: "What time is it now?" },
+      { speaker: "B", text: "두 시예요.", translation: "It's 2 o'clock." },
+      { speaker: "A", text: "금요일에 영화를 보고 싶어요.", translation: "I want to watch a movie on Friday." },
+      { speaker: "B", text: "좋아요! 세 시에 만나요.", translation: "Great! Let's meet at 3:00." },
+    ],
+  },
+  {
+    id: "ko-m13-routine",
+    languageId: "ko",
+    module: 13,
+    title: "Your routine",
+    situation: "Ask and answer about how often and when.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "자주 운동해요?", translation: "Do you exercise often?" },
+      { speaker: "B", text: "아니요, 가끔 해요.", translation: "No, sometimes." },
+      { speaker: "A", text: "언제 공부해요?", translation: "When do you study?" },
+      { speaker: "B", text: "한 시부터 세 시까지 공부해요.", translation: "From 1:00 to 3:00." },
+    ],
+  },
+  {
+    id: "ko-m14-asking-help",
+    languageId: "ko",
+    module: 14,
+    title: "Asking for help",
+    situation: "Link actions, give a reason, make a request.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Colleague" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "도와주세요.", translation: "Please help me." },
+      { speaker: "B", text: "네, 뭐예요?", translation: "Sure, what is it?" },
+      { speaker: "A", text: "바빠서 시간이 없어요.", translation: "I'm busy, so I have no time." },
+      { speaker: "B", text: "기다려 주세요.", translation: "Please wait." },
+    ],
+  },
+  {
+    id: "ko-m15-cafe-permission",
+    languageId: "ko",
+    module: 15,
+    title: "At the cafe",
+    situation: "Ask what someone's doing and ask permission.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Friend" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "뭐 하고 있어요?", translation: "What are you doing?" },
+      { speaker: "B", text: "커피를 마시고 있어요.", translation: "I'm drinking coffee." },
+      { speaker: "A", text: "여기 앉아도 돼요?", translation: "May I sit here?" },
+      { speaker: "B", text: "네, 돼요.", translation: "Yes, you may." },
+    ],
+  },
+  {
+    id: "ko-m16-house-rules",
+    languageId: "ko",
+    module: 16,
+    title: "House rules",
+    situation: "State a rule, make a request, share a preference.",
+    speakers: [
+      { id: "A", label: "Host" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "여기서 담배를 피우면 안 돼요.", translation: "You can't smoke here." },
+      { speaker: "B", text: "네, 알겠어요.", translation: "OK, got it." },
+      { speaker: "A", text: "여기 앉아도 돼요.", translation: "You may sit here." },
+      { speaker: "B", text: "저는 이 집을 좋아해요.", translation: "I like this house." },
+    ],
+  },
+  {
+    id: "ko-m17-asking-way",
+    languageId: "ko",
+    module: 17,
+    title: "Asking the way",
+    situation: "Ask how to get somewhere and follow directions.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Passer-by" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "역까지 어떻게 가요?", translation: "How do I get to the station?" },
+      { speaker: "B", text: "버스를 타세요.", translation: "Take the bus." },
+      { speaker: "A", text: "어디서 내려요?", translation: "Where do I get off?" },
+      { speaker: "B", text: "다음 역에서 내려서 왼쪽으로 가세요.", translation: "Get off at the next stop and go left." },
+    ],
+  },
+  {
+    id: "ko-m18-weather",
+    languageId: "ko",
+    module: 18,
+    title: "The weather",
+    situation: "Ask about the weather and make plans around it.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "오늘 날씨 좋아요?", translation: "Is the weather good today?" },
+      { speaker: "B", text: "흐려요. 비가 올 것 같아요.", translation: "It's cloudy. Looks like it'll rain." },
+      { speaker: "A", text: "그래서 집에 있을 거예요.", translation: "So I'll stay home." },
+      { speaker: "B", text: "내일은 맑을 거예요.", translation: "Tomorrow will be clear." },
+    ],
+  },
+  {
+    id: "ko-m19-family",
+    languageId: "ko",
+    module: 19,
+    title: "Talking about family",
+    situation: "Ask and answer about each other's families.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "가족이 몇 명이에요?", translation: "How many in your family?" },
+      { speaker: "B", text: "네 명이에요. 엄마, 아빠, 형, 그리고 저요.", translation: "Four. Mom, dad, my older brother, and me." },
+      { speaker: "A", text: "형은 몇 살이에요?", translation: "How old is your brother?" },
+      { speaker: "B", text: "스무 살이에요.", translation: "He's twenty." },
+    ],
+  },
+  {
+    id: "ko-m20-doctor",
+    languageId: "ko",
+    module: 20,
+    title: "At the doctor's",
+    situation: "Describe your symptoms and get advice.",
+    speakers: [
+      { id: "A", label: "Doctor" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "어디가 아파요?", translation: "Where does it hurt?" },
+      { speaker: "B", text: "머리가 아파요. 그리고 열이 나요.", translation: "My head hurts. And I have a fever." },
+      { speaker: "A", text: "감기예요. 약을 먹으면 괜찮을 거예요.", translation: "It's a cold. If you take medicine, you'll be fine." },
+    ],
+  },
+  {
+    id: "ko-m21-restaurant",
+    languageId: "ko",
+    module: 21,
+    title: "At a restaurant",
+    situation: "Order a meal and a drink.",
+    speakers: [
+      { id: "A", label: "Staff" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "뭐 드릴까요?", translation: "What can I get you?" },
+      { speaker: "B", text: "비빔밥하고 커피 한 잔 주세요.", translation: "Bibimbap and one coffee, please." },
+      { speaker: "A", text: "이거는 김치라고 해요. 드셔 보세요.", translation: "This is called kimchi. Please try it." },
+      { speaker: "B", text: "감사합니다.", translation: "Thank you." },
+    ],
+  },
+  {
+    id: "ko-m22-which-better",
+    languageId: "ko",
+    module: 22,
+    title: "Which is better?",
+    situation: "Help a friend choose between two options.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "커피하고 차 중에서 뭐가 더 좋아요?", translation: "Between coffee and tea, which is better?" },
+      { speaker: "B", text: "저는 커피가 더 좋아요.", translation: "I like coffee more." },
+      { speaker: "A", text: "여기는 차가 커피보다 싸요.", translation: "Here, tea is cheaper than coffee." },
+      { speaker: "B", text: "그래도 커피가 제일 맛있어요.", translation: "Still, coffee is the tastiest." },
+    ],
+  },
+  {
+    id: "ko-m23-lets-do",
+    languageId: "ko",
+    module: 23,
+    title: "Let's do something",
+    situation: "Suggest an activity with a friend.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "주말에 뭐 할까요?", translation: "What shall we do on the weekend?" },
+      { speaker: "B", text: "저는 요리를 잘해요. 같이 요리할까요?", translation: "I'm good at cooking. Shall we cook together?" },
+      { speaker: "A", text: "좋아요! 같이 합시다.", translation: "Great! Let's do it." },
+    ],
+  },
+  {
+    id: "ko-m24-hobbies",
+    languageId: "ko",
+    module: 24,
+    title: "Talking about hobbies",
+    situation: "Ask and answer about each other's hobbies.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "취미가 뭐예요?", translation: "What's your hobby?" },
+      { speaker: "B", text: "저는 음악을 들어요. 노래도 할 줄 알아요.", translation: "I listen to music. I also know how to sing." },
+      { speaker: "A", text: "일주일에 몇 번 노래해요?", translation: "How many times a week do you sing?" },
+      { speaker: "B", text: "두 번 해요. 같이 할까요?", translation: "Twice. Shall we do it together?" },
+    ],
+  },
+  {
+    id: "ko-m25-trip",
+    languageId: "ko",
+    module: 25,
+    title: "Planning a trip",
+    situation: "Combine intentions, purpose, and experience.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "여행 계획이 있어요?", translation: "Do you have travel plans?" },
+      { speaker: "B", text: "네, 일본에 가려고 해요.", translation: "Yes, I intend to go to Japan." },
+      { speaker: "A", text: "일본에 간 적이 있어요?", translation: "Have you been to Japan?" },
+      { speaker: "B", text: "아니요. 온천에 가고 싶어요.", translation: "No. I want to go to a hot spring." },
+    ],
+  },
+  {
+    id: "ko-m26-why-late",
+    languageId: "ko",
+    module: 26,
+    title: "Why are you late?",
+    situation: "Apologize and explain a reason.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "왜 늦었어요?", translation: "Why are you late?" },
+      { speaker: "B", text: "죄송해요. 길이 너무 막혔거든요.", translation: "Sorry. The road was too jammed, you see." },
+      { speaker: "A", text: "괜찮아요. 피곤해요?", translation: "It's OK. Are you tired?" },
+      { speaker: "B", text: "네, 너무 피곤해서 집에 가고 싶어요.", translation: "Yes, I'm so tired I want to go home." },
+    ],
+  },
+  {
+    id: "ko-m27-advice",
+    languageId: "ko",
+    module: 27,
+    title: "Giving advice",
+    situation: "Combine must, should, and become.",
+    speakers: [
+      { id: "A", label: "Friend" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "너무 피곤해요.", translation: "I'm so tired." },
+      { speaker: "B", text: "약을 먹는 게 좋아요.", translation: "You should take medicine." },
+      { speaker: "A", text: "네. 병원에 가야 돼요?", translation: "Yes. Do I have to go to the hospital?" },
+      { speaker: "B", text: "쉬면 건강해져요. 조심하세요.", translation: "If you rest, you'll get healthy. Take care." },
+    ],
+  },
+];
+
+// ── Newly authored richer conversations ─────────────────────────────────────
+const AUTHORED_CONVERSATIONS: Conversation[] = [
+  {
+    id: "ko-m5-cafe-busy",
+    languageId: "ko",
+    module: 5,
+    title: "A busy cafe",
+    situation: "Order for two, check a price, and count carefully.",
+    speakers: [
+      { id: "A", label: YOU },
+      { id: "B", label: "Barista" },
+    ],
+    learnerRole: "A",
+    lines: [
+      { speaker: "A", text: "커피 세 잔 주세요.", translation: "Three coffees, please." },
+      { speaker: "B", text: "네. 물도 주세요?", translation: "Sure. Water too?" },
+      { speaker: "A", text: "네, 물 한 잔 주세요.", translation: "Yes, one glass of water, please." },
+      { speaker: "B", text: "삼천 원이에요.", translation: "It's 3,000 won." },
+      { speaker: "A", text: "네, 감사합니다.", translation: "OK, thank you." },
+    ],
+  },
+  {
+    id: "ko-m7-roommates",
+    languageId: "ko",
+    module: 7,
+    title: "Roommates at home",
+    situation: "Two roommates check in on what each other is doing.",
+    speakers: [
+      { id: "A", label: "Jun" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "뭐 해요?", translation: "What are you doing?" },
+      { speaker: "B", text: "밥을 먹어요. 준도 먹어요?", translation: "I'm eating. Are you eating too, Jun?" },
+      { speaker: "A", text: "아니요, 저는 공부해요.", translation: "No, I'm studying." },
+      { speaker: "B", text: "저는 영화를 봐요.", translation: "I'm watching a movie." },
+    ],
+  },
+  {
+    id: "ko-m10-catchup",
+    languageId: "ko",
+    module: 10,
+    title: "How was yesterday?",
+    situation: "Catch up on what you each did yesterday.",
+    speakers: [
+      { id: "A", label: "Mina" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "어제 뭐 했어요?", translation: "What did you do yesterday?" },
+      { speaker: "B", text: "친구하고 커피를 마셨어요.", translation: "I had coffee with a friend." },
+      { speaker: "A", text: "저는 집에서 영화를 봤어요. 좋았어요.", translation: "I watched a movie at home. It was good." },
+      { speaker: "B", text: "저도 영화를 봤어요.", translation: "I watched a movie too." },
+    ],
+  },
+  {
+    id: "ko-m13-gym-buddy",
+    languageId: "ko",
+    module: 13,
+    title: "Gym schedules",
+    situation: "Compare when and how often you each exercise.",
+    speakers: [
+      { id: "A", label: "Jisu" },
+      { id: "B", label: YOU },
+    ],
+    learnerRole: "B",
+    lines: [
+      { speaker: "A", text: "자주 운동해요?", translation: "Do you exercise often?" },
+      { speaker: "B", text: "네, 자주 해요. 언제 운동해요?", translation: "Yes, often. When do you exercise?" },
+      { speaker: "A", text: "저는 한 시에 해요.", translation: "I do it at 1 o'clock." },
+      { speaker: "B", text: "저는 한 시부터 두 시까지 해요.", translation: "I do it from 1:00 to 2:00." },
+    ],
+  },
+];
+
+export const KO_CONVERSATIONS: Conversation[] = [
+  ...CONVERTED_CONVERSATIONS,
+  ...AUTHORED_CONVERSATIONS,
+];
