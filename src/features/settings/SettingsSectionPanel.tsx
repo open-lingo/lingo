@@ -32,6 +32,7 @@ import {
   languageIdFromSection,
   type SettingsSectionId,
 } from "./settingsSections";
+import { marketingUrl } from "@/shared/config/marketing";
 
 const UI_LOCALE_LABELS: Record<string, string> = {
   en: "English",
@@ -503,10 +504,11 @@ function MoreInfoPanel() {
   const { closeAll } = useModal();
   const year = new Date().getFullYear();
 
-  const internalLinks: { to: string; label: string }[] = [
-    { to: "/about", label: t("landing.footerAbout", "About") },
-    { to: "/privacy", label: t("landing.footerPrivacy", "Privacy") },
-    { to: "/terms", label: t("landing.footerTerms", "Terms") },
+  // These pages live on the marketing site now, so they are external links.
+  const infoLinks: { href: string; label: string }[] = [
+    { href: marketingUrl("/about"), label: t("landing.footerAbout", "About") },
+    { href: marketingUrl("/privacy"), label: t("landing.footerPrivacy", "Privacy") },
+    { href: marketingUrl("/terms"), label: t("landing.footerTerms", "Terms") },
   ];
 
   return (
@@ -520,19 +522,19 @@ function MoreInfoPanel() {
       />
 
       <SettingsGroup label={t("settings.moreInfo.linksLabel", "Links")}>
-        {internalLinks.map((l) => (
+        {infoLinks.map((l) => (
           <SettingRow
-            key={l.to}
+            key={l.href}
             label={l.label}
             control={
-              <Link
-                to={l.to}
+              <a
+                href={l.href}
                 onClick={closeAll}
                 className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
               >
                 {t("settings.open", "Open")}
                 <Icon name="arrowBigRight" size={14} aria-hidden />
-              </Link>
+              </a>
             }
           />
         ))}

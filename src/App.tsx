@@ -24,7 +24,6 @@ import { LearnLayout } from "@/features/learn/LearnLayout";
 import { PracticeLayout } from "@/features/practice/PracticeLayout";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
 import { RootRoute } from "@/routes/RootRoute";
-import { LandingRoute } from "@/routes/LandingRoute";
 import { RequireAuth } from "@/routes/RequireAuth";
 import { SettingsOpenRoute } from "@/features/settings/SettingsOpenRoute";
 
@@ -35,15 +34,6 @@ const LoginPage = lazyRetry(() =>
 );
 const LogoutPage = lazyRetry(() =>
   import("@/features/auth/LogoutPage").then((m) => ({ default: m.LogoutPage })),
-);
-const PrivacyPolicyPage = lazyRetry(() =>
-  import("@/features/legal/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })),
-);
-const TermsOfServicePage = lazyRetry(() =>
-  import("@/features/legal/TermsOfServicePage").then((m) => ({ default: m.TermsOfServicePage })),
-);
-const AboutPage = lazyRetry(() =>
-  import("@/features/legal/AboutPage").then((m) => ({ default: m.AboutPage })),
 );
 const VocabPage = lazyRetry(() =>
   import("@/features/vocab/VocabPage").then((m) => ({ default: m.VocabPage })),
@@ -291,7 +281,7 @@ const CourseMapPage = lazyRetry(() =>
 );
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
-const GetStartedPage = lazyRetry(() => import("@/features/landing/GetStartedPage"));
+const GetStartedPage = lazyRetry(() => import("@/features/auth/GetStartedPage"));
 const PreviewLessonPage = lazyRetry(() => import("@/features/preview/PreviewLessonPage"));
 // Lazy like every sibling route. This was the ONE static page import left in
 // this file, and it was expensive out of proportion to itself: it is the only
@@ -433,12 +423,8 @@ const router = createBrowserRouter([
     errorElement: <RouteErrorBoundary />,
     children: [
       { index: true, element: <RootRoute /> },
-      { path: "landing", element: <LandingRoute /> },
       { path: "home", element: <ProtectedHome /> },
       { path: "home-1", element: <HomeVariantsRoute /> },
-      { path: "privacy", element: <PrivacyPolicyPage /> },
-      { path: "terms", element: <TermsOfServicePage /> },
-      { path: "about", element: <AboutPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "get-started", element: <GetStartedPage /> },
       { path: "try", element: <PreviewLessonPage /> },

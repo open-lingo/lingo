@@ -7,6 +7,7 @@ import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { useNavDestinations } from "@/shared/nav/useNavDestinations";
 import { makePrefetchHandlers } from "@/shared/utils/routePrefetch";
 import { useAuth } from "@/shared/auth/useAuth";
+import { marketingUrl } from "@/shared/config/marketing";
 
 /**
  * Desktop (≥lg) left rail — the "sidebar" nav layout. Shares destinations
@@ -36,12 +37,18 @@ export function SidebarNav() {
           }}
           aria-hidden
         />
-        <Link
-          to={isAuthenticated ? "/home" : "/landing"}
-          className="text-lg font-semibold text-text-primary"
-        >
-          {t("nav.siteName")}
-        </Link>
+        {isAuthenticated ? (
+          <Link to="/home" className="text-lg font-semibold text-text-primary">
+            {t("nav.siteName")}
+          </Link>
+        ) : (
+          <a
+            href={marketingUrl("/")}
+            className="text-lg font-semibold text-text-primary"
+          >
+            {t("nav.siteName")}
+          </a>
+        )}
       </div>
 
       <nav

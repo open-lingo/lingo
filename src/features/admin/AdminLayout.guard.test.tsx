@@ -17,6 +17,14 @@ const mockMe = vi.fn();
 
 vi.mock("@/shared/auth/useAuth", () => ({ useAuth: () => mockAuth() }));
 vi.mock("@/shared/hooks/useMe", () => ({ useMe: () => mockMe() }));
+// The marketing site is a different origin now, so an anonymous visitor leaves
+// via window.location rather than a route. Stub it to observe the hand-off.
+const mockGoToMarketing = vi.fn();
+vi.mock("@/shared/config/marketing", () => ({
+  goToMarketing: (...a: unknown[]) => mockGoToMarketing(...a),
+  marketingUrl: (path = "/") => `https://marketing.test${path}`,
+  MARKETING_ORIGIN: "https://marketing.test",
+}));
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (_k: string, d?: string) => d ?? "Loading…" }),
 }));
@@ -32,7 +40,6 @@ function wrap(ui: ReactNode) {
       <Routes>
         <Route path="/admin/*" element={ui} />
         <Route path="/" element={<div data-testid="app-home" />} />
-        <Route path="/landing" element={<div data-testid="landing" />} />
       </Routes>
     </MemoryRouter>,
   );
@@ -54,13 +61,14 @@ describe("AdminInnerShell guard", () => {
     expect(screen.queryByTestId("sidebar")).toBeNull();
   });
 
-  it("redirects an unauthenticated visitor to the landing page", () => {
+  it("sends an unauthenticated visitor to the marketing site", () => {
     mockAuth.mockReturnValue({ isAuthenticated: false, isLoading: false });
     mockMe.mockReturnValue({ me: null, isLoading: false });
 
     wrap(<AdminInnerShell />);
 
-    expect(screen.getByTestId("landing")).toBeTruthy();
+    expect(mockGoToMarketing).toHaveBeenCalled();
+    expect(screen.queryByTestId("sidebar")).toBeNull();
   });
 
   it("admits admin and super_admin", () => {

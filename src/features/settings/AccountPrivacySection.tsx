@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -14,6 +13,7 @@ import {
   clearCookieConsent,
 } from "@/shared/legal/cookieConsent";
 import { privacyContactHref, privacyContactLabel } from "@/features/legal/legalConfig";
+import { goToMarketing } from "@/shared/config/marketing";
 import { useUnblockUser } from "@/features/social/hooks/useSocialMutations";
 import { SOCIAL_QUERY_KEYS } from "@/features/social/hooks/useSocial";
 import { SettingsGroup, SettingRow } from "./SettingsPrimitives";
@@ -28,7 +28,6 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
   const { isAuthenticated, logout, user } = useAuth();
   const { users, social } = useApi();
   const { showToast } = useToast();
-  const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const [confirmText, setConfirmText] = useState("");
   const [adsAllowed, setAdsAllowed] = useState(
@@ -72,7 +71,7 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
       clearCookieConsent();
       showToast(t("legal.settings.deleteSuccess", "Account deleted"), "success");
       await logout();
-      navigate("/landing", { replace: true });
+      goToMarketing();
     } catch {
       showToast(
         t("legal.settings.deleteFailed", "Could not delete account. Try again or contact us."),
