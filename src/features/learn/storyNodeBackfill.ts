@@ -1,10 +1,27 @@
+import { getActiveUserStorageId } from "@/features/settings/storage";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import {
   getMockCompletedLessonIds,
   markLessonCompleted,
 } from "@/shared/domain/mockProgress";
 
-const FLAG_KEY = "lingo_story_node_backfill_v1";
+const FLAG_PREFIX = "lingo_story_node_backfill_v1";
+
+/**
+ * The one-shot flag is scoped by USER and LANGUAGE, because the thing it
+ * reconciles against is scoped the same way.
+ *
+ * Language: story rows ship in BOTH the JA and KO courses, and the backfill
+ * only ever walks one of them. A single global flag would let a JA pass burn
+ * the credit a KO learner needs — permanently, since it never runs twice.
+ *
+ * User: `mockProgress` keys its store by `getActiveUserStorageId()`, so two
+ * profiles on one browser have two different sets of completions. A shared
+ * flag would hand the first profile's migration to the second.
+ */
+function flagKey(languageId: string): string {
+  return `${FLAG_PREFIX}:${getActiveUserStorageId()}:${languageId}`;
+}
 
 /** Pathway node id for a story. Own namespace, so it can never collide with a
  *  lesson id — the reader's `?node=` handshake round-trips this exact string. */
@@ -26,17 +43,21 @@ export function storyNodeId(storyId: string): string {
  * A node is credited only when every OTHER row in its module is already done —
  * i.e. the learner had genuinely cleared that module under the old shape.
  *
- * RUNS EXACTLY ONCE per browser profile, which is the whole point. If it ran on
- * every load it would also credit the node the instant a learner finished the
- * module's last lesson, and the story would never be asked for. After the flag
- * is set, new learners meet the story the normal way.
+ * RUNS EXACTLY ONCE per user per language, which is the whole point. If it ran
+ * on every load it would also credit the node the instant a learner finished
+ * the module's last lesson, and the story would never be asked for. After the
+ * flag is set, new learners meet the story the normal way.
  *
  * Zero XP: this is bookkeeping for work already done, not a reward.
  */
 export function backfillStoryNodes(languageId: string): number {
   if (typeof window === "undefined") return 0;
+  // No language, no course to walk — and burning a flag for a course the
+  // learner may not even be studying is exactly the failure this guards.
+  if (!languageId) return 0;
+  const key = flagKey(languageId);
   try {
-    if (localStorage.getItem(FLAG_KEY)) return 0;
+    if (localStorage.getItem(key)) return 0;
   } catch {
     return 0;
   }
@@ -60,7 +81,7 @@ export function backfillStoryNodes(languageId: string): number {
   }
 
   try {
-    localStorage.setItem(FLAG_KEY, new Date().toISOString());
+    localStorage.setItem(key, new Date().toISOString());
   } catch {
     /* a failed flag write means it retries next load — harmless, idempotent */
   }

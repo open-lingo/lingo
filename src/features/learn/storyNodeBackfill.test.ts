@@ -7,6 +7,7 @@ import {
   isLessonCompleted,
   markLessonCompleted,
 } from "@/shared/domain/mockProgress";
+import { LAST_USER_KEY } from "@/features/settings/storage";
 import { backfillStoryNodes, storyNodeId } from "./storyNodeBackfill";
 
 /**
@@ -19,7 +20,13 @@ import { backfillStoryNodes, storyNodeId } from "./storyNodeBackfill";
  * Reads the REAL course, like `trainerNodeBackfill.test.ts` — that way the
  * guard also proves the rows it protects actually exist.
  */
-const FLAG_KEY = "lingo_story_node_backfill_v1";
+const FLAG_PREFIX = "lingo_story_node_backfill_v1";
+
+function clearFlags() {
+  for (const key of Object.keys(localStorage)) {
+    if (key.startsWith(FLAG_PREFIX)) localStorage.removeItem(key);
+  }
+}
 
 function moduleWithStoryNode(langId: string) {
   for (const mod of getMockCourse(langId).modules) {
@@ -41,8 +48,11 @@ describe("storyNodeId", () => {
 
 describe("story node backfill", () => {
   beforeEach(() => {
+    // Back to the anonymous profile before clearing — the progress store is
+    // keyed by active user, so clearing under a leftover id misses.
+    localStorage.removeItem(LAST_USER_KEY);
     clearMockProgress();
-    localStorage.removeItem(FLAG_KEY);
+    clearFlags();
   });
 
   it("promotes a story node whose id matches storyNodeId", () => {
@@ -111,6 +121,40 @@ describe("story node backfill", () => {
     for (const l of mod.lessons ?? []) if (l.kind !== "story") complete(l.id);
 
     expect(backfillStoryNodes("ko")).toBeGreaterThan(0);
+    expect(isLessonCompleted(node.id)).toBe(true);
+  });
+
+  it("a JA pass does not spend the KO migration", () => {
+    // The flag is one-shot AND both shipped courses carry story nodes, so a
+    // single global flag would strand every Korean learner at ko-m3 forever —
+    // the exact regression the backfill exists to prevent. `language` can
+    // still be unresolved when this first runs (settings merge races
+    // /progress/me), which is how a KO learner ends up with a JA pass.
+    const ko = moduleWithStoryNode("ko");
+    for (const l of ko.mod.lessons ?? []) if (l.kind !== "story") complete(l.id);
+
+    backfillStoryNodes("ja");
+    expect(isLessonCompleted(ko.node.id)).toBe(false);
+
+    expect(backfillStoryNodes("ko")).toBeGreaterThan(0);
+    expect(isLessonCompleted(ko.node.id)).toBe(true);
+  });
+
+  it("one profile's migration does not spend another's", () => {
+    // `mockProgress` keys its store by the active user, so a shared flag would
+    // hand profile A's completed migration to profile B, whose nodes were
+    // never credited.
+    const { mod, node } = moduleWithStoryNode("ja");
+    for (const l of mod.lessons ?? []) if (l.kind !== "story") complete(l.id);
+    expect(backfillStoryNodes("ja")).toBeGreaterThan(0);
+
+    // Second profile on the same browser: own progress store, own flag.
+    localStorage.setItem(LAST_USER_KEY, "auth0|second-profile");
+    clearMockProgress();
+    for (const l of mod.lessons ?? []) if (l.kind !== "story") complete(l.id);
+
+    expect(isLessonCompleted(node.id)).toBe(false);
+    expect(backfillStoryNodes("ja")).toBeGreaterThan(0);
     expect(isLessonCompleted(node.id)).toBe(true);
   });
 });
