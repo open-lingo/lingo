@@ -4,8 +4,7 @@ import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { getTtsUrl, playJaAudio } from "@/shared/tts";
-import { playLocalAudio } from "@/shared/audio/volume";
+import { playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -43,16 +42,16 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
     },
   });
 
-  // Non-JA courses may have no recorded clip; handlePlay falls back to the
-  // platform voice so a listening exercise is never un-hearable.
-  const audioUrl = step.transcript ? getTtsUrl(step.transcript) : null;
+  // Route EVERY play through playJaAudio — see the matching note in
+  // ListeningBuildStepView. Calling playLocalAudio on a manifest URL bypassed
+  // the synthesis fallback and swallowed CDN failures silently.
+  const [audioSilent, setAudioSilent] = useState(false);
 
   function handlePlay() {
-    if (audioUrl) {
-      playLocalAudio(audioUrl);
-      return;
-    }
-    if (step.transcript) playJaAudio(step.transcript);
+    if (!step.transcript) return;
+    void playJaAudio(step.transcript).then((result) =>
+      setAudioSilent(result === "silent"),
+    );
   }
 
   function handleSubmit() {
@@ -91,6 +90,11 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             Listen and answer
           </p>
+          {audioSilent && (
+            <p role="status" className="text-sm text-warning">
+              Audio unavailable right now — tap again to retry.
+            </p>
+          )}
           {step.transcript ? (
             <p className="font-japanese text-2xl font-semibold leading-tight text-text-primary">
               {step.transcriptAnnotation ? (
