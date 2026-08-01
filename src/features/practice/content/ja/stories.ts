@@ -191,10 +191,16 @@ export const JA_STORIES: Story[] = [
     // the stretch read that sits above ja-m12-a-workday's L2.
     //
     // Narrative present throughout, closing on a past-tense coda — the standard
-    // Japanese storytelling shape, and also what the m12 pool allows: past
-    // あった / おいしかった / たのしかった are not atom surfaces, so a fully
-    // past-tense telling strands mid-scene. The one past form the story needs
-    // (たのしかった, for a day that has ended) is bought with a gloss.
+    // Japanese storytelling shape, and also what the pool allows: あった /
+    // おいしかった / たのしかった are not atom surfaces at ANY module (probed
+    // m12-m30), so a fully past-tense telling strands mid-scene. The one past
+    // form the story needs (たのしかった, for a day that has ended) is bought
+    // with a gloss.
+    //
+    // さがす is an m29 atom in an m12 story — a deliberate long reach, allowed
+    // because the story IS a search and no earlier atom carries "look for"
+    // (みつける is not an atom at all). See the guide §3 "Gloss reach"; the
+    // other two glosses are m15/m16, which is the normal distance.
     id: "ja-m12-the-lost-key",
     languageId: "ja",
     module: 12,

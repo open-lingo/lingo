@@ -167,22 +167,18 @@ whether the characters are covered. Two consequences:
 
 - **False negatives** (gate rejects content the learner could read): a legitimate
   inflection whose exact surface is not an atom fails, even when the learner has
-  both the stem and the rule. At JA m12 the plain past palette is only
-  `たべた のんだ きいた みた かった あそんだ いった わかった だった`. `ある` is
-  an atom at m11, but `あった` residuals whole. `おいしい` is an atom at m8, but
-  `おいしかった` residuals `おいし` — **no past form of any い-adjective is
-  writable at m12**. That is a real constraint on what you can write, not a bug
-  to route around: change the sentence, or buy the one form the story cannot do
-  without with a gloss.
+  both the stem and the rule. `ある` is an atom at m11, but `あった` residuals
+  whole. `おいしい` is an atom at m8, but `おいしかった` residuals `おいし` at m12
+  (and `おい` from m13 up). These are real constraints on what you can write, not
+  bugs to route around: change the sentence, or buy the one form the story cannot
+  do without with a gloss. §6 lists the ones that bite most.
 - **False positives** (gate accepts content the learner cannot read): the
-  matcher will happily assemble a word out of unrelated pieces. Three real ones
-  at JA m12:
+  matcher will happily assemble a word out of unrelated pieces. Two real ones at
+  JA m12:
   - `でも` "but" passes as the particle `で` (m6) + `も` "also" (m3). The learner
     has never met `でも` as a connective.
   - `よんだ` "read (past)" passes as `よん` = 四 "four" (m5) + `だ` (copula) —
-    the matcher reads it as "is four". `よむ` is not taught until m16.
-  - `かいました` "bought (polite past)" passes as `かい` = 貝 "shell" (m1) +
-    `ました`. Meanwhile the honest `たべました` residuals `たべ`.
+    the matcher reads it as "is four". `よむ` is not an atom until m16.
 
   **The gate passing is necessary, not sufficient.** If you know a word is above
   level, treat it as above level even when the gate shrugs. `content.test.ts`
@@ -191,10 +187,18 @@ whether the characters are covered. Two consequences:
   keep it unglossed. `けど` (m16) is opaque to the matcher and is the honest
   choice for "but" at m12.
 
-  A short residual is the tell. When a residual is one or two kana out of a
-  four-kana word (`たし` for `たのしかった`, `な` for `かわなかった`), the
-  matcher matched *something* inside your word by accident. Read the whole word,
-  not the residual.
+  **An odd decomposition is not by itself a false positive.** `かいました` passes
+  at m12 as `かい` = 貝 "shell" (m1) + `ました`, which looks alarming — but an m12
+  learner genuinely can read it, because `かいます` is an m7 atom and `ました` is
+  taught. It is fine to use, and shipped content already does
+  (`ja-m11-last-saturday`'s gist prompt). The test is always **"can the learner
+  read this word?"**, never "did the matcher decompose it the way I would".
+
+  A short residual is the tell for the opposite problem — a word that *fails* but
+  only barely. When a residual is one or two kana out of a four-kana word
+  (`たし` for `たのしかった` at m12, `な` for `かわなかった`), the matcher matched
+  *something* inside your word by accident. Read the whole word, not the
+  residual.
 
 ### Never widen the gate to pass content
 
@@ -265,6 +269,18 @@ not mean "find four unknown words." Every declared gloss is a comprehension
 tax the learner pays mid-read; at budget, each slot should be carrying either a
 plot device or a connective the story cannot be told without. Three vivid
 glosses beat six decorative ones every time.
+
+**Gloss reach.** A gloss is an on-ramp to the *next* thing the learner will
+meet, not a licence to pull any word out of the catalog. **Prefer atoms within a
+few modules of the story** — a word from m15 in an m12 story is a preview; a
+word from m29 in an m12 story is a stranger. Reaching far needs two
+justifications, both of which you should be able to state in one line: the story
+genuinely needs the meaning, *and* no nearer atom carries it. `さがす`
+(`ja:sagasu`, m29) in `ja-m12-the-lost-key` is the exception the rule allows —
+the story is a search and the course has no earlier word for "look for" — and
+the exemplar's other two glosses are m15 and m16, which is the normal case. If
+you find yourself reaching that far more than once in a story, the story wants
+a different plot, not more glosses.
 
 ---
 
@@ -374,23 +390,16 @@ unconditionally. So `です`, `ます`, `ました`, `ませんでした`, `で�
 `ください` all pass at **every** module, m1 included — `gateResidual("がくせいでした",
 "ja", 3)` is `""`. The gate will never tell you your register is wrong.
 
-That means politeness is yours to decide. Decide it by matching **the story's
-own voice and the register of the module's existing stories**, then hold it for
-the whole story.
+That means politeness is yours to decide. Decide it by **opening `ja/stories.ts`
+at your module and reading what the neighbouring stories do**, then match them
+and hold it for the whole story.
 
-The actual convention in `ja/stories.ts` today:
-
-| modules | register in existing stories |
-|---|---|
-| m3–m10, m12 | polite — `ja-m3-about-me` and `ja-m5-shop-errand` are wall-to-wall `です`; `ja-m7-my-day` onward adds `ます` |
-| m11, m13+ | plain — `だ` + plain verbs (`ja-m11-last-saturday`, `ja-m13-likes-and-wants`, `ja-m17-to-the-station`) |
-
-Note what actually drives that split: it is not politeness pedagogy, it is the
-verb pool. m3–m5 have almost no verb atoms, so those stories are copula-only and
-`です` is the only thing to write. m7 lands the polite verbs (`たべます` …) *and*
-the plain dictionary forms (`たべる` …) together; m11 lands the plain past. Once
-plain past exists, plain-form narration becomes the natural choice, and the
-stories follow.
+There is no module rule to look up here, and do not infer one: the JA corpus is
+not consistent. Both registers appear across the range — `ja-m7-my-day` is
+polite, `ja-m11-last-saturday` is plain, `ja-m19-my-family` is polite again in
+the middle of an otherwise plain run, and m12 currently carries one of each
+(`ja-m12-a-workday` polite, `ja-m12-the-lost-key` plain). Read the actual
+neighbours; any table claiming a boundary would be fiction.
 
 `ko/stories.ts` is uniform: the polite `해요` spine at every module. Use it.
 Plain/intimate Korean is not taught as a paradigm and its surfaces are not
@@ -400,39 +409,52 @@ Do not mix within a story without a narrative reason. A quoted line of dialogue
 in a different register is a reason. Running out of forms is not — rewrite the
 sentence.
 
-### Tense IS a gate constraint — check the pool before you commit
+### Tense IS a gate constraint — probe before you commit
 
-This is the real trap, and it is per-module. Probe the forms your arc needs
-before writing the first sentence.
+This is the real trap. Probe the forms your arc needs before writing the first
+sentence; do not assume a gap closes at some later module, because several of
+them never do.
 
-**Japanese.** Plain past is broadly available from m11 (`たべた のんだ きいた
-みた かった あそんだ いった わかった だった`), but three gaps bite:
+Everything below was measured with `gateResidual` at the modules named. Nothing
+here is inferred.
 
-- **No past い-adjective at all** below m13 — `おいしかった`, `よかった`,
-  `たのしかった` all residual.
-- **No past `ある`** — `あった` residuals whole even though `ある` is an m11 atom.
-- **Polite past verbs are mostly unwritable**: `ました` needs a bare verb stem
-  the registry does not carry, so `たべました` residuals `たべ`. (`かいました`
-  "passes" only through the false positive in §2 — do not take it as licence.)
-  `でした` after a noun is fine in any register.
+**Japanese.** Plain past is available from m11 — at m12 the palette is
+`たべた のんだ きいた みた かった あそんだ いった わかった だった`, all clean.
+Three gaps bite, and **none of them close**:
+
+- **No past い-adjective is writable at any module.** `おいしかった`,
+  `よかった`, `たのしかった`, `たかかった` all residual at m12, m13, m15, m20,
+  m27 and m30. There is no module at which this becomes available.
+- **No past `ある`.** `あった` residuals whole at m12, m13, m20 and m30, even
+  though `ある` is an m11 atom.
+- **Polite past verbs are mostly unwritable.** `ました` needs a bare verb stem
+  the registry does not carry, so `たべました` residuals `たべ` at m12 and still
+  at m30; same for `いきました`, `のみました`. A few pass by accident of
+  decomposition (`かいました` — see §2, and it is genuinely readable, so it is
+  fine to use). `でした` after a noun is fine at any module and in any register.
 
 The workable JA shape at low modules is therefore **narrative present with a
 past-tense coda**, which is idiomatic Japanese storytelling anyway. That is what
 `ja-m12-the-lost-key` does: present throughout, closing on `たのしかった`, and
-that single past adjective is bought with one of the three gloss slots.
+that single past adjective — unwritable at every module — is bought with one of
+the three gloss slots.
 
-**Korean.** Past *action* verbs land at m10 and gate cleanly — `갔어요 왔어요
-먹었어요 마셨어요 봤어요 했어요 좋았어요 맛있었어요 였어요 이었어요`, including
-negated `안 갔어요` / `안 왔어요`. But at m12 the three forms a narrative leans
-on hardest are **not** available: `있었어요` ("was at"), `없었어요` ("wasn't
-there") and `싶었어요` ("wanted to") all residual whole. A past telling therefore
-breaks on exactly the "was at" / "wanted to" beats — which is why
-`ko-m12-waiting-for-a-friend` is present-tense. **This is a pool constraint at
-m12, not a style preference, and Korean present-tense narration is markedly less
-idiomatic than the Japanese equivalent.** Before defaulting to present tense in
-tasks at m13 and above, probe `있었어요` / `없었어요` / `싶었어요` at your module;
-the moment they land, past-tense narration is both available and the better
-Korean, and the exemplar should not be copied blindly.
+**Korean.** Past *action* verbs land at m10 and gate cleanly at m12 — `갔어요
+왔어요 먹었어요 마셨어요 봤어요 했어요 좋았어요 맛있었어요 였어요 이었어요`,
+including negated `안 갔어요` / `안 왔어요`. But the forms a narrative leans on
+hardest are **not writable at any current module**: `있었어요` ("was at"),
+`없었어요` ("wasn't there") and `싶었어요` ("wanted to") each residual whole at
+m12, m13, m20 and m27 — the top of the Korean course. `기다렸어요` and `아팠어요`
+are the same story. **These gaps do not close; do not write a story on the
+assumption that a later module fixes them.**
+
+That is why `ko-m12-waiting-for-a-friend` is present-tense: its arc turns on
+exactly the "was at home" and "wanted to watch" beats. **This is a pool
+constraint, not a style preference — and Korean present-tense narration is
+markedly less idiomatic than the Japanese equivalent, so it is a compromise, not
+a model to copy for its own sake.** Where your arc can be told with the past
+action verbs that *do* gate, prefer the past; it is the better Korean. Probe the
+specific forms your arc needs at your module before choosing.
 
 ---
 
@@ -504,13 +526,15 @@ free day → the key is *planted in the bag* on line 3 → a hat too expensive t
 buy → ramen → evening, the key is gone → panic → a search → back to the shop →
 relief → coda. Every gloss carries a beat: `けど` the contrast (and a
 subordinate clause, the L3 shape), `さがす` the search, `たのしかった` the past
-coda the present-tense pool cannot otherwise write. Other connectives:
-`それから`, `また`. Gist asks where the key is; the three distractors are the
-three locations the story actually names.
+coda the present-tense pool cannot otherwise write (`さがす` is an m29 atom —
+the long-reach exception §3 allows, since the course has no earlier word for
+"look for"). Other connectives: `それから`, `また`. Gist asks where the key is,
+with three options; both distractors are locations the story actually names.
 
 **`ko-m12-waiting-for-a-friend`** — 15 sentences, 4 glosses (`기다려요`, `전화`,
-`아파요`, `그래서`). Polite `해요` throughout, present tense **because the m12
-past pool blocks `있었어요` / `없었어요` / `싶었어요`** (§6), not by preference.
+`아파요`, `그래서`). Polite `해요` throughout, present tense **because
+`있었어요` / `없었어요` / `싶었어요` are not writable at any module** (§6), not
+by preference — treat this as a compromise to work around, not a default.
 Subject: `저` and the friend.
 State change: a plan to see a movie → the friend does not show → an hour of
 waiting → a phone call → the friend is ill at home → the movie happens there

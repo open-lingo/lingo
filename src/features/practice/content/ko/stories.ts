@@ -191,11 +191,14 @@ export const KO_STORIES: Story[] = [
     // the stretch read that sits above ko-m12-friday-plan's L2. Polite 해요
     // register throughout, matching the course's spine.
     //
-    // Present-tense narration is a POOL CONSTRAINT at m12, not a style pick:
-    // the past action verbs have landed (갔어요 / 왔어요 / 봤어요 / 마셨어요),
-    // but 있었어요 / 없었어요 / 싶었어요 have not, so a past telling breaks on
-    // exactly the "was at" / "wanted to" beats this arc turns on. From m13+,
-    // check those three before defaulting to present — see the guide §6.
+    // Present-tense narration is a POOL CONSTRAINT, not a style pick: the past
+    // action verbs gate cleanly (갔어요 / 왔어요 / 봤어요 / 마셨어요), but
+    // 있었어요 / 없었어요 / 싶었어요 residual whole at m12, m13, m20 AND m27 —
+    // they are not writable at any module in the course — and this arc turns on
+    // exactly those "was at home" / "wanted to watch" beats.
+    //
+    // Present tense is the weaker Korean. Where an arc CAN be told with the past
+    // action verbs, prefer the past; don't copy this pattern by default.
     id: "ko-m12-waiting-for-a-friend",
     languageId: "ko",
     module: 12,
