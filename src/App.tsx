@@ -21,13 +21,10 @@ import { RouteErrorBoundary } from "@/shared/components/RouteErrorBoundary";
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
 import { LearnLayout } from "@/features/learn/LearnLayout";
-import { FlashcardsPage } from "@/features/flashcards/FlashcardsPage";
-import { PracticePage } from "@/features/practice/PracticePage";
 import { PracticeLayout } from "@/features/practice/PracticeLayout";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
 import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
-import { ProtectedHome } from "@/routes/ProtectedHome";
 import { RequireAuth } from "@/routes/RequireAuth";
 import { SettingsOpenRoute } from "@/features/settings/SettingsOpenRoute";
 
@@ -154,6 +151,17 @@ const GrammarReviewSessionPage = lazyRetry(() =>
 );
 const PracticeAlphabetHubPage = lazyRetry(() =>
   import("@/features/practice/PracticeAlphabetHubPage").then((m) => ({ default: m.PracticeAlphabetHubPage })),
+);
+// Lazy, like every sibling route. While these two were static they were the
+// last remaining entry-chunk paths to `data/courseDeck` -> `frequencyResolver`
+// -> `ko/frequencyAtoms` (~494 KB, 2999 atoms), which Rollup therefore pulled
+// into the entry chunk for every visitor — logged-out landing included — for a
+// feature that defaults OFF. Guarded by entryChunkWeight.test.ts.
+const PracticePage = lazyRetry(() =>
+  import("@/features/practice/PracticePage").then((m) => ({ default: m.PracticePage })),
+);
+const ProtectedHome = lazyRetry(() =>
+  import("@/routes/ProtectedHome").then((m) => ({ default: m.ProtectedHome })),
 );
 const ParticlePracticePage = lazyRetry(() =>
   import("@/features/practice/ParticlePracticePage").then((m) => ({ default: m.ParticlePracticePage })),
@@ -285,6 +293,16 @@ const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPag
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
 const GetStartedPage = lazyRetry(() => import("@/features/landing/GetStartedPage"));
 const PreviewLessonPage = lazyRetry(() => import("@/features/preview/PreviewLessonPage"));
+// Lazy like every sibling route. This was the ONE static page import left in
+// this file, and it was expensive out of proportion to itself: it is the only
+// static path from the entry to `data/courseDeck` -> `frequencyResolver` ->
+// `ko/frequencyAtoms` (~494 KB, 2999 atoms), so Rollup pulled the whole Korean
+// frequency registry into the entry chunk. Every visitor downloaded and parsed
+// it — logged-out landing included, JA-only learners included — for a feature
+// that defaults OFF (`settings.flashcards.frequencyVocab`).
+const FlashcardsPage = lazyRetry(() =>
+  import("@/features/flashcards/FlashcardsPage").then((m) => ({ default: m.FlashcardsPage })),
+);
 const FlashcardTester = lazyRetry(() =>
   import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
 );
