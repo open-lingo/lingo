@@ -10,6 +10,13 @@
  * proper nouns the content itself introduces (names — semantically
  * transparent, they carry no comprehension load).
  *
+ * Content may additionally DECLARE above-level words in its `glosses` array;
+ * those surfaces join the allowed set for that item only. This is the graded-
+ * reader mechanic: an unknown word is fine when it is named and taught in
+ * place, which is what makes longer text and cultural content authorable at
+ * all. An UNDECLARED unknown still fails, so the invariant holds — if content
+ * fails the gate the FIX IS THE CONTENT, not the gate.
+ *
  * Language-agnostic: atom surfaces come from the normalized cross-language
  * atom catalog (`normalizedAtoms.ts`), so the same gate covers ja/ko/es.
  *
@@ -193,6 +200,7 @@ export function gateResidual(
   text: string,
   languageId: string,
   module: number,
+  glossSurfaces: string[] = [],
 ): string {
   const nospace = (s: string) => s.replace(/\s/g, "");
   const lexicon = TAUGHT_LEXICON[languageId] ?? {};
@@ -206,6 +214,7 @@ export function gateResidual(
         .filter(([, m]) => m <= module)
         .map(([surface]) => surface),
     )
+    .concat(glossSurfaces)
     // Word boundaries are meaningless for character coverage — collapse spaces
     // on both sides so cross-word contractions and multi-token surfaces
     // (e.g. "고 있어요") match cleanly.
@@ -245,11 +254,13 @@ export function gateResidual(
   return residual;
 }
 
-/** True iff `text` decomposes fully into course content at `module`. */
+/** True iff `text` decomposes fully into course content at `module`, allowing
+ *  the above-level words the story explicitly declares. */
 export function isComprehensible(
   text: string,
   languageId: string,
   module: number,
+  glossSurfaces: string[] = [],
 ): boolean {
-  return gateResidual(text, languageId, module) === "";
+  return gateResidual(text, languageId, module, glossSurfaces) === "";
 }
