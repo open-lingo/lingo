@@ -210,6 +210,40 @@ export async function performSync(
   return enqueueSyncOp(() => performSyncNow(syncFn));
 }
 
+/**
+ * Cards per sync request. MUST stay <= the server's `MAX_SYNC_CARDS`
+ * (`lingo-core/app/srs/schemas.py`), which rejects anything larger with a 422.
+ *
+ * Why chunk at all — the ceiling is not the payload:
+ *
+ * - Measured ~437 bytes/card, so the Lambda Function URL's 6 MB buffered cap
+ *   is ~14k cards. That is NOT what breaks first.
+ * - `upsert_cards` issues one conditional write per card against a 30s
+ *   function timeout. That is what breaks first, and a timeout is the bad
+ *   failure: the request returns no ids, `markSynced` never runs, every card
+ *   stays dirty, and the next sync resends the identical oversized payload.
+ *   It does not degrade, it wedges.
+ * - gzip does not rescue this. Browsers do not compress request bodies, so the
+ *   server-side `GZipMiddleware` shrinks the *response* only; the push is
+ *   exactly as large as it ever was.
+ *
+ * Chunking fixes the shape of the failure as much as the size: each batch
+ * marks its own cards synced as it lands, so a mid-sync failure costs one
+ * batch and the next sync resumes with the rest still dirty.
+ *
+ * Ordinary syncs are a handful of cards and fit in one request. Multi-batch is
+ * the import / placement-seed / offline-flush path.
+ */
+export const SRS_SYNC_CHUNK_SIZE = 1000;
+
+/** Split an id list into chunks of at most `size`. */
+export function chunkIds(ids: string[], size: number = SRS_SYNC_CHUNK_SIZE): string[][] {
+  if (size <= 0) throw new Error("chunk size must be positive");
+  const out: string[][] = [];
+  for (let i = 0; i < ids.length; i += size) out.push(ids.slice(i, i + size));
+  return out;
+}
+
 async function performSyncNow(
   syncFn: (payload: SyncPayload) => Promise<SRSStore>,
 ): Promise<number> {
@@ -218,26 +252,53 @@ async function performSyncNow(
 
   if (dirtyIds.length === 0) return 0;
 
-  const serverState = await syncFn(payload);
-  const returnedIds = Object.keys(serverState ?? {});
+  let syncedCount = 0;
+  let anyLanded = false;
 
-  // Per-card guard (tightened 2026-07-01 — was payload-level): only mark ids
-  // the server actually echoed back in its response as synced. A card the
-  // server silently dropped from a partial response stays dirty so the next
-  // sync retries it, instead of being marked clean just because SOME card in
-  // the batch round-tripped. Verified against both backend repos
-  // (lingo-core `app/db/sqlite/srs.py` + `app/db/dynamo/srs.py`
-  // `upsert_cards`): every submitted card_id is always present in the
-  // result dict (barring a thrown exception, which propagates and never
-  // reaches here), so in practice `returnedIds` today always equals
-  // `dirtyIds` — this guard is defensive against a future/partial response
-  // shape, not a live gap.
-  if (returnedIds.length > 0) {
-    markSynced(returnedIds);
-    setLastSrsSyncAt(new Date().toISOString());
-    mergeServerState(serverState);
+  // Sequential, not parallel: the batches share one server and one SRS store,
+  // and the point here is bounded work per request, not client throughput.
+  for (const batchIds of chunkIds(dirtyIds)) {
+    const batch: SRSStore = {};
+    for (const id of batchIds) batch[id] = payload.cards[id];
+
+    // A failed batch must not discard the batches that already landed — their
+    // cards are legitimately synced. Stop pushing (the next failure is almost
+    // certainly the same one) and let the caller see the error only if nothing
+    // landed at all; otherwise report partial progress and leave the remainder
+    // dirty for the next sync.
+    let serverState: SRSStore;
+    try {
+      serverState = await syncFn({ cards: batch, syncedAt: payload.syncedAt });
+    } catch (err) {
+      if (!anyLanded) {
+        notifySRSStoreChanged();
+        throw err;
+      }
+      break;
+    }
+
+    const returnedIds = Object.keys(serverState ?? {});
+
+    // Per-card guard (tightened 2026-07-01 — was payload-level): only mark ids
+    // the server actually echoed back in its response as synced. A card the
+    // server silently dropped from a partial response stays dirty so the next
+    // sync retries it, instead of being marked clean just because SOME card in
+    // the batch round-tripped. Verified against both backend repos
+    // (lingo-core `app/db/sqlite/srs.py` + `app/db/dynamo/srs.py`
+    // `upsert_cards`): every submitted card_id is always present in the
+    // result dict (barring a thrown exception, which propagates and never
+    // reaches here), so in practice `returnedIds` today always equals
+    // the batch's ids — this guard is defensive against a future/partial
+    // response shape, not a live gap.
+    if (returnedIds.length > 0) {
+      markSynced(returnedIds);
+      setLastSrsSyncAt(new Date().toISOString());
+      mergeServerState(serverState);
+      syncedCount += returnedIds.length;
+      anyLanded = true;
+    }
   }
 
   notifySRSStoreChanged();
-  return returnedIds.length;
+  return syncedCount;
 }

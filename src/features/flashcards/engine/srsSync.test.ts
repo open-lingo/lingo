@@ -4,8 +4,10 @@ import {
   markSynced,
   mergeServerState,
   performSync,
+  chunkIds,
+  SRS_SYNC_CHUNK_SIZE,
 } from "./srsSync";
-import { getCardState, setCardState, getSRSStore } from "./srsStorage";
+import { getCardState, setCardState, getSRSStore, setSRSStore } from "./srsStorage";
 import type { SRSCardState, SRSModalityState } from "../data/types";
 
 // Fixed clock — never assert against the real system clock (per test
@@ -303,5 +305,133 @@ describe("enqueueSyncOp serialization (concurrent syncs must queue, not race)", 
     // Queue must still run the next op.
     const ok = await performSync(async (p) => p.cards);
     expect(ok).toBeGreaterThanOrEqual(1);
+  });
+});
+
+/**
+ * Chunked push (2026-07-31). A learner can hold thousands of cards; the sync
+ * POST is bounded by the Lambda function's 30s timeout (one conditional write
+ * per card), NOT by the 6 MB payload cap. gzip does not help here — browsers
+ * do not compress request bodies — so the push has to be split client-side.
+ */
+describe("performSync chunking", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.useFakeTimers();
+    vi.setSystemTime(T0);
+  });
+  afterEach(() => vi.useRealTimers());
+
+  /**
+   * Seed n dirty (never-synced) cards in ONE store write. Per-card
+   * `setCardState` re-reads and re-serializes the whole store each call, so
+   * seeding thousands that way is quadratic and dominates the test run. Ids
+   * are already canonical (`<lang>:<bare>`), which is what `setSRSStore`
+   * expects.
+   */
+  function seedDirty(n: number): string[] {
+    const store: Record<string, SRSCardState> = {};
+    const ids: string[] = [];
+    for (let i = 0; i < n; i++) {
+      const id = `ja:c${i}`;
+      store[id] = learnedCard("2026-06-01T00:00:00.000Z");
+      ids.push(id);
+    }
+    setSRSStore(store);
+    return ids;
+  }
+
+  it("never exceeds the server's per-request cap", async () => {
+    seedDirty(2500);
+    const sizes: number[] = [];
+    const total = await performSync(async (p) => {
+      sizes.push(Object.keys(p.cards).length);
+      return p.cards;
+    });
+
+    expect(sizes.length).toBe(3); // 1000 + 1000 + 500
+    expect(Math.max(...sizes)).toBeLessThanOrEqual(SRS_SYNC_CHUNK_SIZE);
+    expect(sizes.reduce((a, b) => a + b, 0)).toBe(2500);
+    expect(total).toBe(2500);
+    expect(Object.keys(getDirtyCards())).toHaveLength(0);
+  });
+
+  it("sends every dirty card exactly once across batches", async () => {
+    const ids = seedDirty(2101);
+    const seen: string[] = [];
+    await performSync(async (p) => {
+      seen.push(...Object.keys(p.cards));
+      return p.cards;
+    });
+    expect(seen).toHaveLength(2101);
+    expect(new Set(seen).size).toBe(2101);
+    expect(new Set(seen)).toEqual(new Set(ids));
+  });
+
+  it("keeps landed batches and leaves the rest dirty when a later batch fails", async () => {
+    // The wedge this replaces: one oversized request timed out, nothing was
+    // marked synced, and the identical payload was retried forever. Partial
+    // progress must survive so the next sync has strictly less to do.
+    seedDirty(2500);
+    let call = 0;
+    const total = await performSync(async (p) => {
+      call++;
+      if (call === 2) throw new Error("timeout");
+      return p.cards;
+    });
+
+    expect(total).toBe(1000); // first batch only
+    const stillDirty = Object.keys(getDirtyCards());
+    expect(stillDirty).toHaveLength(1500);
+
+    // The retry drains the remainder rather than re-sending the whole set.
+    const sizes: number[] = [];
+    const second = await performSync(async (p) => {
+      sizes.push(Object.keys(p.cards).length);
+      return p.cards;
+    });
+    expect(second).toBe(1500);
+    expect(sizes.reduce((a, b) => a + b, 0)).toBe(1500);
+    expect(Object.keys(getDirtyCards())).toHaveLength(0);
+  });
+
+  it("still rejects when the very first batch fails (nothing landed)", async () => {
+    seedDirty(1500);
+    await expect(
+      performSync(async () => {
+        throw new Error("offline");
+      }),
+    ).rejects.toThrow("offline");
+    expect(Object.keys(getDirtyCards())).toHaveLength(1500);
+  });
+
+  it("sends a single request when the store fits in one batch", async () => {
+    seedDirty(12);
+    let calls = 0;
+    await performSync(async (p) => {
+      calls++;
+      return p.cards;
+    });
+    expect(calls).toBe(1);
+  });
+});
+
+describe("chunkIds", () => {
+  it("splits evenly and keeps the remainder", () => {
+    const ids = Array.from({ length: 7 }, (_, i) => `c${i}`);
+    expect(chunkIds(ids, 3)).toEqual([
+      ["c0", "c1", "c2"],
+      ["c3", "c4", "c5"],
+      ["c6"],
+    ]);
+  });
+
+  it("returns nothing for an empty list and rejects a non-positive size", () => {
+    expect(chunkIds([], 10)).toEqual([]);
+    expect(() => chunkIds(["a"], 0)).toThrow();
+  });
+
+  it("stays within the server cap at its default size", () => {
+    expect(SRS_SYNC_CHUNK_SIZE).toBeLessThanOrEqual(1000);
   });
 });
