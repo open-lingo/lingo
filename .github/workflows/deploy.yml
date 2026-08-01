@@ -33,6 +33,22 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      # Gate the deploy on the same checks CI runs.
+      #
+      # `ci` and `deploy` both trigger on push to main, INDEPENDENTLY — so a
+      # red build shipped to production anyway. That is not hypothetical: the
+      # stale-lesson-id ratchet failed on main for multiple pushes while every
+      # one of those commits deployed (2026-07-31).
+      #
+      # Done as steps in this job rather than a `workflow_run` trigger: that
+      # trigger would need `ref: head_sha` handling and, misconfigured, stops
+      # deploys silently. This cannot break the trigger, and it reuses the
+      # checkout + npm ci already here. Cost is deploy latency — it now waits
+      # for the suite. CI still runs in parallel for PR feedback.
+      - name: typecheck
+        run: npx tsc --noEmit
+      - name: unit tests
+        run: npm run test:run
       - name: build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
