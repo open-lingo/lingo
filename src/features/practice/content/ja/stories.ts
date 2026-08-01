@@ -193,7 +193,7 @@ export const JA_STORIES: Story[] = [
     // Narrative present throughout, closing on a past-tense coda — the standard
     // Japanese storytelling shape, and also what the pool allows: あった /
     // おいしかった / たのしかった are not atom surfaces at ANY module (probed
-    // m12-m30), so a fully past-tense telling strands mid-scene. The one past
+    // m1-m40), so a fully past-tense telling strands mid-scene. The one past
     // form the story needs (たのしかった, for a day that has ended) is bought
     // with a gloss.
     //
