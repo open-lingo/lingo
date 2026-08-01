@@ -591,9 +591,7 @@
       "reading": {
         "title": "Lectura",
         "tagline": "Entiende el lenguaje escrito a tu nivel",
-        "passages": "Textos de lectura",
-        "passagesDesc": "Textos breves con preguntas de comprensión",
-        "storiesDesc": "Lectura narrativa con audio",
+        "storiesDesc": "Lee narraciones a tu nivel, con audio y búsqueda con solo tocar",
         "alphabet": "Reconocimiento de escritura",
         "alphabetDesc": "Lee con fluidez la escritura de tu idioma",
         "externalDesc": "Material real de la comunidad"
@@ -605,8 +603,6 @@
         "listenChooseDesc": "Escucha una frase y elige su significado",
         "conversation": "Conversaciones",
         "conversationDesc": "Escucha diálogos y luego responde",
-        "stories": "Historias (audio)",
-        "storiesDesc": "Sigue historias narradas",
         "echo": "Práctica de repetición",
         "echoDesc": "Escucha y luego repite lo que oíste"
       },

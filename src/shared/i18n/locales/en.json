@@ -591,9 +591,7 @@
       "reading": {
         "title": "Reading",
         "tagline": "Understand written language at your level",
-        "passages": "Reading passages",
-        "passagesDesc": "Short passages with comprehension questions",
-        "storiesDesc": "Narrative reading with audio",
+        "storiesDesc": "Read narratives at your level, with audio and tap-to-look-up",
         "alphabet": "Script recognition",
         "alphabetDesc": "Read your target script fluently",
         "externalDesc": "Real-world material from the community"
@@ -605,8 +603,6 @@
         "listenChooseDesc": "Hear a phrase, pick its meaning",
         "conversation": "Conversations",
         "conversationDesc": "Listen to dialogues, then talk back",
-        "stories": "Stories (audio)",
-        "storiesDesc": "Follow narrated stories",
         "echo": "Echo practice",
         "echoDesc": "Listen, then repeat what you heard"
       },

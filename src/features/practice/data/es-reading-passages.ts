@@ -8,8 +8,32 @@
  * forms stay within taught paradigms (present tense only — the A1 course
  * drills no past tenses). Questions and options are English, 4 options
  * each, 3 questions per passage (ja/ko house shape).
+ *
+ * Consumed only by emitTtsDeck.test.ts (env-gated ES TTS deck emitter) —
+ * the comprehension-passage practice page these were authored for was
+ * removed in favor of the story library (features/practice/stories/).
  */
-import type { ReadingPassage } from "./ja-reading-passages";
+export type ReadingOption = {
+  id: string;
+  text: string;
+};
+
+export type ReadingQuestion = {
+  id: string;
+  prompt: string;
+  options: ReadingOption[];
+  correctOptionId: string;
+  explanation?: string;
+};
+
+export type ReadingPassage = {
+  id: string;
+  level: number;
+  contextHint?: string;
+  passage: string;
+  questions: ReadingQuestion[];
+  topic: "daily" | "travel" | "school" | "work" | "food";
+};
 
 export const ES_READING_PASSAGES: ReadingPassage[] = [
   // ─── Level 1 — self-intro (m1–m2 vocab) ─────────────────────────────────

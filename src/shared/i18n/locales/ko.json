@@ -591,9 +591,7 @@
       "reading": {
         "title": "읽기",
         "tagline": "수준에 맞는 글을 이해하세요",
-        "passages": "읽기 지문",
-        "passagesDesc": "이해 문제가 있는 짧은 지문",
-        "storiesDesc": "오디오가 있는 이야기 읽기",
+        "storiesDesc": "오디오와 탭 검색이 함께되는, 내 수준에 맞는 이야기 읽기",
         "alphabet": "문자 인식",
         "alphabetDesc": "목표 언어의 문자를 유창하게 읽기",
         "externalDesc": "커뮤니티의 실제 자료"
@@ -605,8 +603,6 @@
         "listenChooseDesc": "표현을 듣고 뜻을 고르세요",
         "conversation": "대화",
         "conversationDesc": "대화를 듣고 직접 말해 보세요",
-        "stories": "스토리 (오디오)",
-        "storiesDesc": "낭독되는 이야기를 따라가세요",
         "echo": "따라 말하기 연습",
         "echoDesc": "듣고 나서 들은 내용을 따라 말하세요"
       },

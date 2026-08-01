@@ -23,7 +23,6 @@ import type {
   ParticleSet,
   PlacementBank,
   ReadingAnnotationCapability,
-  ReadingPassage,
   Romanizer,
   SecondScriptCapability,
   SpeakingPrompt,
@@ -67,7 +66,6 @@ export interface LanguageModule {
   classifiers?: ClassifierSet;
   particles?: ParticleSet;
   symbolMastery?: SymbolMasteryConfig;
-  reading?: ReadingPassage[];
   speaking?: SpeakingPrompt[];
   imageMcqBlocklist?: Set<string>;
   vocabGraduation?: VocabGraduationCapability;

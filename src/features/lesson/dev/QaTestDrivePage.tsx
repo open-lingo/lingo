@@ -538,7 +538,8 @@ function buildSections(lang: string): QaSection[] {
           id: "route:reading-speaking",
           title: "Reading / speaking practice",
           links: [
-            { label: "reading", href: p("/practice/reading") },
+            { label: "stories", href: p("/practice/stories") },
+            { label: "cloze", href: p("/practice/cloze") },
             { label: "speaking", href: p("/practice/speaking") },
             { label: "speech-tune", href: p("/speech-tune") },
           ],

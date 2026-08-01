@@ -29,7 +29,7 @@ export type PillarActivity = {
   /** Restrict to these language ids; omitted = all languages. */
   languages?: string[];
   /** Feature flag gate (flags.practice.<flag>) */
-  flag?: "stories" | "externalContent";
+  flag?: "externalContent";
   /** Hide while the community surface ships dark (MVP). */
   requiresCommunity?: boolean;
   /** New in the pillar revamp — renders a small badge. */
@@ -167,12 +167,12 @@ const PILLARS: Pillar[] = [
     route: "practice/pillar/reading",
     activities: [
       {
-        id: "passages",
-        titleKey: "practice.pillars.reading.passages",
-        titleDefault: "Reading passages",
-        descKey: "practice.pillars.reading.passagesDesc",
-        descDefault: "Short passages with comprehension questions",
-        route: "practice/reading",
+        id: "stories",
+        titleKey: "practice.stories.title",
+        titleDefault: "Stories",
+        descKey: "practice.pillars.reading.storiesDesc",
+        descDefault: "Read narratives at your level, with audio and tap-to-look-up",
+        route: "practice/stories",
       },
       {
         id: "cloze",
@@ -182,15 +182,6 @@ const PILLARS: Pillar[] = [
         descDefault: "One word missing from a sentence you've read",
         route: "practice/cloze",
         isNew: true,
-      },
-      {
-        id: "stories-read",
-        titleKey: "nav.stories",
-        titleDefault: "Stories",
-        descKey: "practice.pillars.reading.storiesDesc",
-        descDefault: "Narrative reading with audio",
-        route: "practice/stories",
-        flag: "stories",
       },
       {
         id: "external-content",
@@ -230,15 +221,6 @@ const PILLARS: Pillar[] = [
         route: "practice/conversation",
         languages: ["ja", "ko"],
         isNew: true,
-      },
-      {
-        id: "stories-listen",
-        titleKey: "practice.pillars.listening.stories",
-        titleDefault: "Stories (audio)",
-        descKey: "practice.pillars.listening.storiesDesc",
-        descDefault: "Follow narrated stories",
-        route: "practice/stories",
-        flag: "stories",
       },
       {
         id: "echo",

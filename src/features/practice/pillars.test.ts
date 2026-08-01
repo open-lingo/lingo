@@ -41,13 +41,26 @@ describe("getPillarsForLanguage", () => {
     expect(writing?.titleDefault).toBe("Writing & Alphabet");
   });
 
-  it("drops stories activities when the stories flag is off", () => {
+  it("puts the story library in the reading pillar unconditionally (no flag)", () => {
     const noStories: FeatureFlags = {
       ...flags,
       practice: { ...flags.practice, stories: false },
     };
-    const acts = allActivityIds(getPillarsForLanguage("ja", noStories));
-    expect(acts).not.toContain("stories-read");
+    const reading = getPillarsForLanguage("ja", noStories).find((p) => p.id === "reading");
+    expect(reading?.activities.map((a) => a.id)).toContain("stories");
+  });
+
+  it("drops external-content when its flag is off", () => {
+    const noExternal: FeatureFlags = {
+      ...flags,
+      practice: { ...flags.practice, externalContent: false },
+    };
+    const acts = allActivityIds(getPillarsForLanguage("ja", noExternal));
+    expect(acts).not.toContain("external-content");
+  });
+
+  it("no longer advertises narrated stories under listening", () => {
+    const acts = allActivityIds(getPillarsForLanguage("ja", flags));
     expect(acts).not.toContain("stories-listen");
   });
 
