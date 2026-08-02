@@ -26,15 +26,15 @@ function ViewToggle({
       aria-pressed={mode === m}
       className={
         mode === m
-          ? "rounded-sm bg-accent px-3 py-1 text-[12.5px] font-bold text-accent-foreground transition"
-          : "rounded-sm px-3 py-1 text-[12.5px] font-bold text-text-secondary transition hover:text-text-primary"
+          ? "flex-1 rounded-sm bg-accent px-3 py-1 text-[12.5px] font-bold text-accent-foreground transition sm:flex-none"
+          : "flex-1 rounded-sm px-3 py-1 text-[12.5px] font-bold text-text-secondary transition hover:text-text-primary sm:flex-none"
       }
     >
       {label}
     </button>
   );
   return (
-    <div className="flex flex-none gap-0.5 rounded-md border border-border bg-surface-muted p-0.5">
+    <div className="flex w-full gap-0.5 rounded-md border border-border bg-surface-muted p-0.5 sm:w-auto sm:flex-none">
       {opt("map", "Path")}
       {opt("list", "List")}
     </div>

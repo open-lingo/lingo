@@ -21,7 +21,7 @@ export function TransitSignageHeader({
   right?: ReactNode;
 }) {
   return (
-    <div className="mb-3 flex flex-wrap items-center gap-3 rounded-card border border-border bg-surface px-4 py-2.5 text-text-primary shadow-card">
+    <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-card border border-border bg-surface px-4 py-2.5 text-text-primary shadow-card">
       <div
         className="grid h-9 w-9 flex-none place-items-center rounded-full border-2 border-border text-[15px] font-extrabold text-accent-foreground"
         style={{ background: "var(--tmc-line-main)" }}
@@ -29,12 +29,21 @@ export function TransitSignageHeader({
         M
       </div>
       <div className="min-w-0 flex-1">
-        <h1 className="truncate text-[17px] font-extrabold leading-tight sm:text-[21px] 2xl:text-[24px]">
+        {/* Wraps to two lines on narrow screens rather than truncating: the
+            course name is the informative half and it was the half being cut
+            ("学習路線図 — …" on a 390px phone). */}
+        <h1 className="text-[17px] font-extrabold leading-tight line-clamp-2 sm:truncate sm:text-[21px] 2xl:text-[24px]">
           {title}
         </h1>
-        <div className="truncate text-[12px] text-text-secondary">{subtitle}</div>
+        {/* Hidden on phones: truncated it read as a cut-off sentence, and
+            the header already spends a row on the wrapped title there. */}
+        <div className="hidden truncate text-[12px] text-text-secondary sm:block">
+          {subtitle}
+        </div>
       </div>
-      {right}
+      {/* Full width on mobile so the toggle drops to its own row instead of
+          squeezing the title into ~140px of a 390px viewport. */}
+      {right ? <div className="w-full sm:w-auto">{right}</div> : null}
     </div>
   );
 }

@@ -1838,7 +1838,9 @@ function TierContinueBanner({
           <span className="block text-[10.5px] font-bold uppercase tracking-wider text-text-muted">
             Interchange · end of the line
           </span>
-          <span className="block truncate text-[14px] font-extrabold text-text-primary">
+          {/* Wraps rather than truncates — "Continue onto the N4線 N4 Lin…"
+              cut the destination, which is the only part that matters. */}
+          <span className="block text-[14px] font-extrabold leading-snug text-text-primary">
             Continue onto the {n4Label} →
           </span>
         </span>
