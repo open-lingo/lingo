@@ -36,14 +36,22 @@ export function StoryLibraryPage() {
     let out = stories.filter((s) => (level === null ? true : s.level === level));
     if (readFilter === "unread") out = out.filter((s) => !(progress[s.id]?.reads ?? 0));
     if (readFilter === "read") out = out.filter((s) => (progress[s.id]?.reads ?? 0) > 0);
-    // Unread first, then by module, then by level — the next thing to read
-    // sits at the top without hiding anything already finished.
+    // Unread first, then the learner's OWN level downward — newest module
+    // first, hardest level first within it.
+    //
+    // Ascending module was the original order and it buried the whole point of
+    // the library: a learner at m21 has ~40 stories unlocked, so page 1 was all
+    // m3-m9 and the longest read sat at rank 40 of 40. Someone deep in the
+    // course opened it and saw six-sentence beginner content. Descending puts
+    // level-appropriate reads on page 1 at every stage — at m3 only m3 is
+    // unlocked, so a new learner is unaffected — and earlier modules stay one
+    // scroll or a level-chip filter away.
     return out.slice().sort((a, b) => {
       const ar = progress[a.id]?.reads ?? 0;
       const br = progress[b.id]?.reads ?? 0;
       if ((ar > 0) !== (br > 0)) return ar > 0 ? 1 : -1;
-      if (a.module !== b.module) return a.module - b.module;
-      return a.level - b.level;
+      if (a.module !== b.module) return b.module - a.module;
+      return b.level - a.level;
     });
   }, [stories, progress, readFilter, level]);
 

@@ -758,11 +758,18 @@
         "doneTitle": "Nice reading",
         "score": "You got {{correct}} of {{total}} right."
       },
-      "level": { "1": "Starter", "2": "Easy", "3": "Steady", "4": "Stretch", "5": "Challenge" },
+      "level": {
+        "1": "Starter",
+        "2": "Easy",
+        "3": "Steady",
+        "4": "Stretch",
+        "5": "Challenge"
+      },
       "empty": {
         "title": "Nothing to read just yet",
         "description": "Keep going in your lessons — as you learn more words, stories you can actually read will unlock here."
-      }
+      },
+      "sentenceCount": "{{count}} lines"
     },
     "listening": {
       "title": "Listening",

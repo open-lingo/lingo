@@ -9,6 +9,16 @@ import { Link } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { levelBand, type Story } from "@/features/practice/content";
 import type { StoryProgress } from "@/shared/storyProgress";
+import { storyIcon } from "./storyIcon";
+
+/** Level -> chip tint. Ascending difficulty reads as ascending warmth. */
+const LEVEL_TINT: Record<number, string> = {
+  1: "bg-surface-muted text-text-muted",
+  2: "bg-success/10 text-success",
+  3: "bg-accent/10 text-accent",
+  4: "bg-warning/10 text-warning",
+  5: "bg-error/10 text-error",
+};
 
 interface StoryCardProps {
   story: Story;
@@ -26,20 +36,36 @@ export function StoryCard({ story, progress, to }: StoryCardProps) {
     <div className="rounded-lg border border-border bg-surface transition hover:border-accent">
       <div className="flex items-center gap-3 px-4 py-3">
         <span
-          className={`flex size-9 shrink-0 items-center justify-center rounded-md ${
-            read ? "bg-success/10 text-success" : "bg-surface-muted text-text-secondary"
+          className={`relative flex size-10 shrink-0 items-center justify-center rounded-lg ${
+            read ? "bg-success/10 text-success" : "bg-accent/10 text-accent"
           }`}
         >
-          <Icon name={read ? "checkCircle" : "bookOpen"} size={18} aria-hidden />
+          <Icon name={storyIcon(story)} size={20} aria-hidden />
+          {read && (
+            <span className="absolute -bottom-1 -right-1 flex size-4 items-center justify-center rounded-full bg-success text-accent-foreground">
+              <Icon name="check" size={10} aria-hidden />
+            </span>
+          )}
         </span>
 
         <Link to={to} className="min-w-0 flex-1">
           <span className="flex flex-wrap items-center gap-2">
             <span className="truncate font-semibold text-text-primary">{story.title}</span>
-            <span className="shrink-0 rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-text-muted">
+            <span
+              className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
+                LEVEL_TINT[story.level] ?? LEVEL_TINT[1]
+              }`}
+            >
               {t(`practice.stories.level.${story.level}`, { defaultValue: band.name })}
             </span>
-            {story.tags?.map((tag) => (
+            {/* Length is the whole point of the progressive ladder — show it. */}
+            <span className="shrink-0 text-xs tabular-nums text-text-muted">
+              {t("practice.stories.sentenceCount", {
+                defaultValue: "{{count}} lines",
+                count: story.sentences.length,
+              })}
+            </span>
+            {story.tags?.slice(0, 2).map((tag) => (
               <span key={tag} className="shrink-0 rounded-full bg-surface-muted px-2 py-0.5 text-xs text-text-muted">
                 {t(`practice.stories.tag.${tag}`, { defaultValue: tag })}
               </span>

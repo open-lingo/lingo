@@ -758,11 +758,18 @@
         "doneTitle": "Buena lectura",
         "score": "Acertaste {{correct}} de {{total}}."
       },
-      "level": { "1": "Inicial", "2": "Fácil", "3": "Media", "4": "Avanzada", "5": "Desafío" },
+      "level": {
+        "1": "Inicial",
+        "2": "Fácil",
+        "3": "Media",
+        "4": "Avanzada",
+        "5": "Desafío"
+      },
       "empty": {
         "title": "Todavía no hay nada para leer",
         "description": "Sigue avanzando en tus lecciones — a medida que aprendas más palabras, aquí se irán desbloqueando historias que ya puedes leer."
-      }
+      },
+      "sentenceCount": "{{count}} líneas"
     },
     "listening": {
       "title": "Escucha",
