@@ -206,6 +206,28 @@ whether the characters are covered. Two consequences:
     `gloss "まちます" is already known` — so at m8-m13 the only correct move is
     to **write a story that does not need the word**.
 
+  - **`やすむ` "to rest" gates clean from exactly m21** — as `や` (the open-list
+    particle, m21) + `すむ` 住む "to live in" (m15). The matcher reads 休む as
+    "and-live-in". `やすむ` is an unattributed atom, so it is never taught at any
+    module in the course, and from m21 up it is also **unglossable**:
+    `content.test.ts` answers `gloss "やすむ" is already known at m24`. Measured
+    sweep (every module 1-30 probed):
+
+    | surface | m1-m14 | m15-m20 | m21+ |
+    |---|---|---|---|
+    | `やすむ` | `やすむ` | `や` | **clean** |
+
+    The `や`-prefix trap is general: from m21 any word starting with `や` gets its
+    first kana eaten for free. If your m21+ story wants "rest", use `ねる` (m17)
+    or `やすみ` 休み (the noun, a real m10 atom) — both of which the learner has.
+
+  - **`くがつ` "September" never gates, at any module 1-30** — `く` 九 is an
+    unattributed atom, so the *nine* in 九月 has no source even though `がつ`
+    is m16 and every other month works. Measured: residual `くがつ` at m1,
+    `くつ` at m5-m10 (once `が` m4 is available), `く` from m16 up. There is no
+    way to write September in gated Japanese. Use `あき` (autumn, m18) for that
+    beat, or move the scene to a month that does gate.
+
   **Korean false positives, measured.** Every row below was probed with
   `gateResidual(surface, "ko", M)` and is a word the matcher accepts but the
   learner cannot read. "Clean from" is the first module at which the residual is
@@ -510,6 +532,59 @@ generalize from one probe to a rule; the following are the measured facts:
 - **`でした` after a noun is fine** at any module and in any register, and
   `じゃなかった` ("wasn't", noun / な-adjective) gates clean from m12 — so a past
   *negative* copula is available even where past verbs and adjectives are not.
+
+### Adjective forms, measured — the two that constrain every JA story
+
+These are not tense, but they bite in the same way and they bite at *every*
+module, m1 to m40. Both were measured across the whole range while authoring the
+m16-m30 stretch set.
+
+**い-adjective ADVERBIALS are per-surface, and almost all of them fail.** There
+is exactly one that works, and it works because it is an atom in its own right:
+
+| surface | m3 | m8 | m11 | m16 | m20 | m25 | m30 | m40 |
+|---|---|---|---|---|---|---|---|---|
+| `よく` "often, well" (`ja:yoku`, m11) | `よく` | `よく` | **clean** | clean | clean | clean | clean | clean |
+| `はやく` | `やく` | `やく` | `やく` | `やく` | `やく` | `く` | `く` | `く` |
+| `おそく` | `おそく` | `おそく` | `おそく` | `おそく` | `おそく` | `おそく` | `おそく` | `おそく` |
+| `おおきく` | `おおきく` | `おおきく` | `おおきく` | `おおきく` | `おおく` | `おお` | `おお` | `おお` |
+| `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` | `ちいさく` |
+| `ながく` | `ながく` | `なく` | `なく` | `なく` | `なく` | `なく` | `なく` | `なく` |
+| `わるく` | `わるく` | `わるく` | `わるく` | `わるく` | `わるく` | `わるく` | `わるく` | `わるく` |
+| `あたらしく` | `あたらしく` | `あたらしく` | `あたらしく` | `あたらく` | `あたらく` | `あたらく` | `あたらく` | `あたらく` |
+| `たかく` | `たく` | `たく` | `たく` | `た` | `た` | `た` | `た` | `た` |
+| `おいしく` | `おいしく` | `おいしく` | `おいしく` | `おいく` | `おいく` | `おいく` | `おいく` | `おいく` |
+
+So `よく` is available from m11 and is the JA adverbial you can actually reach
+for; everything else has to be rewritten. "Gets worse" cannot be `わるく なる` at
+any module — write `へたに なる` instead (see below). **Probe the exact adverbial
+you want; do not generalize in either direction from this table.**
+
+**な-adjective ATTRIBUTIVE `な` never gates — but the な-ADVERBIAL always does.**
+The `な` suffix has no source anywhere in `FUNCTION_MORPHEMES` or the atom
+registry, so it residuals as a bare `な` on every な-adjective tried; the `に`
+adverbial form is clean because `に` is the m6 particle.
+
+| attributive (residual at m16 **and** m30) | adverbial (clean at m16) |
+|---|---|
+| `たいせつな` → `な` | `たいせつに` |
+| `ゆうめいな` → `な` | — |
+| `しずかな` → `な` | `しずかに` |
+| `きれいな` → `な` | `きれいに` |
+| `すきな` → `な` | — |
+| `げんきな` → `な` | `げんきに` |
+| `ていねいな` → `な` (whole word until m30, since `ていねい` is m30) | `ていねいに` (from m30) |
+| — | `じょうずに`, `へたに` |
+
+Consequence: **every な-adjective in a story has to sit in predicate position**
+(`しゅくだいは たいせつだ`), never before the noun (`たいせつな しゅくだい`).
+
+The caveat that makes this a rule about the *suffix*, not about attributive
+position: **`おおきな` IS clean from m9** (residual `おおきな` at m8), because 大きな is a
+registered atom in its own right (`ja:ookina`), not `おおき` + `な`. Its obvious
+partner `ちいさな` residuals whole at every module, because `ちいさな` is an
+unattributed atom. One is lexicalized in the catalog and the other is not, which
+you cannot tell without probing.
 
 A workable JA shape at low modules is therefore **narrative present with a
 past-tense coda**, which is idiomatic Japanese storytelling anyway. That is what

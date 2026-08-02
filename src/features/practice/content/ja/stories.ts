@@ -942,6 +942,7 @@ export const JA_STORIES: Story[] = [
     glosses: [
       { surface: "なくす", meaning: "to lose (something)", atomId: "ja:nakusu" },
       { surface: "おなじ", meaning: "the same", atomId: "ja:onaji" },
+      { surface: "さがす", meaning: "to look for, to search", atomId: "ja:sagasu" },
     ],
     questions: [
       {
@@ -970,7 +971,7 @@ export const JA_STORIES: Story[] = [
       { text: "かようびの あさ、きょうしつで かばんを あける。", translation: "Tuesday morning, I open my bag in the classroom." },
       { text: "ノートが なかった。", translation: "The notebook wasn't there." },
       { text: "じしょと ペンは ある。けど、ノートは ない。", translation: "The dictionary and the pen are there. But not the notebook." },
-      { text: "ろうかにも ノートは ない。", translation: "The notebook isn't in the corridor either." },
+      { text: "ぼくは きょうしつを さがす。", translation: "I search the classroom." },
       { text: "ぼくは ノートを なくす。", translation: "I lose the notebook." },
       { text: "いまは はちじはんだ。クラスは くじだ。", translation: "It's half past eight. Class is at nine." },
       { text: "ともだちの ケンが あたらしい ノートを かす。", translation: "My friend Ken lends me a new notebook." },
@@ -1072,7 +1073,7 @@ export const JA_STORIES: Story[] = [
       { text: "さんじに ぼくは ちちの へやに はいる。ちちは げんきだ。", translation: "At three I go into my father's room. He's fine." },
       { text: "ちちは ぼくに はなす。「どうして おそい。」", translation: "My father says to me, \"Why so late?\"" },
       { text: "ぼくは はしの ことを はなす。", translation: "I talk about the bridge." },
-      { text: "あしたも びょういんに いく。みちは もう わかった。", translation: "Tomorrow I'll go to the hospital again. I've got the way now." },
+      { text: "あしたも びょういんに いく。みちは もう わかった。", translation: "Tomorrow too, I'll go to the hospital. I've got the way now." },
     ],
   },
   // ── Late (m18-m30): ramp up — 1, sometimes 2 stories per module ────────────
@@ -1252,7 +1253,7 @@ export const JA_STORIES: Story[] = [
       { text: "ぼくは ちちに しゃしんを みせる。", translation: "I show the photo to my father." },
       { text: "ちちは しゃしんを ながい じかん みる。「ははの おねえさんでしょう。」", translation: "My father looks at the photo for a long time. \"It's probably my mother's older sister.\"" },
       { text: "ははも しゃしんを みる。「きっと がっこうの せんせいでしょう。」", translation: "My mother looks at the photo too. \"It's surely a teacher from the school.\"" },
-      { text: "あには めがねを とる。「この かたは だいがくの せいとでしょう。」", translation: "My older brother takes off his glasses. \"This person is probably a university pupil.\"" },
+      { text: "あには めがねを とる。「この かたは だいがくの がくせいでしょう。」", translation: "My older brother takes off his glasses. \"This person is probably a university student.\"" },
       { text: "だれも わからない。", translation: "Nobody knows." },
       { text: "よる、おばあさんは ぼくを まつ。", translation: "In the evening, my grandmother waits for me." },
       { text: "おばあさんは ぼくに しゃしんの はなしを する。", translation: "She tells me about the photo." },
@@ -1682,10 +1683,10 @@ export const JA_STORIES: Story[] = [
       { text: "あさから ぼくの のどが いたい。ねつも ある。", translation: "From the morning my throat hurts. I have a fever too." },
       { text: "よる、かぞくで ばんごはんを たべる。", translation: "In the evening the family eats dinner." },
       { text: "ちちと ははと あにと いもうとと ぼくだ。", translation: "My father, my mother, my older brother, my sister and me." },
-      { text: "ははは とりにくが すきだ。だから、とりにくの りょうりを する。", translation: "My mother likes chicken. So I cook a chicken dish." },
+      { text: "ははは とりにくが すきだ。だから、ぼくが とりにくの りょうりを する。", translation: "My mother likes chicken. So I cook a chicken dish." },
       { text: "しょくじの あとで、ぼくは うたう。", translation: "After the meal, I sing." },
       { text: "けど、こえが ない。", translation: "But there's no voice." },
-      { text: "のどが いたい。ぼくは うたが できない。", translation: "My throat hurts. I can't sing." },
+      { text: "のどが とても いたい。ぼくは だめだ。", translation: "My throat really hurts. I'm no good." },
       { text: "かぞくは しずかだ。", translation: "The family is quiet." },
       { text: "いもうとが ぼくの まえに くる。", translation: "My sister comes in front of me." },
       { text: "いもうとは ひとりで うたう。", translation: "She sings it alone." },
@@ -1727,7 +1728,10 @@ export const JA_STORIES: Story[] = [
     // できない / ましょう), so the story is built on what one man can no longer
     // do and what the narrator can hear through a wall. Line 5 plants the exact
     // habit — the radio stops at ten, every night — and Thursday's broken habit
-    // is the only reason the narrator ever knocks. ja-m24-things-i-can-do is a
+    // is the only reason the narrator ever knocks. The other axis is the
+    // narrator's own ear: line 9 hates the music, line 28 likes it, and line 29
+    // turns line 5's plant by making the ten-o'clock silence something HE now
+    // produces. ja-m24-things-i-can-do is a
     // first-person inventory of skills; this one is a can/can't about somebody
     // else, which is the same grammar with a subject to track.
     id: "ja-m24-the-radio-next-door",
@@ -1766,27 +1770,27 @@ export const JA_STORIES: Story[] = [
       { text: "わたしは よる べんきょうする。", translation: "I study in the evening." },
       { text: "ラジオが きこえるので、べんきょうする ことが できない。", translation: "Because I can hear the radio, I can't study." },
       { text: "わたしは しごとで つかれる。", translation: "I get tired from work." },
-      { text: "わたしは まいばん おなじ おんがくを きく。", translation: "Every night I listen to the same music." },
+      { text: "わたしは その おんがくが きらいだ。", translation: "I hate that music." },
       { text: "もくようびの よる、じゅうじに ラジオが きこえる。", translation: "On Thursday night I can hear the radio at ten." },
       { text: "じゅういちじにも きこえる。じゅうにじにも きこえる。", translation: "I can hear it at eleven too. At twelve too." },
       { text: "よるが ながい。", translation: "The night is long." },
       { text: "わたしは となりの ドアの まえに いく。", translation: "I go to the door next door." },
-      { text: "おじいさんが ドアを あける。", translation: "An old man opens it." },
+      { text: "おじいさんが ドアを あける。", translation: "The old man opens it." },
       { text: "へやに でんきが ない。ラジオの おんがくが ある。", translation: "There's no light in the room. There's the music from the radio." },
       { text: "おじいさんは 「すみません。」と はなす。", translation: "The old man says, \"I'm sorry.\"" },
       { text: "「めが わるいです。ほんは だめです。」", translation: "\"My eyes are bad. Books are no good.\"" },
       { text: "「まいばん ラジオの ニュースを ききます。」", translation: "\"Every night I listen to the news on the radio.\"" },
       { text: "わたしは わかった。", translation: "I understood." },
-      { text: "おじいさんは まいばん じゅうじに ねる。", translation: "Every night the old man goes to sleep at ten." },
-      { text: "もくようびの よる、おじいさんは ラジオの まえで ねる。", translation: "On Thursday night the old man falls asleep in front of the radio." },
-      { text: "わたしは ラジオを けす。", translation: "I switch the radio off." },
+      { text: "おじいさんは まいばん じゅうじに ねる。ときどき ラジオの まえで ねる。", translation: "Every night the old man goes to sleep at ten. Sometimes he falls asleep in front of the radio." },
+      { text: "もくようびの よるも そうだった。", translation: "Thursday night was like that too." },
+      { text: "わたしは ラジオを けす。おじいさんは ねる。", translation: "I switch the radio off. The old man goes to bed." },
       { text: "にちようび、わたしは ざっしを もつ。おじいさんの へやに いく。", translation: "On Sunday I take a magazine. I go to the old man's room." },
       { text: "わたしは ざっしを よむ。おじいさんは きく。", translation: "I read the magazine. The old man listens." },
       { text: "おじいさんは わたしの てを もつ。「らいしゅうも ききましょう。」", translation: "The old man takes my hand. \"Let's listen next week too.\"" },
       { text: "まいしゅうの にちようび、ふたりで ざっしを よむ。", translation: "Every Sunday the two of us read a magazine." },
       { text: "いまも まいばん くじに ラジオが きこえる。", translation: "I can still hear the radio every night at nine." },
-      { text: "けど、いまは わたしも おなじ おんがくを きく。", translation: "But now I listen to the same music." },
-      { text: "じゅうじに ふたりとも ねる。", translation: "At ten we both go to sleep." },
+      { text: "けど、いまは わたしも その おんがくが すきだ。", translation: "But now I like that music too." },
+      { text: "じゅうじに わたしが ラジオを けす。ふたりとも ねる。", translation: "At ten I switch the radio off. We both go to sleep." },
     ],
   },
   {
@@ -1891,7 +1895,7 @@ export const JA_STORIES: Story[] = [
       { text: "くつを みる。けど、トムの あしは とても おおきい。", translation: "I look at shoes. But Tom's feet are very big." },
       { text: "げつようび、ぼくは たべものの みせに いく。", translation: "On Monday I go to a food shop." },
       { text: "ぼくは おちゃを みる。けど、アメリカにも おちゃが あるだろう。", translation: "I look at green tea. But there's probably green tea in America too." },
-      { text: "かようびも すいようびも もくようびも、ぼくは みせを さがす。", translation: "Tuesday, Wednesday and Thursday, I search the shops." },
+      { text: "かようびも すいようびも もくようびも、ぼくは みせを さがす。", translation: "Tuesday, Wednesday and Thursday, I look for a shop." },
       { text: "ぼくは なにも えらぶ ことが できない。", translation: "I can't choose anything." },
       { text: "きんようび、トムが ぼくの ところに くる。", translation: "On Friday Tom comes over to me." },
       { text: "「らいしゅうの どようびに アメリカに いきます。」", translation: "\"I'm going to America next Saturday.\"" },
@@ -1905,7 +1909,7 @@ export const JA_STORIES: Story[] = [
       { text: "「この とけいは おそいです。けど、ぼくの とけいです。」", translation: "\"This watch runs slow. But it's my watch.\"" },
       { text: "トムは とけいを もつ。「らいねん とうきょうに きます。」", translation: "Tom holds the watch. \"I'll come to Tokyo next year.\"" },
       { text: "「とけいと いっしょに きます。」", translation: "\"I'll come with the watch.\"" },
-      { text: "いま、ぼくの てには とけいが ない。", translation: "Now there's no watch in my hand." },
+      { text: "いま、ぼくには とけいが ない。", translation: "Now I don't have a watch." },
       { text: "けど、あたらしい とけいは かわない。らいねんまで まつ。", translation: "But I won't buy a new watch. I'll wait until next year." },
     ],
   },
@@ -2079,6 +2083,7 @@ export const JA_STORIES: Story[] = [
       { surface: "えらぶ", meaning: "to choose", atomId: "ja:erabu" },
       { surface: "てつだう", meaning: "to help", atomId: "ja:tetsudau" },
       { surface: "ぜったい", meaning: "absolutely, without fail", atomId: "ja:zettai" },
+      { surface: "ぜんぶ", meaning: "all of it, everything", atomId: "ja:zenbu" },
     ],
     questions: [
       {
@@ -2116,7 +2121,7 @@ export const JA_STORIES: Story[] = [
       { text: "「ケンは えが すきです。まいにち えを かきます。」", translation: "\"Ken likes pictures. He draws every day.\"" },
       { text: "わたしは ケンの へやに はいる。", translation: "I go into Ken's room." },
       { text: "へやに ノートが たくさん ある。", translation: "There are a lot of notebooks in the room." },
-      { text: "わたしは ノートを よむ。", translation: "I read the notebooks." },
+      { text: "わたしは ノートを ぜんぶ よむ。", translation: "I read all of them." },
       { text: "えは ほんとうに じょうずだ。", translation: "The pictures are really good." },
       { text: "まちの えだ。ひとの えだ。ねこの えだ。", translation: "A picture of the town. A picture of a person. A picture of a cat." },
       { text: "わたしの えも ある。", translation: "There's a picture of me too." },
@@ -2212,7 +2217,7 @@ export const JA_STORIES: Story[] = [
       { text: "みせは すいようびが やすみだ。", translation: "The shop's day off is Wednesday." },
       { text: "となりの ひとは じてんしゃを うちまで はこぶ。", translation: "The person next door carries the bicycle home." },
       { text: "バスは いま こない。ぼくは あるく ことを えらぶ。", translation: "No bus is coming now. I choose to walk." },
-      { text: "みちは ながい。ぼくは はしる。", translation: "The road is long. I run." },
+      { text: "みちは ながい。ぼくは また いそぐ。", translation: "The road is long. I hurry again." },
       { text: "じゅうじはん、ぼくは えきに つく。", translation: "At half past ten I arrive at the station." },
       { text: "ユミが いない。", translation: "Yumi isn't there." },
       { text: "ぼくは こまる。", translation: "I'm at a loss." },
@@ -2221,7 +2226,7 @@ export const JA_STORIES: Story[] = [
       { text: "ユミの はなしは みじかい。「じてんしゃが だめでした。」", translation: "Yumi's story is short. \"The bicycle was no good.\"" },
       { text: "ぼくの はなしも みじかい。「ぼくの じてんしゃも だめです。」", translation: "My story is short too. \"My bicycle is no good either.\"" },
       { text: "ふたりで きっさてんに はいる。", translation: "The two of us go into a coffee shop." },
-      { text: "ごごから、ふたりで じてんしゃを なおす。", translation: "From the afternoon, the two of us fix the bicycles." },
+      { text: "ごごから、ふたりで ぼくの じてんしゃを なおす。", translation: "From the afternoon, the two of us fix my bicycle." },
       { text: "となりの ひとも てつだう。", translation: "The person next door helps too." },
       { text: "さんにんで ぜんぶ なおす。", translation: "The three of us fix all of it." },
       { text: "よる、ぼくの じてんしゃも ユミの じてんしゃも はしる。", translation: "That evening, my bicycle and Yumi's bicycle both run." },
@@ -2303,7 +2308,7 @@ export const JA_STORIES: Story[] = [
       { text: "ぼくは じゅうさいの とき、ユミと おなじ クラスだった。", translation: "When I was ten, I was in the same class as Yumi." },
       { text: "ふたりは おなじ まちの がっこうに いった。", translation: "We went to a school in the same town." },
       { text: "けど、ユミは ぼくが わからない。", translation: "But Yumi doesn't recognise me." },
-      { text: "こどもの ときの ぼくは とても ちいさい。いまの ぼくは おおきい。", translation: "As a child I was very small. Now I'm big." },
+      { text: "ぼくは ちいさい こどもだった。いまは おおきい。", translation: "I was a small child. Now I'm big." },
       { text: "ぼくは その はなしを しない。", translation: "I don't bring it up." },
       { text: "まいにち けいごを つかう。", translation: "Every day I use keigo." },
       { text: "どうりょうは ぼくに 「ユミは いい せんぱいです。」と いう。", translation: "A colleague says to me, \"Yumi is a good senior.\"" },
