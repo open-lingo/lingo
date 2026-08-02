@@ -919,6 +919,72 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m16 L4. m16 hands over かく / よむ / いみ / しゅくだい / ろうか / きょうしつ
+    // / なかった / ので / けど / まで, so the plot is a piece of written work that
+    // goes missing and gets written a second time. The change of state is what
+    // the SECOND writing does to the narrator, not the recovery of the first.
+    // Kept clear of ja-m16-a-day-at-school's motif stack (あさごはん + はしる +
+    // ノートに かく + じぶんで べんきょうする) — same module, so the stretch read
+    // must not recycle the comfortable read's furniture.
+    //
+    // Pool notes: なか / あるく / とまる are m17, みんな m19, たくさん m20,
+    // いっしょ m23 — none available here. い-adjective adverbials (はやく,
+    // おおきく) never gate, and な-adjective attributive な does not either
+    // ("たいせつな しゅくだい" residuals な), so every adjective sits in
+    // predicate position.
+    id: "ja-m16-the-second-notebook",
+    languageId: "ja",
+    module: 16,
+    level: 4,
+    title: "The second notebook",
+    theme: "The homework goes missing, so it gets written twice.",
+    tags: ["school", "homework", "friends"],
+    glosses: [
+      { surface: "なくす", meaning: "to lose (something)", atomId: "ja:nakusu" },
+      { surface: "おなじ", meaning: "the same", atomId: "ja:onaji" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ぼくの ふるい ノートは どこに ありますか。",
+        options: ["ろうかです", "かばんです", "きょうしつです"],
+        answer: "ろうかです",
+      },
+      {
+        id: "night",
+        kind: "detail",
+        prompt: "ぼくが しゅくだいを かくのは いつですか。",
+        options: ["げつようびの よるです", "かようびの あさです", "にちようびの ひるです"],
+        answer: "げつようびの よるです",
+      },
+    ],
+    sentences: [
+      { text: "せんせいは しゅくだいの はなしを よく する。", translation: "My teacher talks about homework a lot." },
+      { text: "「しゅくだいは たいせつです。」", translation: "\"Homework is important.\"" },
+      { text: "ぼくは しゅくだいが きらいだ。", translation: "I hate homework." },
+      { text: "げつようびの よる、あたらしい ノートに しゅくだいを かく。", translation: "Monday night, I write the homework in a new notebook." },
+      { text: "しゅくだいは とても むずかしい。", translation: "The homework is very hard." },
+      { text: "いみが わからない ところも ある。", translation: "There are parts whose meaning I don't get." },
+      { text: "けど、じゅうじまで かく。", translation: "But I write until ten." },
+      { text: "かようびの あさ、きょうしつで かばんを あける。", translation: "Tuesday morning, I open my bag in the classroom." },
+      { text: "ノートが なかった。", translation: "The notebook wasn't there." },
+      { text: "じしょと ペンは ある。けど、ノートは ない。", translation: "The dictionary and the pen are there. But not the notebook." },
+      { text: "ろうかにも ノートは ない。", translation: "The notebook isn't in the corridor either." },
+      { text: "ぼくは ノートを なくす。", translation: "I lose the notebook." },
+      { text: "いまは はちじはんだ。クラスは くじだ。", translation: "It's half past eight. Class is at nine." },
+      { text: "ともだちの ケンが あたらしい ノートを かす。", translation: "My friend Ken lends me a new notebook." },
+      { text: "ぼくは いすに すわる。", translation: "I sit down." },
+      { text: "それから、おなじ しゅくだいを もういちど かく。", translation: "Then I write the same homework again." },
+      { text: "いまは いみが わかった。", translation: "Now the meaning has made sense." },
+      { text: "ゆうべの むずかしい ところが やさしい。", translation: "Last night's hard parts are easy." },
+      { text: "くじに せんせいが きょうしつに はいる。", translation: "At nine the teacher comes into the classroom." },
+      { text: "せんせいは ぼくに ふるい ノートを みせる。ろうかの ノートだ。", translation: "The teacher shows me my old notebook. It's the one from the corridor." },
+      { text: "あたらしい ノートを せんせいに みせる。", translation: "I show the teacher the new notebook." },
+      { text: "しゅくだいは たいせつだと おもう。いまは ほんとうに そう おもう。", translation: "Homework is important, I think. Now I really do think so." },
+    ],
+  },
+  {
     id: "ja-m17-to-the-station",
     languageId: "ja",
     module: 17,
@@ -942,6 +1008,71 @@ export const JA_STORIES: Story[] = [
       { text: "たてものの よこに えきが ある。", translation: "The station is beside the building." },
       { text: "でんしゃに のる。", translation: "I get on the train." },
       { text: "つぎの えきで おりる。", translation: "I get off at the next station." },
+    ],
+  },
+  {
+    // m17 L4. The module is the whole direction-giving kit (まっすぐ / みぎ /
+    // ひだり / むこう / うしろ / よこ / そば / はし / わたる / まがる / のる /
+    // おりる / とまる / けいかん / おまわりさん), so the arc is a wrong route
+    // walked in full. The building at line 5 is the plant; line 19 is the bill.
+    // ja-m17-to-the-station already owns the "follow the street, arrive" shape,
+    // so this one is the same kit used to arrive at the WRONG place first.
+    //
+    // Pool note: きく "to ask" is m24, so every question is put as a quoted line
+    // after a narrated はなす attribution; and ます-forms of m17 verbs
+    // (まがります / わたります) do not gate, so the policemen speak in noun
+    // predicates plus the m8 て-form いって.
+    id: "ja-m17-the-building-behind-the-station",
+    languageId: "ja",
+    module: 17,
+    level: 4,
+    title: "The building behind the station",
+    theme: "Two policemen, one bridge, and a hospital that was never far away.",
+    tags: ["town", "family", "directions"],
+    glosses: [
+      { surface: "いそぐ", meaning: "to hurry", atomId: "ja:isogu" },
+      { surface: "こまる", meaning: "to be stuck, to be at a loss", atomId: "ja:komaru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ちちの びょういんは どこに ありますか。",
+        options: ["えきの うしろです", "はしの むこうです", "こうえんの そばです"],
+        answer: "えきの うしろです",
+      },
+      {
+        id: "time",
+        kind: "detail",
+        prompt: "ぼくが ちちの へやに はいるのは なんじですか。",
+        options: ["さんじです", "いちじです", "ろくじです"],
+        answer: "さんじです",
+      },
+    ],
+    sentences: [
+      { text: "けさ、ははから でんわが ある。", translation: "This morning there's a call from my mother." },
+      { text: "ちちが びょういんに いる。ちちは げんきじゃない。", translation: "My father is in hospital. He isn't well." },
+      { text: "ぼくは すぐに でかける。えきまで いそぐ。", translation: "I go out at once. I hurry as far as the station." },
+      { text: "けど、びょういんの みちが わからないので、こまる。", translation: "But I don't know the way to the hospital, so I'm stuck." },
+      { text: "えきの うしろに おおきい たてものが ある。", translation: "Behind the station there's a big building." },
+      { text: "その たてものの まえを あるく。", translation: "I walk past the front of that building." },
+      { text: "えきの そばに けいかんが いる。ぼくは けいかんに はなす。", translation: "There's a policeman beside the station. I speak to him." },
+      { text: "「びょういんは どこですか。」", translation: "\"Where is the hospital?\"" },
+      { text: "けいかんは ぼくの かおを みる。「この みちを まっすぐ いって ください。びょういんは はしの むこうです。」", translation: "The policeman looks at my face. \"Go straight along this street. The hospital is on the other side of the bridge.\"" },
+      { text: "ぼくは みちを まっすぐ あるく。", translation: "I walk straight along the street." },
+      { text: "はしを わたる。みちは とても ながい。", translation: "I cross the bridge. The street is very long." },
+      { text: "はしの むこうに ちいさい たてものが ある。", translation: "On the other side of the bridge there's a small building." },
+      { text: "びょういんだ。けど、ちちは いない。", translation: "It's a hospital. But my father isn't there." },
+      { text: "ここは ちいさい びょういんだ。", translation: "This is a small hospital." },
+      { text: "みちの よこに おまわりさんが いる。ぼくは もういちど はなす。", translation: "There's a policeman at the side of the street. I speak up again." },
+      { text: "おまわりさんは ぼくに はなす。「おおきい びょういんは えきの うしろです。」", translation: "The policeman says to me, \"The big hospital is behind the station.\"" },
+      { text: "ぼくは バスに のる。バスは えきの まえで とまる。", translation: "I get on a bus. The bus stops in front of the station." },
+      { text: "ぼくは えきの うしろに はしる。", translation: "I run behind the station." },
+      { text: "あの おおきい たてものが びょういんだ。", translation: "That big building is the hospital." },
+      { text: "さんじに ぼくは ちちの へやに はいる。ちちは げんきだ。", translation: "At three I go into my father's room. He's fine." },
+      { text: "ちちは ぼくに はなす。「どうして おそい。」", translation: "My father says to me, \"Why so late?\"" },
+      { text: "ぼくは はしの ことを はなす。", translation: "I talk about the bridge." },
+      { text: "あしたも びょういんに いく。みちは もう わかった。", translation: "Tomorrow I'll go to the hospital again. I've got the way now." },
     ],
   },
   // ── Late (m18-m30): ramp up — 1, sometimes 2 stories per module ────────────
@@ -972,6 +1103,75 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m18 L4. The seasons module read as one year, so the load-bearing order is
+    // the calendar: the tree is a complaint in summer, autumn and winter and a
+    // reason to stay in spring. さくら is an m1 atom, which is what lets the
+    // payoff at line 18 land in vocabulary the learner has had since the very
+    // first module. ja-m18-a-warm-day owns the single-day forecast shape; this
+    // one deliberately spans four seasons instead.
+    //
+    // Pool note: たくさん is m20 and おおい m22, so quantity is carried by とても
+    // / よく; ふる and さく are unattributed atoms, so rain and blossom are
+    // written as state (ゆきが ある / はなが ある) rather than as events.
+    id: "ja-m18-the-tree-next-door",
+    languageId: "ja",
+    module: 18,
+    level: 4,
+    title: "The tree next door",
+    theme: "A year of complaining about a big tree, and one March morning.",
+    tags: ["weather", "seasons", "neighbours"],
+    glosses: [
+      { surface: "つよい", meaning: "strong, powerful", atomId: "ja:tsuyoi" },
+      { surface: "うるさい", meaning: "noisy, annoying", atomId: "ja:urusai" },
+      { surface: "くらい", meaning: "dark, gloomy", atomId: "ja:kurai" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ぼくは どうして いま この きが すきですか。",
+        options: [
+          "きに さくらの はなが あるからです",
+          "きの したが すずしいからです",
+          "きが とても おおきいからです",
+        ],
+        answer: "きに さくらの はなが あるからです",
+      },
+      {
+        id: "winter",
+        kind: "detail",
+        prompt: "ふゆの きは どうですか。",
+        options: ["ぜんぜん きれいじゃないです", "とても きれいです", "とても あたたかいです"],
+        answer: "ぜんぜん きれいじゃないです",
+      },
+    ],
+    sentences: [
+      { text: "ぼくは きょねんから この まちに すむ。", translation: "I've lived in this town since last year." },
+      { text: "うちの となりに おおきな にわが ある。", translation: "Next door to my house there's a big garden." },
+      { text: "にわの なかに とても おおきな きが ある。", translation: "In the garden there's a very big tree." },
+      { text: "きは ぼくの へやの まどの まえだ。", translation: "The tree is right in front of my room's window." },
+      { text: "なつは あつい。けど、きの したは すずしい。", translation: "Summer is hot. But it's cool under the tree." },
+      { text: "あきに かぜが つよい。", translation: "In autumn the wind is strong." },
+      { text: "かぜの よるは とても うるさい。", translation: "Windy nights are very noisy." },
+      { text: "ふゆ、きの うえに ゆきが ある。", translation: "In winter there's snow on the tree." },
+      { text: "ふゆの きは ぜんぜん きれいじゃない。", translation: "The winter tree isn't beautiful at all." },
+      { text: "ぼくは この きが すきじゃない。", translation: "I don't like this tree." },
+      { text: "ぼくは となりの ひとに はなす。", translation: "I speak to the person next door." },
+      { text: "「その きは おおきいです。ぼくの へやが くらいです。」", translation: "\"That tree is big. My room is dark.\"" },
+      { text: "となりの ひとは 「はるは きれいです。」と はなす。", translation: "The person next door says, \"It's beautiful in spring.\"" },
+      { text: "その はなしが わからない。", translation: "I don't understand that." },
+      { text: "さんがつ、てんきが まいにち あたたかい。", translation: "In March the weather is warm every day." },
+      { text: "ある あさ、まどを あける。", translation: "One morning I open the window." },
+      { text: "きに はなが ある。", translation: "There are flowers on the tree." },
+      { text: "きは さくらだった。", translation: "The tree was a cherry tree." },
+      { text: "となりの にわは とても きれいだ。", translation: "The garden next door is beautiful." },
+      { text: "まちの ひとが にわの まえに くる。ひとは しゃしんを とる。", translation: "People from the town come to the front of the garden. They take photos." },
+      { text: "ぼくの へやの まどの まえに さくらが ある。", translation: "There's a cherry tree in front of my window." },
+      { text: "いまは この きが すきだ。", translation: "Now I like this tree." },
+      { text: "つぎの ふゆも ぼくは まつ。", translation: "Next winter too, I'll wait for it." },
+    ],
+  },
+  {
     id: "ja-m19-my-family",
     languageId: "ja",
     module: 19,
@@ -998,6 +1198,74 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m19 L4. The family module read as a guessing game: every relative gets a
+    // turn on the photo, so the roster is used as a sequence of guesses rather
+    // than recited as a list (ja-m19-my-family already owns the roster shape).
+    // The plant is line 7 — the narrator's own wrong answer — and line 21
+    // overturns it with the same word.
+    //
+    // Register: PLAIN narration, unlike its module-mate ja-m19-my-family. The
+    // m13-m30 default is plain; m19 is the one polite exception in that run, and
+    // carrying one of each at m19 mirrors what m12 already does. Quoted dialogue
+    // stays polite, which is the L4 register-shift allowance.
+    //
+    // Pool note: negation at m19 is only the m6 neo set plus ~じゃない and polite
+    // ~ません, so "says nothing" is written as a polite しりません inside a quote.
+    id: "ja-m19-the-girl-in-the-photo",
+    languageId: "ja",
+    module: 19,
+    level: 4,
+    title: "The girl in the photo",
+    theme: "Everyone in the house guesses. Only one person was there.",
+    tags: ["family", "photos", "grandparents"],
+    glosses: [
+      { surface: "おなじ", meaning: "the same", atomId: "ja:onaji" },
+      { surface: "でしょう", meaning: "probably, I expect", atomId: "ja:deshou" },
+      { surface: "きっと", meaning: "surely, definitely", atomId: "ja:kitto" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "しゃしんの おんなのこは だれですか。",
+        options: ["おばあさんです", "ぼくの あねです", "がっこうの せんせいです"],
+        answer: "おばあさんです",
+      },
+      {
+        id: "age",
+        kind: "detail",
+        prompt: "しゃしんの ときの おばあさんは なんさいですか。",
+        options: ["じゅうななさいです", "さんじゅうさいです", "ななじゅうごさいです"],
+        answer: "じゅうななさいです",
+      },
+    ],
+    sentences: [
+      { text: "にちようび、ぼくは おばあさんの うちに いる。", translation: "On Sunday I'm at my grandmother's house." },
+      { text: "おばあさんは ななじゅうごさいだ。", translation: "My grandmother is seventy-five." },
+      { text: "ぼくは おばあさんの ふるい かばんを あける。", translation: "I open my grandmother's old bag." },
+      { text: "かばんの なかに ふるい しゃしんが ある。", translation: "Inside the bag there's an old photo." },
+      { text: "しゃしんの なかに おんなのこが いる。", translation: "In the photo there's a girl." },
+      { text: "おんなのこは とても かわいい。", translation: "The girl is very pretty." },
+      { text: "ぼくの あねと おなじだ。", translation: "She's the same as my older sister." },
+      { text: "ぼくは おばあさんに はなす。「この かたは どなたですか。」", translation: "I say to my grandmother, \"Who is this person?\"" },
+      { text: "おばあさんの こえは しずかだ。「しりません。」", translation: "My grandmother's voice is quiet. \"I don't know.\"" },
+      { text: "ぼくは ちちに しゃしんを みせる。", translation: "I show the photo to my father." },
+      { text: "ちちは しゃしんを ながい じかん みる。「ははの おねえさんでしょう。」", translation: "My father looks at the photo for a long time. \"It's probably my mother's older sister.\"" },
+      { text: "ははも しゃしんを みる。「きっと がっこうの せんせいでしょう。」", translation: "My mother looks at the photo too. \"It's surely a teacher from the school.\"" },
+      { text: "あには めがねを とる。「この かたは だいがくの せいとでしょう。」", translation: "My older brother takes off his glasses. \"This person is probably a university pupil.\"" },
+      { text: "だれも わからない。", translation: "Nobody knows." },
+      { text: "よる、おばあさんは ぼくを まつ。", translation: "In the evening, my grandmother waits for me." },
+      { text: "おばあさんは ぼくに しゃしんの はなしを する。", translation: "She tells me about the photo." },
+      { text: "「わたしは じゅうななさいでした。」", translation: "\"I was seventeen.\"" },
+      { text: "「けっこんの まえの しゃしんです。」", translation: "\"It's a photo from before the wedding.\"" },
+      { text: "「よこの おとこのこは おじいさんです。」", translation: "\"The boy at the side is your grandfather.\"" },
+      { text: "ぼくは しゃしんを もういちど みる。", translation: "I look at the photo again." },
+      { text: "おんなのこの めと おばあさんの めは おなじだ。", translation: "The girl's eyes and my grandmother's eyes are the same." },
+      { text: "ぼくの あねと おなじじゃない。おばあさんと おなじだ。", translation: "Not the same as my sister. The same as my grandmother." },
+      { text: "いま、ぼくは おばあさんの めを よく みる。しゃしんの おんなのこの めだ。", translation: "Now I look at my grandmother's eyes properly. They're the eyes of the girl in the photo." },
+    ],
+  },
+  {
     id: "ja-m20-feeling-sick",
     languageId: "ja",
     module: 20,
@@ -1021,6 +1289,68 @@ export const JA_STORIES: Story[] = [
       { text: "いしゃに はなしを する。", translation: "I talk to the doctor." },
       { text: "まいあさ くすりを のむ。", translation: "I take medicine every morning." },
       { text: "まいばん ゆっくりと ねる。", translation: "Every night I sleep well." },
+    ],
+  },
+  {
+    // m20 L4. Body parts plus より / ほう plus the hundreds, so the arc is a
+    // week of self-diagnosis that ranks the wrong pain highest. Line 5 plants
+    // the ear as an aside and demotes it in the same breath with ほう; line 17
+    // is the correction. ja-m20-feeling-sick already owns the straight
+    // symptom → hospital → medicine shape, so this one withholds the hospital
+    // for eleven lines and gets the cause wrong when it arrives.
+    //
+    // Pool note: い-adjective negatives (いたくない) never gate, so recovery is
+    // shown by what the narrator can eat again rather than by negating the pain.
+    id: "ja-m20-the-wrong-tooth",
+    languageId: "ja",
+    module: 20,
+    level: 4,
+    title: "The wrong tooth",
+    theme: "Five days of tooth medicine for something that was never the tooth.",
+    tags: ["health", "family", "hospital"],
+    glosses: [
+      { surface: "もっと", meaning: "more", atomId: "ja:motto" },
+      { surface: "ねつ", meaning: "a fever", atomId: "ja:netsu" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "わたしは どこが わるいですか。",
+        options: ["みみです", "はです", "あたまです"],
+        answer: "みみです",
+      },
+      {
+        id: "price",
+        kind: "detail",
+        prompt: "あたらしい くすりは いくらですか。",
+        options: ["さんびゃくえんです", "はっぴゃくえんです", "ろっぴゃくえんです"],
+        answer: "さんびゃくえんです",
+      },
+    ],
+    sentences: [
+      { text: "せんしゅうの げつようび、わたしの はが いたい。", translation: "Last Monday, my tooth hurts." },
+      { text: "みぎの したの はだ。", translation: "It's the lower right tooth." },
+      { text: "わたしは いしゃが きらいだ。だから、うちで くすりを のむ。", translation: "I hate doctors. So I take medicine at home." },
+      { text: "まいあさ ゆっくりと はを みがく。まいばんも みがく。", translation: "Every morning I brush my teeth slowly. Every night too." },
+      { text: "みぎの みみも すこし いたい。けど、はの ほうが いたい。", translation: "My right ear hurts a little too. But the tooth hurts more." },
+      { text: "すいようび、あたまも いたい。", translation: "On Wednesday my head hurts as well." },
+      { text: "わたしは もっと くすりを のむ。", translation: "I take more medicine." },
+      { text: "もくようび、わたしは ごはんを たべない。", translation: "On Thursday I don't eat." },
+      { text: "ははは わたしに はなす。「びょういんに いって ください。」", translation: "My mother says to me, \"Go to the hospital.\"" },
+      { text: "わたしは くすりを のむ。「だいじょうぶ。」", translation: "I take my medicine. \"I'm fine.\"" },
+      { text: "きんようびの よるは とても いたい。ねつも ある。", translation: "Friday night it hurts a lot. I have a fever too." },
+      { text: "どようびの あさ、わたしは びょういんに いく。", translation: "Saturday morning I go to the hospital." },
+      { text: "いしゃは わたしの くちを みる。", translation: "The doctor looks in my mouth." },
+      { text: "「はは だいじょうぶです。」", translation: "\"The tooth is fine.\"" },
+      { text: "わたしは わからない。", translation: "I don't understand." },
+      { text: "いしゃは わたしの みみを みる。", translation: "The doctor looks in my ear." },
+      { text: "「みみが わるいです。はじゃないです。」", translation: "\"The ear is bad. It isn't the tooth.\"" },
+      { text: "わたしは あたらしい くすりを かった。くすりは さんびゃくえんだ。", translation: "I bought new medicine. The medicine is three hundred yen." },
+      { text: "にちようび、わたしは ごはんを たべた。", translation: "On Sunday I ate a meal." },
+      { text: "はも あたまも だいじょうぶだ。", translation: "The tooth and the head are both fine." },
+      { text: "わたしは いしゃが きらいだ。けど、いしゃの ほうが くすりより いい。", translation: "I hate doctors. But a doctor is better than medicine." },
+      { text: "らいしゅうも わたしは びょういんに いく。", translation: "Next week too, I'll go to the hospital." },
     ],
   },
   {
@@ -1076,6 +1406,82 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m21 L5 — the first Challenge-band Japanese story. The tableware module
+    // read as arithmetic: ちょうど is set up in line 6 and demolished twice, and
+    // every counter the module teaches (まい / はい / にん) is doing plot work
+    // rather than drilling. Multi-scene by clock (6:30 / 7:00 / 7:30 / 8:00),
+    // which is the L5 shape; the register shift is the polite quoted doorway
+    // exchange inside plain narration.
+    //
+    // Kept clear of both m21 module-mates: ja-m21-dinner-at-home is the table
+    // itself and ja-m21-a-packed-lunch is the lunchbox, so this one is about
+    // the table running out.
+    //
+    // Pool note: ふたつ / よっつ are unattributed atoms and ほん is m22, so
+    // counting runs on まい, にん and the はい series only.
+    id: "ja-m21-exactly-five",
+    languageId: "ja",
+    module: 21,
+    level: 5,
+    title: "Exactly five",
+    theme: "Five plates, five sets of chopsticks, and seven people.",
+    tags: ["food", "friends", "home"],
+    glosses: [
+      { surface: "ならべる", meaning: "to set out, to lay in a row", atomId: "ja:naraberu" },
+      { surface: "すくない", meaning: "few, not enough", atomId: "ja:sukunai" },
+      { surface: "うたう", meaning: "to sing", atomId: "ja:utau" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "この しょくじに ひとは なんにん いますか。",
+        options: ["ななにんです", "ごにんです", "よにんです"],
+        answer: "ななにんです",
+      },
+      {
+        id: "bowl",
+        kind: "detail",
+        prompt: "わたしは なにで ごはんを たべますか。",
+        options: ["ちゃわんです", "おさらです", "カップです"],
+        answer: "ちゃわんです",
+      },
+    ],
+    sentences: [
+      { text: "どようびの よる、うちで しょくじを する。", translation: "Saturday evening, I have a meal at home." },
+      { text: "ともだちが よにん くる。", translation: "Four friends are coming." },
+      { text: "わたしは ごにんの りょうりを する。", translation: "I cook for five." },
+      { text: "とりにくと たまごの りょうりだ。", translation: "It's a chicken and egg dish." },
+      { text: "わたしは おさらを ごまい ならべる。", translation: "I set out five plates." },
+      { text: "コップと はしも ならべる。ちょうど ごにんだ。", translation: "I set out the glasses and chopsticks too. Exactly five people." },
+      { text: "ろくじはんに ともだちが くる。", translation: "At half past six my friends arrive." },
+      { text: "ケンと ユミと ミカと トムだ。", translation: "Ken, Yumi, Mika and Tom." },
+      { text: "ごにんで しょくじを する。", translation: "The five of us eat." },
+      { text: "とりにくは おいしい。みんなは よく たべる。", translation: "The chicken is good. Everyone eats a lot." },
+      { text: "しちじ、ドアの そとに ひとが いる。", translation: "At seven, there's someone outside the door." },
+      { text: "ユミの おねえさんだ。「すみません。」", translation: "It's Yumi's older sister. \"Excuse me.\"" },
+      { text: "わたしは ドアを あける。「どうぞ。」", translation: "I open the door. \"Come in.\"" },
+      { text: "けど、おさらは ごまい ある。ろくまい ない。", translation: "But there are five plates. There isn't a sixth." },
+      { text: "わたしは じぶんの おさらを おねえさんに かす。", translation: "I lend the older sister my own plate." },
+      { text: "わたしは ちゃわんで ごはんを たべる。", translation: "I eat my rice from a rice bowl." },
+      { text: "しちじはん、また ドアの そとに ひとが いる。", translation: "At half past seven there's someone outside the door again." },
+      { text: "ケンの おとうとだ。", translation: "It's Ken's younger brother." },
+      { text: "わたしは じぶんの コップを ケンの おとうとに かす。", translation: "I lend Ken's brother my own glass." },
+      { text: "わたしは カップで おちゃを のむ。", translation: "I drink my tea from a cup." },
+      { text: "はしも すくない。", translation: "There aren't enough chopsticks either." },
+      { text: "ケンの おとうとは フォークで とりにくを たべる。", translation: "Ken's brother eats the chicken with a fork." },
+      { text: "わたしは スプーンで たまごを たべる。", translation: "I eat the egg with a spoon." },
+      { text: "ななにんで たべたり のんだり する。", translation: "The seven of us eat and drink and so on." },
+      { text: "たべものは すくない。けど、みんなは げんきだ。", translation: "There isn't much food. But everyone is in high spirits." },
+      { text: "ユミの おねえさんは おさけを いっぱい のむ。", translation: "Yumi's older sister drinks a glass of sake." },
+      { text: "はちじ、みんなで うたを うたう。", translation: "At eight, everyone sings." },
+      { text: "おさらは ちょうど ごまいだった。ひとは ななにんだった。", translation: "There were exactly five plates. There were seven people." },
+      { text: "けど、この よるは ほんとうに たのしい。", translation: "But this evening is really fun." },
+      { text: "つぎの しょくじは おさらを じゅうまい ならべる。", translation: "Next meal I'll set out ten plates." },
+      { text: "ちょうどじゃない しょくじの ほうが いい。", translation: "A meal that isn't exactly right is the better kind." },
+    ],
+  },
+  {
     id: "ja-m22-what-i-eat",
     languageId: "ja",
     module: 22,
@@ -1099,6 +1505,73 @@ export const JA_STORIES: Story[] = [
       { text: "カレーも おいしい。", translation: "Curry is tasty too." },
       { text: "きょうは のどが いたい。", translation: "Today my throat hurts." },
       { text: "きょうは すこし たべる。", translation: "Today I eat just a little." },
+    ],
+  },
+  {
+    // m22 L5. The comparison module (いちばん / より / ほう / おなじ / ちがう)
+    // aimed at a claim that gets falsified by the narrator's own behaviour: line
+    // 1 and line 4 are the plant, line 21 the reveal, and lines 24-25 the
+    // arithmetic that closes the escape route. ja-m22-what-i-eat already owns
+    // the honest-ranking shape, so this one is a ranking that turns out wrong.
+    id: "ja-m22-the-fish-i-said-i-hated",
+    languageId: "ja",
+    module: 22,
+    level: 5,
+    title: "The fish I said I hated",
+    theme: "Three bowls of the best curry in the world, and then the question.",
+    tags: ["food", "friends", "cooking"],
+    glosses: [
+      { surface: "いっしょ", meaning: "together", atomId: "ja:issho" },
+      { surface: "つくる", meaning: "to make, to cook", atomId: "ja:tsukuru" },
+      { surface: "やっぱり", meaning: "after all, as expected", atomId: "ja:yappari" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "カレーの なかに あるのは なんですか。",
+        options: ["さかなです", "にくです", "やさいです"],
+        answer: "さかなです",
+      },
+      {
+        id: "howmuch",
+        kind: "detail",
+        prompt: "ぼくは カレーを なんばい たべますか。",
+        options: ["さんばいです", "いっぱいです", "ろっぱいです"],
+        answer: "さんばいです",
+      },
+    ],
+    sentences: [
+      { text: "ぼくは にくが いちばん すきだ。", translation: "Meat is what I like most." },
+      { text: "とりにくが いちばん おいしいと おもう。", translation: "I think chicken is the tastiest thing there is." },
+      { text: "やさいも たべる。くだものも たべる。", translation: "I eat vegetables too. I eat fruit too." },
+      { text: "けど、さかなは ぜんぜん たべない。", translation: "But I don't eat fish at all." },
+      { text: "こどもの ときから さかなが きらいだ。", translation: "I've hated fish since I was a child." },
+      { text: "さかなの あたまが きらいだ。めも きらいだ。", translation: "I hate the head. I hate the eyes too." },
+      { text: "ともだちの ミカは りょうりが じょうずだ。", translation: "My friend Mika is a good cook." },
+      { text: "ミカは ぼくに でんわを かける。", translation: "Mika calls me." },
+      { text: "「どようびに いっしょに しょくじを しませんか。」", translation: "\"Won't you have a meal with me on Saturday?\"" },
+      { text: "ぼくは でんわで はなす。「はい。」", translation: "I speak into the phone. \"Yes.\"" },
+      { text: "どようびの ゆうがた、ミカの うちに はいる。", translation: "Saturday evening, I step into Mika's place." },
+      { text: "へやは あたたかい。", translation: "The room is warm." },
+      { text: "ミカは カレーを つくる。", translation: "Mika makes a curry." },
+      { text: "カレーの なかに にくが ある。にくは おおきい。", translation: "There's meat in the curry. The meat is big." },
+      { text: "ぼくは カレーを たべる。とても おいしい。", translation: "I eat the curry. It's very good." },
+      { text: "ぼくは もっと たべる。", translation: "I eat more." },
+      { text: "ミカは ぼくの おさらを みる。「いかがですか。」", translation: "Mika looks at my plate. \"How is it?\"" },
+      { text: "ぼくは おさらを みせる。「これは いちばん おいしい カレーです。」", translation: "I show my plate. \"This is the best curry there is.\"" },
+      { text: "「この にくは なんですか。」", translation: "\"What is this meat?\"" },
+      { text: "ミカは ぼくを みる。", translation: "Mika looks at me." },
+      { text: "「さかなです。」", translation: "\"It's fish.\"" },
+      { text: "ぼくは カレーを みる。にくじゃない。さかなだ。", translation: "I look at the curry. It isn't meat. It's fish." },
+      { text: "ぼくの こえは おおきい。「ぼくは さかなが きらいです。」", translation: "My voice is loud. \"I hate fish.\"" },
+      { text: "ミカは しずかだ。「さんばいの カレーです。」", translation: "Mika is calm. \"That's three bowls of curry.\"" },
+      { text: "「さかなの あたまは ありません。めも ありません。」", translation: "\"There's no head. No eyes either.\"" },
+      { text: "ぼくは もういちど たべる。やっぱり おいしい。", translation: "I eat it again. It's good after all." },
+      { text: "いま、ぼくは さかなが きらいじゃない。", translation: "Now I don't hate fish." },
+      { text: "けど、さかなの カレーが すきだ。さかなじゃない。", translation: "But what I like is fish curry. Not fish." },
+      { text: "つぎの どようびも ミカの うちで しょくじを する。", translation: "The next Saturday I eat at Mika's place again." },
+      { text: "ミカは また カレーを つくる。ぼくは いちばん たくさん たべる。", translation: "Mika makes curry again. I eat the most of anyone." },
     ],
   },
   {
@@ -1154,6 +1627,76 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m23 L5. うたう / つもり / できない are the module's gift, so the arc is an
+    // intention formed in line 4 and handed to somebody else in line 25. The
+    // sister is taught the song at line 8 for a stated reason (the narrator
+    // keeps forgetting it) — that is the plant, and it is what makes her able to
+    // take over. Both m23 module-mates are group-event stories (a party, a day
+    // at the sea); this one is a single family table, so the module's vocabulary
+    // is reused without its two existing settings.
+    id: "ja-m23-the-song-for-my-mother",
+    languageId: "ja",
+    module: 23,
+    level: 5,
+    title: "The song for my mother",
+    theme: "Three weeks of practice, and a six-year-old who sings it instead.",
+    tags: ["family", "music", "birthday"],
+    glosses: [
+      { surface: "れんしゅうする", meaning: "to practise", atomId: "ja:renshuusuru" },
+      { surface: "わすれる", meaning: "to forget", atomId: "ja:wasureru" },
+      { surface: "だんだん", meaning: "gradually, little by little", atomId: "ja:dandan" },
+      { surface: "なる", meaning: "to become", atomId: "ja:naru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "たんじょうびに うたうのは だれですか。",
+        options: ["いもうとです", "ぼくです", "ははです"],
+        answer: "いもうとです",
+      },
+      {
+        id: "time",
+        kind: "detail",
+        prompt: "ぼくが まいあさ おきるのは なんじですか。",
+        options: ["ろくじです", "しちじです", "はちじです"],
+        answer: "ろくじです",
+      },
+    ],
+    sentences: [
+      { text: "ろくがつ、ははの たんじょうびが ある。", translation: "My mother's birthday is in June." },
+      { text: "ははは うたが すきだ。ふるい うたが いちばん すきだ。", translation: "My mother likes songs. Old songs most of all." },
+      { text: "ぼくは うたが とても へただ。", translation: "I'm a very bad singer." },
+      { text: "けど、たんじょうびに うたう つもりだ。", translation: "But I intend to sing on her birthday." },
+      { text: "ぼくは まいあさ ろくじに おきる。", translation: "Every morning I get up at six." },
+      { text: "へやで ひとりで れんしゅうする。", translation: "I practise alone in my room." },
+      { text: "うたは とても ながい。ぼくは よく わすれる。", translation: "The song is very long. I often forget it." },
+      { text: "だから、いもうとに うたを おしえる。", translation: "So I teach the song to my little sister." },
+      { text: "いもうとは ろくさいだ。", translation: "My sister is six." },
+      { text: "いもうとは うたを すぐに おぼえる。", translation: "She learns the song straight away." },
+      { text: "まいあさ ふたりで れんしゅうする。", translation: "Every morning the two of us practise." },
+      { text: "いもうとは まいあさ おなじ ことを はなす。「わたしも うたう。」", translation: "Every morning my sister says the same thing. \"I'll sing too.\"" },
+      { text: "ぼくも まいあさ おなじ ことを はなす。「だめ。」", translation: "Every morning I say the same thing too. \"No.\"" },
+      { text: "ぼくは だんだん じょうずに なる。", translation: "Little by little I get better." },
+      { text: "どようび、ははの たんじょうびだ。", translation: "Saturday is my mother's birthday." },
+      { text: "あさから ぼくの のどが いたい。ねつも ある。", translation: "From the morning my throat hurts. I have a fever too." },
+      { text: "よる、かぞくで ばんごはんを たべる。", translation: "In the evening the family eats dinner." },
+      { text: "ちちと ははと あにと いもうとと ぼくだ。", translation: "My father, my mother, my older brother, my sister and me." },
+      { text: "ははは とりにくが すきだ。だから、とりにくの りょうりを する。", translation: "My mother likes chicken. So I cook a chicken dish." },
+      { text: "しょくじの あとで、ぼくは うたう。", translation: "After the meal, I sing." },
+      { text: "けど、こえが ない。", translation: "But there's no voice." },
+      { text: "のどが いたい。ぼくは うたが できない。", translation: "My throat hurts. I can't sing." },
+      { text: "かぞくは しずかだ。", translation: "The family is quiet." },
+      { text: "いもうとが ぼくの まえに くる。", translation: "My sister comes in front of me." },
+      { text: "いもうとは ひとりで うたう。", translation: "She sings it alone." },
+      { text: "いもうとの うたも とても へただ。", translation: "My sister is a very bad singer too." },
+      { text: "けど、ははは いもうとを よく みる。", translation: "But my mother watches her closely." },
+      { text: "ははは いもうとに はなす。「いちばん いい たんじょうびです。」", translation: "My mother says to my sister, \"This is the best birthday.\"" },
+      { text: "わかった。ははは うたが すきだ。けど、かぞくの ほうが すきだ。", translation: "I got it. My mother likes songs. But she likes her family more." },
+      { text: "つぎの たんじょうびは ふたりで うたう つもりだ。", translation: "Next birthday the two of us intend to sing." },
+    ],
+  },
+  {
     id: "ja-m24-things-i-can-do",
     languageId: "ja",
     module: 24,
@@ -1177,6 +1720,73 @@ export const JA_STORIES: Story[] = [
       { text: "ラジオで おんがくを きく。", translation: "I listen to music on the radio." },
       { text: "うたは あまり じょうずじゃない。", translation: "I'm not very good at singing." },
       { text: "いっしょに なにか つくる。", translation: "Let's make something together." },
+    ],
+  },
+  {
+    // m24 L5. The module is perception and potential (きこえる / みえる /
+    // できない / ましょう), so the story is built on what one man can no longer
+    // do and what the narrator can hear through a wall. Line 5 plants the exact
+    // habit — the radio stops at ten, every night — and Thursday's broken habit
+    // is the only reason the narrator ever knocks. ja-m24-things-i-can-do is a
+    // first-person inventory of skills; this one is a can/can't about somebody
+    // else, which is the same grammar with a subject to track.
+    id: "ja-m24-the-radio-next-door",
+    languageId: "ja",
+    module: 24,
+    level: 5,
+    title: "The radio next door",
+    theme: "Three weeks of nine o'clock music, and the night it didn't stop.",
+    tags: ["neighbours", "music", "town"],
+    glosses: [
+      { surface: "つかれる", meaning: "to get tired", atomId: "ja:tsukareru" },
+      { surface: "けす", meaning: "to switch off", atomId: "ja:kesu" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "おじいさんは どうして まいばん ラジオを ききますか。",
+        options: ["めが わるいからです", "おんがくが すきだからです", "ともだちが いないからです"],
+        answer: "めが わるいからです",
+      },
+      {
+        id: "stop",
+        kind: "detail",
+        prompt: "ラジオが とまるのは まいばん なんじですか。",
+        options: ["じゅうじです", "くじです", "じゅうにじです"],
+        answer: "じゅうじです",
+      },
+    ],
+    sentences: [
+      { text: "わたしの へやの となりに おじいさんが すむ。", translation: "An old man lives next door to my room." },
+      { text: "まいばん くじに ラジオが きこえる。", translation: "Every night at nine I can hear a radio." },
+      { text: "となりの へやから きこえる。", translation: "It comes from the room next door." },
+      { text: "おんがくの ラジオだ。", translation: "It's music on the radio." },
+      { text: "じゅうじに ラジオは とまる。まいばん おなじだ。", translation: "At ten the radio stops. It's the same every night." },
+      { text: "わたしは よる べんきょうする。", translation: "I study in the evening." },
+      { text: "ラジオが きこえるので、べんきょうする ことが できない。", translation: "Because I can hear the radio, I can't study." },
+      { text: "わたしは しごとで つかれる。", translation: "I get tired from work." },
+      { text: "わたしは まいばん おなじ おんがくを きく。", translation: "Every night I listen to the same music." },
+      { text: "もくようびの よる、じゅうじに ラジオが きこえる。", translation: "On Thursday night I can hear the radio at ten." },
+      { text: "じゅういちじにも きこえる。じゅうにじにも きこえる。", translation: "I can hear it at eleven too. At twelve too." },
+      { text: "よるが ながい。", translation: "The night is long." },
+      { text: "わたしは となりの ドアの まえに いく。", translation: "I go to the door next door." },
+      { text: "おじいさんが ドアを あける。", translation: "An old man opens it." },
+      { text: "へやに でんきが ない。ラジオの おんがくが ある。", translation: "There's no light in the room. There's the music from the radio." },
+      { text: "おじいさんは 「すみません。」と はなす。", translation: "The old man says, \"I'm sorry.\"" },
+      { text: "「めが わるいです。ほんは だめです。」", translation: "\"My eyes are bad. Books are no good.\"" },
+      { text: "「まいばん ラジオの ニュースを ききます。」", translation: "\"Every night I listen to the news on the radio.\"" },
+      { text: "わたしは わかった。", translation: "I understood." },
+      { text: "おじいさんは まいばん じゅうじに ねる。", translation: "Every night the old man goes to sleep at ten." },
+      { text: "もくようびの よる、おじいさんは ラジオの まえで ねる。", translation: "On Thursday night the old man falls asleep in front of the radio." },
+      { text: "わたしは ラジオを けす。", translation: "I switch the radio off." },
+      { text: "にちようび、わたしは ざっしを もつ。おじいさんの へやに いく。", translation: "On Sunday I take a magazine. I go to the old man's room." },
+      { text: "わたしは ざっしを よむ。おじいさんは きく。", translation: "I read the magazine. The old man listens." },
+      { text: "おじいさんは わたしの てを もつ。「らいしゅうも ききましょう。」", translation: "The old man takes my hand. \"Let's listen next week too.\"" },
+      { text: "まいしゅうの にちようび、ふたりで ざっしを よむ。", translation: "Every Sunday the two of us read a magazine." },
+      { text: "いまも まいばん くじに ラジオが きこえる。", translation: "I can still hear the radio every night at nine." },
+      { text: "けど、いまは わたしも おなじ おんがくを きく。", translation: "But now I listen to the same music." },
+      { text: "じゅうじに ふたりとも ねる。", translation: "At ten we both go to sleep." },
     ],
   },
   {
@@ -1232,6 +1842,74 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m25 L5. The conjecture set (だろう / でしょう / きっと) is the module's
+    // gift, so every rejected present is rejected by a GUESS about somebody
+    // else's luggage, feet or country — six days of reasoning that buys nothing.
+    // Line 5 plants the narrator's own slow watch as a thing he wants replaced;
+    // line 24 spends it instead. Neither m25 module-mate is about the leaving
+    // itself (one is the plan to go abroad, one is a reunion), so the departure
+    // is free.
+    id: "ja-m25-the-watch-i-gave-away",
+    languageId: "ja",
+    module: 25,
+    level: 5,
+    title: "The watch I gave away",
+    theme: "A week of shops, nothing bought, and one thing handed over at the station.",
+    tags: ["friends", "shopping", "travel"],
+    glosses: [
+      { surface: "さがす", meaning: "to look for, to search", atomId: "ja:sagasu" },
+      { surface: "えらぶ", meaning: "to choose", atomId: "ja:erabu" },
+      { surface: "あげる", meaning: "to give", atomId: "ja:ageru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ぼくが トムに あげるのは なんですか。",
+        options: ["とけいです", "ほんです", "くつです"],
+        answer: "とけいです",
+      },
+      {
+        id: "time",
+        kind: "detail",
+        prompt: "トムが アメリカに いくのは なんじですか。",
+        options: ["じゅうじです", "くじです", "じゅうにじです"],
+        answer: "じゅうじです",
+      },
+    ],
+    sentences: [
+      { text: "ぼくの クラスに りゅうがくせいが いる。", translation: "There's an exchange student in my class." },
+      { text: "なまえは トムだ。トムは アメリカの がくせいだ。", translation: "His name is Tom. Tom is an American student." },
+      { text: "トムは らいげつ アメリカに かえる。", translation: "Tom goes back to America next month." },
+      { text: "ぼくは トムに なにを かうか わからない。", translation: "I don't know what to buy Tom." },
+      { text: "ぼくの とけいは ふるい。まいにち おそい。", translation: "My watch is old. It runs slow every day." },
+      { text: "ぼくは あたらしい とけいが ほしい。", translation: "I want a new watch." },
+      { text: "どようび、ぼくは まちに いく。", translation: "On Saturday I go into town." },
+      { text: "みせで ほんを みる。", translation: "I look at books in a shop." },
+      { text: "ほんは いい。けど、トムの かばんは もう いっぱいだろう。", translation: "Books are good. But Tom's bag is probably full already." },
+      { text: "にちようび、ぼくは つぎの みせに いく。", translation: "On Sunday I go to the next shop." },
+      { text: "くつを みる。けど、トムの あしは とても おおきい。", translation: "I look at shoes. But Tom's feet are very big." },
+      { text: "げつようび、ぼくは たべものの みせに いく。", translation: "On Monday I go to a food shop." },
+      { text: "ぼくは おちゃを みる。けど、アメリカにも おちゃが あるだろう。", translation: "I look at green tea. But there's probably green tea in America too." },
+      { text: "かようびも すいようびも もくようびも、ぼくは みせを さがす。", translation: "Tuesday, Wednesday and Thursday, I search the shops." },
+      { text: "ぼくは なにも えらぶ ことが できない。", translation: "I can't choose anything." },
+      { text: "きんようび、トムが ぼくの ところに くる。", translation: "On Friday Tom comes over to me." },
+      { text: "「らいしゅうの どようびに アメリカに いきます。」", translation: "\"I'm going to America next Saturday.\"" },
+      { text: "「あさの じゅうじです。」", translation: "\"At ten in the morning.\"" },
+      { text: "ぼくは まだ なにも かわない。", translation: "I still don't buy anything." },
+      { text: "どようびの あさ、ぼくは えきで トムに あう。", translation: "Saturday morning, I meet Tom at the station." },
+      { text: "トムの かばんは とても おおきい。", translation: "Tom's bag is very big." },
+      { text: "ぼくは ふるい とけいを みる。", translation: "I look at my old watch." },
+      { text: "これは おじいさんの とけいだった。", translation: "This was my grandfather's watch." },
+      { text: "ぼくは トムに とけいを あげる。", translation: "I give Tom the watch." },
+      { text: "「この とけいは おそいです。けど、ぼくの とけいです。」", translation: "\"This watch runs slow. But it's my watch.\"" },
+      { text: "トムは とけいを もつ。「らいねん とうきょうに きます。」", translation: "Tom holds the watch. \"I'll come to Tokyo next year.\"" },
+      { text: "「とけいと いっしょに きます。」", translation: "\"I'll come with the watch.\"" },
+      { text: "いま、ぼくの てには とけいが ない。", translation: "Now there's no watch in my hand." },
+      { text: "けど、あたらしい とけいは かわない。らいねんまで まつ。", translation: "But I won't buy a new watch. I'll wait until next year." },
+    ],
+  },
+  {
     id: "ja-m26-a-tiring-day",
     languageId: "ja",
     module: 26,
@@ -1255,6 +1933,80 @@ export const JA_STORIES: Story[] = [
       { text: "へやは せまい。", translation: "The room is small." },
       { text: "わたしは かぎを わすれる。", translation: "I forget my key." },
       { text: "そして わたしは ねる。", translation: "And then I sleep." },
+    ],
+  },
+  {
+    // m26 L5. しかし / わすれる / つかれる are the module's gift, and the story
+    // is what they add up to over six months. The plant is line 5 — Mika says
+    // where she is going and when, in the very first call — and the narrator
+    // (and the reader) is invited to skip past it exactly as he does. Line 24
+    // repeats it back. ja-m26-a-tiring-day is a single evening; this is a
+    // calendar, which is what the L5 band's multi-scene allowance is for.
+    //
+    // Pool note: くがつ does not gate (く 九 is unattributed), so September is
+    // written as あき.
+    id: "ja-m26-the-call-i-kept-putting-off",
+    languageId: "ja",
+    module: 26,
+    level: 5,
+    title: "The call I kept putting off",
+    theme: "Four phone calls from April, and a door answered by somebody else.",
+    tags: ["friends", "work", "letters"],
+    glosses: [
+      { surface: "べつに", meaning: "not particularly", atomId: "ja:betsuni" },
+      { surface: "ぜんぶ", meaning: "all of it, everything", atomId: "ja:zenbu" },
+      { surface: "きになる", meaning: "to weigh on one's mind", atomId: "ja:kininaru" },
+      { surface: "いう", meaning: "to say", atomId: "ja:iu" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ミカは いま どこに いますか。",
+        options: ["とうきょうです", "うちです", "がいこくです"],
+        answer: "とうきょうです",
+      },
+      {
+        id: "month",
+        kind: "detail",
+        prompt: "ミカが とうきょうに いくのは なんがつですか。",
+        options: ["しちがつです", "しがつです", "じゅうがつです"],
+        answer: "しちがつです",
+      },
+    ],
+    sentences: [
+      { text: "ミカは ぼくの ふるい ともだちだ。", translation: "Mika is an old friend of mine." },
+      { text: "こどもの ときからの ともだちだ。", translation: "A friend since we were children." },
+      { text: "しがつ、ミカから でんわが ある。", translation: "In April there's a call from Mika." },
+      { text: "「にちようびに いっしょに しょくじを しませんか。」", translation: "\"Won't you have a meal with me on Sunday?\"" },
+      { text: "「わたしは しちがつに とうきょうに いきます。」", translation: "\"I'm going to Tokyo in July.\"" },
+      { text: "ぼくは しごとが とても おおい。まいばん つかれる。", translation: "I have a lot of work. Every night I get tired." },
+      { text: "ぼくは 「らいしゅうは どうですか。」と いう。", translation: "I say, \"How about next week?\"" },
+      { text: "ごがつ、また でんわが ある。", translation: "In May there's another call." },
+      { text: "どようびの さんじに えきで あう つもりだった。", translation: "We meant to meet at the station at three on Saturday." },
+      { text: "しかし、ぼくは わすれる。", translation: "However, I forget." },
+      { text: "よる、ミカから でんわが ある。ぼくは 「ごめんなさい。」と いう。", translation: "That night Mika calls. I say, \"I'm sorry.\"" },
+      { text: "ろくがつ、また でんわが ある。", translation: "In June there's another call." },
+      { text: "ミカは 「らいげつは いかがですか。」と いう。", translation: "Mika says, \"How about next month?\"" },
+      { text: "ぼくは 「らいげつは いそがしいです。」と いう。", translation: "I say, \"Next month is busy.\"" },
+      { text: "ぼくは べつに ミカが きらいじゃない。", translation: "It isn't that I dislike Mika." },
+      { text: "しかし、しごとが ぜんぶ たいへんだ。", translation: "However, all of the work is hard." },
+      { text: "しちがつ、でんわが ない。", translation: "In July there's no call." },
+      { text: "はちがつも でんわが ない。", translation: "In August there's no call either." },
+      { text: "あき、ぼくは ミカの ことが きになる。", translation: "In autumn Mika weighs on my mind." },
+      { text: "ぼくは ミカに でんわを かける。けど、ミカは いない。", translation: "I call Mika. But Mika isn't there." },
+      { text: "どようび、ぼくは ミカの うちに いく。", translation: "On Saturday I go to Mika's house." },
+      { text: "うちに あたらしい ひとが いる。", translation: "There's a new person in the house." },
+      { text: "ぼくは ドアの まえで いう。「ミカちゃんは どこですか。」", translation: "I say at the door, \"Where is Mika?\"" },
+      { text: "その ひとは すぐに いう。「ミカちゃんは しちがつから とうきょうです。」", translation: "That person says straight away. \"Mika has been in Tokyo since July.\"" },
+      { text: "ぼくは わかった。しがつの でんわの はなしだった。", translation: "I understood. It was what she said in the April call." },
+      { text: "ぼくは わすれる ひとだ。", translation: "I'm someone who forgets." },
+      { text: "ぼくは うちに かえる。", translation: "I go home." },
+      { text: "よる、ぼくは ミカに てがみを かく。", translation: "That night I write Mika a letter." },
+      { text: "「じゅうがつの どようびに とうきょうに いきます。」", translation: "\"I'm going to Tokyo on a Saturday in October.\"" },
+      { text: "「じゅうじに えきの まえです。」", translation: "\"Ten o'clock, in front of the station.\"" },
+      { text: "ぼくは ポストに いく。てがみは もう ポストの なかだ。", translation: "I go to the postbox. The letter is in the postbox now." },
+      { text: "じゅうがつの どようびに、ぼくは とうきょうに いく。しごとは やすみだ。", translation: "On that Saturday in October I go to Tokyo. Work is off." },
     ],
   },
   {
@@ -1310,6 +2062,76 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m27 L5. だんだん / なる / れんしゅうする are the module's gift and both
+    // m27 module-mates spend them on first-person self-improvement, so this one
+    // points the same grammar at somebody else AND runs it downhill: the pupil
+    // gets steadily worse, and the narrator's response is to teach harder. The
+    // drawings at line 11 are the plant, dismissed at line 12 in the narrator's
+    // own words; line 21 is what they were.
+    id: "ja-m27-the-pictures-in-the-notebook",
+    languageId: "ja",
+    module: 27,
+    level: 5,
+    title: "The pictures in the notebook",
+    theme: "A pupil who gets worse every week, and a notebook nobody looked at.",
+    tags: ["school", "neighbours", "art"],
+    glosses: [
+      { surface: "えらぶ", meaning: "to choose", atomId: "ja:erabu" },
+      { surface: "てつだう", meaning: "to help", atomId: "ja:tetsudau" },
+      { surface: "ぜったい", meaning: "absolutely, without fail", atomId: "ja:zettai" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "ケンは なにが いちばん すきですか。",
+        options: ["えです", "えいごです", "ほんです"],
+        answer: "えです",
+      },
+      {
+        id: "age",
+        kind: "detail",
+        prompt: "ケンは なんさいですか。",
+        options: ["じゅうさいです", "はちさいです", "じゅうごさいです"],
+        answer: "じゅうさいです",
+      },
+    ],
+    sentences: [
+      { text: "となりの うちに ケンが すむ。ケンは じゅうさいだ。", translation: "Ken lives in the house next door. Ken is ten." },
+      { text: "わたしは まいしゅう かようびに ケンに えいごを おしえる。", translation: "Every Tuesday I teach Ken English." },
+      { text: "ケンの おかあさんは わたしの ははの ともだちだ。", translation: "Ken's mother is a friend of my mother's." },
+      { text: "しがつ、ケンは よく べんきょうする。", translation: "In April Ken studies well." },
+      { text: "ケンは えいごが だんだん じょうずに なる。", translation: "Ken gets better at English little by little." },
+      { text: "ろくがつ、ケンは しゅくだいを しない。", translation: "In June Ken doesn't do the homework." },
+      { text: "テストは わるい。", translation: "The test is bad." },
+      { text: "ケンは だんだん へたに なる。", translation: "Ken gets worse little by little." },
+      { text: "わたしは もっと たくさん おしえる。", translation: "I teach more." },
+      { text: "わたしは ケンの ノートを みる。", translation: "I look at Ken's notebook." },
+      { text: "ノートの なかに えが たくさん ある。", translation: "Inside the notebook there are a lot of pictures." },
+      { text: "わたしは ノートを しめる。「えは だめです。えいごを べんきょうする ことが たいせつです。」", translation: "I close the notebook. \"The pictures are no good. Studying English is what matters.\"" },
+      { text: "しちがつ、ケンは こない。", translation: "In July Ken doesn't come." },
+      { text: "はちがつも こない。", translation: "In August he doesn't come either." },
+      { text: "わたしは ケンの うちに でかける。", translation: "I set off for Ken's house." },
+      { text: "おかあさんは にわに いる。「ケンは げんきです。」", translation: "His mother is in the garden. \"Ken is fine.\"" },
+      { text: "「ケンは えが すきです。まいにち えを かきます。」", translation: "\"Ken likes pictures. He draws every day.\"" },
+      { text: "わたしは ケンの へやに はいる。", translation: "I go into Ken's room." },
+      { text: "へやに ノートが たくさん ある。", translation: "There are a lot of notebooks in the room." },
+      { text: "わたしは ノートを よむ。", translation: "I read the notebooks." },
+      { text: "えは ほんとうに じょうずだ。", translation: "The pictures are really good." },
+      { text: "まちの えだ。ひとの えだ。ねこの えだ。", translation: "A picture of the town. A picture of a person. A picture of a cat." },
+      { text: "わたしの えも ある。", translation: "There's a picture of me too." },
+      { text: "おかあさんは しずかに はなす。「ケンは えの がっこうが すきです。けど、うちに おかねが ありません。」", translation: "His mother speaks quietly. \"Ken likes the art school. But we have no money.\"" },
+      { text: "わたしは わかった。わたしは わるい せんせいだった。", translation: "I understood. I was a bad teacher." },
+      { text: "つぎの かようび、また ケンの うちに いく。", translation: "The next Tuesday I go to Ken's house again." },
+      { text: "わたしは えいごの ほんを もつ。えの ほんだ。", translation: "I bring an English book. It's a book of pictures." },
+      { text: "わたしは ケンに ほんの えを みせる。", translation: "I show Ken the pictures in the book." },
+      { text: "ケンは えいごを よむ。えの えいごだ。", translation: "Ken reads the English. It's English about pictures." },
+      { text: "ケンは えを かく。わたしは えいごを おしえる。", translation: "Ken draws. I teach English." },
+      { text: "らいねん、ケンは えの がっこうを えらぶ。", translation: "Next year Ken will choose the art school." },
+      { text: "わたしは ケンを ぜったい てつだう。", translation: "I'll help Ken without fail." },
+    ],
+  },
+  {
     id: "ja-m29-cleaning-day",
     languageId: "ja",
     module: 29,
@@ -1336,6 +2158,78 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // m29 L5. The module's verb set (いそぐ / なおす / はこぶ / さがす / えらぶ /
+    // てつだう / ぜんぶ) run as one morning going wrong, not as a tidy-up —
+    // ja-m29-cleaning-day already owns かたづける and the household frame. The
+    // plant is the day itself, named in line 1 and paid at line 14, which is why
+    // the fifteen-minute walk to the shop was always going to be wasted.
+    id: "ja-m29-two-broken-bicycles",
+    languageId: "ja",
+    module: 29,
+    level: 5,
+    title: "Two broken bicycles",
+    theme: "A wasted morning, a closed shop, and an afternoon nobody planned.",
+    tags: ["town", "friends", "bicycles"],
+    glosses: [
+      { surface: "つく", meaning: "to arrive at", atomId: "ja:tsuku" },
+      { surface: "やっぱり", meaning: "sure enough, after all", atomId: "ja:yappari" },
+      { surface: "もちろん", meaning: "of course", atomId: "ja:mochiron" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "みせは どうして だめですか。",
+        options: [
+          "すいようびが やすみだからです",
+          "みせが とおいからです",
+          "おかねが ないからです",
+        ],
+        answer: "すいようびが やすみだからです",
+      },
+      {
+        id: "late",
+        kind: "detail",
+        prompt: "ユミが えきに つくのは なんじですか。",
+        options: ["じゅういちじです", "じゅうじです", "じゅうじはんです"],
+        answer: "じゅういちじです",
+      },
+    ],
+    sentences: [
+      { text: "すいようびの あさ、ぼくは ユミに あう つもりだ。", translation: "On Wednesday morning I plan to meet Yumi." },
+      { text: "じゅうじに えきの まえで あう。", translation: "We're meeting in front of the station at ten." },
+      { text: "ぼくは じてんしゃで いく。", translation: "I go by bicycle." },
+      { text: "けど、けさ じてんしゃが だめだ。", translation: "But this morning the bicycle is no good." },
+      { text: "くじだ。ぼくは いそぐ。", translation: "It's nine. I hurry." },
+      { text: "ぼくは じてんしゃを みる。けど、わるい ところが わからない。", translation: "I look at the bicycle. But I don't know what's wrong with it." },
+      { text: "となりの ひとが ぼくを てつだう。", translation: "The person next door helps me." },
+      { text: "ふたりで じてんしゃの まえに すわる。やっぱり だめだ。", translation: "The two of us sit down in front of the bicycle. It's no good after all." },
+      { text: "ぼくは じてんしゃの みせを さがす。まちに ひとつ ある。", translation: "I look for a bicycle shop. There's one in town." },
+      { text: "ふたりで じてんしゃを みせまで はこぶ。", translation: "The two of us carry the bicycle to the shop." },
+      { text: "みせは とおい。じゅうごふん あるく。", translation: "The shop is far. We walk for fifteen minutes." },
+      { text: "くじはん、みせに つく。", translation: "At half past nine we arrive at the shop." },
+      { text: "みせの まえに ひとが いない。", translation: "There's nobody in front of the shop." },
+      { text: "みせは すいようびが やすみだ。", translation: "The shop's day off is Wednesday." },
+      { text: "となりの ひとは じてんしゃを うちまで はこぶ。", translation: "The person next door carries the bicycle home." },
+      { text: "バスは いま こない。ぼくは あるく ことを えらぶ。", translation: "No bus is coming now. I choose to walk." },
+      { text: "みちは ながい。ぼくは はしる。", translation: "The road is long. I run." },
+      { text: "じゅうじはん、ぼくは えきに つく。", translation: "At half past ten I arrive at the station." },
+      { text: "ユミが いない。", translation: "Yumi isn't there." },
+      { text: "ぼくは こまる。", translation: "I'm at a loss." },
+      { text: "じゅういちじ、ユミが くる。", translation: "At eleven Yumi arrives." },
+      { text: "ユミは とても つかれる。", translation: "Yumi is very tired." },
+      { text: "ユミの はなしは みじかい。「じてんしゃが だめでした。」", translation: "Yumi's story is short. \"The bicycle was no good.\"" },
+      { text: "ぼくの はなしも みじかい。「ぼくの じてんしゃも だめです。」", translation: "My story is short too. \"My bicycle is no good either.\"" },
+      { text: "ふたりで きっさてんに はいる。", translation: "The two of us go into a coffee shop." },
+      { text: "ごごから、ふたりで じてんしゃを なおす。", translation: "From the afternoon, the two of us fix the bicycles." },
+      { text: "となりの ひとも てつだう。", translation: "The person next door helps too." },
+      { text: "さんにんで ぜんぶ なおす。", translation: "The three of us fix all of it." },
+      { text: "よる、ぼくの じてんしゃも ユミの じてんしゃも はしる。", translation: "That evening, my bicycle and Yumi's bicycle both run." },
+      { text: "らいしゅうの すいようび、ふたりで じてんしゃで えきに いく。", translation: "The next Wednesday, the two of us go to the station by bicycle." },
+      { text: "もちろん、みせは やすみだ。けど、じてんしゃは だめじゃない。", translation: "Of course the shop is closed. But the bicycles are fine." },
+    ],
+  },
+  {
     id: "ja-m30-people-at-work",
     languageId: "ja",
     module: 30,
@@ -1359,6 +2253,81 @@ export const JA_STORIES: Story[] = [
       { text: "こうはいも なかまだ。", translation: "My junior is a comrade too." },
       { text: "じょうしは とても ていねいだ。", translation: "The boss is very polite." },
       { text: "やっぱり かいしゃは たいへんだ。", translation: "Work is tough after all." },
+    ],
+  },
+  {
+    // m30 L5 — the top of the Japanese ladder. ja-m30-people-at-work recites the
+    // relationship vocabulary; this story makes the learner USE it, because the
+    // whole plot is one question about which register two people owe each other.
+    // Line 6 plants the shared classroom and line 10 explains why it stays
+    // unsaid; line 22 spends it, and lines 29-30 are the answer Japanese
+    // actually gives — けいご inside the company, ためぐち outside it.
+    //
+    // Gloss note: m30 is the last real module, so the only above-level surfaces
+    // left are unattributed atoms. いう and こたえる are the right two to spend
+    // them on — a story about how people speak needs more verbs of speaking than
+    // はなす, and both are ordinary N5 words the course simply never reaches.
+    id: "ja-m30-the-senior-i-grew-up-with",
+    languageId: "ja",
+    module: 30,
+    level: 5,
+    title: "The senior I grew up with",
+    theme: "Four months of careful keigo, and one cherry tree in front of a school.",
+    tags: ["work", "keigo", "friends"],
+    glosses: [
+      { surface: "いう", meaning: "to say", atomId: "ja:iu" },
+      { surface: "こたえる", meaning: "to answer", atomId: "ja:kotaeru" },
+    ],
+    questions: [
+      {
+        id: "gist",
+        kind: "gist",
+        prompt: "かいしゃの そとの ふたりは どうですか。",
+        options: ["ためぐちです", "けいごです", "ていねいです"],
+        answer: "ためぐちです",
+      },
+      {
+        id: "class",
+        kind: "detail",
+        prompt: "ぼくと ユミは こどもの とき なんでしたか。",
+        options: ["おなじ クラスでした", "おなじ かいしゃでした", "おなじ どうりょうでした"],
+        answer: "おなじ クラスでした",
+      },
+    ],
+    sentences: [
+      { text: "しがつ、ぼくは あたらしい かいしゃに はいる。", translation: "In April I join a new company." },
+      { text: "ぼくは いちばん あたらしい こうはいだ。", translation: "I'm the newest junior." },
+      { text: "ぼくの せんぱいは ユミだ。ユミは ぼくより としが うえだ。", translation: "My senior is Yumi. Yumi is older than me." },
+      { text: "ぼくは ユミに けいごを つかう。", translation: "I use keigo with Yumi." },
+      { text: "ユミは とても ていねいだ。", translation: "Yumi is very polite." },
+      { text: "ぼくは じゅうさいの とき、ユミと おなじ クラスだった。", translation: "When I was ten, I was in the same class as Yumi." },
+      { text: "ふたりは おなじ まちの がっこうに いった。", translation: "We went to a school in the same town." },
+      { text: "けど、ユミは ぼくが わからない。", translation: "But Yumi doesn't recognise me." },
+      { text: "こどもの ときの ぼくは とても ちいさい。いまの ぼくは おおきい。", translation: "As a child I was very small. Now I'm big." },
+      { text: "ぼくは その はなしを しない。", translation: "I don't bring it up." },
+      { text: "まいにち けいごを つかう。", translation: "Every day I use keigo." },
+      { text: "どうりょうは ぼくに 「ユミは いい せんぱいです。」と いう。", translation: "A colleague says to me, \"Yumi is a good senior.\"" },
+      { text: "ろくがつ、しごとが たいへんだ。", translation: "In June the work is hard." },
+      { text: "ユミは ぼくを ぜんぶ てつだう。", translation: "Yumi helps me with all of it." },
+      { text: "ぼくは 「ありがとうございます。」と いう。", translation: "I say, \"Thank you very much.\"" },
+      { text: "しちがつ、かいしゃの パーティーが ある。", translation: "In July there's a company party." },
+      { text: "ユミと ぼくは いっしょに ばんごはんを たべる。", translation: "Yumi and I eat dinner together." },
+      { text: "ユミは 「なんで いつも けいごですか。」と きく。", translation: "Yumi asks, \"Why is it always keigo?\"" },
+      { text: "ぼくは 「せんぱいですから。」と こたえる。", translation: "I answer, \"Because you're my senior.\"" },
+      { text: "ユミは じぶんの まちの はなしを する。", translation: "Yumi talks about her home town." },
+      { text: "「がっこうの まえに おおきな さくらが あります。」", translation: "\"There's a big cherry tree in front of the school.\"" },
+      { text: "ぼくは 「はい。ぼくも その がっこうの せいとでした。」と こたえる。", translation: "I answer, \"Yes. I was a pupil at that school too.\"" },
+      { text: "ユミは ぼくを みる。", translation: "Yumi looks at me." },
+      { text: "「あの ちいさい こどもですか。」", translation: "\"That little kid?\"" },
+      { text: "ぼくは 「はい。」と いう。", translation: "I say, \"Yes.\"" },
+      { text: "ユミは 「じゃあ、けいごは しつれいです。」と いう。", translation: "Yumi says, \"Then keigo is rude.\"" },
+      { text: "ぼくは わからない。", translation: "I don't follow." },
+      { text: "ユミは 「かいしゃでは せんぱいと こうはいです。そとでは おさななじみです。」と いう。", translation: "Yumi says, \"Inside the company we're senior and junior. Outside it we're childhood friends.\"" },
+      { text: "いま、かいしゃで ぼくは けいごを つかう。もちろん ていねいだ。", translation: "Now, at the company I use keigo. Politely, of course." },
+      { text: "かいしゃの そとで、ふたりは ためぐちで はなす。", translation: "Outside the company, the two of us talk in plain speech." },
+      { text: "どうりょうは その はなしが きになる。", translation: "My colleague is curious about it." },
+      { text: "ぼくは べつに その はなしを しない。", translation: "I don't particularly bring it up." },
+      { text: "やっぱり それは かいしゃの はなしじゃない。", translation: "It isn't company business after all." },
     ],
   },
 ];
