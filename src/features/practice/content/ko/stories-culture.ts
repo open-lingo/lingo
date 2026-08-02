@@ -97,7 +97,7 @@ export const KO_CULTURE_STORIES: Story[] = [
       { text: "찜질방이 더워요.", translation: "The jjimjilbang is hot." },
       { text: "저는 물을 마셨어요.", translation: "I drank water." },
       { text: "친구는 계란을 먹었어요.", translation: "My friend ate an egg." },
-      { text: "찜질방에는 계란하고 물하고 빵이 있어요.", translation: "A jjimjilbang has eggs, water and bread." },
+      { text: "찜질방에는 계란하고 우유하고 물이 있어요.", translation: "A jjimjilbang has eggs, milk and water." },
       { text: "계란이 맛있었어요.", translation: "The egg was delicious." },
       { text: "우리는 찜질방에서 영화를 봤어요.", translation: "We watched a movie at the jjimjilbang." },
       { text: "열두 시였어요.", translation: "It was twelve o'clock." },
@@ -122,6 +122,7 @@ export const KO_CULTURE_STORIES: Story[] = [
       { surface: "설날", meaning: "Seollal — Korean lunar new year" },
       { surface: "떡국", meaning: "rice cake soup, eaten on Seollal" },
       { surface: "세배", meaning: "the deep new year bow children make to their elders" },
+      { surface: "옛날", meaning: "long ago, in the old days" },
     ],
     questions: [
       {
@@ -148,6 +149,7 @@ export const KO_CULTURE_STORIES: Story[] = [
       { text: "엄마의 떡국이 맛있었어요.", translation: "Mum's tteokguk was delicious." },
       { text: "한국에서 설날에 떡국을 먹어요.", translation: "In Korea people eat tteokguk on Seollal." },
       { text: "저하고 동생은 세배를 했어요.", translation: "My younger sibling and I did sebae." },
+      { text: "옛날부터 한국에서 설날에 모두 한 살 먹어요.", translation: "Since long ago, in Korea everyone gains a year on Seollal." },
       { text: "동생은 열 살이에요.", translation: "My younger sibling is ten." },
       { text: "어제 동생은 아홉 살이었어요.", translation: "Yesterday my younger sibling was nine." },
       { text: "어제 저는 열아홉 살이었어요.", translation: "Yesterday I was nineteen." },
@@ -193,9 +195,7 @@ export const KO_CULTURE_STORIES: Story[] = [
     sentences: [
       { text: "추석은 가을의 명절이에요.", translation: "Chuseok is an autumn holiday." },
       { text: "추석에 모두 고향에 가요.", translation: "At Chuseok everyone goes to their hometown." },
-      { text: "그래서 기차가 없어요.", translation: "So there are no trains." },
-      { text: "우리 가족은 기차로 부모님 집에 갔어요.", translation: "Our family went to my parents' house by train." },
-      { text: "우리는 여섯 시 기차로 갔어요.", translation: "We went on the six o'clock train." },
+      { text: "그래서 우리 가족은 여섯 시 기차로 부모님 집에 갔어요.", translation: "So our family went to my parents' house on the six o'clock train." },
       { text: "기차는 다섯 시간이에요.", translation: "The train is five hours." },
       { text: "저는 기차를 싫어해요.", translation: "I hate trains." },
       { text: "우리는 송편을 먹었어요.", translation: "We ate songpyeon." },
@@ -247,7 +247,7 @@ export const KO_CULTURE_STORIES: Story[] = [
       { text: "금요일 여섯 시예요.", translation: "It is six o'clock on Friday." },
       { text: "저는 집에 가고 싶어요.", translation: "I want to go home." },
       { text: "그런데 오늘 회식이 있어요.", translation: "But today there is a hoesik." },
-      { text: "회식에 회사 친구가 모두 가요.", translation: "Everyone from the office goes to the hoesik." },
+      { text: "회식에 회사 친구가 모두 가요.", translation: "All my friends from the office go to the hoesik." },
       { text: "우리는 여섯 시에 식당에 갔어요.", translation: "We went to a restaurant at six." },
       { text: "우리는 고기를 먹었어요.", translation: "We ate meat." },
       { text: "저는 고기를 제일 좋아해요.", translation: "I like meat best." },
@@ -265,7 +265,7 @@ export const KO_CULTURE_STORIES: Story[] = [
     ],
   },
   {
-    // 취미 / 일주일 / 번 / 게임 / 음악 / 들어요 all land at m24, which is what lets the
+    // 일주일 / 번 / 게임 / 음악 / 들어요 all land at m24, which is what lets the
     // river become a habit with a countable frequency rather than a single visit.
     // 들어요 has no past form that gates, so the listening stays in the habitual
     // present at the end, where it belongs.
@@ -283,9 +283,9 @@ export const KO_CULTURE_STORIES: Story[] = [
       {
         id: "gist",
         kind: "gist",
-        prompt: "제 취미는 뭐예요?",
-        options: ["한강이에요", "게임이에요", "음악이에요"],
-        answer: "한강이에요",
+        prompt: "저는 어디를 제일 좋아해요?",
+        options: ["한강을 좋아해요", "회사를 좋아해요", "서울을 좋아해요"],
+        answer: "한강을 좋아해요",
       },
       {
         id: "food",
@@ -308,9 +308,9 @@ export const KO_CULTURE_STORIES: Story[] = [
       { text: "저는 게임을 못해요.", translation: "I am bad at games." },
       { text: "그래도 게임이 좋았어요.", translation: "Still, the game was good." },
       { text: "지금 저는 일주일에 두 번 한강에 가요.", translation: "Now I go to the Han River twice a week." },
-      { text: "여름에 한강이 제일 좋아요.", translation: "In summer the Han River is the best." },
+      { text: "여름에 한강이 좋아요.", translation: "In summer the Han River is good." },
       { text: "한강에서 우리는 음악을 들어요.", translation: "At the Han River we listen to music." },
-      { text: "제 취미는 한강이에요.", translation: "My hobby is the Han River." },
+      { text: "저는 한강을 제일 좋아해요.", translation: "I like the Han River best." },
       { text: "그리고 지금 저는 친구가 있어요.", translation: "And now I have friends." },
     ],
   },
@@ -329,6 +329,7 @@ export const KO_CULTURE_STORIES: Story[] = [
     tags: ["culture", "school", "exam"],
     glosses: [
       { surface: "수능", meaning: "Suneung — the national university entrance exam" },
+      { surface: "시험장", meaning: "the exam hall you are assigned to sit Suneung in" },
     ],
     questions: [
       {
@@ -349,28 +350,28 @@ export const KO_CULTURE_STORIES: Story[] = [
     sentences: [
       { text: "오늘은 수능이에요.", translation: "Today is Suneung." },
       { text: "수능은 한국에서 제일 큰 시험이에요.", translation: "Suneung is the biggest exam in Korea." },
-      { text: "저는 학생이에요.", translation: "I am a student." },
+      { text: "저는 민수예요.", translation: "I am Minsu." },
       { text: "저는 시월부터 공부했어요.", translation: "I studied from October." },
       { text: "저는 학교에서 공부했어요.", translation: "I studied at school." },
       { text: "그리고 집에서도 공부했어요.", translation: "And I studied at home too." },
       { text: "저는 시험을 너무 싫어해요.", translation: "I hate exams very much." },
       { text: "오늘 저는 여섯 시에 준비했어요.", translation: "Today I got ready at six." },
       { text: "엄마가 밥을 했어요.", translation: "Mum made a meal." },
-      { text: "하지만 저는 밥을 못 먹었어요.", translation: "But I could not eat." },
+      { text: "하지만 저는 밥을 못 먹었어요.", translation: "But I could not eat the meal." },
       { text: "엄마는 저를 봤어요.", translation: "Mum looked at me." },
-      { text: "괜찮아요.", translation: "\"It is all right.\"" },
+      { text: "민수, 괜찮아요.", translation: "\"Minsu, it is all right.\"" },
       { text: "저는 일곱 시에 집에서 출발했어요.", translation: "I left home at seven." },
       { text: "그런데 지하철이 늦었어요.", translation: "But the subway was late." },
       { text: "그래서 저는 택시로 갔어요.", translation: "So I went by taxi." },
-      { text: "택시가 여덟 시에 학교에 도착했어요.", translation: "The taxi arrived at the school at eight." },
-      { text: "수능에 비행기가 안 가요.", translation: "On Suneung the planes do not go." },
+      { text: "택시가 여덟 시에 시험장에 도착했어요.", translation: "The taxi arrived at the exam hall at eight." },
+      { text: "수능에 회사도 열 시에 가요.", translation: "On Suneung people go to the office at ten too." },
       { text: "모두 수능을 알아요.", translation: "Everyone knows Suneung." },
-      { text: "여덟 시 사십 분에 시험을 했어요.", translation: "At eight forty I took the exam." },
+      { text: "여덟 시 사십 분에 시험을 봤어요.", translation: "At eight forty I sat the exam." },
       { text: "시험은 여덟 시간이에요.", translation: "The exam is eight hours." },
       { text: "저는 실수했어요.", translation: "I made a mistake." },
       { text: "하지만 저는 시월부터 연습했어요.", translation: "But I practised from October." },
       { text: "그래서 괜찮아요.", translation: "So it is all right." },
-      { text: "다섯 시에 저는 학교에서 출발했어요.", translation: "At five I left the school." },
+      { text: "다섯 시에 저는 시험장에서 출발했어요.", translation: "At five I left the exam hall." },
       { text: "저는 너무 피곤해요.", translation: "I am very tired." },
       { text: "하지만 지금 시험이 없어요.", translation: "But now there is no exam." },
       { text: "친구하고 저는 식당에 갔어요.", translation: "My friend and I went to a restaurant." },
