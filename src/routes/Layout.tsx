@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { CookieConsent } from "@/shared/components/CookieConsent";
 import { DevPanel } from "@/shared/components/DevPanel";
-import { SiteFooter } from "@/shared/components/SiteFooter";
 import { CollapsibleAdBanner } from "@/features/ads/CollapsibleAdBanner";
 import { DailyWelcomeAd } from "@/features/ads/DailyWelcomeAd";
 import { loadAdSenseScript } from "@/features/ads/adsense";
@@ -26,7 +25,6 @@ import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
-import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
@@ -41,16 +39,18 @@ import {
   prefetchPractice,
   prefetchSocial,
 } from "@/shared/utils/routePrefetch";
+import { marketingUrl } from "@/shared/config/marketing";
 
 export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
   const { isThemeEditorOpen } = useTheme();
-  const { settings } = useSettings();
   const { isAuthenticated } = useAuth();
-  // Sidebar layout only applies to authed users on ≥lg; mobile + signed-out
-  // always use the top bar.
-  const sidebarMode = isAuthenticated && settings.appearance.navLayout === "sidebar";
+  // One nav per breakpoint, no setting: signed-in users get the sidebar on
+  // ≥lg (including inside lessons — it is how you leave one), and the top bar
+  // is mobile-only. Signed-out surfaces (/login, /try, /get-started) keep the
+  // top bar at every width since there is no sidebar to show.
+  const sidebarMode = isAuthenticated;
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
   // Reconciles the atom unlock ladder with the server (union both ways) and
@@ -65,10 +65,6 @@ export function Layout() {
 
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
-  // Marketing footer is landing-only — inside the app it's just scroll
-  // noise; the same links live in Settings. (`/` always redirects, so
-  // /landing is the only landing surface.)
-  const isLanding = pathname === "/landing";
   // Focused flows (inside a lesson / test) drop the marketing footer and
   // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
   // usable) the footer alone pushed every lesson step below the fold.
@@ -96,13 +92,10 @@ export function Layout() {
   const leaderboardActive =
     leaderboardOn && /\/leaderboard/.test(pathname);
 
-  const isMarketingRoute =
-    pathname === "/landing" ||
-    pathname === "/privacy" ||
-    pathname === "/terms" ||
-    pathname === "/about" ||
-    pathname === "/login";
-  const showAppAds = useAdsEnabled(false) && isAuthenticated && !isMarketingRoute;
+  // Landing, about, privacy and terms moved to the marketing site; /login is
+  // the only non-app surface left in this SPA.
+  const showAppAds =
+    useAdsEnabled(false) && isAuthenticated && pathname !== "/login";
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -171,12 +164,21 @@ export function Layout() {
               aria-hidden
             />
             <span className="text-text-muted" aria-hidden>|</span>
-            <Link
-              to={isAuthenticated ? "/home" : "/landing"}
-              className="text-base font-semibold text-text-primary sm:text-lg"
-            >
-              {t("nav.siteName")}
-            </Link>
+            {isAuthenticated ? (
+              <Link
+                to="/home"
+                className="text-base font-semibold text-text-primary sm:text-lg"
+              >
+                {t("nav.siteName")}
+              </Link>
+            ) : (
+              <a
+                href={marketingUrl("/")}
+                className="text-base font-semibold text-text-primary sm:text-lg"
+              >
+                {t("nav.siteName")}
+              </a>
+            )}
           </div>
 
           {/* Desktop nav — signed-in only */}
@@ -405,8 +407,7 @@ export function Layout() {
       {showAppAds ? <DailyWelcomeAd /> : null}
       {/* Non-focused pages: content fills the viewport below the header.
           Focused flows (lessons/tests) tighten padding so steps aren't
-          pushed below the fold. The marketing footer renders on /landing
-          only (see isLanding above). */}
+          pushed below the fold. */}
       <main
         id="main-content"
         className={`mx-auto w-full flex-1 px-4 sm:px-6 lg:px-10 ${
@@ -427,7 +428,6 @@ export function Layout() {
       >
         <Outlet />
       </main>
-      {isLanding && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />

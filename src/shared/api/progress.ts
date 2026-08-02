@@ -258,13 +258,25 @@ export class ProgressApi extends ApiClient {
     }
   }
 
-  /** Spend lingots on a shop catalog item. */
+  /**
+   * Spend lingots on a shop catalog item.
+   *
+   * Deliberately NO `tag`. The client's tag mechanism aborts the previous
+   * in-flight request sharing that tag — correct for reads, wrong for a
+   * non-idempotent mutation. Buying two items in quick succession aborted the
+   * first request AFTER the server had already deducted lingots (there is no
+   * rollback in `purchase_shop_item`), and the abort surfaced to the user as
+   * "Purchase failed — try again."; retrying a consumable double-charged.
+   * `srsSync.ts` hit the same hazard and works around it with a queue.
+   *
+   * Concurrency is handled where it belongs — the UI disables purchasing while
+   * one is in flight.
+   */
   async purchaseShopItem(itemId: string): Promise<ShopPurchaseResponse | null> {
     try {
       return await this.post<ShopPurchaseResponse>(
         `${PREFIX}/shop/purchase`,
         { itemId },
-        { tag: "progress:shop-purchase" },
       );
     } catch (err: unknown) {
       const status =

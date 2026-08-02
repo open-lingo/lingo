@@ -14,7 +14,7 @@ import { getStoredSettings } from "@/features/settings/storage";
 describe("settings backend persistence", () => {
   const customized: UserSettings = {
     ...DEFAULT_SETTINGS,
-    appearance: { themeId: "dark", navLayout: "sidebar" },
+    appearance: { themeId: "dark" },
     accessibility: { reducedMotion: true, dyslexiaFont: true, fontSize: 1.25 },
     audio: { silentMode: true, volume: 0.4 },
     notifications: { reminderEnabled: true, dailyReminderTime: "13:30" },
@@ -26,13 +26,6 @@ describe("settings backend persistence", () => {
       showRomanization: { ja: false },
     },
   };
-
-  it("sends navLayout to the backend", () => {
-    const patch = toBackendPatch(customized);
-    expect((patch.appearance as Record<string, unknown>).navLayout).toBe(
-      "sidebar",
-    );
-  });
 
   it("sends accessibility, audio, and notifications namespaces", () => {
     const patch = toBackendPatch(customized);
@@ -55,12 +48,11 @@ describe("settings backend persistence", () => {
     expect(patch.uiLocale).toBe("ko");
   });
 
-  it("round-trips navLayout and other real settings through the backend blob", () => {
+  it("round-trips real settings through the backend blob", () => {
     // Simulate the server echoing back the patch it stored.
     const stored = toBackendPatch(customized) as Record<string, unknown>;
     const hydrated = fromBackendResponse(stored);
 
-    expect(hydrated.appearance?.navLayout).toBe("sidebar");
     expect(hydrated.appearance?.themeId).toBe("dark");
     expect(hydrated.accessibility?.reducedMotion).toBe(true);
     expect(hydrated.accessibility?.dyslexiaFont).toBe(true);
@@ -163,9 +155,6 @@ describe("settings backend persistence", () => {
       uiLocale: "en",
     });
     expect(hydrated.appearance?.themeId).toBe("light"); // sepia retired → maps to light
-    expect(hydrated.appearance?.navLayout).toBe(
-      DEFAULT_SETTINGS.appearance.navLayout,
-    );
     expect(hydrated.learning?.learningLanguageId).toBe("ja");
     expect(hydrated.learning?.onboardingCompleted).toBe(true);
   });
@@ -177,10 +166,12 @@ describe("settings backend persistence", () => {
     // The nested merge must not let it survive un-normalized.
     const hydrated = fromBackendResponse({
       theme: "sepia",
+      // navLayout was removed when the sidebar became the only desktop nav.
+      // Left in the fixture deliberately: an old stored blob still carries it,
+      // and hydration must ignore unknown keys rather than choke on them.
       appearance: { themeId: "sepia", navLayout: "sidebar" },
     });
     expect(hydrated.appearance?.themeId).toBe("light");
-    expect(hydrated.appearance?.navLayout).toBe("sidebar");
   });
 
   it("falls back to default theme when none is stored", () => {

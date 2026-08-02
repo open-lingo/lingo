@@ -26,7 +26,12 @@ function parseShopState(raw: RawUserSettings | undefined): ShopState {
 }
 
 export function useShopState() {
-  const { stats, isReady: statsReady, refetch: refetchStats } = useUserStats();
+  const {
+    stats,
+    isReady: statsReady,
+    isError: statsError,
+    refetch: refetchStats,
+  } = useUserStats();
 
   // Shares the one ``GET /users/me/settings`` fetch with SettingsContext and
   // the cosmetic slots — derives the shop slice via ``select``. Shop inventory
@@ -44,8 +49,17 @@ export function useShopState() {
   const ownedQuantity = (itemId: string) => shop.inventory[itemId] ?? 0;
 
   return {
-    lingots: statsReady ? stats.lingots : null,
+    // `statsReady` means the /progress/me query SETTLED, which TanStack also
+    // reports for an error (it is `isFetched`, and the lesson-hydrate consumers
+    // depend on that "settled" meaning). On failure `stats` falls back to
+    // DEFAULT_STATS, whose `lingots` is 0 — so the shop confidently told a user
+    // with 800 lingots that they had none, locked every Buy button, and
+    // answered a tap with "Not enough lingots." Null means "unknown", which the
+    // callers already render as a loading/blocked state rather than a balance.
+    lingots: statsReady && !statsError ? stats.lingots : null,
     statsReady,
+    /** The balance could not be loaded — distinct from "loading" and from 0. */
+    statsError,
     shop,
     isLoading: settingsQuery.isLoading,
     isOwned,

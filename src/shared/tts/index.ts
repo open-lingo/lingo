@@ -460,11 +460,24 @@ function playBuffer(buffer: AudioBuffer): void {
 // Public play API.
 // ---------------------------------------------------------------------------
 
-export async function playJaAudio(text: string, lang: string = defaultTtsLang): Promise<void> {
+/**
+ * What actually came out of the speaker.
+ *
+ * `"silent"` is the case worth handling in UI: the recorded clip could not be
+ * loaded AND the language forbids synthesis (JA, by design), so nothing plays
+ * at all. A listening exercise that renders a play button which does nothing —
+ * with no explanation — is the worst version of this failure.
+ */
+export type PlaybackResult = "clip" | "synthesis" | "silent";
+
+export async function playJaAudio(
+  text: string,
+  lang: string = defaultTtsLang,
+): Promise<PlaybackResult> {
   const url = getTtsUrl(text, lang);
   if (!url) {
     speakViaSynthesis(text, lang);
-    return;
+    return canSynthesize(lang) ? "synthesis" : "silent";
   }
   const buf = await loadBuffer(url);
   if (!buf) {
@@ -473,9 +486,10 @@ export async function playJaAudio(text: string, lang: string = defaultTtsLang): 
     // manifest miss: speak it, for every language that allows synthesis. JA
     // stays silent because `canSynthesize("ja")` is false by design.
     speakViaSynthesis(text, lang);
-    return;
+    return canSynthesize(lang) ? "synthesis" : "silent";
   }
   playBuffer(buf);
+  return "clip";
 }
 
 /**

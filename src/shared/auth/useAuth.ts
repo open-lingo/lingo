@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { goToMarketing } from "@/shared/config/marketing";
 
 // Also gated on import.meta.env.DEV so a stray VITE_DEV_AUTH_BYPASS=true can
 // never activate the bypass in a production build — Vite hard-codes DEV=false
@@ -28,7 +29,7 @@ export function useAuth() {
       user: DEV_USER,
       login: () => {},
       signup: () => {},
-      logout: () => { window.location.href = "/landing"; },
+      logout: () => { goToMarketing(); },
     };
   }
 

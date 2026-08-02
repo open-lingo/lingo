@@ -33,8 +33,11 @@ function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
  * Count reviews per day for the last 7 days from the SRS store.
  * Checks both recognition and production `lastReviewDate` on each card.
  * Returns an array of 7 numbers [6 days ago, 5 days ago, ..., today].
+ *
+ * `cardIds` MUST hold canonical (`<lang>:<bare>`) ids — it is matched against
+ * store keys. Exported for tests.
  */
-function computeWeekReviews(
+export function computeWeekReviews(
   srsStore: SRSStore,
   cardIds: Set<string>,
 ): number[] {
@@ -144,8 +147,16 @@ export function useFlashcardDueSummary(langId: string) {
       else if (isLearning(state)) learningCount++;
     }
 
-    // Real review-volume sparkline: per-day counts for the last 7 days
-    const allCardIds = new Set(allCards.map((c) => c.id));
+    // Real review-volume sparkline: per-day counts for the last 7 days.
+    //
+    // Canonicalize: SRS store keys are always `<lang>:<bare>`, and
+    // `computeWeekReviews` tests membership against those keys. Bundled deck
+    // cards carry BARE ids (`n5-1`), so a raw-id set matched none of them and
+    // every subscription-deck review was silently dropped from the count.
+    // Course-deck cards already carry canonical atom ids, so they alone were
+    // counted — a partial undercount that reads as a plausible number rather
+    // than an obvious zero. `computeDeckRetention` below already does this.
+    const allCardIds = new Set(allCards.map((c) => canonicalizeCardId(c.id)));
     const weekReviews = computeWeekReviews(srsStore, allCardIds);
 
     // Per-deck retention: reps / (reps + lapses) for reviewed cards

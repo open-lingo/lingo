@@ -1,9 +1,9 @@
-import { Navigate } from "react-router-dom";
 import { useAuth } from "@/shared/auth/useAuth";
 import { HomePage } from "@/features/home/HomePage";
 import { useTranslation } from "react-i18next";
+import { MarketingRedirect } from "@/routes/MarketingRedirect";
 
-/** Home route: redirect to / if not logged in, else show dashboard. */
+/** Home route: anonymous visitors leave for the marketing site, else dashboard. */
 export function ProtectedHome() {
   const { isAuthenticated, isLoading } = useAuth();
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ export function ProtectedHome() {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/landing" replace />;
+    return <MarketingRedirect />;
   }
 
   return <HomePage />;

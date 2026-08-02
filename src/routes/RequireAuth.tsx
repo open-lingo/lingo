@@ -1,10 +1,11 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
+import { MarketingRedirect } from "@/routes/MarketingRedirect";
 
 /**
- * Requires Auth0 session. Anonymous users are sent to the marketing hub.
- * Keeps learner routes in one place until the landing site is split to its own SPA.
+ * Requires an Auth0 session. Anonymous users leave for the marketing site,
+ * which now lives on its own origin.
  */
 export function RequireAuth() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -19,7 +20,7 @@ export function RequireAuth() {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/landing" replace />;
+    return <MarketingRedirect />;
   }
 
   return <Outlet />;

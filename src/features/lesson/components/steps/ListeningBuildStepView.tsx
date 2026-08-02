@@ -5,13 +5,12 @@ import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { getTtsUrl, playJaAudio } from "@/shared/tts";
+import { playJaAudio } from "@/shared/tts";
 import {
   BuildTileSurface,
   useBuildTileKanji,
   useTileRomajiPeek,
 } from "./BuildTileSurface";
-import { playLocalAudio } from "@/shared/audio/volume";
 import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
@@ -147,15 +146,22 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
 
   useLessonKeyboard({ onEnter: handleEnter });
 
-  // Non-JA courses may ship no recorded clip; fall back to the platform
-  // voice so the listen-and-build exercise stays playable.
-  const audioUrl = getTtsUrl(step.targetSentence);
+  // Route EVERY play through playJaAudio.
+  //
+  // This used to call playLocalAudio directly whenever getTtsUrl returned a
+  // URL. The TTS manifest is bundled into the JS, so a URL comes back even
+  // when the CDN object is gone (a deploy once deleted the published corpus)
+  // or the learner is offline — and playLocalAudio swallows both the `error`
+  // event and the play() rejection. The learner tapped play in silence with no
+  // affordance, and KO/ES never reached the synthesis fallback that would have
+  // worked. playJaAudio already handles clip-then-synthesis correctly.
+  const [audioSilent, setAudioSilent] = useState(false);
   function handlePlay() {
-    if (audioUrl) {
-      playLocalAudio(audioUrl);
-      return;
-    }
-    playJaAudio(step.targetSentence);
+    void playJaAudio(step.targetSentence).then((result) =>
+      // JA forbids synthesis by design, so a failed clip there really is
+      // silence — say so instead of leaving a dead button.
+      setAudioSilent(result === "silent"),
+    );
   }
 
   const hasSubmittedWrong = submitted && !isCorrect;
@@ -180,9 +186,16 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         >
           <Icon name="play" size={28} />
         </button>
-        <p className="text-lg leading-snug text-text-secondary">
-          <PromptWithEmphasis text={formatPrompt(step.prompt)} />
-        </p>
+        <div className="min-w-0">
+          <p className="text-lg leading-snug text-text-secondary">
+            <PromptWithEmphasis text={formatPrompt(step.prompt)} />
+          </p>
+          {audioSilent && (
+            <p role="status" className="mt-1 text-sm text-warning">
+              Audio unavailable right now — the sentence is shown below the tiles.
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Drop area — ~20% taller. The min-h floor matters when no tiles

@@ -49,7 +49,8 @@ export default function ShopPage() {
   const { progress } = useApi();
   const { showToast } = useToast();
   const invalidate = useInvalidateShopQueries();
-  const { lingots, statsReady, isOwned, ownedQuantity } = useShopState();
+  const { lingots, statsReady, statsError, isOwned, ownedQuantity, refetchStats } =
+    useShopState();
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [filter, setFilter] = useState<OwnershipFilter>("all");
   const rewardedAd = useRewardedAd();
@@ -98,6 +99,12 @@ export default function ShopPage() {
       );
       return;
     }
+    // One purchase at a time. Two taps ~200ms apart used to abort the first
+    // request client-side (shared abort tag) AFTER the server had already
+    // deducted lingots — the user saw "Purchase failed" for a purchase that
+    // succeeded, and retrying a consumable double-charged. The tag is gone
+    // from the POST; this keeps a second request from being started at all.
+    if (pendingId !== null) return;
     setPendingId(itemId);
     purchaseMutation.mutate(itemId);
   };
@@ -179,6 +186,26 @@ export default function ShopPage() {
           </div>
         </div>
       </header>
+
+      {/* Balance failed to load. Without this the page silently behaves as if
+          the user had 0 lingots — every Buy disabled, no explanation. Say so,
+          and offer a retry, rather than letting them conclude they're broke. */}
+      {statsError && (
+        <div
+          role="alert"
+          className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-warning/40 bg-warning/10 px-4 py-3"
+        >
+          <p className="text-sm text-text-primary">
+            {t("shop.balanceUnavailable", {
+              defaultValue:
+                "Couldn't load your lingot balance, so purchases are paused. Your lingots are safe.",
+            })}
+          </p>
+          <Button type="button" variant="outline" size="sm" onClick={refetchStats}>
+            {t("common.retry", { defaultValue: "Retry" })}
+          </Button>
+        </div>
+      )}
 
       {/* Ownership tabs — applies to every section below except ad-free
           (ad-free has no notion of "owned"; it's a timed power-up). */}
@@ -339,6 +366,8 @@ function FeaturedBanner({
   const Svg = style.Svg;
   const canAfford = statsReady && lingots !== null && lingots >= item.price;
   const busy = pendingId === item.id;
+  // Any purchase in flight locks every buy control — see handlePurchase.
+  const anyPending = pendingId !== null;
   return (
     <section
       className="relative overflow-hidden rounded-card border border-border shadow-[var(--shadow-card)]"
@@ -364,14 +393,18 @@ function FeaturedBanner({
             variant="primary-3d"
             size="sm"
             className="shrink-0"
-            disabled={!statsReady || busy || !canAfford}
+            disabled={!statsReady || anyPending || !canAfford}
             onClick={() => onPurchase(item.id, item.price)}
           >
-            <span className="inline-flex items-center gap-1.5">
-              {!canAfford ? <Icon name="lock" size={13} aria-hidden /> : null}
-              <Icon name="gem" size={13} aria-hidden />
-              {item.price}
-            </span>
+            {busy ? (
+              t("common.loading", { defaultValue: "Loading…" })
+            ) : (
+              <span className="inline-flex items-center gap-1.5">
+                {!canAfford ? <Icon name="lock" size={13} aria-hidden /> : null}
+                <Icon name="gem" size={13} aria-hidden />
+                {item.price}
+              </span>
+            )}
           </Button>
         </div>
       </div>
@@ -421,6 +454,8 @@ function ShopSection({
           const qty = ownedQuantity(item.id);
           const canAfford = statsReady && lingots !== null && lingots >= item.price;
           const busy = pendingId === item.id;
+          // Any purchase in flight locks every buy control — see handlePurchase.
+          const anyPending = pendingId !== null;
           const showBuyAgain = item.consumable && qty > 0;
 
           return (
@@ -453,7 +488,7 @@ function ShopSection({
                   className="mt-3 w-full"
                   disabled={
                     !statsReady ||
-                    busy ||
+                    anyPending ||
                     (!item.consumable && owned) ||
                     (!canAfford && !showBuyAgain)
                   }

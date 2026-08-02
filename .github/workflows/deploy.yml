@@ -8,6 +8,7 @@ name: deploy
 #   VITE_API_BASE_URL       — lingo-core Lambda URL
 #   VITE_OPS_API_BASE_URL   — lingo-ops Lambda URL
 #   VITE_AUTH0_DOMAIN / VITE_AUTH0_CLIENT_ID / VITE_AUTH0_AUDIENCE
+#   VITE_MARKETING_ORIGIN   — marketing site origin (anon users are sent here)
 #   LINGO_S3_BUCKET         — target bucket name
 #   LINGO_CLOUDFRONT_DIST_ID — for invalidation
 
@@ -33,6 +34,22 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      # Gate the deploy on the same checks CI runs.
+      #
+      # `ci` and `deploy` both trigger on push to main, INDEPENDENTLY — so a
+      # red build shipped to production anyway. That is not hypothetical: the
+      # stale-lesson-id ratchet failed on main for multiple pushes while every
+      # one of those commits deployed (2026-07-31).
+      #
+      # Done as steps in this job rather than a `workflow_run` trigger: that
+      # trigger would need `ref: head_sha` handling and, misconfigured, stops
+      # deploys silently. This cannot break the trigger, and it reuses the
+      # checkout + npm ci already here. Cost is deploy latency — it now waits
+      # for the suite. CI still runs in parallel for PR feedback.
+      - name: typecheck
+        run: npx tsc --noEmit
+      - name: unit tests
+        run: npm run test:run
       - name: build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
@@ -40,6 +57,7 @@ jobs:
           VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
           VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
           VITE_AUTH0_AUDIENCE: ${{ vars.VITE_AUTH0_AUDIENCE }}
+          VITE_MARKETING_ORIGIN: ${{ vars.VITE_MARKETING_ORIGIN }}
         run: npm run build
       - name: upload bundle artifact
         uses: actions/upload-artifact@v4
@@ -115,6 +133,6 @@ jobs:
       - name: verify site responds
         run: |
           sleep 10
-          status=$(curl -s -o /dev/null -w "%{http_code}" https://openlingoapp.com)
+          status=$(curl -s -o /dev/null -w "%{http_code}" https://app.openlingoapp.com)
           echo "Site returned HTTP $status"
           test "$status" = "200"

@@ -1,10 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTranslation } from "react-i18next";
+import { MarketingRedirect } from "@/routes/MarketingRedirect";
 
 /**
- * Root `/`: send signed-in users to the app hub; send anonymous users to the
- * dedicated landing route (same SPA today; can move to a separate origin later).
+ * Root `/`: signed-in users go to the app hub; anonymous users leave for the
+ * marketing site, which now owns the pitch at the apex. This app is served
+ * from `app.<domain>`, so that is a cross-origin navigation, not a route.
  */
 export function RootRoute() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -22,5 +24,5 @@ export function RootRoute() {
     return <Navigate to="/home" replace />;
   }
 
-  return <Navigate to="/landing" replace />;
+  return <MarketingRedirect />;
 }

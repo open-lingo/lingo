@@ -17,6 +17,7 @@ import { useMe } from "@/shared/hooks/useMe";
 import { canAccessSiteAdmin } from "@/shared/auth/roles";
 import { AdminSidebar } from "./AdminSidebar";
 import { usePendingReviewCount } from "./usePendingReviewCount";
+import { MarketingRedirect } from "@/routes/MarketingRedirect";
 
 // ── Auth guard ────────────────────────────────────────────────────────────────
 
@@ -49,7 +50,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/landing" replace />;
+    return <MarketingRedirect />;
   }
 
   if (!canAccessSiteAdmin(me?.role)) {

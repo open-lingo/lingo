@@ -16,6 +16,7 @@ import {
 import type { Language } from "@/shared/domain/languages";
 
 import { getPreviewLesson, type PreviewLesson } from "./data/previewLessons";
+import { marketingUrl } from "@/shared/config/marketing";
 
 /**
  * Public no-auth "Try it free" preview lesson.
@@ -96,14 +97,14 @@ function PreviewLanguagePicker({
       </div>
 
       <div className="mt-8 flex justify-center">
-        <Link
-          to="/landing"
+        <a
+          href={marketingUrl("/")}
           className="text-sm font-medium text-text-secondary underline-offset-2 hover:underline"
         >
           {t("preview.backToLanding", {
             defaultValue: "← Back to landing",
           })}
-        </Link>
+        </a>
       </div>
     </div>
   );
@@ -167,8 +168,8 @@ function PreviewRunner({
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col">
       <div className="flex items-center gap-4 py-5">
-        <Link
-          to="/landing"
+        <a
+          href={marketingUrl("/")}
           className="-ml-1 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
           aria-label={t("preview.exit", { defaultValue: "Exit preview" })}
         >
@@ -186,7 +187,7 @@ function PreviewRunner({
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
-        </Link>
+        </a>
         <LessonProgressBar current={stepIdx} total={totalSteps} />
       </div>
 
@@ -233,14 +234,14 @@ function PreviewFinished({
 
       <SignupCta languageId={lesson.languageId} />
 
-      <Link
-        to="/landing"
+      <a
+        href={marketingUrl("/")}
         className="text-sm font-medium text-text-secondary underline-offset-2 hover:underline"
       >
         {t("preview.keepBrowsing", {
           defaultValue: "Or just keep browsing",
         })}
-      </Link>
+      </a>
     </div>
   );
 }

@@ -14,12 +14,19 @@ type Props = {
 export function LingotBalance({ className, linkToShop = true, size = "sm" }: Props) {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const { stats, isReady } = useUserStats();
+  const { stats, isReady, isError } = useUserStats();
 
-  const display = isReady ? stats.lingots.toLocaleString() : "—";
-  const title = isReady
+  // `isReady` only means the query SETTLED — it is true on error too, and the
+  // error fallback (`DEFAULT_STATS`) has `lingots: 0`. Rendering that showed a
+  // confident "0" to users who actually have a balance. Keep the em-dash
+  // placeholder when the load failed: unknown is not zero.
+  const known = isReady && !isError;
+  const display = known ? stats.lingots.toLocaleString() : "—";
+  const title = known
     ? t("nav.lingotsTooltip", { defaultValue: "{{count}} lingots", count: stats.lingots })
-    : t("nav.lingotsLoading", { defaultValue: "Loading lingots…" });
+    : isError
+      ? t("nav.lingotsUnavailable", { defaultValue: "Couldn't load your lingots" })
+      : t("nav.lingotsLoading", { defaultValue: "Loading lingots…" });
 
   const inner = (
     <>

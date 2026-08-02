@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { LanguagePickerGrid } from "@/features/home/LanguagePickerGrid";
 import { useAuth } from "@/shared/auth/useAuth";
 import { Icon } from "@/shared/components/Icon";
 import type { Language } from "@/shared/domain/languages";
+import { marketingUrl } from "@/shared/config/marketing";
 
 /**
  * Pre-signup language picker page. Replaces the "Get started → Auth0 →
@@ -81,12 +81,12 @@ export default function GetStartedPage() {
           )}
         </p>
 
-        <Link
-          to="/landing"
+        <a
+          href={marketingUrl("/")}
           className="mt-2 text-sm font-medium text-text-secondary underline-offset-2 hover:underline"
         >
           {t("getStarted.backToLanding", "← Back to landing")}
-        </Link>
+        </a>
       </div>
     </div>
   );

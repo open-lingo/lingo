@@ -1,6 +1,9 @@
 import { useCallback, useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApiOptional } from "@/shared/api/provider";
+import { useToastOptional } from "@/shared/contexts/ToastContext";
+import { playSfx } from "@/shared/audio/sfx";
+import { useTranslation } from "react-i18next";
 import type { ServerQuest } from "@/shared/api/quests";
 import type { Quest, QuestStatus } from "./types";
 
@@ -82,6 +85,8 @@ export type UseQuestsResult = {
   quests: Quest[];
   summary: QuestsSummary;
   isLoading: boolean;
+  /** A claim is in flight — callers disable the button so it can't double-fire. */
+  isClaiming: boolean;
   /** Bump quest progress server-side then refetch. Server is authoritative. */
   addProgress: (id: string, delta: number) => void;
   /** Claim a claimable quest (POST /quests/{id}/claim) then refetch. */
@@ -99,6 +104,10 @@ export function useQuests(): UseQuestsResult {
   const ctx = useApiOptional();
   const questsApi = ctx?.quests;
   const qc = useQueryClient();
+  // Optional, like useApiOptional above: this hook is deliberately mountable
+  // without a provider tree, so a missing ToastProvider must no-op, not throw.
+  const toast = useToastOptional();
+  const { t } = useTranslation();
 
   const query = useQuery({
     queryKey: QUESTS_QUERY_KEY,
@@ -127,9 +136,29 @@ export function useQuests(): UseQuestsResult {
   const claimMutation = useMutation({
     mutationFn: (id: string) => questsApi!.claim(id),
     onSuccess: () => {
+      // The reward chime belongs HERE, not on the button's click handler,
+      // where it congratulated the learner for claims that then failed.
+      playSfx("match");
       qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
       // Claims grant lingots/XP server-side — refresh balances.
       qc.invalidateQueries({ queryKey: ["progress", "me"] });
+    },
+    // Without this a failed claim did NOTHING visible: the row played its
+    // success chime on click, the reward never arrived, and the learner tapped
+    // again (each tap aborting the last via the shared `quests:claim` tag).
+    // Rewards were never actually at risk — the server transition 409s on
+    // re-claim and the row self-corrects after the staleTime — but silence
+    // reads as a broken button.
+    onError: () => {
+      toast?.showToast(
+        t("quests.claimFailed", {
+          defaultValue: "Couldn't claim that reward — try again.",
+        }),
+        "error",
+      );
+      // Re-read server truth: if it 409'd because the claim already landed,
+      // this flips the row to claimed instead of leaving it stuck.
+      qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
     },
   });
 
@@ -174,6 +203,8 @@ export function useQuests(): UseQuestsResult {
     quests,
     summary,
     isLoading: query.isLoading,
+    /** A claim is in flight — callers disable the button so it can't double-fire. */
+    isClaiming: claimMutation.isPending,
     addProgress,
     claim,
     complete,

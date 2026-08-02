@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hasCookieConsentDecision, saveCookieConsent } from "@/shared/legal/cookieConsent";
+import { marketingUrl } from "@/shared/config/marketing";
 
 /**
  * GDPR-style banner for optional advertising cookies (AdSense).
@@ -89,9 +89,12 @@ export function CookieConsent() {
                 "We use essential storage for sign-in and your learning progress. With your permission, we also allow advertising cookies (e.g. Google AdSense) to help fund the free tier. We do not sell your personal information.",
               )}{" "}
             </span>
-            <Link to="/privacy" className="font-medium text-accent hover:underline">
+            <a
+              href={marketingUrl("/privacy")}
+              className="font-medium text-accent hover:underline"
+            >
               {t("legal.privacyLink", "Privacy Policy")}
-            </Link>
+            </a>
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">

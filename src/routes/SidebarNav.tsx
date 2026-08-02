@@ -7,12 +7,13 @@ import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { useNavDestinations } from "@/shared/nav/useNavDestinations";
 import { makePrefetchHandlers } from "@/shared/utils/routePrefetch";
 import { useAuth } from "@/shared/auth/useAuth";
+import { marketingUrl } from "@/shared/config/marketing";
 
 /**
- * Desktop (≥lg) left rail — the "sidebar" nav layout. Shares destinations
- * with the top bar via useNavDestinations so the two never diverge. Hidden
- * below lg; mobile keeps the top-bar header + hamburger regardless of layout
- * setting (see Layout.tsx). Fixed-position; Layout pads the page `lg:pl-60`.
+ * Desktop (≥lg) left rail — the only nav on wide screens for signed-in users,
+ * lessons included. Shares destinations with the top bar via useNavDestinations
+ * so the two never diverge. Hidden below lg, where the top-bar header +
+ * hamburger takes over. Fixed-position; Layout pads the page `lg:pl-60`.
  */
 export function SidebarNav() {
   const { t } = useTranslation();
@@ -36,12 +37,18 @@ export function SidebarNav() {
           }}
           aria-hidden
         />
-        <Link
-          to={isAuthenticated ? "/home" : "/landing"}
-          className="text-lg font-semibold text-text-primary"
-        >
-          {t("nav.siteName")}
-        </Link>
+        {isAuthenticated ? (
+          <Link to="/home" className="text-lg font-semibold text-text-primary">
+            {t("nav.siteName")}
+          </Link>
+        ) : (
+          <a
+            href={marketingUrl("/")}
+            className="text-lg font-semibold text-text-primary"
+          >
+            {t("nav.siteName")}
+          </a>
+        )}
       </div>
 
       <nav
