@@ -927,11 +927,16 @@ export const JA_STORIES: Story[] = [
     // ノートに かく + じぶんで べんきょうする) — same module, so the stretch read
     // must not recycle the comfortable read's furniture.
     //
+    // The search deliberately stops at the classroom (line 11): the gist keys on
+    // where the notebook actually WAS, so no line may flatly deny the corridor.
+    //
     // Pool notes: なか / あるく / とまる are m17, みんな m19, たくさん m20,
-    // いっしょ m23 — none available here. い-adjective adverbials (はやく,
-    // おおきく) never gate, and な-adjective attributive な does not either
-    // ("たいせつな しゅくだい" residuals な), so every adjective sits in
-    // predicate position.
+    // いっしょ m23 — none available here. Adjective forms: the な suffix has no
+    // source, so every な-adjective sits in predicate position ("たいせつな
+    // しゅくだい" residuals な); い-adjective adverbials are per-surface — よく
+    // gates from m11 and is used at line 1, while はやく / おおきく / わるく and
+    // the rest do not gate at any module. Measured tables in
+    // docs/story-authoring-guide.md §6.
     id: "ja-m16-the-second-notebook",
     languageId: "ja",
     module: 16,
@@ -1686,7 +1691,7 @@ export const JA_STORIES: Story[] = [
       { text: "ははは とりにくが すきだ。だから、ぼくが とりにくの りょうりを する。", translation: "My mother likes chicken. So I cook a chicken dish." },
       { text: "しょくじの あとで、ぼくは うたう。", translation: "After the meal, I sing." },
       { text: "けど、こえが ない。", translation: "But there's no voice." },
-      { text: "のどが とても いたい。ぼくは だめだ。", translation: "My throat really hurts. I'm no good." },
+      { text: "のどが とても いたい。ぼくの うたは だめだ。", translation: "My throat really hurts. My singing is no good." },
       { text: "かぞくは しずかだ。", translation: "The family is quiet." },
       { text: "いもうとが ぼくの まえに くる。", translation: "My sister comes in front of me." },
       { text: "いもうとは ひとりで うたう。", translation: "She sings it alone." },
@@ -1789,8 +1794,8 @@ export const JA_STORIES: Story[] = [
       { text: "おじいさんは わたしの てを もつ。「らいしゅうも ききましょう。」", translation: "The old man takes my hand. \"Let's listen next week too.\"" },
       { text: "まいしゅうの にちようび、ふたりで ざっしを よむ。", translation: "Every Sunday the two of us read a magazine." },
       { text: "いまも まいばん くじに ラジオが きこえる。", translation: "I can still hear the radio every night at nine." },
-      { text: "けど、いまは わたしも その おんがくが すきだ。", translation: "But now I like that music too." },
-      { text: "じゅうじに わたしが ラジオを けす。ふたりとも ねる。", translation: "At ten I switch the radio off. We both go to sleep." },
+      { text: "けど、いまは わたしも くじを まつ。", translation: "But now I wait for nine o'clock too." },
+      { text: "じゅうじに わたしは となりの へやで ラジオを けす。ふたりとも ねる。", translation: "At ten I switch the radio off in the room next door. We both go to sleep." },
     ],
   },
   {

@@ -223,8 +223,9 @@ whether the characters are covered. Two consequences:
 
   - **`くがつ` "September" never gates, at any module 1-30** — `く` 九 is an
     unattributed atom, so the *nine* in 九月 has no source even though `がつ`
-    is m16 and every other month works. Measured: residual `くがつ` at m1,
-    `くつ` at m5-m10 (once `が` m4 is available), `く` from m16 up. There is no
+    is m16 and every other month works. Measured every module 1-30: residual
+    `くがつ` at m1-m3, `くつ` at m4-m15 (once `が` m4 is available), `く` from
+    m16 up (once `がつ` m16 is). There is no
     way to write September in gated Japanese. Use `あき` (autumn, m18) for that
     beat, or move the scene to a month that does gate.
 
@@ -560,7 +561,7 @@ for; everything else has to be rewritten. "Gets worse" cannot be `わるく な�
 any module — write `へたに なる` instead (see below). **Probe the exact adverbial
 you want; do not generalize in either direction from this table.**
 
-**な-adjective ATTRIBUTIVE `な` never gates — but the な-ADVERBIAL always does.**
+**The `な` SUFFIX never gates — but the な-ADVERBIAL `に` always does.**
 The `な` suffix has no source anywhere in `FUNCTION_MORPHEMES` or the atom
 registry, so it residuals as a bare `な` on every な-adjective tried; the `に`
 adverbial form is clean because `に` is the m6 particle.
