@@ -150,7 +150,7 @@ export const JA_CULTURE_STORIES: Story[] = [
       { text: "わたしは カメラが ほしい。", translation: "I want a camera." },
       { text: "その カメラは にまんえんだ。", translation: "That camera is twenty thousand yen." },
       { text: "カメラは たかい。", translation: "The camera is expensive." },
-      { text: "おかねが ない。", translation: "There is no money." },
+      { text: "おかねが ない。", translation: "I do not have enough money." },
       { text: "つぎの あさ、かぞくで じんじゃに いく。", translation: "The next morning the family goes to the shrine." },
       { text: "じんじゃは とても にぎやかだ。", translation: "The shrine is very lively." },
       { text: "あには じんじゃで わたしに はなす。", translation: "At the shrine my brother speaks to me." },
