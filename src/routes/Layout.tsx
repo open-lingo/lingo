@@ -25,7 +25,6 @@ import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
-import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
@@ -46,11 +45,12 @@ export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
   const { isThemeEditorOpen } = useTheme();
-  const { settings } = useSettings();
   const { isAuthenticated } = useAuth();
-  // Sidebar layout only applies to authed users on ≥lg; mobile + signed-out
-  // always use the top bar.
-  const sidebarMode = isAuthenticated && settings.appearance.navLayout === "sidebar";
+  // One nav per breakpoint, no setting: signed-in users get the sidebar on
+  // ≥lg (including inside lessons — it is how you leave one), and the top bar
+  // is mobile-only. Signed-out surfaces (/login, /try, /get-started) keep the
+  // top bar at every width since there is no sidebar to show.
+  const sidebarMode = isAuthenticated;
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
   // Reconciles the atom unlock ladder with the server (union both ways) and

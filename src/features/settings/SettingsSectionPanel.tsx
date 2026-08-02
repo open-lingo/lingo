@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
-import { cn } from "@/shared/components/ui/cn";
 import { useApi } from "@/shared/api/provider";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useToast } from "@/shared/contexts/ToastContext";
@@ -205,9 +204,7 @@ function GeneralPanel() {
 function AppearancePanel() {
   const { t } = useTranslation();
   const { activeThemeId, setTheme, openThemeEditor, customThemes } = useTheme();
-  const { settings, updateSetting } = useSettings();
   const { close } = useModal();
-  const navLayout = settings.appearance.navLayout ?? "topbar";
 
   const themeOptions = [
     { id: "auto", labelKey: "settings.themeAuto" },
@@ -269,64 +266,6 @@ function AppearancePanel() {
           }
         />
 
-        <SettingRow
-          label={t("settings.navLayout", "Navigation layout")}
-          help={t(
-            "settings.navLayoutHint",
-            "Sidebar shows on larger screens; mobile always uses the top bar.",
-          )}
-          stacked
-          control={
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {(
-                [
-                  {
-                    id: "topbar",
-                    icon: "panelTop",
-                    label: t("settings.navLayoutTopbar", "Top bar"),
-                    desc: t(
-                      "settings.navLayoutTopbarDesc",
-                      "A bar across the top of every page.",
-                    ),
-                  },
-                  {
-                    id: "sidebar",
-                    icon: "panelLeft",
-                    label: t("settings.navLayoutSidebar", "Sidebar"),
-                    desc: t(
-                      "settings.navLayoutSidebarDesc",
-                      "A rail beside the page on larger screens.",
-                    ),
-                  },
-                ] as const
-              ).map((o) => {
-                const selected = navLayout === o.id;
-                return (
-                  <button
-                    key={o.id}
-                    type="button"
-                    onClick={() => updateSetting("appearance.navLayout", o.id)}
-                    aria-pressed={selected}
-                    className={cn(
-                      "flex flex-col items-center gap-2 rounded-card border p-4 text-center transition",
-                      selected
-                        ? "border-accent bg-accent-muted text-accent ring-1 ring-accent"
-                        : "border-border bg-surface text-text-secondary hover:border-text-muted hover:bg-surface-muted",
-                    )}
-                  >
-                    <Icon name={o.icon} size={30} aria-hidden />
-                    <span className="text-sm font-semibold text-text-primary">
-                      {o.label}
-                    </span>
-                    <span className="text-xs leading-snug text-text-muted">
-                      {o.desc}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          }
-        />
       </SettingsGroup>
     </Panel>
   );
