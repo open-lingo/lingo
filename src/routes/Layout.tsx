@@ -404,7 +404,7 @@ export function Layout() {
           </>
         )}
       </header>
-      {showAppAds ? <DailyWelcomeAd /> : null}
+      {showAppAds && !focusedFlow ? <DailyWelcomeAd /> : null}
       {/* Non-focused pages: content fills the viewport below the header.
           Focused flows (lessons/tests) tighten padding so steps aren't
           pushed below the fold. */}
@@ -428,7 +428,11 @@ export function Layout() {
       >
         <Outlet />
       </main>
-      {showAppAds ? <CollapsibleAdBanner /> : null}
+      {/* Never inside a lesson or test. The pitch has always been "no ads on
+          the learning path", and this was the one placement that would have
+          broken it the moment ads were switched on — DailyWelcomeAd above is
+          already interstitial, but the banner rendered on every route. */}
+      {showAppAds && !focusedFlow ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
       )}

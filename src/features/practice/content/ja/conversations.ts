@@ -60,7 +60,11 @@ export const JA_CONVERSATIONS: Conversation[] = [
     lines: [
       { speaker: "A", text: "すみません。これ、いくら？", translation: "Excuse me. How much is this?" },
       { speaker: "B", text: "ひゃくえんです。", translation: "It's 100 yen." },
+      { speaker: "A", text: "あれも ひゃくえんですか？", translation: "Is that one 100 yen too?" },
+      { speaker: "B", text: "いいえ、あれは にひゃくえんです。", translation: "No, that one is 200 yen." },
       { speaker: "A", text: "これ、ください。", translation: "This one, please." },
+      { speaker: "B", text: "はい。ひとつですか？", translation: "Certainly. Just one?" },
+      { speaker: "A", text: "みっつ ください。", translation: "Three, please." },
       { speaker: "B", text: "ありがとうございます。", translation: "Thank you." },
     ],
   },
@@ -80,6 +84,10 @@ export const JA_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "がっこうに います。", translation: "At school." },
       { speaker: "A", text: "みせは どこに ありますか？", translation: "Where's the shop?" },
       { speaker: "B", text: "えきに あります。", translation: "At the station." },
+      { speaker: "A", text: "えきは ちかいですか？", translation: "Is the station near?" },
+      { speaker: "B", text: "いいえ、とおいです。", translation: "No, it's far." },
+      { speaker: "A", text: "としょかんも えきに ありますか？", translation: "Is the library at the station too?" },
+      { speaker: "B", text: "いいえ、こうえんに あります。ちかいです。", translation: "No, it's at the park. That one is near." },
     ],
   },
   {
@@ -98,6 +106,10 @@ export const JA_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "すしを たべます。", translation: "I'll eat sushi." },
       { speaker: "A", text: "なにを のみますか？", translation: "What will you drink?" },
       { speaker: "B", text: "おちゃを のみます。", translation: "I'll drink green tea." },
+      { speaker: "A", text: "わたしも すしを たべます。", translation: "I'll eat sushi too." },
+      { speaker: "B", text: "すしの みせは えきに あります。", translation: "The sushi shop is at the station." },
+      { speaker: "A", text: "わたしは えきに いきます。", translation: "I'll go to the station." },
+      { speaker: "B", text: "ええ、いきます。", translation: "Sure, I'll go." },
     ],
   },
 ];
