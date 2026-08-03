@@ -63,7 +63,7 @@ export const JA_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "あれも ひゃくえんですか？", translation: "Is that one 100 yen too?" },
       { speaker: "B", text: "いいえ、あれは にひゃくえんです。", translation: "No, that one is 200 yen." },
       { speaker: "A", text: "これ、ください。", translation: "This one, please." },
-      { speaker: "B", text: "はい。ひとつですか？", translation: "Certainly. Just one?" },
+      { speaker: "B", text: "はい。ひとつですか？", translation: "Certainly. One?" },
       { speaker: "A", text: "みっつ ください。", translation: "Three, please." },
       { speaker: "B", text: "ありがとうございます。", translation: "Thank you." },
     ],
@@ -87,7 +87,7 @@ export const JA_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "えきは ちかいですか？", translation: "Is the station near?" },
       { speaker: "B", text: "いいえ、とおいです。", translation: "No, it's far." },
       { speaker: "A", text: "としょかんも えきに ありますか？", translation: "Is the library at the station too?" },
-      { speaker: "B", text: "いいえ、こうえんに あります。ちかいです。", translation: "No, it's at the park. That one is near." },
+      { speaker: "B", text: "いいえ、こうえんに あります。ちかいです。", translation: "No, it's at the park. It's near." },
     ],
   },
   {
