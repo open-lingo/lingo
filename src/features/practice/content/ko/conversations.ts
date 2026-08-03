@@ -190,7 +190,7 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "영화 보고 싶어요?", translation: "Do you want to watch a movie?" },
       { speaker: "B", text: "오늘은 못 봐요.", translation: "I can't today." },
       { speaker: "A", text: "뭐 하고 싶어요?", translation: "What do you want to do?" },
-      { speaker: "B", text: "집에서 밥을 먹어요. 우리 집에 와요?", translation: "I'm eating at home. Will you come to my place?" },
+      { speaker: "B", text: "집에서 밥을 먹어요. 우리 집에 와요?", translation: "I'm eating at home. Are you coming to my place?" },
     ],
   },
   {
@@ -229,6 +229,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "아니요, 가끔 해요.", translation: "No, sometimes." },
       { speaker: "A", text: "언제 공부해요?", translation: "When do you study?" },
       { speaker: "B", text: "한 시부터 세 시까지 공부해요.", translation: "From 1:00 to 3:00." },
+      { speaker: "A", text: "회사에는 언제 가요?", translation: "When do you go to the office?" },
+      { speaker: "B", text: "아홉 시에 가요. 그래서 운동은 별로 못 해요.", translation: "I go at 9:00. So I don't really get to exercise." },
     ],
   },
   {
@@ -247,6 +249,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네, 뭐예요?", translation: "Sure, what is it?" },
       { speaker: "A", text: "바빠서 시간이 없어요.", translation: "I'm busy, so I have no time." },
       { speaker: "B", text: "기다려 주세요.", translation: "Please wait." },
+      { speaker: "A", text: "감사합니다. 친구가 오고 저는 회사에 가요.", translation: "Thank you. My friend is coming and I'm going to the office." },
+      { speaker: "B", text: "네, 제가 친구를 만나요.", translation: "OK, I'll meet your friend." },
     ],
   },
   {
@@ -265,6 +269,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "커피를 마시고 있어요.", translation: "I'm drinking coffee." },
       { speaker: "A", text: "여기 앉아도 돼요?", translation: "May I sit here?" },
       { speaker: "B", text: "네, 돼요.", translation: "Yes, you may." },
+      { speaker: "A", text: "감사합니다. 저도 커피를 마시고 싶어요.", translation: "Thank you. I want a coffee too." },
+      { speaker: "B", text: "커피는 거기에 있어요. 가방은 제가 보고 있어요.", translation: "The coffee is over there. I'm watching your bag." },
     ],
   },
   {
@@ -283,6 +289,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네, 알겠어요.", translation: "OK, got it." },
       { speaker: "A", text: "여기 앉아도 돼요.", translation: "You may sit here." },
       { speaker: "B", text: "저는 이 집을 좋아해요.", translation: "I like this house." },
+      { speaker: "A", text: "커피하고 빵이 여기에 있어요.", translation: "There's coffee and bread here." },
+      { speaker: "B", text: "저는 빵을 좋아해요. 커피도 좋아해요.", translation: "I like bread. I like coffee too." },
     ],
   },
   {
@@ -301,6 +309,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "버스를 타세요.", translation: "Take the bus." },
       { speaker: "A", text: "어디서 내려요?", translation: "Where do I get off?" },
       { speaker: "B", text: "다음 역에서 내려서 왼쪽으로 가세요.", translation: "Get off at the next stop and go left." },
+      { speaker: "A", text: "지하철도 역에 가요?", translation: "Does the subway go to the station too?" },
+      { speaker: "B", text: "네. 지하철은 오른쪽으로 똑바로 가세요.", translation: "Yes. For the subway, go straight to the right." },
     ],
   },
   {
@@ -319,6 +329,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "흐려요. 비가 올 것 같아요.", translation: "It's cloudy. Looks like it'll rain." },
       { speaker: "A", text: "그래서 집에 있을 거예요.", translation: "So I'll stay home." },
       { speaker: "B", text: "내일은 맑을 거예요.", translation: "Tomorrow will be clear." },
+      { speaker: "A", text: "내일은 집에 안 있을 거예요.", translation: "Tomorrow I won't stay home." },
+      { speaker: "B", text: "네. 내일은 비도 안 올 거예요.", translation: "Right. It won't rain tomorrow either." },
     ],
   },
   {
@@ -337,6 +349,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네 명이에요. 엄마, 아빠, 형, 그리고 저요.", translation: "Four. Mom, dad, my older brother, and me." },
       { speaker: "A", text: "형은 몇 살이에요?", translation: "How old is your brother?" },
       { speaker: "B", text: "스무 살이에요.", translation: "He's twenty." },
+      { speaker: "A", text: "형도 학생이에요?", translation: "Is your brother a student too?" },
+      { speaker: "B", text: "아니요, 회사에 가요. 우리 누나가 학생이에요.", translation: "No, he goes to an office. My older sister is the student." },
     ],
   },
   {
@@ -354,6 +368,9 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "어디가 아파요?", translation: "Where does it hurt?" },
       { speaker: "B", text: "머리가 아파요. 그리고 열이 나요.", translation: "My head hurts. And I have a fever." },
       { speaker: "A", text: "감기예요. 약을 먹으면 괜찮을 거예요.", translation: "It's a cold. If you take medicine, you'll be fine." },
+      { speaker: "B", text: "목도 아파요. 약은 어디에 있어요?", translation: "My throat hurts too. Where is the medicine?" },
+      { speaker: "A", text: "여기에 있어요. 오늘은 집에 가세요.", translation: "It's here. Go home today." },
+      { speaker: "B", text: "네, 알겠어요. 오늘은 학교에 안 가요.", translation: "OK, got it. I won't go to school today." },
     ],
   },
   {
@@ -371,6 +388,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "뭐 드릴까요?", translation: "What can I get you?" },
       { speaker: "B", text: "비빔밥하고 커피 한 잔 주세요.", translation: "Bibimbap and one coffee, please." },
       { speaker: "A", text: "이거는 김치라고 해요. 드셔 보세요.", translation: "This is called kimchi. Please try it." },
+      { speaker: "B", text: "맛있어요! 불고기도 있어요?", translation: "It's delicious! Do you have bulgogi too?" },
+      { speaker: "A", text: "네, 있어요. 불고기는 채소하고 먹어요.", translation: "Yes, we do. You eat bulgogi with vegetables." },
       { speaker: "B", text: "감사합니다.", translation: "Thank you." },
     ],
   },
@@ -390,6 +409,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "저는 커피가 더 좋아요.", translation: "I like coffee more." },
       { speaker: "A", text: "여기는 차가 커피보다 싸요.", translation: "Here, tea is cheaper than coffee." },
       { speaker: "B", text: "그래도 커피가 제일 맛있어요.", translation: "Still, coffee is the tastiest." },
+      { speaker: "A", text: "저는 차가 더 좋아요. 차는 덜 비싸요.", translation: "I like tea more. Tea is less expensive." },
+      { speaker: "B", text: "네. 차하고 커피 주세요!", translation: "OK. Tea and coffee, please!" },
     ],
   },
   {
@@ -407,6 +428,9 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "A", text: "주말에 뭐 할까요?", translation: "What shall we do on the weekend?" },
       { speaker: "B", text: "저는 요리를 잘해요. 같이 요리할까요?", translation: "I'm good at cooking. Shall we cook together?" },
       { speaker: "A", text: "좋아요! 같이 합시다.", translation: "Great! Let's do it." },
+      { speaker: "B", text: "뭐 요리할까요?", translation: "What shall we cook?" },
+      { speaker: "A", text: "불고기가 좋아요. 저는 요리를 못해요.", translation: "Bulgogi is good. I'm not good at cooking." },
+      { speaker: "B", text: "괜찮아요. 그거는 제가 잘해요.", translation: "That's fine. I'm good at that." },
     ],
   },
   {
@@ -425,6 +449,9 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "저는 음악을 들어요. 노래도 할 줄 알아요.", translation: "I listen to music. I also know how to sing." },
       { speaker: "A", text: "일주일에 몇 번 노래해요?", translation: "How many times a week do you sing?" },
       { speaker: "B", text: "두 번 해요. 같이 할까요?", translation: "Twice. Shall we do it together?" },
+      { speaker: "A", text: "좋아요! 그런데 저는 노래를 못해요.", translation: "Great! But I'm not good at singing." },
+      { speaker: "B", text: "괜찮아요. 게임은 할 줄 알아요?", translation: "That's OK. Do you know how to play games?" },
+      { speaker: "A", text: "네, 게임을 잘해요. 일주일에 세 번 해요.", translation: "Yes, I'm good at games. I play three times a week." },
     ],
   },
   {
@@ -443,6 +470,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네, 일본에 가려고 해요.", translation: "Yes, I intend to go to Japan." },
       { speaker: "A", text: "일본에 간 적이 있어요?", translation: "Have you been to Japan?" },
       { speaker: "B", text: "아니요. 온천에 가고 싶어요.", translation: "No. I want to go to a hot spring." },
+      { speaker: "A", text: "언제 출발해요?", translation: "When do you leave?" },
+      { speaker: "B", text: "금요일에 출발해요. 축제도 보고 싶어요.", translation: "I leave on Friday. I want to see a festival too." },
     ],
   },
   {
@@ -461,6 +490,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "죄송해요. 길이 너무 막혔거든요.", translation: "Sorry. The road was too jammed, you see." },
       { speaker: "A", text: "괜찮아요. 피곤해요?", translation: "It's OK. Are you tired?" },
       { speaker: "B", text: "네, 너무 피곤해서 집에 가고 싶어요.", translation: "Yes, I'm so tired I want to go home." },
+      { speaker: "A", text: "택시를 타세요.", translation: "Take a taxi." },
+      { speaker: "B", text: "네. 하지만 지하철로 가요. 택시는 너무 비싸요.", translation: "OK. But I'm going by subway. A taxi is too expensive." },
     ],
   },
   {
@@ -479,6 +510,8 @@ const CONVERTED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "약을 먹는 게 좋아요.", translation: "You should take medicine." },
       { speaker: "A", text: "네. 병원에 가야 돼요?", translation: "Yes. Do I have to go to the hospital?" },
       { speaker: "B", text: "쉬면 건강해져요. 조심하세요.", translation: "If you rest, you'll get healthy. Take care." },
+      { speaker: "A", text: "하지만 내일은 시험이 있어요.", translation: "But tomorrow I have an exam." },
+      { speaker: "B", text: "오늘은 자고 시험을 보세요.", translation: "Sleep today, and then take the exam." },
     ],
   },
 ];
@@ -501,6 +534,8 @@ const AUTHORED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네. 물도 주세요?", translation: "Sure. Water too?" },
       { speaker: "A", text: "네, 물 한 잔 주세요.", translation: "Yes, one glass of water, please." },
       { speaker: "B", text: "삼천 원이에요.", translation: "It's 3,000 won." },
+      { speaker: "A", text: "쿠키 두 개 주세요.", translation: "Two cookies, please." },
+      { speaker: "B", text: "네. 오천 원이에요.", translation: "Sure. It's 5,000 won." },
       { speaker: "A", text: "네, 감사합니다.", translation: "OK, thank you." },
     ],
   },
@@ -520,6 +555,9 @@ const AUTHORED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "밥을 먹어요. 준도 먹어요?", translation: "I'm eating. Are you eating too, Jun?" },
       { speaker: "A", text: "아니요, 저는 공부해요.", translation: "No, I'm studying." },
       { speaker: "B", text: "저는 영화를 봐요.", translation: "I'm watching a movie." },
+      { speaker: "A", text: "저도 밥을 먹어요.", translation: "I'm eating too." },
+      { speaker: "B", text: "밥이 여기에 있어요. 영화도 봐요?", translation: "The food is here. Are you watching the movie too?" },
+      { speaker: "A", text: "네, 가요!", translation: "Yes, I'm coming!" },
     ],
   },
   {
@@ -538,6 +576,9 @@ const AUTHORED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "친구하고 커피를 마셨어요.", translation: "I had coffee with a friend." },
       { speaker: "A", text: "저는 집에서 영화를 봤어요. 좋았어요.", translation: "I watched a movie at home. It was good." },
       { speaker: "B", text: "저도 영화를 봤어요.", translation: "I watched a movie too." },
+      { speaker: "A", text: "그 영화가 좋았어요?", translation: "Was that movie good?" },
+      { speaker: "B", text: "네, 좋았어요. 친구도 봤어요.", translation: "Yes, it was good. My friend watched it too." },
+      { speaker: "A", text: "저도 오늘 영화를 봐요.", translation: "I'm watching a movie today too." },
     ],
   },
   {
@@ -556,6 +597,8 @@ const AUTHORED_CONVERSATIONS: Conversation[] = [
       { speaker: "B", text: "네, 자주 해요. 언제 운동해요?", translation: "Yes, often. When do you exercise?" },
       { speaker: "A", text: "저는 한 시에 해요.", translation: "I do it at 1 o'clock." },
       { speaker: "B", text: "저는 한 시부터 두 시까지 해요.", translation: "I do it from 1:00 to 2:00." },
+      { speaker: "A", text: "오늘도 운동해요?", translation: "Are you exercising today too?" },
+      { speaker: "B", text: "네, 오늘 한 시에 역에서 만나요.", translation: "Yes — let's meet at the station at 1:00 today." },
     ],
   },
 ];
