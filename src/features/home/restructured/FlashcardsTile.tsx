@@ -48,7 +48,7 @@ export function FlashcardsTile() {
       </p>
       {allCaughtUp ? (
         <>
-          <p className="text-2xl font-extrabold text-text-primary leading-tight">
+          <p className="text-2xl font-bold text-text-primary leading-tight">
             {t("home.restructured.flashcards.allCaughtUp", {
               defaultValue: "All caught up!",
             })}
@@ -59,7 +59,7 @@ export function FlashcardsTile() {
         </>
       ) : (
         <p
-          className="text-3xl font-extrabold text-text-primary leading-none"
+          className="text-3xl font-bold text-text-primary leading-none"
           aria-busy={isLoading}
         >
           {isLoading ? "…" : cardsDue}

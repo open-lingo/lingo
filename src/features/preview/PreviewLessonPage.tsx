@@ -74,7 +74,7 @@ function PreviewLanguagePicker({
           <Icon name="play" size={12} className="shrink-0" />
           {t("preview.eyebrow", { defaultValue: "Free preview · no signup" })}
         </span>
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
           {t("preview.pickTitle", {
             defaultValue: "Which language do you want to try?",
           })}
@@ -218,7 +218,7 @@ function PreviewFinished({
       <div className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent-muted text-accent">
         <Icon name="partyPopper" size={40} />
       </div>
-      <h1 className="text-3xl font-extrabold tracking-tight text-text-primary">
+      <h1 className="text-3xl font-bold tracking-tight text-text-primary">
         {t("preview.lovedItTitle", {
           defaultValue: "Loved it? Keep going.",
         })}
@@ -262,7 +262,7 @@ function PreviewComingSoon({
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-muted text-accent">
           <Icon name="flame" size={32} />
         </div>
-        <h1 className="mt-5 text-2xl font-extrabold tracking-tight text-text-primary">
+        <h1 className="mt-5 text-2xl font-bold tracking-tight text-text-primary">
           {available
             ? t("preview.comingSoonAvailableTitle", {
                 defaultValue: "{{language}} preview is on the way",

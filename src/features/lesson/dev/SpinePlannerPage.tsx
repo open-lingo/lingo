@@ -351,7 +351,7 @@ export default function SpinePlannerPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       <header className="mb-6">
-        <h1 className="text-2xl font-extrabold text-text-primary">
+        <h1 className="text-2xl font-bold text-text-primary">
           Dict-form-first rewrite — spine planner
         </h1>
         <p className="mt-1 text-sm text-text-secondary">

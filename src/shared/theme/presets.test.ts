@@ -31,7 +31,7 @@ describe("built-in theme presets", () => {
     expect(t.colors.background).toBe("#f5f0e6");
     expect(t.colors.accent).toBe("#9c2c2c");
     expect(t.colors.accentMuted).toBe("#f0e0d6");
-    expect(t.font.display).toContain("Fraunces");
+    expect(t.font.family).toContain("Instrument Sans");
   });
 
   it("dark is warm charcoal with a red accent", () => {
@@ -40,7 +40,16 @@ describe("built-in theme presets", () => {
     expect(t.colors.accent).toBe("#c14b3f");
     // hover is LIGHTER than accent on dark surfaces (dark-theme convention)
     expect(luminanceOrder(t.colors.accentHover, t.colors.accent)).toBe("lighter");
-    expect(t.font.display).toContain("Fraunces");
+    expect(t.font.family).toContain("Instrument Sans");
+  });
+
+  it("no built-in theme sets a display font", () => {
+    // `font-display` is referenced only by theme plumbing and the theme editor;
+    // no component applies the class. Setting one costs a webfont fetch that
+    // renders nothing — which is why Fraunces was dropped (2026-08-03).
+    for (const theme of Object.values(BUILT_IN_THEMES)) {
+      expect(theme.tokens.font.display).toBeUndefined();
+    }
   });
 
   it("amoled is untouched: no display font, cyan accent", () => {

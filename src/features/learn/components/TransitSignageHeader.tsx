@@ -23,7 +23,7 @@ export function TransitSignageHeader({
   return (
     <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-card border border-border bg-surface px-4 py-2.5 text-text-primary shadow-card">
       <div
-        className="grid h-9 w-9 flex-none place-items-center rounded-full border-2 border-border text-[15px] font-extrabold text-accent-foreground"
+        className="grid h-9 w-9 flex-none place-items-center rounded-full border-2 border-border text-[15px] font-bold text-accent-foreground"
         style={{ background: "var(--tmc-line-main)" }}
       >
         M
@@ -32,7 +32,7 @@ export function TransitSignageHeader({
         {/* Wraps to two lines on narrow screens rather than truncating: the
             course name is the informative half and it was the half being cut
             ("学習路線図 — …" on a 390px phone). */}
-        <h1 className="text-[17px] font-extrabold leading-tight line-clamp-2 sm:truncate sm:text-[21px] 2xl:text-[24px]">
+        <h1 className="text-[17px] font-bold leading-tight line-clamp-2 sm:truncate sm:text-[21px] 2xl:text-[24px]">
           {title}
         </h1>
         {/* Hidden on phones: truncated it read as a cut-off sentence, and

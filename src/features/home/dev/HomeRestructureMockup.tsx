@@ -137,7 +137,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
           </p>
           <h1
             className={cn(
-              "mt-2 text-2xl font-extrabold leading-tight sm:text-3xl md:text-4xl",
+              "mt-2 text-2xl font-bold leading-tight sm:text-3xl md:text-4xl",
               hasBg ? "text-white" : "text-text-primary",
             )}
           >
@@ -363,7 +363,7 @@ function AccountOverviewCard() {
             <Icon name="flame" size={42} className="text-warning" />
           </div>
           <div>
-            <p className="text-2xl font-extrabold text-text-primary leading-none">
+            <p className="text-2xl font-bold text-text-primary leading-none">
               {MOCK.streakDays}
               <span className="ml-1 text-base font-medium text-text-secondary">days</span>
             </p>
@@ -433,7 +433,7 @@ function FlashcardsTile() {
         </span>
       </div>
       <p className="mt-3 text-sm font-medium text-text-secondary">Flashcards</p>
-      <p className="text-3xl font-extrabold text-text-primary leading-none">
+      <p className="text-3xl font-bold text-text-primary leading-none">
         {MOCK.cardsDue}
         <span className="ml-1 text-sm font-medium text-text-secondary">cards</span>
       </p>

@@ -102,7 +102,7 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
             className="mx-auto mb-4 h-16 w-16"
           />
         )}
-        <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-text-primary sm:text-4xl">
+        <h2 className="text-3xl font-bold leading-tight tracking-tight text-text-primary sm:text-4xl">
           {step.meaningEn}
         </h2>
 

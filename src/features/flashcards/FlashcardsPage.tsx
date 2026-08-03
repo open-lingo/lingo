@@ -251,7 +251,7 @@ export function FlashcardsPage() {
               <p className={`text-[0.625rem] font-semibold uppercase tracking-wider ${s.text}`}>
                 {s.label}
               </p>
-              <p className={`text-xl font-extrabold leading-none tabular-nums ${s.text}`} aria-busy={cardsDueLoading}>
+              <p className={`text-xl font-bold leading-none tabular-nums ${s.text}`} aria-busy={cardsDueLoading}>
                 {cardsDueLoading ? "…" : s.value}
               </p>
             </div>

@@ -43,7 +43,7 @@ export function ProgressFloatCard({
       </div>
       <div className="mt-2 flex items-center gap-4">
         <div>
-          <p className="text-lg font-extrabold leading-none tabular-nums text-text-primary">
+          <p className="text-lg font-bold leading-none tabular-nums text-text-primary">
             {pct}%
           </p>
           <p className="mt-0.5 text-[0.65rem] text-text-muted">
@@ -51,7 +51,7 @@ export function ProgressFloatCard({
           </p>
         </div>
         <div>
-          <p className="text-lg font-extrabold leading-none tabular-nums text-text-primary">
+          <p className="text-lg font-bold leading-none tabular-nums text-text-primary">
             {stats.xp.toLocaleString()}
           </p>
           <p className="mt-0.5 text-[0.65rem] text-text-muted">

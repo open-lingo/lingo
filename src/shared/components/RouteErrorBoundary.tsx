@@ -25,7 +25,7 @@ export function RouteErrorBoundary() {
 
   return (
     <div className="mx-auto max-w-md px-4 py-16 text-center sm:py-24">
-      <p className="text-6xl font-extrabold tracking-tight text-warning sm:text-7xl">
+      <p className="text-6xl font-bold tracking-tight text-warning sm:text-7xl">
         !
       </p>
       <h1 className="mt-6 text-2xl font-bold text-text-primary sm:text-3xl">

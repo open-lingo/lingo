@@ -22,6 +22,10 @@ const inflight = new Map<string, Promise<void>>();
  * Noto Sans JP is preloaded in `index.html`, not here.
  */
 const FONT_URLS: Record<string, string> = {
+  // Also linked eagerly in index.html — it is the default UI face, so waiting
+  // for a lazy fetch would flash the system stack on every first paint.
+  instrument:
+    "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap",
   inter:
     "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
   "open-sans":

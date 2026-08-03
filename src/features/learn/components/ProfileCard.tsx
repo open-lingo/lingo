@@ -166,7 +166,7 @@ function StatTile({
           aria-hidden
         />
         <span
-          className={`text-base font-extrabold leading-tight tabular-nums ${valueClassName}`}
+          className={`text-base font-bold leading-tight tabular-nums ${valueClassName}`}
         >
           {value}
           {unit ? (

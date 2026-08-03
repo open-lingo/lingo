@@ -2,9 +2,10 @@ import type { ThemeDefinition, ThemeTokens } from "./types";
 import { getFontFamily, DEFAULT_FONT_ID } from "./fonts";
 
 const baseFont = { family: getFontFamily(DEFAULT_FONT_ID) };
-// Fraunces display voice is part of the default identity (ex-"Academia").
-// fontLoader lazy-loads it; ThemeContext kicks the fetch for font.display.
-const defaultFont = { ...baseFont, display: getFontFamily("fraunces") };
+// No display slot: `font-display` is referenced only by theme plumbing and the
+// theme editor — no component ever applies the class, so Fraunces was being
+// fetched on every load and rendered nowhere. Themes can still set one.
+const defaultFont = { ...baseFont };
 
 // Default light — the Academia look: sepia paper, marginalia-red accent.
 // (Adopted verbatim from the retired "Academia" community theme, which was

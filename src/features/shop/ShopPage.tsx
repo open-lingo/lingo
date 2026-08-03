@@ -384,7 +384,7 @@ function FeaturedBanner({
             <p className="text-[0.65rem] font-bold uppercase tracking-widest text-white/80">
               {t("shop.featuredLabel", { defaultValue: "Featured" })}
             </p>
-            <p className="truncate text-lg font-extrabold text-white">
+            <p className="truncate text-lg font-bold text-white">
               {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
             </p>
           </div>

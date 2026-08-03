@@ -7,11 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--
       Only the always-needed fonts ship up-front:
-        - Default UI font is the system stack (no network, see fontLoader.ts).
+        - Instrument Sans is the default UI font (2026-08-03). Eager, not lazy:
+          it is the body face on every screen, so a lazy fetch would flash the
+          system stack on first paint. Same face as the marketing site, so the
+          type does not change crossing from the apex into the app.
         - Noto Sans JP is required wherever kana renders (every JA lesson).
         - Noto Sans KR is required wherever Hangul renders (KO learner).
-      All other display fonts (Inter / Open Sans / Source Sans 3 / Nunito /
-      Lora / Atkinson Hyperlegible) lazy-load via shared/theme/fontLoader.ts
+      All other fonts (Inter / Open Sans / Source Sans 3 / Nunito / Lora /
+      Fraunces / Atkinson Hyperlegible) lazy-load via shared/theme/fontLoader.ts
       the first time the user picks them.
     -->
     <!--
@@ -19,7 +22,7 @@
       Saves 6 webfont files on every JA/KO first paint. Browser synthesizes
       intermediate weights from the loaded 700 for the rare 500/600/800 cases.
     -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
     <title>Open Lingo</title>

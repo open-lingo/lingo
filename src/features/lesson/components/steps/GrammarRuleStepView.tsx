@@ -349,7 +349,7 @@ export function GrammarRuleStepView({
           <Icon name="fileText" size={48} aria-hidden className="text-info" />
           <ReadAloudButton text={readAloudText} />
         </div>
-        <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+        <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
           {step.title}
         </h2>
         <RuleBody rule={step.rule} className="text-lg leading-relaxed text-text-secondary sm:text-xl" />

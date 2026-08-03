@@ -82,12 +82,12 @@ export function DistrictView({
     >
       <div className="tmc-district-panel w-full max-w-[900px] overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-popover" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-4 px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
+          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-bold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
             {badge}
           </div>
           <div className="min-w-0 flex-1">
             {mod.eyebrow && <div className="text-[10.5px] uppercase tracking-[0.14em] opacity-70">{mod.eyebrow}</div>}
-            <div className="truncate text-[19px] font-extrabold leading-tight">{mod.title}</div>
+            <div className="truncate text-[19px] font-bold leading-tight">{mod.title}</div>
             <div className="text-[12px] opacity-75">
               {mod.comingSoon
                 ? "Coming soon — lessons not yet authored"
@@ -123,21 +123,21 @@ export function DistrictView({
                   style={{ "--i": Math.min(i, 10) } as CSSProperties}
                 >
                   <span
-                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-extrabold text-accent-foreground"
+                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-bold text-accent-foreground"
                     style={{ background: s.lesson.kind === "recap" ? "var(--tmc-q1)" : "var(--tmc-line-main)", opacity: s.isDone || s.isCurrent || status !== "locked" ? 1 : 0.45 }}
                   >
                     {s.lesson.kind === "recap" ? strings.recapBadge : `L${s.k + 1}`}
                   </span>
                   <span className={cn("min-w-0 flex-1 truncate text-[13px] font-bold", !s.isDone && !s.isCurrent && "opacity-60")}>
                     {s.lesson.title}
-                    {s.k === stops.length - 1 && <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-extrabold tracking-[0.14em] opacity-70"><Icon name="star" size={10} aria-hidden /> MASTERY</span>}
+                    {s.k === stops.length - 1 && <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold tracking-[0.14em] opacity-70"><Icon name="star" size={10} aria-hidden /> MASTERY</span>}
                   </span>
                   {s.isDone ? (
                     <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
                       {strings.doneStamp}
                     </span>
                   ) : s.isCurrent ? (
-                    <span className="flex-none rounded-sm bg-accent px-2.5 py-0.5 text-[10.5px] font-extrabold text-accent-foreground">NEXT ▶</span>
+                    <span className="flex-none rounded-sm bg-accent px-2.5 py-0.5 text-[10.5px] font-bold text-accent-foreground">NEXT ▶</span>
                   ) : (
                     <span className="flex-none text-[11px] opacity-40">·····</span>
                   )}
@@ -167,7 +167,7 @@ export function DistrictView({
                     const stamp = (
                       <span className="flex w-[68px] flex-col items-center gap-1">
                         {leg.done ? (
-                          <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-accent-foreground shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
+                          <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-bold text-accent-foreground shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
                             {strings.doneStamp}
                           </span>
                         ) : (

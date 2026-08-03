@@ -131,7 +131,7 @@ export function LearnModuleList({
                     className="flex-none text-text-muted transition-transform"
                     aria-hidden
                   />
-                  <span className="grid size-6 flex-none place-items-center rounded-md bg-accent/15 text-[12px] font-extrabold text-accent">
+                  <span className="grid size-6 flex-none place-items-center rounded-md bg-accent/15 text-[12px] font-bold text-accent">
                     {zi + 1}
                   </span>
                   <span className="flex-1 truncate text-[14px] font-bold uppercase tracking-wider text-text-secondary">
@@ -285,7 +285,7 @@ function ModuleRow({
       >
         <span
           className={cn(
-            "relative z-[1] grid h-7 w-7 flex-none place-items-center rounded-full text-[11px] font-extrabold",
+            "relative z-[1] grid h-7 w-7 flex-none place-items-center rounded-full text-[11px] font-bold",
             circleClass,
           )}
         >
@@ -389,7 +389,7 @@ function ModuleRow({
                     </span>
                     <span className="min-w-0 flex-1 truncate">{lesson.title}</span>
                     {isCurrent ? (
-                      <span className="flex-none rounded-sm bg-accent px-1.5 py-0.5 text-[9.5px] font-extrabold uppercase tracking-wide text-accent-foreground">
+                      <span className="flex-none rounded-sm bg-accent px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-accent-foreground">
                         Next
                       </span>
                     ) : null}

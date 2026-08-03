@@ -1658,7 +1658,7 @@ function NetworkMap({
                 {tip.interchange ? " · Interchange" : ""}
                 {tip.terminal ? " · Terminal" : ""}
               </div>
-              <div className="text-[15px] font-extrabold text-text-primary">{tip.module.title}</div>
+              <div className="text-[15px] font-bold text-text-primary">{tip.module.title}</div>
               <div className="mb-2 text-[12px] text-text-muted">
                 {tip.done}/{tip.total} lessons ·{" "}
                 {tip.status === "completed" ? "complete" : tip.status === "current" ? "in progress" : "locked"}
@@ -1696,11 +1696,11 @@ function LineDiagram({
   return (
     <div className="overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-card">
       <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
+        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-bold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
           M
         </div>
         <div className="min-w-0">
-          <div className="truncate text-[14px] font-extrabold leading-tight">{strings.lineName}</div>
+          <div className="truncate text-[14px] font-bold leading-tight">{strings.lineName}</div>
           <div className="text-[11px] opacity-75">
             Station {currentIdx + 1} of {layout.stations.length}
           </div>
@@ -1840,12 +1840,12 @@ function TierContinueBanner({
           </span>
           {/* Wraps rather than truncates — "Continue onto the N4線 N4 Lin…"
               cut the destination, which is the only part that matters. */}
-          <span className="block text-[14px] font-extrabold leading-snug text-text-primary">
+          <span className="block text-[14px] font-bold leading-snug text-text-primary">
             Continue onto the {n4Label} →
           </span>
         </span>
         <span
-          className="grid h-9 w-9 flex-none place-items-center rounded-full text-[12px] font-extrabold text-accent-foreground"
+          className="grid h-9 w-9 flex-none place-items-center rounded-full text-[12px] font-bold text-accent-foreground"
           style={{ background: "var(--tmc-line-main)" }}
         >
           N4

@@ -87,7 +87,7 @@ export function QuestsPanel({
               <p className="text-[0.625rem] font-semibold uppercase tracking-wider text-text-muted">
                 {t("quests.statsKicker", { defaultValue: "Level" })}
               </p>
-              <p className="mt-0.5 text-2xl font-extrabold text-text-primary">
+              <p className="mt-0.5 text-2xl font-bold text-text-primary">
                 {levelProgress.level}
               </p>
             </div>
@@ -207,7 +207,7 @@ function Stat({
     <div className="text-center">
       <div className="flex items-center justify-center gap-1">
         {icon}
-        <span className="text-base font-extrabold tabular-nums text-text-primary">
+        <span className="text-base font-bold tabular-nums text-text-primary">
           {value}
         </span>
       </div>

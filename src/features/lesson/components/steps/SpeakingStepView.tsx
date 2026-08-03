@@ -176,7 +176,7 @@ function ReferenceCard({
         <Icon name="play" size={28} />
       </button>
 
-      <p className="text-4xl font-extrabold tracking-tight text-text-primary">
+      <p className="text-4xl font-bold tracking-tight text-text-primary">
         {step.targetAnnotation ? (
           <AnnotatedJa segments={step.targetAnnotation} forceShowHelper={showRomaji} />
         ) : (

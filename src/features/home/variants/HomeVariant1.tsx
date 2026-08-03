@@ -225,7 +225,7 @@ function Hero({ data }: { data: HomeVariantData }) {
               </p>
               <h1
                 className={cn(
-                  "mt-2 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl",
+                  "mt-2 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl",
                   hasBg ? "text-white" : "text-text-primary",
                 )}
               >
@@ -278,7 +278,7 @@ function Hero({ data }: { data: HomeVariantData }) {
             <>
               <h1
                 className={cn(
-                  "text-4xl font-extrabold tracking-tight sm:text-5xl",
+                  "text-4xl font-bold tracking-tight sm:text-5xl",
                   hasBg ? "text-white" : "text-text-primary",
                 )}
               >

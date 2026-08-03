@@ -147,7 +147,7 @@ export function LessonComplete({
           <Icon name="check" size={40} strokeWidth={3} />
         )}
       </div>
-      <h1 className="text-3xl font-extrabold tracking-tight text-text-primary">
+      <h1 className="text-3xl font-bold tracking-tight text-text-primary">
         {wasSkipped
           ? t("lesson.testNotPassed", "Not this time")
           : isReview
@@ -263,7 +263,7 @@ export function LessonComplete({
           }`}
         >
           {mastery.justMastered ? (
-            <p className="m-0 flex items-center justify-center gap-2 text-base font-extrabold">
+            <p className="m-0 flex items-center justify-center gap-2 text-base font-bold">
               <Icon name="crown" size={18} aria-hidden />
               {t("lesson.moduleMastered", {
                 defaultValue: "Module mastered — {{module}}",
@@ -349,7 +349,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent: 
   return (
     <div className="flex flex-1 flex-col items-center gap-1">
       <span
-        className={`text-2xl font-extrabold tracking-tight ${accent ? "text-accent" : "text-text-primary"}`}
+        className={`text-2xl font-bold tracking-tight ${accent ? "text-accent" : "text-text-primary"}`}
       >
         {value}
       </span>

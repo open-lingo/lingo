@@ -6,7 +6,7 @@ export function NotFoundPage() {
   const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-md px-4 py-16 text-center sm:py-24">
-      <p className="text-7xl font-extrabold tracking-tight text-accent sm:text-8xl">
+      <p className="text-7xl font-bold tracking-tight text-accent sm:text-8xl">
         404
       </p>
       <h1 className="mt-6 text-2xl font-bold text-text-primary sm:text-3xl">

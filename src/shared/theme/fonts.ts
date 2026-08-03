@@ -6,6 +6,9 @@ const SYSTEM =
 
 /** Preselected fonts users can choose. id is stored in theme; value is the font-family CSS. */
 export const FONT_PRESETS: { id: string; name: string; value: string }[] = [
+  // Default. Matches the marketing site so the type does not change under a
+  // visitor crossing from openlingoapp.com into the app.
+  { id: "instrument", name: "Instrument Sans", value: `"Instrument Sans", ${SYSTEM}` },
   { id: "system", name: "System", value: SYSTEM },
   { id: "inter", name: "Inter", value: `"Inter", ${SYSTEM}` },
   { id: "open-sans", name: "Open Sans", value: `"Open Sans", ${SYSTEM}` },
@@ -18,7 +21,7 @@ export const FONT_PRESETS: { id: string; name: string; value: string }[] = [
   { id: "atkinson", name: "Atkinson Hyperlegible", value: `"Atkinson Hyperlegible", ${SYSTEM}` },
 ];
 
-export const DEFAULT_FONT_ID = "system";
+export const DEFAULT_FONT_ID = "instrument";
 
 export function getFontFamily(fontId: string): string {
   return FONT_PRESETS.find((f) => f.id === fontId)?.value ?? SYSTEM;

@@ -288,7 +288,7 @@ function SelectedModuleSummary({
           <div className="flex items-center gap-2">
             <span
               className={[
-                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-extrabold",
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold",
                 STATUS_DISC[status],
               ].join(" ")}
             >
@@ -332,7 +332,7 @@ function SelectedModuleSummary({
         {/* Course-level rollup — the informative header. */}
         <dl className="flex shrink-0 items-center gap-4 sm:gap-5">
           <div className="text-right">
-            <dd className="text-2xl font-extrabold leading-none text-text-primary">
+            <dd className="text-2xl font-bold leading-none text-text-primary">
               {rollup.percent}
               <span className="text-base font-bold text-text-muted">%</span>
             </dd>
@@ -342,7 +342,7 @@ function SelectedModuleSummary({
           </div>
           <div className="h-9 w-px bg-border" aria-hidden />
           <div className="text-right">
-            <dd className="text-2xl font-extrabold leading-none text-text-primary">
+            <dd className="text-2xl font-bold leading-none text-text-primary">
               {rollup.completed}
               <span className="text-base font-bold text-text-muted">
                 /{rollup.total}
@@ -356,7 +356,7 @@ function SelectedModuleSummary({
             <>
               <div className="hidden h-9 w-px bg-border sm:block" aria-hidden />
               <div className="hidden text-right sm:block">
-                <dd className="text-2xl font-extrabold leading-none text-text-primary">
+                <dd className="text-2xl font-bold leading-none text-text-primary">
                   {rollup.vocabTotal}
                 </dd>
                 <dt className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
@@ -465,7 +465,7 @@ function LevelSectionHeader({ level }: { level: FluencyLevel }) {
   const { t } = useTranslation();
   return (
     <header className="flex items-start gap-3">
-      <span className="mt-0.5 inline-flex shrink-0 items-center rounded-md bg-[color-mix(in_srgb,rgb(var(--color-accent))_14%,rgb(var(--color-surface)))] px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-accent">
+      <span className="mt-0.5 inline-flex shrink-0 items-center rounded-md bg-[color-mix(in_srgb,rgb(var(--color-accent))_14%,rgb(var(--color-surface)))] px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-accent">
         {level.cefr}
       </span>
       <div className="min-w-0">
@@ -515,7 +515,7 @@ function SimpleMap({
                 aria-current={selected ? "true" : undefined}
                 title={node.module.title}
                 className={[
-                  "relative flex h-11 w-11 items-center justify-center rounded-full border-2 text-sm font-extrabold transition",
+                  "relative flex h-11 w-11 items-center justify-center rounded-full border-2 text-sm font-bold transition",
                   STATUS_DISC[node.status],
                   selected
                     ? "ring-2 ring-accent ring-offset-2 ring-offset-surface"
@@ -588,7 +588,7 @@ function CourseMapNode({
           {/* Disc badge */}
           <span
             className={[
-              "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-extrabold",
+              "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold",
               STATUS_DISC[status],
               node.isCurrent && status !== "completed" ? "animate-pulse" : "",
             ].join(" ")}
@@ -691,7 +691,7 @@ function ModuleDetailPanel({
       <div className="flex items-center gap-2.5 border-b border-border pb-3">
         <span
           className={[
-            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-extrabold",
+            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold",
             STATUS_DISC[status],
           ].join(" ")}
         >

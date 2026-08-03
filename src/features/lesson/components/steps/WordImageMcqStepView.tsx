@@ -29,7 +29,7 @@ function PromptWithEmphasis({ meaning }: { meaning: string }) {
   return (
     <>
       What is the word for{" "}
-      <strong className="font-extrabold text-text-primary">
+      <strong className="font-bold text-text-primary">
         &lsquo;{meaning}&rsquo;
       </strong>
       ?

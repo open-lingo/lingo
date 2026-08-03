@@ -96,7 +96,7 @@ export function HeroContinue({
               // line-clamp-2 (not truncate): module titles like "The first
               // 46 sounds" don't fit one line at 390px — cutting the hero
               // headline mid-word is worse than a second line.
-              "mt-1 line-clamp-2 text-2xl font-extrabold leading-tight sm:text-3xl",
+              "mt-1 line-clamp-2 text-2xl font-bold leading-tight sm:text-3xl",
               hasBg ? "text-white" : "text-text-primary",
             )}
           >
@@ -201,7 +201,7 @@ export function HeroContinue({
             <Icon name="flame" size={26} className="text-warning" aria-hidden />
             <span
               className={cn(
-                "mt-1 text-2xl font-extrabold leading-none",
+                "mt-1 text-2xl font-bold leading-none",
                 hasBg ? "text-white" : "text-text-primary",
               )}
             >

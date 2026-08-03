@@ -58,7 +58,7 @@ export function WelcomeBanner({
         </p>
         <h1
           className={cn(
-            "mt-1 text-2xl font-extrabold leading-tight sm:text-3xl",
+            "mt-1 text-2xl font-bold leading-tight sm:text-3xl",
             hasBgImage ? "text-white" : "text-text-primary",
           )}
         >
