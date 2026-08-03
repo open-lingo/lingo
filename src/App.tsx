@@ -131,6 +131,11 @@ const StoryLibraryPage = lazyRetry(() =>
 const StoryReaderPage = lazyRetry(() =>
   import("@/features/practice/stories/StoryReaderPage").then((m) => ({ default: m.StoryReaderPage })),
 );
+const ConversationReaderPage = lazyRetry(() =>
+  import("@/features/practice/stories/ConversationReaderPage").then((m) => ({
+    default: m.ConversationReaderPage,
+  })),
+);
 const PracticeGrammarPage = lazyRetry(() =>
   import("@/features/practice/PracticeGrammarPage").then((m) => ({ default: m.PracticeGrammarPage })),
 );
@@ -507,6 +512,9 @@ const router = createBrowserRouter([
                   { path: "flashcards/decks", element: <DeckManagerPage /> },
                   { path: "flashcards", element: <FlashcardsPage /> },
                   { path: "stories", element: <StoryLibraryPage /> },
+                  // `c/` before the bare `:storyId` — two segments, so a
+                  // conversation id can never be read as a story id.
+                  { path: "stories/c/:conversationId", element: <ConversationReaderPage /> },
                   { path: "stories/:storyId", element: <StoryReaderPage /> },
                   { path: "grammar/particles", element: <ParticlePracticePage /> },
                   { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },

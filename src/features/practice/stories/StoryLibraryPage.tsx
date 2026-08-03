@@ -1,19 +1,26 @@
 /**
- * The story library — browse, filter, and pick a story.
+ * The reading library — browse, filter, and pick something to read.
  *
- * Replaces the old flat list, which rendered every unlocked story forever with
- * no ordering and no read state. Unread-first is the default sort so the next
- * thing to read is always at the top.
+ * Stories AND conversations, in one list. They are both authored, both
+ * module-gated, and both things a learner reads; splitting them across two
+ * surfaces meant the conversations were invisible to anyone who wasn't
+ * already looking for roleplay practice. A type badge on each row keeps the
+ * merged list legible, and the interactive roleplay trainer stays where it
+ * was, on the conversation practice surface.
+ *
+ * Unread-first is the default sort so the next thing to read is always at the
+ * top.
  */
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EmptyState, Pagination, SegmentedControl } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
-import { getStories, LEVEL_BANDS } from "@/features/practice/content";
+import { getStories, getConversations, LEVEL_BANDS } from "@/features/practice/content";
 import { getAllStoryProgress } from "@/shared/storyProgress";
 import { useCourseLevel } from "@/features/practice/useCourseLevel";
-import { StoryCard } from "./StoryCard";
+import { buildLibraryItems } from "./libraryItems";
+import { LibraryCard } from "./LibraryCard";
 
 const PAGE_SIZE = 10;
 
@@ -25,35 +32,38 @@ export function StoryLibraryPage() {
   const langPath = useLangPath();
   const reachedModule = useCourseLevel();
 
-  const stories = useMemo(() => getStories(langId, reachedModule), [langId, reachedModule]);
   const progress = useMemo(() => getAllStoryProgress(), []);
+
+  // Unread first, then the learner's OWN level downward — newest module
+  // first, hardest level first within it.
+  //
+  // Ascending module was the original order and it buried the whole point of
+  // the library: a learner at m21 has ~40 items unlocked, so page 1 was all
+  // m3-m9 and the longest read sat at rank 40 of 40. Someone deep in the
+  // course opened it and saw six-sentence beginner content. Descending puts
+  // level-appropriate reads on page 1 at every stage — at m3 only m3 is
+  // unlocked, so a new learner is unaffected — and earlier modules stay one
+  // scroll or a level-chip filter away.
+  const items = useMemo(
+    () =>
+      buildLibraryItems(
+        getStories(langId, reachedModule),
+        getConversations(langId, reachedModule),
+        (id) => progress[id]?.reads ?? 0,
+      ),
+    [langId, reachedModule, progress],
+  );
 
   const [readFilter, setReadFilter] = useState<ReadFilter>("all");
   const [level, setLevel] = useState<number | null>(null);
   const [page, setPage] = useState(1);
 
   const visible = useMemo(() => {
-    let out = stories.filter((s) => (level === null ? true : s.level === level));
+    let out = items.filter((s) => (level === null ? true : s.level === level));
     if (readFilter === "unread") out = out.filter((s) => !(progress[s.id]?.reads ?? 0));
     if (readFilter === "read") out = out.filter((s) => (progress[s.id]?.reads ?? 0) > 0);
-    // Unread first, then the learner's OWN level downward — newest module
-    // first, hardest level first within it.
-    //
-    // Ascending module was the original order and it buried the whole point of
-    // the library: a learner at m21 has ~40 stories unlocked, so page 1 was all
-    // m3-m9 and the longest read sat at rank 40 of 40. Someone deep in the
-    // course opened it and saw six-sentence beginner content. Descending puts
-    // level-appropriate reads on page 1 at every stage — at m3 only m3 is
-    // unlocked, so a new learner is unaffected — and earlier modules stay one
-    // scroll or a level-chip filter away.
-    return out.slice().sort((a, b) => {
-      const ar = progress[a.id]?.reads ?? 0;
-      const br = progress[b.id]?.reads ?? 0;
-      if ((ar > 0) !== (br > 0)) return ar > 0 ? 1 : -1;
-      if (a.module !== b.module) return b.module - a.module;
-      return b.level - a.level;
-    });
-  }, [stories, progress, readFilter, level]);
+    return out;
+  }, [items, progress, readFilter, level]);
 
   const totalPages = Math.ceil(visible.length / PAGE_SIZE);
   const pageItems = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -71,7 +81,7 @@ export function StoryLibraryPage() {
     </div>
   );
 
-  if (stories.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="space-y-4">
         {header}
@@ -121,12 +131,12 @@ export function StoryLibraryPage() {
       </div>
 
       <div className="space-y-2">
-        {pageItems.map((story) => (
-          <StoryCard
-            key={story.id}
-            story={story}
-            progress={progress[story.id] ?? null}
-            to={langPath(`practice/stories/${story.id}`)}
+        {pageItems.map((item) => (
+          <LibraryCard
+            key={item.id}
+            item={item}
+            progress={progress[item.id] ?? null}
+            to={langPath(item.path)}
           />
         ))}
       </div>

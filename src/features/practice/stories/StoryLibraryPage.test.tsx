@@ -44,6 +44,15 @@ describe("StoryLibraryPage", () => {
     expect(screen.getAllByRole("link").length).toBeGreaterThan(0);
   });
 
+  it("lists conversations alongside stories, badged by type", () => {
+    // m7 caps the list to the early modules, where all five JA conversations
+    // live — module-DESC sorting then puts one on the first page.
+    mockReachedModule.value = 7;
+    renderPage();
+    expect(screen.getAllByText("Conversation").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Story").length).toBeGreaterThan(0);
+  });
+
   it("shows an empty state when nothing is unlocked", () => {
     mockReachedModule.value = 1;
     renderPage();

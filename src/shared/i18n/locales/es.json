@@ -730,7 +730,7 @@
       "tileDesc": "Falta una palabra en una frase que ya leíste"
     },
     "stories": {
-      "title": "Historias",
+      "title": "Historias y conversaciones",
       "subtitle": "Lee lo que puedas — toca cualquier palabra que no conozcas.",
       "peek": "Vista previa",
       "meta": "{{count}} frases · Módulo {{module}}",
@@ -769,7 +769,12 @@
         "title": "Todavía no hay nada para leer",
         "description": "Sigue avanzando en tus lecciones — a medida que aprendas más palabras, aquí se irán desbloqueando historias que ya puedes leer."
       },
-      "sentenceCount": "{{count}} líneas"
+      "sentenceCount": "{{count}} líneas",
+      "typeStory": "Historia",
+      "typeConversation": "Conversación",
+      "turnCount": "{{count}} turnos",
+      "metaConversation": "{{count}} turnos · Módulo {{module}}",
+      "conversationNotFound": "No pudimos encontrar esa conversación."
     },
     "listening": {
       "title": "Escucha",

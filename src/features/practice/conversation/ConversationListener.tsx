@@ -12,12 +12,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { TappableText } from "@/features/dictionary/TappableText";
 import type { Conversation } from "@/features/practice/content";
-import {
-  conversationLineHasAudio,
-  playConversationLine,
-} from "./conversationAudio";
+import { playConversationLine } from "./conversationAudio";
+import { ConversationTranscript } from "./ConversationTranscript";
 import {
   buildConversationQuestions,
   type ConversationQuestion,
@@ -43,11 +40,6 @@ export function ConversationListener({
   const voiceById = useMemo(() => {
     const m = new Map<string, string | undefined>();
     for (const s of conv.speakers) m.set(s.id, s.voice);
-    return m;
-  }, [conv.speakers]);
-  const labelById = useMemo(() => {
-    const m = new Map<string, string>();
-    for (const s of conv.speakers) m.set(s.id, s.label);
     return m;
   }, [conv.speakers]);
 
@@ -177,48 +169,13 @@ export function ConversationListener({
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
           {t("practice.conversation.transcript", { defaultValue: "Transcript" })}
         </p>
-        {conv.lines.map((line, i) => {
-          const active = activeIdx === i;
-          const hasAudio = conversationLineHasAudio(
-            line.text,
-            voiceById.get(line.speaker),
-            defaultTtsLang,
-          );
-          return (
-            <div
-              key={i}
-              className={`flex items-start gap-3 rounded-xl border px-3 py-2 transition ${
-                active
-                  ? "border-accent bg-accent-muted"
-                  : "border-border/60 bg-surface"
-              }`}
-            >
-              <span className="shrink-0 pt-0.5 text-xs font-bold uppercase tracking-wider text-text-muted">
-                {labelById.get(line.speaker) ?? line.speaker}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-base text-text-primary" lang={lang}>
-                  <TappableText text={line.text} lang={lang} />
-                </p>
-                {line.reading && (
-                  <p className="text-xs text-text-muted">{line.reading}</p>
-                )}
-                <p className="text-sm text-text-secondary">{line.translation}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => playLine(i)}
-                disabled={!hasAudio}
-                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-surface transition hover:bg-surface-muted disabled:opacity-40"
-                aria-label={t("practice.conversation.playLine", {
-                  defaultValue: "Play line",
-                })}
-              >
-                <Icon name="volume" size={14} className="text-accent" />
-              </button>
-            </div>
-          );
-        })}
+        <ConversationTranscript
+          conv={conv}
+          lang={lang}
+          defaultTtsLang={defaultTtsLang}
+          activeIdx={activeIdx}
+          onPlayLine={playLine}
+        />
       </Card>
 
       {/* Comprehension questions */}

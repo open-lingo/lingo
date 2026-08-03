@@ -730,7 +730,7 @@
       "tileDesc": "One word missing from a sentence you've read"
     },
     "stories": {
-      "title": "Stories",
+      "title": "Stories & conversations",
       "subtitle": "Read what you can handle — tap any word you don't know.",
       "peek": "Preview",
       "meta": "{{count}} sentences · Module {{module}}",
@@ -769,7 +769,12 @@
         "title": "Nothing to read just yet",
         "description": "Keep going in your lessons — as you learn more words, stories you can actually read will unlock here."
       },
-      "sentenceCount": "{{count}} lines"
+      "sentenceCount": "{{count}} lines",
+      "typeStory": "Story",
+      "typeConversation": "Conversation",
+      "turnCount": "{{count}} turns",
+      "metaConversation": "{{count}} turns · Module {{module}}",
+      "conversationNotFound": "We couldn't find that conversation."
     },
     "listening": {
       "title": "Listening",
