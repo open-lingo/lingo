@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { TappableText } from "@/features/dictionary/TappableText";
 import type { Conversation } from "@/features/practice/content";
+import { buildSpeakerColors } from "@/features/practice/stories/speakerColor";
 import { conversationLineHasAudio } from "./conversationAudio";
 
 interface ConversationTranscriptProps {
@@ -44,6 +45,16 @@ export function learnerSideId(conv: Conversation): string | undefined {
   return conv.learnerRole ?? conv.speakers[0]?.id;
 }
 
+/**
+ * The declared cast, in declaration order — which is also the order each
+ * speaker first appears, since `speakers[]` is authored alongside the script.
+ * Shared with `SpeakerCast` so the chip above the transcript and the name in
+ * each row resolve to the same colour.
+ */
+export function conversationCast(conv: Conversation) {
+  return conv.speakers.map((s) => ({ key: s.id, label: s.label }));
+}
+
 export function ConversationTranscript({
   conv,
   lang,
@@ -66,6 +77,13 @@ export function ConversationTranscript({
     for (const s of conv.speakers) m.set(s.id, s.label);
     return m;
   }, [conv.speakers]);
+
+  // Keyed on speaker id, assigned by declaration order — the same input
+  // `SpeakerCast` gets, so a name's colour matches its chip.
+  const colorById = useMemo(
+    () => buildSpeakerColors(conv.speakers.map((s) => s.id)),
+    [conv.speakers],
+  );
 
   const ownSide = sided ? learnerSideId(conv) : undefined;
 
@@ -94,7 +112,14 @@ export function ConversationTranscript({
                   : "border-border/60 bg-surface"
             }`}
           >
-            <span className="flex shrink-0 items-center gap-1 pt-0.5 text-xs font-bold uppercase tracking-wider text-text-muted">
+            {/* Icon + name stay on the SAME row as the text (see the layout
+                note above) — colour is what separates the speakers, not extra
+                vertical space. */}
+            <span
+              className={`flex shrink-0 items-center gap-1 pt-0.5 text-xs font-bold uppercase tracking-wider ${
+                colorById.get(line.speaker)?.text ?? "text-text-muted"
+              }`}
+            >
               <Icon name="user" size={13} aria-hidden />
               {labelById.get(line.speaker) ?? line.speaker}
             </span>

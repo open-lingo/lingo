@@ -750,6 +750,7 @@
       "check": "Comprobar comprensión",
       "markRead": "Marcar como leída",
       "backToLibrary": "Todas las historias",
+      "speakers": "Personajes",
       "notFound": "No encontramos esa historia.",
       "quiz": {
         "heading": "¿Entendiste “{{title}}”?",

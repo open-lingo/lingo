@@ -16,9 +16,12 @@
  * rule: per sentence in the expanded layout, and one muted line per block in
  * the flowing one, where it stays parallel to the prose above it.
  */
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { TappableText } from "@/features/dictionary/TappableText";
+import { SpeakerCast } from "./SpeakerCast";
+import { buildSpeakerColors } from "./speakerColor";
 import type { StoryBlock, StoryBlockItem } from "./storyBlocks";
 
 interface StoryProseProps {
@@ -48,6 +51,18 @@ export function StoryProse({
   onPlaySentence,
 }: StoryProseProps) {
   const { t } = useTranslation();
+
+  // A story has no `speakers[]` — the cast IS the distinct `speaker` names on
+  // its speech blocks, in order of first appearance. Same ordering rule as a
+  // conversation's declared speaker list, so the two surfaces colour alike.
+  const castNames = useMemo(() => {
+    const seen: string[] = [];
+    for (const b of blocks) {
+      if (b.kind === "speech" && !seen.includes(b.speaker)) seen.push(b.speaker);
+    }
+    return seen;
+  }, [blocks]);
+  const colorByName = useMemo(() => buildSpeakerColors(castNames), [castNames]);
 
   /** One sentence — inline in prose, its own line once English is shown. */
   const renderSentence = ({ sentence, index }: StoryBlockItem) => {
@@ -101,6 +116,10 @@ export function StoryProse({
 
   return (
     <div className="space-y-3">
+      <SpeakerCast
+        members={castNames.map((name) => ({ key: name, label: name }))}
+        lang={langId}
+      />
       {blocks.map((block, bi) => {
         const readingLine = renderBlockReading(block.items);
 
@@ -130,9 +149,12 @@ export function StoryProse({
                 active ? "border-accent bg-accent-muted shadow-sm" : "border-border/60 bg-surface"
               }`}
             >
+              {/* The speaker's colour is what distinguishes two characters in
+                  a scene; it holds whether or not the block is being spoken,
+                  so the active treatment is carried by the box, not the name. */}
               <span
                 className={`flex shrink-0 items-center gap-1 pt-1 text-xs font-bold uppercase tracking-wider ${
-                  active ? "text-accent" : "text-text-muted"
+                  colorByName.get(block.speaker)?.text ?? "text-text-muted"
                 }`}
               >
                 <Icon name="user" size={13} aria-hidden />

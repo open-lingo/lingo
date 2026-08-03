@@ -750,6 +750,7 @@
       "check": "Check understanding",
       "markRead": "Mark as read",
       "backToLibrary": "All stories",
+      "speakers": "Speakers",
       "notFound": "We couldn't find that story.",
       "quiz": {
         "heading": "Did you follow “{{title}}”?",

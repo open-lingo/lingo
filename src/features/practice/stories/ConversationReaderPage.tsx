@@ -21,7 +21,11 @@ import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { allConversations } from "@/features/practice/content";
 import { getTtsLang } from "@/features/practice/data/practiceDataLoader";
 import { playConversationLine } from "@/features/practice/conversation/conversationAudio";
-import { ConversationTranscript } from "@/features/practice/conversation/ConversationTranscript";
+import {
+  ConversationTranscript,
+  conversationCast,
+} from "@/features/practice/conversation/ConversationTranscript";
+import { SpeakerCast } from "./SpeakerCast";
 import { recordStoryRead } from "@/shared/storyProgress";
 import { recordPracticeResult } from "@/features/practice/practiceStats";
 import { useShowReadingRomaji } from "@/features/practice/reading/useShowReadingRomaji";
@@ -198,6 +202,8 @@ export function ConversationReaderPage() {
           <h1 className="text-lg font-semibold text-text-primary">{conv.title}</h1>
           <p className="text-sm text-text-secondary">{conv.situation}</p>
         </div>
+
+        <SpeakerCast members={conversationCast(conv)} lang={langId} />
 
         <div className="space-y-2">
           <ConversationTranscript

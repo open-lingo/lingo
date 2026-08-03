@@ -750,6 +750,7 @@
       "check": "이해도 확인",
       "markRead": "읽음으로 표시",
       "backToLibrary": "이야기 목록",
+      "speakers": "화자",
       "notFound": "그 이야기를 찾을 수 없어요.",
       "quiz": {
         "heading": "“{{title}}” 내용을 이해했나요?",

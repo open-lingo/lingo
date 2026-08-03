@@ -14,7 +14,8 @@ import { Button, Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import type { Conversation } from "@/features/practice/content";
 import { playConversationLine } from "./conversationAudio";
-import { ConversationTranscript } from "./ConversationTranscript";
+import { SpeakerCast } from "@/features/practice/stories/SpeakerCast";
+import { ConversationTranscript, conversationCast } from "./ConversationTranscript";
 import {
   buildConversationQuestions,
   type ConversationQuestion,
@@ -169,6 +170,7 @@ export function ConversationListener({
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
           {t("practice.conversation.transcript", { defaultValue: "Transcript" })}
         </p>
+        <SpeakerCast members={conversationCast(conv)} lang={lang} />
         <ConversationTranscript
           conv={conv}
           lang={lang}
