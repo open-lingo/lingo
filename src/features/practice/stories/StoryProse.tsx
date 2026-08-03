@@ -122,25 +122,28 @@ export function StoryProse({
         return (
           <div key={bi} className="ml-4 sm:ml-8">
             <div
-              // `min-h` keeps a one-line exchange from collapsing into a cramped
-              // sliver beside the flowing paragraphs around it — speech blocks
-              // should read as a beat, not a footnote.
-              className={`flex min-h-[5rem] w-full flex-col justify-center rounded-xl border px-4 py-3 transition ${
+              // Speaker and line sit on ONE row — icon, name, then the text to
+              // its right. Stacking the name above the text made every exchange
+              // twice as tall as the prose around it, which read as a wall of
+              // boxes rather than dialogue. Same shape as ConversationTranscript.
+              className={`flex items-start gap-3 rounded-xl border px-3 py-2 transition ${
                 active ? "border-accent bg-accent-muted shadow-sm" : "border-border/60 bg-surface"
               }`}
             >
-              <p
-                className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider ${
+              <span
+                className={`flex shrink-0 items-center gap-1 pt-1 text-xs font-bold uppercase tracking-wider ${
                   active ? "text-accent" : "text-text-muted"
                 }`}
               >
                 <Icon name="user" size={13} aria-hidden />
                 <span lang={langId}>{block.speaker}</span>
-              </p>
-              <p className="mt-1 text-xl leading-relaxed text-text-primary">
-                {block.items.map(renderSentence)}
-              </p>
-              {readingLine}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-xl leading-relaxed text-text-primary">
+                  {block.items.map(renderSentence)}
+                </p>
+                {readingLine}
+              </div>
             </div>
           </div>
         );
