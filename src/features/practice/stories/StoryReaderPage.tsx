@@ -17,7 +17,6 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Card, Button, EmptyState } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { Icon } from "@/shared/components/Icon";
-import { TappableText } from "@/features/dictionary/TappableText";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { playJaAudio, playJaAudioToEnd } from "@/shared/tts";
 import { allStories } from "@/features/practice/content";
@@ -32,6 +31,8 @@ import { resolveStoryWords, type StoryWordInfo } from "./unknownWords";
 import { buildQuestions } from "./storyQuestions";
 import { StoryWordSheet } from "./StoryWordSheet";
 import { StoryQuiz } from "./StoryQuiz";
+import { groupStoryBlocks } from "./storyBlocks";
+import { StoryProse } from "./StoryProse";
 
 /** Content parts of speech the comprehension questions may swap. */
 const CLOZE_POS = ["noun", "verb", "adjective", "adverb"] as const;
@@ -72,6 +73,11 @@ export function StoryReaderPage() {
   );
   const surfaces = useMemo(() => [...words.keys()], [words]);
   const highlight = useMemo(() => new Set(surfaces), [surfaces]);
+
+  // Narration paragraphs + inset dialogue runs. Purely a layout grouping —
+  // sentence indices are preserved so audio, highlight and SRS still key on
+  // the story's own ordering.
+  const blocks = useMemo(() => groupStoryBlocks(story?.sentences ?? []), [story]);
 
   const knownContent = useMemo(() => getKnownAtomsByPos(langId, [...CLOZE_POS]), [langId]);
   const questions = useMemo(
@@ -253,41 +259,17 @@ export function StoryReaderPage() {
           <p className="text-sm text-text-secondary">{story.theme}</p>
         </div>
 
-        <div className="space-y-3">
-          {story.sentences.map((sentence, i) => (
-            <div
-              key={i}
-              className={`flex items-start gap-2 rounded-md px-1 py-0.5 transition ${
-                playingIndex === i ? "bg-accent/10" : ""
-              }`}
-            >
-              <button
-                type="button"
-                onClick={() => void playJaAudio(sentence.text, langId)}
-                className="mt-1.5 shrink-0 rounded-md p-1 text-text-muted transition hover:text-text-primary"
-                aria-label={t("practice.stories.playWord", { defaultValue: "Play audio" })}
-              >
-                <Icon name="volume" size={16} aria-hidden />
-              </button>
-              <div className="min-w-0 flex-1 space-y-0.5">
-                <TappableText
-                  text={sentence.text}
-                  lang={langId}
-                  extraSurfaces={surfaces}
-                  highlightSurfaces={highlight}
-                  onWordTap={(surface) => setActiveWord(words.get(surface) ?? null)}
-                  className="text-xl leading-relaxed text-text-primary"
-                />
-                {showRomaji && sentence.reading && (
-                  <p className="text-xs text-text-muted">{sentence.reading}</p>
-                )}
-                {showEnglish && (
-                  <p className="text-sm text-text-secondary">{sentence.translation}</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        <StoryProse
+          blocks={blocks}
+          langId={langId}
+          surfaces={surfaces}
+          highlight={highlight}
+          onWordTap={(surface) => setActiveWord(words.get(surface) ?? null)}
+          showRomaji={showRomaji}
+          showEnglish={showEnglish}
+          playingIndex={playingIndex}
+          onPlaySentence={(i) => void playJaAudio(story.sentences[i].text, langId)}
+        />
       </Card>
 
       <div className="flex justify-end">

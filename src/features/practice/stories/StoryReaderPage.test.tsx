@@ -25,6 +25,7 @@ vi.mock("@/features/practice/reading/useShowReadingRomaji", () => ({
 }));
 
 const { StoryReaderPage } = await import("./StoryReaderPage");
+const { allStories } = await import("@/features/practice/content");
 
 function renderReader(storyId = "ja-m3-about-me") {
   return render(
@@ -61,5 +62,20 @@ describe("StoryReaderPage", () => {
   it("shows a not-found state for an unknown story id", () => {
     renderReader("does-not-exist");
     expect(screen.getByText(/couldn't find that story/i)).toBeTruthy();
+  });
+
+  it("insets dialogue under its speaker's name", () => {
+    renderReader("ja-m19-the-girl-in-the-photo");
+    // The story's quoted lines are authored as おばあさん's — the speaker label
+    // is what distinguishes a speech block from the narration around it.
+    expect(screen.getAllByText("おばあさん").length).toBeGreaterThan(0);
+  });
+
+  it("keeps every sentence's audio button after grouping", () => {
+    renderReader();
+    const story = allStories("ja").find((s) => s.id === "ja-m3-about-me")!;
+    expect(screen.getAllByRole("button", { name: /Play audio/i })).toHaveLength(
+      story.sentences.length,
+    );
   });
 });
