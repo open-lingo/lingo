@@ -82,7 +82,10 @@ export function ConversationTranscript({
         const bubble = (
           <div
             className={`flex items-start gap-3 rounded-xl border px-3 py-2 transition ${
-              sided ? "max-w-[85%]" : ""
+              // A one-word reply ("네.") would otherwise render as a sliver
+              // beside full-width turns; the floor keeps every bubble legible
+              // as a turn. Capped by max-w so long turns still wrap.
+              sided ? "min-w-[13rem] max-w-[85%]" : ""
             } ${
               active
                 ? "border-accent bg-accent-muted"
@@ -91,7 +94,8 @@ export function ConversationTranscript({
                   : "border-border/60 bg-surface"
             }`}
           >
-            <span className="shrink-0 pt-0.5 text-xs font-bold uppercase tracking-wider text-text-muted">
+            <span className="flex shrink-0 items-center gap-1 pt-0.5 text-xs font-bold uppercase tracking-wider text-text-muted">
+              <Icon name="user" size={13} aria-hidden />
               {labelById.get(line.speaker) ?? line.speaker}
             </span>
             <div className="min-w-0 flex-1">

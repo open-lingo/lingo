@@ -46,7 +46,7 @@ export function PracticeStatTile({
       {children ?? (
         <span
           className={cn(
-            "text-2xl font-extrabold leading-none",
+            "text-2xl font-bold leading-none",
             tone === "accent" ? "text-accent" : "text-text-primary",
           )}
         >

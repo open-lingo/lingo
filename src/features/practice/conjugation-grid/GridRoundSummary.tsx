@@ -35,7 +35,7 @@ export function GridRoundSummary({
         <h2 className="text-lg font-bold text-text-primary">
           {t("practice.conjugationGrid.summaryTitle", { defaultValue: "Round complete" })}
         </h2>
-        <p className="mt-1 text-3xl font-extrabold text-accent">
+        <p className="mt-1 text-3xl font-bold text-accent">
           {t("practice.conjugationGrid.summaryScore", {
             defaultValue: "{{score}} / {{total}} correct",
             score,

@@ -54,7 +54,7 @@ export function SessionSummary({
         <h2 className="text-lg font-bold text-text-primary">
           {t("practice.conjugation.summaryTitle", { defaultValue: "Session complete" })}
         </h2>
-        <p className="mt-1 text-3xl font-extrabold text-accent">
+        <p className="mt-1 text-3xl font-bold text-accent">
           {t("practice.conjugation.summaryScore", {
             defaultValue: "{{correct}} / {{total}} correct",
             correct: fmtCredit(score),

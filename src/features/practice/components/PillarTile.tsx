@@ -44,7 +44,7 @@ export function PillarTile({
         <Icon name={pillar.icon} size={24} />
       </span>
       <div className="min-w-0">
-        <h3 className="text-lg font-extrabold tracking-tight text-text-primary">
+        <h3 className="text-lg font-bold tracking-tight text-text-primary">
           {t(pillar.titleKey, { defaultValue: pillar.titleDefault })}
         </h3>
         <p className="mt-0.5 line-clamp-2 text-xs leading-snug text-text-secondary">

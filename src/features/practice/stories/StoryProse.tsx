@@ -122,17 +122,20 @@ export function StoryProse({
         return (
           <div key={bi} className="ml-4 sm:ml-8">
             <div
-              className={`rounded-xl border px-3 py-2 transition ${
+              // `min-h` keeps a one-line exchange from collapsing into a cramped
+              // sliver beside the flowing paragraphs around it — speech blocks
+              // should read as a beat, not a footnote.
+              className={`flex min-h-[5rem] w-full flex-col justify-center rounded-xl border px-4 py-3 transition ${
                 active ? "border-accent bg-accent-muted shadow-sm" : "border-border/60 bg-surface"
               }`}
             >
               <p
-                className={`text-xs font-bold uppercase tracking-wider ${
+                className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider ${
                   active ? "text-accent" : "text-text-muted"
                 }`}
-                lang={langId}
               >
-                {block.speaker}
+                <Icon name="user" size={13} aria-hidden />
+                <span lang={langId}>{block.speaker}</span>
               </p>
               <p className="mt-1 text-xl leading-relaxed text-text-primary">
                 {block.items.map(renderSentence)}

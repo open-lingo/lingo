@@ -102,7 +102,7 @@ function GlyphChip({
       trigger={
         <button
           type="button"
-          className={`inline-flex items-center justify-center rounded-lg border-2 font-extrabold leading-none transition hover:brightness-110 ${sizeClass}`}
+          className={`inline-flex items-center justify-center rounded-lg border-2 font-bold leading-none transition hover:brightness-110 ${sizeClass}`}
           style={{
             color: `var(${colorVar})`,
             borderColor: `color-mix(in srgb, var(${colorVar}) 55%, transparent)`,

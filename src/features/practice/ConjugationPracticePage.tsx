@@ -231,7 +231,7 @@ export function ConjugationPracticePage() {
             onClick={() => navigate(langPath("practice/grammar/conjugation/free"))}
             className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm font-bold text-text-primary transition active:translate-y-[2px]"
           >
-            <span className="text-lg font-extrabold tracking-widest" aria-hidden>
+            <span className="text-lg font-bold tracking-widest" aria-hidden>
               {conj.mixGlyphs.map((g, i) => (
                 <span key={i} style={{ color: `var(${g.colorVar})` }}>
                   {g.glyph}
@@ -307,7 +307,7 @@ export function ConjugationPracticePage() {
                       background: `color-mix(in srgb, var(${type.colorVar}) 12%, transparent)`,
                     }}
                   >
-                    <span className="font-extrabold" aria-hidden>
+                    <span className="font-bold" aria-hidden>
                       {type.glyph}
                     </span>
                     <span>{type.title}</span>
@@ -411,7 +411,7 @@ function TileButton({
         }
       >
         <Icon name="lock" size={18} className="text-text-muted" />
-        <span className="mt-1 text-2xl font-extrabold text-text-muted" aria-hidden>
+        <span className="mt-1 text-2xl font-bold text-text-muted" aria-hidden>
           {glyph}
         </span>
         <span className="mt-1.5 whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[9px] font-semibold text-text-muted">
@@ -482,7 +482,7 @@ function TileButton({
       {/* Glyph + title flow together (not absolute) so a long wrapped title
           never renders on top of the glyph in the narrow 4-col tiles. */}
       <span
-        className="z-[1] text-2xl font-extrabold leading-none"
+        className="z-[1] text-2xl font-bold leading-none"
         style={{ color: "var(--tc)" }}
       >
         {glyph}

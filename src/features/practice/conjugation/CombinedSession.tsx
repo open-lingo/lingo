@@ -125,7 +125,7 @@ function Session({
                 </span>
               )}
               <span
-                className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border px-1.5 text-sm font-extrabold leading-none"
+                className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border px-1.5 text-sm font-bold leading-none"
                 style={{
                   color: `var(${conj.colorVar(id)})`,
                   borderColor: `color-mix(in srgb, var(${conj.colorVar(id)}) 55%, transparent)`,

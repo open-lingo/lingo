@@ -115,7 +115,7 @@ export function PracticeHero({
             <div className="text-[0.68rem] font-bold uppercase tracking-wider text-accent">
               {eyebrow}
             </div>
-            <h1 className="text-balance text-lg font-extrabold tracking-tight text-text-primary sm:text-xl">
+            <h1 className="text-balance text-lg font-bold tracking-tight text-text-primary sm:text-xl">
               {headline}
             </h1>
           </div>

@@ -33,7 +33,7 @@ export function PillarHubPage() {
           <Icon name={pillar.icon} size={26} />
         </span>
         <div className="min-w-0">
-          <h1 className="text-xl font-extrabold text-text-primary sm:text-2xl">
+          <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
             {t(pillar.titleKey, { defaultValue: pillar.titleDefault })}
           </h1>
           <p className="text-sm text-text-secondary">
