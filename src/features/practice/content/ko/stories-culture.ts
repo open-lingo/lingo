@@ -358,7 +358,7 @@ export const KO_CULTURE_STORIES: Story[] = [
       { text: "엄마가 밥을 했어요.", translation: "Mum made a meal." },
       { text: "하지만 저는 밥을 못 먹었어요.", translation: "But I could not eat the meal." },
       { text: "엄마는 저를 봤어요.", translation: "Mum looked at me." },
-      { text: "엄마, 괜찮아요.", translation: "\"Mum, it is all right.\"" },
+      { text: "엄마, 괜찮아요.", translation: "\"Mum, it is all right.\"", speaker: "저" },
       { text: "저는 일곱 시에 집에서 출발했어요.", translation: "I left home at seven." },
       { text: "그런데 지하철이 늦었어요.", translation: "But the subway was late." },
       { text: "그래서 저는 택시로 갔어요.", translation: "So I went by taxi." },

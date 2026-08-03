@@ -22,6 +22,22 @@ export interface StorySentence {
   translation: string;
   /** Romanization reading aid (JA romaji / KO Revised Romanization). */
   reading?: string;
+  /**
+   * Character speaking this line, when the sentence is SPEECH rather than
+   * narration. Absent = narration (the default, and what every sentence was
+   * before this field existed).
+   *
+   * Pure presentation metadata: the reader breaks a run of same-speaker
+   * sentences out of the prose flow as an inset, novel-style dialogue block.
+   * It is deliberately NOT part of the comprehensibility gate — the label is
+   * chrome around `text`, never content the learner has to decode.
+   *
+   * Why it is authored rather than inferred: JA marks speech with 「」, but KO
+   * uses no quote marks at all — speech is signalled only by a leading
+   * vocative (`민수, 같이 운동해요!`), and a vocative names the ADDRESSEE, not
+   * the speaker. There is no reliable detection, so it is data.
+   */
+  speaker?: string;
 }
 
 /** Story difficulty, independent of the module that unlocks it. */
