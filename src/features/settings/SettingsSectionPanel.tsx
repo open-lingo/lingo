@@ -21,6 +21,7 @@ import { Select } from "@/shared/components/ui/Select";
 import { Slider } from "@/shared/components/ui/Slider";
 import { AccountPrivacySection } from "./AccountPrivacySection";
 import { ImportStudyHistorySection } from "./ImportStudyHistorySection";
+import { StoryTextSizeSetting } from "./StoryTextSizeSetting";
 import {
   SectionHeader,
   SettingsGroup,
@@ -266,6 +267,13 @@ function AppearancePanel() {
           }
         />
 
+      </SettingsGroup>
+
+      {/* Reading typography sits here rather than under Accessibility: it is a
+          taste preference for long-form reading, not an assistive override of
+          the app-wide scale (which stays where it is). */}
+      <SettingsGroup label={t("settings.readingGroup", "Reading")}>
+        <StoryTextSizeSetting />
       </SettingsGroup>
     </Panel>
   );

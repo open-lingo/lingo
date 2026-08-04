@@ -4,6 +4,8 @@
  */
 
 import {
+  AArrowDown,
+  AArrowUp,
   Activity,
   AlertTriangle,
   ArrowBigLeft,
@@ -192,6 +194,10 @@ export const iconRegistry = {
   volume: Volume2,
   /** Muted-speaker icon — "audio silenced" notices. */
   volumeX: VolumeX,
+  /** "A-" — step the story reader's text size down. */
+  textSmaller: AArrowDown,
+  /** "A+" — step the story reader's text size up. */
+  textLarger: AArrowUp,
   pause: Pause,
   upload: Upload,
   copy: Copy,

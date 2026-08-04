@@ -207,6 +207,15 @@ export type UserSettings = {
      * cross-device via the settings blob. Absent = "card".
      */
     courseMapView?: "card" | "list";
+    /**
+     * Story-reading text scale (a multiplier, 1 = default). Set from Settings
+     * or from the reader's own A- / A+ control — one value, two entry points.
+     * Scales the story's target text and its reading aid ONLY; the app-wide
+     * `accessibility.fontSize` is a separate, unrelated knob. Absent = 1.
+     * Resolve through `useStoryFontSize` (`shared/settings/storyFontSize`),
+     * which snaps a stored value to the nearest offered step.
+     */
+    storyFontSize?: number;
   };
   display?: {
     dateLocale?: string;
