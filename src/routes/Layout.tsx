@@ -20,6 +20,7 @@ import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
 import { useUnlockMapSync } from "@/shared/hooks/useUnlockMapSync";
+import { useStopAudioOnNavigate } from "@/shared/tts/useStopAudioOnNavigate";
 import { ImpersonationBanner } from "@/features/admin/impersonation/ImpersonationBanner";
 import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
@@ -57,6 +58,10 @@ export function Layout() {
   // pushes new unlocks as they happen, so progression survives a storage
   // clear / device switch.
   useUnlockMapSync();
+  // Cuts every in-flight clip on a route change. The shell is the only place
+  // that sees all of them — audible surfaces used to leak their audio over the
+  // next screen because each was expected to clean up after itself.
+  useStopAudioOnNavigate();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;
@@ -152,8 +157,8 @@ export function Layout() {
             <span
               className="inline-block h-6 w-6 shrink-0 bg-current sm:h-7 sm:w-7"
               style={{
-                maskImage: "url('/icon.ico')",
-                WebkitMaskImage: "url('/icon.ico')",
+                maskImage: "url('/mark.png')",
+                WebkitMaskImage: "url('/mark.png')",
                 maskSize: "contain",
                 WebkitMaskSize: "contain",
                 maskRepeat: "no-repeat",
