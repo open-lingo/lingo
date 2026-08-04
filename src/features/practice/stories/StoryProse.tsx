@@ -13,9 +13,15 @@
  *
  *  - **Per sentence** — hovering (desktop), focusing (keyboard) or tapping
  *    (touch) a sentence opens a popover anchored to it carrying that
- *    sentence's play control, its reading aid and its translation. One gesture
- *    covers both audio and meaning, so no sentence needs a permanently visible
- *    volume button cluttering the prose.
+ *    sentence's controls, so no sentence needs a permanently visible volume
+ *    button cluttering the prose. The English is NOT among them until asked
+ *    for: a translation that appears the instant the pointer drifts across a
+ *    line teaches the learner to read the English and skip the attempt, which
+ *    is where the learning actually happens. `Translate` makes surfacing the
+ *    meaning a decision instead of a reflex. The reading aid is ungated — it
+ *    is pronunciation, not meaning, so it costs the attempt nothing.
+ *    Revealing STICKS for that sentence for as long as the reader is open;
+ *    re-reading a hard line shouldn't mean re-asking every time.
  *  - **Whole paragraph** — `showTranslations` puts the block's sentence
  *    translations, JOINED into flowing prose, underneath the target paragraph.
  *    For reading straight through. It adds a paragraph; it never splits one.
@@ -70,6 +76,13 @@ export function StoryProse({
   // The sentence whose popover is open — hover on desktop, tap on touch, focus
   // for keyboard. At most one at a time, so the page never grows two popovers.
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // Sentences whose English the learner has asked for, by index. Sticky for the
+  // life of the reader: the friction is meant to make surfacing a translation a
+  // decision, not to charge the learner again every time they re-read the line.
+  const [revealedIndexes, setRevealedIndexes] = useState<ReadonlySet<number>>(() => new Set());
+  const revealTranslation = useCallback((index: number) => {
+    setRevealedIndexes((cur) => (cur.has(index) ? cur : new Set(cur).add(index)));
+  }, []);
 
   // A story has no `speakers[]` — the cast IS the distinct `speaker` names on
   // its speech blocks, in order of first appearance. Same ordering rule as a
@@ -145,8 +158,17 @@ export function StoryProse({
             sentence={sentence}
             langId={langId}
             showRomaji={showRomaji}
+            // The paragraph toggle already prints this sentence's English right
+            // under the prose, so gating it in the popover too would only offer
+            // a button that reveals what is on screen. The two modes coexist;
+            // they don't fight over the same sentence.
+            revealed={showTranslations || revealedIndexes.has(index)}
+            onReveal={() => revealTranslation(index)}
             playLabel={t("practice.stories.playSentence", {
               defaultValue: "Play this sentence aloud",
+            })}
+            translateLabel={t("practice.stories.translateSentence", {
+              defaultValue: "Translate",
             })}
             onPlay={() => onPlaySentence(index)}
           />
@@ -251,8 +273,8 @@ export function StoryProse({
 }
 
 /**
- * The per-sentence popover: play, reading aid, translation. Phrasing content
- * only (`<span>`/`<button>`) because it lives inside the `<p>` of prose.
+ * The per-sentence popover: controls first, meaning only on request. Phrasing
+ * content only (`<span>`/`<button>`) because it lives inside the `<p>` of prose.
  *
  * Anchored to the sentence rather than portalled — it has to track the text as
  * the paragraph reflows, and it carries no interaction that could be clipped
@@ -274,42 +296,63 @@ function SentencePopover({
   sentence,
   langId,
   showRomaji,
+  revealed,
   playLabel,
+  translateLabel,
   onPlay,
+  onReveal,
 }: {
   sentence: StorySentence;
   langId: string;
   showRomaji: boolean;
+  /** Has this sentence's English been asked for (or is the paragraph mode on)? */
+  revealed: boolean;
   playLabel: string;
+  translateLabel: string;
   onPlay: () => void;
+  onReveal: () => void;
 }) {
   return (
     <span
-      className="absolute left-0 top-full z-20 mt-1 flex w-max max-w-[min(22rem,70vw)] items-start gap-2 rounded-lg border border-border bg-surface px-2.5 py-1.5 text-left shadow-lg"
+      className="absolute left-0 top-full z-20 mt-1 flex w-max max-w-[min(22rem,70vw)] flex-col gap-1.5 rounded-lg border border-border bg-surface px-2.5 py-1.5 text-left shadow-lg"
       // The sentence span's own click handler already skips button targets;
       // stopping here too keeps a click on the popover's padding from
       // re-triggering playback behind it.
       onClick={(e) => e.stopPropagation()}
     >
-      <button
-        type="button"
-        onClick={onPlay}
-        aria-label={playLabel}
-        className="mt-0.5 flex shrink-0 items-center gap-1 rounded border border-border/60 px-1.5 py-0.5 text-accent transition hover:bg-surface-muted"
-      >
-        <Icon name="volume" size={13} aria-hidden />
-        <span className="text-[11px] font-semibold leading-none" lang={langId}>
-          {NATIVE_LANG_NAME[langId] ?? langId.toUpperCase()}
-        </span>
-      </button>
-      <span className="min-w-0">
-        {showRomaji && sentence.reading ? (
-          <span className="block text-xs leading-snug text-text-muted">{sentence.reading}</span>
-        ) : null}
+      <span className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={onPlay}
+          aria-label={playLabel}
+          className="flex shrink-0 items-center gap-1 rounded border border-border/60 px-1.5 py-0.5 text-accent transition hover:bg-surface-muted"
+        >
+          <Icon name="volume" size={13} aria-hidden />
+          <span className="text-[11px] font-semibold leading-none" lang={langId}>
+            {NATIVE_LANG_NAME[langId] ?? langId.toUpperCase()}
+          </span>
+        </button>
+        {/* Gone once the meaning is up — a button that reveals what is already
+            on screen is just noise, and its absence marks the line as asked. */}
+        {revealed ? null : (
+          <button
+            type="button"
+            onClick={onReveal}
+            className="flex shrink-0 items-center gap-1 rounded border border-border/60 px-1.5 py-0.5 text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
+          >
+            <Icon name="languages" size={13} aria-hidden />
+            <span className="text-[11px] font-semibold leading-none">{translateLabel}</span>
+          </button>
+        )}
+      </span>
+      {showRomaji && sentence.reading ? (
+        <span className="block text-xs leading-snug text-text-muted">{sentence.reading}</span>
+      ) : null}
+      {revealed ? (
         <span className="block text-sm leading-snug text-text-secondary">
           {sentence.translation}
         </span>
-      </span>
+      ) : null}
     </span>
   );
 }

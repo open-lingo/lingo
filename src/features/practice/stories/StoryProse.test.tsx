@@ -81,13 +81,16 @@ describe("StoryProse per-sentence popover", () => {
     expect(screen.queryByRole("button", { name: /Play this sentence/i })).toBeNull();
   });
 
-  it("reveals one play control plus the sentence's English on hover", () => {
+  it("reveals the controls on hover, but NOT the sentence's English", () => {
     const { onPlaySentence } = renderProse();
     fireEvent.mouseEnter(sentenceSpan(1));
 
     const play = screen.getAllByRole("button", { name: /Play this sentence/i });
     expect(play).toHaveLength(1);
-    expect(screen.getByText("The dog is big.")).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Translate/i })).toBeTruthy();
+    // The whole point: drifting a pointer over a line must not hand over the
+    // meaning before the learner has attempted it.
+    expect(screen.queryByText("The dog is big.")).toBeNull();
 
     fireEvent.click(play[0]);
     expect(onPlaySentence).toHaveBeenCalledWith(1);
@@ -105,6 +108,63 @@ describe("StoryProse per-sentence popover", () => {
     expect(screen.getByRole("button", { name: /Play this sentence/i })).toBeTruthy();
     fireEvent.mouseLeave(sentenceSpan(0));
     expect(screen.queryByRole("button", { name: /Play this sentence/i })).toBeNull();
+  });
+});
+
+describe("StoryProse gated sentence translation", () => {
+  const translateButton = () => screen.getByRole("button", { name: /Translate/i });
+
+  it("reveals the English only once Translate is pressed", () => {
+    renderProse();
+    fireEvent.mouseEnter(sentenceSpan(0));
+    expect(screen.queryByText("The cat is cute.")).toBeNull();
+
+    fireEvent.click(translateButton());
+    expect(screen.getByText("The cat is cute.")).toBeTruthy();
+    // Asked and answered — the button retires rather than sitting there
+    // offering to reveal what is already on screen.
+    expect(screen.queryByRole("button", { name: /Translate/i })).toBeNull();
+  });
+
+  it("does not play the sentence when Translate is pressed", () => {
+    const { onPlaySentence } = renderProse();
+    fireEvent.mouseEnter(sentenceSpan(0));
+    fireEvent.click(translateButton());
+    expect(onPlaySentence).not.toHaveBeenCalled();
+  });
+
+  it("keeps that sentence revealed on a later hover", () => {
+    renderProse();
+    fireEvent.mouseEnter(sentenceSpan(0));
+    fireEvent.click(translateButton());
+    fireEvent.mouseLeave(sentenceSpan(0));
+    expect(screen.queryByText("The cat is cute.")).toBeNull();
+
+    // Re-reading a hard line must not mean re-asking for its meaning.
+    fireEvent.mouseEnter(sentenceSpan(0));
+    expect(screen.getByText("The cat is cute.")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /Translate/i })).toBeNull();
+  });
+
+  it("leaves every other sentence gated", () => {
+    renderProse();
+    fireEvent.mouseEnter(sentenceSpan(0));
+    fireEvent.click(translateButton());
+    fireEvent.mouseLeave(sentenceSpan(0));
+
+    fireEvent.mouseEnter(sentenceSpan(1));
+    expect(screen.queryByText("The dog is big.")).toBeNull();
+    expect(translateButton()).toBeTruthy();
+  });
+
+  it("skips the gate entirely while the paragraph translation is on", () => {
+    // Paragraph mode already prints the English under the prose, so the
+    // sentence-level ask would only reveal what is on screen.
+    renderProse({ showTranslations: true });
+    fireEvent.mouseEnter(sentenceSpan(0));
+    expect(screen.queryByRole("button", { name: /Translate/i })).toBeNull();
+    // The popover's own copy of the line, alongside the joined paragraph.
+    expect(screen.getByText("The cat is cute.")).toBeTruthy();
   });
 });
 

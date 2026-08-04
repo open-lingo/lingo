@@ -67,6 +67,7 @@ import {
   PanelTop,
   GripVertical,
   Info,
+  Languages,
   Layers2,
   LayoutGrid,
   Link2,
@@ -176,6 +177,8 @@ export const iconRegistry = {
   moreVertical: MoreVertical,
   github: Github,
   globe: Globe,
+  /** Show the meaning in the learner's own language (story reader, glosses). */
+  languages: Languages,
   compass: Compass,
   flag: Flag,
   mapPin: MapPin,
