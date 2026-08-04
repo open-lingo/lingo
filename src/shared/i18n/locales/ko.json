@@ -778,7 +778,8 @@
       "typeConversation": "대화",
       "turnCount": "{{count}}턴",
       "metaConversation": "{{count}}턴 · {{module}}단원",
-      "conversationNotFound": "해당 대화를 찾을 수 없어요."
+      "conversationNotFound": "해당 대화를 찾을 수 없어요.",
+      "playSentence": "이 문장 듣기"
     },
     "listening": {
       "title": "듣기",

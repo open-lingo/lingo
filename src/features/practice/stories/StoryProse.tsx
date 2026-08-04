@@ -143,8 +143,11 @@ export function StoryProse({
         {active ? (
           <SentencePopover
             sentence={sentence}
+            langId={langId}
             showRomaji={showRomaji}
-            playLabel={t("practice.stories.playWord", { defaultValue: "Play audio" })}
+            playLabel={t("practice.stories.playSentence", {
+              defaultValue: "Play this sentence aloud",
+            })}
             onPlay={() => onPlaySentence(index)}
           />
         ) : null}
@@ -255,13 +258,27 @@ export function StoryProse({
  * the paragraph reflows, and it carries no interaction that could be clipped
  * meaningfully by the card around it.
  */
+/**
+ * The target language in its OWN script, shown on the play control. The
+ * popover puts the play button next to the English translation, so a bare
+ * speaker icon reads as though it might play the English — naming the language
+ * is what removes the doubt.
+ */
+const NATIVE_LANG_NAME: Record<string, string> = {
+  ja: "日本語",
+  ko: "한국어",
+  es: "Español",
+};
+
 function SentencePopover({
   sentence,
+  langId,
   showRomaji,
   playLabel,
   onPlay,
 }: {
   sentence: StorySentence;
+  langId: string;
   showRomaji: boolean;
   playLabel: string;
   onPlay: () => void;
@@ -278,9 +295,12 @@ function SentencePopover({
         type="button"
         onClick={onPlay}
         aria-label={playLabel}
-        className="mt-0.5 shrink-0 rounded p-0.5 text-text-muted transition hover:text-text-primary"
+        className="mt-0.5 flex shrink-0 items-center gap-1 rounded border border-border/60 px-1.5 py-0.5 text-accent transition hover:bg-surface-muted"
       >
-        <Icon name="volume" size={14} aria-hidden />
+        <Icon name="volume" size={13} aria-hidden />
+        <span className="text-[11px] font-semibold leading-none" lang={langId}>
+          {NATIVE_LANG_NAME[langId] ?? langId.toUpperCase()}
+        </span>
       </button>
       <span className="min-w-0">
         {showRomaji && sentence.reading ? (

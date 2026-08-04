@@ -111,14 +111,14 @@ describe("StoryReaderPage", () => {
     const { container } = renderReader();
     // No permanently-rendered volume buttons — the prose is clean until the
     // learner points at a sentence.
-    expect(screen.queryAllByRole("button", { name: /Play audio/i })).toHaveLength(0);
+    expect(screen.queryAllByRole("button", { name: /Play this sentence/i })).toHaveLength(0);
 
     const spans = container.querySelectorAll("[data-story-sentence]");
     const story = allStories("ja").find((s) => s.id === "ja-m3-about-me")!;
     expect(spans).toHaveLength(story.sentences.length);
 
     fireEvent.mouseEnter(spans[0]);
-    expect(screen.getAllByRole("button", { name: /Play audio/i })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: /Play this sentence/i })).toHaveLength(1);
   });
 
   it("adjusts the story text size from the reader", () => {

@@ -778,7 +778,8 @@
       "typeConversation": "Conversation",
       "turnCount": "{{count}} turns",
       "metaConversation": "{{count}} turns · Module {{module}}",
-      "conversationNotFound": "We couldn't find that conversation."
+      "conversationNotFound": "We couldn't find that conversation.",
+      "playSentence": "Play this sentence aloud"
     },
     "listening": {
       "title": "Listening",

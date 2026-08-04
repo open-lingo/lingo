@@ -78,14 +78,14 @@ describe("StoryProse sentence vs word clicks", () => {
 describe("StoryProse per-sentence popover", () => {
   it("shows no play button until a sentence is hovered", () => {
     renderProse();
-    expect(screen.queryByRole("button", { name: /Play audio/i })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Play this sentence/i })).toBeNull();
   });
 
   it("reveals one play control plus the sentence's English on hover", () => {
     const { onPlaySentence } = renderProse();
     fireEvent.mouseEnter(sentenceSpan(1));
 
-    const play = screen.getAllByRole("button", { name: /Play audio/i });
+    const play = screen.getAllByRole("button", { name: /Play this sentence/i });
     expect(play).toHaveLength(1);
     expect(screen.getByText("The dog is big.")).toBeTruthy();
 
@@ -102,9 +102,9 @@ describe("StoryProse per-sentence popover", () => {
   it("hides again on mouse leave", () => {
     renderProse();
     fireEvent.mouseEnter(sentenceSpan(0));
-    expect(screen.getByRole("button", { name: /Play audio/i })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Play this sentence/i })).toBeTruthy();
     fireEvent.mouseLeave(sentenceSpan(0));
-    expect(screen.queryByRole("button", { name: /Play audio/i })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Play this sentence/i })).toBeNull();
   });
 });
 
