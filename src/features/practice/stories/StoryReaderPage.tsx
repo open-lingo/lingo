@@ -26,7 +26,10 @@ import { getStoryProgress, recordStoryRead, type StoryScore } from "@/shared/sto
 import { markLessonCompleted } from "@/shared/domain/mockProgress";
 import { recordPracticeResult } from "@/features/practice/practiceStats";
 import { hashSeed, storyExercisedAtomIds } from "@/features/practice/reading/readingBuilders";
+import { useDictionaryModal } from "@/features/dictionary/DictionaryModalContext";
 import { useShowReadingRomaji } from "@/features/practice/reading/useShowReadingRomaji";
+import { useStoryFontSize } from "@/shared/settings/storyFontSize";
+import { StoryFontSizeControl } from "./StoryFontSizeControl";
 import { resolveStoryWords, type StoryWordInfo } from "./unknownWords";
 import { buildQuestions } from "./storyQuestions";
 import { StoryWordSheet } from "./StoryWordSheet";
@@ -59,6 +62,8 @@ export function StoryReaderPage() {
   const langId = useLang();
   const langPath = useLangPath();
   const showRomaji = useShowReadingRomaji(langId);
+  const { scale: fontScale } = useStoryFontSize();
+  const { openWord } = useDictionaryModal();
 
   const story = useMemo(
     () => allStories(langId).find((s) => s.id === storyId) ?? null,
@@ -87,12 +92,41 @@ export function StoryReaderPage() {
 
   const [phase, setPhase] = useState<Phase>("read");
   const [score, setScore] = useState<StoryScore | null>(null);
+  // Whole-paragraph English under each target paragraph. The per-sentence
+  // translation is always available from the sentence popover, so this is the
+  // "read it straight through in English" mode, not the only way to see it.
   const [showEnglish, setShowEnglish] = useState(false);
   const [activeWord, setActiveWord] = useState<StoryWordInfo | null>(null);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   // A ref, not state: the play loop reads it between lines to know whether a
   // second press asked it to stop.
   const playing = useRef(false);
+
+  /**
+   * A tapped word must ALWAYS answer. The story word map is deliberately narrow
+   * — authored glosses plus multi-character course atoms the learner hasn't
+   * learned — but `TappableText` makes every dictionary surface tappable, so
+   * plenty of real words fall outside it. Those used to open nothing at all:
+   * single-character Korean words in particular (열, 눈, 약, 배, 차, 안, 분) are
+   * kept out of the map on purpose, because putting them in would highlight
+   * every particle-length word as noise. Falling through to the dictionary
+   * answers them — and every other surface the map happens not to carry.
+   *
+   * The dictionary is also the BETTER answer for a homograph: the course atom
+   * for 열 is "ten", so the map would confidently assert the wrong meaning in
+   * `열이 나요` ("has a fever"), where the dictionary offers both senses.
+   */
+  const handleWordTap = useCallback(
+    (surface: string) => {
+      const info = words.get(surface);
+      if (info) {
+        setActiveWord(info);
+        return;
+      }
+      openWord(surface);
+    },
+    [words, openWord],
+  );
 
   const finish = useCallback(
     (result?: StoryScore) => {
@@ -230,6 +264,7 @@ export function StoryReaderPage() {
       <div className="flex items-center justify-between gap-3">
         {backLink}
         <div className="flex items-center gap-1">
+          <StoryFontSizeControl />
           <button
             type="button"
             onClick={() => void playAll()}
@@ -264,11 +299,12 @@ export function StoryReaderPage() {
           langId={langId}
           surfaces={surfaces}
           highlight={highlight}
-          onWordTap={(surface) => setActiveWord(words.get(surface) ?? null)}
+          onWordTap={handleWordTap}
           showRomaji={showRomaji}
-          showEnglish={showEnglish}
+          showTranslations={showEnglish}
           playingIndex={playingIndex}
           onPlaySentence={(i) => void playJaAudio(story.sentences[i].text, langId)}
+          fontScale={fontScale}
         />
       </Card>
 

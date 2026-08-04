@@ -10,6 +10,12 @@
  *
  * Everything else renders as ordinary text. Highlighting is an affordance, not
  * a wall of buttons.
+ *
+ * This map decides what gets HIGHLIGHTED, not what can be looked up. Those were
+ * once the same thing, and the single-character exclusion below therefore left
+ * 열 / 눈 / 약 / 배 / 차 tappable but unanswerable — the reader opened nothing.
+ * Resolution is now the reader's job (`StoryReaderPage.handleWordTap`): a miss
+ * here falls through to the dictionary, so the narrow filter can stay narrow.
  */
 import { getCardState } from "@/features/flashcards/engine";
 import { getKnownAtomsByPos } from "@/features/practice/engine";
@@ -48,6 +54,11 @@ export function resolveStoryWords(story: Story, langId: string): StoryWordMap {
   const map: StoryWordMap = new Map();
 
   for (const atom of getKnownAtomsByPos(langId, [...WORD_POS])) {
+    // Single characters are a HIGHLIGHT exclusion: in KO especially they
+    // collide with particles and grammar and would speckle the page. They stay
+    // tappable and are resolved by the reader's dictionary fallback — which is
+    // the better answer anyway, since a one-character atom is usually one sense
+    // of a homograph (`열` = ten, but also fever).
     if (atom.surface.length < 2) continue;
     if (!body.includes(atom.surface)) continue;
     if (hasLearned(atom.id)) continue;
