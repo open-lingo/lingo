@@ -85,8 +85,15 @@ const FUNCTION_MORPHEMES: Record<string, string[]> = {
  * nor a lexicon entry at/below the module still fails, so above-level vocab is
  * still caught. Verb stems are listed bare (보 "watch", 마시 "drink") so the
  * conjugation endings in FUNCTION_MORPHEMES strip the rest.
+ *
+ * Exported READ-ONLY for the dictionary, which derives a lookupable entry per
+ * surface (`shared/dictionary/taughtLexicon.ts`). The gate accepts these
+ * surfaces, so authored content uses them freely — without the derived entries
+ * a learner could read `나요` but not tap it. Nothing may mutate this table or
+ * key off it for gating; adding or moving a surface changes which authored
+ * content is legal.
  */
-const TAUGHT_LEXICON: Record<string, Record<string, number>> = {
+export const TAUGHT_LEXICON: Record<string, Record<string, number>> = {
   ja: {
     なに: 4, // 何 "what" — casual reading of the なん atom
     ひゃく: 5, // 百 "hundred" — taught with money/prices

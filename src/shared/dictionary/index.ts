@@ -10,6 +10,9 @@
  *   - authored course vocab   → `getNormalizedCourseAtoms(id)` (surface /
  *     reading / meaning / module) + `getCourseAtoms(id)` (part of speech).
  *   - frequency vocab         → `getFrequencyAtoms(id)` (rank + unlock module).
+ *   - taught lexicon          → `getTaughtLexiconSeeds(id)` — whole conjugated
+ *     / bound surfaces the course teaches but never atomizes, which the
+ *     tokenizer would otherwise shred into pieces (see `taughtLexicon.ts`).
  * unioned and deduped by canonical id: a word in both keeps the course
  * definition/reading and gains the frequency rank (`source: "both"`).
  *
@@ -26,6 +29,7 @@ import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms
 import { getFrequencyAtoms } from "@/features/languages/frequencyResolver";
 import type { ConjugationTable, PartOfSpeech } from "@/shared/language/types";
 import { getTtsUrl } from "@/shared/tts";
+import { getTaughtLexiconSeeds } from "./taughtLexicon";
 import { foldText } from "./normalize";
 import type {
   DictionaryEntry,
@@ -263,7 +267,60 @@ function buildIndex(languageId: string): DictionaryIndex {
     entries.push(entry);
   }
 
-  // 3. Lookup / search indexes.
+  // 3. Taught-lexicon surfaces — whole conjugated / bound / fused forms the
+  //    course teaches in its lessons but never registers as atoms (`나요`,
+  //    `괜찮을`, `막혔거든요`). Without an entry the tokenizer shreds them into
+  //    their pieces and the learner gets two wrong answers for one taught word.
+  //    See `taughtLexicon.ts`.
+  //
+  //    Reading comes from the language module's annotator (Revised
+  //    Romanization for KO), so no per-language branch lands here.
+  const annotate = module?.readingAnnotation?.annotate;
+  const deriveReading = (surface: string): string => {
+    const fragments = annotate?.(surface) ?? [];
+    if (fragments.length === 0) return surface;
+    return fragments.map((f) => f.reading ?? f.text).join("");
+  };
+  const priorBySurface = new Map<string, DictionaryEntry[]>();
+  for (const entry of entries) pushMulti(priorBySurface, entry.surface, entry);
+  for (const seed of getTaughtLexiconSeeds(languageId)) {
+    const prior = priorBySurface.get(seed.surface) ?? [];
+    // The curriculum's own atom always wins: the lexicon SUPPLEMENTS the atom
+    // registry (that is its whole definition), so restating a surface the
+    // registry already defines would only double it in the browse list.
+    if (prior.some((e) => e.source !== "frequency")) continue;
+    // Nor is a frequency entry that already says this worth a second row —
+    // same subset test `dedupeSenses` uses, so a genuinely new sense (`보고`
+    // "seeing" next to "report") is still added.
+    const cores = meaningCores(seed.meaningEn);
+    if (
+      cores.length > 0 &&
+      prior.some((e) => {
+        const priorCores = meaningCores(e.meaningEn);
+        return cores.every((c) => priorCores.includes(c));
+      })
+    ) {
+      continue;
+    }
+    if (byId.has(seed.id)) continue;
+    const entry: DictionaryEntry = {
+      id: seed.id,
+      languageId,
+      surface: seed.surface,
+      reading: seed.reading ?? deriveReading(seed.surface),
+      meaningEn: seed.meaningEn,
+      pos: seed.pos,
+      unlockModule: seed.module,
+      // Course-taught, just not atomized — and `compareForLookup` needs it out
+      // of the frequency tier so the taught sense answers a tap first.
+      source: "course",
+      hasAudio: hasAudio(seed.surface),
+    };
+    byId.set(entry.id, entry);
+    entries.push(entry);
+  }
+
+  // 4. Lookup / search indexes.
   const bySurface = new Map<string, DictionaryEntry[]>();
   const byFoldedSurface = new Map<string, DictionaryEntry[]>();
   const byFoldedReading = new Map<string, DictionaryEntry[]>();
