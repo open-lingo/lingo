@@ -26,8 +26,8 @@ export function SidebarNav() {
         <span
           className="inline-block h-7 w-7 shrink-0 bg-current"
           style={{
-            maskImage: "url('/icon.ico')",
-            WebkitMaskImage: "url('/icon.ico')",
+            maskImage: "url('/mark.png')",
+            WebkitMaskImage: "url('/mark.png')",
             maskSize: "contain",
             WebkitMaskSize: "contain",
             maskRepeat: "no-repeat",
