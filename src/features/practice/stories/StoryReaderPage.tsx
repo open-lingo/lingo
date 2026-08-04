@@ -11,14 +11,14 @@
  * SRS credit requires PASSING the comprehension check. The old surface credited
  * a bare "mark as read" identically to a perfect quiz.
  */
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { Card, Button, EmptyState } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { Icon } from "@/shared/components/Icon";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
-import { playJaAudio, playJaAudioToEnd } from "@/shared/tts";
+import { playJaAudio, playJaAudioToEnd, stopAllAudio } from "@/shared/tts";
 import { allStories } from "@/features/practice/content";
 import { getKnownAtomsByPos } from "@/features/practice/engine";
 import { getCardState, setCardState, gradeFromLesson } from "@/features/flashcards/engine";
@@ -162,22 +162,50 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
     [story, knownContent, originNode],
   );
 
-  const playAll = useCallback(async () => {
-    if (!story) return;
-    if (playing.current) {
-      playing.current = false;
-      setPlayingIndex(null);
-      return;
-    }
+  /**
+   * Halt a run-through immediately: break the loop between lines AND cut the
+   * line already sounding. The old toggle only did the former, so pressing
+   * "stop" mid-sentence still let that sentence finish.
+   */
+  const stopReadThrough = useCallback(() => {
+    playing.current = false;
+    setPlayingIndex(null);
+    stopAllAudio();
+  }, []);
+
+  const startReadThrough = useCallback(async () => {
+    if (!story || playing.current) return;
     playing.current = true;
     for (let i = 0; i < story.sentences.length; i++) {
       if (!playing.current) break;
       setPlayingIndex(i);
       await playJaAudioToEnd(story.sentences[i].text, langId);
     }
+    // A stop (or an unmount) already cleared the highlight and owns the ref —
+    // don't stomp a run the learner may have restarted in the meantime.
+    if (!playing.current) return;
     playing.current = false;
     setPlayingIndex(null);
   }, [story, langId]);
+
+  const toggleReadThrough = useCallback(() => {
+    if (playing.current) {
+      stopReadThrough();
+      return;
+    }
+    void startReadThrough();
+  }, [startReadThrough, stopReadThrough]);
+
+  // Leaving the reader silences it. The app shell also stops audio on every
+  // route change, but the loop is this component's own — nothing outside it
+  // can break it, and a detached loop would keep starting fresh clips.
+  useEffect(
+    () => () => {
+      playing.current = false;
+      stopAllAudio();
+    },
+    [],
+  );
 
   const backLink = (
     <Link
@@ -267,22 +295,16 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
     );
   }
 
+  const isReading = playingIndex !== null;
+
   return (
-    <div className="space-y-4">
+    // Bottom padding clears the floating read-aloud pill, so the last
+    // paragraph and the finish button are never parked underneath it.
+    <div className="space-y-4 pb-16">
       <div className="flex items-center justify-between gap-3">
         {backLink}
         <div className="flex items-center gap-1">
           <StoryFontSizeControl />
-          <button
-            type="button"
-            onClick={() => void playAll()}
-            className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium text-text-secondary transition hover:text-text-primary"
-          >
-            <Icon name={playingIndex === null ? "play" : "pause"} size={14} aria-hidden />
-            {playingIndex === null
-              ? t("practice.stories.playAll", { defaultValue: "Play all" })
-              : t("practice.stories.stop", { defaultValue: "Stop" })}
-          </button>
           <button
             type="button"
             onClick={() => setShowEnglish((v) => !v)}
@@ -311,14 +333,25 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
           showRomaji={showRomaji}
           showTranslations={showEnglish}
           playingIndex={playingIndex}
-          onPlaySentence={(i) => void playJaAudio(story.sentences[i].text, langId)}
+          // One sentence on demand ends the run-through rather than fighting
+          // it for the single audio channel.
+          onPlaySentence={(i) => {
+            stopReadThrough();
+            void playJaAudio(story.sentences[i].text, langId);
+          }}
           fontScale={fontScale}
         />
       </Card>
 
       <div className="flex justify-end">
         {questions.length > 0 ? (
-          <Button variant="primary" onClick={() => setPhase("quiz")}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              stopReadThrough();
+              setPhase("quiz");
+            }}
+          >
             {t("practice.stories.check", { defaultValue: "Check understanding" })}
             <Icon name="arrowRight" size={16} className="ml-1.5" aria-hidden />
           </Button>
@@ -326,6 +359,7 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
           <Button
             variant="primary"
             onClick={() => {
+              stopReadThrough();
               finish();
               setPhase("done");
             }}
@@ -335,6 +369,21 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
           </Button>
         )}
       </div>
+
+      {/* The one persistent audio control. A 30-sentence story scrolls the
+          header out of reach, and the run-through had no visible stop once
+          it was under way — the toggle only ever lived up there. */}
+      <button
+        type="button"
+        onClick={toggleReadThrough}
+        aria-pressed={isReading}
+        className="fixed bottom-safe-4 left-1/2 z-30 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-surface-elevated px-4 py-2.5 text-sm font-medium text-text-primary shadow-popover transition hover:bg-surface-muted"
+      >
+        <Icon name={isReading ? "stop" : "play"} size={16} aria-hidden />
+        {isReading
+          ? t("practice.stories.stopReading", { defaultValue: "Stop reading" })
+          : t("practice.stories.readAloud", { defaultValue: "Read aloud" })}
+      </button>
 
       {wordSheet}
     </div>

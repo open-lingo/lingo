@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 vi.mock("@/features/practice/useCourseLevel", () => ({ useCourseLevel: () => 27 }));
@@ -16,6 +16,7 @@ vi.mock("@/shared/tts", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/shared/tts")>()),
   playJaAudio: vi.fn(),
   playJaAudioToEnd: vi.fn(),
+  stopAllAudio: vi.fn(),
 }));
 const openWord = vi.fn();
 vi.mock("@/features/dictionary/DictionaryModalContext", () => ({
@@ -178,6 +179,72 @@ describe("StoryReaderPage word lookup", () => {
     // default, so a glossed word must never route past its own sheet.
     expect(openWord).not.toHaveBeenCalled();
     expect(screen.getByText(words.get(mapped!.textContent!)!.meaning)).toBeTruthy();
+  });
+});
+
+describe("StoryReaderPage read-aloud pill", () => {
+  /** The play-all loop chains on `playJaAudioToEnd`; hold one line open so the
+   *  run-through is observably mid-flight instead of finishing in a microtask. */
+  async function startHeldReadThrough() {
+    const { playJaAudioToEnd } = await import("@/shared/tts");
+    let release: () => void = () => {};
+    (playJaAudioToEnd as unknown as Mock).mockImplementation(
+      () => new Promise<void>((resolve) => (release = resolve)),
+    );
+    const view = renderReader();
+    fireEvent.click(screen.getByRole("button", { name: /Read aloud/i }));
+    return {
+      view,
+      playJaAudioToEnd: playJaAudioToEnd as unknown as Mock,
+      release: () => release(),
+    };
+  }
+
+  beforeEach(async () => {
+    const { playJaAudioToEnd, stopAllAudio } = await import("@/shared/tts");
+    (playJaAudioToEnd as unknown as Mock).mockReset();
+    (playJaAudioToEnd as unknown as Mock).mockResolvedValue(undefined);
+    (stopAllAudio as unknown as Mock).mockClear();
+  });
+
+  it("offers the read-through from a pill and flips it to a stop while running", async () => {
+    const { playJaAudioToEnd } = await startHeldReadThrough();
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: /Stop reading/i })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /Read aloud/i })).toBeNull();
+  });
+
+  it("halts the loop and clears the highlight when stopped", async () => {
+    const { playJaAudioToEnd, release } = await startHeldReadThrough();
+    const { stopAllAudio } = await import("@/shared/tts");
+
+    fireEvent.click(screen.getByRole("button", { name: /Stop reading/i }));
+    // The line already sounding is cut, not left to finish.
+    expect(stopAllAudio).toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: /Read aloud/i })).toBeTruthy();
+
+    // Releasing the held line must NOT let the loop walk on to sentence two.
+    await act(async () => {
+      release();
+    });
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: /Read aloud/i })).toBeTruthy();
+  });
+
+  it("silences playback when the reader unmounts", async () => {
+    const { view, playJaAudioToEnd, release } = await startHeldReadThrough();
+    const { stopAllAudio } = await import("@/shared/tts");
+    (stopAllAudio as unknown as Mock).mockClear();
+
+    // The shell stops audio on navigation too, but a detached loop would keep
+    // starting fresh clips — the reader can't lean on that alone.
+    view.unmount();
+    expect(stopAllAudio).toHaveBeenCalled();
+
+    await act(async () => {
+      release();
+    });
+    expect(playJaAudioToEnd).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -743,6 +743,8 @@
       "playWord": "Escuchar",
       "playAll": "Reproducir todo",
       "stop": "Detener",
+      "readAloud": "Leer en voz alta",
+      "stopReading": "Detener lectura",
       "addWord": "Añadir a mis palabras",
       "wordAdded": "Ya en tus palabras",
       "showEnglish": "Mostrar inglés",

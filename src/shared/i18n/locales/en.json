@@ -743,6 +743,8 @@
       "playWord": "Play audio",
       "playAll": "Play all",
       "stop": "Stop",
+      "readAloud": "Read aloud",
+      "stopReading": "Stop reading",
       "addWord": "Add to my words",
       "wordAdded": "In your words",
       "showEnglish": "Show English",

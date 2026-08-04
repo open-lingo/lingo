@@ -743,6 +743,8 @@
       "playWord": "소리 듣기",
       "playAll": "전체 듣기",
       "stop": "정지",
+      "readAloud": "소리 내어 읽기",
+      "stopReading": "읽기 정지",
       "addWord": "내 단어에 추가",
       "wordAdded": "내 단어에 있음",
       "showEnglish": "영어 보기",

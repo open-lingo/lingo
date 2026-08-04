@@ -202,6 +202,8 @@ export const iconRegistry = {
   /** "A+" — step the story reader's text size up. */
   textLarger: AArrowUp,
   pause: Pause,
+  /** Filled-square stop — a run-through that ends and rewinds, not a pause. */
+  stop: Square,
   upload: Upload,
   copy: Copy,
   chevronUp: ChevronUp,
