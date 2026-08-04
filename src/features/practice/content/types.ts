@@ -38,6 +38,18 @@ export interface StorySentence {
    * the speaker. There is no reliable detection, so it is data.
    */
   speaker?: string;
+  /**
+   * Start a NEW paragraph at this sentence. Narration otherwise collapses into
+   * one block per uninterrupted run (`groupStoryBlocks`), which is right for a
+   * six-sentence story and a wall of text for a thirty-sentence one — a long
+   * narrative needs internal breaks where the scene, time or subject turns.
+   *
+   * Presentation only, exactly like `speaker`: it changes where the prose
+   * breaks, never what the learner has to decode, so it is invisible to the
+   * comprehensibility gate. Absent = keep flowing (the default, and what every
+   * sentence did before this field existed).
+   */
+  break?: true;
 }
 
 /** Story difficulty, independent of the module that unlocks it. */

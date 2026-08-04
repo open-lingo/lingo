@@ -45,6 +45,30 @@ describe("groupStoryBlocks", () => {
   it("returns no blocks for an empty story", () => {
     expect(groupStoryBlocks([])).toEqual([]);
   });
+
+  it("starts a new narration block on an authored break", () => {
+    const blocks = groupStoryBlocks([s("a"), { ...s("b"), break: true }, s("c")]);
+    expect(blocks.map((b) => b.kind)).toEqual(["narration", "narration"]);
+    expect(blocks[0].items.map((i) => i.sentence.text)).toEqual(["a"]);
+    expect(blocks[1].items.map((i) => i.sentence.text)).toEqual(["b", "c"]);
+  });
+
+  it("breaks a same-speaker run too, and keeps the speaker", () => {
+    const blocks = groupStoryBlocks([
+      s("hi", "ケン"),
+      { ...s("again", "ケン"), break: true },
+    ]);
+    expect(blocks).toHaveLength(2);
+    expect(blocks.map((b) => (b.kind === "speech" ? b.speaker : null))).toEqual([
+      "ケン",
+      "ケン",
+    ]);
+  });
+
+  it("preserves indices across a break", () => {
+    const blocks = groupStoryBlocks([s("a"), { ...s("b"), break: true }, s("c")]);
+    expect(blocks.flatMap((b) => b.items.map((i) => i.index))).toEqual([0, 1, 2]);
+  });
 });
 
 describe("hasDialogue", () => {

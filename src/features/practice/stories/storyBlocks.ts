@@ -34,7 +34,9 @@ export type StoryBlock =
 
 /**
  * Group a story's sentences into narration paragraphs and speech blocks.
- * Order is preserved exactly; no sentence is dropped or duplicated.
+ * Order is preserved exactly; no sentence is dropped or duplicated. A sentence
+ * flagged `break: true` always opens a new block, so authors can paragraph a
+ * long narration without inventing a fake speaker.
  */
 export function groupStoryBlocks(sentences: readonly StorySentence[]): StoryBlock[] {
   const blocks: StoryBlock[] = [];
@@ -46,9 +48,13 @@ export function groupStoryBlocks(sentences: readonly StorySentence[]): StoryBloc
     const last = blocks[blocks.length - 1];
 
     // Extend the open block when this sentence belongs to it: narration after
-    // narration, or speech that continues the SAME speaker's turn.
+    // narration, or speech that continues the SAME speaker's turn. An authored
+    // `break` opts out — it forces a paragraph boundary here even though the
+    // run would otherwise continue, which is the only way a long narration
+    // gets internal paragraphs.
     if (
       last &&
+      !sentence.break &&
       ((!speaker && last.kind === "narration") ||
         (speaker && last.kind === "speech" && last.speaker === speaker))
     ) {
