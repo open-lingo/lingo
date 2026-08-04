@@ -13,7 +13,7 @@
  */
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, Button, EmptyState } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { Icon } from "@/shared/components/Icon";
@@ -32,9 +32,19 @@ import { useShowReadingRomaji } from "@/features/practice/reading/useShowReading
 
 const TURN_GAP_MS = 500;
 
-export function ConversationReaderPage() {
+interface ConversationReaderPageProps {
+  /**
+   * The conversation to read. Resolved from the route by `ReadingRoute`, not
+   * read from `useParams` here — one route serves stories AND conversations,
+   * so the id has to be matched against the content before a reader is chosen.
+   */
+  conversationId: string;
+}
+
+export function ConversationReaderPage({
+  conversationId,
+}: ConversationReaderPageProps) {
   const { t } = useTranslation();
-  const { conversationId } = useParams<{ conversationId: string }>();
   const langId = useLang();
   const langPath = useLangPath();
   const ttsLang = getTtsLang(langId);

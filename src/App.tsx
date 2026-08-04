@@ -128,13 +128,10 @@ const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 const StoryLibraryPage = lazyRetry(() =>
   import("@/features/practice/stories/StoryLibraryPage").then((m) => ({ default: m.StoryLibraryPage })),
 );
-const StoryReaderPage = lazyRetry(() =>
-  import("@/features/practice/stories/StoryReaderPage").then((m) => ({ default: m.StoryReaderPage })),
-);
-const ConversationReaderPage = lazyRetry(() =>
-  import("@/features/practice/stories/ConversationReaderPage").then((m) => ({
-    default: m.ConversationReaderPage,
-  })),
+// One reader route for the whole library — it resolves the id to a story or a
+// conversation and renders the matching reader. See `ReadingRoute`.
+const ReadingRoute = lazyRetry(() =>
+  import("@/features/practice/stories/ReadingRoute").then((m) => ({ default: m.ReadingRoute })),
 );
 const PracticeGrammarPage = lazyRetry(() =>
   import("@/features/practice/PracticeGrammarPage").then((m) => ({ default: m.PracticeGrammarPage })),
@@ -512,10 +509,7 @@ const router = createBrowserRouter([
                   { path: "flashcards/decks", element: <DeckManagerPage /> },
                   { path: "flashcards", element: <FlashcardsPage /> },
                   { path: "stories", element: <StoryLibraryPage /> },
-                  // `c/` before the bare `:storyId` — two segments, so a
-                  // conversation id can never be read as a story id.
-                  { path: "stories/c/:conversationId", element: <ConversationReaderPage /> },
-                  { path: "stories/:storyId", element: <StoryReaderPage /> },
+                  { path: "stories/:storyId", element: <ReadingRoute /> },
                   { path: "grammar/particles", element: <ParticlePracticePage /> },
                   { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
                   { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },

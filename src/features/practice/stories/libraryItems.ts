@@ -92,10 +92,8 @@ export function conversationToLibraryItem(conv: Conversation): LibraryItem {
     lineCount: conv.lines.length,
     peekText: conv.lines[0]?.text ?? "",
     peekTranslation: conv.lines[0]?.translation ?? "",
-    // The `c/` segment is what keeps a conversation id from ever colliding
-    // with a story id: story routes are one segment under `stories/`, and no
-    // authored story is called "c".
-    path: `practice/stories/c/${conv.id}`,
+    // Same route as a story — the id IS the discriminator (see `ReadingRoute`).
+    path: `practice/stories/${conv.id}`,
   };
 }
 

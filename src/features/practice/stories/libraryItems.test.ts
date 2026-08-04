@@ -31,9 +31,12 @@ describe("buildLibraryItems", () => {
     expect(items.map((i) => i.kind).sort()).toEqual(["conversation", "story"]);
   });
 
-  it("routes conversations to the disambiguated c/ path", () => {
+  // Stories and conversations share one reader route — the id is the
+  // discriminator, so a conversation gets the same one-segment path a story
+  // does (no `c/` crumb that goes nowhere).
+  it("routes conversations to the same path shape as stories", () => {
     const [item] = buildLibraryItems([], [conv("c1", 5)], unread);
-    expect(item.path).toBe("practice/stories/c/c1");
+    expect(item.path).toBe("practice/stories/c1");
   });
 
   it("sorts unread first, then newest module, then hardest level", () => {

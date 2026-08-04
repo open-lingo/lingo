@@ -13,7 +13,7 @@
  */
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Card, Button, EmptyState } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { Icon } from "@/shared/components/Icon";
@@ -51,9 +51,17 @@ function creditSrs(atomIds: string[]): void {
   }
 }
 
-export function StoryReaderPage() {
+interface StoryReaderPageProps {
+  /**
+   * The story to read. Resolved from the route by `ReadingRoute`, not read
+   * from `useParams` here — one route serves stories AND conversations, so the
+   * id has to be matched against the content before a reader is chosen.
+   */
+  storyId: string;
+}
+
+export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
   const { t } = useTranslation();
-  const { storyId } = useParams<{ storyId: string }>();
   // Present only when the learner arrived from a Learn pathway story node —
   // the id of that node, which `finish` marks complete. A library re-read has
   // no `node` and so never touches course progress.

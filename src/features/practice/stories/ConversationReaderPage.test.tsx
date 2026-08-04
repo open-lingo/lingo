@@ -25,11 +25,11 @@ const first = allConversations("ja")[0];
 
 function renderReader(id = first.id) {
   return render(
-    <MemoryRouter initialEntries={[`/ja/practice/stories/c/${id}`]}>
+    <MemoryRouter initialEntries={[`/ja/practice/stories/${id}`]}>
       <Routes>
         <Route
-          path="/ja/practice/stories/c/:conversationId"
-          element={<ConversationReaderPage />}
+          path="/ja/practice/stories/:storyId"
+          element={<ConversationReaderPage conversationId={id} />}
         />
       </Routes>
     </MemoryRouter>,

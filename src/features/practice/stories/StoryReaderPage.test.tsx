@@ -57,7 +57,10 @@ function renderReader(storyId = "ja-m3-about-me", lang = "ja") {
   return render(
     <MemoryRouter initialEntries={[`/${lang}/practice/stories/${storyId}`]}>
       <Routes>
-        <Route path="/:lang/practice/stories/:storyId" element={<StoryReaderPage />} />
+        <Route
+          path="/:lang/practice/stories/:storyId"
+          element={<StoryReaderPage storyId={storyId} />}
+        />
       </Routes>
     </MemoryRouter>,
   );
