@@ -4,6 +4,7 @@ import {
   foldText,
   getDictionaryEntries,
   lookupWord,
+  lookupWordSenses,
   searchDictionary,
   type DictionaryEntry,
 } from "./index";
@@ -98,6 +99,57 @@ describe("lookupWord", () => {
   it("unknown word → null; empty query → null", () => {
     expect(lookupWord("ja", "zzzznotaword")).toBeNull();
     expect(lookupWord("ja", "")).toBeNull();
+  });
+});
+
+describe("homographs — lookupWordSenses", () => {
+  // 열 is "ten" (M5 numbers) AND "fever" (M20 health). Both are used in
+  // authored KO content — 열 시에 ("at ten o'clock") and 열이 나요 ("has a
+  // fever") — so answering a tap with one sense was confidently WRONG half the
+  // time, with nothing on screen to tell the learner it was wrong.
+  it("열 exposes the fever sense alongside the number sense", () => {
+    const senses = lookupWordSenses("ko", "열");
+    const meanings = senses.map((s) => s.meaningEn.toLowerCase());
+    expect(meanings.some((m) => m.includes("ten"))).toBe(true);
+    expect(meanings.some((m) => m.includes("fever"))).toBe(true);
+  });
+
+  it("the number sense stays primary and is the course-taught gloss", () => {
+    const primary = lookupWord("ko", "열");
+    expect(primary?.id).toBe("ko:열");
+    expect(primary?.meaningEn).toBe("ten (10, native)");
+    expect(primary?.source).toBe("course");
+  });
+
+  it("collapses the duplicate 'ten' sense arriving from the frequency list", () => {
+    // Course "ten (10, native)" covers frequency "ten"; only the genuinely new
+    // fever sense survives beside it.
+    expect(lookupWordSenses("ko", "열").map((s) => s.id)).toEqual([
+      "ko:열",
+      "ko:열-07",
+    ]);
+  });
+
+  it("prefers the course-taught sense over an unrelated frequency homograph", () => {
+    // 도 is the taught "also / too" particle; the frequency list also carries
+    // 도 "degree" / "province", which used to win on rank alone.
+    expect(lookupWord("ko", "도")?.meaningEn).toBe("also / too");
+    // 눈 has no course entry — both senses are frequency, both reachable.
+    const nun = lookupWordSenses("ko", "눈").map((s) => s.meaningEn);
+    expect(nun).toContain("eye");
+    expect(nun).toContain("snow");
+  });
+
+  it("a single-sense word yields exactly one sense; unknown yields []", () => {
+    expect(lookupWordSenses("ja", "あい").map((e) => e.id)).toEqual(["ja:ai"]);
+    expect(lookupWordSenses("ja", "zzzznotaword")).toEqual([]);
+    expect(lookupWordSenses("ja", "")).toEqual([]);
+  });
+
+  it("resolves senses through the reading fold, like lookupWord", () => {
+    expect(lookupWordSenses("ko", "yeol").map((s) => s.id)).toEqual(
+      lookupWordSenses("ko", "열").map((s) => s.id),
+    );
   });
 });
 

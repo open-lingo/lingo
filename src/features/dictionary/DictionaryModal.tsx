@@ -4,7 +4,7 @@ import { Modal, SearchInput, EmptyState } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import {
-  lookupWord,
+  lookupWordSenses,
   searchDictionary,
   type DictionaryEntry,
 } from "@/shared/dictionary";
@@ -33,6 +33,11 @@ type Props = {
  *    reached by clicking a result or by opening directly to a word. A header
  *    back button returns to the search view.
  *
+ * A homograph shows its OTHER senses under the detail. One entry carries one
+ * meaning, so answering a tap with a single entry told a learner reading
+ * 열이 나요 ("has a fever") that 열 means "ten" — confidently wrong, and
+ * unfalsifiable from their side. The alternates are always one tap away.
+ *
  * Opened directly to a word that isn't found renders a graceful not-found
  * state carrying the query.
  */
@@ -50,7 +55,7 @@ export function DictionaryModal({ open, onClose, initialWord }: Props) {
     if (!open) return;
     setQuery("");
     if (initialWord) {
-      const entry = lookupWord(activeLang, initialWord);
+      const entry = lookupWordSenses(activeLang, initialWord)[0] ?? null;
       setSelected(entry);
       setNotFound(entry ? null : initialWord);
     } else {
@@ -63,6 +68,22 @@ export function DictionaryModal({ open, onClose, initialWord }: Props) {
   const results = useMemo(
     () => (trimmed ? searchDictionary(activeLang, trimmed, { limit: SEARCH_LIMIT }) : []),
     [activeLang, trimmed],
+  );
+
+  // Sibling senses of whatever is on screen — resolved from the surface, so it
+  // works for a tapped word and for an entry reached through search alike.
+  // Compared by IDENTITY, not id: the course data registers distinct senses of
+  // one surface under the same atom id (KO 저 is both "I / me" and "that over
+  // there" as `ko:저`), so filtering by id would drop a sibling sense as well
+  // as the selected one. The index hands out stable objects, so `!==` is exact.
+  const otherSenses = useMemo(
+    () =>
+      selected
+        ? lookupWordSenses(activeLang, selected.surface).filter(
+            (e) => e !== selected,
+          )
+        : [],
+    [activeLang, selected],
   );
 
   const showingDetail = selected !== null || notFound !== null;
@@ -97,14 +118,31 @@ export function DictionaryModal({ open, onClose, initialWord }: Props) {
     >
       {showingDetail ? (
         selected ? (
-          <DictionaryEntryDetail
-            entry={selected}
-            conjugationTo={
-              selected.conjugation
-                ? langPath("practice/grammar/conjugation")
-                : undefined
-            }
-          />
+          <div className="space-y-5">
+            <DictionaryEntryDetail
+              entry={selected}
+              conjugationTo={
+                selected.conjugation
+                  ? langPath("practice/grammar/conjugation")
+                  : undefined
+              }
+            />
+            {otherSenses.length > 0 && (
+              <section className="border-t border-border pt-4">
+                <p className="mb-2 text-xs uppercase tracking-wider text-text-muted">
+                  {t(
+                    "dictionary.otherMeanings",
+                    "{{word}} also means",
+                    { word: selected.surface },
+                  )}
+                </p>
+                <DictionaryResultsList
+                  entries={otherSenses}
+                  onOpen={setSelected}
+                />
+              </section>
+            )}
+          </div>
         ) : (
           <EmptyState
             icon={<Icon name="search" size={28} />}

@@ -64,8 +64,11 @@ export function DictionaryResultsList({
   const { t } = useTranslation();
   return (
     <ul className="space-y-2">
+      {/* Keyed by id AND meaning: the course data registers several senses of
+          one surface under a single atom id (KO 이 = "two" / "this" / subject
+          marker), so `id` alone is not unique in a sense list. */}
       {entries.map((entry) => (
-        <li key={entry.id}>
+        <li key={`${entry.id}|${entry.meaningEn}`}>
           <DictionaryEntryRow
             entry={entry}
             onOpen={() => onOpen(entry)}

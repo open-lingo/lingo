@@ -112,6 +112,72 @@ function compareByFrequency(a: DictionaryEntry, b: DictionaryEntry): number {
   return a.surface.localeCompare(b.surface);
 }
 
+/**
+ * Lookup ordering — used when RESOLVING A TAPPED WORD, which is a different
+ * question from "how should the browse list be sorted".
+ *
+ * Authored course entries come first: for a homograph the learner met in course
+ * content, the sense the curriculum taught is the sense they are looking at.
+ * Ordering by frequency rank alone put every course entry LAST (they carry no
+ * rank), so tapping 도 answered "degree" instead of the particle "also / too".
+ *
+ * Within a tier the earlier-taught sense wins: two course senses of one surface
+ * (JA かぜ is both "wind" and "a cold") are otherwise ordered by nothing at
+ * all, and the sense introduced earlier is the one the learner is more likely
+ * reading. Frequency order breaks any remaining tie.
+ */
+function compareForLookup(a: DictionaryEntry, b: DictionaryEntry): number {
+  const fa = a.source === "frequency" ? 1 : 0;
+  const fb = b.source === "frequency" ? 1 : 0;
+  if (fa !== fb) return fa - fb;
+  const ma = moduleNumber(a.unlockModule);
+  const mb = moduleNumber(b.unlockModule);
+  if (ma !== mb) return ma - mb;
+  return compareByFrequency(a, b);
+}
+
+/**
+ * The distinct meanings a gloss carries, normalized for comparison: drop
+ * parenthesised qualifiers, split on the separators glosses use, and strip a
+ * leading article / infinitive marker.
+ *
+ *   "ten (10, native)" → ["ten"]
+ *   "fever / heat"     → ["fever", "heat"]
+ *   "to be, to have"   → ["be", "have"]
+ */
+function meaningCores(meaningEn: string): string[] {
+  return meaningEn
+    .replace(/\([^)]*\)/g, " ")
+    .split(/[/;,]/)
+    .map((part) => foldText(part.replace(/^\s*(?:to|an?|the)\s+/i, "")))
+    .filter(Boolean);
+}
+
+/**
+ * Collapse entries for one surface that say the SAME thing from two sources.
+ *
+ * A word can appear as both an authored course atom and a frequency atom with
+ * ids that don't match (`ko:열` vs `ko:열-03`), so the id-level merge in
+ * `buildIndex` never fires and the sense list would read "ten" twice. An entry
+ * is dropped only when EVERY one of its meanings is already covered by an
+ * earlier (better-ranked) entry — a subset test, so a genuinely new sense such
+ * as 열 "fever / heat" is never lost.
+ */
+function dedupeSenses(ranked: DictionaryEntry[]): DictionaryEntry[] {
+  const kept: DictionaryEntry[] = [];
+  const keptCores: string[][] = [];
+  for (const entry of ranked) {
+    const cores = meaningCores(entry.meaningEn);
+    const covered =
+      cores.length > 0 &&
+      keptCores.some((prior) => cores.every((c) => prior.includes(c)));
+    if (covered) continue;
+    kept.push(entry);
+    keptCores.push(cores);
+  }
+  return kept;
+}
+
 /** Push `entry` under `key` in a multimap. */
 function pushMulti(
   map: Map<string, DictionaryEntry[]>,
@@ -227,35 +293,58 @@ function getIndex(languageId: string): DictionaryIndex {
   return built;
 }
 
-/** Best (most frequent, course-first) entry from a candidate list. */
-function bestOf(candidates: DictionaryEntry[] | undefined): DictionaryEntry | null {
-  if (!candidates || candidates.length === 0) return null;
-  return [...candidates].sort(compareByFrequency)[0];
+/** First non-empty candidate bucket for a surface, or `undefined`. */
+function candidatesFor(
+  idx: DictionaryIndex,
+  surface: string,
+): DictionaryEntry[] | undefined {
+  const exact = idx.bySurface.get(surface);
+  if (exact && exact.length > 0) return exact;
+  const folded = foldText(surface);
+  if (!folded) return undefined;
+  const byFolded = idx.byFoldedSurface.get(folded);
+  if (byFolded && byFolded.length > 0) return byFolded;
+  const byReading = idx.byFoldedReading.get(folded);
+  return byReading && byReading.length > 0 ? byReading : undefined;
 }
 
 // ── Public API ─────────────────────────────────────────────────────────────
 
 /**
+ * EVERY sense a surface has, best first — the honest answer for a homograph.
+ *
+ * One `DictionaryEntry` carries exactly one meaning, but a surface may have
+ * several entries (Korean 열 is both "ten" and "fever"; 눈 is "eye" and
+ * "snow"). Collapsing that to a single entry made the tap-a-word path answer
+ * CONFIDENTLY WRONG — a learner reading 열이 나요 was told "ten", with no way
+ * to tell it was the wrong sense. Callers that show a word to a learner should
+ * use this and surface the alternates.
+ *
+ * Resolution order matches {@link lookupWord}: exact raw surface, folded
+ * surface, then folded reading. Duplicate senses arriving from two sources are
+ * collapsed (see `dedupeSenses`). Unknown surface → `[]`.
+ */
+export function lookupWordSenses(
+  languageId: string,
+  surface: string,
+): DictionaryEntry[] {
+  if (!surface) return [];
+  const candidates = candidatesFor(getIndex(languageId), surface);
+  if (!candidates) return [];
+  return dedupeSenses([...candidates].sort(compareForLookup));
+}
+
+/**
  * Exact-or-normalized surface lookup — the on-the-fly path (e.g. tapping a word
- * in a story). Tries, in order: exact raw surface, folded surface, folded
- * reading (so a romaji/RR query resolves to the target-script word). Returns
- * the most-frequent matching entry, or `null` if unknown.
+ * in a story). Returns the BEST sense (see `compareForLookup`), or `null` if
+ * unknown. For a homograph this is only one of several meanings; prefer
+ * {@link lookupWordSenses} anywhere a learner sees the result.
  */
 export function lookupWord(
   languageId: string,
   surface: string,
 ): DictionaryEntry | null {
-  if (!surface) return null;
-  const idx = getIndex(languageId);
-  const exact = bestOf(idx.bySurface.get(surface));
-  if (exact) return exact;
-  const folded = foldText(surface);
-  if (!folded) return null;
-  return (
-    bestOf(idx.byFoldedSurface.get(folded)) ??
-    bestOf(idx.byFoldedReading.get(folded)) ??
-    null
-  );
+  return lookupWordSenses(languageId, surface)[0] ?? null;
 }
 
 /**

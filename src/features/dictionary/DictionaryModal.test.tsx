@@ -115,4 +115,27 @@ describe("DictionaryModal", () => {
     const dialog = within(screen.getByRole("dialog"));
     expect(dialog.getByText(target.meaningEn)).toBeInTheDocument();
   });
+
+  // 열 is "ten" in 열 시에 ("at ten o'clock") and "fever" in 열이 나요 ("has a
+  // fever"). Both appear in authored KO content, so a learner who taps it in
+  // the fever line must be able to REACH the fever sense — a lone "ten" is a
+  // confidently wrong answer they have no way to falsify.
+  describe("homograph 열", () => {
+    it("shows the taught number sense and offers the fever sense", () => {
+      renderModal("ko", "열");
+      const dialog = within(screen.getByRole("dialog"));
+      expect(dialog.getByText("ten (10, native)")).toBeInTheDocument();
+      expect(dialog.getByText("열 also means")).toBeInTheDocument();
+      expect(dialog.getByText("fever / heat")).toBeInTheDocument();
+    });
+
+    it("drills into the fever sense, which links back to the number sense", () => {
+      renderModal("ko", "열");
+      const dialog = within(screen.getByRole("dialog"));
+
+      fireEvent.click(dialog.getByText("fever / heat").closest("button")!);
+      expect(dialog.getByText("열 also means")).toBeInTheDocument();
+      expect(dialog.getByText("ten (10, native)")).toBeInTheDocument();
+    });
+  });
 });
