@@ -697,7 +697,7 @@
       "cloze": {
         "empty": {
           "title": "Aún no hay ejercicios de huecos",
-          "description": "Aprende algunas palabras más y convertiremos tu lectura en práctica de completar huecos."
+          "description": "Todavía no tenemos ejercicios de huecos para tus lecturas. Cada opción incorrecta tiene que ser una palabra que de verdad podrías confundir con la respuesta, y este contenido no tiene suficientes pares así, así que preferimos no mostrarte nada antes que una pregunta sin valor."
         },
         "doneTitle": "Sesión completa",
         "doneScore": "Completaste correctamente {{correct}} de {{total}}.",

@@ -697,7 +697,7 @@
       "cloze": {
         "empty": {
           "title": "No fill-the-blanks yet",
-          "description": "Learn a few more words and we'll turn your reading into fill-the-blank practice."
+          "description": "We don't have fill-the-blank items for your reading yet. Every wrong option has to be a word you could genuinely mix up with the answer, and this content doesn't have enough of those pairs — so we'd rather show you nothing than a throwaway question."
         },
         "doneTitle": "Session complete",
         "doneScore": "You filled {{correct}} of {{total}} correctly.",

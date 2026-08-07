@@ -108,6 +108,11 @@ export function ClozePracticePage() {
     </div>
   );
 
+  // An empty pool is almost never "you don't know enough words" — it means this
+  // language or this batch of sentences can't yield a COMPETITIVE distractor
+  // (see `siblingResolver.ts`), so the builder skipped every candidate rather
+  // than padding with random same-POS words. Say that, instead of implying the
+  // learner is behind.
   if (cards.length === 0) {
     return (
       <div className="space-y-4">
@@ -116,7 +121,8 @@ export function ClozePracticePage() {
           icon={<Icon name="layers" size={28} aria-hidden />}
           title={t("practice.reading.cloze.empty.title", { defaultValue: "No fill-the-blanks yet" })}
           description={t("practice.reading.cloze.empty.description", {
-            defaultValue: "Learn a few more words and we'll turn your reading into fill-the-blank practice.",
+            defaultValue:
+              "We don't have fill-the-blank items for your reading yet. Every wrong option has to be a word you could genuinely mix up with the answer, and this content doesn't have enough of those pairs — so we'd rather show you nothing than a throwaway question.",
           })}
         />
       </div>

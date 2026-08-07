@@ -113,12 +113,17 @@ describe("ClozePracticePage", () => {
     expect(screen.getByText("I drink water.")).toBeInTheDocument();
   });
 
-  it("shows an empty state when the learner knows too few words", () => {
+  it("blames the content, not the learner, when no item can be built", () => {
+    // The pool is empty because no answer has two genuinely confusable
+    // alternatives — not because the learner is behind. The old copy told them
+    // to "learn a few more words", which was simply untrue.
     getStories.mockReturnValue([STORY_A]);
     getKnownAtomsByPos.mockReturnValue([]);
     render(<ClozePracticePage />);
 
     expect(screen.getByText(/No fill-the-blanks yet/i)).toBeTruthy();
+    expect(screen.getByText(/genuinely mix up with the answer/i)).toBeInTheDocument();
+    expect(screen.queryByText(/learn a few more words/i)).toBeNull();
   });
 
   it("records a practice result and credits SRS on a correct pick", () => {
