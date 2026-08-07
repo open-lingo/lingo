@@ -13,16 +13,19 @@
  * this resolver lets the cloze builder reuse it rather than inventing a parallel
  * notion of confusability.
  *
- * ⚠️ ONLY JA has sibling sets today. Languages with no registry entry return
- * `[]`, and callers are expected to DEGRADE HONESTLY — skip the item rather than
- * fall back to random distractors. Authoring KO sibling sets is the tracked gap.
+ * ⚠️ Languages with no registry entry return `[]`, and callers are expected to
+ * DEGRADE HONESTLY — skip the item rather than fall back to random distractors.
+ * ES has no sets yet, so it yields no cloze items at all; that is deliberate and
+ * visible rather than silently inert practice.
  */
 import { siblingsOf as jaSiblingsOf } from "./ja/jaSiblingSets";
+import { siblingsOf as koSiblingsOf } from "./ko/koSiblingSets";
 
 type SiblingLookup = (surface: string) => readonly string[];
 
 const REGISTRY: Record<string, SiblingLookup> = {
   ja: jaSiblingsOf,
+  ko: koSiblingsOf,
 };
 
 /** True when the language ships sibling sets at all. */

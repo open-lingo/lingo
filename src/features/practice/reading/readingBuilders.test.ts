@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import type { KnownAtom } from "@/features/practice/engine";
 import { siblingsOf } from "@/features/languages/ja/jaSiblingSets";
+import { siblingsOf as koSiblingsOf } from "@/features/languages/ko/koSiblingSets";
 import { buildClozeCards, CLOZE_DISTRACTORS, type SentenceSource } from "./readingBuilders";
 
 function atom(
@@ -108,12 +109,54 @@ describe("buildClozeCards — competitive distractors", () => {
   });
 
   it("yields nothing for a language with no sibling sets rather than random options", () => {
+    // ES ships no sibling sets, so there is no honest distractor to offer and
+    // the sentence is skipped instead of padded with random same-POS words.
     const known = [
-      atom("ko:keopi", "커피", "keopi", "coffee"),
-      atom("ko:uyu", "우유", "uyu", "milk"),
-      atom("ko:juseu", "주스", "juseu", "juice"),
+      atom("es:cafe", "café", "café", "coffee"),
+      atom("es:leche", "leche", "leche", "milk"),
+      atom("es:zumo", "zumo", "zumo", "juice"),
     ];
+    const sentences = [{ id: "e:0", text: "Bebo café.", translation: "I drink coffee." }];
+    expect(build(1, sentences, known, "es")).toHaveLength(0);
+  });
+});
+
+describe("buildClozeCards — Korean", () => {
+  const KO_KNOWN: KnownAtom[] = [
+    atom("ko:keopi", "커피", "keopi", "coffee"),
+    atom("ko:uyu", "우유", "uyu", "milk"),
+    atom("ko:mul", "물", "mul", "water"),
+    atom("ko:cha", "차", "cha", "tea"),
+    atom("ko:hakgyo", "학교", "hakgyo", "school"),
+    atom("ko:hoesa", "회사", "hoesa", "company"),
+    atom("ko:sikdang", "식당", "sikdang", "restaurant"),
+    atom("ko:byeongwon", "병원", "byeongwon", "hospital"),
+  ];
+
+  it("builds a competitive item from an authored Korean sentence", () => {
     const sentences = [{ id: "k:0", text: "커피를 마셔요.", translation: "I drink coffee." }];
-    expect(build(1, sentences, known, "ko")).toHaveLength(0);
+    const cards = buildClozeCards(sentences, KO_KNOWN, 1, 10, "ko");
+
+    expect(cards).toHaveLength(1);
+    expect(cards[0].answer.surface).toBe("커피");
+    const distractors = cards[0].options.filter((o) => !o.isAnswer).map((o) => o.surface);
+    expect(distractors).toHaveLength(CLOZE_DISTRACTORS);
+    // Every wrong option is a drink the learner knows — each one would produce a
+    // grammatical Korean sentence, so the stem has to be read.
+    for (const surface of distractors) {
+      expect(koSiblingsOf("커피")).toContain(surface);
+    }
+  });
+
+  it("draws place distractors for a place answer, not just any known noun", () => {
+    const sentences = [{ id: "k:1", text: "학교에 가요.", translation: "I go to school." }];
+    const cards = buildClozeCards(sentences, KO_KNOWN, 2, 10, "ko");
+
+    expect(cards).toHaveLength(1);
+    for (const option of cards[0].options) {
+      if (option.isAnswer) continue;
+      expect(["회사", "식당", "병원"]).toContain(option.surface);
+      expect(["커피", "우유", "물", "차"]).not.toContain(option.surface);
+    }
   });
 });
