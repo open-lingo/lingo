@@ -58,6 +58,14 @@ export interface ClozeCard {
 /* --------------------------------------------------------------------------
  * Deterministic PRNG helpers — stable option order per (content, seed) so a
  * card doesn't reshuffle on every re-render, but still varies item-to-item.
+ *
+ * Everything downstream mixes the SESSION seed into its per-card seed. Seeding
+ * off the sentence id alone froze both the distractor draw and the answer's
+ * screen slot forever, so a returning learner could answer a familiar sentence
+ * from position memory without reading it. Mixing the session seed in keeps the
+ * order stable WITHIN an attempt (the builder is memoised on the seed) while
+ * reshuffling across sessions — and the builder stays a pure function of its
+ * arguments, so no `Math.random()` may appear below this line.
  * ------------------------------------------------------------------------ */
 
 export function hashSeed(s: string): number {
@@ -159,7 +167,7 @@ export function buildClozeCards(
     const pool = (byPos.get(answer.pos) ?? []).filter((a) => a.surface !== answer.surface);
     if (pool.length === 0) continue;
 
-    const distractors = seededShuffle(pool, hashSeed(sentence.id)).slice(0, 3);
+    const distractors = seededShuffle(pool, hashSeed(`${sentence.id}:${seed}:pool`)).slice(0, 3);
 
     const at = sentence.text.indexOf(answer.surface);
     const options = seededShuffle<ClozeOption>(
@@ -172,7 +180,7 @@ export function buildClozeCards(
           isAnswer: false,
         })),
       ],
-      hashSeed(`${sentence.id}:opts`),
+      hashSeed(`${sentence.id}:${seed}:opts`),
     );
 
     cards.push({
