@@ -1,13 +1,18 @@
 /**
- * The cast strip — who is in this piece, and what colour each of them is.
+ * The cast — who is in this piece, and what colour each of them is.
  *
- * Sits directly above the transcript / prose so the colour coding in the body
- * is legible on first contact rather than being a pattern the reader has to
- * infer. Deliberately a single wrapping row of chips, not a card with a heavy
- * header: a two-person dialogue should cost one line of vertical space.
+ * Two shapes over one chip row:
+ *  - `SpeakerChips` is the bare row (label + chips) with NO surrounding
+ *    chrome, for callers that already own a surface — the story reader puts it
+ *    in the right-hand header card, where the strip's own border and muted fill
+ *    would read as a box inside a box.
+ *  - `SpeakerCast` wraps it in the strip that sits directly above a transcript,
+ *    so the colour coding in the body is legible on first contact rather than
+ *    being a pattern the reader has to infer. A two-person dialogue costs one
+ *    line of vertical space.
  *
- * Colours come from `buildSpeakerColors`, keyed on whatever the caller uses to
- * identify a speaker — ids for conversations, names for stories.
+ * Colours come from `speakerColorAt` by POSITION, keyed on whatever the caller
+ * uses to identify a speaker — ids for conversations, names for stories.
  */
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
@@ -28,15 +33,12 @@ interface SpeakerCastProps {
   className?: string;
 }
 
-export function SpeakerCast({ members, lang, className = "" }: SpeakerCastProps) {
+/** The label + chip row on its own, for a caller that supplies the surface. */
+export function SpeakerChips({ members, lang, className = "" }: SpeakerCastProps) {
   const { t } = useTranslation();
-  // One speaker is not a cast — the colour tells the reader nothing there.
-  if (members.length < 2) return null;
 
   return (
-    <div
-      className={`flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-border/60 bg-surface-muted px-3 py-2 ${className}`.trim()}
-    >
+    <div className={`flex flex-wrap items-center gap-x-3 gap-y-1.5 ${className}`.trim()}>
       <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">
         {t("practice.stories.speakers", { defaultValue: "Speakers" })}
       </span>
@@ -54,4 +56,27 @@ export function SpeakerCast({ members, lang, className = "" }: SpeakerCastProps)
       })}
     </div>
   );
+}
+
+export function SpeakerCast({ members, lang, className = "" }: SpeakerCastProps) {
+  // One speaker is not a cast — the colour tells the reader nothing there.
+  if (members.length < 2) return null;
+
+  return (
+    <SpeakerChips
+      members={members}
+      lang={lang}
+      className={`rounded-xl border border-border/60 bg-surface-muted px-3 py-2 ${className}`.trim()}
+    />
+  );
+}
+
+/**
+ * The cast is worth showing only when there is more than one of them — the same
+ * rule `SpeakerCast` applies to itself, exported so a caller laying out AROUND
+ * the cast (the story header's two-column grid) can collapse rather than park
+ * an empty card next to the story info.
+ */
+export function hasCast(members: readonly CastMember[]): boolean {
+  return members.length >= 2;
 }

@@ -34,9 +34,8 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { TappableText } from "@/features/dictionary/TappableText";
 import type { StorySentence } from "@/features/practice/content";
-import { SpeakerCast } from "./SpeakerCast";
 import { buildSpeakerColors } from "./speakerColor";
-import type { StoryBlock, StoryBlockItem } from "./storyBlocks";
+import { storyCastNames, type StoryBlock, type StoryBlockItem } from "./storyBlocks";
 
 /** Base sizes the story scale multiplies, in rem (Tailwind `text-xl`/`text-sm`). */
 const BASE_TEXT_REM = 1.25;
@@ -85,16 +84,10 @@ export function StoryProse({
   }, []);
 
   // A story has no `speakers[]` — the cast IS the distinct `speaker` names on
-  // its speech blocks, in order of first appearance. Same ordering rule as a
-  // conversation's declared speaker list, so the two surfaces colour alike.
-  const castNames = useMemo(() => {
-    const seen: string[] = [];
-    for (const b of blocks) {
-      if (b.kind === "speech" && !seen.includes(b.speaker)) seen.push(b.speaker);
-    }
-    return seen;
-  }, [blocks]);
-  const colorByName = useMemo(() => buildSpeakerColors(castNames), [castNames]);
+  // its speech blocks, in order of first appearance. The reader's header card
+  // derives the SAME list from the SAME helper, so the chips up there and the
+  // names down here can never drift apart.
+  const colorByName = useMemo(() => buildSpeakerColors(storyCastNames(blocks)), [blocks]);
 
   // Only the story's own type scales. Everything else on the page — the
   // popover, the English paragraph, the speaker chips — keeps its rem sizes,
@@ -211,10 +204,6 @@ export function StoryProse({
 
   return (
     <div className="space-y-3">
-      <SpeakerCast
-        members={castNames.map((name) => ({ key: name, label: name }))}
-        lang={langId}
-      />
       {blocks.map((block, bi) => {
         const readingLine = renderBlockReading(block.items);
         const englishLine = renderBlockTranslation(block.items);

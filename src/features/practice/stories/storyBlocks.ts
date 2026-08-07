@@ -76,3 +76,17 @@ export function groupStoryBlocks(sentences: readonly StorySentence[]): StoryBloc
 export function hasDialogue(sentences: readonly StorySentence[]): boolean {
   return sentences.some((s) => Boolean(s.speaker));
 }
+
+/**
+ * The cast — the distinct speaker names on a story's speech blocks, in order of
+ * FIRST APPEARANCE. That order is the colour assignment (`buildSpeakerColors`),
+ * so the header's cast card and the names inside the transcript have to derive
+ * it from the same place or the two disagree the moment either changes.
+ */
+export function storyCastNames(blocks: readonly StoryBlock[]): string[] {
+  const names: string[] = [];
+  for (const b of blocks) {
+    if (b.kind === "speech" && !names.includes(b.speaker)) names.push(b.speaker);
+  }
+  return names;
+}

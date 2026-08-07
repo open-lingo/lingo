@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, act, within } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 vi.mock("@/features/practice/useCourseLevel", () => ({ useCourseLevel: () => 27 }));
@@ -47,6 +47,17 @@ vi.mock("@/shared/contexts/SettingsContext", async () => {
       },
     }),
   };
+});
+
+// Real i18next with EMPTY resources: every `t(key, { defaultValue })` still
+// resolves to its default, but interpolation now runs — which is the only way
+// to assert the header's "{{count}} lines" renders the story's actual length.
+const i18n = (await import("i18next")).default;
+const { initReactI18next } = await import("react-i18next");
+await i18n.use(initReactI18next).init({
+  lng: "en",
+  resources: { en: { translation: {} } },
+  interpolation: { escapeValue: false },
 });
 
 const { StoryReaderPage } = await import("./StoryReaderPage");
@@ -131,6 +142,44 @@ describe("StoryReaderPage", () => {
     const before = (prose as HTMLElement).style.fontSize;
     fireEvent.click(screen.getByRole("button", { name: /Larger text/i }));
     expect((prose as HTMLElement).style.fontSize).not.toBe(before);
+  });
+});
+
+describe("StoryReaderPage header", () => {
+  const headerCards = (container: HTMLElement) =>
+    container.querySelectorAll("[data-story-header-card]");
+
+  it("puts the story info and its cast in two cards side by side", () => {
+    // Two speakers, so colour is doing work and the cast card earns its space.
+    const { container } = renderReader("ja-m13-the-day-off");
+    const cards = headerCards(container);
+    expect(cards).toHaveLength(2);
+    expect(cards[0].getAttribute("data-story-header-card")).toBe("info");
+    expect(cards[1].getAttribute("data-story-header-card")).toBe("cast");
+    expect(within(cards[1] as HTMLElement).getByText("ユミ")).toBeTruthy();
+    expect(within(cards[1] as HTMLElement).getByText("ぼく")).toBeTruthy();
+  });
+
+  it("collapses to a single card for a story with no dialogue", () => {
+    const { container } = renderReader("ja-m3-about-me");
+    const cards = headerCards(container);
+    expect(cards).toHaveLength(1);
+    expect(cards[0].getAttribute("data-story-header-card")).toBe("info");
+  });
+
+  it("states the length in LINES, the same figure the library card shows", () => {
+    const { container } = renderReader();
+    const story = allStories("ja").find((s) => s.id === "ja-m3-about-me")!;
+    const info = headerCards(container)[0] as HTMLElement;
+    expect(within(info).getByText(`${story.sentences.length} lines`)).toBeTruthy();
+  });
+
+  it("no longer renders the cast as a strip above the prose", () => {
+    const { container } = renderReader("ja-m13-the-day-off");
+    const cast = container.querySelector('[data-story-header-card="cast"]')!;
+    const firstSentence = container.querySelector("[data-story-sentence]")!;
+    // The cast sits in the header, outside the card that holds the prose.
+    expect(cast.contains(firstSentence)).toBe(false);
   });
 });
 

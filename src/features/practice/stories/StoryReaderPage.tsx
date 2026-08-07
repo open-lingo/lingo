@@ -34,7 +34,8 @@ import { resolveStoryWords, type StoryWordInfo } from "./unknownWords";
 import { buildQuestions } from "./storyQuestions";
 import { StoryWordSheet } from "./StoryWordSheet";
 import { StoryQuiz } from "./StoryQuiz";
-import { groupStoryBlocks } from "./storyBlocks";
+import { groupStoryBlocks, storyCastNames } from "./storyBlocks";
+import { SpeakerChips, hasCast } from "./SpeakerCast";
 import { StoryProse } from "./StoryProse";
 
 /** Content parts of speech the comprehension questions may swap. */
@@ -91,6 +92,14 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
   // sentence indices are preserved so audio, highlight and SRS still key on
   // the story's own ordering.
   const blocks = useMemo(() => groupStoryBlocks(story?.sentences ?? []), [story]);
+
+  // The cast rides in the header beside the story info rather than as a strip
+  // above the prose — same names, same order, so the chips and the transcript
+  // stay colour-consistent (`storyCastNames` is the single derivation).
+  const cast = useMemo(
+    () => storyCastNames(blocks).map((name) => ({ key: name, label: name })),
+    [blocks],
+  );
 
   const knownContent = useMemo(() => getKnownAtomsByPos(langId, [...CLOZE_POS]), [langId]);
   const questions = useMemo(
@@ -318,12 +327,39 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
         </div>
       </div>
 
-      <Card padding="lg" className="space-y-4">
-        <div>
+      {/* Two short cards side by side: what this is, and who is in it. The
+          cast used to be a full-width strip above the prose, which pushed the
+          first line of the story down the page on every dialogue story. */}
+      <div className={hasCast(cast) ? "grid gap-3 sm:grid-cols-2" : ""}>
+        <Card padding="md" data-story-header-card="info" className="space-y-1">
           <h1 className="text-lg font-semibold text-text-primary">{story.title}</h1>
           <p className="text-sm text-text-secondary">{story.theme}</p>
-        </div>
+          {/* LINES, not words. Nothing in the app tokenizes JA/KO into words
+              reliably — the dictionary scan behind `TappableText` only spans
+              surfaces it knows, so counting its hits would undercount every
+              conjugation and particle and call the result a word count. The
+              library card already measures length in lines; the reader agrees
+              with it rather than inventing a second, wrong figure. */}
+          <p className="flex items-center gap-1.5 pt-1 text-xs tabular-nums text-text-muted">
+            <Icon name="list" size={13} aria-hidden />
+            {t("practice.stories.sentenceCount", {
+              defaultValue: "{{count}} lines",
+              count: story.sentences.length,
+            })}
+          </p>
+        </Card>
 
+        {/* No dialogue (or a single speaker, where colour distinguishes
+            nothing) collapses to the info card alone — an empty box beside it
+            would be worse than no card. */}
+        {hasCast(cast) ? (
+          <Card padding="md" data-story-header-card="cast">
+            <SpeakerChips members={cast} lang={langId} />
+          </Card>
+        ) : null}
+      </div>
+
+      <Card padding="lg">
         <StoryProse
           blocks={blocks}
           langId={langId}
