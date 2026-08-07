@@ -1529,6 +1529,9 @@ export function conjugationTransform(opts: {
   group?: VerbGroup | "i-adj";
   /** Per-kana romaji annotation line for the base. */
   baseRomaji?: string;
+  /** Rule-table sub-row within the class — see `ConjugationTransformStep`.
+   *  Omit unless the form branches inside a class (て/た do). */
+  subgroup?: string;
   /** Ungraded end-of-lesson type-tease (no cell write, no streak). */
   ungraded?: boolean;
 }): ConjugationTransformStep {
@@ -1579,6 +1582,7 @@ export function conjugationTransform(opts: {
       ? IADJ_FORM_LABELS[opts.form as IAdjForm]
       : CHAIN_FORM_LABELS[opts.form as ChainForm],
     verbClass: group,
+    ...(opts.subgroup ? { subgroup: opts.subgroup } : {}),
     answer,
     distractors: distractors.slice(0, 2),
     ...(opts.ungraded ? { ungraded: true } : {}),

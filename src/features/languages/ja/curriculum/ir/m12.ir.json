@@ -2607,6 +2607,7 @@
   ],
   "priorVocab": [
     "あさ",
+    "あさって",
     "あした",
     "あそこ",
     "あそびます",
@@ -2629,6 +2630,8 @@
     "いくら",
     "いけ",
     "いす",
+    "いそいで",
+    "いそぐ",
     "いち",
     "いちじ",
     "いった",
@@ -2653,6 +2656,7 @@
     "えんぴつ",
     "おしえて",
     "おしえる",
+    "おぼえる",
     "おもう",
     "か",
     "かいしゃ",
@@ -2664,6 +2668,8 @@
     "かお",
     "かぎ",
     "かさ",
+    "かして",
+    "かす",
     "かぜ",
     "かぞく",
     "かった",
@@ -2671,6 +2677,7 @@
     "かね",
     "かばん",
     "かめ",
+    "かようび",
     "からだ",
     "かわ",
     "かわない",
@@ -2690,6 +2697,8 @@
     "きません",
     "きゅう",
     "きょう",
+    "きょねん",
+    "きんようび",
     "ぎゅうにゅう",
     "く",
     "くじ",
@@ -2699,11 +2708,13 @@
     "くん",
     "けいたい",
     "けっこう",
+    "げつようび",
     "げんき",
     "こ",
     "こえ",
     "ここ",
     "こちら",
+    "ことし",
     "こない",
     "こめ",
     "これ",
@@ -2740,16 +2751,21 @@
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
+    "すいようび",
     "すし",
     "すみません",
     "する",
     "せ",
+    "せんげつ",
+    "せんしゅう",
     "せんせい",
     "そう",
     "そこ",
     "そら",
     "それ",
     "たかい",
+    "たって",
+    "たつ",
     "たなか",
     "たべた",
     "たべて",
@@ -2778,16 +2794,19 @@
     "とけい",
     "ともだち",
     "どこ",
+    "どようび",
     "どれ",
     "ない",
     "なか",
     "なな",
     "ななじゅう",
     "なに",
+    "なまえ",
     "なん",
     "なんじ",
     "に",
     "にじ",
+    "にちようび",
     "にほん",
     "にほんじん",
     "ねこ",
@@ -2802,6 +2821,7 @@
     "のんで",
     "は",
     "はい",
+    "はじめて",
     "はじめまして",
     "はたらきます",
     "はたらきません",
@@ -2821,6 +2841,7 @@
     "ぼうし",
     "ぼく",
     "まあ",
+    "まいとし",
     "まど",
     "みず",
     "みせ",
@@ -2834,8 +2855,10 @@
     "め",
     "めがね",
     "も",
+    "もくようび",
     "もも",
     "やすい",
+    "やって",
     "やま",
     "やる",
     "ゆき",
@@ -2843,6 +2866,7 @@
     "よじ",
     "よん",
     "よんじゅう",
+    "らいげつ",
     "りょうり",
     "ろく",
     "ろくじ",
@@ -3241,6 +3265,122 @@
       "derivedFrom": "わかる"
     },
     {
+      "kana": "げつようび",
+      "romaji": "getsuyoubi",
+      "gloss": "Monday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かようび",
+      "romaji": "kayoubi",
+      "gloss": "Tuesday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "すいようび",
+      "romaji": "suiyoubi",
+      "gloss": "Wednesday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "もくようび",
+      "romaji": "mokuyoubi",
+      "gloss": "Thursday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きんようび",
+      "romaji": "kinyoubi",
+      "gloss": "Friday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "どようび",
+      "romaji": "doyoubi",
+      "gloss": "Saturday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にちようび",
+      "romaji": "nichiyoubi",
+      "gloss": "Sunday",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あさって",
+      "romaji": "asatte",
+      "gloss": "day after tomorrow",
+      "shortGloss": "day after tomorrow",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ことし",
+      "romaji": "kotoshi",
+      "gloss": "this year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "きょねん",
+      "romaji": "kyonen",
+      "gloss": "last year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せんしゅう",
+      "romaji": "senshuu",
+      "gloss": "last week",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "せんげつ",
+      "romaji": "sengetsu",
+      "gloss": "last month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "らいげつ",
+      "romaji": "raigetsu",
+      "gloss": "next month",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "まいとし",
+      "romaji": "maitoshi",
+      "gloss": "every year",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おぼえる",
+      "romaji": "oboeru",
+      "gloss": "to memorise, to learn",
+      "shortGloss": "memorise",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "ru"
+    },
+    {
+      "kana": "はじめて",
+      "romaji": "hajimete",
+      "gloss": "for the first time",
+      "shortGloss": "first time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "だった",
       "romaji": "datta",
       "gloss": "was, were (plain)",
@@ -3490,7 +3630,8 @@
       "gloss": "eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみます",
@@ -3498,7 +3639,8 @@
       "gloss": "drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みます",
@@ -3506,7 +3648,8 @@
       "gloss": "watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきます",
@@ -3514,15 +3657,8 @@
       "gloss": "go, travel (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
-    },
-    {
-      "kana": "します",
-      "romaji": "shimasu",
-      "gloss": "do, make (polite)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きます",
@@ -3530,7 +3666,17 @@
       "gloss": "come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "します",
+      "romaji": "shimasu",
+      "gloss": "do, make (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいます",
@@ -3538,7 +3684,8 @@
       "gloss": "buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "ききます",
@@ -3546,7 +3693,8 @@
       "gloss": "listen, ask (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "きく",
+      "verbClass": "u"
     },
     {
       "kana": "あそびます",
@@ -3554,7 +3702,8 @@
       "gloss": "play (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
     },
     {
       "kana": "あります",
@@ -3562,7 +3711,8 @@
       "gloss": "have, there is (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "たべません",
@@ -3570,7 +3720,8 @@
       "gloss": "don't eat (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "のみません",
@@ -3578,7 +3729,8 @@
       "gloss": "don't drink (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "みません",
@@ -3586,7 +3738,8 @@
       "gloss": "don't watch (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "いきません",
@@ -3594,7 +3747,8 @@
       "gloss": "don't go, not travelling (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "きません",
@@ -3602,7 +3756,8 @@
       "gloss": "doesn't come (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "かいません",
@@ -3610,7 +3765,8 @@
       "gloss": "don't buy (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
       "kana": "しません",
@@ -3618,7 +3774,8 @@
       "gloss": "don't do, won't make (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "はたらきません",
@@ -3626,7 +3783,8 @@
       "gloss": "don't work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "ありません",
@@ -3634,7 +3792,8 @@
       "gloss": "doesn't have, isn't there (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "ある"
+      "derivedFrom": "ある",
+      "verbClass": "u"
     },
     {
       "kana": "はたらく",
@@ -3651,7 +3810,8 @@
       "gloss": "work (polite)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "はたらく"
+      "derivedFrom": "はたらく",
+      "verbClass": "u"
     },
     {
       "kana": "かいしゃ",
@@ -3715,7 +3875,8 @@
       "gloss": "eat (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "たべる"
+      "derivedFrom": "たべる",
+      "verbClass": "ru"
     },
     {
       "kana": "みて",
@@ -3723,15 +3884,8 @@
       "gloss": "watch, look (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "みる"
-    },
-    {
-      "kana": "のんで",
-      "romaji": "nonde",
-      "gloss": "drink (te-form)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "のむ"
+      "derivedFrom": "みる",
+      "verbClass": "ru"
     },
     {
       "kana": "かって",
@@ -3739,15 +3893,46 @@
       "gloss": "buy (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう"
+      "derivedFrom": "かう",
+      "verbClass": "u"
     },
     {
-      "kana": "きいて",
-      "romaji": "kiite",
-      "gloss": "listen, ask (te-form)",
+      "kana": "たつ",
+      "romaji": "tatsu",
+      "gloss": "to stand, to stand up",
+      "shortGloss": "stand",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たって",
+      "romaji": "tatte",
+      "gloss": "stand (te-form)",
+      "shortGloss": "stand (te)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "きく"
+      "derivedFrom": "たつ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "やって",
+      "romaji": "yatte",
+      "gloss": "do (te-form)",
+      "shortGloss": "do (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "やる",
+      "verbClass": "u"
+    },
+    {
+      "kana": "のんで",
+      "romaji": "nonde",
+      "gloss": "drink (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "のむ",
+      "verbClass": "u"
     },
     {
       "kana": "あそんで",
@@ -3755,7 +3940,55 @@
       "gloss": "play (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ"
+      "derivedFrom": "あそぶ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "きいて",
+      "romaji": "kiite",
+      "gloss": "listen, ask (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "きく",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いそぐ",
+      "romaji": "isogu",
+      "gloss": "to hurry",
+      "shortGloss": "hurry",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いそいで",
+      "romaji": "isoide",
+      "gloss": "hurry (te-form)",
+      "shortGloss": "hurry (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いそぐ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かす",
+      "romaji": "kasu",
+      "gloss": "to lend",
+      "shortGloss": "lend",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かして",
+      "romaji": "kashite",
+      "gloss": "lend (te-form)",
+      "shortGloss": "lend (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かす",
+      "verbClass": "u"
     },
     {
       "kana": "いって",
@@ -3763,7 +3996,8 @@
       "gloss": "go, travel (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "いく"
+      "derivedFrom": "いく",
+      "verbClass": "u"
     },
     {
       "kana": "して",
@@ -3771,7 +4005,8 @@
       "gloss": "do, make (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "する"
+      "derivedFrom": "する",
+      "verbClass": "irregular"
     },
     {
       "kana": "きて",
@@ -3779,7 +4014,8 @@
       "gloss": "come (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "くる"
+      "derivedFrom": "くる",
+      "verbClass": "irregular"
     },
     {
       "kana": "ください",
@@ -3804,7 +4040,8 @@
       "gloss": "teach, tell (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "おしえる"
+      "derivedFrom": "おしえる",
+      "verbClass": "ru"
     },
     {
       "kana": "ごはん",

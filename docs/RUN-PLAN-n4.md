@@ -5,7 +5,30 @@ Spencer: *"author up to mid way in n4 so I can start learning… don't ask me
 for anything, do this efficiently, and do it well."* Decisions are mine to
 make and document; he'll flag them later if he disagrees.
 
-## ⏵ RESUME HERE — THE GOAL CHANGED (Spencer, 2026-07-27, mid-run)
+## ⏵ CURRENT — N4 IS BACK ON (Spencer, 2026-08-06)
+
+**The 2026-07-27 cancellation below is SUPERSEDED.** N5 is complete, the
+learner simulation ran and its findings were triaged, and Spencer has restarted
+the tier:
+
+- **Scope: m30 only, then he reviews.** Not mid-N4, not a batch. One module
+  through the full loop, he walks it, the brief is adjusted from what he finds.
+- **Standing decision #0 (retire the legacy m30) is RATIFIED.** It was an
+  agent's call until now; it is Spencer's as of 2026-08-06.
+- **Blocked on a prerequisite:** the conjugation transform card ships without
+  its rule table on most forms (measured: 52 of 59 live cards). The teaching
+  layer lands before m30 is authored, so the standing rule — *a formation point
+  ships with a rule table and a transform card, or it does not ship* — exists
+  before N4's formation-dense modules are written rather than after.
+
+Plan of record: `docs/superpowers/specs/2026-08-06-n4-open-and-transform-teaching-design.md`.
+Everything below this banner is the 2026-07-27 state, kept for the loop, the
+standing hazards, and the measured metrics — all still accurate and still
+binding.
+
+---
+
+## ⏵ SUPERSEDED 2026-08-06 — THE GOAL CHANGED (Spencer, 2026-07-27, mid-run)
 
 **N4 IS CANCELLED. Stop at N5.** Spencer's words: *"we should stop at N5
 honestly and then you should run the QA pass sequentially though the whole

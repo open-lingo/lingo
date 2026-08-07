@@ -1,5 +1,15 @@
 # N4 pilot spine — m29 & m30 (plain form)
 
+> **🗄️ SUPERSEDED 2026-08-06 — HISTORICAL ONLY.** The pilot is over. Its m29
+> was renumbered away by the N5 rewrite spine; its m30 ("Casual register",
+> `curriculum/m30.ts`) is being RETIRED so the real N4 tier can open at m30 =
+> n4-01, per `docs/spine-n4.md` §0 (Spencer ratified 2026-08-06). Do not author
+> against this doc. The live N4 authoring source of truth is `docs/spine-n4.md`;
+> the current plan is
+> `docs/superpowers/specs/2026-08-06-n4-open-and-transform-teaching-design.md`.
+> Kept for the vocab-gap analysis noted below and for the record of what the
+> pilot taught.
+
 > **⚠️ FORWARD-RISK BANNER (2026-07-20).** This doc's foundational premise —
 > that PLAIN FORM is an N4/m29+ innovation layered on a polite-first N5 course —
 > is being DISMANTLED by the dict-form-first rewrite (plain form is now the

@@ -1,9 +1,30 @@
 # Transform cards — in-lesson conjugation teaching (spec, 2026-07-23)
 
-**Status:** DRAFT for Spencer's review. Design approved in-session from the
-interactive mock (scratchpad `transform-card-mock`, v2); this spec folds in
-the two research reports (pedagogy evidence + competitor/curriculum scan).
-Full reports: session transcripts 2026-07-23; citations inline below.
+**Status:** **SHIPPED** (step type `conjugation_transform`, 59 live cards
+across m6–m16 as of 2026-08-06) — but see the implementation note below before
+trusting this doc as a description of what learners actually see. Design
+approved in-session from the interactive mock (scratchpad
+`transform-card-mock`, v2); this spec folds in the two research reports
+(pedagogy evidence + competitor/curriculum scan). Full reports: session
+transcripts 2026-07-23; citations inline below.
+
+> **⚠️ IMPLEMENTATION GAP, found 2026-08-06 — partially repaired.** The rule
+> table described below is the card's signature, and the view gates BOTH the
+> table and the 💡 peek on `ruleset &&`. `TRANSFORM_RULESETS` shipped holding
+> one key (`nai`), so **52 of 59 live cards rendered no table and no peek** —
+> a bare "produce this form" prompt, with nothing failing to signal it.
+> Separately, the answer-leak mask matched the drilled base against single
+> chips, so it silently never fired for any multi-chip word (たべる renders as
+> `たべ` + `る`) — the m6 たべる and のむ cards had been printing their own
+> answer since launch.
+>
+> Repaired 2026-08-06: leak mask now matches an explicit `RulesetRow.examples`;
+> `masu` and `masu-neg` rulesets authored (m7 whole). **Still owed: te, ta,
+> masu-past, negative, past, past-negative, tai, nai-past, masu-past-neg** —
+> tracked as a shrinking ratchet in
+> `src/features/languages/ja/conjugation/transformRulesets.test.ts`. Plan:
+> `docs/superpowers/specs/2026-08-06-n4-open-and-transform-teaching-design.md`
+> Part B.
 
 ## What it is
 

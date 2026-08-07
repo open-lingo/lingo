@@ -41,13 +41,18 @@ registerModuleBarGuards({
 });
 
 describe("m8-neo module shape (invariant 25)", () => {
-  it("ships 15 lessons: 11 teaching + 3 review + 1 challenge", () => {
-    expect(M8_NEO_LESSONS).toHaveLength(15);
+  // 17, not the inv 25 ceiling of 15 — a DOCUMENTED per-module exemption
+  // (Spencer 2026-08-06). The sound-change table is the one fact in the course
+  // that pays twice (て here, た at m11), and it has five rows plus the
+  // rebels; teaching each ending its own beat costs two lesson slots that
+  // no other module needs. The ceiling holds everywhere else.
+  it("ships 17 lessons: 13 teaching + 3 review + 1 challenge", () => {
+    expect(M8_NEO_LESSONS).toHaveLength(17);
     const reviews = M8_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M8_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M8_NEO_LESSONS.length - reviews.length - challenge.length).toBe(11);
+    expect(M8_NEO_LESSONS.length - reviews.length - challenge.length).toBe(13);
   });
 
   it("the CHALLENGE lesson is last", () => {

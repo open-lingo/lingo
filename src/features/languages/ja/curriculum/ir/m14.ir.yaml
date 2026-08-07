@@ -385,7 +385,7 @@ lessons:
         questions:
           - { q: "What does the staff member ask Mika to do?", options: ["Wait a moment", "Show a photo", "Buy the water", "Come back later"], answer: "Wait a moment" }
       - { kind: challenge, ja: "しずかな きっさてんで ミカの しゃしんを みせて ください。", en: "Please show me Mika's photo at the quiet coffee shop", combines: [te-kudasai, na-adj-present, de-action, no-possession], mode: build }
-    reviewPool: [みず, ちゃ, しゃしん, ほん, うた, ぼうし, きっさてん, かばん, かさ, すし]
+    reviewPool: [みず, ちゃ, しゃしん, ほん, うた, たって, かして, かばん, かさ, すし]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-2
@@ -413,7 +413,7 @@ lessons:
         questions:
           - { q: "What is Tom doing?", options: ["Drinking tea at a coffee shop", "Eating sushi at home", "Waiting at the station", "Buying tea at a shop"], answer: "Drinking tea at a coffee shop" }
       - { kind: challenge, ja: "ミカは いま しずかな きっさてんで ほんを みている。", en: "Mika is looking at a book at a quiet coffee shop right now", combines: [te-iru, na-adj-present, de-action, wa-topic], mode: build }
-    reviewPool: [ごはん, ほん, みず, うた, えき, かいしゃ, みせ, しゃしん, ちゃ, きっさてん]
+    reviewPool: [ごはん, ほん, みず, うた, かして, かす, みせ, しゃしん, ちゃ, きっさてん]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-3
@@ -469,7 +469,7 @@ lessons:
           - { speaker: "Mika", ja: "きっさてんで ほんを みている。", en: "He's looking at a book at the coffee shop." }
         questions:
           - { q: "What is Tom doing?", options: ["Looking at a book at the coffee shop", "Waiting at the station", "Eating at home", "Working at a company"], answer: "Looking at a book at the coffee shop" }
-    reviewPool: [ちゃ, かばん, にほん, えき, しゃしん, みせ, かいしゃ, うた, ごはん, ふく]
+    reviewPool: [ちゃ, かばん, にほん, いそぐ, しゃしん, みせ, やって, うた, ごはん, ふく]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-4
@@ -497,7 +497,7 @@ lessons:
         questions:
           - { q: "What does Ken say?", options: ["He hasn't eaten yet", "He already ate", "He is eating now", "He doesn't want to eat"], answer: "He hasn't eaten yet" }
       - { kind: challenge, ja: "ミカは もう ゆうめいな みせで あたらしい かさを かった。", en: "Mika already bought a new umbrella at the famous shop", combines: [mada-mou, na-adj-present, de-action, ta-form], mode: build }
-    reviewPool: [ごはん, しゃしん, ちゃ, えき, ふく, ぎゅうにゅう, きっさてん, みせ, かさ, ほん]
+    reviewPool: [ごはん, しゃしん, ちゃ, えき, ふく, いそいで, やって, みせ, かさ, ほん]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-5
@@ -525,7 +525,7 @@ lessons:
         questions:
           - { q: "What is Tom doing?", options: ["Swimming with a friend", "Waiting for a friend", "Working at the sea", "Waiting at the sea"], answer: "Swimming with a friend" }
       - { kind: challenge, ja: "ミカの ともだちは いま しずかな うみで およいでいる。", en: "Mika's friend is swimming in the quiet sea right now", combines: [te-iru, no-possession, na-adj-present, de-action, wa-topic], mode: build }
-    reviewPool: [うみ, かわ, ちゃ, きっさてん, えき, ともだち, ごはん, かいしゃ, みせ, うた]
+    reviewPool: [うみ, かわ, ちゃ, たつ, えき, ともだち, いそぐ, かす, みせ, うた]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-6
@@ -553,7 +553,7 @@ lessons:
         questions:
           - { q: "What does Mika tell Tom?", options: ["It's fine, and she is drinking too", "It's not allowed here", "She wants tea as well later", "She is waiting for tea"], answer: "It's fine, and she is drinking too" }
       - { kind: challenge, ja: "しずかな きっさてんで ミカの ほんを みても いい？", en: "May I look at Mika's book at the quiet coffee shop?", combines: [te-mo-ii, na-adj-present, de-action, no-possession], mode: build }
-    reviewPool: [しゃしん, ほん, ちゃ, うみ, きっさてん, ごはん, みず, えき, みせ, うた]
+    reviewPool: [しゃしん, ほん, ちゃ, かして, きっさてん, やって, みず, えき, みせ, うた]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-r2
@@ -580,7 +580,7 @@ lessons:
           - { speaker: "Tom", ja: "ううん、まだ たべていない。きっさてんに いく。", en: "Nope, not yet. I'm going to a coffee shop." }
         questions:
           - { q: "What does Tom say?", options: ["He hasn't eaten and is going to a coffee shop", "He already ate at a coffee shop", "He is eating at the station", "He doesn't want to eat today"], answer: "He hasn't eaten and is going to a coffee shop" }
-    reviewPool: [しゃしん, ちゃ, かいしゃ, かさ, にほん, うみ, えき, すし, みせ, ごはん]
+    reviewPool: [しゃしん, ちゃ, かいしゃ, かす, にほん, いそぐ, えき, すし, みせ, ごはん]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m14-neo-7

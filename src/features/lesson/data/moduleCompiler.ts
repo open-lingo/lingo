@@ -553,6 +553,38 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
 }
 
 /**
+ * Rule-table sub-row for forms whose rule branches INSIDE a verb class.
+ *
+ * て and た are the only such forms: every godan verb is class `godan`, but
+ * the final kana picks the row (う・つ・る→って, む・ぶ・ぬ→んで, く→いて,
+ * ぐ→いで, す→して). Derived here rather than authored in the IR — the ending
+ * IS the base's last character, so asking authors to restate it would just be
+ * a second place to get it wrong.
+ *
+ * いく is its own subgroup: it ends in く but takes って, and it is the most
+ * common verb that breaks the table. Returns undefined for forms with one
+ * rule per class (ない, ます, …), which highlight on class alone.
+ */
+const TE_TA_SUBGROUP: Record<string, string> = {
+  う: "tte", つ: "tte", る: "tte",
+  む: "nde", ぶ: "nde", ぬ: "nde",
+  く: "ite",
+  ぐ: "ide",
+  す: "shite",
+};
+
+function transformSubgroup(
+  form: string,
+  group: string,
+  base: string,
+): string | undefined {
+  if (form !== "te" && form !== "ta") return undefined;
+  if (group !== "godan") return undefined;
+  if (base === "いく") return "iku";
+  return TE_TA_SUBGROUP[base.slice(-1)];
+}
+
+/**
  * Pick the card a rule beat means.
  *
  * Most ids name exactly one card and this is a lookup. Where a module writes
@@ -955,17 +987,21 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           );
           for (const a of material.slice(0, 3)) {
             const group = IR_CLASS_TO_GROUP[a.verbClass as string];
+            const base = a.derivedFrom as string;
             transformRamp.push(
               conjugationTransform({
                 id: `${lid}-tf-${transformRamp.length}`,
-                base: a.derivedFrom as string,
-                baseGloss:
-                  atoms.get(a.derivedFrom as string)?.meaningEn ??
-                  a.derivedFrom as string,
+                base,
+                baseGloss: atoms.get(base)?.meaningEn ?? base,
                 targetGloss: a.shortGloss ?? a.gloss,
                 form: gp.conjugation.form as Parameters<typeof conjugationTransform>[0]["form"],
                 group,
-                baseRomaji: kanaToRomaji(a.derivedFrom as string),
+                subgroup: transformSubgroup(
+                  gp.conjugation.form as string,
+                  group,
+                  base,
+                ),
+                baseRomaji: kanaToRomaji(base),
               }),
             );
           }
@@ -1253,6 +1289,17 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     //    spec 2026-07-23) → interleaved middle (image debuts included,
     //    held first by PRECEDENCE not by position) → capstone (stretch) →
     //    close on match_pairs.
+    // NOTE (2026-08-06): a ramp cannot introduce its own BASE verb. The ramp
+    // is pinned directly after the rule card and its atoms count as
+    // pre-satisfied, so a module-new base's image debut sorts into the middle
+    // and the transform card — explicitly NOT intro-capable (inv 37) —
+    // becomes the word's first exposure. Pinning the debut ahead of the ramp
+    // was tried and rejected: it breaks the ramp-length guard (which measures
+    // distance from the last grammar_rule, not consecutive transforms) and
+    // stacks adjacent word_image_mcq steps when a lesson has two new bases.
+    // The rule is therefore an AUTHORING one, enforced by the debut guard:
+    // introduce a base verb in an EARLIER lesson than the one that drills its
+    // transformation. m8's たつ/いそぐ/かす follow it.
     const pinned = [...ruleSteps, ...transformRamp];
 
     // ── PRECEDENCE (teach-first, inv 33) ──────────────────────────────

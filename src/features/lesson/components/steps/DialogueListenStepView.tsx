@@ -376,13 +376,21 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   );
 
   return (
-    <div className="relative flex flex-1 flex-col gap-6">
+    /* `min-h-0` is what makes this card behave: without it every child keeps
+     * `min-height: auto` (= its content height), nothing can shrink, and the
+     * column simply grows past the step container. Measured 900×700 before
+     * the fix: 168px of overflow, the options grid ending 48px below the fold
+     * and the CTA 152px below it — invisible (Spencer 2026-08-06: "the
+     * continue button and very design of it pushes the answer down past the
+     * view of the page"). The TRANSCRIPT is the one elastic region here; the
+     * question, the options and the CTA are not negotiable. */
+    <div className="relative flex min-h-0 flex-1 flex-col gap-4">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={anyWrongCommit}
       />
       {/* ── Header: replay control + speakers manifest ─────────────────── */}
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-4">
         <button
           type="button"
           onClick={playSequence}
@@ -420,11 +428,19 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
           "Transcript" label so long (narrative, up to 8-line) transcripts
           don't blow out the card, and the active row scrolls itself into
           view — smoothly, unless prefers-reduced-motion asks otherwise. ── */}
-      <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
-          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      {/* The floor belongs on the CARD, not on the list inside it: `min-h-0`
+          here let the card shrink to 25px — label only — while its list spilled
+          out of the box. An explicit min-height is both the shrink permission
+          and the stop. */}
+      <div className="flex min-h-[5.5rem] flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
+          <p className="shrink-0 text-xs font-bold uppercase tracking-wider text-text-muted">
             {t("lesson.dialogueListen.transcript", "Transcript")}
           </p>
-          <div className="flex max-h-72 flex-col gap-2 overflow-y-auto pr-1">
+          {/* `max-h-72` caps it on a tall window; `flex-1 min-h-0` is what lets
+              it give space back on a short one. The floor keeps at least one
+              line legible — below that the step container scrolls instead,
+              which is the correct last resort. */}
+          <div className="flex max-h-72 min-h-0 flex-1 flex-col gap-2 overflow-y-auto pr-1">
             {step.lines.map((line, i) => {
               const audioOk = lineAudioAvailable[i];
               const status = lineStatus(i, activeLineIdx, playedLineIdxs);
@@ -485,7 +501,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
 
       {/* ── Question progress ─────────────────────────────────────────── */}
-      <div className="flex items-center justify-between">
+      <div className="flex shrink-0 items-center justify-between">
         <h2 className="text-lg font-semibold text-text-primary">
           {currentQ?.prompt ?? ""}
         </h2>
@@ -501,7 +517,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
 
       {/* ── Current question options ──────────────────────────────────── */}
       {currentQ && (
-        <div className="relative grid gap-3" style={{ minHeight: 120 }}>
+        <div className="relative grid shrink-0 gap-2.5" style={{ minHeight: 120 }}>
           {currentQ.options.map((opt) => {
             const isSelected = currentSelection === opt.id;
             const isAnswer = opt.id === currentQ.correctOptionId;
@@ -536,7 +552,15 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
        *  bottom anchor (shared with every other graded step) instead of
        *  floating mid-card, and keeps the CTA put when the feedback banner
        *  appears on commit (Spencer 2026-06-13 CTA-harmony pass). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div
+        className="relative mt-auto flex shrink-0 flex-col gap-3 pt-3"
+        // The sticky action bar (index.css § "Lesson action bar", added
+        // 2026-08-05 for "the continue button was falling off my screen").
+        // This step view was never opted in, so its CTA could leave the fold
+        // while eleven other step views could not. A no-op when the step
+        // already fits.
+        data-testid="primary-cta"
+      >
         {currentCommitted && currentQ && (
           <Feedback
             correct={!!currentCorrect}

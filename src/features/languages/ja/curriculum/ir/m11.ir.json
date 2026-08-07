@@ -3122,6 +3122,8 @@
     "いくら",
     "いけ",
     "いす",
+    "いそいで",
+    "いそぐ",
     "いち",
     "いって",
     "いない",
@@ -3153,6 +3155,8 @@
     "かお",
     "かぎ",
     "かさ",
+    "かして",
+    "かす",
     "かぜ",
     "かぞく",
     "かって",
@@ -3224,6 +3228,8 @@
     "そら",
     "それ",
     "たかい",
+    "たって",
+    "たつ",
     "たなか",
     "たべて",
     "たべない",
@@ -3298,6 +3304,7 @@
     "も",
     "もも",
     "やすい",
+    "やって",
     "やま",
     "やる",
     "ゆき",
@@ -3899,6 +3906,44 @@
       "verbClass": "ru"
     },
     {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たつ",
+      "romaji": "tatsu",
+      "gloss": "to stand, to stand up",
+      "shortGloss": "stand",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たって",
+      "romaji": "tatte",
+      "gloss": "stand (te-form)",
+      "shortGloss": "stand (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たつ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "やって",
+      "romaji": "yatte",
+      "gloss": "do (te-form)",
+      "shortGloss": "do (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "やる",
+      "verbClass": "u"
+    },
+    {
       "kana": "のんで",
       "romaji": "nonde",
       "gloss": "drink (te-form)",
@@ -3908,12 +3953,12 @@
       "verbClass": "u"
     },
     {
-      "kana": "かって",
-      "romaji": "katte",
-      "gloss": "buy (te-form)",
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう",
+      "derivedFrom": "あそぶ",
       "verbClass": "u"
     },
     {
@@ -3926,12 +3971,41 @@
       "verbClass": "u"
     },
     {
-      "kana": "あそんで",
-      "romaji": "asonde",
-      "gloss": "play (te-form)",
+      "kana": "いそぐ",
+      "romaji": "isogu",
+      "gloss": "to hurry",
+      "shortGloss": "hurry",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いそいで",
+      "romaji": "isoide",
+      "gloss": "hurry (te-form)",
+      "shortGloss": "hurry (te)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ",
+      "derivedFrom": "いそぐ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かす",
+      "romaji": "kasu",
+      "gloss": "to lend",
+      "shortGloss": "lend",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かして",
+      "romaji": "kashite",
+      "gloss": "lend (te-form)",
+      "shortGloss": "lend (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かす",
       "verbClass": "u"
     },
     {

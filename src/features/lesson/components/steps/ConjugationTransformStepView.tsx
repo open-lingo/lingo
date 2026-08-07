@@ -215,9 +215,17 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
         </p>
       </div>
 
-      {/* the rule table (signature) — pinned at stage 1, peeked later */}
+      {/* the rule table (signature) — pinned at stage 1, peeked later.
+          `focus`: one row, the one being drilled. The full grid is a tap away
+          but never the default — see TransformRuleTable's header. */}
       {ruleset && showTable ? (
-        <TransformRuleTable form={step.form} highlight={step.verbClass} maskBase={step.base} />
+        <TransformRuleTable
+          form={step.form}
+          highlight={step.verbClass}
+          highlightSubgroup={step.subgroup}
+          maskBase={step.base}
+          focus
+        />
       ) : null}
 
       {/* peek chip — stage ≥2, until used */}
@@ -305,7 +313,11 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
       ) : null}
 
       {/* single bottom block (house convention: CTA never moves) */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-4">
+      {/* `primary-cta` opts into the sticky action bar (index.css § "Lesson
+          action bar"). Fits without it at 700px, but at 560 the CTA sat 123px
+          below the fold — same gap as `dialogue_listen`, found in the same
+          sweep (2026-08-06). */}
+      <div className="relative mt-auto flex flex-col gap-4 pt-4" data-testid="primary-cta">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && !correct ? (
           <Feedback correct={false} correctAnswer={step.answer} />

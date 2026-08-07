@@ -1041,7 +1041,9 @@ export const JA_STORIES: Story[] = [
     theme: "Two policemen, one bridge, and a hospital that was never far away.",
     tags: ["town", "family", "directions"],
     glosses: [
-      { surface: "いそぐ", meaning: "to hurry", atomId: "ja:isogu" },
+      // いそぐ dropped 2026-08-06: it is taught at m8 now (the ぐ → いで row of
+      // the て table needed a worked verb), so glossing it at m17 declares a
+      // word the reader already has.
       { surface: "こまる", meaning: "to be stuck, to be at a loss", atomId: "ja:komaru" },
     ],
     questions: [

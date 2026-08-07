@@ -702,6 +702,16 @@ export type ConjugationTransformStep = StepBase & {
    * cells rather than a parallel step type.
    */
   verbClass: "ichidan" | "godan" | "irregular" | "i-adj";
+  /**
+   * Sub-row of the class, for forms whose rule branches INSIDE a class.
+   * て/た are the case: every godan verb is class `godan`, but the ending
+   * decides the row (う・つ・る→って, む・ぶ・ぬ→んで, く→いて, ぐ→いで,
+   * す→して, and いく is its own exception). Without this the rule table can
+   * only highlight "う-verbs" and lights all five rows at once — on the one
+   * table in the course that most needs precision. Derived by the compiler
+   * from the base's final kana; absent for forms with one rule per class.
+   */
+  subgroup?: string;
   /** Engine-derived correct surface, e.g. のまない. */
   answer: string;
   /** 3 formation distractors (same-verb rule misapplications). */

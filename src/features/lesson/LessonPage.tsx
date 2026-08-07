@@ -23,6 +23,7 @@ import {
 } from "./data/lessonProgress";
 import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
+import { LessonShell } from "./components/LessonShell";
 import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
 import { typedAnswerExhibitsTipError } from "./components/reactiveTipGate";
@@ -881,88 +882,78 @@ export function LessonPage() {
         cards) scrolls inside with the styled scrollbar while the page
         chrome stays put. Full-width so the image-MCQ breakout fits the
         scroller without horizontal overflow. */}
-    <div className="mx-auto flex h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))] w-full flex-col">
-      <div className="mx-auto flex w-full max-w-2xl items-center gap-4 py-3">
-        <button
-          type="button"
-          onClick={handleExit}
-          className="-ml-1 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-          aria-label={t("lesson.exit", "Exit lesson")}
-        >
-          <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2.25} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <LessonProgressBar
-          current={progressBar.current}
-          total={progressBar.total}
-        />
-        <LessonMetaChips
-          estimatedMinutes={lesson.estimatedMinutes}
-          xpReward={
-            isEmptyReviewLesson(lesson)
-              ? 0
-              : XP_LESSON_COMPLETE + (isTestLessonId(lesson.id) ? XP_TEST_BONUS : 0)
-          }
-        />
-      </div>
-
-      {inReplay && (
-        <div className="mx-auto mb-2 w-full max-w-2xl rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
-          Review · {replayQueue.length} left
+    <LessonShell
+      scrollerRef={stepContainerRef}
+      stageLabel={t("lesson.stepContainer", "Lesson step")}
+      stageProps={{
+        "data-visual-qa": "step-stage",
+        "data-visual-qa-step-id": currentStep?.id,
+        "data-visual-qa-step-type": currentStep?.type,
+      }}
+      header={
+        <>
+          <button
+            type="button"
+            onClick={handleExit}
+            className="-ml-1 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+            aria-label={t("lesson.exit", "Exit lesson")}
+          >
+            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2.25} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <LessonProgressBar
+            current={progressBar.current}
+            total={progressBar.total}
+          />
+          <LessonMetaChips
+            estimatedMinutes={lesson.estimatedMinutes}
+            xpReward={
+              isEmptyReviewLesson(lesson)
+                ? 0
+                : XP_LESSON_COMPLETE + (isTestLessonId(lesson.id) ? XP_TEST_BONUS : 0)
+            }
+          />
+        </>
+      }
+      banner={
+        inReplay ? (
+          <div className="mx-auto mb-2 w-full max-w-2xl rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
+            Review · {replayQueue.length} left
+          </div>
+        ) : undefined
+      }
+      footer={
+        /* Desktop-only keyboard hint. These shortcuts (useLessonKeyboard)
+           have always worked but were undiscoverable. Number keys only bind
+           on option-pick steps, so the hint stays generic about them. */
+        <div className="hidden items-center justify-center gap-5 py-1.5 text-xs text-text-muted sm:flex">
+          <span>
+            <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">Enter</kbd>{" "}
+            {t("lesson.kbdHintEnter", "check / continue")}
+          </span>
+          <span>
+            <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">1–9</kbd>{" "}
+            {t("lesson.kbdHintNumbers", "choose an option")}
+          </span>
         </div>
+      }
+    >
+      {currentStep && (
+        <LessonModuleProvider moduleIndex={parseModuleIndex(lesson.moduleId)}>
+          <StepRenderer
+            // Force remount on retry so the step view starts from a clean
+            // state (no carry-over selection / submit flag from first attempt).
+            key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
+            step={currentStep}
+            lessonId={lesson.id}
+            onComplete={handleStepComplete}
+            onContinue={handleContinue}
+            isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
+          />
+        </LessonModuleProvider>
       )}
-
-      <div
-        ref={stepContainerRef}
-        tabIndex={-1}
-        aria-label={t("lesson.stepContainer", "Lesson step")}
-        // `container-type: size` makes this scroller the query container for
-        // step content: step views size tiles/grids against `cqh`/`cqw`
-        // (the actual free space here) instead of `dvh`/`vw`, so mobile
-        // chrome show/hide can't jitter or overflow them (house rule: no
-        // viewport-unit math in step content). `min-h-0` lets the scroller
-        // shrink below its content on short/landscape windows so overflow
-        // scrolls instead of clipping the CTA.
-        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4 outline-none [container-type:size]"
-      >
-        <div
-          className="mx-auto flex w-full max-w-2xl flex-1 flex-col"
-          data-visual-qa="step-stage"
-          data-visual-qa-step-id={currentStep?.id}
-          data-visual-qa-step-type={currentStep?.type}
-        >
-        {currentStep && (
-          <LessonModuleProvider moduleIndex={parseModuleIndex(lesson.moduleId)}>
-            <StepRenderer
-              // Force remount on retry so the step view starts from a clean
-              // state (no carry-over selection / submit flag from first attempt).
-              key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
-              step={currentStep}
-              lessonId={lesson.id}
-              onComplete={handleStepComplete}
-              onContinue={handleContinue}
-              isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
-            />
-          </LessonModuleProvider>
-        )}
-        </div>
-      </div>
-
-      {/* Desktop-only keyboard hint. These shortcuts (useLessonKeyboard)
-          have always worked but were undiscoverable. Number keys only bind
-          on option-pick steps, so the hint stays generic about them. */}
-      <div className="hidden items-center justify-center gap-5 py-1.5 text-xs text-text-muted sm:flex">
-        <span>
-          <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">Enter</kbd>{" "}
-          {t("lesson.kbdHintEnter", "check / continue")}
-        </span>
-        <span>
-          <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">1–9</kbd>{" "}
-          {t("lesson.kbdHintNumbers", "choose an option")}
-        </span>
-      </div>
-    </div>
+    </LessonShell>
     </KanaMasteryProvider>
   );
 }

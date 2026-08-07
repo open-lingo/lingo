@@ -65,25 +65,79 @@
     },
     {
       "id": "te-form",
-      "variant": "sound-change",
-      "rule": "う-verbs change their last kana before て, and which change depends on that kana: む・ぶ・ぬ → んで (のむ→のんで, あそぶ→あそんで); う・つ・る → って (かう→かって); く → いて (きく→きいて); ぐ → いで. Learn this table once and it pays twice — the past form た uses exactly the same rows.",
+      "variant": "tte",
+      "rule": "う-verbs change their last kana before て. The biggest row takes three endings at once: う・つ・る → って. かう→かって, たつ→たって, やる→やって. The kana before って never changes — only the ending does. Learn this table once and it pays twice: the past form た uses exactly the same rows.",
+      "examples": [
+        {
+          "ja": "ほんを かって。",
+          "en": "Buy the book."
+        },
+        {
+          "ja": "ここに たって。",
+          "en": "Stand here."
+        },
+        {
+          "ja": "きょう やって。",
+          "en": "Do it today."
+        }
+      ],
+      "antiPattern": {
+        "ja": "ほんを かうて。",
+        "why": "う・つ・る drop their last kana before って — かう→かって, never かうて."
+      },
+      "conjugation": {
+        "form": "te",
+        "classes": [
+          "u"
+        ]
+      }
+    },
+    {
+      "id": "te-form",
+      "variant": "nde",
+      "rule": "The second row is the voiced one: む・ぶ・ぬ → んで. のむ→のんで, あそぶ→あそんで. Notice it is んで, not んて — the ん drags the ending into a voiced で. (ぬ verbs are almost extinct in modern Japanese: しぬ 'to die' is essentially the only one, and it behaves exactly like のむ — しぬ→しんで. You will not need to produce it here.)",
       "examples": [
         {
           "ja": "みずを のんで。",
           "en": "Drink the water."
         },
         {
-          "ja": "ほんを かって。",
-          "en": "Buy the book."
-        },
-        {
-          "ja": "きいて。",
-          "en": "Listen."
+          "ja": "かわで あそんで。",
+          "en": "Play at the river."
         }
       ],
       "antiPattern": {
         "ja": "みずを のみて。",
         "why": "のむ ends in む, so it takes the んで row — のんで, never のみて."
+      },
+      "conjugation": {
+        "form": "te",
+        "classes": [
+          "u"
+        ]
+      }
+    },
+    {
+      "id": "te-form",
+      "variant": "single-kana",
+      "rule": "Three rows are one kana each, and each one is different: く → いて (きく→きいて); ぐ → いで — the voiced twin of いて, just like んで was of んて (いそぐ→いそいで); す → して (かす→かして). Watch かう→かって against かす→かして: same first kana, different ending, different row. The ENDING decides, never the word.",
+      "examples": [
+        {
+          "ja": "うたを きいて。",
+          "en": "Listen to the song."
+        },
+        {
+          "ja": "いえに いそいで。",
+          "en": "Hurry home."
+        },
+        {
+          "ja": "ほんを かして。",
+          "en": "Lend me the book."
+        }
+      ],
+      "antiPattern": {
+        "ja": "うたを きくて。",
+        "why": "く takes the いて row — きく→きいて, never きくて."
       },
       "conjugation": {
         "form": "te",
@@ -212,6 +266,44 @@
       "verbClass": "ru"
     },
     {
+      "kana": "かって",
+      "romaji": "katte",
+      "gloss": "buy (te-form)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かう",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たつ",
+      "romaji": "tatsu",
+      "gloss": "to stand, to stand up",
+      "shortGloss": "stand",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "たって",
+      "romaji": "tatte",
+      "gloss": "stand (te-form)",
+      "shortGloss": "stand (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "たつ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "やって",
+      "romaji": "yatte",
+      "gloss": "do (te-form)",
+      "shortGloss": "do (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "やる",
+      "verbClass": "u"
+    },
+    {
       "kana": "のんで",
       "romaji": "nonde",
       "gloss": "drink (te-form)",
@@ -221,12 +313,12 @@
       "verbClass": "u"
     },
     {
-      "kana": "かって",
-      "romaji": "katte",
-      "gloss": "buy (te-form)",
+      "kana": "あそんで",
+      "romaji": "asonde",
+      "gloss": "play (te-form)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "かう",
+      "derivedFrom": "あそぶ",
       "verbClass": "u"
     },
     {
@@ -239,12 +331,41 @@
       "verbClass": "u"
     },
     {
-      "kana": "あそんで",
-      "romaji": "asonde",
-      "gloss": "play (te-form)",
+      "kana": "いそぐ",
+      "romaji": "isogu",
+      "gloss": "to hurry",
+      "shortGloss": "hurry",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "いそいで",
+      "romaji": "isoide",
+      "gloss": "hurry (te-form)",
+      "shortGloss": "hurry (te)",
       "imageable": false,
       "kind": "verb-form",
-      "derivedFrom": "あそぶ",
+      "derivedFrom": "いそぐ",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かす",
+      "romaji": "kasu",
+      "gloss": "to lend",
+      "shortGloss": "lend",
+      "imageable": true,
+      "kind": "verb",
+      "verbClass": "u"
+    },
+    {
+      "kana": "かして",
+      "romaji": "kashite",
+      "gloss": "lend (te-form)",
+      "shortGloss": "lend (te)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "かす",
       "verbClass": "u"
     },
     {
@@ -354,7 +475,8 @@
       "focus": "る-verbs swap る for て; the form that other things attach to",
       "introduces": [
         "たべて",
-        "みて"
+        "みて",
+        "たつ"
       ],
       "beats": [
         {
@@ -421,6 +543,15 @@
         },
         {
           "kind": "sentence",
+          "ja": "ミカが たつ。",
+          "en": "Mika stands up",
+          "exercises": [
+            "ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
           "ja": "しゃしんを みて。",
           "en": "Look at the photo",
           "exercises": [
@@ -481,39 +612,29 @@
       "reviewPool": [
         "たべる",
         "みる",
+        "たつ",
         "ほん",
         "そら",
         "しゃしん",
         "ほし",
-        "きょう",
-        "ひと"
+        "きょう"
       ]
     },
     {
       "id": "m8-neo-2",
       "role": "teaching",
-      "title": "The sound-change table — う-verbs",
-      "focus": "む/ぶ → んで, う/つ/る → って, く → いて; the table that pays twice",
+      "title": "う・つ・る → って",
+      "focus": "the biggest row: three endings, one result",
       "introduces": [
-        "のんで",
         "かって",
-        "きいて",
-        "あそんで"
+        "たって",
+        "やって"
       ],
       "beats": [
         {
           "kind": "rule",
           "grammarPointId": "te-form",
-          "variant": "sound-change"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いえで のんで。",
-          "en": "Drink at home",
-          "exercises": [
-            "te-form"
-          ],
-          "mode": "build"
+          "variant": "tte"
         },
         {
           "kind": "sentence",
@@ -526,10 +647,142 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに きいて。",
-          "en": "Ask your friend",
+          "ja": "ここに たって。",
+          "en": "Stand here",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "きょう やって。",
+          "en": "Do it today",
           "exercises": [
             "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんを かって。",
+          "en": "Buy a book",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "そこに たって。",
+          "en": "Stand there",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえで やって。",
+          "en": "Do it at home",
+          "exercises": [
+            "te-form",
+            "de-action"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ほんを ",
+          "tail": "。",
+          "answer": "かって",
+          "options": [
+            "かって",
+            "かうて",
+            "かりて"
+          ],
+          "en": "Buy the book",
+          "explanation": "かう ends in う, so it takes the って row — かって. かうて keeps the う it is supposed to drop."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ミカ",
+              "ja": "ここに たって。",
+              "en": "Stand here."
+            },
+            {
+              "speaker": "トム",
+              "ja": "うん。",
+              "en": "Okay."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika ask Tom to do?",
+              "options": [
+                "Stand here",
+                "Sit down",
+                "Buy a book",
+                "Go home"
+              ],
+              "answer": "Stand here"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ここで ミカの ほんを かって。",
+          "en": "Buy Mika's book here",
+          "combines": [
+            "de-action",
+            "no-possession",
+            "wo-object",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かう",
+        "たつ",
+        "やる",
+        "ほん",
+        "えんぴつ",
+        "ここ",
+        "そこ",
+        "きょう",
+        "いえ"
+      ]
+    },
+    {
+      "id": "m8-neo-10",
+      "role": "teaching",
+      "title": "む・ぶ・ぬ → んで",
+      "focus": "the voiced row — んで, never んて",
+      "introduces": [
+        "のんで",
+        "あそんで",
+        "いそぐ",
+        "かす"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-form",
+          "variant": "nde"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いえで のんで。",
+          "en": "Drink at home",
+          "exercises": [
+            "te-form",
+            "de-action"
           ],
           "mode": "build"
         },
@@ -538,7 +791,8 @@
           "ja": "いえで あそんで。",
           "en": "Play at home",
           "exercises": [
-            "te-form"
+            "te-form",
+            "de-action"
           ],
           "mode": "build"
         },
@@ -554,13 +808,280 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんを かって。",
-          "en": "Buy a book",
+          "ja": "かわで あそんで。",
+          "en": "Play at the river",
+          "exercises": [
+            "te-form",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぎゅうにゅうを のんで。",
+          "en": "Drink the milk",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ミカが いそぐ。",
+          "en": "Mika hurries",
+          "exercises": [
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほんを かす。",
+          "en": "I lend the book",
+          "exercises": [
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "みずを ",
+          "tail": "。",
+          "answer": "のんで",
+          "options": [
+            "のんで",
+            "のんて",
+            "のみて"
+          ],
+          "en": "Drink the water",
+          "explanation": "む・ぶ・ぬ take んで — the ん voices the ending, so のんて is never right."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "ケン",
+              "ja": "みずを のんで。",
+              "en": "Drink some water."
+            },
+            {
+              "speaker": "ミカ",
+              "ja": "ありがとう。",
+              "en": "Thanks."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken offer Mika?",
+              "options": [
+                "Water",
+                "Milk",
+                "Tea",
+                "Food"
+              ],
+              "answer": "Water"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "ミカの いえで あそんで。",
+          "en": "Play at Mika's house",
+          "combines": [
+            "no-possession",
+            "de-action",
+            "te-form"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "のむ",
+        "あそぶ",
+        "いそぐ",
+        "かす",
+        "みず",
+        "ぎゅうにゅう",
+        "かわ",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m8-neo-r1",
+      "role": "review",
+      "title": "Review — the て table",
+      "focus": "all three classes on all-new surfaces",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "かさを かって。",
+          "en": "Buy an umbrella",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなを みて。",
+          "en": "Look at the flowers",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いけに いって。",
+          "en": "Go to the pond",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんわを かって。",
+          "en": "Buy the phone",
           "exercises": [
             "te-form",
             "wo-object"
           ],
           "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょうりを たべて。",
+          "en": "Eat the food",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ぼうしを かって。",
+          "en": "Buy a hat",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ねこと ",
+          "tail": "。",
+          "answer": "あそんで",
+          "options": [
+            "あそんで",
+            "かって",
+            "みて"
+          ],
+          "en": "Play with the cat",
+          "explanation": "あそぶ ends in ぶ, which joins む in the んで group — あそんで."
+        },
+        {
+          "kind": "sentence",
+          "ja": "まどを みて。",
+          "en": "Look at the window",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "うみに いって。",
+          "en": "Go to the sea",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ほしを みて。",
+          "en": "Look at the stars",
+          "exercises": [
+            "te-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "うみに いく？",
+              "en": "Going to the sea?"
+            },
+            {
+              "speaker": "ケン",
+              "ja": "うん、ミカも くる。",
+              "en": "Yeah, Mika's coming too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who else is coming?",
+              "options": [
+                "Mika",
+                "Tanaka",
+                "Nobody",
+                "Tom's family"
+              ],
+              "answer": "Mika"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "はな",
+        "いけ",
+        "こえ",
+        "りょうり",
+        "ぼうし",
+        "まど",
+        "でんわ",
+        "ねこ"
+      ]
+    },
+    {
+      "id": "m8-neo-11",
+      "role": "teaching",
+      "title": "く → いて, ぐ → いで, す → して",
+      "focus": "the three one-kana rows; the ending decides, never the word",
+      "introduces": [
+        "きいて",
+        "いそいで",
+        "かして"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "te-form",
+          "variant": "single-kana"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに きいて。",
+          "en": "Ask your friend",
+          "exercises": [
+            "te-form",
+            "ni-location"
+          ],
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -573,35 +1094,81 @@
           "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "ぎゅうにゅうを ",
-          "tail": "。",
-          "answer": "のんで",
-          "options": [
-            "のんで",
-            "たべて",
-            "かって"
+          "kind": "sentence",
+          "ja": "いえに いそいで。",
+          "en": "Hurry home",
+          "exercises": [
+            "te-form",
+            "ni-location"
           ],
-          "en": "Drink the milk",
-          "explanation": "のむ ends in む, so it takes んで — のんで. たべて and かって are other verbs' て-forms."
+          "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かわで あそんで。",
-          "en": "Play at the river",
+          "ja": "ほんを かして。",
+          "en": "Lend me the book",
           "exercises": [
             "te-form",
-            "de-action"
+            "wo-object"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "えんぴつを かして。",
+          "en": "Lend me a pencil",
+          "exercises": [
+            "te-form",
+            "wo-object"
           ],
           "mode": "listening"
         },
         {
+          "kind": "particle-cloze",
+          "stem": "ほんを ",
+          "tail": "。",
+          "answer": "かして",
+          "options": [
+            "かして",
+            "かって",
+            "かすて"
+          ],
+          "en": "Lend me the book",
+          "explanation": "かす ends in す → して. かって is かう, a different verb on the って row — the ending decides which row you are on."
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "トム",
+              "ja": "えんぴつを かして。",
+              "en": "Lend me a pencil."
+            },
+            {
+              "speaker": "ミカ",
+              "ja": "うん。",
+              "en": "Sure."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom ask for?",
+              "options": [
+                "A pencil",
+                "A book",
+                "Water",
+                "A song"
+              ],
+              "answer": "A pencil"
+            }
+          ]
+        },
+        {
           "kind": "challenge",
-          "ja": "かわで ともだちの うたを きいて。",
-          "en": "Listen to your friend's song at the river",
+          "ja": "きょうは うたを きいて。",
+          "en": "Listen to a song today",
           "combines": [
-            "de-action",
-            "no-possession",
+            "wa-topic",
             "wo-object",
             "te-form"
           ],
@@ -609,15 +1176,14 @@
         }
       ],
       "reviewPool": [
-        "のむ",
-        "かう",
         "きく",
-        "あそぶ",
-        "みず",
-        "ぎゅうにゅう",
+        "いそぐ",
+        "かす",
         "うた",
-        "かわ",
-        "ともだち"
+        "ほん",
+        "えんぴつ",
+        "ともだち",
+        "いえ"
       ]
     },
     {
@@ -764,156 +1330,6 @@
         "やま",
         "さんぽ",
         "きょう"
-      ]
-    },
-    {
-      "id": "m8-neo-r1",
-      "role": "review",
-      "title": "Review — the て table",
-      "focus": "all three classes on all-new surfaces",
-      "introduces": [],
-      "beats": [
-        {
-          "kind": "sentence",
-          "ja": "かさを かって。",
-          "en": "Buy an umbrella",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "はなを みて。",
-          "en": "Look at the flowers",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "translate"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いけに いって。",
-          "en": "Go to the pond",
-          "exercises": [
-            "te-form",
-            "ni-location"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こえを きいて。",
-          "en": "Listen to the voice",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "りょうりを たべて。",
-          "en": "Eat the food",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ぼうしを かって。",
-          "en": "Buy a hat",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "ねこと ",
-          "tail": "。",
-          "answer": "あそんで",
-          "options": [
-            "あそんで",
-            "きいて",
-            "みて"
-          ],
-          "en": "Play with the cat",
-          "explanation": "あそぶ ends in ぶ, which joins む in the んで group — あそんで."
-        },
-        {
-          "kind": "sentence",
-          "ja": "まどを みて。",
-          "en": "Look at the window",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "うみに いって。",
-          "en": "Go to the sea",
-          "exercises": [
-            "te-form",
-            "ni-location"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "でんわを きいて。",
-          "en": "Listen to the phone",
-          "exercises": [
-            "te-form",
-            "wo-object"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "dialogue",
-          "lines": [
-            {
-              "speaker": "トム",
-              "ja": "うみに いく？",
-              "en": "Going to the sea?"
-            },
-            {
-              "speaker": "ケン",
-              "ja": "うん、ミカも くる。",
-              "en": "Yeah, Mika's coming too."
-            }
-          ],
-          "questions": [
-            {
-              "q": "Who else is coming?",
-              "options": [
-                "Mika",
-                "Tanaka",
-                "Nobody",
-                "Tom's family"
-              ],
-              "answer": "Mika"
-            }
-          ]
-        }
-      ],
-      "reviewPool": [
-        "かさ",
-        "はな",
-        "いけ",
-        "こえ",
-        "りょうり",
-        "ぼうし",
-        "まど",
-        "でんわ",
-        "ねこ"
       ]
     },
     {

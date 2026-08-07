@@ -399,9 +399,11 @@ export function getMockCourse(languageId: string): Course {
           lessons: [
             { id: "ja-m8-neo-kata-sa", title: "Katakana — サ row", status: "available" as const },
             { id: "ja-m8-neo-1", title: "The connector — て", status: "available" as const },
-            { id: "ja-m8-neo-2", title: "The sound-change table", status: "available" as const },
-            { id: "ja-m8-neo-3", title: "The rebels — いって, して, きて", status: "available" as const },
+            { id: "ja-m8-neo-2", title: "う・つ・る → って", status: "available" as const },
+            { id: "ja-m8-neo-10", title: "む・ぶ・ぬ → んで", status: "available" as const },
             { id: "ja-m8-neo-review-1", title: "Review — the て table", status: "available" as const },
+            { id: "ja-m8-neo-11", title: "く → いて, ぐ → いで, す → して", status: "available" as const },
+            { id: "ja-m8-neo-3", title: "The rebels — いって, して, きて", status: "available" as const },
             { id: "ja-m8-neo-trainer-te", title: "Drill — the whole て table", status: "available" as const,
               kind: "trainer" as const, trainerTypeIds: ["te-form"] },
             { id: "ja-m8-neo-4", title: "Please — てください", status: "available" as const },
