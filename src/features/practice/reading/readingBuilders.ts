@@ -10,7 +10,8 @@
  * (target-language questions with swap distractors, not this file).
  *
  *  - **Cloze** — blank ONE content word in an authored sentence and offer the
- *    answer alongside same-part-of-speech words the learner already knows.
+ *    answer alongside SAME-CATEGORY words the learner already knows, so the
+ *    sentence has to be read rather than solved by elimination.
  *
  * Everything here is a pure function of its arguments (authored content + the
  * learner's known atoms), so it is trivially unit-testable and carries no React
@@ -18,6 +19,7 @@
  */
 import type { Conversation, Story } from "@/features/practice/content";
 import type { KnownAtom } from "@/features/practice/engine";
+import { getSiblingSurfaces } from "@/features/languages/siblingResolver";
 
 /** Content parts of speech that make good, unambiguous cloze blanks. */
 export const CLOZE_POS = ["noun", "verb", "adjective", "adverb"] as const;
@@ -51,7 +53,7 @@ export interface ClozeCard {
   after: string;
   /** The masked word + the atom it exercises (for conservative SRS credit). */
   answer: { surface: string; reading: string; atomId: string };
-  /** Answer + same-POS known distractors, shuffled. */
+  /** Answer + {@link CLOZE_DISTRACTORS} competitive distractors, shuffled. */
   options: ClozeOption[];
 }
 
@@ -134,24 +136,94 @@ function byLengthDesc(a: KnownAtom, b: KnownAtom): number {
 }
 
 /**
+ * Wrong options offered alongside the answer — so three options on screen, down
+ * from four.
+ *
+ * Rodriguez (2005), 27 studies / 2,406 items: going 4 → 3 options is a small
+ * GAIN in both discrimination (+.031) and reliability (+.019), because the
+ * fourth slot is where implausible distractors end up. The slot is better spent
+ * on making the remaining two genuinely competitive.
+ */
+export const CLOZE_DISTRACTORS = 2;
+
+/** Length of the shared leading run of two strings. */
+function commonPrefixLength(a: string, b: string): number {
+  const limit = Math.min(a.length, b.length);
+  let i = 0;
+  while (i < limit && a[i] === b[i]) i++;
+  return i;
+}
+
+/**
+ * True when `candidate` is a mere inflection of `answer` rather than a different
+ * word — たべる / たべた, いく / いかない. Offering one against the other tests
+ * conjugation, not the vocabulary the blank is about, and is frequently ALSO a
+ * defensible reading of the sentence.
+ */
+function isInflectionOf(candidate: string, answer: string): boolean {
+  if (candidate === answer) return true;
+  if (candidate.startsWith(answer) || answer.startsWith(candidate)) return true;
+  const shared = commonPrefixLength(candidate, answer);
+  return shared >= 2 && shared >= Math.min(candidate.length, answer.length) - 1;
+}
+
+/**
+ * Competitive distractors for a blanked word: same-category siblings the learner
+ * already knows, minus anything that could ALSO be a correct answer.
+ *
+ * Rejected candidates, in order of why they'd poison the item:
+ *  - **already in the stem.** If the word appears elsewhere in the sentence the
+ *    learner can rule it out on repetition alone — and it may genuinely fit.
+ *  - **an inflection of the answer** (see {@link isInflectionOf}).
+ *  - **a different part of speech**, which would make the sentence ungrammatical
+ *    and therefore eliminable without reading it.
+ *
+ * Returns fewer than {@link CLOZE_DISTRACTORS} when the language/word has no
+ * usable siblings. Callers MUST skip the sentence rather than top up with random
+ * words — fewer, better items (see `siblingResolver.ts`).
+ */
+function competitiveDistractors(
+  languageId: string,
+  answer: KnownAtom,
+  sentenceText: string,
+  bySurface: Map<string, KnownAtom>,
+  seed: number,
+): KnownAtom[] {
+  const out: KnownAtom[] = [];
+  for (const surface of getSiblingSurfaces(languageId, answer.surface)) {
+    const atom = bySurface.get(surface);
+    if (!atom) continue; // sibling the learner hasn't been taught yet
+    if (atom.pos !== answer.pos) continue;
+    if (sentenceText.includes(surface)) continue;
+    if (isInflectionOf(surface, answer.surface)) continue;
+    out.push(atom);
+  }
+  return seededShuffle(out, seed);
+}
+
+/**
  * Build up to `max` cloze cards from authored sentences. For each sentence we
- * find a known CONTENT word that appears verbatim in it, blank it, and offer
- * three same-POS distractors the learner also knows. Sentences with no blankable
- * known word (or no same-POS distractors) are skipped — the base sentence is
- * always hand-written, so the cloze is never nonsense.
+ * find a known CONTENT word that appears verbatim in it, blank it, and offer it
+ * against {@link CLOZE_DISTRACTORS} same-category words the learner also knows.
+ *
+ * Sentences that can't produce a full set of COMPETITIVE distractors are
+ * skipped, not padded with random same-POS words: a distractor the learner can
+ * eliminate without reading the stem makes the item worthless (Little & Bjork
+ * 2015 measured it as indistinguishable from never showing the item). Since only
+ * JA ships sibling sets today, other languages currently yield no cloze cards at
+ * all — deliberate, and visible, rather than silently inert practice.
  */
 export function buildClozeCards(
   sentences: SentenceSource[],
   knownContent: KnownAtom[],
   seed: number,
   max: number,
+  languageId: string,
 ): ClozeCard[] {
   const content = knownContent.filter((a) => a.surface.length >= 2).slice().sort(byLengthDesc);
-  const byPos = new Map<string, KnownAtom[]>();
+  const bySurface = new Map<string, KnownAtom>();
   for (const atom of knownContent) {
-    const list = byPos.get(atom.pos) ?? [];
-    list.push(atom);
-    byPos.set(atom.pos, list);
+    if (!bySurface.has(atom.surface)) bySurface.set(atom.surface, atom);
   }
 
   const cards: ClozeCard[] = [];
@@ -160,14 +232,27 @@ export function buildClozeCards(
   for (const sentence of ordered) {
     if (cards.length >= max) break;
 
-    // Longest known content word that appears verbatim in the sentence.
-    const answer = content.find((a) => sentence.text.includes(a.surface));
+    // Longest known content word that appears verbatim in the sentence AND can
+    // be offered against competitive alternatives. Longest-first is the old
+    // preference kept as a tie-break; a blank we can't make competitive is worse
+    // than a shorter one we can, so we walk on rather than stopping at the first.
+    let answer: KnownAtom | undefined;
+    let distractors: KnownAtom[] = [];
+    for (const candidate of content) {
+      if (!sentence.text.includes(candidate.surface)) continue;
+      const options = competitiveDistractors(
+        languageId,
+        candidate,
+        sentence.text,
+        bySurface,
+        hashSeed(`${sentence.id}:${seed}:pool`),
+      );
+      if (options.length < CLOZE_DISTRACTORS) continue;
+      answer = candidate;
+      distractors = options.slice(0, CLOZE_DISTRACTORS);
+      break;
+    }
     if (!answer) continue;
-
-    const pool = (byPos.get(answer.pos) ?? []).filter((a) => a.surface !== answer.surface);
-    if (pool.length === 0) continue;
-
-    const distractors = seededShuffle(pool, hashSeed(`${sentence.id}:${seed}:pool`)).slice(0, 3);
 
     const at = sentence.text.indexOf(answer.surface);
     const options = seededShuffle<ClozeOption>(

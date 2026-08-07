@@ -35,8 +35,8 @@ function gradeSrs(atomIds: string[], correct: boolean): void {
 /**
  * Fill-in-the-blank — a standalone cloze session pooled from ALL authored
  * sentences at the learner's level (stories + conversations), not tied to
- * any single story; pick the missing content word from same-part-of-speech
- * words you already know.
+ * any single story; pick the missing content word against two SAME-CATEGORY
+ * words you already know, so the sentence has to be read.
  *
  * Every pick grades the `recognition` modality of the atom the activity
  * exercised — correct reinforces, a miss writes Again — and only ever touches
@@ -58,8 +58,8 @@ export function ClozePracticePage() {
 
   const [seed, setSeed] = useState(() => Date.now());
   const cards = useMemo(
-    () => buildClozeCards(sentences, knownContent, seed, CLOZE_SESSION),
-    [sentences, knownContent, seed],
+    () => buildClozeCards(sentences, knownContent, seed, CLOZE_SESSION, langId),
+    [sentences, knownContent, seed, langId],
   );
 
   const [index, setIndex] = useState(0);

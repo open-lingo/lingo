@@ -78,15 +78,16 @@ const STORY_A: Story = {
   title: "At the cafe",
   theme: "A quiet morning.",
   questions: [],
-  sentences: [{ text: "コーヒーを のみます。", translation: "I drink coffee.", reading: "koohii o nomimasu" }],
+  sentences: [{ text: "みずを のみます。", translation: "I drink water.", reading: "mizu o nomimasu" }],
 };
 
-// Only コーヒー appears verbatim in the story sentence → exactly one cloze card.
-const ANSWER_SURFACE = "コーヒー";
+// Only みず appears verbatim in the story sentence → exactly one cloze card, and
+// its `food` siblings supply the two competitive distractors.
+const ANSWER_SURFACE = "みず";
 const KNOWN = [
-  noun("ja:coffee", ANSWER_SURFACE, "koohii", "coffee"),
-  noun("ja:water", "みず", "mizu", "water"),
-  noun("ja:book", "ほん", "hon", "book"),
+  noun("ja:water", ANSWER_SURFACE, "mizu", "water"),
+  noun("ja:rice", "ごはん", "gohan", "rice"),
+  noun("ja:tea", "おちゃ", "ocha", "tea"),
 ];
 
 describe("ClozePracticePage", () => {
@@ -109,7 +110,7 @@ describe("ClozePracticePage", () => {
 
     expect(screen.getByText(/Fill in the blank/i)).toBeTruthy();
     // The meaning hint for the pooled sentence is shown.
-    expect(screen.getByText("I drink coffee.")).toBeInTheDocument();
+    expect(screen.getByText("I drink water.")).toBeInTheDocument();
   });
 
   it("shows an empty state when the learner knows too few words", () => {
@@ -127,7 +128,7 @@ describe("ClozePracticePage", () => {
     render(<ClozePracticePage />);
 
     const optionButtons = screen.getAllByRole("button");
-    const answerButton = optionButtons.find((b) => (b.textContent ?? "").includes("コーヒー"))!;
+    const answerButton = optionButtons.find((b) => (b.textContent ?? "").includes(ANSWER_SURFACE))!;
     fireEvent.click(answerButton);
 
     expect(screen.getByText("Nice reading.")).toBeInTheDocument();
