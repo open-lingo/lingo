@@ -16,14 +16,19 @@ import { useShowReadingRomaji } from "../reading/useShowReadingRomaji";
 const CLOZE_SESSION = 8;
 
 /* --------------------------------------------------------------------------
- * Conservative recognition SRS credit — only cards that already have state
- * advance (respects "only review cards count").
+ * Conservative recognition SRS grading — only cards that already have state
+ * advance (respects "only review cards count"); we never seed new cards here.
+ *
+ * BOTH outcomes are written. Grading only the correct pick made the scheduler a
+ * one-way ratchet: intervals could only ever grow, so the atoms the learner is
+ * weakest on were the ones whose strength we most overestimated. A miss maps to
+ * Again via the house `gradeFromLesson` mapping, same as lessons and reading.
  * ------------------------------------------------------------------------ */
-function creditSrs(atomIds: string[]): void {
+function gradeSrs(atomIds: string[], correct: boolean): void {
   for (const id of atomIds) {
     const state = getCardState(id);
     if (!state) continue;
-    setCardState(id, gradeFromLesson(state, "recognition", { correct: true, retried: false }));
+    setCardState(id, gradeFromLesson(state, "recognition", { correct, retried: false }));
   }
 }
 
@@ -33,9 +38,9 @@ function creditSrs(atomIds: string[]): void {
  * any single story; pick the missing content word from same-part-of-speech
  * words you already know.
  *
- * Correct answers lightly credit the `recognition` modality of the atom the
- * activity exercised — conservative reinforcement that only touches cards
- * which already have SRS state ("only review cards count").
+ * Every pick grades the `recognition` modality of the atom the activity
+ * exercised — correct reinforces, a miss writes Again — and only ever touches
+ * cards which already have SRS state ("only review cards count").
  */
 export function ClozePracticePage() {
   const { t } = useTranslation();
@@ -84,7 +89,7 @@ export function ClozePracticePage() {
       if (revealed || !card) return;
       setPicked(opt.surface);
       setScore((s) => ({ correct: s.correct + (opt.isAnswer ? 1 : 0), total: s.total + 1 }));
-      if (opt.isAnswer) creditSrs([card.answer.atomId]);
+      gradeSrs([card.answer.atomId], opt.isAnswer);
       recordPracticeResult("reading", card.answer.atomId, opt.isAnswer);
     },
     [revealed, card],

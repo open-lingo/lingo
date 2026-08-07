@@ -82,8 +82,9 @@ const STORY_A: Story = {
 };
 
 // Only コーヒー appears verbatim in the story sentence → exactly one cloze card.
+const ANSWER_SURFACE = "コーヒー";
 const KNOWN = [
-  noun("ja:coffee", "コーヒー", "koohii", "coffee"),
+  noun("ja:coffee", ANSWER_SURFACE, "koohii", "coffee"),
   noun("ja:water", "みず", "mizu", "water"),
   noun("ja:book", "ほん", "hon", "book"),
 ];
@@ -135,5 +136,40 @@ describe("ClozePracticePage", () => {
       "recognition",
       { correct: true, retried: false },
     );
+  });
+
+  it("grades Again on a wrong pick instead of writing nothing", () => {
+    getStories.mockReturnValue([STORY_A]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    getCardState.mockReturnValue({ existing: true });
+    render(<ClozePracticePage />);
+
+    const optionButtons = screen.getAllByRole("button");
+    const wrongButton = optionButtons.find(
+      (b) => (b.textContent ?? "") !== "" && !(b.textContent ?? "").includes(ANSWER_SURFACE),
+    )!;
+    fireEvent.click(wrongButton);
+
+    expect(gradeFromLesson).toHaveBeenCalledWith(
+      { existing: true },
+      "recognition",
+      { correct: false, retried: false },
+    );
+    expect(setCardState).toHaveBeenCalled();
+  });
+
+  it("never seeds a card that has no SRS state yet", () => {
+    getStories.mockReturnValue([STORY_A]);
+    getKnownAtomsByPos.mockReturnValue(KNOWN);
+    getCardState.mockReturnValue(undefined);
+    render(<ClozePracticePage />);
+
+    const answerButton = screen
+      .getAllByRole("button")
+      .find((b) => (b.textContent ?? "").includes(ANSWER_SURFACE))!;
+    fireEvent.click(answerButton);
+
+    expect(gradeFromLesson).not.toHaveBeenCalled();
+    expect(setCardState).not.toHaveBeenCalled();
   });
 });
