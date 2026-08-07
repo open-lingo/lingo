@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useAuth } from "@/shared/auth/useAuth";
 import { PracticeBreadcrumbs } from "./PracticeBreadcrumbs";
+import { ReadingCrumbProvider } from "./readingCrumb";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 
 /** Grace period before redirecting an apparently-anon user out of /practice.
@@ -65,15 +66,20 @@ export function PracticeLayout() {
     // The hub index rides the shell's shared wide canvas (Layout <main> centers
     // + caps at 96vw), so it must NOT re-cap here. Sub-pages keep the standard
     // 2xl cap + breadcrumbs.
-    <div
-      className={
-        isPracticeHub
-          ? "flex w-full flex-1 flex-col"
-          : "mx-auto max-w-screen-2xl space-y-6"
-      }
-    >
-      {!isPracticeHub && !isFocusedSession && <PracticeBreadcrumbs />}
-      <Outlet />
-    </div>
+    // The reading routes publish which KIND of item they resolved so the
+    // breadcrumb leaf can say "Story" or "Conversation" — the provider has to
+    // sit above BOTH the crumbs and the outlet. See `readingCrumb`.
+    <ReadingCrumbProvider>
+      <div
+        className={
+          isPracticeHub
+            ? "flex w-full flex-1 flex-col"
+            : "mx-auto max-w-screen-2xl space-y-6"
+        }
+      >
+        {!isPracticeHub && !isFocusedSession && <PracticeBreadcrumbs />}
+        <Outlet />
+      </div>
+    </ReadingCrumbProvider>
   );
 }

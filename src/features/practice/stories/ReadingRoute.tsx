@@ -22,6 +22,7 @@
 import { useParams } from "react-router-dom";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { allConversations, allStories } from "@/features/practice/content";
+import { usePublishReadingItemKind } from "@/features/practice/readingCrumb";
 import { StoryReaderPage } from "./StoryReaderPage";
 import { ConversationReaderPage } from "./ConversationReaderPage";
 
@@ -30,11 +31,20 @@ export function ReadingRoute() {
   const langId = useLang();
   const id = storyId ?? "";
 
-  if (allStories(langId).some((s) => s.id === id)) {
-    return <StoryReaderPage storyId={id} />;
-  }
-  if (allConversations(langId).some((c) => c.id === id)) {
-    return <ConversationReaderPage conversationId={id} />;
-  }
-  return <StoryReaderPage storyId={id} />;
+  // An id that matches neither is a story miss, which the story reader already
+  // answers gracefully — so anything that isn't a known conversation is a story.
+  const isConversation =
+    !allStories(langId).some((s) => s.id === id) &&
+    allConversations(langId).some((c) => c.id === id);
+
+  // This is the only place in the app that knows which of the two it is, and
+  // the breadcrumb leaf has to say so. It can't ask the content itself without
+  // pulling the corpus into the eager bundle — see `readingCrumb`.
+  usePublishReadingItemKind(isConversation ? "conversation" : "story");
+
+  return isConversation ? (
+    <ConversationReaderPage conversationId={id} />
+  ) : (
+    <StoryReaderPage storyId={id} />
+  );
 }
