@@ -126,10 +126,15 @@ free-tier limits, the two app-specific bugs it surfaced, and the measured proof
 that the web build is unchanged: **[ios-wrapper-setup-2026-08-06.md](./ios-wrapper-setup-2026-08-06.md)**.
 
 Free provisioning is **your device only, 7-day profile expiry, no TestFlight**,
-so it does NOT replace Tier 0/1 for friends and family. Two blockers stand
-between the wrapper and anything shippable: the iOS platform component is not
-installed in Xcode, and **TTS audio does not work under `capacitor://`** (the
-app resolves clips same-origin; the fix is a CORS policy in `lingo-infra`).
+so it does NOT replace Tier 0/1 for friends and family.
+
+**Status 2026-08-07: it runs on hardware.** Lesson 1 plays through on an iPhone 15 Pro Max
+(iOS 26.5.2). Both former blockers are cleared — the iOS platform component is installed,
+and TTS under `capacitor://` is fixed in code by routing that one fetch through the native
+HTTP stack, which removes the `lingo-infra` CORS policy from the critical path entirely.
+
+⚠️ Audio is fixed but **not confirmed by ear** — "the lesson works" does not prove a clip
+decoded. See § 5 gap 1 of the wrapper doc before assuming it does.
 
 ---
 

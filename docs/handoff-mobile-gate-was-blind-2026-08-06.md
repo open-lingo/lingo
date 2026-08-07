@@ -64,6 +64,25 @@ stage itself reports 0 and passes vacuously), plus window-level scroll. Allow-li
 
 This is the check that would have caught the 204px `word_image_mcq` overflow on its own.
 
+## ⚠️ The mobile commit and the N4 commit are atomic as a pair
+
+They were split by authorship (2026-08-07), but the mobile commit does **not** pass its own
+test suite in isolation: `stickyCta.test.ts` ships in the mobile commit while
+`ConjugationTransformStepView` and `DialogueListenStepView` get their `primary-cta` opt-in
+from the N4 commit. Checking out the mobile commit alone fails with
+
+```
+expected [ "ConjugationTransformStepView.tsx", "DialogueListenStepView.tsx" ] to deeply equal []
+```
+
+Verified in a worktree: 9,111 passed, 1 failed. Only 3 of those two files' 58 changed lines
+are CTA-related, so moving them wholesale into the mobile commit would drag N4 logic across
+and be a worse trade.
+
+**Consequence: `git revert` of the N4 commit alone will fail this test.** The fix is to also
+drop those two filenames from `NOT_STICKY`, or re-add the attribute. It fails loudly, so it
+is discoverable — but it will not be obvious why.
+
 ## ⚠️ Known limitation
 
 `/ja/learn/test-out/m11` and `/ja/learn/placement-test` render an **adaptive** item chosen at
