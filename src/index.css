@@ -370,3 +370,52 @@ ruby {
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
 }
+
+/* ── Lesson action bar ─────────────────────────────────────────────────
+   The primary CTA ("Check" / "Continue") is authored INSIDE each step view,
+   at the end of a `flex-1` column with `mt-auto`. When the step fits, that
+   already pins it to the bottom of the stage. When it does NOT fit — short
+   laptops, landscape phones, or simply a long step — the CTA used to scroll
+   away with the rest of the content and the learner was stranded with no
+   visible way forward (Spencer QA 2026-08-05: "the continue button was
+   falling off my screen").
+
+   Sticking it to the bottom of the stage scroller is the Duolingo-style
+   fixed action bar: the button holds the same position relative to the
+   bottom edge on every device, and long content scrolls UNDER it instead of
+   pushing it off. On viewports where the step already fits this rule is a
+   no-op — `mt-auto` has it there anyway, and the background matches the
+   page — so nothing moves on submit (the CTA-stability rule in CLAUDE.md
+   § "Lesson UI stability rules" still holds).
+
+   Scoped to `[data-lesson-stage]` (set by `LessonShell`) so it applies to the
+   lesson player and the placement/test-out runner alike, and to nothing else. */
+[data-lesson-stage] [data-testid="primary-cta"] {
+  position: sticky;
+  bottom: 0;
+  /* Only the BOTTOM edge is a sticky constraint. Horizontal insets must stay
+     `auto` — a step view that offsets its CTA with `left`/`right` (to mirror a
+     breakout grid) would otherwise have that value reinterpreted as a sticky
+     inset and get dragged off-screen. Breakouts use margins instead; this is
+     the belt-and-braces guard. */
+  left: auto;
+  right: auto;
+  /* Opaque, and above the content sliding under it. */
+  z-index: 1;
+  background-color: rgb(var(--color-background));
+}
+
+/* `bottom: 0` sticks to the scrollport's CONTENT box, so the scroller's own
+   `py-4` leaves a 16px band BELOW the bar that scrolling tiles still show
+   through (visible on a 667×375 landscape phone). Extend the bar's background
+   over that band with a pseudo-element — no layout change, no per-step-view
+   padding to keep in sync. Height tracks the scroller's `py-4`. */
+[data-lesson-stage] [data-testid="primary-cta"]::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 1rem;
+  background-color: inherit;
+}

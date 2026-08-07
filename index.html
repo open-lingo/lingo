@@ -25,6 +25,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
+    <!-- Home-screen install. Icons come from `scripts/generate-icons.mjs`.
+         ⚠️ `start_url: "/"` is only safe because routes/MarketingRedirect.tsx
+         detects standalone display and sends anonymous users to the in-app
+         /login instead of the marketing origin — a cross-origin navigation
+         breaks OUT of an installed app. Don't remove that branch alone.
+         Both theme-color and status-bar rationale: docs/ios-wrapper-setup-2026-08-06.md -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f0e6" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171310" />
+    <!-- `apple-` form is deprecated but still the only one iOS honours. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Open Lingo" />
+    <!-- ⚠️ `default`, not `black-translucent`: translucent puts content under
+         the status bar and the safe-area insets aren't hardware-verified yet. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Open Lingo</title>
   </head>
   <body>

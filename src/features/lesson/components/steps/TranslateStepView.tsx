@@ -247,7 +247,7 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
       {/* Bottom-anchored block: feedback + CTA together so the button
           sits in the shared bottom action slot on every step type. */}
-      <div className="mt-auto flex flex-col gap-4 pt-6">
+      <div className="mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {submitted && (
           <Feedback
             correct={isCorrect}

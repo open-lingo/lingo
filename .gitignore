@@ -72,6 +72,9 @@ web_modules/
 .env
 .env.*
 !.env.example
+# `!.env.example` is an exact match, so the native template needs its own
+# negation or `.env.*` swallows it. `.env.native` itself stays ignored.
+!.env.native.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -191,3 +194,11 @@ scripts/data/ko-frequency-raw/
 # Dev-only TTS clip cache (see serveTtsLocally in vite.config.ts). Populated
 # on demand from the CDN so local dev works offline after first use.
 .tts-cache/
+
+# Capacitor iOS wrapper. The Xcode project IS committed (it carries the bundle
+# id, the `com.openlingo.app://` URL scheme and the Info.plist usage strings).
+# The generated parts are excluded by `ios/.gitignore`, which Capacitor writes
+# and maintains — notably `App/App/public`, a straight copy of `dist/` from
+# `cap sync` that would otherwise double every asset in the repo. Deliberately
+# NOT duplicated here: two copies of the same rules drift, and the one next to
+# the files is the one `cap add` will keep current.

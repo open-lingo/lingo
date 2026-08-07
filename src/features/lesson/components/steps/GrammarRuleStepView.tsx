@@ -323,7 +323,13 @@ export function GrammarRuleStepView({
             required reading — a tap-to-expand chip, one disclosure level. */}
         {step.cultureNote ? <CultureChip note={step.cultureNote} /> : null}
 
-        <div className="mt-auto pt-6">
+        {/* ⚠️ Deliberately does NOT carry the sticky-CTA hook (the primary-cta
+          testid). That hook floats the CTA to the bottom edge of the stage
+          (index.css § "Lesson action bar"), which would let a learner continue
+          without scrolling through the card — and would drag the `ReadGateBar`
+          down with it. The read gate IS the point of this step.
+          `stickyCta.test.ts` records the exemption; don't "fix" this. */}
+      <div className="mt-auto pt-6">
           <ReadGateBar ready={ready} fillStarted={fillStarted} durationMs={durationMs} />
           <ContinueButton
             onClick={() => {
@@ -396,6 +402,12 @@ export function GrammarRuleStepView({
         </p>
       ) : null}
 
+      {/* ⚠️ Deliberately does NOT carry the sticky-CTA hook (the primary-cta
+          testid). That hook floats the CTA to the bottom edge of the stage
+          (index.css § "Lesson action bar"), which would let a learner continue
+          without scrolling through the card — and would drag the `ReadGateBar`
+          down with it. The read gate IS the point of this step.
+          `stickyCta.test.ts` records the exemption; don't "fix" this. */}
       <div className="mt-auto pt-6">
         <ReadGateBar ready={ready} fillStarted={fillStarted} durationMs={durationMs} />
         <ContinueButton

@@ -5,5 +5,6 @@
 import type { RouteTarget, Viewport } from "./_matrix";
 
 export const VIEWPORTS: Viewport[];
+export const DESKTOP_VIEWPORTS: Viewport[];
 export const PUBLIC_ROUTES: RouteTarget[];
 export const AUTHED_ROUTES: RouteTarget[];

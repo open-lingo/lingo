@@ -8,9 +8,14 @@
  * visual sweep import the SAME arrays — no drift. This file adds the TS types,
  * the extended viewports, and the env-driven helpers on top.
  */
-import { VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES } from "./routes.mjs";
+import {
+  VIEWPORTS,
+  DESKTOP_VIEWPORTS,
+  PUBLIC_ROUTES,
+  AUTHED_ROUTES,
+} from "./routes.mjs";
 
-export { VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES };
+export { VIEWPORTS, DESKTOP_VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES };
 
 export interface Viewport {
   /** slug used in test titles and screenshot filenames */
@@ -58,9 +63,16 @@ export function activeRoutes(): RouteTarget[] {
   return PUBLIC_ONLY ? PUBLIC_ROUTES : ALL_ROUTES;
 }
 
-/** Viewports to actually exercise given the current env. */
+/**
+ * Viewports to actually exercise given the current env.
+ *
+ * Desktop sizes ride the default run: the gate's whole point is "does the
+ * layout hold at this size", and phone-only coverage is exactly how the
+ * test-out CTA shipped below the fold at 1080p (2026-08-05).
+ */
 export function activeViewports(): Viewport[] {
-  return USE_EXTENDED ? [...VIEWPORTS, ...EXTENDED_VIEWPORTS] : VIEWPORTS;
+  const base = [...VIEWPORTS, ...DESKTOP_VIEWPORTS];
+  return USE_EXTENDED ? [...base, ...EXTENDED_VIEWPORTS] : base;
 }
 
 /** Stable slug for a route path — used in test titles and screenshot filenames. */

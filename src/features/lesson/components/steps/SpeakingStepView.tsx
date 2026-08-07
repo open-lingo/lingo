@@ -149,7 +149,7 @@ function SpeakingStepPlaceholder({
         Speech recognition is not yet available. Practice saying the phrase aloud, then continue.
       </div>
 
-      <div className="mt-auto pt-6">
+      <div className="mt-auto pt-6" data-testid="primary-cta">
         <ContinueButton onClick={onContinue} label="I said it!" />
       </div>
     </div>
@@ -802,7 +802,7 @@ function SpeakingStepRecognized({
       </div>
 
       {/* Bottom-anchored CTA slot — shared physical place across step types. */}
-      <div className="mt-auto pt-6">
+      <div className="mt-auto pt-6" data-testid="primary-cta">
       {passed ? (
         <ContinueButton
           onClick={onContinue}

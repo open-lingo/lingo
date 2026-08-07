@@ -20,6 +20,19 @@ export const VIEWPORTS = [
   { name: "tablet-portrait", width: 768, height: 1024 },
 ];
 
+/**
+ * Desktop viewports. The gate was phone-only through 2026-08, which is why the
+ * test-out shell shipped with its CTA below the fold at 1080p and its option
+ * tiles at 2× lesson width — no viewport in the matrix was wide enough to see
+ * it (Spencer QA 2026-08-05). Laptop-720 is the short-height desktop case:
+ * plenty of width, less vertical room than a tablet.
+ * @type {Viewport[]}
+ */
+export const DESKTOP_VIEWPORTS = [
+  { name: "laptop-720", width: 1280, height: 720 },
+  { name: "desktop-1080p", width: 1920, height: 1080 },
+];
+
 /** @type {RouteTarget[]} */
 export const PUBLIC_ROUTES = [
   { path: "/landing", auth: false, lang: null },
@@ -37,10 +50,19 @@ export const AUTHED_ROUTES = [
   // Learn + lesson player (LessonPage god file — highest overflow risk)
   { path: "/ja/learn", auth: true, lang: "ja" },
   { path: "/ja/learn/course", auth: true, lang: "ja" },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=0", auth: true, lang: "ja", primaryCta: true },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=2", auth: true, lang: "ja", primaryCta: true },
-  { path: "/ja/learn/lessons/ja-m4-1-1?step=6", auth: true, lang: "ja", primaryCta: true },
+  // ⚠️ Lesson ids must be LIVE ids from the course map (`shared/domain/mockCourse.ts`).
+  // These pointed at `ja-m4-1-1` until 2026-08-05 — an id that moved to
+  // `curriculum/_archive/` in the 2026-07-26 IR wave. The route rendered
+  // "Lesson not found", which exposes no `[data-testid="primary-cta"]`, so the
+  // cta-fold spec skipped-with-annotation and stayed green while covering
+  // nothing. Steps are chosen for step types that actually render a CTA.
+  { path: "/ja/learn/lessons/ja-m4-neo-1?step=1", auth: true, lang: "ja", primaryCta: true }, // build_sentence
+  { path: "/ja/learn/lessons/ja-m4-neo-1?step=6", auth: true, lang: "ja", primaryCta: true }, // word_image_mcq
+  { path: "/ja/learn/lessons/ja-m4-neo-1?step=8", auth: true, lang: "ja", primaryCta: true }, // build_sentence
   { path: "/ja/learn/placement-test", auth: true, lang: "ja", primaryCta: true },
+  // Per-module test-out. Shares PlacementTestPage with placement-test but is
+  // reached from the course map, and was uncovered here until 2026-08-05.
+  { path: "/ja/learn/test-out/m11", auth: true, lang: "ja", primaryCta: true },
 
   // Practice pillars
   { path: "/ja/practice", auth: true, lang: "ja" },

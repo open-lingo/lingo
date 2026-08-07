@@ -47,7 +47,7 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
   const [failed, setFailed] = useState(false);
   if (!src || failed) {
     return (
-      <span aria-hidden className="text-8xl">
+      <span aria-hidden className="min-h-0 flex-1 text-5xl leading-none sm:text-8xl">
         {emoji}
       </span>
     );
@@ -60,7 +60,19 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
       height={160}
       loading="eager"
       onError={() => setFailed(true)}
-      className="h-[50%] w-[50%] max-h-52 max-w-52 select-none object-contain"
+      // `min-h-0 flex-1` (was `h-[50%]`): the art is the shrinkable part of the
+      // card. A percentage height needs a definite parent height to resolve
+      // against, which the card only has once it stops being content-sized —
+      // so on narrow phones it fell back to intrinsic size and inflated the
+      // card. Flexing absorbs the shrink instead; `object-contain` keeps the
+      // aspect ratio at whatever height it lands on.
+      // `min-h-[30%]` is a pedagogy floor, not styling: the PICTURE is the
+      // answer cue in this step, so it must never be squeezed to nothing. With
+      // pure `flex-1` a long kana word (きゅうにゅう) wrapped to two lines and
+      // took the whole card, leaving zero art — the step still "fit" the
+      // viewport while being unusable. The floor resolves against the card's
+      // now-definite square height.
+      className="min-h-[30%] w-1/2 max-h-52 max-w-52 flex-1 select-none object-contain"
       draggable={false}
     />
   );
@@ -139,13 +151,25 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const optCount = step.options.length;
   const cols = optCount <= 3 ? optCount : 2;
   const rows = Math.ceil(optCount / cols);
-  // Width is capped three ways: the scroller's own inline free space
-  // (`100cqw`, not `100vw` — no scrollbar-gutter error), a height budget
-  // that keeps the two stacked square rows inside the scroller
-  // (`100cqh` minus the prompt + Continue budget; `cqh` already excludes
-  // the lesson chrome, so the subtracted budget is smaller than the old
-  // `dvh` math), and a hard per-column rem cap. No viewport-unit math.
-  const gridWidth = `min(calc(100cqw - 3rem), calc((100cqh - 11rem) * ${cols} / ${rows}), ${cols * 16}rem)`;
+  // Height reserved for everything in the stage that ISN'T the grid: the
+  // prompt (up to 2 wrapped lines on a 320px phone), the outer + inner
+  // `gap-6`s, the CTA block's `pt-6`, and the CTA itself (~74px measured).
+  // Was 11rem, which under-reserved by ~25px whenever the prompt wrapped.
+  const RESERVE = "13rem";
+  // Width caps: the scroller's own inline free space (`100cqw`, not `100vw` —
+  // no scrollbar-gutter error), a height-derived cap, and a hard per-column rem
+  // cap. No viewport-unit math.
+  const gridWidth = `min(calc(100cqw - 3rem), calc((100cqh - ${RESERVE}) * ${cols} / ${rows}), ${cols * 16}rem)`;
+  // ⚠️ The width cap ALONE does not bound the grid's height. It predicts height
+  // from width, which is only valid while the cards are actually square — and
+  // they are NOT: `aspect-square` sets a *preferred* ratio, but a grid row is
+  // sized to its items' min-content, and a card's min-content (romaji ruby +
+  // `text-3xl` kana + emoji + `p-4`) exceeds its width on narrow phones. Cards
+  // measured 112×135 at 320px, so a 240px-wide grid rendered 390px tall and the
+  // stage scrolled by up to 204px (Spencer QA 2026-08-06, ja-m4-neo-1 step 12).
+  // Bound the height DIRECTLY and let the cards shrink into it: `1fr` rows plus
+  // `min-h-0` on the card is what actually makes `aspect-square` yield.
+  const gridMaxHeight = `calc(100cqh - ${RESERVE})`;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
@@ -180,7 +204,14 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           left-1/2 translate breakout, up to 56rem. */}
       <div
         className="relative left-1/2 grid -translate-x-1/2 gap-4"
-        style={{ width: gridWidth, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+        style={{
+          width: gridWidth,
+          maxHeight: gridMaxHeight,
+          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+          // `minmax(0, 1fr)` rows (not the default `auto`) are what let the
+          // grid honour maxHeight — `auto` rows size to content and overflow.
+          gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
+        }}
       >
         {step.options.map((opt, idx) => {
           const isSelected = selected === opt.id;
@@ -193,8 +224,13 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           const optAnn = step.optionAnnotations?.[idx];
           // Square buttons. Same solid-accent selection pattern as the
           // other 2026-05-16 MCQ revamps — unmistakable in dark mode.
+          // `min-h-0` + `overflow-hidden` are load-bearing, not defensive: a
+          // flex/grid item keeps a min-content floor by default, which is what
+          // let the card outgrow its `aspect-square` and push the grid row
+          // taller than the width cap predicted. With the floor removed the
+          // card shrinks into its `1fr` row and the ratio finally binds.
           let base =
-            "flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-2 bg-surface p-4 transition-colors duration-150";
+            "flex aspect-square min-h-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 bg-surface p-4 transition-colors duration-150";
           let stateClasses = "border-border hover:border-accent";
           if (submitted && isAnswer) {
             stateClasses = "border-accent bg-accent/10";
@@ -224,7 +260,10 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                   forceShowHelper={showRomaji}
                   segments={optAnn}
                   className={
-                    "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
+                    // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
+                    // 6-kana word at 30px wrapped to two lines and crowded the
+                    // art out. Desktop keeps 4xl.
+                    "font-japanese text-center text-2xl font-bold tracking-wide sm:text-4xl " +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer
@@ -237,7 +276,10 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                   forceShowHelper={showRomaji}
                   text={opt.word}
                   className={
-                    "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
+                    // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
+                    // 6-kana word at 30px wrapped to two lines and crowded the
+                    // art out. Desktop keeps 4xl.
+                    "font-japanese text-center text-2xl font-bold tracking-wide sm:text-4xl " +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer
@@ -257,9 +299,16 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
 
       {/* Single bottom-anchored block (banner + CTA) so the button never
           moves on submit. Width mirrors the grid's breakout so the column
-          reads as one shape when the grid exceeds 42rem. */}
+          reads as one shape when the grid exceeds 42rem.
+          ⚠️ The breakout offset here is `ml-[50%]`, NOT the grid's `left-1/2`,
+          even though the two are geometrically identical (both resolve against
+          the containing block's width). This block is made `position: sticky`
+          by index.css § "Lesson action bar", and under sticky a `left` value
+          stops being a relative nudge and becomes an inset CONSTRAINT — which
+          dragged the button off the left edge of the viewport (rect.left=-102
+          @412px). A margin is pure layout and survives the position change. */}
       <div
-        className="relative left-1/2 mt-auto flex -translate-x-1/2 flex-col gap-4 pt-6"
+        className="relative ml-[50%] mt-auto flex -translate-x-1/2 flex-col gap-4 pt-6"
         style={{ width: gridWidth }}
         data-testid="primary-cta"
       >

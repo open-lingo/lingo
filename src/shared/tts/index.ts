@@ -31,6 +31,8 @@
  */
 import { useEffect } from "react";
 import { assetUrl, resolveTtsPath } from "./manifest";
+import { IS_NATIVE } from "@/shared/platform/native";
+import { fetchBinaryNative } from "@/shared/platform/nativeHttp";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   getAudioVolume,
@@ -363,13 +365,21 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
   if (pending) return await pending.catch(() => null);
 
   const p = (async () => {
-    const res = await fetch(url);
-    // The mp3s are served by the CDN, not this origin — a 403/404/504 comes
-    // back as a resolved Response, and decodeAudioData would then choke on an
-    // error page. Fail here so callers reach the synthesis fallback with a
-    // meaningful reason.
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const arr = await res.arrayBuffer();
+    let arr: ArrayBuffer;
+    if (IS_NATIVE) {
+      // Under `capacitor://` this fetch is CORS-blocked and the clip silently
+      // never plays — see `shared/platform/nativeHttp.ts` for why the native
+      // HTTP stack is the fix rather than an absolute asset base.
+      arr = await fetchBinaryNative(url);
+    } else {
+      const res = await fetch(url);
+      // The mp3s are served by the CDN, not this origin — a 403/404/504 comes
+      // back as a resolved Response, and decodeAudioData would then choke on an
+      // error page. Fail here so callers reach the synthesis fallback with a
+      // meaningful reason.
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      arr = await res.arrayBuffer();
+    }
     // Chromium prefers the promise form; older Safari only honored the
     // callback form, but we target current evergreens.
     const buf = await c.decodeAudioData(arr);

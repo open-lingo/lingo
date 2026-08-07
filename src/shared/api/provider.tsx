@@ -14,6 +14,7 @@ import { TagsApi } from "./tags";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
 import { getImpersonationTargetId } from "@/shared/auth/impersonation";
+import { AUTH_BYPASS, BYPASS_TOKEN } from "@/shared/auth/bypass";
 
 interface ApiContext {
   users: UsersApi;
@@ -55,17 +56,17 @@ const OPS_API_BASE_URL =
 const AUTH0_AUDIENCE =
   (import.meta.env.VITE_AUTH0_AUDIENCE as string | undefined) ?? "";
 
-// Gated on import.meta.env.DEV so the dev token shim is stripped from prod
-// builds even if VITE_DEV_AUTH_BYPASS is somehow set (mirrors useAuth.ts).
-const DEV_AUTH_BYPASS =
-  import.meta.env.DEV && import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
+// Token shim for the bypassed sessions. Imported rather than re-derived: this
+// check MUST agree with the one `useAuth` makes, or the app renders a
+// signed-in UI whose every request throws for want of an Auth0 session.
+// See `shared/auth/bypass.ts` for what each door is gated on.
 
 export function ApiProvider({ children }: { children: ReactNode }) {
   const { getAccessTokenSilently } = useAuth0();
 
   const api = useMemo(() => {
-    const getAccessToken = DEV_AUTH_BYPASS
-      ? () => Promise.resolve("dev-bypass")
+    const getAccessToken = AUTH_BYPASS
+      ? () => Promise.resolve(BYPASS_TOKEN)
       : () => getAccessTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } });
 
     // Re-read sessionStorage on every request — banner Stop/Start mutates

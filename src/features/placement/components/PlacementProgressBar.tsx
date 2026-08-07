@@ -27,14 +27,22 @@ export function PlacementProgressBar({
     const pct = Math.min(100, (answered / total) * 100);
     return (
       <div className="px-4 py-3">
-        <div className="flex items-center justify-between text-sm text-text-secondary">
-          <span>
+        <div className="flex items-center justify-between gap-2 text-sm text-text-secondary">
+          {/* `min-w-0 truncate` is load-bearing, not polish. This label
+              interpolates a MODULE TITLE of arbitrary length, and the shell
+              below it is fixed-height — so on a 360px screen "Test out · Time I
+              and the plain past" wrapped to two lines and took ~19px straight
+              out of the step's stage. Measured: the stage scroller overflowed
+              by exactly 19px at 360×640 (stage-fit gate, 2026-08-06), which
+              clipped the Check button. A header in a fixed shell must have a
+              height that does not depend on its content. */}
+          <span className="min-w-0 truncate">
             {t("placement.testOutLabel", {
               defaultValue: "Test out · {{module}}",
               module: testOutModuleLabel ?? state.currentProbeModule,
             })}
           </span>
-          <span>
+          <span className="shrink-0">
             {answered} / {total}
           </span>
         </div>

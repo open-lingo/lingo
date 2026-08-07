@@ -20,6 +20,13 @@ const IGNORE = [
   /Download the React DevTools/i,
   /\[vite\]/i, // HMR/dev-server chatter
   /favicon/i,
+  // Chromium refuses `navigator.vibrate` until the frame has been tapped, and
+  // logs it as console.error. Lesson steps fire haptics on mount (juice.ts), so
+  // an automated run that navigates straight into a step ALWAYS trips it. It is
+  // a property of driving the app without a gesture, not a render bug — a real
+  // user has tapped by definition. Surfaced 2026-08-06 when the gate started
+  // actually rendering lesson routes; before that it never got far enough.
+  /Blocked call to navigator\.vibrate/i,
 ];
 
 function ignored(msg: string): boolean {

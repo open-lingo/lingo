@@ -92,6 +92,22 @@ Auth0 is the cost line that bites at scale:
 
 **Annual / lifetime billing is the highest-leverage margin recovery you can do.** Push it hard in the UI. "Save 16% and we keep more of your support" works.
 
+### App store IAP vs Stripe — the crossover is $2.48
+
+Stripe's **$0.30 fixed fee** is what makes micro-transactions bad; app store IAP is percentage-only. We qualify for both small-business programs (Apple SBP and Google Play first-$1M) at **15%**.
+
+| Tier | Stripe net | IAP net (15%) | Winner |
+|---|---|---|---|
+| $1/mo Supporter | $0.67 | **$0.85** | IAP, +27% |
+| $5/mo Patron | **$4.56** | $4.25 | Stripe |
+| $50 lifetime | **$48.25** | $42.50 | Stripe |
+
+Solving `0.15x = 0.30 + 0.029x` gives **x = $2.48**. Below that, IAP nets more; above it, Stripe does.
+
+**This inverts the usual assumption.** App stores don't wreck the $1 tier — the $1 tier is the *only* one that gets better on mobile. Route Supporter through IAP and push Patron / Lifetime to web checkout.
+
+⚠️ Verify current Apple external-purchase-link rules before committing; the 2025 US injunction opened up linking out to external checkout, and that landscape moves.
+
 ---
 
 ## Break-even math at 10k MAU
@@ -238,6 +254,9 @@ Concrete numeric triggers — when crossed, sit down and re-do the math:
 | Maintainer time < 2 hours/week sustained for 3 months | Begin community handoff conversation — project is mature enough |
 | Maintainer time > 10 hours/week sustained | Consider raising prices, cutting scope, or finding a co-maintainer |
 | AI features being considered | Re-do the unit-economics math first |
+| **Any app store submission (iOS or Android)** | **File the OPEN LINGO trademark, Class 9, §1(a) — $350.** Store listings are publicly searchable and are the main discovery vector for squatters and prior-rights holders. Filing after a takedown costs 10–16× more. See [mobile-offline-oss-scoping-2026-08-06.md](./mobile-offline-oss-scoping-2026-08-06.md) § T8. |
+| Outside code or content contributions accepted | Add a CLA or DCO **first** — mixed copyright ownership blocks later relicensing and copyright registration |
+| Offline audio packs shipped | Re-check CloudFront egress; per-module packs are budgeted, a full-corpus prefetch is 40× the per-user bandwidth line |
 
 ---
 

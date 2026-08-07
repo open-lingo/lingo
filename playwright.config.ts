@@ -57,7 +57,21 @@ const webServer = CAPTURE_E2E
         // Mobile render gate: ALWAYS start its own worktree dev server on
         // MOBILE_PORT (never :5173) with the E2E portable-auth flag on, so the
         // captured :5173 storageState replays here and we never test a stale tree.
-        command: `VITE_E2E=true npm run dev -- --port ${MOBILE_PORT} --strictPort`,
+        //
+        // ⚠️ `VITE_DEV_AUTH_BYPASS=true` (added 2026-08-06) is what makes the
+        // AUTHED half of the matrix actually run. It was covering NOTHING:
+        // `.auth/user.json` held 0 cookies and no `@@auth0spajs@@` token — it
+        // had been captured from a dev-bypass session (its localStorage still
+        // names `dev|user-1`), so it never carried one. Every authed route
+        // therefore failed `RequireAuth`, left for the marketing origin, and
+        // every assertion skipped "not a lesson surface" while the run stayed
+        // green. Measured: 273/273 skipped on stage-fit before this line.
+        //
+        // A layout gate has no business depending on a hand-captured Auth0
+        // session that expires: the bypass makes the authed routes render
+        // deterministically, on every machine, with no re-capture chore. It is
+        // dev-server-only (`import.meta.env.DEV`), so it cannot reach a build.
+        command: `VITE_E2E=true VITE_DEV_AUTH_BYPASS=true npm run dev -- --port ${MOBILE_PORT} --strictPort`,
         url: MOBILE_URL,
         reuseExistingServer: false,
         timeout: 120_000,

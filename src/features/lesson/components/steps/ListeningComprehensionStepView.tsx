@@ -150,7 +150,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           button never moves on submit. Banner only on wrong — correct
           celebrates via toast (a success banner shoved layout around for
           fast learners and read as a stranded island on tall windows). */}
-      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback correct={false} explanation={step.explanation} />

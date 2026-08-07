@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
+import { LessonShell } from "@/features/lesson/components/LessonShell";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -335,52 +336,68 @@ export function PlacementTestPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-background">
-      <div className="flex items-center">
-        <button
-          type="button"
-          onClick={() => navigate(langPath("learn"))}
-          className="ml-2 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-          aria-label={t("placement.exit", {
-            defaultValue: isTestOut ? "Exit test-out" : "Exit placement test",
-          })}
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.25}
-            stroke="currentColor"
+    // Same shell as the lesson player — see `LessonShell` for why this must not
+    // be hand-rolled here again. It renders the identical step views, so it
+    // needs the identical box: fixed height, one scroll area, one `max-w-2xl`
+    // column. `bg-background` because LangLayout provides no themed shell.
+    <LessonShell
+      className="bg-background"
+      stageLabel={t("lesson.stepContainer", { defaultValue: "Lesson step" })}
+      // Same stage hooks the lesson player sets. Without them this surface is
+      // anonymous to the gates: `stage-fit` reported its failures as step type
+      // "unknown", which is the difference between "listening_comprehension
+      // overflows by 19px" and "something on test-out overflows by 19px".
+      stageProps={{
+        "data-visual-qa": "step-stage",
+        "data-visual-qa-step-id": currentStep?.id,
+        "data-visual-qa-step-type": currentStep?.type,
+      }}
+      header={
+        <>
+          <button
+            type="button"
+            onClick={() => navigate(langPath("learn"))}
+            className="-ml-1 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+            aria-label={t("placement.exit", {
+              defaultValue: isTestOut ? "Exit test-out" : "Exit placement test",
+            })}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <div className="min-w-0 flex-1">
-          {state && (
-            <PlacementProgressBar
-              state={state}
-              isTestOut={isTestOut}
-              testOutModuleLabel={moduleLabel}
-              testOutTotal={testOutTotal}
-              samplingTotal={samplingTotal}
-            />
-          )}
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col [container-type:size]">
-        {currentStep && (
-          <StepRenderer
-            key={currentStep.id}
-            step={currentStep}
-            onComplete={handleStepComplete}
-            onContinue={handleContinue}
-          />
-        )}
-      </div>
-    </div>
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.25}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="min-w-0 flex-1">
+            {state && (
+              <PlacementProgressBar
+                state={state}
+                isTestOut={isTestOut}
+                testOutModuleLabel={moduleLabel}
+                testOutTotal={testOutTotal}
+                samplingTotal={samplingTotal}
+              />
+            )}
+          </div>
+        </>
+      }
+    >
+      {currentStep && (
+        <StepRenderer
+          key={currentStep.id}
+          step={currentStep}
+          onComplete={handleStepComplete}
+          onContinue={handleContinue}
+        />
+      )}
+    </LessonShell>
   );
 }
