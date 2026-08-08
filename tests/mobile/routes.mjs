@@ -100,7 +100,14 @@ export const AUTHED_ROUTES = [
   { path: "/ja/practice/kanji", auth: true, lang: "ja" },
   { path: "/ja/practice/stories", auth: true, lang: "ja" },
   { path: "/ja/practice/journey", auth: true, lang: "ja" },
-  { path: "/ja/practice/reading", auth: true, lang: "ja" },
+  // NO `/ja/practice/reading` — it has never been a route. The reader lives at
+  // `practice/stories` (above) and `practice/stories/:storyId`;
+  // `features/practice/reading/` is a folder of SHARED HOOKS, not a page, and
+  // PracticeBreadcrumbs.tsx says so explicitly ("routes are FLAT siblings and
+  // nesting them under `practice/reading/…` would be" wrong). The entry sat
+  // here rendering the not-found page and the gate never noticed, because
+  // `MOBILE_PUBLIC_ONLY=1` in ci.yml skips every authed route. Found by a
+  // manual 42-route sweep 2026-08-08.
   { path: "/ja/practice/speaking", auth: true, lang: "ja" },
   { path: "/ja/practice/listening", auth: true, lang: "ja" },
   { path: "/ja/practice/writing", auth: true, lang: "ja" },
