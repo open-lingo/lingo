@@ -111,28 +111,88 @@ bypass was added to rescue never execute there. The authed win is local-only
 (`npm run test:mobile`); the public loss is the part that gates every push. Net effect on `main`:
 CI's mobile gate is 2 real routes and 3 copies of `/home`.
 
-### `/landing` and `/about` are not routes in this app
+### The worse, older bug underneath it: the gate was measuring the public internet
 
-Separate, older bug that the above hid. Neither path matches anything in `App.tsx`, and the
-element the gate flagged (`pointer-events-none absolute left-1/2 h-[32rem] w-[52rem]
--translate-x-1/2`) exists nowhere in `src/`. They are **marketing-site paths** on
-`openlingoapp.com`. The dev server's SPA fallback serves `index.html`, React Router matches
-nothing, and the app lands wherever auth state sends it — `/` anonymous, `/home` bypassed. The
-gate has never once rendered a landing page. Same class as the stale-lesson-id trap this file
-already warns about, in the same `routes.mjs`.
+Chasing the above turned up something the bypass had merely re-flavoured. Printing the FULL
+landed URL rather than the pathname (the mistake that hid it — `openlingoapp.com/` and
+`localhost/` share the pathname `/`) gives, with the bypass off:
 
-The 832px element is real content on the anon root, but `document.scrollWidth` stayed **360** —
-an ancestor clips it, so there is no horizontal scroll for a user. Element-level finding, not a
-visible break. Don't hand it to a UI pass as a landing-page bug.
+```
+/landing  ->  https://openlingoapp.com/
+/about    ->  https://openlingoapp.com/
+/login    ->  https://dev-txjdn01ew3dmaecy.us.auth0.com/authorize?client_id=…
+/get-started -> http://localhost:5199/get-started
+/try         -> http://localhost:5199/try
+```
 
-### The fix, when someone takes it
+**Three of the five CI routes were asserting layout on live third-party origins over the
+public internet.** None of them is a route in this app: the marketing pages moved to the
+`lingo-landing` repo and are served from the apex while this app lives at `app.<domain>`
+(`shared/config/marketing.ts`), so the SPA fallback serves `index.html`, the router matches
+nothing, and `MarketingRedirect` leaves the origin. `/login` hands off to Auth0 on mount.
 
-Public and authed routes need **different auth states**, which one `webServer` cannot provide.
-Either run the public subset against a second, non-bypassed dev server, or drop the bypass for
-public routes and accept `/login` → `/authorize`. Either way, first delete `/landing` and
-`/about` from `PUBLIC_ROUTES` (`tests/mobile/routes.mjs`) or point them at `/` — asserting
-against a fallback render under a route name that doesn't exist is worse than no assertion,
-because it reads as coverage.
+So the `w-[52rem]` element that turned this repo's CI red on 08-06 is **on the marketing
+site**. No change here could ever have fixed it, and the gate's colour depended on a third
+party being up and unchanged. (It is also not a visible break there: `document.scrollWidth`
+stayed at the viewport width, so an ancestor clips it. Don't hand it to a UI pass.)
+
+Same class as the stale-lesson-id trap this file already warns about, in the same
+`routes.mjs`, and the third instance of "green while covering nothing" in two days.
+
+### FIXED 2026-08-07
+
+- **`PUBLIC_ROUTES` is now `/get-started` and `/try`** — the only two pages this app renders
+  for a signed-out visitor. `/landing`, `/about` and `/login` removed.
+- **A second dev server** on `MOBILE_PUBLIC_PORT` (5274) runs the same tree WITHOUT the
+  bypass; `gotoSeeded` sends anonymous routes there and authed routes to the bypassed one.
+  Two servers because `DEV_AUTH_BYPASS` is folded from `import.meta.env` at module load, so
+  one server cannot serve both session states. A runtime override in `shared/auth/bypass.ts`
+  was the alternative and was rejected: that module is the fence keeping the bypass out of
+  web builds, and a test-only door in it is the kind of thing that later ships.
+- **Three guards in `_seed.ts`**, so this class of failure asserts itself rather than relying
+  on the route list being right:
+  1. *off-origin* — any navigation that ends on another origin fails, naming it. This is the
+     one that matters: it is true regardless of what `routes.mjs` claims.
+  2. *auth-bounce* — an authed route landing on `/login` (stale storageState). Pre-existing.
+  3. *signed-in-bounce* — a public route landing on `/home`, i.e. the bypass leaking back
+     onto the anonymous server. The mirror of guard 2, and the direct check for the
+     08-06 regression.
+
+### CI still runs `MOBILE_PUBLIC_ONLY=1` — deliberately, for now
+
+The obvious next move is to drop that flag so CI exercises the authed matrix too: the bypass
+removed the `.auth/user.json` dependency that forced the public-only subset in the first
+place. It is **not** done here because the authed routes now render and **fail immediately**.
+Partial run, 2026-08-07, off-right-edge counts by route:
+
+| Route | viewports failing |
+|---|---|
+| `/ja/shop` | 6 |
+| `/settings` | 4 |
+| `/ko/learn` | 3 |
+| `/ja/learn/course` | 3 |
+
+These are real overflows on real pages, uncovered until now because CI never ran them and
+the local authed matrix was vacuous until 08-06. Flipping the flag today would red-wall every
+push. Fix the routes first, then drop the flag — that ordering is the whole point of the
+gate, and turning it on before the fixes would just get it turned back off.
+
+⚠️ That run was cut short and taken against a tree with another session's uncommitted
+lesson-UI edits in it, so treat the numbers as a floor and a worklist, not an inventory.
+`/ja/shop`, `/settings` and `/ko/learn` are untouched by that work; the lesson routes are the
+ones to re-measure.
+
+### ⚠️ Still open: the `chromium-public` e2e project has the same disease
+
+Not fixed here because it is a different project with a different question attached, and it
+does not run in CI (`ci.yml` runs `test:mobile` only). But
+`tests/e2e/landing.public.spec.ts` navigates to `/` and asserts a hero reading
+"Stop forgetting" — copy that lives on the **marketing site**, not in this repo. Same for
+the `@visual landing` snapshots in `visual-snapshots.public.spec.ts`.
+
+Those specs are therefore testing `lingo-landing` through this repo's test runner. Someone
+should decide whether they belong here at all; if they stay, they need the same off-origin
+guard, and if they go, `lingo-landing` should get them.
 
 ## ⚠️ Known limitation
 

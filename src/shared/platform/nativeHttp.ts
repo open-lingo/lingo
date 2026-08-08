@@ -52,15 +52,39 @@ async function toArrayBuffer(data: unknown): Promise<ArrayBuffer> {
   throw new Error(`unsupported native response body: ${typeof data}`);
 }
 
+/** Case-insensitive header lookup — native and web disagree on key casing. */
+function header(headers: unknown, name: string): string {
+  if (!headers || typeof headers !== "object") return "";
+  const want = name.toLowerCase();
+  for (const [k, v] of Object.entries(headers as Record<string, unknown>)) {
+    if (k.toLowerCase() === want) return String(v ?? "");
+  }
+  return "";
+}
+
 /** GET `url` as raw bytes through the native HTTP stack. Throws on non-2xx. */
 export async function fetchBinaryNative(url: string): Promise<ArrayBuffer> {
   const { CapacitorHttp } = await import("@capacitor/core");
   const res = await CapacitorHttp.get({ url, responseType: "arraybuffer" });
-  // A missing clip comes back from CloudFront as the SPA shell with a 200 in
-  // some configurations, so a status check alone isn't sufficient downstream —
-  // `decodeAudioData` is the real gate. This just catches the honest failures.
   if (res.status < 200 || res.status >= 300) {
     throw new Error(`HTTP ${res.status}`);
+  }
+  // ⚠️ A 200 does NOT mean we got a clip. Point `VITE_ASSET_BASE_URL` at the
+  // apex `openlingoapp.com` instead of `app.openlingoapp.com` and every /tts/
+  // path returns the marketing site's SPA shell — 200, text/html, ~29 KB, no
+  // 404 anywhere. `decodeAudioData` then rejects it and `loadBuffer` swallows
+  // that as a console.warn, so the lesson plays through in total silence with
+  // nothing in the UI to suggest a misconfiguration. That is exactly how the
+  // first hardware build shipped mute (2026-08-07).
+  //
+  // Fail loudly here instead, naming the base URL, because the decode error
+  // this replaces points at the audio stack and the real bug is one env line.
+  const type = header(res.headers, "content-type").toLowerCase();
+  if (type.includes("text/html")) {
+    throw new Error(
+      `expected audio, got text/html from ${url} — VITE_ASSET_BASE_URL is ` +
+        `probably the marketing apex instead of https://app.openlingoapp.com`,
+    );
   }
   return await toArrayBuffer(res.data);
 }

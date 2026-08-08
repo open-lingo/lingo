@@ -23,6 +23,11 @@ const AUTH_STATE = ".auth/user.json";
 // the captured :5173 storageState portable to this port.
 const MOBILE_PORT = process.env.MOBILE_PORT ?? "5273";
 const MOBILE_URL = `http://localhost:${MOBILE_PORT}`;
+// Second gate server, for ANONYMOUS routes. Kept in sync with PUBLIC_BASE_URL
+// in `tests/mobile/_matrix.ts`, which reads the same two env vars.
+const MOBILE_PUBLIC_PORT = process.env.MOBILE_PUBLIC_PORT ?? "5274";
+const MOBILE_PUBLIC_URL =
+  process.env.MOBILE_PUBLIC_URL ?? `http://localhost:${MOBILE_PUBLIC_PORT}`;
 // The mobile gate attaches the Auth0 storageState only when it actually exists.
 // In CI (or a fresh checkout) the file is absent — the gate then runs the
 // always-green public-route subset (MOBILE_PUBLIC_ONLY=1) with no auth.
@@ -73,6 +78,27 @@ const webServer = CAPTURE_E2E
         // dev-server-only (`import.meta.env.DEV`), so it cannot reach a build.
         command: `VITE_E2E=true VITE_DEV_AUTH_BYPASS=true npm run dev -- --port ${MOBILE_PORT} --strictPort`,
         url: MOBILE_URL,
+        reuseExistingServer: false,
+        timeout: 120_000,
+      },
+      {
+        // ⚠️ The SAME tree WITHOUT the bypass, for the anonymous routes.
+        //
+        // The bypass above is what makes the authed matrix render. It also
+        // signs the browser in on every OTHER route, so from 2026-08-06 to
+        // 08-07 every public page landed on /home and the public gate measured
+        // one page under three names while staying green. `DEV_AUTH_BYPASS` is
+        // a module-level constant folded from `import.meta.env`, so no single
+        // server can serve both session states — hence a second server rather
+        // than a runtime override in `shared/auth/bypass.ts`, which is the
+        // fence that keeps the bypass out of web builds and should not grow a
+        // test-only door.
+        //
+        // The only difference from the server above is the missing bypass flag;
+        // keep it that way so a public/authed discrepancy can only ever be the
+        // session state.
+        command: `VITE_E2E=true npm run dev -- --port ${MOBILE_PUBLIC_PORT} --strictPort`,
+        url: MOBILE_PUBLIC_URL,
         reuseExistingServer: false,
         timeout: 120_000,
       },

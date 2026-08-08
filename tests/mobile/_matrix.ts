@@ -52,8 +52,28 @@ export const EXTENDED_VIEWPORTS: Viewport[] = [
 
 export const ALL_ROUTES: RouteTarget[] = [...PUBLIC_ROUTES, ...AUTHED_ROUTES];
 
-/** Set MOBILE_PUBLIC_ONLY=1 to restrict the run to the always-green public subset. */
+/** Set MOBILE_PUBLIC_ONLY=1 to restrict the run to the public subset. */
 export const PUBLIC_ONLY = process.env.MOBILE_PUBLIC_ONLY === "1";
+
+/**
+ * Base URL for ANONYMOUS routes — a second dev server started WITHOUT
+ * `VITE_DEV_AUTH_BYPASS` (see `playwright.config.ts`).
+ *
+ * Two servers because the bypass is a build-time constant:
+ * `DEV_AUTH_BYPASS` in `shared/auth/bypass.ts` reads `import.meta.env` at module
+ * load, so one server cannot serve a signed-in and a signed-out session at once.
+ * Adding a runtime override to that file was the alternative and it is not worth
+ * it — that module is the fence the whole "shipping iOS doesn't touch the web
+ * app" claim rests on, and a test-only door in it is exactly the kind of thing
+ * that later ships.
+ *
+ * Without this the bypass signed the browser in on every route, so every public
+ * page landed on /home and the public gate measured the same page under three
+ * names (2026-08-07).
+ */
+export const PUBLIC_BASE_URL =
+  process.env.MOBILE_PUBLIC_URL ??
+  `http://localhost:${process.env.MOBILE_PUBLIC_PORT ?? "5274"}`;
 
 /** Set MOBILE_EXTENDED=1 to add the short-height landscape viewports. */
 export const USE_EXTENDED = process.env.MOBILE_EXTENDED === "1";

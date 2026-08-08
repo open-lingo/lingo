@@ -33,13 +33,35 @@ export const DESKTOP_VIEWPORTS = [
   { name: "desktop-1080p", width: 1920, height: 1080 },
 ];
 
-/** @type {RouteTarget[]} */
+/**
+ * Anonymous routes this app actually serves.
+ *
+ * ⚠️ SHORT ON PURPOSE — three entries were removed 2026-08-07 because they were
+ * not pages of this app and the gate was measuring the public internet:
+ *
+ *   /landing -> https://openlingoapp.com/            (live marketing site)
+ *   /about   -> https://openlingoapp.com/            (same)
+ *   /login   -> https://dev-….us.auth0.com/authorize (live Auth0 hosted page)
+ *
+ * The marketing pages moved to the `lingo-landing` repo and are served from the
+ * apex while this app lives at `app.<domain>` (`shared/config/marketing.ts`), so
+ * `/landing` and `/about` match no route here; the SPA fallback serves
+ * index.html, the router finds nothing, and `MarketingRedirect` leaves the
+ * origin. `/login` hands off to Auth0 on mount.
+ *
+ * The gate was therefore asserting layout on origins this repo does not build
+ * or deploy. That is what turned CI red on 2026-08-06: a fixed-width decorative
+ * div overflowing at every phone width — on the marketing site. Nothing here
+ * could fix it, and CI's colour depended on a third party being up and
+ * unchanged. `_seed.ts` now fails any test whose navigation leaves the origin,
+ * so this cannot silently come back.
+ *
+ * Add a path here only if it renders IN THIS APP for a signed-out visitor.
+ * @type {RouteTarget[]}
+ */
 export const PUBLIC_ROUTES = [
-  { path: "/landing", auth: false, lang: null },
   { path: "/get-started", auth: false, lang: null },
   { path: "/try", auth: false, lang: "ja" },
-  { path: "/login", auth: false, lang: null },
-  { path: "/about", auth: false, lang: null },
 ];
 
 /** @type {RouteTarget[]} */

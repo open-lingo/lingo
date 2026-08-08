@@ -36,10 +36,16 @@ sits correctly above the home indicator. Safe areas behave — content starts be
 ### Verified on real hardware (2026-08-07)
 
 iPhone 15 Pro Max, iOS 26.5.2, free Personal Team. Installed via `devicectl` (§2e) and
-launched from the home screen: **lesson 1 plays through**. Still NOT verified: the Auth0
-round-trip (the build runs bypassed) and audio specifically — "the lesson works" does not
-by itself prove `CapacitorHttp` decoded a clip, and §5 gap 1 stays open until someone
-confirms sound came out.
+launched from the home screen: **lesson 1 plays through**.
+
+That first build was **silent**, exactly as §5 gap 1 warned it might be — and the reason
+was not the audio stack at all but a wrong host in `VITE_ASSET_BASE_URL`. Fixed 08-07; see
+§5 gap 1 for the measurement. Worth keeping as a record of the reasoning error: "the lesson
+works" was correctly treated as *not* proving audio, but the surviving doubt was pointed at
+the new, interesting code (`CapacitorHttp`, the base64 bridge) instead of at the one-line
+config it shared with a variable three lines above it.
+
+Still NOT verified: the Auth0 round-trip — this build runs bypassed.
 
 ### No CocoaPods — deliberately
 
@@ -246,7 +252,40 @@ env flag fails loudly instead of silently shipping auth that can never redirect 
 
 ## 5. Known gaps — read before assuming it works on device
 
-**1. Audio — fixed in code, UNVERIFIED on device.**
+**1. Audio — was silent on hardware. Root cause found and fixed 2026-08-07: the wrong host.**
+
+Not CORS, not `CapacitorHttp`, not the base64 bridge. `.env.native` set
+
+```
+VITE_ASSET_BASE_URL=https://openlingoapp.com     # the MARKETING apex
+```
+
+and the clips live on `app.openlingoapp.com`. Measured:
+
+```
+https://app.openlingoapp.com/tts/v1/ja/000566f1e2d51fac.mp3 -> 200  audio/mpeg  10,656 B
+https://openlingoapp.com/tts/v1/ja/000566f1e2d51fac.mp3     -> 200  text/html   29,353 B
+```
+
+The apex does **not** 404 an unknown path — it returns the marketing site's SPA shell at
+HTTP **200**. So the fetch succeeded, `decodeAudioData` rejected 29 KB of HTML, `loadBuffer`
+caught that and `console.warn`ed, and lessons played through in silence with nothing on
+screen to suggest a misconfiguration. Every layer behaved exactly as written.
+
+What made it survive review: the value is identical to `VITE_MARKETING_ORIGIN` three lines
+above it in the same file, where it is correct. Two different hosts, one string.
+
+Fixed in `.env.native`, `.env.native.example` (now `https://app.openlingoapp.com`) and
+`.env.example` (now empty — web resolves same-origin and `deploy.yml` passes no asset base,
+so this variable has never applied to a web build). `fetchBinaryNative` now rejects a
+`text/html` body outright and names the likely env cause, so a recurrence says so instead of
+going quiet; `nativeHttp.test.ts` covers that plus a template ratchet asserting neither env
+file ever points the asset base at the apex again.
+
+⚠️ The general lesson, worth more than the fix: **on this CDN a 200 is not evidence of an
+asset.** Any "did the file load" check against the apex must assert the content type.
+
+**1b. The rest of the audio path — the part that was right all along.**
 The web app resolves TTS clips **same-origin** (`assetUrl` returns a relative path);
 CloudFront fronts both the app and `/tts/*`. In a Capacitor app the bundle is served from
 `capacitor://localhost`, so `/tts/v1/ja/…mp3` resolves *into the app bundle*, where no mp3s
@@ -261,9 +300,8 @@ The other half is `shared/platform/nativeHttp.ts`: on native that one fetch goes
 `CapacitorHttp`, i.e. the native URLSession, so no origin is attached and no CORS preflight
 happens. **This avoids needing a CloudFront policy change from Trevor at all.**
 
-⚠️ Unverified on hardware. Capacitor returns binary bodies as base64 across the bridge and
-the decode path is new code; if clips are silent on device, that's the first place to look.
-Fallback remains the CORS response-headers policy in `lingo-infra`.
+This half was never the problem — but it is still required, and it is why no CloudFront
+policy change from Trevor is needed. Keep both.
 
 **2. Offline is a prerequisite, not a nice-to-have.** App Store Guideline 4.2 (Minimum
 Functionality) rejects thin web wrappers. Submission needs the service worker + per-module
