@@ -172,9 +172,14 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      {/* Content cluster starts at the top; the CTA block below carries
-          mt-auto so it pins to the shared bottom action slot. */}
-      <div className="flex flex-col gap-7">
+      {/* The cluster CENTRES in the space above the action block rather than
+          starting at the top. These steps size to their content, so
+          top-aligning them stranded one large void between the last element
+          and the CTA on a tall phone (Spencer QA 2026-08-07, measured at
+          430x932). Reading order is unchanged; only the position moved. The
+          action block below keeps `mt-auto`, so it stays bottom-anchored and
+          the fixed action bar does not shift. */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-7">
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">

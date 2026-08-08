@@ -94,9 +94,14 @@ export function SymbolRecognitionStepView({
   const romanization = step.payload.romanization;
   return (
     <div className="flex flex-1 flex-col gap-4">
-      {/* Content cluster starts at the top; the CTA block below carries
-          mt-auto so it pins to the shared bottom action slot. */}
-      <div className="flex flex-col gap-4">
+      {/* The cluster CENTRES in the space above the action block rather than
+          starting at the top. These steps size to their content, so
+          top-aligning them stranded one large void between the last element
+          and the CTA on a tall phone (Spencer QA 2026-08-07, measured at
+          430x932). Reading order is unchanged; only the position moved. The
+          action block below keeps `mt-auto`, so it stays bottom-anchored and
+          the fixed action bar does not shift. */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4">
       <div className="flex flex-wrap items-center justify-center gap-3">
         {/* QA 2026-07-12: prompt bumped a size — "make the sentence of
             'pick the symbol' a little bigger". */}

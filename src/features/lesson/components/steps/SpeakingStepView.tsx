@@ -134,7 +134,10 @@ function SpeakingStepPlaceholder({
         explanation={step.explanation}
         hasSubmittedWrong={false}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      {/* `mt-auto` here + on the action block centres the step (two auto
+          margins split the free space evenly). Unsupported-browser branch —
+          it renders less than the main one, so it strands more. */}
+      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
         Speaking practice
       </p>
 
@@ -679,7 +682,11 @@ function SpeakingStepRecognized({
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <div className="flex items-center justify-between">
+      {/* `mt-auto` here + on the action block centres the step: two auto
+          margins in a column split the free space evenly, so the content sits
+          midway between the header and the CTA. Top-aligned this stranded a
+          215px void on a 430x932 phone (Spencer QA 2026-08-07). */}
+      <div className="mt-auto flex items-center justify-between">
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
           Speaking practice
         </p>

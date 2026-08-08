@@ -156,10 +156,14 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // `gap-6`s, the CTA block's `pt-6`, and the CTA itself (~74px measured).
   // Was 11rem, which under-reserved by ~25px whenever the prompt wrapped.
   const RESERVE = "13rem";
+  // The stage's free height, once the bottom dead zone is taken out (index.css
+  // § "The stage's bottom DEAD ZONE"). Read from the custom property rather
+  // than hard-coding `90cqh` so the two cannot drift apart.
+  const FREE_H = `calc(100cqh - var(--stage-tail, 0px))`;
   // Width caps: the scroller's own inline free space (`100cqw`, not `100vw` —
   // no scrollbar-gutter error), a height-derived cap, and a hard per-column rem
   // cap. No viewport-unit math.
-  const gridWidth = `min(calc(100cqw - 3rem), calc((100cqh - ${RESERVE}) * ${cols} / ${rows}), ${cols * 16}rem)`;
+  const gridWidth = `min(calc(100cqw - 3rem), calc((${FREE_H} - ${RESERVE}) * ${cols} / ${rows}), ${cols * 16}rem)`;
   // ⚠️ The width cap ALONE does not bound the grid's height. It predicts height
   // from width, which is only valid while the cards are actually square — and
   // they are NOT: `aspect-square` sets a *preferred* ratio, but a grid row is
@@ -169,13 +173,19 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // stage scrolled by up to 204px (Spencer QA 2026-08-06, ja-m4-neo-1 step 12).
   // Bound the height DIRECTLY and let the cards shrink into it: `1fr` rows plus
   // `min-h-0` on the card is what actually makes `aspect-square` yield.
-  const gridMaxHeight = `calc(100cqh - ${RESERVE})`;
+  const gridMaxHeight = `calc(${FREE_H} - ${RESERVE})`;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      {/* Content cluster starts at the top; the CTA block below carries
-          mt-auto so it pins to the shared bottom action slot. */}
-      <div className="flex flex-col gap-6">
+      {/* The cluster CENTRES in the space above the CTA rather than starting at
+          the top. The grid is width-capped on a phone (350px inside a 398px
+          column), so it cannot grow into spare height — top-aligning it dumped
+          every leftover pixel into one 263px void between the tiles and the
+          CTA, and the whole step read as sitting too high (Spencer QA
+          2026-08-07: "the middle elements need to move down a bit"). The CTA
+          below still carries `mt-auto`, so it stays bottom-anchored and the
+          fixed action bar keeps its position on every device. */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-6">
       {audioPrompt ? (
         <div className="flex items-center justify-center gap-4">
           <button
@@ -203,7 +213,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           (picture cards have no line-length constraint) via the
           left-1/2 translate breakout, up to 56rem. */}
       <div
-        className="relative left-1/2 grid -translate-x-1/2 gap-4"
+        className="relative left-1/2 grid -translate-x-1/2 gap-3"
         style={{
           width: gridWidth,
           maxHeight: gridMaxHeight,

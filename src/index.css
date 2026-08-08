@@ -390,9 +390,45 @@ ruby {
 
    Scoped to `[data-lesson-stage]` (set by `LessonShell`) so it applies to the
    lesson player and the placement/test-out runner alike, and to nothing else. */
+/* The stage's bottom DEAD ZONE.
+   A step that ends flush with the bottom of the scroller reads as falling off
+   the screen even when it technically fits — the CTA had 62px of screen below
+   it on a 15 Pro Max (6.7% of the height), most of which was the home
+   indicator's own inset (Spencer QA 2026-08-07: "we need the bottom 10% maybe
+   15% of the screen as dead space at least").
+
+   `cqh` — the scroller's own free space, per CLAUDE.md § "Lesson UI stability
+   rules" — NOT `dvh`: the chrome above the stage is fixed-px, so a dvh budget
+   over-reserves on short windows and pushes content into overflow. 10cqh of a
+   743px scroller is 74px, which lands the CTA ~13% off the bottom on both a
+   15 Pro Max and a 13 mini.
+
+   Exposed as a custom property because step views that compute a height budget
+   (the MCQ grids) have to subtract it too — a hard-coded `90cqh` in a step view
+   silently desyncs the first time this number changes. */
+[data-lesson-stage] {
+  --stage-tail: 10cqh;
+  padding-bottom: var(--stage-tail);
+}
+
+/* Taper it on short stages. 10% of a 743px scroller (15 Pro Max) is 74px of
+   breathing room; 10% of a 510px one (360x640, the oldest phone in the gate
+   matrix) is 51px taken from a budget that has none — measured, it turned
+   `dialogue_listen` from 16px of overflow into 67px. Spencer's stated bar is
+   "no scrolling in the lesson player on any >2015 smartphone", so the dead
+   zone must not be the thing that breaks it. The scroller is the size
+   container, so this reads its height, not the window's. */
+@container (max-height: 620px) {
+  [data-lesson-stage] {
+    --stage-tail: 4cqh;
+  }
+}
+
 [data-lesson-stage] [data-testid="primary-cta"] {
   position: sticky;
-  bottom: 0;
+  /* Sticks ABOVE the dead zone, not to the scrollport edge, so a step whose
+     content overflows parks its CTA at the same height as one that fits. */
+  bottom: var(--stage-tail);
   /* Only the BOTTOM edge is a sticky constraint. Horizontal insets must stay
      `auto` — a step view that offsets its CTA with `left`/`right` (to mirror a
      breakout grid) would otherwise have that value reinterpreted as a sticky
@@ -405,17 +441,81 @@ ruby {
   background-color: rgb(var(--color-background));
 }
 
-/* `bottom: 0` sticks to the scrollport's CONTENT box, so the scroller's own
-   `py-4` leaves a 16px band BELOW the bar that scrolling tiles still show
-   through (visible on a 667×375 landscape phone). Extend the bar's background
-   over that band with a pseudo-element — no layout change, no per-step-view
-   padding to keep in sync. Height tracks the scroller's `py-4`. */
+/* Everything BELOW the bar has to be painted, or scrolling content shows
+   through it. Two bands stack up down there: the dead zone the bar now sticks
+   above (`--stage-tail`), and the scroller's own `py-4` outside that again —
+   which is why a 667×375 landscape phone used to show tiles sliding through a
+   16px strip under the CTA. One pseudo-element covers both; no layout change
+   and no per-step-view padding to keep in sync. */
 [data-lesson-stage] [data-testid="primary-cta"]::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  height: 1rem;
+  height: calc(var(--stage-tail) + 1rem);
   background-color: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   MOBILE TYPE FLOOR
+   ─────────────────────────────────────────────────────────────────────────
+   The rule: on a phone, nothing is smaller than Tailwind's own smallest step
+   (`text-xs`, 12px). Anything hand-tuned BELOW that gets clamped up.
+
+   Why a stylesheet block and not ~370 edited call sites: the sub-12px sizes
+   are a deliberate design language (the transit-signage look on the course
+   map, dense tables in vocab/dictionary/admin) spread over 116 files. They
+   read fine on a 1920px monitor and are the reason the app "looks too small"
+   on a phone (Spencer QA 2026-08-07). Measured at 430x932 before this block:
+   `/ja/learn/course` painted text at 9px and had 103 elements under 12px;
+   `/ja/vocab` had 159; `/ja/dictionary` 140; the course map's dominant body
+   line ("M1 · The first 46 sounds") sat at 13.5px with its subtitles at 11px.
+
+   Scoped to `max-width: 639.98px` — below Tailwind's `sm` — so tablets and
+   desktop keep the intended density and NOTHING changes for existing web
+   users. Reverting is deleting this block.
+
+   iOS HIG puts 11pt as the absolute floor for legible UI text and 17pt as the
+   body default, so 12/13px is still conservative — this closes the worst of
+   the gap, it does not restyle the app.
+
+   ⚠️ Utility selectors, so they must stay in sync with the arbitrary values
+   actually used in src/. `npm run test:run` covers this via
+   `mobileTypeFloor.test.ts`, which fails when a new sub-12px size appears
+   that this block does not clamp.
+   ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 639.98px) {
+  /* Under 11px — badges, chips, signage captions. */
+  .text-\[8px\],
+  .text-\[8\.5px\],
+  .text-\[9px\],
+  .text-\[9\.5px\],
+  .text-\[10px\],
+  .text-\[10\.5px\],
+  .text-\[0\.5625rem\],
+  .text-\[0\.6rem\],
+  .text-\[0\.625rem\],
+  .text-\[0\.65rem\],
+  .text-\[0\.68rem\] {
+    font-size: 12px;
+  }
+
+  /* 11px band — the course map's subtitle line and most secondary copy. */
+  .text-\[11px\],
+  .text-\[11\.5px\],
+  .text-\[0\.6875rem\],
+  .text-\[0\.688rem\],
+  .text-\[0\.7rem\] {
+    font-size: 13px;
+  }
+
+  /* The romaji reading aid is sized in `em` (0.65 of whatever tile it rides),
+     so it slips under the floor wherever the host text is small: 15.6px on an
+     MCQ card's 24px kana, but 10.4px on a word-build tile. `max()` keeps the
+     proportional behaviour everywhere it is already legible and only clamps
+     the small end. */
+  .kana-helper {
+    font-size: max(0.65em, 12px);
+  }
 }

@@ -170,7 +170,15 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      {/* `mt-auto` HERE and on the action block below is what centres this
+          step: two auto margins in a column split the free space evenly, so
+          the content sits midway between the header and the CTA while the CTA
+          stays bottom-anchored — no wrapper element, no reading-order change.
+          Translate was the worst offender in the sweep: a prompt and a text
+          field are short, so top-aligning them stranded a 450px void on a
+          430x932 phone (Spencer QA 2026-08-07) — nearly half the screen.
+          Collapses to 0 when content overflows. */}
+      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
         {directionLabel}
       </p>
       <h2 className="text-2xl font-bold text-text-primary">

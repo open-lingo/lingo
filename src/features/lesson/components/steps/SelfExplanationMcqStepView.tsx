@@ -117,8 +117,12 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
   return (
     <div className="flex flex-1 flex-col gap-6">
       {/* Anchor — the fact the learner just committed. Subtle tinted
-          card so it reads as "context, not the question". */}
-      <div className="flex items-start gap-3 rounded-2xl border-2 border-info/30 bg-info/5 px-5 py-4">
+          card so it reads as "context, not the question".
+          `mt-auto` here and on the action block below centres the step: two
+          auto margins in a column split the free space evenly, so the content
+          sits midway between the header and the CTA while the CTA stays
+          bottom-anchored. Collapses to 0 when content overflows. */}
+      <div className="mt-auto flex items-start gap-3 rounded-2xl border-2 border-info/30 bg-info/5 px-5 py-4">
         <span className="mt-0.5 text-xs font-bold uppercase tracking-wider text-info shrink-0">
           {t("lesson.selfExplain.anchorTag", "You answered")}
         </span>

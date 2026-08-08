@@ -293,10 +293,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      {/* Content cluster starts at the top of the step area (prompt is the
-          first thing the eye should hit); the action block below carries
-          mt-auto so it pins to the bottom regardless of content height. */}
-      <div className="flex flex-col gap-4">
+      {/* The cluster CENTRES in the space above the action block rather than
+          starting at the top. Reading order is unchanged — the prompt is still
+          the first thing the eye hits — but the tray and tiles are sized to
+          their content, so top-aligning them stranded ~600px of empty stage
+          between the last tile and the CTA on a tall phone (Spencer QA
+          2026-08-07). The action block below keeps `mt-auto`, so it stays
+          bottom-anchored and the fixed action bar does not move. */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4">
       {step.audienceEmoji && (
         /* WHO you are speaking to, drawn rather than narrated. The label is
            the accessible name only — showing it as text would restore the

@@ -49,6 +49,32 @@ describe("LessonShell shrink chain", () => {
     expect(column.className).toContain("flex-1");
   });
 
+  it("insets the shell by the safe area on all four sides", () => {
+    render(
+      <LessonShell stageLabel="Exercise">
+        <p>step</p>
+      </LessonShell>,
+    );
+    // The shell is the scroller's grandparent: shell > scroller > stage column.
+    const shell = stage().parentElement!.parentElement!;
+
+    // `*-safe` resolves to `max(env(safe-area-inset-*), 0px)` — zero on every
+    // rectangular screen, so this costs the web nothing. It matters in the iOS
+    // wrapper, where the WKWebView is full-bleed: without it the lesson header
+    // renders under the Dynamic Island and the CTA under the home indicator
+    // (measured 59pt / 34pt on an iPhone 15 Pro Max, 2026-08-07).
+    //
+    // The lesson player is the ONE surface that renders without `Layout`'s
+    // chrome, so it cannot inherit that component's `pt-safe pl-safe pr-safe`.
+    for (const cls of ["pt-safe", "pb-safe", "pl-safe", "pr-safe"]) {
+      expect(shell.className).toContain(cls);
+    }
+
+    // Padding, not a shorter height: the box must keep its size so the sticky
+    // action bar still pins to the scroller's bottom edge.
+    expect(shell.className).toContain("h-[calc(100dvh");
+  });
+
   it("keeps one shared measure across header, stage and footer", () => {
     render(
       <LessonShell header={<p>hdr</p>} footer={<p>ftr</p>} stageLabel="Exercise">

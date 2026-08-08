@@ -143,14 +143,18 @@ export function ParticleClozeStepView({
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      {/* `mt-auto` HERE and on the action block below is what centres this
+          step. Two auto margins in a column split the free space evenly, so
+          the content sits midway between the header and the CTA while the CTA
+          stays bottom-anchored — no wrapper element, no reading-order change.
+          Top-aligned, this step stranded a 339px void on a 430x932 phone
+          (Spencer QA 2026-08-07). Collapses to 0 when content overflows. */}
+      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
         {allOptionsAreParticles
           ? t("lesson.pickParticle", "Pick what fits the blank")
           : t("lesson.completeSentence", "Complete the sentence")}
       </p>
 
-      {/* Content starts at the top; the CTA block below carries mt-auto so
-          it pins to the shared bottom action slot. */}
       <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
         {showMeaningUpFront ? (
           <p className="mb-4 text-base text-text-secondary">

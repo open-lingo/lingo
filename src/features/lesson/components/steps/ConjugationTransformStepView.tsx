@@ -200,8 +200,13 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
       </div>
 
       {/* prompt: base → ? centered, full target spelled out (prompt-clarity
-          invariant: never bare "make it negative") */}
-      <div className="text-center">
+          invariant: never bare "make it negative")
+          `mt-auto` starts here, not on the head chips above — those are a
+          status bar and belong at the top. With the action block's `mt-auto`
+          the free space splits evenly, so the drill itself sits midway
+          between the chips and the CTA instead of stranding a 207px void
+          below it (Spencer QA 2026-08-07, 430x932). */}
+      <div className="mt-auto text-center">
         <p className="font-japanese text-4xl font-bold text-text-primary">
           {step.base}
           <span aria-hidden="true" className="mx-3 text-2xl text-text-muted">→</span>

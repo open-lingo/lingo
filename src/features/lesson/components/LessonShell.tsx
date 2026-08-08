@@ -77,7 +77,22 @@ export function LessonShell({
 }: Props) {
   return (
     <div
-      className={`mx-auto flex ${SHELL_HEIGHT} w-full flex-col${className ? ` ${className}` : ""}`}
+      // `*-safe` (tailwind.config.js) = `max(env(safe-area-inset-*), 0px)`, so
+      // this is a literal no-op in every browser on a rectangular screen and
+      // on desktop. It is load-bearing in the iOS wrapper, where the WKWebView
+      // is FULL-BLEED: measured on an iPhone 15 Pro Max simulator 2026-08-07,
+      // `innerHeight` is the whole 932pt screen and the insets are 59pt top /
+      // 34pt bottom. The shell ran 12→920, so the exit ✕, the progress bar and
+      // the XP chip rendered UNDER the Dynamic Island and the clock, and the
+      // CTA's bottom edge sat 6pt inside the home indicator.
+      //
+      // Padding, not a shorter `SHELL_HEIGHT`: the box stays the same size, so
+      // the sticky action bar still pins to the scroller's bottom (index.css §
+      // "Lesson action bar") and only the content is inset. Every other
+      // surface already got this via `Layout`'s `pt-safe pl-safe pr-safe`
+      // header — the lesson player renders WITHOUT that chrome, which is
+      // exactly why it was the one surface left unprotected.
+      className={`mx-auto flex ${SHELL_HEIGHT} w-full flex-col pb-safe pl-safe pr-safe pt-safe${className ? ` ${className}` : ""}`}
     >
       {header && (
         <div className={`${SHELL_COLUMN} flex items-center gap-4 py-3`}>

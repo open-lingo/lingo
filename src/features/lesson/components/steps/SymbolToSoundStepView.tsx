@@ -97,14 +97,19 @@ export function SymbolToSoundStepView({
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <p className="text-center text-base text-text-secondary">
+      {/* `mt-auto` HERE and on the action block below is what centres this
+          step: two auto margins in a column split the free space evenly, so
+          the content sits midway between the header and the CTA while the CTA
+          stays bottom-anchored — no wrapper element, no reading-order change.
+          Top-aligned, this step stranded a 185px void on a 430x932 phone
+          (Spencer QA 2026-08-07). Collapses to 0 when content overflows. */}
+      <p className="mt-auto text-center text-base text-text-secondary">
         {t(
           "alphabet.tapToHear",
           "Tap a sound to hear it. Pick the one that matches.",
         )}
       </p>
-      {/* Content starts at the top; the CTA block below carries mt-auto so
-          it pins to the shared bottom action slot. */}
+
       <div className="flex justify-center">
         <span
           className="font-japanese text-[clamp(140px,22cqh,200px)] font-bold leading-none text-text-primary"
