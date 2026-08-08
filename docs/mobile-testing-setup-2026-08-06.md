@@ -19,7 +19,7 @@ app stores (deferred — see
 | Deploy | S3 + CloudFront, auto on push to `main` |
 | `viewport-fit=cover` | present in `index.html` |
 | Safe-area utilities | `pt-safe` / `bottom-safe-N` family in `tailwind.config.js` |
-| Mobile render gate | `tests/mobile/` — 5 phone + 2 desktop viewports |
+| Mobile render gate | `tests/mobile/` — 5 phone + 2 desktop viewports. ⚠️ Its **public** subset (the half CI runs) is currently measuring `/home` on 3 of 5 routes — see `handoff-mobile-gate-was-blind-2026-08-06.md` § 08-07 |
 
 **Send testers to `https://app.openlingoapp.com/get-started`.** It's a
 responsive SPA over HTTPS with a working signup. That is a legitimate Tier-0

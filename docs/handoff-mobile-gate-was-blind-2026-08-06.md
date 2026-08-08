@@ -1,6 +1,7 @@
 # The mobile gate was covering nothing on authed routes
 
-**Date:** 2026-08-06 · **Status:** FIXED (uncommitted)
+**Date:** 2026-08-06 · **Status:** authed half FIXED and shipped (`af7a16fa`, on `main` 2026-08-07);
+**public half now blind as a side effect of the same fix — see the 08-07 section below**
 
 ## What was wrong
 
@@ -82,6 +83,56 @@ and be a worse trade.
 **Consequence: `git revert` of the N4 commit alone will fail this test.** The fix is to also
 drop those two filenames from `NOT_STICKY`, or re-add the attribute. It fails loudly, so it
 is discoverable — but it will not be obvious why.
+
+## ⚠️ The same fix blinded the PUBLIC subset (found 2026-08-07)
+
+`VITE_DEV_AUTH_BYPASS=true` made the authed routes render. It also makes the gate's browser a
+**signed-in user on every route**, including the ones whose whole point is being logged out.
+Measured on `6dc18d6c`, two dev servers side by side, 360×640:
+
+| Route | bypass OFF (what CI measured through 08-06) | bypass ON (what the gate measures now) |
+|---|---|---|
+| `/landing` | lands `/`, 1 element off the right edge | lands **`/home`**, 0 |
+| `/about` | lands `/`, 1 element off the right edge | lands **`/home`**, 0 |
+| `/login` | lands `/authorize` (Auth0) | lands **`/home`**, 0 |
+| `/get-started` | real page | real page |
+| `/try` | real page | real page |
+
+**3 of the 5 public routes now measure `/home`, three times, under three names.** The public
+subset is the `mobile render gate (public subset)` CI step — the one that runs without
+`.auth/user.json` — so it is the half that has no other safety net.
+
+This is why our first green run followed two red ones on Trevor's commits: it did not fix the
+overflow, it stopped rendering the page that had it.
+
+**In CI the trade is pure loss.** `.github/workflows/ci.yml` sets `MOBILE_PUBLIC_ONLY: "1"` on
+the `mobile-e2e` job, so CI runs the public subset and **nothing else** — the authed routes this
+bypass was added to rescue never execute there. The authed win is local-only
+(`npm run test:mobile`); the public loss is the part that gates every push. Net effect on `main`:
+CI's mobile gate is 2 real routes and 3 copies of `/home`.
+
+### `/landing` and `/about` are not routes in this app
+
+Separate, older bug that the above hid. Neither path matches anything in `App.tsx`, and the
+element the gate flagged (`pointer-events-none absolute left-1/2 h-[32rem] w-[52rem]
+-translate-x-1/2`) exists nowhere in `src/`. They are **marketing-site paths** on
+`openlingoapp.com`. The dev server's SPA fallback serves `index.html`, React Router matches
+nothing, and the app lands wherever auth state sends it — `/` anonymous, `/home` bypassed. The
+gate has never once rendered a landing page. Same class as the stale-lesson-id trap this file
+already warns about, in the same `routes.mjs`.
+
+The 832px element is real content on the anon root, but `document.scrollWidth` stayed **360** —
+an ancestor clips it, so there is no horizontal scroll for a user. Element-level finding, not a
+visible break. Don't hand it to a UI pass as a landing-page bug.
+
+### The fix, when someone takes it
+
+Public and authed routes need **different auth states**, which one `webServer` cannot provide.
+Either run the public subset against a second, non-bypassed dev server, or drop the bypass for
+public routes and accept `/login` → `/authorize`. Either way, first delete `/landing` and
+`/about` from `PUBLIC_ROUTES` (`tests/mobile/routes.mjs`) or point them at `/` — asserting
+against a fallback render under a route name that doesn't exist is worse than no assertion,
+because it reads as coverage.
 
 ## ⚠️ Known limitation
 
