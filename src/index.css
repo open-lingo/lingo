@@ -403,6 +403,12 @@ ruby {
    743px scroller is 74px, which lands the CTA ~13% off the bottom on both a
    15 Pro Max and a 13 mini.
 
+   Measured dead space (CTA bottom edge → bottom of the screen, which is what
+   Spencer's "10% maybe 15%" is about — three bands stack down there: this
+   tail, the scroller's own `py-4`, and the home-indicator inset on device):
+   14.3% on a 15 Pro Max, 15.0% on a 13 mini, 12.3% at 360x640 with no inset
+   to help.
+
    Exposed as a custom property because step views that compute a height budget
    (the MCQ grids) have to subtract it too — a hard-coded `90cqh` in a step view
    silently desyncs the first time this number changes. */
@@ -411,18 +417,20 @@ ruby {
   padding-bottom: var(--stage-tail);
 }
 
-/* Taper it on short stages. 10% of a 743px scroller (15 Pro Max) is 74px of
-   breathing room; 10% of a 510px one (360x640, the oldest phone in the gate
-   matrix) is 51px taken from a budget that has none — measured, it turned
-   `dialogue_listen` from 16px of overflow into 67px. Spencer's stated bar is
-   "no scrolling in the lesson player on any >2015 smartphone", so the dead
-   zone must not be the thing that breaks it. The scroller is the size
-   container, so this reads its height, not the window's. */
-@container (max-height: 620px) {
-  [data-lesson-stage] {
-    --stage-tail: 4cqh;
-  }
-}
+/* ⚠️ DON'T re-add a short-stage taper. There was one here (`--stage-tail: 4cqh`
+   under a 620px stage), added on the reasoning that 10% of a 510px scroller is
+   51px taken from a budget that has none. Measuring it across 11 step types at
+   360x640 and 375x667 killed it: the taper rescued ZERO steps from overflow.
+   The seven that fit, fit at 4/6/8/10cqh alike; the four that don't
+   (self_explanation_mcq, conjugation_transform, symbol_to_sound,
+   dialogue_listen) overflow at every value — they were already over before any
+   dead zone existed, and the tail only changes 244px of scroll into 275px,
+   which is the same thing to a user. So its entire measured effect was halving
+   the dead zone on the small phones that need it most: 7.5% of the screen
+   instead of 12.3% at 360x640. Spencer asked for "10% maybe 15% at least".
+   Those four step types are a real defect, but they are not this rule's to
+   fix — shrinking the dead zone doesn't make them fit, it just makes every
+   healthy step worse. */
 
 [data-lesson-stage] [data-testid="primary-cta"] {
   position: sticky;
