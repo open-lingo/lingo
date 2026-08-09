@@ -76,7 +76,15 @@ export function PracticePage() {
         aria-label={t("practice.pillars.sectionTitle", { defaultValue: "Practice" })}
         className="flex min-h-0 flex-1 flex-col"
       >
-        <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
+        {/* `grid-cols-1` is load-bearing, not decoration. Without an explicit
+            base the implicit column is `auto`, whose minimum is min-content, so
+            a tile that can't shrink pushes the column past its container: at
+            360px this resolved to a 345.6px column (= 96vw, the hub canvas cap
+            on <main>) inside a 313.6px box and scrolled the whole PAGE
+            sideways by 9px. Tailwind's `grid-cols-1` is
+            `repeat(1, minmax(0, 1fr))`, and the `minmax(0, …)` is what caps it.
+            Measured at 360x640: page 369/360 -> 360/360. */}
+        <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
           {pillars.map((pillar, i) => (
             <div
               key={pillar.id}

@@ -36,6 +36,12 @@ export interface Viewport {
    * spot this field exists to close. See the comment on VIEWPORTS in routes.mjs.
    */
   insets: Insets;
+  /**
+   * Outside the support target (see the note on VIEWPORTS in routes.mjs).
+   * Functional checks still run; comfort checks — currently vertical stage fit
+   * — do not hard-fail here.
+   */
+  legacy?: boolean;
 }
 
 export interface RouteTarget {

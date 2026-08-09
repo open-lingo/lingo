@@ -8,7 +8,7 @@
  * route lists from drifting.
  *
  * @typedef {{ top: number, right: number, bottom: number, left: number }} Insets
- * @typedef {{ name: string, width: number, height: number, insets: Insets }} Viewport
+ * @typedef {{ name: string, width: number, height: number, insets: Insets, legacy?: boolean }} Viewport
  * @typedef {{ path: string, auth: boolean, lang: ("ja"|"ko"|null), primaryCta?: boolean }} RouteTarget
  */
 
@@ -30,9 +30,26 @@
  * device class, and `android-small` is deliberately all-zero so the matrix
  * keeps one no-inset control.
  */
+/**
+ * `legacy: true` — a device outside the support target.
+ *
+ * Product call (Spencer 2026-08-09): "we want to optimize for devices newer
+ * than 6 years or so; if some older ones get squished or small text or weird
+ * but functional views, then it's not too big of a deal."
+ *
+ * 360x640 is a ~2015 Android. It stays in the matrix because the checks that
+ * are about a page still WORKING there are cheap and worth keeping — no
+ * horizontal scroll, nothing off the right edge, no render errors, tap targets
+ * still hittable. What it no longer does is hard-fail on comfort: a step that
+ * fits everywhere else and has to scroll a little here is "squished but
+ * functional", which is explicitly acceptable.
+ *
+ * Nothing else is legacy. 375x667 is the iPhone SE, still sold and squarely in
+ * the support window, so it is held to the full standard.
+ */
 /** @type {Viewport[]} */
 export const VIEWPORTS = [
-  { name: "android-small", width: 360, height: 640, insets: { top: 0, right: 0, bottom: 0, left: 0 } },
+  { name: "android-small", width: 360, height: 640, insets: { top: 0, right: 0, bottom: 0, left: 0 }, legacy: true },
   { name: "iphone-se", width: 375, height: 667, insets: { top: 20, right: 0, bottom: 0, left: 0 } },
   { name: "pixel-7", width: 412, height: 915, insets: { top: 24, right: 0, bottom: 24, left: 0 } },
   { name: "iphone-14-promax", width: 430, height: 932, insets: { top: 59, right: 0, bottom: 34, left: 0 } },

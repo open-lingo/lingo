@@ -65,6 +65,20 @@ async function applySafeAreaInsets(page: Page, insets: Insets): Promise<void> {
  * turning the safe-area assertions into a vacuous pass.
  */
 export async function readSafeAreaInsets(page: Page): Promise<Insets> {
+  // A route that redirects on mount (e.g. /ko/community/leaderboard) can
+  // destroy the execution context mid-evaluate. That is a navigation race, not
+  // a layout result, so retry once against the page that actually settled
+  // rather than reporting it as an overflow failure.
+  try {
+    return await evaluateInsets(page);
+  } catch (err) {
+    if (!/Execution context was destroyed|Target closed/.test(String(err))) throw err;
+    await page.waitForTimeout(400);
+    return evaluateInsets(page);
+  }
+}
+
+function evaluateInsets(page: Page): Promise<Insets> {
   return page.evaluate(() => {
     const probe = document.createElement("div");
     probe.style.cssText =

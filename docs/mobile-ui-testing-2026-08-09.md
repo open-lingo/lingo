@@ -175,17 +175,44 @@ Device recipe: `docs/handoff-device-vs-simulator-2026-08-08.md`.
 - **`MOBILE_PUBLIC_ONLY=1` in `ci.yml`** means CI runs only `/get-started` and
   `/try`. The authed matrix — every real surface — has never run in CI. That is
   the largest remaining hole in "this is our only thing for mobile."
-- **Pre-existing failures on the authed routes**, unrelated to the above work:
-  `/ja/shop` and `/settings` report elements off the right edge at every phone
-  width, `/ko/learn` at 768/1280/1920, and `/ko/practice` + `/ja/practice`
-  overflow at 360. Verified not caused by the type-floor widening by A/B —
-  overflow counts are identical with the floor on and off, and `/ko/learn` is
-  *lower* with it on. Note `scrollWidth == clientWidth` in all these cases, so
-  the page does not actually scroll; the `wideElements` probe does not exclude
-  horizontally-scrolling rails, and some of these are likely false positives.
-  Worth triaging before that spec is trusted the way the other four are.
 - **Landscape notch insets are not modelled.** `EXTENDED_VIEWPORTS` carries
   honest zeros for side insets rather than a guessed 59px on the wrong edge.
 - **Interaction coverage lives outside the gate.** The 22-step-type playthrough
   from the 2026-08-08 QA pass was scratch tooling; the gate asserts layout, not
   that a lesson can be completed.
+- **Deterministic per-step-type stage-fit coverage is owed.** The matrix has
+  three lesson routes (`ja-m4-neo-1?step=1/6/8`), which is why step-type fit
+  problems were invisible here; `/ja/learn/test-out/m11` was sampling them by
+  accident and is now skipped for stage fit because its draw is random. The
+  residuals a deterministic sweep would surface, measured at 375x667 after the
+  short-viewport density block (§ 8):
+
+  | step type | overflow |
+  |---|---|
+  | conjugation_transform | 110px — structural, needs a container-sized rebuild |
+  | kanji_reading | 32px |
+  | listening_build | 27px |
+  | match_pairs | 19px |
+  | dialogue_listen | 17px |
+  | speaking | 6px |
+
+  Everything else is 0. All twenty are 0 at 412x915 and 430x932.
+
+---
+
+## 8. Device support target
+
+**Optimise for devices under ~6 years old** (Spencer 2026-08-09). Older ones
+getting "squished or small text or weird but functional views" is acceptable.
+
+Encoded, not just written down: `routes.mjs` marks `android-small` (360x640, a
+~2015 Android) `legacy: true`, and the stage-fit spec skips legacy viewports
+with a visible reason. Functional checks — horizontal overflow, off-right-edge,
+render errors, tap targets — still run there, because "functional" is still
+required. Only comfort is waived.
+
+`iphone-se` (375x667) is **not** legacy: the SE is still sold and is held to the
+full standard. That is the viewport the fit residuals above are measured at.
+
+Fit is otherwise a solved problem on the devices that matter — every step type
+measures overflow=0 at 412x915 and 430x932.

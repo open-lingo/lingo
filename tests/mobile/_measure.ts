@@ -86,9 +86,33 @@ export async function overflowCheck(page: Page): Promise<OverflowResult> {
 
 /**
  * Assertion 2 — elements pushed off the right edge.
+ *
  * Visible (`width > 0`) elements whose right edge exceeds `innerWidth + EPS`.
  * Fixed/sticky-positioned overlays and their descendants are ignored (they can
  * legitimately live off-canvas, e.g. an off-screen drawer).
+ *
+ * TWO EXCLUSIONS ADDED 2026-08-09, both because this probe was reporting
+ * hundreds of things nobody could act on — 265 on `/ko/learn` at 768 alone,
+ * which is how a hard-failing assertion becomes an assertion people route
+ * around:
+ *
+ *  1. **Inside a scroll or clip container.** An ancestor with `overflow-x` of
+ *     `auto`/`scroll` bounds its children and the user reaches them by
+ *     scrolling the rail — that is the settings tab strip and the transit
+ *     course map (4735px wide by design), not a bug. `hidden` is an explicit
+ *     authorial "clip here". In all three cases the content cannot widen the
+ *     page, which is what this assertion is actually about. The CONTAINER is
+ *     still checked: a rail that itself hangs off the right edge is a real bug.
+ *
+ *  2. **SVG internals.** `<rect>`, `<path>`, `<use>` and friends are not
+ *     layout boxes; their rects are user-space geometry projected through a
+ *     viewBox and routinely extend past the viewport inside a perfectly
+ *     well-behaved illustration. Every `/ja/shop` "failure" was this. The
+ *     `<svg>` element itself IS a layout box and is still measured.
+ *
+ * Neither exclusion can hide a page that scrolls sideways: `overflowCheck`
+ * asserts `scrollWidth <= clientWidth` independently, and it is the assertion
+ * that caught the real bug on the practice hubs.
  */
 export async function wideElements(page: Page): Promise<WideElement[]> {
   return page.evaluate((eps) => {
@@ -103,11 +127,27 @@ export async function wideElements(page: Page): Promise<WideElement[]> {
     }> = [];
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("body *"));
     for (const node of nodes) {
+      // SVG geometry — not a layout box. `ownerSVGElement` is null on <svg>
+      // itself, so the outer element stays in scope.
+      if (node instanceof SVGElement && node.ownerSVGElement) continue;
+
       const style = window.getComputedStyle(node);
       if (style.position === "fixed" || style.position === "sticky") continue;
       if (style.visibility === "hidden" || style.display === "none") continue;
       const rect = node.getBoundingClientRect();
       if (rect.width <= 0 || rect.height <= 0) continue;
+
+      // Bounded by a scrolling/clipping ancestor?
+      let bounded = false;
+      for (let p = node.parentElement; p && p !== document.documentElement; p = p.parentElement) {
+        const ox = window.getComputedStyle(p).overflowX;
+        if (ox === "auto" || ox === "scroll" || ox === "hidden") {
+          bounded = true;
+          break;
+        }
+      }
+      if (bounded) continue;
+
       if (rect.right > vw + eps) {
         const cls = typeof node.className === "string" ? node.className : "";
         out.push({

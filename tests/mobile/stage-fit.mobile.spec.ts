@@ -35,10 +35,45 @@ const SCROLLABLE_STEP_TYPES = ["grammar_rule"];
  */
 const TOLERANCE_PX = 2;
 
+/**
+ * Routes whose STEP CONTENT is chosen at random, so a per-step assertion here
+ * is not reproducible.
+ *
+ * `/ja/learn/test-out/*` builds its step set adaptively. Measured 2026-08-09 by
+ * loading the same URL three times at 375x667: `multiple_choice` (overflow 0),
+ * `match_pairs` (36) and `listening_build` (210) — and each value was stable
+ * across a 3-second sample, so this is the draw varying, not layout settling.
+ * As a hard-failing check it went red roughly one run in three, always on a
+ * different step, which is the profile of a test people learn to re-run.
+ *
+ * The coverage it was sampling by accident — do the heavy step types fit? — is
+ * real and still owed. It wants deterministic per-step-type lesson routes in
+ * the matrix, not a random draw. The measured residuals at 375x667 are
+ * recorded in `docs/mobile-ui-testing-2026-08-09.md` § 7 so whoever adds them
+ * knows exactly what they will see. The route keeps its other assertions
+ * (overflow, render errors, tap targets, safe area) — only stage fit is
+ * non-reproducible.
+ */
+const NONDETERMINISTIC_STEP_ROUTES = [/\/learn\/test-out\//];
+
 for (const vp of activeViewports()) {
   test.describe(`stage fit @ ${vp.name} (${vp.width}x${vp.height})`, () => {
     for (const route of activeRoutes()) {
       test(`${routeSlug(route.path)} stage does not scroll vertically`, async ({ page }) => {
+        // Vertical fit is a COMFORT check, and comfort on a ~2015 phone is
+        // explicitly not a blocker (Spencer 2026-08-09 — "squished but
+        // functional" is fine outside the ~6-year support window). The
+        // functional checks — horizontal overflow, off-right-edge, render
+        // errors, tap targets — still run at this viewport.
+        test.skip(
+          Boolean(vp.legacy),
+          `${vp.name} is outside the support target; stage fit is advisory there`,
+        );
+        test.skip(
+          NONDETERMINISTIC_STEP_ROUTES.some((re) => re.test(route.path)),
+          `${route.path} draws its steps at random — see the note above`,
+        );
+
         await gotoSeeded(page, route, vp);
 
         const stage = page.locator("[data-lesson-stage]").first();
