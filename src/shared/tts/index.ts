@@ -116,7 +116,10 @@ export function hasTtsAudio(text: string, lang: string = defaultTtsLang): boolea
 const BCP47: Record<string, string> = {
   ja: "ja-JP",
   ko: "ko-KR",
-  es: "es-ES",
+  // es-MX, not es-ES: the recorded corpus is es-MX Dalia, so a Castilian
+  // fallback voice mid-lesson reads as a different speaker AND a different
+  // accent than the clips around it.
+  es: "es-MX",
   en: "en-US",
 };
 
