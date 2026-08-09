@@ -7,17 +7,36 @@
  * Keeping the arrays here — not duplicated in each file — is what stops the two
  * route lists from drifting.
  *
- * @typedef {{ name: string, width: number, height: number }} Viewport
+ * @typedef {{ top: number, right: number, bottom: number, left: number }} Insets
+ * @typedef {{ name: string, width: number, height: number, insets: Insets }} Viewport
  * @typedef {{ path: string, auth: boolean, lang: ("ja"|"ko"|null), primaryCta?: boolean }} RouteTarget
  */
 
+/**
+ * Safe-area insets, in CSS px, pushed into the browser before each navigation
+ * (`_seed.ts` → `Emulation.setSafeAreaInsetsOverride`).
+ *
+ * ⚠️ WITHOUT THESE, `env(safe-area-inset-*)` IS ZERO IN CHROMIUM, and every
+ * `*-safe` utility in `tailwind.config.js` resolves to its fallback — which is
+ * why this gate ran for months structurally unable to see a Dynamic Island
+ * overlap, and why the bug had to be found by hand on a phone (2026-08-08).
+ *
+ * Values model the app inside the Capacitor wrapper with `viewport-fit=cover`,
+ * NOT a browser tab: on a home-button iPhone the status bar sits outside a
+ * normal tab's web view (inset 0) but inside the wrapper's (inset 20).
+ *
+ * Provenance — `iphone-14-promax` (59/34) is the published pair for the device
+ * the app is actually being tested on. The rest are representative for their
+ * device class, and `android-small` is deliberately all-zero so the matrix
+ * keeps one no-inset control.
+ */
 /** @type {Viewport[]} */
 export const VIEWPORTS = [
-  { name: "android-small", width: 360, height: 640 },
-  { name: "iphone-se", width: 375, height: 667 },
-  { name: "pixel-7", width: 412, height: 915 },
-  { name: "iphone-14-promax", width: 430, height: 932 },
-  { name: "tablet-portrait", width: 768, height: 1024 },
+  { name: "android-small", width: 360, height: 640, insets: { top: 0, right: 0, bottom: 0, left: 0 } },
+  { name: "iphone-se", width: 375, height: 667, insets: { top: 20, right: 0, bottom: 0, left: 0 } },
+  { name: "pixel-7", width: 412, height: 915, insets: { top: 24, right: 0, bottom: 24, left: 0 } },
+  { name: "iphone-14-promax", width: 430, height: 932, insets: { top: 59, right: 0, bottom: 34, left: 0 } },
+  { name: "tablet-portrait", width: 768, height: 1024, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
 ];
 
 /**
@@ -29,8 +48,8 @@ export const VIEWPORTS = [
  * @type {Viewport[]}
  */
 export const DESKTOP_VIEWPORTS = [
-  { name: "laptop-720", width: 1280, height: 720 },
-  { name: "desktop-1080p", width: 1920, height: 1080 },
+  { name: "laptop-720", width: 1280, height: 720, insets: { top: 0, right: 0, bottom: 0, left: 0 } },
+  { name: "desktop-1080p", width: 1920, height: 1080, insets: { top: 0, right: 0, bottom: 0, left: 0 } },
 ];
 
 /**

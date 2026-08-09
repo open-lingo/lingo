@@ -65,7 +65,18 @@ export function QuestSpotlightCard() {
           <button
             type="button"
             onClick={() => open()}
-            className="text-xs font-semibold text-accent hover:text-accent-hover"
+            // As bare text this was 39x17 and failed WCAG 2.2 SC 2.5.8 (AA):
+            // under 24x24 AND close enough to the module card beside it that a
+            // 24px circle on its centre hit that card's box, so the spacing
+            // exception didn't save it. A near-miss tap opened the module
+            // instead of the quest panel.
+            //
+            // The floor is stated in PX, not rem, because the criterion is —
+            // "24 by 24 CSS pixels". `py-1` was tried first and measured 23px
+            // at laptop-720, where `--font-base` drops to 15px and every rem
+            // shrinks with it; a rem-sized fix is a fix that stops working at
+            // the viewport that needs it. `-my-1` keeps the row height put.
+            className="-my-1 inline-flex min-h-[24px] items-center text-xs font-semibold text-accent hover:text-accent-hover"
           >
             {t("quests.seeAll", { defaultValue: "See all" })}
           </button>

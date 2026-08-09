@@ -17,11 +17,25 @@ import {
 
 export { VIEWPORTS, DESKTOP_VIEWPORTS, PUBLIC_ROUTES, AUTHED_ROUTES };
 
+/** Safe-area insets in CSS px — what `env(safe-area-inset-*)` should report. */
+export interface Insets {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
 export interface Viewport {
   /** slug used in test titles and screenshot filenames */
   name: string;
   width: number;
   height: number;
+  /**
+   * Pushed into Chromium by `gotoSeeded` before every navigation. Required, not
+   * optional: an omitted inset silently means zero, which is the exact blind
+   * spot this field exists to close. See the comment on VIEWPORTS in routes.mjs.
+   */
+  insets: Insets;
 }
 
 export interface RouteTarget {
@@ -46,8 +60,24 @@ export interface RouteTarget {
  * `./routes.mjs` — the shared single source imported/re-exported above.)
  */
 export const EXTENDED_VIEWPORTS: Viewport[] = [
-  { name: "iphone-se-landscape", width: 667, height: 375 },
-  { name: "pixel-7-landscape", width: 915, height: 412 },
+  // Landscape moves the insets to the SIDES on a notched device and drops the
+  // status-bar inset (iOS hides it in landscape). Neither of these two model a
+  // notch — an SE has none, and the Pixel keeps only its gesture bar — so the
+  // side insets stay 0 here. Add a notched-landscape entry when there is a
+  // device to check it against; guessing 59px on the wrong edge would be worse
+  // than the honest zero.
+  {
+    name: "iphone-se-landscape",
+    width: 667,
+    height: 375,
+    insets: { top: 0, right: 0, bottom: 0, left: 0 },
+  },
+  {
+    name: "pixel-7-landscape",
+    width: 915,
+    height: 412,
+    insets: { top: 0, right: 0, bottom: 24, left: 0 },
+  },
 ];
 
 export const ALL_ROUTES: RouteTarget[] = [...PUBLIC_ROUTES, ...AUTHED_ROUTES];

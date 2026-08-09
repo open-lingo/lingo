@@ -93,7 +93,8 @@ export function QuestsCardBody({
           <button
             type="button"
             onClick={() => open()}
-            className="text-xs font-semibold text-accent hover:text-accent-hover"
+            // See QuestSpotlightCard — same control, same 24px floor.
+            className="-my-1 inline-flex min-h-[24px] items-center text-xs font-semibold text-accent hover:text-accent-hover"
           >
             {t("quests.seeAll", { defaultValue: "See all" })}
           </button>
@@ -128,7 +129,7 @@ export function QuestsCardBody({
                 <button
                   type="button"
                   onClick={() => open()}
-                  className="text-[0.7rem] font-medium text-text-muted hover:text-accent"
+                  className="-my-1 inline-flex min-h-[24px] items-center text-[0.7rem] font-medium text-text-muted hover:text-accent"
                 >
                   {t("quests.dailyWeekly.moreCount", {
                     defaultValue: "+{{count}} more quests",
@@ -329,7 +330,7 @@ function SideSection({ quest, locked, onClick, moreCount, onSeeMore }: SideProps
         <button
           type="button"
           onClick={onSeeMore}
-          className="text-[0.7rem] font-medium text-text-muted hover:text-accent"
+          className="-my-1 inline-flex min-h-[24px] items-center text-[0.7rem] font-medium text-text-muted hover:text-accent"
         >
           {t("quests.side.moreCount", {
             defaultValue: "+{{count}} more side quest",

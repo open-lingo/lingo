@@ -50,7 +50,8 @@ export function QuestsTile() {
           <button
             type="button"
             onClick={() => open()}
-            className="shrink-0 text-xs font-semibold text-accent hover:text-accent-hover"
+            // See QuestSpotlightCard — same control, same 24px floor.
+            className="-my-1 inline-flex min-h-[24px] shrink-0 items-center text-xs font-semibold text-accent hover:text-accent-hover"
           >
             {t("home.restructured.quests.seeAll", { defaultValue: "See all" })}
           </button>
