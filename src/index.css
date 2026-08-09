@@ -480,20 +480,54 @@ ruby {
    `/ja/vocab` had 159; `/ja/dictionary` 140; the course map's dominant body
    line ("M1 · The first 46 sounds") sat at 13.5px with its subtitles at 11px.
 
-   Scoped to `max-width: 639.98px` — below Tailwind's `sm` — so tablets and
-   desktop keep the intended density and NOTHING changes for existing web
-   users. Reverting is deleting this block.
+   SCOPE — every TOUCH surface, not just phones (widened 2026-08-09). This was
+   `max-width: 639.98px`, which left the iPad uncovered even though the wrapper
+   ships to it: `TARGETED_DEVICE_FAMILY = "1,2"` with all four orientations in
+   `ios/App/App/Info.plist`. Measured across 11 routes:
 
-   iOS HIG puts 11pt as the absolute floor for legible UI text and 17pt as the
-   body default, so 12/13px is still conservative — this closes the worst of
-   the gap, it does not restyle the app.
+     430px   smallest rendered text 12px,   0 elements under 12px
+     768px   smallest rendered text 10px, 316 elements under 12px
+     1280px  smallest rendered text 9.75px, 644 elements under 12px
+
+   A width breakpoint alone can't express "tablet" — an iPad Pro in landscape
+   is 1366px, wider than most laptops — so the query ORs a width bound with
+   `pointer: coarse`, which is the actual signal (finger, held close, no hover).
+   Headless Chromium reports `pointer: fine` unless a context sets
+   `hasTouch: true`, so the width arm is also what keeps the mobile gate
+   measuring the floor at phone viewports. Don't drop it.
+
+   Fine-pointer desktop above 1024px is deliberately LEFT ALONE. Flooring it
+   changes 644 elements — that's a design pass on the dense table/signage
+   language, not an accessibility fix, and it should be someone's decision
+   rather than a side effect of this one.
+
+   REM, NOT PX (2026-08-09). These were `12px`/`13px`, which the accessibility
+   font-size control could not move: ThemeContext scales the ROOT font size
+   (`calc(var(--font-base) * scale)`), and px ignores that. Measured at 430px
+   before the change — the minimum never budged while everything around it grew:
+
+     scale 1.00x  root 16px  min 12px  median 13px  max 24px
+     scale 1.25x  root 20px  min 12px  median 15px  max 30px
+     scale 1.50x  root 24px  min 12px  median 18px  max 36px
+
+   So the person who turns text up because they can't read it got no help on
+   the very text that is hardest to read. `--font-base` is exactly 16px at
+   every viewport this query matches, so 0.75rem/0.8125rem render as the same
+   12/13px at 1x — identical pixels, now scalable.
+
+   No standards body sets an absolute minimum: WCAG regulates scaling (1.4.4
+   resize to 200%, 1.4.10 reflow) and contrast, never a size. The floor value
+   comes from the platform type scales, which bottom out at 11pt (iOS Dynamic
+   Type Caption 2) and 11sp (Material 3 Label Small) — both reserved for
+   metadata, with body text defaulting to 17pt / 16sp. 12px is a defensible
+   floor for labels; it is not a size to set body copy in.
 
    ⚠️ Utility selectors, so they must stay in sync with the arbitrary values
    actually used in src/. `npm run test:run` covers this via
    `mobileTypeFloor.test.ts`, which fails when a new sub-12px size appears
    that this block does not clamp.
    ───────────────────────────────────────────────────────────────────────── */
-@media (max-width: 639.98px) {
+@media (max-width: 1023.98px), (pointer: coarse) {
   /* Under 11px — badges, chips, signage captions. */
   .text-\[8px\],
   .text-\[8\.5px\],
@@ -506,7 +540,7 @@ ruby {
   .text-\[0\.625rem\],
   .text-\[0\.65rem\],
   .text-\[0\.68rem\] {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   /* 11px band — the course map's subtitle line and most secondary copy. */
@@ -515,7 +549,7 @@ ruby {
   .text-\[0\.6875rem\],
   .text-\[0\.688rem\],
   .text-\[0\.7rem\] {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   /* The romaji reading aid is sized in `em` (0.65 of whatever tile it rides),
@@ -524,6 +558,6 @@ ruby {
      proportional behaviour everywhere it is already legible and only clamps
      the small end. */
   .kana-helper {
-    font-size: max(0.65em, 12px);
+    font-size: max(0.65em, 0.75rem);
   }
 }
