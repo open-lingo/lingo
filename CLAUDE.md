@@ -110,6 +110,13 @@ node scripts/shot.mjs <path> [w] [h] [--full] [--lang=ja]   # screenshot → /tm
 
 **White screen + ERR_BLOCKED_BY_CLIENT in dev = ad blocker** killing `/src/features/ads/` module URLs (statically imported in main.tsx) — allowlist localhost. Add a happy-path test for any new feature. The `screenshot` skill / `shot.mjs` auto-loads auth state and injects `learningLanguageId`.
 
+**Mobile UI — method is `docs/mobile-ui-testing-2026-08-09.md`, and `tests/mobile/` is the only layout authority.** `npx playwright test --project=mobile` (kill anything left on :5273/:5274 first — a stale gate server produces failures that read like app bugs). Three rules that are not obvious and cost real time when broken:
+- **Every viewport carries `insets`.** `_seed.ts` pushes them in over CDP because Chromium reports `env(safe-area-inset-*)` as **0**, which made the `*-safe` utilities collapse to their fallbacks and left the gate structurally unable to see the Dynamic Island overlap that shipped (2026-08-08). The call is strict and round-trip-verified on purpose: a silently-failing override is worse than none.
+- **Tap targets are WCAG 2.2 SC 2.5.8 — 24×24 CSS px WITH the spacing exception**, not 44pt. 44 is Apple's recommendation / Level AAA; measuring against it produced 114 "offenders" where the AA criterion finds none.
+- **State pixel floors in `px`, not `rem`.** `--font-base` drops to 15px at ≤820px-tall desktop, so a rem-sized 24px floor measures 23px exactly where it matters.
+
+Don't drive the simulator for layout: `xcrun simctl` has no tap verb and XCUITest cannot read a WKWebView's DOM. The device is for WebKit rendering, Dynamic Type, and the install path — see §6 of that doc.
+
 ## Don't
 
 - **Don't add MUI** (not installed). Tailwind-first; new primitives go in `shared/components/ui/`.
