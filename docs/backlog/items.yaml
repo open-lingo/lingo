@@ -2517,28 +2517,35 @@
     fall back to `navigator.vibrate`. One package, no app-side redesign.
 
 - id: B097
-  title: the /ja/qa test-drive page points at lesson ids that no longer exist
+  title: every lesson link on the /:lang/qa test-drive page is dead — 37 of 37
   status: open
-  severity: minor
+  severity: major
   effort: S
-  confidence: reported
+  confidence: verified
   area: tooling
   tags: [page/qa, class/stale-reference]
   found: 2026-08-08
   source: manual-route-sweep-2026-08-08
   detail: >
-    QaTestDrivePage hardcodes lesson ids; most were retired in the IR waves and
-    now render "Lesson not found", so the dev surface for eyeballing step types
-    mostly does not work. Same class of rot that put a dead id in the mobile
-    route matrix until 2026-08-05.
+    QaTestDrivePage hardcodes lesson ids. They were retired across the IR waves
+    and every one now renders "Lesson not found", so the dev surface for
+    eyeballing step types does not work AT ALL. Same class of rot that put a
+    dead id in the mobile route matrix until 2026-08-05. It matters more as of
+    2026-08-09: the new Spencer-facing review queue is reached FROM this page,
+    so the human front door sits on a page where nothing else resolves.
   evidence: >
-    Reported 31 of 35 dead in the 2026-08-08 sweep; 37 unique `ja-m*` ids in
-    src/features/lesson/dev/QaTestDrivePage.tsx today. NOT re-counted
-    2026-08-09 because mockLessons.ts is mid-rewrite (m30/N4) and any count
-    taken now would be measuring the rewrite, not the rot.
+    37 unique `ja-m*` tokens in src/features/lesson/dev/QaTestDrivePage.tsx,
+    37 of them dead. Verified 2026-08-09 with the existing scanner —
+    `STALE_REPORT=1 npx vitest run staleLessonIdReferences`, then the
+    QaTestDrivePage rows of /tmp/ja-stale-lesson-ids.txt. m29 alone accounts
+    for 16. This CORRECTS the 2026-08-08 report of "31 of 35" — it is worse
+    and it is now measured, not estimated. Note the scanner PASSES: these sit
+    inside its ratchet pin, so the gate knows and tolerates them.
   fix: >
     Derive the list from the live course map instead of hardcoding it, so it
-    cannot rot again. Re-count first, after the N4 wave settles.
+    cannot rot again, and drop the pin by 37 in the same change (the ratchet
+    only goes down). One dead id per step type is the minimum bar — the page
+    exists to reach every step type.
 
 - id: B098
   title: the lesson stage's bottom dead zone versus short-phone fit — 10cqh or 4cqh below 700px
@@ -2555,6 +2562,7 @@
     inside the existing `@media (max-height: 700px)` block is a one-line change
     that clears four more step types on an SE — and cuts the dead zone Spencer
     asked for on exactly the phones where it is already thinnest.
+    ASKED as R10 in the in-app review queue (`/ja/qa/review`).
   evidence: >
     Measured 2026-08-09 at 375x667. Density block alone rescues 2 of 8
     overflowing step types; tail+density rescues 4 (match_pairs, speaking,
@@ -2587,6 +2595,7 @@
     team. Committing it hands every future checkout a team it cannot sign
     with; leaving it uncommitted means the wrapper's build config exists on
     exactly one machine.
+    ASKED as R11 in the in-app review queue (`/ja/qa/review`).
   fix: >
     Either move the team into an untracked `.xcconfig` and commit the project
     file without it, or commit as-is and accept that the second developer has
@@ -2612,6 +2621,8 @@
     package.json capacitor deps, read 2026-08-09. SUSPECTED, not verified —
     no one has photographed the status bar in both themes. Chromium cannot
     answer this; it is a device check (docs/mobile-ui-testing-2026-08-09.md § 6).
+    ASKED as Q3 in the in-app review queue (`/ja/qa/review`) — a ten-second
+    look at the phone settles it either way.
   fix: >
     Look at the phone in both themes FIRST. Only if it is actually wrong,
     add `@capacitor/status-bar` and drive `setStyle` from ThemeContext.
