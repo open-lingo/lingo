@@ -40,7 +40,7 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 - [x] **Learn page revamp** — YourPathCard hero with active-module spotlight + per-module fluency strip; map content scrolls in its own region; "back to current lesson" floating button; sidebar capped to viewport with internal scroll. Standalone course-progress card removed.
 - [x] **Ad provider DI** — `AdProvider` interface + `FakeAd`/`AdSense` providers + context; `DailyWelcomeAd` once-per-day banner. _UI deferred per ad-free MVP trial._
 - [x] **Ad-free time module** — lingot SKUs (30m/2h/24h) + grind-detector + AdFreePill in header + shop section. _UI deferred per ad-free MVP trial._
-- [x] **Mobile pass** — header right-cluster collapses below `md`; body-scroll-locked mobile menu; 44px tap-target sweep.
+- [x] **Mobile pass** — header right-cluster collapses below `md`; body-scroll-locked mobile menu; 44px tap-target sweep. ⚠️ The 44px rule is SUPERSEDED (2026-08-09): the shipping standard is WCAG 2.2 SC 2.5.8, 24px **plus the spacing exception**, hard-failing in the gate — `mobile-ui-testing-2026-08-09.md` § 3. Open mobile work is B091–B101 in `backlog/items.yaml`, not this file.
 - [x] **Practice page mocks unified** behind `usePracticeData()` + `useGrammarPracticeData()` hooks with swap-path documented.
 - [x] **Community deck preview regression fixed** — `ContentBrowserPage` now passes `onPreview` / `onStoryPreview` to `CommunityItemCard`.
 - [x] **WeekSparkline / PracticeHubSection visible** — Tailwind alpha-modifier silently dropped on CSS-var hex colors; patched two visible offenders, full tokens.css → channel-triple sweep is a follow-up.

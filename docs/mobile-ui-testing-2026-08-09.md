@@ -1,8 +1,15 @@
 # Mobile UI testing — the method
 
-**Date:** 2026-08-09 · **Status:** CURRENT · **Supersedes:** the tap-target and
-safe-area sections of `mobile-testing-setup-2026-08-06.md` (that doc is still
-authoritative on PWA/manifest/distribution).
+**Date:** 2026-08-09 · **Status:** CURRENT · **Supersedes:**
+`mobile-research-2026-07-20.md` § 6 assertion 3 — the "tap targets ≥44px,
+start warn" rule (§ 3 below). Assertions 1, 2, 4, 6 and 7 from that spec stand
+as written. `mobile-testing-setup-2026-08-06.md` is untouched by this and
+remains authoritative on PWA / manifest / distribution.
+
+**Open work from this pass:** B091–B101 in `docs/backlog/items.yaml` —
+`node scripts/backlog.mjs --tag system/mobile-gate` for the tooling half,
+`--tag class/stage-overflow` for the layout half. Every number quoted below is
+carried into those records, so the backlog is queryable without this doc.
 
 **The one rule:** mobile UI correctness is asserted by `tests/mobile/`, in
 headless Chromium, with real safe-area insets injected. The simulator and a
@@ -172,31 +179,45 @@ Device recipe: `docs/handoff-device-vs-simulator-2026-08-08.md`.
 
 ## 7. Known gaps
 
+Each one is a backlog record — that is the tracked copy, this is the reasoning.
+`node scripts/backlog.mjs --id B094` for any of them.
+
 - **`MOBILE_PUBLIC_ONLY=1` in `ci.yml`** means CI runs only `/get-started` and
-  `/try`. The authed matrix — every real surface — has never run in CI. That is
-  the largest remaining hole in "this is our only thing for mobile."
+  `/try` — 2 routes of 35, against 921 assertions locally. The authed matrix —
+  every real surface — has never run in CI. That is the largest remaining hole
+  in "this is our only thing for mobile," and it is newly cheap to close now
+  that the full matrix is green. **B094.**
 - **Landscape notch insets are not modelled.** `EXTENDED_VIEWPORTS` carries
   honest zeros for side insets rather than a guessed 59px on the wrong edge.
+  **B095.**
 - **Interaction coverage lives outside the gate.** The 22-step-type playthrough
   from the 2026-08-08 QA pass was scratch tooling; the gate asserts layout, not
-  that a lesson can be completed.
+  that a lesson can be completed. **B101.**
 - **Deterministic per-step-type stage-fit coverage is owed.** The matrix has
   three lesson routes (`ja-m4-neo-1?step=1/6/8`), which is why step-type fit
   problems were invisible here; `/ja/learn/test-out/m11` was sampling them by
-  accident and is now skipped for stage fit because its draw is random. The
-  residuals a deterministic sweep would surface, measured at 375x667 after the
-  short-viewport density block (§ 8):
+  accident and is now skipped for stage fit because its draw is random.
+  **B093.** The residuals a deterministic sweep would surface, measured at
+  375x667 after the short-viewport density block (§ 8):
 
-  | step type | overflow |
-  |---|---|
-  | conjugation_transform | 110px — structural, needs a container-sized rebuild |
-  | kanji_reading | 32px |
-  | listening_build | 27px |
-  | match_pairs | 19px |
-  | dialogue_listen | 17px |
-  | speaking | 6px |
+  | step type | overflow | before § 8 | tracked as |
+  |---|---|---|---|
+  | conjugation_transform | 110px — structural, needs a container-sized rebuild | 112px | **B091** |
+  | kanji_reading | 32px | 181px | B092 |
+  | listening_build | 27px | 183px | B092 |
+  | match_pairs | 19px | 55px | B092 |
+  | dialogue_listen | 17px | 43px | B092 |
+  | speaking | 6px | 48px | B092 |
 
-  Everything else is 0. All twenty are 0 at 412x915 and 430x932.
+  Everything else is 0. All twenty are 0 at 412x915 and 430x932. The "before"
+  column is why `conjugation_transform` is filed separately: it is the one step
+  type the density block did not move, which is what structural means here.
+
+Outside the gate but found by the same pass and filed with it: haptics are a
+silent no-op in WKWebView (**B096**), `/ja/qa`'s test-drive ids have rotted
+(**B097**), the iOS status bar is unstyled and unverified (**B100**), and two
+things that are Spencer's call rather than work — the short-phone dead zone
+(**B098**) and the personal signing team in `project.pbxproj` (**B099**).
 
 ---
 

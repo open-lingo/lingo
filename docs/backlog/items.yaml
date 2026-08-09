@@ -2355,3 +2355,288 @@
     contrast has no drill site until m28.
   fix: Add a yowai/tsuyoi contrast beat to an m28 R-review when authoring reaches it.
 
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MOBILE LAYOUT + THE GATE — opened by the 2026-08-09 mobile pass
+# Method, measurements and the residual tables: docs/mobile-ui-testing-2026-08-09.md
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B091
+  title: conjugation_transform overflows the lesson stage by 110px on a 375x667 phone, and spacing cannot close it
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: ui
+  tags: [step/conjugation_transform, viewport/iphone-se, system/lesson-shell, class/stage-overflow]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    On an iPhone SE the learner has to scroll inside a conjugation step that is
+    supposed to fit. CLAUDE.md's lesson rule is that the window never scrolls
+    during a lesson and the step container is the only scroll area; a step
+    overflowing its OWN scroller is the failure that rule exists to prevent.
+  evidence: >
+    scrollHeight - clientHeight = 110px at 375x667. The short-viewport density
+    block added the same day (src/index.css, `@media (max-height: 700px)`)
+    moved it 112 -> 110 — that near-zero response is the tell: the height is
+    structural, not padding. Every other step type answered the same block by
+    16-160px. 0px at 412x915 and 430x932, so this is short phones only.
+  fix: >
+    Give ConjugationTransformStepView a container-relative vertical budget
+    (cqh against the stage, minus `--stage-tail`) the way the MCQ grids do,
+    instead of stacked fixed blocks. NOT by shrinking the tail — measured,
+    that buys ~6px here and costs the dead zone everywhere (see B098).
+
+- id: B092
+  title: five more step types still overflow the lesson stage at 375x667, by 6-32px
+  status: open
+  severity: minor
+  effort: M
+  confidence: verified
+  area: ui
+  tags: [step/kanji_reading, step/listening_build, step/match_pairs, step/dialogue_listen, step/speaking, viewport/iphone-se, class/stage-overflow]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    Residual short-phone overflow after the density block. Small enough that
+    the CTA stays reachable, large enough that the step scrolls when it was
+    designed not to.
+  evidence: >
+    Measured at 375x667 after the fix, in px of scrollHeight - clientHeight:
+    kanji_reading 32, listening_build 27, match_pairs 19, dialogue_listen 17,
+    speaking 6. Before the density block these were 181, 183, 55, 43, 48.
+    All five are 0 at 412x915 and 430x932. Full table:
+    docs/mobile-ui-testing-2026-08-09.md § 7.
+  fix: >
+    Per-view, same shape as B091 but far cheaper — these are within one
+    spacing tier of fitting. Do B091 first; whatever pattern that lands is
+    the one to copy.
+  blocked_by: [B093]
+
+- id: B093
+  title: the mobile gate has no deterministic per-step-type stage-fit coverage, so step-type fit bugs are invisible to it
+  status: open
+  severity: major
+  effort: M
+  confidence: verified
+  area: tooling
+  tags: [system/mobile-gate, class/coverage-hole]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    The route matrix carries three lesson routes (`ja-m4-neo-1?step=1/6/8`),
+    which between them exercise two step types. Twenty exist. Every number in
+    B091 and B092 was measured by hand in scratch tooling, not by the gate,
+    and nothing stops them regressing.
+  evidence: >
+    tests/mobile/routes.mjs AUTHED_ROUTES. `/ja/learn/test-out/m11` was
+    sampling the heavy step types BY ACCIDENT and is now skipped for stage fit
+    because its step draw is random (verified: the same URL loaded three times
+    at 375x667 gave multiple_choice 0, match_pairs 36, listening_build 210,
+    each stable across a 3-second sample — the draw varying, not layout
+    settling). It went red about one run in three, always on a different step.
+  fix: >
+    Add one deterministic `?step=` route per step type to AUTHED_ROUTES —
+    pinned lesson ids from the live course map, the way the m4-neo entries are.
+    The expected residuals are already written down in
+    docs/mobile-ui-testing-2026-08-09.md § 7, so whoever adds them knows
+    exactly what should go red on the first run.
+
+- id: B094
+  title: CI runs the mobile gate on two public routes; the authed matrix has never run in CI at all
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: tooling
+  tags: [system/mobile-gate, system/ci, class/coverage-hole]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    `.github/workflows/ci.yml:35` sets `MOBILE_PUBLIC_ONLY: "1"`, so the
+    `mobile-e2e` job exercises `/get-started` and `/try` and nothing else.
+    Every lesson, practice, learn and community surface — the whole app — is
+    asserted only when somebody runs the gate locally. This is the single
+    largest gap in "the gate is our only authority for mobile".
+  evidence: >
+    Local full run 2026-08-09: 921 assertions passed across 35 routes x 7
+    viewports. CI's share of that is 2 routes. It is also how
+    `/ja/practice/reading` sat in the matrix as a not-found page without CI
+    noticing (fixed c9949afc), and how the practice-hub grid blowout shipped.
+  fix: >
+    Drop the env var now that the authed matrix is green, and give the job the
+    `.auth/user.json` storageState it needs (the seeded dev-bypass server is
+    already what `playwright.config.ts` starts). Watch runtime — the full
+    matrix is ~5x the public subset; if it is too slow for every push, run the
+    authed half nightly rather than not at all.
+
+- id: B095
+  title: landscape safe-area insets are modelled as zero, so a notched phone held sideways is untested
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: tooling
+  tags: [system/mobile-gate, class/coverage-hole]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    In landscape a notched device moves its inset to the SIDES and drops the
+    status-bar inset. `EXTENDED_VIEWPORTS` carries honest zeros for both
+    entries because neither models a notch (an SE has none, the Pixel keeps
+    only its gesture bar), so the `pl-safe`/`pr-safe` path has no coverage.
+  evidence: >
+    tests/mobile/_matrix.ts EXTENDED_VIEWPORTS — the zeros are deliberate and
+    commented; guessing 59px on the wrong edge would have been worse.
+  fix: >
+    Add a notched-landscape viewport once there is a device to read real
+    numbers off. The app already ships to iPad in all orientations
+    (`TARGETED_DEVICE_FAMILY = "1,2"`), so this is not hypothetical.
+
+- id: B096
+  title: haptics are a silent no-op on iOS — WKWebView has no navigator.vibrate
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: ui
+  tags: [system/audio, class/platform-gap]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    Every correct/incorrect buzz the app thinks it fires does nothing inside
+    the Capacitor wrapper. The code is not broken — it is correctly guarded —
+    the capability simply is not there, so the feedback loop is audio-only on
+    the platform the app is being tested on.
+  evidence: >
+    src/shared/audio/sfx.ts:105 guards on `"vibrate" in navigator`, which is
+    false in WKWebView. The Vibration API has never shipped in Safari.
+  fix: >
+    `@capacitor/haptics` behind the same guard — try the native plugin first,
+    fall back to `navigator.vibrate`. One package, no app-side redesign.
+
+- id: B097
+  title: the /ja/qa test-drive page points at lesson ids that no longer exist
+  status: open
+  severity: minor
+  effort: S
+  confidence: reported
+  area: tooling
+  tags: [page/qa, class/stale-reference]
+  found: 2026-08-08
+  source: manual-route-sweep-2026-08-08
+  detail: >
+    QaTestDrivePage hardcodes lesson ids; most were retired in the IR waves and
+    now render "Lesson not found", so the dev surface for eyeballing step types
+    mostly does not work. Same class of rot that put a dead id in the mobile
+    route matrix until 2026-08-05.
+  evidence: >
+    Reported 31 of 35 dead in the 2026-08-08 sweep; 37 unique `ja-m*` ids in
+    src/features/lesson/dev/QaTestDrivePage.tsx today. NOT re-counted
+    2026-08-09 because mockLessons.ts is mid-rewrite (m30/N4) and any count
+    taken now would be measuring the rewrite, not the rot.
+  fix: >
+    Derive the list from the live course map instead of hardcoding it, so it
+    cannot rot again. Re-count first, after the N4 wave settles.
+
+- id: B098
+  title: the lesson stage's bottom dead zone versus short-phone fit — 10cqh or 4cqh below 700px
+  status: decision-needed
+  severity: note
+  effort: XS
+  confidence: verified
+  area: ui
+  tags: [system/lesson-shell, viewport/iphone-se]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    `--stage-tail` is 10cqh everywhere (src/index.css). Dropping it to 4cqh
+    inside the existing `@media (max-height: 700px)` block is a one-line change
+    that clears four more step types on an SE — and cuts the dead zone Spencer
+    asked for on exactly the phones where it is already thinnest.
+  evidence: >
+    Measured 2026-08-09 at 375x667. Density block alone rescues 2 of 8
+    overflowing step types; tail+density rescues 4 (match_pairs, speaking,
+    symbol_to_sound, listening_comprehension). The taper ALONE rescues 0 at
+    360x640 and 2 at 375x667 — it only works as an amplifier. Dead space today:
+    14.3% on a 15 Pro Max, 15.0% on a 13 mini, 12.3% at 360x640; at 4cqh the
+    small phones fall to ~7.5%.
+  fix: >
+    One line. `--stage-tail: 4cqh` inside the existing max-height:700px block.
+    The density half already shipped (4ba29d20) because it has no trade-off.
+  note: >
+    Spencer's stated preference is "the bottom 10% maybe 15% of the screen as
+    dead space at least", which this reverses on short phones only. Left at
+    10cqh rather than flipped silently. B091 is NOT waiting on this — the
+    tail buys it ~6px.
+
+- id: B099
+  title: the iOS project file hardcodes a personal signing team and has never been committed
+  status: decision-needed
+  severity: note
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [system/ios-wrapper]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    `ios/App/App.xcodeproj/project.pbxproj` sits modified in the tree with
+    `DEVELOPMENT_TEAM = Y462YZGXCZ` baked in — a personal free-provisioning
+    team. Committing it hands every future checkout a team it cannot sign
+    with; leaving it uncommitted means the wrapper's build config exists on
+    exactly one machine.
+  fix: >
+    Either move the team into an untracked `.xcconfig` and commit the project
+    file without it, or commit as-is and accept that the second developer has
+    to change one field. The first is correct; the second is fine while there
+    is one developer.
+
+- id: B100
+  title: the iOS status bar is unstyled — @capacitor/status-bar is not installed
+  status: open
+  severity: minor
+  effort: XS
+  confidence: suspected
+  area: ui
+  tags: [system/ios-wrapper, class/platform-gap]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    The wrapper has @capacitor/app, /browser, /core, /ios — no status-bar
+    plugin — so the app cannot set status-bar text style when the theme flips.
+    With `viewport-fit=cover` the bar sits over app chrome, and dark-theme
+    chrome under dark status-bar glyphs is the predictable failure.
+  evidence: >
+    package.json capacitor deps, read 2026-08-09. SUSPECTED, not verified —
+    no one has photographed the status bar in both themes. Chromium cannot
+    answer this; it is a device check (docs/mobile-ui-testing-2026-08-09.md § 6).
+  fix: >
+    Look at the phone in both themes FIRST. Only if it is actually wrong,
+    add `@capacitor/status-bar` and drive `setStyle` from ThemeContext.
+
+- id: B101
+  title: nothing automated checks that a lesson can be completed — the gate asserts layout only
+  status: open
+  severity: minor
+  effort: L
+  confidence: verified
+  area: tooling
+  tags: [system/mobile-gate, class/coverage-hole]
+  found: 2026-08-09
+  source: mobile-pass-2026-08-09
+  detail: >
+    The mobile gate measures geometry: overflow, off-right-edge, tap targets,
+    safe area, stage fit, render errors. It never presses a button. The
+    22-step-type playthrough that found real interaction bugs in the 2026-08-08
+    QA pass was scratch tooling and was not kept.
+  evidence: >
+    docs/mobile-ui-testing-2026-08-09.md § 7. A step type can render perfectly
+    and still be ungradeable, and today only a person finds that.
+  fix: >
+    A separate spec — not more assertions on the layout gate. One route per
+    step type, answer it correctly, assert the CTA advances. B093's
+    deterministic per-step-type routes are the prerequisite and most of the
+    work.
+  blocked_by: [B093]

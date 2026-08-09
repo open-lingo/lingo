@@ -47,12 +47,13 @@ const TOLERANCE_PX = 2;
  * different step, which is the profile of a test people learn to re-run.
  *
  * The coverage it was sampling by accident — do the heavy step types fit? — is
- * real and still owed. It wants deterministic per-step-type lesson routes in
- * the matrix, not a random draw. The measured residuals at 375x667 are
- * recorded in `docs/mobile-ui-testing-2026-08-09.md` § 7 so whoever adds them
- * knows exactly what they will see. The route keeps its other assertions
- * (overflow, render errors, tap targets, safe area) — only stage fit is
- * non-reproducible.
+ * real and still owed: **B093** in `docs/backlog/items.yaml`. It wants
+ * deterministic per-step-type lesson routes in the matrix, not a random draw.
+ * The measured residuals at 375x667 are recorded in
+ * `docs/mobile-ui-testing-2026-08-09.md` § 7 (and as B091/B092) so whoever
+ * adds them knows exactly what should go red on the first run. The route keeps
+ * its other assertions (overflow, render errors, tap targets, safe area) —
+ * only stage fit is non-reproducible.
  */
 const NONDETERMINISTIC_STEP_ROUTES = [/\/learn\/test-out\//];
 
