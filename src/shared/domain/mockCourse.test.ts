@@ -153,16 +153,23 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 = n4-01, authored 2026-08-14 (pilot retired 2026-08-09)", () => {
+  it("N4 tier is m30 = n4-01 and m31 = n4-02, both authored", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31"]);
     // Spec A1 retired the July pilot and left a locked, lesson-less station;
     // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
-    // place. Shape is inv 25: 13 lessons = 9 teaching + 3 review + 1 challenge.
-    expect(n4[0].comingSoon).toBeUndefined();
-    expect(n4[0].lessons).toHaveLength(13);
-    expect(n4[0].lessons.filter((l) => /-review(-\d+)?$/.test(l.id))).toHaveLength(3);
-    expect(n4[0].lessons[n4[0].lessons.length - 1].id).toBe("ja-m30-neo-challenge");
+    // place (2026-08-14), and m31 = n4-02 「Give & receive I:
+    // あげる・くれる・もらう」 followed on 2026-08-15. Shape is inv 25 for both:
+    // 13 lessons = 9 teaching + 3 review + 1 challenge, challenge LAST.
+    for (const m of n4) {
+      expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
+      expect(m.lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(
+        m.lessons.filter((l) => /-review(-\d+)?$/.test(l.id)),
+        `${m.id} review count`,
+      ).toHaveLength(3);
+      expect(m.lessons[m.lessons.length - 1].id).toBe(`ja-${m.id}-neo-challenge`);
+    }
   });
 
   it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {

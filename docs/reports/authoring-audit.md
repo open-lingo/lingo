@@ -32,13 +32,14 @@ guide or the compiler, not the modules one at a time.**
 | m28 | 234 | 9.6% | 12 | — | 1 |
 | m29 | 234 | 5.3% | 11 | — | 1 |
 | m30 | 235 | 10.0% | 12 | — | 1 |
+| m31 | 234 | 9.9% | 12 | — | 1 |
 
 ## Systemic — fix upstream, not per module
 
 These are counted in the `systemic` column, NOT in `findings`, because no
 single module can fix them. `findings` = 0 means that module is clean.
 
-- **inv 35 build-tile-distractors** flagged in 25 modules
+- **inv 35 build-tile-distractors** flagged in 26 modules
   - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
 
 ## Findings by module

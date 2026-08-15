@@ -78,17 +78,20 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 line is m30 = n4-01, authored and available", () => {
-    // The July m30 pilot was retired 2026-08-09 (spec A1) and the replacement
-    // m30 = n4-01 「て + helper I」 was authored 2026-08-14 (spec A3), so the n4
-    // line is one REAL station: 13 lessons, no comingSoon flag. The rest of
-    // the tier (m31-m51) is unauthored and not on the map yet.
+  it("real ja n4 line is m30 + m31, both authored and available", () => {
+    // The July m30 pilot was retired 2026-08-09 (spec A1); m30 = n4-01
+    // 「て + helper I」 was authored 2026-08-14 (spec A3) and m31 = n4-02
+    // 「Give & receive I」 on 2026-08-15. Both are REAL stations: 13 lessons
+    // each, no comingSoon flag. The rest of the tier (m32-m51) is unauthored
+    // and not on the map yet.
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30"]);
-    expect(n4[0].comingSoon).toBeUndefined();
-    expect(n4[0].lessons).toHaveLength(13);
-    expect(n4[0].lessons.every((l) => l.status === "available")).toBe(true);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31"]);
+    for (const m of n4) {
+      expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
+      expect(m.lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(m.lessons.every((l) => l.status === "available"), `${m.id}`).toBe(true);
+    }
   });
 });
 

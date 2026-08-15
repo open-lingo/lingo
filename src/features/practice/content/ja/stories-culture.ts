@@ -288,6 +288,11 @@ export const JA_CULTURE_STORIES: Story[] = [
     glosses: [
       { surface: "おぼん", meaning: "Obon — the summer days when families return home" },
       { surface: "ぼんおどり", meaning: "the Bon dance, danced together in the town square" },
+      // こども is TAUGHT at m31 (n4-02). Its registry row claimed m19 and
+      // pointed at an old-course lesson that survives only in `_archive/`, so
+      // no live module ever unlocked it and this passage was leaning on the tag
+      // rather than on teaching (2026-08-15).
+      { surface: "こども", meaning: "a child", atomId: "ja:kodomo" },
     ],
     questions: [
       {

@@ -36,6 +36,18 @@
  * exactly the "no image MCQ" flag; nothing else about these atoms changes, and
  * it is what makes the registry agree with the IR's own `imageable: false`.
  *
+ * 2026-08-15 — m31 (n4-02) authored: FOUR more rows re-tagged, the same ratchet
+ * m30 hit. あげる, かりる and おかし were on "future"; たんじょうび was the same
+ * defect in better disguise — tagged "m19" with `introducedByLessonId:
+ * "ja-m19-5-2"`, a lesson that lives in `curriculum/_archive/m19.ts`. The neo
+ * m19 does not teach the word and no IR module lists it, so that tag could not
+ * unlock it either; the dead `introducedByLessonId` came off with the retag.
+ * Three of the four are `blocked` under the m19/m24/m26 SHARED-GLYPH ruling or
+ * the m14 rule-card-steals-the-debut ruling, and the reason is on each row.
+ * たんじょうび is NOT blocked: 🎂 is carried by exactly one row in this file, so
+ * it is m31's single image debut. Only `fromModule` (and `blocked`) changed —
+ * no kana, no id, so no tokenization anywhere in the course moved.
+ *
  * IDs are stable forever once shipped. To add a word: append a new
  * CourseAtom entry — do NOT renumber.
  */
@@ -71,7 +83,7 @@ export type CourseAtomSource =
   | "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7"
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
-  | "m28" | "m29" | "m30"
+  | "m28" | "m29" | "m30" | "m31"
   // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
   // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
   // None of these modules is authored yet, so atoms tagged with them never
@@ -512,7 +524,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "okaasan", kana: "おかあさん", kanji: "お母さん", romaji: "okaasan", meaningEn: "(honorable) mother", emoji: "👩", fromModule: "m19", kind: "vocab", note: "woman; pair with phrase context", pos: "noun" },
   { id: "otousan", kana: "おとうさん", kanji: "お父さん", romaji: "otousan", meaningEn: "(honorable) father", emoji: "👨", fromModule: "m19", kind: "vocab", blocked: true, note: "man glyph reads as 'man' not 'father'; rubric flags parent words", pos: "noun" },
   { id: "osara", kana: "おさら", kanji: "お皿", romaji: "osara", meaningEn: "plate, dish", emoji: "🍽️", fromModule: "m21", kind: "vocab", note: "plate-with-utensils", pos: "noun" },
-  { id: "okashi", kana: "おかし", kanji: "お菓子", romaji: "okashi", meaningEn: "sweets, candy", emoji: "🍬", fromModule: "future", kind: "vocab", pos: "noun" },
+  { id: "okashi", kana: "おかし", kanji: "お菓子", romaji: "okashi", meaningEn: "sweets, candy", emoji: "🍬", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked — 🍬 is also あまい, さとう and あめ (candy)", pos: "noun" },
   { id: "ofuro", kana: "おふろ", kanji: "お風呂", romaji: "ofuro", meaningEn: "bath", emoji: "🛁", fromModule: "m13", kind: "vocab", pos: "noun" },
   { id: "sarainen", kana: "さらいねん", kanji: "さ来年", romaji: "sarainen", meaningEn: "year after next", fromModule: "future", kind: "vocab", blocked: true, note: "temporal abstraction", pos: "noun" },
   { id: "toriniku", kana: "とりにく", kanji: "とり肉", romaji: "toriniku", meaningEn: "chicken meat", emoji: "🍗", fromModule: "m21", kind: "vocab", pos: "noun" },
@@ -529,7 +541,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "mannenhitsu", kana: "まんねんひつ", kanji: "万年筆", romaji: "mannenhitsu", meaningEn: "fountain pen", emoji: "🖋️", fromModule: "future", kind: "vocab", note: "fountain pen — exact match", pos: "noun" },
   { id: "joubu", kana: "じょうぶ", kanji: "丈夫", romaji: "joubu", meaningEn: "strong, durable", emoji: "💪", fromModule: "m9", kind: "vocab", note: "flexed arm for strong/durable", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "mikka", kana: "みっか", kanji: "三日", romaji: "mikka", meaningEn: "three days, third day of the month", fromModule: "future", kind: "vocab", blocked: true, note: "no glyph for ordinal day-3", pos: "number" },
-  { id: "ageru", kana: "あげる", kanji: "上げる", romaji: "ageru", meaningEn: "to give", emoji: "🎁", fromModule: "future", kind: "vocab", note: "gift as giving cue", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "ageru", kana: "あげる", kanji: "上げる", romaji: "ageru", meaningEn: "to give", emoji: "🎁", fromModule: "m31", kind: "vocab", blocked: true, note: "gift as giving cue; blocked — the m31 ageru rule card names it, and a pinned rule step would steal the image debut", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "jouzu", kana: "じょうず", kanji: "上手", romaji: "jouzu", meaningEn: "skillful", emoji: "👌", fromModule: "m9", kind: "vocab", note: "OK-hand as skillful cue", pos: "adjective", conjugation: { class: "na-adj", entryId: "jouzu" } },
   { id: "uwagi", kana: "うわぎ", kanji: "上着", romaji: "uwagi", meaningEn: "jacket", emoji: "🧥", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "shita", kana: "した", kanji: "下", romaji: "shita", meaningEn: "below", emoji: "⬇️", fromModule: "m17", introducedByLessonId: "ja-m17-8-1", kind: "vocab", note: "directional concrete", pos: "noun" },
@@ -569,7 +581,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sakubun", kana: "さくぶん", kanji: "作文", romaji: "sakubun", meaningEn: "composition, writing", emoji: "📝", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "tsukau", kana: "つかう", kanji: "使う", romaji: "tsukau", meaningEn: "to use", emoji: "🔧", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 5 2026-07-30 (B067); was m29 with a dead ja-m29-1-1 attribution (old-course id — live m29 is ja-m29-neo-*) — deleted", pos: "verb", conjugation: { class: "godan", entryId: "tsukau" } },
   { id: "benri", kana: "べんり", kanji: "便利", romaji: "benri", meaningEn: "useful, convenient", emoji: "🛠️", fromModule: "m9", kind: "vocab", note: "tools as useful proxy", pos: "adjective", conjugation: { class: "na-adj", entryId: "benri" } },
-  { id: "kariru", kana: "かりる", kanji: "借りる", romaji: "kariru", meaningEn: "to borrow", emoji: "🤝", fromModule: "future", kind: "vocab", note: "handshake as borrow/lend cue (weak but acceptable)", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "kariru", kana: "かりる", kanji: "借りる", romaji: "kariru", meaningEn: "to borrow", emoji: "🤝", fromModule: "m31", kind: "vocab", blocked: true, note: "handshake as borrow/lend cue (weak but acceptable); blocked — 🤝 is also あう, かす and てつだう, all MET", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "hataraku", kana: "はたらく", kanji: "働く", romaji: "hataraku", meaningEn: "to work", emoji: "💼", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "briefcase", pos: "verb", conjugation: { class: "godan", entryId: "hataraku" } },
   { id: "kyoudai", kana: "きょうだい", kanji: "兄弟", romaji: "kyoudai", meaningEn: "(humble) siblings", emoji: "👫", fromModule: "future", kind: "vocab", note: "two people; siblings", pos: "noun" },
   { id: "saki", kana: "さき", kanji: "先", romaji: "saki", meaningEn: "the future, previous", fromModule: "m16", introducedByLessonId: "ja-m16-3-2", kind: "vocab", blocked: true, note: "abstract temporal/positional — no concrete referent", pos: "noun" },
@@ -671,7 +683,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hajimaru", kana: "はじまる", kanji: "始まる", romaji: "hajimaru", meaningEn: "to begin", emoji: "▶️", fromModule: "future", kind: "vocab", note: "play button as start proxy", pos: "verb", conjugation: { class: "godan" } },
   { id: "iya", kana: "いや", kanji: "嫌", romaji: "iya", meaningEn: "unpleasant", emoji: "🤢", fromModule: "future", kind: "vocab", note: "disgust face = unpleasant", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "kirai", kana: "きらい", kanji: "嫌い", romaji: "kirai", meaningEn: "hate", emoji: "🙅", fromModule: "m13", kind: "vocab", blocked: true, note: "person gesturing no. fromModule re-homed m9 → m13 (2026-07-29, B067/B068): ja-m13-neo-7 introduces it — the legacy tag left it graded-but-never-unlockable. blocked: the suki-kirai-no rule card IS the debut (m13 IR note)", pos: "adjective", conjugation: { class: "na-adj", entryId: "kirai" } },
-  { id: "kodomo", kana: "こども", kanji: "子供", romaji: "kodomo", meaningEn: "child", emoji: "🧒", fromModule: "m19", kind: "vocab", pos: "noun" },
+  { id: "kodomo", kana: "こども", kanji: "子供", romaji: "kodomo", meaningEn: "child", emoji: "🧒", fromModule: "m31", kind: "vocab", pos: "noun" },
   { id: "jibiki", kana: "じびき", kanji: "字引", romaji: "jibiki", meaningEn: "dictionary", emoji: "📖", fromModule: "future", kind: "vocab", note: "open book", pos: "noun" },
   { id: "yasui", kana: "やすい", kanji: "安い", romaji: "yasui", meaningEn: "cheap", emoji: "🪙", fromModule: "m8", kind: "vocab", note: "coin as cheap/small-money proxy", pos: "adjective", conjugation: { class: "i-adj", entryId: "yasui" } },
   { id: "katei", kana: "かてい", kanji: "家庭", romaji: "katei", meaningEn: "household", emoji: "🏠", fromModule: "future", kind: "vocab", note: "house", pos: "noun" },
@@ -863,7 +875,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kotoba", kana: "ことば", kanji: "言葉", romaji: "kotoba", meaningEn: "word, language", emoji: "🔤", fromModule: "future", kind: "vocab", note: "ABC input symbol as language proxy", pos: "noun" },
   { id: "hanashi", kana: "はなし", kanji: "話", romaji: "hanashi", meaningEn: "talk, story", emoji: "💬", fromModule: "m14", kind: "vocab", pos: "noun" },
   { id: "hanasu", kana: "はなす", kanji: "話す", romaji: "hanasu", meaningEn: "to speak", emoji: "🗣️", fromModule: "m14", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
-  { id: "tanjoubi", kana: "たんじょうび", kanji: "誕生日", romaji: "tanjoubi", meaningEn: "birthday", emoji: "🎂", fromModule: "m19", introducedByLessonId: "ja-m19-5-2", kind: "vocab", pos: "noun" },
+  { id: "tanjoubi", kana: "たんじょうび", kanji: "誕生日", romaji: "tanjoubi", meaningEn: "birthday", emoji: "🎂", fromModule: "m31", kind: "vocab", pos: "noun" },
   { id: "keikan", kana: "けいかん", kanji: "警官", romaji: "keikan", meaningEn: "policeman", emoji: "👮", fromModule: "m17", introducedByLessonId: "ja-m17-8-2", kind: "vocab", pos: "noun" },
   { id: "butaniku", kana: "ぶたにく", kanji: "豚肉", romaji: "butaniku", meaningEn: "pork", emoji: "🥓", fromModule: "future", kind: "vocab", note: "bacon as pork cue", pos: "noun" },
   { id: "saifu", kana: "さいふ", kanji: "財布", romaji: "saifu", meaningEn: "wallet", emoji: "👛", fromModule: "m14", kind: "vocab", note: "purse — closest wallet glyph", pos: "noun" },

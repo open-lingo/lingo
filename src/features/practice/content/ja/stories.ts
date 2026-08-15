@@ -1192,6 +1192,12 @@ export const JA_STORIES: Story[] = [
     level: 2,
     title: "My family",
     theme: "Four of us, and a birthday.",
+    // たんじょうび is TAUGHT at m31 (n4-02), twelve modules after this passage.
+    // Its registry row used to claim m19 and point at an old-course lesson that
+    // survives only in `_archive/`, so no live module unlocked it and this
+    // passage was leaning on the tag. Retagging the row to m31 with m31's
+    // authoring made that visible; the gloss is the fix.
+    glosses: [{ surface: "たんじょうび", meaning: "birthday", atomId: "ja:tanjoubi" }],
     questions: [
       {
         id: "gist",
@@ -1541,6 +1547,12 @@ export const JA_STORIES: Story[] = [
       { surface: "いっしょ", meaning: "together", atomId: "ja:issho" },
       { surface: "つくる", meaning: "to make, to cook", atomId: "ja:tsukuru" },
       { surface: "やっぱり", meaning: "after all, as expected", atomId: "ja:yappari" },
+      // Same 2026-08-15 retag as たんじょうび: こども's registry row claimed m19
+      // and pointed at an archived old-course lesson, so no live module
+      // unlocked it. m31 (n4-02) teaches it. Nine modules from here, so it is
+      // glossed — and it was worth catching, because without the row the
+      // tokenizer splits 「こどもの」 into こ · ど · も.
+      { surface: "こども", meaning: "a child", atomId: "ja:kodomo" },
     ],
     questions: [
       {
@@ -1663,6 +1675,13 @@ export const JA_STORIES: Story[] = [
       { surface: "わすれる", meaning: "to forget", atomId: "ja:wasureru" },
       { surface: "だんだん", meaning: "gradually, little by little", atomId: "ja:dandan" },
       { surface: "なる", meaning: "to become", atomId: "ja:naru" },
+      // Added 2026-08-15 with m31 (n4-02), which is where たんじょうび is now
+      // TAUGHT. Its registry row used to say `fromModule: "m19"` and point at
+      // an old-course lesson that lives only in `_archive/`, so no live module
+      // ever unlocked it — this passage and ja-m19-my-family were leaning on a
+      // tag rather than on teaching. Retagging the row to m31 made that
+      // visible, and a gloss is the honest fix at m23.
+      { surface: "たんじょうび", meaning: "birthday", atomId: "ja:tanjoubi" },
     ],
     questions: [
       {
@@ -1979,6 +1998,9 @@ export const JA_STORIES: Story[] = [
       { surface: "ぜんぶ", meaning: "all of it, everything", atomId: "ja:zenbu" },
       { surface: "きになる", meaning: "to weigh on one's mind", atomId: "ja:kininaru" },
       { surface: "いう", meaning: "to say", atomId: "ja:iu" },
+      // こども is TAUGHT at m31 (n4-02); its old m19 tag pointed at an archived
+      // lesson no live module runs. See ja-m22-the-fish-i-said-i-hated.
+      { surface: "こども", meaning: "a child", atomId: "ja:kodomo" },
     ],
     questions: [
       {

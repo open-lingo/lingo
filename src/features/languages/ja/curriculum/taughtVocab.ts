@@ -59,6 +59,7 @@ import m27Ir from "./ir/m27.ir.json";
 import m28Ir from "./ir/m28.ir.json";
 import m29Ir from "./ir/m29.ir.json";
 import m30Ir from "./ir/m30.ir.json";
+import m31Ir from "./ir/m31.ir.json";
 
 type IrWithPriorVocab = { priorVocab?: string[] };
 
@@ -88,6 +89,7 @@ const IR_BY_MODULE: Readonly<Record<string, IrWithPriorVocab>> = {
   m28: m28Ir,
   m29: m29Ir,
   m30: m30Ir,
+  m31: m31Ir,
 };
 
 const cache = new Map<string, ReadonlySet<string>>();

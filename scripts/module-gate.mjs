@@ -19,10 +19,14 @@
  * one summary always covers all three-or-four; only the exit code reflects
  * failure):
  *   1. `npx vitest run` filtered to the module's test files
- *      (`curriculum/<module>*.test.ts*` — vitest's CLI filter is a path
+ *      (`curriculum/__tests__/<module>-neo` — vitest's CLI filter is a path
  *      substring match against files already selected by the project's
  *      `*.test.{ts,tsx}` include glob, so this is equivalent to the literal
- *      glob without reimplementing vitest's file discovery).
+ *      glob without reimplementing vitest's file discovery). The filter used
+ *      to read `curriculum/<module>`, which stopped matching anything when the
+ *      module tests moved into `curriculum/__tests__/` — the stage reported
+ *      "vitest exited 1" for every module, m30 included, and the FAIL looked
+ *      like a content problem rather than a dead filter. Fixed 2026-08-15.
  *   2. `node scripts/emit-tts-deck.mjs` (regenerates the JA TTS deck from
  *      ALL curriculum sources — not module-scoped, mirrors the script's own
  *      scope) then a coverage diff: every deck card's `front` (and its
@@ -108,8 +112,15 @@ function stage(name, fn) {
 
 // ── stage 1: vitest over the module's test files ───────────────────────
 
-stage(`vitest run curriculum/${moduleArg}*`, () => {
-  const filter = `curriculum/${moduleArg}`;
+stage(`vitest run ${moduleArg} module tests`, () => {
+  // The filter is a path SUBSTRING, and module tests live in
+  // `curriculum/__tests__/mN-neo.test.ts` — so the historical
+  // `curriculum/${moduleArg}` filter matched NOTHING for any module and this
+  // stage had been reporting FAIL-on-no-files since the tests moved into
+  // `__tests__/` (verified 2026-08-15 against m30 as well as m31). Match the
+  // real directory, and accept both `m31` and `m31-neo` as the argument.
+  const base = moduleArg.replace(/-neo$/, "");
+  const filter = `curriculum/__tests__/${base}-neo`;
   const res = run("npx", ["vitest", "run", filter]);
   return res.status === 0
     ? { status: "PASS", detail: `filter "${filter}"` }

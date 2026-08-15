@@ -671,6 +671,19 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // sentences below the measurement ((82-3)/87 = .908), per this block's own
   // rule. NEVER lowered.
   m30: 0.90,
+  // m31 is a FIRST MEASUREMENT — spine unit n4-02 is newly authored and there
+  // is no archived value of any kind to inherit. Measured on the finished neo
+  // module at 81/88 = .920, and it is structural rather than decorative for a
+  // reason worth writing down: a transfer sentence names a GIVER, a RECEIVER
+  // and a THING before anything else is said, so it clears the twelve-character
+  // bar on its own — which is exactly why this module could NOT lean on
+  // て-clause linking for texture the way m30 did (the spine bans て-forms here
+  // outright). The clauses that do appear hang on m15/m16's から / けど / とき,
+  // and the seven simple beats are deliberate: 「だれに あげる？」 is the whole
+  // question and padding it would teach worse. Floor set three sentences below
+  // the measurement ((81-3)/88 = .886), per this block's own rule. NEVER
+  // lowered.
+  m31: 0.88,
 };
 
 const CONNECTIVES = /(から|ので|けど|たら|とき|まえに|あとで|ながら)/;

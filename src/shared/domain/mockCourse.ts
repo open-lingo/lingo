@@ -1143,6 +1143,41 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#7c3aed", to: "#5b21b6" },
         },
+        // M31 = spine unit n4-02, "Give & receive I: あげる・くれる・もらう
+        // (things)", authored 2026-08-15. It replaces no placeholder — the N4
+        // map grows a tile per authored unit.
+        //
+        // The payload is not three words, it is ONE AXIS. English has a single
+        // verb where Japanese has three, and what picks between them is neither
+        // politeness nor tense nor who is speaking — it is WHICH WAY the thing
+        // moved relative to the speaker. The うち / そと line has never been
+        // needed in this course before and is needed for the rest of it, which
+        // is why the spine spends a whole module on DIRECTION alone and defers
+        // the て-form versions (n4-06), the schema (m35) and the register
+        // (m50). This module therefore contains no て-form of any verb at all.
+        {
+          id: "m31",
+          title: "Give & receive I — あげる・くれる・もらう",
+          eyebrow: "Module 31 · JLPT N4",
+          summary: "English has one word for this and Japanese has three, and the thing that picks between them is not politeness — it is which way the present was travelling when it went past you. あげる sends it away from your side, くれる brings it in, and もらう tells the same story from the receiving end. Then the one sentence Japanese will not let you build: あげる can never point back at you. By the end you can say what you gave, what somebody gave you, and what you got — and hear the polite pair, くださる and いただく, without having to produce them yet.",
+          tier: "n4",
+          lessons: [
+            { id: "ja-m31-neo-1", title: "「ともだちに プレゼントを あげる」 — the one that points away", status: "available" as const },
+            { id: "ja-m31-neo-2", title: "「ともだちが プレゼントを くれる」 — the same present, coming the other way", status: "available" as const },
+            { id: "ja-m31-neo-3", title: "「だれに あげる？」 — に marks the one who gets it", status: "available" as const },
+            { id: "ja-m31-neo-review-1", title: "Review — which way is it going?", status: "available" as const },
+            { id: "ja-m31-neo-5", title: "「せんせいに じしょを もらう」 — the receiver takes the topic", status: "available" as const },
+            { id: "ja-m31-neo-6", title: "「ともだちから もらう」 — に or から, and both are right", status: "available" as const },
+            { id: "ja-m31-neo-7", title: "×「わたしに あげる」 — the one thing あげる cannot do", status: "available" as const },
+            { id: "ja-m31-neo-review-2", title: "Review — three verbs, one arrow", status: "available" as const },
+            { id: "ja-m31-neo-9", title: "「もらった」「くれた」「あげた」 — after the present is handed over", status: "available" as const },
+            { id: "ja-m31-neo-10", title: "「せんせいが くださった」 — the polite pair you only need to recognise", status: "available" as const },
+            { id: "ja-m31-neo-11", title: "「わたしは」 が きえる — the verb has already said who", status: "available" as const },
+            { id: "ja-m31-neo-review-3", title: "Review — the whole axis, in both tenses", status: "available" as const },
+            { id: "ja-m31-neo-challenge", title: "Challenge — a year of presents, in both directions", status: "available" as const },
+          ],
+          accent: { from: "#db2777", to: "#9d174d" },
+        },
       ],
       sideQuests,
     };
