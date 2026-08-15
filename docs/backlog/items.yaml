@@ -2794,3 +2794,82 @@
     walks m5/m8/m11/m16/m17 and placement QA. Supersedes the per-pack
     burn-down plan if approved.
   see_also: B070
+# ── KOREAN — found 2026-08-14 by porting the JA authoring gate to KO. The gate
+#    was validated against the SHIPPED m22 module before any finding was
+#    trusted; its first calibration scored real course content 11/42, which was
+#    the instrument being wrong, not the course. Recalibrated to 32/42, and the
+#    remaining vocabulary flags are all genuine.
+
+- id: B105
+  title: the KO course teaches and grades words that have no atom row, and nothing checks
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: content
+  tags: [lang/ko, class/untaught-before-required, system/srs]
+  found: 2026-08-14
+  source: ko-gate-port
+  detail: >
+    Four words appear as graded KO lesson content with ZERO rows in
+    ko/courseAtoms.ts, so the SRS annotator cannot resolve them: a learner is
+    tested on them and they are never scheduled. The clearest case is 싸요
+    ("is cheap") — its dictionary form 싸다 IS registered and its ANTONYM's
+    polite form 비싸요 IS registered, so the omission is asymmetric rather than
+    a deliberate policy. Same class as JA's B068 (words the course grades that
+    never unlock).
+  evidence: >
+    Anchored token counts (Korean has spaces, so this is a word test, not a
+    substring test — 비싸요 CONTAINS 싸요 and an unanchored grep reports 60
+    instead of 10): 싸요 10 hits in m22; 음식 8 hits across m22/m23/m25;
+    서울 5 and 부산 5 in m22. Registry rows for all four: zero. Surfaced by
+    running a taught-vocabulary gate over the 42 real comparison sentences in
+    ko/curriculum/m22.ts; 33/42 passed and every one of the 9 failures was one
+    of these words.
+  fix: >
+    Register 싸요 (m22, alongside the existing 비싸요) and 음식 (earliest use is
+    m22). 서울/부산 are proper nouns and are the JA character-name class — either
+    register them or accept that any comprehensibility gate will flag them, but
+    decide it explicitly rather than by omission. Then add the guard: KO has NO
+    untaught-word check of any kind, which is why four of these accumulated
+    silently. See B106 for why that guard does not exist.
+
+- id: B106
+  title: KO has no spine, no IR and no authoring audit — it is still on the architecture JA left behind
+  status: note
+  severity: note
+  effort: XL
+  confidence: verified
+  area: content
+  tags: [lang/ko, class/coverage-hole, system/content]
+  found: 2026-08-14
+  source: ko-gate-port
+  detail: >
+    JA's content quality is produced by a pipeline, not by care: spine
+    (spine-draft4 / spine-n4, with per-module teaches/why/parity/vocab budgets)
+    -> authored IR YAML -> compile-ir -> moduleCompiler -> a wall of guards ->
+    npm run authoring-audit. KO has NONE of those four layers. It is
+    hand-authored TypeScript, the shape JA used before the IR wave.
+    "Re-authoring Korean" therefore means building that pipeline, not
+    rewriting sentences — and the spine comes first, because every later layer
+    reads it.
+  evidence: >
+    No KO spine document exists (docs/ has spine-draft2/draft4/n4 and an
+    n4 pilot, all JA). No src/features/languages/ko/curriculum/ir/ directory.
+    authoring-audit: ZERO KO references. Guard surface: JA 62 test files with
+    4 named lint GATEs in moduleContentLints; KO 31 files of which only 2 are
+    guards (koSiblingSets, moduleConformance) — the rest are per-module tests.
+    Content depth, measured 2026-08-14: KO 21,587 curriculum LOC vs JA 31,012;
+    373 tagged atoms vs JA 750+; and the distribution is the real gap — KO m1-m5
+    carry 145 atoms, leaving m6-m27 averaging ~10 new words per module where
+    the JA spine budgets 34. KO m22 is 6 new atoms and 8 lessons against JA's
+    inv-25 shape of 12-15.
+    Not all bad news: KO TTS is now 1,526 clips with the shipped manifest
+    matching exactly (the 2026-07-15 parity audit's "zero TTS" is stale), and
+    ko-conjugation-phase1 shipped.
+  fix: >
+    Decision for Spencer, not a mechanical fix. If KO is to reach JA's bar the
+    order is spine -> IR schema (the compiler is already language-agnostic
+    enough to be worth checking first) -> guards -> audit -> re-author. If it
+    is not, then B105-class defects should be fixed directly and KO accepted as
+    a lighter course. Doing neither is what produced four untaught words.
