@@ -28,28 +28,34 @@
  *      Regenerating them under the standard scheme collapses this class to
  *      zero; until then the overrides work and the audio plays.
  *
- * ## Loading strategy — deliberately static, for now
+ * ## Loading strategy — lazy chunks, eagerly fetched (2026-08-15)
  *
- * All languages are statically imported and bundled. That is a 3.8x win over
- * the old manifest with ZERO async surface, which matters because
- * `getTtsUrl` is called synchronously from ~107 sites, several of which
- * decide whether to render a control at all.
+ * The manifests used to be statically imported, which welded ~284 KB of JSON
+ * into the eager entry chunk — every visitor downloaded and parsed every
+ * language before first paint. They are now `import.meta.glob` lazy chunks,
+ * ALL kicked off at module init (see the bottom of this file), so the fetch
+ * runs in parallel with the rest of boot instead of inside it. Not
+ * per-language yet on purpose: es+ko together are ~44 KB raw, so the prize
+ * was getting the bytes out of the render-blocking path, not choosing which
+ * bytes. Go per-language when the 6k-word frequency lists land.
  *
- * The seam to change when this stops being the right trade: `MANIFESTS`
- * below. Swap the static imports for `import.meta.glob` with dynamic
- * loading, and have `LanguageContext` await `preloadTtsManifest(lang)`
- * before rendering lesson content.
+ * `getTtsUrl` is still called synchronously from ~107 sites, several of
+ * which decide whether to render a control at all. Two things keep that
+ * sound:
+ *   - Manifest docs have STABLE IDENTITY: `getTtsManifest` returns the same
+ *     object before and after load; the loader fills it in place. Module-
+ *     scope snapshots (languages/{ja,ko,es}/module.ts) therefore go live the
+ *     moment the JSON lands.
+ *   - Surfaces that hard-require audio (the lesson route) await
+ *     `preloadTtsManifests()` in their lazy-route factory, so a slow fetch
+ *     delays the lesson spinner, never renders a silent listening step.
+ *     Everything else degrades exactly like a missing recording does today.
  *
- * When to make that switch: the incoming 6k-word frequency list across four
- * languages adds roughly 24k entries (~384 KB of hashes). At that point the
- * bundled total approaches ~650 KB and per-language loading — a Korean
- * learner should never download the Japanese set — pays for the async work.
+ * Tests: `src/test/setup.ts` awaits `preloadTtsManifests()` before any test
+ * file is imported, so every test still sees synchronously-resolvable
+ * manifests.
  */
 import { sha256Hex16 } from "./sha256";
-import esManifest from "./manifests/es.json";
-import jaManifest from "./manifests/ja.json";
-import jaKeitaManifest from "./manifests/ja-keita.json";
-import koManifest from "./manifests/ko.json";
 
 export type TtsManifest = {
   schema: number;
@@ -62,12 +68,60 @@ export type TtsManifest = {
 
 const HASH_LEN = 16;
 
-const MANIFESTS: Record<string, TtsManifest> = {
-  es: esManifest as TtsManifest,
-  ja: jaManifest as TtsManifest,
-  "ja-keita": jaKeitaManifest as TtsManifest,
-  ko: koManifest as TtsManifest,
-};
+// One loader per manifest file, resolved lazily into its own chunk.
+// index.json is the pipeline's directory listing, not a manifest.
+const MANIFEST_LOADERS = import.meta.glob<{ default: TtsManifest }>(
+  "./manifests/*.json",
+);
+
+function langOfLoaderPath(p: string): string | null {
+  const m = /\/([\w-]+)\.json$/.exec(p);
+  return m && m[1] !== "index" ? m[1] : null;
+}
+
+function emptyManifest(lang: string): TtsManifest {
+  return {
+    schema: 2,
+    lang,
+    prefix: `tts/v1/${lang}`,
+    count: 0,
+    hashes: "",
+    overrides: {},
+  };
+}
+
+// Pre-created (empty) docs for every language that ships a manifest file,
+// filled IN PLACE when its JSON chunk arrives — object identity is the
+// contract that keeps module-scope `getTtsManifest` snapshots live.
+const MANIFESTS: Record<string, TtsManifest> = {};
+for (const p of Object.keys(MANIFEST_LOADERS)) {
+  const lang = langOfLoaderPath(p);
+  if (lang) MANIFESTS[lang] = emptyManifest(lang);
+}
+
+const manifestLoads = new Map<string, Promise<void>>();
+
+function loadManifest(lang: string): Promise<void> {
+  const started = manifestLoads.get(lang);
+  if (started) return started;
+  const path = Object.keys(MANIFEST_LOADERS).find(
+    (p) => langOfLoaderPath(p) === lang,
+  );
+  if (!path) return Promise.resolve();
+  const load = MANIFEST_LOADERS[path]()
+    .then((mod) => {
+      Object.assign(MANIFESTS[lang], mod.default);
+      // A (defensive) pre-load lookup may have memoized the empty set.
+      hashSets.delete(lang);
+    })
+    .catch((err) => {
+      // Retryable: next resolve/preload attempt starts a fresh fetch.
+      manifestLoads.delete(lang);
+      throw err;
+    });
+  manifestLoads.set(lang, load);
+  return load;
+}
 
 /**
  * Base URL every relative manifest path is resolved against.
@@ -128,26 +182,29 @@ export function availableTtsLangs(): string[] {
  * pull in the whole legacy table just to populate a field nothing reads.
  */
 export function getTtsManifest(lang: string): TtsManifest {
-  return (
-    MANIFESTS[lang] ?? {
-      schema: 2,
-      lang,
-      prefix: `tts/v1/${lang}`,
-      count: 0,
-      hashes: "",
-      overrides: {},
-    }
-  );
+  return MANIFESTS[lang] ?? emptyManifest(lang);
 }
 
 /**
- * No-op today (everything is statically bundled), but call sites should
- * already be in place so the static → dynamic switch is contained to this
- * module. Returns a resolved promise so `await` is safe now and correct later.
+ * Resolves when `lang`'s manifest is loaded (immediately for languages that
+ * ship none). Safe to call repeatedly — one fetch per language, retried on
+ * failure.
  */
-export function preloadTtsManifest(_lang: string): Promise<void> {
-  return Promise.resolve();
+export function preloadTtsManifest(lang: string): Promise<void> {
+  return loadManifest(lang);
 }
+
+/** All manifests, in parallel. The lesson route factory awaits this. */
+export function preloadTtsManifests(): Promise<void> {
+  return Promise.all(Object.keys(MANIFESTS).map(loadManifest)).then(() => {});
+}
+
+// Kick everything off at module init: this module is in the eager entry
+// graph, so the JSON chunks start downloading alongside the rest of boot
+// (in parallel — they no longer sit INSIDE the entry chunk). Swallowed
+// rejection: offline boot must not surface an unhandled-rejection toast;
+// resolve-time calls retry via manifestLoads eviction above.
+void preloadTtsManifests().catch(() => {});
 
 function pickPath(entry: string | string[] | undefined): string | null {
   if (!entry) return null;
@@ -164,6 +221,10 @@ function pickPath(entry: string | string[] | undefined): string | null {
 export function resolveTtsPath(lang: string, text: string): string | null {
   const doc = MANIFESTS[lang];
   if (!doc) return null;
+  // Not loaded yet (or the boot fetch failed): answer "no recording" for
+  // now — indistinguishable from a genuinely missing clip, which every call
+  // site already handles — and (re)start the load for the next render.
+  if (doc.count === 0) void loadManifest(lang).catch(() => {});
 
   const override = pickPath(doc.overrides[text]);
   if (override) return override;

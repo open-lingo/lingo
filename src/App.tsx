@@ -53,7 +53,17 @@ const LeaderboardRoute = lazyRetry(() =>
   import("@/features/leaderboard/LeaderboardRoute").then((m) => ({ default: m.LeaderboardRoute })),
 );
 const LessonPage = lazyRetry(() =>
-  import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
+  // The TTS manifests are lazy chunks fetched from boot (shared/tts/manifest).
+  // Awaiting them here means a slow fetch extends the lesson-route spinner a
+  // beat instead of ever mounting a listening step that thinks no audio
+  // exists. Failure (offline) falls through to the lesson: steps degrade the
+  // same way a missing recording always has.
+  Promise.all([
+    import("@/features/lesson/LessonPage"),
+    import("@/shared/tts/manifest")
+      .then((m) => m.preloadTtsManifests())
+      .catch(() => {}),
+  ]).then(([m]) => ({ default: m.LessonPage })),
 );
 
 /**

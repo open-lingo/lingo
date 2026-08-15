@@ -45,6 +45,31 @@ export const prefetchPractice = () =>
   ignore(import("@/features/practice/PracticePage").then(() => undefined));
 
 /**
+ * Boot-time warm of the open→lesson happy path, called once from main.tsx.
+ *
+ * Hover prefetch (below) only helps after the app is interactive; this one
+ * attacks the boot waterfall itself. Without it, the home/map/lesson chunks
+ * (~700 KB gz — mockLessons, StepRenderer and frequencyResolver ride in on
+ * their static imports) start downloading only after the Auth0 session check
+ * resolves AND the route mounts. Kicking the imports off on first idle lets
+ * them download in parallel with the auth round trip, which is pure dead
+ * time on the network.
+ */
+export function warmLearnerPathOnIdle() {
+  const warm = () => {
+    ignore(import("@/routes/ProtectedHome"));
+    ignore(import("@/features/learn/LearnHomeSwitch"));
+    prefetchLearn();
+    prefetchLesson();
+  };
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(warm, { timeout: 3000 });
+  } else {
+    setTimeout(warm, 1500);
+  }
+}
+
+/**
  * Returns hover/focus handlers tuned to the device:
  * - Desktop (hover-capable pointer): hover-on-mouseenter + focus.
  * - Mobile/tablet (coarse pointer): focus only — no synthetic hover

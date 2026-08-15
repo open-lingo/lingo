@@ -27,6 +27,7 @@ import { isTesterMode } from "@/shared/telemetry/sessionLog";
 import { IS_NATIVE, nativeCallbackUrl } from "@/shared/platform/native";
 import { NativeAuthBridge } from "@/shared/platform/NativeAuthBridge";
 import { AuthBypassBadge } from "@/shared/auth/AuthBypassBadge";
+import { warmLearnerPathOnIdle } from "@/shared/utils/routePrefetch";
 import "overlayscrollbars/overlayscrollbars.css";
 import "./index.css";
 
@@ -34,6 +35,23 @@ installDevLog();
 // Boot-time read so `?tester=1` is captured on landing and persists
 // through signup / route changes before the URL param is dropped.
 isTesterMode();
+
+// Service worker: web prod builds only. Registration is `immediate` so the
+// precache fills on the visit that installs it, not the one after. Skipped
+// on native — WKWebView serves the app from the capacitor:// scheme where a
+// SW buys nothing and Workbox's registration path is untested.
+if (!IS_NATIVE && !import.meta.env.DEV && "serviceWorker" in navigator) {
+  import("virtual:pwa-register").then(({ registerSW }) =>
+    registerSW({ immediate: true }),
+  );
+}
+
+// Warm the learner-path route chunks while Auth0 resolves the session —
+// see warmLearnerPathOnIdle for the waterfall this removes. Dev servers
+// skip it: it would just fan out module requests and muddy the network tab.
+if (!import.meta.env.DEV) {
+  warmLearnerPathOnIdle();
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -66,16 +84,26 @@ const redirectUri = IS_NATIVE
   ? nativeCallbackUrl(domain)
   : window.location.origin + (window.location.origin.endsWith("/") ? "" : "/");
 
-// E2E-ONLY portable auth. Default (prod + normal dev) keeps the Auth0 in-memory
-// cache: the session only re-hydrates via silent-auth on an Auth0-allowlisted
-// origin (:5173), so it is NOT portable to other ports. When VITE_E2E=true we
-// switch to the localStorage cache + refresh tokens instead. A one-time login on
-// :5173 then produces a localStorage-cached token + refresh token that
-// Playwright's storageState can capture and replay on ANY origin/port — which is
-// what lets the mobile matrix run authed off a non-5173 worktree port. These
-// props are applied conditionally so the non-e2e path is byte-for-byte today's
-// memory-cache behavior.
-const e2eAuth = import.meta.env.VITE_E2E === "true";
+// Web auth persistence (2026-08-15): localStorage cache + refresh tokens,
+// with silent-auth as the fallback. The in-memory cache forced a full
+// silent-auth round trip (iframe to the Auth0 origin) on EVERY cold page
+// load before RequireAuth would render anything — 0.5–1.5s of the boot
+// waterfall for logged-in users, plus a hard availability dependency on
+// Auth0 for users who were already signed in. With refresh tokens the
+// session re-hydrates from localStorage instantly; `useRefreshTokensFallback:
+// true` keeps existing memory-cache sessions working the first time they
+// come back (no forced re-login on rollout) and covers a missing/expired
+// refresh token the same way today's build covers everything.
+// XSS tradeoff, quantified: the CSP is `script-src 'self'` with no inline
+// script, tokens are audience-scoped to the lingo API, and Auth0 rotates
+// refresh tokens on use — an exfiltrated token dies on its next rotation.
+// This is the exact configuration the native build has shipped since the
+// iOS wrapper (see nativeAuthProps) and E2E has replayed for months.
+//
+// This also collapses the old VITE_E2E branch: the E2E portable-auth
+// configuration (localStorage session a :5173 login produces and
+// Playwright's storageState replays on any origin/port) is now simply the
+// web configuration.
 
 // Native needs the same escape from the in-memory cache, for a different
 // reason: Auth0's silent-auth iframe re-hydrates a session from a
@@ -97,13 +125,11 @@ createRoot(document.getElementById("root")!).render(
       clientId={clientId}
       {...(IS_NATIVE
         ? nativeAuthProps
-        : e2eAuth
-          ? {
-              cacheLocation: "localstorage" as const,
-              useRefreshTokens: true,
-              useRefreshTokensFallback: true,
-            }
-          : {})}
+        : {
+            cacheLocation: "localstorage" as const,
+            useRefreshTokens: true,
+            useRefreshTokensFallback: true,
+          })}
       authorizationParams={{
         redirect_uri: redirectUri,
         ...(auth0Audience ? { audience: auth0Audience } : {}),

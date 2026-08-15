@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 
 /**
  * Inject a Content-Security-Policy `<meta>` tag into the built index.html.
@@ -452,6 +453,107 @@ export default defineConfig(({ mode }) => {
     reviewQueueMiddleware(),
     spinePlanMiddleware(),
     cspMetaPlugin(env),
+    // Service worker: the app is a daily-use tool, so returning visits are the
+    // common case — precaching the learner path makes them load from disk
+    // instead of re-paying the CDN round trips every morning (the shell is
+    // served `no-cache` and this app's traffic is low enough that even the
+    // hashed assets are frequently evicted from the CloudFront edge).
+    VitePWA({
+      // Updates apply on next navigation (autoUpdate = skipWaiting+claim);
+      // registration lives in main.tsx, guarded off for the native wrapper.
+      registerType: "autoUpdate",
+      injectRegister: false,
+      // The hand-maintained manifest in src/pub is the real one.
+      manifest: false,
+      workbox: {
+        // Single-file sw.js — the deploy workflow uploads it `no-cache`
+        // (like index.html); a separate hashed workbox chunk would need its
+        // own exemption bookkeeping for zero benefit at this size.
+        inlineWorkboxRuntime: true,
+        // Precache = shell + everything on the open→lesson happy path.
+        // Deliberately NOT **/*.js: dist also carries admin/dev routes, a
+        // 23 MB Whisper WASM, the kuromoji dict, and thousands of emoji
+        // SVGs — those stay network + runtime-cache. A chunk missing from
+        // this list still gets cached forever on first use by the
+        // runtime `/assets/` rule below, so the cost of drift is one
+        // network fetch, not a broken page.
+        globPatterns: [
+          "index.html",
+          "manifest.webmanifest",
+          "assets/index-*.{js,css}",
+          "assets/react-vendor-*.js",
+          "assets/query-vendor-*.js",
+          "assets/auth-vendor-*.js",
+          "assets/i18n-vendor-*.js",
+          "assets/dnd-vendor-*.js",
+          "assets/ProtectedHome-*.js",
+          "assets/LearnHomeSwitch-*.js",
+          "assets/LearnPage-*.js",
+          "assets/LessonPage-*.js",
+          "assets/StepRenderer-*.js",
+          "assets/mockLessons-*.js",
+          "assets/frequencyResolver-*.js",
+          "assets/courseDeck-*.js",
+          "assets/moduleMastery-*.js",
+          "assets/lessonEnumeration-*.js",
+          "assets/grammarReviewPools-*.js",
+          "assets/GrammarRuleStepView-*.js",
+          "assets/hiragana-*.js",
+          "assets/katakana-*.js",
+          "assets/kanji-*.js",
+          // Per-language TTS manifest chunks — fetched on every boot.
+          "assets/ja-*.js",
+          "assets/ja-keita-*.js",
+          "assets/es-*.js",
+          "assets/ko-*.js",
+        ],
+        // mockLessons is ~3 MB raw; the default 2 MB cap would silently
+        // drop it from the precache manifest.
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+        cleanupOutdatedCaches: true,
+        // SPA routing offline/from-cache; real files must never fall back
+        // to the shell (the CDN's 403→index.html mapping already taught us
+        // how confusing HTML-named-.mp3 is — see serveTtsLocally).
+        navigateFallback: "/index.html",
+        navigateFallbackDenylist: [/^\/assets\//, /^\/tts\//, /^\/dict\//, /^\/noto-emoji\//],
+        runtimeCaching: [
+          {
+            // Hashed filenames — immutable by construction. Anything not
+            // precached (admin pages, practice modes) caches on first use.
+            urlPattern: /\/assets\/.*-[\w-]{8}\.(js|css|woff2?)$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "hashed-assets",
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
+            // TTS clips: content-hash filenames under a version prefix,
+            // never rewritten (a regeneration bumps the prefix). The
+            // manifests under /tts/manifest/ are mutable and excluded.
+            urlPattern: /\/tts\/v\d+\/.*\.mp3$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "tts-clips",
+              expiration: { maxEntries: 600, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "font-css" },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "font-files",
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+        ],
+      },
+    }),
   ],
   publicDir: "src/pub",
 

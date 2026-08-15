@@ -94,10 +94,22 @@ jobs:
           aws s3 sync dist/ "s3://${{ vars.LINGO_S3_BUCKET }}" \
             --delete \
             --exclude index.html \
+            --exclude sw.js \
+            --exclude manifest.webmanifest \
             --exclude "tts/*" \
             --cache-control "public,max-age=31536000,immutable"
           # index.html: never cache — it's the pointer to the hashed assets.
           aws s3 cp dist/index.html "s3://${{ vars.LINGO_S3_BUCKET }}/index.html" \
+            --cache-control "no-cache"
+          # sw.js: MUST revalidate. The browser re-fetches the service worker
+          # on navigation to discover updates — an immutable-cached sw.js
+          # pins every installed client to this build's precache forever.
+          # manifest.webmanifest rides along for the same stable-URL reason.
+          aws s3 cp dist/sw.js "s3://${{ vars.LINGO_S3_BUCKET }}/sw.js" \
+            --cache-control "no-cache"
+          aws s3 cp dist/manifest.webmanifest \
+            "s3://${{ vars.LINGO_S3_BUCKET }}/manifest.webmanifest" \
+            --content-type "application/manifest+json" \
             --cache-control "no-cache"
       - name: assert the TTS corpus survived the sync
         # Backstop for the --exclude above, and for any future tooling that
@@ -129,7 +141,7 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${{ vars.LINGO_CLOUDFRONT_DIST_ID }}" \
-            --paths "/index.html" "/"
+            --paths "/index.html" "/" "/sw.js" "/manifest.webmanifest"
       - name: verify site responds
         run: |
           sleep 10

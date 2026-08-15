@@ -99,6 +99,11 @@ Per-step sentence exposure ≤3; new sentence per grammar point (don't recycle o
 - Build-step trays are pre-sized by an invisible ghost of the full answer. Match steps permanently reserve the Continue slot (`min-h-14`) so finishing never reflows.
 - **Verify the step type you changed, at ≤700px height too.** `?step=N` on any lesson URL jumps straight to step index N (plus `?trace-gate=0` to bypass the trace skip gate, `?tray=slots|pill` to force a word-build tray variant) — no excuse for a step type being unreachable by the layout driver. Measure `scrollHeight - clientHeight` of the step container, not vibes.
 
+## Delivery / service worker (2026-08-15)
+
+- **Web prod builds ship a service worker** (vite-plugin-pwa `generateSW`, config in `vite.config.ts`; registered from `main.tsx`, web-only — never on native). It precaches the open→lesson happy path (~7 MB, 38 entries) and runtime-caches other hashed assets + `/tts/v1/*` clips, so returning visits load from disk. Consequences: **a deploy reaches SW-installed clients one navigation late** (the SW revalidates on navigation, `autoUpdate` swaps caches in the background — the old "no-cache index.html = instant" contract now only holds for first-time/SW-less visitors), and **`sw.js` + `manifest.webmanifest` must stay `no-cache` in deploy.yml's S3 sync** — an immutable-cached `sw.js` pins clients to a build forever.
+- **TTS manifests are lazy chunks** (`shared/tts/manifest.ts`): all kicked off at module init, filled IN PLACE (stable doc identity keeps module-scope `getTtsManifest` snapshots live), and the lesson route factory awaits `preloadTtsManifests()`. Sync `resolveTtsPath` callers see "no recording" until loaded. Tests stay synchronous because `src/test/setup.ts` awaits the preload before any test file imports — don't remove that await.
+
 ## Testing & dev loop
 
 ```bash
