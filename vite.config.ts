@@ -535,6 +535,16 @@ export default defineConfig(({ mode }) => {
             handler: "CacheFirst",
             options: {
               cacheName: "tts-clips",
+              // A clip missing from S3 comes back as the SPA shell with a
+              // 200 (the distribution maps 403/404 → index.html), and
+              // CacheFirst would pin that HTML as the clip FOREVER — found
+              // 2026-08-15 when a manifest landed before its mp3s. Only
+              // cache real audio; a miss still plays (network response is
+              // returned uncached) and heals once the object exists.
+              cacheableResponse: {
+                statuses: [200],
+                headers: { "content-type": "audio/mpeg" },
+              },
               expiration: { maxEntries: 600, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },

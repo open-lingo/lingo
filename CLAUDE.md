@@ -101,6 +101,10 @@ Per-step sentence exposure ≤3; new sentence per grammar point (don't recycle o
 
 ## Delivery / service worker (2026-08-15)
 
+- **Perf backlog with measurements:** `docs/perf-followups-2026-08-15.md` — read before further load-time work. Top item: the lingo-infra Lambda warmer is written but NOT terraform-applied.
+- **Boot API batching:** the boot request wave is answered from one `GET /boot` (`shared/api/bootCache.ts`, backend `lingo-core/app/boot/`). Adding a new boot-time fetch? Add it to `BootResponse` + `SECTION_BY_REQUEST` or it fans out again. Rails: single-use per path, one batch per acting user, query strings never served.
+- **New TTS audio must ship WITH its manifest:** stage new mp3s in `tts-publish/` (see its README) — the deploy uploads them to `tts/v1/`. A manifest hash without an uploaded object serves the SPA shell as `text/html` and breaks playback halfway (M31, 2026-08-15).
+
 - **Web prod builds ship a service worker** (vite-plugin-pwa `generateSW`, config in `vite.config.ts`; registered from `main.tsx`, web-only — never on native). It precaches the open→lesson happy path (~7 MB, 38 entries) and runtime-caches other hashed assets + `/tts/v1/*` clips, so returning visits load from disk. Consequences: **a deploy reaches SW-installed clients one navigation late** (the SW revalidates on navigation, `autoUpdate` swaps caches in the background — the old "no-cache index.html = instant" contract now only holds for first-time/SW-less visitors), and **`sw.js` + `manifest.webmanifest` must stay `no-cache` in deploy.yml's S3 sync** — an immutable-cached `sw.js` pins clients to a build forever.
 - **TTS manifests are lazy chunks** (`shared/tts/manifest.ts`): all kicked off at module init, filled IN PLACE (stable doc identity keeps module-scope `getTtsManifest` snapshots live), and the lesson route factory awaits `preloadTtsManifests()`. Sync `resolveTtsPath` callers see "no recording" until loaded. Tests stay synchronous because `src/test/setup.ts` awaits the preload before any test file imports — don't remove that await.
 
