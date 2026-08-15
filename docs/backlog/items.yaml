@@ -2146,7 +2146,11 @@
 
 - id: B078
   title: QaTestDrivePage deep-links 22 dead old-course lessons
-  status: open
+  status: note
+  note: >
+    Superseded 2026-08-14 by B097 — same rot on the same page, re-measured
+    2026-08-09 at 37 of 37 dead (this record's 22 was the 07-29 count).
+    Track the fix there.
   severity: minor
   effort: XS
   confidence: verified
@@ -2361,6 +2365,98 @@
     contrast has no drill site until m28.
   fix: Add a yowai/tsuyoi contrast beat to an m28 R-review when authoring reaches it.
 
+
+- id: B088
+  title: padBuildTileFloor's distractor pool filters on stale registry fromModule, injecting untaught words into tile banks
+  status: fixed
+  severity: major
+  effort: M
+  confidence: verified
+  area: engine
+  tags: [module/m16, module/m8, step/build_sentence, class/stale-from-module, system/gating]
+  found: 2026-08-09
+  source: learner-sim-m16-packs
+  detail: >
+    The render-time pad pass draws distractors from getAtomsUpToModule, which
+    trusts registry fromModule -- the exact stale-tag trap the compiler side
+    documents at moduleCompiler.ts:683-687 and killed with IR priorVocab.
+    Untaught words land in banks as reject-only tiles: konbini (attribution
+    is the retired ja-m12-kata), gakkou x2, kouen, heya, mainichi,
+    hirugohan in the m16 pack walk; purin in m8 (kana-lesson attribution).
+    No grading harm, but learner-visible, and when the pad pick is a
+    defensible rendering of the EN prompt it creates coin-flip builds.
+  evidence: >
+    docs/learner-sim/m16-packs-2026-08-09.md finding 1 -- raw compileModule
+    output diffed against getMockLessonContent proves compiled banks are
+    clean and every untaught distractor is a pad pick
+    (buildTileFloor.ts:142 -> lessonAtomIndex.ts:254-257).
+  fix: >
+    Give pickFillTiles the same known-word source the compiler uses
+    (IR priorVocab / real attribution) instead of raw fromModule; one
+    positive-control test that an untaught-word pad pick fails.
+    FIXED 2026-08-09 — pickFillTiles now intersects prior-module fill with getJaTaughtKanaBeforeModule (new languages/ja/curriculum/taughtVocab.ts: IR priorVocab for m6-m29, introduced-by attribution fallback for no-IR modules, compiler furniture list shared via moduleCompiler export); regression + sibling-mechanism positive controls in buildTileFloor.test.ts; never-touched ratchet honestly bumped +33 (phantom pad-only touches).
+
+- id: B089
+  title: rule cards do not mark the specific particle-contrast failure and say why the wrong one is wrong
+  status: open
+  severity: major
+  effort: L
+  confidence: reported
+  area: pedagogy
+  tags: [step/grammar_rule, class/particle-contrast]
+  found: 2026-08-09
+  source: spencer
+  detail: >
+    The m8 re-walk shows the standing particle holes (B002 ga-subject,
+    B003 recipient-ni vs wo, destination-ni licensed only as an l11 aside,
+    the san-honorific coin flips) are grading-visible but never taught as
+    contrasts: banks offer both particles while no card states which one
+    fails here and why. A course-wide rule-card pass should add the
+    specific wrong-choice anti-pattern (one particle vs the other) with
+    the reason, per card. Same class: EN prompts whose ambiguity only a
+    contrast note resolves ("Eat the food" vs the taught cuisine/rice
+    glosses -- m7 ir line 154 still carries one).
+  evidence: >
+    docs/learner-sim/m8-rebuild-walk-2026-08-09.md findings 2/3/7 and the
+    B002/B003 status rows -- the accepted-forms expansion widened grading,
+    not teaching.
+  fix: >
+    Sweep grammar-rule cards module by module; where a bank offers a
+    live particle contrast, the governing card gains a NOT-line naming the
+    wrong particle and why. Scope and per-module homes need a planning
+    pass first.
+  note: >
+    Spencer 2026-08-09: "we probably want to do a larger pass on rule
+    cards marking specific failure (one particle vs the other) and then
+    explain why."
+
+- id: B090
+  title: the nai-form building rule is carded nowhere and is now load-bearing in m8 (naide) and beyond
+  status: decision-needed
+  severity: major
+  effort: L
+  confidence: verified
+  area: content
+  tags: [module/m6, module/m8, module/m14, class/untaught-before-required]
+  found: 2026-08-09
+  source: learner-sim-m8-rebuild
+  detail: >
+    Standing defect #3 (STATE.md closing note): only shinai/konai were ever
+    carded (m6); no card anywhere states how to build a ru- or u-verb
+    nai-form. The m8 rebuild's naide clause ("swap the te-form for the
+    nai-form and add de") makes it an m8 dependency -- l18 requires ikanai
+    and nomanaide in builds. m14/m22/m23/m24/m28 all open on "the nai-form
+    you already own".
+  evidence: >
+    docs/learner-sim/m8-rebuild-walk-2026-08-09.md finding 5; STATE.md
+    closing-note defect 3 (grep over all 29 modules found no card).
+  fix: >
+    Insert a nai-form teaching lesson somewhere before it becomes
+    load-bearing (m6-m8 window); where it goes and what it displaces is
+    Spencer's call.
+  note: >
+    Spencer 2026-08-09: "we can probably just insert another lesson
+    somewhere but we can divide those later."
 
 # ═══════════════════════════════════════════════════════════════════════════
 # MOBILE LAYOUT + THE GATE — opened by the 2026-08-09 mobile pass
@@ -2805,6 +2901,7 @@
     walks m5/m8/m11/m16/m17 and placement QA. Supersedes the per-pack
     burn-down plan if approved.
   see_also: B070
+
 # ── KOREAN — found 2026-08-14 by porting the JA authoring gate to KO. The gate
 #    was validated against the SHIPPED m22 module before any finding was
 #    trusted; its first calibration scored real course content 11/42, which was

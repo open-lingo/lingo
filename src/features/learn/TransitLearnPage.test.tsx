@@ -122,9 +122,10 @@ describe("TransitLearnPage tier switcher", () => {
   it("ja + ?tier=n4 renders only n4 modules, zone labels starting at ZONE 1", () => {
     renderPage("/ja/learn?tier=n4", "ja");
     expect(screen.getByRole("group", { name: "Course tier" })).toBeInTheDocument();
-    // n4 station (m30 "Casual register" — the only n4 module since the
-    // 2026-07-19 spine renumber absorbed the old m29 pilot) present.
-    expect(screen.getAllByText(/Casual register/).length).toBeGreaterThan(0);
+    // n4 station present — since the pilot's 2026-08-09 retirement (spec A1)
+    // the only n4 module is the m30 comingSoon placeholder for n4-01
+    // 「て + helper I」, drawn as a locked station.
+    expect(screen.getAllByText(/て \+ helper I/).length).toBeGreaterThan(0);
     // n5-only station titles must NOT appear on the n4 map.
     expect(screen.queryByText(/Plain sentences/)).toBeNull();
     // buildLayout's own-ZONE-1..3 split — n4's map starts its own ZONE 1.

@@ -195,10 +195,12 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
   // 2026-07-26. The registry walk survives because each lesson's own
   // `moduleId` carries attribution, and the neo-only filter below now does
   // the real source selection.)
-  // ⚠️ The `-neo-` substring filter also excludes ja-m30-* (the N4 opener
-  // ships without the -neo- infix) and the ja-mN-neo-kata rows are included
-  // by it — if m30 ever authors particle_cloze steps they will silently not
-  // harvest. Flagged in docs/stale-reference-audit-2026-07-29.md.
+  // ⚠️ The `-neo-` substring filter includes the ja-mN-neo-kata rows and
+  // excludes any lesson id without the infix. The July m30 pilot (retired
+  // 2026-08-09, spec A1) shipped without it and silently didn't harvest;
+  // when the new m30 = n4-01 is authored (spec A3), its lesson ids must
+  // carry -neo- (the IR compiler's default) or its particle_cloze steps
+  // will silently not harvest either.
   for (const lessonId of getAvailableMockLessonIds()) {
     if (/-review-[12]$/.test(lessonId)) continue; // avoid recursion; reviews aren't sources
     // NEO-ONLY (2026-07-26). This used to be the inverse — neo lessons were

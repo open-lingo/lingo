@@ -656,9 +656,21 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // never lowered.
   m18: 0.57, m19: 0.80, m20: 0.76, m21: 0.70, m22: 0.86, m23: 0.90,
   m24: 0.80, m25: 0.76, m26: 0.89, m27: 0.71, m28: 0.89, m29: 0.65,
-  // m30: measured 44/103 = 0.427 at stage-2 authoring completion
-  // (2026-07-17). Floor set ~1.5 sentences below that measurement.
-  m30: 0.41,
+  // m30 is a FIRST MEASUREMENT rather than a recalibration, and it is only the
+  // second time that has been true (m28 was the first). The July pilot's 0.41
+  // was DELETED with the pilot (2026-08-09, spec A1), so there is no bogus
+  // archived value to inherit here. Measured on the finished neo module —
+  // spine unit n4-01, the first module of N4 — at 82/87 = .943, the highest in
+  // the course, and it is structural rather than decorative: trying something
+  // is a REASON plus an attempt by construction ("わからないから じしょで
+  // しらべてみる") and preparing is a DEADLINE plus a task ("かえる まえに
+  // でんきを けしておく"), so nearly every production beat carries a から / けど
+  // / まえに / とき on m15/m16's machinery — which is also how both are
+  // actually spoken. That is `thr-n4`'s "≥2 clauses on average from m30"
+  // arriving for free out of what the module is about. Floor set three
+  // sentences below the measurement ((82-3)/87 = .908), per this block's own
+  // rule. NEVER lowered.
+  m30: 0.90,
 };
 
 const CONNECTIVES = /(から|ので|けど|たら|とき|まえに|あとで|ながら)/;

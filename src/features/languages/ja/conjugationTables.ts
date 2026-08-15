@@ -445,7 +445,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "べんきょうして",
       tai: "べんきょうしたい",
     },
-    introducedAtModule: 30,
+    // parked above the course 2026-08-09: its only exposure was the retired
+    // m30 pilot (spec A1) — re-measure when an N4 module actually shows it
+    introducedAtModule: 99,
   },
 
   // ═══ M11 verbs ══════════════════════════════════════════════════════
@@ -787,7 +789,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "てつだって",
       tai: "てつだいたい",
     },
-    introducedAtModule: 30,
+    // parked above the course 2026-08-09: its only exposure was the retired
+    // m30 pilot (spec A1) — re-measure when an N4 module actually shows it
+    introducedAtModule: 99,
   },
   {
     id: "kasu",
@@ -930,7 +934,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "すわって",
       tai: "すわりたい",
     },
-    introducedAtModule: 30,
+    // parked above the course 2026-08-09: its only exposure was the retired
+    // m30 pilot (spec A1) — re-measure when an N4 module actually shows it
+    introducedAtModule: 99,
   },
   {
     id: "sawaru",
@@ -1334,8 +1340,10 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "つまらなかった",
       "past-negative": "つまらなくなかった",
     },
-    // measured first exposure m30 (drillPoolIsTaught 2026-07-29 pack wave)
-    introducedAtModule: 30,
+    // parked above the course 2026-08-09: the measured m30 first exposure
+    // (drillPoolIsTaught 2026-07-29 pack wave) was the retired pilot (spec
+    // A1) — re-measure when an N4 module actually shows it
+    introducedAtModule: 99,
   },
   {
     id: "muzukashii",
@@ -1626,9 +1634,11 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "べんりでした",
       "past-negative": "べんりじゃなかったです",
     },
-    // measured first exposure m30 (drillPoolIsTaught 2026-07-29 — earlier
-    // exposure was distractor-fill luck, displaced by the m13 pack re-homes)
-    introducedAtModule: 30,
+    // parked above the course 2026-08-09: the measured m30 first exposure
+    // (drillPoolIsTaught 2026-07-29 — earlier exposure was distractor-fill
+    // luck) was the retired pilot (spec A1) — re-measure when an N4 module
+    // actually shows it
+    introducedAtModule: 99,
   },
   {
     id: "fubeni",

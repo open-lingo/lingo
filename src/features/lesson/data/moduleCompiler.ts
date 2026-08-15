@@ -358,6 +358,15 @@ const PARTICLES = ["は", "が", "を", "に", "で", "と", "の", "も", "へ"
 const NAMES = ["トム", "ミカ", "ケン", "たなか", "タナカ"];
 const INTERJ = ["うん", "ううん", "そう", "ええ", "はい", "いいえ"];
 /**
+ * Course furniture — character names and bare interjections, present since
+ * m3 and belonging to no module. `metBefore` below counts them as met, and
+ * every OTHER consumer of "what has the learner actually been taught"
+ * (`languages/ja/curriculum/taughtVocab.ts`, which feeds the render-time
+ * build-tile pad — B088) must agree with the compiler, so the list is
+ * exported once here rather than copied.
+ */
+export const JA_COURSE_FURNITURE_KANA: readonly string[] = [...NAMES, ...INTERJ];
+/**
  * Single-character GRAMMATICAL tokens that belong to no lexicon here: the
  * plain copula 「だ」 and the な-adjective's attributive 「な」. Both tile
  * correctly already — they are here so the buildability gate can tell them

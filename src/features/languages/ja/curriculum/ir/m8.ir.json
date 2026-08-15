@@ -505,7 +505,7 @@
         {
           "kind": "sentence",
           "ja": "りょうりを たべて。",
-          "en": "Eat the food",
+          "en": "Eat the cuisine",
           "exercises": [
             "te-form",
             "wo-object"
@@ -534,8 +534,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぎゅうにゅうを のむ。",
-          "en": "I drink milk",
+          "ja": "みずを のむ。",
+          "en": "I drink water",
           "exercises": [
             "wo-object"
           ],
@@ -616,8 +616,7 @@
         "ほん",
         "そら",
         "しゃしん",
-        "ほし",
-        "きょう"
+        "ほし"
       ]
     },
     {
@@ -755,7 +754,6 @@
         "えんぴつ",
         "ここ",
         "そこ",
-        "きょう",
         "いえ"
       ]
     },
@@ -936,16 +934,6 @@
         },
         {
           "kind": "sentence",
-          "ja": "いけに いって。",
-          "en": "Go to the pond",
-          "exercises": [
-            "te-form",
-            "ni-location"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "でんわを かって。",
           "en": "Buy the phone",
           "exercises": [
@@ -957,7 +945,7 @@
         {
           "kind": "sentence",
           "ja": "りょうりを たべて。",
-          "en": "Eat the food",
+          "en": "Eat the cuisine",
           "exercises": [
             "te-form",
             "wo-object"
@@ -996,16 +984,6 @@
             "wo-object"
           ],
           "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "うみに いって。",
-          "en": "Go to the sea",
-          "exercises": [
-            "te-form",
-            "ni-location"
-          ],
-          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1327,9 +1305,7 @@
         "いく",
         "いえ",
         "うみ",
-        "やま",
-        "さんぽ",
-        "きょう"
+        "やま"
       ]
     },
     {
@@ -1690,7 +1666,6 @@
         "ごはん",
         "いえ",
         "ひと",
-        "きょう",
         "ともだち"
       ]
     },
@@ -1725,7 +1700,7 @@
         {
           "kind": "sentence",
           "ja": "たべものは そこです。",
-          "en": "Say politely: The food is there",
+          "en": "Say politely: The food is there, by you",
           "exercises": [
             "wa-topic",
             "desu-copula",

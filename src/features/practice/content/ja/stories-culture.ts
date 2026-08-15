@@ -333,20 +333,25 @@ export const JA_CULTURE_STORIES: Story[] = [
     ],
   },
   {
-    // The club story is really a story about せんぱい / こうはい / けいご / ためぐち,
-    // and all four are m30 atoms — so m30 is the earliest module where it can be
-    // told at all, and the only one where the register contrast is readable. L5
-    // takes the register shift the level band explicitly allows: the same three
-    // quoted words come back at the end with the roles reversed.
+    // The club story is really a story about せんぱい / こうはい / けいご / ためぐち
+    // — so its gate is wherever those atoms live, and that moved: the m30 pilot
+    // that taught them was retired 2026-08-09 (spec A1) and A2 re-homed the
+    // register vocabulary to the unauthored keigo modules, so the module gate
+    // moves 30 → 50 with it (id kept — ids are stable forever). L5 takes the
+    // register shift the level band explicitly allows: the same three quoted
+    // words come back at the end with the roles reversed.
     id: "ja-m30-the-club",
     languageId: "ja",
-    module: 30,
+    module: 50,
     level: 5,
     title: "The club",
     theme: "One wrong thank-you on the first day, and the same thank-you a year later.",
     tags: ["culture", "school", "manners"],
     glosses: [
       { surface: "ぶかつ", meaning: "a school club — daily after-school practice" },
+      // なかま was parked on "future" by the 2026-08-09 A2 re-home (nothing
+      // teaches it yet) — declared so the story teaches it in place.
+      { surface: "なかま", meaning: "comrade, member of the group", atomId: "ja:nakama" },
     ],
     questions: [
       {

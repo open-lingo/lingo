@@ -84,6 +84,12 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // moment content starts using it (same pattern as kanji_reading's old pin);
   // unpin then.
   "conjugation_cloze",
+  // Its only static host was the m30 "Casual register" pilot, retired
+  // 2026-08-09 (spec 2026-08-06 A1) — and two of the pilot's
+  // self-explanations were its worst content (walk findings F3/F4: both
+  // taught falsehoods). The step TYPE and its view survive; unpin when an
+  // authored module ships one.
+  "self_explanation_mcq",
   // PROTOTYPE (2026-07-29), deliberately wired into NO live course lesson:
   // the simulation-dialogue step type. Its home is the Travel Sprint side
   // quest, which is `comingSoon` and blocked on B066, so there is nothing to

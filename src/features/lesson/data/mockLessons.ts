@@ -127,11 +127,6 @@ import {
   MOCK_LESSON_JA_M2_YOON_RARE_2,
   MOCK_LESSON_JA_M2_YOON_RARE_3,
 } from "@/features/languages/ja/curriculum/m2-yoon-rare";
-import {
-  M30_1_1, M30_1_2, M30_2_1, M30_2_2, M30_3_1, M30_3_2,
-  M30_4_1, M30_4_2, M30_5_1, M30_5_2, M30_6_1, M30_6_2,
-  M30_STORY, M30_7_1, M30_7_2,
-} from "@/features/languages/ja/curriculum/m30";
 // m3-neo — PILOT of the dict-form-first rewrite (spine tile s03). Deep-link
 // only: registered here so the lessons resolve, deliberately NOT wired into
 // mockCourse.ts pathways.
@@ -177,6 +172,7 @@ import { M26_NEO_LESSONS } from "@/features/languages/ja/curriculum/m26-neo";
 import { M27_NEO_LESSONS } from "@/features/languages/ja/curriculum/m27-neo";
 import { M28_NEO_LESSONS } from "@/features/languages/ja/curriculum/m28-neo";
 import { M29_NEO_LESSONS } from "@/features/languages/ja/curriculum/m29-neo";
+import { M30_NEO_LESSONS } from "@/features/languages/ja/curriculum/m30-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -516,6 +512,7 @@ const LESSONS: Record<string, LessonContent> = {
   ...Object.fromEntries(M27_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M28_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M29_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M30_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.
@@ -549,15 +546,12 @@ const LESSONS: Record<string, LessonContent> = {
   // M24 — Hobbies & Activities
   // M27 — Modal Grammar
   // M29 — Plain form (N4 pilot #1)
-  // M30 — Casual register (N4 pilot #2).
-  "ja-m30-1-1": M30_1_1, "ja-m30-1-2": M30_1_2,
-  "ja-m30-2-1": M30_2_1, "ja-m30-2-2": M30_2_2,
-  "ja-m30-3-1": M30_3_1, "ja-m30-3-2": M30_3_2,
-  "ja-m30-4-1": M30_4_1, "ja-m30-4-2": M30_4_2,
-  "ja-m30-5-1": M30_5_1, "ja-m30-5-2": M30_5_2,
-  "ja-m30-6-1": M30_6_1, "ja-m30-6-2": M30_6_2,
-  "ja-m30-story": M30_STORY,
-  "ja-m30-7-1": M30_7_1, "ja-m30-7-2": M30_7_2,
+  // M30 — te + helper I (〜てみる / 〜ておく) — the FIRST N4 module, spine unit
+  // n4-01, authored 2026-08-14 as `ja-m30-neo-*` (M30_NEO_LESSONS above). The
+  // July "Casual register" pilot that used to own this number was RETIRED
+  // 2026-08-09 (spec 2026-08-06-n4-open-and-transform-teaching-design.md A1,
+  // Spencer-ratified): curriculum/m30.ts was deleted outright and no registry
+  // entries were kept, so there is no id collision with the neo module.
 };
 
 // ----- Inter-module review modules — REMOVED 2026-05-18 -------------------

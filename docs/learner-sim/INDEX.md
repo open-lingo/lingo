@@ -7,30 +7,30 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | --- | --- | --- | --- | --- |
 | 1 | [m1](m1.md) | The first 46 sounds | 31 | 434 |
 | 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 441 |
-| 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 7 | 156 |
+| 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 8 | 156 |
 | 4 | [m4](m4.md) | 👉 Possession & pointing: の + これ/それ/あれ | 12 | 245 |
-| 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 12 | 242 |
+| 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 13 | 242 |
 | 6 | [m6](m6.md) | 🚫 Negatives & Existence | 13 | 234 |
-| 7 | [m7](m7.md) | Politeness as a layer | 15 | 272 |
-| 8 | [m8](m8.md) | Asking for things | 16 | 272 |
-| 9 | [m9](m9.md) | Numbers and purchases | 15 | 272 |
-| 10 | [m10](m10.md) | Register in the wild | 15 | 266 |
-| 11 | [m11](m11.md) | Time I and the plain past | 16 | 266 |
-| 12 | [m12](m12.md) | Adjectives as mini-predicates | 14 | 235 |
-| 13 | [m13](m13.md) | Wanting: たい and ほしい | 14 | 235 |
-| 14 | [m14](m14.md) | て-form II: ている and permission | 13 | 234 |
-| 15 | [m15](m15.md) | Relative clauses + こと / とき | 13 | 234 |
-| 16 | [m16](m16.md) | Connecting: から / ので / けど | 14 | 235 |
-| 17 | [m17](m17.md) | Family I: your side (うち) | 13 | 234 |
-| 18 | [m18](m18.md) | Saying & thinking: とおもう + という | 13 | 234 |
-| 19 | [m19](m19.md) | Getting around: motion particles | 13 | 234 |
-| 20 | [m20](m20.md) | Comparisons I: のほうが…より | 13 | 234 |
-| 21 | [m21](m21.md) | Listing & describing: や, たり | 13 | 234 |
-| 22 | [m22](m22.md) | Body, health & help | 13 | 234 |
-| 23 | [m23](m23.md) | Experience & intent | 13 | 234 |
-| 24 | [m24](m24.md) | Can & let's | 13 | 234 |
-| 25 | [m25](m25.md) | Conjecture | 13 | 234 |
-| 26 | [m26](m26.md) | Comparisons II | 13 | 234 |
-| 27 | [m27](m27.md) | Explaining | 13 | 234 |
+| 7 | [m7](m7.md) | Politeness as a layer | 16 | 272 |
+| 8 | [m8](m8.md) | Asking for things | 18 | 308 |
+| 9 | [m9](m9.md) | Numbers and purchases | 16 | 272 |
+| 10 | [m10](m10.md) | Register in the wild | 16 | 266 |
+| 11 | [m11](m11.md) | Time I and the plain past | 19 | 303 |
+| 12 | [m12](m12.md) | Adjectives as mini-predicates | 15 | 235 |
+| 13 | [m13](m13.md) | Wanting: たい and ほしい | 16 | 262 |
+| 14 | [m14](m14.md) | て-form II: ている and permission | 15 | 259 |
+| 15 | [m15](m15.md) | Relative clauses + こと / とき | 14 | 234 |
+| 16 | [m16](m16.md) | Connecting: から / ので / けど | 17 | 282 |
+| 17 | [m17](m17.md) | Family I: your side (うち) | 14 | 234 |
+| 18 | [m18](m18.md) | Saying & thinking: とおもう + という | 14 | 234 |
+| 19 | [m19](m19.md) | Getting around: motion particles | 14 | 234 |
+| 20 | [m20](m20.md) | Comparisons I: のほうが…より | 14 | 234 |
+| 21 | [m21](m21.md) | Listing & describing: や, たり | 14 | 234 |
+| 22 | [m22](m22.md) | Body, health & help | 14 | 234 |
+| 23 | [m23](m23.md) | Experience & intent | 14 | 234 |
+| 24 | [m24](m24.md) | Can & let's | 14 | 234 |
+| 25 | [m25](m25.md) | Conjecture | 14 | 234 |
+| 26 | [m26](m26.md) | Comparisons II | 14 | 234 |
+| 27 | [m27](m27.md) | Explaining | 14 | 234 |
 | 28 | [m28](m28.md) | Must & should | 13 | 234 |
-| 29 | [m29](m29.md) | Register mastery + N5 capstone | 13 | 234 |
+| 29 | [m29](m29.md) | Register mastery + N5 capstone | 14 | 234 |

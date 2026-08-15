@@ -291,7 +291,14 @@ describe("JA module conformance — attribution invariants", () => {
     const missing: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
       if (!isSrsEligibleAtom(atom)) continue;
-      if (!/^m\d+$/.test(atom.fromModule)) continue; // future / sidequest
+      if (!/^m\d+$/.test(atom.fromModule)) continue; // future / sidequest / thr-n4
+      // Forward N4 attributions (A2 re-home, 2026-08-09): m49/m50 name
+      // unauthored modules ON PURPOSE — the ex-m30-pilot keigo vocabulary is
+      // deliberately unreachable until Keigo I/II are authored, exactly like
+      // "future". Listed explicitly (not `> lastModule`) so a typo'd tag
+      // still fails loudly; `CourseAtomSource` also rejects unknown tags at
+      // compile time. Delete each branch when its module ships.
+      if (atom.fromModule === "m49" || atom.fromModule === "m50") continue;
       if (!upTo.has(atom.id)) missing.push(`${atom.id} (${atom.fromModule})`);
     }
     expect(

@@ -1,5 +1,11 @@
 # Opening N4, and giving the transform card its teaching half
 
+> **STATUS UPDATE 2026-08-09:** A1+A2 EXECUTED (standalone, A3 deferred by
+> Spencer) — see `docs/handoff-2026-08-09-walk-wave.md` for the adaptations
+> (comingSoon placeholder tile, stories gate 30→50, `CourseAtomSource` was the
+> union to extend, しりあい re-homed to m49). A3/A4 still owed. Any "NOT YET
+> STARTED" claim for Part A below is superseded.
+
 **Status:** Part B1/B2 + the m8 て ladder are **SHIPPED** (see the SHIPPED section at the end).
 Part A (retire legacy m30, author m30 = n4-01, placement tier 8) is APPROVED and NOT YET STARTED.
 **Date:** 2026-08-06 · **Decisions ratified by Spencer:** retire legacy m30 · author spine m30 only, then review · m8 to 17 lessons (inv 25 exemption) · ぬ taught in the rule table only

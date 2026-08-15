@@ -148,7 +148,13 @@ describe("attribution integrity (B068)", () => {
   // 232 → 227 on 2026-07-30: the m16 vocab packs (B067) deleted the dead
   // ja-m7-1 (かく/よむ), ja-m13-6-1 (クラス), ja-m26-5-1 (いみ) and
   // ja-m29-1-1 (つかう) attributions when re-homing them to m16.
-  const MAX_DANGLING_ATTRIBUTIONS = 227;
+  // 227 → 226 on 2026-08-09: A1/A2 retired the m30 pilot and re-homed its 19
+  // atoms (spec 2026-08-06) — their `introducedByLessonId` rows were DELETED
+  // outright (they pointed at the deleted ja-m30-* lessons and would
+  // otherwise have become 19 NEW dangling attributions; the spec's "if either
+  // needs raising, the re-homing is wrong" test). Pinned to the measured
+  // post-retirement value.
+  const MAX_DANGLING_ATTRIBUTIONS = 226;
 
   it("dangling introducedByLessonId count only goes DOWN", () => {
     const dangling = eligible.filter(
@@ -181,7 +187,14 @@ describe("attribution integrity (B068)", () => {
   // made two of the legacy-fromModule residual unlockable via the pack lesson.
   // 224 → 223 on 2026-07-29: m14 vocab pack 4 (B067) + the すき/きらい/ほしい
   // re-homes to m13 (their live teaching module — ja-m13-neo-6/-7).
-  const MAX_GRADED_NEVER_UNLOCKABLE = 223;
+  // 223 → 209 on 2026-08-09: A1 retired the m30 pilot (spec 2026-08-06).
+  // The pilot's graded steps were the only live grading for a set of atoms
+  // nothing can unlock — the walk's F2 ghost vocabulary (てつだう/さがす/
+  // ぜんぶ/いっしょ/ひるごはん/テレビ/ビール…, plus ja-m3-1-taxi) — so
+  // deleting the tile removes both the grade and the stuck row. The 19
+  // re-homed ex-m30 atoms were never in this set (unlockable while the tile
+  // was live, ungraded now).
+  const MAX_GRADED_NEVER_UNLOCKABLE = 209;
 
   it("graded-but-never-unlockable count only goes DOWN", () => {
     const unlockable = new Set<string>();

@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
+import { siblingsOf } from "@/features/languages/ja/jaSiblingSets";
 import type { BuildSentenceStep, LessonContent } from "../types";
 import { getMockLessonContent } from "./mockLessons";
 import { minDistractorsFor, padBuildTileFloor } from "./buildTileFloor";
@@ -120,6 +122,122 @@ describe("word-granularity build tile floor — whole-course sweep", () => {
       }
     }
     expect(violations, violations.join("\n")).toEqual([]);
+  });
+});
+
+/**
+ * B088 regression — the pad's fill pool used to trust registry `fromModule`
+ * (stale old-course provenance), injecting words the live course never
+ * taught into banks as reject-only tiles. The 2026-08-09 learner-sim walks
+ * (docs/learner-sim/m16-packs-2026-08-09.md finding 1,
+ * docs/learner-sim/m8-rebuild-walk-2026-08-09.md finding 4) proved the
+ * compiled banks clean and every untaught distractor a pad pick. The pool is
+ * now intersected with `getJaTaughtKanaBeforeModule` (IR priorVocab — the
+ * compiler's truthful set).
+ */
+describe("build tile pad never injects untaught words (B088)", () => {
+  // The exact pad picks the walks caught, per lesson. Words, not step ids:
+  // pad fill is seeded on step id, so a content edit could move a pick to a
+  // sibling step while remaining just as wrong.
+  const WALK_LEAKS: Record<string, string[]> = {
+    "ja-m8-neo-1": ["ぷりん"],
+    "ja-m16-neo-10": ["コンビニ", "がっこう", "こうえん", "へや", "まいにち", "ひるごはん"],
+    "ja-m16-neo-11": ["コンビニ", "がっこう", "こうえん", "へや", "まいにち", "ひるごはん"],
+    "ja-m16-neo-review-3": ["コンビニ", "がっこう", "こうえん", "へや", "まいにち", "ひるごはん"],
+  };
+
+  it("the walks' specific untaught pad picks can no longer appear", () => {
+    let scanned = 0;
+    const violations: string[] = [];
+    for (const [lessonId, leaks] of Object.entries(WALK_LEAKS)) {
+      const lesson = getMockLessonContent(lessonId);
+      expect(lesson, `${lessonId} must exist — a missing lesson would make this check vacuous`).not.toBeNull();
+      for (const s of lesson!.steps as unknown as Array<Record<string, unknown>>) {
+        if (s.type !== "build_sentence" && s.type !== "listening_build") continue;
+        if (s.granularity !== "word") continue;
+        scanned++;
+        const tiles = s.tiles as string[];
+        for (const leak of leaks) {
+          if (tiles.includes(leak)) {
+            violations.push(`${lessonId}/${s.id as string}: untaught "${leak}" in bank`);
+          }
+        }
+      }
+    }
+    // Repo standing hazard: a check that matches nothing looks exactly like
+    // a check that passes. The walked lessons carry dozens of word builds.
+    expect(scanned).toBeGreaterThan(20);
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
+
+  it("every JA pad-appended tile is drawn from the truthful taught set", () => {
+    // Synthetic m16 lesson at neo index 1: nothing of m16's own vocabulary is
+    // live-attributed at-or-before neo-1, so every appended tile must come
+    // from what earlier modules actually taught (IR priorVocab + furniture).
+    const step: BuildSentenceStep = {
+      id: "ja-b088-contract-build",
+      type: "build_sentence",
+      prompt: "Build: I eat rice.",
+      targetSentence: "ごはん を たべる",
+      tiles: ["ごはん", "を", "たべる"],
+      correctOrder: ["ごはん", "を", "たべる"],
+      granularity: "word",
+    };
+    const lesson = buildLesson("ja", "m16", step);
+    lesson.id = "ja-m16-neo-1"; // neo-shaped id — engages the same-module gate
+    const padded = padBuildTileFloor(lesson);
+    const result = padded.steps[0] as BuildSentenceStep;
+    const appended = result.tiles.slice(step.tiles.length);
+    expect(appended.length).toBeGreaterThan(0); // pad must actually fire
+    const taught = getJaTaughtKanaBeforeModule("m16");
+    for (const tile of appended) {
+      expect(taught.has(tile), `pad appended "${tile}", which m1–m15 never taught`).toBe(true);
+    }
+  });
+
+  it("taught same-category siblings still pad in (Spencer 2026-07-24 mechanism intact)", () => {
+    // ごはん's food siblings that the course HAS taught by m16 — the fix must
+    // narrow the pool to taught words, not disable sibling-first fill.
+    const taught = getJaTaughtKanaBeforeModule("m16");
+    const taughtFoodSiblings = siblingsOf("ごはん").filter((k) => taught.has(k));
+    expect(taughtFoodSiblings.length).toBeGreaterThan(0); // control of the control
+    // Single-tile ごはん pick: food is the only sibling category in play, so
+    // sibling-first ranking must surface a taught food word among the fill.
+    const step: BuildSentenceStep = {
+      id: "ja-b088-sibling-build",
+      type: "build_sentence",
+      prompt: "Build: rice.",
+      targetSentence: "ごはん",
+      tiles: ["ごはん"],
+      correctOrder: ["ごはん"],
+      granularity: "word",
+    };
+    const lesson = buildLesson("ja", "m16", step);
+    lesson.id = "ja-m16-neo-1";
+    const padded = padBuildTileFloor(lesson);
+    const result = padded.steps[0] as BuildSentenceStep;
+    const appended = result.tiles.slice(step.tiles.length);
+    expect(
+      appended.some((t) => taughtFoodSiblings.includes(t)),
+      `expected a taught food sibling (${taughtFoodSiblings.join("/")}) among pad fill [${appended.join(" ")}]`,
+    ).toBe(true);
+  });
+
+  it("accessor: the truthful set rejects the walk leaks and keeps taught words", () => {
+    const m16 = getJaTaughtKanaBeforeModule("m16");
+    for (const w of ["コンビニ", "がっこう", "こうえん", "へや", "まいにち", "ひるごはん"]) {
+      expect(m16.has(w), `${w} is not taught by m1–m15 and must not be in the m16 set`).toBe(false);
+    }
+    for (const w of ["ごはん", "みず", "りょうり", "ねこ"]) {
+      expect(m16.has(w), `${w} IS taught before m16 and must stay available`).toBe(true);
+    }
+    const m8 = getJaTaughtKanaBeforeModule("m8");
+    expect(m8.has("ぷりん"), "ぷりん (kana-drill attribution only) must not count as taught").toBe(false);
+    // Fallback path (no IR): m3 draws on real attribution from m1–m2 kana-row
+    // vocab, and must never see later-module vocabulary.
+    const m3 = getJaTaughtKanaBeforeModule("m3");
+    expect(m3.size).toBeGreaterThan(0);
+    expect(m3.has("きょうしつ")).toBe(false);
   });
 });
 

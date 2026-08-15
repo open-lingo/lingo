@@ -2058,8 +2058,9 @@ export default function TransitLearnPage({
         }
       }
       if (anchor === null) {
-        // Outer Math.max guards the single-station map (n4 line is m30 only
-        // since the 2026-07-19 spine renumber): length - 2 would be -1.
+        // Outer Math.max guards the single-station map (the n4 line is just
+        // the m30 comingSoon placeholder until n4-01 is authored — spec
+        // 2026-08-06 A1/A3): length - 2 would be -1.
         anchor = Math.max(0, Math.min(modules.length - 2, Math.max(0, Math.floor(modules.length * spread[unanchored % spread.length]))));
         soft.add(anchor);
         unanchored++;

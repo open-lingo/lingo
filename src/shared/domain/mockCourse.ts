@@ -1102,36 +1102,44 @@ export function getMockCourse(languageId: string): Course {
         // n04/s13 — "old m29/m30 absorbed into the spine", spinePlan s26
         // note). Its lessons (ja-m29-*) stay registered in mockLessons and
         // deep-linkable via /ja/qa; its atoms (fromModule "m29") remain
-        // SRS-reachable through the capstone slot. m30 keeps the N4 tier
-        // alive (tabs + interchange banner) until the N4 map is re-scoped.
-        // M30 — Casual register (docs/n4-pilot-spine-2026-07-16.md). Both
-        // stages authored: pairs 1-4 (stage 1) + pairs 5-7, the story
-        // lesson (stage 2). Per the spine's "Not in the pilot" note, m30
-        // is NOT registered as a transit station — reviewed via /ja/qa.
+        // SRS-reachable through the capstone slot.
+        // M30 = spine unit n4-01, "て + helper I: 〜てみる / 〜ておく", and the
+        // FIRST AUTHORED N4 MODULE (2026-08-14). The comingSoon placeholder
+        // that stood here is gone; the July "Casual register" pilot that used
+        // to own the number was retired 2026-08-09 (spec
+        // 2026-08-06-n4-open-and-transform-teaching-design.md A1), leaving a
+        // clean `ja-m30-neo-*` namespace. The library passage
+        // ja-m30-people-at-work is KEPT in stories.ts (spec A1) — only its map
+        // row went with the pilot tile.
+        //
+        // The module's payload is not 〜てみる, it is THE SLOT: a て-form can
+        // have an ordinary verb parked behind it whose meaning has been
+        // bleached away, and that helper carries every bit of the conjugation
+        // while the main verb never moves again. Establishing that here is what
+        // lets m35 (てくれる), m38 (てしまう/ていく), m41 (てある), m47 (てほしい)
+        // and m50 (ていただく) teach one thing each. Zero new morphology — て has
+        // been owned since m8 and た since m11 — so the tier opens on a
+        // confidence beat.
         {
           id: "m30",
-          title: "Casual register",
-          eyebrow: "Module 30 · Casual",
-          summary: "Casual questions, よ/ね, casual の, register awareness, invitations, and mixed-register drills — when plain form is (and isn't) socially correct.",
+          title: "て + helper I — 〜てみる / 〜ておく",
+          eyebrow: "Module 30 · JLPT N4 begins",
+          summary: "The N4 line opens on something you already own. A て-form can have a second verb parked behind it — and that verb, whose own meaning has worn away to almost nothing, takes all the endings while the first one never moves again. 「たべてみる」 is eat it and see; 「たべてみた」 puts the past on the helper. Then the same slot with a different verb in it: 「よやくを しておく」 books it in advance, 「でんきを つけておく」 leaves the light on. And the trap worth naming — 〜てみる is give-it-a-go, never try-and-fail.",
           tier: "n4",
           lessons: [
-            { id: "ja-m30-1-1", title: "Casual questions — Intro", status: "available" as const },
-            { id: "ja-m30-1-2", title: "Casual questions — Practice", status: "available" as const },
-            { id: "ja-m30-2-1", title: "よ / ね — Intro", status: "available" as const },
-            { id: "ja-m30-2-2", title: "よ / ね — Practice", status: "available" as const },
-            { id: "ja-m30-3-1", title: "Casual の question — Intro", status: "available" as const },
-            { id: "ja-m30-3-2", title: "Casual の question — Practice", status: "available" as const },
-            { id: "ja-m30-4-1", title: "Register awareness — Intro", status: "available" as const },
-            { id: "ja-m30-4-2", title: "Register awareness — Practice", status: "available" as const },
-            { id: "ja-m30-5-1", title: "Casual invitations — Intro", status: "available" as const },
-            { id: "ja-m30-5-2", title: "Invitations — Accept / decline", status: "available" as const },
-            { id: "ja-m30-6-1", title: "Mixed register — Intro", status: "available" as const },
-            { id: "ja-m30-6-2", title: "Mixed register — Speed drill", status: "available" as const },
-            { id: "ja-m30-story", title: "Story — ゆき invites twice", status: "available" as const },
-            { id: "ja-m30-7-1", title: "Comprehension drill — register", status: "available" as const },
-            { id: "ja-m30-7-2", title: "Final production — M30", status: "available" as const },
-            { id: "story:ja-m30-people-at-work", title: "Read — People at work", status: "available" as const,
-              kind: "story" as const, storyId: "ja-m30-people-at-work" },
+            { id: "ja-m30-neo-1", title: "「たべてみる」 — eat it and see", status: "available" as const },
+            { id: "ja-m30-neo-2", title: "「のんでみた」 — the helper carries the tense", status: "available" as const },
+            { id: "ja-m30-neo-3", title: "「しらべてみる」 — drop る, add て", status: "available" as const },
+            { id: "ja-m30-neo-review-1", title: "Review — the verb behind the verb", status: "available" as const },
+            { id: "ja-m30-neo-5", title: "「よやくを しておく」 — get it out of the way", status: "available" as const },
+            { id: "ja-m30-neo-6", title: "「かえる まえに でんきを けしておく」 — before, and left as it is", status: "available" as const },
+            { id: "ja-m30-neo-7", title: "「たべてみた」 is not 「I tried to eat it」", status: "available" as const },
+            { id: "ja-m30-neo-review-2", title: "Review — getting ready, and finding out", status: "available" as const },
+            { id: "ja-m30-neo-9", title: "「ならってみる」「おくっておく」 — the う-verbs' turn", status: "available" as const },
+            { id: "ja-m30-neo-10", title: "「わからないから」か「あした あるから」か — which helper the reason picks", status: "available" as const },
+            { id: "ja-m30-neo-11", title: "「たべてみない？」 — won't you give it a go?", status: "available" as const },
+            { id: "ja-m30-neo-review-3", title: "Review — one slot, two verbs, everything you own in front of it", status: "available" as const },
+            { id: "ja-m30-neo-challenge", title: "Challenge — a whole day of finding out and getting ready", status: "available" as const },
           ],
           accent: { from: "#7c3aed", to: "#5b21b6" },
         },

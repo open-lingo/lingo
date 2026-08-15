@@ -42,8 +42,16 @@ import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
  *  188 → 173 on 2026-07-30: m16 vocab packs 5-6 (B067) — the classroom
  *  (ja-m16-neo-10): かく/よむ/つかう/ノート/きょうしつ/クラス/いみ/やさしい, and
  *  habits and health (ja-m16-neo-11): すう/たばこ/はしる/スポーツ/わるい/よわい/
- *  たいせつ. */
-const MAX_NEVER_GRADED = 173;
+ *  たいせつ.
+ *  173 → 183 on 2026-08-09: A1 retired the m30 pilot (spec 2026-08-06). The
+ *  pilot's review tails D2-graded ten prior-module atoms that no other live
+ *  lesson grades (てつだう/さがす/ぜんぶ/いっしょ… — the m30-n4-walk F2 ghost
+ *  set), so deleting the tile honestly un-grades them. NOT an authoring
+ *  regression: those grades were writes for words the neo course never
+ *  taught, which is the drift A2 exists to stop. The 19 re-homed ex-m30
+ *  atoms left the audited population entirely (their new homes m49/m50/
+ *  thr-n4/future are not live modules). */
+const MAX_NEVER_GRADED = 183;
 /**
  * The sharper number: atoms the live course does not TOUCH — no graded step, no
  * teach step, their surface not even present as text in any live lesson. These
@@ -66,12 +74,32 @@ const MAX_NEVER_GRADED = 173;
  * distractor-fill luck fell back in — "touched" was never a taught-status
  * signal for those.
  * 90 → 82 on 2026-07-29: m14 vocab pack 4 (B067).
- * 82 → 71 on 2026-07-30: m16 vocab packs 5-6 (B067). */
-const MAX_NEVER_TOUCHED = 71;
+ * 82 → 71 on 2026-07-30: m16 vocab packs 5-6 (B067).
+ * 71 → 104 on 2026-08-09: B088 — the build-tile pad now draws fill only from
+ * the truthful taught set (IR priorVocab via getJaTaughtKanaBeforeModule)
+ * instead of stale registry fromModule. Exactly 33 legacy-tagged atoms
+ * (コンビニ, ひるごはん, うしろ, そば …) lost their only "touch", which was a
+ * never-taught pad distractor — phantom exposure this changelog already
+ * called out as "never a taught-status signal". The words remain untaught
+ * debt (B065/B067 packs), now honestly counted. NOTE: this bump covers the
+ * B088 delta ONLY (A/B-measured with the pad filter toggled, same tree); the
+ * concurrent m30-pilot retirement moves this count separately and must add
+ * its own entry.
+ * 104 → 140 on 2026-08-09: A1 retired the m30 pilot (spec 2026-08-06) — the
+ * entry the NOTE above anticipates. The pilot's 265 steps were the only
+ * live-lesson text carrying ~36 old-course words it used as review carriers
+ * (べんきょう, まいあさ, しんぶん, デパート, こうえん, ざっし, ばんごはん,
+ * れんしゅう …) — exactly the "authored against a vocabulary the neo course
+ * never taught" defect the m30-n4-walk's F2 documented. Their only exposure
+ * died with the module; the words were untaught debt all along and are now
+ * honestly counted (B065/B067 packs are the fix). */
+const MAX_NEVER_TOUCHED = 140;
 /** Graded somewhere, but every exposure is blocked by the D2 same-module gate.
- *  19 of these are m30 atoms, which is structural: m30 is the last module, so
- *  there is no later module whose lessons could review them. */
-const MAX_GRADED_BUT_NEVER_WRITES = 37;
+ *  37 → 18 on 2026-08-09: 19 of the 37 were the m30 pilot's own atoms —
+ *  structurally stuck because m30 was the last module — and they left the
+ *  audited population when A1 retired the pilot and A2 re-homed them to
+ *  unauthored modules (spec 2026-08-06). */
+const MAX_GRADED_BUT_NEVER_WRITES = 18;
 
 type Row = {
   atomId: string;

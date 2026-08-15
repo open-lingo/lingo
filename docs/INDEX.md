@@ -45,6 +45,7 @@ Read this file FIRST when researching the project, then jump straight to the nam
 | Emoji / vocab art | `n5-vocab-emoji-reference-2026-05-18.md` (canonical map) + `emoji-blocked-words-2026-05-18.md` (blocklist current; its ja phrase_card advice stale) |
 | Architecture | `ARCHITECTURE_REVIEW_2026-06-14.md` (cross-repo); backend: `../lingo-core/docs/INDEX.md` |
 | **Outstanding work / gaps / bugs** | **`backlog/items.yaml` — query it with `node scripts/backlog.mjs`, never read it top to bottom. Schema: `backlog/README.md`. This supersedes the open sections of `followups.md` and `learner-sim/TRIAGE.md`.** |
+| **Spencer-facing review queue (plain language)** | IN-APP: `/:lang/qa/review` (linked from the QA test-drive page). Entries live in `src/features/lesson/dev/reviewQueue.ts` — agents append (concrete example MANDATORY, contract in the file + enforced by `reviewQueue.test.ts`); Spencer's verdicts mirror live to `/tmp/lingo-review-queue.json`. How-to: `qa/README.md`. Feeds `backlog/items.yaml` (his answers → `note:` verbatim); replaces neither the backlog nor the walk reports |
 | Product backlog / current tasks | `TODO.md` (LIVE 07-17); ignore FEATURES / PRODUCT_BACKLOG / MVP_* (all pre-launch-era STALE) |
 | Frontend follow-ups | `followups.md` (LIVE 07-26) — backend/frontend contract gaps and deferred cleanups |
 | Real-user feedback | `user-feedback/` (higher product signal than synthesized audits) |

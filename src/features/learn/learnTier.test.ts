@@ -38,7 +38,10 @@ describe("courseHasTier", () => {
     expect(courseHasTier(course, "n4")).toBe(true);
   });
 
-  it("real ja course has n4 content (m30)", () => {
+  it("real ja course has an n4 tier (m30 = n4-01, authored 2026-08-14)", () => {
+    // The tier was held open by a lesson-less comingSoon station between the
+    // 2026-08-09 retirement of the m30 pilot (spec A1) and the authoring of
+    // m30 = n4-01 (spec A3). It is now a real module.
     const ja = getMockCourse("ja");
     expect(courseHasTier(ja, "n4")).toBe(true);
   });
@@ -75,10 +78,17 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 line is m30 only (old m29 pilot renumbered away by the spine)", () => {
+  it("real ja n4 line is m30 = n4-01, authored and available", () => {
+    // The July m30 pilot was retired 2026-08-09 (spec A1) and the replacement
+    // m30 = n4-01 「て + helper I」 was authored 2026-08-14 (spec A3), so the n4
+    // line is one REAL station: 13 lessons, no comingSoon flag. The rest of
+    // the tier (m31-m51) is unauthored and not on the map yet.
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
     expect(n4.map((m) => m.id)).toEqual(["m30"]);
+    expect(n4[0].comingSoon).toBeUndefined();
+    expect(n4[0].lessons).toHaveLength(13);
+    expect(n4[0].lessons.every((l) => l.status === "available")).toBe(true);
   });
 });
 

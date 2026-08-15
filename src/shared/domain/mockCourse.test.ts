@@ -153,9 +153,16 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 only (old m29 pilot absorbed by the spine renumber)", () => {
+  it("N4 tier is m30 = n4-01, authored 2026-08-14 (pilot retired 2026-08-09)", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
     expect(n4.map((m) => m.id)).toEqual(["m30"]);
+    // Spec A1 retired the July pilot and left a locked, lesson-less station;
+    // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
+    // place. Shape is inv 25: 13 lessons = 9 teaching + 3 review + 1 challenge.
+    expect(n4[0].comingSoon).toBeUndefined();
+    expect(n4[0].lessons).toHaveLength(13);
+    expect(n4[0].lessons.filter((l) => /-review(-\d+)?$/.test(l.id))).toHaveLength(3);
+    expect(n4[0].lessons[n4[0].lessons.length - 1].id).toBe("ja-m30-neo-challenge");
   });
 
   it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {

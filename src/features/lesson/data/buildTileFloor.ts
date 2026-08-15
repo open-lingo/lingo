@@ -34,7 +34,11 @@
  * sentences"). Fill draws from the SAME-LANGUAGE course-atom registry,
  * PRIOR-ONLY (`getAtomsUpToModule`, at-or-before this lesson's module —
  * the same "never introduce a not-yet-taught word" invariant matchPairsFloor
- * enforces), excludes phrase-kind atoms (multi-word surfaces read oddly as
+ * enforces; for JA the pool is additionally intersected with
+ * `getJaTaughtKanaBeforeModule`, the IR-priorVocab truthful taught set,
+ * because registry `fromModule` tags are stale old-course provenance and
+ * were leaking never-taught words into banks — B088), excludes phrase-kind
+ * atoms (multi-word surfaces read oddly as
  * a single tile) and multi-word surfaces generally, and never picks a
  * candidate whose text already appears among the step's existing tiles
  * (case-insensitive) — a "distractor" that duplicates an answer tile isn't
@@ -47,6 +51,7 @@
  */
 import type { LessonContent, LessonStep } from "../types";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
+import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import {
   particleContrastsFor,
@@ -139,6 +144,15 @@ function pickFillTiles(
   const used = new Set(step.tiles.map((t) => t.toLowerCase()));
   const lessonNeo = neoIndex(lessonId);
   const tinyAnswer = step.correctOrder.length <= 2;
+  // B088: registry `fromModule` is stale old-course provenance — the exact
+  // trap `moduleCompiler.ts`'s `metBefore` documents and IR priorVocab killed
+  // on the compiler side. Trusting it here leaked never-taught words
+  // (コンビニ, がっこう, ぷりん …) into live banks as reject-only tiles. For JA,
+  // prior-module fill must ALSO be in the truthful taught set; same-module
+  // fill keeps the live neo-attribution gate below. A smaller (or
+  // category-poorer) floor is acceptable — an untaught distractor is not.
+  const taughtBefore =
+    languageId === "ja" ? getJaTaughtKanaBeforeModule(moduleId) : null;
   const pool = getAtomsUpToModule(moduleId, languageId).filter(
     (a) =>
       a.kind !== "phrase" &&
@@ -159,6 +173,7 @@ function pickFillTiles(
       // 2026-07-24 by Spencer's ruling — see `preferredFill`.
       !(languageId === "ja" && /(ます|です)$/.test(a.kana)) &&
       !(languageId === "ja" && tinyAnswer && JA_DEICTICS.has(a.kana)) &&
+      !(taughtBefore !== null && a.fromModule !== moduleId && !taughtBefore.has(a.kana)) &&
       !(
         lessonNeo !== null &&
         a.fromModule === moduleId &&

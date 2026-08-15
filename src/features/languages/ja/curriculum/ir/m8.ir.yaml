@@ -179,10 +179,10 @@ lessons:
       - { kind: rule, grammarPointId: te-form, variant: connector }
       - { kind: sentence, ja: "いえで たべて。", en: "Eat at home", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "ねこを みて。", en: "Look at the cat", exercises: [te-form], mode: build }
-      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the food", exercises: [te-form, wo-object], mode: build }
+      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the cuisine", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "そらを みて。", en: "Look at the sky", exercises: [te-form, wo-object], mode: translate }
       - { kind: sentence, ja: "ほんを みて。", en: "Look at the book", exercises: [te-form, wo-object], mode: listening }
-      - { kind: sentence, ja: "ぎゅうにゅうを のむ。", en: "I drink milk", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "みずを のむ。", en: "I drink water", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "ミカが たつ。", en: "Mika stands up", exercises: [ga-existence], mode: listening }
       - { kind: sentence, ja: "しゃしんを みて。", en: "Look at the photo", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "きょうは たべて。", en: "Eat today", exercises: [te-form, wa-topic], mode: build }
@@ -193,7 +193,7 @@ lessons:
         questions:
           - { q: "What does Mika point out?", options: ["The sky", "A book", "A photo", "Food"], answer: "The sky" }
       - { kind: challenge, ja: "ミカの しゃしんを みて。", en: "Look at Mika's photo", combines: [no-possession, wo-object, te-form], mode: build }
-    reviewPool: [たべる, みる, たつ, ほん, そら, しゃしん, ほし, きょう]
+    reviewPool: [たべる, みる, たつ, ほん, そら, しゃしん, ほし]
 
   - id: m8-neo-2
     role: teaching
@@ -216,7 +216,7 @@ lessons:
         questions:
           - { q: "What does Mika ask Tom to do?", options: ["Stand here", "Sit down", "Buy a book", "Go home"], answer: "Stand here" }
       - { kind: challenge, ja: "ここで ミカの ほんを かって。", en: "Buy Mika's book here", combines: [de-action, no-possession, wo-object, te-form], mode: build }
-    reviewPool: [かう, たつ, やる, ほん, えんぴつ, ここ, そこ, きょう, いえ]
+    reviewPool: [かう, たつ, やる, ほん, えんぴつ, ここ, そこ, いえ]
 
   - id: m8-neo-10
     role: teaching
@@ -250,13 +250,11 @@ lessons:
     beats:
       - { kind: sentence, ja: "かさを かって。", en: "Buy an umbrella", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "はなを みて。", en: "Look at the flowers", exercises: [te-form, wo-object], mode: translate }
-      - { kind: sentence, ja: "いけに いって。", en: "Go to the pond", exercises: [te-form, ni-location], mode: build }
       - { kind: sentence, ja: "でんわを かって。", en: "Buy the phone", exercises: [te-form, wo-object], mode: listening }
-      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the food", exercises: [te-form, wo-object], mode: build }
+      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the cuisine", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "ぼうしを かって。", en: "Buy a hat", exercises: [te-form, wo-object], mode: build }
       - { kind: particle-cloze, stem: "ねこと ", tail: "。", answer: "あそんで", options: ["あそんで", "かって", "みて"], en: "Play with the cat", explanation: "あそぶ ends in ぶ, which joins む in the んで group — あそんで." }
       - { kind: sentence, ja: "まどを みて。", en: "Look at the window", exercises: [te-form, wo-object], mode: build }
-      - { kind: sentence, ja: "うみに いって。", en: "Go to the sea", exercises: [te-form, ni-location], mode: listening }
       - { kind: sentence, ja: "ほしを みて。", en: "Look at the stars", exercises: [te-form, wo-object], mode: listening }
       - kind: dialogue
         lines:
@@ -310,7 +308,7 @@ lessons:
         questions:
           - { q: "Will Mika come?", options: ["Yes", "No", "Tomorrow", "She didn't say"], answer: "Yes" }
       - { kind: challenge, ja: "ミカの いえに いって。", en: "Go to Mika's house", combines: [no-possession, ni-location, te-form], mode: build }
-    reviewPool: [する, くる, いく, いえ, うみ, やま, さんぽ, きょう]
+    reviewPool: [する, くる, いく, いえ, うみ, やま]
 
   - id: m8-neo-4
     role: teaching
@@ -371,7 +369,7 @@ lessons:
         questions:
           - { q: "Where is the shop?", options: ["Over there", "Here", "At Mika's house", "Not stated"], answer: "Over there" }
       - { kind: challenge, ja: "みせで こめを かってください。", en: "Say politely: Please buy rice at the shop", combines: [de-action, wo-object, te-kudasai], mode: build }
-    reviewPool: [いく, かう, ちゃ, ごはん, いえ, ひと, きょう, ともだち]
+    reviewPool: [いく, かう, ちゃ, ごはん, いえ, ひと, ともだち]
 
   - id: m8-neo-r2
     role: review
@@ -381,7 +379,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "ごはんを たべてください。", en: "Say politely: Please eat the rice", exercises: [te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "みせで こめを かって。", en: "Buy rice at the shop", exercises: [de-action, wo-object, te-form], mode: translate }
-      - { kind: sentence, ja: "たべものは そこです。", en: "Say politely: The food is there", exercises: [wa-topic, desu-copula, koko-soko-asoko], mode: build }
+      - { kind: sentence, ja: "たべものは そこです。", en: "Say politely: The food is there, by you", exercises: [wa-topic, desu-copula, koko-soko-asoko], mode: build }
       - { kind: sentence, ja: "ちゃが ある。", en: "There's tea", exercises: [ga-existence, arimasu], mode: listening }
       - { kind: sentence, ja: "しょくじを たべて。", en: "Eat the meal", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "みせに いきます。", en: "Say politely: I'm going to the shop", exercises: [ni-location, masu-present], mode: build }

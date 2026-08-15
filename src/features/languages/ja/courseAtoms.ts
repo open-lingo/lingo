@@ -16,6 +16,26 @@
  * positives manually excluded). Atoms still on "future" are either backlog,
  * planned for m28+, or not yet surfaced by any authored module.
  *
+ * 2026-08-14 — m30 (n4-01) authored: FOUR rows moved "future" → "m30" (おく,
+ * ならう, しつもん, こたえる). They are the only atoms m30 declares that already
+ * had a registry row, and "future" is not a real module, so the module-fallback
+ * unlock path in `lessonAtomIndex` could never fire for them: the learner would
+ * have been graded on all four and none would ever have entered the SRS deck
+ * (`lessonAtomAttribution.test.ts`'s graded-but-never-unlockable ratchet caught
+ * it). Only the tag changed — no kana, no id, so no tokenization anywhere in the
+ * course moved. The other 30 atoms m30 declares are derived forms and process
+ * nouns with no row at all, which is the m11-m28 precedent for IR-local atoms.
+ *
+ * All four are also `blocked` — the same "no image MCQ" flag し carries, and for
+ * the same class of reason (the m19/m24/m26 SHARED-GLYPH ruling): 🎓 is がくせい's
+ * and だいがく's, ❓ is なに's and なん's, 🙋 is わたし's, and every one of those
+ * is a word the learner has MET, so a picture MCQ could offer two options with
+ * the same art. おく is blocked for a second reason on top: the te-oku rule card
+ * has to name it, and a `kind: rule` beat compiles to a PINNED step ahead of the
+ * interleaved middle, which would steal the debut (the m14 trap). `blocked` is
+ * exactly the "no image MCQ" flag; nothing else about these atoms changes, and
+ * it is what makes the registry agree with the IR's own `imageable: false`.
+ *
  * IDs are stable forever once shipped. To add a word: append a new
  * CourseAtom entry — do NOT renumber.
  */
@@ -52,6 +72,14 @@ export type CourseAtomSource =
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
   | "m28" | "m29" | "m30"
+  // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
+  // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
+  // None of these modules is authored yet, so atoms tagged with them never
+  // unlock, never seed placement (applyPlacementResult filters on live
+  // module ids), and never enter the review pool — the truthful state until
+  // something teaches them. "thr-n4" is the spine's N4 thread tile
+  // (docs/spine-n4.md §4) — the glue-adverb drip, not a module.
+  | "m49" | "m50" | "thr-n4"
   | "sidequest-survival"
   | "future";
 
@@ -795,7 +823,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "watakushi", kana: "わたくし", kanji: "私", romaji: "watakushi", meaningEn: "(humble) I, myself", fromModule: "m19", introducedByLessonId: "ja-m19-3-2", kind: "vocab", blocked: true, note: "pronoun — rubric blocks pronouns", pos: "pronoun" },
   { id: "aki", kana: "あき", kanji: "秋", romaji: "aki", meaningEn: "autumn", emoji: "🍂", fromModule: "m18", kind: "vocab", pos: "noun" },
   { id: "tatsu", kana: "たつ", kanji: "立つ", romaji: "tatsu", meaningEn: "to stand", emoji: "🧍", fromModule: "m8", introducedByLessonId: "ja-m8-neo-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
-  { id: "kotaeru", kana: "こたえる", kanji: "答える", romaji: "kotaeru", meaningEn: "to answer", emoji: "🙋", fromModule: "future", kind: "vocab", note: "raising hand", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "kotaeru", kana: "こたえる", kanji: "答える", romaji: "kotaeru", meaningEn: "to answer", emoji: "🙋", fromModule: "m30", kind: "vocab", blocked: true, note: "raising hand", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "hako", kana: "はこ", kanji: "箱", romaji: "hako", meaningEn: "box", emoji: "📦", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "koucha", kana: "こうちゃ", kanji: "紅茶", romaji: "koucha", meaningEn: "black tea", emoji: "🍵", fromModule: "future", kind: "vocab", note: "teacup; pair with phrase", pos: "noun" },
   { id: "kami", kana: "かみ", kanji: "紙", romaji: "kami", meaningEn: "paper", emoji: "📄", fromModule: "future", kind: "vocab", pos: "noun" },
@@ -807,8 +835,8 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "midori", kana: "みどり", kanji: "緑", romaji: "midori", meaningEn: "green", emoji: "🟢", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "shimeru-tie", kana: "しめる", kanji: "締める", romaji: "shimeru", meaningEn: "to tie", emoji: "🎀", fromModule: "future", kind: "vocab", note: "ribbon", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "renshuusuru", kana: "れんしゅうする", kanji: "練習", romaji: "renshuusuru", meaningEn: "to practice", emoji: "📓", fromModule: "m27", kind: "vocab", note: "notebook as practice proxy", pos: "verb", conjugation: { class: "irregular" } },
-  { id: "oku", kana: "おく", kanji: "置く", romaji: "oku", meaningEn: "to put", emoji: "📥", fromModule: "future", kind: "vocab", note: "inbox tray — place/put", pos: "verb", conjugation: { class: "godan" } },
-  { id: "narau", kana: "ならう", kanji: "習う", romaji: "narau", meaningEn: "to learn", emoji: "🎓", fromModule: "future", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
+  { id: "oku", kana: "おく", kanji: "置く", romaji: "oku", meaningEn: "to put", emoji: "📥", fromModule: "m30", kind: "vocab", blocked: true, note: "inbox tray — place/put", pos: "verb", conjugation: { class: "godan" } },
+  { id: "narau", kana: "ならう", kanji: "習う", romaji: "narau", meaningEn: "to learn", emoji: "🎓", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "godan" } },
   { id: "mimi", kana: "みみ", kanji: "耳", romaji: "mimi", meaningEn: "ear", emoji: "👂", fromModule: "m20", kind: "vocab", pos: "noun" },
   { id: "kiku", kana: "きく", kanji: "聞く", romaji: "kiku", meaningEn: "to hear, to listen to, to ask", emoji: "👂", fromModule: "m24", kind: "vocab", note: "ear", pos: "verb", conjugation: { class: "godan" } },
   { id: "niku", kana: "にく", kanji: "肉", romaji: "niku", meaningEn: "meat", emoji: "🥩", fromModule: "m22", kind: "vocab", pos: "noun" },
@@ -844,7 +872,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kasu", kana: "かす", kanji: "貸す", romaji: "kasu", meaningEn: "to lend", emoji: "🤝", fromModule: "m8", introducedByLessonId: "ja-m8-neo-11", kind: "vocab", note: "handshake reads as exchange/lend", pos: "verb", conjugation: { class: "godan", entryId: "kasu" } },
   { id: "haru-stick", kana: "はる", kanji: "貼る", romaji: "haru", meaningEn: "to stick", fromModule: "m14", introducedByLessonId: "ja-m14-6-2", kind: "vocab", blocked: true, note: "no concrete Noto referent; pair with phrase", pos: "verb", conjugation: { class: "godan" } },
   { id: "nigiyaka", kana: "にぎやか", kanji: "賑やか", romaji: "nigiyaka", meaningEn: "bustling, busy", emoji: "🎉", fromModule: "m9", kind: "vocab", note: "party popper as lively proxy", pos: "adjective", conjugation: { class: "na-adj", entryId: "nigiyaka" } },
-  { id: "shitsumon", kana: "しつもん", kanji: "質問", romaji: "shitsumon", meaningEn: "question", emoji: "❓", fromModule: "future", kind: "vocab", note: "question mark", pos: "noun" },
+  { id: "shitsumon", kana: "しつもん", kanji: "質問", romaji: "shitsumon", meaningEn: "question", emoji: "❓", fromModule: "m30", kind: "vocab", blocked: true, note: "question mark", pos: "noun" },
   { id: "aka", kana: "あか", kanji: "赤", romaji: "aka", meaningEn: "red", emoji: "🟥", fromModule: "future", kind: "vocab", note: "red square — shares with 赤い", pos: "noun" },
   { id: "akai", kana: "あかい", kanji: "赤い", romaji: "akai", meaningEn: "red", emoji: "🟥", fromModule: "future", kind: "vocab", note: "red square", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "hashiru", kana: "はしる", kanji: "走る", romaji: "hashiru", meaningEn: "to run", emoji: "🏃", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 6 2026-07-30 (B067); trainer entry un-parked 30 → 16", pos: "verb", conjugation: { class: "godan", entryId: "hashiru" } },
@@ -913,39 +941,54 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hakobu", kana: "はこぶ", kanji: "運ぶ", romaji: "hakobu", meaningEn: "to carry", emoji: "📦", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
   { id: "erabu", kana: "えらぶ", kanji: "選ぶ", romaji: "erabu", meaningEn: "to choose", emoji: "✅", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
   { id: "katazukeru", kana: "かたづける", kanji: "片付ける", romaji: "katazukeru", meaningEn: "to tidy up", emoji: "🧹", fromModule: "m29", introducedByLessonId: "ja-m29-2-1", kind: "vocab", pos: "verb", conjugation: { class: "ichidan" } },
-  // ── M30 — Casual register (N4 pilot #2, 2026-07-17). Vocab allocation is
-  //    docs/n4-pilot-spine-2026-07-16.md's 20-atom m30 table. Two
-  //    reconciliation notes (same discipline as m29's header, §13.8):
-  //      - たぶん ("probably") is ALREADY an m18 atom (courseAtoms.ts, blocked,
-  //        introducedByLessonId ja-m18-2-1). It is NOT re-registered here —
-  //        m30 uses it as review vocabulary only (ja-m30-1-1/1-2).
-  //      - The spine's bare き ("feeling, mind") would collide with the
-  //        existing m18 tree atom き (木) in JA_COURSE_ATOMS_BY_KANA (a
-  //        kana-keyed map — a second entry would silently overwrite the
-  //        tree lookup). Taught instead as the fixed collocation きになる
-  //        ("it's on my mind / I'm curious about it") — same abstract
-  //        concept, no kana collision, and arguably more natural to teach
-  //        as a whole idiom than the bare noun anyway.
-  //    19 genuinely new atoms below (all fromModule "m30").
-  { id: "mochiron", kana: "もちろん", romaji: "mochiron", meaningEn: "of course", fromModule: "m30", introducedByLessonId: "ja-m30-1-1", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot", pos: "interjection" },
-  { id: "zettai", kana: "ぜったい", kanji: "絶対", romaji: "zettai", meaningEn: "absolutely", fromModule: "m30", introducedByLessonId: "ja-m30-1-2", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot", pos: "adverb" },
-  { id: "keigo", kana: "けいご", kanji: "敬語", romaji: "keigo", meaningEn: "polite language (keigo)", emoji: "🙇", fromModule: "m30", introducedByLessonId: "ja-m30-2-1", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ", pos: "noun" },
-  { id: "shitashii", kana: "したしい", kanji: "親しい", romaji: "shitashii", meaningEn: "close, familiar", emoji: "💞", fromModule: "m30", introducedByLessonId: "ja-m30-2-1", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "i-adj" } },
-  { id: "teinei", kana: "ていねい", kanji: "丁寧", romaji: "teinei", meaningEn: "polite, careful", emoji: "🎀", fromModule: "m30", introducedByLessonId: "ja-m30-2-2", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "na-adj" } },
-  { id: "shitsurei", kana: "しつれい", kanji: "失礼", romaji: "shitsurei", meaningEn: "rude, impolite", emoji: "🙅", fromModule: "m30", introducedByLessonId: "ja-m30-2-2", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "na-adj" } },
-  { id: "tameguchi", kana: "ためぐち", kanji: "ため口", romaji: "tameguchi", meaningEn: "casual speech", emoji: "🗣️", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ", pos: "noun" },
-  { id: "nande", kana: "なんで", kanji: "何で", romaji: "nande", meaningEn: "why (casual)", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", blocked: true, note: "casual interrogative", pos: "adverb" },
-  { id: "doushitano", kana: "どうしたの", romaji: "doushitano", meaningEn: "what's up?", fromModule: "m30", introducedByLessonId: "ja-m30-3-1", kind: "vocab", blocked: true, note: "casual function phrase — also the pair-3 grammar pattern", pos: "expression" },
-  { id: "kininaru", kana: "きになる", kanji: "気になる", romaji: "kininaru", meaningEn: "on my mind, curious/concerned about", fromModule: "m30", introducedByLessonId: "ja-m30-3-2", kind: "vocab", blocked: true, note: "fixed idiom replacing spine's bare き — see file header", pos: "expression" },
-  { id: "betsuni", kana: "べつに", kanji: "別に", romaji: "betsuni", meaningEn: "not particularly", fromModule: "m30", introducedByLessonId: "ja-m30-3-2", kind: "vocab", blocked: true, note: "casual filler adverb", pos: "adverb" },
-  { id: "senpai", kana: "せんぱい", kanji: "先輩", romaji: "senpai", meaningEn: "senior (at school/work)", emoji: "🎓", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab", pos: "noun" },
-  { id: "joushi", kana: "じょうし", kanji: "上司", romaji: "joushi", meaningEn: "boss, superior", emoji: "💼", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab", pos: "noun" },
-  { id: "douryou", kana: "どうりょう", kanji: "同僚", romaji: "douryou", meaningEn: "colleague", emoji: "🧑‍💼", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab", pos: "noun" },
-  { id: "yappari", kana: "やっぱり", romaji: "yappari", meaningEn: "as expected, after all", fromModule: "m30", introducedByLessonId: "ja-m30-4-1", kind: "vocab", blocked: true, note: "modal adverb — casual register pilot", pos: "adverb" },
-  { id: "kouhai", kana: "こうはい", kanji: "後輩", romaji: "kouhai", meaningEn: "junior (at school/work)", emoji: "🧑‍🎓", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab", pos: "noun" },
-  { id: "shiriai", kana: "しりあい", kanji: "知り合い", romaji: "shiriai", meaningEn: "acquaintance", emoji: "🤵", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab", pos: "noun" },
-  { id: "osananajimi", kana: "おさななじみ", kanji: "幼馴染", romaji: "osananajimi", meaningEn: "childhood friend", emoji: "🧒", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab", pos: "noun" },
-  { id: "nakama", kana: "なかま", kanji: "仲間", romaji: "nakama", meaningEn: "comrade, mate", emoji: "👥", fromModule: "m30", introducedByLessonId: "ja-m30-4-2", kind: "vocab", pos: "noun" },
+  // ── Ex-M30 pilot atoms — RE-HOMED 2026-08-09 (spec
+  //    2026-08-06-n4-open-and-transform-teaching-design.md A2). The July
+  //    "Casual register" pilot (curriculum/m30.ts) was retired (spec A1);
+  //    the spine reassigns m30 = n4-01 「て + helper I」, and leaving these
+  //    19 tagged "m30" would have silently converted casual-register words
+  //    into vocabulary for a て+helper module (`fromModule` drives the
+  //    review pool, D2, and placement seeding — vocab-exposure-audit
+  //    2026-07-29 §1). New homes, per the spec + docs/spine-n4.md:
+  //      - "thr-n4" (glue-adverb drip, spine §4): やっぱり・もちろん・べつに
+  //        named verbatim; ぜったい joins as a known late-teaching straggler.
+  //      - "m49" (Keigo I): けいご・ていねい・しつれい・せんぱい・こうはい・
+  //        じょうし・どうりょう are all in the spine's m49 `prefer` vocab
+  //        list (しつれい is m49-first; m50 re-lists it). ためぐち rides
+  //        along — it names the bottom of the register scale the m49 axis
+  //        card states outright, and neither keigo module's vocab table
+  //        names it. しりあい also lands here: the spec listed it unowned
+  //        with "tag forward to a future module" latitude, and the spine's
+  //        m49 `salvage` line names it verbatim.
+  //      - "future" (unowned): なんで・どうしたの・きになる・おさななじみ・
+  //        なかま・したしい — no spine unit claims them; the established
+  //        "future" sentinel keeps them registered but never unlockable
+  //        until something teaches them.
+  //    `introducedByLessonId` was DELETED from all 19 (they pointed at the
+  //    deleted ja-m30-* lessons and would otherwise be dangling — B068
+  //    ratchet). Reconciliation notes from the pilot that still apply:
+  //      - たぶん ("probably") stays an m18 atom — never re-registered here.
+  //      - きになる deliberately replaces the spine's bare き ("feeling,
+  //        mind"), which would collide with the m18 tree atom き (木) in
+  //        JA_COURSE_ATOMS_BY_KANA.
+  { id: "mochiron", kana: "もちろん", romaji: "mochiron", meaningEn: "of course", fromModule: "thr-n4", kind: "vocab", blocked: true, note: "modal adverb — thr-n4 glue-adverb drip", pos: "interjection" },
+  { id: "zettai", kana: "ぜったい", kanji: "絶対", romaji: "zettai", meaningEn: "absolutely", fromModule: "thr-n4", kind: "vocab", blocked: true, note: "modal adverb — thr-n4 glue-adverb drip", pos: "adverb" },
+  { id: "keigo", kana: "けいご", kanji: "敬語", romaji: "keigo", meaningEn: "polite language (keigo)", emoji: "🙇", fromModule: "m49", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ", pos: "noun" },
+  { id: "shitashii", kana: "したしい", kanji: "親しい", romaji: "shitashii", meaningEn: "close, familiar", emoji: "💞", fromModule: "future", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "teinei", kana: "ていねい", kanji: "丁寧", romaji: "teinei", meaningEn: "polite, careful", emoji: "🎀", fromModule: "m49", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "shitsurei", kana: "しつれい", kanji: "失礼", romaji: "shitsurei", meaningEn: "rude, impolite", emoji: "🙅", fromModule: "m49", kind: "vocab", note: "adjective — taught via build, not image MCQ (guide §13.1)", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "tameguchi", kana: "ためぐち", kanji: "ため口", romaji: "tameguchi", meaningEn: "casual speech", emoji: "🗣️", fromModule: "m49", kind: "vocab", note: "compound register noun — taught via listeningComp + speaking, not image MCQ", pos: "noun" },
+  { id: "nande", kana: "なんで", kanji: "何で", romaji: "nande", meaningEn: "why (casual)", fromModule: "future", kind: "vocab", blocked: true, note: "casual interrogative", pos: "adverb" },
+  { id: "doushitano", kana: "どうしたの", romaji: "doushitano", meaningEn: "what's up?", fromModule: "future", kind: "vocab", blocked: true, note: "casual function phrase", pos: "expression" },
+  { id: "kininaru", kana: "きになる", kanji: "気になる", romaji: "kininaru", meaningEn: "on my mind, curious/concerned about", fromModule: "future", kind: "vocab", blocked: true, note: "fixed idiom replacing spine's bare き — see block comment above", pos: "expression" },
+  { id: "betsuni", kana: "べつに", kanji: "別に", romaji: "betsuni", meaningEn: "not particularly", fromModule: "thr-n4", kind: "vocab", blocked: true, note: "casual filler adverb — thr-n4 glue-adverb drip", pos: "adverb" },
+  { id: "senpai", kana: "せんぱい", kanji: "先輩", romaji: "senpai", meaningEn: "senior (at school/work)", emoji: "🎓", fromModule: "m49", kind: "vocab", pos: "noun" },
+  { id: "joushi", kana: "じょうし", kanji: "上司", romaji: "joushi", meaningEn: "boss, superior", emoji: "💼", fromModule: "m49", kind: "vocab", pos: "noun" },
+  { id: "douryou", kana: "どうりょう", kanji: "同僚", romaji: "douryou", meaningEn: "colleague", emoji: "🧑‍💼", fromModule: "m49", kind: "vocab", pos: "noun" },
+  { id: "yappari", kana: "やっぱり", romaji: "yappari", meaningEn: "as expected, after all", fromModule: "thr-n4", kind: "vocab", blocked: true, note: "modal adverb — thr-n4 glue-adverb drip", pos: "adverb" },
+  { id: "kouhai", kana: "こうはい", kanji: "後輩", romaji: "kouhai", meaningEn: "junior (at school/work)", emoji: "🧑‍🎓", fromModule: "m49", kind: "vocab", pos: "noun" },
+  { id: "shiriai", kana: "しりあい", kanji: "知り合い", romaji: "shiriai", meaningEn: "acquaintance", emoji: "🤵", fromModule: "m49", kind: "vocab", pos: "noun" },
+  { id: "osananajimi", kana: "おさななじみ", kanji: "幼馴染", romaji: "osananajimi", meaningEn: "childhood friend", emoji: "🧒", fromModule: "future", kind: "vocab", pos: "noun" },
+  { id: "nakama", kana: "なかま", kanji: "仲間", romaji: "nakama", meaningEn: "comrade, mate", emoji: "👥", fromModule: "future", kind: "vocab", pos: "noun" },
   // ── m7-neo (spine tile s07) — the polite layer: ます / ません / です ──
   { id: "shimasu", kana: "します", romaji: "shimasu", meaningEn: "do, make (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab", pos: "verb" },
   { id: "kimasu", kana: "きます", romaji: "kimasu", meaningEn: "come (polite)", fromModule: "m7", introducedByLessonId: "ja-m7-neo-2", kind: "vocab", pos: "verb" },

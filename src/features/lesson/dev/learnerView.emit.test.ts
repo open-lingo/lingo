@@ -256,11 +256,10 @@ describe("learner view emitter", () => {
     let n = 0;
     for (const mod of course.modules) {
       if (!mod.lessons?.length) continue;
-      // N5 only. The one n4-tier module in the map is the July pilot m30
-      // ("Casual register"), which the N4 spine reassigns to n4-01 and the run
-      // plan retires — simulating a learner through it would measure content
-      // that is on its way out, and its premise ("m29 taught the plain forms")
-      // describes a module the rewrite deleted.
+      // N5 only. The n4 tier currently holds just the m30 comingSoon
+      // placeholder (the July pilot was retired 2026-08-09, spec A1; the
+      // replacement n4-01 is not yet authored) — nothing to simulate. When
+      // n4 modules ship, decide deliberately whether the walk covers them.
       if ((mod as { tier?: string }).tier === "n4") continue;
       n++;
       const out: string[] = [

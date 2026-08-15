@@ -2256,12 +2256,22 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // KEPT through the 2026-08-09 m30-pilot retirement (spec A1 explicitly
+    // keeps this passage and its id). Its register vocabulary (せんぱい/
+    // どうりょう/けいご/ていねい …) was re-homed to the unauthored keigo
+    // modules by A2, so the module gate moves 30 → 50 with it: the story is
+    // a recitation of exactly that vocabulary and is unreadable before
+    // something teaches it. It re-surfaces in the library when m50 ships.
     id: "ja-m30-people-at-work",
     languageId: "ja",
-    module: 30,
+    module: 50,
     level: 2,
     title: "People at work",
     theme: "Seniors, coworkers, and juniors.",
+    glosses: [
+      { surface: "したしい", meaning: "close, familiar", atomId: "ja:shitashii" },
+      { surface: "やっぱり", meaning: "after all, as expected", atomId: "ja:yappari" },
+    ],
     questions: [
       {
         id: "gist",
@@ -2282,27 +2292,39 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
-    // m30 L5 — the top of the Japanese ladder. ja-m30-people-at-work recites the
+    // L5 — the top of the Japanese ladder. ja-m30-people-at-work recites the
     // relationship vocabulary; this story makes the learner USE it, because the
     // whole plot is one question about which register two people owe each other.
     // Line 6 plants the shared classroom and line 10 explains why it stays
     // unsaid; line 22 spends it, and lines 29-30 are the answer Japanese
     // actually gives — けいご inside the company, ためぐち outside it.
     //
-    // Gloss note: m30 is the last real module, so the only above-level surfaces
-    // left are unattributed atoms. いう and こたえる are the right two to spend
-    // them on — a story about how people speak needs more verbs of speaking than
-    // はなす, and both are ordinary N5 words the course simply never reaches.
+    // Module gate 30 → 50 on 2026-08-09: the m30 pilot that taught this
+    // vocabulary was retired (spec A1) and the register atoms re-homed to the
+    // unauthored keigo modules (A2), so the story unlocks when m50 teaches
+    // them. Id kept — ids are stable forever.
+    //
+    // Gloss note: いう is the verb of speaking worth the budget — a story about
+    // how people speak needs more than はなす, and いう is an ordinary N5 word
+    // the course simply never reaches. こたえる USED to be glossed here for the
+    // same reason and no longer is: m30 (n4-01, authored 2026-08-14) teaches it,
+    // so a gloss would pad the budget without teaching anything.
     id: "ja-m30-the-senior-i-grew-up-with",
     languageId: "ja",
-    module: 30,
+    module: 50,
     level: 5,
     title: "The senior I grew up with",
     theme: "Four months of careful keigo, and one cherry tree in front of a school.",
     tags: ["work", "keigo", "friends"],
     glosses: [
       { surface: "いう", meaning: "to say", atomId: "ja:iu" },
-      { surface: "こたえる", meaning: "to answer", atomId: "ja:kotaeru" },
+      // The A2 re-home (2026-08-09) parked these on thr-n4 / "future", which
+      // the gate reads as never-taught — declared here so the graded-reader
+      // mechanic teaches them in place (L5 budget is 8).
+      { surface: "おさななじみ", meaning: "childhood friend", atomId: "ja:osananajimi" },
+      { surface: "もちろん", meaning: "of course", atomId: "ja:mochiron" },
+      { surface: "べつに", meaning: "not particularly", atomId: "ja:betsuni" },
+      { surface: "やっぱり", meaning: "after all, as expected", atomId: "ja:yappari" },
     ],
     questions: [
       {
