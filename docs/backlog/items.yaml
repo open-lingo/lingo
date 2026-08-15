@@ -1905,6 +1905,12 @@
     the 96 never-taught words exist only in off-map deep-linkable retired
     katakana rows still registered in LESSONS: コンビニ (ja-m12-kata), カップ
     (ja-m6-kata), ナイフ/ノート (ja-m7/m8-kata).
+    SIZED 2026-08-09: the fromModule re-stamp analysis re-ran this gate against
+    TRUE teaching tags and 40 authored `ja-gpool-*` steps fail it — the count
+    the stale tags were hiding. It is entangled with stale grammar-point
+    `module` values (kono-sono-ano says m8; the IR teaches it in m17), so the
+    point-module fix and this one land together. See
+    docs/fromModule-restamp-report-2026-08-09.md § 3.4 and B104.
   fix: >
     Short term: the B067 weekday pack (m11) fixes the worst instance by teaching
     the words the pool already shows. Structural: re-base the
@@ -2651,3 +2657,116 @@
     deterministic per-step-type routes are the prerequisite and most of the
     work.
   blocked_by: [B093]
+
+# ═══════════════════════════════════════════════════════════════════════════
+# UNFILED WORK FOUND IN PROSE — a 2026-08-14 sweep of the walk-wave handoff,
+# the re-stamp report and the N4 spec against this file. Each was a known,
+# written-down defect that existed nowhere queryable.
+# ═══════════════════════════════════════════════════════════════════════════
+
+- id: B102
+  title: match_pairs pads its meaning grid from stale registry fromModule — the same defect B088 fixed, in the surface B088 did not touch
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [step/match_pairs, class/stale-from-module, system/gating]
+  found: 2026-08-14
+  source: backlog-audit
+  detail: >
+    B088 fixed the build-tile floor's pad pass and shipped a truthful accessor
+    for exactly this question (getJaTaughtKanaBeforeModule). The match-pairs
+    floor was left on the old source. It is the worse of the two surfaces: a
+    padded build tile is a reject-only distractor the learner can ignore, but a
+    padded match pair is a card on the board — clearing the grid REQUIRES
+    touching the untaught word and committing its meaning. The romaji grid is
+    clean (it pads from lesson order, not the registry); only the meaning grid
+    is affected.
+  evidence: >
+    buildMeaningFill in matchPairsFloor.ts draws its pool from
+    getAtomsUpToModule(moduleId) — the stale-registry call whose failure mode
+    moduleCompiler.ts:683-687 documents — and emits real pairs
+    ({source: atom.kana, target: atom.meaningEn}), not distractors. Named as an
+    untouched reuse candidate in the 2026-08-09 walk-wave handoff; call site
+    re-verified 2026-08-14. The leak SET is not measured — B088's twin leaked 8
+    words across two modules, so expect the same order, but nobody has run the
+    diff for match grids.
+  fix: >
+    Route the pool through getJaTaughtKanaBeforeModule the way pickFillTiles
+    now does, and port B088's regression shape: pin the leaked words out, plus
+    a positive control that legitimate prior-module fill still pads the grid.
+    Measure the leak set first so the regression test pins real words.
+  see_also: B088
+
+- id: B103
+  title: the adaptive placement test cannot credit m28 or m29 — JA's tier list stops at m27
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: engine
+  tags: [system/placement, class/coverage-hole]
+  found: 2026-08-14
+  source: backlog-audit
+  detail: >
+    JA_SKILL_TIERS ends at tier 7 = m24-m27. Stage 1 screening serves one item
+    per tier, so the highest floor the test can estimate is m27, and the
+    module list placement draws from is the flatMap of those tiers — m28 and
+    m29 are in no tier and the question bank has zero items for either. A
+    learner who genuinely knows the whole N5 course is placed two modules short
+    of where they are and has to grind or test out of m28 and m29 by hand. KO
+    already carries a tier 8; JA is the one missing it.
+  evidence: >
+    placement/tiers.ts JA_SKILL_TIERS — last row is tier 7, modules
+    [m24,m25,m26,m27]; KO_SKILL_TIERS has tier 8. Zero m28/m29 matches in
+    placement/questionBank.ts. Verified 2026-08-14. Per-module test-out is NOT
+    affected — it derives its steps from module content, and
+    deriveModuleTestOut.test.ts (12 tests) passes on every shipped module.
+    This was written down as task A4 of the N4 spec
+    (superpowers/specs/2026-08-06-n4-open-and-transform-teaching-design.md
+    §A4), deferred with A3, and never filed here — but the defect does not
+    depend on A3: m28 and m29 are authored and live NOW.
+  fix: >
+    Add tier 8 = [m28, m29] with its screening module, and author the question
+    bank rows to cover it. The spec calls it "question bank + register tiers,
+    no engine changes".
+
+- id: B104
+  title: the fromModule re-stamp is measured, staged and unapplied — 351 corrections and 40 rulings sitting in a report
+  status: decision-needed
+  severity: major
+  effort: XS
+  confidence: verified
+  area: data
+  tags: [class/stale-from-module, system/gating, system/content]
+  found: 2026-08-14
+  source: backlog-audit
+  detail: >
+    Stale atom fromModule tags are the root cause under B070, B088 and B102 —
+    the tag says a word was taught earlier than any live lesson teaches it, so
+    every gate built on it passes wrongly. That root cause has now been
+    measured end to end and a dry-run-default applier exists, but nothing has
+    moved: the analysis landed 2026-08-09 and `--apply` has never been run.
+    The blocking input is 40 rows a machine cannot rule on. This record exists
+    because the whole thing lived only in an untracked report and two review-
+    queue cards; if that tree is ever discarded the measurement is gone.
+    ASKED as R1 (approve the correction) and R2 (the 40 rulings) in the in-app
+    review queue (`/ja/qa/review`).
+  evidence: >
+    docs/fromModule-restamp-report-2026-08-09.md over 932 atoms — 491 already
+    correct, 51 kana-row, 351 re-stamps (152 to "future", 21 sentinel to mN, 39
+    earlier, 139 later), 40 ambiguous. Tooling:
+    scripts/restamp-from-module.mjs, dry-run by default, all-or-nothing on
+    --apply, refuses to emit a diff if any of 6 positive controls fails; the
+    391-row diff carries per-row evidence. One negative control failed
+    honestly — the 07-29 "untaught" claim for ぎゅうにゅう is stale, it debuts
+    live in m5. All of it is UNCOMMITTED.
+  fix: >
+    Spencer rules the 40 rows, then the report's § 6 sequence: rulings ->
+    point-module + authored-content fixes (the 40 ja-gpool-* steps under B070)
+    -> one commit carrying apply + ratchet pins + gate exemptions -> full suite
+    -> re-run the exposure and stale dumps, the authoring audit, learner-sim
+    walks m5/m8/m11/m16/m17 and placement QA. Supersedes the per-pack
+    burn-down plan if approved.
+  see_also: B070
