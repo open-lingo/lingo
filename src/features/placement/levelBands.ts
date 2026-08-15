@@ -39,9 +39,15 @@ export type PlacementLevelBand = {
 };
 
 // Japanese — tiers 0=m3-4, 1=m5-6, 2=m7-9, 3=m10-11, 4=m12-14, 5=m15-18,
-// 6=m19-23, 7=m24-27 (see tiers.ts). Bands group those into learner-facing
-// self-declarations. M1/M2 are hiragana/katakana script (auto-completed on any
-// grammar pass), so bands start at M3.
+// 6=m19-23, 7=m24-27, 8=m28-29 (see tiers.ts). Bands group those into
+// learner-facing self-declarations. M1/M2 are hiragana/katakana script
+// (auto-completed on any grammar pass), so bands start at M3.
+//
+// ⚠️ A BAND'S LAST ENTRY IS THE CREDIT CAP, so this list gates the tier list —
+// adding tier 8 to tiers.ts without extending the n5 band below would have left
+// m28/m29 unreachable at any score, and the tier would have looked installed
+// while crediting nothing (2026-08-14, B103). Whenever a tier is appended,
+// extend the top band in the same commit.
 const JA_LEVEL_BANDS: readonly PlacementLevelBand[] = [
   {
     id: "beginner",
@@ -79,6 +85,13 @@ const JA_LEVEL_BANDS: readonly PlacementLevelBand[] = [
       "m25",
       "m26",
       "m27",
+      // m28 (なきゃ / ほうがいい) and m29 (the N5 capstone) added 2026-08-14
+      // with tier 8. This band is the top one, so its last entry is the
+      // highest module the whole placement flow can credit — it has to reach
+      // the end of the authored N5 line or a learner who finished N5 places
+      // two modules short of where they are.
+      "m28",
+      "m29",
     ],
   },
 ];

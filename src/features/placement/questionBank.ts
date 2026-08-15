@@ -824,24 +824,88 @@ export const PLACEMENT_QUESTION_BANK: readonly PlacementItemConfig[] = [
     distractorsKana: ["このかばんは たかいすぎます", "このかばんは たかすぎです", "このかばんは たかくすぎます"],
   },
 
-  // ── M27: なければならない, ほうがいい, になる ────────────────────────
+  // ── M27: んだ explanatory, 〜すぎる, 〜く/〜に なる ─────────────────────
+  // REWRITTEN 2026-08-14. Two of the three items here probed なければならない
+  // and 〜た ほうが いい, which m27 does not teach — they are m28's, and they now
+  // live in the M28 block below. The bank predates the spine renumbering, the
+  // same stale-numbering class as the tier-7 label and COMPLEXITY_FLOORS. Live
+  // m27 = spine s23 "Explaining: んだ/んです, すぎる, なる"; every surface below
+  // is lifted from m27's own authored sentences.
   {
     id: "pt-m27-1", moduleId: "m27", type: "sentenceMcq",
-    prompt: "'I must study.' — which is correct?",
-    correctKana: "べんきょうしなければなりません",
-    distractorsKana: ["べんきょうしてはいけません", "べんきょうしなくてもいいです", "べんきょうしなければいけます"],
+    grammarPointId: "n-desu", skill: "んだ — offering a fact as an explanation",
+    prompt: "'(The thing is,) I haven't got any money.' — which is correct?",
+    correctKana: "おかねが ないんだ",
+    distractorsKana: ["おかねが ないだ", "おかねが なくんだ", "おかねが ないなんだ"],
   },
   {
     id: "pt-m27-2", moduleId: "m27", type: "sentenceMcq",
-    prompt: "'You should sleep early.' (advice) — which is correct?",
-    correctKana: "はやく ねたほうがいいです",
-    distractorsKana: ["はやく ねるほうがいいです", "はやく ねてほうがいいです", "はやく ねましょうがいいです"],
+    grammarPointId: "sugiru", skill: "〜すぎる — doing something to excess",
+    prompt: "'My older brother works too much.' — which is correct?",
+    correctKana: "あには はたらきすぎる",
+    distractorsKana: ["あには はたらくすぎる", "あには はたらいすぎる", "あには はたらきすぎるだ"],
   },
   {
     id: "pt-m27-3", moduleId: "m27", type: "sentenceMcq",
-    prompt: "'It became warm.' — which is correct?",
-    correctKana: "あたたかくなりました",
-    distractorsKana: ["あたたかいになりました", "あたたかになりました", "あたたかくなります"],
+    grammarPointId: "ku-ni-naru", skill: "〜く なる — becoming",
+    prompt: "'My little sister has got big.' — which is correct?",
+    correctKana: "いもうとが おおきく なった",
+    distractorsKana: ["いもうとが おおきいに なった", "いもうとが おおきに なった", "いもうとが おおきくに なった"],
+  },
+
+  // ── M28: 〜なきゃ/〜なければ ならない, 〜た ほうが いい, kanji set 3 ─────
+  // Added 2026-08-14 alongside skill tier 8 (backlog B103). m28 is fully
+  // authored and had ZERO placement items, so the adaptive test could not
+  // credit it at any score. Items 1 and 2 are the two that were misfiled in the
+  // M27 block above, re-pointed to the module that actually teaches them.
+  {
+    id: "pt-m28-1", moduleId: "m28", type: "sentenceMcq",
+    grammarPointId: "nakereba-naranai", skill: "〜なければ ならない — obligation",
+    prompt: "'I have to go tomorrow.' — which is correct?",
+    correctKana: "あした いかなければ ならない",
+    distractorsKana: ["あした いかなければ なる", "あした いくなければ ならない", "あした いかなくれば ならない"],
+  },
+  {
+    id: "pt-m28-2", moduleId: "m28", type: "sentenceMcq",
+    grammarPointId: "hou-ga-ii", skill: "〜た ほうが いい — advice",
+    prompt: "'You'd better check tomorrow's weather.' — which is correct?",
+    correctKana: "あしたの てんきを みた ほうが いい",
+    distractorsKana: ["あしたの てんきを みる ほうが いい", "あしたの てんきを みて ほうが いい", "あしたの てんきを みない ほうが いい"],
+  },
+  {
+    id: "pt-m28-3", moduleId: "m28", type: "sentenceMcq",
+    grammarPointId: "kanji-set-3", skill: "compound kanji take their Chinese readings",
+    prompt: "How is 電話 read?",
+    correctKana: "でんわ",
+    distractorsKana: ["てんわ", "でんはなし", "でんき"],
+  },
+
+  // ── M29: 〜じゃない, よ, ね (the N5 capstone — register mastery) ────────
+  // Added 2026-08-14 alongside skill tier 8 (backlog B103). よ vs ね is a
+  // WRONG-CHOICE contrast, not a grammar-error one: the foils in items 2 and 3
+  // are well-formed Japanese that is wrong for the situation the prompt sets
+  // up, which is exactly what m29 drills. The bank's own convention allows
+  // this ("grammatical-error or wrong-choice foils, never random gibberish").
+  {
+    id: "pt-m29-1", moduleId: "m29", type: "sentenceMcq",
+    grammarPointId: "janai-desu", skill: "〜じゃない — plain negative of a noun",
+    prompt: "Correcting a friend, casually: 'He's not a doctor.' —",
+    correctKana: "いしゃじゃないよ",
+    distractorsKana: ["いしゃくないよ", "いしゃじゃなくよ", "いしゃないよ"],
+  },
+  {
+    id: "pt-m29-2", moduleId: "m29", type: "sentenceMcq",
+    grammarPointId: "ne-agreement", skill: "ね — inviting agreement about something you both notice",
+    prompt: "You and a friend are both out in it. 'The wind's strong, isn't it?' —",
+    correctKana: "かぜが つよいね",
+    distractorsKana: ["かぜが つよいよ", "かぜが つよいか", "かぜが つよいねだ"],
+  },
+  {
+    id: "pt-m29-3", moduleId: "m29", type: "sentenceMcq",
+    grammarPointId: "yo-emphasis", skill: "よ — telling someone something they do not know yet",
+    prompt: "Your friend hasn't spotted it. 'There's a hat on the chair.' —",
+    correctKana: "いすの うえに ぼうしが ありますよ",
+    distractorsKana: ["いすの うえに ぼうしが ありますね", "いすの うえに ぼうしが ありますか", "いすの うえに ぼうしが あるですよ"],
   },
 
   // ═════════════════════════════════════════════════════════════════════

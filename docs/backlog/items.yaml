@@ -2701,7 +2701,7 @@
 
 - id: B103
   title: the adaptive placement test cannot credit m28 or m29 — JA's tier list stops at m27
-  status: open
+  status: fixed
   severity: major
   effort: S
   confidence: verified
@@ -2728,9 +2728,33 @@
     §A4), deferred with A3, and never filed here — but the defect does not
     depend on A3: m28 and m29 are authored and live NOW.
   fix: >
-    Add tier 8 = [m28, m29] with its screening module, and author the question
-    bank rows to cover it. The spec calls it "question bank + register tiers,
-    no engine changes".
+    FIXED 2026-08-14. Tier 8 = [m28, m29], screening m28, plus six authored
+    question-bank items (three per module, each tagged grammarPointId + skill,
+    every surface lifted from the module's own IR sentences). Full suite green
+    at 9227 passing / 0 failing; tsc clean.
+
+    THE SPEC'S "~5 lines, no engine changes" WAS WRONG TWICE, and either miss
+    alone would have shipped a tier that credited nothing.
+
+    (a) A LEVEL BAND'S LAST ENTRY IS THE CREDIT CAP, so levelBands.ts gates
+    tiers.ts. JA_LEVEL_BANDS' top band ("I'm around JLPT N5 or higher") ended
+    at m27, so tier 8 would have been unreachable at any score — installed and
+    inert. That is exactly the standing hazard "a check that matches nothing
+    looks exactly like a check that passes", one layer up from where it was
+    expected. The band now ends at m29 and levelBands.ts carries a standing
+    note to extend the top band in the same commit as any new tier.
+
+    (b) TWO OF M27'S THREE BANK ITEMS WERE PROBING M28 — they tested
+    なければならない and 〜た ほうが いい, which are m28's points in the live IR
+    (m27 is n-desu / sugiru / ku-ni-naru). They were re-pointed to m28 and two
+    genuine m27 items authored to replace them. The tier-7 LABEL was wrong for
+    the same reason: it read "ことがある, なければならない", which are m23's and
+    m28's. Root cause is the stale pre-spine numbering — the same class that
+    made every COMPLEXITY_FLOORS value for an un-authored module meaningless.
+    Worth assuming the rest of the placement data carries it too.
+
+    The exact-count ratchet in questionBank.test.ts (93 → 99) is deliberate:
+    silent drift there means items were duplicated or a module lost coverage.
 
 - id: B104
   title: the fromModule re-stamp is measured, staged and unapplied — 351 corrections and 40 rulings sitting in a report

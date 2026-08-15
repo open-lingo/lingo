@@ -29,7 +29,17 @@ const JA_SKILL_TIERS: readonly SkillTier[] = [
   { tier: 4, modules: ["m12", "m13", "m14"],                 screeningModuleId: "m12", label: "Time, て-form" },
   { tier: 5, modules: ["m15", "m16", "m17", "m18"],          screeningModuleId: "m15", label: "たい, permissions, modals" },
   { tier: 6, modules: ["m19", "m20", "m21", "m22", "m23"],   screeningModuleId: "m22", label: "Family, comparisons" },
-  { tier: 7, modules: ["m24", "m25", "m26", "m27"],          screeningModuleId: "m25", label: "ことがある, なければならない" },
+  // Tier 7's label used to read "ことがある, なければならない". Both were wrong:
+  // ことがある is m23 (tier 6) and なければならない is m28, which no tier covered
+  // at all. Same stale-numbering root cause as the m27 bank items re-pointed to
+  // m28 in questionBank.ts — the placement data predates the spine renumbering.
+  { tier: 7, modules: ["m24", "m25", "m26", "m27"],          screeningModuleId: "m25", label: "potential・ましょう, でしょう, いちばん, んだ" },
+  // Tier 8 added 2026-08-14 (spec 2026-08-06 A4 / backlog B103). Before this the
+  // list stopped at m27, so the adaptive test could not credit m28 or m29 even
+  // though both are fully authored — a learner who had finished N5 placed two
+  // modules short of where they actually were. Per-module test-out was never
+  // affected; it derives its items from the module's own lessons.
+  { tier: 8, modules: ["m28", "m29"],                        screeningModuleId: "m28", label: "なきゃ/なければならない, ほうがいい, よ・ね" },
 ];
 
 const KO_SKILL_TIERS: readonly SkillTier[] = [

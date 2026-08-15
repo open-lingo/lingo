@@ -11,11 +11,16 @@ describe("questionBank", () => {
     // The bank is language-aware. m3-m17 (the shipped course) are
     // coverage-scaled — one item per grammar point, each tagged with
     // grammarPointId + skill so a test-out actually covers the module and the
-    // gap report can name what was missed. m18-m27 remain 3-item stubs.
+    // gap report can name what was missed. m18-m29 remain 3-item stubs, though
+    // m27/m28/m29 now carry grammarPointId + skill too (2026-08-14, B103).
     const jaItems = PLACEMENT_QUESTION_BANK.filter(
       (i) => (i.languageId ?? "ja") === "ja",
     );
-    expect(jaItems.length).toBe(93);
+    // 93 → 99: tier 8 opened m28/m29 to placement, which needed 3 items each,
+    // and m27 lost none (two of its items moved to m28, two were authored to
+    // replace them). Raise this deliberately; a silent drift means items were
+    // duplicated or a module lost coverage.
+    expect(jaItems.length).toBe(99);
     const shipped = jaItems.filter((i) => {
       const n = Number(i.moduleId.replace("m", ""));
       return n >= 3 && n <= 17;

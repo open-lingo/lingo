@@ -392,6 +392,40 @@ invisible until something fails, which is exactly why they are pinned.
     deliberately temporary — the scaffolds fade as the words are learned, and
     a word past the ladder is ordinary vocabulary in ordinary beats.
 
+## Formation points (2026-08-06 spec, pinned 2026-08-14 — the N4 tier rule)
+
+48. **A register cue must be GRADED.** Pinned here so the number is not
+    re-used: this invariant has been cited as "inv 48" by
+    `registerCueGrading.test.ts` and [register-teaching.md](register-teaching.md)
+    since 2026-07-27 without ever landing in this file. If the prompt names
+    the register, the grader must reject the other one.
+49. **A formation point ships with a rule table AND a transform card, or it
+    does not ship.** A formation point is a new paradigm the learner must
+    *form*, not merely recognise — て, た, ない, ます, potential, passive
+    られる, causative させる, volitional よう/おう, ば, 命令形/禁止形.
+    - The table lives in `TRANSFORM_RULESETS`
+      (`ja/conjugation/transformRulesets.ts`), keyed by `form`. Both the
+      table and the 💡 peek in `ConjugationTransformStepView` are
+      `{ruleset && …}`-gated, so **a form with no ruleset degrades SILENTLY**
+      to a bare "produce this form" prompt: no teaching, no guidance, no
+      peek. Nothing errors. That silence is the defect this invariant exists
+      to stop — measured 2026-08-06, only **7 of 59** live transform steps
+      rendered a table.
+    - **Ship the leak-mask alternates in the same commit.** A pinned table
+      that prints the card's own answer is a read-the-screen freebie, worst
+      on irregulars. `RULESET_ALTERNATES` is keyed `form → base → row`; a
+      ruleset whose canonical example can be drilled and has no alternate is
+      incomplete, not merely untidy.
+    - Derive every cell from `conjugationTables.ts` (`VERB_ENTRIES`,
+      `ADJ_ENTRIES`) — the course's own tables. Never hand-write a paradigm.
+    - Ratcheted by `transformRulesets.test.ts`. Eight N5-era forms are
+      grandfathered on its allowlist; **nothing new joins that list.**
+    - Why it is pinned at the tier boundary: N4 is formation-dense — passive
+      (m40), causative (m45), volitional (m34), ば/たら (m32/m37), 命令形/禁止形
+      (m47), てある (m41), てしまう (m38), causative-passive (m50). Establishing
+      this before m30 is authored costs a paragraph; retrofitting it across
+      21 modules costs a sweep.
+
 ## Standing rule — re-read this file per lesson (Spencer 2026-07-26)
 
 47. **Re-check the guide EVERY time you author, at LESSON granularity — not
