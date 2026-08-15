@@ -6,6 +6,8 @@
  * module inherits the same behaviour.
  */
 
+import { BOOT_MISS, serveFromBoot } from "./bootCache";
+
 export interface ApiClientOptions {
   baseUrl: string;
   getAccessToken: () => Promise<string>;
@@ -148,6 +150,19 @@ export class ApiClient {
     opts?: RequestOptions & { tag?: string },
   ): Promise<T> {
     const url = this._buildUrl(path, opts?.params);
+
+    // Boot batching: the first wave of boot-time requests is answered from
+    // one GET /boot instead of fanning out (see bootCache.ts — single-use
+    // per path, one batch per acting user, misses fall through to fetch).
+    if (!this._skipAuth) {
+      const served = await serveFromBoot(
+        method,
+        url,
+        this._getImpersonationTargetId?.() ?? null,
+      );
+      if (served !== BOOT_MISS) return served as T;
+    }
+
     let token = this._skipAuth ? "" : await this._getToken();
 
     const controller = new AbortController();

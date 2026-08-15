@@ -2,6 +2,7 @@ import "@testing-library/jest-dom/vitest";
 import { afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
 import { preloadTtsManifests } from "@/shared/tts/manifest";
+import { resetBootCache } from "@/shared/api/bootCache";
 
 // The TTS manifests are lazy chunks in the app (see shared/tts/manifest.ts).
 // Tests call `resolveTtsPath`/`getTtsUrl` synchronously and assert on audio
@@ -16,4 +17,7 @@ await preloadTtsManifests();
 // before — Switch/Pagination/Modal/Sheet/Dialog/Accordion/SegmentedControl).
 afterEach(() => {
   cleanup();
+  // Boot batching keeps module-level one-shot state (one /boot per acting
+  // user per page load) — reset it so each test gets a fresh page-load.
+  resetBootCache();
 });

@@ -15,6 +15,15 @@ import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
 import { getImpersonationTargetId } from "@/shared/auth/impersonation";
 import { AUTH_BYPASS, BYPASS_TOKEN } from "@/shared/auth/bypass";
+import { ApiClient } from "./client";
+import { registerBootFetcher, type BootData } from "./bootCache";
+
+/** One endpoint only — the batched boot read the bootCache serves from. */
+class BootApi extends ApiClient {
+  getBoot(): Promise<BootData> {
+    return this.get<BootData>("/api/core/v1/boot");
+  }
+}
 
 interface ApiContext {
   users: UsersApi;
@@ -77,6 +86,14 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       getAccessToken,
       getImpersonationTargetId,
     };
+
+    // Boot batching: the first boot-wave request through any client below
+    // triggers ONE GET /boot and the rest of the wave is answered from its
+    // payload (bootCache.ts). Registered here — lazily kicked from
+    // ApiClient — because child effects run before parent effects, so a
+    // provider-side prefetch would lose the race against the hooks.
+    const bootApi = new BootApi(opts);
+    registerBootFetcher(() => bootApi.getBoot());
 
     return {
       users: new UsersApi(opts),
