@@ -870,6 +870,19 @@ export default function QaTestDrivePage() {
             );
           })}
         </nav>
+        {/* Review queue — plain-language decisions/findings waiting on
+            Spencer, answerable in place (same notes-mirror pattern). */}
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="font-semibold uppercase tracking-wide text-text-muted">
+            Feedback
+          </span>
+          <Link
+            to={`/${langId}/qa/review`}
+            className="rounded border border-warning px-2 py-0.5 font-semibold text-warning hover:bg-surface-muted"
+          >
+            review queue — decisions waiting on you
+          </Link>
+        </div>
         {/* Design galleries — NOT part of the marked walk above, so they have no
             row and no status. They live here because the only other way in was
             typing the URL, and a gallery nobody can find is a gallery nobody

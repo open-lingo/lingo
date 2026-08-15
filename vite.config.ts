@@ -200,6 +200,52 @@ function spinePlanMiddleware(): Plugin {
   };
 }
 
+/**
+ * Same mirror pattern for the review-queue page (/:lang/qa/review) —
+ * Spencer's verdicts/answers land in /tmp/lingo-review-queue.json so an
+ * agent can pick up decisions live instead of waiting on an export.
+ */
+function reviewQueueMiddleware(): Plugin {
+  const queueFile = "/tmp/lingo-review-queue.json";
+  return {
+    name: "review-queue-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__lingo-review-queue", (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        let size = 0;
+        req.on("data", (c: Buffer) => {
+          size += c.length;
+          if (size > 1_000_000) {
+            res.statusCode = 413;
+            res.end();
+            req.destroy();
+            return;
+          }
+          chunks.push(c);
+        });
+        req.on("end", () => {
+          try {
+            const body = Buffer.concat(chunks).toString("utf8");
+            JSON.parse(body); // validate before writing
+            fs.writeFileSync(`${queueFile}.tmp`, body);
+            fs.renameSync(`${queueFile}.tmp`, queueFile);
+            res.statusCode = 204;
+          } catch {
+            res.statusCode = 400;
+          }
+          res.end();
+        });
+      });
+    },
+  };
+}
+
 function qaNotesMiddleware(): Plugin {
   const notesFile = "/tmp/lingo-qa-notes.json";
   return {
@@ -403,6 +449,7 @@ export default defineConfig(({ mode }) => {
     copyKuromojiDict(),
     devLogMiddleware(),
     qaNotesMiddleware(),
+    reviewQueueMiddleware(),
     spinePlanMiddleware(),
     cspMetaPlugin(env),
   ],

@@ -97,6 +97,9 @@ const ReviewPrefixQaPage = lazyRetry(
 const QaTestDrivePage = lazyRetry(
   () => import("@/features/lesson/dev/QaTestDrivePage"),
 );
+const ReviewQueuePage = lazyRetry(
+  () => import("@/features/lesson/dev/ReviewQueuePage"),
+);
 const SpinePlannerPage = lazyRetry(
   () => import("@/features/lesson/dev/SpinePlannerPage"),
 );
@@ -545,6 +548,7 @@ const router = createBrowserRouter([
               { path: "qa/kanji-reveal", element: <KanjiRevealAnimPage /> },
               { path: "qa/dialogue-sim", element: <DialogueSimPage /> },
               { path: "qa/review-prefix", element: <ReviewPrefixQaPage /> },
+              { path: "qa/review", element: <ReviewQueuePage /> },
               { path: "spine-plan", element: <SpinePlannerPage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "transit-preview", element: <TransitLearnPage preview /> },
