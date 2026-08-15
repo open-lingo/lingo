@@ -2453,7 +2453,7 @@
   title: CI runs the mobile gate on two public routes; the authed matrix has never run in CI at all
   status: open
   severity: major
-  effort: S
+  effort: XS
   confidence: verified
   area: tooling
   tags: [system/mobile-gate, system/ci, class/coverage-hole]
@@ -2471,11 +2471,22 @@
     `/ja/practice/reading` sat in the matrix as a not-found page without CI
     noticing (fixed c9949afc), and how the practice-hub grid blowout shipped.
   fix: >
-    Drop the env var now that the authed matrix is green, and give the job the
-    `.auth/user.json` storageState it needs (the seeded dev-bypass server is
-    already what `playwright.config.ts` starts). Watch runtime — the full
-    matrix is ~5x the public subset; if it is too slow for every push, run the
-    authed half nightly rather than not at all.
+    MEASURED 2026-08-14, and THIS RECORD'S OWN FIX WAS WRONG. It said the job
+    needs `.auth/user.json`. It does not. A full `--project=mobile` run in a
+    CLEAN WORKTREE WITH NO `.auth/` DIRECTORY AT ALL — which is exactly CI's
+    state — went green: **893 passed, 339 skipped, exit 0, 1.4 hours**. The
+    authed routes ran (ja-social, ja-community-leaderboard, ko-learn,
+    ko-practice all appear in the executed counter); the SKIPPED ones were
+    get-started and try. `VITE_DEV_AUTH_BYPASS`, not the Auth0 storageState, is
+    what makes authed routes render — `playwright.config.ts` documents that
+    `.auth/user.json` held 0 cookies and no `@@auth0spajs@@` token anyway.
+    So: **CI can run the full matrix with ZERO secrets.** Drop
+    MOBILE_PUBLIC_ONLY, add no storageState, add no secret.
+    Runtime is the only real constraint: 1.4h (on a loaded machine, alongside
+    two large model pulls and a vitest run, so treat it as an upper bound).
+    That is a NIGHTLY job, not an every-push one, under any plausible
+    adjustment. Split it: keep the public subset on every push, run the full
+    matrix nightly.
 
 - id: B095
   title: landscape safe-area insets are modelled as zero, so a notched phone held sideways is untested
@@ -2873,3 +2884,18 @@
     enough to be worth checking first) -> guards -> audit -> re-author. If it
     is not, then B105-class defects should be fixed directly and KO accepted as
     a lighter course. Doing neither is what produced four untaught words.
+
+    MEASURED 2026-08-14 — the compiler is SHALLOWER-COUPLED than "XL" suggests,
+    so price the port before assuming it. `moduleCompiler.ts` is 2,019 lines
+    with only SIX imports from `languages/ja`: the atom index
+    (`JA_COURSE_ATOMS_BY_KANA`, 4 uses) and `conjugateVerb` (2 uses). There are
+    ZERO hiragana/katakana references — script-specific logic lives elsewhere.
+    The 79 hits for "kana" are almost all a FIELD NAME (JA atoms key on `kana`,
+    KO atoms on `surface`), i.e. an interface rename, not linguistics. And the
+    `LanguageModule` registry (ADR-011) already exists with KO populating a real
+    `conjugation` slot since ko-conjugation-phase1 shipped. `compile-ir.mjs`
+    hardcodes four `languages/ja` paths — parameterize by language, trivial.
+    So the plausible port is: inject the atom index + conjugator through the
+    existing capability slot instead of importing JA directly, rename the field,
+    parameterize the script. The SPINE remains the expensive, irreducible part —
+    it is judgement, not plumbing.
