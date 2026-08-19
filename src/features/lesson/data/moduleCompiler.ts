@@ -11,11 +11,9 @@
  * the IR is missing (density-short, distractor-thin, …) so the content author
  * can fix the YAML instead of the compiler guessing.
  */
-import type {
-  SceneSpec,
-  LessonContent,
-  LessonStep,
-} from "@/features/lesson/types";
+import type { LessonContent, LessonStep } from "@/features/lesson/types";
+import type { IrSceneSpec } from "@/features/lesson/data/sceneResolve";
+import { resolveScene } from "@/features/lesson/data/sceneResolve";
 import {
   SELECTION_TYPES,
   TEACH_FIRST_INTRO_TYPES,
@@ -93,8 +91,13 @@ export type IRGrammarPoint = {
    * The prose the scene replaces must actually be DELETED from `rule`. A card
    * that keeps both is longer than the one it replaced, which is the opposite
    * of the point — the fixed-height lesson shell has no slack to spend.
+   *
+   * Authored in the IR form (`IrSceneSpec`): a `register` scene names its cast
+   * by id and a `scale` item names a taught word, and `resolveScene` turns both
+   * into art at compile time. Never author a portrait path or an emoji URL into
+   * YAML — see `sceneResolve.ts`.
    */
-  diagram?: SceneSpec;
+  diagram?: IrSceneSpec;
 };
 export type IRBeat =
   /**
@@ -989,7 +992,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
               : undefined,
             grammarPointId: beat.grammarPointId,
             conjugationForm: gp.conjugation?.form,
-            scene: gp.diagram,
+            scene: resolveScene(gp.diagram),
           }),
         );
         if (gp.conjugation) {

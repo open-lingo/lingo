@@ -246,7 +246,22 @@ grammarPoints:
     antiPattern: { ja: "この はなは きれいねだ。", why: "ね goes AFTER the finished sentence, and だ is what finishes it — so だ comes first and ね last: この はなは きれいだね。" }
 
   - id: register-audience
-    rule: "You now own two complete systems for saying the same thing, and this lesson is about moving between them quickly. To a friend a verb stays in its dictionary form and a noun sentence ends in だ. To a teacher the verb takes ます and the noun sentence ends in です. What is worth noticing is how little else changes. 「なつやすみに がいこくに いく。」 and 「なつやすみに がいこくに いきます。」 have the same topic, the same particles, the same word order and the same meaning; the only difference is the last word. That is the shape of the whole language: politeness is a layer bolted onto the end, not a different way of building the sentence. Three things follow, and they are what this lesson drills. The register is chosen by the AUDIENCE, not by the topic — there is no polite subject matter and no casual one. The enders survive the switch: 「いくよ」 becomes 「いきますよ」 and 「さむいね」 becomes 「さむいですね」, with よ and ね sitting outside the politeness rather than inside it. And the switch happens at SPEED in real conversation, because the person you are talking to can change mid-room. That is the skill: not knowing both forms, which you already do, but reaching for the right one without stopping to think."
+    rule: "You now own two complete systems for saying the same thing, and this lesson is about moving between them quickly. To a friend a verb stays in its dictionary form and a noun sentence ends in だ. To a teacher the verb takes ます and the noun sentence ends in です. What is worth noticing is how little else changes: same topic, same particles, same word order, same meaning — only the last word moves. That is the shape of the whole language, politeness bolted onto the end rather than a different way of building the sentence. Two things follow. The register is chosen by the AUDIENCE, not by the topic — there is no polite subject matter and no casual one. And the switch happens at SPEED, because the person you are talking to can change mid-room. That is the skill: not knowing both forms, which you already do, but reaching for the right one without stopping to think."
+    # Two faces, two systems. Deliberately NOT three: the course's only
+    # level-3 audience is おばあさん and it teaches no level-3 verb form, so a
+    # third slot could only be filled by repeating です・ます and pretending
+    # that was a register. `resolveScene` throws if a named cast member has no
+    # form, so the gap stays loud.
+    #
+    # The enders were the third bullet of the prose; they are now visible in
+    # the utterance itself — よ survives the switch and sits outside ます.
+    diagram:
+      kind: register
+      gloss: "I'm going abroad in the summer holidays"
+      cast: [friend, teacher]
+      forms:
+        1: "なつやすみに がいこくに いくよ。"
+        2: "なつやすみに がいこくに いきますよ。"
     examples:
       - { ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays" }
       - { ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays" }

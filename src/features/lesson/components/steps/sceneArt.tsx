@@ -38,6 +38,10 @@ export function SceneChips<T extends { id: string; label: string }>({
   value: string;
   onChange: (id: string) => void;
 }) {
+  /* A picker with one option is not a picker. Scenes are authored per grammar
+     point, and a point that only owns one frame (m15 まえに before てから has
+     been taught) must not show a control the learner cannot use. */
+  if (items.length < 2) return null;
   return (
     <fieldset className="flex flex-wrap items-center gap-1.5">
       <legend className="sr-only">{legend}</legend>

@@ -302,7 +302,35 @@ grammarPoints:
     antiPattern: { ja: "なつやすみに およぐが いちばん すきだ。", why: "a verb cannot be marked が on its own — の turns it into a thing first: なつやすみに およぐのが いちばん すきだ。" }
 
   - id: yori-comparison
-    rule: "You now have two comparison frames and the only thing to get right is which one you are in. TWO things take last module's frame: the winner marked ほうが, the loser marked より, and nothing else. 「バスより ちかてつの ほうが やすい」 — the underground is cheaper than the bus. THREE OR MORE take this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. 「ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい」. Everything else is shared. Neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows — 「バスより やすい」 is a whole answer to a question about the underground, and 「じてんしゃが いちばん やすい」 is a whole answer once the three have been named. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says. Pick your frame by counting the things on the table: two, or more than two."
+    rule: "You now have two comparison frames and the only thing to get right is which one you are in. Count the things on the table. TWO takes last module's frame: the winner marked ほうが, the loser marked より, and nothing else. THREE OR MORE takes this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. Everything else is shared — neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows, so 「バスより やすい」 is a whole answer to a question about the underground. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says."
+    # One axis, both frames, so "which frame am I in" is a chip rather than a
+    # paragraph. Height is rank and the ¥ stack is the unit: drawing a book
+    # larger than a shoe to mean "more expensive" would be a claim the picture
+    # cannot check, and stacking ¥ over it is exactly the claim being made.
+    diagram:
+      kind: scale
+      dimension: "たかい"
+      rankAs: count
+      rankGlyph: "¥"
+      items:
+        # `emoji` is only a fallback — courseAtoms art wins where it exists.
+        # ちゃ has none, and a coloured block beside a photographic shoe makes
+        # the axis unreadable.
+        - { id: cha, label: "ちゃ", color: "#22c55e", emoji: "🍵" }
+        - { id: kutsu, label: "くつ", color: "#f59e0b" }
+        - { id: hon, label: "ほん", color: "#6366f1" }
+      frames:
+        - id: yori
+          pattern: "ほうが…より"
+          subject: kutsu
+          against: cha
+          ja: "くつの ほうが ちゃより たかい。"
+          note: "TWO things. より names ONE step on the axis, and the sentence is about くつ — ちゃ only supplies the yardstick, which is why it takes より and not は."
+        - id: ichiban
+          pattern: "なかで…いちばん"
+          subject: hon
+          ja: "ほんが いちばん たかい。"
+          note: "THREE OR MORE. いちばん names the TOP of the axis, so it needs no comparison partner — the whole field is the yardstick, and なかで is what names that field."
     examples:
       - { ja: "バスより ちかてつの ほうが やすい。", en: "The underground is cheaper than the bus." }
       - { ja: "ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい。", en: "Of the underground, the bus and the bike, the bike is the cheapest." }

@@ -718,6 +718,18 @@ export type ScaleItem = {
   color: string;
   /** Emoji/art URL. Falls back to a plain block when absent. */
   artUrl?: string | null;
+  /**
+   * IR-authoring only: the emoji to draw when the course's own vocab map has
+   * none for `label`. `resolveScene` turns it into `artUrl`; nothing renders
+   * this field.
+   *
+   * It exists because a scale axis is unreadable when one item has a picture
+   * and its neighbour is a coloured rectangle — ちゃ carries no emoji in
+   * `courseAtoms`, so m26 drew a green block beside a photographic shoe. The
+   * course's own art still WINS when it exists, so the picture on the axis
+   * stays the picture the learner met on the flashcard.
+   */
+  emoji?: string;
 };
 
 export type ScaleFrame = {
@@ -762,8 +774,16 @@ export type RegisterAudienceView = {
 /** Who you are talking to, drawn — the bow IS the politeness meter. */
 export type RegisterSpec = {
   kind: "register";
-  /** What is being said, once per politeness level. Same meaning throughout. */
-  forms: Record<1 | 2 | 3, string>;
+  /**
+   * What is being said, once per politeness level. Same meaning throughout.
+   *
+   * PARTIAL on purpose. A three-way ladder needs a level-3 audience, and the
+   * course has exactly one (おばあさん, m19) — so an m10 scene is honestly a
+   * two-level scene, and inventing a third form to fill the record would be a
+   * card teaching Japanese the course does not have. `resolveScene` throws if
+   * a named cast member's level has no form, so a gap is loud rather than blank.
+   */
+  forms: Partial<Record<1 | 2 | 3, string>>;
   /** One line of English — what the learner is trying to say. */
   gloss: string;
   audiences: RegisterAudienceView[];

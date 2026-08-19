@@ -214,7 +214,36 @@
     },
     {
       "id": "mae-ni",
-      "rule": "まえ means \"before\". Put a clause in front of it — the same shape as always — add に, and you have \"before doing X\": 「だいがくに いく まえに ごはんを たべる」 = before going to university, I eat. Here is the piece that catches everybody: the verb in front of まえに is ALWAYS the dictionary form, even when the whole thing happened yesterday. まえに only says \"earlier than\"; the tense is decided by the verb at the END of the sentence. 「たべた まえに」 is never Japanese. A noun takes の, as usual: 「じゅぎょうの まえに」.",
+      "rule": "まえ means \"before\". Put a clause in front of it — the same shape as always — add に, and you have \"before doing X\". 「たべた まえに」 is never Japanese. A noun takes の, as usual: 「じゅぎょうの まえに」.",
+      "diagram": {
+        "kind": "timeline",
+        "early": {
+          "label": "ごはんを たべる",
+          "clock": "7:00",
+          "color": "#f97316"
+        },
+        "late": {
+          "label": "だいがくに いく",
+          "clock": "9:00",
+          "color": "#14b8a6"
+        },
+        "frames": [
+          {
+            "id": "mae-ni",
+            "connective": "まえに",
+            "first": {
+              "text": "だいがくに いく まえに",
+              "at": "late"
+            },
+            "second": {
+              "text": "ごはんを たべる",
+              "at": "early"
+            },
+            "en": "Before going to university, I eat.",
+            "note": "The clause you hear FIRST happens SECOND. That inversion is the whole difficulty of まえに — and it is why the verb in front stays in the dictionary form: the tense is carried by the verb at the end."
+          }
+        ]
+      },
       "examples": [
         {
           "ja": "だいがくに いく まえに ごはんを たべる。",
@@ -244,7 +273,50 @@
     },
     {
       "id": "te-kara",
-      "rule": "The other half of the pair. Take the て-form you already own, hang から on it, and you have \"after doing X\": 「ごはんを たべてから だいがくに いく」 = after eating, I go to university. て on its own already links actions in the order they happen; てから adds that the first one is FINISHED before the second starts. The tense still lives on the last verb only — 「たべてから いった」 = after eating, I went. And the pair is complete: まえに takes the dictionary form, てから takes the て-form.",
+      "rule": "The other half of the pair. Take the て-form you already own, hang から on it, and you have \"after doing X\". て on its own already links actions in the order they happen; てから adds that the first is FINISHED before the second starts. The tense still lives on the last verb: 「たべてから いった」.",
+      "diagram": {
+        "kind": "timeline",
+        "early": {
+          "label": "ごはんを たべる",
+          "clock": "7:00",
+          "color": "#f97316"
+        },
+        "late": {
+          "label": "だいがくに いく",
+          "clock": "9:00",
+          "color": "#14b8a6"
+        },
+        "frames": [
+          {
+            "id": "te-kara",
+            "connective": "てから",
+            "first": {
+              "text": "ごはんを たべてから",
+              "at": "early"
+            },
+            "second": {
+              "text": "だいがくに いく",
+              "at": "late"
+            },
+            "en": "After eating, I go to university.",
+            "note": "てから says the two events in the order they happen, so the badges count up. The form in front is the て-form."
+          },
+          {
+            "id": "mae-ni",
+            "connective": "まえに",
+            "first": {
+              "text": "だいがくに いく まえに",
+              "at": "late"
+            },
+            "second": {
+              "text": "ごはんを たべる",
+              "at": "early"
+            },
+            "en": "Before going to university, I eat.",
+            "note": "Same two events, opposite reading order — and the form in front changes with it. まえに takes the dictionary form, てから takes the て-form."
+          }
+        ]
+      },
       "examples": [
         {
           "ja": "ごはんを たべてから だいがくに いく。",

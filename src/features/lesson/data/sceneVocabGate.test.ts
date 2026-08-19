@@ -46,9 +46,24 @@ const IR_DIR = "src/features/languages/ja/curriculum/ir";
 const PARTICLES = ["は", "が", "を", "に", "へ", "で", "と", "も", "の", "や",
   "から", "まで", "より", "か", "ね", "よ"];
 
-/** Endings a scene may print on a verb, matching the review gate's list. */
+/**
+ * Endings a scene may print on a verb, matching the review gate's list.
+ *
+ * `てから` earns its place for a reason worth writing down: m15's own IR notes
+ * specify that 「たべてから」 tiles as たべて / から, so てから is never a word —
+ * it is the て-form the learner got in m8 plus a particle they have had since
+ * m16. A timeline chip has to print the connective with no verb in front of
+ * it, which is the one place that decomposition has nothing to decompose.
+ * Bare `て` is deliberately NOT listed: it would strip a て off the end of any
+ * word and blind the gate to real misses.
+ *
+ * This list is module-BLIND, like `PARTICLES` — `ください` strips at m3 as
+ * happily as at m8. That is the same documented limitation the test at the
+ * bottom of this file pins: the gate catches untaught VOCABULARY, and leans on
+ * `moduleConformance` for whether a form is reachable yet.
+ */
 const TAUGHT_ENDINGS = ["ます", "ません", "ました", "ませんでした", "です",
-  "でした", "じゃない", "じゃありません", "ください", "でしょう"];
+  "でした", "じゃない", "じゃありません", "ください", "でしょう", "てから"];
 
 const PUNCT_RE = /[。、？！「」『』〜ー・…\s]/g;
 

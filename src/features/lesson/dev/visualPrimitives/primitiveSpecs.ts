@@ -1,12 +1,10 @@
 import type { TimelineSpec } from "@/features/lesson/components/steps/TimelineScene";
 import type { RegisterSpec } from "@/features/lesson/components/steps/RegisterScene";
 import type { ScaleSpec } from "@/features/lesson/components/steps/ScaleScene";
-import type { CastRole } from "@/features/lesson/components/steps/castArt";
-import { REGISTER_AUDIENCES } from "@/features/languages/ja/registerAudiences";
 import {
-  castBowPortraitUrl,
-  castPortraitUrl,
-} from "@/features/languages/ja/castPortraits";
+  DEFAULT_REGISTER_CAST,
+  castView,
+} from "@/features/languages/ja/registerCast";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 
 /**
@@ -188,37 +186,10 @@ export const M26_SCALE: ScaleSpec = {
   ],
 };
 
-/** The existing course cast (registerAudiences.ts), given faces. Colours match
- *  the transfer/journey scenes so a role reads the same everywhere; they now
- *  only tint the chip and the drawn fallback, since the portraits carry their
- *  own palette. */
-const COLORS: Record<string, string> = {
-  friend: "#14b8a6",
-  teacher: "#8b5cf6",
-  grandmother: "#f472b6",
-  clerk: "#38bdf8",
-};
-
-const ROLES: Record<string, CastRole> = {
-  friend: "friend",
-  teacher: "teacher",
-  grandmother: "grandmother",
-  clerk: "clerk",
-};
-
-const CAST = ["friend", "teacher", "grandmother", "clerk"].map((id) => {
-  const a = REGISTER_AUDIENCES[id];
-  return {
-    id: a.id,
-    ja: a.ja,
-    label: a.label,
-    color: COLORS[id] ?? "#94a3b8",
-    politeness: a.politeness,
-    role: ROLES[id] ?? "friend",
-    portraitUrl: castPortraitUrl(id),
-    bowPortraitUrl: castBowPortraitUrl(id),
-  };
-});
+/* The cast now comes from `registerCast.ts`, which is also what the compiler
+   resolves an IR `cast: [...]` through — so this page shows the same faces the
+   lesson will. */
+const CAST = DEFAULT_REGISTER_CAST.map((id) => castView(id));
 
 /** Same cast, drawn rather than generated — the fallback path, kept visible on
  *  the QA page so the two can be compared at the size they actually render. */
@@ -232,12 +203,24 @@ export const M10_REGISTER: RegisterSpec = {
   audiences: CAST,
 };
 
-/** m10's yes-word ladder — the case where all three levels DIFFER, so the
- *  scene shows a real three-way contrast rather than a 2/3 collapse. */
+/**
+ * m10's yes-word ladder — the case where all three levels DIFFER, so the
+ * scene shows a real three-way contrast rather than a 2/3 collapse.
+ *
+ * CORRECTED 2026-08-18: this had はい at level 2 and ええ at level 3, which is
+ * the reverse of what the module's own rule card says — *"Casual: うん /
+ * ううん. Neutral-polite: ええ. Formal: はい / いいえ."* A QA page that
+ * contradicts the lesson it is QA-ing is worse than no QA page.
+ *
+ * This spec is NOT wired to m10. Levels 2 and 3 are ともだち-adjacent roles the
+ * learner has not met at m10 — おばあさん is an m19 atom and てんいん is taught
+ * nowhere in the course at all — so the three-way ladder cannot be drawn until
+ * m19 at the earliest. The shipped register scene is m29's, with two faces.
+ */
 export const M10_YES: RegisterSpec = {
   kind: "register",
   gloss: "Yes",
-  forms: { 1: "うん。", 2: "はい。", 3: "ええ。" },
+  forms: { 1: "うん。", 2: "ええ。", 3: "はい。" },
   audiences: CAST,
 };
 

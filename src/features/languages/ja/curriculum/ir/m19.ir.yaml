@@ -227,7 +227,33 @@ grammarPoints:
     antiPattern: { ja: "ろくじへ うちへ かえる。", why: "へ points at a PLACE you head toward; a clock time is always marked with に: ろくじに うちへ かえる。" }
 
   - id: de-action
-    rule: "で has a second job and it is the one this module needs: で marks the MEANS — the thing you go BY. 「くるまで いく」 = I go by car. You met で as the place an action happens (「きっさてんで はなす」), and this is the same particle saying the same thing from another angle, because で always means 'using this'. A place is simply a tool you stand inside. A journey sentence often carries both jobs at once and they never collide, since に and へ own the destination while で owns the vehicle: 「くるまで だいがくに いく」. Two things で is NOT. It is not the destination, so 「えきで いく」 is wrong. And walking is not a means at all — you are using nothing, so no で appears anywhere: 「えきまで あるく」, I walk as far as the station."
+    rule: "で has a second job and it is the one this module needs: で marks the MEANS — the thing you go BY. You met で as the place an action happens (「きっさてんで はなす」), and this is the same particle saying the same thing from another angle, because で always means 'using this'. A place is simply a tool you stand inside. The picture is why the two jobs never collide in one journey sentence: に and へ own the destination, で rides on the traveller. Two things で is NOT. It is not the destination, so 「えきで いく」 is wrong. And walking is not a means at all — you are using nothing, so no で appears anywhere: 「えきまで あるく」, I walk as far as the station."
+    # The module's whole particle inventory on one journey, attached here
+    # because L3 is where it is finally complete — に (L1), へ (L2) and で (L3),
+    # with から carried over from m16. The 「くるまで だいがくに いく」 sentence
+    # the prose used to spell out is what the picture draws.
+    diagram:
+      kind: journey
+      traveller: { label: "わたし", color: "#f97316" }
+      verb: "いく"
+      origin:
+        label: "うち"
+        particle: "から"
+        note: "から marks where the journey STARTS. It is the same から you met for reasons — a noun in front means 'from', a clause in front means 'because'."
+      means:
+        # くるま, not でんしゃ: the module's own first example is 「くるまで
+        # だいがくに いく」, and the image-debut invariant forbids a rule card
+        # from being a word's first-ever appearance.
+        label: "くるま"
+        particle: "で"
+        note: "で marks what you travel BY. It rides on you, not on the path — you are not acting on the car, you are using it, and で always means 'using this'."
+      destination:
+        label: "えき"
+        particle: "に"
+        note: "に marks where you ARRIVE. The same に you already use for where a thing IS and for when something happens — a destination is a place you land on."
+      destinationAlt:
+        particle: "へ"
+        note: "へ marks the same slot, but points rather than lands: it is the heading, not the arrival. Swap it back and forth; almost nothing changes, and that is the point."
     examples:
       - { ja: "くるまで だいがくに いく。", en: "I go to the university by car." }
       - { ja: "ミカは じてんしゃで きっさてんに いく。", en: "Mika goes to the coffee shop by bike." }
