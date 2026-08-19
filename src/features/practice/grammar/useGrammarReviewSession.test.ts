@@ -138,7 +138,7 @@ describe("useGrammarReviewSession", () => {
     expect(reviewGrammarPoint).toHaveBeenCalledTimes(SESSION_CAP);
   });
 
-  it("shows the tagged grammar_rule preface before a new point's first review", () => {
+  it("attaches the tagged grammar_rule card as a HINT, never as a step", () => {
     buildGrammarReviewQueue.mockReturnValue(
       makeQueue([reviewItem("wa-topic", { isNew: true })]),
     );
@@ -147,20 +147,34 @@ describe("useGrammarReviewSession", () => {
 
     const { result } = renderHook(() => useGrammarReviewSession());
 
-    // Rule preface first (passive).
-    expect(result.current.currentStep?.type).toBe("grammar_rule");
-    expect(result.current.currentStep?.id).toBe("rule-wa-topic");
-
-    act(() => {
-      result.current.onContinue();
-    });
-
-    // Then the scored step.
+    // Spencer 2026-08-18: "grammar review should not show the card again, they
+    // can just have access to the hint button." The scored step comes FIRST —
+    // there is no passive preface to click past.
     expect(result.current.currentStep?.id).toBe("ja-gpool-wa-topic-1");
+    expect(result.current.currentStep?.type).not.toBe("grammar_rule");
+
+    // ...but the card is still reachable, carrying its title and rule line.
+    expect(result.current.currentStep?.ruleHint).toMatchObject({
+      title: "は topic",
+      ruleLine: "は marks the topic.",
+    });
     expect(reviewGrammarPoint).not.toHaveBeenCalled();
   });
 
-  it("skips the preface for a new point with no tagged rule", () => {
+  it("offers no hint for a point the learner has already reviewed", () => {
+    buildGrammarReviewQueue.mockReturnValue(
+      makeQueue([reviewItem("wa-topic", { isNew: false })]),
+    );
+    getGrammarPool.mockReturnValue([clozeStep("ja-gpool-wa-topic-1")]);
+    getGrammarRuleStepForPoint.mockReturnValue(ruleStep("rule-wa-topic"));
+
+    const { result } = renderHook(() => useGrammarReviewSession());
+
+    expect(result.current.currentStep?.id).toBe("ja-gpool-wa-topic-1");
+    expect(result.current.currentStep?.ruleHint).toBeUndefined();
+  });
+
+  it("renders the scored step for a new point with no tagged rule", () => {
     buildGrammarReviewQueue.mockReturnValue(
       makeQueue([reviewItem("wa-topic", { isNew: true })]),
     );

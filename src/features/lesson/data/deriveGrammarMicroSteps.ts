@@ -4,6 +4,7 @@ import type {
   LessonStep,
   MultipleChoiceStep,
   ReactiveGrammarTip,
+  RuleHint,
 } from "../types";
 import { isGradedStep } from "./_stepPredicates";
 
@@ -29,6 +30,20 @@ import { isGradedStep } from "./_stepPredicates";
  * antiPattern/cultureNote never render as card text anymore.
  */
 const DENSITY_HARD_HIGH = 25;
+
+/**
+ * The learner-initiated peek. Unlike `tipFromRule` this needs no antiPattern —
+ * a card with a diagram and no anti-pattern still has something worth
+ * re-reading, so the hint attaches where the reactive tip cannot.
+ */
+export function hintFromRule(step: GrammarRuleStep): RuleHint {
+  return {
+    grammarPointId: step.grammarPointId ?? step.id,
+    title: step.title,
+    ruleLine: step.rule,
+    ...(step.transferDiagram ? { transferDiagram: step.transferDiagram } : {}),
+  };
+}
 
 function tipFromRule(step: GrammarRuleStep): ReactiveGrammarTip | null {
   const anti = step.antiPattern;
@@ -58,6 +73,7 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
   let spotBudget = Math.max(0, DENSITY_HARD_HIGH - lesson.steps.length);
 
   let activeTip: ReactiveGrammarTip | null = null;
+  let activeHint: RuleHint | null = null;
   let pendingSpot: MultipleChoiceStep | null = null;
   let lastTaggedIdx = -1;
 
@@ -86,6 +102,7 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
       flushSpot();
       const rule = step as GrammarRuleStep;
       activeTip = tipFromRule(rule);
+      activeHint = hintFromRule(rule);
       // Invariant 32 (Spencer 2026-07-20): the derived spot-the-mistake
       // MCQ is RETIRED — weak binary recognition. antiPattern now drives
       // ONLY the reactive ✗ tip (activeTip above); the grammar contrast is
@@ -99,15 +116,19 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
     // reactive grammar-tip modal — which, because the modal is controller-level
     // and outlives the step, then floats over the NEXT step as a non-sequitur
     // "wrong answer". Never attach a grammar tip to a speaking step.
-    if (
-      activeTip &&
-      isGradedStep(step) &&
-      step.type !== "row_test" &&
-      step.type !== "speaking"
-    ) {
-      out.push({ ...step, reactiveGrammarTip: activeTip });
+    // The hint rides the SAME drill span as the reactive tip, but is gated
+    // only on being a graded step — `activeTip` can be null (no antiPattern)
+    // while the card is still worth re-opening.
+    const inDrillSpan =
+      isGradedStep(step) && step.type !== "row_test" && step.type !== "speaking";
+    if (inDrillSpan && (activeTip || activeHint)) {
+      out.push({
+        ...step,
+        ...(activeTip ? { reactiveGrammarTip: activeTip } : {}),
+        ...(activeHint ? { ruleHint: activeHint } : {}),
+      });
       changed = true;
-      lastTaggedIdx = out.length - 1;
+      if (activeTip) lastTaggedIdx = out.length - 1;
     } else {
       out.push(step);
     }

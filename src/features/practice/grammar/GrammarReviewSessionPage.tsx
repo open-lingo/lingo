@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Card } from "@/shared/components/ui";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
+import { RuleHintCard } from "@/features/lesson/components/RuleHintCard";
 import { LessonProgressBar } from "@/features/lesson/components/LessonProgressBar";
 import { reportGradedAnswer, resetLessonJuice } from "@/features/lesson/juice";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -14,6 +15,7 @@ import {
 } from "@/features/flashcards/engine/grammarSrs";
 import { getToday } from "@/features/flashcards/engine/srs";
 import { getGrammarPool } from "@/features/lesson/data/grammarReviewPools";
+import { LessonStepEnvironment } from "@/features/lesson/components/LessonStepEnvironment";
 import {
   useGrammarReviewSession,
   type GrammarSessionSummary,
@@ -73,6 +75,10 @@ function SessionRunner({
   }, []);
 
   const { currentStep, progress } = session;
+  const [hintOpen, setHintOpen] = useState(false);
+  // Close on step change — an open card carried into the next question would
+  // be showing the wrong point's rule.
+  useEffect(() => setHintOpen(false), [currentStep?.id]);
 
   // Pull focus to the step container on step change (lesson parity — keeps
   // keyboard flow and screen readers anchored). Skip the initial mount.
@@ -130,6 +136,36 @@ function SessionRunner({
         )}
       </div>
 
+      {/* The teaching card, one tap away.
+       *
+       * Spencer 2026-08-18: *"grammar review should not show the card again,
+       * they can just have access to the hint button."* It used to render as
+       * a passive preface STEP before every new point's first review, which
+       * padded the session and handed over the answer before the question.
+       * `useGrammarReviewSession` now attaches the same card as `ruleHint` on
+       * the scored step instead, so it is available and never automatic.
+       */}
+      {currentStep?.ruleHint && !session.isReplayRun && (
+        <button
+          type="button"
+          onClick={() => setHintOpen(true)}
+          className="mb-2 self-start rounded-full border border-border px-3 py-1 text-xs font-semibold text-text-secondary transition hover:border-accent"
+        >
+          {t("practice.grammarReview.showRule", "Show the rule")}
+        </button>
+      )}
+      {hintOpen && currentStep?.ruleHint && (
+        <RuleHintCard
+          hint={currentStep.ruleHint}
+          /* Unmetered here. In a lesson the peek budget exists to stop a
+             learner reading the rule instead of recalling it on a FIRST
+             encounter; in review the card is something they have already been
+             taught, and rationing it would just make them guess. */
+          remaining={Infinity}
+          onDismiss={() => setHintOpen(false)}
+        />
+      )}
+
       {session.isReplayRun && (
         <div className="mb-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
           {t("practice.grammarReview.replayCount", {
@@ -147,6 +183,7 @@ function SessionRunner({
       >
         <div className="flex w-full flex-1 flex-col">
           {currentStep && (
+            <LessonStepEnvironment moduleIndex={session.maxReachedModule || null}>
             <StepRenderer
               // Force a clean remount per step (mirrors LessonPage) so no
               // carry-over selection/submit flag bleeds across items or into
@@ -158,8 +195,8 @@ function SessionRunner({
               }
               step={currentStep}
               onComplete={(stepId, correct, progressTicks) => {
-                // Rule prefaces never call onComplete, so every call here is
-                // a scored attempt — safe to drive combo/sfx directly.
+                // Every step here is scored (the rule card is a hint now, not
+                // a step), so this is safe to drive combo/sfx directly.
                 reportGradedAnswer(stepId, correct);
                 session.onStepComplete(stepId, correct, progressTicks);
               }}
@@ -167,6 +204,7 @@ function SessionRunner({
               isReplayRun={session.isReplayRun}
               surface="grammarReview"
             />
+          </LessonStepEnvironment>
           )}
         </div>
       </div>

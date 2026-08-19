@@ -11,7 +11,12 @@
  *  - queue is capped at SESSION_CAP; surplus surfaces as "remaining due".
  *  - each point's pool is module-filtered (comprehensibility gate against the
  *    learner's reached modules) BEFORE rotation; empty filtered pool → skip.
- *  - new points show their tagged `grammar_rule` preface first (teach-before-test).
+ *  - new points attach their tagged `grammar_rule` card as a PEEKABLE HINT on
+ *    the scored step. It used to render as a passive preface step first
+ *    (teach-before-test), which Spencer cut 2026-08-18: *"grammar review should
+ *    not show the card again, they can just have access to the hint button."*
+ *    Review is testing; re-teaching before every first review both padded the
+ *    session and gave away the answer. The card is still one tap away.
  *  - main pass grades on the single scored attempt: wrong → again, correct → good.
  *  - wrong items replay once at session end; a correct replay grades "hard"
  *    (same modality as the main-pass grade), matching LessonPage's
@@ -24,7 +29,8 @@
  *    (grading a session the schedule didn't ask for corrupts FSRS).
  */
 import { useMemo, useRef, useState } from "react";
-import type { LessonStep } from "@/features/lesson/types";
+import type { GrammarRuleStep, LessonStep } from "@/features/lesson/types";
+import { hintFromRule } from "@/features/lesson/data/deriveGrammarMicroSteps";
 import type { SRSCardState, SRSModality } from "@/features/flashcards/data/types";
 import {
   buildGrammarReviewQueue,
@@ -70,6 +76,15 @@ export type GrammarSessionState = {
   skippedNullCount: number;
   /** Debug: pool steps dropped by the reached-module filter across all items. */
   excludedByModuleCount: number;
+  /**
+   * Highest module the learner has reached (`{"m3","m4"}` → 4; 0 when
+   * unknown). Already computed here for the comprehensibility filter, and
+   * surfaced so the page can feed `LessonStepEnvironment` — a review session
+   * mixes items from many modules, and the script ladder has to follow the
+   * LEARNER's position, not each item's origin. Otherwise reviewing an m4
+   * sentence at m20 would hand romaji back.
+   */
+  maxReachedModule: number;
   onStepComplete: (stepId: string, correct: boolean, progressTicks?: number) => void;
   onContinue: () => void;
 };
@@ -77,7 +92,6 @@ export type GrammarSessionState = {
 type SessionItem = {
   pointId: string;
   scoredStep: LessonStep;
-  ruleStep: LessonStep | null;
   modality: SRSModality;
 };
 
@@ -87,6 +101,7 @@ type BuiltSession = {
   excludedByModuleCount: number;
   remainingDue: number;
   newWaiting: number;
+  maxReached: number;
 };
 
 /** Max reached module number, e.g. {"m3","m4"} → 4; empty/unreachable → 0. */
@@ -151,11 +166,17 @@ function buildSession(practice: boolean): BuiltSession {
       continue;
     }
 
-    const ruleStep = qi.isNew ? getGrammarRuleStepForPoint(qi.point.id) : null;
+    // The teaching card rides along as a hint rather than as a step. Attached
+    // for NEW points only — a point the learner has already reviewed does not
+    // need the rule offered up front.
+    const ruleCard = qi.isNew ? getGrammarRuleStepForPoint(qi.point.id) : null;
+    const withHint: LessonStep = ruleCard
+      ? { ...scoredStep, ruleHint: hintFromRule(ruleCard as GrammarRuleStep) }
+      : scoredStep;
     const modality: SRSModality =
       scoredStep.modality === "recognition" ? "recognition" : "production";
 
-    items.push({ pointId: qi.point.id, scoredStep, ruleStep, modality });
+    items.push({ pointId: qi.point.id, scoredStep: withHint, modality });
   }
 
   // Surplus beyond the cap + items we couldn't render both remain due.
@@ -164,7 +185,7 @@ function buildSession(practice: boolean): BuiltSession {
   // Unseen points held back by the new-card intake throttle.
   const newWaiting = Math.max(0, queue.unseenTotal - queue.newCount);
 
-  return { items, skippedNullCount, excludedByModuleCount, remainingDue, newWaiting };
+  return { items, skippedNullCount, excludedByModuleCount, remainingDue, newWaiting, maxReached };
 }
 
 type Mode = "main" | "replay" | "summary";
@@ -178,9 +199,6 @@ export function useGrammarReviewSession(opts?: {
 
   const [mode, setMode] = useState<Mode>(items.length === 0 ? "summary" : "main");
   const [mainIdx, setMainIdx] = useState(0);
-  const [subPhase, setSubPhase] = useState<"rule" | "scored">(
-    items[0]?.ruleStep ? "rule" : "scored",
-  );
   const [replayQueue, setReplayQueue] = useState<number[]>([]);
   const [replayIdx, setReplayIdx] = useState(0);
 
@@ -198,7 +216,6 @@ export function useGrammarReviewSession(opts?: {
   const onStepComplete = (_stepId: string, correct: boolean) => {
     // Rule prefaces are passive and never graded.
     if (mode === "main") {
-      if (subPhase !== "scored") return;
       attemptsRef.current.set(mainIdx, correct);
     } else if (mode === "replay") {
       replayAttemptsRef.current.set(replayQueue[replayIdx], correct);
@@ -208,7 +225,6 @@ export function useGrammarReviewSession(opts?: {
   const advanceMain = (nextIdx: number) => {
     if (nextIdx < items.length) {
       setMainIdx(nextIdx);
-      setSubPhase(items[nextIdx].ruleStep ? "rule" : "scored");
       return;
     }
     // End of the main pass → build the single replay pass from wrong items.
@@ -223,10 +239,6 @@ export function useGrammarReviewSession(opts?: {
 
   const onContinue = () => {
     if (mode === "main") {
-      if (subPhase === "rule") {
-        setSubPhase("scored");
-        return;
-      }
       // Grade exactly once per scored item (guard double-fire re-entry).
       if (!gradedRef.current.has(mainIdx)) {
         gradedRef.current.add(mainIdx);
@@ -266,9 +278,7 @@ export function useGrammarReviewSession(opts?: {
 
   let currentStep: LessonStep | null = null;
   if (mode === "main") {
-    const item = items[mainIdx];
-    currentStep =
-      subPhase === "rule" && item?.ruleStep ? item.ruleStep : (item?.scoredStep ?? null);
+    currentStep = items[mainIdx]?.scoredStep ?? null;
   } else if (mode === "replay") {
     currentStep = items[replayQueue[replayIdx]]?.scoredStep ?? null;
   }
@@ -296,6 +306,7 @@ export function useGrammarReviewSession(opts?: {
     summary,
     skippedNullCount: session.skippedNullCount,
     excludedByModuleCount: session.excludedByModuleCount,
+    maxReachedModule: session.maxReached,
     onStepComplete,
     onContinue,
   };
