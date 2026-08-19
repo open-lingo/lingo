@@ -1456,11 +1456,12 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   // `isSrsEligibleAtom` only rejects SINGLE-kana atoms with no emoji, and all
   // of these are multi-kana. So they get a text flashcard, which is the point.
   //
-  // NOT registered, deliberately: m30's かっとく / しとく. The IR tags both
-  // `kind: vocab`, but they are contractions of 〜ておく (かって+おく), i.e.
-  // derived forms wearing a lemma's tag. Registering them would put a
-  // contracted form in the deck as if it were a word. That IR mis-tag is
-  // filed in the issue doc rather than fixed here.
+  // NOT registered, deliberately: m30's かっとく / しとく. They are contractions
+  // of 〜ておく (かって+おく) — derived forms, not lemmas — so registering them
+  // would put a contracted form in the deck as if it were a word. The IR tagged
+  // both `kind: vocab`; retagged `kind: grammar-chunk` on 2026-08-19, joining
+  // ください / だった / でした / じゃない / いけません — the established tag for a
+  // grammatical form registered WHOLE for the tokenizer's sake (spine D15).
   //
   // Retokenization checked the m22 / m25 way — every compiled tile in the
   // whole JA course dumped before and after (6,113 rows); see the issue doc

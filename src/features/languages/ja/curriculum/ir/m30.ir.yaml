@@ -486,8 +486,8 @@ newAtoms:
   #    because the filler generator draws production targets from the pool.
   - { kana: こたえて, romaji: "kotaete", gloss: "answer (te-form)", shortGloss: "answer (て)", imageable: false, kind: verb-form, derivedFrom: こたえる }
   - { kana: みがいて, romaji: "migaite", gloss: "brush, polish (te-form)", shortGloss: "polish (て)", imageable: false, kind: verb-form, derivedFrom: みがく }
-  - { kana: かっとく, romaji: "kattoku", gloss: "buy it in advance (casual 〜とく)", shortGloss: "buy ahead (とく)", imageable: false, kind: vocab }
-  - { kana: しとく, romaji: "shitoku", gloss: "do it in advance (casual 〜とく)", shortGloss: "do ahead (とく)", imageable: false, kind: vocab }
+  - { kana: かっとく, romaji: "kattoku", gloss: "buy it in advance (casual 〜とく)", shortGloss: "buy ahead (とく)", imageable: false, kind: grammar-chunk }
+  - { kana: しとく, romaji: "shitoku", gloss: "do it in advance (casual 〜とく)", shortGloss: "do ahead (とく)", imageable: false, kind: grammar-chunk }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════

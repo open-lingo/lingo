@@ -704,7 +704,7 @@
       "gloss": "buy it in advance (casual 〜とく)",
       "shortGloss": "buy ahead (とく)",
       "imageable": false,
-      "kind": "vocab"
+      "kind": "grammar-chunk"
     },
     {
       "kana": "しとく",
@@ -712,7 +712,7 @@
       "gloss": "do it in advance (casual 〜とく)",
       "shortGloss": "do ahead (とく)",
       "imageable": false,
-      "kind": "vocab"
+      "kind": "grammar-chunk"
     }
   ],
   "lessons": [
