@@ -123,3 +123,14 @@ This is a design call, not a mechanical fix, so it is measured and left alone.
 The same reasoning applies to dialogue_listen (121px) and speaking (100px);
 listening_build (67px) and listening_comprehension (55px) are small enough that
 a trim may genuinely reach them.
+
+### listening_comprehension, 55px → 27px
+
+Below `sm` only: block gaps `gap-6` → `gap-4` (twice), option padding `py-4` →
+`py-3`, option grid `gap-3` → `gap-2`. Nothing above the breakpoint changed and
+the option buttons stay at 42px, well clear of the 24px WCAG 2.5.8 floor.
+
+It does not reach zero. What is left is content, not spacing: the audio row is
+94px, the four options 192px, the reserved CTA 64px. Squeezing the last 27px
+means shrinking type or the play button, which is a design call rather than a
+trim — same place the match_pairs analysis lands, one notch less severe.

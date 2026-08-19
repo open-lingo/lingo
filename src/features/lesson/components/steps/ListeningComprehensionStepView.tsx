@@ -69,7 +69,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   const hasSubmittedWrong = submitted && !isCorrect;
 
   return (
-    <div className="relative flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-4 sm:gap-6">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
@@ -81,7 +81,12 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           430x932). Reading order is unchanged; only the position moved. The
           action block below keeps `mt-auto`, so it stays bottom-anchored and
           the fixed action bar does not shift. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-6">
+      {/* Vertical rhythm tightens below sm. At 375×667 this step overflowed
+          the stage scroller by 55px (measured 2026-08-19,
+          docs/issues/step-overflow-measured-2026-08-19.md) — and 375×667 is
+          an IN-SUPPORT viewport, not a legacy one. The design above sm is
+          unchanged. */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4 sm:gap-6">
       <div className="flex items-center gap-4">
         <button
           type="button"
@@ -121,7 +126,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         {formatPrompt(step.question)}
       </h2>
 
-      <div className="grid gap-3">
+      <div className="grid gap-2 sm:gap-3">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -142,7 +147,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-[1.5px] px-4 py-4 text-left text-base font-medium transition-colors duration-150 sm:text-lg ${style}`}
+              className={`rounded-xl border-[1.5px] px-4 py-3 text-left text-base font-medium transition-colors duration-150 sm:py-4 sm:text-lg ${style}`}
             >
               {opt.text}
             </button>
