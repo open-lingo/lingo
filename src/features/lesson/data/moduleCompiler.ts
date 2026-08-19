@@ -11,7 +11,11 @@
  * the IR is missing (density-short, distractor-thin, …) so the content author
  * can fix the YAML instead of the compiler guessing.
  */
-import type { LessonContent, LessonStep } from "@/features/lesson/types";
+import type {
+  LessonContent,
+  LessonStep,
+  TransferDiagramSpec,
+} from "@/features/lesson/types";
 import {
   SELECTION_TYPES,
   TEACH_FIRST_INTRO_TYPES,
@@ -76,6 +80,12 @@ export type IRGrammarPoint = {
    * `verbClass` match. `classes` uses IR verbClass names (ru/u/irregular).
    */
   conjugation?: { form: string; classes: string[] };
+  /**
+   * Declares this point as a DIRECTION rule: the card renders the transfer
+   * diagram instead of describing the arrow in prose. Authored in the IR as
+   * data (see TransferDiagramSpec) so one renderer serves every verb set.
+   */
+  diagram?: TransferDiagramSpec;
 };
 export type IRBeat =
   /**
@@ -970,6 +980,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
               : undefined,
             grammarPointId: beat.grammarPointId,
             conjugationForm: gp.conjugation?.form,
+            transferDiagram: gp.diagram,
           }),
         );
         if (gp.conjugation) {

@@ -8,6 +8,7 @@ import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { TransformRuleTable } from "./TransformRuleTable";
+import { TransferScene } from "./TransferScene";
 import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
 
 /**
@@ -311,13 +312,32 @@ export function GrammarRuleStepView({
             </h2>
             <ReadAloudButton text={readAloudText} />
           </div>
+          {/* A DIRECTION is a picture, so the picture LEADS and the prose is
+              its caption. Rendered in the compact variant because compact is
+              what lessons actually show (StepRenderer passes
+              variant="compact"); putting it only in "full" would mean the
+              learner never sees it. `scopeId` keeps the scene's @keyframes
+              from colliding with another card's on the same page. */}
+          {step.transferDiagram ? (
+            <div className="mt-3">
+              <TransferScene
+                spec={step.transferDiagram}
+                scopeId={String(step.id)}
+              />
+            </div>
+          ) : null}
           <RuleBody rule={step.rule} className="text-base leading-relaxed text-text-secondary" />
         </div>
         {step.conjugationForm ? (
           <TransformRuleTable form={step.conjugationForm} />
         ) : null}
 
-        {step.examples[0] ? <ExampleTile example={step.examples[0]} /> : null}
+        {/* The diagram already shows the canonical sentence for every verb it
+            draws, with the particles called out — an example tile under it
+            repeats the card's own picture in words. */}
+        {step.examples[0] && !step.transferDiagram ? (
+          <ExampleTile example={step.examples[0]} />
+        ) : null}
 
         {/* Workshop A (2026-07-12): culture is discoverable flavor, never
             required reading — a tap-to-expand chip, one disclosure level. */}

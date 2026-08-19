@@ -44,6 +44,24 @@ export type StepModality = "recognition" | "production" | "both";
  * point per lesson session. Duolingo-Smart-Tips-shaped, but diagnosis
  * comes from the authored anti-pattern, not a translation description.
  */
+/**
+ * Learner-INITIATED rule peek ("See the rule"), as distinct from
+ * `ReactiveGrammarTip` which the player fires at the learner on an error.
+ *
+ * Attached to every graded step in a rule card's drill span by
+ * `deriveGrammarMicroSteps`, so the learner can re-open the card that taught
+ * the thing they are currently being asked to produce. Deliberately budgeted
+ * per lesson: an always-available answer key stops being retrieval practice.
+ */
+export type RuleHint = {
+  grammarPointId: string;
+  title: string;
+  ruleLine: string;
+  /** Present when the point is taught by a picture — the peek shows the
+   *  interactive scene, not a paragraph. */
+  transferDiagram?: TransferDiagramSpec;
+};
+
 export type ReactiveGrammarTip = {
   grammarPointId: string;
   title: string;
@@ -58,6 +76,8 @@ export type ReactiveGrammarTip = {
 export type StepBase = {
   /** See ReactiveGrammarTip — attached by deriveGrammarMicroSteps. */
   reactiveGrammarTip?: ReactiveGrammarTip;
+  /** See RuleHint — attached by deriveGrammarMicroSteps. */
+  ruleHint?: RuleHint;
   id: string;
   type: StepType;
   hint?: string;
@@ -543,6 +563,107 @@ export type GrammarExample = {
   en: string;
 };
 
+/**
+ * Transfer diagram — the picture behind directional verb sets (JA
+ * あげる/くれる/もらう, かす/かりる; the same shape fits おしえる/ならう and
+ * いく/くる, and Korean's 주다/받다 later).
+ *
+ * Deliberately language-agnostic: parties carry a `label`, not kana, and the
+ * in-group/out-group captions are authored strings. `features/lesson/` never
+ * imports a language (ADR-005).
+ *
+ * Four facts, each a position or a label rather than a clause of prose:
+ *   1. which side of the boundary each party stands on  -> `inside`
+ *   2. which way the thing travelled                    -> `from`
+ *   3. who the sentence is about                        -> `subject`
+ *   4. which party the verb already named, so it drops  -> `hidden`
+ */
+export type TransferDiagramParty = {
+  /** Surface form shown under the figure. */
+  label: string;
+  /** Small caption under the label when this party is not the subject. */
+  gloss: string;
+  /** Flat fill. Identity of the party — must be stable across rows. */
+  color: string;
+  /** Inside the in-group boundary (JA うち). */
+  inside: boolean;
+};
+
+/**
+ * A role on a journey, and the particle that marks it.
+ *
+ * Language-agnostic on purpose: JA marks these with に/へ/で/から/まで, but
+ * "the place you end up", "the thing you travel by" and "where you set out
+ * from" are roles any course has to teach, and each language fills the
+ * `particle` slot with its own marker.
+ */
+export type JourneyDiagramSlot = {
+  /** The noun that fills the role (a place, a vehicle). */
+  label: string;
+  /** The marker that assigns the role — rendered in the particle colour. */
+  particle: string;
+  /** One line: what this slot means, shown when the learner selects it. */
+  note: string;
+};
+
+/**
+ * One traveller, one path, and the roles hung along it.
+ *
+ * The sibling of `TransferDiagramSpec`, and deliberately NOT the same shape.
+ * A transfer moves an OBJECT between two people; a journey moves the SUBJECT
+ * along a path. Forcing one renderer to do both would draw a parcel labelled
+ * "me" flying between two blobs — see the rollout doc.
+ */
+export type JourneyDiagramSpec = {
+  traveller: { label: string; color: string };
+  /** The motion verb, printed at the arrowhead (いく / かえる / くる). */
+  verb: string;
+  /** Where the journey starts, when the sentence says so (から). */
+  origin?: JourneyDiagramSlot;
+  /** What you travel BY — drawn on the traveller, not on the path (で). */
+  means?: JourneyDiagramSlot;
+  /** How far you go, when that is not the destination (まで). */
+  limit?: JourneyDiagramSlot;
+  /** Where you end up. Every journey has one. */
+  destination: JourneyDiagramSlot;
+  /**
+   * The same destination under a DIFFERENT marker — JA に vs へ. Rendered as a
+   * toggle on the destination chip, because the two are near-synonyms and the
+   * only way to feel the difference is to swap one for the other in place.
+   */
+  destinationAlt?: { particle: string; note: string };
+};
+
+export type TransferDiagramRow = {
+  verb: string;
+  /** Which party the arrow leaves. */
+  from: "left" | "right";
+  leftParticle?: string;
+  rightParticle?: string;
+  /** Who the sentence is about — the ONLY thing separating verbs that share
+   *  an arrow direction (JA くれる vs もらう). Rendered as a ring. */
+  subject: "left" | "right";
+  /** Party the verb already names, so the sentence drops it. Rendered as a
+   *  ghost so the learner sees an absence, not an omission. */
+  hidden?: "left" | "right";
+  /** One-line takeaway shown under the scene. */
+  note: string;
+};
+
+export type TransferDiagramSpec = {
+  /** In-group caption (JA "うち"). */
+  insideLabel: string;
+  /** Out-group caption (JA "そと"). */
+  outsideLabel: string;
+  left: TransferDiagramParty;
+  right: TransferDiagramParty;
+  /** The thing that moves. Drawn as a GENERIC parcel — never the named atom,
+   *  so a rule card can't steal an imageable atom's word_image_mcq debut
+   *  (inv 30, the m14 trap). The label names it in text instead. */
+  object: { label: string; particle: string };
+  rows: TransferDiagramRow[];
+};
+
 export type GrammarRuleStep = StepBase & {
   type: "grammar_rule";
   title: string;
@@ -570,6 +691,13 @@ export type GrammarRuleStep = StepBase & {
    * (Spencer 2026-07-23).
    */
   conjugationForm?: string;
+  /**
+   * When this rule card teaches a DIRECTION (a verb set where the choice
+   * turns on which way the thing moved), the diagram spec — rendered instead
+   * of leaving the direction, the particles and the dropped party buried in
+   * prose. Same pattern as `conjugationForm` above.
+   */
+  transferDiagram?: TransferDiagramSpec;
 };
 
 /**
@@ -590,6 +718,16 @@ export type ParticleClozeStep = StepBase & {
   options: string[];
   meaningEn: string;
   audioText?: string;
+  /** Ruby data for the sentence halves. `*Annotation`-suffixed so the kanji
+   *  post-pass (applyKanjiSurfaces.isAnnotationKey) can rewrite the frame's
+   *  eligible words — same contract as ConjugationClozeStep. Until these
+   *  existed (2026-08-15) the halves were bare strings, which the pass keys
+   *  on `atomId` per segment and therefore could never reach: every cloze
+   *  frame in the course rendered kana at every module, 先生 and 母 and 花
+   *  included, long after their unlock. The blank itself stays kana — it is
+   *  the answer. */
+  beforeAnnotation?: JapaneseAnnotation[];
+  afterAnnotation?: JapaneseAnnotation[];
 };
 
 /**

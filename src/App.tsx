@@ -101,6 +101,12 @@ const KanjiRevealAnimPage = lazyRetry(
 const DialogueSimPage = lazyRetry(
   () => import("@/features/lesson/dev/dialogueSim/DialogueSimPage"),
 );
+const TransferDiagramQaPage = lazyRetry(
+  () => import("@/features/lesson/dev/transferDiagram/TransferDiagramQaPage"),
+);
+const VisualPrimitivesQaPage = lazyRetry(
+  () => import("@/features/lesson/dev/visualPrimitives/VisualPrimitivesQaPage"),
+);
 const ReviewPrefixQaPage = lazyRetry(
   () => import("@/features/lesson/dev/reviewPrefix/ReviewPrefixQaPage"),
 );
@@ -557,6 +563,14 @@ const router = createBrowserRouter([
               },
               { path: "qa/kanji-reveal", element: <KanjiRevealAnimPage /> },
               { path: "qa/dialogue-sim", element: <DialogueSimPage /> },
+              {
+                path: "qa/transfer-diagram",
+                element: <TransferDiagramQaPage />,
+              },
+              {
+                path: "qa/visual-primitives",
+                element: <VisualPrimitivesQaPage />,
+              },
               { path: "qa/review-prefix", element: <ReviewPrefixQaPage /> },
               { path: "qa/review", element: <ReviewQueuePage /> },
               { path: "spine-plan", element: <SpinePlannerPage /> },
