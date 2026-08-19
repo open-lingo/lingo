@@ -65,3 +65,15 @@ Typecheck and the 214 step-view tests pass, but **no test drives a two-row
 drag**, so the gesture is unverified. Drag a tile from row 1 to row 2 on a
 phone-width build step (m31 L1) and watch the other tiles. If it still jumps at
 the row break, step 2 in `docs/todo-draggable-build-tiles.md` is next.
+
+## 7. FYI — the full suite is red, and it is not the Japanese side
+
+`esAudioCoverage.test.ts` fails: 825 Spanish audio texts have no manifest clip
+against a ratchet of 719. That is the other session's in-flight Spanish work
+(R2 in the review queue describes the 719; the count grew as more Spanish
+content landed). Every other one of the 461 test files passes, and `module-gate
+-- m32` is clean on its Japanese stages — including TTS coverage at 7552/7552,
+so m32's staged clips are fully accounted for by the manifest.
+
+Flagging it only so a red suite does not read as damage from this session's
+commits. Nothing here touched Spanish.
