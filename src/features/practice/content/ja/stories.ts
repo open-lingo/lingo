@@ -996,9 +996,17 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
+    // MOVED m17 → m32, 2026-08-18. The direction kit these two stories are
+    // built on (みち / みぎ / ひだり / まっすぐ / まがる / わたる / とまる) has
+    // courseAtoms rows tagged m17, but m17's IR never introduces one of them
+    // and no m17 lesson step contains their surfaces — they were orphan rows,
+    // so this content had been showing untaught vocabulary since it shipped.
+    // m32 teaches the kit for real, which is why the module numbers move here
+    // rather than the words moving back. The ids keep their m17 slug so
+    // existing progress still resolves.
     id: "ja-m17-to-the-station",
     languageId: "ja",
-    module: 17,
+    module: 32,
     level: 2,
     title: "To the station",
     theme: "Following the street to the train.",
@@ -1022,7 +1030,7 @@ export const JA_STORIES: Story[] = [
     ],
   },
   {
-    // m17 L4. The module is the whole direction-giving kit (まっすぐ / みぎ /
+    // Written for m17 L4, whose plan was the whole direction-giving kit (まっすぐ / みぎ /
     // ひだり / むこう / うしろ / よこ / そば / はし / わたる / まがる / のる /
     // おりる / とまる / けいかん / おまわりさん), so the arc is a wrong route
     // walked in full. The building at line 5 is the plant; line 19 is the bill.
@@ -1033,9 +1041,10 @@ export const JA_STORIES: Story[] = [
     // after a narrated はなす attribution; and ます-forms of m17 verbs
     // (まがります / わたります) do not gate, so the policemen speak in noun
     // predicates plus the m8 て-form いって.
+    // MOVED m17 → m32 for the same reason as ja-m17-to-the-station above.
     id: "ja-m17-the-building-behind-the-station",
     languageId: "ja",
-    module: 17,
+    module: 32,
     level: 4,
     title: "The building behind the station",
     theme: "Two policemen, one bridge, and a hospital that was never far away.",
@@ -1044,7 +1053,6 @@ export const JA_STORIES: Story[] = [
       // いそぐ dropped 2026-08-06: it is taught at m8 now (the ぐ → いで row of
       // the て table needed a worked verb), so glossing it at m17 declares a
       // word the reader already has.
-      { surface: "こまる", meaning: "to be stuck, to be at a loss", atomId: "ja:komaru" },
     ],
     questions: [
       {
@@ -1350,10 +1358,10 @@ export const JA_STORIES: Story[] = [
     ],
     sentences: [
       { text: "せんしゅうの げつようび、わたしの はが いたい。", translation: "Last Monday, my tooth hurts." },
-      { text: "みぎの したの はだ。", translation: "It's the lower right tooth." },
+      { text: "したの はだ。", translation: "It's the lower tooth." },
       { text: "わたしは いしゃが きらいだ。だから、うちで くすりを のむ。", translation: "I hate doctors. So I take medicine at home." },
       { text: "まいあさ ゆっくりと はを みがく。まいばんも みがく。", translation: "Every morning I brush my teeth slowly. Every night too." },
-      { text: "みぎの みみも すこし いたい。けど、はの ほうが いたい。", translation: "My right ear hurts a little too. But the tooth hurts more." },
+      { text: "みみも すこし いたい。けど、はの ほうが いたい。", translation: "My ear hurts a little too. But the tooth hurts more." },
       { text: "すいようび、あたまも いたい。", translation: "On Wednesday my head hurts as well." },
       { text: "わたしは もっと くすりを のむ。", translation: "I take more medicine." },
       { text: "もくようび、わたしは ごはんを たべない。", translation: "On Thursday I don't eat." },
@@ -1791,7 +1799,7 @@ export const JA_STORIES: Story[] = [
       {
         id: "stop",
         kind: "detail",
-        prompt: "ラジオが とまるのは まいばん なんじですか。",
+        prompt: "おじいさんが ラジオを けすのは まいばん なんじですか。",
         options: ["じゅうじです", "くじです", "じゅうにじです"],
         answer: "じゅうじです",
       },
@@ -1801,7 +1809,7 @@ export const JA_STORIES: Story[] = [
       { text: "まいばん くじに ラジオが きこえる。", translation: "Every night at nine I can hear a radio." },
       { text: "となりの へやから きこえる。", translation: "It comes from the room next door." },
       { text: "おんがくの ラジオだ。", translation: "It's music on the radio." },
-      { text: "じゅうじに ラジオは とまる。まいばん おなじだ。", translation: "At ten the radio stops. It's the same every night." },
+      { text: "じゅうじに おじいさんは ラジオを けす。まいばん おなじだ。", translation: "At ten the old man switches the radio off. It's the same every night." },
       { text: "わたしは よる べんきょうする。", translation: "I study in the evening." },
       { text: "ラジオが きこえるので、べんきょうする ことが できない。", translation: "Because I can hear the radio, I can't study." },
       { text: "わたしは しごとで つかれる。", translation: "I get tired from work." },
@@ -2216,7 +2224,6 @@ export const JA_STORIES: Story[] = [
     theme: "A wasted morning, a closed shop, and an afternoon nobody planned.",
     tags: ["town", "friends", "bicycles"],
     glosses: [
-      { surface: "つく", meaning: "to arrive at", atomId: "ja:tsuku" },
       { surface: "やっぱり", meaning: "sure enough, after all", atomId: "ja:yappari" },
       { surface: "もちろん", meaning: "of course", atomId: "ja:mochiron" },
     ],
@@ -2257,7 +2264,7 @@ export const JA_STORIES: Story[] = [
       { text: "みせは すいようびが やすみだ。", translation: "The shop's day off is Wednesday." },
       { text: "となりの ひとは じてんしゃを うちまで はこぶ。", translation: "The person next door carries the bicycle home." },
       { text: "バスは いま こない。ぼくは あるく ことを えらぶ。", translation: "No bus is coming now. I choose to walk." },
-      { text: "みちは ながい。ぼくは また いそぐ。", translation: "The road is long. I hurry again." },
+      { text: "えきは とおい。ぼくは また いそぐ。", translation: "The station is far. I hurry again." },
       { text: "じゅうじはん、ぼくは えきに つく。", translation: "At half past ten I arrive at the station." },
       { text: "ユミが いない。", translation: "Yumi isn't there." },
       { text: "ぼくは こまる。", translation: "I'm at a loss." },

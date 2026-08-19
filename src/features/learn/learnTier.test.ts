@@ -78,18 +78,21 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 line is m30 + m31, both authored and available", () => {
+  it("real ja n4 line is m30 + m31 + m32, all authored and available", () => {
     // The July m30 pilot was retired 2026-08-09 (spec A1); m30 = n4-01
     // 「て + helper I」 was authored 2026-08-14 (spec A3) and m31 = n4-02
-    // 「Give & receive I」 on 2026-08-15. Both are REAL stations: 13 lessons
-    // each, no comingSoon flag. The rest of the tier (m32-m51) is unauthored
-    // and not on the map yet.
+    // 「Give & receive I」 on 2026-08-15, and m32 = n4-03 「Conditionals I:
+    // たら (と as the contrast)」 on 2026-08-18. All three are REAL stations:
+    // 13 lessons each, no comingSoon flag. The rest of the tier (m33-m51) is
+    // unauthored and not on the map yet. m32's tile also carries a story row,
+    // which is not a lesson — hence the kind filter below.
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32"]);
     for (const m of n4) {
+      const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
-      expect(m.lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(lessons, `${m.id} lesson count`).toHaveLength(13);
       expect(m.lessons.every((l) => l.status === "available"), `${m.id}`).toBe(true);
     }
   });

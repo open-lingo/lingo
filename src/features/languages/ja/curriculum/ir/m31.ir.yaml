@@ -426,9 +426,12 @@ newAtoms:
   - { kana: プレゼント, romaji: "purezento", gloss: "a present", shortGloss: "present", imageable: false, kind: vocab }
   - { kana: こども, romaji: "kodomo", gloss: "a child", shortGloss: "child", imageable: true, kind: vocab }
 
-  # ══ L2. THE MIRROR VERB. No courseAtoms row at all, which is the m11-m30
-  #    precedent for IR-local atoms — registering it would put an inflectable
-  #    lemma into the flashcard import with no emoji to carry it.
+  # ══ L2. THE MIRROR VERB. This comment used to justify having NO courseAtoms
+  #    row — "the m11-m30 precedent for IR-local atoms". That reasoning was
+  #    wrong and the row landed 2026-08-18: an IR-only atom is visible to the
+  #    tokenizer and to nothing else, so くれる was taught, graded, and could
+  #    never be reviewed, in the module titled あげる・くれる・もらう. See
+  #    docs/issues/n4-vocab-never-reaches-srs-2026-08-18.md.
   - { kana: くれる, romaji: "kureru", gloss: "to give (in to my side)", shortGloss: "give (to me)", imageable: false, kind: verb, verbClass: ru }
   - { kana: おかし, romaji: "okashi", gloss: "sweets", shortGloss: "sweets", imageable: false, kind: vocab }
   - { kana: ケーキ, romaji: "keeki", gloss: "a cake", shortGloss: "cake", imageable: false, kind: vocab }

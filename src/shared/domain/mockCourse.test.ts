@@ -153,22 +153,26 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 = n4-01 and m31 = n4-02, both authored", () => {
+  it("N4 tier is m30 = n4-01, m31 = n4-02 and m32 = n4-03, all authored", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32"]);
     // Spec A1 retired the July pilot and left a locked, lesson-less station;
     // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
     // place (2026-08-14), and m31 = n4-02 「Give & receive I:
-    // あげる・くれる・もらう」 followed on 2026-08-15. Shape is inv 25 for both:
-    // 13 lessons = 9 teaching + 3 review + 1 challenge, challenge LAST.
+    // あげる・くれる・もらう」 followed on 2026-08-15, and m32 = n4-03
+    // 「Conditionals I: たら (と as the contrast)」 on 2026-08-18. Shape is
+    // inv 25 for all three: 13 lessons = 9 teaching + 3 review + 1 challenge,
+    // challenge LAST. A tile may also carry story rows (m32 does) — those are
+    // reading attachments, not lessons, so they are filtered out first.
     for (const m of n4) {
+      const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
-      expect(m.lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(lessons, `${m.id} lesson count`).toHaveLength(13);
       expect(
-        m.lessons.filter((l) => /-review(-\d+)?$/.test(l.id)),
+        lessons.filter((l) => /-review(-\d+)?$/.test(l.id)),
         `${m.id} review count`,
       ).toHaveLength(3);
-      expect(m.lessons[m.lessons.length - 1].id).toBe(`ja-${m.id}-neo-challenge`);
+      expect(lessons[lessons.length - 1].id).toBe(`ja-${m.id}-neo-challenge`);
     }
   });
 

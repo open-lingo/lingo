@@ -5,7 +5,8 @@ import {
   getStories,
   getConversations,
 } from "./index";
-import { gateResidual } from "./gate";
+import { gateResidual, moduleOrder } from "./gate";
+import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { levelBand, levelCeiling } from "./levels";
 import type { Conversation, Story } from "./types";
 
@@ -203,10 +204,22 @@ describe("curated content — level discipline", () => {
     it(`${lang}: every declared gloss is genuinely above level`, () => {
       // A gloss for a word the learner already knows at this module pads the
       // budget without teaching anything.
+      //
+      // "Knows it" means the SURFACE ITSELF is a taught atom by then. The
+      // residual check alone is not enough: it is a greedy longest-match over
+      // atom surfaces, so a word can come out fully "explained" by two shorter
+      // atoms that have nothing to do with it — うるさい (m28) decomposes into
+      // うる "to sell" (m9) + さい, the counter, and reads as known at m18.
+      const atomFor = (surface: string) =>
+        getNormalizedCourseAtoms(lang).find((a) => a.display === surface);
       const failures: string[] = [];
       for (const s of allStories(lang)) {
         for (const g of s.glosses ?? []) {
-          if (gateResidual(g.surface, lang, s.module) === "") {
+          const atom = atomFor(g.surface);
+          const known = atom
+            ? moduleOrder(atom.module) <= s.module
+            : gateResidual(g.surface, lang, s.module) === "";
+          if (known) {
             failures.push(`${s.id}: gloss "${g.surface}" is already known at m${s.module}`);
           }
         }

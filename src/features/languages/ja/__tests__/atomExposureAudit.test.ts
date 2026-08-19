@@ -112,8 +112,14 @@ const MAX_NEVER_TOUCHED = 140;
  *  it is HERE: the D2 gate blocks same-module writes by design, and D4
  *  seed-on-unlock schedules a module's own new atoms due the NEXT day. So
  *  these words do enter the deck — via seeding, not via in-module grading,
- *  which is the intended path for a word the learner just met. */
-const MAX_GRADED_BUT_NEVER_WRITES = 26;
+ *  which is the intended path for a word the learner just met.
+ *
+ *  26 → 29, 2026-08-18 (m32): わたる, かど and おと, all m32's own new atoms,
+ *  graded once each inside the module that teaches them. Exactly the shape the
+ *  paragraph above describes — D2 blocks the same-module write and D4 seeds
+ *  them due the next day — and the same shape as the m30/m31 entries already
+ *  in this count. Run with EXPOSURE_REPORT=1 to dump the full list. */
+const MAX_GRADED_BUT_NEVER_WRITES = 29;
 
 type Row = {
   atomId: string;
@@ -243,6 +249,8 @@ describe("authored exposure per atom (B065)", () => {
 
   it("graded-but-never-advances-FSRS count only goes DOWN", () => {
     const stuck = rows.filter((r) => r.graded > 0 && r.writes === 0);
+    if (process.env.EXPOSURE_REPORT)
+      writeFileSync("/tmp/ja-atom-stuck.txt", stuck.map((r) => `${r.kana}\t${r.atomId}\t${r.from}`).join("\n"));
     expect(stuck.length).toBeLessThanOrEqual(MAX_GRADED_BUT_NEVER_WRITES);
   });
 });
