@@ -128,6 +128,12 @@ export default defineConfig({
       name: "auth setup",
       testMatch: /auth\.setup\.ts$/,
       use: { ...devices["Desktop Chrome"] },
+      // This project waits for a HUMAN to finish an Auth0 login. auth.setup.ts
+      // asks for 5 minutes ("covers MFA / password-manager flows"), but the
+      // per-test timeout outranks a waitForURL timeout, and with no override
+      // here that was Playwright's 30s default — the browser opened, showed
+      // the login page, and was killed before anyone could type (2026-08-19).
+      timeout: 6 * 60_000,
     },
     {
       name: "chromium",
