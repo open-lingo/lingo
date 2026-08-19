@@ -48,15 +48,69 @@ for (const m of atomsSrc.matchAll(/\{\s*id:[^}]*\}/g)) {
   });
 }
 
-// Grammar-taught-by-module — hand-maintained spine digest (extend per
-// module as you author it; the vocab above is fully automatic).
-const GRAMMAR = {
+// Grammar-taught-by-module.
+//
+// This WAS a hand-maintained object with a comment saying "extend per module
+// as you author it". Nobody did: it stopped at m7 and stayed there through
+// twenty-four modules of authoring, so every pack from m8 onward told the
+// author the learner knew nothing past ます/ません. For an N4 module that is
+// not a gap, it is a lie — the whole point of the pack is that it is
+// "accurate, never-stale".
+//
+// So it is derived now. Each module's IR already names its own grammar points
+// and its own lesson focus lines, which is the same information the hand digest
+// held, kept current by the only thing that can keep it current: being the file
+// the module is authored in. m3–m5 predate the IR and keep their hand entries.
+const HAND_GRAMMAR = {
   m3: "だ (plain copula, noun+だ); は (topic); も (also); casual ？-contour questions (no か); survival chunks; です (recognition only)",
   m4: "の (possession + attributive); これ/それ/あれ/どれ (deixis by distance); だれ (who); なに/何 (what); のだ short answers",
   m5: "dictionary-form verbs as COMPLETE sentences (NO だ on verbs); を (direct object) + SOV; もの word family; いう/おもう recognition chunks",
-  m6: "plain negative ない by verb class; が subject via existence; ある/いる + animacy; ここ/そこ/あそこ/どこ; に/で basics",
-  m7: "POLITE LAYER OPENS: ます/ません (i-stem + helper); です finishes NOUNS (never verbs — たべるです is wrong); か REQUIRED on polite questions, dropped in casual; register chosen by AUDIENCE (friend=plain, teacher=polite); name suffixes さん/さま/くん/ちゃん; はい/ええ. Katakana ア and カ rows. NOTE: plain stays the base — polite production is the MINORITY share until ~m16 (ramp: <=20% m8-m11).",
 };
+
+const GRAMMAR_IR_DIR = resolve(ROOT, "src/features/languages/ja/curriculum/ir");
+
+/** Grammar point ids a module teaches, in IR order, deduped. */
+function irGrammar(mod) {
+  let raw;
+  try {
+    raw = readFileSync(join(GRAMMAR_IR_DIR, `${mod}.ir.yaml`), "utf8");
+  } catch {
+    return undefined;
+  }
+  // Deliberately regex rather than a YAML parse: this script has no deps and
+  // runs before anything is installed. The two shapes are stable and both are
+  // asserted by `compile-ir.mjs`, which fails loudly if they change.
+  const title = raw.match(/^title:\s*"?(.+?)"?\s*$/m)?.[1];
+  const points = [];
+  // Stop at the next TOP-LEVEL key. Without this the slice runs into
+  // `lessons:`, whose entries share the `  - id:` shape, and every module
+  // reports its twenty-odd lesson ids as grammar points.
+  const gpStart = raw.indexOf("\ngrammarPoints:");
+  if (gpStart < 0) return title;
+  const after = raw.slice(gpStart + 1);
+  const nextKey = after.slice(1).search(/\n[A-Za-z_][\w-]*:/);
+  const gpBlock = nextKey < 0 ? after : after.slice(0, nextKey + 1);
+  for (const m of gpBlock.matchAll(/^  - id:\s*(\S+)/gm)) {
+    if (!points.includes(m[1])) points.push(m[1]);
+  }
+  if (!title && !points.length) return undefined;
+  return [title, points.length ? `points: ${points.join(", ")}` : ""]
+    .filter(Boolean)
+    .join(" — ");
+}
+
+const grammarFor = (mod) => HAND_GRAMMAR[mod] ?? irGrammar(mod);
+
+/** The module's own register, from its IR rather than an N5-era sentence. */
+function irRegister(mod) {
+  try {
+    return readFileSync(join(GRAMMAR_IR_DIR, `${mod}.ir.yaml`), "utf8").match(
+      /^register:\s*"?([a-z-]+)"?/m,
+    )?.[1];
+  } catch {
+    return undefined;
+  }
+}
 
 const isVerb = (a) => a.kind === "vocab" && /^to /.test(a.meaningEn);
 
@@ -179,9 +233,26 @@ out += `has been taught everything below. **Use ONLY these words as carriers/**\
 out += `**distractors** (plus this module's new allocation); never introduce a word `;
 out += `not listed here or in the allocation (invariant 16).\n`;
 
+/**
+ * The register line. It used to be the sentence "Plain form is the whole course
+ * through m28", hard-coded — which was already stale for m29 and is simply
+ * wrong for the N4 tier. The IR carries `register:` per module, so the pack
+ * reports what the module the author is writing actually says.
+ */
+const REGISTER_LINE = (() => {
+  const r = irRegister(`m${targetIdx}`);
+  if (r === "plain")
+    return "- **Plain form** (だ / dict-form verbs) is this module's base. です・ます\n  appears only where the audience calls for it — register is chosen by WHO is\n  being addressed, never by the topic.";
+  if (r === "polite")
+    return "- **Polite form** (です・ます) is this module's base. Plain form appears only\n  where the audience calls for it.";
+  if (r) return `- This module's IR declares register: **${r}**.`;
+  return "- This module's IR declares no `register:`. Set one before authoring — the\n  pack cannot guess it, and a module without a stated register produces\n  mixed-register beats.";
+})();
+
 out += `\n## Grammar / constructions taught BEFORE m${targetIdx}\n`;
 for (let i = 3; i < targetIdx; i++) {
-  if (GRAMMAR[`m${i}`]) out += `- **m${i}:** ${GRAMMAR[`m${i}`]}\n`;
+  const g = grammarFor(`m${i}`);
+  if (g) out += `- **m${i}:** ${g}\n`;
 }
 
 out += `\n## Words the learner already knows (usable as carriers/review)\n`;
@@ -191,7 +262,8 @@ out += section("Nouns / vocab", priorNouns);
 out += section("Chunks / greetings / phrases", priorChunks);
 
 out += `\n## THIS module (m${targetIdx}) introduces\n`;
-if (GRAMMAR[`m${targetIdx}`]) out += `**Grammar:** ${GRAMMAR[`m${targetIdx}`]}\n`;
+const thisGrammar = grammarFor(`m${targetIdx}`);
+if (thisGrammar) out += `**Grammar:** ${thisGrammar}\n`;
 out += section("New verbs", thisModule.filter(isVerb));
 out += section("New vocab/nouns", thisModule.filter((a) => !isVerb(a) && a.kind === "vocab"));
 out += section("New particles", thisModule.filter((a) => a.kind === "particle"));
@@ -248,8 +320,7 @@ out += `
   TTS automatically.
 
 ## Register
-- Plain form (だ / dict-form verbs) is the whole course through m28.
-  です appears ONLY as flagged Tanaka/staff recognition previews.
+${REGISTER_LINE}
 
 ## Hard rules to self-check EVERY step against (see authoring-invariants-pinned.md)
 1. 18-24 steps; no two adjacent same-type; ≤2 selection-taps in a row;
