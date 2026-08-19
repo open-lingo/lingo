@@ -54,11 +54,33 @@ the atom **visible to the guards for the first time**, and three of them bit:
 
 ## Still open
 
-- ~120 never-touched rows. They cost nothing at runtime; they cost authoring
-  time, because an author reading `courseAtoms` sees a vocabulary the course
-  does not have. **しんぶん** is the live example worth naming: `fromModule:
-  "m8"`, `introducedByLessonId: "ja-m4-1-1"` (retired), zero m8 lesson steps
-  contain it — and **m30 uses it in a lesson**. Same defect as the 15 above,
-  one module later.
+- ~120 never-touched rows. **CORRECTION 2026-08-19: they do NOT cost nothing at
+  runtime.** This section originally said they were authoring-time debt only.
+  `lesson/data/matchPairsFloor.ts` backfills any short `match_pairs` grid from
+  `getAtomsUpToModule(moduleId)` filtered by SRS-eligibility and module tag —
+  **with no unlock or reachability check** — so an orphan row can be dealt into
+  a grid as a word the learner has never been taught. The es path in that file
+  carries a `moduleOrder` cutoff for exactly this reason; its own comment says
+  the ja path ignores it.
+
+  Measured 2026-08-19 by diffing every JA lesson before/after the floor pass:
+  the pass adds **101 pairs course-wide**, of which **8 cells show a word no
+  lesson teaches** — ぎんこう (m6 L1/L3/L4/L6/L7, 6 cells), おなじ (m27 L9),
+  しんぶん (m32 L6). The remaining 93 are single kana/katakana glyphs in
+  kana-row grids, which are deliberately not SRS atoms — not a defect.
+
+  The pool behind it: **904 atoms pass the backfill filter, 276 appear in no
+  authored lesson**; 160 of those are `future`/`m49`/`thr-n4`-tagged and
+  unreachable by construction, leaving **116 drawable orphans** across m6–m29
+  (worst: m19 ×14, m17 ×11, m21 ×11, m16 ×8). Only 3 surface in a default
+  render because only 101 grids run short — a learner's dynamic review prefix
+  builds different grids, so 116 is the ceiling, not 3.
+
+  **しんぶん** is the live example worth naming: `fromModule: "m8"`,
+  `introducedByLessonId: "ja-m4-1-1"` (retired), zero m8 lesson steps contain
+  it. It was ALSO in m32 L1's authored review pool (removed in `90b613b5`) —
+  but the cell visual QA caught is in m32 **L6** and is floor-injected, so the
+  IR edit did not remove it and recompiling will not. Same defect as the 15
+  above, one module later.
 - No guard exists for "row exists, nothing teaches it". The exposure audit's
   `untouched` count is the closest thing and it is a ratchet, not a gate.
