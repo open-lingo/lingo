@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { parse } from "yaml";
 import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
+import { REGISTER_AUDIENCES } from "@/features/languages/ja/registerAudiences";
 
 /**
  * THE SCENE VOCABULARY GATE.
@@ -188,6 +189,17 @@ function japaneseIn(d: Record<string, any>): Bag[] {
     // learner reads is `ja`.
     for (const [i, a] of (d.audiences ?? []).entries()) {
       add(`audiences[${i}].ja`, a?.ja);
+    }
+    // The IR does NOT author audiences inline — it names them by id in
+    // `cast:`, and the compiler resolves each id through REGISTER_AUDIENCES
+    // on the way to RegisterScene, which prints `a.ja` (RegisterScene.tsx:163).
+    // Reading only `audiences[].ja` therefore gated NOTHING on a real scene
+    // (2026-08-19): `cast: [friend, teacher]` has no `audiences` key at all.
+    // Two of the four roster audiences carry vocabulary the course does not
+    // teach — てんいん is taught nowhere, おばあさん not until m19 — so casting
+    // one before its module is exactly the miss this file exists to catch.
+    for (const id of (d.cast ?? []) as string[]) {
+      add(`cast.${id}.ja`, REGISTER_AUDIENCES[id]?.ja);
     }
   } else {
     throw new Error(`unknown scene kind "${kind}" — add its field list here`);
