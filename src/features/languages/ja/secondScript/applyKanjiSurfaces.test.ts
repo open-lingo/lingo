@@ -8,7 +8,11 @@ import {
   FURIGANA_WINDOW,
   furiganaVisibleAt,
 } from "./kanjiRollout";
-import type { LessonContent, LessonStep } from "@/features/lesson/types";
+import type {
+  LessonContent,
+  LessonStep,
+  ParticleClozeStep,
+} from "@/features/lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { getTtsUrl } from "@/shared/tts";
 import {
@@ -20,7 +24,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
-import { vocabMcq, build, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
+import { vocabMcq, build, cloze, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
 
 /**
  * KANJI SURFACE POST-PASS — the owner's "needs good checks to make sure it
@@ -341,6 +345,68 @@ describe("vocabMcq optionAnnotations route options through the kanji pass", () =
     const gi = step.options.findIndex((o) => o.word === "がっこう");
     const ann = (out.steps[0] as typeof step).optionAnnotations![gi]!;
     expect(ann[0].surface).toBe("がっこう"); // m10 < unlock 22 → stays kana
+  });
+});
+
+describe("particle_cloze frame halves route through the kanji pass", () => {
+  // Spencer's m31 walk, 2026-08-15: 「ははは せんせいに はなを ___。」 rendered
+  // every word as kana at module 31, though 花 unlocks at m18, 母 at m19 and
+  // 先生 at m10 — and 先生 even has two authored kanji_reading beats in m28.
+  // The cause was structural, not per-word: `cloze()` emitted the halves as
+  // BARE STRINGS, and this pass is atomId-gated per annotation segment, so it
+  // could never reach them. Every cloze frame in the course was kana at every
+  // module — 319 authored beats. These tests pin the frame to the same
+  // contract vocabMcq options and conjugation_cloze frames already have.
+  const frame = () =>
+    cloze(
+      "cloze-hana",
+      "ははは せんせいに はなを",
+      "",
+      "あげる",
+      ["あげる", "かう", "もつ"],
+      "My mother gives the teacher flowers",
+      "ははは せんせいに はなを あげる。",
+    );
+
+  it("attaches beforeAnnotation with atomIds on the eligible frame words", () => {
+    const step = frame();
+    expect(step.beforeAnnotation).toBeDefined();
+    const withAtoms = step.beforeAnnotation!.filter((s) => s.atomId);
+    expect(withAtoms.map((s) => s.surface)).toEqual(
+      expect.arrayContaining(["はは", "せんせい"]),
+    );
+    // はな is NOT here, and that is the pass working: it resolves to two
+    // atoms (hana 花 flower / hana-nose 鼻 nose), and an ambiguous homograph
+    // never kanji-fies. Teaching 花 needs an authored `kind: kanji` beat —
+    // the route 先生 took — not this pass. See docs/reports/m31-walk-2026-08-15.md.
+    expect(withAtoms.some((s) => s.surface === "はな")).toBe(false);
+    // Empty half → no annotation key at all (blank at a sentence edge).
+    expect(step.afterAnnotation).toBeUndefined();
+    // Grading + audio stay pure kana.
+    expect(step.prompt.before).toBe("ははは せんせいに はなを");
+    expect(step.audioText).toBe("ははは せんせいに はなを あげる。");
+  });
+
+  it("substitutes 母 and 先生 at m31, keeping the kana readings", () => {
+    const out = applyKanjiSurfaces(synthLesson("m31", [frame()]));
+    const ann = (out.steps[0] as ParticleClozeStep).beforeAnnotation!;
+    const surfaceFor = (reading: string) =>
+      ann.find((s) => s.reading === reading)?.surface;
+    expect(surfaceFor("はは")).toBe("母");
+    expect(surfaceFor("せんせい")).toBe("先生");
+    // Particles carry no atomId and are never rewritten; はな stays kana on
+    // the homograph rule. Assert on the painted string so the segmentation
+    // (which merges particles into filler runs) isn't part of the contract.
+    const painted = ann.map((s) => s.surface).join("");
+    expect(painted).toContain("を");
+    expect(painted).toContain("はな");
+  });
+
+  it("leaves the frame kana below the unlock module", () => {
+    const out = applyKanjiSurfaces(synthLesson("m9", [frame()]));
+    const ann = (out.steps[0] as ParticleClozeStep).beforeAnnotation!;
+    // m9 < 母's unlock (19); 先生 unlocks at m10. Nothing may carry Han here.
+    expect(ann.every((s) => !HAS_HAN.test(s.surface))).toBe(true);
   });
 });
 

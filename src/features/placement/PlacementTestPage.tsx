@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
+import { LessonStepEnvironment } from "@/features/lesson/components/LessonStepEnvironment";
 import { LessonShell } from "@/features/lesson/components/LessonShell";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
@@ -123,6 +124,14 @@ export function PlacementTestPage() {
   );
 
   const [currentStep, setCurrentStep] = useState<LessonStep | null>(null);
+  /**
+   * The module the CURRENT item came from — not the module being tested.
+   * A test-out serves one module, but banded placement walks several, so the
+   * script ladder has to follow the question rather than the page. Feeds
+   * `LessonStepEnvironment` so each item renders with the romaji/furigana
+   * state its own module's lesson would use (Spencer 2026-08-18).
+   */
+  const [currentModuleId, setCurrentModuleId] = useState<string | null>(null);
   const [resultApplied, setResultApplied] = useState(false);
   const [appliedResult, setAppliedResult] = useState<PlacementResult | null>(
     null,
@@ -233,6 +242,7 @@ export function PlacementTestPage() {
     // could still be playing as the next item mounts. Cut it off so audio
     // never bleeds into the next question (Spencer QA 2026-07-16).
     stopAllAudio();
+    setCurrentModuleId(nextItem.moduleId);
     setCurrentStep(instantiateItem(nextItem));
   }, [
     state,
@@ -391,12 +401,16 @@ export function PlacementTestPage() {
       }
     >
       {currentStep && (
-        <StepRenderer
-          key={currentStep.id}
-          step={currentStep}
-          onComplete={handleStepComplete}
-          onContinue={handleContinue}
-        />
+        <LessonStepEnvironment
+          moduleIndex={parseModuleIndex(currentModuleId ?? moduleId)}
+        >
+          <StepRenderer
+            key={currentStep.id}
+            step={currentStep}
+            onComplete={handleStepComplete}
+            onContinue={handleContinue}
+          />
+        </LessonStepEnvironment>
       )}
     </LessonShell>
   );

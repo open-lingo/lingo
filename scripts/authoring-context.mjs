@@ -270,6 +270,11 @@ out += `
    grammar antiPattern must be genuinely WRONG Japanese (inv 12/24).
 9. Register cue only where it changes the answer; だ-drop accepted in
    translate acceptedAnswers (inv 8).
+10. NOBODY LIKES A PERSON. 好き/きらい take a thing, place, food, or a
+   nominalized clause — never a human. 〜が すき does not distinguish
+   liking from attraction, so a person in the liked slot reads as a
+   confession, and worse when it is a child. 「Xが すきな Y」 (the Y that
+   X likes) is a different construction and is fine (inv 50).
 
 ## Self-check protocol (do this AS you author, per lesson — not at the end)
 After drafting EACH lesson, before moving to the next:

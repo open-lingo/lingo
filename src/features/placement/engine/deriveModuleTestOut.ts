@@ -20,14 +20,30 @@ import type { PlacementItemConfig } from "../questionBank";
 /** Formats allowed in a test-out. "Add listening" = tap/type + listening,
  *  but NOT speaking/dialogue (mic) or symbol/kana drills. Cross-language:
  *  the ES course's graded step types (sentence/word-image MCQ, cloze,
- *  build, translate, listening variants) are all already listed here; its
- *  remaining types (speaking, info, phrase_card) are mic-gated or passive
- *  and stay excluded. */
+ *  build, listening variants) are all already listed here; its remaining
+ *  types (speaking, info, phrase_card) are mic-gated or passive and stay
+ *  excluded.
+ *
+ *  `translate` is EXCLUDED — Spencer 2026-08-18: *"we dont want to include
+ *  the type translate step in ANY test out feature. its too complicated and
+ *  not forgiving enough for something they mostly know and dont need a full
+ *  re-study of."* A test-out asks "do you already have this?", and free-text
+ *  production is the wrong instrument for that question: it grades spelling,
+ *  particle spacing, and register choice all at once, so a learner who knows
+ *  the grammar can still fail on a synonym the acceptedAnswers list never
+ *  anticipated. Every other format here has a bounded answer space. The
+ *  same step type stays legal in LESSONS, where a miss costs a retry rather
+ *  than a whole module's credit.
+ *
+ *  Excluding it costs nothing measurable: across ja/ko/es (74 modules with
+ *  a derivable pool) it removes 1–15 items per module, and NO module drops
+ *  below TESTOUT_DERIVED_FLOOR or loses a skill section — the thinnest pool
+ *  left is 25 items against a TESTOUT_SIZE of 12. Guarded by
+ *  `deriveModuleTestOut.test.ts`. */
 export const TESTOUT_FORMATS: ReadonlySet<string> = new Set([
   "multiple_choice",
   "particle_cloze",
   "build_sentence",
-  "translate",
   "fill_blank",
   "word_image_mcq",
   "self_explanation_mcq",

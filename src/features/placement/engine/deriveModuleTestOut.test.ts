@@ -53,6 +53,54 @@ describe("deriveModuleTestOut", () => {
     expect(legal.every((i) => i.format !== "dialogue_listen")).toBe(true);
   });
 
+  /**
+   * Spencer 2026-08-18: *"we dont want to include the type translate step in
+   * ANY test out feature."* Asserted three ways, because the earlier
+   * format-legality check only proves the picked 12 obey TESTOUT_FORMATS —
+   * it would still pass if `translate` were added back to that set.
+   */
+  describe("translate is barred from every test-out surface", () => {
+    it("is not in TESTOUT_FORMATS", () => {
+      expect(TESTOUT_FORMATS.has("translate")).toBe(false);
+    });
+
+    it("never reaches the gradable pool, in any shipped module or language", () => {
+      const offenders: string[] = [];
+      for (const lang of ["ja", "ko", "es"]) {
+        for (const m of getMockCourse(lang).modules) {
+          const items = collectGradable(m.id, TESTOUT_FORMATS, lang);
+          if (items.some((i) => i.format === "translate")) {
+            offenders.push(`${lang}/${m.id}`);
+          }
+        }
+      }
+      expect(offenders).toEqual([]);
+    });
+
+    it("instrument control: translate steps DO exist in the courses", () => {
+      // Guards the check above from passing vacuously if translate steps
+      // vanished from the curriculum or collectGradable stopped walking.
+      const withTranslate = new Set([...TESTOUT_FORMATS, "translate"]);
+      const found = collectGradable("m3", withTranslate).filter(
+        (i) => i.format === "translate",
+      );
+      expect(found.length).toBeGreaterThan(0);
+    });
+
+    it("dropping it costs no module its floor or its section coverage", () => {
+      // The reason this was safe to do course-wide rather than per-module.
+      const thin: string[] = [];
+      for (const lang of ["ja", "ko", "es"]) {
+        for (const m of getMockCourse(lang).modules) {
+          const items = collectGradable(m.id, TESTOUT_FORMATS, lang);
+          if (items.length === 0) continue; // stub module, no derived path
+          if (items.length < TESTOUT_DERIVED_FLOOR) thin.push(`${lang}/${m.id}`);
+        }
+      }
+      expect(thin).toEqual([]);
+    });
+  });
+
   it("is deterministic (no rng) — same module yields the same picks", () => {
     const a = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);
     const b = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);

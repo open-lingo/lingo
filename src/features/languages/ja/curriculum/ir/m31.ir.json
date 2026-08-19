@@ -137,73 +137,122 @@
   "grammarPoints": [
     {
       "id": "ageru",
-      "variant": "schema",
-      "rule": "English has one verb for this and Japanese has three, so the first thing to do is stop looking for the word that means give. There isn't one. What Japanese has instead is three verbs that all describe the same event — a thing leaving one person and arriving at another — and which one you reach for depends on WHICH WAY it moved past you. Not on who is talking. Not on politeness. On direction. Start with the one that points away. あげる is what you say when something leaves your side of the line and goes to somebody on the other side of it. 「ともだちに プレゼントを あげる。」 I'll give my friend a present. The sentence itself is nothing new: the giver takes は, the person who gets it takes に, the thing takes を, and the verb comes last, exactly as it has since module 4. The only new thing in it is あげる. Now the line, because everything in this module hangs off it. Japanese draws a circle around you and the people who belong to you — your family, and by extension anyone you are speaking for — and everybody else stands outside it. Japanese has names for the two sides, うち and そと, inside and outside. あげる measures that circle: it is the verb for a thing going OUT. So 「ははは せんせいに はなを あげる。」 works, because my mother is inside and the teacher is outside. And that is already enough to tell you the thing あげる cannot do, which is the whole of lesson seven: it can never point back in at you.",
+      "variant": "axis",
+      "rule": "Japanese has no single verb for give. Which one you reach for depends on WHICH WAY the thing moved past you — not on who is talking, and not on politeness. There is a circle drawn around you and the people who belong to you (うち, inside); everybody else stands そと, outside.",
+      "diagram": {
+        "insideLabel": "うち",
+        "outsideLabel": "そと",
+        "left": {
+          "label": "わたし",
+          "gloss": "me",
+          "color": "#f97316",
+          "inside": true
+        },
+        "right": {
+          "label": "ともだち",
+          "gloss": "my friend",
+          "color": "#14b8a6",
+          "inside": false
+        },
+        "object": {
+          "label": "プレゼント",
+          "particle": "を"
+        },
+        "rows": [
+          {
+            "verb": "あげる",
+            "from": "left",
+            "leftParticle": "は",
+            "rightParticle": "に",
+            "subject": "left",
+            "note": "The thing leaves the circle. I am what the sentence is about."
+          },
+          {
+            "verb": "くれる",
+            "from": "right",
+            "rightParticle": "が",
+            "subject": "right",
+            "hidden": "left",
+            "note": "Same present, arrow reversed. My friend is the subject — and I drop out, because くれる can only point at me."
+          }
+        ]
+      },
       "examples": [
         {
           "ja": "ともだちに プレゼントを あげる。",
           "en": "I'll give my friend a present."
         },
         {
-          "ja": "ははは せんせいに はなを あげる。",
-          "en": "My mother gives the teacher flowers."
-        },
-        {
-          "ja": "いもうとに おおきい ケーキを あげる。",
-          "en": "I'll give my little sister a big cake."
-        },
-        {
-          "ja": "あには がくせいに じしょを あげる。",
-          "en": "My older brother gives the student a dictionary."
-        },
-        {
-          "ja": "かいしゃの ひとに おれいの おかしを あげる。",
-          "en": "I'll give the people at the company sweets as a thank-you."
-        }
-      ],
-      "antiPattern": {
-        "ja": "ともだちに プレゼントを もらう。",
-        "why": "もらう is the verb for something coming TO the subject, so this says I get a present from my friend — the opposite event. Something you hand over takes あげる: ともだちに プレゼントを あげる。"
-      }
-    },
-    {
-      "id": "kureru",
-      "variant": "schema",
-      "rule": "Same present, same friend, same afternoon — and a different verb, because now the thing is coming the other way. くれる is あげる pointed back at you. Something leaves somebody OUTSIDE your circle and arrives INSIDE it. 「ともだちが プレゼントを くれる。」 My friend gives me a present. Look hard at what changed and what did not. The thing still takes を. The verb still comes last. What moved is the direction, and one small thing you may not have noticed: the giver here is marked が rather than は, and the receiver — me — is not in the sentence at all. Both of those are the same fact. くれる already says the thing came to my side, so saying わたしに as well is like saying I myself personally: not wrong, just unnecessary, and Japanese leaves out what it has already said. Lesson eleven is about exactly that disappearance. This is the pair worth burning in, because it is the one English speakers get wrong for years. あげる and くれる are not two levels of politeness and they are not giver-verb and receiver-verb. They are ONE EVENT DESCRIBED FROM OPPOSITE ENDS. If you can see the present travelling, あげる is you watching it leave and くれる is you watching it arrive. Everything else in this module is a consequence of that.",
-      "examples": [
-        {
           "ja": "ともだちが プレゼントを くれる。",
           "en": "My friend gives me a present."
+        },
+        {
+          "ja": "ははは せんせいに はなを あげる。",
+          "en": "My mother gives the teacher flowers."
         },
         {
           "ja": "ちちが おおきい とけいを くれる。",
           "en": "My father gives me a big watch."
         },
         {
-          "ja": "せんせいが いもうとに ノートを くれる。",
-          "en": "The teacher gives my little sister a notebook."
-        },
-        {
-          "ja": "いしゃが ちちに くすりを くれる。",
-          "en": "The doctor gives my father medicine."
-        },
-        {
-          "ja": "がくせいが おれいに おかしを くれる。",
-          "en": "The student gives me sweets as a thank-you."
+          "ja": "あには がくせいに じしょを あげる。",
+          "en": "My older brother gives the student a dictionary."
         }
       ],
       "antiPattern": {
         "ja": "ともだちが プレゼントを あげる。",
-        "why": "あげる cannot bring something to your own side, so this sentence never arrives anywhere — a thing coming in from outside takes くれる: ともだちが プレゼントを くれる。"
+        "why": "あげる's arrow leaves your side and can never land back on it, so this sentence never arrives anywhere — a thing coming in from outside takes くれる: ともだちが プレゼントを くれる。"
       }
     },
     {
       "id": "ni-recipient",
-      "rule": "You have known に since module 5 and every に you have met so far has been a place. 「がっこうに いく。」 「うちに かえる。」 に marks where something ENDS UP. This module hands it a person, and once you see that it is the same job you will never have to learn it twice: 「ともだちに はなたばを あげる。」 The bouquet ends up at my friend, so my friend takes に. A transfer is a journey with a person at the far end of it, and Japanese marks the far end the same way whether it is a station or a sister. So the full shape of an あげる sentence is three slots and a verb, and you already own all four: WHO GIVES takes は, WHO GETS takes に, WHAT MOVES takes を, verb last. 「あねは せんせいに てがみを あげる。」 The one thing worth practising is the order, because English does it two ways — I gave my friend a book, I gave a book to my friend — and Japanese only does it one. Person before thing is the ordinary order. And because every slot is labelled by its particle rather than by its position, you can ask about any one of them with だれ: 「だれに あげる？」 Who are you giving it to? The particle stays put and the question word drops into the slot.",
+      "rule": "Every に you have met since module 5 has been a place — 「がっこうに いく。」 に marks where something ENDS UP, and a transfer is a journey with a person at the far end. That is why the recipient takes に whether the far end is a station or a sister. Now put it on a pair where the thing comes BACK: かす is to lend, かりる is to borrow, one loan seen from its two ends.",
+      "diagram": {
+        "insideLabel": "うち",
+        "outsideLabel": "そと",
+        "left": {
+          "label": "わたし",
+          "gloss": "me",
+          "color": "#f97316",
+          "inside": true
+        },
+        "right": {
+          "label": "ともだち",
+          "gloss": "my friend",
+          "color": "#14b8a6",
+          "inside": false
+        },
+        "object": {
+          "label": "かさ",
+          "particle": "を"
+        },
+        "rows": [
+          {
+            "verb": "かす",
+            "from": "left",
+            "leftParticle": "は",
+            "rightParticle": "に",
+            "subject": "left",
+            "note": "I lend. The umbrella leaves my side — and comes back later."
+          },
+          {
+            "verb": "かりる",
+            "from": "right",
+            "leftParticle": "は",
+            "rightParticle": "に",
+            "subject": "left",
+            "note": "I borrow. Arrow reversed, but に stays put on my friend — the same particle, the far end of the same journey."
+          }
+        ]
+      },
       "examples": [
         {
-          "ja": "ともだちに はなたばを あげる。",
-          "en": "I'll give my friend a bouquet."
+          "ja": "ともだちに かさを かりる。",
+          "en": "I borrow an umbrella from my friend."
+        },
+        {
+          "ja": "いもうとに おかねを かす。",
+          "en": "I lend my little sister money."
         },
         {
           "ja": "あねは せんせいに てがみを あげる。",
@@ -214,30 +263,64 @@
           "en": "Who are you giving the souvenir to?"
         },
         {
-          "ja": "おとうとに えんぴつを あげる。",
-          "en": "I'll give my little brother a pencil."
-        },
-        {
-          "ja": "こどもに おれいの おかしを あげる。",
-          "en": "I'll give the child sweets as a thank-you."
+          "ja": "おとうとに じてんしゃを かした。",
+          "en": "I lent my little brother my bicycle."
         }
       ],
       "antiPattern": {
-        "ja": "ともだちを はなたばに あげる。",
-        "why": "を marks the thing that moves and に marks the person it reaches — swapping them hands a friend over to a bouquet: ともだちに はなたばを あげる。"
+        "ja": "ともだちに かさを かす。",
+        "why": "かす hands the umbrella over and かりる takes one in — if the umbrella is coming to you, the verb is かりる: ともだちに かさを かりる。"
       }
     },
     {
       "id": "morau",
-      "rule": "Third verb, and it is the one that rearranges the sentence rather than just pointing it. もらう means to get, to receive — and the subject of もらう is the person who ENDS UP HOLDING THE THING. 「せんせいに じしょを もらう。」 I get a dictionary from the teacher. Compare that with くれる, because they report the identical event: 「せんせいが じしょを くれる」 and 「せんせいに じしょを もらう」 describe one dictionary changing hands once. What differs is who the sentence is ABOUT. くれる is about the teacher and what the teacher did; もらう is about me and what I ended up with. Now the part that catches everybody. The person the thing came FROM takes に — the same に, doing a job that feels backwards. With あげる, に pointed at the person the thing was going to. With もらう, に points at the person it came from. That is not two rules: に marks the OTHER PERSON in the transfer, and the verb decides which end that person is standing at. English does the same trick with a different word and nobody blinks — you give TO somebody, you hear it FROM somebody — Japanese just declines to change the particle. One practical note. Because もらう is about the receiver, it is the natural verb the moment you want to say what YOU got, and it is what you will actually use most.",
+      "rule": "Third verb, and it rearranges the sentence rather than just pointing it. The subject of もらう is whoever ENDS UP HOLDING THE THING. Then the part that catches everybody: the person it came FROM also takes に. One rule, not two — に marks the OTHER PERSON in the transfer, and the verb decides which end they are standing at. English does the same trick: you give TO somebody, you hear it FROM somebody.",
+      "diagram": {
+        "insideLabel": "うち",
+        "outsideLabel": "そと",
+        "left": {
+          "label": "わたし",
+          "gloss": "me",
+          "color": "#f97316",
+          "inside": true
+        },
+        "right": {
+          "label": "せんせい",
+          "gloss": "the teacher",
+          "color": "#60a5fa",
+          "inside": false
+        },
+        "object": {
+          "label": "じしょ",
+          "particle": "を"
+        },
+        "rows": [
+          {
+            "verb": "くれる",
+            "from": "right",
+            "rightParticle": "が",
+            "subject": "right",
+            "hidden": "left",
+            "note": "About the teacher, and what the teacher did."
+          },
+          {
+            "verb": "もらう",
+            "from": "right",
+            "leftParticle": "は",
+            "rightParticle": "に",
+            "subject": "left",
+            "note": "SAME arrow, same event. Only the subject moved — now the sentence is about me and what I ended up with, and に marks where it came from."
+          }
+        ]
+      },
       "examples": [
         {
           "ja": "せんせいに じしょを もらう。",
           "en": "I get a dictionary from the teacher."
         },
         {
-          "ja": "たんじょうびに ちちに とけいを もらう。",
-          "en": "I get a watch from my father on my birthday."
+          "ja": "いしゃに くすりを もらう。",
+          "en": "I get medicine from the doctor."
         },
         {
           "ja": "いしゃに くすりを もらう。",
@@ -259,7 +342,7 @@
     },
     {
       "id": "kara-origin",
-      "rule": "もらう is the one place in this module where Japanese lets you choose, and it is worth knowing that the choice is real rather than a trap. The person a thing came from can be marked に or から, and both are correct: 「ともだちに おみやげを もらう。」 「ともだちから おみやげを もらう。」 Nobody will correct either one. から is module 4's word and it has always meant the starting point — 「にほんから きた」, came from Japan — so all that has happened is that a person is now allowed to be a starting point. に is the tighter, more ordinary choice and it is what you will hear most in speech. から is slightly more explicit about the source, and it is what people reach for when the giver is an organisation rather than a person, or when the sentence is long enough that an extra に would be one に too many. There is one case where から is not a preference but the answer, and it is worth having: when the source is not a person at all. 「かいしゃから きねんの とけいを もらう。」 A company is a place as much as a giver, and に in that sentence starts to read as a destination. Notice also that this choice belongs to もらう alone. あげる and くれる have no source slot to mark, so から never appears with them — which makes から a quiet signal, when you are listening, that もらう is coming.",
+      "rule": "The source of a もらう can be marked に or から, and both are correct: 「ともだちに おみやげを もらう。」 「ともだちから おみやげを もらう。」 Nobody will correct either. から is module 4's word and has always meant the starting point — 「にほんから きた」 — so all that has changed is that a person is now allowed to be one. に is the tighter, more ordinary choice and what you hear most in speech; から is more explicit about the source, and it is what people reach for when the giver is an organisation. There is one case where から is the answer rather than a preference: when the source is not a person at all. 「かいしゃから きねんの とけいを もらう。」 A company is a place as much as a giver, and に there starts to read as a destination. あげる and くれる have no source slot, so から never appears with them — a から is a quiet signal that もらう is coming.",
       "examples": [
         {
           "ja": "ともだちから おみやげを もらう。",
@@ -290,7 +373,7 @@
     {
       "id": "ageru",
       "variant": "limits",
-      "rule": "Here is the ban, and it is the one thing in this module that is not a preference. あげる CANNOT POINT AT YOU. 「わたしに プレゼントを あげる」 is not awkward, not childish, not impolite — it is broken, in the way that I gave me a present is broken in English, and a Japanese speaker will not be able to work out what you meant. The reason is the same one that has been running the whole module. あげる's arrow leaves your circle. There is nowhere for it to land if the destination is inside the circle it just left. So the moment the thing is arriving at you, あげる is off the table and you have exactly two verbs to choose from — and which one you use is not about the event, it is about what you want the sentence to be ABOUT. くれる if the giver is the news: 「ともだちが プレゼントを くれる。」 もらう if what you ended up with is the news: 「ともだちに プレゼントを もらう。」 Both are right, both are ordinary, and swapping them changes nothing but the emphasis. The circle stretches, too, and this is the part that takes practice. Your family is inside it. 「ともだちが いもうとに おかしを くれる」 is fine, because the sweets came in to my side of the line even though they did not come to my hand. Say あげる there and you have pushed your own sister outside the circle, which is a stranger thing to say than any particle mistake.",
+      "rule": "Here is the one hard ban in this module. あげる CANNOT POINT AT YOU. 「わたしに プレゼントを あげる」 is not awkward or impolite — it is broken, the way I gave me a present is broken in English, and a Japanese speaker will not work out what you meant. あげる's arrow leaves your circle, so there is nowhere for it to land if the destination is inside the circle it just left. The moment a thing is arriving at you, あげる is off the table and you pick between two verbs — and the choice is about what the sentence is ABOUT, not about the event. くれる if the giver is the news: 「ともだちが プレゼントを くれる。」 もらう if what you ended up with is the news: 「ともだちに プレゼントを もらう。」 The circle stretches too, and your family is inside it. 「ともだちが いもうとに おかしを くれる」 is fine — the sweets came in to my side even though they did not come to my hand. Say あげる there and you have pushed your own sister outside the circle.",
       "examples": [
         {
           "ja": "ともだちが わたしに プレゼントを くれる。",
@@ -320,7 +403,7 @@
     },
     {
       "id": "ta-form",
-      "rule": "Everything so far has been about presents that have not been handed over yet. Put the three verbs in the past and the module becomes usable, because most of what anybody says about a gift is said afterwards. The forms are module 11's and nothing about them is new. あげる and くれる are る-verbs: drop る, add た. あげた. くれた. もらう is an う-verb ending in う, so it takes the same った row かう does: もらった. That is it — no sound change to memorise that you have not already met. What IS worth watching is that the direction does not soften in the past. 「ともだちが けいたいを くれた」 still points in at me; 「ともだちに けいたいを あげた」 still points out. Learners who have got the pair straight in the non-past sometimes lose it in the past, because the English translation collapses again — gave, for both. Say the arrow to yourself before you pick the verb. One more thing you get for free. 「もらった」 is the single most useful of the three, because it is how you answer the question the past tense invites. 「その とけい、いいね。」 「たんじょうびに ちちに もらった。」 Nice watch. My father gave it to me for my birthday — except that the Japanese says I got it from my father, which is the same news told from the end that matters.",
+      "rule": "Put the three verbs in the past and the module becomes usable, because most of what anybody says about a gift is said afterwards. The forms are module 11's. あげる and くれる are る-verbs: drop る, add た — あげた, くれた. もらう is an う-verb ending in う, so it takes かう's った row: もらった. Nothing new to memorise. What IS worth watching is that the direction does not soften in the past. 「ともだちが けいたいを くれた」 still points in at me; 「ともだちに けいたいを あげた」 still points out. English collapses both back to gave, so say the arrow to yourself before you pick the verb. 「もらった」 is the most useful of the three, because it answers the question the past tense invites: 「その とけい、いいね。」 「たんじょうびに ちちに もらった。」 Nice watch — I got it from my father for my birthday.",
       "examples": [
         {
           "ja": "たんじょうびに ちちに とけいを もらった。",
@@ -351,7 +434,7 @@
     {
       "id": "kureru",
       "variant": "honorific",
-      "rule": "Two more words, and for now you only have to RECOGNISE them. When the person giving is somebody you look up to — a teacher, a customer, somebody much older — Japanese swaps the verb rather than adding a polite ending. くれる becomes くださる, and もらう becomes いただく. 「せんせいが じしょを くださった。」 The teacher was kind enough to give me a dictionary. 「せんせいに じしょを いただいた。」 I received a dictionary from the teacher. Notice that the axis has not moved an inch. くださる points in at me exactly like くれる, and いただく makes the receiver the subject exactly like もらう. The direction system you have just learned is doing all the work; what has been added is a layer of respect sitting on top of it, which is why the spine teaches direction first and respect much later. So why meet them now at all? Because you will hear them constantly and they do not look like their plain partners — you cannot get to くださった from くれる by any rule you own. Recognising them is worth having today. Producing them is not: くださる in particular has an irregular polite form that trips native learners of the language too, and this course teaches it properly at module 50 rather than badly now. Until then, when you are the one speaking, use くれる and もらう. Nobody will think you rude.",
+      "rule": "Two more words, and for now you only have to RECOGNISE them. When the giver is somebody you look up to — a teacher, a customer, somebody much older — Japanese swaps the verb rather than adding a polite ending. くれる becomes くださる, もらう becomes いただく. 「せんせいが じしょを くださった。」 The teacher was kind enough to give me a dictionary. 「せんせいに じしょを いただいた。」 I received a dictionary from the teacher. Notice the axis has not moved an inch: くださる points in at me exactly like くれる, and いただく makes the receiver the subject exactly like もらう. Respect is a layer sitting on top of direction, which is why direction comes first. Meet them now because you will hear them constantly and cannot derive them — no rule you own gets you from くれる to くださった. When you are the one speaking, keep using くれる and もらう. Nobody will think you rude.",
       "examples": [
         {
           "ja": "せんせいが じしょを くださった。",
@@ -380,9 +463,40 @@
       }
     },
     {
+      "id": "v-tai",
+      "variant": "transfer",
+      "rule": "You have had 〜たい since module 13 and it works on these three verbs unchanged: drop る or う, add たい. あげたい. もらいたい. What is worth a lesson is that wanting cuts across the direction axis rather than sitting on it. 「せんせいに はなたばを あげたい。」 I want to give the teacher a bouquet — the arrow still points out, and たい only says I have not done it yet. 「たんじょうびに ケーキを もらいたい。」 I want to get a cake for my birthday — still the receiver's side, still もらう's shape. There is one gap worth knowing about now rather than being surprised by later: 〜たい is for YOUR OWN wanting. You cannot use it to say what somebody else wants, which is why every example here is about you. And くれる has no たい at all, because it would mean wanting somebody else to do something — a different form entirely, and not this module's.",
+      "examples": [
+        {
+          "ja": "せんせいに はなたばを あげたい。",
+          "en": "I want to give the teacher a bouquet."
+        },
+        {
+          "ja": "たんじょうびに ケーキを もらいたい。",
+          "en": "I want to get a cake for my birthday."
+        },
+        {
+          "ja": "がくせいに ノートを あげたい。",
+          "en": "I want to give the student a notebook."
+        },
+        {
+          "ja": "はなが すきだから はなたばを もらいたい。",
+          "en": "I like flowers, so I want to get a bouquet."
+        },
+        {
+          "ja": "ともだちに おれいの カードを あげたい。",
+          "en": "I want to give my friend a thank-you card."
+        }
+      ],
+      "antiPattern": {
+        "ja": "せんせいに はなたばを あげる たい。",
+        "why": "〜たい attaches to the verb stem, not to the finished dictionary form — あげる loses its る before たい: せんせいに はなたばを あげたい。"
+      }
+    },
+    {
       "id": "wa-topic",
       "variant": "viewpoint",
-      "rule": "Last piece, and it is the one that makes the module pay. Because くれる and もらう already say which way the thing moved, Japanese stops mentioning you. 「ともだちが けいたいを くれた。」 There is no わたしに in that sentence and there does not need to be — くれる cannot point anywhere else. Same with もらう: 「ちちに おかねを もらった」 has no わたしは in it, because the subject of もらう is whoever is speaking unless somebody else is named. This is not laziness and it is not an abbreviation of a longer sentence. It is the payoff for having a direction built into the verb: the verb has already told you who, so saying it again would be repeating yourself. And it works the other way round, which is how you use it deliberately. If you DO put わたしは or わたしに in, you are contrasting — 「わたしは かさを もらった」 lands as I got an umbrella, whatever everyone else got. That is module 3's は doing its oldest job, marking a topic against a background. So the practical rule for listening is: when a sentence has くれる in it and no receiver, the receiver is the speaker or somebody on the speaker's side. When it has もらう and no subject, the subject is the speaker. And when the speaker DOES say わたし, listen for what they are setting themselves against, because they had no other reason to say it.",
+      "rule": "Because くれる and もらう already say which way the thing moved, Japanese stops mentioning you. 「ともだちが けいたいを くれた。」 There is no わたしに in that sentence and there does not need to be — くれる cannot point anywhere else. Same with もらう: 「ちちに おかねを もらった」 has no わたしは, because the subject of もらう is the speaker unless somebody else is named. This is not an abbreviation of a longer sentence; it is the payoff for having direction built into the verb. And it works the other way round. If you DO say わたしは, you are contrasting: 「わたしは かさを もらった」 lands as I got an umbrella, whatever everyone else got — module 3's は marking a topic against a background. So when you hear くれる with no receiver, the receiver is the speaker or somebody on their side; when you hear もらう with no subject, the subject is the speaker.",
       "examples": [
         {
           "ja": "ともだちが けいたいを くれた。",
@@ -726,18 +840,21 @@
     {
       "id": "m31-neo-1",
       "role": "teaching",
-      "title": "「ともだちに プレゼントを あげる」 — the one that points away",
-      "focus": "Japanese has three verbs where English has give, and the first one is for things leaving your side",
+      "title": "「あげる」と「くれる」 — one present, two directions",
+      "focus": "The module's axis, both poles at once: あげる sends a thing out of your circle and くれる brings it in",
       "introduces": [
         "あげる",
+        "くれる",
         "プレゼント",
-        "こども"
+        "こども",
+        "はなたば",
+        "おれい"
       ],
       "beats": [
         {
           "kind": "rule",
           "grammarPointId": "ageru",
-          "variant": "schema"
+          "variant": "axis"
         },
         {
           "kind": "sentence",
@@ -774,182 +891,6 @@
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃの ひとに おれいの おかしを あげる。",
-          "en": "I'll give the people at the company sweets as a thank-you",
-          "exercises": [
-            "ageru",
-            "no-possession",
-            "ni-recipient"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こどもが すきだから えんぴつを あげる。",
-          "en": "I like children, so I'll give him a pencil",
-          "exercises": [
-            "ageru",
-            "kara-because",
-            "suki-kirai-no"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "あねは いしゃに てがみを あげる。",
-          "en": "My older sister gives the doctor a letter",
-          "exercises": [
-            "ageru",
-            "ni-recipient",
-            "family-register"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "あした いもうとに ぼうしを あげる。",
-          "en": "I'll give my little sister a hat tomorrow",
-          "exercises": [
-            "ageru",
-            "ni-time",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こどもは アメリカじんに しゃしんを あげる。",
-          "en": "The child gives the American a photograph",
-          "exercises": [
-            "ageru",
-            "ni-recipient",
-            "wa-topic"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
-          "exercises": [
-            "ageru",
-            "wo-object"
-          ],
-          "mode": "translate"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "ははは せんせいに はなを ",
-          "tail": "。",
-          "answer": "あげる",
-          "options": [
-            "あげる",
-            "かう",
-            "もつ"
-          ],
-          "en": "My mother gives the teacher flowers",
-          "explanation": "the flowers leave my mother's side and reach the teacher, which is what あげる is for. かう only buys them and もつ only holds them — neither says the teacher ended up with anything."
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "がくせいに ノートを あげる。",
-          "answer": "I'll give the student a notebook",
-          "distractors": [
-            "I'll give the student a dictionary",
-            "I'll get a notebook from the student",
-            "The student gives me a notebook"
-          ],
-          "exercises": [
-            "ageru",
-            "ni-recipient"
-          ]
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "あねは にほんじんに しゃしんを あげる。",
-          "answer": "My older sister gives the Japanese person a photograph",
-          "distractors": [
-            "My older sister gets a photograph from the Japanese person",
-            "My older brother gives the Japanese person a photograph",
-            "My older sister gives the American a photograph"
-          ],
-          "exercises": [
-            "ageru",
-            "family-register"
-          ]
-        },
-        {
-          "kind": "dialogue",
-          "lines": [
-            {
-              "speaker": "Mika",
-              "ja": "その プレゼントは だれの？",
-              "en": "Whose present is that?"
-            },
-            {
-              "speaker": "Tom",
-              "ja": "ともだちの。あした あげる。",
-              "en": "My friend's. I'll give it to them tomorrow."
-            }
-          ],
-          "questions": [
-            {
-              "q": "What does Tom say about the present?",
-              "options": [
-                "He'll give it to his friend tomorrow",
-                "His friend gave it to him",
-                "He bought it yesterday",
-                "It belongs to his sister"
-              ],
-              "answer": "He'll give it to his friend tomorrow"
-            }
-          ]
-        },
-        {
-          "kind": "challenge",
-          "ja": "こどもが すきだから あした いもうとに おおきい プレゼントを あげる。",
-          "en": "I like children, so tomorrow I'll give my little sister a big present",
-          "combines": [
-            "ageru",
-            "ni-recipient",
-            "kara-because",
-            "suki-kirai-no",
-            "i-adj-present"
-          ],
-          "mode": "build"
-        }
-      ],
-      "reviewPool": [
-        "プレゼント",
-        "ともだち",
-        "せんせい",
-        "がくせい",
-        "はな",
-        "じしょ",
-        "てがみ",
-        "えんぴつ",
-        "ぼうし",
-        "しゃしん"
-      ]
-    },
-    {
-      "id": "m31-neo-2",
-      "role": "teaching",
-      "title": "「ともだちが プレゼントを くれる」 — the same present, coming the other way",
-      "focus": "くれる is あげる pointed back at you, and the receiver stops being mentioned",
-      "introduces": [
-        "くれる",
-        "おかし",
-        "ケーキ"
-      ],
-      "beats": [
-        {
-          "kind": "rule",
-          "grammarPointId": "kureru",
-          "variant": "schema"
-        },
-        {
-          "kind": "sentence",
           "ja": "ともだちが プレゼントを くれる。",
           "en": "My friend gives me a present",
           "exercises": [
@@ -971,13 +912,26 @@
           "mode": "build"
         },
         {
+          "kind": "particle-cloze",
+          "stem": "ともだちが プレゼントを ",
+          "tail": "。",
+          "answer": "くれる",
+          "options": [
+            "くれる",
+            "あげる",
+            "かう"
+          ],
+          "en": "My friend gives me a present",
+          "explanation": "the present is arriving at my side, and あげる can only send something away from it. かう would only mean my friend buys one."
+        },
+        {
           "kind": "sentence",
-          "ja": "せんせいが いもうとに ノートを くれる。",
-          "en": "The teacher gives my little sister a notebook",
+          "ja": "いもうとは えんぴつが すきだから あげる。",
+          "en": "My little sister likes pencils, so I'll give her one",
           "exercises": [
-            "kureru",
-            "ni-recipient",
-            "family-register"
+            "ageru",
+            "kara-because",
+            "suki-kirai-no"
           ],
           "mode": "build"
         },
@@ -990,38 +944,16 @@
             "ni-recipient",
             "ga-existence"
           ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "がくせいが おれいの おかしを くれる。",
-          "en": "The student gives me sweets as a thank-you",
-          "exercises": [
-            "kureru",
-            "no-possession",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "アメリカじんが おおきい ケーキを くれる。",
-          "en": "The American gives me a big cake",
-          "exercises": [
-            "kureru",
-            "i-adj-present",
-            "wo-object"
-          ],
           "mode": "listening"
         },
         {
           "kind": "sentence",
-          "ja": "おかしが すきだから ともだちが ケーキを くれる。",
-          "en": "I like sweets, so my friend gives me a cake",
+          "ja": "ともだちに はなたばを あげる。",
+          "en": "I'll give my friend a bouquet",
           "exercises": [
-            "kureru",
-            "kara-because",
-            "suki-kirai-no"
+            "ageru",
+            "ni-recipient",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -1034,6 +966,28 @@
             "ni-recipient",
             "family-register"
           ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こどもは アメリカじんに しゃしんを あげる。",
+          "en": "The child gives the American a photograph",
+          "exercises": [
+            "ageru",
+            "ni-recipient",
+            "wa-topic"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに おれいの てがみを あげる。",
+          "en": "I'll give the teacher a thank-you letter",
+          "exercises": [
+            "ageru",
+            "no-possession",
+            "ni-recipient"
+          ],
           "mode": "build"
         },
         {
@@ -1048,223 +1002,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "ともだちが ケーキを ",
-          "tail": "。",
-          "answer": "くれる",
-          "options": [
-            "くれる",
-            "あげる",
-            "かう"
-          ],
-          "en": "My friend gives me a cake",
-          "explanation": "the cake is arriving at my side, and あげる can only send something away from it. かう would only mean my friend buys one."
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "せんせいが おかしを くれる。",
-          "answer": "The teacher gives me sweets",
-          "distractors": [
-            "I give the teacher sweets",
-            "The teacher gives me a cake",
-            "My friend gives me sweets"
-          ],
-          "exercises": [
-            "kureru",
-            "wo-object"
-          ]
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "いしゃが ははに くすりを くれる。",
-          "answer": "The doctor gives my mother medicine",
-          "distractors": [
-            "My mother gives the doctor medicine",
-            "The doctor gives my father medicine",
-            "The doctor gives my mother a letter"
-          ],
-          "exercises": [
-            "kureru",
-            "ni-recipient"
-          ]
-        },
-        {
-          "kind": "dialogue",
-          "lines": [
-            {
-              "speaker": "Ken",
-              "ja": "その とけい、いいね。",
-              "en": "Nice watch."
-            },
-            {
-              "speaker": "Mika",
-              "ja": "うん。ちちが くれる。",
-              "en": "Yeah. My father's giving it to me."
-            }
-          ],
-          "questions": [
-            {
-              "q": "Who is giving Mika the watch?",
-              "options": [
-                "Her father",
-                "Her older sister",
-                "Her friend",
-                "The teacher"
-              ],
-              "answer": "Her father"
-            }
-          ]
-        },
-        {
-          "kind": "challenge",
-          "ja": "おかしが すきだから ともだちが おおきい ケーキと おかしを くれる。",
-          "en": "I like sweets, so my friend gives me a big cake and some sweets",
-          "combines": [
-            "kureru",
-            "kara-because",
-            "suki-kirai-no",
-            "to-and",
-            "i-adj-present"
-          ],
-          "mode": "build"
-        }
-      ],
-      "reviewPool": [
-        "おかし",
-        "ケーキ",
-        "とけい",
-        "ノート",
-        "くすり",
-        "かさ",
-        "ともだち",
-        "いしゃ",
-        "せんせい",
-        "アメリカじん"
-      ]
-    },
-    {
-      "id": "m31-neo-3",
-      "role": "teaching",
-      "title": "「だれに あげる？」 — に marks the one who gets it",
-      "focus": "The に you have used for places takes a person, and the transfer sentence is four slots you already own",
-      "introduces": [
-        "たんじょうび",
-        "はなたば",
-        "おれい",
-        "カード"
-      ],
-      "beats": [
-        {
-          "kind": "rule",
-          "grammarPointId": "ni-recipient"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちに はなたばを あげる。",
-          "en": "I'll give my friend a bouquet",
-          "exercises": [
-            "ni-recipient",
-            "ageru",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "あねは せんせいに てがみを あげる。",
-          "en": "My older sister gives the teacher a letter",
-          "exercises": [
-            "ni-recipient",
-            "ageru",
-            "family-register"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "kanji",
-          "kana": "ともだち",
-          "kanji": "友達",
-          "exercises": [
-            "ni-recipient"
-          ]
-        },
-        {
-          "kind": "sentence",
-          "ja": "だれに おみやげを あげる？",
-          "en": "Who are you giving the souvenir to?",
-          "exercises": [
-            "ni-recipient",
-            "dare",
-            "ka-question"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "おとうとに えんぴつを あげる。",
-          "en": "I'll give my little brother a pencil",
-          "exercises": [
-            "ni-recipient",
-            "ageru",
-            "family-register"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こどもの たんじょうびに おかしを あげる。",
-          "en": "I'll give the child sweets on his birthday",
-          "exercises": [
-            "ni-recipient",
-            "ni-time",
-            "no-possession"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "せんせいに おれいの カードを あげる。",
-          "en": "I'll give the teacher a thank-you card",
-          "exercises": [
-            "ni-recipient",
-            "no-possession",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "たんじょうびに ケーキが ほしい。",
-          "en": "I want a cake for my birthday",
-          "exercises": [
-            "ga-hoshii",
-            "ni-time"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "はなが すきだから あねに はなたばを あげる。",
-          "en": "She likes flowers, so I'll give my older sister a bouquet",
-          "exercises": [
-            "ni-recipient",
-            "kara-because",
-            "suki-kirai-no"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "だれに カードを あげる？",
-          "en": "Who are you giving the card to?",
-          "exercises": [
-            "ni-recipient",
-            "dare"
-          ],
-          "mode": "translate"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "ともだちに はなたばを ",
+          "stem": "ははは せんせいに はなを ",
           "tail": "。",
           "answer": "あげる",
           "options": [
@@ -1272,204 +1010,22 @@
             "くれる",
             "かう"
           ],
-          "en": "I'll give my friend a bouquet",
-          "explanation": "the bouquet is leaving my side for my friend's, so あげる is the only verb pointing that way. くれる would bring it back to me, and かう only buys it without anybody receiving it."
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "いもうとの たんじょうびに ケーキを あげる。",
-          "answer": "I'll give my little sister a cake on her birthday",
-          "distractors": [
-            "I'll get a cake from my little sister on her birthday",
-            "I'll give my little brother a cake on his birthday",
-            "I'll give my little sister sweets on her birthday"
-          ],
-          "exercises": [
-            "ni-recipient",
-            "ni-time"
-          ]
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "だれに おれいの てがみを あげる？",
-          "answer": "Who are you giving the thank-you letter to?",
-          "distractors": [
-            "Who gave you the thank-you letter?",
-            "What are you giving your friend?",
-            "When are you giving the thank-you letter?"
-          ],
-          "exercises": [
-            "ni-recipient",
-            "dare"
-          ]
-        },
-        {
-          "kind": "dialogue",
-          "lines": [
-            {
-              "speaker": "Tom",
-              "ja": "その はなたばは だれに あげる？",
-              "en": "Who are you giving that bouquet to?"
-            },
-            {
-              "speaker": "Mika",
-              "ja": "あねに。たんじょうびだ。",
-              "en": "To my older sister. It's her birthday."
-            }
-          ],
-          "questions": [
-            {
-              "q": "Who is the bouquet for?",
-              "options": [
-                "Mika's older sister",
-                "Mika's little sister",
-                "Mika's teacher",
-                "Tom"
-              ],
-              "answer": "Mika's older sister"
-            }
-          ]
-        },
-        {
-          "kind": "challenge",
-          "ja": "はなが すきだから あねの たんじょうびに おおきい はなたばを あげる。",
-          "en": "She likes flowers, so I'll give my older sister a big bouquet on her birthday",
-          "combines": [
-            "ni-recipient",
-            "ageru",
-            "kara-because",
-            "suki-kirai-no",
-            "no-possession"
-          ],
-          "mode": "build"
-        }
-      ],
-      "reviewPool": [
-        "はなたば",
-        "たんじょうび",
-        "おれい",
-        "カード",
-        "てがみ",
-        "えんぴつ",
-        "おみやげ",
-        "あね",
-        "おとうと",
-        "せんせい"
-      ]
-    },
-    {
-      "id": "m31-neo-review-1",
-      "role": "review",
-      "title": "Review — which way is it going?",
-      "focus": "あげる against くれる, with に on the person at the far end",
-      "introduces": [],
-      "beats": [
-        {
-          "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
-          "exercises": [
-            "ageru",
-            "ni-recipient"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちが プレゼントを くれる。",
-          "en": "My friend gives me a present",
-          "exercises": [
-            "kureru",
-            "ga-existence"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ははは せんせいに はなを あげる。",
           "en": "My mother gives the teacher flowers",
-          "exercises": [
-            "ageru",
-            "family-register"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いしゃが ちちに くすりを くれる。",
-          "en": "The doctor gives my father medicine",
-          "exercises": [
-            "kureru",
-            "ni-recipient"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "だれに おみやげを あげる？",
-          "en": "Who are you giving the souvenir to?",
-          "exercises": [
-            "ni-recipient",
-            "dare"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "せんせいが いもうとに ノートを ",
-          "tail": "。",
-          "answer": "くれる",
-          "options": [
-            "くれる",
-            "あげる",
-            "もつ"
-          ],
-          "en": "The teacher gives my little sister a notebook",
-          "explanation": "my little sister is inside my circle, so the notebook is coming in and くれる is the verb. あげる would push my own sister outside it, and もつ only says somebody is holding it."
-        },
-        {
-          "kind": "sentence",
-          "ja": "おとうとに えんぴつを あげる。",
-          "en": "I'll give my little brother a pencil",
-          "exercises": [
-            "ni-recipient",
-            "ageru"
-          ],
-          "mode": "build"
+          "explanation": "the flowers leave my mother's side, and my mother is inside my circle while the teacher is outside it — so the arrow points out and あげる is the verb. くれる would have to bring them back in."
         },
         {
           "kind": "listening-comp",
-          "audio": "がくせいが おれいの おかしを くれる。",
-          "answer": "The student gives me sweets as a thank-you",
+          "audio": "せんせいが いもうとに ノートを くれる。",
+          "answer": "The teacher gives my little sister a notebook",
           "distractors": [
-            "I give the student sweets as a thank-you",
-            "The student gives me a thank-you card",
-            "The teacher gives me sweets as a thank-you"
+            "My little sister gives the teacher a notebook",
+            "The teacher gives my little sister a dictionary",
+            "My older sister gives the teacher a notebook"
           ],
           "exercises": [
             "kureru",
-            "no-possession"
+            "ni-recipient"
           ]
-        },
-        {
-          "kind": "sentence",
-          "ja": "こどもの たんじょうびに おかしを あげる。",
-          "en": "I'll give the child sweets on his birthday",
-          "exercises": [
-            "ni-recipient",
-            "ni-time"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちが おおきい ケーキを くれる。",
-          "en": "My friend gives me a big cake",
-          "exercises": [
-            "kureru",
-            "i-adj-present"
-          ],
-          "mode": "translate"
         },
         {
           "kind": "listening-comp",
@@ -1486,76 +1042,75 @@
           ]
         },
         {
-          "kind": "sentence",
-          "ja": "はなが すきだから あねに はなたばを あげる。",
-          "en": "She likes flowers, so I'll give my older sister a bouquet",
-          "exercises": [
-            "ageru",
-            "kara-because"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "せんせいに おれいの カードを あげる。",
-          "en": "I'll give the teacher a thank-you card",
-          "exercises": [
-            "ni-recipient",
-            "no-possession"
-          ],
-          "mode": "build"
-        },
-        {
           "kind": "dialogue",
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "あした ともだちの たんじょうびだ。",
-              "en": "It's my friend's birthday tomorrow."
+              "ja": "その プレゼントは だれの？",
+              "en": "Whose present is that?"
             },
             {
-              "speaker": "Ken",
-              "ja": "はなたばを あげる？",
-              "en": "Are you giving them a bouquet?"
+              "speaker": "Tom",
+              "ja": "ともだちの。あした あげる。",
+              "en": "My friend's. I'll give it to them tomorrow."
+            },
+            {
+              "speaker": "Mika",
+              "ja": "いいね。ちちが わたしに とけいを くれる。",
+              "en": "Nice. My father's giving me a watch."
             }
           ],
           "questions": [
             {
-              "q": "What does Ken ask Mika?",
+              "q": "Who is giving, and who is getting?",
               "options": [
-                "Whether she is giving a bouquet",
-                "Whether she got a bouquet",
-                "Whose birthday it is",
-                "Where the party is"
+                "Tom gives his friend a present; Mika's father gives her a watch",
+                "Tom's friend gives him a present; Mika gives her father a watch",
+                "Tom gives Mika a present; Mika gives Tom a watch",
+                "Tom's friend and Mika's father both get presents"
               ],
-              "answer": "Whether she is giving a bouquet"
+              "answer": "Tom gives his friend a present; Mika's father gives her a watch"
             }
           ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あねは はなが すきだから せんせいに おおきい はなたばを あげる。",
+          "en": "My older sister likes flowers, so she gives the teacher a big bouquet",
+          "combines": [
+            "ageru",
+            "ni-recipient",
+            "kara-because",
+            "suki-kirai-no",
+            "i-adj-present"
+          ],
+          "mode": "build"
         }
       ],
       "reviewPool": [
         "プレゼント",
         "はなたば",
-        "たんじょうび",
-        "おかし",
-        "ケーキ",
-        "カード",
-        "こども",
-        "くすり",
+        "おれい",
+        "ともだち",
+        "せんせい",
+        "がくせい",
+        "はな",
         "じしょ",
+        "とけい",
         "えんぴつ"
       ]
     },
     {
-      "id": "m31-neo-5",
+      "id": "m31-neo-2",
       "role": "teaching",
       "title": "「せんせいに じしょを もらう」 — the receiver takes the topic",
-      "focus": "もらう reports the same transfer from the other end, and に now points at where it came from",
+      "focus": "The third verb reports the same transfer from the receiver's end, and に now points back at where it came from",
       "introduces": [
         "もらう",
-        "おみやげ",
-        "こんど",
-        "もらいたい"
+        "おかし",
+        "ケーキ",
+        "たんじょうび",
+        "おみやげ"
       ],
       "beats": [
         {
@@ -1596,6 +1151,38 @@
           "mode": "build"
         },
         {
+          "kind": "kanji",
+          "kana": "ともだち",
+          "kanji": "友達",
+          "exercises": [
+            "morau"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいが じしょを くれる。",
+          "en": "The teacher gives me a dictionary",
+          "exercises": [
+            "kureru",
+            "ga-existence",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "せんせいに じしょを ",
+          "tail": "。",
+          "answer": "もらう",
+          "options": [
+            "もらう",
+            "くれる",
+            "あげる"
+          ],
+          "en": "I get a dictionary from the teacher",
+          "explanation": "the teacher is marked with に, so the sentence is about ME and what I ended up with — that is もらう. くれる would need the teacher marked が and would make the sentence about the teacher instead."
+        },
+        {
           "kind": "sentence",
           "ja": "あねは ともだちに おみやげを もらう。",
           "en": "My older sister gets a souvenir from her friend",
@@ -1608,17 +1195,6 @@
         },
         {
           "kind": "sentence",
-          "ja": "こんど がくせいに ノートを もらう。",
-          "en": "I'll get a notebook from the student next time",
-          "exercises": [
-            "morau",
-            "ni-recipient",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "かいしゃの ひとに おかしを もらう。",
           "en": "I get sweets from the people at the company",
           "exercises": [
@@ -1626,29 +1202,40 @@
             "no-possession",
             "ni-recipient"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに おおきい ケーキを もらいたい。",
-          "en": "I want to get a big cake for my birthday",
+          "ja": "おかしが すきだから ともだちが ケーキを くれる。",
+          "en": "I like sweets, so my friend gives me a cake",
+          "exercises": [
+            "kureru",
+            "kara-because",
+            "suki-kirai-no"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに おおきい ケーキを もらう。",
+          "en": "I get a big cake for my birthday",
           "exercises": [
             "morau",
-            "v-tai",
+            "ni-time",
             "i-adj-present"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "おみやげが すきだから こんど アメリカじんに もらう。",
-          "en": "I like souvenirs, so I'll get one from the American next time",
+          "ja": "がくせいに ノートを もらう。",
+          "en": "I get a notebook from the student",
           "exercises": [
             "morau",
-            "kara-because",
-            "suki-kirai-no"
+            "ni-recipient",
+            "wo-object"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1662,25 +1249,25 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "いしゃに くすりを ",
+          "stem": "ともだちが ケーキを ",
           "tail": "。",
-          "answer": "もらう",
+          "answer": "くれる",
           "options": [
+            "くれる",
             "もらう",
-            "あげる",
-            "もらいたい"
+            "あげる"
           ],
-          "en": "I get medicine from the doctor",
-          "explanation": "the medicine reaches me and I am the one the sentence is about, which is exactly もらう's job. あげる would send it the other way, and もらいたい only says I want some."
+          "en": "My friend gives me a cake",
+          "explanation": "my friend is marked が, so my friend is what the sentence is about and the cake is coming to me — that is くれる. もらう would need me as the subject and my friend marked に."
         },
         {
           "kind": "listening-comp",
-          "audio": "こんど せんせいに おみやげを もらう。",
-          "answer": "I'll get a souvenir from the teacher next time",
+          "audio": "いしゃに くすりを もらう。",
+          "answer": "I get medicine from the doctor",
           "distractors": [
-            "I'll give the teacher a souvenir next time",
-            "I got a souvenir from the teacher",
-            "I'll get sweets from the teacher next time"
+            "I give the doctor medicine",
+            "The doctor gives my father medicine",
+            "I get a letter from the doctor"
           ],
           "exercises": [
             "morau",
@@ -1689,12 +1276,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "あねは ともだちに カードを もらう。",
-          "answer": "My older sister gets a card from her friend",
+          "audio": "あねは ともだちに おみやげを もらう。",
+          "answer": "My older sister gets a souvenir from her friend",
           "distractors": [
-            "My older sister gives her friend a card",
-            "My older brother gets a card from his friend",
-            "My older sister gets a letter from her friend"
+            "My older sister gives her friend a souvenir",
+            "My older brother gets a souvenir from his friend",
+            "My older sister gets sweets from her friend"
           ],
           "exercises": [
             "morau",
@@ -1713,28 +1300,33 @@
               "speaker": "Ken",
               "ja": "わからない。せんせいに もらう。",
               "en": "I don't know. I'm getting it from the teacher."
+            },
+            {
+              "speaker": "Tom",
+              "ja": "いいね。せんせいが ぼくにも くれる？",
+              "en": "Nice. Will the teacher give me one too?"
             }
           ],
           "questions": [
             {
-              "q": "How is Ken getting the dictionary?",
+              "q": "Why does Ken say もらう and Tom say くれる?",
               "options": [
-                "From the teacher",
-                "He is buying it",
-                "From his older sister",
-                "He is borrowing it from Tom"
+                "Ken's sentence is about himself; Tom's is about the teacher",
+                "Ken is being polite and Tom is not",
+                "Ken is talking about the past",
+                "They mean different dictionaries"
               ],
-              "answer": "From the teacher"
+              "answer": "Ken's sentence is about himself; Tom's is about the teacher"
             }
           ]
         },
         {
           "kind": "challenge",
-          "ja": "おみやげが すきだから こんど アメリカじんに おおきい おかしを もらいたい。",
-          "en": "I like souvenirs, so next time I want to get some big sweets from the American",
+          "ja": "おかしが すきだから たんじょうびに ともだちに おおきい ケーキを もらう。",
+          "en": "I like sweets, so I'll get a big cake from my friend for my birthday",
           "combines": [
             "morau",
-            "v-tai",
+            "ni-time",
             "kara-because",
             "suki-kirai-no",
             "i-adj-present"
@@ -1744,27 +1336,29 @@
       ],
       "reviewPool": [
         "おみやげ",
+        "たんじょうび",
+        "おかし",
+        "ケーキ",
         "じしょ",
         "くすり",
         "とけい",
         "ノート",
-        "ケーキ",
         "いしゃ",
-        "せんせい",
-        "がくせい",
-        "かいしゃ"
+        "せんせい"
       ]
     },
     {
-      "id": "m31-neo-6",
+      "id": "m31-neo-3",
       "role": "teaching",
       "title": "「ともだちから もらう」 — に or から, and both are right",
-      "focus": "もらう's source can take either particle, and it is the only slot in the module with a choice in it",
+      "focus": "もらう's source is the one slot in the module with a real choice in it, and から is the giveaway that もらう is coming",
       "introduces": [
-        "かりる",
+        "こんど",
         "おいわい",
         "きねん",
-        "おめでとう"
+        "カード",
+        "おめでとう",
+        "うれしい"
       ],
       "beats": [
         {
@@ -1814,17 +1408,6 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに かさを かりる。",
-          "en": "I borrow an umbrella from my friend",
-          "exercises": [
-            "ni-recipient",
-            "kara-origin",
-            "wo-object"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "あねから きっぷを もらう。",
           "en": "I get a ticket from my older sister",
           "exercises": [
@@ -1832,7 +1415,7 @@
             "morau",
             "family-register"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -1847,6 +1430,17 @@
         },
         {
           "kind": "sentence",
+          "ja": "ともだちが おいわいの カードを くれる。",
+          "en": "My friend gives me a congratulations card",
+          "exercises": [
+            "kureru",
+            "no-possession",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
           "ja": "あねの たんじょうび おめでとう。",
           "en": "Happy birthday to my older sister",
           "exercises": [
@@ -1854,6 +1448,17 @@
             "family-register"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こんど かいしゃから おいわいの きっぷを もらう。",
+          "en": "I'll get congratulatory tickets from the company next time",
+          "exercises": [
+            "kara-origin",
+            "morau",
+            "no-possession"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1873,10 +1478,10 @@
           "options": [
             "もらう",
             "あげる",
-            "かりる"
+            "くれる"
           ],
           "en": "I get a commemorative watch from the company",
-          "explanation": "から marks where a thing started out, and only もらう has a slot for that. あげる has no source to mark, and かりる would mean the watch has to go back."
+          "explanation": "から marks where a thing started out, and only もらう has a slot for that. あげる has no source to mark at all, and くれる would need the company marked が rather than から."
         },
         {
           "kind": "listening-comp",
@@ -1894,49 +1499,49 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "あねに かさを かりる。",
-          "answer": "I borrow an umbrella from my older sister",
+          "audio": "こんど いしゃから くすりを もらう。",
+          "answer": "I'll get medicine from the doctor next time",
           "distractors": [
-            "I lend my older sister an umbrella",
-            "I borrow a hat from my older sister",
-            "I get an umbrella from my older sister and keep it"
+            "I got medicine from the doctor last time",
+            "I'll give the doctor medicine next time",
+            "I'll get a letter from the doctor next time"
           ],
           "exercises": [
             "kara-origin",
-            "family-register"
+            "morau"
           ]
         },
         {
           "kind": "dialogue",
           "lines": [
             {
-              "speaker": "Mika",
-              "ja": "あめだ。かさが ない。",
-              "en": "It's raining. I haven't got an umbrella."
+              "speaker": "Tom",
+              "ja": "この おみやげは だれから？",
+              "en": "Who is this souvenir from?"
             },
             {
-              "speaker": "Tom",
-              "ja": "ぼくのを かりる？",
-              "en": "Do you want to borrow mine?"
+              "speaker": "Mika",
+              "ja": "かいしゃの ひとから もらう。",
+              "en": "I'm getting it from someone at work."
             }
           ],
           "questions": [
             {
-              "q": "What does Tom offer Mika?",
+              "q": "Where is the souvenir coming from?",
               "options": [
-                "To borrow his umbrella",
-                "To give her a card",
-                "To buy her a ticket",
-                "To walk her home"
+                "Someone at Mika's company",
+                "Mika's older sister",
+                "Tom",
+                "The teacher"
               ],
-              "answer": "To borrow his umbrella"
+              "answer": "Someone at Mika's company"
             }
           ]
         },
         {
           "kind": "challenge",
-          "ja": "らいげつ かいしゃから おいわいの きっぷを もらうから うれしい。",
-          "en": "I'm getting congratulatory tickets from the company next month, so I'm happy",
+          "ja": "こんど かいしゃから おいわいの きっぷを もらうから うれしい。",
+          "en": "I'm getting congratulatory tickets from the company next time, so I'm happy",
           "combines": [
             "kara-origin",
             "morau",
@@ -1950,10 +1555,10 @@
       "reviewPool": [
         "おいわい",
         "きねん",
-        "おみやげ",
-        "きっぷ",
+        "こんど",
         "カード",
-        "かさ",
+        "きっぷ",
+        "おみやげ",
         "てがみ",
         "かいしゃ",
         "いしゃ",
@@ -1961,13 +1566,200 @@
       ]
     },
     {
-      "id": "m31-neo-7",
+      "id": "m31-neo-review-1",
+      "role": "review",
+      "title": "Review — which way is it going?",
+      "focus": "All three verbs chosen against each other, with に and から on the other person",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ともだちに プレゼントを あげる。",
+          "en": "I'll give my friend a present",
+          "exercises": [
+            "ageru",
+            "ni-recipient"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちが プレゼントを くれる。",
+          "en": "My friend gives me a present",
+          "exercises": [
+            "kureru",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに じしょを もらう。",
+          "en": "I get a dictionary from the teacher",
+          "exercises": [
+            "morau",
+            "ni-recipient"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちから おみやげを もらう。",
+          "en": "I get a souvenir from my friend",
+          "exercises": [
+            "kara-origin",
+            "morau"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ちちが おおきい とけいを ",
+          "tail": "。",
+          "answer": "くれる",
+          "options": [
+            "くれる",
+            "もらう",
+            "あげる"
+          ],
+          "en": "My father gives me a big watch",
+          "explanation": "my father is marked が, so he is what the sentence is about and the watch comes to me — that is くれる. もらう would need ME as the subject and my father marked に."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ははは せんせいに はなを あげる。",
+          "en": "My mother gives the teacher flowers",
+          "exercises": [
+            "ageru",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かいしゃから きねんの とけいを もらう。",
+          "en": "I get a commemorative watch from the company",
+          "exercises": [
+            "kara-origin",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "いしゃが ちちに くすりを くれる。",
+          "answer": "The doctor gives my father medicine",
+          "distractors": [
+            "My father gives the doctor medicine",
+            "The doctor gives my mother medicine",
+            "The doctor gives my father a letter"
+          ],
+          "exercises": [
+            "kureru",
+            "ni-recipient"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは ともだちに おみやげを もらう。",
+          "en": "My older sister gets a souvenir from her friend",
+          "exercises": [
+            "morau",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こんど いしゃから くすりを もらう。",
+          "en": "I'll get medicine from the doctor next time",
+          "exercises": [
+            "kara-origin",
+            "morau"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいから おいわいの カードを もらう。",
+          "answer": "I get a congratulations card from the teacher",
+          "distractors": [
+            "I give the teacher a congratulations card",
+            "I get a thank-you card from the teacher",
+            "I get a congratulations card from a student"
+          ],
+          "exercises": [
+            "kara-origin",
+            "morau"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "おかしが すきだから ともだちが ケーキを くれる。",
+          "en": "I like sweets, so my friend gives me a cake",
+          "exercises": [
+            "kureru",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに ちちに とけいを もらう。",
+          "en": "I get a watch from my father on my birthday",
+          "exercises": [
+            "morau",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "あした ともだちの たんじょうびだ。",
+              "en": "It's my friend's birthday tomorrow."
+            },
+            {
+              "speaker": "Ken",
+              "ja": "はなたばを あげる？",
+              "en": "Are you giving them a bouquet?"
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Ken ask Mika?",
+              "options": [
+                "Whether she is giving a bouquet",
+                "Whether she got a bouquet",
+                "Whose birthday it is",
+                "Where the party is"
+              ],
+              "answer": "Whether she is giving a bouquet"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "プレゼント",
+        "おみやげ",
+        "たんじょうび",
+        "おかし",
+        "ケーキ",
+        "カード",
+        "きねん",
+        "くすり",
+        "じしょ",
+        "とけい"
+      ]
+    },
+    {
+      "id": "m31-neo-5",
       "role": "teaching",
       "title": "×「わたしに あげる」 — the one thing あげる cannot do",
-      "focus": "あげる's arrow leaves your circle and can never land back inside it",
+      "focus": "あげる's arrow leaves your circle and can never land back inside it, so a thing arriving at you has exactly two verbs",
       "introduces": [
-        "うれしい",
-        "あげたい",
         "あげない",
         "くれない"
       ],
@@ -2007,7 +1799,7 @@
             "ni-recipient",
             "family-register"
           ],
-          "mode": "build"
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -2021,15 +1813,17 @@
           "mode": "build"
         },
         {
-          "kind": "sentence",
-          "ja": "がくせいに ノートを あげたい。",
-          "en": "I want to give the student a notebook",
-          "exercises": [
-            "ageru",
-            "v-tai",
-            "ni-recipient"
+          "kind": "particle-cloze",
+          "stem": "ともだちが わたしに プレゼントを ",
+          "tail": "。",
+          "answer": "くれる",
+          "options": [
+            "くれる",
+            "あげる",
+            "もらう"
           ],
-          "mode": "build"
+          "en": "My friend gives me a present",
+          "explanation": "あげる can never point back at the speaker, whichever way you conjugate it. くれる is the verb here because my friend is marked が and the present arrives at me; もらう would need ME as the subject."
         },
         {
           "kind": "sentence",
@@ -2040,7 +1834,7 @@
             "nai-form",
             "kara-because"
           ],
-          "mode": "listening"
+          "mode": "build"
         },
         {
           "kind": "sentence",
@@ -2055,12 +1849,23 @@
         },
         {
           "kind": "sentence",
-          "ja": "はなが すきだから はなたばを もらいたい。",
-          "en": "I like flowers, so I want to get a bouquet",
+          "ja": "はなが すきだから あねに はなたばを あげる。",
+          "en": "She likes flowers, so I'll give my older sister a bouquet",
           "exercises": [
-            "morau",
-            "v-tai",
-            "kara-because"
+            "ageru",
+            "kara-because",
+            "suki-kirai-no"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいに ノートを あげる。",
+          "en": "I'll give the student a notebook",
+          "exercises": [
+            "ageru",
+            "ni-recipient",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2076,16 +1881,16 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "ともだちが わたしに プレゼントを ",
+          "stem": "あには わたしに なにも ",
           "tail": "。",
-          "answer": "くれる",
+          "answer": "くれない",
           "options": [
-            "くれる",
-            "あげる",
-            "あげない"
+            "くれない",
+            "あげない",
+            "もらう"
           ],
-          "en": "My friend gives me a present",
-          "explanation": "あげる can never point back at the speaker, whichever way you conjugate it — a thing arriving at me takes くれる. あげない only says the giving does not happen."
+          "en": "My older brother doesn't give me anything",
+          "explanation": "the thing would be arriving at me, so the verb is くれる and its negative is くれない. あげない points the wrong way, and もらう would say I do get something after all."
         },
         {
           "kind": "listening-comp",
@@ -2145,13 +1950,13 @@
         },
         {
           "kind": "challenge",
-          "ja": "その とけいは たかいけど あにの たんじょうびだから あげたい。",
-          "en": "That watch is expensive, but it's my older brother's birthday, so I want to give it to him",
+          "ja": "その とけいは たかいけど ともだちは それが すきだから あげる。",
+          "en": "That watch is expensive, but my friend likes it, so I'll give it to them",
           "combines": [
             "ageru",
-            "v-tai",
             "kedo",
             "kara-because",
+            "suki-kirai-no",
             "i-adj-present"
           ],
           "mode": "build"
@@ -2171,196 +1976,7 @@
       ]
     },
     {
-      "id": "m31-neo-review-2",
-      "role": "review",
-      "title": "Review — three verbs, one arrow",
-      "focus": "あげる, くれる and もらう chosen against each other, with に and から on the other person",
-      "introduces": [],
-      "beats": [
-        {
-          "kind": "sentence",
-          "ja": "せんせいに じしょを もらう。",
-          "en": "I get a dictionary from the teacher",
-          "exercises": [
-            "morau",
-            "ni-recipient"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちから おみやげを もらう。",
-          "en": "I get a souvenir from my friend",
-          "exercises": [
-            "kara-origin",
-            "morau"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちが わたしに プレゼントを くれる。",
-          "en": "My friend gives me a present",
-          "exercises": [
-            "kureru",
-            "ni-recipient"
-          ],
-          "mode": "listening"
-        },
-        {
-          "kind": "sentence",
-          "ja": "がくせいに ノートを あげたい。",
-          "en": "I want to give the student a notebook",
-          "exercises": [
-            "ageru",
-            "v-tai"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "かいしゃから きねんの とけいを もらう。",
-          "en": "I get a commemorative watch from the company",
-          "exercises": [
-            "kara-origin",
-            "no-possession"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "あには わたしに なにも ",
-          "tail": "。",
-          "answer": "くれない",
-          "options": [
-            "くれない",
-            "あげない",
-            "もらう"
-          ],
-          "en": "My older brother doesn't give me anything",
-          "explanation": "the thing would be arriving at me, so the verb is くれる and the negative is くれない. あげない points the wrong way, and もらう would say I do get something after all."
-        },
-        {
-          "kind": "sentence",
-          "ja": "ともだちに かさを かりる。",
-          "en": "I borrow an umbrella from my friend",
-          "exercises": [
-            "ni-recipient",
-            "kara-origin"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "せんせいから おいわいの カードを もらう。",
-          "answer": "I get a congratulations card from the teacher",
-          "distractors": [
-            "I give the teacher a congratulations card",
-            "I get a thank-you card from the teacher",
-            "I get a congratulations card from a student"
-          ],
-          "exercises": [
-            "kara-origin",
-            "morau"
-          ]
-        },
-        {
-          "kind": "sentence",
-          "ja": "プレゼントを もらうから うれしい。",
-          "en": "I'm getting a present, so I'm happy",
-          "exercises": [
-            "morau",
-            "kara-because"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "こんど がくせいに ノートを もらう。",
-          "en": "I'll get a notebook from the student next time",
-          "exercises": [
-            "morau",
-            "ni-recipient"
-          ],
-          "mode": "translate"
-        },
-        {
-          "kind": "listening-comp",
-          "audio": "いもうとの たんじょうびに ケーキを あげる。",
-          "answer": "I'll give my little sister a cake on her birthday",
-          "distractors": [
-            "I'll get a cake from my little sister on her birthday",
-            "I'll give my little sister sweets on her birthday",
-            "I'll give my little brother a cake on his birthday"
-          ],
-          "exercises": [
-            "ageru",
-            "ni-time"
-          ]
-        },
-        {
-          "kind": "sentence",
-          "ja": "その とけいは たかいから ともだちに あげない。",
-          "en": "That watch is expensive, so I'm not giving it to my friend",
-          "exercises": [
-            "ageru",
-            "nai-form"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "たんじょうびに おおきい ケーキを もらいたい。",
-          "en": "I want to get a big cake for my birthday",
-          "exercises": [
-            "morau",
-            "v-tai"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "dialogue",
-          "lines": [
-            {
-              "speaker": "Tom",
-              "ja": "この おみやげは だれから？",
-              "en": "Who is this souvenir from?"
-            },
-            {
-              "speaker": "Mika",
-              "ja": "かいしゃの ひとから もらう。",
-              "en": "I'm getting it from someone at work."
-            }
-          ],
-          "questions": [
-            {
-              "q": "Where is the souvenir coming from?",
-              "options": [
-                "Someone at Mika's company",
-                "Mika's older sister",
-                "Tom",
-                "The teacher"
-              ],
-              "answer": "Someone at Mika's company"
-            }
-          ]
-        }
-      ],
-      "reviewPool": [
-        "おみやげ",
-        "おいわい",
-        "きねん",
-        "こんど",
-        "うれしい",
-        "じしょ",
-        "ノート",
-        "とけい",
-        "かさ",
-        "カード"
-      ]
-    },
-    {
-      "id": "m31-neo-9",
+      "id": "m31-neo-6",
       "role": "teaching",
       "title": "「もらった」「くれた」「あげた」 — after the present is handed over",
       "focus": "Module 11's past on all three verbs, and the direction that does not soften with it",
@@ -2478,10 +2094,10 @@
           "options": [
             "もらった",
             "あげた",
-            "もらう"
+            "くれた"
           ],
           "en": "I got a watch from my father for my birthday",
-          "explanation": "the watch reached me and it has already happened, so the past of もらう is the one. あげた would send it to my father instead, and もらう leaves the birthday still ahead of you."
+          "explanation": "my father is marked に, so the sentence is about me and what I ended up with — もらう, in the past. くれた would need my father marked が, and あげた would send the watch to him instead."
         },
         {
           "kind": "listening-comp",
@@ -2566,7 +2182,434 @@
       ]
     },
     {
-      "id": "m31-neo-10",
+      "id": "m31-neo-7",
+      "role": "teaching",
+      "title": "「ともだちに かさを かりる」 — に, on a pair where the thing comes back",
+      "focus": "Recipient に, drilled on かす and かりる — one loan seen from its two ends, exactly as あげる and くれる were one gift",
+      "introduces": [
+        "かりる",
+        "かりた",
+        "かした"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-recipient"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに かさを かりる。",
+          "en": "I borrow an umbrella from my friend",
+          "exercises": [
+            "ni-recipient",
+            "ageru",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとに おかねを かす。",
+          "en": "I lend my little sister money",
+          "exercises": [
+            "ni-recipient",
+            "family-register",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねに きっぷを かりる。",
+          "en": "I borrow a ticket from my older sister",
+          "exercises": [
+            "ni-recipient",
+            "family-register",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "おとうとに じてんしゃを かした。",
+          "en": "I lent my little brother my bicycle",
+          "exercises": [
+            "ni-recipient",
+            "ta-form",
+            "family-register"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "ともだちに かさを ",
+          "tail": "。",
+          "answer": "かりる",
+          "options": [
+            "かりる",
+            "かす",
+            "あげる"
+          ],
+          "en": "I borrow an umbrella from my friend",
+          "explanation": "the umbrella is coming to me and goes back later, which is かりる. かす would make me the one handing it over, and あげる would give it away for good."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに かさを かりた。",
+          "en": "I borrowed an umbrella from my friend",
+          "exercises": [
+            "ni-recipient",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "だれに おみやげを あげる？",
+          "en": "Who are you giving the souvenir to?",
+          "exercises": [
+            "ni-recipient",
+            "dare",
+            "ka-question"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいに じしょを かした。",
+          "en": "I lent the student a dictionary",
+          "exercises": [
+            "ni-recipient",
+            "ta-form",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねは せんせいに てがみを あげる。",
+          "en": "My older sister gives the teacher a letter",
+          "exercises": [
+            "ni-recipient",
+            "ageru",
+            "family-register"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに ぼうしを かりたけど あめだった。",
+          "en": "I borrowed a hat from my friend, but it rained",
+          "exercises": [
+            "ta-form",
+            "kedo",
+            "ni-recipient"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "いもうとに おかねを ",
+          "tail": "。",
+          "answer": "かした",
+          "options": [
+            "かした",
+            "かりた",
+            "もらった"
+          ],
+          "en": "I lent my little sister money",
+          "explanation": "the money went from me to my little sister and is coming back, so I am the lender — かす, in the past. かりた would make me the borrower, and もらった would mean I keep it."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ともだちに かさを かりた。",
+          "answer": "I borrowed an umbrella from my friend",
+          "distractors": [
+            "I lent my friend an umbrella",
+            "I borrowed a hat from my friend",
+            "My friend gave me an umbrella to keep"
+          ],
+          "exercises": [
+            "ni-recipient",
+            "ta-form"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "おとうとに じてんしゃを かした。",
+          "answer": "I lent my little brother my bicycle",
+          "distractors": [
+            "I borrowed a bicycle from my little brother",
+            "I lent my little sister my bicycle",
+            "I gave my little brother a bicycle"
+          ],
+          "exercises": [
+            "ni-recipient",
+            "ta-form"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "あめだ。かさが ない。",
+              "en": "It's raining. I haven't got an umbrella."
+            },
+            {
+              "speaker": "Tom",
+              "ja": "ぼくのを かりる？",
+              "en": "Do you want to borrow mine?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "うん。ありがとう。",
+              "en": "Yes. Thank you."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom offer Mika?",
+              "options": [
+                "To borrow his umbrella",
+                "To give her a card",
+                "To buy her a ticket",
+                "To walk her home"
+              ],
+              "answer": "To borrow his umbrella"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "おかねが ないから ともだちに きっぷを かりたけど おれいの カードを あげた。",
+          "en": "I haven't got any money, so I borrowed a ticket from my friend, but I gave him a thank-you card",
+          "combines": [
+            "ni-recipient",
+            "ta-form",
+            "kedo",
+            "kara-because",
+            "nai-existence"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "かさ",
+        "きっぷ",
+        "おかね",
+        "じてんしゃ",
+        "ぼうし",
+        "じしょ",
+        "てがみ",
+        "いもうと",
+        "おとうと",
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m31-neo-review-2",
+      "role": "review",
+      "title": "Review — the ban, the past, and the loan",
+      "focus": "×わたしにあげる, module 11's past on all three verbs, and かす against かりる",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "sentence",
+          "ja": "ともだちが わたしに プレゼントを くれる。",
+          "en": "My friend gives me a present",
+          "exercises": [
+            "kureru",
+            "ni-recipient"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに ちちに とけいを もらった。",
+          "en": "I got a watch from my father for my birthday",
+          "exercises": [
+            "ta-form",
+            "morau"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちが けいたいを くれた。",
+          "en": "My friend gave me a mobile phone",
+          "exercises": [
+            "ta-form",
+            "kureru"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに かさを かりた。",
+          "en": "I borrowed an umbrella from my friend",
+          "exercises": [
+            "ni-recipient",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あねに きっぷを かりる。",
+          "en": "I borrow a ticket from my older sister",
+          "exercises": [
+            "ni-recipient",
+            "family-register",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "あには わたしに なにも ",
+          "tail": "。",
+          "answer": "くれない",
+          "options": [
+            "くれない",
+            "あげない",
+            "もらった"
+          ],
+          "en": "My older brother doesn't give me anything",
+          "explanation": "the thing would be arriving at me, so the verb is くれる and the negative is くれない. あげない points the wrong way, and もらった would say I did get something after all."
+        },
+        {
+          "kind": "sentence",
+          "ja": "いもうとに おかねを かした。",
+          "en": "I lent my little sister money",
+          "exercises": [
+            "ni-recipient",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに はなたばを あげた。",
+          "en": "I gave the teacher a bouquet",
+          "exercises": [
+            "ta-form",
+            "ageru"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "その ぼうしは たかいから いもうとに あげない。",
+          "answer": "That hat is expensive, so I'm not giving it to my little sister",
+          "distractors": [
+            "That hat is cheap, so I'll give it to my little sister",
+            "That hat is expensive, so I'm not getting it from my little sister",
+            "That watch is expensive, so I'm not giving it to my little sister"
+          ],
+          "exercises": [
+            "ageru",
+            "nai-form"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "プレゼントを もらったから うれしかった。",
+          "en": "I got a present, so I was happy",
+          "exercises": [
+            "ta-form",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "かぞくが おおきい ケーキを くれた。",
+          "en": "My family gave me a big cake",
+          "exercises": [
+            "ta-form",
+            "kureru"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "おとうとに じてんしゃを かした。",
+          "answer": "I lent my little brother my bicycle",
+          "distractors": [
+            "I borrowed a bicycle from my little brother",
+            "I lent my little sister my bicycle",
+            "I gave my little brother a bicycle"
+          ],
+          "exercises": [
+            "ni-recipient",
+            "ta-form"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "こどもに おかしを あげたけど たべなかった。",
+          "en": "I gave the child sweets, but he didn't eat them",
+          "exercises": [
+            "ta-form",
+            "kedo"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その とけいは たかいから ともだちに あげない。",
+          "en": "That watch is expensive, so I'm not giving it to my friend",
+          "exercises": [
+            "ageru",
+            "nai-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "その けいたい、あたらしい？",
+              "en": "Is that mobile new?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "うん。あねが くれた。",
+              "en": "Yeah. My older sister gave it to me."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Where did Ken's mobile come from?",
+              "options": [
+                "His older sister gave it to him",
+                "He borrowed it from his older sister",
+                "He bought it",
+                "His father gave it to him"
+              ],
+              "answer": "His older sister gave it to him"
+            }
+          ]
+        }
+      ],
+      "reviewPool": [
+        "けいたい",
+        "かさ",
+        "おかね",
+        "じてんしゃ",
+        "ぼうし",
+        "とけい",
+        "ケーキ",
+        "プレゼント",
+        "はなたば",
+        "うれしい"
+      ]
+    },
+    {
+      "id": "m31-neo-9",
       "role": "teaching",
       "title": "「せんせいが くださった」 — the polite pair you only need to recognise",
       "focus": "くださる and いただく sit on the same axis, and this module only asks you to hear them",
@@ -2596,8 +2639,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いしゃは しんせつだから すきだ。",
-          "en": "The doctor is kind, so I like him",
+          "ja": "せんせいは しんせつだから じゅぎょうが すきだ。",
+          "en": "The teacher is kind, so I like the class",
           "exercises": [
             "na-adj-present",
             "kara-because",
@@ -2607,24 +2650,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに おれいの てがみを あげた。",
-          "en": "I gave the teacher a thank-you letter",
+          "ja": "せんせいに おれいの てがみを あげるんです。",
+          "en": "The thing is, I'm giving the teacher a thank-you letter",
           "exercises": [
-            "ta-form",
             "ageru",
+            "n-desu",
             "no-possession"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "かいしゃの ひとは しんせつだから きねんの カードを あげたい。",
-          "en": "The people at the company are kind, so I want to give them a commemorative card",
-          "exercises": [
-            "ageru",
-            "v-tai",
-            "na-adj-present",
-            "kara-because"
           ],
           "mode": "build"
         },
@@ -2652,12 +2683,24 @@
         },
         {
           "kind": "sentence",
-          "ja": "しんせつな せんせいに おかしを あげたい。",
-          "en": "I want to give the kind teacher sweets",
+          "ja": "かいしゃの ひとは しんせつだから きねんの カードを あげた。",
+          "en": "The people at the company are kind, so I gave them a commemorative card",
           "exercises": [
             "ageru",
-            "v-tai",
-            "na-adj-present"
+            "ta-form",
+            "na-adj-present",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに ケーキを もらうんです。",
+          "en": "The thing is, I'm getting a cake for my birthday",
+          "exercises": [
+            "morau",
+            "n-desu",
+            "ni-time"
           ],
           "mode": "build"
         },
@@ -2682,7 +2725,7 @@
             "もらった"
           ],
           "en": "A kind student gave me an umbrella",
-          "explanation": "the umbrella came in to my side, so the verb is くれる and it has already happened. あげた would send it away from me, and もらった would make me the subject rather than the student."
+          "explanation": "the student is marked が and the umbrella came in to my side, so the verb is くれる in the past. あげた would send it away from me, and もらった would make me the subject rather than the student."
         },
         {
           "kind": "listening-comp",
@@ -2727,8 +2770,8 @@
             },
             {
               "speaker": "Tom",
-              "ja": "ミカは せんせいに じしょを いただいた。",
-              "en": "Mika received a dictionary from the teacher."
+              "ja": "ミカは せんせいに じしょを いただいたんです。",
+              "en": "The thing is, Mika received a dictionary from the teacher."
             }
           ],
           "questions": [
@@ -2746,13 +2789,12 @@
         },
         {
           "kind": "challenge",
-          "ja": "しんせつな せんせいに ノートを もらったから おれいの カードを あげたい。",
-          "en": "A kind teacher gave me a notebook, so I want to give her a thank-you card",
+          "ja": "しんせつな せんせいに ノートを もらったから おれいの カードを あげた。",
+          "en": "A kind teacher gave me a notebook, so I gave her a thank-you card",
           "combines": [
             "ta-form",
             "morau",
             "ageru",
-            "v-tai",
             "kara-because",
             "na-adj-present"
           ],
@@ -2773,13 +2815,11 @@
       ]
     },
     {
-      "id": "m31-neo-11",
+      "id": "m31-neo-10",
       "role": "teaching",
       "title": "「わたしは」 が きえる — the verb has already said who",
-      "focus": "くれる and もらう carry the receiver, so the receiver stops being said — and saying it means something",
+      "focus": "くれる and もらう carry the receiver, so the receiver stops being said — and saying it anyway means something",
       "introduces": [
-        "かりた",
-        "かした",
         "よろこぶ",
         "よろこんだ",
         "もらわない"
@@ -2822,28 +2862,6 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに かさを かりた。",
-          "en": "I borrowed an umbrella from my friend",
-          "exercises": [
-            "wa-topic",
-            "ta-form",
-            "ni-recipient"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
-          "ja": "いもうとに おかねを かした。",
-          "en": "I lent my little sister money",
-          "exercises": [
-            "ta-form",
-            "ni-recipient",
-            "family-register"
-          ],
-          "mode": "build"
-        },
-        {
-          "kind": "sentence",
           "ja": "いもうとが ケーキを くれたから よろこんだ。",
           "en": "My little sister gave me a cake, so I was delighted",
           "exercises": [
@@ -2877,6 +2895,28 @@
         },
         {
           "kind": "sentence",
+          "ja": "せんせいが きねんの カードを くれたんです。",
+          "en": "The thing is, the teacher gave me a commemorative card",
+          "exercises": [
+            "kureru",
+            "n-desu",
+            "ta-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちが けいたいを くれたから よろこんだ。",
+          "en": "My friend gave me a mobile phone, so I was delighted",
+          "exercises": [
+            "kureru",
+            "ta-form",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
           "ja": "ちちに おかねを もらった。",
           "en": "I got money from my father",
           "exercises": [
@@ -2887,16 +2927,16 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "ともだちに かさを ",
+          "stem": "いもうとが ケーキを くれたから ",
           "tail": "。",
-          "answer": "かりた",
+          "answer": "よろこんだ",
           "options": [
-            "かりた",
-            "かした",
-            "あげた"
+            "よろこんだ",
+            "あげた",
+            "かした"
           ],
-          "en": "I borrowed an umbrella from my friend",
-          "explanation": "the umbrella came to me and it goes back later, which is かりる. かした would make me the one who handed it over, and あげた would give it away for good."
+          "en": "My little sister gave me a cake, so I was delighted",
+          "explanation": "the cake arriving is a reason to be delighted, which is what よろこぶ says. あげた and かした are both things you do to somebody else, and neither is a reaction."
         },
         {
           "kind": "listening-comp",
@@ -2973,11 +3013,233 @@
         "ケーキ",
         "ぼうし",
         "はなたば",
+        "けいたい",
         "いもうと",
         "ちち",
         "はは",
-        "ともだち",
-        "ひと"
+        "ともだち"
+      ]
+    },
+    {
+      "id": "m31-neo-11",
+      "role": "teaching",
+      "title": "「あげたい」「もらいたい」 — wanting to give, wanting to get",
+      "focus": "m13's 〜たい on the three verbs: wanting cuts across the direction axis rather than sitting on it",
+      "introduces": [
+        "あげたい",
+        "もらいたい"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "v-tai",
+          "variant": "transfer"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに はなたばを あげたい。",
+          "en": "I want to give the teacher a bouquet",
+          "exercises": [
+            "v-tai",
+            "ageru",
+            "ni-recipient"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに ケーキを もらいたい。",
+          "en": "I want to get a cake for my birthday",
+          "exercises": [
+            "v-tai",
+            "morau",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいに ノートを あげたい。",
+          "en": "I want to give the student a notebook",
+          "exercises": [
+            "v-tai",
+            "ageru",
+            "ni-recipient"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "はなが すきだから はなたばを もらいたい。",
+          "en": "I like flowers, so I want to get a bouquet",
+          "exercises": [
+            "v-tai",
+            "morau",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "せんせいに はなたばを ",
+          "tail": "。",
+          "answer": "あげたい",
+          "options": [
+            "あげたい",
+            "もらいたい",
+            "くれない"
+          ],
+          "en": "I want to give the teacher a bouquet",
+          "explanation": "the bouquet is going out to the teacher, so the verb is あげる and 〜たい says I have not done it yet. もらいたい would have it coming to me instead, and くれない says somebody else is not giving."
+        },
+        {
+          "kind": "sentence",
+          "ja": "ともだちに おれいの カードを あげたい。",
+          "en": "I want to give my friend a thank-you card",
+          "exercises": [
+            "v-tai",
+            "ageru",
+            "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こんど しんせつな いしゃに くすりを もらいたい。",
+          "en": "I want to get medicine from a kind doctor next time",
+          "exercises": [
+            "v-tai",
+            "morau",
+            "na-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "その とけいは たかいけど あにの たんじょうびだから あげたい。",
+          "en": "That watch is expensive, but it's my older brother's birthday, so I want to give it to him",
+          "exercises": [
+            "v-tai",
+            "ageru",
+            "kedo",
+            "kara-because"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに おおきい ケーキを もらいたいんです。",
+          "en": "The thing is, I want to get a big cake for my birthday",
+          "exercises": [
+            "v-tai",
+            "morau",
+            "n-desu"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "がくせいに ノートを あげたい。",
+          "en": "I want to give the student a notebook",
+          "exercises": [
+            "v-tai",
+            "ageru"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "はなが すきだから はなたばを ",
+          "tail": "。",
+          "answer": "もらいたい",
+          "options": [
+            "もらいたい",
+            "あげたい",
+            "あげない"
+          ],
+          "en": "I like flowers, so I want to get a bouquet",
+          "explanation": "liking flowers is a reason to want to RECEIVE them, so the receiver's verb もらう takes 〜たい. あげたい would be wanting to hand them over, and あげない only says the giving does not happen."
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "あにに とけいを あげたい。",
+          "answer": "I want to give my older brother a watch",
+          "distractors": [
+            "I want to get a watch from my older brother",
+            "I gave my older brother a watch",
+            "I want to give my older sister a watch"
+          ],
+          "exercises": [
+            "v-tai",
+            "ageru"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "たんじょうびに ケーキを もらいたい。",
+          "answer": "I want to get a cake for my birthday",
+          "distractors": [
+            "I want to give a cake for a birthday",
+            "I got a cake for my birthday",
+            "I want to get sweets for my birthday"
+          ],
+          "exercises": [
+            "v-tai",
+            "morau"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "たんじょうびに なにを もらいたい？",
+              "en": "What do you want to get for your birthday?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "けいたいが ほしい。あねに もらいたい。",
+              "en": "I want a mobile. I want to get it from my older sister."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika want, and from whom?",
+              "options": [
+                "A mobile, from her older sister",
+                "A cake, from her father",
+                "A mobile, from Tom",
+                "An umbrella, from her friend"
+              ],
+              "answer": "A mobile, from her older sister"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "はなが すきだから あねの たんじょうびに おおきい はなたばを あげたい。",
+          "en": "She likes flowers, so I want to give my older sister a big bouquet on her birthday",
+          "combines": [
+            "v-tai",
+            "ageru",
+            "kara-because",
+            "suki-kirai-no",
+            "no-possession"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "はなたば",
+        "カード",
+        "ケーキ",
+        "ノート",
+        "とけい",
+        "くすり",
+        "けいたい",
+        "せんせい",
+        "がくせい",
+        "いしゃ"
       ]
     },
     {
@@ -3125,6 +3387,17 @@
           "exercises": [
             "ageru",
             "v-tai"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たんじょうびに ケーキを もらいたい。",
+          "en": "I want to get a cake for my birthday",
+          "exercises": [
+            "morau",
+            "v-tai",
+            "ni-time"
           ],
           "mode": "build"
         },

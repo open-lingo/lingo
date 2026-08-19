@@ -162,7 +162,7 @@ grammarPoints:
     examples:
       - { ja: "ほんを みる ひとが いる。", en: "There is a person who looks at books." }
       - { ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika." }
-      - { ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea." }
+      - { ja: "きっさてんで のむ ちゃが すきだ。", en: "I like the tea I drink at the coffee shop." }
       - { ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat." }
       - { ja: "きっさてんで はたらく ひとと あそぶ。", en: "I hang out with the person who works at the coffee shop." }
     antiPattern: { ja: "ほんを みます ひとが いる。", why: "the verb inside a clause stays PLAIN — ます is the politeness of the whole sentence and only ever sits on the LAST verb: ほんを みる ひとが いる。" }
@@ -263,12 +263,12 @@ lessons:
       - { kind: rule, grammarPointId: dictionary-form }
       - { kind: sentence, ja: "ほんを みる ひとが いる。", en: "There is a person who looks at books", exercises: [dictionary-form, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "ちゃを のむ ひとは ミカだ。", en: "The person who drinks tea is Mika", exercises: [dictionary-form, wa-topic], mode: build }
-      - { kind: sentence, ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea", exercises: [dictionary-form, de-action, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "きっさてんで のむ ちゃが すきだ。", en: "I like the tea I drink at the coffee shop", exercises: [dictionary-form, de-action, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "きっさてんで はたらく ひとと あそぶ。", en: "I hang out with the person who works at the coffee shop", exercises: [dictionary-form, de-action, to-and], mode: listening }
       - { kind: sentence, ja: "ごはんを たべる じかんが ない。", en: "There is no time to eat", exercises: [dictionary-form, nai-existence], mode: build }
       - { kind: sentence, ja: "にほんに いく ひとは ともだちだ。", en: "The person going to Japan is my friend", exercises: [dictionary-form, ni-location, wa-topic], mode: build }
       - { kind: sentence, ja: "あたらしい くるまを うる みせに いく。", en: "I go to the shop that sells new cars", exercises: [dictionary-form, i-adj-present, ni-location], mode: build }
-      - { kind: sentence, ja: "ほんを みる ひとが すきだ。", en: "Say to a friend: I like people who look at books", exercises: [dictionary-form, suki-kirai-no], mode: translate }
+      - { kind: sentence, ja: "ほんを うる みせが すきだ。", en: "Say to a friend: I like the shop that sells books", exercises: [dictionary-form, suki-kirai-no], mode: translate }
       - { kind: particle-cloze, stem: "ほんを ", tail: " ひとが いる。", answer: "みる", options: ["みる", "みます", "みません"], en: "There is a person who looks at books", explanation: "the verb inside a clause stays plain — みる. a polite form belongs at the end of a sentence, never inside a clause." }
       - { kind: listening-comp, audio: "うみで およぐ ひとが いる。", answer: "There is a person who swims in the sea", distractors: ["There is a person who swims in the river", "I want to swim in the sea", "The person swam in the sea"], exercises: [dictionary-form, de-action] }
       - { kind: listening-comp, audio: "きっさてんで はたらく ひとは ケンだ。", answer: "The person who works at the coffee shop is Ken", distractors: ["The person who works at the shop is Ken", "Ken goes to the coffee shop", "Ken is waiting at the coffee shop"], exercises: [dictionary-form, de-action, wa-topic] }
@@ -348,7 +348,7 @@ lessons:
       - { kind: sentence, ja: "きのう かった ほんを みた。", en: "I looked at the book I bought yesterday", exercises: [ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "ミカが かった いえは しずかだ。", en: "The house Mika bought is quiet", exercises: [ga-existence, ta-form, na-adj-present], mode: listening }
       - { kind: sentence, ja: "きのう みた えいがは おもしろい。", en: "The movie I saw yesterday is interesting", exercises: [ta-form, i-adj-present], mode: build }
-      - { kind: sentence, ja: "うみで およぐ ひとが すきだ。", en: "I like people who swim in the sea", exercises: [dictionary-form, de-action], mode: build }
+      - { kind: sentence, ja: "きっさてんで のむ ちゃが すきだ。", en: "I like the tea I drink at the coffee shop", exercises: [dictionary-form, de-action], mode: build }
       - { kind: particle-cloze, stem: "ケンが ", tail: " うたは おもしろい。", answer: "きいた", options: ["きいた", "きく", "ききます"], en: "The song Ken heard is interesting", explanation: "the clause is in the plain past — きいた. ききます could never sit inside a clause." }
       - { kind: sentence, ja: "トムが かった くつは あたらしい。", en: "The shoes Tom bought are new", exercises: [ga-existence, ta-form, i-adj-present], mode: build }
       - { kind: listening-comp, audio: "きっさてんで はたらく ひとと あそぶ。", answer: "I hang out with the person who works at the coffee shop", distractors: ["I hang out with the person who works at the shop", "I want to work at the coffee shop", "I'm waiting for the person at the coffee shop"], exercises: [dictionary-form, de-action] }

@@ -4,7 +4,7 @@
 
 > **2026-07-20 REWRITE-ERA ADDENDUM (m3-neo pilot walk — READ FIRST).**
 > [authoring-invariants-pinned.md](authoring-invariants-pinned.md) is the
-> AUTHORITATIVE constraint set (49 invariants as of 2026-08-14 — don't trust
+> AUTHORITATIVE constraint set (50 invariants as of 2026-08-18 — don't trust
 > a count here, trust the file) and travels verbatim with every dispatch;
 > where this guide disagrees, the invariants win. Deltas vs the guide body
 > below (NOTE: several of these deltas have themselves been superseded by

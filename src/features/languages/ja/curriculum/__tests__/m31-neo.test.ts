@@ -189,12 +189,19 @@ describe("m31-neo owes the spine's give-and-receive row", () => {
       expect(taughtPoints.has(p), `${p} card missing`).toBe(true);
   });
 
-  it("re-teaches the three REGISTRY points the nine teaching lessons need", () => {
+  it("re-teaches the four REGISTRY points the nine teaching lessons need", () => {
     // A re-teach is not a re-assignment (the m16 ruling): no ledger row moves.
     for (const p of [
       "kara-origin", // m4  — から is もらう's other legal source marker
       "ta-form", // m11 — あげた / くれた / もらった is where the module becomes reportable
       "wa-topic", // m3  — viewpoint cashes out as which participant may disappear
+      // m13 — 〜たい on the three verbs. Added 2026-08-15 when the L1+L2 merge
+      // (あげる and くれる taught as ONE axis rather than in consecutive
+      // single-verb lessons) freed a card slot. あげたい / もらいたい were
+      // already declared atoms carrying sentences in the shipped module with no
+      // card of their own, so the module was USING the form and never teaching
+      // it; this spends the freed slot closing that.
+      "v-tai",
     ])
       expect(taughtPoints.has(p), `${p} card missing`).toBe(true);
   });
@@ -206,16 +213,22 @@ describe("m31-neo owes the spine's give-and-receive row", () => {
     const registry = new Set((N5_GRAMMAR_POINTS as { id: string }[]).map((p) => p.id));
     expect(registry.size, "the grammar-point registry failed to load").toBeGreaterThan(100);
     const invented = [...taughtPoints].filter((p) => !registry.has(p)).sort();
-    expect(taughtPoints.size, "no rule cards found").toBe(7);
+    // EIGHT distinct ids since 2026-08-15 (was seven). The count moved for one
+    // reason and it is a registry point, not an invention: `v-tai` joined the
+    // card set. The INVENTED four are unchanged, which is what inv 42 is
+    // actually about — the N4 tier still has no registry of its own.
+    expect(taughtPoints.size, "no rule cards found").toBe(8);
     expect(invented).toEqual(["ageru", "kureru", "morau", "ni-recipient"]);
   });
 
   it("ships nine rule cards across nine teaching lessons", () => {
-    // Seven distinct IDS but NINE cards: `ageru` and `kureru` each teach twice
-    // under a `variant`, which is how one grammar point keeps one SRS history
-    // while each lesson still states its own rule (m6's three `nai-form`
-    // cards). One card per teaching lesson — two adjacent PINNED grammar_rule
-    // steps would fail the adjacency bar (m14's layout law).
+    // Eight distinct IDS but NINE cards: `ageru` teaches twice under a
+    // `variant` (the axis at L1, the ban at L5), which is how one grammar point
+    // keeps one SRS history while each lesson still states its own rule (m6's
+    // three `nai-form` cards). `kureru` used to be the second doubled id; since
+    // the L1+L2 merge it carries only the honorific card, and `v-tai` took the
+    // freed slot. One card per teaching lesson — two adjacent PINNED
+    // grammar_rule steps would fail the adjacency bar (m14's layout law).
     const cards = M31_NEO_LESSONS.flatMap((l) =>
       l.steps.filter((s) => s.type === "grammar_rule").map(() => l.id),
     );

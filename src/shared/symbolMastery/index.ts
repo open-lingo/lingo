@@ -10,7 +10,11 @@
  * from the active language module) and consume the generic hooks here.
  */
 
-export { SymbolMasteryProvider, useSymbolMastery } from "./context";
+export {
+  SymbolMasteryProvider,
+  useSymbolMastery,
+  useHasSymbolMastery,
+} from "./context";
 // `LanguageSymbolMasteryProvider` is exported from its dedicated path
 // (`./LanguageSymbolMasteryProvider`) — not re-exported here because it
 // imports the central registry, which would pull JA's module into

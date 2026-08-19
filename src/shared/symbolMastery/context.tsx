@@ -193,3 +193,17 @@ const NOOP_CTX: Ctx = {
 export function useSymbolMastery(): Ctx {
   return useContext(SymbolMasteryContext) ?? NOOP_CTX;
 }
+
+/**
+ * Whether a real provider is mounted above, as opposed to the NOOP fallback.
+ *
+ * `useSymbolMastery` deliberately never throws, which makes "no provider"
+ * indistinguishable from "provider with nothing mastered" at the call site.
+ * A wrapper that wants to supply a provider ONLY when one is missing needs
+ * to tell those apart — nesting two is not free, since each holds its own
+ * `useState` copy of the store and writes it back to the same localStorage
+ * key (last writer wins, silently). See `LessonStepEnvironment`.
+ */
+export function useHasSymbolMastery(): boolean {
+  return useContext(SymbolMasteryContext) !== null;
+}

@@ -32,7 +32,7 @@ guide or the compiler, not the modules one at a time.**
 | m28 | 234 | 9.6% | 12 | — | 1 |
 | m29 | 234 | 5.3% | 11 | — | 1 |
 | m30 | 235 | 10.0% | 12 | — | 1 |
-| m31 | 234 | 9.9% | 12 | — | 1 |
+| m31 | 239 | 10.3% | 12 | — | 1 |
 
 ## Systemic — fix upstream, not per module
 

@@ -507,6 +507,23 @@ invisible until something fails, which is exactly why they are pinned.
     without any exemption arithmetic. Word-level retrieval still counts as
     NON-sentence against the floor wherever it remains legal.
 
+## Content safety (Spencer 2026-08-18, m31 walk)
+
+50. **Nobody likes a PERSON.** 好き / きらい / だいすき take a thing, a
+    place, a food, or a nominalized clause (〜のが/〜ことが すき) — never a
+    human. 〜が すき spans "like" and "am attracted to" with no morphology
+    separating them, so a person in the liked slot reads as a confession by
+    default, and the English gloss flattens it back to a bland "I like X"
+    that stops warning you what you wrote. The sentence that produced this
+    rule was 「こどもが すきだから えんぴつを あげる。」 — "I like children,
+    so I'll give him a pencil" — which reads as grooming. Prenominal
+    「Xが すきな Y」 ("the Y that X likes") is a different construction and
+    is fine: there X is the liker. Machine-checked by
+    `src/__tests__/contentSafety.test.ts` (all courses), which lints the ENGLISH gloss —
+    「Xが すきだ」 alone does not say which side X is on (cf. m17 L7
+    「あの みせは たかいけど あねが すきだから よく いく」, where あね is
+    the liker), so the Japanese is not a decidable surface and the gloss is.
+
 ## Orthography (render rules authors must not defeat)
 
 20. Furigana sits only above kanji glyphs (okurigana never carries ruby);
