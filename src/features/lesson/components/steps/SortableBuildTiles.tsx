@@ -1,6 +1,7 @@
 import {
   DndContext,
   KeyboardSensor,
+  MeasuringStrategy,
   MouseSensor,
   TouchSensor,
   closestCenter,
@@ -150,6 +151,16 @@ export function SortableBuildTiles({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      // Re-measure droppables DURING the drag, not only at drag start.
+      // `rectSortingStrategy` (the wrapping trays) derives every transform
+      // from the rects it measured when the gesture began, and a wrapping
+      // tray can gain a row mid-drag — which invalidates them underneath the
+      // strategy and makes second-row tiles reposition wrongly (Spencer
+      // 2026-08-18; docs/todo-draggable-build-tiles.md, "first things to
+      // try", step 1). Applies to both strategies; the single-row trays
+      // never change height, so for them it is measurement work and nothing
+      // else.
+      measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
       onDragEnd={handleDragEnd}
     >
       <SortableContext

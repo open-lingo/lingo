@@ -185,3 +185,20 @@ the wrapping trays use `rect` in the first place.
 
 Reproduce: a build step whose placed tiles occupy two rows (m31 L1 at phone
 width, or any 10-tile placement), then drag a tile from row 1 to row 2.
+
+### 2026-08-19 — step 1 applied, NOT gesture-verified
+
+`SortableBuildTiles.tsx`'s `DndContext` now carries
+`measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}`. That is
+step 1 above verbatim: droppables re-measure during the drag instead of only
+at drag start, so a tray that gains a row mid-gesture cannot leave the
+strategy working from stale rects.
+
+**What was verified:** typecheck clean, and all 214 step-view unit tests pass.
+**What was NOT:** the gesture itself. No automated test drives a two-row drag,
+and none of the existing ones would have caught the original bug either. So
+this is a hypothesis applied, not a fix confirmed — someone has to drag a tile
+from row 1 to row 2 on a phone-width build step and watch what the other tiles
+do. If it still jumps at the row break, step 2 (freeze the tray's height for
+the duration of the drag) is next and the diagnosis narrows rather than
+resets.
