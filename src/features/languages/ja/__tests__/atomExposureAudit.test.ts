@@ -214,6 +214,35 @@ describe("authored exposure per atom (B065)", () => {
         "/tmp/ja-atom-exposure.txt",
         [
           `never graded in authored content: ${never.length} / ${rows.length}`,
+          "",
+          // The distribution, not just the zero bucket. "Graded once" is the
+          // bucket worth reading next: one authored rep inside the module that
+          // teaches the word is exactly the shape D2 blocks from writing, so
+          // those words reach FSRS only by D4 seeding and are never asked
+          // again in authored content (m30's しらべる / きめる / つづける /
+          // おくる / よろこぶ are the named examples, 2026-08-18).
+          `graded exposures — distribution across ${rows.length} atoms:`,
+          ...[0, 1, 2, 3].map((n) => {
+            const list =
+              n === 3
+                ? rows.filter((r) => r.graded >= 3)
+                : rows.filter((r) => r.graded === n);
+            return `  ${n === 3 ? "3+" : n} rep${n === 1 ? " " : "s"}: ${list.length}`;
+          }),
+          "",
+          ...(() => {
+            const once = rows.filter((r) => r.graded === 1);
+            const byM = new Map<string, Row[]>();
+            for (const r of once) byM.set(r.from, [...(byM.get(r.from) ?? []), r]);
+            return [
+              `## graded exactly once (${once.length})`,
+              ...[...byM.entries()]
+                .sort((a, b) => parseModuleIndex(a[0]) - parseModuleIndex(b[0]))
+                .map(([m, list]) => `${m}\t${list.length}\t${list.map((r) => r.kana).join(" ")}`),
+              "",
+              "## never graded, by module",
+            ];
+          })(),
           ...[...byMod.entries()]
             .sort((a, b) => parseModuleIndex(a[0]) - parseModuleIndex(b[0]))
             .flatMap(([m, list]) => [
