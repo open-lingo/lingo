@@ -84,3 +84,28 @@ the atom **visible to the guards for the first time**, and three of them bit:
   above, one module later.
 - No guard exists for "row exists, nothing teaches it". The exposure audit's
   `untouched` count is the closest thing and it is a ratchet, not a gate.
+
+## Third surface, found and closed the same day (2026-08-19)
+
+The match-grid backfill is not the only place an orphan row reaches real work.
+`scripts/authoring-context.mjs` — the per-module briefing every authoring
+dispatch starts from — decided a word was already known with
+`priorCorpus.includes(kana)`, a substring test over raw YAML including prose
+notes. So しんぶん was recommended to m33 as a reinforcement carrier on the
+strength of its ONE appearance in the entire course: an m30 authoring note
+listing it among the words CUT for being untaught.
+
+That is the same defect wearing a third costume, and it has been paid for
+twice already — m23 and m30 both stripped pack-recommended words by hand, m30
+at scale ("all 'known' according to the pack and untaught according to every
+earlier module's IR").
+
+Fixed in `4d42c360`: the pack now reads the predecessor module's COMPILED
+`priorVocab` (+ `newAtoms` + `priorAtoms`), which `compile-ir.mjs` already
+derives honestly — quoted-declaration matching, reviewPool assertions,
+earlier-module `introduces`. The text scan stays only as the bootstrap path
+for a module with no compiled predecessor. m33's known list lost 94 words, all
+of them the untaught population.
+
+So the open question in R16 now covers two surfaces, not three: the match-grid
+backfill, and the atom table an author reads directly.
