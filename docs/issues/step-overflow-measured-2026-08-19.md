@@ -83,3 +83,36 @@ Adding one route per step type to `routes.mjs` would make the mobile gate red
 in six places immediately, across every viewport and every spec that walks the
 matrix. Measure first, fix the step types, then extend the matrix — in that
 order, or the gate stops being a gate and starts being a known-failures list.
+
+## match_pairs (195px) is structural, not a trim
+
+Measured the tree at 375×667, `ja-m32-neo-1?step=20`:
+
+```
+ 455px  the scroller
+  56px  header (h2 + progress dots)
+  12px  gap-3
+ 448px  the grid — 6 rows × 68px + 5 gaps × 8px
+  56px  the reserved Continue slot (min-h-14, deliberate)
+```
+
+The 68px row height is set by the Japanese tiles: each carries a 54px inner
+span because kanji tiles render furigana above the kanji (お金 / かね). English
+tiles are shorter, but a grid row is as tall as its tallest cell.
+
+**To fit, the grid would have to come down to about 307px — roughly 43px per
+row against 68px today.** No padding trim reaches that. The levers are:
+
+1. **Fewer pairs on narrow viewports.** Dropping `MATCH_PAIRS_FLOOR` from 6 to
+   5 below `sm` saves 76px. Still ~119px over, so this alone does not fix it.
+2. **Smaller type / tighter furigana on match tiles at phone width.** This is
+   the only lever big enough on its own, and it trades against readability of
+   the exact thing the step is testing.
+3. **Declare it scrolling by design** — add `match_pairs` to
+   `SCROLLABLE_STEP_TYPES` alongside `grammar_rule`. Honest, costs nothing, and
+   means a phone learner scrolls inside a matching grid.
+
+This is a design call, not a mechanical fix, so it is measured and left alone.
+The same reasoning applies to dialogue_listen (121px) and speaking (100px);
+listening_build (67px) and listening_comprehension (55px) are small enough that
+a trim may genuinely reach them.
