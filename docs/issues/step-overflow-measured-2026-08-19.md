@@ -50,10 +50,17 @@ a screen inside a step that is supposed to fit.
 | 19px | grammar_rule (by design) |
 | 0px | everything else |
 
-**kanji_reading overflows on a current large phone.** That is worth separating
-from the rest: the SE numbers can be argued down as "squished but functional
-on a 2015 device, outside the support window" (Spencer 2026-08-09), and this
-one cannot.
+**kanji_reading overflows on a current large phone**, which rules out any
+"only on old hardware" reading of the SE numbers.
+
+And the SE numbers do not need that defence anyway. **375×667 is NOT a legacy
+viewport in this repo's matrix** — `routes.mjs` says so in as many words:
+"Nothing else is legacy. 375x667 is the iPhone SE, still sold and squarely in
+[the support target]." The only viewport carrying `legacy: true` is
+android-small at 360×640. So the stage-fit exemption Spencer granted in
+2026-08-09 ("squished but functional is fine outside the ~6-year support
+window") does not cover any number in the table above. All six are in-support
+failures.
 
 ### Fixed same day — kanji_reading, 136px → 8px
 
