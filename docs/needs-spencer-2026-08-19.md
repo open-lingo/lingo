@@ -56,3 +56,12 @@ Two things changed since the issue was filed:
 `tts-publish/ja/` holds 472 narration + 31 dialogue mp3s for m32, 0 removals.
 Manifests already copied into the repo. Upload needs Trevor's AWS creds.
 Until it runs, m32 audio 404s to the SPA shell.
+
+## 6. One thing to eyeball, not decide
+
+The second-row drag bug: step 1 of the recorded plan is applied
+(`MeasuringStrategy.Always` on the build-tile `DndContext`, commit `9a3ec294`).
+Typecheck and the 214 step-view tests pass, but **no test drives a two-row
+drag**, so the gesture is unverified. Drag a tile from row 1 to row 2 on a
+phone-width build step (m31 L1) and watch the other tiles. If it still jumps at
+the row break, step 2 in `docs/todo-draggable-build-tiles.md` is next.
