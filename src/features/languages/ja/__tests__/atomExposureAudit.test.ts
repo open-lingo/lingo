@@ -98,8 +98,22 @@ const MAX_NEVER_TOUCHED = 140;
  *  37 → 18 on 2026-08-09: 19 of the 37 were the m30 pilot's own atoms —
  *  structurally stuck because m30 was the last module — and they left the
  *  audited population when A1 retired the pilot and A2 re-homed them to
- *  unauthored modules (spec 2026-08-06). */
-const MAX_GRADED_BUT_NEVER_WRITES = 18;
+ *  unauthored modules (spec 2026-08-06).
+ *
+ *  18 → 26 on 2026-08-18: the m30/m31 IR-only vocabulary backfill. These eight
+ *  are not new debt — they are eight words that were ALWAYS exercised this way
+ *  and were invisible to this audit because they had no courseAtoms row at all
+ *  (docs/issues/n4-vocab-never-reaches-srs-2026-08-18.md). The audited
+ *  population grew; the learner's experience did not change. Same bookkeeping
+ *  as the 104 → 140 entry above, and the same honest reading: registering a
+ *  word is what makes its debt countable.
+ *
+ *  Worth stating plainly because "graded but never writes" sounds worse than
+ *  it is HERE: the D2 gate blocks same-module writes by design, and D4
+ *  seed-on-unlock schedules a module's own new atoms due the NEXT day. So
+ *  these words do enter the deck — via seeding, not via in-module grading,
+ *  which is the intended path for a word the learner just met. */
+const MAX_GRADED_BUT_NEVER_WRITES = 26;
 
 type Row = {
   atomId: string;

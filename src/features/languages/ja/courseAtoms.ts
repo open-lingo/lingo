@@ -1437,8 +1437,68 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "darou", kana: "だろう", romaji: "darou", meaningEn: "probably (plain conjecture — recognition)", shortGloss: "probably (plain)", fromModule: "m25", introducedByLessonId: "ja-m25-neo-9", kind: "vocab", blocked: true, note: "recognition only — sentence-final だろう to a listener is blunt/masculine (spine n13)", pos: "expression" },
   { id: "kana-wonder", kana: "かな", romaji: "kana", meaningEn: "I wonder (thinking out loud)", shortGloss: "I wonder", fromModule: "m25", introducedByLessonId: "ja-m25-neo-6", kind: "vocab", blocked: true, note: "sentence-ender — no referent; checked against いかない / さかな / しずかな for retokenization, diff empty", pos: "particle" },
   { id: "kitto", kana: "きっと", romaji: "kitto", meaningEn: "surely, definitely", shortGloss: "surely", fromModule: "m25", introducedByLessonId: "ja-m25-neo-5", kind: "vocab", blocked: true, note: "abstract modal adverb — no honest emoji (the m30 べつに/やっぱり class)", pos: "adverb" },
-];
 
+  // ── m30 / m31 (N4 tier) — THE IR-ONLY VOCABULARY BACKFILL, 2026-08-18 ─────
+  //
+  // Both N4 modules taught real vocabulary that lived ONLY in their IR
+  // `newAtoms`. An IR-only atom is visible to the module compiler's tokenizer
+  // and to nothing else — so these words were taught in lessons, graded in
+  // lessons, and could never enter the flashcard deck, because `courseDeck.ts`
+  // builds from THIS array. m31 is titled あげる・くれる・もらう and shipped
+  // with あげる registered and the other two not.
+  //
+  // Found by the scene vocabulary gate (it had to union the IR's own
+  // `introduces` lists to work at all). Full measurement:
+  // docs/issues/n4-vocab-never-reaches-srs-2026-08-18.md.
+  //
+  // Every row is `blocked: true` because every one of them is `imageable:
+  // false` in the IR, and none carries an emoji — which is allowed:
+  // `isSrsEligibleAtom` only rejects SINGLE-kana atoms with no emoji, and all
+  // of these are multi-kana. So they get a text flashcard, which is the point.
+  //
+  // NOT registered, deliberately: m30's かっとく / しとく. The IR tags both
+  // `kind: vocab`, but they are contractions of 〜ておく (かって+おく), i.e.
+  // derived forms wearing a lemma's tag. Registering them would put a
+  // contracted form in the deck as if it were a word. That IR mis-tag is
+  // filed in the issue doc rather than fixed here.
+  //
+  // Retokenization checked the m22 / m25 way — every compiled tile in the
+  // whole JA course dumped before and after (6,113 rows); see the issue doc
+  // for the diff.
+
+  // m30 (n4-01) — て + helper I
+  { id: "toriaezu", kana: "とりあえず", romaji: "toriaezu", meaningEn: "for now, to start with", shortGloss: "for now", fromModule: "m30", kind: "vocab", blocked: true, note: "abstract modal adverb — no honest emoji (the べつに/やっぱり class); registered WHOLE so it cannot tile as とり (bird) + あえず", pos: "adverb" },
+  { id: "shiraberu", kana: "しらべる", romaji: "shiraberu", meaningEn: "to look up, to check", shortGloss: "look up", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "kimeru", kana: "きめる", romaji: "kimeru", meaningEn: "to decide", shortGloss: "decide", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "tsuzukeru", kana: "つづける", romaji: "tsuzukeru", meaningEn: "to keep going, to continue", shortGloss: "keep going", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "okuru", kana: "おくる", romaji: "okuru", meaningEn: "to send", shortGloss: "send", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "godan" } },
+  { id: "saisho", kana: "さいしょ", romaji: "saisho", meaningEn: "the first one, at the start", shortGloss: "at first", fromModule: "m30", kind: "vocab", blocked: true, note: "abstract position-in-sequence — no referent a picture could name", pos: "noun" },
+  { id: "kekka", kana: "けっか", romaji: "kekka", meaningEn: "the result", shortGloss: "result", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "yoyaku", kana: "よやく", romaji: "yoyaku", meaningEn: "a booking, a reservation", shortGloss: "booking", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "junbi", kana: "じゅんび", romaji: "junbi", meaningEn: "getting ready, preparation", shortGloss: "preparation", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "setsumei", kana: "せつめい", romaji: "setsumei", meaningEn: "an explanation", shortGloss: "explanation", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "kotae", kana: "こたえ", romaji: "kotae", meaningEn: "the answer", shortGloss: "answer", fromModule: "m30", kind: "vocab", blocked: true, note: "longest-match keeps こたえる (4) ahead of こたえ (3), so the verb still tiles whole", pos: "noun" },
+  { id: "renshuu", kana: "れんしゅう", romaji: "renshuu", meaningEn: "practice", shortGloss: "practice", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+
+  // m31 (n4-02) — give & receive I
+  { id: "kureru", kana: "くれる", romaji: "kureru", meaningEn: "to give (to me, or to my side)", shortGloss: "give me", fromModule: "m31", kind: "vocab", blocked: true, note: "direction is the meaning and a picture cannot carry it — the transfer scene does; blocked so the rule card cannot steal an image debut", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "morau", kana: "もらう", romaji: "morau", meaningEn: "to get, to receive", shortGloss: "receive", fromModule: "m31", kind: "vocab", blocked: true, note: "same event as くれる from the other end — no picture separates them", pos: "verb", conjugation: { class: "godan" } },
+  { id: "kudasaru", kana: "くださる", romaji: "kudasaru", meaningEn: "to give me (honorific)", shortGloss: "give me (hon.)", fromModule: "m31", kind: "vocab", blocked: true, note: "RECOGNITION ONLY in the spine — see the production-direction question in the issue doc, the same open question as m24's ら抜き", pos: "verb", conjugation: { class: "godan" } },
+  { id: "itadaku", kana: "いただく", romaji: "itadaku", meaningEn: "to receive (honorific)", shortGloss: "receive (hon.)", fromModule: "m31", kind: "vocab", blocked: true, note: "RECOGNITION ONLY in the spine — see the issue doc", pos: "verb", conjugation: { class: "godan" } },
+  { id: "yorokobu", kana: "よろこぶ", romaji: "yorokobu", meaningEn: "to be delighted", shortGloss: "be delighted", fromModule: "m31", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "godan" } },
+  { id: "purezento", kana: "プレゼント", romaji: "purezento", meaningEn: "a present", shortGloss: "present", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked per the IR — 🎁 already belongs to あげる", pos: "noun" },
+  { id: "keeki", kana: "ケーキ", romaji: "keeki", meaningEn: "a cake", shortGloss: "cake", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked per the IR — 🍰 collides with おかし's 🍬 family", pos: "noun" },
+  { id: "hanataba", kana: "はなたば", romaji: "hanataba", meaningEn: "a bouquet", shortGloss: "bouquet", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked — 💐 reads as はな, which is MET", pos: "noun" },
+  { id: "orei", kana: "おれい", romaji: "orei", meaningEn: "thanks, a thank-you gift", shortGloss: "thanks", fromModule: "m31", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "kaado", kana: "カード", romaji: "kaado", meaningEn: "a card", shortGloss: "card", fromModule: "m31", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "omiyage", kana: "おみやげ", romaji: "omiyage", meaningEn: "a souvenir", shortGloss: "souvenir", fromModule: "m31", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "kondo", kana: "こんど", romaji: "kondo", meaningEn: "next time, this coming", shortGloss: "next time", fromModule: "m31", kind: "vocab", blocked: true, note: "abstract time reference — no referent a picture could name", pos: "adverb" },
+  { id: "oiwai", kana: "おいわい", romaji: "oiwai", meaningEn: "a celebration, a congratulatory gift", shortGloss: "celebration", fromModule: "m31", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "kinen", kana: "きねん", romaji: "kinen", meaningEn: "a commemoration, a keepsake", shortGloss: "keepsake", fromModule: "m31", kind: "vocab", blocked: true, pos: "noun" },
+  { id: "ureshii", kana: "うれしい", romaji: "ureshii", meaningEn: "happy, glad", shortGloss: "happy", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked — 😊 is also たのしい and げんき, both MET", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "shinsetsu", kana: "しんせつ", romaji: "shinsetsu", meaningEn: "kind", shortGloss: "kind", fromModule: "m31", kind: "vocab", blocked: true, note: "na-adjective — abstract quality, no honest emoji", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "omedetou", kana: "おめでとう", romaji: "omedetou", meaningEn: "congratulations", shortGloss: "congrats", fromModule: "m31", kind: "phrase", blocked: true, pos: "expression" },
+];
 /**
  * Which atom a BARE KANA means when several share it.
  *

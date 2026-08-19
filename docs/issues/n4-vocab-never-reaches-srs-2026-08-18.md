@@ -1,81 +1,126 @@
-# m30 and m31 teach 29 words that can never be reviewed
+# m30 and m31 taught 29 words that could never be reviewed — fixed
 
-**Found** 2026-08-18, by the scene vocabulary gate — as a side effect, not as its
-job. **Severity: blocks N4 authoring**, because authoring m32–m34 the same way
-triples it before anyone notices.
+**Found** 2026-08-18 by the scene vocabulary gate, as a side effect rather than
+as its job. **Fixed the same day**; the gate that prevents recurrence is
+`irAtomRegistration.test.ts`.
 
 ## The defect
 
-A word reaches a learner through the IR (`lessons[].introduces`). A word reaches
-the **flashcard deck** through `courseAtoms.ts`. Nothing checks that these two
-lists agree, and for the two N4 modules they badly do not.
+A word reaches a learner through the IR (`newAtoms:` + `lessons[].introduces`).
+A word reaches the **flashcard deck** through `courseAtoms.ts` — `courseDeck.ts:4`
+is explicit: *"The course deck is derived from `JA_COURSE_ATOMS` — the real
+curriculum vocab"*. Nothing checked that the two agreed.
 
-`courseDeck.ts:4` — *"The course deck is derived from `JA_COURSE_ATOMS` — the
-real curriculum vocab"*. So a word absent from that registry gets no card, no
-FSRS state, and is never reviewed. It is taught once and then structurally
-cannot come back.
+An atom declared only in the IR is visible to the module compiler's tokenizer
+and to nothing else. So these words were taught in lessons, graded in lessons,
+and could never enter the deck. They were taught once and then structurally
+could not come back.
+
+**m31 is titled あげる・くれる・もらう. あげる was registered. くれる and
+もらう were not.**
+
+## Correcting two things I got wrong on first reading
+
+Both matter, because they change what the right fix is.
+
+1. **"The IR can't tell a new word from a new form."** False — it can, and it
+   does. `newAtoms` entries carry `kind: verb` vs `kind: verb-form` plus
+   `derivedFrom:`. The distinction the fix needs was already authored. That is
+   why the gate below is precise rather than heuristic.
+2. **"Nobody noticed."** Also false. "IR-only atoms" is a deliberate, documented
+   pattern going back to m12, and there is a real reason for it: **a
+   `courseAtoms` row joins the COURSE-WIDE tokenizer**, so adding one can
+   re-tokenize sentences in unrelated modules. This repo has a name for that
+   hazard — the m16-ので regression class — and both m22 and m25 dumped every
+   compiled tile in the course before and after adding rows to prove the diff
+   was empty.
+
+So this was not an oversight with no downside. It was a conservative call whose
+cost — the word never becomes reviewable — was not being counted.
 
 ## Measured
 
-Sweeping every `mN.ir.yaml` against every kana/kanji surface in `courseAtoms`:
+Sweeping every `mN.ir.yaml` `newAtoms` against every kana/kanji surface in
+`courseAtoms`, counting **lemma kinds only** (excluding `verb-form`, `adj-form`,
+`tai-form`, and anything carrying `derivedFrom`):
 
-| | introduced in IR | absent from `courseAtoms` |
+| | lemma `newAtoms` | unregistered |
 |---|---|---|
-| whole course | 582 | 182 (31.3%) |
-| m30 | 34 | 30 |
-| m31 | 36 | 31 |
+| whole course | 405 | 50 |
+| m30 | 18 | 14 |
+| m31 | 22 | 17 |
 
-**The 31.3% headline overstates it and should not be quoted.** Most of the
-course-wide gap is *inflections* — たべました, たかくない, たべたい, まって —
-which are correctly not atoms, because they are forms of a word that is one.
-Excluding those, the real unregistered vocabulary is:
+**Do not quote a course-wide percentage over raw `introduces` lists.** That
+number is ~31% and it is meaningless: most of the gap is inflections
+(たべました, たかくない, まって) which correctly are not atoms, because
+registering an inflection regresses two shipped behaviours — the flashcard
+importer stops mapping 食べました back to たべる, and the annotator stops
+splitting のみました into stem + ました.
 
-**m30 — 12 words:** とりあえず · さいしょ · しらべる · きめる · つづける ·
-けっか · よやく · じゅんび · せつめい · おくる · こたえ · れんしゅう
+## Fixed
 
-**m31 — 17 words:** くれる · もらう · くださる · いただく · プレゼント ·
-はなたば · おれい · ケーキ · おみやげ · こんど · おいわい · きねん · カード ·
-おめでとう · うれしい · しんせつ · よろこぶ
+**29 rows registered** (m30: 12, m31: 17), every one `blocked: true` because
+every one is `imageable: false` in the IR, and none carries an emoji — which is
+allowed: `isSrsEligibleAtom` rejects only SINGLE-kana atoms with no emoji, and
+all 29 are multi-kana. They get a text flashcard, which is the entire point.
 
-**29 words.** Including **くれる and もらう — the two verbs m31 exists to
-teach.** The module is titled "Give & receive I: あげる・くれる・もらう";
-あげる is registered, the other two are not, so two thirds of the module's
-headline content is unreviewable.
+**Two deliberately NOT registered:** m30's かっとく / しとく. The IR tags both
+`kind: vocab`, but かっとく is かって + おく contracted — a derived form wearing
+a lemma's tag. Registering them would put a contraction in the deck as if it
+were a word. **The IR mis-tag is the real bug and is still open.**
 
-## Why no existing gate caught it
+### Retokenization proof
 
-`moduleConformance` enforces the arrow in one direction — every ATOM must be
-introduced before it is exercised. Nothing enforces the other — every word
-INTRODUCED must be an atom. A word that exists only in the IR is invisible to
-it, because it is invisible to `courseAtoms`, which is what conformance reads.
+The m22/m25 method, run in full: every build tile, target sentence and prompt
+audio string in the whole JA course dumped before and after — **6,113 rows.**
 
-The N5 modules do not show the problem at this scale because their atoms were
-restamped into `courseAtoms` (see `docs/fromModule-restamp-report-2026-08-09.md`).
-The restamp was a one-off pass, not a gate, so the two N4 modules authored after
-it drifted straight back apart.
+| | |
+|---|---|
+| `TARGET:` / `AUDIO:` lines changed | **0** — no sentence anywhere re-tokenized |
+| `TILES:` rows changed | 146, **all in m30/m31**, 0 in any earlier module |
+| what changed in them | decoy tiles only; the answer tokens are identical |
 
-## Blast radius
+The tile changes are `buildTileFloor` drawing decoys from a pool that now has 29
+more words in it — confined to the two modules that own those words.
 
-- **29 words** with no flashcard today.
-- **Every future N4 module** unless the loop changes. At the spine's 30–38 atoms
-  per module (`spine-n4.md` D2) × 20 remaining modules, this is on track to be
-  **~600 unreviewable words** by the end of the tier.
-- Not a data-loss bug: the IR is intact and the words are taught correctly in
-  lessons. Everything needed to fix it is already authored.
+## The adjacent defect this surfaced, still open
 
-## Fix
+Registering the words made them visible to two audits that had never been able
+to see them, and both went up:
 
-Two parts, and the second is the one that matters:
+- `MAX_GRADED_BUT_NEVER_WRITES` 18 → 26
+- `MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS` 21 → 26
 
-1. **Backfill** the 29 into `courseAtoms.ts` with `fromModule: m30`/`m31`, each
-   with an emoji per the vocab-card art rule, vendoring any SVG not already in
-   `src/pub/noto-emoji/svg/`.
-2. **Gate it**, so the next module cannot drift: assert that every
-   `lessons[].introduces` entry either resolves to a `courseAtoms` surface or is
-   a recognised inflection of one. Inflections are the whole difficulty —
-   the check needs a conjugation-aware resolver or an explicit
-   `introducesInflection:` field in the IR to separate "new word" from "new form
-   of a known word". **The IR currently does not distinguish these**, which is
-   the root cause rather than an implementation detail.
+Both constants were raised with the reasoning written into the test, because the
+audited *population* grew — this is newly **visible** debt, not newly **created**
+debt, and the learner's experience did not change by one step. Same bookkeeping
+as that file's own 104 → 140 entry.
 
-Do (2) before authoring m32, or the backfill list grows by ~30 per module.
+But one part of it is a real content defect and is NOT fixed:
+
+**Four m30 verbs are graded exactly once each, in a `build_sentence` step** —
+しらべる, きめる, つづける, おくる. A learner must PRODUCE しらべる from memory
+on the only exposure the word ever gets, with no recognition beat first. Same
+shape for m31's おめでとう and よろこぶ. `しんせつ` has ten exposures and every
+one is production.
+
+That is m30/m31 content work — recognition beats, then a recompile and new TTS —
+not registry work, so it is filed rather than smuggled into this fix.
+
+## The gate
+
+`src/features/languages/ja/__tests__/irAtomRegistration.test.ts`.
+
+It asserts the reverse arrow `moduleConformance` never had: **every lemma-kind
+`newAtom` must resolve to a `courseAtoms` row.** m30+ has no exemption list at
+all. Pre-N4 debt (19 words — the すぎる family, んだ/んです, ならない, よ/ね)
+is frozen in a set that may only shrink, and a fourth test fails if an entry in
+that set has since been registered, so the ratchet cannot rot in either
+direction.
+
+It deliberately does **not** auto-register anything. It fails and names the
+word; a human adds the row with the tile diff in hand, because of the tokenizer
+hazard above.
+
+Verified non-vacuous: commenting out the くれる row makes it fail with
+`m31 くれる (verb) — "to give (in to my side)"`.
