@@ -55,6 +55,21 @@ from the rest: the SE numbers can be argued down as "squished but functional
 on a 2015 device, outside the support window" (Spencer 2026-08-09), and this
 one cannot.
 
+### Fixed same day — kanji_reading, 136px → 8px
+
+The step's option grid was `grid-cols-1 sm:grid-cols-2`, so below the `sm`
+breakpoint four options stacked into a single column: 248px of a 455px
+scroller, the tallest block on the step and most of its overflow. The options
+are kana readings, two to four characters, and a two-column layout at 375px
+gives each one a ~170px column — not tight.
+
+Two columns at every width. Measured after: **8px at 375×667** (was 136) and
+**0px at 430×932** (was 30). Nothing else on the step was touched — the card's
+padding and the gaps are the designer's, and the 8px residual is not worth
+spending them on. Six unit tests pass.
+
+That leaves five overflowing step types on the SE, none on the Pro Max.
+
 ## What is not covered here
 
 The 12 step types above are the ones m32 happens to contain.

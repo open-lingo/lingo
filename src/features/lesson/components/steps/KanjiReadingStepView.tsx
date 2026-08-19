@@ -143,7 +143,13 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
         ) : null}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {/* Two columns at EVERY width. Single-column below sm made this the
+          tallest block on the step — 248px of a 455px scroller on a 375×667
+          phone, which was most of the step's 136px overflow (measured
+          2026-08-19, docs/issues/step-overflow-measured-2026-08-19.md). The
+          options are kana readings, two to four characters, so a ~170px
+          column is not tight. */}
+      <div className="grid grid-cols-2 gap-3">
         {step.options.map((option) => (
           <button
             key={option.id}
