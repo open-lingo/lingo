@@ -384,5 +384,7 @@ export const RESOLVED_ENTRIES: ReviewEntry[] = [
     ask: "ANSWERED 2026-08-19 \u2014 teach them. Spencer, verbatim: \u201cfor r16 we should probably teach them, required side quests can be some and ideally we bake them into the course by adding one or two lessons here or there would be better/preferable.\u201d Outcome: no suppression flag; the 116 become vocab-pack lessons slotted into their own modules (the B067 pattern, already run six times), with side quests only where a cluster does not fit a module.",
     details:
       "measurement + method: docs/issues/orphan-courseatoms-rows-2026-08-18.md (2026-08-19 correction) \u00b7 code: src/features/lesson/data/matchPairsFloor.ts (the es path already carries the cutoff the ja path ignores)",
+    resolved:
+      "Teach them, do not suppress. Spencer 2026-08-19: \u201cwe should probably teach them, required side quests can be some and ideally we bake them into the course by adding one or two lessons here or there would be better/preferable.\u201d The 116 become vocab-pack lessons inside their own modules (the B067 pattern), side quests only where a cluster has no home.",
   },
 ];
