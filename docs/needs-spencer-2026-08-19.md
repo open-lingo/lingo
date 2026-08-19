@@ -1,0 +1,45 @@
+# Needs Spencer — open decisions
+
+Recorded 2026-08-19 12:00 MDT. Each item is blocked on a call only you can make.
+Everything NOT on this list I am working through unattended.
+
+## 1. matchPairsFloor orphan leak — suppress or teach?
+
+Measured today: the floor pass adds 101 pairs course-wide; **8 cells show a word
+no lesson in the course teaches** — ぎんこう (m6, 6 cells), おなじ (m27 L9),
+しんぶん (m32 L6). The drawable orphan pool behind it is **116 atoms** (m6–m29;
+worst: m19 ×14, m17 ×11, m21 ×11, m16 ×8). Only 3 surface in the default render
+because only 101 grids run short — a learner's dynamic review prefix builds
+different grids, so 116 is the ceiling, not 3.
+
+Two fixes:
+- (A) **Suppress** — freeze the 116 in an exemption set the ja fill pool skips,
+  plus a ratcheting test that fails when a new atom is registered but taught
+  nowhere. 8 cells swap to a different pool word; grids stay at floor.
+- (B) **Teach them** — 116 atoms is real authoring work, spread over 14 modules.
+
+I recommend (A) now and (B) as curriculum debt. **Not shipped — awaiting your call.**
+
+## 2. m33 vocabulary set
+
+m32's IR notes recommend m33 build its transitivity set from pairs whose
+intransitive half is ALREADY taught — あく/あける (あける m14), はいる/いれる
+(はいる m16), とまる/とめる (とまる adopted at m32) — rather than つく/つける.
+Confirm before I author.
+
+## 3. The は TTS decision
+
+Must be answered before Trevor's next upload run or 21 sentences across
+m17/m21/m31 get generated twice. (へ and を are unswept — same class of problem.)
+Reminder of the constraint you set: the learner must SEE は; this is about what
+the synthesizer is fed, not what the IR says.
+
+## 4. Review queue
+
+19 open entries at `/ja/qa/review`, 0 answered — R5, R6, R7, Q3.
+
+## 5. 501 TTS clips staged, not uploaded
+
+`tts-publish/ja/` holds 472 narration + 31 dialogue mp3s for m32, 0 removals.
+Manifests already copied into the repo. Upload needs Trevor's AWS creds.
+Until it runs, m32 audio 404s to the SPA shell.
