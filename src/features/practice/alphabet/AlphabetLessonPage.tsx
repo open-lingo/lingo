@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { LessonStepEnvironment } from "@/features/lesson/components/LessonStepEnvironment";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -585,12 +586,21 @@ export function AlphabetLessonPage() {
 
       <div className="flex flex-1 flex-col py-4 [container-type:size]">
         {currentStep && (
-          <StepRenderer
-            key={currentStep.id}
-            step={currentStep}
-            onComplete={handleStepComplete}
-            onContinue={handleContinue}
-          />
+          /* moduleIndex null: alphabet practice sits outside the module
+             ladder, so romaji stays settings-governed exactly as before.
+             The environment is here for the OTHER half — the symbol-mastery
+             provider. Without it `useSymbolMastery` falls back to a NOOP
+             whose registerExposure/recordCorrect do nothing and whose
+             isHelperHidden is always false, so the kana drill neither faded
+             its helpers nor counted a single exposure toward mastery. */
+          <LessonStepEnvironment moduleIndex={null}>
+            <StepRenderer
+              key={currentStep.id}
+              step={currentStep}
+              onComplete={handleStepComplete}
+              onContinue={handleContinue}
+            />
+          </LessonStepEnvironment>
         )}
       </div>
     </div>

@@ -82,16 +82,40 @@ function buildAnswer(tiles: string[]) {
 describe("build_sentence grading leniency", () => {
   it("accepts the exact authored sequence", () => {
     const onComplete = buildAnswer(["きょう", "は", "これ", "を", "しない"]);
-    expect(onComplete).toHaveBeenCalledWith("test-build-leniency", true);
+    expect(onComplete).toHaveBeenCalledWith(
+      "test-build-leniency",
+      true,
+      undefined,
+      "きょう は これ を しない",
+    );
   });
 
   it("accepts the temporal-は-drop build (は left in the bank)", () => {
     const onComplete = buildAnswer(["きょう", "これ", "を", "しない"]);
-    expect(onComplete).toHaveBeenCalledWith("test-build-leniency", true);
+    expect(onComplete).toHaveBeenCalledWith(
+      "test-build-leniency",
+      true,
+      undefined,
+      "きょう これ を しない",
+    );
   });
 
   it("still rejects wrong orders", () => {
     const onComplete = buildAnswer(["しない", "きょう", "これ", "を"]);
-    expect(onComplete).toHaveBeenCalledWith("test-build-leniency", false);
+    expect(onComplete).toHaveBeenCalledWith(
+      "test-build-leniency",
+      false,
+      undefined,
+      "しない きょう これ を",
+    );
+  });
+
+  // The 4th arg is what the learner actually assembled — the reactive
+  // grammar tip gates on it (reactiveTipGate), so a build reporting only a
+  // verdict silently re-opens the canned-anti-pattern bug. Assert the text,
+  // not just its presence.
+  it("reports the assembled tray as the answer text", () => {
+    const onComplete = buildAnswer(["きょう", "これ"]);
+    expect(onComplete.mock.calls[0][3]).toBe("きょう これ");
   });
 });

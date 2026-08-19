@@ -162,7 +162,11 @@ export function ParticleClozeStepView({
           </p>
         ) : null}
         <div className="font-japanese text-2xl leading-relaxed text-text-primary sm:text-3xl">
-          <AnnotatedJa text={step.prompt.before} />
+          {step.beforeAnnotation ? (
+            <AnnotatedJa segments={step.beforeAnnotation} />
+          ) : (
+            <AnnotatedJa text={step.prompt.before} />
+          )}
           <span
             className={`mx-2 inline-flex min-w-[3rem] items-center justify-center rounded-full border-2 px-3 py-0.5 align-middle text-xl font-bold ${
               submitted
@@ -174,7 +178,11 @@ export function ParticleClozeStepView({
           >
             {pillParticle ?? "?"}
           </span>
-          <AnnotatedJa text={step.prompt.after} />
+          {step.afterAnnotation ? (
+            <AnnotatedJa segments={step.afterAnnotation} />
+          ) : (
+            <AnnotatedJa text={step.prompt.after} />
+          )}
         </div>
 
         {submitted && !isCorrect && selected ? (

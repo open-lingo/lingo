@@ -13,8 +13,14 @@ import { normalizeTypedAnswer } from "@/shared/speech";
  * only fires when that chunk actually appears in the learner's answer.
  *
  * Deterministic on purpose: no model call in the grading path. Steps that
- * can't supply an answer text (tile builds, MCQs) skip this gate and keep
- * the old always-fire behavior.
+ * can't supply an answer text (MCQs — the answer is an option id, not a
+ * sentence) skip this gate and keep the old always-fire behavior.
+ *
+ * TILE BUILDS supply it too, since 2026-08-15: the tray joined by spaces IS
+ * the produced sentence. They were exempted here originally and that put the
+ * whole class back in the bucket this gate was written to empty — Spencer's
+ * m31 walk dropped a だ and got the ✗もらう/✓あげる card, exactly the m6
+ * failure again one step type over.
  */
 export function tipWrongCore(
   tip: Pick<ReactiveGrammarTip, "wrongJa" | "rightJa">,

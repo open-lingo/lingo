@@ -90,7 +90,12 @@ describe("BuildSentenceStepView — single-answer word picker", () => {
     );
     fireEvent.click(findOptionButton(container, "これ"));
     fireEvent.click(getByText("Check"));
-    expect(onComplete).toHaveBeenCalledWith("test-single-1", true);
+    expect(onComplete).toHaveBeenCalledWith(
+      "test-single-1",
+      true,
+      undefined,
+      "これ",
+    );
   });
 
   it("selecting a wrong option grades wrong", () => {
@@ -100,7 +105,12 @@ describe("BuildSentenceStepView — single-answer word picker", () => {
     );
     fireEvent.click(findOptionButton(container, "あい"));
     fireEvent.click(getByText("Check"));
-    expect(onComplete).toHaveBeenCalledWith("test-single-1", false);
+    expect(onComplete).toHaveBeenCalledWith(
+      "test-single-1",
+      false,
+      undefined,
+      "あい",
+    );
   });
 });
 

@@ -6,6 +6,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio } from "@/shared/tts";
+import { SortableBuildTiles } from "./SortableBuildTiles";
 import {
   BuildTileSurface,
   useBuildTileKanji,
@@ -203,14 +204,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         </div>
       </div>
 
-      {/* Drop area — ~20% taller. The min-h floor matters when no tiles
-       *  are placed; once tiles arrive, flex-wrap handles overflow.
-       *  TODO: account for long-word text wrapping when we ship phrases
-       *  that exceed one line. */}
-      {/* Tray is pre-sized by an invisible ghost of the FULL answer, so
-          placing tiles never grows it — no reflow of the bank/CTA below
-          mid-interaction. Real tiles render in an overlay with identical
-          layout classes, so wrapping matches the ghost. */}
+      {/* Drop area. The min-h floor matters when no tiles are placed.
+       *  An invisible ghost of the FULL answer sets the tray's floor so
+       *  placing the expected tiles never reflows the bank/CTA below.
+       *  It is a floor and not a cap — the bank carries distractors and
+       *  addTile has no length limit, so more tiles than the answer can
+       *  land here. Ghost and tiles share one grid cell, so the height is
+       *  max(ghost, actual) and the box grows rather than spilling. Real
+       *  tiles use layout classes identical to the ghost so wrapping
+       *  matches. */}
       {isSingleAnswerPicker ? (
         /* MCQ-SHAPED SINGLE-ANSWER PICKER: no tray, no bank row below —
            the bank tiles ARE the options (MultipleChoiceStepView's visual
@@ -254,8 +256,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         </div>
       ) : (
       <>
-      <div className="relative min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
-        <div aria-hidden className="invisible flex flex-wrap gap-2.5">
+      <div className="grid min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
+        <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2.5">
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
@@ -267,29 +269,26 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             </span>
           ))}
         </div>
-        <div className="absolute inset-0 flex flex-wrap content-start gap-2.5 px-4 py-4">
+        <div className="[grid-area:1/1] flex flex-wrap content-start gap-2.5">
           {placed.length === 0 ? (
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
             </span>
           ) : (
-            placed.map((tile, i) => (
-              <button
-                key={`${tile}-${i}`}
-                type="button"
-                disabled={submitted}
-                onClick={() => removeTile(i)}
-                onMouseEnter={() => peek.hoverStart(placedIdx[i])}
-                onMouseLeave={peek.hoverEnd}
-                className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
-              >
-                <BuildTileSurface
-                  tile={tile}
-                  kanji={tileKanji.get(tile)}
-                  forceHelper={peek.revealed.has(placedIdx[i])}
-                />
-              </button>
-            ))
+            <SortableBuildTiles
+              ids={placedIdx}
+              tiles={placed}
+              tileKanji={tileKanji}
+              disabled={submitted}
+              onRemove={removeTile}
+              onReorder={setPlacedIdx}
+              strategy="wrap"
+              onTileHoverStart={peek.hoverStart}
+              onTileHoverEnd={peek.hoverEnd}
+              forceHelperFor={(id) => peek.revealed.has(id)}
+              className="flex flex-wrap content-start gap-2.5"
+              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
+            />
           )}
         </div>
       </div>

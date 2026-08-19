@@ -21,11 +21,17 @@ import {
   loadLessonInProgress,
   saveLessonInProgress,
 } from "./data/lessonProgress";
-import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
+import type {
+  LessonContent,
+  LessonStep,
+  ReactiveGrammarTip,
+  RuleHint,
+} from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { LessonShell } from "./components/LessonShell";
-import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
+import { LessonStepEnvironment } from "./components/LessonStepEnvironment";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
+import { RuleHintCard } from "./components/RuleHintCard";
 import { typedAnswerExhibitsTipError } from "./components/reactiveTipGate";
 import { LessonIntro } from "./components/LessonIntro";
 import { LessonProgressBar } from "./components/LessonProgressBar";
@@ -119,6 +125,9 @@ const RETRY_ELIGIBLE_TYPES = new Set<LessonStep["type"]>([
   "symbol_to_sound",
 ]);
 
+/** "See the rule" peeks granted per lesson. See the state below. */
+const RULE_PEEKS_PER_LESSON = 3;
+
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { t } = useTranslation();
@@ -155,6 +164,13 @@ export function LessonPage() {
   // fired from handleStepComplete when a tagged step is answered wrong.
   const [activeGrammarTip, setActiveGrammarTip] =
     useState<ReactiveGrammarTip | null>(null);
+  /**
+   * "See the rule" budget. A peek is retrieval practice only while it costs
+   * something — an always-open answer key turns every graded step into a
+   * copy exercise. Three per lesson, spent across all grammar points.
+   */
+  const [peeksLeft, setPeeksLeft] = useState(RULE_PEEKS_PER_LESSON);
+  const [activeRuleHint, setActiveRuleHint] = useState<RuleHint | null>(null);
   const shownGrammarTipsRef = useRef<Set<string>>(new Set());
   const [results, setResults] = useState<Record<string, boolean>>(
     () => hydrated?.results ?? {},
@@ -575,10 +591,11 @@ export function LessonPage() {
       if (
         !correct &&
         grammarTip &&
-        // Typed steps supply their answer — only flash the card when the
-        // learner actually produced the tip's anti-pattern; a different
-        // mistake getting this card is noise (Spencer m6 walk 2026-07-23).
-        // Steps with no answer text (builds, MCQs) keep the old behavior.
+        // Typed steps and tile builds supply their answer — only flash the
+        // card when the learner actually produced the tip's anti-pattern; a
+        // different mistake getting this card is noise (Spencer m6 walk
+        // 2026-07-23, and again on m31 2026-08-15 when builds still passed
+        // nothing here). MCQs have no answer text and keep the old behavior.
         (answerText === undefined ||
           typedAnswerExhibitsTipError(grammarTip, answerText)) &&
         !shownGrammarTipsRef.current.has(grammarTip.grammarPointId)
@@ -875,6 +892,13 @@ export function LessonPage() {
         onDismiss={() => setActiveGrammarTip(null)}
       />
     )}
+    {activeRuleHint && (
+      <RuleHintCard
+        hint={activeRuleHint}
+        remaining={peeksLeft}
+        onDismiss={() => setActiveRuleHint(null)}
+      />
+    )}
     {/* Fixed app-like shell (Spencer 2026-06-13): the WINDOW never
         scrolls during a lesson. The shell is exactly viewport height
         (minus topbar + focus-mode main padding); the step area below the
@@ -906,6 +930,21 @@ export function LessonPage() {
             current={progressBar.current}
             total={progressBar.total}
           />
+          {/* Learner-initiated rule peek. Lives in the header, NOT above the
+              step, so it adds no height to the step container — the ≤700px
+              layout rule stays intact for every step type it appears on. */}
+          {currentStep?.ruleHint && peeksLeft > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setPeeksLeft((n: number) => n - 1);
+                setActiveRuleHint(currentStep.ruleHint ?? null);
+              }}
+              className="shrink-0 rounded-full border border-accent px-3 py-1.5 text-xs font-bold text-accent transition hover:bg-accent-muted"
+            >
+              See the rule · {peeksLeft}
+            </button>
+          )}
           <LessonMetaChips
             estimatedMinutes={lesson.estimatedMinutes}
             xpReward={
@@ -940,7 +979,7 @@ export function LessonPage() {
       }
     >
       {currentStep && (
-        <LessonModuleProvider moduleIndex={parseModuleIndex(lesson.moduleId)}>
+        <LessonStepEnvironment moduleIndex={parseModuleIndex(lesson.moduleId)}>
           <StepRenderer
             // Force remount on retry so the step view starts from a clean
             // state (no carry-over selection / submit flag from first attempt).
@@ -951,7 +990,7 @@ export function LessonPage() {
             onContinue={handleContinue}
             isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
           />
-        </LessonModuleProvider>
+        </LessonStepEnvironment>
       )}
     </LessonShell>
     </KanaMasteryProvider>

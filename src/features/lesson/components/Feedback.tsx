@@ -32,6 +32,21 @@ type Props = {
    * as the lesser answer. Ignored when `correct` is false or `flagged` won.
    */
   note?: ReactNode;
+  /**
+   * Fourth tone: NOT-YET-correct, but one forgivable slip away — amber, and
+   * critically it never reveals `correctAnswer`, because the learner is
+   * about to try again in the same tray (Spencer m31 walk 2026-08-15: "one
+   * missing word is forgivable by a 'so close' yellow error, allowing the
+   * missing word to be slot in").
+   *
+   * Distinct from `flagged`, which is amber over a WIN. This one is amber
+   * over an unfinished attempt: same palette, opposite verdict, so it takes
+   * the warning triangle rather than the success check — icon plus text
+   * carry the state, never colour alone. Wins over every other tone.
+   */
+  soClose?: boolean;
+  /** Ready-to-render nudge for the soClose tone, e.g. "One word is missing." */
+  soCloseNote?: ReactNode;
 };
 
 /**
@@ -49,15 +64,17 @@ export function Feedback({
   flagged = false,
   flaggedNote,
   note,
+  soClose = false,
+  soCloseNote,
 }: Props) {
-  const isFlagged = correct && flagged;
-  const showNote = correct && !isFlagged && note !== undefined;
+  const isFlagged = !soClose && correct && flagged;
+  const showNote = !soClose && correct && !isFlagged && note !== undefined;
   return (
     <div
       role="alert"
       aria-live="assertive"
       className={`mt-4 rounded-2xl border-[1.5px] px-5 py-4 text-sm ${
-        isFlagged
+        soClose || isFlagged
           ? "border-warning bg-warning/10 text-warning"
           : correct
             ? "border-success bg-success/15 text-success"
@@ -73,7 +90,17 @@ export function Feedback({
           stroke="currentColor"
           strokeWidth={2.5}
         >
-          {correct ? (
+          {soClose ? (
+            <>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3.5L22 20.5H2L12 3.5z"
+                strokeWidth={2}
+              />
+              <path strokeLinecap="round" d="M12 10v4M12 17.2v.1" />
+            </>
+          ) : correct ? (
             <>
               <circle cx="12" cy="12" r="9.5" strokeWidth={2} />
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 12.5l2.5 2.5 4.5-5" />
@@ -85,13 +112,18 @@ export function Feedback({
             </>
           )}
         </svg>
-        <span className="text-base font-bold">{correct ? "Correct!" : "Not quite"}</span>
+        <span className="text-base font-bold">
+          {soClose ? "So close" : correct ? "Correct!" : "Not quite"}
+        </span>
       </div>
+      {soClose && soCloseNote !== undefined && (
+        <p className="mt-2 text-base leading-relaxed">{soCloseNote}</p>
+      )}
       {isFlagged && flaggedNote !== undefined && (
         <p className="mt-2 text-base leading-relaxed">{flaggedNote}</p>
       )}
       {showNote && <p className="mt-2 text-base leading-relaxed">{note}</p>}
-      {!correct && correctAnswer !== undefined && (
+      {!soClose && !correct && correctAnswer !== undefined && (
         <p className="mt-2 text-base leading-relaxed">
           <span className="opacity-80">Correct answer: </span>
           <span className="text-lg font-semibold text-text-primary">{correctAnswer}</span>

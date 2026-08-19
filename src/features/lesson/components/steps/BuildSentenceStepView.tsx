@@ -10,6 +10,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useAutoPlayJaAudio, getTtsUrl, playJaAudio } from "@/shared/tts";
+import { SortableBuildTiles } from "./SortableBuildTiles";
 import {
   BuildTileSurface,
   useBuildTileKanji,
@@ -24,6 +25,44 @@ import { formatPrompt } from "../formatPrompt";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 
 const CELEBRATE_MS = 1100;
+
+/**
+ * Shortest answer that earns the "so close" grace, in tiles.
+ *
+ * Spencer m31 walk 2026-08-15: "the 'so close' feature on these bigger
+ * sentences, where one missing word is forgivable". The floor is the whole
+ * ruling — on a four-tile answer the missing word usually IS the lesson (a
+ * particle drill is exactly "which one, and is it there"), so forgiving it
+ * would forgive the thing being tested. Past six tiles the sentence has
+ * enough moving parts that dropping one reads as a slip, not a gap.
+ */
+const SO_CLOSE_MIN_TILES = 6;
+
+/**
+ * Index of the ONE target word the learner left out, or null.
+ *
+ * Null unless `placed` is exactly `target` with a single element deleted —
+ * every other word present, in the right order. A transposition, a wrong
+ * word, or two omissions all return null: this is a grace for forgetting a
+ * word, not for building a different sentence.
+ */
+export function missingOneTileIndex(
+  placed: readonly string[],
+  target: readonly string[],
+): number | null {
+  if (placed.length !== target.length - 1) return null;
+  let skipped: number | null = null;
+  let p = 0;
+  for (let t = 0; t < target.length; t++) {
+    if (p < placed.length && placed[p] === target[t]) {
+      p++;
+      continue;
+    }
+    if (skipped !== null) return null; // a second mismatch — not one omission
+    skipped = t;
+  }
+  return p === placed.length ? skipped : null;
+}
 
 /**
  * The person being addressed, as a picture. Vendored Noto art when we have
@@ -87,7 +126,12 @@ function AudienceCue({
 
 type Props = {
   step: BuildSentenceStep;
-  onComplete: (stepId: string, correct: boolean) => void;
+  onComplete: (
+    stepId: string,
+    correct: boolean,
+    progressTicks?: number,
+    answerText?: string,
+  ) => void;
   onContinue: () => void;
   /** Review context (replay run or SRS review lesson): word builds drop
    *  the answer-length slots (a scaffold for first encounters) and use
@@ -104,6 +148,12 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
+  // "So close" grace: ONE per step. `soClose` is the amber banner currently
+  // showing; `graceUsed` is the spend, so a second omission grades normally.
+  // Neither implies `submitted` — the whole point is that the tray stays live
+  // and the learner slots the missing word in without leaving the step.
+  const [soClose, setSoClose] = useState(false);
+  const [graceUsed, setGraceUsed] = useState(false);
   // Character builds (granularity === "character") hide each bank tile's
   // romaji until the learner interacts with it — otherwise the labels
   // ("su/shi/...") spell the English answer and the kana is never read
@@ -210,12 +260,34 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   const showSlots =
     isWordBuild &&
     (trayOverride ? trayOverride === "slots" : !isReplayRun);
+  // THREE SIZE TIERS, not two (Spencer m31 walk 2026-08-15: "increase the
+  // element sizes in the middle of screen to about same at listen build").
+  // A 7+ tile sentence bank used to drop straight to text-base/lg, so the
+  // SAME word rendered visibly smaller here than on a listening_build tile —
+  // it read as a lesser step type rather than the same drill with more tiles.
+  //
+  // The bump is `sm:`-only, and that is the whole design. Tile size is not
+  // what overflows the fixed shell — ROW COUNT is, and row count is set by
+  // the container's WIDTH. Below 640px the tiers are byte-identical to what
+  // shipped before, so every phone measurement is unchanged; from `sm:` up
+  // there is width to spend and the tiles take listening_build's size.
+  //
+  // Measured at ja-m31-neo-1 (stage `scrollHeight - clientHeight`, before →
+  // after): 9-tile step 375×667 0→0, 390×844 0→0, 1440×900 0→0. The 15-tile
+  // step is the module's worst bank: 375×667 185→185 (pre-existing, B092
+  // class), 390×844 31→31, 1280×700 0→0. That last one is why 12+ banks get
+  // their OWN tier — on the 2xl tier it measured 0→87 at 1280×700, and even
+  // sm:text-xl with sm:py-2 left 3px. Zero regression at every viewport.
+  const hugeBank = !bigTiles && step.tiles.length >= 12;
+  const denseTileClass = hugeBank
+    ? "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:text-xl"
+    : "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:py-2 sm:text-2xl";
   const bankTileClass = bigTiles
     ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
-    : "px-3.5 py-1.5 text-base sm:text-lg font-medium";
+    : denseTileClass;
   const placedTileClass = bigTiles
     ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
-    : "px-3.5 py-1.5 text-base sm:text-lg font-semibold";
+    : denseTileClass;
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -260,8 +332,32 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   }
 
   function handleSubmit() {
+    // ONE forgivable omission on a long sentence, before anything is graded.
+    // Deliberately does NOT name the missing word: the grace is a second look
+    // at your own tray, not the answer. Nothing is reported to the lesson —
+    // no onComplete, no `submitted` — so the tray stays live and the CTA
+    // stays "Check". A second miss falls through and grades normally.
+    if (
+      !isCorrect &&
+      !graceUsed &&
+      step.granularity === "word" &&
+      step.correctOrder.length >= SO_CLOSE_MIN_TILES &&
+      missingOneTileIndex(placed, step.correctOrder) !== null
+    ) {
+      setGraceUsed(true);
+      setSoClose(true);
+      playSfx("tile"); // not the miss chime — this is not a verdict yet
+      return;
+    }
+    setSoClose(false);
     setSubmitted(true);
-    onComplete(step.id, isCorrect);
+    // Report WHAT THEY BUILT, not just the verdict. The reactive grammar tip
+    // only fires when the learner actually produced the tip's anti-pattern
+    // (reactiveTipGate), and builds used to pass no answer text — so the gate
+    // was skipped and any miss in the span got the rule card's canned ✗/✓
+    // pair (Spencer m31 walk 2026-08-15: a dropped だ drew the もらう card).
+    // The tray IS the answer; normalizeTypedAnswer strips the join spaces.
+    onComplete(step.id, isCorrect, undefined, placed.join(" "));
     // Word builds held the audio back pre-answer (production, not
     // transcription) — model the full sentence now that they've produced.
     if (step.granularity !== "character" && getTtsUrl(step.targetSentence)) {
@@ -440,8 +536,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            answer kana — pre-sized by invisible copies of the answer
            tiles, so geometry is exact and nothing ever reflows. Placed
            tiles pop into the slots left-to-right. */
-        <div className="relative mx-auto w-fit">
-          <div aria-hidden className="flex gap-2">
+        <div className="mx-auto grid w-fit max-w-full">
+          <div aria-hidden className="[grid-area:1/1] flex flex-wrap gap-2">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`slot-${i}`}
@@ -453,50 +549,54 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               </span>
             ))}
           </div>
-          <div className="absolute inset-0 flex gap-2">
-            {placed.map((tile, i) => (
-              <button
-                key={`${tile}-${i}`}
-                type="button"
-                disabled={submitted}
-                onClick={() => removeTile(i)}
-                className={`motion-safe:animate-tile-pop rounded-xl border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
-              >
-                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-              </button>
-            ))}
-          </div>
+          <SortableBuildTiles
+            ids={placedIdx}
+            tiles={placed}
+            tileKanji={tileKanji}
+            disabled={submitted}
+            onRemove={removeTile}
+            onReorder={setPlacedIdx}
+            strategy="wrap"
+            className="[grid-area:1/1] flex flex-wrap gap-2"
+            tileClassName={`motion-safe:animate-tile-pop rounded-xl border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+          />
         </div>
       ) : isWordBuild ? (
         /* WORD-BUILD PILL (review contexts): no length hint — a compact
            centered tray that hugs its tiles and visibly grows as they
            pop in. The zero-width ghost fixes the height (words never
            wrap), so growth is horizontal-only: nothing below moves. */
-        <div className="mx-auto flex min-h-[64px] w-fit min-w-[10rem] items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
+        <div className="mx-auto flex min-h-[64px] w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
           <span aria-hidden className={`invisible w-0 overflow-hidden !px-0 ${placedTileClass}`}>
             <BuildTileSurface
               tile={step.correctOrder[0] ?? "あ"}
               kanji={tileKanji.get(step.correctOrder[0] ?? "あ")}
             />
           </span>
-          {placed.map((tile, i) => (
-            <button
-              key={`${tile}-${i}`}
-              type="button"
-              disabled={submitted}
-              onClick={() => removeTile(i)}
-              className={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
-            >
-              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-            </button>
-          ))}
+          <SortableBuildTiles
+            ids={placedIdx}
+            tiles={placed}
+            tileKanji={tileKanji}
+            disabled={submitted}
+            onRemove={removeTile}
+            onReorder={setPlacedIdx}
+            strategy="wrap"
+            className="flex flex-wrap items-center justify-center gap-2"
+            tileClassName={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+          />
         </div>
       ) : (
-        /* SENTENCE TRAY: pre-sized by an invisible ghost of the FULL
-           answer so placement never reflows; left-aligned (reading
-           order). */
-        <div className="relative min-h-[56px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
-          <div aria-hidden className="invisible flex flex-wrap gap-2">
+        /* SENTENCE TRAY: an invisible ghost of the FULL answer sets the
+           tray's FLOOR, so placing the expected tiles never reflows the
+           bank below. It is a floor and not a cap: the bank carries
+           distractors and addTile has no length limit, so a learner can
+           place more tiles than the answer has (Spencer 2026-08-18 —
+           10 placed vs a 7-tile answer spilled out of the box). Ghost and
+           tiles share one grid cell, so the tray height is
+           max(ghost, actual) and the box grows instead of overflowing.
+           Left-aligned (reading order). */
+        <div className="grid min-h-[56px] sm:min-h-[72px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
+          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2 sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`ghost-${i}`}
@@ -508,32 +608,32 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               </span>
             ))}
           </div>
-          <div className="absolute inset-0 flex flex-wrap content-start gap-2 px-4 py-2.5">
+          <div className="[grid-area:1/1] flex flex-wrap content-start gap-2 sm:gap-2.5">
             {placed.length === 0 ? (
-              <span className="self-center text-sm text-text-muted">
+              <span className="self-center text-base text-text-muted">
                 {step.correctOrder.length === 1
                   ? "Tap the right tile to answer"
                   : "Tap tiles to build the sentence"}
               </span>
             ) : (
-              placed.map((tile, i) => (
-                <button
-                  key={`${tile}-${i}`}
-                  type="button"
-                  disabled={submitted}
-                  onClick={() => removeTile(i)}
-                  className={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
-                >
-                  <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-                </button>
-              ))
+              <SortableBuildTiles
+                ids={placedIdx}
+                tiles={placed}
+                tileKanji={tileKanji}
+                disabled={submitted}
+                onRemove={removeTile}
+                onReorder={setPlacedIdx}
+                strategy="wrap"
+                className="flex flex-wrap content-start gap-2 sm:gap-2.5"
+                tileClassName={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+              />
             )}
           </div>
         </div>
       )}
 
       {!isSingleAnswerPicker && (
-      <div className={`relative flex flex-wrap gap-2 ${isWordBuild ? "justify-center" : ""}`}>
+      <div className={`relative flex flex-wrap gap-2 sm:gap-2.5 ${isWordBuild ? "justify-center" : ""}`}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
@@ -570,6 +670,13 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           celebrate via toast only (no banner, no shift). */}
       <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating && <CelebrationToast text={celebrationText} />}
+        {!submitted && soClose && (
+          <Feedback
+            correct={false}
+            soClose
+            soCloseNote="One word is missing — add it and check again."
+          />
+        )}
         {submitted && !isCorrect && (
           <Feedback
             correct={false}
