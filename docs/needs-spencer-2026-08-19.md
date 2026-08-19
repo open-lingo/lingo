@@ -27,12 +27,25 @@ intransitive half is ALREADY taught — あく/あける (あける m14), はい
 (はいる m16), とまる/とめる (とまる adopted at m32) — rather than つく/つける.
 Confirm before I author.
 
-## 3. The は TTS decision
+## 3. The は TTS decision — now a 60-second listening test
 
-Must be answered before Trevor's next upload run or 21 sentences across
-m17/m21/m31 get generated twice. (へ and を are unswept — same class of problem.)
-Reminder of the constraint you set: the learner must SEE は; this is about what
-the synthesizer is fed, not what the IR says.
+Six probe clips sent in-conversation (course voice, Nanami): **A** ordinary
+topic は, **B** the reported ははは failure, **C** ordinary を, **D** ordinary へ,
+**E** option #2 (kanji surface), **F** option #3 (forced わ).
+
+**The one thing to listen for: is A correct?** If A, C and D are right, the
+regeneration set is the **14** ははは sentences, not the 2,563 IR sentences that
+carry は/へ/を in particle position. Then pick E or F.
+
+Two things changed since the issue was filed:
+- Swept へ and を: 4,336 distinct IR sentences, 1,519 with particle は, 1,231
+  with を, 25 with へ, 14 with ははは.
+- **Neither E nor F costs a manifest churn.** The doc said both change the hash
+  key; that is only true of the pipeline's current single-field `Job`. Splitting
+  `Job.text` (which keeps owning the hash) from a new `Job.speech` (what the
+  synthesizer is fed) is four lines in `../lingo-data/pipeline/tts/generate.py`
+  and makes the fix structural — わ can never reach the IR, because the alternate
+  string lives in the generated deck. Written up in the issue doc.
 
 ## 4. Review queue
 
