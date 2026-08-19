@@ -348,23 +348,6 @@ export const REVIEW_ENTRIES: ReviewEntry[] = [
       "backlog B097 (verified 2026-08-09, corrects an earlier estimate of 31/35) · reproduce: STALE_REPORT=1 npx vitest run staleLessonIdReferences, then grep QaTestDrivePage in /tmp/ja-stale-lesson-ids.txt",
   },
   {
-    id: "R16",
-    kind: "decision",
-    title: "Matching grids can deal a word the course never taught — suppress it, or teach the words?",
-    added: "2026-08-19",
-    body: [
-      "Every matching exercise is guaranteed a minimum number of pairs. When a lesson's authored grid comes up short, the app quietly tops it up with other words the learner should know by that point in the course. That top-up picks from the vocabulary table, filtered only by \u201cthis word belongs to a module you have already reached\u201d.",
-      "The problem is that the vocabulary table contains words no lesson anywhere actually teaches \u2014 leftovers from the rewrite, words that were registered and then never got a lesson slot. The top-up cannot tell the difference, so it can deal one of those into a grid. The learner is asked to match a word they have genuinely never seen, and there is no way for them to know that is what happened.",
-      "I measured how bad it is today rather than guessing. Across the whole Japanese course the top-up adds 101 pairs, and eight of those show a word nothing teaches. But the pool it draws from holds 116 such words, and which grids run short depends on the learner's own review state \u2014 so eight is today's draw, not the ceiling.",
-      "Two ways out. Suppress: mark those 116 as ineligible for the top-up, and add a permanent check so a newly registered word that no lesson teaches fails the build rather than leaking into a grid. Or teach them: they are real words, spread across fourteen modules, and giving each one a lesson slot is genuine authoring work.",
-    ],
-    example:
-      "Lesson 6 of module 32 ends with a review matching grid. Alongside \u307e\u3063\u3059\u3050, \u3048\u304d and \u307f\u3061 sits \u3057\u3093\u3076\u3093 \u2014 \u201cnewspaper\u201d \u2014 which no lesson in the entire course teaches. \u304e\u3093\u3053\u3046 (\u201cbank\u201d) does the same thing in five separate module 6 lessons.",
-    ask: "Suppress the 116 and gate it so it cannot recur, or schedule them for teaching? Suppressing is the smaller change and does not close the door on teaching them later.",
-    details:
-      "measurement + method: docs/issues/orphan-courseatoms-rows-2026-08-18.md (2026-08-19 correction) \u00b7 code: src/features/lesson/data/matchPairsFloor.ts (the es path already carries the cutoff the ja path ignores)",
-  },
-  {
     id: "R17",
     kind: "decision",
     title: "Sixty seconds of listening decides whether the \u201cha/wa\u201d fix is 14 clips or 2,563",
@@ -384,4 +367,22 @@ export const REVIEW_ENTRIES: ReviewEntry[] = [
 ];
 
 /** Entries answered/settled — rendered collapsed at the bottom of the page. */
-export const RESOLVED_ENTRIES: ReviewEntry[] = [];
+export const RESOLVED_ENTRIES: ReviewEntry[] = [
+  {
+    id: "R16",
+    kind: "decision",
+    title: "Matching grids can deal a word the course never taught — suppress it, or teach the words?",
+    added: "2026-08-19",
+    body: [
+      "Every matching exercise is guaranteed a minimum number of pairs. When a lesson's authored grid comes up short, the app quietly tops it up with other words the learner should know by that point in the course. That top-up picks from the vocabulary table, filtered only by \u201cthis word belongs to a module you have already reached\u201d.",
+      "The problem is that the vocabulary table contains words no lesson anywhere actually teaches \u2014 leftovers from the rewrite, words that were registered and then never got a lesson slot. The top-up cannot tell the difference, so it can deal one of those into a grid. The learner is asked to match a word they have genuinely never seen, and there is no way for them to know that is what happened.",
+      "I measured how bad it is today rather than guessing. Across the whole Japanese course the top-up adds 101 pairs, and eight of those show a word nothing teaches. But the pool it draws from holds 116 such words, and which grids run short depends on the learner's own review state \u2014 so eight is today's draw, not the ceiling.",
+      "Two ways out. Suppress: mark those 116 as ineligible for the top-up, and add a permanent check so a newly registered word that no lesson teaches fails the build rather than leaking into a grid. Or teach them: they are real words, spread across fourteen modules, and giving each one a lesson slot is genuine authoring work.",
+    ],
+    example:
+      "Lesson 6 of module 32 ends with a review matching grid. Alongside \u307e\u3063\u3059\u3050, \u3048\u304d and \u307f\u3061 sits \u3057\u3093\u3076\u3093 \u2014 \u201cnewspaper\u201d \u2014 which no lesson in the entire course teaches. \u304e\u3093\u3053\u3046 (\u201cbank\u201d) does the same thing in five separate module 6 lessons.",
+    ask: "ANSWERED 2026-08-19 \u2014 teach them. Spencer, verbatim: \u201cfor r16 we should probably teach them, required side quests can be some and ideally we bake them into the course by adding one or two lessons here or there would be better/preferable.\u201d Outcome: no suppression flag; the 116 become vocab-pack lessons slotted into their own modules (the B067 pattern, already run six times), with side quests only where a cluster does not fit a module.",
+    details:
+      "measurement + method: docs/issues/orphan-courseatoms-rows-2026-08-18.md (2026-08-19 correction) \u00b7 code: src/features/lesson/data/matchPairsFloor.ts (the es path already carries the cutoff the ja path ignores)",
+  },
+];
