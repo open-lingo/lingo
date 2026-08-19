@@ -30,39 +30,13 @@ import { OUTLINE, PARTICLE, SceneChips } from "./sceneArt";
  * clock row is SVG because it needs real geometry.
  */
 
-export type TimelineMoment = {
-  /** What happens at this point on the clock. */
-  label: string;
-  /** Wall-clock stamp. Grounds the axis in something concrete — the previous
-   *  version's axis was an unlabelled arrow, which is a diagram of nothing. */
-  clock: string;
-  color: string;
-};
+import type {
+  TimelineFrame,
+  TimelineMoment,
+  TimelineSpec,
+} from "@/features/lesson/types";
 
-export type TimelineFrame = {
-  id: string;
-  /** Chip label — the connective itself. */
-  connective: string;
-  /** Clause said FIRST in the sentence, and which moment it names. */
-  first: { text: string; at: "early" | "late" };
-  /** Clause said SECOND. */
-  second: { text: string; at: "early" | "late" };
-  /** English of the WHOLE sentence. Spencer 2026-08-18: *"needs space for
-   *  sentence translation to be included so they can see it."* Without it the
-   *  learner is decoding two clauses AND an ordering rule at once; the gloss
-   *  removes the first job so the picture only has to teach the second. */
-  en: string;
-  /** Re-label the clock when this connective's example needs its own events.
-   *  Only とき-style same-moment frames have needed it so far. */
-  moments?: { early: TimelineMoment; late: TimelineMoment };
-  note: string;
-};
-
-export type TimelineSpec = {
-  early: TimelineMoment;
-  late: TimelineMoment;
-  frames: TimelineFrame[];
-};
+export type { TimelineFrame, TimelineMoment, TimelineSpec };
 
 const AXIS_Y = 52;
 

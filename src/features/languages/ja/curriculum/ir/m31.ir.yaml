@@ -244,6 +244,7 @@ grammarPoints:
     # all POSITIONS now — the diagram states them, so the prose above no
     # longer has to. Object is a generic parcel by construction (inv 30).
     diagram:
+      kind: transfer
       insideLabel: "うち"
       outsideLabel: "そと"
       left:  { label: "わたし",   gloss: "me",        color: "#f97316", inside: true }
@@ -282,6 +283,7 @@ grammarPoints:
   - id: ni-recipient
     rule: "Every に you have met since module 5 has been a place — 「がっこうに いく。」 に marks where something ENDS UP, and a transfer is a journey with a person at the far end. That is why the recipient takes に whether the far end is a station or a sister. Now put it on a pair where the thing comes BACK: かす is to lend, かりる is to borrow, one loan seen from its two ends."
     diagram:
+      kind: transfer
       insideLabel: "うち"
       outsideLabel: "そと"
       left:  { label: "わたし",   gloss: "me",        color: "#f97316", inside: true }
@@ -313,6 +315,7 @@ grammarPoints:
     # Both rows share ONE arrow direction — the picture's whole job here is to
     # show that only the subject ring moves between くれる and もらう.
     diagram:
+      kind: transfer
       insideLabel: "うち"
       outsideLabel: "そと"
       left:  { label: "わたし",   gloss: "me",         color: "#f97316", inside: true }

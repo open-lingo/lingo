@@ -41,7 +41,7 @@ export function hintFromRule(step: GrammarRuleStep): RuleHint {
     grammarPointId: step.grammarPointId ?? step.id,
     title: step.title,
     ruleLine: step.rule,
-    ...(step.transferDiagram ? { transferDiagram: step.transferDiagram } : {}),
+    ...(step.scene ? { scene: step.scene } : {}),
   };
 }
 

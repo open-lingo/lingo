@@ -26,7 +26,7 @@ import type {
   SpeakingStep,
   TranslateStep,
   WordImageMcqStep,
-  TransferDiagramSpec,
+  SceneSpec,
 } from "@/features/lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
@@ -484,7 +484,7 @@ export function grammarRule(opts: {
   /** ChainForm id when this card teaches a conjugation (see GrammarRuleStep). */
   conjugationForm?: string;
   /** Diagram spec when this card teaches a direction (see GrammarRuleStep). */
-  transferDiagram?: TransferDiagramSpec;
+  scene?: SceneSpec;
 }): GrammarRuleStep {
   return {
     id: opts.id,
@@ -496,7 +496,7 @@ export function grammarRule(opts: {
     cultureNote: opts.cultureNote,
     ...(opts.grammarPointId ? { grammarPointId: opts.grammarPointId } : {}),
     ...(opts.conjugationForm ? { conjugationForm: opts.conjugationForm } : {}),
-    ...(opts.transferDiagram ? { transferDiagram: opts.transferDiagram } : {}),
+    ...(opts.scene ? { scene: opts.scene } : {}),
   };
 }
 

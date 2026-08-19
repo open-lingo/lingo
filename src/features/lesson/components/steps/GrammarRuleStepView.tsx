@@ -8,7 +8,7 @@ import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { TransformRuleTable } from "./TransformRuleTable";
-import { TransferScene } from "./TransferScene";
+import { SceneView } from "./SceneView";
 import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
 
 /**
@@ -318,12 +318,9 @@ export function GrammarRuleStepView({
               variant="compact"); putting it only in "full" would mean the
               learner never sees it. `scopeId` keeps the scene's @keyframes
               from colliding with another card's on the same page. */}
-          {step.transferDiagram ? (
+          {step.scene ? (
             <div className="mt-3">
-              <TransferScene
-                spec={step.transferDiagram}
-                scopeId={String(step.id)}
-              />
+              <SceneView spec={step.scene} scopeId={String(step.id)} />
             </div>
           ) : null}
           <RuleBody rule={step.rule} className="text-base leading-relaxed text-text-secondary" />
@@ -335,7 +332,7 @@ export function GrammarRuleStepView({
         {/* The diagram already shows the canonical sentence for every verb it
             draws, with the particles called out — an example tile under it
             repeats the card's own picture in words. */}
-        {step.examples[0] && !step.transferDiagram ? (
+        {step.examples[0] && !step.scene ? (
           <ExampleTile example={step.examples[0]} />
         ) : null}
 

@@ -15,56 +15,9 @@ import { OUTLINE, PARTICLE, SceneChips } from "./sceneArt";
  * than asserting the difference in a clause.
  */
 
-export type ScaleItem = {
-  id: string;
-  label: string;
-  color: string;
-  /** The word's own course art — resolved from `lookupKanaEmoji` by the spec,
-   *  so the picture on the axis is the SAME picture the learner met on the
-   *  vocab card. When present the art IS the bar; the coloured rectangle is
-   *  only the fallback for a word with no image. */
-  artUrl?: string | null;
-};
+import type { ScaleFrame, ScaleItem, ScaleSpec } from "@/features/lesson/types";
 
-export type ScaleFrame = {
-  id: string;
-  /** Chip label — the pattern itself (より / いちばん / ほうがいい). */
-  pattern: string;
-  /** Item the sentence is ABOUT. */
-  subject: string;
-  /** Item it is measured against — absent for いちばん (the field is). */
-  against?: string;
-  /** The Japanese frame, rendered under the axis. */
-  ja: string;
-  note: string;
-};
-
-export type ScaleSpec = {
-  /** What the axis measures — printed at the top ("たかい", "おおきい"). */
-  dimension: string;
-  /**
-   * How rank is drawn.
-   *
-   * `"size"` (default) draws each item's art larger the higher it ranks. That
-   * is literally TRUE for おおきい and おもい — a cat really is smaller than an
-   * elephant — and it is the strongest version of the scene.
-   *
-   * `"count"` keeps every item the same size and stacks `rankGlyph` above it
-   * instead. Spencer 2026-08-18: *"for comparison ranking, you can use dollar
-   * signs or something if needed."* This is for dimensions where size is not
-   * the meaning: a book drawn bigger than a shoe to mean "more expensive" is a
-   * claim the picture cannot check, but a book with three ¥ over it is exactly
-   * the claim being made. Height still encodes rank, so the axis reads the
-   * same way — only the unit changed from "how big" to "how many".
-   */
-  rankAs?: "size" | "count";
-  /** The unit stacked when `rankAs: "count"`. ¥ rather than $ — the course is
-   *  Japanese and えん is taught. */
-  rankGlyph?: string;
-  /** Least → greatest. The axis is drawn in this order. */
-  items: ScaleItem[];
-  frames: ScaleFrame[];
-};
+export type { ScaleFrame, ScaleItem, ScaleSpec };
 
 const LEFT = 96;
 const RIGHT = 504;

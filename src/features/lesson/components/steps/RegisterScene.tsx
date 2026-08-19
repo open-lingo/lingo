@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PARTICLE, SceneChips } from "./sceneArt";
-import { CastFigure, type CastRole } from "./castArt";
+import { CastFigure } from "./castArt";
 
 /**
  * The register scene — WHO you are talking to, drawn.
@@ -29,32 +29,12 @@ import { CastFigure, type CastRole } from "./castArt";
  * concluding that です means something.
  */
 
-export type RegisterAudienceView = {
-  id: string;
-  /** Japanese role label — the register cue, per registerAudiences.ts. */
-  ja: string;
-  /** Accessible English name; never rendered as prose. */
-  label: string;
-  color: string;
-  /** 1 = くだけた · 2 = 丁寧 (です・ます) · 3 = とても丁寧. */
-  politeness: 1 | 2 | 3;
-  /** Which drawn figure to fall back to. */
-  role: CastRole;
-  /** Generated portrait, standing. When present it replaces the drawn figure;
-   *  the two are interchangeable by design so the art can be swapped without
-   *  the scene, the specs or the IR knowing. */
-  portraitUrl?: string;
-  /** Generated portrait, bowing. Used at politeness 3 only. */
-  bowPortraitUrl?: string;
-};
+import type {
+  RegisterAudienceView,
+  RegisterSpec,
+} from "@/features/lesson/types";
 
-export type RegisterSpec = {
-  /** What is being said, once per politeness level. Same meaning throughout. */
-  forms: Record<1 | 2 | 3, string>;
-  /** One line of English — what the learner is trying to say. */
-  gloss: string;
-  audiences: RegisterAudienceView[];
-};
+export type { RegisterAudienceView, RegisterSpec };
 
 const GROUND = 132;
 /** Rendered height of a portrait, feet on the ground line. */

@@ -20,6 +20,8 @@ export type StepType =
   | "grammar_rule"
   | "particle_cloze"
   | "agreement_cloze"
+  | "aspect_choice_cloze"
+  | "liaison_listen"
   | "conjugation_cloze"
   | "conjugation_transform"
   | "kanji_reading"
@@ -59,7 +61,7 @@ export type RuleHint = {
   ruleLine: string;
   /** Present when the point is taught by a picture — the peek shows the
    *  interactive scene, not a paragraph. */
-  transferDiagram?: TransferDiagramSpec;
+  scene?: SceneSpec;
 };
 
 export type ReactiveGrammarTip = {
@@ -615,6 +617,7 @@ export type JourneyDiagramSlot = {
  * "me" flying between two blobs — see the rollout doc.
  */
 export type JourneyDiagramSpec = {
+  kind: "journey";
   traveller: { label: string; color: string };
   /** The motion verb, printed at the arrowhead (いく / かえる / くる). */
   verb: string;
@@ -651,6 +654,9 @@ export type TransferDiagramRow = {
 };
 
 export type TransferDiagramSpec = {
+  /** Discriminator. Absent on diagrams authored before scenes were a family;
+   *  `compileScene` defaults those to "transfer", which is what they are. */
+  kind?: "transfer";
   /** In-group caption (JA "うち"). */
   insideLabel: string;
   /** Out-group caption (JA "そと"). */
@@ -663,6 +669,119 @@ export type TransferDiagramSpec = {
   object: { label: string; particle: string };
   rows: TransferDiagramRow[];
 };
+
+
+/* ── The rest of the scene family ────────────────────────────────────────
+ *
+ * These live here rather than beside their renderers for the same reason
+ * `TransferDiagramSpec` does: a scene is AUTHORED in the IR and compiled onto
+ * a step, so its shape is data, and the data layer must not import a view.
+ */
+
+/** Which drawn figure a register audience falls back to without a portrait. */
+export type CastRole = "friend" | "teacher" | "grandmother" | "clerk";
+
+export type TimelineMoment = {
+  /** What happens at this point on the clock. */
+  label: string;
+  /** Wall-clock stamp. Grounds the axis in something concrete. */
+  clock: string;
+  color: string;
+};
+
+export type TimelineFrame = {
+  id: string;
+  /** Chip label — the connective itself. */
+  connective: string;
+  /** Clause said FIRST in the sentence, and which moment it names. */
+  first: { text: string; at: "early" | "late" };
+  /** Clause said SECOND. */
+  second: { text: string; at: "early" | "late" };
+  /** English of the WHOLE sentence, so the picture only has to teach order. */
+  en: string;
+  /** Re-label the clock when this connective needs its own events. */
+  moments?: { early: TimelineMoment; late: TimelineMoment };
+  note: string;
+};
+
+/** Said order vs clock order — the fact behind まえに / てから / とき / あとで. */
+export type TimelineSpec = {
+  kind: "timeline";
+  early: TimelineMoment;
+  late: TimelineMoment;
+  frames: TimelineFrame[];
+};
+
+export type ScaleItem = {
+  id: string;
+  label: string;
+  color: string;
+  /** Emoji/art URL. Falls back to a plain block when absent. */
+  artUrl?: string | null;
+};
+
+export type ScaleFrame = {
+  id: string;
+  /** Chip label — the pattern being read off the axis. */
+  pattern: string;
+  /** Item the sentence is ABOUT. */
+  subject: string;
+  /** Item supplying the yardstick, when the pattern needs one. */
+  against?: string;
+  ja: string;
+  note: string;
+};
+
+/** One axis read three ways — より / いちばん / ほうがいい. */
+export type ScaleSpec = {
+  kind: "scale";
+  /** The adjective the axis measures. */
+  dimension: string;
+  /** "size" draws rank as size; "count" stacks `rankGlyph` instead, for a
+   *  dimension where drawing one item bigger would assert something false. */
+  rankAs?: "size" | "count";
+  rankGlyph?: string;
+  items: ScaleItem[];
+  frames: ScaleFrame[];
+};
+
+export type RegisterAudienceView = {
+  id: string;
+  /** Japanese role label — the register cue. */
+  ja: string;
+  /** Accessible English name; never rendered as prose. */
+  label: string;
+  color: string;
+  /** 1 = くだけた · 2 = 丁寧 (です・ます) · 3 = とても丁寧. */
+  politeness: 1 | 2 | 3;
+  role: CastRole;
+  portraitUrl?: string;
+  bowPortraitUrl?: string;
+};
+
+/** Who you are talking to, drawn — the bow IS the politeness meter. */
+export type RegisterSpec = {
+  kind: "register";
+  /** What is being said, once per politeness level. Same meaning throughout. */
+  forms: Record<1 | 2 | 3, string>;
+  /** One line of English — what the learner is trying to say. */
+  gloss: string;
+  audiences: RegisterAudienceView[];
+};
+
+/**
+ * Every drawn rule card, tagged.
+ *
+ * A scene REPLACES the paragraph that was carrying the fact, so the prose it
+ * displaces must actually be trimmed — a card that keeps both is longer than
+ * the one it replaced. Gated for vocabulary by `sceneVocabGate.test.ts`.
+ */
+export type SceneSpec =
+  | TransferDiagramSpec
+  | JourneyDiagramSpec
+  | TimelineSpec
+  | ScaleSpec
+  | RegisterSpec;
 
 export type GrammarRuleStep = StepBase & {
   type: "grammar_rule";
@@ -697,7 +816,7 @@ export type GrammarRuleStep = StepBase & {
    * of leaving the direction, the particles and the dropped party buried in
    * prose. Same pattern as `conjugationForm` above.
    */
-  transferDiagram?: TransferDiagramSpec;
+  scene?: SceneSpec;
 };
 
 /**
@@ -780,6 +899,95 @@ export type AgreementClozeStep = StepBase & {
  * plays post-commit only, like `particle_cloze` — pre-commit it would
  * speak the answer.
  */
+/**
+ * ASPECT CHOICE CLOZE — preterite vs imperfect (es) / passé composé vs
+ * imparfait (fr), chosen by DISCOURSE rather than by morphology.
+ *
+ * Why this is not `conjugation_cloze`. That step derives one correct form from
+ * a paradigm: the learner is being asked "can you conjugate this verb". Here
+ * BOTH options are perfectly-formed and the sentence is grammatical either
+ * way — what differs is what the sentence MEANS. «Cuando era niño, jugaba» and
+ * «Cuando fui niño, jugué» are both well-formed Spanish; only one is what a
+ * speaker would say. A step whose distractor is morphologically wrong cannot
+ * teach that, because the learner can win it without reading the context.
+ *
+ * Why it is not `particle_cloze` either: the answer depends on the surrounding
+ * NARRATIVE, not on the immediate slot, so the item must show several
+ * sentences at once and the blanks must be read against each other.
+ *
+ * This is the A2→B1 wall — the zone where learner attrition concentrates and
+ * where, per the 2026-08-09 competitive research, no product engineers a
+ * set-piece. It is the one Spanish-specific mechanic that research said needs
+ * genuinely new engine logic.
+ */
+export type AspectChoiceClozeStep = StepBase & {
+  type: "aspect_choice_cloze";
+  /** Plain-language framing, e.g. "A story about last summer." No theatrics. */
+  prompt: string;
+  /** English rendering of the whole narrative, shown above the blanks. */
+  meaningEn: string;
+  /**
+   * The narrative, in order. Text segments carry literal prose; blank segments
+   * carry a two-way aspect choice. Rendering keeps sentence flow so the
+   * learner reads the discourse, which is the entire skill being tested.
+   */
+  segments: Array<
+    | { text: string }
+    | {
+        blank: {
+          id: string;
+          /** Infinitive, shown as the cue — the learner picks aspect, not verb. */
+          lemma: string;
+          /** Exactly two: both must be morphologically correct forms. */
+          options: [string, string];
+          correctAnswer: string;
+          /**
+           * WHY this aspect, in discourse terms — "this is the background
+           * scene", "this is a completed event that moves the story on".
+           * Shown after grading. This is the teaching payload: without it the
+           * step is a coin-flip the learner cannot learn from.
+           */
+          reason: string;
+        };
+      }
+  >;
+  /** Whole-narrative audio, played after a correct commit. */
+  audioText?: string;
+};
+
+/**
+ * LIAISON LISTEN — mark where a French phrase links across a word boundary.
+ *
+ * Genuinely new because nothing in the engine has a concept of a pronunciation
+ * that differs from the spelling ACROSS a word boundary. Every existing
+ * listening step grades a whole utterance; none can ask "did the final
+ * consonant of word 1 attach to word 2". «les amis» is [le.za.mi] and «les
+ * héros» is [le.e.ʁo] — same spelling shape, opposite behaviour, and a learner
+ * who cannot hear the difference cannot segment spoken French at all.
+ *
+ * The learner hears the phrase and taps the junctions where linking happened.
+ * Junctions are derived from the word list, so a step cannot claim a link at a
+ * position that does not exist.
+ */
+export type LiaisonListenStep = StepBase & {
+  type: "liaison_listen";
+  /** Plain instruction. */
+  prompt: string;
+  /** Text passed to TTS — also the phrase shown after grading. */
+  audioText: string;
+  meaningEn: string;
+  /** The phrase split into words; junctions are the N-1 gaps between them. */
+  words: string[];
+  /**
+   * Indices of junctions (0 = between words[0] and words[1]) where a liaison
+   * IS pronounced. Every other junction is silent, including the ones learners
+   * over-apply — h aspiré, «et», singular noun + adjective.
+   */
+  linkedJunctions: number[];
+  /** Per-junction explanation, keyed by junction index. Shown after grading. */
+  junctionNotes?: Record<number, string>;
+};
+
 export type ConjugationClozeStep = StepBase & {
   type: "conjugation_cloze";
   /** Sentence halves around the blank — same shape as ParticleClozeStep. */
@@ -1143,6 +1351,8 @@ export type LessonStep =
   | GrammarRuleStep
   | ParticleClozeStep
   | AgreementClozeStep
+  | AspectChoiceClozeStep
+  | LiaisonListenStep
   | ConjugationClozeStep
   | ConjugationTransformStep
   | KanjiReadingStep

@@ -12,7 +12,8 @@ import type { JourneyDiagramSpec } from "@/features/lesson/types";
 
 /** m19 L2/L3 — the module's whole particle inventory on a single journey. */
 export const M19_JOURNEY: JourneyDiagramSpec & { id: string; title: string } = {
-  id: "m19-journey",
+  kind: "journey",
+    id: "m19-journey",
   title: "m19 — に / へ / で / から on one journey",
   traveller: { label: "わたし", color: "#f97316" },
   verb: "いく",
@@ -39,7 +40,8 @@ export const M19_JOURNEY: JourneyDiagramSpec & { id: string; title: string } = {
 
 /** m19 L6 — まで is a LIMIT, not a destination: you stop there, you don't arrive. */
 export const M19_MADE: JourneyDiagramSpec & { id: string; title: string } = {
-  id: "m19-made",
+  kind: "journey",
+    id: "m19-made",
   title: "m19 — まで stops the journey short of a destination",
   traveller: { label: "わたし", color: "#f97316" },
   verb: "あるく",
@@ -63,16 +65,19 @@ export const ALL_JOURNEYS = [M19_JOURNEY, M19_MADE];
  */
 export const M19_CURRENT_RULES = [
   {
+    kind: "journey",
     id: "ni-location",
     chars: 0,
     text: "に marks the place you ARRIVE at. 「えきに いく」 = I'm going to the station. This is not a new particle — it is a third job for one you have had for a long time.",
   },
   {
+    kind: "journey",
     id: "e-direction",
     chars: 0,
     text: "へ is the one genuinely new piece in this module, and the first thing to know about it is how it SOUNDS. Written, it is the hiragana he. Used as a PARTICLE it is read e — always, with no exceptions, and nothing else in the writing system does this.",
   },
   {
+    kind: "journey",
     id: "de-action",
     chars: 0,
     text: "で has a second job and it is the one this module needs: で marks the MEANS — the thing you go BY. 「くるまで いく」 = I go by car. You met で as the place an action happens, and this is the same particle saying the same thing from another angle, because で always means 'using this'.",

@@ -140,6 +140,7 @@
       "variant": "axis",
       "rule": "Japanese has no single verb for give. Which one you reach for depends on WHICH WAY the thing moved past you — not on who is talking, and not on politeness. There is a circle drawn around you and the people who belong to you (うち, inside); everybody else stands そと, outside.",
       "diagram": {
+        "kind": "transfer",
         "insideLabel": "うち",
         "outsideLabel": "そと",
         "left": {
@@ -208,6 +209,7 @@
       "id": "ni-recipient",
       "rule": "Every に you have met since module 5 has been a place — 「がっこうに いく。」 に marks where something ENDS UP, and a transfer is a journey with a person at the far end. That is why the recipient takes に whether the far end is a station or a sister. Now put it on a pair where the thing comes BACK: かす is to lend, かりる is to borrow, one loan seen from its two ends.",
       "diagram": {
+        "kind": "transfer",
         "insideLabel": "うち",
         "outsideLabel": "そと",
         "left": {
@@ -276,6 +278,7 @@
       "id": "morau",
       "rule": "Third verb, and it rearranges the sentence rather than just pointing it. The subject of もらう is whoever ENDS UP HOLDING THE THING. Then the part that catches everybody: the person it came FROM also takes に. One rule, not two — に marks the OTHER PERSON in the transfer, and the verb decides which end they are standing at. English does the same trick: you give TO somebody, you hear it FROM somebody.",
       "diagram": {
+        "kind": "transfer",
         "insideLabel": "うち",
         "outsideLabel": "そと",
         "left": {

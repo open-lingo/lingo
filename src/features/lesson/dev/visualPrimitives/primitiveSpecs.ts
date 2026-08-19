@@ -25,6 +25,7 @@ import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
  * L11 ("a lesson that runs them against each other") is for.
  */
 export const M15_TIMELINE: TimelineSpec = {
+  kind: "timeline",
   early: { label: "ごはんを たべる", clock: "7:00", color: "#f97316" },
   late: { label: "だいがくに いく", clock: "9:00", color: "#14b8a6" },
   frames: [
@@ -72,6 +73,7 @@ export const M15_TIMELINE: TimelineSpec = {
  * taught anywhere in the course; ぶどう, りんご and すいか are not atoms.)
  */
 export const M26_SIZE_SCALE: ScaleSpec = {
+  kind: "scale",
   dimension: "おおきい",
   items: [
     {
@@ -132,6 +134,7 @@ export const M26_SIZE_SCALE: ScaleSpec = {
  * Japanese and えん is taught (m5).
  */
 export const M26_SCALE: ScaleSpec = {
+  kind: "scale",
   dimension: "たかい",
   rankAs: "count",
   rankGlyph: "¥",
@@ -223,6 +226,7 @@ const DRAWN_CAST = CAST.map(({ portraitUrl: _drop, ...rest }) => rest);
 
 /** m10 — 「いく」 said to three audiences. Meaning fixed, ending moves. */
 export const M10_REGISTER: RegisterSpec = {
+  kind: "register",
   gloss: "I'll go",
   forms: { 1: "いく。", 2: "いきます。", 3: "いきます。" },
   audiences: CAST,
@@ -231,6 +235,7 @@ export const M10_REGISTER: RegisterSpec = {
 /** m10's yes-word ladder — the case where all three levels DIFFER, so the
  *  scene shows a real three-way contrast rather than a 2/3 collapse. */
 export const M10_YES: RegisterSpec = {
+  kind: "register",
   gloss: "Yes",
   forms: { 1: "うん。", 2: "はい。", 3: "ええ。" },
   audiences: CAST,

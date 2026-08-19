@@ -31,7 +31,8 @@ import { OUTLINE } from "./sceneArt";
  * the head top at y ≈ -71, so a caller only has to place the feet.
  */
 
-export type CastRole = "friend" | "teacher" | "grandmother" | "clerk";
+import type { CastRole } from "@/features/lesson/types";
+export type { CastRole };
 
 /** Where the torso pivots. */
 const HINGE_Y = -30;

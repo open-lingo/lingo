@@ -12,9 +12,9 @@
  * can fix the YAML instead of the compiler guessing.
  */
 import type {
+  SceneSpec,
   LessonContent,
   LessonStep,
-  TransferDiagramSpec,
 } from "@/features/lesson/types";
 import {
   SELECTION_TYPES,
@@ -81,11 +81,20 @@ export type IRGrammarPoint = {
    */
   conjugation?: { form: string; classes: string[] };
   /**
-   * Declares this point as a DIRECTION rule: the card renders the transfer
-   * diagram instead of describing the arrow in prose. Authored in the IR as
-   * data (see TransferDiagramSpec) so one renderer serves every verb set.
+   * Declares this point as a DRAWN rule: the card renders a scene instead of
+   * describing the fact in prose. Authored in the IR as data (see `SceneSpec`)
+   * so one renderer serves every point that shares the fact.
+   *
+   * `kind` picks the renderer — transfer / journey / timeline / scale /
+   * register. It is OPTIONAL only because the m31 diagrams predate the family
+   * and are all transfers; new scenes must declare it, and
+   * `sceneVocabGate.test.ts` fails on a kind it has no field list for.
+   *
+   * The prose the scene replaces must actually be DELETED from `rule`. A card
+   * that keeps both is longer than the one it replaced, which is the opposite
+   * of the point — the fixed-height lesson shell has no slack to spend.
    */
-  diagram?: TransferDiagramSpec;
+  diagram?: SceneSpec;
 };
 export type IRBeat =
   /**
@@ -980,7 +989,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
               : undefined,
             grammarPointId: beat.grammarPointId,
             conjugationForm: gp.conjugation?.form,
-            transferDiagram: gp.diagram,
+            scene: gp.diagram,
           }),
         );
         if (gp.conjugation) {

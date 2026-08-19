@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { RuleHint } from "../types";
-import { TransferScene } from "./steps/TransferScene";
+import { SceneView } from "./steps/SceneView";
 
 /**
  * Learner-initiated rule peek ("See the rule").
@@ -70,10 +70,10 @@ export function RuleHintCard({
           {hint.title}
         </h2>
 
-        {hint.transferDiagram ? (
+        {hint.scene ? (
           <div className="mt-3">
-            <TransferScene
-              spec={hint.transferDiagram}
+            <SceneView
+              spec={hint.scene}
               scopeId={`hint-${hint.grammarPointId}`}
             />
           </div>
