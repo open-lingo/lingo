@@ -353,7 +353,7 @@ lessons:
         questions:
           - { q: "What decides whether Tom stays home?", options: ["Whether it rains", "Whether Mika is free", "Whether he has money", "Whether he finishes his homework"], answer: "Whether it rains" }
       - { kind: challenge, ja: "うちに かえったら ばんごはんを たべて、しゅくだいを する。", en: "When I get home I'll have dinner and do my homework", combines: [tara, te-form, wo-object, ni-location], mode: build }
-    reviewPool: [あめ, えき, でんわ, ごはん, しゅくだい, おかね, くるま, ほん, じかん, しんぶん]
+    reviewPool: [あめ, えき, でんわ, ごはん, しゅくだい, おかね, くるま, ほん, じかん, がっこう]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m32-neo-2
@@ -642,7 +642,7 @@ lessons:
   # ═══════════════════════════════════════════════════════════════════════
   - id: m32-neo-10
     role: teaching
-    title: "「さんじごろ」と「さんじかんぐらい」 — about, and around"
+    title: "「さんじごろ」と「じゅっぷんぐらい」 — about, and around"
     focus: "The quantity drip's m32 pair: ごろ lands on a point in time, ぐらい on an amount, and nothing else separates them"
     introduces: [かかる, ぐらい, ごろ]
     beats:
