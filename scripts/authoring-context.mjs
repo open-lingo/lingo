@@ -150,13 +150,38 @@ const priorCorpus = Object.entries(neoText)
   .join("\n");
 const thisCorpus = neoText[targetIdx] ?? "";
 
+// The COMPILED prior vocabulary, when the predecessor module has one.
+//
+// `priorCorpus.includes(kana)` is a substring match over raw YAML — prose
+// notes, reviewPools, English commentary and all. That is how しんぶん became
+// "known": its only appearance anywhere in the course is inside an m30 note
+// LISTING it as a word that was cut for being untaught. m23 and m30 both had
+// to strip pack-recommended words by hand for exactly this reason ("all
+// 'known' according to the pack and untaught according to every earlier
+// module's IR", m30.ir.yaml). compile-ir.mjs already derives the honest
+// answer per module — `priorVocab` in the compiled JSON — so use it, and keep
+// the text scan only as the bootstrap path for a module with no compiled
+// predecessor.
+let compiledKnown = null;
+try {
+  const prevIr = JSON.parse(
+    readFileSync(join(IR_DIR, `m${targetIdx - 1}.ir.json`), "utf8"),
+  );
+  const set = new Set(prevIr.priorVocab ?? []);
+  for (const a of prevIr.newAtoms ?? []) set.add(a.kana);
+  for (const a of prevIr.priorAtoms ?? []) set.add(a.kana);
+  if (set.size > 0) compiledKnown = set;
+} catch {
+  // no compiled predecessor — fall through to the text scan
+}
+
 // Known = used in a prior neo module OR a kana-module (m1/m2) atom (those
 // are always known by m3+, even if the neo lessons never reused them —
 // without this the pack under-lists known vocab and a judge flags
 // legitimate m1/m2 distractors as OOV, 2026-07-20).
 let prior = atoms.filter(
   (a) =>
-    priorCorpus.includes(a.kana) ||
+    (compiledKnown ? compiledKnown.has(a.kana) : priorCorpus.includes(a.kana)) ||
     ((a.fromModule === "m1" || a.fromModule === "m2") && targetIdx > 2),
 );
 const thisModule = atoms.filter(
