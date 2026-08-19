@@ -77,3 +77,28 @@ so m32's staged clips are fully accounted for by the manifest.
 
 Flagging it only so a red suite does not read as damage from this session's
 commits. Nothing here touched Spanish.
+
+## 8. Also done unattended, listed so nothing is a surprise
+
+Committed between 12:00 and 13:00 MDT. None of it changes lesson content.
+
+| commit | what |
+|---|---|
+| `90b613b5` | m32 L1 review pool (しんぶん → がっこう) and L10 title, both from visual QA |
+| `78e7a9e2` | the Playwright auth-setup 30s timeout that killed the login browser |
+| `e4fa188f` | corrected the orphan-atom doc: those rows DO cost something at runtime |
+| `d998c0ba` | m30's かっとく / しとく retagged `grammar-chunk`, not `vocab` |
+| `dd6930b6` | the scene gate was blind to a register scene's cast — proved by casting the clerk and watching it fail |
+| `5ee5fbc8` | TTS は issue: the へ/を sweep, and the hash-key correction |
+| `d43003a9` | exposure audit now reports the whole distribution, not just the zero bucket |
+| `9a3ec294` | second-row drag: step 1 applied (see §6 — needs your eyes) |
+| `1b257ed3` | review queue R16 + R17 filed |
+| `4d42c360` | authoring pack reads compiled priorVocab — 94 untaught words stop being recommended |
+| `8618033a` | rule prose is unlinted: measured, and the alarm is smaller than it sounded |
+| `3d9a0736` | m33 prep — six transitivity pairs have a taught anchor, not three |
+| `eaaeb339` | the overflow six, measured per type; the mobile gate only ever visits two step types |
+| `ead56932` | kanji_reading overflow 136px → 8px (two option columns) |
+
+Also run, not committed: the full vitest suite (one failure, §7), the mobile
+gate (921 passed, 0 failed, 10.3m), `module-gate -- m32` (Japanese stages
+clean, TTS coverage 7552/7552).
