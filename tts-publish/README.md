@@ -30,3 +30,24 @@ ships the manifest, so the two can never land separately.
 - After authoring: verify your wave landed with
   `npm run module-gate -- mN` (stage 2 hashes every deck card against the
   manifest) AND a prod curl of one new hash.
+
+## Known consequence: visual-QA capture goes red between wave and deploy
+
+Once a wave's manifest lands but before its mp3s are uploaded, every new hash
+resolves to the SPA shell (`content-type: text/html`, HTTP 200 — it is a
+CloudFront SPA fallback, not a 404). The app treats the clip as present, issues
+the request, and the audio element never settles, so `visual-qa:capture` hangs
+on any listening/cloze step and times out.
+
+Measured on the m33 wave (2026-08-19), same lesson `ja-m33-neo-5`, same tree:
+
+| manifest | capture result |
+|---|---|
+| pre-m33 | passes (1.3m) |
+| m33 (312 new hashes staged, none uploaded) | times out on `cloze-6` |
+
+So the gate's stage-4 red in that window is **expected**, not a content defect.
+Capture the module BEFORE copying the new manifest in (that run is the visual
+evidence), or re-run stage 4 after the deploy has published `tts-publish/ja/`.
+Do not "fix" it by reverting the manifest — manifest and mp3s must ship in the
+same commit, which is the entire reason this directory exists.
