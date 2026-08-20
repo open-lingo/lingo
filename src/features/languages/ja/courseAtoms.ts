@@ -659,7 +659,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "natsuyasumi", kana: "なつやすみ", kanji: "夏休み", romaji: "natsuyasumi", meaningEn: "summer holiday", emoji: "🏖️", fromModule: "m13", kind: "vocab", pos: "noun" },
   { id: "yuugata", kana: "ゆうがた", kanji: "夕方", romaji: "yuugata", meaningEn: "evening", emoji: "🌇", fromModule: "future", kind: "vocab", note: "sunset over buildings", pos: "noun" },
   { id: "yuuhan", kana: "ゆうはん", kanji: "夕飯", romaji: "yuuhan", meaningEn: "dinner", emoji: "🍽️", fromModule: "future", kind: "vocab", pos: "noun" },
-  { id: "soto", kana: "そと", kanji: "外", romaji: "soto", meaningEn: "outside", emoji: "🌳", fromModule: "future", kind: "vocab", note: "tree = outdoors", pos: "noun" },
+  { id: "soto", kana: "そと", kanji: "外", romaji: "soto", meaningEn: "outside", emoji: "🌳", fromModule: "m31", introducedByLessonId: "ja-m31-neo-1", kind: "vocab", blocked: true, note: "tree = outdoors; taught by m31-neo-1's axis card (うち/そと is the module's concept). no picture debut (inv-30 census 2026-08-20): にわ/き own 🌳 and the card names it first", pos: "noun" },
   { id: "gaikoku", kana: "がいこく", kanji: "外国", romaji: "gaikoku", meaningEn: "foreign country", emoji: "🌏", fromModule: "m23", kind: "vocab", note: "globe as foreign-country cue", pos: "noun" },
   { id: "gaikokujin", kana: "がいこくじん", kanji: "外国人", romaji: "gaikokujin", meaningEn: "foreigner", emoji: "🌍", fromModule: "future", kind: "vocab", note: "globe — foreign/abroad", pos: "noun" },
   { id: "ooi", kana: "おおい", kanji: "多い", romaji: "ooi", meaningEn: "many", fromModule: "future", introducedByLessonId: "ja-m22-2-2", kind: "vocab", blocked: true, note: "abstract quantifier; no canonical referent", pos: "adjective", conjugation: { class: "i-adj" } },

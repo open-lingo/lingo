@@ -415,6 +415,12 @@ grammarPoints:
     antiPattern: { ja: "ともだちが わたしに けいたいを あげた。", why: "くれる is what carries a thing to your side, and it carries it without needing わたしに at all: ともだちが けいたいを くれた。" }
 
 newAtoms:
+  # そと declared 2026-08-20 (R1 landing): the L1 axis card TEACHES it in so
+  # many words ("everybody else stands そと, outside") and the transfer diagram
+  # labels its outside pole with it — it was never declared, so the registry
+  # carried it as untaught. imageable:false — 🌳 is にわ/き's glyph and the
+  # axis card names it first (m20/m21 steal) anyway.
+  - { kana: そと, romaji: soto, gloss: "outside (the in-group boundary)", shortGloss: "outside", imageable: false, kind: vocab }
   # ══ L1. THE HEADLINE VERB and the module's one katakana gift noun. あげる
   #    already carries a courseAtoms row tagged `future` (🎁, "to give"), so it
   #    is in the tokenizer today and this declaration only adds provenance plus
@@ -510,7 +516,7 @@ lessons:
     role: teaching
     title: "「あげる」と「くれる」 — one present, two directions"
     focus: "The module's axis, both poles at once: あげる sends a thing out of your circle and くれる brings it in"
-    introduces: [あげる, くれる, プレゼント, こども, はなたば, おれい]
+    introduces: [あげる, くれる, プレゼント, こども, はなたば, おれい, そと]
     beats:
       # あげる is planted ALONE for three beats before くれる arrives. A contrast
       # needs one pole owned first — this is the "たら is the hub" shape from

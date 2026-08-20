@@ -43,7 +43,6 @@ export const JA_STORIES: Story[] = [
     theme: "Fine in the morning, not by the afternoon.",
     tags: ["health", "friends"],
     glosses: [
-      { surface: "わたし", meaning: "I, me", atomId: "ja:watashi" },
       { surface: "あした", meaning: "tomorrow", atomId: "ja:ashita" },
     ],
     questions: [
@@ -75,13 +74,13 @@ export const JA_STORIES: Story[] = [
     // the learner — read it for free.
     id: "ja-m4-whose-bag",
     languageId: "ja",
-    module: 4,
+    // m4→m6 (2026-08-20 restamp): が/あります are truthfully m6's (ir-introduces ja-m6-neo-4).
+    module: 6,
     level: 2,
     title: "Whose bag?",
     theme: "An unclaimed bag, and a name inside it.",
     tags: ["school", "mystery"],
     glosses: [
-      { surface: "あります", meaning: "there is (a thing)", atomId: "ja:arimasu" },
       { surface: "それから", meaning: "after that, and then", atomId: "ja:sorekara" },
     ],
     questions: [
@@ -108,7 +107,8 @@ export const JA_STORIES: Story[] = [
   {
     id: "ja-m5-shop-errand",
     languageId: "ja",
-    module: 5,
+    // m5→m9 (2026-08-20 restamp): the number line (ご/に/ひゃく…) is truthfully m9's.
+    module: 9,
     level: 2,
     title: "At the shop",
     theme: "Asking prices on a quick errand.",
@@ -144,12 +144,12 @@ export const JA_STORIES: Story[] = [
     // noun.
     id: "ja-m5-not-quite-enough",
     languageId: "ja",
-    module: 5,
+    // m5→m27 (2026-08-20 restamp): おかね's true teaching site is m27 (ふたり m17, numbers m9). R16 can migrate this back when おかね re-homes earlier.
+    module: 27,
     level: 2,
     title: "Not quite enough",
     theme: "Two friends, one snack, and a hundred yen missing.",
     tags: ["shopping", "friends", "money"],
-    glosses: [{ surface: "たかい", meaning: "expensive, tall", atomId: "ja:takai" }],
     questions: [
       {
         id: "gist",
@@ -2005,7 +2005,6 @@ export const JA_STORIES: Story[] = [
       { surface: "べつに", meaning: "not particularly", atomId: "ja:betsuni" },
       { surface: "ぜんぶ", meaning: "all of it, everything", atomId: "ja:zenbu" },
       { surface: "きになる", meaning: "to weigh on one's mind", atomId: "ja:kininaru" },
-      { surface: "いう", meaning: "to say", atomId: "ja:iu" },
       // こども is TAUGHT at m31 (n4-02); its old m19 tag pointed at an archived
       // lesson no live module runs. See ja-m22-the-fish-i-said-i-hated.
       { surface: "こども", meaning: "a child", atomId: "ja:kodomo" },
@@ -2346,7 +2345,6 @@ export const JA_STORIES: Story[] = [
     theme: "Four months of careful keigo, and one cherry tree in front of a school.",
     tags: ["work", "keigo", "friends"],
     glosses: [
-      { surface: "いう", meaning: "to say", atomId: "ja:iu" },
       // The A2 re-home (2026-08-09) parked these on thr-n4 / "future", which
       // the gate reads as never-taught — declared here so the graded-reader
       // mechanic teaches them in place (L5 budget is 8).

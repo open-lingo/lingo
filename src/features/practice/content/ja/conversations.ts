@@ -49,7 +49,8 @@ export const JA_CONVERSATIONS: Conversation[] = [
   {
     id: "ja-m5-at-the-shop",
     languageId: "ja",
-    module: 5,
+    // m5→m9 (2026-08-20 restamp): counting and prices (にひゃく/ひとつ/みっつ) are truthfully m9's.
+    module: 9,
     title: "At the shop",
     situation: "Ask a price and buy something.",
     speakers: [
@@ -93,7 +94,8 @@ export const JA_CONVERSATIONS: Conversation[] = [
   {
     id: "ja-m7-what-to-eat",
     languageId: "ja",
-    module: 7,
+    // m7→m8 (2026-08-20 restamp): みせ is truthfully m8's.
+    module: 8,
     title: "What will you eat?",
     situation: "Decide what to eat and drink together.",
     speakers: [

@@ -4,6 +4,7 @@ import {
   shouldWriteContentReviewAtom,
   shouldWriteReviewLessonAtom,
 } from "./reviewTailSrs";
+import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 
 /**
  * D2 gate (docs/srs-scheduling-model-2026-06-15.md) — decides which vocab
@@ -12,8 +13,8 @@ import {
  * Atom ids are grounded in real `JA_COURSE_ATOMS` entries:
  *  - `neko`          — fromModule m1, introducedByLessonId "ja-m3-3"
  *  - `ja-m4-1-v-pen` — fromModule m4, introducedByLessonId "ja-m4-1"
- *  - `ja-m7-4-v-sushi` — fromModule m7 (a forward-reference kana homograph
- *    of the m1 word すし; last-wins kana→id map resolves すし to this id)
+ *  - `ja-m6-1-koen` — fromModule m32 since the 2026-08-20 restamp (the m32
+ *    directions lesson is its real teach) — the forward-reference fixture
  */
 describe("isDedicatedReviewLesson", () => {
   it("matches ja-mN-review-1/2 only", () => {
@@ -46,9 +47,12 @@ describe("shouldWriteContentReviewAtom (D2 prior-atom gate)", () => {
   });
 
   it("SKIPS a forward-reference homograph (atom resolves to a later module)", () => {
-    // すし in an m3 tail resolves (kana→id) to the m7 atom id; grading it in
-    // m3 would touch a not-yet-introduced atom → skipped.
-    expect(shouldWriteContentReviewAtom("ja-m7-4-v-sushi", "ja-m3-1-2")).toBe(false);
+    // The old fixture (すし in an m3 tail) retired 2026-08-20: Spencer's R2
+    // ruling restamped すし to m1 (the sa-row anchor teaches it), so grading
+    // it early is now correct. こうえん carries the same forward-reference
+    // shape today — its true home is m32 (the directions lesson), so grading it
+    // in any earlier tail must skip.
+    expect(shouldWriteContentReviewAtom("ja-m6-1-koen", "ja-m4-1-1")).toBe(false);
   });
 
   it("SKIPS unknown / non-JA atom ids", () => {
@@ -71,12 +75,14 @@ describe("shouldWriteContentReviewAtom (D2 prior-atom gate)", () => {
  */
 describe("shouldWriteReviewLessonAtom (collision guard)", () => {
   it("skips ids that resolve to a LATER-module registry row", () => {
-    // した → 下, fromModule m17: 17 > 11 → collision, never grade in m11.
-    expect(shouldWriteReviewLessonAtom("shita", "ja-m11-neo-review-3")).toBe(false);
+    // こうえん → m32 (the restamped truth): 32 > 11 → never grade in m11.
+    expect(shouldWriteReviewLessonAtom("ja-m6-1-koen", "ja-m11-neo-review-3")).toBe(false);
   });
 
   it("skips ids that resolve to a non-module home (future / quest tags)", () => {
-    // きた → 北, fromModule "future" → parses to 0 → skip.
+    // した → 下 and きた → 北, both fromModule "future" since 2026-08-20
+    // (the restamp proved neither noun is taught) → parses to 0 → skip.
+    expect(shouldWriteReviewLessonAtom("shita", "ja-m11-neo-review-3")).toBe(false);
     expect(shouldWriteReviewLessonAtom("kita", "ja-m11-neo-review-3")).toBe(false);
   });
 
@@ -93,8 +99,16 @@ describe("shouldWriteReviewLessonAtom (collision guard)", () => {
   });
 
   it("positive control: the colliding rows exist and are why the guard fires", () => {
-    // If 下/北 are ever renamed or removed, the two skip-assertions above go
-    // vacuous — this pins the collision precondition itself.
-    expect(shouldWriteReviewLessonAtom("shita", "ja-m17-neo-review-1")).toBe(true);
+    // If 下/北 were ever REMOVED from the registry, "shita"/"kita" would take
+    // the no-registry-row path above and grade as inflections — the skips
+    // would silently invert. Pin the rows themselves. (Both are fromModule
+    // "future" since 2026-08-20: the restamp proved neither noun is taught —
+    // the old m17 pin graded した in an m17 review, which no longer applies.)
+    const shita = JA_COURSE_ATOMS.find((a) => a.id === "shita");
+    const kita = JA_COURSE_ATOMS.find((a) => a.id === "kita");
+    expect(shita?.kanji).toBe("下");
+    expect(kita?.kanji).toBe("北");
+    expect(shita?.fromModule).toBe("future");
+    expect(kita?.fromModule).toBe("future");
   });
 });

@@ -156,10 +156,15 @@ describe("m31-neo module shape (invariant 25)", () => {
       expect(getMockLessonContent(l.id), `${l.id} not registered in mockLessons`).not.toBeNull();
   });
 
-  it("declares exactly the spine's 36 atoms", () => {
+  it("declares exactly the spine's 36 atoms, plus そと", () => {
+    // 36 from the n4-02 spine + そと (2026-08-20 R1 landing): the L1 axis card
+    // teaches うち/そと in so many words, but そと was never declared, so the
+    // registry carried it as untaught and the transfer diagram's outside pole
+    // labeled itself with an "unknown" word.
     const atoms = (m31Ir as unknown as { newAtoms: { kana: string }[] }).newAtoms;
-    expect(atoms).toHaveLength(36);
-    expect(new Set(atoms.map((a) => a.kana)).size, "duplicate kana declared").toBe(36);
+    expect(atoms).toHaveLength(37);
+    expect(new Set(atoms.map((a) => a.kana)).size, "duplicate kana declared").toBe(37);
+    expect(atoms.some((a) => a.kana === "そと")).toBe(true);
   });
 
   it("owes the spine's `must` allocation — declared new, or already taught", () => {

@@ -530,6 +530,14 @@
   ],
   "newAtoms": [
     {
+      "kana": "そと",
+      "romaji": "soto",
+      "gloss": "outside (the in-group boundary)",
+      "shortGloss": "outside",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "あげる",
       "romaji": "ageru",
       "gloss": "to give (away from my side)",
@@ -851,7 +859,8 @@
         "プレゼント",
         "こども",
         "はなたば",
-        "おれい"
+        "おれい",
+        "そと"
       ],
       "beats": [
         {
@@ -3714,6 +3723,7 @@
     "いきませんでした",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いける",
@@ -4079,6 +4089,7 @@
     "でした",
     "でしょ",
     "でしょう",
+    "です",
     "でんき",
     "でんしゃ",
     "でんわ",
@@ -4096,6 +4107,7 @@
     "どうして",
     "どうぶつ",
     "どこ",
+    "どこですか",
     "どちら",
     "どっち",
     "どの",
@@ -4584,7 +4596,6 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4600,7 +4611,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6751,7 +6761,6 @@
       "romaji": "te",
       "gloss": "hand",
       "shortGloss": "hand",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6937,7 +6946,6 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
-      "imageable": false,
       "kind": "verb"
     },
     {
@@ -7211,7 +7219,6 @@
       "romaji": "natsu",
       "gloss": "summer",
       "shortGloss": "summer",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7219,7 +7226,6 @@
       "romaji": "aki",
       "gloss": "autumn",
       "shortGloss": "autumn",
-      "imageable": false,
       "kind": "vocab"
     },
     {

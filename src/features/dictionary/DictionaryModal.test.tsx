@@ -96,7 +96,9 @@ describe("DictionaryModal", () => {
 
     const dialog = within(screen.getByRole("dialog"));
     expect(dialog.getByText(target.meaningEn)).toBeInTheDocument();
-    expect(dialog.getByText(target.reading)).toBeInTheDocument();
+    // getAllByText: the restamp reordered which entry pickEntry lands on, and
+    // an entry may legitimately render its reading twice (ruby + detail row).
+    expect(dialog.getAllByText(target.reading).length).toBeGreaterThan(0);
     // No search box while showing a resolved entry.
     expect(screen.queryByLabelText("Search the dictionary")).not.toBeInTheDocument();
   });

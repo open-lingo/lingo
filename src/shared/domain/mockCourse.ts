@@ -330,8 +330,6 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m5-neo-10", title: "Verb drills + ごはん", status: "available" as const },
             { id: "ja-m5-neo-11", title: "Story: dinner plans", status: "available" as const },
             { id: "ja-m5-neo-review", title: "Verbs I — review", status: "available" as const },
-            { id: "story:ja-m5-shop-errand", title: "Read — At the shop", status: "available" as const,
-              kind: "story" as const, storyId: "ja-m5-shop-errand" },
           ],
           accent: { from: "#10b981", to: "#059669" },
         },
@@ -443,6 +441,10 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m9-neo-9", title: "A whole purchase", status: "available" as const },
             { id: "ja-m9-neo-review-3", title: "Review — numbers, prices, purchases", status: "available" as const },
             { id: "ja-m9-neo-challenge", title: "Challenge — put it all together", status: "available" as const },
+            // (ja-m5-shop-errand's map tile was retired here 2026-08-20: the
+            // restamp re-leveled the story to m9 — numbers are m9's — and m9
+            // already carries its one story node. The story stays reachable
+            // through the practice reading surface at m9+.)
             { id: "story:ja-m9-a-lively-town", title: "Read — A lively town", status: "available" as const,
               kind: "story" as const, storyId: "ja-m9-a-lively-town" },
           ],
