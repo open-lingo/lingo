@@ -788,6 +788,43 @@ function derive(api) {
       `instrument control FAILED: walk exercised only ${firstAnyExercised.size} atoms (<400)`,
     );
 
+  // ── Human rulings (docs/restamp-rulings.json) — applied AFTER the controls
+  // so they verify the raw instrument, never the ruled overlay. A ruling may
+  // only target a row the instrument itself classed `ambiguous`; anything
+  // else is a stale ruling and the run refuses (same doctrine as the
+  // no-silent-classes printer guard). `new: null` = explicit keep.
+  const rulingsPath = path.join(ROOT, "docs", "restamp-rulings.json");
+  if (fs.existsSync(rulingsPath)) {
+    const { rulings } = JSON.parse(fs.readFileSync(rulingsPath, "utf8"));
+    const byAtomId = new Map(rows.map((r) => [r.atomId, r]));
+    for (const [atomId, ruling] of Object.entries(rulings)) {
+      const row = byAtomId.get(atomId);
+      if (!row) throw new Error(`ruling for unknown atom "${atomId}"`);
+      if (row.class !== "ambiguous")
+        throw new Error(
+          `ruling for "${atomId}" targets class "${row.class}" — rulings may only resolve ambiguous rows (stale ruling?)`,
+        );
+      if (ruling.new !== null && ruling.new !== undefined) {
+        row.new = ruling.new;
+        row.action = ruling.new === row.old ? "keep" : "restamp";
+      }
+      if (ruling.introducedByLessonId) {
+        if (!lessonModule.has(ruling.introducedByLessonId))
+          throw new Error(
+            `ruling for "${atomId}" repoints introducedByLessonId at "${ruling.introducedByLessonId}", which is not on the live map`,
+          );
+        row.newIntroducedBy = ruling.introducedByLessonId;
+      }
+      row.class = "ruled";
+      row.note = `${row.note ?? ""} ⊢ RULED: ${ruling.why}`;
+    }
+    const still = rows.filter((r) => r.class === "ambiguous");
+    if (still.length)
+      console.error(
+        `NOTE: ${still.length} ambiguous rows remain UNRULED: ${still.map((r) => r.kana).join(", ")}`,
+      );
+  }
+
   return {
     generatedAt: new Date().toISOString(),
     liveModules: liveModuleIds,
@@ -818,7 +855,7 @@ function report(result) {
   for (const c of controls) console.log(`  ✓ ${c}`);
 
   console.log(`\nCLASSIFICATION SUMMARY (${rows.length} atoms):`);
-  const KNOWN_CLASSES = ["match", "kana-row", "restamp", "never-taught", "exercised-never-introduced", "ambiguous"];
+  const KNOWN_CLASSES = ["match", "kana-row", "restamp", "never-taught", "exercised-never-introduced", "ambiguous", "ruled"];
   {
     // No silent classes: a row whose class the printers don't know would
     // vanish from both the summary and the diff (that exact bug hid the
@@ -856,12 +893,13 @@ function report(result) {
     JSON.stringify(rows, null, 1),
   );
   console.log(`\nFULL DIFF (class · word · atom · old→new · evidence · note):`);
-  const orderCls = { restamp: 0, "never-taught": 1, "exercised-never-introduced": 2, "kana-row": 3, ambiguous: 4, match: 5 };
+  const orderCls = { restamp: 0, ruled: 1, "never-taught": 2, "exercised-never-introduced": 3, "kana-row": 4, ambiguous: 5, match: 6 };
   const sorted = rows
     .filter(
       (r) =>
         r.action === "restamp" ||
         r.class === "ambiguous" ||
+        r.class === "ruled" ||
         r.class === "exercised-never-introduced",
     )
     .sort(
@@ -903,7 +941,20 @@ function applyRestamp(result) {
       abort(`id "${r.atomId}" appears ${idCount} times — refusing to guess`);
     src = src.replace(re, `$1${r.new}$3`);
   }
+  // Ruled repoints: introducedByLessonId moves off a DEAD pointer only when a
+  // human ruling names the live teaching lesson (group-4 sidequest words).
+  const repoints = result.rows.filter((r) => r.newIntroducedBy);
+  for (const r of repoints) {
+    const re = new RegExp(
+      `(id:\\s*"${esc(r.atomId)}"[\\s\\S]{0,600}?introducedByLessonId:\\s*")([^"]+)(")`,
+    );
+    if (!re.exec(src))
+      abort(`no introducedByLessonId to repoint for ${r.atomId} — file drifted?`);
+    src = src.replace(re, `$1${r.newIntroducedBy}$3`);
+  }
   fs.writeFileSync(COURSE_ATOMS_PATH, src);
+  if (repoints.length)
+    console.error(`APPLIED: ${repoints.length} introducedByLessonId repoints (ruled rows).`);
   console.error(
     `\nAPPLIED: ${changes.length} fromModule re-stamps written to ${path.relative(ROOT, COURSE_ATOMS_PATH)}.`,
   );

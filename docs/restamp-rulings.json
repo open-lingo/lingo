@@ -1,0 +1,167 @@
+{
+ "meta": {
+  "rulings": "Spencer 2026-08-20 (R1 GO + group rulings, this session)",
+  "contract": "keys are atomIds; new:null = explicit keep; introducedByLessonId repoints apply only via ruled rows"
+ },
+ "rulings": {
+  "ja-m3-3-v-hon": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-wa-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m3-3-v-mizu": {
+   "new": "m2",
+   "why": "R2 default — earliest introduction is the m2 kana-row anchor (ja-m1-z-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m4-1-v-kaban": {
+   "new": "m2",
+   "why": "R2 default — earliest introduction is the m2 kana-row anchor (ja-m1-b-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "kore": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-ra-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m7-1-v-yomu": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-ya-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "watashi": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-wa-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m7-4-v-gohan": {
+   "new": "m2",
+   "why": "R2 default — earliest introduction is the m2 kana-row anchor (ja-m1-g-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m5-2-v-10": {
+   "new": "m2",
+   "why": "R2 default — earliest introduction is the m2 kana-row anchor (ja-m1-yoon-voiced-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m6-1-eki": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-ka-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m7-4-v-sushi": {
+   "new": "m1",
+   "why": "R2 default — earliest introduction is the m1 kana-row anchor (ja-m1-sa-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-m7-1-v-taberu": {
+   "new": "m2",
+   "why": "R2 default — earliest introduction is the m2 kana-row anchor (ja-m1-b-1); anchors are graded intros (kana+romaji+meaning)"
+  },
+  "ja-surv-hai": {
+   "new": "m7",
+   "introducedByLessonId": "ja-m7-neo-1",
+   "why": "Spencer G4 — already in m7 IR introduces (m7.ir.yaml:148)"
+  },
+  "ja-surv-itsu": {
+   "new": "m11",
+   "introducedByLessonId": "ja-m11-neo-9",
+   "why": "Spencer G4 — ir-introduces ja-m11-neo-9"
+  },
+  "ja-surv-janai": {
+   "new": "m29",
+   "introducedByLessonId": "ja-m29-neo-1",
+   "why": "Spencer G4 — ir-introduces ja-m29-neo-1"
+  },
+  "ja-surv-desu": {
+   "new": "m7",
+   "introducedByLessonId": "ja-m7-neo-4",
+   "why": "Spencer G4 — m7-neo-4 first beat IS the です rule card; introduces entry added this landing"
+  },
+  "ja-surv-ikura": {
+   "new": "m9",
+   "introducedByLessonId": "ja-m9-neo-4",
+   "why": "Spencer G4 — m9-neo-4 Yen-and-how-much rule card; introduces entry added this landing"
+  },
+  "ja-surv-doko": {
+   "new": "m19",
+   "introducedByLessonId": "ja-m19-neo-9",
+   "why": "Spencer G4 — m19-neo-9 asking-a-stranger rule card; introduces entry added this landing"
+  },
+  "ja-surv-gomennasai": {
+   "new": "m3",
+   "introducedByLessonId": "ja-m3-neo-5",
+   "why": "Spencer G4 — taught by the m3-neo-5 phrases lesson (audio primer + speaking, m3-neo.ts:1159)"
+  },
+  "biiru": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "resutoran": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja-m4-1-v-pen": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja-m6-1-konbini": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja-m6-1-toire": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja-m7-4-v-juusu": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja-m7-4-v-ramen": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "kooto": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "naifu": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "nyuusu": {
+   "new": null,
+   "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
+  },
+  "ja--jaa": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "deha": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "nekutai": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "benri": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "shi": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "yoru": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "e": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "se": {
+   "new": null,
+   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
+  },
+  "shita": {
+   "new": "future",
+   "why": "hand-verified 2026-08-20: 下 taught nowhere on the live map; the m11 evidence is する-past kana collision (m11.ir.yaml:387 introduces plain pasts)"
+  },
+  "kita": {
+   "new": null,
+   "why": "hand-verified 2026-08-20: 北 untaught and already future; m11 evidence is くる-past kana collision"
+  }
+ }
+}

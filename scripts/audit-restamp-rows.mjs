@@ -105,6 +105,9 @@ try {
   const { getMockCourse } = await server.ssrLoadModule(
     "/src/shared/domain/mockCourse.ts",
   );
+  const { ALL_ROWS } = await server.ssrLoadModule(
+    "/src/features/lesson/data/hiraganaCurriculum.ts",
+  );
   console.log = realLog;
 
   const rows = JSON.parse(fs.readFileSync(rowsPath, "utf-8"));
@@ -158,9 +161,62 @@ try {
       .map((v) => v.trim())
       .filter(Boolean);
 
-  const report = { generated: null, evidenceFailures: [], reverseAuthored: [], reverseDerived: [], orphanExercised: [], checked: { restamp: 0, neverTaught: 0 } };
+  // ── Kana-row anchor surfaces, straight from the curriculum data ──────────
+  // (kana-row sub-lessons carry no exercisedAtoms, so the occ walk cannot see
+  // anchor introductions; verify the anchor claim against ALL_ROWS instead.)
+  const rowAnchors = new Map(); // row id ("wa") -> Set(kana surfaces)
+  for (const row of ALL_ROWS) {
+    const s = new Set();
+    for (const w of row.anchorWords ?? []) s.add(w.kana);
+    if (row.build?.answer) s.add(row.build.answer);
+    for (const sub of row.subLessons ?? []) {
+      for (const w of sub.anchorWords ?? []) s.add(w.kana);
+      if (sub.build?.answer) s.add(sub.build.answer);
+    }
+    rowAnchors.set(row.id, s);
+  }
+  const anchorsOf = (lessonId) => {
+    const rowId = /^ja-m1-(?:l\d+-)?(.+?)(?:-\d+)?$/.exec(lessonId)?.[1];
+    return rowAnchors.get(rowId) ?? new Set();
+  };
+
+  const report = { generated: null, evidenceFailures: [], reverseAuthored: [], reverseDerived: [], orphanExercised: [], checked: { restamp: 0, neverTaught: 0, ruled: 0 } };
 
   for (const r of rows) {
+    // Human-ruled rows get the SAME machine checks as their machine-classed
+    // twins — a ruling moves the label, it doesn't exempt the evidence.
+    if (r.class === "ruled" && r.action === "restamp") {
+      report.checked.ruled += 1;
+      if (r.new === "future") {
+        const hits = (occ.get(r.atomId) ?? []).filter((o) => !o.derived && !o.review);
+        for (const o of hits)
+          report.orphanExercised.push({ atomId: r.atomId, kana: r.kana, at: `${o.lessonId} ${o.stepId} (${o.type})`, ruled: true });
+        continue;
+      }
+      const newIdx = parseInt(String(r.new).replace(/^m/, ""), 10);
+      let ok = false;
+      if (r.evidenceKind === "ir-introduces") {
+        const intro = irIntroduces.get(r.evidenceLessonId);
+        ok = !!intro && variants(r.kana).some((v) => intro.has(v));
+      }
+      if (!ok && r.evidenceKind === "kana-row-anchor") {
+        const anchors = anchorsOf(r.evidenceLessonId);
+        ok = variants(r.kana).some((v) => anchors.has(v));
+      }
+      if (!ok)
+        ok = (occ.get(r.atomId) ?? []).some((o) => o.lessonId === r.evidenceLessonId);
+      if (!ok)
+        report.evidenceFailures.push({ atomId: r.atomId, kana: r.kana, new: r.new, evidence: `${r.evidenceKind}:${r.evidenceLessonId}`, ruled: true });
+      for (const o of occ.get(r.atomId) ?? []) {
+        if (Number.isFinite(newIdx) && o.mIdx < newIdx) {
+          (o.derived ? report.reverseDerived : report.reverseAuthored).push({
+            atomId: r.atomId, kana: r.kana, new: r.new, ruled: true,
+            at: `${o.lessonId} ${o.stepId} (${o.type}${o.review ? ", review" : ""})`,
+          });
+        }
+      }
+      continue;
+    }
     if (r.class === "restamp") {
       report.checked.restamp += 1;
       const newIdx = parseInt(String(r.new).replace(/^m/, ""), 10);
@@ -201,7 +257,7 @@ try {
 
   fs.writeFileSync(path.join(ROOT, "docs", "restamp-audit-report.json"), JSON.stringify(report, null, 1));
   const uniqAtoms = (arr) => new Set(arr.map((x) => x.atomId)).size;
-  console.log(`AUDIT of ${report.checked.restamp} restamp + ${report.checked.neverTaught} never-taught rows`);
+  console.log(`AUDIT of ${report.checked.restamp} restamp + ${report.checked.neverTaught} never-taught + ${report.checked.ruled} ruled rows`);
   console.log(`  evidence failures (instrument defects):   ${report.evidenceFailures.length}`);
   console.log(`  reverse hits, AUTHORED (fix-list):        ${report.reverseAuthored.length} sites / ${uniqAtoms(report.reverseAuthored)} words`);
   console.log(`  reverse hits, derived (self-healing):     ${report.reverseDerived.length} sites / ${uniqAtoms(report.reverseDerived)} words`);
