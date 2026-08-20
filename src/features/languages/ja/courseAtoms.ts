@@ -83,7 +83,7 @@ export type CourseAtomSource =
   | "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7"
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
-  | "m28" | "m29" | "m30" | "m31" | "m32"
+  | "m28" | "m29" | "m30" | "m31" | "m32" | "m33"
   // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
   // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
   // None of these modules is authored yet, so atoms tagged with them never
@@ -466,7 +466,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "yorihou", kana: "より、ほう", romaji: "yori?hou", meaningEn: "Used for comparison.", fromModule: "m22", introducedByLessonId: "ja-m22-1-1", kind: "vocab", blocked: true, note: "comparison particle — abstract grammar", pos: "particle" },
   { id: "rippa", kana: "りっぱ", romaji: "rippa", meaningEn: "splendid", emoji: "✨", fromModule: "future", kind: "vocab", note: "sparkles = splendid/admirable", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "apaato", kana: "アパート", romaji: "apaato", meaningEn: "apartment", emoji: "🏢", fromModule: "future", kind: "vocab", note: "apartment building", pos: "noun" },
-  { id: "erebeetaa", kana: "エレベーター", romaji: "erebeetaa", meaningEn: "elevator", emoji: "🛗", fromModule: "m16", kind: "vocab", pos: "noun" },
+  { id: "erebeetaa", kana: "エレベーター", romaji: "erebeetaa", meaningEn: "a lift, an elevator", emoji: "🛗", fromModule: "m33", kind: "vocab", pos: "noun" },
   { id: "kappu", kana: "カップ", romaji: "kappu", meaningEn: "cup", emoji: "🥤", fromModule: "m21", kind: "vocab", pos: "noun" },
   { id: "karendaa", kana: "カレンダー", romaji: "karendaa", meaningEn: "calendar", emoji: "📅", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "karee", kana: "カレー", romaji: "karee", meaningEn: "curry", emoji: "🍛", fromModule: "m22", kind: "vocab", pos: "noun" },
@@ -588,7 +588,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sengetsu", kana: "せんげつ", kanji: "先月", romaji: "sengetsu", meaningEn: "last month", fromModule: "m11", kind: "vocab", blocked: true, note: "abstract time reference; taught by m11 vocab pack 2026-07-29 (B067); was m10", pos: "noun" },
   { id: "senshuu", kana: "せんしゅう", kanji: "先週", romaji: "senshuu", meaningEn: "last week", fromModule: "m11", kind: "vocab", blocked: true, note: "temporal abstraction; taught by m11 vocab pack 2026-07-29 (B067); was m10", pos: "noun" },
   { id: "hairu", kana: "はいる", kanji: "入る", romaji: "hairu", meaningEn: "to enter, to contain", emoji: "🚪", fromModule: "m16", kind: "vocab", note: "door as entering cue", pos: "verb", conjugation: { class: "godan", entryId: "hairu" } },
-  { id: "ireru", kana: "いれる", kanji: "入れる", romaji: "ireru", meaningEn: "to put in", emoji: "📥", fromModule: "future", kind: "vocab", note: "inbox tray = put in", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "ireru", kana: "いれる", kanji: "入れる", romaji: "ireru", meaningEn: "to put in", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with はいる (m16) — blocked: 📥 cannot say whether somebody put the thing in", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "iriguchi", kana: "いりぐち", kanji: "入口", romaji: "iriguchi", meaningEn: "entrance", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door + kanji 入", pos: "noun" },
   { id: "zenbu", kana: "ぜんぶ", kanji: "全部", romaji: "zenbu", meaningEn: "all, everything", fromModule: "m29", introducedByLessonId: "ja-m29-2-2", kind: "vocab", blocked: true, note: "quantifier abstract; upgraded from future 2026-07-16 (m29 plain-form pilot)", pos: "adverb" },
   { id: "yattsu", kana: "やっつ", kanji: "八つ", romaji: "yattsu", meaningEn: "eight", emoji: "8️⃣", fromModule: "future", kind: "vocab", pos: "number" },
@@ -600,8 +600,8 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tsumetai", kana: "つめたい", kanji: "冷たい", romaji: "tsumetai", meaningEn: "cold to the touch", emoji: "🧊", fromModule: "m14", kind: "vocab", note: "ice cube; taught by m14 vocab pack 2026-07-29 (B067); was m8. Object-cold — keep distinct from さむい (weather-cold, m16 kara card)", pos: "adjective", conjugation: { class: "i-adj", entryId: "tsumetai" } },
   { id: "reizouko", kana: "れいぞうこ", kanji: "冷蔵庫", romaji: "reizouko", meaningEn: "refrigerator", emoji: "🧊", fromModule: "future", kind: "vocab", note: "ice cube as cold-storage proxy", pos: "noun" },
   { id: "dekakeru", kana: "でかける", kanji: "出かける", romaji: "dekakeru", meaningEn: "to go out", emoji: "🚶", fromModule: "m17", kind: "vocab", note: "person walking", pos: "verb", conjugation: { class: "ichidan", entryId: "dekakeru" } },
-  { id: "dasu", kana: "だす", kanji: "出す", romaji: "dasu", meaningEn: "to put out", emoji: "📤", fromModule: "future", kind: "vocab", note: "outbox tray as put-out cue", pos: "verb", conjugation: { class: "godan" } },
-  { id: "deru", kana: "でる", kanji: "出る", romaji: "deru", meaningEn: "to appear, to leave", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door — leave/exit", pos: "verb", conjugation: { class: "ichidan", entryId: "deru" } },
+  { id: "dasu", kana: "だす", kanji: "出す", romaji: "dasu", meaningEn: "to take out, to put out", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with でる — blocked, same reason", pos: "verb", conjugation: { class: "godan" } },
+  { id: "deru", kana: "でる", kanji: "出る", romaji: "deru", meaningEn: "to come out, to leave", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with だす — blocked: 🚪 is already ドア's and はいる's", pos: "verb", conjugation: { class: "ichidan", entryId: "deru" } },
   { id: "deguchi", kana: "でぐち", kanji: "出口", romaji: "deguchi", meaningEn: "exit", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door — paired w/ kanji 出", pos: "noun" },
   { id: "wakaru", kana: "わかる", kanji: "分かる", romaji: "wakaru", meaningEn: "to be understood", shortGloss: "to understand", emoji: "💡", fromModule: "future", kind: "vocab", blocked: true, note: "lightbulb already used for 電気; understanding too abstract. shortGloss uses the learner-facing sense so tiles sit consistently beside わからない 'don't understand' (m6 walk 2026-07-23)", pos: "verb", conjugation: { class: "godan", entryId: "wakaru" } },
   { id: "kiru-cut", kana: "きる", kanji: "切る", romaji: "kiru", meaningEn: "to cut", emoji: "✂️", fromModule: "future", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
@@ -680,7 +680,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "onnanoko", kana: "おんなのこ", kanji: "女の子", romaji: "onnanoko", meaningEn: "girl", emoji: "👧", fromModule: "m19", kind: "vocab", pos: "noun" },
   { id: "suki", kana: "すき", kanji: "好き", romaji: "suki", meaningEn: "likeable", emoji: "❤️", fromModule: "m13", kind: "vocab", blocked: true, note: "heart. fromModule re-homed m9 → m13 (2026-07-29, B067/B068): ja-m13-neo-7 introduces it — the legacy tag mismatched its live teaching module. blocked: the suki-kirai-no rule card IS the debut (m13 IR note), and ❤️ cannot cue 'likeable' against love-words", pos: "adjective", conjugation: { class: "na-adj", entryId: "suki" } },
   { id: "imouto", kana: "いもうと", kanji: "妹", romaji: "imouto", meaningEn: "(humble) younger sister", emoji: "👧", fromModule: "m19", kind: "vocab", note: "younger-girl approximation; sister relation context-dependent", pos: "noun" },
-  { id: "hajimaru", kana: "はじまる", kanji: "始まる", romaji: "hajimaru", meaningEn: "to begin", emoji: "▶️", fromModule: "future", kind: "vocab", note: "play button as start proxy", pos: "verb", conjugation: { class: "godan" } },
+  { id: "hajimaru", kana: "はじまる", kanji: "始まる", romaji: "hajimaru", meaningEn: "to begin, to start (of itself)", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with はじめる — blocked: a start is the same picture whoever started it", pos: "verb", conjugation: { class: "godan" } },
   { id: "iya", kana: "いや", kanji: "嫌", romaji: "iya", meaningEn: "unpleasant", emoji: "🤢", fromModule: "future", kind: "vocab", note: "disgust face = unpleasant", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "kirai", kana: "きらい", kanji: "嫌い", romaji: "kirai", meaningEn: "hate", emoji: "🙅", fromModule: "m13", kind: "vocab", blocked: true, note: "person gesturing no. fromModule re-homed m9 → m13 (2026-07-29, B067/B068): ja-m13-neo-7 introduces it — the legacy tag left it graded-but-never-unlockable. blocked: the suki-kirai-no rule card IS the debut (m13 IR note)", pos: "adjective", conjugation: { class: "na-adj", entryId: "kirai" } },
   { id: "kodomo", kana: "こども", kanji: "子供", romaji: "kodomo", meaningEn: "child", emoji: "🧒", fromModule: "m31", kind: "vocab", pos: "noun" },
@@ -794,8 +794,8 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "youfuku", kana: "ようふく", kanji: "洋服", romaji: "youfuku", meaningEn: "western-style clothes", emoji: "👔", fromModule: "future", kind: "vocab", note: "necktie/shirt", pos: "noun" },
   { id: "arau", kana: "あらう", kanji: "洗う", romaji: "arau", meaningEn: "to wash", emoji: "🧼", fromModule: "m13", kind: "vocab", blocked: true, note: "taught by m13 vocab pack 2026-07-29 (B067); was m16. blocked: 🧼 belongs to せっけん, taught in the same lesson", pos: "verb", conjugation: { class: "godan", entryId: "arau" } },
   { id: "sentaku", kana: "せんたく", kanji: "洗濯", romaji: "sentaku", meaningEn: "washing", emoji: "🧺", fromModule: "m16", kind: "vocab", note: "laundry basket", pos: "noun" },
-  { id: "kieru", kana: "きえる", kanji: "消える", romaji: "kieru", meaningEn: "to disappear", emoji: "💨", fromModule: "future", kind: "vocab", note: "puff = vanish", pos: "verb", conjugation: { class: "ichidan" } },
-  { id: "kesu", kana: "けす", kanji: "消す", romaji: "kesu", meaningEn: "to erase, to turn off power", emoji: "🧽", fromModule: "future", kind: "vocab", note: "sponge as erase proxy", pos: "verb", conjugation: { class: "godan", entryId: "kesu" } },
+  { id: "kieru", kana: "きえる", kanji: "消える", romaji: "kieru", meaningEn: "to go out, to go off", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with けす — blocked: 💨 already belongs to はやい/いそぐ/ふく", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "kesu", kana: "けす", kanji: "消す", romaji: "kesu", meaningEn: "to turn off, to switch off", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with きえる — blocked: 🧽 reads as erasing, not as switching off", pos: "verb", conjugation: { class: "godan", entryId: "kesu" } },
   { id: "suzushii", kana: "すずしい", kanji: "涼しい", romaji: "suzushii", meaningEn: "refreshing", emoji: "🍃", fromModule: "m18", kind: "vocab", note: "leaf in wind — cool/refreshing", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "watasu", kana: "わたす", kanji: "渡す", romaji: "watasu", meaningEn: "to hand over", emoji: "🤝", fromModule: "future", kind: "vocab", note: "handshake/handoff", pos: "verb", conjugation: { class: "godan" } },
   { id: "wataru", kana: "わたる", kanji: "渡る", romaji: "wataru", meaningEn: "to go across", emoji: "🚸", fromModule: "m32", kind: "vocab", note: "pedestrian crossing", pos: "verb", conjugation: { class: "godan", entryId: "wataru" } },
@@ -904,9 +904,9 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kinyoubi", kana: "きんようび", kanji: "金曜日", romaji: "kinyoubi", meaningEn: "Friday", fromModule: "m11", kind: "vocab", blocked: true, note: "day-of-week label; needs text; taught by m11 vocab pack 2026-07-29 (B067); was m12", pos: "noun" },
   { id: "nagai", kana: "ながい", kanji: "長い", romaji: "nagai", meaningEn: "long", emoji: "📏", fromModule: "m8", kind: "vocab", note: "ruler as length cue", pos: "adjective", conjugation: { class: "i-adj", entryId: "nagai" } },
   { id: "mon", kana: "もん", kanji: "門", romaji: "mon", meaningEn: "gate", emoji: "⛩️", fromModule: "future", kind: "vocab", note: "torii reads as Japanese gate", pos: "noun" },
-  { id: "shimaru", kana: "しまる", kanji: "閉まる", romaji: "shimaru", meaningEn: "to close, to be closed", fromModule: "future", kind: "vocab", blocked: true, note: "intransitive variant of 閉める — same physical event", pos: "verb", conjugation: { class: "godan" } },
+  { id: "shimaru", kana: "しまる", kanji: "閉まる", romaji: "shimaru", meaningEn: "to close (of itself), to shut", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with しめる (m14) — blocked: a shut door is the same picture whoever shut it", pos: "verb", conjugation: { class: "godan" } },
   { id: "shimeru", kana: "しめる", kanji: "閉める", romaji: "shimeru", meaningEn: "to close something", emoji: "🚪", fromModule: "m14", kind: "vocab", blocked: true, note: "door already used for 玄関; verb action not visualizable. Taught by m14 vocab pack 2026-07-29 (B067); fromModule was already m14", pos: "verb", conjugation: { class: "ichidan", entryId: "shimeru" } },
-  { id: "aku", kana: "あく", kanji: "開く", romaji: "aku", meaningEn: "to open, to become open", emoji: "🔓", fromModule: "future", kind: "vocab", note: "unlocked = becoming open", pos: "verb", conjugation: { class: "godan" } },
+  { id: "aku", kana: "あく", kanji: "開く", romaji: "aku", meaningEn: "to open (of itself), to come open", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with あける (m14) — blocked: 🔓 is already あける's and an open lock is the same picture whoever opened it", pos: "verb", conjugation: { class: "godan" } },
   { id: "akeru", kana: "あける", kanji: "開ける", romaji: "akeru", meaningEn: "to open", emoji: "🔓", fromModule: "m14", kind: "vocab", blocked: true, note: "taught by m14 vocab pack 2026-07-29 (B067); fromModule was already m14. blocked: an open padlock cannot cue 'open the door' honestly, and the pair debuts on the rule card with しめる", pos: "verb", conjugation: { class: "ichidan", entryId: "akeru" } },
   { id: "oriru", kana: "おりる", kanji: "降りる", romaji: "oriru", meaningEn: "to get off, to descend", emoji: "⬇️", fromModule: "m17", kind: "vocab", note: "down-arrow = descend", pos: "verb", conjugation: { class: "ichidan", entryId: "oriru" } },
   { id: "furu", kana: "ふる", kanji: "降る", romaji: "furu", meaningEn: "to fall, e.g. rain or snow", emoji: "🌧️", fromModule: "m25", kind: "vocab", blocked: true, note: "rain cloud as falling-rain cue — blocked because 🌧️ is あめ's picture and あめ is taught in the same module", pos: "verb", conjugation: { class: "godan" } },
@@ -1518,6 +1518,21 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tooru", kana: "とおる", kanji: "通る", romaji: "tooru", meaningEn: "to go along, to pass through", shortGloss: "pass through", fromModule: "m32", kind: "vocab", blocked: true, note: "blocked \u2014 a verb of passage has no honest glyph, and the nearest candidate reads as \u307f\u3061's road sign at thumbnail size", pos: "verb", conjugation: { class: "godan" } },
   { id: "gurai", kana: "ぐらい", romaji: "gurai", meaningEn: "about, approximately (of an amount)", shortGloss: "about", fromModule: "m32", kind: "vocab", blocked: true, note: "closed-class suffix \u2014 abstract, no referent a picture could name", pos: "particle" },
   { id: "goro", kana: "ごろ", romaji: "goro", meaningEn: "around (of a point in time)", shortGloss: "around", fromModule: "m32", kind: "vocab", blocked: true, note: "closed-class suffix; pairs with \u3050\u3089\u3044 and is separated from it by what it attaches to, not by meaning", pos: "particle" },
+
+  // ── m33 · Transitivity I (n4-04). Every PAIR VERB is `blocked`, and that is
+  //    the module's central authoring decision rather than a shortage of
+  //    glyphs: あく and あける describe the same visible event and differ only
+  //    in whether a person is behind it, so any picture that named one would
+  //    name the other. An image debut for either half would teach that the two
+  //    are interchangeable — the single error the module exists to prevent.
+  //    The three nouns carry the pictures instead. See ir/m33.ir.yaml.
+  { id: "tomeru", kana: "とめる", kanji: "止める", romaji: "tomeru", meaningEn: "to stop (something), to park", shortGloss: "stop (something)", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with とまる (m32) — blocked: a halted car is the same picture either way, and 🛑 is already とまる's", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "kimaru", kana: "きまる", kanji: "決まる", romaji: "kimaru", meaningEn: "to be decided, to be settled", shortGloss: "be settled", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with きめる (m30) — blocked: a settled plan has no referent a picture could name", pos: "verb", conjugation: { class: "godan" } },
+  { id: "hajimeru", kana: "はじめる", kanji: "始める", romaji: "hajimeru", meaningEn: "to begin something, to start something", shortGloss: "start (something)", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with はじまる — blocked: ▶️ is already はじまる's and the two are the same picture", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "ochiru", kana: "おちる", kanji: "落ちる", romaji: "ochiru", meaningEn: "to fall, to drop (of itself)", shortGloss: "fall", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with おとす — blocked: a falling object is the same picture whoever let go of it", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "otosu", kana: "おとす", kanji: "落とす", romaji: "otosu", meaningEn: "to drop something, to let something fall", shortGloss: "drop (something)", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with おちる — blocked, same reason", pos: "verb", conjugation: { class: "godan" } },
+  { id: "kaigi", kana: "かいぎ", kanji: "会議", romaji: "kaigi", meaningEn: "a meeting", shortGloss: "meeting", emoji: "\u{1f4cb}", fromModule: "m33", kind: "vocab", note: "clipboard — an agenda, the one thing a meeting always has", pos: "noun" },
+  { id: "hikidashi", kana: "ひきだし", kanji: "引き出し", romaji: "hikidashi", meaningEn: "a drawer", shortGloss: "drawer", emoji: "\u{1f5c4}\ufe0f", fromModule: "m33", kind: "vocab", note: "file cabinet — the m33 carrier noun: a drawer opens, shuts, and has things put in and taken out of it, so one word carries four of the nine pairs", pos: "noun" },
 
 ];
 /**

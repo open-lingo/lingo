@@ -153,21 +153,25 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 = n4-01, m31 = n4-02 and m32 = n4-03, all authored", () => {
+  it("N4 tier is m30 = n4-01 .. m33 = n4-04, all authored", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33"]);
     // Spec A1 retired the July pilot and left a locked, lesson-less station;
     // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
-    // place (2026-08-14), and m31 = n4-02 「Give & receive I:
-    // あげる・くれる・もらう」 followed on 2026-08-15, and m32 = n4-03
-    // 「Conditionals I: たら (と as the contrast)」 on 2026-08-18. Shape is
-    // inv 25 for all three: 13 lessons = 9 teaching + 3 review + 1 challenge,
-    // challenge LAST. A tile may also carry story rows (m32 does) — those are
-    // reading attachments, not lessons, so they are filtered out first.
+    // place (2026-08-14), m31 = n4-02 「Give & receive I:
+    // あげる・くれる・もらう」 followed on 2026-08-15, m32 = n4-03
+    // 「Conditionals I: たら (と as the contrast)」 on 2026-08-18, and m33 =
+    // n4-04 「Transitivity I: 自動詞/他動詞 — が vs を」 on 2026-08-19. Shape is
+    // inv 25 for all four: 3 review lessons and challenge LAST. m30-m32 run 13
+    // lessons (9 teaching); m33 runs 14 (10 teaching) because nine transitivity
+    // pairs need a fourth teaching block — inv 25's ceiling is 15. A tile may
+    // also carry story rows (m32 does) — reading attachments, not lessons, so
+    // they are filtered out first.
+    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14 };
     for (const m of n4) {
       const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
-      expect(lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(lessons, `${m.id} lesson count`).toHaveLength(LESSON_COUNT[m.id]);
       expect(
         lessons.filter((l) => /-review(-\d+)?$/.test(l.id)),
         `${m.id} review count`,

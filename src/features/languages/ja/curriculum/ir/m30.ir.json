@@ -219,8 +219,8 @@
           "en": "It's difficult, but I'll keep the class going and see."
         },
         {
-          "ja": "けっかを じしょで しらべてみた。",
-          "en": "I looked the result up in the dictionary and saw."
+          "ja": "ことばを じしょで しらべてみた。",
+          "en": "I looked the word up in the dictionary and saw."
         }
       ],
       "antiPattern": {
@@ -1201,8 +1201,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "けっかを じしょで しらべてみた。",
-          "en": "I looked the result up in the dictionary and saw",
+          "ja": "ことばを じしょで しらべてみた。",
+          "en": "I looked the word up in the dictionary and saw",
           "exercises": [
             "te-form",
             "ta-form",
@@ -1244,7 +1244,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "けっかが わからないから じしょで ",
+          "stem": "ことばが わからないから じしょで ",
           "tail": "。",
           "answer": "しらべてみる",
           "options": [
@@ -1252,7 +1252,7 @@
             "きめてみる",
             "つづけてみる"
           ],
-          "en": "I don't know the result, so I'll look it up in the dictionary and see",
+          "en": "I don't know the word, so I'll look it up in the dictionary and see",
           "explanation": "a dictionary is where you look something up, so the て-form belongs to しらべる. きめてみる decides something rather than finding it out, and つづけてみる keeps going with something already started."
         },
         {
@@ -1312,8 +1312,8 @@
         },
         {
           "kind": "challenge",
-          "ja": "けっかが わからないけど じかんが ないから あした じしょで しらべてみる。",
-          "en": "I don't know the result, but I haven't got time, so I'll look it up in the dictionary tomorrow and see",
+          "ja": "ことばが わからないけど じかんが ないから あした じしょで しらべてみる。",
+          "en": "I don't know the word, but I haven't got time, so I'll look it up in the dictionary tomorrow and see",
           "combines": [
             "te-form",
             "te-miru",
@@ -1433,8 +1433,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "けっかを じしょで しらべてみた。",
-          "en": "I looked the result up in the dictionary and saw",
+          "ja": "ことばを じしょで しらべてみた。",
+          "en": "I looked the word up in the dictionary and saw",
           "exercises": [
             "te-form",
             "ta-form"
@@ -1490,7 +1490,7 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "この ことばの けっかは わかった？",
+              "ja": "この ことばの いみは わかった？",
               "en": "Did you work out what this word means?"
             },
             {

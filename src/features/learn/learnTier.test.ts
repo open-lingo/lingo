@@ -78,21 +78,25 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 line is m30 + m31 + m32, all authored and available", () => {
+  it("real ja n4 line is m30 + m31 + m32 + m33, all authored and available", () => {
     // The July m30 pilot was retired 2026-08-09 (spec A1); m30 = n4-01
-    // 「て + helper I」 was authored 2026-08-14 (spec A3) and m31 = n4-02
-    // 「Give & receive I」 on 2026-08-15, and m32 = n4-03 「Conditionals I:
-    // たら (と as the contrast)」 on 2026-08-18. All three are REAL stations:
-    // 13 lessons each, no comingSoon flag. The rest of the tier (m33-m51) is
-    // unauthored and not on the map yet. m32's tile also carries a story row,
-    // which is not a lesson — hence the kind filter below.
+    // 「て + helper I」 was authored 2026-08-14 (spec A3), m31 = n4-02
+    // 「Give & receive I」 on 2026-08-15, m32 = n4-03 「Conditionals I:
+    // たら (と as the contrast)」 on 2026-08-18, and m33 = n4-04
+    // 「Transitivity I: 自動詞/他動詞 — が vs を」 on 2026-08-19. All four are
+    // REAL stations: no comingSoon flag, every lesson available. m33 runs 14
+    // lessons rather than 13 — nine transitivity pairs need a fourth teaching
+    // block — which inv 25 allows (hard floor 12, hard ceiling 15). The rest
+    // of the tier (m34-m51) is unauthored and not on the map yet. Tiles may
+    // also carry a story row, which is not a lesson — hence the kind filter.
+    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14 };
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33"]);
     for (const m of n4) {
       const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
-      expect(lessons, `${m.id} lesson count`).toHaveLength(13);
+      expect(lessons, `${m.id} lesson count`).toHaveLength(LESSON_COUNT[m.id]);
       expect(m.lessons.every((l) => l.status === "available"), `${m.id}`).toBe(true);
     }
   });

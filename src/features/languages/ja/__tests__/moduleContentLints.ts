@@ -684,6 +684,14 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // the measurement ((81-3)/88 = .886), per this block's own rule. NEVER
   // lowered.
   m31: 0.88,
+  // m32 is a FIRST MEASUREMENT — spine unit n4-03, newly authored, no archived
+  // value to inherit. Measured on the finished neo module at 96/105 = .914.
+  // This entry closes a frozen-list gap the 2026-08-19 audit flagged: the map
+  // stopped at m31 while m32 was live on disk, so m32 was exempt from its own
+  // complexity ratchet — the exact defect class this block's own m22/m25/m26
+  // recalibration notes document. Floor set three sentences below the
+  // measurement ((96-3)/105 = .886), per this block's own rule. NEVER lowered.
+  m32: 0.88,
 };
 
 const CONNECTIVES = /(から|ので|けど|たら|とき|まえに|あとで|ながら)/;

@@ -644,7 +644,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "けして",
       tai: "けしたい",
     },
-    introducedAtModule: 99,
+    introducedAtModule: 33,
   },
 
   // ═══ M14 verbs ══════════════════════════════════════════════════════
@@ -913,7 +913,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "でて",
       tai: "でたい",
     },
-    introducedAtModule: 99,
+    introducedAtModule: 33,
   },
 
   // Godan
@@ -1075,7 +1075,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
       tai: "とまりたい",
     },
     // untaught today -- parked out of every pool; vocab pack 9 (m19, wave plan) teaches とまる: restore to 19 with that pack
-    introducedAtModule: 99,
+    introducedAtModule: 32,
   },
 ];
 

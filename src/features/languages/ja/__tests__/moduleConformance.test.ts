@@ -196,7 +196,12 @@ describe("JA module conformance — attribution invariants", () => {
       const n = parseInt(p.module.replace("m", ""), 10);
       return (
         Number.isFinite(n) &&
-        n <= 7 &&
+        // Was `n <= 7` while the title said m27 — the gate ran 20 modules
+        // narrower than it advertised (frozen-list class, caught by the
+        // 2026-08-19 audit). The two planned kanji sets inside the widened
+        // range were already in GRAMMAR_PLANNED_EXEMPTIONS, so widening it
+        // fails nothing today; it just makes the advertisement true.
+        n <= 27 &&
         p.status === "planned" &&
         !GRAMMAR_PLANNED_EXEMPTIONS.has(p.id)
       );

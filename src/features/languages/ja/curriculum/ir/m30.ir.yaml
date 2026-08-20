@@ -344,7 +344,7 @@ grammarPoints:
       - { ja: "わからないから えいごで しらべてみる。", en: "I don't understand, so I'll look it up in English and see." }
       - { ja: "あした きめてみる。", en: "I'll have a go at deciding tomorrow." }
       - { ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll keep the class going and see." }
-      - { ja: "けっかを じしょで しらべてみた。", en: "I looked the result up in the dictionary and saw." }
+      - { ja: "ことばを じしょで しらべてみた。", en: "I looked the word up in the dictionary and saw." }
     antiPattern: { ja: "じしょで しらべるみる。", why: "a る-verb drops る and adds て before a helper can attach — しらべる has to become しらべて first: じしょで しらべてみる。" }
 
   - id: te-oku
@@ -561,11 +561,11 @@ lessons:
       - { kind: kanji, kana: じしょ, kanji: 辞書, exercises: [te-form] }
       - { kind: sentence, ja: "あした きめてみる。", en: "I'll have a go at deciding tomorrow", exercises: [te-form, te-miru, ni-time], mode: build }
       - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll keep the class going and see", exercises: [te-form, te-miru, kedo], mode: build }
-      - { kind: sentence, ja: "けっかを じしょで しらべてみた。", en: "I looked the result up in the dictionary and saw", exercises: [te-form, ta-form, te-miru], mode: build }
+      - { kind: sentence, ja: "ことばを じしょで しらべてみた。", en: "I looked the word up in the dictionary and saw", exercises: [te-form, ta-form, te-miru], mode: build }
       - { kind: sentence, ja: "じかんが ないから あした きめてみる。", en: "I haven't got time, so I'll have a go at deciding tomorrow", exercises: [te-form, te-miru, nai-existence], mode: listening }
       - { kind: sentence, ja: "けっかが わからないから せんせいに きいてみる。", en: "I don't know the result, so I'll ask the teacher and see", exercises: [te-form, te-miru, kara-because], mode: build }
       - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll look it up in the dictionary and see", exercises: [te-form, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "けっかが わからないから じしょで ", tail: "。", answer: "しらべてみる", options: ["しらべてみる", "きめてみる", "つづけてみる"], en: "I don't know the result, so I'll look it up in the dictionary and see", explanation: "a dictionary is where you look something up, so the て-form belongs to しらべる. きめてみる decides something rather than finding it out, and つづけてみる keeps going with something already started." }
+      - { kind: particle-cloze, stem: "ことばが わからないから じしょで ", tail: "。", answer: "しらべてみる", options: ["しらべてみる", "きめてみる", "つづけてみる"], en: "I don't know the word, so I'll look it up in the dictionary and see", explanation: "a dictionary is where you look something up, so the て-form belongs to しらべる. きめてみる decides something rather than finding it out, and つづけてみる keeps going with something already started." }
       - { kind: listening-comp, audio: "むずかしいけど えいごの じゅぎょうを つづけてみる。", answer: "It's difficult, but I'll keep the English class going and see", distractors: ["It's difficult, so I'm not keeping the English class going", "It's easy, so I'll keep the English class going", "It's difficult, but I'll keep the music class going and see"], exercises: [te-form, te-miru] }
       - { kind: listening-comp, audio: "じかんが ないから あした しらべてみる。", answer: "I haven't got time, so I'll look it up tomorrow and see", distractors: ["I've got time, so I'll look it up today", "I haven't got time, so I'll have a go at deciding tomorrow", "I haven't got time, so I'm not looking it up"], exercises: [te-form, nai-existence] }
       - kind: dialogue
@@ -574,7 +574,7 @@ lessons:
           - { speaker: "Ken", ja: "わからない。じしょで しらべてみる。", en: "I don't know. I'll look it up in the dictionary and see." }
         questions:
           - { q: "What does Ken say he will do?", options: ["Look it up in the dictionary", "Ask the teacher", "Keep the class going", "Decide tomorrow"], answer: "Look it up in the dictionary" }
-      - { kind: challenge, ja: "けっかが わからないけど じかんが ないから あした じしょで しらべてみる。", en: "I don't know the result, but I haven't got time, so I'll look it up in the dictionary tomorrow and see", combines: [te-form, te-miru, kedo, nai-existence, kara-because], mode: build }
+      - { kind: challenge, ja: "ことばが わからないけど じかんが ないから あした じしょで しらべてみる。", en: "I don't know the word, but I haven't got time, so I'll look it up in the dictionary tomorrow and see", combines: [te-form, te-miru, kedo, nai-existence, kara-because], mode: build }
     reviewPool: [じしょ, ことば, えいご, せんせい, じかん, りょこう, じゅぎょう, りょうり, コーヒー, いみ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -592,14 +592,14 @@ lessons:
       - { kind: particle-cloze, stem: "じかんが あるから としょかんに ", tail: "。", answer: "いってみる", options: ["いってみる", "いってみた", "たべてみる"], en: "I've got time, so I'll go to the library and see", explanation: "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library." }
       - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll have some coffee for a start and see", exercises: [te-miru, wo-object], mode: build }
       - { kind: listening-comp, audio: "おもしろい りょうりを たべてみた。", answer: "I gave an interesting dish a try", distractors: ["I'll give an interesting dish a try", "I didn't give the interesting dish a try", "I gave an interesting drink a try"], exercises: [ta-form, te-miru] }
-      - { kind: sentence, ja: "けっかを じしょで しらべてみた。", en: "I looked the result up in the dictionary and saw", exercises: [te-form, ta-form], mode: build }
+      - { kind: sentence, ja: "ことばを じしょで しらべてみた。", en: "I looked the word up in the dictionary and saw", exercises: [te-form, ta-form], mode: build }
       - { kind: sentence, ja: "この カメラを つかってみる。", en: "I'll give this camera a try", exercises: [te-miru, wo-object], mode: translate }
       - { kind: listening-comp, audio: "せんせいに きいてみたけど だめだった。", answer: "I asked the teacher and saw, but it was no good", distractors: ["I asked the teacher and saw, and it was fine", "I didn't ask the teacher", "I asked my older brother and saw, but it was no good"], exercises: [ta-form, kedo] }
       - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll give the river a swim", exercises: [te-miru, kara-because], mode: build }
       - { kind: sentence, ja: "あした きめてみる。", en: "I'll have a go at deciding tomorrow", exercises: [te-form, te-miru], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "この ことばの けっかは わかった？", en: "Did you work out what this word means?" }
+          - { speaker: "Mika", ja: "この ことばの いみは わかった？", en: "Did you work out what this word means?" }
           - { speaker: "Tom", ja: "ううん。じしょで しらべてみる。", en: "Nope. I'll look it up in the dictionary and see." }
         questions:
           - { q: "What does Tom say he will do?", options: ["Look it up in the dictionary", "Ask the teacher", "Decide today", "Go to the library"], answer: "Look it up in the dictionary" }

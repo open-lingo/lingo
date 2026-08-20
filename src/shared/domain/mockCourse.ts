@@ -10,6 +10,7 @@ import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiragan
 import { KO_M1_ROWS } from "@/features/languages/ko/curriculum/m1-rows";
 import { KO_M2_ROWS } from "@/features/languages/ko/curriculum/m2";
 import { buildSpanishCourse } from "@/features/languages/es/curriculum";
+import { buildFrenchCourse } from "@/features/languages/fr/curriculum";
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone
@@ -1203,6 +1204,30 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#0ea5e9", to: "#1e3a8a" },
         },
+        {
+          id: "m33",
+          title: "Transitivity I — 自動詞/他動詞, が vs を",
+          eyebrow: "Module 33 · JLPT N4",
+          summary: "The wall everyone hits, taken down one brick at a time. Japanese has two verbs where English has one: ドアが あく is the door opening, ドアを あける is you opening it. They are not two forms of one word — they are two different verbs, and the particle in front tells you which one you are looking at every single time. Nine pairs, and five of them you already own half of. Then the payoff: 自動詞 + ている, the shape that lets you walk into a room and say what state you found it in.",
+          tier: "n4",
+          lessons: [
+            { id: "ja-m33-neo-1", title: "「ドアが あく」と「ドアを あける」 — two verbs, one door", status: "available" as const },
+            { id: "ja-m33-neo-2", title: "「まどが しまる」と「まどを しめる」 — read the particle, both ways", status: "available" as const },
+            { id: "ja-m33-neo-3", title: "「へやに はいる」と「かばんに ほんを いれる」 — the doer arrives", status: "available" as const },
+            { id: "ja-m33-neo-review-1", title: "Review — three pairs, one question", status: "available" as const },
+            { id: "ja-m33-neo-5", title: "「でんしゃが とまる」と「くるまを とめる」 — who stopped it", status: "available" as const },
+            { id: "ja-m33-neo-6", title: "「じかんが きまる」と「じかんを きめる」 — settled, by nobody in particular", status: "available" as const },
+            { id: "ja-m33-neo-7", title: "「でんきを けす」と「でんきが きえる」 — both halves new", status: "available" as const },
+            { id: "ja-m33-neo-review-2", title: "Review — six pairs, and the same question every time", status: "available" as const },
+            { id: "ja-m33-neo-9", title: "「ドアが あいている」 — the state a change left behind", status: "available" as const },
+            { id: "ja-m33-neo-10", title: "「えいがが はじまる」と「えいがを はじめる」 — three more, at speed", status: "available" as const },
+            { id: "ja-m33-neo-11", title: "「でんしゃが でる」「さいふが おちる」 — the last two, at a glance", status: "available" as const },
+            { id: "ja-m33-neo-review-3", title: "Review — the states, and the last three pairs", status: "available" as const },
+            { id: "ja-m33-neo-13", title: "Nine pairs, mixed — which verb, which particle?", status: "available" as const },
+            { id: "ja-m33-neo-challenge", title: "Challenge — a room, a meeting and a train", status: "available" as const },
+          ],
+          accent: { from: "#f59e0b", to: "#b45309" },
+        },
       ],
       sideQuests,
     };
@@ -1879,6 +1904,23 @@ export function getMockCourse(languageId: string): Course {
       title: `${langName} for Beginners`,
       languageId,
       modules: buildSpanishCourse(),
+    };
+  }
+
+  const isFrench = languageId === "fr";
+
+  if (isFrench) {
+    // FR pathway is DERIVED by globbing fr/curriculum/m*.ts — see
+    // fr/curriculum/index.ts. ZERO modules today, which is the honest state:
+    // no French module has been authored. The generic placeholder below must
+    // never serve fr — it fabricates three English-titled modules and injects
+    // an alphabet-trainer node, and Latin script needs no alphabet trainer
+    // (fr/module.ts header).
+    return {
+      id: "mock-1",
+      title: `${langName} for Beginners`,
+      languageId,
+      modules: buildFrenchCourse(),
     };
   }
 

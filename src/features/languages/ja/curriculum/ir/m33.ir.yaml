@@ -1,0 +1,801 @@
+module: m33
+title: "Transitivity I: 自動詞/他動詞 — が vs を"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32]
+
+priorGrammarPoints: [ka-question, no-possession, kore-sore-are-dore,
+                     kono-sono-ano-dono, koko-soko-asoko, location-qa,
+                     ga-existence, arimasu, imasu,
+                     wo-object, ni-location, ni-time, de-action, e-direction,
+                     masu-present, masu-past, masu-negative, masu-past-negative,
+                     kara-time, made-until, made-ni,
+                     i-adj-present, i-adj-negative, i-adj-past, i-adj-past-negative,
+                     na-adj-present, na-adj-negative, na-adj-past,
+                     v-tai, ga-hoshii, suki-kirai-no, no-ga-suki, mada-mou,
+                     node-because, kedo, te-iru, te-kara, kara-because,
+                     te-kudasai, te-wa-ikemasen, te-mo-ii, kudasai, naide-kudasai,
+                     te-form, te-miru, te-oku, mae-ni, nai-form,
+                     to-omoimasu, to-quotation, ni-iku, ga-itai, frequency-adverbs,
+                     toki, koto-ga-aru, nai-existence, tsumori-desu,
+                     numbers-1-10, numbers-11-99, numbers-100-10000,
+                     counter-ji, counter-fun, counter-tsu, counter-ko,
+                     counter-sai, counter-nin, counter-mai, counter-hai, counter-hon,
+                     mo-also, dare, ikura-price, dictionary-form,
+                     ya-incomplete-list, to-and, tari-tari-suru, family-register,
+                     kanji-set-1, kanji-set-2, kanji-set-3, ta-form, wa-topic,
+                     potential-form, potential-rareru, dekiru, mieru-kikoeru,
+                     mashou, masenka, no-ga-jouzu, no-ga-heta, deshou,
+                     ichiban-superlative, yori-comparison,
+                     desu-copula, janai-desu, yo-emphasis, ne-agreement,
+                     n-desu, sugiru, ku-ni-naru, nakereba-naranai, hou-ga-ii,
+                     ageru, kureru, morau, ni-recipient, kara-origin,
+                     tara, to-conditional, tara-dou, gurai-goro]
+
+
+
+notes: |
+  m33 = n4-04, the FOURTH module of the N4 tier. `docs/spine-n4.md` §`n4-04`
+  is the source of truth, and this module deviates from it in three recorded
+  places (pair set, vocabulary count, and one dropped word) — see DEVIATIONS.
+
+  THE PAYLOAD — three facts, nine pairs, and a particle that does the work.
+
+  1. **Every Japanese verb is one or the other.** A verb either describes
+     something happening (自動詞) or somebody doing it (他動詞). There is no
+     third box, and no verb sits in both.
+  2. **A "pair" is TWO DIFFERENT VERBS, not a conjugation.** This is the one
+     the learner has to be told outright, because あく and あける look like
+     inflections of each other and are not. Nothing is derived from anything;
+     they are two entries in the dictionary that happen to be about the same
+     event seen from two sides.
+  3. **The PARTICLE is the tell, and it is mechanical.** 自動詞 takes が,
+     他動詞 takes を. ドアが あく / ドアを あける. That is the whole diagnostic,
+     and it is why the module is drillable at all: the learner is never asked
+     to feel a difference, only to read one off the sentence.
+
+  SHAPE — 14 lessons = 10 teaching + 3 review + 1 challenge, reviews at
+  4/8/12, a nine-pair diagnostic at L13 and the challenge LAST (inv 25). The
+  extra teaching lesson over m32's 13 is the resultative (L9), which the spine
+  asks for as a beat and which is really a second grammar point riding a
+  module that already has one — it earns its own slot rather than being
+  crammed into a pair lesson. NO katakana rows (that programme ended at m11),
+  NO `kind: register` beats (m10 + m29 only), NO scene (see DEVIATIONS).
+
+  THE PAIR SET, AND WHY IT IS SPLIT IN THREE (Spencer 2026-08-19).
+  The spine names six pairs. Spencer's instruction was to teach as many as sit
+  comfortably, split well, and give the last three a lighter pass that the NEXT
+  module re-cements in sentence examples. So: NINE pairs, in three blocks.
+
+  | block | lessons | pairs | anchor already taught |
+  |---|---|---|---|
+  | A — the rule | L1–L3 (R at L4) | あく/あける · しまる/しめる · はいる/いれる | あける m14 · しめる m14 · はいる m16 |
+  | B — the drill | L5–L7 (R at L8) | とまる/とめる · きまる/きめる · きえる/けす | とまる m32 · きめる m30 · — |
+  | — the payoff | L9 | (no new pair) 自動詞 + ている = resultative | m14's unfinished half |
+  | C — the glance | L10–L11 (R at L12) | はじまる/はじめる · でる/だす · おちる/おとす | — |
+  | the assessment | L13 | all nine, mixed, no new words | |
+
+  Blocks A and B are TAUGHT: rule card, both particles drilled, resultative,
+  review. Block C is GLANCED — each pair gets one lesson at recognition weight
+  (a rule card that names all three at once, builds, one listening comp, no
+  new resultative work) and is then RE-CEMENTED IN m34's sentence examples,
+  which is where Spencer wants the second rep to land. m34 is the volitional
+  module and is by design a breather with no heavy new machinery, so it has
+  the budget: 「えいがが はじまる まえに、でんきを けそう」 costs m34 nothing and
+  buys block C its spacing.
+
+  Five of the nine pairs arrive with a half the learner already owns, which is
+  the point of choosing them: the new word is HALF a pair, not a whole one, and
+  the lesson can spend its attention on the particle instead of on vocabulary.
+  That is also why the module ships ~23 new atoms against the spine's 32 — the
+  spine's own risk note says the fix for this module is FEWER things, not more
+  explanation, and the carrier nouns it lists (でんき, かぎ, きょうしつ, おと,
+  まど, ドア, くるま, でんしゃ) are already taught, so the budget did not need
+  spending twice.
+
+  DEVIATIONS + DECISIONS, per the RUN-PLAN "decide and document" rule:
+
+  - **TWO INVENTED GRAMMAR-POINT IDS — `jidoushi-tadoushi` and
+    `te-iru-resultative` — BECAUSE THE N4 TIER STILL HAS NO REGISTRY.** m30,
+    m31 and m32 each recorded this as an outstanding tier prerequisite and it
+    has still not landed; `n5-grammar-points.json` holds 103 points and not one
+    is an N4 item. `te-iru-resultative` is deliberately NOT named `te-iru`:
+    `te-iru` is a shipped N5 point (m14) and a learner meeting both ids in one
+    deck would be told the resultative and the progressive are the same rule,
+    which is the exact confusion m14 spent a module separating.
+
+  - **つく / つける IS DROPPED, and this upholds m32's ruling rather than
+    overriding it.** The spine's `must` list names the pair. m32 recorded that
+    it teaches つく as 着く ("to arrive", 🛬, m23) and that m33 should therefore
+    not build on it. That reasoning survives inspection: 点く is a different
+    verb wearing the same kana, and introducing a homograph split inside the
+    tier's highest-attrition module is carrying two axes at once. The
+    consequence is that m33 can turn a light OFF (でんきを けす) and watch one go
+    out (でんきが きえる) but cannot turn one on. That is an accepted hole, not
+    an oversight: it is one verb, it is recorded here, and it belongs in a
+    module that can afford to separate 着く from 点く.
+
+  - **エアコン AND スイッチ ARE DROPPED from the spine's `prefer` list.** Both
+    exist only to serve つく/つける. With that pair gone they are two katakana
+    nouns with no grammar attached, in a module whose stated failure mode is
+    carrying too much. でんき and テレビ carry the same sentences and are owned.
+
+  - **きゅうに STAYS DROPPED.** m32 dropped it because the course teaches きゅう
+    as 九 ("nine", m9) and 「きゅうに とまる」 reads as "stops at nine o'clock" to
+    a learner whose only きゅう is the numeral. Nothing about m33 changes that.
+
+  - **きまる / きめる IS ADOPTED IN PLACE OF A SPINE PAIR, and it pays a debt.**
+    きめる is taught at m30 and is one of the 25 atoms in the whole course that
+    are graded exactly ONCE — a shape D2 blocks from writing to FSRS, so it
+    reaches the deck by D4 seeding and is never asked again in authored
+    content. A later module drilling it is precisely what turns that from debt
+    into coverage, and きまる/きめる is a genuine, high-frequency pair whose
+    transitive half costs nothing. m30's other three once-graded words
+    (しらべる, つづける, おくる) ride this module's review pools for the same
+    reason.
+
+  - **NO SCENE, and the reason is specific.** m33 looks like it wants one, and
+    the shape it wants is real: the same object, drawn twice, once with an
+    agent arrow and を and once without and が. None of the five shipped scene
+    kinds draws that. `transfer` is the near miss and it is a trap — it is
+    hardwired to two PEOPLE either side of an うち/そと boundary, and reusing it
+    would tell the learner that transitivity is about something moving between
+    two parties, which is the wrong fact and an expensive one to unlearn
+    before m40's passive. Recorded as a genuine scene candidate ("agent
+    frame"), not built here.
+
+  - **EVERY PAIR VERB IS `imageable: false`, ON PURPOSE.** A `word_image_mcq`
+    asks "which word is this picture?", and no picture distinguishes あく from
+    あける: they describe the same visible event and differ only in whether a
+    person is behind it. Shipping an image debut for either half would teach
+    that the two are interchangeable — the single error this module exists to
+    prevent. The image budget therefore goes where images are honest: the three
+    new carrier nouns, each of which is a THING the pairs happen to —
+    エレベーター 🛗, ひきだし 🗄️, かいぎ 📋. Three image debuts. Inv 44 sets no
+    minimum for the type, precisely because its count is a function of what the
+    module introduces, and this module's new words are overwhelmingly verbs
+    whose pictures would lie.
+
+    エレベーター is not a new word to the atom table — it carries a
+    `courseAtoms` row tagged m16 and appears in NO lesson in any module. It is
+    one of the ~116 orphans R16 covers, and teaching it here discharges one of
+    them rather than adding to the pile. 「エレベーターの ドアが あく」 is also
+    the single most everyday あく sentence in the language.
+
+  - **`particle_cloze` IS THE MODULE'S SIGNATURE STEP AND THAT IS LEGAL.**
+    Inv 5 allows it in the lesson that introduces the point and in same-module
+    reviews. が-or-を IS the point here, so the cloze is not a cheap tap — it is
+    the assessment the spine asks for ("given a sentence, which verb? given a
+    verb, which particle?"). Per inv 5 it still THINS OUT: heavy in L1–L2,
+    present in the block B lessons, and by block C the diagnostic is carried by
+    builds where the learner produces the particle instead of picking it.
+
+  - **NO NEGATIVES, NO PAST FORMS, AND NO たら OF THE MODULE'S OWN VERBS.**
+    Carried straight from m32's hazard list: an unregistered inflection of a
+    brand-new verb does not tokenize (おして → お + して), and しまった collides
+    with てしまう besides. Every module-new verb appears in dictionary form, or
+    in a て-form that is registered here as its own atom. Older verbs conjugate
+    freely.
+
+
+grammarPoints:
+  # NOTE ON RULE-CARD VOCABULARY (inherited from m32, and it bites harder here).
+  # A `kind: rule` beat compiles to a PINNED step, so any word a card names has
+  # already "appeared" before that lesson's picture MCQ can run — which breaks
+  # the image-debut invariant for that word (inv 30). Every card below is
+  # therefore written against words already met AT THE LESSON IT SITS IN, and
+  # in particular no card names エレベーター, ひきだし or かいぎ, the module's
+  # three image debuts. The constraint is easy to satisfy here because the
+  # cards argue from ドア and まど, which the learner has owned since m8.
+
+  - id: jidoushi-tadoushi
+    variant: shape
+    rule: "Japanese verbs come in two kinds. Some describe something HAPPENING — the door opens. Others describe somebody DOING it — I open the door. English uses \"open\" for both; Japanese uses two verbs. あく is the door opening, あける is you opening it. They are not two forms of one word — they are separate entries about the same event from two sides, the way English has \"rise\" and \"raise\". And the particle in front always tells you which: the happening verb takes が, the doing verb takes を. ドアが あく。 ドアを あける。"
+    examples:
+      - { ja: "ドアが あく。", en: "The door opens." }
+      - { ja: "ドアを あける。", en: "I open the door." }
+      - { ja: "まどが あく。", en: "The window opens." }
+      - { ja: "まどを あける。", en: "I open the window." }
+      - { ja: "ミカが ドアを あける。", en: "Mika opens the door." }
+    antiPattern: { ja: "ドアを あく。", why: "あく is the door opening by itself, so nobody is doing anything to it and を has no job — が is the only particle it takes: ドアが あく。" }
+
+  - id: jidoushi-tadoushi
+    variant: diagnostic
+    rule: "The second pair, same shape: しまる is the door closing, しめる is you closing it. There is nothing to memorise about which is which — you read it off the sentence. Find the noun in front of the verb and look at its particle. が means it happened. を means somebody did it. It works in both directions: given 「まどが しまる」 you know nobody closed it, and to say \"I closed the window\" you know you need を, and therefore しめる. Learners who struggle with pairs are trying to FEEL the difference. Do not feel it. Read the particle."
+    examples:
+      - { ja: "ドアが しまる。", en: "The door closes." }
+      - { ja: "ドアを しめる。", en: "I close the door." }
+      - { ja: "まどが しまる。", en: "The window closes." }
+      - { ja: "まどを しめる。", en: "I close the window." }
+      - { ja: "ミカが まどを しめる。", en: "Mika closes the window." }
+    antiPattern: { ja: "まどが しめる。", why: "しめる needs somebody doing the closing, and が says nobody is — either say 「まどが しまる」 (it closes) or 「まどを しめる」 (I close it)." }
+
+  - id: jidoushi-tadoushi
+    variant: containers
+    rule: "The third pair, and the last one you get half of free. はいる you have had since module 16 — 「へやに はいる」, I go into the room. いれる is the other side of it, putting a thing in: 「かばんに ほんを いれる」. Watch what the particles do. With はいる the thing that moves takes が, and where it goes takes に. With いれる the thing that moves takes を, because somebody is moving it, and where it goes still takes に. The に never changes. Only the が/を slot does, and it changes because a doer arrived."
+    examples:
+      - { ja: "かばんに ほんを いれる。", en: "I put a book in my bag." }
+      - { ja: "へやに はいる。", en: "I go into the room." }
+      - { ja: "かばんに かぎが はいる。", en: "The key goes in the bag." }
+      - { ja: "ミカが かばんに さいふを いれる。", en: "Mika puts her wallet in her bag." }
+      - { ja: "へやに おおきい つくえが はいる。", en: "A big desk goes in the room." }
+    antiPattern: { ja: "かばんに ほんが いれる。", why: "いれる needs somebody doing the putting, and が does not supply one — the book being put takes を: かばんに ほんを いれる。" }
+
+  - id: te-iru-resultative
+    variant: state
+    rule: "Here is the payoff — the piece module 14 could not finish. ている has two readings: an action still running (たべている, is eating) and a state left behind by a change (しっている, knows). Module 14 could not say WHICH verbs do which, because the answer is what you just learned. A 自動詞 + ている is almost always the second kind: the change already happened, and you are describing how the thing is NOW. 「ドアが あいている」 is not a door in the act of opening — it is a door that is open. Same with 「まどが しまっている」: the window is shut."
+    examples:
+      - { ja: "ドアが あいている。", en: "The door is open." }
+      - { ja: "まどが しまっている。", en: "The window is shut." }
+      - { ja: "ドアが あいて いるから、さむい。", en: "The door is open, so it's cold." }
+      - { ja: "きょうしつの まどが あいている。", en: "The classroom window is open." }
+      - { ja: "みせが しまっている。", en: "The shop is closed." }
+    antiPattern: { ja: "ドアを あけている。", why: "that IS good Japanese, but it means somebody is in the middle of opening the door — the を-verb keeps its doer. For the STATE of a door that is already open you need the が-verb: ドアが あいている。" }
+
+  - id: jidoushi-tadoushi
+    variant: movement
+    rule: "Two pairs about stopping, both half-owned already. とまる you met last module — 「でんしゃが とまる」, the train comes to a halt. Its partner とめる is what a driver does: 「くるまを とめる」, I stop the car. Same が/を tell, no new machinery. Worth noticing: the pair is asymmetric in real life. Trains stop by themselves constantly and cars almost never do, so とまる turns up with trains and machines, とめる with cars and people. That is not a rule to learn — it falls out of what the verbs mean."
+    examples:
+      - { ja: "でんしゃが とまる。", en: "The train stops." }
+      - { ja: "くるまを とめる。", en: "I stop the car." }
+      - { ja: "きかいが とまる。", en: "The machine stops." }
+      - { ja: "みせの まえに くるまを とめる。", en: "I park the car in front of the shop." }
+      - { ja: "バスが えきに とまる。", en: "The bus stops at the station." }
+    antiPattern: { ja: "でんしゃを とまる。", why: "とまる is the train stopping on its own, so it takes が — 「でんしゃが とまる」. を would need a doer, and for that you want とめる, which is what the driver does." }
+
+  - id: jidoushi-tadoushi
+    variant: decision
+    rule: "きめる you have owned since module 30: I decide. Its partner きまる has no clean English word — it means the thing got decided, without saying by whom. 「じかんが きまる」 is \"the time is settled\". Japanese reaches for this constantly where English would use a passive, and it is your first look at a habit that runs through the language: when who-did-it is not the point, Japanese puts no doer in the sentence at all. It just uses the が-verb."
+    examples:
+      - { ja: "じかんが きまる。", en: "The time is settled." }
+      - { ja: "じかんを きめる。", en: "I decide the time." }
+      - { ja: "りょこうが きまる。", en: "The trip is settled." }
+      - { ja: "ミカが みせを きめる。", en: "Mika decides on the restaurant." }
+      - { ja: "あした テストの じかんが きまる。", en: "The time of the test will be settled tomorrow." }
+    antiPattern: { ja: "じかんを きまる。", why: "きまる is the time settling with nobody named, so it takes が — if you want to say YOU settled it, the verb is きめる: じかんを きめる。" }
+
+  - id: jidoushi-tadoushi
+    variant: switches
+    rule: "The last taught pair, and the first where BOTH halves are new — the honest test of whether the rule has landed, because there is no familiar half to lean on. けす is what you do: 「でんきを けす」, turn the light off. きえる is what happens: 「でんきが きえる」, the light goes out. English changes the whole phrase — \"turn off\" versus \"go out\" — and Japanese changes only the verb and the particle. けす also covers a screen and a sound, so 「テレビを けす」 and 「おとを けす」 are both ordinary."
+    examples:
+      - { ja: "でんきを けす。", en: "I turn the light off." }
+      - { ja: "でんきが きえる。", en: "The light goes out." }
+      - { ja: "テレビを けす。", en: "I turn the television off." }
+      - { ja: "きょうしつの でんきが きえる。", en: "The classroom light goes out." }
+      - { ja: "ミカが テレビを けす。", en: "Mika turns the television off." }
+    antiPattern: { ja: "でんきを きえる。", why: "きえる is the light going out on its own and takes が. If somebody is switching it off, the verb is けす: でんきを けす。" }
+
+  - id: jidoushi-tadoushi
+    variant: glance
+    rule: "Three more pairs, and this time you are not being taught a rule — you already have it. You are being shown where else it turns up. はじまる / はじめる: it starts / I start it. でる / だす: it comes out / I take it out. おちる / おとす: it falls / I drop it. Read each against its particle and every one behaves exactly like あく / あける. That is the point of meeting them together and quickly: nine pairs in, the pattern should be doing the work, not your memory. You will use all three again next module."
+    examples:
+      - { ja: "えいがが はじまる。", en: "The film starts." }
+      - { ja: "えいがを はじめる。", en: "I start the film." }
+      - { ja: "でんしゃが でる。", en: "The train leaves." }
+      - { ja: "かばんから ほんを だす。", en: "I take a book out of my bag." }
+      - { ja: "さいふが おちる。", en: "The wallet falls." }
+    antiPattern: { ja: "えいがを はじまる。", why: "はじまる is the film starting on its own — が. The を-verb is はじめる, which needs somebody to start it: えいがを はじめる。" }
+
+newAtoms:
+  # ══ L1. One new verb, one new noun. あく is `imageable: false` for the
+  #    reason in the notes: あく and あける are the same picture, and an image
+  #    MCQ that could not tell them apart would teach the one error this
+  #    module exists to prevent. エレベーター carries the lesson's image debut
+  #    — it is a THING, so a picture can name it honestly, and its doors are
+  #    the most everyday あく in the language.
+  - { kana: あく, romaji: "aku", gloss: "to open (of itself), to come open", shortGloss: "open (it does)", imageable: false, kind: verb, verbClass: u }
+  - { kana: エレベーター, romaji: "erebeetaa", gloss: "a lift, an elevator", shortGloss: "lift", imageable: true, kind: vocab }
+  # ══ L2. ONE new word in the whole lesson, on purpose. L2's job is the
+  #    diagnostic — read the particle, both directions — and a lesson that
+  #    also taught five words would not have the room to drill it.
+  - { kana: しまる, romaji: "shimaru", gloss: "to close (of itself), to shut", shortGloss: "close (it does)", imageable: false, kind: verb, verbClass: u }
+  # ══ L3. The third anchored pair; はいる has been owned since m16, so only
+  #    the transitive half is new. ひきだし is chosen for reach rather than for
+  #    this lesson alone: a drawer opens, shuts, has things put into it and
+  #    taken out of it, so one noun carries four of the nine pairs.
+  - { kana: いれる, romaji: "ireru", gloss: "to put in, to insert", shortGloss: "put in", imageable: false, kind: verb, verbClass: ru }
+  - { kana: いれて, romaji: "irete", gloss: "put in, and… (put in, te-form)", shortGloss: "put in (te)", imageable: false, kind: verb-form, derivedFrom: いれる, verbClass: ru }
+  - { kana: ひきだし, romaji: "hikidashi", gloss: "a drawer", shortGloss: "drawer", imageable: true, kind: vocab }
+  # ══ L5. とまる is m32's; only the transitive half is new here.
+  - { kana: とめる, romaji: "tomeru", gloss: "to stop (something), to park", shortGloss: "stop (something)", imageable: false, kind: verb, verbClass: ru }
+  - { kana: とめて, romaji: "tomete", gloss: "stop it, and… (stop something, te-form)", shortGloss: "stop it (te)", imageable: false, kind: verb-form, derivedFrom: とめる, verbClass: ru }
+  # ══ L6. きめる is m30's — and one of the 25 atoms in the course graded
+  #    exactly once, which this lesson repays. かいぎ is the last image debut.
+  - { kana: きまる, romaji: "kimaru", gloss: "to be decided, to be settled", shortGloss: "be settled", imageable: false, kind: verb, verbClass: u }
+  - { kana: かいぎ, romaji: "kaigi", gloss: "a meeting", shortGloss: "meeting", imageable: true, kind: vocab }
+  # ══ L7. The only pair in the taught set where BOTH halves are new, which is
+  #    why it is placed last in block B — by then the rule is carrying itself
+  #    and there is no familiar half to lean on, which is the honest test.
+  - { kana: けす, romaji: "kesu", gloss: "to turn off, to switch off", shortGloss: "turn off", imageable: false, kind: verb, verbClass: u }
+  - { kana: きえる, romaji: "kieru", gloss: "to go out, to go off (of a light)", shortGloss: "go out", imageable: false, kind: verb, verbClass: ru }
+  - { kana: けして, romaji: "keshite", gloss: "turn off, and… (turn off, te-form)", shortGloss: "turn off (te)", imageable: false, kind: verb-form, derivedFrom: けす, verbClass: u }
+  # ══ L9. The resultative, and it introduces no VERBS at all — six pairs are
+  #    already on the table and the lesson's whole content is what ている does
+  #    to the が-half of them. ている is NOT registered as an atom (m14's
+  #    standing decision — 「あいている」 tokenizes to て-form + いる and both
+  #    halves are owned), so what the lesson needs is the four te-forms, which
+  #    do not tokenize on their own.
+  - { kana: あいて, romaji: "aite", gloss: "is open, and… (come open, te-form)", shortGloss: "open (te)", imageable: false, kind: verb-form, derivedFrom: あく, verbClass: u }
+  - { kana: しまって, romaji: "shimatte", gloss: "is shut, and… (close, te-form)", shortGloss: "close (te)", imageable: false, kind: verb-form, derivedFrom: しまる, verbClass: u }
+  - { kana: はいって, romaji: "haitte", gloss: "is in, and… (enter, te-form)", shortGloss: "enter (te)", imageable: false, kind: verb-form, derivedFrom: はいる, verbClass: u }
+  - { kana: きえて, romaji: "kiete", gloss: "goes out, and… (go out, te-form)", shortGloss: "go out (te)", imageable: false, kind: verb-form, derivedFrom: きえる, verbClass: ru }
+  # ══ L10-L11. THE GLANCE BLOCK. Six verbs across two lessons at recognition
+  #    weight, re-cemented in m34's sentence examples (Spencer 2026-08-19).
+  #    NO new nouns at all: every carrier (えいが, じゅぎょう, かいぎ, でんしゃ,
+  #    かばん, てがみ, さいふ, かぎ) is already owned, so the whole of block C's
+  #    budget is the six verbs and nothing else.
+  - { kana: はじまる, romaji: "hajimaru", gloss: "to begin, to start (of itself)", shortGloss: "start (it does)", imageable: false, kind: verb, verbClass: u }
+  - { kana: はじめる, romaji: "hajimeru", gloss: "to begin something, to start something", shortGloss: "start (something)", imageable: false, kind: verb, verbClass: ru }
+  - { kana: でる, romaji: "deru", gloss: "to come out, to leave", shortGloss: "come out", imageable: false, kind: verb, verbClass: ru }
+  - { kana: だす, romaji: "dasu", gloss: "to take out, to put out", shortGloss: "take out", imageable: false, kind: verb, verbClass: u }
+  - { kana: だして, romaji: "dashite", gloss: "take out, and… (take out, te-form)", shortGloss: "take out (te)", imageable: false, kind: verb-form, derivedFrom: だす, verbClass: u }
+  - { kana: おちる, romaji: "ochiru", gloss: "to fall, to drop (of itself)", shortGloss: "fall", imageable: false, kind: verb, verbClass: ru }
+  - { kana: おとす, romaji: "otosu", gloss: "to drop something, to let something fall", shortGloss: "drop (something)", imageable: false, kind: verb, verbClass: u }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-1
+    role: teaching
+    title: "「ドアが あく」と「ドアを あける」 — two verbs, one door"
+    focus: "A pair is TWO DIFFERENT VERBS, not a conjugation — and the particle in front tells you which one you are looking at"
+    introduces: [あく, エレベーター]
+    beats:
+      # あける has been owned since m14, so the lesson opens with a sentence
+      # the learner can already read and adds exactly one word to it. The
+      # whole first block alternates が-sentence / を-sentence deliberately:
+      # the contrast is the content, so it is never more than one beat away.
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: shape }
+      - { kind: sentence, ja: "ドアが あく。", en: "The door opens", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "ドアが ", tail: "。", answer: "あく", options: ["あく", "あける", "しめる"], en: "The door opens", explanation: "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, あく. あける needs somebody doing it, and that comes with を." }
+      - { kind: sentence, ja: "ドアを あける。", en: "I open the door", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "まどが あく。", en: "The window opens", exercises: [jidoushi-tadoushi, ga-existence], mode: listening }
+      - { kind: particle-cloze, stem: "まどを ", tail: "。", answer: "あける", options: ["あける", "あく", "しめる"], en: "I open the window", explanation: "を says somebody is doing it, so the verb has to be the を-half, あける. あく is the same event with nobody named, and it takes が. しめる takes を too — the English says open, not close." }
+      - { kind: sentence, ja: "ミカが まどを あける。", en: "Mika opens the window", exercises: [jidoushi-tadoushi, wo-object, ga-existence], mode: build }
+      - { kind: listening-comp, audio: "ドアが あく。", answer: "The door opens", distractors: ["I open the door", "The door is open", "Please open the door"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "エレベーターの ドアが あく。", en: "The lift doors open", exercises: [jidoushi-tadoushi, no-possession], mode: build }
+      - { kind: kanji, kana: まど, kanji: 窓, distractors: ["まと", "とう", "そう"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "あついから、まどを あける。", en: "It's hot, so I'll open the window", exercises: [kara-because, wo-object, i-adj-present], mode: build }
+      - { kind: sentence, ja: "エレベーターの ドアを あける。", en: "I open the lift doors", exercises: [jidoushi-tadoushi, wo-object, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "エレベーターの ドアが ", tail: "。", answer: "あく", options: ["あく", "あける", "はいる"], en: "The lift doors open", explanation: "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, あく. あける needs somebody doing it, and that comes with を." }
+      - { kind: listening-comp, audio: "ミカが まどを あける。", answer: "Mika opens the window", distractors: ["The window opens", "Mika closes the window", "Mika's window is open"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "せんせいが きょうしつの ドアを あける。", en: "The teacher opens the classroom door", exercises: [jidoushi-tadoushi, wo-object, no-possession], mode: build }
+      - { kind: sentence, ja: "かぎが あく。", en: "The lock comes open", exercises: [jidoushi-tadoushi, ga-existence], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あついね。", en: "It's hot, isn't it." }
+          - { speaker: "Tom", ja: "まどを あける？", en: "Shall I open the window?" }
+          - { speaker: "Mika", ja: "うん。エレベーターの ドアが あく。", en: "Yeah. The lift doors are opening." }
+        questions:
+          - { q: "Who is doing the opening in Tom's line?", options: ["Tom — あける takes a doer", "The window — it opens itself", "Mika", "Nobody; it is a question about the weather"], answer: "Tom — あける takes a doer" }
+      - { kind: challenge, ja: "きょうしつに はいったら、まどを あける。", en: "When I get into the classroom, I'll open the window", combines: [tara, ni-location, wo-object, jidoushi-tadoushi], mode: build }
+    reviewPool: [ドア, まど, かぎ, きょうしつ, せんせい, あける, はいる, あつい, エレベーター, あく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-2
+    role: teaching
+    title: "「まどが しまる」と「まどを しめる」 — read the particle, both ways"
+    focus: "The diagnostic itself: from a sentence to the verb, and from the meaning you want to the particle you need"
+    introduces: [しまる]
+    beats:
+      # ONE new word all lesson. The budget goes on the diagnostic instead,
+      # which is what the spine asks this module to assess.
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: diagnostic }
+      - { kind: sentence, ja: "ドアが しまる。", en: "The door closes", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "しまる", options: ["しまる", "しめる", "あく"], en: "The window closes", explanation: "が is the tell: nothing is being done to まど, so the verb has to be the が-half, しまる. しめる needs somebody doing it, and that comes with を. あく would also follow が — the English says closes, not opens." }
+      - { kind: sentence, ja: "まどを しめる。", en: "I close the window", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "ドアが しまる。", answer: "The door closes", distractors: ["I close the door", "The door opens", "The door is closed"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "みせが しまる。", en: "The shop closes", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "たなかさんが みせを しめる。", en: "Mr Tanaka closes the shop", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "みせを ", tail: "。", answer: "しめる", options: ["しめる", "しまる", "あける"], en: "I close the shop", explanation: "を says somebody is doing it, so the verb has to be the を-half, しめる. しまる is the same event with nobody named, and it takes が. あける takes を too — the English says close, not open." }
+      - { kind: kanji, kana: みせ, kanji: 店, distractors: ["みぜ", "てん", "しょう"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "さむいから、まどを しめる。", en: "It's cold, so I'll close the window", exercises: [kara-because, wo-object, i-adj-present], mode: build }
+      - { kind: sentence, ja: "エレベーターの ドアが しまる。", en: "The lift doors close", exercises: [jidoushi-tadoushi, no-possession], mode: listening }
+      - { kind: listening-comp, audio: "たなかさんが みせを しめる。", answer: "Mr Tanaka closes the shop", distractors: ["The shop closes", "Mr Tanaka opens the shop", "Mr Tanaka's shop is closed"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "まどを しめて ください。", en: "Please close the window", exercises: [te-kudasai, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ドアが ", tail: "。", answer: "しまる", options: ["しまる", "しめる", "あける"], en: "The door closes", explanation: "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, しまる. しめる needs somebody doing it, and that comes with を." }
+      - { kind: sentence, ja: "みせは ろくじに しまる。", en: "The shop closes at six", exercises: [jidoushi-tadoushi, ni-time, wa-topic], mode: build }
+      - { kind: sentence, ja: "ミカが まどを しめる。", en: "Mika closes the window", exercises: [jidoushi-tadoushi, wo-object], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "みせは なんじに しまる？", en: "What time does the shop close?" }
+          - { speaker: "Mika", ja: "ろくじ。", en: "Six." }
+          - { speaker: "Tanaka", ja: "ごじに ドアを しめる。", en: "I'll shut the door at five." }
+        questions:
+          - { q: "Which of Tanaka's two sentences has a person doing something?", options: ["The second — しめる takes a doer, and it is Tanaka", "The first — しまる takes a doer", "Both of them", "Neither of them"], answer: "The second — しめる takes a doer, and it is Tanaka" }
+      - { kind: challenge, ja: "さむいから、きょうしつの まどを しめて ください。", en: "It's cold, so please close the classroom window", combines: [kara-because, te-kudasai, no-possession, wo-object], mode: build }
+    reviewPool: [みせ, ドア, まど, しめる, きょうしつ, さむい, ろくじ, たなか, エレベーター, しまる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-3
+    role: teaching
+    title: "「へやに はいる」と「かばんに ほんを いれる」 — the doer arrives"
+    focus: "The last anchored pair, and the first time the が/を swap is visible as ONE slot changing while everything else holds still"
+    introduces: [いれる, いれて, ひきだし]
+    beats:
+      # ひきだし is the image debut and it is deliberately NOT named by the
+      # rule card (which compiles to a pinned step), so its MCQ is still its
+      # first-ever appearance. The card argues from へや and かばん instead.
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: containers }
+      - { kind: sentence, ja: "へやに はいる。", en: "I go into the room", exercises: [jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: sentence, ja: "かばんに ほんを いれる。", en: "I put a book in my bag", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "かばんに ほんを ", tail: "。", answer: "いれる", options: ["いれる", "はいる", "あける"], en: "I put a book in my bag", explanation: "を says somebody is doing it, so the verb has to be the を-half, いれる. はいる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "ひきだしに かぎを いれる。", en: "I put the key in the drawer", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
+      - { kind: listening-comp, audio: "かばんに ほんを いれる。", answer: "I put a book in my bag", distractors: ["A book goes in my bag", "I take a book out of my bag", "There's a book in my bag"], exercises: [jidoushi-tadoushi, ni-location] }
+      - { kind: sentence, ja: "ひきだしが あく。", en: "The drawer opens", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "へやに ", tail: "。", answer: "はいる", options: ["はいる", "いれる", "しまる"], en: "I go into the room", explanation: "nothing in this sentence is marked を, so nothing is being put anywhere — the thing that moves is the subject, and that is はいる. いれる needs somebody doing the putting, and it would put を on what gets put in. The に never changes between the two." }
+      - { kind: sentence, ja: "ミカが ひきだしに さいふを いれる。", en: "Mika puts her wallet in the drawer", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
+      - { kind: kanji, kana: きょうしつ, kanji: 教室, distractors: ["きょうしっ", "こうしつ", "きょうし"], exercises: [ni-location] }
+      - { kind: sentence, ja: "かばんに かさを いれて ください。", en: "Please put the umbrella in the bag", exercises: [te-kudasai, wo-object, ni-location], mode: build }
+      - { kind: sentence, ja: "きょうしつに はいる。", en: "I go into the classroom", exercises: [jidoushi-tadoushi, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "ひきだしに かぎを いれる。", answer: "I put the key in the drawer", distractors: ["The key is in the drawer", "I put the key in my bag", "I open the drawer with the key"], exercises: [jidoushi-tadoushi, ni-location] }
+      - { kind: sentence, ja: "ひきだしを あける。", en: "I open the drawer", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ひきだしに さいふを ", tail: "。", answer: "いれる", options: ["いれる", "はいる", "しめる"], en: "I put my wallet in the drawer", explanation: "を says somebody is doing it, so the verb has to be the を-half, いれる. はいる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "つくえの ひきだしに ほんを いれる。", en: "I put a book in the desk drawer", exercises: [jidoushi-tadoushi, wo-object, no-possession], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "かぎは どこ？", en: "Where's the key?" }
+          - { speaker: "Mika", ja: "つくえの ひきだしに いれる。", en: "I'll put it in the desk drawer." }
+          - { speaker: "Tom", ja: "その ひきだしが あく？", en: "Does that drawer open?" }
+          - { speaker: "Mika", ja: "うん、あく。", en: "Yes, it opens." }
+        questions:
+          - { q: "Where does Mika say the key goes?", options: ["In the desk drawer", "In her bag", "In the classroom", "She does not say"], answer: "In the desk drawer" }
+      - { kind: challenge, ja: "へやに はいったら、かばんを つくえに おく。", en: "When I get into the room, I'll put my bag on the desk", combines: [tara, ni-location, wo-object], mode: build }
+    reviewPool: [かばん, ひきだし, かぎ, さいふ, へや, つくえ, ほん, かさ, はいる, いれる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-review-1
+    role: review
+    title: "Review — three pairs, one question"
+    focus: "Block A drilled as a single decision: is there somebody in this sentence or not?"
+    introduces: []
+    beats:
+      # Sits after あく/あける, しまる/しめる and はいる/いれる, so it reviews
+      # three instances of ONE rule rather than three rules. The resultative
+      # is deliberately absent — it is L9, and previewing it here would blur
+      # the が/を question this review exists to sharpen.
+      - { kind: sentence, ja: "ドアが あく。", en: "The door opens", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "たなかさんが みせを しめる。", en: "Mr Tanaka closes the shop", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "まどを ", tail: "。", answer: "あける", options: ["あける", "あく", "しめる"], en: "I open the window", explanation: "を says somebody is doing it, so the verb has to be the を-half, あける. あく is the same event with nobody named, and it takes が. しめる takes を too — the English says open, not close." }
+      - { kind: sentence, ja: "ひきだしに かぎを いれる。", en: "I put the key in the drawer", exercises: [jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: listening-comp, audio: "みせが しまる。", answer: "The shop closes", distractors: ["I close the shop", "The shop opens", "Mr Tanaka closes the shop"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "あついから、きょうしつの まどを あける。", en: "It's hot, so I'll open the classroom window", exercises: [kara-because, wo-object, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "エレベーターの ドアが ", tail: "。", answer: "しまる", options: ["しまる", "しめる", "あく"], en: "The lift doors close", explanation: "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, しまる. しめる needs somebody doing it, and that comes with を. あく would also follow が — the English says close, not open." }
+      - { kind: sentence, ja: "ミカが へやに はいる。", en: "Mika goes into the room", exercises: [jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: sentence, ja: "かばんに かさを いれる。", en: "I put the umbrella in my bag", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "せんせいが きょうしつの ドアを あける。", answer: "The teacher opens the classroom door", distractors: ["The classroom door opens", "The teacher closes the classroom door", "The teacher goes into the classroom"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "みせは ろくじに しまる。", en: "The shop closes at six", exercises: [jidoushi-tadoushi, ni-time, wa-topic], mode: build }
+      - { kind: sentence, ja: "さむいから、まどを しめて ください。", en: "It's cold, so please close the window", exercises: [kara-because, te-kudasai], mode: translate }
+      - { kind: challenge, ja: "きょうしつに はいったら、まどを あけて ドアを しめる。", en: "When I get into the classroom, I'll open the window and close the door", combines: [tara, te-form, wo-object, jidoushi-tadoushi], mode: build }
+    reviewPool: [ドア, まど, みせ, ひきだし, かばん, かぎ, へや, エレベーター, きょうしつ, さいふ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-5
+    role: teaching
+    title: "「でんしゃが とまる」と「くるまを とめる」 — who stopped it"
+    focus: "The pair whose two halves live in different places in real life — trains stop, drivers park"
+    introduces: [とめる, とめて]
+    beats:
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: movement }
+      - { kind: sentence, ja: "でんしゃが とまる。", en: "The train stops", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "くるまを とめる。", en: "I stop the car", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "きかいが ", tail: "。", answer: "とまる", options: ["とまる", "とめる", "うごく"], en: "The machine stops", explanation: "が is the tell: nothing is being done to きかい, so the verb has to be the が-half, とまる. とめる needs somebody doing it, and that comes with を. うごく would also follow が — the English says stops, not runs." }
+      - { kind: sentence, ja: "バスが えきに とまる。", en: "The bus stops at the station", exercises: [jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: listening-comp, audio: "くるまを とめる。", answer: "I stop the car", distractors: ["The car stops", "I park at the station", "The car is stopped"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "みせの まえに くるまを とめる。", en: "I park the car in front of the shop", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "くるまを ", tail: "。", answer: "とめる", options: ["とめる", "とまる", "おす"], en: "I stop the car", explanation: "を says somebody is doing it, so the verb has to be the を-half, とめる. とまる is the same event with nobody named, and it takes が. おす takes を too — the English says stop, not push." }
+      - { kind: sentence, ja: "ここに くるまを とめて ください。", en: "Please park the car here", exercises: [te-kudasai, wo-object, koko-soko-asoko], mode: build }
+      - { kind: kanji, kana: でんしゃ, kanji: 電車, distractors: ["てんしゃ", "でんしゃく", "でんき"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "でんしゃは えきに とまる。", en: "The train stops at the station", exercises: [jidoushi-tadoushi, wa-topic, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "みせの まえに くるまを とめる。", answer: "I park the car in front of the shop", distractors: ["The car stops in front of the shop", "I park the car behind the shop", "I stop in front of the shop"], exercises: [jidoushi-tadoushi, ni-location] }
+      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "たなかさんが きかいを とめる。", en: "Mr Tanaka stops the machine", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "バスが えきに ", tail: "。", answer: "とまる", options: ["とまる", "とめる", "いれる"], en: "The bus stops at the station", explanation: "が is the tell: nothing is being done to バス, so the verb has to be the が-half, とまる. とめる needs somebody doing it, and that comes with を." }
+      - { kind: sentence, ja: "こうさてんの まえで くるまを とめる。", en: "I stop the car before the intersection", exercises: [jidoushi-tadoushi, de-action], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "この でんしゃは えきに とまる？", en: "Does this train stop at the station?" }
+          - { speaker: "Mika", ja: "うん、とまる。", en: "Yeah, it stops." }
+          - { speaker: "Tom", ja: "くるまは みせの まえに とめる。", en: "I'll park the car in front of the shop." }
+        questions:
+          - { q: "Which sentence has a person doing the stopping?", options: ["Tom's second — とめる takes a doer", "Tom's first — とまる takes a doer", "Mika's — うん、とまる", "None of them"], answer: "Tom's second — とめる takes a doer" }
+      - { kind: challenge, ja: "えきに ついたら、みせの まえに くるまを とめて ください。", en: "When you get to the station, please park the car in front of the shop", combines: [tara, te-kudasai, jidoushi-tadoushi, ni-location], mode: build }
+    reviewPool: [でんしゃ, くるま, バス, えき, きかい, ボタン, みせ, こうさてん, とまる, とめる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-6
+    role: teaching
+    title: "「じかんが きまる」と「じかんを きめる」 — settled, by nobody in particular"
+    focus: "The が-verb as the way Japanese says a thing happened without naming who did it — the instinct behind the passive, met early and cheaply"
+    introduces: [きまる, かいぎ]
+    beats:
+      # かいぎ is the image debut and the rule card does not name it. The card
+      # argues from じかん and りょこう, both long owned.
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: decision }
+      - { kind: sentence, ja: "じかんが きまる。", en: "The time is settled", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "じかんを きめる。", en: "I decide the time", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "りょこうが ", tail: "。", answer: "きまる", options: ["きまる", "きめる", "おわる"], en: "The trip is settled", explanation: "が is the tell: nothing is being done to りょこう, so the verb has to be the が-half, きまる. きめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says settled, not over." }
+      - { kind: sentence, ja: "かいぎの じかんが きまる。", en: "The time of the meeting is settled", exercises: [jidoushi-tadoushi, no-possession], mode: build }
+      - { kind: listening-comp, audio: "じかんが きまる。", answer: "The time is settled", distractors: ["I decide the time", "I ask the time", "The time is late"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "ミカが みせを きめる。", en: "Mika decides on the shop", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "かいぎの じかんを ", tail: "。", answer: "きめる", options: ["きめる", "きまる", "とめる"], en: "I decide the time of the meeting", explanation: "を says somebody is doing it, so the verb has to be the を-half, きめる. きまる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "あした テストの じかんが きまる。", en: "The time of the test will be settled tomorrow", exercises: [jidoushi-tadoushi, no-possession], mode: listening }
+      - { kind: kanji, kana: かいしゃ, kanji: 会社, distractors: ["かいしゃく", "かいしゅ", "がいしゃ"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "かいしゃで かいぎの じかんを きめる。", en: "We decide the time of the meeting at the company", exercises: [jidoushi-tadoushi, wo-object, de-action], mode: build }
+      - { kind: listening-comp, audio: "ミカが みせを きめる。", answer: "Mika decides on the shop", distractors: ["The shop is decided", "Mika closes the shop", "Mika asks about the shop"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "ともだちが りょこうを きめる。", en: "My friend decides on the trip", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "かいぎは さんじに おわる。", en: "The meeting finishes at three", exercises: [ni-time, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "りょこうを ", tail: "。", answer: "きめる", options: ["きめる", "きまる", "きく"], en: "I decide on the trip", explanation: "を says somebody is doing it, so the verb has to be the を-half, きめる. きまる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "たなかさんが かいぎの じかんを きめる。", en: "Mr Tanaka decides the time of the meeting", exercises: [jidoushi-tadoushi, wo-object], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "かいぎの じかんは きまる？", en: "Is the meeting time getting settled?" }
+          - { speaker: "Mika", ja: "うん、あした きまる。", en: "Yeah, it'll be settled tomorrow." }
+          - { speaker: "Tanaka", ja: "だれが きめる？", en: "Who decides?" }
+          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "You do." }
+        questions:
+          - { q: "Why does Tanaka switch from きまる to きめる?", options: ["Because the question is now about WHO does it", "Because きまる is past tense", "Because the meeting changed", "Because きめる is politer"], answer: "Because the question is now about WHO does it" }
+      - { kind: challenge, ja: "あした かいぎの じかんが きまるから、でんわを して ください。", en: "The meeting time will be settled tomorrow, so please call", combines: [kara-because, te-kudasai, jidoushi-tadoushi, no-possession], mode: build }
+    reviewPool: [かいぎ, じかん, りょこう, テスト, かいしゃ, みせ, きめる, たなか, あした, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-7
+    role: teaching
+    title: "「でんきを けす」と「でんきが きえる」 — both halves new"
+    focus: "The first pair with no familiar half to lean on — the honest test of whether the が/を rule is carrying itself yet"
+    introduces: [けす, きえる, けして]
+    beats:
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: switches }
+      - { kind: sentence, ja: "でんきを けす。", en: "I turn the light off", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "でんきが きえる。", en: "The light goes out", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "テレビを ", tail: "。", answer: "けす", options: ["けす", "きえる", "とめる"], en: "I turn the television off", explanation: "を says somebody is doing it, so the verb has to be the を-half, けす. きえる is the same event with nobody named, and it takes が. とめる takes を too — the English says turn off, not stop." }
+      - { kind: sentence, ja: "テレビを けす。", en: "I turn the television off", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "でんきが きえる。", answer: "The light goes out", distractors: ["I turn the light off", "The light comes on", "Please turn the light off"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "きょうしつの でんきが きえる。", en: "The classroom light goes out", exercises: [jidoushi-tadoushi, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "でんきが ", tail: "。", answer: "きえる", options: ["きえる", "けす", "しまる"], en: "The light goes out", explanation: "が is the tell: nothing is being done to でんき, so the verb has to be the が-half, きえる. けす needs somebody doing it, and that comes with を." }
+      - { kind: sentence, ja: "でんきを けして ください。", en: "Please turn the light off", exercises: [te-kudasai, wo-object], mode: build }
+      - { kind: kanji, kana: おと, kanji: 音, distractors: ["おど", "おん", "ね"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "おとを けす。", en: "I turn the sound off", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "テレビを けして ください。", answer: "Please turn the television off", distractors: ["Please turn the television on", "The television goes off", "I turn the television off"], exercises: [te-kudasai, jidoushi-tadoushi] }
+      - { kind: sentence, ja: "ミカが きょうしつの でんきを けす。", en: "Mika turns the classroom light off", exercises: [jidoushi-tadoushi, wo-object, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "きょうしつの でんきを ", tail: "。", answer: "けす", options: ["けす", "きえる", "しめる"], en: "I turn the classroom light off", explanation: "を says somebody is doing it, so the verb has to be the を-half, けす. きえる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "テレビが うるさいから、おとを けす。", en: "The television is noisy, so I'll turn the sound off", exercises: [kara-because, wo-object, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "ボタンを おすと、でんきが きえる。", en: "If you press the button, the light goes out", exercises: [to-conditional, jidoushi-tadoushi], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "でんきを けす？", en: "Shall I turn the light off?" }
+          - { speaker: "Tom", ja: "うん。テレビも けして。", en: "Yeah. Turn the TV off too." }
+          - { speaker: "Mika", ja: "でんきが きえる。しずかだね。", en: "The light's going out. It's quiet, isn't it." }
+        questions:
+          - { q: "In Mika's last line, is anyone turning the light off?", options: ["No — きえる names nobody", "Yes — Mika is", "Yes — Tom is", "Yes — both of them"], answer: "No — きえる names nobody" }
+      - { kind: challenge, ja: "きょうしつの でんきを けして、ドアを しめて ください。", en: "Please turn the classroom light off and close the door", combines: [te-form, te-kudasai, jidoushi-tadoushi, no-possession], mode: build }
+    reviewPool: [でんき, テレビ, おと, きょうしつ, へや, うるさい, けす, きえる, ドア, しめる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-review-2
+    role: review
+    title: "Review — six pairs, and the same question every time"
+    focus: "Blocks A and B together: the が/を decision made across six pairs with no cue about which pair is coming"
+    introduces: []
+    beats:
+      # Mixed on purpose. Each block's own review kept the pairs together; this
+      # one interleaves them, because the diagnostic is only real if the
+      # learner cannot predict which pair the next sentence belongs to.
+      - { kind: sentence, ja: "でんきを けす。", en: "I turn the light off", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "でんしゃが とまる。", en: "The train stops", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "かいぎの じかんが ", tail: "。", answer: "きまる", options: ["きまる", "きめる", "おわる"], en: "The meeting time is settled", explanation: "が is the tell: nothing is being done to じかん, so the verb has to be the が-half, きまる. きめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says settled, not over." }
+      - { kind: sentence, ja: "ひきだしに かぎを いれる。", en: "I put the key in the drawer", exercises: [jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: listening-comp, audio: "みせの まえに くるまを とめる。", answer: "I park the car in front of the shop", distractors: ["The car stops in front of the shop", "I park the car behind the shop", "The shop is in front of the car"], exercises: [jidoushi-tadoushi, ni-location] }
+      - { kind: sentence, ja: "きょうしつの でんきが きえる。", en: "The classroom light goes out", exercises: [jidoushi-tadoushi, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "まどを ", tail: "。", answer: "しめる", options: ["しめる", "しまる", "けす"], en: "I close the window", explanation: "を says somebody is doing it, so the verb has to be the を-half, しめる. しまる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "たなかさんが かいぎの じかんを きめる。", en: "Mr Tanaka decides the time of the meeting", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "エレベーターの ドアが あく。", en: "The lift doors open", exercises: [jidoushi-tadoushi, no-possession], mode: listening }
+      - { kind: listening-comp, audio: "でんきが きえる。", answer: "The light goes out", distractors: ["I turn the light off", "Please turn the light off", "The light is on"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "あついから、きょうしつの まどを あける。", en: "It's hot, so I'll open the classroom window", exercises: [kara-because, wo-object, no-possession], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: translate }
+      - { kind: challenge, ja: "あついから、まどを あけて でんきを けして ください。", en: "It's hot, so please open the window and turn the light off", combines: [kara-because, te-form, te-kudasai, jidoushi-tadoushi], mode: build }
+    reviewPool: [でんき, でんしゃ, くるま, かいぎ, ひきだし, まど, エレベーター, きかい, とめる, けす]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-9
+    role: teaching
+    title: "「ドアが あいている」 — the state a change left behind"
+    focus: "m14's unfinished half: 自動詞 + ている is not an action in progress, it is how the thing is NOW"
+    introduces: [あいて, しまって, はいって, きえて]
+    beats:
+      # NO new verbs. Six pairs are already on the table and the lesson's
+      # whole content is what ている does to the が-half of them. ている is not
+      # registered as an atom (m14's standing decision) — the four te-forms
+      # are, because they do not tokenize on their own.
+      - { kind: rule, grammarPointId: te-iru-resultative, variant: state }
+      - { kind: sentence, ja: "ドアが あいている。", en: "The door is open", exercises: [te-iru-resultative, te-iru], mode: build }
+      - { kind: sentence, ja: "まどが しまっている。", en: "The window is shut", exercises: [te-iru-resultative, te-iru], mode: build }
+      - { kind: listening-comp, audio: "ドアが あいている。", answer: "The door is open", distractors: ["The door opens", "I am opening the door", "I open the door"], exercises: [te-iru-resultative] }
+      - { kind: sentence, ja: "みせが しまっている。", en: "The shop is closed", exercises: [te-iru-resultative, te-iru], mode: build }
+      - { kind: particle-cloze, stem: "まどが ", tail: "いる。", answer: "あいて", options: ["あいて", "あけて", "しまって"], en: "The window is open", explanation: "ている does not change which particle the verb takes. が says the window came open with nobody named, so the が-half is what goes inside ている: あいて いる. あけて いる would be somebody in the middle of opening it. しまって いる would also follow が — the English says open, not closed." }
+      - { kind: sentence, ja: "ドアが あいているから、さむい。", en: "The door is open, so it's cold", exercises: [te-iru-resultative, kara-because], mode: build }
+      - { kind: sentence, ja: "かばんに かぎが はいっている。", en: "The key is in the bag", exercises: [te-iru-resultative, ni-location], mode: listening }
+      - { kind: kanji, kana: いえ, kanji: 家, distractors: ["いへ", "うち", "か"], exercises: [te-iru-resultative] }
+      - { kind: listening-comp, audio: "みせが しまっている。", answer: "The shop is closed", distractors: ["The shop closes", "The shop is closing now", "I close the shop"], exercises: [te-iru-resultative] }
+      - { kind: sentence, ja: "きょうしつの でんきが きえている。", en: "The classroom light is off", exercises: [te-iru-resultative, no-possession], mode: build }
+      - { kind: sentence, ja: "ひきだしが あいている。", en: "The drawer is open", exercises: [te-iru-resultative, te-iru], mode: build }
+      - { kind: particle-cloze, stem: "でんきが ", tail: "いる。", answer: "きえて", options: ["きえて", "けして", "しまって"], en: "The light is off", explanation: "きえる is the が-half and stays the が-half inside ている. けして いる would be somebody standing there switching it off; きえて いる is simply how the light is now." }
+      - { kind: sentence, ja: "ミカは いえに はいっている。", en: "Mika is inside the house", exercises: [te-iru-resultative, ni-location, wa-topic], mode: build }
+      - { kind: sentence, ja: "テレビが きえているから、しずかだ。", en: "The television is off, so it's quiet", exercises: [te-iru-resultative, kara-because], mode: build }
+      - { kind: listening-comp, audio: "かばんに かぎが はいっている。", answer: "The key is in the bag", distractors: ["I put the key in the bag", "The key goes in the bag", "The bag is in the drawer"], exercises: [te-iru-resultative, ni-location] }
+      - { kind: sentence, ja: "エレベーターの ドアが あいている。", en: "The lift doors are open", exercises: [te-iru-resultative, no-possession], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "さむいね。", en: "It's cold, isn't it." }
+          - { speaker: "Mika", ja: "ドアが あいている。", en: "The door's open." }
+          - { speaker: "Tom", ja: "まども あいている。", en: "The window's open too." }
+          - { speaker: "Mika", ja: "さむいから、しめて。", en: "It's cold, so shut them." }
+        questions:
+          - { q: "What does Mika's first line tell you?", options: ["That the door is open now", "That somebody is opening the door right now", "That Mika opened the door", "That the door will open"], answer: "That the door is open now" }
+      - { kind: challenge, ja: "きょうしつに はいったら、まどが あいている。", en: "When I get into the classroom, the window is open", combines: [tara, te-iru-resultative, jidoushi-tadoushi, ni-location], mode: build }
+    reviewPool: [ドア, まど, みせ, ひきだし, でんき, テレビ, かばん, かぎ, いえ, エレベーター]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-10
+    role: teaching
+    title: "「えいがが はじまる」と「えいがを はじめる」 — three more, at speed"
+    focus: "The glance block opens: you already have the rule, so these arrive as recognition, not as new grammar"
+    introduces: [はじまる, はじめる]
+    beats:
+      # BLOCK C, LESSON 1 OF 2. Deliberately lighter than L1-L7: one card that
+      # names all three remaining pairs at once, then this lesson's pair
+      # drilled and the other two only previewed. m34 re-cements all three in
+      # its sentence examples (Spencer 2026-08-19).
+      - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: glance }
+      - { kind: sentence, ja: "えいがが はじまる。", en: "The film starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "えいがを はじめる。", en: "I start the film", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "えいがが はじまる。", answer: "The film starts", distractors: ["I start the film", "The film finishes", "The film is starting now"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "じゅぎょうが はじまる。", en: "The class starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "かいぎが ", tail: "。", answer: "はじまる", options: ["はじまる", "はじめる", "おわる"], en: "The meeting starts", explanation: "が is the tell: nothing is being done to かいぎ, so the verb has to be the が-half, はじまる. はじめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says starts, not ends." }
+      - { kind: sentence, ja: "せんせいが じゅぎょうを はじめる。", en: "The teacher starts the class", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "えいがは さんじに はじまる。", en: "The film starts at three", exercises: [jidoushi-tadoushi, ni-time, wa-topic], mode: listening }
+      - { kind: kanji, kana: えいが, kanji: 映画, distractors: ["えいか", "えが", "えいわ"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "たなかさんが かいぎを はじめる。", en: "Mr Tanaka starts the meeting", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "じゅぎょうを ", tail: "。", answer: "はじめる", options: ["はじめる", "はじまる", "きめる"], en: "I start the class", explanation: "を says somebody is doing it, so the verb has to be the を-half, はじめる. はじまる is the same event with nobody named, and it takes が." }
+      - { kind: listening-comp, audio: "せんせいが じゅぎょうを はじめる。", answer: "The teacher starts the class", distractors: ["The class starts", "The teacher finishes the class", "The teacher goes into the class"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "じゅぎょうが はじまるから、きょうしつに はいる。", en: "The class is starting, so I'll go into the classroom", exercises: [kara-because, jidoushi-tadoushi, ni-location], mode: build }
+      - { kind: sentence, ja: "えいがが おわると、でんきが きえる。", en: "When the film ends, the light goes out", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "かいぎは じゅうじに はじまる。", en: "The meeting starts at ten", exercises: [jidoushi-tadoushi, ni-time], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "えいがは なんじに はじまる？", en: "What time does the film start?" }
+          - { speaker: "Tom", ja: "さんじ。", en: "Three." }
+          - { speaker: "Mika", ja: "じゅぎょうが おわったら いく。", en: "I'll go when class finishes." }
+          - { speaker: "Tom", ja: "でんきを けして。", en: "Turn the light off." }
+        questions:
+          - { q: "Who starts the film in this conversation?", options: ["Nobody — はじまる names no doer", "Tom", "Mika", "The teacher"], answer: "Nobody — はじまる names no doer" }
+      - { kind: challenge, ja: "じゅぎょうが おわったら、えいがが はじまる まえに でんきを けす。", en: "When class finishes, I'll turn the light off before the film starts", combines: [tara, mae-ni, jidoushi-tadoushi, wo-object], mode: build }
+    reviewPool: [えいが, じゅぎょう, かいぎ, せんせい, きょうしつ, でんき, おわる, たなか, はじまる, はじめる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-11
+    role: teaching
+    title: "「でんしゃが でる」「さいふが おちる」 — the last two, at a glance"
+    focus: "Two pairs met together at recognition weight; the rule is doing the work by now, and m34 gives them their second rep"
+    introduces: [でる, だす, だして, おちる, おとす]
+    beats:
+      # BLOCK C, LESSON 2 OF 2. Two pairs in one lesson is deliberate and is
+      # the whole point of a glance: the learner is not being taught anything
+      # new, only shown two more places the same rule lands. No rule card —
+      # L10's `glance` card already named all three pairs.
+      - { kind: sentence, ja: "でんしゃが でる。", en: "The train leaves", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "かばんから ほんを だす。", en: "I take a book out of my bag", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
+      - { kind: particle-cloze, stem: "でんしゃが ", tail: "。", answer: "でる", options: ["でる", "だす", "はいる"], en: "The train leaves", explanation: "が is the tell: nothing is being done to でんしゃ, so the verb has to be the が-half, でる. だす needs somebody doing it, and that comes with を. はいる would also follow が — the English says leaves, not comes in." }
+      - { kind: sentence, ja: "さいふが おちる。", en: "The wallet falls", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: listening-comp, audio: "かばんから ほんを だす。", answer: "I take a book out of my bag", distractors: ["A book comes out of my bag", "I put a book in my bag", "The book is in my bag"], exercises: [jidoushi-tadoushi, kara-origin] }
+      - { kind: sentence, ja: "かぎを おとす。", en: "I drop the key", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "さいふを ", tail: "。", answer: "おとす", options: ["おとす", "おちる", "だす"], en: "I drop my wallet", explanation: "を says somebody is doing it, so the verb has to be the を-half, おとす. おちる is the same event with nobody named, and it takes が. だす takes を too — the English says drop, not take out." }
+      - { kind: sentence, ja: "ひきだしから てがみを だす。", en: "I take a letter out of the drawer", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
+      - { kind: kanji, kana: てがみ, kanji: 手紙, distractors: ["てかみ", "てし", "しゅし"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "でんしゃは じゅうじに でる。", en: "The train leaves at ten", exercises: [jidoushi-tadoushi, ni-time, wa-topic], mode: listening }
+      - { kind: listening-comp, audio: "さいふが おちる。", answer: "The wallet falls", distractors: ["I drop my wallet", "The wallet is in the bag", "I take my wallet out"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "かばんから さいふを だして ください。", en: "Please take your wallet out of your bag", exercises: [te-kudasai, kara-origin], mode: build }
+      - { kind: sentence, ja: "ミカが きょうしつを でる。", en: "Mika leaves the classroom", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ほんが ", tail: "。", answer: "おちる", options: ["おちる", "おとす", "でる"], en: "The book falls", explanation: "が is the tell: nothing is being done to ほん, so the verb has to be the が-half, おちる. おとす needs somebody doing it, and that comes with を. でる would also follow が — the English says falls, not comes out." }
+      - { kind: sentence, ja: "つくえから ほんが おちる。", en: "The book falls off the desk", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
+      - { kind: sentence, ja: "えきで でんしゃが とまる。", en: "The train stops at the station", exercises: [de-action, jidoushi-tadoushi], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "さいふが ない。", en: "My wallet's gone." }
+          - { speaker: "Mika", ja: "ひきだしを あける？", en: "Shall I open the drawer?" }
+          - { speaker: "Tom", ja: "うん。", en: "Yeah." }
+          - { speaker: "Mika", ja: "さいふが はいっている。", en: "Your wallet's in there." }
+        questions:
+          - { q: "Where is the wallet?", options: ["In the drawer", "On the train", "In the bag", "Mika does not say"], answer: "In the drawer" }
+      - { kind: challenge, ja: "でんしゃが でる まえに、かばんから きっぷを だして ください。", en: "Before the train leaves, please take your ticket out of your bag", combines: [mae-ni, te-kudasai, jidoushi-tadoushi, kara-origin], mode: build }
+    reviewPool: [でんしゃ, さいふ, かばん, ほん, てがみ, ひきだし, かぎ, つくえ, きょうしつ, えき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-review-3
+    role: review
+    title: "Review — the states, and the last three pairs"
+    focus: "The resultative and block C folded back against everything before them"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ドアが あいている。", en: "The door is open", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "えいがが はじまる。", en: "The film starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "かばんから ほんを ", tail: "。", answer: "だす", options: ["だす", "でる", "いれる"], en: "I take a book out of my bag", explanation: "を says somebody is doing it, so the verb has to be the を-half, だす. でる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "みせが しまっている。", en: "The shop is closed", exercises: [te-iru-resultative], mode: build }
+      - { kind: listening-comp, audio: "せんせいが じゅぎょうを はじめる。", answer: "The teacher starts the class", distractors: ["The class starts", "The teacher finishes the class", "The teacher is in the class"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "かばんに かぎが はいっている。", en: "The key is in the bag", exercises: [te-iru-resultative, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "さいふが ", tail: "。", answer: "おちる", options: ["おちる", "おとす", "きえる"], en: "The wallet falls", explanation: "が is the tell: nothing is being done to さいふ, so the verb has to be the が-half, おちる. おとす needs somebody doing it, and that comes with を. きえる would also follow が — the English says falls, not disappears." }
+      - { kind: sentence, ja: "でんしゃは じゅうじに でる。", en: "The train leaves at ten", exercises: [jidoushi-tadoushi, ni-time], mode: build }
+      - { kind: sentence, ja: "きょうしつの でんきが きえている。", en: "The classroom light is off", exercises: [te-iru-resultative, no-possession], mode: listening }
+      - { kind: listening-comp, audio: "ドアが あいているから、さむい。", answer: "The door is open, so it's cold", distractors: ["I opened the door because it was cold", "The door closes, so it's cold", "It's cold, so I'll open the door"], exercises: [te-iru-resultative, kara-because] }
+      - { kind: sentence, ja: "たなかさんが かいぎを はじめる。", en: "Mr Tanaka starts the meeting", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "ひきだしから てがみを だす。", en: "I take a letter out of the drawer", exercises: [jidoushi-tadoushi, kara-origin], mode: translate }
+      - { kind: challenge, ja: "じゅぎょうが はじまる まえに、きょうしつの でんきを けして まどを しめる。", en: "Before class starts, I turn the classroom light off and close the window", combines: [mae-ni, te-form, jidoushi-tadoushi, wo-object], mode: build }
+    reviewPool: [ドア, みせ, えいが, でんしゃ, さいふ, てがみ, かいぎ, じゅぎょう, ひきだし, でんき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-13
+    role: teaching
+    title: "Nine pairs, mixed — which verb, which particle?"
+    focus: "The diagnostic as the spine specifies it: given a sentence, which verb? given a verb, which particle? — with no cue about which pair is coming"
+    introduces: []
+    beats:
+      # NO new words at all. This is the assessment lesson, and its only job is
+      # to make the choice unpredictable: the pairs arrive shuffled, the
+      # resultative is mixed in with the plain forms, and the cloze options
+      # are always the real contrast rather than noise. Per inv 5 the cloze
+      # has thinned out by now — most of the diagnostic is carried by builds,
+      # where the learner PRODUCES the particle instead of picking it.
+      - { kind: sentence, ja: "かいぎが はじまる。", en: "The meeting starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: sentence, ja: "ミカが ひきだしを あける。", en: "Mika opens the drawer", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "でんきが きえる。", answer: "The light goes out", distractors: ["I turn the light off", "The light is off", "Please turn the light off"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "たなかさんが くるまを とめる。", en: "Mr Tanaka stops the car", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "つくえから さいふが おちる。", en: "The wallet falls off the desk", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
+      - { kind: particle-cloze, stem: "じゅぎょうの じかんが ", tail: "。", answer: "きまる", options: ["きまる", "きめる", "はじまる"], en: "The time of the class is settled", explanation: "が is the tell: nothing is being done to じかん, so the verb has to be the が-half, きまる. きめる needs somebody doing it, and that comes with を." }
+      - { kind: sentence, ja: "みせが しまっている。", en: "The shop is closed", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "かばんに てがみを いれる。", en: "I put the letter in my bag", exercises: [jidoushi-tadoushi, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "でんしゃが えきを でる。", answer: "The train leaves the station", distractors: ["The train stops at the station", "I get on the train at the station", "The train is at the station"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "せんせいが えいがを はじめる。", en: "The teacher starts the film", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "エレベーターの ドアが あいている。", en: "The lift doors are open", exercises: [te-iru-resultative, no-possession], mode: build }
+      - { kind: particle-cloze, stem: "かばんから きっぷを ", tail: "。", answer: "だす", options: ["だす", "でる", "いれる"], en: "I take the ticket out of my bag", explanation: "を says somebody is doing it, so the verb has to be the を-half, だす. でる is the same event with nobody named, and it takes が." }
+      - { kind: sentence, ja: "きょうしつの まどを しめて ください。", en: "Please close the classroom window", exercises: [te-kudasai, no-possession], mode: build }
+      - { kind: sentence, ja: "かぎが ひきだしに はいっている。", en: "The key is in the drawer", exercises: [te-iru-resultative, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "ミカが かいぎの じかんを きめる。", answer: "Mika decides the time of the meeting", distractors: ["The time of the meeting is settled", "Mika asks the time of the meeting", "Mika starts the meeting"], exercises: [jidoushi-tadoushi, wo-object] }
+      - { kind: sentence, ja: "バスが みせの まえに とまる。", en: "The bus stops in front of the shop", exercises: [jidoushi-tadoushi, ni-location], mode: translate }
+      - { kind: listening-comp, audio: "ひきだしが あいている。", answer: "The drawer is open", distractors: ["I open the drawer", "The drawer closes", "I put it in the drawer"], exercises: [te-iru-resultative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "かいぎは なんじに はじまる？", en: "What time does the meeting start?" }
+          - { speaker: "Mika", ja: "じゅうじ。きょう じかんが きまる。", en: "Ten. The time gets settled today." }
+          - { speaker: "Tanaka", ja: "だれが きめる？", en: "Who decides?" }
+          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "You do." }
+        questions:
+          - { q: "Which of Mika's two verbs leaves the decider out?", options: ["きまる — it names nobody", "きめる — it names nobody", "Both of them", "Neither of them"], answer: "きまる — it names nobody" }
+      - { kind: challenge, ja: "かいぎが はじまる まえに、まどを しめて でんきを けして ください。", en: "Before the meeting starts, please close the window and turn the light off", combines: [mae-ni, te-form, te-kudasai, jidoushi-tadoushi], mode: build }
+    reviewPool: [かいぎ, ひきだし, くるま, さいふ, てがみ, えいが, でんしゃ, エレベーター, きっぷ, バス]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m33-neo-challenge
+    role: challenge
+    title: "Challenge — a room, a meeting and a train"
+    focus: "End-of-module stretch: the pairs chosen correctly inside longer sentences, with the resultative describing rooms the learner walks into"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "きょうしつに はいったら、でんきが きえている。", en: "When I get into the classroom, the light is off", exercises: [tara, te-iru-resultative, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "かいぎの じかんが きまるから、たなかさんに でんわを して ください。", en: "The meeting time is being settled, so please call Mr Tanaka", exercises: [kara-because, te-kudasai, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "でんしゃが でる まえに、かばんから きっぷを だす。", en: "Before the train leaves, I take my ticket out of my bag", exercises: [mae-ni, jidoushi-tadoushi, kara-origin], mode: build }
+      - { kind: listening-comp, audio: "みせが しまっているから、うちに かえる。", answer: "The shop is closed, so I'll go home", distractors: ["The shop closes, so I'll go home", "I close the shop and go home", "I'll go home before the shop closes"], exercises: [te-iru-resultative, kara-because] }
+      - { kind: sentence, ja: "えいがが はじまると、でんきが きえる。", en: "When the film starts, the light goes out", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
+      - { kind: particle-cloze, stem: "みせの まえに くるまを ", tail: " ください。", answer: "とめて", options: ["とめて", "とまって", "しめて"], en: "Please park the car in front of the shop", explanation: "を says somebody is doing it, so the verb is the を-half — とめて, the て-form of とめる. とまって is the same stopping with nobody named, and that would need が. しめて takes を too — the English says park, not close. Asking politely changes nothing about which verb the particle demands." }
+      - { kind: sentence, ja: "じゅぎょうが おわったら、きょうしつの でんきを けして ドアを しめる。", en: "When class finishes, I turn the classroom light off and close the door", exercises: [tara, te-form, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "ひきだしが あいているから、かぎを いれて しめる。", en: "The drawer is open, so I'll put the key in and close it", exercises: [te-iru-resultative, kara-because, te-form], mode: build }
+      - { kind: particle-cloze, stem: "えいがが ", tail: " まえに、でんきを けす。", answer: "はじまる", options: ["はじまる", "はじめる", "おわる"], en: "Before the film starts, I turn the light off", explanation: "が is the tell: nothing is being done to えいが, so the verb has to be the が-half, はじまる. はじめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says starts, not ends." }
+      - { kind: listening-comp, audio: "でんしゃが でる まえに、かばんから きっぷを だす。", answer: "Before the train leaves, I take my ticket out of my bag", distractors: ["After the train leaves, I take my ticket out of my bag", "Before the train leaves, I put my ticket in my bag", "Before I get on the train, I buy a ticket"], exercises: [mae-ni, jidoushi-tadoushi] }
+      - { kind: sentence, ja: "さむいから、まどを しめて でんきを けす。", en: "It's cold, so I'll close the window and turn the light off", exercises: [kara-because, te-form, jidoushi-tadoushi], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きょうしつの まどが あいている。", en: "The classroom window is open." }
+          - { speaker: "Mika", ja: "さむいね。しめる。", en: "It's cold. I'll close it." }
+          - { speaker: "Tom", ja: "でんきも きえている。", en: "The light's off too." }
+          - { speaker: "Mika", ja: "かいぎが はじまる まえに、ドアも しめる。", en: "I'll shut the door too before the meeting starts." }
+        questions:
+          - { q: "Which of these did somebody DO, according to what is said?", options: ["Mika closing the window — しめる takes a doer", "The window being open — あいている takes a doer", "The light being off — きえている takes a doer", "None of them"], answer: "Mika closing the window — しめる takes a doer" }
+      - { kind: challenge, ja: "かいぎが はじまる まえに、まどを しめて でんきを けして、ドアを あけて おく。", en: "Before the meeting starts, I'll close the window, turn the light off and leave the door open", combines: [mae-ni, te-form, te-oku, jidoushi-tadoushi], mode: build }
+    reviewPool: [きょうしつ, かいぎ, でんしゃ, きっぷ, ひきだし, えいが, でんき, まど, みせ, くるま]
