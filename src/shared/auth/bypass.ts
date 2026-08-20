@@ -43,6 +43,18 @@ export const NATIVE_AUTH_BYPASS =
 export const AUTH_BYPASS = DEV_AUTH_BYPASS || NATIVE_AUTH_BYPASS;
 
 /**
+ * Whether this build can sync with the authed backend. A bypassed build holds
+ * only `BYPASS_TOKEN`, which the server rejects (by design), so every authed
+ * request can only 401. Firing them anyway is pure cost: on a cold Lambda the
+ * boot wave stalls the first paint for ~10 s waiting on round-trips that were
+ * never going to succeed. Consumers gate their server fetches on this so a
+ * bypassed build runs fully local-first (SRS + progress are localStorage-backed)
+ * and paints immediately. Build-time constant → the guarded branches are
+ * dead-code-eliminated from a normal (real-Auth0) build.
+ */
+export const SERVER_SYNC_ENABLED = !AUTH_BYPASS;
+
+/**
  * The identity a bypassed session runs as. Shaped like an Auth0 `user` claim
  * set so consumers need no special-casing.
  */

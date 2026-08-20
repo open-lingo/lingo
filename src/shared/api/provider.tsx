@@ -85,15 +85,23 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       baseUrl: API_BASE_URL,
       getAccessToken,
       getImpersonationTargetId,
+      // A bypass build holds only BYPASS_TOKEN, which the server rejects, so
+      // every authed request can only 401. Short-circuit them to instant
+      // local-first fallback instead of stalling first paint on cold-Lambda
+      // round-trips (see bypass.ts SERVER_SYNC_ENABLED).
+      offline: AUTH_BYPASS,
     };
 
     // Boot batching: the first boot-wave request through any client below
     // triggers ONE GET /boot and the rest of the wave is answered from its
     // payload (bootCache.ts). Registered here — lazily kicked from
     // ApiClient — because child effects run before parent effects, so a
-    // provider-side prefetch would lose the race against the hooks.
-    const bootApi = new BootApi(opts);
-    registerBootFetcher(() => bootApi.getBoot());
+    // provider-side prefetch would lose the race against the hooks. A bypass
+    // build has nothing to boot from (every fetch 401s), so skip it.
+    if (!AUTH_BYPASS) {
+      const bootApi = new BootApi(opts);
+      registerBootFetcher(() => bootApi.getBoot());
+    }
 
     return {
       users: new UsersApi(opts),

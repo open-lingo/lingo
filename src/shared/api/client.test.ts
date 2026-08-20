@@ -2,7 +2,7 @@
  * Fix 14 — on 401, ApiClient must re-fetch the token and retry once.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { ApiClient } from "./client";
+import { ApiClient, ApiError } from "./client";
 
 describe("ApiClient — 401 retry with fresh token", () => {
   let fetchSpy: ReturnType<typeof vi.spyOn>;
@@ -110,5 +110,44 @@ describe("ApiClient — skipAuth (Fix M7)", () => {
     // Only the single initial request — no token-refresh retry path.
     expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(getAccessToken).not.toHaveBeenCalled();
+  });
+});
+
+describe("ApiClient — offline mode (bypass build)", () => {
+  let fetchSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchSpy = vi.spyOn(globalThis, "fetch");
+  });
+  afterEach(() => {
+    fetchSpy.mockRestore();
+  });
+
+  it("rejects authed requests instantly without touching the network", async () => {
+    const getAccessToken = vi.fn(async () => "token");
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken,
+      retryBaseDelay: 0,
+      offline: true,
+    });
+
+    await expect(client.get("/progress/me")).rejects.toBeInstanceOf(ApiError);
+    expect(fetchSpy).not.toHaveBeenCalled();
+    // No point acquiring a token we can't use.
+    expect(getAccessToken).not.toHaveBeenCalled();
+  });
+
+  it("short-circuits before any retry back-off (one throw, no timers)", async () => {
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 5000,
+      offline: true,
+    });
+    // If this awaited a retry back-off it would exceed the default test
+    // timeout; instant rejection proves no delay path was taken.
+    await expect(client.get("/x")).rejects.toBeInstanceOf(ApiError);
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

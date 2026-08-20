@@ -25,6 +25,16 @@ export interface ApiClientOptions {
    */
   skipAuth?: boolean;
   /**
+   * Short-circuit every request to an instant failure without touching the
+   * network. Set for the clients of a bypass build (`!SERVER_SYNC_ENABLED`),
+   * whose `BYPASS_TOKEN` the server can only 401: firing them hits a cold
+   * Lambda 6× with back-off and stalls first paint for nothing. Local-first
+   * surfaces (SRS, progress) fall back exactly as they would on the 401 —
+   * just instantly. Build-time-gated at the call site, so real builds never
+   * pass this.
+   */
+  offline?: boolean;
+  /**
    * Optional sync getter for the impersonation target user id. When it
    * returns a non-empty string the client attaches an
    * ``X-Impersonate-User-Id`` header on every request, and the BE
@@ -89,6 +99,7 @@ export class ApiClient {
   private readonly _maxRetries: number;
   private readonly _retryBaseDelay: number;
   private readonly _skipAuth: boolean;
+  private readonly _offline: boolean;
   private readonly _getImpersonationTargetId?: () => string | null;
 
   /** Active AbortControllers keyed by a caller-chosen tag. */
@@ -100,6 +111,7 @@ export class ApiClient {
     this._maxRetries = opts.maxRetries ?? 2;
     this._retryBaseDelay = opts.retryBaseDelay ?? 500;
     this._skipAuth = opts.skipAuth ?? false;
+    this._offline = opts.offline ?? false;
     this._getImpersonationTargetId = opts.getImpersonationTargetId;
   }
 
@@ -150,6 +162,13 @@ export class ApiClient {
     opts?: RequestOptions & { tag?: string },
   ): Promise<T> {
     const url = this._buildUrl(path, opts?.params);
+
+    // Offline (bypass build): no valid token exists, so fail instantly rather
+    // than stall first paint on cold-Lambda round-trips that can only 401.
+    // Callers are local-first and treat this exactly like the 401 it replaces.
+    if (this._offline) {
+      throw new ApiError(0, { detail: "offline: server sync disabled" }, `${method} ${path} → offline`);
+    }
 
     // Boot batching: the first wave of boot-time requests is answered from
     // one GET /boot instead of fanning out (see bootCache.ts — single-use

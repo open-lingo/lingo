@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
+import { SERVER_SYNC_ENABLED } from "@/shared/auth/bypass";
 import type { ProgressSummary } from "@/shared/api/progress";
 import {
   clearLessonProgressReset,
@@ -14,7 +15,10 @@ function canFetchProgress(
   authLoading: boolean,
   userId: string | undefined,
 ): boolean {
-  return isAuthenticated && !authLoading && Boolean(userId);
+  // A bypass build (no valid token) can only 401 here; firing it blocks the
+  // home paint on a cold-Lambda round-trip for nothing. Progress is
+  // local-first, so skip the fetch and let the hook report ready immediately.
+  return SERVER_SYNC_ENABLED && isAuthenticated && !authLoading && Boolean(userId);
 }
 
 /**
