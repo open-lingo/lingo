@@ -168,208 +168,43 @@ function buildSections(lang: string): QaSection[] {
       id: "kanji",
       title: "Kanji rollout — spot checks (2026-07-16)",
       blurb:
-        "The script ladder is live: romaji dies entering m7, kanji recognition starts m8 (kanji + furigana), furigana comes off 2 modules after a kanji unlocks (\"production\"), and romaji + kanji can never co-exist. Typed answers in kana always grade correct.",
+        "The script ladder is live: romaji dies entering m7, kanji recognition opens at the m8 unlock — first surfaces appear at m9 in today’s course (kanji + furigana), furigana comes off 2 modules after a kanji unlocks (\"production\"), and romaji + kanji can never co-exist. Typed answers in kana always grade correct.",
       items: [
         {
-          id: "kanji:m8-furigana-on",
-          title: "m8 — kanji WITH furigana (window open)",
-          hint: "Numbers show as kanji (一, 七…) with small kana floating above. NO romaji anywhere on kanji. ja-m8-6-1 has the most (4 surfaces).",
+          id: "kanji:m9-furigana-on",
+          title: "m9 — kanji WITH furigana (window open)",
+          hint: "Words show as kanji with small kana floating above. NO romaji anywhere on kanji. Measured 2026-08-20: these carry the most m9 surfaces (9 each).",
           links: [
-            { label: "ja-m8-6-1 (一, 七 ×4)", href: p("/learn/lessons/ja-m8-6-1") },
-            { label: "ja-m8-1-2 (三)", href: p("/learn/lessons/ja-m8-1-2") },
+            { label: "ja-m9-neo-7 (9 surfaces)", href: p("/learn/lessons/ja-m9-neo-7") },
+            { label: "ja-m9-neo-3 (9 surfaces)", href: p("/learn/lessons/ja-m9-neo-3") },
           ],
         },
         {
-          id: "kanji:m9-furigana-on",
-          title: "m9 — m8/m9 kanji still inside their window",
-          hint: "ja-m9-7-1 carries 6 kanji surfaces (八, 六, 四…), all still with furigana.",
-          links: [{ label: "ja-m9-7-1 (6 surfaces)", href: p("/learn/lessons/ja-m9-7-1") }],
+          id: "kanji:m10-furigana-on",
+          title: "m10 — m9 kanji still inside their window",
+          hint: "ja-m10-neo-7 carries 7 kanji surfaces, all still with furigana (unlock+2 not yet reached).",
+          links: [{ label: "ja-m10-neo-7 (7 surfaces)", href: p("/learn/lessons/ja-m10-neo-7") }],
         },
         {
-          id: "kanji:m10-furigana-off",
-          title: "m10 — m8 kanji reads COLD (furigana gone)",
-          hint: "八 / 十 unlocked at m8, so at m10 the window is closed: bare kanji, no floating kana, no romaji. If you still see furigana here, mark broken.",
-          links: [{ label: "ja-m10-2-1 (八, 十)", href: p("/learn/lessons/ja-m10-2-1") }],
+          id: "kanji:cold-read",
+          title: "m11/m12 — early kanji reads COLD (furigana gone)",
+          hint: "Furigana comes off two modules after a kanji unlocks, so by m11–m12 the earliest unlocks read bare: no floating kana, no romaji. If you still see furigana on an early word here, mark broken.",
+          links: [
+            { label: "ja-m11-neo-2 (9 surfaces)", href: p("/learn/lessons/ja-m11-neo-2") },
+            { label: "ja-m12-neo-1 (13 surfaces)", href: p("/learn/lessons/ja-m12-neo-1") },
+          ],
         },
         {
           id: "kanji:review-mix",
-          title: "m10 review — bakes m8 (cold) + m9 (furigana) together",
-          hint: "One review, two states: m8 vocab bare kanji, m9 vocab still furigana'd. This is the 'reviews bake in production' behavior.",
-          links: [{ label: "ja-m10-review-1", href: p("/learn/lessons/ja-m10-review-1") }],
-        },
-        {
-          id: "kanji:late-module",
-          title: "m17 — multi-kanji word, ruby layout",
-          hint: "後ろ in the speaking step — the ruby-measured spot (clean at 390px–4K). Check it by eye too.",
-          links: [{ label: "ja-m17-8-1 speaking (後ろ)", href: p("/learn/lessons/ja-m17-8-1?step=speaking") }],
+          title: "m10 review — mixed furigana states bake together",
+          hint: "One review, two states: older vocab bare kanji, newer vocab still furigana'd. This is the 'reviews bake in production' behavior.",
+          links: [{ label: "ja-m10-neo-review-1", href: p("/learn/lessons/ja-m10-neo-review-1") }],
         },
         {
           id: "kanji:none-pre-m8",
           title: "m7 — ZERO kanji (readable check)",
           hint: "Pre-m8 stays pure kana so you can read everything: no kanji anywhere in this lesson (content-gate tested; verify by eye). Romaji is also off from m7.",
-          links: [{ label: "ja-m7-1-1 (pure kana)", href: p("/learn/lessons/ja-m7-1-1") }],
-        },
-      ],
-    },
-    {
-      id: "n4-pilot-m29",
-      title: "N4 pilot — m29 plain form (2026-07-16)",
-      blurb:
-        "First module of the N4 tier, authored as the exemplar every later N4 module copies. Grammar anchor: plain form (dictionary/ない/た/なかった) taught as the base ます is built from, not as 'casual ます.' NOT registered in mockCourse.ts (would rebalance the live N5 map's 3 geometric zones) — review these lessons directly, not via the learn map. Reviews ja-m29-review-1/2 are derived, not linked here.",
-      items: [
-        {
-          id: "n4:m29-1-1",
-          title: "1-1 — Dictionary form, う-verbs I (new: てつだう, いそぐ, つかう)",
-          links: [{ label: "ja-m29-1-1", href: p("/learn/lessons/ja-m29-1-1") }],
-        },
-        {
-          id: "n4:m29-1-2",
-          title: "1-2 — Dictionary form, う-verbs II (new: さがす, なおす, はこぶ, えらぶ)",
-          links: [{ label: "ja-m29-1-2", href: p("/learn/lessons/ja-m29-1-2") }],
-        },
-        {
-          id: "n4:m29-2-1",
-          title: "2-1 — Dictionary form, る-verbs + する (new: かたづける, おぼえる)",
-          links: [{ label: "ja-m29-2-1", href: p("/learn/lessons/ja-m29-2-1") }],
-        },
-        {
-          id: "n4:m29-2-2",
-          title: "2-2 — くる irregular + mixed practice (new: ぜんぶ, blocked)",
-          links: [{ label: "ja-m29-2-2", href: p("/learn/lessons/ja-m29-2-2") }],
-        },
-        {
-          id: "n4:m29-3-1",
-          title: "3-1 — ない form (plain negative), う-verbs",
-          links: [{ label: "ja-m29-3-1", href: p("/learn/lessons/ja-m29-3-1") }],
-        },
-        {
-          id: "n4:m29-3-2",
-          title: "3-2 — ない form, る-verbs + irregulars",
-          links: [{ label: "ja-m29-3-2", href: p("/learn/lessons/ja-m29-3-2") }],
-        },
-        {
-          id: "n4:m29-4-1",
-          title: "4-1 — た form (plain past), leverages known て-form",
-          hint: "Carries a kanji_reading spot check on たべる (食べる, unlocked m14).",
-          links: [
-            { label: "ja-m29-4-1", href: p("/learn/lessons/ja-m29-4-1") },
-            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-4-1?step=kanji_reading") },
-          ],
-        },
-        {
-          id: "n4:m29-4-2",
-          title: "4-2 — た form II: irregulars + mixed",
-          links: [{ label: "ja-m29-4-2", href: p("/learn/lessons/ja-m29-4-2") }],
-        },
-        {
-          id: "n4:m29-5-1",
-          title: "5-1 — なかった (plain past negative) I",
-          links: [{ label: "ja-m29-5-1", href: p("/learn/lessons/ja-m29-5-1") }],
-        },
-        {
-          id: "n4:m29-5-2",
-          title: "5-2 — なかった II + じぶん/ともだち review context",
-          links: [{ label: "ja-m29-5-2", href: p("/learn/lessons/ja-m29-5-2") }],
-        },
-        {
-          id: "n4:m29-6-1",
-          title: "6-1 — Mixed plain-form interleave I",
-          hint: "Carries a kanji_reading spot check on よむ (読む, unlocked m14).",
-          links: [
-            { label: "ja-m29-6-1", href: p("/learn/lessons/ja-m29-6-1") },
-            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-6-1?step=kanji_reading") },
-          ],
-        },
-        {
-          id: "n4:m29-6-2",
-          title: "6-2 — Mixed plain-form interleave II (heavier rotation)",
-          links: [{ label: "ja-m29-6-2", href: p("/learn/lessons/ja-m29-6-2") }],
-        },
-        {
-          id: "n4:m29-story",
-          title: "Story — ゆき and けん make plans (casual plain form in the wild)",
-          links: [{ label: "ja-m29-story", href: p("/learn/lessons/ja-m29-story") }],
-        },
-        {
-          id: "n4:m29-7-1",
-          title: "7-1 — Comprehension drill (mixed forms)",
-          hint: "Carries a kanji_reading spot check on いく (行く, unlocked m15).",
-          links: [
-            { label: "ja-m29-7-1", href: p("/learn/lessons/ja-m29-7-1") },
-            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-7-1?step=kanji_reading") },
-          ],
-        },
-        {
-          id: "n4:m29-7-2",
-          title: "7-2 — Final production",
-          links: [{ label: "ja-m29-7-2", href: p("/learn/lessons/ja-m29-7-2") }],
-        },
-      ],
-    },
-    {
-      id: "fixes",
-      title: "Tonight's fixes — re-verify (2026-07-12 evening)",
-      blurb:
-        "Everything the audit/review round changed since your last drive. Judge these first — each row says exactly what changed and what correct looks like.",
-      items: [
-        {
-          id: "fix:quickfix-keyboard",
-          title: "Quick Fix modal — keyboard now trapped",
-          links: [
-            {
-              label: "m27 · ja-m27-2-1",
-              href: p("/learn/lessons/ja-m27-2-1?step=grammar_rule"),
-            },
-          ],
-          hint: "Was: Enter advanced the lesson BEHIND the open modal and could never dismiss it. Now: miss the drill after the rule card → modal opens; Enter/Esc/Space must CLOSE it, step stays put, nothing advances behind the overlay.",
-        },
-        {
-          id: "fix:placement-gloss",
-          title: "Placement/test-out cloze glosses with apostrophes",
-          links: [
-            { label: "test-out m11", href: p("/learn/test-out/m11") },
-            { label: "placement", href: p("/learn/placement-test") },
-          ],
-          hint: "Was: 9 items truncated at the apostrophe (“I don”, “Let”). Now the full quoted English must show — “I don't eat bread”. (Known cosmetic leftover, don't re-file: occasional leading-space or unnatural-split chips.)",
-        },
-        {
-          id: "fix:translate-punct",
-          title: "Translate — trailing period no longer fails",
-          links: [
-            {
-              label: "m11 · ja-m11-7-2",
-              href: p("/learn/lessons/ja-m11-7-2?step=translate"),
-            },
-          ],
-          hint: "Type a correct answer ending with “.” — the IME turns it into 。 and it previously graded WRONG. Must grade correct now.",
-        },
-        {
-          id: "fix:romaji-assumed",
-          title: "Romaji auto-off now counts ASSUMED modules",
-          links: [
-            { label: "placement", href: p("/learn/placement-test") },
-            { label: "m10 · ja-m10-1-1", href: p("/learn/lessons/ja-m10-1-1") },
-          ],
-          hint: "Place so m10+ is credited (passed OR “credited from your level”) → open the m10 lesson: hiragana romaji scaffold should be gone. Previously only PASSED modules triggered the fade.",
-        },
-        {
-          id: "fix:content-items",
-          title: "Fixed content: m22 いちばん semantics, m13 かおを split, 294 TTS clips",
-          links: [
-            {
-              label: "m22 · ja-m22-5-2",
-              href: p("/learn/lessons/ja-m22-5-2?step=listening_comprehension"),
-            },
-            {
-              label: "m22 · ja-m22-7-2",
-              href: p("/learn/lessons/ja-m22-7-2?step=listening_comprehension"),
-            },
-            {
-              label: "m13 · ja-m13-5-1",
-              href: p("/learn/lessons/ja-m13-5-1?step=listening_build"),
-            },
-          ],
-          hint: "m22: the いちばん items now say みっつの まちのなかで (audio + gloss must match — was “inside this town” × Kyoto). m13: かお|を are separate tiles like シャワー|を. And review-tail audio got a 294-clip backfill — ANY silent play button anywhere is a bug now.",
+          links: [{ label: "ja-m7-neo-1 (pure kana)", href: p("/learn/lessons/ja-m7-neo-1") }],
         },
       ],
     },
@@ -391,21 +226,21 @@ function buildSections(lang: string): QaSection[] {
           title: "Grammar micro-teaching (Quick Fix + spot MCQ)",
           links: [
             {
-              label: "m27 · ja-m27-2-1 (verified in tests)",
-              href: p("/learn/lessons/ja-m27-2-1?step=grammar_rule"),
+              label: "m27 · ja-m27-neo-2 (verified in tests)",
+              href: p("/learn/lessons/ja-m27-neo-2?step=grammar_rule"),
             },
             {
-              label: "m3 · ja-m3-2-1 (earliest)",
-              href: p("/learn/lessons/ja-m3-2-1?step=grammar_rule"),
+              label: "m3 · ja-m3-neo-2 (earliest)",
+              href: p("/learn/lessons/ja-m3-neo-2?step=grammar_rule"),
             },
           ],
-          hint: "Read the rule card, then miss the NEXT drill on purpose → the Quick Fix modal (✗ struck wrong / ✓ right / rule again) should flash ONCE per grammar point. At the end of the drill span expect the 2-option spot-the-mistake MCQ — no audio, romaji hidden. KNOWN (agenda §POST-PUSH, don't re-file): a wrong answer on the end-of-lesson recap steps can pop the tip as a non-sequitur; the spot lands at lesson end rather than capping the drills; ja-m17-2-1's first rule (に) loses its spot to the back-to-back card.",
+          hint: "Read the rule card, then miss the NEXT drill on purpose → the Quick Fix modal (✗ struck wrong / ✓ right / rule again) should flash ONCE per grammar point. At the end of the drill span expect the 2-option spot-the-mistake MCQ — no audio, romaji hidden. KNOWN (agenda §POST-PUSH, don't re-file): a wrong answer on the end-of-lesson recap steps can pop the tip as a non-sequitur; the spot lands at lesson end rather than capping the drills.",
         },
         {
           id: "mech:complete-fail",
           title: "Lesson complete — failed run (+0 XP advisory)",
           links: [
-            { label: "short graded lesson", href: p("/learn/lessons/ja-m3-2-1") },
+            { label: "short graded lesson", href: p("/learn/lessons/ja-m3-neo-2") },
           ],
           hint: "Miss ≥30% of graded steps on purpose. Completion must show +0 XP with the “Score 70%+ to earn XP” advisory — and the server XP total must agree (no phantom XP on refresh).",
         },
@@ -413,15 +248,15 @@ function buildSections(lang: string): QaSection[] {
           id: "mech:romaji-fade",
           title: "Romaji fade inside lessons (hiragana ≥m10, katakana ≥m17)",
           links: [
-            { label: "m10 lesson", href: p("/learn/lessons/ja-m10-1-1?step=build_sentence") },
-            { label: "m17 lesson", href: p("/learn/lessons/ja-m17-1-1") },
+            { label: "m10 lesson", href: p("/learn/lessons/ja-m10-neo-1?step=build_sentence") },
+            { label: "m17 lesson", href: p("/learn/lessons/ja-m17-neo-1") },
           ],
           hint: "Requires your placement/progress to have reached the module (romaji auto-off fires on placement). Check: no romaji under tiles/prompts at m10+, katakana romaji also gone at m17+.",
         },
         {
           id: "mech:consent-squeeze",
           title: "Cookie-consent banner + lesson shell squeeze",
-          links: [{ label: "any lesson", href: p("/learn/lessons/ja-m3-2-1") }],
+          links: [{ label: "any lesson", href: p("/learn/lessons/ja-m3-neo-2") }],
           hint: "Run localStorage.removeItem(\"open-lingo-cookie-consent\") in the console, reload a lesson: the banner must SQUEEZE the lesson shell (Continue button stays visible), not overlap it.",
         },
       ],
@@ -484,9 +319,9 @@ function buildSections(lang: string): QaSection[] {
           id: "route:review-lessons",
           title: "SRS review lessons (dynamic)",
           links: [
-            { label: "m5 review 1", href: p("/learn/lessons/ja-m5-review-1") },
-            { label: "m10 review 2", href: p("/learn/lessons/ja-m10-review-2") },
-            { label: "m17 review 1", href: p("/learn/lessons/ja-m17-review-1") },
+            { label: "m5 review", href: p("/learn/lessons/ja-m5-neo-review") },
+            { label: "m10 review 2", href: p("/learn/lessons/ja-m10-neo-review-2") },
+            { label: "m17 review 1", href: p("/learn/lessons/ja-m17-neo-review-1") },
           ],
         },
       ],
@@ -560,13 +395,9 @@ function buildSections(lang: string): QaSection[] {
         },
         {
           id: "route:story",
-          title: "Story capstones",
-          links: [
-            { label: "m4 story", href: p("/learn/lessons/ja-m4-story") },
-            { label: "m10 story", href: p("/learn/lessons/ja-m10-story") },
-            { label: "story library", href: p("/practice/stories") },
-          ],
-          hint: "The story library is a shipped, unflagged surface (no feature flag gates it anymore). Capstone lessons above route into it as required pathway nodes.",
+          title: "Story library",
+          links: [{ label: "story library", href: p("/practice/stories") }],
+          hint: "The story library is a shipped, unflagged surface. The per-module story capstone lessons were retired with the course rewrite — the library is the only story entry today.",
         },
         {
           id: "route:ftue",

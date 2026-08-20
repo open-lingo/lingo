@@ -92,6 +92,9 @@ const LessonStepPreviewPage = lazyRetry(
 const RegisterVariantsPage = lazyRetry(
   () => import("@/features/lesson/dev/RegisterVariantsPage"),
 );
+const TtsProbePage = lazyRetry(
+  () => import("@/features/lesson/dev/TtsProbePage"),
+);
 const KanjiSwitchoverVariantsPage = lazyRetry(
   () => import("@/features/lesson/dev/KanjiSwitchoverVariantsPage"),
 );
@@ -557,6 +560,7 @@ const router = createBrowserRouter([
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
               { path: "qa/register", element: <RegisterVariantsPage /> },
+              { path: "qa/tts-probe", element: <TtsProbePage /> },
               {
                 path: "qa/kanji-switchover",
                 element: <KanjiSwitchoverVariantsPage />,
