@@ -202,3 +202,8 @@ scripts/data/ko-frequency-raw/
 # `cap sync` that would otherwise double every asset in the repo. Deliberately
 # NOT duplicated here: two copies of the same rules drift, and the one next to
 # the files is the one `cap add` will keep current.
+
+# Local-model drafting output — generated, oversampled, and unverified.
+# These are INPUT to a verification pass, never content. Regenerate with
+# scripts/draft/batch-es.mjs rather than committing a snapshot.
+scripts/draft/drafts/
