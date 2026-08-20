@@ -20,12 +20,13 @@ Two fixes:
 
 I recommend (A) now and (B) as curriculum debt. **Not shipped — awaiting your call.**
 
-## 2. m33 vocabulary set
+## 2. m33 vocabulary set — RESOLVED (authored 2026-08-19)
 
-m32's IR notes recommend m33 build its transitivity set from pairs whose
-intransitive half is ALREADY taught — あく/あける (あける m14), はいる/いれる
-(はいる m16), とまる/とめる (とまる adopted at m32) — rather than つく/つける.
-Confirm before I author.
+You approved the transitivity module in-conversation; m33 is authored on the
+recommended set (9 pairs, つく/つける deferred — a test pins the deferral),
+gate-green, QA'd (see `reports/n4-sonnet-qa-2026-08-19.md`), audio staged.
+Your remaining piece: glance the final-3-sets lessons `ja-m33-neo-8`, `-9`,
+`-10` — m34 re-cements them, and a ratchet in `m33-neo.test.ts` enforces that.
 
 ## 3. The は TTS decision — now a 60-second listening test
 
@@ -49,13 +50,17 @@ Two things changed since the issue was filed:
 
 ## 4. Review queue
 
-19 open entries at `/ja/qa/review`, 0 answered — R5, R6, R7, Q3.
+21 entries at `/ja/qa/review` (R16 answered 2026-08-19 — teach, don't
+suppress; the rest open). Quick unblocks are still R5, R6, R7, Q3.
 
-## 5. 501 TTS clips staged, not uploaded
+## 5. 1,108 TTS clips staged, not uploaded
 
-`tts-publish/ja/` holds 472 narration + 31 dialogue mp3s for m32, 0 removals.
-Manifests already copied into the repo. Upload needs Trevor's AWS creds.
-Until it runs, m32 audio 404s to the SPA shell.
+`tts-publish/ja/` now holds the m32 wave (503), the m33 wave (312), the
+earlier waves' clips and the 5 m30 QA-fix clips — 1,108 files, ~21 MB, 0
+removals. Manifest already copied into the repo (12,330 derivable + 67
+overrides). Upload needs Trevor's AWS creds. Until it runs, every new hash
+serves the SPA shell as `text/html` — which also keeps visual-QA capture red
+on audio-bearing steps (documented in `tts-publish/README.md`).
 
 ## 6. One thing to eyeball, not decide
 
@@ -66,7 +71,13 @@ drag**, so the gesture is unverified. Drag a tile from row 1 to row 2 on a
 phone-width build step (m31 L1) and watch the other tiles. If it still jumps at
 the row break, step 2 in `docs/todo-draggable-build-tiles.md` is next.
 
-## 7. FYI — the full suite is red, and it is not the Japanese side
+## 7. FYI — RESOLVED: the full suite is green again (2026-08-19 19:16)
+
+`esAudioCoverage` passes now — the other session caught its Spanish manifest
+up. Full suite: 10,287 passed / 0 failed. The paragraph below is kept for the
+history of why it was red earlier in the day.
+
+### (was) the full suite is red, and it is not the Japanese side
 
 `esAudioCoverage.test.ts` fails: 825 Spanish audio texts have no manifest clip
 against a ratchet of 719. That is the other session's in-flight Spanish work
