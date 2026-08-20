@@ -40,6 +40,7 @@ import {
   isSrsEligibleAtom,
 } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
+import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
 // ES pool: the aggregate registry is a LAZY getter (it breaks the
 // courseAtoms ↔ curriculum/m{n} import cycle) — call getEsCourseAtoms()
 // at fill time only, never snapshot it at module scope.
@@ -395,10 +396,17 @@ function buildMeaningFill(
   // use the polite form in their matching"). The dedicated dict↔ます
   // teaching grid in ja-m7-2-1 is hand-authored, not pool-drawn, and is
   // unaffected by this filter.
+  // B102 (2026-08-20): registry tags alone over-admitted — the same defect
+  // B088 fixed on the build-tile floor. Require membership in the truthful
+  // taught-before set too (IR priorVocab / real attribution), so a word whose
+  // tag says "prior" but which no earlier lesson actually taught never pads a
+  // meaning grid. Belt (truthful set) and braces (post-restamp tags).
+  const taughtBefore = getJaTaughtKanaBeforeModule(moduleId);
   const prior = getAtomsUpToModule(moduleId).filter(
     (a) =>
       isSrsEligibleAtom(a) &&
       !present.has(a.kana) &&
+      a.kana.split("/").some((v) => taughtBefore.has(v.trim())) &&
       /[a-zA-Z]/.test(a.meaningEn) &&
       a.kind !== "phrase" &&
       !/\s/.test(a.kana) &&
