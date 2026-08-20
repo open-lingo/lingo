@@ -112,7 +112,7 @@ Per-step sentence exposure ≤3; new sentence per grammar point (don't recycle o
 
 ```bash
 npm run dev            # vite, strict port 5173 (API base: VITE_API_BASE_URL, default :8000)
-npm run test:run       # vitest CI
+npm run test:run       # vitest CI — two projects (2026-08-20): `curriculum` (src/features/languages, isolate:false — module-cache reuse, measured 2.75× less CPU) + `app` (everything else, isolated; global isolate:false breaks 53 UI tests, don't). `--project curriculum` scopes a run. Add `--max-workers=6` when Ollama is running.
 npm run test:e2e:auth  # one-time headed auth → .auth/user.json (must navigate to /login, not /)
 node scripts/shot.mjs <path> [w] [h] [--full] [--lang=ja]   # screenshot → /tmp/shot.png
 ```

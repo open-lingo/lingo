@@ -669,12 +669,43 @@ export default defineConfig(({ mode }) => {
     environment: "happy-dom",
     setupFiles: ["./src/test/setup.ts"],
     css: false,
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
     // Several integration tests walk the entire JA curriculum (build every
     // lesson) and legitimately take 5-11s; the 5s default flakes them under
     // machine load. A real assertion failure still fails instantly — this
     // only prevents slow-but-passing whole-course walks from timing out.
     testTimeout: 20000,
+    // Two projects instead of one flat run (2026-08-20). The curriculum
+    // tree is 77% of the suite (7,980 tests) and its cost is module-graph
+    // re-imports: 129 test files each rebuild the full multi-language
+    // lesson registry in a fresh isolated worker. `isolate: false` lets
+    // workers reuse the module cache — measured on src/features/languages:
+    // 22s → 8.7s wall, 284 → 103 CPU-seconds, all tests green. The rest of
+    // the suite KEEPS default isolation: the same flag suite-wide broke 53
+    // UI/shared tests (happy-dom + module state leaks between files), so
+    // do not "simplify" this into a global isolate:false.
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "curriculum",
+          include: ["src/features/languages/**/*.{test,spec}.{ts,tsx}"],
+          isolate: false,
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "app",
+          include: ["src/**/*.{test,spec}.{ts,tsx}"],
+          exclude: [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/curriculum/_archive/**",
+            "src/features/languages/**",
+          ],
+        },
+      },
+    ],
   },
   };
 });

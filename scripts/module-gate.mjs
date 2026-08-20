@@ -18,15 +18,17 @@
  * Stages (sequential — a stage still RUNS even if an earlier one failed, so
  * one summary always covers all three-or-four; only the exit code reflects
  * failure):
- *   1. `npx vitest run` filtered to the module's test files
- *      (`curriculum/__tests__/<module>-neo` — vitest's CLI filter is a path
- *      substring match against files already selected by the project's
- *      `*.test.{ts,tsx}` include glob, so this is equivalent to the literal
- *      glob without reimplementing vitest's file discovery). The filter used
- *      to read `curriculum/<module>`, which stopped matching anything when the
- *      module tests moved into `curriculum/__tests__/` — the stage reported
- *      "vitest exited 1" for every module, m30 included, and the FAIL looked
- *      like a content problem rather than a dead filter. Fixed 2026-08-15.
+ *   1. `npx vitest run` filtered to the module's test files — BOTH
+ *      `curriculum/<module>-neo` and `curriculum/__tests__/<module>-neo`,
+ *      because the tests live in two layouts (m3–m12 beside their modules,
+ *      m13+ in `__tests__/`). Vitest's CLI filter is a path substring match
+ *      against files already selected by the project's `*.test.{ts,tsx}`
+ *      include glob, and multiple filters OR together. History: the filter
+ *      has gone dead TWICE — `curriculum/<module>` alone matched nothing
+ *      after the m13+ move into `__tests__/` (fixed 2026-08-15), and that
+ *      fix matched only `__tests__/`, so early modules failed in 0.3s with
+ *      "vitest exited 1" (fixed 2026-08-20). A 0.3s stage-1 FAIL means the
+ *      filter matched no files, not that content is broken.
  *   2. `node scripts/emit-tts-deck.mjs` (regenerates the JA TTS deck from
  *      ALL curriculum sources — not module-scoped, mirrors the script's own
  *      scope) then a coverage diff: every deck card's `front` (and its
@@ -35,8 +37,9 @@
  *      `src/shared/tts/manifest.ts` against the schema-2 manifest at
  *      `src/shared/tts/manifests/ja.json` — an `overrides` hit, else
  *      sha256("ja:<text>")[:16] present in the packed `hashes` string.
- *   3. `npx tsc --noEmit` (whole-project — matches `npm run build`'s own
- *      typecheck step; there's no cheaper module-scoped tsc).
+ *   3. `npx tsc --noEmit --incremental` (whole-project — same diagnostics as
+ *      CI's plain `tsc --noEmit`, cached via `.tsbuildinfo-gate` so warm
+ *      re-runs cost ~2s instead of ~12s; there's no module-scoped tsc).
  *   4. OPTIONAL, gated on `MODULE_GATE_CAPTURE=1`: the Gate 10 visual-QA
  *      contracts + capture npm scripts, over lesson ids passed via
  *      `--lessons=id1,id2` (no curriculum import here — ids are supplied,
@@ -113,18 +116,27 @@ function stage(name, fn) {
 // ── stage 1: vitest over the module's test files ───────────────────────
 
 stage(`vitest run ${moduleArg} module tests`, () => {
-  // The filter is a path SUBSTRING, and module tests live in
-  // `curriculum/__tests__/mN-neo.test.ts` — so the historical
-  // `curriculum/${moduleArg}` filter matched NOTHING for any module and this
-  // stage had been reporting FAIL-on-no-files since the tests moved into
-  // `__tests__/` (verified 2026-08-15 against m30 as well as m31). Match the
-  // real directory, and accept both `m31` and `m31-neo` as the argument.
+  // The filter is a path SUBSTRING, and module tests live in TWO layouts:
+  // m13+ in `curriculum/__tests__/mN-neo.test.ts`, m3–m12 beside their
+  // modules as `curriculum/mN-neo.test.ts` / `.render.test.tsx` (counted
+  // 2026-08-20). The 2026-08-15 fix matched only `__tests__/` — verified
+  // against m30/m31, both in that directory — so the stage was a dead
+  // filter for every early module (m4-neo reported "vitest exited 1" in
+  // 0.3s, which is vitest's no-files-matched exit). Pass BOTH filters;
+  // vitest ORs them, and zero total matches still exits non-zero (loud).
+  // Accept both `m31` and `m31-neo` as the argument.
   const base = moduleArg.replace(/-neo$/, "");
-  const filter = `curriculum/__tests__/${base}-neo`;
-  const res = run("npx", ["vitest", "run", filter]);
+  const filters = [
+    `curriculum/${base}-neo`,
+    `curriculum/__tests__/${base}-neo`,
+  ];
+  const res = run("npx", ["vitest", "run", ...filters]);
   return res.status === 0
-    ? { status: "PASS", detail: `filter "${filter}"` }
-    : { status: "FAIL", detail: `filter "${filter}" — vitest exited ${res.status}` };
+    ? { status: "PASS", detail: `filters "${filters.join('", "')}"` }
+    : {
+        status: "FAIL",
+        detail: `filters "${filters.join('", "')}" — vitest exited ${res.status}`,
+      };
 });
 
 // ── stage 2: TTS deck emit + manifest coverage ──────────────────────────
@@ -191,7 +203,16 @@ stage("TTS deck emit + manifest coverage", () => {
 // ── stage 3: project typecheck ──────────────────────────────────────────
 
 stage("tsc --noEmit", () => {
-  const res = run("npx", ["tsc", "--noEmit"]);
+  // Incremental with a gate-owned buildinfo file: identical diagnostics to
+  // CI's plain `tsc --noEmit`, but a warm re-run drops ~12s → ~1.7s
+  // (measured 2026-08-20). `*.tsbuildinfo` is gitignored.
+  const res = run("npx", [
+    "tsc",
+    "--noEmit",
+    "--incremental",
+    "--tsBuildInfoFile",
+    ".tsbuildinfo-gate",
+  ]);
   return res.status === 0
     ? { status: "PASS", detail: "clean" }
     : { status: "FAIL", detail: `tsc exited ${res.status}` };

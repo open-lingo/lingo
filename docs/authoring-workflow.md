@@ -112,11 +112,15 @@ half-agents share ONE pack and de-conflict against each other's file;
 that is the only parallelism, and only because both halves see the same
 prior state.
 
-**Scaling watch-item:** past ~m12 the "already knows" list will run long.
-When a vocab category exceeds ~40 items, group it by semantic domain (or
-show counts + only the NEW and under-reinforced words in full) so the pack
-stays digestible. The generator should grow a grouping threshold before
-then — not yet needed (m6 pack = 248 lines).
+**Scaling watch-item — IMPLEMENTED 2026-08-20:** a vocab category past 40
+items now renders compact (several `kana=meaning` entries per line, † = no
+image MCQ) and nouns group by the `scripts/draft/semantic-pools.json`
+domains, unclassified bucket last. NOTHING is omitted — the per-lesson
+tokenize self-check reads this list, so dropping words would silently
+shrink the carrier palette (m30 pack: 703 → 317 lines, all 454 nouns kept).
+Words the pool file hasn't classified land in "(unclassified)"; extending
+the classified inventory is judgment work for a frontier audit pass, not
+the generator.
 
 ## Why this works
 Every past defect class is now either a machine guard (fails the

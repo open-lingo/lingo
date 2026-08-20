@@ -239,10 +239,56 @@ const uniq = (list) => {
   return list.filter((a) => (seen.has(a.kana) ? false : seen.add(a.kana)));
 };
 const fmt = (a) => `${a.kana}${a.emoji ? " " + a.emoji : ""} — ${a.meaningEn}${a.blocked ? " [no image MCQ]" : ""}`;
+// Compact entry for large sections: same content (kana, emoji, meaning,
+// image-MCQ block flag as †), several per line instead of one bullet each.
+const fmtCompact = (a) =>
+  `${a.kana}${a.emoji ? a.emoji : ""}=${a.meaningEn}${a.blocked ? "†" : ""}`;
+const compactRows = (list, perRow = 4) => {
+  const rows = [];
+  for (let i = 0; i < list.length; i += perRow) {
+    rows.push(list.slice(i, i + perRow).map(fmtCompact).join(" · "));
+  }
+  return rows.join("\n") + "\n";
+};
+// The authoring-workflow doc's scaling watch-item, finally implemented
+// (2026-08-20; the doc said "before ~m12" and m30's pack hit 511 noun
+// bullets): a vocab category past GROUP_THRESHOLD switches to the compact
+// format, and nouns additionally group by the semantic-pools.json domains
+// (the classified inventory scripts/draft/ maintains). NOTHING is dropped —
+// the per-lesson tokenize self-check reads this list, so an omitted word
+// would silently shrink the carrier palette. † = [no image MCQ].
+const GROUP_THRESHOLD = 40;
+let SEMANTIC_POOLS = {};
+try {
+  SEMANTIC_POOLS = JSON.parse(
+    readFileSync(resolve(ROOT, "scripts/draft/semantic-pools.json"), "utf8"),
+  );
+} catch {
+  // no classified inventory — the compact format still applies, ungrouped
+}
 const section = (title, list) => {
   const u = uniq(list);
   if (!u.length) return "";
-  return `\n### ${title} (${u.length})\n` + u.map((a) => "- " + fmt(a)).join("\n") + "\n";
+  if (u.length <= GROUP_THRESHOLD) {
+    return `\n### ${title} (${u.length})\n` + u.map((a) => "- " + fmt(a)).join("\n") + "\n";
+  }
+  let out = `\n### ${title} (${u.length}) — compact: kana=meaning, † = no image MCQ\n`;
+  const byDomain = new Map();
+  for (const a of u) {
+    const domain = SEMANTIC_POOLS[a.kana]?.category ?? "(unclassified)";
+    if (!byDomain.has(domain)) byDomain.set(domain, []);
+    byDomain.get(domain).push(a);
+  }
+  if (byDomain.size <= 1) return out + compactRows(u);
+  // Named domains first (alphabetical), the unclassified bucket last.
+  const domains = [...byDomain.keys()].sort((x, y) =>
+    x === "(unclassified)" ? 1 : y === "(unclassified)" ? -1 : x.localeCompare(y),
+  );
+  for (const d of domains) {
+    const words = byDomain.get(d);
+    out += `**${d}** (${words.length}):\n${compactRows(words)}`;
+  }
+  return out;
 };
 
 const priorVerbs = prior.filter(isVerb);
