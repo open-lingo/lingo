@@ -13,8 +13,8 @@
  *                     no 3+ consecutive "selection" (tap-one-of-N) steps.
  *   - production:     ≥2 generation steps (build/translate/speaking), ≥1 of
  *                     which is typed or spoken (translate/speaking).
- *   - metacognition:  each module m2–m16 has ≥2 self_explanation_mcq steps.
- *   - compounding:    each module m2–m16 has ≥6 of its L2–L8 lessons reference
+ *   - metacognition:  each module after m1 has ≥2 self_explanation_mcq steps.
+ *   - compounding:    each module after m1 has ≥6 of its L2–L8 lessons reference
  *                     a PRIOR-module atom (the review tail JA gets from
  *                     pickReviewAtoms). m1 is exempt (nothing earlier).
  */
@@ -24,12 +24,17 @@ import { describe, it, expect } from "vitest";
 import type { LessonStep, MatchPairsStep } from "@/features/lesson/types";
 import { ES_ALL_LESSONS } from "./index";
 import { getEsCourseAtoms } from "../courseAtoms";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 
-const MODULE_ORDER = [
-  "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",
-  "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16",
-];
+// DERIVED, not restated. This file's own copy of the module list froze at m17
+// while m18/m19 shipped — which exempted both from the metacognition and
+// compounding floors, and (worse) flipped a sign: moduleIndex() returned -1
+// for them, so an m5 lesson citing an m19 atom counted as PRIOR-module review.
+// Same defect class, same fix as moduleConformance and the comprehensibility
+// gate: one module order, in grammarHelpers, and a new module cannot require
+// remembering this file.
+const MODULE_ORDER: readonly string[] = ES_MODULE_ORDER;
 
 // "Selection" = the same tap-one-of-N interaction under the hood. A run of 3+
 // reads as one long MCQ drill even when the `type` strings differ (JA guide §2).
@@ -60,7 +65,13 @@ function lessonNum(lessonId: string): number {
   return m ? Number(m[1]) : 0;
 }
 function moduleIndex(m: string): number {
-  return MODULE_ORDER.indexOf(m);
+  const i = MODULE_ORDER.indexOf(m);
+  // -1 reads as "earlier than everything" in the < comparisons below, which
+  // is the sign-flip that credited future-module atoms as prior review.
+  if (i === -1) {
+    throw new Error(`es-quality moduleIndex: "${m}" is not in ES_MODULE_ORDER`);
+  }
+  return i;
 }
 
 // surface / atom-id → introducing module, for the compounding-review check.
@@ -151,7 +162,7 @@ describe("ES quality — production", () => {
 });
 
 describe("ES quality — metacognition & compounding review", () => {
-  it("each module m2–m16 has ≥2 self_explanation_mcq steps", () => {
+  it("each module after m1 has ≥2 self_explanation_mcq steps", () => {
     const bad: string[] = [];
     for (const mod of MODULE_ORDER.slice(1)) {
       const count = ES_ALL_LESSONS.filter((l) => moduleOf(l.id) === mod).reduce(
@@ -163,7 +174,7 @@ describe("ES quality — metacognition & compounding review", () => {
     expect(bad, `too few selfExplain: ${bad.join(", ")}`).toEqual([]);
   });
 
-  it("each module m2–m16 compounds prior modules in ≥6 of its L2–L8 lessons", () => {
+  it("each module after m1 compounds prior modules in ≥6 of its L2–L8 lessons", () => {
     const bad: string[] = [];
     for (const mod of MODULE_ORDER.slice(1)) {
       const later = ES_ALL_LESSONS.filter(

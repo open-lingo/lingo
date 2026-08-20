@@ -1,0 +1,616 @@
+module: m18
+title: "The irregular preterite — and the verbs that only look irregular"
+frame: es_m18
+frameFile: es-m18
+tense: preterite
+throughModule: m17
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# m17 taught the preterite as a SYSTEM: two endings tables, and the yo and él
+# cells carry a written accent. m18 is where that system meets the verbs it
+# does not cover, and the whole risk of the module is that a learner comes away
+# thinking "past tense in Spanish is irregular". It is not. There are three
+# separate things here and they are taught as three separate things:
+#
+#   1. STRONG PRETERITES (fui, tuve, hice, estuve, vi, di, dije, vine, puse,
+#      quise, traje). A different stem, ONE shared ending set, and — the
+#      fact m17 makes hardest — NO WRITTEN ACCENT on yo or él. «tuve», not
+#      *«tuvé»; «hizo», not *«hizó». A learner who has just spent eight lessons
+#      learning that the past is where the accents live has to unlearn it for
+#      exactly this class.
+#   2. J-STEMS (dije, traje). Same strong pattern, plus one extra rule: after a
+#      j the ustedes ending loses its i. «dijeron», never *«dijieron». It is a
+#      sound rule, not a memory item, and it also covers condujeron/trajeron.
+#   3. SPELLING-CHANGE VERBS (llegué, busqué, pagué, empecé, jugué, almorcé).
+#      These are REGULAR. The endings are m17's endings, unchanged. Spanish
+#      orthography rewrites the stem's last consonant so its SOUND survives the
+#      front vowel of -é, and only in the yo cell. Teaching these as irregular
+#      is the misconception this module exists to prevent, which is why they
+#      get their own lesson and their own self-explanation rather than being
+#      mixed into the strong list.
+#
+# m17 deliberately withheld group 3 (see the comment on its verb pool). This is
+# where that debt is paid.
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── strong: ir / ser ──
+  - { surface: "fui", meaningEn: "I went / I was" }
+  - { surface: "fuiste", meaningEn: "you went" }
+  - { surface: "fue", meaningEn: "he/she went" }
+  - { surface: "fuimos", meaningEn: "we went" }
+  - { surface: "fueron", meaningEn: "you all went" }
+  # ── strong: the -uv- family ──
+  - { surface: "tuve", meaningEn: "I had" }
+  - { surface: "tuvo", meaningEn: "he/she had" }
+  - { surface: "tuvieron", meaningEn: "you all had" }
+  - { surface: "estuve", meaningEn: "I was (somewhere)" }
+  - { surface: "estuvo", meaningEn: "he/she was (somewhere)" }
+  - { surface: "estuvieron", meaningEn: "you all were (somewhere)" }
+  # ── strong: hacer / poder / querer ──
+  - { surface: "hice", meaningEn: "I made" }
+  - { surface: "hizo", meaningEn: "he/she made" }
+  - { surface: "hicimos", meaningEn: "we made" }
+  # poder's preterite (pude, pudimos) is NOT registered here. It is a modal:
+  # its complement is an infinitive, and this course has not taught a modal +
+  # infinitive structure, so the m18 frame cannot build a sentence from it and
+  # the module does not claim a form it can only drill against nonsense. It
+  # belongs to whichever module introduces «pude comer».
+  - { surface: "quise", meaningEn: "I wanted" }
+  - { surface: "puse", meaningEn: "I put" }
+  # ── strong: the short stems, no written accent ──
+  - { surface: "vi", meaningEn: "I saw" }
+  - { surface: "vio", meaningEn: "he/she saw" }
+  - { surface: "vieron", meaningEn: "you all saw" }
+  - { surface: "di", meaningEn: "I gave" }
+  - { surface: "dio", meaningEn: "he/she gave" }
+  # ── strong: the j-stems ──
+  - { surface: "dije", meaningEn: "I said" }
+  - { surface: "dijo", meaningEn: "he/she said" }
+  - { surface: "dijeron", meaningEn: "you all said" }
+  - { surface: "traje", meaningEn: "I brought" }
+  - { surface: "trajeron", meaningEn: "you all brought" }
+  - { surface: "vine", meaningEn: "I came" }
+  # ── regular, respelled in the yo cell only — the module's second payload ──
+  - { surface: "llegué", meaningEn: "I arrived" }
+  - { surface: "busqué", meaningEn: "I looked for" }
+  - { surface: "pagué", meaningEn: "I paid" }
+  - { surface: "empecé", meaningEn: "I started" }
+  - { surface: "jugué", meaningEn: "I played" }
+  - { surface: "almorcé", meaningEn: "I had lunch" }
+
+lessons:
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 1
+    template: topic
+    title: "Fui — the one you will use most"
+    description: "Where you went, and who you were. Spanish uses one word for both."
+    info:
+      title: "A different stem, and no accent"
+      body: "The preterite of ir is fui, fuiste, fue, fuimos, fueron. The stem is nothing like ir — you cannot derive it, you learn it. Notice what is MISSING: no written accent anywhere, not on fui and not on fue. Every accent you learned in the last module belonged to the regular endings, and this verb does not use them."
+    anchors:
+      - verb: ir
+        person: yo
+        en: "I went"
+        why: "fui — one syllable, no accent. Compare hablé, which needs one."
+        want: { object: true, time: true }
+        secondWant: { object: true }
+      - verb: ir
+        person: el
+        en: "he/she went"
+        why: "fue, not *fué. A one-syllable word does not take a written accent."
+        want: { object: true, time: true }
+      - verb: ir
+        person: ustedes
+        en: "you all went"
+        why: "fueron — the -ron ending survives; only the stem changed."
+        want: { object: true, time: true }
+    textMcqDistractors: ["fui", "fuimos", "fuiste"]
+    extra:
+      speaking: { verb: ir, person: nosotros, want: { object: true } }
+      listen: { verb: ir, person: tu, want: { object: true, time: true } }
+      build: { verb: ir, person: ustedes, want: { object: true } }
+      buildTiles: ["fuimos"]
+    seventeen:
+      kind: selfExplain
+      anchorLabel: "Fui a la escuela. / Fui maestro."
+      anchorAudioText: "fui a la escuela"
+      question: "Why can fui mean both 'I went' and 'I was'?"
+      rule: "ir and ser share one preterite — the sentence around it decides which verb you are hearing."
+      surface: "Because a destination follows it, so it must be ir."
+      distractor: "Because fui is the past of ir and ser is irregular in a different way."
+      ruleExplanation: "There is no second form to learn: fui, fuiste, fue, fuimos, fueron belong to BOTH verbs. Spanish tolerates this because the two never compete — «fui al parque» has a destination and can only be ir, «fui maestro» has a role and can only be ser."
+    close: { verb: ir, person: yo, want: { object: true } }
+    win:
+      title: "One verb, twice the mileage"
+      body: "fui is the most common irregular preterite in Spanish, and you now have it for two verbs at once."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 2
+    template: topic
+    title: "Tuve, estuve — the -uv- family"
+    description: "Two very common verbs whose past hides a v that is nowhere in the infinitive."
+    info:
+      title: "The stem changes, the endings do not"
+      body: "tener → tuv-. estar → estuv-. Onto that stem goes ONE ending set: -e, -iste, -o, -imos, -ieron. It is not the -ar set and it is not the -er/-ir set — it is a third set, and every strong verb in this module uses it. Still no written accents."
+    anchors:
+      - verb: tener
+        person: el
+        en: "he/she had"
+        why: "tuvo — the -uv- stem plus -o. No accent, unlike habló."
+        want: { object: true }
+      - verb: estar
+        person: yo
+        en: "I was (somewhere)"
+        why: "estuve — estar keeps its est- and adds -uv-."
+        want: { object: true, time: true }
+        secondWant: { object: true }
+      - verb: estar
+        person: ustedes
+        en: "you all were (somewhere)"
+        why: "estuvieron — the shared strong ending -ieron."
+        want: { object: true, time: true }
+    textMcqDistractors: ["estuvimos", "estuviste", "estuvo"]
+    extra:
+      speaking: { verb: tener, person: ustedes, want: { object: true } }
+      listen: { verb: estar, person: el, want: { object: true, time: true } }
+      build: { verb: tener, person: nosotros, want: { object: true } }
+      buildTiles: ["tuvieron"]
+    # Not a match step: position 18 is the template's reviewMatch, and two
+    # match_pairs in a row is the adjacency the ES gates forbid. An MCQ that
+    # forces the accent judgment is the better beat anyway — matching six
+    # -uv- forms tests reading, and this tests the fact the module is about.
+    seventeen:
+      kind: mcq
+      prompt: "Which one is spelled correctly?"
+      correct: "estuvo"
+      distractors: ["estuvó", "estubo", "estuvio"]
+      why: "Strong preterites take NO written accent on the él cell — that is what makes them look so unlike m17's habló."
+      atoms: ["estuvo"]
+    close: { verb: estar, person: nosotros, want: { object: true } }
+    win:
+      title: "A third ending set"
+      body: "-e, -iste, -o, -imos, -ieron. Every strong preterite in this module takes it, so the rest of the lessons are new stems, not new endings."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 3
+    template: topic
+    title: "Hice, quise, puse"
+    description: "Three more stems, and the one spelling surprise inside them."
+    info:
+      title: "Hice, but hizo"
+      body: "hacer → hic-. But «hicó» would be pronounced with a hard c, so Spanish writes hizo. Same sound, different letter — exactly the trick you will meet again in lesson 6. querer → quis- and poner → pus- have no such surprise: one new stem each, and the shared endings you already know."
+    anchors:
+      - verb: hacer
+        person: yo
+        en: "I made"
+        why: "hice — the c stays because -e is a front vowel and keeps it soft."
+        want: { object: true }
+        secondWant: { object: true }
+      - verb: hacer
+        person: el
+        en: "he/she made"
+        why: "hizo, not *hico. Before -o the c would harden, so the spelling changes to z."
+        want: { object: true, time: true }
+      - verb: querer
+        person: yo
+        en: "I wanted"
+        why: "quise — quis- plus the shared -e, and no accent."
+        want: { object: true }
+    textMcqDistractors: ["hicimos", "hiciste", "hice"]
+    extra:
+      speaking: { verb: hacer, person: nosotros, want: { object: true } }
+      listen: { verb: hacer, person: ustedes, want: { object: true, time: true } }
+      build: { verb: poner, person: yo, want: { object: true } }
+      buildTiles: ["pusieron"]
+    seventeen:
+      kind: mcq
+      prompt: "Which one means 'he/she made'?"
+      correct: "hizo"
+      distractors: ["hico", "hació", "hizió"]
+      why: "hizo — c becomes z before -o so the soft sound survives. The stem is hic-, the spelling is not."
+      atoms: ["hizo"]
+    close: { verb: poner, person: nosotros, want: { object: true } }
+    win:
+      title: "Three down"
+      body: "hacer, querer and poner are three of the most common verbs in Spanish, and their past is now yours."
+
+  - n: 4
+    template: topic
+    title: "Vi, di — the shortest past in Spanish"
+    description: "Two verbs whose preterite is one syllable, and what that does to the accent."
+    info:
+      title: "One syllable takes no accent"
+      body: "ver → vi, vio. dar → di, dio. These are the regular -er/-ir endings from m17 with the accent taken off, and the reason is a rule about Spanish spelling rather than about verbs: a word of ONE syllable is never written with an accent, because there is no other syllable it could be confused with."
+    anchors:
+      - verb: ver
+        person: yo
+        en: "I saw"
+        why: "vi, not *ví. One syllable, so no accent is written."
+        want: { object: true, time: true }
+        secondWant: { object: true }
+      - verb: dar
+        person: el
+        en: "he/she gave"
+        why: "dio, not *dió. Same rule — d-i-o is one syllable in Spanish."
+        want: { object: true }
+      - verb: ver
+        person: ustedes
+        en: "you all saw"
+        why: "vieron — two syllables now, and still no accent, because the stress is already where the rules put it."
+        want: { object: true, time: true }
+    textMcqDistractors: ["vimos", "viste", "vio"]
+    extra:
+      speaking: { verb: dar, person: nosotros, want: { object: true } }
+      listen: { verb: ver, person: el, want: { object: true, time: true } }
+      build: { verb: dar, person: ustedes, want: { object: true } }
+      buildTiles: ["dimos"]
+    seventeen:
+      kind: selfExplain
+      anchorLabel: "Vi la película. / Escribí la carta."
+      anchorAudioText: "vi la película"
+      question: "Why does escribí take an accent when vi does not?"
+      rule: "A one-syllable word is never written with an accent; escribí has three syllables and needs one to show which is stressed."
+      surface: "Because vi is irregular and irregular verbs drop their accents."
+      distractor: "Because vi has only one syllable, so there is nothing to distinguish."
+      ruleExplanation: "This is not a verb rule at all — it is the general Spanish accent rule doing its ordinary job. escribí is stressed on its last syllable and ends in a vowel, so the accent must be written. vi has no second syllable to be confused with, so the accent would be marking nothing."
+    close: { verb: ver, person: nosotros, want: { object: true } }
+    win:
+      title: "The accent rule, not the verb rule"
+      body: "You have now seen accents appear and disappear for reasons that have nothing to do with tense. That is the actual system."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "Dije, traje — and the missing i"
+    description: "One extra rule, and it is a sound rule."
+    steps:
+      - kind: info
+        id: info
+        title: "After a j, the i disappears"
+        body: "decir → dij-. traer → traj-. The strong endings would give *dijieron and *trajieron, and Spanish does not say that: after a j the ustedes ending loses its i. dijeron. trajeron. It is the same rule that gives condujeron and produjeron, so it is worth more than two verbs."
+      - kind: phrase
+        id: p-dije
+        meaning: "I said"
+        text: "dije"
+      - kind: formMcq
+        id: q-dije
+        verb: decir
+        person: yo
+        why: "dije — the j-stem plus -e, with no accent like every strong preterite."
+      - kind: build
+        id: b-dije
+        draw: { verb: decir, person: yo, want: { object: true } }
+        tiles: ["dijimos"]
+      - kind: phrase
+        id: p-dijeron
+        meaning: "you all said"
+        text: "dijeron"
+      # Order matters here, not taste: the phrase card above teaches «dijeron»,
+      # and the follow-up lint wants a same-atom retrieval spaced at i+2/i+3
+      # rather than pressed against the card at i+1. The él sentence goes first
+      # so the ustedes cloze lands in the spaced slot.
+      - kind: translate
+        id: tr-dijeron
+        draw: { verb: decir, person: el, want: { object: true } }
+      - kind: cloze
+        id: c-dijeron
+        draw: { verb: decir, person: ustedes, want: { object: true } }
+        why: "dijeron, not dijieron — the i is swallowed by the j."
+      - kind: speaking
+        id: sp-1
+        draw: { verb: traer, person: yo, want: { object: true } }
+      - kind: mcq
+        id: q-jstem
+        prompt: "Which one means 'you all brought'?"
+        correct: "trajeron"
+        distractors: ["trajieron", "traeron", "trajaron"]
+        why: "traj- plus -eron. The i that -ieron would contribute is dropped after the j."
+        atoms: ["trajeron"]
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: traer, person: el, want: { object: true } }
+      - kind: build
+        id: b-traje
+        draw: { verb: traer, person: nosotros, want: { object: true } }
+        tiles: ["trajeron"]
+      - kind: phrase
+        id: p-vine
+        meaning: "I came"
+        text: "vine"
+      - kind: formMcq
+        id: q-vine
+        verb: venir
+        person: yo
+        why: "venir → vin-. No j, so its ustedes form keeps the i: vinieron."
+      # venir.yo, not venir.ustedes: this is the spaced retrieval of «vine»
+      # that the card three steps up is waiting for. «vinieron» is not a
+      # registered atom, so nothing loses coverage by the change.
+      - kind: listenBuild
+        id: lb-vine
+        draw: { verb: venir, person: yo, want: { object: true } }
+        tiles: ["vinieron"]
+      - kind: translate
+        id: tr-vine
+        draw: { verb: venir, person: nosotros, want: { object: true } }
+      - kind: selfExplain
+        id: se
+        anchorLabel: "Dijeron adiós. / Vinieron a la fiesta."
+        anchorAudioText: "dijeron adiós"
+        question: "Why does decir lose the i in dijeron when venir keeps it in vinieron?"
+        rule: "The i drops only after a j — decir's stem ends in one and venir's does not."
+        surface: "Because decir is more irregular than venir."
+        distractor: "Because dij- ends in a j and vin- does not."
+        ruleExplanation: "Both verbs take the same ending. The difference is purely phonetic: j already carries the sound the i would have contributed, so Spanish drops it. Any verb whose preterite stem ends in j behaves this way — traer, conducir, producir — which makes it a rule rather than three exceptions."
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: speaking
+        id: sp-close
+        draw: { verb: decir, person: nosotros, want: { object: true } }
+      - kind: info
+        id: win
+        title: "A rule, not a list"
+        body: "dijeron and trajeron look like exceptions and are not. Every j-stem preterite in Spanish does this, including verbs you have not met yet."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "Llegué — regular verbs in disguise"
+    description: "Six verbs that look irregular in exactly one cell, and are not irregular at all."
+    steps:
+      - kind: info
+        id: info
+        title: "The ending never changed"
+        body: "llegar takes -é in the yo preterite, exactly like hablar. But «llegé» would be pronounced with a soft g, so Spanish writes llegué — a silent u that protects the hard sound. Same story for buscar → busqué (c would soften, so qu) and empezar → empecé (z is never written before e, so c). The ENDING is m17's ending. Only the spelling of the stem moved, and only in the yo cell."
+      - kind: phrase
+        id: p-llegue
+        meaning: "I arrived"
+        text: "llegué"
+      - kind: mcq
+        id: q-llegue
+        prompt: "Which one means 'I arrived'?"
+        correct: "llegué"
+        distractors: ["llegé", "llegó", "llego"]
+        why: "The u is silent and exists only to keep the g hard before -é."
+        atoms: ["llegué"]
+      - kind: build
+        id: b-llegue
+        draw: { verb: llegar, person: yo, want: { time: true } }
+        tiles: ["llegaron"]
+      - kind: phrase
+        id: p-busque
+        meaning: "I looked for"
+        text: "busqué"
+      # Same spacing reason as lesson 5: the él sentence takes the i+1 slot so
+      # the yo cloze — the retrieval of the form the card just taught — lands
+      # spaced at i+2 rather than pressed against it.
+      - kind: translate
+        id: tr-busque
+        draw: { verb: buscar, person: el, want: { object: true } }
+      - kind: cloze
+        id: c-busque
+        draw: { verb: buscar, person: yo, want: { object: true } }
+        why: "c before -é would sound like an s, so the spelling switches to qu."
+      # pagar.yo, not pagar.nosotros — «pagué» is one of the six respelled
+      # forms the lesson exists to teach, and the atom-coverage guard caught
+      # that it was registered without any step ever showing it.
+      - kind: speaking
+        id: sp-1
+        draw: { verb: pagar, person: yo, want: { object: true } }
+      - kind: textMcq
+        id: tm-1
+        target: "empecé"
+        distractors: ["empezé", "empezó", "empiezo"]
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: pagar, person: el, want: { object: true, time: true } }
+      - kind: build
+        id: b-jugue
+        draw: { verb: jugar, person: yo, want: { object: true } }
+        tiles: ["jugaron"]
+      - kind: phrase
+        id: p-almorce
+        meaning: "I had lunch"
+        text: "almorcé"
+      - kind: mcq
+        id: q-almorce
+        prompt: "Which one means 'I had lunch'?"
+        correct: "almorcé"
+        distractors: ["almorzé", "almorzó", "almuerzo"]
+        why: "Spanish does not write z before e or i — it writes c."
+        atoms: ["almorcé"]
+      # almorzar.yo, not ustedes: this is «almorcé»'s spaced retrieval after the
+      # card two steps up. «almorzaron» is not a registered atom, so the change
+      # costs no coverage.
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: almorzar, person: yo, want: { time: true } }
+        tiles: ["almorzaron"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: jugar, person: ustedes, want: { object: true } }
+      - kind: speaking
+        id: sp-2
+        draw: { verb: empezar, person: yo, want: { object: true } }
+      - kind: mcq
+        id: q-which-cell
+        prompt: "Which form of llegar is spelled differently from what you would expect?"
+        correct: "llegué"
+        distractors: ["llegaste", "llegó", "llegaron"]
+        why: "Only the yo cell. Every other cell of these six verbs is spelled exactly like hablar's."
+        atoms: ["llegué"]
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: speaking
+        id: sp-close
+        draw: { verb: llegar, person: ustedes, want: { time: true } }
+      - kind: info
+        id: win
+        title: "Not irregular"
+        body: "These six verbs conjugate exactly like the ones you learned in m17. What changed was orthography, in one cell, to protect a sound. Filing them under 'irregular' is the single most common way learners make Spanish look harder than it is."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 7
+    template: free
+    title: "Repaso — strong, j-stem, or just respelled?"
+    description: "Everything from this module, mixed, with no table in front of you."
+    steps:
+      - kind: info
+        id: info
+        title: "Three groups, one question"
+        body: "Strong stems take -e -iste -o -imos -ieron and no accents. J-stems do the same and drop the i in the ustedes cell. The six spelling verbs are m17 verbs with one respelled cell. Every verb below belongs to exactly one of those groups."
+      - kind: mcq
+        id: q-group
+        prompt: "Which one is NOT a strong preterite?"
+        correct: "llegué"
+        distractors: ["tuve", "hice", "dije"]
+        why: "llegar is regular — its ending is m17's -é and only the stem's spelling moved."
+        atoms: ["llegué"]
+      - kind: build
+        id: b-1
+        draw: { verb: hacer, person: ustedes, want: { object: true } }
+        tiles: ["hicimos"]
+      - kind: translate
+        id: tr-1
+        draw: { verb: ir, person: nosotros, want: { object: true } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: estar, person: tu, want: { object: true, time: true } }
+      - kind: speaking
+        id: sp-1
+        draw: { verb: decir, person: el, want: { object: true } }
+      - kind: cloze
+        id: c-1
+        draw: { verb: ver, person: nosotros, want: { object: true } }
+        why: "vimos — the regular -er ending, and no accent because none is needed."
+      - kind: build
+        id: b-2
+        draw: { verb: poner, person: yo, want: { object: true } }
+        tiles: ["pusieron"]
+      - kind: textMcq
+        id: tm-1
+        target: "dijeron"
+        distractors: ["dijieron", "dijimos", "dijiste"]
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: buscar, person: tu, want: { object: true } }
+        tiles: ["busqué"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: traer, person: ustedes, want: { object: true } }
+      - kind: speaking
+        id: sp-2
+        draw: { verb: venir, person: tu, want: { object: true } }
+      - kind: mcq
+        id: q-accent
+        prompt: "Which one is spelled correctly?"
+        correct: "tuvo"
+        distractors: ["tuvó", "tubo", "tuvio"]
+        why: "Strong preterites carry no written accent — that is what makes them look so unlike m17's forms."
+        atoms: ["tuvo"]
+      - kind: match
+        id: mp-forms
+        surfaces: ["fui", "tuve", "hice", "vi", "dije", "llegué"]
+      - kind: speaking
+        id: sp-3
+        draw: { verb: jugar, person: nosotros, want: { object: true } }
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: translate
+        id: tr-3
+        draw: { verb: almorzar, person: el, want: { time: true } }
+      - kind: info
+        id: win
+        title: "The past tense is finished"
+        body: "Between m17 and m18 you now have the preterite of every verb this course has taught. What is left is not more forms — it is knowing WHEN to use the preterite instead of the imperfect, and that is the next module."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M18 Mastery Test"
+    description: "Prove the irregular preterite. No tables, no hints."
+    steps:
+      - kind: mcq
+        id: q-1
+        prompt: "Which one means 'you all said'?"
+        correct: "dijeron"
+        distractors: ["dijieron", "dijimos", "dijiste"]
+        why: "After a j the ustedes ending loses its i."
+        atoms: ["dijeron"]
+      - kind: build
+        id: b-1
+        draw: { verb: ir, person: yo, want: { object: true, time: true } }
+        tiles: ["fueron"]
+      - kind: translate
+        id: tr-1
+        draw: { verb: tener, person: el, want: { object: true } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: hacer, person: nosotros, want: { object: true } }
+      - kind: speaking
+        id: sp-1
+        draw: { verb: estar, person: ustedes, want: { object: true } }
+      - kind: cloze
+        id: c-1
+        draw: { verb: ver, person: el, want: { object: true } }
+        why: "vio — one syllable, so no written accent, unlike m17's -ió forms."
+      - kind: build
+        id: b-2
+        draw: { verb: dar, person: yo, want: { object: true } }
+        tiles: ["dieron"]
+      - kind: textMcq
+        id: tm-1
+        target: "empecé"
+        distractors: ["empezé", "empecé la", "empezó"]
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: llegar, person: nosotros, want: { time: true } }
+        tiles: ["llegué"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: traer, person: yo, want: { object: true } }
+      - kind: speaking
+        id: sp-2
+        draw: { verb: venir, person: el, want: { object: true } }
+      - kind: capstoneMatch
+        id: mp
+        entries:
+          - { surface: "fui", gloss: "I went" }
+          - { surface: "tuvo", gloss: "he/she had" }
+          - { surface: "hicimos", gloss: "we made" }
+          - { surface: "vieron", gloss: "you all saw" }
+          - { surface: "dije", gloss: "I said" }
+          - { surface: "llegué", gloss: "I arrived" }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLACEMENT — the test-out bank. Three items, because the engine's threshold is
+# 3/3: a learner who already owns the irregular preterite skips the module.
+#
+# Every item is a form choice, never a sentence. Placement is asking "do you
+# already know this?", and a sentence item lets a learner who knows the VOCAB
+# pass without knowing the paradigm — which is the one thing being tested.
+# ─────────────────────────────────────────────────────────────────────────────
+placement:
+  screener:
+    - id: "pt-es-screen-m18"
+      prompt: "'They said goodbye' — pick the Spanish."
+      correct: "dijeron adiós"
+      distractors: ["dijieron adiós", "decieron adiós", "dicieron adiós"]
+  byModule:
+    - id: "pt-es-m18-1"
+      prompt: "Pick the yo past form of tener (to have)."
+      correct: "tuve"
+      distractors: ["tuvé", "tení", "tengo"]
+    - id: "pt-es-m18-2"
+      prompt: "Pick the él/ella past form of hacer (to make)."
+      correct: "hizo"
+      distractors: ["hació", "hico", "hace"]
+    - id: "pt-es-m18-3"
+      prompt: "Pick the yo past form of llegar (to arrive)."
+      correct: "llegué"
+      distractors: ["llegé", "llegó", "llego"]

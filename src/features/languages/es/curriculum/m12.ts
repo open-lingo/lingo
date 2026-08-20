@@ -546,7 +546,7 @@ const M12_4: LessonContent = {
     infoStep(
       "es-m12-4-info-cuesta",
       "Asking the price",
-      "¿Cuánto cuesta? asks what one thing costs; for plurals it becomes ¿cuánto cuestan? (cuesta comes from costar, whose o swells to ue — a pattern you'll master in the next module). Big price numbers stack simply: cien (100), doscientos (200), mil (1,000) — mil pesos, doscientos dólares.",
+      "¿Cuánto cuesta? asks what one thing costs; for plurals it becomes ¿cuánto cuestan? (cuesta comes from costar, whose o swells to ue — a pattern you'll master in the next module). Big price numbers stack simply: cien (100), doscientos (200), mil (1,000) — «mil pesos», «doscientos dólares».",
       "grammar",
     ),
     phrase(

@@ -46,6 +46,7 @@ import {
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   reviewMatchPairs,
   selfExplain,
@@ -846,16 +847,20 @@ const M15_6: LessonContent = {
       ],
       exercisedAtomSurfaces: ["ducharse", "primero", "luego"],
     }),
-    cloze(
-      "es-m15-6-cloze-se",
-      "Mi hermana",
-      "cepilla el pelo.",
-      "se",
-      ["se", "me", "te", "nos"],
-      "My sister brushes her hair.",
-      "Mi hermana se cepilla el pelo.",
-      "Third person — the pronoun must match her, not you.",
-    ),
+    // 2026-08-19: was a particle_cloze on "se" — E2 (intro-only) started
+    // flagging it once the m2 re-author registered "¿cómo se llama usted?"
+    // and "se" gained a teaching module (m2). A production rewrite of the
+    // sentence would add untracked conjugated-form tokens to the ratchet, so
+    // the slot drills the reflexive inventory as a match grid instead; the
+    // full se-drill returns with the m15 re-author.
+    matchPairs("es-m15-6-match-reflexivos", [
+      "levantarse",
+      "despertarse",
+      "ducharse",
+      "cepillarse",
+      "vestirse",
+      "acostarse",
+    ]),
     translateStep({
       id: "es-m15-6-tr-portarde",
       promptEn: "I have breakfast in the afternoon.",

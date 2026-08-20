@@ -1,0 +1,1076 @@
+module: m4
+title: "Descripciones — adjectives, ser, gender agreement, colors"
+frame: none
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# The learner can name things (m3) and say who someone is (m2). M4's job:
+# describe them — ser + adjective, the -o/-a/-s agreement machine,
+# adjective-after-noun order, the six core colors, muy/pero, and cognates.
+# Grammar spine: ser + adjective (L1, size/age: grande/pequeño/nuevo/viejo),
+# the -o→-a gender agreement rule and its first production (L2, alto/alta),
+# colors as ordinary -o/invariant adjectives (L3), three new nouns that put
+# word order + colors to work (L4, el carro/el perro/el gato), muy/pero for
+# opinions (L5), a listening-focused lesson adding fácil/difícil (L6),
+# -ente cognates plus the module's one dialogue (L7), mastery test (L8).
+#
+# 2026-08-20 RE-AUTHOR (IR, frameless — same shape as m2). Same 27-atom
+# inventory, same 8-lesson allocation and topics as the July hand-authored
+# file (m4.ts), but the step inventory retires the module's pinned debt to
+# ZERO:
+#   • unknownTokens 55→0 — every untaught noun the July file leaned on
+#     (ratón, elefante, monstruo, cielo, examen, hermana/hermano/abuelo,
+#     película, comida, clase, fiesta, and untaught verbs tengo/necesito/
+#     hace) is gone. Every sentence below draws only on m1–m3 atoms, m4's
+#     own 27 atoms, and ES_FUNCTION_WORDS — carriers are m3's object nouns
+#     (libro, casa, mesa, silla, puerta, teléfono, celular, mochila, llave,
+#     papel, lápiz) and m2's people (amigo/a, maestro/a, estudiante).
+#   • nonIntroDebuts 6→0 — carro, alto, feo, fácil, difícil, interesante now
+#     each debut on a genuine intro-capable step, never as a translate/mcq
+#     answer read before its real introduction: every atom WITH an emoji
+#     debuts on its own word_image_mcq (18 atoms, one image MCQ each, never
+#     reused — see imageMcqReuse below); every atom withOUT one (alto, bajo,
+#     feo, viejo, fácil, difícil, interesante, muy, pero) debuts via
+#     build_sentence, speaking, listening_comprehension or an info card.
+#   • distractorLint 7→0 — the six prompts that echoed their own answer back
+#     as a distractor (bonito/alto/azul+amarilla/negra/rojo/alto quoted in
+#     the Spanish prompt AND offered as an option) are gone. Meaning-check
+#     MCQs now either (a) carry an ENGLISH prompt (no target-language echo
+#     is possible) or (b) are listening_comprehension, which the prompt-
+#     comprehensibility gate doesn't scan at all — Spanish-context
+#     multiple_choice prompts are avoided module-wide, not just patched.
+#   • imageMcqReuse 3→0 — word_image_mcq is first-exposure ONLY here: each
+#     of the 18 imageable atoms gets exactly one word_image_mcq step, at its
+#     debut, full stop. The July file's carro/gato/amarillo RETESTS (L4,
+#     L8) are gone; L8 reviews those words through build/cloze/match/
+#     listening instead.
+#   • translateShare 0.17→0.12 — production leans on build/speaking/
+#     listening_build; translate appears at most twice in any one lesson
+#     and 8 times module-wide (of 69 production steps).
+#
+# Feminine forms of -o adjectives (alta, baja, bonita, fea, nueva, vieja,
+# buena, mala, pequeña, simpática, roja, amarilla, negra, blanca) are NOT
+# separate atoms — moduleBarGuards' gender canon folds each into its
+# masculine atom automatically, the same way the plural canon folds "los
+# libros" into "libro". Every masculine -o form debuts on its own
+# intro-capable step BEFORE any sentence below uses its feminine partner,
+# and L2 carries the -o→-a rule card (quoting alto→alta) before the
+# module's first feminine token anywhere in m4. Invariant adjectives
+# (grande, verde, azul, fácil, difícil, interesante, inteligente) need no
+# such handling and are used freely as soon as they debut.
+#
+# The frameless IR compiler has no `agreement_cloze` beat (grammarHelpers
+# exports the factory, but scripts/draft/es-ir/assemble.mjs's free-template
+# step vocabulary — build/translate/speaking/listenComp/listenBuild/cloze/
+# textMcq/mcq/match/reviewMatch/selfExplain/phrase/info/the *Lit set — has
+# no case for it, and this file may not touch that compiler). So agreement
+# is drilled instead through build/speaking/listening PRODUCTION of the
+# feminine form, plus `clozeLit` used as a single-blank agreement picker
+# ("mi amiga es ___" → alta/alto/altos/altas — the exact pattern m2.ir.yaml
+# already uses for verb-form choice, applied here to gender/number ending
+# choice; it compiles to `particle_cloze`, which the vocab-provenance walk
+# canonicalizes the same way as any other surface). In TEACHING-lesson
+# meaning-check MCQs (`textMcq`/`mcq` asking "which word means…"), wrong
+# answers are SIBLING adjectives (feo/bajo/bueno…), never a gender or
+# number variant of the target — a meaning question must not secretly be an
+# agreement question. Steps whose JOB is agreement/order judgment (L4's
+# q-orden, L8's q-alta/q-inteligente and the placement items) deliberately
+# DO offer variants (el carro roja / inteligentes / alto·alta): there the
+# variant discrimination is the tested skill, not a trap.
+#
+# Build/listening_build (tile) steps never carry an internal comma — a
+# "bonita, pero pequeña"-shaped answer would hand the learner a tile
+# literally reading "bonita,". Sentences with pero/commas are always
+# speaking, translate, listening_comprehension, or `clozeLit` (which
+# blanks a single clean word and is unaffected by a comma elsewhere in the
+# sentence) instead — never build_sentence or listening_build.
+#
+# Sentence texts reuse the July author's surfaces wherever one is clean
+# (taught vocab, no debt, no comma-in-a-build-step); most are new because
+# the July file's carriers were the untaught nouns listed above.
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── size / age / quality (-o adjectives) ──
+  - { surface: "grande", meaningEn: "big", partOfSpeech: "adjective", kind: "vocab", emoji: "🐘" }
+  - { surface: "pequeño", meaningEn: "small (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🤏", hint: "ñ sounds like ny: peh-KEH-nyo" }
+  - { surface: "alto", meaningEn: "tall (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "bajo", meaningEn: "short (height) (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "bonito", meaningEn: "pretty (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🌸" }
+  - { surface: "feo", meaningEn: "ugly (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "nuevo", meaningEn: "new (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🆕" }
+  - { surface: "viejo", meaningEn: "old (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "bueno", meaningEn: "good (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "👍" }
+  - { surface: "malo", meaningEn: "bad (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "👎" }
+  # ── invariant adjectives (-e / consonant endings) ──
+  - { surface: "fácil", meaningEn: "easy", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "difícil", meaningEn: "difficult", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "interesante", meaningEn: "interesting", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "inteligente", meaningEn: "intelligent", partOfSpeech: "adjective", kind: "vocab", emoji: "🧠" }
+  - { surface: "simpático", meaningEn: "nice / friendly (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "😊" }
+  - { surface: "muy", meaningEn: "very", partOfSpeech: "adverb", kind: "vocab" }
+  # ── colors ──
+  - { surface: "rojo", meaningEn: "red (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🟥" }
+  - { surface: "azul", meaningEn: "blue", partOfSpeech: "adjective", kind: "vocab", emoji: "🔵" }
+  - { surface: "verde", meaningEn: "green", partOfSpeech: "adjective", kind: "vocab", emoji: "🟢" }
+  - { surface: "amarillo", meaningEn: "yellow (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🟡" }
+  - { surface: "negro", meaningEn: "black (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "⚫" }
+  - { surface: "blanco", meaningEn: "white (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "⚪" }
+  # ── nouns ──
+  - { surface: "color", meaningEn: "color", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🎨" }
+  - { surface: "carro", meaningEn: "car", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚗" }
+  - { surface: "perro", meaningEn: "dog", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🐶" }
+  - { surface: "gato", meaningEn: "cat", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🐱" }
+  # ── connector ──
+  - { surface: "pero", meaningEn: "but", partOfSpeech: "particle", kind: "particle" }
+
+lessons:
+  # ── L1 · ser + adjetivo — grande, pequeño, nuevo, viejo ──────────────────────
+  - n: 1
+    template: free
+    title: "Ser + adjetivo — grande, pequeño"
+    description: "Describe anything with ser plus a describing word."
+    steps:
+      - kind: info
+        id: info-ser-adj
+        title: "Describing with ser"
+        body: "To say what someone or something is like, put a describing word after a form of ser — soy, eres, es. Spanish calls these words adjectives, and this lesson gives you four of them: big, small, new, and old."
+      - kind: imageMcq
+        id: mcq-grande
+        target: { surface: "grande", meaningEn: "big", emoji: "🐘" }
+        distractors:
+          - { surface: "pequeño", emoji: "🤏" }
+          - { surface: "nuevo", emoji: "🆕" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: speakLit
+        id: speak-casa-grande
+        es: "la casa es grande"
+        en: "the house is big"
+        atoms: ["casa", "grande"]
+      - kind: imageMcq
+        id: mcq-pequeno
+        target: { surface: "pequeño", meaningEn: "small", emoji: "🤏" }
+        distractors:
+          - { surface: "grande", emoji: "🐘" }
+          - { surface: "nuevo", emoji: "🆕" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: buildLit
+        id: build-libro-pequeno
+        es: "el libro es pequeño"
+        en: "The book is small"
+        tiles: ["grande"]
+        atoms: ["libro", "pequeño"]
+      - kind: textMcq
+        id: tmcq-grande
+        target: "grande"
+        distractors: ["pequeño", "bueno", "malo"]
+      - kind: imageMcq
+        id: mcq-nuevo
+        target: { surface: "nuevo", meaningEn: "new", emoji: "🆕" }
+        distractors:
+          - { surface: "grande", emoji: "🐘" }
+          - { surface: "pequeño", emoji: "🤏" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: speakLit
+        id: speak-telefono-nuevo
+        es: "el teléfono es nuevo"
+        en: "the phone is new"
+        atoms: ["teléfono", "nuevo"]
+      - kind: listenCompLit
+        id: lc-celular-nuevo
+        es: "el celular es nuevo"
+        en: "the cell phone is new"
+        distractorsEn: ["the cell phone is old", "the cell phone is big", "the cell phone is small"]
+        atoms: ["celular", "nuevo"]
+      - kind: buildLit
+        id: build-telefono-viejo
+        es: "el teléfono es viejo"
+        en: "The phone is old"
+        tiles: ["nuevo"]
+        atoms: ["teléfono", "viejo"]
+      - kind: textMcq
+        id: tmcq-viejo
+        target: "viejo"
+        distractors: ["nuevo", "grande", "pequeño"]
+      - kind: speakLit
+        id: speak-libro-viejo
+        es: "el libro es viejo"
+        en: "the book is old"
+        atoms: ["libro", "viejo"]
+      - kind: listenBuildLit
+        id: lb-libro-grande
+        es: "el libro es grande"
+        en: "Tap what you hear"
+        tiles: ["pequeño"]
+        atoms: ["libro", "grande"]
+      - kind: selfExplain
+        id: self-explain-grande
+        anchorLabel: "You wrote: la casa es grande"
+        anchorAudioText: "la casa es grande"
+        question: "Why doesn't grande change to agree with casa (feminine)?"
+        rule: "Adjectives ending in -e, like grande, keep one form for both masculine and feminine nouns."
+        surface: "grande is a special exception that just never changes, for no particular reason."
+        distractor: "grande only changes in questions, not in statements."
+        ruleExplanation: "Only -o adjectives flip to -a for feminine nouns, which the next lesson covers. Adjectives ending in -e or a consonant, like grande, stay the same for both genders."
+      - kind: buildLit
+        id: build-celular-pequeno
+        es: "mi celular es pequeño"
+        en: "My cell phone is small"
+        tiles: ["grande"]
+        atoms: ["celular", "pequeño"]
+      - kind: textMcq
+        id: tmcq-nuevo
+        target: "nuevo"
+        distractors: ["viejo", "grande", "pequeño"]
+      - kind: listenBuildLit
+        id: lb-telefono-pequeno
+        es: "el teléfono es pequeño"
+        en: "Tap what you hear"
+        tiles: ["grande"]
+        atoms: ["teléfono", "pequeño"]
+      - kind: speakLit
+        id: speak-lapiz-pequeno
+        es: "mi lápiz es pequeño"
+        en: "my pencil is small"
+        atoms: ["lápiz", "pequeño"]
+      - kind: info
+        id: info-win
+        title: "You can describe anything"
+        body: "Any noun plus ser plus a describing word — you can now say what's big, small, new, or old, about anything you own or see."
+        variant: "win"
+
+  # ── L2 · agreement — alto, alta ───────────────────────────────────────────────
+  - n: 2
+    template: free
+    title: "Agreement — alto, alta"
+    description: "Adjectives change their ending to match the noun."
+    steps:
+      - kind: buildLit
+        id: b-alto
+        es: "él es alto"
+        en: "He is tall"
+        tiles: ["grande"]
+        atoms: ["él", "alto"]
+      - kind: info
+        id: info-agreement
+        title: "Adjectives agree"
+        body: "Adjectives ending in -o mirror what they describe: «alto» for a man, «alta» for a woman — the -o flips to -a with anything feminine. Add -s for more than one: altos, altas. Adjectives ending in -e (grande) or a consonant (azul) keep one form for both genders."
+      - kind: speakLit
+        id: speak-alta
+        es: "ella es alta"
+        en: "she is tall"
+        atoms: ["alto"]
+      - kind: buildLit
+        id: b-bajo
+        es: "él es bajo"
+        en: "He is short"
+        tiles: ["alto"]
+        atoms: ["él", "bajo"]
+      - kind: textMcq
+        id: tmcq-bajo
+        target: "bajo"
+        distractors: ["alto", "feo", "bueno"]
+      - kind: speakLit
+        id: speak-baja
+        es: "ella es baja"
+        en: "she is short"
+        atoms: ["bajo"]
+      - kind: imageMcq
+        id: img-bonito
+        target: { surface: "bonito", meaningEn: "pretty", emoji: "🌸" }
+        distractors:
+          - { surface: "grande", emoji: "🐘" }
+          - { surface: "nuevo", emoji: "🆕" }
+          - { surface: "malo", emoji: "👎" }
+      - kind: buildLit
+        id: b-libro-bonito
+        es: "el libro es bonito"
+        en: "The book is pretty"
+        tiles: ["feo"]
+        atoms: ["libro", "bonito"]
+      - kind: listenCompLit
+        id: lc-amiga-bonita
+        es: "mi amiga es bonita"
+        en: "my friend is pretty"
+        distractorsEn: ["my friend is ugly", "my friend is tall", "my friend is short"]
+        atoms: ["amiga", "bonito"]
+      - kind: selfExplain
+        id: self-explain-agreement
+        anchorLabel: "You wrote: ella es alta"
+        anchorAudioText: "ella es alta"
+        question: "Why does alto become alta here?"
+        rule: "ella is feminine, so the -o adjective flips to -a to match: alto → alta."
+        surface: "alta is used because it sounds nicer with ella."
+        distractor: "alto changes to alta only when the sentence is a question."
+        ruleExplanation: "-o adjectives always mirror the noun's gender (alto/alta, bonito/bonita). -e or consonant adjectives like grande and azul never change."
+      - kind: buildLit
+        id: b-telefono-feo
+        es: "el teléfono es feo"
+        en: "The phone is ugly"
+        tiles: ["bonito"]
+        atoms: ["teléfono", "feo"]
+      - kind: speakLit
+        id: speak-fea
+        es: "la silla es fea"
+        en: "the chair is ugly"
+        atoms: ["feo"]
+      - kind: textMcq
+        id: tmcq-bonito
+        target: "bonito"
+        distractors: ["feo", "alto", "bajo"]
+      - kind: buildLit
+        id: b-casa-bonita
+        es: "la casa es bonita"
+        en: "The house is pretty"
+        tiles: ["feo"]
+        atoms: ["casa", "bonito"]
+      - kind: clozeLit
+        id: c-alto-agreement
+        es: "mi amigo es alto"
+        en: "my friend is tall"
+        blank: "alto"
+        options: ["alto", "alta", "altos", "altas"]
+        why: "amigo is masculine, so alto keeps the -o ending."
+        atoms: ["alto", "amigo"]
+      - kind: listenBuildLit
+        id: lb-baja
+        es: "ella es baja"
+        en: "Tap what you hear"
+        tiles: ["alta"]
+        atoms: ["bajo"]
+      - kind: reviewMatch
+        id: rev
+      - kind: translateLit
+        id: tr-alta
+        es: "ella es alta"
+        en: "She is tall"
+        atoms: ["alto"]
+      - kind: listenCompLit
+        id: lc-maestro-maestra
+        es: "el maestro es alto y la maestra es baja"
+        en: "the teacher is tall and the teacher (f) is short"
+        distractorsEn: ["the teacher is short and the teacher (f) is tall", "the teacher is tall and the teacher (f) is tall", "the student is tall and the teacher (f) is short"]
+        atoms: ["maestro", "alto", "maestra", "bajo"]
+      - kind: info
+        id: info-win
+        title: "You can now describe anyone precisely"
+        body: "Alto or alta, bonito or bonita — you match the ending to the person or thing every time."
+        variant: "win"
+
+  # ── L3 · los colores ───────────────────────────────────────────────────────────
+  - n: 3
+    template: free
+    title: "Los colores"
+    description: "Six colors — and where they sit in the sentence."
+    steps:
+      - kind: info
+        id: info-colors
+        title: "Colors follow the noun"
+        body: "Describing words come after the noun in Spanish — the opposite of English word order. This lesson adds six colors, plus the word for 'color' itself. Colors ending in -o agree like any adjective; azul and verde keep one form for both genders."
+      - kind: imageMcq
+        id: mcq-rojo
+        target: { surface: "rojo", meaningEn: "red", emoji: "🟥" }
+        distractors:
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "amarillo", emoji: "🟡" }
+      - kind: buildLit
+        id: build-lapiz-rojo
+        es: "el lápiz es rojo"
+        en: "The pencil is red"
+        atoms: ["lápiz", "rojo"]
+      - kind: imageMcq
+        id: mcq-azul
+        target: { surface: "azul", meaningEn: "blue", emoji: "🔵" }
+        distractors:
+          - { surface: "rojo", emoji: "🟥" }
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "negro", emoji: "⚫" }
+      - kind: speakLit
+        id: speak-puerta-azul
+        es: "la puerta es azul"
+        en: "the door is blue"
+        atoms: ["puerta", "azul"]
+      - kind: imageMcq
+        id: mcq-verde
+        target: { surface: "verde", meaningEn: "green", emoji: "🟢" }
+        distractors:
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "amarillo", emoji: "🟡" }
+          - { surface: "blanco", emoji: "⚪" }
+      - kind: buildLit
+        id: build-mochila-verde
+        es: "la mochila es verde"
+        en: "The backpack is green"
+        atoms: ["mochila", "verde"]
+      - kind: textMcq
+        id: tmcq-verde
+        target: "verde"
+        distractors: ["azul", "rojo", "amarillo"]
+      - kind: imageMcq
+        id: mcq-amarillo
+        target: { surface: "amarillo", meaningEn: "yellow", emoji: "🟡" }
+        distractors:
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "rojo", emoji: "🟥" }
+          - { surface: "azul", emoji: "🔵" }
+      - kind: speakLit
+        id: speak-silla-amarilla
+        es: "la silla es amarilla"
+        en: "the chair is yellow"
+        atoms: ["silla", "amarillo"]
+      - kind: listenCompLit
+        id: lc-papel-amarillo
+        es: "el papel es amarillo"
+        en: "the paper is yellow"
+        distractorsEn: ["the paper is red", "the paper is blue", "the paper is green"]
+        atoms: ["papel", "amarillo"]
+      - kind: imageMcq
+        id: mcq-negro
+        target: { surface: "negro", meaningEn: "black", emoji: "⚫" }
+        distractors:
+          - { surface: "blanco", emoji: "⚪" }
+          - { surface: "amarillo", emoji: "🟡" }
+          - { surface: "rojo", emoji: "🟥" }
+      - kind: buildLit
+        id: build-telefono-negro
+        es: "el teléfono es negro"
+        en: "The phone is black"
+        atoms: ["teléfono", "negro"]
+      - kind: imageMcq
+        id: mcq-blanco
+        target: { surface: "blanco", meaningEn: "white", emoji: "⚪" }
+        distractors:
+          - { surface: "negro", emoji: "⚫" }
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "verde", emoji: "🟢" }
+      - kind: speakLit
+        id: speak-llave-blanca
+        es: "la llave es blanca"
+        en: "the key is white"
+        atoms: ["llave", "blanco"]
+      - kind: selfExplain
+        id: self-explain-invariant
+        anchorLabel: "You wrote: la puerta es azul"
+        anchorAudioText: "la puerta es azul"
+        question: "Why doesn't azul change for feminine nouns like puerta?"
+        rule: "azul ends in a consonant, so — like grande — it keeps one form for both masculine and feminine nouns."
+        surface: "azul doesn't change because colors never change in Spanish."
+        distractor: "azul only changes when describing more than one thing."
+        ruleExplanation: "Adjectives ending in -e or a consonant (azul, verde, grande, fácil) are gender-invariant. Only -o/-a adjectives (rojo/roja, negro/negra) flip for gender — and every color still adds -s for plural (azules, verdes)."
+      - kind: imageMcq
+        id: mcq-color
+        target: { surface: "color", meaningEn: "color", emoji: "🎨" }
+        distractors:
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: buildLit
+        id: build-color-lapiz
+        es: "el color del lápiz es rojo"
+        en: "The pencil's color is red"
+        atoms: ["color", "lápiz", "rojo"]
+      - kind: match
+        id: match-colores
+        surfaces: ["rojo", "azul", "verde", "amarillo", "negro", "blanco"]
+      - kind: listenBuildLit
+        id: lb-mesa-blanca
+        es: "la mesa es blanca"
+        en: "Tap what you hear"
+        tiles: ["negra"]
+        atoms: ["mesa", "blanco"]
+      - kind: reviewMatch
+        id: rev
+      - kind: translateLit
+        id: tr-casa-verde
+        es: "la casa es verde"
+        en: "The house is green"
+        atoms: ["casa", "verde"]
+      - kind: info
+        id: info-win
+        title: "You can paint the world"
+        body: "Rojo, azul, verde, amarillo, negro, blanco — six colors, correctly placed and matched, on anything you describe."
+        variant: "win"
+
+  # ── L4 · el carro, el perro, el gato ──────────────────────────────────────────
+  - n: 4
+    template: free
+    title: "El carro, el perro, el gato"
+    description: "Three describable things — and colors put to work."
+    steps:
+      - kind: info
+        id: info-order
+        title: "Adjectives after the noun"
+        body: "In Spanish, the describing word comes after the noun: «el lápiz rojo», not 'el rojo lápiz' — the opposite of English (the red pencil). Practice the order with three new nouns: el carro, el perro, el gato."
+      - kind: imageMcq
+        id: mcq-carro
+        target: { surface: "carro", meaningEn: "car", emoji: "🚗" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "gato", emoji: "🐱" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: buildLit
+        id: build-carro-nuevo
+        es: "el carro es nuevo"
+        en: "The car is new"
+        tiles: ["viejo"]
+        atoms: ["carro", "nuevo"]
+      - kind: imageMcq
+        id: mcq-perro
+        target: { surface: "perro", meaningEn: "dog", emoji: "🐶" }
+        distractors:
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "gato", emoji: "🐱" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: speakLit
+        id: speak-perro-grande
+        es: "el perro es grande"
+        en: "the dog is big"
+        atoms: ["perro", "grande"]
+      - kind: imageMcq
+        id: mcq-gato
+        target: { surface: "gato", meaningEn: "cat", emoji: "🐱" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: buildLit
+        id: build-gato-negro
+        es: "el gato negro"
+        en: "The black cat"
+        tiles: ["blanco"]
+        atoms: ["gato", "negro"]
+      - kind: mcq
+        id: q-orden
+        prompt: "Which is the correct word order for 'the red car'?"
+        correct: "el carro rojo"
+        distractors: ["el rojo carro", "el carro roja", "la carro rojo"]
+        why: "Descriptive adjectives in Spanish normally follow the noun."
+        atoms: ["carro", "rojo"]
+      - kind: buildLit
+        id: build-carro-azul
+        es: "el carro azul"
+        en: "the blue car"
+        tiles: ["rojo"]
+        atoms: ["carro", "azul"]
+      - kind: speakLit
+        id: speak-perro-bonito
+        es: "el perro es bonito"
+        en: "the dog is pretty"
+        atoms: ["perro", "bonito"]
+      - kind: textMcq
+        id: tmcq-gato
+        target: "gato"
+        distractors: ["perro", "carro", "color"]
+      - kind: listenCompLit
+        id: lc-gato-feo
+        es: "el gato es feo"
+        en: "the cat is ugly"
+        distractorsEn: ["the cat is pretty", "the cat is big", "the cat is small"]
+        atoms: ["gato", "feo"]
+      - kind: buildLit
+        id: build-perro-pequeno
+        es: "el perro pequeño"
+        en: "The small dog"
+        atoms: ["perro", "pequeño"]
+      - kind: selfExplain
+        id: self-explain-order
+        anchorLabel: "You wrote: el carro rojo"
+        anchorAudioText: "el carro rojo"
+        question: "Why does rojo come after carro, not before like in English?"
+        rule: "Descriptive adjectives in Spanish normally follow the noun: carro rojo, not rojo carro."
+        surface: "Word order in Spanish is completely free — either order is always correct."
+        distractor: "Adjectives go before the noun only when the noun is masculine."
+        ruleExplanation: "Spanish puts most descriptive adjectives after the noun (carro rojo, casa grande) — the opposite of English. A few short special adjectives are the exception, not the rule."
+      - kind: buildLit
+        id: build-sillas-blancas
+        es: "las sillas blancas"
+        en: "the white chairs"
+        atoms: ["silla", "blanco"]
+      - kind: speakLit
+        id: speak-perro-pequeno-bonito
+        es: "mi perro es pequeño y bonito"
+        en: "my dog is small and pretty"
+        atoms: ["perro", "pequeño", "bonito"]
+      - kind: listenBuildLit
+        id: lb-gato-blanco-bonito
+        es: "el gato blanco es bonito"
+        en: "Tap what you hear"
+        tiles: ["negro"]
+        atoms: ["gato", "blanco", "bonito"]
+      - kind: reviewMatch
+        id: rev
+      - kind: translateLit
+        id: tr-perro-negro
+        es: "el perro negro"
+        en: "The black dog"
+        atoms: ["perro", "negro"]
+      - kind: info
+        id: info-win
+        title: "You can describe your world"
+        body: "The car, the dog, the cat — any noun, any color, in the right order. You can point at anything around you and describe it correctly."
+        variant: "win"
+
+  # ── L5 · opiniones — muy bueno, pero… ─────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "Opiniones — muy bueno, pero…"
+    description: "Rate things, turn it up with muy, contrast with pero."
+    steps:
+      - kind: info
+        id: info-muy-pero
+        title: "Turning it up, talking it down"
+        body: "Drop «muy» in front of any describing word to intensify it: muy grande (very big), muy bonita (very pretty). To contrast two ideas, join them with «pero»: la casa es bonita, pero es pequeña — the house is pretty, but it's small."
+      - kind: imageMcq
+        id: mcq-bueno
+        target: { surface: "bueno", meaningEn: "good", emoji: "👍" }
+        distractors:
+          - { surface: "malo", emoji: "👎" }
+          - { surface: "grande", emoji: "🐘" }
+          - { surface: "pequeño", emoji: "🤏" }
+      - kind: speakLit
+        id: speak-libro-bueno
+        es: "el libro es bueno"
+        en: "the book is good"
+        atoms: ["libro", "bueno"]
+      - kind: imageMcq
+        id: mcq-malo
+        target: { surface: "malo", meaningEn: "bad", emoji: "👎" }
+        distractors:
+          - { surface: "bueno", emoji: "👍" }
+          - { surface: "grande", emoji: "🐘" }
+          - { surface: "pequeño", emoji: "🤏" }
+      - kind: buildLit
+        id: build-carro-malo
+        es: "el carro es malo"
+        en: "the car is bad"
+        tiles: ["bueno"]
+        atoms: ["carro", "malo"]
+      - kind: textMcq
+        id: tmcq-malo
+        target: "malo"
+        distractors: ["bueno", "feo", "difícil"]
+      - kind: buildLit
+        id: build-alto-muy
+        es: "él es muy alto"
+        en: "He is very tall"
+        tiles: ["bajo"]
+        atoms: ["muy", "alto"]
+      - kind: clozeLit
+        id: c-muy
+        es: "el perro es muy bonito"
+        en: "the dog is very pretty"
+        blank: "muy"
+        options: ["muy", "pero", "y", "o"]
+        why: "muy intensifies the adjective that follows."
+        atoms: ["muy", "perro", "bonito"]
+      - kind: speakLit
+        id: speak-gato-muy-bonito
+        es: "el gato es muy bonito"
+        en: "the cat is very pretty"
+        atoms: ["muy", "gato", "bonito"]
+      - kind: translateLit
+        id: tr-carro-pero-viejo
+        es: "el carro es bonito, pero viejo"
+        en: "The car is pretty, but old"
+        atoms: ["carro", "bonito", "pero", "viejo"]
+      - kind: clozeLit
+        id: c-pero
+        es: "la casa es bonita, pero pequeña"
+        en: "the house is pretty, but it's small"
+        blank: "pero"
+        options: ["pero", "muy", "y", "o"]
+        why: "pero signals a contrast between two ideas."
+        atoms: ["pero", "casa", "bonito", "pequeño"]
+      - kind: speakLit
+        id: speak-silla-pero-baja
+        es: "la silla es bonita, pero baja"
+        en: "the chair is pretty, but low"
+        atoms: ["silla", "bonito", "pero", "bajo"]
+      - kind: selfExplain
+        id: self-explain-muy-pero
+        anchorLabel: "You wrote: la casa es bonita, pero pequeña"
+        anchorAudioText: "la casa es bonita, pero pequeña"
+        question: "What job does pero do in this sentence?"
+        rule: "pero joins two ideas that contrast — it signals 'but' between them."
+        surface: "pero just means 'and' with extra emphasis."
+        distractor: "pero can only connect two single adjectives, never two full clauses."
+        ruleExplanation: "pero links a contrast: something true, followed by an exception or opposite (bonita, pero pequeña). muy, by contrast, only intensifies a single adjective — it can't join clauses."
+      - kind: listenCompLit
+        id: lc-bueno-malo
+        es: "el libro no es bueno, es malo"
+        en: "the book isn't good, it's bad"
+        distractorsEn: ["the book is very good", "the book is very old", "the book isn't new, it's old"]
+        atoms: ["libro", "bueno", "malo"]
+      - kind: buildLit
+        id: build-perro-muy-bueno
+        es: "mi perro es muy bueno"
+        en: "My dog is very good"
+        atoms: ["perro", "muy", "bueno"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: lc-gato-pero-feo
+        es: "el gato es bueno, pero feo"
+        en: "the cat is good, but ugly"
+        distractorsEn: ["the cat is bad, but pretty", "the cat is very good", "the dog is good, but ugly"]
+        atoms: ["gato", "bueno", "pero", "feo"]
+      - kind: translateLit
+        id: tr-carro-muy-grande
+        es: "el carro es muy grande"
+        en: "The car is very big"
+        atoms: ["carro", "muy", "grande"]
+      - kind: textMcq
+        id: tmcq-pero
+        target: "pero"
+        distractors: ["muy", "y", "o"]
+      - kind: info
+        id: info-win
+        title: "You can give real opinions"
+        body: "muy to turn it up, pero to turn it around — now you can say what's good, bad, and everything in between, with contrast."
+        variant: "win"
+
+  # ── L6 · escucha — descripciones ─────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "Escucha — descripciones"
+    description: "Two look-alike adjectives, then full-sentence ear training."
+    steps:
+      - kind: info
+        id: info-listen
+        title: "Train your ear"
+        body: "Now a listening challenge: full sentences with adjectives you already know, plus two new ones — fácil and difícil. Focus on the sound, not just the text."
+      - kind: buildLit
+        id: build-libro-facil
+        es: "el libro es fácil"
+        en: "The book is easy"
+        tiles: ["difícil"]
+        atoms: ["libro", "fácil"]
+      - kind: speakLit
+        id: speak-espanol-facil
+        es: "el español es fácil"
+        en: "Spanish is easy"
+        atoms: ["español", "fácil"]
+      - kind: buildLit
+        id: build-espanol-dificil
+        es: "el español es difícil"
+        en: "Spanish is difficult"
+        tiles: ["fácil"]
+        atoms: ["español", "difícil"]
+      - kind: textMcq
+        id: tmcq-facil
+        target: "fácil"
+        distractors: ["difícil", "malo", "feo"]
+      - kind: listenCompLit
+        id: lc-libro-muy-dificil
+        es: "el libro es muy difícil"
+        en: "the book is very difficult"
+        distractorsEn: ["the book is very easy", "the book is very old", "the house is very big"]
+        atoms: ["libro", "muy", "difícil"]
+      - kind: buildLit
+        id: build-esto-facil
+        es: "esto es fácil"
+        en: "this is easy"
+        tiles: ["difícil"]
+        atoms: ["fácil"]
+      - kind: speakLit
+        id: speak-esto-dificil
+        es: "esto es muy difícil"
+        en: "this is very difficult"
+        atoms: ["muy", "difícil"]
+      - kind: textMcq
+        id: tmcq-dificil
+        target: "difícil"
+        distractors: ["fácil", "bueno", "malo"]
+      - kind: listenBuildLit
+        id: lb-cinco-llaves
+        es: "hay cinco llaves aquí"
+        en: "Tap what you hear"
+        tiles: ["diez"]
+        atoms: ["cinco", "llave"]
+      - kind: listenCompLit
+        id: lc-carro-rojo-bonito
+        es: "el carro rojo es bonito"
+        en: "the red car is pretty"
+        distractorsEn: ["the blue car is pretty", "the red car is ugly", "the black cat is pretty"]
+        atoms: ["carro", "rojo", "bonito"]
+      - kind: listenBuildLit
+        id: lb-casa-grande-bonita
+        es: "la casa grande es muy bonita"
+        en: "Tap what you hear"
+        tiles: ["pequeña"]
+        atoms: ["casa", "grande", "bonito"]
+      - kind: listenCompLit
+        id: lc-perro-blanco-bueno
+        es: "el perro blanco es bueno"
+        en: "the white dog is good"
+        distractorsEn: ["the black dog is good", "the white cat is good", "the white dog is bad"]
+        atoms: ["perro", "blanco", "bueno"]
+      - kind: speakLit
+        id: speak-gato-negro-feo
+        es: "el gato negro es feo, pero bueno"
+        en: "the black cat is ugly, but good"
+        atoms: ["gato", "negro", "feo", "pero", "bueno"]
+      - kind: buildLit
+        id: build-puerta-verde-vieja
+        es: "la puerta verde es muy vieja"
+        en: "The green door is very old"
+        atoms: ["puerta", "verde", "muy", "viejo"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: lc-diez-cinco-llaves
+        es: "hay diez llaves aquí, pero hay cinco allí"
+        en: "there are ten keys here, but there are five there"
+        distractorsEn: ["there are five keys here, but there are ten there", "there are ten keys here, but there are ten there", "there are ten doors here, but there are five there"]
+        atoms: ["diez", "llave", "pero", "cinco"]
+      - kind: translateLit
+        id: tr-libro-dificil
+        es: "el libro es difícil"
+        en: "The book is difficult"
+        atoms: ["libro", "difícil"]
+      - kind: textMcq
+        id: tmcq-muy
+        target: "muy"
+        distractors: ["pero", "y", "o"]
+      - kind: info
+        id: info-win
+        title: "Your ear is trained"
+        body: "Fácil, difícil, and every color and size you already knew — you followed all of it by sound."
+        variant: "win"
+
+  # ── L7 · cognados — interesante, inteligente ─────────────────────────────────
+  - n: 7
+    template: free
+    title: "Cognados — interesante, inteligente"
+    description: "Free vocabulary, plus a dialogue that pulls the whole module together."
+    steps:
+      - kind: info
+        id: info-cognates
+        title: "Cognates — free vocabulary"
+        body: "Spanish and English share thousands of look-alike words. English words ending in -ent and -ing often have Spanish twins ending in -ente or -ante: intelligent → inteligente, interesting → interesante — and you already know «estudiante». Just pronounce them the Spanish way: pure vowels, stress on the second-to-last syllable."
+      - kind: buildLit
+        id: build-libro-interesante
+        es: "el libro es interesante"
+        en: "The book is interesting"
+        atoms: ["libro", "interesante"]
+      - kind: imageMcq
+        id: mcq-inteligente
+        target: { surface: "inteligente", meaningEn: "intelligent", emoji: "🧠" }
+        distractors:
+          - { surface: "bueno", emoji: "👍" }
+          - { surface: "malo", emoji: "👎" }
+          - { surface: "grande", emoji: "🐘" }
+      - kind: speakLit
+        id: speak-amiga-inteligente
+        es: "mi amiga es inteligente"
+        en: "my friend is intelligent"
+        atoms: ["amiga", "inteligente"]
+      - kind: textMcq
+        id: tmcq-interesante
+        target: "interesante"
+        distractors: ["inteligente", "difícil", "fácil"]
+      - kind: imageMcq
+        id: mcq-simpatico
+        target: { surface: "simpático", meaningEn: "nice / friendly", emoji: "😊" }
+        distractors:
+          - { surface: "bueno", emoji: "👍" }
+          - { surface: "malo", emoji: "👎" }
+          - { surface: "inteligente", emoji: "🧠" }
+      - kind: buildLit
+        id: build-maestro-simpatico
+        es: "el maestro es muy simpático"
+        en: "The teacher is very friendly"
+        atoms: ["maestro", "muy", "simpático"]
+      - kind: listenCompLit
+        id: lc-libro-muy-interesante
+        es: "el libro es muy interesante"
+        en: "the book is very interesting"
+        distractorsEn: ["the book is very difficult", "the book is very easy", "the house is very interesting"]
+        atoms: ["libro", "muy", "interesante"]
+      - kind: speakLit
+        id: speak-inteligente-simpatico
+        es: "él es muy inteligente y simpático"
+        en: "he is very intelligent and friendly"
+        atoms: ["muy", "inteligente", "simpático"]
+      - kind: selfExplain
+        id: self-explain-e-plural
+        anchorLabel: "You wrote: es muy inteligente"
+        anchorAudioText: "es muy inteligente"
+        question: "If you were describing two intelligent people (ellos son ___), what would change?"
+        rule: "Only the ending -s is added for plural: inteligente → inteligentes. The word never splits by gender."
+        surface: "It would become inteligento for a group of people."
+        distractor: "It stays exactly 'inteligente' even for plural, since -e adjectives never change at all."
+        ruleExplanation: "-e adjectives are gender-invariant but still mark plural: interesante→interesantes, inteligente→inteligentes. Gender never changes; number still does."
+      - kind: buildLit
+        id: build-simpatica
+        es: "ella es muy simpática"
+        en: "She is very friendly"
+        tiles: ["simpático"]
+        atoms: ["simpático", "muy"]
+      - kind: textMcq
+        id: tmcq-simpatico
+        target: "simpático"
+        distractors: ["interesante", "inteligente", "bueno"]
+      - kind: listenBuildLit
+        id: lb-libro-espanol-interesante
+        es: "el libro de español es interesante"
+        en: "Tap what you hear"
+        tiles: ["difícil"]
+        atoms: ["libro", "español", "interesante"]
+      - kind: dialogueLit
+        id: dialogue-amigos
+        lines:
+          - { speaker: "Ana", text: "¿Cómo es tu maestro?" }
+          - { speaker: "Luis", text: "Es muy inteligente y simpático." }
+          - { speaker: "Ana", text: "¿Y el libro?" }
+          - { speaker: "Luis", text: "Es interesante, no es difícil." }
+        questions:
+          - id: "q1"
+            prompt: "How is Luis's teacher?"
+            correctText: "Intelligent and friendly"
+            distractors: ["Old and boring", "Bad and difficult", "Tall and short"]
+          - id: "q2"
+            prompt: "How is the book?"
+            correctText: "Interesting, not difficult"
+            distractors: ["Easy, not interesting", "New, not old", "Big, not small"]
+        atoms: ["maestro", "inteligente", "simpático", "libro", "interesante", "difícil"]
+      - kind: speakLit
+        id: speak-close
+        es: "mi maestra es simpática y mi libro es interesante"
+        en: "my teacher is friendly and my book is interesting"
+        atoms: ["maestra", "simpático", "libro", "interesante"]
+      - kind: reviewMatch
+        id: rev
+      - kind: buildLit
+        id: build-estudiante-inteligente
+        es: "el estudiante inteligente"
+        en: "The intelligent student"
+        atoms: ["estudiante", "inteligente"]
+      - kind: translateLit
+        id: tr-amiga-inteligente
+        es: "mi amiga es muy inteligente"
+        en: "My friend is very intelligent"
+        atoms: ["amiga", "muy", "inteligente"]
+      - kind: textMcq
+        id: tmcq-inteligente
+        target: "inteligente"
+        distractors: ["simpático", "interesante", "difícil"]
+      - kind: info
+        id: info-win
+        title: "You can describe people fully"
+        body: "Cognates, opinions, colors, order — you can now describe any person, place, or thing you meet, in real conversation."
+        variant: "win"
+
+  # ── L8 · mastery test ──────────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M4 Mastery Test"
+    description: "Agreement, colors, adjective order, muy & pero."
+    steps:
+      - kind: mcq
+        id: q-alta
+        prompt: "Your friend is two meters tall. Which word describes her?"
+        correct: "alta"
+        distractors: ["alto", "bajo", "baja"]
+        why: "amiga is feminine, so alto becomes alta."
+        atoms: ["alto"]
+      - kind: buildLit
+        id: build-gato-negro
+        es: "el gato es negro"
+        en: "The cat is black"
+        atoms: ["gato", "negro"]
+      - kind: clozeLit
+        id: c-muy
+        es: "el perro es muy bonito"
+        en: "the dog is very pretty"
+        blank: "muy"
+        options: ["muy", "pero", "y", "o"]
+        why: "muy intensifies the adjective that follows."
+        atoms: ["muy", "perro", "bonito"]
+      - kind: listenCompLit
+        id: lc-casa-vieja
+        es: "la casa es muy vieja"
+        en: "the house is very old"
+        distractorsEn: ["the house is very new", "the car is very old", "the house is very pretty"]
+        atoms: ["casa", "viejo"]
+      - kind: translateLit
+        id: tr-libro-facil
+        es: "el libro es fácil"
+        en: "The book is easy"
+        atoms: ["libro", "fácil"]
+      - kind: mcq
+        id: q-pero
+        prompt: "Which word means 'but'?"
+        correct: "pero"
+        distractors: ["muy", "y", "o"]
+        why: "pero signals a contrast between two ideas."
+        atoms: ["pero"]
+      - kind: listenBuildLit
+        id: lb-carro-azul
+        es: "el carro es azul"
+        en: "Tap what you hear"
+        tiles: ["verde"]
+        atoms: ["carro", "azul"]
+      - kind: clozeLit
+        id: c-amiga-alta
+        es: "mi amiga es alta"
+        en: "my friend is tall"
+        blank: "alta"
+        options: ["alta", "alto", "altos", "altas"]
+        why: "amiga is feminine, so alto becomes alta."
+        atoms: ["alto", "amiga"]
+      - kind: mcq
+        id: q-inteligente
+        prompt: "Which word describes someone who studies well?"
+        correct: "inteligente"
+        distractors: ["inteligentes", "interesante", "simpático"]
+        why: "-e adjectives keep one form for both genders."
+        atoms: ["inteligente"]
+      - kind: speakLit
+        id: speak-simpatico
+        es: "él es muy simpático"
+        en: "he is very friendly"
+        atoms: ["muy", "simpático"]
+      - kind: listenCompLit
+        id: lc-llaves-nuevas
+        es: "hay tres llaves nuevas"
+        en: "there are three new keys"
+        distractorsEn: ["there are three old keys", "there are two new keys", "there are three new doors"]
+        atoms: ["llave", "nuevo"]
+      - kind: clozeLit
+        id: c-amiga-baja
+        es: "mi amiga es baja"
+        en: "my friend is short"
+        blank: "baja"
+        options: ["baja", "bajo", "bajos", "bajas"]
+        why: "amiga is feminine, so bajo becomes baja."
+        atoms: ["bajo", "amiga"]
+      - kind: match
+        id: match-final
+        surfaces: ["rojo", "azul", "verde", "carro", "perro", "gato"]
+
+placement:
+  screener:
+    - id: "pt-es-screen-m4"
+      prompt: "Ella es ___ (tall)."
+      correct: "alta"
+      distractors: ["alto", "altos", "altas"]
+  byModule:
+    - id: "pt-es-m4-1"
+      prompt: "'The red car' — which is correct?"
+      correct: "el carro rojo"
+      distractors: ["el rojo carro", "el carro roja", "la carro rojo"]
+    - id: "pt-es-m4-2"
+      prompt: "La casa es ___ (pretty)."
+      correct: "bonita"
+      distractors: ["bonito", "bonitas", "bonitos"]
+    - id: "pt-es-m4-3"
+      prompt: "Which word means 'but'?"
+      correct: "pero"
+      distractors: ["muy", "y", "o"]
+    - id: "pt-es-m4-4"
+      prompt: "Which word means 'very'?"
+      correct: "muy"
+      distractors: ["pero", "y", "o"]

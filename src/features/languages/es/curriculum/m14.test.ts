@@ -23,6 +23,8 @@ import {
   checkPassiveCardFollowup,
 } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
+import { registerEsModuleBarGuards } from "../__tests__/moduleBarGuards";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 
 describe("ES M14 curriculum", () => {
   it("ships 8 lessons, all tagged es / m14 / mock-1", () => {
@@ -98,4 +100,15 @@ describe("ES M14 curriculum", () => {
       ).toBe(true);
     }
   });
+});
+
+// ── ES authoring bar (Track B, 2026-08-19) ─────────────────────────────────
+// m14 predates the bar (hand-authored July wave); measured debt is pinned
+// below, SHRINK-ONLY — never raise a number to admit new content. The IR
+// re-author retires it (docs/handoff-course-reauthoring-2026-08-19.md §3).
+registerEsModuleBarGuards({
+  moduleLabel: "m14",
+  lessons: ES_M14_LESSONS,
+  priorModules: ES_MODULE_ORDER.slice(0, ES_MODULE_ORDER.indexOf("m14")),
+  debt: { unknownTokens: 28, nonIntroDebuts: 7, fullSentenceMcqs: 9, productionFramedMcqs: 2, imageMcqReuse: 3, particleClozeOutOfModule: 6, translateShare: 0.215 },
 });

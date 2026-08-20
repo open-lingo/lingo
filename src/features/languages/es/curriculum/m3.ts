@@ -437,6 +437,9 @@ const M3_3: LessonContent = {
       { surface: "lápiz", meaningEn: "pencil", emoji: "✏️" },
       [PLUMA, PAPEL, CELULAR],
     ),
+    // pluma's intro (2026-08-19) — it used to debut inside cz-una, which the
+    // provenance gate rightly flags (a cloze can't be a word's first exposure).
+    phrase("es-m3-3-p-pluma", "a pen", "una pluma", undefined, { atomId: "es:pluma", emoji: "🖊️" }),
     speaking("es-m3-3-speak-lapiz", "un lápiz", "a pencil", ["un", "lápiz"]),
     cloze(
       "es-m3-3-cz-una",
@@ -488,19 +491,19 @@ const M3_3: LessonContent = {
       "un lápiz y una pluma",
       ["lápiz", "pluma"],
     ),
-    translateStep({
-      id: "es-m3-3-tr-telefonocomputadora",
-      promptEn: "A phone and a computer",
-      acceptedAnswers: [
-        "un teléfono y una computadora",
-        "Un teléfono y una computadora",
-        "un teléfono y una computadora.",
-        "Un teléfono y una computadora.",
-      ],
-      audioText: "un teléfono y una computadora",
-      exercisedAtomSurfaces: ["un", "teléfono", "y", "una", "computadora"],
-    }),
-    matchPairs("es-m3-3", ["teléfono", "celular", "computadora", "lápiz", "pluma", "papel"]),
+    // 2026-08-19: was a translate — converted to a build to bring the
+    // module's translate share under 15% of production (inv 43).
+    build(
+      "es-m3-3-b-telefonocomputadora",
+      "Build: 'a phone and a computer'",
+      "un teléfono y una computadora",
+      ["un", "teléfono", "y", "una", "computadora", "la"],
+      ["un", "teléfono", "y", "una", "computadora"],
+      ["un", "teléfono", "y", "una", "computadora"],
+    ),
+    // papel moved out of this grid (2026-08-19): the grid was its first
+    // exposure, and match_pairs can't debut a word. It debuts in L4 now.
+    matchPairs("es-m3-3", ["teléfono", "celular", "computadora", "lápiz", "pluma", "libro"]),
     selfExplain({
       id: "es-m3-3-self-ununa",
       anchorLabel: "You wrote: un lápiz y una pluma",
@@ -562,6 +565,13 @@ const M3_4: LessonContent = {
       ["la", "mochila", "el", "los"],
       ["la", "mochila"],
       ["la", "mochila"],
+    ),
+    // papel's intro (2026-08-19) — L4 is where its -es plural is drilled, so
+    // it debuts here on the image rung before q-papel/cz-los produce it.
+    vocabMcq(
+      "es-m3-4-mcq-papel",
+      { surface: "papel", meaningEn: "paper", emoji: "📄" },
+      [MOCHILA, LIBRO, LAPIZ],
     ),
     phrase("es-m3-4-p-llave", "the key", "la llave", undefined, { atomId: "es:llave", emoji: "🔑" }),
     vocabMcq(
@@ -639,18 +649,16 @@ const M3_4: LessonContent = {
       "los libros",
       ["libro"],
     ),
-    translateStep({
-      id: "es-m3-4-tr-mochilasyllaves",
-      promptEn: "The backpacks and the keys",
-      acceptedAnswers: [
-        "las mochilas y las llaves",
-        "Las mochilas y las llaves",
-        "las mochilas y las llaves.",
-        "Las mochilas y las llaves.",
-      ],
-      audioText: "las mochilas y las llaves",
-      exercisedAtomSurfaces: ["las", "mochila", "y", "llave"],
-    }),
+    // 2026-08-19: was a translate — converted to a build to bring the
+    // module's translate share under 15% of production (inv 43).
+    build(
+      "es-m3-4-b-mochilasyllaves",
+      "Build: 'the backpacks and the keys'",
+      "las mochilas y las llaves",
+      ["las", "mochilas", "y", "las", "llaves", "los"],
+      ["las", "mochilas", "y", "las", "llaves"],
+      ["las", "mochila", "y", "llave"],
+    ),
     speaking("es-m3-4-speak-lasllaves", "las llaves", "the keys", ["las", "llave"]),
     matchPairs("es-m3-4", ["mochila", "llave", "papel", "cosa", "silla", "libro"]),
     selfExplain({
@@ -854,11 +862,9 @@ const M3_6: LessonContent = {
       exercisedAtomSurfaces: ["un", "lápiz"],
     }),
     speaking("es-m3-6-speak-unacomputadora", "una computadora", "a computer", ["una", "computadora"]),
-    vocabMcq(
-      "es-m3-6-mcq-papel",
-      { surface: "papel", meaningEn: "paper", emoji: "📄" },
-      [LLAVE, MOCHILA, DINERO],
-    ),
+    // 2026-08-19: was a word_image_mcq — papel is known by L6, and the image
+    // rung is first-exposure only (inv 44); review recognition goes text-front.
+    vocabTextMcq("es-m3-6-tmcq-papel", "papel", ["llave", "mochila", "dinero"]),
     listeningCompSentence({
       id: "es-m3-6-lc-computadora",
       audioText: "una computadora",
@@ -1024,10 +1030,18 @@ const M3_7: LessonContent = {
       distractorsText: ["a book", "the house", "a room"],
       exercisedAtomSurfaces: ["una", "casa"],
     }),
-    vocabMcq(
-      "es-m3-7-mcq-llave",
-      { surface: "llave", meaningEn: "key", emoji: "🔑" },
-      [MOCHILA, PLUMA, PUERTA],
+    // 2026-08-19: was a word_image_mcq on already-known llave (inv 44) — the
+    // retrieval is an article cloze now, which also re-drills gender.
+    cloze(
+      "es-m3-7-cz-lallave",
+      "",
+      "llave",
+      "la",
+      ["la", "el", "los", "las"],
+      "the key",
+      "la llave",
+      undefined,
+      ["llave"],
     ),
     speaking(
       "es-m3-7-speak-celular",
@@ -1044,11 +1058,8 @@ const M3_7: LessonContent = {
       "there is a key in the door",
       "hay una llave en la puerta",
     ),
-    vocabMcq(
-      "es-m3-7-mcq-mochila",
-      { surface: "mochila", meaningEn: "backpack", emoji: "🎒" },
-      [LLAVE, LIBRO, PLUMA],
-    ),
+    // 2026-08-19: was a word_image_mcq on already-known mochila (inv 44).
+    vocabTextMcq("es-m3-7-tmcq-mochila", "mochila", ["llave", "libro", "pluma"]),
     translateStep({
       id: "es-m3-7-tr-agua",
       promptEn: "There is water on the table",
@@ -1154,11 +1165,8 @@ const M3_8: LessonContent = {
       audioText: "hay un libro en la mochila",
       exercisedAtomSurfaces: ["hay", "un", "libro", "en", "mochila"],
     }),
-    vocabMcq(
-      "es-m3-8-mcq-mochila",
-      { surface: "mochila", meaningEn: "backpack", emoji: "🎒" },
-      [LLAVE, SILLA, DINERO],
-    ),
+    // 2026-08-19: was a word_image_mcq on already-known mochila (inv 44).
+    vocabTextMcq("es-m3-8-tmcq-mochila", "mochila", ["llave", "silla", "dinero"]),
     cloze(
       "es-m3-8-cz-en",
       "hay dos plumas",

@@ -709,14 +709,16 @@ const M8_4: LessonContent = {
       ["cantar", "bailar", "todos los días"],
     ),
     speaking("es-m8-4-speak-ustedes-cantan", "Ustedes cantan muy bien.", "You all sing very well.", ["ustedes", "cantar"]),
+    // 2026-08-19: was "en las fiestas" — fiesta is m11's word (the
+    // plural-aware provenance lint caught the reach-ahead); casa is m3.
     cloze(
       "es-m8-4-cloze-primos",
       "Mis primos",
-      "mucho en las fiestas.",
+      "mucho en casa.",
       "bailan",
       ["bailan", "bailamos", "baila", "bailo"],
-      "my cousins dance a lot at parties",
-      "Mis primos bailan mucho en las fiestas.",
+      "my cousins dance a lot at home",
+      "Mis primos bailan mucho en casa.",
       undefined,
       ["bailar", "mucho"],
     ),

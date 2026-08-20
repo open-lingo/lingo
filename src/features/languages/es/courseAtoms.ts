@@ -45,6 +45,9 @@ import { ES_M13_ATOMS } from "./curriculum/m13";
 import { ES_M14_ATOMS } from "./curriculum/m14";
 import { ES_M15_ATOMS } from "./curriculum/m15";
 import { ES_M16_ATOMS } from "./curriculum/m16";
+import { ES_M17_ATOMS } from "./curriculum/m17";
+import { ES_M18_ATOMS } from "./curriculum/m18";
+import { ES_M19_ATOMS } from "./curriculum/m19";
 
 export type EsAtomKind = "vocab" | "particle" | "phrase";
 
@@ -64,7 +67,10 @@ export type EsAtomSource =
   | "m13"
   | "m14"
   | "m15"
-  | "m16";
+  | "m16"
+  | "m17"
+  | "m18"
+  | "m19";
 
 /** ES-specific atom shape — Latin script + gender for the agreement engines. */
 export type EsAtom = Atom & {
@@ -176,9 +182,19 @@ export function getRegisteredEsAtoms(): EsAtom[] {
 var _esCourseAtoms: EsAtom[] | undefined;
 
 /**
- * Full ES atom registry, m1 → m16 order. Lazy (see the cycle note in the
+ * Full ES atom registry, in module order. Lazy (see the cycle note in the
  * header) — first call materializes the aggregate; every curriculum module
  * has finished evaluating by the time any consumer (module.ts, tests) runs.
+ *
+ * EVERY authored module must appear here. This list is not decorative: it is
+ * what `normalizedAtoms.ts` hands the SRS unlock index, what
+ * `matchPairsFloor.ts` draws review pairs from, and what `module.ts` publishes
+ * as the language's atom set. m17 shipped without being added, so its 29
+ * preterite atoms existed in `ES_ATOMS_BY_SURFACE` (which `atom()` populates
+ * as a side effect) and were invisible to all three — a module whose words
+ * were taught and then never scheduled. Adding a module file without adding
+ * its atoms here is silent, which is why the list carries this warning
+ * instead of a comment naming a specific last module.
  */
 export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
   return (_esCourseAtoms ??= [
@@ -198,6 +214,9 @@ export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
     ...ES_M14_ATOMS,
     ...ES_M15_ATOMS,
     ...ES_M16_ATOMS,
+    ...ES_M17_ATOMS,
+    ...ES_M18_ATOMS,
+    ...ES_M19_ATOMS,
   ]);
 }
 

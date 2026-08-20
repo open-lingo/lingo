@@ -21,6 +21,7 @@ import { ES_ALL_LESSONS } from "../curriculum";
 import { getEsCourseAtoms } from "../courseAtoms";
 import { ES_VERB_ENTRIES } from "../conjugationTables";
 import { ES_PLACEMENT_BANK } from "../placementBank";
+import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 
 const OUT = resolve(process.cwd(), "../lingo-data/data/test_decks/es-course.json");
 
@@ -70,13 +71,51 @@ function collectFromStep(step: Record<string, unknown>, into: Set<string>): void
   }
 }
 
+/** Recursive walk over a RENDERED step tree — mirrors the authoritative
+ *  collectAudioTexts in esAudioCoverage.test.ts. The coverage gate walks
+ *  lessons AS RENDERED (getMockLessonContent), whose review tails / tile+pair
+ *  pads synthesize texts (e.g. "seis y siete") that never appear in raw
+ *  lesson.steps — so the emitter must walk the same tree or the gate can
+ *  demand clips the deck never carried (the 2026-08 review-pool +106 gap). */
+function collectRendered(node: unknown, into: Set<string>): void {
+  if (Array.isArray(node)) {
+    for (const item of node) collectRendered(item, into);
+    return;
+  }
+  if (node && typeof node === "object") {
+    for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+      if (
+        typeof value === "string" &&
+        (AUDIO_FIELDS as readonly string[]).includes(key) &&
+        value.trim()
+      ) {
+        into.add(value.trim());
+      } else {
+        collectRendered(value, into);
+      }
+    }
+  }
+}
+
 describe("emit es tts deck", () => {
   it.skipIf(!process.env.EMIT_ES_TTS_DECK)("writes the deck json", async () => {
     const texts = new Set<string>();
 
     for (const atom of getEsCourseAtoms()) texts.add(atom.surface.trim());
     for (const lesson of ES_ALL_LESSONS) {
+      // RAW steps: keeps previously-emitted texts (e.g. build_sentence steps
+      // stripped at render time for sunset modules) in the deck, so the
+      // corpus stays monotone across emitter changes.
       for (const step of lesson.steps) {
+        collectFromStep(step as unknown as Record<string, unknown>, texts);
+      }
+      // RENDERED steps: what the app actually plays, and exactly what the
+      // esAudioCoverage gate measures. Recursive field walk mirrors the gate;
+      // collectFromStep adds the tap-to-play surfaces (tiles, pair sources)
+      // the pads introduce, which the gate does not see but the runtime does.
+      const rendered = getMockLessonContent(lesson.id) ?? lesson;
+      collectRendered(rendered.steps, texts);
+      for (const step of rendered.steps) {
         collectFromStep(step as unknown as Record<string, unknown>, texts);
       }
     }

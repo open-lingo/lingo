@@ -1,0 +1,944 @@
+module: m2
+title: "Presentaciones — introductions, ser, tú/usted"
+frame: none
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# The learner can greet and count; m2 makes them a person with a name.
+# Grammar spine: subject pronouns yo/tú/usted/él/ella, ser singular
+# (soy/eres/es), me llamo / ¿cómo te llamas? (+ ¿cómo se llama usted? for
+# formal address), nationality adjectives m/f, and the tú-vs-usted register
+# split (culture note on Spain's vosotros; this course uses ustedes).
+#
+# 2026-08-19 RE-AUTHOR (IR, frameless). Same lesson allocation and grammar
+# spine as the July hand-authored file, but the step inventory retires the
+# module's pinned debt to ZERO:
+#   • the 4 full-sentence recognition MCQs (¿cómo te llamas? / ¿cómo se
+#     llama usted? / ¿de dónde eres? as pick-the-sentence) are production
+#     steps now — the questions are SPOKEN, BUILT and TYPED, never picked;
+#   • the situational MCQs with full-Spanish prompts ("Diego se rompió el
+#     brazo…") are gone — a learner two lessons in cannot read them. The
+#     register judgment they carried lives in three plain English recognition
+#     MCQs (tú vs usted) whose correct answer is a single word;
+#   • «¿cómo se llama usted?» is REGISTERED as an atom — it was produced in
+#     four steps but never introduced, which is where six of the eight
+#     unknown-token debts came from ("llama"/"se" were untracked);
+#   • doctor/doctora/mexicano/mexicana/español/estadounidense/Estados Unidos
+#     all debut on intro step types (image MCQ, phrase card, info «», build);
+#   • translate ≤15% of production module-wide (was 17.6%); image MCQs only
+#     at first exposure (señora/doctor/maestra retests use text/cloze/match);
+#   • no option set shares a trailing "(f)" tag, and no distractor echoes a
+#     word quoted in its prompt.
+#
+# Sentence texts reuse the July author's surfaces wherever one exists, so the
+# TTS delta stays small (a handful of L3 bridge sentences).
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── subject pronouns ──
+  - { surface: "yo", meaningEn: "I", partOfSpeech: "pronoun", kind: "vocab" }
+  - { surface: "tú", meaningEn: "you (informal)", partOfSpeech: "pronoun", kind: "vocab", hint: "the accent distinguishes tú (you) from tu (your)" }
+  - { surface: "usted", meaningEn: "you (formal)", partOfSpeech: "pronoun", kind: "vocab" }
+  - { surface: "él", meaningEn: "he", partOfSpeech: "pronoun", kind: "vocab", hint: "the accent distinguishes él (he) from el (the)" }
+  - { surface: "ella", meaningEn: "she", partOfSpeech: "pronoun", kind: "vocab", hint: "ll sounds like y: EH-ya" }
+  # ── ser, singular ──
+  - { surface: "ser", meaningEn: "to be (identity)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "soy", meaningEn: "I am", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "eres", meaningEn: "you are", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "es", meaningEn: "he/she/it is", partOfSpeech: "verb", kind: "vocab" }
+  # ── name phrases ──
+  - { surface: "me llamo", meaningEn: "my name is", partOfSpeech: "phrase", kind: "phrase", hint: "ll sounds like y: meh YA-mo" }
+  - { surface: "¿cómo te llamas?", meaningEn: "what's your name?", partOfSpeech: "phrase", kind: "phrase", hint: "ll sounds like y: YA-mas" }
+  - { surface: "¿cómo se llama usted?", meaningEn: "what's your name? (formal)", partOfSpeech: "phrase", kind: "phrase", hint: "the polite question borrows the él/ella verb shape: YA-ma" }
+  # ── function word ──
+  - { surface: "de", meaningEn: "of / from", partOfSpeech: "particle", kind: "particle" }
+  # ── people ──
+  - { surface: "señor", meaningEn: "Mr. / sir", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👨", hint: "ñ sounds like ny: seh-NYOR" }
+  - { surface: "señora", meaningEn: "Mrs. / ma'am", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👩", hint: "ñ sounds like ny: seh-NYO-ra" }
+  - { surface: "amigo", meaningEn: "friend (m)", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "amiga", meaningEn: "friend (f)", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  # ── places ──
+  - { surface: "México", meaningEn: "Mexico", partOfSpeech: "noun", kind: "vocab", hint: "this x sounds like an English h: ME-hee-ko" }
+  - { surface: "España", meaningEn: "Spain", partOfSpeech: "noun", kind: "vocab", hint: "ñ sounds like ny: es-PA-nya" }
+  - { surface: "Estados Unidos", meaningEn: "United States", partOfSpeech: "noun", kind: "vocab" }
+  # ── nationalities ──
+  - { surface: "mexicano", meaningEn: "Mexican (m)", partOfSpeech: "adjective", kind: "vocab", hint: "x like an English h: me-hee-KA-no" }
+  - { surface: "mexicana", meaningEn: "Mexican (f)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "español", meaningEn: "Spanish / Spaniard (m)", partOfSpeech: "adjective", kind: "vocab", hint: "ñ sounds like ny: es-pa-NYOL" }
+  - { surface: "estadounidense", meaningEn: "American", partOfSpeech: "adjective", kind: "vocab" }
+  # ── occupations ──
+  - { surface: "maestro", meaningEn: "teacher (m)", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👨‍🏫" }
+  - { surface: "maestra", meaningEn: "teacher (f)", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👩‍🏫" }
+  - { surface: "estudiante", meaningEn: "student", partOfSpeech: "noun", kind: "vocab", emoji: "🎓" }
+  - { surface: "doctor", meaningEn: "doctor (m)", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👨‍⚕️" }
+  - { surface: "doctora", meaningEn: "doctor (f)", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  # ── origin question ──
+  - { surface: "¿de dónde eres?", meaningEn: "where are you from?", partOfSpeech: "phrase", kind: "phrase" }
+
+lessons:
+  # ── L1 · me llamo ──────────────────────────────────────────────────────────
+  - n: 1
+    template: free
+    title: "Me llamo — say your name"
+    description: "Give your name, ask for theirs, and greet a friend."
+    steps:
+      - kind: info
+        id: info-mellamo
+        title: "Say your name"
+        body: "Introduce yourself with «me llamo» — literally 'I call myself', so meh YA-mo, with ll sounding like y. Ask back with «¿cómo te llamas?». Notice the upside-down ¿ — Spanish brackets its questions on both ends, so you know one is coming from the very first word."
+      - kind: phrase
+        id: p-mellamo
+        meaning: "my name is"
+        text: "me llamo"
+      - kind: speakLit
+        id: speak-mellamo
+        es: "me llamo Ana"
+        en: "my name is Ana"
+        atoms: ["me llamo"]
+      - kind: buildLit
+        id: b-mellamo
+        es: "me llamo Diego"
+        en: "My name is Diego"
+        tiles: ["gracias"]
+        atoms: ["me llamo"]
+      - kind: phrase
+        id: p-comotellamas
+        meaning: "what's your name?"
+        text: "¿cómo te llamas?"
+      - kind: listenCompLit
+        id: lc-mellamo
+        es: "me llamo Sofía"
+        en: "My name is Sofía"
+        distractorsEn: ["What's your name?", "Nice to meet you", "I am Sofía's friend"]
+        atoms: ["me llamo"]
+      - kind: speakLit
+        id: speak-comotellamas
+        es: "¿cómo te llamas?"
+        en: "what's your name?"
+        atoms: ["¿cómo te llamas?"]
+      - kind: phrase
+        id: p-amigo
+        meaning: "friend (m)"
+        text: "amigo"
+      - kind: selfExplain
+        id: se-pregunta
+        anchorLabel: "¿cómo te llamas?"
+        anchorAudioText: "¿cómo te llamas?"
+        question: "Why does the question start with an upside-down ¿?"
+        rule: "Spanish brackets a question on both ends — ¿ opens it, ? closes it, so you hear the question coming from the first word."
+        surface: "The ¿ shows the answer is expected immediately."
+        distractor: "It's a decoration used only in formal writing."
+        ruleExplanation: "Every direct question in Spanish opens with ¿ and closes with ?. Exclamations do the same with ¡ and ! — you've already seen ¡Hola!"
+      - kind: textMcq
+        id: q-amigo
+        target: "amigo"
+        distractors: ["amiga", "hola", "gracias"]
+      - kind: phrase
+        id: p-amiga
+        meaning: "friend (f)"
+        text: "amiga"
+      - kind: listenCompLit
+        id: lc-amigo
+        es: "hola, amigo"
+        en: "Hello, friend"
+        distractorsEn: ["Goodbye, friend", "What's your name?", "Thank you, friend"]
+        atoms: ["hola", "amigo"]
+      - kind: speakLit
+        id: speak-amiga
+        es: "adiós, amiga"
+        en: "goodbye, friend"
+        atoms: ["adiós", "amiga"]
+      - kind: translateLit
+        id: tr-mellamo
+        es: "me llamo Diego"
+        en: "My name is Diego"
+        atoms: ["me llamo"]
+      - kind: textMcq
+        id: q-amiga
+        target: "amiga"
+        distractors: ["amigo", "adiós", "por favor"]
+      - kind: listenCompLit
+        id: lc-comotellamas
+        es: "¿cómo te llamas?"
+        en: "What's your name?"
+        distractorsEn: ["My name is Ana", "Where are you from?", "Nice to meet you"]
+        atoms: ["¿cómo te llamas?"]
+      - kind: info
+        id: info-win
+        title: "You have a name now"
+        body: "Me llamo, ¿cómo te llamas? — the exchange every conversation starts with. Next: saying what you ARE."
+        variant: "win"
+
+  # ── L2 · yo soy ────────────────────────────────────────────────────────────
+  - n: 2
+    template: free
+    title: "Yo soy — I am"
+    description: "The verb ser, first two shapes: soy and eres."
+    steps:
+      - kind: info
+        id: info-ser
+        title: "One verb, different shapes"
+        body: "Spanish verbs change shape to match WHO: «yo soy» (I am), «tú eres» (you are). Both are shapes of one verb, «ser» (to be). Because the shape already names the person, the pronouns «yo» and «tú» are optional — soy can only ever mean I am."
+      - kind: phrase
+        id: p-soy
+        meaning: "I am"
+        text: "soy"
+      - kind: imageMcq
+        id: img-estudiante
+        target: { surface: "estudiante", meaningEn: "student", emoji: "🎓" }
+        distractors:
+          - { surface: "maestro", emoji: "👨‍🏫" }
+          - { surface: "doctor", emoji: "👨‍⚕️" }
+          - { surface: "señora", emoji: "👩" }
+      - kind: speakLit
+        id: speak-yosoy
+        es: "yo soy estudiante"
+        en: "I am a student"
+        atoms: ["yo", "soy", "estudiante"]
+      - kind: buildLit
+        id: b-yosoydiego
+        es: "yo soy Diego"
+        en: "I am Diego"
+        tiles: ["me"]
+        atoms: ["yo", "soy"]
+      - kind: phrase
+        id: p-eres
+        meaning: "you are"
+        text: "eres"
+      - kind: textMcq
+        id: q-soy
+        target: "soy"
+        distractors: ["eres", "ser", "hola"]
+      - kind: clozeLit
+        id: c-eres
+        es: "tú eres Carlos"
+        en: "you are Carlos"
+        blank: "eres"
+        options: ["eres", "soy", "es", "ser"]
+        why: "tú pairs with the -es shape of ser; soy belongs to yo."
+        atoms: ["eres", "tú"]
+      - kind: speakLit
+        id: speak-tueres
+        es: "tú eres estudiante"
+        en: "you are a student"
+        atoms: ["tú", "eres", "estudiante"]
+      - kind: phrase
+        id: p-ser
+        meaning: "to be"
+        text: "ser"
+      - kind: listenCompLit
+        id: lc-yosoy
+        es: "yo soy estudiante"
+        en: "I am a student"
+        distractorsEn: ["You are a student", "I am a teacher", "My name is Ana"]
+        atoms: ["yo", "soy", "estudiante"]
+      - kind: textMcq
+        id: q-ser
+        target: "ser"
+        distractors: ["soy", "eres", "me llamo"]
+      - kind: translateLit
+        id: tr-soyestudiante
+        es: "soy estudiante"
+        en: "I am a student"
+        atoms: ["soy", "estudiante"]
+      - kind: selfExplain
+        id: se-ser
+        anchorLabel: "tú eres estudiante"
+        anchorAudioText: "tú eres estudiante"
+        question: "Why can Spanish drop the yo in yo soy estudiante?"
+        rule: "The verb shape already names the person — soy can only be yo, so the pronoun is optional emphasis."
+        surface: "Dropping yo is casual slang you should avoid."
+        distractor: "The pronoun moves to the end of the sentence instead."
+        ruleExplanation: "soy = I am, eres = you are, all by themselves. Spanish speakers add yo or tú mostly for contrast or emphasis — yo soy estudiante, ¿y tú?"
+      - kind: buildLit
+        id: b-tueres
+        es: "tú eres estudiante"
+        en: "You are a student"
+        tiles: ["soy"]
+        atoms: ["tú", "eres", "estudiante"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: rev-lc
+        es: "gracias, soy estudiante"
+        en: "Thank you, I am a student"
+        distractorsEn: ["Please, I am a student", "Thank you, I am a teacher", "Excuse me, you are a student"]
+        atoms: ["gracias", "soy", "estudiante"]
+      - kind: speakLit
+        id: rev-speak
+        es: "hola, yo soy estudiante"
+        en: "hello, I am a student"
+        atoms: ["hola", "yo", "soy", "estudiante"]
+      - kind: info
+        id: info-win
+        title: "You can say what you are"
+        body: "soy, eres — two shapes of ser down, one to go. Next lesson: talking about him and her."
+        variant: "win"
+
+  # ── L3 · él es, ella es ────────────────────────────────────────────────────
+  - n: 3
+    template: free
+    title: "Él es, ella es — he and she"
+    description: "The third shape of ser, and your first gendered noun pair."
+    steps:
+      - kind: info
+        id: info-elella
+        title: "He is, she is"
+        body: "«él» (he) and «ella» (she — EH-ya, ll like y) share one shape of ser: «es». él es, ella es. That's the whole singular system: soy, eres, es. The nouns after it often pair up by gender — a man teaches as maestro, a woman as maestra."
+      - kind: imageMcq
+        id: img-maestro
+        target: { surface: "maestro", meaningEn: "teacher (m)", emoji: "👨‍🏫" }
+        distractors:
+          - { surface: "maestra", emoji: "👩‍🏫" }
+          - { surface: "estudiante", emoji: "🎓" }
+          - { surface: "doctor", emoji: "👨‍⚕️" }
+      - kind: buildLit
+        id: b-elesmaestro
+        es: "él es maestro"
+        en: "He is a teacher"
+        tiles: ["ella"]
+        atoms: ["él", "es", "maestro"]
+      - kind: imageMcq
+        id: img-maestra
+        target: { surface: "maestra", meaningEn: "teacher (f)", emoji: "👩‍🏫" }
+        distractors:
+          - { surface: "maestro", emoji: "👨‍🏫" }
+          - { surface: "señora", emoji: "👩" }
+          - { surface: "estudiante", emoji: "🎓" }
+      - kind: speakLit
+        id: speak-ellaesmaestra
+        es: "ella es maestra"
+        en: "she is a teacher"
+        atoms: ["ella", "es", "maestra"]
+      - kind: clozeLit
+        id: c-es
+        es: "ella es estudiante"
+        en: "she is a student"
+        blank: "es"
+        options: ["es", "soy", "eres", "ser"]
+        why: "él and ella share es — the third shape of ser. soy is yo's shape, eres is tú's."
+        atoms: ["es", "ella", "estudiante"]
+      - kind: textMcq
+        id: q-maestro
+        target: "maestro"
+        distractors: ["maestra", "estudiante", "amigo"]
+      - kind: buildLit
+        id: b-ellaestudiante
+        es: "ella es estudiante"
+        en: "She is a student"
+        tiles: ["él"]
+        atoms: ["ella", "es", "estudiante"]
+      - kind: listenCompLit
+        id: lc-elesmaestro
+        es: "él es maestro"
+        en: "He is a teacher"
+        distractorsEn: ["She is a teacher", "He is a student", "He is my friend"]
+        atoms: ["él", "es", "maestro"]
+      - kind: speakLit
+        id: speak-elesestudiante
+        es: "él es estudiante"
+        en: "he is a student"
+        atoms: ["él", "es", "estudiante"]
+      - kind: textMcq
+        id: q-maestra
+        target: "maestra"
+        distractors: ["maestro", "amiga", "estudiante"]
+      - kind: selfExplain
+        id: se-gender
+        anchorLabel: "maestra"
+        anchorAudioText: "maestra"
+        question: "Why does maestro become maestra?"
+        rule: "The -o/-a ending tracks the person's gender — maestro is a man, maestra is a woman."
+        surface: "maestra is the plural of maestro."
+        distractor: "The -a ending marks politeness toward teachers."
+        ruleExplanation: "Same pair as amigo/amiga: -o for him, -a for her. You'll meet doctor/doctora next lesson — the pattern carries most people-words in Spanish."
+      - kind: translateLit
+        id: tr-ellaesmaestra
+        es: "ella es maestra"
+        en: "She is a teacher"
+        atoms: ["ella", "es", "maestra"]
+      - kind: match
+        id: match-people
+        surfaces: ["maestro", "maestra", "estudiante", "amigo", "amiga", "hola"]
+      - kind: listenBuildLit
+        id: lb-tueresmaestro
+        es: "tú eres maestro"
+        en: "you are a teacher"
+        tiles: ["es"]
+        atoms: ["tú", "eres", "maestro"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: rev-lc
+        es: "adiós, amiga"
+        en: "Goodbye, my friend"
+        distractorsEn: ["Hello, my friend", "Nice to meet you", "Good night"]
+        atoms: ["adiós", "amiga"]
+      - kind: speakLit
+        id: rev-speak
+        es: "gracias, maestra"
+        en: "thank you, teacher"
+        atoms: ["gracias", "maestra"]
+      - kind: info
+        id: info-win
+        title: "The singular system, complete"
+        body: "soy, eres, es — you can now say what you, your friend, and anyone else is. Next: the polite you."
+        variant: "win"
+
+  # ── L4 · tú y usted ────────────────────────────────────────────────────────
+  - n: 4
+    template: free
+    title: "Tú y usted — the polite you"
+    description: "Two ways to say you, and the question that goes with each."
+    steps:
+      - kind: info
+        id: info-registro
+        title: "Two yous"
+        body: "Spanish splits 'you' by relationship: «tú» for a friend or peer, «usted» for a stranger, an elder, a doctor. The grammar trick: usted takes the SAME verb shape as él/ella — «usted es». So the polite version of ¿cómo te llamas? borrows that shape too: «¿cómo se llama usted?». And two titles to go with it: «señor» (sir), «señora» (ma'am)."
+      - kind: imageMcq
+        id: img-senor
+        target: { surface: "señor", meaningEn: "Mr. / sir", emoji: "👨" }
+        distractors:
+          - { surface: "señora", emoji: "👩" }
+          - { surface: "maestro", emoji: "👨‍🏫" }
+          - { surface: "doctor", emoji: "👨‍⚕️" }
+      - kind: speakLit
+        id: speak-perdonsenor
+        es: "perdón, señor"
+        en: "excuse me, sir"
+        atoms: ["perdón", "señor"]
+      - kind: phrase
+        id: p-usted
+        meaning: "you (formal)"
+        text: "usted"
+      - kind: clozeLit
+        id: c-ustedes
+        es: "usted es maestra"
+        en: "you (formal) are a teacher"
+        blank: "es"
+        options: ["es", "eres", "soy", "ser"]
+        why: "usted borrows the él/ella shape: usted es. eres belongs to tú — that's the whole register system."
+        atoms: ["usted", "es", "maestra"]
+      - kind: buildLit
+        id: b-ustedmaestra
+        es: "usted es maestra"
+        en: "You (formal) are a teacher"
+        tiles: ["tú"]
+        atoms: ["usted", "es", "maestra"]
+      - kind: imageMcq
+        id: img-senora
+        target: { surface: "señora", meaningEn: "Mrs. / ma'am", emoji: "👩" }
+        distractors:
+          - { surface: "señor", emoji: "👨" }
+          - { surface: "maestra", emoji: "👩‍🏫" }
+          - { surface: "estudiante", emoji: "🎓" }
+      - kind: speakLit
+        id: speak-buenastardes
+        es: "buenas tardes, señora"
+        en: "good afternoon, ma'am"
+        atoms: ["buenas tardes", "señora"]
+      - kind: imageMcq
+        id: img-doctor
+        target: { surface: "doctor", meaningEn: "doctor (m)", emoji: "👨‍⚕️" }
+        distractors:
+          - { surface: "maestro", emoji: "👨‍🏫" }
+          - { surface: "señor", emoji: "👨" }
+          - { surface: "estudiante", emoji: "🎓" }
+      - kind: phrase
+        id: p-doctora
+        meaning: "doctor (f)"
+        text: "doctora"
+      - kind: speakLit
+        id: speak-elesdoctor
+        es: "él es doctor"
+        en: "he is a doctor"
+        atoms: ["él", "es", "doctor"]
+      - kind: textMcq
+        id: q-doctora
+        target: "doctora"
+        distractors: ["señora", "maestra", "amiga"]
+      - kind: clozeLit
+        id: c-doctora
+        es: "ella es doctora"
+        en: "she is a doctor"
+        blank: "doctora"
+        options: ["doctora", "doctor", "señora", "maestra"]
+        why: "ella needs the -a form: doctora. doctor names a man — same pattern as maestro/maestra."
+        atoms: ["doctora", "ella", "es"]
+      - kind: phrase
+        id: p-formal
+        meaning: "what's your name? (formal)"
+        text: "¿cómo se llama usted?"
+      - kind: selfExplain
+        id: se-register
+        anchorLabel: "¿cómo se llama usted?"
+        anchorAudioText: "¿cómo se llama usted?"
+        question: "Why does the formal question use se llama instead of te llamas?"
+        rule: "usted takes the same verb shape as él/ella, so the polite question borrows it: se llama."
+        surface: "se llama is just a more polite-sounding phrase, with no grammar behind it."
+        distractor: "se llama asks about more than one person at once."
+        ruleExplanation: "One rule covers everything formal in this module: treat usted like él/ella. usted es, ¿cómo se llama usted? — the shapes never change, only the register does."
+      - kind: speakLit
+        id: speak-formal
+        es: "¿cómo se llama usted?"
+        en: "what's your name? (formal)"
+        atoms: ["¿cómo se llama usted?", "usted"]
+      - kind: translateLit
+        id: tr-formal
+        es: "¿cómo se llama usted?"
+        en: "Ask a stranger (formal): what's your name?"
+        atoms: ["¿cómo se llama usted?"]
+      - kind: mcq
+        id: q-registro
+        prompt: "Which 'you' fits an elderly stranger?"
+        correct: "usted"
+        distractors: ["tú", "él", "ella"]
+        why: "Strangers and elders get usted; tú is for friends and peers. usted then borrows the él/ella verb shape: usted es."
+        atoms: ["usted"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: rev-lc
+        es: "mucho gusto, señora"
+        en: "nice to meet you, ma'am"
+        distractorsEn: ["nice to meet you, sir", "good morning, ma'am", "goodbye, ma'am"]
+        atoms: ["mucho gusto", "señora"]
+      - kind: info
+        id: info-win
+        title: "Register unlocked"
+        body: "tú for friends, usted for respect — and usted's whole grammar is one rule: borrow the él/ella shape."
+        variant: "win"
+
+  # ── L5 · ¿de dónde eres? ───────────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "¿De dónde eres? — origin"
+    description: "Ask where someone is from, answer with de, and match nationality to gender."
+    steps:
+      - kind: info
+        id: info-origen
+        title: "Where are you from?"
+        body: "The question is «¿de dónde eres?», and the answer leans on one tiny word: «de» (from) — «soy de México», I am from Mexico. Three places to start: «México» (ME-hee-ko), «España», «Estados Unidos». Each has a nationality word: «mexicano»/«mexicana» switch -o/-a by gender, «español» is the male form, and «estadounidense» keeps one form for everyone."
+      - kind: phrase
+        id: p-dedonde
+        meaning: "where are you from?"
+        text: "¿de dónde eres?"
+      - kind: buildLit
+        id: b-soydemexico
+        es: "soy de México"
+        en: "I am from Mexico"
+        tiles: ["eres"]
+        atoms: ["soy", "de", "México"]
+      - kind: speakLit
+        id: speak-dedonde
+        es: "¿de dónde eres?"
+        en: "where are you from?"
+        atoms: ["¿de dónde eres?"]
+      - kind: phrase
+        id: p-espana
+        meaning: "Spain"
+        text: "España"
+      - kind: listenCompLit
+        id: lc-soydemexico
+        es: "soy de México"
+        en: "I am from Mexico"
+        distractorsEn: ["I am from Spain", "Where are you from?", "I am Mexican"]
+        atoms: ["soy", "de", "México"]
+      - kind: buildLit
+        id: b-soydeespana
+        es: "soy de España"
+        en: "I am from Spain"
+        tiles: ["México"]
+        atoms: ["soy", "de", "España"]
+      - kind: phrase
+        id: p-eeuu
+        meaning: "United States"
+        text: "Estados Unidos"
+      - kind: speakLit
+        id: speak-eldeespana
+        es: "él es de España"
+        en: "he is from Spain"
+        atoms: ["él", "es", "de", "España"]
+      - kind: clozeLit
+        id: c-de
+        es: "soy de Estados Unidos"
+        en: "I am from the United States"
+        blank: "de"
+        options: ["de", "y", "o", "es"]
+        why: "de marks origin — soy de… is how you say where you're from."
+        atoms: ["de", "Estados Unidos"]
+      - kind: textMcq
+        id: q-espana
+        target: "España"
+        distractors: ["México", "Estados Unidos", "doctor"]
+      - kind: buildLit
+        id: b-eldemexico
+        es: "él es de México"
+        en: "He is from Mexico"
+        tiles: ["ella"]
+        atoms: ["él", "es", "de", "México"]
+      - kind: phrase
+        id: p-mexicano
+        meaning: "Mexican (m)"
+        text: "mexicano"
+      - kind: listenCompLit
+        id: lc-eeuu
+        es: "soy de Estados Unidos"
+        en: "I am from the United States"
+        distractorsEn: ["I am from Mexico", "I am American", "You are from the United States"]
+        atoms: ["de", "Estados Unidos"]
+      - kind: speakLit
+        id: speak-mexicano
+        es: "él es mexicano"
+        en: "he is Mexican"
+        atoms: ["él", "es", "mexicano"]
+      - kind: phrase
+        id: p-mexicana
+        meaning: "Mexican (f)"
+        text: "mexicana"
+      - kind: textMcq
+        id: q-mexicano
+        target: "mexicano"
+        distractors: ["mexicana", "México", "estudiante"]
+      - kind: buildLit
+        id: b-ellamexicana
+        es: "ella es mexicana"
+        en: "She is Mexican"
+        tiles: ["mexicano"]
+        atoms: ["ella", "es", "mexicana"]
+      - kind: phrase
+        id: p-espanol
+        meaning: "Spanish / Spaniard (m)"
+        text: "español"
+      - kind: translateLit
+        id: tr-estadounidense
+        es: "soy estadounidense"
+        en: "I am American"
+        atoms: ["soy", "estadounidense"]
+      - kind: textMcq
+        id: q-espanol
+        target: "español"
+        distractors: ["mexicano", "estadounidense", "España"]
+      - kind: selfExplain
+        id: se-agreement
+        anchorLabel: "estadounidense"
+        anchorAudioText: "estadounidense"
+        question: "Why doesn't estadounidense change to -a for a woman?"
+        rule: "Nationality words ending in -e keep one form; only -o/-a pairs like mexicano/mexicana track gender."
+        surface: "estadounidense never changes because it's a proper noun."
+        distractor: "The United States is treated as grammatically neutral."
+        ruleExplanation: "Check the ending: mexicano/mexicana switch, español pairs with española, but -e words like estadounidense serve everyone unchanged."
+      - kind: reviewMatch
+        id: rev
+      - kind: info
+        id: info-win
+        title: "You come from somewhere now"
+        body: "¿De dónde eres? Soy de… — plus the nationality to go with it, gender-matched where the ending asks for it."
+        variant: "win"
+
+  # ── L6 · listening focus ───────────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "Escucha — introductions by ear"
+    description: "Everything m2 taught, ears first."
+    steps:
+      - kind: info
+        id: info-escucha
+        title: "Trust your ear"
+        body: "Every sentence in this lesson is built from words you own. Don't read along — listen for the verb shape (soy, eres, es) and the little word de. They carry the meaning."
+      - kind: listenCompLit
+        id: lc-mellamo
+        es: "me llamo Sofía"
+        en: "My name is Sofía"
+        distractorsEn: ["What's your name?", "Nice to meet you", "I am Sofía's friend"]
+        atoms: ["me llamo"]
+      - kind: listenBuildLit
+        id: lb-yosoy
+        es: "yo soy estudiante"
+        en: "I am a student"
+        tiles: ["eres"]
+        atoms: ["yo", "soy", "estudiante"]
+      - kind: speakLit
+        id: speak-doctora
+        es: "ella es doctora"
+        en: "she is a doctor"
+        atoms: ["ella", "es", "doctora"]
+      - kind: listenCompLit
+        id: lc-mexico
+        es: "soy de México"
+        en: "I am from Mexico"
+        distractorsEn: ["I am from Spain", "I am Mexican", "He is from Mexico"]
+        atoms: ["soy", "de", "México"]
+      - kind: buildLit
+        id: b-usteddoctor
+        es: "usted es doctor"
+        en: "You (formal) are a doctor"
+        tiles: ["eres"]
+        atoms: ["usted", "es", "doctor"]
+      - kind: listenCompLit
+        id: lc-dedonde
+        es: "¿de dónde eres?"
+        en: "Where are you from?"
+        distractorsEn: ["What's your name?", "Who is he?", "Where is the doctor?"]
+        atoms: ["¿de dónde eres?"]
+      - kind: speakLit
+        id: speak-espana
+        es: "soy de España"
+        en: "I am from Spain"
+        atoms: ["soy", "de", "España"]
+      - kind: listenBuildLit
+        id: lb-mexicana
+        es: "ella es mexicana"
+        en: "she is Mexican"
+        tiles: ["mexicano"]
+        atoms: ["ella", "es", "mexicana"]
+      - kind: textMcq
+        id: q-mexicana
+        target: "mexicana"
+        distractors: ["mexicano", "español", "estadounidense"]
+      - kind: listenCompLit
+        id: lc-estadounidense
+        es: "soy estadounidense"
+        en: "I am American"
+        distractorsEn: ["I am from Spain", "I am a student", "I am Mexican"]
+        atoms: ["soy", "estadounidense"]
+      - kind: translateLit
+        id: tr-ustedmaestra
+        es: "usted es maestra"
+        en: "You (formal) are a teacher"
+        atoms: ["usted", "es", "maestra"]
+      - kind: listenCompLit
+        id: lc-perdonsenor
+        es: "perdón, señor"
+        en: "Excuse me, sir"
+        distractorsEn: ["Thank you, sir", "Excuse me, ma'am", "Hello, sir"]
+        atoms: ["perdón", "señor"]
+      - kind: speakLit
+        id: speak-graciasdoctora
+        es: "gracias, doctora"
+        en: "thank you, doctor"
+        atoms: ["gracias", "doctora"]
+      - kind: listenBuildLit
+        id: lb-elesmaestro
+        es: "él es maestro"
+        en: "he is a teacher"
+        tiles: ["ella"]
+        atoms: ["él", "es", "maestro"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: rev-lc
+        es: "adiós, amigo"
+        en: "Goodbye, friend"
+        distractorsEn: ["Hello, friend", "Goodbye, ma'am", "See you later, teacher"]
+        atoms: ["adiós", "amigo"]
+      - kind: info
+        id: info-win
+        title: "Your ear keeps up"
+        body: "Names, origins, professions, register — you followed all of it by sound. The dialogue next lesson will feel easy."
+        variant: "win"
+
+  # ── L7 · integration ───────────────────────────────────────────────────────
+  - n: 7
+    template: free
+    title: "Dos estudiantes — a real introduction"
+    description: "Marta and Diego meet. Every line is yours already."
+    steps:
+      - kind: info
+        id: info-dialogo
+        title: "Two students meet"
+        body: "Marta and Diego are meeting for the first time at school. Listen closely — every line is made of words you already know."
+      - kind: dialogueLit
+        id: dialogue
+        lines:
+          - { speaker: "Marta", text: "¡Hola! Me llamo Marta. ¿Cómo te llamas?" }
+          - { speaker: "Diego", text: "Me llamo Diego. Mucho gusto." }
+          - { speaker: "Marta", text: "Mucho gusto. ¿De dónde eres?" }
+          - { speaker: "Diego", text: "Soy de México. Soy estudiante." }
+        questions:
+          - id: "q1"
+            prompt: "What is the boy's name?"
+            correctText: "Diego"
+            distractors: ["Marta", "Carlos", "Ana"]
+          - id: "q2"
+            prompt: "Where is Diego from?"
+            correctText: "de México"
+            distractors: ["de España", "de Estados Unidos", "de Colombia"]
+        atoms: ["me llamo", "¿cómo te llamas?", "soy", "de", "México", "estudiante"]
+      - kind: speakLit
+        id: speak-intro
+        es: "me llamo Ana, ¿y tú?"
+        en: "my name is Ana, and you?"
+        atoms: ["me llamo", "tú"]
+      - kind: mcq
+        id: q-registro-tu
+        prompt: "Which 'you' fits a classmate your age?"
+        correct: "tú"
+        distractors: ["usted", "él", "ella"]
+        why: "Friends and peers get tú; usted is for strangers and elders."
+        atoms: ["tú"]
+      - kind: buildLit
+        id: b-yosoydemexico
+        es: "yo soy de México"
+        en: "I am from Mexico"
+        tiles: ["España"]
+        atoms: ["yo", "soy", "de", "México"]
+      - kind: listenCompLit
+        id: lc-porfavordoctor
+        es: "por favor, doctor"
+        en: "Please, doctor"
+        distractorsEn: ["Thank you, doctor", "Please, ma'am", "Excuse me, doctor"]
+        atoms: ["por favor", "doctor"]
+      - kind: speakLit
+        id: speak-muchogustosenor
+        es: "mucho gusto, señor"
+        en: "nice to meet you, sir"
+        atoms: ["mucho gusto", "señor"]
+      - kind: clozeLit
+        id: c-soy
+        es: "yo soy de México"
+        en: "I am from Mexico"
+        blank: "soy"
+        options: ["soy", "eres", "es", "ser"]
+        why: "yo takes soy — the pronoun and the verb shape agree."
+        atoms: ["soy", "yo", "de", "México"]
+      - kind: translateLit
+        id: tr-soymaestra
+        es: "soy maestra"
+        en: "I am a teacher (f)"
+        atoms: ["soy", "maestra"]
+      - kind: match
+        id: match-registro
+        surfaces: ["señor", "señora", "doctor", "doctora", "maestro", "maestra"]
+      - kind: speakLit
+        id: speak-ellaeeuu
+        es: "ella es de Estados Unidos"
+        en: "she is from the United States"
+        atoms: ["ella", "es", "de", "Estados Unidos"]
+      - kind: listenBuildLit
+        id: lb-usteddoctor
+        es: "usted es doctor"
+        en: "you (formal) are a doctor"
+        tiles: ["tú"]
+        atoms: ["usted", "es", "doctor"]
+      - kind: textMcq
+        id: q-estadounidense
+        target: "estadounidense"
+        distractors: ["mexicano", "español", "mexicana"]
+      - kind: listenCompLit
+        id: lc-carlos
+        es: "hola, me llamo Carlos"
+        en: "Hello, my name is Carlos"
+        distractorsEn: ["Goodbye, my name is Carlos", "Hello, I am a student", "Hello, what's your name?"]
+        atoms: ["hola", "me llamo"]
+      - kind: buildLit
+        id: b-elladoctora
+        es: "ella es doctora"
+        en: "She is a doctor"
+        tiles: ["doctor"]
+        atoms: ["ella", "es", "doctora"]
+      - kind: reviewMatch
+        id: rev
+      - kind: info
+        id: info-vosotros
+        title: "Vosotros, in Spain"
+        body: "In Spain, friends address a group as vosotros — you'll hear it in movies and music from there. Latin America (and this course) uses ustedes for every group instead; it arrives in a later module. For now the split is simple: tú for one friend, usted for one stranger."
+        variant: "culture"
+
+  # ── L8 · mastery test ──────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M2 Mastery Test"
+    description: "Twelve graded steps across names, ser, register, and origin."
+    steps:
+      - kind: mcq
+        id: q-registro
+        prompt: "Which 'you' fits your friend's grandmother?"
+        correct: "usted"
+        distractors: ["tú", "él", "ella"]
+        why: "Elders get usted — and usted borrows the él/ella verb shape: usted es."
+        atoms: ["usted"]
+      - kind: listenBuildLit
+        id: lb-yosoy
+        es: "yo soy estudiante"
+        en: "I am a student"
+        tiles: ["eres"]
+        atoms: ["yo", "soy", "estudiante"]
+      - kind: speakLit
+        id: speak-mellamo
+        es: "hola, me llamo Carlos"
+        en: "hello, my name is Carlos"
+        atoms: ["hola", "me llamo"]
+      - kind: clozeLit
+        id: c-de
+        es: "yo soy de México"
+        en: "I am from Mexico"
+        blank: "de"
+        options: ["de", "y", "o", "sí"]
+        why: "de marks origin: from Mexico."
+        atoms: ["de", "México"]
+      - kind: listenCompLit
+        id: lc-espana
+        es: "soy de España"
+        en: "I am from Spain"
+        distractorsEn: ["I am from Mexico", "I am Spanish", "He is from Spain"]
+        atoms: ["soy", "de", "España"]
+      - kind: speakLit
+        id: speak-ustedmaestra
+        es: "usted es maestra"
+        en: "you (formal) are a teacher"
+        atoms: ["usted", "es", "maestra"]
+      - kind: textMcq
+        id: q-doctora
+        target: "doctora"
+        distractors: ["señora", "maestra", "amiga"]
+      - kind: buildLit
+        id: b-tueres
+        es: "tú eres estudiante"
+        en: "You are a student"
+        tiles: ["soy"]
+        atoms: ["tú", "eres", "estudiante"]
+      - kind: match
+        id: match-final
+        surfaces: ["amigo", "amiga", "doctor", "doctora", "estudiante", "usted"]
+      - kind: listenCompLit
+        id: lc-comotellamas
+        es: "¿cómo te llamas?"
+        en: "What's your name?"
+        distractorsEn: ["My name is Marta", "Where are you from?", "Nice to meet you"]
+        atoms: ["¿cómo te llamas?"]
+      - kind: buildLit
+        id: b-eldeespana
+        es: "él es de España"
+        en: "He is from Spain"
+        tiles: ["ella"]
+        atoms: ["él", "es", "de", "España"]
+      - kind: textMcq
+        id: q-mexicano
+        target: "mexicano"
+        distractors: ["mexicana", "estadounidense", "español"]
+
+placement:
+  screener:
+    - id: "pt-es-screen-m2"
+      prompt: "Complete: 'Yo ___ estudiante.'"
+      correct: "soy"
+      distractors: ["eres", "es", "ser"]
+  byModule:
+    - id: "pt-es-m2-1"
+      prompt: "'What's your name?' — pick the question."
+      correct: "¿cómo te llamas?"
+      distractors: ["¿de dónde eres?", "¿cómo se llama usted?", "mucho gusto"]
+    - id: "pt-es-m2-2"
+      prompt: "'I am from Mexico' — pick the Spanish."
+      correct: "yo soy de México"
+      distractors: ["yo eres de México", "yo es de México", "yo ser de México"]
+    - id: "pt-es-m2-3"
+      prompt: "You're speaking to an elderly stranger. Which 'you' fits?"
+      correct: "usted"
+      distractors: ["tú", "él", "ella"]
+    - id: "pt-es-m2-4"
+      prompt: "'She is Mexican' — pick the correct form."
+      correct: "ella es mexicana"
+      distractors: ["ella es mexicano", "él es mexicana", "ella soy mexicana"]

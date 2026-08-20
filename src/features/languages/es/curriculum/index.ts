@@ -1,11 +1,11 @@
 /**
  * Spanish curriculum assembly — module metadata + pathway builder.
  *
- * ES_MODULE_META is the single source of truth for the 16-module spine
+ * ES_MODULE_META is the single source of truth for the module spine
  * (docs/es-course-spine-2026-07-13.md). `buildSpanishCourse()` turns it
  * into the pathway CourseModule[] consumed by `getMockCourse("es")`,
  * SKIPPING modules whose lesson array is still an empty stub — the learn
- * map only ever shows authored content. As authoring waves land m2…m16,
+ * map only ever shows authored content. As authoring waves land m2…m17,
  * their modules appear automatically; nothing here needs editing.
  */
 import type { CourseModule } from "@/shared/domain/course";
@@ -27,6 +27,9 @@ import { ES_M13_LESSONS } from "./m13";
 import { ES_M14_LESSONS } from "./m14";
 import { ES_M15_LESSONS } from "./m15";
 import { ES_M16_LESSONS } from "./m16";
+import { ES_M17_LESSONS } from "./m17";
+import { ES_M18_LESSONS } from "./m18";
+import { ES_M19_LESSONS } from "./m19";
 
 export type EsModuleMeta = {
   id: string;
@@ -149,6 +152,27 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     summary: "Survival Spanish, yo-irregulars, the progressive, and the A1 grand review.",
     accent: { from: "#f97316", to: "#ea580c" },
   },
+  {
+    id: "m17",
+    title: "M17 · The preterite",
+    eyebrow: "Module 17 · El pretérito",
+    summary: "The A2 tier opens: regular past tense, the accent minimal pair, and six ways to say when.",
+    accent: { from: "#0ea5e9", to: "#6366f1" },
+  },
+  {
+    id: "m18",
+    title: "M18 · The irregular preterite",
+    eyebrow: "Módulo 18 · Pretéritos fuertes",
+    summary: "Strong stems, the j-stem rule, and the six spelling verbs that are not irregular at all.",
+    accent: { from: "#6366f1", to: "#8b5cf6" },
+  },
+  {
+    id: "m19",
+    title: "M19 · The imperfect",
+    eyebrow: "Módulo 19 · El imperfecto",
+    summary: "Two ending sets, three irregular verbs, and the time word that decides which past you use.",
+    accent: { from: "#8b5cf6", to: "#d946ef" },
+  },
 ];
 
 const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
@@ -168,6 +192,9 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m14: ES_M14_LESSONS,
   m15: ES_M15_LESSONS,
   m16: ES_M16_LESSONS,
+  m17: ES_M17_LESSONS,
+  m18: ES_M18_LESSONS,
+  m19: ES_M19_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

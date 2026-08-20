@@ -1,0 +1,612 @@
+module: m19
+title: "The imperfect — and the word that chooses your tense"
+frame: es_m19
+frameFile: es-m19
+tense: imperfect
+throughModule: m18
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# m17 and m18 finished the preterite. Between them a learner can now say what
+# happened on a particular day, to any verb this course has taught. m19 is not
+# more of that. It is the second half of a system, and the system is what makes
+# Spanish past tense hard for an English speaker — not the endings.
+#
+# Two things are taught, and they are not the same size:
+#
+#   1. THE PARADIGM, which is small and almost free. The imperfect is the most
+#      regular tense in Spanish: two ending sets (-aba… for -ar, -ía… for
+#      -er AND -ir — one set covering two conjugations, which the present and
+#      the preterite never do), and exactly THREE irregular verbs in the whole
+#      language (ser → era, ir → iba, ver → veía). After m18's eleven strong
+#      stems, this is a rest.
+#
+#   2. THE ASPECT RULE, which is the module. Spanish does not let a speaker
+#      pick freely between «hablé» and «hablaba». The time expression decides:
+#
+#          «Ayer hablé con María»      — one bounded occasion  ⇒ PRETERITE
+#          «Siempre hablaba con María» — a habit, unbounded    ⇒ IMPERFECT
+#
+#      «Ayer hablaba» and «Siempre hablé» are both wrong, and they are the two
+#      errors every English speaker makes, because English marks neither
+#      distinction on the verb — "I spoke" covers both.
+#
+# ── WHY THE FRAME, NOT A CHECK ───────────────────────────────────────────────
+# `frames-es-m19.mjs` DERIVES the tense from the marker rather than accepting
+# it as a parameter, and throws on a sentence with no marker at all. So a
+# drafted m19 sentence physically cannot carry the wrong aspect. This matters
+# more here than anywhere else in the ES pipeline: a residual check scoring
+# aspect after the fact would be guessing at the one thing the module exists to
+# make certain, and an aspect error is invisible to every gate the course has —
+# «Siempre hablé inglés» is perfectly well-formed Spanish.
+#
+# ── WHAT IS DELIBERATELY NOT HERE ────────────────────────────────────────────
+# «era» gets no frame-built sentences. Its complement is a bare role noun
+# («Yo era maestro») and no frame in this course owns one — every object in
+# both parent frames takes a determiner. So «era» is taught at FORM level:
+# cards, spelling choices, matching, self-explanation. Same call m18 made for
+# «pude». The alternative was inventing a complement table to reach it, which
+# is the frame guessing at Spanish.
+#
+# «de niño», «cuando era joven» and the narrative background use ("it was
+# raining WHEN he arrived") are the other canonical imperfect frames and are
+# also absent: all three need a subordinate clause this course has not taught.
+# They belong to the module that introduces one.
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── -ar: the -aba set ──
+  - { surface: "hablaba", meaningEn: "I/he used to speak" }
+  - { surface: "hablabas", meaningEn: "you used to speak" }
+  - { surface: "hablábamos", meaningEn: "we used to speak" }
+  - { surface: "hablaban", meaningEn: "you all used to speak" }
+  - { surface: "trabajaba", meaningEn: "I/he used to work" }
+  - { surface: "trabajabas", meaningEn: "you used to work" }
+  - { surface: "estudiaba", meaningEn: "I/he used to study" }
+  - { surface: "estudiaban", meaningEn: "you all used to study" }
+  # ── -er / -ir: the -ía set, shared by both conjugations ──
+  - { surface: "comía", meaningEn: "I/he used to eat" }
+  - { surface: "comías", meaningEn: "you used to eat" }
+  - { surface: "comíamos", meaningEn: "we used to eat" }
+  - { surface: "comían", meaningEn: "you all used to eat" }
+  - { surface: "abría", meaningEn: "I/he used to open" }
+  - { surface: "abrías", meaningEn: "you used to open" }
+  - { surface: "abrían", meaningEn: "you all used to open" }
+  - { surface: "aprendía", meaningEn: "I/he used to learn" }
+  - { surface: "aprendían", meaningEn: "you all used to learn" }
+  - { surface: "escribía", meaningEn: "I/he used to write" }
+  - { surface: "corrían", meaningEn: "you all used to run" }
+  # ── the three irregulars — all of them ──
+  - { surface: "era", meaningEn: "I/he used to be" }
+  - { surface: "eran", meaningEn: "they used to be" }
+  - { surface: "iba", meaningEn: "I/he used to go" }
+  - { surface: "ibas", meaningEn: "you used to go" }
+  - { surface: "íbamos", meaningEn: "we used to go" }
+  - { surface: "iban", meaningEn: "you all used to go" }
+  - { surface: "veía", meaningEn: "I/he used to watch" }
+  - { surface: "veías", meaningEn: "you used to watch" }
+  - { surface: "veíamos", meaningEn: "we used to watch" }
+  - { surface: "veían", meaningEn: "you all used to watch" }
+
+lessons:
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 1
+    template: topic
+    title: "Hablaba — a past with no edges"
+    description: "What you used to do, as opposed to what you did once."
+    info:
+      title: "The -ar imperfect"
+      body: "-aba, -abas, -aba, -ábamos, -aban. That is the whole set, and there is no verb in Spanish that takes it irregularly. Look at the yo and él cells: they are the SAME WORD. Spanish is content with that here, because the imperfect almost never appears without a person or a context already established."
+    anchors:
+      - verb: hablar
+        person: yo
+        en: "I used to speak"
+        why: "hablaba — the -ar stem plus -aba. No accent, unlike the preterite hablé."
+        want: { object: true, tenseIs: imperfect }
+        secondWant: { object: true, tenseIs: imperfect }
+      - verb: trabajar
+        person: tu
+        en: "you used to work"
+        why: "trabajabas — the same set, second person."
+        want: { tenseIs: imperfect }
+      - verb: estudiar
+        person: ustedes
+        en: "you all used to study"
+        why: "estudiaban — and notice it is not estudiaron. That form belongs to one occasion."
+        want: { object: true, tenseIs: imperfect }
+    textMcqDistractors: ["trabajaba", "trabajaste", "trabajaban"]
+    extra:
+      speaking: { verb: hablar, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      listen: { verb: estudiar, person: el, want: { object: true, tenseIs: imperfect } }
+      build: { verb: trabajar, person: ustedes, want: { tenseIs: imperfect } }
+      buildTiles: ["trabajaba"]
+    seventeen:
+      kind: selfExplain
+      anchorLabel: "Yo hablaba inglés. / Él hablaba inglés."
+      anchorAudioText: "yo siempre hablaba inglés"
+      question: "Why does Spanish let yo and él share one imperfect form?"
+      rule: "The pronoun is doing the work. Spanish drops pronouns when the ending identifies the person — here it does not, so the pronoun stays."
+      surface: "Because the imperfect is a less important tense, so it needs fewer forms."
+      distractor: "Because the ending is ambiguous, the subject has to be said out loud."
+      ruleExplanation: "In the present and the preterite the ending alone tells you who acted, so «hablo» needs no «yo». The imperfect's -aba does not, so this is the first tense you have met where Spanish speakers routinely keep the pronoun. That is a fact about how the sentence is BUILT, not about the ending being defective."
+    close: { verb: hablar, person: el, want: { object: true, tenseIs: imperfect } }
+    win:
+      title: "One set, no exceptions"
+      body: "Every -ar verb this course has taught now has an imperfect, and you did not have to learn a single irregular stem to get it."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 2
+    template: topic
+    title: "Comía, abría — two conjugations, one ending set"
+    description: "-er and -ir stop disagreeing, for the only time in Spanish."
+    info:
+      title: "-ía, and it covers both"
+      body: "-ía, -ías, -ía, -íamos, -ían. Attach it to an -er verb or an -ir verb — the set does not care. The PRESENT is where these two conjugations part company: comemos but vivimos. In the imperfect there is not a single cell where they differ. Every one of them carries a written accent on the í."
+    anchors:
+      - verb: comer
+        person: yo
+        en: "I used to eat"
+        why: "comía — the -ía set, and the accent is not optional."
+        want: { object: true, tenseIs: imperfect }
+        secondWant: { object: true, tenseIs: imperfect }
+      - verb: abrir
+        person: tu
+        en: "you used to open"
+        why: "abrías — an -ir verb taking the SAME ending as comer."
+        want: { object: true, tenseIs: imperfect }
+      - verb: aprender
+        person: ustedes
+        en: "you all used to learn"
+        why: "aprendían — five persons, one set, no exceptions."
+        want: { object: true, tenseIs: imperfect }
+    textMcqDistractors: ["abría", "abriste", "abrían"]
+    extra:
+      speaking: { verb: comer, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      listen: { verb: aprender, person: el, want: { object: true, tenseIs: imperfect } }
+      build: { verb: abrir, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      buildTiles: ["abríamos"]
+    # An MCQ rather than a match: position 18 is the template's reviewMatch, and
+    # two match_pairs in a row is the adjacency the ES gates forbid. It also
+    # puts the aspect competitor «comimos» directly against the answer, which is
+    # the choice the whole module is about.
+    seventeen:
+      kind: mcq
+      prompt: "Which one means 'we used to eat'?"
+      correct: "comíamos"
+      distractors: ["comimos", "comemos", "comíanos"]
+      why: "comíamos is the imperfect. comimos is the preterite — one meal, one occasion — and comemos is right now."
+      atoms: ["comíamos"]
+    close: { verb: abrir, person: nosotros, want: { object: true, tenseIs: imperfect } }
+    win:
+      title: "Half the work"
+      body: "You learned one ending set and got two conjugations. Spanish does not do that anywhere else, so take it."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 3
+    template: topic
+    title: "Where the accent lands"
+    description: "Every -ía form has one. Only one -aba form does. There is a reason."
+    info:
+      title: "The accent is breaking a diphthong"
+      body: "comía, comías, comíamos — the accent sits on the í in all five. Without it, i next to a would form a single syllable (like the ia in «gracias») and the word would be pronounced wrong. The -aba set has no such collision, so it takes no accent — EXCEPT in nosotros: hablábamos. There the stress falls three syllables from the end, and Spanish always writes that."
+    anchors:
+      - verb: escribir
+        person: el
+        en: "he/she used to write"
+        why: "escribía — the í is accented so it stays its own syllable."
+        want: { object: true, tenseIs: imperfect }
+      - verb: hablar
+        person: nosotros
+        en: "we used to speak"
+        why: "hablábamos — the only -aba cell that is written with an accent."
+        want: { object: true, tenseIs: imperfect }
+      - verb: correr
+        person: ustedes
+        en: "you all used to run"
+        why: "corrían — an -er verb, so the -ía set, so the accent."
+        want: { tenseIs: imperfect }
+    textMcqDistractors: ["hablabamos", "hablamos", "hablaban"]
+    extra:
+      speaking: { verb: escribir, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      listen: { verb: correr, person: el, want: { tenseIs: imperfect } }
+      build: { verb: escribir, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      buildTiles: ["escribieron"]
+    seventeen:
+      kind: selfExplain
+      anchorLabel: "comía / hablaba"
+      anchorAudioText: "yo comía todos los días"
+      question: "Why does comía need a written accent when hablaba does not?"
+      rule: "Without the accent, the i in comia would join the a into one syllable — the accent is what keeps them apart."
+      surface: "Because -er verbs are irregular in the imperfect and -ar verbs are not."
+      distractor: "Because í and a would otherwise be read as a single syllable."
+      ruleExplanation: "This is the ordinary Spanish accent rule, not a verb rule. i and a next to each other are read as one syllable unless an accent separates them — «gracias» has two syllables, «comía» has three. hablaba has no vowel pair to break, so it needs nothing. The one exception, hablábamos, is accented for a different reason entirely: its stress falls on the third-from-last syllable, which Spanish always marks."
+    close: { verb: correr, person: nosotros, want: { tenseIs: imperfect } }
+    win:
+      title: "Not memorisation"
+      body: "You can now predict the accent on any imperfect form in Spanish without having seen the verb, because both rules are about syllables rather than about verbs."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 4
+    template: topic
+    title: "Era, iba, veía"
+    description: "The three irregular verbs. All of them. In the entire tense."
+    info:
+      title: "Three, and that is the list"
+      body: "ser → era, eras, era, éramos, eran. ir → iba, ibas, iba, íbamos, iban. ver → veía, veías, veía, veíamos, veían. That is every irregular imperfect in Spanish — compare the eleven strong stems you met in the last module. ir takes the -ar set's b onto a bare i-, which is why iba is so short. ver is barely irregular at all: it keeps the e of its infinitive that the -ía endings would otherwise have eaten."
+    anchors:
+      - verb: ir
+        person: yo
+        en: "I used to go"
+        why: "iba — nothing of ir survives except the i, and there is no rule to derive it from."
+        want: { object: true, tenseIs: imperfect }
+        secondWant: { object: true, tenseIs: imperfect }
+      - verb: ver
+        person: tu
+        en: "you used to watch"
+        why: "veías — ve- plus the ordinary -ía set. The e is the whole irregularity."
+        want: { object: true, tenseIs: imperfect }
+      - verb: ir
+        person: ustedes
+        en: "you all used to go"
+        why: "iban — a bare i- stem with the -ar imperfect's b: iba, ibas, íbamos, iban. Not derivable."
+        want: { object: true, tenseIs: imperfect }
+    textMcqDistractors: ["veía", "veían", "viste"]
+    extra:
+      speaking: { verb: ver, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      listen: { verb: ir, person: el, want: { object: true, tenseIs: imperfect } }
+      build: { verb: ver, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      buildTiles: ["veíamos"]
+    # «era» has no frame-built sentence in this course (see the module header),
+    # so its first real exposure is here, as a form choice against the preterite
+    # «fui» — which is exactly the confusion it needs to be separated from.
+    seventeen:
+      kind: mcq
+      prompt: "Which one means 'I used to be'?"
+      correct: "era"
+      distractors: ["fui", "iba", "eras"]
+      why: "era is ser in the imperfect. fui is ser in the preterite — one finished period — and iba is ir, a different verb entirely."
+      atoms: ["era"]
+    close: { verb: ir, person: nosotros, want: { object: true, tenseIs: imperfect } }
+    win:
+      title: "The tense is finished"
+      body: "Two ending sets and three irregular verbs. You now have the complete imperfect of every verb this course has taught, and the rest of the module is about when to use it."
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "Siempre or ayer — the word that chooses"
+    description: "The rule the whole module has been building to."
+    steps:
+      - kind: info
+        id: info
+        title: "You do not get to choose"
+        body: "English says \"I spoke Spanish\" for both of these and leaves the rest to context. Spanish does not. A time expression that names ONE OCCASION — ayer, anoche, la semana pasada — demands the preterite. One that names a HABIT — siempre, nunca, todos los días, por la mañana — demands the imperfect. «Ayer hablaba» is wrong. «Siempre hablé» is wrong. The marker is not decoration; it is the instruction."
+      - kind: translate
+        id: tr-pret
+        draw: { verb: hablar, person: yo, want: { object: true, timeIs: "ayer" } }
+      - kind: cloze
+        id: c-imp
+        draw: { verb: hablar, person: yo, want: { object: true, timeIs: "siempre" } }
+        why: "siempre names a habit, so the verb must be the imperfect hablaba — not hablé, which would bound it to one occasion."
+      - kind: mcq
+        id: q-rule
+        prompt: "Which time word forces the PRETERITE?"
+        correct: "anoche"
+        distractors: ["siempre", "nunca", "todos los días"]
+        why: "anoche is one night that ended. The other three describe a pattern with no edges, which is what the imperfect is for."
+        atoms: ["anoche"]
+      # speaking BEFORE listenComp, not after: cloze + mcq + listenComp would be
+      # three selection steps in a row and es-quality fails the module for it.
+      # The pair is the same verb and person in opposite aspects either way, so
+      # the order costs nothing pedagogically.
+      - kind: speaking
+        id: sp-1
+        draw: { verb: comer, person: el, want: { object: true, timeIs: "anteayer" } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: comer, person: el, want: { object: true, timeIs: "todos los días" } }
+      - kind: phrase
+        id: p-iba
+        meaning: "I used to go"
+        text: "iba"
+      # The él sentence takes i+1 so «iba»'s own retrieval lands spaced at i+2 —
+      # a graded step on the card's atom pressed directly against it is massed
+      # practice, and the follow-up lint fails the module for it.
+      - kind: translate
+        id: tr-ir-el
+        draw: { verb: ir, person: el, want: { object: true, timeIs: "por la mañana" } }
+      - kind: build
+        id: b-iba
+        draw: { verb: ir, person: yo, want: { object: true, timeIs: "siempre" } }
+        tiles: ["fui"]
+      - kind: textMcq
+        id: tm-1
+        target: "comían"
+        distractors: ["comieron", "comen", "comíamos"]
+      - kind: cloze
+        id: c-pret
+        draw: { verb: trabajar, person: ustedes, want: { timeIs: "ayer" } }
+        why: "ayer is one day and it is over, so the preterite trabajaron is the only option here."
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: trabajar, person: ustedes, want: { timeIs: "nunca" } }
+        tiles: ["trabajaron"]
+      - kind: speaking
+        id: sp-2
+        draw: { verb: abrir, person: nosotros, want: { object: true, timeIs: "todos los días" } }
+      - kind: mcq
+        id: q-wrong
+        prompt: "One of these is WRONG. Which?"
+        correct: "Ayer hablaba inglés"
+        distractors: ["Ayer hablé inglés", "Siempre hablaba inglés", "Nunca hablaba inglés"]
+        why: "ayer bounds the speaking to one day, and the imperfect refuses to be bounded. The other three all agree with their markers."
+        atoms: ["hablaba"]
+      - kind: selfExplain
+        id: se
+        anchorLabel: "Ayer hablé inglés. / Siempre hablaba inglés."
+        anchorAudioText: "siempre hablaba inglés"
+        question: "Both sentences are 'I spoke English' in English. What decides which Spanish verb you use?"
+        rule: "The time expression. One occasion takes the preterite; a habit takes the imperfect."
+        surface: "Whether the event was recent — recent things take the preterite."
+        distractor: "Whether the time word names an occasion or a pattern."
+        ruleExplanation: "Not recency, and not how long it lasted. «Hace cien años la gente caminaba mucho» is ancient and imperfect; «Anoche caminé» is last night and preterite. The question Spanish asks is whether the sentence is describing a bounded event or an unbounded pattern, and the time expression answers it before the verb is chosen."
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: speaking
+        id: sp-close
+        draw: { verb: estudiar, person: yo, want: { object: true, timeIs: "siempre" } }
+      - kind: info
+        id: win
+        title: "One question, not two tenses"
+        body: "You are not choosing between two pasts. You are answering one question — occasion or pattern — and the answer names the tense. That is why native speakers do not hesitate here. There is one more use of the imperfect waiting for you — setting the scene for something else that happened — but it needs a sentence shape you have not met yet."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "The same verb, both ways"
+    description: "One verb at a time, in both aspects, until the marker does the deciding for you."
+    steps:
+      - kind: info
+        id: info
+        title: "Read the marker first"
+        body: "Every sentence below is a verb you already own. The only thing that changes is the time expression, and it changes the verb with it. Get in the habit of reading the marker before you conjugate — that is the order a Spanish speaker actually does it in."
+      - kind: cloze
+        id: c-1
+        draw: { verb: escribir, person: yo, want: { object: true, tenseIs: imperfect } }
+        why: "todos los días describes a routine, so escribía — the imperfect."
+      - kind: translate
+        id: tr-1
+        draw: { verb: escribir, person: yo, want: { object: true, tenseIs: preterite } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: ver, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      - kind: speaking
+        id: sp-1
+        draw: { verb: ver, person: nosotros, want: { object: true, tenseIs: preterite } }
+      - kind: build
+        id: b-1
+        draw: { verb: aprender, person: tu, want: { object: true, tenseIs: imperfect } }
+        tiles: ["aprendiste"]
+      - kind: mcq
+        id: q-1
+        # The Spanish carrier moved into the options and out of the prompt. As
+        # written, the prompt embedded «la televisión» AND its English gloss, so
+        # the comprehensibility instrument classified it as Spanish prose and
+        # then billed every English word of the gloss as untaught vocabulary.
+        # The learner reads the Spanish either way — it is what they are
+        # choosing between.
+        prompt: "'They never used to watch television' — pick the verb."
+        correct: "veían"
+        distractors: ["vieron", "ven", "veíamos"]
+        why: "nunca is a habit, so the imperfect. vieron would mean they did not watch it on one particular occasion."
+        atoms: ["veían"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: correr, person: ustedes, want: { tenseIs: imperfect } }
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: correr, person: ustedes, want: { tenseIs: preterite } }
+        tiles: ["corrían"]
+      # «eran», not «era», and the reason is the follow-up lint rather than
+      # taste: the graded step two below asks for «eran», and a passive card
+      # whose atom no nearby graded step exercises is a word shown and then
+      # dropped. «era» itself is taught by lesson 4's form choice and drilled
+      # again in this lesson's match step and the capstone.
+      - kind: phrase
+        id: p-era
+        meaning: "they used to be"
+        text: "eran"
+      - kind: speaking
+        id: sp-2
+        draw: { verb: estudiar, person: tu, want: { object: true, tenseIs: imperfect } }
+      - kind: mcq
+        id: q-era
+        prompt: "Which one is the imperfect of ser?"
+        correct: "eran"
+        distractors: ["fueron", "iban", "son"]
+        why: "eran — ser's imperfect. fueron is its preterite, and iban belongs to ir."
+        atoms: ["eran"]
+      - kind: cloze
+        id: c-2
+        draw: { verb: abrir, person: el, want: { object: true, tenseIs: imperfect } }
+        why: "siempre has no edges, so abría. The preterite abrió would name one opening, on one day."
+      - kind: match
+        id: mp-aspect
+        surfaces: ["hablaba", "comía", "iba", "veía", "era", "abría"]
+      - kind: speaking
+        id: sp-3
+        draw: { verb: hablar, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: translate
+        id: tr-3
+        draw: { verb: ir, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      - kind: info
+        id: win
+        title: "The marker is doing the work"
+        body: "By now you are probably reading the time word and knowing the ending before you get to the verb. That is the skill — not the endings, which you already had after lesson two."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 7
+    template: free
+    title: "Repaso — occasion or pattern?"
+    description: "Everything from this module, mixed, with both tenses in play."
+    steps:
+      - kind: info
+        id: info
+        title: "One question per sentence"
+        body: "-aba for -ar, -ía for -er and -ir, three irregulars, and one rule: the time expression picks the tense. Nothing below is new."
+      - kind: mcq
+        id: q-1
+        prompt: "Which sentence is correct?"
+        correct: "Nunca comía carne"
+        distractors: ["Nunca comí carne ayer", "Siempre comí carne", "Anoche comía carne"]
+        why: "nunca describes a pattern and takes the imperfect. The other three all pair a marker with the aspect it forbids."
+        atoms: ["comía"]
+      - kind: build
+        id: b-1
+        draw: { verb: hablar, person: ustedes, want: { object: true, tenseIs: imperfect } }
+        tiles: ["hablaron"]
+      - kind: translate
+        id: tr-1
+        draw: { verb: comer, person: nosotros, want: { object: true, tenseIs: imperfect } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: ir, person: tu, want: { object: true, tenseIs: imperfect } }
+      - kind: speaking
+        id: sp-1
+        draw: { verb: ver, person: el, want: { object: true, tenseIs: imperfect } }
+      - kind: cloze
+        id: c-1
+        draw: { verb: aprender, person: nosotros, want: { object: true, tenseIs: preterite } }
+        why: "anteayer is one day, and it is finished — so the preterite aprendimos, not the imperfect."
+      - kind: build
+        id: b-2
+        draw: { verb: trabajar, person: yo, want: { tenseIs: imperfect } }
+        tiles: ["trabajé"]
+      - kind: textMcq
+        id: tm-1
+        target: "íbamos"
+        distractors: ["ibamos", "fuimos", "iban"]
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: estudiar, person: ustedes, want: { object: true, tenseIs: imperfect } }
+        tiles: ["estudiaron"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: abrir, person: yo, want: { object: true, tenseIs: preterite } }
+      - kind: speaking
+        id: sp-2
+        draw: { verb: escribir, person: tu, want: { object: true, tenseIs: imperfect } }
+      - kind: mcq
+        id: q-2
+        prompt: "Which one is spelled correctly?"
+        correct: "hablábamos"
+        distractors: ["hablabamos", "hablábanos", "hablabámos"]
+        why: "The stress falls three syllables from the end, and Spanish always writes that accent — on the á, not on the a of -mos."
+        atoms: ["hablábamos"]
+      - kind: match
+        id: mp-forms
+        surfaces: ["hablabas", "comían", "abrías", "ibas", "veías", "eran"]
+      - kind: speaking
+        id: sp-3
+        draw: { verb: correr, person: nosotros, want: { tenseIs: imperfect } }
+      - kind: reviewMatch
+        id: rev-mp
+      - kind: translate
+        id: tr-3
+        draw: { verb: ver, person: ustedes, want: { object: true, tenseIs: preterite } }
+      - kind: info
+        id: win
+        title: "Both halves"
+        body: "You now have the whole Spanish past: the preterite for what happened, the imperfect for what used to, and a rule that tells you which one the sentence is asking for."
+        variant: win
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M19 Mastery Test"
+    description: "Prove the imperfect and the aspect rule. No cards, no hints."
+    steps:
+      - kind: mcq
+        id: q-1
+        prompt: "Which sentence is WRONG?"
+        correct: "Ayer comía carne"
+        distractors: ["Ayer comí carne", "Siempre comía carne", "Todos los días comía carne"]
+        why: "ayer bounds the meal to one day; the imperfect refuses to be bounded, so it must be comí."
+        atoms: ["comía"]
+      - kind: build
+        id: b-1
+        draw: { verb: hablar, person: yo, want: { object: true, tenseIs: imperfect } }
+        tiles: ["hablé"]
+      - kind: translate
+        id: tr-1
+        draw: { verb: comer, person: el, want: { object: true, tenseIs: imperfect } }
+      - kind: listenComp
+        id: lc-1
+        draw: { verb: ir, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      - kind: speaking
+        id: sp-1
+        draw: { verb: ver, person: yo, want: { object: true, tenseIs: imperfect } }
+      - kind: cloze
+        id: c-1
+        draw: { verb: abrir, person: tu, want: { object: true, tenseIs: imperfect } }
+        why: "nunca is a pattern, not an occasion, so the imperfect abrías."
+      - kind: build
+        id: b-2
+        draw: { verb: trabajar, person: nosotros, want: { tenseIs: preterite } }
+        tiles: ["trabajábamos"]
+      - kind: textMcq
+        id: tm-1
+        target: "comíamos"
+        distractors: ["comimos", "comiamos", "comemos"]
+      - kind: listenBuild
+        id: lb-1
+        draw: { verb: escribir, person: el, want: { object: true, tenseIs: imperfect } }
+        tiles: ["escribió"]
+      - kind: translate
+        id: tr-2
+        draw: { verb: aprender, person: ustedes, want: { object: true, tenseIs: imperfect } }
+      - kind: speaking
+        id: sp-2
+        draw: { verb: correr, person: yo, want: { tenseIs: preterite } }
+      - kind: capstoneMatch
+        id: mp
+        entries:
+          - { surface: "hablaba", gloss: "I/he used to speak" }
+          - { surface: "comíamos", gloss: "we used to eat" }
+          - { surface: "abrían", gloss: "you all used to open" }
+          - { surface: "era", gloss: "I/he used to be" }
+          - { surface: "iban", gloss: "you all used to go" }
+          - { surface: "veía", gloss: "I/he used to watch" }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLACEMENT — the test-out bank. Threshold is 3/3, so three byModule items.
+#
+# Item 1 is the paradigm, item 2 is an irregular, and item 3 is THE RULE. A
+# learner who can conjugate the imperfect but cannot say which marker demands
+# it does not know this module, and an item bank that tested only forms would
+# let them skip it.
+# ─────────────────────────────────────────────────────────────────────────────
+placement:
+  screener:
+    - id: "pt-es-screen-m19"
+      prompt: "'I used to speak English every day' — pick the Spanish."
+      correct: "hablaba inglés todos los días"
+      distractors: ["hablé inglés todos los días", "hablo inglés todos los días", "hablaría inglés todos los días"]
+  byModule:
+    - id: "pt-es-m19-1"
+      prompt: "Pick the nosotros imperfect of comer (to eat)."
+      correct: "comíamos"
+      distractors: ["comimos", "comemos", "comiamos"]
+    - id: "pt-es-m19-2"
+      prompt: "Pick the yo imperfect of ir (to go)."
+      correct: "iba"
+      distractors: ["fui", "voy", "iría"]
+    - id: "pt-es-m19-3"
+      prompt: "Which time word requires the imperfect, not the preterite?"
+      correct: "todos los días"
+      distractors: ["ayer", "anoche", "anteayer"]

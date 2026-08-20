@@ -19,6 +19,7 @@
 import { describe, it, expect } from "vitest";
 import { esModule } from "../module";
 import { getEsCourseAtoms } from "../courseAtoms";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { ES_ALL_LESSONS } from "../curriculum";
 
 const authoredModuleIds = [...new Set(ES_ALL_LESSONS.map((l) => l.moduleId))];
@@ -47,12 +48,20 @@ describe("ES module", () => {
     expect(dupes, `duplicate atom ids: ${[...new Set(dupes)].join(", ")}`).toEqual([]);
   });
 
-  it("every atom fromModule matches ^m(1[0-6]|[1-9])$", () => {
+  // Was a hardcoded /^m(1[0-6]|[1-9])$/, which meant the assertion had to be
+  // hand-edited for every new module and silently went stale instead: it never
+  // fired for m17 only because m17's atoms were missing from
+  // `getEsCourseAtoms()` entirely. Deriving the legal set from
+  // `ES_MODULE_ORDER` makes the check ratchet forward on its own, and turns
+  // "an atom claims a module the course does not have" into what it should be
+  // — a typo detector rather than a version stamp.
+  it("every atom fromModule names a module in ES_MODULE_ORDER", () => {
+    const known = new Set<string>(ES_MODULE_ORDER);
     for (const atom of esModule.courseAtoms) {
       expect(
-        atom.fromModule,
-        `atom ${atom.id} has fromModule '${atom.fromModule}'`,
-      ).toMatch(/^m(1[0-6]|[1-9])$/);
+        atom.fromModule !== undefined && known.has(atom.fromModule),
+        `atom ${atom.id} has fromModule '${atom.fromModule}', which is not in ES_MODULE_ORDER`,
+      ).toBe(true);
     }
   });
 

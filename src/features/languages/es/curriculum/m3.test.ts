@@ -24,6 +24,8 @@ import {
   checkPassiveCardFollowup,
 } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
+import { registerEsModuleBarGuards } from "../__tests__/moduleBarGuards";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 
 describe("ES M3 curriculum", () => {
   it("ships 8 lessons, all tagged es / m3 / mock-1", () => {
@@ -107,4 +109,15 @@ describe("ES M3 curriculum", () => {
       }
     }
   });
+});
+
+// ── ES authoring bar (Track B, 2026-08-19) ─────────────────────────────────
+// m3's July-wave debt was retired surgically on 2026-08-19 (translate→build
+// conversions, image-MCQ retirements, pluma/papel intro debuts, plus the
+// plural-aware provenance lexicon), so it registers with ZERO pinned debt.
+// Never add a `debt` entry here to admit new content; fix the content.
+registerEsModuleBarGuards({
+  moduleLabel: "m3",
+  lessons: ES_M3_LESSONS,
+  priorModules: ES_MODULE_ORDER.slice(0, ES_MODULE_ORDER.indexOf("m3")),
 });

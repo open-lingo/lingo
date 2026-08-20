@@ -1,0 +1,1045 @@
+module: m5
+title: "Familia y posesión — tener + family"
+frame: none
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# The learner can describe things (m4). M5's job: the people closest to
+# them — family vocabulary, possessives mi/tu/su, tener singular
+# (tengo/tienes/tiene), age with tener X años, and possession with de.
+# Grammar spine: mi (L1), tener singular + hermano/hermana (L2), su + tiene +
+# hijo/hija (L3), tu vs tú + mamá/papá/abuelos (L4), age with tener + niño/
+# niña (L5), a listening-focused lesson (L6), an integration dialogue with
+# esposo/esposa/también + de-for-possession review (L7), mastery test (L8).
+#
+# 2026-08-20 RE-AUTHOR (IR, frameless — same shape as m2/m4). Same 27-atom
+# inventory, same 8-lesson allocation and topics as the July hand-authored
+# file (m5.ts), but the step inventory retires the module's pinned debt to
+# ZERO:
+#   • unknownTokens 17→0 — every sentence below draws only on m1–m4 atoms,
+#     m5's own 27 atoms, ES_FUNCTION_WORDS and ES_PROPER_NAMES. Note that
+#     mi/tu/su/también/quién are ALL closed-class ES_FUNCTION_WORDS already
+#     (moduleBarGuards.ts's list), so they carry zero provenance risk on
+#     their own — the real teaching load for them is pedagogical, not
+#     mechanical.
+#   • nonIntroDebuts 3→0 — tiene/tener/año used to debut as OPTIONS inside a
+#     particle_cloze (es-m5-2-cloze-tengo, es-m5-5-cloze-anos), a non-intro
+#     step type. Fixed by having the L2 info card quote «tener», «tengo»,
+#     «tienes» and «tiene» as a SET (the pinned "ending marks who's doing
+#     the having" card, required before any tener cloze/production — see
+#     es-m5-2-info-tener) and the L5 info card quote «un año» alongside
+#     «tengo diez años» (es-m5-5-info-age) — both are `info` steps, an
+#     ES_INTRO_TYPE. Every other module-new word debuts on its own
+#     word_image_mcq (the 9 emoji atoms: familia, madre, padre, abuelo,
+#     abuela, esposo, esposa, niño, niña) or its own phrase card (the
+#     non-emoji nouns: mamá, papá, hermano, hermana, hijo, hija, también,
+#     quién), matching ES_INTRO_TYPES, never a textMcq/cloze/translate.
+#   • fullSentenceMcqs 3→0 — es-m5-4-rev-q-carro, es-m5-5-rev-q-inteligente
+#     and es-m5-6-q-quien (pick-the-built-sentence MCQs) are gone; the
+#     content they carried ("el carro de mi abuelo es azul", "ella es muy
+#     inteligente", "¿quién es ella?") is now build/translate/speaking
+#     production (es-m5-4-tr-carro-abuelo, es-m5-5-build-review-inteligente,
+#     es-m5-6-speak-quien-ella). Every remaining sentenceMcq in L1–L7 has a
+#     SINGLE-WORD correct answer (near-minimal-pair discrimination, exempt
+#     per inv 28); full-sentence MCQs are used freely only in L8 (test-out).
+#   • distractorLint 2→0 — es-m5-5-q-nino ("hermano" echoed the prompt's own
+#     "Mi hermano tiene…") and es-m5-6-q-nina ("niño" echoed the prompt's own
+#     "No es niño…") are gone. Every meaning-check MCQ below is either (a) a
+#     vocabTextMcq with its default ENGLISH gloss prompt (no target-language
+#     echo is possible — the m2/m4 pattern) or (b) a Spanish-context
+#     sentenceMcq whose blank replaces the tested word, so nothing the
+#     prompt quotes is ever offered back as a distractor.
+#   • imageMcqReuse 2→0 — es-m5-8-mcq-abuela and es-m5-8-mcq-esposo (a SECOND
+#     word_image_mcq on an already-known word) are gone: L8 has ZERO
+#     word_image_mcq steps, full stop — by L8 every emoji atom is already
+#     known, so any image MCQ there would reuse one. Mastery retrieval of
+#     abuela/esposo/every other word runs through build/cloze/match/
+#     translate/speaking instead. word_image_mcq appears exactly 9 times
+#     module-wide, once per emoji atom, always at first exposure.
+#   • particleClozeOutOfModule 3→0 — es-m5-2-rev-cloze-de, es-m5-7-cloze-de
+#     and es-m5-8-rev-cloze-es (particle_cloze on "de"/"es", both taught m2)
+#     are gone. "de" is reviewed via build/translate production instead
+#     (es-m5-2-build-perro-de-hermano, es-m5-7-build-esposo-de-ana,
+#     es-m5-7-tr-llave-amigo, es-m5-8-build-casa-papa) — past its intro
+#     module a taught particle is PRODUCED, not picked (pin E2).
+#     particle_cloze below blanks ONLY this module's own vocabulary
+#     (mi/tu/su in L1/L3/L8, tengo/tienes/tiene in L2/L5/L8, años in L5) —
+#     that discrimination IS m5's teaching point.
+#   • translateShare 0.237→0.077 (5 translate / 65 production steps) — well
+#     under the no-debt 0.15 cap. Most production runs through build/
+#     speaking/listening_build; translate appears at most once per lesson
+#     and not at all in L1/L2/L3.
+#
+# PINNED (not this file's to relitigate): the atom inventory is UNCHANGED —
+# same 27 surfaces/meanings/genders/emoji/kinds as the July file, including
+# tener/tengo/tienes/tiene registered as their own atoms (m2's ser/es/eres/
+# soy precedent). In content, only tengo/tienes/tiene (+ lemma tener in
+# teaching prose) are ever used — never tenemos/tienen/tenéis; the
+# conjugation-aware PRIOR in moduleBarGuards hands the rest of the present
+# paradigm to m6+ once tener is a PRIOR-module verb. Feminine family nouns
+# (hermana, hija, niña, abuela, esposa) are their own registered atoms, never
+# gender-canon derivatives — the canon only folds -o adjectives (alta←alto,
+# not hija←hijo).
+#
+# Build/listening_build (tile) steps never carry ¿?/commas — a "¿quién es
+# ella?"-shaped answer would hand the learner a tile literally reading
+# "¿quién". Every ¿?-question is speaking/translate/listening_comprehension
+# instead (es-m5-6-speak-quien-papa, es-m5-6-speak-quien-abuela,
+# es-m5-6-speak-quien-ella, es-m5-8-speak-quien-papa).
+#
+# Sentence texts reuse the July author's surfaces wherever one is clean
+# (taught vocab, no debt, no comma/¿?-in-a-build-step); most are new because
+# the July file's carriers leaned on untaught nouns (casado, and numbers
+# above diez) or were the MCQs this re-author retired.
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── family ──
+  - { surface: "familia", meaningEn: "family", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👪" }
+  - { surface: "madre", meaningEn: "mother", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👩" }
+  - { surface: "padre", meaningEn: "father", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👨" }
+  - { surface: "mamá", meaningEn: "mom", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "papá", meaningEn: "dad", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "hermano", meaningEn: "brother", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "hermana", meaningEn: "sister", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "hijo", meaningEn: "son", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "hija", meaningEn: "daughter", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "abuelo", meaningEn: "grandfather", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👴" }
+  - { surface: "abuela", meaningEn: "grandmother", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👵" }
+  - { surface: "esposo", meaningEn: "husband", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🤵" }
+  - { surface: "esposa", meaningEn: "wife", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👰" }
+  - { surface: "niño", meaningEn: "boy / child", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👦" }
+  - { surface: "niña", meaningEn: "girl", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👧" }
+  # ── tener (singular) ──
+  - { surface: "tener", meaningEn: "to have", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tengo", meaningEn: "I have", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tienes", meaningEn: "you have", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tiene", meaningEn: "he/she has", partOfSpeech: "verb", kind: "vocab" }
+  # ── possessives ──
+  - { surface: "mi", meaningEn: "my", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "tu", meaningEn: "your (informal)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "su", meaningEn: "his / her / your (formal)", partOfSpeech: "particle", kind: "particle" }
+  # ── age ──
+  - { surface: "año", meaningEn: "year", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "años", meaningEn: "years", partOfSpeech: "noun", kind: "vocab" }
+  - { surface: "¿cuántos años tienes?", meaningEn: "how old are you?", partOfSpeech: "phrase", kind: "phrase" }
+  # ── question word & adverb ──
+  - { surface: "quién", meaningEn: "who", partOfSpeech: "pronoun", kind: "vocab" }
+  - { surface: "también", meaningEn: "also", partOfSpeech: "adverb", kind: "vocab" }
+
+lessons:
+  # ── L1 · Mi familia — madre, padre ─────────────────────────────────────────
+  - n: 1
+    template: free
+    title: "Mi familia — madre, padre"
+    description: "Say 'my' — and meet the first three family words."
+    steps:
+      - kind: info
+        id: info-mi
+        title: "Mi — my"
+        body: "«mi» means 'my' and never changes for gender: «mi padre», «mi madre». With more than one thing it adds -s: «mis amigos» (my friends). No «el» or «la» is needed — the possessive replaces the article."
+      - kind: imageMcq
+        id: mcq-familia
+        target: { surface: "familia", meaningEn: "family", emoji: "👪" }
+        distractors:
+          - { surface: "madre", emoji: "👩" }
+          - { surface: "padre", emoji: "👨" }
+          - { surface: "abuela", emoji: "👵" }
+      - kind: speakLit
+        id: speak-familia-grande
+        es: "mi familia es grande"
+        en: "my family is big"
+        atoms: ["mi", "familia", "grande"]
+      - kind: imageMcq
+        id: mcq-madre
+        target: { surface: "madre", meaningEn: "mother", emoji: "👩" }
+        distractors:
+          - { surface: "padre", emoji: "👨" }
+          - { surface: "abuela", emoji: "👵" }
+          - { surface: "familia", emoji: "👪" }
+      - kind: buildLit
+        id: build-madre-alta
+        es: "mi madre es alta"
+        en: "My mother is tall"
+        tiles: ["alto"]
+        atoms: ["mi", "madre", "alto"]
+      - kind: textMcq
+        id: tmcq-mi
+        target: "mi"
+        distractors: ["tu", "su", "la"]
+      - kind: imageMcq
+        id: mcq-padre
+        target: { surface: "padre", meaningEn: "father", emoji: "👨" }
+        distractors:
+          - { surface: "madre", emoji: "👩" }
+          - { surface: "abuelo", emoji: "👴" }
+          - { surface: "familia", emoji: "👪" }
+      - kind: speakLit
+        id: speak-padre-alto
+        es: "mi padre es alto"
+        en: "my father is tall"
+        atoms: ["mi", "padre", "alto"]
+      - kind: listenCompLit
+        id: lc-madre-simpatica
+        es: "mi madre es muy simpática"
+        en: "my mother is very nice"
+        distractorsEn: ["my mother is very old", "my father is very nice", "my mother is not nice"]
+        atoms: ["mi", "madre", "simpático"]
+      - kind: buildLit
+        id: build-padre-bueno
+        es: "mi padre es bueno"
+        en: "My father is good"
+        tiles: ["malo"]
+        atoms: ["mi", "padre", "bueno"]
+      - kind: textMcq
+        id: tmcq-familia
+        target: "familia"
+        distractors: ["madre", "padre", "casa"]
+      - kind: speakLit
+        id: speak-familia-pequena
+        es: "mi familia es pequeña"
+        en: "my family is small"
+        atoms: ["mi", "familia", "pequeño"]
+      - kind: listenBuildLit
+        id: lb-padre-muy-alto
+        es: "mi padre es muy alto"
+        en: "Tap what you hear"
+        tiles: ["bajo"]
+        atoms: ["mi", "padre", "alto"]
+      - kind: selfExplain
+        id: self-explain-mi
+        anchorLabel: "You wrote: mi familia es grande"
+        anchorAudioText: "mi familia es grande"
+        question: "Why doesn't mi change to match familia's gender?"
+        rule: "mi never changes for gender — it only adds -s for plural: mi hermano, mi hermana, mis hermanos."
+        surface: "mi matches the noun's gender the way adjectives do."
+        distractor: "mi is short for 'la mi,' so the article is already built in."
+        ruleExplanation: "Unlike -o/-a adjectives, mi/tu/su don't agree in gender — only in number."
+      - kind: buildLit
+        id: build-amigo-simpatico
+        es: "mi amigo es simpático"
+        en: "My friend is nice"
+        tiles: ["malo"]
+        atoms: ["mi", "amigo", "simpático"]
+      - kind: textMcq
+        id: tmcq-padre
+        target: "padre"
+        distractors: ["madre", "abuelo", "familia"]
+      - kind: listenBuildLit
+        id: lb-madre-bonita
+        es: "mi madre es muy bonita"
+        en: "Tap what you hear"
+        tiles: ["feo"]
+        atoms: ["mi", "madre", "bonito"]
+      - kind: speakLit
+        id: speak-familia-close
+        es: "mi familia es muy simpática"
+        en: "my family is very nice"
+        atoms: ["mi", "familia", "simpático"]
+      - kind: info
+        id: info-win
+        title: "Family, unlocked"
+        body: "You can now introduce your closest family members and say they're yours."
+        variant: "win"
+
+  # ── L2 · Tener — tengo, tienes ────────────────────────────────────────────
+  - n: 2
+    template: free
+    title: "Tener — tengo, tienes"
+    description: "The verb 'to have' — plus brothers and sisters."
+    steps:
+      - kind: info
+        id: info-tener
+        title: "Tener — to have"
+        body: "«tener» is the Spanish verb 'to have.' In the singular, the ending marks who's doing the having: «tengo» (I have), «tienes» (you have), «tiene» (he or she has). Say «tengo un hermano» — I have a brother — and, just like with ser, yo and tú are optional."
+      - kind: phrase
+        id: p-hermano
+        meaning: "the brother"
+        text: "el hermano"
+      - kind: speakLit
+        id: speak-tengo-hermano
+        es: "tengo un hermano"
+        en: "I have a brother"
+        atoms: ["tengo", "hermano"]
+      - kind: phrase
+        id: p-hermana
+        meaning: "the sister"
+        text: "la hermana"
+      - kind: buildLit
+        id: build-tienes-hermana
+        es: "tienes una hermana"
+        en: "You have a sister"
+        tiles: ["tengo"]
+        atoms: ["tienes", "hermana"]
+      - kind: textMcq
+        id: tmcq-hermano
+        target: "hermano"
+        distractors: ["hermana", "padre", "madre"]
+      - kind: speakLit
+        id: speak-hermano-alto
+        es: "mi hermano es alto"
+        en: "my brother is tall"
+        atoms: ["mi", "hermano", "alto"]
+      - kind: listenCompLit
+        id: lc-tiene-hermana
+        es: "mi amigo tiene una hermana"
+        en: "my friend has a sister"
+        distractorsEn: ["my friend has a brother", "your friend has a sister", "my friend has two sisters"]
+        atoms: ["amigo", "tiene", "hermana"]
+      - kind: buildLit
+        id: build-hermana-simpatica
+        es: "mi hermana es muy simpática"
+        en: "My sister is very nice"
+        tiles: ["malo"]
+        atoms: ["mi", "hermana", "simpático"]
+      - kind: textMcq
+        id: tmcq-hermana
+        target: "hermana"
+        distractors: ["hermano", "madre", "hija"]
+      - kind: clozeLit
+        id: c-tengo-tienes
+        es: "yo tengo un hermano"
+        en: "I have a brother"
+        blank: "tengo"
+        options: ["tengo", "tienes", "tiene", "tener"]
+        why: "First-person singular — the 'I' form."
+        atoms: ["tengo", "hermano"]
+      - kind: speakLit
+        id: speak-tiene-perro
+        es: "mi hermano tiene un perro"
+        en: "my brother has a dog"
+        atoms: ["hermano", "tiene", "perro"]
+      - kind: listenBuildLit
+        id: lb-tienes-hermana
+        es: "tú tienes una hermana simpática"
+        en: "Tap what you hear"
+        tiles: ["tiene"]
+        atoms: ["tú", "tienes", "hermana", "simpático"]
+      - kind: selfExplain
+        id: self-explain-tiene
+        anchorLabel: "You wrote: mi hermano tiene un perro"
+        anchorAudioText: "mi hermano tiene un perro"
+        question: "Why tiene and not tienes here?"
+        rule: "tiene is the he/she form — hermano ('he') needs it, not tú ('you')."
+        surface: "tiene is used whenever the sentence is about a person."
+        distractor: "tiene is the plural form of tener."
+        ruleExplanation: "tengo = I have, tienes = you have, tiene = he/she has — the ending marks who's doing the having, so the subject pronoun is optional."
+      - kind: buildLit
+        id: build-hermano-bueno
+        es: "mi hermano es muy bueno"
+        en: "My brother is very good"
+        tiles: ["malo"]
+        atoms: ["mi", "hermano", "bueno"]
+      - kind: textMcq
+        id: tmcq-tengo
+        target: "tengo"
+        distractors: ["tienes", "tiene", "tener"]
+      - kind: reviewMatch
+        id: rev
+      - kind: buildLit
+        id: build-perro-de-hermano
+        es: "el perro de mi hermano"
+        en: "my brother's dog"
+        atoms: ["perro", "de", "hermano"]
+      - kind: speakLit
+        id: speak-close
+        es: "mi hermana tiene un gato"
+        en: "my sister has a cat"
+        atoms: ["hermana", "tiene", "gato"]
+      - kind: info
+        id: info-win
+        title: "You have people now"
+        body: "You can now say who's in your family and that you have them."
+        variant: "win"
+
+  # ── L3 · Su — his, her; tiene ──────────────────────────────────────────────
+  - n: 3
+    template: free
+    title: "Su — his, her; tiene"
+    description: "One little word for three owners — plus sons and daughters."
+    steps:
+      - kind: info
+        id: info-su
+        title: "Su — one word, three owners"
+        body: "«su» means 'his,' 'her,' or formal 'your' — one small word for three possible owners. Context tells you which one. Like «mi», it takes -s with plurals: «sus amigos» (his, her, or your friends)."
+      - kind: phrase
+        id: p-hijo
+        meaning: "the son"
+        text: "el hijo"
+      - kind: speakLit
+        id: speak-su-hijo
+        es: "su hijo es alto"
+        en: "his son is tall"
+        atoms: ["su", "hijo", "alto"]
+      - kind: phrase
+        id: p-hija
+        meaning: "the daughter"
+        text: "la hija"
+      - kind: buildLit
+        id: build-tiene-hija
+        es: "ella tiene una hija"
+        en: "She has a daughter"
+        tiles: ["tengo"]
+        atoms: ["ella", "tiene", "hija"]
+      - kind: textMcq
+        id: tmcq-hijo
+        target: "hijo"
+        distractors: ["hija", "padre", "hermano"]
+      - kind: speakLit
+        id: speak-hija-inteligente
+        es: "su hija es muy inteligente"
+        en: "his daughter is very intelligent"
+        atoms: ["su", "hija", "inteligente"]
+      - kind: listenCompLit
+        id: lc-su-casa
+        es: "su casa es muy bonita"
+        en: "his house is very pretty"
+        distractorsEn: ["his house is very old", "her house is very pretty", "his car is very pretty"]
+        atoms: ["su", "casa", "bonito"]
+      - kind: buildLit
+        id: build-hijo-simpatico
+        es: "mi hijo es muy simpático"
+        en: "My son is very nice"
+        tiles: ["malo"]
+        atoms: ["mi", "hijo", "simpático"]
+      - kind: textMcq
+        id: tmcq-hija
+        target: "hija"
+        distractors: ["hijo", "madre", "hermana"]
+      - kind: clozeLit
+        id: c-su
+        es: "ella es su hija"
+        en: "she is his daughter"
+        blank: "su"
+        options: ["su", "mi", "tu", "la"]
+        why: "Third-person owner — his, her, or formal your."
+        atoms: ["su", "hija"]
+      - kind: speakLit
+        id: speak-tiene-hijo
+        es: "mi hermano tiene un hijo"
+        en: "my brother has a son"
+        atoms: ["hermano", "tiene", "hijo"]
+      - kind: listenBuildLit
+        id: lb-su-hija-alta
+        es: "su hija es muy alta"
+        en: "Tap what you hear"
+        tiles: ["bajo"]
+        atoms: ["su", "hija", "alto"]
+      - kind: selfExplain
+        id: self-explain-su
+        anchorLabel: "You wrote: su casa es muy bonita"
+        anchorAudioText: "su casa es muy bonita"
+        question: "Who could 'su' refer to here?"
+        rule: "su can mean his, her, or formal your — Spanish leaves it to context to clarify whose house it is."
+        surface: "su always means 'his' unless the sentence names a woman."
+        distractor: "su only works for third-person plural — 'their.'"
+        ruleExplanation: "mi/tu are unambiguous (my/your-informal), but su covers three owners — él, ella, and usted. Add de + name (la casa de Ana) when you need to be specific."
+      - kind: buildLit
+        id: build-su-hijo-bueno
+        es: "su hijo es muy bueno"
+        en: "His son is very good"
+        tiles: ["malo"]
+        atoms: ["su", "hijo", "bueno"]
+      - kind: textMcq
+        id: tmcq-su
+        target: "su"
+        distractors: ["mi", "tu", "la"]
+      - kind: reviewMatch
+        id: rev
+      - kind: buildLit
+        id: build-libros-review
+        es: "tengo tres libros"
+        en: "I have three books"
+        tiles: ["dos"]
+        atoms: ["tengo", "libro"]
+      - kind: speakLit
+        id: speak-close
+        es: "mi hija tiene un perro"
+        en: "my daughter has a dog"
+        atoms: ["hija", "tiene", "perro"]
+      - kind: info
+        id: info-win
+        title: "Whose is it?"
+        body: "You can now say who belongs to someone else — mom, dad, or you."
+        variant: "win"
+
+  # ── L4 · Tu familia — mamá, papá, abuelos ─────────────────────────────────
+  - n: 4
+    template: free
+    title: "Tu familia — mamá, papá, abuelos"
+    description: "Your everyday family words — and one crucial accent."
+    steps:
+      - kind: info
+        id: info-tu
+        title: "Tu vs tú"
+        body: "One accent, two words: «tú» (with the accent) means 'you'; «tu» (without it) means 'your.' «tú eres alto» — you are tall; «tu mamá» — your mom. At home, most Spanish speakers say «mamá» and «papá» rather than «madre» and «padre»."
+      - kind: phrase
+        id: p-mama
+        meaning: "the mom"
+        text: "la mamá"
+      - kind: speakLit
+        id: speak-tu-mama-simpatica
+        es: "tu mamá es muy simpática"
+        en: "your mom is very nice"
+        atoms: ["tu", "mamá", "simpático"]
+      - kind: phrase
+        id: p-papa
+        meaning: "the dad"
+        text: "el papá"
+      - kind: buildLit
+        id: build-tu-papa-alto
+        es: "tu papá es alto"
+        en: "Your dad is tall"
+        tiles: ["bajo"]
+        atoms: ["tu", "papá", "alto"]
+      - kind: textMcq
+        id: tmcq-mama
+        target: "mamá"
+        distractors: ["papá", "madre", "abuela"]
+      - kind: imageMcq
+        id: mcq-abuelo
+        target: { surface: "abuelo", meaningEn: "grandfather", emoji: "👴" }
+        distractors:
+          - { surface: "padre", emoji: "👨" }
+          - { surface: "niño", emoji: "👦" }
+          - { surface: "esposo", emoji: "🤵" }
+      - kind: speakLit
+        id: speak-abuelo-alto
+        es: "mi abuelo es muy alto"
+        en: "my grandfather is very tall"
+        atoms: ["mi", "abuelo", "alto"]
+      - kind: listenCompLit
+        id: lc-tu-papa-bueno
+        es: "tu papá es muy bueno"
+        en: "your dad is very good"
+        distractorsEn: ["your dad is very bad", "your mom is very good", "your dad is very old"]
+        atoms: ["tu", "papá", "bueno"]
+      - kind: imageMcq
+        id: mcq-abuela
+        target: { surface: "abuela", meaningEn: "grandmother", emoji: "👵" }
+        distractors:
+          - { surface: "madre", emoji: "👩" }
+          - { surface: "niña", emoji: "👧" }
+          - { surface: "esposa", emoji: "👰" }
+      - kind: speakLit
+        id: speak-abuela-bonita
+        es: "mi abuela es muy bonita"
+        en: "my grandmother is very pretty"
+        atoms: ["mi", "abuela", "bonito"]
+      - kind: textMcq
+        id: tmcq-abuelo
+        target: "abuelo"
+        distractors: ["abuela", "padre", "niño"]
+      - kind: buildLit
+        id: build-abuela-simpatica
+        es: "tu abuela es muy simpática"
+        en: "Your grandmother is very nice"
+        tiles: ["malo"]
+        atoms: ["tu", "abuela", "simpático"]
+      - kind: textMcq
+        id: tmcq-abuela
+        target: "abuela"
+        distractors: ["abuelo", "madre", "niña"]
+      - kind: selfExplain
+        id: self-explain-tu
+        anchorLabel: "You wrote: tu mamá es muy simpática"
+        anchorAudioText: "tu mamá es muy simpática"
+        question: "Why no accent mark on tu here?"
+        rule: "tu (no accent) is the possessive 'your'; tú (with an accent) is the subject pronoun 'you.' Naming an owner drops the accent."
+        surface: "tu never gets an accent because it's a short word."
+        distractor: "tu drops the accent because it comes before a feminine noun."
+        ruleExplanation: "The accent is the only difference: tú = you (pronoun), tu = your (possessive). If you're naming an owner, drop the accent."
+      - kind: listenBuildLit
+        id: lb-mama-alta
+        es: "tu mamá es muy alta"
+        en: "Tap what you hear"
+        tiles: ["baja"]
+        atoms: ["tu", "mamá", "alto"]
+      - kind: buildLit
+        id: build-papa-bueno
+        es: "mi papá es muy bueno"
+        en: "My dad is very good"
+        tiles: ["malo"]
+        atoms: ["mi", "papá", "bueno"]
+      - kind: reviewMatch
+        id: rev
+      - kind: translateLit
+        id: tr-carro-abuelo
+        es: "el carro de mi abuelo es azul"
+        en: "My grandfather's car is blue"
+        atoms: ["carro", "de", "abuelo", "azul"]
+      - kind: info
+        id: info-win
+        title: "The whole family"
+        body: "You can now talk about your whole family, from mom to grandpa."
+        variant: "win"
+
+  # ── L5 · ¿Cuántos años tienes? ─────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "¿Cuántos años tienes?"
+    description: "In Spanish you don't turn an age — you have it."
+    steps:
+      - kind: info
+        id: info-age
+        title: "Age works with tener"
+        body: "Spanish doesn't say you ARE some age — you HAVE it: you say «tengo diez años», literally 'I have ten years.' One is «un año» (mind the ñ — AH-nyo). Ask someone's age with «¿cuántos años tienes?», literally 'how many years do you have?'"
+      - kind: phrase
+        id: p-cuantos
+        meaning: "how old are you?"
+        text: "¿cuántos años tienes?"
+      - kind: imageMcq
+        id: mcq-nino
+        target: { surface: "niño", meaningEn: "boy", emoji: "👦" }
+        distractors:
+          - { surface: "niña", emoji: "👧" }
+          - { surface: "abuelo", emoji: "👴" }
+          - { surface: "madre", emoji: "👩" }
+      - kind: speakLit
+        id: speak-cuantos
+        es: "¿cuántos años tienes?"
+        en: "How old are you?"
+        atoms: ["¿cuántos años tienes?"]
+      - kind: buildLit
+        id: build-nino-diez-anos
+        es: "el niño tiene diez años"
+        en: "The boy is ten years old"
+        tiles: ["nueve"]
+        atoms: ["niño", "tiene", "años"]
+      - kind: textMcq
+        id: tmcq-nino
+        target: "niño"
+        distractors: ["niña", "hermano", "abuelo"]
+      - kind: imageMcq
+        id: mcq-nina
+        target: { surface: "niña", meaningEn: "girl", emoji: "👧" }
+        distractors:
+          - { surface: "niño", emoji: "👦" }
+          - { surface: "abuela", emoji: "👵" }
+          - { surface: "madre", emoji: "👩" }
+      - kind: buildLit
+        id: build-nina-siete-anos
+        es: "la niña tiene siete años"
+        en: "The girl is seven years old"
+        tiles: ["ocho"]
+        atoms: ["niña", "tiene", "años"]
+      - kind: textMcq
+        id: tmcq-nina
+        target: "niña"
+        distractors: ["niño", "hija", "abuela"]
+      - kind: speakLit
+        id: speak-hermano-diez-anos
+        es: "mi hermano tiene diez años"
+        en: "my brother is ten years old"
+        atoms: ["hermano", "tiene", "años"]
+      - kind: listenCompLit
+        id: lc-nino-cinco-anos
+        es: "el niño tiene cinco años"
+        en: "the boy is five years old"
+        distractorsEn: ["the girl is five years old", "the boy is six years old", "the boy has a sister"]
+        atoms: ["niño", "tiene", "años"]
+      - kind: buildLit
+        id: build-ocho-anos
+        es: "tengo ocho años"
+        en: "I'm eight years old"
+        tiles: ["siete"]
+        atoms: ["tengo", "años"]
+      - kind: clozeLit
+        id: c-anos
+        es: "tengo diez años"
+        en: "I'm ten years old"
+        blank: "años"
+        options: ["años", "año", "niños", "días"]
+        why: "Ten of them, so the plural form."
+        atoms: ["tengo", "años"]
+      - kind: listenBuildLit
+        id: lb-hija-seis-anos
+        es: "mi hija tiene seis años"
+        en: "Tap what you hear"
+        tiles: ["siete"]
+        atoms: ["hija", "tiene", "años"]
+      - kind: selfExplain
+        id: self-explain-age
+        anchorLabel: "You wrote: tengo ocho años"
+        anchorAudioText: "tengo ocho años"
+        question: "Why tengo (have) instead of soy (am) for age?"
+        rule: "Spanish expresses age as something you HAVE, not something you ARE — tengo ocho años literally means 'I have eight years.'"
+        surface: "tengo is used because años is a noun, and soy only works with adjectives."
+        distractor: "tengo is used for temporary ages, soy for permanent ones."
+        ruleExplanation: "Age, like hunger or heat, is a 'have' expression in Spanish: tener + number + años. English says 'I am 8'; Spanish says 'I have 8 years.'"
+      - kind: speakLit
+        id: speak-su-hija-anos
+        es: "su hija tiene diez años"
+        en: "his daughter is ten years old"
+        atoms: ["su", "hija", "tiene", "años"]
+      - kind: mcq
+        id: q-anos-verbo
+        prompt: "Mi hermana ___ ocho años."
+        correct: "tiene"
+        distractors: ["tienes", "tengo", "tener"]
+        why: "hermana ('she') needs the he/she form."
+        atoms: ["hermana", "tiene", "años"]
+      - kind: reviewMatch
+        id: rev
+      - kind: buildLit
+        id: build-review-inteligente
+        es: "ella es muy inteligente"
+        en: "She is very intelligent"
+        tiles: ["interesante"]
+        atoms: ["ella", "inteligente"]
+      - kind: translateLit
+        id: tr-anos
+        es: "tengo nueve años"
+        en: "I am nine years old"
+        atoms: ["tengo", "años"]
+      - kind: info
+        id: info-win
+        title: "Ages, unlocked"
+        body: "You can now ask and tell anyone's age — no more, no less."
+        variant: "win"
+
+  # ── L6 · Escucha — ¿quién es? ──────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "Escucha — ¿quién es?"
+    description: "Who's who — full-sentence ear training."
+    steps:
+      - kind: phrase
+        id: p-quien
+        meaning: "who"
+        text: "quién"
+      - kind: listenCompLit
+        id: lc-quien-nina
+        es: "¿quién es la niña?"
+        en: "Who is the girl?"
+        distractorsEn: ["Who is the boy?", "How old is the girl?", "Where is the girl?"]
+        atoms: ["quién", "niña"]
+      - kind: speakLit
+        id: speak-quien-papa
+        es: "¿quién es tu papá?"
+        en: "Who is your dad?"
+        atoms: ["quién", "tu", "papá"]
+      - kind: listenBuildLit
+        id: lb-abuelo-carro
+        es: "mi abuelo tiene un carro nuevo"
+        en: "Tap what you hear"
+        tiles: ["viejo"]
+        atoms: ["abuelo", "tiene", "carro", "nuevo"]
+      - kind: listenCompLit
+        id: lc-familia-grande
+        es: "tengo una familia muy grande"
+        en: "I have a very big family"
+        distractorsEn: ["I have a very small family", "you have a very big family", "I have a very big house"]
+        atoms: ["tengo", "familia", "grande"]
+      - kind: buildLit
+        id: build-hermano-simpatico
+        es: "tu hermano es muy simpático"
+        en: "Your brother is very nice"
+        tiles: ["malo"]
+        atoms: ["tu", "hermano", "simpático"]
+      - kind: textMcq
+        id: tmcq-quien
+        target: "quién"
+        distractors: ["qué", "cómo", "dónde"]
+      - kind: translateLit
+        id: tr-hijo-anos
+        es: "mi hijo tiene ocho años"
+        en: "My son is eight years old"
+        atoms: ["hijo", "tiene", "años"]
+      - kind: listenCompLit
+        id: lc-abuelo-quien
+        es: "¿quién es el abuelo?"
+        en: "Who is the grandfather?"
+        distractorsEn: ["Who is the grandmother?", "How old is the grandfather?", "Where is the grandfather?"]
+        atoms: ["quién", "abuelo"]
+      - kind: listenBuildLit
+        id: lb-nina-gato
+        es: "la niña tiene un gato negro"
+        en: "Tap what you hear"
+        tiles: ["blanco"]
+        atoms: ["niña", "tiene", "gato", "negro"]
+      - kind: speakLit
+        id: speak-quien-abuela
+        es: "¿quién es tu abuela?"
+        en: "Who is your grandmother?"
+        atoms: ["quién", "tu", "abuela"]
+      - kind: listenCompLit
+        id: lc-familia-mexico
+        es: "su familia es de México"
+        en: "his family is from Mexico"
+        distractorsEn: ["my family is from Mexico", "his family is from Spain", "his family is big"]
+        atoms: ["su", "familia", "de"]
+      - kind: speakLit
+        id: speak-quien-ella
+        es: "¿quién es ella?"
+        en: "Who is she?"
+        atoms: ["quién", "ella"]
+      - kind: buildLit
+        id: build-nino-perro-negro
+        es: "el niño tiene un perro negro"
+        en: "The boy has a black dog"
+        tiles: ["blanco"]
+        atoms: ["niño", "tiene", "perro", "negro"]
+      - kind: textMcq
+        id: tmcq-nina-review
+        # Distractor set differs from L5's tmcq-nina on purpose — three
+        # identical retrievals across L5/L6/L8 would be pattern-memorizable.
+        target: "niña"
+        distractors: ["niño", "abuela", "esposa"]
+      - kind: listenCompLit
+        id: lc-nino-alto-simpatico
+        es: "el niño es alto y simpático"
+        en: "the boy is tall and nice"
+        distractorsEn: ["the girl is tall and nice", "the boy is short and nice", "the boy is tall and old"]
+        atoms: ["niño", "alto", "simpático"]
+      - kind: reviewMatch
+        id: rev
+      - kind: listenCompLit
+        id: lc-gato-bonito
+        es: "el gato negro es muy bonito"
+        en: "the black cat is very pretty"
+        distractorsEn: ["the black dog is very pretty", "the white cat is very pretty", "the black cat is very big"]
+        atoms: ["gato", "negro", "bonito"]
+      - kind: speakLit
+        id: speak-close
+        es: "mi papá tiene un perro grande"
+        en: "my dad has a big dog"
+        atoms: ["papá", "tiene", "perro", "grande"]
+      - kind: info
+        id: info-win
+        title: "You're listening in"
+        body: "You can now follow a conversation about someone's family, just by listening."
+        variant: "win"
+
+  # ── L7 · La familia de Ana ─────────────────────────────────────────────────
+  - n: 7
+    template: free
+    title: "La familia de Ana"
+    description: "Whose is it? Possession with de — and two more people."
+    steps:
+      - kind: info
+        id: info-familia
+        title: "La familia"
+        body: "Across Latin America, family is the center of gravity — Sunday lunch at the grandparents' house routinely gathers three generations, and 'familia' stretches to cousins, in-laws, and lifelong friends. Ask about someone's family early; it's warm, not nosy."
+        variant: "culture"
+      - kind: imageMcq
+        id: mcq-esposo
+        target: { surface: "esposo", meaningEn: "husband", emoji: "🤵" }
+        distractors:
+          - { surface: "esposa", emoji: "👰" }
+          - { surface: "abuelo", emoji: "👴" }
+          - { surface: "padre", emoji: "👨" }
+      - kind: speakLit
+        id: speak-esposo-simpatico
+        es: "mi esposo es muy simpático"
+        en: "my husband is very nice"
+        atoms: ["esposo", "simpático"]
+      - kind: info
+        id: info-de
+        title: "De — whose is it?"
+        body: "To say something belongs to someone, link them with «de»: «la casa de mi abuela» — my grandmother's house, literally 'the house of my grandmother.' Spanish has no apostrophe-s; «de» plus the owner does that job every time."
+      - kind: imageMcq
+        id: mcq-esposa
+        target: { surface: "esposa", meaningEn: "wife", emoji: "👰" }
+        distractors:
+          - { surface: "esposo", emoji: "🤵" }
+          - { surface: "abuela", emoji: "👵" }
+          - { surface: "madre", emoji: "👩" }
+      - kind: buildLit
+        id: build-esposo-de-ana
+        es: "el esposo de Ana es alto"
+        en: "Ana's husband is tall"
+        tiles: ["bajo"]
+        atoms: ["esposo", "de", "alto"]
+      - kind: textMcq
+        id: tmcq-esposa
+        target: "esposa"
+        distractors: ["esposo", "hermana", "hija"]
+      - kind: phrase
+        id: p-tambien
+        meaning: "also"
+        text: "también"
+      - kind: listenCompLit
+        id: lc-esposa-inteligente
+        es: "mi esposa es muy inteligente"
+        en: "my wife is very intelligent"
+        distractorsEn: ["my wife is very old", "my husband is very intelligent", "my wife is not intelligent"]
+        atoms: ["esposa", "inteligente"]
+      - kind: speakLit
+        id: speak-tambien
+        es: "tengo un hermano y también una hermana"
+        en: "I have a brother and also a sister"
+        atoms: ["tengo", "también", "hermano", "hermana"]
+      - kind: buildLit
+        id: build-hija-de-hermana
+        es: "la hija de mi hermana es alta"
+        en: "My sister's daughter is tall"
+        tiles: ["bajo"]
+        atoms: ["hija", "de", "hermana", "alto"]
+      - kind: textMcq
+        id: tmcq-tambien
+        target: "también"
+        distractors: ["muy", "pero", "y"]
+      - kind: selfExplain
+        id: self-explain-de
+        anchorLabel: "You wrote: el esposo de Ana es alto"
+        anchorAudioText: "el esposo de Ana es alto"
+        question: "Why de instead of an apostrophe-s?"
+        rule: "Spanish has no apostrophe-s — de + owner always shows possession: el esposo de Ana = 'Ana's husband.'"
+        surface: "de is only used when the owner's name is unknown."
+        distractor: "de is optional here — Ana esposo would also work."
+        ruleExplanation: "English 's becomes de + owner in Spanish, and the word order flips: [thing] de [owner] — el esposo de Ana, never Ana's esposo."
+      - kind: translateLit
+        id: tr-llave-amigo
+        es: "la llave de mi amigo es roja"
+        en: "My friend's key is red"
+        atoms: ["llave", "amigo", "rojo", "de"]
+      - kind: buildLit
+        id: build-esposo-perro-bueno
+        es: "mi esposo tiene un perro bueno"
+        en: "My husband has a good dog"
+        tiles: ["malo"]
+        atoms: ["esposo", "tiene", "perro", "bueno"]
+      - kind: dialogueLit
+        id: dialogue-hermana
+        lines:
+          - { speaker: "Ana", text: "¿Quién es ella, Luis?" }
+          - { speaker: "Luis", text: "Es mi hermana. Tiene diez años." }
+          - { speaker: "Ana", text: "¡Tu hermana es muy alta!" }
+        questions:
+          - id: "q1"
+            prompt: "Who is the girl?"
+            correctText: "Luis's sister"
+            distractors: ["Luis's daughter", "Ana's sister", "Luis's grandmother"]
+          - id: "q2"
+            prompt: "How old is she?"
+            correctText: "ten years old"
+            distractors: ["eight years old", "nine years old", "two years old"]
+        atoms: ["quién", "hermana", "tiene", "años", "tu", "alto"]
+      - kind: reviewMatch
+        id: rev
+      - kind: speakLit
+        id: speak-close
+        es: "la esposa de mi hermano es muy simpática"
+        en: "my brother's wife is very nice"
+        atoms: ["esposa", "de", "hermano", "simpático"]
+      - kind: info
+        id: info-win
+        title: "It's all yours to say"
+        body: "You can now say whose it is, and add 'me too' to any conversation."
+        variant: "win"
+
+  # ── L8 · Mastery test ───────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M5 Mastery Test"
+    description: "Family, mi/tu/su, tener, possession with de, and age."
+    steps:
+      - kind: mcq
+        id: q-tengo-hermanos
+        prompt: "'I have two brothers.' — which is correct?"
+        correct: "tengo dos hermanos"
+        distractors: ["tienes dos hermanos", "tengo dos hermanas", "tiene dos hermanos"]
+        why: "tengo is the yo-form; hermanos (m) matches 'brothers.'"
+        atoms: ["tengo", "hermano"]
+      - kind: buildLit
+        id: build-casa-papa
+        es: "la casa de mi papá es grande"
+        en: "My dad's house is big"
+        tiles: ["pequeña"]
+        atoms: ["casa", "de", "papá", "grande"]
+      - kind: mcq
+        id: q-su-hijo
+        prompt: "'Her son is very tall.' — which is correct?"
+        correct: "su hijo es muy alto"
+        distractors: ["su hija es muy alta", "mi hijo es muy alto", "tu hijo es muy bajo"]
+        why: "su covers 'her'; hijo (m) matches 'son.'"
+        atoms: ["su", "hijo", "alto"]
+      - kind: clozeLit
+        id: c-mi-hermana
+        es: "ella es mi hermana"
+        en: "she is my sister"
+        blank: "mi"
+        options: ["mi", "tu", "su", "la"]
+        why: "The speaker owns her — first person."
+        atoms: ["mi", "hermana"]
+      - kind: translateLit
+        id: tr-nueve-anos
+        es: "tengo nueve años"
+        en: "I am nine years old"
+        atoms: ["tengo", "años"]
+      - kind: mcq
+        id: q-tambien
+        prompt: "Mi papá es doctor. Mi mamá ___ es doctora."
+        correct: "también"
+        distractors: ["muy", "pero", "y"]
+        why: "también adds 'too' to a parallel fact."
+        atoms: ["también"]
+      - kind: listenCompLit
+        id: lc-cuantos
+        es: "¿cuántos años tienes?"
+        en: "How old are you?"
+        distractorsEn: ["How many sisters do you have?", "Who is your dad?", "What's your name?"]
+        atoms: ["¿cuántos años tienes?"]
+      - kind: listenBuildLit
+        id: lb-madre-carro
+        es: "mi madre tiene un carro rojo"
+        en: "Tap what you hear"
+        tiles: ["negro"]
+        atoms: ["madre", "tiene", "carro", "rojo"]
+      - kind: textMcq
+        id: tmcq-nina
+        # Third niña retrieval this module — distractors vary from L5/L6.
+        target: "niña"
+        distractors: ["niño", "hermana", "mamá"]
+      - kind: buildLit
+        id: build-esposo-perro
+        es: "mi esposo tiene un perro simpático"
+        en: "My husband has a nice dog"
+        tiles: ["malo"]
+        atoms: ["esposo", "tiene", "perro", "simpático"]
+      - kind: speakLit
+        id: speak-quien-papa
+        es: "¿quién es tu papá?"
+        en: "Who is your dad?"
+        atoms: ["quién", "tu", "papá"]
+      - kind: mcq
+        id: q-carro-grande
+        prompt: "'The red car is very big.' — which is correct?"
+        correct: "el carro rojo es muy grande"
+        distractors: ["el carro roja es muy grande", "el carro rojo es muy grandes", "la carro rojo es muy grande"]
+        why: "carro is masculine singular; rojo and grande must match."
+        atoms: ["carro", "rojo", "muy", "grande"]
+      - kind: clozeLit
+        id: c-tiene-hija
+        es: "ella tiene una hija"
+        en: "she has a daughter"
+        blank: "tiene"
+        options: ["tiene", "tienes", "tengo", "tener"]
+        why: "ella ('she') needs the he/she form."
+        atoms: ["tiene", "hija"]
+
+placement:
+  screener:
+    - id: "pt-es-screen-m5"
+      prompt: "'I am ten years old.' — which is correct?"
+      correct: "tengo diez años"
+      distractors: ["soy diez años", "tengo diez año", "es diez años"]
+  byModule:
+    - id: "pt-es-m5-1"
+      prompt: "'I have two brothers.' — which is correct?"
+      correct: "tengo dos hermanos"
+      distractors: ["tienes dos hermanos", "tengo dos hermanas", "tiene dos hermanos"]
+    - id: "pt-es-m5-2"
+      prompt: "'Ana's car' — which is correct?"
+      correct: "el carro de Ana"
+      distractors: ["el carro es Ana", "Ana el carro", "el carro y Ana"]
+    - id: "pt-es-m5-3"
+      prompt: "'She has a son.' — which is correct?"
+      correct: "ella tiene un hijo"
+      distractors: ["ella tengo un hijo", "ella tienes un hijo", "ella tener un hijo"]
+    - id: "pt-es-m5-4"
+      prompt: "'His daughter' — which is correct?"
+      correct: "su hija"
+      distractors: ["mi hija", "tu hija", "sus hija"]

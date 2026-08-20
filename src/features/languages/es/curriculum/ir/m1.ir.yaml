@@ -1,0 +1,856 @@
+module: m1
+title: "Sonidos y saludos — pronunciation & first words"
+frame: none
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# The learner arrives knowing zero Spanish. m1 sells one promise: Spanish is
+# READABLE — five vowels that never change, stress you can hear, and a written
+# accent that does exactly one job. Everything else in the module is a social
+# survival kit (greet, thank, apologize, part) and the numbers 0–10, chosen
+# because they exercise every sound rule the module teaches (soft c in cero/
+# cinco, hard c in cuatro, the y sound, final stress in adiós/perdón).
+#
+# This is the 2026-08 RE-AUTHOR of the pre-gate m1. Same 25 atoms, same
+# lesson allocation and titles, same placement facts — but the step inventory
+# retires the module's pinned debt to ZERO:
+#   • the 4 production-framed MCQs (q-reply / q-meet class) are now real
+#     production steps (build / speak / listen) — a situation you'd answer in
+#     Spanish is drilled by producing Spanish, not by picking it (inv 28/29);
+#   • translate is ≤15% of production steps module-wide (was 24.5%) — typing
+#     budget goes to speaking and tile builds instead (inv 43);
+#   • image MCQs appear only where the word is not yet known at lesson start
+#     (inv 44) — the mastery test now retests via text MCQ / cloze / build.
+#
+# Sentence texts deliberately reuse the previous author's surfaces wherever
+# one exists ("seis y siete", "cuatro o cinco", "cero tres cinco"…) so the
+# TTS delta is two clips: "no gracias" and "hola buenos días".
+#
+# m1 carve-outs the gates already know: exempt from metacognition/compounding
+# quotas (nothing earlier exists), word/phrase-level listening is fine here
+# (sound acquisition), and the connectors y/o are the module's own particles,
+# so particle clozes on them are intro-module clozes (pin E2).
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── social survival kit ──
+  - { surface: "hola", meaningEn: "hello", partOfSpeech: "other", kind: "vocab", emoji: "🙋", hint: "the h is silent: OH-la" }
+  - { surface: "adiós", meaningEn: "goodbye", partOfSpeech: "other", kind: "vocab", emoji: "🚶", hint: "stress the accented ó: ah-DYOS" }
+  - { surface: "gracias", meaningEn: "thank you", partOfSpeech: "other", kind: "vocab", emoji: "🙏", hint: "ci sounds like 'see': GRA-syas" }
+  - { surface: "por favor", meaningEn: "please", partOfSpeech: "phrase", kind: "phrase", emoji: "🤲" }
+  - { surface: "perdón", meaningEn: "excuse me / sorry", partOfSpeech: "other", kind: "vocab", hint: "stress the accented ó: per-DON" }
+  - { surface: "sí", meaningEn: "yes", partOfSpeech: "other", kind: "vocab", emoji: "✅", hint: "the accent distinguishes it from 'si' (if)" }
+  - { surface: "no", meaningEn: "no", partOfSpeech: "other", kind: "vocab", emoji: "❌" }
+  - { surface: "buenos días", meaningEn: "good morning", partOfSpeech: "phrase", kind: "phrase", emoji: "🌅", hint: "the í carries the stress: DEE-as" }
+  - { surface: "buenas tardes", meaningEn: "good afternoon", partOfSpeech: "phrase", kind: "phrase", emoji: "🌇" }
+  - { surface: "buenas noches", meaningEn: "good evening / good night", partOfSpeech: "phrase", kind: "phrase", emoji: "🌙", hint: "ch as in English 'church': NO-ches" }
+  - { surface: "hasta luego", meaningEn: "see you later", partOfSpeech: "phrase", kind: "phrase", emoji: "🚪", hint: "silent h: AS-ta LWE-go" }
+  - { surface: "mucho gusto", meaningEn: "nice to meet you", partOfSpeech: "phrase", kind: "phrase", emoji: "🤝" }
+  # ── numbers 0–10 ──
+  - { surface: "cero", meaningEn: "zero", partOfSpeech: "noun", kind: "vocab", emoji: "0️⃣", hint: "c before e sounds like s: SE-ro" }
+  - { surface: "uno", meaningEn: "one", partOfSpeech: "noun", kind: "vocab", emoji: "1️⃣" }
+  - { surface: "dos", meaningEn: "two", partOfSpeech: "noun", kind: "vocab", emoji: "2️⃣" }
+  - { surface: "tres", meaningEn: "three", partOfSpeech: "noun", kind: "vocab", emoji: "3️⃣", hint: "tap the r lightly: tress" }
+  - { surface: "cuatro", meaningEn: "four", partOfSpeech: "noun", kind: "vocab", emoji: "4️⃣", hint: "c before u is a hard k: KWA-tro" }
+  - { surface: "cinco", meaningEn: "five", partOfSpeech: "noun", kind: "vocab", emoji: "5️⃣", hint: "soft c then hard c: SEEN-ko" }
+  - { surface: "seis", meaningEn: "six", partOfSpeech: "noun", kind: "vocab", emoji: "6️⃣" }
+  - { surface: "siete", meaningEn: "seven", partOfSpeech: "noun", kind: "vocab", emoji: "7️⃣" }
+  - { surface: "ocho", meaningEn: "eight", partOfSpeech: "noun", kind: "vocab", emoji: "8️⃣" }
+  - { surface: "nueve", meaningEn: "nine", partOfSpeech: "noun", kind: "vocab", emoji: "9️⃣" }
+  - { surface: "diez", meaningEn: "ten", partOfSpeech: "noun", kind: "vocab", emoji: "🔟", hint: "z sounds like s in Latin America: dyess" }
+  # ── connectors ──
+  - { surface: "y", meaningEn: "and", partOfSpeech: "particle", kind: "particle", hint: "sounds like 'ee'" }
+  - { surface: "o", meaningEn: "or", partOfSpeech: "particle", kind: "particle" }
+
+lessons:
+  # ── L1 · the vowel promise + first two words ───────────────────────────────
+  - n: 1
+    template: free
+    title: "The five vowels — hola, adiós"
+    description: "Spanish vowels never change. Meet your first two words."
+    steps:
+      - kind: info
+        id: info-vowels
+        title: "Five vowels, five sounds"
+        body: "Spanish has exactly five vowel sounds, and they never change: a ('ah'), e ('eh'), i ('ee'), o ('oh'), u ('oo'). No long/short pairs, no surprises. Hear them in your first words: «hola» (OH-la — the h is silent) and «adiós» (ah-DYOS). Once you know the vowels, you can pronounce almost any Spanish word you can read."
+      - kind: phrase
+        id: p-hola
+        meaning: "hello"
+        text: "hola"
+      - kind: imageMcq
+        id: img-adios
+        target: { surface: "adiós", meaningEn: "goodbye", emoji: "🚶" }
+        distractors:
+          - { surface: "hola", emoji: "🙋" }
+          - { surface: "gracias", emoji: "🙏" }
+          - { surface: "sí", emoji: "✅" }
+      - kind: speakLit
+        id: speak-hola
+        es: "hola"
+        en: "hello"
+        atoms: ["hola"]
+      - kind: phrase
+        id: p-adios
+        meaning: "goodbye"
+        text: "adiós"
+      - kind: textMcq
+        id: q-hola
+        target: "hola"
+        distractors: ["adiós", "gracias", "por favor"]
+      - kind: listenCompLit
+        id: lc-adios
+        es: "adiós"
+        en: "Goodbye"
+        distractorsEn: ["Hello", "Thank you", "Yes"]
+        atoms: ["adiós"]
+      - kind: speakLit
+        id: speak-adios
+        es: "adiós"
+        en: "goodbye"
+        atoms: ["adiós"]
+      - kind: selfExplain
+        id: se-accent
+        anchorLabel: "adiós"
+        anchorAudioText: "adiós"
+        question: "Why does adiós carry a written mark on the ó?"
+        rule: "The mark shows which syllable is stressed — ah-DYOS, stress at the end."
+        surface: "The mark makes the o sound longer, like a long vowel."
+        distractor: "The mark shows the word is a farewell."
+        ruleExplanation: "A written accent in Spanish does exactly one job: it marks the stressed syllable. The vowel sound itself never changes — o is always 'oh'. adiós is stressed on its final syllable, and the mark tells you so."
+      - kind: translateLit
+        id: tr-hola
+        es: "hola"
+        en: "Hello"
+        atoms: ["hola"]
+      - kind: listenCompLit
+        id: lc-hola
+        es: "hola"
+        en: "Hello"
+        distractorsEn: ["Goodbye", "Thank you", "No"]
+        atoms: ["hola"]
+      - kind: listenBuildLit
+        id: lb-adios
+        es: "adiós"
+        en: "goodbye"
+        tiles: ["hola"]
+        atoms: ["adiós"]
+      - kind: imageMcq
+        id: img-hola
+        target: { surface: "hola", meaningEn: "hello", emoji: "🙋" }
+        distractors:
+          - { surface: "adiós", emoji: "🚶" }
+          - { surface: "gracias", emoji: "🙏" }
+          - { surface: "no", emoji: "❌" }
+      - kind: info
+        id: info-win
+        title: "Two words, five vowels"
+        body: "You can already greet and part — and you did it with pure vowels: OH-la, ah-DYOS. Every Spanish word you ever learn uses these same five sounds."
+        variant: "win"
+
+  # ── L2 · courtesy ──────────────────────────────────────────────────────────
+  - n: 2
+    template: free
+    title: "Courtesy — gracias, por favor, perdón"
+    description: "Thank, ask, and apologize — and meet the soft c."
+    steps:
+      - kind: info
+        id: info-softc
+        title: "The polite three"
+        body: "Three words carry most of Spanish courtesy: «gracias» (thanks), «por favor» (please), «perdón» (excuse me / sorry). Listen for the c in gracias — before i it softens to an s sound: GRA-syas. And perdón, like adiós, is stressed on its accented final syllable: per-DON."
+      - kind: phrase
+        id: p-gracias
+        meaning: "thank you"
+        text: "gracias"
+      - kind: imageMcq
+        id: img-porfavor
+        target: { surface: "por favor", meaningEn: "please", emoji: "🤲" }
+        distractors:
+          - { surface: "gracias", emoji: "🙏" }
+          - { surface: "hola", emoji: "🙋" }
+          - { surface: "adiós", emoji: "🚶" }
+      - kind: speakLit
+        id: speak-gracias
+        es: "gracias"
+        en: "thank you"
+        atoms: ["gracias"]
+      - kind: phrase
+        id: p-perdon
+        meaning: "excuse me / sorry"
+        text: "perdón"
+      - kind: textMcq
+        id: q-gracias
+        target: "gracias"
+        distractors: ["por favor", "perdón", "hola"]
+      - kind: speakLit
+        id: speak-perdon
+        es: "perdón"
+        en: "excuse me"
+        atoms: ["perdón"]
+      - kind: listenCompLit
+        id: lc-porfavor
+        es: "por favor"
+        en: "Please"
+        distractorsEn: ["Thank you", "Sorry", "Hello"]
+        atoms: ["por favor"]
+      - kind: selfExplain
+        id: se-softc
+        anchorLabel: "gracias"
+        anchorAudioText: "gracias"
+        question: "Why does the c in gracias sound like an s?"
+        rule: "Before e or i, c softens to an s sound — GRA-syas."
+        surface: "The c is silent, like the h in hola."
+        distractor: "Polite words soften their consonants in Spanish."
+        ruleExplanation: "c is two sounds on a simple rule: before e or i it is soft (an s sound), everywhere else it is hard (a k sound). You'll meet both in the numbers — cero and cinco are soft, cuatro is hard."
+      - kind: translateLit
+        id: tr-gracias
+        es: "gracias"
+        en: "Thank you"
+        atoms: ["gracias"]
+      - kind: listenCompLit
+        id: lc-perdon
+        es: "perdón"
+        en: "Excuse me"
+        distractorsEn: ["Please", "Goodbye", "Thank you"]
+        atoms: ["perdón"]
+      - kind: buildLit
+        id: b-porfavor
+        es: "por favor"
+        en: "Please"
+        tiles: ["perdón"]
+        atoms: ["por favor"]
+      - kind: imageMcq
+        id: img-gracias
+        target: { surface: "gracias", meaningEn: "thank you", emoji: "🙏" }
+        distractors:
+          - { surface: "por favor", emoji: "🤲" }
+          - { surface: "sí", emoji: "✅" }
+          - { surface: "hola", emoji: "🙋" }
+      - kind: listenBuildLit
+        id: lb-perdon
+        es: "perdón"
+        en: "excuse me"
+        tiles: ["gracias", "hola"]
+        atoms: ["perdón"]
+      - kind: info
+        id: info-win
+        title: "The survival kit grows"
+        body: "Greet, part, thank, ask, apologize — five moves in, and every one of them pronounceable from the vowels alone."
+        variant: "win"
+
+  # ── L3 · greetings around the clock + sí/no ────────────────────────────────
+  - n: 3
+    template: free
+    title: "Around the clock — buenos días, sí & no"
+    description: "A greeting for every hour, and the two most useful words there are."
+    steps:
+      - kind: info
+        id: info-clock
+        title: "Good morning to good night"
+        body: "Spanish greets by the clock: «buenos días» until midday, «buenas tardes» through the afternoon, «buenas noches» after dark — and buenas noches is both 'good evening' and 'good night'. Notice buenOs but buenAs: día pairs with buenos, tarde and noche with buenas. Take the pairs as fixed for now — the pattern behind them arrives in Module 3."
+      - kind: phrase
+        id: p-buenosdias
+        meaning: "good morning"
+        text: "buenos días"
+      - kind: imageMcq
+        id: img-buenastardes
+        target: { surface: "buenas tardes", meaningEn: "good afternoon", emoji: "🌇" }
+        distractors:
+          - { surface: "buenos días", emoji: "🌅" }
+          - { surface: "buenas noches", emoji: "🌙" }
+          - { surface: "hola", emoji: "🙋" }
+      - kind: speakLit
+        id: speak-buenosdias
+        es: "buenos días"
+        en: "good morning"
+        atoms: ["buenos días"]
+      - kind: phrase
+        id: p-buenasnoches
+        meaning: "good evening / good night"
+        text: "buenas noches"
+      - kind: listenCompLit
+        id: lc-buenastardes
+        es: "buenas tardes"
+        en: "Good afternoon"
+        distractorsEn: ["Good morning", "Good night", "Hello"]
+        atoms: ["buenas tardes"]
+      - kind: buildLit
+        id: b-buenasnoches
+        es: "buenas noches"
+        en: "Good night"
+        tiles: ["buenos", "días"]
+        atoms: ["buenas noches"]
+      - kind: imageMcq
+        id: img-si
+        target: { surface: "sí", meaningEn: "yes", emoji: "✅" }
+        distractors:
+          - { surface: "no", emoji: "❌" }
+          - { surface: "gracias", emoji: "🙏" }
+          - { surface: "adiós", emoji: "🚶" }
+      - kind: speakLit
+        id: speak-buenasnoches
+        es: "buenas noches"
+        en: "good night"
+        atoms: ["buenas noches"]
+      - kind: textMcq
+        id: q-buenosdias
+        target: "buenos días"
+        distractors: ["buenas tardes", "buenas noches", "gracias"]
+      - kind: imageMcq
+        id: img-no
+        target: { surface: "no", meaningEn: "no", emoji: "❌" }
+        distractors:
+          - { surface: "sí", emoji: "✅" }
+          - { surface: "hola", emoji: "🙋" }
+          - { surface: "por favor", emoji: "🤲" }
+      - kind: buildLit
+        id: b-nogracias
+        es: "no gracias"
+        en: "No, thank you"
+        tiles: ["sí"]
+        atoms: ["no", "gracias"]
+      - kind: listenCompLit
+        id: lc-si
+        es: "sí"
+        en: "Yes"
+        distractorsEn: ["No", "Thank you", "Hello"]
+        atoms: ["sí"]
+      - kind: translateLit
+        id: tr-buenasnoches
+        es: "buenas noches"
+        en: "Good night"
+        atoms: ["buenas noches"]
+      - kind: selfExplain
+        id: se-buenos-buenas
+        anchorLabel: "buenas tardes"
+        anchorAudioText: "buenas tardes"
+        question: "Why is it buenOs días but buenAs tardes?"
+        rule: "día pairs with buenos, tarde and noche pair with buenas — the describing word changes shape to match its noun."
+        surface: "buenos is for early hours and buenas is for later ones."
+        distractor: "Spanish alternates o and a endings for rhythm."
+        ruleExplanation: "Spanish describing words agree with the noun they describe. día takes buenos; tarde and noche take buenas. Keep them as fixed pairs for now — Module 3 teaches the full agreement pattern."
+      - kind: match
+        id: match-greetings
+        surfaces: ["buenos días", "buenas tardes", "buenas noches", "sí", "no", "hola"]
+      - kind: listenBuildLit
+        id: lb-buenastardes
+        es: "buenas tardes"
+        en: "good afternoon"
+        tiles: ["buenos", "noches"]
+        atoms: ["buenas tardes"]
+      - kind: info
+        id: info-win
+        title: "Any hour covered"
+        body: "Morning, afternoon, night — plus sí and no, the two words that will carry half your early conversations."
+        variant: "win"
+
+  # ── L4 · numbers 0–5 ───────────────────────────────────────────────────────
+  - n: 4
+    template: free
+    title: "Números 0–5"
+    description: "Count to five — and hear the soft c against the hard c."
+    steps:
+      - kind: info
+        id: info-c
+        title: "Soft c, hard c"
+        body: "The numbers put last lesson's c rule to work. Soft c before e or i: «cero» (SE-ro), «cinco» (SEEN-ko — soft then hard in one word). Hard c before a, o, u: «cuatro» (KWA-tro). Say them out loud — the rule is easier to hear than to memorize."
+      - kind: imageMcq
+        id: img-uno
+        target: { surface: "uno", meaningEn: "one", emoji: "1️⃣" }
+        distractors:
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "tres", emoji: "3️⃣" }
+          - { surface: "cinco", emoji: "5️⃣" }
+      - kind: speakLit
+        id: speak-uno
+        es: "uno"
+        en: "one"
+        atoms: ["uno"]
+      - kind: imageMcq
+        id: img-dos
+        target: { surface: "dos", meaningEn: "two", emoji: "2️⃣" }
+        distractors:
+          - { surface: "uno", emoji: "1️⃣" }
+          - { surface: "tres", emoji: "3️⃣" }
+          - { surface: "cuatro", emoji: "4️⃣" }
+      - kind: buildLit
+        id: b-unodos
+        es: "uno dos"
+        en: "One, two"
+        tiles: ["no"]
+        atoms: ["uno", "dos"]
+      - kind: imageMcq
+        id: img-tres
+        target: { surface: "tres", meaningEn: "three", emoji: "3️⃣" }
+        distractors:
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "cuatro", emoji: "4️⃣" }
+          - { surface: "uno", emoji: "1️⃣" }
+      - kind: speakLit
+        id: speak-tres
+        es: "tres"
+        en: "three"
+        atoms: ["tres"]
+      - kind: imageMcq
+        id: img-cero
+        target: { surface: "cero", meaningEn: "zero", emoji: "0️⃣" }
+        distractors:
+          - { surface: "uno", emoji: "1️⃣" }
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "cinco", emoji: "5️⃣" }
+      - kind: translateLit
+        id: tr-dos
+        es: "dos"
+        en: "Two"
+        atoms: ["dos"]
+      - kind: imageMcq
+        id: img-cuatro
+        target: { surface: "cuatro", meaningEn: "four", emoji: "4️⃣" }
+        distractors:
+          - { surface: "cinco", emoji: "5️⃣" }
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "tres", emoji: "3️⃣" }
+      - kind: buildLit
+        id: b-trescuatro
+        es: "tres cuatro"
+        en: "Three, four"
+        tiles: ["dos"]
+        atoms: ["tres", "cuatro"]
+      - kind: imageMcq
+        id: img-cinco
+        target: { surface: "cinco", meaningEn: "five", emoji: "5️⃣" }
+        distractors:
+          - { surface: "cuatro", emoji: "4️⃣" }
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "uno", emoji: "1️⃣" }
+      - kind: speakLit
+        id: speak-cinco
+        es: "cinco"
+        en: "five"
+        atoms: ["cinco"]
+      - kind: listenCompLit
+        id: lc-cuatro
+        es: "cuatro"
+        en: "Four"
+        distractorsEn: ["Five", "Two", "Zero"]
+        atoms: ["cuatro"]
+      - kind: listenBuildLit
+        id: lb-cerotrescinco
+        es: "cero tres cinco"
+        en: "Zero, three, five"
+        tiles: ["cuatro"]
+        atoms: ["cero", "tres", "cinco"]
+      - kind: textMcq
+        id: q-cero
+        target: "cero"
+        distractors: ["uno", "dos", "cinco"]
+      - kind: info
+        id: info-win
+        title: "Half the numbers down"
+        body: "Zero to five — and you pronounced every one from rules, not memory: soft c in cero and cinco, hard c in cuatro."
+        variant: "win"
+
+  # ── L5 · numbers 6–10 + y ──────────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "Números 6–10, y"
+    description: "Finish the first ten — and link them with y."
+    steps:
+      - kind: info
+        id: info-stress
+        title: "Six to ten, and the littlest word"
+        body: "Five more numbers: «seis», «siete», «ocho», «nueve», «diez» (the z sounds like s here: dyess). And one tiny connector: «y» means 'and' — it is just the ee sound. seis y siete: six and seven. Stress lands where Spanish promises it: SYE-te, NWE-ve."
+      - kind: imageMcq
+        id: img-seis
+        target: { surface: "seis", meaningEn: "six", emoji: "6️⃣" }
+        distractors:
+          - { surface: "siete", emoji: "7️⃣" }
+          - { surface: "ocho", emoji: "8️⃣" }
+          - { surface: "cinco", emoji: "5️⃣" }
+      - kind: speakLit
+        id: speak-seis
+        es: "seis"
+        en: "six"
+        atoms: ["seis"]
+      - kind: imageMcq
+        id: img-siete
+        target: { surface: "siete", meaningEn: "seven", emoji: "7️⃣" }
+        distractors:
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "ocho", emoji: "8️⃣" }
+          - { surface: "nueve", emoji: "9️⃣" }
+      - kind: buildLit
+        id: b-seissiete
+        es: "seis siete"
+        en: "Six, seven"
+        tiles: ["dos"]
+        atoms: ["seis", "siete"]
+      - kind: imageMcq
+        id: img-ocho
+        target: { surface: "ocho", meaningEn: "eight", emoji: "8️⃣" }
+        distractors:
+          - { surface: "nueve", emoji: "9️⃣" }
+          - { surface: "siete", emoji: "7️⃣" }
+          - { surface: "seis", emoji: "6️⃣" }
+      - kind: translateLit
+        id: tr-ocho
+        es: "ocho"
+        en: "Eight"
+        atoms: ["ocho"]
+      - kind: imageMcq
+        id: img-nueve
+        target: { surface: "nueve", meaningEn: "nine", emoji: "9️⃣" }
+        distractors:
+          - { surface: "ocho", emoji: "8️⃣" }
+          - { surface: "diez", emoji: "🔟" }
+          - { surface: "siete", emoji: "7️⃣" }
+      - kind: buildLit
+        id: b-ochonueve
+        es: "ocho nueve"
+        en: "Eight, nine"
+        tiles: ["diez"]
+        atoms: ["ocho", "nueve"]
+      - kind: imageMcq
+        id: img-diez
+        target: { surface: "diez", meaningEn: "ten", emoji: "🔟" }
+        distractors:
+          - { surface: "nueve", emoji: "9️⃣" }
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "ocho", emoji: "8️⃣" }
+      - kind: speakLit
+        id: speak-diez
+        es: "diez"
+        en: "ten"
+        atoms: ["diez"]
+      - kind: buildLit
+        id: b-cuatroycinco
+        es: "cuatro y cinco"
+        en: "Four and five"
+        tiles: ["no"]
+        atoms: ["cuatro", "y", "cinco"]
+      - kind: clozeLit
+        id: c-sieteyocho
+        es: "siete y ocho"
+        en: "seven and eight"
+        blank: "y"
+        options: ["y", "no", "sí", "uno"]
+        why: "«y» is the linker — seven AND eight. It is nothing but the ee sound."
+        atoms: ["y", "siete", "ocho"]
+      - kind: listenCompLit
+        id: lc-siete
+        es: "siete"
+        en: "Seven"
+        distractorsEn: ["Six", "Nine", "Ten"]
+        atoms: ["siete"]
+      - kind: listenBuildLit
+        id: lb-seissieteocho
+        es: "seis siete ocho"
+        en: "Six, seven, eight"
+        tiles: ["diez"]
+        atoms: ["seis", "siete", "ocho"]
+      - kind: textMcq
+        id: q-nueve
+        target: "nueve"
+        distractors: ["diez", "siete", "seis"]
+      - kind: match
+        id: match-numbers
+        surfaces: ["seis", "siete", "ocho", "nueve", "diez", "cero"]
+      - kind: info
+        id: info-win
+        title: "Ten fingers, ten words"
+        body: "Zero to ten, linked with y. You can already count anything you can point at — and every number obeyed the sound rules."
+        variant: "win"
+
+  # ── L6 · listening focus + hasta luego / mucho gusto / o ───────────────────
+  - n: 6
+    template: free
+    title: "Escucha — train your ear"
+    description: "Two social phrases, the word for 'or', and a lesson that leads with your ears."
+    steps:
+      - kind: info
+        id: info-escucha
+        title: "Lead with your ears"
+        body: "Two phrases finish your social kit: «hasta luego» (see you later — silent h again: AS-ta LWE-go) and «mucho gusto» (nice to meet you). And one more connector: «o» means 'or' — cuatro o cinco, four or five. This lesson leads with listening: trust the five vowels and the sound comes apart cleanly."
+      - kind: phrase
+        id: p-hastaluego
+        meaning: "see you later"
+        text: "hasta luego"
+      - kind: imageMcq
+        id: img-muchogusto
+        target: { surface: "mucho gusto", meaningEn: "nice to meet you", emoji: "🤝" }
+        distractors:
+          - { surface: "hasta luego", emoji: "🚪" }
+          - { surface: "hola", emoji: "🙋" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: listenCompLit
+        id: lc-hastaluego
+        es: "hasta luego"
+        en: "See you later"
+        distractorsEn: ["Nice to meet you", "Good morning", "Goodbye"]
+        atoms: ["hasta luego"]
+      - kind: speakLit
+        id: speak-muchogusto
+        es: "mucho gusto"
+        en: "nice to meet you"
+        atoms: ["mucho gusto"]
+      - kind: listenBuildLit
+        id: lb-buenosdias
+        es: "buenos días"
+        en: "good morning"
+        tiles: ["buenas", "tardes"]
+        atoms: ["buenos días"]
+      - kind: buildLit
+        id: b-muchogusto
+        es: "mucho gusto"
+        en: "Nice to meet you"
+        tiles: ["hasta"]
+        atoms: ["mucho gusto"]
+      - kind: listenCompLit
+        id: lc-buenasnoches
+        es: "buenas noches"
+        en: "Good night"
+        distractorsEn: ["Good afternoon", "Good morning", "See you later"]
+        atoms: ["buenas noches"]
+      - kind: speakLit
+        id: speak-hastaluego
+        es: "hasta luego"
+        en: "see you later"
+        atoms: ["hasta luego"]
+      - kind: clozeLit
+        id: c-cuatroocinco
+        es: "cuatro o cinco"
+        en: "four or five"
+        blank: "o"
+        options: ["o", "y", "sí", "no"]
+        why: "«o» offers a choice — four OR five. «y» would add them together instead."
+        atoms: ["o", "cuatro", "cinco"]
+      - kind: listenBuildLit
+        id: lb-buenasnoches
+        es: "buenas noches"
+        en: "good night"
+        tiles: ["buenos", "días"]
+        atoms: ["buenas noches"]
+      - kind: buildLit
+        id: b-cuatroocinco
+        es: "cuatro o cinco"
+        en: "Four or five"
+        tiles: ["y"]
+        atoms: ["cuatro", "o", "cinco"]
+      - kind: listenCompLit
+        id: lc-muchogusto
+        es: "mucho gusto"
+        en: "Nice to meet you"
+        distractorsEn: ["See you later", "Please", "Thank you"]
+        atoms: ["mucho gusto"]
+      - kind: translateLit
+        id: tr-hastaluego
+        es: "hasta luego"
+        en: "See you later"
+        atoms: ["hasta luego"]
+      - kind: textMcq
+        id: q-o
+        target: "o"
+        distractors: ["y", "sí", "no"]
+      - kind: match
+        id: match-social
+        surfaces: ["hasta luego", "mucho gusto", "adiós", "hola", "gracias", "perdón"]
+      - kind: info
+        id: info-win
+        title: "Your ear is ahead of your eyes"
+        body: "You just took apart phrases by sound alone. That is the skill the whole course leans on — the reading always catches up."
+        variant: "win"
+
+  # ── L7 · integration — a first conversation ────────────────────────────────
+  - n: 7
+    template: free
+    title: "En la calle — a first conversation"
+    description: "Every line of this dialogue is made of words you already own."
+    steps:
+      - kind: info
+        id: info-dialogo
+        title: "You can already have this conversation"
+        body: "Ana and Luis meet on the street, greet, and part. Every single word is yours already. Listen first — don't read along. Then prove it: build, say, and answer with the same words."
+      - kind: dialogueLit
+        id: dialogue-calle
+        lines:
+          - { speaker: "Ana", text: "¡Hola! ¡Buenos días!" }
+          - { speaker: "Luis", text: "¡Hola! Mucho gusto." }
+          - { speaker: "Ana", text: "Mucho gusto. ¡Adiós!" }
+          - { speaker: "Luis", text: "¡Adiós! ¡Hasta luego!" }
+        questions:
+          - id: "q1"
+            prompt: "What does Ana say first?"
+            correctText: "Hello! Good morning!"
+            distractors: ["Goodbye! See you later!", "Nice to meet you!", "Thank you! Please!"]
+          - id: "q2"
+            prompt: "How does Luis respond when he's introduced?"
+            correctText: "Nice to meet you."
+            distractors: ["Good night.", "Excuse me.", "Yes."]
+        atoms: ["hola", "buenos días", "mucho gusto", "adiós", "hasta luego"]
+      - kind: buildLit
+        id: b-holabuenosdias
+        es: "hola buenos días"
+        en: "Hello, good morning"
+        tiles: ["buenas"]
+        atoms: ["hola", "buenos días"]
+      - kind: textMcq
+        id: q-si
+        target: "sí"
+        distractors: ["no", "y", "o"]
+      - kind: speakLit
+        id: speak-muchogusto
+        es: "mucho gusto"
+        en: "nice to meet you"
+        atoms: ["mucho gusto"]
+      - kind: clozeLit
+        id: c-seisysiete
+        es: "seis y siete"
+        en: "six and seven"
+        blank: "y"
+        options: ["y", "o", "sí", "no"]
+        why: "«y» adds — six AND seven. «o» would offer a choice instead."
+        atoms: ["y", "seis", "siete"]
+      - kind: translateLit
+        id: tr-gracias
+        es: "gracias"
+        en: "Thank you"
+        atoms: ["gracias"]
+      - kind: listenCompLit
+        id: lc-porfavor
+        es: "por favor"
+        en: "Please"
+        distractorsEn: ["Thank you", "Excuse me", "Yes"]
+        atoms: ["por favor"]
+      - kind: buildLit
+        id: b-seisysiete
+        es: "seis y siete"
+        en: "Six and seven"
+        tiles: ["o"]
+        atoms: ["seis", "y", "siete"]
+      - kind: match
+        id: match-kit
+        surfaces: ["hola", "adiós", "gracias", "por favor", "sí", "no", "mucho gusto", "hasta luego"]
+      - kind: speakLit
+        id: speak-buenastardes
+        es: "buenas tardes"
+        en: "good afternoon"
+        atoms: ["buenas tardes"]
+      - kind: listenBuildLit
+        id: lb-muchogusto
+        es: "mucho gusto"
+        en: "nice to meet you"
+        tiles: ["hasta", "luego"]
+        atoms: ["mucho gusto"]
+      - kind: textMcq
+        id: q-perdon
+        target: "perdón"
+        distractors: ["por favor", "gracias", "adiós"]
+      - kind: listenCompLit
+        id: lc-cero
+        es: "cero"
+        en: "Zero"
+        distractorsEn: ["One", "Six", "Ten"]
+        atoms: ["cero"]
+      - kind: info
+        id: info-win
+        title: "That was a real conversation"
+        body: "Greeting, introduction, farewell — the exact exchange you'd have meeting someone tomorrow. Module 2 gives you the words to say who you are."
+        variant: "win"
+
+  # ── L8 · mastery test ──────────────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M1 Mastery Test"
+    description: "Twelve graded steps across everything m1 taught. No hints, no cards."
+    steps:
+      - kind: textMcq
+        id: q-hola
+        target: "hola"
+        distractors: ["adiós", "gracias", "mucho gusto"]
+      - kind: listenBuildLit
+        id: lb-buenastardes
+        es: "buenas tardes"
+        en: "good afternoon"
+        tiles: ["buenos", "noches"]
+        atoms: ["buenas tardes"]
+      - kind: speakLit
+        id: speak-adios
+        es: "adiós"
+        en: "goodbye"
+        atoms: ["adiós"]
+      - kind: clozeLit
+        id: c-cuatroycinco
+        es: "cuatro y cinco"
+        en: "four and five"
+        blank: "y"
+        options: ["y", "o", "no", "sí"]
+        why: "«y» adds — four AND five. «o» would make it a choice."
+        atoms: ["y", "cuatro", "cinco"]
+      - kind: listenCompLit
+        id: lc-buenasnoches
+        es: "buenas noches"
+        en: "Good night"
+        distractorsEn: ["Good morning", "Good afternoon", "Hello"]
+        atoms: ["buenas noches"]
+      - kind: speakLit
+        id: speak-gracias
+        es: "gracias"
+        en: "thank you"
+        atoms: ["gracias"]
+      - kind: textMcq
+        id: q-perdon
+        target: "perdón"
+        distractors: ["gracias", "por favor", "hasta luego"]
+      - kind: buildLit
+        id: b-seisosiete
+        es: "seis o siete"
+        en: "Six or seven"
+        tiles: ["y"]
+        atoms: ["seis", "o", "siete"]
+      - kind: match
+        id: match-odds
+        surfaces: ["uno", "tres", "cinco", "siete", "nueve", "diez"]
+      - kind: listenCompLit
+        id: lc-hastaluego
+        es: "hasta luego"
+        en: "See you later"
+        distractorsEn: ["Nice to meet you", "Good night", "Goodbye"]
+        atoms: ["hasta luego"]
+      - kind: buildLit
+        id: b-nogracias
+        es: "no gracias"
+        en: "No, thank you"
+        tiles: ["sí"]
+        atoms: ["no", "gracias"]
+      - kind: textMcq
+        id: q-muchogusto
+        target: "mucho gusto"
+        distractors: ["hasta luego", "buenas noches", "por favor"]
+
+# The placement facts are unchanged from the pre-gate m1 — they were already
+# module-true. The one reshape: the old pt-es-m1-4 was a hand-built y-cloze;
+# the IR placement bank is sentenceMcq-shaped, so the same y-vs-o fact rides
+# a picker now.
+placement:
+  screener:
+    - id: "pt-es-screen-m1"
+      prompt: "'Thank you' — which is correct?"
+      correct: "gracias"
+      distractors: ["hola", "adiós", "por favor"]
+  byModule:
+    - id: "pt-es-m1-1"
+      prompt: "'Hello' — which is correct?"
+      correct: "hola"
+      distractors: ["adiós", "gracias", "perdón"]
+    - id: "pt-es-m1-2"
+      prompt: "It's late at night. Which greeting fits?"
+      correct: "buenas noches"
+      distractors: ["buenos días", "buenas tardes", "hasta luego"]
+    - id: "pt-es-m1-3"
+      prompt: "'Seven' — which is correct?"
+      correct: "siete"
+      distractors: ["seis", "nueve", "cinco"]
+    - id: "pt-es-m1-4"
+      prompt: "'four and five' — pick the Spanish."
+      correct: "cuatro y cinco"
+      distractors: ["cuatro o cinco", "cuatro no cinco", "cuatro sí cinco"]

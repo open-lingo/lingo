@@ -32,17 +32,29 @@ import { describe, expect, it } from "vitest";
 import { writeFileSync } from "node:fs";
 import { ES_ALL_LESSONS } from "../curriculum";
 import { getEsCourseAtoms } from "../courseAtoms";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 import type { LessonStep } from "@/features/lesson/types";
 
-// Measured 2026-08-09 (worst offenders: m9-4 31, m2-8 20, m2-2 17, m8-3 17;
-// m1–m6 carry 229 of these). The Phase 1 de-escalation pass lowers this
-// module by module.
-const MAX_UNKNOWN_TOKEN_OCCURRENCES = 470;
+// Measured 2026-08-18, m19 wave (worst offenders unchanged: m9-4 31, m2-8 20,
+// m2-2 17, m8-3 17; m1–m6 still carry the bulk). Down from 470, and the drop is
+// NOT a de-escalation pass — it is the instrument getting more honest: the
+// hand-written MODULE_ORDER above is now derived, so m18/m19 are credited with
+// their own atoms instead of being billed for every Spanish word they teach.
+// The Phase 1 de-escalation pass lowers this module by module.
+const MAX_UNKNOWN_TOKEN_OCCURRENCES = 467;
 
-const MODULE_ORDER = [
-  "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",
-  "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16",
-];
+/**
+ * DERIVED, not restated. This list was written out by hand and stopped at m17,
+ * so `atomWordsByModule.get("m18")` and `.get("m19")` were both `undefined` and
+ * `known` fell back to the empty set — meaning every Spanish token in those two
+ * modules' prompts was billed as untaught, including words the modules
+ * themselves teach. The instrument was measuring its own staleness.
+ *
+ * Same defect class as the hardcoded `/^m(1[0-6]|[1-9])$/` in
+ * moduleConformance, and the same fix: there is one module order, it lives in
+ * grammarHelpers, and a new module must not require remembering this file.
+ */
+const MODULE_ORDER: readonly string[] = ES_MODULE_ORDER;
 
 /** Closed-class Spanish function words + copulas/hay a learner meets in m1–m2
  *  chrome. Deliberately NO content verbs/nouns — those are the debt. */
@@ -81,7 +93,18 @@ const ENGLISH_STOPWORDS = new Set(
     "means meaning form forms word words phrase phrases sentence fits fit " +
     "natural correct right wrong one two just only also very want wants " +
     "wanted did give gives gave reason stranger friend someone person day " +
-    "tomorrow today meeting each other another new old first time"
+    "tomorrow today meeting each other another new old first time " +
+    // Grammar metalanguage. The list already carries form/forms/word/sentence
+    // for the same reason: a bilingual prompt like "Pick the él/ella preterite
+    // of hablar" is classified Spanish (it has an accent in it) and then bills
+    // its English grammar term as untaught SPANISH. That is the instrument
+    // mis-reading its own input, not debt — so the terms join the chrome list
+    // and MAX_UNKNOWN_TOKEN_OCCURRENCES does not move.
+    "preterite present past tense verb verbs ending endings subject stem " +
+    // m19's turn: "Pick the él/ella imperfect of escribir" is classified
+    // Spanish by the accent in «él/ella» and then bills the English word
+    // "imperfect" as untaught Spanish, exactly as "preterite" did for m17.
+    "imperfect imperfective aspect habit habitual occasion marker"
   ).split(/\s+/),
 );
 

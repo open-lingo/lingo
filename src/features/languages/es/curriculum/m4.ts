@@ -1,64 +1,38 @@
 /**
- * Spanish Module 4 — Descripciones (adjective agreement, ser + adj, colors).
+ * m4.ts — Descripciones — adjectives, ser, gender agreement, colors
  *
- * The learner can name things (m3) and say who someone is (m2). M4's job:
- * describe them — ser + adjective, the -o/-a/-s agreement machine,
- * adjective-after-noun order, the six core colors, muy, pero, and cognates.
+ * GENERATED. Do not hand-edit — regenerate instead:
+ *   node scripts/compile-ir-es.mjs m4
  *
- * 2026-07-16 rewrite (JA-standard pass): every topic lesson now runs
- * 18-22 retrieval-heavy steps across ≥8 step types, with typed translate +
- * speaking/build production in the back half, one selfExplain at N-1 in
- * every grammar lesson, and a compounding review tail (L2+) pulling
- * m1-m3 vocabulary via reviewMatchPairs. Every prompt was rewritten to
- * force a read of the Spanish (context-forcing sentences or English-gloss
- * comprehension checks) instead of leaking the answer via a parenthetical
- * English gloss next to eliminable distractors.
- *
- * Lesson arc (spine rhythm — L1 teach-intro · L2–L5 topics · L6 listening ·
- * L7 integration dialogue · L8 mastery test):
- *
- *   es-m4-1  Ser + adjective — grande, pequeño, nuevo, viejo
- *   es-m4-2  Agreement — alto/alta, bonito, feo
- *   es-m4-3  Los colores — the six core colors
- *   es-m4-4  El carro, el perro, el gato — adjective after the noun
- *   es-m4-5  Opinions — bueno, malo, muy, pero
- *   es-m4-6  Listening focus — fácil, difícil (short phrases OK in m2–m4)
- *   es-m4-7  Integration — cognates: interesante, inteligente, simpático
- *   es-m4-8  M4 Mastery Test
- *
- * Feminine/plural forms (alta, roja, pequeños…) are taught as agreement
- * patterns inside steps, never as separate atoms (spine m4 note).
+ * The authored source is src/features/languages/es/curriculum/ir/m4.ir.yaml.
+ * This is a FRAMELESS phrase module: every sentence is carried literally in
+ * the IR (no verb frame, no drafted pool, no local model involved).
  */
 import type { LessonContent } from "@/features/lesson/types";
-import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
+import type { PlacementItem } from "@/shared/language/types";
 import {
-  agreementCloze,
-  build,
-  cloze,
   infoStep,
-  listeningBuildSentence,
-  listeningCompSentence,
-  dialogueListen,
-  reviewMatchPairs,
-  selfExplain,
-  sentenceMcq,
-  speaking,
-  translateStep,
   vocabMcq,
   vocabTextMcq,
+  sentenceMcq,
+  build,
+  cloze,
+  translateStep,
+  speaking,
+  listeningCompSentence,
+  listeningBuildSentence,
+  matchPairs,
+  reviewMatchPairs,
+  dialogueListen,
+  selfExplain,
 } from "../grammarHelpers";
-// Register earlier-module atoms before this file's factory calls resolve surfaces.
-import "./m3";
 
 const COURSE_ID = "mock-1";
 
-// ─── M4 atoms (exactly the spine allocation) ────────────────────────────────
-
 export const ES_M4_ATOMS: EsAtom[] = [
-  // Size / age / quality adjectives
   atom({ surface: "grande", meaningEn: "big", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🐘" }),
-  atom({ surface: "pequeño", meaningEn: "small (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🤏" }),
+  atom({ surface: "pequeño", meaningEn: "small (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🤏", hint: "ñ sounds like ny: peh-KEH-nyo" }),
   atom({ surface: "alto", meaningEn: "tall (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "bajo", meaningEn: "short (height) (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "bonito", meaningEn: "pretty (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🌸" }),
@@ -67,124 +41,79 @@ export const ES_M4_ATOMS: EsAtom[] = [
   atom({ surface: "viejo", meaningEn: "old (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "bueno", meaningEn: "good (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "👍" }),
   atom({ surface: "malo", meaningEn: "bad (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "👎" }),
-  // Invariant adjectives (-e / consonant endings)
   atom({ surface: "fácil", meaningEn: "easy", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "difícil", meaningEn: "difficult", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "interesante", meaningEn: "interesting", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab" }),
   atom({ surface: "inteligente", meaningEn: "intelligent", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🧠" }),
   atom({ surface: "simpático", meaningEn: "nice / friendly (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "😊" }),
   atom({ surface: "muy", meaningEn: "very", partOfSpeech: "adverb", fromModule: "m4", kind: "vocab" }),
-  // Colors
   atom({ surface: "rojo", meaningEn: "red (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🟥" }),
   atom({ surface: "azul", meaningEn: "blue", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🔵" }),
   atom({ surface: "verde", meaningEn: "green", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🟢" }),
   atom({ surface: "amarillo", meaningEn: "yellow (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "🟡" }),
   atom({ surface: "negro", meaningEn: "black (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "⚫" }),
   atom({ surface: "blanco", meaningEn: "white (m)", partOfSpeech: "adjective", fromModule: "m4", kind: "vocab", emoji: "⚪" }),
-  // Nouns
   atom({ surface: "color", meaningEn: "color", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🎨" }),
   atom({ surface: "carro", meaningEn: "car", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🚗" }),
   atom({ surface: "perro", meaningEn: "dog", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🐶" }),
   atom({ surface: "gato", meaningEn: "cat", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🐱" }),
-  // Connector
   atom({ surface: "pero", meaningEn: "but", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),
 ];
 
-// Shared distractor pool for word-image MCQs. Every emoji here has
-// verified Noto art in the bundled subset (src/pub/noto-emoji/svg):
-// 1f7e5 1f535 1f7e2 1f7e1 26ab 26aa 1f697 1f436 1f431 1f418 1f90f 1f3e0,
-// checked at authoring time. (🔴 has no file in the subset — rojo uses
-// the red square 🟥 instead.)
-const ROJO = { surface: "rojo", emoji: "🟥" };
-const AZUL = { surface: "azul", emoji: "🔵" };
-const VERDE = { surface: "verde", emoji: "🟢" };
-const AMARILLO = { surface: "amarillo", emoji: "🟡" };
-const NEGRO = { surface: "negro", emoji: "⚫" };
-const BLANCO = { surface: "blanco", emoji: "⚪" };
-const CARRO = { surface: "carro", emoji: "🚗" };
-const PERRO = { surface: "perro", emoji: "🐶" };
-const GATO = { surface: "gato", emoji: "🐱" };
-// m3 surface reused as an art-bearing distractor (not re-registered here).
-const CASA = { surface: "casa", emoji: "🏠" };
-const GRANDE = { surface: "grande", emoji: "🐘" };
-const PEQUENO = { surface: "pequeño", emoji: "🤏" };
-const NUEVO = { surface: "nuevo", emoji: "🆕" };
-const BUENO = { surface: "bueno", emoji: "👍" };
-const MALO = { surface: "malo", emoji: "👎" };
-const INTELIGENTE = { surface: "inteligente", emoji: "🧠" };
-
-// ─── es-m4-1 — Ser + adjective (recognition → production) ──────────────────
-
-const M4_1: LessonContent = {
+const ES_M4_1: LessonContent = {
   id: "es-m4-1",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Ser + adjetivo — grande, pequeño",
   description: "Describe anything with ser plus a describing word.",
-  estimatedMinutes: 8,
-  xpReward: 18,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-1-info-ser-adj",
       "Describing with ser",
-      "To say what someone or something is like, use a form of ser plus a describing word: la casa es grande (the house is big), el libro es nuevo (the book is new). You already know soy, eres, and es — add an adjective and you can describe anything you own, see, or meet. One heads-up: grande ends in -e, so it never changes for gender.",
+      "To say what someone or something is like, put a describing word after a form of ser — soy, eres, es. Spanish calls these words adjectives, and this lesson gives you four of them: big, small, new, and old.",
       "grammar",
     ),
-    vocabMcq("es-m4-1-mcq-grande", { surface: "grande", meaningEn: "big", emoji: "🐘" }, [PEQUENO, NUEVO, CASA]),
+    vocabMcq("es-m4-1-mcq-grande", { surface: "grande", meaningEn: "big", emoji: "🐘" }, [{ surface: "pequeño", emoji: "🤏" }, { surface: "nuevo", emoji: "🆕" }, { surface: "casa", emoji: "🏠" }]),
     speaking("es-m4-1-speak-casa-grande", "la casa es grande", "the house is big", ["casa", "grande"]),
-    vocabMcq("es-m4-1-mcq-pequeno", { surface: "pequeño", meaningEn: "small", emoji: "🤏" }, [GRANDE, NUEVO, CASA]),
-    sentenceMcq({
-      id: "es-m4-1-q-raton-pequeno",
-      prompt: "El ratón cabe en tu mano. ¿Qué significa 'El ratón es pequeño'?",
-      correctText: "The mouse is small",
-      distractorsText: ["The mouse is big", "The mouse is new", "The mouse is old"],
-      exercisedAtomSurfaces: ["pequeño"],
+    vocabMcq("es-m4-1-mcq-pequeno", { surface: "pequeño", meaningEn: "small", emoji: "🤏" }, [{ surface: "grande", emoji: "🐘" }, { surface: "nuevo", emoji: "🆕" }, { surface: "casa", emoji: "🏠" }]),
+    build(
+      "es-m4-1-build-libro-pequeno",
+      "Build: 'The book is small'",
+      "el libro es pequeño",
+      ["el", "libro", "es", "pequeño", "grande"],
+      ["el", "libro", "es", "pequeño"],
+      ["libro", "pequeño"],
+    ),
+    vocabTextMcq("es-m4-1-tmcq-grande", "grande", ["pequeño", "bueno", "malo"]),
+    vocabMcq("es-m4-1-mcq-nuevo", { surface: "nuevo", meaningEn: "new", emoji: "🆕" }, [{ surface: "grande", emoji: "🐘" }, { surface: "pequeño", emoji: "🤏" }, { surface: "casa", emoji: "🏠" }]),
+    speaking("es-m4-1-speak-telefono-nuevo", "el teléfono es nuevo", "the phone is new", ["teléfono", "nuevo"]),
+    listeningCompSentence({
+      id: "es-m4-1-lc-celular-nuevo",
+      audioText: "el celular es nuevo",
+      correctMeaningEn: "the cell phone is new",
+      distractorsEn: ["the cell phone is old", "the cell phone is big", "the cell phone is small"],
+      exercisedAtomSurfaces: ["celular", "nuevo"],
     }),
     build(
-      "es-m4-1-build-libro-nuevo",
-      "Build: 'The book is new.'",
-      "el libro es nuevo",
-      ["el", "libro", "es", "nuevo", "viejo"],
-      ["el", "libro", "es", "nuevo"],
-      ["libro", "nuevo"],
+      "es-m4-1-build-telefono-viejo",
+      "Build: 'The phone is old'",
+      "el teléfono es viejo",
+      ["el", "teléfono", "es", "viejo", "nuevo"],
+      ["el", "teléfono", "es", "viejo"],
+      ["teléfono", "viejo"],
     ),
-    vocabMcq("es-m4-1-mcq-nuevo", { surface: "nuevo", meaningEn: "new", emoji: "🆕" }, [GRANDE, PEQUENO, CASA]),
     vocabTextMcq("es-m4-1-tmcq-viejo", "viejo", ["nuevo", "grande", "pequeño"]),
     speaking("es-m4-1-speak-libro-viejo", "el libro es viejo", "the book is old", ["libro", "viejo"]),
-    sentenceMcq({
-      id: "es-m4-1-q-libro-abuelo",
-      prompt: "Este libro es de mi abuelo; tiene cien años. Es ___.",
-      correctText: "viejo",
-      distractorsText: ["nuevo", "grande", "pequeño"],
-      exercisedAtomSurfaces: ["viejo"],
-    }),
-    translateStep({
-      id: "es-m4-1-tr-libro-pequeno",
-      promptEn: "The book is small",
-      acceptedAnswers: [
-        "el libro es pequeño",
-        "El libro es pequeño",
-        "el libro es pequeño.",
-        "El libro es pequeño.",
-      ],
-      audioText: "el libro es pequeño",
-      exercisedAtomSurfaces: ["libro", "pequeño"],
-    }),
-    listeningCompSentence({
-      id: "es-m4-1-lc-casa-grande",
-      audioText: "la casa es grande",
-      correctMeaningEn: "the house is big",
-      distractorsEn: ["the house is small", "the house is new", "the house is old"],
-      exercisedAtomSurfaces: ["casa", "grande"],
-    }),
     listeningBuildSentence({
-      id: "es-m4-1-lb-raton-pequeno",
-      target: "el ratón es pequeño",
-      tiles: ["el", "ratón", "es", "pequeño", "grande"],
-      correctOrder: ["el", "ratón", "es", "pequeño"],
+      id: "es-m4-1-lb-libro-grande",
+      target: "el libro es grande",
+      tiles: ["el", "libro", "es", "grande", "pequeño"],
+      correctOrder: ["el", "libro", "es", "grande"],
       promptEn: "Tap what you hear",
-      exercisedAtomSurfaces: ["pequeño"],
+      exercisedAtomSurfaces: ["libro", "grande"],
     }),
     selfExplain({
       id: "es-m4-1-self-explain-grande",
@@ -194,41 +123,26 @@ const M4_1: LessonContent = {
       rule: { text: "Adjectives ending in -e, like grande, keep one form for both masculine and feminine nouns." },
       surface: { text: "grande is a special exception that just never changes, for no particular reason." },
       distractor: { text: "grande only changes in questions, not in statements." },
-      ruleExplanation:
-        "Only -o adjectives flip to -a for feminine nouns (bonito→bonita). Adjectives ending in -e or a consonant, like grande or azul, stay the same for both genders.",
+      ruleExplanation: "Only -o adjectives flip to -a for feminine nouns, which the next lesson covers. Adjectives ending in -e or a consonant, like grande, stay the same for both genders.",
     }),
-    sentenceMcq({
-      id: "es-m4-1-q-carro-nuevo",
-      prompt: "Compré este carro ayer. ¿Qué significa 'El carro es nuevo'?",
-      correctText: "The car is new",
-      distractorsText: ["The car is old", "The car is big", "The car is small"],
-      exercisedAtomSurfaces: ["carro", "nuevo"],
-    }),
-    speaking(
-      "es-m4-1-speak-mix",
-      "el ratón es pequeño y el elefante es grande",
-      "the mouse is small and the elephant is big",
-      ["pequeño", "grande"],
+    build(
+      "es-m4-1-build-celular-pequeno",
+      "Build: 'My cell phone is small'",
+      "mi celular es pequeño",
+      ["mi", "celular", "es", "pequeño", "grande"],
+      ["mi", "celular", "es", "pequeño"],
+      ["celular", "pequeño"],
     ),
-    translateStep({
-      id: "es-m4-1-tr-carro-viejo",
-      promptEn: "The car is old",
-      acceptedAnswers: [
-        "el carro es viejo",
-        "El carro es viejo",
-        "el carro es viejo.",
-        "El carro es viejo.",
-      ],
-      audioText: "el carro es viejo",
-      exercisedAtomSurfaces: ["carro", "viejo"],
+    vocabTextMcq("es-m4-1-tmcq-nuevo", "nuevo", ["viejo", "grande", "pequeño"]),
+    listeningBuildSentence({
+      id: "es-m4-1-lb-telefono-pequeno",
+      target: "el teléfono es pequeño",
+      tiles: ["el", "teléfono", "es", "pequeño", "grande"],
+      correctOrder: ["el", "teléfono", "es", "pequeño"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["teléfono", "pequeño"],
     }),
-    listeningCompSentence({
-      id: "es-m4-1-lc-celular-viejo",
-      audioText: "el celular es viejo",
-      correctMeaningEn: "the cell phone is old",
-      distractorsEn: ["the cell phone is new", "the cell phone is big", "the cell phone is small"],
-      exercisedAtomSurfaces: ["celular", "viejo"],
-    }),
+    speaking("es-m4-1-speak-lapiz-pequeno", "mi lápiz es pequeño", "my pencil is small", ["lápiz", "pequeño"]),
     infoStep(
       "es-m4-1-info-win",
       "You can describe anything",
@@ -238,121 +152,118 @@ const M4_1: LessonContent = {
   ],
 };
 
-// ─── es-m4-2 — Gender agreement ─────────────────────────────────────────────
-
-const M4_2: LessonContent = {
+const ES_M4_2: LessonContent = {
   id: "es-m4-2",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Agreement — alto, alta",
   description: "Adjectives change their ending to match the noun.",
-  estimatedMinutes: 9,
+  estimatedMinutes: 10,
   xpReward: 20,
   steps: [
+    build(
+      "es-m4-2-b-alto",
+      "Build: 'He is tall'",
+      "él es alto",
+      ["él", "es", "alto", "grande"],
+      ["él", "es", "alto"],
+      ["él", "alto"],
+    ),
     infoStep(
       "es-m4-2-info-agreement",
       "Adjectives agree",
-      "Adjectives ending in -o mirror what they describe: él es alto, but ella es alta — the -o flips to -a with anything feminine. Describing more than one? Add -s: altos, altas. Adjectives ending in -e (grande) or a consonant (azul) keep one form for both genders.",
+      "Adjectives ending in -o mirror what they describe: «alto» for a man, «alta» for a woman — the -o flips to -a with anything feminine. Add -s for more than one: altos, altas. Adjectives ending in -e (grande) or a consonant (azul) keep one form for both genders.",
       "grammar",
     ),
-    vocabTextMcq("es-m4-2-tmcq-alto", "alto", ["alta", "bajo", "baja"]),
-    speaking("es-m4-2-speak-alto", "él es alto", "he is tall", ["alto"]),
-    sentenceMcq({
-      id: "es-m4-2-q-hermana-alta",
-      prompt: "Mi hermana mide dos metros. Es muy ___.",
-      correctText: "alta",
-      distractorsText: ["alto", "altos", "altas"],
-      exercisedAtomSurfaces: ["alto"],
-    }),
+    speaking("es-m4-2-speak-alta", "ella es alta", "she is tall", ["alto"]),
     build(
-      "es-m4-2-build-ella-baja",
-      "Build: 'She is short.'",
-      "ella es baja",
-      ["ella", "es", "baja", "bajo", "alta"],
-      ["ella", "es", "baja"],
-      ["bajo"],
+      "es-m4-2-b-bajo",
+      "Build: 'He is short'",
+      "él es bajo",
+      ["él", "es", "bajo", "alto"],
+      ["él", "es", "bajo"],
+      ["él", "bajo"],
     ),
-    vocabMcq("es-m4-2-mcq-bonito", { surface: "bonito", meaningEn: "pretty", emoji: "🌸" }, [GRANDE, NUEVO, MALO]),
-    // The full agreement chain in one graded set: article, noun ending,
-    // adjective ending — all three must match.
-    agreementCloze(
-      "es-m4-2-agr-bonita",
-      [
-        { blank: { id: "b1", correctAnswer: "la", options: ["el", "la", "los", "las"] } },
-        { text: " cas" },
-        { blank: { id: "b2", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
-        { text: " es bonit" },
-        { blank: { id: "b3", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
-      ],
-      "the house is pretty",
-      "la casa es bonita",
-      ["casa", "bonito"],
-    ),
-    speaking("es-m4-2-speak-hermana-bonita", "mi hermana es bonita", "my sister is pretty", ["bonito"]),
-    vocabTextMcq("es-m4-2-tmcq-feo", "feo", ["bonito", "bajo", "malo"]),
+    vocabTextMcq("es-m4-2-tmcq-bajo", "bajo", ["alto", "feo", "bueno"]),
+    speaking("es-m4-2-speak-baja", "ella es baja", "she is short", ["bajo"]),
+    vocabMcq("es-m4-2-img-bonito", { surface: "bonito", meaningEn: "pretty", emoji: "🌸" }, [{ surface: "grande", emoji: "🐘" }, { surface: "nuevo", emoji: "🆕" }, { surface: "malo", emoji: "👎" }]),
     build(
-      "es-m4-2-build-monstruo-feo",
-      "Build: 'The monster is ugly.'",
-      "el monstruo es feo",
-      ["el", "monstruo", "es", "feo", "bonito"],
-      ["el", "monstruo", "es", "feo"],
-      ["feo"],
+      "es-m4-2-b-libro-bonito",
+      "Build: 'The book is pretty'",
+      "el libro es bonito",
+      ["el", "libro", "es", "bonito", "feo"],
+      ["el", "libro", "es", "bonito"],
+      ["libro", "bonito"],
     ),
-    sentenceMcq({
-      id: "es-m4-2-q-no-bonito",
-      prompt: "Ese perro no es bonito, es ___.",
-      correctText: "feo",
-      distractorsText: ["bonito", "alto", "bajo"],
-      exercisedAtomSurfaces: ["feo"],
+    listeningCompSentence({
+      id: "es-m4-2-lc-amiga-bonita",
+      audioText: "mi amiga es bonita",
+      correctMeaningEn: "my friend is pretty",
+      distractorsEn: ["my friend is ugly", "my friend is tall", "my friend is short"],
+      exercisedAtomSurfaces: ["amiga", "bonito"],
     }),
-    agreementCloze(
-      "es-m4-2-agr-viejos",
-      [
-        { blank: { id: "b1", correctAnswer: "los", options: ["el", "la", "los", "las"] } },
-        { text: " libr" },
-        { blank: { id: "b2", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
-        { text: " viej" },
-        { blank: { id: "b3", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
-      ],
-      "the old books",
-      "los libros viejos",
-      ["libro", "viejo"],
-    ),
-    speaking("es-m4-2-speak-libros-viejos", "los libros son viejos", "the books are old", ["libro", "viejo"]),
     selfExplain({
       id: "es-m4-2-self-explain-agreement",
-      anchorLabel: "You wrote: la casa es bonita",
-      anchorAudioText: "la casa es bonita",
-      question: "Why does bonito become bonita here?",
-      rule: { text: "casa is feminine, so the -o adjective flips to -a to match: bonito → bonita." },
-      surface: { text: "bonita is used because it sounds nicer with casa." },
-      distractor: { text: "bonito changes to bonita only when the sentence is a question." },
-      ruleExplanation:
-        "-o adjectives always mirror the noun's gender (bonito/bonita, alto/alta). -e or consonant adjectives like grande and azul never change.",
+      anchorLabel: "You wrote: ella es alta",
+      anchorAudioText: "ella es alta",
+      question: "Why does alto become alta here?",
+      rule: { text: "ella is feminine, so the -o adjective flips to -a to match: alto → alta." },
+      surface: { text: "alta is used because it sounds nicer with ella." },
+      distractor: { text: "alto changes to alta only when the sentence is a question." },
+      ruleExplanation: "-o adjectives always mirror the noun's gender (alto/alta, bonito/bonita). -e or consonant adjectives like grande and azul never change.",
     }),
+    build(
+      "es-m4-2-b-telefono-feo",
+      "Build: 'The phone is ugly'",
+      "el teléfono es feo",
+      ["el", "teléfono", "es", "feo", "bonito"],
+      ["el", "teléfono", "es", "feo"],
+      ["teléfono", "feo"],
+    ),
+    speaking("es-m4-2-speak-fea", "la silla es fea", "the chair is ugly", ["feo"]),
+    vocabTextMcq("es-m4-2-tmcq-bonito", "bonito", ["feo", "alto", "bajo"]),
+    build(
+      "es-m4-2-b-casa-bonita",
+      "Build: 'The house is pretty'",
+      "la casa es bonita",
+      ["la", "casa", "es", "bonita", "feo"],
+      ["la", "casa", "es", "bonita"],
+      ["casa", "bonito"],
+    ),
+    cloze(
+      "es-m4-2-c-alto-agreement",
+      "mi amigo es ",
+      ".",
+      "alto",
+      ["alto", "alta", "altos", "altas"],
+      "my friend is tall",
+      "mi amigo es alto",
+      "amigo is masculine, so alto keeps the -o ending.",
+      ["alto", "amigo"],
+    ),
+    listeningBuildSentence({
+      id: "es-m4-2-lb-baja",
+      target: "ella es baja",
+      tiles: ["ella", "es", "baja", "alta"],
+      correctOrder: ["ella", "es", "baja"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["bajo"],
+    }),
+    reviewMatchPairs("es-m4-2-rev", "es-m4-2-rev-seed", "m4", 6),
     translateStep({
-      id: "es-m4-2-tr-hermana-alta",
+      id: "es-m4-2-tr-alta",
       promptEn: "She is tall",
-      acceptedAnswers: ["ella es alta", "Ella es alta", "ella es alta.", "Ella es alta."],
+      acceptedAnswers: ["ella es alta"],
       audioText: "ella es alta",
       exercisedAtomSurfaces: ["alto"],
     }),
     listeningCompSentence({
-      id: "es-m4-2-lc-hermana-alta",
-      audioText: "mi hermana es muy alta",
-      correctMeaningEn: "my sister is very tall",
-      distractorsEn: ["my sister is very short", "my brother is very tall", "my sister is very pretty"],
-      exercisedAtomSurfaces: ["alto"],
-    }),
-    speaking("es-m4-2-speak-amigo-bajo", "mi amigo es bajo", "my friend is short", ["bajo"]),
-    reviewMatchPairs("es-m4-2-rev", "es-m4-2-rev-seed", "m4", 6),
-    sentenceMcq({
-      id: "es-m4-2-rev-q-amigo",
-      prompt: "Mi amigo es alto, pero mi amiga es ___.",
-      correctText: "alta",
-      distractorsText: ["alto", "baja", "bajo"],
-      exercisedAtomSurfaces: ["alto", "amigo"],
+      id: "es-m4-2-lc-maestro-maestra",
+      audioText: "el maestro es alto y la maestra es baja",
+      correctMeaningEn: "the teacher is tall and the teacher (f) is short",
+      distractorsEn: ["the teacher is short and the teacher (f) is tall", "the teacher is tall and the teacher (f) is tall", "the student is tall and the teacher (f) is short"],
+      exercisedAtomSurfaces: ["maestro", "alto", "maestra", "bajo"],
     }),
     infoStep(
       "es-m4-2-info-win",
@@ -363,100 +274,99 @@ const M4_2: LessonContent = {
   ],
 };
 
-// ─── es-m4-3 — The six core colors ──────────────────────────────────────────
-
-const M4_3: LessonContent = {
+const ES_M4_3: LessonContent = {
   id: "es-m4-3",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Los colores",
   description: "Six colors — and where they sit in the sentence.",
-  estimatedMinutes: 9,
-  xpReward: 21,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-3-info-colors",
       "Colors follow the noun",
-      "Describing words come after the noun in Spanish: el carro rojo — literally 'the car red'. Colors ending in -o agree like any adjective (la puerta roja), while azul and verde keep one form for both genders.",
+      "Describing words come after the noun in Spanish — the opposite of English word order. This lesson adds six colors, plus the word for 'color' itself. Colors ending in -o agree like any adjective; azul and verde keep one form for both genders.",
       "grammar",
     ),
-    vocabMcq("es-m4-3-mcq-rojo", { surface: "rojo", meaningEn: "red", emoji: "🟥" }, [AZUL, VERDE, AMARILLO]),
-    speaking("es-m4-3-speak-puerta-roja", "la puerta es roja", "the door is red", ["puerta", "rojo"]),
-    vocabMcq("es-m4-3-mcq-azul", { surface: "azul", meaningEn: "blue", emoji: "🔵" }, [ROJO, VERDE, NEGRO]),
+    vocabMcq("es-m4-3-mcq-rojo", { surface: "rojo", meaningEn: "red", emoji: "🟥" }, [{ surface: "azul", emoji: "🔵" }, { surface: "verde", emoji: "🟢" }, { surface: "amarillo", emoji: "🟡" }]),
     build(
-      "es-m4-3-build-cielo-azul",
-      "Build: 'The sky is blue.'",
-      "el cielo es azul",
-      ["el", "cielo", "es", "azul", "verde"],
-      ["el", "cielo", "es", "azul"],
-      ["azul"],
+      "es-m4-3-build-lapiz-rojo",
+      "Build: 'The pencil is red'",
+      "el lápiz es rojo",
+      ["el", "lápiz", "es", "rojo"],
+      ["el", "lápiz", "es", "rojo"],
+      ["lápiz", "rojo"],
     ),
-    vocabMcq("es-m4-3-mcq-verde", { surface: "verde", meaningEn: "green", emoji: "🟢" }, [AZUL, AMARILLO, BLANCO]),
-    sentenceMcq({
-      id: "es-m4-3-q-hoja-verde",
-      prompt: "La hoja del árbol no es azul ni amarilla, es ___.",
-      correctText: "verde",
-      distractorsText: ["azul", "amarilla", "roja"],
-      exercisedAtomSurfaces: ["verde"],
+    vocabMcq("es-m4-3-mcq-azul", { surface: "azul", meaningEn: "blue", emoji: "🔵" }, [{ surface: "rojo", emoji: "🟥" }, { surface: "verde", emoji: "🟢" }, { surface: "negro", emoji: "⚫" }]),
+    speaking("es-m4-3-speak-puerta-azul", "la puerta es azul", "the door is blue", ["puerta", "azul"]),
+    vocabMcq("es-m4-3-mcq-verde", { surface: "verde", meaningEn: "green", emoji: "🟢" }, [{ surface: "azul", emoji: "🔵" }, { surface: "amarillo", emoji: "🟡" }, { surface: "blanco", emoji: "⚪" }]),
+    build(
+      "es-m4-3-build-mochila-verde",
+      "Build: 'The backpack is green'",
+      "la mochila es verde",
+      ["la", "mochila", "es", "verde"],
+      ["la", "mochila", "es", "verde"],
+      ["mochila", "verde"],
+    ),
+    vocabTextMcq("es-m4-3-tmcq-verde", "verde", ["azul", "rojo", "amarillo"]),
+    vocabMcq("es-m4-3-mcq-amarillo", { surface: "amarillo", meaningEn: "yellow", emoji: "🟡" }, [{ surface: "verde", emoji: "🟢" }, { surface: "rojo", emoji: "🟥" }, { surface: "azul", emoji: "🔵" }]),
+    speaking("es-m4-3-speak-silla-amarilla", "la silla es amarilla", "the chair is yellow", ["silla", "amarillo"]),
+    listeningCompSentence({
+      id: "es-m4-3-lc-papel-amarillo",
+      audioText: "el papel es amarillo",
+      correctMeaningEn: "the paper is yellow",
+      distractorsEn: ["the paper is red", "the paper is blue", "the paper is green"],
+      exercisedAtomSurfaces: ["papel", "amarillo"],
     }),
-    speaking("es-m4-3-speak-mesa-amarilla", "la mesa es amarilla", "the table is yellow", ["mesa", "amarillo"]),
-    vocabMcq("es-m4-3-mcq-amarillo", { surface: "amarillo", meaningEn: "yellow", emoji: "🟡" }, [VERDE, ROJO, AZUL]),
+    vocabMcq("es-m4-3-mcq-negro", { surface: "negro", meaningEn: "black", emoji: "⚫" }, [{ surface: "blanco", emoji: "⚪" }, { surface: "amarillo", emoji: "🟡" }, { surface: "rojo", emoji: "🟥" }]),
     build(
-      "es-m4-3-build-sol-amarillo",
-      "Build: 'The sun is yellow.'",
-      "el sol es amarillo",
-      ["el", "sol", "es", "amarillo", "rojo"],
-      ["el", "sol", "es", "amarillo"],
-      ["amarillo"],
+      "es-m4-3-build-telefono-negro",
+      "Build: 'The phone is black'",
+      "el teléfono es negro",
+      ["el", "teléfono", "es", "negro"],
+      ["el", "teléfono", "es", "negro"],
+      ["teléfono", "negro"],
     ),
-    vocabMcq("es-m4-3-mcq-negro", { surface: "negro", meaningEn: "black", emoji: "⚫" }, [BLANCO, AZUL, ROJO]),
-    speaking("es-m4-3-speak-gato-negro", "el gato es negro", "the cat is black", ["gato", "negro"]),
-    vocabMcq("es-m4-3-mcq-blanco", { surface: "blanco", meaningEn: "white", emoji: "⚪" }, [NEGRO, AMARILLO, VERDE]),
-    sentenceMcq({
-      id: "es-m4-3-q-nieve-blanca",
-      prompt: "La nieve no es negra, es ___.",
-      correctText: "blanca",
-      distractorsText: ["negra", "roja", "amarilla"],
-      exercisedAtomSurfaces: ["blanco"],
-    }),
-    build(
-      "es-m4-3-build-gato-blanco",
-      "Build: 'The white cat.'",
-      "el gato blanco",
-      ["el", "gato", "blanco", "blanca", "negro"],
-      ["el", "gato", "blanco"],
-      ["gato", "blanco"],
-    ),
+    vocabMcq("es-m4-3-mcq-blanco", { surface: "blanco", meaningEn: "white", emoji: "⚪" }, [{ surface: "negro", emoji: "⚫" }, { surface: "azul", emoji: "🔵" }, { surface: "verde", emoji: "🟢" }]),
+    speaking("es-m4-3-speak-llave-blanca", "la llave es blanca", "the key is white", ["llave", "blanco"]),
     selfExplain({
       id: "es-m4-3-self-explain-invariant",
-      anchorLabel: "You wrote: el cielo es azul",
-      anchorAudioText: "el cielo es azul",
+      anchorLabel: "You wrote: la puerta es azul",
+      anchorAudioText: "la puerta es azul",
       question: "Why doesn't azul change for feminine nouns like puerta?",
       rule: { text: "azul ends in a consonant, so — like grande — it keeps one form for both masculine and feminine nouns." },
       surface: { text: "azul doesn't change because colors never change in Spanish." },
       distractor: { text: "azul only changes when describing more than one thing." },
-      ruleExplanation:
-        "Adjectives ending in -e or a consonant (azul, verde, grande, fácil) are gender-invariant. Only -o/-a adjectives (rojo/roja, negro/negra) flip for gender — and every color still adds -s for plural (azules, verdes).",
+      ruleExplanation: "Adjectives ending in -e or a consonant (azul, verde, grande, fácil) are gender-invariant. Only -o/-a adjectives (rojo/roja, negro/negra) flip for gender — and every color still adds -s for plural (azules, verdes).",
     }),
-    translateStep({
-      id: "es-m4-3-tr-carro-rojo",
-      promptEn: "The car is red",
-      acceptedAnswers: ["el carro es rojo", "El carro es rojo", "el carro es rojo.", "El carro es rojo."],
-      audioText: "el carro es rojo",
-      exercisedAtomSurfaces: ["carro", "rojo"],
-    }),
-    vocabMcq("es-m4-3-mcq-color", { surface: "color", meaningEn: "color", emoji: "🎨" }, [CARRO, PERRO, GATO]),
-    speaking("es-m4-3-speak-color-carro", "el color del carro es azul", "the car's color is blue", ["color", "carro", "azul"]),
-    reviewMatchPairs("es-m4-3-rev", "es-m4-3-rev-seed", "m4", 6),
+    vocabMcq("es-m4-3-mcq-color", { surface: "color", meaningEn: "color", emoji: "🎨" }, [{ surface: "carro", emoji: "🚗" }, { surface: "perro", emoji: "🐶" }, { surface: "gato", emoji: "🐱" }]),
     build(
-      "es-m4-3-rev-build-silla-roja",
-      "Build: 'the red chair'",
-      "la silla roja",
-      ["la", "silla", "roja", "rojo", "azul"],
-      ["la", "silla", "roja"],
-      ["silla", "rojo"],
+      "es-m4-3-build-color-lapiz",
+      "Build: 'The pencil's color is red'",
+      "el color del lápiz es rojo",
+      ["el", "color", "del", "lápiz", "es", "rojo"],
+      ["el", "color", "del", "lápiz", "es", "rojo"],
+      ["color", "lápiz", "rojo"],
     ),
+    matchPairs("es-m4-3-match-colores", ["rojo", "azul", "verde", "amarillo", "negro", "blanco"]),
+    listeningBuildSentence({
+      id: "es-m4-3-lb-mesa-blanca",
+      target: "la mesa es blanca",
+      tiles: ["la", "mesa", "es", "blanca", "negra"],
+      correctOrder: ["la", "mesa", "es", "blanca"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["mesa", "blanco"],
+    }),
+    reviewMatchPairs("es-m4-3-rev", "es-m4-3-rev-seed", "m4", 6),
+    translateStep({
+      id: "es-m4-3-tr-casa-verde",
+      promptEn: "The house is green",
+      acceptedAnswers: ["la casa es verde"],
+      audioText: "la casa es verde",
+      exercisedAtomSurfaces: ["casa", "verde"],
+    }),
     infoStep(
       "es-m4-3-info-win",
       "You can paint the world",
@@ -466,78 +376,74 @@ const M4_3: LessonContent = {
   ],
 };
 
-// ─── es-m4-4 — Things & pets, adjective after the noun ──────────────────────
-
-const M4_4: LessonContent = {
+const ES_M4_4: LessonContent = {
   id: "es-m4-4",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "El carro, el perro, el gato",
   description: "Three describable things — and colors put to work.",
-  estimatedMinutes: 9,
-  xpReward: 19,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-4-info-order",
       "Adjectives after the noun",
-      "In Spanish, the describing word comes after the noun: el carro rojo, not 'el rojo carro' — the opposite of English (the red car). Practice the order with three new nouns: el carro, el perro, el gato.",
+      "In Spanish, the describing word comes after the noun: «el lápiz rojo», not 'el rojo lápiz' — the opposite of English (the red pencil). Practice the order with three new nouns: el carro, el perro, el gato.",
       "grammar",
     ),
-    vocabMcq("es-m4-4-mcq-carro", { surface: "carro", meaningEn: "car", emoji: "🚗" }, [PERRO, GATO, CASA]),
-    speaking("es-m4-4-speak-carro-nuevo", "el carro es nuevo", "the car is new", ["carro", "nuevo"]),
-    vocabMcq("es-m4-4-mcq-perro", { surface: "perro", meaningEn: "dog", emoji: "🐶" }, [GATO, CARRO, CASA]),
+    vocabMcq("es-m4-4-mcq-carro", { surface: "carro", meaningEn: "car", emoji: "🚗" }, [{ surface: "perro", emoji: "🐶" }, { surface: "gato", emoji: "🐱" }, { surface: "casa", emoji: "🏠" }]),
     build(
-      "es-m4-4-build-perro-negro",
-      "Build: 'the black dog'",
-      "el perro negro",
-      ["el", "perro", "negro", "blanco", "carro"],
-      ["el", "perro", "negro"],
-      ["perro", "negro"],
+      "es-m4-4-build-carro-nuevo",
+      "Build: 'The car is new'",
+      "el carro es nuevo",
+      ["el", "carro", "es", "nuevo", "viejo"],
+      ["el", "carro", "es", "nuevo"],
+      ["carro", "nuevo"],
     ),
-    vocabMcq("es-m4-4-mcq-gato", { surface: "gato", meaningEn: "cat", emoji: "🐱" }, [PERRO, CARRO, CASA]),
+    vocabMcq("es-m4-4-mcq-perro", { surface: "perro", meaningEn: "dog", emoji: "🐶" }, [{ surface: "carro", emoji: "🚗" }, { surface: "gato", emoji: "🐱" }, { surface: "casa", emoji: "🏠" }]),
+    speaking("es-m4-4-speak-perro-grande", "el perro es grande", "the dog is big", ["perro", "grande"]),
+    vocabMcq("es-m4-4-mcq-gato", { surface: "gato", meaningEn: "cat", emoji: "🐱" }, [{ surface: "perro", emoji: "🐶" }, { surface: "carro", emoji: "🚗" }, { surface: "casa", emoji: "🏠" }]),
+    build(
+      "es-m4-4-build-gato-negro",
+      "Build: 'The black cat'",
+      "el gato negro",
+      ["el", "gato", "negro", "blanco"],
+      ["el", "gato", "negro"],
+      ["gato", "negro"],
+    ),
     sentenceMcq({
       id: "es-m4-4-q-orden",
-      prompt: "¿Cuál es la forma correcta de decir 'the red car'?",
+      prompt: "Which is the correct word order for 'the red car'?",
       correctText: "el carro rojo",
       distractorsText: ["el rojo carro", "el carro roja", "la carro rojo"],
+      explanation: "Descriptive adjectives in Spanish normally follow the noun.",
       exercisedAtomSurfaces: ["carro", "rojo"],
-    }),
-    speaking("es-m4-4-speak-gato-bonito", "mi gato es bonito", "my cat is pretty", ["gato", "bonito"]),
-    sentenceMcq({
-      id: "es-m4-4-q-color",
-      prompt: "Mi carro es azul. ¿De qué color es?",
-      correctText: "azul",
-      distractorsText: ["rojo", "verde", "amarillo"],
-      exercisedAtomSurfaces: ["color", "azul"],
     }),
     build(
       "es-m4-4-build-carro-azul",
       "Build: 'the blue car'",
       "el carro azul",
-      ["el", "carro", "azul", "verde", "perro"],
+      ["el", "carro", "azul", "rojo"],
       ["el", "carro", "azul"],
       ["carro", "azul"],
     ),
-    // Colors put to work: feminine plural runs through all three slots.
-    agreementCloze(
-      "es-m4-4-agr-blancas",
-      [
-        { blank: { id: "b1", correctAnswer: "las", options: ["el", "la", "los", "las"] } },
-        { text: " sill" },
-        { blank: { id: "b2", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
-        { text: " blanc" },
-        { blank: { id: "b3", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
-      ],
-      "the white chairs",
-      "las sillas blancas",
-      ["silla", "blanco"],
-    ),
-    speaking(
-      "es-m4-4-speak-perro-pequeno-bonito",
-      "mi perro es pequeño y bonito",
-      "my dog is small and pretty",
-      ["perro", "pequeño", "bonito"],
+    speaking("es-m4-4-speak-perro-bonito", "el perro es bonito", "the dog is pretty", ["perro", "bonito"]),
+    vocabTextMcq("es-m4-4-tmcq-gato", "gato", ["perro", "carro", "color"]),
+    listeningCompSentence({
+      id: "es-m4-4-lc-gato-feo",
+      audioText: "el gato es feo",
+      correctMeaningEn: "the cat is ugly",
+      distractorsEn: ["the cat is pretty", "the cat is big", "the cat is small"],
+      exercisedAtomSurfaces: ["gato", "feo"],
+    }),
+    build(
+      "es-m4-4-build-perro-pequeno",
+      "Build: 'The small dog'",
+      "el perro pequeño",
+      ["el", "perro", "pequeño"],
+      ["el", "perro", "pequeño"],
+      ["perro", "pequeño"],
     ),
     selfExplain({
       id: "es-m4-4-self-explain-order",
@@ -547,25 +453,19 @@ const M4_4: LessonContent = {
       rule: { text: "Descriptive adjectives in Spanish normally follow the noun: carro rojo, not rojo carro." },
       surface: { text: "Word order in Spanish is completely free — either order is always correct." },
       distractor: { text: "Adjectives go before the noun only when the noun is masculine." },
-      ruleExplanation:
-        "Spanish puts most descriptive adjectives after the noun (carro rojo, casa grande) — the opposite of English. A few short special adjectives are the exception, not the rule.",
+      ruleExplanation: "Spanish puts most descriptive adjectives after the noun (carro rojo, casa grande) — the opposite of English. A few short special adjectives are the exception, not the rule.",
     }),
-    translateStep({
-      id: "es-m4-4-tr-gato-negro",
-      promptEn: "The cat is black",
-      acceptedAnswers: ["el gato es negro", "El gato es negro", "el gato es negro.", "El gato es negro."],
-      audioText: "el gato es negro",
-      exercisedAtomSurfaces: ["gato", "negro"],
-    }),
-    listeningCompSentence({
-      id: "es-m4-4-lc-perro-grande",
-      audioText: "el perro es muy grande",
-      correctMeaningEn: "the dog is very big",
-      distractorsEn: ["the dog is very small", "the cat is very big", "the dog is very old"],
-      exercisedAtomSurfaces: ["perro", "grande"],
-    }),
+    build(
+      "es-m4-4-build-sillas-blancas",
+      "Build: 'the white chairs'",
+      "las sillas blancas",
+      ["las", "sillas", "blancas"],
+      ["las", "sillas", "blancas"],
+      ["silla", "blanco"],
+    ),
+    speaking("es-m4-4-speak-perro-pequeno-bonito", "mi perro es pequeño y bonito", "my dog is small and pretty", ["perro", "pequeño", "bonito"]),
     listeningBuildSentence({
-      id: "es-m4-4-lb-gato-blanco",
+      id: "es-m4-4-lb-gato-blanco-bonito",
       target: "el gato blanco es bonito",
       tiles: ["el", "gato", "blanco", "es", "bonito", "negro"],
       correctOrder: ["el", "gato", "blanco", "es", "bonito"],
@@ -573,12 +473,12 @@ const M4_4: LessonContent = {
       exercisedAtomSurfaces: ["gato", "blanco", "bonito"],
     }),
     reviewMatchPairs("es-m4-4-rev", "es-m4-4-rev-seed", "m4", 6),
-    sentenceMcq({
-      id: "es-m4-4-rev-q-maestro",
-      prompt: "Mi maestro tiene un carro rojo, pero mi maestra tiene un carro ___.",
-      correctText: "azul",
-      distractorsText: ["rojo", "roja", "azules"],
-      exercisedAtomSurfaces: ["carro", "azul", "maestro"],
+    translateStep({
+      id: "es-m4-4-tr-perro-negro",
+      promptEn: "The black dog",
+      acceptedAnswers: ["el perro negro"],
+      audioText: "el perro negro",
+      exercisedAtomSurfaces: ["perro", "negro"],
     }),
     infoStep(
       "es-m4-4-info-win",
@@ -589,116 +489,114 @@ const M4_4: LessonContent = {
   ],
 };
 
-// ─── es-m4-5 — Opinions: bueno, malo, muy, pero ─────────────────────────────
-
-const M4_5: LessonContent = {
+const ES_M4_5: LessonContent = {
   id: "es-m4-5",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Opiniones — muy bueno, pero…",
   description: "Rate things, turn it up with muy, contrast with pero.",
-  estimatedMinutes: 9,
-  xpReward: 19,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-5-info-muy-pero",
       "Turning it up, talking it down",
-      "Drop muy in front of any describing word to intensify it: muy grande (very big), muy bonita (very pretty). To contrast two ideas, join them with pero: la casa es bonita, pero es pequeña — the house is pretty, but it's small.",
+      "Drop «muy» in front of any describing word to intensify it: muy grande (very big), muy bonita (very pretty). To contrast two ideas, join them with «pero»: la casa es bonita, pero es pequeña — the house is pretty, but it's small.",
       "grammar",
     ),
-    vocabMcq("es-m4-5-mcq-bueno", { surface: "bueno", meaningEn: "good", emoji: "👍" }, [MALO, GRANDE, PEQUENO]),
+    vocabMcq("es-m4-5-mcq-bueno", { surface: "bueno", meaningEn: "good", emoji: "👍" }, [{ surface: "malo", emoji: "👎" }, { surface: "grande", emoji: "🐘" }, { surface: "pequeño", emoji: "🤏" }]),
     speaking("es-m4-5-speak-libro-bueno", "el libro es bueno", "the book is good", ["libro", "bueno"]),
-    vocabMcq("es-m4-5-mcq-malo", { surface: "malo", meaningEn: "bad", emoji: "👎" }, [BUENO, GRANDE, PEQUENO]),
-    sentenceMcq({
-      id: "es-m4-5-q-pelicula-mala",
-      prompt: "No me gustó la película para nada. Fue muy ___.",
-      correctText: "mala",
-      distractorsText: ["buena", "bonita", "nueva"],
-      exercisedAtomSurfaces: ["malo"],
-    }),
+    vocabMcq("es-m4-5-mcq-malo", { surface: "malo", meaningEn: "bad", emoji: "👎" }, [{ surface: "bueno", emoji: "👍" }, { surface: "grande", emoji: "🐘" }, { surface: "pequeño", emoji: "🤏" }]),
+    build(
+      "es-m4-5-build-carro-malo",
+      "Build: 'the car is bad'",
+      "el carro es malo",
+      ["el", "carro", "es", "malo", "bueno"],
+      ["el", "carro", "es", "malo"],
+      ["carro", "malo"],
+    ),
+    vocabTextMcq("es-m4-5-tmcq-malo", "malo", ["bueno", "feo", "difícil"]),
     build(
       "es-m4-5-build-alto-muy",
-      "Build: 'He is very tall.'",
+      "Build: 'He is very tall'",
       "él es muy alto",
       ["él", "es", "muy", "alto", "bajo"],
       ["él", "es", "muy", "alto"],
       ["muy", "alto"],
     ),
     cloze(
-      "es-m4-5-cloze-muy",
-      "el perro es",
-      "bonito",
+      "es-m4-5-c-muy",
+      "el perro es ",
+      " bonito.",
       "muy",
       ["muy", "pero", "y", "o"],
       "the dog is very pretty",
       "el perro es muy bonito",
-      "The intensifier — it turns the description up a notch.",
+      "muy intensifies the adjective that follows.",
+      ["muy", "perro", "bonito"],
     ),
-    vocabTextMcq("es-m4-5-tmcq-muy", "muy", ["pero", "y", "o"]),
-    speaking("es-m4-5-speak-gato-bonito", "el gato es muy bonito", "the cat is very pretty", ["gato", "muy", "bonito"]),
-    sentenceMcq({
-      id: "es-m4-5-q-pero-context",
-      prompt: "La casa es bonita, ___ es pequeña.",
-      correctText: "pero",
-      distractorsText: ["muy", "y", "o"],
-      exercisedAtomSurfaces: ["pero"],
+    speaking("es-m4-5-speak-gato-muy-bonito", "el gato es muy bonito", "the cat is very pretty", ["muy", "gato", "bonito"]),
+    translateStep({
+      id: "es-m4-5-tr-carro-pero-viejo",
+      promptEn: "The car is pretty, but old",
+      acceptedAnswers: ["el carro es bonito, pero viejo"],
+      audioText: "el carro es bonito, pero viejo",
+      exercisedAtomSurfaces: ["carro", "bonito", "pero", "viejo"],
     }),
     cloze(
-      "es-m4-5-cloze-pero",
-      "la casa es bonita,",
-      "es pequeña",
+      "es-m4-5-c-pero",
+      "la casa es bonita, ",
+      " pequeña.",
       "pero",
-      ["pero", "y", "o", "muy"],
+      ["pero", "muy", "y", "o"],
       "the house is pretty, but it's small",
-      "la casa es bonita, pero es pequeña",
-      "Signals a contrast between the two halves of the sentence.",
+      "la casa es bonita, pero pequeña",
+      "pero signals a contrast between two ideas.",
+      ["pero", "casa", "bonito", "pequeño"],
     ),
-    speaking(
-      "es-m4-5-speak-bonita-pero-pequena",
-      "la casa es bonita, pero es pequeña",
-      "the house is pretty, but it's small",
-      ["casa", "bonito", "pero", "pequeño"],
-    ),
+    speaking("es-m4-5-speak-silla-pero-baja", "la silla es bonita, pero baja", "the chair is pretty, but low", ["silla", "bonito", "pero", "bajo"]),
     selfExplain({
       id: "es-m4-5-self-explain-muy-pero",
-      anchorLabel: "You wrote: la casa es bonita, pero es pequeña",
-      anchorAudioText: "la casa es bonita, pero es pequeña",
+      anchorLabel: "You wrote: la casa es bonita, pero pequeña",
+      anchorAudioText: "la casa es bonita, pero pequeña",
       question: "What job does pero do in this sentence?",
       rule: { text: "pero joins two ideas that contrast — it signals 'but' between them." },
       surface: { text: "pero just means 'and' with extra emphasis." },
       distractor: { text: "pero can only connect two single adjectives, never two full clauses." },
-      ruleExplanation:
-        "pero links a contrast: something true, followed by an exception or opposite (bonita, pero pequeña). muy, by contrast, only intensifies a single adjective — it can't join clauses.",
+      ruleExplanation: "pero links a contrast: something true, followed by an exception or opposite (bonita, pero pequeña). muy, by contrast, only intensifies a single adjective — it can't join clauses.",
+    }),
+    listeningCompSentence({
+      id: "es-m4-5-lc-bueno-malo",
+      audioText: "el libro no es bueno, es malo",
+      correctMeaningEn: "the book isn't good, it's bad",
+      distractorsEn: ["the book is very good", "the book is very old", "the book isn't new, it's old"],
+      exercisedAtomSurfaces: ["libro", "bueno", "malo"],
+    }),
+    build(
+      "es-m4-5-build-perro-muy-bueno",
+      "Build: 'My dog is very good'",
+      "mi perro es muy bueno",
+      ["mi", "perro", "es", "muy", "bueno"],
+      ["mi", "perro", "es", "muy", "bueno"],
+      ["perro", "muy", "bueno"],
+    ),
+    reviewMatchPairs("es-m4-5-rev", "es-m4-5-rev-seed", "m4", 6),
+    listeningCompSentence({
+      id: "es-m4-5-lc-gato-pero-feo",
+      audioText: "el gato es bueno, pero feo",
+      correctMeaningEn: "the cat is good, but ugly",
+      distractorsEn: ["the cat is bad, but pretty", "the cat is very good", "the dog is good, but ugly"],
+      exercisedAtomSurfaces: ["gato", "bueno", "pero", "feo"],
     }),
     translateStep({
       id: "es-m4-5-tr-carro-muy-grande",
       promptEn: "The car is very big",
-      acceptedAnswers: [
-        "el carro es muy grande",
-        "El carro es muy grande",
-        "el carro es muy grande.",
-        "El carro es muy grande.",
-      ],
+      acceptedAnswers: ["el carro es muy grande"],
       audioText: "el carro es muy grande",
       exercisedAtomSurfaces: ["carro", "muy", "grande"],
     }),
-    listeningCompSentence({
-      id: "es-m4-5-lc-buena-mala",
-      audioText: "la comida no es buena, es mala",
-      correctMeaningEn: "the food isn't good, it's bad",
-      distractorsEn: ["the food is very good", "the food is very old", "the food isn't new, it's old"],
-      exercisedAtomSurfaces: ["bueno", "malo"],
-    }),
-    speaking("es-m4-5-speak-perro-bueno", "mi perro es muy bueno", "my dog is very good", ["perro", "muy", "bueno"]),
-    reviewMatchPairs("es-m4-5-rev", "es-m4-5-rev-seed", "m4", 6),
-    sentenceMcq({
-      id: "es-m4-5-rev-q-dinero",
-      prompt: "Tengo dinero, ___ no tengo tiempo.",
-      correctText: "pero",
-      distractorsText: ["muy", "y", "o"],
-      exercisedAtomSurfaces: ["pero", "dinero"],
-    }),
+    vocabTextMcq("es-m4-5-tmcq-pero", "pero", ["muy", "y", "o"]),
     infoStep(
       "es-m4-5-info-win",
       "You can give real opinions",
@@ -708,179 +606,165 @@ const M4_5: LessonContent = {
   ],
 };
 
-// ─── es-m4-6 — Listening focus ──────────────────────────────────────────────
-
-const M4_6: LessonContent = {
+const ES_M4_6: LessonContent = {
   id: "es-m4-6",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Escucha — descripciones",
   description: "Two look-alike adjectives, then full-sentence ear training.",
-  estimatedMinutes: 8,
-  xpReward: 18,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-6-info-listen",
       "Train your ear",
       "Now a listening challenge: full sentences with adjectives you already know, plus two new ones — fácil and difícil. Focus on the sound, not just the text.",
-      "default",
+      "grammar",
     ),
-    vocabTextMcq("es-m4-6-tmcq-facil", "fácil", ["difícil", "feo", "malo"]),
-    speaking("es-m4-6-speak-facil", "el examen es fácil", "the exam is easy", ["fácil"]),
-    vocabTextMcq("es-m4-6-tmcq-dificil", "difícil", ["fácil", "feo", "malo"]),
+    build(
+      "es-m4-6-build-libro-facil",
+      "Build: 'The book is easy'",
+      "el libro es fácil",
+      ["el", "libro", "es", "fácil", "difícil"],
+      ["el", "libro", "es", "fácil"],
+      ["libro", "fácil"],
+    ),
+    speaking("es-m4-6-speak-espanol-facil", "el español es fácil", "Spanish is easy", ["español", "fácil"]),
+    build(
+      "es-m4-6-build-espanol-dificil",
+      "Build: 'Spanish is difficult'",
+      "el español es difícil",
+      ["el", "español", "es", "difícil", "fácil"],
+      ["el", "español", "es", "difícil"],
+      ["español", "difícil"],
+    ),
+    vocabTextMcq("es-m4-6-tmcq-facil", "fácil", ["difícil", "malo", "feo"]),
     listeningCompSentence({
-      id: "es-m4-6-lc-dificil",
+      id: "es-m4-6-lc-libro-muy-dificil",
       audioText: "el libro es muy difícil",
       correctMeaningEn: "the book is very difficult",
       distractorsEn: ["the book is very easy", "the book is very old", "the house is very big"],
-      exercisedAtomSurfaces: ["libro", "difícil"],
+      exercisedAtomSurfaces: ["libro", "muy", "difícil"],
     }),
     build(
-      "es-m4-6-build-examen-facil",
-      "Build: 'The exam is easy.'",
-      "el examen es fácil",
-      ["el", "examen", "es", "fácil", "difícil"],
-      ["el", "examen", "es", "fácil"],
+      "es-m4-6-build-esto-facil",
+      "Build: 'this is easy'",
+      "esto es fácil",
+      ["esto", "es", "fácil", "difícil"],
+      ["esto", "es", "fácil"],
       ["fácil"],
     ),
-    sentenceMcq({
-      id: "es-m4-6-q-facil-context",
-      prompt: "Solo tiene diez preguntas fáciles. El examen es ___.",
-      correctText: "fácil",
-      distractorsText: ["difícil", "malo", "feo"],
-      exercisedAtomSurfaces: ["fácil"],
+    speaking("es-m4-6-speak-esto-dificil", "esto es muy difícil", "this is very difficult", ["muy", "difícil"]),
+    vocabTextMcq("es-m4-6-tmcq-dificil", "difícil", ["fácil", "bueno", "malo"]),
+    listeningBuildSentence({
+      id: "es-m4-6-lb-cinco-llaves",
+      target: "hay cinco llaves aquí",
+      tiles: ["hay", "cinco", "llaves", "aquí", "diez"],
+      correctOrder: ["hay", "cinco", "llaves", "aquí"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["cinco", "llave"],
     }),
     listeningCompSentence({
-      id: "es-m4-6-lc-carro-rojo",
-      audioText: "el carro rojo",
-      correctMeaningEn: "the red car",
-      distractorsEn: ["the blue car", "the red house", "the black cat"],
-      exercisedAtomSurfaces: ["carro", "rojo"],
+      id: "es-m4-6-lc-carro-rojo-bonito",
+      audioText: "el carro rojo es bonito",
+      correctMeaningEn: "the red car is pretty",
+      distractorsEn: ["the blue car is pretty", "the red car is ugly", "the black cat is pretty"],
+      exercisedAtomSurfaces: ["carro", "rojo", "bonito"],
     }),
     listeningBuildSentence({
-      id: "es-m4-6-lb-casa-grande",
-      target: "la casa es muy grande",
-      tiles: ["la", "casa", "es", "muy", "grande", "pequeña"],
-      correctOrder: ["la", "casa", "es", "muy", "grande"],
+      id: "es-m4-6-lb-casa-grande-bonita",
+      target: "la casa grande es muy bonita",
+      tiles: ["la", "casa", "grande", "es", "muy", "bonita", "pequeña"],
+      correctOrder: ["la", "casa", "grande", "es", "muy", "bonita"],
       promptEn: "Tap what you hear",
-      exercisedAtomSurfaces: ["casa", "muy", "grande"],
+      exercisedAtomSurfaces: ["casa", "grande", "bonito"],
     }),
     listeningCompSentence({
-      id: "es-m4-6-lc-perro-blanco",
-      audioText: "el perro blanco",
-      correctMeaningEn: "the white dog",
-      distractorsEn: ["the black dog", "the white cat", "the yellow car"],
-      exercisedAtomSurfaces: ["perro", "blanco"],
+      id: "es-m4-6-lc-perro-blanco-bueno",
+      audioText: "el perro blanco es bueno",
+      correctMeaningEn: "the white dog is good",
+      distractorsEn: ["the black dog is good", "the white cat is good", "the white dog is bad"],
+      exercisedAtomSurfaces: ["perro", "blanco", "bueno"],
     }),
-    listeningBuildSentence({
-      id: "es-m4-6-lb-gato-negro",
-      target: "el gato es negro",
-      tiles: ["el", "gato", "es", "negro", "blanco"],
-      correctOrder: ["el", "gato", "es", "negro"],
-      promptEn: "Tap what you hear",
-      exercisedAtomSurfaces: ["gato", "negro"],
-    }),
-    listeningCompSentence({
-      id: "es-m4-6-lc-puerta-verde",
-      audioText: "la puerta es verde",
-      correctMeaningEn: "the door is green",
-      distractorsEn: ["the door is blue", "the window is green", "the door is big"],
-      exercisedAtomSurfaces: ["verde"],
-    }),
-    sentenceMcq({
-      id: "es-m4-6-q-dificil-context",
-      prompt: "Este examen tiene cien preguntas y solo tengo una hora. Es muy ___.",
-      correctText: "difícil",
-      distractorsText: ["fácil", "bueno", "bonito"],
-      exercisedAtomSurfaces: ["difícil"],
-    }),
-    speaking(
-      "es-m4-6-speak-facil-dificil",
-      "el español es fácil, pero el chino es difícil",
-      "Spanish is easy, but Chinese is difficult",
-      ["fácil", "difícil", "pero"],
+    speaking("es-m4-6-speak-gato-negro-feo", "el gato negro es feo, pero bueno", "the black cat is ugly, but good", ["gato", "negro", "feo", "pero", "bueno"]),
+    build(
+      "es-m4-6-build-puerta-verde-vieja",
+      "Build: 'The green door is very old'",
+      "la puerta verde es muy vieja",
+      ["la", "puerta", "verde", "es", "muy", "vieja"],
+      ["la", "puerta", "verde", "es", "muy", "vieja"],
+      ["puerta", "verde", "muy", "viejo"],
     ),
-    translateStep({
-      id: "es-m4-6-tr-examen-dificil",
-      promptEn: "The exam is difficult",
-      acceptedAnswers: [
-        "el examen es difícil",
-        "El examen es difícil",
-        "el examen es dificil",
-        "El examen es dificil",
-      ],
-      audioText: "el examen es difícil",
-      exercisedAtomSurfaces: ["difícil"],
-    }),
     reviewMatchPairs("es-m4-6-rev", "es-m4-6-rev-seed", "m4", 6),
     listeningCompSentence({
-      id: "es-m4-6-rev-lc-numeros",
-      audioText: "tengo cinco llaves, pero necesito diez",
-      correctMeaningEn: "I have five keys, but I need ten",
-      distractorsEn: ["I have ten keys, but I need five", "I have five keys, but I need six", "I have five doors, but I need ten"],
-      exercisedAtomSurfaces: ["cinco", "diez", "llave", "pero"],
+      id: "es-m4-6-lc-diez-cinco-llaves",
+      audioText: "hay diez llaves aquí, pero hay cinco allí",
+      correctMeaningEn: "there are ten keys here, but there are five there",
+      distractorsEn: ["there are five keys here, but there are ten there", "there are ten keys here, but there are ten there", "there are ten doors here, but there are five there"],
+      exercisedAtomSurfaces: ["diez", "llave", "pero", "cinco"],
     }),
+    translateStep({
+      id: "es-m4-6-tr-libro-dificil",
+      promptEn: "The book is difficult",
+      acceptedAnswers: ["el libro es difícil", "el libro es dificil"],
+      audioText: "el libro es difícil",
+      exercisedAtomSurfaces: ["libro", "difícil"],
+    }),
+    vocabTextMcq("es-m4-6-tmcq-muy", "muy", ["pero", "y", "o"]),
     infoStep(
       "es-m4-6-info-win",
       "Your ear is trained",
-      "Full sentences, real speed, no text to lean on — you understood colors, sizes, and now fácil and difícil too.",
+      "Fácil, difícil, and every color and size you already knew — you followed all of it by sound.",
       "win",
     ),
   ],
 };
 
-// ─── es-m4-7 — Integration: cognates ────────────────────────────────────────
-
-const M4_7: LessonContent = {
+const ES_M4_7: LessonContent = {
   id: "es-m4-7",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "Cognados — interesante, inteligente",
   description: "Free vocabulary, plus a dialogue that pulls the whole module together.",
-  estimatedMinutes: 9,
-  xpReward: 19,
+  estimatedMinutes: 10,
+  xpReward: 20,
   steps: [
     infoStep(
       "es-m4-7-info-cognates",
       "Cognates — free vocabulary",
-      "Spanish and English share thousands of look-alike words. English -ent and -ing endings often surface as -ente in Spanish: intelligent → inteligente, interesting → interesante — you can already read them. Just pronounce them the Spanish way: pure vowels, stress on the second-to-last syllable.",
+      "Spanish and English share thousands of look-alike words. English words ending in -ent and -ing often have Spanish twins ending in -ente or -ante: intelligent → inteligente, interesting → interesante — and you already know «estudiante». Just pronounce them the Spanish way: pure vowels, stress on the second-to-last syllable.",
       "grammar",
     ),
-    vocabTextMcq("es-m4-7-tmcq-interesante", "interesante", ["interesantes", "inteligente", "difícil"]),
-    speaking("es-m4-7-speak-libro-interesante", "el libro es interesante", "the book is interesting", ["libro", "interesante"]),
-    vocabMcq("es-m4-7-mcq-inteligente", { surface: "inteligente", meaningEn: "intelligent", emoji: "🧠" }, [BUENO, MALO, GRANDE]),
-    sentenceMcq({
-      id: "es-m4-7-q-inteligente-context",
-      prompt: "Mi hermana sacó las mejores notas de la clase. Es muy ___.",
-      correctText: "inteligente",
-      distractorsText: ["inteligentes", "interesante", "simpático"],
-      explanation: "-e adjectives keep one form for both genders — only the plural adds -s.",
-      exercisedAtomSurfaces: ["inteligente"],
-    }),
     build(
-      "es-m4-7-build-interesante",
-      "Build: 'The class is interesting.'",
-      "la clase es interesante",
-      ["la", "clase", "es", "interesante", "inteligente"],
-      ["la", "clase", "es", "interesante"],
-      ["interesante"],
+      "es-m4-7-build-libro-interesante",
+      "Build: 'The book is interesting'",
+      "el libro es interesante",
+      ["el", "libro", "es", "interesante"],
+      ["el", "libro", "es", "interesante"],
+      ["libro", "interesante"],
     ),
-    vocabMcq("es-m4-7-mcq-simpatico", { surface: "simpático", meaningEn: "nice / friendly", emoji: "😊" }, [BUENO, INTELIGENTE, GRANDE]),
-    sentenceMcq({
-      id: "es-m4-7-q-simpatico-context",
-      prompt: "Todos en la fiesta lo quieren; siempre sonríe y ayuda a todos. Es muy ___.",
-      correctText: "simpático",
-      distractorsText: ["simpáticos", "interesante", "malo"],
-      exercisedAtomSurfaces: ["simpático"],
+    vocabMcq("es-m4-7-mcq-inteligente", { surface: "inteligente", meaningEn: "intelligent", emoji: "🧠" }, [{ surface: "bueno", emoji: "👍" }, { surface: "malo", emoji: "👎" }, { surface: "grande", emoji: "🐘" }]),
+    speaking("es-m4-7-speak-amiga-inteligente", "mi amiga es inteligente", "my friend is intelligent", ["amiga", "inteligente"]),
+    vocabTextMcq("es-m4-7-tmcq-interesante", "interesante", ["inteligente", "difícil", "fácil"]),
+    vocabMcq("es-m4-7-mcq-simpatico", { surface: "simpático", meaningEn: "nice / friendly", emoji: "😊" }, [{ surface: "bueno", emoji: "👍" }, { surface: "malo", emoji: "👎" }, { surface: "inteligente", emoji: "🧠" }]),
+    build(
+      "es-m4-7-build-maestro-simpatico",
+      "Build: 'The teacher is very friendly'",
+      "el maestro es muy simpático",
+      ["el", "maestro", "es", "muy", "simpático"],
+      ["el", "maestro", "es", "muy", "simpático"],
+      ["maestro", "muy", "simpático"],
+    ),
+    listeningCompSentence({
+      id: "es-m4-7-lc-libro-muy-interesante",
+      audioText: "el libro es muy interesante",
+      correctMeaningEn: "the book is very interesting",
+      distractorsEn: ["the book is very difficult", "the book is very easy", "the house is very interesting"],
+      exercisedAtomSurfaces: ["libro", "muy", "interesante"],
     }),
-    speaking(
-      "es-m4-7-speak-inteligente-simpatico",
-      "él es muy inteligente y simpático",
-      "he is very intelligent and friendly",
-      ["inteligente", "simpático"],
-    ),
+    speaking("es-m4-7-speak-inteligente-simpatico", "él es muy inteligente y simpático", "he is very intelligent and friendly", ["muy", "inteligente", "simpático"]),
     selfExplain({
       id: "es-m4-7-self-explain-e-plural",
       anchorLabel: "You wrote: es muy inteligente",
@@ -889,81 +773,67 @@ const M4_7: LessonContent = {
       rule: { text: "Only the ending -s is added for plural: inteligente → inteligentes. The word never splits by gender." },
       surface: { text: "It would become inteligento for a group of people." },
       distractor: { text: "It stays exactly 'inteligente' even for plural, since -e adjectives never change at all." },
-      ruleExplanation:
-        "-e adjectives are gender-invariant but still mark plural: interesante→interesantes, inteligente→inteligentes. Gender never changes; number still does.",
-    }),
-    translateStep({
-      id: "es-m4-7-tr-libro-interesante",
-      promptEn: "The book is very interesting",
-      acceptedAnswers: [
-        "el libro es muy interesante",
-        "El libro es muy interesante",
-        "el libro es muy interesante.",
-        "El libro es muy interesante.",
-      ],
-      audioText: "el libro es muy interesante",
-      exercisedAtomSurfaces: ["interesante", "muy"],
+      ruleExplanation: "-e adjectives are gender-invariant but still mark plural: interesante→interesantes, inteligente→inteligentes. Gender never changes; number still does.",
     }),
     build(
       "es-m4-7-build-simpatica",
-      "Build: 'She is very friendly.'",
+      "Build: 'She is very friendly'",
       "ella es muy simpática",
       ["ella", "es", "muy", "simpática", "simpático"],
       ["ella", "es", "muy", "simpática"],
       ["simpático", "muy"],
     ),
-    listeningCompSentence({
-      id: "es-m4-7-lc-clase-interesante",
-      audioText: "la clase de español es muy interesante",
-      correctMeaningEn: "the Spanish class is very interesting",
-      distractorsEn: ["the Spanish class is very difficult", "the math class is very interesting", "the Spanish class is very boring"],
-      exercisedAtomSurfaces: ["interesante"],
+    vocabTextMcq("es-m4-7-tmcq-simpatico", "simpático", ["interesante", "inteligente", "bueno"]),
+    listeningBuildSentence({
+      id: "es-m4-7-lb-libro-espanol-interesante",
+      target: "el libro de español es interesante",
+      tiles: ["el", "libro", "de", "español", "es", "interesante", "difícil"],
+      correctOrder: ["el", "libro", "de", "español", "es", "interesante"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["libro", "español", "interesante"],
     }),
     dialogueListen({
       id: "es-m4-7-dialogue-amigos",
       lines: [
-        { speaker: "Ana", text: "¿Cómo es tu nuevo maestro?", audioText: "¿Cómo es tu nuevo maestro?" },
-        {
-          speaker: "Luis",
-          text: "Es muy inteligente y simpático, pero el examen es difícil.",
-          audioText: "Es muy inteligente y simpático, pero el examen es difícil.",
-        },
-        { speaker: "Ana", text: "¿Y la clase?", audioText: "¿Y la clase?" },
-        { speaker: "Luis", text: "Es interesante, no es aburrida.", audioText: "Es interesante, no es aburrida." },
+        { speaker: "Ana", text: "¿Cómo es tu maestro?" },
+        { speaker: "Luis", text: "Es muy inteligente y simpático." },
+        { speaker: "Ana", text: "¿Y el libro?" },
+        { speaker: "Luis", text: "Es interesante, no es difícil." },
       ],
       questions: [
         {
           id: "q1",
-          prompt: "¿Cómo es el maestro de Luis?",
+          prompt: "How is Luis's teacher?",
           correctText: "Intelligent and friendly",
           distractors: ["Old and boring", "Bad and difficult", "Tall and short"],
-          explanation: "inteligente y simpático — the two cognates from this lesson.",
         },
         {
           id: "q2",
-          prompt: "¿Cómo es el examen?",
-          correctText: "Difficult",
-          distractors: ["Easy", "New", "Big"],
+          prompt: "How is the book?",
+          correctText: "Interesting, not difficult",
+          distractors: ["Easy, not interesting", "New, not old", "Big, not small"],
         },
       ],
-      transcriptRevealAfter: "first-answer",
-      exercisedAtomSurfaces: ["inteligente", "simpático", "difícil", "interesante", "maestro"],
+      exercisedAtomSurfaces: ["maestro", "inteligente", "simpático", "libro", "interesante", "difícil"],
     }),
-    speaking(
-      "es-m4-7-speak-close",
-      "mi clase es interesante y mi maestra es simpática",
-      "my class is interesting and my teacher is friendly",
-      ["interesante", "simpático"],
-    ),
+    speaking("es-m4-7-speak-close", "mi maestra es simpática y mi libro es interesante", "my teacher is friendly and my book is interesting", ["maestra", "simpático", "libro", "interesante"]),
     reviewMatchPairs("es-m4-7-rev", "es-m4-7-rev-seed", "m4", 6),
     build(
-      "es-m4-7-rev-build-estudiante",
-      "Build: 'The student is intelligent.'",
-      "el estudiante es inteligente",
-      ["el", "estudiante", "es", "inteligente", "simpático"],
-      ["el", "estudiante", "es", "inteligente"],
+      "es-m4-7-build-estudiante-inteligente",
+      "Build: 'The intelligent student'",
+      "el estudiante inteligente",
+      ["el", "estudiante", "inteligente"],
+      ["el", "estudiante", "inteligente"],
       ["estudiante", "inteligente"],
     ),
+    translateStep({
+      id: "es-m4-7-tr-amiga-inteligente",
+      promptEn: "My friend is very intelligent",
+      acceptedAnswers: ["mi amiga es muy inteligente"],
+      audioText: "mi amiga es muy inteligente",
+      exercisedAtomSurfaces: ["amiga", "muy", "inteligente"],
+    }),
+    vocabTextMcq("es-m4-7-tmcq-inteligente", "inteligente", ["simpático", "interesante", "difícil"]),
     infoStep(
       "es-m4-7-info-win",
       "You can describe people fully",
@@ -973,83 +843,65 @@ const M4_7: LessonContent = {
   ],
 };
 
-// ─── es-m4-8 — Mastery test ─────────────────────────────────────────────────
-
-const M4_8: LessonContent = {
+const ES_M4_8: LessonContent = {
   id: "es-m4-8",
   moduleId: "m4",
   courseId: COURSE_ID,
   languageId: "es",
   title: "M4 Mastery Test",
   description: "Agreement, colors, adjective order, muy & pero.",
-  estimatedMinutes: 6,
-  xpReward: 15,
+  estimatedMinutes: 8,
+  xpReward: 20,
   steps: [
     sentenceMcq({
       id: "es-m4-8-q-alta",
-      prompt: "Mi hermana mide dos metros. Es muy ___.",
+      prompt: "Your friend is two meters tall. Which word describes her?",
       correctText: "alta",
-      distractorsText: ["alto", "altos", "altas"],
+      distractorsText: ["alto", "bajo", "baja"],
+      explanation: "amiga is feminine, so alto becomes alta.",
       exercisedAtomSurfaces: ["alto"],
     }),
-    vocabMcq("es-m4-8-mcq-amarillo", { surface: "amarillo", meaningEn: "yellow", emoji: "🟡" }, [VERDE, AZUL, BLANCO]),
     build(
-      "es-m4-8-build-gato",
-      "Build: 'The cat is black.'",
+      "es-m4-8-build-gato-negro",
+      "Build: 'The cat is black'",
       "el gato es negro",
-      ["el", "gato", "es", "negro", "blanco"],
+      ["el", "gato", "es", "negro"],
       ["el", "gato", "es", "negro"],
       ["gato", "negro"],
     ),
     cloze(
-      "es-m4-8-cloze-muy",
-      "el perro es",
-      "bonito",
+      "es-m4-8-c-muy",
+      "el perro es ",
+      " bonito.",
       "muy",
       ["muy", "pero", "y", "o"],
       "the dog is very pretty",
       "el perro es muy bonito",
+      "muy intensifies the adjective that follows.",
+      ["muy", "perro", "bonito"],
     ),
     listeningCompSentence({
-      id: "es-m4-8-lc-vieja",
+      id: "es-m4-8-lc-casa-vieja",
       audioText: "la casa es muy vieja",
       correctMeaningEn: "the house is very old",
       distractorsEn: ["the house is very new", "the car is very old", "the house is very pretty"],
       exercisedAtomSurfaces: ["casa", "viejo"],
     }),
     translateStep({
-      id: "es-m4-8-tr-facil",
+      id: "es-m4-8-tr-libro-facil",
       promptEn: "The book is easy",
-      // Accent-less variants accepted per the spine's grading-leniency rule.
-      acceptedAnswers: [
-        "el libro es fácil",
-        "El libro es fácil",
-        "el libro es facil",
-        "El libro es facil",
-      ],
+      acceptedAnswers: ["el libro es fácil", "el libro es facil"],
       audioText: "el libro es fácil",
       exercisedAtomSurfaces: ["libro", "fácil"],
     }),
     sentenceMcq({
       id: "es-m4-8-q-pero",
-      prompt: "La casa es bonita, ___ es pequeña.",
+      prompt: "Which word means 'but'?",
       correctText: "pero",
       distractorsText: ["muy", "y", "o"],
+      explanation: "pero signals a contrast between two ideas.",
       exercisedAtomSurfaces: ["pero"],
     }),
-    agreementCloze(
-      "es-m4-8-agr-altas",
-      [
-        { blank: { id: "b1", correctAnswer: "las", options: ["el", "la", "los", "las"] } },
-        { text: " niñ" },
-        { blank: { id: "b2", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
-        { text: " alt" },
-        { blank: { id: "b3", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
-      ],
-      "the tall girls",
-      "las niñas altas",
-      ["alto"],
-    ),
     listeningBuildSentence({
       id: "es-m4-8-lb-carro-azul",
       target: "el carro es azul",
@@ -1058,108 +910,121 @@ const M4_8: LessonContent = {
       promptEn: "Tap what you hear",
       exercisedAtomSurfaces: ["carro", "azul"],
     }),
+    cloze(
+      "es-m4-8-c-amiga-alta",
+      "mi amiga es ",
+      ".",
+      "alta",
+      ["alta", "alto", "altos", "altas"],
+      "my friend is tall",
+      "mi amiga es alta",
+      "amiga is feminine, so alto becomes alta.",
+      ["alto", "amiga"],
+    ),
     sentenceMcq({
       id: "es-m4-8-q-inteligente",
-      prompt: "Mi amiga saca las mejores notas de la clase. Es muy ___.",
+      prompt: "Which word describes someone who studies well?",
       correctText: "inteligente",
       distractorsText: ["inteligentes", "interesante", "simpático"],
+      explanation: "-e adjectives keep one form for both genders.",
       exercisedAtomSurfaces: ["inteligente"],
     }),
+    speaking("es-m4-8-speak-simpatico", "él es muy simpático", "he is very friendly", ["muy", "simpático"]),
     listeningCompSentence({
-      id: "es-m4-8-rev-lc-llaves",
-      audioText: "tengo tres llaves nuevas",
-      correctMeaningEn: "I have three new keys",
-      distractorsEn: ["I have three old keys", "I have two new keys", "I have three new doors"],
-      exercisedAtomSurfaces: ["tres", "llave", "nuevo"],
+      id: "es-m4-8-lc-llaves-nuevas",
+      audioText: "hay tres llaves nuevas",
+      correctMeaningEn: "there are three new keys",
+      distractorsEn: ["there are three old keys", "there are two new keys", "there are three new doors"],
+      exercisedAtomSurfaces: ["llave", "nuevo"],
     }),
-    speaking("es-m4-8-speak-simpatico", "él es muy simpático", "he is very friendly", ["simpático"]),
-    sentenceMcq({
-      id: "es-m4-8-rev-q-amigo",
-      prompt: "Mi amigo es alto, pero mi amiga es ___.",
-      correctText: "alta",
-      distractorsText: ["alto", "bajo", "baja"],
-      exercisedAtomSurfaces: ["alto", "amigo"],
-    }),
+    cloze(
+      "es-m4-8-c-amiga-baja",
+      "mi amiga es ",
+      ".",
+      "baja",
+      ["baja", "bajo", "bajos", "bajas"],
+      "my friend is short",
+      "mi amiga es baja",
+      "amiga is feminine, so bajo becomes baja.",
+      ["bajo", "amiga"],
+    ),
+    matchPairs("es-m4-8-match-final", ["rojo", "azul", "verde", "carro", "perro", "gato"]),
   ],
 };
 
 export const ES_M4_LESSONS: LessonContent[] = [
-  M4_1,
-  M4_2,
-  M4_3,
-  M4_4,
-  M4_5,
-  M4_6,
-  M4_7,
-  M4_8,
+  ES_M4_1,
+  ES_M4_2,
+  ES_M4_3,
+  ES_M4_4,
+  ES_M4_5,
+  ES_M4_6,
+  ES_M4_7,
+  ES_M4_8,
 ];
-
-// ─── Placement (1 screener + 4 stage-2 items, spine §Placement bank) ────────
 
 export const ES_M4_PLACEMENT: {
   screener: PlacementItem[];
   byModule: PlacementItem[];
 } = {
   screener: [
-    {
-      id: "pt-es-screen-m4",
-      moduleId: "m4",
-      build: () =>
-        sentenceMcq({
-          id: "pt-es-screen-m4",
-          prompt: "Ella es ___ (tall).",
-          correctText: "alta",
-          distractorsText: ["alto", "altos", "altas"],
-        }),
-    },
+  {
+    id: "pt-es-screen-m4",
+    moduleId: "m4",
+    build: () =>
+      sentenceMcq({
+        id: "pt-es-screen-m4",
+        prompt: "Ella es ___ (tall).",
+        correctText: "alta",
+        distractorsText: ["alto", "altos", "altas"],
+      }),
+  },
   ],
   byModule: [
-    {
-      id: "pt-es-m4-1",
-      moduleId: "m4",
-      build: () =>
-        sentenceMcq({
-          id: "pt-es-m4-1",
-          prompt: "'The red car' — which is correct?",
-          correctText: "el carro rojo",
-          distractorsText: ["el rojo carro", "el carro roja", "la carro rojo"],
-        }),
-    },
-    {
-      id: "pt-es-m4-2",
-      moduleId: "m4",
-      build: () =>
-        sentenceMcq({
-          id: "pt-es-m4-2",
-          prompt: "La casa es ___ (pretty).",
-          correctText: "bonita",
-          distractorsText: ["bonito", "bonitas", "bonitos"],
-        }),
-    },
-    {
-      id: "pt-es-m4-3",
-      moduleId: "m4",
-      build: () =>
-        cloze(
-          "pt-es-m4-3",
-          "el libro es",
-          "interesante",
-          "muy",
-          ["muy", "pero", "y", "o"],
-          "the book is very interesting",
-          "el libro es muy interesante",
-        ),
-    },
-    {
-      id: "pt-es-m4-4",
-      moduleId: "m4",
-      build: () =>
-        sentenceMcq({
-          id: "pt-es-m4-4",
-          prompt: "Es viejo, ___ es bueno.",
-          correctText: "pero",
-          distractorsText: ["muy", "y", "o"],
-        }),
-    },
+  {
+    id: "pt-es-m4-1",
+    moduleId: "m4",
+    build: () =>
+      sentenceMcq({
+        id: "pt-es-m4-1",
+        prompt: "'The red car' — which is correct?",
+        correctText: "el carro rojo",
+        distractorsText: ["el rojo carro", "el carro roja", "la carro rojo"],
+      }),
+  },
+  {
+    id: "pt-es-m4-2",
+    moduleId: "m4",
+    build: () =>
+      sentenceMcq({
+        id: "pt-es-m4-2",
+        prompt: "La casa es ___ (pretty).",
+        correctText: "bonita",
+        distractorsText: ["bonito", "bonitas", "bonitos"],
+      }),
+  },
+  {
+    id: "pt-es-m4-3",
+    moduleId: "m4",
+    build: () =>
+      sentenceMcq({
+        id: "pt-es-m4-3",
+        prompt: "Which word means 'but'?",
+        correctText: "pero",
+        distractorsText: ["muy", "y", "o"],
+      }),
+  },
+  {
+    id: "pt-es-m4-4",
+    moduleId: "m4",
+    build: () =>
+      sentenceMcq({
+        id: "pt-es-m4-4",
+        prompt: "Which word means 'very'?",
+        correctText: "muy",
+        distractorsText: ["pero", "y", "o"],
+      }),
+  },
   ],
 };
+

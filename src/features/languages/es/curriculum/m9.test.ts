@@ -23,6 +23,8 @@ import {
   checkPassiveCardFollowup,
 } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
+import { registerEsModuleBarGuards } from "../__tests__/moduleBarGuards";
+import { ES_MODULE_ORDER } from "../grammarHelpers";
 
 describe("ES M9 curriculum", () => {
   it("ships 8 lessons, all tagged es / m9 / mock-1", () => {
@@ -103,4 +105,15 @@ describe("ES M9 curriculum", () => {
     expect(ES_M9_ATOMS.some((a) => a.surface === "dónde")).toBe(false);
     expect(ES_M9_ATOMS.some((a) => a.surface === "quién")).toBe(false);
   });
+});
+
+// ── ES authoring bar (Track B, 2026-08-19) ─────────────────────────────────
+// m9 predates the bar (hand-authored July wave); measured debt is pinned
+// below, SHRINK-ONLY — never raise a number to admit new content. The IR
+// re-author retires it (docs/handoff-course-reauthoring-2026-08-19.md §3).
+registerEsModuleBarGuards({
+  moduleLabel: "m9",
+  lessons: ES_M9_LESSONS,
+  priorModules: ES_MODULE_ORDER.slice(0, ES_MODULE_ORDER.indexOf("m9")),
+  debt: { unknownTokens: 101, nonIntroDebuts: 8, fullSentenceMcqs: 5, productionFramedMcqs: 1, particleClozeOutOfModule: 1, translateShare: 0.154 },
 });

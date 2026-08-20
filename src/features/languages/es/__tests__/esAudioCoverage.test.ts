@@ -9,14 +9,15 @@
  * the rendering side cannot drift from the emitter's idea of what needs a
  * clip, because it never consults the emitter.
  *
- * RATCHET: `MAX_UNCOVERED_TEXTS` pins the current debt. The 2026-08-09 wave
- * regenerated every missing clip locally, but CDN upload needs AWS creds
- * (Trevor) and the manifest must not be copied into src/ before the mp3s are
- * live (a manifest hit with no CDN object is a broken play button, worse than
- * the synth fallback). Once the upload lands and
- * `src/shared/tts/manifests/es.json` is refreshed, drop this to **0** and
- * keep it there — from then on the fix for a failure here is the regen chain
- * (see audioCoverage.test.ts header), never an edit to this number.
+ * RATCHET: `MAX_UNCOVERED_TEXTS` is **0** and stays there (since 2026-08-19:
+ * manifest refreshed from the full local corpus, new mp3s staged in
+ * `tts-publish/es/` so the deploy ships clips + manifest together — see
+ * tts-publish/README.md). The fix for a failure here is the regen chain:
+ * re-emit the deck (EMIT_ES_TTS_DECK=1 vitest run .../emitTtsDeck.test.ts,
+ * which walks lessons AS RENDERED, same as this gate), run
+ * `pipeline.tts.generate --provider edge --lang es` + emit_manifest in
+ * lingo-data, refresh `src/shared/tts/manifests/es.json`, and stage the new
+ * mp3s — never an edit to this number.
  */
 import { describe, expect, it } from "vitest";
 import { ES_ALL_LESSONS } from "../curriculum";
@@ -24,7 +25,7 @@ import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import { getTtsUrl } from "@/shared/tts";
 import type { LessonContent } from "@/features/lesson/types";
 
-const MAX_UNCOVERED_TEXTS = 719;
+const MAX_UNCOVERED_TEXTS = 0;
 
 /** Field names whose string values the step views hand to getTtsUrl.
  *  Mirrors the emitter (`emitTtsDeck.test.ts` AUDIO_FIELDS) — `kana` is the

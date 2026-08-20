@@ -179,14 +179,16 @@ const M6_1: LessonContent = {
       audioText: "tengo catorce años",
       exercisedAtomSurfaces: ["catorce"],
     }),
+    // 2026-08-19: dropped "dólares" — the word is m12's (the plural-aware
+    // provenance lint caught the six-module reach-ahead).
     cloze(
       "es-m6-1-cloze-trece2",
       "el carro cuesta",
-      "mil dólares",
+      "mil",
       "trece",
       ["trece", "tres", "treinta", "catorce"],
-      "the car costs thirteen thousand dollars",
-      "el carro cuesta trece mil dólares",
+      "the car costs thirteen thousand",
+      "el carro cuesta trece mil",
     ),
     listeningCompSentence({
       id: "es-m6-1-lc-numero",

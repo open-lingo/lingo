@@ -259,7 +259,12 @@ export function sentenceMcq(opts: {
     explanation: opts.explanation,
     optionsHideRomaji: true,
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomSurfaces),
-    modality: "production",
+    // Tap-one-of-N is RECOGNITION by the SRS engine's own semantics — the
+    // same call vocabTextMcq (also multiple_choice) already makes. This said
+    // "production" until 2026-08-19, so every sentenceMcq success advanced an
+    // atom's production sub-state without one production act. (JA never faces
+    // the question: inv 28 bans full-sentence MCQs from teaching lessons.)
+    modality: "recognition",
   };
 }
 
@@ -680,13 +685,27 @@ export function selfExplain(opts: {
 
 // ─── Compounding review (prior-module atom picker) ───────────────────────
 
-const ES_MODULE_ORDER: EsAtomSource[] = [
+export const ES_MODULE_ORDER: EsAtomSource[] = [
   "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",
   "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16",
+  "m17",
+  "m18",
+  "m19",
 ];
 
 function moduleIndex(m: EsAtomSource): number {
-  return ES_MODULE_ORDER.indexOf(m);
+  const i = ES_MODULE_ORDER.indexOf(m);
+  // An unlisted module used to return -1, which reads as "nothing is earlier
+  // than this" and quietly empties every review draw in the module. m17 hit
+  // exactly that: capstoneMatchPairs("es-m17-1-rev-mp") came back with 0 entries
+  // and surfaced as a capstone-grid arity error three frames away from the
+  // cause. A new module must be added here, and forgetting must say so.
+  if (i === -1) {
+    throw new Error(
+      `es moduleIndex: "${m}" is not in ES_MODULE_ORDER — add it when you add the module`,
+    );
+  }
+  return i;
 }
 
 function hash32(str: string): number {
