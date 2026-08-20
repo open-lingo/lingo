@@ -6,6 +6,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { prefetchLesson } from "@/shared/utils/routePrefetch";
 import { stringsFor, LEARN_HEADER_SUBTITLE } from "./transitStrings";
 import { useLearnViewMode, type LearnViewMode } from "./hooks/useLearnViewMode";
+import { hasCoarsePointer } from "@/shared/platform/nativeScroll";
 import { TransitSignageHeader } from "./components/TransitSignageHeader";
 import TransitLearnPage from "./TransitLearnPage";
 import { LearnPage } from "./LearnPage";
@@ -53,6 +54,14 @@ export function LearnHomeSwitch() {
   const eligible = isTransitLearnHome(flags, lang);
   const course = useMemo(() => getMockCourse(lang ?? "ko"), [lang]);
 
+  // On a phone the List page is the wrong shape — the vertical transit map is
+  // the mobile learn experience. Force it there regardless of a stored "list"
+  // preference (which predates the vertical map), and drop the toggle since
+  // List isn't an option on touch. Desktop keeps the Path⇄List switch.
+  const touch = hasCoarsePointer();
+  const effectiveMode: LearnViewMode = touch ? "map" : mode;
+  const toggle = touch ? undefined : <ViewToggle mode={mode} onChange={setMode} />;
+
   // Warm the lesson chunk while the learner is on the path, so launching a
   // lesson (station / resume FAB) navigates instantly and the start wipe
   // fires without the chunk-load delay.
@@ -61,8 +70,8 @@ export function LearnHomeSwitch() {
   }, []);
 
   if (!eligible) return <LearnPage />;
-  if (mode === "map") {
-    return <TransitLearnPage headerRight={<ViewToggle mode={mode} onChange={setMode} />} />;
+  if (effectiveMode === "map") {
+    return <TransitLearnPage headerRight={toggle} />;
   }
 
   const strings = stringsFor(lang ?? "ko");
@@ -71,7 +80,7 @@ export function LearnHomeSwitch() {
       <TransitSignageHeader
         title={`${strings.mapTitle} — ${course.title}`}
         subtitle={LEARN_HEADER_SUBTITLE}
-        right={<ViewToggle mode={mode} onChange={setMode} />}
+        right={toggle}
       />
       <LearnPage variant="list" />
     </div>
