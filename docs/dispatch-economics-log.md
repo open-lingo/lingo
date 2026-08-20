@@ -20,6 +20,7 @@ Haiku-vs-Sonnet judge comparison for Gate 10 lands here too.
 
 | 2026-07-17 | conjugation_cloze step type (code) | opus | 162k | 15m | all green 1st run; found+fixed an import cycle |
 | 2026-07-17 | m30 stage 1 (pairs 1-4, pinned invariants) | sonnet | 287k | 33m | ALL gates green on 1st review — 0 rejections (m29 pre-protocol needed ~4 QA fix rounds) |
+| 2026-08-20 | es m4 IR re-author (full bar, zero debt) | sonnet | 378k | 30m | all gates green on 1st review; reviewer caught 4 non-gate defects (2 prose errors incl. reproduced July -ente claim, 2 atom-credit gaps) — same class as ja's walk residue |
 
 <!-- m30 stage 2 + Gate 10 judge rows appended as dispatches complete -->
 
@@ -59,4 +60,4 @@ the time save is good when we test").
   through verification (it does); sonnet is the better single-tier judge.
   Recommended steady-state: haiku screen + sonnet on flags only.
 <!-- append: capture done, stage-1 judges done, stage 2 landed, review+commit done, stage-2 capture+judge done, fixes done, WALK-READY -->
-
+| 2026-08-20 | es m5 IR re-author (first verb module, full bar, zero debt) | sonnet | 334k | 24m | all gates green on 1st review; reviewer caught 2 defect classes the gates can't see: a COMPILER tile-casing bug (proper names lowercased — «Ana»→«ana»; fix also restored Diego/México/España tiles in shipped m2) and pattern-memorizable distractor repetition (3 identical niña retrievals). Zero prose errors — better than m4's 4. |

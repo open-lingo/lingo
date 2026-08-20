@@ -286,6 +286,35 @@ Also: `ja/moduleConformance.test.ts:194` — title says "module ≤ m27", code c
   `frEngine.test.ts`. Collector globs now exclude `m*.test.ts` (a module test
   beside its module cycled back through mockLessons).
 
+
+**ES m5 re-authored to zero debt (2026-08-20, Sonnet dispatch #2 — the first
+verb module).** Same pattern as m4: Sonnet authored `ir/m5.ir.yaml` against a
+pinned brief (334k tokens, ~24m, all gates green first review), fable reviewed
+IR + compiled output in full. Verb-module decisions now precedent for m6+:
+frameless IR (frames-es.mjs is regular-paradigm only; tener is irregular);
+tengo/tienes/tiene stay registered atoms (m2 es/eres/soy precedent) while the
+conjugation-aware PRIOR hands the rest of the present paradigm to m6+; the L2
+paradigm card presents the three forms as a set before any tener production
+(bespoke-pinned, the verb analogue of m4's agreement card). Debt retired:
+unknowns 17→0 (all carriers verified m1–m4: perro/gato/carro m4, numbers m1,
+doctor/doctora m2), non-intro debuts 3→0, full-sentence MCQs 3→0,
+distractor echoes 2→0, image reuse 2→0 (9 emoji atoms ↔ 9 first-exposure
+MCQs; L8 has zero), out-of-module de/es clozes 3→0 (particle_cloze now blanks
+only m5's own mi/tu/su/tener forms/años — that discrimination IS the module),
+translate 0.237→0.077. Reviewer caught what the gates can't: (1) a COMPILER
+bug — es-ir/assemble.mjs lower1()'d every tile, so «Ana» shipped as tile
+"ana"; fixed to sentence-initial-only, which also restored Diego/México/
+España tiles in SHIPPED m2 (m2 IR distractor tiles re-cased to match, m4
+recompile byte-identical); (2) three identical niña retrievals (L5/L6/L8,
+same distractor set — pattern-memorizable; varied). Six bespoke pins in
+m5.test.ts (27/27): placement shape, 9↔9 image debuts, paradigm-card
+ordering, mastery person+possessive discrimination clozes, tile purity, and
+a paradigm-boundary pin (no tenemos/tienen/tenéis — comprehensible to the
+lexicon-aware gate but untaught to the learner). TTS delta: 46 clips,
+manifests byte-identical, tts-publish/es 1,161 files. ES tree 476 green.
+**Spencer's walk of m5 is owed BEFORE m6+ replicates the verb pattern (JA
+trap #2).**
+
 ## 7. Not verified
 
 Nothing was rendered in a browser. The mobile Playwright gate and the
