@@ -53,9 +53,14 @@ constrains structure, the prompt must carry meaning.
    `dialogueSpeakerRegistry.test.ts`. Still open, deliberately: ES/FR
    male-voice CLIPS (needs TTS pipeline voices + re-authored dialogue
    content) — a content-wave item, after which es/fr declare the capability.
-3. **dynamicReviewPrefix `!== "ja"`** — investigate what Track A/B state
-   exists per-language before generalizing; may block on ES re-author
-   conventions. Do not guess; read `dynamicReviewPrefix.ts:117` context first.
+3. **dynamicReviewPrefix `!== "ja"`** — INVESTIGATED 2026-08-20, deliberately
+   NOT generalized yet. `scanReviewCandidates` is already
+   language-parameterized and the SRS store is canonical-id keyed (ADR-005),
+   so the data layer is ready. What is NOT: the switchover beat is a kanji
+   concept (skip for es/fr), the sentence miner + recognition-step pickers
+   are JA-shaped, and — decisive — the ES re-author has not yet settled what
+   an ES dedicated review lesson looks like. Generalize WHEN the first
+   re-authored ES review lesson exists, against its real shape, not before.
 4. Haiku→local switchover decision after (1); m17–m19 dialogue voice clips
    after ES re-author reaches them.
 

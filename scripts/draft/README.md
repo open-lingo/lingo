@@ -382,14 +382,25 @@ back-tests against artifacts the paid tier had already judged, all $0:
 | task | qwen3:4b | qwen3.5-122B | notes |
 |---|---|---|---|
 | inventory classification vs audited pools | 58 cat / 25 gift errors | **25 cat / 13 gift** | same harness, 160s for 235 nouns; most residual "errors" are convention calls the pools' own notes admit are judgment (vehicles→other, honorifics) |
-| visual QA screening (16 real captures, 8 corrupted-oracle contracts) | not attempted | **recall 8/8, FP 4/8** | ~6s/step; FPs are tile-count second-guessing + whitespace pedantry, all route to verify anyway; handled 本+ほん furigana correctly (haiku's m30 failure mode) |
+| visual QA screening (16 real captures, 8 corrupted-oracle contracts) | not attempted | **recall 8/8, FP 4/8 → 0/7 after prompt fix** | ~2-5s/step; the FPs were tile-count second-guessing + whitespace pedantry — telling the judge "ignore whitespace, a doubt a re-read resolves is not a violation" removed all of them WITHOUT costing recall (re-measured, same cases); handled 本+ほん furigana correctly (haiku's m30 failure mode) |
 | ES gloss repair (12 drafted glosses, known adverb-drop class) | produced the defects | **11/12 correct repairs, 0 false corrections** | the 12th was prompt-induced literalism whose note correctly blamed the frame |
 
 Division of labour update: **qwen3:4b still drafts** (schema adherence, speed —
 the 08-18 A/B stands). **qwen3.5-122B is the local screening judge and
 inventory classifier**; the frontier tier shrinks to auditing ITS output.
 Do not switch the visual gate off haiku on n=16 — shadow-run the next module
-wave (local judge alongside haiku, compare verdicts) before promoting it.
+wave (local judge alongside haiku, compare verdicts) before promoting it:
+
+```bash
+# per captured lesson of the wave — writes local-verdicts.json into the
+# lesson's artifacts/visual-qa/ dir for comparison with the haiku verdicts
+node scripts/draft/judge-visual.mjs qwen3.5:122b-a10b-q4_K_M --lesson ja-m34-neo-1
+```
+
+Promotion bar: across a full wave, the local judge misses NOTHING haiku
+caught. Back-test mode (`judge-visual.mjs <model> <cases.json>`) re-checks
+recall whenever the judge prompt changes — a prompt edit that softens FPs
+must be re-measured against the mutation cases before it ships.
 
 ### The trap this wave added
 
