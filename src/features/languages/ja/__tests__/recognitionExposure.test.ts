@@ -194,7 +194,11 @@ describe("IR-introduced atoms: production-only exposure (recognition-gap ratchet
     // introduced there) and しゅくだい/ねる/ばんごはん/とお/テスト (the m32/m33
     // leak intros). All are imageable:false phrases/census-blocked words whose
     // authored exposure is builds; recognition steps ride the R16/m34 wave.
-    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 30;
+    // 30 → 32, same day: はん/はいる lost their picture debuts to the
+    // 4-persona image audit (🌗 read as night 2/2/2/2; 🚪 read as exit
+    // 3/3/3/3) — production-only until R16 gives them a non-picture
+    // recognition step.
+    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 32;
     expect(
       offenders.length,
       `introduced atoms whose every graded exposure is production-only:\n` +
