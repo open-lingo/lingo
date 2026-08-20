@@ -91,7 +91,10 @@ try {
     }
   });
   await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
-  await page.waitForTimeout(500);
+  // --wait=<ms>: lesson routes cold-compile a large curriculum chunk in dev,
+  // so networkidle can fire while the shell still shows the loading mascot.
+  const extraWait = Number(process.argv.find((a) => a.startsWith("--wait="))?.slice(7) ?? 500);
+  await page.waitForTimeout(extraWait);
   await page.screenshot({ path: OUT, fullPage: full });
   console.log(path.resolve(OUT));
 } finally {

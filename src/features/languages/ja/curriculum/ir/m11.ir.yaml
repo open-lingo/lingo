@@ -158,7 +158,8 @@ newAtoms:
   - { kana: くじ, romaji: kuji, gloss: "nine o'clock", imageable: false, kind: vocab }
   - { kana: じゅうじ, romaji: juuji, gloss: "ten o'clock", imageable: false, kind: vocab }
   - { kana: なんじ, romaji: nanji, gloss: "what time", imageable: false, kind: vocab }
-  - { kana: はん, romaji: han, gloss: "half past (the hour)", shortGloss: "half past", kind: vocab }
+  # imageable:false restored 2026-08-20 — 4-persona audit: 🌗 graded 2/2/2/2 ("moon phase says night, not clock").
+  - { kana: はん, romaji: han, gloss: "half past (the hour)", shortGloss: "half past", imageable: false, kind: vocab }
   # ── calendar / day parts. Deliberately imageable:false — 📅 already
   #    belongs to きょう, and a clock-half is not a picture a learner can
   #    discriminate from a sunrise (inv 30 only binds IMAGEABLE atoms).

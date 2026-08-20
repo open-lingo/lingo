@@ -170,7 +170,7 @@ export const RESOLVED_ENTRIES: ReviewEntry[] = [
     details:
       "report: docs/fromModule-restamp-report-2026-08-09.md (§6 = landing order) · diff: docs/fromModule-restamp-diff-2026-08-09.txt · script: scripts/restamp-from-module.mjs (dry-run by default)",
     resolved:
-      "Approved 2026-08-20 — Spencer: “confirm whats wrong here, then have someone else audit what we think is wrong, and then fix the module assignment … and prevent this regression from ever happening please.” In flight: verification → restamp → the 40 gate-failing steps → regression guard (B104).",
+      "Approved 2026-08-20 — Spencer: “confirm whats wrong here, then have someone else audit what we think is wrong, and then fix the module assignment … and prevent this regression from ever happening please.” LANDED same day: independent audit (0 evidence failures) → 311 restamps + 7 repoints applied under docs/restamp-rulings.json → 9 leak words taught in-module, 6 picture debuts (4-persona audited), 37 census-blocked → fromModuleDrift.test.ts rewritten as the standing drift guard. Suite green at 10,347 (B104).",
   },
   {
     id: "R2",

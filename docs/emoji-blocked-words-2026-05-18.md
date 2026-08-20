@@ -78,6 +78,19 @@ When adding a new vocab word, run this check:
 
 ## Maintenance
 
+
+## Flagged 2026-08-20 (4-persona audit over the R1-landing debut candidates)
+
+The fromModule restamp made eight words debut-eligible; the audit passed six
+(ごご 🌇 4s, て ✋ 5s, あき 🍂 5s, なつ 🌻 4s, テレビ 📺 5s, つかれる 😩 4/3/4/4)
+and failed two, now `blocked: true` in the registry:
+
+- **はん 🌗 "half past"** — 2/2/2/2. Every persona read the moon phase as
+  night/the moon; nobody read a clock half. No obvious replacement glyph (a
+  clock face is とけい's).
+- **はいる 🚪 "to enter"** — 3/3/3/3. A door names exit/house/room as readily
+  as entering; the m19/m24 equally-well rule applies to the word's OWN glyph.
+
 - Update this doc when an audit flags a new word as image-MCQ-unsafe. Strip an entry when custom art for it ships and the audit grades it ≥4.
 - When the N5 reference doc grows (M-whatever introduces new vocab not in the snapshot), append entries in the same format and re-run the HEAD-check script (`node /tmp/merge_n5.mjs` pattern).
 - The 4-persona audit rubric lives in conversation history (2026-05-18 session); rerun it via 4 parallel Opus subagent dispatches when the custom-art pack ships a meaningful update.

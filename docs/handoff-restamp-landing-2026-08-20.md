@@ -176,3 +176,40 @@ and rule-card teaching. The plan, per word:
   clean of です, but the post-ruling worktree suite is the proof — re-run it.
 - Groups 1–3 and 5–8 defaults were proposed to Spencer in the same exchange
   and not objected to; confirm them in the GO message before applying.
+
+## LANDED (2026-08-20, post-GO session) — this handoff's pending decision is CLOSED
+
+Spencer's GO executed end to end; everything above marked "pending" is done.
+Post-compaction readers: the sections above are HISTORY. Current state:
+
+- 311 fromModule restamps + 7 introducedByLessonId repoints applied
+  (docs/restamp-rulings.json is the ruling ledger; instrument + auditor both
+  accept/verify ruled rows and are idempotent post-apply).
+- The 9 m32/m33 leak words are taught in-module (introduces + newAtoms).
+  8 debut candidates → 4-persona image audit → 6 live picture debuts
+  (ごご て あき なつ テレビ つかれる); はん 🌗 (2s) and はいる 🚪 (3s) failed and
+  are registry-blocked with audit notes. 37 more census-blocked (owners named
+  per-row in courseAtoms notes; m19/m24 + m20/m21 rules).
+- THE GUARD: fromModuleDrift.test.ts = introduces-agreement (≤ rule),
+  used-before-taught pinned by name, R16 inventory ratchet (40). こうえん
+  regression class is dead.
+- moduleCompiler: one-char lesson-introduced words now gate (て's debut
+  precedes its first build). した/きた added to WORD_IMAGE_MCQ_BLOCKLIST.
+  下's kanji quizzes swapped to 手 (m23) / 口 (m29); the three new distractor
+  readings' clips (てい こう ぐち) staged in tts-publish/ja (1,115 files) with
+  the manifest in the same commit.
+- Transitional freezes tied to R16 (all stale-checked, must shrink):
+  37 authored pool steps (grammarReviewPools.test.ts RESTAMP_TRANSITION),
+  58 curated pieces (content.test.ts JA_RESTAMP_DEBT), counter-nin harvested
+  ×3, ratchets atomExposureAudit 29→36 / recognitionExposure 26→30.
+- B102 fixed (matchPairsFloor ja fill now intersects the truthful accessor).
+  B104 closed. B108 filed (vmcq card clipping at 375px — pre-existing,
+  screenshot-verified on shipped ぎゅうにゅう).
+- Full suite green: 10,347 passed / 0 failed (both projects).
+- STILL FOR TREVOR: tts-publish deploy (now 1,115 ja clips) + CloudFront
+  invalidation for the 5 は/wa keys. STILL DO NOT PUSH until lingle-17
+  commits fr/.
+- Observations for later: m31's transfer-diagram row sentences have no TTS
+  clips (pre-existing — check whether the diagram plays audio); かぞく-class
+  words (R16 inventory) can appear as vmcq distractors via reviewPool-asserted
+  priorVocab — harmless but worth the R16 sweep.

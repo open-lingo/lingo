@@ -432,6 +432,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {
@@ -3802,6 +3803,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {

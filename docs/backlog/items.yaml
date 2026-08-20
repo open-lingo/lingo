@@ -2816,7 +2816,7 @@
 
 - id: B102
   title: match_pairs pads its meaning grid from stale registry fromModule — the same defect B088 fixed, in the surface B088 did not touch
-  status: open
+  status: fixed
   severity: major
   effort: S
   confidence: verified
@@ -2912,7 +2912,7 @@
 
 - id: B104
   title: the fromModule re-stamp is measured, staged and unapplied — 351 corrections and 40 rulings sitting in a report
-  status: open
+  status: fixed
   severity: major
   effort: XS
   confidence: verified
@@ -2997,6 +2997,19 @@
     Patch of the applied restamp: session scratchpad restamp-applied.patch;
     regenerate rows with the instrument, audit with the auditor.
 
+
+  note: >
+    LANDED 2026-08-20 (Spencer GO, this session): 311 restamps + 7 repoints
+    applied via docs/restamp-rulings.json (all 38 ambiguous ruled — kana-row
+    anchors win per R2; the 7 sidequest words course-owned at their real
+    teaching sites; した/きた → future). The 9 m32/m33 leak words got real
+    introduces+newAtoms; 8 debut candidates went through the 4-persona image
+    audit (6 debuts live, はん/はいる audit-blocked); 37 census-blocked with
+    owners named in registry notes. fromModuleDrift.test.ts is now the drift
+    GUARD (introduces-agreement + used-before-taught by name + the R16
+    inventory ratchet). Full suite green at 10,347. Transitional freezes tied
+    to R16: 37 authored pool steps (grammarReviewPools.test.ts) and 58 curated
+    pieces (content.test.ts), each stale-checked so they must shrink.
 
 - id: B105
   title: the KO course teaches and grades words that have no atom row, and nothing checks
@@ -3110,3 +3123,24 @@
     what the item is like when the draw goes right — the pattern is a lottery,
     not a convention. Fix belongs in the filler generator's distractor pool
     (match the target's kind/POS before dealing), not in any module's IR.
+
+- id: B108
+  title: word_image_mcq option cards clip long words and their emoji at 375px — visible on shipped content
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: ui
+  tags: [step/word_image_mcq, class/layout, viewport/375x667]
+  found: 2026-08-20
+  source: r1-landing visual QA
+  detail: >
+    At 375×667 a vmcq option card wraps a 3+ character word onto two lines and
+    pushes its emoji past the card's clip edge. Screenshot evidence 2026-08-20:
+    the NEW テレビ debut (ja-m32-neo-1-debut-0) wraps テレ/ビ with 📺 half
+    clipped — and the long-shipped ぎゅうにゅう debut (ja-m5-neo-3, step 7) is
+    worse (word truncated mid-kana, two distractor emoji fully clipped), so
+    this is a general card-height defect, not the R1 landing's. Same family as
+    the stage-tail measurements in CLAUDE.md §Lesson UI: fix by container
+    sizing + min-content rows, and verify with getBoundingClientRect
+    measurements, not eyeballs.

@@ -334,7 +334,8 @@ newAtoms:
   #    has no atom row and fragments to はい + った.
   - { kana: つもり, romaji: tsumori, gloss: "intention, plan — what you mean to do", shortGloss: "intend to", imageable: false, kind: vocab }
   - { kana: ホテル, romaji: hoteru, gloss: "a hotel", shortGloss: "hotel", kind: vocab }
-  - { kana: はいる, romaji: hairu, gloss: "to enter, to go in", shortGloss: "enter", kind: verb }
+  # imageable:false restored 2026-08-20 — 4-persona audit: 🚪 graded 3/3/3/3 ("door reads exit/house as much as enter").
+  - { kana: はいる, romaji: hairu, gloss: "to enter, to go in", shortGloss: "enter", imageable: false, kind: verb }
   # ══ L5. The airport, and arriving at it. つく 🛬 is unique in the registry
   #    and is kept out of every card, so it debuts on a picture. くうこう is
   #    `imageable: false` — ✈️ again, shared with りょこう and ひこうき.
