@@ -2976,6 +2976,27 @@
     not real gaps — triage before believing any row. Regenerate:
     node scripts/restamp-from-module.mjs (dry-run).
 
+    2026-08-20, later — the "someone else audits" step is DONE, by machine:
+    scripts/audit-restamp-rows.mjs re-walks the live course with independent
+    traversal and verified all 155 restamp + 136 never-taught rows — 0
+    evidence failures (two early "failures" were auditor bugs: compiled IR
+    ids lack the ja- prefix; compound kana rows split on 、). Reverse check:
+    1 authored used-before-taught site (ぎゅうにゅう in ja-m4-neo-review's
+    match step, one module early), 14 derived pad sites (self-heal on apply).
+    Then the restamp was APPLIED in an isolated worktree and the full suite
+    run: 22 failures, fully enumerated = (a) ~12 imageable words restamped
+    INTO m11-m27 now fail inv 30 (debut on grammar_rule/build, need vmcq
+    debut beats — あるく いちばん いっしょ おにいさん くうこう ごぜん しごと
+    ちち て ふゆ へや…); (b) comprehensibility gates (grammarReviewPools,
+    curated stories/conversations, sceneVocabGate) expose steps leaning on
+    now-honest later labels; (c) mechanical pin updates (fromModuleDrift
+    truth table, applyKanjiSurfaces anchors, DictionaryModal initialWord).
+    Placement shrink is spread thin (worst: m19 −14, m17 −12, m21 −13 of the
+    136); no test-out collapses. Deck dormancy ≈ nil for existing learners —
+    unlocks derive from play history + placement credits, not raw labels.
+    Patch of the applied restamp: session scratchpad restamp-applied.patch;
+    regenerate rows with the instrument, audit with the auditor.
+
 
 - id: B105
   title: the KO course teaches and grades words that have no atom row, and nothing checks

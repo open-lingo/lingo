@@ -849,6 +849,12 @@ function report(result) {
       r.note ?? "",
     ].join("\t");
 
+  // Machine-readable twin of the diff — the independent audit script
+  // consumes this instead of parsing the human table.
+  fs.writeFileSync(
+    path.join(ROOT, "docs", "restamp-rows.json"),
+    JSON.stringify(rows, null, 1),
+  );
   console.log(`\nFULL DIFF (class · word · atom · old→new · evidence · note):`);
   const orderCls = { restamp: 0, "never-taught": 1, "exercised-never-introduced": 2, "kana-row": 3, ambiguous: 4, match: 5 };
   const sorted = rows
