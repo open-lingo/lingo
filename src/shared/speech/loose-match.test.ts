@@ -12,13 +12,16 @@
  */
 import { describe, it, expect } from "vitest";
 import {
+  gradeTypedAnswer,
   isUtteranceCorrect,
   normalizeForCompare,
   normalizeJa,
   normalizeTarget,
+  normalizeTypedAnswer,
   numbersToKana,
   scoreAlternatives,
   scoreAlternativesGeneric,
+  type AccentPolicy,
 } from "./loose-match";
 
 describe("normalizeJa", () => {
@@ -371,5 +374,103 @@ describe("scoreAlternativesGeneric — Korean number ITN (Whisper transcribes sp
   it("is a no-op for non-Korean targets (Spanish digit unchanged)", () => {
     const r = scoreAlternativesGeneric("3", [{ transcript: "3" }]);
     expect(r.verdict).toBe("perfect");
+  });
+});
+
+describe("normalizeTypedAnswer — apostrophe folding (2026-08-18)", () => {
+  // iOS and macOS smart punctuation turn a typed ' into U+2019. Authored
+  // answers use ASCII '. Before this fold, NFKC left them different and the
+  // learner was marked wrong for a keyboard setting.
+  const SMART = "\u2019";
+
+  it("grades a smart apostrophe the same as a straight one", () => {
+    expect(normalizeTypedAnswer(`I don${SMART}t know`)).toBe(
+      normalizeTypedAnswer("I don't know"),
+    );
+  });
+
+  it("folds the other look-alikes learners' keyboards produce", () => {
+    // U+00B4 is excluded on purpose — NFKC makes it a combining accent.
+    for (const ch of ["\u2018", "\u02bc", "\u2032", "\uff07", "\u0060"]) {
+      expect(normalizeTypedAnswer(`it${ch}s`)).toBe(normalizeTypedAnswer("it's"));
+    }
+  });
+
+  it("covers French elision, which is the reason this matters at scale", () => {
+    expect(normalizeTypedAnswer(`j${SMART}ai faim`)).toBe(normalizeTypedAnswer("j'ai faim"));
+    expect(normalizeTypedAnswer(`l${SMART}ami`)).toBe(normalizeTypedAnswer("l'ami"));
+    expect(normalizeTypedAnswer(`c${SMART}est`)).toBe(normalizeTypedAnswer("c'est"));
+  });
+
+  it("does not make genuinely different answers equal", () => {
+    expect(normalizeTypedAnswer("its")).not.toBe(normalizeTypedAnswer("it's"));
+    expect(normalizeTypedAnswer("cat")).not.toBe(normalizeTypedAnswer("dog"));
+  });
+
+  it("leaves Japanese and Spanish answers untouched", () => {
+    expect(normalizeTypedAnswer("わたしは がくせいです")).toBe("わたしはがくせいです");
+    expect(normalizeTypedAnswer("Yo hablo español")).toBe("yohabloespañol");
+  });
+});
+
+describe("gradeTypedAnswer — accentPolicy (F5, 2026-08-20)", () => {
+  // The five French pairs where the accent IS the word (fr pin F5). The
+  // policy carries FOLDED keys: a fold-match may not cross these forms.
+  const FR_POLICY: AccentPolicy = {
+    protectedFoldedForms: new Set(["a", "ou", "sur", "du", "la"]),
+  };
+
+  it("keeps the lenient default when no policy is given (es behavior)", () => {
+    const g = gradeTypedAnswer(["años"], "anos");
+    expect(g.correct).toBe(true);
+    expect(g.accentFlagged).toBe(true);
+    expect(g.accentDisplay).toBe("años");
+  });
+
+  it("fails a protected minimal pair: ou is not où", () => {
+    expect(gradeTypedAnswer(["où"], "ou", FR_POLICY).correct).toBe(false);
+  });
+
+  it("fails the protected pair inside a sentence", () => {
+    expect(
+      gradeTypedAnswer(["C'est sûr"], "c'est sur", FR_POLICY).correct,
+    ).toBe(false);
+  });
+
+  it("fails in the accent-ADDED direction too: là is not la", () => {
+    expect(
+      gradeTypedAnswer(["la pomme"], "là pomme", FR_POLICY).correct,
+    ).toBe(false);
+  });
+
+  it("stays lenient on ordinary accents under the same policy", () => {
+    const g = gradeTypedAnswer(["très bien"], "tres bien", FR_POLICY);
+    expect(g.correct).toBe(true);
+    expect(g.accentFlagged).toBe(true);
+  });
+
+  it("mixes: ordinary accent folded while the protected token is typed exactly", () => {
+    const g = gradeTypedAnswer(["il est déjà là"], "il est deja là", FR_POLICY);
+    expect(g.correct).toBe(true);
+    expect(g.accentFlagged).toBe(true);
+  });
+
+  it("exact match on a protected form is simply correct", () => {
+    const g = gradeTypedAnswer(["où"], "où", FR_POLICY);
+    expect(g.correct).toBe(true);
+    expect(g.accentFlagged).toBe(false);
+  });
+
+  it("protects across elision boundaries: l'a vs l'à", () => {
+    expect(gradeTypedAnswer(["il l'a vu"], "il l'à vu", FR_POLICY).correct).toBe(
+      false,
+    );
+  });
+
+  it("rejects conservatively when spacing hides the token alignment", () => {
+    // "oùest" vs "ou est" — folded strings match after space-stripping, but
+    // the accepted answer carries a protected accented form the input never
+    // typed. Reject rather than guess.
+    expect(gradeTypedAnswer(["où est"], "ouest", FR_POLICY).correct).toBe(false);
   });
 });

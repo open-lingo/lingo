@@ -10,6 +10,7 @@ import { ExplainButton } from "../ExplainButton";
 import { AccentBar } from "../AccentBar";
 import { normalizeTypedAnswer } from "@/shared/speech";
 import { gradeTypedAnswer } from "@/shared/speech/loose-match";
+import { accentPolicyFor } from "@/shared/language/registry";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
 import {
@@ -132,8 +133,10 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
     // strips trailing sentence punctuation (toKana turns a natural final
     // "." into 。, and answers authored without 。 must still match), and
     // accent-folds as a fallback: a de-accented rendering of a real
-    // answer grades correct but surfaces the accented form as a nudge.
-    const grade = gradeTypedAnswer(accepted, composed);
+    // answer grades correct but surfaces the accented form as a nudge —
+    // except across the language's protected minimal pairs (fr F5:
+    // ou/où, a/à …), where the fold is refused and the answer is wrong.
+    const grade = gradeTypedAnswer(accepted, composed, accentPolicyFor(language?.id));
     setIsCorrect(grade.correct);
     const registerPair =
       intoJapanese && grade.correct && !registerGraded

@@ -50,6 +50,16 @@ export function isLanguageRegistered(id: string): boolean {
   return id in MODULES;
 }
 
+/** Typed-answer accent policy for a language (fr pin F5), or undefined when
+ *  the language doesn't declare one / isn't registered / is null pre-pick.
+ *  Total on purpose: this sits on TranslateStepView's grading path, which
+ *  must never throw. */
+export function accentPolicyFor(
+  id: string | undefined,
+): LanguageModule["accentPolicy"] {
+  return id ? MODULES[id as LanguageId]?.accentPolicy : undefined;
+}
+
 export function getCourseAtoms(id: LanguageId): readonly Atom[] {
   const m = tryGetLanguageModule(id);
   return m?.courseAtoms ?? [];

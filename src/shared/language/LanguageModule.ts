@@ -11,6 +11,7 @@
  * languages (ES/FR/EN) omit it.
  */
 
+import type { AccentPolicy } from "@/shared/speech/loose-match";
 import type {
   Atom,
   AtomId,
@@ -71,6 +72,11 @@ export interface LanguageModule {
   vocabGraduation?: VocabGraduationCapability;
   /** External-study import (Anki → atom) match-key provider. */
   importMatch?: ImportMatchCapability;
+  /** Typed-answer accent grading (fr pin F5): folded keys of word forms
+   *  whose diacritic IS the word (a/à, ou/où …). `gradeTypedAnswer`
+   *  refuses to accent-fold across these; omitting the capability keeps
+   *  the fully-lenient fold (right for es, moot for kana). */
+  accentPolicy?: AccentPolicy;
 }
 
 export type { Atom, AtomId, LanguageId };

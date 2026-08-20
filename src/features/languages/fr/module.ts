@@ -133,6 +133,15 @@ export const frModule: LanguageModule = {
   // classifiers: omitted — French has no counter system
   particles: frParticles,
   // symbolMastery / reading / speaking: omitted — later waves
+
+  // F5: the five pairs where the accent IS the word. gradeTypedAnswer
+  // refuses to accent-fold across these (ou is not où); every other accent
+  // stays lenient-with-nudge. Folded keys, per the AccentPolicy contract.
+  // Landing this capability is what lifts F5's ban on authoring typed
+  // steps whose answer is one of these pairs.
+  accentPolicy: {
+    protectedFoldedForms: new Set(["a", "ou", "sur", "du", "la"]),
+  },
 };
 
 export type { FrAtom };

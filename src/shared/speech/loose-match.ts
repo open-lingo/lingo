@@ -384,8 +384,37 @@ export function normalizeJa(s: string): string {
  */
 export function normalizeTypedAnswer(s: string): string {
   if (!s) return "";
-  return s.normalize("NFKC").replace(/\s+/g, "").toLowerCase();
+  return s
+    .normalize("NFKC")
+    .replace(APOSTROPHE_VARIANTS_RE, "'")
+    .replace(/\s+/g, "")
+    .toLowerCase();
 }
+
+/**
+ * Apostrophe look-alikes, folded to the ASCII `'` that authored answers use.
+ *
+ * NFKC does NOT do this — U+2019 survives normalization unchanged — and iOS
+ * and macOS turn a typed `'` into U+2019 by default (smart punctuation). So a
+ * learner answering "I don’t know" against the authored "I don't know" was
+ * graded WRONG for a keyboard setting. Measured 2026-08-18: 17,531 English
+ * contractions across the ja/es/ko curricula, and zero smart apostrophes in
+ * authored content — every one of them was exposed.
+ *
+ * This fold can only turn a fail into a pass: it adds an equivalence between
+ * characters, never removes one. Nothing that graded correct before can stop
+ * grading correct now.
+ *
+ * It also unblocks French, where elision (j'ai, l'ami, c'est, qu'il) puts an
+ * apostrophe in a large share of all typed answers rather than an occasional
+ * English contraction.
+ *
+ * U+00B4 (acute accent) is deliberately NOT folded. NFKC rewrites it to the
+ * combining acute U+0301, which attaches to the preceding letter — so a fold
+ * applied after NFKC could never match it, and in Spanish and French an acute
+ * is a letter's accent rather than a punctuation mark.
+ */
+const APOSTROPHE_VARIANTS_RE = /[\u2018\u2019\u02bc\u02b9\u055a\u2032\uff07\u0060]/g;
 
 /**
  * Diacritics that `accentFold` strips: everything Unicode calls a
@@ -463,9 +492,68 @@ export type TypedAnswerGrade = {
  * (even to an authored hiragana variant) needs no correction, so unlike
  * the accent flag it stays silent there. First authored script wins.
  */
+/**
+ * Per-language typed-answer accent policy (fr pin F5, 2026-08-20).
+ *
+ * `protectedFoldedForms` holds the FOLDED keys of word forms whose diacritic
+ * IS the word — French a/à, ou/où, sur/sûr, du/dû, la/là. The accent-fold
+ * leniency may not cross one of these: «ou» typed for «où» is a different
+ * word, not a missing accent. Ordinary accents (très → tres) stay lenient
+ * under the same policy, which is why this is a form list and not a switch —
+ * the judgment lives in the inventory, per the house rule.
+ */
+export type AccentPolicy = {
+  protectedFoldedForms: ReadonlySet<string>;
+};
+
+/** Word tokens for the protected-form check: apostrophes are elision
+ *  boundaries (l'à → ["l","à"]), punctuation is stripped per token. Runs on
+ *  RAW strings — `normalizeTypedAnswer` deletes whitespace, which would
+ *  destroy the alignment this check depends on. */
+function accentPolicyTokens(s: string): string[] {
+  return s
+    .normalize("NFKC")
+    .toLowerCase()
+    .split(/[\s']+/u)
+    .map((t) => t.replace(TYPED_TRAILING_PUNCT_RE, ""))
+    .filter(Boolean);
+}
+
+/**
+ * Does accepting `input` for `accepted` via the accent fold cross a protected
+ * form? Token counts equal → pairwise: a differing pair that folds equal on a
+ * protected key is a cross (both directions — typing «là» for «la» is as
+ * wrong as «ou» for «où»). Counts differ (spacing hid the alignment) →
+ * conservative: any accented protected form present on one side but absent
+ * verbatim from the other is treated as a cross.
+ */
+function accentFoldCrossesProtected(
+  accepted: string,
+  input: string,
+  protectedForms: ReadonlySet<string>,
+): boolean {
+  const aTok = accentPolicyTokens(accepted);
+  const inTok = accentPolicyTokens(input);
+  if (aTok.length === inTok.length) {
+    return aTok.some((t, i) => {
+      const u = inTok[i];
+      return t !== u && accentFold(t) === accentFold(u) && protectedForms.has(accentFold(t));
+    });
+  }
+  const accentedProtected = (toks: string[]) =>
+    toks.filter((t) => t !== accentFold(t) && protectedForms.has(accentFold(t)));
+  const aSet = new Set(aTok);
+  const inSet = new Set(inTok);
+  return (
+    accentedProtected(aTok).some((t) => !inSet.has(t)) ||
+    accentedProtected(inTok).some((t) => !aSet.has(t))
+  );
+}
+
 export function gradeTypedAnswer(
   acceptedAnswers: readonly string[],
   input: string,
+  policy?: AccentPolicy,
 ): TypedAnswerGrade {
   const inputNorm = normalizeTypedAnswer(input).replace(
     TYPED_TRAILING_PUNCT_RE,
@@ -489,8 +577,16 @@ export function gradeTypedAnswer(
     }
 
     // Accent-fold leniency (Latin diacritics; kana voicing preserved).
+    // Under an AccentPolicy the fold may not cross a protected form —
+    // «ou» for «où» is a wrong word, not a missing accent (F5).
     const aFold = accentFold(aNorm);
-    if (aFold === inputFold) {
+    if (
+      aFold === inputFold &&
+      !(
+        policy &&
+        accentFoldCrossesProtected(a, input, policy.protectedFoldedForms)
+      )
+    ) {
       accentMatch = true;
       if (aFold !== aNorm) {
         // `a` carries diacritics the input dropped — a nudge candidate.
