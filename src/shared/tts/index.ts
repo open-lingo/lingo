@@ -120,6 +120,11 @@ const BCP47: Record<string, string> = {
   // fallback voice mid-lesson reads as a different speaker AND a different
   // accent than the clips around it.
   es: "es-MX",
+  // fr-FR, not bare "fr": a bare tag lets the platform pick any French voice,
+  // and fr-CA differs from fr-FR in exactly the vowels a beginner is learning
+  // to hear. No fr corpus is recorded yet, so today this only steers the
+  // synthesis fallback — which is precisely when the voice choice is unpinned.
+  fr: "fr-FR",
   en: "en-US",
 };
 
