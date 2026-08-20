@@ -1,0 +1,417 @@
+[
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-1/step-001-ja-m33-neo-1-s-0.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-1",
+   "moduleIndex": 33,
+   "stepIndex": 1,
+   "stepId": "ja-m33-neo-1-s-0",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: The door opens",
+    "ドア",
+    "が",
+    "あく",
+    "に",
+    "を",
+    "くる"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 6 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m33-neo-1 #1 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-1/step-002-ja-m33-neo-1-cloze-1.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-1",
+   "moduleIndex": 33,
+   "stepIndex": 2,
+   "stepId": "ja-m33-neo-1-cloze-1",
+   "stepType": "particle_cloze",
+   "mustShow": [
+    " がアド",
+    "。",
+    "あく",
+    "あける",
+    "しめる"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "Sentence with an inline blank between the before/after fragments; particle buttons below."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m33-neo-1 #2 particle_cloze MUTATED ドアが -> がアド"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-1/step-003-ja-m33-neo-1-s-2.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-1",
+   "moduleIndex": 33,
+   "stepIndex": 3,
+   "stepId": "ja-m33-neo-1-s-2",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: I open the door",
+    "ドア",
+    "を",
+    "あける",
+    "に",
+    "が",
+    "で"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 6 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m33-neo-1 #3 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-1/step-004-ja-m33-neo-1-lc-6.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-1",
+   "moduleIndex": 33,
+   "stepIndex": 4,
+   "stepId": "ja-m33-neo-1-lc-6",
+   "stepType": "listening_comprehension",
+   "mustShow": [
+    "I open the window",
+    "The door is open",
+    "Please open the door",
+    "The door opens",
+    "What does this sentence mean?"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "Play control for the audio; transcript may be hidden pre-answer."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m33-neo-1 #4 listening_comprehension MUTATED I open the door->I open the window"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-2/step-001-ja-m33-neo-2-s-0.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-2",
+   "moduleIndex": 33,
+   "stepIndex": 1,
+   "stepId": "ja-m33-neo-2-s-0",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: The door closes",
+    "ドア",
+    "が",
+    "しまる",
+    "に",
+    "を",
+    "きく"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 6 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m33-neo-2 #1 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-2/step-002-ja-m33-neo-2-cloze-1.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-2",
+   "moduleIndex": 33,
+   "stepIndex": 2,
+   "stepId": "ja-m33-neo-2-cloze-1",
+   "stepType": "particle_cloze",
+   "mustShow": [
+    " がどま",
+    "。",
+    "しめる",
+    "あく",
+    "しまる"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "Sentence with an inline blank between the before/after fragments; particle buttons below."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m33-neo-2 #2 particle_cloze MUTATED まどが -> がどま"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-2/step-003-ja-m33-neo-2-s-2.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-2",
+   "moduleIndex": 33,
+   "stepIndex": 3,
+   "stepId": "ja-m33-neo-2-s-2",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: I close the window",
+    "まど",
+    "を",
+    "しめる",
+    "が",
+    "じてんしゃ",
+    "に"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 6 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m33-neo-2 #3 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m33-neo-2/step-004-ja-m33-neo-2-lc-3.png",
+  "contract": {
+   "lessonId": "ja-m33-neo-2",
+   "moduleIndex": 33,
+   "stepIndex": 4,
+   "stepId": "ja-m33-neo-2-lc-3",
+   "stepType": "listening_comprehension",
+   "mustShow": [
+    "I close the window",
+    "The door opens",
+    "The door closes",
+    "The door is closed",
+    "What does this sentence mean?"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "Play control for the audio; transcript may be hidden pre-answer."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m33-neo-2 #4 listening_comprehension MUTATED I close the door->I close the window"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-1/step-001-ja-m32-neo-1-s-0.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-1",
+   "moduleIndex": 32,
+   "stepIndex": 1,
+   "stepId": "ja-m32-neo-1-s-0",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: If it rains, I'll stay home",
+    "あめ",
+    "が",
+    "ふったら",
+    "いえ",
+    "に",
+    "いる",
+    "かわ",
+    "みる",
+    "えき"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 9 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m32-neo-1 #1 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-1/step-002-ja-m32-neo-1-s-2.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-1",
+   "moduleIndex": 32,
+   "stepIndex": 2,
+   "stepId": "ja-m32-neo-1-s-2",
+   "stepType": "listening_build",
+   "mustShow": [
+    "Build what you hear.",
+    "ごはん",
+    "を",
+    "らたべた",
+    "ねる",
+    "みず",
+    "に",
+    "で"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 7 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m32-neo-1 #2 listening_build MUTATED たべたら->らたべた"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-1/step-003-ja-m32-neo-1-s-1.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-1",
+   "moduleIndex": 32,
+   "stepIndex": 3,
+   "stepId": "ja-m32-neo-1-s-1",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: When I get to the station, I'll call",
+    "えき",
+    "に",
+    "ついたら",
+    "でんわ",
+    "を",
+    "かける",
+    "けいたい",
+    "じてんしゃ",
+    "じしょ"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 9 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m32-neo-1 #3 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-1/step-004-ja-m32-neo-1-cloze-5.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-1",
+   "moduleIndex": 32,
+   "stepIndex": 4,
+   "stepId": "ja-m32-neo-1-cloze-5",
+   "stepType": "particle_cloze",
+   "mustShow": [
+    "あめが ",
+    "。るい にえい、",
+    "ふる",
+    "ふったら",
+    "ついたら"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "Sentence with an inline blank between the before/after fragments; particle buttons below."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m32-neo-1 #4 particle_cloze MUTATED 、いえに いる。->。るい にえい、"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-3/step-001-ja-m32-neo-3-s-0.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-3",
+   "moduleIndex": 32,
+   "stepIndex": 1,
+   "stepId": "ja-m32-neo-3-s-0",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: When you get to the station, please call",
+    "えき",
+    "に",
+    "ついたら",
+    "でんわ",
+    "を",
+    "して",
+    "ください",
+    "で",
+    "うみ",
+    "くるま"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 10 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m32-neo-3 #1 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-3/step-003-ja-m32-neo-3-s-1.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-3",
+   "moduleIndex": 32,
+   "stepIndex": 3,
+   "stepId": "ja-m32-neo-3-s-1",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: When work finishes, let's go and eat",
+    "しごと",
+    "が",
+    "らたっわお",
+    "ごはん",
+    "を",
+    "たべ",
+    "に",
+    "いき",
+    "ましょう",
+    "もも",
+    "で",
+    "みず"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 12 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m32-neo-3 #3 build_sentence MUTATED おわったら->らたっわお"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-3/step-005-ja-m32-neo-3-s-2.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-3",
+   "moduleIndex": 32,
+   "stepIndex": 5,
+   "stepId": "ja-m32-neo-3-s-2",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: When the holidays come, I want to go to the sea",
+    "やすみ",
+    "に",
+    "なったら",
+    "うみ",
+    "に",
+    "いきたい",
+    "を",
+    "かわ",
+    "いけ"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 9 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": false,
+  "note": "ja-m32-neo-3 #5 build_sentence CLEAN"
+ },
+ {
+  "png": "artifacts/visual-qa/ja-m32-neo-3/step-007-ja-m32-neo-3-s-3.png",
+  "contract": {
+   "lessonId": "ja-m32-neo-3",
+   "moduleIndex": 32,
+   "stepIndex": 7,
+   "stepId": "ja-m32-neo-3-s-3",
+   "stepType": "build_sentence",
+   "mustShow": [
+    "Build: When you've read that book, please lend it to me",
+    "その",
+    "ほん",
+    "を",
+    "らだんよ",
+    "わたし",
+    "に",
+    "かして",
+    "ください",
+    "けいたい",
+    "かさ",
+    "かばん"
+   ],
+   "mustNotShow": [],
+   "expectations": [
+    "A tile bank with 11 tiles and an empty answer tray (pre-interaction)."
+   ]
+  },
+  "mutated": true,
+  "note": "ja-m32-neo-3 #7 build_sentence MUTATED よんだら->らだんよ"
+ }
+]
