@@ -78,6 +78,15 @@ FULL-suite CI parity → exposure audit). Then wire (mockLessons/mockCourse/
 barrel/module test/render-gate), regenerate TTS, and run the visual
 capture + ONE continuity judge (give the judge the context pack too).
 
+**Log what the full read of compiled output caught** (2026-08-20): every
+"read the compiled m<N>.ts IN FULL" pass gets a row in
+`dispatch-economics-log.md` — defects found that no gate flagged, or
+explicitly "0". The rule stays as long as it keeps catching; if three
+consecutive modules log 0, that is the evidence for relaxing it to sampled
+reads, and a defect class it keeps catching is the next gate to build.
+Same loop as the bulk audit: measure the human step instead of arguing
+about it.
+
 ## Bulk conformance audit (Spencer 2026-07-26 — the backstop)
 
 Per-lesson re-reading raises compliance; it does not guarantee it. So the
