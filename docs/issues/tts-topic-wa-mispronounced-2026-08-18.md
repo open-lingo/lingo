@@ -175,3 +175,51 @@ copy of B despite matching byte counts).
 If A, C and D are correct, the regeneration set is the 14 ははは sentences plus
 whatever else is genuinely ambiguous — not 2,563. If A is wrong, the whole
 corpus is in scope and the decision gets much more expensive.
+
+## 2026-08-20 — ROOT CAUSE FOUND: the deck's 。-stripping, not the voice
+
+Spencer's listen came back strange: A, B, C, D all correct — including B,
+the reported failure. The explanation is that the probe clips were generated
+from the IR text VERBATIM, 。 included, while the deck strips trailing 。
+before hashing and synthesis (`emit-tts-deck.mjs`, the "don't generate
+separate audio for X and X。" dedup).
+
+Whisper-verified (faster-whisper small, ja):
+
+| input | runs | transcript |
+|---|---|---|
+| ははは せんせいに はなを あげる (no 。 — as shipped) | shipped + 3 fresh | ははは先生に花をあげる — WRONG, deterministic |
+| ははは せんせいに はなを あげる。 (with 。) | 3 fresh | 母は先生に花をあげる — correct, deterministic |
+| ちちは からだが おおきいけど ははは ちいさい (no 。) | 1 | 父は…母は… — correct: MID-sentence ははは parses fine |
+
+So the failure needs BOTH: sentence-initial ははは AND the stripped 。.
+Byte-level output is nondeterministic run to run (5 generations, 5 md5s,
+same length), so byte diffs prove nothing — whisper or ears only.
+
+Spencer also ruled on the candidate fixes: **E (kanji-fed) is correct and
+sounds BETTER than the original — "probably a better generation, which will
+also help with pitch accent teaching… might be a full tts pipeline regen
+candidate." F (forced わ) "made it weird" — rejected.** That kills option #3
+permanently: no わ ever, in IR or in speech text.
+
+Supporting research: Azure's neural TTS front-end (Unified Neural Text
+Analyzer) does word segmentation + polyphone/accent prediction from natural
+orthography — spaced kana-only, punctuation-stripped text is exactly the
+input it is worst at. Kanji-mixed input feeds the analyzer what it was
+trained on.
+
+Repair plan (pending Spencer's one remaining listen — probe clip A2, the
+SHIPPED わたしは bytes, decides the scope):
+1. `Job.text` keeps owning the hash (no manifest churn, dedup intact);
+   new `Job.speech` carries what the synthesizer is fed.
+2. Near fix: the 14 sentence-initial ははは sentences get hand-written
+   kanji speech text (14 sentences, no auto-converter, no homophone risk),
+   regenerate, ship via tts-publish. NOTE for Trevor: these overwrite
+   EXISTING keys — CloudFront needs an invalidation for those paths, the
+   one case the "only new clips" rule doesn't cover.
+3. The full kanji-fed regen (Spencer's instinct) is a separate decided
+   project: ~12.3k clips, ~4–5h local generation, ~600MB re-upload,
+   full-corpus CDN invalidation or a v1→v2 path bump, and it needs a kanji
+   rendering per sentence — the catalog only covers 113 learner-facing
+   chars, and auto-conversion has homophone risk (こうえん→公園/講演), so
+   the renderings need a generation+review pass of their own.

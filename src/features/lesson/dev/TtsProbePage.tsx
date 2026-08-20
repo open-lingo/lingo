@@ -32,6 +32,18 @@ const CLIPS: { id: string; text: string; answers: string }[] = [
     answers: "Ordinary へ — should say «gakkou e ikimasu».",
   },
   {
+    id: "a2-shipped",
+    text: "わたしは がくせいです",
+    answers:
+      "THE NEW QUESTION (2026-08-20). This is the exact production clip learners hear today — the pipeline strips the 。 before synthesis, and that stripping is what broke clip B's shipped version (whisper-verified: with 。 correct 3/3, without 。 ha-ha-ha 4/4). If THIS one still says «watashi wa», the damage is confined to sentence-initial ははは-type cases and the repair set stays small.",
+  },
+  {
+    id: "b2-shipped",
+    text: "ははは せんせいに はなを あげる",
+    answers:
+      "The shipped production clip of B — the one you originally reported. Kept here for contrast with B above (same text, 。 restored).",
+  },
+  {
     id: "e",
     text: "母は 先生に 花を あげる。",
     answers: "Candidate fix E: feed the synthesizer the KANJI spelling.",
