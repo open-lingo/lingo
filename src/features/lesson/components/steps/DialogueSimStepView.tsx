@@ -48,6 +48,7 @@ import { ExplainButton } from "../ExplainButton";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl } from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { Icon } from "@/shared/components/Icon";
@@ -100,6 +101,9 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
   const reducedMotion = useReducedMotion();
+  // Per-language voice routing (dialogueVoices capability) — same seam as
+  // DialogueListenStepView.
+  const languageId = useLanguage().language?.id;
   const moduleIndex = useLessonModuleIndex();
 
   const turns = step.turns;
@@ -134,10 +138,10 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
       turns.map((tn) =>
         npcLineHasAudio(
           tn.npc.audioText ?? tn.npc.kana,
-          langForSpeaker(tn.npc.speaker),
+          langForSpeaker(tn.npc.speaker, languageId),
         ),
       ),
-    [turns],
+    [turns, languageId],
   );
 
   const playNpcLine = useCallback(
@@ -148,7 +152,7 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
       setActiveLine(idx);
       void playLineAudio(
         tn.npc.audioText ?? tn.npc.kana,
-        langForSpeaker(tn.npc.speaker),
+        langForSpeaker(tn.npc.speaker, languageId),
         () => playTokenRef.current === token,
       ).then(() => {
         if (playTokenRef.current !== token) return;

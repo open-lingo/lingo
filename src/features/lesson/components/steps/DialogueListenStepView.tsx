@@ -11,7 +11,9 @@ import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
-import dialogueSpeakers from "@/features/languages/ja/dialogueSpeakers.json";
+import { tryGetLanguageModule } from "@/shared/language/registry";
+import type { LanguageId } from "@/shared/language/types";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 
 const TURN_GAP_MS = 550;
 const SENTENCE_GAP_MS = 175;
@@ -35,19 +37,22 @@ export function splitJaSentences(text: string): string[] {
  * Real two-voice dialogues (Spencer 2026-07-19: "just generate the two
  * different voices per speaker and do not pitch anything"). Speaker
  * labels may be romanized (Tom/Mika) or kana (トム/たけし) — both ship, and
- * both must route to the right voice, so the roster lives in
- * dialogueSpeakers.json rather than being hand-copied here and in the
- * emitter. Male-named
- * speakers' lines have dedicated ja-JP-KeitaNeural clips under
- * `ja-keita:` manifest keys (emit-tts-deck.mjs + gen_keita_dialogue.py);
- * everyone else plays the default Nanami corpus. NO detune, NO
+ * both must route to the right voice. The roster is PER-LANGUAGE
+ * (`dialogueVoices` on the LanguageModule, 2026-08-20 — this view used to
+ * import the JA json directly, so ES dialogues routed voices through the
+ * JA roster): ja's male speakers have dedicated ja-JP-KeitaNeural clips
+ * under `ja-keita:` manifest keys (emit-tts-deck.mjs +
+ * gen_keita_dialogue.py); everyone else — and every speaker of a language
+ * without the capability — plays the course-default voice. NO detune, NO
  * playbackRate — clips play raw. Exported for unit testing.
  */
-const MALE_SPEAKERS = new Set(dialogueSpeakers.male);
-const KEITA_LANG = "ja-keita";
-
-export function langForSpeaker(speaker?: string): string | undefined {
-  return speaker && MALE_SPEAKERS.has(speaker) ? KEITA_LANG : undefined;
+export function langForSpeaker(
+  speaker?: string,
+  languageId?: string,
+): string | undefined {
+  if (!speaker || !languageId) return undefined;
+  const voices = tryGetLanguageModule(languageId as LanguageId)?.dialogueVoices;
+  return voices?.maleSpeakers.has(speaker) ? voices.maleVoiceLang : undefined;
 }
 
 /**
@@ -129,6 +134,10 @@ type Props = {
 export function DialogueListenStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
+  // Voice routing is per-language (dialogueVoices capability); the lesson
+  // always plays inside the active course, so the context language is the
+  // lesson's language.
+  const languageId = useLanguage().language?.id;
   const reducedMotion = useReducedMotion();
 
   // ── Audio playback orchestration ────────────────────────────────────────
@@ -185,7 +194,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         // per-course default (stamped by LanguageContext).
         await playLineAudio(
           line.audioText ?? line.kana,
-          langForSpeaker(line.speaker),
+          langForSpeaker(line.speaker, languageId),
           () => sessionRef.current === mySession,
         );
         if (sessionRef.current !== mySession) return;
@@ -323,7 +332,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     // sound like the same person the learner just heard.
     void playLineAudio(
       line.audioText ?? line.kana,
-      langForSpeaker(line.speaker),
+      langForSpeaker(line.speaker, languageId),
       () => lineTapTokenRef.current === token,
     ).then(() => {
       if (lineTapTokenRef.current !== token) return;
@@ -338,10 +347,10 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     () =>
       step.lines.map((l) => {
         const text = l.audioText ?? l.kana;
-        const lang = langForSpeaker(l.speaker);
+        const lang = langForSpeaker(l.speaker, languageId);
         return Boolean((lang && getTtsUrl(text, lang)) || getTtsUrl(text));
       }),
-    [step.lines],
+    [step.lines, languageId],
   );
 
   const currentQ = step.questions[currentIdx];

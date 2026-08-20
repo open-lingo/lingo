@@ -40,6 +40,27 @@ const playJaAudioToEnd = vi.fn((_text: string, _lang?: string) =>
 const getTtsUrl = vi.fn((_text: string, _lang?: string): string | null =>
   "https://example.test/audio.mp3",
 );
+
+// The real registry pulls the entire language-module graph (curriculum,
+// lessonBuilder, TTS at import time) into this light component test, and
+// the REAL ja roster is pinned by ja/__tests__/dialogueSpeakerRegistry.
+// Here we mock the capability lookup and test the routing LOGIC.
+vi.mock("@/shared/language/registry", () => ({
+  tryGetLanguageModule: (id: string) =>
+    id === "ja"
+      ? {
+          dialogueVoices: {
+            maleSpeakers: new Set(["Tom", "Ken", "Tanaka", "トム"]),
+            maleVoiceLang: "ja-keita",
+          },
+        }
+      : null,
+}));
+
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: { id: "ja" } }),
+}));
+
 vi.mock("@/shared/tts", () => ({
   getTtsUrl: (...args: Parameters<typeof getTtsUrl>) => getTtsUrl(...args),
   playJaAudioToEnd: (...args: Parameters<typeof playJaAudioToEnd>) =>

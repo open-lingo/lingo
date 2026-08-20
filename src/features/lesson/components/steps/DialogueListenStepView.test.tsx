@@ -40,6 +40,27 @@ const playJaAudioToEnd = vi.fn((_text: string, _lang?: string) =>
   Promise.resolve(),
 );
 const getTtsUrl = vi.fn(() => "https://example.test/audio.mp3");
+
+// The real registry pulls the entire language-module graph (curriculum,
+// lessonBuilder, TTS at import time) into this light component test, and
+// the REAL ja roster is pinned by ja/__tests__/dialogueSpeakerRegistry.
+// Here we mock the capability lookup and test the routing LOGIC.
+vi.mock("@/shared/language/registry", () => ({
+  tryGetLanguageModule: (id: string) =>
+    id === "ja"
+      ? {
+          dialogueVoices: {
+            maleSpeakers: new Set(["Tom", "Ken", "Tanaka", "トム"]),
+            maleVoiceLang: "ja-keita",
+          },
+        }
+      : null,
+}));
+
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: { id: "ja" } }),
+}));
+
 vi.mock("@/shared/tts", () => ({
   getTtsUrl: (...args: Parameters<typeof getTtsUrl>) => getTtsUrl(...args),
   playJaAudioToEnd: (...args: Parameters<typeof playJaAudioToEnd>) =>
@@ -125,15 +146,24 @@ describe("splitJaSentences", () => {
 });
 
 describe("langForSpeaker", () => {
-  it("routes male-named speakers to the Keita corpus", () => {
-    expect(langForSpeaker("Tom")).toBe("ja-keita");
-    expect(langForSpeaker("Ken")).toBe("ja-keita");
-    expect(langForSpeaker("Tanaka")).toBe("ja-keita");
+  it("routes male-named speakers to the Keita corpus for ja", () => {
+    expect(langForSpeaker("Tom", "ja")).toBe("ja-keita");
+    expect(langForSpeaker("Ken", "ja")).toBe("ja-keita");
+    expect(langForSpeaker("Tanaka", "ja")).toBe("ja-keita");
   });
   it("leaves everyone else on the course default", () => {
-    expect(langForSpeaker("Mika")).toBeUndefined();
-    expect(langForSpeaker("Stranger")).toBeUndefined();
-    expect(langForSpeaker(undefined)).toBeUndefined();
+    expect(langForSpeaker("Mika", "ja")).toBeUndefined();
+    expect(langForSpeaker("Stranger", "ja")).toBeUndefined();
+    expect(langForSpeaker(undefined, "ja")).toBeUndefined();
+  });
+  it("is roster-per-language: a ja male name does NOT route for es/fr/unknown", () => {
+    // Until a language declares the dialogueVoices capability, all of its
+    // speakers play the course-default voice — the JA roster must not leak
+    // (2026-08-19 audit: ES dialogues routed voices through the JA roster).
+    expect(langForSpeaker("Tom", "es")).toBeUndefined();
+    expect(langForSpeaker("Tom", "fr")).toBeUndefined();
+    expect(langForSpeaker("Tom", undefined)).toBeUndefined();
+    expect(langForSpeaker("Tom", "nope")).toBeUndefined();
   });
 });
 

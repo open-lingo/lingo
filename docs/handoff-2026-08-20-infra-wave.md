@@ -44,12 +44,15 @@ constrains structure, the prompt must carry meaning.
    `scripts/draft/judge-visual.mjs` (harness) over the same captures haiku
    screens, compare verdicts, THEN decide the switchover. Case-builder
    pattern: `scripts/draft/judge-cases-2026-08-20.json`.
-2. **Dialogue speaker roster generalization** (2b, "learner-facing core"
-   ruling 2026-08-20): per-language `dialogueSpeakers` capability on
-   LanguageModule, `DialogueListenStepView` reads via registry (ja stays the
-   fallback). Engine seam is decoupled from ES content; the ES/FR male-voice
-   CLIP generation is NOT (needs TTS pipeline voices + the re-authored
-   dialogue content), so wire the seam, leave clips to the content waves.
+2. ~~Dialogue speaker roster generalization~~ — **SEAM DONE 2026-08-20**:
+   `dialogueVoices` capability on LanguageModule (ja declares roster +
+   `ja-keita`), `langForSpeaker(speaker, languageId)` resolves via registry,
+   both dialogue views thread the context language. A ja male name no longer
+   routes for es/fr (the leak, pinned by a test). Component tests mock the
+   registry (the real graph is heavyweight); the REAL roster stays pinned by
+   `dialogueSpeakerRegistry.test.ts`. Still open, deliberately: ES/FR
+   male-voice CLIPS (needs TTS pipeline voices + re-authored dialogue
+   content) — a content-wave item, after which es/fr declare the capability.
 3. **dynamicReviewPrefix `!== "ja"`** — investigate what Track A/B state
    exists per-language before generalizing; may block on ES re-author
    conventions. Do not guess; read `dynamicReviewPrefix.ts:117` context first.

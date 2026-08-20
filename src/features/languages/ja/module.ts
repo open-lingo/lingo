@@ -59,6 +59,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { isKana, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { getTtsManifest } from "@/shared/tts/manifest";
+import dialogueSpeakers from "./dialogueSpeakers.json";
 
 import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
 import {
@@ -334,4 +335,11 @@ export const jaModule: LanguageModule = {
   imageMcqBlocklist: new Set(WORD_IMAGE_MCQ_BLOCKLIST),
   vocabGraduation: jaVocabGraduation,
   importMatch: jaImportMatch,
+  // Male-named speakers (romanized AND kana labels — both ship) play the
+  // dedicated Keita corpus; roster stays in dialogueSpeakers.json, the
+  // single source the emitter also reads (inv 23).
+  dialogueVoices: {
+    maleSpeakers: new Set(dialogueSpeakers.male),
+    maleVoiceLang: "ja-keita",
+  },
 };

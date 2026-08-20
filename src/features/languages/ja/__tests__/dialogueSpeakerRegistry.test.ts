@@ -61,9 +61,9 @@ describe("dialogue speaker registry (inv 23)", () => {
   });
 
   it("routes male speakers to Keita and everyone else to the default corpus", () => {
-    for (const speaker of male) expect(langForSpeaker(speaker)).toBe("ja-keita");
+    for (const speaker of male) expect(langForSpeaker(speaker, "ja")).toBe("ja-keita");
     for (const speaker of [...female, ...neutral]) {
-      expect(langForSpeaker(speaker)).toBeUndefined();
+      expect(langForSpeaker(speaker, "ja")).toBeUndefined();
     }
   });
 

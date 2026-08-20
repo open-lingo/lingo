@@ -77,6 +77,17 @@ export interface LanguageModule {
    *  refuses to accent-fold across these; omitting the capability keeps
    *  the fully-lenient fold (right for es, moot for kana). */
   accentPolicy?: AccentPolicy;
+  /** Dialogue voice routing (2b generalization, 2026-08-20): speakers in
+   *  `maleSpeakers` play the `maleVoiceLang` voice-scoped TTS manifest;
+   *  everyone else plays the course-default voice. Omitting the capability
+   *  means ALL dialogue speakers use the default voice — declare it only
+   *  once the second voice's clips actually exist (ja: Keita). */
+  dialogueVoices?: DialogueVoicesCapability;
 }
+
+export type DialogueVoicesCapability = {
+  maleSpeakers: ReadonlySet<string>;
+  maleVoiceLang: string;
+};
 
 export type { Atom, AtomId, LanguageId };
