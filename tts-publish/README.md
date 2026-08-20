@@ -51,3 +51,17 @@ Capture the module BEFORE copying the new manifest in (that run is the visual
 evidence), or re-run stage 4 after the deploy has published `tts-publish/ja/`.
 Do not "fix" it by reverting the manifest — manifest and mp3s must ship in the
 same commit, which is the entire reason this directory exists.
+
+## Exception logged 2026-08-20: five repaired clips OVERWRITE existing keys
+
+The は/wa repair (issue doc `tts-topic-wa-mispronounced-2026-08-18.md`)
+re-recorded five clips whose keys already exist in the live corpus:
+
+    0fc983c7ad8d207c  19a20cdbe0fe120e  35ec2c9066e4bef8
+    4162f807838d3542  d4dc70aea90c6f02
+
+This is the one sanctioned violation of "bytes for an existing key never
+change" — the old bytes are mispronunciations (whisper-audited, 5/16 of the
+ははは class). **Trevor: after the sync, these five paths need a CloudFront
+invalidation** (`/tts/v1/ja/<hash>.mp3`) or the edge keeps serving laughter
+until the cache ages out.

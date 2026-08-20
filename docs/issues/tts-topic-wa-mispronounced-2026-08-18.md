@@ -223,3 +223,25 @@ SHIPPED わたしは bytes, decides the scope):
    rendering per sentence — the catalog only covers 113 learner-facing
    chars, and auto-conversion has homophone risk (こうえん→公園/講演), so
    the renderings need a generation+review pass of their own.
+
+
+## 2026-08-20, later — REPAIRED. Measured 5, not 14; and a finding for the full-regen decision
+
+Spencer's second listen: A2 (shipped ordinary topic は) CORRECT, B2 (shipped
+ははは) incorrect — blast radius confirmed as the sentence-initial ははは
+class only. Whisper-audited all 16 shipped ははは clips: **5 failed**
+(0fc983c7, 19a20cdb, 35ec2c90, 4162f807, d4dc70ae — the worst transcribe as
+ハッハッハ laughter), 11 fine, including some sentence-initial ones — the
+normalizer rolls per-sentence dice.
+
+Fix shipped: `pipeline/tts/generate.py` now splits `Job.text` (owns the hash
+and manifest key) from `Job.speech` (what the voice is fed), driven by
+`speech_overrides_ja.json`. All 16 ははは texts pinned. **Surprise with
+direct bearing on the full-kanji regen decision: 母は + kana continuation
+STILL read as laughter in 2 of 5** — only full-sentence kanji + 。 (probe E's
+exact shape) fixed those. Partial kanji-feeding is not a safe middle; if the
+full regen happens it should feed complete kanji sentences.
+
+All 5 regens whisper-verified 母は and staged in `tts-publish/ja/`. They
+overwrite live keys — Trevor must invalidate those five CloudFront paths
+(noted in tts-publish/README.md).
