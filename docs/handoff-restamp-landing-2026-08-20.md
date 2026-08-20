@@ -137,3 +137,42 @@ R11 pbxproj committed; B107 filed; B098/B097/B099/B056 closed.
 - Isolated suite check: worktree + `cp -c -R node_modules <wt>/` (APFS clone;
   symlinked node_modules breaks Vite's module runner) — needs untracked fr/
   copied in until lingle-17 commits.
+
+## GROUP-4 RULING (Spencer, 2026-08-20 post-compaction) — sidequest words
+
+Spencer: "most of those get taught in the course; any that aren't get scoped
+into normal modules (maybe a plain lesson); the travel side quest exists for
+other things. Work within the authoring guidelines / module IR. WAIT for his
+GO before running any changes."
+
+Investigated: ALL SEVEN are already taught by the live course — no new
+content authoring needed. The instrument was blind to hand-authored primers
+and rule-card teaching. The plan, per word:
+
+| word | goes to | mechanism |
+|---|---|---|
+| はい | m7 | already in `introduces: [たべます, のみます, はい]` (m7.ir.yaml:148) — pure restamp |
+| いつ | m11 | ir-introduces ja-m11-neo-9 — pure restamp |
+| じゃないです | m29 | ir-introduces ja-m29-neo-1 — pure restamp |
+| です | m7 | add です to `m7-neo-4`'s introduces (m7.ir.yaml:241; its first beat IS "です — the noun's polite finish", line 243) + restamp |
+| いくらですか | m9 | add to `m9-neo-4` "Yen and how much" introduces (m9.ir.yaml:202, currently [いくら, ひゃく]) + restamp |
+| どこですか | m19 | add to `m19-neo-9` introduces (m19.ir.yaml:655, currently []) + restamp. Line-658 comment already knows the phrase is registered (build step avoided tiling it — leave the step alone) |
+| ごめんなさい | m3 | hand module: taught by ja-m3-neo-5 phrases lesson (m3-neo.ts:1159 — audio primer :1195 + speaking :1201 + scenario match). Registry edit: fromModule m3, introducedByLessonId → ja-m3-neo-5 |
+
+- All 7 also need `introducedByLessonId` repointed off the DELETED
+  `ja-sidequest-survival-phrases` (attr status "dangling" on every row —
+  today these words likely never unlock into the SRS deck at all; the fix is
+  learner-visible). Dangling pointer ⇒ nothing relies on the fallback path ⇒
+  the CLAUDE.md repoint landmine is clear for all seven.
+- おねがいします / こんにちは / わかりました stay `sidequest-survival`
+  (already classed match/keep, "sidequest sentinel, truthful as-is") — they
+  wait for the remade travel quest, per Spencer's ruling.
+- IR compile after edits: `node scripts/compile-ir.mjs m7 m9 m19` (verify the
+  compiler accepts a multi-word phrase kana in an introduces list — all
+  current entries are single words).
+- ⚠️ Fallout caveat: these 7 were classed ambiguous/keep in the measured
+  worktree run, so the 22-failure count does NOT include them. です/はい are
+  extremely common tokens; dict-form-first means pre-m7 content should be
+  clean of です, but the post-ruling worktree suite is the proof — re-run it.
+- Groups 1–3 and 5–8 defaults were proposed to Spencer in the same exchange
+  and not objected to; confirm them in the GO message before applying.
