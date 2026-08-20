@@ -1340,7 +1340,15 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     // be sequenced before the gate of an atom it surfaces. This is a
     // PARTIAL order — strictly weaker than pinning, which is why it
     // composes with the adjacency/defer rules instead of fighting them.
-    const needsGate = (t: string) => t.length > 1 && atoms.has(t) && !usableKana(t);
+    // One-char tokens are exempt from gating (they're overwhelmingly particle
+    // noise) — EXCEPT a one-char word this very lesson `introduces:` (て 手,
+    // め 目): without a gate its picture debut can never be ordered before its
+    // first sentence use, which is the whole meaning of "debut" (inv-30).
+    const oneCharIntroduced = new Set(
+      (lesson.introduces ?? []).filter((k) => k.length === 1),
+    );
+    const needsGate = (t: string) =>
+      (t.length > 1 || oneCharIntroduced.has(t)) && atoms.has(t) && !usableKana(t);
     const gatedOf = (s: LessonStep): Set<string> =>
       new Set(jaSurfaces(s).flatMap(tokenize).filter(needsGate));
     const gated = new Map<LessonStep, Set<string>>();

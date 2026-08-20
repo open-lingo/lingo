@@ -119,7 +119,13 @@ const MAX_NEVER_TOUCHED = 140;
  *  paragraph above describes — D2 blocks the same-module write and D4 seeds
  *  them due the next day — and the same shape as the m30/m31 entries already
  *  in this count. Run with EXPOSURE_REPORT=1 to dump the full list. */
-const MAX_GRADED_BUT_NEVER_WRITES = 29;
+/* 29 → 36, 2026-08-20 (R1 restamp landing): the m32/m33 leak words got their
+ * real introductions (どこですか かける テスト とお ねる ばんごはん つかれる) —
+ * previously invisible here because their stale tags pointed at earlier
+ * modules. Same shape as the 26→29 note above: taught at course-end, graded
+ * only inside the teaching module; D2 blocks same-module writes, D4 seeds
+ * them due next day, and m34+ authoring gives them later graded homes. */
+const MAX_GRADED_BUT_NEVER_WRITES = 36;
 
 type Row = {
   atomId: string;

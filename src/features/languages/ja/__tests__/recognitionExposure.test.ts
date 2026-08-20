@@ -189,7 +189,12 @@ describe("IR-introduced atoms: production-only exposure (recognition-gap ratchet
      * four of the m30 verbs are graded EXACTLY ONCE each, in a build step, so
      * a learner must PRODUCE しらべる on the only exposure it ever gets. That
      * is m30 content work, not registry work — see the issue doc. */
-    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 26;
+    // 26 → 30, 2026-08-20 (R1 restamp landing): いくらですか/どこですか (the
+    // sidequest words the course already taught via rule cards — now formally
+    // introduced there) and しゅくだい/ねる/ばんごはん/とお/テスト (the m32/m33
+    // leak intros). All are imageable:false phrases/census-blocked words whose
+    // authored exposure is builds; recognition steps ride the R16/m34 wave.
+    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 30;
     expect(
       offenders.length,
       `introduced atoms whose every graded exposure is production-only:\n` +

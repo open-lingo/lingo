@@ -412,7 +412,6 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -428,7 +427,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -3120,6 +3118,7 @@
     "いきません",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いす",
     "いそいで",
@@ -3249,6 +3248,7 @@
     "て",
     "てがみ",
     "で",
+    "です",
     "でんわ",
     "と",
     "とけい",

@@ -694,7 +694,9 @@ lessons:
       - { kind: particle-cloze, stem: "せんせい ごごは かいものに ", tail: "か。", answer: "いきません", options: ["いきません", "いかない", "いきました"], en: "Say to your teacher: Shall we go shopping this afternoon", explanation: "an invitation to somebody you owe politeness to is a polite NEGATIVE question, so it takes いきません plus か. いかない is the casual invitation, and いきました asks about a trip that already happened." }
       - { kind: listening-comp, audio: "ちょっと からいけど とりにくは おいしかったですね。", answer: "It was a bit spicy, but the chicken was delicious, wasn't it", distractors: ["It was a bit spicy, so the chicken wasn't delicious", "It's a bit spicy, but the chicken is delicious, isn't it", "It was a bit sweet, but the chicken was delicious, wasn't it"], exercises: [chotto-softener, kedo, masu-past] }
       - { kind: listening-comp, audio: "なつやすみに がいこくに いくんですね。", answer: "So you're going abroad in the summer holidays", distractors: ["So you went abroad in the summer holidays", "So you aren't going abroad in the summer holidays", "So you're going abroad in the winter holidays"], exercises: [n-desu, ne-agreement] }
-      - { kind: kanji, kana: した, exercises: [kanji-set-1] }
+      # 下→口 (2026-08-20): same finding as m23 — 下/した untaught. 口/くち is
+      # m22-taught, glyph m20.
+      - { kind: kanji, kana: くち, kanji: 口, distractors: ["こう", "ぐち", "くじ"], exercises: [kanji-set-1] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "ごごから いっしょに かいものに いきませんか。", en: "Shall we go shopping together this afternoon?" }

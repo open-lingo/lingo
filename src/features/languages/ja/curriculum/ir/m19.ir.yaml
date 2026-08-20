@@ -652,7 +652,7 @@ lessons:
     role: teaching
     title: "「えきは どこですか」 — asking a stranger"
     focus: "The one place plain form is socially wrong: すみません, です / ます, and か on every question"
-    introduces: []
+    introduces: [どこですか]
     beats:
       - { kind: rule, grammarPointId: masu-present }
       # 「どこですか」 is a registered survival PHRASE, so a build step would tile

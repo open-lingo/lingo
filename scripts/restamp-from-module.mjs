@@ -719,12 +719,17 @@ function derive(api) {
     {
       const row = control((r) => r.atomId === "yomu" || r.kana === "よむ", "よむ");
       const mods = new Set(row.candidates.map((c) => c.moduleId));
-      if (!mods.has("m16") || !mods.has("m1") || row.class !== "ambiguous")
+      // Two truthful states: PRE-ruling (tag m16 → ambiguous, both sites
+      // found, no auto-restamp) and POST-apply (Spencer's 2026-08-20 ruling
+      // written: tag m1, class kana-row). Anything else is instrument drift.
+      const preRuling = row.class === "ambiguous" && row.old !== "m1";
+      const postApply = row.class === "kana-row" && row.old === "m1" && row.action === "keep";
+      if (!mods.has("m16") || !mods.has("m1") || (!preRuling && !postApply))
         throw new Error(
-          `instrument control FAILED: よむ should be ambiguous with m1(kana-row)+m16(pack) sites\n${JSON.stringify(row, null, 1)}`,
+          `instrument control FAILED: よむ should be ambiguous(m16 tag) or kana-row(m1 tag, ruled+applied) with both m1+m16 sites\n${JSON.stringify(row, null, 1)}`,
         );
       controls.push(
-        `よむ → multi-site {m1 kana-row anchor, m16 ja-m16-neo pack} — class ambiguous, no auto-restamp`,
+        `よむ → multi-site {m1 kana-row anchor, m16 ja-m16-neo pack} — ${postApply ? "ruled m1, applied" : "class ambiguous, no auto-restamp"}`,
       );
     }
     // Known-taught m8 word: ちゃ (atom `cha`) is IR-introduced by m8-neo-5
@@ -738,22 +743,18 @@ function derive(api) {
     controls.push(
       `ちゃ → ${chaDerived} (${cha.evidenceKind} ${cha.evidenceLessonId})`,
     );
-    // こうえん (park) — STILL never introduced anywhere, but no longer
-    // never-EXERCISED: m32 (authored 2026-08-19, against the stale label
-    // this instrument exists to fix) grades it in six places. The control
-    // now asserts exactly that split: exercise evidence, zero introduce
-    // evidence, and the R2 branch refusing to restamp it.
+    // こうえん (park) — the R1 landing (2026-08-20) closed the leak this
+    // control used to pin: m32-neo-2 now DECLARES it (introduces + newAtoms),
+    // so the truthful derivation is m32 via ir-introduces. The old assertion
+    // (exercised-never-introduced) described the defect, not the doctrine.
     const kouen = control((r) => r.kana === "こうえん", "こうえん");
-    if (kouen.class !== "exercised-never-introduced")
+    const kouenDerived = kouen.new === kouen.old ? kouen.old : kouen.new;
+    if (kouenDerived !== "m32" || kouen.evidenceKind !== "ir-introduces")
       throw new Error(
-        `instrument control FAILED: こうえん classified ${kouen.class} (expected exercised-never-introduced)\n${JSON.stringify(kouen, null, 1)}`,
-      );
-    if (kouen.candidates.some((c) => c.kind !== "first-exercised"))
-      throw new Error(
-        `instrument control FAILED: こうえん has INTRODUCE evidence ${JSON.stringify(kouen.candidates)} — the exercised-only premise is stale`,
+        `instrument control FAILED: こうえん should derive m32 via ir-introduces (ja-m32-neo-2 declares it since the R1 landing)\n${JSON.stringify(kouen, null, 1)}`,
       );
     controls.push(
-      `こうえん → exercised-never-introduced (graded from ${kouen.evidenceLessonId}, introduced nowhere)`,
+      `こうえん → m32 (${kouen.evidenceKind} ${kouen.evidenceLessonId}; the m32-wave leak, now declared at its teaching site)`,
     );
     // Instructive control — ぎゅうにゅう was "known-untaught" in the 07-29 m8
     // walk, but the live m5-neo now debuts it with a word-image MCQ
@@ -800,10 +801,18 @@ function derive(api) {
     for (const [atomId, ruling] of Object.entries(rulings)) {
       const row = byAtomId.get(atomId);
       if (!row) throw new Error(`ruling for unknown atom "${atomId}"`);
-      if (row.class !== "ambiguous")
+      if (row.class !== "ambiguous") {
+        // Idempotence after --apply: once a ruled restamp is written, the row
+        // re-derives as match/kana-row at the ruled module. Agreement =
+        // the machine's effective end state equals the ruling's end state;
+        // only a contradiction is an error.
+        const machineEnd = row.action === "restamp" ? row.new : row.old;
+        const ruledEnd = ruling.new ?? row.old;
+        if (machineEnd === ruledEnd) continue;
         throw new Error(
-          `ruling for "${atomId}" targets class "${row.class}" — rulings may only resolve ambiguous rows (stale ruling?)`,
+          `ruling for "${atomId}" targets class "${row.class}" (old=${row.old} → machine ${machineEnd}) and CONTRADICTS the ruling end state ${ruledEnd} — stale ruling?`,
         );
+      }
       if (ruling.new !== null && ruling.new !== undefined) {
         row.new = ruling.new;
         row.action = ruling.new === row.old ? "keep" : "restamp";

@@ -529,11 +529,15 @@ describe("m25-neo pedagogy invariants", () => {
     // surfaces against the compiler's vocabulary and checking each token
     // against priorVocab — こうえん, いらない and そと were all caught that way
     // and rewritten out. Token-exact, never substring (RULE ZERO).
+    // 2026-08-20: はやい/みがく left the list (the B067 m13 pack IR-introduces
+    // both — ja-m13-neo-10 — so a pool draw is a met-word review), and よむ
+    // left it (Spencer's R2 ruling: the m1 ya-row anchor is its introduction;
+    // its restamped m1 tag legally admits it to met-word pools).
     const UNTAUGHT = [
       "こうえん", "へや", "そと", "まち", "ちかく", "そば", "えいご", "はなし",
       "にく", "ノート", "プール", "ゆっくりと", "せっけん", "なく", "さく",
-      "いちばん", "はやい", "いろ", "あまい", "おもい", "でる", "たつ", "なる",
-      "かく", "よむ", "とる", "うたう", "おぼえる", "みがく", "いらない",
+      "いちばん", "いろ", "あまい", "おもい", "でる", "たつ", "なる",
+      "かく", "とる", "うたう", "おぼえる", "いらない",
       // では is an ATOM ("with that…") taught nowhere, so 「かわでは」 fuses
       // で + は into it and tiles an untaught word (m23's finding).
       "では",

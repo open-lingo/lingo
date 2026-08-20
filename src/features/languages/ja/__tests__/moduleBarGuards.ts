@@ -477,19 +477,27 @@ export function registerModuleBarGuards(opts: {
             // it as a word.
             for (const s of jaSurfaces(step)) {
               for (const t of tokenize(s).tokens) {
-                if (!firstType.has(t)) firstType.set(t, step.type);
+                if (!firstType.has(t)) {
+                  firstType.set(t, step.type);
+                  // DEBUG_INV30_WORD=て — print where a word's debut lands.
+                  if (process.env.DEBUG_INV30_WORD === t)
+                    console.error(`inv30[${t}]: ${lesson.id ?? "?"} / ${step.id} (${step.type}) — surface 「${s}」`);
+                }
               }
             }
           }
         }
+        const offenders: string[] = [];
         for (const atom of imageable) {
           const t = firstType.get(atom.kana);
           if (!t) continue; // atom exists but unused in this module — other gate
-          expect(
-            t,
-            `${atom.kana} (${atom.emoji}) debuts on ${t}, not word_image_mcq`,
-          ).toBe("word_image_mcq");
+          if (t !== "word_image_mcq")
+            offenders.push(`${atom.kana} (${atom.emoji}) debuts on ${t}`);
         }
+        expect(
+          offenders,
+          `imageable module-new atoms must debut on word_image_mcq:\n  ${offenders.join("\n  ")}`,
+        ).toEqual([]);
       });
     }
 

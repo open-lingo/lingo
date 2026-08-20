@@ -399,6 +399,14 @@
   ],
   "newAtoms": [
     {
+      "kana": "テスト",
+      "romaji": "tesuto",
+      "gloss": "test, exam",
+      "shortGloss": "test",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "あく",
       "romaji": "aku",
       "gloss": "to open (of itself), to come open",
@@ -1784,7 +1792,8 @@
       "focus": "The が-verb as the way Japanese says a thing happened without naming who did it — the instinct behind the passive, met early and cheaply",
       "introduces": [
         "きまる",
-        "かいぎ"
+        "かいぎ",
+        "テスト"
       ],
       "beats": [
         {
@@ -3874,6 +3883,7 @@
     "いきませんでした",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いける",
@@ -4001,6 +4011,7 @@
     "かかる",
     "かぎ",
     "かく",
+    "かける",
     "かさ",
     "かした",
     "かして",
@@ -4264,6 +4275,7 @@
     "ついたら",
     "つかう",
     "つかって",
+    "つかれる",
     "つき",
     "つく",
     "つくえ",
@@ -4282,10 +4294,12 @@
     "でした",
     "でしょ",
     "でしょう",
+    "です",
     "でんき",
     "でんしゃ",
     "でんわ",
     "と",
+    "とお",
     "とおい",
     "とおったら",
     "とおる",
@@ -4302,6 +4316,7 @@
     "どうして",
     "どうぶつ",
     "どこ",
+    "どこですか",
     "どちら",
     "どっち",
     "どの",
@@ -4344,6 +4359,7 @@
     "ねこ",
     "ねたら",
     "ねつ",
+    "ねる",
     "の",
     "のった",
     "のったら",
@@ -4401,6 +4417,7 @@
     "はれ",
     "はん",
     "ばん",
+    "ばんごはん",
     "ひいて",
     "ひく",
     "ひこうき",
@@ -4555,6 +4572,7 @@
     "コーヒー",
     "シャワー",
     "スポーツ",
+    "テレビ",
     "ドア",
     "ノート",
     "バス",
@@ -4817,7 +4835,6 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4833,7 +4850,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6984,7 +7000,6 @@
       "romaji": "te",
       "gloss": "hand",
       "shortGloss": "hand",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7170,7 +7185,6 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
-      "imageable": false,
       "kind": "verb"
     },
     {
@@ -7444,7 +7458,6 @@
       "romaji": "natsu",
       "gloss": "summer",
       "shortGloss": "summer",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7452,7 +7465,6 @@
       "romaji": "aki",
       "gloss": "autumn",
       "shortGloss": "autumn",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8608,6 +8620,67 @@
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "もらう"
+    },
+    {
+      "kana": "テレビ",
+      "romaji": "terebi",
+      "gloss": "television",
+      "shortGloss": "TV",
+      "kind": "vocab"
+    },
+    {
+      "kana": "しゅくだい",
+      "romaji": "shukudai",
+      "gloss": "homework",
+      "shortGloss": "homework",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ねる",
+      "romaji": "neru",
+      "gloss": "to go to bed, to sleep",
+      "shortGloss": "go to bed",
+      "kind": "verb"
+    },
+    {
+      "kana": "ばんごはん",
+      "romaji": "bangohan",
+      "gloss": "evening meal, dinner",
+      "shortGloss": "dinner",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かける",
+      "romaji": "kakeru",
+      "gloss": "to call (by phone)",
+      "shortGloss": "call",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "こうえん",
+      "romaji": "kouen",
+      "gloss": "park",
+      "shortGloss": "park",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つかれる",
+      "romaji": "tsukareru",
+      "gloss": "to get tired",
+      "shortGloss": "get tired",
+      "kind": "verb"
     },
     {
       "kana": "ふったら",

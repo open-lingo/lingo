@@ -1,7 +1,8 @@
 {
  "meta": {
   "rulings": "Spencer 2026-08-20 (R1 GO + group rulings, this session)",
-  "contract": "keys are atomIds; new:null = explicit keep; introducedByLessonId repoints apply only via ruled rows"
+  "contract": "keys are atomIds; new:null = explicit keep; introducedByLessonId repoints apply only via ruled rows",
+  "pruned_2026_08_20": "keep-rulings for benri + yoru removed as moot: their tile evidence came from generated pools and evaporated when the census-blocked words left the distractor pools — they re-derive as plain never-taught (approved policy: future; R16 re-homes them). The other six tile rows keep AUTHORED tile evidence and keep their rulings."
  },
  "rulings": {
   "ja-m3-3-v-hon": {
@@ -123,38 +124,6 @@
    "new": null,
    "why": "R12 — pack re-home rides the R16 wave; retired-lesson unlock honored until packs land"
   },
-  "ja--jaa": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "deha": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "nekutai": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "benri": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "shi": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "yoru": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "e": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
-  "se": {
-   "new": null,
-   "why": "R16 inventory — distractor/review exposure is not an introduction; tag holds until the teach wave lands it"
-  },
   "shita": {
    "new": "future",
    "why": "hand-verified 2026-08-20: 下 taught nowhere on the live map; the m11 evidence is する-past kana collision (m11.ir.yaml:387 introduces plain pasts)"
@@ -162,6 +131,30 @@
   "kita": {
    "new": null,
    "why": "hand-verified 2026-08-20: 北 untaught and already future; m11 evidence is くる-past kana collision"
+  },
+  "ja--jaa": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (じゃ/じゃあ)"
+  },
+  "deha": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (では)"
+  },
+  "nekutai": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (ネクタイ)"
+  },
+  "shi": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (し(四))"
+  },
+  "e": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (え(絵))"
+  },
+  "se": {
+   "new": null,
+   "why": "R16 inventory — authored tile/review exposure is not an introduction; tag holds until the teach wave lands it (せ(背))"
   }
  }
 }

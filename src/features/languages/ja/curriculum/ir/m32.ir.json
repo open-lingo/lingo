@@ -378,6 +378,68 @@
   ],
   "newAtoms": [
     {
+      "kana": "テレビ",
+      "romaji": "terebi",
+      "gloss": "television",
+      "shortGloss": "TV",
+      "kind": "vocab"
+    },
+    {
+      "kana": "しゅくだい",
+      "romaji": "shukudai",
+      "gloss": "homework",
+      "shortGloss": "homework",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ねる",
+      "romaji": "neru",
+      "gloss": "to go to bed, to sleep",
+      "shortGloss": "go to bed",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "ばんごはん",
+      "romaji": "bangohan",
+      "gloss": "evening meal, dinner",
+      "shortGloss": "dinner",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かける",
+      "romaji": "kakeru",
+      "gloss": "to call (by phone)",
+      "shortGloss": "call",
+      "imageable": false,
+      "kind": "verb"
+    },
+    {
+      "kana": "こうえん",
+      "romaji": "kouen",
+      "gloss": "park",
+      "shortGloss": "park",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "つかれる",
+      "romaji": "tsukareru",
+      "gloss": "to get tired",
+      "shortGloss": "get tired",
+      "kind": "verb"
+    },
+    {
       "kana": "ふったら",
       "romaji": "futtara",
       "gloss": "if/when it falls (fall, conditional)",
@@ -766,7 +828,12 @@
         "たべたら",
         "かえったら",
         "あったら",
-        "よんだら"
+        "よんだら",
+        "テレビ",
+        "しゅくだい",
+        "ねる",
+        "ばんごはん",
+        "かける"
       ],
       "beats": [
         {
@@ -1035,7 +1102,8 @@
       "introduces": [
         "なったら",
         "はいったら",
-        "さく"
+        "さく",
+        "こうえん"
       ],
       "beats": [
         {
@@ -1708,7 +1776,8 @@
         "うごく",
         "おと",
         "まわす",
-        "うごいて"
+        "うごいて",
+        "とお"
       ],
       "beats": [
         {
@@ -2925,7 +2994,8 @@
       "introduces": [
         "かかる",
         "ぐらい",
-        "ごろ"
+        "ごろ",
+        "つかれる"
       ],
       "beats": [
         {
@@ -3851,6 +3921,7 @@
     "いきませんでした",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いける",
@@ -4238,6 +4309,7 @@
     "でした",
     "でしょ",
     "でしょう",
+    "です",
     "でんき",
     "でんしゃ",
     "でんわ",
@@ -4255,6 +4327,7 @@
     "どうして",
     "どうぶつ",
     "どこ",
+    "どこですか",
     "どちら",
     "どっち",
     "どの",
@@ -4753,7 +4826,6 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4769,7 +4841,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6920,7 +6991,6 @@
       "romaji": "te",
       "gloss": "hand",
       "shortGloss": "hand",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7106,7 +7176,6 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
-      "imageable": false,
       "kind": "verb"
     },
     {
@@ -7380,7 +7449,6 @@
       "romaji": "natsu",
       "gloss": "summer",
       "shortGloss": "summer",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7388,7 +7456,6 @@
       "romaji": "aki",
       "gloss": "autumn",
       "shortGloss": "autumn",
-      "imageable": false,
       "kind": "vocab"
     },
     {

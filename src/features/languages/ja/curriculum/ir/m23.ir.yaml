@@ -334,7 +334,7 @@ newAtoms:
   #    has no atom row and fragments to はい + った.
   - { kana: つもり, romaji: tsumori, gloss: "intention, plan — what you mean to do", shortGloss: "intend to", imageable: false, kind: vocab }
   - { kana: ホテル, romaji: hoteru, gloss: "a hotel", shortGloss: "hotel", kind: vocab }
-  - { kana: はいる, romaji: hairu, gloss: "to enter, to go in", shortGloss: "enter", imageable: false, kind: verb }
+  - { kana: はいる, romaji: hairu, gloss: "to enter, to go in", shortGloss: "enter", kind: verb }
   # ══ L5. The airport, and arriving at it. つく 🛬 is unique in the registry
   #    and is kept out of every card, so it debuts on a picture. くうこう is
   #    `imageable: false` — ✈️ again, shared with りょこう and ひこうき.
@@ -692,7 +692,10 @@ lessons:
       - { kind: sentence, ja: "がくせいの とき がいこくで はたらいた ことが あるから なつやすみに いく つもりだ。", en: "I have worked abroad, back when I was a student, so I intend to go in the summer holidays", exercises: [toki, koto-ga-aru, tsumori-desu, kara-because], mode: build }
       - { kind: sentence, ja: "ミカは ひこうきに のった ことが ないと おもうけど くうこうに いく つもりだ。", en: "I don't think Mika has ever been on a plane, but she intends to go to the airport", exercises: [to-omoimasu, nai-existence, tsumori-desu, kedo], mode: build }
       - { kind: sentence, ja: "きっぷを かってから でんしゃで うみに いく つもりだ。", en: "I intend to buy a ticket, then go to the sea by train", exercises: [te-kara, tsumori-desu, de-action], mode: listening }
-      - { kind: kanji, kana: した, kanji: 下, exercises: [kanji-set-2] }
+      # 下→手 (2026-08-20): the restamp proved 下/した is taught NOWHERE on the
+      # live map (its old m17 tag pointed at a deleted lesson; the m11 evidence
+      # is する's plain past — kana collision). 手/て is m22-taught, glyph m20.
+      - { kind: kanji, kana: て, kanji: 手, distractors: ["しゅ", "しゅう", "てい"], exercises: [kanji-set-2] }
       - { kind: sentence, ja: "にほんに いった とき さくらを みたけど しゃしんが ない。", en: "When I got to Japan I saw cherry blossom, but I have no photo of it", exercises: [toki, ta-form, kedo, ga-existence], mode: build }
       - { kind: sentence, ja: "ちいさい ホテルに はいる まえに すしを たべる つもりだ。", en: "Before going into a small hotel, I intend to eat sushi", exercises: [mae-ni, tsumori-desu, i-adj-present], mode: build }
       - { kind: sentence, ja: "うみで およいだ ことが ないけど かわで およいだ ことが ある。", en: "I have never swum in the sea, but I have swum in a river", exercises: [nai-existence, koto-ga-aru, kedo], mode: build }

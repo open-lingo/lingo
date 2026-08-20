@@ -243,6 +243,20 @@ grammarPoints:
     antiPattern: { ja: "さんじぐらい うちに かえる。", why: "a point on the clock takes ごろ, not ぐらい — ぐらい is for amounts: さんじごろ うちに かえる。" }
 
 newAtoms:
+  # ══ R1 landing 2026-08-20: five heavily-exercised words this module GRADES
+  #    but nothing ever introduced (the こうえん class — the exact leak the
+  #    fromModule restamp surfaced). Declared at their first-use lessons so the
+  #    compiler treats them as module-new; テレビ/ねる/つかれる own their glyphs
+  #    and picture-debut, the rest are imageable:false (emoji census — owners
+  #    named in their courseAtoms notes).
+  - { kana: テレビ, romaji: terebi, gloss: "television", shortGloss: "TV", kind: vocab }
+  - { kana: しゅくだい, romaji: shukudai, gloss: "homework", shortGloss: "homework", imageable: false, kind: vocab }
+  - { kana: ねる, romaji: neru, gloss: "to go to bed, to sleep", shortGloss: "go to bed", imageable: false, kind: verb }
+  - { kana: ばんごはん, romaji: bangohan, gloss: "evening meal, dinner", shortGloss: "dinner", imageable: false, kind: vocab }
+  - { kana: かける, romaji: kakeru, gloss: "to call (by phone)", shortGloss: "call", imageable: false, kind: verb }
+  - { kana: こうえん, romaji: kouen, gloss: "park", shortGloss: "park", imageable: false, kind: vocab }
+  - { kana: とお, romaji: too, gloss: "ten (native counting)", shortGloss: "ten", imageable: false, kind: vocab }
+  - { kana: つかれる, romaji: tsukareru, gloss: "to get tired", shortGloss: "get tired", kind: verb }
   # ══ L1. Six たら forms and nothing else. The module's opening claim is that
   #    たら costs nothing, so the first lesson introduces no vocabulary at all —
   #    only the forms, built from verbs the learner has owned for twenty
@@ -321,7 +335,7 @@ lessons:
     role: teaching
     title: "「あめが ふったら」 — the past form, plus ら"
     focus: "たら costs nothing to build: it is the た-form the learner has owned since m11 with ら on the end"
-    introduces: [ふったら, ついたら, たべたら, かえったら, あったら, よんだら]
+    introduces: [ふったら, ついたら, たべたら, かえったら, あったら, よんだら, テレビ, しゅくだい, ねる, ばんごはん, かける]
     beats:
       # NO new vocabulary in this lesson, on purpose. The module's opening
       # claim is that たら is free, and a lesson that also taught six words
@@ -360,7 +374,7 @@ lessons:
     role: teaching
     title: "「はるに なったら」 — if and when are the same word"
     focus: "たら does not commit to whether the event is doubtful or certain, and the learner must stop looking for a second form"
-    introduces: [なったら, はいったら, さく]
+    introduces: [なったら, はいったら, さく, こうえん]
     beats:
       # Seasons first, because a season arriving is the clearest case in the
       # language of an event that is CERTAIN and still takes たら. If the
@@ -462,7 +476,7 @@ lessons:
     role: teaching
     title: "「ボタンを おすと」 — the result that never varies"
     focus: "と's claim is stronger than たら's: not what happens this time, but what happens every time"
-    introduces: [ボタン, おす, きかい, うごく, おと, まわす, うごいて]
+    introduces: [ボタン, おす, きかい, うごく, おと, まわす, うごいて, とお]
     beats:
       # The rule card argues from SEASONS, not from the button — every machine
       # word in this lesson debuts on a picture, and a pinned rule beat naming
@@ -644,7 +658,7 @@ lessons:
     role: teaching
     title: "「さんじごろ」と「じゅっぷんぐらい」 — about, and around"
     focus: "The quantity drip's m32 pair: ごろ lands on a point in time, ぐらい on an amount, and nothing else separates them"
-    introduces: [かかる, ぐらい, ごろ]
+    introduces: [かかる, ぐらい, ごろ, つかれる]
     beats:
       # A pair of suffixes rather than a construction, so it rides one lesson
       # rather than owning a block. かかる is adopted with them because the

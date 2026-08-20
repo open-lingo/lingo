@@ -1043,7 +1043,9 @@
       "role": "teaching",
       "title": "です — the noun's polite finish",
       "focus": "です finishes NOUNS the way だ does; です is not a coat you put on verbs",
-      "introduces": [],
+      "introduces": [
+        "です"
+      ],
       "beats": [
         {
           "kind": "rule",

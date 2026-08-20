@@ -1444,7 +1444,9 @@ export const N5_KANJI: KanjiEntry[] = [
     kunyomi: [],
     meaning: ["diagram", "plan"],
     strokeCount: 7,
-    introducedAtModule: 18,
+    // m18 → m20 (2026-08-20): the fromModule restamp moved としょかん's true
+    // teaching site to m19; a glyph unlocks only after its anchor word.
+    introducedAtModule: 20,
     anchorVocab: ["toshokan"],
     category: "other",
     tier: "exposure",
@@ -1457,7 +1459,8 @@ export const N5_KANJI: KanjiEntry[] = [
     kunyomi: ["やかた"],
     meaning: ["building", "hall"],
     strokeCount: 16,
-    introducedAtModule: 19,
+    // m19 → m20 (2026-08-20): same restamp — としょかん teaches at m19.
+    introducedAtModule: 20,
     anchorVocab: ["toshokan"],
     category: "other",
     tier: "exposure",
@@ -1571,7 +1574,8 @@ export const N5_KANJI: KanjiEntry[] = [
     kunyomi: ["いた.い"],
     meaning: ["pain", "hurt"],
     strokeCount: 12,
-    introducedAtModule: 21,
+    // m21 → m23 (2026-08-20): the restamp moved いたい's true site to m22.
+    introducedAtModule: 23,
     anchorVocab: ["itai"],
     category: "adjective",
     tier: "exposure",

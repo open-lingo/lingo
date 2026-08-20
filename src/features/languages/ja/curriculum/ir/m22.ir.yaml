@@ -326,7 +326,7 @@ newAtoms:
   - { kana: め, romaji: me, gloss: "eye", shortGloss: "eye", imageable: false, kind: vocab }
   - { kana: みみ, romaji: mimi, gloss: "ear", shortGloss: "ear", imageable: false, kind: vocab }
   - { kana: くち, romaji: kuchi, gloss: "mouth", shortGloss: "mouth", kind: vocab }
-  - { kana: て, romaji: te, gloss: "hand", shortGloss: "hand", imageable: false, kind: vocab }
+  - { kana: て, romaji: te, gloss: "hand", shortGloss: "hand", kind: vocab }
   # ══ L3. Symptoms. ねつ and のど are the module's genuinely new registry rows
   #    on this side; both are picture-less (see the notes block — ねつ's card
   #    names it, and 🌡️ against びょうき's 🤒 is the same picture twice, while

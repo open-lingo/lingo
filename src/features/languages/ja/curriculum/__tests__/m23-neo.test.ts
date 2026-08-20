@@ -246,8 +246,12 @@ describe("m23-neo pedagogy invariants", () => {
     // tokenizing this module's surfaces against the compiler's vocabulary and
     // then checking each token against priorVocab — はやい and では were BOTH
     // caught that way and rewritten out. Substring-safe entries only.
+    // はやい left this list 2026-08-20: the B067 m13 pack now IR-introduces it
+    // (ja-m13-neo-10, 早い "early" — the m20 homograph ruling), so a pool draw
+    // here is a legal met-word review, not a bare-word debut. The m20/m26/m27
+    // ban on glossing はやい as "fast" is untouched (速い stays untaught).
     for (const w of [
-      "はやい", "いちばん", "たくさん", "こうえん", "ノート", "ちかく",
+      "いちばん", "たくさん", "こうえん", "ノート", "ちかく",
       "ゆっくりと", "せっけん", "プール", "えいご", "ホテルの ひと",
       "よむ", "みがく", "おぼえる",
       // では is an ATOM ("with that…") and is taught nowhere, so 「うみでは」
@@ -287,7 +291,10 @@ describe("m23-neo pedagogy invariants", () => {
         .filter((s) => s.type === "kanji_reading")
         .map((s) => (s as unknown as { kanji: string }).kanji),
     );
-    expect([...tested].sort()).toEqual(["下", "来る", "小さい", "山", "川", "海", "上", "足"].sort());
+    // 下 → 手 (2026-08-20): the restamp proved 下/した is taught nowhere on
+    // the live map (the m11 "evidence" is する's plain past — kana collision),
+    // so quizzing its reading was unfair. 手/て is m22-taught, glyph m20.
+    expect([...tested].sort()).toEqual(["手", "来る", "小さい", "山", "川", "海", "上", "足"].sort());
     for (const m18Glyph of ["人", "水", "食べる", "行く", "聞く", "分かる", "新しい", "高い"])
       expect(tested.has(m18Glyph), `${m18Glyph} is m18's, not m23's`).toBe(false);
   });

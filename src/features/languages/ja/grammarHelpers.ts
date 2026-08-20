@@ -982,6 +982,12 @@ export function reviewMatchPairs(
  */
 export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
   "あなた",   // pronoun — context-dropped in practice
+  "した",     // 下 — kana surface IS する's plain past (reservedInflections
+              // class); a 下 picture labeled した in any lesson that has met
+              // する misleads. Blocks both target AND distractor slots.
+  "きた",     // 北 — same collision with くる's plain past (m23 pins this:
+              // "きた never reaches a surface"); it leaked into a debut's
+              // distractor tiles via m11's inflection introduces → priorVocab.
   "あに",     // older brother — age cue carried by kanji, not face
   "あね",     // older sister — same
   "ちち",     // (my) father — parent composition reads as "parent," not father

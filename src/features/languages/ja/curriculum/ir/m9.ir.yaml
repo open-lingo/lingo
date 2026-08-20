@@ -199,7 +199,7 @@ lessons:
     role: teaching
     title: "Yen and how much"
     focus: "いくらですか and a number + えん; the exchange that makes numbers pay"
-    introduces: [いくら, ひゃく]
+    introduces: [いくら, ひゃく, いくらですか]
     beats:
       - { kind: rule, grammarPointId: ikura-price, variant: how-much }
       - { kind: sentence, ja: "これは いくら？", en: "How much is this?", exercises: [ikura-price, kore-sore-are-dore], mode: build }

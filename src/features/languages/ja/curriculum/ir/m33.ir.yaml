@@ -276,6 +276,9 @@ grammarPoints:
     antiPattern: { ja: "えいがを はじまる。", why: "はじまる is the film starting on its own — が. The を-verb is はじめる, which needs somebody to start it: えいがを はじめる。" }
 
 newAtoms:
+  # ══ R1 landing 2026-08-20: テスト is graded here but was never introduced
+  #    anywhere (こうえん class). imageable:false — しゅくだい owns 📝.
+  - { kana: テスト, romaji: tesuto, gloss: "test, exam", shortGloss: "test", imageable: false, kind: vocab }
   # ══ L1. One new verb, one new noun. あく is `imageable: false` for the
   #    reason in the notes: あく and あける are the same picture, and an image
   #    MCQ that could not tell them apart would teach the one error this
@@ -505,7 +508,7 @@ lessons:
     role: teaching
     title: "「じかんが きまる」と「じかんを きめる」 — settled, by nobody in particular"
     focus: "The が-verb as the way Japanese says a thing happened without naming who did it — the instinct behind the passive, met early and cheaply"
-    introduces: [きまる, かいぎ]
+    introduces: [きまる, かいぎ, テスト]
     beats:
       # かいぎ is the image debut and the rule card does not name it. The card
       # argues from じかん and りょこう, both long owned.

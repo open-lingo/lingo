@@ -358,8 +358,8 @@ newAtoms:
   #    before a card that has already spoken. はる 🌸 is はな's glyph and ふゆ ❄️
   #    is ゆき's in any case, both MET words.
   - { kana: はる, romaji: haru, gloss: "spring (the season)", shortGloss: "spring", imageable: false, kind: vocab }
-  - { kana: なつ, romaji: natsu, gloss: "summer", shortGloss: "summer", imageable: false, kind: vocab }
-  - { kana: あき, romaji: aki, gloss: "autumn", shortGloss: "autumn", imageable: false, kind: vocab }
+  - { kana: なつ, romaji: natsu, gloss: "summer", shortGloss: "summer", kind: vocab }
+  - { kana: あき, romaji: aki, gloss: "autumn", shortGloss: "autumn", kind: vocab }
   - { kana: ふゆ, romaji: fuyu, gloss: "winter", shortGloss: "winter", imageable: false, kind: vocab }
   # ══ L6. The two certainty adverbs. たぶん already has a row (stale m18 tag,
   #    taught by no neo module); きっと had none and occurs in ZERO live
