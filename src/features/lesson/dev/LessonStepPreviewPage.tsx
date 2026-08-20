@@ -399,6 +399,198 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "silent_letter",
+      title: "silent_letter",
+      whenToUse:
+        "FRENCH orthography — the learner taps every grapheme that is NOT pronounced. This is the highest-frequency reading obstacle in French and nothing else expresses it: an MCQ over spellings pre-selects the candidate letters, which IS the task. Not stress_pattern with different data — that is single-select over author-supplied syllables and asks what is PROMINENT; this is multi-select over raw graphemes and asks what is ABSENT. Author graphemes so digraphs stay whole («ou», «ch», «eau»); a learner tapping the u of beaucoup alone is answering a question French does not ask. ALWAYS include some items with zero silent letters, or the learner learns that every word has one.",
+      step: {
+        id: "preview-sl",
+        type: "silent_letter",
+        // The hardest realistic case: a 3-silent-letter verb ending, which is
+        // exactly the parle/parles/parlent homophone set the pin's §1 is about.
+        graphemes: ["i", "l", "s", " ", "p", "a", "r", "l", "e", "n", "t"],
+        silentIndices: [2, 8, 9, 10],
+        meaningEn: "they speak",
+        audioText: "ils parlent",
+        ruleNote:
+          "The whole -ent ending of a third-person plural verb is silent, and so is the s of ils. «ils parlent» and «il parle» are pronounced identically — only the written form tells you how many people are speaking.",
+        contrast: {
+          writtenForm: "il parle",
+          meaningEn: "he speaks",
+          note: "same sound, one speaker",
+        },
+      },
+    },
+    {
+      type: "agreement_chain",
+      title: "agreement_chain",
+      whenToUse:
+        "One head noun's gender+number propagated across EVERY word that must agree. Use it when the lesson's fact is that the agreements are not independent — one decision surfacing in four places. Not n × agreement_cloze: that trips the adjacency and selection-run gates, grades each link separately, and — the real objection — presents as four facts the thing you are teaching is one. Keep chains to 3–4 slots; beyond that the sentence stops being readable on a phone and the type degrades into a worksheet.",
+      step: {
+        id: "preview-ac",
+        type: "agreement_chain",
+        head: {
+          surface: "les filles",
+          meaningEn: "the girls",
+          featureLabel: "feminine plural",
+        },
+        tokens: [
+          { kind: "fixed", text: "Les" },
+          {
+            kind: "slot",
+            id: "adj1",
+            options: ["petites", "petit", "petite", "petits"],
+            correct: "petites",
+            roleLabel: "adjective before the noun",
+          },
+          { kind: "fixed", text: "filles sont" },
+          {
+            kind: "slot",
+            id: "adj2",
+            options: ["contentes", "content", "contente", "contents"],
+            correct: "contentes",
+            roleLabel: "predicate adjective after être",
+          },
+          { kind: "fixed", text: "et" },
+          {
+            kind: "slot",
+            id: "adj3",
+            options: ["assises", "assis", "assise", "assit"],
+            correct: "assises",
+            roleLabel: "past participle agreeing with the subject",
+          },
+          { kind: "fixed", text: "." },
+        ],
+        meaningEn: "The girls are happy and seated.",
+        audioText: "les petites filles sont contentes et assises",
+        ruleNote:
+          "You made one decision — feminine plural — and it surfaced three times. None of the three endings is audible; the whole chain exists in writing only.",
+      },
+    },
+    {
+      type: "gender_sort",
+      title: "gender_sort",
+      whenToUse:
+        "Lexical GENDER assignment (es/fr) — a tray of bare nouns into two article-labelled buckets. Use it before agreement_cloze, never instead of it: agreement is a sentence property and assumes the gender is already known, so «l__ cas__ blanc__s» is unanswerable to a learner who does not know casa is feminine. Not match_pairs — match is 1:1 and would need eight 'el' tiles for eight masculines, teaching the wrong ratio. The set MUST carry the liars (el problema, el dia, la mano); a set of clean -o/-a nouns is a spelling drill anyone can win without Spanish.",
+      step: {
+        id: "preview-gs",
+        type: "gender_sort",
+        prompt: "Which article does each word take?",
+        buckets: [
+          { id: "m", label: "el" },
+          { id: "f", label: "la" },
+        ],
+        items: [
+          { id: "g1", surface: "problema", bucketId: "m", meaningEn: "problem", note: "-ma from Greek — masculine despite the -a" },
+          { id: "g2", surface: "mano", bucketId: "f", meaningEn: "hand", note: "feminine despite the -o" },
+          { id: "g3", surface: "casa", bucketId: "f", meaningEn: "house" },
+          { id: "g4", surface: "libro", bucketId: "m", meaningEn: "book" },
+          { id: "g5", surface: "dia", bucketId: "m", meaningEn: "day", note: "masculine despite the -a" },
+          { id: "g6", surface: "ciudad", bucketId: "f", meaningEn: "city", note: "-dad is always feminine" },
+        ],
+        endingRule:
+          "-o is usually masculine and -a usually feminine, but the ending is a hint, not a rule: -ma words borrowed from Greek are masculine, and -dad/-cion are always feminine.",
+      },
+    },
+    {
+      type: "stress_pattern",
+      title: "stress_pattern",
+      whenToUse:
+        "Spanish written accents are a STRESS fact with a spelling consequence, so the syllables render accent-stripped and the audio is the stimulus (it plays on mount — the opposite of the cloze family, where audio is withheld until commit because it would speak the answer). Put «hablo» and «hablo» in an MCQ and the learner reads the tilde instead of hearing the stress, which is exactly what m17's hand-rolled L5 had to do before this type existed. Always author the minimalPair: it is what the stress was DOING.",
+      step: {
+        id: "preview-sp",
+        type: "stress_pattern",
+        syllables: ["ha", "blo"],
+        stressedIndex: 1,
+        writtenForm: "habl\u00f3",
+        meaningEn: "he/she spoke",
+        audioText: "habl\u00f3",
+        accentRule: "aguda",
+        ruleNote:
+          "An aguda ending in a vowel, -n or -s takes a written accent. «hablo» (I speak) is stressed on HA and needs none — the tilde is the only thing separating the two words on paper.",
+        minimalPair: { writtenForm: "hablo", meaningEn: "I speak" },
+      },
+    },
+    {
+      type: "aspect_choice_cloze",
+      title: "aspect_choice_cloze",
+      whenToUse:
+        "Preterite vs imperfect (ES) / passé composé vs imparfait (FR), decided by DISCOURSE not morphology. Use it only where BOTH options are perfectly-formed and the narrative is what picks one — if a distractor is misconjugated, use conjugation_cloze instead, because the learner can win it without reading. Needs 3+ clauses so background and foreground can contrast; every blank carries a `reason` in discourse terms, shown for right answers too (a lucky guess has learned nothing). This is the A2→B1 wall the 2026-08-09 research found unclaimed.",
+      step: {
+        id: "preview-acc",
+        type: "aspect_choice_cloze",
+        prompt: "Choose the form that fits the story",
+        meaningEn:
+          "When I was a child, I lived in Madrid. Every day I walked to school. One morning, I found a wallet in the street.",
+        segments: [
+          { text: "Cuando " },
+          {
+            blank: {
+              id: "a1",
+              lemma: "ser",
+              options: ["era", "fui"],
+              correctAnswer: "era",
+              reason: "Background \u2014 the setting the story happens in, not an event in it.",
+            },
+          },
+          { text: " niño, " },
+          {
+            blank: {
+              id: "a2",
+              lemma: "vivir",
+              options: ["vivía", "viví"],
+              correctAnswer: "vivía",
+              reason: "Still the scene: an ongoing state, no start or end in view.",
+            },
+          },
+          { text: " en Madrid. Todos los días " },
+          {
+            blank: {
+              id: "a3",
+              lemma: "caminar",
+              options: ["caminaba", "caminé"],
+              correctAnswer: "caminaba",
+              reason: "\u201cTodos los días\u201d marks a habit, not one finished walk.",
+            },
+          },
+          { text: " a la escuela. Una mañana, " },
+          {
+            blank: {
+              id: "a4",
+              lemma: "encontrar",
+              options: ["encontraba", "encontré"],
+              correctAnswer: "encontré",
+              reason:
+                "Foreground \u2014 one finished event that moves the story on. \u201cUna mañana\u201d marks it.",
+            },
+          },
+          { text: " una cartera en la calle." },
+        ],
+      },
+    },
+    {
+      type: "liaison_listen",
+      title: "liaison_listen",
+      whenToUse:
+        "French only. The learner hears a phrase and taps the GAPS where a final consonant links onto the next word. Use it wherever spelling and sound part company across a word boundary — les amis [le.za.mi] vs les héros [le.e.\u0281o]. Include silent junctions on purpose: learners over-apply liaison as often as they miss it, so h aspiré and \u201cet\u201d belong in the item. Junctions are derived from `words`, so a step cannot claim a link where there is no boundary. Needs real recorded audio — browser speechSynthesis does not reliably liaise.",
+      step: {
+        id: "preview-ll",
+        type: "liaison_listen",
+        prompt: "Tap where the words link",
+        audioText: "Les amis et les héros sont ici",
+        meaningEn: "The friends and the heroes are here.",
+        words: ["Les", "amis", "et", "les", "héros", "sont", "ici"],
+        linkedJunctions: [0, 5],
+        junctionNotes: {
+          0: "Plural -s links onto a vowel: [le.za.mi].",
+          1: "Nothing links into \u201cet\u201d.",
+          2: "\u201cEt\u201d never links out either \u2014 silent whatever follows.",
+          4: "H aspiré blocks the link: you hear [le.e.\u0281o].",
+          5: "Verb-final -t links onto the vowel: [s\u0254\u0303.ti.si].",
+        },
+      },
+    },
+    {
       type: "conjugation_cloze",
       title: "conjugation_cloze",
       whenToUse:

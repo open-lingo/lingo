@@ -18,6 +18,12 @@ import { PhraseCardStepView } from "./steps/PhraseCardStepView";
 import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { AgreementClozeStepView } from "./steps/AgreementClozeStepView";
+import { AspectChoiceClozeStepView } from "./steps/AspectChoiceClozeStepView";
+import { GenderSortStepView } from "./steps/GenderSortStepView";
+import { StressPatternStepView } from "./steps/StressPatternStepView";
+import { SilentLetterStepView } from "./steps/SilentLetterStepView";
+import { AgreementChainStepView } from "./steps/AgreementChainStepView";
+import { LiaisonListenStepView } from "./steps/LiaisonListenStepView";
 import { ConjugationClozeStepView } from "./steps/ConjugationClozeStepView";
 import { ConjugationTransformStepView } from "./steps/ConjugationTransformStepView";
 import { KanjiReadingStepView } from "./steps/KanjiReadingStepView";
@@ -207,6 +213,54 @@ export function StepRenderer({
     case "agreement_cloze":
       return (
         <AgreementClozeStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "aspect_choice_cloze":
+      return (
+        <AspectChoiceClozeStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "gender_sort":
+      return (
+        <GenderSortStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "stress_pattern":
+      return (
+        <StressPatternStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "silent_letter":
+      return (
+        <SilentLetterStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "agreement_chain":
+      return (
+        <AgreementChainStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "liaison_listen":
+      return (
+        <LiaisonListenStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

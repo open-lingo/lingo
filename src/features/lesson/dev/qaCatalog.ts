@@ -29,6 +29,12 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   grammar_rule: 17,
   particle_cloze: 18,
   agreement_cloze: 19,
+  aspect_choice_cloze: 19.5,
+  gender_sort: 19.6,
+  agreement_chain: 19.7,
+  stress_pattern: 8.6,
+  silent_letter: 8.7,
+  liaison_listen: 8.5,
   conjugation_cloze: 24,
   conjugation_transform: 25,
   kanji_reveal: 24.5,
@@ -68,6 +74,18 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // it, so it is "unused" from this ja-scoped pin's perspective — the es QA
   // page covers it via buildStepTypeCoverage("es") (guarded in the test).
   "agreement_cloze",
+  // Built ahead of content (2026-08-18 step-type gap analysis): the two
+  // Romance gaps the existing types could NOT be parameterized into. Both are
+  // es/fr-only by construction and no ja lesson will ever use them, so they
+  // are pinned here permanently rather than temporarily — the es/fr QA pages
+  // will cover them once a module ships one. Preview fixtures exist today, so
+  // the renderers are reachable from /ja/qa/steps regardless.
+  //   gender_sort    — lexical gender assignment, n:2, prior to agreement
+  //   stress_pattern — heard stress → written accent, accent-stripped stimulus
+  "gender_sort",
+  "silent_letter",
+  "agreement_chain",
+  "stress_pattern",
   // Removed from the ja curriculum 2026-07-16 (info-step audit): all 842
   // recap/preview boilerplate cards were cut and the 20 teaching cards were
   // converted to grammar_rule. ja now ships ZERO info steps, so it is
@@ -97,6 +115,13 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // toggles) or the previewer fixture. Unpin when a Travel Sprint lesson
   // ships it.
   "dialogue_sim",
+  // NEW 2026-08-18, built ahead of content for the es A2 / fr waves. Both are
+  // deliberately in no shipped lesson yet: `aspect_choice_cloze` needs the
+  // unwritten past-tense tier, and `liaison_listen` needs a French course.
+  // Pinned so the coverage test fails loudly the moment content adopts them —
+  // same pattern conjugation_cloze used while waiting for N4.
+  "aspect_choice_cloze",
+  "liaison_listen",
 ];
 
 export type QaLessonPick = {

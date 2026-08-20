@@ -1,0 +1,911 @@
+module: m1
+title: "Sons et salutations — sounds & first words"
+eyebrow: "Module 1"
+summary: "French ends quietly: silent finals, the social survival kit, and the numbers 0–10."
+frame: none
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE MODULE'S CLAIM
+#
+# The learner arrives knowing zero French. m1 sells one promise: French is
+# HEARABLE — words end more quietly than they are spelled (salut = sa-LU,
+# deux = duh, trois = trwah), and once you EXPECT endings to fall away,
+# spoken French stops being a blur. Everything else is a social survival kit
+# (greet, thank, apologize, part, meet) and the numbers 0–10, chosen because
+# they exercise the silent-final rule and its exceptions (cinq/six/dix/neuf
+# keep a spoken final; sept drops its p but keeps its t; huit hides its h).
+#
+# This is the FIRST French module ever authored (2026-08-19), compiled by
+# the frameless FR pipeline (scripts/compile-ir-fr.mjs). Authored to the ES
+# m1 re-author's standard from step one — no debt is ever pinned for fr:
+#   • zero full-sentence recognition MCQs of French the learner must produce;
+#     situations are drilled by SPEAKING and BUILDING, judgment by one-word
+#     English-prompted MCQs (es E1/inv 28);
+#   • zero translate steps module-wide — French typing needs the AccentBar
+#     layout decision (fr pin §7) and m1's «ou» sits on the ou/où F5 minimal
+#     pair; the typing budget goes to speaking instead. First typed steps
+#     arrive with the accentPolicy work, not before;
+#   • image MCQs at first exposure only; retests via text MCQ / cloze / build;
+#   • every atom debuts on an intro step type (phrase card, image MCQ, or as
+#     a build target); et/ou are m1's own particles, so particle clozes on
+#     them are intro-module clozes (es pin E2 carried).
+#
+# LADDER ORDER (fr guide §0.1 on ja §4e): m1 teaches the SILENT-FINALS rung
+# with silent_letter. Liaison is DEFERRED to m2 — deliberately, not as debt:
+# liaison is the re-voicing of a silent final before a vowel, so a learner
+# cannot hear «les amis» re-voice an s they never knew was silent. The m1
+# mastery test's silent_letter on «huit» (silent h, spoken t) hands m2 its
+# opening contrast (mute h vs h aspiré, pin F3). «huit» carries
+# consonantOnset: true from birth — le huit, never *l'huit — so the elision
+# and liaison machinery is already right about it before m2 exists.
+#
+# SPEECH targets stay inside liaison-free word groups (fr guide on ja §8):
+# every speaking target here either is one word or chains consonant-onset
+# words, so the recognizer's written-form return cannot be marked wrong for
+# a correct liaison.
+# ─────────────────────────────────────────────────────────────────────────────
+
+newAtoms:
+  # ── social survival kit ──
+  - { surface: "bonjour", meaningEn: "hello / good day", partOfSpeech: "other", kind: "vocab", emoji: "🙋", hint: "bohn-ZHOOR — the on is nasal, the n is not spoken" }
+  - { surface: "salut", meaningEn: "hi / bye (casual)", partOfSpeech: "other", kind: "vocab", emoji: "👋", hint: "the final t is silent: sa-LU" }
+  - { surface: "ça va", meaningEn: "how's it going? / it's going fine", partOfSpeech: "phrase", kind: "phrase", emoji: "💬", hint: "sa VA — the same two words ask and answer" }
+  - { surface: "merci", meaningEn: "thank you", partOfSpeech: "other", kind: "vocab", emoji: "🙏", hint: "mehr-SEE" }
+  - { surface: "merci beaucoup", meaningEn: "thank you very much", partOfSpeech: "phrase", kind: "phrase", emoji: "💐", hint: "beaucoup = boh-KOO — eau says oh, ou says oo, the p is silent" }
+  - { surface: "s'il vous plaît", meaningEn: "please", partOfSpeech: "phrase", kind: "phrase", emoji: "🤲", hint: "seel voo PLEH — s'il is si + il squeezed into one word" }
+  - { surface: "pardon", meaningEn: "excuse me / sorry", partOfSpeech: "other", kind: "vocab", emoji: "🙇", hint: "par-DOHN — nasal ending, the n is not spoken" }
+  - { surface: "oui", meaningEn: "yes", partOfSpeech: "other", kind: "vocab", emoji: "✅", hint: "sounds like 'we'" }
+  - { surface: "non", meaningEn: "no", partOfSpeech: "other", kind: "vocab", emoji: "❌", hint: "nohn — nasal, the n is not spoken" }
+  - { surface: "au revoir", meaningEn: "goodbye", partOfSpeech: "phrase", kind: "phrase", emoji: "🚪", hint: "oh ruh-VWAR" }
+  - { surface: "à bientôt", meaningEn: "see you soon", partOfSpeech: "phrase", kind: "phrase", emoji: "🔜", hint: "ah byan-TOH — en is nasal, the final t is silent" }
+  - { surface: "bonsoir", meaningEn: "good evening", partOfSpeech: "other", kind: "vocab", emoji: "🌆", hint: "bohn-SWAR — oi says wah" }
+  - { surface: "bonne nuit", meaningEn: "good night", partOfSpeech: "phrase", kind: "phrase", emoji: "🌙", hint: "bun NWEE — ui glides like wee, the t is silent" }
+  - { surface: "enchanté", meaningEn: "nice to meet you", partOfSpeech: "other", kind: "vocab", emoji: "🤝", hint: "on-shon-TAY — both n's are nasal vowels" }
+  # ── numbers 0–10 ──
+  - { surface: "zéro", meaningEn: "zero", partOfSpeech: "other", kind: "vocab", emoji: "0️⃣", hint: "zay-RO" }
+  - { surface: "un", meaningEn: "one", partOfSpeech: "other", kind: "vocab", emoji: "1️⃣", hint: "one nasal sound: uh(n)" }
+  - { surface: "deux", meaningEn: "two", partOfSpeech: "other", kind: "vocab", emoji: "2️⃣", hint: "duh — the x is silent" }
+  - { surface: "trois", meaningEn: "three", partOfSpeech: "other", kind: "vocab", emoji: "3️⃣", hint: "trwah — oi says wah, the s is silent" }
+  - { surface: "quatre", meaningEn: "four", partOfSpeech: "other", kind: "vocab", emoji: "4️⃣", hint: "KAT-ruh" }
+  - { surface: "cinq", meaningEn: "five", partOfSpeech: "other", kind: "vocab", emoji: "5️⃣", hint: "sank — the q IS spoken" }
+  - { surface: "six", meaningEn: "six", partOfSpeech: "other", kind: "vocab", emoji: "6️⃣", hint: "seess — the final x sounds like s" }
+  - { surface: "sept", meaningEn: "seven", partOfSpeech: "other", kind: "vocab", emoji: "7️⃣", hint: "set — the p is silent, the t is spoken" }
+  - { surface: "huit", meaningEn: "eight", partOfSpeech: "other", kind: "vocab", emoji: "8️⃣", hint: "weet — the h is silent", consonantOnset: true }
+  - { surface: "neuf", meaningEn: "nine", partOfSpeech: "other", kind: "vocab", emoji: "9️⃣", hint: "nuhf — the f is spoken" }
+  - { surface: "dix", meaningEn: "ten", partOfSpeech: "other", kind: "vocab", emoji: "🔟", hint: "deess — the final x sounds like s" }
+  # ── connectors (m1's own particles — intro-module clozes are legal, es E2) ──
+  - { surface: "et", meaningEn: "and", partOfSpeech: "particle", kind: "particle", hint: "ay — the t never sounds, ever" }
+  - { surface: "ou", meaningEn: "or", partOfSpeech: "particle", kind: "particle", hint: "oo" }
+
+lessons:
+  # ── L1 · the silent-final promise + first greetings ────────────────────────
+  - n: 1
+    template: free
+    title: "French ends quietly — bonjour, salut"
+    description: "Final letters fall away. Meet your first three phrases."
+    steps:
+      - kind: info
+        id: info-quiet
+        title: "Words end quietly"
+        body: "French spells more than it speaks: most FINAL consonants are silent. «salut» (hi) sounds like sa-LU — no t. «bonjour» (hello) ends on a soft r you barely hold. Expect endings to fall away, and spoken French gets much easier to hear."
+      - kind: phrase
+        id: p-bonjour
+        meaning: "hello / good day"
+        text: "bonjour"
+        emoji: "🙋"
+      - kind: imageMcq
+        id: img-bonjour
+        target: { surface: "bonjour", meaningEn: "hello / good day", emoji: "🙋" }
+        distractors:
+          - { surface: "merci", emoji: "🙏" }
+          - { surface: "oui", emoji: "✅" }
+          - { surface: "non", emoji: "❌" }
+      - kind: speakLit
+        id: sp-bonjour
+        fr: "bonjour"
+        en: "hello / good day"
+        atoms: ["bonjour"]
+      - kind: phrase
+        id: p-salut
+        meaning: "hi / bye (casual)"
+        text: "salut"
+        emoji: "👋"
+      - kind: silentLetterLit
+        id: sl-salut
+        writtenForm: "salut"
+        graphemes: ["s", "a", "l", "u", "t"]
+        silent: [4]
+        en: "hi / bye (casual)"
+        ruleNote: "Final t is almost always silent — «salut» sounds like sa-LU."
+      - kind: mcq
+        id: q-register
+        prompt: "You walk into a bakery and greet the owner — a stranger. Which greeting fits?"
+        correct: "bonjour"
+        distractors: ["salut", "merci", "non"]
+        why: "«bonjour» works with everyone; «salut» is for friends and people you know well."
+        atoms: ["bonjour"]
+      - kind: speakLit
+        id: sp-salut
+        fr: "salut"
+        en: "hi (casual)"
+        atoms: ["salut"]
+      - kind: textMcq
+        id: tm-bonjour
+        target: "bonjour"
+        distractors: ["salut", "merci", "non"]
+      - kind: phrase
+        id: p-cava
+        meaning: "how's it going? / it's going fine"
+        text: "ça va"
+        emoji: "💬"
+      - kind: listenCompLit
+        id: lc-cava
+        fr: "ça va"
+        en: "how's it going? / it's fine"
+        distractorsEn: ["thank you very much", "good night", "see you soon"]
+        atoms: ["ça va"]
+      - kind: speakLit
+        id: sp-cava
+        fr: "ça va ?"
+        en: "how's it going?"
+        atoms: ["ça va"]
+      - kind: mcq
+        id: q-cava-reply
+        # no «ça va ?» quoted here — the correct option IS «ça va», and a
+        # prompt that shows the answer grades reading, not knowledge
+        prompt: "A friend greets you and asks how you're doing. Which phrase is the natural answer?"
+        correct: "ça va"
+        distractors: ["non", "salut", "pardon"]
+        why: "«ça va» answers itself — the same two words ask the question and give the answer ('it's going fine')."
+        atoms: ["ça va"]
+      - kind: info
+        id: win-l1
+        title: "You can greet anyone"
+        body: "Three phrases in: «bonjour» for everyone, «salut» for friends, «ça va ?» to keep it going. And you already know the biggest secret of French pronunciation — endings fall away."
+        variant: "win"
+
+  # ── L2 · the politeness kit ─────────────────────────────────────────────────
+  - n: 2
+    template: free
+    title: "The politeness kit — merci, s'il vous plaît"
+    description: "Please, thank you, yes and no — the words that open every door."
+    steps:
+      - kind: info
+        id: info-politeness
+        title: "Please and thank you"
+        body: "«merci» = thank you; add «beaucoup» ('a lot') for warmth: «merci beaucoup». Please is a fixed phrase: «s'il vous plaît» — literally 'if it pleases you'. You'll see it shortened to SVP on signs. These are non-negotiable in France: every request carries one."
+      - kind: phrase
+        id: p-merci
+        meaning: "thank you"
+        text: "merci"
+        emoji: "🙏"
+      - kind: imageMcq
+        id: img-merci
+        target: { surface: "merci", meaningEn: "thank you", emoji: "🙏" }
+        distractors:
+          - { surface: "s'il vous plaît", emoji: "🤲" }
+          - { surface: "oui", emoji: "✅" }
+          - { surface: "non", emoji: "❌" }
+      - kind: speakLit
+        id: sp-merci
+        fr: "merci"
+        en: "thank you"
+        atoms: ["merci"]
+      - kind: phrase
+        id: p-svp
+        meaning: "please"
+        text: "s'il vous plaît"
+        emoji: "🤲"
+      - kind: silentLetterLit
+        id: sl-vous
+        writtenForm: "vous"
+        graphemes: ["v", "ou", "s"]
+        silent: [2]
+        en: "you (from «s'il vous plaît»)"
+        ruleNote: "«vous» sounds like voo. Its s wakes up only before a vowel — that's liaison, coming in module 2."
+      - kind: mcq
+        id: q-svp
+        prompt: "You're handing the waiter your order. Which phrase makes it polite?"
+        correct: "s'il vous plaît"
+        distractors: ["merci", "pardon", "salut"]
+        why: "«s'il vous plaît» attaches to any request; «merci» comes after, when you've received it."
+        atoms: ["s'il vous plaît"]
+      - kind: speakLit
+        id: sp-svp
+        fr: "s'il vous plaît"
+        en: "please"
+        atoms: ["s'il vous plaît"]
+      - kind: phrase
+        id: p-beaucoup
+        meaning: "thank you very much"
+        text: "merci beaucoup"
+        emoji: "💐"
+      - kind: silentLetterLit
+        id: sl-beaucoup
+        writtenForm: "beaucoup"
+        graphemes: ["b", "eau", "c", "ou", "p"]
+        silent: [4]
+        en: "a lot (from «merci beaucoup»)"
+        ruleNote: "«eau» is ONE sound (oh) and «ou» is ONE sound (oo) — and the final p is silent: boh-KOO."
+      - kind: buildLit
+        id: b-mercibeaucoup
+        fr: "merci beaucoup"
+        en: "thank you very much"
+        # tiles draw only from words already MET (pardon is L4's word — a
+        # distractor tile is an exposure, and exposures debut on intro steps)
+        tiles: ["bonjour", "salut"]
+        atoms: ["merci beaucoup"]
+      - kind: imageMcq
+        id: img-oui
+        target: { surface: "oui", meaningEn: "yes", emoji: "✅" }
+        distractors:
+          - { surface: "non", emoji: "❌" }
+          - { surface: "merci", emoji: "🙏" }
+          - { surface: "bonjour", emoji: "🙋" }
+      - kind: speakLit
+        id: sp-ouimerci
+        fr: "oui merci"
+        en: "yes, thank you"
+        atoms: ["oui", "merci"]
+      - kind: imageMcq
+        id: img-non
+        target: { surface: "non", meaningEn: "no", emoji: "❌" }
+        distractors:
+          - { surface: "oui", emoji: "✅" }
+          - { surface: "s'il vous plaît", emoji: "🤲" }
+          - { surface: "merci beaucoup", emoji: "💐" }
+      - kind: listenBuildLit
+        id: lb-nonmerci
+        fr: "non merci"
+        en: "no, thank you"
+        tiles: ["oui", "salut"]
+        atoms: ["non", "merci"]
+      - kind: selfExplain
+        id: se-svp
+        anchorLabel: "You said: s'il vous plaît"
+        anchorAudioText: "s'il vous plaît"
+        question: "Why is «s'il vous plaît» the safe way to say please?"
+        rule: "It's a fixed polite formula — literally 'if it pleases you' — usable with anyone, in any request."
+        surface: "It's simply the French word for 'please', one word like in English."
+        distractor: "Because «merci» would be rude to say to a stranger."
+        ruleExplanation: "«s'il vous plaît» never changes shape and never offends — learn it as one solid block, not word by word."
+      - kind: match
+        id: rev-l2
+        surfaces: ["bonjour", "salut", "merci", "s'il vous plaît", "oui", "non"]
+      - kind: info
+        id: win-l2
+        title: "Doors open now"
+        body: "«s'il vous plaît» in, «merci beaucoup» out — with «oui» and «non» you can already survive a French bakery."
+        variant: "win"
+
+  # ── L3 · partings & evenings ────────────────────────────────────────────────
+  - n: 3
+    template: free
+    title: "Ways to leave — au revoir, bonsoir"
+    description: "Goodbyes for any hour, and the evening's own greetings."
+    steps:
+      - kind: info
+        id: info-evening
+        title: "Ways to leave"
+        body: "«au revoir» = goodbye, any time. «à bientôt» = see you soon. Evenings get their own words: «bonsoir» (good evening) when you arrive, and «bonne nuit» (good night) ONLY when someone is heading to bed."
+      - kind: phrase
+        id: p-aurevoir
+        meaning: "goodbye"
+        text: "au revoir"
+        emoji: "🚪"
+      - kind: imageMcq
+        id: img-aurevoir
+        target: { surface: "au revoir", meaningEn: "goodbye", emoji: "🚪" }
+        distractors:
+          - { surface: "bonjour", emoji: "🙋" }
+          - { surface: "merci", emoji: "🙏" }
+          - { surface: "bonne nuit", emoji: "🌙" }
+      - kind: speakLit
+        id: sp-aurevoir
+        fr: "au revoir"
+        en: "goodbye"
+        atoms: ["au revoir"]
+      - kind: phrase
+        id: p-bonsoir
+        meaning: "good evening"
+        text: "bonsoir"
+        emoji: "🌆"
+      - kind: mcq
+        id: q-bonsoir
+        prompt: "It's 8 pm and you walk into the restaurant. What do you say?"
+        correct: "bonsoir"
+        distractors: ["bonne nuit", "bonjour", "au revoir"]
+        why: "«bonsoir» greets in the evening; «bonne nuit» is only for someone going to sleep."
+        atoms: ["bonsoir"]
+      - kind: speakLit
+        id: sp-bonsoir
+        fr: "bonsoir"
+        en: "good evening"
+        atoms: ["bonsoir"]
+      - kind: phrase
+        id: p-bonnenuit
+        meaning: "good night"
+        text: "bonne nuit"
+        emoji: "🌙"
+      - kind: silentLetterLit
+        id: sl-nuit
+        writtenForm: "nuit"
+        graphemes: ["n", "ui", "t"]
+        silent: [2]
+        en: "night (from «bonne nuit»)"
+        ruleNote: "«ui» glides like wee; the final t is silent: nwee."
+      - kind: listenCompLit
+        id: lc-bonnenuit
+        fr: "bonne nuit"
+        en: "good night"
+        distractorsEn: ["good evening", "goodbye", "see you soon"]
+        atoms: ["bonne nuit"]
+      - kind: phrase
+        id: p-abientot
+        meaning: "see you soon"
+        text: "à bientôt"
+        emoji: "🔜"
+      - kind: silentLetterLit
+        id: sl-bientot
+        writtenForm: "bientôt"
+        graphemes: ["b", "i", "en", "t", "ô", "t"]
+        silent: [5]
+        en: "soon (from «à bientôt»)"
+        ruleNote: "Say byan-TOH: «en» is a nasal vowel, and the final t is silent."
+      - kind: speakLit
+        id: sp-abientot
+        fr: "à bientôt"
+        en: "see you soon"
+        atoms: ["à bientôt"]
+      - kind: buildLit
+        id: b-aurevoirabientot
+        fr: "au revoir à bientôt"
+        en: "goodbye — see you soon"
+        tiles: ["bonsoir", "merci"]
+        atoms: ["au revoir", "à bientôt"]
+      - kind: mcq
+        id: q-nuit
+        prompt: "Your host walks you to the guest room and switches off the hall light. Which phrase fits the moment?"
+        correct: "bonne nuit"
+        distractors: ["bonsoir", "au revoir", "ça va"]
+        why: "«bonne nuit» is for someone about to sleep — «bonsoir» would restart the evening."
+        atoms: ["bonne nuit"]
+      - kind: selfExplain
+        id: se-bonsoir
+        anchorLabel: "You chose: bonsoir"
+        anchorAudioText: "bonsoir"
+        question: "Why «bonsoir» when you arrive, but «bonne nuit» at bedtime?"
+        rule: "«bonsoir» opens an evening conversation; «bonne nuit» closes the day — it wishes someone sleep."
+        surface: "«bonne nuit» is simply the more formal of the two evening greetings."
+        distractor: "«bonsoir» is only correct after 10 pm."
+        ruleExplanation: "Pick by what happens NEXT: conversation → «bonsoir», sleep → «bonne nuit»."
+      - kind: match
+        id: rev-l3
+        surfaces: ["au revoir", "à bientôt", "bonsoir", "bonne nuit", "bonjour", "salut"]
+      - kind: info
+        id: win-l3
+        title: "Any hour covered"
+        body: "Arrive with «bonjour» or «bonsoir», leave with «au revoir» or «à bientôt», and save «bonne nuit» for the pillow."
+        variant: "win"
+
+  # ── L4 · pardon & enchanté ──────────────────────────────────────────────────
+  - n: 4
+    template: free
+    title: "Pardon — one word, three jobs"
+    description: "Apologize, squeeze past, ask again — and meet someone new."
+    steps:
+      - kind: info
+        id: info-pardon
+        title: "«pardon» opens doors"
+        body: "Bumped someone? «pardon». Need to squeeze past? «pardon». Didn't catch what they said? «pardon ?» with a rising voice asks them to repeat. One word, three jobs."
+      - kind: phrase
+        id: p-pardon
+        meaning: "excuse me / sorry"
+        text: "pardon"
+        emoji: "🙇"
+      - kind: listenCompLit
+        id: lc-pardon
+        fr: "pardon"
+        en: "excuse me / sorry"
+        distractorsEn: ["thank you", "hello", "see you soon"]
+        atoms: ["pardon"]
+      - kind: speakLit
+        id: sp-pardon
+        fr: "pardon"
+        en: "excuse me / sorry"
+        atoms: ["pardon"]
+      - kind: phrase
+        id: p-enchante
+        meaning: "nice to meet you"
+        text: "enchanté"
+        emoji: "🤝"
+      - kind: mcq
+        id: q-enchante
+        prompt: "You've just been introduced to your friend's mother. What do you say?"
+        correct: "enchanté"
+        distractors: ["pardon", "au revoir", "non"]
+        why: "«enchanté» — literally 'delighted' — is the set phrase for a first meeting."
+        atoms: ["enchanté"]
+      - kind: speakLit
+        id: sp-enchante
+        fr: "enchanté"
+        en: "nice to meet you"
+        atoms: ["enchanté"]
+      - kind: buildLit
+        id: b-bonjourenchante
+        fr: "bonjour enchanté"
+        en: "hello — nice to meet you"
+        tiles: ["salut", "pardon"]
+        atoms: ["bonjour", "enchanté"]
+      - kind: mcq
+        id: q-pardonuse
+        prompt: "You step on a stranger's foot on the metro. What do you say?"
+        correct: "pardon"
+        distractors: ["enchanté", "ça va", "oui"]
+        why: "«pardon» is the instant apology; «enchanté» would introduce yourself to the foot's owner."
+        atoms: ["pardon"]
+      - kind: listenBuildLit
+        id: lb-bonsoirenchante
+        fr: "bonsoir enchanté"
+        en: "good evening — nice to meet you"
+        tiles: ["bonjour", "salut"]
+        atoms: ["bonsoir", "enchanté"]
+      - kind: textMcq
+        id: tm-pardon
+        target: "pardon"
+        distractors: ["enchanté", "merci beaucoup", "bonne nuit"]
+      - kind: speakLit
+        id: sp-svpreturn
+        fr: "s'il vous plaît"
+        en: "please"
+        atoms: ["s'il vous plaît"]
+      - kind: match
+        id: rev-l4
+        surfaces: ["pardon", "enchanté", "merci beaucoup", "ça va", "bonsoir", "s'il vous plaît"]
+      - kind: info
+        id: win-l4
+        title: "Socially bulletproof"
+        body: "Greet, thank, apologize, meet, part — the whole social loop in French, and it's only lesson four."
+        variant: "win"
+
+  # ── L5 · numbers 0–5 (un…cinq) ─────────────────────────────────────────────
+  - n: 5
+    template: free
+    title: "Count to five — un, deux, trois"
+    description: "The first numbers, and the silent-final rule at work."
+    steps:
+      - kind: info
+        id: info-num05
+        title: "Count to five"
+        body: "«un, deux, trois, quatre, cinq». The endings behave exactly as promised: deux = duh (silent x), trois = trwah (silent s). But «cinq» keeps its q spoken — sank. Numbers are your market survival kit."
+      - kind: phrase
+        id: p-un
+        meaning: "one"
+        text: "un"
+        emoji: "1️⃣"
+      - kind: imageMcq
+        id: img-un
+        target: { surface: "un", meaningEn: "one", emoji: "1️⃣" }
+        distractors:
+          - { surface: "deux", emoji: "2️⃣" }
+          - { surface: "trois", emoji: "3️⃣" }
+          - { surface: "quatre", emoji: "4️⃣" }
+      - kind: speakLit
+        id: sp-un
+        fr: "un"
+        en: "one"
+        atoms: ["un"]
+      - kind: phrase
+        id: p-deux
+        meaning: "two"
+        text: "deux"
+        emoji: "2️⃣"
+      - kind: silentLetterLit
+        id: sl-deux
+        writtenForm: "deux"
+        graphemes: ["d", "eu", "x"]
+        silent: [2]
+        en: "two"
+        ruleNote: "«eu» is one sound (uh); the x is silent: duh."
+      - kind: speakLit
+        id: sp-deux
+        fr: "deux"
+        en: "two"
+        atoms: ["deux"]
+      - kind: phrase
+        id: p-trois
+        meaning: "three"
+        text: "trois"
+        emoji: "3️⃣"
+      - kind: silentLetterLit
+        id: sl-trois
+        writtenForm: "trois"
+        graphemes: ["t", "r", "oi", "s"]
+        silent: [3]
+        en: "three"
+        ruleNote: "«oi» says wah; the final s is silent: trwah."
+      - kind: buildLit
+        id: b-undeuxtrois
+        fr: "un deux trois"
+        en: "one, two, three"
+        tiles: ["oui", "non"]
+        atoms: ["un", "deux", "trois"]
+      - kind: phrase
+        id: p-quatre
+        meaning: "four"
+        text: "quatre"
+        emoji: "4️⃣"
+      - kind: imageMcq
+        id: img-quatre
+        target: { surface: "quatre", meaningEn: "four", emoji: "4️⃣" }
+        distractors:
+          - { surface: "un", emoji: "1️⃣" }
+          - { surface: "deux", emoji: "2️⃣" }
+          - { surface: "trois", emoji: "3️⃣" }
+      - kind: speakLit
+        id: sp-quatre
+        fr: "quatre"
+        en: "four"
+        atoms: ["quatre"]
+      - kind: phrase
+        id: p-cinq
+        meaning: "five"
+        text: "cinq"
+        emoji: "5️⃣"
+      - kind: listenCompLit
+        id: lc-cinq
+        fr: "cinq"
+        en: "five"
+        distractorsEn: ["four", "three", "two"]
+        atoms: ["cinq"]
+      - kind: buildLit
+        id: b-quatreoucinq
+        fr: "quatre ou cinq"
+        en: "four or five"
+        tiles: ["deux", "trois"]
+        atoms: ["quatre", "ou", "cinq"]
+      - kind: selfExplain
+        id: se-silent
+        anchorLabel: "You built: quatre ou cinq"
+        anchorAudioText: "quatre ou cinq"
+        question: "Why does «cinq» end in a spoken sound when «deux» and «trois» don't?"
+        rule: "Final consonants are usually silent, but a few words — cinq among them — keep a spoken final sound. Learn those as exceptions."
+        surface: "«cinq» is spelled with a q, and q is never silent in French."
+        distractor: "Number words always pronounce their final letter."
+        ruleExplanation: "The silent-final rule has a short exception list; cinq, six and dix are on it. When in doubt, trust the rule and learn the exceptions one by one."
+      - kind: match
+        id: rev-l5
+        surfaces: ["un", "deux", "trois", "quatre", "cinq", "non"]
+      - kind: info
+        id: win-l5
+        title: "Five fingers up"
+        body: "You can count on one hand — and every silent ending behaved exactly as lesson one promised."
+        variant: "win"
+
+  # ── L6 · numbers 6–10 + zéro ────────────────────────────────────────────────
+  - n: 6
+    template: free
+    title: "Six to ten — and zéro"
+    description: "The rest of the numbers, exceptions included."
+    steps:
+      - kind: info
+        id: info-num610
+        title: "Six to ten"
+        body: "«six» and «dix» END in a spoken s-sound: seess, deess. «sept» drops its p but keeps its t: set. «huit» sounds like weet. «neuf» keeps its f: nuhf. And zero is «zéro» — the easiest word in the module."
+      - kind: phrase
+        id: p-six
+        meaning: "six"
+        text: "six"
+        emoji: "6️⃣"
+      - kind: listenCompLit
+        id: lc-six
+        fr: "six"
+        en: "six"
+        distractorsEn: ["seven", "eight", "ten"]
+        atoms: ["six"]
+      - kind: speakLit
+        id: sp-six
+        fr: "six"
+        en: "six"
+        atoms: ["six"]
+      - kind: phrase
+        id: p-sept
+        meaning: "seven"
+        text: "sept"
+        emoji: "7️⃣"
+      - kind: silentLetterLit
+        id: sl-sept
+        writtenForm: "sept"
+        graphemes: ["s", "e", "p", "t"]
+        silent: [2]
+        en: "seven"
+        ruleNote: "The p is silent but the t is spoken: set."
+      - kind: speakLit
+        id: sp-sept
+        fr: "sept"
+        en: "seven"
+        atoms: ["sept"]
+      - kind: phrase
+        id: p-huit
+        meaning: "eight"
+        text: "huit"
+        emoji: "8️⃣"
+      - kind: imageMcq
+        id: img-huit
+        target: { surface: "huit", meaningEn: "eight", emoji: "8️⃣" }
+        distractors:
+          - { surface: "six", emoji: "6️⃣" }
+          - { surface: "sept", emoji: "7️⃣" }
+          - { surface: "neuf", emoji: "9️⃣" }
+      - kind: speakLit
+        id: sp-huit
+        fr: "huit"
+        en: "eight"
+        atoms: ["huit"]
+      - kind: phrase
+        id: p-neuf
+        meaning: "nine"
+        text: "neuf"
+        emoji: "9️⃣"
+      - kind: imageMcq
+        id: img-neuf
+        target: { surface: "neuf", meaningEn: "nine", emoji: "9️⃣" }
+        distractors:
+          - { surface: "huit", emoji: "8️⃣" }
+          - { surface: "six", emoji: "6️⃣" }
+          - { surface: "dix", emoji: "🔟" }
+      - kind: buildLit
+        id: b-sixetsept
+        fr: "six et sept"
+        en: "six and seven"
+        tiles: ["ou", "deux"]
+        atoms: ["six", "et", "sept"]
+      - kind: speakLit
+        id: sp-neuf
+        fr: "neuf"
+        en: "nine"
+        atoms: ["neuf"]
+      - kind: phrase
+        id: p-dix
+        meaning: "ten"
+        text: "dix"
+        emoji: "🔟"
+      - kind: textMcq
+        id: tm-dix
+        target: "dix"
+        distractors: ["deux", "six", "sept"]
+      - kind: buildLit
+        id: b-neufetdix
+        fr: "neuf et dix"
+        en: "nine and ten"
+        tiles: ["six", "ou"]
+        atoms: ["neuf", "et", "dix"]
+      - kind: phrase
+        id: p-zero
+        meaning: "zero"
+        text: "zéro"
+        emoji: "0️⃣"
+      - kind: imageMcq
+        id: img-zero
+        target: { surface: "zéro", meaningEn: "zero", emoji: "0️⃣" }
+        distractors:
+          - { surface: "un", emoji: "1️⃣" }
+          - { surface: "deux", emoji: "2️⃣" }
+          - { surface: "dix", emoji: "🔟" }
+      - kind: speakLit
+        id: sp-zero
+        fr: "zéro"
+        en: "zero"
+        atoms: ["zéro"]
+      - kind: match
+        id: rev-l6
+        surfaces: ["six", "sept", "huit", "neuf", "dix", "zéro"]
+      - kind: info
+        id: win-l6
+        title: "Zero to ten"
+        body: "Phone numbers, prices, room numbers — all ten digits are yours, exceptions and all."
+        variant: "win"
+
+  # ── L7 · integration — one small conversation ──────────────────────────────
+  - n: 7
+    template: free
+    title: "One small conversation"
+    description: "Everything so far, chained into real exchanges."
+    steps:
+      - kind: info
+        id: info-recap
+        title: "One small conversation"
+        body: "You can now run a real exchange: greet, ask «ça va ?», thank, count, and part. This lesson chains it all — listen for the words you know and let the silent endings wash past."
+      - kind: dialogueLit
+        id: dlg-soir
+        lines:
+          - { speaker: "Marie", text: "bonsoir !" }
+          - { speaker: "Thomas", text: "bonsoir ! ça va ?" }
+          - { speaker: "Marie", text: "ça va, merci. et vous ?" }
+          - { speaker: "Thomas", text: "ça va, merci beaucoup." }
+        questions:
+          - id: "q1"
+            prompt: "What time of day is it?"
+            correctText: "Evening"
+            distractors: ["Morning", "Midday", "Bedtime"]
+          - id: "q2"
+            prompt: "How is Marie doing?"
+            correctText: "Fine"
+            distractors: ["Badly", "She doesn't say", "She's in a hurry"]
+        atoms: ["bonsoir", "ça va", "merci", "merci beaucoup"]
+      - kind: clozeLit
+        id: cz-et
+        fr: "six et sept"
+        en: "six and seven"
+        blank: "et"
+        options: ["et", "ou", "oui", "non"]
+        why: "«et» joins ('and'); «ou» offers a choice ('or')."
+        atoms: ["six", "sept"]
+      - kind: speakLit
+        id: sp-bonjourcava
+        fr: "bonjour, ça va ?"
+        en: "hello — how's it going?"
+        atoms: ["bonjour", "ça va"]
+      - kind: clozeLit
+        id: cz-ou
+        fr: "quatre ou cinq"
+        en: "four or five"
+        blank: "ou"
+        options: ["ou", "et", "oui", "non"]
+        why: "A choice between numbers wants «ou» (or), not «et» (and)."
+        atoms: ["quatre", "cinq"]
+      - kind: buildLit
+        id: b-mercietaurevoir
+        fr: "merci et au revoir"
+        en: "thank you and goodbye"
+        tiles: ["ou", "salut"]
+        atoms: ["merci", "et", "au revoir"]
+      - kind: listenCompLit
+        id: lc-abientot
+        fr: "à bientôt"
+        en: "see you soon"
+        distractorsEn: ["good night", "excuse me", "thank you"]
+        atoms: ["à bientôt"]
+      - kind: speakLit
+        id: sp-nombres
+        fr: "un deux trois quatre cinq"
+        en: "one two three four five"
+        atoms: ["un", "deux", "trois", "quatre", "cinq"]
+      - kind: mcq
+        id: q-cafe
+        prompt: "The waiter sets down your coffee. You say —"
+        correct: "merci"
+        distractors: ["pardon", "non", "à bientôt"]
+        why: "Receiving something takes «merci»; «pardon» apologizes, and «à bientôt» walks away from the coffee."
+        atoms: ["merci"]
+      - kind: listenBuildLit
+        id: lb-neufetdix
+        fr: "neuf et dix"
+        en: "nine and ten"
+        tiles: ["deux", "ou"]
+        atoms: ["neuf", "et", "dix"]
+      - kind: selfExplain
+        id: se-etou
+        anchorLabel: "You picked: quatre ou cinq"
+        anchorAudioText: "quatre ou cinq"
+        question: "When do you join with «et» and when with «ou»?"
+        rule: "«et» adds ('four AND five'); «ou» chooses ('four OR five'). The two never swap jobs."
+        surface: "«et» is for joining numbers and «ou» is for joining words."
+        distractor: "«ou» is just the casual, spoken way of saying «et»."
+        ruleExplanation: "Same as English and/or — pick by meaning, not by the words around it."
+      - kind: match
+        id: rev-l7
+        surfaces: ["bonjour", "merci beaucoup", "pardon", "huit", "bonsoir", "à bientôt"]
+      - kind: speakLit
+        id: sp-close
+        fr: "au revoir, à bientôt !"
+        en: "goodbye — see you soon!"
+        atoms: ["au revoir", "à bientôt"]
+      - kind: info
+        id: win-l7
+        title: "The bonjour rule"
+        body: "In France, «bonjour» isn't optional — walking into a shop without it reads as rude, and clerks will pointedly answer «bonjour ?» until you say it back. One word buys you goodwill everywhere. You now have that word, and twenty-six more."
+        variant: "win"
+
+  # ── L8 · mastery — graded only ──────────────────────────────────────────────
+  - n: 8
+    template: free
+    title: "M1 Mastery Test"
+    description: "Every step counts. No cards, no hints — show what stuck."
+    steps:
+      - kind: textMcq
+        id: tm-m-bonjour
+        target: "bonjour"
+        distractors: ["bonsoir", "salut", "merci"]
+      - kind: speakLit
+        id: sp-m-merci
+        fr: "merci"
+        en: "thank you"
+        atoms: ["merci"]
+      - kind: listenCompLit
+        id: lc-m-cava
+        fr: "ça va"
+        en: "how's it going? / it's fine"
+        distractorsEn: ["goodbye", "please", "good evening"]
+        atoms: ["ça va"]
+      - kind: buildLit
+        id: b-m-mercibeaucoup
+        fr: "merci beaucoup"
+        en: "thank you very much"
+        tiles: ["pardon", "oui"]
+        atoms: ["merci beaucoup"]
+      - kind: clozeLit
+        id: cz-m-et
+        fr: "neuf et dix"
+        en: "nine and ten"
+        blank: "et"
+        options: ["et", "ou", "oui", "non"]
+        why: "«et» joins the numbers; «ou» would offer a choice."
+        atoms: ["neuf", "dix"]
+      - kind: textMcq
+        id: tm-m-svp
+        target: "s'il vous plaît"
+        distractors: ["merci beaucoup", "bonne nuit", "au revoir"]
+      - kind: listenBuildLit
+        id: lb-m-quatreoucinq
+        fr: "quatre ou cinq"
+        en: "four or five"
+        tiles: ["et", "six"]
+        atoms: ["quatre", "ou", "cinq"]
+      - kind: speakLit
+        id: sp-m-bonsoir
+        fr: "bonsoir"
+        en: "good evening"
+        atoms: ["bonsoir"]
+      - kind: mcq
+        id: q-m-register
+        prompt: "Which greeting is for friends only?"
+        correct: "salut"
+        distractors: ["bonjour", "bonsoir", "enchanté"]
+        why: "«salut» is casual; the other three work with strangers."
+        atoms: ["salut"]
+      - kind: silentLetterLit
+        id: sl-m-huit
+        writtenForm: "huit"
+        graphemes: ["h", "ui", "t"]
+        silent: [0]
+        en: "eight"
+        ruleNote: "The h is silent — «huit» sounds like weet — but this t IS spoken."
+      - kind: buildLit
+        id: b-m-aurevoir
+        fr: "au revoir à bientôt"
+        en: "goodbye — see you soon"
+        tiles: ["bonsoir", "merci"]
+        atoms: ["au revoir", "à bientôt"]
+      - kind: match
+        id: rev-m
+        surfaces: ["ça va", "pardon", "sept", "neuf", "bonne nuit", "enchanté"]
+      - kind: speakLit
+        id: sp-m-close
+        fr: "merci, au revoir !"
+        en: "thank you, goodbye!"
+        atoms: ["merci", "au revoir"]
+
+placement:
+  screener:
+    - id: "pt-fr-m1-s"
+      prompt: "Pick the phrase that means 'thank you very much'."
+      correct: "merci beaucoup"
+      distractors: ["s'il vous plaît", "bonne nuit", "au revoir"]
+  byModule:
+    - id: "pt-fr-m1-1"
+      prompt: "Which phrase means 'please'?"
+      correct: "s'il vous plaît"
+      distractors: ["merci", "pardon", "ça va"]
+    - id: "pt-fr-m1-2"
+      prompt: "You're leaving. Pick the phrase for 'see you soon'."
+      correct: "à bientôt"
+      distractors: ["bonsoir", "salut", "oui"]
+    - id: "pt-fr-m1-3"
+      prompt: "Pick the number that means 'eight'."
+      correct: "huit"
+      distractors: ["six", "dix", "neuf"]
+    - id: "pt-fr-m1-4"
+      prompt: "It's evening and you arrive at dinner. Pick the greeting."
+      correct: "bonsoir"
+      distractors: ["bonne nuit", "au revoir", "pardon"]

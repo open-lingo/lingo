@@ -13,6 +13,12 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "translate", label: "Translate", group: "Drill" },
   { value: "particle_cloze", label: "Particle cloze", group: "Drill" },
   { value: "agreement_cloze", label: "Agreement cloze", group: "Drill" },
+  { value: "aspect_choice_cloze", label: "Aspect choice cloze", group: "Drill" },
+  { value: "gender_sort", label: "Gender sort", group: "Drill" },
+  { value: "stress_pattern", label: "Stress pattern", group: "Listening" },
+  { value: "silent_letter", label: "Silent letter", group: "Listening" },
+  { value: "agreement_chain", label: "Agreement chain", group: "Drill" },
+  { value: "liaison_listen", label: "Liaison listen", group: "Listening" },
   { value: "conjugation_cloze", label: "Conjugation cloze", group: "Drill" },
   { value: "conjugation_transform", label: "Conjugation transform", group: "Drill" },
   { value: "kanji_reading", label: "Kanji reading", group: "Drill" },
@@ -89,6 +95,61 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         type: "agreement_cloze",
         segments: [],
         meaningEn: "",
+      };
+    case "aspect_choice_cloze":
+      return {
+        ...base,
+        type: "aspect_choice_cloze",
+        prompt: "",
+        meaningEn: "",
+        segments: [],
+      };
+    case "gender_sort":
+      return {
+        ...base,
+        type: "gender_sort",
+        buckets: [
+          { id: "m", label: "el" },
+          { id: "f", label: "la" },
+        ],
+        items: [],
+      };
+    case "stress_pattern":
+      return {
+        ...base,
+        type: "stress_pattern",
+        syllables: [],
+        stressedIndex: 0,
+        writtenForm: "",
+        meaningEn: "",
+        audioText: "",
+      };
+    case "silent_letter":
+      return {
+        ...base,
+        type: "silent_letter",
+        graphemes: [],
+        silentIndices: [],
+        meaningEn: "",
+        audioText: "",
+      };
+    case "agreement_chain":
+      return {
+        ...base,
+        type: "agreement_chain",
+        head: { surface: "", meaningEn: "", featureLabel: "" },
+        tokens: [],
+        meaningEn: "",
+      };
+    case "liaison_listen":
+      return {
+        ...base,
+        type: "liaison_listen",
+        prompt: "",
+        audioText: "",
+        meaningEn: "",
+        words: [],
+        linkedJunctions: [],
       };
     case "conjugation_cloze":
       // Empty shell for shape only. Real steps must come from the
@@ -316,6 +377,16 @@ export function summariseStep(step: LessonStep): string {
       return truncate(step.targetPhrase);
     case "self_explanation_mcq":
       return truncate(step.question);
+    case "gender_sort":
+      return `${step.items.length} word${step.items.length === 1 ? "" : "s"} → ${step.buckets.map((b) => b.label).join(" / ")}`;
+    case "stress_pattern":
+      return `${step.syllables.join("·")} → ${step.writtenForm}`;
+    case "silent_letter":
+      return `${step.graphemes.join("")} · ${step.silentIndices.length} silent`;
+    case "agreement_chain": {
+      const n = step.tokens.filter((t) => t.kind === "slot").length;
+      return `${step.head.surface} → ${n} slot${n === 1 ? "" : "s"}`;
+    }
     case "row_test":
       return `row ${step.rowId} · ${step.items.length} item${step.items.length === 1 ? "" : "s"}`;
     default:

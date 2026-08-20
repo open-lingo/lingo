@@ -32,6 +32,7 @@ import { KO_M25_LESSONS } from "@/features/languages/ko/curriculum/m25";
 import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
 import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
 import { ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
+import { FR_ALL_LESSONS } from "@/features/languages/fr/curriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -291,6 +292,9 @@ const KOREAN_M27_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const SPANISH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   ES_ALL_LESSONS.map((l) => [l.id, l]),
 );
+const FRENCH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  FR_ALL_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -362,6 +366,10 @@ const LESSONS: Record<string, LessonContent> = {
   // ─── Spanish — authored modules (assembled in es/curriculum/index.ts;
   // stub modules contribute nothing until their authoring wave lands) ───
   ...SPANISH_LESSONS,
+  // ─── French — authored modules (derived in fr/curriculum/index.ts from
+  // the m*.ts glob; FR stays non-selectable until its audio gate is green,
+  // but its lessons resolve so the gates can walk them as rendered) ──────
+  ...FRENCH_LESSONS,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,

@@ -21,6 +21,10 @@ export type StepType =
   | "particle_cloze"
   | "agreement_cloze"
   | "aspect_choice_cloze"
+  | "gender_sort"
+  | "stress_pattern"
+  | "silent_letter"
+  | "agreement_chain"
   | "liaison_listen"
   | "conjugation_cloze"
   | "conjugation_transform"
@@ -989,6 +993,198 @@ export type AspectChoiceClozeStep = StepBase & {
  * Junctions are derived from the word list, so a step cannot claim a link at a
  * position that does not exist.
  */
+/**
+ * GENDER SORT (es / fr). A tray of bare nouns; two gender buckets labelled by
+ * the DEFINITE ARTICLE ("el"/"la", "le"/"la"). The learner drops every noun
+ * into a bucket, then one Check grades the board.
+ *
+ * Why this is not `match_pairs`. Match consumes each tile exactly once, so an
+ * eight-noun gender set would need eight "el" tiles sitting in the grid — the
+ * grid would teach that there are eight masculines rather than one masculine
+ * class. Sorting is n:2 and matching is 1:1; they are different shapes, and the
+ * ratio IS the fact being taught.
+ *
+ * Why it is not `agreement_cloze` either. That step asks the learner to make a
+ * sentence agree once the gender is already known — «l__ cas__ blanc__s» is
+ * unanswerable if you do not know `casa` is feminine. Gender assignment is the
+ * PRIOR step, and it is lexical (a property of the word) where agreement is
+ * syntactic (a property of the sentence). Conflating them is why learners who
+ * can recite the o/a endings still write «el problema» wrong.
+ *
+ * The step earns its keep on the EXCEPTIONS. A set of transparent -o/-a nouns
+ * is a spelling drill the learner can win without knowing any Spanish; the
+ * authored sets must carry the words whose ending lies — el problema, el día,
+ * la mano, el agua (feminine, masculine article), and for fr le musée, la main.
+ * `endingRule` is the after-the-fact generalisation, shown on the review card
+ * so the learner leaves with the rule AND its exception list.
+ */
+/**
+ * SILENT LETTER — a written French word, its audio, and the learner taps every
+ * letter that is NOT pronounced. «petit» → t. «beaucoup» → p. «ils parlent» →
+ * e, n, t.
+ *
+ * WHY THIS IS NOT `stress_pattern` WITH DIFFERENT DATA. The two look adjacent
+ * and are not:
+ *   · stress_pattern is SINGLE-select (one syllable carries the stress);
+ *     this is MULTI-select, and "how many are silent" is itself unknown to the
+ *     learner, so a single-select control would leak the answer's shape.
+ *   · stress_pattern operates on SYLLABLES, which are a segmentation the
+ *     author supplies; this operates on the raw grapheme sequence, because a
+ *     silent letter is a property of a letter, not of a syllable.
+ *   · stress_pattern asks what is PROMINENT in speech; this asks what is
+ *     ABSENT from it. Grading, feedback wording and the post-commit reveal all
+ *     differ accordingly.
+ * Parameterizing one type to do both would give it two answer shapes and two
+ * grading rules under one name — a fork wearing a shared type's clothes.
+ *
+ * WHY NOT `multiple_choice`. An option list over spellings shows the learner
+ * the letters in question. The whole difficulty of French orthography is
+ * deciding, from a word you have never seen, which of ITS OWN letters survive
+ * into speech; a step that pre-selects the candidates has removed the task.
+ *
+ * The audio is the reference, not the stimulus: the word is on screen from the
+ * start, so this plays on demand rather than on mount (the opposite of
+ * `stress_pattern`).
+ */
+export type SilentLetterStep = StepBase & {
+  type: "silent_letter";
+  prompt?: string;
+  /** The word as written, one entry per GRAPHEME. Split by the author so
+   *  digraphs that behave as a unit («ch», «ou», «eau») stay together — a
+   *  learner tapping the «u» of «beaucoup» separately is answering a question
+   *  French does not ask. */
+  graphemes: string[];
+  /** Indices into `graphemes` that are not pronounced. May be empty — a word
+   *  with NO silent letter is a legitimate and necessary item, otherwise the
+   *  learner learns that every word has one. */
+  silentIndices: number[];
+  meaningEn: string;
+  audioText: string;
+  /** The generalisation, revealed post-commit. "Final consonants are usually
+   *  silent in French — but c, r, f and l usually survive (CaReFuL)." */
+  ruleNote?: string;
+  /** A partner word where the SAME letter is pronounced, revealed post-commit.
+   *  «petit» / «petite» is the pair that makes the rule make sense. */
+  contrast?: { writtenForm: string; meaningEn: string; note?: string };
+};
+
+/**
+ * AGREEMENT CHAIN — one head noun's gender and number, propagated across every
+ * word that must agree with it. The learner sets each slot; the point is that
+ * a SINGLE feature choice forces four separate surface changes at once.
+ *
+ *   les ___ filles sont ___     (petites / contentes)
+ *
+ * WHY THIS IS NOT n × `agreement_cloze`. Three reasons, and the third is the
+ * real one:
+ *   · n consecutive agreement_cloze steps trip the "no two adjacent steps
+ *     share a type" gate and the 3-selection-run gate immediately.
+ *   · Each would be graded independently, so a learner could get the
+ *     determiner right and the participle wrong and see two unrelated verdicts
+ *     rather than one broken chain.
+ *   · Splitting them destroys the lesson. The fact being taught is that the
+ *     agreements are NOT independent — they are one decision surfacing in four
+ *     places. Presenting them as four questions teaches the opposite.
+ *
+ * French-specific by construction, but nothing here is French-only: Spanish
+ * («las niñas pequeñas están contentas») and Portuguese have the same shape.
+ * The type takes the feature labels from the step, not from a language table.
+ */
+export type AgreementChainStep = StepBase & {
+  type: "agreement_chain";
+  prompt?: string;
+  /** The head noun that governs the chain, shown fixed and un-blanked. */
+  head: { surface: string; meaningEn: string; featureLabel: string };
+  /** The sentence as an ordered list. A `slot` is a blank the learner fills;
+   *  a `fixed` token is printed as-is. */
+  tokens: (
+    | { kind: "fixed"; text: string }
+    | {
+        kind: "slot";
+        id: string;
+        /** Options for THIS slot, in authored order — the view shuffles by a
+         *  seed derived from the step id, per the house rule. */
+        options: string[];
+        correct: string;
+        /** What this slot is agreeing in, for the post-commit reveal:
+         *  "feminine plural adjective". */
+        roleLabel: string;
+      }
+  )[];
+  meaningEn: string;
+  audioText?: string;
+  /** Revealed post-commit — the one sentence that names the propagation. */
+  ruleNote?: string;
+};
+
+export type GenderSortStep = StepBase & {
+  /** Exactly two buckets: the language's two genders, labelled by article. */
+  type: "gender_sort";
+  prompt?: string;
+  buckets: [
+    { id: string; label: string },
+    { id: string; label: string },
+  ];
+  items: {
+    id: string;
+    /** The BARE noun — never printed with its article, which is the answer. */
+    surface: string;
+    bucketId: string;
+    meaningEn: string;
+    /** Post-grading note for this word. Reserve it for the liars. */
+    note?: string;
+  }[];
+  /** Generalisation revealed after grading, e.g. "-o is usually masculine,
+   *  -a usually feminine — but -ma words borrowed from Greek are masculine." */
+  endingRule?: string;
+};
+
+/**
+ * STRESS PATTERN (es, and fr for the accent-bearing minority). A word is shown
+ * split into SYLLABLES with every written accent stripped; the audio plays; the
+ * learner taps the syllable that carries the stress. After grading the card
+ * reveals the correctly written form — tilde and all — and the aguda / llana /
+ * esdrújula rule that decides whether the accent is written at all.
+ *
+ * Why no existing type does this. The Spanish written accent is not a spelling
+ * fact, it is a STRESS fact with a spelling consequence, and every existing
+ * type that could carry it prints the answer: put «habló» in a
+ * `multiple_choice` option and the learner reads the tilde instead of hearing
+ * the stress. Stripping the accent is the whole mechanic, and it requires
+ * sub-word segmentation that no Latin-script step type in the course renders —
+ * the `symbol_*` family segments kana glyphs, which is a different unit and a
+ * different script.
+ *
+ * This is the gap m17 hit. Its L5 minimal-pair lesson (hablo / habló) had to be
+ * hand-rolled out of generic MCQ steps because the type did not exist, and the
+ * hand-rolled version necessarily showed both accented spellings up front.
+ *
+ * `syllables` MUST be accent-stripped; a written tilde in this array is an
+ * authoring error and the view will not repair it. `writtenForm` is the only
+ * place the accent appears, and it appears only after the learner has committed.
+ */
+export type StressPatternStep = StepBase & {
+  type: "stress_pattern";
+  prompt?: string;
+  /** Syllables in order, WITHOUT written accents. The answer must be heard. */
+  syllables: string[];
+  /** Index into `syllables` of the stressed one. */
+  stressedIndex: number;
+  /** Correct orthography, revealed post-commit. Carries the tilde if required. */
+  writtenForm: string;
+  meaningEn: string;
+  /** TTS key for the word. Plays on mount and on demand — this step is a
+   *  listening task, so the audio is the stimulus, not a reward. */
+  audioText: string;
+  /** Which rule decides the written accent. Drives the revealed label. */
+  accentRule?: "aguda" | "llana" | "esdrujula" | "none";
+  /** One-line prose for that rule, shown with the revealed spelling. */
+  ruleNote?: string;
+  /** A same-spelling, different-stress partner ("hablo" ↔ "habló"), shown in
+   *  the reveal so the learner sees what the stress was distinguishing. */
+  minimalPair?: { writtenForm: string; meaningEn: string };
+};
+
 export type LiaisonListenStep = StepBase & {
   type: "liaison_listen";
   /** Plain instruction. */
@@ -1372,6 +1568,10 @@ export type LessonStep =
   | ParticleClozeStep
   | AgreementClozeStep
   | AspectChoiceClozeStep
+  | GenderSortStep
+  | StressPatternStep
+  | SilentLetterStep
+  | AgreementChainStep
   | LiaisonListenStep
   | ConjugationClozeStep
   | ConjugationTransformStep

@@ -11,6 +11,7 @@
 import { jaModule } from "@/features/languages/ja/module";
 import { koModule } from "@/features/languages/ko/module";
 import { esModule } from "@/features/languages/es/module";
+import { frModule } from "@/features/languages/fr/module";
 import type { LanguageModule } from "./LanguageModule";
 import type { Atom, AtomId, LanguageId } from "./types";
 
@@ -18,6 +19,13 @@ const MODULES: Partial<Record<LanguageId, LanguageModule>> = {
   ja: jaModule,
   ko: koModule,
   es: esModule,
+  // Registered but NOT selectable — `AVAILABLE_LEARNING_LANGUAGE_IDS` in
+  // shared/domain/languageConfig.ts is the separate switch, and it stays off
+  // until fr audio coverage passes at zero (fr pin §7 item 6). Registering
+  // early is deliberate: `moduleConformance` is describe.each over
+  // getAllLanguageIds(), so French is gated from now on rather than from
+  // whenever someone remembers to add it.
+  fr: frModule,
 };
 
 export function getLanguageModule(id: LanguageId): LanguageModule {

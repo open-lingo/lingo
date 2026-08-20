@@ -42,6 +42,7 @@ const SPEECH_LOCALES: Record<string, { web: string; whisper: string }> = {
   ja: { web: "ja-JP", whisper: "ja" },
   ko: { web: "ko-KR", whisper: "ko" },
   es: { web: "es-ES", whisper: "es" },
+  fr: { web: "fr-FR", whisper: "fr" },
   en: { web: "en-US", whisper: "en" },
 };
 
