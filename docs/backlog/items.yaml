@@ -2962,6 +2962,21 @@
     from ever happening please." R2 ruling: "we should count the word as taught
     the moment its introduced, and this should only exist for a select few."
 
+    2026-08-20 re-run (the 08-09 diff was 11 days stale; m32/m33 + packs
+    landed since): 976 atoms — 559 match, 51 kana-row, 155 restamp, 136
+    never-taught, 38 ambiguous, and a NEW class the instrument previously
+    hid: 37 exercised-never-introduced (graded somewhere, introduced
+    nowhere; 9 of them first exercised by m32/m33 themselves, authored
+    against the stale labels — こうえん, テスト, テレビ, しゅくだい, ねる,
+    ばんごはん, かける, つかれる, とお). Instrument changes: vmcq-debut
+    counts as introduction (R2: "taught the moment its introduced");
+    exercise-only no longer auto-restamps; printers refuse unknown classes.
+    CAVEAT for the audit step: を/する/くる rows in the 37 look like the
+    instrument missing grammar-card introductions in hand-authored modules,
+    not real gaps — triage before believing any row. Regenerate:
+    node scripts/restamp-from-module.mjs (dry-run).
+
+
 - id: B105
   title: the KO course teaches and grades words that have no atom row, and nothing checks
   status: open

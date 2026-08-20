@@ -323,6 +323,7 @@ function derive(api) {
         const exercisedTeach = [];
         const exercisedAny = [];
         const graded = [];
+        const vmcqDebuts = [];
         const tiles = new Set();
         for (const step of content.steps) {
           const ex = (step.exercisedAtoms ?? []).map(stripLang);
@@ -333,6 +334,12 @@ function derive(api) {
           exercisedAny.push(...ex);
           if (!isReviewStep) exercisedTeach.push(...ex);
           if (isGradedStep(step)) graded.push(...ex);
+          // word_image_mcq is THE vocabulary debut device in the hand-authored
+          // era (m3-m9, pre-IR `introduces`): a non-review vmcq targeting a
+          // word IS its introduction (ぎゅうにゅう → ja-m5-neo-3-vmcq-…).
+          // Sentence exercise alone is not (R2, Spencer 2026-08-20).
+          if (step.type === "word_image_mcq" && !isReviewStep)
+            vmcqDebuts.push(...ex);
           for (const t of step.tiles ?? []) tiles.add(t);
         }
         walk.push({
@@ -342,6 +349,7 @@ function derive(api) {
           exercisedTeach,
           exercisedAny,
           graded,
+          vmcqDebuts,
           tiles: [...tiles],
         });
       }
@@ -350,6 +358,7 @@ function derive(api) {
 
   // First evidence per atom from the walk.
   const firstTeachExercised = new Map();
+  const firstVmcqDebut = new Map();
   const firstAnyExercised = new Map();
   const firstGraded = new Map();
   const firstTiled = new Map();
@@ -357,6 +366,9 @@ function derive(api) {
   for (const rec of walk) {
     for (const id of rec.exercisedTeach) {
       if (!firstTeachExercised.has(id)) firstTeachExercised.set(id, rec);
+    }
+    for (const id of rec.vmcqDebuts ?? []) {
+      if (!firstVmcqDebut.has(id)) firstVmcqDebut.set(id, rec);
     }
     for (const id of rec.exercisedAny) {
       if (!firstAnyExercised.has(id)) firstAnyExercised.set(id, rec);
@@ -481,6 +493,7 @@ function derive(api) {
   for (const atom of JA_COURSE_ATOMS) {
     const attr = attrStatus(atom);
     const teachEx = firstTeachExercised.get(atom.id) ?? null;
+    const vmcqEx = firstVmcqDebut.get(atom.id) ?? null;
     const anyEx = firstAnyExercised.get(atom.id) ?? null;
     const gr = firstGraded.get(atom.id) ?? null;
     const ti = firstTiled.get(atom.id) ?? null;
@@ -525,6 +538,13 @@ function derive(api) {
         lessonId: attr.lessonId,
         moduleId: attr.moduleId,
         order: lessonModule.get(attr.lessonId).order,
+      });
+    if (vmcqEx)
+      candidates.push({
+        kind: "vmcq-debut",
+        lessonId: vmcqEx.lessonId,
+        moduleId: vmcqEx.moduleId,
+        order: lessonModule.get(vmcqEx.lessonId).order,
       });
     if (teachEx)
       candidates.push({
@@ -646,6 +666,20 @@ function derive(api) {
       continue;
     }
 
+    // R2 ruling (Spencer 2026-08-20): "count the word as taught the moment
+    // its INTRODUCED." A word whose only teach evidence is graded exercise
+    // beats was never introduced anywhere — restamping it to the exercising
+    // module would launder the bug into the label. Those are the
+    // teach-them-wave inventory (R16/B107 family), not restamps.
+    // Live case that forced this branch: こうえん — zero introduces anywhere,
+    // heavily exercised by m32 (authored 2026-08-19 against the stale label).
+    if (candidates.every((c) => c.kind === "first-exercised")) {
+      row.class = "exercised-never-introduced";
+      row.note = `graded from ${earliest.lessonId} but no lesson ever introduces it — teach it (R16 wave) or de-exercise it; do not restamp`;
+      rows.push(row);
+      continue;
+    }
+
     if (candidateModules.length > 1) {
       row.note = `multi-site: candidates span ${candidateModules.join(", ")} — earliest wins`;
     }
@@ -704,20 +738,23 @@ function derive(api) {
     controls.push(
       `ちゃ → ${chaDerived} (${cha.evidenceKind} ${cha.evidenceLessonId})`,
     );
-    // Known-untaught: こうえん (park) — no IR `introduces`, no hand-authored
-    // m3-m5 use, named by the m19 guard-test's untaught list and B088's
-    // pad-leak list. Must classify never-taught (source-grep verified
-    // independently of this instrument, 2026-08-09).
+    // こうえん (park) — STILL never introduced anywhere, but no longer
+    // never-EXERCISED: m32 (authored 2026-08-19, against the stale label
+    // this instrument exists to fix) grades it in six places. The control
+    // now asserts exactly that split: exercise evidence, zero introduce
+    // evidence, and the R2 branch refusing to restamp it.
     const kouen = control((r) => r.kana === "こうえん", "こうえん");
-    if (kouen.class !== "never-taught" && kouen.class !== "match")
+    if (kouen.class !== "exercised-never-introduced")
       throw new Error(
-        `instrument control FAILED: こうえん classified ${kouen.class} (expected never-taught / already-sentinel match)\n${JSON.stringify(kouen, null, 1)}`,
+        `instrument control FAILED: こうえん classified ${kouen.class} (expected exercised-never-introduced)\n${JSON.stringify(kouen, null, 1)}`,
       );
-    if (kouen.evidenceLessonId)
+    if (kouen.candidates.some((c) => c.kind !== "first-exercised"))
       throw new Error(
-        `instrument control FAILED: こうえん has teaching evidence ${kouen.evidenceLessonId}`,
+        `instrument control FAILED: こうえん has INTRODUCE evidence ${JSON.stringify(kouen.candidates)} — the exercised-only premise is stale`,
       );
-    controls.push(`こうえん → ${kouen.class} (${kouen.old} → ${kouen.new})`);
+    controls.push(
+      `こうえん → exercised-never-introduced (graded from ${kouen.evidenceLessonId}, introduced nowhere)`,
+    );
     // Instructive control — ぎゅうにゅう was "known-untaught" in the 07-29 m8
     // walk, but the live m5-neo now debuts it with a word-image MCQ
     // (ja-m5-neo-3-vmcq-gyuunyuu, hand-verified in m5-neo-a.ts): the
@@ -726,6 +763,10 @@ function derive(api) {
     if ((gyuu.new === gyuu.old ? gyuu.old : gyuu.new) !== "m5")
       throw new Error(
         `instrument control FAILED: ぎゅうにゅう should derive m5 (ja-m5-neo-3 vmcq debut)\n${JSON.stringify(gyuu, null, 1)}`,
+      );
+    if (!gyuu.candidates.some((c) => c.kind === "vmcq-debut"))
+      throw new Error(
+        `instrument control FAILED: ぎゅうにゅう should carry a vmcq-debut candidate (the ja-m5-neo-3 word-image MCQ)\n${JSON.stringify(gyuu.candidates)}`,
       );
     controls.push(
       `ぎゅうにゅう → m5 (${gyuu.evidenceKind} ${gyuu.evidenceLessonId}; was ${gyuu.old} — the 07-29 "untaught" claim is stale)`,
@@ -777,7 +818,18 @@ function report(result) {
   for (const c of controls) console.log(`  ✓ ${c}`);
 
   console.log(`\nCLASSIFICATION SUMMARY (${rows.length} atoms):`);
-  for (const cls of ["match", "kana-row", "restamp", "never-taught", "ambiguous"]) {
+  const KNOWN_CLASSES = ["match", "kana-row", "restamp", "never-taught", "exercised-never-introduced", "ambiguous"];
+  {
+    // No silent classes: a row whose class the printers don't know would
+    // vanish from both the summary and the diff (that exact bug hid the
+    // first 37 exercised-never-introduced rows).
+    const unknown = rows.filter((r) => !KNOWN_CLASSES.includes(r.class));
+    if (unknown.length)
+      throw new Error(
+        `printer knows no class for ${unknown.length} rows: ${[...new Set(unknown.map((r) => r.class))].join(", ")}`,
+      );
+  }
+  for (const cls of KNOWN_CLASSES) {
     const list = byClass.get(cls) ?? [];
     const changing = list.filter((r) => r.action === "restamp").length;
     console.log(
@@ -798,9 +850,14 @@ function report(result) {
     ].join("\t");
 
   console.log(`\nFULL DIFF (class · word · atom · old→new · evidence · note):`);
-  const orderCls = { restamp: 0, "never-taught": 1, "kana-row": 2, ambiguous: 3, match: 4 };
+  const orderCls = { restamp: 0, "never-taught": 1, "exercised-never-introduced": 2, "kana-row": 3, ambiguous: 4, match: 5 };
   const sorted = rows
-    .filter((r) => r.action === "restamp" || r.class === "ambiguous")
+    .filter(
+      (r) =>
+        r.action === "restamp" ||
+        r.class === "ambiguous" ||
+        r.class === "exercised-never-introduced",
+    )
     .sort(
       (a, b) =>
         orderCls[a.class] - orderCls[b.class] ||
