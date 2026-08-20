@@ -109,7 +109,11 @@ export function LessonShell({
         // `min-h-0` is load-bearing: without it this flex item keeps its
         // `min-height:auto` content floor, refuses to shrink on short windows,
         // and pushes the CTA out of the shell instead of scrolling.
-        className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4 outline-none [container-type:size]"
+        // `keep-native-scrollbar` opts this scroller OUT of the touch-surface
+        // scrollbar-hiding (index.css § "Touch surfaces"): several step types
+        // still overflow the fixed shell at 375×667, and the visible bar is the
+        // only "more below" cue that keeps the Continue button discoverable.
+        className="keep-native-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto py-4 outline-none [container-type:size]"
       >
         {/* `data-lesson-stage` is the styling hook that pins each step view's
             `[data-testid="primary-cta"]` block to the bottom of this scroller

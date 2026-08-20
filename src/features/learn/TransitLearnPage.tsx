@@ -70,7 +70,9 @@ import { TransitSignageHeader } from "@/features/learn/components/TransitSignage
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
+import { VerticalNetworkMap } from "@/features/learn/components/VerticalNetworkMap";
 import { DistrictView, type QuestLeg } from "@/features/learn/components/DistrictView";
+import type { Pt, StationL, QuestStop, SpurL, DepotL, Layout } from "@/features/learn/transitTypes";
 import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
 import { ResumeFab } from "@/features/learn/components/ResumeFab";
 import { cn } from "@/shared/components/ui/cn";
@@ -86,8 +88,6 @@ import "./transitLearnPage.css";
 
 /* ── layout ──────────────────────────────────────────────────────────── */
 
-type Pt = readonly [number, number];
-
 const LEVELS = [344, 266, 188] as const;
 const LEVEL_SEQ = [0, 1, 2, 1] as const;
 const RUNS = [5, 4, 5, 3, 6, 4] as const;
@@ -100,53 +100,6 @@ const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
 /** Rough text width for plates/chips (JP glyphs ~10.5px, latin ~6.2px @10px). */
 const plateW = (t: string) =>
   [...t].reduce((w, c) => w + (c.charCodeAt(0) > 0x2e80 ? 11.6 : 6.9), 0) + 18;
-
-type StationL = {
-  x: number;
-  y: number;
-  labelSide: "top" | "bottom";
-  index: number;
-  module: CourseModule;
-  badge: string;
-  isReview: boolean;
-  status: ModuleStatus;
-  done: number;
-  total: number;
-  interchange: boolean;
-  terminal: boolean;
-};
-
-type QuestStop = { x: number; y: number; quest: SideQuest; leg?: QuestLeg; labelDy?: number };
-type SpurL = {
-  color: string;
-  d: string;
-  dashed: boolean;
-  stops: QuestStop[];
-  label: string;
-  labelX: number;
-  labelY: number; // plate center
-  up: boolean;
-  cap: Pt | null;
-  capDir: "v" | "h";
-};
-
-type DepotL = { d: string; tracks: Pt[][]; labelX: number; labelY: number };
-
-type Layout = {
-  width: number;
-  vbY: number;
-  vbH: number;
-  skyGroundY: number;
-  mainPts: Pt[];
-  stations: StationL[];
-  spurs: SpurL[];
-  depot: DepotL | null;
-  zones: { x0: number; x1: number; label: string; numeral: string }[];
-  zoneChipY: number;
-  /** stations where a branch vertical enters/leaves (and on which side) —
-   * labels shift aside when the vertical would pierce them */
-  branchTouched: ReadonlyMap<number, "up" | "down">;
-};
 
 function levelOf(index: number): number {
   let i = index;
@@ -1675,86 +1628,6 @@ function NetworkMap({
   );
 }
 
-/* ── mobile line diagram ─────────────────────────────────────────────── */
-
-function LineDiagram({
-  layout,
-  currentIdx,
-  lang,
-  onOpen,
-}: {
-  layout: Layout;
-  currentIdx: number;
-  lang: string;
-  onOpen: (index: number) => void;
-}) {
-  const strings = stringsFor(lang);
-  const questColor = new Map<number, string>();
-  layout.stations.forEach((s) => {
-    if (s.interchange) questColor.set(s.index, QUEST_COLORS[questColor.size % QUEST_COLORS.length]);
-  });
-  return (
-    <div className="overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-card">
-      <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-bold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
-          M
-        </div>
-        <div className="min-w-0">
-          <div className="truncate text-[14px] font-bold leading-tight">{strings.lineName}</div>
-          <div className="text-[11px] opacity-75">
-            Station {currentIdx + 1} of {layout.stations.length}
-          </div>
-        </div>
-      </div>
-      <div className="py-1.5">
-        {layout.stations.map((s, i) => {
-          const state = s.status === "completed" ? "tmc-row-done" : s.status === "current" ? "tmc-row-now" : "tmc-row-future";
-          return (
-            <button
-              key={s.module.id}
-              data-tm="row"
-              onClick={() => onOpen(s.index)}
-              className={cn(
-                "grid w-full grid-cols-[52px_1fr] items-stretch text-left min-h-[54px]",
-                state,
-                i === 0 && "tmc-row-first",
-                i === layout.stations.length - 1 && "tmc-row-last",
-                s.status === "current" && "bg-accent-muted/40",
-              )}
-            >
-              <span className="tmc-row-rail">
-                <span className="tmc-row-dot" />
-              </span>
-              <span className="flex flex-col justify-center gap-0.5 py-2 pr-3">
-                <span className="text-[13.5px] font-bold leading-tight text-text-primary">
-                  {s.badge} · {s.module.title}
-                  {s.status === "current" && (
-                    <Icon name="mapPin" size={13} className="ml-1.5 inline align-middle text-accent" aria-hidden />
-                  )}
-                  {s.status === "completed" && (
-                    <span className="ml-1.5 inline-grid h-[15px] w-[15px] place-items-center rounded-full align-middle text-[8px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
-                      {strings.seal}
-                    </span>
-                  )}
-                </span>
-                <span className="text-[11px] text-text-muted">
-                  {s.done}/{s.total} lessons
-                  {s.terminal ? " · terminal" : ""}
-                </span>
-                {s.interchange && (
-                  <span className="mt-0.5 flex w-fit items-center gap-1 rounded-full px-2 py-[1px] text-[10px] font-bold text-white" style={{ background: questColor.get(s.index) }}>
-                    <Icon name="sparkles" size={10} aria-hidden /> Side quests here
-                  </span>
-                )}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 /* ── tier switcher (2026-07-17) ──────────────────────────────────────── */
 
 /**
@@ -1885,7 +1758,6 @@ export default function TransitLearnPage({
   const realSet = useMemo(() => new Set(realIds), [realIds]);
   const realProfile = useLearnProfile();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
-  const [showMapMobile, setShowMapMobile] = useState(false);
   // live mode always renders real progress; the demo overlay is a
   // design-review aid on the /transit-preview route only
   const [demo, setDemo] = useState(preview);
@@ -2181,15 +2053,15 @@ export default function TransitLearnPage({
               geometry (see TierContinueBanner's doc comment). */}
           {hasN4 && <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />}
           <div className="md:hidden">
-            <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
-            <button className="mt-3 w-full rounded-sm border-2 border-text-primary px-3 py-2 text-[13px] font-bold text-text-primary" onClick={() => setShowMapMobile((v) => !v)}>
-              {showMapMobile ? strings.hideNetworkMap : strings.viewNetworkMap}
-            </button>
-            {showMapMobile && (
-              <div className="mt-3">
-                <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
-              </div>
-            )}
+            <VerticalNetworkMap
+              layout={layout}
+              currentIdx={currentIdx}
+              lang={lang ?? "ja"}
+              onOpen={open}
+              questsByAnchor={questsByAnchor}
+              onQuest={onSideQuestClick}
+              isSideQuestUnlocked={isSideQuestUnlocked}
+            />
           </div>
 
           {preview && (

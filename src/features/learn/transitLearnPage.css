@@ -512,3 +512,234 @@ a:focus-visible .tmc-d-stop {
     box-shadow: 0 0 0 3px var(--tmc-halo);
   }
 }
+
+/* ── vertical network map (mobile) ─────────────────────────────────────
+   The transit map rotated to a tall scroll-down line for phones. Own dark
+   "night metro" surface (deliberate, not theme-derived) so it reads as a map
+   panel against the light app chrome. Scoped .vnm- namespace. See
+   VerticalNetworkMap.tsx. */
+.vnm-root {
+  --vnm-bg: #131a2e;
+  --vnm-panel: #1b2340;
+  --vnm-ink: #eef1f8;
+  --vnm-muted: #9aa3c0;
+  --vnm-line: var(--tmc-line-main); /* brand red / tier hue — rides the theme */
+  --vnm-ahead: #3b456b; /* un-travelled track */
+  --vnm-node-locked: #2b3352;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--vnm-bg);
+  color: var(--vnm-ink);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+}
+.vnm-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #0e1424;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.vnm-header-badge {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--vnm-line);
+  color: rgb(var(--color-on-accent));
+  font-weight: 800;
+  font-size: 14px;
+}
+.vnm-header-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.vnm-header-line {
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.15;
+}
+.vnm-header-sub {
+  font-size: 11px;
+  color: var(--vnm-muted);
+}
+.vnm-line {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 12px;
+}
+/* zone band — a section divider between contiguous stations */
+.vnm-zone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 2px;
+  padding: 6px 14px 6px 52px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vnm-muted);
+  background: linear-gradient(90deg, var(--vnm-panel), transparent);
+}
+.vnm-zone-num {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border-radius: 6px;
+  background: var(--vnm-panel);
+  color: var(--vnm-ink);
+  font-size: 12px;
+}
+.vnm-row {
+  position: relative;
+}
+.vnm-station-btn {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: stretch;
+  width: 100%;
+  min-height: 58px;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.vnm-station-btn:hover,
+.vnm-station-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.04);
+  outline: none;
+}
+.vnm-row[data-state="current"] .vnm-station-btn {
+  background: rgba(255, 255, 255, 0.05);
+}
+/* rail column: a centered vertical track with a node on it */
+.vnm-rail {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.vnm-seg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  background: var(--vnm-line);
+}
+.vnm-seg-top {
+  top: 0;
+  height: 50%;
+}
+.vnm-seg-bot {
+  bottom: 0;
+  height: 50%;
+}
+.vnm-seg.is-ahead {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--vnm-ahead) 0 5px,
+    transparent 5px 10px
+  );
+}
+.vnm-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--vnm-node-locked);
+  border: 3px solid var(--vnm-ahead);
+  color: var(--vnm-ink);
+}
+.vnm-node[data-state="completed"] {
+  background: var(--vnm-line);
+  border-color: var(--vnm-line);
+}
+.vnm-node[data-state="current"] {
+  background: var(--vnm-bg);
+  border-color: var(--vnm-line);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--vnm-line) 26%, transparent);
+  color: var(--vnm-line);
+}
+.vnm-seal {
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgb(var(--color-on-accent));
+}
+.vnm-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 14px 8px 6px;
+  min-width: 0;
+}
+.vnm-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--vnm-ink);
+}
+.vnm-row[data-state="locked"] .vnm-title {
+  color: color-mix(in srgb, var(--vnm-ink) 66%, transparent);
+}
+.vnm-sub {
+  font-size: 11px;
+  color: var(--vnm-muted);
+}
+/* side-quest spur — branches off the interchange station */
+.vnm-spur {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -2px 0 6px;
+  padding: 2px 14px 8px 60px;
+}
+.vnm-spur::before {
+  content: "";
+  position: absolute;
+  left: 25px; /* under the rail node (52px/2 ≈ 26) */
+  top: -6px;
+  width: 22px;
+  height: 22px;
+  border-left: 3px solid var(--vnm-spur, var(--vnm-line));
+  border-bottom: 3px solid var(--vnm-spur, var(--vnm-line));
+  border-bottom-left-radius: 10px;
+}
+.vnm-quest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--vnm-panel);
+  border: 1.5px solid var(--vnm-spur, var(--vnm-line));
+  color: var(--vnm-ink);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.vnm-quest:disabled {
+  cursor: default;
+  opacity: 0.5;
+  border-color: var(--vnm-ahead);
+}
+.vnm-quest-soon {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vnm-muted);
+}

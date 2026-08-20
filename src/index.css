@@ -141,6 +141,31 @@ html::-webkit-scrollbar-button,
   display: none;
 }
 
+/* ── Touch surfaces: no persistent painted scrollbar ───────────────────
+   The native app and mobile web get the OS's own transient indicator, so a
+   styled webkit bar reads as web chrome (and iOS never auto-hides a styled
+   one — it sat permanently down the right edge). This mirrors, in CSS, the
+   `shouldUseNativeScroll()` decision that also skips the OverlayScrollbars
+   body pill (shared/platform/nativeScroll.ts) on the same surfaces.
+
+   Opt back in per element with `.keep-native-scrollbar` — currently only the
+   lesson stage, which still relies on a visible bar as the "more below"
+   affordance for step types that overflow the fixed shell at 375×667
+   (CLAUDE.md). Re-audit that exemption on-device before removing it.
+
+   The `:not()` also lifts specificity above the base `*::-webkit-scrollbar`
+   rules so this wins on touch without `!important`. The Playwright mobile
+   gate runs a fine-pointer Desktop Chrome, so this block does not apply there
+   (nor regress it) — verify the hidden bar on the simulator's WebKit. */
+@media (pointer: coarse) {
+  *:not(.keep-native-scrollbar) {
+    scrollbar-width: none;
+  }
+  *:not(.keep-native-scrollbar)::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Back-compat: ``.scrollbar-theme`` used to opt-in to the styled track
    on nested overflow areas. Now everything inherits the pill-in-pill
    look from the universal selector above, so this class becomes a
