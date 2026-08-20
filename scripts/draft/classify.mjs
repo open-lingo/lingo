@@ -59,14 +59,23 @@ const schema = {
   required: ["words"],
 };
 
-const CHUNK = 25;
+// 8, not 25 — and the category list is IN THE PROMPT, not only in the
+// schema enum. Measured 2026-08-20 against the audited pools: with the
+// enum alone, qwen3.5-122B drifted into consecutive-run garbage (ちち/はは/
+// わたし all "food-drink", カメラ "animal") — the model guesses a label and
+// constrained decoding rams it onto the nearest enum token, the exact
+// value-accuracy trap the Structured Output Benchmark describes. Stating
+// the categories in prose: 122B 81→25 category errors, and even qwen3:4b
+// improved 74→58. Schema constrains STRUCTURE; the prompt must carry the
+// MEANING.
+const CHUNK = 8;
 const result = {};
 let tin = 0, tout = 0;
 const t0 = Date.now();
 
 for (let i = 0; i < nouns.length; i += CHUNK) {
   const batch = nouns.slice(i, i + CHUNK);
-  const prompt = `Classify each Japanese noun. Answer for ALL ${batch.length} words, in order.
+  const prompt = `Classify each Japanese noun into exactly one category from: ${CATS.join(", ")}. Answer for ALL ${batch.length} words, in order.
 
 category: what kind of thing it is.
 giftable: true only if one person could physically hand this to another person
