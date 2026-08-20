@@ -214,9 +214,14 @@ function deriveLessonIds() {
       if (!new RegExp(`^${moduleArg.replace("-neo", "")}-neo`).test(f)) continue;
       if (f.includes(".test.")) continue;
       const src = readFileSync(resolve(dir, f), "utf-8");
-      for (const m of src.matchAll(/id:\s*"(ja-m\d+-neo(?:-\w+)?)"/g)) {
-        // lesson ids only (ja-mN-neo-<n>|review), not step ids
-        if (/^ja-m\d+-neo-(\d+|review)$/.test(m[1])) ids.add(m[1]);
+      // Two shapes. Hand-written modules spell lessons out as object
+      // literals (`id: "ja-mN-neo-3"`); IR-compiled ones (m30+) only name
+      // them in the export list as `byId("ja-mN-neo-3")` — matching just
+      // the first shape derived ZERO ids for every IR module, which made
+      // this stage FAIL-by-default from m30 on. Both forms count.
+      for (const m of src.matchAll(/(?:id:\s*|byId\()"(ja-m\d+-neo(?:-[\w-]+)?)"/g)) {
+        // lesson ids only — <n> | review | review-<n> | challenge — not step ids
+        if (/^ja-m\d+-neo-(\d+|review(-\d+)?|challenge)$/.test(m[1])) ids.add(m[1]);
       }
     }
   } catch { /* no files — leave empty */ }
