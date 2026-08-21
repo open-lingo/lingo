@@ -350,7 +350,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             <button
               type="button"
               onClick={handleClear}
-              className="motion-safe:animate-fade-up inline-flex items-center justify-center gap-1.5 self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
+              className="motion-safe:animate-fade-up inline-flex min-h-[24px] items-center justify-center gap-1.5 self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
               aria-label={t("alphabet.clearCanvas", "Clear canvas")}
             >
               <Icon name="refresh" size={14} />
@@ -361,7 +361,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             <button
               type="button"
               onClick={handleSkip}
-              className="motion-safe:animate-fade-up self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
+              className="motion-safe:animate-fade-up inline-flex min-h-[24px] items-center self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
             >
               {t("alphabet.skipLetter", "Skip this letter")}
             </button>
