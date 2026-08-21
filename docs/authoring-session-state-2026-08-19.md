@@ -793,3 +793,14 @@ courses; the July/August IR waves live in each language's
 - NOT DONE (next wave): IR emitters/factories for the new step kinds →
   m3+ authoring; R9 engine backlog (speaking "later" affordance first).
 NO COMMIT yet — Spencer pulls that trigger.
+
+## PM(21) — 2026-08-21 · COMMITTED
+
+lingo main: `ba7ce113` (promotion, 227 files) + `80a09987` (in-flight
+session state; CLAUDE.md rewrite kept green by restoring the XP claim
+phrasings; .tsbuildinfo-gate gitignored). lingo-data: `7358743` (decks).
+Working trees CLEAN. NOT pushed — nothing local is. New authoritative
+doc: docs/course-design-learnings-2026-08-21.md (9 cross-course laws),
+pointed to from CLAUDE.md. Session ends here; next session starts at:
+IR emitters/factories for the new step kinds → m3+ dispatches; R9 engine
+backlog (speaking "later" affordance first).
