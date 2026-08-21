@@ -75,6 +75,12 @@ try {
   git(WT, "commit", "--no-verify", "-m", `doc-hygiene weekly ${day}: proposals + report`);
 } catch { /* nothing new */ }
 
+// Record the run so the weekly SessionStart nudge knows when it last happened.
+try {
+  const { writeFileSync } = await import("node:fs");
+  writeFileSync(join(MAIN, ".git", "doc-hygiene-last-run"), stamp + "\n");
+} catch { /* non-fatal */ }
+
 console.log(`\n[doc-hygiene] DONE. Review:`);
 console.log(`  cd ${WT} && git log --oneline ${mainHead.slice(0, 8)}..HEAD`);
 console.log(`  open docs/hygiene/REPORT.md  and  docs/hygiene/repoint-proposals.md`);
