@@ -107,6 +107,35 @@ describe("VerticalNetworkMap", () => {
     expect(screen.getByText(/ZONE 2 · Daily/)).toBeInTheDocument();
   });
 
+  it("on the N5 line with an N4 line available, ends the path with an inline continue-to-N4 stop", () => {
+    const onSwitchTier = vi.fn();
+    render(
+      <VerticalNetworkMap {...baseProps()} tier="n5" hasN4 onSwitchTier={onSwitchTier} n4Label="N4線 N4 Line" />,
+    );
+    const cont = screen.getByTestId("vnm-tier-continue");
+    expect(cont).toHaveTextContent("Continue onto the N4線 N4 Line");
+    expect(screen.queryByTestId("vnm-tier-back")).not.toBeInTheDocument();
+    fireEvent.click(cont);
+    expect(onSwitchTier).toHaveBeenCalledWith("n4");
+  });
+
+  it("on the N4 line, starts the path with an inline back-to-N5 stop and no continue stop", () => {
+    const onSwitchTier = vi.fn();
+    render(
+      <VerticalNetworkMap {...baseProps()} tier="n4" hasN4 onSwitchTier={onSwitchTier} n4Label="N4線 N4 Line" />,
+    );
+    const back = screen.getByTestId("vnm-tier-back");
+    expect(screen.queryByTestId("vnm-tier-continue")).not.toBeInTheDocument();
+    fireEvent.click(back);
+    expect(onSwitchTier).toHaveBeenCalledWith("n5");
+  });
+
+  it("shows no tier stops when the course has no N4 line", () => {
+    render(<VerticalNetworkMap {...baseProps()} tier="n5" hasN4={false} onSwitchTier={vi.fn()} />);
+    expect(screen.queryByTestId("vnm-tier-continue")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("vnm-tier-back")).not.toBeInTheDocument();
+  });
+
   it("renders side-quest spurs at interchange stations and routes taps", () => {
     const props = baseProps();
     render(<VerticalNetworkMap {...props} />);

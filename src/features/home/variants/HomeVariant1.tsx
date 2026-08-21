@@ -109,7 +109,7 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
               })}
             </ul>
           ) : (
-            <p className="mt-2 text-sm text-text-muted">New quests arrive soon.</p>
+            <p className="mt-2 text-sm text-text-muted">Finish a lesson today to unlock your first quest.</p>
           )}
         </div>
       )}
@@ -136,7 +136,7 @@ function RecentCard({ data }: { data: HomeVariantData }) {
           ))}
         </ul>
       ) : (
-        <p className="mt-4 text-sm text-text-muted">Your finished lessons will show here.</p>
+        <p className="mt-4 text-sm text-text-muted">Complete your first lesson to start a streak — it lands here.</p>
       )}
 
       <div className="mt-4 flex items-center gap-4 border-t border-border-muted pt-4 text-sm">
@@ -177,10 +177,16 @@ function Hero({ data }: { data: HomeVariantData }) {
       }
     >
       {hasBg ? (
-        <span
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25"
-        />
+        <>
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/70 via-black/35 to-transparent"
+          />
+        </>
       ) : null}
 
       <div className="relative flex h-full flex-1 flex-col p-6 sm:p-8">

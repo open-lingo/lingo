@@ -155,7 +155,7 @@ export default function ShopPage() {
 
   return (
     <PageShell variant="wide" spaceY="lg" className="pb-8">
-      <header className="flex flex-wrap items-start justify-between gap-3 sm:items-center">
+      <header className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3">
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
             {t("shop.title", { defaultValue: "Lingot shop" })}

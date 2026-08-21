@@ -11,7 +11,6 @@ import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { LessonProgressHydrate } from "@/features/lesson/LessonProgressHydrate";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
-import { FloatingLanguagePill } from "@/shared/components/FloatingLanguagePill";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { CommandPalette } from "@/shared/components/CommandPalette/CommandPalette";
@@ -27,6 +26,7 @@ import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { SidebarNav } from "@/routes/SidebarNav";
+import { BottomTabBar } from "@/routes/BottomTabBar";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
   isLeaderboardEnabled,
@@ -293,7 +293,12 @@ export function Layout() {
                 {t("nav.guestLogin", "Log in")}
               </Link>
             )}
-            {isAuthenticated ? (
+            {/* The primary destinations (Home / Learn / Practice / Shop) now
+                live in the bottom tab bar, so the hamburger only appears when
+                there are OVERFLOW destinations the bar doesn't carry (the gated
+                Social / Community / Leaderboard). For most learners it's gone —
+                no drop-down header menu. */}
+            {isAuthenticated && (flags.social.enabled || flags.community.enabled || leaderboardOn) ? (
               <button
                 type="button"
                 onClick={(e) => {
@@ -426,7 +431,9 @@ export function Layout() {
         } ${
           focusedFlow
             ? "py-3"
-            : `py-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
+            : // Extra bottom padding on mobile so page content clears the fixed
+              // bottom tab bar; reset at md+ where the sidebar rail replaces it.
+              `py-8 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
                 sidebarMode ? "lg:min-h-[100svh]" : ""
               }`
         }`}
@@ -438,9 +445,14 @@ export function Layout() {
           broken it the moment ads were switched on — DailyWelcomeAd above is
           already interstitial, but the banner rendered on every route. */}
       {showAppAds && !focusedFlow ? <CollapsibleAdBanner /> : null}
-      {isAuthenticated && !focusedFlow && (
-        <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
-      )}
+      {/* Language switching moved into the Profile / account menu (the avatar
+          top-right), so the floating language pill is retired — one fewer
+          floating surface, and it no longer collides with the bottom tab bar.
+          Desktop switches language from the sidebar rail. */}
+      {/* Mobile primary nav — thumb-reachable bottom tab bar, gated on the same
+          !focusedFlow as the header so it never shows during a lesson/test; it
+          hides itself at md+ where the sidebar rail takes over. */}
+      {isAuthenticated && !focusedFlow && <BottomTabBar />}
       {/* Sidebar layout's utility cluster (sync / lingots / account) lives in
           the rail footer (see SidebarNav) — nothing floats; the bottom-right
           screen corner is reserved for future surfaces. Toasts still stack

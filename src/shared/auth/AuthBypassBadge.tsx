@@ -21,13 +21,11 @@ import { AUTH_BYPASS } from "@/shared/auth/bypass";
  * Safe-area insets belong in position, not padding, for a floating element.
  */
 export function AuthBypassBadge() {
-  if (!AUTH_BYPASS) return null;
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed bottom-safe-2 left-safe-2 z-[9999] select-none rounded bg-error/85 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wider text-white shadow"
-    >
-      No auth
-    </div>
-  );
+  // The bypass marker (control #3) moved onto the account avatar as a small red
+  // ✕ (see AuthMenu) — the fixed bottom-left "NO AUTH" slab overlapped the new
+  // bottom tab bar. Kept as a mounted no-op so main.tsx and the fencing story
+  // stay intact; flip this back on if the avatar marker ever isn't rendered
+  // (e.g. a signed-out surface with no AuthMenu).
+  void AUTH_BYPASS;
+  return null;
 }

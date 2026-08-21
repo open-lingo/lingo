@@ -19,10 +19,10 @@ export function LessonProgressBar({ current, total }: Props) {
         aria-valuemin={0}
         aria-valuemax={total}
         aria-label={`Lesson progress: ${current} of ${total}`}
-        className="h-4 flex-1 overflow-hidden rounded-full border-[1.5px] border-border bg-surface-muted"
+        className="h-5 flex-1 overflow-hidden rounded-full border-2 border-border bg-border-muted"
       >
         <div
-          className="h-full rounded-full bg-accent transition-[width] duration-300 ease-out"
+          className="h-full rounded-full bg-accent shadow-[inset_0_0_0_1px_rgb(var(--color-accent-hover))] transition-[width] duration-300 ease-out"
           style={{ width: `${percent}%` }}
         />
       </div>

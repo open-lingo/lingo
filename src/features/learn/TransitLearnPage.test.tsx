@@ -173,14 +173,20 @@ describe("TransitLearnPage tier switcher", () => {
     expect(screen.getAllByText(/ZONE 3/).length).toBeGreaterThan(0);
   });
 
-  it("shows the end-of-line interchange banner on n5 and the back banner on n4", () => {
+  it("shows the end-of-line interchange affordance on n5 and the back affordance on n4", () => {
     renderPage("/ja/learn?tier=n5", "ja");
-    expect(screen.getByRole("button", { name: /Continue onto the N4/ })).toBeInTheDocument();
+    // Two continue affordances now: the DESKTOP banner (`data-tm=tier-continue`)
+    // and the MOBILE inline path stop (`vnm-tier-continue`) — the top-of-page
+    // N5/N4 switcher + banner were removed on mobile in favour of stops on the
+    // path itself (2026-08-20). Both say "Continue onto the N4…".
+    expect(screen.getAllByRole("button", { name: /Continue onto the N4/ }).length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByTestId("vnm-tier-continue")).toBeInTheDocument();
     cleanup();
     renderPage("/ja/learn?tier=n4", "ja");
-    // Exact match distinguishes the back-banner ("← N5 Line") from the
-    // plain tier tab ("N5 Line").
+    // Desktop back banner (exact "← N5 Line", distinct from the plain tier tab)
+    // plus the mobile inline back stop.
     expect(screen.getByRole("button", { name: "← N5 Line" })).toBeInTheDocument();
+    expect(screen.getByTestId("vnm-tier-back")).toBeInTheDocument();
   });
 });
 

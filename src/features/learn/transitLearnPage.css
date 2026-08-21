@@ -526,6 +526,9 @@ a:focus-visible .tmc-d-stop {
   --vnm-line: var(--tmc-line-main); /* brand red / tier hue — rides the theme */
   --vnm-ahead: #3b456b; /* un-travelled track */
   --vnm-node-locked: #2b3352;
+  /* Sit as its own rounded card a clean step below the light signage header —
+     harmony by consistent card language + spacing, not a colour fade. */
+  margin-top: 14px;
   border-radius: 14px;
   overflow: hidden;
   background: var(--vnm-bg);
@@ -724,7 +727,7 @@ a:focus-visible .tmc-d-stop {
   gap: 6px;
   padding: 5px 10px;
   border-radius: 999px;
-  background: var(--vnm-panel);
+  background: var(--vnm-node-locked);
   border: 1.5px solid var(--vnm-spur, var(--vnm-line));
   color: var(--vnm-ink);
   font-size: 12px;
@@ -741,5 +744,78 @@ a:focus-visible .tmc-d-stop {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  color: #1b2340;
+  background: rgb(154, 163, 192);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+/* tier interchange — inline "next stop" / "back" buttons ON the path itself,
+   replacing the top-of-page N5/N4 switcher + dashed banner on mobile. */
+.vnm-nav-row {
+  position: relative;
+}
+.vnm-nav-btn {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: stretch;
+  width: 100%;
+  min-height: 56px;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.vnm-nav-btn:hover,
+.vnm-nav-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+.vnm-nav-node {
+  position: relative;
+  z-index: 1;
+  place-self: center;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--vnm-node-locked);
+  color: var(--vnm-ink);
+  font-size: 11px;
+  font-weight: 800;
+}
+.vnm-nav-node--n4 {
+  background: var(--vnm-line);
+  color: rgb(var(--color-on-accent));
+}
+.vnm-nav-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 14px 8px 6px;
+  min-width: 0;
+}
+.vnm-nav-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--vnm-muted);
+}
+.vnm-nav-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--vnm-ink);
+}
+.vnm-nav-continue {
+  margin-top: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.vnm-nav-back {
+  margin-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }

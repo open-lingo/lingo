@@ -4,6 +4,7 @@ import { Icon } from "@/shared/components/Icon";
 import { stringsFor } from "@/features/learn/transitStrings";
 import type { Layout, Zone } from "@/features/learn/transitTypes";
 import type { SideQuest } from "@/shared/domain/course";
+import type { LearnTier } from "@/features/learn/learnTier";
 
 /** Same three quest hues as the horizontal map, assigned in interchange order. */
 const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
@@ -18,6 +19,12 @@ export type VerticalNetworkMapProps = {
   questsByAnchor: Map<number, SideQuest[]>;
   onQuest: (quest: SideQuest) => void;
   isSideQuestUnlocked: (quest: SideQuest) => boolean;
+  /** Current tier. When the course has an N4 line, the tier changes are made
+   *  from inline stops on the path itself (below), not a switcher at the top. */
+  tier?: LearnTier;
+  hasN4?: boolean;
+  onSwitchTier?: (t: LearnTier) => void;
+  n4Label?: string;
 };
 
 /**
@@ -40,6 +47,10 @@ export function VerticalNetworkMap({
   questsByAnchor,
   onQuest,
   isSideQuestUnlocked,
+  tier = "n5",
+  hasN4 = false,
+  onSwitchTier,
+  n4Label = "N4 Line",
 }: VerticalNetworkMapProps) {
   const strings = stringsFor(lang);
   const { stations, zones } = layout;
@@ -71,6 +82,24 @@ export function VerticalNetworkMap({
       </header>
 
       <ol className="vnm-line">
+        {tier === "n4" && hasN4 && onSwitchTier && (
+          <li className="vnm-nav-row vnm-nav-back">
+            <button
+              type="button"
+              className="vnm-nav-btn"
+              data-testid="vnm-tier-back"
+              onClick={() => onSwitchTier("n5")}
+            >
+              <span className="vnm-rail" aria-hidden>
+                <span className="vnm-nav-node">N5</span>
+                <span className="vnm-seg vnm-seg-bot is-ahead" />
+              </span>
+              <span className="vnm-nav-content">
+                <span className="vnm-nav-title">← Back to the {strings.lineName}</span>
+              </span>
+            </button>
+          </li>
+        )}
         {stations.map((s, i) => {
           const zone = zoneOf(s.x);
           const showZone = zone != null && zone.label !== lastZoneLabel;
@@ -145,6 +174,25 @@ export function VerticalNetworkMap({
             </Fragment>
           );
         })}
+        {tier === "n5" && hasN4 && onSwitchTier && (
+          <li className="vnm-nav-row vnm-nav-continue">
+            <button
+              type="button"
+              className="vnm-nav-btn"
+              data-testid="vnm-tier-continue"
+              onClick={() => onSwitchTier("n4")}
+            >
+              <span className="vnm-rail" aria-hidden>
+                <span className="vnm-seg vnm-seg-top is-ahead" />
+                <span className="vnm-nav-node vnm-nav-node--n4">N4</span>
+              </span>
+              <span className="vnm-nav-content">
+                <span className="vnm-nav-eyebrow">Interchange · end of the line</span>
+                <span className="vnm-nav-title">Continue onto the {n4Label} →</span>
+              </span>
+            </button>
+          </li>
+        )}
       </ol>
     </div>
   );

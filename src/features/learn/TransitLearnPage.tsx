@@ -2027,8 +2027,12 @@ export default function TransitLearnPage({
 
       {/* tier switcher — (a) compact pill/tabs near the map header. Only
           mounted when this course has n4 content at all (requirement 5). */}
+      {/* Desktop only: the horizontal NetworkMap has no in-map tier control,
+          so it keeps the pill tabs. On mobile the tier is changed from inline
+          stops on the vertical path itself (VerticalNetworkMap) — no reason to
+          advertise the N4 line at the top before the learner has arrived. */}
       {hasN4 && (
-        <div className="mb-3 flex flex-wrap items-center gap-2">
+        <div className="mb-3 hidden flex-wrap items-center gap-2 md:flex">
           <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
           <span className="text-[11px] text-text-muted">
             {effectiveTier === "n4" ? strings.n4LineName : strings.lineName}
@@ -2048,10 +2052,15 @@ export default function TransitLearnPage({
               <ResumeFab course={viewCourse} completedSet={completedSet} />
             )}
           </div>
-          {/* (b) end-of-line interchange banner — the graduation moment /
-              the way back. Below the map rather than woven into the SVG
-              geometry (see TierContinueBanner's doc comment). */}
-          {hasN4 && <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />}
+          {/* (b) end-of-line interchange banner — DESKTOP only. It pairs with
+              the horizontal SVG map, which can't host an in-map interchange
+              node. Mobile gets the same affordance as inline stops on the
+              vertical path instead (below). */}
+          {hasN4 && (
+            <div className="hidden md:block">
+              <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />
+            </div>
+          )}
           <div className="md:hidden">
             <VerticalNetworkMap
               layout={layout}
@@ -2061,6 +2070,10 @@ export default function TransitLearnPage({
               questsByAnchor={questsByAnchor}
               onQuest={onSideQuestClick}
               isSideQuestUnlocked={isSideQuestUnlocked}
+              tier={effectiveTier}
+              hasN4={hasN4}
+              onSwitchTier={setTier}
+              n4Label={strings.n4LineName}
             />
           </div>
 

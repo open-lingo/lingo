@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
+import { AUTH_BYPASS } from "@/shared/auth/bypass";
 import { canModerateCommunityContent, canAccessSiteAdmin } from "@/shared/auth/roles";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useApi } from "@/shared/api/provider";
@@ -89,13 +90,13 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
         type="button"
         variant="ghost"
         size="icon"
-        className={
+        className={`min-h-11 min-w-11 ${
           showAvatar
             ? decoratorStyle
               ? "overflow-visible hover:text-text-primary"
               : "overflow-hidden hover:text-text-primary"
-            : undefined
-        }
+            : ""
+        }`}
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="true"
@@ -113,6 +114,21 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
           <Icon name="user" size={20} />
         )}
       </Button>
+
+      {/* Auth-bypass marker (control #3 fencing the native bypass — see
+          shared/auth/bypass.ts). Relocated from a fixed bottom-left "NO AUTH"
+          slab (which overlapped the bottom tab bar) to a small red ✕ on the
+          account avatar: still unmistakable in a screenshot, never covers
+          content, never eats a tap. */}
+      {AUTH_BYPASS && (
+        <span
+          aria-hidden
+          title="Auth bypassed — dev build, not a real session"
+          className="pointer-events-none absolute -right-0.5 -top-0.5 z-10 grid h-4 w-4 place-items-center rounded-full bg-error text-white shadow ring-2 ring-surface"
+        >
+          <Icon name="close" size={9} />
+        </span>
+      )}
 
       {open && (
         <div
