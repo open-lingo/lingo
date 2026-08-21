@@ -271,7 +271,7 @@ export function Layout() {
               mobile menu instead; AdFreePill auto-hides when not active.
               LingotBalance + LanguageSelector stay visible because they're
               the highest-signal status chips. */}
-          <div className="flex min-w-0 shrink items-center justify-end gap-1 sm:gap-2">
+          <div className="flex min-w-0 shrink items-center justify-end gap-1.5 pr-1 sm:gap-2.5">
             {isAuthenticated && (
               <span className="hidden sm:inline-flex">
                 <SyncManagerTrigger />

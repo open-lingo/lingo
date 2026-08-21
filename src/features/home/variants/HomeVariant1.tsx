@@ -245,8 +245,8 @@ function Hero({ data }: { data: HomeVariantData }) {
               <div className="mt-6 max-w-md">
                 <div
                   className={cn(
-                    "h-[3px] w-full overflow-hidden rounded-full",
-                    hasBg ? "bg-white/25" : "bg-surface-muted",
+                    "h-[5px] w-full overflow-hidden rounded-full",
+                    hasBg ? "bg-white/30 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]" : "bg-surface-muted",
                   )}
                 >
                   <div
@@ -254,7 +254,7 @@ function Hero({ data }: { data: HomeVariantData }) {
                     style={{ width: `${Math.max(2, data.moduleProgressPercent)}%` }}
                   />
                 </div>
-                <p className={cn("mt-2 text-xs", hasBg ? "text-white/70" : "text-text-muted")}>
+                <p className={cn("mt-2 text-[13px]", hasBg ? "text-white/95" : "text-text-muted")}>
                   {data.lessonIndexLabel
                     ? `Lesson ${data.lessonIndexLabel.current} of ${data.lessonIndexLabel.total}`
                     : nextLesson.lesson.title}

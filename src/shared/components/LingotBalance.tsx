@@ -38,7 +38,7 @@ export function LingotBalance({ className, linkToShop = true, size = "sm" }: Pro
   const classes = cn(
     "inline-flex items-center gap-1 font-semibold text-accent transition",
     size === "sm" ? "text-xs" : "text-sm",
-    linkToShop && "min-h-11 rounded-full bg-accent-muted px-3 hover:bg-accent-muted/80",
+    linkToShop && "min-h-8 rounded-full bg-accent-muted px-3 hover:bg-accent-muted/80",
     className,
   );
 

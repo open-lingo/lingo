@@ -196,12 +196,12 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           >
             <Icon name="play" size={24} />
           </button>
-          <h2 className="text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
+          <h2 className="text-xl font-semibold leading-snug text-text-primary sm:text-2xl">
             Which word do you hear?
           </h2>
         </div>
       ) : (
-        <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
+        <h2 className="text-center text-xl font-semibold leading-snug text-text-primary sm:text-2xl">
           <PromptWithEmphasis meaning={step.meaningEn} />
         </h2>
       )}

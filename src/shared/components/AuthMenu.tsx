@@ -90,13 +90,13 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
         type="button"
         variant="ghost"
         size="icon"
-        className={`min-h-11 min-w-11 ${
+        className={
           showAvatar
             ? decoratorStyle
               ? "overflow-visible hover:text-text-primary"
               : "overflow-hidden hover:text-text-primary"
-            : ""
-        }`}
+            : undefined
+        }
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="true"
@@ -124,7 +124,7 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
         <span
           aria-hidden
           title="Auth bypassed — dev build, not a real session"
-          className="pointer-events-none absolute -right-0.5 -top-0.5 z-10 grid h-4 w-4 place-items-center rounded-full bg-error text-white shadow ring-2 ring-surface"
+          className="pointer-events-none absolute -bottom-0.5 -right-0.5 z-10 grid h-4 w-4 place-items-center rounded-full bg-error text-white shadow ring-2 ring-surface"
         >
           <Icon name="close" size={9} />
         </span>
