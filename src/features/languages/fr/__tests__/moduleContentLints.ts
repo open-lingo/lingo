@@ -34,13 +34,16 @@ export function registerFrModuleContentLints(opts: {
   moduleId: string;
   lessons: LessonContent[];
   atoms: readonly FrAtom[];
+  /** Explicit lesson count — pinned so a silently dropped lesson fails here.
+   *  (Was a hardcoded 8 in the IR wave; §13 modules run 9–10.) */
+  expectedLessonCount: number;
 }): void {
-  const { moduleId, lessons, atoms } = opts;
+  const { moduleId, lessons, atoms, expectedLessonCount } = opts;
 
   describe(`FR ${moduleId} structure`, () => {
-    it(`ships 8 lessons (fr-${moduleId}-1..8), all tagged fr / ${moduleId} / mock-1`, () => {
+    it(`ships ${expectedLessonCount} lessons (fr-${moduleId}-1..${expectedLessonCount}), all tagged fr / ${moduleId} / mock-1`, () => {
       expect(lessons.map((l) => l.id)).toEqual(
-        Array.from({ length: 8 }, (_, i) => `fr-${moduleId}-${i + 1}`),
+        Array.from({ length: expectedLessonCount }, (_, i) => `fr-${moduleId}-${i + 1}`),
       );
       expect(lessons.every((l) => l.moduleId === moduleId)).toBe(true);
       expect(lessons.every((l) => l.languageId === "fr")).toBe(true);
@@ -51,7 +54,7 @@ export function registerFrModuleContentLints(opts: {
       const course = getMockCourse("fr");
       const mod = course.modules.find((m) => m.id === moduleId);
       expect(mod, `${moduleId} missing from the fr course map`).toBeDefined();
-      expect(mod?.lessons.length ?? 0).toBe(8);
+      expect(mod?.lessons.length ?? 0).toBe(expectedLessonCount);
       for (const lesson of mod!.lessons) {
         const content = getMockLessonContent(lesson.id);
         expect(content, `pathway node '${lesson.id}' has no content`).not.toBeNull();
@@ -84,7 +87,7 @@ export function registerFrModuleContentLints(opts: {
     });
 
     it("the mastery test (L8) contains graded steps only", () => {
-      const mastery = lessons[7];
+      const mastery = lessons[lessons.length - 1];
       expect(
         mastery.steps.filter((s) => !isGradedStep(s)).map((s) => `${s.id} (${s.type})`),
         `${mastery.id} carries ungraded steps`,

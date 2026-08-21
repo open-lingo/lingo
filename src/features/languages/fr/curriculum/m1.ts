@@ -1,24 +1,18 @@
 /**
- * m1.ts — Sons et salutations — sounds & first words
+ * m1.ts — Sons et salutations — the §13-doctrine hand-authored module.
  *
- * GENERATED. Do not hand-edit — regenerate instead:
- *   node scripts/compile-ir-fr.mjs m1
- *
- * The authored source is src/features/languages/fr/curriculum/ir/m1.ir.yaml.
- * This is a FRAMELESS phrase module: every sentence is carried literally in
- * the IR (no verb frame, no drafted pool, no local model involved).
- *
- * Registration is DERIVED: fr/courseAtoms.ts, fr/curriculum/index.ts and
- * fr/placementBank.ts each glob curriculum/m*.ts, so this file's existence
- * IS its registration. The export names below are the collectors' contract.
+ * PROMOTED 2026-08-21 from `features/lesson/dev/frM1Lessons.ts` after the
+ * zero-French learner-sim pass and Spencer's own walk (which doubled as the
+ * Denise voice audition — passed). The 2026-08-19 IR module it replaces is
+ * in `_archive/`. Mirrors the ES m1 spine; French sound debt paid inline
+ * (silent finals, oi=wah, the French u, nasal respellings).
  */
-import type { LessonContent } from "@/features/lesson/types";
+import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { atom, type FrAtom } from "../courseAtoms";
-import type { FrModuleDef } from "./index";
 import type { PlacementItem } from "@/shared/language/types";
+import type { FrModuleDef } from "./index";
 import {
   infoStep,
-  vocab,
   vocabMcq,
   vocabTextMcq,
   sentenceMcq,
@@ -26,14 +20,11 @@ import {
   cloze,
   speaking,
   listeningCompSentence,
-  listeningBuildSentence,
   matchPairs,
-  dialogueListen,
-  selfExplain,
-  silentLetter,
 } from "../grammarHelpers";
 
 const COURSE_ID = "mock-1";
+
 
 export const FR_M1_ATOMS: FrAtom[] = [
   atom({ surface: "bonjour", meaningEn: "hello / good day", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "🙋", hint: "bohn-ZHOOR — the on is nasal, the n is not spoken" }),
@@ -63,70 +54,1289 @@ export const FR_M1_ATOMS: FrAtom[] = [
   atom({ surface: "dix", meaningEn: "ten", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "🔟", hint: "deess — the final x sounds like s" }),
   atom({ surface: "et", meaningEn: "and", partOfSpeech: "particle", fromModule: "m1", kind: "particle", hint: "ay — the t never sounds, ever" }),
   atom({ surface: "ou", meaningEn: "or", partOfSpeech: "particle", fromModule: "m1", kind: "particle", hint: "oo" }),
+  atom({ surface: "bon", meaningEn: "good (masculine)", partOfSpeech: "other", fromModule: "m1", kind: "vocab", hint: "bohn — the half that builds bonjour and bonsoir; «bonne» is its feminine" }),
+  atom({ surface: "soir", meaningEn: "evening", partOfSpeech: "noun", fromModule: "m1", kind: "vocab", gender: "m", hint: "swar — the half inside bonsoir" }),
+  atom({ surface: "et", meaningEn: "and", partOfSpeech: "particle", fromModule: "m1", kind: "particle", hint: "ay — the t is silent" }),
+  atom({ surface: "ou", meaningEn: "or", partOfSpeech: "particle", fromModule: "m1", kind: "particle", hint: "oo" }),
+  atom({ surface: "café", meaningEn: "coffee", partOfSpeech: "noun", fromModule: "m1", kind: "vocab", gender: "m", emoji: "☕", hint: "ka-FAY" }),
 ];
+
+/** L1 — Say hello, and no politely. Five debuts, the silent-letter
+ *  promise cashed by ear, first sentence mapped→heard→spoken, ends on
+ *  the win. */
+function lesson1(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-1-info-silent",
+      "French hides its letters",
+      "Nine short lessons from now, you'll hold your first French conversation. The secret that unlocks the sound of French: spelling hides sounds — final letters often go quiet, and you'll HEAR which ones as you go. First word: «bonjour» — hello — bohn-ZHOOR. (In our sound-spellings, CAPITALS mark the stressed part.)",
+      "grammar",
+    ),
+    vocabMcq(
+      "fr-m1v2-1-img-bonjour",
+      { surface: "bonjour", meaningEn: "hello", emoji: "🙋" },
+      [
+        { surface: "au revoir", emoji: "🚪" },
+        { surface: "merci", emoji: "🙏" },
+        { surface: "oui", emoji: "✅" },
+      ],
+    ),
+    speaking("fr-m1v2-1-speak-bonjour", "bonjour", "hello", ["bonjour"]),
+    vocabMcq(
+      "fr-m1v2-1-img-aurevoir",
+      { surface: "au revoir", meaningEn: "goodbye", emoji: "🚪" },
+      [
+        { surface: "bonjour", emoji: "🙋" },
+        { surface: "merci", emoji: "🙏" },
+        { surface: "non", emoji: "❌" },
+      ],
+    ),
+    speaking("fr-m1v2-1-speak-aurevoir", "au revoir", "goodbye", ["au revoir"]),
+    vocabMcq(
+      "fr-m1v2-1-img-merci",
+      { surface: "merci", meaningEn: "thank you", emoji: "🙏" },
+      [
+        { surface: "bonjour", emoji: "🙋" },
+        { surface: "au revoir", emoji: "🚪" },
+        { surface: "oui", emoji: "✅" },
+      ],
+    ),
+    speaking("fr-m1v2-1-speak-merci", "merci", "thank you", ["merci"]),
+    vocabMcq(
+      "fr-m1v2-1-img-oui",
+      { surface: "oui", meaningEn: "yes", emoji: "✅" },
+      [
+        { surface: "non", emoji: "❌" },
+        { surface: "merci", emoji: "🙏" },
+        { surface: "au revoir", emoji: "🚪" },
+      ],
+    ),
+    listeningCompSentence({
+      // The silent-letter card CASHES here (R6): oh ruh-VWAR, pure ear,
+      // and a retrieval separated from its debut (R8).
+      id: "fr-m1v2-1-lc-aurevoir",
+      audioText: "au revoir",
+      correctMeaningEn: "Goodbye",
+      distractorsEn: ["Thank you", "Hello", "Yes"],
+    }),
+    vocabMcq(
+      // «non» gets a real debut — no cognate is load-bearing (§13.5).
+      "fr-m1v2-1-img-non",
+      { surface: "non", meaningEn: "no", emoji: "❌" },
+      [
+        { surface: "oui", emoji: "✅" },
+        { surface: "merci", emoji: "🙏" },
+        { surface: "bonjour", emoji: "🙋" },
+      ],
+    ),
+    {
+      id: "fr-m1v2-1-map-nonmerci",
+      type: "word_map",
+      tokens: ["non", "merci"],
+      pairs: [
+        { en: "no", tokenIndex: 0 },
+        { en: "thank you", tokenIndex: 1 },
+      ],
+      audioText: "non merci",
+      revealNote:
+        "«non merci» — the polite way to turn anything down. Nohn mehr-SEE: both final letters quieter than English would make them.",
+    },
+    listeningCompSentence({
+      id: "fr-m1v2-1-lc-nonmerci",
+      audioText: "non merci",
+      correctMeaningEn: "No, thank you.",
+      distractorsEn: ["Yes, please.", "Hello!", "Goodbye!"],
+    }),
+    {
+      // The oui/non EAR check — audio prompt, zero reading.
+      id: "fr-m1v2-1-hear-oui",
+      type: "word_image_mcq",
+      meaningEn: "oui",
+      options: [
+        { id: "correct", word: "oui", emoji: "✅" },
+        { id: "o1", word: "non", emoji: "❌" },
+        { id: "o2", word: "merci", emoji: "🙏" },
+      ],
+      correctOptionId: "correct",
+    },
+    {
+      id: "fr-m1v2-1-match-close",
+      type: "match_pairs",
+      prompt: "Match everything you just learned.",
+      pairs: [
+        { id: "p-bonjour", source: "bonjour", target: "hello" },
+        { id: "p-aurevoir", source: "au revoir", target: "goodbye" },
+        { id: "p-merci", source: "merci", target: "thank you" },
+        { id: "p-oui", source: "oui", target: "yes" },
+        { id: "p-non", source: "non", target: "no" },
+      ],
+    },
+    // WIN: produce the first sentence — printed first voicing (§13.9).
+    speaking("fr-m1v2-1-speak-nonmerci", "non merci", "no, thank you", [
+      "non",
+      "merci",
+    ]),
+  ];
+}
+
+/** L2 — Ask nicely, apologize smoothly. Both sims self-cueing; beaucoup
+ *  debuts by map elimination; ends recalling «non merci». */
+function lesson2(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-2-info-courtesy",
+      "Two polite tools",
+      "«s'il vous plaît» — please (seel voo PLEH, three words that behave like one) — and «pardon» — sorry / excuse me (par-DOHN, the n hiding in the vowel again).",
+      "grammar",
+    ),
+    vocabMcq(
+      "fr-m1v2-2-img-svp",
+      { surface: "s'il vous plaît", meaningEn: "please", emoji: "🤲" },
+      [
+        { surface: "merci", emoji: "🙏" },
+        { surface: "bonjour", emoji: "🙋" },
+        { surface: "au revoir", emoji: "🚪" },
+      ],
+    ),
+    speaking("fr-m1v2-2-speak-svp", "s'il vous plaît", "please", [
+      "s'il vous plaît",
+    ]),
+    {
+      id: "fr-m1v2-2-map-ouisvp",
+      type: "word_map",
+      tokens: ["oui", "s'il vous plaît"],
+      pairs: [
+        { en: "yes", tokenIndex: 0 },
+        { en: "please", tokenIndex: 1 },
+      ],
+      audioText: "oui s'il vous plaît",
+      revealNote:
+        "«oui s'il vous plaît» — yes, please. You now own both polite answers: this one and «non merci».",
+    },
+    listeningCompSentence({
+      id: "fr-m1v2-2-lc-ouisvp",
+      audioText: "oui s'il vous plaît",
+      correctMeaningEn: "Yes, please.",
+      distractorsEn: ["No, thank you.", "Sorry!", "Good evening."],
+    }),
+    {
+      // Self-cueing offer (§13.6) — and «un» plants next lesson's seed.
+      id: "fr-m1v2-2-sim-cafe",
+      type: "dialogue_sim",
+      scene: { emoji: "☕", title: "Léa offers you a coffee" },
+      exercisedAtomIds: [],
+      turns: [
+        {
+          id: "t1-cafe",
+          npc: {
+            speaker: "Léa",
+            kana: "Un café ?",
+            audioText: "un café ?",
+            gloss: "A coffee?",
+          },
+          goal: "Answer — either way.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "ouisvp", text: "oui s'il vous plaît" },
+              { id: "nonmerci", text: "non merci" },
+              { id: "bonjour", text: "bonjour" },
+            ],
+            correctOptionId: "ouisvp",
+            alsoCorrectOptionIds: ["nonmerci"],
+            audioText: "oui s'il vous plaît",
+          },
+          replyGloss: "Yes, please.",
+          explanation:
+            "A real offer has two right answers. And «un café» is literally 'ONE coffee' — you'll meet «un» again in two lessons.",
+        },
+      ],
+    },
+    speaking("fr-m1v2-2-speak-ouisvp", "oui s'il vous plaît", "yes, please", [
+      "oui",
+      "s'il vous plaît",
+    ]),
+    {
+      // «Aïe !» demands an apology in any language — pardon's honest
+      // self-cueing debut (spoken by a stranger; Hugo debuts later).
+      id: "fr-m1v2-2-sim-pardon",
+      type: "dialogue_sim",
+      scene: { emoji: "🚇", title: "A crowded platform" },
+      exercisedAtomIds: [],
+      turns: [
+        {
+          id: "t1-pardon",
+          npc: {
+            speaker: "A stranger",
+            kana: "Aïe !",
+            audioText: "aïe",
+            gloss: "Ouch!",
+          },
+          goal: "Apologize.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "pardon", text: "pardon" },
+              { id: "svp", text: "s'il vous plaît" },
+              { id: "merci", text: "merci" },
+            ],
+            correctOptionId: "pardon",
+            audioText: "pardon",
+          },
+          replyGloss: "Sorry!",
+          explanation:
+            "«pardon» — sorry / excuse me. par-DOHN. It also works to get someone's attention or slip through a crowd.",
+        },
+      ],
+    },
+    speaking("fr-m1v2-2-speak-pardon", "pardon", "sorry", ["pardon"]),
+    {
+      // «beaucoup» debuts by elimination, prompted LAST — merci known.
+      id: "fr-m1v2-2-map-mercibeaucoup",
+      type: "word_map",
+      tokens: ["merci", "beaucoup"],
+      pairs: [
+        { en: "thank you", tokenIndex: 0 },
+        { en: "very much", tokenIndex: 1 },
+      ],
+      audioText: "merci beaucoup",
+      revealNote:
+        "«merci beaucoup» — thanks a lot. boh-KOO: eau says 'oh', ou says 'oo', and the p is (of course) silent.",
+    },
+    {
+      // TAIL: L1 by ear.
+      id: "fr-m1v2-2-hear-bonjour",
+      type: "word_image_mcq",
+      meaningEn: "bonjour",
+      options: [
+        { id: "correct", word: "bonjour", emoji: "🙋" },
+        { id: "o1", word: "au revoir", emoji: "🚪" },
+        { id: "o2", word: "merci", emoji: "🙏" },
+      ],
+      correctOptionId: "correct",
+    },
+    matchPairs("fr-m1v2-2", [
+      "s'il vous plaît",
+      "pardon",
+      "merci beaucoup",
+      "bonjour",
+      "oui",
+      "non",
+    ]),
+    // WIN: recall the L1 sentence from English alone (2nd voicing).
+    speaking(
+      "fr-m1v2-2-speak-nonmerci-recall",
+      "non merci",
+      "no, thank you",
+      ["non", "merci"],
+      "recall",
+    ),
+  ];
+}
+
+/** L3 — Evening, night, and the word that goes both ways. bon/bonne met
+ *  as fused-vs-separate; «never bon nuit» is the counterexample. */
+function lesson3(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-3-info-soir",
+      "Evening, night — and salut",
+      "«bonsoir» — good evening — bon + «soir» (evening), said bohn-SWAR: oi says 'wah' (it does in «au revoir» too — oh ruh-VWAR). «bonne nuit» — good night. The shapes: bonJOUR and bonSOIR are ONE word each, but night takes TWO — «bonne nuit», never «bon nuit». And «salut» — hi or bye, casual, coming AND going: sa-LU, with the famous French u — say 'ee' and round your lips.",
+      "grammar",
+    ),
+    vocabMcq(
+      "fr-m1v2-3-img-bonsoir",
+      { surface: "bonsoir", meaningEn: "good evening", emoji: "🌆" },
+      [
+        { surface: "bonne nuit", emoji: "🌙" },
+        { surface: "salut", emoji: "👋" },
+        { surface: "bonjour", emoji: "🙋" },
+      ],
+    ),
+    listeningCompSentence({
+      id: "fr-m1v2-3-lc-bonsoir",
+      audioText: "bonsoir",
+      correctMeaningEn: "Good evening.",
+      distractorsEn: ["Good night.", "Hi.", "Goodbye."],
+    }),
+    {
+      id: "fr-m1v2-3-map-bonnenuit",
+      type: "word_map",
+      tokens: ["bonne", "nuit"],
+      pairs: [
+        { en: "good", tokenIndex: 0 },
+        { en: "night", tokenIndex: 1 },
+      ],
+      audioText: "bonne nuit",
+      // The agreement chain in pink — «nuit» is feminine, and «bonne»
+      // dressed to match (§13.4: seen, not announced).
+      tokenGenders: { 0: "f", 1: "f" },
+      revealNote:
+        "«nuit» is a she-word, and 'good' dressed to match: bonne — bun NWEE. That's why both chips glow pink with a little f: French sorts words into pink-f and blue-m families, and the colors will quietly track it from here on.",
+    },
+    speaking("fr-m1v2-3-speak-bonnenuit", "bonne nuit", "good night", [
+      "bonne nuit",
+    ]),
+    cloze(
+      // bon/bonne trial — «soir» live: picking it means «bon nuit»-style
+      // thinking, and the explanation names the counterexample.
+      "fr-m1v2-3-cloze-nuit",
+      "bonne",
+      "",
+      "nuit",
+      ["nuit", "soir"],
+      "good night",
+      "bonne nuit",
+      "«soir» would need «bon» — and fuses into one word: bonsoir. Night keeps its two: «bonne nuit», never «bon nuit».",
+    ),
+    vocabMcq(
+      "fr-m1v2-3-img-salut",
+      { surface: "salut", meaningEn: "hi / bye (casual)", emoji: "👋" },
+      [
+        { surface: "bonjour", emoji: "🙋" },
+        { surface: "au revoir", emoji: "🚪" },
+        { surface: "merci", emoji: "🙏" },
+      ],
+    ),
+    speaking("fr-m1v2-3-speak-salut", "salut", "hi (casual)", ["salut"]),
+    {
+      // Evening pair by EAR — bonsoir live.
+      id: "fr-m1v2-3-hear-bonnenuit",
+      type: "word_image_mcq",
+      meaningEn: "bonne nuit",
+      options: [
+        { id: "correct", word: "bonne nuit", emoji: "🌙" },
+        { id: "o1", word: "bonsoir", emoji: "🌆" },
+        { id: "o2", word: "bonjour", emoji: "🙋" },
+      ],
+      correctOptionId: "correct",
+    },
+    listeningCompSentence({
+      // TAIL: pardon's first audio retrieval (R8).
+      id: "fr-m1v2-3-lc-pardon",
+      audioText: "pardon",
+      correctMeaningEn: "Sorry!",
+      distractorsEn: ["Please.", "Thank you.", "Hello."],
+    }),
+    matchPairs("fr-m1v2-3", [
+      "bonsoir",
+      "bonne nuit",
+      "salut",
+      "bonjour",
+      "au revoir",
+      "merci",
+    ]),
+    // WIN: the greeting you'll use tonight — printed first voicing.
+    speaking("fr-m1v2-3-speak-bonsoir", "bonsoir", "good evening", ["bonsoir"]),
+  ];
+}
+
+/** L4 — Count to four, and see you soon. Audio-prompted digit debuts
+ *  (the m1v2 law — never a digit under an English prompt); the
+ *  à-bientôt sim is the interleave break. */
+function lesson4(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-4-info-count4",
+      "One to four — and a warmer goodbye",
+      "«un, deux, trois, quatre» — one to four (uh(n), duh, trwah, KAT-ruh — those quiet last letters again). And a goodbye for people you'll see again: «à bientôt» — see you soon — ah byan-TOH.",
+      "grammar",
+    ),
+    {
+      // Audio-prompted debut: the clip is the question; tap options to
+      // hear their words and match the sound (language-agnostic).
+      id: "fr-m1v2-4-hear-un",
+      type: "word_image_mcq",
+      meaningEn: "un",
+      options: [
+        { id: "correct", word: "un", emoji: "1️⃣" },
+        { id: "o1", word: "deux", emoji: "2️⃣" },
+        { id: "o2", word: "trois", emoji: "3️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking("fr-m1v2-4-speak-un", "un", "one", ["un"]),
+    {
+      id: "fr-m1v2-4-hear-deux",
+      type: "word_image_mcq",
+      meaningEn: "deux",
+      options: [
+        { id: "correct", word: "deux", emoji: "2️⃣" },
+        { id: "o1", word: "un", emoji: "1️⃣" },
+        { id: "o2", word: "trois", emoji: "3️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    {
+      id: "fr-m1v2-4-map-undeuxtrois",
+      type: "word_map",
+      tokens: ["un", "deux", "trois"],
+      pairs: [
+        { en: "one", tokenIndex: 0 },
+        { en: "two", tokenIndex: 1 },
+        { en: "three", tokenIndex: 2 },
+      ],
+      audioText: "un, deux, trois",
+      revealNote:
+        "«trois» arrived free — you knew the other two. One more: quatre.",
+    },
+    {
+      // The interleave break: a person, mid-numbers (§13.9 law 9).
+      id: "fr-m1v2-4-sim-abientot",
+      type: "dialogue_sim",
+      scene: {
+        emoji: "🚪",
+        title: "Léa heads out",
+        setting: "She'll be back tomorrow.",
+      },
+      exercisedAtomIds: [],
+      turns: [
+        {
+          id: "t1-abientot",
+          npc: {
+            speaker: "Léa",
+            kana: "Au revoir !",
+            audioText: "au revoir",
+            gloss: "Bye!",
+          },
+          goal: "Send her off — she's back tomorrow.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "abientot", text: "à bientôt" },
+              { id: "nonmerci", text: "non merci" },
+              { id: "bonjour", text: "bonjour" },
+            ],
+            correctOptionId: "abientot",
+            audioText: "à bientôt",
+          },
+          replyGloss: "See you soon.",
+          explanation:
+            "«à bientôt» — see you soon, for people who'll be back. ah byan-TOH: nasal middle, silent t.",
+        },
+      ],
+    },
+    speaking("fr-m1v2-4-speak-abientot", "à bientôt", "see you soon", [
+      "à bientôt",
+    ]),
+    {
+      id: "fr-m1v2-4-hear-quatre",
+      type: "word_image_mcq",
+      meaningEn: "quatre",
+      options: [
+        { id: "correct", word: "quatre", emoji: "4️⃣" },
+        { id: "o1", word: "trois", emoji: "3️⃣" },
+        { id: "o2", word: "un", emoji: "1️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    vocabTextMcq("fr-m1v2-4-mc-trois", "trois", ["deux", "un", "quatre"]),
+    // TAIL: L2 courtesy — cued recall, 2nd voicing.
+    speaking(
+      "fr-m1v2-4-speak-svp-recall",
+      "s'il vous plaît",
+      "please",
+      ["s'il vous plaît"],
+      "recall",
+    ),
+    matchPairs("fr-m1v2-4", [
+      "un",
+      "trois",
+      "à bientôt",
+      "bonjour",
+      "pardon",
+      "non",
+    ]),
+    // WIN: count to four out loud — printed first voicing of the run.
+    speaking(
+      "fr-m1v2-4-speak-count",
+      "un, deux, trois, quatre",
+      "one, two, three, four",
+      ["un", "deux", "trois", "quatre"],
+    ),
+  ];
+}
+
+/** L5 — Zero, five, six, seven — nice to meet you. The card cashes on
+ *  «zéro»; the enchanté MIRROR sim is the interleave break. */
+function lesson5(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-5-info-sounds",
+      "Four more numbers — say what you see? Never.",
+      "«zéro, cinq, six, sept» — zero, five, six, seven: zay-RO, sank (the q speaks!), seess, set (the p hides). Numbers are the LOUD exception to the quiet-letter habit. And when someone says «enchanté» — nice to meet you, on-shon-TAY — you say it right back.",
+      "grammar",
+    ),
+    listeningCompSentence({
+      // The card CASHES immediately: hear «zéro», card-fed.
+      id: "fr-m1v2-5-lc-zero",
+      audioText: "zéro",
+      correctMeaningEn: "Zero",
+      distractorsEn: ["Five", "Four", "Two"],
+    }),
+    {
+      id: "fr-m1v2-5-hear-cinq",
+      type: "word_image_mcq",
+      meaningEn: "cinq",
+      options: [
+        { id: "correct", word: "cinq", emoji: "5️⃣" },
+        { id: "o1", word: "zéro", emoji: "0️⃣" },
+        { id: "o2", word: "quatre", emoji: "4️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    {
+      id: "fr-m1v2-5-map-zerotroiscinq",
+      type: "word_map",
+      tokens: ["zéro", "trois", "cinq"],
+      pairs: [
+        { en: "zero", tokenIndex: 0 },
+        { en: "three", tokenIndex: 1 },
+        { en: "five", tokenIndex: 2 },
+      ],
+      audioText: "zéro, trois, cinq",
+      revealNote:
+        "A phone number's worth of French digits, read with your own eyes.",
+    },
+    {
+      // Interleave break — a MIRROR exchange (§13.6): «enchanté» is
+      // answered with itself. Hugo's proper debut.
+      id: "fr-m1v2-5-sim-enchante",
+      type: "dialogue_sim",
+      scene: {
+        emoji: "🤝",
+        title: "A friend of Léa's",
+        setting: "You're introduced for the first time.",
+      },
+      exercisedAtomIds: [],
+      turns: [
+        {
+          id: "t1-enchante",
+          npc: {
+            speaker: "Hugo",
+            kana: "Enchanté.",
+            audioText: "enchanté",
+            gloss: "Nice to meet you.",
+          },
+          goal: "Say it back.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "enchante", text: "enchanté" },
+              { id: "abientot", text: "à bientôt" },
+              { id: "svp", text: "s'il vous plaît" },
+            ],
+            correctOptionId: "enchante",
+            audioText: "enchanté",
+          },
+          replyGloss: "Nice to meet you.",
+          explanation:
+            "«enchanté» — literally 'enchanted'. on-shon-TAY, both n's melting into the vowels. Said right back, every time.",
+        },
+      ],
+    },
+    speaking("fr-m1v2-5-speak-enchante", "enchanté", "nice to meet you", [
+      "enchanté",
+    ]),
+    {
+      id: "fr-m1v2-5-hear-six",
+      type: "word_image_mcq",
+      meaningEn: "six",
+      options: [
+        { id: "correct", word: "six", emoji: "6️⃣" },
+        { id: "o1", word: "sept", emoji: "7️⃣" },
+        { id: "o2", word: "cinq", emoji: "5️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking("fr-m1v2-5-speak-six", "six", "six", ["six"]),
+    {
+      id: "fr-m1v2-5-hear-sept",
+      type: "word_image_mcq",
+      meaningEn: "sept",
+      options: [
+        { id: "correct", word: "sept", emoji: "7️⃣" },
+        { id: "o1", word: "six", emoji: "6️⃣" },
+        { id: "o2", word: "cinq", emoji: "5️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    vocabTextMcq("fr-m1v2-5-mc-quatre", "quatre", ["cinq", "deux", "trois"]),
+    // TAIL: L3 — cued recall (2nd voicing of bonsoir).
+    speaking(
+      "fr-m1v2-5-speak-bonsoir-recall",
+      "bonsoir",
+      "good evening",
+      ["bonsoir"],
+      "recall",
+    ),
+    matchPairs("fr-m1v2-5", [
+      "zéro",
+      "six",
+      "enchanté",
+      "au revoir",
+      "merci",
+      "deux",
+    ]),
+    // WIN: the counting run grows to five — printed first voicing.
+    speaking(
+      "fr-m1v2-5-speak-count",
+      "un, deux, trois, quatre, cinq",
+      "one, two, three, four, five",
+      ["un", "deux", "trois", "quatre", "cinq"],
+    ),
+  ];
+}
+
+/** L6 — Eight, nine, ten; and, or — with the ça-va mirror as the break.
+ *  «et» and «ou» debut inside sentences; «neuf» by map elimination. */
+function lesson6(): LessonStep[] {
+  return [
+    infoStep(
+      "fr-m1v2-6-info-count10",
+      "Eight, nine, ten — and the two smallest words",
+      "«huit, neuf, dix» — eight, nine, ten (weet — the h is silent; nuhf; deess). The two smallest words in French: «et» — 'and', said 'ay', its t NEVER sounds — and «ou» — 'or', said 'oo'. Plus the daily check-in: «Ça va ?» — how's it going? — sa VA. The SAME two words answer it.",
+      "grammar",
+    ),
+    {
+      id: "fr-m1v2-6-hear-huit",
+      type: "word_image_mcq",
+      meaningEn: "huit",
+      options: [
+        { id: "correct", word: "huit", emoji: "8️⃣" },
+        { id: "o1", word: "neuf", emoji: "9️⃣" },
+        { id: "o2", word: "dix", emoji: "🔟" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking("fr-m1v2-6-speak-huit", "huit", "eight", ["huit"]),
+    {
+      // «et» debuts by elimination between two L5 numbers.
+      id: "fr-m1v2-6-map-sixetsept",
+      type: "word_map",
+      tokens: ["six", "et", "sept"],
+      pairs: [
+        { en: "six", tokenIndex: 0 },
+        { en: "and", tokenIndex: 1 },
+        { en: "seven", tokenIndex: 2 },
+      ],
+      audioText: "six et sept",
+      revealNote:
+        "«et» — 'and', said 'ay'. Its t is the quietest letter in France: it NEVER sounds.",
+    },
+    listeningCompSentence({
+      id: "fr-m1v2-6-lc-sixetsept",
+      audioText: "six et sept",
+      correctMeaningEn: "Six and seven",
+      distractorsEn: ["Six or seven", "Seven and eight", "Six and six"],
+    }),
+    {
+      // «neuf» debuts by MAP elimination, prompted last.
+      id: "fr-m1v2-6-map-huitetneuf",
+      type: "word_map",
+      tokens: ["huit", "et", "neuf"],
+      pairs: [
+        { en: "eight", tokenIndex: 0 },
+        { en: "and", tokenIndex: 1 },
+        { en: "nine", tokenIndex: 2 },
+      ],
+      audioText: "huit et neuf",
+      revealNote: "«neuf» arrived by elimination — nine. One to go: dix.",
+    },
+    {
+      id: "fr-m1v2-6-hear-dix",
+      type: "word_image_mcq",
+      meaningEn: "dix",
+      options: [
+        { id: "correct", word: "dix", emoji: "🔟" },
+        { id: "o1", word: "neuf", emoji: "9️⃣" },
+        { id: "o2", word: "huit", emoji: "8️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    // «dix» gets a printed voicing — mastery recalls it from English.
+    speaking("fr-m1v2-6-speak-dix", "dix", "ten", ["dix"]),
+    {
+      // The interleave break — and French's friendliest trick: the same
+      // two words ask AND answer.
+      id: "fr-m1v2-6-sim-cava",
+      type: "dialogue_sim",
+      scene: { emoji: "💬", title: "Léa checks in" },
+      exercisedAtomIds: [],
+      turns: [
+        {
+          id: "t1-cava",
+          npc: {
+            speaker: "Léa",
+            kana: "Ça va ?",
+            audioText: "ça va",
+            gloss: "How's it going?",
+          },
+          goal: "Answer her.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "cava", text: "ça va" },
+              { id: "nonmerci", text: "non merci" },
+              { id: "aurevoir", text: "au revoir" },
+            ],
+            correctOptionId: "cava",
+            audioText: "ça va",
+          },
+          replyGloss: "It's going fine.",
+          explanation:
+            "«ça va» asks the question AND answers it — same two words, sa VA. The friendliest trick in French.",
+        },
+      ],
+    },
+    {
+      // «ou» debuts by elimination — the same path «et» took.
+      id: "fr-m1v2-6-map-quatreoucinq",
+      type: "word_map",
+      tokens: ["quatre", "ou", "cinq"],
+      pairs: [
+        { en: "four", tokenIndex: 0 },
+        { en: "or", tokenIndex: 1 },
+        { en: "five", tokenIndex: 2 },
+      ],
+      audioText: "quatre ou cinq",
+      revealNote:
+        "«ou» — 'or'. So «et» joins and «ou» chooses: six et sept, quatre ou cinq.",
+    },
+    listeningCompSentence({
+      id: "fr-m1v2-6-lc-quatreoucinq",
+      audioText: "quatre ou cinq",
+      correctMeaningEn: "Four or five",
+      distractorsEn: ["Four and five", "Four or four", "Five or six"],
+    }),
+    cloze(
+      "fr-m1v2-6-cloze-ou",
+      "huit",
+      "neuf",
+      "ou",
+      ["ou", "et", "oui", "non"],
+      "eight or nine",
+      "huit ou neuf",
+      "«et» joins ('and'); «ou» chooses ('or'). This one is a choice.",
+      ["ou"],
+    ),
+    {
+      // TAIL: à bientôt by ear — taught in L4, retrieved here.
+      id: "fr-m1v2-6-hear-abientot",
+      type: "word_image_mcq",
+      meaningEn: "à bientôt",
+      options: [
+        { id: "correct", word: "à bientôt", emoji: "🔜" },
+        { id: "o1", word: "enchanté", emoji: "🤝" },
+        { id: "o2", word: "bonjour", emoji: "🙋" },
+      ],
+      correctOptionId: "correct",
+    },
+    // TAIL: L3 lane, from memory.
+    speaking(
+      "fr-m1v2-6-speak-salut-recall",
+      "salut",
+      "hi (casual)",
+      ["salut"],
+      "recall",
+    ),
+    matchPairs("fr-m1v2-6", ["dix", "et", "ou", "sept", "bonjour", "pardon"]),
+    // WIN: count six to ten — printed first voicing of the run.
+    speaking(
+      "fr-m1v2-6-speak-count",
+      "six, sept, huit, neuf, dix",
+      "six, seven, eight, nine, ten",
+      ["six", "sept", "huit", "neuf", "dix"],
+    ),
+  ];
+}
+
+/** CHECKPOINT — zero new, sixteen graded retrievals, every French
+ *  confusable discriminated by ear: six/dix, un/non, bonsoir/bonne nuit. */
+function checkpointLesson(): LessonStep[] {
+  return [
+    {
+      id: "fr-m1v2-r-hear-six",
+      type: "word_image_mcq",
+      meaningEn: "six",
+      options: [
+        { id: "correct", word: "six", emoji: "6️⃣" },
+        { id: "o1", word: "sept", emoji: "7️⃣" },
+        { id: "o2", word: "deux", emoji: "2️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    cloze(
+      "fr-m1v2-r-cloze-bonne",
+      "",
+      "nuit",
+      "bonne",
+      ["bonne", "bon"],
+      "good night",
+      "bonne nuit",
+      "Two words for night — «bonne nuit», never «bon nuit».",
+    ),
+    speaking("fr-m1v2-r-speak-huit", "huit", "eight", ["huit"], "recall"),
+    listeningCompSentence({
+      id: "fr-m1v2-r-lc-ouisvp",
+      audioText: "oui s'il vous plaît",
+      correctMeaningEn: "Yes, please.",
+      distractorsEn: ["No, thank you.", "Sorry!", "Good evening."],
+    }),
+    vocabTextMcq("fr-m1v2-r-mc-neuf", "neuf", ["dix", "deux", "six"]),
+    build(
+      "fr-m1v2-r-build-bonnenuit",
+      "Build: 'good night'",
+      "bonne nuit",
+      ["bonne", "nuit", "bon", "soir"],
+      ["bonne", "nuit"],
+    ),
+    {
+      // THE French ear trial: six vs dix — seess vs deess.
+      id: "fr-m1v2-r-hear-dix",
+      type: "word_image_mcq",
+      meaningEn: "dix",
+      options: [
+        { id: "correct", word: "dix", emoji: "🔟" },
+        { id: "o1", word: "six", emoji: "6️⃣" },
+        { id: "o2", word: "deux", emoji: "2️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking(
+      // beaucoup had NO voicing anywhere (retention walk) — and the old
+      // recall here duplicated L9's translate phrase.
+      "fr-m1v2-r-speak-mercibeaucoup",
+      "merci beaucoup",
+      "thank you very much",
+      ["merci beaucoup"],
+    ),
+    cloze(
+      "fr-m1v2-r-cloze-et",
+      "six",
+      "sept",
+      "et",
+      ["et", "ou", "oui", "non"],
+      "six and seven",
+      "six et sept",
+      "«et» joins — 'and'.",
+      ["et"],
+    ),
+    listeningCompSentence({
+      id: "fr-m1v2-r-lc-abientot",
+      audioText: "à bientôt",
+      correctMeaningEn: "See you soon.",
+      distractorsEn: ["Good night.", "Nice to meet you.", "Please."],
+    }),
+    build(
+      "fr-m1v2-r-build-nonmerci",
+      "Build: 'no, thank you'",
+      "non merci",
+      ["non", "merci", "oui", "pardon"],
+      ["non", "merci"],
+    ),
+    {
+      // Evening pair by ear — answer BONSOIR (L3's trial answered bonne
+      // nuit; alternation).
+      id: "fr-m1v2-r-hear-bonsoir",
+      type: "word_image_mcq",
+      meaningEn: "bonsoir",
+      options: [
+        { id: "correct", word: "bonsoir", emoji: "🌆" },
+        { id: "o1", word: "bonne nuit", emoji: "🌙" },
+        { id: "o2", word: "bonjour", emoji: "🙋" },
+      ],
+      correctOptionId: "correct",
+    },
+    vocabTextMcq("fr-m1v2-r-mc-sept", "sept", ["six", "huit", "neuf"]),
+    speaking(
+      "fr-m1v2-r-speak-count",
+      "un, deux, trois, quatre, cinq",
+      "one, two, three, four, five",
+      ["un", "deux", "trois", "quatre", "cinq"],
+      "recall",
+    ),
+    {
+      // The nasal pair: un vs non — uh(n) vs nohn.
+      id: "fr-m1v2-r-hear-un",
+      type: "word_image_mcq",
+      meaningEn: "un",
+      options: [
+        { id: "correct", word: "un", emoji: "1️⃣" },
+        { id: "o1", word: "non", emoji: "❌" },
+        { id: "o2", word: "neuf", emoji: "9️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    matchPairs("fr-m1v2-r", ["pardon", "oui", "non", "un", "huit", "bonne nuit"]),
+  ];
+}
+
+/** L8 — Your first real conversation, then the retrieval tail over
+ *  exactly what it used. */
+function lesson8(): LessonStep[] {
+  return [
+    {
+      id: "fr-m1v2-8-sim-parc",
+      type: "dialogue_sim",
+      scene: {
+        emoji: "🌳",
+        title: "Au parc — Léa again",
+        setting: "She waves you over — she's brought a friend.",
+      },
+      exercisedAtomIds: [],
+      explanation:
+        "A whole first conversation: greeting, meeting, a real offer, a warm goodbye — every line from this module.",
+      turns: [
+        {
+          id: "t1-salut",
+          npc: {
+            speaker: "Léa",
+            kana: "Bonjour !",
+            audioText: "bonjour",
+            gloss: "Hello!",
+          },
+          goal: "Greet her back.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "bonjour", text: "bonjour" },
+              { id: "nonmerci", text: "non merci" },
+              { id: "aurevoir", text: "au revoir" },
+            ],
+            correctOptionId: "bonjour",
+            audioText: "bonjour",
+          },
+          replyGloss: "Hello!",
+        },
+        {
+          id: "t2-enchante",
+          npc: {
+            speaker: "Emma",
+            kana: "Enchantée.",
+            audioText: "enchanté",
+            gloss: "Nice to meet you.",
+          },
+          goal: "Say it back.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "enchante", text: "enchanté" },
+              { id: "abientot", text: "à bientôt" },
+              { id: "svp", text: "s'il vous plaît" },
+            ],
+            correctOptionId: "enchante",
+            audioText: "enchanté",
+          },
+          replyGloss: "Nice to meet you.",
+        },
+        {
+          id: "t3-cafe",
+          npc: {
+            speaker: "Léa",
+            kana: "Un café ? Ou deux ?",
+            audioText: "un café ? ou deux ?",
+            gloss: "One coffee? Or two?",
+          },
+          goal: "Answer — either way (or order two!).",
+          reply: {
+            mode: "build",
+            tiles: ["oui", "s'il vous plaît", "non", "merci", "deux"],
+            answer: "oui s'il vous plaît",
+            // Max-acceptance: every natural reply this bank can build is
+            // right (Spencer built «oui deux s'il vous plaît» on his walk
+            // and was marked wrong — doctrine: a known natural reply must
+            // never be wrong). Bare «merci» stays out: as an answer to an
+            // offer it often means polite REFUSAL, a nuance L8 can't grade.
+            alsoAccepted: [
+              "non merci",
+              "deux s'il vous plaît",
+              "oui deux s'il vous plaît",
+              "oui deux",
+              "oui merci",
+              "deux",
+            ],
+            audioText: "oui s'il vous plaît",
+          },
+          replyGloss: "Yes, please.",
+          explanation:
+            "Almost any polite answer builds from this bank — «oui», «non merci», or ordering TWO. Your numbers just entered a conversation.",
+        },
+        {
+          id: "t4-aurevoir",
+          npc: {
+            speaker: "Léa",
+            kana: "Au revoir.",
+            audioText: "au revoir",
+            gloss: "Goodbye.",
+          },
+          goal: "Say goodbye — either way works.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "abientot", text: "à bientôt" },
+              { id: "aurevoir", text: "au revoir" },
+              { id: "svp", text: "s'il vous plaît" },
+            ],
+            correctOptionId: "abientot",
+            alsoCorrectOptionIds: ["aurevoir"],
+            audioText: "à bientôt",
+          },
+          replyGloss: "See you soon.",
+        },
+      ],
+    },
+    build(
+      "fr-m1v2-8-build-ouisvp",
+      "Build: 'yes, please'",
+      "oui s'il vous plaît",
+      ["oui", "s'il vous plaît", "non", "merci"],
+      ["oui", "s'il vous plaît"],
+    ),
+    {
+      id: "fr-m1v2-8-hear-enchante",
+      type: "word_image_mcq",
+      meaningEn: "enchanté",
+      options: [
+        { id: "correct", word: "enchanté", emoji: "🤝" },
+        { id: "o1", word: "à bientôt", emoji: "🔜" },
+        { id: "o2", word: "merci", emoji: "🙏" },
+      ],
+      correctOptionId: "correct",
+    },
+    cloze(
+      "fr-m1v2-8-cloze-non",
+      "",
+      "merci",
+      "non",
+      ["non", "oui", "et", "ou"],
+      "no, thank you",
+      "non merci",
+      "The polite no: «non merci». («oui» would need «s'il vous plaît».)",
+      ["non"],
+    ),
+    vocabTextMcq("fr-m1v2-8-mc-ou", "ou", ["et", "oui", "non"]),
+    speaking("fr-m1v2-8-speak-pardon-recall", "pardon", "sorry", ["pardon"], "recall"),
+    {
+      // six/dix — THE French ear pair, second trial (seess vs deess).
+      id: "fr-m1v2-8-hear-dix",
+      type: "word_image_mcq",
+      meaningEn: "dix",
+      options: [
+        { id: "correct", word: "dix", emoji: "🔟" },
+        { id: "o1", word: "six", emoji: "6️⃣" },
+        { id: "o2", word: "sept", emoji: "7️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    listeningCompSentence({
+      id: "fr-m1v2-8-lc-bonsoir",
+      audioText: "bonsoir",
+      correctMeaningEn: "Good evening.",
+      distractorsEn: ["Good night.", "Goodbye.", "See you soon."],
+    }),
+    vocabTextMcq("fr-m1v2-8-mc-zero", "zéro", ["cinq", "deux", "dix"]),
+    matchPairs("fr-m1v2-8", ["merci", "oui", "non", "quatre", "six", "bonjour"]),
+    // WIN: first voicing of «ça va» — the two words you'll use most.
+    speaking("fr-m1v2-8-speak-cava", "ça va", "how's it going? / it's going fine", [
+      "ça va",
+    ]),
+  ];
+}
+
+/** L9 — Mastery. Graded only; every item present; typed production;
+ *  ends on the Léa goodbye sim. */
+function lesson9(): LessonStep[] {
+  return [
+    {
+      id: "fr-m1v2-9-hear-bonnenuit",
+      type: "word_image_mcq",
+      meaningEn: "bonne nuit",
+      options: [
+        { id: "correct", word: "bonne nuit", emoji: "🌙" },
+        { id: "o1", word: "bonsoir", emoji: "🌆" },
+        { id: "o2", word: "bonjour", emoji: "🙋" },
+      ],
+      correctOptionId: "correct",
+    },
+    build(
+      "fr-m1v2-9-build-mercibeaucoup",
+      "Build: 'thanks a lot'",
+      "merci beaucoup",
+      ["merci", "beaucoup", "non", "oui"],
+      ["merci", "beaucoup"],
+    ),
+    cloze(
+      "fr-m1v2-9-cloze-bonne",
+      "bonne",
+      "",
+      "nuit",
+      ["nuit", "soir"],
+      "good night",
+      "bonne nuit",
+      "«soir» fuses with bon into ONE word — bonsoir. Night keeps two.",
+    ),
+    vocabTextMcq("fr-m1v2-9-mc-huit", "huit", ["neuf", "six", "dix"]),
+    {
+      id: "fr-m1v2-9-hear-deux",
+      type: "word_image_mcq",
+      meaningEn: "deux",
+      options: [
+        { id: "correct", word: "deux", emoji: "2️⃣" },
+        { id: "o1", word: "dix", emoji: "🔟" },
+        { id: "o2", word: "zéro", emoji: "0️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking(
+      "fr-m1v2-9-speak-enchante",
+      "enchanté",
+      "nice to meet you",
+      ["enchanté"],
+      "recall",
+    ),
+    cloze(
+      "fr-m1v2-9-cloze-ou",
+      "quatre",
+      "cinq",
+      "ou",
+      ["ou", "et", "non", "oui"],
+      "four or five",
+      "quatre ou cinq",
+      "A choice between numbers takes «ou».",
+      ["ou"],
+    ),
+    listeningCompSentence({
+      id: "fr-m1v2-9-lc-nonmerci",
+      audioText: "non merci",
+      correctMeaningEn: "No, thank you.",
+      distractorsEn: ["Yes, please.", "Sorry!", "Good night."],
+    }),
+    build(
+      // Was the typed translate that failed Spencer's walk — typed production grades spelling a
+      // beginner hasn't been taught (Spencer, fr m1 L9 walk 2026-08-21:
+      // his phonetically-right «si vu plait» failed). A tile build tests
+      // the same recall — which words, what order — without the spelling tax.
+      "fr-m1v2-9-build-ouisvp",
+      "Build: 'yes, please'",
+      "oui s'il vous plaît",
+      ["oui", "s'il vous plaît", "non", "merci"],
+      ["oui", "s'il vous plaît"],
+    ),
+    {
+      id: "fr-m1v2-9-map-ouisvp",
+      type: "word_map",
+      tokens: ["oui", "s'il vous plaît"],
+      pairs: [
+        { en: "yes", tokenIndex: 0 },
+        { en: "please", tokenIndex: 1 },
+      ],
+      audioText: "oui s'il vous plaît",
+    },
+    {
+      // six/dix — answer SIX this time (the checkpoint answered dix).
+      id: "fr-m1v2-9-hear-six",
+      type: "word_image_mcq",
+      meaningEn: "six",
+      options: [
+        { id: "correct", word: "six", emoji: "6️⃣" },
+        { id: "o1", word: "dix", emoji: "🔟" },
+        { id: "o2", word: "cinq", emoji: "5️⃣" },
+      ],
+      correctOptionId: "correct",
+    },
+    speaking("fr-m1v2-9-speak-dix", "dix", "ten", ["dix"], "recall"),
+    cloze(
+      // Flipped frame: same sentence shape as L6's cloze, opposite
+      // answer — forces a real read, not screen memory.
+      "fr-m1v2-9-cloze-et",
+      "huit",
+      "neuf",
+      "et",
+      ["et", "ou", "non", "oui"],
+      "eight and nine",
+      "huit et neuf",
+      "«et» joins them — eight AND nine.",
+      ["et"],
+    ),
+    matchPairs("fr-m1v2-9", [
+      "pardon",
+      "s'il vous plaît",
+      "enchanté",
+      "un",
+      "trois",
+      "oui",
+    ]),
+    {
+      // THE MODULE ENDS ON LÉA — not a grid.
+      id: "fr-m1v2-9-sim-goodbye",
+      type: "dialogue_sim",
+      scene: {
+        emoji: "🌆",
+        title: "Léa heads home",
+        setting: "End of your first French week.",
+      },
+      exercisedAtomIds: [],
+      explanation:
+        "That's the module: greet, meet, count, take an offer, and say goodnight — in French. Module 2: say who you are.",
+      turns: [
+        {
+          id: "t1-nuit",
+          npc: {
+            speaker: "Léa",
+            kana: "Bonne nuit.",
+            audioText: "bonne nuit",
+            gloss: "Good night.",
+          },
+          goal: "Wish her a good night back.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "bonnenuit", text: "bonne nuit" },
+              { id: "bonjour", text: "bonjour" },
+              { id: "merci", text: "merci" },
+            ],
+            correctOptionId: "bonnenuit",
+            audioText: "bonne nuit",
+          },
+          replyGloss: "Good night.",
+        },
+        {
+          id: "t2-aurevoir",
+          npc: {
+            speaker: "Léa",
+            kana: "Au revoir. À bientôt.",
+            audioText: "au revoir à bientôt",
+            gloss: "Bye — see you soon.",
+          },
+          goal: "Send her off — either way.",
+          reply: {
+            mode: "choice",
+            options: [
+              { id: "abientot", text: "à bientôt" },
+              { id: "aurevoir", text: "au revoir" },
+              { id: "nonmerci", text: "non merci" },
+            ],
+            correctOptionId: "abientot",
+            alsoCorrectOptionIds: ["aurevoir"],
+            audioText: "à bientôt",
+          },
+          replyGloss: "See you soon!",
+        },
+      ],
+    },
+  ];
+}
 
 const FR_M1_1: LessonContent = {
   id: "fr-m1-1",
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "French ends quietly — bonjour, salut",
-  description: "Final letters fall away. Meet your first three phrases.",
+  title: "Say hello — and no, politely",
   estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-1-info-quiet",
-      "Words end quietly",
-      "French spells more than it speaks: most FINAL consonants are silent. «salut» (hi) sounds like sa-LU — no t. «bonjour» (hello) ends on a soft r you barely hold. Expect endings to fall away, and spoken French gets much easier to hear.",
-      "grammar",
-    ),
-    vocab("fr-m1-1-p-bonjour", "hello / good day", "bonjour", undefined, { emoji: "🙋" }),
-    vocabMcq("fr-m1-1-img-bonjour", { surface: "bonjour", meaningEn: "hello / good day", emoji: "🙋" }, [{ surface: "merci", emoji: "🙏" }, { surface: "oui", emoji: "✅" }, { surface: "non", emoji: "❌" }]),
-    speaking("fr-m1-1-sp-bonjour", "bonjour", "hello / good day", ["bonjour"]),
-    vocab("fr-m1-1-p-salut", "hi / bye (casual)", "salut", undefined, { emoji: "👋" }),
-    silentLetter({
-      id: "fr-m1-1-sl-salut",
-      writtenForm: "salut",
-      graphemes: ["s", "a", "l", "u", "t"],
-      silentIndices: [4],
-      meaningEn: "hi / bye (casual)",
-      ruleNote: "Final t is almost always silent — «salut» sounds like sa-LU.",
-    }),
-    sentenceMcq({
-      id: "fr-m1-1-q-register",
-      prompt: "You walk into a bakery and greet the owner — a stranger. Which greeting fits?",
-      correctText: "bonjour",
-      distractorsText: ["salut", "merci", "non"],
-      explanation: "«bonjour» works with everyone; «salut» is for friends and people you know well.",
-      exercisedAtomSurfaces: ["bonjour"],
-    }),
-    speaking("fr-m1-1-sp-salut", "salut", "hi (casual)", ["salut"]),
-    vocabTextMcq("fr-m1-1-tm-bonjour", "bonjour", ["salut", "merci", "non"]),
-    vocab("fr-m1-1-p-cava", "how's it going? / it's going fine", "ça va", undefined, { emoji: "💬" }),
-    listeningCompSentence({
-      id: "fr-m1-1-lc-cava",
-      audioText: "ça va",
-      correctMeaningEn: "how's it going? / it's fine",
-      distractorsEn: ["thank you very much", "good night", "see you soon"],
-      exercisedAtomSurfaces: ["ça va"],
-    }),
-    speaking("fr-m1-1-sp-cava", "ça va ?", "how's it going?", ["ça va"]),
-    sentenceMcq({
-      id: "fr-m1-1-q-cava-reply",
-      prompt: "A friend greets you and asks how you're doing. Which phrase is the natural answer?",
-      correctText: "ça va",
-      distractorsText: ["non", "salut", "pardon"],
-      explanation: "«ça va» answers itself — the same two words ask the question and give the answer ('it's going fine').",
-      exercisedAtomSurfaces: ["ça va"],
-    }),
-    infoStep(
-      "fr-m1-1-win-l1",
-      "You can greet anyone",
-      "Three phrases in: «bonjour» for everyone, «salut» for friends, «ça va ?» to keep it going. And you already know the biggest secret of French pronunciation — endings fall away.",
-      "win",
-    ),
-  ],
+  steps: lesson1(),
 };
 
 const FR_M1_2: LessonContent = {
@@ -134,84 +1344,10 @@ const FR_M1_2: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "The politeness kit — merci, s'il vous plaît",
-  description: "Please, thank you, yes and no — the words that open every door.",
-  estimatedMinutes: 10,
+  title: "Ask nicely, apologize smoothly",
+  estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-2-info-politeness",
-      "Please and thank you",
-      "«merci» = thank you; add «beaucoup» ('a lot') for warmth: «merci beaucoup». Please is a fixed phrase: «s'il vous plaît» — literally 'if it pleases you'. You'll see it shortened to SVP on signs. These are non-negotiable in France: every request carries one.",
-      "grammar",
-    ),
-    vocab("fr-m1-2-p-merci", "thank you", "merci", undefined, { emoji: "🙏" }),
-    vocabMcq("fr-m1-2-img-merci", { surface: "merci", meaningEn: "thank you", emoji: "🙏" }, [{ surface: "s'il vous plaît", emoji: "🤲" }, { surface: "oui", emoji: "✅" }, { surface: "non", emoji: "❌" }]),
-    speaking("fr-m1-2-sp-merci", "merci", "thank you", ["merci"]),
-    vocab("fr-m1-2-p-svp", "please", "s'il vous plaît", undefined, { emoji: "🤲" }),
-    silentLetter({
-      id: "fr-m1-2-sl-vous",
-      writtenForm: "vous",
-      graphemes: ["v", "ou", "s"],
-      silentIndices: [2],
-      meaningEn: "you (from «s'il vous plaît»)",
-      ruleNote: "«vous» sounds like voo. Its s wakes up only before a vowel — that's liaison, coming in module 2.",
-    }),
-    sentenceMcq({
-      id: "fr-m1-2-q-svp",
-      prompt: "You're handing the waiter your order. Which phrase makes it polite?",
-      correctText: "s'il vous plaît",
-      distractorsText: ["merci", "pardon", "salut"],
-      explanation: "«s'il vous plaît» attaches to any request; «merci» comes after, when you've received it.",
-      exercisedAtomSurfaces: ["s'il vous plaît"],
-    }),
-    speaking("fr-m1-2-sp-svp", "s'il vous plaît", "please", ["s'il vous plaît"]),
-    vocab("fr-m1-2-p-beaucoup", "thank you very much", "merci beaucoup", undefined, { emoji: "💐" }),
-    silentLetter({
-      id: "fr-m1-2-sl-beaucoup",
-      writtenForm: "beaucoup",
-      graphemes: ["b", "eau", "c", "ou", "p"],
-      silentIndices: [4],
-      meaningEn: "a lot (from «merci beaucoup»)",
-      ruleNote: "«eau» is ONE sound (oh) and «ou» is ONE sound (oo) — and the final p is silent: boh-KOO.",
-    }),
-    build(
-      "fr-m1-2-b-mercibeaucoup",
-      "Build: 'thank you very much'",
-      "merci beaucoup",
-      ["merci", "beaucoup", "bonjour", "salut"],
-      ["merci", "beaucoup"],
-      ["merci beaucoup"],
-    ),
-    vocabMcq("fr-m1-2-img-oui", { surface: "oui", meaningEn: "yes", emoji: "✅" }, [{ surface: "non", emoji: "❌" }, { surface: "merci", emoji: "🙏" }, { surface: "bonjour", emoji: "🙋" }]),
-    speaking("fr-m1-2-sp-ouimerci", "oui merci", "yes, thank you", ["oui", "merci"]),
-    vocabMcq("fr-m1-2-img-non", { surface: "non", meaningEn: "no", emoji: "❌" }, [{ surface: "oui", emoji: "✅" }, { surface: "s'il vous plaît", emoji: "🤲" }, { surface: "merci beaucoup", emoji: "💐" }]),
-    listeningBuildSentence({
-      id: "fr-m1-2-lb-nonmerci",
-      target: "non merci",
-      tiles: ["non", "merci", "oui", "salut"],
-      correctOrder: ["non", "merci"],
-      promptEn: "no, thank you",
-      exercisedAtomSurfaces: ["non", "merci"],
-    }),
-    selfExplain({
-      id: "fr-m1-2-se-svp",
-      anchorLabel: "You said: s'il vous plaît",
-      anchorAudioText: "s'il vous plaît",
-      question: "Why is «s'il vous plaît» the safe way to say please?",
-      rule: { text: "It's a fixed polite formula — literally 'if it pleases you' — usable with anyone, in any request." },
-      surface: { text: "It's simply the French word for 'please', one word like in English." },
-      distractor: { text: "Because «merci» would be rude to say to a stranger." },
-      ruleExplanation: "«s'il vous plaît» never changes shape and never offends — learn it as one solid block, not word by word.",
-    }),
-    matchPairs("fr-m1-2-rev-l2", ["bonjour", "salut", "merci", "s'il vous plaît", "oui", "non"]),
-    infoStep(
-      "fr-m1-2-win-l2",
-      "Doors open now",
-      "«s'il vous plaît» in, «merci beaucoup» out — with «oui» and «non» you can already survive a French bakery.",
-      "win",
-    ),
-  ],
+  steps: lesson2(),
 };
 
 const FR_M1_3: LessonContent = {
@@ -219,90 +1355,10 @@ const FR_M1_3: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Ways to leave — au revoir, bonsoir",
-  description: "Goodbyes for any hour, and the evening's own greetings.",
-  estimatedMinutes: 10,
+  title: "Evening, night — and salut",
+  estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-3-info-evening",
-      "Ways to leave",
-      "«au revoir» = goodbye, any time. «à bientôt» = see you soon. Evenings get their own words: «bonsoir» (good evening) when you arrive, and «bonne nuit» (good night) ONLY when someone is heading to bed.",
-      "grammar",
-    ),
-    vocab("fr-m1-3-p-aurevoir", "goodbye", "au revoir", undefined, { emoji: "🚪" }),
-    vocabMcq("fr-m1-3-img-aurevoir", { surface: "au revoir", meaningEn: "goodbye", emoji: "🚪" }, [{ surface: "bonjour", emoji: "🙋" }, { surface: "merci", emoji: "🙏" }, { surface: "bonne nuit", emoji: "🌙" }]),
-    speaking("fr-m1-3-sp-aurevoir", "au revoir", "goodbye", ["au revoir"]),
-    vocab("fr-m1-3-p-bonsoir", "good evening", "bonsoir", undefined, { emoji: "🌆" }),
-    sentenceMcq({
-      id: "fr-m1-3-q-bonsoir",
-      prompt: "It's 8 pm and you walk into the restaurant. What do you say?",
-      correctText: "bonsoir",
-      distractorsText: ["bonne nuit", "bonjour", "au revoir"],
-      explanation: "«bonsoir» greets in the evening; «bonne nuit» is only for someone going to sleep.",
-      exercisedAtomSurfaces: ["bonsoir"],
-    }),
-    speaking("fr-m1-3-sp-bonsoir", "bonsoir", "good evening", ["bonsoir"]),
-    vocab("fr-m1-3-p-bonnenuit", "good night", "bonne nuit", undefined, { emoji: "🌙" }),
-    silentLetter({
-      id: "fr-m1-3-sl-nuit",
-      writtenForm: "nuit",
-      graphemes: ["n", "ui", "t"],
-      silentIndices: [2],
-      meaningEn: "night (from «bonne nuit»)",
-      ruleNote: "«ui» glides like wee; the final t is silent: nwee.",
-    }),
-    listeningCompSentence({
-      id: "fr-m1-3-lc-bonnenuit",
-      audioText: "bonne nuit",
-      correctMeaningEn: "good night",
-      distractorsEn: ["good evening", "goodbye", "see you soon"],
-      exercisedAtomSurfaces: ["bonne nuit"],
-    }),
-    vocab("fr-m1-3-p-abientot", "see you soon", "à bientôt", undefined, { emoji: "🔜" }),
-    silentLetter({
-      id: "fr-m1-3-sl-bientot",
-      writtenForm: "bientôt",
-      graphemes: ["b", "i", "en", "t", "ô", "t"],
-      silentIndices: [5],
-      meaningEn: "soon (from «à bientôt»)",
-      ruleNote: "Say byan-TOH: «en» is a nasal vowel, and the final t is silent.",
-    }),
-    speaking("fr-m1-3-sp-abientot", "à bientôt", "see you soon", ["à bientôt"]),
-    build(
-      "fr-m1-3-b-aurevoirabientot",
-      "Build: 'goodbye — see you soon'",
-      "au revoir à bientôt",
-      ["au", "revoir", "à", "bientôt", "bonsoir", "merci"],
-      ["au", "revoir", "à", "bientôt"],
-      ["au revoir", "à bientôt"],
-    ),
-    sentenceMcq({
-      id: "fr-m1-3-q-nuit",
-      prompt: "Your host walks you to the guest room and switches off the hall light. Which phrase fits the moment?",
-      correctText: "bonne nuit",
-      distractorsText: ["bonsoir", "au revoir", "ça va"],
-      explanation: "«bonne nuit» is for someone about to sleep — «bonsoir» would restart the evening.",
-      exercisedAtomSurfaces: ["bonne nuit"],
-    }),
-    selfExplain({
-      id: "fr-m1-3-se-bonsoir",
-      anchorLabel: "You chose: bonsoir",
-      anchorAudioText: "bonsoir",
-      question: "Why «bonsoir» when you arrive, but «bonne nuit» at bedtime?",
-      rule: { text: "«bonsoir» opens an evening conversation; «bonne nuit» closes the day — it wishes someone sleep." },
-      surface: { text: "«bonne nuit» is simply the more formal of the two evening greetings." },
-      distractor: { text: "«bonsoir» is only correct after 10 pm." },
-      ruleExplanation: "Pick by what happens NEXT: conversation → «bonsoir», sleep → «bonne nuit».",
-    }),
-    matchPairs("fr-m1-3-rev-l3", ["au revoir", "à bientôt", "bonsoir", "bonne nuit", "bonjour", "salut"]),
-    infoStep(
-      "fr-m1-3-win-l3",
-      "Any hour covered",
-      "Arrive with «bonjour» or «bonsoir», leave with «au revoir» or «à bientôt», and save «bonne nuit» for the pillow.",
-      "win",
-    ),
-  ],
+  steps: lesson3(),
 };
 
 const FR_M1_4: LessonContent = {
@@ -310,70 +1366,10 @@ const FR_M1_4: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Pardon — one word, three jobs",
-  description: "Apologize, squeeze past, ask again — and meet someone new.",
+  title: "Count to four — and a warmer goodbye",
   estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-4-info-pardon",
-      "«pardon» opens doors",
-      "Bumped someone? «pardon». Need to squeeze past? «pardon». Didn't catch what they said? «pardon ?» with a rising voice asks them to repeat. One word, three jobs.",
-      "grammar",
-    ),
-    vocab("fr-m1-4-p-pardon", "excuse me / sorry", "pardon", undefined, { emoji: "🙇" }),
-    listeningCompSentence({
-      id: "fr-m1-4-lc-pardon",
-      audioText: "pardon",
-      correctMeaningEn: "excuse me / sorry",
-      distractorsEn: ["thank you", "hello", "see you soon"],
-      exercisedAtomSurfaces: ["pardon"],
-    }),
-    speaking("fr-m1-4-sp-pardon", "pardon", "excuse me / sorry", ["pardon"]),
-    vocab("fr-m1-4-p-enchante", "nice to meet you", "enchanté", undefined, { emoji: "🤝" }),
-    sentenceMcq({
-      id: "fr-m1-4-q-enchante",
-      prompt: "You've just been introduced to your friend's mother. What do you say?",
-      correctText: "enchanté",
-      distractorsText: ["pardon", "au revoir", "non"],
-      explanation: "«enchanté» — literally 'delighted' — is the set phrase for a first meeting.",
-      exercisedAtomSurfaces: ["enchanté"],
-    }),
-    speaking("fr-m1-4-sp-enchante", "enchanté", "nice to meet you", ["enchanté"]),
-    build(
-      "fr-m1-4-b-bonjourenchante",
-      "Build: 'hello — nice to meet you'",
-      "bonjour enchanté",
-      ["bonjour", "enchanté", "salut", "pardon"],
-      ["bonjour", "enchanté"],
-      ["bonjour", "enchanté"],
-    ),
-    sentenceMcq({
-      id: "fr-m1-4-q-pardonuse",
-      prompt: "You step on a stranger's foot on the metro. What do you say?",
-      correctText: "pardon",
-      distractorsText: ["enchanté", "ça va", "oui"],
-      explanation: "«pardon» is the instant apology; «enchanté» would introduce yourself to the foot's owner.",
-      exercisedAtomSurfaces: ["pardon"],
-    }),
-    listeningBuildSentence({
-      id: "fr-m1-4-lb-bonsoirenchante",
-      target: "bonsoir enchanté",
-      tiles: ["bonsoir", "enchanté", "bonjour", "salut"],
-      correctOrder: ["bonsoir", "enchanté"],
-      promptEn: "good evening — nice to meet you",
-      exercisedAtomSurfaces: ["bonsoir", "enchanté"],
-    }),
-    vocabTextMcq("fr-m1-4-tm-pardon", "pardon", ["enchanté", "merci beaucoup", "bonne nuit"]),
-    speaking("fr-m1-4-sp-svpreturn", "s'il vous plaît", "please", ["s'il vous plaît"]),
-    matchPairs("fr-m1-4-rev-l4", ["pardon", "enchanté", "merci beaucoup", "ça va", "bonsoir", "s'il vous plaît"]),
-    infoStep(
-      "fr-m1-4-win-l4",
-      "Socially bulletproof",
-      "Greet, thank, apologize, meet, part — the whole social loop in French, and it's only lesson four.",
-      "win",
-    ),
-  ],
+  steps: lesson4(),
 };
 
 const FR_M1_5: LessonContent = {
@@ -381,84 +1377,10 @@ const FR_M1_5: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Count to five — un, deux, trois",
-  description: "The first numbers, and the silent-final rule at work.",
-  estimatedMinutes: 10,
+  title: "Five, six, seven — nice to meet you",
+  estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-5-info-num05",
-      "Count to five",
-      "«un, deux, trois, quatre, cinq». The endings behave exactly as promised: deux = duh (silent x), trois = trwah (silent s). But «cinq» keeps its q spoken — sank. Numbers are your market survival kit.",
-      "grammar",
-    ),
-    vocab("fr-m1-5-p-un", "one", "un", undefined, { emoji: "1️⃣" }),
-    vocabMcq("fr-m1-5-img-un", { surface: "un", meaningEn: "one", emoji: "1️⃣" }, [{ surface: "deux", emoji: "2️⃣" }, { surface: "trois", emoji: "3️⃣" }, { surface: "quatre", emoji: "4️⃣" }]),
-    speaking("fr-m1-5-sp-un", "un", "one", ["un"]),
-    vocab("fr-m1-5-p-deux", "two", "deux", undefined, { emoji: "2️⃣" }),
-    silentLetter({
-      id: "fr-m1-5-sl-deux",
-      writtenForm: "deux",
-      graphemes: ["d", "eu", "x"],
-      silentIndices: [2],
-      meaningEn: "two",
-      ruleNote: "«eu» is one sound (uh); the x is silent: duh.",
-    }),
-    speaking("fr-m1-5-sp-deux", "deux", "two", ["deux"]),
-    vocab("fr-m1-5-p-trois", "three", "trois", undefined, { emoji: "3️⃣" }),
-    silentLetter({
-      id: "fr-m1-5-sl-trois",
-      writtenForm: "trois",
-      graphemes: ["t", "r", "oi", "s"],
-      silentIndices: [3],
-      meaningEn: "three",
-      ruleNote: "«oi» says wah; the final s is silent: trwah.",
-    }),
-    build(
-      "fr-m1-5-b-undeuxtrois",
-      "Build: 'one, two, three'",
-      "un deux trois",
-      ["un", "deux", "trois", "oui", "non"],
-      ["un", "deux", "trois"],
-      ["un", "deux", "trois"],
-    ),
-    vocab("fr-m1-5-p-quatre", "four", "quatre", undefined, { emoji: "4️⃣" }),
-    vocabMcq("fr-m1-5-img-quatre", { surface: "quatre", meaningEn: "four", emoji: "4️⃣" }, [{ surface: "un", emoji: "1️⃣" }, { surface: "deux", emoji: "2️⃣" }, { surface: "trois", emoji: "3️⃣" }]),
-    speaking("fr-m1-5-sp-quatre", "quatre", "four", ["quatre"]),
-    vocab("fr-m1-5-p-cinq", "five", "cinq", undefined, { emoji: "5️⃣" }),
-    listeningCompSentence({
-      id: "fr-m1-5-lc-cinq",
-      audioText: "cinq",
-      correctMeaningEn: "five",
-      distractorsEn: ["four", "three", "two"],
-      exercisedAtomSurfaces: ["cinq"],
-    }),
-    build(
-      "fr-m1-5-b-quatreoucinq",
-      "Build: 'four or five'",
-      "quatre ou cinq",
-      ["quatre", "ou", "cinq", "deux", "trois"],
-      ["quatre", "ou", "cinq"],
-      ["quatre", "ou", "cinq"],
-    ),
-    selfExplain({
-      id: "fr-m1-5-se-silent",
-      anchorLabel: "You built: quatre ou cinq",
-      anchorAudioText: "quatre ou cinq",
-      question: "Why does «cinq» end in a spoken sound when «deux» and «trois» don't?",
-      rule: { text: "Final consonants are usually silent, but a few words — cinq among them — keep a spoken final sound. Learn those as exceptions." },
-      surface: { text: "«cinq» is spelled with a q, and q is never silent in French." },
-      distractor: { text: "Number words always pronounce their final letter." },
-      ruleExplanation: "The silent-final rule has a short exception list; cinq, six and dix are on it. When in doubt, trust the rule and learn the exceptions one by one.",
-    }),
-    matchPairs("fr-m1-5-rev-l5", ["un", "deux", "trois", "quatre", "cinq", "non"]),
-    infoStep(
-      "fr-m1-5-win-l5",
-      "Five fingers up",
-      "You can count on one hand — and every silent ending behaved exactly as lesson one promised.",
-      "win",
-    ),
-  ],
+  steps: lesson5(),
 };
 
 const FR_M1_6: LessonContent = {
@@ -466,71 +1388,10 @@ const FR_M1_6: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Six to ten — and zéro",
-  description: "The rest of the numbers, exceptions included.",
-  estimatedMinutes: 10,
+  title: "Eight, nine, ten — and, or",
+  estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-6-info-num610",
-      "Six to ten",
-      "«six» and «dix» END in a spoken s-sound: seess, deess. «sept» drops its p but keeps its t: set. «huit» sounds like weet. «neuf» keeps its f: nuhf. And zero is «zéro» — the easiest word in the module.",
-      "grammar",
-    ),
-    vocab("fr-m1-6-p-six", "six", "six", undefined, { emoji: "6️⃣" }),
-    listeningCompSentence({
-      id: "fr-m1-6-lc-six",
-      audioText: "six",
-      correctMeaningEn: "six",
-      distractorsEn: ["seven", "eight", "ten"],
-      exercisedAtomSurfaces: ["six"],
-    }),
-    speaking("fr-m1-6-sp-six", "six", "six", ["six"]),
-    vocab("fr-m1-6-p-sept", "seven", "sept", undefined, { emoji: "7️⃣" }),
-    silentLetter({
-      id: "fr-m1-6-sl-sept",
-      writtenForm: "sept",
-      graphemes: ["s", "e", "p", "t"],
-      silentIndices: [2],
-      meaningEn: "seven",
-      ruleNote: "The p is silent but the t is spoken: set.",
-    }),
-    speaking("fr-m1-6-sp-sept", "sept", "seven", ["sept"]),
-    vocab("fr-m1-6-p-huit", "eight", "huit", undefined, { emoji: "8️⃣" }),
-    vocabMcq("fr-m1-6-img-huit", { surface: "huit", meaningEn: "eight", emoji: "8️⃣" }, [{ surface: "six", emoji: "6️⃣" }, { surface: "sept", emoji: "7️⃣" }, { surface: "neuf", emoji: "9️⃣" }]),
-    speaking("fr-m1-6-sp-huit", "huit", "eight", ["huit"]),
-    vocab("fr-m1-6-p-neuf", "nine", "neuf", undefined, { emoji: "9️⃣" }),
-    vocabMcq("fr-m1-6-img-neuf", { surface: "neuf", meaningEn: "nine", emoji: "9️⃣" }, [{ surface: "huit", emoji: "8️⃣" }, { surface: "six", emoji: "6️⃣" }, { surface: "dix", emoji: "🔟" }]),
-    build(
-      "fr-m1-6-b-sixetsept",
-      "Build: 'six and seven'",
-      "six et sept",
-      ["six", "et", "sept", "ou", "deux"],
-      ["six", "et", "sept"],
-      ["six", "et", "sept"],
-    ),
-    speaking("fr-m1-6-sp-neuf", "neuf", "nine", ["neuf"]),
-    vocab("fr-m1-6-p-dix", "ten", "dix", undefined, { emoji: "🔟" }),
-    vocabTextMcq("fr-m1-6-tm-dix", "dix", ["deux", "six", "sept"]),
-    build(
-      "fr-m1-6-b-neufetdix",
-      "Build: 'nine and ten'",
-      "neuf et dix",
-      ["neuf", "et", "dix", "six", "ou"],
-      ["neuf", "et", "dix"],
-      ["neuf", "et", "dix"],
-    ),
-    vocab("fr-m1-6-p-zero", "zero", "zéro", undefined, { emoji: "0️⃣" }),
-    vocabMcq("fr-m1-6-img-zero", { surface: "zéro", meaningEn: "zero", emoji: "0️⃣" }, [{ surface: "un", emoji: "1️⃣" }, { surface: "deux", emoji: "2️⃣" }, { surface: "dix", emoji: "🔟" }]),
-    speaking("fr-m1-6-sp-zero", "zéro", "zero", ["zéro"]),
-    matchPairs("fr-m1-6-rev-l6", ["six", "sept", "huit", "neuf", "dix", "zéro"]),
-    infoStep(
-      "fr-m1-6-win-l6",
-      "Zero to ten",
-      "Phone numbers, prices, room numbers — all ten digits are yours, exceptions and all.",
-      "win",
-    ),
-  ],
+  steps: lesson6(),
 };
 
 const FR_M1_7: LessonContent = {
@@ -538,115 +1399,10 @@ const FR_M1_7: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "One small conversation",
-  description: "Everything so far, chained into real exchanges.",
+  title: "✓ Checkpoint · Warm up for the big one",
   estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    infoStep(
-      "fr-m1-7-info-recap",
-      "One small conversation",
-      "You can now run a real exchange: greet, ask «ça va ?», thank, count, and part. This lesson chains it all — listen for the words you know and let the silent endings wash past.",
-      "grammar",
-    ),
-    dialogueListen({
-      id: "fr-m1-7-dlg-soir",
-      lines: [
-        { speaker: "Marie", text: "bonsoir !" },
-        { speaker: "Thomas", text: "bonsoir ! ça va ?" },
-        { speaker: "Marie", text: "ça va, merci. et vous ?" },
-        { speaker: "Thomas", text: "ça va, merci beaucoup." },
-      ],
-      questions: [
-        {
-          id: "q1",
-          prompt: "What time of day is it?",
-          correctText: "Evening",
-          distractors: ["Morning", "Midday", "Bedtime"],
-        },
-        {
-          id: "q2",
-          prompt: "How is Marie doing?",
-          correctText: "Fine",
-          distractors: ["Badly", "She doesn't say", "She's in a hurry"],
-        },
-      ],
-      exercisedAtomSurfaces: ["bonsoir", "ça va", "merci", "merci beaucoup"],
-    }),
-    cloze(
-      "fr-m1-7-cz-et",
-      "six ",
-      " sept.",
-      "et",
-      ["et", "ou", "oui", "non"],
-      "six and seven",
-      "six et sept",
-      "«et» joins ('and'); «ou» offers a choice ('or').",
-      ["six", "sept"],
-    ),
-    speaking("fr-m1-7-sp-bonjourcava", "bonjour, ça va ?", "hello — how's it going?", ["bonjour", "ça va"]),
-    cloze(
-      "fr-m1-7-cz-ou",
-      "quatre ",
-      " cinq.",
-      "ou",
-      ["ou", "et", "oui", "non"],
-      "four or five",
-      "quatre ou cinq",
-      "A choice between numbers wants «ou» (or), not «et» (and).",
-      ["quatre", "cinq"],
-    ),
-    build(
-      "fr-m1-7-b-mercietaurevoir",
-      "Build: 'thank you and goodbye'",
-      "merci et au revoir",
-      ["merci", "et", "au", "revoir", "ou", "salut"],
-      ["merci", "et", "au", "revoir"],
-      ["merci", "et", "au revoir"],
-    ),
-    listeningCompSentence({
-      id: "fr-m1-7-lc-abientot",
-      audioText: "à bientôt",
-      correctMeaningEn: "see you soon",
-      distractorsEn: ["good night", "excuse me", "thank you"],
-      exercisedAtomSurfaces: ["à bientôt"],
-    }),
-    speaking("fr-m1-7-sp-nombres", "un deux trois quatre cinq", "one two three four five", ["un", "deux", "trois", "quatre", "cinq"]),
-    sentenceMcq({
-      id: "fr-m1-7-q-cafe",
-      prompt: "The waiter sets down your coffee. You say —",
-      correctText: "merci",
-      distractorsText: ["pardon", "non", "à bientôt"],
-      explanation: "Receiving something takes «merci»; «pardon» apologizes, and «à bientôt» walks away from the coffee.",
-      exercisedAtomSurfaces: ["merci"],
-    }),
-    listeningBuildSentence({
-      id: "fr-m1-7-lb-neufetdix",
-      target: "neuf et dix",
-      tiles: ["neuf", "et", "dix", "deux", "ou"],
-      correctOrder: ["neuf", "et", "dix"],
-      promptEn: "nine and ten",
-      exercisedAtomSurfaces: ["neuf", "et", "dix"],
-    }),
-    selfExplain({
-      id: "fr-m1-7-se-etou",
-      anchorLabel: "You picked: quatre ou cinq",
-      anchorAudioText: "quatre ou cinq",
-      question: "When do you join with «et» and when with «ou»?",
-      rule: { text: "«et» adds ('four AND five'); «ou» chooses ('four OR five'). The two never swap jobs." },
-      surface: { text: "«et» is for joining numbers and «ou» is for joining words." },
-      distractor: { text: "«ou» is just the casual, spoken way of saying «et»." },
-      ruleExplanation: "Same as English and/or — pick by meaning, not by the words around it.",
-    }),
-    matchPairs("fr-m1-7-rev-l7", ["bonjour", "merci beaucoup", "pardon", "huit", "bonsoir", "à bientôt"]),
-    speaking("fr-m1-7-sp-close", "au revoir, à bientôt !", "goodbye — see you soon!", ["au revoir", "à bientôt"]),
-    infoStep(
-      "fr-m1-7-win-l7",
-      "The bonjour rule",
-      "In France, «bonjour» isn't optional — walking into a shop without it reads as rude, and clerks will pointedly answer «bonjour ?» until you say it back. One word buys you goodwill everywhere. You now have that word, and twenty-six more.",
-      "win",
-    ),
-  ],
+  steps: checkpointLesson(),
 };
 
 const FR_M1_8: LessonContent = {
@@ -654,82 +1410,27 @@ const FR_M1_8: LessonContent = {
   moduleId: "m1",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "M1 Mastery Test",
-  description: "Every step counts. No cards, no hints — show what stuck.",
+  title: "Your first real conversation",
   estimatedMinutes: 8,
   xpReward: 20,
-  steps: [
-    vocabTextMcq("fr-m1-8-tm-m-bonjour", "bonjour", ["bonsoir", "salut", "merci"]),
-    speaking("fr-m1-8-sp-m-merci", "merci", "thank you", ["merci"]),
-    listeningCompSentence({
-      id: "fr-m1-8-lc-m-cava",
-      audioText: "ça va",
-      correctMeaningEn: "how's it going? / it's fine",
-      distractorsEn: ["goodbye", "please", "good evening"],
-      exercisedAtomSurfaces: ["ça va"],
-    }),
-    build(
-      "fr-m1-8-b-m-mercibeaucoup",
-      "Build: 'thank you very much'",
-      "merci beaucoup",
-      ["merci", "beaucoup", "pardon", "oui"],
-      ["merci", "beaucoup"],
-      ["merci beaucoup"],
-    ),
-    cloze(
-      "fr-m1-8-cz-m-et",
-      "neuf ",
-      " dix.",
-      "et",
-      ["et", "ou", "oui", "non"],
-      "nine and ten",
-      "neuf et dix",
-      "«et» joins the numbers; «ou» would offer a choice.",
-      ["neuf", "dix"],
-    ),
-    vocabTextMcq("fr-m1-8-tm-m-svp", "s'il vous plaît", ["merci beaucoup", "bonne nuit", "au revoir"]),
-    listeningBuildSentence({
-      id: "fr-m1-8-lb-m-quatreoucinq",
-      target: "quatre ou cinq",
-      tiles: ["quatre", "ou", "cinq", "et", "six"],
-      correctOrder: ["quatre", "ou", "cinq"],
-      promptEn: "four or five",
-      exercisedAtomSurfaces: ["quatre", "ou", "cinq"],
-    }),
-    speaking("fr-m1-8-sp-m-bonsoir", "bonsoir", "good evening", ["bonsoir"]),
-    sentenceMcq({
-      id: "fr-m1-8-q-m-register",
-      prompt: "Which greeting is for friends only?",
-      correctText: "salut",
-      distractorsText: ["bonjour", "bonsoir", "enchanté"],
-      explanation: "«salut» is casual; the other three work with strangers.",
-      exercisedAtomSurfaces: ["salut"],
-    }),
-    silentLetter({
-      id: "fr-m1-8-sl-m-huit",
-      writtenForm: "huit",
-      graphemes: ["h", "ui", "t"],
-      silentIndices: [0],
-      meaningEn: "eight",
-      ruleNote: "The h is silent — «huit» sounds like weet — but this t IS spoken.",
-    }),
-    build(
-      "fr-m1-8-b-m-aurevoir",
-      "Build: 'goodbye — see you soon'",
-      "au revoir à bientôt",
-      ["au", "revoir", "à", "bientôt", "bonsoir", "merci"],
-      ["au", "revoir", "à", "bientôt"],
-      ["au revoir", "à bientôt"],
-    ),
-    matchPairs("fr-m1-8-rev-m", ["ça va", "pardon", "sept", "neuf", "bonne nuit", "enchanté"]),
-    speaking("fr-m1-8-sp-m-close", "merci, au revoir !", "thank you, goodbye!", ["merci", "au revoir"]),
-  ],
+  steps: lesson8(),
+};
+
+const FR_M1_9: LessonContent = {
+  id: "fr-m1-9",
+  moduleId: "m1",
+  courseId: COURSE_ID,
+  languageId: "fr",
+  title: "Prove it — then say goodnight",
+  estimatedMinutes: 8,
+  xpReward: 20,
+  steps: lesson9(),
 };
 
 export const FR_M1_MODULE: FrModuleDef = {
   title: "Sons et salutations — sounds & first words",
   eyebrow: "Module 1",
-  summary: "French ends quietly: silent finals, the social survival kit, and the numbers 0–10.",
+  summary: "French ends quietly: the social survival kit, real conversations, and the numbers 0–10.",
   lessons: [
     FR_M1_1,
     FR_M1_2,
@@ -739,8 +1440,12 @@ export const FR_M1_MODULE: FrModuleDef = {
     FR_M1_6,
     FR_M1_7,
     FR_M1_8,
+    FR_M1_9,
   ],
 };
+
+/** 1-based position of the zero-new checkpoint lesson. */
+export const FR_M1_CHECKPOINT_INDEX = 7;
 
 export const FR_M1_PLACEMENT: PlacementItem[] = [
   // FIRST item = the module's Stage-1 screener item (placementBank contract).
@@ -761,9 +1466,9 @@ export const FR_M1_PLACEMENT: PlacementItem[] = [
     build: () =>
       sentenceMcq({
         id: "pt-fr-m1-1",
-        prompt: "Which phrase means 'please'?",
-        correctText: "s'il vous plaît",
-        distractorsText: ["merci", "pardon", "ça va"],
+        prompt: "'Hello' — which is correct?",
+        correctText: "bonjour",
+        distractorsText: ["au revoir", "merci", "pardon"],
       }),
   },
   {
@@ -772,9 +1477,9 @@ export const FR_M1_PLACEMENT: PlacementItem[] = [
     build: () =>
       sentenceMcq({
         id: "pt-fr-m1-2",
-        prompt: "You're leaving. Pick the phrase for 'see you soon'.",
-        correctText: "à bientôt",
-        distractorsText: ["bonsoir", "salut", "oui"],
+        prompt: "It's late at night. Which fits?",
+        correctText: "bonne nuit",
+        distractorsText: ["bonjour", "bonsoir", "à bientôt"],
       }),
   },
   {
@@ -783,9 +1488,9 @@ export const FR_M1_PLACEMENT: PlacementItem[] = [
     build: () =>
       sentenceMcq({
         id: "pt-fr-m1-3",
-        prompt: "Pick the number that means 'eight'.",
-        correctText: "huit",
-        distractorsText: ["six", "dix", "neuf"],
+        prompt: "'Seven' — which is correct?",
+        correctText: "sept",
+        distractorsText: ["six", "neuf", "cinq"],
       }),
   },
   {
@@ -794,10 +1499,9 @@ export const FR_M1_PLACEMENT: PlacementItem[] = [
     build: () =>
       sentenceMcq({
         id: "pt-fr-m1-4",
-        prompt: "It's evening and you arrive at dinner. Pick the greeting.",
-        correctText: "bonsoir",
-        distractorsText: ["bonne nuit", "au revoir", "pardon"],
+        prompt: "'four and five' — pick the French.",
+        correctText: "quatre et cinq",
+        distractorsText: ["quatre ou cinq", "quatre non cinq", "quatre oui cinq"],
       }),
   },
 ];
-

@@ -377,6 +377,47 @@ describe("scoreAlternativesGeneric — Korean number ITN (Whisper transcribes sp
   });
 });
 
+describe("scoreAlternativesGeneric — Romance number ITN (fr m1 L4 walk, 2026-08-21)", () => {
+  // Whisper inverse-text-normalizes counted numbers to ASCII digits in
+  // es/fr exactly as it does in Korean: Spencer said «un deux trois
+  // quatre» correctly and the transcript came back "1 2 3 4".
+  it("French counting transcribed as digits scores perfect", () => {
+    const r = scoreAlternativesGeneric("un deux trois quatre", [
+      { transcript: "1 2 3 4" },
+    ]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("Spanish counting resolves to es words (uno beats un)", () => {
+    const r = scoreAlternativesGeneric("uno dos tres cuatro", [
+      { transcript: "1 2 3 4" },
+    ]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("two-digit numbers resolve whole (10 → dix, never un-zéro)", () => {
+    const r = scoreAlternativesGeneric("dix", [{ transcript: "10" }]);
+    expect(r.verdict).toBe("perfect");
+  });
+
+  it("a genuinely wrong number still fails (trois vs 4)", () => {
+    const r = scoreAlternativesGeneric("trois", [{ transcript: "4" }]);
+    expect(r.verdict).not.toBe("perfect");
+  });
+
+  it("digits stay digits when the target has no number word", () => {
+    const r = scoreAlternativesGeneric("hola", [{ transcript: "3" }]);
+    expect(r.verdict).not.toBe("perfect");
+  });
+
+  it("numbers embedded in a sentence resolve in place", () => {
+    const r = scoreAlternativesGeneric("seis y siete", [
+      { transcript: "6 y 7" },
+    ]);
+    expect(r.verdict).toBe("perfect");
+  });
+});
+
 describe("normalizeTypedAnswer — apostrophe folding (2026-08-18)", () => {
   // iOS and macOS smart punctuation turn a typed ' into U+2019. Authored
   // answers use ASCII '. Before this fold, NFKC left them different and the

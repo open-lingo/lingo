@@ -45,7 +45,16 @@ function collectAudioTexts(node: unknown, into: Set<string>): void {
     return;
   }
   if (node && typeof node === "object") {
-    for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+    const rec = node as Record<string, unknown>;
+    // `kana` is DISPLAY text with `audioText` as the played key on the same
+    // object (dialogue_sim lines: the view plays `audioText ?? kana`). When
+    // audioText is present, kana is never handed to getTtsUrl — collecting
+    // it demanded clips for punctuated display forms that never play
+    // (2026-08-21, sim promotion).
+    const kanaShadowed =
+      typeof rec.audioText === "string" && rec.audioText.trim().length > 0;
+    for (const [key, value] of Object.entries(rec)) {
+      if (key === "kana" && kanaShadowed) continue;
       if (typeof value === "string" && AUDIO_KEYS.has(key) && value.trim()) {
         into.add(value.trim());
       } else {
@@ -63,7 +72,10 @@ describe("es audio coverage (render-side)", () => {
         getMockLessonContent(lesson.id) ?? lesson;
       collectAudioTexts(rendered.steps, texts);
     }
-    expect(texts.size).toBeGreaterThan(1000); // collector sanity floor
+    // Collector sanity floor. Was 1000 against the 19-module July course;
+    // re-based 2026-08-21 when the §13 restart shrank the course to m1/m2
+    // (~87 texts). Grows with m3+ — raise it as modules land.
+    expect(texts.size).toBeGreaterThan(60);
 
     const uncovered = [...texts].filter((t) => getTtsUrl(t, "es") === null);
     const preview = uncovered.slice(0, 12).join(" | ");

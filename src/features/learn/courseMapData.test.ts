@@ -66,7 +66,9 @@ describe("courseMapData", () => {
   it("exposes authored milestones keyed by module index", () => {
     expect(getMilestoneForModule("ko", 1)).toBe("Read all of Hangul");
     expect(getMilestoneForModule("ja", 1)).toBe("Read all of Hiragana");
-    expect(getMilestoneForModule("es", 15)).toBe("Hold a basic conversation");
+    // 2026-08-21: es restarted at m1/m2 — index 1 is the café milestone.
+    expect(getMilestoneForModule("es", 1)).toBe("Hold the café conversation");
+    expect(getMilestoneForModule("fr", 1)).toBe("Hold the café conversation");
     // Unanchored index returns null.
     expect(getMilestoneForModule("ko", 0)).toBeNull();
     // Unknown language has no milestones.

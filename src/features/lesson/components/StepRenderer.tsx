@@ -15,6 +15,9 @@ import { SymbolProductionStepView } from "./steps/SymbolProductionStepView";
 import { SymbolToSoundStepView } from "./steps/SymbolToSoundStepView";
 import { WordImageMcqStepView } from "./steps/WordImageMcqStepView";
 import { PhraseCardStepView } from "./steps/PhraseCardStepView";
+import { PretestMcqStepView } from "./steps/PretestMcqStepView";
+import { TapTheWordStepView } from "./steps/TapTheWordStepView";
+import { WordMapStepView } from "./steps/WordMapStepView";
 import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { AgreementClozeStepView } from "./steps/AgreementClozeStepView";
@@ -189,6 +192,30 @@ export function StepRenderer({
       );
     case "phrase_card":
       return <PhraseCardStepView step={step} onContinue={onContinue} />;
+    case "pretest_mcq":
+      return (
+        <PretestMcqStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "tap_the_word":
+      return (
+        <TapTheWordStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "word_map":
+      return (
+        <WordMapStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     case "grammar_rule":
       return (
         <GrammarRuleStepView

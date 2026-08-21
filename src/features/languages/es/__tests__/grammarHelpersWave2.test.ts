@@ -52,14 +52,14 @@ describe("agreementCloze", () => {
       houseSegments(),
       "The white houses",
       "Las casas blancas",
-      ["casa"],
+      ["maestro"],
     );
     expect(step.type).toBe("agreement_cloze");
     expect(step.id).toBe("ac-shape");
     expect(step.meaningEn).toBe("The white houses");
     expect(step.audioText).toBe("Las casas blancas");
     expect(step.modality).toBe("production");
-    expect(step.exercisedAtoms).toEqual(["es:casa"]);
+    expect(step.exercisedAtoms).toEqual(["es:maestro"]);
     // Text segments survive verbatim, in order.
     expect(step.segments[1]).toEqual({ text: " cas" });
     expect(step.segments[3]).toEqual({ text: " blanc" });
@@ -85,8 +85,8 @@ describe("agreementCloze", () => {
   });
 
   it("is deterministic across calls", () => {
-    const a = agreementCloze("ac-det", houseSegments(), "m", "audio", ["casa"]);
-    const b = agreementCloze("ac-det", houseSegments(), "m", "audio", ["casa"]);
+    const a = agreementCloze("ac-det", houseSegments(), "m", "audio", ["maestro"]);
+    const b = agreementCloze("ac-det", houseSegments(), "m", "audio", ["maestro"]);
     expect(a).toEqual(b);
   });
 
@@ -94,10 +94,10 @@ describe("agreementCloze", () => {
     const none = agreementCloze("ac-none", houseSegments(), "m");
     expect(none.exercisedAtoms).toEqual([]);
     const mixed = agreementCloze("ac-mixed", houseSegments(), "m", undefined, [
-      "casa",
+      "maestro",
       "zzz-not-a-real-surface",
     ]);
-    expect(mixed.exercisedAtoms).toEqual(["es:casa"]);
+    expect(mixed.exercisedAtoms).toEqual(["es:maestro"]);
   });
 
   it("throws when a blank's correctAnswer is missing from its options", () => {
@@ -123,13 +123,13 @@ describe("cloze — exercisedAtomSurfaces merging", () => {
       "cz-compat",
       "",
       " casa",
-      "la",
-      ["el", "la", "los", "las"],
-      "the house",
+      "de",
+      ["de", "y", "o", "es"],
+      "the teacher's",
       "la casa",
     );
-    expect(step.exercisedAtoms).toEqual(["es:la"]);
-    expect(step.options[slotFor("cz-compat", 4)]).toBe("la");
+    expect(step.exercisedAtoms).toEqual(["es:de"]);
+    expect(step.options[slotFor("cz-compat", 4)]).toBe("de");
   });
 
   it("merges + dedupes the correct particle with the extra surfaces", () => {
@@ -137,14 +137,14 @@ describe("cloze — exercisedAtomSurfaces merging", () => {
       "cz-merge",
       "",
       " casa",
-      "la",
-      ["el", "la", "los", "las"],
-      "the house",
+      "de",
+      ["de", "y", "o", "es"],
+      "the teacher's",
       "la casa",
       undefined,
-      ["casa", "la", "casa"],
+      ["maestro", "de", "maestro"],
     );
-    expect(step.exercisedAtoms).toEqual(["es:la", "es:casa"]);
+    expect(step.exercisedAtoms).toEqual(["es:de", "es:maestro"]);
   });
 
   it("silently drops unknown extra surfaces (sentence-factory convention)", () => {
@@ -152,19 +152,19 @@ describe("cloze — exercisedAtomSurfaces merging", () => {
       "cz-unknown",
       "",
       " casa",
-      "la",
-      ["el", "la", "los", "las"],
-      "the house",
+      "de",
+      ["de", "y", "o", "es"],
+      "the teacher's",
       "la casa",
       undefined,
       ["zzz-not-a-real-surface"],
     );
-    expect(step.exercisedAtoms).toEqual(["es:la"]);
+    expect(step.exercisedAtoms).toEqual(["es:de"]);
   });
 });
 
 describe("matchPairs", () => {
-  const SIX = ["hola", "adiós", "gracias", "casa", "sí", "no"];
+  const SIX = ["hola", "adiós", "gracias", "maestro", "sí", "no"];
 
   it("builds surface ↔ gloss pairs from the atom registry", () => {
     const step = matchPairs("mp-ok", SIX);
@@ -174,7 +174,7 @@ describe("matchPairs", () => {
     expect(step.modality).toBe("recognition");
     expect(step.pairs).toHaveLength(6);
     expect(step.pairs[0]).toEqual({ id: "p-0", source: "hola", target: "hello" });
-    expect(step.pairs[3]).toEqual({ id: "p-3", source: "casa", target: "house" });
+    expect(step.pairs[3]).toEqual({ id: "p-3", source: "maestro", target: "teacher (m)" });
     // ES pairs carry no ruby annotation (Latin script).
     expect("sourceAnnotation" in step.pairs[0]).toBe(false);
     expect(step.exercisedAtoms).toEqual(SIX.map((s) => `es:${s}`));
@@ -281,27 +281,27 @@ describe("dialogueListen", () => {
 
 describe("vocabTextMcq", () => {
   it("defaults the prompt to the target's gloss", () => {
-    const step = vocabTextMcq("vtm-ok", "casa", ["mesa", "silla", "puerta"]);
+    const step = vocabTextMcq("vtm-ok", "maestro", ["maestra", "estudiante", "señora"]);
     expect(step.type).toBe("multiple_choice");
-    expect(step.prompt).toBe('Which word means "house"?');
+    expect(step.prompt).toBe('Which word means "teacher (m)"?');
     expect(step.correctOptionId).toBe("correct");
     expect(step.options).toHaveLength(4);
     expect(step.options[slotFor("vtm-ok", 4)]).toEqual({
       id: "correct",
-      text: "casa",
+      text: "maestro",
     });
     expect(step.options.map((o) => o.text).sort()).toEqual(
-      ["casa", "mesa", "puerta", "silla"].sort(),
+      ["maestro", "maestra", "estudiante", "señora"].sort(),
     );
     expect(step.optionsHideRomaji).toBe(true);
-    expect(step.exercisedAtoms).toEqual(["es:casa"]);
+    expect(step.exercisedAtoms).toEqual(["es:maestro"]);
     expect(step.modality).toBe("recognition");
   });
 
   it("respects promptOverride and is deterministic", () => {
-    const a = vocabTextMcq("vtm-p", "casa", ["mesa", "silla", "puerta"], "Pick 'house'");
-    const b = vocabTextMcq("vtm-p", "casa", ["mesa", "silla", "puerta"], "Pick 'house'");
-    expect(a.prompt).toBe("Pick 'house'");
+    const a = vocabTextMcq("vtm-p", "maestro", ["maestra", "estudiante", "señora"], "Pick 'teacher'");
+    const b = vocabTextMcq("vtm-p", "maestro", ["maestra", "estudiante", "señora"], "Pick 'teacher'");
+    expect(a.prompt).toBe("Pick 'teacher'");
     expect(a).toEqual(b);
   });
 
@@ -312,12 +312,12 @@ describe("vocabTextMcq", () => {
   });
 
   it("throws with fewer than 3 distractors distinct from the target", () => {
-    expect(() => vocabTextMcq("vtm-thin", "casa", ["mesa", "silla"])).toThrow(
+    expect(() => vocabTextMcq("vtm-thin", "maestro", ["maestra", "estudiante"])).toThrow(
       />= 3 distractors/,
     );
     // A target dupe in the distractor list doesn't count toward the 3.
     expect(() =>
-      vocabTextMcq("vtm-dupe", "casa", ["casa", "mesa", "silla"]),
+      vocabTextMcq("vtm-dupe", "maestro", ["maestro", "maestra", "estudiante"]),
     ).toThrow(/>= 3 distractors/);
   });
 });

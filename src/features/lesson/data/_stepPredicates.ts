@@ -26,6 +26,12 @@ const TEACH_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
   // bookkeeping only. Outside this set it fired the combo/chime and padded
   // the accuracy denominator with an always-correct step (2026-07-29 review).
   "kanji_reveal",
+  // The pretest guess is interactive but NOT retrieval — the learner is
+  // guessing at a word they have never been taught (pretesting effect;
+  // see the type's doc block). Grading it would punish the exact behavior
+  // the step exists to invite, so it lives with the teach cards: no
+  // progress tick, no accuracy denominator, no FSRS.
+  "pretest_mcq",
   // NOTE — `dialogue_sim` is deliberately NOT in this set (2026-07-29
   // prototype). GRADING DECISION, recorded here because this is where the
   // question gets answered:

@@ -86,6 +86,9 @@ export const ES_PROPER_NAMES = new Set([
   "ana", "diego", "carlos", "maría", "maria", "sofía", "sofia", "luis",
   "elena", "pedro", "juan", "rosa", "miguel", "carmen", "lupita", "jorge",
   "marta",
+  // The learner persona (sim-pass fix 2026-08-21): every sim reply speaks
+  // as Sam, and checkpoint builds produce «me llamo Sam».
+  "sam",
   "méxico", "mexico", "españa", "espana", "colombia", "perú", "peru",
   "dalia", "señor", "señora",
 ]);
@@ -312,6 +315,11 @@ export type EsBarFailure = { lessonId: string; stepId: string; problem: string }
 export function lintSentenceOveruse(lesson: LessonContent): EsBarFailure[] {
   const counts = new Map<string, number>();
   for (const st of lesson.steps as never as Array<Record<string, unknown>>) {
+    // A cloze's audioText is CONFIRMATION audio for the solved sentence —
+    // the step exercises its blank (buenos vs buenas), not the sentence
+    // surface. Counting it broke the §13 first-encounter ramp
+    // (map → hear → cloze-discrimination → speak) at exactly 4 (2026-08-21).
+    if (st.type === "particle_cloze" || st.type === "agreement_cloze") continue;
     const surf =
       (st.targetSentence as string) ??
       (st.targetPhrase as string) ??
@@ -587,7 +595,10 @@ export function registerEsModuleBarGuards(opts: {
     });
 
     it("no full-sentence recognition MCQs in teaching lessons (inv 28)", () => {
-      const teaching = lessons.filter((l) => !/-8$/.test(l.id)); // L8 = test-out
+      // The mastery test-out is the FINAL lesson (L8 in the July wave, L9/L10
+      // in the §13 modules) — derived, not hardcoded.
+      const masteryId = lessons[lessons.length - 1]?.id;
+      const teaching = lessons.filter((l) => l.id !== masteryId);
       ratchet("fullSentenceMcqs", teaching.flatMap(lintFullSentenceMcqs));
     });
 
@@ -665,8 +676,14 @@ export function registerEsModuleBarGuards(opts: {
             const s = step as never as Record<string, unknown>;
             const options = (s.options as Array<{ id: string; word: string }>) ?? [];
             const correct = options.find((o) => o.id === s.correctOptionId)?.word ?? "";
+            // AUDIO-PROMPTED mode (an option's word IS the meaning side, so
+            // the prompt is the Spanish clip): §13's zero-reading retrieval
+            // beat, allowed on known words anywhere — the doctrine pins ≥6
+            // per module. inv 44 bans only ENGLISH-prompted reuse, where the
+            // picture answers the question (2026-08-21).
+            const audioPrompted = options.some((o) => o.word === (s.meaningEn as string));
             const toks = esTokens(correct);
-            if (toks.some((t) => knownAtLessonStart.has(t))) {
+            if (!audioPrompted && toks.some((t) => knownAtLessonStart.has(t))) {
               failures.push({
                 lessonId: lesson.id,
                 stepId: step.id,
@@ -689,6 +706,17 @@ export function registerEsModuleBarGuards(opts: {
           if (step.type !== "particle_cloze") continue;
           const correct = String(step.correctParticle ?? "");
           const fm = atomModuleBySurfaceWord.get(correct.toLowerCase());
+          // §13.9 law 5 exemption (2026-08-21): an ALTERNATING-ANSWER
+          // discrimination trial — exactly two options, both taught, sharing
+          // a stem (buenos/buenas, maestro/maestra) — is a pick BY DESIGN
+          // and its tail lane is spaced across modules. E2 still bans
+          // generic recognition picks of old particles (de/y/o…).
+          const options = ((step.options as string[]) ?? []).map((o) => o.toLowerCase());
+          const isDiscriminationTrial =
+            options.length === 2 &&
+            options.every((o) => atomModuleBySurfaceWord.has(o)) &&
+            options[0] !== options[1];
+          if (isDiscriminationTrial) continue;
           if (fm && fm !== moduleId) {
             failures.push({
               lessonId: lesson.id,

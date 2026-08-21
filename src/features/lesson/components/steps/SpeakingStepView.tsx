@@ -124,10 +124,18 @@ function SpeakingStepPlaceholder({
 }) {
   const audioUrl = getTtsUrl(step.targetPhrase);
   const silentMode = useSettings().settings.audio.silentMode;
-  useAutoPlayJaAudio(step.targetPhrase, `speak-${step.id}`);
+  // Cued recall (step.cue === "recall"): no autoplay — the clip IS the
+  // answer. The reveal plays it instead.
+  const recall = step.cue === "recall";
+  const [revealed, setRevealed] = useState(!recall);
+  useAutoPlayJaAudio(recall ? undefined : step.targetPhrase, `speak-${step.id}`);
   function handlePlay() {
     if (!audioUrl) return;
     playJaAudio(step.targetPhrase);
+  }
+  function handleReveal() {
+    setRevealed(true);
+    if (audioUrl) playJaAudio(step.targetPhrase);
   }
   return (
     <div className="relative flex flex-1 flex-col gap-6">
@@ -142,7 +150,13 @@ function SpeakingStepPlaceholder({
         Speaking practice
       </p>
 
-      <ReferenceCard step={step} onPlay={handlePlay} showRomaji={false} />
+      <ReferenceCard
+        step={step}
+        onPlay={handlePlay}
+        showRomaji={false}
+        hidden={!revealed}
+        onReveal={handleReveal}
+      />
 
       {silentMode && <SilentModeNotice />}
 
@@ -160,15 +174,48 @@ function SpeakingStepPlaceholder({
   );
 }
 
+const CUE_LANGUAGE_NAMES: Record<string, string> = {
+  ja: "Japanese",
+  ko: "Korean",
+  es: "Spanish",
+  fr: "French",
+};
+
 function ReferenceCard({
   step,
   onPlay,
   showRomaji,
+  hidden,
+  onReveal,
 }: {
   step: SpeakingStep;
   onPlay: () => void;
   showRomaji: boolean;
+  /** Cued-recall pre-reveal state: show the English cue, not the answer. */
+  hidden?: boolean;
+  onReveal?: () => void;
 }) {
+  const lang = useLang();
+  if (hidden) {
+    const langName = CUE_LANGUAGE_NAMES[lang];
+    return (
+      <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-10 shadow-[var(--shadow-card)]">
+        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          {langName ? `Say it in ${langName}` : "Say it out loud"}
+        </p>
+        <p className="text-center text-3xl font-bold tracking-tight text-text-primary">
+          {step.translation}
+        </p>
+        <button
+          type="button"
+          onClick={onReveal}
+          className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
+        >
+          Show answer
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface py-10 shadow-[var(--shadow-card)]">
       <button
@@ -290,6 +337,9 @@ function SpeakingStepRecognized({
   /** Cumulative attempts this mount. Unbounded — Spencer 2026-05-18
    *  retired the attempt-2 auto-pass; the learner picks when to bail. */
   const [attempts, setAttempts] = useState<number>(0);
+  // Cued recall (step.cue === "recall"): hide the target until the first
+  // verdict lands or the learner asks — retrieval before reading.
+  const [cueRevealed, setCueRevealed] = useState(false);
   /** Set to true once `WHISPER_LOAD_TIMEOUT_MS` elapses with Whisper
    *  still loading — surfaces the "slow load — skip?" UI. Resets when
    *  the load completes or the component unmounts. */
@@ -708,7 +758,21 @@ function SpeakingStepRecognized({
         )}
       </div>
 
-      <ReferenceCard step={step} onPlay={handleListen} showRomaji={effectiveShowRomaji} />
+      <ReferenceCard
+        step={step}
+        onPlay={handleListen}
+        showRomaji={effectiveShowRomaji}
+        hidden={
+          step.cue === "recall" &&
+          !cueRevealed &&
+          verdict === "idle" &&
+          attempts === 0
+        }
+        onReveal={() => {
+          setCueRevealed(true);
+          handleListen();
+        }}
+      />
 
       {silentMode && <SilentModeNotice />}
 

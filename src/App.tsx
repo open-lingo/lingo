@@ -104,6 +104,21 @@ const KanjiRevealAnimPage = lazyRetry(
 const DialogueSimPage = lazyRetry(
   () => import("@/features/lesson/dev/dialogueSim/DialogueSimPage"),
 );
+const TapWordPage = lazyRetry(
+  () => import("@/features/lesson/dev/TapWordPage"),
+);
+const WordMapPage = lazyRetry(
+  () => import("@/features/lesson/dev/WordMapPage"),
+);
+const GenderColorPage = lazyRetry(
+  () => import("@/features/lesson/dev/GenderColorPage"),
+);
+const EsM1L1Page = lazyRetry(
+  () => import("@/features/lesson/dev/EsM1L1Page"),
+);
+const ProtoM2Page = lazyRetry(
+  () => import("@/features/lesson/dev/ProtoM2Page"),
+);
 const TransferDiagramQaPage = lazyRetry(
   () => import("@/features/lesson/dev/transferDiagram/TransferDiagramQaPage"),
 );
@@ -567,6 +582,11 @@ const router = createBrowserRouter([
               },
               { path: "qa/kanji-reveal", element: <KanjiRevealAnimPage /> },
               { path: "qa/dialogue-sim", element: <DialogueSimPage /> },
+              { path: "qa/tap-word", element: <TapWordPage /> },
+              { path: "qa/word-map", element: <WordMapPage /> },
+              { path: "qa/gender-color", element: <GenderColorPage /> },
+              { path: "qa/m1-lesson-1", element: <EsM1L1Page /> },
+              { path: "qa/m2", element: <ProtoM2Page /> },
               {
                 path: "qa/transfer-diagram",
                 element: <TransferDiagramQaPage />,

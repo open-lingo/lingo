@@ -422,6 +422,8 @@ describe("positive control — a clean lesson passes every bar lint", () => {
     const lex = getEsRealFormLexicon();
     expect(lex.has("hablo")).toBe(true); // conjugation output
     expect(lex.has("hablaxo")).toBe(false); // invented form stays out
-    expect(lex.size).toBeGreaterThan(300);
+    // Floor re-based 2026-08-21 (19 modules → m1/m2 restart, ~290 forms —
+    // conjugation tables carry most of it). Raise as m3+ lands.
+    expect(lex.size).toBeGreaterThan(250);
   });
 });

@@ -323,6 +323,67 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "pretest_mcq",
+      title: "pretest_mcq",
+      whenToUse:
+        "Guess-before-taught debut (pretesting effect) — the interactive replacement for phrase_card. An English situation cue, a guess among target-language phrases the learner has NOT been taught, then the reveal teaches. The guess is safe: wrong picks render warning-toned (not red), the step always reports correct, writes no SRS. Use for non-imageable word/phrase debuts; imageable words debut on word_image_mcq instead.",
+      step: {
+        id: "preview-pretest",
+        type: "pretest_mcq",
+        situationEn: "You've just been introduced to someone. What do you say?",
+        options: [
+          { id: "a", text: "mucho gusto" },
+          { id: "b", text: "hasta luego" },
+          { id: "c", text: "por favor" },
+        ],
+        correctOptionId: "a",
+        reveal: {
+          surface: "mucho gusto",
+          meaningEn: "nice to meet you",
+          hint: "Literally 'much pleasure' — MOO-cho GOOS-toh.",
+        },
+      },
+    },
+    {
+      type: "tap_the_word",
+      title: "tap_the_word",
+      whenToUse:
+        "Active noticing — a real sentence renders as flowing tappable word chips and the learner taps the word(s) matching an English cue. The cue must be DEDUCIBLE (cognate, gloss, visible morphology, position), never blind luck; revealNote names the cue afterward so the strategy sticks. Graded retrieval; multi-select when correctIndices > 1 (the chip row states how many). Replaces passive 'read this sentence' exposure.",
+      step: {
+        id: "preview-tap",
+        type: "tap_the_word",
+        prompt: "Tap the word that means 'intelligent'.",
+        tokens: ["mi", "esposa", "es", "muy", "inteligente"],
+        correctIndices: [4],
+        meaningEn: "My wife is very intelligent.",
+        audioText: "mi esposa es muy inteligente",
+        revealNote:
+          "You didn't need to be taught it — «inteligente» is a cognate. Spanish is full of them; trust the resemblance.",
+      },
+    },
+    {
+      type: "word_map",
+      title: "word_map",
+      whenToUse:
+        "Interlinear sentence mapping — the English line is prompted one word at a time (big, highlighted) and the learner taps the target-language word it maps to; solved words lock in with their gloss underneath, building an interlinear translation. Match-pairs conventions: process-of-elimination ramp, 3-mistake budget, fail reveals the remaining mappings so the teaching still lands. Order divergence is a feature (mapping 'black'→«negro» after the noun teaches adjective position).",
+      step: {
+        id: "preview-word-map",
+        type: "word_map",
+        tokens: ["el", "gato", "negro", "es", "muy", "bonito"],
+        pairs: [
+          { en: "the", tokenIndex: 0 },
+          { en: "black", tokenIndex: 2 },
+          { en: "cat", tokenIndex: 1 },
+          { en: "is", tokenIndex: 3 },
+          { en: "very", tokenIndex: 4 },
+          { en: "pretty", tokenIndex: 5 },
+        ],
+        audioText: "el gato negro es muy bonito",
+        revealNote:
+          "Notice the crossing: Spanish says «gato negro» — the color comes AFTER the noun. You just mapped that with your fingers.",
+      },
+    },
+    {
       type: "grammar_rule",
       title: "grammar_rule",
       whenToUse:

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 type Props = {
   correct: boolean;
@@ -69,6 +69,13 @@ export function Feedback({
 }: Props) {
   const isFlagged = !soClose && correct && flagged;
   const showNote = !soClose && correct && !isFlagged && note !== undefined;
+  // On a WIN the explanation is optional reading — collapse it behind a
+  // disclosure (Spencer 2026-08-20, on the micro-sim verdict: "we can just
+  // say correct and have a 'view explanation' button or something inside
+  // the correct bubble"). On a MISS the why stays inline: the learner
+  // needs it, and it's the moment they'll actually read it.
+  const [explanationShown, setExplanationShown] = useState(false);
+  const explanationCollapsible = correct && !soClose;
   return (
     <div
       role="alert"
@@ -129,7 +136,18 @@ export function Feedback({
           <span className="text-lg font-semibold text-text-primary">{correctAnswer}</span>
         </p>
       )}
-      {explanation && <p className="mt-1.5 leading-relaxed opacity-90">{explanation}</p>}
+      {explanation &&
+        (explanationCollapsible && !explanationShown ? (
+          <button
+            type="button"
+            onClick={() => setExplanationShown(true)}
+            className="mt-1.5 block text-sm font-semibold underline underline-offset-2 opacity-80 hover:opacity-100"
+          >
+            View explanation
+          </button>
+        ) : (
+          <p className="mt-1.5 leading-relaxed opacity-90">{explanation}</p>
+        ))}
     </div>
   );
 }

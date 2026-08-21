@@ -17,6 +17,9 @@ export type StepType =
   | "symbol_to_sound"
   | "word_image_mcq"
   | "phrase_card"
+  | "pretest_mcq"
+  | "tap_the_word"
+  | "word_map"
   | "grammar_rule"
   | "particle_cloze"
   | "agreement_cloze"
@@ -406,6 +409,17 @@ export type SpeakingStep = StepBase & {
    */
   stubbed: boolean;
   targetAnnotation?: JapaneseAnnotation[];
+  /**
+   * Cued-recall mode (ES m1 rework R3, 2026-08-20). When "recall", the
+   * reference card leads with the ENGLISH translation as the cue and
+   * hides the target phrase behind "Show answer"; audio does not
+   * autoplay (it would answer the cue). The target + clip reveal after
+   * the first verdict lands or on explicit reveal. Authoring law: the
+   * FIRST voicing of any surface is never recall — it keeps the printed
+   * form so the learner reads while they hear. Default (undefined) is
+   * the classic read-aloud card; the live JA course is untouched.
+   */
+  cue?: "recall";
 };
 
 /** Payload for alphabet steps.
@@ -551,6 +565,149 @@ export type PhraseCardStep = StepBase & {
   /** Course-atom id this card teaches. Used by passive-follow-up lint to
    *  verify a same-atom retrieval lands within [i+2, i+3]. */
   atomId?: string;
+};
+
+/**
+ * Pretest MCQ — the interactive replacement for `phrase_card` (Spencer,
+ * 2026-08-20: passive "show them and have them listen but do nothing"
+ * steps feel hollow). The learner is shown a SITUATION in English and
+ * guesses which target-language phrase fits, BEFORE the word has been
+ * taught; the reveal that follows is the teaching moment.
+ *
+ * Pedagogy: the pretesting effect (Kornell, Hays & Bjork 2009) — an
+ * unsuccessful retrieval attempt before study measurably improves
+ * retention over passive presentation, even when the guess is wrong.
+ * The guess is therefore SAFE by contract: this is a TEACH step
+ * (`TEACH_STEP_KINDS`), it always reports `correct: true`, a wrong pick
+ * renders in a soft "not this one" tone rather than error red, and it
+ * never writes SRS or the accuracy denominator.
+ *
+ * ⚠️ LAST RESORT (Spencer 2026-08-20, on QA-walking one): "any narrative
+ * card is very miserable to do or use. you have to read a ton just to
+ * press one button, when the same thing can be done with a dialogue
+ * simulation." The preferred non-imageable debut is a ONE-TURN
+ * micro-`dialogue_sim` (es guide §13.2/§13.6) — the situation is shown,
+ * not narrated. Use this type only for a debut no sim can frame, and
+ * keep `situationEn` to ONE short sentence.
+ */
+export type PretestMcqStep = StepBase & {
+  type: "pretest_mcq";
+  /** English situation cue ("Someone hands you a coffee. What do you
+   *  say?"). Must never quote or gloss the answer. */
+  situationEn: string;
+  /** Target-language phrases. Tap previews TTS when a clip exists. */
+  options: Option[];
+  correctOptionId: string;
+  /** The teaching reveal shown after the guess commits. */
+  reveal: {
+    /** Canonical surface being taught ("mucho gusto"). */
+    surface: string;
+    meaningEn: string;
+    /** Pronunciation / usage note, same register as atom hints. */
+    hint?: string;
+    /** TTS key when the manifest key differs from `surface`. */
+    audioText?: string;
+  };
+  /** Course-atom id this step teaches — same lint contract as
+   *  `phrase_card.atomId` (passive-follow-up spacing). */
+  atomId?: string;
+};
+
+/**
+ * Tap-the-word — active noticing (Spencer, 2026-08-20: "tap the word is
+ * perfect… we can also lead them through deductive reasoning"). A real
+ * sentence is shown (and plays); the learner taps the word(s) matching an
+ * English cue. Turns "read this sentence" exposure into a search task.
+ *
+ * DEDUCTION CONTRACT (authoring, not code): the cue must be deducible
+ * from what's on screen — a cognate («inteligente»), the sentence gloss,
+ * morphology the learner can see (the feminine -a), position, or prior
+ * context. Never blind luck. `revealNote` names the cue afterward so the
+ * deduction pays off as a learned strategy, not a lucky tap.
+ *
+ * GRADED: unlike `pretest_mcq`, this is retrieval — the learner can be
+ * wrong and the standard correctness palette applies. Multi-select when
+ * `correctIndices.length > 1` (the view says how many to tap).
+ *
+ * ⚠️ LENGTH FLOOR (Spencer 2026-08-20, on QA-walking a 3-token one): use
+ * this only where FINDING the word in a real sentence is the work —
+ * roughly ≥5 tokens. On a short sentence "tap the one you know" is an
+ * MCQ in a costume; author the MCQ (or the audio-prompt word MCQ, which
+ * needs zero reading).
+ */
+export type TapTheWordStep = StepBase & {
+  type: "tap_the_word";
+  /** English instruction carrying the deductive cue ("Tap the word that
+   *  means 'intelligent'"). Never quotes the answer's Spanish. */
+  prompt: string;
+  /** The sentence pre-tokenized into tappable words, in display casing —
+   *  bare words only (punctuation lives in `audioText`/gloss). */
+  tokens: string[];
+  /** Indices into `tokens` that are correct. 1+ (>1 = tap-all-N). */
+  correctIndices: number[];
+  /** English gloss of the whole sentence — the context that powers
+   *  deduction, shown under the tokens. Optional for cue types where the
+   *  gloss would give the answer away. */
+  meaningEn?: string;
+  /** Whole-sentence TTS key; autoplays once + replay button when a clip
+   *  exists. */
+  audioText?: string;
+  /** Post-commit payoff: names the cue that made deduction possible. */
+  revealNote?: string;
+};
+
+/**
+ * Word-map — interlinear sentence mapping (Spencer, 2026-08-20: "similar
+ * to match pairs process of elimination, map all the words to the
+ * sentence… highlights the english word and THEN they get to pick from
+ * the word bank, slowly filling in the translations").
+ *
+ * The English line is prompted one word at a time (in English order); the
+ * learner taps the target-language word it maps to. Solved words lock in
+ * with their gloss underneath, so the learner BUILDS an interlinear
+ * translation — and the shrinking bank gives the match-pairs
+ * process-of-elimination ramp: the last mappings are deducible even when
+ * the words are unknown.
+ *
+ * AUTHORING CONTRACT: use sentences whose words map cleanly. An `en`
+ * entry may be a short phrase mapping to ONE token («tengo» ↔ "I have");
+ * a token maps to at most one pair. Order divergence is a feature, not a
+ * bug — mapping "black" to «negro» AFTER the noun teaches adjective
+ * position better than a rule card.
+ *
+ * GRADED, match-pairs conventions: 3 mistakes fails the step immediately
+ * (remaining mappings reveal so the teaching still lands); otherwise
+ * completing all pairs reports correct.
+ */
+export type WordMapPair = {
+  /** The English word (or short phrase) as it reads in the English line. */
+  en: string;
+  /** Index into `tokens` of the word it maps to. Distinct per pair. */
+  tokenIndex: number;
+};
+
+export type WordMapStep = StepBase & {
+  type: "word_map";
+  /** Target-language sentence, tokenized in ITS order (display casing,
+   *  bare words — punctuation lives in `audioText`). */
+  tokens: string[];
+  /** The English line in ENGLISH order — also the prompting sequence.
+   *  Should cover every token (uncovered tokens act as distractors). */
+  pairs: WordMapPair[];
+  /** Whole-sentence TTS key; autoplays once + replay when a clip exists.
+   *  Solved words also replay their own clip when one exists. */
+  audioText?: string;
+  /** Post-commit payoff (order divergence, cognates, morphology…). */
+  revealNote?: string;
+  /**
+   * Gender tint per token index (see `shared/language/genderColor.ts`) —
+   * a SOLVED chip lights in its gender's hue instead of accent, so an
+   * agreement chain («la casa … bonita», all feminine) becomes visible
+   * as the mapping fills in. Tint only gendered words: the contrast with
+   * untinted invariants is the lesson. Reveal-state only by design —
+   * pre-answer tint would train color-reading over word-reading.
+   */
+  tokenGenders?: Record<number, "m" | "f" | "n">;
 };
 
 /**
@@ -1564,6 +1721,9 @@ export type LessonStep =
   | SymbolToSoundStep
   | WordImageMcqStep
   | PhraseCardStep
+  | PretestMcqStep
+  | TapTheWordStep
+  | WordMapStep
   | GrammarRuleStep
   | ParticleClozeStep
   | AgreementClozeStep

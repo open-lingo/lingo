@@ -5,6 +5,9 @@ export type StepKind = LessonStep["type"];
 export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "info", label: "Info", group: "Teach" },
   { value: "phrase_card", label: "Phrase card", group: "Teach" },
+  { value: "pretest_mcq", label: "Pretest MCQ (guess-first)", group: "Teach" },
+  { value: "tap_the_word", label: "Tap the word", group: "Drill" },
+  { value: "word_map", label: "Word map (interlinear)", group: "Drill" },
   { value: "grammar_rule", label: "Grammar rule", group: "Teach" },
   { value: "multiple_choice", label: "Multiple choice", group: "Drill" },
   { value: "build_sentence", label: "Build sentence", group: "Drill" },
@@ -45,6 +48,33 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
       return { ...base, type: "info", body: "" };
     case "phrase_card":
       return { ...base, type: "phrase_card", kana: "", romaji: "", meaningEn: "" };
+    case "pretest_mcq":
+      return {
+        ...base,
+        type: "pretest_mcq",
+        situationEn: "",
+        options: [
+          { id: "a", text: "" },
+          { id: "b", text: "" },
+        ],
+        correctOptionId: "a",
+        reveal: { surface: "", meaningEn: "" },
+      };
+    case "tap_the_word":
+      return {
+        ...base,
+        type: "tap_the_word",
+        prompt: "",
+        tokens: [],
+        correctIndices: [],
+      };
+    case "word_map":
+      return {
+        ...base,
+        type: "word_map",
+        tokens: [],
+        pairs: [],
+      };
     case "grammar_rule":
       return { ...base, type: "grammar_rule", title: "", rule: "", examples: [] };
     case "multiple_choice":

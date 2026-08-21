@@ -1,45 +1,48 @@
 /**
- * ES course-wide QUALITY guardrails — the JA-parity contract.
+ * ES course-wide QUALITY guardrails — the §13-doctrine contract.
  *
- * The 2026-07-16 audit (docs/es-content-quality-audit-2026-07-16.md) found the
- * root cause of the es course's poor pedagogy was that es is EXEMPT from every
- * JA quality-guard test (density / mcq-position / atom-coverage import only
- * `ja/curriculum`). This file closes that gap: it enforces, across every es
- * lesson, the retrieval-first standard from docs/es-rewrite-brief-2026-07-16.md.
+ * Rewritten 2026-08-21 when the July m1–m19 wave was archived and the
+ * hand-authored §13 course (m1/m2, learner-sim-hardened, walked by Spencer)
+ * became the real curriculum. The July contract lived on an 8-lesson module
+ * shape (TOPIC=L1–7 / MASTERY=L8) and on step types the doctrine has since
+ * ruled out (typed `translate` — guide §13.9 law 10; `self_explanation_mcq`
+ * — replaced by collapsed win-explanations, the no-hollow-cards rule).
  *
- * Contract (topic lessons L1–L7 unless noted):
- *   - density:        14–25 steps (aim 18–22); mastery L8: 8–16, graded-only.
- *   - variety:        no two adjacent steps of the same `type`;
- *                     no 3+ consecutive "selection" (tap-one-of-N) steps.
- *   - production:     ≥2 generation steps (build/translate/speaking), ≥1 of
- *                     which is typed or spoken (translate/speaking).
- *   - metacognition:  each module after m1 has ≥2 self_explanation_mcq steps.
- *   - compounding:    each module after m1 has ≥6 of its L2–L8 lessons reference
- *                     a PRIOR-module atom (the review tail JA gets from
- *                     pickReviewAtoms). m1 is exempt (nothing earlier).
+ * Contract (derived from each module's own exports, never restated):
+ *   - shape:       checkpoint sits at ES_Mn_CHECKPOINT_INDEX and is
+ *                  zero-new (every step graded); the LAST lesson is mastery
+ *                  and ENDS on a dialogue_sim (§13.9 law 7).
+ *   - density:     teaching lessons 10–25 steps; checkpoint 12–22.
+ *   - variety:     no two adjacent same-type steps; no 4+ consecutive
+ *                  "selection" (tap-one-of-N) steps. (The July bar was 3+;
+ *                  §13's debut rhythm — image-MCQ · audio-retrieval ·
+ *                  image-MCQ — is a deliberate 3-run, so the marathon line
+ *                  moves to 4.)
+ *   - production:  every teaching lesson has ≥2 generation steps
+ *                  (build/speaking — typed translate is BANNED at this
+ *                  tier), ≥1 of them spoken.
+ *   - compounding: every module after m1 references a PRIOR-module item in
+ *                  most of its lessons (review-tail law, §13.9 law 1).
  */
 import "./index";
 
 import { describe, it, expect } from "vitest";
 import type { LessonStep, MatchPairsStep } from "@/features/lesson/types";
 import { ES_ALL_LESSONS } from "./index";
+import { ES_M1_CHECKPOINT_INDEX } from "./m1";
+import { ES_M2_CHECKPOINT_INDEX } from "./m2";
 import { getEsCourseAtoms } from "../courseAtoms";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 
-// DERIVED, not restated. This file's own copy of the module list froze at m17
-// while m18/m19 shipped — which exempted both from the metacognition and
-// compounding floors, and (worse) flipped a sign: moduleIndex() returned -1
-// for them, so an m5 lesson citing an m19 atom counted as PRIOR-module review.
-// Same defect class, same fix as moduleConformance and the comprehensibility
-// gate: one module order, in grammarHelpers, and a new module cannot require
-// remembering this file.
 const MODULE_ORDER: readonly string[] = ES_MODULE_ORDER;
 
-// "Selection" = the same tap-one-of-N interaction under the hood. A run of 3+
-// reads as one long MCQ drill even when the `type` strings differ (JA guide §2).
-// dialogue_listen is excluded — it's a composite listening experience, not a
-// quick tap.
+/** 1-based checkpoint position per module — from the module's own export. */
+const CHECKPOINT_INDEX: Record<string, number> = {
+  m1: ES_M1_CHECKPOINT_INDEX,
+  m2: ES_M2_CHECKPOINT_INDEX,
+};
+
 const SELECTION_TYPES = new Set<LessonStep["type"]>([
   "multiple_choice",
   "word_image_mcq",
@@ -49,12 +52,7 @@ const SELECTION_TYPES = new Set<LessonStep["type"]>([
   "self_explanation_mcq",
 ]);
 
-const GENERATION_TYPES = new Set<LessonStep["type"]>([
-  "build_sentence",
-  "translate",
-  "speaking",
-]);
-const TYPED_OR_SPOKEN = new Set<LessonStep["type"]>(["translate", "speaking"]);
+const GENERATION_TYPES = new Set<LessonStep["type"]>(["build_sentence", "speaking"]);
 
 function moduleOf(lessonId: string): string {
   const m = /^es-(m\d+)-/.exec(lessonId);
@@ -66,13 +64,24 @@ function lessonNum(lessonId: string): number {
 }
 function moduleIndex(m: string): number {
   const i = MODULE_ORDER.indexOf(m);
-  // -1 reads as "earlier than everything" in the < comparisons below, which
-  // is the sign-flip that credited future-module atoms as prior review.
   if (i === -1) {
     throw new Error(`es-quality moduleIndex: "${m}" is not in ES_MODULE_ORDER`);
   }
   return i;
 }
+function lessonCountOf(mod: string): number {
+  return ES_ALL_LESSONS.filter((l) => moduleOf(l.id) === mod).length;
+}
+function isCheckpoint(l: { id: string }): boolean {
+  return lessonNum(l.id) === CHECKPOINT_INDEX[moduleOf(l.id)];
+}
+function isMastery(l: { id: string }): boolean {
+  return lessonNum(l.id) === lessonCountOf(moduleOf(l.id));
+}
+
+const TEACHING = ES_ALL_LESSONS.filter((l) => !isCheckpoint(l) && !isMastery(l));
+const CHECKPOINTS = ES_ALL_LESSONS.filter(isCheckpoint);
+const MASTERY = ES_ALL_LESSONS.filter(isMastery);
 
 // surface / atom-id → introducing module, for the compounding-review check.
 const atomModuleById = new Map<string, string>();
@@ -83,42 +92,71 @@ for (const a of getEsCourseAtoms()) {
   atomModuleBySurface.set(a.surface, a.fromModule);
 }
 
-/** Every prior-module (fromModule < current) atom a lesson's steps reference,
- *  via exercisedAtoms ids OR match_pairs source surfaces. */
+/** Every string a step surfaces to the learner in the target language. */
+function stepSpanishStrings(step: LessonStep): string[] {
+  const s = step as Record<string, unknown>;
+  const out: string[] = [];
+  for (const k of ["audioText", "audioKey", "targetPhrase", "targetSentence"]) {
+    if (typeof s[k] === "string") out.push(s[k] as string);
+  }
+  if (Array.isArray(s.tokens)) out.push(...(s.tokens as string[]));
+  return out;
+}
+
+/** True when the lesson references any atom introduced by an EARLIER module —
+ *  via exercisedAtoms, match_pairs sources, or a taught surface appearing
+ *  token-for-token inside the step's Spanish text. */
 function referencesPriorModule(steps: readonly LessonStep[], currentModule: string): boolean {
   const cur = moduleIndex(currentModule);
+  const prior = (fm: string | undefined) => Boolean(fm && moduleIndex(fm) < cur);
   for (const step of steps) {
     const exercised = (step as { exercisedAtoms?: string[] }).exercisedAtoms ?? [];
-    for (const id of exercised) {
-      const fm = atomModuleById.get(id);
-      if (fm && moduleIndex(fm) < cur) return true;
-    }
+    if (exercised.some((id) => prior(atomModuleById.get(id)))) return true;
     if (step.type === "match_pairs") {
       for (const p of (step as MatchPairsStep).pairs) {
-        const fm = atomModuleBySurface.get(p.source);
-        if (fm && moduleIndex(fm) < cur) return true;
+        if (prior(atomModuleBySurface.get(p.source))) return true;
+      }
+    }
+    for (const text of stepSpanishStrings(step)) {
+      const tokens = text.toLowerCase().split(/[^\p{L}\p{N}¿¡?!']+/u).filter(Boolean);
+      for (const [surface, fm] of atomModuleBySurface) {
+        if (!prior(fm)) continue;
+        const sTokens = surface.toLowerCase().split(/\s+/);
+        if (sTokens.every((t) => tokens.includes(t))) return true;
       }
     }
   }
   return false;
 }
 
-const TOPIC = ES_ALL_LESSONS.filter((l) => lessonNum(l.id) >= 1 && lessonNum(l.id) <= 7);
-const MASTERY = ES_ALL_LESSONS.filter((l) => lessonNum(l.id) === 8);
+describe("ES quality — module shape (§13.9)", () => {
+  it("every module has a checkpoint at its declared index and it is zero-new (all graded)", () => {
+    expect(CHECKPOINTS.length).toBe(MODULE_ORDER.length);
+    const bad = CHECKPOINTS.filter((l) => !l.steps.every(isGradedStep)).map((l) => l.id);
+    expect(bad, `ungraded steps in checkpoint: ${bad.join(", ")}`).toEqual([]);
+  });
+
+  it("every module ENDS on a dialogue_sim (the module ends on a conversation, not a grid)", () => {
+    const bad = MASTERY.filter(
+      (l) => l.steps[l.steps.length - 1].type !== "dialogue_sim",
+    ).map((l) => l.id);
+    expect(bad, `mastery not ending on a sim: ${bad.join(", ")}`).toEqual([]);
+  });
+});
 
 describe("ES quality — density & variety", () => {
-  it("topic lessons (L1–L7) are 14–25 steps", () => {
-    const bad = TOPIC.filter((l) => l.steps.length < 14 || l.steps.length > 25).map(
+  it("teaching lessons are 10–25 steps", () => {
+    const bad = TEACHING.filter((l) => l.steps.length < 10 || l.steps.length > 25).map(
       (l) => `${l.id}=${l.steps.length}`,
     );
     expect(bad, `out-of-band: ${bad.join(", ")}`).toEqual([]);
   });
 
-  it("mastery tests (L8) are 8–16 graded-only steps", () => {
-    const bad = MASTERY.filter(
-      (l) => l.steps.length < 8 || l.steps.length > 16 || !l.steps.every(isGradedStep),
-    ).map((l) => l.id);
-    expect(bad, `bad mastery: ${bad.join(", ")}`).toEqual([]);
+  it("checkpoints are 12–22 steps", () => {
+    const bad = CHECKPOINTS.filter((l) => l.steps.length < 12 || l.steps.length > 22).map(
+      (l) => `${l.id}=${l.steps.length}`,
+    );
+    expect(bad, `out-of-band: ${bad.join(", ")}`).toEqual([]);
   });
 
   it("no two adjacent steps share a type", () => {
@@ -133,13 +171,13 @@ describe("ES quality — density & variety", () => {
     expect(bad, `adjacent same-type: ${bad.join("; ")}`).toEqual([]);
   });
 
-  it("no 3+ consecutive selection (tap-one-of-N) steps", () => {
+  it("no 4+ consecutive selection (tap-one-of-N) steps", () => {
     const bad: string[] = [];
     for (const l of ES_ALL_LESSONS) {
       let run = 0;
       for (let i = 0; i < l.steps.length; i++) {
         run = SELECTION_TYPES.has(l.steps[i].type) ? run + 1 : 0;
-        if (run >= 3) {
+        if (run >= 4) {
           bad.push(`${l.id} @${i}`);
           run = 0;
         }
@@ -150,39 +188,30 @@ describe("ES quality — density & variety", () => {
 });
 
 describe("ES quality — production", () => {
-  it("each topic lesson has ≥2 generation steps, ≥1 typed/spoken", () => {
+  it("each teaching lesson has ≥2 generation steps, ≥1 spoken; zero typed translate anywhere", () => {
     const bad: string[] = [];
-    for (const l of TOPIC) {
+    for (const l of TEACHING) {
       const gen = l.steps.filter((s) => GENERATION_TYPES.has(s.type)).length;
-      const typedSpoken = l.steps.filter((s) => TYPED_OR_SPOKEN.has(s.type)).length;
-      if (gen < 2 || typedSpoken < 1) bad.push(`${l.id} (gen=${gen}, typed/spoken=${typedSpoken})`);
+      const spoken = l.steps.filter((s) => s.type === "speaking").length;
+      if (gen < 2 || spoken < 1) bad.push(`${l.id} (gen=${gen}, spoken=${spoken})`);
     }
     expect(bad, `under-produced: ${bad.join("; ")}`).toEqual([]);
+    const translate = ES_ALL_LESSONS.flatMap((l) =>
+      l.steps.filter((s) => s.type === "translate").map(() => l.id),
+    );
+    expect(translate, "typed translate is banned at beginner tier (§13.9 law 10)").toEqual([]);
   });
 });
 
-describe("ES quality — metacognition & compounding review", () => {
-  it("each module after m1 has ≥2 self_explanation_mcq steps", () => {
+describe("ES quality — compounding review", () => {
+  it("each module after m1 references a prior-module item in ≥60% of its lessons", () => {
     const bad: string[] = [];
     for (const mod of MODULE_ORDER.slice(1)) {
-      const count = ES_ALL_LESSONS.filter((l) => moduleOf(l.id) === mod).reduce(
-        (n, l) => n + l.steps.filter((s) => s.type === "self_explanation_mcq").length,
-        0,
-      );
-      if (count < 2) bad.push(`${mod}=${count}`);
+      const lessons = ES_ALL_LESSONS.filter((l) => moduleOf(l.id) === mod);
+      const withReview = lessons.filter((l) => referencesPriorModule(l.steps, mod)).length;
+      const floor = Math.ceil(lessons.length * 0.6);
+      if (withReview < floor) bad.push(`${mod}=${withReview}/${lessons.length} (floor ${floor})`);
     }
-    expect(bad, `too few selfExplain: ${bad.join(", ")}`).toEqual([]);
-  });
-
-  it("each module after m1 compounds prior modules in ≥6 of its L2–L8 lessons", () => {
-    const bad: string[] = [];
-    for (const mod of MODULE_ORDER.slice(1)) {
-      const later = ES_ALL_LESSONS.filter(
-        (l) => moduleOf(l.id) === mod && lessonNum(l.id) >= 2,
-      );
-      const withReview = later.filter((l) => referencesPriorModule(l.steps, mod)).length;
-      if (withReview < 6) bad.push(`${mod}=${withReview}/7`);
-    }
-    expect(bad, `weak review tails: ${bad.join(", ")}`).toEqual([]);
+    expect(bad, `weak cross-module review: ${bad.join(", ")}`).toEqual([]);
   });
 });

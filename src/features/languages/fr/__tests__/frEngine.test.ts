@@ -585,16 +585,14 @@ describe("fr module registration", () => {
     expect(frModule.displayName.native).toBe("Français");
   });
 
-  it("is NOT selectable — Denise voice awaits Spencer's audition (fr pin §7 item 6)", () => {
-    // The gate is deliberate, and it is the one that must not drift. Until
+  it("is selectable — Spencer opened the gate 2026-08-21 (fr pin §7 item 6)", () => {
+    // This pin names what gated selectability, per its own rule. Until
     // 2026-08-19 the blocker was "no fr audio exists"; m1's clips + manifest
-    // landed that day (frAudioCoverage is green at ratchet 0), so the
-    // remaining blocker is HUMAN: the fr-FR-DeniseNeural course voice has
-    // not been auditioned, and the course is one module deep. Flipping this
-    // is Spencer's call, made by adding "fr" to
-    // AVAILABLE_LEARNING_LANGUAGE_IDS — then update this pin, don't delete
-    // it: selectability should always name what gated it.
-    expect(AVAILABLE_LEARNING_LANGUAGE_IDS).not.toContain("fr");
+    // landed that day (frAudioCoverage green at ratchet 0). The remaining
+    // blocker was HUMAN — the fr-FR-DeniseNeural voice unauditioned, the
+    // course one module deep. On 2026-08-21 Spencer flipped it to walk the
+    // custom-authored m1/m2; that walk doubles as the Denise audition.
+    expect(AVAILABLE_LEARNING_LANGUAGE_IDS).toContain("fr");
     // `count`, not `hashes.size` — `hashes` is a packed STRING, so `.size` is
     // undefined on every manifest and `?? 0` would make this pass vacuously.
     expect(frModule.ttsManifest.count).toBeGreaterThan(0);

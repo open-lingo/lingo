@@ -26,6 +26,9 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   symbol_to_sound: 14,
   word_image_mcq: 15,
   phrase_card: 16,
+  pretest_mcq: 16.5,
+  tap_the_word: 16.6,
+  word_map: 16.7,
   grammar_rule: 17,
   particle_cloze: 18,
   agreement_cloze: 19,
@@ -86,6 +89,24 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   "silent_letter",
   "agreement_chain",
   "stress_pattern",
+  // Built ahead of content (2026-08-20), then DEMOTED the same day on
+  // Spencer's QA walk: "any narrative card is very miserable… you have to
+  // read a ton just to press one button, when the same thing can be done
+  // with a dialogue simulation." The 1-turn micro-sim is the preferred
+  // non-imageable debut (guide §13.2); this stays LAST RESORT for a debut
+  // no sim can frame, so it may well stay pinned here forever.
+  "pretest_mcq",
+  // Built ahead of content (2026-08-20, same wave): active noticing —
+  // tap the word(s) in a real sentence that match a deducible cue.
+  // Staged demo at /:lang/qa/tap-word; preview fixture exists. Unpin
+  // when content ships one.
+  "tap_the_word",
+  // Built ahead of content (2026-08-20, same wave): interlinear sentence
+  // mapping — English words prompted in turn, learner maps each to its
+  // target-language word, glosses fill in (match-pairs elimination ramp,
+  // sentence-shaped). Staged demo at /:lang/qa/word-map. Unpin when
+  // content ships one.
+  "word_map",
   // Removed from the ja curriculum 2026-07-16 (info-step audit): all 842
   // recap/preview boilerplate cards were cut and the 20 teaching cards were
   // converted to grammar_rule. ja now ships ZERO info steps, so it is

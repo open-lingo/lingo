@@ -42,21 +42,23 @@ describe("getAtomsForLesson", () => {
 
 describe("getAtomsUpToModule", () => {
   it("returns ES atoms up to the cutoff in curriculum order", () => {
-    const upToM3 = getAtomsUpToModule("m3", "es");
-    expect(upToM3.length).toBeGreaterThan(0);
-    expect(upToM3.every((a) => a.id.startsWith("es:"))).toBe(true);
+    // 2026-08-21: the §13 restart trimmed es to m1/m2 — the cutoff walks
+    // the modules that exist.
+    const upToM2 = getAtomsUpToModule("m2", "es");
+    expect(upToM2.length).toBeGreaterThan(0);
+    expect(upToM2.every((a) => a.id.startsWith("es:"))).toBe(true);
 
-    const order = ["m1", "m2", "m3"];
-    const indices = upToM3.map((a) => order.indexOf(a.fromModule));
-    // Only m1..m3 attribution inside the cutoff…
+    const order = ["m1", "m2"];
+    const indices = upToM2.map((a) => order.indexOf(a.fromModule));
+    // Only m1..m2 attribution inside the cutoff…
     expect(indices.every((i) => i >= 0)).toBe(true);
-    // …and catalog ordering (m1 → m3) is preserved through the filter.
+    // …and catalog ordering (m1 → m2) is preserved through the filter.
     expect([...indices].sort((a, b) => a - b)).toEqual(indices);
 
     // A tighter cutoff yields a strict subset.
     const upToM1 = getAtomsUpToModule("m1", "es");
     expect(upToM1.length).toBeGreaterThan(0);
-    expect(upToM1.length).toBeLessThan(upToM3.length);
+    expect(upToM1.length).toBeLessThan(upToM2.length);
   });
 
   it("returns KO atoms with canonical ids", () => {

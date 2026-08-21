@@ -1,16 +1,15 @@
 /**
  * French language module — populates the `LanguageModule` contract for FR.
  *
- * STATUS: registered, and deliberately NOT selectable. Registering costs
- * nothing and buys the shared gates immediately — `moduleConformance` is
- * `describe.each(getAllLanguageIds())`, so French is checked from this commit
- * on. SELECTABILITY is a separate switch (`AVAILABLE_LEARNING_LANGUAGE_IDS` in
- * `shared/domain/languageConfig.ts`) and stays off, per the fr pin §7 item 6:
+ * STATUS: registered and SELECTABLE (Spencer opened the gate 2026-08-21 to
+ * walk the custom-authored m1/m2 — the walk doubles as the Denise voice
+ * audition). Registration predates selectability: `moduleConformance` is
+ * `describe.each(getAllLanguageIds())`, so French has been gate-checked since
+ * registration. Selectability waited on the fr pin §7 item 6 precondition —
  * "Do not make French selectable before its audio coverage gate passes at
- * zero." No French clip has been generated yet — there is no
- * `shared/tts/manifests/fr.json` — so every audio-bearing step would degrade
- * to its no-clip rendering, and `liaison_listen`, whose entire content is a
- * sound, would be unanswerable.
+ * zero" — satisfied 2026-08-19 when m1's clips + `shared/tts/manifests/fr.json`
+ * landed (frAudioCoverage green at ratchet 0). The switch lives in
+ * `AVAILABLE_LEARNING_LANGUAGE_IDS` in `shared/domain/languageConfig.ts`.
  *
  * Per ADR-011, slots FR does not have (`alphabetConfig`, `secondScript`,
  * `readingAnnotation`, `romanizer`, `classifiers`, `symbolMastery`, `reading`,

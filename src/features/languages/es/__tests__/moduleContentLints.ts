@@ -34,13 +34,16 @@ export function registerEsModuleContentLints(opts: {
   moduleId: string;
   lessons: LessonContent[];
   atoms: readonly EsAtom[];
+  /** Explicit lesson count — pinned so a silently dropped lesson fails here.
+   *  (Was a hardcoded 8 in the July wave; §13 modules run 9–10.) */
+  expectedLessonCount: number;
 }): void {
-  const { moduleId, lessons, atoms } = opts;
+  const { moduleId, lessons, atoms, expectedLessonCount } = opts;
 
   describe(`ES ${moduleId} structure`, () => {
-    it(`ships 8 lessons (es-${moduleId}-1..8), all tagged es / ${moduleId} / mock-1`, () => {
+    it(`ships ${expectedLessonCount} lessons (es-${moduleId}-1..${expectedLessonCount}), all tagged es / ${moduleId} / mock-1`, () => {
       expect(lessons.map((l) => l.id)).toEqual(
-        Array.from({ length: 8 }, (_, i) => `es-${moduleId}-${i + 1}`),
+        Array.from({ length: expectedLessonCount }, (_, i) => `es-${moduleId}-${i + 1}`),
       );
       expect(lessons.every((l) => l.moduleId === moduleId)).toBe(true);
       expect(lessons.every((l) => l.languageId === "es")).toBe(true);
@@ -51,7 +54,7 @@ export function registerEsModuleContentLints(opts: {
       const course = getMockCourse("es");
       const mod = course.modules.find((m) => m.id === moduleId);
       expect(mod, `${moduleId} missing from the es course map`).toBeDefined();
-      expect(mod?.lessons.length ?? 0).toBe(8);
+      expect(mod?.lessons.length ?? 0).toBe(expectedLessonCount);
       for (const lesson of mod!.lessons) {
         const content = getMockLessonContent(lesson.id);
         expect(content, `pathway node '${lesson.id}' has no content`).not.toBeNull();
@@ -83,8 +86,8 @@ export function registerEsModuleContentLints(opts: {
       }
     });
 
-    it("the mastery test (L8) contains graded steps only", () => {
-      const mastery = lessons[7];
+    it("the mastery test (final lesson) contains graded steps only", () => {
+      const mastery = lessons[lessons.length - 1];
       expect(
         mastery.steps.filter((s) => !isGradedStep(s)).map((s) => `${s.id} (${s.type})`),
         `${mastery.id} carries ungraded steps`,

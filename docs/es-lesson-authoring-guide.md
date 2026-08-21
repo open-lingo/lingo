@@ -62,7 +62,7 @@ Spanish.
 | §4c particle clozes | Spanish has no particles. The nearest analogue is the preposition/article cloze, which is an ordinary `cloze`. |
 | §4d ja ships ZERO `info` steps | **Deliberately reversed.** ES ships an `info` card at position 1 of every teaching lesson. ja purged them because kana/kanji teaching had nothing to say that a step could not show; Spanish grammar rules (the preterite accent, the j-stem, the -car/-gar/-zar respelling) are *statements about a system*, and a learner who is never told the rule has to induce it from eight examples. The purge was right for ja and would be wrong here. |
 | §4e/§4e-addendum/§4f script ladder, furigana, `kanji_reading` | Spanish is Latin-script throughout. |
-| §13.2 image-MCQ-as-introduction | ES uses `vocab()` phrase cards; the emoji art pipeline is JA-only. |
+| §13.2 image-MCQ-as-introduction | ~~ES uses `vocab()` phrase cards; the emoji art pipeline is JA-only.~~ **No longer dropped — CARRIED as of 2026-08-20.** The premise was false: the emoji art path (`notoEmojiUrl`/`lingoArtUrl` + device fallback) is shared, and shipped ES content already debuts words on `word_image_mcq` (m1/m4/m5). §13 below makes image-first debut the ES law too. |
 | §13.3 just-in-time particle teach | No particles. |
 | §13.4 forced sentence_build replacing copula-cloze | ja-specific (です). |
 | §13.10 particle-tile separation in build banks | No particles. |
@@ -72,7 +72,7 @@ Spanish.
 
 | ja section | why ES goes the other way |
 |---|---|
-| §4b2 `phrase_card` is shelved | **ES ships `vocab()` deliberately — 69 call sites across m17–m19, and `vocab()`/`phrase()` ARE the `phrase_card` constructors, which is the part of ja's rule that is not obvious from the names.** ja could shelve the type because it had somewhere better to go: §13.2's image-MCQ, where the emoji IS the introduction. That destination does not exist for ES — the emoji art pipeline is JA-only (see §13.2 above), so banning `vocab()` here would remove an introduction device and replace it with nothing. The second reason is script: a Spanish word is legible to an English speaker on sight, so a passive card genuinely delivers the form, where a kana card can show a string the learner cannot yet decode. **Revisit if an ES art pipeline is ever built** — at that point ja's argument applies unchanged. |
+| §4b2 `phrase_card` is shelved | **REVERSAL WITHDRAWN 2026-08-20 — ES now follows ja and shelves passive vocab cards too.** The original entry defended `vocab()` on two grounds and both failed: (1) "the emoji art pipeline is JA-only" was simply wrong — the art path is shared and shipped ES content already debuts on image MCQs; (2) "banning `vocab()` would replace it with nothing" stopped being true when `pretest_mcq` landed (guess-before-taught, the interactive debut for NON-imageable words). Spencer, seeing m1 L1: passive show-and-listen cards "feel hollow" and phrasebook-style intro "is bad teaching." The 69 legacy `vocab()` call sites in m17–m19 are grandfathered until those modules re-author; **no NEW module ships one** — see §13. |
 
 If you find a ja section not in one of these three tables, this file is
 incomplete. Say so rather than guessing.
@@ -242,6 +242,12 @@ why ES cannot copy ja's beat-list IR.
 Reordering 2–4, 5–6 or 12–14 breaks a passive-card follow-up rule. Reordering
 8, 9 or 11 breaks the selection-run or generation-count rules.
 
+> **v1 NOTICE (2026-08-20):** positions 2, 5 and 12 are passive `phrase`
+> cards, which §13 retires for new modules. A template v2 (debuts via
+> `formMcq`/image-MCQ/`pretest`, first sentence view via `word_map`) is
+> pending the m1 word-first re-author's verdict; until it lands, `free`
+> lessons are how a module follows §13 fully.
+
 ### The 17th beat
 
 `selfExplain`, `mcq`, or `textMcq`. **Never `match`** — position 18 is always
@@ -381,8 +387,10 @@ life.
 
 - **Don't hand-edit a generated module.** Regenerate. The file says so at the top.
 - **Don't invent a step type** an existing one can express — the house rule.
-  `gender_sort` and `stress_pattern` cleared that bar and are documented with
-  the reason in `features/lesson/types.ts`; nothing else has.
+  `gender_sort`, `stress_pattern`, and the 2026-08-20 interaction wave —
+  `pretest_mcq`, `tap_the_word`, `word_map` (plus `dialogue_sim`, ja-born,
+  now es-staged) — cleared that bar and are documented with the reason in
+  `features/lesson/types.ts`; nothing else has.
 - **Don't add a check that detects a bad sentence.** Change the inventory (§3).
 - **Don't raise the audio ratchet.**
 - **Don't teach a form the frame cannot build a sentence from** — either give
@@ -403,3 +411,239 @@ life.
 - **Audio coverage** (§9).
 - **No `es` counterpart to the ja `module-gate` command**, so the "did my new
   sentences actually reach the TTS deck?" check is manual.
+
+---
+
+## 13. The interaction doctrine (Spencer, 2026-08-20)
+
+Written language-agnostic on purpose — lift this section into the fr guide
+verbatim, swapping examples. It supersedes any older section it contradicts
+(notably §5 positions 2/5/12 and the withdrawn §0 phrase-card reversal).
+
+### 13.1 No hollow steps
+
+A step where the learner is shown something and does nothing about it
+("show them and have them listen but do nothing") does not ship. The ONE
+exception is a single compact `info`/`grammar_rule` card per teaching
+lesson, because a grammar rule is a statement about a system (§0's §4d
+argument stands) — and even that card should be the lesson's thesis, three
+sentences, not a lecture.
+
+### 13.2 The debut policy — how a WORD is met
+
+| word class | debut step | why |
+|---|---|---|
+| imageable (has an emoji/art) | `word_image_mcq` — first-ever appearance IS the picture guess | ja's 2026-07-23 law, now ES law too; the picture makes it deducible at zero knowledge |
+| non-imageable word or formula | **1-turn micro-`dialogue_sim`** — the situation is SHOWN (scene emoji + a ≤6-word goal line + the NPC's turn), the learner replies with the new word among taught distractors | same pretesting effect, near-zero English reading; the sim IS the situation the pretest could only narrate |
+| non-imageable, no sim can carry it | `pretest_mcq` — LAST RESORT (Spencer 2026-08-20: "any narrative card is very miserable… you have to read a ton just to press one button"). If used, the situation line is ONE short sentence | keeps the pretesting mechanics for the rare debut with no conversational frame |
+| never | passive vocab/phrase card | withdrawn — see §0 |
+
+### 13.3 The sentence ramp — how a SENTENCE is met
+
+First view of a sentence pattern: **`word_map`** — the learner maps each
+highlighted English word to its target-language word, interlinear glosses
+fill in, elimination carries the tail. Second encounter (same lesson, i+2/
+i+3, or the next lesson): **`build`** from scratch — production of the
+order they already mapped. Direct-translation sentences (aligned word
+order) may use `word_map` as the build REPLACEMENT — an aligned build is
+trivially guessable from English, the map is the more instructive step.
+Keep `build` where order diverges: producing the divergent order is the
+skill, and the map's crossing taught it first.
+
+### 13.4 Gender is absorbed, not announced
+
+Nouns wear their article from first exposure («la casa», never bare
+«casa») in cards, audio, maps and builds — the article is part of the
+word. No gender rule is stated until the module that owns agreement (es:
+m4), and that card is a CALLBACK: "you've been saying it right all along —
+here's why." `word_map.tokenGenders` + the `genderColor` layer light
+agreement chains in the noun's hue at the REVEAL, never before the answer.
+Exceptions («el día») are free before the rule exists — chunks can't
+contradict a rule that hasn't been stated.
+
+### 13.5 The deduction contract (anti-frustration)
+
+The learner must never face "I don't know!" when the author could have
+prevented it. Every guessable step carries an honest path to the answer
+that needs no prior teaching: the emoji (image MCQ), elimination against
+taught words (pretest, word_map's shrinking bank), a cognate, visible
+morphology (the -a on «simpática»), the gloss, position, or a prior sim
+turn. Author the cue deliberately and name it in the reveal
+(`revealNote`), so the learner walks away with a strategy, not a lucky
+tap. A step whose answer is reachable only by luck is an authoring bug.
+
+**Cognates are an AID, never the MECHANISM** (Spencer 2026-08-20:
+"cognates are hard to rely on for other languages… germans can learn the
+same way but not know no is nein"). The design must survive translation
+to a non-cognate language: every word still gets a real teach beat, and
+every deduction path must work WITHOUT the resemblance. ELIMINATION is
+the language-agnostic path — a word_map may debut at most ONE new word
+per map because the taught words eliminate down to it (German: eins/zwei
+known → drei falls out the same way). A cognate `revealNote` celebrates
+the luck ("bonus — it's the same word in English"); it never carries the
+teaching.
+
+The companion rule (Spencer 2026-08-20): **think about what the learner
+needs to learn and the simplest step that teaches it — the less reading
+the better.** Concretely: `tap_the_word` only where FINDING the word in a
+real sentence is the work (≥5 tokens as a floor — on a 3-token sentence
+it's an MCQ in a costume, so author the MCQ); the audio-prompt word MCQ
+("Which word do you hear?", `meaningEn` = the target word) is the
+zero-reading recognition beat and should appear in every early lesson;
+explanations on WINS collapse behind "View explanation" (Feedback does
+this automatically) — forced reading after a correct answer is the
+narrative-card problem in miniature.
+
+### 13.6 `dialogue_sim` is the integration beat — and the debut vehicle
+
+The favorite step in the course. Use it where the old arc used the L7
+dialogue-listen — the learner IS the second speaker, every NPC line
+glosses below, and the scenario is followed by a retrieval quiz over
+exactly the words/sentences it used. Sim replies obey §13.5: the goal
+line, the glosses and prior turns make each reply deducible. One step =
+one scenario; grading per the 2026-07-29 decision recorded in
+`_stepPredicates.ts`. Two grain sizes: the FULL scenario (3–5 turns) is
+the integration beat; the **micro-sim** (ONE turn) is the debut vehicle
+for non-imageable words — but ONLY under the self-cueing law below.
+
+**THE SELF-CUEING LAW (Spencer 2026-08-20, from walking a broken sim):
+the NPC's line must ITSELF create the slot the reply fills.** A mirror
+(«Mucho gusto.» → mucho gusto), a question («¿Café?» → sí por favor /
+no gracias, both accepted), an interjection («¡Ay!» → perdón). If the
+real cue lives in `scene.setting` or the goal line — Ana says «¡Hola!»
+but the flower that makes «gracias» right is in prose — the step is a
+narrative card in a sim costume, and worse: "someone saying hello would
+warrant a hello back," so the learner is punished for correct
+pragmatics. Named failure modes, all found on one walk:
+
+1. **Natural-answer trap** — a known word among the options is the
+   pragmatically right reply to the NPC line but marked wrong (hola →
+   hola). Machine-checkable: a mirror of the NPC line may appear only as
+   correct/alsoCorrect (pinned in the m1 prototype tests).
+2. **Prose-cued turn** — the reply is not deducible from npc line +
+   gloss alone. Review trick: cover the scene text and replay the turn;
+   if it stops making sense, it fails.
+3. **Tonal incoherence** — the injured stranger cheerfully saying
+   «Buenos días» after you step on his foot. Drama that contradicts the
+   target reply is prose-cueing's louder cousin.
+4. **Both-correct dodge** — when alsoCorrect includes an already-known
+   answer, a DEBUT can be dodged forever by picking the familiar one.
+   Fine for consolidation (a real offer has two right answers); wrong
+   for debuts, so debut sims keep exactly one right reply.
+5. **Goal-as-translation** — a goal line like "Say 'see you later'"
+   hands over the answer as a translation exercise. Acceptable for a
+   debut (it IS the gloss); too shallow for any later retest.
+
+Corollary: if a word is imageable at all — even a soft emoji like 🤲 —
+the image MCQ beats a forced sim (elimination carries a weak picture);
+and a sim whose only honest line would be untaught Spanish should not
+exist at that point in the course.
+
+### 13.7 FSRS in intro contexts
+
+New-type steps in intro lessons carry NO `exercisedAtoms` — the house rule
+(grading is review-only; a lesson's own new content is never graded
+same-session) already covers them, so nothing new is wired. "Author it
+well" is the design: the choreography above IS the spacing. Review-context
+uses may add `exercisedAtoms` exactly like any graded step.
+
+### 13.8 What the gates still owe this section
+
+When content adopts the new types (m1 re-author onward): classify
+`word_map`/`tap_the_word`/`pretest_mcq` in the selection-run and
+modality-mix lints; extend the bar's Spanish-field scanners to the new
+shapes (`tokens`, `reveal.surface`, sim turns); add the debut-policy check
+(an imageable atom's first exposure is its image MCQ; no passive card
+precedes a debut); IR emitters + factories for the new kinds. Until then
+the types stay pinned in `UNUSED_STEP_TYPES` and live on the QA pages.
+
+### 13.9 The retention rhythm (learner-sim rework, 2026-08-20)
+
+Four Opus fresh-learner walks of the first m1 prototype quantified the
+failure Spencer had already named ("we teach too much at once, don't
+review enough… it shouldn't be this hard"): 48% of steps carried zero
+retrieval demand, items averaged 1.5 retrievals, all 19 speaking steps
+were read-aloud, and the net next-day yield of eight lessons was ~4 new
+items. Full synthesis: `docs/learner-sim/es-m1-proto-FINDINGS.md`. The
+laws that came out of it — all live in the m1v2 prototype and
+machine-pinned in `esM1Lessons.test.ts`:
+
+1. **Every lesson carries a review tail** (the JA house mechanism):
+   2–3 OFF-TOPIC prior-item retrievals before the close, and the tail
+   lane is itself spaced across lessons (L4 carries L2's courtesy, L5
+   carries L3+L4, L6 carries L3+L5…). Closing match ≥50% prior items.
+2. **A dedicated zero-new CHECKPOINT lesson sits mid-module** (after L5
+   in m1): ~16 graded retrievals, no cards, every confusable pair
+   discriminated. Target: every item ≥2 post-intro retrievals, every
+   item present in mastery.
+3. **The speaking recall law.** The FIRST voicing of any surface shows
+   the printed form (and the learner can hear the clip). Every LATER
+   voicing is cued recall — `cue: "recall"` on the step: English cue,
+   Spanish hidden, no autoplay, "Show answer" as the graceful out.
+   Machine-linted: recall may never precede a printed voicing.
+4. **Confusable pairs get alternating-answer discrimination trials with
+   both halves live.** A pair trained with one answer trains a false
+   rule (the buenos/buenas finding: both original trials answered
+   "buenas" — always-answer-buenas scored 100%). m1's pairs and their
+   trial lanes: buenos/buenas (card teaches the pairing + NOT:
+   «buenas días»), y/o, seis/siete (by EAR), cero/cinco, tardes/noches.
+5. **Cash every card within ~2 steps or cut it.** A phonetics card pays
+   off in a which-do-you-hear check right after it (L1 vowels →
+   hear-adiós; L4 soft-c → hear-cero) or it doesn't ship (L5's stress
+   line was cut). Phonetics taught = phonetics tested.
+6. **Digit emoji only where they're honest** — on the intro MCQ (the
+   emoji IS the numeral) and as the MEANING side of audio-prompted ear
+   trials. Word→meaning retrievals are text MCQs. Number lessons end by
+   COUNTING out loud.
+7. **World and wins.** The module states its promise in L1; titles are
+   promises, not inventory labels; NPC continuity holds (a character
+   debuts once); sim questions are real questions; every lesson ends on
+   its WIN (match second-to-last); the MODULE ends on a conversation,
+   not a grid. The free delight beats (¿ and ¡) live in collapsed win
+   explanations, never in forced reading.
+8. **Listening retrieval is separated from its source.** The
+   map → hear → speak ramp on a sentence's FIRST encounter is teaching
+   and stays adjacent; every LATER listening check lives lessons away
+   from the step that showed its text. Unscaffolded production in
+   mastery is a tile build or a cued recall — law 10.
+9. **Interleave — never block-teach a category** (Spencer, 2026-08-20:
+   "teaching all the numbers at once, in a row, is kind of boring…
+   teaching too much of the same thing at once or in one lesson is
+   bad" — JA m31's kureru/ageru block is the same failure). The shape
+   for repetitive families (numbers, days, verb-pair clusters): a few
+   items plus a couple of UNRELATED words, then a lesson with the rest
+   plus more unrelated words, then the full review lesson. m1 runs
+   numbers 4/4/3 across L4–L6 with the hasta-luego and mucho-gusto sims
+   as the mid-lesson breaks. This is a SPINE-design law for every
+   course, and these families are among the few spots that stay
+   hand-authored.
+10. **No typed `translate` at beginner tier** (Spencer, fr m1 L9 walk
+    2026-08-21: he typed the phonetically-perfect «oui, si vu plait»
+    and was graded wrong). Typed production tests SPELLING, which
+    beginner modules never teach — French orthography especially.
+    The production ladder is: cued-recall speaking → tile build →
+    typed translate only in LATER modules, once spelling has been
+    earned. Machine-pinned at ZERO translate steps in all four proto
+    suites; when the spine wants a translate, place a build.
+11. **Max-acceptance on sim tile banks** (same walk: Spencer built
+    «oui deux s'il vous plaît» — natural, correct — and was marked
+    wrong). Every natural reply a bank can compose must be in
+    `alsoAccepted`: enumerate the combinations, exclude only the
+    genuinely unidiomatic or an untaught nuance (bare «merci» answering
+    an offer often means REFUSAL — ungradeable at this tier). With no
+    slot-count cue, good learners build the fullest polite answer;
+    never punish that.
+
+Scope note (R10, decided 2026-08-20): the turn-2 rescue kit
+(¿cómo estás? / me llamo / no entiendo) is HELD for early m2 — m1
+compresses instead of growing. Engine backlog from the same findings
+(R9): listening tap-to-reveal fallback, speaking "later" affordance,
+sim tile-reply length cue.
+
+Walk yields, Spencer's own fr walk (2026-08-21): recognizer digit ITN
+fixed in the ENGINE (`numbersToRomance` in `shared/speech/loose-match.ts`
+— counting steps now grade a "1 2 3 4" transcript as the words the
+learner actually said, es and fr, both recognizers); the pipeline
+`silent_letter` kind is BANNED (English speakers own silent letters
+already — the concept costs one info-card sentence, not an interactive
+type; drop the kind when fr recompiles from IR).

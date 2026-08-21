@@ -127,7 +127,13 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
     // Preview-on-tap: play the word's TTS so the learner can match the
     // emoji + kana to a sound before committing. Same interaction as
     // symbol_to_sound / symbol_recognition.
-    if (getTtsUrl(word)) {
+    //
+    // EXCEPT in audio-prompt mode (2026-08-21, es-m2/fr learner sims):
+    // when the PROMPT is the audio, previewing each option's clip turns
+    // the step into sound-diffing — "tap each option, pick the noise
+    // that matches, learn nothing." The options stay silent until the
+    // answer is committed; the prompt's replay button still works.
+    if (!audioPrompt && getTtsUrl(word)) {
       playJaAudio(word);
     }
     setSelected(optId);

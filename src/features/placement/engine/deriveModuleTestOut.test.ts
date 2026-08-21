@@ -176,7 +176,8 @@ describe("deriveModuleTestOut", () => {
 });
 
 describe("derived es test-out (parametrized language)", () => {
-  it.each(["m5", "m10"])(
+  // 2026-08-21: the July m1–m19 wave was archived; the §13 course is m1/m2.
+  it.each(["m1", "m2"])(
     "es %s derives a workable, format-legal, in-module set",
     (mid) => {
       const d = deriveModuleTestOut(mid, { languageId: "es" });
@@ -194,7 +195,7 @@ describe("derived es test-out (parametrized language)", () => {
   );
 
   it("getDerivedTestOutItems stamps languageId 'es' and doesn't collide with ja's cache", () => {
-    const es = getDerivedTestOutItems("m10", "es");
+    const es = getDerivedTestOutItems("m2", "es");
     // ja "m10" is an unauthored spine placeholder since 2026-07-19 — use the
     // authored ja m3 (m3-neo) as the cross-language cache foil instead.
     const ja = getDerivedTestOutItems("m3");

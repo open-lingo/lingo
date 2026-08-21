@@ -896,12 +896,18 @@ export function speaking(
   targetPhrase: string,
   translation: string,
   exercisedAtomSurfaces?: string[],
+  /** "recall" = cued recall: English cue shown, French hidden until the
+   *  first verdict (or explicit reveal), no autoplay. NEVER the first
+   *  voicing of a surface — that one keeps the printed form (es guide
+   *  §13.9; the law is language-agnostic). */
+  cue?: "recall",
 ): SpeakingStep {
   return {
     id,
     type: "speaking",
     targetPhrase,
     translation,
+    ...(cue ? { cue } : {}),
     // Whisper supports French (SPEECH_LOCALES.fr landed 2026-08-18); graded
     // path on from day one, same as ES. Keep targets inside one phonological
     // word-group until liaison-boundary scoring is measured (fr guide §0.1

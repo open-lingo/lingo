@@ -20,7 +20,7 @@
  * `MODULE_ORDER` did.
  */
 import { describe, it, expect } from "vitest";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import type { LessonContent } from "@/features/lesson/types";
 
@@ -38,6 +38,10 @@ type Ir = { module: string; frame: string; frameFile: string };
 
 /** The IR header is a fixed key: value preamble — no YAML parser needed. */
 function readIrHeaders(): Ir[] {
+  // 2026-08-21: the July IR wave lives in curriculum/_archive/ir/ — until
+  // the §13-doctrine IR emitters land (m3+ handoff) there is no live IR
+  // directory, and this gate has nothing to check.
+  if (!existsSync(IR_DIR)) return [];
   return readdirSync(IR_DIR)
     .filter((f) => f.endsWith(".ir.yaml"))
     .map((f) => {
@@ -117,8 +121,14 @@ async function productionTargets(
 describe("es sentence-complexity floor (ja guide §4g)", () => {
   const irs = readIrHeaders();
 
-  it("finds the IR-compiled modules", () => {
-    // Guards against the whole suite passing vacuously if the glob breaks.
+  it("finds the IR-compiled modules (unless the IR wave is archived)", () => {
+    // Guards against the suite passing vacuously if the glob breaks. The
+    // 2026-08-21 §13 restart archived ALL live IR (curriculum/_archive/ir/);
+    // zero IR files is the expected state until the new emitters land.
+    if (!existsSync(IR_DIR)) {
+      expect(irs.length).toBe(0);
+      return;
+    }
     expect(irs.length).toBeGreaterThan(0);
   });
 

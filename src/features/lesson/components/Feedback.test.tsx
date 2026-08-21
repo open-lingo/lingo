@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Feedback } from "./Feedback";
 
 /**
@@ -37,5 +37,26 @@ describe("Feedback note tone", () => {
     expect(banner.className).toContain("border-warning");
     expect(banner).toHaveTextContent("Watch the accents");
     expect(banner).not.toHaveTextContent("Both work");
+  });
+});
+
+/**
+ * On a WIN the explanation is optional reading (Spencer 2026-08-20: "just
+ * say correct and have a 'view explanation' button"); on a MISS the why
+ * stays inline — that's the moment the learner actually needs it.
+ */
+describe("Feedback explanation disclosure", () => {
+  it("collapses the explanation behind 'View explanation' on a correct answer", () => {
+    render(<Feedback correct explanation="gracias means thank you" />);
+    const banner = screen.getByRole("alert");
+    expect(banner).not.toHaveTextContent("gracias means thank you");
+    fireEvent.click(screen.getByRole("button", { name: "View explanation" }));
+    expect(banner).toHaveTextContent("gracias means thank you");
+  });
+
+  it("keeps the explanation inline on a miss", () => {
+    render(<Feedback correct={false} explanation="the why, right away" />);
+    expect(screen.getByRole("alert")).toHaveTextContent("the why, right away");
+    expect(screen.queryByRole("button", { name: "View explanation" })).toBeNull();
   });
 });

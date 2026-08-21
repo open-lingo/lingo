@@ -37,19 +37,20 @@ describe("buildSrsReviewLesson (es)", () => {
     clearSRSStore();
   });
 
-  it("assembles a review lesson from unlocked ES atoms up to m3", () => {
-    const atoms = getAtomsUpToModule("m3", "es");
+  it("assembles a review lesson from unlocked ES atoms up to m2", () => {
+    // 2026-08-21: es restarted at m1/m2 under the §13 doctrine.
+    const atoms = getAtomsUpToModule("m2", "es");
     expect(atoms.length).toBeGreaterThan(3);
     unlockAtomIds(atoms.map((a) => a.id));
 
     const lesson = buildSrsReviewLesson({
-      moduleId: "m3",
+      moduleId: "m2",
       position: 1,
       courseId: "mock-1",
       languageId: "es",
     });
 
-    expect(lesson.id).toBe("es-m3-review-1");
+    expect(lesson.id).toBe("es-m2-review-1");
     expect(lesson.languageId).toBe("es");
     // Real review steps, not the "Nothing to review yet" placeholder.
     const reviewSteps = lesson.steps.filter((s) => s.type !== "info");

@@ -515,6 +515,10 @@ export function speaking(
   targetPhrase: string,
   translation: string,
   exercisedAtomSurfaces?: string[],
+  /** "recall" = cued recall: English cue shown, Spanish hidden until the
+   *  first verdict (or explicit reveal), no autoplay. NEVER the first
+   *  voicing of a surface — that one keeps the printed form (§13.9). */
+  cue?: "recall",
 ): SpeakingStep {
   return {
     id,
@@ -527,6 +531,7 @@ export function speaking(
     audioKey: targetPhrase,
     exercisedAtoms: resolveAtomIds(exercisedAtomSurfaces),
     modality: "production",
+    ...(cue ? { cue } : {}),
   };
 }
 
@@ -686,11 +691,10 @@ export function selfExplain(opts: {
 // ─── Compounding review (prior-module atom picker) ───────────────────────
 
 export const ES_MODULE_ORDER: EsAtomSource[] = [
-  "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",
-  "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16",
-  "m17",
-  "m18",
-  "m19",
+  // 2026-08-21: the July m1–m19 wave was archived; the §13-doctrine course
+  // restarts at m1/m2. m3+ appends here as the re-authoring lands.
+  "m1",
+  "m2",
 ];
 
 function moduleIndex(m: EsAtomSource): number {

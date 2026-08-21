@@ -79,6 +79,8 @@ export const FR_PROPER_NAMES = new Set([
   "marie", "thomas", "léa", "lea", "hugo", "camille", "lucas", "chloé",
   "chloe", "paul", "emma", "louis",
   "paris", "france", "québec", "quebec", "lyon", "montréal", "montreal",
+  // The learner persona + hometown (sim-pass fix 2026-08-21).
+  "sam", "new", "york", "inès", "ines",
 ]);
 
 /** French orthographic fingerprint. «» are included: the course quotes
@@ -146,6 +148,14 @@ export function frSurfaces(step: LessonStep): string[] {
     case "speaking":
       out.push(String(s.targetPhrase ?? ""));
       break;
+    case "word_map":
+      // §13's phrase-debut mechanism (map → hear → speak): the tokens ARE
+      // the taught surfaces. Without this case the tracker first "saw" a
+      // mapped word at the closing match and called it a non-intro debut
+      // («beaucoup», 2026-08-21).
+      for (const t of (s.tokens as string[]) ?? []) out.push(t);
+      out.push(String(s.audioText ?? ""));
+      break;
     case "listening_comprehension":
       out.push(String(s.transcript ?? ""));
       break;
@@ -205,6 +215,7 @@ export const FR_INTRO_TYPES: ReadonlySet<string> = new Set([
   "info",
   "phrase_card",
   "word_image_mcq",
+  "word_map", // §13 phrase debut: map → hear → speak (2026-08-21)
   "build_sentence",
   "speaking",
   "listening_comprehension",
@@ -218,6 +229,10 @@ export type FrBarFailure = { lessonId: string; stepId: string; problem: string }
 export function lintSentenceOveruse(lesson: LessonContent): FrBarFailure[] {
   const counts = new Map<string, number>();
   for (const st of lesson.steps as never as Array<Record<string, unknown>>) {
+    // A cloze's audioText is CONFIRMATION audio for the solved sentence —
+    // the step exercises its blank, not the sentence surface (see the es
+    // twin, 2026-08-21).
+    if (st.type === "particle_cloze" || st.type === "agreement_cloze") continue;
     const surf =
       (st.targetSentence as string) ??
       (st.targetPhrase as string) ??
@@ -363,7 +378,10 @@ export function registerFrModuleBarGuards(opts: {
     });
 
     it("no full-sentence recognition MCQs in teaching lessons", () => {
-      const teaching = lessons.filter((l) => !/-8$/.test(l.id)); // L8 = test-out
+      // The mastery test-out is the FINAL lesson — derived, not hardcoded
+      // (was /-8$/ in the 8-lesson IR wave; §13 modules run 9–10).
+      const masteryId = lessons[lessons.length - 1]?.id;
+      const teaching = lessons.filter((l) => l.id !== masteryId);
       expect(fmt(teaching.flatMap(lintFullSentenceMcqs))).toEqual([]);
     });
 
@@ -425,7 +443,11 @@ export function registerFrModuleBarGuards(opts: {
             const s = step as never as Record<string, unknown>;
             const options = (s.options as Array<{ id: string; word: string }>) ?? [];
             const correct = options.find((o) => o.id === s.correctOptionId)?.word ?? "";
-            if (frTokens(correct).some((t) => knownAtLessonStart.has(t))) {
+            // AUDIO-PROMPTED mode is §13's zero-reading retrieval beat,
+            // allowed on known words anywhere; only ENGLISH-prompted reuse
+            // is banned (see the es twin, 2026-08-21).
+            const audioPrompted = options.some((o) => o.word === (s.meaningEn as string));
+            if (!audioPrompted && frTokens(correct).some((t) => knownAtLessonStart.has(t))) {
               failures.push({
                 lessonId: lesson.id,
                 stepId: step.id,
@@ -448,6 +470,15 @@ export function registerFrModuleBarGuards(opts: {
           if (step.type !== "particle_cloze") continue;
           const correct = String(step.correctParticle ?? "");
           const fm = atomModuleBySurfaceWord.get(correct.toLowerCase());
+          // §13.9 law 5 exemption: an alternating-answer discrimination
+          // trial (two options, both taught, shared stem) is a pick BY
+          // DESIGN and rides spaced across modules (see the es twin).
+          const options = ((step.options as string[]) ?? []).map((o) => o.toLowerCase());
+          const isDiscriminationTrial =
+            options.length === 2 &&
+            options.every((o) => atomModuleBySurfaceWord.has(o)) &&
+            options[0] !== options[1];
+          if (isDiscriminationTrial) continue;
           if (fm && fm !== moduleId) {
             failures.push({
               lessonId: lesson.id,

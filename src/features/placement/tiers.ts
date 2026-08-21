@@ -54,18 +54,48 @@ const KO_SKILL_TIERS: readonly SkillTier[] = [
   { tier: 8, modules: ["m24", "m25", "m26", "m27"],          screeningModuleId: "m25", label: "거나, 려고 하다, 아/어야 되다" },
 ];
 
+// ES tiers registered 2026-08-19. Until then es was NOT in this map and fell
+// through getSkillTiers' silent JA fallback: the adaptive test served the JA
+// module spine to Spanish learners — es m1/m2 unreachable (JA tiers start at
+// m3), ten modules reachable that es does not have. `hasSkillTiers` existed to
+// prevent exactly this and was never called anywhere. Grouping mirrors
+// ES_MODULE_META (curriculum/index.ts): consecutive modules at comparable
+// difficulty, one screening representative each.
+// 2026-08-21: the July m1–m19 wave was archived and the §13-doctrine course
+// restarts at m1/m2 (curriculum/_archive/). One tier until m3+ lands.
+const ES_SKILL_TIERS: readonly SkillTier[] = [
+  { tier: 0, modules: ["m1", "m2"], screeningModuleId: "m1", label: "Greetings, introductions, ser" },
+];
+
+// FR promoted the same day fr became selectable — same one-tier shape.
+const FR_SKILL_TIERS: readonly SkillTier[] = [
+  { tier: 0, modules: ["m1", "m2"], screeningModuleId: "m1", label: "Greetings, introductions, être" },
+];
+
 const TIERS_BY_LANGUAGE: Record<string, readonly SkillTier[]> = {
   ja: JA_SKILL_TIERS,
   ko: KO_SKILL_TIERS,
+  es: ES_SKILL_TIERS,
+  fr: FR_SKILL_TIERS,
 };
 
 const DEFAULT_LANGUAGE = "ja";
 
-/** Tiers for a language. Falls back to the JA spine for languages that don't
- *  declare their own (so the engine never crashes on an unknown id), but a
- *  course should always register its own tiers for accurate leveling. */
+/** Tiers for a language. THROWS for a language with no registered tiers:
+ *  the old silent JA fallback is what served Spanish learners the Japanese
+ *  module spine for six weeks (2026-08-19 audit). A selectable course must
+ *  register tiers; callers with a legitimately-optional need should ask
+ *  `hasSkillTiers` first. */
 export function getSkillTiers(languageId: string): readonly SkillTier[] {
-  return TIERS_BY_LANGUAGE[languageId] ?? JA_SKILL_TIERS;
+  const tiers = TIERS_BY_LANGUAGE[languageId];
+  if (!tiers) {
+    throw new Error(
+      `getSkillTiers: no skill tiers registered for "${languageId}" — ` +
+        "register them in TIERS_BY_LANGUAGE (placement/tiers.ts) before the " +
+        "language is placeable, or guard the call with hasSkillTiers()",
+    );
+  }
+  return tiers;
 }
 
 /** Is the language a first-class placement citizen (has its own tiers)? */

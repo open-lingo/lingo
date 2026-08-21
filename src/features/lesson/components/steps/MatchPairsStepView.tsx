@@ -275,7 +275,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
 /** Three small dots showing mistakes remaining. Solid accent = available,
  *  outlined muted = spent. No labels — Spencer's call: learners infer
  *  from the red flash on miss + the dot dimming. */
-function MistakeDots({ used, max }: { used: number; max: number }) {
+export function MistakeDots({ used, max }: { used: number; max: number }) {
   return (
     <div className="flex items-center gap-1.5 pt-1" aria-label={`${max - used} attempts left`}>
       {Array.from({ length: max }, (_, i) => {

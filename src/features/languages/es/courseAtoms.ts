@@ -31,46 +31,10 @@ import { ES_REVIEW_POOL } from "./esReviewPool";
 
 import { ES_M1_ATOMS } from "./curriculum/m1";
 import { ES_M2_ATOMS } from "./curriculum/m2";
-import { ES_M3_ATOMS } from "./curriculum/m3";
-import { ES_M4_ATOMS } from "./curriculum/m4";
-import { ES_M5_ATOMS } from "./curriculum/m5";
-import { ES_M6_ATOMS } from "./curriculum/m6";
-import { ES_M7_ATOMS } from "./curriculum/m7";
-import { ES_M8_ATOMS } from "./curriculum/m8";
-import { ES_M9_ATOMS } from "./curriculum/m9";
-import { ES_M10_ATOMS } from "./curriculum/m10";
-import { ES_M11_ATOMS } from "./curriculum/m11";
-import { ES_M12_ATOMS } from "./curriculum/m12";
-import { ES_M13_ATOMS } from "./curriculum/m13";
-import { ES_M14_ATOMS } from "./curriculum/m14";
-import { ES_M15_ATOMS } from "./curriculum/m15";
-import { ES_M16_ATOMS } from "./curriculum/m16";
-import { ES_M17_ATOMS } from "./curriculum/m17";
-import { ES_M18_ATOMS } from "./curriculum/m18";
-import { ES_M19_ATOMS } from "./curriculum/m19";
 
 export type EsAtomKind = "vocab" | "particle" | "phrase";
 
-export type EsAtomSource =
-  | "m1"
-  | "m2"
-  | "m3"
-  | "m4"
-  | "m5"
-  | "m6"
-  | "m7"
-  | "m8"
-  | "m9"
-  | "m10"
-  | "m11"
-  | "m12"
-  | "m13"
-  | "m14"
-  | "m15"
-  | "m16"
-  | "m17"
-  | "m18"
-  | "m19";
+export type EsAtomSource = "m1" | "m2";
 
 /** ES-specific atom shape — Latin script + gender for the agreement engines. */
 export type EsAtom = Atom & {
@@ -200,23 +164,6 @@ export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
   return (_esCourseAtoms ??= [
     ...ES_M1_ATOMS,
     ...ES_M2_ATOMS,
-    ...ES_M3_ATOMS,
-    ...ES_M4_ATOMS,
-    ...ES_M5_ATOMS,
-    ...ES_M6_ATOMS,
-    ...ES_M7_ATOMS,
-    ...ES_M8_ATOMS,
-    ...ES_M9_ATOMS,
-    ...ES_M10_ATOMS,
-    ...ES_M11_ATOMS,
-    ...ES_M12_ATOMS,
-    ...ES_M13_ATOMS,
-    ...ES_M14_ATOMS,
-    ...ES_M15_ATOMS,
-    ...ES_M16_ATOMS,
-    ...ES_M17_ATOMS,
-    ...ES_M18_ATOMS,
-    ...ES_M19_ATOMS,
   ]);
 }
 

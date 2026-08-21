@@ -1025,7 +1025,7 @@ export function getLanguageConfig(
 export const LANGUAGES = Object.values(LANGUAGE_CONFIGS);
 
 /** Languages that currently have content (flashcards, stories, etc). Only these appear in the learning language selector. */
-export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja", "es"] as const;
+export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja", "es", "fr"] as const;
 export const AVAILABLE_LEARNING_LANGUAGES = LANGUAGES.filter((l) =>
   (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(l.id),
 );

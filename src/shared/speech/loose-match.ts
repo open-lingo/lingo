@@ -317,6 +317,53 @@ export function numbersToKorean(s: string, target: string): string {
   });
 }
 
+/**
+ * ES/FR analog of {@link numbersToKorean}. Whisper inverse-text-normalizes
+ * counted Romance-language numbers too — say «un deux trois quatre» and the
+ * transcript comes back "1 2 3 4" (fr m1 L4 walk, 2026-08-21), which then
+ * never matches the word target.
+ *
+ * Same contract as the Korean fix: digits→words ONLY, target-aware — each
+ * digit token becomes whichever candidate word the TARGET contains (es «uno»
+ * and fr «un» collapse to the same digit), and stays a digit when the target
+ * has none of them (no false match, and a no-op for other languages).
+ * Candidates are ordered longest-first so es «uno» wins over fr «un» when a
+ * target contains both spellings.
+ */
+const ROMANCE_NUMBER_WORDS: ReadonlyArray<readonly string[]> = [
+  ["cero", "zéro"],
+  ["uno", "una", "une", "un"],
+  ["deux", "dos"],
+  ["trois", "tres"],
+  ["cuatro", "quatre"],
+  ["cinco", "cinq"],
+  ["seis", "six"],
+  ["siete", "sept"],
+  ["ocho", "huit"],
+  ["nueve", "neuf"],
+  ["diez", "dix"],
+  ["once", "onze"],
+  ["doce", "douze"],
+  ["trece", "treize"],
+  ["catorce", "quatorze"],
+  ["quince", "quinze"],
+  ["dieciséis", "seize"],
+  ["diecisiete", "dix-sept"],
+  ["dieciocho", "dix-huit"],
+  ["diecinueve", "dix-neuf"],
+  ["veinte", "vingt"],
+];
+
+const ROMANCE_DIGIT_RE = /[0-9]{1,2}/g;
+
+export function numbersToRomance(s: string, target: string): string {
+  return s.replace(ROMANCE_DIGIT_RE, (tok) => {
+    const words = ROMANCE_NUMBER_WORDS[Number(tok)];
+    if (!words) return tok;
+    return words.find((w) => target.includes(w)) ?? tok;
+  });
+}
+
 export function normalizeForCompare(s: string, target: string): string {
   if (!s) return "";
 
@@ -784,9 +831,13 @@ export function scoreAlternativesGeneric(
 ): MatchResult {
   const targetNorm = normalizeGeneric(target);
   const scored: AlternativeScore[] = alternatives.map((a) => {
-    // Whisper renders spoken Korean numbers as digits; map them back to the
-    // reading the target uses (native hour vs Sino minute) before comparing.
-    const normalized = normalizeGeneric(numbersToKorean(a.transcript, target));
+    // Whisper renders spoken numbers as digits; map them back to the
+    // reading the target uses (KO native hour vs Sino minute; es «uno» vs
+    // fr «un») before comparing. Both converters are target-aware no-ops
+    // for other languages, so chaining them is safe.
+    const normalized = normalizeGeneric(
+      numbersToRomance(numbersToKorean(a.transcript, target), target),
+    );
     let score: number;
     if (!normalized || !targetNorm) score = 0;
     else if (normalized === targetNorm) score = 1;
