@@ -26,14 +26,14 @@ guide or the compiler, not the modules one at a time.**
 | m22 | 234 | 10.1% | 11 | — | 1 |
 | m23 | 234 | 10.4% | 12 | — | 1 |
 | m24 | 234 | 9.7% | 10 | — | 1 |
-| m25 | 234 | 9.8% | 11 | — | 1 |
+| m25 | 234 | 9.9% | 11 | — | 1 |
 | m26 | 234 | 10.1% | 11 | — | 1 |
 | m27 | 234 | 9.9% | 11 | — | 1 |
 | m28 | 234 | 9.6% | 12 | — | 1 |
 | m29 | 234 | 5.3% | 11 | — | 1 |
 | m30 | 235 | 10.0% | 12 | — | 1 |
 | m31 | 239 | 10.3% | 12 | — | 1 |
-| m32 | 268 | 11.9% | 12 | — | 1 |
+| m32 | 270 | 11.9% | 12 | 1 | 1 |
 | m33 | 266 | 9.8% | 12 | — | 1 |
 
 ## Systemic — fix upstream, not per module
@@ -45,3 +45,7 @@ single module can fix them. `findings` = 0 means that module is clean.
   - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
 
 ## Findings by module
+
+### m32
+
+- **inv 30/33/37 debut-step-type** — "ねる" first appears on `listening_build` (ja-m32-neo-1-s-2)

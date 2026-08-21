@@ -30,6 +30,7 @@
  *   shisa-70b  55s for 12, 100% unique-and-legal, genuinely apt pairings
  *              (doctor→medicine, friend→present). Slower, better. Default.
  */
+import { readFileSync } from "node:fs";
 import { taughtBefore, atomsByKana, semanticPools, giftable, pool } from "./inventory.mjs";
 import { FRAMES, toBeat, beatYaml } from "./frames.mjs";
 
@@ -59,6 +60,22 @@ const PER = Number(flag("per", 4));
 const ROUNDS = Number(flag("rounds", 3));
 
 const frame = FRAMES[moduleId];
+/**
+ * The module's own declared register drives which builder `toBeat` uses. Read
+ * from the IR rather than hardcoded, because the answer differs per module —
+ * and read with a regex rather than a YAML parse because this is the only
+ * field this script needs from the source file.
+ *
+ * Defaults to "plain" when the field is absent: that is the course's baseline
+ * (25 of 26 IR modules) and the safe direction to fail in, since a polite draft
+ * in a plain module is a hard test failure while a plain draft in a mixed
+ * module is merely under-varied.
+ */
+const REGISTER =
+  (readFileSync(
+    new URL(`../../src/features/languages/ja/curriculum/ir/${moduleId}.ir.yaml`, import.meta.url),
+    "utf8",
+  ).match(/^register:\s*(\w+)/m)?.[1]) ?? "plain";
 const taught = taughtBefore(moduleId);
 const pools = semanticPools();
 const atoms = atomsByKana();
@@ -103,7 +120,16 @@ ${variant.hintJa}
 
 場面として自然で、おたがいに違う組み合わせを${PER}個選んでください。
 「だれが、だれに、なにを」が現実にありそうな組み合わせにしてください。
-en には、自然な英訳を書いてください。`;
+
+en には自然な英訳を書いてください。ただし日本語は【非過去形】なので、英訳も
+かならず現在形か未来形にしてください。"gave" "received" "got" は使わないで
+ください。（正しい例: "I'll give my friend a present" / "my friend gives me
+sweets"。まちがった例: "my friend gave me a present"。）${
+    variant.verb === "もらう"
+      ? `\nまた「${variant.verb}」の英訳は、かならず【受け取る人】を主語にして
+ください。"I get X from Y" は正しく、"Y gives me X" はまちがいです。`
+      : ""
+  }`;
 
   const schema = {
     type: "object",
@@ -167,7 +193,7 @@ for (let r = 0; r < ROUNDS; r++) {
     tout += b.out;
     for (const it of b.items) {
       produced++;
-      const errs = frame.check(it);
+      const errs = frame.check(it, b.v);
       if (errs.length) { rejected++; continue; }
       const filled = {
         ...it,
@@ -175,7 +201,7 @@ for (let r = 0; r < ROUNDS; r++) {
         glossR: glossOf(it.receiver),
         glossO: glossOf(it.object),
       };
-      const beat = toBeat(b.v, filled, kept.length);
+      const beat = toBeat(b.v, filled, kept.length, REGISTER);
       if (seen.has(beat.ja)) continue;
       seen.add(beat.ja);
       kept.push({ ...beat, verb: b.v.verb });

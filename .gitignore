@@ -207,3 +207,4 @@ scripts/data/ko-frequency-raw/
 # These are INPUT to a verification pass, never content. Regenerate with
 # scripts/draft/batch-es.mjs rather than committing a snapshot.
 scripts/draft/drafts/
+.tsbuildinfo-gate

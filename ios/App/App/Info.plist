@@ -2,12 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CAPACITOR_DEBUG</key>
+	<key>CAPACITOR_DEBUG</key>
 	<string>$(CAPACITOR_DEBUG)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>Open Lingo</string>
+	<string>Open Lingo</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,18 +20,6 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<!--
-		Registers `com.openlingo.app://` so iOS hands Auth0's redirect back to
-		this app instead of dropping it. Without this the login sheet succeeds,
-		the deep link goes nowhere, and the app stays anonymous with no error.
-		The scheme MUST equal `appId` in capacitor.config.ts / `NATIVE_APP_ID`
-		in src/shared/platform/native.ts — `native.test.ts` guards that pair.
-		`cap sync` does not add this; it is hand-maintained.
-	-->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -43,41 +31,32 @@
 			</array>
 		</dict>
 	</array>
-	<!--
-		The speaking step records the learner and transcribes on-device
-		(shared/speech/audioCapture.ts -> getUserMedia). iOS TERMINATES the app
-		the instant getUserMedia is called with no usage description present —
-		it is a hard crash, not a denied permission, so it cannot be handled in
-		JS. Wording is user-visible in the system prompt.
-	-->
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Open Lingo uses the microphone so you can practise speaking. Recordings are transcribed on your device and are not uploaded.</string>
-	<!--
-		`webkitSpeechRecognition` (shared/speech/useSpeechRecognition.ts, the
-		non-Whisper path used by /speech-tune) routes audio through Apple's
-		speech service on iOS and needs its own description alongside the mic
-		one, or that call site crashes the same way.
-	-->
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Open Lingo uses speech recognition to check your pronunciation against the lesson.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
-    <false/>
-    <key>UISceneConfigurations</key>
-    <dict>
-      <key>UIWindowSceneSessionRoleApplication</key>
-      <array>
-        <dict>
-            <key>UISceneConfigurationName</key>
-            <string>Default Configuration</string>
-            <key>UISceneDelegateClassName</key>
-            <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-            <key>UISceneStoryboardFile</key>
-            <string>Main</string>
-        </dict>
-      </array>
-    </dict>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
 	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

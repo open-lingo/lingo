@@ -755,3 +755,41 @@ PLAN (Explore agent mapped the surface — full report in transcript):
    docs/PROJECT_STATE.md update.
 8. Full vitest + tsc green → stage explicit paths (lingo + lingo-data decks/
    manifests/tts-publish). Commit only on Spencer's word.
+
+## PM(20) — 2026-08-21 · PROMOTION COMPLETE
+
+Everything in PM(19)'s plan landed. The §13 m1/m2 are the REAL es and fr
+courses; the July/August IR waves live in each language's
+`curriculum/_archive/` (READMEs carry the ruling). Headlines:
+- es: 19 modules archived; new curriculum/m1.ts (9 lessons, reused July
+  atom list + placement) + m2.ts (10 lessons, 22 authored atoms, fresh
+  placement); index/courseAtoms/placementBank/ES_MODULE_ORDER/tiers/
+  milestones all trimmed to m1/m2. esReviewPool regenerated (47 atoms).
+- fr: IR m1 archived; new m1.ts (+bon/soir/et/ou/café atoms) + m2.ts (19
+  atoms); FR_SKILL_TIERS added (was a live crash: fr selectable with no
+  tiers). Course decks re-emitted (es 346 / fr 126 cards).
+- Gates taught the doctrine, not weakened: audio-prompted wimcq exempt
+  from inv 44 + counted right in inv 24; 2-option both-taught clozes are
+  discrimination trials (E2 exemption); word_map is intro-capable and its
+  tokens collected (fr); kana display shadowed by audioText not demanded
+  as clips; es-quality + fr-quality rewritten to the §13 contract
+  (checkpoint zero-new at declared index, mastery ends on sim, no typed
+  translate, tile+spoken production, 60% cross-module review floor);
+  moduleContentLints/barGuards take expectedLessonCount / derive mastery.
+- Dev protos DELETED; their 4 test suites ported into curriculum
+  (m1/m2.test.ts es, fr-doctrine.test.ts). QA routes now serve the
+  PROMOTED lessons through getMockLessonContent (real render pipeline).
+  Learner-view emitters repointed at curriculum.
+- Counting audio comma-paced ("uno, dos, tres"), 10 clips additive.
+  Denise audition PASSED (Spencer). Sam/New York/Inès in both cast lists.
+- Suite: 10,194 passed / 4 pre-existing failures in docClaimGuards (the
+  concurrent session's CLAUDE.md rewrite dropped the XP phrasings — NOT
+  ours). tsc clean.
+- STAGED: lingo 226 files (explicit paths; concurrent session's files
+  untouched: CLAUDE.md*, docs/INDEX.md, docs/reports/authoring-audit.md,
+  ios/*, scripts/draft/*). *CLAUDE.md carries my course-state paragraph
+  update but ALSO their full rewrite — left unstaged, needs an owner
+  decision. lingo-data: 5 files staged (decks + generate.py).
+- NOT DONE (next wave): IR emitters/factories for the new step kinds →
+  m3+ authoring; R9 engine backlog (speaking "later" affordance first).
+NO COMMIT yet — Spencer pulls that trigger.

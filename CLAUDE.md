@@ -28,9 +28,14 @@ product; volume is not.
   m3–m29 authored `ja-m*-neo-*` lessons compiled from YAML IR. The old course is
   ARCHIVED under `features/languages/ja/curriculum/_archive/` (planning reference
   only — imported by nothing; authoring agents never see it).
-- **Spanish, French — in progress.** FR is selectable since 2026-08-21; its spine
-  serves pipeline m1, with custom m1v2/m2 only at `/fr/qa` routes. See the
-  [[FR course state]] memory and the ES/FR authoring guides (via INDEX.md).
+- **Spanish, French — RESTARTED under the doctrine (guide §13, 2026-08-21).**
+  Both courses now serve the hand-authored, learner-sim-hardened m1/m2
+  (9+10 lessons each); the July/August IR waves are ARCHIVED under each
+  language's `curriculum/_archive/` (spine/word-list reference only). FR is
+  selectable (Denise voice auditioned and passed). `/:lang/qa/m1-lesson-1`
+  and `/:lang/qa/m2` walk the SAME promoted content through the real render
+  pipeline. m3+ re-authoring is the next wave (IR emitters for the new step
+  kinds first — see the ES guide §13 and [[FR course state]]).
 
 ---
 
@@ -52,6 +57,8 @@ product; volume is not.
   locked M8+ template). Read before any JA lesson-content change.
 - `docs/pedagogy-principles-2026-07-05.md` — linguistic framing rules (binding for
   what explanation content may claim).
+- `docs/course-design-learnings-2026-08-21.md` — cross-course build/gate/ship
+  laws distilled from the ES/FR restart.
 - `docs/retrospective-2026-07-17.md`; session handoffs at `docs/handoff-*.md`.
 - `docs/ARCHITECTURE_REVIEW_2026-06-14.md` — read before structural changes.
 - `docs/user-feedback/` — verbatim tester notes; read before UX-touching changes.
@@ -206,6 +213,8 @@ Full model: `docs/srs-scheduling-model-2026-06-15.md`; grammar deck spec
 - **XP is server-authoritative;** the client mirrors defaults for the pre-sync
   estimate (`xpRules.ts`). Keep it in sync with `XpEconomyConfig` defaults
   (`lingo-core/app/platform_settings/schemas.py`) or the estimate diverges.
+  Numbers (mirror of `xpRules.ts`, guarded by `docClaimGuards`): lesson
+  base 10, perfect +5, test/recap +10; levels are 500/level linear.
 - **Quests** advance via an async event pipeline (lingo-async), NOT inline in the
   progress handler — don't add synchronous quest writes.
 

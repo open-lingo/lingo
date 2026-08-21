@@ -92,8 +92,20 @@ export const m31 = {
       polite: "くれます",
       giverSide: "outside",
       receiverSide: "inside",
-      build: (g, r, o) => j(`${g}は`, `${r}に`, `${o}を`, "くれます"),
-      buildPlain: (g, r, o) => j(`${g}は`, `${r}に`, `${o}を`, "くれる"),
+      /**
+       * The receiver slot DISAPPEARS when it is わたし, and が replaces は on
+       * the giver. Both are the module's own payload, taught explicitly at the
+       * viewpoint lesson: くれる already says the thing came to my side, so
+       * 「わたしに」 is repeating what the verb said, and the giver is new
+       * information rather than a topic. Before this, every drafted くれる
+       * sentence read 「ともだちは わたしに ノートを くれる」 — grammatical,
+       * and the exact shape the module spends a lesson teaching you not to
+       * write. A frame can be correct and still be wrong for its module.
+       */
+      build: (g, r, o) =>
+        r === "わたし" ? j(`${g}が`, `${o}を`, "くれます") : j(`${g}は`, `${r}に`, `${o}を`, "くれます"),
+      buildPlain: (g, r, o) =>
+        r === "わたし" ? j(`${g}が`, `${o}を`, "くれる") : j(`${g}は`, `${r}に`, `${o}を`, "くれる"),
       enFallback: ({ glossG, glossR, glossO }) => `${glossG} gives ${glossO} to ${glossR}`,
       exercises: ["kureru", "ni-recipient", "wo-object"],
       hintJa: "くれる＝外の人から、わたし（や自分の家族）へ、ものが動きます。",
@@ -116,9 +128,24 @@ export const m31 = {
    * Residual checks. Everything the frame already guarantees is deliberately
    * absent here — this catches only what a narrowed pool cannot express.
    */
-  check({ giver, receiver }) {
+  check({ giver, receiver, en }, variant) {
     const errs = [];
     if (giver === receiver) errs.push("giver and receiver are the same person");
+    if (typeof en === "string" && en.trim() !== "") {
+      // GATE 8 / inv 17: a plain NON-PAST あげる/くれる/もらう glosses as intent
+      // or habit ("I'll give my friend a present", "my friend gives me
+      // sweets"), never as English past. The model reaches for "gave"
+      // constantly — 8 of the 23 sentences in the 2026-08-15 run were non-past
+      // Japanese under a past-tense gloss — and the frame cannot see it,
+      // because `en` is the one field the frame does not build.
+      if (/\b(gave|received|got|lent|borrowed)\b/i.test(en))
+        errs.push(`past-tense gloss on a non-past sentence: "${en}"`);
+      // inv 17 again: もらう is glossed from the RECEIVER's side. Flipping it to
+      // "X gives me Y" erases the one thing もらう teaches — that the receiver
+      // is the topic — and it is also just くれる's gloss on もらう's sentence.
+      if (variant?.verb === "もらう" && /\bgives?\s+(me|him|her|them|us)\b/i.test(en))
+        errs.push(`もらう glossed from the giver's side: "${en}"`);
+    }
     return errs;
   },
 };
@@ -139,11 +166,25 @@ export const FRAMES = { m31 };
  * the mix m30 uses rather than twelve identical build steps.
  */
 const MODES = ["build", "build", "listening", "build", "translate"];
-export function toBeat(variant, filled, i) {
+
+/**
+ * `register` picks which builder runs, and it defaults to PLAIN because that is
+ * what the course is: 25 of the 26 IR modules declare `register: plain` and only
+ * m29 declares `mixed`.
+ *
+ * This parameter did not exist until 2026-08-15 and `buildPlain` was dead code —
+ * `toBeat` called `variant.build` unconditionally, so every draft this harness
+ * has ever produced came out in ます-form. For m31 that is not a style
+ * preference but a hard failure: `m31-neo.test.ts:602` asserts that no polite
+ * form of the three verbs is registered or shipped, so 100% of the output was
+ * unusable and the only signal of it was reading the sentences.
+ */
+export function toBeat(variant, filled, i, register = "plain") {
   const { giver, receiver, object, en } = filled;
+  const build = register === "plain" ? variant.buildPlain : variant.build;
   return {
     kind: "sentence",
-    ja: variant.build(giver, receiver, object),
+    ja: build(giver, receiver, object),
     en: en ?? variant.enFallback(filled),
     exercises: variant.exercises,
     mode: MODES[i % MODES.length],
