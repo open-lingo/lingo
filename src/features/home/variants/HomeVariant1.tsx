@@ -198,7 +198,7 @@ function Hero({ data }: { data: HomeVariantData }) {
               hasBg ? "text-white/85" : "text-text-secondary",
             )}
           >
-            <Icon name="hand" size={16} aria-hidden className="shrink-0 text-warning" />
+            <Icon name="hand" size={18} aria-hidden className="shrink-0 text-warning" />
             <span className="truncate">
               Hi {data.name}
               <span className="hidden sm:inline"> · pick up where you left off</span>

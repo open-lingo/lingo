@@ -161,7 +161,7 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
                   ) : (
                     <span className="inline-flex items-center gap-1.5">
                       {!canAfford ? (
-                        <Icon name="lock" size={13} aria-hidden />
+                        <Icon name="lock" size={15} aria-hidden />
                       ) : null}
                       {t("adFree.shop.buy", { defaultValue: "Buy" })}
                       <span className="inline-flex items-center gap-0.5 font-bold">

@@ -2015,9 +2015,12 @@ export default function TransitLearnPage({
         }
         right={
           headerRight ?? (
+            // Classic view is retired on mobile — the vertical map is the only
+            // mobile learn surface. Desktop keeps the escape hatch (the toggle
+            // normally fills this slot; this fallback shows only if none is set).
             <Link
               to={p("learn/classic")}
-              className="rounded-md border border-border px-3 py-1 text-[12.5px] font-bold text-text-primary transition hover:bg-surface-muted"
+              className="hidden items-center rounded-md border border-border px-3 py-1 text-[12.5px] font-bold text-text-primary transition hover:bg-surface-muted md:inline-flex"
             >
               ← Classic view
             </Link>

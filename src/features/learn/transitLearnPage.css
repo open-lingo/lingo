@@ -568,7 +568,7 @@ a:focus-visible .tmc-d-stop {
 }
 .vnm-header-sub {
   font-size: 11px;
-  color: var(--vnm-muted);
+  color: #c3cae0;
 }
 .vnm-line {
   list-style: none;
@@ -725,7 +725,7 @@ a:focus-visible .tmc-d-stop {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 10px;
+  padding: 7px 12px;
   border-radius: 999px;
   background: var(--vnm-node-locked);
   border: 1.5px solid var(--vnm-spur, var(--vnm-line));
@@ -740,7 +740,7 @@ a:focus-visible .tmc-d-stop {
   border-color: var(--vnm-ahead);
 }
 .vnm-quest-soon {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
