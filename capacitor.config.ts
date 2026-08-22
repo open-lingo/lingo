@@ -16,7 +16,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * produces a web bundle whose auth can never redirect back into the app.
  */
 const config: CapacitorConfig = {
-  appId: "com.openlingo.app",
+  appId: "com.linguiversal.app",
   appName: "Open Lingo",
   webDir: "dist",
   ios: {

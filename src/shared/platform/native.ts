@@ -39,7 +39,7 @@ export const IS_NATIVE =
  * without dragging the CLI's types in. `native.test.ts` asserts the two are
  * identical — drift breaks login with an error message nobody can act on.
  */
-export const NATIVE_APP_ID = "com.openlingo.app";
+export const NATIVE_APP_ID = "com.linguiversal.app";
 
 /**
  * Auth0's callback URL for a Capacitor app.
