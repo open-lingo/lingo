@@ -198,7 +198,36 @@ describe("IR-introduced atoms: production-only exposure (recognition-gap ratchet
     // 4-persona image audit (🌗 read as night 2/2/2/2; 🚪 read as exit
     // 3/3/3/3) — production-only until R16 gives them a non-picture
     // recognition step.
-    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 32;
+    // 32 → 34, 2026-08-25 (m35 landing): measured 34 after registering m35's
+    // atoms. てつだう/おねがい/こまる/なおす/たすかる are newly on the list —
+    // all five are `blocked:true` per m35's own IR (no honest un-colliding
+    // emoji, or a pure state-verb no picture names), so their only graded
+    // exposure is the module's build_sentence beats. Same class as the
+    // m30/m31 backfill entries above: not new debt this wave chose to
+    // create — R16's teach-them backlog is where each gets a recognition
+    // beat (listening-comp / cloze-as-answer) added. Floor raised to the
+    // measured value, never lowered.
+    // 34 → 44, 2026-08-25 (m36 registration landing): measured 44 after
+    // registering m36's atoms. やわらかい, ふとる, やせる, ふべん, かなしい,
+    // さびしい, こわい, はずかしい, ねむい and かるい are newly on the list —
+    // all ten are `blocked:true` per m36's own IR (three failed emoji SVGs,
+    // one glyph collision, the rest abstract states with no honest picture),
+    // so their only graded exposure is the module's build_sentence beats.
+    // Same class as the m35 landing entry above: not new debt this wave
+    // chose to create — R16's teach-them backlog is where each gets a
+    // recognition beat added. Floor raised to the measured value, never
+    // lowered.
+    // 44 → 47, 2026-08-25 (m37 registration landing): measured 47 after
+    // registering m37's atoms. ひつよう, つごう, おくれる and ほど (p-hodo)
+    // are newly on the list — all four are `blocked:true` per m37's own IR
+    // (abstract nouns/timing verbs with no honest picture, and ほど follows
+    // the や/しか particle-row precedent of no image MCQ for function
+    // words), so their only graded exposure is the module's build_sentence
+    // beats. Same class as the m35/m36 landing entries above: not new debt
+    // this wave chose to create — R16's teach-them backlog is where each
+    // gets a recognition beat added. Floor raised to the measured value,
+    // never lowered.
+    const MAX_PRODUCTION_ONLY_INTRODUCED_ATOMS = 47;
     expect(
       offenders.length,
       `introduced atoms whose every graded exposure is production-only:\n` +

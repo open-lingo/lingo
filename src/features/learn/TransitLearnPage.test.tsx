@@ -129,10 +129,11 @@ describe("TransitLearnPage tier switcher", () => {
     // n5-only station titles must NOT appear on the n4 map.
     expect(screen.queryByText(/Plain sentences/)).toBeNull();
     // buildLayout's own-ZONE-1..3 split — n4's map starts its own ZONE 1.
-    // (only 2 n4 modules today, below buildLayout's stations.length >= 9
-    // floor for drawing zone chips — assert the underlying strings.zones
-    // wiring instead, which is what would render once n4 has 9+ stations.)
-    expect(screen.queryAllByText(/ZONE/).length).toBe(0);
+    // m38's registration landing (2026-08-25) brought n4 to 9 modules
+    // (m30-m38), crossing buildLayout's stations.length >= 9 floor for
+    // drawing zone chips for the first time — so the map now actually
+    // renders them, starting its own ZONE 1 rather than continuing n5's.
+    expect(screen.getAllByText(/ZONE 1/).length).toBeGreaterThan(0);
   });
 
   it("ja with no param/storage defaults to n5 for a fresh learner", () => {

@@ -78,21 +78,29 @@ describe("modulesForTier", () => {
     expect(modulesForTier(course, "n4").map((m) => m.id)).toEqual(["m29"]);
   });
 
-  it("real ja n4 line is m30 + m31 + m32 + m33, all authored and available", () => {
+  it("real ja n4 line is m30 + m31 + m32 + m33 + m34 + m35 + m36 + m37 + m38, all authored and available", () => {
     // The July m30 pilot was retired 2026-08-09 (spec A1); m30 = n4-01
     // 「て + helper I」 was authored 2026-08-14 (spec A3), m31 = n4-02
     // 「Give & receive I」 on 2026-08-15, m32 = n4-03 「Conditionals I:
-    // たら (と as the contrast)」 on 2026-08-18, and m33 = n4-04
-    // 「Transitivity I: 自動詞/他動詞 — が vs を」 on 2026-08-19. All four are
-    // REAL stations: no comingSoon flag, every lesson available. m33 runs 14
-    // lessons rather than 13 — nine transitivity pairs need a fourth teaching
-    // block — which inv 25 allows (hard floor 12, hard ceiling 15). The rest
-    // of the tier (m34-m51) is unauthored and not on the map yet. Tiles may
-    // also carry a story row, which is not a lesson — hence the kind filter.
-    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14 };
+    // たら (と as the contrast)」 on 2026-08-18, m33 = n4-04
+    // 「Transitivity I: 自動詞/他動詞 — が vs を」 on 2026-08-19, m34 = n4-05
+    // 「Volitional: よう/おう + とおもう, ことにする」 on 2026-08-24, m35 =
+    // n4-06 「Give & receive II: 〜てあげる/てくれる/てもらう + asking
+    // favors」, m36 = n4-07 「Looks like: 〜そう/がる/やすい・にくい/
+    // ながら」 (registration landing 2026-08-25), m37 = n4-08
+    // 「Conditionals II: ば + なら」 (registration landing 2026-08-25), and
+    // m38 = n4-09 「て + helper II: 〜てしまう/ちゃう + 〜ていく/〜てくる」
+    // (registration landing 2026-08-25). All nine are REAL stations: no
+    // comingSoon flag, every lesson available. m33 runs 14 lessons rather
+    // than 13 — nine transitivity pairs need a fourth teaching block — which
+    // inv 25 allows (hard floor 12, hard ceiling 15); m34-m38 run 12 (8
+    // teaching + 3 review + challenge). The rest of the tier (m39-m51) is
+    // unauthored and not on the map yet. Tiles may also carry a story row,
+    // which is not a lesson — hence the kind filter.
+    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14, m34: 12, m35: 12, m36: 12, m37: 12, m38: 12 };
     const ja = getMockCourse("ja");
     const n4 = modulesForTier(ja, "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33", "m34", "m35", "m36", "m37", "m38"]);
     for (const m of n4) {
       const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();

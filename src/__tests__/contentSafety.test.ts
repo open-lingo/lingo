@@ -90,7 +90,20 @@ const LIKES_A_PERSON = new RegExp(
  * Empty is the healthy state; adding one is a content decision, not a
  * way to quiet the lint.
  */
-const REVIEWED_EXEMPTIONS = new Map<string, string>();
+const REVIEWED_EXEMPTIONS = new Map<string, string>([
+  [
+    "がんばろう is the bare will — right for a friend like Mika. がんばります is the same promise in polite dress, for せんせい. がんばる is only the bare dictionary form, with no suggestion in it at all.",
+    "m34-neo-10 cloze explanation — a false positive on the PREPOSITION " +
+      '"like" ("a friend like Mika" = "a friend such as Mika"), not the verb ' +
+      "\"to like\"; nobody in the sentence likes or loves anybody.",
+  ],
+  [
+    "たい is first-person interior — わたし owns the wanting directly. いきたがっている describes someone ELSE's visible wanting-behavior; using it for yourself sounds like you're describing your own behavior from the outside.",
+    "m36-neo-5 cloze explanation — a false positive on the VERB-ADJACENT " +
+      '"sounds like you\'re" (= "seems as if"), not the verb "to like"; ' +
+      "nobody in the sentence likes anybody.",
+  ],
+]);
 
 /**
  * Every string value anywhere in a step tree, tagged with its lesson.

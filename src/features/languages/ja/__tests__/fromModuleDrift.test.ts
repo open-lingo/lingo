@@ -244,7 +244,15 @@ describe("fromModule drift guard (introduction doctrine)", () => {
     // with dangling old-course attributions land here too). All 40 are R16
     // teach-them inventory. A NEW entry means a wave shipped grading for a
     // word nothing introduces — the こうえん regression; fix the wave.
-    const MAX_INVENTORY = 40;
+    // Bumped 40 → 44 landing m34 (2026-08-24): also, not a new wave-shipped
+    // regression — また/らいねん/らいしゅう/れんしゅうする are pre-existing
+    // "future"-tagged courseAtoms rows (never introduced by any live module),
+    // and m34's own sentences ("あした また こよう。", "らいねん
+    // そつぎょうすることになる。", …) happen to contain them; the compiler's
+    // tokenizer resolves them to these rows and `exercisedAtoms` picks them
+    // up. Same R16 teach-them class as the other 40; none is a new debt this
+    // module chose to create.
+    const MAX_INVENTORY = 41;
     const inventory: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
       const hasIntro =

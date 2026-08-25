@@ -1,0 +1,524 @@
+module: m38
+title: "て + helper II: 〜てしまう/ちゃう + 〜ていく/〜てくる"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku]
+notes: |
+  m38 · n4-09 — て + HELPER II (docs/spine-n4.md §m38). The second helper
+  beat, eight modules after m30, per the spiral spacing rule — and it waits
+  this long for a content reason: てしまう's regret reading only exists over
+  past events, and its natural spends are mistakes and losses, which the
+  learner could not narrate until た, なかった, から/ので were all fluent.
+  Placed immediately before passive (m40) so "something bad happened to me"
+  will have two grammars to reach for.
+
+  OPENS WITH THE MANDATORY REHASH (spine: "same schema, eight modules on"):
+  the m30 slot — a て-form with an ordinary verb parked behind it, meaning
+  worn away — restated in 60 seconds before the first new helper. The three
+  helpers here obey every rule みる/おく taught: glued to the て-form,
+  carrying all the tense, kana always.
+
+  WHAT IS TAUGHT:
+  1. **〜てしまう, completion (L1):** しまう is "to put away"; behind a
+     て-form its meaning wears down to COMPLETELY, THROUGH, DONE —
+     ぜんぶ たべてしまった, ate it all up. Pride or plainness, no shadow.
+  2. **〜てしまう, regret (L2), contrasted ON THE SAME VERB (the spine's
+     own emphasis):** the identical surface reads as "went and did / it
+     slipped out" when the content is a loss or a mistake — かぎを
+     なくしてしまった. The TELL is the verb and its object, not the form:
+     ぜんぶ たべてしまった (proud, at dinner) vs ともだちの ケーキを
+     たべてしまった (sorry, someone else's cake). One beat pair carries
+     this and the whole lesson orbits it.
+  3. **ちゃう / じゃう as PRODUCTION (L3):** the majority casual form in
+     the spoken corpora this course optimizes for (CEJC), so it is drilled
+     as production, not shown as trivia: てしまう→ちゃう (たべちゃった),
+     でしまう→じゃう (のんじゃった). The learner has been in plain form
+     since m3; this is just its newest contraction, same as なきゃ (m28)
+     and とく (m30).
+  4. **〜ていく / 〜てくる in SPACE (L5/L6):** the viewpoint anchor the
+     learner has owned since m19's motion particles, glued behind て:
+     もっていく take (away from here), もってくる bring (toward here);
+     for people, つれていく / つれてくる — the vocabulary deferred from
+     m35 precisely because THIS is its natural frame. くる's irregular
+     て-chain gets its own beat: きて → もってきて.
+  5. **〜てくる / 〜ていく in TIME (L7) — the half textbooks under-teach,
+     per the spine:** change arriving up to now (ふえてきた, it has been
+     increasing) vs change heading onward (かわっていく, it will go on
+     changing). Taught over ふえる/へる/かわる with weather and prices —
+     things the learner can watch move.
+
+  DIALOGUE_SIM ×2:
+    - L3, the confession: you broke/lost something of Mika's — てしまった/
+      ちゃった is HOW Japanese confesses, and the sim runs the speech act
+      (confess, then make it right with m35's favor machinery).
+    - L10, the errand: party prep with Ken — なにを もっていく？ what to
+      take, what to bring back (かってくる), whom to bring along
+      (つれてくる) — the trajectory system doing real logistics.
+
+  VOCAB (spine must/prefer): おとす/こわれる? — CHECK the pack: おちる/
+  おとす taught m33; こわれる/こわす were "neither taught" in m33-prep.
+  New here: なくす (u, lose), こわす (u, break something), こわれる (ru,
+  break of itself — the m33 doctrine's pair, taught late on purpose),
+  ふえる (ru, increase), へる (u, decrease), かわる (u, change of itself —
+  pairs with taught かえる? CHECK homograph かえる "go home"! かわる is
+  safe, かえる collision risk in derived forms — flag for expansion),
+  なれる (ru, get used to), まちがえる (ru, get wrong), もどる (u, go
+  back — もどってくる), つれる (ru, take someone along — DEFERRED FROM
+  m35). CUT: のこる/たりる/すすむ/とちゅう/しまう-as-vocab (the helper is
+  grammar; the literal verb can wait). Sidequest untouched.
+
+  TOKENIZER: every helper surface is ledgered (なくしてしまった cannot be
+  found inside なくす) — but NOTE the m30 convention and the 2026-08-24
+  build-tile guard: helpers are written CLOSED and tiles stay kana via the
+  auxiliary-position suppression, which covers てしまう/ていく/てくる
+  automatically (orthography-driven, no lemma list). ちゃう/じゃう
+  contractions are single-token surfaces (たべちゃった) — ledger each.
+  Avoid だけど everywhere (m35 だけ landmine).
+
+grammarPoints:
+  - id: te-shimau
+    variant: completion
+    rule: "Module 30 taught you the slot: a て-form with an ordinary verb parked behind it, its meaning worn away. Here is the second resident. しまう on its own means to put away, to stow; behind a て-form it wears down to COMPLETELY — done, through, all of it. 「ぜんぶ たべてしまった」: ate it all up, nothing left. 「しゅくだいを してしまった」: homework finished, off the desk, put away. Everything you know about the slot carries over unchanged — glued to the て-form, carries all the tense, stays in kana. What is new is only the flavor: an action taken all the way to its end."
+    examples:
+      - { ja: "ぜんぶ たべてしまった。", en: "I ate it all up." }
+      - { ja: "しゅくだいを してしまった。", en: "I got my homework completely done." }
+      - { ja: "この ほんは きょう よんでしまう。", en: "I'll finish this book today." }
+    antiPattern: { ja: "ぜんぶ たべるしまった。", why: "the helper parks behind the て-form, never the dictionary form — the slot's oldest rule: たべて + しまった. たべてしまった." }
+
+  - id: te-shimau
+    variant: regret
+    rule: "Now the same surface, second reading. When what got completed is a LOSS or a MISTAKE, てしまった stops sounding proud and starts sounding sorry: 「かぎを なくしてしまった」 — I went and lost the key. 「ともだちの ケーキを たべてしまった」 — I ate my friend's cake, and the form itself winces. Nothing in the grammar changed; the TELL is the content. ぜんぶ たべてしまった at your own dinner is satisfaction; the same verb pointed at somebody else's cake is a confession. Japanese leans on this constantly — てしまった is how the language says \"it slipped out, it went and happened\" — and module 40's passive will give you a second grammar for the same wince."
+    examples:
+      - { ja: "かぎを なくしてしまった。", en: "I went and lost the key." }
+      - { ja: "ともだちの ケーキを たべてしまった。", en: "I (regrettably) ate my friend's cake." }
+      - { ja: "でんしゃの なかで ねてしまった。", en: "I fell asleep on the train." }
+    antiPattern: { ja: "かぎを なくしてしまいたい。", why: "the regret reading lives over things that HAPPENED — た-shaped. Wanting to lose the key on purpose (〜たい) contradicts the form's whole wince: なくしてしまった." }
+
+  - id: chau
+    rule: "What people actually say. てしまう contracts to ちゃう, でしまう contracts to じゃう, and in casual speech the contraction is the MAJORITY form — たべちゃった for たべてしまった, のんじゃった for のんでしまった, なくしちゃった for なくしてしまった. Both readings come along: completion (ぜんぶ たべちゃった) and the wince (ケーキ たべちゃった…). You have met this move twice: なければ→なきゃ (module 28), ておく→とく (module 30). Same law: the contraction is not slang bolted on, it is the spoken shape of the exact grammar you already own, and you drill it as production because that is what your friends will say and expect back."
+    examples:
+      - { ja: "コーヒーを のんじゃった。", en: "I drank the coffee (all of it / oops)." }
+      - { ja: "ぜんぶ たべちゃった。", en: "I ate it all up." }
+      - { ja: "かぎを なくしちゃった。", en: "I went and lost the key." }
+    antiPattern: { ja: "コーヒーを のんちゃった。", why: "the contraction follows the て-form's own sound: のんで + しまう fuses to のんじゃう, voiced like its で. のんじゃった." }
+
+  - id: te-iku-kuru-space
+    rule: "いく and くる have anchored you in space since module 19: いく moves away from here, くる moves toward here. Park them behind a て-form and the anchor comes with them: 「かさを もっていく」 — take the umbrella (carry it AWAY with you); 「かさを もってくる」 — bring it (carry it TOWARD here). For people, Japanese uses つれる: 「いもうとを つれていく」 take my sister along, 「ともだちを つれてくる」 bring a friend. English take/bring is exactly this split, so for once your instinct maps straight on. The helper keeps every slot rule — glued, tense-carrying, kana."
+    examples:
+      - { ja: "かさを もっていく。", en: "I'll take an umbrella." }
+      - { ja: "あした おかしを もってくる。", en: "I'll bring sweets tomorrow." }
+      - { ja: "ともだちを つれてくる。", en: "I'll bring a friend along." }
+    antiPattern: { ja: "ともだちを もってくる。", why: "もつ carries THINGS — people are not carried, they are led along: つれてくる. The pair does the same trajectory work, split by what travels." }
+
+  - id: kite-chain
+    rule: "One bump to smooth while the trajectory system is fresh: くる's て-form is きて — the irregular you have known since module 8 — and it keeps being きて inside every chain built on it. 「もってきて」: bring it here, please (もって + きて + the bare-て request from module 35's ladder). 「つれてきて」: bring them along. Learners who autopilot くって or こって break the only truly irregular verb in the system; say the chain out loud until きて is automatic."
+    examples:
+      - { ja: "みずを もってきて。", en: "Bring me some water." }
+      - { ja: "あした ともだちを つれてきて。", en: "Bring your friend along tomorrow." }
+    antiPattern: { ja: "みずを もってくって。", why: "くる is irregular everywhere it appears — its て-form is きて, inside chains too: もってきて." }
+
+  - id: te-kuru-iku-time
+    rule: "The half of the trajectory system textbooks skip: it works in TIME. てくる is change that has been arriving — up to now, toward the present: 「さむく なってきた」, it has been getting cold (and here we are, in it). ていく is change heading onward — from now, away into the future: 「これから さむく なっていく」, it is going to go on getting colder. Same anchor as space: くる toward here-and-now, いく away from it. Watch prices, weather, your own Japanese: ふえてきた (has been increasing), へっていく (will keep decreasing), かわっていく (will go on changing). Once you hear time flowing through いく and くる, half of written Japanese opens up."
+    examples:
+      - { ja: "さむく なってきた。", en: "It's been getting cold." }
+      - { ja: "にほんごが じょうずに なってきた。", en: "My Japanese has been getting better." }
+      - { ja: "まちは かわっていく。", en: "The town will go on changing." }
+    antiPattern: { ja: "あしたから さむく なってきた。", why: "てくる runs UP TO the present — it cannot start tomorrow. Change heading onward takes ていく: あしたから さむく なっていく." }
+
+newAtoms:
+  # ══ Verbs (VERIFY each against docs/context/m38-context.md when generated;
+  #    かわる: check no derived-form collision with かえる "go home").
+  - { kana: なくす, romaji: nakusu, gloss: "to lose (something)", shortGloss: "lose", imageable: false, kind: verb, verbClass: u }
+  - { kana: こわす, romaji: kowasu, gloss: "to break (something)", shortGloss: "break (it)", imageable: false, kind: verb, verbClass: u }
+  - { kana: こわれる, romaji: kowareru, gloss: "to break (of itself)", shortGloss: "break (it does)", imageable: false, kind: verb, verbClass: ru }
+  - { kana: ふえる, romaji: fueru, gloss: "to increase (of itself)", shortGloss: "increase", imageable: false, kind: verb, verbClass: ru }
+  - { kana: へる, romaji: heru, gloss: "to decrease (of itself)", shortGloss: "decrease", imageable: false, kind: verb, verbClass: u }
+  - { kana: かわる, romaji: kawaru, gloss: "to change (of itself)", shortGloss: "change", imageable: false, kind: verb, verbClass: u }
+  - { kana: なれる, romaji: nareru, gloss: "to get used to", shortGloss: "get used to", imageable: false, kind: verb, verbClass: ru }
+  - { kana: まちがえる, romaji: machigaeru, gloss: "to get (something) wrong", shortGloss: "get wrong", imageable: false, kind: verb, verbClass: ru }
+  - { kana: もどる, romaji: modoru, gloss: "to go back, to return (to a place)", shortGloss: "go back", imageable: false, kind: verb, verbClass: u }
+  - { kana: つれる, romaji: tsureru, gloss: "to take (someone) along", shortGloss: "take along", imageable: false, kind: verb, verbClass: ru }
+  # ══ Helper/contraction surfaces the beats use (EXPANSION AGENT: exact-match
+  #    discipline; this is a seed list, extend/trim to usage).
+  - { kana: なくして, romaji: nakushite, gloss: "lose, and… (lose, te-form)", shortGloss: "lose (te)", imageable: false, kind: verb-form, derivedFrom: なくす, verbClass: u }
+  - { kana: なくしてしまった, romaji: nakushiteshimatta, gloss: "went and lost it", shortGloss: "lose it all", imageable: false, kind: verb-form, derivedFrom: なくす, verbClass: u }
+  - { kana: なくしちゃった, romaji: nakushichatta, gloss: "went and lost it (casual)", shortGloss: "lose it (casual)", imageable: false, kind: verb-form, derivedFrom: なくす, verbClass: u }
+  - { kana: たべてしまった, romaji: tabeteshimatta, gloss: "ate it all up / went and ate it", shortGloss: "eat it up", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: たべちゃった, romaji: tabechatta, gloss: "ate it up (casual)", shortGloss: "eat it up (casual)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: のんじゃった, romaji: nonjatta, gloss: "drank it up (casual)", shortGloss: "drink it (casual)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
+  - { kana: してしまった, romaji: shiteshimatta, gloss: "got it completely done", shortGloss: "make it happen", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: よんでしまう, romaji: yondeshimau, gloss: "will finish reading", shortGloss: "read it all", imageable: false, kind: verb-form, derivedFrom: よむ, verbClass: u }
+  - { kana: ねてしまった, romaji: neteshimatta, gloss: "fell asleep (it happened)", shortGloss: "sleep, oops", imageable: false, kind: verb-form, derivedFrom: ねる, verbClass: ru }
+  - { kana: こわしちゃった, romaji: kowashichatta, gloss: "went and broke it (casual)", shortGloss: "break it (casual)", imageable: false, kind: verb-form, derivedFrom: こわす, verbClass: u }
+  - { kana: こわれちゃった, romaji: kowarechatta, gloss: "went and broke, of itself (casual)", shortGloss: "break, it did (casual)", imageable: false, kind: verb-form, derivedFrom: こわれる, verbClass: ru }
+  - { kana: もっていく, romaji: motteiku, gloss: "to take (a thing) along", shortGloss: "take along (hold)", imageable: false, kind: verb-form, derivedFrom: もつ, verbClass: u }
+  - { kana: もってくる, romaji: mottekuru, gloss: "to bring (a thing)", shortGloss: "bring (hold)", imageable: false, kind: verb-form, derivedFrom: もつ, verbClass: u }
+  - { kana: もってきて, romaji: mottekite, gloss: "bring it here (request)", shortGloss: "bring it (hold)", imageable: false, kind: verb-form, derivedFrom: もつ, verbClass: u }
+  - { kana: つれていく, romaji: tsureteiku, gloss: "to take (someone) along", shortGloss: "take them (take)", imageable: false, kind: verb-form, derivedFrom: つれる, verbClass: ru }
+  - { kana: つれてくる, romaji: tsuretekuru, gloss: "to bring (someone) along", shortGloss: "bring them (take)", imageable: false, kind: verb-form, derivedFrom: つれる, verbClass: ru }
+  - { kana: つれてきて, romaji: tsuretekite, gloss: "bring them along (request)", shortGloss: "take, bring (te)", imageable: false, kind: verb-form, derivedFrom: つれる, verbClass: ru }
+  - { kana: なってきた, romaji: nattekita, gloss: "has been becoming", shortGloss: "has become lately", imageable: false, kind: verb-form, derivedFrom: なる, verbClass: u }
+  - { kana: なっていく, romaji: natteiku, gloss: "will go on becoming", shortGloss: "will become (on)", imageable: false, kind: verb-form, derivedFrom: なる, verbClass: u }
+  - { kana: ふえてきた, romaji: fuetekita, gloss: "has been increasing", shortGloss: "increase (lately)", imageable: false, kind: verb-form, derivedFrom: ふえる, verbClass: ru }
+  - { kana: へっていく, romaji: hetteiku, gloss: "will keep decreasing", shortGloss: "will decrease (on)", imageable: false, kind: verb-form, derivedFrom: へる, verbClass: u }
+  - { kana: かわっていく, romaji: kawatteiku, gloss: "will go on changing", shortGloss: "will change (on)", imageable: false, kind: verb-form, derivedFrom: かわる, verbClass: u }
+  # ══ Vocab context.md marks as THIS module's own (fromModule: "future" rows
+  #    in courseAtoms — not yet taught anywhere; treat as new here, same
+  #    ruling as なくす above).
+  - { kana: ぜんぶ, romaji: zenbu, gloss: "all, everything", shortGloss: "all of it", imageable: false, kind: vocab }
+  - { kana: かんじ, romaji: kanji, gloss: "Chinese character", shortGloss: "kanji", imageable: true, kind: vocab }
+  # ══ EXPANSION-STAGE additions (ledger discipline: exact-match to usage
+  #    below). Plain-past forms the tokenizer cannot derive live (no engine —
+  #    every conjugated surface used anywhere needs its own row), plus a few
+  #    more te-form/casual spends the lesson content needs.
+  - { kana: こわした, romaji: kowashita, gloss: "broke it (past)", shortGloss: "break it (did)", imageable: false, kind: verb-form, derivedFrom: こわす, verbClass: u }
+  - { kana: こわれた, romaji: kowareta, gloss: "broke, of itself (past)", shortGloss: "break, it did", imageable: false, kind: verb-form, derivedFrom: こわれる, verbClass: ru }
+  - { kana: こわしてしまった, romaji: kowashiteshimatta, gloss: "went and broke it", shortGloss: "break it, oops", imageable: false, kind: verb-form, derivedFrom: こわす, verbClass: u }
+  - { kana: まちがえちゃった, romaji: machigaechatta, gloss: "went and got it wrong (casual)", shortGloss: "get wrong (casual)", imageable: false, kind: verb-form, derivedFrom: まちがえる, verbClass: ru }
+  - { kana: なれてきた, romaji: naretekita, gloss: "have been getting used to (it)", shortGloss: "get used to it", imageable: false, kind: verb-form, derivedFrom: なれる, verbClass: ru }
+  - { kana: もどってくる, romaji: modottekuru, gloss: "to come back (to here)", shortGloss: "come back", imageable: false, kind: verb-form, derivedFrom: もどる, verbClass: u }
+  - { kana: かってくる, romaji: kattekuru, gloss: "to go buy and bring back", shortGloss: "buy and bring", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: さがして, romaji: sagashite, gloss: "look for, and… (look for, te-form)", shortGloss: "look for (te)", imageable: false, kind: verb-form, derivedFrom: さがす, verbClass: u }
+  - { kana: くれて, romaji: kurete, gloss: "give (to me), and… (give-to-me, te-form)", shortGloss: "give me (te)", imageable: false, kind: verb-form, derivedFrom: くれる, verbClass: ru }
+  - { kana: たすかった, romaji: tasukatta, gloss: "what a relief, I'm saved (past)", shortGloss: "saved!", imageable: false, kind: verb-form, derivedFrom: たすかる, verbClass: u }
+  - { kana: あった, romaji: atta, gloss: "there was, I had it (past of ある)", shortGloss: "have it!", imageable: false, kind: verb-form, derivedFrom: ある, verbClass: u }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-1
+    role: teaching
+    title: "「ぜんぶ たべてしまった」 — done, through, all of it"
+    focus: "The slot from m30, second resident: しまう behind a て-form means completely — and the 60-second rehash of the schema opens the module"
+    introduces: [ぜんぶ, たべてしまった, してしまった, よんでしまう]
+    beats:
+      # The m30 rehash lives in the rule card's own opening lines ("You have
+      # had the て-form since module 8... Here is the second resident") —
+      # this is a NEW grammarPointId/variant, not a repeat of an earlier m38
+      # card, so no `reteach: true` beat is needed (that flag is only for a
+      # SECOND showing of the same id+variant later in the module).
+      - { kind: rule, grammarPointId: te-shimau, variant: completion }
+      - { kind: sentence, ja: "ぜんぶ たべてしまった。", en: "I ate it all up", exercises: [te-shimau], mode: build }
+      - { kind: sentence, ja: "しゅくだいを してしまった。", en: "I got my homework completely done", exercises: [te-shimau, wo-object], mode: build }
+      - { kind: sentence, ja: "この ほんは きょう よんでしまう。", en: "I'll finish this book today", exercises: [te-shimau, ni-time], mode: build }
+      - { kind: particle-cloze, stem: "この りょうりを ", tail: "。", answer: "たべてしまった", options: ["たべてしまった", "たべるしまった", "たべた"], en: "I ate up this dish completely", explanation: "しまう parks behind the て-form only, never the dictionary form — たべて + しまった. たべるしまった breaks that rule, exactly the module's own antiPattern. たべた is just plain past, no completion-sense at all." }
+      - { kind: sentence, ja: "テストを ぜんぶ してしまった。", en: "I got the whole test completely done", exercises: [te-shimau, wo-object], mode: build }
+      - { kind: listening-comp, audio: "しゅくだいを してしまった。", answer: "I got my homework completely done", distractors: ["I'm going to do my homework", "I forgot my homework", "I need to do my homework"], q: "What does this mean?", explanation: "してしまった carries COMPLETION — homework, done and put away, nothing left." }
+      - { kind: kanji, kana: ほん, kanji: 本, distractors: ["ほんとう", "もと", "ぽん"], exercises: [te-shimau] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "しゅくだいは？", en: "What about the homework?" }
+          - { speaker: "Tom", ja: "もう してしまったよ。", en: "I already got it done." }
+          - { speaker: "Ken", ja: "はやいね。", en: "That's fast." }
+        questions:
+          - { q: "What does Tom say about his homework?", options: ["He already finished it", "He hasn't started it", "He forgot about it", "He needs help with it"], answer: "He already finished it" }
+      - { kind: challenge, ja: "しゅくだいを してしまったから、あそびに いける。", en: "I got my homework completely done, so I can go out and play", combines: [te-shimau, kara-because, ni-iku], mode: build }
+    reviewPool: [ごはん, しゅくだい, ほん, ケーキ, コーヒー, りょうり, えいが, おちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-2
+    role: teaching
+    title: "「なくしてしまった」 — the same form, wincing"
+    focus: "Loss or mistake in the content flips てしまった from proud to sorry — the SAME VERB carries both, and the tell is what got done"
+    introduces: [なくす, なくして, なくしてしまった, こわす, こわれる, ねてしまった]
+    beats:
+      - { kind: rule, grammarPointId: te-shimau, variant: regret }
+      - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau, wo-object], mode: build }
+      - { kind: sentence, ja: "さいふを なくしてしまった。", en: "I went and lost my wallet", exercises: [te-shimau, wo-object], mode: build }
+      - { kind: sentence, ja: "ぜんぶ たべてしまった。", en: "I ate it all up (my own dinner — proud)", exercises: [te-shimau], mode: build }
+      - { kind: sentence, ja: "ともだちの ケーキを たべてしまった。", en: "I (regrettably) ate my friend's cake", exercises: [te-shimau, no-possession, wo-object], mode: build }
+      - { kind: sentence, ja: "まどを こわした。", en: "I broke the window", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: sentence, ja: "まどが こわれた。", en: "The window broke (by itself)", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "かぎを ", tail: "。", answer: "なくしてしまった", options: ["なくしてしまった", "なくして", "なくしてしまいたい"], en: "I went and lost the key", explanation: "しまった carries the action all the way through — なくしてしまった. なくして alone stops mid-motion, the て-form with nothing parked behind it. なくしてしまいたい contradicts the wince itself — the regret reading only ever sits over things that already happened, never something you'd want." }
+      - { kind: listening-comp, audio: "でんしゃの なかで ねてしまった。", answer: "I fell asleep on the train", distractors: ["I woke up on the train", "I missed the train", "I read a book on the train"], q: "What does this mean?", explanation: "ねてしまった carries the same wince as なくしてしまった — falling asleep wasn't the plan." }
+      - { kind: kanji, kana: でんしゃ, kanji: 電車, distractors: ["でんくるま", "たきしゃ", "でんじゃ"], exercises: [te-shimau] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "とけいは？", en: "Where's the watch?" }
+          - { speaker: "Tom", ja: "なくしてしまった。ごめんなさい。", en: "I went and lost it. I'm sorry." }
+          - { speaker: "Mika", ja: "だいじょうぶだよ。", en: "It's okay." }
+        questions:
+          - { q: "What happened to the watch, according to Tom?", options: ["He lost it", "He broke it", "He sold it", "He gave it away"], answer: "He lost it" }
+      - { kind: challenge, ja: "まどを こわしてしまったから、あたらしい まどを かった。", en: "I went and broke the window, so I bought a new window", combines: [te-shimau, kara-because, ta-form], mode: build }
+    reviewPool: [かぎ, さいふ, ケーキ, でんしゃ, とけい, カメラ, まど, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-3
+    role: teaching
+    title: "「なくしちゃった」 — what people actually say"
+    focus: "てしまう contracts to ちゃう, でしまう to じゃう — the majority casual form, drilled as production like なきゃ and とく before it"
+    introduces: [たべちゃった, なくしちゃった, のんじゃった, こわしちゃった, こわれちゃった]
+    beats:
+      - { kind: rule, grammarPointId: chau }
+      - { kind: sentence, ja: "ぜんぶ たべちゃった。", en: "I ate it all up", exercises: [chau], mode: build }
+      - { kind: sentence, ja: "コーヒーを のんじゃった。", en: "I drank up the coffee", exercises: [chau, wo-object], mode: build }
+      - { kind: sentence, ja: "かぎを なくしちゃった。", en: "I went and lost the key (casual)", exercises: [chau, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "コーヒーを ", tail: "。", answer: "のんじゃった", options: ["のんじゃった", "のんちゃった", "のんで"], en: "I drank up the coffee (casual)", explanation: "でしまう voices to じゃう, following のんで's own voicing — のんで + しまう melts into のんじゃう. のんちゃった keeps the unvoiced ちゃ, which never follows an ん-ending stem. のんで alone is just the て-form, nothing finished parked behind it." }
+      - { kind: listening-comp, audio: "たべちゃった。", answer: "I ate it up (casual)", distractors: ["I'm going to eat it", "I didn't eat it", "I want to eat it"], q: "What does this mean?" }
+      - { kind: sentence, ja: "かさを こわしちゃった。", en: "I went and broke the umbrella (casual)", exercises: [chau, wo-object], mode: build }
+      - { kind: sentence, ja: "かさが こわれちゃった。", en: "The umbrella went and broke (casual, of itself)", exercises: [chau, ga-existence], mode: build }
+      - { kind: kanji, kana: あめ, kanji: 雨, distractors: ["あま", "う", "さめ"], exercises: [chau] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "けいたいは？", en: "Where's your phone?" }
+          - { speaker: "Tom", ja: "なくしちゃった。", en: "I went and lost it (casual)." }
+          - { speaker: "Ken", ja: "え、そう？", en: "Huh, really?" }
+        questions:
+          - { q: "What does Tom say happened to his phone?", options: ["He lost it", "He broke it", "He sold it", "He forgot it at home"], answer: "He lost it" }
+      - kind: sim
+        scene: { emoji: "☔", title: "Mika's umbrella", setting: "You borrowed Mika's umbrella yesterday. It did not survive." }
+        turns:
+          - npc: { speaker: "Mika", ja: "わたしの かさは？", en: "Where's my umbrella?" }
+            goal: "Confess — you went and broke it."
+            reply: { mode: build, tiles: ["ごめんなさい", "こわしちゃった", "こわした", "こわれちゃった"], answer: "ごめんなさい、こわしちゃった。" }
+            replyGloss: "I'm sorry — I went and broke it."
+            explanation: "こわしちゃった owns it: you did the breaking, and ちゃった carries the wince. こわれちゃった would report the umbrella breaking by itself — m33's other verb — which may be true, but it isn't a confession. Bare こわした states the fact with no sorry in it at all."
+          - npc: { speaker: "Mika", ja: "そうか。", en: "I see." }
+            goal: "Make it right — promise her a new one."
+            reply: { mode: build, tiles: ["あたらしい", "かさ", "を", "かう", "よ", "かった"], answer: "あたらしい かさを かうよ。" }
+            replyGloss: "I'll buy you a new one."
+            explanation: "The promise rides plain かう plus よ — m29's emphasis particle doing its real job. かった would report it already bought, which the state of the umbrella suggests is not yet true."
+      - { kind: challenge, ja: "ともだちの かさを こわしちゃったから、あたらしい かさを かった。", en: "I went and broke my friend's umbrella, so I bought a new umbrella", combines: [chau, kara-because, ta-form], mode: build }
+    reviewPool: [かさ, かぎ, ケーキ, コーヒー, さいふ, ともだち, ごめんなさい, まど]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-review-1
+    role: review
+    title: "Review — done, and gone and done"
+    focus: "Completion vs the wince, and the contraction that carries both"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ぜんぶ たべてしまった。", en: "I ate it all up", exercises: [te-shimau], mode: build }
+      - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau], mode: build }
+      - { kind: particle-cloze, stem: "ともだちの ケーキを ", tail: "。", answer: "たべてしまった", options: ["たべてしまった", "たべる", "たべた"], en: "I (regrettably) ate my friend's cake", explanation: "てしまった carries the wince either way — the CONTENT (someone else's cake) is what turns it sorry, not the form. たべる is just the bare dictionary fact, no completion and no wince. たべた is plain past, finished but flavorless — no regret at all." }
+      - { kind: listening-comp, audio: "コーヒーを のんじゃった。", answer: "I drank up the coffee (casual)", distractors: ["I'm going to drink the coffee", "I didn't drink the coffee", "I spilled the coffee"] }
+      - { kind: sentence, ja: "かさを こわしちゃった。", en: "I went and broke the umbrella (casual)", exercises: [chau], mode: listening }
+      - { kind: sentence, ja: "まどが こわれた。", en: "The window broke (by itself)", exercises: [jidoushi-tadoushi], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "とけいは？", en: "Where's the watch?" }
+          - { speaker: "Tom", ja: "なくしてしまった。ごめんなさい。", en: "I went and lost it. I'm sorry." }
+          - { speaker: "Mika", ja: "だいじょうぶだよ。", en: "It's okay." }
+        questions:
+          - { q: "What happened to the watch?", options: ["Tom lost it", "Tom broke it", "Tom sold it", "Tom gave it away"], answer: "Tom lost it" }
+    reviewPool: [ごはん, かぎ, かさ, しゅくだい, ケーキ, コーヒー, ほん, とけい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-5
+    role: teaching
+    title: "「もっていく・もってくる」 — take, and bring"
+    focus: "m19's anchor glued behind て: things travel away with いく, toward here with くる — English take/bring maps straight on"
+    introduces: [もっていく, もってくる]
+    beats:
+      - { kind: rule, grammarPointId: te-iku-kuru-space }
+      - { kind: sentence, ja: "かさを もっていく。", en: "I'll take an umbrella", exercises: [te-iku-kuru-space, wo-object], mode: build }
+      - { kind: sentence, ja: "あした おかしを もってくる。", en: "I'll bring sweets tomorrow", exercises: [te-iku-kuru-space, ni-time], mode: build }
+      - { kind: sentence, ja: "あめが ふりそうだから、かさを もっていく。", en: "It looks like rain, so I'll take an umbrella", exercises: [te-iku-kuru-space, sou-appearance, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "かさを ", tail: "。", answer: "もっていく", options: ["もっていく", "もってくる", "もらう"], en: "I'll take an umbrella", explanation: "From where you stand the umbrella travels AWAY with you — もっていく. もってくる would carry it TOWARD here, backwards for someone about to leave. もらう is a real verb too — 'receive' — but it isn't a trajectory verb at all." }
+      - { kind: sentence, ja: "としょかんに ほんを もっていく。", en: "I'll take the book to the library", exercises: [te-iku-kuru-space, ni-location], mode: build }
+      - { kind: listening-comp, audio: "パンを もってくる。", answer: "I'll bring bread", distractors: ["I'll take bread away", "I ate the bread", "I bought bread"], q: "What does this mean?" }
+      - { kind: kanji, kana: てんき, kanji: 天気, distractors: ["てんけ", "あまき", "てんぎ"], exercises: [te-iku-kuru-space] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "かさは？", en: "What about an umbrella?" }
+          - { speaker: "Tom", ja: "あめが ふりそうだから、もっていくよ。", en: "It looks like rain, so I'll take it with me." }
+          - { speaker: "Mika", ja: "うん、そう して。", en: "Yeah, do that." }
+        questions:
+          - { q: "Why does Tom decide to take an umbrella?", options: ["It looks like rain", "It's already raining", "Mika asked him to", "He always carries one"], answer: "It looks like rain" }
+      - { kind: challenge, ja: "あした あめが ふりそうだから、かさを もっていく つもりだ。", en: "It looks like it'll rain tomorrow, so I intend to take an umbrella", combines: [te-iku-kuru-space, sou-appearance, kara-because, tsumori-desu], mode: build }
+    reviewPool: [かさ, おかし, のみもの, カメラ, ほん, かばん, がっこう, こうえん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-6
+    role: teaching
+    title: "「つれてきて」 — people come along, and きて stays きて"
+    focus: "つれる carries people where もつ carries things — and くる's irregular て survives inside every chain"
+    introduces: [つれる, つれていく, つれてくる, つれてきて, もってきて, もどる, もどってくる]
+    beats:
+      - { kind: rule, grammarPointId: kite-chain }
+      - { kind: sentence, ja: "みずを もってきて。", en: "Bring me some water", exercises: [kite-chain, favor-ladder], mode: build }
+      - { kind: sentence, ja: "ともだちを つれてくる。", en: "I'll bring a friend along", exercises: [te-iku-kuru-space, wo-object], mode: build }
+      - { kind: sentence, ja: "いもうとを つれていく。", en: "I'll take my little sister along", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: particle-cloze, stem: "ともだちを ", tail: "。", answer: "つれてくる", options: ["つれてくる", "もってくる", "つれていく"], en: "I'll bring a friend along", explanation: "People ride つれる, never もつ — もってくる would try to carry your friend like an object. つれていく moves the right verb but the wrong direction: your friend arrives TOWARD here, not away." }
+      - { kind: sentence, ja: "がっこうから うちに もどる。", en: "I'll go back home from school", exercises: [dictionary-form, kara-because], mode: build }
+      - { kind: sentence, ja: "ケンは がっこうに もどってくる。", en: "Ken will come back to school", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: listening-comp, audio: "つれてきて。", answer: "Bring them along, please", distractors: ["Take them away, please", "Come along yourself", "Bring it (a thing), please"], q: "What does this mean?" }
+      - { kind: kanji, kana: うち, kanji: 家, distractors: ["いえ", "か", "うちん"], exercises: [kite-chain] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "こうえんに いく？", en: "Going to the park?" }
+          - { speaker: "Tom", ja: "うん。いぬを つれていく。", en: "Yeah. I'll take the dog along." }
+          - { speaker: "Ken", ja: "みずも もってきて。", en: "Bring water too." }
+        questions:
+          - { q: "What does Ken ask Tom to bring?", options: ["Water", "A dog", "A friend", "An umbrella"], answer: "Water" }
+      - { kind: challenge, ja: "こうえんに いぬを つれていくから、みずを もってきて。", en: "I'm taking the dog to the park, so bring some water", combines: [te-iku-kuru-space, kara-because, wo-object], mode: build }
+    reviewPool: [みず, ともだち, いもうと, おとうと, ねこ, いぬ, うち, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-7
+    role: teaching
+    title: "「さむく なってきた」 — change, arriving and leaving"
+    focus: "The trajectory system runs in time: てくる is change that has been arriving, ていく is change heading on — the half textbooks skip"
+    introduces: [ふえる, へる, かわる, なってきた, なっていく, ふえてきた, へっていく, かわっていく]
+    beats:
+      - { kind: rule, grammarPointId: te-kuru-iku-time }
+      - { kind: sentence, ja: "さむく なってきた。", en: "It's been getting cold", exercises: [te-kuru-iku-time, ku-ni-naru], mode: build }
+      - { kind: sentence, ja: "にほんが すきに なってきた。", en: "I've come to like Japan", exercises: [te-kuru-iku-time, ku-ni-naru], mode: build }
+      - { kind: sentence, ja: "ひとが ふえてきた。", en: "The number of people has been increasing", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: sentence, ja: "くるまが へっていく。", en: "The number of cars will keep decreasing", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: sentence, ja: "てんきが かわっていく。", en: "The weather will go on changing", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: sentence, ja: "テストが やさしく なっていく。", en: "The tests will go on getting easier", exercises: [te-kuru-iku-time, ku-ni-naru], mode: build }
+      - { kind: particle-cloze, stem: "ひとが ", tail: "。", answer: "ふえてきた", options: ["ふえてきた", "へっていく", "ふえていく"], en: "The number of people has been increasing", explanation: "てくる anchors to NOW — the rise has been happening up to this point: ふえてきた. へっていく flips both the direction and the timeline, heading onward instead. ふえていく keeps the right direction but the wrong timeline — future-heading, not up-to-now." }
+      - { kind: listening-comp, audio: "てんきが かわっていく。", answer: "The weather will go on changing", distractors: ["The weather has been changing up to now", "The weather won't change", "The weather changed yesterday"], q: "What does this mean?" }
+      - { kind: sentence, ja: "おかねが へっていく。", en: "The money will keep decreasing", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: kanji, kana: にほん, kanji: 日本, distractors: ["にっぽん", "ひもと", "にほんじ"], exercises: [te-kuru-iku-time] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "さむく なってきたね。", en: "It's been getting cold, hasn't it." }
+          - { speaker: "Tom", ja: "うん、もう ふゆだね。", en: "Yeah, it's already winter." }
+          - { speaker: "Mika", ja: "にほんの ふゆは さむい。", en: "Japan's winters are cold." }
+        questions:
+          - { q: "What season does Ken say it is?", options: ["Winter", "Summer", "Spring", "Autumn"], answer: "Winter" }
+      - { kind: challenge, ja: "さむく なってきたから、あたたかい ふくを かった。", en: "It's been getting cold, so I bought warm clothes", combines: [te-kuru-iku-time, kara-because, ta-form], mode: build }
+    reviewPool: [てんき, ゆき, あめ, ひと, くるま, がっこう, にほん, おかね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-review-2
+    role: review
+    title: "Review — three helpers, one slot"
+    focus: "しまう/ちゃう, いく/くる in space and in time — the m30 schema carrying its whole second wave"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "みずを もってきて。", en: "Bring me some water", exercises: [kite-chain], mode: build }
+      - { kind: sentence, ja: "いぬを つれていく。", en: "I'll take the dog along", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: particle-cloze, stem: "さむく ", tail: "。", answer: "なってきた", options: ["なってきた", "なっていく", "なった"], en: "It's been getting cold", explanation: "てくる anchors the change up to NOW — さむく なってきた. ていく would point onward into the future instead. なった is just plain past, no up-to-now arc at all." }
+      - { kind: listening-comp, audio: "ひとが ふえてきた。", answer: "The number of people has been increasing", distractors: ["The number of people has been decreasing", "People increased and then stopped", "There are very few people"] }
+      - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau], mode: listening }
+      - { kind: sentence, ja: "おかしを もってくる。", en: "I'll bring sweets", exercises: [te-iku-kuru-space], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "がっこうから もどってくる？", en: "Are you coming back from school?" }
+          - { speaker: "Tom", ja: "うん、みずを もってきて。", en: "Yeah, bring some water." }
+          - { speaker: "Ken", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "What does Tom ask Ken to bring?", options: ["Water", "Sweets", "An umbrella", "A friend"], answer: "Water" }
+    reviewPool: [かさ, みず, ともだち, てんき, おかし, かぎ, がっこう, うち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-9
+    role: teaching
+    title: "「かんじに なれてきた」 — your own arc, in grammar"
+    focus: "なれる and まちがえる give the helpers their most personal spends: getting used to things, getting them wrong, and both at once"
+    introduces: [なれる, まちがえる, かんじ]
+    beats:
+      - { kind: sentence, ja: "がっこうに なれてきた。", en: "I've been getting used to school", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: sentence, ja: "かんじに なれてきた。", en: "I've been getting used to kanji", exercises: [te-kuru-iku-time], mode: build }
+      - { kind: sentence, ja: "かんじを まちがえちゃった。", en: "I went and got the kanji wrong (casual)", exercises: [chau], mode: build }
+      - { kind: particle-cloze, stem: "テストで かんじを ", tail: "。", answer: "まちがえちゃった", options: ["まちがえちゃった", "まちがえる", "なれてきた"], en: "I went and got the kanji wrong on the test (casual)", explanation: "ちゃう carries the wince on the spot — まちがえちゃった. まちがえる is just the bare dictionary fact, no event at all. なれてきた is a real form from this very lesson, but it means getting USED to something — the opposite idea entirely." }
+      - { kind: listening-comp, audio: "がっこうに なれてきた。", answer: "I've been getting used to school", distractors: ["I haven't gotten used to school at all", "I used to go to school", "School has been getting easier"], q: "What does this mean?" }
+      - { kind: sentence, ja: "じゅぎょうが やさしく なってきた。", en: "Classes have been getting easier", exercises: [te-kuru-iku-time, ku-ni-naru], mode: build }
+      - { kind: kanji, kana: ねこ, kanji: 猫, distractors: ["ねっこ", "びょう", "ねご"], exercises: [te-kuru-iku-time] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "かんじに なれてきたね。", en: "You've gotten used to kanji, haven't you." }
+          - { speaker: "Tom", ja: "うん、けど テストで まちがえちゃった。", en: "Yeah, but I got it wrong on the test." }
+          - { speaker: "Mika", ja: "だいじょうぶだよ。", en: "It's okay." }
+        questions:
+          - { q: "What does Mika say Tom has gotten used to?", options: ["Kanji", "Tests", "School", "Homework"], answer: "Kanji" }
+      - { kind: challenge, ja: "かんじを まちがえちゃったけど、がっこうに なれてきたから、 だいじょうぶ。", en: "I went and got the kanji wrong, but I've gotten used to school, so it's fine", combines: [chau, kedo, te-kuru-iku-time], mode: build }
+    reviewPool: [にほん, ことば, テスト, しつもん, せんせい, じゅぎょう, なまえ, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-10
+    role: teaching
+    title: "「なにを もっていく？」 — the party runs on trajectories"
+    focus: "Real logistics: what travels, who comes along, what gets bought and brought back — the whole system doing an evening's work"
+    introduces: [かってくる]
+    beats:
+      - { kind: sentence, ja: "のみものを かってくる。", en: "I'll go buy drinks and bring them back", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: sentence, ja: "ケンの うちに のみものを もっていく。", en: "I'll take drinks to Ken's place", exercises: [te-iku-kuru-space, ni-location], mode: build }
+      - { kind: particle-cloze, stem: "ケンは のみものを ", tail: "。", answer: "もってくる", options: ["もってくる", "もっていく", "かってくる"], en: "Ken will bring drinks (toward here)", explanation: "From Ken's own vantage the drinks travel TOWARD him — もってくる, matching his house as the anchor. もっていく would send them away, the wrong direction from his side. かってくる is a real verb too, but it means going to buy — a different errand from just carrying." }
+      - { kind: listening-comp, audio: "ミカを つれてくる。", answer: "I'll bring Mika along (toward here)", distractors: ["I'll take Mika away", "Mika is coming by herself", "I'll buy something for Mika"], q: "What does this mean?" }
+      - { kind: sentence, ja: "おかしも もっていく。", en: "I'll bring sweets too", exercises: [te-iku-kuru-space, mo-also], mode: build }
+      - { kind: kanji, kana: えいが, kanji: 映画, exercises: [te-iku-kuru-space] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "なにか かってくる？", en: "Will you go buy something?" }
+          - { speaker: "Tom", ja: "うん、のみものを かってくる。", en: "Yeah, I'll go buy drinks." }
+          - { speaker: "Ken", ja: "ありがとう。", en: "Thanks." }
+        questions:
+          - { q: "What does Tom say he'll go buy?", options: ["Drinks", "Sweets", "A cake", "Nothing"], answer: "Drinks" }
+      - kind: sim
+        scene: { emoji: "🎉", title: "Party day", setting: "Tonight's party is at Ken's place, and you two are planning it." }
+        turns:
+          - npc: { speaker: "Ken", ja: "なにを もってくる？", en: "What will you bring?" }
+            goal: "Say you'll bring drinks — from where YOU stand."
+            reply: { mode: build, tiles: ["のみもの", "を", "もっていく", "もってくる"], answer: "のみものを もっていく。" }
+            replyGloss: "I'll bring drinks."
+            explanation: "From where you stand the drinks travel AWAY, toward Ken's place — もっていく. Ken asked with もってくる because from his anchor they travel toward him. Same journey, two anchors: that is the entire system, in one exchange."
+          - npc: { speaker: "Ken", ja: "ミカも くる？", en: "Is Mika coming too?" }
+            goal: "Yes — and you'll bring her along."
+            reply: { mode: build, tiles: ["うん", "ミカ", "を", "つれていく", "つれてくる"], answer: "うん、ミカを つれていく。" }
+            replyGloss: "Yeah, I'll bring her along."
+            explanation: "People ride つれる, not もつ — and from your side of the journey it is still いく. つれてくる is what Ken will say when you all arrive."
+      - { kind: challenge, ja: "のみものを かってから、ミカを つれていく。", en: "After buying drinks, I'll take Mika along", combines: [te-kara, te-iku-kuru-space, wo-object], mode: build }
+    reviewPool: [のみもの, おかし, ケーキ, ともだち, おみやげ, うち, おんがく, カメラ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-review-3
+    role: review
+    title: "Review — everything the slot can hold"
+    focus: "m30's schema, both waves: みる・おく・しまう・ちゃう・いく・くる — recognised, produced, and told apart"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "みずを もってきて。", en: "Bring me some water", exercises: [kite-chain], mode: build }
+      - { kind: sentence, ja: "ミカを つれていく。", en: "I'll take Mika along", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: sentence, ja: "かさを かってみる。", en: "I'll try buying an umbrella", exercises: [te-miru], mode: build }
+      - { kind: sentence, ja: "のみものを かっておく。", en: "I'll buy drinks in advance", exercises: [te-oku], mode: build }
+      - { kind: particle-cloze, stem: "かんじを ", tail: "。", answer: "まちがえちゃった", options: ["まちがえちゃった", "まちがえる", "なれてきた"], en: "I went and got the kanji wrong (casual)", explanation: "ちゃう carries the wince on the spot. まちがえる is the bare fact, no event at all. なれてきた is a real form too, but means getting USED to something — the opposite idea." }
+      - { kind: listening-comp, audio: "がっこうに なれてきた。", answer: "I've been getting used to school", distractors: ["I haven't gotten used to school", "School has gotten harder", "I used to go to school"] }
+      - { kind: sentence, ja: "ぜんぶ たべちゃった。", en: "I ate it all up (casual)", exercises: [chau], mode: listening }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "しゅくだいは？", en: "What about the homework?" }
+          - { speaker: "Mika", ja: "もう してしまった。", en: "I already got it done." }
+          - { speaker: "Tanaka", ja: "はやいね。", en: "That's fast." }
+        questions:
+          - { q: "What does Mika say about the homework?", options: ["She already finished it", "She hasn't started it", "She forgot it", "She needs help"], answer: "She already finished it" }
+    reviewPool: [りょうり, かさ, かぎ, のみもの, てんき, ともだち, しゅくだい, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m38-neo-challenge
+    role: challenge
+    title: "Challenge — the day that went wrong, and came right"
+    focus: "Losses confessed, things brought and brought back, help asked and received — the whole tier paying off in one arc"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "かぎを なくしちゃった。", en: "I went and lost the key (casual)", exercises: [chau], mode: build }
+      - { kind: sentence, ja: "てつだってくれない？", en: "Won't you help me?", exercises: [favor-ladder], mode: build }
+      - { kind: sentence, ja: "ともだちが きてくれた。", en: "My friend came (for me)", exercises: [te-kureru], mode: build }
+      - { kind: particle-cloze, stem: "ともだちが いっしょに ", tail: "。", answer: "さがしてくれた", options: ["さがしてくれた", "さがした", "てつだってくれた"], en: "My friend looked for it together (for me)", explanation: "くれる frames it as a favor done FOR me — さがしてくれた. さがした alone just states the bare fact, no favor-warmth. てつだってくれた is a real favor-phrase too, just the wrong verb: 'helped', not 'searched'." }
+      - { kind: listening-comp, audio: "かぎが あった！", answer: "The key was there! (I found it)", distractors: ["The key is missing", "I lost the key again", "The key was expensive"], q: "What does this mean?" }
+      - { kind: sentence, ja: "たすかった！", en: "What a relief!", exercises: [dictionary-form], mode: build }
+      - { kind: kanji, kana: みち, kanji: 道, distractors: ["どう", "みぢ", "どうろ"], exercises: [chau] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "かぎ、あった？", en: "Did you find the key?" }
+          - { speaker: "Tom", ja: "うん、ともだちが てつだってくれた。", en: "Yeah, my friend helped me." }
+          - { speaker: "Mika", ja: "うれしいね。", en: "That's great, isn't it." }
+        questions:
+          - { q: "How did Tom find the key?", options: ["A friend helped him", "He remembered where it was", "He bought a new one", "He never found it"], answer: "A friend helped him" }
+      - { kind: challenge, ja: "かぎを なくしちゃったから、ともだちが さがしてくれて、たすかった。", en: "I went and lost the key, so my friend searched for it, and what a relief", combines: [chau, kara-because, te-kureru], mode: build }
+    reviewPool: [かぎ, かさ, ともだち, うち, えき, のみもの, おみやげ, がっこう]

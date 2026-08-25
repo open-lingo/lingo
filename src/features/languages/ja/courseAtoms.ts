@@ -83,7 +83,8 @@ export type CourseAtomSource =
   | "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7"
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
-  | "m28" | "m29" | "m30" | "m31" | "m32" | "m33"
+  | "m28" | "m29" | "m30" | "m31" | "m32" | "m33" | "m34" | "m35" | "m36" | "m37"
+  | "m38"
   // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
   // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
   // None of these modules is authored yet, so atoms tagged with them never
@@ -454,7 +455,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hoka", kana: "ほか", romaji: "hoka", meaningEn: "other, the rest", fromModule: "future", introducedByLessonId: "ja-m21-7-1", kind: "vocab", blocked: true, note: "abstract relational word", pos: "noun" },
   { id: "hontou", kana: "ほんとう", romaji: "hontou", meaningEn: "truth", fromModule: "future", kind: "vocab", blocked: true, note: "abstract noun; no concrete referent", pos: "noun" },
   { id: "mazui", kana: "まずい", romaji: "mazui", meaningEn: "unpleasant", emoji: "🤢", fromModule: "future", kind: "vocab", note: "nauseated face for bad-taste cue", pos: "adjective", conjugation: { class: "i-adj", entryId: "mazui" } },
-  { id: "mata", kana: "また", romaji: "mata", meaningEn: "again, and", fromModule: "future", kind: "vocab", blocked: true, note: "adverb/conjunction", pos: "adverb" },
+  { id: "mata", kana: "また", romaji: "mata", meaningEn: "again, once more", fromModule: "m34", introducedByLessonId: "ja-m34-neo-2", kind: "vocab", blocked: true, note: "adverb/conjunction — debuts in m34's ru-irregular rule example (また こよう)", pos: "adverb" },
   { id: "mada", kana: "まだ", romaji: "mada", meaningEn: "yet, still", fromModule: "m14", kind: "vocab", blocked: true, note: "tense/aspect adverb — abstract grammar", pos: "adverb" },
   { id: "massugu", kana: "まっすぐ", romaji: "massugu", meaningEn: "straight ahead, direct", emoji: "⬆️", fromModule: "m32", kind: "vocab", note: "up arrow as straight-ahead direction", pos: "adverb" },
   { id: "minna", kana: "みんな", romaji: "minna", meaningEn: "everyone", emoji: "👥", fromModule: "future", introducedByLessonId: "ja-m19-4-2", kind: "vocab", pos: "pronoun" },
@@ -580,7 +581,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tsukuru", kana: "つくる", kanji: "作る", romaji: "tsukuru", meaningEn: "to make", emoji: "🔨", fromModule: "future", kind: "vocab", note: "hammer as making/building proxy", pos: "verb", conjugation: { class: "godan" } },
   { id: "sakubun", kana: "さくぶん", kanji: "作文", romaji: "sakubun", meaningEn: "composition, writing", emoji: "📝", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "tsukau", kana: "つかう", kanji: "使う", romaji: "tsukau", meaningEn: "to use", emoji: "🔧", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 5 2026-07-30 (B067); was m29 with a dead ja-m29-1-1 attribution (old-course id — live m29 is ja-m29-neo-*) — deleted", pos: "verb", conjugation: { class: "godan", entryId: "tsukau" } },
-  { id: "benri", kana: "べんり", kanji: "便利", romaji: "benri", meaningEn: "useful, convenient", emoji: "🛠️", fromModule: "future", kind: "vocab", note: "tools as useful proxy", pos: "adjective", conjugation: { class: "na-adj", entryId: "benri" } },
+  { id: "benri", kana: "べんり", kanji: "便利", romaji: "benri", meaningEn: "useful, convenient", emoji: "🛠️", fromModule: "m36", introducedByLessonId: "ja-m36-neo-6", kind: "vocab", blocked: true, note: "tools as useful proxy; blocked — IR marks m36 imageable:false, no image debut generated; 🛠️ stays as legacy flashcard art (the なおす m35 collision precedent)", pos: "adjective", conjugation: { class: "na-adj", entryId: "benri" } },
   { id: "kariru", kana: "かりる", kanji: "借りる", romaji: "kariru", meaningEn: "to borrow", emoji: "🤝", fromModule: "m31", kind: "vocab", blocked: true, note: "handshake as borrow/lend cue (weak but acceptable); blocked — 🤝 is also あう, かす and てつだう, all MET", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "hataraku", kana: "はたらく", kanji: "働く", romaji: "hataraku", meaningEn: "to work", emoji: "💼", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "briefcase", pos: "verb", conjugation: { class: "godan", entryId: "hataraku" } },
   { id: "kyoudai", kana: "きょうだい", kanji: "兄弟", romaji: "kyoudai", meaningEn: "(humble) siblings", emoji: "👫", fromModule: "m17", kind: "vocab", blocked: true, note: "two people; siblings — blocked because 👫 reads as two friends, not siblings (m17 ships every new atom there imageable: false)", pos: "noun" },
@@ -590,7 +591,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hairu", kana: "はいる", kanji: "入る", romaji: "hairu", meaningEn: "to enter, to contain", emoji: "🚪", fromModule: "m23", blocked: true, kind: "vocab", note: "door as entering cue; no picture debut: 4-persona audit 2026-08-20: 🚪 graded 3/3/3/3 — a door reads exit/house as much as enter", pos: "verb", conjugation: { class: "godan", entryId: "hairu" } },
   { id: "ireru", kana: "いれる", kanji: "入れる", romaji: "ireru", meaningEn: "to put in", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with はいる (m16) — blocked: 📥 cannot say whether somebody put the thing in", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "iriguchi", kana: "いりぐち", kanji: "入口", romaji: "iriguchi", meaningEn: "entrance", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door + kanji 入", pos: "noun" },
-  { id: "zenbu", kana: "ぜんぶ", kanji: "全部", romaji: "zenbu", meaningEn: "all, everything", fromModule: "future", introducedByLessonId: "ja-m29-2-2", kind: "vocab", blocked: true, note: "quantifier abstract; upgraded from future 2026-07-16 (m29 plain-form pilot)", pos: "adverb" },
+  { id: "zenbu", kana: "ぜんぶ", kanji: "全部", romaji: "zenbu", meaningEn: "all, everything", fromModule: "m38", introducedByLessonId: "ja-m38-neo-1", kind: "vocab", blocked: true, note: "quantifier abstract; re-stamped future → m38 2026-08-25 (m38 landing): the old ja-m29-2-2 attribution pointed into curriculum/_archive/m29.ts, dead per isDeadAttribution — m38-neo-1's own introduces: names it (ぜんぶ たべてしまった)", pos: "adverb" },
   { id: "yattsu", kana: "やっつ", kanji: "八つ", romaji: "yattsu", meaningEn: "eight", emoji: "8️⃣", fromModule: "future", kind: "vocab", pos: "number" },
   { id: "youka", kana: "ようか", kanji: "八日", romaji: "youka", meaningEn: "eight days, eighth day of the month", fromModule: "future", kind: "vocab", blocked: true, note: "no ordinal-day glyph", pos: "number" },
   { id: "yaoya", kana: "やおや", kanji: "八百屋", romaji: "yaoya", meaningEn: "greengrocer", emoji: "🥬", fromModule: "future", kind: "vocab", note: "leafy greens stand-in for greengrocer", pos: "noun" },
@@ -649,7 +650,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "shi", kana: "し", kanji: "四", romaji: "shi", meaningEn: "four", emoji: "4️⃣", fromModule: "m13", kind: "vocab", blocked: true, pos: "number" },
   { id: "yottsu", kana: "よっつ", kanji: "四つ", romaji: "yottsu", meaningEn: "four", emoji: "4️⃣", fromModule: "future", kind: "vocab", pos: "number" },
   { id: "yokka", kana: "よっか", kanji: "四日", romaji: "yokka", meaningEn: "four days, fouth day of the month", emoji: "4️⃣", fromModule: "future", kind: "vocab", note: "number 4", pos: "number" },
-  { id: "komaru", kana: "こまる", kanji: "困る", romaji: "komaru", meaningEn: "to be worried", emoji: "😟", fromModule: "future", kind: "vocab", note: "worried face", pos: "verb", conjugation: { class: "godan" } },
+  { id: "komaru", kana: "こまる", kanji: "困る", romaji: "komaru", meaningEn: "to be stuck, to be in trouble", shortGloss: "be stuck", emoji: "😟", fromModule: "m35", introducedByLessonId: "ja-m35-neo-5", kind: "vocab", blocked: true, note: "blocked: 😟 reads generic 'worried', not specifically 'stuck/in a bind' — こまる and たすかる are states no picture names honestly (m35 IR); 😟 stays as the row's legacy flashcard art, but no word_image_mcq debut is generated for it", pos: "verb", conjugation: { class: "godan" } },
   { id: "kuni", kana: "くに", kanji: "国", romaji: "kuni", meaningEn: "country", emoji: "🗾", fromModule: "future", kind: "vocab", note: "Japan map as country cue (concrete shape)", pos: "noun" },
   { id: "doyoubi", kana: "どようび", kanji: "土曜日", romaji: "doyoubi", meaningEn: "Saturday", fromModule: "m11", kind: "vocab", blocked: true, note: "day-of-week label; needs text not image; taught by m11 vocab pack 2026-07-29 (B067); was m12", pos: "noun" },
   { id: "chizu", kana: "ちず", kanji: "地図", romaji: "chizu", meaningEn: "map", emoji: "🗺️", fromModule: "future", kind: "vocab", pos: "noun" },
@@ -765,9 +766,9 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hondana", kana: "ほんだな", kanji: "本棚", romaji: "hondana", meaningEn: "bookshelves", emoji: "📚", fromModule: "future", kind: "vocab", note: "stacked books", pos: "noun" },
   { id: "mura", kana: "むら", kanji: "村", romaji: "mura", meaningEn: "village", emoji: "🏘️", fromModule: "future", kind: "vocab", pos: "noun" },
   { id: "kuru", kana: "くる", kanji: "来る", romaji: "kuru", meaningEn: "to come", fromModule: "m11", kind: "vocab", blocked: true, note: "directional verb; arrow ambiguous with go/return", pos: "verb", conjugation: { class: "irregular", entryId: "kuru" } },
-  { id: "rainen", kana: "らいねん", kanji: "来年", romaji: "rainen", meaningEn: "next year", emoji: "📅", fromModule: "future", kind: "vocab", note: "calendar; pair with phrase context", pos: "noun" },
+  { id: "rainen", kana: "らいねん", kanji: "来年", romaji: "rainen", meaningEn: "next year", emoji: "📅", fromModule: "m34", introducedByLessonId: "ja-m34-neo-5", kind: "vocab", blocked: true, note: "calendar glyph is every time-word's picture (きょう/きのう share 📅) — no honest MCQ; debuts in m34 L5 intent sentences", pos: "noun" },
   { id: "raigetsu", kana: "らいげつ", kanji: "来月", romaji: "raigetsu", meaningEn: "next month", fromModule: "m11", kind: "vocab", blocked: true, note: "temporal abstraction; taught by m11 vocab pack 2026-07-29 (B067); was m25", pos: "noun" },
-  { id: "raishuu", kana: "らいしゅう", kanji: "来週", romaji: "raishuu", meaningEn: "next week", fromModule: "future", kind: "vocab", blocked: true, note: "deictic time expression", pos: "noun" },
+  { id: "raishuu", kana: "らいしゅう", kanji: "来週", romaji: "raishuu", meaningEn: "next week", fromModule: "m34", introducedByLessonId: "ja-m34-neo-2", kind: "vocab", blocked: true, note: "deictic time expression — debuts in m34 L2 (らいしゅう また こよう)", pos: "noun" },
   { id: "higashi", kana: "ひがし", kanji: "東", romaji: "higashi", meaningEn: "east", emoji: "🧭", fromModule: "future", kind: "vocab", blocked: true, note: "compass already used for 西; can't distinguish east vs west via emoji", pos: "noun" },
   { id: "kudamono", kana: "くだもの", kanji: "果物", romaji: "kudamono", meaningEn: "fruit", emoji: "🍎", fromModule: "m26", kind: "vocab", note: "apple as fruit cue", pos: "noun" },
   { id: "tanoshii", kana: "たのしい", kanji: "楽しい", romaji: "tanoshii", meaningEn: "enjoyable", emoji: "😄", fromModule: "m18", kind: "vocab", pos: "adjective", conjugation: { class: "i-adj" } },
@@ -800,10 +801,10 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "watasu", kana: "わたす", kanji: "渡す", romaji: "watasu", meaningEn: "to hand over", emoji: "🤝", fromModule: "future", kind: "vocab", note: "handshake/handoff", pos: "verb", conjugation: { class: "godan" } },
   { id: "wataru", kana: "わたる", kanji: "渡る", romaji: "wataru", meaningEn: "to go across", emoji: "🚸", fromModule: "m32", kind: "vocab", note: "pedestrian crossing", pos: "verb", conjugation: { class: "godan", entryId: "wataru" } },
   { id: "nurui", kana: "ぬるい", kanji: "温い", romaji: "nurui", meaningEn: "luke warm", fromModule: "future", kind: "vocab", blocked: true, note: "subtle temperature distinction; no referent that reads as 'lukewarm' vs warm/hot", pos: "adjective", conjugation: { class: "i-adj" } },
-  { id: "kanji", kana: "かんじ", kanji: "漢字", romaji: "kanji", meaningEn: "Chinese character", emoji: "🈶", fromModule: "future", kind: "vocab", note: "Japanese ideograph block", pos: "noun" },
+  { id: "kanji", kana: "かんじ", kanji: "漢字", romaji: "kanji", meaningEn: "Chinese character", emoji: "🈶", fromModule: "m38", introducedByLessonId: "ja-m38-neo-9", kind: "vocab", note: "Japanese ideograph block; re-stamped future → m38 2026-08-25 (m38 landing) — m38-neo-9's own introduces: names it (かんじに なれてきた)", pos: "noun" },
   { id: "kayoubi", kana: "かようび", kanji: "火曜日", romaji: "kayoubi", meaningEn: "Tuesday", fromModule: "m11", kind: "vocab", blocked: true, note: "weekday name — no glyph distinguishes; taught by m11 vocab pack 2026-07-29 (B067); was m12", pos: "noun" },
   { id: "haizara", kana: "はいざら", kanji: "灰皿", romaji: "haizara", meaningEn: "ashtray", emoji: "🚬", fromModule: "future", kind: "vocab", note: "cigarette as proxy; closest concrete", pos: "noun" },
-  { id: "nakusu", kana: "なくす", kanji: "無くす", romaji: "nakusu", meaningEn: "to lose something", fromModule: "future", introducedByLessonId: "ja-m17-8-2", kind: "vocab", blocked: true, note: "abstract action", pos: "verb", conjugation: { class: "godan" } },
+  { id: "nakusu", kana: "なくす", kanji: "無くす", romaji: "nakusu", meaningEn: "to lose something", fromModule: "m38", introducedByLessonId: "ja-m38-neo-2", kind: "vocab", blocked: true, note: "abstract action; re-stamped future → m38, re-pointed off the stale ja-m17-8-2 attribution 2026-08-25 (m38 landing): that lesson lives in curriculum/_archive/m17.ts, dead per isDeadAttribution — m38-neo-2's own introduces: names it (かぎを なくしてしまった)", pos: "verb", conjugation: { class: "godan" } },
   { id: "urusai", kana: "うるさい", kanji: "煩い", romaji: "urusai", meaningEn: "noisy, annoying", emoji: "📢", fromModule: "m28", kind: "vocab", note: "loudspeaker = noisy", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "atsui-hot", kana: "あつい", kanji: "熱い", romaji: "atsui", meaningEn: "hot to the touch", emoji: "🔥", fromModule: "future", kind: "vocab", note: "fire — hot", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "gyuuniku", kana: "ぎゅうにく", kanji: "牛肉", romaji: "gyuuniku", meaningEn: "beef", emoji: "🐄", fromModule: "future", kind: "vocab", note: "cow as beef cue (🥩 taken for generic meat)", pos: "noun" },
@@ -841,7 +842,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kami", kana: "かみ", kanji: "紙", romaji: "kami", meaningEn: "paper", emoji: "📄", fromModule: "m27", kind: "vocab", pos: "noun" },
   { id: "hosoi", kana: "ほそい", kanji: "細い", romaji: "hosoi", meaningEn: "thin", fromModule: "future", kind: "vocab", blocked: true, note: "abstract adjective; no clean Noto referent", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "owaru", kana: "おわる", kanji: "終る", romaji: "owaru", meaningEn: "to finish", emoji: "🏁", fromModule: "m32", kind: "vocab", note: "checkered flag as finish cue", pos: "verb", conjugation: { class: "godan" } },
-  { id: "kekkon", kana: "けっこん", kanji: "結婚", romaji: "kekkon", meaningEn: "marriage", emoji: "💍", fromModule: "future", introducedByLessonId: "ja-m19-5-2", kind: "vocab", note: "ring", pos: "noun" },
+  { id: "kekkon", kana: "けっこん", kanji: "結婚", romaji: "kekkon", meaningEn: "marriage", emoji: "💍", fromModule: "m34", introducedByLessonId: "ja-m34-neo-7", kind: "vocab", blocked: true, note: "ring — blocked: m34's IR marks this atom imageable:false (its intended debut art is 💒, VENDOR emoji_u1f492.svg — not yet in src/pub/noto-emoji/svg); 💍 stays as the row's legacy flashcard art, but no word_image_mcq debut is generated for it", pos: "noun" },
   { id: "kekkou", kana: "けっこう", kanji: "結構", romaji: "kekkou", meaningEn: "splendid, enough", fromModule: "m10", introducedByLessonId: "ja-m21-6-2", kind: "vocab", blocked: true, note: "polysemous abstract adjective/adverb", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "e", kana: "え", kanji: "絵", romaji: "e", meaningEn: "picture", emoji: "🖼️", fromModule: "m24", kind: "vocab", note: "framed picture", pos: "noun" },
   { id: "midori", kana: "みどり", kanji: "緑", romaji: "midori", meaningEn: "green", emoji: "🟢", fromModule: "future", kind: "vocab", pos: "noun" },
@@ -890,7 +891,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hashiru", kana: "はしる", kanji: "走る", romaji: "hashiru", meaningEn: "to run", emoji: "🏃", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 6 2026-07-30 (B067); trainer entry un-parked 30 → 16", pos: "verb", conjugation: { class: "godan", entryId: "hashiru" } },
   { id: "okiru", kana: "おきる", kanji: "起きる", romaji: "okiru", meaningEn: "to get up", emoji: "⏰", fromModule: "m13", kind: "vocab", blocked: true, note: "taught by m13 vocab pack 2026-07-29 (B067); was m16. blocked: ⏰ belongs to じかん", pos: "verb", conjugation: { class: "ichidan", entryId: "okiru" } },
   { id: "ashi", kana: "あし", kanji: "足", romaji: "ashi", meaningEn: "foot, leg", emoji: "🦶", fromModule: "m22", kind: "vocab", pos: "noun" },
-  { id: "karui", kana: "かるい", kanji: "軽い", romaji: "karui", meaningEn: "light", emoji: "🪶", fromModule: "future", kind: "vocab", note: "feather = light weight", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "karui", kana: "かるい", kanji: "軽い", romaji: "karui", meaningEn: "light", emoji: "🪶", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "feather = light weight; blocked — IR marks m36 imageable:false, no image debut generated; 🪶 stays as legacy flashcard art", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "karai", kana: "からい", kanji: "辛い", romaji: "karai", meaningEn: "spicy", emoji: "🌶️", fromModule: "m28", kind: "vocab", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "hen", kana: "へん", kanji: "辺", romaji: "hen", meaningEn: "area", emoji: "🗺️", fromModule: "future", introducedByLessonId: "ja-m16-5-2", kind: "vocab", note: "map as area proxy", pos: "noun" },
   { id: "chikaku", kana: "ちかく", kanji: "近く", romaji: "chikaku", meaningEn: "near", emoji: "📍", fromModule: "future", kind: "vocab", note: "pin as near-here proxy", pos: "adverb" },
@@ -946,11 +947,11 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   //    re-taught (see m29.ts file header for the full reconciliation note).
   //    Genuinely new atoms below; つかう/おぼえる/ぜんぶ upgraded from
   //    "future" above rather than duplicated here.
-  { id: "tetsudau", kana: "てつだう", kanji: "手伝う", romaji: "tetsudau", meaningEn: "to help", emoji: "🤝", fromModule: "future", introducedByLessonId: "ja-m29-1-1", kind: "vocab", pos: "verb", conjugation: { class: "godan", entryId: "tetsudau" } },
+  { id: "tetsudau", kana: "てつだう", kanji: "手伝う", romaji: "tetsudau", meaningEn: "to help, to lend a hand", shortGloss: "help", emoji: "🤝", fromModule: "m35", introducedByLessonId: "ja-m35-neo-1", kind: "vocab", blocked: true, note: "blocked: 🤝 already belongs to あう, かす and かりる — no honest un-colliding vendored emoji found at m35 wiring; IR marks this atom imageable:false. 🤝 stays as the row's legacy flashcard art, but no word_image_mcq debut is generated for it (the けっこん precedent)", pos: "verb", conjugation: { class: "godan", entryId: "tetsudau" } },
   { id: "isogu", kana: "いそぐ", kanji: "急ぐ", romaji: "isogu", meaningEn: "to hurry", emoji: "💨", fromModule: "m8", introducedByLessonId: "ja-m8-neo-11", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
-  { id: "sagasu", kana: "さがす", kanji: "探す", romaji: "sagasu", meaningEn: "to look for", emoji: "🔍", fromModule: "future", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
-  { id: "naosu", kana: "なおす", kanji: "直す", romaji: "naosu", meaningEn: "to fix, to repair", emoji: "🛠️", fromModule: "future", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
-  { id: "hakobu", kana: "はこぶ", kanji: "運ぶ", romaji: "hakobu", meaningEn: "to carry", emoji: "📦", fromModule: "future", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
+  { id: "sagasu", kana: "さがす", kanji: "探す", romaji: "sagasu", meaningEn: "to look for", emoji: "🔍", fromModule: "m34", introducedByLessonId: "ja-m34-neo-5", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
+  { id: "naosu", kana: "なおす", kanji: "直す", romaji: "naosu", meaningEn: "to fix, to repair", emoji: "🛠️", fromModule: "m35", introducedByLessonId: "ja-m35-neo-6", kind: "vocab", blocked: true, note: "blocked: 🛠️ already belongs to べんり ('useful/convenient'), and even alone a wrench reads as 'tool', not the act of repairing; IR marks this atom imageable:false. 🛠️ stays as the row's legacy flashcard art, but no word_image_mcq debut is generated for it", pos: "verb", conjugation: { class: "godan" } },
+  { id: "hakobu", kana: "はこぶ", kanji: "運ぶ", romaji: "hakobu", meaningEn: "to carry, to transport", shortGloss: "carry", emoji: "📦", fromModule: "m35", introducedByLessonId: "ja-m35-neo-3", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
   { id: "erabu", kana: "えらぶ", kanji: "選ぶ", romaji: "erabu", meaningEn: "to choose", emoji: "✅", fromModule: "future", introducedByLessonId: "ja-m29-1-2", kind: "vocab", pos: "verb", conjugation: { class: "godan" } },
   { id: "katazukeru", kana: "かたづける", kanji: "片付ける", romaji: "katazukeru", meaningEn: "to tidy up", emoji: "🧹", fromModule: "future", introducedByLessonId: "ja-m29-2-1", kind: "vocab", pos: "verb", conjugation: { class: "ichidan" } },
   // ── Ex-M30 pilot atoms — RE-HOMED 2026-08-09 (spec
@@ -1533,6 +1534,120 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "otosu", kana: "おとす", kanji: "落とす", romaji: "otosu", meaningEn: "to drop something, to let something fall", shortGloss: "drop (something)", fromModule: "m33", kind: "vocab", blocked: true, note: "transitivity pair with おちる — blocked, same reason", pos: "verb", conjugation: { class: "godan" } },
   { id: "kaigi", kana: "かいぎ", kanji: "会議", romaji: "kaigi", meaningEn: "a meeting", shortGloss: "meeting", emoji: "\u{1f4cb}", fromModule: "m33", kind: "vocab", note: "clipboard — an agenda, the one thing a meeting always has", pos: "noun" },
   { id: "hikidashi", kana: "ひきだし", kanji: "引き出し", romaji: "hikidashi", meaningEn: "a drawer", shortGloss: "drawer", emoji: "\u{1f5c4}\ufe0f", fromModule: "m33", kind: "vocab", note: "file cabinet — the m33 carrier noun: a drawer opens, shuts, and has things put in and taken out of it, so one word carries four of the nine pairs", pos: "noun" },
+
+  // ── m34 · Volitional: よう/おう + とおもう, ことにする (n4-05). One real image
+  //    debut: もくひょう takes 🎯 honestly — なか's own blocked note (m6, above)
+  //    already established the bullseye reads "target/goal", never "middle",
+  //    so nothing here contradicts it. Everything else is abstract: a future,
+  //    a plan, a dream, a graduation and a savings account have no honest
+  //    referent, and やめる/がんばる have no honest picture either — a 💪 reads
+  //    "strong", not "keep at it". See ir/m34.ir.yaml.
+  { id: "yume", kana: "ゆめ", kanji: "夢", romaji: "yume", meaningEn: "a dream — asleep, or for the future", shortGloss: "dream", fromModule: "m34", kind: "vocab", blocked: true, note: "abstract — a sleeping face reads 'asleep', not 'dream' or 'a future goal'", pos: "noun" },
+  { id: "yotei", kana: "よてい", kanji: "予定", romaji: "yotei", meaningEn: "a plan, a schedule", shortGloss: "plan", fromModule: "m34", kind: "vocab", blocked: true, note: "blocked: 📅 already belongs to きょう, and a calendar can't distinguish 'plan' from 'calendar' itself", pos: "noun" },
+  { id: "shourai", kana: "しょうらい", kanji: "将来", romaji: "shourai", meaningEn: "the future (someone's own)", shortGloss: "the future", fromModule: "m34", kind: "vocab", blocked: true, note: "abstract — 'someone's own future' has no referent a picture could name", pos: "noun" },
+  { id: "sotsugyou", kana: "そつぎょう", kanji: "卒業", romaji: "sotsugyou", meaningEn: "graduation", shortGloss: "graduation", fromModule: "m34", kind: "vocab", blocked: true, note: "blocked: 🎓 already belongs to がくせい/だいがく, and a cap can't distinguish the graduation EVENT from 'student'", pos: "noun" },
+  { id: "mokuhyou", kana: "もくひょう", kanji: "目標", romaji: "mokuhyou", meaningEn: "a goal, a target", shortGloss: "goal", emoji: "🎯", fromModule: "m34", kind: "vocab", note: "bullseye — honest per なか's own blocked note: 🎯 reads 'target/goal', not 'middle'", pos: "noun" },
+  { id: "chokin", kana: "ちょきん", kanji: "貯金", romaji: "chokin", meaningEn: "savings, saving money", shortGloss: "savings", fromModule: "m34", kind: "vocab", blocked: true, note: "blocked: 💰 already belongs to おかね, and a pile of coins can't distinguish 'savings' from money itself", pos: "noun" },
+  { id: "yameru", kana: "やめる", kanji: "止める", romaji: "yameru", meaningEn: "to quit, to stop doing", shortGloss: "quit", fromModule: "m34", kind: "vocab", blocked: true, note: "abstract cessation has no honest picture — a stop sign is already とめる's/とまる's (m32/m33)", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "ganbaru", kana: "がんばる", kanji: "頑張る", romaji: "ganbaru", meaningEn: "to do one's best, to keep at it", shortGloss: "do one's best", fromModule: "m34", kind: "vocab", blocked: true, note: "blocked: 💪 reads 'strong', not 'keep at it' — the effort is the whole meaning and no still image shows it", pos: "verb", conjugation: { class: "godan" } },
+
+  // ── m35 (spine n4-06) — GIVE & RECEIVE II: the favor-request ladder ──────
+  // てつだう/はこぶ/なおす/こまる re-stamped above (all were future-stamped
+  // or old-course-tagged already, the sagasu/m34 precedent); the four rows
+  // below are genuinely new. たすかる/おねがい/むかえ are all blocked — states
+  // and abstract requests, no picture names any of them honestly, per the
+  // IR's own newAtoms comment. しか follows the や/より particle-row
+  // precedent exactly (blocked, no image MCQ, particle kind/pos).
+  //
+  // だけ is DELIBERATELY NOT REGISTERED HERE — verified 2026-08-25 by
+  // dumping every compiled build_sentence tile course-wide before and after
+  // a trial registration (the m16-ので class check this file's own header
+  // describes). だ (the plain copula, m6) is a 1-char atom; けど (m16's
+  // "but" conjunction) is a 2-char atom; unspaced な/noun+だ+けど
+  // constructions (「ゆきだけど」, 「しずかだけど」, …) are shipped, unspaced,
+  // in NINE modules (m16, m17, m19, m20, m21, m22, m23, m24, m25, m26, m27,
+  // m28). Registering だけ as a 2-char global atom makes moduleCompiler's
+  // course-wide longest-match tokenizer prefer it at every one of those
+  // だ+けど boundaries (2 chars beats だ's 1), shattering the shipped tiles
+  // into a bogus だけ／ど split — confirmed by re-running the full curriculum
+  // suite: `fromModuleDrift.test.ts` flagged だけ "exercised at m16" and a
+  // course-wide tile dump showed the ど orphan tile in ~30 already-shipped
+  // build_sentence/listening_build steps across those nine modules. None of
+  // those modules' IR is in this landing's scope to fix, and there is no
+  // per-module tokenizer opt-out available from `courseAtoms.ts` alone — so
+  // the only safe move is the SAME escape hatch `fromModuleDrift.test.ts`
+  // already documents for other short grammatical atoms: leave it
+  // unregistered here (IR-only). m35's own tokenizer sees だけ fine via its
+  // OWN `ir.newAtoms` declaration (`atomIndex()` in moduleCompiler.ts layers
+  // `ir.newAtoms` over the global registry per-module), so m35's lessons
+  // compile and tile correctly either way; だけ simply never becomes a
+  // flashcard/SRS atom. Flagged for Spencer — see the session report.
+  { id: "tasukaru", kana: "たすかる", kanji: "助かる", romaji: "tasukaru", meaningEn: "to be saved, to be a big help (it saves me)", shortGloss: "be a help", fromModule: "m35", introducedByLessonId: "ja-m35-neo-9", kind: "vocab", blocked: true, note: "state verb, no picture names honestly — こまる's mirror (m35 IR)", pos: "verb", conjugation: { class: "godan" } },
+  { id: "onegai", kana: "おねがい", romaji: "onegai", meaningEn: "a favor, a request", shortGloss: "favor", fromModule: "m35", introducedByLessonId: "ja-m35-neo-5", kind: "vocab", blocked: true, note: "abstract — a favor/request has no honest referent; 🙏 reads 'pray/thanks', not 'a request'", pos: "noun" },
+  { id: "mukae", kana: "むかえ", romaji: "mukae", meaningEn: "a pick-up — going to meet someone (むかえに いく)", shortGloss: "pick-up", fromModule: "m35", introducedByLessonId: "ja-m35-neo-9", kind: "vocab", blocked: true, note: "abstract — 'going to meet someone' collapses into あう's 🤝 with nothing left to distinguish 'pick-up' from 'meeting'", pos: "noun" },
+  { id: "p-shika", kana: "しか", romaji: "shika", meaningEn: "only (with a negative — counts what is missing)", shortGloss: "only (+neg)", fromModule: "m35", introducedByLessonId: "ja-m35-neo-7", kind: "particle", blocked: true, note: "limiting particle — REQUIRES a negative verb; counts what's missing, and REPLACES が/を outright (no がしか, no をしか)", pos: "particle" },
+
+  // m36 (n4-07, "looks like") new atoms. All 14 lemma newAtoms register here;
+  // the attachment-site forms (おいしそう, ふりそう, いきたがっている,
+  // つかいやすい, ききながら, たべすぎた, …) stay IR-only per DERIVED_KINDS —
+  // registering them would put an inflection in the flashcard deck. All four
+  // atoms the m36 IR originally marked `imageable: true` (かなしい, こわい,
+  // ねむい, きけん) were checked at this wiring stage and every one failed:
+  // 😢(u1f622)/😱(u1f631)/😪(u1f62a) have no vendored SVG in
+  // src/pub/noto-emoji/svg/, and ⚠️(u26a0) IS vendored but already belongs to
+  // あぶない for the identical sense "dangerous" (a MET-word glyph collision).
+  // All four IR entries were flipped to `imageable: false` and m36 recompiled
+  // (node scripts/compile-ir.mjs m36) — the one-field flip this gate permits.
+  { id: "kanashii", kana: "かなしい", kanji: "悲しい", romaji: "kanashii", meaningEn: "sad", shortGloss: "sad", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "blocked: 😢 (u1f622) has no vendored SVG in src/pub/noto-emoji/svg/ — no honest image without vendoring a new asset at this wiring stage; IR flipped imageable:false (m36 IR)", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "sabishii", kana: "さびしい", kanji: "寂しい", romaji: "sabishii", meaningEn: "lonely", shortGloss: "lonely", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "abstract feeling adjective — IR marks imageable:false, no honest picture", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "yawarakai", kana: "やわらかい", kanji: "柔らかい", romaji: "yawarakai", meaningEn: "soft, tender", shortGloss: "soft", fromModule: "m36", introducedByLessonId: "ja-m36-neo-1", kind: "vocab", blocked: true, note: "food-texture adjective — IR marks imageable:false, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "katai", kana: "かたい", kanji: "硬い", romaji: "katai", meaningEn: "hard, tough (to bite or bend)", shortGloss: "hard", fromModule: "m36", introducedByLessonId: "ja-m36-neo-1", kind: "vocab", blocked: true, note: "food-texture adjective — IR marks imageable:false, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "kowai", kana: "こわい", kanji: "怖い", romaji: "kowai", meaningEn: "scary, frightening", shortGloss: "scary", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "blocked: 😱 (u1f631) has no vendored SVG in src/pub/noto-emoji/svg/; IR flipped imageable:false (m36 IR)", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "hazukashii", kana: "はずかしい", kanji: "恥ずかしい", romaji: "hazukashii", meaningEn: "embarrassing, embarrassed", shortGloss: "embarrassing", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "abstract feeling adjective — IR marks imageable:false, no honest picture", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "nemui", kana: "ねむい", kanji: "眠い", romaji: "nemui", meaningEn: "sleepy", shortGloss: "sleepy", fromModule: "m36", introducedByLessonId: "ja-m36-neo-9", kind: "vocab", blocked: true, note: "blocked: 😪 (u1f62a) has no vendored SVG in src/pub/noto-emoji/svg/; IR flipped imageable:false (m36 IR)", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "futoru", kana: "ふとる", kanji: "太る", romaji: "futoru", meaningEn: "to put on weight", shortGloss: "put on weight", fromModule: "m36", introducedByLessonId: "ja-m36-neo-5", kind: "vocab", blocked: true, note: "state-change verb — IR marks imageable:false, no honest single-frame picture distinguishing it from やせる", pos: "verb", conjugation: { class: "godan" } },
+  { id: "yaseru", kana: "やせる", kanji: "痩せる", romaji: "yaseru", meaningEn: "to lose weight, to get thin", shortGloss: "lose weight", fromModule: "m36", introducedByLessonId: "ja-m36-neo-5", kind: "vocab", blocked: true, note: "state-change verb — IR marks imageable:false, no honest single-frame picture distinguishing it from ふとる", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "anzen", kana: "あんぜん", kanji: "安全", romaji: "anzen", meaningEn: "safe, safety", shortGloss: "safe", fromModule: "m36", introducedByLessonId: "ja-m36-neo-10", kind: "vocab", blocked: true, note: "abstract safety judgment — IR marks imageable:false, no honest picture", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "kiken", kana: "きけん", kanji: "危険", romaji: "kiken", meaningEn: "dangerous, danger", shortGloss: "dangerous", fromModule: "m36", introducedByLessonId: "ja-m36-neo-10", kind: "vocab", blocked: true, note: "blocked: ⚠️ (u26a0) is already あぶない's glyph for the same meaning 'dangerous' — a MET-word glyph collision; IR flipped imageable:false (m36 IR)", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "fuben", kana: "ふべん", kanji: "不便", romaji: "fuben", meaningEn: "inconvenient", shortGloss: "inconvenient", fromModule: "m36", introducedByLessonId: "ja-m36-neo-6", kind: "vocab", blocked: true, note: "abstract quality na-adjective — IR marks imageable:false, no honest picture", pos: "adjective", conjugation: { class: "na-adj", entryId: "fubeni" } },
+
+  // ── m37 (n4-08, "Conditionals II: ば + なら") — none of these six atoms had
+  // a prior/future-stamped row (checked before authoring). まにあう and
+  // おくれる have NO conjugationTables.ts entry either, so both register
+  // without an entryId, same as futoru/yaseru above. All blocked: abstract
+  // nouns, a function-word particle, and verbs with no honest single-frame
+  // picture. Per DERIVED_KINDS none of the IR's verb-form/adj-form ledger
+  // atoms (いけば, たべれば, よければ, いくなら, だったら, かったら, …) are
+  // registered here — they stay IR-only, exactly like every prior module's
+  // conjugated forms.
+  { id: "hitsuyou", kana: "ひつよう", kanji: "必要", romaji: "hitsuyou", meaningEn: "necessary, needed", shortGloss: "necessary", fromModule: "m37", introducedByLessonId: "ja-m37-neo-6", kind: "vocab", blocked: true, note: "abstract na-adjective judgment — no honest picture for 'necessary'", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "tsugou", kana: "つごう", kanji: "都合", romaji: "tsugou", meaningEn: "convenience — how one's schedule sits", shortGloss: "schedule fit", fromModule: "m37", introducedByLessonId: "ja-m37-neo-6", kind: "vocab", blocked: true, note: "abstract noun — no honest picture for 'how a schedule sits'", pos: "noun" },
+  { id: "maniau", kana: "まにあう", romaji: "maniau", meaningEn: "to be in time, to make it", shortGloss: "make it in time", fromModule: "m37", introducedByLessonId: "ja-m37-neo-1", kind: "vocab", blocked: true, note: "abstract timing verb — no honest single-frame picture distinguishing 'made it' from any other arrival", pos: "verb", conjugation: { class: "godan" } },
+  { id: "okureru", kana: "おくれる", romaji: "okureru", meaningEn: "to be late, to fall behind", shortGloss: "be late", fromModule: "m37", introducedByLessonId: "ja-m37-neo-9", kind: "vocab", blocked: true, note: "abstract timing verb — no honest single-frame picture, and a clock face is already generic apparatus", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "p-hodo", kana: "ほど", romaji: "hodo", meaningEn: "to the degree that (extent)", shortGloss: "to the degree", fromModule: "m37", introducedByLessonId: "ja-m37-neo-9", kind: "particle", blocked: true, note: "extent particle — follows the や/しか particle-row precedent, no image MCQ for function words", pos: "particle" },
+  { id: "p-nara", kana: "なら", romaji: "nara", meaningEn: "if it's (that) we're talking about — topic conditional", shortGloss: "if it's ~", fromModule: "m37", introducedByLessonId: "ja-m37-neo-6", kind: "particle", blocked: true, note: "checked against the だけ landmine class before registering: なら (2 chars) risks shattering the ならう-family surfaces (ならう/ならって/ならってみる/ならっておく, m30 + m32 review) under the course-wide longest-match tokenizer. Verified SAFE by a course-wide tile dump (m6-m37, 5802 lines) before/after this registration — byte-identical, zero diff. ならう (3 chars, globally registered) and ならって (5 chars, m30's own IR-local newAtom) both sort ahead of なら in the length-descending vocab list, so longest-match finds them first at every occurrence; なら never gets a chance to intercept. Follows the や/しか particle-row precedent.", pos: "particle" },
+
+  // ── m38 (n4-09, "て + helper II: 〜てしまう/ちゃう + 〜ていく/〜てくる") ──
+  // Nine new lemma rows (checked: none had a prior/future-stamped row before
+  // this landing — grepped individually). なくす/ぜんぶ/かんじ were already
+  // future-stamped rows re-pointed above instead of duplicated here. All nine
+  // blocked: change-of-state and abstract verbs with no honest single-frame
+  // picture (the m33 jidoushi-tadoushi doctrine's own ruling — こわす/こわれる
+  // is that exact pair, taught late on purpose). None has a conjugationTables
+  // VERB_ENTRIES row, so all register class-only, no entryId — same as
+  // m37's まにあう/おくれる and m36's futoru/yaseru above. Per DERIVED_KINDS
+  // none of the IR's helper/contraction ledger atoms (なくしてしまった,
+  // たべちゃった, もっていく, なれてきた, くれて, あった, …) are registered
+  // here — they stay IR-only, same as every prior module's conjugated forms.
+  { id: "kowasu", kana: "こわす", kanji: "壊す", romaji: "kowasu", meaningEn: "to break (something)", shortGloss: "break (it)", fromModule: "m38", introducedByLessonId: "ja-m38-neo-2", kind: "vocab", blocked: true, note: "transitivity pair with こわれる (m33 doctrine, taught late on purpose) — no honest single-frame picture distinguishing 'I broke it' from 'it broke'", pos: "verb", conjugation: { class: "godan" } },
+  { id: "kowareru", kana: "こわれる", kanji: "壊れる", romaji: "kowareru", meaningEn: "to break (of itself)", shortGloss: "break (it does)", fromModule: "m38", introducedByLessonId: "ja-m38-neo-2", kind: "vocab", blocked: true, note: "transitivity pair with こわす — no honest single-frame picture distinguishing 'it broke' from 'I broke it'", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "fueru", kana: "ふえる", kanji: "増える", romaji: "fueru", meaningEn: "to increase (of itself)", shortGloss: "increase", fromModule: "m38", introducedByLessonId: "ja-m38-neo-7", kind: "vocab", blocked: true, note: "abstract change-of-state verb (trajectory-in-time set with へる/かわる) — no honest single frame distinguishes 'increasing' from any other still image", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "heru", kana: "へる", kanji: "減る", romaji: "heru", meaningEn: "to decrease (of itself)", shortGloss: "decrease", fromModule: "m38", introducedByLessonId: "ja-m38-neo-7", kind: "vocab", blocked: true, note: "abstract change-of-state verb, ふえる's pair — no honest single-frame picture", pos: "verb", conjugation: { class: "godan" } },
+  { id: "kawaru", kana: "かわる", kanji: "変わる", romaji: "kawaru", meaningEn: "to change (of itself)", shortGloss: "change", fromModule: "m38", introducedByLessonId: "ja-m38-neo-7", kind: "vocab", blocked: true, note: "abstract change-of-state verb — no honest single-frame picture; checked against the かえる \"go home\" homograph collision risk the IR flagged (m38.ir.yaml notes) — かわる's own conjugated forms (かわった, かわっていく) don't collide with かえる's (かえった, かえって) under the course-wide longest-match tokenizer, verified by grep over the compiled m38 surfaces", pos: "verb", conjugation: { class: "godan" } },
+  { id: "nareru", kana: "なれる", kanji: "慣れる", romaji: "nareru", meaningEn: "to get used to", shortGloss: "get used to", fromModule: "m38", introducedByLessonId: "ja-m38-neo-9", kind: "vocab", blocked: true, note: "abstract adaptation verb — no honest single-frame picture for 'getting used to' something", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "machigaeru", kana: "まちがえる", kanji: "間違える", romaji: "machigaeru", meaningEn: "to get (something) wrong", shortGloss: "get wrong", fromModule: "m38", introducedByLessonId: "ja-m38-neo-9", kind: "vocab", blocked: true, note: "abstract error verb — no honest single-frame picture for 'getting it wrong'", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "modoru", kana: "もどる", kanji: "戻る", romaji: "modoru", meaningEn: "to go back, to return (to a place)", shortGloss: "go back", fromModule: "m38", introducedByLessonId: "ja-m38-neo-6", kind: "vocab", blocked: true, note: "motion-return verb — blocked alongside the trajectory set (もっていく/もってくる/つれる) rather than singled out; no picture distinguishes 'going back' from any other departure/arrival glyph already owned by いく/くる", pos: "verb", conjugation: { class: "godan" } },
+  { id: "tsureru", kana: "つれる", kanji: "連れる", romaji: "tsureru", meaningEn: "to take (someone) along", shortGloss: "take along", fromModule: "m38", introducedByLessonId: "ja-m38-neo-6", kind: "vocab", blocked: true, note: "deferred from m35 for this module's trajectory frame (m38.ir.yaml notes) — no honest single-frame picture distinguishes つれる 'take a person' from もつ 'carry a thing'", pos: "verb", conjugation: { class: "ichidan" } },
 
 ];
 /**

@@ -692,6 +692,71 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   // recalibration notes document. Floor set three sentences below the
   // measurement ((96-3)/105 = .886), per this block's own rule. NEVER lowered.
   m32: 0.88,
+  // m33 is a FIRST MEASUREMENT — spine unit n4-04, newly authored, no archived
+  // value to inherit. Measured on the finished neo module at 59/102 = .578, by
+  // far the lowest of the N4 modules so far, and it is structural rather than
+  // decorative: the module's whole content is nine transitivity PAIRS, and a
+  // pair-verb sentence is often complete and correct at three or four tiles on
+  // its own (「ドアが あく」, 「でんきを けす」) — padding every one with a
+  // reason clause would blur exactly the contrast (which particle, which verb)
+  // the module exists to drill. This entry closes the same frozen-list gap
+  // m32's did: the map stopped at m32 while m33 was live on disk. Floor set
+  // three sentences below the measurement ((59-3)/102 = .549), per this
+  // block's own rule. NEVER lowered.
+  m33: 0.54,
+  // m34 is a FIRST MEASUREMENT rather than a recalibration, closing the same
+  // frozen-list gap m32's and m33's entries each closed: the map stopped at
+  // m33 while m34 was live on disk (m35's landing, 2026-08-25, is what
+  // surfaced it — the m33-lag precedent this task named). Measured on the
+  // finished neo module at 42/72 = .583, the lowest since m33: the module's
+  // whole content is volitional-FORMATION drills (のもう/いこう/たべよう/…),
+  // and a bare invitation or intent is often complete and correct at three
+  // or four tiles on its own (「いこう？」, 「のみましょうか」) — padding
+  // every one with a reason clause would blur exactly the formation the
+  // module exists to drill, the same shape m33's own note describes for its
+  // transitivity pairs. Floor set three sentences below the measurement
+  // ((42-3)/72 = .542), per this block's own rule. NEVER lowered.
+  m34: 0.54,
+  // m35 is a FIRST MEASUREMENT, closing the same frozen-list gap m32/m33/m34
+  // each closed: the map stopped at m34 while m35 was live on disk (m36's
+  // registration landing, 2026-08-25, is what surfaced it — the same lag
+  // precedent m34's own note names). Measured on the finished neo module at
+  // 44/68 = .647: give-and-receive plus the favor ladder is a GIVER, a
+  // RECEIVER and a THING before anything else is said (the same shape m31's
+  // note describes for transfer sentences), and the favor-request rungs
+  // (てくれない？/てくれませんか/もらえますか) are themselves multi-clause by
+  // construction, so the ramp comes largely for free out of what the module
+  // is about. Floor set three sentences below the measurement
+  // ((44-3)/68 = .602), per this block's own rule. NEVER lowered.
+  m35: 0.60,
+  // m36 is a FIRST MEASUREMENT, closing the same frozen-list gap m32/m33/m34/
+  // m35 each closed: the map stopped at m35 while m36 was live on disk (m37's
+  // registration landing, 2026-08-25, is what surfaced it — the same lag
+  // precedent m34's and m35's own notes name). Measured on the finished neo
+  // module at 37/71 = .521 (complexityShare("m36")): the attachment-site
+  // vocabulary (そう/がる/やすい・にくい/ながら) rides a single stem the way
+  // m30's て + helper did, so a bare "looks like" or "wants to" reading is
+  // often complete at three or four tiles on its own (「おいしそう」,
+  // 「いきたがっている」) — padding every one with a reason clause would blur
+  // exactly the attachment the module exists to drill, the same shape m33's
+  // and m34's own notes describe for their own single-seam modules. Floor set
+  // three sentences below the measurement ((37-3)/71 = .478, truncated per
+  // this block's own rounding convention), per this block's own rule. NEVER
+  // lowered.
+  m36: 0.47,
+  // m37 is a FIRST MEASUREMENT, closing the same frozen-list gap m32/m33/m34/
+  // m35/m36 each closed: the map stopped at m36 while m37 was live on disk
+  // (m38's registration landing, 2026-08-25, is what surfaced it — the same
+  // lag precedent m34/m35/m36's own notes name). Measured on the finished
+  // neo module at 31/59 = .525 (complexityShare("m37")): a bare conditional
+  // is often complete at three or four tiles on its own (「いけば、わかる」,
+  // 「たかければ、かわない」) — the same single-seam shape m33/m34/m36's own
+  // notes describe — so padding every one with a reason clause would blur
+  // exactly the ば/たら/なら contrast the module exists to drill. Floor set
+  // three sentences below the measurement ((31-3)/59 = .474, truncated per
+  // this block's own rounding convention), per this block's own rule. NEVER
+  // lowered.
+  m37: 0.47,
 };
 
 const CONNECTIVES = /(から|ので|けど|たら|とき|まえに|あとで|ながら)/;

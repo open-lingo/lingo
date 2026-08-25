@@ -1,0 +1,517 @@
+module: m35
+title: "Give & receive II: 〜てあげる/てくれる/てもらう + asking favors"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  n-desu, hou-ga-ii, yo-emphasis, ne-agreement, register-audience, chotto-softener,
+  ageru, kureru, morau, ni-recipient, kara-origin, tara, jidoushi-tadoushi,
+  volitional, you-to-omou, koto-ni-suru, koto-ni-naru, family-register,
+  ni-iku, counter-nin, frequency-adverbs, kono-sono-ano-dono]
+notes: |
+  m35 · n4-06 — GIVE & RECEIVE II (docs/spine-n4.md §m35). The spine's own
+  headline: **m30's schema × m31's verbs. NO new rule — one composition,
+  drilled until it is reflex.** The learner owns the て+helper slot (m30) and
+  the three transfer verbs with their direction logic (m31); this module puts
+  a verb of DOING in front of them and every particle rule carries over
+  unchanged. That is the whole grammar. The module's job is repetition with
+  the right emphases, and the emphases are:
+
+  1. **〜てくれる FIRST and heaviest (L1)** — the ordinary way to report a
+     kindness (せんせいが おしえてくれた), the highest-frequency member, and
+     the one English speakers under-produce because English has no slot for
+     "and it landed on me" inside the verb.
+  2. **〜てあげる with its politeness trap taught AS the antiPattern (L2)** —
+     offering help UPWARD with あげる sounds condescending
+     (×せんせいを てつだってあげます). Textbooks skip this; we teach the
+     error, and L10 supplies the correct move instead: offer with ましょうか
+     (m24 machinery + m34's register work).
+  3. **〜てもらう as the viewpoint flip (L3)** — "I got someone to…", the
+     same event as てくれる told from the receiver's end, exactly the m31
+     くれる/もらう mirror now applied to actions.
+  4. **THE FAVOR-REQUEST LADDER, register-graded, introduced PAIRWISE (L5
+     casual: 〜て / 〜てくれる？ / 〜てくれない？; L6 polite:
+     〜てくれませんか / 〜てもらえますか, seated against m8's てください)
+     and only assembled N-way in review-3** — the RUN-PLAN pairwise standing
+     decision applied to the tier's first six-rung speech act.
+  5. **だけ / しか〜ない (L7)** get their atoms here per the spine's limit
+     drip — だけ counts what is there, しか…ない counts what is missing, and
+     the favor frame gives both their natural spends (ケンだけが てつだって
+     くれる / ひとりしか いない).
+
+  DIALOGUE_SIM ×2 — this module is the step type's richest material in the
+  tier, because a favor only exists as a TURN:
+    - L5, casual: moving-day with Ken — asking him to carry things
+      (はこんでくれない？), build replies up the casual rungs.
+    - L10, polite: after class, books everywhere — OFFERING help to Tanaka
+      the right way (てつだいましょうか, NOT てつだってあげます) and asking
+      the polite favor (もらえますか). The politeness trap gets its lived
+      contrast where L2 taught it abstractly.
+
+  VOCAB (spine must/prefer, measured against docs/context/m35-context.md —
+  none of these are taught yet): verbs てつだう・はこぶ・なおす・こまる・
+  たすかる; nouns おねがい・むかえ (the noun in むかえに いく — rides m19's
+  ni-iku purpose slot); particles だけ・しか. CUT from the spine's prefer
+  list: つれる (its natural frame is つれていく/つれてくる, which would
+  front-run m38's ていく/てくる — deferred there, noted for m38's author),
+  めいわく・やくにたつ・たのみ (room); しんせつ is ALREADY TAUGHT (carrier).
+  Sidequest set untouched.
+
+  TOKENIZER HAZARDS: every て-form/derived surface used gets a verb-form
+  newAtom — てつだって, はこんで, なおして, こまって + the helper-verb forms
+  くれない, くれた, くれません, もらった, もらえます, あげた as used.
+  EXPANSION AGENT: keep this list exactly matching the beats, as in m34.
+
+  CLOSED-WRITING NOTE (inherited from m30, and the build-tile layer now
+  guards it): every 〜てくれる/〜てあげる/〜てもらう surface is written
+  CLOSED (てつだってくれる, no space before the helper). The helper stays
+  kana on tiles by the auxiliary-position suppression shipped 2026-08-24.
+grammarPoints:
+  # RULE-CARD VOCABULARY NOTE: no card names はこぶ/なおす/むかえ before
+  # their own lessons; cards argue from てつだう (L1's first new verb) and
+  # from m31's プレゼント/じしょ furniture, owned for four modules.
+
+  - id: te-kureru
+    rule: "Module 30 gave you the slot: a て-form with an ordinary verb parked behind it, the pair acting as one predicate. Module 31 gave you くれる: giving that arrives at my side. Put them together — 「せんせいが おしえてくれた」 — and the sentence does two jobs at once: the teacher taught me, AND the verb itself files it as a kindness that landed on me. There is no new rule in this module. が still marks the giver, the て-verb still never moves, くれる still points inward and carries all the tense. English has no slot for this, which is why English speakers under-use it — but in Japanese, leaving くれる off a sentence like this doesn't sound neutral, it sounds like the help didn't count."
+    examples:
+      - { ja: "せんせいが おしえてくれた。", en: "The teacher taught me (and I'm glad of it)." }
+      - { ja: "ともだちが てつだってくれる。", en: "My friend helps me out." }
+      - { ja: "あねが ばんごはんを かってくれた。", en: "My older sister bought me dinner." }
+    antiPattern: { ja: "せんせいが おしえてあげた。", why: "あげる points AWAY from the speaker — this says the teacher taught somebody else, as a favor from the teacher's side. Help that reached YOU takes くれる: おしえてくれた." }
+
+  - id: te-ageru
+    rule: "〜てあげる is the outward half: I do something FOR somebody. 「ともだちに ケーキを かってあげた」 — I bought my friend a cake, and the verb frames it as a favor from me. Use it freely about friends, family, children. But hear the frame: あげる bestows. Aimed UPWARD — at a teacher, a boss, a customer — 「てつだってあげます」 says \"I shall do you the favor of helping,\" and it lands as condescension, however kind you meant it. This is not a grammar error; the sentence is perfectly formed. It is a register error, which is worse, because nobody corrects it. What you say instead is coming in lesson 10: offer with ましょうか and keep あげる out of it."
+    examples:
+      - { ja: "ともだちに ケーキを かってあげた。", en: "I bought my friend a cake." }
+      - { ja: "いもうとに えいごを おしえてあげる。", en: "I'll teach my little sister English." }
+      - { ja: "ケンに じしょを かしてあげた。", en: "I lent Ken my dictionary." }
+    antiPattern: { ja: "せんせいに ケーキを かってあげた。", why: "grammatically flawless, socially wrong: あげる frames the gift as a favor bestowed downward, and pointed at your teacher it condescends. Give upward without the verb of bestowing — or offer with ましょうか (lesson 10)." }
+
+  - id: te-morau
+    rule: "〜てもらう is the same event as 〜てくれる, told from the other end — module 31's mirror, now with actions in it. 「ともだちが てつだってくれた」: my friend helped me, friend as subject. 「ともだちに てつだってもらった」: I got my friend's help, ME as subject, friend marked with に. English has no verb for this flip, so read it as \"I got (someone) to…\" or \"I had (someone)…\". Why bother, when くれる already says it? Because もらう makes the RECEIVING the story — I needed help and I went and got it. くれる reports their kindness; もらう reports my solution."
+    examples:
+      - { ja: "ともだちに てつだってもらった。", en: "I got my friend to help me." }
+      - { ja: "せんせいに おしえてもらう。", en: "I get the teacher to teach me." }
+      - { ja: "あにに かばんを もってもらった。", en: "I had my brother carry my bag." }
+    antiPattern: { ja: "ともだちが てつだってもらった。", why: "もらう makes the RECEIVER the subject — with ともだち marked が, this says your friend received the help, from someone unnamed. For \"my friend helped me,\" either flip the particle (ともだちに…もらった) or flip the verb (ともだちが…くれた)." }
+
+  - id: favor-ladder
+    variant: casual
+    rule: "Now the asking. You have requested with 〜てください since module 8 — polite, safe, and a little stiff between friends. The casual rungs are built from くれる: 「てつだってくれる？」 asks \"will you help me?\" straight; 「てつだってくれない？」 asks it through the negative — \"won't you help me?\" — and the negative SOFTENS it, exactly the way ませんか softened invitations back in module 24. Softer through the negative: it is the same move, one register down. Between friends, 〜てくれない？ is the everyday ask. Below both sits the bare て-form — 「てつだって」 — family-close, or urgent."
+    examples:
+      - { ja: "ちょっと てつだってくれる？", en: "Give me a hand?" }
+      - { ja: "てつだってくれない？", en: "Won't you help me out?" }
+      - { ja: "まって！", en: "Wait!" }
+    antiPattern: { ja: "せんせい、てつだってくれない？", why: "the くれない？ rung is friend-register — aimed at your teacher it is over-familiar. The polite rungs exist for exactly this: てつだってくれませんか." }
+
+  - id: favor-ladder
+    variant: polite
+    rule: "The polite rungs, and the top of the ladder. 「てつだってくれませんか」 is くれない？ in polite dress — same negative softening, ます layer on. 「てつだってもらえますか」 climbs one higher by switching verbs: it runs on もらう in the POTENTIAL (module 24's form) — literally \"would I be able to receive your helping?\" — which asks about possibility instead of willingness, and that indirection is the politeness. Against them both sits module 8's てください, which for all its です-class dress is a DIRECTIVE — fine for a shop counter, blunt for a favor. Rule of thumb: ください tells, くれませんか asks, もらえますか asks whether asking is even possible."
+    examples:
+      - { ja: "すみません、てつだってくれませんか。", en: "Excuse me, could you help me?" }
+      - { ja: "しゃしんを とってもらえますか。", en: "Could I get you to take a photo?" }
+      - { ja: "ちょっと まってください。", en: "Please wait a moment." }
+    antiPattern: { ja: "すみません、てつだってもらいませんか。", why: "the top rung runs on the POTENTIAL — もらえますか asks whether receiving your help is possible. もらいませんか drops the potential and literally invites the listener to receive something from you, the reverse of the favor you meant." }
+
+  - id: dake
+    rule: "だけ is \"just this, no more,\" and it sits directly after the thing it limits: 「ひとつだけ」 just one, 「ケンだけ」 only Ken. The machinery around it stays positive — 「ケンだけが てつだってくれた」, only Ken helped me. It stacks onto the noun BEFORE the particle where there is one: だけが, だけに. That is the whole word. Its dark twin — the one that needs a negative — is next."
+    examples:
+      - { ja: "ケンだけが てつだってくれた。", en: "Only Ken helped me." }
+      - { ja: "ひとつだけ ください。", en: "Just one, please." }
+      - { ja: "みずだけ のむ。", en: "I'll just drink water." }
+    antiPattern: { ja: "ケンだけが てつだってくれない。", why: "だけ + a negative says only Ken DOESN'T help — almost the opposite of \"only Ken helps.\" For only-Ken-and-nobody-else, keep だけ positive, or reach for しか…ない, which is built for the missing-everyone-else reading." }
+
+  - id: shika-nai
+    rule: "しか is だけ's shadow: it means \"only\" too, but it REQUIRES the negative — しか…ない — and it counts what is missing rather than what is there. 「ひとりしか いない」: there is only one person, said as \"nobody beyond one.\" The feeling is scarcity: 「せんえんしか ない」 laments the mere thousand yen; 「せんえんだけ ある」 just states it. One mechanical difference to drill: しか REPLACES が and を outright (ケンしか こない, みずしか のまない) — no がしか, no をしか. When the amount feels like not-enough, Japanese reaches for しか…ない almost every time."
+    examples:
+      - { ja: "ケンしか てつだってくれない。", en: "Ken is the only one who'll help me." }
+      - { ja: "ひとりしか いない。", en: "There's only one person." }
+      - { ja: "せんえんしか ない。", en: "I've only got a thousand yen." }
+    antiPattern: { ja: "ケンしか てつだってくれる。", why: "しか has no meaning without its negative — the verb must be ない-shaped: ケンしか てつだってくれない. With a positive verb, use だけ: ケンだけ(が) てつだってくれる." }
+
+newAtoms:
+  # ══ Verbs. てつだう is the module's workhorse and an image debut candidate
+  #    only if an honest un-colliding emoji exists at wiring (🤝 is かりる's);
+  #    はこぶ gets 📦 (a carried box IS carrying). こまる/たすかる are states
+  #    no picture names honestly.
+  - { kana: てつだう, romaji: tetsudau, gloss: "to help, to lend a hand", shortGloss: "help", imageable: false, kind: verb, verbClass: u }
+  - { kana: はこぶ, romaji: hakobu, gloss: "to carry, to transport", shortGloss: "carry", imageable: true, kind: verb, verbClass: u }
+  - { kana: なおす, romaji: naosu, gloss: "to fix, to repair", shortGloss: "fix", imageable: false, kind: verb, verbClass: u }
+  - { kana: こまる, romaji: komaru, gloss: "to be stuck, to be in trouble", shortGloss: "be stuck", imageable: false, kind: verb, verbClass: u }
+  - { kana: たすかる, romaji: tasukaru, gloss: "to be saved, to be a big help (it saves me)", shortGloss: "be a help", imageable: false, kind: verb, verbClass: u }
+  # ══ Nouns.
+  - { kana: おねがい, romaji: onegai, gloss: "a favor, a request", shortGloss: "favor", imageable: false, kind: vocab }
+  - { kana: むかえ, romaji: mukae, gloss: "a pick-up — going to meet someone (むかえに いく)", shortGloss: "pick-up", imageable: false, kind: vocab }
+  # ══ Particles.
+  - { kana: だけ, romaji: dake, gloss: "just, only (counts what is there)", shortGloss: "just", imageable: false, kind: particle }
+  - { kana: しか, romaji: shika, gloss: "only (with a negative — counts what is missing)", shortGloss: "only (+neg)", imageable: false, kind: particle }
+  # ══ Derived surfaces the tokenizer needs (m33-prep §3). EXPANSION AGENT:
+  #    keep this list EXACTLY matching beat usage — add くれます/あげました/
+  #    もらえません etc. only if beats use them; remove any unused entry.
+  - { kana: てつだって, romaji: tetsudatte, gloss: "help, and… (help, te-form)", shortGloss: "help (te)", imageable: false, kind: verb-form, derivedFrom: てつだう, verbClass: u }
+  - { kana: はこんで, romaji: hakonde, gloss: "carry, and… (carry, te-form)", shortGloss: "carry (te)", imageable: false, kind: verb-form, derivedFrom: はこぶ, verbClass: u }
+  - { kana: なおして, romaji: naoshite, gloss: "fix, and… (fix, te-form)", shortGloss: "fix (te)", imageable: false, kind: verb-form, derivedFrom: なおす, verbClass: u }
+  - { kana: こまって, romaji: komatte, gloss: "stuck, and… (stuck, te-form)", shortGloss: "stuck (te)", imageable: false, kind: verb-form, derivedFrom: こまる, verbClass: u }
+  - { kana: くれない, romaji: kurenai, gloss: "won't give me (negative of くれる)", shortGloss: "won't give me", imageable: false, kind: verb-form, derivedFrom: くれる, verbClass: ru }
+  - { kana: くれた, romaji: kureta, gloss: "gave me (くれる, past)", shortGloss: "gave (give, past)", imageable: false, kind: verb-form, derivedFrom: くれる, verbClass: ru }
+  - { kana: くれません, romaji: kuremasen, gloss: "won't give me (polite)", shortGloss: "won't give me (polite)", imageable: false, kind: verb-form, derivedFrom: くれる, verbClass: ru }
+  - { kana: もらった, romaji: moratta, gloss: "got, received (もらう, past)", shortGloss: "got (receive, past)", imageable: false, kind: verb-form, derivedFrom: もらう, verbClass: u }
+  - { kana: もらえます, romaji: moraemasu, gloss: "can receive (polite potential of もらう)", shortGloss: "can receive", imageable: false, kind: verb-form, derivedFrom: もらう, verbClass: u }
+  - { kana: あげた, romaji: ageta, gloss: "gave (あげる, past)", shortGloss: "gave (give, past)", imageable: false, kind: verb-form, derivedFrom: あげる, verbClass: ru }
+  - { kana: てつだいましょう, romaji: tetsudaimashou, gloss: "let me help (polite offer stem of てつだう)", shortGloss: "let me help", imageable: false, kind: verb-form, derivedFrom: てつだう, verbClass: u }
+  - { kana: たすかった, romaji: tasukatta, gloss: "that saved me (たすかる, past)", shortGloss: "that helped (help)", imageable: false, kind: verb-form, derivedFrom: たすかる, verbClass: u }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-1
+    role: teaching
+    title: "「おしえてくれた」 — help that lands on you"
+    focus: "m30's slot with m31's くれる parked in it — the teacher taught, AND the verb files it as a kindness that reached your side"
+    introduces: [てつだう, てつだって, くれた, くれない]
+    beats:
+      - { kind: rule, grammarPointId: te-kureru }
+      - { kind: sentence, ja: "せんせいが おしえてくれた。", en: "The teacher taught me", exercises: [te-kureru, ga-existence], mode: build }
+      - { kind: sentence, ja: "ともだちが てつだってくれる。", en: "My friend helps me out", exercises: [te-kureru, ga-existence], mode: build }
+      - { kind: sentence, ja: "ケンを てつだう。", en: "I help Ken", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "あねが じしょを かしてくれた。", en: "My older sister lent me a dictionary", exercises: [te-kureru, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちが プレゼントを かってくれた。", en: "My friend bought me a present", exercises: [te-kureru, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンは いそがしいから、てつだってくれない。", en: "Ken's busy, so he won't help me", exercises: [te-kureru, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "ともだちが ", tail: "。", answer: "てつだってくれる", options: ["てつだってくれる", "てつだってあげる", "てつだう"], en: "My friend helps me out", explanation: "help that reaches YOU takes くれる — it points inward. てつだってあげる would mean your friend is helping someone ELSE, and てつだう alone carries no direction at all." }
+      - { kind: listening-comp, audio: "せんせいが おしえてくれた。", answer: "The teacher taught me", distractors: ["The teacher teaches someone else", "I taught the teacher", "The teacher usually teaches"], q: "What does this mean?", explanation: "くれる points the kindness at the speaker — the teacher's teaching landed on ME." }
+      - { kind: listening-comp, audio: "ケンは いそがしいから、てつだってくれない。", answer: "Ken's busy, so he won't help me", distractors: ["Ken's busy, so he's helping me", "Ken helped me because he was free", "I'm busy, so I can't help Ken"], explanation: "くれない is くれる's negative — the help that was expected doesn't land." }
+      - { kind: kanji, kana: じしょ, kanji: 辞書, distractors: ["じしょう", "でんしょ", "じしゅ"], exercises: [te-kureru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ケンが てつだってくれたよ。", en: "Ken helped me out, you know." }
+          - { speaker: "Tom", ja: "え、そう？", en: "Huh, really?" }
+          - { speaker: "Mika", ja: "うん。じしょを かしてくれた。", en: "Yeah. He lent me a dictionary." }
+        questions:
+          - { q: "What did Ken do for Mika?", options: ["Lent her a dictionary", "Bought her a present", "Taught her English", "Carried her bag"], answer: "Lent her a dictionary" }
+      - { kind: challenge, ja: "ケンは いそがしいけど、しゅくだいを てつだってくれた。", en: "Ken was busy, but he helped me with my homework", combines: [te-kureru, kedo, wo-object], mode: build }
+    reviewPool: [せんせい, ともだち, じしょ, かさ, とけい, プレゼント, しゅくだい, えいご]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-2
+    role: teaching
+    title: "「かってあげた」 — and the trap in pointing it upward"
+    focus: "The outward half is easy; the register trap is the lesson — あげる bestows, and bestowing at your teacher condescends"
+    introduces: [あげた]
+    beats:
+      - { kind: rule, grammarPointId: te-ageru }
+      - { kind: sentence, ja: "ともだちに ケーキを かってあげた。", en: "I bought my friend a cake", exercises: [te-ageru, ni-recipient, wo-object], mode: build }
+      - { kind: sentence, ja: "いもうとに えいごを おしえてあげる。", en: "I'll teach my little sister English", exercises: [te-ageru, ni-recipient, family-register], mode: build }
+      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken my dictionary", exercises: [te-ageru, ni-recipient], mode: build }
+      - { kind: sentence, ja: "おとうとに ほんを かってあげた。", en: "I bought my little brother a book", exercises: [te-ageru, ni-recipient, family-register], mode: build }
+      - { kind: particle-cloze, stem: "ともだちに ケーキを ", tail: "。", answer: "かってあげた", options: ["かってあげた", "かってくれた", "かった"], en: "I bought my friend a cake", explanation: "あげる points OUTWARD — I'm doing my friend the favor. かってくれた would flip it: my friend bought ME a cake. かった alone is just the plain past, no favor framed at all." }
+      - { kind: listening-comp, audio: "いもうとに えいごを おしえてあげる。", answer: "I'll teach my little sister English", distractors: ["My little sister will teach me English", "I teach English at school", "My little sister taught me English"], explanation: "あげる keeps the favor pointed at いもうと — teaching FOR her, not from her." }
+      - { kind: particle-cloze, stem: "", tail: "を てつだってあげる。", answer: "いもうと", options: ["いもうと", "せんせい", "いしゃ"], en: "I'll help ___ (as a favor)", explanation: "あげる bestows, so it aims DOWNWARD or level — a little sister, a friend. せんせい and いしゃ both sit above you, and bestowing help on them condescends. Offer upward with ましょうか instead (coming in lesson 10)." }
+      - { kind: kanji, kana: かぞく, kanji: 家族, distractors: ["かぞこ", "けぞく", "いえぞく"], exercises: [family-register] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "いもうとの たんじょうびに なにを あげた？", en: "What did you give your sister for her birthday?" }
+          - { speaker: "Tom", ja: "えいごの ほんを かってあげた。", en: "I bought her an English book." }
+          - { speaker: "Ken", ja: "いいね。", en: "Nice." }
+        questions:
+          - { q: "What did Tom give his sister?", options: ["An English book", "A cake", "A dictionary", "A watch"], answer: "An English book" }
+      - { kind: challenge, ja: "いもうとの たんじょうびだから、ケーキを かってあげた。", en: "It's my sister's birthday, so I bought her a cake", combines: [te-ageru, kara-because, wo-object], mode: build }
+    reviewPool: [ケーキ, いもうと, おとうと, えいご, じしょ, かばん, ちち, はは]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-3
+    role: teaching
+    title: "「てつだってもらった」 — the same help, told from your end"
+    focus: "もらう flips the viewpoint: I went and GOT the help — m31's mirror, now with actions in it"
+    introduces: [もらった, はこぶ, はこんで]
+    beats:
+      - { kind: rule, grammarPointId: te-morau }
+      - { kind: sentence, ja: "ともだちが てつだってくれた。", en: "My friend helped me", exercises: [te-kureru], mode: build }
+      - { kind: sentence, ja: "ともだちに てつだってもらった。", en: "I got my friend to help me", exercises: [te-morau, ni-recipient], mode: build }
+      - { kind: sentence, ja: "つくえを はこんでもらった。", en: "I got someone to carry the desk", exercises: [te-morau, wo-object], mode: build }
+      - { kind: sentence, ja: "いすを はこんでもらった。", en: "I got someone to carry the chair", exercises: [te-morau, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ともだちに ", tail: "。", answer: "てつだってもらった", options: ["てつだってもらった", "てつだってくれた", "てつだってあげた"], en: "I got my friend to help me", explanation: "に marks the giver of the help, and the verb that receives it is もらった. くれた would need the friend marked が as the subject; あげた would send the help outward from you instead." }
+      - { kind: particle-cloze, stem: "ともだちが ", tail: "。", answer: "てつだってくれた", options: ["てつだってくれた", "てつだってもらった", "てつだってあげた"], en: "My friend helped me", explanation: "が marks the friend as the giver, and the inward verb is くれた. もらった would need ME as the subject with the friend marked に; あげた points the favor away from you." }
+      - { kind: listening-comp, audio: "かばんを はこんでもらった。", answer: "I got someone to carry my bag", distractors: ["I carried the bag myself", "Someone asked me to carry the bag", "I carried the bag for someone"], explanation: "もらう makes the RECEIVING the story — the speaker needed the carrying done and got it." }
+      - { kind: listening-comp, audio: "せんせいに おしえてもらった。", answer: "I got the teacher to teach me", distractors: ["I taught the teacher", "The teacher teaches me every day", "The teacher taught someone else"] }
+      - { kind: kanji, kana: ともだち, kanji: 友達, exercises: [te-morau] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "つくえが おもいね。", en: "This desk is heavy, huh." }
+          - { speaker: "Mika", ja: "ケンに はこんでもらったよ。", en: "I got Ken to carry it, you know." }
+          - { speaker: "Tom", ja: "いいね。", en: "Nice." }
+        questions:
+          - { q: "How did Mika get the desk moved?", options: ["She got Ken to carry it", "She carried it herself", "She asked Tom to carry it", "She left it there"], answer: "She got Ken to carry it" }
+      - { kind: challenge, ja: "つくえが おもいから、ケンに はこんでもらった。", en: "The desk was heavy, so I got Ken to carry it", combines: [te-morau, kara-because, ni-recipient], mode: build }
+    reviewPool: [つくえ, いす, かばん, ほん, へや, ともだち, あに, せんせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-review-1
+    role: review
+    title: "Review — three verbs, one event"
+    focus: "くれる・あげる・もらう behind the て-form: direction, viewpoint, and the upward trap"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいが おしえてくれた。", en: "The teacher taught me", exercises: [te-kureru, ga-existence], mode: build }
+      - { kind: sentence, ja: "ともだちに ケーキを かってあげた。", en: "I bought my friend a cake", exercises: [te-ageru, ni-recipient, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちに てつだってもらった。", en: "I got my friend to help me", exercises: [te-morau, ni-recipient], mode: build }
+      - { kind: particle-cloze, stem: "ともだちが ", tail: "。", answer: "てつだってくれる", options: ["てつだってくれる", "てつだってあげる", "てつだってもらう"], en: "My friend helps me out", explanation: "くれる points the favor at the speaker's own side — が marks the friend as the GIVER, and the help lands on ME. あげる would send it away from me; もらう would need ME as the subject, not ともだち." }
+      - { kind: sentence, ja: "いもうとに えいごを おしえてあげる。", en: "I'll teach my little sister English", exercises: [te-ageru, ni-recipient, family-register], mode: build }
+      - { kind: listening-comp, audio: "せんせいを てつだってあげる。", answer: "Grammatically correct, but rude to say to your teacher", distractors: ["A normal, polite thing to say to your teacher", "Incorrect Japanese", "Only correct at a shop"], q: "Is this OK to say to your teacher?", explanation: "あげる bestows — fine toward a friend or a sibling, but aimed upward at a teacher it condescends, however kindly meant." }
+      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken my dictionary", exercises: [te-ageru, ni-recipient], mode: build }
+      - { kind: sentence, ja: "あねが じしょを かしてくれた。", en: "My older sister lent me a dictionary", exercises: [te-kureru, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "あねが じしょを ", tail: "。", answer: "かしてくれた", options: ["かしてくれた", "かしてあげた", "かした"], en: "My older sister lent me a dictionary", explanation: "the favor lands on ME, so it's くれた — あねが marks HER as the giver. かしてあげた would mean I lent it to someone else. かした alone drops the favor framing entirely." }
+      - { kind: sentence, ja: "つくえを はこんでもらった。", en: "I got someone to carry the desk", exercises: [te-morau, wo-object], mode: build }
+      - { kind: listening-comp, audio: "ともだちに てつだってもらった。", answer: "I got my friend to help me", distractors: ["My friend helped me", "I helped my friend", "My friend wants my help"] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "しゅくだいを てつだってくれる？", en: "Will you help me with my homework?" }
+          - { speaker: "Tom", ja: "うん、いいよ。", en: "Sure, okay." }
+          - { speaker: "Mika", ja: "ありがとう！", en: "Thanks!" }
+        questions:
+          - { q: "What does Mika ask Tom to help with?", options: ["Homework", "Moving a desk", "Buying a present", "Cooking dinner"], answer: "Homework" }
+    reviewPool: [せんせい, ともだち, ケーキ, じしょ, かばん, つくえ, えいご, しゅくだい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-5
+    role: teaching
+    title: "「はこんでくれない？」 — asking, the friendly way"
+    focus: "The casual rungs: くれる？ asks straight, くれない？ softens through the negative — the same move ませんか taught you, one register down"
+    introduces: [おねがい, こまる, こまって]
+    beats:
+      - { kind: rule, grammarPointId: favor-ladder, variant: casual }
+      - { kind: sentence, ja: "ちょっと てつだってくれる？", en: "Give me a hand?", exercises: [favor-ladder, chotto-softener], mode: build }
+      - { kind: sentence, ja: "その かばんを はこんでくれない？", en: "Won't you carry that bag for me?", exercises: [favor-ladder, kono-sono-ano-dono, wo-object], mode: build }
+      - { kind: sentence, ja: "おねがいが ある。", en: "I have a favor to ask", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "ちょっと てつだって。", en: "Help me a sec.", exercises: [favor-ladder, chotto-softener], mode: build }
+      - { kind: sentence, ja: "しゅくだいを てつだってくれる？", en: "Will you help me with my homework?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "とけいを かしてくれない？", en: "Won't you lend me your watch?", exercises: [favor-ladder], mode: listening }
+      - { kind: sentence, ja: "テストで こまる。", en: "I'm having trouble with the test", exercises: [de-action], mode: build }
+      - { kind: sentence, ja: "こまっているから、てつだって。", en: "I'm in trouble, so help me", exercises: [te-iru, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "ちょっと じしょを かして", tail: "？", answer: "くれない", options: ["くれない", "くれる", "くれた"], en: "Won't you lend me your dictionary?", explanation: "くれない？ softens the ask through the negative — the everyday way to ask a friend. くれる？ asks straight, still friendly but more direct. くれた is the past tense — it reports something already given, not a request at all." }
+      - { kind: listening-comp, audio: "せんせい、てつだってくれない？", answer: "No — too casual for a teacher", distractors: ["Yes, perfectly polite", "Only correct at a shop", "Only correct with family"], q: "Is this OK to say to your teacher?", explanation: "くれない？ is friend-register. Aimed at a teacher it's over-familiar — the exact trap the rule card's antiPattern names." }
+      - { kind: kanji, kana: まど, kanji: 窓, distractors: ["まと", "とう", "そう"], exercises: [favor-ladder] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "とけいを かしてくれる？", en: "Will you lend me your watch?" }
+          - { speaker: "Tom", ja: "うん、いいよ。", en: "Sure, okay." }
+          - { speaker: "Mika", ja: "ありがとう！", en: "Thanks!" }
+        questions:
+          - { q: "What does Mika ask to borrow?", options: ["A watch", "A dictionary", "A bag", "A desk"], answer: "A watch" }
+      - kind: sim
+        scene: { emoji: "📦", title: "Moving day", setting: "You're helping Ken move, and there is a lot to carry." }
+        turns:
+          - npc: { speaker: "Ken", ja: "この かばん、おもいね。", en: "This bag is heavy, huh." }
+            goal: "Ask him to carry the desk — the friendly way."
+            reply: { mode: build, tiles: ["つくえ", "を", "はこんでくれない", "はこんでください", "？"], answer: "つくえを はこんでくれない？" }
+            replyGloss: "Won't you carry the desk?"
+            explanation: "Between friends the favor rides くれない？ — the negative softens the ask. はこんでください is grammatical, but it directs where a friend would ask."
+          - npc: { speaker: "Ken", ja: "いいよ。ぼくの テレビも はこんでくれる？", en: "Sure. Can you carry my TV too?" }
+            goal: "Say yes, and offer to carry it for him."
+            reply: { mode: build, tiles: ["いいよ", "はこんであげる", "はこんでくれる", "。"], answer: "いいよ。はこんであげる。" }
+            replyGloss: "Sure. I'll carry it for you."
+            explanation: "Ken's favor comes back the other way — はこんであげる puts the verb outward, framing the carrying as a favor FROM you. はこんでくれる would flip the direction, saying he'd be doing it for you instead."
+      - { kind: challenge, ja: "こまっているから、ちょっと てつだってくれない？", en: "I'm stuck — won't you give me a hand?", combines: [favor-ladder, te-iru, kara-because, chotto-softener], mode: build }
+    reviewPool: [つくえ, いす, かばん, ほん, テレビ, とけい, へや, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-6
+    role: teaching
+    title: "「とってもらえますか」 — asking, the polite way"
+    focus: "くれませんか is くれない？ in polite dress; もらえますか asks whether asking is possible — and ください, for all its dress, directs"
+    introduces: [くれません, もらえます, なおす, なおして]
+    beats:
+      - { kind: rule, grammarPointId: favor-ladder, variant: polite }
+      - { kind: sentence, ja: "すみません、しゃしんを とってもらえますか。", en: "Excuse me, could I get you to take a photo?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "とけいを なおす。", en: "I fix the watch", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "とけいを なおしてくれませんか。", en: "Could you fix my watch?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "とけいを なおしてもらえますか。", en: "Could I get you to fix my watch?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "しゃしんを とってくれませんか。", en: "Could you take a photo?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: listening-comp, audio: "じしょを かしてください。", answer: "A directive — fine at a shop, blunt for a personal favor", distractors: ["A soft, indirect favor-ask", "Only used with family", "Grammatically incorrect"], q: "What kind of request is this?", explanation: "ください TELLS — module 8's request form. かしてくれませんか or かしてもらえますか ASK, and read warmer for a favor between people." }
+      - { kind: listening-comp, audio: "かばんを はこんでもらえますか。", answer: "Could I get you to carry my bag?", distractors: ["I carried the bag myself", "Could you carry your own bag?", "Won't you lend me a bag?"] }
+      - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["でんは", "てんわ", "でわ"], exercises: [favor-ladder] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "すみません、しゃしんを とってもらえますか。", en: "Excuse me, could I get you to take a photo?" }
+          - { speaker: "Mika", ja: "はい、いいですよ。", en: "Sure, of course." }
+          - { speaker: "Tom", ja: "ありがとうございます。", en: "Thank you." }
+        questions:
+          - { q: "What does Tom ask for?", options: ["Someone to take a photo", "Directions to the station", "A watch repair", "A dictionary"], answer: "Someone to take a photo" }
+      - { kind: challenge, ja: "すみません、しゃしんを とってくれませんか。", en: "Excuse me, could you take a photo?", combines: [favor-ladder, wo-object, register-audience], mode: build }
+    reviewPool: [しゃしん, カメラ, とけい, でんわ, じてんしゃ, かぎ, みせ, えき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-7
+    role: teaching
+    title: "「ケンだけ」と「ひとりしか いない」 — just, and only"
+    focus: "だけ counts what is there and stays positive; しか counts what is missing and demands its ない"
+    introduces: [だけ, しか]
+    beats:
+      - { kind: rule, grammarPointId: dake }
+      - { kind: sentence, ja: "みずだけ のむ。", en: "I'll just drink water", exercises: [dake, wo-object], mode: build }
+      - { kind: rule, grammarPointId: shika-nai }
+      - { kind: sentence, ja: "せんえんしか ない。", en: "I've only got a thousand yen", exercises: [shika-nai, nai-existence], mode: build }
+      - { kind: sentence, ja: "ひとつだけ ある。", en: "There's just one", exercises: [dake, ga-existence], mode: build }
+      - { kind: sentence, ja: "ひとつしか ない。", en: "There's only one", exercises: [shika-nai, nai-existence], mode: build }
+      - { kind: particle-cloze, stem: "ケン", tail: " こない。", answer: "しか", options: ["しか", "がしか", "だけ"], en: "Only Ken is coming", explanation: "しか REPLACES が outright — no がしか. だけ would flip the feeling positive (Ken's coming, and that's fine) instead of scarce." }
+      - { kind: particle-cloze, stem: "ケン", tail: " てつだってくれた。", answer: "だけが", options: ["だけが", "しか", "が"], en: "Only Ken helped me", explanation: "だけ stays positive and stacks BEFORE が: だけが. しか would need the verb to go negative (てつだってくれない). Bare が alone doesn't say 'only'." }
+      - { kind: sentence, ja: "ひとりしか てつだってくれない。", en: "Only one person will help me", exercises: [shika-nai, te-kureru], mode: build }
+      - { kind: listening-comp, audio: "せんえんしか ない。", answer: "A complaint — that's not enough money", distractors: ["A neutral statement about having a thousand yen", "Happy — a thousand yen is plenty", "A question about the price"], q: "What's the feeling behind this?", explanation: "しか…ない counts what's MISSING — せんえんしか ない laments the mere thousand yen. だけ would just state the amount, no complaint." }
+      - { kind: listening-comp, audio: "みずだけ のむ。", answer: "I'll just drink water (a simple statement, no complaint)", distractors: ["I'm not allowed to drink water", "I refuse to drink water", "I only have a little water left"] }
+      - { kind: kanji, kana: じかん, kanji: 時間, distractors: ["じがん", "ときま", "じっかん"], exercises: [dake] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "おかねが ある？", en: "Do you have money?" }
+          - { speaker: "Tom", ja: "せんえんしか ない。", en: "I've only got a thousand yen." }
+          - { speaker: "Ken", ja: "だいじょうぶ。コーヒーだけ かおう。", en: "It's fine. Let's just buy coffee." }
+        questions:
+          - { q: "How much money does Tom have?", options: ["Only a thousand yen", "Two thousand yen", "No money at all", "Ten thousand yen"], answer: "Only a thousand yen" }
+      - { kind: challenge, ja: "じかんが ないから、コーヒーだけ のむ。", en: "I don't have time, so I'll just drink coffee", combines: [dake, kara-because, nai-existence], mode: build }
+    reviewPool: [みず, おかね, ひと, ともだち, じかん, ひとり, ふたり, コーヒー]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-review-2
+    role: review
+    title: "Review — the ladder so far, and the limits"
+    focus: "Casual and polite rungs side by side; だけ/しか under the favor frame"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ちょっと てつだってくれる？", en: "Give me a hand?", exercises: [favor-ladder, chotto-softener], mode: build }
+      - { kind: sentence, ja: "とけいを なおしてくれませんか。", en: "Could you fix my watch?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "しゃしんを とってもらえますか。", en: "Could I get you to take a photo?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "せんせい、しゃしんを とって", tail: "。", answer: "くれませんか", options: ["くれませんか", "くれない？", "くれません"], en: "Ask your teacher: could you take a photo?", explanation: "くれない？ is friend-register — wrong audience for a teacher. くれませんか is the polite rung, the same negative-softened ask in polite dress. くれません alone (no か) is only a flat negative statement — it doesn't ask anything." }
+      - { kind: sentence, ja: "つくえを はこんでくれない？", en: "Won't you carry the desk for me?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "ひとりしか いない。", en: "There's only one person", exercises: [shika-nai, nai-existence], mode: build }
+      - { kind: sentence, ja: "みずだけ のむ。", en: "I'll just drink water", exercises: [dake, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ケン", tail: " こない。", answer: "しか", options: ["しか", "だけ", "がしか"], en: "Only Ken is coming", explanation: "しか REPLACES が outright — no がしか. だけ would flip the feeling positive instead of scarce." }
+      - { kind: listening-comp, audio: "とけいを なおしてくれませんか。", answer: "Polite — fine for a teacher or a stranger", distractors: ["Too casual for anyone but close friends", "Rude, avoid entirely", "Only for shop clerks"], q: "Who could this be said to?" }
+      - { kind: listening-comp, audio: "つくえを はこんでくれない？", answer: "Friend-register — fine for Ken, not for your teacher", distractors: ["Polite enough for anyone", "Rude to say to a friend", "Only correct in writing"], q: "Who could this be said to?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "しゃしんを とってくれませんか。", en: "Could you take a photo?" }
+          - { speaker: "Tom", ja: "はい、いいですよ。", en: "Sure, of course." }
+        questions:
+          - { q: "What does Tanaka ask Tom to do?", options: ["Take a photo", "Fix a watch", "Carry a desk", "Lend a dictionary"], answer: "Take a photo" }
+    reviewPool: [かばん, しゃしん, とけい, みず, おかね, せんせい, ともだち, ひとり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-9
+    role: teaching
+    title: "「えきまで むかえに きてくれる？」 — favors in motion"
+    focus: "The pick-up frame: むかえに いく/くる rides m19's purpose-に, and the whole favor ladder comes along"
+    introduces: [むかえ, たすかる, たすかった]
+    beats:
+      - { kind: sentence, ja: "えきに むかえに いく。", en: "I'll go to the station to pick (someone) up", exercises: [ni-iku], mode: build }
+      - { kind: sentence, ja: "くうこうに むかえに いく。", en: "I'll go to the airport to pick (someone) up", exercises: [ni-iku], mode: build }
+      - { kind: sentence, ja: "えきまで むかえに きてくれる？", en: "Will you come pick me up at the station?", exercises: [favor-ladder, made-until], mode: build }
+      - { kind: sentence, ja: "くうこうまで むかえに いってもらった。", en: "I got someone to go pick me up at the airport", exercises: [te-morau, made-until], mode: build }
+      - { kind: sentence, ja: "がっこうまで むかえに きてくれない？", en: "Won't you come pick me up at school?", exercises: [favor-ladder, made-until], mode: listening }
+      - { kind: sentence, ja: "くるまで むかえに きてもらえますか。", en: "Could I get you to come pick me up by car?", exercises: [favor-ladder, de-action], mode: build }
+      - { kind: sentence, ja: "てつだってくれると たすかる。", en: "If you help me, it really helps", exercises: [te-kureru], mode: build }
+      - { kind: sentence, ja: "ありがとう、たすかった！", en: "Thanks, that's a real help", mode: build }
+      - { kind: particle-cloze, stem: "えきまで むかえに ", tail: "？", answer: "きてくれる", options: ["きてくれる", "いってくれる", "きてくれない"], en: "Will you come pick me up at the station?", explanation: "むかえに after まで takes きて when the picking-up ends HERE, at your side — きてくれる. いってくれる would have them go pick someone up somewhere else entirely, and きてくれない？ is the same favor asked through the negative-softened rung, still an ask, just gentler." }
+      - { kind: listening-comp, audio: "くうこうまで むかえに いってもらった。", answer: "I got someone to go pick me up at the airport", distractors: ["I went to pick someone up at the airport myself", "Someone is going to pick me up at the airport later", "I picked myself up at the airport"] }
+      - { kind: kanji, kana: えき, kanji: 駅, distractors: ["えぎ", "うま", "やく"], exercises: [ni-iku] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "あした えきまで むかえに きてくれる？", en: "Will you come pick me up at the station tomorrow?" }
+          - { speaker: "Mika", ja: "うん、いいよ。なんじ？", en: "Sure, okay. What time?" }
+          - { speaker: "Tom", ja: "ごじ。", en: "Five o'clock." }
+          - { speaker: "Mika", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "Where does Tom ask Mika to pick him up?", options: ["The station", "The airport", "The school", "His house"], answer: "The station" }
+      - { kind: challenge, ja: "くうこうまで むかえに きてくれたから、たすかった。", en: "You came to pick me up at the airport, so that was a real help", combines: [te-kureru, kara-because, made-until], mode: build }
+    reviewPool: [えき, くうこう, がっこう, いもうと, おとうと, ちち, はは, くるま]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-10
+    role: teaching
+    title: "「てつだいましょうか」 — offering, without the trap"
+    focus: "The right way to point help upward: offer with ましょうか — the あげる trap from L2 finally gets its fix"
+    introduces: [てつだいましょう]
+    beats:
+      - { kind: sentence, ja: "せんせいを てつだいましょうか。", en: "Shall I help my teacher?", exercises: [mashou], mode: build }
+      - { kind: particle-cloze, stem: "せんせいを ", tail: "。", answer: "てつだいましょうか", options: ["てつだいましょうか", "てつだってあげる", "てつだってください"], en: "Shall I help my teacher?", explanation: "てつだいましょうか offers with plain will, politely — nothing bestowed. てつだってあげる is L2's trap: grammatically fine, and it condescends aimed upward. てつだってください flips it into a directive, asking THEM to help YOU instead." }
+      - { kind: sentence, ja: "かばんが おもいから、てつだいましょうか。", en: "The bag is heavy, so shall I help?", exercises: [mashou, kara-because], mode: build }
+      - { kind: sentence, ja: "はい、おねがい。", en: "Yes, please.", mode: build }
+      - { kind: sentence, ja: "だいじょうぶです。", en: "It's all right, no need.", mode: build }
+      - { kind: listening-comp, audio: "てつだいましょうか。", answer: "A polite offer to help", distractors: ["A command to help", "A refusal to help", "A question about whether help happened"], q: "What is this?" }
+      - { kind: kanji, kana: きょうしつ, kanji: 教室, distractors: ["きょうしっ", "こうしつ", "きょうし"], exercises: [mashou] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "せんせいが こまっているよ。", en: "The teacher's in a bind, you know." }
+          - { speaker: "Tom", ja: "てつだいましょうか。", en: "Shall I help?" }
+          - { speaker: "Ken", ja: "いいね。", en: "Good idea." }
+        questions:
+          - { q: "What does Tom offer to do?", options: ["Help the teacher", "Carry Ken's bag", "Fix a watch", "Take a photo"], answer: "Help the teacher" }
+      - kind: sim
+        scene: { emoji: "📚", title: "After class, again", setting: "Tanaka-sensei is carrying a pile of books, and one drops." }
+        turns:
+          - npc: { speaker: "Tanaka", ja: "あ、ほんが おちた。", en: "Ah — a book fell." }
+            goal: "Offer your teacher help — the right way."
+            reply: { mode: build, tiles: ["てつだいましょう", "てつだってあげる", "か", "よ"], answer: "てつだいましょうか。" }
+            replyGloss: "Shall I help you?"
+            explanation: "The offer rides ましょうか — will, politely extended, nothing bestowed. てつだってあげる is L2's trap: grammatically fine, and it condescends aimed at your teacher."
+          - npc: { speaker: "Tanaka", ja: "ありがとうございます。この ほんを はこんでもらえますか。", en: "Thank you. Could I get you to carry these books?" }
+            goal: "Say yes, politely."
+            reply: { mode: choice, options: ["はい、いいですよ。", "うん、いいよ。", "いいえ。"], answer: "はい、いいですよ。" }
+            replyGloss: "Yes, of course."
+            explanation: "Teacher's room, polite dress on: はい、いいですよ. うん、いいよ is the same yes in friend-register — right words, wrong audience."
+      - { kind: challenge, ja: "せんせいが こまっているから、てつだいましょうか。", en: "The teacher's in trouble — shall I help?", combines: [favor-ladder, te-iru, kara-because], mode: build }
+    reviewPool: [ほん, つくえ, いす, きょうしつ, せんせい, かばん, ドア, まど]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-review-3
+    role: review
+    title: "Review — the whole ladder, assembled"
+    focus: "All six rungs N-way for the first time: 〜て / くれる？ / くれない？ / ください / くれませんか / もらえますか — matched to audience"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいが おしえてくれた。", en: "The teacher taught me", exercises: [te-kureru, ga-existence], mode: build }
+      - { kind: sentence, ja: "ともだちに ケーキを かってあげた。", en: "I bought my friend a cake", exercises: [te-ageru, ni-recipient, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちに てつだってもらった。", en: "I got my friend to help me", exercises: [te-morau, ni-recipient], mode: build }
+      - { kind: sentence, ja: "ちょっと てつだってくれる？", en: "Give me a hand?", exercises: [favor-ladder, chotto-softener], mode: build }
+      - { kind: sentence, ja: "しゃしんを とってくれませんか。", en: "Could you take a photo?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "とけいを なおしてもらえますか。", en: "Could I get you to fix my watch?", exercises: [favor-ladder, wo-object], mode: build }
+      - { kind: sentence, ja: "ちょっと まってください。", en: "Please wait a moment.", exercises: [favor-ladder], mode: build }
+      - { kind: particle-cloze, stem: "せんせい、とけいを なおして", tail: "。", answer: "もらえますか", options: ["もらえますか", "くれない？", "ください"], en: "Ask your teacher: could I get you to fix my watch?", explanation: "もらえますか asks whether asking is even possible — softest and safest for a teacher. くれない？ is friend-register, wrong audience. ください directs — not wrong, but blunt for a personal favor." }
+      - { kind: particle-cloze, stem: "ケン、とけいを なおして", tail: "？", answer: "くれない", options: ["くれない", "もらえますか", "くれませんか"], en: "Ask Ken (a friend): won't you fix my watch?", explanation: "くれない？ is the everyday friend-register ask. もらえますか and くれませんか are both polite dress — correct Japanese, wrong register for a friend." }
+      - { kind: listening-comp, audio: "ともだちに てつだってもらった。", answer: "I got my friend to help me", distractors: ["My friend helped me", "I helped my friend", "My friend wants my help"] }
+      - { kind: sentence, ja: "ひとりしか いない。", en: "There's only one person", exercises: [shika-nai, nai-existence], mode: build }
+      - { kind: sentence, ja: "みずだけ のむ。", en: "I'll just drink water", exercises: [dake, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ケン", tail: " こない。", answer: "しか", options: ["しか", "だけ", "がしか"], en: "Only Ken is coming", explanation: "しか REPLACES が outright — no がしか. だけ would flip the feeling positive instead of scarce." }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "せんせい、しゃしんを とってもらえますか。", en: "Teacher, could I get you to take a photo?" }
+          - { speaker: "Tanaka", ja: "はい、いいですよ。", en: "Sure, of course." }
+          - { speaker: "Tom", ja: "ありがとうございます。", en: "Thank you." }
+        questions:
+          - { q: "What register does Tom use, asking his teacher?", options: ["Polite — もらえますか", "Casual — くれない？", "A bare directive", "He doesn't ask at all"], answer: "Polite — もらえますか" }
+    reviewPool: [せんせい, ともだち, かばん, しゃしん, ほん, みず, えき, おかね]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m35-neo-challenge
+    role: challenge
+    title: "Challenge — the favor economy"
+    focus: "A whole week of asking, offering, getting and thanking, stacked the way real life stacks them"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ともだちが こまっているから、てつだうことにした。", en: "My friend was in a bind, so I decided to help", exercises: [koto-ni-suru, kara-because, te-iru], mode: build }
+      - { kind: sentence, ja: "つくえと いすを はこんでもらった。", en: "I got someone to carry the desk and the chair", exercises: [te-morau, wo-object], mode: build }
+      - { kind: sentence, ja: "ケンだけが てつだってくれた。", en: "Only Ken helped me", exercises: [dake, te-kureru], mode: build }
+      - { kind: listening-comp, audio: "くうこうまで むかえに いってもらった。", answer: "I got someone to go pick me up at the airport", distractors: ["I went to pick someone up at the airport myself", "Someone is going to pick me up at the airport later", "I picked myself up at the airport"] }
+      - { kind: sentence, ja: "えきまで むかえに きてくれたから、たすかった。", en: "You came to pick me up at the station, so that was a real help", exercises: [te-kureru, made-until, kara-because], mode: build }
+      - { kind: sentence, ja: "らいしゅう いそがしいから、てつだってくれる？", en: "I'm busy next week, so will you help me?", exercises: [favor-ladder, kara-because], mode: build }
+      - { kind: listening-comp, audio: "かばんを はこんでもらえますか。", answer: "Could I get you to carry my bag?", distractors: ["I carried the bag myself", "Could you carry your own bag?", "Won't you lend me a bag?"] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "らいしゅう いそがしいから、てつだってくれる？", en: "I'm busy next week, so will you help me?" }
+          - { speaker: "Mika", ja: "うん、いいよ。なにを てつだう？", en: "Sure, okay. What do you need help with?" }
+          - { speaker: "Tom", ja: "つくえを はこんでくれる？", en: "Will you carry the desk?" }
+          - { speaker: "Mika", ja: "いいよ。", en: "Sure." }
+        questions:
+          - { q: "What does Tom need help with?", options: ["Carrying a desk", "Fixing a watch", "Taking a photo", "Cooking dinner"], answer: "Carrying a desk" }
+      - { kind: challenge, ja: "せんえんしか なかったから、コーヒーだけ かった。", en: "I only had a thousand yen, so I just bought coffee", combines: [shika-nai, dake, kara-because], mode: build }
+    reviewPool: [つくえ, かばん, ほん, おかね, ひとり, せんせい, ともだち, えき]

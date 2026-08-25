@@ -1,0 +1,505 @@
+module: m36
+title: "Looks like: 〜そう(appearance), 〜がる, 〜やすい/にくい, 〜ながら"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-negative, i-adj-past,
+  na-adj-present, na-adj-negative, v-tai, suki-kirai-no, to-omoimasu, toki,
+  tsumori-desu, mashou, masenka, potential-form, dekiru, deshou, kana-wondering,
+  n-desu, sugiru, ku-ni-naru, hou-ga-ii, yo-emphasis, ne-agreement,
+  register-audience, chotto-softener, ageru, kureru, morau, ni-recipient, tara,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, family-register, frequency-adverbs, ga-itai, kono-sono-ano-dono]
+notes: |
+  m36 · n4-07 — LOOKS LIKE / ATTACHMENT SITE (docs/spine-n4.md §m36). The
+  spine's framing is the design: **an ATTACHMENT-SITE module.** Everything on
+  screen hangs off the i-stem / adjective-stem the learner has owned since
+  m7, so the load is semantic rather than morphological — which is the right
+  shape for a module that must carry five items:
+
+  1. **Stem/adj-stem + そう = "looks like" (L1 adjectives, L2 verbs).**
+     おいしそう, たかそう; ふりそう, おちそう. ATTACHES TO THE STEM — the
+     only tell that will later separate it from hearsay そうだ (n4-13, six
+     modules out; the separation is DELIBERATE, never mention hearsay here).
+  2. **The irregulars while the rule is fresh (L1/L2):** いい→よさそう,
+     ない→なさそう; negatives 〜なさそう and 〜そうにない.
+  3. **〜がる / 〜たがる (L5)** — third-person desire. This REPAIRS the N5
+     binding constraint: "he wants" was BANNED in N5 because it needs たがる;
+     this is the payoff. おとうとは いきたがっている。 Also plain がる on
+     emotion adjectives (こわがる, はずかしがる) in L9.
+  4. **〜やすい / 〜にくい (L6)** — stem + i-adjective, the same attachment
+     site as たい (m13); the result CONJUGATES as an i-adjective.
+  5. **〜ながら (L7)** — simultaneous action, also i-stem, so it belongs to
+     this site and not to the timing module. Secondary-action rule: the
+     ながら-clause is the background, the main clause is the point.
+  6. **〜すぎる (m27) DEEPEN (L7/L9)** — same slot, harder spends
+     (たべすぎた, しずかすぎる).
+
+  DIALOGUE_SIM ×2:
+    - L3, dinner at Mika's — REACTING is what そう is for: dishes arrive,
+      the learner produces おいしそう！/ かたそう…; register-true friend
+      scene.
+    - L10, the sky over the park — Ken sees ふりそうな sky; the learner
+      reads the look of things and pivots plans with m34's volitional
+      (うちで えいがを みよう) — the module's appearance-grammar driving a
+      real decision, and a deliberate m34 spiral.
+
+  VOCAB (spine must/prefer vs docs/context/m36-context.md): おもい・つかれる・
+  だいじょうぶ are ALREADY TAUGHT (carriers). New i-adjs かなしい・さびしい・
+  かるい・やわらかい・かたい・こわい・はずかしい・ねむい; verbs ふとる(u)・
+  やせる(ru); な-adjs あんぜん・きけん・べんり・ふべん. CUT: じょうぶ (room;
+  べんり/ふべん carry the な-adj slot). Image debuts (vendoring checked at
+  wiring): ねむい 😪, かなしい 😢, こわい 😱(?), きけん ⚠️(?) — wiring stage
+  verifies each glyph is vendored + honest, blocks otherwise per precedent.
+
+  ATTACHMENT SURFACES ARE ATOMS (the m33-prep tokenizer law, and this module
+  is made of them): おいしそう does NOT tokenize (おいしい loses its い), so
+  EVERY 〜そう/〜やすい/〜にくい/〜ながら/〜がる/〜たがる surface a beat uses
+  is registered below as `adj-form`/`verb-form` with `derivedFrom`. EXPANSION
+  AGENT: keep the ledger EXACTLY matching beat usage, as in m34/m35.
+
+grammarPoints:
+  # RULE-CARD VOCABULARY NOTE: no card names a module image-debut word before
+  # its lesson; cards argue from りょうり/あめ/えいが/しゅくだい, owned for
+  # tens of modules.
+
+  - id: sou-appearance
+    variant: adjective
+    rule: "Take an adjective, cut its tail, add そう — and you are reporting how something LOOKS before you have tried it. おいしい → おいしそう: it looks tasty, says the eye, not the tongue. たかい → たかそう, looks expensive. The い goes; そう sits on the bare stem. Two irregulars, learned now while the rule is fresh: いい becomes よさそう (looks good), and ない becomes なさそう (looks like there isn't). What you get behaves like a な-adjective: おいしそうな りょうり, a tasty-looking dish. The whole point of the form is the gap between looks and knowledge — you say おいしそう BEFORE the first bite; after it, you just say おいしい."
+    examples:
+      - { ja: "この りょうりは おいしそう。", en: "This dish looks tasty." }
+      - { ja: "その とけいは たかそう。", en: "That watch looks expensive." }
+      - { ja: "この ほんは おもしろそう。", en: "This book looks interesting." }
+      - { ja: "きょうは てんきが よさそう。", en: "The weather looks good today." }
+    antiPattern: { ja: "この りょうりは おいしいそう。", why: "そう sits on the STEM — the い has to go: おいしそう. (Keeping the い builds a different word you will meet much later; for now it is simply not the looks-like form.)" }
+
+  - id: sou-appearance
+    variant: verb
+    rule: "On a verb, そう takes the ます-stem — the same stem you have used since module 7 — and means it looks about to happen: ふる → ふりそう, looks like rain. おちる → おちそう, about to fall. The feel is an event leaning forward; you say it while there is still time to grab the cup. Negatives go two ways and both are worth having: あめは ふらなさそう (it doesn't look like rain) and あめは ふりそうにない (there's no sign of it raining) — the second is the stronger, flatter denial. Both are recognition-first here; production comes with use."
+    examples:
+      - { ja: "あめが ふりそう。", en: "It looks like rain." }
+      - { ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag." }
+      - { ja: "えいがが はじまりそう。", en: "The film looks about to start." }
+      - { ja: "あめは ふりそうにない。", en: "There's no sign of rain." }
+    antiPattern: { ja: "あめが ふるそう。", why: "the looks-like そう rides the ます-stem: ふり + そう. On the dictionary form it stops being about looks at all — ふりそう is what the sky shows you." }
+
+  - id: garu-tagaru
+    rule: "Japanese is honest about other minds: you know what YOU want, but you can only READ what others want. That is why 「おとうとは いきたい」 sounds off — たい is first-person interior. For third person, がる turns the feeling into visible behavior: いきたい → いきたがる, \"he's acting like he wants to go.\" Almost always in ている, because the behavior is ongoing: おとうとは こうえんに いきたがっている。 The same がる works straight on emotion adjectives — こわい → こわがる (to act scared), はずかしい → はずかしがる (to act embarrassed). Cut the い, add がる, and the private feeling becomes the public verb of showing it. This closes a door N5 deliberately left shut: now you can finally say what somebody ELSE wants."
+    examples:
+      - { ja: "おとうとは こうえんに いきたがっている。", en: "My little brother wants to go to the park." }
+      - { ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister wants to buy new shoes." }
+      - { ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside." }
+    antiPattern: { ja: "おとうとは こうえんに いきたい。", why: "たい is first-person interior — you can't feel your brother's wanting from the inside. What you CAN see is the wanting-behavior: いきたがっている。" }
+
+  - id: yasui-nikui
+    rule: "Stem + やすい: easy to. Stem + にくい: hard to. The same attachment site as たい (module 13) — よむ → よみやすい (easy to read), わかる → わかりにくい (hard to follow). And here is the payoff of building adjectives out of adjectives: the result IS an i-adjective, so everything you know about i-adjectives applies unchanged — よみやすかった, わかりにくくない, たべやすくて。 It is judgment about the THING, not about you: この じしょは つかいやすい praises the dictionary, not your skill. Pick the stem, pick the half, and the language does the rest with machinery you have owned for twenty modules."
+    examples:
+      - { ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use." }
+      - { ja: "この ことばは おぼえにくい。", en: "This word is hard to memorise." }
+      - { ja: "ミカの せつめいは わかりやすい。", en: "Mika's explanations are easy to follow." }
+      - { ja: "この みちは あるきやすかった。", en: "This road was easy to walk." }
+    antiPattern: { ja: "この じしょは つかうやすい。", why: "やすい rides the ます-stem, exactly like たい: つかい + やすい. The dictionary form never takes the attachment." }
+
+  - id: nagara
+    rule: "Stem + ながら: doing one thing WHILE doing another. おんがくを ききながら しゅくだいを する — homework, with music behind it. Same attachment site again: the ます-stem, nothing new to learn about the shape. One rule of meaning that English hides: the ながら-half is the BACKGROUND, and the sentence's real point comes second. 「たべながら テレビを みる」 is watching TV (main), over food (background); flip the halves and you flip what matters. Both actions belong to the same person — ながら never joins two different people's doings."
+    examples:
+      - { ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music." }
+      - { ja: "テレビを みながら ごはんを たべる。", en: "I eat dinner while watching TV." }
+      - { ja: "あるきながら はなす。", en: "We talk while walking." }
+    antiPattern: { ja: "おんがくを きくながら しゅくだいを する。", why: "ながら rides the ます-stem like every attachment in this module: きき + ながら. The dictionary form doesn't take it." }
+
+newAtoms:
+  # ══ i-adjectives. Emotion set + texture/weight set. Image debuts decided
+  #    at wiring (glyph must be vendored AND honest; blocked otherwise).
+  - { kana: かなしい, romaji: kanashii, gloss: "sad", shortGloss: "sad", imageable: false, kind: adjective }
+  - { kana: さびしい, romaji: sabishii, gloss: "lonely", shortGloss: "lonely", imageable: false, kind: adjective }
+  - { kana: かるい, romaji: karui, gloss: "light (in weight)", shortGloss: "light", imageable: false, kind: adjective }
+  - { kana: やわらかい, romaji: yawarakai, gloss: "soft, tender", shortGloss: "soft", imageable: false, kind: adjective }
+  - { kana: かたい, romaji: katai, gloss: "hard, tough (to bite or bend)", shortGloss: "hard", imageable: false, kind: adjective }
+  - { kana: こわい, romaji: kowai, gloss: "scary, frightening", shortGloss: "scary", imageable: false, kind: adjective }
+  - { kana: はずかしい, romaji: hazukashii, gloss: "embarrassing, embarrassed", shortGloss: "embarrassing", imageable: false, kind: adjective }
+  - { kana: ねむい, romaji: nemui, gloss: "sleepy", shortGloss: "sleepy", imageable: false, kind: adjective }
+  # ══ Verbs.
+  - { kana: ふとる, romaji: futoru, gloss: "to put on weight", shortGloss: "put on weight", imageable: false, kind: verb, verbClass: u }
+  - { kana: やせる, romaji: yaseru, gloss: "to lose weight, to get thin", shortGloss: "lose weight", imageable: false, kind: verb, verbClass: ru }
+  # ══ な-adjectives.
+  - { kana: あんぜん, romaji: anzen, gloss: "safe, safety", shortGloss: "safe", imageable: false, kind: vocab }
+  - { kana: きけん, romaji: kiken, gloss: "dangerous, danger", shortGloss: "dangerous", imageable: false, kind: vocab }
+  - { kana: べんり, romaji: benri, gloss: "convenient, handy", shortGloss: "convenient", imageable: false, kind: vocab }
+  - { kana: ふべん, romaji: fuben, gloss: "inconvenient", shortGloss: "inconvenient", imageable: false, kind: vocab }
+  # ══ Attachment surfaces the beats use — the tokenizer cannot split them
+  #    (おいしい loses its い inside おいしそう). EXPANSION AGENT: this list
+  #    must EXACTLY match usage — add what you use, delete what you don't.
+  #    〜そう on adjectives (adj-form, derivedFrom the adjective):
+  - { kana: おいしそう, romaji: oishisou, gloss: "looks tasty", shortGloss: "looks delicious", imageable: false, kind: adj-form, derivedFrom: おいしい }
+  - { kana: たかそう, romaji: takasou, gloss: "looks expensive", shortGloss: "looks expensive", imageable: false, kind: adj-form, derivedFrom: たかい }
+  - { kana: おもしろそう, romaji: omoshirosou, gloss: "looks interesting", shortGloss: "looks interesting", imageable: false, kind: adj-form, derivedFrom: おもしろい }
+  - { kana: よさそう, romaji: yosasou, gloss: "looks good (irregular, from いい)", shortGloss: "looks good", imageable: false, kind: adj-form, derivedFrom: いい }
+  - { kana: なさそう, romaji: nasasou, gloss: "looks like there isn't (irregular, from ない)", shortGloss: "not there", imageable: false, kind: adj-form, derivedFrom: ない }
+  - { kana: かたそう, romaji: katasou, gloss: "looks tough", shortGloss: "looks tough", imageable: false, kind: adj-form, derivedFrom: かたい }
+  - { kana: やわらかそう, romaji: yawarakasou, gloss: "looks soft", shortGloss: "looks soft", imageable: false, kind: adj-form, derivedFrom: やわらかい }
+  - { kana: ねむそう, romaji: nemusou, gloss: "looks sleepy", shortGloss: "looks sleepy", imageable: false, kind: adj-form, derivedFrom: ねむい }
+  - { kana: かなしそう, romaji: kanashisou, gloss: "looks sad", shortGloss: "looks sad", imageable: false, kind: adj-form, derivedFrom: かなしい }
+  #    〜そう on verb stems (verb-form, derivedFrom the verb):
+  - { kana: ふりそう, romaji: furisou, gloss: "looks like rain (about to fall)", shortGloss: "about to fall", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
+  - { kana: おちそう, romaji: ochisou, gloss: "about to fall/drop", shortGloss: "about to fall", imageable: false, kind: verb-form, derivedFrom: おちる, verbClass: ru }
+  - { kana: はじまりそう, romaji: hajimarisou, gloss: "about to start", shortGloss: "about to start", imageable: false, kind: verb-form, derivedFrom: はじまる, verbClass: u }
+  - { kana: ふりそうにない, romaji: furisouninai, gloss: "no sign of rain", shortGloss: "no sign of rain", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
+  - { kana: ふらなさそう, romaji: furanasasou, gloss: "doesn't look like rain", shortGloss: "doesn't look like rain", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
+  #    〜がる/たがる:
+  - { kana: いきたがっている, romaji: ikitagatteiru, gloss: "wants to go (visible, third person)", shortGloss: "wants to travel (3rd)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: かいたがっている, romaji: kaitagatteiru, gloss: "wants to buy (visible, third person)", shortGloss: "wants to buy (3rd)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: でたがっている, romaji: detagatteiru, gloss: "wants to get out (visible, third person)", shortGloss: "wants out (3rd)", imageable: false, kind: verb-form, derivedFrom: でる, verbClass: ru }
+  - { kana: こわがる, romaji: kowagaru, gloss: "to act scared, to be visibly afraid", shortGloss: "show fright", imageable: false, kind: verb-form, derivedFrom: こわい }
+  - { kana: はずかしがる, romaji: hazukashigaru, gloss: "to act embarrassed", shortGloss: "act embarrassed", imageable: false, kind: verb-form, derivedFrom: はずかしい }
+  #    〜やすい/〜にくい:
+  - { kana: つかいやすい, romaji: tsukaiyasui, gloss: "easy to use", shortGloss: "easy to use", imageable: false, kind: adj-form, derivedFrom: つかう }
+  - { kana: よみやすい, romaji: yomiyasui, gloss: "easy to read", shortGloss: "easy to read", imageable: false, kind: adj-form, derivedFrom: よむ }
+  - { kana: わかりやすい, romaji: wakariyasui, gloss: "easy to follow", shortGloss: "easy to understand", imageable: false, kind: adj-form, derivedFrom: わかる }
+  - { kana: おぼえにくい, romaji: oboenikui, gloss: "hard to memorise", shortGloss: "hard to memorise", imageable: false, kind: adj-form, derivedFrom: おぼえる }
+  - { kana: わかりにくい, romaji: wakarinikui, gloss: "hard to follow", shortGloss: "hard to understand", imageable: false, kind: adj-form, derivedFrom: わかる }
+  - { kana: あるきやすい, romaji: arukiyasui, gloss: "easy to walk", shortGloss: "easy to walk", imageable: false, kind: adj-form, derivedFrom: あるく }
+  - { kana: あるきやすかった, romaji: arukiyasukatta, gloss: "was easy to walk", shortGloss: "was easy to walk", imageable: false, kind: adj-form, derivedFrom: あるきやすい }
+  #    〜ながら:
+  - { kana: ききながら, romaji: kikinagara, gloss: "while listening", shortGloss: "while you listen", imageable: false, kind: verb-form, derivedFrom: きく, verbClass: u }
+  - { kana: みながら, romaji: minagara, gloss: "while watching", shortGloss: "while you watch", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
+  - { kana: あるきながら, romaji: arukinagara, gloss: "while walking", shortGloss: "while you walk", imageable: false, kind: verb-form, derivedFrom: あるく, verbClass: u }
+  - { kana: たべながら, romaji: tabenagara, gloss: "while eating", shortGloss: "while you eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  #    すぎる deepen surfaces:
+  - { kana: たべすぎた, romaji: tabesugita, gloss: "ate too much (past)", shortGloss: "eat too much (past)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: ふとった, romaji: futotta, gloss: "put on weight (past)", shortGloss: "put on weight", imageable: false, kind: verb-form, derivedFrom: ふとる, verbClass: u }
+  #    Other derived surfaces the beats need — a volitional riding again
+  #    (m34's machinery, m33-prep §3: the tokenizer cannot find いそごう
+  #    inside いそぐ) and the て-form the L10 challenge spends:
+  - { kana: いそごう, romaji: isogou, gloss: "let's hurry (volitional of いそぐ)", shortGloss: "let's hurry", imageable: false, kind: verb-form, derivedFrom: いそぐ, verbClass: u }
+  - { kana: やめて, romaji: yamete, gloss: "quit, and… (quit, te-form)", shortGloss: "quit (te)", imageable: false, kind: verb-form, derivedFrom: やめる, verbClass: ru }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-1
+    role: teaching
+    title: "「おいしそう」 — what the eye reports"
+    focus: "Cut the adjective's い, add そう — how it LOOKS before you know; いい→よさそう while the rule is fresh"
+    introduces: [おいしそう, たかそう, おもしろそう, よさそう, やわらかい, かたい, やわらかそう, かたそう]
+    beats:
+      - { kind: rule, grammarPointId: sou-appearance, variant: adjective }
+      - { kind: sentence, ja: "この りょうりは おいしそう。", en: "This dish looks tasty", exercises: [sou-appearance, kono-sono-ano-dono, wa-topic], mode: build }
+      - { kind: sentence, ja: "その とけいは たかそう。", en: "That watch looks expensive", exercises: [sou-appearance, wa-topic], mode: build }
+      - { kind: particle-cloze, stem: "その ケーキは ", tail: "。", answer: "おいしそう", options: ["おいしそう", "おいしい", "たかそう"], en: "That cake looks tasty", explanation: "そう reports what the EYE says, before the first bite — おいしそう. Plain おいしい claims you've already tasted it. たかそう comments on price, not taste at all." }
+      - { kind: sentence, ja: "この パンは やわらかい。", en: "This bread is soft", exercises: [i-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: listening-comp, audio: "この にくは かたい。", answer: "This meat is tough", distractors: ["This meat is soft", "This meat is delicious", "This meat is small"], q: "What does this mean?", explanation: "かたい describes the meat itself, tongue-tested — hard to bite or bend." }
+      - { kind: sentence, ja: "この パンは やわらかそう。", en: "This bread looks soft", exercises: [sou-appearance], mode: build }
+      - { kind: sentence, ja: "この にくは かたそう。", en: "This meat looks tough", exercises: [sou-appearance], mode: build }
+      - { kind: sentence, ja: "きょうは てんきが よさそう。", en: "The weather looks good today", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: kanji, kana: りょうり, kanji: 料理, distractors: ["りょうい", "りゅうり", "りょうりつ"], exercises: [sou-appearance] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この みせの りょうり、おいしそうだね。", en: "This shop's food looks tasty, doesn't it." }
+          - { speaker: "Tom", ja: "うん。あの とけいも たかそう。", en: "Yeah. That watch looks expensive too." }
+          - { speaker: "Mika", ja: "この ほんは おもしろそう。", en: "This book looks interesting." }
+        questions:
+          - { q: "What does Tom say looks expensive?", options: ["A watch", "A book", "The food", "A bag"], answer: "A watch" }
+      - { kind: challenge, ja: "この パンは やわらかそうだから、たべたい。", en: "This bread looks soft, so I want to eat it", combines: [sou-appearance, kara-because, v-tai], mode: build }
+    reviewPool: [りょうり, とけい, ほん, パン, にく, ケーキ, てんき, えいが]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-2
+    role: teaching
+    title: "「ふりそう」 — an event leaning forward"
+    focus: "On verbs そう rides the ます-stem: about to happen — and the negatives ふらなさそう/ふりそうにない while it's fresh"
+    introduces: [ふりそう, おちそう, はじまりそう, ふりそうにない, ふらなさそう, なさそう]
+    beats:
+      - { kind: rule, grammarPointId: sou-appearance, variant: verb }
+      - { kind: sentence, ja: "あめが ふりそう。", en: "It looks like rain", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: sentence, ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "えいがが ", tail: "。", answer: "はじまりそう", options: ["はじまりそう", "はじまった", "はじまる"], en: "The film looks about to start", explanation: "そう rides the ます-stem for verbs too — はじまる → はじまり + そう. はじまった already happened; はじまる is just the bare fact, no leaning-forward feel." }
+      - { kind: sentence, ja: "えいがが はじまりそうだから、はやく いそごう。", en: "The film looks about to start, so let's hurry", exercises: [sou-appearance, kara-because, volitional], mode: build }
+      - { kind: listening-comp, audio: "あめは ふりそうにない。", answer: "There's no sign of rain", distractors: ["It's raining now", "It looks like it's about to rain", "It rained yesterday"], q: "What does this mean?", explanation: "ふりそうにない is the flatter, stronger denial — no sign of it at all." }
+      - { kind: sentence, ja: "あめは ふらなさそう。", en: "It doesn't look like rain", exercises: [sou-appearance], mode: build }
+      - { kind: sentence, ja: "かさが なさそう。", en: "There doesn't seem to be an umbrella", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: kanji, kana: あめ, kanji: 雨, distractors: ["あま", "う", "さめ"], exercises: [sou-appearance] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "あめが ふりそうだね。", en: "Looks like rain, doesn't it." }
+          - { speaker: "Tom", ja: "うん。かさが なさそう。", en: "Yeah. Doesn't seem like there's an umbrella." }
+          - { speaker: "Ken", ja: "だいじょうぶ。うちに ある。", en: "It's fine. There's one at home." }
+        questions:
+          - { q: "What does Tom say there isn't?", options: ["An umbrella", "Rain", "A watch", "A bag"], answer: "An umbrella" }
+      - { kind: challenge, ja: "この かさが なさそうだから、こまる。", en: "This umbrella doesn't seem to be around, so that's a bind", combines: [sou-appearance, kara-because, ga-existence, kono-sono-ano-dono], mode: build }
+    reviewPool: [あめ, かさ, さいふ, かばん, えいが, そら, てんき, まど]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-3
+    role: teaching
+    title: "「おいしそう！」 — saying it at the table"
+    focus: "Production: そう as the reaction Japanese actually runs on — dishes arrive, and the look of things is the conversation"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この やさいは おいしそう！", en: "This vegetable looks delicious!", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この にくは かたそう。", en: "This meat looks tough", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "この パンは ", tail: "！", answer: "やわらかそう", options: ["やわらかそう", "やわらかい", "かたそう"], en: "This bread looks soft!", explanation: "そう reports the look, before the bite — やわらかそう. やわらかい would claim you already know, tongue-tested. かたそう is the opposite feel entirely." }
+      - { kind: listening-comp, audio: "この ケーキは おいしそう！", answer: "This cake looks delicious", distractors: ["This cake is delicious", "This cake looks expensive", "This cake looks small"], q: "What does this mean?", explanation: "そう still reports the look, not a verdict — the cake hasn't been tasted yet." }
+      - { kind: sentence, ja: "この さかなは おいしそう！", en: "This fish looks delicious!", exercises: [sou-appearance], mode: build }
+      - { kind: sentence, ja: "その ケーキは たかそう。", en: "That cake looks expensive", exercises: [sou-appearance, wa-topic], mode: build }
+      - { kind: sentence, ja: "この きのこは おいしそう！", en: "This mushroom looks delicious!", exercises: [sou-appearance], mode: build }
+      - kind: sim
+        scene: { emoji: "🍱", title: "Dinner at Mika's", setting: "Mika made dinner, and the dishes are arriving one by one." }
+        turns:
+          - npc: { speaker: "Mika", ja: "はい、さかなの りょうり。", en: "Here — the fish dish." }
+            goal: "React to how it looks — it looks delicious."
+            reply: { mode: build, tiles: ["おいしそう", "おいしい", "！", "たかそう"], answer: "おいしそう！" }
+            replyGloss: "That looks delicious!"
+            explanation: "You haven't tasted it yet — the eye speaks first, and the eye says おいしそう. Plain おいしい claims knowledge your tongue doesn't have yet; たかそう comments on price, an odd thing to tell your cook."
+          - npc: { speaker: "Mika", ja: "この パンも たべてみて。ちょっと かたい？", en: "Try some of this bread too. Is it a bit hard?" }
+            goal: "You tried it — it IS soft. Tell her."
+            reply: { mode: build, tiles: ["やわらかい", "やわらかそう", "よ", "かたい"], answer: "やわらかいよ。" }
+            replyGloss: "It's soft!"
+            explanation: "Now you HAVE bitten it, so the plain adjective is the honest one: やわらかい。 やわらかそう would step back to looks after the fact — the whole module in one choice."
+      - { kind: challenge, ja: "この りょうりは おいしそうだから、たべてみよう。", en: "This dish looks tasty, so let's give it a try", combines: [sou-appearance, kara-because, te-miru, volitional], mode: build }
+    reviewPool: [りょうり, さかな, パン, ケーキ, ごはん, やさい, にく, おちゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-review-1
+    role: review
+    title: "Review — looks, on both word classes"
+    focus: "Adjective-そう and verb-そう side by side; the irregulars; looks vs knowledge"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この りょうりは おいしそう。", en: "This dish looks tasty", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "あめが ふりそう。", en: "It looks like rain", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "たべたから、この りょうりは ", tail: "。", answer: "おいしい", options: ["おいしい", "おいしそう", "たかそう"], en: "I already ate it, so this dish is tasty", explanation: "おいしい states what you now KNOW, tongue-tested. おいしそう would step back to looks-only, which doesn't fit after you've already eaten. たかそう comments on price, not taste." }
+      - { kind: listening-comp, audio: "あめは ふりそうにない。", answer: "There's no sign of rain", distractors: ["It's raining now", "It rained yesterday", "It looks like rain is coming"], q: "What does this mean?" }
+      - { kind: sentence, ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "あめが ", tail: "。", answer: "ふらなさそう", options: ["ふらなさそう", "ふりそう", "ふりそうにない"], en: "It doesn't look like rain", explanation: "ふらなさそう is the irregular negative, built from ふらない. ふりそう is the plain positive lean-forward. ふりそうにない is the flatter, stronger denial — a different shape for a similar meaning." }
+      - { kind: sentence, ja: "その とけいは たかそう。", en: "That watch looks expensive", exercises: [sou-appearance, wa-topic], mode: listening }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "この えいがは おもしろそう。", en: "This film looks interesting." }
+          - { speaker: "Mika", ja: "うん、みよう。", en: "Yeah, let's watch it." }
+          - { speaker: "Tom", ja: "あめが ふりそうだから、うちで みよう。", en: "It looks like rain, so let's watch at home." }
+        questions:
+          - { q: "Why do they decide to watch at home?", options: ["It looks like rain", "The film is too expensive", "They are busy", "The cinema is closed"], answer: "It looks like rain" }
+    reviewPool: [りょうり, あめ, とけい, さいふ, パン, てんき, ほん, えいが]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-5
+    role: teaching
+    title: "「いきたがっている」 — reading other minds"
+    focus: "たい is first-person interior; がる turns wanting into visible behavior — N5's 'he wants' ban finally repaid"
+    introduces: [いきたがっている, かいたがっている, でたがっている, ふとる, やせる]
+    beats:
+      - { kind: rule, grammarPointId: garu-tagaru }
+      - { kind: sentence, ja: "おとうとは こうえんに いきたがっている。", en: "My little brother wants to go to the park", exercises: [garu-tagaru, wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister wants to buy new shoes", exercises: [garu-tagaru, wo-object, i-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "わたしは こうえんに ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたがっている", "いきたがる"], en: "I want to go to the park", explanation: "たい is first-person interior — わたし owns the wanting directly. いきたがっている describes someone ELSE's visible wanting-behavior; using it for yourself sounds like you're describing your own behavior from the outside." }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: listening-comp, audio: "いぬは こうえんに いきたがっている。", answer: "The dog wants to go to the park", distractors: ["The dog went to the park", "I want to go to the park", "The dog doesn't want to go anywhere"], q: "What does this mean?", explanation: "いきたがっている reports visible wanting-behavior, third person — you can SEE the dog wants this." }
+      - { kind: sentence, ja: "ちょっと ふとる。", en: "I put on a bit of weight", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "ちょっと やせる。", en: "I lose a bit of weight", exercises: [dictionary-form], mode: build }
+      - { kind: kanji, kana: そと, kanji: 外, distractors: ["がい", "うち", "ほか"], exercises: [garu-tagaru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "おとうとは いぬを かいたがっている。", en: "My little brother wants to buy a dog." }
+          - { speaker: "Tom", ja: "え、そう？", en: "Huh, really?" }
+          - { speaker: "Ken", ja: "うん。まいにち いぬの しゃしんを みている。", en: "Yeah. He's looking at dog photos every day." }
+        questions:
+          - { q: "What is Ken's brother doing every day?", options: ["Looking at dog photos", "Playing with a dog", "Buying a dog", "Walking a dog"], answer: "Looking at dog photos" }
+      - { kind: challenge, ja: "おとうとは いぬを かいたがっているから、こまる。", en: "My little brother wants a dog, which is a problem", combines: [garu-tagaru, kara-because, wo-object], mode: build }
+    reviewPool: [おとうと, いもうと, ねこ, いぬ, こうえん, くつ, そと, かばん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-6
+    role: teaching
+    title: "「つかいやすい」 — adjectives you build yourself"
+    focus: "Stem + やすい/にくい makes a real i-adjective — and every i-adjective rule you own applies unchanged"
+    introduces: [つかいやすい, よみやすい, わかりやすい, おぼえにくい, わかりにくい, あるきやすい, べんり, ふべん]
+    beats:
+      - { kind: rule, grammarPointId: yasui-nikui }
+      - { kind: sentence, ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: listening-comp, audio: "この ほんは わかりにくい。", answer: "This book is hard to follow", distractors: ["This book is easy to follow", "This book is hard to memorise", "This book was interesting"], exercises: [yasui-nikui] }
+      - { kind: sentence, ja: "この ことばは おぼえにくい。", en: "This word is hard to memorise", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "この じしょは ", tail: "。", answer: "つかいやすい", options: ["つかいやすい", "つかう", "わかりやすい"], en: "This dictionary is easy to use", explanation: "やすい rides the ます-stem exactly like たい — つかい+やすい。 つかう alone is just the bare dictionary form, no judgment at all. わかりやすい judges being EASY TO UNDERSTAND, not easy to USE — a different quality, wrong for a dictionary's handling." }
+      - { kind: sentence, ja: "ミカの せつめいは わかりやすい。", en: "Mika's explanations are easy to follow", exercises: [yasui-nikui, no-possession], mode: build }
+      - { kind: sentence, ja: "この ほんは よみやすい。", en: "This book is easy to read", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: listening-comp, audio: "この ことばは おぼえにくい。", answer: "This word is hard to memorise", distractors: ["This word is easy to memorise", "This word is easy to read", "This word is hard to say"], q: "What does this mean?" }
+      - { kind: sentence, ja: "この みちは あるきやすかった。", en: "This road was easy to walk", exercises: [yasui-nikui, ta-form], mode: build }
+      - { kind: sentence, ja: "べんりな けいたいが ある。", en: "There's a convenient mobile phone", exercises: [na-adj-present, ga-existence], mode: build }
+      - { kind: kanji, kana: みち, kanji: 道, distractors: ["どう", "みぢ", "どうろ"], exercises: [yasui-nikui] }
+      - { kind: sentence, ja: "ちかてつは べんりだ。", en: "The underground is convenient", exercises: [na-adj-present], mode: listening }
+      - { kind: sentence, ja: "この じしょは ふべんだ。", en: "This dictionary is inconvenient", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "ちかてつは ", tail: "だ。", answer: "べんり", options: ["べんり", "ふべん", "やすい"], en: "The underground is convenient", explanation: "べんり praises how HANDY something is. ふべん is its negative twin. やすい here would just be 'cheap' — a real word, but the wrong one; it never means 'convenient.'" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この じしょは わかりやすい？", en: "Is this dictionary easy to follow?" }
+          - { speaker: "Tom", ja: "うん、つかいやすい。", en: "Yeah, easy to use." }
+          - { speaker: "Mika", ja: "ちょっと おもいね。", en: "It's a bit heavy, though." }
+        questions:
+          - { q: "What does Mika say about the dictionary besides being easy to use?", options: ["It's a bit heavy", "It's expensive", "It's hard to read", "It's too small"], answer: "It's a bit heavy" }
+      - { kind: challenge, ja: "つかいやすいから、この じしょを かった。", en: "It's easy to use, so I bought this dictionary", combines: [yasui-nikui, kara-because, ta-form], mode: build }
+    reviewPool: [じしょ, ことば, けいたい, ちかてつ, みち, せつめい, ほん, くつ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-7
+    role: teaching
+    title: "「ききながら」 — two things, one person"
+    focus: "Stem + ながら runs a background action under the main one — and すぎる comes back for harder spends"
+    introduces: [ききながら, みながら, あるきながら, たべながら, たべすぎた]
+    beats:
+      - { kind: rule, grammarPointId: nagara }
+      - { kind: sentence, ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music", exercises: [nagara, wo-object], mode: build }
+      - { kind: sentence, ja: "テレビを みながら ごはんを たべる。", en: "I eat dinner while watching TV", exercises: [nagara, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "おんがくを ききながら、", tail: "。", answer: "しゅくだいを する", options: ["しゅくだいを する", "した", "テレビを みる"], en: "While listening to music, I do my homework", explanation: "the ながら-half is the background (ききながら); whichever verb comes SECOND is the sentence's real point — here, doing homework. した just skips the ながら-frame with a bare past. テレビを みる would make watching TV the point instead, forgetting the music." }
+      - { kind: sentence, ja: "あるきながら はなす。", en: "We talk while walking", exercises: [nagara], mode: build }
+      - { kind: listening-comp, audio: "テレビを みながら ごはんを たべる。", answer: "I eat dinner while watching TV", distractors: ["I watch TV without eating", "I eat dinner without watching TV", "I watched TV yesterday"], q: "What does this mean?", explanation: "たべる is the second verb — the sentence's real point is eating, with the TV as background." }
+      - { kind: sentence, ja: "おんがくを ききながら はしる。", en: "I run while listening to music", exercises: [nagara], mode: build }
+      - { kind: sentence, ja: "たべながら テレビを みない。", en: "I don't watch TV while eating", exercises: [nagara, nai-form], mode: build }
+      - { kind: kanji, kana: うた, kanji: 歌, distractors: ["か", "うだ", "かよう"], exercises: [nagara] }
+      - { kind: sentence, ja: "たべすぎたから、ふとった。", en: "I ate too much, so I gained weight", exercises: [sugiru, kara-because], mode: build }
+      - { kind: sentence, ja: "テレビを みながら はなす。", en: "I talk while watching TV", exercises: [nagara], mode: build }
+      - { kind: particle-cloze, stem: "テレビを みながら、", tail: "。", answer: "はなす", options: ["はなす", "きく", "みる"], en: "I talk while watching TV", explanation: "ながら marks the background action (みながら); the verb that follows carries the sentence's real point — here, talking. きく and みる would each just restate a background action, not add a point." }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "おんがくを ききながら、しゅくだいを する？", en: "Do you do homework while listening to music?" }
+          - { speaker: "Tom", ja: "うん、いつも ききながら する。", en: "Yeah, I always do it while listening." }
+          - { speaker: "Ken", ja: "テレビは？", en: "What about TV?" }
+          - { speaker: "Tom", ja: "テレビは だめ。", en: "TV's no good." }
+        questions:
+          - { q: "What does Tom say he can't do while watching TV?", options: ["Homework", "Eating", "Talking", "Running"], answer: "Homework" }
+      - { kind: challenge, ja: "テレビを みながら たべすぎたから、ふとった。", en: "I ate too much while watching TV, so I gained weight", combines: [nagara, sugiru, kara-because], mode: build }
+    reviewPool: [おんがく, しゅくだい, テレビ, ごはん, うた, ほん, みち, コーヒー]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-review-2
+    role: review
+    title: "Review — one stem, four attachments"
+    focus: "そう・たがる・やすい/にくい・ながら all hang off the same stem — drill the site, not the suffix"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music", exercises: [nagara, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk", explanation: "やすい judges the road itself — easy to walk. ながら would need a SECOND action happening at the same time, which isn't here. あるく alone is just the bare fact, no judgment." }
+      - { kind: listening-comp, audio: "おとうとは こうえんに いきたがっている。", answer: "My little brother wants to go to the park", distractors: ["My little brother went to the park", "I want to go to the park", "My little brother doesn't want to go anywhere"], q: "What does this mean?" }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: sentence, ja: "この りょうりは おいしそう。", en: "This dish looks tasty", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "わたしは ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたがっている", "いきたがる"], en: "I want to go", explanation: "たい is first-person interior — わたし owns the wanting directly. いきたがっている and いきたがる both describe someone ELSE's visible wanting-behavior." }
+      - { kind: sentence, ja: "あめが ふりそう。", en: "It looks like rain", exercises: [sou-appearance, ga-existence], mode: listening }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この ことばは わかりにくい。", en: "This word is hard to understand." }
+          - { speaker: "Tom", ja: "うん。この じしょは わかりやすいよ。", en: "Yeah. This dictionary is easy to follow." }
+        questions:
+          - { q: "What does Tom say is easy to follow?", options: ["The dictionary", "The word", "The book", "The class"], answer: "The dictionary" }
+    reviewPool: [おんがく, じしょ, こうえん, りょうり, あめ, おとうと, ねこ, ことば]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-9
+    role: teaching
+    title: "「こわがっている」 — the feeling and the showing"
+    focus: "The emotion set: かなしい・さびしい・こわい・はずかしい・ねむい — felt in first person, SHOWN in third, looked in そう"
+    introduces: [かなしい, さびしい, こわい, はずかしい, ねむい, こわがる, はずかしがる, かるい]
+    beats:
+      - { kind: sentence, ja: "わたしは かなしい。", en: "I'm sad", exercises: [i-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "わたしは ねむい。", en: "I'm sleepy", exercises: [i-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "ひとりで さびしい。", en: "I'm lonely by myself", exercises: [i-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "ミカは ", tail: "。", answer: "ねむそう", options: ["ねむそう", "ねむい", "こわい"], en: "Mika looks sleepy", explanation: "そう reports the LOOK — you can't feel Mika's sleepiness from inside, only see it: ねむそう。 ねむい claims the feeling as your OWN, first-person only. こわい is a real word, just the wrong feeling entirely." }
+      - { kind: sentence, ja: "こわい えいがを みた。", en: "I watched a scary movie", exercises: [i-adj-present, ta-form], mode: build }
+      - { kind: sentence, ja: "ケンは いぬを こわがる。", en: "Ken acts scared of dogs", exercises: [garu-tagaru, wo-object], mode: build }
+      - { kind: listening-comp, audio: "いぬは おおきい ねこを こわがる。", answer: "The dog is scared of the big cat", distractors: ["The dog likes the big cat", "The dog is bigger than the cat", "The dog doesn't see the cat"], q: "What does this mean?", explanation: "こわがる is visible fear-behavior, third person — you can SEE the dog reacting." }
+      - { kind: sentence, ja: "はずかしい しつもんだった。", en: "It was an embarrassing question", exercises: [i-adj-present], mode: build }
+      - { kind: sentence, ja: "ケンは はずかしがる。", en: "Ken acts embarrassed", exercises: [garu-tagaru, wa-topic], mode: build }
+      - { kind: kanji, kana: ねこ, kanji: 猫, distractors: ["ねっこ", "びょう", "ねご"], exercises: [garu-tagaru] }
+      - { kind: listening-comp, audio: "かるい かばんを かった。", answer: "I bought a light bag", distractors: ["I bought a heavy bag", "I sold a light bag", "The bag was expensive"], exercises: [i-adj-present, ta-form] }
+      - { kind: particle-cloze, stem: "ケンは ", tail: "。", answer: "ねむそう", options: ["ねむそう", "ねむい", "こわい"], en: "Ken looks sleepy", explanation: "そう reports what you SEE in Ken's face — ねむそう。 ねむい would claim his sleepiness as your own first-person feeling, which you cannot do for someone else. こわい is simply the wrong feeling." }
+      - { kind: listening-comp, audio: "その ねこは かなしそう。", answer: "That cat looks sad", distractors: ["That cat is sleepy", "That cat looks scary", "My cat was sad"], exercises: [sou-appearance, kono-sono-ano-dono] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ケンは ねむそうね。", en: "Ken looks sleepy, doesn't he." }
+          - { speaker: "Tom", ja: "うん。テストが こわいから。", en: "Yeah, because the test is scary." }
+          - { speaker: "Mika", ja: "だいじょうぶだよ。", en: "It'll be fine." }
+        questions:
+          - { q: "Why does Ken look sleepy, according to Tom?", options: ["The test is scary", "He stayed up watching TV", "He's sad", "He's hungry"], answer: "The test is scary" }
+      - { kind: challenge, ja: "かるい かばんを かったから、うれしい。", en: "I bought a light bag, so I'm happy", combines: [i-adj-present, kara-because, ta-form], mode: build }
+    reviewPool: [おとうと, いもうと, ねこ, いぬ, こども, かばん, えいが, うた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-10
+    role: teaching
+    title: "「ふりそうだから、うちで みよう」 — reading the sky"
+    focus: "あんぜん/きけん judgments plus the module's whole point: what things LOOK like is how plans get made"
+    introduces: [あんぜん, きけん]
+    beats:
+      - { kind: sentence, ja: "この みちは きけん。", en: "This road is dangerous", exercises: [kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "その みちより、この みちの ほうが あんぜん。", en: "This road is safer than that one", exercises: [kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "その みちは ", tail: "。", answer: "きけん", options: ["きけん", "あんぜん", "たかい"], en: "That road is dangerous", explanation: "きけん warns of real danger. あんぜん is its opposite, safety. たかい is a real word too — 'expensive' or 'tall' — but it has nothing to do with safety at all." }
+      - { kind: sentence, ja: "あめが ふりそうだから、こうえんには いかない。", en: "It looks like rain, so I'm not going to the park", exercises: [sou-appearance, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "そらが きれいだから、こうえんに いこう。", en: "The sky is clear, so let's go to the park", exercises: [na-adj-present, kara-because, volitional], mode: build }
+      - { kind: listening-comp, audio: "その みちより、この みちの ほうが あんぜん。", answer: "This road is safer than that one", distractors: ["That road is safer than this one", "Both roads are dangerous", "This road is more expensive"], q: "What does this mean?" }
+      - { kind: sentence, ja: "あんぜんな みちを あるこう。", en: "Let's walk the safe road", exercises: [na-adj-present, volitional], mode: build }
+      - { kind: kanji, kana: そら, kanji: 空, distractors: ["くう", "そうら", "から"], exercises: [sou-appearance] }
+      - kind: sim
+        scene: { emoji: "⛅", title: "The sky over the park", setting: "You and Ken were about to head to the park. He looks up." }
+        turns:
+          - npc: { speaker: "Ken", ja: "そらが きれいじゃないね。", en: "The sky doesn't look very nice, does it." }
+            goal: "Agree — it looks like rain."
+            reply: { mode: build, tiles: ["ふりそう", "ふる", "だ", "ね"], answer: "ふりそうだね。" }
+            replyGloss: "Looks like rain, doesn't it."
+            explanation: "The sky hasn't decided yet — that is exactly the そう slot. ふる would state a fact the clouds haven't committed to."
+          - npc: { speaker: "Ken", ja: "こうえんは やめる？", en: "Skip the park, then?" }
+            goal: "Pivot the plan — suggest watching a film at your place instead."
+            reply: { mode: build, tiles: ["うち", "で", "えいが", "を", "みよう", "いこう"], answer: "うちで えいがを みよう。" }
+            replyGloss: "Let's watch a film at my place."
+            explanation: "The look of the sky drives the decision, and the suggestion lands on m34's volitional: みよう。 いこう would head somewhere — the whole point is staying in."
+      - { kind: challenge, ja: "あめが ふりそうだから、こうえんは やめて うちで えいがを みよう。", en: "It looks like rain, so let's skip the park and watch a film at my place", combines: [sou-appearance, kara-because, te-form, volitional], mode: build }
+    reviewPool: [そら, あめ, こうえん, うち, えいが, かさ, みち, てんき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-review-3
+    role: review
+    title: "Review — the whole attachment site"
+    focus: "Everything the stem can carry: そう, たがる, やすい/にくい, ながら, すぎる — mixed, and read off real situations"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この みちは あるきやすい。", en: "This road is easy to walk", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "おんがくを ききながら あるく。", en: "I walk while listening to music", exercises: [nagara, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk", explanation: "やすい judges the road itself. ながら would need a second action happening at the same time. あるく alone carries no judgment at all." }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: listening-comp, audio: "ミカは ねむそう。", answer: "Mika looks sleepy", distractors: ["Mika is sleepy", "Mika was sleepy yesterday", "Mika isn't sleepy at all"], q: "What does this mean?" }
+      - { kind: sentence, ja: "この じしょは わかりやすい。", en: "This dictionary is easy to follow", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この みちは きけん。", en: "This road is dangerous", exercises: [kono-sono-ano-dono], mode: build }
+      - { kind: particle-cloze, stem: "その みちより、この みちの ほうが ", tail: "。", answer: "あんぜん", options: ["あんぜん", "きけん", "たかい"], en: "This road is safer than that one", explanation: "あんぜん names the safety itself. きけん would flip the meaning to danger. たかい is a real word, just the wrong one — 'expensive,' nothing to do with safety." }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ケンは げんき？", en: "Is Ken okay?" }
+          - { speaker: "Mika", ja: "ううん、ねむいだけ。", en: "No, just sleepy." }
+          - { speaker: "Tom", ja: "そう、ねむそうね。", en: "I see, he does look sleepy." }
+        questions:
+          - { q: "Why is Ken not himself today, according to Mika?", options: ["He's just sleepy", "He's sad", "He's scared", "He's sick"], answer: "He's just sleepy" }
+    reviewPool: [りょうり, あめ, じしょ, おんがく, こうえん, ねこ, ことば, みち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m36-neo-challenge
+    role: challenge
+    title: "Challenge — a day read off the surface of things"
+    focus: "Looks, wants, ease and simultaneity stacked the way a day actually runs"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あめが ふりそうだから、みちが きけん。", en: "It looks like rain, so the road is dangerous", exercises: [sou-appearance, kara-because], mode: build }
+      - { kind: sentence, ja: "おとうとは こうえんに いきたがっているけど、ねむそう。", en: "My little brother wants to go to the park, but he looks sleepy", exercises: [sou-appearance, kedo, garu-tagaru], mode: build }
+      - { kind: particle-cloze, stem: "この せつめいは ", tail: "けど、あの せつめいは わかりやすい。", answer: "わかりにくい", options: ["わかりにくい", "おぼえにくい", "わかった"], en: "This explanation is hard to follow, but that explanation is easy to follow", explanation: "にくい makes the hard-to version, and the contrast with わかりやすい in the second half forces it. おぼえにくい is the right suffix on the wrong verb — hard to MEMORISE, not hard to follow. わかった is just the plain past 'understood,' no difficulty judgment at all." }
+      - { kind: listening-comp, audio: "あるきながら おんがくを きく。", answer: "I listen to music while walking", distractors: ["I only walk", "I listen to music at home", "I walked without music"], q: "What does this mean?" }
+      - { kind: sentence, ja: "あめが ふりそうにないから、こうえんで あそぼう。", en: "There's no sign of rain, so let's play at the park", exercises: [sou-appearance, kara-because, volitional], mode: build }
+      - { kind: sentence, ja: "おとうとは こわがるから、うちに いる。", en: "My little brother acts scared, so he's staying home", exercises: [garu-tagaru, kara-because], mode: build }
+      - { kind: kanji, kana: えいが, kanji: 映画, exercises: [volitional] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "そらが きれいじゃないね。ふりそうだね。", en: "The sky doesn't look nice. Looks like rain." }
+          - { speaker: "Tom", ja: "うん。こうえんは やめて、うちで おんがくを ききながら しゅくだいを しよう。", en: "Yeah. Let's skip the park and do homework while listening to music at home." }
+          - { speaker: "Mika", ja: "いいね。", en: "Sounds good." }
+        questions:
+          - { q: "What do they decide to do instead of the park?", options: ["Do homework while listening to music at home", "Watch a film at home", "Go to the library", "Go shopping"], answer: "Do homework while listening to music at home" }
+      - { kind: challenge, ja: "あめが ふりそうだから、あんぜんな みちを あるこう。", en: "It looks like rain, so let's walk the safe road", combines: [sou-appearance, kara-because, na-adj-present, volitional], mode: build }
+    reviewPool: [あめ, おとうと, みち, おんがく, しゅくだい, えいが, うち, こうえん]

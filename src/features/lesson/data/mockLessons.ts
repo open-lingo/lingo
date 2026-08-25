@@ -177,6 +177,11 @@ import { M30_NEO_LESSONS } from "@/features/languages/ja/curriculum/m30-neo";
 import { M31_NEO_LESSONS } from "@/features/languages/ja/curriculum/m31-neo";
 import { M32_NEO_LESSONS } from "@/features/languages/ja/curriculum/m32-neo";
 import { M33_NEO_LESSONS } from "@/features/languages/ja/curriculum/m33-neo";
+import { M34_NEO_LESSONS } from "@/features/languages/ja/curriculum/m34-neo";
+import { M35_NEO_LESSONS } from "@/features/languages/ja/curriculum/m35-neo";
+import { M36_NEO_LESSONS } from "@/features/languages/ja/curriculum/m36-neo";
+import { M37_NEO_LESSONS } from "@/features/languages/ja/curriculum/m37-neo";
+import { M38_NEO_LESSONS } from "@/features/languages/ja/curriculum/m38-neo";
 // Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
 // ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
 // docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
@@ -527,6 +532,11 @@ const LESSONS: Record<string, LessonContent> = {
   ...Object.fromEntries(M31_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M32_NEO_LESSONS.map((l) => [l.id, l] as const)),
   ...Object.fromEntries(M33_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M34_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M35_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M36_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M37_NEO_LESSONS.map((l) => [l.id, l] as const)),
+  ...Object.fromEntries(M38_NEO_LESSONS.map((l) => [l.id, l] as const)),
   // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
   // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
   // are appended centrally by withKanaReviewTail.

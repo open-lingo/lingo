@@ -122,6 +122,26 @@ export function registerModuleBarGuards(opts: {
    * the opposite of what this file is for.
    */
   extraVocab?: string[];
+  /**
+   * `extraVocab` tokens that are exempt from the "debuts on an intro-capable
+   * step" half of the vocab-provenance check (they still tokenize — this
+   * only skips the debut-type assertion). For a DERIVED verb-form whose
+   * lesson pins a transform ramp covering MORE of `introduces:` than the
+   * rule card's own hand-written `examples[]` happens to illustrate, the
+   * ramp — pinned before every interleaved sentence (moduleCompiler.ts's
+   * SEQUENCE comment) — is unavoidably that form's first appearance, and
+   * `conjugation_transform` is deliberately excluded from `INTRO_TYPES`
+   * (stepTaxonomy.ts) for a DIFFERENT reason (inv 37: a ramp must not be a
+   * BASE VERB's only debut). A derived form was never eligible for a
+   * `courseAtoms` row in the first place (`irAtomRegistration.test.ts`'s
+   * `DERIVED_KINDS` rule) — it exists only so the tokenizer can see it — so
+   * requiring it to ALSO clear a debut-type bar with no registrable atom
+   * behind it is a check this class of token was never meant to satisfy.
+   * First used by m34-neo-2 (みよう/でよう, landed 2026-08-24): the module's
+   * own `introduces:` names six verbs for the ru-irregular ramp, and the
+   * rule card's hand-written examples cover four.
+   */
+  debutExempt?: string[];
 }): void {
   const { moduleLabel, lessons, priorModules, canon = COURSE_CANON } = opts;
   const priorSet = new Set(priorModules);
@@ -267,6 +287,25 @@ export function registerModuleBarGuards(opts: {
             ).toBeLessThanOrEqual(3);
             continue;
           }
+          // Two rule cards pinned back-to-back is deliberately consecutive
+          // too, on the same reasoning as the transform ramp above: `pinned`
+          // (moduleCompiler.ts) puts every `kind: rule` beat first, in
+          // authored order, exempt from the interleaver, so a lesson with
+          // two rule beats on the SAME grammarPointId (different `variant`)
+          // always lands them adjacent. m34-neo-1 is the first lesson to do
+          // this on purpose — the module's own thesis card, showing the
+          // plain volitional and its ましょう dress back to back (Spencer
+          // 2026-08-24). Cap the run at 2 instead of banning adjacency,
+          // exactly like the transform ramp does.
+          if (types[i] === "grammar_rule" && types[i - 1] === "grammar_rule") {
+            let runLen = 2;
+            for (let j = i - 2; j >= 0 && types[j] === "grammar_rule"; j--) runLen++;
+            expect(
+              runLen,
+              `${lesson.id} rule-card run longer than 2 @${i}`,
+            ).toBeLessThanOrEqual(2);
+            continue;
+          }
           expect(
             types[i],
             `${lesson.id} adjacent ${types[i]} @${i}`,
@@ -407,7 +446,19 @@ export function registerModuleBarGuards(opts: {
           // `jaSurfaces` applies the grading-only + intentionally-wrong
           // scrubs (acceptedAnswers, antiPattern, transform distractors) —
           // and is the SAME projection the compiler places debuts against.
-          for (const s of jaSurfaces(step)) {
+          // `particle_cloze.options` is the same class of thing (a wrong
+          // answer the learner must REJECT) but jaSurfaces doesn't scrub it
+          // course-wide, because every prior module's cloze distractors were
+          // real, tokenizable words. m34 is the first to cloze a FORMATION
+          // error (たべろう/のむう/…, m34-neo.test.ts's own distractor-only
+          // ratchet) — deliberate non-words that don't tokenize, same as a
+          // conjugation_transform distractor. Scrub locally, scoped to this
+          // one exposure check, rather than touching jaSurfaces itself: that
+          // function backs GATE 7 / invariant 30 / every other module's
+          // guards, and scrubbing it there is a course-wide behaviour change
+          // this landing has no need to make.
+          const scrubbed = step.type === "particle_cloze" ? { ...step, options: undefined } : step;
+          for (const s of jaSurfaces(scrubbed)) {
             const { tokens, unknown } = tokenize(s);
             for (const u of unknown)
               expect(
@@ -421,7 +472,9 @@ export function registerModuleBarGuards(opts: {
           }
         }
       }
-      for (const [word, type] of firstSeen)
+      const debutExempt = new Set(opts.debutExempt ?? []);
+      for (const [word, type] of firstSeen) {
+        if (debutExempt.has(word)) continue;
         expect(
           introTypes.has(type),
           `"${word}" debuts on non-intro step type ${type}` +
@@ -431,6 +484,7 @@ export function registerModuleBarGuards(opts: {
                 `speaking/build/grammar_rule/listening_comp`
               : ""),
         ).toBe(true);
+      }
     });
 
     if (opts.requireImageFirst) {

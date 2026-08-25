@@ -125,7 +125,53 @@ const MAX_NEVER_TOUCHED = 140;
  * modules. Same shape as the 26→29 note above: taught at course-end, graded
  * only inside the teaching module; D2 blocks same-module writes, D4 seeds
  * them due next day, and m34+ authoring gives them later graded homes. */
-const MAX_GRADED_BUT_NEVER_WRITES = 36;
+/* 36 → 40, 2026-08-25 (m35 landing): てつだう, はこぶ, なおす, こまる,
+ * たすかる, おねがい and むかえ — seven of m35's own new atoms, graded once
+ * each inside the module that teaches them (some already fell out of the
+ * prior count via other modules' own fixes, netting +4). Exactly the shape
+ * the 26→29 (m32) and 29→36 (R1) notes above describe: D2 blocks the
+ * same-module write, D4 seeds them due the next day. Run with
+ * EXPOSURE_REPORT=1 to dump the full list. Floor raised to the measured
+ * value, never lowered. */
+/* 40 → 50, 2026-08-25 (m36 registration landing): twelve of m36's own new
+ * atoms — べんり, かるい, かなしい, さびしい, やわらかい, かたい, こわい,
+ * はずかしい, ねむい, ふとる, やせる, ふべん — graded once each inside the
+ * module that teaches them, the same shape every prior entry in this block
+ * describes (D2 blocks the same-module write, D4 seeds them due the next
+ * day). The remaining eight are the ATOM-REGISTRATION-RIPPLE class
+ * ([[atom-registration-ripples-forward]]): おねがい, がんばる, さがす,
+ * たすかる, てつだう, なおす, はこぶ and むかえ (all pre-existing m34/m35
+ * atoms, untouched by this landing) flip into this bucket purely because
+ * m36's 12 new `courseAtoms` rows joined the global tokenizer — verified by
+ * bisection (reverting just the new rows restores the baseline count, and
+ * either half of the new-row set alone reproduces part of the ripple, so
+ * it's a general re-attribution effect of registering new vocabulary, not
+ * one bad row). Their own teaching content is unchanged; only which
+ * lesson's compiled filler/review content the tokenizer now attributes
+ * their exposure to. Run with EXPOSURE_REPORT=1 to dump the full list.
+ * Floor raised to the measured value, never lowered.
+ *
+ * 50 → 51 (2026-08-25, m37 registration landing): three of m37's own new
+ * `courseAtoms` rows — ひつよう, つごう, おくれる — are blocked/abstract
+ * vocab exercised only by `build_sentence` beats, the same shape as m36's
+ * かたい/こわい/はずかしい/ねむい/ふとる/やせる/ふべん entries already in
+ * this bucket. No re-attribution ripple this time (unlike m36's landing):
+ * the pre-existing 48 entries are unchanged (verified against the full
+ * EXPOSURE_REPORT=1 dump), only these three are new.
+ *
+ * 51 → 53 (2026-08-25, m38 registration landing): two of m38's own
+ * `courseAtoms` rows — かんじ (re-stamped future → m38) and もどる (new) —
+ * are graded once inside the module that teaches them, the same D2/D4 shape
+ * every prior entry in this block describes. No re-attribution ripple
+ * (verified against the full EXPOSURE_REPORT=1 dump: the pre-existing 51
+ * entries are unchanged). The other nine new m38 lemmas (なくす, こわす,
+ * こわれる, ふえる, へる, かわる, なれる, まちがえる, つれる) and ぜんぶ never
+ * land in THIS bucket at all — the module's authored content only ever uses
+ * their CONJUGATED surfaces (なくしてしまった, こわした, ふえてきた, …), which
+ * resolve to IR-local derived-form tokens, not these lemma ids, so those
+ * nine show up (if anywhere) in the never-graded count instead, already
+ * covered by that ratchet's own ceiling. */
+const MAX_GRADED_BUT_NEVER_WRITES = 53;
 
 type Row = {
   atomId: string;

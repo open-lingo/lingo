@@ -70,6 +70,15 @@ function moduleOrder(m: string): number {
  * Each deserves its own ruling; none is an accident of the kind m30/m31 hit.
  */
 const FROZEN_UNREGISTERED: ReadonlySet<string> = new Set([
+  // だけ (m35) cannot join the global longest-match registry: unspaced だけど
+  // (だ + けど, m16) appears in ~30 shipped build/listening tiles across nine
+  // modules, and a global だけ atom shatters every one of them into a bogus
+  // だけ＋ど split (verified by course-wide tile dump, m35 landing 2026-08-25).
+  // m35's own tokenizer sees だけ through its IR newAtoms, so the module's
+  // guards and lessons are fully covered — the cost is no global flashcard,
+  // which is the smaller, contained loss. Revisit only with a tokenizer that
+  // can prefer だ+けど over だけ+ど by context.
+  "だけ",
   "しましょう",
   "んだ", "なんだ", "んです", "なんです",
   "すぎる", "すぎた", "たかすぎる", "おおきすぎる", "ちいさすぎる",
