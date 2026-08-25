@@ -30,8 +30,10 @@ describe("native platform constants", () => {
 
   it("builds Auth0's Capacitor callback shape", () => {
     // Must match what gets pasted into Auth0's Allowed Callback URLs verbatim.
+    // Bundle id rebranded to com.linguiversal.app (44bfe28a, Spencer's dev
+    // team enrollment) — the Auth0 allowlist entry moves with it.
     expect(nativeCallbackUrl("tenant.us.auth0.com")).toBe(
-      "com.openlingo.app://tenant.us.auth0.com/capacitor/com.openlingo.app/callback",
+      "com.linguiversal.app://tenant.us.auth0.com/capacitor/com.linguiversal.app/callback",
     );
   });
 });
