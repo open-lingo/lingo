@@ -507,9 +507,14 @@ export default defineConfig(({ mode }) => {
           "assets/es-*.js",
           "assets/ko-*.js",
         ],
-        // mockLessons is ~3 MB raw; the default 2 MB cap would silently
-        // drop it from the precache manifest.
-        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+        // mockLessons (the all-course lesson registry) is ~4.5 MB raw as of
+        // the 2026-08-25 waves (es m3-m10 + ja m34-m38) and grows with every
+        // authored module. Over this cap, LOCAL builds silently drop it from
+        // the precache manifest while CI builds FAIL the deploy — that split
+        // is how the 08-25 push shipped nothing. Keep real headroom here, and
+        // when this trips again prefer splitting the registry per language
+        // over another bump.
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         cleanupOutdatedCaches: true,
         // SPA routing offline/from-cache; real files must never fall back
         // to the shell (the CDN's 403→index.html mapping already taught us
