@@ -689,7 +689,30 @@ export default defineConfig(({ mode }) => {
         test: {
           name: "curriculum",
           include: ["src/features/languages/**/*.{test,spec}.{ts,tsx}"],
+          // *.render.test.tsx mount step views via vi.mock harnesses
+          // (renderGate.tsx). Under isolate:false the mock factory can lose
+          // to a module-cache entry imported un-mocked by an earlier file in
+          // the same worker — CI's 2-core runner packs more files per worker
+          // than local machines, so main went red (m3-neo.render, 2026-08-22)
+          // while every local run stayed green. DOM-mount tests belong with
+          // the isolated app project; data-only curriculum tests keep the
+          // shared-cache speedup.
+          exclude: [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/curriculum/_archive/**",
+            "src/features/languages/**/*.render.test.tsx",
+          ],
           isolate: false,
+        },
+      },
+      {
+        extends: true,
+        test: {
+          // Mount-heavy curriculum render gates, isolated — see the
+          // curriculum project's exclude note.
+          name: "curriculum-render",
+          include: ["src/features/languages/**/*.render.test.tsx"],
         },
       },
       {
