@@ -150,7 +150,11 @@ function makeAdjQuestion(item: AdjItem, form: IAdjForm): TrainerQuestion {
     meaning: item.meaning,
     // いい is the one suppletive い-adjective (よ- stem; engine special-case).
     wordClass: item.dictionary === "いい" ? "i-adj-irregular" : "i-adj",
-    formLabel: ADJ_FORM_LABELS[form],
+    // ADJ_FORM_LABELS is keyed by the TABLE's AdjForm (no "ba" — a stacked
+    // engine form, same as ChainForm's "volitional"). No trainer type wires
+    // "ba" into makeAdjQuestion today (m37 isn't registered here), so this
+    // narrowing is safe.
+    formLabel: ADJ_FORM_LABELS[form as Exclude<IAdjForm, "ba">],
     form,
     correct,
     options: shuffle([correct, ...distractors]),

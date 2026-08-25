@@ -58,6 +58,10 @@ function verbFamilyMembers(form: ChainForm): ChainForm[] {
       return ["te"];
     case "ta":
       return ["ta"];
+    case "volitional":
+      return ["volitional"];
+    case "ba":
+      return ["ba"];
   }
 }
 
@@ -75,15 +79,24 @@ const CHAIN_SUFFIX: Record<ChainForm, string> = {
   "tai-neg": "たくない",
   "tai-past": "たかった",
   "tai-neg-past": "たくなかった",
+  // Not the real godan ending (おう varies by row) — same simplification as
+  // て/た above: this is only the attach-to-dictionary error shape (のむよう),
+  // which also happens to be the classic godan-as-ichidan mistake.
+  volitional: "よう",
+  // Naive attach: ば bolted straight onto the dictionary form (のむば),
+  // skipping the え-row shift entirely — same simplification as て/た/volitional.
+  ba: "ば",
 };
 
-/** Wrong sound-change candidates (te/ta/nai families, godan/ichidan verbs). */
+/** Wrong sound-change candidates (te/ta/nai/volitional families, godan/ichidan verbs). */
 function wrongSoundChangeCandidates(
   dictionary: string,
   group: VerbGroup,
   form: ChainForm,
 ): string[] {
-  if (group === "irregular") return [];
+  // ba's irregular slips (きれば／くば／しば／すば) are hand-authored below —
+  // every other form has no irregular sound-change candidates today.
+  if (group === "irregular" && form !== "ba") return [];
   const base = dictionary.slice(0, -1);
   const masuStem = conjugateVerb(dictionary, group, "masu").slice(0, -2); // drop ます
   const out: string[] = [];
@@ -98,6 +111,29 @@ function wrongSoundChangeCandidates(
       out.push(base + (U_TO_A_NAIVE[last] ?? last) + tail); // かう → かあない
     }
     out.push(masuStem + tail); // のむ → のみない
+  } else if (form === "volitional") {
+    if (group === "godan") {
+      const last = dictionary.slice(-1);
+      out.push(base + (U_TO_A_NAIVE[last] ?? last) + "う"); // のむ → のまう (ない-row, wrong row)
+    } else {
+      out.push(base + "おう"); // たべる → たべおう (godan's おう ending mistakenly kept)
+    }
+    out.push(masuStem + "よう"); // のむ → のみよう (ます-stem confused for the volitional stem)
+  } else if (form === "ba") {
+    if (group === "godan") {
+      out.push(dictionary + "れば"); // のむ → のむれば (godan-as-ichidan: れば bolted onto the whole word)
+      out.push(masuStem + "れば"); // のむ → のみれば (ます-stem confused for the ば-stem)
+    } else if (group === "ichidan") {
+      out.push(base + "ば"); // たべる → たべば (ichidan-as-godan: drop る, skip the え-row change)
+      out.push(base + "らば"); // たべる → たべらば (ない-row mistakenly carried into ば)
+    } else if (dictionary === "くる") {
+      out.push(masuStem + "れば"); // くる → きれば (ichidan's れば ending kept on the wrong stem)
+      out.push(base + "ば"); // くる → くば (drop る, skip the え-row change, godan-as-ichidan style)
+    } else {
+      // する family: even a plain-する compound keeps this shape (prefix + し／す).
+      out.push(masuStem + "ば"); // する → しば (ます-stem naive attach)
+      out.push(base + "ば"); // する → すば (drop る, skip the え-row change)
+    }
   }
   return out;
 }
@@ -148,6 +184,7 @@ const ADJ_SUFFIX: Record<IAdjForm, string> = {
   negative: "くない",
   past: "かった",
   "past-negative": "くなかった",
+  ba: "ければ",
 };
 
 /**
@@ -181,6 +218,26 @@ function collidesWithAnotherAdj(surface: string, dictionary: string): boolean {
   return false;
 }
 
+/**
+ * The sibling members that share a target form's ending family. Mirrors
+ * `verbFamilyMembers`: negative/past/past-negative form one closed family
+ * (all "drop い, add a plain suffix"); ば is a SEPARATE singleton family — its
+ * formation looks the same shape (drop い, add a suffix) but nothing sibling
+ * to it should leak into the negative/past/past-negative distractor pool (or
+ * vice versa), same posture as `volitional` staying out of the masu/nai/tai
+ * families.
+ */
+function iAdjFamilyMembers(form: IAdjForm): IAdjForm[] {
+  switch (form) {
+    case "negative":
+    case "past":
+    case "past-negative":
+      return ["negative", "past", "past-negative"];
+    case "ba":
+      return ["ba"];
+  }
+}
+
 export function generateIAdjFormationDistractors(
   dictionary: string,
   form: IAdjForm,
@@ -194,16 +251,23 @@ export function generateIAdjFormationDistractors(
       out.push(s);
     }
   };
-  const siblings: IAdjForm[] = ["negative", "past", "past-negative"];
+  const siblings = iAdjFamilyMembers(form);
 
   // (4) wrong polarity/tense within the family (real sibling forms).
   for (const sib of siblings) if (sib !== form) push(conjugateIAdj(dictionary, sib));
-  // (2) attach-to-dictionary: たかい + くない → たかいくない.
+  // (2) attach-to-dictionary: たかい + くない → たかいくない (たかい + ければ → たかいければ).
   push(dictionary + ADJ_SUFFIX[form]);
   for (const sib of siblings) if (sib !== form) push(dictionary + ADJ_SUFFIX[sib]);
-  // Fallback: stem + every ending (dedup drops correct + sibling repeats).
+  // Fallback: stem + every family ending (dedup drops correct + sibling repeats).
   const stem = dictionary.slice(0, -1);
-  for (const e of ["くない", "かった", "くなかった"]) push(stem + e);
+  for (const sib of siblings) push(stem + ADJ_SUFFIX[sib]);
+  // ば-specific naive attach/sound-change: skip the けれ infix entirely (same
+  // simplification as the verb-side CHAIN_SUFFIX.ba dropping the え-row shift)
+  // — たかい → たかば; or keep the け but drop れ — たかい → たかけば.
+  if (form === "ba") {
+    push(stem + "ば");
+    push(stem + "けば");
+  }
 
   // Prefer options that are not a real form of some other adjective —
   // stable, so the priority order above survives inside each half. Same

@@ -24,10 +24,12 @@ export type ChainForm =
   | "nai-past" // なかった   (nai chain: ない → なかった)
   | "tai-neg" // たくない   (tai conjugates as an い-adjective)
   | "tai-past" // たかった
-  | "tai-neg-past"; // たくなかった
+  | "tai-neg-past" // たくなかった
+  | "volitional" // のもう／たべよう／しよう／こよう — "let's …"
+  | "ba"; // のめば／たべれば／すれば／くれば — "if …"
 
 /** い-adjective conjugated forms (present is the dictionary form itself). */
-export type IAdjForm = "negative" | "past" | "past-negative";
+export type IAdjForm = "negative" | "past" | "past-negative" | "ba";
 
 /** Unambiguous display labels — chains disambiguate tense/polarity. */
 export const CHAIN_FORM_LABELS: Record<ChainForm, string> = {
@@ -43,6 +45,8 @@ export const CHAIN_FORM_LABELS: Record<ChainForm, string> = {
   "tai-neg": "たい form (negative)",
   "tai-past": "たい form (past)",
   "tai-neg-past": "たい form (negative past)",
+  volitional: "volitional form (let's)",
+  ba: "ば form (if)",
 };
 
 /**
@@ -58,6 +62,7 @@ export const IADJ_FORM_LABELS: Record<IAdjForm, string> = {
   negative: "くない form",
   past: "かった form",
   "past-negative": "くなかった form",
+  ba: "ければ form (if)",
 };
 
 // う-row kana → い-row (ます-stem) and → あ-row (ない-stem).
@@ -83,6 +88,32 @@ const U_TO_A: Record<string, string> = {
   む: "ま",
   る: "ら",
 };
+// う-row kana → お-row (volitional stem). No う → わ exception here: かう →
+// かおう, not かわおう — the exception is nai-only.
+const U_TO_O: Record<string, string> = {
+  う: "お",
+  く: "こ",
+  ぐ: "ご",
+  す: "そ",
+  つ: "と",
+  ぬ: "の",
+  ぶ: "ぼ",
+  む: "も",
+  る: "ろ",
+};
+// う-row kana → え-row (ば-stem). No う → わ exception here either — かう →
+// かえば, not かわえば; the exception is nai-only.
+const U_TO_E: Record<string, string> = {
+  う: "え",
+  く: "け",
+  ぐ: "げ",
+  す: "せ",
+  つ: "て",
+  ぬ: "ね",
+  ぶ: "べ",
+  む: "め",
+  る: "れ",
+};
 
 /** Godan て/た euphonic change. `past` selects た/だ over て/で. */
 function godanEuphonic(dictionary: string, past: boolean): string {
@@ -98,15 +129,37 @@ function godanEuphonic(dictionary: string, past: boolean): string {
   return base + (past ? "った" : "って");
 }
 
-type Stems = { masuStem: string; naiStem: string; te: string; ta: string };
+type Stems = {
+  masuStem: string;
+  naiStem: string;
+  te: string;
+  ta: string;
+  volitional: string;
+  ba: string;
+};
 
 function stemsOf(dictionary: string, group: VerbGroup): Stems {
   if (group === "ichidan") {
     const s = dictionary.slice(0, -1); // drop final る
-    return { masuStem: s, naiStem: s, te: s + "て", ta: s + "た" };
+    return {
+      masuStem: s,
+      naiStem: s,
+      te: s + "て",
+      ta: s + "た",
+      volitional: s + "よう",
+      ba: s + "れば",
+    };
   }
   if (group === "irregular") {
-    if (dictionary === "くる") return { masuStem: "き", naiStem: "こ", te: "きて", ta: "きた" };
+    if (dictionary === "くる")
+      return {
+        masuStem: "き",
+        naiStem: "こ",
+        te: "きて",
+        ta: "きた",
+        volitional: "こよう",
+        ba: "くれば",
+      };
     // する family (する, べんきょうする, …): keep the prefix, swap する.
     const prefix = dictionary.slice(0, -2);
     return {
@@ -114,6 +167,8 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
       naiStem: prefix + "し",
       te: prefix + "して",
       ta: prefix + "した",
+      volitional: prefix + "しよう",
+      ba: prefix + "すれば",
     };
   }
   // godan
@@ -127,6 +182,8 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
     naiStem,
     te: godanEuphonic(dictionary, false),
     ta: godanEuphonic(dictionary, true),
+    volitional: base + (U_TO_O[last] ?? last) + "う",
+    ba: base + (U_TO_E[last] ?? last) + "ば",
   };
 }
 
@@ -135,7 +192,7 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
  * `group` disambiguates ichidan/godan homographs (きる, かえる, …).
  */
 export function conjugateVerb(dictionary: string, group: VerbGroup, form: ChainForm): string {
-  const { masuStem, naiStem, te, ta } = stemsOf(dictionary, group);
+  const { masuStem, naiStem, te, ta, volitional, ba } = stemsOf(dictionary, group);
   switch (form) {
     case "masu":
       return masuStem + "ます";
@@ -161,6 +218,10 @@ export function conjugateVerb(dictionary: string, group: VerbGroup, form: ChainF
       return masuStem + "たかった";
     case "tai-neg-past":
       return masuStem + "たくなかった";
+    case "volitional":
+      return volitional;
+    case "ba":
+      return ba;
   }
 }
 
@@ -177,6 +238,8 @@ export function conjugateIAdj(dictionary: string, form: IAdjForm): string {
         return "よかった";
       case "past-negative":
         return "よくなかった";
+      case "ba":
+        return "よければ";
     }
   }
   const stem = dictionary.slice(0, -1); // drop final い
@@ -187,5 +250,7 @@ export function conjugateIAdj(dictionary: string, form: IAdjForm): string {
       return stem + "かった";
     case "past-negative":
       return stem + "くなかった";
+    case "ba":
+      return stem + "ければ";
   }
 }

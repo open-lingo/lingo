@@ -287,7 +287,7 @@ try {
     if (!f.endsWith(".ir.json")) continue;
     const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf-8"));
     for (const lesson of ir.lessons ?? [])
-      for (const b of lesson.beats ?? [])
+      for (const b of lesson.beats ?? []) {
         if (b.kind === "dialogue")
           for (const l of b.lines ?? []) {
             const bucket = MALE_SPEAKERS.has(l.speaker) ? keitaSet : nanamiSet;
@@ -298,6 +298,32 @@ try {
               bucket.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
             }
           }
+        // dialogue_sim beats (2026-08-24): NPC lines route by speaker exactly
+        // like dialogue lines; the MODEL REPLY plays after commit in the
+        // learner's (Nanami) voice — modelReplyAudioText() resolves
+        // `audioText ?? answer`, so emit the same key it will look up.
+        if (b.kind === "sim")
+          for (const t of b.turns ?? []) {
+            const npcBucket = MALE_SPEAKERS.has(t.npc?.speaker)
+              ? keitaSet
+              : nanamiSet;
+            const npcText = t.npc?.audioText ?? t.npc?.ja ?? "";
+            for (const s of [npcText, ...(npcText.match(/[^。？！]+[。？！]?」?/g) ?? [])]) {
+              const trimmed = s.trim();
+              if (!JA_ONLY.test(trimmed)) continue;
+              npcBucket.add(trimmed.endsWith("。") ? trimmed.slice(0, -1) : trimmed);
+            }
+            const replyText = t.reply?.audioText ?? t.reply?.answer ?? "";
+            const replyTrimmed = replyText.trim();
+            if (JA_ONLY.test(replyTrimmed)) {
+              nanamiSet.add(
+                replyTrimmed.endsWith("。")
+                  ? replyTrimmed.slice(0, -1)
+                  : replyTrimmed,
+              );
+            }
+          }
+      }
   }
 } catch {
   /* no ir/ dir yet — pre-compiler modules */

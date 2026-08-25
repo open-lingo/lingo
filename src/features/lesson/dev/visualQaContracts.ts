@@ -235,6 +235,28 @@ function contractForStep(
       if (s.kana) mustShow.push(s.kana);
       break;
     }
+    case "dialogue_sim": {
+      const s = step as {
+        scene: { emoji: string; title: string; setting?: string };
+        listenFirst?: boolean;
+        turns: Array<{ goal: string; npc: { kana: string; speaker: string } }>;
+      };
+      mustShow.push(s.scene.title);
+      if (s.turns[0]) {
+        mustShow.push(s.turns[0].goal);
+        mustShow.push(s.turns[0].npc.speaker);
+        if (!s.listenFirst) mustShow.push(s.turns[0].npc.kana);
+      }
+      if (s.listenFirst) {
+        expectations.push(
+          "Listen-first sim: the NPC line's kana/gloss stay masked until its clip plays (or 'Show text' is tapped) — masked text at mount is correct, not a defect.",
+        );
+      }
+      expectations.push(
+        "Conversation simulator: scene header, NPC bubble, English goal cue, and a reply surface (tile bank or options) all render; the goal never quotes the Japanese answer.",
+      );
+      break;
+    }
     default: {
       expectations.push(
         `Step type '${step.type}': verify the card renders coherent, non-empty content (no generated contract for this type yet).`,

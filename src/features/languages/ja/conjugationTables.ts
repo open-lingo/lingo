@@ -789,9 +789,9 @@ export const VERB_ENTRIES: VerbEntry[] = [
       te: "てつだって",
       tai: "てつだいたい",
     },
-    // parked above the course 2026-08-09: its only exposure was the retired
-    // m30 pilot (spec A1) — re-measure when an N4 module actually shows it
-    introducedAtModule: 99,
+    // m35 (n4-06, Give & receive II) is the module that actually shows it —
+    // L1's headline verb, てつだってくれる/てつだってあげる/てつだってもらった.
+    introducedAtModule: 35,
   },
   {
     id: "kasu",
@@ -1634,11 +1634,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "べんりでした",
       "past-negative": "べんりじゃなかったです",
     },
-    // parked above the course 2026-08-09: the measured m30 first exposure
-    // (drillPoolIsTaught 2026-07-29 — earlier exposure was distractor-fill
-    // luck) was the retired pilot (spec A1) — re-measure when an N4 module
-    // actually shows it
-    introducedAtModule: 99,
+    // m36 (n4-07, "looks like") teaches べんり/ふべん at L6 — re-stamped from
+    // the 99 park (2026-08-25).
+    introducedAtModule: 36,
   },
   {
     id: "fubeni",
@@ -1652,7 +1650,9 @@ export const ADJ_ENTRIES: AdjEntry[] = [
       past: "ふべんでした",
       "past-negative": "ふべんじゃなかったです",
     },
-    introducedAtModule: 99,
+    // m36 (n4-07, "looks like") teaches べんり/ふべん at L6 — re-stamped from
+    // the 99 park (2026-08-25).
+    introducedAtModule: 36,
   },
   {
     id: "daijoubu",

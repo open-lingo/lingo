@@ -200,6 +200,33 @@ function renderStep(step: Rec, n: number): string {
         .join("\n");
       return L(`DIALOGUE (audio)\n${lines}\n${qs}`);
     }
+    case "dialogue_sim": {
+      // The learner is a PARTICIPANT: per turn they see the NPC line, the
+      // English goal, and a reply surface. Leak paranoia as everywhere:
+      // build tiles ship answer-first → shuffled; choice option ids include
+      // the literal "correct" → stripped, texts shuffled; replyGloss and
+      // explanation are post-commit teaching → gone.
+      const scene = (step.scene ?? {}) as Rec;
+      const turns = ((step.turns ?? []) as Rec[])
+        .map((t, i) => {
+          const npc = (t.npc ?? {}) as Rec;
+          const reply = (t.reply ?? {}) as Rec;
+          const surface =
+            reply.mode === "build"
+              ? `TILES: ${shuffle((reply.tiles ?? []) as string[], id + i).join(" | ")}`
+              : `${shuffle(
+                  ((reply.options ?? []) as Rec[]).map((o) => String(o.text ?? "")),
+                  id + i,
+                )
+                  .map((o, j) => `${LETTERS[j]}) ${o}`)
+                  .join("   ")}`;
+          return `      ${npc.speaker}: ${npc.kana ?? ""}\n      YOUR GOAL: ${t.goal ?? ""}\n      ${surface}`;
+        })
+        .join("\n");
+      return L(
+        `CONVERSATION — ${scene.title ?? ""}${scene.setting ? ` (${scene.setting})` : ""}\n${turns}`,
+      );
+    }
     case "conjugation_transform": {
       const opts = shuffle(
         [String(step.answer ?? ""), ...((step.distractors ?? []) as string[])],
@@ -256,11 +283,10 @@ describe("learner view emitter", () => {
     let n = 0;
     for (const mod of course.modules) {
       if (!mod.lessons?.length) continue;
-      // N5 only. The n4 tier currently holds just the m30 comingSoon
-      // placeholder (the July pilot was retired 2026-08-09, spec A1; the
-      // replacement n4-01 is not yet authored) — nothing to simulate. When
-      // n4 modules ship, decide deliberately whether the walk covers them.
-      if ((mod as { tier?: string }).tier === "n4") continue;
+      // The n4 tier was excluded while it held only the m30 comingSoon
+      // placeholder (2026-08-09, spec A1). Real n4 modules ship from
+      // 2026-08-19 (m30-m34 authored waves) and their learner walks are
+      // exactly as valuable as N5's — included since 2026-08-25.
       n++;
       const out: string[] = [
         `# ${mod.id} — ${mod.title}`,

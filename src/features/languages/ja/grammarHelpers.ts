@@ -10,6 +10,8 @@ import type {
   ConjugationClozeStep,
   ConjugationTransformStep,
   DialogueListenStep,
+  DialogueSimStep,
+  DialogueSimTurn,
   GrammarRuleStep,
   GrammarExample,
   InfoStep,
@@ -1986,6 +1988,165 @@ export function dialogueListen(opts: {
     format,
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
     modality: "recognition",
+  };
+}
+
+/**
+ * `dialogue_sim` factory — the JA course's door into the conversation
+ * simulator (Spencer's favorite step type; shipped for ES/FR 2026-08, JA
+ * IR-authorable from 2026-08-24). The learner is a PARTICIPANT: an NPC
+ * speaks, the `goal` names the speech act in English, and the learner
+ * produces the reply from tiles (or picks it, `mode: "choice"`).
+ *
+ * Grading is max-acceptance via `simTurnLogic.acceptedBuildSurfaces`
+ * (register widening + particle scrambles), so `answer` is the CANONICAL
+ * rendering, not the only accepted one — author it in the course's normal
+ * spaced-kana convention.
+ *
+ * Compile-time guards (mirror dialogueListen's posture — fail the build,
+ * not the learner):
+ * - every word of `answer` must be present in `tiles`, or the model reply
+ *   is un-buildable;
+ * - a choice answer must be one of its options;
+ * - `goal` must never contain the reply's Japanese (answer leak);
+ * - speakers must be non-empty (voice routing reads them — inv 23).
+ *
+ * Choice options rotate with the same seeded `slotFor` the other MCQ
+ * factories use, with the dialogueListen id conventions ("correct"/"opt-N").
+ */
+export function dialogueSim(opts: {
+  id: string;
+  scene: { emoji: string; title: string; setting?: string };
+  listenFirst?: boolean;
+  turns: Array<{
+    npc: { speaker: string; kana: string; audioText?: string; gloss: string };
+    goal: string;
+    reply:
+      | {
+          mode: "build";
+          tiles: string[];
+          answer: string;
+          alsoAccepted?: string[];
+          audioText?: string;
+        }
+      | {
+          mode: "choice";
+          options: string[];
+          answer: string;
+          alsoCorrect?: string[];
+          audioText?: string;
+        };
+    replyGloss?: string;
+    explanation?: string;
+  }>;
+  exercisedAtomKanas?: string[];
+}): DialogueSimStep {
+  if (opts.turns.length < 1 || opts.turns.length > 6) {
+    throw new Error(
+      `dialogueSim(${opts.id}): turns.length must be 1-6 (got ${opts.turns.length})`,
+    );
+  }
+  const stripPunct = (s: string) => s.replace(/[。、？！?!,.]/g, "");
+  const turns: DialogueSimTurn[] = opts.turns.map((t, ti) => {
+    const tid = `t${ti + 1}`;
+    if (!t.npc.speaker) {
+      throw new Error(`dialogueSim(${opts.id}) ${tid}: npc.speaker is required`);
+    }
+    if (t.goal.includes(stripPunct(t.reply.answer))) {
+      throw new Error(
+        `dialogueSim(${opts.id}) ${tid}: goal leaks the answer ("${t.reply.answer}")`,
+      );
+    }
+    let reply: DialogueSimTurn["reply"];
+    if (t.reply.mode === "build") {
+      // The spaced-kana answer glues particles to their word (ラーメンを)
+      // while tiles split them (ラーメン · を), so buildability is a
+      // SEGMENTATION check: every space-run of the answer must be coverable
+      // by concatenating bank tiles. Tile reuse is allowed here — this is a
+      // "the model reply is assemblable" sanity guard, not the grader
+      // (which is simTurnLogic's max-acceptance comparison).
+      const tiles = [...new Set(t.reply.tiles)];
+      const coverable = (run: string): boolean => {
+        const ok = new Array<boolean>(run.length + 1).fill(false);
+        ok[0] = true;
+        for (let i = 0; i < run.length; i++) {
+          if (!ok[i]) continue;
+          for (const tile of tiles) {
+            if (run.startsWith(tile, i)) ok[i + tile.length] = true;
+          }
+        }
+        return ok[run.length];
+      };
+      const unbuildable = stripPunct(t.reply.answer)
+        .split(/[\s　]+/)
+        .filter(Boolean)
+        .filter((run) => !coverable(run));
+      if (unbuildable.length) {
+        throw new Error(
+          `dialogueSim(${opts.id}) ${tid}: answer not assemblable from tiles: ${unbuildable.join(", ")}`,
+        );
+      }
+      reply = {
+        mode: "build",
+        tiles: t.reply.tiles,
+        answer: t.reply.answer,
+        alsoAccepted: t.reply.alsoAccepted,
+        audioText: t.reply.audioText,
+      };
+    } else {
+      const { options, answer, alsoCorrect = [] } = t.reply;
+      if (options.length < 2 || options.length > 4) {
+        throw new Error(
+          `dialogueSim(${opts.id}) ${tid}: options.length must be 2-4 (got ${options.length})`,
+        );
+      }
+      for (const a of [answer, ...alsoCorrect]) {
+        if (!options.includes(a)) {
+          throw new Error(
+            `dialogueSim(${opts.id}) ${tid}: "${a}" is not one of the options`,
+          );
+        }
+      }
+      // Seeded rotation, dialogueListen's id conventions: the correct option
+      // keeps id "correct" wherever it lands so grading never re-derives it.
+      const rest = options.filter((o) => o !== answer);
+      const items = rest.map((text, i) => ({ id: `opt-${i + 1}`, text }));
+      items.splice(slotFor(`${opts.id}-${tid}`, options.length), 0, {
+        id: "correct",
+        text: answer,
+      });
+      reply = {
+        mode: "choice",
+        options: items,
+        correctOptionId: "correct",
+        alsoCorrectOptionIds: alsoCorrect.length
+          ? items.filter((o) => alsoCorrect.includes(o.text)).map((o) => o.id)
+          : undefined,
+        audioText: t.reply.audioText,
+      };
+    }
+    return {
+      id: tid,
+      npc: {
+        speaker: t.npc.speaker,
+        kana: t.npc.kana,
+        audioText: t.npc.audioText,
+        gloss: t.npc.gloss,
+      },
+      goal: t.goal,
+      reply,
+      replyGloss: t.replyGloss,
+      explanation: t.explanation,
+    };
+  });
+  return {
+    id: opts.id,
+    type: "dialogue_sim",
+    scene: opts.scene,
+    turns,
+    listenFirst: opts.listenFirst,
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "production",
   };
 }
 

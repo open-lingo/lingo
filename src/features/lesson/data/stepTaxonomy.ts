@@ -22,7 +22,14 @@ export const SELECTION_TYPES: ReadonlySet<string> = new Set([
   "multiple_choice",
 ]);
 
-/** Step types that may carry a word's FIRST appearance. */
+/** Step types that may carry a word's FIRST appearance.
+ *
+ *  `dialogue_sim` is DELIBERATELY absent (2026-08-24, m34 landing): a sim
+ *  turn's NPC line can be masked (listenFirst) and its goal is English, so
+ *  a word met mid-conversation was never taught — the same inv-33 ruling as
+ *  `dialogue_listen`, applied harder (sim isn't even in the base set). When
+ *  a sim surface trips the debut guard, fix the MODULE (give the word a real
+ *  intro-capable beat before the sim) — do not add the type here. */
 export const INTRO_TYPES: ReadonlySet<string> = new Set([
   "listening_comprehension",
   "dialogue_listen",

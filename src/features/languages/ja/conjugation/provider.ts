@@ -383,10 +383,15 @@ export const jaConjugationTrainer: ConjugationTrainerProvider = {
     }
     const form = type.adjForms?.[0];
     if (!form) return [];
+    // `a.forms` is keyed by the TABLE's AdjForm (no "ba" column — that's a
+    // stacked engine form, same as ChainForm's "volitional"). No registered
+    // trainer type wires "ba" into `adjForms` (m37 isn't registered here),
+    // so this narrowing is safe.
+    const tableForm = form as Exclude<IAdjForm, "ba">;
     return getAdjsUpToModule(reachedModule)
       .filter((a) => a.type === "i-adj")
       .slice(0, 8)
-      .map((a) => ({ dict: a.dictionary, form: a.forms[form] }));
+      .map((a) => ({ dict: a.dictionary, form: a.forms[tableForm] }));
   },
 
   getIntroStep: (typeId): LessonStep | null => {

@@ -30,6 +30,7 @@ import {
   build,
   cloze,
   dialogueListen,
+  dialogueSim,
   conjugationTransform,
   grammarRule,
   kanjiReading,
@@ -149,6 +150,46 @@ export type IRBeat =
       kind: "dialogue";
       lines: { speaker: string; ja: string; en?: string }[];
       questions: { q: string; options: string[]; answer: string }[];
+    }
+  | {
+      /**
+       * CONVERSATION SIMULATOR beat (2026-08-24) — compiles to `dialogue_sim`
+       * (Spencer's favorite step type; previously ES/FR-only literals). The
+       * learner is a participant, not an observer: the NPC line plays, the
+       * English `goal` names the speech act, and the learner assembles the
+       * reply from tiles (`reply.mode: build`) or picks it (`choice`).
+       *
+       * NOT intro-capable (inv 33 posture, same as `dialogue`): every word
+       * in npc lines, tiles, options and answers must already be taught —
+       * `jaSurfaces` walks the compiled step, so the bar guards see all of
+       * it. Speaker labels must be classified in `dialogueSpeakers.json`
+       * (inv 23) and the TTS emitter routes npc lines by that same file.
+       */
+      kind: "sim";
+      scene: { emoji: string; title: string; setting?: string };
+      listenFirst?: boolean;
+      turns: {
+        npc: { speaker: string; ja: string; en: string; audioText?: string };
+        goal: string;
+        reply:
+          | {
+              mode: "build";
+              tiles: string[];
+              answer: string;
+              alsoAccept?: string[];
+              audioText?: string;
+            }
+          | {
+              mode: "choice";
+              options: string[];
+              answer: string;
+              alsoCorrect?: string[];
+              audioText?: string;
+            };
+        replyGloss?: string;
+        explanation?: string;
+      }[];
+      exercises?: string[];
     }
   | {
       /**
@@ -883,9 +924,14 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
           // registerScaffoldIsolation.
           for (const t of tokenize(b.answer)) note(t, li);
           for (const o of b.options) for (const t of tokenize(o)) note(t, li);
-        } else if (b.kind !== "dialogue" && b.kind !== "kanji" && b.mode === "build") {
+        } else if (
           // build_sentence only: `listening` → listening_build and
-          // `translate` → translate, neither of which can introduce.
+          // `translate` → translate, neither of which can introduce. `sim`
+          // is deliberately absent — a conversation is never a word's first
+          // exposure (inv 33, same ruling as `dialogue`).
+          (b.kind === "sentence" || b.kind === "challenge" || b.kind === "capstone") &&
+          b.mode === "build"
+        ) {
           for (const t of tokenize(b.ja)) note(t, li);
         }
       }
@@ -972,13 +1018,32 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       "i-adj": "i-adj",
     };
 
+    // A lesson normally carries at most one `rule` beat per grammarPointId,
+    // so `${lid}-rule-${grammarPointId}` has always been unique. m34-neo-1 is
+    // the first lesson in the course to pin TWO rule beats on the SAME
+    // grammarPointId (`volitional`, variants shape-u + mashou-is-polite) —
+    // the module's own thesis, that ましょう is the volitional's polite dress,
+    // stated by showing both cards in one lesson (2026-08-24). Disambiguate
+    // with `variant` ONLY when this lesson actually has a same-id collision,
+    // so every other module's rule-step ids (and everything keyed on them —
+    // ANTIPATTERN_MINIMAL_PAIR_GRANDFATHERED, SRS progress, deep links) stay
+    // byte-identical.
+    const ruleIdCounts = new Map<string, number>();
+    for (const b of lesson.beats)
+      if (b.kind === "rule")
+        ruleIdCounts.set(b.grammarPointId, (ruleIdCounts.get(b.grammarPointId) ?? 0) + 1);
+
     for (const beat of lesson.beats) {
       if (beat.kind === "rule") {
         const gp = resolveGrammarPoint(ir, beat);
         if (!gp) continue;
+        const ruleId =
+          (ruleIdCounts.get(beat.grammarPointId) ?? 0) > 1 && beat.variant
+            ? `${lid}-rule-${beat.grammarPointId}-${beat.variant}`
+            : `${lid}-rule-${beat.grammarPointId}`;
         ruleSteps.push(
           grammarRule({
-            id: `${lid}-rule-${beat.grammarPointId}`,
+            id: ruleId,
             title: lesson.title ?? ir.title,
             rule: gp.rule,
             examples: gp.examples.map((e) => ({ ...e, romaji: kanaToRomaji(e.ja) })),
@@ -1234,6 +1299,49 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             lines: beat.lines.map((l) => ({ speaker: l.speaker, kana: l.ja })),
             questions,
           }),
+        );
+      } else if (beat.kind === "sim") {
+        const step = dialogueSim({
+          id: sid("sim"),
+          scene: beat.scene,
+          listenFirst: beat.listenFirst,
+          turns: beat.turns.map((t) => ({
+            npc: {
+              speaker: t.npc.speaker,
+              kana: t.npc.ja,
+              audioText: t.npc.audioText,
+              gloss: t.npc.en,
+            },
+            goal: t.goal,
+            reply:
+              t.reply.mode === "build"
+                ? {
+                    mode: "build",
+                    tiles: t.reply.tiles,
+                    answer: t.reply.answer,
+                    alsoAccepted: t.reply.alsoAccept,
+                    audioText: t.reply.audioText,
+                  }
+                : {
+                    mode: "choice",
+                    options: t.reply.options,
+                    answer: t.reply.answer,
+                    alsoCorrect: t.reply.alsoCorrect,
+                    audioText: t.reply.audioText,
+                  },
+            replyGloss: t.replyGloss,
+            explanation: t.explanation,
+          })),
+        });
+        if (beat.exercises?.length)
+          step.exercisedGrammar = [...new Set(beat.exercises)];
+        body.push(step);
+      } else {
+        // The IR JSON is cast, not schema-validated — a typo'd `kind:` used
+        // to fall off this chain and the beat SILENTLY vanished from the
+        // lesson. Fail the build with the lesson + kind instead.
+        throw new Error(
+          `${lesson.id}: unknown beat kind "${(beat as { kind: string }).kind}"`,
         );
       }
     }
@@ -1967,7 +2075,9 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   const pointsOf = (b: IRBeat): string[] =>
     b.kind === "sentence" || b.kind === "capstone" || b.kind === "challenge"
       ? [...(b.exercises ?? []), ...(b.combines ?? [])]
-      : [];
+      : b.kind === "sim"
+        ? [...(b.exercises ?? [])]
+        : [];
   const seenCombos = new Set<string>();
   const comboKey = (pts: string[]) => [...new Set(pts)].sort().join("+");
   for (const lesson of ir.lessons) {
@@ -2001,7 +2111,11 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   }
   for (const lesson of ir.lessons) {
     const buildable = lesson.beats.filter(
-      (b) => b.kind === "sentence" || b.kind === "particle-cloze" || b.kind === "dialogue",
+      (b) =>
+        b.kind === "sentence" ||
+        b.kind === "particle-cloze" ||
+        b.kind === "dialogue" ||
+        b.kind === "sim",
     ).length;
     if (buildable < 6 && !lesson.id.endsWith("-12"))
       out.push({

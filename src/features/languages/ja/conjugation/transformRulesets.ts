@@ -329,6 +329,125 @@ export const TRANSFORM_RULESETS: Record<string, TransformRuleset> = {
       },
     ],
   },
+
+  // ─── m34 · the volitional ────────────────────────────────────────────
+  // う-verbs slide the last sound to the o-row then take う (む→も＋う); る
+  // and the irregulars drop る/the dictionary form and take よう — the same
+  // shift shape as ます (む→み), only landing on the o-row instead of the
+  // i-row. する/くる are two words, not a rule, same as every other form.
+  volitional: {
+    label: "volitional — the will, every class",
+    rows: [
+      {
+        group: "ichidan",
+        label: "る-verbs",
+        examples: ["たべる"],
+        chips: [
+          { text: "たべ" },
+          { text: "る", kind: "out" },
+          sep("→"),
+          { text: "たべ" },
+          { text: "よう", kind: "add" },
+        ],
+      },
+      {
+        group: "godan",
+        label: "う-verbs",
+        examples: ["のむ"],
+        chips: [
+          { text: "の" },
+          { text: "む", kind: "out" },
+          sep("→"),
+          { text: "の" },
+          { text: "も", kind: "in" },
+          sep("＋"),
+          { text: "う", kind: "add" },
+        ],
+      },
+      {
+        group: "irregular",
+        label: "irregular",
+        examples: ["する", "くる"],
+        chips: [
+          { text: "する", kind: "out" },
+          sep("→"),
+          { text: "しよう", kind: "in" },
+          sep("·"),
+          { text: "くる", kind: "out" },
+          sep("→"),
+          { text: "こよう", kind: "in" },
+        ],
+      },
+    ],
+  },
+
+  // ─── m37 · the ば conditional ────────────────────────────────────────
+  // う-verbs slide the last sound to the E-ROW then take ば (のむ→のめ＋ば),
+  // exactly the same shift shape as the volitional's o-row slide, only one
+  // row over; る-verbs drop る and take れば; する/くる are two words. Per
+  // m37's own IR prose: "いく→いけば, のむ→のめば, かう→かえば". The
+  // い-adjective ければ table (たかい→たかければ, ない→なければ — the
+  // unfreeze) is NOT a row here: `ba` is the one key ChainForm and IAdjForm
+  // share (`CHAIN_FORM_LABELS.ba` / `IADJ_FORM_LABELS.ba`), and the shape
+  // ratchet below ("covers every verb class the cards can highlight")
+  // asserts a drilled form's row-group set equals EXACTLY
+  // {ichidan, godan, irregular} — a 4th `i-adj` row would fail that
+  // assertion the moment any verb ba-card is live, which m37 ships. It is
+  // also not needed today: m37's own adj-form newAtoms (たかければ,
+  // やすければ, よければ, なければ) carry no `verbClass` tag (unlike m12's
+  // precedent for its negative/past cells), so `moduleCompiler`'s ramp-
+  // material filter — which requires `a.verbClass` — never selects them,
+  // and no i-adj `ba` transform card is ever compiled from this IR. See
+  // the session report: an i-adj `ba` ruleset needs its OWN unshared key
+  // (the FORMS_AWAITING_RULESET pattern m12/m13's cells already use) plus
+  // an IR change tagging those atoms `verbClass: i-adj`, both out of this
+  // landing's scope (courseAtoms/conjugationTables/transformRulesets only,
+  // IR untouched).
+  ba: {
+    label: "ば form — the if, every class",
+    rows: [
+      {
+        group: "ichidan",
+        label: "る-verbs",
+        examples: ["たべる"],
+        chips: [
+          { text: "たべ" },
+          { text: "る", kind: "out" },
+          sep("→"),
+          { text: "たべ" },
+          { text: "れば", kind: "add" },
+        ],
+      },
+      {
+        group: "godan",
+        label: "う-verbs",
+        examples: ["のむ"],
+        chips: [
+          { text: "の" },
+          { text: "む", kind: "out" },
+          sep("→"),
+          { text: "の" },
+          { text: "め", kind: "in" },
+          sep("＋"),
+          { text: "ば", kind: "add" },
+        ],
+      },
+      {
+        group: "irregular",
+        label: "irregular",
+        examples: ["する", "くる"],
+        chips: [
+          { text: "する", kind: "out" },
+          sep("→"),
+          { text: "すれば", kind: "in" },
+          sep("·"),
+          { text: "くる", kind: "out" },
+          sep("→"),
+          { text: "くれば", kind: "in" },
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -682,6 +801,100 @@ const RULESET_ALTERNATES: Record<string, Record<string, RulesetRow>> = {
         { text: "する", kind: "out" },
         sep("→"),
         { text: "しません", kind: "in" },
+        sep("·"),
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+  },
+
+  // volitional: only godan/ichidan are drilled today (m34-neo-1/2's ramps
+  // cap at 3 cards each and never reach the irregular pair) — no する/くる
+  // alternate needed until a live card drills one.
+  volitional: {
+    のむ: {
+      group: "godan",
+      label: "う-verbs",
+      examples: ["いく"],
+      chips: [
+        { text: "い" },
+        { text: "く", kind: "out" },
+        sep("→"),
+        { text: "い" },
+        { text: "こ", kind: "in" },
+        sep("＋"),
+        { text: "う", kind: "add" },
+      ],
+    },
+    たべる: {
+      group: "ichidan",
+      label: "る-verbs",
+      examples: ["みる"],
+      chips: [
+        { text: "み" },
+        { text: "る", kind: "out" },
+        sep("→"),
+        { text: "み" },
+        { text: "よう", kind: "add" },
+      ],
+    },
+  },
+
+  // ba: m37's own ramp drills いく/いそぐ/きく (godan), たべる/みる (ichidan),
+  // and する (irregular) — not のむ or くる — but the alternate map is
+  // authored for all four canonical examples anyway, matching `nai`'s full
+  // coverage rather than `volitional`'s partial one, so a later module's
+  // ramp reaching のむ or くる is covered without a second landing.
+  ba: {
+    のむ: {
+      group: "godan",
+      label: "う-verbs",
+      examples: ["いく"],
+      chips: [
+        { text: "い" },
+        { text: "く", kind: "out" },
+        sep("→"),
+        { text: "い" },
+        { text: "け", kind: "in" },
+        sep("＋"),
+        { text: "ば", kind: "add" },
+      ],
+    },
+    たべる: {
+      group: "ichidan",
+      label: "る-verbs",
+      examples: ["みる"],
+      chips: [
+        { text: "み" },
+        { text: "る", kind: "out" },
+        sep("→"),
+        { text: "み" },
+        { text: "れば", kind: "add" },
+      ],
+    },
+    する: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["くる"],
+      chips: [
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "くれば", kind: "in" },
+        sep("·"),
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+    くる: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["する"],
+      chips: [
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "すれば", kind: "in" },
         sep("·"),
         { text: "くる", kind: "out" },
         sep("→"),

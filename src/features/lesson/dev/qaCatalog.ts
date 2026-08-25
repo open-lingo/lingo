@@ -129,13 +129,6 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // taught falsehoods). The step TYPE and its view survive; unpin when an
   // authored module ships one.
   "self_explanation_mcq",
-  // PROTOTYPE (2026-07-29), deliberately wired into NO live course lesson:
-  // the simulation-dialogue step type. Its home is the Travel Sprint side
-  // quest, which is `comingSoon` and blocked on B066, so there is nothing to
-  // author it into yet. Drive it from /ja/qa/dialogue-sim (scene + variant
-  // toggles) or the previewer fixture. Unpin when a Travel Sprint lesson
-  // ships it.
-  "dialogue_sim",
   // NEW 2026-08-18, built ahead of content for the es A2 / fr waves. Both are
   // deliberately in no shipped lesson yet: `aspect_choice_cloze` needs the
   // unwritten past-tense tier, and `liaison_listen` needs a French course.
