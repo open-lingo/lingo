@@ -105,22 +105,48 @@ if (frameless && Array.isArray(ir.lessons)) {
 need(Array.isArray(ir.newAtoms) && ir.newAtoms.length > 0, "ir.newAtoms must be a non-empty list");
 need(Array.isArray(ir.lessons) && ir.lessons.length > 0, "ir.lessons must be a non-empty list");
 
-// The ES quality gate wants ≥2 selfExplain per module and a specific lesson
-// count; catching both here beats catching them in vitest three commands later.
+// §13 module (2026-08-24 wave): `expectedLessonCount` + `checkpoint` in the
+// IR mark a module authored to the current doctrine (es-quality.test.ts
+// rewritten 2026-08-21). Module shape is derived, never assumed
+// (course-design law 7): the count is declared, the checkpoint index is
+// exported for the gates, and mastery must END on a dialogue_sim (§13.9
+// law 7). The July contract (exactly 8 lessons, ≥2 selfExplain) applies
+// only to legacy IRs that do NOT declare expectedLessonCount — all of
+// which are archived, but the compiler stays able to rebuild them.
+const doctrine13 = ir.expectedLessonCount !== undefined;
 if (Array.isArray(ir.lessons)) {
-  need(
-    ir.lessons.length === 8,
-    `every shipped ES module is 8 lessons; this IR declares ${ir.lessons.length}`,
-  );
-  const selfExplains = ir.lessons.filter(
-    (l) =>
-      l.seventeen?.kind === "selfExplain" ||
-      (l.steps ?? []).some((s) => s.kind === "selfExplain"),
-  ).length;
-  need(
-    selfExplains >= 2,
-    `es-quality requires >= 2 selfExplain per module; the IR declares ${selfExplains}`,
-  );
+  if (doctrine13) {
+    need(
+      ir.lessons.length === ir.expectedLessonCount,
+      `ir declares expectedLessonCount ${ir.expectedLessonCount} but carries ${ir.lessons.length} lessons`,
+    );
+    need(
+      typeof ir.checkpoint === "number" &&
+        ir.checkpoint > 1 &&
+        ir.checkpoint < ir.lessons.length,
+      `a §13 module needs ir.checkpoint (1-based, strictly inside the module); got ${ir.checkpoint}`,
+    );
+    const last = ir.lessons[ir.lessons.length - 1];
+    const lastStep = (last?.steps ?? [])[(last?.steps ?? []).length - 1];
+    need(
+      lastStep?.kind === "sim",
+      `the last (mastery) lesson must END on a sim — the module ends on a conversation, not a grid (§13.9 law 7)`,
+    );
+  } else {
+    need(
+      ir.lessons.length === 8,
+      `every pre-§13 ES module is 8 lessons; this IR declares ${ir.lessons.length} (a §13 module declares expectedLessonCount)`,
+    );
+    const selfExplains = ir.lessons.filter(
+      (l) =>
+        l.seventeen?.kind === "selfExplain" ||
+        (l.steps ?? []).some((s) => s.kind === "selfExplain"),
+    ).length;
+    need(
+      selfExplains >= 2,
+      `es-quality (July contract) requires >= 2 selfExplain per module; the IR declares ${selfExplains}`,
+    );
+  }
   const ids = ir.lessons.map((l) => l.n);
   need(
     new Set(ids).size === ids.length,
@@ -314,6 +340,12 @@ for (const n of lessonNames) w(`  ${n},`);
 w(`];`);
 w(``);
 
+if (doctrine13) {
+  w(`/** 1-based position of the zero-new checkpoint lesson (es-quality reads this). */`);
+  w(`export const ES_${mod.toUpperCase()}_CHECKPOINT_INDEX = ${ir.checkpoint};`);
+  w(``);
+}
+
 /**
  * The placement / test-out bank. Emitted from the IR rather than hand-written
  * beside the module, because it is the same judgment as the lessons — which
@@ -414,6 +446,19 @@ function renderFreeStep(A, id, s) {
       return A.S.clozeLit(id, s);
     case "dialogueLit":
       return A.S.dialogueLit(id, s);
+    // ── §13 beats (2026-08-24 wave) ──
+    case "agreementLit":
+      return A.S.agreementLit(id, s);
+    case "genderSort":
+      return A.S.genderSort(id, s);
+    case "sim":
+      return A.S.simLit(id, s);
+    case "map":
+      return A.S.mapLit(id, s);
+    case "audioWimcq":
+      return A.S.audioWimcq(id, s);
+    case "matchLit":
+      return A.S.matchLit(id, s);
     default:
       throw new Error(`${id}: unknown step kind "${s.kind}"`);
   }
@@ -459,6 +504,7 @@ let source = out.join("\n") + "\n";
     "vocabMcq",
     "vocabTextMcq",
     "sentenceMcq",
+    "agreementCloze",
     "build",
     "cloze",
     "translateStep",
