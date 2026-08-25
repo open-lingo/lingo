@@ -133,6 +133,16 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
     return seededShuffle(turn.reply.tiles, `${step.id}-${turn.id}`);
   }, [step.id, turn]);
 
+  // Choice options get the same seeded reorder as the tile bank: the
+  // hand-authored es/fr sims write the correct reply first for
+  // readability, and rendering authored order would make slot 1 a tell.
+  const choiceOptions = useMemo(() => {
+    if (!turn || turn.reply.mode !== "choice") {
+      return [] as { id: string; text: string }[];
+    }
+    return seededShuffle(turn.reply.options, `${step.id}-${turn.id}`);
+  }, [step.id, turn]);
+
   const npcAudioAvailable = useMemo(
     () =>
       turns.map((tn) =>
@@ -262,8 +272,8 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
     onEnter: handleEnter,
     onNumber: (n) => {
       if (!turn || turnCommitted) return;
-      if (turn.reply.mode === "choice" && n <= turn.reply.options.length) {
-        const optId = turn.reply.options[n - 1].id;
+      if (turn.reply.mode === "choice" && n <= choiceOptions.length) {
+        const optId = choiceOptions[n - 1].id;
         setChoiceByTurn((prev) => ({ ...prev, [turn.id]: optId }));
       } else if (turn.reply.mode === "build" && n <= bank.length) {
         addTile(n - 1);
@@ -511,7 +521,7 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
             {/* Alias the narrowed reply: TS drops property-access narrowing
                 inside a callback, and `choiceReply` keeps it. */}
             {((choiceReply) =>
-              choiceReply.options.map((opt) => {
+              choiceOptions.map((opt) => {
               const isSelected = chosen === opt.id;
               const isAccepted = isChoiceReplyAccepted(opt.id, choiceReply);
               let style =

@@ -349,3 +349,42 @@ describe("npcLineHasAudio", () => {
     expect(npcLineHasAudio("ふくろは いりますか。")).toBe(false);
   });
 });
+
+describe("choice options — seeded order (position-tell regression)", () => {
+  // The es/fr §13 sims hand-write reply options correct-first for
+  // readability; 84 shipped turns had the right reply in slot 1 (found
+  // 2026-08-24). Choice options must get the same seeded reorder the
+  // build-mode tile bank already gets, keyed `${step.id}-${turn.id}`.
+  it("renders reply options in seededShuffle(`${step.id}-${turn.id}`) order", async () => {
+    const { seededShuffle } = await import("@/shared/utils/seededShuffle");
+    const options = [
+      { id: "right", text: "a" },
+      { id: "trap", text: "b" },
+      { id: "known", text: "c" },
+    ];
+    const step = makeStep({
+      id: "sim-choice",
+      turns: [
+        {
+          id: "t1",
+          npc: { speaker: "てんいん", kana: "ふくろは いりますか。", gloss: "Bag?" },
+          goal: "Turn the bag down.",
+          reply: { mode: "choice", options, correctOptionId: "right" },
+        },
+      ],
+    });
+    render(
+      <DialogueSimStepView step={step} onComplete={() => {}} onContinue={() => {}} />,
+    );
+    const expected = seededShuffle(options, "sim-choice-t1").map((o) => o.text);
+    // A degenerate identity seed would pin nothing — change the fixture id,
+    // not the pin.
+    expect(expected).not.toEqual(options.map((o) => o.text));
+    const texts = options.map((o) => o.text);
+    const rendered = screen
+      .getAllByRole("button")
+      .map((b) => (b.textContent ?? "").trim())
+      .filter((tx) => texts.includes(tx));
+    expect(rendered).toEqual(expected);
+  });
+});

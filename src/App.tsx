@@ -119,6 +119,12 @@ const EsM1L1Page = lazyRetry(
 const ProtoM2Page = lazyRetry(
   () => import("@/features/lesson/dev/ProtoM2Page"),
 );
+const ProtoM3Page = lazyRetry(
+  () => import("@/features/lesson/dev/ProtoM3Page"),
+);
+const ProtoModuleNPage = lazyRetry(
+  () => import("@/features/lesson/dev/ProtoModuleNPage"),
+);
 const TransferDiagramQaPage = lazyRetry(
   () => import("@/features/lesson/dev/transferDiagram/TransferDiagramQaPage"),
 );
@@ -587,6 +593,14 @@ const router = createBrowserRouter([
               { path: "qa/gender-color", element: <GenderColorPage /> },
               { path: "qa/m1-lesson-1", element: <EsM1L1Page /> },
               { path: "qa/m2", element: <ProtoM2Page /> },
+              { path: "qa/m3", element: <ProtoM3Page /> },
+              { path: "qa/m4", element: <ProtoModuleNPage /> },
+              { path: "qa/m5", element: <ProtoModuleNPage /> },
+              { path: "qa/m6", element: <ProtoModuleNPage /> },
+              { path: "qa/m7", element: <ProtoModuleNPage /> },
+              { path: "qa/m8", element: <ProtoModuleNPage /> },
+              { path: "qa/m9", element: <ProtoModuleNPage /> },
+              { path: "qa/m10", element: <ProtoModuleNPage /> },
               {
                 path: "qa/transfer-diagram",
                 element: <TransferDiagramQaPage />,

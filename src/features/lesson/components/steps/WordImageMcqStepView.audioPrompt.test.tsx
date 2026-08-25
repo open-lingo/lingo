@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { WordImageMcqStepView } from "./WordImageMcqStepView";
 import type { WordImageMcqStep } from "../../types";
+import { seededShuffle } from "@/shared/utils/seededShuffle";
 
 vi.mock(import("@/shared/tts"), async (importOriginal) => {
   const actual = await importOriginal();
@@ -92,5 +93,33 @@ describe("WordImageMcqStepView — audio-prompt mode (answer-leak regression)", 
     expect(screen.queryByText("がっこう")).toBeNull();
     // Option still selectable by its kana aria-label (word unchanged).
     expect(screen.getByLabelText("Hear and pick がっこう")).toBeTruthy();
+  });
+});
+
+describe("WordImageMcqStepView — seeded option order (position-tell regression)", () => {
+  // The es/fr §13 wave hand-writes option literals correct-first for
+  // readability, and this view renders without any factory in between —
+  // 31 shipped steps had the answer in slot 1 (found 2026-08-24). The
+  // render must reorder via seededShuffle(step.id), the same contract as
+  // build-step tile banks.
+  it("renders options in seededShuffle(step.id) order, never authored order", () => {
+    const step = baseStep({});
+    render(
+      <WordImageMcqStepView step={step} onComplete={() => {}} onContinue={() => {}} />,
+    );
+    const words = step.options.map((o) => o.word);
+    const expected = seededShuffle(
+      step.options.map((_, i) => i),
+      step.id,
+    ).map((i) => words[i]);
+    // If the fixture's seed ever degenerates to the identity permutation,
+    // this pin would assert nothing — change the fixture id, not the pin.
+    expect(expected).not.toEqual(words);
+    const rendered = screen
+      .getAllByRole("button")
+      .map((b) => b.getAttribute("aria-label") ?? "")
+      .filter((l) => l.startsWith("Hear and pick "))
+      .map((l) => l.replace("Hear and pick ", ""));
+    expect(rendered).toEqual(expected);
   });
 });

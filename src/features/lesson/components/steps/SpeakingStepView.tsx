@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { SpeakingStep } from "../../types";
+import type { BuildSentenceStep, SpeakingStep } from "../../types";
+import { BuildSentenceStepView } from "./BuildSentenceStepView";
 import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -97,6 +98,43 @@ type Props = {
  */
 export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
   const speechFlag = isSpeechFlagEnabled();
+  // The "later" affordance (R9, Spencer 2026-08-24): every speaking step
+  // has a listening-only twin — the SAME sentence as a tile build, derived
+  // here rather than authored (so it covers every course retroactively).
+  // Production stays production (tiles are the §13.9 ladder's silent rung);
+  // completion reports the ORIGINAL step id, so grading/SRS see no
+  // difference. Offered only when the target splits into ≥2 tiles — a
+  // one-tile build is not an exercise (unsegmented JA targets fall here).
+  const [silentBuild, setSilentBuild] = useState(false);
+  const silentTiles = step.targetPhrase.trim().split(/\s+/);
+  const silentStep = useMemo<BuildSentenceStep>(
+    () => ({
+      id: `${step.id}::silent-build`,
+      type: "build_sentence",
+      prompt: `Build: '${step.translation}'`,
+      targetSentence: step.targetPhrase,
+      // Answer-ordered is fine: the view seed-shuffles the bank on step id.
+      tiles: silentTiles,
+      correctOrder: silentTiles,
+      audioKey: step.audioKey ?? step.targetPhrase,
+      granularity: "word",
+      exercisedAtoms: step.exercisedAtoms,
+      modality: "production",
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [step.id],
+  );
+  if (silentBuild) {
+    return (
+      <BuildSentenceStepView
+        step={silentStep}
+        onComplete={(_id, correct) => onComplete?.(step.id, correct)}
+        onContinue={onContinue}
+      />
+    );
+  }
+  const onSilentSwap =
+    silentTiles.length >= 2 ? () => setSilentBuild(true) : undefined;
   // `stubbed: true` always renders the placeholder regardless of flag —
   // legacy stub steps were never wired through the grader. `stubbed:
   // false` only graduates when the speech flag is also on (so the
@@ -107,20 +145,42 @@ export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
         step={step}
         onComplete={onComplete}
         onContinue={onContinue}
+        onSilentSwap={onSilentSwap}
       />
     );
   }
   return (
-    <SpeakingStepPlaceholder step={step} onContinue={onContinue} />
+    <SpeakingStepPlaceholder
+      step={step}
+      onContinue={onContinue}
+      onSilentSwap={onSilentSwap}
+    />
+  );
+}
+
+/** The pill that swaps a speaking step for its silent tile-build twin.
+ *  Rendered in the eyebrow row of both branches so it never displaces the
+ *  reference card, mic block, or CTA (fixed-shell rule). */
+function SilentSwapButton({ onSwap }: { onSwap: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onSwap}
+      className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
+    >
+      Can&apos;t speak now
+    </button>
   );
 }
 
 function SpeakingStepPlaceholder({
   step,
   onContinue,
+  onSilentSwap,
 }: {
   step: SpeakingStep;
   onContinue: () => void;
+  onSilentSwap?: () => void;
 }) {
   const audioUrl = getTtsUrl(step.targetPhrase);
   const silentMode = useSettings().settings.audio.silentMode;
@@ -146,9 +206,12 @@ function SpeakingStepPlaceholder({
       {/* `mt-auto` here + on the action block centres the step (two auto
           margins split the free space evenly). Unsupported-browser branch —
           it renders less than the main one, so it strands more. */}
-      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
-        Speaking practice
-      </p>
+      <div className="mt-auto flex items-center justify-between">
+        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          Speaking practice
+        </p>
+        {onSilentSwap && <SilentSwapButton onSwap={onSilentSwap} />}
+      </div>
 
       <ReferenceCard
         step={step}
@@ -285,10 +348,12 @@ function SpeakingStepRecognized({
   step,
   onComplete,
   onContinue,
+  onSilentSwap,
 }: {
   step: SpeakingStep;
   onComplete?: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  onSilentSwap?: () => void;
 }) {
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
@@ -745,17 +810,20 @@ function SpeakingStepRecognized({
             ALL romaji regardless of this toggle — a dead control that
             reads as "romaji is available here" (Gate 10 escalation,
             2026-07-17). Hide it; outside a lesson (null) keep it. */}
-        {(lessonModuleIndex == null ||
-          lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE) && (
-          <button
-            type="button"
-            onClick={toggleRomaji}
-            className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
-            aria-pressed={showRomaji}
-          >
-            {showRomaji ? "Hide romaji" : "Show romaji"}
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {onSilentSwap && <SilentSwapButton onSwap={onSilentSwap} />}
+          {(lessonModuleIndex == null ||
+            lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE) && (
+            <button
+              type="button"
+              onClick={toggleRomaji}
+              className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
+              aria-pressed={showRomaji}
+            >
+              {showRomaji ? "Hide romaji" : "Show romaji"}
+            </button>
+          )}
+        </div>
       </div>
 
       <ReferenceCard

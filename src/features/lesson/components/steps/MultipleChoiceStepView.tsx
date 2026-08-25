@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useTranslation } from "react-i18next";
 import type { MultipleChoiceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -33,6 +34,16 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
 
   const isCorrect = selected === step.correctOptionId;
 
+  // Render order is seeded on step id (same contract as build tile banks and
+  // the other MCQ views): factory output is already slot-rotated and just
+  // re-shuffles harmlessly, while a hand-written literal (the es/fr §13 wave
+  // writes options correct-first for readability) never ships a position
+  // tell. Indices, not options, so `optionAnnotations` stays index-aligned.
+  const order = useMemo(
+    () => seededShuffle(step.options.map((_, i) => i), step.id),
+    [step.id, step.options.length],
+  );
+
   useAutoPlayJaAudio(step.promptAudioText, `mc-${step.id}`);
 
   const handleEnter = useCallback(() => {
@@ -43,8 +54,8 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
-      if (!submitted && n <= step.options.length) {
-        setSelected(step.options[n - 1].id);
+      if (!submitted && n <= order.length) {
+        setSelected(step.options[order[n - 1]].id);
       }
     },
   });
@@ -164,7 +175,8 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             : "min(32.5rem, 44cqh)",
         }}
       >
-        {step.options.map((opt, idx) => {
+        {order.map((idx) => {
+          const opt = step.options[idx];
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           const ann = step.optionAnnotations?.[idx];

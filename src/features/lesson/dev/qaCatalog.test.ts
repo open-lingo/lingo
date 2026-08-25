@@ -29,14 +29,13 @@ describe("qaCatalog", () => {
     }
   });
 
-  it("agreement_cloze is currently covered by NO course (es restart 2026-08-21)", () => {
-    // The July es course carried the only agreement_cloze steps; the §13
-    // m1/m2 restart exercises agreement through particle_cloze
-    // discrimination trials instead. When es m3+ (gender & articles)
-    // lands, flip this back to expect coverage.
+  it("agreement_cloze is covered again by es (m6 agreement module, 2026-08-25)", () => {
+    // The §13 re-authored m6 ships agreementLit steps, so the es QA page
+    // exercises the agreement_cloze renderer once more (the m1/m2-only
+    // window 2026-08-21→25 had zero coverage).
     const es = buildStepTypeCoverage("es");
     const ac = es.find((c) => c.type === "agreement_cloze");
-    expect(ac?.picks.length ?? 0).toBe(0);
+    expect(ac?.picks.length ?? 0).toBeGreaterThan(0);
   });
 
   it("info is pinned for ja (removed 2026-07-16) but still covered by the es course", () => {

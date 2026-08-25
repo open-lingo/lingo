@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { WordImageMcqStep } from "../../types";
+import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
@@ -99,6 +100,16 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // can never equal a kana option word. In this mode the cue is the AUDIO,
   // so we play the word and ask "Which word do you hear?" instead.
   const audioPrompt = step.options.some((o) => o.word === step.meaningEn);
+  // Render order is seeded on step id — same contract as build-step tile
+  // banks: hand-authored literals (the es/fr §13 wave writes options
+  // correct-first for readability) must never ship a position tell, and
+  // factory-rotated options just re-shuffle, harmlessly. A permutation of
+  // INDICES (not options) so `optionAnnotations`, which is index-aligned
+  // with the authored array, stays attached to its option.
+  const order = useMemo(
+    () => seededShuffle(step.options.map((_, i) => i), step.id),
+    [step.id, step.options.length],
+  );
   const autoplayedRef = useRef(false);
   useEffect(() => {
     if (!audioPrompt || autoplayedRef.current) return;
@@ -116,8 +127,9 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
-      if (!submitted && n <= step.options.length) {
-        handleTap(step.options[n - 1].id, step.options[n - 1].word);
+      if (!submitted && n <= order.length) {
+        const opt = step.options[order[n - 1]];
+        handleTap(opt.id, opt.word);
       }
     },
   });
@@ -229,7 +241,8 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
         }}
       >
-        {step.options.map((opt, idx) => {
+        {order.map((idx) => {
+          const opt = step.options[idx];
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           // Kanji ladder: when the factory attached a display annotation for

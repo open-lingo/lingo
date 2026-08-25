@@ -106,6 +106,35 @@ export function renderStep(raw: LessonStep, n: number, ctx: RenderCtx): string {
       return L(
         `${step.prompt ?? "Build it"}\n   TILES: ${shuffle((step.tiles ?? []) as string[], id).join(" | ")}`,
       );
+    case "agreement_cloze": {
+      // Multi-blank agreement chain: render each segment, blanks as slots
+      // with their (shuffled) endings.
+      const segs = (step.segments ?? []) as Array<Record<string, unknown>>;
+      const line = segs
+        .map((seg, i) =>
+          "text" in seg
+            ? String(seg.text)
+            : `[${shuffle(((seg.blank as Rec).options ?? []) as string[], `${id}-${i}`).join("/")}]`,
+        )
+        .join("");
+      return L(
+        `AGREEMENT — fill every blank so the endings MATCH: ${line}` +
+          `${step.meaningEn ? `  (meaning: ${step.meaningEn})` : ""}`,
+      );
+    }
+    case "gender_sort": {
+      const items = shuffle(((step.items ?? []) as Array<Record<string, unknown>>).map((it) => `${it.surface} (${it.meaningEn})`), id);
+      return L(
+        `SORT EACH WORD onto its side — bucket EL or bucket LA:\n   ${items.join(" | ")}`,
+      );
+    }
+    case "listening_build":
+      // Audio-first build: the learner HEARS the sentence, then assembles
+      // it from tiles (m4+ — first module to ship the type in es).
+      return L(
+        `LISTEN, THEN BUILD WHAT YOU HEAR (audio plays: "${String(step.targetSentence ?? step.audioKey ?? "")}")` +
+          `${step.prompt ? `  (meaning: ${step.prompt})` : ""}\n   TILES: ${shuffle((step.tiles ?? []) as string[], id).join(" | ")}`,
+      );
     case "particle_cloze": {
       const p = (step.prompt ?? {}) as Rec;
       const opts = (step.options ?? []) as string[];
