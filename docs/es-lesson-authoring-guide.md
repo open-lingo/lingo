@@ -454,9 +454,14 @@ skill, and the map's crossing taught it first.
 
 Nouns wear their article from first exposure («la casa», never bare
 «casa») in cards, audio, maps and builds — the article is part of the
-word. No gender rule is stated until the module that owns agreement (es:
-m4), and that card is a CALLBACK: "you've been saying it right all along —
-here's why." `word_map.tokenGenders` + the `genderColor` layer light
+word. No gender rule is stated until the module that owns the article
+system (in the restarted spine that is m3 — this section originally said
+"m4" against the July spine), and that card is a CALLBACK: "you've been
+saying it right all along — here's why." Registry convention (m3,
+2026-08-24): the ATOM surface stays bare («casa», with `gender`) — el/la/
+un/una are their own atoms — and the articled form is the STEP surface;
+inv 44's first-exposure check ignores a leading article for exactly this
+reason. `word_map.tokenGenders` + the `genderColor` layer light
 agreement chains in the noun's hue at the REVEAL, never before the answer.
 Exceptions («el día») are free before the rule exists — chunks can't
 contradict a rule that hasn't been stated.
@@ -549,13 +554,26 @@ uses may add `exercisedAtoms` exactly like any graded step.
 
 ### 13.8 What the gates still owe this section
 
-When content adopts the new types (m1 re-author onward): classify
-`word_map`/`tap_the_word`/`pretest_mcq` in the selection-run and
-modality-mix lints; extend the bar's Spanish-field scanners to the new
-shapes (`tokens`, `reveal.surface`, sim turns); add the debut-policy check
-(an imageable atom's first exposure is its image MCQ; no passive card
-precedes a debut); IR emitters + factories for the new kinds. Until then
-the types stay pinned in `UNUSED_STEP_TYPES` and live on the QA pages.
+~~IR emitters + factories for the new kinds~~ — **LANDED 2026-08-24.**
+The §13 IR route is live and m3 is its exemplar: a `frame: none` module
+declaring `expectedLessonCount` + `checkpoint` unlocks the doctrine mode
+(free lessons only; mastery must END on a `sim`; the compiler emits
+`ES_Mn_CHECKPOINT_INDEX` for es-quality). New IR step kinds, all literal:
+`sim` (compile-time self-cueing checks: mirror-trap, goal ≤8 words,
+debut = single correct, tile-composability of every accepted reply),
+`map` (word_map incl. `tokenGenders`), `audioWimcq` (audio mode set by
+construction), `matchLit`, and `speakLit` gained `cue: recall`. Author
+workflow: write `ir/mN.ir.yaml` → `node scripts/compile-ir-es.mjs mN` →
+READ the emitted module (still the gate) → register (§10) → module test
+in the m2.test.ts shape → TTS delta chain. Option ORDER is owned by the
+render layer (2026-08-24: seeded shuffle in the MCQ/sim views — the
+literal correct-first style is readable, never a position tell).
+
+Still owed: classify `word_map`/`tap_the_word` in the selection-run and
+modality-mix lints once a module leans on them harder; `tap_the_word` /
+`pretest_mcq` remain pinned in `UNUSED_STEP_TYPES` (no shipped content
+uses them — pretest by design, tap awaiting a ≥5-token sentence that
+earns it).
 
 ### 13.9 The retention rhythm (learner-sim rework, 2026-08-20)
 

@@ -804,3 +804,384 @@ doc: docs/course-design-learnings-2026-08-21.md (9 cross-course laws),
 pointed to from CLAUDE.md. Session ends here; next session starts at:
 IR emitters/factories for the new step kinds → m3+ dispatches; R9 engine
 backlog (speaking "later" affordance first).
+
+## PM(22) — 2026-08-24 · POSITION-TELL FIX + §13 IR EMITTERS + ES M3 AUTHORED
+
+New session (fable). Resumed exactly at PM(21)'s handoff: IR emitters for
+the new step kinds → m3.
+
+**POSITION-TELL BUG (found during survey, fixed engine-wide):** every
+hand-written option literal in the promoted es/fr m1/m2 puts the correct
+answer FIRST — 115 of 118 blocks (31 es wimcqs, 84 sim choice turns +
+4 fr literal MCQs), and neither WordImageMcqStepView, DialogueSimStepView
+(choice mode), nor MultipleChoiceStepView shuffled. Always-tap-first
+scored ~100% across both live courses. Invisible to the learner-sim
+walks (the emitted view shuffle-hardens) and to Spencer (he answers
+honestly). FIX at the render layer, following BuildSentenceStepView's
+existing tile-bank precedent: seeded shuffle on step id (sims:
+`${step.id}-${turn.id}`), index-permutation so optionAnnotations stay
+aligned; factory-rotated content just re-shuffles harmlessly. Contract
+tests added in both view suites. JA/KO literals: zero (scanned). The
+class is now unbuildable — future correct-first literals are fine.
+
+**§13 IR WAVE (the recorded next step):** compile-ir-es.mjs +
+es-ir/assemble.mjs extended — see guide §13.8 (updated). Doctrine mode:
+`expectedLessonCount` + `checkpoint` in the IR; legacy 8-lesson/
+selfExplain checks stay for archived IRs. New literal emitters: simLit
+(mirror-trap, goal ≤8, debut single-correct, tile-composability — it
+caught my own em-dash alsoAccepted), mapLit (+tokenGenders), audioWimcq,
+matchLit, speakLit cue:"recall"; requireAtoms allows explicit [].
+
+**ES M3 AUTHORED (ir/m3.ir.yaml — the §13 IR exemplar):** articles module.
+19 atoms (spine = archived July m3, trimmed 27→19; header records every
+drop + the dinero mass-noun rule + bare-atom/articled-surface convention).
+10 lessons, cp L8, L9 Sofía-visit summit, mastery ends on María's naming
+game. el/la + un/una alternating discrimination lanes; «¿qué es?» as the
+conversational promise; hay gives m1 numbers their counting payoff;
+plural forms noticed-not-taught (barGuards plural canon was already
+waiting for this module). Review self-caught before gates: L1/L2
+selection runs, sim-debut of imageable lápiz (→ image-first), 50/50
+article trap on a debut, 👁️-for-hay emoji lie, lessons ending on
+foreign recalls, ¿?-punctuated build tiles.
+
+**Gate education (course-design law 6, all dated in comments):** inv 44
+ignores a leading article on debut surfaces (§13.4 articled debuts);
+esSentenceComplexity skips frame:"none" IRs + its vacuous-pass guard
+compares framed-file count; es-quality CHECKPOINT_INDEX += m3.
+
+**Registration all 7 points** + tiers (m1-3 one tier) + milestone idx 2 +
+esReviewPool regen (66 atoms / 3 modules). /es/qa/m3 route (ProtoM3Page).
+Learner view: dev/esM3LearnerView.emit.test.ts → docs/learner-sim/es-m3.md
+(ES_M3_LEARNER_VIEW=1; 0 unrendered).
+
+**TTS delta:** deck re-emitted (es-course.json 440 cards) → edge generated
+86 new clips (wrote=86 cached=713 failed=0) → manifests re-emitted, es.json
+installed (count 2450→2536), ja/ko/fr byte-identical → exactly 86 staged
+tts-publish/es (1,200→1,286; an over-copy of already-deployed clips was
+caught and reverted). esAudioCoverage ratchet back to 0 GREEN.
+
+**Also:** native.test.ts updated to the committed com.linguiversal.app
+rebrand (44bfe28a broke it; test was stale, not the rebrand).
+
+**State:** full suite 10,268+ passed / 0 failed, tsc clean. UNCOMMITTED.
+Concurrent session's dirty files untouched (CLAUDE.md, ja guide, shot.mjs,
+ja secondScript, Build*/ListeningBuild* views).
+
+**IN FLIGHT:** 4 Opus fresh-learner walks on es-m3.md (confusion /
+retention / ease-flow / wildcard). NEXT: synthesize walks → fix → re-emit
+→ Spencer walks /es/qa/m3 → then fr m3 (lift this exemplar) + m4+ Sonnet
+dispatches against pinned briefs. R9 engine backlog (speaking "later"
+affordance) still #1 owed engine item.
+
+## PM(23) — 2026-08-24 · FOUR-WALK SIM PASS + FIX ROUND ON M3
+
+4 Opus fresh-learner walks (confusion / retention / ease-flow / wildcard)
+on docs/learner-sim/es-m3.md. Synthesis + per-item resolutions:
+docs/learner-sim/es-m3-FINDINGS.md (read it before touching m3).
+Headline convergence: negation never taught + modeled 3 ways + L10 tile
+bait; checkpoint = "wall of the same button" (byte-dup article clozes,
+projected quit point); L1 card oversold the -o/-a rule; tint legend never
+explained; L9 buried its payoff mid-lesson; the learner never got to ASK
+«¿qué es?»; en/papel used before taught; 🚪 meant puerta AND hasta luego
+30s apart; two-right-answer m2 check; María recast; «yo soy de México»
+in Sam's mouth; la:el skew 6:4; numbers 5–10 unspent.
+
+FIX ROUND (full lessons-block rewrite of the IR, recompiled): honest L1
+card + tint legend in the first map reveal; L6 opens on the «no hay»
+card (article drops out) cashed by the re-modeled keys sim; checkpoint
+rebuilt (fresh sentences, la/el/un/una 4:4:4:4, confusable ears, cinco
+build, its own match); L9 rebuilt — warm-ups first, the visit is the
+FINALE and t2 flips so the LEARNER asks «¿qué es?» («¡Mira!»); L10 gains
+the consolidation match; wallet re-staged; María = the bus stranger
+again; soy-cloze now Estados Unidos; cinco/siete get real sentences;
+puerta gets printed voicing (L1) → recall (L7); no-entiendo revival
+replaces the ambiguous YOU-form check; "sheet of paper" glosses; titles
+promise-ified. NOT actioned (owners named in the findings doc): R9
+speaking-later (engine, #1), hasta-luego 🚪 atom art collision (Spencer),
+ocho/nueve/diez + mesa + ¿dónde está?/mi/tu (m4 scope — mastery
+explanation now teases «¿dónde está?»).
+
+TTS delta 2: +12 clips (98 staged total this session, tts-publish/es
+1,298; manifest 2,548, ja/ko/fr byte-identical). State: FULL suite
+10,269 passed / 0 failed, tsc clean, learner view re-emitted. IN FLIGHT:
+1 Opus confirmation walk. NEXT: confirmation verdict → Spencer walks
+/es/qa/m3.
+
+## PM(24) — 2026-08-24 · CONFIRMATION WALK + FIX ROUND 2: M3 READY FOR SPENCER
+
+Confirmation walk: 5/7 FIXED (negation beat "the standout"; L9 learner-
+asks landed as the payoff), tint legend hadn't registered (revealNote too
+buried → moved onto the L1 card), hollow echo had migrated into three
+map→build verbatim pairs (→ spaced or transferred to a different noun),
+cp cloze share 33% (→ 20% via listening-comp + listening-build swaps),
+plus small fixes (cp ear retests ventana; printed speaks for pluma/
+ventana/papel; L10 scene 🔔). "L9 T4 double answer" was a false alarm
+(alsoCorrect accepts it — invisible in the stripped view). Full detail
+appended to docs/learner-sim/es-m3-FINDINGS.md.
+
+TTS delta 3: +3 clips (101 staged this session; tts-publish/es 1,301;
+manifest es 2,551). State: full suite 10,269 passed / 0 failed / tsc
+clean; learner view re-emitted. ALL UNCOMMITTED — commit only on
+Spencer's word. NEXT GATE: **Spencer walks /es/qa/m3** (the human walk is
+the last gate — course-design law 2). After it clears: fr m3 lifts this
+exemplar; m4+ (location module: ¿dónde está?, mi/tu, mesa, agua's el-
+exception, plural rule stated, ocho/nueve/diez) via Sonnet dispatches
+against a pinned brief; R9 speaking-later engine item still #1 owed.
+
+## PM(25) — 2026-08-24/25 · SPENCER'S DIRECTIVE: LATER-BUTTON + M4–M10 WAVE
+
+Spencer (late evening): the Later button = every speaking step gets a
+listening-only twin as a tile build; m3 approved ("other than that it
+looks good"); AUTHOR THROUGH M10; then full-course beginner QA of every
+ES surface, local-model-first.
+
+DONE SO FAR THIS WAVE:
+- **Later button SHIPPED (engine)**: SpeakingStepView derives a silent
+  build_sentence twin at runtime ("Can't speak now" pill in both whisper
+  and placeholder branches; completion reports the ORIGINAL step id so
+  SRS/grading see no difference; offered only for ≥2-tile targets —
+  unsegmented JA targets excluded v1). 3 contract tests. Covers every
+  course retroactively — no authored variants needed.
+- **Wave infra**: docs/es-m4-m10-wave-2026-08-24.md (the spine — m4 where/
+  está, m5 tener/family, m6 agreement, m7 café/quiero, m8 week, m9 ir/al,
+  m10 first -ar paradigm LAST so nothing replicates it pre-walk; per-module
+  pinned atom inventories + arcs + voicing licenses); es-course-integrity
+  .test.ts (course-wide recall law, emoji-collision gate w/ 🚪 debt entry,
+  cast allowlist, step-id uniqueness); __tests__/doctrinePins.ts (shared
+  §13 pin suite — m3.test refactored onto it); generic learner-view
+  emitter (ES_LV_MODULE=mN); generic /es/qa/m4..m10 walker
+  (ProtoModuleNPage); scripts/course-qa/walk.mjs (local-model walk runner,
+  validated end-to-end on Ollama; 122B/27B are the real tiers);
+  registration script (scratchpad); agreementLit + genderSort IR emitters
+  (m6 needs them).
+- **M4 COMPLETE**: Sonnet-dispatched IR (first of the wave), full review
+  (fixed: false los/las-with-está grammar claim, María's «¿dónde está una
+  pluma?» → hay/está handoff, plural-cloze card-adjacency + byte-dup
+  dedup, alsoAccepted subsets, 4 maps missing tokenGenders, foto card's
+  untaught «fotografía»), registered (all points), m4.test.ts on shared
+  pins + bespoke lanes (está/es, aquí/allí by ear, hay-never-los/las,
+  están unbuildable), TTS +94 clips, ES tree 314 green. Learner view
+  emitted; 2 Opus walks IN FLIGHT.
+- IN FLIGHT: m5/m6/m7 Sonnet authors (briefs carry the m4 review
+  lessons). m8/m9/m10 next; then per-module fixes, TTS, and the
+  full-course QA phase.
+- NOTE: concurrent session broke tsc on ja/m34-neo.ts (missing ir JSON,
+  their in-flight work) — my runs filter it; not ours to fix.
+
+## PM(26) — 2026-08-25 · M4 SIM-GATED + FIXED; m5/m6/m7 AUTHORING IN FLIGHT
+Two Opus walks on m4 → docs/learner-sim/es-m4-FINDINGS.md (emitter gap:
+listening_build was UNRENDERED — fixed + views re-emitted; content fix
+round: es/de card seat, los/las production, hay/está cloze lane, agua
+retest, twin-sim differentiation, no-hay beat, goal rewords). ES tree 314
+green; TTS +15 (210 staged). m5/m6/m7 Sonnet authors still running.
+
+## PM(27) — 2026-08-25 · PRE-COMPACTION RESUME POINT (m5/m6/m7 landed)
+
+Spencer queued /compact mid-wave. FULL wave state + m5 open review items
++ dispatch amendments + the per-module downstream loop are recorded in
+**docs/es-m4-m10-wave-2026-08-24.md §WAVE STATUS** — read that first.
+
+RESUME SEQUENCE:
+1. Finish m5 review (compiled m5.ts lines ~950–1810 unread: L7–L10 +
+   placement), apply its fix list (cast-collision madre=Ana; absurd
+   grandma-age beats; check m7-class spurious atom credits), recompile.
+2. register m5 → m6 → m7 SERIALLY (script + tiers + mN.test.ts + review
+   pool + es-quality already auto-patched by script) — m6/m7 IRs are
+   ALREADY reviewed+fixed+compiled (do not re-review, just register/test).
+3. TTS chain once after all three register (single delta run is fine).
+4. Learner views (generic emitter ES_LV_MODULE=mN) + 1 combined
+   confusion+retention Opus walk per module + fix rounds + findings docs.
+5. Dispatch m8/m9/m10 Sonnet authors (wave doc specs + amendments list;
+   m8/m9 can go parallel; m10 (-ar paradigm) prompt must note trabajo the
+   noun is m9's atom — the verb form must NOT re-register (first-write-
+   wins + unique-id conformance).
+6. After m10: full-course beginner QA of EVERY ES surface, local-model-
+   first (scripts/course-qa/walk.mjs — validated; use qwen3.5:122b /
+   qwen3.8:27b; tune the prompt: cap findings ~25, raise max_tokens,
+   tell the persona module-debut words are EXPECTED to be new; also
+   deterministic gates already course-wide in es-course-integrity.test.ts)
+   + representative headless screenshots (headless-ui-qa-recipe memory)
+   + placement/test-out + SRS seeding surfaces. Then hand to Spencer:
+   walk /es/qa/m3..m10 (routes live), Later-button demo on any speaking
+   step.
+CONCURRENT SESSION: ja m34-neo.ts breaks tsc (their in-flight; filter
+it). Their dirty files untouched (CLAUDE.md, ja guide, shot.mjs, ja
+secondScript, Build*/ListeningBuild* views). NOTHING committed; explicit
+paths only; tts-publish/es has ~210 staged clips + more per module.
+Caffeinate: 4h window from ~23:15 (bb88dp0ab).
+Later-button: DONE (SpeakingStepView silent-build fallback + 3 tests).
+m4: FULLY closed (walked/fixed/green). Suite last full-green at PM(26).
+
+## PM(28) — 2026-08-25 · m5/m6/m7 REGISTERED + GREEN; m8-m10 + 3 WALKS IN FLIGHT
+m5 review completed post-checkpoint (absurd grandparent ages → pets/
+siblings + a "play the game" frame on María's age question; mi-madre-es-
+Ana → es maestra; 3 unverifiable recalls swapped; sim answer-crosswire
+caught by the compile gate itself). m5→m6→m7 registered serially, all
+gates green (500 es tests), TTS +315, views clean. Six agents running:
+m8/m9/m10 Sonnet authors + m5/m6/m7 combined Opus walks. Remaining after
+they land: review+register m8-m10, their walks, walk-fix rounds, then
+the full-course local-model QA sweep (scripts/course-qa/walk.mjs), then
+Spencer's walk. Wave doc §WAVE STATUS is current.
+
+## PM(29) — 2026-08-25 · WALK-FIX ROUNDS m5/m6/m7 DONE; m9/m10 IRs AUTHORED
+
+- Emitter lb field bug fixed (learnerViewRender.ts: targetSentence/prompt,
+  was target/promptEn) — every "dead listening_build" BLOCKER in the
+  m5/m6/m7 walks was this one view defect. m4–m7 views re-emitted clean.
+- Walk-fix rounds applied + findings docs written:
+  docs/learner-sim/es-m5-FINDINGS.md, es-m6-FINDINGS.md, es-m7-FINDINGS.md.
+  Headlines: m5 tiene-positional-shortcut breakers + mi-builds + madre
+  production; m6 pre-flip production went masculine, agreement clozes now
+  2-blank (article+adj only), invariant traps moved onto feminine nouns,
+  es-vs-está line, de-card; m7 article-rule card now tells the truth
+  (me gusta keeps el/la; quiero takes both), te gusta taught in L3,
+  L6 payoff turns reordered (taste→pay), María demoted to the bus-depot
+  café, recall lane de-monocultured, glued-distractor-tile tell fixed
+  (class-checked: m7-only).
+- State: ES tree 500/0, tsc FULLY clean, +24 TTS clips (549 staged
+  untracked in tts-publish/es), wave doc §WAVE STATUS updated.
+- m9 IR authored (--check clean, 14 atoms; spec's "15" is a miscount,
+  flagged). m10 IR authored (--check clean, 20 atoms, 6 judgment calls
+  in its header incl. quiero+infinitive replacing «escucho música»).
+  Both await fable full-review AFTER m8 (register in order). m8 author
+  still in flight.
+- NEXT: m8 lands → full compiled review → fixes → register (scratchpad
+  register_es_module.py + tiers t2 + milestone colors in wave doc) →
+  m8.test.ts → review pool → TTS → view → walk → fix → findings. Then
+  m9, then m10 (trabajo must NOT re-register). Then FULL-COURSE beginner
+  QA of every ES surface (walk.mjs 122b/27b tuned: cap ~25 findings,
+  raise max_tokens, persona told module-debut words are expected-new,
+  told the m2 print list incl. ¿cómo te llamas?) + placement/test-out +
+  SRS surfaces + headless screenshots. STOP after m10 for Spencer's walk.
+
+## PM(30) — 2026-08-25 · m8/m9/m10 REVIEWED, FIXED, REGISTERED + GREEN; WALKS IN FLIGHT
+
+- m8 (La semana) full compiled review → fixes: lunes 🌛 (🌙 is buenas
+  noches), sp-miercoles moved before its cloze (intro-before-review),
+  L1 build tiles miércoles→está (deduction by elimination), L2 win now a
+  real sentence, cp-build-2 «quiero una manzana», recall dedups (cp la
+  semana / el sábado, L9 hoy es lunes), L9 summit map fresh («¿cuándo
+  tienes hambre?» kills the L2 byte-dup), L9 c-summit2 added (band),
+  L2/L5 adjacency reorders.
+- m9 (Vamos) + m10 (verb machine) reviews were done pre-m8 (see PM29);
+  registration surfaced more: adónde atom made BARE (m4's dónde
+  convention — "¿adónde?" broke vocabTextMcq), L4 double adjacency
+  reorder, overuse wins (hoy voy a la playa / lc ¿vas al mercado?);
+  m10 emoji canon: bare-day surfaces reuse m8 art (🕯️⛪🌛📌), español
+  🇪🇸→💬 (España owns the flag), trabajar 💼→🛠️, todos los días 📆,
+  overuse wins (trabajo en el mercado / quiero bailar ahora).
+- Registered m8→m9→m10 in order (script + tiers t2=m7-m9, t3=m10 +
+  milestones). m8/m9/m10.test.ts written (bespoke lanes: el-as-on/es,
+  dos-doce ears, día exception, day lowercase law, summit-line
+  reservation; al/a-la, voy/vas, dónde/adónde, a-el ban, casa
+  exception; three-gear machine lane, infinitive-only regex ban,
+  siempre/nunca, hablo-un-poco reservation, trabajo not re-registered).
+- doctrinePins digit allowlist += composite teens. qaCatalog
+  agreement_cloze pin flipped (m6 covers it again). Review pool 176
+  atoms/10 modules. TTS +273 clips (810 staged). ES tree 691/0; full
+  suite fails only on concurrent session's ja m35 (no TTS) + ja
+  irAtomRegistration — NOT this wave; left alone.
+- 3 Opus fresh-learner walks dispatched (m8/m9/m10 views). NEXT: triage
+  walks → fix rounds → findings docs → then FULL-COURSE beginner QA
+  (every ES surface, local-model-first) → STOP for Spencer's walk.
+
+## PM(31) — 2026-08-25 · m8/m9/m10 WALKED + FIXED. ALL TEN MODULES DONE.
+
+- Three Opus combined walks returned (m9/m10 zero blockers; m8 one:
+  weekend-build gloss contradicted el-as-"on"). Local 122b retention
+  walk of m8 via tuned walk.mjs corroborated (its "blockers" = the
+  discrimination lanes working). All fix rounds applied + findings docs
+  (es-m8/m9/m10-FINDINGS.md). Headlines: m8 weekend gloss + jueves
+  carded + tengo-chunk maps + miércoles/catorce retrieval; m9 en-el-
+  autobús carded + al tinted + ¿adónde vas hoy? build; m10 S5 card no
+  longer contradicts "any -ar verb", todos-los-días map debut, yo
+  dropped from Diego's line, domingo-sentence de-duped, «voy al
+  trabajo» recall cashes the pun.
+- BACKLOG (course-wide, not blocking): alsoAccepted on build_sentence
+  (fronted time-adverb orders grade wrong if the learner mirrors the
+  taught Spanish model instead of the EN gloss); m11 brief must include
+  a new-verb transfer test (walker: machine "scaffolded, never tested")
+  and may cash en-el-autobús production.
+- State: ES tree 691/0, views 0-unrendered, +7 clips (817 staged).
+  es m1–m10 COMPLETE under §13 with walks. NEXT (final phase): full-
+  course beginner QA of EVERY ES surface local-model-first (walk.mjs
+  all modules × personas on 122b/27b; placement/test-out; SRS review
+  surfaces; headless screenshots per headless-ui-qa-recipe) → report →
+  STOP for Spencer's walk (/es/qa/m3…m10, Later-button demo).
+
+## PM(32) — 2026-08-25 · FULL-COURSE QA: UI PASS DONE, LOCAL SWEEP RUNNING
+
+- Headless UI pass (real render pipeline, /es/learn/lessons/es-mN-L?step=K
+  &trace-gate=0, 390×844, shot.mjs --wait=6000): m8 composite teen emoji
+  (1️⃣1️⃣) renders PERFECTLY in option cards; day info card ✓; word_map ✓;
+  build ✓ (note: view pads tile banks with extra distractors, e.g. a
+  stray "foto" tile in the m8 day build — render-layer behavior, owned
+  by the concurrent session's Build* files); m6 cloze + gender_sort ✓;
+  m9 speaking shows the Later affordance ("CAN'T SPEAK NOW" pill) ✓;
+  m10 finale sim ✓ (options genuinely shuffled); test-out M10 serves
+  12 items with live audio ✓; course map shows 0/10 modules ✓.
+- NIT for Spencer: ES speaking steps show a "HIDE ROMAJI" toggle —
+  JA terminology leaking cross-language (shared SpeakingStepView copy).
+  Not fixed (concurrent session owns dirty Speaking-adjacent files;
+  sibling-parity says fix for es+fr together).
+- Local sweep (scratchpad/qa-sweep.sh → artifacts/course-qa/): m1/m2 ×
+  confusion+retention + all 10 × flow on 122b. First output (m1
+  confusion) hit the 12k output ceiling and is LOW-SIGNAL (flags
+  imageMcq emoji intros as blockers — that's the intro mechanism).
+  Triage with taste; treat as candidate generator only.
+
+## PM(33) — 2026-08-25 · FULL-COURSE QA COMPLETE. WAVE DONE — WAITING ON SPENCER.
+
+- Local sweep finished (14 walks: m1/m2 × confusion+retention, all 10 ×
+  flow, 122b). Triage: ONE real catch — es-m3.md still carried the
+  pre-fix `audio plays: ""` listening_build (stale view, re-emitted,
+  now 0). Everything else was doctrine-misread (imageMcq intros called
+  "blockers"), hallucinated UI (checkmarks/hearts the view doesn't
+  have), or the discrimination lanes working. Report-worthy UX texture:
+  match_pairs monotony (every lesson), info-card reading load on phone,
+  gender-recall burden in builds (by design post-m6-fix), m4's
+  llave-everywhere, hidden-answer speaking anxiety.
+- Cross-module retention observation (m2 retention walk): m1 courtesy
+  words (perdón, buenas tardes/noches) + numbers 6-10 thin in m2's
+  in-lesson review tail — SRS owns that job; noted, not churned.
+- FINAL STATE: ES tree 691/0. tsc clean. 817 clips staged (untracked,
+  additive). Views m1–m10 emitted, 0 unrendered, 0 empty-audio. All
+  learner-facing surfaces verified: 10 modules walked (frontier+local),
+  placement/test-out rendered live (M10 12-item test-out w/ audio),
+  course map 0/10, review pool 176 atoms, new step types + composite
+  teen emoji + Later button render on 390×844.
+- Deliberately NOT touched: commits (Spencer asks), m11 (first-
+  conjugation checkpoint law — Spencer walks first), build_sentence
+  alsoAccepted backlog, "HIDE ROMAJI" label on es speaking steps
+  (concurrent session owns adjacent files; fix es+fr together).
+
+## PM(34) — 2026-08-25 ~03:10 · PRE-COMPACTION CHECKPOINT (authoritative resume)
+
+READ FIRST AFTER COMPACTION: docs/es-m4-m10-wave-2026-08-24.md
+§"OPEN ITEMS / FIX LIST" — it now carries the complete fix list,
+standing traps, tooling pointers, and the resume point. This entry is
+the short form.
+
+- WAVE COMPLETE. es m1–m10 authored/registered/tested/TTS'd/walked/
+  fixed under §13. Session arc: PM(27)→PM(33) (emitter lb bug; walk-fix
+  rounds m5/m6/m7; m8/m9/m10 review+register+walk+fix; full-course QA:
+  14 local walks + 3 Opus walks + headless UI pass + test-out/map
+  verification). Findings docs: docs/learner-sim/es-m{3..10}-FINDINGS.md.
+- STATE: ES tree 691/0 · full suite 10,982 pass / 3 fail (ALL 3 = the
+  concurrent session's ja m35 work — leave alone) · tsc clean ·
+  817 clips staged in tts-publish/es (untracked, additive) · es.json
+  manifest installed · views docs/learner-sim/es-m1..m10.md all clean ·
+  review pool 176 atoms/10 modules · tiers t0-t3 · qaCatalog
+  agreement_cloze pin flipped · doctrinePins digit allowlist has
+  composite teens · walk.mjs tuned.
+- NOTHING COMMITTED (per standing rule; tree ~1,470 dirty files shared
+  with the concurrent session — explicit paths only, never add -A).
+- NEXT ACTION IS SPENCER'S WALK (/es/qa/m3…m10; Later button demo).
+  m11 GATED on it. When he walks: fix inline, ledger, audit after.
+- Open fixes ranked in the wave doc §OPEN ITEMS: (1) HIDE ROMAJI label
+  on es speaking (coordinate w/ concurrent session, fix es+fr),
+  (2) build_sentence alsoAccepted, (3) build-tile render padding,
+  (4) m11 brief needs transfer-test + en-el-autobús production,
+  (5) UX texture list for Spencer, (6) m2 review-tail thinness (SRS
+  owns), (7) ja reds are not ours.
+- caffeinate running (bg, ~4h from 03:05) — Spencer AFK on RC.

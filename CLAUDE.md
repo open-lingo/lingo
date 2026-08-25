@@ -83,6 +83,14 @@ Don't trust `docs/tasks/*.md` as current state.
 - Read the relevant authoritative doc before touching a subsystem it covers.
 - Verify layout changes with `getBoundingClientRect` at ≤700px height, not eyeballs.
 - Stage explicit paths; another session may be editing the tree ([[concurrent-sessions-same-repo]]).
+- **Sibling-parity check:** after changing content, a step type, or shared behavior,
+  name its siblings (other courses, test-out/review contexts, the mobile build) and
+  state each as inherited / needs porting / N-A. A fix isn't done until siblings are
+  accounted for — the FR re-author silently discarding the ES standards is the
+  canonical failure (transcript mining 2026-08-21, F1).
+- **Fix the class, not the instance:** a defect Spencer flags on a QA walk is an
+  instance of a class — search for the same pattern elsewhere before reporting done,
+  and state the found scope (mining F2).
 
 **Ask first**
 - Commits and pushes (only when asked; branch off `main` first if you do).
@@ -121,6 +129,10 @@ These are *how* we teach — apply them to any content work; depth lives in
 - **Image-MCQ-as-intro; grading = review-only.** (Authoring guide §13.)
 - Per-step sentence exposure ≤3; a new sentence per grammar point (don't recycle one
   sentence through 4 step types); review-particle cloze ≤25% of a lesson.
+- **Explanations: short, anchored, optional.** Learner-facing explanation text has a
+  hard budget (~3 short lines; depth goes behind a "see the rule" expander) and must
+  quote the course sentence it explains. Screen generated sentences for accidentally
+  suggestive or double-meaning readings. (Authoring guide §2/§10.)
 
 ---
 

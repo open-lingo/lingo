@@ -9,7 +9,7 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | 2 | [m2](m2.md) | Dakuten · Handakuten · Yōon dakuten | 28 | 441 |
 | 3 | [m3](m3.md) | 🧱 Plain sentences: だ, は, も | 8 | 156 |
 | 4 | [m4](m4.md) | 👉 Possession & pointing: の + これ/それ/あれ | 12 | 245 |
-| 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 13 | 242 |
+| 5 | [m5](m5.md) | ⚙️ Verbs I: the dictionary form | 12 | 242 |
 | 6 | [m6](m6.md) | 🚫 Negatives & Existence | 13 | 234 |
 | 7 | [m7](m7.md) | Politeness as a layer | 16 | 272 |
 | 8 | [m8](m8.md) | Asking for things | 18 | 308 |
@@ -21,7 +21,7 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | 14 | [m14](m14.md) | て-form II: ている and permission | 15 | 259 |
 | 15 | [m15](m15.md) | Relative clauses + こと / とき | 14 | 234 |
 | 16 | [m16](m16.md) | Connecting: から / ので / けど | 17 | 282 |
-| 17 | [m17](m17.md) | Family I: your side (うち) | 14 | 234 |
+| 17 | [m17](m17.md) | Family I: your side (うち) | 13 | 234 |
 | 18 | [m18](m18.md) | Saying & thinking: とおもう + という | 14 | 234 |
 | 19 | [m19](m19.md) | Getting around: motion particles | 14 | 234 |
 | 20 | [m20](m20.md) | Comparisons I: のほうが…より | 14 | 234 |
@@ -34,3 +34,12 @@ order the course presents them. See `HOW-TO-READ.md` before starting.
 | 27 | [m27](m27.md) | Explaining | 14 | 234 |
 | 28 | [m28](m28.md) | Must & should | 13 | 234 |
 | 29 | [m29](m29.md) | Register mastery + N5 capstone | 14 | 234 |
+| 30 | [m30](m30.md) | て + helper I — 〜てみる / 〜ておく | 13 | 235 |
+| 31 | [m31](m31.md) | Give & receive I — あげる・くれる・もらう | 13 | 239 |
+| 32 | [m32](m32.md) | Conditionals I — たら, and と as the contrast | 14 | 270 |
+| 33 | [m33](m33.md) | Transitivity I — 自動詞/他動詞, が vs を | 14 | 266 |
+| 34 | [m34](m34.md) | Volitional — よう/おう, とおもう, ことにする | 12 | 218 |
+| 35 | [m35](m35.md) | Give & receive II — てあげる/てくれる/てもらう + favors | 12 | 216 |
+| 36 | [m36](m36.md) | Looks like — そう, がる, やすい/にくい, ながら | 12 | 216 |
+| 37 | [m37](m37.md) | Conditionals II — ば + なら | 12 | 216 |
+| 38 | [m38](m38.md) | て + helper II — てしまう/ちゃう + ていく/てくる | 12 | 216 |

@@ -33,19 +33,26 @@ guide or the compiler, not the modules one at a time.**
 | m29 | 234 | 5.3% | 11 | — | 1 |
 | m30 | 235 | 10.0% | 12 | — | 1 |
 | m31 | 239 | 10.3% | 12 | — | 1 |
-| m32 | 270 | 11.9% | 12 | 1 | 1 |
+| m32 | 270 | 11.9% | 12 | — | 2 |
 | m33 | 266 | 9.8% | 12 | — | 1 |
+| m34 | 218 | 3.0% | 14 | — | 4 |
+| m35 | 216 | 0.0% | 12 | — | 1 |
+| m36 | 216 | 0.0% | 11 | — | 1 |
+| m37 | 216 | 0.0% | 12 | — | 5 |
+| m38 | 216 | 0.0% | 12 | 1 | 8 |
 
 ## Systemic — fix upstream, not per module
 
 These are counted in the `systemic` column, NOT in `findings`, because no
 single module can fix them. `findings` = 0 means that module is clean.
 
-- **inv 35 build-tile-distractors** flagged in 28 modules
+- **inv 35 build-tile-distractors** flagged in 33 modules
   - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
+- **inv 30/33/37 debut-step-type** flagged in 4 modules
+  - "ねる" first appears on `listening_build` (ja-m32-neo-1-s-2)
 
 ## Findings by module
 
-### m32
+### m38
 
-- **inv 30/33/37 debut-step-type** — "ねる" first appears on `listening_build` (ja-m32-neo-1-s-2)
+- **inv 19 single-tile-build** — 1 build steps have a ONE-tile answer — that is a word card, not a build: ja-m38-neo-challenge-s-5

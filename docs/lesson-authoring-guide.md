@@ -85,6 +85,14 @@ A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new 
 
 > **Variety (two rules):** (1) **No two adjacent steps of the same `type`** — machine-enforced (`previewLessons.test.ts`). (2) **No more than two selection-MCQ steps in a row**, *even when their `type` differs*. Many types are the same interaction under the hood — `vocabMcq`, `sentenceMcq`, `particle_cloze`, `listeningCompSentence`, `self_explanation_mcq` are all "tap one of N." Rule (1) stops the identical repeat; this cap stops an MCQ marathon (three+ taps in a row reads as the same drill even with different type strings). Break a run with a generation step (`build`, `translateStep`, `speaking`) or a teach/`info` beat. *(Guidance, not yet a test — added 2026-06-30.)*
 
+> **Explanation text budget (Spencer, 2026-08-21):** learner-facing explanation text
+> (teach beats, `grammar_rule` bodies, win-card notes, any expander content shown by
+> default) gets **~3 short lines per card face**. If it needs more, it's either a
+> different step type or it belongs behind the approved "see the rule" expander —
+> never forced text. Explanations must **quote the course-relevant sentence** they
+> explain, not restate grammar in the abstract. ("holy, this explanation is WAY too
+> long, and it needs to better quote the course relevant context.")
+
 Hard guards (vitest):
 > ⚠️ **2026-07-29:** the three per-corpus tests below moved to
 > `curriculum/_archive/tests/` with the old course and NO LONGER RUN. The
@@ -497,6 +505,13 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 - **Don't** ship a sub-lesson without running `tsc --noEmit` + the full vitest suite. The hard guards exist for a reason.
 - **Don't** delete external lesson IDs — they're referenced from `mockCourse.ts` + tests + (soon) flashcards + (soon) FSRS. Preserve `ja-m{N}-1` through `ja-m{N}-K`.
 - **Don't** introduce surface-form duplicates as atoms (see §7).
+- **Don't** exceed the explanation text budget (§2) — ~3 short lines per card face,
+  depth behind the "see the rule" expander, always quoting the course sentence.
+- **Don't** ship a generated sentence without screening it for accidentally
+  suggestive, creepy, or double-meaning readings — "i like children so I give him a
+  pencil" is the canonical miss (Spencer, 2026-08-21: "should be avoided and made an
+  authoring rule somehow"). Read every example sentence as a hostile screenshotter
+  would before promoting it.
 
 ---
 
