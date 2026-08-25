@@ -1,0 +1,1567 @@
+module: m6
+title: "Describe it — the words that flip to match"
+frame: none
+throughModule: m5
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m6 — «Describe it»: adjective agreement, the -o/-a flip, invariant
+# adjectives, and post-noun word order. Third §13-doctrine IR module
+# (m3/m4 are the exemplars); first module to ship agreementLit and
+# genderSort.
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m6 — Describe it"). The doc names
+# 15 atoms and labels the count "(16)" — grande, pequeño, bonito, nuevo,
+# viejo, bueno, malo, muy, pero, rojo, azul, verde, negro, blanco, carro.
+# This IR registers exactly those 15 named atoms and no others; the count
+# label is a documentation miscount (flagged, not silently "fixed" by
+# inventing a 16th word against "nothing added... against that spec").
+#
+# DOCTRINE NOTES:
+#   - Adjectives register MASCULINE ONLY (grande, pequeño, bonito, nuevo,
+#     viejo, bueno, malo, rojo, azul, verde, negro, blanco) — the gender
+#     canon derives the feminine surfaces (pequeña, bonita, nueva, vieja,
+#     buena, mala, roja, negra, blanca) used freely across this module's
+#     sentences/clozes/builds/agreementLit blanks. meaningEn carries an
+#     "(m)" suffix on every FLIP-class adjective (pequeño/bonito/nuevo/
+#     viejo/bueno/malo/rojo/negro/blanco) and no suffix on the three true
+#     INVARIANTS (grande, azul, verde — no -o to flip), mirroring the
+#     archived July m4 registry convention.
+#   - THE CONTRAST: bonito is the flagship flip (L3's dedicated lesson,
+#     both genders drilled via agreementLit + alternating clozes).
+#     grande/azul/verde are explicitly, repeatedly trialed as "don't add
+#     -a" traps (L7 dedicated invariant-trap trio; a 4th retest in L8).
+#   - Word order: adjectives sit AFTER the noun («el carro rojo»). L4
+#     teaches this with a CROSSING word_map (English "the RED CAR" vs
+#     Spanish token order car-then-red), then transfers the order to a
+#     DIFFERENT noun («el libro verde») in a build two steps later —
+#     never the same noun at i+2 (the m3 confirmation-walk law).
+#   - Non-imageable adjectives (grande, pequeño, bonito, nuevo, viejo,
+#     bueno, malo) and the particles (muy, pero) debut by MAP ELIMINATION
+#     inside a full «es + adjective» sentence — the m4 convention for
+#     words with no honest single emoji, extended here because an
+#     adjective only means anything inside a sentence anyway. Colors
+#     (rojo, azul, verde, negro, blanco) debut by imageMcq using honest
+#     swatch emoji (🔴🔵🟢⚫⚪ — the wave doc's own "ARE honest art" call);
+#     carro debuts by imageMcq (🚗, an ordinary imageable noun, m4-style).
+#   - Tints: every word_map's tokenGenders tints the whole AGREEMENT
+#     CHAIN (article + noun + a flip-class adjective) in the noun's hue;
+#     the three invariants (grande/azul/verde) are left OUT of
+#     tokenGenders on maps that carry them, because untinted IS the
+#     lesson (13.4).
+#   - «muy» never stacks (stated explicitly in L2's card; the placement
+#     bank's pl-4 distractor is literally "es muy muy bonito"). «pero»
+#     joins at most two clauses/adjectives per sentence — every «pero»
+#     sentence in this module has exactly one. ser stays implicit: every
+#     description uses «es» (m2's atom); no estar+adjective anywhere.
+#   - Two rule-card safety fixes applied against the "first trial reuses
+#     the card's own printed sentence" defect: L1's callback card and
+#     L4's order card both state their rule WITHOUT printing a complete
+#     example sentence (L1 stays abstract; L4 names the concept and
+#     defers the concrete "el carro rojo" to the map two steps later).
+#     L3's card prints the bare word-pair «bonito → bonita», never a full
+#     sentence, so the map right after it is the first FULL sentence.
+#   - Cast: Ana, Diego, Sofía, María (bus) all reprise their m3-m5 roles;
+#     Carmen stays offstage (m7 debut). The describing game (L6) is m3's
+#     naming game, level 2: «¿qué es? — es una carro... es pequeño... es
+#     rojo». L9's summit gives María a carro and cashes «el carro es de
+#     María» (the m3/m4 "es de + name" possession pattern). Learner = Sam.
+#   - genderSort ships ONCE (L7, well under the ≤2 cap): a warm-up sort of
+#     six already-taught bare nouns onto el/la, including m4's two liars
+#     (agua, foto) with their notes — a callback that sets up L7's
+#     invariant-adjective trio right after.
+#
+# VOICING LEDGER (printed speak/map → licenses later cue:"recall"):
+#   la casa es grande L1 · muy bonito L3 · el carro rojo L4 ·
+#   es viejo pero bueno L5 · el carro es de María L9
+#   m6-internal recalls drawn from the above: el carro rojo (L8, L10),
+#   es viejo pero bueno (L8), muy bonito (L8)
+#   cross-module (licensed by m1/m3/m4/m5 printed voicings): el gato (L1),
+#   el agua (L2), ¿qué es? (L3), la cocina (L4), es un lápiz (L5),
+#   hay dos libros (L6), el papel (L7), mi familia (L9)
+newAtoms:
+  - { surface: "grande", meaningEn: "big", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "pequeño", meaningEn: "small (m)", partOfSpeech: "adjective", kind: "vocab", hint: "ñ sounds like ny: peh-KEH-nyo" }
+  - { surface: "bonito", meaningEn: "pretty (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "nuevo", meaningEn: "new (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "viejo", meaningEn: "old (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "bueno", meaningEn: "good (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "malo", meaningEn: "bad (m)", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "muy", meaningEn: "very", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "pero", meaningEn: "but", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "rojo", meaningEn: "red (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "🔴" }
+  - { surface: "azul", meaningEn: "blue", partOfSpeech: "adjective", kind: "vocab", emoji: "🔵" }
+  - { surface: "verde", meaningEn: "green", partOfSpeech: "adjective", kind: "vocab", emoji: "🟢" }
+  - { surface: "negro", meaningEn: "black (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "⚫" }
+  - { surface: "blanco", meaningEn: "white (m)", partOfSpeech: "adjective", kind: "vocab", emoji: "⚪" }
+  - { surface: "carro", meaningEn: "car", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚗" }
+
+lessons:
+  # ── L1 · the callback card + grande/pequeño debuts. ──────────────────
+  - n: 1
+    template: free
+    title: "Big or small — say it"
+    description: "La-words glow pink, el-words glow blue — here's what describing words do about it. Say something's big or small."
+    steps:
+      - kind: info
+        id: info-callback
+        title: "Pink and blue, at work"
+        body: "Since m3, la-words glow pink and el-words glow blue. Now you'll meet describing words: some flip an ending to match the word they describe, others never change at all. Today: «es» + a describing word — «es» says what something IS; «está» from m4 keeps its job of saying WHERE it is."
+      - kind: map
+        id: map-casagrande
+        tokens: ["la", "casa", "es", "grande"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "house", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "big", tokenIndex: 3 }
+        audioText: "la casa es grande"
+        revealNote: "la, casa, es are all yours — grande is the only new one, and now you can say something's big."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: speakLit
+        id: sp-esgrande
+        es: "es grande"
+        en: "it's big"
+        atoms: ["es", "grande"]
+      - kind: map
+        id: map-perropequeno
+        tokens: ["el", "perro", "es", "pequeño"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "dog", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "small", tokenIndex: 3 }
+        audioText: "el perro es pequeño"
+        revealNote: "perro is yours from m5 — pequeño is new: the opposite of grande."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-espequeno
+        es: "es pequeño"
+        en: "it's small"
+        atoms: ["es", "pequeño"]
+      - kind: clozeLit
+        id: c-grandepequeno1
+        es: "la mesa es grande"
+        en: "the table is big"
+        blank: "grande"
+        options: ["grande", "pequeño"]
+        atoms: ["la", "mesa", "es", "grande"]
+        why: "grande and pequeño are opposites — 'big' is what you need here."
+      - kind: buildLit
+        id: b-cuartopequeno
+        es: "el cuarto es pequeño"
+        en: "the room is small"
+        atoms: ["el", "cuarto", "es", "pequeño"]
+        tiles: ["la", "grande"]
+      - kind: audioWimcq
+        id: ear-review-perrogato
+        target: { surface: "el perro", emoji: "🐶" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: listenCompLit
+        id: lc-perrogrande
+        es: "el perro es grande"
+        en: "The dog is big."
+        atoms: ["el", "perro", "es", "grande"]
+        distractorsEn:
+          - "The dog is small."
+          - "The cat is big."
+          - "There's a big dog."
+      - kind: speakLit
+        id: sp-recall-tengounperro
+        es: "tengo un perro"
+        en: "I have a dog"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: c-grandepequeno2
+        es: "el gato es pequeño"
+        en: "the cat is small"
+        blank: "pequeño"
+        options: ["pequeño", "grande"]
+        atoms: ["el", "gato", "es", "pequeño"]
+        why: "pequeño is the opposite of grande — 'small' is what you need here."
+      - kind: buildLit
+        id: b-librogrande
+        es: "el libro es grande"
+        en: "the book is big"
+        atoms: ["el", "libro", "es", "grande"]
+        tiles: ["la", "pequeño"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "el perro", target: "the dog" }
+          - { source: "el gato", target: "the cat" }
+          - { source: "la mesa", target: "the table" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: sim-anasizes
+        scene: { emoji: "🏠", title: "Ana's new place", setting: "Ana shows you a photo of her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Mi casa! ¿Grande o pequeña?", audioText: "¡mi casa! ¿grande o pequeña?", gloss: "My house! Big or small?" }
+            goal: "Say it's big."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es grande" }
+                - { id: "wrong1", text: "es pequeña" }
+                - { id: "wrong2", text: "es un gato" }
+              correctOptionId: "right"
+              audioText: "es grande"
+            replyGloss: "It's big."
+      - kind: speakLit
+        id: sp-win
+        es: "el libro es pequeño"
+        en: "the book is small"
+        atoms: ["el", "libro", "es", "pequeño"]
+
+  # ── L2 · colors I (rojo, azul, negro) interleaved with muy. ──────────
+  - n: 2
+    template: free
+    title: "Three colors — and very"
+    description: "muy turns anything up — and three new colors to turn up."
+    steps:
+      - kind: info
+        id: info-muy
+        title: "Turn it up"
+        body: "«muy» means 'very' — put it right before a describing word to boost it: muy grande = very big. Just one «muy» per word — «muy muy» isn't a thing in Spanish."
+      - kind: map
+        id: map-muygrande
+        tokens: ["la", "casa", "es", "muy", "grande"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "house", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "very", tokenIndex: 3 }
+          - { en: "big", tokenIndex: 4 }
+        audioText: "la casa es muy grande"
+        revealNote: "la, casa, es, grande are all yours — muy is the new piece, and it just means 'very.'"
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: speakLit
+        id: sp-muygrande
+        es: "muy grande"
+        en: "very big"
+        atoms: ["muy", "grande"]
+      - kind: imageMcq
+        id: d-rojo
+        target: { surface: "rojo", meaningEn: "red", emoji: "🔴" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: speakLit
+        id: sp-rojo
+        es: "rojo"
+        en: "red"
+        atoms: ["rojo"]
+      - kind: imageMcq
+        id: d-azul
+        target: { surface: "azul", meaningEn: "blue", emoji: "🔵" }
+        distractors:
+          - { surface: "rojo", emoji: "🔴" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: clozeLit
+        id: c-rojoazul
+        es: "el libro es azul"
+        en: "the book is blue"
+        blank: "azul"
+        options: ["azul", "rojo"]
+        atoms: ["el", "libro", "es", "azul"]
+        why: "You're told it's blue, not red — azul."
+      - kind: buildLit
+        id: b-librorojo
+        es: "el libro es rojo"
+        en: "the book is red"
+        atoms: ["el", "libro", "es", "rojo"]
+        tiles: ["la", "azul"]
+      - kind: imageMcq
+        id: d-negro
+        target: { surface: "negro", meaningEn: "black", emoji: "⚫" }
+        distractors:
+          - { surface: "rojo", emoji: "🔴" }
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: speakLit
+        id: sp-negro
+        es: "negro"
+        en: "black"
+        atoms: ["negro"]
+      - kind: audioWimcq
+        id: ear-rojonegro
+        target: { surface: "rojo", emoji: "🔴" }
+        distractors:
+          - { surface: "negro", emoji: "⚫" }
+          - { surface: "azul", emoji: "🔵" }
+      - kind: clozeLit
+        id: c-muypequeno
+        es: "el gato es muy pequeño"
+        en: "the cat is very small"
+        blank: "muy"
+        options: ["muy", "negro"]
+        atoms: ["el", "gato", "es", "muy", "pequeño"]
+        why: "negro describes color, not size — you need the booster «muy» here."
+      - kind: buildLit
+        id: b-perronegro
+        es: "el perro es negro"
+        en: "the dog is black"
+        atoms: ["el", "perro", "es", "negro"]
+        tiles: ["la", "rojo"]
+      - kind: listenCompLit
+        id: lc-casaazul
+        es: "la casa es azul"
+        en: "The house is blue."
+        atoms: ["la", "casa", "es", "azul"]
+        distractorsEn:
+          - "The house is red."
+          - "The book is blue."
+          - "There's a blue house."
+      - kind: speakLit
+        id: sp-recall-elagua
+        es: "el agua"
+        en: "the water"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: ear-review-cocina
+        target: { surface: "la cocina", emoji: "🍳" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "rojo", target: "red" }
+          - { source: "azul", target: "blue" }
+          - { source: "negro", target: "black" }
+          - { source: "muy", target: "very" }
+          - { source: "el perro", target: "the dog" }
+          - { source: "la cocina", target: "the kitchen" }
+      - kind: sim
+        id: sim-anacolors
+        scene: { emoji: "🖍️", title: "Ana picks a color", setting: "Ana holds up two markers." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Es rojo o azul?", audioText: "¿es rojo o azul?", gloss: "Is it red or blue?" }
+            goal: "Say — it's red."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es rojo" }
+                - { id: "wrong1", text: "es azul" }
+                - { id: "wrong2", text: "es negro" }
+              correctOptionId: "right"
+              audioText: "es rojo"
+            replyGloss: "It's red."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Perfecto! ¿Y tu perro — grande o pequeño?", audioText: "¡perfecto! ¿y tu perro, grande o pequeño?", gloss: "Perfect! And your dog — big or small?" }
+            goal: "Say he's small."
+            reply:
+              mode: build
+              tiles: ["es", "pequeño", "grande"]
+              answer: "es pequeño"
+            replyGloss: "He's small."
+      - kind: speakLit
+        id: sp-win
+        es: "la casa es azul y muy grande"
+        en: "the house is blue and very big"
+        atoms: ["la", "casa", "es", "azul", "y", "muy", "grande"]
+
+  # ── L3 · the flip — bonito/bonita + agreement clozes. ────────────────
+  - n: 3
+    template: free
+    title: "Watch it flip"
+    description: "bonito becomes bonita after a la-word — the whole agreement rule, in one word."
+    steps:
+      - kind: info
+        id: info-flip
+        title: "The flip"
+        body: "Some describing words flip their last letter: bonito → bonita after a la-word — the same -o/-a switch maestro/maestra made back in m2. A word with no -o at the end (like grande) has nothing to flip, so it never changes."
+      - kind: map
+        id: map-perrobonito
+        tokens: ["el", "perro", "es", "bonito"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "dog", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "pretty", tokenIndex: 3 }
+        audioText: "el perro es bonito"
+        revealNote: "el, perro, es are yours — bonito is new, and you'll see it change in a moment."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-bonito
+        es: "bonito"
+        en: "pretty"
+        atoms: ["bonito"]
+      - kind: map
+        id: map-casabonita
+        tokens: ["la", "casa", "es", "bonita"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "house", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "pretty", tokenIndex: 3 }
+        audioText: "la casa es bonita"
+        revealNote: "Same word, new ending — la casa flips bonito to bonita. That's the whole rule."
+        tokenGenders: { 0: "f", 1: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-muybonito
+        es: "muy bonito"
+        en: "very pretty"
+        atoms: ["muy", "bonito"]
+      - kind: agreementLit
+        id: agr-casabonita
+        segments:
+          - { blank: { id: "art", answer: "la", options: ["la", "el"] } }
+          - { text: " casa es bonit" }
+          - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
+        en: "the house is pretty"
+        audioText: "la casa es bonita"
+        atoms: ["la", "casa", "es", "bonita"]
+      - kind: clozeLit
+        id: c-bonitomasc
+        es: "el libro es bonito"
+        en: "the book is pretty"
+        blank: "bonito"
+        options: ["bonito", "bonita"]
+        atoms: ["el", "libro", "es", "bonito"]
+        why: "libro is an el-word — bonito stays as is."
+      - kind: buildLit
+        id: b-mesabonita
+        es: "la mesa es bonita"
+        en: "the table is pretty"
+        atoms: ["la", "mesa", "es", "bonita"]
+        tiles: ["el", "bonito"]
+      - kind: clozeLit
+        id: c-bonitofem
+        es: "la llave es bonita"
+        en: "the key is pretty"
+        blank: "bonita"
+        options: ["bonita", "bonito"]
+        atoms: ["la", "llave", "es", "bonita"]
+        why: "llave is a la-word — you've known that since m3 — so bonita matches."
+      - kind: audioWimcq
+        id: ear-review-llave
+        target: { surface: "una llave", emoji: "🔑" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: agreementLit
+        id: agr-gatobonito
+        segments:
+          - { blank: { id: "art", answer: "el", options: ["el", "la"] } }
+          - { text: " gato es bonit" }
+          - { blank: { id: "adj", answer: "o", options: ["o", "a"] } }
+        en: "the cat is pretty"
+        audioText: "el gato es bonito"
+        atoms: ["el", "gato", "es", "bonito"]
+      - kind: buildLit
+        id: b-ventanabonita
+        es: "la ventana es bonita"
+        en: "the window is pretty"
+        atoms: ["la", "ventana", "es", "bonita"]
+        tiles: ["el", "bonito"]
+      - kind: listenCompLit
+        id: lc-cocinabonita
+        es: "la cocina es bonita"
+        en: "The kitchen is pretty."
+        atoms: ["la", "cocina", "es", "bonita"]
+        distractorsEn:
+          - "The kitchen is big."
+          - "The bathroom is pretty."
+          - "There's a pretty kitchen."
+      - kind: speakLit
+        id: sp-recall-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: tm-bonito
+        target: "bonito"
+        distractors: ["bonita", "grande", "pequeño"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "bonito", target: "pretty" }
+          - { source: "muy bonito", target: "very pretty" }
+          - { source: "grande", target: "big" }
+          - { source: "rojo", target: "red" }
+          - { source: "la ventana", target: "the window" }
+          - { source: "buenas tardes", target: "good afternoon" }
+      - kind: sim
+        id: sim-sofia-bonita
+        scene: { emoji: "🏡", title: "Sofía's house", setting: "Sofía shows off her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "Mi casa es bonita.", audioText: "mi casa es bonita.", gloss: "My house is pretty." }
+            goal: "Agree — say yes, very pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, es muy bonita" }
+                - { id: "wrong1", text: "no, es grande" }
+                - { id: "wrong2", text: "es azul" }
+              correctOptionId: "right"
+              audioText: "sí, es muy bonita"
+            replyGloss: "Yes, very pretty."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¡Gracias! ¿Y tu perro?", audioText: "¡gracias! ¿y tu perro?", gloss: "Thanks! And your dog?" }
+            goal: "Say he's very pretty."
+            reply:
+              mode: build
+              tiles: ["es", "muy", "bonito", "grande"]
+              answer: "es muy bonito"
+            replyGloss: "He's very pretty."
+      - kind: speakLit
+        id: sp-win
+        es: "el perro es muy bonito"
+        en: "the dog is very pretty"
+        atoms: ["el", "perro", "es", "muy", "bonito"]
+
+  # ── L4 · colors II (verde, blanco) + carro + word order. ─────────────
+  - n: 4
+    template: free
+    title: "Describe the car"
+    description: "A new word — and the order describing words go in."
+    steps:
+      - kind: info
+        id: info-orden
+        title: "Order flips too"
+        body: "Describing words sit AFTER the noun in Spanish — backwards from English. Watch it happen with today's new word below."
+      - kind: imageMcq
+        id: d-carro
+        target: { surface: "el carro", meaningEn: "the car", emoji: "🚗" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: speakLit
+        id: sp-elcarro
+        es: "el carro"
+        en: "the car"
+        atoms: ["el", "carro"]
+      - kind: map
+        id: map-carrorojo
+        tokens: ["el", "carro", "rojo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "red", tokenIndex: 2 }
+          - { en: "car", tokenIndex: 1 }
+        audioText: "el carro rojo"
+        revealNote: "el, carro, rojo are all yours — Spanish just says them in a different order: car comes before red."
+        tokenGenders: { 0: "m", 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-carrorojo
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: ["el", "carro", "rojo"]
+      - kind: imageMcq
+        id: d-verde
+        target: { surface: "verde", meaningEn: "green", emoji: "🟢" }
+        distractors:
+          - { surface: "rojo", emoji: "🔴" }
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: speakLit
+        id: sp-verde
+        es: "verde"
+        en: "green"
+        atoms: ["verde"]
+      - kind: clozeLit
+        id: c-carroverde
+        es: "el carro es verde"
+        en: "the car is green"
+        blank: "verde"
+        options: ["verde", "azul"]
+        atoms: ["el", "carro", "es", "verde"]
+        why: "You're told it's green, not blue — verde."
+      - kind: imageMcq
+        id: d-blanco
+        target: { surface: "blanco", meaningEn: "white", emoji: "⚪" }
+        distractors:
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "negro", emoji: "⚫" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: speakLit
+        id: sp-blanco
+        es: "blanco"
+        en: "white"
+        atoms: ["blanco"]
+      - kind: audioWimcq
+        id: ear-negroblanco
+        target: { surface: "blanco", emoji: "⚪" }
+        distractors:
+          - { surface: "negro", emoji: "⚫" }
+          - { surface: "verde", emoji: "🟢" }
+      - kind: buildLit
+        id: b-casablanca
+        es: "la casa es blanca"
+        en: "the house is white"
+        atoms: ["la", "casa", "es", "blanca"]
+        tiles: ["el", "negro", "blanco"]
+      - kind: audioWimcq
+        id: ear-rojoverde
+        target: { surface: "verde", emoji: "🟢" }
+        distractors:
+          - { surface: "rojo", emoji: "🔴" }
+          - { surface: "azul", emoji: "🔵" }
+      - kind: buildLit
+        id: b-libroverde-transfer
+        es: "el libro verde"
+        en: "the green book"
+        atoms: ["el", "libro", "verde"]
+        tiles: ["la", "rojo"]
+      - kind: clozeLit
+        id: c-verdeblanco
+        es: "el gato es blanco"
+        en: "the cat is white"
+        blank: "blanco"
+        options: ["blanco", "negro"]
+        atoms: ["el", "gato", "es", "blanco"]
+        why: "You're told it's white, not black — blanco."
+      - kind: speakLit
+        id: sp-recall-lacocina
+        es: "la cocina"
+        en: "the kitchen"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: lc-mesaverde
+        es: "la mesa es verde"
+        en: "The table is green."
+        atoms: ["la", "mesa", "es", "verde"]
+        distractorsEn:
+          - "The table is white."
+          - "The book is green."
+          - "There's a green table."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el carro rojo", target: "the red car" }
+          - { source: "verde", target: "green" }
+          - { source: "blanco", target: "white" }
+          - { source: "la cocina", target: "the kitchen" }
+          - { source: "el gato", target: "the cat" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: sim-diego-carro
+        scene: { emoji: "🚗", title: "Diego's new car", setting: "Diego shows off his car outside." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Mi carro es rojo y grande.", audioText: "mi carro es rojo y grande.", gloss: "My car's red and big." }
+            goal: "Agree — say yes, very pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, muy bonito" }
+                - { id: "wrong1", text: "es pequeño" }
+                - { id: "wrong2", text: "es verde" }
+              correctOptionId: "right"
+              audioText: "sí, muy bonito"
+            replyGloss: "Yes, very pretty."
+          - id: t2
+            npc: { speaker: "Diego", es: "¡Gracias! Y tu casa, ¿grande o pequeña?", audioText: "¡gracias! y tu casa, ¿grande o pequeña?", gloss: "Thanks! And your house, big or small?" }
+            goal: "Say it's small."
+            reply:
+              mode: build
+              tiles: ["es", "pequeña", "grande"]
+              answer: "es pequeña"
+            replyGloss: "It's small."
+      - kind: speakLit
+        id: sp-win
+        es: "el carro rojo es muy bonito"
+        en: "the red car is very pretty"
+        atoms: ["el", "carro", "rojo", "es", "muy", "bonito"]
+
+  # ── L5 · nuevo/viejo + bueno/malo + pero. ─────────────────────────────
+  - n: 5
+    template: free
+    title: "Old, but good"
+    description: "Four new describing words, and «pero» to join two ideas."
+    steps:
+      - kind: info
+        id: info-pero
+        title: "But..."
+        body: "«pero» joins two ideas with a twist: es viejo pero bueno — it's old, BUT good. One «pero» per sentence — it always needs two different ideas on either side."
+      - kind: map
+        id: map-carronuevo
+        tokens: ["el", "carro", "nuevo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "new", tokenIndex: 2 }
+          - { en: "car", tokenIndex: 1 }
+        audioText: "el carro nuevo"
+        revealNote: "el, carro are yours — nuevo is new, and it goes after the noun, just like rojo did."
+        tokenGenders: { 0: "m", 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-nuevo
+        es: "nuevo"
+        en: "new"
+        atoms: ["nuevo"]
+      - kind: map
+        id: map-libroviejo
+        tokens: ["el", "libro", "viejo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "old", tokenIndex: 2 }
+          - { en: "book", tokenIndex: 1 }
+        audioText: "el libro viejo"
+        revealNote: "el, libro are yours — viejo is new: the opposite of nuevo."
+        tokenGenders: { 0: "m", 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-viejo
+        es: "viejo"
+        en: "old"
+        atoms: ["viejo"]
+      - kind: clozeLit
+        id: c-nuevoviejo
+        es: "el gato es viejo"
+        en: "the cat is old"
+        blank: "viejo"
+        options: ["viejo", "nuevo"]
+        atoms: ["el", "gato", "es", "viejo"]
+        why: "You're told it's old, not new — viejo."
+      - kind: map
+        id: map-perrobueno
+        tokens: ["el", "perro", "es", "bueno"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "dog", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "good", tokenIndex: 3 }
+        audioText: "el perro es bueno"
+        revealNote: "el, perro, es are yours — bueno is new: good."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-bueno
+        es: "bueno"
+        en: "good"
+        atoms: ["bueno"]
+      - kind: map
+        id: map-gatomalo
+        tokens: ["el", "gato", "es", "malo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "cat", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "bad", tokenIndex: 3 }
+        audioText: "el gato es malo"
+        revealNote: "el, gato, es are yours — malo is new: the opposite of bueno."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-malo
+        es: "malo"
+        en: "bad"
+        atoms: ["malo"]
+      - kind: clozeLit
+        id: c-buenomalo
+        es: "el libro es bueno"
+        en: "the book is good"
+        blank: "bueno"
+        options: ["bueno", "malo"]
+        atoms: ["el", "libro", "es", "bueno"]
+        why: "You're told it's good, not bad — bueno."
+      - kind: speakLit
+        id: sp-viejopero
+        es: "es viejo pero bueno"
+        en: "it's old but good"
+        atoms: ["es", "viejo", "pero", "bueno"]
+      - kind: buildLit
+        id: b-viejopero
+        es: "el carro es viejo pero bueno"
+        en: "the car is old but good"
+        atoms: ["el", "carro", "es", "viejo", "pero", "bueno"]
+        tiles: ["nuevo", "malo"]
+      - kind: audioWimcq
+        id: ear-review-gatoperro
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "el perro", emoji: "🐶" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: buildLit
+        id: b-casanueva
+        es: "la casa es nueva"
+        en: "the house is new"
+        atoms: ["la", "casa", "es", "nueva"]
+        tiles: ["el", "viejo", "nuevo"]
+      - kind: clozeLit
+        id: c-malobueno-alt
+        es: "la foto es mala"
+        en: "the photo is bad"
+        blank: "mala"
+        options: ["mala", "buena"]
+        atoms: ["la", "foto", "es", "mala"]
+        why: "foto is a la-word (the m4 rule-breaker) — mala matches."
+      - kind: speakLit
+        id: sp-recall-esunlapiz
+        es: "es un lápiz"
+        en: "it's a pencil"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "nuevo", target: "new" }
+          - { source: "viejo", target: "old" }
+          - { source: "bueno", target: "good" }
+          - { source: "pero", target: "but" }
+          - { source: "el gato", target: "the cat" }
+          - { source: "la puerta", target: "the door" }
+      - kind: sim
+        id: sim-anacarro-viejopero
+        scene: { emoji: "🚙", title: "Ana's old car", setting: "Ana pats her old car." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Mi carro es viejo.", audioText: "mi carro es viejo.", gloss: "My car is old." }
+            goal: "Say it's old but good."
+            reply:
+              mode: build
+              tiles: ["es", "viejo", "pero", "bueno", "malo"]
+              answer: "es viejo pero bueno"
+            replyGloss: "It's old but good."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Sí! ¿Y tu casa?", audioText: "¡sí! ¿y tu casa?", gloss: "Yes! And your house?" }
+            goal: "Say it's new and pretty."
+            reply:
+              mode: build
+              tiles: ["es", "nueva", "y", "bonita", "vieja"]
+              answer: "es nueva y bonita"
+            replyGloss: "It's new and pretty."
+      - kind: speakLit
+        id: sp-win
+        es: "el carro es viejo pero muy bueno"
+        en: "the car is old but very good"
+        atoms: ["el", "carro", "es", "viejo", "pero", "muy", "bueno"]
+
+  # ── L6 · integration — the describing game (zero new). ───────────────
+  - n: 6
+    template: free
+    title: "The describing game"
+    description: "No new words — the naming game from m3 gets a second question."
+    steps:
+      - kind: map
+        id: map-review-carro
+        tokens: ["el", "carro", "azul", "es", "muy", "bonito"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "blue", tokenIndex: 2 }
+          - { en: "car", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 3 }
+          - { en: "very", tokenIndex: 4 }
+          - { en: "pretty", tokenIndex: 5 }
+        audioText: "el carro azul es muy bonito"
+        revealNote: "Every word here is already yours — read it like a sentence, not a puzzle."
+        tokenGenders: { 0: "m", 1: "m", 5: "m" }
+      - kind: clozeLit
+        id: c-review1
+        es: "la ventana es pequeña"
+        en: "the window is small"
+        blank: "pequeña"
+        options: ["pequeña", "grande"]
+        atoms: ["la", "ventana", "es", "pequeña"]
+      - kind: buildLit
+        id: b-review1
+        es: "la casa blanca es muy bonita"
+        en: "the white house is very pretty"
+        atoms: ["la", "casa", "blanca", "es", "muy", "bonita"]
+        tiles: ["blanco", "bonito"]
+      - kind: audioWimcq
+        id: ear-review-final1
+        target: { surface: "azul", emoji: "🔵" }
+        distractors:
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "rojo", emoji: "🔴" }
+      - kind: listenCompLit
+        id: lc-review1
+        es: "el libro es viejo pero bueno"
+        en: "The book is old but good."
+        atoms: ["el", "libro", "es", "viejo", "pero", "bueno"]
+        distractorsEn:
+          - "The book is new and bad."
+          - "The book is old and bad."
+          - "There's an old book."
+      - kind: speakLit
+        id: sp-recall-haydoslibros
+        es: "hay dos libros"
+        en: "there are two books"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: ear-review-final2
+        target: { surface: "la cocina", emoji: "🍳" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: clozeLit
+        id: c-review2
+        es: "la ventana es blanca"
+        en: "the window is white"
+        blank: "blanca"
+        options: ["blanca", "negra"]
+        atoms: ["la", "ventana", "es", "blanca"]
+      - kind: buildLit
+        id: b-review2
+        es: "el perro es bueno y bonito"
+        en: "the dog is good and pretty"
+        atoms: ["el", "perro", "es", "bueno", "y", "bonito"]
+        tiles: ["malo", "viejo"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "grande", target: "big" }
+          - { source: "bonito", target: "pretty" }
+          - { source: "el carro", target: "the car" }
+          - { source: "pero", target: "but" }
+          - { source: "una llave", target: "a key" }
+          - { source: "mucho gusto", target: "nice to meet you" }
+      - kind: sim
+        id: sim-describing-game
+        scene: { emoji: "🚗", title: "The describing game", setting: "Sofía holds up a toy car." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Qué es?", audioText: "¿qué es?", gloss: "What is it?" }
+            goal: "Name it — a car."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es un carro" }
+                - { id: "wrong1", text: "es una carro" }
+                - { id: "wrong2", text: "hay un carro" }
+              correctOptionId: "right"
+              audioText: "es un carro"
+            replyGloss: "It's a car."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¡Sí! ¿Grande o pequeño?", audioText: "¡sí! ¿grande o pequeño?", gloss: "Yes! Big or small?" }
+            goal: "Say it's small."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es pequeño" }
+                - { id: "wrong1", text: "es grande" }
+                - { id: "wrong2", text: "es bonito" }
+              correctOptionId: "right"
+              audioText: "es pequeño"
+            replyGloss: "It's small."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Rojo o azul?", audioText: "¿rojo o azul?", gloss: "Red or blue?" }
+            goal: "Say — red."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es rojo" }
+                - { id: "wrong1", text: "es azul" }
+                - { id: "wrong2", text: "es verde" }
+              correctOptionId: "right"
+              audioText: "es rojo"
+            replyGloss: "It's red."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¡Perfecto! ¿Es bonito?", audioText: "¡perfecto! ¿es bonito?", gloss: "Perfect! Is it pretty?" }
+            goal: "Say yes, very pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, muy bonito" }
+                - { id: "wrong1", text: "no, es malo" }
+                - { id: "wrong2", text: "es grande" }
+              correctOptionId: "right"
+              audioText: "sí, muy bonito"
+            replyGloss: "Yes, very pretty."
+      - kind: speakLit
+        id: sp-win
+        es: "es un carro pequeño y rojo"
+        en: "it's a small red car"
+        atoms: ["es", "un", "carro", "pequeño", "y", "rojo"]
+
+  # ── L7 · describe everything — zero-new workout. ──────────────────────
+  - n: 7
+    template: free
+    title: "Describe everything"
+    description: "No new words — sort nouns, trap the invariants, describe it all."
+    steps:
+      - kind: genderSort
+        id: gs-review
+        prompt: "Sort each word onto its side."
+        items:
+          - { surface: "casa", side: "la", meaningEn: "house" }
+          - { surface: "carro", side: "el", meaningEn: "car" }
+          - { surface: "agua", side: "el", meaningEn: "water", note: "feminine word, but pairs with EL — m4's exception" }
+          - { surface: "foto", side: "la", meaningEn: "photo", note: "ends in -o but stays la — the m4 rule-breaker" }
+          - { surface: "gato", side: "el", meaningEn: "cat" }
+          - { surface: "llave", side: "la", meaningEn: "key" }
+        endingRule: "-o words are usually el, -a words usually la — agua and foto are the two honest exceptions you already know."
+      - kind: map
+        id: map-review2
+        tokens: ["el", "carro", "nuevo", "es", "muy", "grande"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "new", tokenIndex: 2 }
+          - { en: "car", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 3 }
+          - { en: "very", tokenIndex: 4 }
+          - { en: "big", tokenIndex: 5 }
+        audioText: "el carro nuevo es muy grande"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 0: "m", 1: "m", 2: "m" }
+      - kind: clozeLit
+        id: c-invariant-azul
+        es: "la mesa es azul"
+        en: "the table is blue"
+        blank: "azul"
+        options: ["azul", "azula"]
+        atoms: ["la", "mesa", "es", "azul"]
+        why: "azul never changes — no 'azula.' That's the trap."
+      - kind: buildLit
+        id: b-review3
+        es: "el libro es nuevo y bonito"
+        en: "the book is new and pretty"
+        atoms: ["el", "libro", "es", "nuevo", "y", "bonito"]
+        tiles: ["viejo", "malo", "nueva"]
+      - kind: audioWimcq
+        id: ear-review3
+        target: { surface: "negro", emoji: "⚫" }
+        distractors:
+          - { surface: "blanco", emoji: "⚪" }
+          - { surface: "el agua", emoji: "💧" }
+      - kind: agreementLit
+        id: agr-review1
+        segments:
+          - { blank: { id: "art", answer: "el", options: ["el", "la"] } }
+          - { text: " libro es viej" }
+          - { blank: { id: "adj", answer: "o", options: ["o", "a"] } }
+        en: "the book is old"
+        audioText: "el libro es viejo"
+        atoms: ["el", "libro", "es", "viejo"]
+      - kind: clozeLit
+        id: c-invariant-verde
+        es: "el cuarto es verde"
+        en: "the room is green"
+        blank: "verde"
+        options: ["verde", "verda"]
+        atoms: ["el", "cuarto", "es", "verde"]
+        why: "verde stays verde either way — 'verda' isn't a word."
+      - kind: listenBuildLit
+        id: lb-review1
+        es: "la mesa es vieja pero buena"
+        en: "The table is old but good"
+        atoms: ["la", "mesa", "es", "vieja", "pero", "buena"]
+        tiles: ["nueva", "mala"]
+      - kind: clozeLit
+        id: c-invariant-grande
+        es: "el cuarto es grande"
+        en: "the room is big"
+        blank: "grande"
+        options: ["grande", "granda"]
+        atoms: ["el", "cuarto", "es", "grande"]
+        why: "grande already ends in -e — there's no separate 'granda' to flip to."
+      - kind: speakLit
+        id: sp-recall-estaenlamesa
+        es: "está en la mesa"
+        en: "it's on the table"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-review4
+        es: "el gato es blanco y negro"
+        en: "the cat is white and black"
+        atoms: ["el", "gato", "es", "blanco", "y", "negro"]
+        tiles: ["rojo", "verde"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "azul", target: "blue" }
+          - { source: "verde", target: "green" }
+          - { source: "grande", target: "big" }
+          - { source: "nuevo", target: "new" }
+          - { source: "la puerta", target: "the door" }
+          - { source: "el gato", target: "the cat" }
+      - kind: sim
+        id: sim-maria-describe
+        scene: { emoji: "📷", title: "María asks", setting: "María points at a photo on the wall." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Qué es?", audioText: "¿qué es?", gloss: "What is it?" }
+            goal: "Name it — a photo."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es una foto" }
+                - { id: "wrong1", text: "hay una foto" }
+                - { id: "wrong2", text: "es un foto" }
+              correctOptionId: "right"
+              audioText: "es una foto"
+            replyGloss: "It's a photo."
+          - id: t2
+            npc: { speaker: "María", es: "¿Grande o pequeña?", audioText: "¿grande o pequeña?", gloss: "Big or small?" }
+            goal: "Say it's small."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es pequeña" }
+                - { id: "wrong1", text: "es grande" }
+                - { id: "wrong2", text: "es bonita" }
+              correctOptionId: "right"
+              audioText: "es pequeña"
+            replyGloss: "It's small."
+          - id: t3
+            npc: { speaker: "María", es: "¿Bonita?", audioText: "¿bonita?", gloss: "Pretty?" }
+            goal: "Say yes, very."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, muy bonita" }
+                - { id: "wrong1", text: "no, es mala" }
+                - { id: "wrong2", text: "es nueva" }
+              correctOptionId: "right"
+              audioText: "sí, muy bonita"
+            replyGloss: "Yes, very."
+      - kind: speakLit
+        id: sp-win
+        es: "la foto es pequeña y muy bonita"
+        en: "the photo is small and very pretty"
+        atoms: ["la", "foto", "es", "pequeña", "y", "muy", "bonita"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ───────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every color, every pair"
+    description: "Every flip, every invariant, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "el carro es nuevo"
+        en: "The car is new."
+        atoms: ["el", "carro", "es", "nuevo"]
+        distractorsEn:
+          - "The car is old."
+          - "The house is new."
+          - "There's a new car."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "rojo", emoji: "🔴" }
+        distractors:
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "verde", emoji: "🟢" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "la puerta es blanca"
+        en: "the door is white"
+        blank: "blanca"
+        options: ["blanca", "negra"]
+        atoms: ["la", "puerta", "es", "blanca"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "el perro es grande y bonito"
+        en: "the dog is big and pretty"
+        atoms: ["el", "perro", "es", "grande", "y", "bonito"]
+        tiles: ["pequeño", "malo", "bonita"]
+      - kind: agreementLit
+        id: cp-agr-1
+        segments:
+          - { blank: { id: "art", answer: "la", options: ["la", "el"] } }
+          - { text: " llave es viej" }
+          - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
+        en: "the key is old"
+        audioText: "la llave es vieja"
+        atoms: ["la", "llave", "es", "vieja"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "la ventana es azul"
+        en: "the window is blue"
+        blank: "azul"
+        options: ["azul", "azula"]
+        atoms: ["la", "ventana", "es", "azul"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "blanco", emoji: "⚪" }
+        distractors:
+          - { surface: "negro", emoji: "⚫" }
+          - { surface: "el agua", emoji: "💧" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "la ventana es vieja pero bonita"
+        en: "The window is old but pretty"
+        atoms: ["la", "ventana", "es", "vieja", "pero", "bonita"]
+        tiles: ["nueva", "mala"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "la mesa es pequeña"
+        en: "the table is small"
+        blank: "pequeña"
+        options: ["pequeña", "grande"]
+        atoms: ["la", "mesa", "es", "pequeña"]
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "verde", emoji: "🟢" }
+        distractors:
+          - { surface: "rojo", emoji: "🔴" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "la casa es nueva y grande"
+        en: "The house is new and big."
+        atoms: ["la", "casa", "es", "nueva", "y", "grande"]
+        distractorsEn:
+          - "The house is old and small."
+          - "The house is new and small."
+          - "There's a new house."
+      - kind: speakLit
+        id: cp-sp-2
+        es: "es viejo pero bueno"
+        en: "it's old but good"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: cp-build-2
+        es: "el carro es blanco y negro"
+        en: "the car is white and black"
+        atoms: ["el", "carro", "es", "blanco", "y", "negro"]
+        tiles: ["rojo", "azul"]
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "la llave es buena"
+        en: "the key is good"
+        blank: "buena"
+        options: ["buena", "mala"]
+        atoms: ["la", "llave", "es", "buena"]
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "grande", target: "big" }
+          - { source: "bonito", target: "pretty" }
+          - { source: "pero", target: "but" }
+          - { source: "el carro", target: "the car" }
+          - { source: "la puerta", target: "the door" }
+          - { source: "el gato", target: "the cat" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "muy bonito"
+        en: "very pretty"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — María's carro. ──────────────────────────────────────
+  - n: 9
+    template: free
+    title: "María's carro"
+    description: "María shows off her car — and 'de + name' pays off again."
+    steps:
+      - kind: info
+        id: info-de
+        title: "Whose is it?"
+        body: "Put «de» before a name to mark the owner: 'of María' = María's. You met it in m3 — la llave es de Ana — and today it drives the whole lesson."
+      - kind: map
+        id: map-summit1
+        tokens: ["el", "carro", "de", "María", "es", "rojo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "car", tokenIndex: 1 }
+          - { en: "of", tokenIndex: 2 }
+          - { en: "María", tokenIndex: 3 }
+          - { en: "is", tokenIndex: 4 }
+          - { en: "red", tokenIndex: 5 }
+        audioText: "el carro de María es rojo"
+        revealNote: "Every word here is already yours — 'de + name' means 'belongs to,' just like la llave es de Ana back in m3."
+        tokenGenders: { 0: "m", 1: "m", 5: "m" }
+      - kind: clozeLit
+        id: c-summit1
+        es: "el carro de María es nuevo"
+        en: "María's car is new"
+        blank: "nuevo"
+        options: ["nuevo", "viejo"]
+        atoms: ["el", "carro", "de", "es", "nuevo"]
+      - kind: speakLit
+        id: sp-elcarrodemaria
+        es: "el carro es de María"
+        en: "the car is María's"
+        atoms: ["el", "carro", "es", "de"]
+      - kind: buildLit
+        id: b-summit1
+        es: "el carro de María es grande y bonito"
+        en: "María's car is big and pretty"
+        atoms: ["el", "carro", "de", "es", "grande", "y", "bonito"]
+        tiles: ["pequeño", "malo"]
+      - kind: audioWimcq
+        id: ear-summit1
+        target: { surface: "azul", emoji: "🔵" }
+        distractors:
+          - { surface: "verde", emoji: "🟢" }
+          - { surface: "rojo", emoji: "🔴" }
+      - kind: agreementLit
+        id: agr-summit1
+        segments:
+          - { blank: { id: "art", answer: "la", options: ["la", "el"] } }
+          - { text: " casa de María es bonit" }
+          - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
+        en: "María's house is pretty"
+        audioText: "la casa de María es bonita"
+        atoms: ["la", "casa", "de", "es", "bonita"]
+      - kind: clozeLit
+        id: c-summit2
+        es: "el carro de María es verde"
+        en: "María's car is green"
+        blank: "verde"
+        options: ["verde", "verda"]
+        atoms: ["el", "carro", "de", "es", "verde"]
+        why: "verde never changes — no 'verda.'"
+      - kind: speakLit
+        id: sp-recall-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: lc-summit1
+        es: "el carro de María es rojo y nuevo"
+        en: "María's car is red and new."
+        atoms: ["el", "carro", "de", "es", "rojo", "y", "nuevo"]
+        distractorsEn:
+          - "María's car is blue and old."
+          - "María's car is red and old."
+          - "There's a red car."
+      - kind: buildLit
+        id: b-summit2
+        es: "la casa de María es vieja pero bonita"
+        en: "María's house is old but pretty"
+        atoms: ["la", "casa", "de", "es", "vieja", "pero", "bonita"]
+        tiles: ["nueva", "mala"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el carro", target: "the car" }
+          - { source: "nuevo", target: "new" }
+          - { source: "bonito", target: "pretty" }
+          - { source: "viejo", target: "old" }
+          - { source: "una llave", target: "a key" }
+          - { source: "el gato", target: "the cat" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "🚗", title: "María's carro", setting: "María shows off her car outside the bus stop." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Es mi carro nuevo!", audioText: "¡es mi carro nuevo!", gloss: "It's my new car!" }
+            goal: "Say it's very pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es muy bonito" }
+                - { id: "wrong1", text: "es muy pequeño" }
+                - { id: "wrong2", text: "es viejo" }
+              correctOptionId: "right"
+              audioText: "es muy bonito"
+            replyGloss: "It's very pretty."
+          - id: t2
+            npc: { speaker: "María", es: "¡Gracias! ¿Rojo o azul?", audioText: "¡gracias! ¿rojo o azul?", gloss: "Thanks! Red or blue?" }
+            goal: "Say — red."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es rojo" }
+                - { id: "wrong1", text: "es azul" }
+                - { id: "wrong2", text: "es verde" }
+              correctOptionId: "right"
+              audioText: "es rojo"
+            replyGloss: "It's red."
+          - id: t3
+            npc: { speaker: "María", es: "¿Y tu casa — nueva o vieja?", audioText: "¿y tu casa, nueva o vieja?", gloss: "And your house — new or old?" }
+            goal: "Say it's old but good."
+            reply:
+              mode: build
+              tiles: ["es", "vieja", "pero", "buena", "mala"]
+              answer: "es vieja pero buena"
+            replyGloss: "It's old but good."
+          - id: t4
+            npc: { speaker: "María", es: "¡El carro es de mi padre!", audioText: "¡el carro es de mi padre!", gloss: "The car is my dad's!" }
+            goal: "Agree — it's a good car."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es muy bueno" }
+                - { id: "wrong1", text: "es muy malo" }
+                - { id: "wrong2", text: "hay un carro" }
+              correctOptionId: "right"
+              audioText: "es muy bueno"
+            replyGloss: "It's a very good one."
+
+  # ── L10 · mastery — Diego visits, then proves it. ─────────────────────
+  - n: 10
+    template: free
+    title: "Prove it — then Diego visits"
+    description: "Every flip, every pair, no help — and Diego walks through your house."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "la ventana es grande"
+        en: "the window is big"
+        blank: "grande"
+        options: ["grande", "pequeña"]
+        atoms: ["la", "ventana", "es", "grande"]
+      - kind: buildLit
+        id: m-build-1
+        es: "el carro de Diego es viejo pero bueno"
+        en: "Diego's car is old but good"
+        atoms: ["el", "carro", "de", "es", "viejo", "pero", "bueno"]
+        tiles: ["nuevo", "malo"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "negro", emoji: "⚫" }
+        distractors:
+          - { surface: "blanco", emoji: "⚪" }
+          - { surface: "rojo", emoji: "🔴" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "la cocina es grande"
+        en: "the kitchen is big"
+        blank: "grande"
+        options: ["grande", "granda"]
+        atoms: ["la", "cocina", "es", "grande"]
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "la foto es bonita"
+        en: "The photo is pretty."
+        atoms: ["la", "foto", "es", "bonita"]
+        distractorsEn:
+          - "The photo is big."
+          - "The house is pretty."
+          - "There's a pretty photo."
+      - kind: speakLit
+        id: m-sp-1
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-bueno
+        target: "bueno"
+        distractors: ["malo", "viejo", "nuevo"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "la casa es vieja pero muy bonita"
+        en: "The house is old but very pretty"
+        atoms: ["la", "casa", "es", "vieja", "pero", "muy", "bonita"]
+        tiles: ["nueva", "mala"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "verde", emoji: "🟢" }
+        distractors:
+          - { surface: "azul", emoji: "🔵" }
+          - { surface: "el agua", emoji: "💧" }
+      - kind: buildLit
+        id: m-build-2
+        es: "el gato de Ana es pequeño y negro"
+        en: "Ana's cat is small and black"
+        atoms: ["el", "gato", "de", "es", "pequeño", "y", "negro"]
+        tiles: ["grande", "blanco"]
+      - kind: agreementLit
+        id: m-agr-1
+        segments:
+          - { blank: { id: "art", answer: "la", options: ["la", "el"] } }
+          - { text: " mesa es blanc" }
+          - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
+        en: "the table is white"
+        audioText: "la mesa es blanca"
+        atoms: ["la", "mesa", "es", "blanca"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "el perro es malo"
+        en: "the dog is bad"
+        blank: "malo"
+        options: ["malo", "bueno"]
+        atoms: ["el", "perro", "es", "malo"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "bonito", target: "pretty" }
+          - { source: "viejo", target: "old" }
+          - { source: "pero", target: "but" }
+          - { source: "el carro", target: "the car" }
+          - { source: "una llave", target: "a key" }
+          - { source: "mi familia", target: "my family" }
+      - kind: sim
+        id: m-sim-diegovisits
+        scene: { emoji: "🏠", title: "Diego visits", setting: "Diego walks through your house, pointing at everything." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Tu casa es bonita. ¿Nueva?", audioText: "tu casa es bonita. ¿nueva?", gloss: "Your house is pretty. New?" }
+            goal: "Say yes, very new."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, muy nueva" }
+                - { id: "wrong1", text: "no, es vieja" }
+                - { id: "wrong2", text: "es pequeña" }
+              correctOptionId: "right"
+              audioText: "sí, muy nueva"
+            replyGloss: "Yes, very new."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿El carro es de María?", audioText: "¿el carro es de María?", gloss: "Is the car María's?" }
+            goal: "Say no, it's Ana's."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, es de Ana" }
+                - { id: "wrong1", text: "sí, es de María" }
+                - { id: "wrong2", text: "es un carro" }
+              correctOptionId: "right"
+              audioText: "no, es de Ana"
+            replyGloss: "No, it's Ana's."
+          - id: t3
+            npc: { speaker: "Diego", es: "¡Muy bonito! ¿Grande o pequeño?", audioText: "¡muy bonito! ¿grande o pequeño?", gloss: "Very pretty! Big or small?" }
+            goal: "Say it's big and new."
+            reply:
+              mode: build
+              tiles: ["es", "grande", "y", "nuevo", "viejo"]
+              answer: "es grande y nuevo"
+            replyGloss: "It's big and new."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Perfecto! Hasta luego.", audioText: "¡perfecto! hasta luego.", gloss: "Perfect! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m6-scr-1"
+      prompt: "Which one means 'big'?"
+      correct: "grande"
+      distractors: ["pequeño", "bonito", "viejo"]
+  byModule:
+    - id: "es-m6-pl-1"
+      prompt: "The red car."
+      correct: "el carro rojo"
+      distractors: ["el rojo carro", "el carro roja", "los carro rojo"]
+    - id: "es-m6-pl-2"
+      prompt: "The house is pretty."
+      correct: "la casa es bonita"
+      distractors: ["la casa es bonito", "el casa es bonita", "la casa bonita es"]
+    - id: "es-m6-pl-3"
+      prompt: "The car is old but good."
+      correct: "el carro es viejo pero bueno"
+      distractors: ["el carro es viejo y bueno", "el carro es viejo o bueno", "el carro es bueno pero malo"]
+    - id: "es-m6-pl-4"
+      prompt: "The car is very pretty."
+      correct: "el carro es muy bonito"
+      distractors: ["el carro es muy bonita", "el carro muy es bonito", "el carro es muy muy bonito"]
+    - id: "es-m6-pl-5"
+      prompt: "The table is blue."
+      correct: "la mesa es azul"
+      distractors: ["la mesa es azula", "la mesa azul es", "el mesa es azul"]

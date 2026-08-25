@@ -682,7 +682,15 @@ export function registerEsModuleBarGuards(opts: {
             // per module. inv 44 bans only ENGLISH-prompted reuse, where the
             // picture answers the question (2026-08-21).
             const audioPrompted = options.some((o) => o.word === (s.meaningEn as string));
-            const toks = esTokens(correct);
+            // §13.4 (2026-08-24, m3): debut surfaces WEAR their article
+            // («la casa», never bare «casa»), and the article itself is
+            // known from the first article lesson on. Judge first-exposure
+            // by the HEAD tokens — a leading article never makes a debut
+            // "already known".
+            const ARTICLE_TOKENS = new Set(["el", "la", "un", "una", "los", "las"]);
+            const toks = esTokens(correct).filter(
+              (t, i) => !(i === 0 && ARTICLE_TOKENS.has(t)),
+            );
             if (!audioPrompted && toks.some((t) => knownAtLessonStart.has(t))) {
               failures.push({
                 lessonId: lesson.id,
@@ -730,6 +738,7 @@ export function registerEsModuleBarGuards(opts: {
     });
 
     it("vocab provenance: no untracked words; module-new words debut on intro-capable steps (inv 24/33)", () => {
+      const ES_FABRICATED_TRAPS = new Set(["azula", "verda", "granda"]);
       const unknown: string[] = [];
       const canonOf = getEsPluralCanon();
       const genderOf = getEsGenderCanon();
@@ -747,6 +756,11 @@ export function registerEsModuleBarGuards(opts: {
                 ? raw
                 : (canonOf.get(raw) ?? genderOf.get(raw) ?? raw);
               if (ES_FUNCTION_WORDS.has(t) || ES_PROPER_NAMES.has(t)) continue;
+              // Fabricated agreement traps (m6+, §13.9 law 4): wrong-flips
+              // like «azula» exist ONLY as cloze distractors teaching that a
+              // word does NOT flip. Non-words by design — the modules' own
+              // pins assert they never appear as correct surfaces.
+              if (ES_FABRICATED_TRAPS.has(t)) continue;
               if (!VOCAB.has(t)) {
                 unknown.push(`untracked word "${raw}" in ${lesson.id}/${step.id} ("${surf.slice(0, 50)}")`);
                 continue;

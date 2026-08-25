@@ -1,0 +1,1304 @@
+module: m4
+title: "¿Dónde está? — find anything, anywhere in the house"
+frame: none
+throughModule: m3
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m4 — «¿Dónde está?»: existence vs location, rooms, plurals, two
+# honest exceptions. Second §13-doctrine IR module (m3 is the exemplar).
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m4 — ¿Dónde está?"). 12 atoms:
+# está, dónde, allí, los, las, mesa, cama, baño, cocina, agua, cuarto,
+# foto. Nothing added, dropped or renamed against that spec.
+#
+# DOCTRINE NOTES:
+#   - Contrast card (L1): «hay» says something EXISTS; «está» says WHERE
+#     it is. «hay una llave» / «la llave está en la mesa». Every sim in
+#     the module re-tests this as a three-way trap (es = identity, hay =
+#     existence, está = location) — the same distractor shape recurs by
+#     design, not by accident.
+#   - «están» is BANNED module-wide — plurals ride «hay» (+ a number or
+#     un/una), never a plural + estar construction. Consequence: los/las
+#     are taught and drilled as bare definite noun phrases (el libro →
+#     los libros) and as hay-adjacent counting nouns, but the module
+#     never asks "where ARE the things" — only "where IS the thing"
+#     (singular) or "how many things exist" (hay + plural). This
+#     boundary is stated explicitly in the L4 sim's explanation line.
+#   - The plural rule (-s + los/las) is STATED in L4 as the callback m3
+#     promised: m3 noticed «hay dos libros» silently; this module says
+#     why. ocho/nueve/diez (m1 atoms, never spent since m1) finally do
+#     real work, always inside «hay + number + noun» sentences.
+#   - Two honest exceptions get their own card + cash beat: «el agua»
+#     (feminine noun, but singular pairs with EL — the a-a collision
+#     card, L5) and «la foto» (-o ending, but a la-word — short for
+#     «fotografía», L5). No adjectives exist yet, so both exceptions
+#     stay inside «X está en Y» / «es de Z» sentences — never a
+#     description.
+#   - mesa and cuarto have no honest emoji. Both debut by MAP
+#     ELIMINATION (one new word against an otherwise-fully-taught
+#     sentence) — never imageMcq, never a pretest. cama/baño/cocina/
+#     agua/foto debut by imageMcq (all have honest art).
+#   - Nouns wear their article on every surface («la mesa», never bare
+#     «mesa»); atoms stay bare with `gender` (m3 registry convention).
+#   - Discrimination lanes (§13.9 law 4, alternating, both halves live):
+#     está/es clozes (7 está-correct : 5 es-correct across the module),
+#     aquí/allí by EAR (2 aquí-target : 3 allí-target), los/las clozes
+#     (4 los-correct : 6 las-correct, +1 los via textMcq in L10 to hold
+#     the checkpoint-lesson cloze-share ceiling — noted at that step).
+#   - Cast: Ana (loses things — the m3 gag continues into her own
+#     rooms), Diego (the m3 wallet gag's owner, now his date-night
+#     panic), Sofía, María (all established); Carmen not yet on stage
+#     (m7). Learner = Sam. Titles are promises; L1 states the module
+#     promise; mastery ends on Diego's phone call.
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   ¿dónde está? L1 · está en la mesa L1 · la cocina L2 · allí L3 ·
+#   el agua L5 · la foto L5
+#   m4-internal recalls drawn from the above: ¿dónde está? (L8, L10),
+#   el agua (L8), está en la mesa (L8)
+#   POST-SIM-WALK FIX ROUND (2026-08-25, see es-m4-FINDINGS): +printed
+#   «¿dónde está el celular?» (L6); los/las now PRODUCED (possession
+#   builds L4/L6); hay/está gets its own cloze lane (L6 hay, L7 está);
+#   cp retests el-agua's article + swaps a free m1 ear for a soy check;
+#   L10's call differs from L9's date (cuarto + agua-existence beats).
+#   cross-module (licensed by m1/m3 printed voicings): una llave (L2),
+#   ¿qué es? (L3), hay dos libros (L4), el dinero (L5),
+#   hay una silla aquí (L6), la puerta (L7), la casa (L9)
+newAtoms:
+  - { surface: "está", meaningEn: "is (somewhere)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "dónde", meaningEn: "where", partOfSpeech: "adverb", kind: "vocab", hint: "DON-deh" }
+  - { surface: "mesa", meaningEn: "table", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "cama", meaningEn: "bed", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🛏️" }
+  - { surface: "baño", meaningEn: "bathroom", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚽", hint: "ny sound from ñ: BA-nyo" }
+  - { surface: "cocina", meaningEn: "kitchen", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍳", hint: "soft c, like cero: ko-SEE-na" }
+  - { surface: "cuarto", meaningEn: "room", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "allí", meaningEn: "there", partOfSpeech: "adverb", kind: "vocab", hint: "ll sounds like y, just like llave: a-YEE" }
+  - { surface: "los", meaningEn: "the (el-words, plural)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "las", meaningEn: "the (la-words, plural)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "agua", meaningEn: "water", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "💧", hint: "feminine word — but singular pairs with EL: el agua" }
+  - { surface: "foto", meaningEn: "photo", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📷", hint: "ends in -o but it's a la-word — short for fotografía" }
+
+lessons:
+  # ── L1 · hay vs está + mesa/cama debuts. States the module promise. ──
+  - n: 1
+    template: free
+    title: "Say where it is"
+    description: "«hay» says something exists — «está» says exactly where it is. Learn both, and find anything."
+    steps:
+      - kind: info
+        id: info-hayesta
+        title: "Two different questions"
+        body: "«hay» says something EXISTS — «hay una llave». «está» says WHERE — «la llave está aquí», «está en la casa» («en» stretches from in to on: one word). And m2's «es» still NAMES things: «es un lápiz», «la llave es de Ana» — Ana's. Three jobs, three words. This module: find anything in the house, and say exactly where it is."
+      - kind: map
+        id: map-llaveaqui
+        tokens: ["la", "llave", "está", "aquí"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "key", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "la llave está aquí"
+        revealNote: "«la», «llave», «aquí» are all yours from m3 — «está» is the new one, and now you have it too."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: clozeLit
+        id: c-estaes1
+        es: "la llave está aquí"
+        en: "the key is here"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["la", "llave", "está", "aquí"]
+        why: "«es» would tell you WHAT it is; you already know what it is — you need WHERE, so «está»."
+      - kind: map
+        id: map-dondellave
+        tokens: ["¿dónde", "está", "la", "llave?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "key", tokenIndex: 3 }
+        audioText: "¿dónde está la llave?"
+        revealNote: "Same «está» you just met — «dónde» just asks the question first."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-dondeesta
+        es: "¿dónde está?"
+        en: "where is it?"
+        atoms: ["dónde", "está"]
+      - kind: imageMcq
+        id: d-cama
+        target: { surface: "la cama", meaningEn: "the bed", emoji: "🛏️" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el celular", emoji: "📱" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: speakLit
+        id: sp-lacama
+        es: "la cama"
+        en: "the bed"
+        atoms: ["la", "cama"]
+      - kind: map
+        id: map-llavemesa
+        tokens: ["la", "llave", "está", "en", "la", "mesa"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "key", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "on", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "table", tokenIndex: 5 }
+        audioText: "la llave está en la mesa"
+        revealNote: "la, llave, está, en are all yours — mesa is the only stranger, and the ending gives it away: -a, so la mesa, just like casa."
+        tokenGenders: { 0: "f", 1: "f", 4: "f", 5: "f" }
+      - kind: speakLit
+        id: sp-estaenlamesa
+        es: "está en la mesa"
+        en: "it's on the table"
+        atoms: ["está", "en", "la", "mesa"]
+      - kind: buildLit
+        id: b-camaaqui
+        es: "la cama está aquí"
+        en: "The bed is here"
+        atoms: ["la", "cama", "está", "aquí"]
+        tiles: ["el", "mesa"]
+      - kind: audioWimcq
+        id: ear-review1
+        target: { surface: "una llave", emoji: "🔑" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: listenCompLit
+        id: lc-dondellave
+        es: "¿dónde está la llave?"
+        en: "Where's the key?"
+        atoms: ["dónde", "está", "la", "llave"]
+        distractorsEn:
+          - "What is it?"
+          - "Where's the house?"
+          - "Is there a key?"
+      - kind: clozeLit
+        id: c-estaes2
+        es: "es un lápiz"
+        en: "it's a pencil"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["es", "un", "lápiz"]
+        why: "«¿qué es?» asks WHAT — «es» answers that. «está» would ask WHERE, and that's not the question here."
+      - kind: sim
+        id: sim-lapiz-mesa
+        scene: { emoji: "✏️", title: "Diego's desk", setting: "Diego taps the table, looking for his pencil." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está el lápiz?", audioText: "¿dónde está el lápiz?", gloss: "Where's the pencil?" }
+            goal: "Tell him — it's on the table."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está en la mesa" }
+                - { id: "wrong1", text: "es un lápiz" }
+                - { id: "wrong2", text: "hay un lápiz" }
+              correctOptionId: "right"
+              audioText: "está en la mesa"
+            replyGloss: "It's on the table."
+            explanation: "«es» would name it, «hay» would just claim it exists — you were asked WHERE, so «está» wins."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la mesa", target: "the table" }
+          - { source: "la cama", target: "the bed" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "dónde", target: "where" }
+          - { source: "una llave", target: "a key" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "la llave está en la mesa"
+        en: "the key's on the table"
+        atoms: ["la", "llave", "está", "en", "la", "mesa"]
+
+  # ── L2 · rooms (baño/cocina/cuarto) — Ana loses her keys AGAIN. ──────
+  - n: 2
+    template: free
+    title: "Every room has a name"
+    description: "Rooms get their own words — and Ana loses her keys again."
+    steps:
+      - kind: imageMcq
+        id: d-bano
+        target: { surface: "el baño", meaningEn: "the bathroom", emoji: "🚽" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el celular", emoji: "📱" }
+      - kind: speakLit
+        id: sp-elbano
+        es: "el baño"
+        en: "the bathroom"
+        atoms: ["el", "baño"]
+      - kind: imageMcq
+        id: d-cocina
+        target: { surface: "la cocina", meaningEn: "the kitchen", emoji: "🍳" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: speakLit
+        id: sp-lacocina
+        es: "la cocina"
+        en: "the kitchen"
+        atoms: ["la", "cocina"]
+      - kind: clozeLit
+        id: c-lacocina
+        es: "la cocina está aquí"
+        en: "the kitchen is here"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "cocina", "está", "aquí"]
+        why: "cocina ends in -a: la."
+      - kind: map
+        id: map-cuarto
+        tokens: ["hay", "un", "cuarto", "aquí"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "room", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "hay un cuarto aquí"
+        revealNote: "hay, un, aquí — all yours. cuarto is the only new face: a room in general (baño and cocina are specific ones)."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: buildLit
+        id: b-hayunacocina
+        es: "hay una cocina aquí"
+        en: "There's a kitchen here"
+        atoms: ["hay", "una", "cocina", "aquí"]
+        tiles: ["el", "la"]
+      - kind: audioWimcq
+        id: ear-banococina
+        target: { surface: "el baño", emoji: "🚽" }
+        distractors:
+          - { surface: "la cocina", emoji: "🍳" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: clozeLit
+        id: c-estaes-bano
+        es: "el baño está aquí"
+        en: "the bathroom is here"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["el", "baño", "está", "aquí"]
+        why: "«es» would name the room; you already see it — you need WHERE, so «está»."
+      - kind: listenCompLit
+        id: lc-cuarto
+        es: "hay un cuarto aquí"
+        en: "There's a room here."
+        atoms: ["hay", "un", "cuarto", "aquí"]
+        distractorsEn:
+          - "There's a kitchen here."
+          - "There's a bathroom here."
+          - "There are two rooms here."
+      - kind: speakLit
+        id: sp-recall-unallave
+        es: "una llave"
+        en: "a key"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-anakeys2
+        scene: { emoji: "🔑", title: "Ana again", setting: "Ana pats her pockets by the bathroom door." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Ay! ¿Dónde está la llave?", audioText: "¡ay! ¿dónde está la llave?", gloss: "Argh! Where's the key?" }
+            goal: "Take a guess — the bathroom."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está en el baño" }
+                - { id: "wrong1", text: "es un baño" }
+                - { id: "wrong2", text: "hay un baño" }
+              correctOptionId: "right"
+              audioText: "está en el baño"
+            replyGloss: "It's in the bathroom."
+            explanation: "«es» would name the room, «hay» would just say a bathroom exists — you're pointing at WHERE, so «está» wins again."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Gracias! ¿Y el celular?", audioText: "¡gracias! ¿y el celular?", gloss: "Thanks! And the phone?" }
+            goal: "It's in the kitchen."
+            reply:
+              mode: build
+              tiles: ["está", "en", "la", "cocina", "es", "hay"]
+              answer: "está en la cocina"
+              alsoAccepted: ["en la cocina"]
+            replyGloss: "It's in the kitchen."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el baño", target: "the bathroom" }
+          - { source: "la cocina", target: "the kitchen" }
+          - { source: "un cuarto", target: "a room" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "una llave", target: "a key" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "está en la cocina"
+        en: "it's in the kitchen"
+        atoms: ["está", "en", "la", "cocina"]
+
+  # ── L3 · aquí vs allí — the second "here". ───────────────────────────
+  - n: 3
+    template: free
+    title: "Here — or over there"
+    description: "«allí» is aquí's far partner — tell them apart by ear."
+    steps:
+      - kind: info
+        id: info-aquiuallí
+        title: "Two heres"
+        body: "«aquí» — right here. «allí» — over there, farther off (ll sounds like y, just like llave: a-YEE). Same «está» question, two different answers."
+      - kind: map
+        id: map-allidebut
+        tokens: ["la", "llave", "está", "allí"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "key", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "there", tokenIndex: 3 }
+        audioText: "la llave está allí"
+        revealNote: "Just like the card said — same «está», new place word."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: speakLit
+        id: sp-alli
+        es: "allí"
+        en: "there"
+        atoms: ["allí"]
+      - kind: audioWimcq
+        id: ear-aquiualli1
+        target: { surface: "aquí", emoji: "📍" }
+        distractors:
+          - { surface: "allí", emoji: "👉" }
+          - { surface: "hay", emoji: "🫴" }
+      - kind: clozeLit
+        id: c-estaes3
+        es: "la puerta está allí"
+        en: "the door is there"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["la", "puerta", "está", "allí"]
+        why: "You're pointing at WHERE the door is — «está», not «es»."
+      - kind: buildLit
+        id: b-camaalli
+        es: "la cama está allí"
+        en: "The bed is there"
+        atoms: ["la", "cama", "está", "allí"]
+        tiles: ["el", "aquí"]
+      - kind: audioWimcq
+        id: ear-aquiualli2
+        target: { surface: "allí", emoji: "👉" }
+        distractors:
+          - { surface: "aquí", emoji: "📍" }
+          - { surface: "la cocina", emoji: "🍳" }
+      - kind: listenCompLit
+        id: lc-mesaalli
+        es: "la mesa está allí"
+        en: "The table's over there."
+        atoms: ["la", "mesa", "está", "allí"]
+        distractorsEn:
+          - "The table's here."
+          - "The bed's over there."
+          - "There's a table there."
+      - kind: speakLit
+        id: sp-recall-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-alli
+        scene: { emoji: "👉", title: "Sofía points", setting: "Sofía points across the room." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Está aquí o allí?", audioText: "¿está aquí o allí?", gloss: "Is it here or there?" }
+            goal: "Say — it's over there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está allí" }
+                - { id: "wrong1", text: "está aquí" }
+                - { id: "wrong2", text: "es allí" }
+              correctOptionId: "right"
+              audioText: "está allí"
+            replyGloss: "It's over there."
+            explanation: "aquí/allí is about distance, not identity — «es» never plays here."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "allí", target: "there" }
+          - { source: "aquí", target: "here" }
+          - { source: "una llave", target: "a key" }
+          - { source: "el baño", target: "the bathroom" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "buenos días", target: "good morning" }
+      - kind: speakLit
+        id: sp-win
+        es: "la llave está allí"
+        en: "the key's over there"
+        atoms: ["la", "llave", "está", "allí"]
+
+  # ── L4 · one becomes many — los/las + the plural rule + big numbers. ─
+  - n: 4
+    template: free
+    title: "One becomes many"
+    description: "El libro becomes los libros — the -s you noticed in m3 finally gets its rule, and ocho/nueve/diez go to work."
+    steps:
+      - kind: info
+        id: info-plural
+        title: "One becomes many"
+        body: "Add -s, and the article grows with it: el libro → los libros, la llave → las llaves. You noticed the -s back in m3's «hay dos libros» — now you know why: los and las ride along."
+      - kind: clozeLit
+        id: c-loscuartos
+        es: "los cuartos"
+        en: "the rooms"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["los", "cuarto"]
+      - kind: speakLit
+        id: sp-loslibros
+        es: "los libros"
+        en: "the books"
+        atoms: ["los", "libro"]
+      - kind: clozeLit
+        id: c-lascamas4
+        es: "las camas"
+        en: "the beds"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["las", "cama"]
+      - kind: speakLit
+        id: sp-lasllaves
+        es: "las llaves"
+        en: "the keys"
+        atoms: ["las", "llave"]
+      - kind: buildLit
+        id: b-hayochollaves
+        es: "hay ocho llaves"
+        en: "There are eight keys"
+        atoms: ["hay", "ocho", "llave"]
+        tiles: ["nueve", "diez"]
+      - kind: audioWimcq
+        id: ear-numeros1
+        target: { surface: "nueve", emoji: "9️⃣" }
+        distractors:
+          - { surface: "ocho", emoji: "8️⃣" }
+          - { surface: "diez", emoji: "🔟" }
+      - kind: listenBuildLit
+        id: lb-nuevellaves
+        es: "hay nueve llaves en la casa"
+        en: "There are nine keys in the house"
+        atoms: ["hay", "nueve", "llave", "en", "la", "casa"]
+        tiles: ["ocho", "diez"]
+      - kind: buildLit
+        id: b-loslibrosana
+        es: "los libros de Ana"
+        en: "Ana's books"
+        atoms: ["los", "libro", "de"]
+        tiles: ["las", "el"]
+      - kind: speakLit
+        id: sp-recall-haydoslibros
+        es: "hay dos libros"
+        en: "there are two books"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diezllaves
+        scene: { emoji: "🧮", title: "Ana counts them all", setting: "Ana lines up every key she owns on the table." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay diez llaves?", audioText: "¿hay diez llaves?", gloss: "Are there ten keys?" }
+            goal: "Correct her — nine."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — hay nueve llaves" }
+                - { id: "wrong1", text: "sí — hay diez llaves" }
+                - { id: "wrong2", text: "hay las llaves" }
+              correctOptionId: "right"
+              audioText: "no, hay nueve llaves"
+            replyGloss: "No — there are nine keys."
+            explanation: "«hay las llaves» is the trap — «hay» takes a number or un/una, never los/las. THE keys is a pointing phrase; you'll point at where they are soon enough."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "los libros", target: "the books" }
+          - { source: "las llaves", target: "the keys" }
+          - { source: "ocho", target: "eight" }
+          - { source: "nueve", target: "nine" }
+          - { source: "diez", target: "ten" }
+          - { source: "la cocina", target: "the kitchen" }
+      - kind: speakLit
+        id: sp-win
+        es: "hay nueve llaves"
+        en: "there are nine keys"
+        atoms: ["hay", "nueve", "llave"]
+
+  # ── L5 · agua + foto — the two rule-breakers. ────────────────────────
+  - n: 5
+    template: free
+    title: "The rule-breakers"
+    description: "Agua is feminine but takes el; foto ends in -o but stays la. Meet the exceptions."
+    steps:
+      - kind: info
+        id: info-exceptions
+        title: "Two words that break the rule"
+        body: "«agua» is feminine — but «la agua» crashes two a-sounds together, so Spanish swaps in «el agua» for the singular. «foto» ends in -o but is short for a longer la-word — the -o lies just this once."
+      - kind: imageMcq
+        id: d-agua
+        target: { surface: "el agua", meaningEn: "the water", emoji: "💧" }
+        distractors:
+          - { surface: "la cocina", emoji: "🍳" }
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: clozeLit
+        id: c-elagua
+        es: "el agua está en la cocina"
+        en: "the water is in the kitchen"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "agua", "está", "en", "la", "cocina"]
+        why: "agua is feminine, but two a-sounds crashing (la agua) is why Spanish swaps in el for the singular."
+      - kind: speakLit
+        id: sp-elagua
+        es: "el agua"
+        en: "the water"
+        atoms: ["el", "agua"]
+      - kind: imageMcq
+        id: d-foto
+        target: { surface: "la foto", meaningEn: "the photo", emoji: "📷" }
+        distractors:
+          - { surface: "el agua", emoji: "💧" }
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: clozeLit
+        id: c-lafoto
+        es: "la foto"
+        en: "the photo"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "foto"]
+        why: "foto is short for a longer la-word — the -o lies just this once."
+      - kind: speakLit
+        id: sp-lafoto
+        es: "la foto"
+        en: "the photo"
+        atoms: ["la", "foto"]
+      - kind: audioWimcq
+        id: ear-review-dinero
+        target: { surface: "el dinero", emoji: "💰" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "el celular", emoji: "📱" }
+      - kind: buildLit
+        id: b-tresfotos
+        es: "hay tres fotos aquí"
+        en: "There are three photos here"
+        atoms: ["hay", "tres", "foto", "aquí"]
+        tiles: ["las", "los"]
+      - kind: clozeLit
+        id: c-lasfotos
+        es: "las fotos"
+        en: "the photos"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["las", "foto"]
+      - kind: listenCompLit
+        id: lc-aguacocina
+        es: "el agua está en la cocina"
+        en: "The water's in the kitchen."
+        atoms: ["el", "agua", "está", "en", "la", "cocina"]
+        distractorsEn:
+          - "The water's in the bathroom."
+          - "There's water in the kitchen."
+          - "The photo's in the kitchen."
+      - kind: speakLit
+        id: sp-recall-eldinero
+        es: "el dinero"
+        en: "the money"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-foto
+        scene: { emoji: "📷", title: "Sofía's photo", setting: "Sofía holds up a photo, grinning." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Qué es?", audioText: "¿qué es?", gloss: "What is it?" }
+            goal: "Name it — a photo."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es una foto" }
+                - { id: "wrong1", text: "es un foto" }
+                - { id: "wrong2", text: "hay una foto" }
+              correctOptionId: "right"
+              audioText: "es una foto"
+            replyGloss: "It's a photo."
+            explanation: "foto keeps its -a-word status even though it ends in -o — «un foto» is the trap. And you were asked WHAT, so «es», not «hay»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Dónde está el agua?", audioText: "¿dónde está el agua?", gloss: "Where's the water?" }
+            goal: "It's in the kitchen."
+            reply:
+              mode: build
+              tiles: ["está", "en", "la", "cocina", "es", "el"]
+              answer: "está en la cocina"
+              alsoAccepted: ["en la cocina"]
+            replyGloss: "It's in the kitchen."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el agua", target: "the water" }
+          - { source: "la foto", target: "the photo" }
+          - { source: "la cocina", target: "the kitchen" }
+          - { source: "las llaves", target: "the keys" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "la puerta", target: "the door" }
+      - kind: speakLit
+        id: sp-win
+        es: "el agua está en la cocina"
+        en: "the water's in the kitchen"
+        atoms: ["el", "agua", "está", "en", "la", "cocina"]
+
+  # ── L6 · integration — the phone hunt (zero new). ────────────────────
+  - n: 6
+    template: free
+    title: "The phone hunt"
+    description: "No new words — Diego's celular is missing, and everything you know finds it."
+    steps:
+      - kind: map
+        id: map-dondecelular
+        tokens: ["¿dónde", "está", "el", "celular?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "phone", tokenIndex: 3 }
+        audioText: "¿dónde está el celular?"
+        revealNote: "Every word here is already yours — read it like a sentence, not a puzzle."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: clozeLit
+        id: c-estaes4
+        es: "el celular está en la cama"
+        en: "the phone is on the bed"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["el", "celular", "está", "en", "la", "cama"]
+        why: "You're saying WHERE it is — «está»."
+      - kind: speakLit
+        id: sp-dondecelular
+        es: "¿dónde está el celular?"
+        en: "where's the phone?"
+        atoms: ["dónde", "está", "el", "celular"]
+      - kind: audioWimcq
+        id: ear-aquiualli3
+        target: { surface: "allí", emoji: "👉" }
+        distractors:
+          - { surface: "aquí", emoji: "📍" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: buildLit
+        id: b-lasllavesana
+        es: "las llaves de Ana"
+        en: "Ana's keys"
+        atoms: ["las", "llave", "de"]
+        tiles: ["los", "la"]
+      - kind: clozeLit
+        id: c-hayesta1
+        es: "hay dos fotos allí"
+        en: "there are two photos over there"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["hay", "dos", "foto", "allí"]
+        why: "Counting things into existence — that's «hay». «está» would point at ONE known thing."
+      - kind: buildLit
+        id: b-fotoalli
+        es: "la foto está allí"
+        en: "The photo's over there"
+        atoms: ["la", "foto", "está", "allí"]
+        tiles: ["el", "aquí"]
+      - kind: listenBuildLit
+        id: lb-ochofotos
+        es: "hay ocho fotos en el cuarto"
+        en: "There are eight photos in the room"
+        atoms: ["hay", "ocho", "foto", "en", "el", "cuarto"]
+        tiles: ["nueve", "los"]
+      - kind: audioWimcq
+        id: ear-review-tardes
+        target: { surface: "buenas tardes", emoji: "☀️" }
+        distractors:
+          - { surface: "buenas noches", emoji: "🌙" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: clozeLit
+        id: c-estaes5
+        es: "la foto es de Sofía"
+        en: "the photo is Sofía's"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["la", "foto", "es", "de"]
+        why: "«de + name» = belongs-to, the m3 pattern (recall «la llave es de Ana») — that's identity, so «es», not «está»."
+      - kind: speakLit
+        id: sp-recall-sillaaqui
+        es: "hay una silla aquí"
+        en: "there's a chair here"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-huntcelular
+        scene: { emoji: "📱", title: "The phone hunt", setting: "Diego can't find his phone; Ana's already checked the kitchen." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está el celular?", audioText: "¿dónde está el celular?", gloss: "Where's the phone?" }
+            goal: "Ana checked the kitchen — try the bed."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está en la cama" }
+                - { id: "wrong1", text: "está en la cocina" }
+                - { id: "wrong2", text: "es un celular" }
+              correctOptionId: "right"
+              audioText: "está en la cama"
+            replyGloss: "It's on the bed."
+            explanation: "The setting already ruled out the kitchen — Ana checked there. The bed's the only place left."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Perfecto! ¿Y las fotos?", audioText: "¡perfecto! ¿y las fotos?", gloss: "Perfect! And the photos?" }
+            goal: "Two of them, over there."
+            reply:
+              mode: build
+              tiles: ["hay", "dos", "fotos", "allí", "en", "la"]
+              answer: "hay dos fotos allí"
+              alsoAccepted: ["hay dos fotos", "dos fotos allí"]
+            replyGloss: "There are two, over there."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y hay dinero aquí?", audioText: "¿y hay dinero aquí?", gloss: "And is there any money here? (It's Diego. Of course there isn't.)" }
+            goal: "Break it to him. Again."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — no hay" }
+                - { id: "wrong1", text: "sí — hay dinero" }
+                - { id: "wrong2", text: "está en la mesa" }
+              correctOptionId: "right"
+              audioText: "no, no hay"
+            replyGloss: "No — there isn't. (Some things never change.)"
+            explanation: "m3's «no hay» still does the job — and the wallet gag lives on."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el celular", target: "the phone" }
+          - { source: "la cama", target: "the bed" }
+          - { source: "las fotos", target: "the photos" }
+          - { source: "allí", target: "there" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "el baño", target: "the bathroom" }
+      - kind: speakLit
+        id: sp-win
+        es: "el celular está en la cama"
+        en: "the phone's on the bed"
+        atoms: ["el", "celular", "está", "en", "la", "cama"]
+
+  # ── L7 · count and locate — zero-new workout. ────────────────────────
+  - n: 7
+    template: free
+    title: "Count and locate"
+    description: "No new words — count everything in the room, then say where it is."
+    steps:
+      - kind: map
+        id: map-diezllavescuarto
+        tokens: ["hay", "diez", "llaves", "en", "el", "cuarto"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "ten", tokenIndex: 1 }
+          - { en: "keys", tokenIndex: 2 }
+          - { en: "in", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "room", tokenIndex: 5 }
+        audioText: "hay diez llaves en el cuarto"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 2: "f", 4: "m", 5: "m" }
+      - kind: clozeLit
+        id: c-estaes6
+        es: "es una foto"
+        en: "it's a photo"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["es", "una", "foto"]
+        why: "«¿qué es?» asks WHAT — «es» answers it, not «está»."
+      - kind: buildLit
+        id: b-nuevefotoscama
+        es: "hay nueve fotos en la cama"
+        en: "There are nine photos on the bed"
+        atoms: ["hay", "nueve", "foto", "en", "la", "cama"]
+        tiles: ["diez", "los"]
+      - kind: audioWimcq
+        id: ear-numeros2
+        target: { surface: "ocho", emoji: "8️⃣" }
+        distractors:
+          - { surface: "nueve", emoji: "9️⃣" }
+          - { surface: "cinco", emoji: "5️⃣" }
+      - kind: listenBuildLit
+        id: lb-dosbanos
+        es: "hay dos baños en la casa"
+        en: "There are two bathrooms in the house"
+        atoms: ["hay", "dos", "baño", "en", "la", "casa"]
+        tiles: ["los", "tres"]
+      - kind: listenCompLit
+        id: lc-camaaqui
+        es: "la cama está aquí"
+        en: "The bed's here."
+        atoms: ["la", "cama", "está", "aquí"]
+        distractorsEn:
+          - "The bed's over there."
+          - "There's a bed here."
+          - "The chair's here."
+      - kind: speakLit
+        id: sp-recall-puerta
+        es: "la puerta"
+        en: "the door"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: c-hayesta2
+        es: "la pluma está en la mesa"
+        en: "the pen is on the table"
+        blank: "está"
+        options: ["está", "hay"]
+        atoms: ["la", "pluma", "está", "en", "mesa"]
+        why: "THE pen — a known thing being located. «hay» only counts new things into the room."
+      - kind: sim
+        id: sim-mariapluma
+        scene: { emoji: "🖊️", title: "María visits", setting: "María, from the bus, stops by to borrow a pen." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Hay una pluma aquí?", audioText: "¿hay una pluma aquí?", gloss: "Is there a pen here?" }
+            goal: "Point her to the table."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí — está en la mesa" }
+                - { id: "wrong1", text: "es una pluma" }
+                - { id: "wrong2", text: "no — no hay" }
+              correctOptionId: "right"
+              audioText: "sí, está en la mesa"
+            replyGloss: "It's on the table."
+            explanation: "Her «hay» asked if one exists — your answer upgrades it: it exists, AND here's where. That hay→está handoff is the whole module."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "hay", target: "there is / there are" }
+          - { source: "diez", target: "ten" }
+          - { source: "la mesa", target: "the table" }
+          - { source: "el cuarto", target: "the room" }
+          - { source: "aquí", target: "here" }
+          - { source: "una pluma", target: "a pen" }
+      - kind: speakLit
+        id: sp-win
+        es: "hay diez llaves en el cuarto"
+        en: "there are ten keys in the room"
+        atoms: ["hay", "diez", "llave", "en", "el", "cuarto"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ──────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every place, every pair"
+    description: "Every discrimination, every place, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "¿dónde está el agua?"
+        en: "Where's the water?"
+        atoms: ["dónde", "está", "el", "agua"]
+        distractorsEn:
+          - "Where's the kitchen?"
+          - "What is it?"
+          - "Is there water?"
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la foto", emoji: "📷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "la mesa es de Diego"
+        en: "the table is Diego's"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["la", "mesa", "es", "de"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "hay ocho fotos en el baño"
+        en: "There are eight photos in the bathroom"
+        atoms: ["hay", "ocho", "foto", "en", "el", "baño"]
+        tiles: ["nueve", "los"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "las sillas"
+        en: "the chairs"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["las", "silla"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "aquí", emoji: "📍" }
+        distractors:
+          - { surface: "allí", emoji: "👉" }
+          - { surface: "la cocina", emoji: "🍳" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "hay nueve llaves en el cuarto"
+        en: "There are nine keys in the room"
+        atoms: ["hay", "nueve", "llave", "en", "el", "cuarto"]
+        tiles: ["ocho", "los"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿dónde está?"
+        en: "where is it?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "el celular está en la mesa"
+        en: "the phone is on the table"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["el", "celular", "está", "en", "la", "mesa"]
+      - kind: textMcq
+        id: cp-tm-soy
+        target: "soy"
+        distractors: ["eres", "es", "está"]
+        prompt: "Quick m2 check — «yo ___ de Estados Unidos». Which one?"
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "la foto está en la cocina"
+        en: "The photo's in the kitchen."
+        atoms: ["la", "foto", "está", "en", "la", "cocina"]
+        distractorsEn:
+          - "The photo's in the bathroom."
+          - "There's a photo in the kitchen."
+          - "The water's in the kitchen."
+      - kind: speakLit
+        id: cp-sp-2
+        es: "el agua"
+        en: "the water"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-c-elagua2
+        es: "el agua está allí"
+        en: "the water is over there"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "agua", "está", "allí"]
+        why: "Still feminine, still «el» in the singular — the two a-sounds rule holds."
+      - kind: buildLit
+        id: cp-build-2
+        es: "hay diez llaves aquí"
+        en: "There are ten keys here"
+        atoms: ["hay", "diez", "llave", "aquí"]
+        tiles: ["nueve", "las"]
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "los libros de Diego"
+        en: "Diego's books"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["los", "libro", "de"]
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "la mesa", target: "the table" }
+          - { source: "el agua", target: "the water" }
+          - { source: "la foto", target: "the photo" }
+          - { source: "los libros", target: "the books" }
+          - { source: "allí", target: "there" }
+          - { source: "hay", target: "there is / there are" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "está en la mesa"
+        en: "it's on the table"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — Diego's big date. ──────────────────────────────────
+  - n: 9
+    template: free
+    title: "Diego's big date"
+    description: "Diego has a date tonight and nothing is where it should be — help him find it all."
+    steps:
+      - kind: map
+        id: map-dondefoto
+        tokens: ["¿dónde", "está", "la", "foto?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "photo", tokenIndex: 3 }
+        audioText: "¿dónde está la foto?"
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: clozeLit
+        id: c-estaes7
+        es: "la foto está en el cuarto"
+        en: "the photo is in the room"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["la", "foto", "está", "en", "el", "cuarto"]
+      - kind: buildLit
+        id: b-nuevellavescasa
+        es: "hay nueve llaves en la casa"
+        en: "There are nine keys in the house"
+        atoms: ["hay", "nueve", "llave", "en", "la", "casa"]
+        tiles: ["ocho", "los"]
+      - kind: audioWimcq
+        id: ear-review-noches
+        target: { surface: "buenas noches", emoji: "🌙" }
+        distractors:
+          - { surface: "buenas tardes", emoji: "☀️" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: listenCompLit
+        id: lc-aguaalli
+        es: "el agua está allí"
+        en: "The water's over there."
+        atoms: ["el", "agua", "está", "allí"]
+        distractorsEn:
+          - "The water's here."
+          - "There's water there."
+          - "The photo's over there."
+      - kind: speakLit
+        id: sp-recall-lacasa
+        es: "la casa"
+        en: "the house"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: c-enloscuartos
+        es: "hay dos camas en los cuartos"
+        en: "there are two beds in the rooms"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["hay", "dos", "cama", "en", "los", "cuarto"]
+      - kind: listenBuildLit
+        id: lb-diezfotos
+        es: "hay diez fotos en la cocina"
+        en: "There are ten photos in the kitchen"
+        atoms: ["hay", "diez", "foto", "en", "la", "cocina"]
+        tiles: ["nueve", "las"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la foto", target: "the photo" }
+          - { source: "el agua", target: "the water" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "dónde", target: "where" }
+          - { source: "la puerta", target: "the door" }
+          - { source: "mucho gusto", target: "nice to meet you" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "💐", title: "Diego's big date", setting: "Diego has a date tonight and nothing is where it should be." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Ay! ¿Dónde está el celular?", audioText: "¡ay! ¿dónde está el celular?", gloss: "Ugh! Where's the phone?" }
+            goal: "You saw it — on the bed."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está en la cama" }
+                - { id: "wrong1", text: "es un celular" }
+                - { id: "wrong2", text: "hay un celular" }
+              correctOptionId: "right"
+              audioText: "está en la cama"
+            replyGloss: "It's on the bed."
+          - id: t2
+            npc: { speaker: "Diego", es: "¡Perfecto! ¿Y dónde está el agua?", audioText: "¡perfecto! ¿y dónde está el agua?", gloss: "Perfect! And where's the water?" }
+            goal: "In the kitchen, like always."
+            reply:
+              mode: build
+              tiles: ["está", "en", "la", "cocina", "es", "el"]
+              answer: "está en la cocina"
+              alsoAccepted: ["en la cocina"]
+            replyGloss: "It's in the kitchen."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Hay una foto aquí? ¡La necesito!", audioText: "¿hay una foto aquí? ¡la necesito!", gloss: "Is there a photo here? I need it!" }
+            goal: "Yes — there are two."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí — hay dos fotos" }
+                - { id: "wrong1", text: "no — no hay fotos" }
+                - { id: "wrong2", text: "es una foto" }
+              correctOptionId: "right"
+              audioText: "sí, hay dos fotos"
+            replyGloss: "Yes — there are two."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Gracias! Hasta luego, voy a mi cita.", audioText: "¡gracias! hasta luego, voy a mi cita.", gloss: "Thanks! See you later, I'm off to my date." }
+            goal: "Send him off."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "¿qué es?" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+  # ── L10 · mastery — Diego calls asking where his things are. ────────
+  - n: 10
+    template: free
+    title: "Prove it — then Diego calls"
+    description: "Every pair, every place, no help — and Diego's on the phone again."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "la llave está en el cuarto"
+        en: "the key is in the room"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["la", "llave", "está", "en", "el", "cuarto"]
+      - kind: buildLit
+        id: m-build-1
+        es: "hay diez llaves en la casa"
+        en: "There are ten keys in the house"
+        atoms: ["hay", "diez", "llave", "en", "la", "casa"]
+        tiles: ["nueve", "los"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "la cocina", emoji: "🍳" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "la foto es de María"
+        en: "the photo is María's"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["la", "foto", "es", "de"]
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "el agua está en la cocina"
+        en: "The water's in the kitchen."
+        atoms: ["el", "agua", "está", "en", "la", "cocina"]
+        distractorsEn:
+          - "The water's in the bathroom."
+          - "There's water in the kitchen."
+          - "The photo's in the kitchen."
+      - kind: speakLit
+        id: m-sp-1
+        es: "¿dónde está?"
+        en: "where is it?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-los
+        target: "los"
+        distractors: ["las", "el", "la"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "hay ocho fotos aquí"
+        en: "There are eight photos here"
+        atoms: ["hay", "ocho", "foto", "aquí"]
+        tiles: ["nueve", "las"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "allí", emoji: "👉" }
+        distractors:
+          - { surface: "aquí", emoji: "📍" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: buildLit
+        id: m-build-2
+        es: "hay nueve fotos en la cocina"
+        en: "There are nine photos in the kitchen"
+        atoms: ["hay", "nueve", "foto", "en", "la", "cocina"]
+        tiles: ["ocho", "los"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "las plumas"
+        en: "the pens"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["las", "pluma"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "la llave", target: "the key" }
+          - { source: "el agua", target: "the water" }
+          - { source: "la foto", target: "the photo" }
+          - { source: "los cuartos", target: "the rooms" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: m-sim-diegocalls
+        scene: { emoji: "📞", title: "Diego calls", setting: "Your phone rings. It's Diego, panicking again." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Hola! ¿Dónde está el celular?", audioText: "¡hola! ¿dónde está el celular?", gloss: "Hi! Where's the phone?" }
+            goal: "On the bed, like before."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está en la cama" }
+                - { id: "wrong1", text: "es un celular" }
+                - { id: "wrong2", text: "hay un celular" }
+              correctOptionId: "right"
+              audioText: "está en la cama"
+            replyGloss: "It's on the bed."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y dónde está la foto?", audioText: "¿y dónde está la foto?", gloss: "And where's the photo?" }
+            goal: "In the room — tell him."
+            reply:
+              mode: build
+              tiles: ["está", "en", "el", "cuarto", "es", "la"]
+              answer: "está en el cuarto"
+              alsoAccepted: ["en el cuarto"]
+            replyGloss: "It's in the room."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y hay agua en la cocina?", audioText: "¿y hay agua en la cocina?", gloss: "And is there water in the kitchen?" }
+            goal: "There is — say so."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí — hay agua" }
+                - { id: "wrong1", text: "no — no hay" }
+                - { id: "wrong2", text: "está en la cama" }
+              correctOptionId: "right"
+              audioText: "sí, hay agua"
+            replyGloss: "Yes, there's water."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Gracias! Hasta luego.", audioText: "¡gracias! hasta luego.", gloss: "Thanks! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m4-scr-1"
+      prompt: "Which one means 'is located (somewhere)'?"
+      correct: "está"
+      distractors: ["es", "hay", "aquí"]
+  byModule:
+    - id: "es-m4-pl-1"
+      prompt: "The key is on the table."
+      correct: "la llave está en la mesa"
+      distractors: ["la llave es en la mesa", "hay la llave en la mesa", "la llave está la mesa"]
+    - id: "es-m4-pl-2"
+      prompt: "'The books' (plural) is…"
+      correct: "los libros"
+      distractors: ["el libros", "la libros", "los libro"]
+    - id: "es-m4-pl-3"
+      prompt: "Which one means 'over there'?"
+      correct: "allí"
+      distractors: ["aquí", "hay", "dónde"]
+    - id: "es-m4-pl-4"
+      prompt: "The water is in the kitchen."
+      correct: "el agua está en la cocina"
+      distractors: ["la agua está en la cocina", "el agua es en la cocina", "el agua hay en la cocina"]

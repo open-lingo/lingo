@@ -1,0 +1,1186 @@
+module: m3
+title: "Things pick a side — el, la, and your first nouns"
+frame: none
+throughModule: m2
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m3 — «El mundo pica un lado»: articles, first nouns, hay.
+#
+# The FIRST §13-doctrine module authored through the IR (2026-08-24) — the
+# exemplar for m4+ dispatches. Frameless (phrase-module mode): every sentence
+# is carried literally; no local model, no drafted pool.
+#
+# SPINE PROVENANCE: word list from _archive/m3.ts (the July module), trimmed
+# 27 → 19 atoms per the §13.9 density finding (fewer items, more retrievals):
+#   - dropped: mesa/computadora/cosa/mano (no honest emoji → no image debut),
+#     teléfono (celular is the word people actually say — one object, one word),
+#     agua (the «el agua» exception deserves its own beat AFTER the rule is
+#     solid — m4 debt), los/las + plurals-as-rule (m4: this module NOTICES
+#     plurals inside counting sentences, never states the rule),
+#     día (m1's «buenos días» owns that story), mochila (density).
+#   - added: «¿qué es?» — the module's conversational promise (point at
+#     anything and ask). hay/en/aquí carried from the July spine.
+# DOCTRINE NOTES:
+#   - §13.4 callback: m1/m2 absorbed gender (maestro/maestra, señor/señora,
+#     «un café»). THIS module states the rule — as a callback, L1.
+#     (Guide §13.4 wrote "es: m4" against the July spine; the article module
+#     is m3 in the restarted spine — guide updated this session.)
+#   - Articles ride every noun surface («la casa», never bare «casa») in
+#     cards, maps, builds and audio. ATOMS stay bare (registry/tooling
+#     convention; el/la/un/una are their own atoms) — the articled display
+#     is the step surface, not the atom.
+#   - Counting sentences use plural forms («hay dos libros») — noticed in a
+#     win explanation, never taught. The barGuards noun-plural canon
+#     attributes «libros» to «libro» (it has awaited this module since the
+#     July wave).
+#   - Discrimination lanes (§13.9 law 4, both halves live, alternating):
+#     el/la and un/una. Phonetics are ALL callbacks (silent h from hola,
+#     ll=y from llamo, z=s from diez, qu=k new) and each cashes ≤2 steps.
+#   - dinero is hay/el-only — «un dinero» is not Spanish, so no un/una
+#     trial ever touches it (inventory rule, not a filter).
+#   - Cast: Ana, Diego, Sofía, María (established); learner = Sam.
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   la casa L1 · el libro L1 · una llave L2 · ¿qué es? L3 · es un lápiz L3
+#   hay dos libros L4 · hay una silla aquí L5 · el dinero L5
+#   recalls drawn here: la casa (L4), una llave (L6), el libro (L7),
+#   ¿qué es? (L8), hay dos libros (L9 via cp? no — L8 build re-derives)
+#   cross-module (licensed by m1/m2 printed voicings): bien gracias,
+#   ¿cómo estás?, me llamo, buenos días, no gracias, hasta luego.
+newAtoms:
+  - { surface: "el", meaningEn: "the (with el-words)", partOfSpeech: "particle", kind: "particle", hint: "no accent — él with the accent is 'he'" }
+  - { surface: "la", meaningEn: "the (with la-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "un", meaningEn: "a / an (with el-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "una", meaningEn: "a / an (with la-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "hay", meaningEn: "there is / there are", partOfSpeech: "verb", kind: "vocab", hint: "silent h — sounds like English 'eye'" }
+  - { surface: "en", meaningEn: "in / on / at", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "aquí", meaningEn: "here", partOfSpeech: "adverb", kind: "vocab", hint: "qu is a plain k: a-KEE" }
+  - { surface: "¿qué es?", meaningEn: "what is it?", partOfSpeech: "phrase", kind: "phrase", hint: "keh ESS — point and ask" }
+  - { surface: "casa", meaningEn: "house", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🏠" }
+  - { surface: "puerta", meaningEn: "door", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🚪" }
+  - { surface: "silla", meaningEn: "chair", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🪑", hint: "ll sounds like y — same as llamo: SEE-ya" }
+  - { surface: "ventana", meaningEn: "window", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🪟" }
+  - { surface: "llave", meaningEn: "key", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🔑", hint: "ll sounds like y — you know it from llamo: YA-veh" }
+  - { surface: "pluma", meaningEn: "pen", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🖊️" }
+  - { surface: "libro", meaningEn: "book", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📖" }
+  - { surface: "lápiz", meaningEn: "pencil", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "✏️", hint: "z sounds like s — same as diez: LA-pees" }
+  - { surface: "papel", meaningEn: "paper", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📄", hint: "stress the end: pa-PEL" }
+  - { surface: "celular", meaningEn: "phone", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📱", hint: "soft c, like cero: seh-loo-LAR" }
+  - { surface: "dinero", meaningEn: "money", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💰" }
+
+lessons:
+  # ── L1 · el/la. Rebuilt after the 4-walk sim pass (see
+  #    docs/learner-sim/es-m3-FINDINGS.md): honest card (no maestro pair-flip
+  #    analogy, endings-usually + secret-side stated), tint legend at the
+  #    first map reveal, clozes spaced away from their debuts, the 🚪
+  #    hasta-luego distractor evicted, puerta gets a printed voicing. ──
+  - n: 1
+    template: free
+    title: "Everything picks a side"
+    description: "la-words and el-words — the one habit that makes every Spanish noun stick."
+    steps:
+      - kind: info
+        id: info-callback
+        title: "The two sides"
+        body: "In m2, señora took -a and maestro took -o. Every noun — even a house — picks a side like that and never changes it: LA casa, EL libro. The ending usually tells you; a few words keep their side secret, so learn each word WITH its la or el. In the word maps, la-words glow pink (f) and el-words blue (m) — it's about the WORD, not the person. This module: name what's around you, ask what anything is, and count what you see."
+      - kind: imageMcq
+        id: d-casa
+        target: { surface: "la casa", meaningEn: "the house", emoji: "🏠" }
+        distractors:
+          - { surface: "la señora", emoji: "👩" }
+          - { surface: "el maestro", emoji: "👨‍🏫" }
+          - { surface: "la estudiante", emoji: "🎓" }
+      - kind: map
+        id: map-casaana
+        tokens: ["la", "casa", "es", "de", "Ana"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "house", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "of", tokenIndex: 3 }
+          - { en: "Ana", tokenIndex: 4 }
+        audioText: "la casa es de Ana"
+        revealNote: "'The house is of Ana' — that's how Spanish says Ana's house, with the same «de» as «soy de México». And the colors: la-words glow pink, el-words blue — it's about the WORD, not the person. Ana stays plain."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: imageMcq
+        id: d-libro
+        target: { surface: "el libro", meaningEn: "the book", emoji: "📖" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "el señor", emoji: "👨" }
+          - { surface: "la maestra", emoji: "👩‍🏫" }
+      - kind: speakLit
+        id: sp-ellibro
+        es: "el libro"
+        en: "the book"
+        atoms: ["el", "libro"]
+      - kind: clozeLit
+        id: c-lacasa
+        es: "la casa"
+        en: "the house"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "casa"]
+        why: "casa ends in -a — the ending points at la."
+      - kind: audioWimcq
+        id: ear-muchogusto
+        target: { surface: "mucho gusto", emoji: "🤝" }
+        distractors:
+          - { surface: "gracias", emoji: "🙏" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: speakLit
+        id: sp-biengracias
+        es: "bien gracias"
+        en: "fine, thanks"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: d-puerta
+        target: { surface: "la puerta", meaningEn: "the door", emoji: "🚪" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el señor", emoji: "👨" }
+      - kind: clozeLit
+        id: c-ellibro
+        es: "el libro"
+        en: "the book"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "libro"]
+        why: "libro ends in -o — the ending points at el."
+      - kind: speakLit
+        id: sp-lapuerta
+        es: "la puerta"
+        en: "the door"
+        atoms: ["la", "puerta"]
+      - kind: audioWimcq
+        id: ear-casa
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la maestra", emoji: "👩‍🏫" }
+      - kind: clozeLit
+        id: c-lapuerta
+        es: "la puerta"
+        en: "the door"
+        blank: "la"
+        options: ["el", "la"]
+        atoms: ["la", "puerta"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la casa", target: "the house" }
+          - { source: "el libro", target: "the book" }
+          - { source: "la puerta", target: "the door" }
+          - { source: "la maestra", target: "teacher (f)" }
+          - { source: "el señor", target: "Mr. / sir" }
+          - { source: "mucho gusto", target: "nice to meet you" }
+      - kind: speakLit
+        id: sp-lacasa
+        es: "la casa"
+        en: "the house"
+        atoms: ["la", "casa"]
+
+  # ── L2 · un/una — same sides, second pair. ──────────────────────────
+  - n: 2
+    template: free
+    title: "Never learn a side twice"
+    description: "un and una ride the same sides as el and la — one rule buys you both pairs."
+    steps:
+      - kind: info
+        id: info-ununa
+        title: "'A' picks the same side"
+        body: "UNA llave, UN celular. If it's a la-word it's an una-word; el-words take un. One rule, both pairs — you never learn a word's side twice."
+      - kind: imageMcq
+        id: d-llave
+        target: { surface: "una llave", meaningEn: "a key", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: map
+        id: map-esunallave
+        tokens: ["es", "una", "llave"]
+        pairs:
+          - { en: "it is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "key", tokenIndex: 2 }
+        audioText: "es una llave"
+        revealNote: "«es» from m2 was 'he/she is' — it's also plain 'it is.' Three words and you can identify anything."
+        tokenGenders: { 1: "f", 2: "f" }
+      - kind: imageMcq
+        id: d-celular
+        target: { surface: "un celular", meaningEn: "a phone", emoji: "📱" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: clozeLit
+        id: c-lallave
+        es: "la llave"
+        en: "the key"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "llave"]
+        why: "llave keeps its side secret — no -a, no -o. That's why you learned it as «una llave»: the word carries its side with it."
+      - kind: speakLit
+        id: sp-unallave
+        es: "una llave"
+        en: "a key"
+        atoms: ["una", "llave"]
+      - kind: imageMcq
+        id: d-silla
+        target: { surface: "una silla", meaningEn: "a chair", emoji: "🪑" }
+        distractors:
+          - { surface: "un celular", emoji: "📱" }
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: clozeLit
+        id: c-uncelular
+        es: "un celular"
+        en: "a phone"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["un", "celular"]
+        why: "celular is an el-word, so 'a' is un."
+      - kind: buildLit
+        id: b-esunallave
+        es: "es una llave"
+        en: "It's a key"
+        atoms: ["es", "una", "llave"]
+        tiles: ["un", "el"]
+      - kind: audioWimcq
+        id: ear-llave
+        target: { surface: "una llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "una silla", emoji: "🪑" }
+      - kind: clozeLit
+        id: c-unasilla
+        es: "una silla"
+        en: "a chair"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["una", "silla"]
+      - kind: audioWimcq
+        id: ear-buenosdias
+        target: { surface: "buenos días", emoji: "🌅" }
+        distractors:
+          - { surface: "buenas noches", emoji: "🌙" }
+          - { surface: "buenas tardes", emoji: "☀️" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "una llave", target: "a key" }
+          - { source: "un celular", target: "a phone" }
+          - { source: "una silla", target: "a chair" }
+          - { source: "la casa", target: "the house" }
+          - { source: "bien", target: "well / fine" }
+          - { source: "adiós", target: "goodbye" }
+      - kind: speakLit
+        id: sp-comoestas
+        es: "¿cómo estás?"
+        en: "how are you?"
+        atoms: []
+        cue: recall
+
+  # ── L3 · ¿qué es? — the naming game. lápiz debuts image-first; the
+  #    2-chip map was replaced with a listening beat (sim pass). ────────
+  - n: 3
+    template: free
+    title: "Point and ask"
+    description: "«¿Qué es?» — the question that names the world. Ask it, answer it."
+    steps:
+      - kind: info
+        id: info-quees
+        title: "The question that teaches you Spanish"
+        body: "«¿Qué es?» — what is it? Point at anything, ask, and the answer comes back «es un…» or «es una…». It's how you'll learn words forever."
+      - kind: imageMcq
+        id: d-lapiz
+        target: { surface: "un lápiz", meaningEn: "a pencil", emoji: "✏️" }
+        distractors:
+          - { surface: "una silla", emoji: "🪑" }
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "un celular", emoji: "📱" }
+      - kind: listenCompLit
+        id: lc-quees
+        es: "¿qué es?"
+        en: "What is it?"
+        atoms: ["¿qué es?"]
+        distractorsEn:
+          - "How are you?"
+          - "What's your name?"
+          - "Is there a key?"
+      - kind: speakLit
+        id: sp-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: ["¿qué es?"]
+      - kind: clozeLit
+        id: c-unlapiz
+        es: "un lápiz"
+        en: "a pencil"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["un", "lápiz"]
+        why: "The -z end sounds like s, same as diez: LA-pees. Another secret-side word — it rides with un."
+      - kind: sim
+        id: sim-quees-lapiz
+        scene: { emoji: "✏️", title: "Diego's desk", setting: "Diego holds something up, testing you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué es?", audioText: "¿qué es?", gloss: "What is it?" }
+            goal: "Tell him."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es un lápiz" }
+                - { id: "wrongart", text: "es una lápiz" }
+                - { id: "known", text: "es una silla" }
+              correctOptionId: "right"
+              audioText: "es un lápiz"
+            replyGloss: "It's a pencil."
+            explanation: "«una lápiz» mixes the sides — lápiz is an el-word, so 'a' is un. The picture rules out the chair; the article is the real test."
+      - kind: imageMcq
+        id: d-pluma
+        target: { surface: "una pluma", meaningEn: "a pen", emoji: "🖊️" }
+        distractors:
+          - { surface: "un lápiz", emoji: "✏️" }
+          - { surface: "un celular", emoji: "📱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: speakLit
+        id: sp-unapluma
+        es: "una pluma"
+        en: "a pen"
+        atoms: ["una", "pluma"]
+      - kind: sim
+        id: sim-quees-pluma
+        scene: { emoji: "🖊️", title: "Sofía's turn", setting: "Now Sofía plays the game." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Y qué es?", audioText: "¿y qué es?", gloss: "And what is it?" }
+            goal: "It's a pen — tell her."
+            reply:
+              mode: build
+              tiles: ["es", "una", "pluma", "un", "lápiz"]
+              answer: "es una pluma"
+            replyGloss: "It's a pen."
+            explanation: "pluma ends in -a: una pluma. The game works both ways — before this module is out, YOU ask."
+      - kind: clozeLit
+        id: c-soyde
+        es: "yo soy de Estados Unidos"
+        en: "I am from the United States"
+        blank: "soy"
+        options: ["soy", "eres"]
+        atoms: ["soy"]
+        why: "m2 warm-up — yo goes with soy."
+      - kind: speakLit
+        id: sp-esunlapiz
+        es: "es un lápiz"
+        en: "it's a pencil"
+        atoms: ["es", "un", "lápiz"]
+      - kind: audioWimcq
+        id: ear-pluma
+        target: { surface: "una pluma", emoji: "🖊️" }
+        distractors:
+          - { surface: "un lápiz", emoji: "✏️" }
+          - { surface: "una puerta", emoji: "🚪" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "¿qué es?", target: "what is it?" }
+          - { source: "un lápiz", target: "a pencil" }
+          - { source: "una pluma", target: "a pen" }
+          - { source: "una silla", target: "a chair" }
+          - { source: "me llamo", target: "my name is" }
+          - { source: "no entiendo", target: "I don't understand" }
+      - kind: speakLit
+        id: sp-mellamo
+        es: "me llamo"
+        en: "my name is…"
+        atoms: []
+        cue: recall
+
+  # ── L4 · hay — and the numbers get their job. Plural -s stated on the
+  #    card; «en» scrubbed from this lesson (taught in L5). ─────────────
+  - n: 4
+    template: free
+    title: "Say what you see"
+    description: "«hay» says what exists — and suddenly your numbers count real things."
+    steps:
+      - kind: info
+        id: info-hay
+        title: "One word says 'there is' AND 'there are'"
+        body: "«hay» (sounds like English 'eye' — silent h, like hola): there is, there are, one word for both. «hay una silla» — there's a chair. Counting more than one? The noun grows an -s, just like English: «hay dos libros»."
+      - kind: map
+        id: map-haysilla
+        tokens: ["hay", "una", "silla"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "chair", tokenIndex: 2 }
+        audioText: "hay una silla"
+        tokenGenders: { 1: "f", 2: "f" }
+      - kind: imageMcq
+        id: d-ventana
+        target: { surface: "la ventana", meaningEn: "the window", emoji: "🪟" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "una silla", emoji: "🪑" }
+      - kind: speakLit
+        id: sp-laventana
+        es: "la ventana"
+        en: "the window"
+        atoms: ["la", "ventana"]
+      - kind: map
+        id: map-haydoslibros
+        tokens: ["hay", "dos", "libros"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "two", tokenIndex: 1 }
+          - { en: "books", tokenIndex: 2 }
+        audioText: "hay dos libros"
+        revealNote: "dos libroS — the -s the card promised, and the blue says libros stays an el-word even when counted. Your m1 numbers finally have things to count."
+        tokenGenders: { 2: "m" }
+      - kind: textMcq
+        id: tm-hay
+        target: "hay"
+        distractors: ["es", "y", "de"]
+      - kind: sim
+        id: sim-haytresllaves
+        scene: { emoji: "🗝️", title: "Ana counts", setting: "Ana sorts a drawer and holds up keys." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay dos llaves?", audioText: "¿hay dos llaves?", gloss: "Are there two keys?" }
+            goal: "You count three."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — hay tres llaves" }
+                - { id: "two", text: "sí — hay dos llaves" }
+                - { id: "greet", text: "buenas tardes" }
+              correctOptionId: "right"
+              audioText: "no, hay tres llaves"
+            replyGloss: "No — there are three keys."
+            explanation: "«hay» asks AND answers: her question and your correction are the same word."
+      - kind: buildLit
+        id: b-haydoslibros
+        es: "hay dos libros"
+        en: "There are two books"
+        atoms: ["hay", "dos", "libro"]
+        tiles: ["un", "tres"]
+      - kind: clozeLit
+        id: c-hayventana
+        es: "hay una ventana y dos sillas"
+        en: "there's a window and two chairs"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["hay", "una", "ventana", "y", "dos", "silla"]
+        why: "ventana ends in -a: una. And there's the counting -s again — dos sillaS."
+      - kind: speakLit
+        id: sp-lacasa-recall
+        es: "la casa"
+        en: "the house"
+        atoms: ["la", "casa"]
+        cue: recall
+      - kind: audioWimcq
+        id: ear-senora
+        target: { surface: "señora", emoji: "👩" }
+        distractors:
+          - { surface: "señor", emoji: "👨" }
+          - { surface: "maestra", emoji: "👩‍🏫" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "hay", target: "there is / there are" }
+          - { source: "la ventana", target: "the window" }
+          - { source: "dos", target: "two" }
+          - { source: "tres", target: "three" }
+          - { source: "una pluma", target: "a pen" }
+          - { source: "¿qué es?", target: "what is it?" }
+      - kind: speakLit
+        id: sp-haydoslibros
+        es: "hay dos libros"
+        en: "there are two books"
+        atoms: ["hay", "dos", "libro"]
+
+  # ── L5 · en + aquí. Wallet scene re-staged; the ambiguous m2 check
+  #    replaced with a single-answer no-entiendo revival. ───────────────
+  - n: 5
+    template: free
+    title: "Put things in their place"
+    description: "«en» and «aquí» pin your things to places — and dinero shows up."
+    steps:
+      - kind: info
+        id: info-enaqui
+        title: "Two little place words"
+        body: "«en» — in, on, at (one word, all three). «aquí» — here (qu is a plain k: a-KEE). «hay una llave aquí» — there's a key here."
+      - kind: map
+        id: map-sillaaqui
+        tokens: ["hay", "una", "silla", "aquí"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "chair", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "hay una silla aquí"
+        tokenGenders: { 1: "f", 2: "f" }
+      - kind: audioWimcq
+        id: ear-aqui
+        target: { surface: "aquí", emoji: "📍" }
+        distractors:
+          - { surface: "hay", emoji: "🫴" }
+          - { surface: "y", emoji: "➕" }
+      - kind: clozeLit
+        id: c-enlacasa
+        es: "hay dos sillas en la casa"
+        en: "there are two chairs in the house"
+        blank: "en"
+        options: ["en", "de"]
+        atoms: ["hay", "dos", "silla", "en", "la", "casa"]
+        why: "«de» is of/from (m2); «en» is where something sits."
+      - kind: imageMcq
+        id: d-dinero
+        target: { surface: "el dinero", meaningEn: "the money", emoji: "💰" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la llave", emoji: "🔑" }
+          - { surface: "el celular", emoji: "📱" }
+      - kind: buildLit
+        id: b-sillaaqui
+        es: "hay una silla aquí"
+        en: "There's a chair here"
+        atoms: ["hay", "una", "silla", "aquí"]
+        tiles: ["en", "un"]
+      - kind: sim
+        id: sim-nodinero
+        scene: { emoji: "💸", title: "The empty wallet", setting: "At the counter, Diego pats every pocket, then looks at you. Yours are empty too." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Ay! ¿Hay dinero aquí?", audioText: "¡ay! ¿hay dinero aquí?", gloss: "Oh no! Is there any money here?" }
+            goal: "Check your pockets — nothing."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — no hay dinero" }
+                - { id: "yes", text: "sí — hay dinero aquí" }
+                - { id: "greet", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "no, no hay dinero"
+            replyGloss: "No — there's no money."
+            explanation: "«no hay» — there isn't. Your m1 «no» does the flip, no new grammar. (Coffee's on Diego next time.)"
+      - kind: speakLit
+        id: sp-eldinero
+        es: "el dinero"
+        en: "the money"
+        atoms: ["el", "dinero"]
+      - kind: textMcq
+        id: tm-noentiendo
+        target: "no entiendo"
+        distractors: ["mucho gusto", "hasta luego", "por favor"]
+        prompt: "A sentence flies past you too fast — which one says you didn't catch it?"
+      - kind: audioWimcq
+        id: ear-noches
+        target: { surface: "buenas noches", emoji: "🌙" }
+        distractors:
+          - { surface: "buenas tardes", emoji: "☀️" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "aquí", target: "here" }
+          - { source: "en", target: "in / on / at" }
+          - { source: "el dinero", target: "the money" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "la puerta", target: "the door" }
+          - { source: "¿y tú?", target: "and you?" }
+      - kind: speakLit
+        id: sp-sillaaqui-win
+        es: "hay una silla aquí"
+        en: "there's a chair here"
+        atoms: ["hay", "una", "silla", "aquí"]
+
+  # ── L6 · «no hay» gets its card, then the lost-keys rescue cashes it. ─
+  - n: 6
+    template: free
+    title: "Find the keys"
+    description: "Ana lost her keys — and you learn how to say something ISN'T there."
+    steps:
+      - kind: info
+        id: info-nohay
+        title: "Saying no to hay"
+        body: "«no hay» — there isn't, there aren't. And the little word drops out: «no hay dinero», «no hay llave». Nothing to point at, so no un/una. Watch Ana find out the hard way."
+      - kind: imageMcq
+        id: d-papel
+        target: { surface: "el papel", meaningEn: "the paper", emoji: "📄" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la pluma", emoji: "🖊️" }
+          - { surface: "el dinero", emoji: "💰" }
+      - kind: sim
+        id: sim-keys
+        scene: { emoji: "🔍", title: "Ana's keys", setting: "Ana turns the room over. You spot something under a paper on the table." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Ay! ¿Hay una llave aquí?", audioText: "¡ay! ¿hay una llave aquí?", gloss: "Argh! Is there a key here?" }
+            goal: "You see it — tell her."
+            reply:
+              mode: build
+              tiles: ["sí", "hay", "una", "llave", "aquí", "no", "el"]
+              answer: "sí hay una llave aquí"
+              alsoAccepted: ["hay una llave aquí", "sí hay una llave"]
+            replyGloss: "Yes — there's a key here."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Gracias! ¿Y el celular?", audioText: "¡gracias! ¿y el celular?", gloss: "Thank you! And the phone?" }
+            goal: "It's not here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — no hay celular aquí" }
+                - { id: "wrong", text: "hay un celular aquí" }
+                - { id: "offtopic", text: "es una pluma" }
+              correctOptionId: "right"
+              audioText: "no, no hay celular aquí"
+            replyGloss: "There's no phone here."
+            explanation: "The card's rule, live: after «no hay» the un drops out — «no hay celular», like «no hay dinero» at the café."
+      - kind: clozeLit
+        id: c-elpapel
+        es: "el papel"
+        en: "the sheet of paper"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "papel"]
+        why: "No -o, no -a — papel keeps its side secret, like llave on the other side. It rides with el."
+      - kind: audioWimcq
+        id: ear-papel
+        target: { surface: "el papel", emoji: "📄" }
+        distractors:
+          - { surface: "la pluma", emoji: "🖊️" }
+          - { surface: "el lápiz", emoji: "✏️" }
+      - kind: speakLit
+        id: sp-elpapel
+        es: "el papel"
+        en: "the paper"
+        atoms: ["el", "papel"]
+      - kind: map
+        id: map-llaveenpapel
+        tokens: ["la", "llave", "es", "de", "Ana"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "key", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "of", tokenIndex: 3 }
+          - { en: "Ana", tokenIndex: 4 }
+        audioText: "la llave es de Ana"
+        revealNote: "Same shape as «la casa es de Ana» in lesson 1 — swap the noun, the sentence still works. That's the whole trick."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: speakLit
+        id: sp-unallave-recall
+        es: "una llave"
+        en: "a key"
+        atoms: ["una", "llave"]
+        cue: recall
+      - kind: audioWimcq
+        id: ear-cinco
+        target: { surface: "cinco", emoji: "5️⃣" }
+        distractors:
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "siete", emoji: "7️⃣" }
+      - kind: buildLit
+        id: b-sillademaria
+        es: "la silla es de María"
+        en: "The chair is María's"
+        atoms: ["la", "silla", "es", "de"]
+        tiles: ["una", "en"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el papel", target: "the paper" }
+          - { source: "la llave", target: "the key" }
+          - { source: "el celular", target: "the phone" }
+          - { source: "aquí", target: "here" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "por favor", target: "please" }
+      - kind: speakLit
+        id: sp-keys-win
+        es: "hay una llave aquí"
+        en: "there's a key here"
+        atoms: ["hay", "una", "llave", "aquí"]
+
+  # ── L7 · count the room — zero-new workout, numbers 5 and 7 spent. ───
+  - n: 7
+    template: free
+    title: "Count the room"
+    description: "No new words — the room you're in becomes the exercise."
+    steps:
+      - kind: info
+        id: info-countroom
+        title: "The room is the lesson"
+        body: "Nothing new today. Look around wherever you are — door, window, chairs, your phone — and count along out loud as we go."
+      - kind: map
+        id: map-cuatrosillas
+        tokens: ["hay", "cuatro", "sillas", "en", "la", "casa"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "four", tokenIndex: 1 }
+          - { en: "chairs", tokenIndex: 2 }
+          - { en: "in", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "house", tokenIndex: 5 }
+        audioText: "hay cuatro sillas en la casa"
+        tokenGenders: { 2: "f", 4: "f", 5: "f" }
+      - kind: clozeLit
+        id: c-dosventanas
+        es: "hay dos ventanas y una puerta"
+        en: "there are two windows and a door"
+        blank: "y"
+        options: ["y", "o"]
+        atoms: ["hay", "dos", "ventana", "y", "una", "puerta"]
+        why: "m1 check — adding, not choosing: y."
+      - kind: buildLit
+        id: b-cincolibros
+        es: "hay cinco libros y dos plumas"
+        en: "There are five books and two pens"
+        atoms: ["hay", "cinco", "libro", "y", "dos", "pluma"]
+        tiles: ["una", "el"]
+      - kind: audioWimcq
+        id: ear-lapiz
+        target: { surface: "un lápiz", emoji: "✏️" }
+        distractors:
+          - { surface: "una pluma", emoji: "🖊️" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: clozeLit
+        id: c-elcelular
+        es: "el celular es de Diego"
+        en: "the phone is Diego's"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "celular", "es", "de"]
+      - kind: listenCompLit
+        id: lc-sietelibros
+        es: "hay siete libros aquí"
+        en: "There are seven books here."
+        atoms: ["hay", "siete", "libro", "aquí"]
+        distractorsEn:
+          - "There are six books here."
+          - "There are seven pens here."
+          - "There's a book here."
+      - kind: speakLit
+        id: sp-lapuerta-recall
+        es: "la puerta"
+        en: "the door"
+        atoms: ["la", "puerta"]
+        cue: recall
+      - kind: sim
+        id: sim-countwindows
+        scene: { emoji: "🪟", title: "Sofía's quiz", setting: "Sofía covers your eyes with one hand and grins." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hay una ventana o dos?", audioText: "¿hay una ventana o dos?", gloss: "Is there one window or two?" }
+            goal: "You remember — two."
+            reply:
+              mode: build
+              tiles: ["hay", "dos", "ventanas", "una", "tres"]
+              answer: "hay dos ventanas"
+              alsoAccepted: ["dos", "dos ventanas"]
+            replyGloss: "There are two windows."
+            explanation: "Her «o» offers the choice; your answer just says what's true. Short answers («dos») are real Spanish too."
+      - kind: speakLit
+        id: sp-nogracias-recall
+        es: "no gracias"
+        en: "no, thank you"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "hay", target: "there is / there are" }
+          - { source: "en", target: "in / on / at" }
+          - { source: "cuatro", target: "four" }
+          - { source: "la ventana", target: "the window" }
+          - { source: "el lápiz", target: "the pencil" }
+          - { source: "¿qué es?", target: "what is it?" }
+      - kind: speakLit
+        id: sp-countwin
+        es: "hay dos sillas en la casa"
+        en: "there are two chairs in the house"
+        atoms: ["hay", "dos", "silla", "en", "la", "casa"]
+
+  # ── L8 · CHECKPOINT — rebuilt after the sim pass: fresh sentences
+  #    (no byte-dup re-runs), la/el/un/una balanced 4:4:4:4 module-wide,
+  #    genuinely confusable ear trials, the count build upgraded. ────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Warm up for Sofía's visit"
+    description: "Every pair discriminated, every word produced — then Sofía knocks."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-casaana
+        es: "la casa es de Ana"
+        en: "The house is Ana's."
+        atoms: ["la", "casa", "es", "de"]
+        distractorsEn:
+          - "The house is Diego's."
+          - "The key is Ana's."
+          - "Ana is in the house."
+      - kind: audioWimcq
+        id: cp-ear-llave
+        target: { surface: "una llave", emoji: "🔑" }
+        distractors:
+          - { surface: "una pluma", emoji: "🖊️" }
+          - { surface: "un lápiz", emoji: "✏️" }
+      - kind: clozeLit
+        id: cp-ellibrodiego
+        es: "el libro es de Diego"
+        en: "the book is Diego's"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "libro", "es", "de"]
+      - kind: buildLit
+        id: cp-b-esuncelular
+        es: "es un celular"
+        en: "It's a phone"
+        atoms: ["es", "un", "celular"]
+        tiles: ["una", "la"]
+      - kind: clozeLit
+        id: cp-unasillaaqui
+        es: "hay una silla aquí"
+        en: "there's a chair here"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["hay", "una", "silla", "aquí"]
+      - kind: speakLit
+        id: cp-sp-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: ["¿qué es?"]
+        cue: recall
+      - kind: listenBuildLit
+        id: cp-lb-unpapel
+        es: "hay un papel aquí"
+        en: "There's a sheet of paper here"
+        atoms: ["hay", "un", "papel", "aquí"]
+        tiles: ["una", "en"]
+      - kind: audioWimcq
+        id: cp-ear-ventana
+        target: { surface: "la ventana", emoji: "🪟" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: buildLit
+        id: cp-b-cincollaves
+        es: "hay cinco llaves aquí"
+        en: "There are five keys here"
+        atoms: ["hay", "cinco", "llave", "aquí"]
+        tiles: ["tres", "en"]
+      - kind: clozeLit
+        id: cp-enlacasa
+        es: "hay un papel en la casa"
+        en: "there's a sheet of paper in the house"
+        blank: "en"
+        options: ["en", "de"]
+        atoms: ["hay", "un", "papel", "en", "la", "casa"]
+      - kind: listenCompLit
+        id: cp-lc-nodinero
+        es: "no hay dinero aquí"
+        en: "There's no money here."
+        atoms: ["no", "hay", "dinero", "aquí"]
+        distractorsEn:
+          - "There's money here."
+          - "There's no paper here."
+          - "The money is Diego's."
+      - kind: speakLit
+        id: cp-sp-eldinero
+        es: "el dinero"
+        en: "the money"
+        atoms: ["el", "dinero"]
+        cue: recall
+      - kind: audioWimcq
+        id: cp-ear-tardes
+        target: { surface: "buenas tardes", emoji: "☀️" }
+        distractors:
+          - { surface: "buenas noches", emoji: "🌙" }
+          - { surface: "buenos días", emoji: "🌅" }
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "la casa", target: "the house" }
+          - { source: "el libro", target: "the book" }
+          - { source: "una llave", target: "a key" }
+          - { source: "un celular", target: "a phone" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "aquí", target: "here" }
+      - kind: speakLit
+        id: cp-sp-sillaaqui
+        es: "hay una silla aquí"
+        en: "there's a chair here"
+        atoms: ["hay", "una", "silla", "aquí"]
+        cue: recall
+
+  # ── L9 · the summit, rebuilt: warm-ups first, the visit is the FINALE
+  #    (PM(18) flow law), and the learner finally ASKS «¿qué es?». ──────
+  - n: 9
+    template: free
+    title: "Sofía visits"
+    description: "A whole visit in Spanish — greeting, the naming game, goodbye at the door."
+    steps:
+      - kind: info
+        id: info-visit
+        title: "She's at the door"
+        body: "Sofía's visiting. The greeting, «¿qué es?», hay — everything this module built happens in one real conversation. Warm up fast: she's already knocking."
+      - kind: map
+        id: map-hayuncelular
+        tokens: ["¿hay", "un", "celular", "aquí?"]
+        pairs:
+          - { en: "is there", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "phone", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "¿hay un celular aquí?"
+        revealNote: "Flip nothing — «hay» asks the question with just the marks and your voice going up."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: clozeLit
+        id: c-warm-esde
+        es: "la pluma es de Sofía"
+        en: "the pen is Sofía's"
+        blank: "de"
+        options: ["de", "en"]
+        atoms: ["la", "pluma", "es", "de"]
+      - kind: buildLit
+        id: b-hayunlapiz
+        es: "hay un lápiz aquí"
+        en: "There's a pencil here"
+        atoms: ["hay", "un", "lápiz", "aquí"]
+        tiles: ["una", "en"]
+      - kind: audioWimcq
+        id: ear-ventana
+        target: { surface: "la ventana", emoji: "🪟" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: clozeLit
+        id: c-warm-yo
+        es: "hay dos plumas y un lápiz"
+        en: "there are two pens and a pencil"
+        blank: "y"
+        options: ["y", "o"]
+        atoms: ["hay", "dos", "pluma", "y", "un", "lápiz"]
+        why: "Adding again — y."
+      - kind: speakLit
+        id: sp-visit-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: ["¿qué es?"]
+        cue: recall
+      - kind: listenCompLit
+        id: lc-visit-pluma
+        es: "hay una pluma aquí"
+        en: "There's a pen here."
+        atoms: ["hay", "una", "pluma", "aquí"]
+        distractorsEn:
+          - "There's a pencil here."
+          - "There are two pens here."
+          - "There's a pen in the house."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "¿qué es?", target: "what is it?" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "el celular", target: "the phone" }
+          - { source: "bien", target: "well / fine" }
+          - { source: "¿cómo estás?", target: "how are you?" }
+          - { source: "hasta luego", target: "see you later" }
+      - kind: sim
+        id: sim-visit
+        scene: { emoji: "🏠", title: "The visit", setting: "The doorbell. It's Sofía, bag over her shoulder." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Hola Sam! ¿Cómo estás?", audioText: "¡hola! ¿cómo estás?", gloss: "Hi Sam! How are you?" }
+            goal: "Answer — and bounce it back."
+            reply:
+              mode: choice
+              options:
+                - { id: "full", text: "bien gracias ¿y tú?" }
+                - { id: "short", text: "bien" }
+                - { id: "wrong", text: "buenas noches" }
+              correctOptionId: "full"
+              alsoCorrectOptionIds: ["short"]
+              audioText: "bien gracias ¿y tú?"
+            replyGloss: "Fine thanks — and you?"
+          - id: t2
+            npc: { speaker: "Sofía", es: "¡Mira!", audioText: "¡mira!", gloss: "Look! (She pulls something strange out of her bag and waits.)" }
+            goal: "Play YOUR move — ask what it is."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿qué es?" }
+                - { id: "answer", text: "es un lápiz" }
+                - { id: "greet", text: "buenos días" }
+              correctOptionId: "right"
+              audioText: "¿qué es?"
+            replyGloss: "What is it?"
+            explanation: "The module's question, finally in YOUR mouth — this is how you'll learn words from real people forever."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¡Es un lápiz! ¿Y hay un café aquí?", audioText: "¡es un lápiz! ¿y hay un café aquí?", gloss: "It's a pencil! (A very strange pencil.) And is there a coffee here? Hint hint." }
+            goal: "There's no coffee — break it to her."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no — no hay" }
+                - { id: "yes", text: "sí — hay dos" }
+                - { id: "name", text: "me llamo Sam" }
+              correctOptionId: "right"
+              audioText: "no, no hay"
+            replyGloss: "No — there isn't."
+            explanation: "«no hay» can stand alone — 'there isn't any.' Sofía will survive."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¡Hasta luego, Sam!", audioText: "¡hasta luego!", gloss: "(Later, at the door.) See you later, Sam!" }
+            goal: "Send her off."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "adiós — hasta luego" }
+                - { id: "mirror", text: "hasta luego" }
+                - { id: "wrong", text: "¿qué es?" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["mirror"]
+              audioText: "adiós, hasta luego"
+            replyGloss: "Bye — see you later."
+
+  # ── L10 · mastery: graded only, consolidation match, ends on María. ──
+  - n: 10
+    template: free
+    title: "Prove it — then a visitor"
+    description: "Every pair, every modality, no help — and María drops by to test the naming game for real."
+    steps:
+      - kind: clozeLit
+        id: m-lallave
+        es: "la llave"
+        en: "the key"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "llave"]
+      - kind: buildLit
+        id: m-b-esunapluma
+        es: "es una pluma"
+        en: "It's a pen"
+        atoms: ["es", "una", "pluma"]
+        tiles: ["un", "el"]
+      - kind: audioWimcq
+        id: m-ear-celular
+        target: { surface: "un celular", emoji: "📱" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el dinero", emoji: "💰" }
+      - kind: clozeLit
+        id: m-unlapiz
+        es: "un lápiz"
+        en: "a pencil"
+        blank: "un"
+        options: ["una", "un"]
+        atoms: ["un", "lápiz"]
+      - kind: listenCompLit
+        id: m-lc-cuatro
+        es: "hay cuatro plumas en la casa"
+        en: "There are four pens in the house."
+        atoms: ["hay", "cuatro", "pluma", "en", "casa"]
+        distractorsEn:
+          - "There are four pencils in the house."
+          - "There are two pens in the house."
+          - "There's a pen here."
+      - kind: speakLit
+        id: m-sp-lacasa
+        es: "la casa"
+        en: "the house"
+        atoms: ["la", "casa"]
+        cue: recall
+      - kind: clozeLit
+        id: m-hayen
+        es: "hay tres libros en la casa"
+        en: "there are three books in the house"
+        blank: "en"
+        options: ["en", "de"]
+        atoms: ["hay", "tres", "libro", "en", "la", "casa"]
+      - kind: buildLit
+        id: m-b-nohaydinero
+        es: "no hay dinero aquí"
+        en: "There's no money here"
+        atoms: ["no", "hay", "dinero", "aquí"]
+        tiles: ["sí", "un"]
+      - kind: audioWimcq
+        id: m-ear-puerta
+        target: { surface: "la puerta", emoji: "🚪" }
+        distractors:
+          - { surface: "la ventana", emoji: "🪟" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: clozeLit
+        id: m-launa
+        es: "hay una ventana y un papel"
+        en: "there's a window and a sheet of paper"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["hay", "una", "ventana", "y", "un", "papel"]
+      - kind: speakLit
+        id: m-sp-quees
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: ["¿qué es?"]
+        cue: recall
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "¿qué es?", target: "what is it?" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "aquí", target: "here" }
+          - { source: "bien", target: "well / fine" }
+          - { source: "mucho gusto", target: "nice to meet you" }
+          - { source: "adiós", target: "goodbye" }
+      - kind: sim
+        id: m-sim-maria
+        scene: { emoji: "🔔", title: "María drops by", setting: "María — the stranger from the bus, back again. She's heard about the naming game." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Buenas tardes, Sam!", audioText: "¡buenas tardes!", gloss: "Good afternoon, Sam!" }
+            goal: "Greet her back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "buenas tardes" }
+                - { id: "morning", text: "buenos días" }
+                - { id: "what", text: "¿qué es?" }
+              correctOptionId: "right"
+              audioText: "buenas tardes"
+            replyGloss: "Good afternoon."
+          - id: t2
+            npc: { speaker: "María", es: "¿Qué es?", audioText: "¿qué es?", gloss: "(She holds up her key, playing the game.) What is it?" }
+            goal: "Win the game."
+            reply:
+              mode: build
+              tiles: ["es", "una", "llave", "un", "celular"]
+              answer: "es una llave"
+              alsoAccepted: ["una llave"]
+            replyGloss: "It's a key."
+            explanation: "Module complete: you can greet, ask what anything is, answer, and count what you see. m4 finds where things ARE — «¿dónde está?» — and makes them yours."
+
+placement:
+  screener:
+    - id: "es-m3-scr-1"
+      prompt: "Which one means 'there is / there are'?"
+      correct: "hay"
+      distractors: ["es", "en", "y"]
+  byModule:
+    - id: "es-m3-pl-1"
+      prompt: "Pick the correct pair."
+      correct: "la casa"
+      distractors: ["el casa", "un casa", "los casa"]
+    - id: "es-m3-pl-2"
+      prompt: "'There are two books' is…"
+      correct: "hay dos libros"
+      distractors: ["es dos libros", "hay dos libro", "en dos libros"]
+    - id: "es-m3-pl-3"
+      prompt: "Someone points at your pen and asks «¿Qué es?». You say…"
+      correct: "es una pluma"
+      distractors: ["es un pluma", "hay una pluma", "de una pluma"]

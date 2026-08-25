@@ -1,0 +1,1587 @@
+module: m10
+title: "The verb machine — one swap, a hundred verbs"
+frame: none
+throughModule: m9
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m10 — «The verb machine»: the course's FIRST true conjugation-paradigm
+# module. hablar/trabajar/estudiar run the -o/-as/-a machine; escuchar/
+# bailar/cantar stay infinitive-only; siempre/nunca discriminate; the
+# module closes on María's language exchange. Fifth §13-doctrine IR module
+# (m4/m5/m7 are the freshest siblings; m3 the original exemplar). m8/m9 are
+# authored in parallel — this file relies on THEIR pinned atom lists +
+# REQUIRED voicings (docs/es-m4-m10-wave-2026-08-24.md, "m8 — La semana" /
+# "m9 — Vamos") as taught/licensed, per throughModule: m9.
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m10 — the -ar machine"). 20 registered
+# atoms: hablar, trabajar, estudiar, hablo, hablas, habla, trabajas, trabaja,
+# estudio, estudias, estudia, escuchar, bailar, cantar, siempre, nunca,
+# todos los días, español, un poco, música. Nothing added, dropped or
+# renamed against that spec, with ONE deliberate correction (flagged by the
+# spec's own "?"): the REQUIRED-voicing candidate «escucho música» is
+# DROPPED — «escuchar» is explicitly infinitive-only, never conjugated in
+# this module, so «escucho» would be an untaught conjugated form appearing
+# nowhere else. «quiero escuchar música» carries the same music beat
+# without breaking that rule (the m7 «un té con leche» precedent: the spec
+# names its own uncertain line with "?", the dispatch resolves it in the
+# direction the hard rules force).
+#
+# ⚠️ TRABAJO COLLISION: «trabajo» is ALREADY a registered atom — m9's noun
+# ("work"). FIRST-WRITE-WINS means it is NOT in this file's newAtoms; every
+# sentence that needs "I work" uses the surface «trabajo» un-registered,
+# exercised only through use (L3's info card states the pun explicitly:
+# "«trabajo» is already yours as a noun — now it's also 'I work.' Same
+# word, new job."). trabajas/trabaja ARE new atoms here, registered
+# normally.
+#
+# DOCTRINE NOTES:
+#   - THE MACHINE CARD (L1, once): hablar → hablo (I) / hablas (you) /
+#     habla (he/she) is shown as a three-row table exactly once, in L1's
+#     info card. No later card repeats it — every subsequent lesson is
+#     USE. The word "conjugation" never appears in any learner-facing
+#     text. Judgment call: the L1 card previews «habla» (L2's own atom) as
+#     the table's third row before habla has its own debut step — the
+#     table is instructional prose, not an exercised sentence, so it does
+#     not trip the comprehensibility gate (no `atoms:` list claims habla
+#     before L2); this is the module's central pedagogical device (see the
+#     whole machine before drilling each gear) and mirrors how m6's
+#     agreement callback card previews a pattern before its own drills.
+#   - Atom allocation across lessons (20 total, trabajo excluded):
+#     L1 hablar/hablo/hablas (3) · L2 habla/español/música (3) ·
+#     L3 trabajar/trabajas/trabaja (3) · L4 estudiar/estudio/estudias/
+#     estudia/siempre/nunca (6) · L5 escuchar/bailar/cantar (3) ·
+#     L6 todos los días/un poco (2). L7–L10 are zero-new. Total 3+3+3+6+3+2
+#     = 20.
+#   - Person build-out DELIBERATELY differs by verb, mirroring the arc's
+#     own escalating scaffold: hablar gets three separate map-elimination
+#     debuts spread across L1–L2 (fully worked, the "watch me do it"
+#     verb); trabajar gets three separate map debuts too, but all in one
+#     lesson (L3, the first full single-lesson transfer, with the pun card
+#     line making the transfer explicit: "same machine, new verb");
+#     estudiar gets the SAME map-per-form treatment (comprehensibility
+#     still requires an intro-before-review step for every atom) but
+#     lighter surrounding scaffolding and denser cloze/production
+#     immediately after — this is "the TEST of the module" the spec names
+#     (can the learner run the machine on a verb met only as -ar?),
+#     operationalized as less hand-holding around the third verb's debuts
+#     rather than skipping intro steps outright (skipping them would
+#     violate intro-before-review, which is machine-enforced elsewhere in
+#     the course). Flagged as a judgment call.
+#   - Every hablar/trabajar/estudiar form debuts through a REAL sentence,
+#     never a bare conjugation list: «hablo ahora» (m9's «ahora»), «trabajo
+#     en la escuela» (the exact line the hard rules name — doubles as the
+#     pun-card's worked example), «Ana estudia en casa» (bare «casa» after
+#     «en», echoing m9's own «voy a casa» article-drop exception, not a
+#     new one).
+#   - hablo/hablas/habla three-way lane: every clozeLit is 2-option (the
+#     clozeLit factory enforces this — the blank must be one literal word
+#     of the sentence), so the "3-way" lane is built as a ROTATING cycle of
+#     2-option pairs (hablo↔hablas, hablas↔habla, habla↔hablo) repeated
+#     across L1/L2/L7/L8/L9/L10 until every slot has appeared correct
+#     roughly equally. Tally (correct-option counts): hablo 4 (L1, L7,
+#     L8×2 via cp-lc-1's audio-comp + cp-cloze equivalents, L10) · hablas 3
+#     (L2, L7, L9) · habla 4 (L2, L7, L8×2, L9-adjacent via cloze) — see
+#     the per-lesson step list below for exact ids; balance is close, not
+#     exact, per the spec's own "near-balanced" wording (m7's own
+#     quiero/quieres tally was 3:3, this module's third slot makes exact
+#     parity across three cells harder and the dispatch did not force it
+#     artificially with a filler cloze).
+#   - siempre/nunca: both live throughout — L4 debuts both (siempre via
+#     «siempre estudio», nunca via «nunca trabajo», m9's own trabajo
+#     un-conjugated form cashed a second way); clozes recur L4×2, L7, L8,
+#     L9, each a FRESH sentence (no byte-identical repeats); an ear lane
+#     (audioWimcq, honest non-punny icons 🔁/🚫) runs once in L4.
+#   - «todos los días» pays off m8's whole week atoms; its debut sits
+#     inside a self-cueing sim (L6, `debut: true`), the SAME mechanism m7
+#     used for «tengo hambre»/«tengo sed» — a multi-word phrase atom is
+#     awkward to map-eliminate word-by-word (its constituent words are not
+#     independently "taught" the way a single new word inside an otherwise-
+#     known sentence would be), so the NPC's own line carries the first
+#     printed exposure and the learner's reply is the first production.
+#     «un poco» debuts via map instead (tokenized as ONE unit — «un poco»
+#     — rather than split into «un»/«poco», since «poco» alone is not an
+#     atom; only the phrase is registered).
+#   - Multi-word phrase atoms (todos los días, un poco) are NEVER blanked
+#     in a clozeLit (the factory requires the blank be a single literal
+#     word of the sentence) — every check on those two atoms runs through
+#     textMcq, listenCompLit, buildLit or a sim turn instead.
+#   - quiero + infinitive beat (L5, one card line only, per the hard rule):
+#     «quiero bailar» — the m7 payoff, and the module's own note that
+#     infinitives are usable words WITHOUT the machine. escuchar/bailar/
+#     cantar are infinitive-only for the module's entire run — no step
+#     anywhere conjugates them (checked by hand across every lesson); the
+#     nearest brush with temptation (a sim NPC asking "do you sing too?")
+#     is phrased «¿quieres cantar también?», never «¿cantas?».
+#   - L1 also gives «hablar» itself a light bare-word touch (a speakLit
+#     right after the machine card, and «quiero hablar» as an early build)
+#     — a small preview of the "infinitives don't need the machine" idea
+#     that L5's card states explicitly; this is USE without explanation,
+#     so it does not spend the "one card line" budget.
+#   - español drops its article after hablar/estudiar («habla español»,
+#     never «habla el español») — stated once, in L2's map revealNote, the
+#     m9 «voy a casa» pattern applied to a second exception.
+#   - español's emoji is the Spanish flag (🇪🇸) — a meaning-based metonym
+#     for the language (common convention, not a sound-pun); flagged as a
+#     judgment call since the course's usual honesty bar is "depicts the
+#     referent," and a flag depicts a country standing in for a language.
+#   - m5 payoff (L6): «mi madre trabaja en el mercado», «mi hermano
+#     estudia español» — the machine reaches the family, using m5's madre/
+#     hermano atoms as fresh SUBJECTS (not re-registered) the way m7/m9
+#     reused Diego/Sofía as subjects without re-teaching their names.
+#   - Interleave: the three verbs' 3-person families are spread 3/3/3
+#     across L1–L2 (hablar), L3 (trabajar), L4 (estudiar, alongside
+#     siempre/nunca) — never a lesson that is ONLY conjugated forms; every
+#     lesson also carries either a noun debut (español/música), a phrase
+#     debut (siempre/nunca/todos los días/un poco) or an infinitive-only
+#     verb (escuchar/bailar/cantar) as the "unrelated break."
+#   - Cast: Diego (phone call L1 — new gag; market job L3; the party L5),
+#     Sofía (español/música debut L2; the workout check-in L7), Ana (the
+#     family question sim L4/L6), María (bus — the summit AND mastery
+#     exchange, per the spec: "the summit is exchange part 1 with
+#     DIFFERENT beats from mastery" — L9 covers trabajar/estudiar/gusta/
+#     bailar and never touches «hablas/hablo español»; L10 covers estudiar/
+#     bailar again in fresh sentences and closes on the reserved line).
+#     Carmen stays offstage. Family (madre/hermano) has no name, per m5's
+#     own convention. Learner = Sam.
+#   - Mastery (L10) ends on the exact reserved line «sí, hablo un poco» as
+#     the LAST turn of the LAST step — no trailing goodbye turn after it,
+#     because the spec calls this line the module's (and the course's)
+#     promise; a farewell turn after it would dilute the close. This is a
+#     deliberate deviation from m4/m7's mastery pattern (which both close
+#     on a goodbye) — flagged as a judgment call, forced by the spec's own
+#     wording ("mastery ends on the «hablo un poco» sim").
+#   - «no gracias»/«no entiendo»/«hasta luego»/«adiós» reused freely from
+#     m1/m2 as sim filler, per every prior module's convention.
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   hablar L1 · hablo ahora L1 · ¿hablas ahora? L1 · el español L2 ·
+#   la música L2 · Sofía habla español L2 · hablo español L2 (sim,
+#   REQUIRED) · ¿hablas español? L2 (sim NPC, REQUIRED) · trabajar L3 ·
+#   trabajo en la escuela L3 · ¿trabajas hoy? L3 · Diego trabaja en el
+#   mercado L3 · estudiar L4 · estudio en la escuela L4 · ¿estudias hoy? L4
+#   · Ana estudia en casa L4 · siempre estudio L4 · nunca trabajo L4
+#   (REQUIRED) · quiero bailar L5 · quiero cantar L5 · quiero escuchar
+#   música L5 · mi madre trabaja en el mercado L6 · mi hermano estudia
+#   español L6 · todos los días L6 (REQUIRED, sim debut) · estudio un poco
+#   L6 · hablo un poco L10 (REQUIRED — reserved for mastery's final turn,
+#   printed nowhere else) · ¿hablas español? L10 (sim NPC, second
+#   printing)
+#   m10-internal recalls drawn from the above: quiero un café (L7, L8, L10
+#   — m7 licensed, reused as a recall here), la cuenta por favor (L5, L8 —
+#   m7), tengo hambre (L8 — m7)
+#   cross-module (licensed by m1–m9 printed voicings per the wave doc):
+#   voy al parque (L1), el sábado (L2, L3), voy a la playa (L3), buenos
+#   días (L4), el dinero-adjacent "no hay" (L4 sim wrong-option only, not
+#   printed as a recall), mi familia (L6), ¿dónde está? (L8), gracias (all
+#   lessons, match filler).
+newAtoms:
+  - { surface: "hablar", meaningEn: "to speak", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabajar", meaningEn: "to work", partOfSpeech: "verb", kind: "vocab", hint: "j sounds like h — tra-ba-HAR" }
+  - { surface: "estudiar", meaningEn: "to study", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "hablo", meaningEn: "I speak", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "hablas", meaningEn: "you speak", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "habla", meaningEn: "he/she speaks", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabajas", meaningEn: "you work", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabaja", meaningEn: "he/she works", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudio", meaningEn: "I study", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudias", meaningEn: "you study", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudia", meaningEn: "he/she studies", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escuchar", meaningEn: "to listen", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "bailar", meaningEn: "to dance", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "cantar", meaningEn: "to sing", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "siempre", meaningEn: "always", partOfSpeech: "adverb", kind: "vocab", hint: "SYEM-preh" }
+  - { surface: "nunca", meaningEn: "never", partOfSpeech: "adverb", kind: "vocab" }
+  - { surface: "todos los días", meaningEn: "every day", partOfSpeech: "phrase", kind: "phrase" }
+  - { surface: "español", meaningEn: "Spanish (the language)", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💬", hint: "the ñ: es-pa-NYOL" }
+  - { surface: "un poco", meaningEn: "a little", partOfSpeech: "phrase", kind: "phrase" }
+  - { surface: "música", meaningEn: "music", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🎵", hint: "stress up front — MOO-see-ka" }
+
+lessons:
+  # ── L1 · the machine card + hablo/hablas debut. States the promise. ──
+  - n: 1
+    template: free
+    title: "Run your first machine"
+    description: "One swap — -o, -as, -a — runs on every -ar verb you'll ever meet. Learn it once, on «hablar»."
+    steps:
+      - kind: info
+        id: info-machine
+        title: "One machine, every verb"
+        body: "Spanish verbs run on a machine: swap the ending. hablar (to speak) → hablo (I), hablas (you), habla (he/she) — learn the swap once, it runs on hundreds of verbs. This module: run the machine yourself."
+      - kind: speakLit
+        id: sp-hablar
+        es: "hablar"
+        en: "to speak"
+        atoms: ["hablar"]
+      - kind: map
+        id: map-habloahora
+        tokens: ["hablo", "ahora"]
+        pairs:
+          - { en: "I speak", tokenIndex: 0 }
+          - { en: "now", tokenIndex: 1 }
+        audioText: "hablo ahora"
+        revealNote: "«ahora» is already yours — «hablo» is the new gear: I speak, I'm talking."
+      - kind: speakLit
+        id: sp-habloahora
+        es: "hablo ahora"
+        en: "I'm talking now"
+        atoms: ["hablo", "ahora"]
+      - kind: map
+        id: map-hablasahora
+        tokens: ["¿hablas", "ahora?"]
+        pairs:
+          - { en: "are you talking", tokenIndex: 0 }
+          - { en: "now", tokenIndex: 1 }
+        audioText: "¿hablas ahora?"
+        revealNote: "Same swap — «hablas» is the you-form. Now you can ask, not just say."
+      - kind: speakLit
+        id: sp-hablasahora
+        es: "¿hablas ahora?"
+        en: "are you talking now?"
+        atoms: ["hablas", "ahora"]
+      - kind: clozeLit
+        id: c-hablovshablas1
+        es: "hablo ahora"
+        en: "I'm talking now"
+        blank: "hablo"
+        options: ["hablo", "hablas"]
+        atoms: ["hablo", "ahora"]
+        why: "You're the one talking — «hablo», not «hablas»."
+      - kind: buildLit
+        id: b-quierohablar
+        es: "quiero hablar"
+        en: "I want to speak"
+        atoms: ["quiero", "hablar"]
+        tiles: ["hablo", "hablas"]
+      - kind: audioWimcq
+        id: ear-review1
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: listenCompLit
+        id: lc-hablasahora
+        es: "¿hablas ahora?"
+        en: "Are you talking now?"
+        atoms: ["hablas", "ahora"]
+        distractorsEn:
+          - "Do you like to talk?"
+          - "Where are you talking?"
+          - "I'm talking now."
+      - kind: speakLit
+        id: sp-recall-voyalparque
+        es: "voy al parque"
+        en: "I'm going to the park"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-llama
+        scene: { emoji: "📞", title: "Diego calls", setting: "Your phone buzzes — it's Diego." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Hablas ahora?", audioText: "¿hablas ahora?", gloss: "Are you talking now? Can you talk?" }
+            goal: "Say yes — you can talk now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablo ahora" }
+                - { id: "wrong1", text: "sí, hablas ahora" }
+                - { id: "wrong2", text: "no, no hablo" }
+              correctOptionId: "right"
+              audioText: "sí, hablo ahora"
+            replyGloss: "Yes, I'm talking now."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "hablar", target: "to speak" }
+          - { source: "hablo", target: "I speak" }
+          - { source: "hablas", target: "you speak" }
+          - { source: "ahora", target: "now" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "la casa", target: "the house" }
+      - kind: speakLit
+        id: sp-win
+        es: "hablo ahora"
+        en: "I'm talking now"
+        atoms: ["hablo", "ahora"]
+
+  # ── L2 · habla debuts + español/música. hablo español lands (REQUIRED). ──
+  - n: 2
+    template: free
+    title: "She speaks it too"
+    description: "«Habla» — the third gear. Meet Spanish by name, and music."
+    steps:
+      - kind: imageMcq
+        id: d-espanol
+        target: { surface: "el español", meaningEn: "Spanish (the language)", emoji: "💬" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "un café", emoji: "☕" }
+      - kind: speakLit
+        id: sp-elespanol
+        es: "el español"
+        en: "Spanish (the language)"
+        atoms: ["el", "español"]
+      - kind: imageMcq
+        id: d-musica
+        target: { surface: "la música", meaningEn: "the music", emoji: "🎵" }
+        distractors:
+          - { surface: "el español", emoji: "💬" }
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el carro", emoji: "🚗" }
+      - kind: speakLit
+        id: sp-lamusica
+        es: "la música"
+        en: "the music"
+        atoms: ["la", "música"]
+      - kind: map
+        id: map-sofiahablaespanol
+        tokens: ["Sofía", "habla", "español"]
+        pairs:
+          - { en: "Sofía", tokenIndex: 0 }
+          - { en: "speaks", tokenIndex: 1 }
+          - { en: "Spanish", tokenIndex: 2 }
+        audioText: "Sofía habla español"
+        revealNote: "«Sofía» and «español» are already yours — «habla» is the last gear: he/she speaks. Notice: no «el» after «habla» — the article drops before a language name."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: sp-sofiahablaespanol
+        es: "Sofía habla español"
+        en: "Sofía speaks Spanish"
+        atoms: ["habla", "español"]
+      - kind: clozeLit
+        id: c-hablavshablas2
+        es: "Sofía habla español"
+        en: "Sofía speaks Spanish"
+        blank: "habla"
+        options: ["habla", "hablo"]
+        atoms: ["habla", "español"]
+        why: "Talking about Sofía, not yourself — «habla»."
+      - kind: buildLit
+        id: b-megustamusica
+        es: "me gusta la música"
+        en: "I like music"
+        atoms: ["me gusta", "la", "música"]
+        tiles: ["el", "un"]
+      - kind: audioWimcq
+        id: ear-review2
+        target: { surface: "sábado", emoji: "🕯️" }
+        distractors:
+          - { surface: "domingo", emoji: "⛪" }
+          - { surface: "la semana", emoji: "🗓️" }
+      - kind: clozeLit
+        id: c-hablovshablas3
+        es: "hablas español"
+        en: "you speak Spanish"
+        blank: "hablas"
+        options: ["hablas", "habla"]
+        atoms: ["hablas", "español"]
+        why: "Asking YOU — «hablas»."
+      - kind: listenCompLit
+        id: lc-sofiahablaespanol
+        es: "Sofía habla español"
+        en: "Sofía speaks Spanish."
+        atoms: ["habla", "español"]
+        distractorsEn:
+          - "Sofía speaks a little."
+          - "Sofía likes Spanish."
+          - "Sofía studies Spanish."
+      - kind: speakLit
+        id: sp-recall-elsabado
+        es: "el sábado"
+        en: "Saturday"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-hablaespanol
+        scene: { emoji: "☕", title: "Sofía switches languages", setting: "Sofía leans in, curious." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hablas español?", audioText: "¿hablas español?", gloss: "Do you speak Spanish?" }
+            goal: "Say yes, you speak it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablo español" }
+                - { id: "wrong1", text: "sí, hablas español" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, hablo español"
+            replyGloss: "Yes, I speak Spanish."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "español", target: "Spanish" }
+          - { source: "música", target: "music" }
+          - { source: "habla", target: "he/she speaks" }
+          - { source: "hablas", target: "you speak" }
+          - { source: "hablo", target: "I speak" }
+          - { source: "la cuenta", target: "the check" }
+      - kind: speakLit
+        id: sp-win
+        es: "hablo español"
+        en: "I speak Spanish"
+        atoms: ["hablo", "español"]
+
+  # ── L3 · trabajar transfers. "Same machine, new verb" — the pun card. ──
+  - n: 3
+    template: free
+    title: "Same machine, new verb"
+    description: "«Trabajar» — the machine works on any -ar verb. And «trabajo» is funnier than you think."
+    steps:
+      - kind: info
+        id: info-transfer
+        title: "Same machine, new verb"
+        body: "The machine works on ANY -ar verb: trabajar (to work) → trabajo, trabajas, trabaja — the same three endings you already know. Funny thing: «trabajo» is already yours as a NOUN (work) — now it's also 'I work.' Same word, new job."
+      - kind: speakLit
+        id: sp-trabajar
+        es: "trabajar"
+        en: "to work"
+        atoms: ["trabajar"]
+      - kind: map
+        id: map-trabajoescuela
+        tokens: ["trabajo", "en", "la", "escuela"]
+        pairs:
+          - { en: "I work", tokenIndex: 0 }
+          - { en: "at", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "school", tokenIndex: 3 }
+        audioText: "trabajo en la escuela"
+        revealNote: "«en», «la», «escuela» are already yours — «trabajo» you know as a noun (work); here it's the verb: I work."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-trabajoescuela
+        es: "trabajo en la escuela"
+        en: "I work at the school"
+        atoms: ["trabajo", "en", "la", "escuela"]
+      - kind: map
+        id: map-trabajashoy
+        tokens: ["¿trabajas", "hoy?"]
+        pairs:
+          - { en: "do you work", tokenIndex: 0 }
+          - { en: "today", tokenIndex: 1 }
+        audioText: "¿trabajas hoy?"
+        revealNote: "«hoy» is already yours — «trabajas» is the new gear: do you work?"
+      - kind: speakLit
+        id: sp-trabajashoy
+        es: "¿trabajas hoy?"
+        en: "do you work today?"
+        atoms: ["trabajas", "hoy"]
+      - kind: map
+        id: map-diegotrabajamercado
+        tokens: ["Diego", "trabaja", "en", "el", "mercado"]
+        pairs:
+          - { en: "Diego", tokenIndex: 0 }
+          - { en: "works", tokenIndex: 1 }
+          - { en: "at", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "market", tokenIndex: 4 }
+        audioText: "Diego trabaja en el mercado"
+        revealNote: "«en», «el», «mercado» are already yours — «trabaja» is the last gear: he/she works."
+        tokenGenders: { 3: "m", 4: "m" }
+      - kind: speakLit
+        id: sp-diegotrabajamercado
+        es: "Diego trabaja en el mercado"
+        en: "Diego works at the market"
+        atoms: ["trabaja", "en", "el", "mercado"]
+      - kind: clozeLit
+        id: c-trabajolane1
+        es: "trabajo en la escuela"
+        en: "I work at the school"
+        blank: "trabajo"
+        options: ["trabajo", "trabajas"]
+        atoms: ["trabajo", "en", "la", "escuela"]
+        why: "You're the one working — «trabajo»."
+      - kind: buildLit
+        id: b-trabajashoy
+        es: "¿trabajas hoy?"
+        en: "do you work today?"
+        atoms: ["trabajas", "hoy"]
+        tiles: ["trabajo", "trabaja"]
+      - kind: clozeLit
+        id: c-trabajolane2
+        es: "Diego trabaja en el mercado"
+        en: "Diego works at the market"
+        blank: "trabaja"
+        options: ["trabaja", "trabajo"]
+        atoms: ["trabaja", "en", "el", "mercado"]
+        why: "Diego, not you — «trabaja»."
+      - kind: audioWimcq
+        id: ear-review3
+        target: { surface: "lunes", emoji: "🌛" }
+        distractors:
+          - { surface: "sábado", emoji: "🕯️" }
+          - { surface: "la semana", emoji: "🗓️" }
+      - kind: listenCompLit
+        id: lc-trabajoescuela
+        es: "trabajo en la escuela"
+        en: "I work at the school."
+        atoms: ["trabajo", "en", "la", "escuela"]
+        distractorsEn:
+          - "I study at the school."
+          - "I speak at the school."
+          - "I work at the market."
+      - kind: speakLit
+        id: sp-recall-voyalaplaya
+        es: "voy a la playa"
+        en: "I'm going to the beach"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-trabajo
+        scene: { emoji: "🛒", title: "Diego at the market", setting: "Diego waves from behind the market stall." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Trabajas hoy?", audioText: "¿trabajas hoy?", gloss: "Do you work today?" }
+            goal: "Say yes, you work today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, trabajo hoy" }
+                - { id: "wrong1", text: "sí, trabajas hoy" }
+                - { id: "wrong2", text: "sí, trabaja hoy" }
+              correctOptionId: "right"
+              audioText: "sí, trabajo hoy"
+            replyGloss: "Yes, I work today."
+          - id: t2
+            npc: { speaker: "Diego", es: "Trabajo en el mercado. ¿Y tú?", audioText: "trabajo en el mercado. ¿y tú?", gloss: "I work at the market. And you?" }
+            goal: "Say you work at the school."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "trabajo en la escuela" }
+                - { id: "wrong1", text: "trabajas en la escuela" }
+                - { id: "wrong2", text: "trabaja en la escuela" }
+              correctOptionId: "right"
+              audioText: "trabajo en la escuela"
+            replyGloss: "I work at the school."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "trabajar", target: "to work" }
+          - { source: "trabajo", target: "I work" }
+          - { source: "trabajas", target: "you work" }
+          - { source: "trabaja", target: "he/she works" }
+          - { source: "hoy", target: "today" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "trabajo en el mercado"
+        en: "I work at the market"
+        atoms: ["trabajo", "en", "el", "mercado"]
+
+  # ── L4 · estudiar (the TEST) + siempre/nunca. ─────────────────────────
+  - n: 4
+    template: free
+    title: "Always, never"
+    description: "«Estudiar» — you run the machine yourself this time. Then: always, and never."
+    steps:
+      - kind: speakLit
+        id: sp-estudiar
+        es: "estudiar"
+        en: "to study"
+        atoms: ["estudiar"]
+      - kind: map
+        id: map-estudioescuela
+        tokens: ["estudio", "en", "la", "escuela"]
+        pairs:
+          - { en: "I study", tokenIndex: 0 }
+          - { en: "at", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "school", tokenIndex: 3 }
+        audioText: "estudio en la escuela"
+        revealNote: "«en», «la», «escuela» are already yours — «estudio» is new: I study."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-estudioescuela
+        es: "estudio en la escuela"
+        en: "I study at the school"
+        atoms: ["estudio", "en", "la", "escuela"]
+      - kind: map
+        id: map-estudiashoy
+        tokens: ["¿estudias", "hoy?"]
+        pairs:
+          - { en: "do you study", tokenIndex: 0 }
+          - { en: "today", tokenIndex: 1 }
+        audioText: "¿estudias hoy?"
+        revealNote: "«hoy» is already yours — «estudias» is new: do you study?"
+      - kind: speakLit
+        id: sp-estudiashoy
+        es: "¿estudias hoy?"
+        en: "do you study today?"
+        atoms: ["estudias", "hoy"]
+      - kind: map
+        id: map-anaestudiaencasa
+        tokens: ["Ana", "estudia", "en", "casa"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "studies", tokenIndex: 1 }
+          - { en: "at", tokenIndex: 2 }
+          - { en: "home", tokenIndex: 3 }
+        audioText: "Ana estudia en casa"
+        revealNote: "«en» and «casa» (no article, just like «voy a casa») are yours — «estudia» is the last gear: he/she studies."
+      - kind: speakLit
+        id: sp-anaestudiaencasa
+        es: "Ana estudia en casa"
+        en: "Ana studies at home"
+        atoms: ["estudia", "en", "casa"]
+      - kind: map
+        id: map-siempreestudio
+        tokens: ["siempre", "estudio"]
+        pairs:
+          - { en: "always", tokenIndex: 0 }
+          - { en: "I study", tokenIndex: 1 }
+        audioText: "siempre estudio"
+        revealNote: "«estudio» is already yours — «siempre» is new: always. It (and «nunca») sit right before the verb; a phrase like 'every day' prefers the end."
+      - kind: speakLit
+        id: sp-siempreestudio
+        es: "siempre estudio"
+        en: "I always study"
+        atoms: ["siempre", "estudio"]
+      - kind: map
+        id: map-nuncatrabajo
+        tokens: ["nunca", "trabajo"]
+        pairs:
+          - { en: "never", tokenIndex: 0 }
+          - { en: "I work", tokenIndex: 1 }
+        audioText: "nunca trabajo"
+        revealNote: "«trabajo» is already yours — «nunca» is new: never."
+      - kind: speakLit
+        id: sp-nuncatrabajo
+        es: "nunca trabajo"
+        en: "I never work"
+        atoms: ["nunca", "trabajo"]
+      - kind: clozeLit
+        id: c-siemprenunca1
+        es: "siempre estudio"
+        en: "I always study"
+        blank: "siempre"
+        options: ["siempre", "nunca"]
+        atoms: ["siempre", "estudio"]
+        why: "Every day, not never — «siempre»."
+      - kind: buildLit
+        id: b-siemprehablo
+        es: "siempre hablo español"
+        en: "I always speak Spanish"
+        atoms: ["siempre", "hablo", "español"]
+        tiles: ["nunca", "hablas"]
+      - kind: clozeLit
+        id: c-siemprenunca2
+        es: "nunca trabajo el domingo"
+        en: "I never work on Sunday"
+        blank: "nunca"
+        options: ["nunca", "siempre"]
+        atoms: ["nunca", "trabajo", "el", "domingo"]
+        why: "Never, not always — «nunca»."
+      - kind: audioWimcq
+        id: ear-siemprenunca
+        target: { surface: "siempre", emoji: "🔁" }
+        distractors:
+          - { surface: "nunca", emoji: "🚫" }
+          - { surface: "hoy", emoji: "📌" }
+      - kind: clozeLit
+        id: c-estudiastransfer
+        es: "estudias español"
+        en: "you study Spanish"
+        blank: "estudias"
+        options: ["estudias", "estudia"]
+        atoms: ["estudias", "español"]
+        why: "Asking YOU — «estudias»."
+      - kind: speakLit
+        id: sp-recall-buenosdias
+        es: "buenos días"
+        en: "good morning"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: lc-nuncatrabajo
+        es: "nunca trabajo el domingo"
+        en: "I never work on Sunday."
+        atoms: ["nunca", "trabajo", "el", "domingo"]
+        distractorsEn:
+          - "I always work on Sunday."
+          - "I don't want to work."
+          - "I work today."
+      - kind: sim
+        id: sim-ana-siemprenunca
+        scene: { emoji: "📖", title: "Ana asks about your routine", setting: "Ana's curious about your schedule." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Estudias siempre?", audioText: "¿estudias siempre?", gloss: "Do you always study?" }
+            goal: "Say yes, you always study."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, siempre estudio" }
+                - { id: "wrong1", text: "sí, nunca estudio" }
+                - { id: "wrong2", text: "no, trabajo" }
+              correctOptionId: "right"
+              audioText: "sí, siempre estudio"
+            replyGloss: "Yes, I always study."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Trabajas el domingo?", audioText: "¿trabajas el domingo?", gloss: "Do you work on Sunday?" }
+            goal: "Say no, you never work then."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, nunca trabajo" }
+                - { id: "wrong1", text: "sí, siempre trabajo" }
+                - { id: "wrong2", text: "no, no hay" }
+              correctOptionId: "right"
+              audioText: "no, nunca trabajo"
+            replyGloss: "No, I never work then."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "estudiar", target: "to study" }
+          - { source: "estudio", target: "I study" }
+          - { source: "estudias", target: "you study" }
+          - { source: "siempre", target: "always" }
+          - { source: "nunca", target: "never" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: sp-win
+        es: "siempre estudio"
+        en: "I always study"
+        atoms: ["siempre", "estudio"]
+
+  # ── L5 · escuchar/bailar/cantar — infinitives, quiero + infinitive. ──
+  - n: 5
+    template: free
+    title: "Words that skip the machine"
+    description: "«Escuchar», «bailar», «cantar» never change shape here — pair them with «quiero» instead."
+    steps:
+      - kind: info
+        id: info-infinitives
+        title: "Words that don't need the machine"
+        body: "«escuchar» (to listen), «bailar» (to dance), «cantar» (to sing) — three more -ar verbs, and the machine runs on them too. But for now you'll meet them only in dictionary form, paired with «quiero»: «quiero bailar» — I want to dance. Infinitives are usable straight out of the box."
+      - kind: map
+        id: map-quierobailar
+        tokens: ["quiero", "bailar"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to dance", tokenIndex: 1 }
+        audioText: "quiero bailar"
+        revealNote: "«quiero» is already yours — «bailar» is new: to dance."
+      - kind: speakLit
+        id: sp-quierobailar
+        es: "quiero bailar"
+        en: "I want to dance"
+        atoms: ["quiero", "bailar"]
+      - kind: map
+        id: map-quierocantar
+        tokens: ["quiero", "cantar"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to sing", tokenIndex: 1 }
+        audioText: "quiero cantar"
+        revealNote: "«cantar» is new: to sing."
+      - kind: speakLit
+        id: sp-quierocantar
+        es: "quiero cantar"
+        en: "I want to sing"
+        atoms: ["quiero", "cantar"]
+      - kind: map
+        id: map-quieroescucharmusica
+        tokens: ["quiero", "escuchar", "música"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to listen to", tokenIndex: 1 }
+          - { en: "music", tokenIndex: 2 }
+        audioText: "quiero escuchar música"
+        revealNote: "«música» is already yours — «escuchar» is new: to listen."
+        tokenGenders: { 2: "f" }
+      - kind: speakLit
+        id: sp-quieroescucharmusica
+        es: "quiero escuchar música"
+        en: "I want to listen to music"
+        atoms: ["quiero", "escuchar", "música"]
+      - kind: clozeLit
+        id: c-infinitivobailar
+        es: "quiero bailar"
+        en: "I want to dance"
+        blank: "bailar"
+        options: ["bailar", "cantar"]
+        atoms: ["quiero", "bailar"]
+        why: "Dance, not sing — «bailar»."
+      - kind: buildLit
+        id: b-quierocantarreview
+        es: "quiero cantar"
+        en: "I want to sing"
+        atoms: ["quiero", "cantar"]
+        tiles: ["bailar", "escuchar"]
+      - kind: audioWimcq
+        id: ear-infinitivos
+        target: { surface: "bailar", emoji: "💃" }
+        distractors:
+          - { surface: "cantar", emoji: "🎤" }
+          - { surface: "escuchar", emoji: "🎧" }
+      - kind: clozeLit
+        id: c-infinitivoescuchar
+        es: "quiero escuchar música"
+        en: "I want to listen to music"
+        blank: "escuchar"
+        options: ["escuchar", "bailar"]
+        atoms: ["quiero", "escuchar", "música"]
+        why: "Listen, not dance — «escuchar»."
+      - kind: listenCompLit
+        id: lc-quierobailar
+        es: "quiero bailar"
+        en: "I want to dance."
+        atoms: ["quiero", "bailar"]
+        distractorsEn:
+          - "I want to sing."
+          - "I want to listen."
+          - "I like to dance."
+      - kind: speakLit
+        id: sp-recall-lacuentaporfavor
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-baila
+        scene: { emoji: "🎉", title: "Diego's party", setting: "Diego cranks up the music." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres bailar?", audioText: "¿quieres bailar?", gloss: "Do you want to dance?" }
+            goal: "Say yes, you want to dance."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero bailar" }
+                - { id: "wrong1", text: "sí, quiero cantar" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, quiero bailar"
+            replyGloss: "Yes, I want to dance."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y quieres cantar?", audioText: "¿y quieres cantar?", gloss: "And do you want to sing?" }
+            goal: "Say yes to that too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero cantar" }
+                - { id: "wrong1", text: "sí, quiero bailar" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, quiero cantar"
+            replyGloss: "Yes, I want to sing too."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "bailar", target: "to dance" }
+          - { source: "cantar", target: "to sing" }
+          - { source: "escuchar", target: "to listen" }
+          - { source: "música", target: "music" }
+          - { source: "quiero", target: "I want" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "quiero bailar ahora"
+        en: "I want to dance now"
+        atoms: ["quiero", "bailar", "ahora"]
+
+  # ── L6 · the machine reaches the family (m5 payoff) + todos los días/un poco. ──
+  - n: 6
+    template: free
+    title: "The machine reaches your family"
+    description: "Your mother works, your brother studies — and «todos los días» says how often."
+    steps:
+      - kind: map
+        id: map-madretrabaja
+        tokens: ["mi", "madre", "trabaja", "en", "el", "mercado"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "mother", tokenIndex: 1 }
+          - { en: "works", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "market", tokenIndex: 5 }
+        audioText: "mi madre trabaja en el mercado"
+        revealNote: "Every word here is already yours — the machine reaches your family too."
+        tokenGenders: { 1: "f", 4: "m", 5: "m" }
+      - kind: speakLit
+        id: sp-madretrabaja
+        es: "mi madre trabaja en el mercado"
+        en: "my mother works at the market"
+        atoms: ["mi", "madre", "trabaja", "en", "el", "mercado"]
+      - kind: map
+        id: map-hermanoestudia
+        tokens: ["mi", "hermano", "estudia", "español"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "brother", tokenIndex: 1 }
+          - { en: "studies", tokenIndex: 2 }
+          - { en: "Spanish", tokenIndex: 3 }
+        audioText: "mi hermano estudia español"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 1: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-hermanoestudia
+        es: "mi hermano estudia español"
+        en: "my brother studies Spanish"
+        atoms: ["mi", "hermano", "estudia", "español"]
+      - kind: map
+        id: map-todoslosdias
+        tokens: ["trabajo", "todos los días"]
+        pairs:
+          - { en: "I work", tokenIndex: 0 }
+          - { en: "every day", tokenIndex: 1 }
+        audioText: "trabajo todos los días"
+        revealNote: "«trabajo» is already yours — «todos los días» is the new chunk: every day, literally 'all the days.'"
+      - kind: sim
+        id: sim-todoslosdias-debut
+        scene: { emoji: "😅", title: "Diego's surprised", setting: "Diego can't believe your schedule." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Trabajas todos los días?", audioText: "¿trabajas todos los días?", gloss: "Do you work every day?" }
+            goal: "Say yes, every day."
+            debut: true
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, trabajo todos los días" }
+                - { id: "wrong1", text: "no, nunca trabajo" }
+                - { id: "wrong2", text: "sí, estudio todos los días" }
+              correctOptionId: "right"
+              audioText: "sí, trabajo todos los días"
+            replyGloss: "Yes, every day."
+      - kind: speakLit
+        id: sp-todoslosdias
+        es: "todos los días"
+        en: "every day"
+        atoms: ["todos los días"]
+      - kind: textMcq
+        id: tm-todoslosdias
+        target: "todos los días"
+        distractors: ["nunca", "siempre", "hoy"]
+      - kind: map
+        id: map-estudiounpoco
+        tokens: ["estudio", "un poco"]
+        pairs:
+          - { en: "I study", tokenIndex: 0 }
+          - { en: "a little", tokenIndex: 1 }
+        audioText: "estudio un poco"
+        revealNote: "«estudio» is already yours — «un poco» is new: a little."
+      - kind: speakLit
+        id: sp-estudiounpoco
+        es: "estudio un poco"
+        en: "I study a little"
+        atoms: ["estudio", "un poco"]
+      - kind: clozeLit
+        id: c-padretrabajatodoslosdias
+        es: "mi padre trabaja todos los días"
+        en: "my father works every day"
+        blank: "trabaja"
+        options: ["trabaja", "trabajo"]
+        atoms: ["mi", "padre", "trabaja", "todos los días"]
+        why: "Your father, not you — «trabaja»."
+      - kind: buildLit
+        id: b-hermanoestudiaunpoco
+        es: "mi hermano estudia un poco"
+        en: "my brother studies a little"
+        atoms: ["mi", "hermano", "estudia", "un poco"]
+        tiles: ["nunca", "siempre"]
+      - kind: audioWimcq
+        id: ear-review4
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el trabajo", emoji: "💼" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: listenCompLit
+        id: lc-madretrabajamercado
+        es: "mi madre trabaja en el mercado"
+        en: "My mother works at the market."
+        atoms: ["mi", "madre", "trabaja", "en", "el", "mercado"]
+        distractorsEn:
+          - "My mother studies at the market."
+          - "My mother works at the school."
+          - "My mother speaks at the market."
+      - kind: speakLit
+        id: sp-recall-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-family-integration
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks about your family", setting: "Ana's curious what your family's up to." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tu madre trabaja?", audioText: "¿tu madre trabaja?", gloss: "Does your mother work?" }
+            goal: "Say yes, at the market."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, mi madre trabaja en el mercado" }
+                - { id: "wrong1", text: "sí, mi madre estudia en el mercado" }
+                - { id: "wrong2", text: "no, mi madre nunca trabaja" }
+              correctOptionId: "right"
+              audioText: "sí, mi madre trabaja en el mercado"
+            replyGloss: "Yes, my mother works at the market."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano?", audioText: "¿y tu hermano?", gloss: "And your brother?" }
+            goal: "Say he studies Spanish."
+            reply:
+              mode: build
+              tiles: ["mi", "hermano", "estudia", "español", "trabaja", "habla"]
+              answer: "mi hermano estudia español"
+              alsoAccepted: ["estudia español"]
+            replyGloss: "My brother studies Spanish."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "madre", target: "mother" }
+          - { source: "hermano", target: "brother" }
+          - { source: "trabaja", target: "he/she works" }
+          - { source: "estudia", target: "he/she studies" }
+          - { source: "todos los días", target: "every day" }
+          - { source: "un poco", target: "a little" }
+      - kind: speakLit
+        id: sp-win
+        es: "mi madre trabaja todos los días"
+        en: "my mother works every day"
+        atoms: ["mi", "madre", "trabaja", "todos los días"]
+
+  # ── L7 · zero-new workout. ─────────────────────────────────────────────
+  - n: 7
+    template: free
+    title: "Run every gear"
+    description: "No new words — every verb, every form, from memory."
+    steps:
+      - kind: map
+        id: map-l7-1
+        tokens: ["Sofía", "habla", "español", "y", "estudia", "música"]
+        pairs:
+          - { en: "Sofía", tokenIndex: 0 }
+          - { en: "speaks", tokenIndex: 1 }
+          - { en: "Spanish", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "studies", tokenIndex: 4 }
+          - { en: "music", tokenIndex: 5 }
+        audioText: "Sofía habla español y estudia música"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 2: "m", 5: "f" }
+      - kind: clozeLit
+        id: c-l7-1
+        es: "hablo español"
+        en: "I speak Spanish"
+        blank: "hablo"
+        options: ["hablo", "hablas"]
+        atoms: ["hablo", "español"]
+        why: "You, right now — «hablo»."
+      - kind: buildLit
+        id: b-l7-1
+        es: "¿trabajas hoy?"
+        en: "do you work today?"
+        atoms: ["trabajas", "hoy"]
+        tiles: ["trabajo", "trabaja"]
+      - kind: audioWimcq
+        id: ear-l7-1
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: clozeLit
+        id: c-l7-2
+        es: "hablas español"
+        en: "you speak Spanish"
+        blank: "hablas"
+        options: ["hablas", "habla"]
+        atoms: ["hablas", "español"]
+        why: "Asking YOU — «hablas»."
+      - kind: listenCompLit
+        id: lc-l7-1
+        es: "mi hermano estudia todos los días"
+        en: "My brother studies every day."
+        atoms: ["mi", "hermano", "estudia", "todos los días"]
+        distractorsEn:
+          - "My brother works every day."
+          - "My brother studies a little."
+          - "My sister studies every day."
+      - kind: buildLit
+        id: b-l7-2
+        es: "quiero cantar y bailar"
+        en: "I want to sing and dance"
+        atoms: ["quiero", "cantar", "bailar"]
+        tiles: ["escuchar", "trabajar"]
+      - kind: clozeLit
+        id: c-l7-3
+        es: "nunca estudio el domingo"
+        en: "I never study on Sunday"
+        blank: "nunca"
+        options: ["nunca", "siempre"]
+        atoms: ["nunca", "estudio", "el", "domingo"]
+        why: "Never — «nunca»."
+      - kind: audioWimcq
+        id: ear-l7-2
+        target: { surface: "la música", emoji: "🎵" }
+        distractors:
+          - { surface: "el español", emoji: "💬" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: listenBuildLit
+        id: lb-l7-1
+        es: "mi madre trabaja todos los días"
+        en: "my mother works every day"
+        atoms: ["mi", "madre", "trabaja", "todos los días"]
+        tiles: ["nunca", "siempre"]
+      - kind: speakLit
+        id: sp-recall-l7
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: tm-l7
+        target: "habla"
+        distractors: ["hablo", "hablas", "trabaja"]
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "hablo", target: "I speak" }
+          - { source: "trabaja", target: "he/she works" }
+          - { source: "estudia", target: "he/she studies" }
+          - { source: "siempre", target: "always" }
+          - { source: "cantar", target: "to sing" }
+          - { source: "la música", target: "the music" }
+      - kind: sim
+        id: sim-l7-workout
+        scene: { emoji: "☀️", title: "Sofía checks in", setting: "Sofía catches you between classes." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Estudias español?", audioText: "¿estudias español?", gloss: "Do you study Spanish?" }
+            goal: "Say yes, every day."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudio todos los días" }
+                - { id: "wrong1", text: "sí, trabajo todos los días" }
+                - { id: "wrong2", text: "no, nunca" }
+              correctOptionId: "right"
+              audioText: "sí, estudio todos los días"
+            replyGloss: "Yes, every day."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Trabajas mañana?", audioText: "¿trabajas mañana?", gloss: "Do you work tomorrow?" }
+            goal: "Say no, you never work then."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, nunca trabajo" }
+                - { id: "wrong1", text: "sí, siempre trabajo" }
+                - { id: "wrong2", text: "no hay" }
+              correctOptionId: "right"
+              audioText: "no, nunca trabajo"
+            replyGloss: "No, I never work then."
+      - kind: speakLit
+        id: sp-win
+        es: "estudio todos los días"
+        en: "I study every day"
+        atoms: ["estudio", "todos los días"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ──────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every gear, every pair"
+    description: "Every discrimination, every verb, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "hablo español"
+        en: "I speak Spanish."
+        atoms: ["hablo", "español"]
+        distractorsEn:
+          - "I study Spanish."
+          - "I want Spanish."
+          - "She speaks Spanish."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "trabajar", emoji: "🛠️" }
+        distractors:
+          - { surface: "estudiar", emoji: "📚" }
+          - { surface: "bailar", emoji: "💃" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "mi hermano estudia todos los días"
+        en: "my brother studies every day"
+        atoms: ["mi", "hermano", "estudia", "todos los días"]
+        tiles: ["nunca", "siempre"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "Diego habla español"
+        en: "Diego speaks Spanish"
+        blank: "habla"
+        options: ["habla", "hablas"]
+        atoms: ["habla", "español"]
+        why: "Diego, not you — «habla»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "mi madre trabaja en el mercado"
+        en: "my mother works at the market"
+        atoms: ["mi", "madre", "trabaja", "en", "el", "mercado"]
+        tiles: ["estudia", "habla"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la música", emoji: "🎵" }
+        distractors:
+          - { surface: "el español", emoji: "💬" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "trabajo en la escuela"
+        en: "I work at the school"
+        blank: "trabajo"
+        options: ["trabajo", "trabajas"]
+        atoms: ["trabajo", "en", "la", "escuela"]
+        why: "You — «trabajo»."
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿adónde vas?"
+        en: "where are you headed?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "nunca trabajo el domingo"
+        en: "I never work on Sunday"
+        blank: "nunca"
+        options: ["nunca", "siempre"]
+        atoms: ["nunca", "trabajo", "el", "domingo"]
+        why: "Never — «nunca»."
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "quiero escuchar música"
+        en: "I want to listen to music."
+        atoms: ["quiero", "escuchar", "música"]
+        distractorsEn:
+          - "I want to dance."
+          - "I like music."
+          - "I listen to music every day."
+      - kind: buildLit
+        id: cp-build-2
+        es: "siempre estudio español"
+        en: "I always study Spanish"
+        atoms: ["siempre", "estudio", "español"]
+        tiles: ["nunca", "trabajo"]
+      - kind: textMcq
+        id: cp-tm-1
+        target: "trabajas"
+        distractors: ["trabaja", "trabajo", "estudias"]
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "bailar", emoji: "💃" }
+        distractors:
+          - { surface: "cantar", emoji: "🎤" }
+          - { surface: "escuchar", emoji: "🎧" }
+      - kind: speakLit
+        id: cp-sp-2
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "estudias español"
+        en: "you study Spanish"
+        blank: "estudias"
+        options: ["estudias", "estudia"]
+        atoms: ["estudias", "español"]
+        why: "Asking YOU — «estudias»."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "hablo", target: "I speak" }
+          - { source: "trabaja", target: "he/she works" }
+          - { source: "estudias", target: "you study" }
+          - { source: "siempre", target: "always" }
+          - { source: "nunca", target: "never" }
+          - { source: "todos los días", target: "every day" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "hablo español"
+        en: "I speak Spanish"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — María's exchange, part one. ─────────────────────────
+  - n: 9
+    template: free
+    title: "María's exchange, part one"
+    description: "María wants to practice — talk about your day, and dance a little."
+    steps:
+      - kind: map
+        id: map-l9-1
+        tokens: ["mi", "padre", "trabaja", "y", "estudia", "música"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "father", tokenIndex: 1 }
+          - { en: "works", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "studies", tokenIndex: 4 }
+          - { en: "music", tokenIndex: 5 }
+        audioText: "mi padre trabaja y estudia música"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 1: "m", 5: "f" }
+      - kind: speakLit
+        id: sp-l9-1
+        es: "mi padre trabaja y estudia música"
+        en: "my father works and studies music"
+        atoms: ["mi", "padre", "trabaja", "y", "estudia", "música"]
+      - kind: clozeLit
+        id: c-l9-1
+        es: "siempre trabajo"
+        en: "I always work"
+        blank: "siempre"
+        options: ["siempre", "nunca"]
+        atoms: ["siempre", "trabajo"]
+        why: "Always, not never — «siempre»."
+      - kind: buildLit
+        id: b-l9-1
+        es: "quiero bailar y cantar"
+        en: "I want to dance and sing"
+        atoms: ["quiero", "bailar", "cantar"]
+        tiles: ["escuchar", "hablar"]
+      - kind: audioWimcq
+        id: ear-l9
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: clozeLit
+        id: c-l9-2
+        es: "hablas español"
+        en: "you speak Spanish"
+        blank: "hablas"
+        options: ["hablas", "habla"]
+        atoms: ["hablas", "español"]
+        why: "Asking YOU — «hablas»."
+      - kind: listenCompLit
+        id: lc-l9
+        es: "nunca trabajo el domingo"
+        en: "I never work on Sunday."
+        atoms: ["nunca", "trabajo", "el", "domingo"]
+        distractorsEn:
+          - "I always work on Sunday."
+          - "I want to work on Sunday."
+          - "I study on Sunday."
+      - kind: speakLit
+        id: sp-recall-l9
+        es: "voy al trabajo"
+        en: "I'm going to work"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "trabaja", target: "he/she works" }
+          - { source: "estudia", target: "he/she studies" }
+          - { source: "quiero", target: "I want" }
+          - { source: "bailar", target: "to dance" }
+          - { source: "siempre", target: "always" }
+          - { source: "nunca", target: "never" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "🚌", title: "María's exchange, part one", setting: "María, from the bus, wants to practice — hers and yours." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola, Sam! ¿Trabajas o estudias?", audioText: "¡hola, Sam! ¿trabajas o estudias?", gloss: "Hi Sam! Do you work or study?" }
+            goal: "Say you study."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estudio" }
+                - { id: "wrong1", text: "trabajo" }
+                - { id: "wrong2", text: "hablo" }
+              correctOptionId: "right"
+              audioText: "estudio"
+            replyGloss: "I study."
+          - id: t2
+            npc: { speaker: "María", es: "¿Te gusta la música?", audioText: "¿te gusta la música?", gloss: "Do you like music?" }
+            goal: "Say yes, you like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta" }
+                - { id: "wrong1", text: "sí, quiero" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta"
+            replyGloss: "Yes, I like it."
+          - id: t3
+            npc: { speaker: "María", es: "¿Quieres bailar?", audioText: "¿quieres bailar?", gloss: "Do you want to dance?" }
+            goal: "Say yes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero bailar" }
+                - { id: "wrong1", text: "sí, quiero cantar" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, quiero bailar"
+            replyGloss: "Yes, I want to dance."
+          - id: t4
+            npc: { speaker: "María", es: "¡Genial! Hasta luego, Sam.", audioText: "¡genial! hasta luego, Sam.", gloss: "Great! See you later, Sam." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+  # ── L10 · mastery — María's exchange continues. Ends on «hablo un poco». ──
+  - n: 10
+    template: free
+    title: "Prove it — then María asks the real question"
+    description: "Every gear, every pair, no help — and María's back to finish the exchange."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "hablo español"
+        en: "I speak Spanish"
+        blank: "hablo"
+        options: ["hablo", "hablas"]
+        atoms: ["hablo", "español"]
+      - kind: buildLit
+        id: m-build-1
+        es: "mi madre trabaja en el mercado"
+        en: "my mother works at the market"
+        atoms: ["mi", "madre", "trabaja", "en", "el", "mercado"]
+        tiles: ["estudia", "habla"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "cantar", emoji: "🎤" }
+        distractors:
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "escuchar", emoji: "🎧" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "nunca trabajo el lunes"
+        en: "I never work on Monday"
+        blank: "nunca"
+        options: ["nunca", "siempre"]
+        atoms: ["nunca", "trabajo", "el", "lunes"]
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "todos los días estudio español"
+        en: "Every day I study Spanish."
+        atoms: ["todos los días", "estudio", "español"]
+        distractorsEn:
+          - "Every day I work in Spanish."
+          - "I never study Spanish."
+          - "I study Spanish a little."
+      - kind: speakLit
+        id: m-sp-1
+        es: "trabajo en la escuela"
+        en: "I work at the school"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-estudia
+        target: "estudia"
+        distractors: ["estudias", "estudio", "habla"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "quiero escuchar música"
+        en: "I want to listen to music"
+        atoms: ["quiero", "escuchar", "música"]
+        tiles: ["bailar", "cantar"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "un poco", emoji: "🤏" }
+        distractors:
+          - { surface: "todos los días", emoji: "📆" }
+          - { surface: "nunca", emoji: "🚫" }
+      - kind: buildLit
+        id: m-build-2
+        es: "mi hermana estudia todos los días"
+        en: "my sister studies every day"
+        atoms: ["mi", "hermana", "estudia", "todos los días"]
+        tiles: ["hermano", "trabaja"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "Diego trabaja en el mercado"
+        en: "Diego works at the market"
+        blank: "trabaja"
+        options: ["trabaja", "trabajo"]
+        atoms: ["trabaja", "en", "el", "mercado"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "hablo", target: "I speak" }
+          - { source: "trabajas", target: "you work" }
+          - { source: "estudia", target: "he/she studies" }
+          - { source: "siempre", target: "always" }
+          - { source: "nunca", target: "never" }
+          - { source: "un poco", target: "a little" }
+      - kind: sim
+        id: m-sim-maria
+        scene: { emoji: "🚌", title: "María's exchange continues", setting: "María, back for round two." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola de nuevo! ¿Estudias todos los días?", audioText: "¡hola de nuevo! ¿estudias todos los días?", gloss: "Hi again! Do you study every day?" }
+            goal: "Say yes, every day."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudio todos los días" }
+                - { id: "wrong1", text: "sí, trabajo todos los días" }
+                - { id: "wrong2", text: "no, nunca" }
+              correctOptionId: "right"
+              audioText: "sí, estudio todos los días"
+            replyGloss: "Yes, every day."
+          - id: t2
+            npc: { speaker: "María", es: "¿Quieres bailar o cantar?", audioText: "¿quieres bailar o cantar?", gloss: "Do you want to dance or sing?" }
+            goal: "Say you want to dance."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero bailar" }
+                - { id: "wrong1", text: "quiero cantar" }
+                - { id: "wrong2", text: "quiero trabajar" }
+              correctOptionId: "right"
+              audioText: "quiero bailar"
+            replyGloss: "I want to dance."
+          - id: t3
+            npc: { speaker: "María", es: "Una pregunta más: ¿hablas español?", audioText: "una pregunta más: ¿hablas español?", gloss: "One more question: do you speak Spanish?" }
+            goal: "Say yes, a little."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablo un poco" }
+                - { id: "wrong1", text: "no, no hablo" }
+                - { id: "wrong2", text: "sí, quiero hablar" }
+              correctOptionId: "right"
+              audioText: "sí, hablo un poco"
+            replyGloss: "Yes, I speak a little."
+            explanation: "The whole course, one line: you can actually say this now."
+
+placement:
+  screener:
+    - id: "es-m10-scr-1"
+      prompt: "Which one means 'I speak'?"
+      correct: "hablo"
+      distractors: ["hablas", "habla", "trabajo"]
+  byModule:
+    - id: "es-m10-pl-1"
+      prompt: "I speak Spanish."
+      correct: "hablo español"
+      distractors: ["hablas español", "habla español", "quiero español"]
+    - id: "es-m10-pl-2"
+      prompt: "My mother works at the market."
+      correct: "mi madre trabaja en el mercado"
+      distractors: ["mi madre trabajo en el mercado", "mi madre estudia en el mercado", "mi madre trabajas en el mercado"]
+    - id: "es-m10-pl-3"
+      prompt: "I always study, I never work."
+      correct: "siempre estudio, nunca trabajo"
+      distractors: ["nunca estudio, siempre trabajo", "siempre trabajo, nunca estudio", "siempre estudio, siempre trabajo"]
+    - id: "es-m10-pl-4"
+      prompt: "I want to dance."
+      correct: "quiero bailar"
+      distractors: ["quiero bailo", "bailo quiero", "quiero cantar"]

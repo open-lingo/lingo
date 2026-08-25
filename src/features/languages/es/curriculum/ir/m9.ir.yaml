@@ -1,0 +1,1383 @@
+module: m9
+title: "Vamos — say where you're going"
+frame: none
+throughModule: m8
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m9 — «Vamos»: voy/vas, the al contraction, ¿adónde? vs m4's dónde,
+# and eight places to head to. Seventh §13-doctrine IR module (m3 is the
+# exemplar; m4/m7 the freshest siblings). Authored in parallel with m8 —
+# every m8 atom and REQUIRED voicing used here (hoy, mañana, el sábado,
+# días) is treated as taught/licensed per m8's spec section in the wave
+# doc, throughModule: m8.
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m9 — Vamos"). ATOM-COUNT NOTE: the
+# wave doc's header says "Atoms (15)" but its own comma list names
+# exactly 14 surfaces (voy, vas, a, al, ¿adónde?, parque, tienda,
+# escuela, cine, playa, mercado, trabajo, autobús, ahora) — «casa» is
+# explicitly called out as REUSED, not new. Registering a 15th,
+# unnamed atom would be inventing content the spec never named, so this
+# IR registers exactly the 14 named surfaces and flags the count
+# mismatch here rather than silently resolving it either way. Nothing
+# else added, dropped or renamed against the spec.
+#
+# ⚠️ m10 NOTE: «trabajo» is registered HERE as the noun ("work", 💼).
+# m10's spec conjugates «trabajar» → trabajo/trabajas/trabaja as verb
+# forms; per FIRST-WRITE-WINS, m10 must NOT re-register the surface
+# «trabajo» — it authors the verb form via exercised surfaces only,
+# same as the m2 soy/eres precedent the wave doc names.
+#
+# DOCTRINE NOTES:
+#   - Contrast card (L2): «al» = a + el, ALWAYS — «voy al parque», never
+#     «voy a el parque» (m3's articles finally contract). La-words stay
+#     two words: «voy a la playa» stays «a la», never contracts. One
+#     rule, two kinds of words — the THE lane of the module.
+#   - «¿adónde?» (L3) gets its own one-line card against m4's «¿dónde?»:
+#     dónde asks WHERE something IS; adónde asks WHERE you're GOING —
+#     literally "to where". Both stay live as an alternating
+#     discrimination lane (textMcq, not clozeLit — a cloze can't cleanly
+#     blank «¿dónde»/«¿adónde» since the leading ¿ glues to the word as
+#     one token; textMcq sidesteps that cleanly, same mechanism m4/m7
+#     use for isolated-word discrimination).
+#   - «voy a casa» (L5): the article DROPS entirely — not «a la casa»,
+#     not «al casa». One card line, then trials. «casa» itself is
+#     reused from m1, not re-registered.
+#   - «cine» gets the m3 llave / m4 foto / m7 leche secret-side
+#     treatment: no telltale ending, learned WITH its article, one card
+#     + one dedicated gender cloze (L2).
+#   - JUDGMENT CALL — café avoided as a destination: the spec flagged
+#     «voy al café de Carmen» as risky (café-the-place vs café-the-drink
+#     collision) and offered "one honest card line if you use it, or
+#     avoid." This IR avoids it — the m7 payoff is delivered instead via
+#     «voy al trabajo pero quiero un café» (L4) and a bare cue:recall of
+#     «quiero un café» (L9), both using café correctly as the drink,
+#     never as a place.
+#   - Places INTERLEAVE — never a place-list lesson. Even L4, which by
+#     the pinned arc introduces three nouns (tienda/escuela/trabajo),
+#     breaks each debut with a discrimination/review beat before the
+#     next debut (imageMcq → cloze → ear-lane → imageMcq → build →
+#     cross-module review → imageMcq → speak → …), never two debuts back
+#     to back. Every place debuts articled via imageMcq (all eight have
+#     honest emoji).
+#   - Lanes (§13.9 law 4, alternating, both halves live — final tallies
+#     in the ledger below): voy/vas discrimination clozes; al/a-la
+#     clozes (THE lane, the module's densest); dónde/adónde textMcq;
+#     cine/tienda by EAR (audioWimcq — the spec's own suggested honest
+#     pair, since parque/playa don't discriminate well by ear).
+#   - Days from m8 pay off repeatedly, not just once: «el sábado voy a
+#     la playa» opens the L9 summit map; hoy/mañana/sábado all get
+#     productive (not just recall) reuse across L6/L7/L9 planning beats.
+#     m7 pays off via café-as-drink (above) and a «tengo hambre» sim
+#     beat in the L9 summit (Diego).
+#   - Cast: Ana + Diego own the L9 summit (pinned: the beach plan);
+#     María owns L10 mastery, a separate «¿adónde vas?» street
+#     encounter — different setting, different beats, different NPCs
+#     from the summit (twin-sim class avoided). Sofía appears in L1/L6
+#     as a supporting voice. Learner = Sam.
+#   - Nouns wear their article on every surface («la playa», never bare
+#     «playa»); atoms stay bare with `gender` (m3 registry convention).
+#   - No byte-identical clozeLit `es` strings repeat anywhere in the
+#     module (checked by hand against every prior lesson while
+#     authoring); near-neighbors (e.g. «voy al parque» / «voy al parque
+#     hoy») are transfers, well-spaced across lessons.
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   voy a la playa L1 · el cine L2 · voy al parque L2 ·
+#   ¿adónde vas? L3 · voy a casa L5 · ahora L5
+#   m9-internal recalls drawn from the above: voy a la playa (L8 cp),
+#   ¿dónde está? recalled FROM m4 not m9 (see below) — m9's own
+#   voicings are otherwise reused as live production (builds/clozes/
+#   sims), not recalled, since the module is still teaching them.
+#   cross-module (licensed by m1–m8 printed voicings, per the wave doc):
+#   tengo hambre (L1, L9 sim), el agua (L2), la cuenta por favor (L3),
+#   el carro rojo (L4), muy bonito (L5), el sábado (L6, m8), hoy (L6/L7/
+#   L9, m8), mañana (L7, m8), el gato (L7), mi familia (L8 cp),
+#   ¿dónde está? (L8 cp, L10), quiero un café (L9, m7 — drink, not
+#   place), hasta luego / adiós (L9, L10, m1/m2), buenos días (L6 ear).
+newAtoms:
+  - { surface: "voy", meaningEn: "I'm going / I go", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vas", meaningEn: "you're going / you go", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "a", meaningEn: "to", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "al", meaningEn: "to the (el-words)", partOfSpeech: "particle", kind: "particle", hint: "a + el, always — never say «a el»" }
+  - { surface: "adónde", meaningEn: "where to?", partOfSpeech: "adverb", kind: "vocab", hint: "a-DON-deh — always means TO where, not just where" }
+  - { surface: "parque", meaningEn: "park", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌳" }
+  - { surface: "tienda", meaningEn: "store", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🏪" }
+  - { surface: "escuela", meaningEn: "school", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🏫" }
+  - { surface: "cine", meaningEn: "movie theater", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🎬", hint: "no telltale ending — a secret-side word, like leche: SEE-neh" }
+  - { surface: "playa", meaningEn: "beach", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🏖️" }
+  - { surface: "mercado", meaningEn: "market", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🛒" }
+  - { surface: "trabajo", meaningEn: "work", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💼" }
+  - { surface: "autobús", meaningEn: "bus", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚌", hint: "ow-toh-BOOS" }
+  - { surface: "ahora", meaningEn: "now", partOfSpeech: "adverb", kind: "vocab" }
+
+lessons:
+  # ── L1 · voy + parque/playa debuts. States the module promise. ───────
+  - n: 1
+    template: free
+    title: "Say where you're headed"
+    description: "«Voy» — I'm going. Learn it, and never stand around not knowing where you're off to."
+    steps:
+      - kind: info
+        id: info-voy
+        title: "I'm going…"
+        body: "«voy» — I'm going, I go. «voy a» + a place — «a» means to. «voy a la playa» — I'm going to the beach. This module: say where you're headed, wherever that is."
+      - kind: imageMcq
+        id: d-playa
+        target: { surface: "la playa", meaningEn: "the beach", emoji: "🏖️" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: speakLit
+        id: sp-laplaya
+        es: "la playa"
+        en: "the beach"
+        atoms: ["la", "playa"]
+      - kind: map
+        id: map-voyalaplaya
+        tokens: ["voy", "a", "la", "playa"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "beach", tokenIndex: 3 }
+        audioText: "voy a la playa"
+        revealNote: "«la» and «playa» are already yours — «voy» and «a» are the new pieces: I'm going, to."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-voyalaplaya
+        es: "voy a la playa"
+        en: "I'm going to the beach"
+        atoms: ["voy", "a", "la", "playa"]
+      - kind: imageMcq
+        id: d-parque
+        target: { surface: "el parque", meaningEn: "the park", emoji: "🌳" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: speakLit
+        id: sp-elparque
+        es: "el parque"
+        en: "the park"
+        atoms: ["el", "parque"]
+      - kind: clozeLit
+        id: c-parqueesta
+        es: "el parque está aquí"
+        en: "the park is here"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["el", "parque", "está", "aquí"]
+        why: "You're saying WHERE it is — «está», not «es»."
+      - kind: audioWimcq
+        id: ear-review1
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "el carro", emoji: "🚗" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: buildLit
+        id: b-hayunparque
+        es: "hay un parque aquí"
+        en: "There's a park here"
+        atoms: ["hay", "un", "parque", "aquí"]
+        tiles: ["el", "la"]
+      - kind: listenCompLit
+        id: lc-voyalaplaya
+        es: "voy a la playa"
+        en: "I'm going to the beach."
+        atoms: ["voy", "a", "la", "playa"]
+        distractorsEn:
+          - "I'm at the beach."
+          - "There's a beach."
+          - "I like the beach."
+      - kind: speakLit
+        id: sp-recall-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-playa
+        scene: { emoji: "🏖️", title: "Sofía's heading out", setting: "Sofía packs a beach bag by the door." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Hasta luego! Voy a la playa.", audioText: "¡hasta luego! voy a la playa.", gloss: "Bye! I'm going to the beach." }
+            goal: "Say you're headed there too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la playa" }
+                - { id: "wrong1", text: "está en la playa" }
+                - { id: "wrong2", text: "hay una playa" }
+              correctOptionId: "right"
+              audioText: "voy a la playa"
+            replyGloss: "I'm going to the beach too."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "voy", target: "I'm going / I go" }
+          - { source: "la playa", target: "the beach" }
+          - { source: "el parque", target: "the park" }
+          - { source: "a", target: "to" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "hoy voy a la playa"
+        en: "today I'm going to the beach"
+        atoms: ["hoy", "voy", "a", "la", "playa"]
+
+  # ── L2 · the al contraction + cine/mercado. THE lane opens. ──────────
+  - n: 2
+    template: free
+    title: "The el-words shrink"
+    description: "«Al» — a + el, squeezed into one word. El-words contract; la-words don't."
+    steps:
+      - kind: info
+        id: info-al
+        title: "a + el = al"
+        body: "«al» is a + el squeezed into one word — el-words ALWAYS contract: «voy al parque», never «voy a el parque». La-words stay two words: «voy a la playa» stays «a la». One rule, two kinds of words."
+      - kind: imageMcq
+        id: d-cine
+        target: { surface: "el cine", meaningEn: "the movie theater", emoji: "🎬" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: speakLit
+        id: sp-elcine
+        es: "el cine"
+        en: "the movie theater"
+        atoms: ["el", "cine"]
+      - kind: clozeLit
+        id: c-cinesecret
+        es: "el cine está aquí"
+        en: "the movie theater is here"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "cine", "está", "aquí"]
+        why: "cine keeps its side secret — no telltale ending. Like leche: you learn it as «el cine», the word carries its side with it."
+      - kind: map
+        id: map-voyalcine
+        tokens: ["voy", "al", "cine"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "movies", tokenIndex: 2 }
+        audioText: "voy al cine"
+        revealNote: "«voy» is already yours — «al» squeezes a + el into one word, and «cine» you just met."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-voyalcine
+        es: "voy al cine"
+        en: "I'm going to the movies"
+        atoms: ["voy", "al", "cine"]
+      - kind: imageMcq
+        id: d-mercado
+        target: { surface: "el mercado", meaningEn: "the market", emoji: "🛒" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: speakLit
+        id: sp-elmercado
+        es: "el mercado"
+        en: "the market"
+        atoms: ["el", "mercado"]
+      - kind: clozeLit
+        id: c-alvscine
+        es: "voy al cine"
+        en: "I'm going to the movies"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["voy", "al", "cine"]
+        why: "cine is an el-word — el-words contract: «al», not bare «a»."
+      - kind: buildLit
+        id: b-voyalmercado
+        es: "voy al mercado"
+        en: "I'm going to the market"
+        atoms: ["voy", "al", "mercado"]
+        tiles: ["a", "la"]
+      - kind: clozeLit
+        id: c-alvsala
+        es: "voy a la playa"
+        en: "I'm going to the beach"
+        blank: "a"
+        options: ["a", "al"]
+        atoms: ["voy", "a", "la", "playa"]
+        why: "playa is a la-word — la-words stay two words: «a la», never «al la»."
+      - kind: audioWimcq
+        id: ear-review2
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: speakLit
+        id: sp-voyalparque
+        es: "voy al parque"
+        en: "I'm going to the park"
+        atoms: ["voy", "al", "parque"]
+      - kind: listenCompLit
+        id: lc-voyalmercado
+        es: "voy al mercado"
+        en: "I'm going to the market."
+        atoms: ["voy", "al", "mercado"]
+        distractorsEn:
+          - "I'm at the market."
+          - "There's a market."
+          - "I'm going to the park."
+      - kind: speakLit
+        id: sp-recall-elagua
+        es: "el agua"
+        en: "the water"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-cine
+        scene: { emoji: "🎬", title: "Diego's plan", setting: "Diego checks his phone, grinning." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Hola! Voy al mercado.", audioText: "¡hola! voy al mercado.", gloss: "Hi! I'm going to the market." }
+            goal: "Say you're headed to the movies."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al cine" }
+                - { id: "wrong1", text: "está en el cine" }
+                - { id: "wrong2", text: "hay un cine" }
+              correctOptionId: "right"
+              audioText: "voy al cine"
+            replyGloss: "I'm going to the movies."
+            explanation: "«está» would locate it, «hay» would just claim it exists — you're saying where YOU'RE headed, so «voy»."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el cine", target: "the movie theater" }
+          - { source: "el mercado", target: "the market" }
+          - { source: "al", target: "to the" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "la playa", target: "the beach" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "voy al mercado"
+        en: "I'm going to the market"
+        atoms: ["voy", "al", "mercado"]
+
+  # ── L3 · vas + ¿adónde? — asking someone else. ───────────────────────
+  - n: 3
+    template: free
+    title: "Now ask them"
+    description: "«¿Adónde vas?» — where are you headed? Not m4's «¿dónde?» — this one asks TO where."
+    steps:
+      - kind: info
+        id: info-adonde
+        title: "Ask where someone's headed"
+        body: "«vas» — you're going, you go. «¿adónde?» asks WHERE TO — different from m4's «¿dónde?», which asks where something simply IS. «¿adónde vas?» — where are you headed?"
+      - kind: map
+        id: map-adondevas
+        tokens: ["¿adónde", "vas?"]
+        pairs:
+          - { en: "where to", tokenIndex: 0 }
+          - { en: "are you going", tokenIndex: 1 }
+        audioText: "¿adónde vas?"
+        revealNote: "«vas» is the you-form of «voy» — «adónde» just asks where to."
+      - kind: speakLit
+        id: sp-adondevas
+        es: "¿adónde vas?"
+        en: "where are you headed?"
+        atoms: ["adónde", "vas"]
+      - kind: textMcq
+        id: tm-dondevsadonde1
+        target: "dónde"
+        distractors: ["adónde", "aquí", "vas"]
+        prompt: "«¿___ está el parque?» — you're asking WHERE it is, not where you're headed."
+      - kind: buildLit
+        id: b-vasalparque
+        es: "¿vas al parque?"
+        en: "are you going to the park?"
+        atoms: ["vas", "al", "parque"]
+        tiles: ["voy", "a"]
+      - kind: clozeLit
+        id: c-voyvsvas1
+        es: "voy al mercado"
+        en: "I'm going to the market"
+        blank: "voy"
+        options: ["voy", "vas"]
+        atoms: ["voy", "al", "mercado"]
+        why: "You're talking about YOURSELF — «voy», not «vas»."
+      - kind: audioWimcq
+        id: ear-review3
+        target: { surface: "la cama", emoji: "🛏️" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: clozeLit
+        id: c-voyvsvas2
+        es: "vas al cine"
+        en: "you're going to the movies"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "al", "cine"]
+        why: "Asking someone else — «vas»."
+      - kind: buildLit
+        id: b-adondevashoy
+        es: "¿adónde vas hoy?"
+        en: "where are you headed today?"
+        atoms: ["adónde", "vas", "hoy"]
+        tiles: ["dónde", "voy"]
+      - kind: speakLit
+        id: sp-recall-cuentaporfavor
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: lc-vasalmercado
+        es: "¿vas al mercado?"
+        en: "Are you going to the market?"
+        atoms: ["vas", "al", "mercado"]
+        distractorsEn:
+          - "Where are you headed?"
+          - "I'm going to the market."
+          - "Is there a market?"
+      - kind: sim
+        id: sim-ana-adondevas
+        scene: { emoji: "❓", title: "Ana's curious", setting: "Ana catches you leaving the house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola! ¿Adónde vas?", audioText: "¡hola! ¿adónde vas?", gloss: "Hi! Where are you headed?" }
+            goal: "Say you're going to the park."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al parque" }
+                - { id: "wrong1", text: "vas al parque" }
+                - { id: "wrong2", text: "está en el parque" }
+              correctOptionId: "right"
+              audioText: "voy al parque"
+            replyGloss: "I'm going to the park."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "vas", target: "you're going" }
+          - { source: "¿adónde?", target: "where to?" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "el cine", target: "the movie theater" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "la playa", target: "the beach" }
+      - kind: speakLit
+        id: sp-win
+        es: "¿adónde vas?"
+        en: "where are you headed?"
+        atoms: ["adónde", "vas"]
+
+  # ── L4 · tienda/escuela/trabajo interleaved. Places never block. ─────
+  - n: 4
+    template: free
+    title: "Everywhere you need to go"
+    description: "Three more places — the store, school, work — each with a break before the next."
+    steps:
+      - kind: imageMcq
+        id: d-tienda
+        target: { surface: "la tienda", meaningEn: "the store", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: speakLit
+        id: sp-latienda
+        es: "la tienda"
+        en: "the store"
+        atoms: ["la", "tienda"]
+      - kind: audioWimcq
+        id: ear-cinetienda1
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: clozeLit
+        id: c-alvsala2
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        blank: "a"
+        options: ["a", "al"]
+        atoms: ["voy", "a", "la", "tienda"]
+        why: "tienda is a la-word — stays two words: «a la»."
+      - kind: imageMcq
+        id: d-escuela
+        target: { surface: "la escuela", meaningEn: "the school", emoji: "🏫" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: speakLit
+        id: sp-laescuela
+        es: "la escuela"
+        en: "the school"
+        atoms: ["la", "escuela"]
+      - kind: audioWimcq
+        id: ear-review4
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "un perro", emoji: "🐶" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: buildLit
+        id: b-voyalaescuela
+        es: "voy a la escuela"
+        en: "I'm going to the school"
+        atoms: ["voy", "a", "la", "escuela"]
+        tiles: ["al", "el"]
+      - kind: imageMcq
+        id: d-trabajo
+        target: { surface: "el trabajo", meaningEn: "work", emoji: "💼" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: speakLit
+        id: sp-eltrabajo
+        es: "el trabajo"
+        en: "work"
+        atoms: ["el", "trabajo"]
+      - kind: clozeLit
+        id: c-alvscine2
+        es: "voy al trabajo"
+        en: "I'm going to work"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["voy", "al", "trabajo"]
+        why: "trabajo is an el-word — el-words contract: «al»."
+      - kind: listenBuildLit
+        id: lb-voyaltrabajo
+        es: "voy al trabajo pero quiero un café"
+        en: "I'm going to work but I want a coffee"
+        atoms: ["voy", "al", "trabajo", "pero", "quiero", "un", "café"]
+        tiles: ["a", "el"]
+      - kind: textMcq
+        id: tm-dondevsadonde2
+        target: "dónde"
+        distractors: ["adónde", "aquí", "es"]
+        prompt: "«¿___ está la tienda?» — you're asking WHERE it is."
+      - kind: speakLit
+        id: sp-recall-carrorojo
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-trabajo
+        scene: { emoji: "💼", title: "Diego's morning", setting: "Diego grabs his bag, checking the clock." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Ay, tarde! Voy al trabajo.", audioText: "¡ay, tarde! voy al trabajo.", gloss: "Ugh, late! I'm going to work." }
+            goal: "Say you're headed to school."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la escuela" }
+                - { id: "wrong1", text: "voy al trabajo" }
+                - { id: "wrong2", text: "está en la escuela" }
+              correctOptionId: "right"
+              audioText: "voy a la escuela"
+            replyGloss: "I'm going to school."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la tienda", target: "the store" }
+          - { source: "la escuela", target: "the school" }
+          - { source: "el trabajo", target: "work" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "vas", target: "you're going" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "voy al trabajo"
+        en: "I'm going to work"
+        atoms: ["voy", "al", "trabajo"]
+
+  # ── L5 · autobús + ahora + «voy a casa» drops the article. ───────────
+  - n: 5
+    template: free
+    title: "Home skips the article"
+    description: "«Voy a casa» — home drops the article entirely. Plus the bus, and «ahora» for right now."
+    steps:
+      - kind: info
+        id: info-casaahora
+        title: "One exception, one urgency word"
+        body: "«voy a casa» — I'm going home. Not «a la casa», not «al casa» — home drops the article, one exception. «ahora» — now — for when it's urgent. And one preview: «en el autobús» — by bus. Spanish rides IN the bus."
+      - kind: speakLit
+        id: sp-voyacasa
+        es: "voy a casa"
+        en: "I'm going home"
+        atoms: ["voy", "a", "casa"]
+      - kind: imageMcq
+        id: d-autobus
+        target: { surface: "el autobús", meaningEn: "the bus", emoji: "🚌" }
+        distractors:
+          - { surface: "el trabajo", emoji: "💼" }
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: speakLit
+        id: sp-elautobus
+        es: "el autobús"
+        en: "the bus"
+        atoms: ["el", "autobús"]
+      - kind: clozeLit
+        id: c-autobusesta
+        es: "el autobús está aquí"
+        en: "the bus is here"
+        blank: "está"
+        options: ["está", "es"]
+        atoms: ["el", "autobús", "está", "aquí"]
+        why: "You're saying WHERE it is — «está», not «es»."
+      - kind: buildLit
+        id: b-hayunautobus
+        es: "hay un autobús allí"
+        en: "There's a bus over there"
+        atoms: ["hay", "un", "autobús", "allí"]
+        tiles: ["el", "la"]
+      - kind: audioWimcq
+        id: ear-review5
+        target: { surface: "la manzana", emoji: "🍎" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: speakLit
+        id: sp-ahora
+        es: "ahora"
+        en: "now"
+        atoms: ["ahora"]
+      - kind: buildLit
+        id: b-voyahoraaltrabajo
+        es: "voy a la playa ahora"
+        en: "I'm going to the beach now"
+        atoms: ["voy", "a", "la", "playa", "ahora"]
+        tiles: ["al", "el"]
+      - kind: clozeLit
+        id: c-alvsala3
+        es: "voy a la escuela ahora"
+        en: "I'm going to school now"
+        blank: "a"
+        options: ["a", "al"]
+        atoms: ["voy", "a", "la", "escuela", "ahora"]
+        why: "escuela is a la-word — stays two words: «a la»."
+      - kind: listenCompLit
+        id: lc-voyacasaahora
+        es: "voy a casa ahora"
+        en: "I'm going home now."
+        atoms: ["voy", "a", "casa", "ahora"]
+        distractorsEn:
+          - "I'm at home now."
+          - "I want to go home."
+          - "I'm going home later."
+      - kind: speakLit
+        id: sp-recall-viejoperobueno
+        es: "es viejo pero bueno"
+        en: "it's old but good"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: ear-cinetienda2
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: sim
+        id: sim-maria-autobus
+        scene: { emoji: "🚌", title: "María waits", setting: "María checks her watch at the bus stop." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola! ¿Vas al trabajo ahora?", audioText: "¡hola! ¿vas al trabajo ahora?", gloss: "Hi! Are you going to work now?" }
+            goal: "Say yes — headed there now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, voy al trabajo ahora" }
+                - { id: "wrong1", text: "sí, voy a casa" }
+                - { id: "wrong2", text: "no, voy a la escuela" }
+              correctOptionId: "right"
+              audioText: "sí, voy al trabajo ahora"
+            replyGloss: "Yes, I'm going to work now."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el autobús", target: "the bus" }
+          - { source: "ahora", target: "now" }
+          - { source: "voy a casa", target: "I'm going home" }
+          - { source: "el trabajo", target: "work" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "voy a casa ahora"
+        en: "I'm going home now"
+        atoms: ["voy", "a", "casa", "ahora"]
+
+  # ── L6 · integration — catching the bus (zero new). ──────────────────
+  - n: 6
+    template: free
+    title: "Catching the bus"
+    description: "No new words — everything you know gets you across town."
+    steps:
+      - kind: map
+        id: map-voyalaescuelaautobus
+        tokens: ["voy", "a", "la", "escuela", "en", "el", "autobús"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "school", tokenIndex: 3 }
+          - { en: "by", tokenIndex: 4 }
+          - { en: "the", tokenIndex: 5 }
+          - { en: "bus", tokenIndex: 6 }
+        audioText: "voy a la escuela en el autobús"
+        revealNote: "«en» is yours from m4 — and here it stretches: riding IN the bus is how Spanish says BY bus. Everything else you built this module."
+        tokenGenders: { 2: "f", 3: "f", 5: "m", 6: "m" }
+      - kind: clozeLit
+        id: c-alvscine3
+        es: "vas al trabajo"
+        en: "you're going to work"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["vas", "al", "trabajo"]
+        why: "trabajo is an el-word — «al»."
+      - kind: buildLit
+        id: b-elautobusalli
+        es: "el autobús está allí"
+        en: "The bus is over there"
+        atoms: ["el", "autobús", "está", "allí"]
+        tiles: ["la", "aquí"]
+      - kind: audioWimcq
+        id: ear-review6
+        target: { surface: "hasta luego", emoji: "👋" }
+        distractors:
+          - { surface: "buenos días", emoji: "🌅" }
+          - { surface: "mucho gusto", emoji: "🤝" }
+      - kind: textMcq
+        id: tm-dondevsadonde3
+        target: "adónde"
+        distractors: ["dónde", "está", "aquí"]
+        prompt: "«¿___ vas ahora?» — you're asking where you're GOING, not where something is."
+      - kind: listenBuildLit
+        id: lb-vasaltrabajoahora
+        es: "¿vas al trabajo ahora?"
+        en: "Are you going to work now?"
+        atoms: ["vas", "al", "trabajo", "ahora"]
+        tiles: ["voy", "el"]
+      - kind: speakLit
+        id: sp-recall-elsabado
+        es: "el sábado"
+        en: "on Saturday"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-vasalatienda
+        es: "vas a la tienda"
+        en: "you're going to the store"
+        atoms: ["vas", "a", "la", "tienda"]
+        tiles: ["voy", "al"]
+      - kind: audioWimcq
+        id: ear-review7
+        target: { surface: "el pollo", emoji: "🍗" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: sim
+        id: sim-sofia-autobus
+        scene: { emoji: "🚌", title: "Sofía catches up", setting: "Sofía jogs up to the bus stop, out of breath." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Uf! ¿Adónde vas?", audioText: "¡uf! ¿adónde vas?", gloss: "Whew! Where are you headed?" }
+            goal: "Say you're going to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al trabajo" }
+                - { id: "wrong1", text: "vas al trabajo" }
+                - { id: "wrong2", text: "está en el trabajo" }
+              correctOptionId: "right"
+              audioText: "voy al trabajo"
+            replyGloss: "I'm going to work."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y el autobús? ¿Está aquí?", audioText: "¿y el autobús? ¿está aquí?", gloss: "And the bus? Is it here?" }
+            goal: "Say yes — it's here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está aquí" }
+                - { id: "wrong1", text: "sí, hay aquí" }
+                - { id: "wrong2", text: "no, está allí" }
+              correctOptionId: "right"
+              audioText: "sí, está aquí"
+            replyGloss: "Yes, it's here."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el autobús", target: "the bus" }
+          - { source: "voy al trabajo", target: "I'm going to work" }
+          - { source: "¿adónde?", target: "where to?" }
+          - { source: "ahora", target: "now" }
+          - { source: "hay", target: "there is / there are" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "voy al trabajo en el autobús"
+        en: "I'm going to work by bus"
+        atoms: ["voy", "al", "trabajo", "en", "el", "autobús"]
+
+  # ── L7 · every direction, from memory — zero-new workout. ────────────
+  - n: 7
+    template: free
+    title: "Every direction, from memory"
+    description: "No new words — say where everyone's headed, and when."
+    steps:
+      - kind: map
+        id: map-voyalmercadoahora
+        tokens: ["voy", "al", "mercado", "ahora"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "market", tokenIndex: 2 }
+          - { en: "now", tokenIndex: 3 }
+        audioText: "voy al mercado ahora"
+        revealNote: "Nothing new — just read it, like heading out for real."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: clozeLit
+        id: c-workout1
+        es: "el sábado voy a la playa"
+        en: "on Saturday I'm going to the beach"
+        blank: "voy"
+        options: ["voy", "vas"]
+        atoms: ["el", "sábado", "voy", "a", "la", "playa"]
+        why: "Your own plan — «voy»."
+      - kind: buildLit
+        id: b-workout1
+        es: "vas a la escuela mañana"
+        en: "you're going to school tomorrow"
+        atoms: ["vas", "a", "la", "escuela", "mañana"]
+        tiles: ["voy", "al"]
+      - kind: audioWimcq
+        id: ear-cinetienda3
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: listenCompLit
+        id: lc-workout1
+        es: "voy al cine ahora"
+        en: "I'm going to the movies now."
+        atoms: ["voy", "al", "cine", "ahora"]
+        distractorsEn:
+          - "I want to go to the movies."
+          - "I'm at the movies now."
+          - "I'm going to the market now."
+      - kind: clozeLit
+        id: c-workout2
+        es: "vas al mercado"
+        en: "you're going to the market"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "al", "mercado"]
+        why: "Asking someone else — «vas»."
+      - kind: speakLit
+        id: sp-recall-elgato
+        es: "el gato"
+        en: "the cat"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-workout2
+        es: "voy a casa mañana"
+        en: "I'm going home tomorrow"
+        atoms: ["voy", "a", "casa", "mañana"]
+        tiles: ["al", "el"]
+      - kind: clozeLit
+        id: c-workout3
+        es: "voy al parque hoy"
+        en: "I'm going to the park today"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["voy", "al", "parque", "hoy"]
+        why: "parque is an el-word — «al»."
+      - kind: audioWimcq
+        id: ear-review8
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: sim
+        id: sim-diego-workout
+        scene: { emoji: "🚌", title: "Diego texts", setting: "Your phone buzzes — it's Diego." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Adónde vas ahora?", audioText: "¿adónde vas ahora?", gloss: "Where are you headed now?" }
+            goal: "Say you're going to the store."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la tienda" }
+                - { id: "wrong1", text: "vas a la tienda" }
+                - { id: "wrong2", text: "hay una tienda" }
+              correctOptionId: "right"
+              audioText: "voy a la tienda"
+            replyGloss: "I'm going to the store."
+      - kind: buildLit
+        id: b-workout3
+        es: "voy a la escuela hoy"
+        en: "I'm going to school today"
+        atoms: ["voy", "a", "la", "escuela", "hoy"]
+        tiles: ["al", "el"]
+      - kind: sim
+        id: sim-ana-workout
+        scene: { emoji: "🏫", title: "Ana asks", setting: "Ana waves from across the street." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a la escuela?", audioText: "¿vas a la escuela?", gloss: "Are you going to school?" }
+            goal: "Say no — you're going to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy al trabajo" }
+                - { id: "wrong1", text: "sí, voy a la escuela" }
+                - { id: "wrong2", text: "no, vas al trabajo" }
+              correctOptionId: "right"
+              audioText: "no, voy al trabajo"
+            replyGloss: "No, I'm going to work."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "vas", target: "you're going" }
+          - { source: "¿adónde?", target: "where to?" }
+          - { source: "ahora", target: "now" }
+          - { source: "el cine", target: "the movie theater" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        atoms: ["voy", "a", "la", "tienda"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ──────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every place, every pair"
+    description: "Every discrimination, every place, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "¿adónde vas?"
+        en: "Where are you headed?"
+        atoms: ["adónde", "vas"]
+        distractorsEn:
+          - "Where is it?"
+          - "Are you going?"
+          - "Where were you?"
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "voy al parque"
+        en: "I'm going to the park"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["voy", "al", "parque"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "vas a la playa"
+        en: "you're going to the beach"
+        atoms: ["vas", "a", "la", "playa"]
+        tiles: ["voy", "al"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "voy a la escuela"
+        en: "I'm going to school"
+        blank: "a"
+        options: ["a", "al"]
+        atoms: ["voy", "a", "la", "escuela"]
+        why: "escuela is a la-word — «a la»."
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "voy al trabajo ahora"
+        en: "I'm going to work now"
+        atoms: ["voy", "al", "trabajo", "ahora"]
+        tiles: ["a", "el"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿dónde está?"
+        en: "where is it?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: cp-tm-dondevsadonde
+        target: "dónde"
+        distractors: ["adónde", "aquí", "es"]
+        prompt: "«¿___ está la escuela?» — asking WHERE it is."
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "un perro", emoji: "🐶" }
+          - { surface: "el carro", emoji: "🚗" }
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "el autobús está allí"
+        en: "The bus is over there."
+        atoms: ["el", "autobús", "está", "allí"]
+        distractorsEn:
+          - "The bus is here."
+          - "There's a bus there."
+          - "The car is over there."
+      - kind: speakLit
+        id: cp-sp-2
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "vas a la escuela"
+        en: "you're going to school"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "a", "la", "escuela"]
+      - kind: buildLit
+        id: cp-build-2
+        es: "voy a casa ahora"
+        en: "I'm going home now"
+        atoms: ["voy", "a", "casa", "ahora"]
+        tiles: ["al", "el"]
+      - kind: audioWimcq
+        id: cp-ear-4
+        target: { surface: "la manzana", emoji: "🍎" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "vas", target: "you're going" }
+          - { source: "al", target: "to the" }
+          - { source: "¿adónde?", target: "where to?" }
+          - { source: "el cine", target: "the movie theater" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "voy a la playa"
+        en: "I'm going to the beach"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — the beach plan with Ana + Diego. ────────────────────
+  - n: 9
+    template: free
+    title: "Beach day"
+    description: "Saturday, the whole plan — bus, hunger, and the beach itself."
+    steps:
+      - kind: map
+        id: map-elsabadoplaya
+        tokens: ["el", "sábado", "voy", "a", "la", "playa"]
+        pairs:
+          - { en: "on", tokenIndex: 0 }
+          - { en: "Saturday", tokenIndex: 1 }
+          - { en: "I'm going", tokenIndex: 2 }
+          - { en: "to", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "beach", tokenIndex: 5 }
+        audioText: "el sábado voy a la playa"
+        revealNote: "Nothing new — «sábado» is yours from the week module, the rest is this one's."
+        tokenGenders: { 0: "m", 1: "m", 4: "f", 5: "f" }
+      - kind: clozeLit
+        id: c-summit1
+        es: "voy al mercado hoy"
+        en: "I'm going to the market today"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["voy", "al", "mercado", "hoy"]
+        why: "mercado is an el-word — «al»."
+      - kind: buildLit
+        id: b-summit1
+        es: "vas a la tienda mañana"
+        en: "you're going to the store tomorrow"
+        atoms: ["vas", "a", "la", "tienda", "mañana"]
+        tiles: ["voy", "al"]
+      - kind: audioWimcq
+        id: ear-summit1
+        target: { surface: "el pollo", emoji: "🍗" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "el pan", emoji: "🍞" }
+      - kind: textMcq
+        id: tm-dondevsadonde4
+        target: "adónde"
+        distractors: ["dónde", "está", "aquí"]
+        prompt: "«¿___ vas hoy?» — asking where you're GOING."
+      - kind: listenCompLit
+        id: lc-summit1
+        es: "el autobús está aquí"
+        en: "The bus is here."
+        atoms: ["el", "autobús", "está", "aquí"]
+        distractorsEn:
+          - "The bus is there."
+          - "There's a bus here."
+          - "The car is here."
+      - kind: speakLit
+        id: sp-recall-summit1
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-summit2
+        es: "voy a la escuela"
+        en: "I'm going to school"
+        atoms: ["voy", "a", "la", "escuela"]
+        tiles: ["al", "el"]
+      - kind: audioWimcq
+        id: ear-summit2
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "vas", target: "you're going" }
+          - { source: "el sábado", target: "on Saturday" }
+          - { source: "la playa", target: "the beach" }
+          - { source: "ahora", target: "now" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "🏖️", title: "Beach plan", setting: "Ana and Diego meet you outside — Saturday, beach day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola! ¿Vas a la playa el sábado?", audioText: "¡hola! ¿vas a la playa el sábado?", gloss: "Hi! Are you going to the beach on Saturday?" }
+            goal: "Say yes — you're going."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, voy a la playa" }
+                - { id: "wrong1", text: "sí, vas a la playa" }
+                - { id: "wrong2", text: "no, voy al parque" }
+              correctOptionId: "right"
+              audioText: "sí, voy a la playa"
+            replyGloss: "Yes, I'm going to the beach."
+          - id: t2
+            npc: { speaker: "Diego", es: "¡Perfecto! ¿El autobús está aquí ahora?", audioText: "¡perfecto! ¿el autobús está aquí ahora?", gloss: "Great! Is the bus here now?" }
+            goal: "No — point over there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, está allí" }
+                - { id: "wrong1", text: "no, hay allí" }
+                - { id: "wrong2", text: "sí, está aquí" }
+              correctOptionId: "right"
+              audioText: "no, está allí"
+            replyGloss: "No, it's over there."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Tienes hambre?", audioText: "¿tienes hambre?", gloss: "Are you hungry?" }
+            goal: "Say yes, you're hungry."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo hambre" }
+                - { id: "wrong1", text: "sí, tengo sed" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, tengo hambre"
+            replyGloss: "Yes, I'm hungry."
+          - id: t4
+            npc: { speaker: "Ana", es: "¡Qué bien! Hasta luego en la playa.", audioText: "¡qué bien! hasta luego en la playa.", gloss: "Great! See you at the beach." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+  # ── L10 · mastery — María on the street, ends on sim. ─────────────────
+  - n: 10
+    template: free
+    title: "Prove it — then María asks"
+    description: "Every pair, every place, no help — and María spots you on the street."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "voy al trabajo hoy"
+        en: "I'm going to work today"
+        blank: "voy"
+        options: ["voy", "vas"]
+        atoms: ["voy", "al", "trabajo", "hoy"]
+        why: "Your own plan — «voy»."
+      - kind: buildLit
+        id: m-build-1
+        es: "vas a la escuela"
+        en: "you're going to school"
+        atoms: ["vas", "a", "la", "escuela"]
+        tiles: ["voy", "al"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "vas a la tienda"
+        en: "you're going to the store"
+        blank: "a"
+        options: ["a", "al"]
+        atoms: ["vas", "a", "la", "tienda"]
+        why: "tienda is a la-word — «a la»."
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "¿adónde vas?"
+        en: "Where are you headed?"
+        atoms: ["adónde", "vas"]
+        distractorsEn:
+          - "Where is it?"
+          - "Are you going?"
+          - "Where were you?"
+      - kind: speakLit
+        id: m-sp-1
+        es: "voy al cine"
+        en: "I'm going to the movies"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-al
+        target: "al"
+        distractors: ["a", "el", "los"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "voy al mercado ahora"
+        en: "I'm going to the market now"
+        atoms: ["voy", "al", "mercado", "ahora"]
+        tiles: ["a", "el"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: buildLit
+        id: m-build-2
+        es: "voy a casa"
+        en: "I'm going home"
+        atoms: ["voy", "a", "casa"]
+        tiles: ["al", "el"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "vas al parque"
+        en: "you're going to the park"
+        blank: "al"
+        options: ["al", "a"]
+        atoms: ["vas", "al", "parque"]
+        why: "parque is an el-word — «al»."
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "vas", target: "you're going" }
+          - { source: "al", target: "to the" }
+          - { source: "¿adónde?", target: "where to?" }
+          - { source: "ahora", target: "now" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: m-sim-maria
+        scene: { emoji: "❓", title: "María asks around", setting: "María spots you on the street, curious as always." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola, Sam! ¿Adónde vas?", audioText: "¡hola, Sam! ¿adónde vas?", gloss: "Hi Sam! Where are you headed?" }
+            goal: "Say you're going to the store."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la tienda" }
+                - { id: "wrong1", text: "vas a la tienda" }
+                - { id: "wrong2", text: "está en la tienda" }
+              correctOptionId: "right"
+              audioText: "voy a la tienda"
+            replyGloss: "I'm going to the store."
+          - id: t2
+            npc: { speaker: "María", es: "¿Ahora? ¿No vas al trabajo?", audioText: "¿ahora? ¿no vas al trabajo?", gloss: "Now? Aren't you going to work?" }
+            goal: "Say no — you're going to the store."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy a la tienda" }
+                - { id: "wrong1", text: "sí, voy al trabajo" }
+                - { id: "wrong2", text: "no, voy al trabajo" }
+              correctOptionId: "right"
+              audioText: "no, voy a la tienda"
+            replyGloss: "No, I'm going to the store."
+          - id: t3
+            npc: { speaker: "María", es: "¿Vas en el autobús?", audioText: "¿vas en el autobús?", gloss: "Are you going by bus?" }
+            goal: "Say yes, by bus."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, en el autobús" }
+                - { id: "wrong1", text: "no, en el autobús" }
+                - { id: "wrong2", text: "sí, en el trabajo" }
+              correctOptionId: "right"
+              audioText: "sí, en el autobús"
+            replyGloss: "Yes, by bus."
+          - id: t4
+            npc: { speaker: "María", es: "¡Perfecto! Hasta luego, Sam.", audioText: "¡perfecto! hasta luego, Sam.", gloss: "Perfect! See you later, Sam." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m9-scr-1"
+      prompt: "Which one means 'I'm going / I go'?"
+      correct: "voy"
+      distractors: ["vas", "tengo", "es"]
+  byModule:
+    - id: "es-m9-pl-1"
+      prompt: "I'm going to the park."
+      correct: "voy al parque"
+      distractors: ["voy a el parque", "voy a la parque", "vas al parque"]
+    - id: "es-m9-pl-2"
+      prompt: "I'm going to the beach."
+      correct: "voy a la playa"
+      distractors: ["voy al playa", "voy a playa", "vas a la playa"]
+    - id: "es-m9-pl-3"
+      prompt: "Where are you headed?"
+      correct: "¿adónde vas?"
+      distractors: ["¿dónde vas?", "¿adónde voy?", "¿dónde estás?"]
+    - id: "es-m9-pl-4"
+      prompt: "I'm going home."
+      correct: "voy a casa"
+      distractors: ["voy a la casa", "voy al casa", "voy en casa"]

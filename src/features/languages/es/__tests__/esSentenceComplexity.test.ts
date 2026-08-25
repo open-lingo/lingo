@@ -129,7 +129,18 @@ describe("es sentence-complexity floor (ja guide §4g)", () => {
       expect(irs.length).toBe(0);
       return;
     }
-    expect(irs.length).toBeGreaterThan(0);
+    // 2026-08-24: the §13 wave restarts the live IR dir with FRAMELESS
+    // phrase modules (m3 — frame: none), which this suite rightly skips
+    // (no frame → no time system to demand adverbials from). The glob is
+    // only broken if a FRAMED IR exists that readIrHeaders failed to parse.
+    const framed = readdirSync(IR_DIR).filter(
+      (f) =>
+        f.endsWith(".ir.yaml") &&
+        !/^frame:\s*"?none"?\s*$/m.test(
+          readFileSync(resolve(IR_DIR, f), "utf8").slice(0, 2000),
+        ),
+    );
+    expect(irs.length).toBe(framed.length);
   });
 
   for (const ir of irs) {

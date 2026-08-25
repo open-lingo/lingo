@@ -64,7 +64,11 @@ const KO_SKILL_TIERS: readonly SkillTier[] = [
 // 2026-08-21: the July m1–m19 wave was archived and the §13-doctrine course
 // restarts at m1/m2 (curriculum/_archive/). One tier until m3+ lands.
 const ES_SKILL_TIERS: readonly SkillTier[] = [
-  { tier: 0, modules: ["m1", "m2"], screeningModuleId: "m1", label: "Greetings, introductions, ser" },
+  // 2026-08-25: the m4–m10 §13 wave lands in three difficulty bands.
+  { tier: 0, modules: ["m1", "m2", "m3"], screeningModuleId: "m1", label: "Greetings, introductions, first nouns" },
+  { tier: 1, modules: ["m4", "m5", "m6"], screeningModuleId: "m4", label: "Where things are, family, describing" },
+  { tier: 2, modules: ["m7", "m8", "m9"], screeningModuleId: "m7", label: "Wanting, the café, days, going places" },
+  { tier: 3, modules: ["m10"], screeningModuleId: "m10", label: "First -ar conjugations" },
 ];
 
 // FR promoted the same day fr became selectable — same one-tier shape.

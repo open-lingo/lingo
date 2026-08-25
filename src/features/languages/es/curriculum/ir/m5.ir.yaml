@@ -1,0 +1,1455 @@
+module: m5
+title: "Mi familia — have, and belong"
+frame: none
+throughModule: m4
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m5 — «Mi familia»: tener's three formulas, mi/tu, and the family.
+# Third §13-doctrine IR module (m4 is the freshest exemplar; m3 the original).
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m5 — Mi familia"). 16 atoms: tengo,
+# tienes, tiene, mi, tu, familia, madre, padre, hermano, hermana, abuelo,
+# abuela, perro, gato, años, ¿cuántos?. Nothing added, dropped or renamed
+# against that spec.
+#
+# DOCTRINE NOTES:
+#   - tener is FORMULAS only — tengo/tienes/tiene are taught and drilled as
+#     three separate atoms; no paradigm table, no word "conjugation"
+#     anywhere in a card or explanation.
+#   - Debut mechanism, per §13.2/§13.5 (max ONE new word per map/sentence):
+#     perro🐶, gato🐱, hermano👦, hermana👧, abuelo👴, abuela👵 debut via
+#     imageMcq with a definite-article surface (el perro, la hermana…).
+#     tengo, mi, tienes, madre, padre, tu, tiene, años, ¿cuántos?, familia
+#     have no honest single-frame emoji (or, for familia, only a WEAK
+#     composite one) — every one of them debuts via word_map elimination,
+#     always sequenced so its map's other content words are already taught
+#     (a pet or sibling word debuted one step earlier, or a m1–m4 licensed
+#     word). familia's map doubles as the foto payoff: «la foto de mi
+#     familia» — m4's foto, cashed here.
+#   - Person build-out, so no map ever carries two new formulas at once:
+#     L1 is the "I" cluster (tengo + mi, alongside the perro/gato debuts);
+#     L2 is the "you" cluster (tienes + tu, alongside madre/padre); L3
+#     completes the set with the "he/she" cluster (tiene, alongside
+#     hermano/hermana). Spec pins tu only implicitly ("mi/tu alternate" as
+#     a lane) — debuting it in L2 next to tienes (both second-person) is
+#     this dispatch's judgment call, flagged in the report.
+#   - «mi madre es Ana» (L2) is the pinned identity chunk — m2's «es» + a
+#     name, never «se llama» (unlicensed). «tengo … años» / «¿cuántos años
+#     tienes?» (L4) spend ocho, diez, cinco, nueve, siete, seis, cuatro —
+#     six different m1 numbers, well past the three-number floor.
+#   - Plural family nouns (hermanos, abuelas as a group, etc.) are AVOIDED
+#     module-wide: only the singular surfaces are registered atoms, and
+#     m4's plural machinery (los/las) is out of scope here, so every
+#     multi-relative beat uses "un/una X y un/una Y" instead of a bare
+#     plural. «están» stays unspent for the same reason it was banned in
+#     m4 — never taught, so never used.
+#   - Interleave: family nouns split across L1 (0 — pets only, the
+#     opening break), L2 (madre, padre — 2), L3 (hermano, hermana — 2),
+#     L4 (abuelo, abuela — 2), L5 (familia — 1, the closing beat), with
+#     perro/gato reprised as the breaks in L1, L6 and L9. No lesson is
+#     ONLY relatives — every family lesson also carries a formula/particle
+#     debut or a numbers beat. This is denser at the front than the
+#     spec's "3/3/2" phrasing suggests; the per-lesson arc in the spec
+#     (madre/padre in L2, hermano/hermana in L3, abuelos in L4, familia in
+#     L5) is followed literally, and the 3/3/2 cadence is read as the
+#     general interleave LAW rather than a literal atom count this
+#     module's smaller 6-noun family satisfies exactly — flagged in the
+#     report as a judgment call.
+#   - Discrimination lanes (§13.9 law 4, alternating, both halves live):
+#     tengo/tienes/tiene cross-tested throughout — cloze-correct tally
+#     tengo:3 tienes:3 tiene:8 (tiene leads because most family sentences
+#     are third-person, itself the hardest slot to get right; tengo/tienes
+#     are kept directly balanced at 3:3 per the spec's named lane); mi/tu
+#     clozes 4:3; hermano/hermana BY EAR (audioWimcq, 5 hermano-target :
+#     4 hermana-target); abuelo/abuela BY EAR (3 abuelo-target : 4
+#     abuela-target).
+#   - Cast: Ana (now cast as the learner's mother for the one pinned «mi
+#     madre es Ana» line — a deliberate one-line identity chunk, not a
+#     recurring role change), Diego (meets the dog in L9 — new gag),
+#     Sofía (asks about the photo, L5/L6), María (asks about the photo
+#     again, L10 mastery — same beat, different asker, per m4's own
+#     "María visits" pattern). Carmen stays offstage (m7). Learner = Sam.
+#   - Every cloze is a fresh sentence; the checkpoint and mastery lessons
+#     retest via new noun/number combinations, never a verbatim repeat of
+#     an earlier lesson's cloze.
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   tengo un perro L1 · el gato L1 · mi madre L2 · tengo ocho años L4 ·
+#   ¿cuántos años tienes? L4 · mi familia L5
+#   m5-internal recalls drawn from the above: ¿cuántos años tienes? (L10),
+#   mi familia (L9), el gato (L8, cp-sp-2)
+#   cross-module (licensed by m1/m2/m3/m4 printed voicings): una llave
+#   (L1), ¿qué es? (L2, L4), gracias (L4, L7), buenas tardes (L6), el
+#   baño (L7), la llave es de Ana (L5), mucho gusto (L9)
+newAtoms:
+  - { surface: "tengo", meaningEn: "I have", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tienes", meaningEn: "you have", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tiene", meaningEn: "he/she has", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "mi", meaningEn: "my", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "tu", meaningEn: "your", partOfSpeech: "particle", kind: "particle", hint: "no accent — tú with the accent is 'you'" }
+  - { surface: "familia", meaningEn: "family", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👨‍👩‍👧‍👦" }
+  - { surface: "madre", meaningEn: "mother", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "padre", meaningEn: "father", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "hermano", meaningEn: "brother", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👦" }
+  - { surface: "hermana", meaningEn: "sister", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👧" }
+  - { surface: "abuelo", meaningEn: "grandfather", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👴" }
+  - { surface: "abuela", meaningEn: "grandmother", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👵" }
+  - { surface: "perro", meaningEn: "dog", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🐶" }
+  - { surface: "gato", meaningEn: "cat", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🐱" }
+  - { surface: "años", meaningEn: "years", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "¿cuántos?", meaningEn: "how many?", partOfSpeech: "phrase", kind: "phrase", hint: "KWAN-tos" }
+
+lessons:
+  # ── L1 · tengo/mi + perro/gato debuts. States the module promise. ────
+  - n: 1
+    template: free
+    title: "Say what's yours"
+    description: "«tengo» says you HAVE something, «mi» says it's YOURS. Meet your first two pets, and start talking about your people."
+    steps:
+      - kind: info
+        id: info-tengomi
+        title: "Having, and belonging"
+        body: "«tengo» = I have — «tengo un perro». «mi» = my — «mi perro». This module: talk about what — and who — is yours."
+      - kind: imageMcq
+        id: d-perro
+        target: { surface: "el perro", meaningEn: "the dog", emoji: "🐶" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el celular", emoji: "📱" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: speakLit
+        id: sp-elperro
+        es: "el perro"
+        en: "the dog"
+        atoms: ["el", "perro"]
+      - kind: map
+        id: map-tengounperro
+        tokens: ["tengo", "un", "perro"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "dog", tokenIndex: 2 }
+        audioText: "tengo un perro"
+        revealNote: "«un» and «perro» are already yours — «tengo» is the new one, and now you can say you HAVE something."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-tengounperro
+        es: "tengo un perro"
+        en: "I have a dog"
+        atoms: ["tengo", "un", "perro"]
+      - kind: imageMcq
+        id: d-gato
+        target: { surface: "el gato", meaningEn: "the cat", emoji: "🐱" }
+        distractors:
+          - { surface: "el perro", emoji: "🐶" }
+          - { surface: "el celular", emoji: "📱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: speakLit
+        id: sp-elgato
+        es: "el gato"
+        en: "the cat"
+        atoms: ["el", "gato"]
+      - kind: map
+        id: map-migato
+        tokens: ["mi", "gato"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "cat", tokenIndex: 1 }
+        audioText: "mi gato"
+        revealNote: "«gato» you just met — «mi» means 'my', and it doesn't change for a boy word or a girl word (you'll notice that later)."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: sp-migato
+        es: "mi gato"
+        en: "my cat"
+        atoms: ["mi", "gato"]
+      - kind: clozeLit
+        id: c-tengohay1
+        es: "tengo un gato"
+        en: "I have a cat"
+        blank: "tengo"
+        options: ["tengo", "hay"]
+        atoms: ["tengo", "un", "gato"]
+        why: "«hay» would just say a cat exists somewhere — you're claiming it as YOURS, so «tengo»."
+      - kind: buildLit
+        id: b-tengoperroygato
+        es: "tengo un perro y un gato"
+        en: "I have a dog and a cat"
+        atoms: ["tengo", "un", "perro", "y", "gato"]
+        tiles: ["mi", "tiene"]
+      - kind: audioWimcq
+        id: ear-perrogato
+        target: { surface: "el perro", emoji: "🐶" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: listenCompLit
+        id: lc-tengoperro
+        es: "tengo un perro"
+        en: "I have a dog."
+        atoms: ["tengo", "un", "perro"]
+        distractorsEn:
+          - "I have a cat."
+          - "There's a dog."
+          - "The dog is here."
+      - kind: speakLit
+        id: sp-recall-unallave
+        es: "una llave"
+        en: "a key"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-anaperro
+        scene: { emoji: "🐶", title: "Ana's question", setting: "Ana points at your pets." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola! ¿Qué es?", audioText: "¡hola! ¿qué es?", gloss: "Hi! What is it?" }
+            goal: "Name it — a dog."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es un perro" }
+                - { id: "wrong1", text: "es un gato" }
+                - { id: "wrong2", text: "hay un perro" }
+              correctOptionId: "right"
+              audioText: "es un perro"
+            replyGloss: "It's a dog."
+            explanation: "She's asking WHAT it is — «es», not «hay» (that would just claim one exists) and not «tengo» (that's a different question)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el gato?", audioText: "¿y el gato?", gloss: "And the cat?" }
+            goal: "Say you have one too."
+            reply:
+              mode: build
+              tiles: ["tengo", "un", "gato", "mi", "es"]
+              answer: "tengo un gato"
+              alsoAccepted: ["un gato", "mi gato"]
+            replyGloss: "I have a cat."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el perro", target: "the dog" }
+          - { source: "el gato", target: "the cat" }
+          - { source: "tengo", target: "I have" }
+          - { source: "mi", target: "my" }
+          - { source: "una llave", target: "a key" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo un perro y un gato"
+        en: "I have a dog and a cat"
+        atoms: ["tengo", "un", "perro", "y", "gato"]
+
+  # ── L2 · tienes/tu + madre/padre debuts. ──────────────────────────────
+  - n: 2
+    template: free
+    title: "Yours, and theirs"
+    description: "«tienes» asks what YOU have, «tu» hands it back — and you meet your mother and father."
+    steps:
+      - kind: map
+        id: map-mimadre
+        tokens: ["mi", "madre", "es", "maestra"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "mother", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "a teacher", tokenIndex: 3 }
+        audioText: "mi madre es maestra"
+        revealNote: "«mi», «es» and «maestra» (from m2!) are already yours — «madre» is the only new word. Spanish skips the 'a': es maestra."
+        tokenGenders: { 1: "f", 3: "f" }
+      - kind: speakLit
+        id: sp-mimadre
+        es: "mi madre"
+        en: "my mother"
+        atoms: ["mi", "madre"]
+      - kind: map
+        id: map-mipadre
+        tokens: ["mi", "padre", "está", "aquí"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "father", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "mi padre está aquí"
+        revealNote: "«mi», «está» and «aquí» are already yours — «padre» is the only stranger."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: sp-mipadre
+        es: "mi padre"
+        en: "my father"
+        atoms: ["mi", "padre"]
+      - kind: map
+        id: map-tienesperro
+        tokens: ["¿tienes", "un", "perro?"]
+        pairs:
+          - { en: "do you have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "dog", tokenIndex: 2 }
+        audioText: "¿tienes un perro?"
+        revealNote: "«un» and «perro» are already yours — «tienes» asks whether YOU have something."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-tienesperro
+        es: "¿tienes un perro?"
+        en: "do you have a dog?"
+        atoms: ["tienes", "un", "perro"]
+      - kind: clozeLit
+        id: c-tengotienes1
+        es: "tienes un gato"
+        en: "you have a cat"
+        blank: "tienes"
+        options: ["tienes", "tengo"]
+        atoms: ["tienes", "un", "gato"]
+        why: "You're talking about the OTHER person — «tienes», not «tengo» (that's about yourself)."
+      - kind: map
+        id: map-tuperro
+        tokens: ["¿es", "tu", "perro?"]
+        pairs:
+          - { en: "is it", tokenIndex: 0 }
+          - { en: "your", tokenIndex: 1 }
+          - { en: "dog", tokenIndex: 2 }
+        audioText: "¿es tu perro?"
+        revealNote: "«es» and «perro» are already yours — «tu» means 'your' (no accent — «tú» with the accent is 'you', which you already know)."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: sp-tuperro
+        es: "tu perro"
+        en: "your dog"
+        atoms: ["tu", "perro"]
+      - kind: clozeLit
+        id: c-mitu1
+        es: "tu gato"
+        en: "your cat"
+        blank: "tu"
+        options: ["tu", "mi"]
+        atoms: ["tu", "gato"]
+        why: "You're talking about the OTHER person's cat — «tu», not «mi»."
+      - kind: buildLit
+        id: b-tuperroesta
+        es: "tu perro está aquí"
+        en: "Your dog is here"
+        atoms: ["tu", "perro", "está", "aquí"]
+        tiles: ["mi", "allí"]
+      - kind: audioWimcq
+        id: ear-review-mascotas
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "el perro", emoji: "🐶" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: listenCompLit
+        id: lc-tumadre
+        es: "tu madre está aquí"
+        en: "Your mother's here."
+        atoms: ["tu", "madre", "está", "aquí"]
+        distractorsEn:
+          - "Your father's here."
+          - "Your mother's there."
+          - "There's a mother here."
+      - kind: speakLit
+        id: sp-recall-quees1
+        es: "¿qué es?"
+        en: "what is it?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diegofoto
+        scene: { emoji: "👨‍👩‍👧", title: "Diego asks", setting: "Diego points at a photo on your phone." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Es tu madre?", audioText: "¿es tu madre?", gloss: "Is that your mother?" }
+            goal: "Say yes — it's your mother."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, es mi madre" }
+                - { id: "wrong1", text: "sí, es mi padre" }
+                - { id: "wrong2", text: "no, es tu madre" }
+              correctOptionId: "right"
+              audioText: "sí, es mi madre"
+            replyGloss: "Yes, it's my mother."
+            explanation: "«mi» keeps her yours — «tu» would hand her back to Diego."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Tienes un perro?", audioText: "¿tienes un perro?", gloss: "Do you have a dog?" }
+            goal: "Yes — you do."
+            reply:
+              mode: build
+              tiles: ["tengo", "un", "perro", "sí", "no"]
+              answer: "sí tengo un perro"
+              alsoAccepted: ["tengo un perro", "sí"]
+            replyGloss: "Yes, I have a dog."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "mi madre", target: "my mother" }
+          - { source: "mi padre", target: "my father" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tu", target: "your" }
+          - { source: "una llave", target: "a key" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "mi madre"
+        en: "my mother"
+        atoms: ["mi", "madre"]
+
+  # ── L3 · hermano/hermana + tiene + the ear lane. ──────────────────────
+  - n: 3
+    template: free
+    title: "Same word, different ending"
+    description: "Brother, sister — one ending flips to the other. Learn «tiene», the last of the three, and tell them apart by ear."
+    steps:
+      - kind: imageMcq
+        id: d-hermano
+        target: { surface: "el hermano", meaningEn: "the brother", emoji: "👦" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "una llave", emoji: "🔑" }
+      - kind: speakLit
+        id: sp-elhermano
+        es: "el hermano"
+        en: "the brother"
+        atoms: ["el", "hermano"]
+      - kind: imageMcq
+        id: d-hermana
+        target: { surface: "la hermana", meaningEn: "the sister", emoji: "👧" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: speakLit
+        id: sp-lahermana
+        es: "la hermana"
+        en: "the sister"
+        atoms: ["la", "hermana"]
+      - kind: audioWimcq
+        id: ear-hermano1
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el perro", emoji: "🐶" }
+      - kind: clozeLit
+        id: c-mitu2
+        es: "mi hermano"
+        en: "my brother"
+        blank: "mi"
+        options: ["mi", "tu"]
+        atoms: ["mi", "hermano"]
+        why: "You're talking about YOUR brother — «mi»."
+      - kind: audioWimcq
+        id: ear-hermana1
+        target: { surface: "la hermana", emoji: "👧" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: map
+        id: map-hermanotiene
+        tokens: ["mi", "hermano", "tiene", "un", "gato"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "brother", tokenIndex: 1 }
+          - { en: "has", tokenIndex: 2 }
+          - { en: "a", tokenIndex: 3 }
+          - { en: "cat", tokenIndex: 4 }
+        audioText: "mi hermano tiene un gato"
+        revealNote: "«mi», «hermano», «un» and «gato» are already yours — «tiene» is the new one: what HE or SHE has."
+        tokenGenders: { 1: "m", 3: "m", 4: "m" }
+      - kind: speakLit
+        id: sp-tiene
+        es: "mi hermano tiene un gato"
+        en: "my brother has a cat"
+        atoms: ["mi", "hermano", "tiene", "un", "gato"]
+      - kind: clozeLit
+        id: c-tengotienetiene1
+        es: "mi hermana tiene un perro"
+        en: "my sister has a dog"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["mi", "hermana", "tiene", "un", "perro"]
+        why: "You're talking about HER — «tiene», not «tengo» (that's you)."
+      - kind: buildLit
+        id: b-tuhermano
+        es: "¿tienes un hermano?"
+        en: "Do you have a brother?"
+        atoms: ["tienes", "un", "hermano"]
+        tiles: ["mi", "tu"]
+      - kind: audioWimcq
+        id: ear-hermano2
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "la cocina", emoji: "🍳" }
+      - kind: listenCompLit
+        id: lc-hermana1
+        es: "tengo una hermana"
+        en: "I have a sister."
+        atoms: ["tengo", "una", "hermana"]
+        distractorsEn:
+          - "I have a brother."
+          - "There's a sister."
+          - "Do you have a sister?"
+      - kind: speakLit
+        id: sp-recall-elagua
+        es: "el agua"
+        en: "the water"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofiahermano
+        scene: { emoji: "📷", title: "Sofía asks", setting: "Sofía shows you a family photo." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Tienes un hermano?", audioText: "¿tienes un hermano?", gloss: "Do you have a brother?" }
+            goal: "Say no — you have a sister."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo una hermana" }
+                - { id: "wrong1", text: "no, tienes una hermana" }
+                - { id: "wrong2", text: "sí, tengo un hermano" }
+              correctOptionId: "right"
+              audioText: "no, tengo una hermana"
+            replyGloss: "No, I have a sister."
+            explanation: "She asked about a brother — you have a sister instead, so «no» first, then correct it with «tengo»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y tu hermana tiene un gato?", audioText: "¿y tu hermana tiene un gato?", gloss: "And does your sister have a cat?" }
+            goal: "Yes — she does."
+            reply:
+              mode: build
+              tiles: ["tiene", "un", "gato", "sí", "mi"]
+              answer: "sí tiene un gato"
+              alsoAccepted: ["tiene un gato", "sí"]
+            replyGloss: "Yes, she has a cat."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el hermano", target: "the brother" }
+          - { source: "la hermana", target: "the sister" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "tienes", target: "you have" }
+          - { source: "el agua", target: "the water" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "mi hermana tiene un gato"
+        en: "my sister has a cat"
+        atoms: ["mi", "hermana", "tiene", "un", "gato"]
+
+  # ── L4 · abuelo/abuela + años/¿cuántos? + the ear lane. ───────────────
+  - n: 4
+    template: free
+    title: "How old are they?"
+    description: "Meet the grandparents — and finally ask anyone's age."
+    steps:
+      - kind: imageMcq
+        id: d-abuelo
+        target: { surface: "el abuelo", meaningEn: "the grandfather", emoji: "👴" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: speakLit
+        id: sp-elabuelo
+        es: "el abuelo"
+        en: "the grandfather"
+        atoms: ["el", "abuelo"]
+      - kind: imageMcq
+        id: d-abuela
+        target: { surface: "la abuela", meaningEn: "the grandmother", emoji: "👵" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el perro", emoji: "🐶" }
+      - kind: speakLit
+        id: sp-laabuela
+        es: "la abuela"
+        en: "the grandmother"
+        atoms: ["la", "abuela"]
+      - kind: audioWimcq
+        id: ear-abuelo1
+        target: { surface: "el abuelo", emoji: "👴" }
+        distractors:
+          - { surface: "la abuela", emoji: "👵" }
+          - { surface: "el hermano", emoji: "👦" }
+      - kind: clozeLit
+        id: c-tengotienetiene2
+        es: "mi abuelo tiene un perro"
+        en: "my grandfather has a dog"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["mi", "abuelo", "tiene", "un", "perro"]
+        why: "You're talking about HIM (your grandfather) — «tiene», not «tienes» (that's asking someone directly)."
+      - kind: audioWimcq
+        id: ear-abuela1
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "la cocina", emoji: "🍳" }
+      - kind: map
+        id: map-tengoochoanos
+        tokens: ["tengo", "ocho", "años"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "eight", tokenIndex: 1 }
+          - { en: "years", tokenIndex: 2 }
+        audioText: "tengo ocho años"
+        revealNote: "«tengo» and «ocho» (from way back) are already yours — «años» is the new one: how you say your age."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: sp-tengoochoanos
+        es: "tengo ocho años"
+        en: "I'm eight years old"
+        atoms: ["tengo", "ocho", "años"]
+      - kind: map
+        id: map-cuantosanostienes
+        tokens: ["¿cuántos", "años", "tienes?"]
+        pairs:
+          - { en: "how many", tokenIndex: 0 }
+          - { en: "years", tokenIndex: 1 }
+          - { en: "do you have", tokenIndex: 2 }
+        audioText: "¿cuántos años tienes?"
+        revealNote: "«años» and «tienes» are already yours — «¿cuántos?» asks 'how many'."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: sp-cuantosanostienes
+        es: "¿cuántos años tienes?"
+        en: "how old are you?"
+        atoms: ["¿cuántos?", "años", "tienes"]
+      - kind: clozeLit
+        id: c-tengotienes2
+        es: "tengo diez años"
+        en: "I'm ten years old"
+        blank: "tengo"
+        options: ["tengo", "tienes"]
+        atoms: ["tengo", "diez", "años"]
+        why: "You're saying your OWN age — «tengo»."
+      - kind: buildLit
+        id: b-perrocincoanos
+        es: "mi perro tiene cinco años"
+        en: "My dog is five years old"
+        atoms: ["mi", "perro", "tiene", "cinco", "años"]
+        tiles: ["tu", "ocho"]
+      - kind: audioWimcq
+        id: ear-numeros1
+        target: { surface: "cinco", emoji: "5️⃣" }
+        distractors:
+          - { surface: "cuatro", emoji: "4️⃣" }
+          - { surface: "seis", emoji: "6️⃣" }
+      - kind: listenCompLit
+        id: lc-cuantosanos
+        es: "¿cuántos años tienes?"
+        en: "How old are you?"
+        atoms: ["¿cuántos?", "años", "tienes"]
+        distractorsEn:
+          - "How old is he?"
+          - "Do you have a dog?"
+          - "Where's your grandmother?"
+      - kind: speakLit
+        id: sp-recall-nogracias5
+        es: "no gracias"
+        en: "no, thank you"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-mariaanos
+        scene: { emoji: "🎂", title: "María asks your age", setting: "María, from the bus, is curious." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Cuántos años tienes?", audioText: "¿cuántos años tienes?", gloss: "(Testing your Spanish, grinning.) How old are you?" }
+            goal: "Play the game — say nine."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tengo nueve años" }
+                - { id: "wrong1", text: "tienes nueve años" }
+                - { id: "wrong2", text: "mi madre tiene nueve años" }
+              correctOptionId: "right"
+              audioText: "tengo nueve años"
+            replyGloss: "I'm nine."
+            explanation: "She asked about YOU — «tengo», not «tienes» (that would ask her back) or «tiene» (someone else)."
+          - id: t2
+            npc: { speaker: "María", es: "¿Y tu hermano?", audioText: "¿y tu hermano?", gloss: "And your brother?" }
+            goal: "Say he's seven."
+            reply:
+              mode: build
+              tiles: ["tiene", "siete", "años", "mi", "hermano"]
+              answer: "tiene siete años"
+              alsoAccepted: ["mi hermano tiene siete años"]
+            replyGloss: "He's seven."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el abuelo", target: "the grandfather" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "años", target: "years" }
+          - { source: "¿cuántos?", target: "how many?" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "una llave", target: "a key" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo ocho años"
+        en: "I'm eight years old"
+        atoms: ["tengo", "ocho", "años"]
+
+  # ── L5 · familia + the foto payoff. ───────────────────────────────────
+  - n: 5
+    template: free
+    title: "The whole family, in one photo"
+    description: "One last word — familia — and m4's photo finally shows you everyone."
+    steps:
+      - kind: map
+        id: map-lafotofamilia
+        tokens: ["la", "foto", "de", "mi", "familia"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "photo", tokenIndex: 1 }
+          - { en: "of", tokenIndex: 2 }
+          - { en: "my", tokenIndex: 3 }
+          - { en: "family", tokenIndex: 4 }
+        audioText: "la foto de mi familia"
+        revealNote: "«la», «foto», «de» and «mi» are all yours — «familia» is the only new one, and now the photo means something."
+        tokenGenders: { 0: "f", 1: "f", 4: "f" }
+      - kind: speakLit
+        id: sp-lafotodemifamilia
+        es: "la foto de mi familia"
+        en: "the photo of my family"
+        atoms: ["la", "foto", "de", "mi", "familia"]
+      - kind: clozeLit
+        id: c-mitu3
+        es: "mi familia"
+        en: "my family"
+        blank: "mi"
+        options: ["mi", "tu"]
+        atoms: ["mi", "familia"]
+        why: "You're talking about YOUR family — «mi»."
+      - kind: buildLit
+        id: b-mifamilia
+        es: "mi familia está aquí"
+        en: "My family is here"
+        atoms: ["mi", "familia", "está", "aquí"]
+        tiles: ["tu", "allí"]
+      - kind: speakLit
+        id: sp-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: ["mi", "familia"]
+      - kind: audioWimcq
+        id: ear-hermana2
+        target: { surface: "la hermana", emoji: "👧" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el abuelo", emoji: "👴" }
+      - kind: clozeLit
+        id: c-tengotienetiene3
+        es: "mi familia tiene un perro"
+        en: "my family has a dog"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["mi", "familia", "tiene", "un", "perro"]
+        why: "«familia» is the one HAVING the dog, not you — «tiene»."
+      - kind: listenBuildLit
+        id: lb-abueloyabuela
+        es: "tengo un abuelo y una abuela"
+        en: "I have a grandfather and a grandmother"
+        atoms: ["tengo", "un", "abuelo", "y", "una", "abuela"]
+        tiles: ["mi", "tu"]
+      - kind: audioWimcq
+        id: ear-abuela2
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: listenCompLit
+        id: lc-familiafoto
+        es: "la foto de mi familia"
+        en: "The photo of my family."
+        atoms: ["la", "foto", "de", "mi", "familia"]
+        distractorsEn:
+          - "The photo of your family."
+          - "There's a photo here."
+          - "My family is here."
+      - kind: speakLit
+        id: sp-recall-lacasa5
+        es: "la casa"
+        en: "the house"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofiafoto1
+        scene: { emoji: "📷", title: "Sofía and the photo", setting: "Sofía points at a photo of your family." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Es tu familia?", audioText: "¿es tu familia?", gloss: "Is that your family?" }
+            goal: "Say yes — it's your family."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, es mi familia" }
+                - { id: "wrong1", text: "sí, es tu familia" }
+                - { id: "wrong2", text: "no, hay una familia" }
+              correctOptionId: "right"
+              audioText: "sí, es mi familia"
+            replyGloss: "Yes, it's my family."
+            explanation: "Keep it yours — «mi», not «tu» (that would hand it back to her)."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Cuántos años tiene tu gato?", audioText: "¿cuántos años tiene tu gato?", gloss: "How old is your cat?" }
+            goal: "Say he's three."
+            reply:
+              mode: build
+              tiles: ["tiene", "tres", "años", "mi", "gato"]
+              answer: "tiene tres años"
+              alsoAccepted: ["mi gato tiene tres años"]
+            replyGloss: "He's three."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la foto", target: "the photo" }
+          - { source: "mi familia", target: "my family" }
+          - { source: "el abuelo", target: "the grandfather" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "tengo", target: "I have" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo un abuelo y una abuela"
+        en: "I have a grandfather and a grandmother"
+        atoms: ["tengo", "un", "abuelo", "y", "una", "abuela"]
+
+  # ── L6 · integration — Sofía asks about the photo (zero new). ────────
+  - n: 6
+    template: free
+    title: "Sofía asks about the photo"
+    description: "No new words — Sofía is still looking at that photo, and everything you know answers her."
+    steps:
+      - kind: map
+        id: map-dondefotofamilia
+        tokens: ["¿dónde", "está", "la", "foto", "de", "tu", "familia?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "photo", tokenIndex: 3 }
+          - { en: "of", tokenIndex: 4 }
+          - { en: "your", tokenIndex: 5 }
+          - { en: "family", tokenIndex: 6 }
+        audioText: "¿dónde está la foto de tu familia?"
+        revealNote: "Every word here is already yours — read it like a sentence, not a puzzle."
+        tokenGenders: { 2: "f", 3: "f", 6: "f" }
+      - kind: clozeLit
+        id: c-tengotienetiene4
+        es: "tengo un hermano"
+        en: "I have a brother"
+        blank: "tengo"
+        options: ["tengo", "tienes"]
+        atoms: ["tengo", "un", "hermano"]
+        why: "You're talking about YOURSELF — «tengo»."
+      - kind: speakLit
+        id: sp-elpadre
+        es: "el padre"
+        en: "the father"
+        atoms: ["el", "padre"]
+      - kind: audioWimcq
+        id: ear-hermano3
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "la abuela", emoji: "👵" }
+      - kind: buildLit
+        id: b-tuabueloperro
+        es: "¿tu abuelo tiene un perro?"
+        en: "Does your grandfather have a dog?"
+        atoms: ["tu", "abuelo", "tiene", "un", "perro"]
+        tiles: ["mi", "tienes"]
+      - kind: listenBuildLit
+        id: lb-cuantosanoshermana
+        es: "mi hermana tiene ocho años"
+        en: "My sister is eight years old"
+        atoms: ["mi", "hermana", "tiene", "ocho", "años"]
+        tiles: ["tu", "diez"]
+      - kind: clozeLit
+        id: c-mitu4
+        es: "tu familia"
+        en: "your family"
+        blank: "tu"
+        options: ["tu", "mi"]
+        atoms: ["tu", "familia"]
+        why: "You're asking about HER family — «tu»."
+      - kind: audioWimcq
+        id: ear-abuelo2
+        target: { surface: "el abuelo", emoji: "👴" }
+        distractors:
+          - { surface: "la abuela", emoji: "👵" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: listenCompLit
+        id: lc-tienesabuela
+        es: "¿tienes una abuela?"
+        en: "Do you have a grandmother?"
+        atoms: ["tienes", "una", "abuela"]
+        distractorsEn:
+          - "Do you have a grandfather?"
+          - "She has a grandmother."
+          - "Is your grandmother here?"
+      - kind: speakLit
+        id: sp-recall-comotellamas
+        es: "¿cómo te llamas?"
+        en: "what's your name?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-lafototufamilia
+        es: "la foto de tu familia"
+        en: "the photo of your family"
+        atoms: ["la", "foto", "de", "tu", "familia"]
+        tiles: ["mi", "el"]
+      - kind: sim
+        id: sim-sofiafoto2
+        scene: { emoji: "📷", title: "Sofía asks about the photo", setting: "Sofía is looking at the photo of your family again." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Cuántos años tiene tu hermano?", audioText: "¿cuántos años tiene tu hermano?", gloss: "How old is your brother?" }
+            goal: "Say he's six."
+            reply:
+              mode: build
+              tiles: ["tiene", "seis", "años", "mi", "hermano"]
+              answer: "tiene seis años"
+              alsoAccepted: ["mi hermano tiene seis años"]
+            replyGloss: "He's six."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y tu gato? ¿Cuántos años tiene?", audioText: "¿y tu gato? ¿cuántos años tiene?", gloss: "And your cat? How old is he?" }
+            goal: "Say he's ten."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tiene diez años" }
+                - { id: "wrong1", text: "tienes diez años" }
+                - { id: "wrong2", text: "tengo diez años" }
+              correctOptionId: "right"
+              audioText: "tiene diez años"
+            replyGloss: "He's ten."
+            explanation: "Still talking about someone else — «tiene»."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la foto", target: "the photo" }
+          - { source: "mi familia", target: "my family" }
+          - { source: "el abuelo", target: "the grandfather" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "tienes", target: "you have" }
+          - { source: "la puerta", target: "the door" }
+      - kind: speakLit
+        id: sp-win
+        es: "la foto de tu familia"
+        en: "the photo of your family"
+        atoms: ["la", "foto", "de", "tu", "familia"]
+
+  # ── L7 · everyone, all at once — zero-new workout. ────────────────────
+  - n: 7
+    template: free
+    title: "Everyone, all at once"
+    description: "No new words — the whole family and both pets, in one workout."
+    steps:
+      - kind: map
+        id: map-abueladiezanos
+        tokens: ["mi", "gato", "tiene", "diez", "años"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "cat", tokenIndex: 1 }
+          - { en: "has", tokenIndex: 2 }
+          - { en: "ten", tokenIndex: 3 }
+          - { en: "years", tokenIndex: 4 }
+        audioText: "mi gato tiene diez años"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 1: "m", 4: "m" }
+      - kind: clozeLit
+        id: c-yotengo
+        es: "yo tengo un hermano"
+        en: "I have a brother"
+        blank: "tengo"
+        options: ["tengo", "tiene"]
+        atoms: ["yo", "tengo", "un", "hermano"]
+        why: "A subject up front doesn't decide it — «yo» is still YOU-the-speaker: «tengo»."
+      - kind: buildLit
+        id: b-cuantosanostuabuela
+        es: "¿cuántos años tiene tu abuela?"
+        en: "How old is your grandmother?"
+        atoms: ["¿cuántos?", "años", "tiene", "tu", "abuela"]
+        tiles: ["tienes", "mi"]
+      - kind: audioWimcq
+        id: ear-numeros2
+        target: { surface: "siete", emoji: "7️⃣" }
+        distractors:
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "ocho", emoji: "8️⃣" }
+      - kind: clozeLit
+        id: c-mitu5
+        es: "mi hermana"
+        en: "my sister"
+        blank: "mi"
+        options: ["mi", "tu"]
+        atoms: ["mi", "hermana"]
+        why: "Your own sister — «mi»."
+      - kind: listenCompLit
+        id: lc-tengogato1
+        es: "tengo un gato"
+        en: "I have a cat."
+        atoms: ["tengo", "un", "gato"]
+        distractorsEn:
+          - "I have a dog."
+          - "There's a cat."
+          - "Do you have a cat?"
+      - kind: speakLit
+        id: sp-recall-elbano
+        es: "el baño"
+        en: "the bathroom"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: lb-hermanoperro
+        es: "mi hermano tiene un perro"
+        en: "My brother has a dog"
+        atoms: ["mi", "hermano", "tiene", "un", "perro"]
+        tiles: ["tu", "tienes"]
+      - kind: audioWimcq
+        id: ear-hermana3
+        target: { surface: "la hermana", emoji: "👧" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el abuelo", emoji: "👴" }
+      - kind: clozeLit
+        id: c-tengotienes3
+        es: "tienes un abuelo"
+        en: "you have a grandfather"
+        blank: "tienes"
+        options: ["tienes", "tiene"]
+        atoms: ["tienes", "un", "abuelo"]
+        why: "Talking straight to someone — «tienes»."
+      - kind: sim
+        id: sim-mariapluma
+        scene: { emoji: "🚌", title: "María visits", setting: "María, from the bus, asks about your family." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Tienes un hermano o una hermana?", audioText: "¿tienes un hermano o una hermana?", gloss: "Do you have a brother or a sister?" }
+            goal: "Say you have a sister."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tengo una hermana" }
+                - { id: "wrong1", text: "tienes una hermana" }
+                - { id: "wrong2", text: "tengo un hermano" }
+              correctOptionId: "right"
+              audioText: "tengo una hermana"
+            replyGloss: "I have a sister."
+            explanation: "You're answering about YOURSELF — «tengo»."
+          - id: t2
+            npc: { speaker: "María", es: "¿Y cuántos años tiene?", audioText: "¿y cuántos años tiene?", gloss: "And how old is she?" }
+            goal: "Say she's four."
+            reply:
+              mode: build
+              tiles: ["tiene", "cuatro", "años", "mi", "hermana"]
+              answer: "tiene cuatro años"
+              alsoAccepted: ["mi hermana tiene cuatro años"]
+            replyGloss: "She's four."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "mi familia", target: "my family" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "mi madre", target: "my mother" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "hasta luego", target: "see you later" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo una hermana"
+        en: "I have a sister"
+        atoms: ["tengo", "una", "hermana"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ───────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Everyone, every pair"
+    description: "Every formula, every relative, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "¿cuántos años tienes?"
+        en: "How old are you?"
+        atoms: ["¿cuántos?", "años", "tienes"]
+        distractorsEn:
+          - "How old is he?"
+          - "Where's your family?"
+          - "Do you have a dog?"
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el abuelo", emoji: "👴" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "mi madre tiene un gato"
+        en: "my mother has a cat"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["mi", "madre", "tiene", "un", "gato"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "tengo un perro y una hermana"
+        en: "I have a dog and a sister"
+        atoms: ["tengo", "un", "perro", "y", "una", "hermana"]
+        tiles: ["tiene", "mi"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "mi perro tiene siete años"
+        en: "my dog is seven years old"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["mi", "perro", "tiene", "siete", "años"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "mi padre tiene un perro"
+        en: "My father has a dog"
+        atoms: ["mi", "padre", "tiene", "un", "perro"]
+        tiles: ["tu", "tienes"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿cuántos años tienes?"
+        en: "how old are you?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "tienes una hermana"
+        en: "you have a sister"
+        blank: "tienes"
+        options: ["tienes", "tengo"]
+        atoms: ["tienes", "una", "hermana"]
+        why: "Talking straight to someone — «tienes», not «tengo» (that's yourself)."
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "gracias", emoji: "🙏" }
+        distractors:
+          - { surface: "buenas tardes", emoji: "☀️" }
+          - { surface: "mucho gusto", emoji: "🤝" }
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "mi madre tiene una foto"
+        en: "My mother has a photo."
+        atoms: ["mi", "madre", "tiene", "una", "foto"]
+        distractorsEn:
+          - "My father has a photo."
+          - "There's a photo."
+          - "Does your mother have a photo?"
+      - kind: buildLit
+        id: cp-build-2
+        es: "¿tienes una abuela?"
+        en: "Do you have a grandmother?"
+        atoms: ["tienes", "una", "abuela"]
+        tiles: ["tiene", "mi"]
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "la foto", target: "the photo" }
+          - { source: "mi familia", target: "my family" }
+          - { source: "¿cuántos?", target: "how many?" }
+          - { source: "años", target: "years" }
+          - { source: "tengo", target: "I have" }
+          - { source: "el celular", target: "the phone" }
+      - kind: speakLit
+        id: cp-sp-2
+        es: "mi madre"
+        en: "my mother"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — Diego meets your dog. ───────────────────────────────
+  - n: 9
+    template: free
+    title: "Diego meets your dog"
+    description: "Diego comes over to meet your dog for the first time — everything you know carries the visit."
+    steps:
+      - kind: map
+        id: map-miperroestaaqui
+        tokens: ["mi", "perro", "está", "aquí"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "dog", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "here", tokenIndex: 3 }
+        audioText: "mi perro está aquí"
+        revealNote: "Every word here is already yours — read it like a sentence."
+        tokenGenders: { 1: "m" }
+      - kind: clozeLit
+        id: c-tienesola
+        es: "tiene cinco años"
+        en: "she is five years old (your sister)"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["tiene", "cinco", "años"]
+      - kind: speakLit
+        id: sp-miperro
+        es: "mi perro"
+        en: "my dog"
+        atoms: ["mi", "perro"]
+      - kind: audioWimcq
+        id: ear-review-hermano4
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "la abuela", emoji: "👵" }
+      - kind: buildLit
+        id: b-diegoperro
+        es: "¿Diego tiene un perro?"
+        en: "Does Diego have a dog?"
+        atoms: ["tiene", "un", "perro"]
+        tiles: ["tienes", "mi"]
+      - kind: listenBuildLit
+        id: lb-familiaperrygato
+        es: "mi familia tiene un gato y un perro"
+        en: "My family has a cat and a dog"
+        atoms: ["mi", "familia", "tiene", "un", "gato", "y", "perro"]
+        tiles: ["tu", "tienes"]
+      - kind: clozeLit
+        id: c-mitu6
+        es: "tu hermano"
+        en: "your brother"
+        blank: "tu"
+        options: ["tu", "mi"]
+        atoms: ["tu", "hermano"]
+        why: "Someone else's brother, not yours — «tu»."
+      - kind: audioWimcq
+        id: ear-review-abuela4
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: listenCompLit
+        id: lc-review1
+        es: "¿cuántos años tiene tu perro?"
+        en: "How old is your dog?"
+        atoms: ["¿cuántos?", "años", "tiene", "tu", "perro"]
+        distractorsEn:
+          - "How old are you?"
+          - "Do you have a dog?"
+          - "My dog is here."
+      - kind: speakLit
+        id: sp-recall-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "mi perro", target: "my dog" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "tienes", target: "you have" }
+          - { source: "el abuelo", target: "the grandfather" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "mucho gusto", target: "nice to meet you" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "🐶", title: "Diego meets your dog", setting: "Diego comes over and sees your dog for the first time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Hola! ¿Es tu perro?", audioText: "¡hola! ¿es tu perro?", gloss: "Hi! Is that your dog?" }
+            goal: "Say yes — it's your dog."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, es mi perro" }
+                - { id: "wrong1", text: "sí, es tu perro" }
+                - { id: "wrong2", text: "no, tengo un gato" }
+              correctOptionId: "right"
+              audioText: "sí, es mi perro"
+            replyGloss: "Yes, it's my dog."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Cuántos años tiene?", audioText: "¿cuántos años tiene?", gloss: "How old is he?" }
+            goal: "Say he's six."
+            reply:
+              mode: build
+              tiles: ["tiene", "seis", "años", "mi", "perro"]
+              answer: "tiene seis años"
+              alsoAccepted: ["mi perro tiene seis años"]
+            replyGloss: "He's six."
+          - id: t3
+            npc: { speaker: "Diego", es: "¡Perfecto! ¿Tienes un gato?", audioText: "¡perfecto! ¿tienes un gato?", gloss: "Great! Do you have a cat?" }
+            goal: "Say yes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un gato" }
+                - { id: "wrong1", text: "sí, tienes un gato" }
+                - { id: "wrong2", text: "no, tengo un perro" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un gato"
+            replyGloss: "Yes, I have a cat."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Perfecto! Hasta luego.", audioText: "¡perfecto! hasta luego.", gloss: "Great! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "¿qué es?" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+  # ── L10 · mastery — María asks about the photo again. ─────────────────
+  - n: 10
+    template: free
+    title: "Prove it — then María asks"
+    description: "Every pair, every relative, no help — and María spots the family photo."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "tu padre tiene un gato"
+        en: "your father has a cat"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["tu", "padre", "tiene", "un", "gato"]
+      - kind: buildLit
+        id: m-build-1
+        es: "tengo un hermano y una hermana"
+        en: "I have a brother and a sister"
+        atoms: ["tengo", "un", "hermano", "y", "una", "hermana"]
+        tiles: ["tiene", "mi"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "el abuelo", emoji: "👴" }
+        distractors:
+          - { surface: "la abuela", emoji: "👵" }
+          - { surface: "el hermano", emoji: "👦" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "mi familia tiene un perro"
+        en: "my family has a dog"
+        blank: "mi"
+        options: ["mi", "tu"]
+        atoms: ["mi", "familia", "tiene", "un", "perro"]
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "¿cuántos años tiene tu hermana?"
+        en: "How old is your sister?"
+        atoms: ["¿cuántos?", "años", "tiene", "tu", "hermana"]
+        distractorsEn:
+          - "How old are you?"
+          - "How old is your brother?"
+          - "Do you have a sister?"
+      - kind: speakLit
+        id: m-sp-1
+        es: "¿cuántos años tienes?"
+        en: "how old are you?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-cuantos
+        target: "¿cuántos?"
+        distractors: ["años", "tiene", "¿qué es?"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "mi perro tiene nueve años"
+        en: "My dog is nine years old"
+        atoms: ["mi", "perro", "tiene", "nueve", "años"]
+        tiles: ["tu", "tienes"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "la hermana", emoji: "👧" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el gato", emoji: "🐱" }
+      - kind: buildLit
+        id: m-build-2
+        es: "mi abuela tiene una foto"
+        en: "My grandmother has a photo"
+        atoms: ["mi", "abuela", "tiene", "una", "foto"]
+        tiles: ["tienes", "tu"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "mi familia", target: "my family" }
+          - { source: "el agua", target: "the water" }
+          - { source: "el abuelo", target: "the grandfather" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "tienes", target: "you have" }
+          - { source: "la puerta", target: "the door" }
+      - kind: sim
+        id: m-sim-mariafoto
+        scene: { emoji: "📷", title: "María asks about the photo", setting: "María, from the bus, spots the photo of your family." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola! ¿Es tu familia?", audioText: "¡hola! ¿es tu familia?", gloss: "Hi! Is that your family?" }
+            goal: "Say yes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, es mi familia" }
+                - { id: "wrong1", text: "sí, es tu familia" }
+                - { id: "wrong2", text: "no, hay una familia" }
+              correctOptionId: "right"
+              audioText: "sí, es mi familia"
+            replyGloss: "Yes, it's my family."
+          - id: t2
+            npc: { speaker: "María", es: "¿Tienes un hermano o una hermana?", audioText: "¿tienes un hermano o una hermana?", gloss: "Do you have a brother or a sister?" }
+            goal: "Say you have both."
+            reply:
+              mode: build
+              tiles: ["tengo", "un", "hermano", "y", "una", "hermana"]
+              answer: "tengo un hermano y una hermana"
+              alsoAccepted: []
+            replyGloss: "I have a brother and a sister."
+          - id: t3
+            npc: { speaker: "María", es: "¿Cuántos años tiene tu hermana?", audioText: "¿cuántos años tiene tu hermana?", gloss: "How old is your sister?" }
+            goal: "Say she's five."
+            reply:
+              mode: build
+              tiles: ["tiene", "cinco", "años", "mi", "hermana"]
+              answer: "tiene cinco años"
+              alsoAccepted: ["mi hermana tiene cinco años"]
+            replyGloss: "She's five."
+          - id: t4
+            npc: { speaker: "María", es: "¡Perfecto! Hasta luego.", audioText: "¡perfecto! hasta luego.", gloss: "Great! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m5-scr-1"
+      prompt: "Which one means 'I have'?"
+      correct: "tengo"
+      distractors: ["tienes", "tiene", "es"]
+  byModule:
+    - id: "es-m5-pl-1"
+      prompt: "I have a dog."
+      correct: "tengo un perro"
+      distractors: ["tienes un perro", "tiene un perro", "hay un perro"]
+    - id: "es-m5-pl-2"
+      prompt: "My mother is a teacher."
+      correct: "mi madre es maestra"
+      distractors: ["tu madre es maestra", "mi madre está maestra", "mi madre es maestro"]
+    - id: "es-m5-pl-3"
+      prompt: "How old are you?"
+      correct: "¿cuántos años tienes?"
+      distractors: ["¿cuántos años tiene?", "¿cuántos años tengo?", "¿tienes cuántos años?"]
+    - id: "es-m5-pl-4"
+      prompt: "The photo of my family."
+      correct: "la foto de mi familia"
+      distractors: ["la foto de tu familia", "el foto de mi familia", "la foto de mi padre"]

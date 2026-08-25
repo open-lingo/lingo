@@ -1,0 +1,1429 @@
+module: m8
+title: "La semana — days & when"
+frame: none
+throughModule: m7
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m8 — «La semana»: the seven days, hoy/mañana, ¿cuándo?, the el-as-"on"
+# trick, the día exception, and once–quince (with the dos/doce, tres/trece
+# ear confusion as the module's signature discrimination). Fifth §13-
+# doctrine IR module (m3 is the exemplar; m4/m7 the freshest siblings).
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m8 — La semana"). 17 atoms: lunes,
+# martes, miércoles, jueves, viernes, sábado, domingo, semana, hoy,
+# mañana, ¿cuándo?, día, once, doce, trece, catorce, quince. Nothing
+# added, dropped or renamed against that spec.
+#
+# DOCTRINE NOTES:
+#   - Atom allocation across lessons (17 total, none repeated): L1 hoy +
+#     lunes/martes/miércoles (4) · L2 ¿cuándo? + jueves/viernes (3) · L3
+#     sábado/domingo/semana (3) · L4 once/doce/trece/catorce/quince (5) ·
+#     L5 mañana/día (2). L6–L10 are zero-new (matches the m4/m7 shape:
+#     every new atom lands by L5, L6 is already integration).
+#   - Days interleave 3/2/2 across L1–L3 (lunes/martes/miércoles ·
+#     jueves/viernes · sábado/domingo), never a lesson that is only days
+#     — each of L1–L3 also carries hoy/¿cuándo?/semana or a numbers-
+#     review break, and L2 explicitly breaks with an m1-numbers ear step
+#     (the "numbers break" the spec names).
+#   - «el lunes» = "on Monday" gets ONE card line (L2's contrast card) and
+#     then its own alternating discrimination lane module-wide: el (=on,
+#     no verb) vs es (=identity, "today IS Monday") clozes, both halves
+#     live, tallied below. Day names are bare nouns everywhere — no
+#     article surfaces except this el-as-"on" construction; they are
+#     masculine and never capitalized in any surface, card, or gloss.
+#   - día is the -a-but-el exception, debuted in L5 by MAP ELIMINATION
+#     («es un día bonito» — bonito m6-licensed, adjective-after-noun
+#     m6-licensed word order) with an explicit «buenos días» callback
+#     (m1's own printed voicing was hiding the exception the whole
+#     time). Its discrimination is secret-side el/la trials (never an
+#     ear lane — día has no honest emoji and isn't part of the
+#     day-family ear confusion).
+#   - mañana debuts in L5 teaching "tomorrow"; the card notes in ONE line
+#     that it also means "morning" and that «buenos días» stays the
+#     dedicated morning greeting — the morning sense is never tested.
+#     hoy/mañana run as an alternating, both-halves-live lane from L5
+#     on (cloze + audioWimcq + one build), continuing through cp/summit/
+#     mastery.
+#   - THE EAR LANE (L4, the module's signature beat): once/doce/trece/
+#     catorce/quince debut ONE AT A TIME via counting maps («hay X
+#     nombre»-shaped sentences, the m4 hay+number+noun pattern, m1's
+#     one-new-word-per-map counting convention) — never imageMcq, so no
+#     digit emoji ever front-loads a debut (the m1 confirmation-walk
+#     fix this module inherits: "a digit emoji is a perfect printed
+#     translation"). Digit emoji appear ONLY inside audio-prompted MCQs
+#     (word_image_mcq in audio mode): the existing single-keycap emoji
+#     for dos (2️⃣) and tres (3️⃣, both m1) sit against COMPOSITE two-
+#     keycap emoji built the same way for the new teens — once 1️⃣1️⃣,
+#     doce 1️⃣2️⃣, trece 1️⃣3️⃣, catorce 1️⃣4️⃣, quince 1️⃣5️⃣ — so the ear,
+#     not the printed digit, is what the learner is trained on. Note for
+#     registration: `registerEsDoctrinePins`'s digit allowlist is
+#     `["0️⃣"…"9️⃣","🔟"]`; extend it with the five composite strings
+#     above for m8, or its "digit options demand audio mode" check will
+#     silently no-op on every m8 teen (they're already audio-prompted by
+#     construction — the allowlist just won't SEE it without the fix).
+#   - dos/doce and tres/trece are the module's THE discrimination lanes,
+#     run as paired audioWimcq steps with both halves live (a doce-
+#     correct step pairs dos+tres as distractors so the same two ear
+#     confusions train together; a dos-correct step pairs doce+trece).
+#     Tallied below; the lane continues through L6–L10 review.
+#   - Days have no honest single-frame emoji (calendar art can't
+#     distinguish "Tuesday" from "Thursday" any more than a plain box
+#     can), so no day ever gets an imageMcq debut — every day debuts by
+#     MAP ELIMINATION (one new day per map, echoing m4's mesa/cuarto
+#     treatment) or, for jueves, a self-cueing micro-sim (¿cuándo?
+#     itself creates the reply slot). The audioWimcq ear-lane art is
+#     honest-by-association, never a sound-pun: lunes 🌛 (Spanish's own
+#     "day of the moon" etymology — the same root English "Monday"
+#     shares, not an English pun), martes ⚔️ (day of Mars), miércoles
+#     🪽 (day of Mercury, winged messenger), jueves ⚡ (day of Jupiter),
+#     viernes 💘 (day of Venus), sábado 🕯️ (sabbath/rest), domingo ⛪
+#     (the Lord's day) — decorative support only: the printed Spanish
+#     word is always visible on the option card regardless of audio
+#     mode, so no answer ever depends on reading these icons correctly.
+#     hoy 📌 / mañana ⏭️ follow the same convention (a pin on "now", a
+#     skip-forward to "next"), chosen to avoid colliding with 📍 (aquí,
+#     m4) and ☀️ (buenas tardes, m7).
+#   - Planning payoff (L9 summit): «el sábado quiero un café» is the
+#     module's own required line, and — following the m7 «la cuenta,
+#     por favor» precedent (held back for ITS summit) — this exact
+#     sentence is never printed before L9. Every earlier el-day beat
+#     uses a different verb/noun so the summit's own build-mode
+#     production is the learner's first time producing it. The summit
+#     scene puts Sofía outside Carmen's café (m7 cast/stage); L10's
+#     mastery differs beat-by-beat (María, by text, a different day —
+#     domingo not sábado — a different food, per the m4/m5 twin-sim
+#     class fix).
+#   - Ages postscript: exactly ONE beat (L6) uses a plausible age over
+#     ten — «mi hermano tiene trece años» (m5's hermano/tiene/años +
+#     m8's trece) — never a grandparent given a child's age.
+#   - Nouns wear their article on every surface («la semana», never bare
+#     «semana»); atoms stay bare with `gender` (m3 registry convention).
+#     Day names are the one noun class that mostly appears BARE (no
+#     article) outside the el-as-"on" construction — that bareness is
+#     itself the L1/L2 teaching point, not an omission.
+#   - Cast: Sam (learner), Ana, Diego, Sofía, María, Carmen (m7's café
+#     owner, back on stage for the summit). NPC lines are natural
+#     Spanish throughout; no line anywhere uses «con» (still not in any
+#     inventory through m8).
+#   - Discrimination lanes (§13.9 law 4, alternating, both halves live —
+#     tallies below are machine-counted from the final IR, not estimated):
+#     el/es (day-naming vs "on"-day) clozes: 5 el-correct : 4 es-correct
+#     across the module; days by EAR — martes/jueves (2 martes-correct :
+#     2 jueves-correct) and sábado/domingo (2 sábado-correct : 2 domingo-
+#     correct); hoy/mañana by EAR (3 hoy-correct : 3 mañana-correct,
+#     plus 2 more cloze/build instances splitting the same way); dos/doce
+#     by EAR (3 doce-correct : 2 dos-correct, tres riding along as an
+#     extra distractor); tres/trece by EAR (3 trece-correct : 2
+#     tres-correct, doce/catorce riding along); día's el/la secret-side
+#     (4 el-correct trials, no la-correct trial exists — la is only ever
+#     the trap, matching foto's
+#     m4 treatment where the exception itself has no "other side" to
+#     balance).
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   hoy es lunes L1 · ¿cuándo? L2 · la semana L3 · el sábado L3 ·
+#   quince L4 · mañana L5
+#   m8-internal recalls drawn from the above: ¿cuándo? (L10), la semana
+#   (L9 lc, L10 lb — printed content reused, not cue:recall since it's a
+#   fresh listen/build context, not a bare speaking step), el sábado
+#   (echoed inside L9's build, not a recall speak)
+#   cross-module (licensed by m1–m7 printed voicings, per the wave doc):
+#   buenos días (L1, L5 callback), ¿cómo estás? (L2), la cocina (L2),
+#   mi familia (L3), el agua (L4), muy bonito (L5), el carro rojo (L6,
+#   L9), ¿dónde está? (L8), mi familia (L8), la cuenta por favor (L8),
+#   quiero un café / tengo hambre / tengo sed (throughout, m7 payoff
+#   verbs carrying every planning beat).
+newAtoms:
+  - { surface: "lunes", meaningEn: "Monday", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "martes", meaningEn: "Tuesday", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "miércoles", meaningEn: "Wednesday", partOfSpeech: "noun", kind: "vocab", gender: "m", hint: "MYER-ko-les" }
+  - { surface: "jueves", meaningEn: "Thursday", partOfSpeech: "noun", kind: "vocab", gender: "m", hint: "j sounds like h: HWEH-ves" }
+  - { surface: "viernes", meaningEn: "Friday", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "sábado", meaningEn: "Saturday", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "domingo", meaningEn: "Sunday", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "semana", meaningEn: "week", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+  - { surface: "hoy", meaningEn: "today", partOfSpeech: "adverb", kind: "vocab" }
+  - { surface: "mañana", meaningEn: "tomorrow", partOfSpeech: "adverb", kind: "vocab", hint: "also means 'morning' — but buenos días stays the greeting" }
+  - { surface: "¿cuándo?", meaningEn: "when?", partOfSpeech: "phrase", kind: "phrase", hint: "KWAN-do" }
+  - { surface: "día", meaningEn: "day", partOfSpeech: "noun", kind: "vocab", gender: "m", hint: "ends in -a but takes EL — same exception hiding inside buenos días" }
+  - { surface: "once", meaningEn: "eleven", partOfSpeech: "noun", kind: "vocab" }
+  - { surface: "doce", meaningEn: "twelve", partOfSpeech: "noun", kind: "vocab" }
+  - { surface: "trece", meaningEn: "thirteen", partOfSpeech: "noun", kind: "vocab" }
+  - { surface: "catorce", meaningEn: "fourteen", partOfSpeech: "noun", kind: "vocab" }
+  - { surface: "quince", meaningEn: "fifteen", partOfSpeech: "noun", kind: "vocab" }
+
+lessons:
+  # ── L1 · hoy + lunes/martes/miércoles debut. States the promise. ─────
+  - n: 1
+    template: free
+    title: "The week begins"
+    description: "«Hoy» — today. Learn the first three days, and say what day it is."
+    steps:
+      - kind: info
+        id: info-hoydias
+        title: "Say what day it is"
+        body: "«hoy» — today. «hoy es lunes» — today is Monday. Three to start: lunes, martes, miércoles — Monday, Tuesday, Wednesday. Always lowercase in Spanish, and always masculine. This module: name any day, and say when things happen."
+      - kind: audioWimcq
+        id: ear-lunes
+        target: { surface: "lunes", emoji: "🌛" }
+        distractors:
+          - { surface: "martes", emoji: "⚔️" }
+          - { surface: "miércoles", emoji: "🪽" }
+      - kind: map
+        id: map-hoyeslunes
+        tokens: ["hoy", "es", "lunes"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "Monday", tokenIndex: 2 }
+        audioText: "hoy es lunes"
+        revealNote: "«es» is yours from m2 — «hoy» and «lunes» are the new pair: today IS Monday."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: sp-hoyeslunes
+        es: "hoy es lunes"
+        en: "today is Monday"
+        atoms: ["hoy", "es", "lunes"]
+      - kind: buildLit
+        id: b-hoyesmartes
+        es: "hoy es martes"
+        en: "today is Tuesday"
+        atoms: ["hoy", "es", "martes"]
+        tiles: ["lunes", "está"]
+      - kind: audioWimcq
+        id: ear-martes
+        target: { surface: "martes", emoji: "⚔️" }
+        distractors:
+          - { surface: "lunes", emoji: "🌛" }
+          - { surface: "miércoles", emoji: "🪽" }
+      - kind: speakLit
+        id: sp-miercoles
+        es: "miércoles"
+        en: "Wednesday"
+        atoms: ["miércoles"]
+      - kind: clozeLit
+        id: c-esesta1
+        es: "hoy es miércoles"
+        en: "today is Wednesday"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["hoy", "es", "miércoles"]
+        why: "Naming what day it is is identity — «es», not «está»."
+      - kind: audioWimcq
+        id: ear-miercoles
+        target: { surface: "miércoles", emoji: "🪽" }
+        distractors:
+          - { surface: "lunes", emoji: "🌛" }
+          - { surface: "martes", emoji: "⚔️" }
+      - kind: listenCompLit
+        id: lc-hoymartes
+        es: "hoy es martes"
+        en: "Today is Tuesday."
+        atoms: ["hoy", "es", "martes"]
+        distractorsEn:
+          - "Today is Monday."
+          - "Today is Wednesday."
+          - "Tomorrow is Tuesday."
+      - kind: speakLit
+        id: sp-recall-buenosdias
+        es: "buenos días"
+        en: "good morning"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-ana-quedia
+        scene: { emoji: "📅", title: "Ana isn't sure", setting: "It's Tuesday morning. Ana's checking her calendar." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hoy es lunes?", audioText: "¿hoy es lunes?", gloss: "Is today Monday?" }
+            goal: "Correct her — it's Tuesday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, es martes" }
+                - { id: "wrong1", text: "sí, es lunes" }
+                - { id: "wrong2", text: "es miércoles" }
+              correctOptionId: "right"
+              audioText: "no, es martes"
+            replyGloss: "No, it's Tuesday."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "lunes", target: "Monday" }
+          - { source: "martes", target: "Tuesday" }
+          - { source: "miércoles", target: "Wednesday" }
+          - { source: "hoy", target: "today" }
+          - { source: "es", target: "is" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "hoy es martes"
+        en: "today is Tuesday"
+        atoms: ["hoy", "es", "martes"]
+
+  # ── L2 · ¿cuándo? debut + jueves/viernes + numbers break. ────────────
+  - n: 2
+    template: free
+    title: "When is it?"
+    description: "«¿Cuándo?» — when? Answer with el: «el lunes» — on Monday."
+    steps:
+      - kind: info
+        id: info-cuandoel
+        title: "Asking when — and answering 'on'"
+        body: "«¿cuándo?» — when? Answer it with el + the day: «el lunes» — on Monday. Spanish drops any separate word for 'on' — the el does that work by itself. Two new days land here too: jueves — Thursday, viernes — Friday."
+      - kind: map
+        id: map-cuandoquieres
+        tokens: ["¿cuándo", "quieres", "un", "café?"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "do you want", tokenIndex: 1 }
+          - { en: "a", tokenIndex: 2 }
+          - { en: "coffee", tokenIndex: 3 }
+        audioText: "¿cuándo quieres un café?"
+        revealNote: "quieres, un, café are all yours from m7 — ¿cuándo? is the only new one: when?"
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: speakLit
+        id: sp-cuando
+        es: "¿cuándo?"
+        en: "when?"
+        atoms: ["¿cuándo?"]
+      - kind: clozeLit
+        id: c-elvses1
+        es: "el lunes quiero un café"
+        en: "on Monday I want a coffee"
+        blank: "el"
+        options: ["el", "es"]
+        atoms: ["el", "lunes", "quiero", "un", "café"]
+        why: "ON Monday — el, not the identity verb es."
+      - kind: sim
+        id: sim-diego-cuandojueves
+        scene: { emoji: "☕", title: "Diego wants to know", setting: "Diego's making a list of who wants coffee, and when." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Cuándo quieres café?", audioText: "¿cuándo quieres café?", gloss: "When do you want coffee?" }
+            goal: "Say Thursday."
+            debut: true
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "el jueves" }
+                - { id: "wrong1", text: "el lunes" }
+                - { id: "wrong2", text: "es jueves" }
+              correctOptionId: "right"
+              audioText: "el jueves"
+            replyGloss: "On Thursday."
+      - kind: map
+        id: map-viernes
+        tokens: ["el", "viernes", "quiero", "un", "té"]
+        pairs:
+          - { en: "on", tokenIndex: 0 }
+          - { en: "Friday", tokenIndex: 1 }
+          - { en: "I want", tokenIndex: 2 }
+          - { en: "a", tokenIndex: 3 }
+          - { en: "tea", tokenIndex: 4 }
+        audioText: "el viernes quiero un té"
+        revealNote: "el, quiero, un, té are all yours — viernes is the only stranger."
+        tokenGenders: { 0: "m", 1: "m", 3: "m", 4: "m" }
+      - kind: audioWimcq
+        id: ear-juevesviernes1
+        target: { surface: "jueves", emoji: "⚡" }
+        distractors:
+          - { surface: "viernes", emoji: "💘" }
+          - { surface: "martes", emoji: "⚔️" }
+      - kind: speakLit
+        id: sp-elviernes
+        es: "el viernes"
+        en: "on Friday"
+        atoms: ["el", "viernes"]
+      - kind: audioWimcq
+        id: ear-juevesviernes2
+        target: { surface: "viernes", emoji: "💘" }
+        distractors:
+          - { surface: "jueves", emoji: "⚡" }
+          - { surface: "miércoles", emoji: "🪽" }
+      - kind: clozeLit
+        id: c-elvses2
+        es: "hoy es jueves"
+        en: "today is Thursday"
+        blank: "es"
+        options: ["es", "el"]
+        atoms: ["hoy", "es", "jueves"]
+        why: "Naming the day itself — «es», not the on-day «el»."
+      - kind: audioWimcq
+        id: ear-numbersbreak
+        target: { surface: "siete", emoji: "7️⃣" }
+        distractors:
+          - { surface: "seis", emoji: "6️⃣" }
+          - { surface: "ocho", emoji: "8️⃣" }
+      - kind: speakLit
+        id: sp-recall-lacocina
+        es: "la cocina"
+        en: "the kitchen"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-cuandoviernes
+        scene: { emoji: "☕", title: "Sofía checks in", setting: "Sofía's planning her own week too." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Cuándo quieres café?", audioText: "¿cuándo quieres café?", gloss: "When do you want coffee?" }
+            goal: "Say Friday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "el viernes" }
+                - { id: "wrong1", text: "el jueves" }
+                - { id: "wrong2", text: "es viernes" }
+              correctOptionId: "right"
+              audioText: "el viernes"
+            replyGloss: "On Friday."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¡Genial! Hasta luego.", audioText: "¡genial! hasta luego.", gloss: "Great! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "¿cuándo?", target: "when?" }
+          - { source: "jueves", target: "Thursday" }
+          - { source: "viernes", target: "Friday" }
+          - { source: "el lunes", target: "on Monday" }
+          - { source: "hoy", target: "today" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "el jueves quiero un café"
+        en: "on Thursday I want a coffee"
+        atoms: ["el", "jueves", "quiero", "un", "café"]
+
+  # ── L3 · the weekend — sábado/domingo + semana. ──────────────────────
+  - n: 3
+    template: free
+    title: "The weekend arrives"
+    description: "«La semana» — the week. And the two days everyone waits for."
+    steps:
+      - kind: info
+        id: info-semana
+        title: "The week, and the weekend"
+        body: "«la semana» — the week. Two more days: sábado, domingo — Saturday, Sunday. The weekend everyone's waiting for."
+      - kind: map
+        id: map-sabado
+        tokens: ["el", "sábado", "tengo hambre"]
+        pairs:
+          - { en: "on", tokenIndex: 0 }
+          - { en: "Saturday", tokenIndex: 1 }
+          - { en: "I'm hungry", tokenIndex: 2 }
+        audioText: "el sábado tengo hambre"
+        revealNote: "el, tengo hambre are yours from m5/m7 — sábado is the only stranger."
+        tokenGenders: { 0: "m", 1: "m" }
+      - kind: speakLit
+        id: sp-elsabado
+        es: "el sábado"
+        en: "on Saturday"
+        atoms: ["el", "sábado"]
+      - kind: map
+        id: map-domingo
+        tokens: ["hoy", "es", "domingo"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "Sunday", tokenIndex: 2 }
+        audioText: "hoy es domingo"
+        revealNote: "hoy, es are yours — domingo is the new one."
+        tokenGenders: { 2: "m" }
+      - kind: audioWimcq
+        id: ear-sabadodomingo1
+        target: { surface: "sábado", emoji: "🕯️" }
+        distractors:
+          - { surface: "domingo", emoji: "⛪" }
+          - { surface: "viernes", emoji: "💘" }
+      - kind: speakLit
+        id: sp-lasemana
+        es: "la semana"
+        en: "the week"
+        atoms: ["la", "semana"]
+      - kind: clozeLit
+        id: c-lasemana
+        es: "la semana está aquí"
+        en: "the week is here"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "semana", "está", "aquí"]
+        why: "semana ends in -a: la."
+      - kind: audioWimcq
+        id: ear-sabadodomingo2
+        target: { surface: "domingo", emoji: "⛪" }
+        distractors:
+          - { surface: "sábado", emoji: "🕯️" }
+          - { surface: "jueves", emoji: "⚡" }
+      - kind: buildLit
+        id: b-finde
+        es: "el sábado y el domingo"
+        en: "on Saturday and on Sunday"
+        atoms: ["el", "sábado", "y", "el", "domingo"]
+        tiles: ["la", "viernes"]
+      - kind: listenCompLit
+        id: lc-domingo
+        es: "hoy es domingo"
+        en: "Today is Sunday."
+        atoms: ["hoy", "es", "domingo"]
+        distractorsEn:
+          - "Today is Saturday."
+          - "Today is Monday."
+          - "Tomorrow is Sunday."
+      - kind: clozeLit
+        id: c-elvses3
+        es: "hoy es sábado"
+        en: "today is Saturday"
+        blank: "es"
+        options: ["es", "el"]
+        atoms: ["hoy", "es", "sábado"]
+        why: "Naming the day itself — es, not the on-day el."
+      - kind: speakLit
+        id: sp-recall-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-finde
+        scene: { emoji: "📅", title: "Diego mixes it up", setting: "Diego's terrible with dates." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Hoy es sábado?", audioText: "¿hoy es sábado?", gloss: "Is today Saturday?" }
+            goal: "Correct him — it's Sunday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, es domingo" }
+                - { id: "wrong1", text: "sí, es sábado" }
+                - { id: "wrong2", text: "es lunes" }
+              correctOptionId: "right"
+              audioText: "no, es domingo"
+            replyGloss: "No, it's Sunday."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "sábado", target: "Saturday" }
+          - { source: "domingo", target: "Sunday" }
+          - { source: "la semana", target: "the week" }
+          - { source: "el sábado", target: "on Saturday" }
+          - { source: "hoy", target: "today" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "el sábado y el domingo"
+        en: "on Saturday and on Sunday"
+        atoms: ["el", "sábado", "y", "el", "domingo"]
+
+  # ── L4 · once–quince + the dos/doce, tres/trece ear lane. ────────────
+  - n: 4
+    template: free
+    title: "Eleven to fifteen"
+    description: "Once, doce, trece, catorce, quince — and an ear trap: doce sounds like dos, trece like tres."
+    steps:
+      - kind: info
+        id: info-onceaquince
+        title: "Five more numbers — listen closely"
+        body: "once, doce, trece, catorce, quince — eleven to fifteen. Warning for your ears: doce sounds like dos, trece like tres. One extra syllable is the whole difference."
+      - kind: map
+        id: map-once
+        tokens: ["hay", "once", "llaves"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "eleven", tokenIndex: 1 }
+          - { en: "keys", tokenIndex: 2 }
+        audioText: "hay once llaves"
+        revealNote: "hay and llaves are yours from m3 — once is the only new one: eleven."
+        tokenGenders: { 2: "f" }
+      - kind: audioWimcq
+        id: ear-once
+        target: { surface: "once", emoji: "1️⃣1️⃣" }
+        distractors:
+          - { surface: "uno", emoji: "1️⃣" }
+          - { surface: "diez", emoji: "🔟" }
+      - kind: map
+        id: map-doce
+        tokens: ["hay", "doce", "libros"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "twelve", tokenIndex: 1 }
+          - { en: "books", tokenIndex: 2 }
+        audioText: "hay doce libros"
+        revealNote: "hay and libros are yours — doce is new: twelve. Listen for the extra beat against dos."
+        tokenGenders: { 2: "m" }
+      - kind: audioWimcq
+        id: ear-dosdoce-a
+        target: { surface: "doce", emoji: "1️⃣2️⃣" }
+        distractors:
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "tres", emoji: "3️⃣" }
+      - kind: speakLit
+        id: sp-doce
+        es: "doce"
+        en: "twelve"
+        atoms: ["doce"]
+      - kind: audioWimcq
+        id: ear-dosdoce-b
+        target: { surface: "dos", emoji: "2️⃣" }
+        distractors:
+          - { surface: "doce", emoji: "1️⃣2️⃣" }
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+      - kind: map
+        id: map-trece
+        tokens: ["hay", "trece", "plumas"]
+        pairs:
+          - { en: "there are", tokenIndex: 0 }
+          - { en: "thirteen", tokenIndex: 1 }
+          - { en: "pens", tokenIndex: 2 }
+        audioText: "hay trece plumas"
+        revealNote: "hay and plumas are yours — trece is new: thirteen. Same trick against tres."
+        tokenGenders: { 2: "f" }
+      - kind: audioWimcq
+        id: ear-trestrece-a
+        target: { surface: "trece", emoji: "1️⃣3️⃣" }
+        distractors:
+          - { surface: "tres", emoji: "3️⃣" }
+          - { surface: "catorce", emoji: "1️⃣4️⃣" }
+      - kind: buildLit
+        id: b-catorce
+        es: "hay catorce sillas"
+        en: "There are fourteen chairs"
+        atoms: ["hay", "catorce", "silla"]
+        tiles: ["quince", "trece"]
+      - kind: audioWimcq
+        id: ear-trestrece-b
+        target: { surface: "tres", emoji: "3️⃣" }
+        distractors:
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+          - { surface: "doce", emoji: "1️⃣2️⃣" }
+      - kind: buildLit
+        id: b-quince
+        es: "hay quince fotos"
+        en: "There are fifteen photos"
+        atoms: ["hay", "quince", "foto"]
+        tiles: ["catorce", "once"]
+      - kind: speakLit
+        id: sp-quince
+        es: "quince"
+        en: "fifteen"
+        atoms: ["quince"]
+      - kind: clozeLit
+        id: c-hayesta-l4
+        es: "hay catorce sillas aquí"
+        en: "there are fourteen chairs here"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["hay", "catorce", "silla", "aquí"]
+        why: "Counting things into existence — that's «hay», not «está»."
+      - kind: speakLit
+        id: sp-recall-elagua
+        es: "el agua"
+        en: "the water"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-ana-cuenta
+        scene: { emoji: "🧮", title: "Ana recounts", setting: "Ana's counting her keys again, out loud this time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay doce llaves?", audioText: "¿hay doce llaves?", gloss: "Are there twelve keys?" }
+            goal: "Correct her — thirteen."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, hay trece" }
+                - { id: "wrong1", text: "sí, hay doce" }
+                - { id: "wrong2", text: "hay quince" }
+              correctOptionId: "right"
+              audioText: "no, hay trece"
+            replyGloss: "No, there are thirteen."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "once", target: "eleven" }
+          - { source: "doce", target: "twelve" }
+          - { source: "trece", target: "thirteen" }
+          - { source: "catorce", target: "fourteen" }
+          - { source: "quince", target: "fifteen" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "once, doce, trece, catorce, quince"
+        en: "eleven, twelve, thirteen, fourteen, fifteen"
+        atoms: ["once", "doce", "trece", "catorce", "quince"]
+
+  # ── L5 · mañana + día — the two "-a" exceptions. ──────────────────────
+  - n: 5
+    template: free
+    title: "Tomorrow, and an honest exception"
+    description: "«Mañana» — tomorrow. And día: it ends in -a, but it's been el all along."
+    steps:
+      - kind: info
+        id: info-mananadia
+        title: "Tomorrow — and a word that lied all along"
+        body: "«mañana» — tomorrow. (It also means morning — but «buenos días» stays your greeting for that.) And «día» — day. It ends in -a, but takes EL. You've said «buenos días» since day one; that plural was hiding this the whole time."
+      - kind: map
+        id: map-manana
+        tokens: ["mañana", "es", "jueves"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "is", tokenIndex: 1 }
+          - { en: "Thursday", tokenIndex: 2 }
+        audioText: "mañana es jueves"
+        revealNote: "es, jueves are yours — mañana is the new one: tomorrow."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: sp-manana
+        es: "mañana"
+        en: "tomorrow"
+        atoms: ["mañana"]
+      - kind: audioWimcq
+        id: ear-hoymanana-a
+        target: { surface: "mañana", emoji: "⏭️" }
+        distractors:
+          - { surface: "hoy", emoji: "📌" }
+          - { surface: "domingo", emoji: "⛪" }
+      - kind: clozeLit
+        id: c-hoyvsmanana1
+        es: "mañana quiero café"
+        en: "tomorrow I want coffee"
+        blank: "mañana"
+        options: ["mañana", "hoy"]
+        atoms: ["mañana", "quiero", "café"]
+        why: "Talking about the NEXT day, not today — «mañana»."
+      - kind: buildLit
+        id: b-hoyvsmanana
+        es: "hoy quiero café"
+        en: "today I want coffee"
+        atoms: ["hoy", "quiero", "café"]
+        tiles: ["mañana", "el"]
+      - kind: audioWimcq
+        id: ear-hoymanana-b
+        target: { surface: "hoy", emoji: "📌" }
+        distractors:
+          - { surface: "mañana", emoji: "⏭️" }
+          - { surface: "lunes", emoji: "🌛" }
+      - kind: map
+        id: map-diadebut
+        tokens: ["es", "un", "día", "bonito"]
+        pairs:
+          - { en: "it's", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "day", tokenIndex: 2 }
+          - { en: "pretty", tokenIndex: 3 }
+        audioText: "es un día bonito"
+        revealNote: "es, un, bonito are yours from m2/m6 — día is the stranger, and the twist: it ends in -a but takes EL, just like «buenos días»."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-eldiabonito
+        es: "es un día bonito"
+        en: "it's a nice day"
+        atoms: ["es", "un", "día", "bonito"]
+      - kind: clozeLit
+        id: c-eldia1
+        es: "el día es bonito"
+        en: "the day is nice"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "día", "es", "bonito"]
+        why: "día ends in -a but stays EL — the buenos días giveaway."
+      - kind: audioWimcq
+        id: ear-review-petreview
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "un perro", emoji: "🐶" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: clozeLit
+        id: c-eldia2
+        es: "el día de la semana"
+        en: "the day of the week"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "día", "de", "la", "semana"]
+        why: "Same rule — día is always el."
+      - kind: speakLit
+        id: sp-recall-muybonito
+        es: "muy bonito"
+        en: "very pretty"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-sofia-mananacafe
+        scene: { emoji: "☕", title: "Sofía asks", setting: "Sofía's checking the calendar with you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Quieres café hoy o mañana?", audioText: "¿quieres café hoy o mañana?", gloss: "Do you want coffee today or tomorrow?" }
+            goal: "Say tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mañana" }
+                - { id: "wrong1", text: "hoy" }
+                - { id: "wrong2", text: "el día" }
+              correctOptionId: "right"
+              audioText: "mañana"
+            replyGloss: "Tomorrow."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "el día", target: "the day" }
+          - { source: "es un día bonito", target: "it's a nice day" }
+          - { source: "hoy", target: "today" }
+          - { source: "la semana", target: "the week" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "mañana quiero un café"
+        en: "tomorrow I want a coffee"
+        atoms: ["mañana", "quiero", "un", "café"]
+
+  # ── L6 · planning the week — integration, zero-new. ──────────────────
+  - n: 6
+    template: free
+    title: "Planning the week"
+    description: "No new words — put the whole week together."
+    steps:
+      - kind: map
+        id: map-semanaplan
+        tokens: ["la", "semana", "tiene", "siete", "días"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "week", tokenIndex: 1 }
+          - { en: "has", tokenIndex: 2 }
+          - { en: "seven", tokenIndex: 3 }
+          - { en: "days", tokenIndex: 4 }
+        audioText: "la semana tiene siete días"
+        revealNote: "Nothing new — every word here is already yours."
+        tokenGenders: { 0: "f", 1: "f", 4: "m" }
+      - kind: clozeLit
+        id: c-elvses4
+        es: "el lunes tengo hambre"
+        en: "on Monday I'm hungry"
+        blank: "el"
+        options: ["el", "es"]
+        atoms: ["el", "lunes", "tengo hambre"]
+        why: "ON Monday — el, not es."
+      - kind: buildLit
+        id: b-review1
+        es: "mañana es viernes"
+        en: "tomorrow is Friday"
+        atoms: ["mañana", "es", "viernes"]
+        tiles: ["hoy", "jueves"]
+      - kind: audioWimcq
+        id: ear-review-days1
+        target: { surface: "jueves", emoji: "⚡" }
+        distractors:
+          - { surface: "viernes", emoji: "💘" }
+          - { surface: "martes", emoji: "⚔️" }
+      - kind: listenBuildLit
+        id: lb-review1
+        es: "hoy es domingo pero mañana es lunes"
+        en: "today is Sunday but tomorrow is Monday"
+        atoms: ["hoy", "es", "domingo", "pero", "mañana", "es", "lunes"]
+        tiles: ["martes", "sábado"]
+      - kind: audioWimcq
+        id: ear-review-numbers1
+        target: { surface: "dos", emoji: "2️⃣" }
+        distractors:
+          - { surface: "doce", emoji: "1️⃣2️⃣" }
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+      - kind: buildLit
+        id: b-hermanotrece
+        es: "mi hermano tiene trece años"
+        en: "my brother is thirteen"
+        atoms: ["mi", "hermano", "tiene", "trece", "años"]
+        tiles: ["tu", "catorce"]
+      - kind: clozeLit
+        id: c-hayesta-review
+        es: "hay quince sillas aquí"
+        en: "there are fifteen chairs here"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["hay", "quince", "silla", "aquí"]
+      - kind: audioWimcq
+        id: ear-review-hoymanana1
+        target: { surface: "hoy", emoji: "📌" }
+        distractors:
+          - { surface: "mañana", emoji: "⏭️" }
+          - { surface: "sábado", emoji: "🕯️" }
+      - kind: speakLit
+        id: sp-recall-carrorojo
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-planningweek
+        scene: { emoji: "📅", title: "Planning with Diego and Ana", setting: "Diego and Ana are sorting out the week." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Cuándo quieres café?", audioText: "¿cuándo quieres café?", gloss: "When do you want coffee?" }
+            goal: "Say Saturday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "el sábado" }
+                - { id: "wrong1", text: "es sábado" }
+                - { id: "wrong2", text: "el domingo" }
+              correctOptionId: "right"
+              audioText: "el sábado"
+            replyGloss: "On Saturday."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hoy es lunes?", audioText: "¿hoy es lunes?", gloss: "Is today Monday?" }
+            goal: "Correct her — it's Tuesday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, es martes" }
+                - { id: "wrong1", text: "sí, es lunes" }
+                - { id: "wrong2", text: "es miércoles" }
+              correctOptionId: "right"
+              audioText: "no, es martes"
+            replyGloss: "No, it's Tuesday."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la semana", target: "the week" }
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "el sábado", target: "on Saturday" }
+          - { source: "¿cuándo?", target: "when?" }
+          - { source: "el día", target: "the day" }
+      - kind: speakLit
+        id: sp-win
+        es: "la semana tiene siete días"
+        en: "the week has seven days"
+        atoms: ["la", "semana", "tiene", "siete", "día"]
+
+  # ── L7 · every day, no new words — zero-new workout. ──────────────────
+  - n: 7
+    template: free
+    title: "Every day, no new words"
+    description: "No new words — every day, every number, every pair, one more time."
+    steps:
+      - kind: map
+        id: map-review7
+        tokens: ["¿cuándo", "quieres", "un", "té?"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "do you want", tokenIndex: 1 }
+          - { en: "a", tokenIndex: 2 }
+          - { en: "tea", tokenIndex: 3 }
+        audioText: "¿cuándo quieres un té?"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: clozeLit
+        id: c-elvses5
+        es: "mañana es miércoles"
+        en: "tomorrow is Wednesday"
+        blank: "es"
+        options: ["es", "el"]
+        atoms: ["mañana", "es", "miércoles"]
+        why: "Naming which day tomorrow is — es, not el."
+      - kind: audioWimcq
+        id: ear-review-days2
+        target: { surface: "domingo", emoji: "⛪" }
+        distractors:
+          - { surface: "sábado", emoji: "🕯️" }
+          - { surface: "viernes", emoji: "💘" }
+      - kind: buildLit
+        id: b-review7
+        es: "hoy tengo sed"
+        en: "today I'm thirsty"
+        atoms: ["hoy", "tengo sed"]
+        tiles: ["mañana", "el"]
+      - kind: audioWimcq
+        id: ear-review-numbers2
+        target: { surface: "tres", emoji: "3️⃣" }
+        distractors:
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+          - { surface: "catorce", emoji: "1️⃣4️⃣" }
+      - kind: listenCompLit
+        id: lc-review7
+        es: "mañana es sábado"
+        en: "Tomorrow is Saturday."
+        atoms: ["mañana", "es", "sábado"]
+        distractorsEn:
+          - "Today is Saturday."
+          - "Tomorrow is Sunday."
+          - "Tomorrow is Friday."
+      - kind: clozeLit
+        id: c-semanatiene
+        es: "la semana tiene siete días"
+        en: "the week has seven days"
+        blank: "tiene"
+        options: ["tiene", "es"]
+        atoms: ["la", "semana", "tiene", "siete", "día"]
+        why: "The week HAS its days — «tiene», not «es»."
+      - kind: speakLit
+        id: sp-recall-elpan
+        es: "el pan"
+        en: "the bread"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: lb-review7
+        es: "hay doce llaves y quince libros"
+        en: "there are twelve keys and fifteen books"
+        atoms: ["hay", "doce", "llave", "y", "quince", "libro"]
+        tiles: ["dos", "once"]
+      - kind: audioWimcq
+        id: ear-review-hoymanana2
+        target: { surface: "mañana", emoji: "⏭️" }
+        distractors:
+          - { surface: "hoy", emoji: "📌" }
+          - { surface: "martes", emoji: "⚔️" }
+      - kind: sim
+        id: sim-maria-review7
+        scene: { emoji: "📅", title: "María double-checks", setting: "María, from the bus, wants to confirm the plan." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Cuándo quieres café — el sábado?", audioText: "¿cuándo quieres café — el sábado?", gloss: "When do you want coffee — Saturday?" }
+            goal: "Confirm — yes, Saturday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, el sábado" }
+                - { id: "wrong1", text: "no, el domingo" }
+                - { id: "wrong2", text: "es sábado" }
+              correctOptionId: "right"
+              audioText: "sí, el sábado"
+            replyGloss: "Yes, Saturday."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "¿cuándo?", target: "when?" }
+          - { source: "el día", target: "the day" }
+          - { source: "trece", target: "thirteen" }
+          - { source: "quince", target: "fifteen" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "el sábado quiero un té"
+        en: "on Saturday I want a tea"
+        atoms: ["el", "sábado", "quiero", "un", "té"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ───────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every day, every pair"
+    description: "Every discrimination, every day, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "hoy es sábado"
+        en: "Today is Saturday."
+        atoms: ["hoy", "es", "sábado"]
+        distractorsEn:
+          - "Today is Sunday."
+          - "Tomorrow is Saturday."
+          - "Today is Monday."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "doce", emoji: "1️⃣2️⃣" }
+        distractors:
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "el martes quiero sopa"
+        en: "on Tuesday I want soup"
+        blank: "el"
+        options: ["el", "es"]
+        atoms: ["el", "martes", "quiero", "sopa"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "hay catorce libros"
+        en: "There are fourteen books"
+        atoms: ["hay", "catorce", "libro"]
+        tiles: ["quince", "los"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "mañana es domingo"
+        en: "tomorrow is Sunday"
+        blank: "mañana"
+        options: ["mañana", "hoy"]
+        atoms: ["mañana", "es", "domingo"]
+        why: "The NEXT day — mañana, not hoy."
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "martes", emoji: "⚔️" }
+        distractors:
+          - { surface: "jueves", emoji: "⚡" }
+          - { surface: "miércoles", emoji: "🪽" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "la semana tiene siete días"
+        en: "The week has seven days"
+        atoms: ["la", "semana", "tiene", "siete", "día"]
+        tiles: ["el", "ocho"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "la semana"
+        en: "the week"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "el día es muy bonito"
+        en: "the day is very nice"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["el", "día", "es", "muy", "bonito"]
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "hoy", emoji: "📌" }
+        distractors:
+          - { surface: "mañana", emoji: "⏭️" }
+          - { surface: "lunes", emoji: "🌛" }
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "el sábado tengo hambre"
+        en: "On Saturday I'm hungry."
+        atoms: ["el", "sábado", "tengo hambre"]
+        distractorsEn:
+          - "On Sunday I'm hungry."
+          - "I'm hungry today."
+          - "On Saturday I'm thirsty."
+      - kind: buildLit
+        id: cp-build-2
+        es: "el viernes quiero una manzana"
+        en: "on Friday I want an apple"
+        atoms: ["el", "viernes", "quiero", "una", "manzana"]
+        tiles: ["es", "jueves"]
+      - kind: speakLit
+        id: cp-sp-2
+        es: "el sábado"
+        en: "on Saturday"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "hay once sillas aquí"
+        en: "there are eleven chairs here"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["hay", "once", "silla", "aquí"]
+      - kind: audioWimcq
+        id: cp-ear-4
+        target: { surface: "catorce", emoji: "1️⃣4️⃣" }
+        distractors:
+          - { surface: "cuatro", emoji: "4️⃣" }
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "el sábado", target: "on Saturday" }
+          - { source: "miércoles", target: "Wednesday" }
+          - { source: "trece", target: "thirteen" }
+          - { source: "la semana", target: "the week" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — coffee with Sofía, Carmen's café. ───────────────────
+  - n: 9
+    template: free
+    title: "Coffee with Sofía"
+    description: "Pin down the plan — and say it yourself, for the first time."
+    steps:
+      - kind: map
+        id: map-summitopen
+        tokens: ["¿cuándo", "tienes hambre?"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "are you hungry", tokenIndex: 1 }
+        audioText: "¿cuándo tienes hambre?"
+        revealNote: "Nothing new — just read it, like planning for real."
+      - kind: clozeLit
+        id: c-summit1
+        es: "el sábado quiero pan"
+        en: "on Saturday I want bread"
+        blank: "el"
+        options: ["el", "es"]
+        atoms: ["el", "sábado", "quiero", "pan"]
+        why: "ON Saturday — el, not es."
+      - kind: audioWimcq
+        id: ear-summit1
+        target: { surface: "sábado", emoji: "🕯️" }
+        distractors:
+          - { surface: "domingo", emoji: "⛪" }
+          - { surface: "viernes", emoji: "💘" }
+      - kind: buildLit
+        id: b-summit1
+        es: "mañana quiero pan"
+        en: "tomorrow I want bread"
+        atoms: ["mañana", "quiero", "pan"]
+        tiles: ["hoy", "el"]
+      - kind: audioWimcq
+        id: ear-summit2
+        target: { surface: "doce", emoji: "1️⃣2️⃣" }
+        distractors:
+          - { surface: "dos", emoji: "2️⃣" }
+          - { surface: "trece", emoji: "1️⃣3️⃣" }
+      - kind: listenCompLit
+        id: lc-summit1
+        es: "la semana tiene siete días"
+        en: "The week has seven days."
+        atoms: ["la", "semana", "tiene", "siete", "día"]
+        distractorsEn:
+          - "The week has five days."
+          - "The month has seven days."
+          - "Today has seven hours."
+      - kind: clozeLit
+        id: c-summit2
+        es: "mañana es martes"
+        en: "tomorrow is Tuesday"
+        blank: "mañana"
+        options: ["mañana", "hoy"]
+        atoms: ["mañana", "es", "martes"]
+        why: "The NEXT day, not today — «mañana»."
+      - kind: speakLit
+        id: sp-recall-hoyeslunes
+        es: "hoy es lunes"
+        en: "today is Monday"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "¿cuándo?", target: "when?" }
+          - { source: "el sábado", target: "on Saturday" }
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "quiero", target: "I want" }
+          - { source: "la semana", target: "the week" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "☕", title: "Coffee with Sofía", setting: "Sofía waves you down outside Carmen's café." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Hola! ¿Cuándo quieres café?", audioText: "¡hola! ¿cuándo quieres café?", gloss: "Hi! When do you want coffee?" }
+            goal: "Say Saturday — the full plan."
+            reply:
+              mode: build
+              tiles: ["el", "sábado", "quiero", "un", "café", "domingo"]
+              answer: "el sábado quiero un café"
+              alsoAccepted: ["el sábado"]
+            replyGloss: "On Saturday I want a coffee."
+            explanation: "The line you've been building toward — el for ON, quiero un for want-it-now. This is the whole module, in one sentence."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¡Perfecto! ¿Hoy o mañana tienes hambre?", audioText: "¡perfecto! ¿hoy o mañana tienes hambre?", gloss: "Perfect! Are you hungry today or tomorrow?" }
+            goal: "Say you're hungry today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hoy tengo hambre" }
+                - { id: "wrong1", text: "mañana tengo hambre" }
+                - { id: "wrong2", text: "tengo sed" }
+              correctOptionId: "right"
+              audioText: "hoy tengo hambre"
+            replyGloss: "I'm hungry today."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Quieres pan o queso?", audioText: "¿quieres pan o queso?", gloss: "Do you want bread or cheese?" }
+            goal: "Pick the cheese."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero queso" }
+                - { id: "wrong1", text: "quiero pan" }
+                - { id: "wrong2", text: "me gusta" }
+              correctOptionId: "right"
+              audioText: "quiero queso"
+            replyGloss: "I'll have the cheese."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¡Genial! Hasta el sábado, Sam.", audioText: "¡genial! hasta el sábado, Sam.", gloss: "Great! See you Saturday, Sam." }
+            goal: "Say goodbye — see you then."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+  # ── L10 · mastery — María checks the plan, ends on sim. ───────────────
+  - n: 10
+    template: free
+    title: "Prove it — then María checks in"
+    description: "Every pair, every day, no help — and María's got a different day in mind."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "hoy es viernes"
+        en: "today is Friday"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["hoy", "es", "viernes"]
+      - kind: buildLit
+        id: m-build-1
+        es: "hay quince plumas"
+        en: "There are fifteen pens"
+        atoms: ["hay", "quince", "pluma"]
+        tiles: ["catorce", "los"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "mañana", emoji: "⏭️" }
+        distractors:
+          - { surface: "hoy", emoji: "📌" }
+          - { surface: "martes", emoji: "⚔️" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "mañana es sábado"
+        en: "tomorrow is Saturday"
+        blank: "es"
+        options: ["es", "el"]
+        atoms: ["mañana", "es", "sábado"]
+        why: "Naming which day tomorrow is — es, not el."
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "mañana es lunes"
+        en: "Tomorrow is Monday."
+        atoms: ["mañana", "es", "lunes"]
+        distractorsEn:
+          - "Today is Monday."
+          - "Tomorrow is Tuesday."
+          - "Yesterday was Monday."
+      - kind: speakLit
+        id: m-sp-1
+        es: "¿cuándo?"
+        en: "when?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-trece
+        target: "trece"
+        distractors: ["doce", "catorce", "quince"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "hay siete días en la semana"
+        en: "there are seven days in the week"
+        atoms: ["hay", "siete", "día", "en", "la", "semana"]
+        tiles: ["el", "ocho"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "trece", emoji: "1️⃣3️⃣" }
+        distractors:
+          - { surface: "tres", emoji: "3️⃣" }
+          - { surface: "catorce", emoji: "1️⃣4️⃣" }
+      - kind: buildLit
+        id: m-build-2
+        es: "el día es bonito"
+        en: "the day is nice"
+        atoms: ["el", "día", "es", "bonito"]
+        tiles: ["la", "está"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "el sábado tengo sed"
+        en: "on Saturday I'm thirsty"
+        blank: "el"
+        options: ["el", "es"]
+        atoms: ["el", "sábado", "tengo sed"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "el día", target: "the day" }
+          - { source: "doce", target: "twelve" }
+          - { source: "trece", target: "thirteen" }
+          - { source: "la semana", target: "the week" }
+      - kind: sim
+        id: m-sim-maria
+        scene: { emoji: "📱", title: "María texts", setting: "María texts to double-check the plan — a different day." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Quieres café el domingo?", audioText: "¿quieres café el domingo?", gloss: "Do you want coffee on Sunday?" }
+            goal: "Say yes, Sunday works."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, el domingo" }
+                - { id: "wrong1", text: "no, el sábado" }
+                - { id: "wrong2", text: "sí, hoy" }
+              correctOptionId: "right"
+              audioText: "sí, el domingo"
+            replyGloss: "Yes, Sunday."
+          - id: t2
+            npc: { speaker: "María", es: "¿Cuándo tienes hambre — hoy o mañana?", audioText: "¿cuándo tienes hambre — hoy o mañana?", gloss: "When are you hungry — today or tomorrow?" }
+            goal: "Say tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mañana" }
+                - { id: "wrong1", text: "hoy" }
+                - { id: "wrong2", text: "el domingo" }
+              correctOptionId: "right"
+              audioText: "mañana"
+            replyGloss: "Tomorrow."
+          - id: t3
+            npc: { speaker: "María", es: "¿Quieres pan o queso?", audioText: "¿quieres pan o queso?", gloss: "Do you want bread or cheese?" }
+            goal: "Pick the bread this time."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero pan" }
+                - { id: "wrong1", text: "quiero queso" }
+                - { id: "wrong2", text: "me gusta" }
+              correctOptionId: "right"
+              audioText: "quiero pan"
+            replyGloss: "I'll have the bread."
+          - id: t4
+            npc: { speaker: "María", es: "¡Perfecto! Hasta el domingo.", audioText: "¡perfecto! hasta el domingo.", gloss: "Perfect! See you Sunday." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m8-scr-1"
+      prompt: "Which one means 'when?'"
+      correct: "¿cuándo?"
+      distractors: ["dónde", "aquí", "hoy"]
+  byModule:
+    - id: "es-m8-pl-1"
+      prompt: "Today is Monday."
+      correct: "hoy es lunes"
+      distractors: ["hoy está lunes", "es hoy lunes", "hoy es el lunes"]
+    - id: "es-m8-pl-2"
+      prompt: "On Saturday, I want a coffee."
+      correct: "el sábado quiero un café"
+      distractors: ["es sábado quiero un café", "el sábado quieres un café", "sábado quiero un café"]
+    - id: "es-m8-pl-3"
+      prompt: "'Twelve' is…"
+      correct: "doce"
+      distractors: ["dos", "tres", "once"]
+    - id: "es-m8-pl-4"
+      prompt: "'Tomorrow' is…"
+      correct: "mañana"
+      distractors: ["hoy", "el día", "la semana"]

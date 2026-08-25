@@ -1,0 +1,1428 @@
+module: m7
+title: "El café — want it, like it, pay for it"
+frame: none
+throughModule: m6
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m7 — «El café»: quiero vs me gusta, hambre/sed, foods and drinks,
+# and the arc's biggest payoff — Diego finally has money. Fourth §13-
+# doctrine IR module (m3 is the exemplar; m4 the freshest sibling).
+#
+# SPINE PROVENANCE: atom inventory + arc PINNED by
+# docs/es-m4-m10-wave-2026-08-24.md ("m7 — El café"). 16 atoms: quiero,
+# quieres, me gusta, te gusta, café, té, leche, pan, queso, pollo,
+# manzana, sopa, cuenta, rico, tengo hambre, tengo sed. Nothing added,
+# dropped or renamed against that spec — including the spec's own
+# correction: «un té con leche» is DROPPED (con is not in this
+# inventory; every sentence in this module avoids «con» entirely).
+#
+# DOCTRINE NOTES:
+#   - Contrast card (L2): «quiero un café» — want it now, indefinite
+#     (un). «me gusta el café» — like it in general, definite (el). One
+#     card line states the article flip; me gusta/te gusta stay
+#     FORMULAS — the card says the grammar behind «gusta» comes later
+#     and no other step ever explains it. quiero/quieres and quiero/me
+#     gusta are both trained as alternating, both-live discrimination
+#     lanes across the module (tally in the ledger below).
+#   - Atom allocation across lessons (16 total, none repeated):
+#     L1 quiero/café/té (3) · L2 me gusta/te gusta/leche/pan (4) ·
+#     L3 quieres (1) · L4 tengo hambre/tengo sed/sopa/pollo (4) ·
+#     L5 queso/manzana/rico (3) · L6 cuenta (1). L7–L10 are zero-new.
+#   - te gusta is registered in L2 alongside me gusta (taught as the
+#     mirror formula) but its own printed voicing is light — it is
+#     exercised mainly through Sofía/Carmen asking «¿te gusta…?» in
+#     later sims, which is honest (a formula the learner HEARS before
+#     they ever need to say it back in te-form).
+#   - leche gets the m3 llave/m4 foto secret-side treatment: no
+#     telltale ending, learned WITH its article, one card + one
+#     dedicated gender cloze a few steps later (L2).
+#   - rico is a chunk-only word: it appears ONLY as «¡qué rico!», never
+#     inflected, never in any other construction, module-wide — checked
+#     by hand across every lesson below.
+#   - tengo hambre / tengo sed debut together in ONE self-cueing micro-
+#     sim (L4): Diego's stomach growls, he asks «¿Tienes hambre?» (m5's
+#     «tienes» creates the slot), then «¿Tienes sed también?» creates
+#     the second slot. Both turns marked as single-correct debuts. The
+#     ear lane (audioWimcq, honest non-punny emoji: 🍽️ hambre / 🥤 sed —
+#     deliberately NOT 💧, which m4 already owns for «agua») runs
+#     alongside a text-cloze lane (blank the object word inside the
+#     fixed phrase: "tengo ___" → hambre/sed, both live).
+#   - Foods interleave, following the arc's own lesson-by-lesson split
+#     rather than a rigid 3/3 count: café/té (L1) + leche/pan (L2) are
+#     the drinks-and-bread wave; sopa/pollo (L4) and queso/manzana (L5)
+#     are the two food waves, each broken up by a sim or an off-topic
+#     tail — no lesson is ever a bare food list.
+#   - THE PAYOFF (L6): Diego finally has money — «¡hay dinero!» directly
+#     echoes m3's negative «no hay dinero» from the empty-wallet gag.
+#     He pays and says the module's own required line himself
+#     («la cuenta, por favor»), modeling it before the learner ever
+#     produces it — the learner's own first PRODUCTION of that exact
+#     line is deliberately held for L9's summit, per the brief ("la
+#     cuenta por favor is the summit's closing move").
+#   - Carmen (m2 cast — Sofía's friend, met at the café in m2) owns the
+#     café; Ana, Diego, Sofía, María are the rest of the fixed cast.
+#     Learner = Sam. NPC lines are natural Spanish throughout; no line
+#     anywhere in this module uses «con» (not in the inventory).
+#   - Nouns wear their article on every surface («la cuenta», never bare
+#     «cuenta»); atoms stay bare with `gender` (m3 registry convention).
+#   - Offer sims (L3, L6, L7, L9, L10) use both-correct consolidation
+#     where the turn is a genuine open choice (both drinks equally
+#     fine, or a real yes/no); DEBUT turns (L4's hambre/sed) keep
+#     exactly one right reply per §13.6 rule 4.
+#   - Discrimination lanes (§13.9 law 4, alternating, both halves live):
+#     quiero/me-gusta clozes (3 quiero-correct : 2 me-gusta-correct);
+#     quiero/quieres clozes (3 quiero-correct : 3 quieres-correct);
+#     hambre/sed by EAR (audioWimcq, 2 each) and by text-cloze (1 each);
+#     pero/y clozes reviewing m6's «pero» against m1's «y» (2 steps).
+#
+# VOICING LEDGER (printed speak → licenses later cue:"recall"):
+#   quiero un café L1 · un té L1 · el pan L2 · me gusta el café L2 ·
+#   la leche L2 · tengo hambre L4 (via sim + cloze + win) ·
+#   tengo sed L4 · ¡qué rico! L5 · la cuenta, por favor L6
+#   m7-internal recalls drawn from the above: quiero un café (L8, L10),
+#   me gusta el café (multiple), la cuenta por favor (L8 cp, L9 build,
+#   L10 build), tengo hambre / tengo sed (L7, L8, L9, L10)
+#   cross-module (licensed by m1–m6 printed voicings, per the wave doc):
+#   buenos días (L1), ¿cómo estás? (L2), una llave / un lápiz / una
+#   pluma (L2), el dinero / el papel / el celular (L1), hay una silla
+#   aquí (L7), ¿dónde está? (L3 map echo, L8, L10), está en la mesa
+#   (L3), mi familia (L4), el gato (L6, L9), muy bonito (L5), el carro
+#   rojo (L6, L9), la casa / el libro (L9).
+newAtoms:
+  - { surface: "quiero", meaningEn: "I want", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "quieres", meaningEn: "you want", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "me gusta", meaningEn: "I like it", partOfSpeech: "phrase", kind: "phrase" }
+  - { surface: "te gusta", meaningEn: "you like it", partOfSpeech: "phrase", kind: "phrase" }
+  - { surface: "café", meaningEn: "coffee", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "☕" }
+  - { surface: "té", meaningEn: "tea", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍵", hint: "one syllable, teh — the accent keeps it apart from «te» in «te gusta»" }
+  - { surface: "leche", meaningEn: "milk", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🥛", hint: "no telltale ending — a secret-side word, like llave: LEH-cheh" }
+  - { surface: "pan", meaningEn: "bread", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍞" }
+  - { surface: "queso", meaningEn: "cheese", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧀", hint: "qu is a plain k, like aquí: KEH-so" }
+  - { surface: "pollo", meaningEn: "chicken", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍗", hint: "ll sounds like y — same as llamo: PO-yo" }
+  - { surface: "manzana", meaningEn: "apple", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍎" }
+  - { surface: "sopa", meaningEn: "soup", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍲" }
+  - { surface: "cuenta", meaningEn: "check (bill)", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧾" }
+  - { surface: "rico", meaningEn: "tasty", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "tengo hambre", meaningEn: "I'm hungry", partOfSpeech: "phrase", kind: "phrase" }
+  - { surface: "tengo sed", meaningEn: "I'm thirsty", partOfSpeech: "phrase", kind: "phrase" }
+
+lessons:
+  # ── L1 · quiero + café/té debut. States the module promise. ──────────
+  - n: 1
+    template: free
+    title: "Order like a local"
+    description: "«Quiero» — I want. Say it, and Carmen brings it."
+    steps:
+      - kind: info
+        id: info-quiero
+        title: "Say what you want"
+        body: "«quiero» — I want. «quiero un café» — I want a coffee. This module: order for real, chat a little, and — finally — pay, at Carmen's café."
+      - kind: imageMcq
+        id: d-cafe
+        target: { surface: "un café", meaningEn: "a coffee", emoji: "☕" }
+        distractors:
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el agua", emoji: "💧" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: map
+        id: map-quierocafe
+        tokens: ["quiero", "un", "café"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+        audioText: "quiero un café"
+        revealNote: "«un» is yours from m3 — «quiero» is the only new one: I want."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-quierocafe
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: ["quiero", "un", "café"]
+      - kind: imageMcq
+        id: d-te
+        target: { surface: "un té", meaningEn: "a tea", emoji: "🍵" }
+        distractors:
+          - { surface: "un café", emoji: "☕" }
+          - { surface: "una llave", emoji: "🔑" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: speakLit
+        id: sp-unte
+        es: "un té"
+        en: "a tea"
+        atoms: ["un", "té"]
+      - kind: buildLit
+        id: b-quierote
+        es: "quiero un té"
+        en: "I want a tea"
+        atoms: ["quiero", "un", "té"]
+        tiles: ["el", "café"]
+      - kind: clozeLit
+        id: c-unte
+        es: "quiero un café"
+        en: "I want a coffee"
+        blank: "un"
+        options: ["un", "el"]
+        atoms: ["quiero", "un", "café"]
+        why: "You're ordering ONE, right now — that's «un», not «el»."
+      - kind: audioWimcq
+        id: ear-review1
+        target: { surface: "el dinero", emoji: "💰" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "el celular", emoji: "📱" }
+      - kind: listenCompLit
+        id: lc-quierote
+        es: "quiero un té"
+        en: "I want a tea."
+        atoms: ["quiero", "un", "té"]
+        distractorsEn:
+          - "I have a tea."
+          - "There's a tea."
+          - "I want a coffee."
+      - kind: speakLit
+        id: sp-recall-buenosdias
+        es: "buenos días"
+        en: "good morning"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-carmen-debut
+        scene: { emoji: "☕", title: "Carmen's café", setting: "Carmen wipes the counter, pen ready." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¡Hola! ¿Café o té?", audioText: "¡hola! ¿café o té?", gloss: "Hi! Coffee or tea?" }
+            goal: "Order a coffee."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un café" }
+                - { id: "wrong1", text: "es un café" }
+                - { id: "wrong2", text: "hay un café" }
+              correctOptionId: "right"
+              audioText: "quiero un café"
+            replyGloss: "I want a coffee."
+            explanation: "«es» would name it, «hay» would just claim it exists — she asked what you WANT, so «quiero»."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "un café", target: "a coffee" }
+          - { source: "un té", target: "a tea" }
+          - { source: "quiero", target: "I want" }
+          - { source: "hola", target: "hello" }
+          - { source: "gracias", target: "thank you" }
+          - { source: "la casa", target: "the house" }
+      - kind: speakLit
+        id: sp-win
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: ["quiero", "un", "café"]
+
+  # ── L2 · me gusta vs quiero — the article flip. leche/pan debut. ─────
+  - n: 2
+    template: free
+    title: "Want it now, like it always"
+    description: "«Me gusta» — I like it, in general. And why it says «el café»."
+    steps:
+      - kind: info
+        id: info-contrast
+        title: "Two ways to want something"
+        body: "«quiero un café» — I want A coffee: one, right now. «me gusta el café» — I like coffee in general; «me gusta» always keeps the el/la, even where English drops 'the.' «quiero» takes el/la too when you mean a specific one: «quiero el café» — I want THAT coffee, the one right there. The grammar behind «gusta» comes later; for now it's a formula."
+      - kind: imageMcq
+        id: d-leche
+        target: { surface: "la leche", meaningEn: "the milk", emoji: "🥛" }
+        distractors:
+          - { surface: "un café", emoji: "☕" }
+          - { surface: "un té", emoji: "🍵" }
+          - { surface: "el agua", emoji: "💧" }
+      - kind: speakLit
+        id: sp-laleche
+        es: "la leche"
+        en: "the milk"
+        atoms: ["la", "leche"]
+      - kind: imageMcq
+        id: d-pan
+        target: { surface: "el pan", meaningEn: "the bread", emoji: "🍞" }
+        distractors:
+          - { surface: "la leche", emoji: "🥛" }
+          - { surface: "un café", emoji: "☕" }
+          - { surface: "un té", emoji: "🍵" }
+      - kind: speakLit
+        id: sp-elpan
+        es: "el pan"
+        en: "the bread"
+        atoms: ["el", "pan"]
+      - kind: clozeLit
+        id: c-lechesecret
+        es: "la leche está en la cocina"
+        en: "the milk is in the kitchen"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "leche", "está", "en", "la", "cocina"]
+        why: "leche keeps its side secret — no telltale ending. That's why you learn it as «la leche»: the word carries its side with it."
+      - kind: map
+        id: map-megustacafe
+        tokens: ["me gusta", "el", "café"]
+        pairs:
+          - { en: "I like", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+        audioText: "me gusta el café"
+        revealNote: "«el» and «café» are already yours — «me gusta» is the new formula: I like it. Notice: el, not un — liking is general, not a single order."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-megustacafe
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: ["me gusta", "el", "café"]
+      - kind: clozeLit
+        id: c-quierote2
+        es: "quiero un té"
+        en: "I want a tea"
+        blank: "quiero"
+        options: ["quiero", "me gusta"]
+        atoms: ["quiero", "un", "té"]
+        why: "You're ordering ONE, right now — «quiero», not the general «me gusta»."
+      - kind: buildLit
+        id: b-megustapan
+        es: "me gusta el pan"
+        en: "I like bread"
+        atoms: ["me gusta", "el", "pan"]
+        tiles: ["un", "la"]
+      - kind: clozeLit
+        id: c-megustaleche
+        es: "me gusta la leche"
+        en: "I like milk"
+        blank: "gusta"
+        options: ["gusta", "quiero"]
+        atoms: ["me gusta", "la", "leche"]
+        why: "General preference, not a single order — «me gusta», not «quiero»."
+      - kind: audioWimcq
+        id: ear-review2
+        target: { surface: "una llave", emoji: "🔑" }
+        distractors:
+          - { surface: "un lápiz", emoji: "✏️" }
+          - { surface: "una pluma", emoji: "🖊️" }
+      - kind: speakLit
+        id: sp-recall-comoestas
+        es: "¿cómo estás?"
+        en: "how are you?"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: lc-megustate
+        es: "me gusta el té"
+        en: "I like tea."
+        atoms: ["me gusta", "el", "té"]
+        distractorsEn:
+          - "I want tea."
+          - "I have tea."
+          - "I like coffee."
+      - kind: sim
+        id: sim-carmen-cafeote
+        scene: { emoji: "☕", title: "Café or tea?", setting: "Carmen taps her pen, waiting." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Quieres café o té?", audioText: "¿quieres café o té?", gloss: "Do you want coffee or tea?" }
+            goal: "Order a coffee — right now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un café" }
+                - { id: "wrong1", text: "me gusta el café" }
+                - { id: "wrong2", text: "es un café" }
+              correctOptionId: "right"
+              audioText: "quiero un café"
+            replyGloss: "I want a coffee."
+            explanation: "She asked what you want RIGHT NOW — «quiero», not the general «me gusta»."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "me gusta", target: "I like it" }
+          - { source: "quiero", target: "I want" }
+          - { source: "la leche", target: "the milk" }
+          - { source: "el pan", target: "the bread" }
+          - { source: "un café", target: "a coffee" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: ["me gusta", "el", "café"]
+
+  # ── L3 · quieres — asking someone else. Offer-sim consolidation. ─────
+  - n: 3
+    template: free
+    title: "Would you like...?"
+    description: "«Quieres» flips the question around — answer either way, both are right."
+    steps:
+      - kind: info
+        id: info-quieres
+        title: "Now flip it around"
+        body: "«quiero» flips to «quieres» to ask someone else: «¿quieres un café?» — do you want a coffee? «me gusta» flips the same way: «¿te gusta?» — do you like it? Answer either way: «sí, quiero» or «no, gracias»."
+      - kind: map
+        id: map-quierescafe
+        tokens: ["¿quieres", "un", "café?"]
+        pairs:
+          - { en: "do you want", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+        audioText: "¿quieres un café?"
+        revealNote: "«un» and «café» are yours — «quieres» just flips «quiero» into a question, and you already know both halves."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: sp-quierescafe
+        es: "¿quieres un café?"
+        en: "do you want a coffee?"
+        atoms: ["quieres", "un", "café"]
+      - kind: clozeLit
+        id: c-quierovsquieres1
+        es: "quiero un té"
+        en: "I want a tea"
+        blank: "quiero"
+        options: ["quiero", "quieres"]
+        atoms: ["quiero", "un", "té"]
+        why: "You're the one wanting it — «quiero», not the question form «quieres»."
+      - kind: buildLit
+        id: b-quierestepan
+        es: "¿quieres un té?"
+        en: "do you want a tea?"
+        atoms: ["quieres", "un", "té"]
+        tiles: ["quiero", "el"]
+      - kind: clozeLit
+        id: c-quierovsquieres2
+        es: "quieres pan"
+        en: "you want bread"
+        blank: "quieres"
+        options: ["quieres", "quiero"]
+        atoms: ["quieres", "pan"]
+        why: "Asking someone else — «quieres». (With food, Spanish often skips the article: «quieres pan» — do you want some bread.)"
+      - kind: speakLit
+        id: sp-tegusta
+        es: "¿te gusta el café?"
+        en: "do you like the coffee?"
+        atoms: ["te gusta", "el", "café"]
+      - kind: buildLit
+        id: b-tegustapan
+        es: "¿te gusta el pan?"
+        en: "do you like the bread?"
+        atoms: ["te gusta", "el", "pan"]
+        tiles: ["me", "quiero"]
+      - kind: audioWimcq
+        id: ear-review3
+        target: { surface: "la ventana", emoji: "🪟" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: listenCompLit
+        id: lc-quiereslecte
+        es: "¿quieres leche?"
+        en: "Do you want milk?"
+        atoms: ["quieres", "leche"]
+        distractorsEn:
+          - "I want milk."
+          - "Do you like milk?"
+          - "Is there milk?"
+      - kind: speakLit
+        id: sp-recall-estaenlamesa
+        es: "está en la mesa"
+        en: "it's on the table"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-carmen-offer
+        scene: { emoji: "🍞", title: "Carmen offers bread", setting: "Carmen holds up a basket of bread." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Quieres pan?", audioText: "¿quieres pan?", gloss: "Do you want bread?" }
+            goal: "Answer for yourself — up to you."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero" }
+                - { id: "also", text: "no, gracias" }
+                - { id: "wrong1", text: "es un pan" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "sí, quiero"
+            replyGloss: "Yes, I want some."
+      - kind: buildLit
+        id: b-quieropan
+        es: "quiero pan"
+        en: "I want bread"
+        atoms: ["quiero", "pan"]
+        tiles: ["un", "el"]
+      - kind: sim
+        id: sim-diego-cafeote
+        scene: { emoji: "☕", title: "Diego asks too", setting: "Diego leans over from the next table." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres café o té?", audioText: "¿quieres café o té?", gloss: "Do you want coffee or tea?" }
+            goal: "Say you'd rather have tea."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un té" }
+                - { id: "wrong1", text: "quieres un té" }
+                - { id: "wrong2", text: "me gusta el café" }
+              correctOptionId: "right"
+              audioText: "quiero un té"
+            replyGloss: "I want a tea."
+            explanation: "You're the one answering — «quiero», not «quieres». And he asked what you want NOW, not what you generally like."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "quieres", target: "you want" }
+          - { source: "sí, quiero", target: "yes, I want it" }
+          - { source: "no, gracias", target: "no, thank you" }
+          - { source: "un café", target: "a coffee" }
+          - { source: "el pan", target: "the bread" }
+          - { source: "la leche", target: "the milk" }
+      - kind: speakLit
+        id: sp-win
+        es: "¿quieres un café?"
+        en: "do you want a coffee?"
+        atoms: ["quieres", "un", "café"]
+
+  # ── L4 · tengo hambre / tengo sed debut + sopa/pollo. ────────────────
+  - n: 4
+    template: free
+    title: "Hungry? Thirsty?"
+    description: "«Tengo hambre», «tengo sed» — the same «tengo» you already know, naming how you feel."
+    steps:
+      - kind: info
+        id: info-hambresed
+        title: "Two feelings, one verb"
+        body: "«tengo hambre» — I'm hungry: literally 'I have hunger.' «tengo sed» — I'm thirsty: 'I have thirst.' Same «tengo» from home and family — in Spanish you HAVE these feelings."
+      - kind: imageMcq
+        id: d-sopa
+        target: { surface: "la sopa", meaningEn: "the soup", emoji: "🍲" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "un café", emoji: "☕" }
+          - { surface: "la leche", emoji: "🥛" }
+      - kind: speakLit
+        id: sp-lasopa
+        es: "la sopa"
+        en: "the soup"
+        atoms: ["la", "sopa"]
+      - kind: clozeLit
+        id: c-lasopa
+        es: "la sopa está aquí"
+        en: "the soup is here"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "sopa", "está", "aquí"]
+        why: "sopa ends in -a: la."
+      - kind: imageMcq
+        id: d-pollo
+        target: { surface: "el pollo", meaningEn: "the chicken", emoji: "🍗" }
+        distractors:
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "un té", emoji: "🍵" }
+      - kind: speakLit
+        id: sp-elpollo
+        es: "el pollo"
+        en: "the chicken"
+        atoms: ["el", "pollo"]
+      - kind: buildLit
+        id: b-elpolloalli
+        es: "el pollo está allí"
+        en: "The chicken is over there"
+        atoms: ["el", "pollo", "está", "allí"]
+        tiles: ["la", "aquí"]
+      - kind: audioWimcq
+        id: ear-review4
+        target: { surface: "la ventana", emoji: "🪟" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: sim
+        id: sim-diego-hambresed
+        scene: { emoji: "🍽️", title: "Diego's stomach growls", setting: "It's almost noon and Diego's stomach growls loudly." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes hambre?", audioText: "¿tienes hambre?", gloss: "Are you hungry?" }
+            goal: "Say yes — you are."
+            debut: true
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo hambre" }
+                - { id: "wrong1", text: "sí, tengo sed" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, tengo hambre"
+            replyGloss: "Yes, I'm hungry."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tienes sed?", audioText: "¿y tienes sed?", gloss: "And are you thirsty?" }
+            goal: "Say yes to that too."
+            debut: true
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo sed" }
+                - { id: "wrong1", text: "sí, tengo hambre" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, tengo sed"
+            replyGloss: "Yes, I'm thirsty too."
+      - kind: audioWimcq
+        id: ear-hambresed1
+        target: { surface: "tengo hambre", emoji: "🍽️" }
+        distractors:
+          - { surface: "tengo sed", emoji: "🥤" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: clozeLit
+        id: c-hambresed1
+        es: "tengo hambre"
+        en: "I'm hungry"
+        blank: "hambre"
+        options: ["hambre", "sed"]
+        atoms: ["tengo hambre"]
+        why: "The card said which is which — «hambre», not «sed»."
+      - kind: speakLit
+        id: sp-tengosed
+        es: "tengo sed"
+        en: "I'm thirsty"
+        atoms: ["tengo sed"]
+      - kind: listenCompLit
+        id: lc-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry."
+        atoms: ["tengo hambre"]
+        distractorsEn:
+          - "I'm thirsty."
+          - "I have soup."
+          - "I want soup."
+      - kind: speakLit
+        id: sp-recall-mifamilia
+        es: "mi familia"
+        en: "my family"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "tengo hambre", target: "I'm hungry" }
+          - { source: "tengo sed", target: "I'm thirsty" }
+          - { source: "la sopa", target: "the soup" }
+          - { source: "el pollo", target: "the chicken" }
+          - { source: "quiero", target: "I want" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: ["tengo hambre"]
+
+  # ── L5 · queso/manzana + ¡qué rico! ───────────────────────────────────
+  - n: 5
+    template: free
+    title: "Now THAT's tasty"
+    description: "«¡Qué rico!» — one fixed phrase for anything delicious."
+    steps:
+      - kind: info
+        id: info-rico
+        title: "One word for delicious"
+        body: "«¡qué rico!» — how tasty! One fixed phrase for now — say it about anything good. (The word itself changes shape later; for now, just this exclamation.)"
+      - kind: imageMcq
+        id: d-queso
+        target: { surface: "el queso", meaningEn: "the cheese", emoji: "🧀" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el pan", emoji: "🍞" }
+      - kind: speakLit
+        id: sp-elqueso
+        es: "el queso"
+        en: "the cheese"
+        atoms: ["el", "queso"]
+      - kind: imageMcq
+        id: d-manzana
+        target: { surface: "la manzana", meaningEn: "the apple", emoji: "🍎" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "un té", emoji: "🍵" }
+      - kind: speakLit
+        id: sp-lamanzana
+        es: "la manzana"
+        en: "the apple"
+        atoms: ["la", "manzana"]
+      - kind: clozeLit
+        id: c-megustaqueso
+        es: "me gusta el queso"
+        en: "I like cheese"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["me gusta", "el", "queso"]
+        why: "queso ends in -o: el."
+      - kind: buildLit
+        id: b-quierounamanzana
+        es: "quiero una manzana"
+        en: "I want an apple"
+        atoms: ["quiero", "una", "manzana"]
+        tiles: ["un", "el"]
+      - kind: audioWimcq
+        id: ear-review5
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "un perro", emoji: "🐶" }
+          - { surface: "el carro", emoji: "🚗" }
+      - kind: clozeLit
+        id: c-quierovsmegusta2
+        es: "quiero queso"
+        en: "I want cheese"
+        blank: "quiero"
+        options: ["quiero", "me gusta"]
+        atoms: ["quiero", "queso"]
+        why: "You're ordering ONE, right now — «quiero», not «me gusta»."
+      - kind: sim
+        id: sim-sofia-rico
+        scene: { emoji: "😋", title: "Sofía's first bite", setting: "Sofía takes a bite of the soup and grins." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Mmm! ¿Te gusta?", audioText: "¡mmm! ¿te gusta?", gloss: "Mmm! Do you like it?" }
+            goal: "Say it's delicious!"
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¡qué rico!" }
+                - { id: "wrong1", text: "quiero sopa" }
+                - { id: "wrong2", text: "tengo hambre" }
+              correctOptionId: "right"
+              audioText: "¡qué rico!"
+            replyGloss: "How tasty!"
+      - kind: audioWimcq
+        id: ear-review6
+        target: { surface: "buenas noches", emoji: "🌙" }
+        distractors:
+          - { surface: "buenos días", emoji: "🌅" }
+          - { surface: "buenas tardes", emoji: "☀️" }
+      - kind: listenCompLit
+        id: lc-megustamanzana
+        es: "me gusta la manzana"
+        en: "I like apples."
+        atoms: ["me gusta", "la", "manzana"]
+        distractorsEn:
+          - "I want an apple."
+          - "I have an apple."
+          - "I like cheese."
+      - kind: speakLit
+        id: sp-recall-megustacafe
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "el queso", target: "the cheese" }
+          - { source: "la manzana", target: "the apple" }
+          - { source: "¡qué rico!", target: "how tasty!" }
+          - { source: "quiero", target: "I want" }
+          - { source: "me gusta", target: "I like it" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "¡qué rico!"
+        en: "how tasty!"
+        atoms: ["rico"]
+
+  # ── L6 · cuenta debut — Diego FINALLY pays (m3 gag closes). ──────────
+  - n: 6
+    template: free
+    title: "Diego finally pays"
+    description: "«La cuenta» — the check. And this time, Diego has money."
+    steps:
+      - kind: info
+        id: info-cuenta
+        title: "Time to pay"
+        body: "«la cuenta» — the check, the bill. At the end of any meal, you ask for it: «la cuenta, por favor» — you already know «por favor» from lesson one."
+      - kind: imageMcq
+        id: d-cuenta
+        target: { surface: "la cuenta", meaningEn: "the check", emoji: "🧾" }
+        distractors:
+          - { surface: "el dinero", emoji: "💰" }
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "un café", emoji: "☕" }
+      - kind: speakLit
+        id: sp-lacuenta
+        es: "la cuenta"
+        en: "the check"
+        atoms: ["la", "cuenta"]
+      - kind: clozeLit
+        id: c-lacuenta
+        es: "la cuenta está aquí"
+        en: "the check is here"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["la", "cuenta", "está", "aquí"]
+        why: "cuenta ends in -a: la."
+      - kind: buildLit
+        id: b-cuentaporfavor
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: ["la", "cuenta", "por favor"]
+        tiles: ["el", "gracias"]
+      - kind: speakLit
+        id: sp-cuentaporfavor
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: ["la", "cuenta", "por favor"]
+      - kind: audioWimcq
+        id: ear-review7
+        target: { surface: "hasta luego", emoji: "👋" }
+        distractors:
+          - { surface: "buenos días", emoji: "🌅" }
+          - { surface: "mucho gusto", emoji: "🤝" }
+      - kind: sim
+        id: sim-diegopays
+        scene: { emoji: "💰", title: "Diego finally pays", setting: "Diego pats his pocket — and this time, there's money." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Todo bien?", audioText: "¿todo bien?", gloss: "Everything good?" }
+            goal: "Say it's delicious!"
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¡qué rico!" }
+                - { id: "wrong1", text: "tengo sed" }
+                - { id: "wrong2", text: "no hay" }
+              correctOptionId: "right"
+              audioText: "¡qué rico!"
+            replyGloss: "How tasty!"
+          - id: t2
+            npc: { speaker: "Diego", es: "¡Hay dinero! La cuenta, por favor.", audioText: "¡hay dinero! la cuenta, por favor.", gloss: "There's money! The check, please." }
+            goal: "He's paying — thank him!"
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¡gracias, Diego!" }
+                - { id: "wrong1", text: "no gracias" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "¡gracias, Diego!"
+            replyGloss: "Thanks, Diego!"
+      - kind: clozeLit
+        id: c-cuentaesde
+        es: "la cuenta es de Diego"
+        en: "the check is Diego's"
+        blank: "es"
+        options: ["es", "está"]
+        atoms: ["la", "cuenta", "es", "de"]
+        why: "Belongs-to is identity — «es», not «está»."
+      - kind: buildLit
+        id: b-tengosedqueso
+        es: "tengo sed y quiero queso"
+        en: "I'm thirsty and I want cheese"
+        atoms: ["tengo sed", "y", "quiero", "queso"]
+        tiles: ["hambre", "la"]
+      - kind: audioWimcq
+        id: ear-review8
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "un perro", emoji: "🐶" }
+          - { surface: "mi familia", emoji: "👨‍👩‍👧‍👦" }
+      - kind: listenCompLit
+        id: lc-quierolacuenta
+        es: "quiero la cuenta"
+        en: "I want the check."
+        atoms: ["quiero", "la", "cuenta"]
+        distractorsEn:
+          - "The check, please."
+          - "I want the bread."
+          - "There's a check."
+      - kind: speakLit
+        id: sp-recall-carrorojo
+        es: "el carro rojo"
+        en: "the red car"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "la cuenta", target: "the check" }
+          - { source: "por favor", target: "please" }
+          - { source: "¡hay dinero!", target: "there's money!" }
+          - { source: "¡qué rico!", target: "how tasty!" }
+          - { source: "quiero", target: "I want" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: ["la", "cuenta", "por favor"]
+
+  # ── L7 · order everything — zero-new workout. ─────────────────────────
+  - n: 7
+    template: free
+    title: "Order the whole menu"
+    description: "No new words — everything from the café, from memory."
+    steps:
+      - kind: map
+        id: map-cafeypan
+        tokens: ["quiero", "un", "café", "y", "pan"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "bread", tokenIndex: 4 }
+        audioText: "quiero un café y pan"
+        revealNote: "Nothing new — just read it, like ordering for real."
+        tokenGenders: { 2: "m", 4: "m" }
+      - kind: clozeLit
+        id: c-megustavsquiero3
+        es: "me gusta el té"
+        en: "I like tea"
+        blank: "gusta"
+        options: ["gusta", "quiero"]
+        atoms: ["me gusta", "el", "té"]
+        why: "General liking, not a single order — «me gusta»."
+      - kind: buildLit
+        id: b-quiereselpollo
+        es: "¿quieres el pollo?"
+        en: "do you want the chicken?"
+        atoms: ["quieres", "el", "pollo"]
+        tiles: ["quiero", "un"]
+      - kind: audioWimcq
+        id: ear-hambresed2
+        target: { surface: "tengo sed", emoji: "🥤" }
+        distractors:
+          - { surface: "tengo hambre", emoji: "🍽️" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: clozeLit
+        id: c-quierounamanzana2
+        es: "quiero una manzana"
+        en: "I want an apple"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["quiero", "una", "manzana"]
+        why: "manzana ends in -a: una."
+      - kind: listenBuildLit
+        id: lb-lechepercafe
+        es: "me gusta la leche pero quiero un café"
+        en: "I like milk but I want a coffee"
+        atoms: ["me gusta", "la", "leche", "pero", "quiero", "un", "café"]
+        tiles: ["el", "una"]
+      - kind: sim
+        id: sim-carmen-cafeote2
+        scene: { emoji: "☕", title: "Carmen asks again", setting: "Carmen's already reaching for the pot." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Quieres café o té?", audioText: "¿quieres café o té?", gloss: "Do you want coffee or tea?" }
+            goal: "Choose — either is fine."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un café" }
+                - { id: "also", text: "quiero un té" }
+                - { id: "wrong1", text: "es un café" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "quiero un café"
+            replyGloss: "I want a coffee."
+      - kind: clozeLit
+        id: c-hambresed2
+        es: "tengo sed"
+        en: "I'm thirsty"
+        blank: "sed"
+        options: ["sed", "hambre"]
+        atoms: ["tengo sed"]
+      - kind: audioWimcq
+        id: ear-review9
+        target: { surface: "la sopa", emoji: "🍲" }
+        distractors:
+          - { surface: "la leche", emoji: "🥛" }
+          - { surface: "el agua", emoji: "💧" }
+      - kind: listenCompLit
+        id: lc-cuentaporfavor2
+        es: "la cuenta, por favor"
+        en: "The check, please."
+        atoms: ["la", "cuenta", "por favor"]
+        distractorsEn:
+          - "Thank you so much."
+          - "I want the check."
+          - "There's a check."
+      - kind: speakLit
+        id: sp-recall-tengosed
+        es: "tengo sed"
+        en: "I'm thirsty"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: sim-diego-hambreosed
+        scene: { emoji: "🍽️", title: "Diego checks in", setting: "Diego glances over at your empty plate." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes hambre o sed?", audioText: "¿tienes hambre o sed?", gloss: "Are you hungry or thirsty?" }
+            goal: "Say you're hungry, not thirsty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tengo hambre" }
+                - { id: "wrong1", text: "tengo sed" }
+                - { id: "wrong2", text: "quiero pan" }
+              correctOptionId: "right"
+              audioText: "tengo hambre"
+            replyGloss: "I'm hungry."
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "me gusta", target: "I like it" }
+          - { source: "tengo hambre", target: "I'm hungry" }
+          - { source: "la cuenta", target: "the check" }
+          - { source: "el agua", target: "the water" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: sp-win
+        es: "tengo hambre, quiero pan"
+        en: "I'm hungry, I want bread"
+        atoms: ["tengo hambre", "quiero", "pan"]
+
+  # ── L8 · CHECKPOINT — zero-new, all graded. ──────────────────────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every order, every pair"
+    description: "Every discrimination, every dish, no new words — before the summit."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "¿quieres café o té?"
+        en: "Do you want coffee or tea?"
+        atoms: ["quieres", "café", "té"]
+        distractorsEn:
+          - "I want coffee or tea."
+          - "Do you like coffee or tea?"
+          - "Is there coffee or tea?"
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "tengo sed", emoji: "🥤" }
+        distractors:
+          - { surface: "tengo hambre", emoji: "🍽️" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "me gusta el pollo"
+        en: "I like chicken"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["me gusta", "el", "pollo"]
+      - kind: buildLit
+        id: cp-build-1
+        es: "quiero una sopa"
+        en: "I want a soup"
+        atoms: ["quiero", "una", "sopa"]
+        tiles: ["un", "el"]
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "me gusta el pan pero quiero sopa"
+        en: "I like bread but I want soup"
+        blank: "quiero"
+        options: ["quiero", "quieres"]
+        atoms: ["me gusta", "el", "pan", "pero", "quiero", "sopa"]
+        why: "Your own order — «quiero»."
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la manzana", emoji: "🍎" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "me gusta la leche y quiero un café"
+        en: "I like milk and I want a coffee"
+        atoms: ["me gusta", "la", "leche", "y", "quiero", "un", "café"]
+        tiles: ["el", "una"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿dónde está?"
+        en: "where is it?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "quieres queso"
+        en: "you want cheese"
+        blank: "quieres"
+        options: ["quieres", "quiero"]
+        atoms: ["quieres", "queso"]
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "el pan", emoji: "🍞" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "la cuenta está aquí"
+        en: "The check is here."
+        atoms: ["la", "cuenta", "está", "aquí"]
+        distractorsEn:
+          - "The check is over there."
+          - "There's a check."
+          - "The soup is here."
+      - kind: buildLit
+        id: cp-build-2
+        es: "tengo hambre y quiero queso"
+        en: "I'm hungry and I want cheese"
+        atoms: ["tengo hambre", "y", "quiero", "queso"]
+        tiles: ["sed", "la"]
+      - kind: speakLit
+        id: cp-sp-2
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "me gusta la manzana"
+        en: "I like apples"
+        blank: "gusta"
+        options: ["gusta", "quiero"]
+        atoms: ["me gusta", "la", "manzana"]
+      - kind: audioWimcq
+        id: cp-ear-4
+        target: { surface: "el queso", emoji: "🧀" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "me gusta", target: "I like it" }
+          - { source: "tengo hambre", target: "I'm hungry" }
+          - { source: "tengo sed", target: "I'm thirsty" }
+          - { source: "la cuenta", target: "the check" }
+          - { source: "el pollo", target: "the chicken" }
+      - kind: speakLit
+        id: cp-sp-3
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+
+  # ── L9 · summit — Carmen's café, the full scene. ──────────────────────
+  - n: 9
+    template: free
+    title: "Carmen's café"
+    description: "A whole visit — order, chat, taste, and finally, the check."
+    steps:
+      - kind: map
+        id: map-sopayte
+        tokens: ["quiero", "una", "sopa", "y", "un", "té"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "soup", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "a", tokenIndex: 4 }
+          - { en: "tea", tokenIndex: 5 }
+        audioText: "quiero una sopa y un té"
+        revealNote: "Nothing new — just read it, like ordering for real."
+        tokenGenders: { 2: "f", 5: "m" }
+      - kind: clozeLit
+        id: c-quierocafeaqui
+        es: "quiero un café aquí"
+        en: "I want a coffee here"
+        blank: "quiero"
+        options: ["quiero", "quieres"]
+        atoms: ["quiero", "un", "café", "aquí"]
+        why: "You're the one ordering — «quiero»."
+      - kind: buildLit
+        id: b-tengohambreypan
+        es: "tengo hambre y quiero pan"
+        en: "I'm hungry and I want bread"
+        atoms: ["tengo hambre", "y", "quiero", "pan"]
+        tiles: ["sed", "el"]
+      - kind: audioWimcq
+        id: ear-review10
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: clozeLit
+        id: c-quierespolloqueso
+        es: "quieres pollo o queso"
+        en: "you want chicken or cheese"
+        blank: "quieres"
+        options: ["quieres", "quiero"]
+        atoms: ["quieres", "pollo", "queso"]
+      - kind: listenCompLit
+        id: lc-tengosed2
+        es: "tengo sed"
+        en: "I'm thirsty."
+        atoms: ["tengo sed"]
+        distractorsEn:
+          - "I'm hungry."
+          - "I want water."
+          - "There's water."
+      - kind: speakLit
+        id: sp-recall-quierescafe
+        es: "¿quieres un café?"
+        en: "do you want a coffee?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: b-sopaperopollo
+        es: "me gusta la sopa pero quiero pollo"
+        en: "I like soup but I want chicken"
+        atoms: ["me gusta", "la", "sopa", "pero", "quiero", "el", "pollo"]
+        tiles: ["y", "el"]
+      - kind: audioWimcq
+        id: ear-review11
+        target: { surface: "buenas tardes", emoji: "☀️" }
+        distractors:
+          - { surface: "buenos días", emoji: "🌅" }
+          - { surface: "buenas noches", emoji: "🌙" }
+      - kind: matchLit
+        id: match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "me gusta", target: "I like it" }
+          - { source: "¡qué rico!", target: "how tasty!" }
+          - { source: "la cuenta", target: "the check" }
+          - { source: "tengo hambre", target: "I'm hungry" }
+          - { source: "gracias", target: "thank you" }
+      - kind: sim
+        id: sim-summit
+        scene: { emoji: "☕", title: "Carmen's café", setting: "Carmen's café, Saturday morning. Sofía is already at the table." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¡Hola! ¿Qué quieres?", audioText: "¡hola! ¿qué quieres?", gloss: "Hi! What do you want?" }
+            goal: "Order a coffee."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un café" }
+                - { id: "wrong1", text: "me gusta el café" }
+                - { id: "wrong2", text: "es un café" }
+              correctOptionId: "right"
+              audioText: "quiero un café"
+            replyGloss: "I want a coffee."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Tienes hambre?", audioText: "¿tienes hambre?", gloss: "Are you hungry?" }
+            goal: "Say yes — order some bread."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero pan" }
+                - { id: "wrong1", text: "no, tengo sed" }
+                - { id: "wrong2", text: "es un pan" }
+              correctOptionId: "right"
+              audioText: "sí, quiero pan"
+            replyGloss: "Yes, I want bread."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¡Sam! ¿Te gusta el café aquí?", audioText: "¡Sam! ¿te gusta el café aquí?", gloss: "Sam! Do you like the coffee here?" }
+            goal: "Say yes, you like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta" }
+                - { id: "wrong1", text: "sí, quiero" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta"
+            replyGloss: "Yes, I like it."
+            explanation: "She asked what you generally think of it — «me gusta», not «quiero»."
+          - id: t4
+            npc: { speaker: "Carmen", es: "¡Aquí está! ¿Todo bien?", audioText: "¡aquí está! ¿todo bien?", gloss: "Here it is! Everything good?" }
+            goal: "Say it's delicious!"
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¡qué rico!" }
+                - { id: "wrong1", text: "tengo sed" }
+                - { id: "wrong2", text: "no hay" }
+              correctOptionId: "right"
+              audioText: "¡qué rico!"
+            replyGloss: "How tasty!"
+          - id: t5
+            npc: { speaker: "Carmen", es: "¿Algo más?", audioText: "¿algo más?", gloss: "Anything else?" }
+            goal: "No thanks — just the check, please."
+            reply:
+              mode: build
+              tiles: ["no", "gracias", "la", "cuenta", "por", "favor"]
+              answer: "no gracias la cuenta por favor"
+              alsoAccepted: ["la cuenta por favor", "la cuenta por favor no gracias"]
+            replyGloss: "No thanks — the check, please."
+            explanation: "The whole module in one line: you ordered, you said what you liked, you tasted it — and now you can ask for the check yourself."
+
+  # ── L10 · mastery — María visits, ends on sim. ────────────────────────
+  - n: 10
+    template: free
+    title: "Prove it — then María visits"
+    description: "Every pair, every dish, no help — and María drops by for a coffee."
+    steps:
+      - kind: clozeLit
+        id: m-cloze-1
+        es: "quiero un té"
+        en: "I want a tea"
+        blank: "quiero"
+        options: ["quiero", "me gusta"]
+        atoms: ["quiero", "un", "té"]
+      - kind: buildLit
+        id: m-build-1
+        es: "me gusta el pan"
+        en: "I like bread"
+        atoms: ["me gusta", "el", "pan"]
+        tiles: ["un", "quiero"]
+      - kind: audioWimcq
+        id: m-ear-1
+        target: { surface: "tengo hambre", emoji: "🍽️" }
+        distractors:
+          - { surface: "tengo sed", emoji: "🥤" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: clozeLit
+        id: m-cloze-2
+        es: "quiero el queso"
+        en: "I want the cheese"
+        blank: "quiero"
+        options: ["quiero", "quieres"]
+        atoms: ["quiero", "el", "queso"]
+        why: "You're saying what YOU want — «quiero»."
+      - kind: listenCompLit
+        id: m-lc-1
+        es: "me gusta la leche"
+        en: "I like milk."
+        atoms: ["me gusta", "la", "leche"]
+        distractorsEn:
+          - "I want milk."
+          - "I have milk."
+          - "I like coffee."
+      - kind: speakLit
+        id: m-sp-1
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-cuenta
+        target: "cuenta"
+        distractors: ["café", "pan", "queso"]
+      - kind: listenBuildLit
+        id: m-lb-1
+        es: "tengo sed pero quiero sopa"
+        en: "I'm thirsty but I want soup"
+        atoms: ["tengo sed", "pero", "quiero", "sopa"]
+        tiles: ["y", "el"]
+      - kind: audioWimcq
+        id: m-ear-2
+        target: { surface: "el pollo", emoji: "🍗" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "el pan", emoji: "🍞" }
+      - kind: buildLit
+        id: m-build-2
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: ["la", "cuenta", "por favor"]
+        tiles: ["el", "gracias"]
+      - kind: clozeLit
+        id: m-cloze-3
+        es: "me gusta el queso"
+        en: "I like cheese"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["me gusta", "el", "queso"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "me gusta", target: "I like it" }
+          - { source: "tengo hambre", target: "I'm hungry" }
+          - { source: "tengo sed", target: "I'm thirsty" }
+          - { source: "la cuenta", target: "the check" }
+          - { source: "¡qué rico!", target: "how tasty!" }
+      - kind: sim
+        id: m-sim-maria
+        scene: { emoji: "☕", title: "María's café day", setting: "The little café by the bus depot — María helps out there on Saturdays." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¡Hola, Sam! ¿Qué quieres?", audioText: "¡hola, Sam! ¿qué quieres?", gloss: "Hi Sam! What do you want?" }
+            goal: "Order a tea this time."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero un té" }
+                - { id: "wrong1", text: "me gusta el té" }
+                - { id: "wrong2", text: "hay un té" }
+              correctOptionId: "right"
+              audioText: "quiero un té"
+            replyGloss: "I want a tea."
+          - id: t2
+            npc: { speaker: "María", es: "¿Quieres pan o queso?", audioText: "¿quieres pan o queso?", gloss: "Do you want bread or cheese?" }
+            goal: "Pick the cheese."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero queso" }
+                - { id: "wrong1", text: "quiero pan" }
+                - { id: "wrong2", text: "me gusta" }
+              correctOptionId: "right"
+              audioText: "quiero queso"
+            replyGloss: "The cheese, please."
+          - id: t3
+            npc: { speaker: "María", es: "Mmm, ¡qué rico! ¿Te gusta?", audioText: "mmm, ¡qué rico! ¿te gusta?", gloss: "Mmm, how tasty! Do you like it?" }
+            goal: "Say yes, you like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta" }
+                - { id: "wrong1", text: "sí, quiero" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta"
+            replyGloss: "Yes, I like it."
+          - id: t4
+            npc: { speaker: "María", es: "¿Algo más?", audioText: "¿algo más?", gloss: "Anything else?" }
+            goal: "No thanks — ask for the check."
+            reply:
+              mode: build
+              tiles: ["no", "gracias", "la", "cuenta", "por", "favor"]
+              answer: "no gracias la cuenta por favor"
+              alsoAccepted: ["la cuenta por favor", "la cuenta por favor no gracias"]
+            replyGloss: "No thanks — the check, please."
+          - id: t5
+            npc: { speaker: "María", es: "¡Aquí está! Hasta luego, Sam.", audioText: "¡aquí está! hasta luego, Sam.", gloss: "Here it is! See you later, Sam." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+
+placement:
+  screener:
+    - id: "es-m7-scr-1"
+      prompt: "Which one means 'I want'?"
+      correct: "quiero"
+      distractors: ["quieres", "me gusta", "tengo"]
+  byModule:
+    - id: "es-m7-pl-1"
+      prompt: "I want a coffee."
+      correct: "quiero un café"
+      distractors: ["me gusta un café", "quiero el café", "hay un café"]
+    - id: "es-m7-pl-2"
+      prompt: "I like coffee (in general)."
+      correct: "me gusta el café"
+      distractors: ["quiero el café", "me gusta un café", "es el café"]
+    - id: "es-m7-pl-3"
+      prompt: "I'm hungry."
+      correct: "tengo hambre"
+      distractors: ["tengo sed", "quiero hambre", "es hambre"]
+    - id: "es-m7-pl-4"
+      prompt: "The check, please."
+      correct: "la cuenta por favor"
+      distractors: ["el cuenta por favor", "la cuenta por gracias", "quiero la cuenta"]

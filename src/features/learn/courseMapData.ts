@@ -207,6 +207,14 @@ export const COURSE_MILESTONES: Record<string, Record<number, string>> = {
     // 2026-08-21: §13-doctrine course restarts at m1/m2; more as m3+ lands.
     0: "Greet people & count to 10",
     1: "Hold the café conversation",
+    2: "Name & count the things around you",
+    3: "Ask where anything is — and answer",
+    4: "Talk about your people",
+    5: "Describe what you see",
+    6: "Order at the café",
+    7: "Plan your week",
+    8: "Say where you're going",
+    9: "Run your first verb machine",
   },
   fr: {
     0: "Greet people & count to 10",
