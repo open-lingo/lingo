@@ -1,6 +1,14 @@
 # Handoff — N4 authoring wave (m34–m38), session of 2026-08-24/25
 
-**Written pre-compaction at Spencer's request. This is the resume-point.**
+> **STATUS: HISTORICAL — WAVE SHIPPED 2026-08-25.** m34–m38 committed
+> (3e273ad8, 5466a3b5, 3957a7f3), pushed together with the ES m3–m10 wave,
+> and live on app.openlingoapp.com (Spencer waived the pre-push walk). The
+> first two deploys failed on the vite-plugin-pwa 4 MiB precache cap —
+> raised to 8 MiB (038eadf8); push-to-main preflight doctrine now in
+> CLAUDE.md (6fabd439). The Needs-Spencer items below remain open EXCEPT #1
+> (ship call — resolved: shipped). Everything else is a record, not a plan.
+
+**Written pre-compaction at Spencer's request. This was the resume-point.**
 Spencer's standing instruction this run: *"deploy to prod … then author the
 next 5 modules (m34–m38), be efficient, use sonnet agents wherever possible,
 use local models where we can, good use of dialogue_sim where natural, ping
