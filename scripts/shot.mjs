@@ -22,7 +22,7 @@ import path from "node:path";
 
 const BASE = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173";
 const AUTH = ".auth/user.json";
-const OUT = "/tmp/shot.png";
+const OUT = process.env.SHOT_OUT ?? "/tmp/shot.png";
 const SETTINGS_KEY = "open-lingo-settings";
 
 const args = process.argv.slice(2);

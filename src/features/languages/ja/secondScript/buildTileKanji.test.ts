@@ -6,12 +6,20 @@
  * catalog so a schedule move can't stale-fail these tests.
  */
 import { describe, expect, it } from "vitest";
-import { resolveBuildTileKanji } from "./buildTileKanji";
+import {
+  auxiliarySuppressedTiles,
+  resolveBuildTileKanji,
+} from "./buildTileKanji";
 import { KANJI_ELIGIBLE_ATOMS } from "./applyKanjiSurfaces";
 import { resolveEligibleKanjiAtomId } from "../grammarHelpers";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
 import { ADJ_ENTRIES } from "../conjugationTables";
 import { conjugateIAdj } from "../conjugationEngine";
+import {
+  getAvailableMockLessonIds,
+  getMockLessonContent,
+} from "@/features/lesson/data/mockLessons";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 
 // atomId → kana lookup for the round-trip test.
 const atomIdKana = new Map(JA_COURSE_ATOMS.map((a) => [a.id, a.kana]));
@@ -137,6 +145,100 @@ describe("resolveBuildTileKanji", () => {
       // citation resolver (which refuses it as a homograph), never the
       // inflected map.
       expect(resolveBuildTileKanji("した", 99)).toBeNull();
+    });
+  });
+
+  describe("auxiliary-position suppression (Spencer prod QA 2026-08-21 — 見る on m30's てみる helper tile)", () => {
+    const REPRO_SENT = "この りょうりを たべてみる。";
+    const REPRO_ORDER = ["この", "りょうり", "を", "たべて", "みる"];
+
+    it("suppresses the helper tile glued behind its て-form — which WOULD kanji-fy", () => {
+      const s = auxiliarySuppressedTiles(REPRO_SENT, REPRO_ORDER);
+      expect([...s]).toEqual(["みる"]);
+      // The hazard is real: unsuppressed, the resolver kanji-fies the helper.
+      expect(resolveBuildTileKanji("みる", 30)?.surface).toBe("見る");
+    });
+
+    it("covers the helper's whole inflection family (the inflected-map path)", () => {
+      for (const [form, sent, order] of [
+        ["みた", "りょうりを たべてみた。", ["りょうり", "を", "たべて", "みた"]],
+        ["みない", "りょうりを たべてみない？", ["りょうり", "を", "たべて", "みない"]],
+        ["みたい", "りょうりを たべてみたい。", ["りょうり", "を", "たべて", "みたい"]],
+      ] as const) {
+        expect(auxiliarySuppressedTiles(sent, [...order]).has(form)).toBe(true);
+        expect(
+          resolveBuildTileKanji(form, 30),
+          `${form} would kanji-fy unsuppressed`,
+        ).not.toBeNull();
+      }
+    });
+
+    it("a SPACED verb after a て-form clause is sequential, not auxiliary — keeps kanji", () => {
+      const order = ["あさごはん", "を", "たべて", "がっこう", "に", "いく"];
+      expect(
+        auxiliarySuppressedTiles("あさごはんを たべて がっこうに いく。", order)
+          .size,
+      ).toBe(0);
+    });
+
+    it("suppression is orthography-driven, not catalog-driven (〜ておく / んで-glue)", () => {
+      // おく never resolves today (置 absent from anchorVocab) — suppression
+      // still names it, so a future catalog add cannot regress 〜ておく.
+      expect(
+        auxiliarySuppressedTiles("でんきを つけておく。", [
+          "でんき",
+          "を",
+          "つけて",
+          "おく",
+        ]).has("おく"),
+      ).toBe(true);
+      // で-glued te-forms (のんでみる) are the same slot.
+      expect(
+        auxiliarySuppressedTiles("おちゃを のんでみる。", [
+          "おちゃ",
+          "を",
+          "のんで",
+          "みる",
+        ]).has("みる"),
+      ).toBe(true);
+    });
+
+    it("the て-form MAIN verb itself still kanji-fies", () => {
+      expect(auxiliarySuppressedTiles(REPRO_SENT, REPRO_ORDER).has("たべて")).toBe(
+        false,
+      );
+      expect(resolveBuildTileKanji("たべて", 30)?.surface).toBe("食べて");
+    });
+
+    it("live-course sweep: suppression engages on every glued-helper bank", () => {
+      // Counts, not tautologies: how many build/listening steps carry a glued
+      // helper, and how many of those tiles the resolver WOULD kanji-fy. m30
+      // alone authors ~50 build + ~7 listening てみる/てみた/てみない steps,
+      // so both floors prove the guard is live, not vacuous.
+      let gluedHelperSteps = 0;
+      let wouldHaveKanjified = 0;
+      for (const id of getAvailableMockLessonIds()) {
+        const lesson = getMockLessonContent(id);
+        if (!lesson || lesson.languageId !== "ja") continue;
+        const m = /^m(\d+)$/.exec(lesson.moduleId);
+        const moduleIndex = m ? parseInt(m[1], 10) : parseModuleIndex(lesson.id);
+        for (const step of lesson.steps) {
+          if (step.type !== "build_sentence" && step.type !== "listening_build")
+            continue;
+          if (step.granularity !== "word") continue;
+          const suppressed = auxiliarySuppressedTiles(
+            step.targetSentence,
+            step.correctOrder,
+          );
+          if (suppressed.size === 0) continue;
+          gluedHelperSteps++;
+          for (const kana of suppressed) {
+            if (resolveBuildTileKanji(kana, moduleIndex)) wouldHaveKanjified++;
+          }
+        }
+      }
+      expect(gluedHelperSteps).toBeGreaterThan(40);
+      expect(wouldHaveKanjified).toBeGreaterThan(30);
     });
   });
 

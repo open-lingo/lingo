@@ -196,3 +196,46 @@ export function resolveBuildTileKanji(
   if (moduleIndex < inflected.unlockModule) return null;
   return { surface: inflected.surface, reading: kana, atomId: inflected.atomId };
 }
+
+/**
+ * AUXILIARY-POSITION SUPPRESSION (Spencer prod QA 2026-08-21: m30's build
+ * banks rendered 「たべてみる」's helper tile as 見る). A verb parked behind a
+ * て-form (〜てみる / 〜ておく / 〜ていく / 〜てくる / 〜てしまう / 〜てある …)
+ * is an AUXILIARY — its lexical meaning is bleached and Japanese orthography
+ * keeps it in kana, never its own kanji. The sentence-display path gets this
+ * for free (`buildSentenceAnnotation` leaves an unspaced multi-word run
+ * un-atomed), but the compiler tokenizes the closed run into separate tiles
+ * (たべて · みる) and per-tile resolution cannot see the neighbour.
+ *
+ * The authored orthography IS the signal (m30 IR convention: every て+helper
+ * surface is written CLOSED; ordinary sequenced verbs are space-separated).
+ * So a tile is auxiliary-position iff its predecessor in `correctOrder` ends
+ * in て/で AND the pair appears GLUED in the authored `targetSentence`:
+ * 「たべてみる」 suppresses みる; 「たべて がっこうに いく」 (sequential,
+ * spaced) keeps 行く.
+ *
+ * Deliberately NOT a helper-lemma list: a list would need every future helper
+ * module (m35 てくれる, m38 てしまう/ていく, m41 てある) plus every inflected
+ * form (みた/みない/みたい…), and one miss ships the bug again. Any tile glued
+ * to a て-form is one predicate with it, and kana is always correct there.
+ * This also keeps 〜ておく safe the day 置 enters the rollout catalog — today
+ * its tiles stay kana only because oku is absent from `anchorVocab`.
+ *
+ * Returns the suppressed KANA strings (the bank keys tiles by kana), so an
+ * identical-kana distractor renders consistently with the answer tile.
+ */
+export function auxiliarySuppressedTiles(
+  targetSentence: string | undefined,
+  correctOrder: readonly string[],
+): ReadonlySet<string> {
+  const suppressed = new Set<string>();
+  if (!targetSentence) return suppressed;
+  for (let i = 1; i < correctOrder.length; i++) {
+    const prev = correctOrder[i - 1];
+    if (!prev.endsWith("て") && !prev.endsWith("で")) continue;
+    if (targetSentence.includes(prev + correctOrder[i])) {
+      suppressed.add(correctOrder[i]);
+    }
+  }
+  return suppressed;
+}

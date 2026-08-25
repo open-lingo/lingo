@@ -96,7 +96,12 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // their kanji form (furigana until FSRS-mastered) on bank/tray/ghost
   // tiles alike. Grading (`placed` vs `correctOrder` above) stays kana.
   // Character-granularity kana-row banks are excluded inside the hook.
-  const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
+  const tileKanji = useBuildTileKanji(
+    step.tiles,
+    step.granularity,
+    step.targetSentence,
+    step.correctOrder,
+  );
 
   // Romaji peek on character-build tiles (Spencer 2026-07-19): hover-dwell
   // or tap reveals a tile's romaji, forced past the global script guard —

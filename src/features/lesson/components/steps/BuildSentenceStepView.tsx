@@ -226,7 +226,12 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // and every comparison above stay the kana strings — only the painted
   // glyphs change, via `BuildTileSurface`. Character builds are excluded
   // inside the hook (kana decoding — kana IS the content).
-  const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
+  const tileKanji = useBuildTileKanji(
+    step.tiles,
+    step.granularity,
+    step.targetSentence,
+    step.correctOrder,
+  );
 
   // Two independent axes (Spencer 2026-06-13):
   //  - SIZE: small banks (≤6 tiles, words or short sentences) get

@@ -30,7 +30,10 @@ import { KanjiRuby } from "@/shared/readingAnnotation/KanjiRuby";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import { getCardState, isMastered } from "@/features/flashcards/engine";
-import { resolveBuildTileKanji } from "@/features/languages/ja/secondScript/buildTileKanji";
+import {
+  auxiliarySuppressedTiles,
+  resolveBuildTileKanji,
+} from "@/features/languages/ja/secondScript/buildTileKanji";
 
 /** Hover dwell before a character-build tile's romaji peek fires. Long
  *  enough that a passing cursor doesn't leak the answer, short enough to
@@ -92,18 +95,27 @@ export type BuildTileDisplay = {
 /**
  * kana tile → kanji display map for a build step's bank. Empty for
  * character-granularity builds (kana decoding — excluded by ruling) and
- * outside a lesson (`useLessonModuleIndex() === null`).
+ * outside a lesson (`useLessonModuleIndex() === null`). Tiles in AUXILIARY
+ * position (glued behind a て/で-form in the authored sentence — 〜てみる,
+ * 〜ておく, …) are excluded: the helper verb is written in kana, and the
+ * per-tile resolver alone cannot see the neighbour that makes it one
+ * (`auxiliarySuppressedTiles` — Spencer prod QA 2026-08-21, 見る on m30's
+ * てみる helper tile).
  */
 export function useBuildTileKanji(
   tiles: readonly string[],
   granularity: "word" | "character",
+  targetSentence: string | undefined,
+  correctOrder: readonly string[],
 ): ReadonlyMap<string, BuildTileDisplay> {
   const moduleIndex = useLessonModuleIndex();
   const revision = useSRSStoreRevision();
   return useMemo(() => {
     const map = new Map<string, BuildTileDisplay>();
     if (granularity === "character") return map; // kana IS the content
+    const suppressed = auxiliarySuppressedTiles(targetSentence, correctOrder);
     for (const kana of new Set(tiles)) {
+      if (suppressed.has(kana)) continue; // auxiliary position → stays kana
       const resolved = resolveBuildTileKanji(kana, moduleIndex);
       if (!resolved) continue;
       map.set(kana, {
@@ -113,7 +125,7 @@ export function useBuildTileKanji(
     }
     return map;
     // `revision` re-reads mastery after an SRS store change (sync/review).
-  }, [tiles, granularity, moduleIndex, revision]);
+  }, [tiles, granularity, targetSentence, correctOrder, moduleIndex, revision]);
 }
 
 /**
