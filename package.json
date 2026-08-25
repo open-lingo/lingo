@@ -10,6 +10,7 @@
     "dev": "vite --port 5173 --strictPort",
     "dev:live": "vite --mode live --port 5173 --strictPort",
     "build": "tsc -b && vite build",
+    "preflight": "tsc -b && vitest run && CI=true vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",

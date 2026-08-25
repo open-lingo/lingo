@@ -169,9 +169,25 @@ jobs:
           aws cloudfront create-invalidation \
             --distribution-id "${{ vars.LINGO_CLOUDFRONT_DIST_ID }}" \
             --paths "/index.html" "/" "/sw.js" "/manifest.webmanifest"
-      - name: verify site responds
+      - name: verify site serves THIS deploy
+        # A 200 alone proves nothing — the edge happily serves a stale (or
+        # older, coherent) bundle while a deploy half-lands. Assert the live
+        # index.html references the same entry chunk as the dist/ we just
+        # uploaded, retrying while the invalidation propagates.
         run: |
-          sleep 10
-          status=$(curl -s -o /dev/null -w "%{http_code}" https://app.openlingoapp.com)
-          echo "Site returned HTTP $status"
-          test "$status" = "200"
+          built=$(grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' dist/index.html | head -1)
+          echo "built entry: $built"
+          test -n "$built"
+          for i in $(seq 1 9); do
+            served=$(curl -s https://app.openlingoapp.com/index.html \
+              | grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' | head -1) || true
+            echo "attempt $i: served entry: ${served:-<none>}"
+            if [ "$served" = "$built" ]; then
+              status=$(curl -s -o /dev/null -w "%{http_code}" "https://app.openlingoapp.com/$built")
+              echo "entry chunk fetch: HTTP $status"
+              test "$status" = "200" && exit 0
+            fi
+            sleep 20
+          done
+          echo "::error::Live site never served this deploy's index.html (built $built)."
+          exit 1

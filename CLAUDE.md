@@ -28,14 +28,18 @@ product; volume is not.
   m3–m29 authored `ja-m*-neo-*` lessons compiled from YAML IR. The old course is
   ARCHIVED under `features/languages/ja/curriculum/_archive/` (planning reference
   only — imported by nothing; authoring agents never see it).
-- **Spanish, French — RESTARTED under the doctrine (guide §13, 2026-08-21).**
-  Both courses now serve the hand-authored, learner-sim-hardened m1/m2
-  (9+10 lessons each); the July/August IR waves are ARCHIVED under each
-  language's `curriculum/_archive/` (spine/word-list reference only). FR is
-  selectable (Denise voice auditioned and passed). `/:lang/qa/m1-lesson-1`
-  and `/:lang/qa/m2` walk the SAME promoted content through the real render
-  pipeline. m3+ re-authoring is the next wave (IR emitters for the new step
-  kinds first — see the ES guide §13 and [[FR course state]]).
+- **Spanish — m1–m10 LIVE (2026-08-25), the complete §13-doctrine beginner
+  tier** (frameless IR pipeline, learner-sim-hardened, silent-build Later
+  affordance on speaking steps). `/es/qa/m3`…`/es/qa/m10` walk the promoted
+  content through the real render pipeline. m11+ is GATED on Spencer's
+  personal walk (first-conjugation-module checkpoint law). The July/August
+  IR waves are ARCHIVED under `curriculum/_archive/` (spine/word-list
+  reference only).
+- **French — RESTARTED under the doctrine (guide §13, 2026-08-21).** Serves
+  the hand-authored m1/m2; FR is selectable (Denise voice passed). m3+
+  re-authoring follows the ES pattern ([[FR course state]]).
+- **Japanese N4 — m30–m38 authored and live** (dialogue_sim from m34;
+  volitional/ba conjugation support).
 
 ---
 
@@ -94,6 +98,17 @@ Don't trust `docs/tasks/*.md` as current state.
 
 **Ask first**
 - Commits and pushes (only when asked; branch off `main` first if you do).
+
+**Before ANY push to main** (a push = a prod deploy):
+- `npm run preflight` — tsc + full suite + `CI=true` prod build. The CI=true
+  matters: vite-plugin-pwa only hard-fails over-cap precache assets under CI;
+  a plain local build silently drops them (that split shipped nothing on
+  2026-08-25 while looking green locally).
+- After pushing, confirm the deploy RUN CONCLUSION (`gh run watch <id>
+  --exit-status`; check `$?` directly or `${PIPESTATUS[0]}` — piping through
+  `tail` swallows the exit code and has caused a false "deploy succeeded"
+  report). A red `ci`/`deploy` on main opens a 🚨 issue via `red-main.yml`;
+  while one is open, fix forward or revert — don't stack unrelated pushes.
 - Anything hard to reverse or outward-facing (deploys, external sends).
 - Relaxing a Spencer invariant (below) or an SRS write-surface rule.
 

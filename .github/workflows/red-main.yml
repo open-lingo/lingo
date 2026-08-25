@@ -1,0 +1,55 @@
+name: red-main
+
+# Stop-the-line alarm: when ci or deploy fails ON MAIN, open (or bump) a
+# single pinned-by-title issue so the failure is impossible to miss from
+# the repo home / notifications. Closes it again on the next green run of
+# the same workflow.
+#
+# Why this exists: main sat red and undeployable 2026-08-22 → 2026-08-25
+# (unit tests) and again 2026-08-25 (SW precache cap) with nobody aware —
+# red runs only surface if someone happens to read the Actions tab.
+# History shows red-while-shipping trains everyone to ignore ci
+# (mobile-e2e was red for ~12 straight runs 08-03 → 08-07).
+
+on:
+  workflow_run:
+    workflows: [ci, deploy]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  issues: write
+
+jobs:
+  alarm:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TITLE: "\U0001F6A8 main is red: ${{ github.event.workflow_run.name }}"
+      RUN_URL: ${{ github.event.workflow_run.html_url }}
+      SHA: ${{ github.event.workflow_run.head_sha }}
+      HEAD_MSG: ${{ github.event.workflow_run.display_title }}
+    steps:
+      - name: open or close the alarm issue
+        run: |
+          set -euo pipefail
+          REPO="${{ github.repository }}"
+          EXISTING=$(gh issue list --repo "$REPO" --state open \
+            --search "in:title \"$TITLE\"" --json number \
+            --jq '.[0].number // empty')
+          if [ "${{ github.event.workflow_run.conclusion }}" = "failure" ]; then
+            BODY="Failing run: $RUN_URL
+          Commit: \`${SHA:0:9}\` — $HEAD_MSG
+
+          main does not deploy while this is open. Fix forward or revert; do not push unrelated work on top. Run \`npm run preflight\` locally before the fix-push."
+            if [ -n "$EXISTING" ]; then
+              gh issue comment "$EXISTING" --repo "$REPO" --body "Still red: $RUN_URL (\`${SHA:0:9}\` — $HEAD_MSG)"
+            else
+              gh issue create --repo "$REPO" --title "$TITLE" --body "$BODY"
+            fi
+          else
+            if [ -n "$EXISTING" ]; then
+              gh issue close "$EXISTING" --repo "$REPO" \
+                --comment "Green again: $RUN_URL (\`${SHA:0:9}\`)"
+            fi
+          fi
