@@ -1,5 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+
+// Deploys purge old hashed chunks from S3 (`aws s3 sync --delete`), so a tab
+// whose HTML predates the deploy throws "Failed to fetch dynamically imported
+// module" on its next lazy navigation. Vite fires `vite:preloadError` for
+// exactly this; one reload picks up the new index.html. The sessionStorage
+// guard stops a reload loop when a chunk is missing for some other reason —
+// cleared on success so the NEXT deploy gets its reload too.
+window.addEventListener("vite:preloadError", (event) => {
+  const RELOADED_KEY = "chunk-reload-at";
+  const last = Number(sessionStorage.getItem(RELOADED_KEY) ?? 0);
+  if (Date.now() - last < 30_000) return; // just reloaded and still failing
+  sessionStorage.setItem(RELOADED_KEY, String(Date.now()));
+  event.preventDefault(); // suppress the unhandled rejection; we're handling it
+  window.location.reload();
+});
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "@/shared/i18n/i18n";
