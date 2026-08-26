@@ -5,6 +5,28 @@ Xcode project). This doc answers: what's left to publish, what unauthenticated
 users can do to us, and the dollar ceiling on abuse — with the cheap caps that
 shrink it.
 
+> **STATUS UPDATE 2026-08-26.** The app is rebranded **Linguiversal**
+> (bundle `com.linguiversal.app`, name confirmed as owned by Trevor;
+> `capacitor.config.ts` / `NATIVE_APP_ID` / pbxproj all updated, Auth0
+> callback derives from the app id so no auth-code change was needed).
+> Done since this doc was written: §2.5 privacy manifest
+> (`ios/App/App/PrivacyInfo.xcprivacy`, wired into the Resources phase),
+> §2.6 `ITSAppUsesNonExemptEncryption=false`, §2.11 third-party KR
+> CloudFront URL stripped from `alphabetAudio.ts` + the CSP allowlist,
+> §2.4 privacy policy already live at `openlingoapp.com/privacy`.
+> `SURFACE_MODE=beta` code is pushed/deployed (lingo-core `5c5241e`) but
+> the **env var is not yet set on the Lambda** — that plus the §3
+> mitigations are written up as concrete asks in
+> **`lingo-infra/docs/appstore-beta-infra-asks-2026-08-26.md`** (Trevor).
+> Still open: Auth0 Native app + real-auth `.env.native` flip (the shipped
+> build is still the auth-bypass demo), Option B cold-start (persist the
+> `/boot` snapshot in `bootCache.ts`, un-gate home paint), a frontend walk
+> against a beta-mode backend (quests/social/community/decks routers
+> un-mount — verify graceful degradation or widen `_BETA_GROUPS`),
+> Sign-in-with-Apple check on the Auth0 tenant, the App Store Connect
+> record, store assets, and the display-name decision (Info.plist and the
+> marketing site still say "Open Lingo").
+
 ## 1. Where the iOS app already stands
 
 Done and verified in the repo:

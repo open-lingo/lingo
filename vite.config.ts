@@ -38,11 +38,7 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
   // or every clip is blocked: `fetch`+decodeAudioData by connect-src, the
   // <audio> element path by media-src falling back to default-src.
   const assetOrigin = originOf(env.VITE_ASSET_BASE_URL);
-  const mediaHosts = [
-    assetOrigin,
-    // Third-party Hangul letter clips (shared/audio/alphabetAudio.ts).
-    "https://d27hu3tsvatwlt.cloudfront.net",
-  ].filter(Boolean) as string[];
+  const mediaHosts = [assetOrigin].filter(Boolean) as string[];
 
   // AdSense hosts were removed 2026-07-29 — ads + subscriptions are deferred,
   // and the allowances were doing active harm: `frame-src` listed ONLY the ad

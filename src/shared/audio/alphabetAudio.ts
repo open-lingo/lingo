@@ -1,13 +1,6 @@
 import { playLocalAudio } from "./volume";
 
 export function getAlphabetAudioUrl(audioKey: string): string {
-  // For Hangul we currently store the Romanization (e.g. "a", "eo", "g") as the audioKey.
-  // The CDN pattern provided is:
-  // https://d27hu3tsvatwlt.cloudfront.net/mfsource/kr/main/alpha_m/kr-m-zy-{romanization}.mp3
-  //
-  // If in the future we want to support multiple languages or different patterns,
-  // we can add language/alphabet-specific routing here.
-
   if (!audioKey) return "";
 
   // If the key already looks like a full or root-relative URL, return it
@@ -18,7 +11,11 @@ export function getAlphabetAudioUrl(audioKey: string): string {
     return audioKey;
   }
 
-  return `https://d27hu3tsvatwlt.cloudfront.net/mfsource/kr/main/alpha_m/kr-m-zy-${audioKey}.mp3`;
+  // Bare keys have no resolvable clip. KR used to fall back to a third-party
+  // CloudFront host here; that shipped an unlicensed URL in every bundle for
+  // a course we don't sell — stripped 2026-08-25 for App Store review. When
+  // KR ships, its clips go through our own /tts pipeline like JA.
+  return "";
 }
 
 // Track which auto-play keys have already been played in this session to avoid
