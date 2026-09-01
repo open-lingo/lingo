@@ -137,7 +137,9 @@ const ROW_M: KoRow = {
   words: [
     { word: "어머니", meaningEn: "mother",     emoji: "👩" },
     { word: "나무",   meaningEn: "tree",       emoji: "🌳" },
-    { word: "미",     meaningEn: "beauty (米/美)", emoji: "💫" },
+    // 무 replaced 미 (2026-08-26): 미 is a bound Sino root, not a standalone
+    // word for "beauty" — 무 is a real everyday noun and has TTS audio.
+    { word: "무",     meaningEn: "radish (daikon)", emoji: "🥬" },
   ],
   priorBlocks: [],
 };

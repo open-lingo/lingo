@@ -129,6 +129,7 @@
   "grammarPoints": [
     {
       "id": "janai-desu",
+      "variant": "ladder",
       "rule": "You have been saying 「じゃない」 since module 12 — it is how a noun sentence goes negative. 「わたしのじゃない」, it isn't mine. This lesson adds no new meaning at all. It adds the two other ways to say the same thing, because Japanese does not pick one way of saying something and use it everywhere: it picks the one that fits the person listening. To a friend it stays 「じゃない」. To anybody you are already using です with — a teacher, somebody you met an hour ago, the person at the next desk — it becomes 「じゃないです」. And when you want to sound careful, at a counter or on the phone to a company or in anything written down, it becomes 「じゃありません」. Three forms, one meaning, and the choice is not about the sentence. Now look at what actually changes: only the END. The noun in front never moves, the は never moves, and there is no polite version of the noun itself. Politeness in Japanese is carried once and it is carried at the end, which is exactly what です and ます taught you in module 7. One warning, because everyone walks into it: this whole family is for NOUNS and な-adjectives. An い-adjective goes negative on its own — 「たかくない」 — and 「たかいじゃない」 is not a sentence.",
       "examples": [
         {
@@ -155,6 +156,55 @@
       "antiPattern": {
         "ja": "この かぎは わたしのじゃないだ。",
         "why": "じゃない IS the finished negative — nothing follows it, and だ never sits on top of it: この かぎは わたしのじゃない。"
+      }
+    },
+    {
+      "id": "janai-desu",
+      "variant": "jan",
+      "rule": "Walk the module's ladder down one more rung and listen to what falls off. 「たかくないですか」 is how you nudge a teacher — isn't it expensive? Strip the polite skin and it is 「たかくない？」, the same nudge to a friend. Now say THAT fast, every day, for years, and the ない itself wears down to ん: 「たかいじゃん」. So じゃん is not a new word. It is じゃない with the ない worn off, and it does what the negative question has done since module 12 — pushes a claim at somebody while leaving them room to nod. What it pushes is something you BOTH already know. よ hands over news and ね collects agreement; じゃん appeals — come on, you can see it too — which is why it is the friendly protest: 「たかかったじゃん。」, it WAS expensive, remember? Two mechanical facts. It sits on a finished PLAIN sentence and nothing follows it. And — here the family tree misleads — じゃない glues only to nouns, but じゃん, worn smooth, rides anything: たかいじゃん is fine where 「たかいじゃない」 was never a sentence. One social fact, and it is the whole warning: じゃん lives in friend-register only. There is no polite じゃん and there does not need to be — the same move to a teacher is the ですね you already own.",
+      "examples": [
+        {
+          "ja": "この ぼうしは たかいじゃん。",
+          "en": "This hat's expensive, right?"
+        },
+        {
+          "ja": "たかかったじゃん。",
+          "en": "It was expensive, remember?"
+        },
+        {
+          "ja": "ひまじゃん。",
+          "en": "You're free, right?"
+        }
+      ],
+      "antiPattern": {
+        "ja": "せんせい たかいじゃん。",
+        "why": "じゃん is a friend-register ender — to a teacher the same move is たかいですね。"
+      }
+    },
+    {
+      "id": "ka-question",
+      "rule": "You have owned か since module 7, and か asks the WORLD: 「なんじですか。」 puts the question to somebody who knows. っけ turns the same question inward. 「なんじだっけ？」 is what time was it again? — you knew this once, and you are digging through your own memory in front of somebody, half inviting them to help. That is why っけ loves だ and た: it rides what was already settled — 「ごごからだっけ？」, it WAS from the afternoon, wasn't it. Mechanically it takes か's seat: っけ IS the question, so no か joins it and nothing follows it. Like じゃん, it is friend-register — to your teacher the memory check is still 「なんじですか」. And while you are at the warm end of the shelf, meet さ, which asks nothing at all: 「あのさ」 just keeps the sentence warm while you think, the way English says so— before the real sentence arrives. It rides あの, it means nothing except I'm still talking, stay with me, and you will hear it constantly. Spend it lightly.",
+      "examples": [
+        {
+          "ja": "なんじだっけ？",
+          "en": "What time was it again?"
+        },
+        {
+          "ja": "さんぽは ごごからだっけ？",
+          "en": "The walk's from this afternoon, right?"
+        },
+        {
+          "ja": "その おんがくは よかったっけ？",
+          "en": "Was that music good, again?"
+        },
+        {
+          "ja": "あのさ ごごから かいものに いくんだ。",
+          "en": "So — I'm going shopping this afternoon."
+        }
+      ],
+      "antiPattern": {
+        "ja": "なんじだっけか？",
+        "why": "っけ takes か's seat — it IS the question, so か never stacks on top of it: なんじだっけ？"
       }
     },
     {
@@ -444,6 +494,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     }
   ],
   "lessons": [
@@ -459,7 +541,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "janai-desu"
+          "grammarPointId": "janai-desu",
+          "variant": "ladder"
         },
         {
           "kind": "register",
@@ -2650,6 +2733,276 @@
       ]
     },
     {
+      "id": "m29-neo-14",
+      "role": "teaching",
+      "title": "「たかいじゃん」 — the enders you have not met yet",
+      "focus": "じゃん is じゃない said fast; っけ asks your own memory; さ keeps the sentence warm — and わ you only need to recognise",
+      "introduces": [
+        "じゃん",
+        "っけ",
+        "さ",
+        "わ"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "janai-desu",
+          "variant": "jan"
+        },
+        {
+          "kind": "rule",
+          "grammarPointId": "ka-question"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この ぼうしは たかいじゃん。",
+          "en": "Say to a friend: This hat's expensive, right?",
+          "exercises": [
+            "janai-desu",
+            "kono-sono-ano-dono",
+            "i-adj-present"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "この かさは たかいじゃん。",
+          "answer": "This umbrella's expensive, right?",
+          "distractors": [
+            "This umbrella isn't expensive.",
+            "Is this umbrella expensive?",
+            "This umbrella was expensive."
+          ],
+          "exercises": [
+            "janai-desu",
+            "i-adj-present"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "さんぽは ごごからだっけ？",
+          "en": "Say to a friend: The walk's from this afternoon, right?",
+          "exercises": [
+            "ka-question",
+            "kara-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "なんじ",
+          "tail": "？",
+          "answer": "だっけ",
+          "options": [
+            "だっけ",
+            "だよ",
+            "だね"
+          ],
+          "en": "What time was it again?",
+          "explanation": "だっけ digs into your own memory; だよ tells somebody news; だね checks that they agree — and you cannot check agreement about something you yourself have forgotten."
+        },
+        {
+          "kind": "sentence",
+          "ja": "あのさ ごごから かいものに いくんだ。",
+          "en": "Say to a friend: So — I'm going shopping this afternoon.",
+          "exercises": [
+            "n-desu",
+            "ni-iku",
+            "kara-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あのさ その くつ ちょっと たかくない？",
+          "en": "Say to a friend: So… aren't those shoes a bit expensive?",
+          "exercises": [
+            "chotto-softener",
+            "i-adj-negative"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "register",
+          "stage": 2,
+          "audience": "teacher",
+          "answer": "たかいですね",
+          "options": [
+            "たかいじゃん",
+            "たかいですね",
+            "たかくないです",
+            "たかいね"
+          ],
+          "en": "Say that's expensive.",
+          "exercises": [
+            "register-audience",
+            "ne-agreement"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ふゆは さむいわ。",
+          "q": "Who is most likely saying this?",
+          "answer": "An older woman",
+          "distractors": [
+            "A schoolboy",
+            "A shop clerk to a customer",
+            "A teacher in class"
+          ],
+          "explanation": "わ is a soft sentence-final emphasis you will mostly hear from older women — you only ever need to RECOGNISE it, never say it.",
+          "exercises": [
+            "yo-emphasis",
+            "i-adj-present"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "その おんがくは よかったっけ？",
+          "en": "Say to a friend: Was that music good, again?",
+          "exercises": [
+            "ka-question",
+            "i-adj-past"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sim",
+          "scene": {
+            "emoji": "☕",
+            "title": "After class",
+            "setting": "Ken catches you on the way out."
+          },
+          "exercises": [
+            "janai-desu",
+            "ka-question",
+            "nai-form",
+            "yes-no-register"
+          ],
+          "turns": [
+            {
+              "npc": {
+                "speaker": "Ken",
+                "ja": "ひまじゃん。コーヒー のむ？",
+                "en": "You're free, right? Coffee?"
+              },
+              "goal": "Agree — you are free.",
+              "reply": {
+                "mode": "choice",
+                "options": [
+                  "うん ひまだよ。",
+                  "ううん ひまじゃない。",
+                  "はい そうです。"
+                ],
+                "answer": "うん ひまだよ。"
+              },
+              "replyGloss": "Yeah, I'm free.",
+              "explanation": "Plain うん is the register with Ken. はい そうです would land oddly polite between friends, and ううん ひまじゃない declines the premise — no coffee for you."
+            },
+            {
+              "npc": {
+                "speaker": "Ken",
+                "ja": "あそこの コーヒー やすかったっけ？",
+                "en": "Was the coffee there cheap, again?"
+              },
+              "goal": "Tell him it was actually expensive.",
+              "reply": {
+                "mode": "build",
+                "tiles": [
+                  "たかかった",
+                  "じゃん",
+                  "やすかった",
+                  "よ",
+                  "ね",
+                  "。"
+                ],
+                "answer": "たかかったじゃん。"
+              },
+              "replyGloss": "No — it was expensive, remember?",
+              "explanation": "じゃん pushes back with something you both already know. たかかったよ would be telling him news; たかかったね would agree with him — and he is wrong."
+            },
+            {
+              "npc": {
+                "speaker": "Ken",
+                "ja": "どこで のむ？",
+                "en": "Where shall we drink it, then?"
+              },
+              "goal": "Suggest your place — the friendly way.",
+              "reply": {
+                "mode": "build",
+                "tiles": [
+                  "うち",
+                  "で",
+                  "のまない",
+                  "に",
+                  "いく",
+                  "？"
+                ],
+                "answer": "うちで のまない？"
+              },
+              "replyGloss": "Drink it at mine?",
+              "explanation": "で marks where the drinking happens — に would point a movement somewhere instead. And のまない？ borrows the negative to soften the ask, the same friendliness 「いかない？」 carries: a plain question with room to say no."
+            }
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "あの ぼうし たかいじゃん。",
+              "en": "That hat's expensive, right?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "そうだね。たかいけど いい ぼうしだよ。",
+              "en": "Yeah. It's expensive, but it's a good hat."
+            },
+            {
+              "speaker": "Mika",
+              "ja": "かう？",
+              "en": "Buying it, then?"
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika suggest at the end?",
+              "options": [
+                "Buying it anyway",
+                "Not buying it",
+                "Looking for a cheaper one",
+                "Asking the clerk"
+              ],
+              "answer": "Buying it anyway"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あのさ あねと した かいもの たかかったじゃん。",
+          "en": "Say to a friend: So — that shopping I did with my older sister, it was expensive, right?",
+          "combines": [
+            "janai-desu",
+            "ta-form",
+            "family-register",
+            "to-and"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "ぼうし",
+        "くつ",
+        "ふく",
+        "さいふ",
+        "かいもの",
+        "おんがく",
+        "コーヒー",
+        "さんぽ",
+        "ごご",
+        "ふゆ"
+      ]
+    },
+    {
       "id": "m29-neo-review-3",
       "role": "review",
       "title": "Review — who is listening, and what they already know",
@@ -3952,6 +4305,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6302,6 +6656,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {

@@ -103,6 +103,32 @@ const REVIEWED_EXEMPTIONS = new Map<string, string>([
       '"sounds like you\'re" (= "seems as if"), not the verb "to like"; ' +
       "nobody in the sentence likes anybody.",
   ],
+  [
+    "Both work — «te» is the friend-key, «vous» just sounds like you're at a counter.",
+    "fr-m6-4 register explanation — the same VERB-ADJACENT \"sounds like " +
+      "you're\" false positive as the m36-neo-5 entry.",
+  ],
+  [
+    "«jeudi» — zhuh-DEE. Friday's shorter, better-loved neighbor.",
+    "fr-m8-2 pronunciation quip — the \"neighbor\" is the weekday jeudi, " +
+      "personified; no human is liked.",
+  ],
+  [
+    "I love my family",
+    "fr-m7 «J'aime ma famille» — the module's arc payoff. Family affection " +
+      "is unambiguous in French and in the English gloss; the JA confession " +
+      "reading does not exist for aimer + famille, and FR deliberately " +
+      "teaches it (reviewed at the m7 authoring cycle, 2026-09-01).",
+  ],
+  [
+    "I love my family.",
+    "fr-m7 «J'aime ma famille.» — same review as the unpunctuated form.",
+  ],
+  [
+    "I love your family!",
+    "fr-m7 «J'aime ta famille !» — same review; the liked thing is the " +
+      "family as a household, not a person.",
+  ],
 ]);
 
 /**

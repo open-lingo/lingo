@@ -85,6 +85,13 @@ const FROZEN_UNREGISTERED: ReadonlySet<string> = new Set([
   "さむすぎる", "むずかしすぎる", "しずかすぎる", "ながすぎる", "なった",
   "ならない", "なりません",
   "よ", "ね",
+  // じゃん / っけ / さ / わ (m29-neo-14, the 2026-08-26 F18 ender insert) —
+  // bound sentence-final enders, the same ruling as よ/ね: registering them
+  // would put a decoration in the flashcard deck as though it were a word.
+  // じゃん additionally shatters nothing but IS じゃない-derived (じゃない with
+  // the ない worn off); it is declared without `derivedFrom` on purpose so
+  // its ruling lives HERE beside よ/ね instead of vanishing from the audit.
+  "じゃん", "っけ", "さ", "わ",
   // m30's two 〜とく contractions. The IR tags them `kind: vocab`, but かっとく
   // is かって + おく contracted — a derived form wearing a lemma's tag. They
   // are listed here rather than registered, because registering them would put

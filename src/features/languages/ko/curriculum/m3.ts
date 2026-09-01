@@ -38,6 +38,7 @@ import {
   translateStep,
   vocabMcq,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -165,6 +166,13 @@ const M3_3: LessonContent = {
       "If the word ends in a CONSONANT → 이에요 (학생 ends in ㅇ → 학생이에요). If it ends in a VOWEL → 예요 (친구 ends in ㅜ → 친구예요). Say them out loud — 예요 just glides on smoother after a vowel.",
       "tip",
     ),
+    // Standalone noun intros BEFORE the copula phrases that contain them —
+    // q-consonant grades 선생님 and lc grades 학생, so both need a real
+    // introduction first (intro-before-graded, enforced by
+    // __tests__/introBeforeGraded.test.ts). No emoji: 🧑‍🎓/🧑‍🏫 art is not
+    // bundled (see MCQ_POOL note above).
+    phrase("ko-m3-3-p-word-student", "student", "haksaeng", "학생"),
+    phrase("ko-m3-3-p-word-teacher", "teacher", "seonsaengnim", "선생님"),
     phrase("ko-m3-3-p-student", "(I) am a student", "haksaeng-ieyo", "학생이에요"),
     phrase("ko-m3-3-p-friend", "(it's a) friend", "chingu-yeyo", "친구예요"),
     sentenceMcq({
@@ -295,6 +303,17 @@ const M3_4B: LessonContent = {
       "선생님은 친구예요",
       "선생님 ends in a consonant → 은.",
     ),
+    // Compounding review (2026-09-01): the same rule on an M2 word.
+    cloze(
+      "ko-m3-4b-cloze-oppa",
+      "오빠",
+      "학생이에요",
+      "는",
+      ["는", "은", "이", "를"],
+      "As for my older brother, he's a student.",
+      "오빠는 학생이에요",
+      "오빠 (older brother — from M2) ends in a vowel → 는.",
+    ),
     sentenceMcq({
       id: "ko-m3-4b-q-topic",
       prompt: "저 ends in a vowel. Pick the correct topic marking for 'I'm a student.'",
@@ -352,6 +371,16 @@ const M3_5: LessonContent = {
       distractorsEn: ["Who are you?", "How are you?", "Where are you?"],
       exercisedAtomSurfaces: ["이름"],
     }),
+    // Compounding review (2026-09-01): 누구 ('who') is the M1 word this
+    // lesson's own MCQ explanation contrasts with 뭐 — hear it with the
+    // copula you just learned.
+    listeningCompSentence({
+      id: "ko-m3-5-lc-who",
+      audioText: "누구예요?",
+      correctMeaningEn: "Who is it?",
+      distractorsEn: ["What is your name?", "What is it?", "Where are you?"],
+      exercisedAtomSurfaces: ["누구"],
+    }),
     speaking("ko-m3-5-speak-ask", "이름이 뭐예요?", "What is your name?"),
   ],
 };
@@ -365,7 +394,7 @@ const M3_6: LessonContent = {
   languageId: "ko",
   title: "Numbers 1–10 (Sino-Korean)",
   description: "The Sino-Korean number set — used for dates, money, and phone numbers.",
-  estimatedMinutes: 6,
+  estimatedMinutes: 8,
   xpReward: 12,
   steps: [
     infoStep(
@@ -374,10 +403,14 @@ const M3_6: LessonContent = {
       "This is the SINO-KOREAN set (from Chinese): 일 이 삼 사 오 육 칠 팔 구 십. You'll use it for dates, money, minutes, and phone numbers. (There's also a native set — hana, dul, set — for counting things and age; that comes later.)",
       "culture",
     ),
+    // 1–5 taught, drilled, then 6–10 taught, drilled — every number gets an
+    // intro card BEFORE any graded step touches it (the original version
+    // graded 칠 cold and used untaught 이/사/오 as distractors).
     phrase("ko-m3-6-p-1", "one (1)", "il", "일", undefined, { emoji: "1️⃣" }),
+    phrase("ko-m3-6-p-2", "two (2)", "i", "이", undefined, { emoji: "2️⃣" }),
     phrase("ko-m3-6-p-3", "three (3)", "sam", "삼", undefined, { emoji: "3️⃣" }),
-    phrase("ko-m3-6-p-6", "six (6)", "yuk", "육", undefined, { emoji: "6️⃣" }),
-    phrase("ko-m3-6-p-10", "ten (10)", "sip", "십", undefined, { emoji: "🔟" }),
+    phrase("ko-m3-6-p-4", "four (4)", "sa", "사", undefined, { emoji: "4️⃣" }),
+    phrase("ko-m3-6-p-5", "five (5)", "o", "오", undefined, { emoji: "5️⃣" }),
     sentenceMcq({
       id: "ko-m3-6-q-three",
       prompt: "Which is 'three' (Sino-Korean)?",
@@ -386,6 +419,11 @@ const M3_6: LessonContent = {
       explanation: "삼 = 3. 사 = 4, 이 = 2, 오 = 5.",
       exercisedAtomSurfaces: ["삼"],
     }),
+    phrase("ko-m3-6-p-6", "six (6)", "yuk", "육", undefined, { emoji: "6️⃣" }),
+    phrase("ko-m3-6-p-7", "seven (7)", "chil", "칠", undefined, { emoji: "7️⃣" }),
+    phrase("ko-m3-6-p-8", "eight (8)", "pal", "팔", undefined, { emoji: "8️⃣" }),
+    phrase("ko-m3-6-p-9", "nine (9)", "gu", "구", undefined, { emoji: "9️⃣" }),
+    phrase("ko-m3-6-p-10", "ten (10)", "sip", "십", undefined, { emoji: "🔟" }),
     sentenceMcq({
       id: "ko-m3-6-q-seven",
       prompt: "Which is 'seven' (Sino-Korean)?",
@@ -400,6 +438,16 @@ const M3_6: LessonContent = {
       correctMeaningEn: "ten",
       distractorsEn: ["one", "six", "four"],
       exercisedAtomSurfaces: ["십"],
+    }),
+    // Compounding review (2026-09-01): 사 was an M1 reading anchor ("four,
+    // Sino") — recall it inside the full Sino set it belongs to.
+    sentenceMcq({
+      id: "ko-m3-6-q-four",
+      prompt: "'four' — you read this word back in M1. Which is it?",
+      correctHangul: "사",
+      distractorsHangul: ["삼", "육", "십"],
+      explanation: "사 = 4 — the same 사 you met as an M1 reading word.",
+      exercisedAtomSurfaces: ["사"],
     }),
     speaking("ko-m3-6-speak-count", "일 이 삼", "one two three"),
   ],
@@ -457,6 +505,11 @@ const M3_7: LessonContent = {
 };
 
 // ─── ko-m3-8 — Mastery test ─────────────────────────────────────────────────
+// Test rule (mirrors the JA mastery rubric): ALL-NEW sentences — no earlier
+// audioText or drilled sentence reused verbatim. The test transfers each rule
+// to fresh material (어머니, 지민, 민수-as-cloze, 감사합니다-as-listening)
+// instead of replaying the exact strings the lessons drilled. Steps that play
+// audio only use text verified present in the ko TTS manifest.
 
 const M3_8: LessonContent = {
   id: "ko-m3-8",
@@ -469,51 +522,59 @@ const M3_8: LessonContent = {
   xpReward: 16,
   steps: [
     sentenceMcq({
-      id: "ko-m3-8-q-hello",
-      prompt: "'Hello' (polite, all-purpose) —",
-      correctHangul: "안녕하세요",
-      distractorsHangul: ["안녕히 가세요", "감사합니다", "괜찮아요"],
+      id: "ko-m3-8-q-farewell",
+      prompt: "You're the one leaving; your friend is staying home. What do you say?",
+      correctHangul: "안녕히 계세요",
+      distractorsHangul: ["안녕히 가세요", "반갑습니다", "감사합니다"],
+      explanation: "계세요 = 'stay in peace' — said BY the person leaving TO the one staying.",
+      exercisedAtomSurfaces: ["안녕히 계세요"],
     }),
     sentenceMcq({
       id: "ko-m3-8-q-copula",
-      prompt: "학생 ends in a consonant. '(I) am a student' is…",
-      correctHangul: "학생이에요",
-      distractorsHangul: ["학생예요", "학생이예요", "학생에요"],
-      exercisedAtomSurfaces: ["학생", "이에요"],
+      prompt: "어머니 ('mother') ends in a vowel. '(She) is (my) mother' is…",
+      correctHangul: "어머니예요",
+      distractorsHangul: ["어머니이에요", "어머니이예요", "어머니에요"],
+      explanation: "Vowel ending → 예요. 어머니 + 예요.",
+      exercisedAtomSurfaces: ["어머니", "예요"],
     }),
     sentenceMcq({
       id: "ko-m3-8-q-intro",
-      prompt: "'I am a teacher.' (polite) —",
-      correctHangul: "저는 선생님이에요",
-      distractorsHangul: ["저가 선생님이에요", "저는 선생님예요", "저는 선생님을 이에요"],
-      exercisedAtomSurfaces: ["저", "선생님", "이에요"],
+      prompt: "Your name is 지민 (ends in the consonant ㄴ). 'I am Jimin' is…",
+      correctHangul: "저는 지민이에요",
+      distractorsHangul: ["저는 지민예요", "저는 지민이예요", "저가 지민이에요"],
+      explanation: "Consonant ending → 이에요, and 저는 (topic), not 저가.",
+      exercisedAtomSurfaces: ["저", "이에요"],
     }),
-    sentenceMcq({
-      id: "ko-m3-8-q-ask",
-      prompt: "'What is your name?' —",
-      correctHangul: "이름이 뭐예요?",
-      distractorsHangul: ["이름이 누구예요?", "이름은 뭐 입니다?", "이름이 뭐이에요?"],
-      exercisedAtomSurfaces: ["이름", "뭐"],
-    }),
+    cloze(
+      "ko-m3-8-cloze-topic",
+      "저",
+      "민수예요",
+      "는",
+      ["는", "은", "이", "가"],
+      "I am Minsu.",
+      "저는 민수예요",
+      "저 ends in a vowel → 는.",
+    ),
     sentenceMcq({
       id: "ko-m3-8-q-number",
-      prompt: "Which is 'three' (Sino-Korean)?",
-      correctHangul: "삼",
-      distractorsHangul: ["셋", "이", "사"],
-      exercisedAtomSurfaces: ["삼"],
+      prompt: "Which is 'nine' (Sino-Korean)?",
+      correctHangul: "구",
+      distractorsHangul: ["십", "육", "오"],
+      explanation: "구 = 9. 십 = 10, 육 = 6, 오 = 5.",
+      exercisedAtomSurfaces: ["구"],
     }),
     listeningCompSentence({
-      id: "ko-m3-8-lc-name",
-      audioText: "이름이 뭐예요?",
-      correctMeaningEn: "What is your name?",
-      distractorsEn: ["Nice to meet you", "I am a student", "Goodbye"],
-      exercisedAtomSurfaces: ["이름"],
+      id: "ko-m3-8-lc-thanks",
+      audioText: "감사합니다",
+      correctMeaningEn: "thank you (formal)",
+      distractorsEn: ["nice to meet you", "goodbye", "hello"],
+      exercisedAtomSurfaces: ["감사합니다"],
     }),
-    speaking("ko-m3-8-speak-recap", "저는 학생이에요", "I am a student"),
+    speaking("ko-m3-8-speak-bye", "안녕히 가세요", "goodbye (to someone leaving)"),
   ],
 };
 
-export const KO_M3_LESSONS: LessonContent[] = [
+export const KO_M3_LESSONS: LessonContent[] = withReviewInterleave("m3", [
   M3_1,
   M3_2,
   M3_3,
@@ -523,4 +584,4 @@ export const KO_M3_LESSONS: LessonContent[] = [
   M3_6,
   M3_7,
   M3_8,
-];
+]);

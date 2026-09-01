@@ -535,6 +535,27 @@ function MoreInfoPanel() {
             </a>{" "}
             · {t("landing.footerStrokeOrderHangul", "Hangul stroke data © Open Lingo")}
           </p>
+          <p>
+            {t("landing.footerNikl", "Korean frequency data: ")}
+            출처: 국립국어원 (
+            <a
+              href="https://www.korean.go.kr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-secondary hover:text-text-primary"
+            >
+              National Institute of Korean Language
+            </a>
+            ) ·{" "}
+            <a
+              href="https://www.kogl.or.kr/info/license.do"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-secondary hover:text-text-primary"
+            >
+              KOGL Type 1
+            </a>
+          </p>
         </div>
       </SettingsGroup>
     </Panel>

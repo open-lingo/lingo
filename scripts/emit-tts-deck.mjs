@@ -128,7 +128,13 @@ for (const path of sources) {
     for (const m of src.matchAll(re)) kanaSet.add(m[1]);
   }
   for (const m of src.matchAll(/distractors:\s*\[([^\]]+)\]/g)) {
-    for (const s of m[1].matchAll(/"([^"]+)"/g)) kanaSet.add(s[1]);
+    // Escape-aware quote pairing — the naive /"([^"]+)"/ desyncs on a
+    // \"-escaped string and silently swallows every string after it in the
+    // array (same class as the emit-ko-tts-deck 317-string loss).
+    for (const s of m[1].matchAll(/"((?:[^"\\]|\\.)*)"/g)) {
+      if (s[1].includes("\\")) continue; // escaped ⇒ prose, not speakable
+      if (s[1]) kanaSet.add(s[1]);
+    }
   }
 }
 

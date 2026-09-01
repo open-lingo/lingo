@@ -38,6 +38,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -492,7 +493,7 @@ const M11_8: LessonContent = {
   ],
 };
 
-export const KO_M11_LESSONS: LessonContent[] = [
+export const KO_M11_LESSONS: LessonContent[] = withReviewInterleave("m11", [
   M11_1,
   M11_2,
   M11_3,
@@ -501,4 +502,4 @@ export const KO_M11_LESSONS: LessonContent[] = [
   M11_6,
   M11_7,
   M11_8,
-];
+]);

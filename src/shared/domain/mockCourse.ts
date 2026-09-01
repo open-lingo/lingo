@@ -1084,6 +1084,10 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m29-neo-9", title: "「〜んですよ」と「〜んですね」 — explaining, and hearing an explanation", status: "available" as const },
             { id: "ja-m29-neo-10", title: "「いかない？」と「いきませんか」 — asking somebody along", status: "available" as const },
             { id: "ja-m29-neo-11", title: "「ばんは ちょっと。」 — saying no without saying it", status: "available" as const },
+            // 2026-08-26 F18 freq-gap insert (id ≠ position is precedented):
+            // the remaining CEJC top-130 enders じゃん・っけ・さ・わ, and the
+            // course's first dialogue_sim below m34.
+            { id: "ja-m29-neo-14", title: "「たかいじゃん」 — the enders you have not met yet", status: "available" as const },
             { id: "ja-m29-neo-review-3", title: "Review — who is listening, and what they already know", status: "available" as const },
             { id: "ja-m29-neo-challenge", title: "Challenge — N5, all of it, in front of somebody", status: "available" as const },
             { id: "story:ja-m29-cleaning-day", title: "Read — Cleaning day", status: "available" as const,
@@ -1377,11 +1381,14 @@ export function getMockCourse(languageId: string): Course {
       }
     }
 
-    // M2 — aspirated + tense consonants + y-vowels (Phase 5, 2026-06-01).
-    // Each row gets 3 sub-lessons via the same row builder as M1. A closing
-    // 받침 lesson (final-consonant [t]-group neutralization) completes the
-    // reading foundation. Compound vowels (ㅐ ㅔ ㅘ ㅝ ㅢ ㅟ) are still
-    // deferred to a future M2 extension pass.
+    // M2 — aspirated + tense consonants + y-vowels + compound vowels
+    // (Phase 5, 2026-06-01; compound vowels added 2026-09-01 per the release
+    // audit). Each row gets 3 sub-lessons via the same row builder as M1.
+    // Three compound-vowel lessons are INTERLEAVED into the march as breaks
+    // (after ㅊ, after ㅃ, after the y-vowels) — keep this order in sync
+    // with `buildAllKoreanM2Lessons` in ko/curriculum/m2.ts. A closing 받침
+    // lesson (final-consonant [t]-group neutralization) completes the
+    // reading foundation.
     const m2Lessons: { id: string; title: string; status: "available"; kind?: "recap" }[] = [];
     for (const row of KO_M2_ROWS) {
       for (const suffix of ["1", "2", "3"] as const) {
@@ -1392,10 +1399,29 @@ export function getMockCourse(languageId: string): Course {
           status: "available" as const,
         });
       }
+      if (row.id === "ch") {
+        m2Lessons.push({
+          id: "ko-m2-cv-1",
+          title: "Compound vowels — ㅐ ㅔ",
+          status: "available" as const,
+        });
+      }
+      if (row.id === "pp") {
+        m2Lessons.push({
+          id: "ko-m2-cv-2",
+          title: "Compound vowels — ㅘ ㅝ ㅟ",
+          status: "available" as const,
+        });
+      }
     }
     m2Lessons.push({
       id: "ko-m2-yv-1",
       title: "Y-vowels — ㅑ ㅕ ㅛ ㅠ",
+      status: "available" as const,
+    });
+    m2Lessons.push({
+      id: "ko-m2-cv-3",
+      title: "Compound vowels — ㅖ ㅙ ㅚ ㅢ",
       status: "available" as const,
     });
     m2Lessons.push({

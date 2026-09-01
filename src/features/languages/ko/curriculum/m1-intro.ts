@@ -54,9 +54,9 @@ export const MOCK_LESSON_KO_M1_INTRO: LessonContent = {
     {
       id: "ko-intro-3-read-order",
       type: "info",
-      title: "Read each block left → top-to-bottom",
+      title: "Reading order inside a block",
       body:
-        "Inside a block: start at the top-left, read across, then drop down. In 한, that's ㅎ (top-left) → ㅏ (top-right) → ㄴ (bottom). In 글, that's ㄱ → ㅡ → ㄹ. Once you know the rule, every block reads the same way.",
+        "Inside a block, read: consonant → vowel → bottom consonant (if any). Where the vowel SITS depends on its shape. Tall vowels (ㅏ ㅓ ㅣ) stand to the RIGHT: 한 is ㅎ (left) → ㅏ (right) → ㄴ (bottom). Flat vowels (ㅗ ㅜ ㅡ) lie UNDERNEATH: 글 stacks ㄱ → ㅡ → ㄹ top-to-bottom. Different layouts, same reading order every time.",
       variant: "tip",
     },
     {

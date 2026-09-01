@@ -1,7 +1,8 @@
 /**
  * m29-neo module guards — REGISTER MASTERY + THE N5 CAPSTONE, the last module
- * of N5. Same 2026-07-26 module shape as m12-m28 (invariant 25): 9 teaching +
- * 3 review + 1 challenge, reviews spread across thirds, challenge lesson LAST.
+ * of N5. Same 2026-07-26 module shape as m12-m28 (invariant 25): 10 teaching +
+ * 3 review + 1 challenge (the tenth is `ja-m29-neo-14`, the 2026-08-26 F18
+ * ender insert), reviews spread across thirds, challenge lesson LAST.
  *
  * Three things make this file different from m28's, and each has its own
  * describe block below:
@@ -120,13 +121,16 @@ registerModuleBarGuards({
 });
 
 describe("m29-neo module shape (invariant 25)", () => {
-  it("ships 13 lessons: 9 teaching + 3 review + 1 challenge", () => {
-    expect(M29_NEO_LESSONS).toHaveLength(13);
+  // 14 since 2026-08-26: the F18 freq-gap insert `ja-m29-neo-14` (the
+  // remaining CEJC enders じゃん・っけ・さ・わ) is the tenth teaching lesson,
+  // slotted between L11 and review-3. Challenge still LAST.
+  it("ships 14 lessons: 10 teaching + 3 review + 1 challenge", () => {
+    expect(M29_NEO_LESSONS).toHaveLength(14);
     const reviews = M29_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M29_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M29_NEO_LESSONS.length - reviews.length - challenge.length).toBe(9);
+    expect(M29_NEO_LESSONS.length - reviews.length - challenge.length).toBe(10);
   });
 
   it("the CHALLENGE lesson is last", () => {
@@ -184,7 +188,9 @@ describe("m29-neo owes the spine's register row", () => {
     const registry = new Set((N5_GRAMMAR_POINTS as { id: string }[]).map((p) => p.id));
     expect(registry.size, "the grammar-point registry failed to load").toBeGreaterThan(100);
     const unknown = [...taughtPoints].filter((p) => !registry.has(p));
-    expect(taughtPoints.size, "no rule cards found").toBe(9);
+    // 10 since m29-neo-14: the insert's second janai-desu card (variant jan)
+    // shares its id with L1's, and its ka-question card adds the tenth id.
+    expect(taughtPoints.size, "no rule cards found").toBe(10);
     expect(unknown, unknown.join(", ")).toEqual([]);
   });
 });

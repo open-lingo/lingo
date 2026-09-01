@@ -98,6 +98,43 @@ function makeM2Items(): PlacementItem[] {
           distractorsHangul: ["아기", "여기", "우유"],
         }),
     },
+    // Compound vowels — taught in m2 since 2026-09-01 (cv-1/cv-2/cv-3); a
+    // learner placing past m2 must be able to read them. One item per CV
+    // lesson. Sound-identical glyph pairs (애/에, 왜/외) are never pitted
+    // against each other as sound distractors.
+    {
+      id: "pt-ko-m2-4",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-4",
+          prompt: "Which word means 'store / shop'? (compound vowel ㅔ)",
+          correctHangul: "가게",
+          distractorsHangul: ["고기", "거기", "아기"],
+        }),
+    },
+    {
+      id: "pt-ko-m2-5",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-5",
+          prompt: "Which block reads 'wi' (as in 'week')?",
+          correctHangul: "위",
+          distractorsHangul: ["와", "워", "의"],
+        }),
+    },
+    {
+      id: "pt-ko-m2-6",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-6",
+          prompt: "Which word means 'company / office'? (compound vowel ㅚ)",
+          correctHangul: "회사",
+          distractorsHangul: ["의자", "사과", "노래"],
+        }),
+    },
   ];
 }
 

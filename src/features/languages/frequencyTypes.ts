@@ -41,6 +41,16 @@ export type FrequencyAtom<Conj = never> = {
   unlockModule: number;
   /** Conjugation-engine link, on conjugable lemmas only. */
   conjugation?: Conj;
+  /**
+   * Learner-list difficulty grade, where the source provides one
+   * (KO: 학습용 어휘 목록 2003 등급 A/B/C = level 1/2/3). Optional — JA has none.
+   */
+  grade?: "A" | "B" | "C";
+  /**
+   * Standard-curriculum fluency level, where the source provides one
+   * (KO: 국제 통용 한국어 표준 교육과정 2017, 1급–6급 ≈ TOPIK/Sejong levels).
+   */
+  intlLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   /** Discriminator — always "freq". */
   source: "freq";
 };

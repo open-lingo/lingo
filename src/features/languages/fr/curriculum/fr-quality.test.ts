@@ -31,6 +31,14 @@ import type { LessonStep, MatchPairsStep } from "@/features/lesson/types";
 import { FR_ALL_LESSONS } from "./index";
 import { FR_M1_CHECKPOINT_INDEX } from "./m1";
 import { FR_M2_CHECKPOINT_INDEX } from "./m2";
+import { FR_M3_CHECKPOINT_INDEX } from "./m3";
+import { FR_M4_CHECKPOINT_INDEX } from "./m4";
+import { FR_M5_CHECKPOINT_INDEX } from "./m5";
+import { FR_M6_CHECKPOINT_INDEX } from "./m6";
+import { FR_M7_CHECKPOINT_INDEX } from "./m7";
+import { FR_M8_CHECKPOINT_INDEX } from "./m8";
+import { FR_M9_CHECKPOINT_INDEX } from "./m9";
+import { FR_M10_CHECKPOINT_INDEX } from "./m10";
 import { getFrCourseAtoms } from "../courseAtoms";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 
@@ -44,6 +52,14 @@ const MODULE_ORDER: readonly string[] = [
 const CHECKPOINT_INDEX: Record<string, number> = {
   m1: FR_M1_CHECKPOINT_INDEX,
   m2: FR_M2_CHECKPOINT_INDEX,
+  m3: FR_M3_CHECKPOINT_INDEX,
+  m4: FR_M4_CHECKPOINT_INDEX,
+  m5: FR_M5_CHECKPOINT_INDEX,
+  m6: FR_M6_CHECKPOINT_INDEX,
+  m7: FR_M7_CHECKPOINT_INDEX,
+  m8: FR_M8_CHECKPOINT_INDEX,
+  m9: FR_M9_CHECKPOINT_INDEX,
+  m10: FR_M10_CHECKPOINT_INDEX,
 };
 
 const SELECTION_TYPES = new Set<LessonStep["type"]>([

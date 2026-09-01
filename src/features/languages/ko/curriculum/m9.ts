@@ -39,6 +39,7 @@ import {
   translateStep,
   vocabMcq,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -71,6 +72,9 @@ const M9_1: LessonContent = {
       "grammar",
     ),
     phrase("ko-m9-1-p-and", "and / with", "hago", "하고"),
+    // 2026-09-01 audit: 빵 was graded (MCQ + listening) with no intro anywhere
+    // in the course — real intro here, before its first graded use below.
+    phrase("ko-m9-1-p-bread", "bread", "ppang", "빵", undefined, { emoji: "🍞" }),
     phrase("ko-m9-1-p-apple", "apple", "sagwa", "사과", undefined, { emoji: "🍎" }),
     vocabMcq("ko-m9-1-mcq-apple", { surface: "사과", meaningEn: "apple", emoji: "🍎" }, MCQ_POOL),
     sentenceMcq({
@@ -497,7 +501,7 @@ const M9_8: LessonContent = {
   ],
 };
 
-export const KO_M9_LESSONS: LessonContent[] = [
+export const KO_M9_LESSONS: LessonContent[] = withReviewInterleave("m9", [
   M9_1,
   M9_2,
   M9_3,
@@ -506,4 +510,4 @@ export const KO_M9_LESSONS: LessonContent[] = [
   M9_6,
   M9_7,
   M9_8,
-];
+]);

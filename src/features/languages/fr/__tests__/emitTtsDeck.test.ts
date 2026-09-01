@@ -62,6 +62,25 @@ function collectFromStep(step: Record<string, unknown>, into: Set<string>): void
       if (typeof v === "string" && v.trim()) into.add(v.trim());
     }
   }
+  // word_image_mcq: the view plays getTtsUrl(meaningEn) in audio-prompt
+  // mode and getTtsUrl(option.word) on tap-preview in English-prompt mode
+  // (WordImageMcqStepView). Neither string is an AUDIO_FIELD, so the deck
+  // silently starved both paths until the frContentAudits gate caught 9
+  // silent ear-prompts (2026-09-01) — emit what the runtime asks for.
+  if (step.type === "word_image_mcq" && Array.isArray(step.options)) {
+    const meaning = step.meaningEn;
+    const options = step.options as Array<{ word?: unknown }>;
+    if (
+      typeof meaning === "string" &&
+      meaning.trim() &&
+      options.some((o) => o?.word === meaning)
+    ) {
+      into.add(meaning.trim());
+    }
+    for (const o of options) {
+      if (typeof o?.word === "string" && o.word.trim()) into.add(o.word.trim());
+    }
+  }
   // match_pairs: playAudioOnSelect plays the bare source word on tap.
   if (Array.isArray(step.pairs)) {
     for (const pair of step.pairs as Array<Record<string, unknown>>) {

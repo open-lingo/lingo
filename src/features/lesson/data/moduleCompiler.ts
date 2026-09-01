@@ -501,6 +501,12 @@ const BOUND = [
   "いかなければ", "のまなければ", "かえらなければ", "しなければ",
   "はたらかなければ", "おぼえなければ", "ならない", "なりません",
   "よ", "ね",
+  // 2026-08-26, m29-neo-14 (the F18 ender insert), same principle as よ/ね:
+  // じゃん / っけ / さ / わ decorate a finished sentence and carry no
+  // predicate, so none of the four is an utterance alone. じゃん is
+  // じゃない-derived but — unlike じゃない, which IS the predicate and stays
+  // out of this list — the worn-down form only ever rides another predicate.
+  "じゃん", "っけ", "さ", "わ",
 ];
 const PUNCT = /[。、？！]/g;
 

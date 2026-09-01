@@ -31,9 +31,13 @@
  * (`node scripts/compile-ir.mjs m29`), laid out by `compileModule` at import.
  * DO NOT hand-edit lessons here — edit the IR and recompile.
  *
- * Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, challenge
- * LAST. NO katakana rows — the katakana programme ended at m11, so the
- * compiled order IS the shipped order.
+ * Shape (inv 25): 14 lessons = 10 teaching + 3 review + 1 challenge, challenge
+ * LAST. The tenth teaching lesson is `ja-m29-neo-14` — the 2026-08-26 F18
+ * freq-gap insert ("the rest of the enders": じゃん・っけ・さ・わ, all four
+ * BOUND, わ recognition-only) and the course's first `dialogue_sim` below m34.
+ * NO katakana rows — the katakana programme ended at m11. The compiled beat
+ * blocks are order-independent; M29_NEO_LESSONS below IS the shipped order
+ * (id ≠ position is precedented — see the m2 id landmine).
  */
 import type { LessonContent } from "@/features/lesson/types";
 import { compileModule, type ModuleIR } from "@/features/lesson/data/moduleCompiler";
@@ -58,6 +62,9 @@ export const M29_NEO_LESSONS: LessonContent[] = [
   byId("ja-m29-neo-9"),
   byId("ja-m29-neo-10"),
   byId("ja-m29-neo-11"),
+  // The 2026-08-26 F18 freq-gap insert (じゃん・っけ・さ・わ) — id ≠ position
+  // is precedented; the challenge lesson stays LAST (inv 25).
+  byId("ja-m29-neo-14"),
   byId("ja-m29-neo-review-3"),
   byId("ja-m29-neo-challenge"),
 ];

@@ -41,6 +41,7 @@ import {
   translateStep,
   vocabMcq,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -482,7 +483,7 @@ const M6_8: LessonContent = {
   ],
 };
 
-export const KO_M6_LESSONS: LessonContent[] = [
+export const KO_M6_LESSONS: LessonContent[] = withReviewInterleave("m6", [
   M6_1,
   M6_2,
   M6_3,
@@ -491,4 +492,4 @@ export const KO_M6_LESSONS: LessonContent[] = [
   M6_6,
   M6_7,
   M6_8,
-];
+]);

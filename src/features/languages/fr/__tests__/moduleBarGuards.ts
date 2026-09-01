@@ -42,7 +42,7 @@ import {
   lintMcqDistractorsCore,
   type DistractorLintFailure,
 } from "@/shared/lessonAuthoring/mcqDistractorLint";
-import { getFrCourseAtoms } from "../courseAtoms";
+import { elidesBefore, getFrCourseAtoms } from "../courseAtoms";
 
 // ─── Tokenization ────────────────────────────────────────────────────────
 
@@ -110,6 +110,15 @@ export function getFrRealFormLexicon(): Set<string> {
   const lex = new Set<string>();
   for (const a of getFrCourseAtoms()) {
     for (const w of frTokens(a.surface)) lex.add(w);
+    // §13.4/F2 (fr m4, 2026-09-01 — the first vowel-initial nouns): a
+    // vowel-onset atom SURFACES elided («l'école»), and the tokenizer
+    // rightly keeps the clitic attached, so the elided token must be a
+    // known word. Derive it through the ONE elision source rather than
+    // registering elided duplicates as atoms.
+    if (elidesBefore(a)) {
+      const first = frTokens(a.surface)[0];
+      if (first) lex.add(`l'${first}`);
+    }
   }
   for (const w of FR_FUNCTION_WORDS) lex.add(w);
   lex.delete("");
@@ -368,6 +377,17 @@ export function registerFrModuleBarGuards(opts: {
       if (a.fromModule && priorSet.has(a.fromModule)) PRIOR.add(w);
     }
   }
+  // (fr m5, 2026-09-01): an atom that IS a whole surface («au», «à la»)
+  // is authoritative for its own intro module — token-derived attribution
+  // collides: the «au» inside m1's «au revoir» is not the m5 contraction,
+  // and «à la» (a multi-word surface) had no key at all. Exact surfaces
+  // override token guesses; token entries remain as fallback for words
+  // that are not themselves atoms.
+  for (const a of getFrCourseAtoms()) {
+    if (a.fromModule) {
+      atomModuleBySurfaceWord.set(a.surface.toLowerCase(), a.fromModule);
+    }
+  }
 
   const fmt = (failures: FrBarFailure[]) =>
     failures.map((f) => `${f.lessonId}/${f.stepId}: ${f.problem}`);
@@ -447,7 +467,16 @@ export function registerFrModuleBarGuards(opts: {
             // allowed on known words anywhere; only ENGLISH-prompted reuse
             // is banned (see the es twin, 2026-08-21).
             const audioPrompted = options.some((o) => o.word === (s.meaningEn as string));
-            if (!audioPrompted && frTokens(correct).some((t) => knownAtLessonStart.has(t))) {
+            // §13.4 (ported from the es twin with fr m3, 2026-09-01): debut
+            // surfaces WEAR their article («le chat», never bare «chat»),
+            // and the article itself is known from the first article lesson
+            // on. Judge first-exposure by the HEAD tokens — a leading
+            // article never makes a debut "already known".
+            const ARTICLE_TOKENS = new Set(["le", "la", "les", "un", "une", "des"]);
+            const toks = frTokens(correct).filter(
+              (t, i) => !(i === 0 && ARTICLE_TOKENS.has(t)),
+            );
+            if (!audioPrompted && toks.some((t) => knownAtLessonStart.has(t))) {
               failures.push({
                 lessonId: lesson.id,
                 stepId: step.id,

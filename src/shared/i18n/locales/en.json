@@ -163,7 +163,8 @@
     "footerAttribution": "Attribution",
     "footerCopyright": "© {{year}} Open Lingo · MIT License",
     "footerStrokeOrder": "Stroke order: ",
-    "footerStrokeOrderHangul": "Hangul stroke data © Open Lingo"
+    "footerStrokeOrderHangul": "Hangul stroke data © Open Lingo",
+    "footerNikl": "Korean frequency data: "
   },
   "learn": {
     "intro": "Your learning path, courses, and community modules.",

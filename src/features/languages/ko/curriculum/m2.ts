@@ -26,10 +26,19 @@
  * plain consonants because it's the most common voiceless onset and
  * carries familiar words (하나, 호두). Not re-taught here.
  *
- * Compound vowels (ㅐ/ㅔ/ㅘ/ㅝ/ㅢ/ㅟ/ㅙ/ㅞ) and final-consonant 받침
- * are intentionally deferred to a future M2-extension pass — out of
- * scope for this dispatch. The pathway in `mockCourse.ts` is updated
- * to reflect what M2 actually contains now.
+ * Compound vowels are taught HERE as of the 2026-09-01 release audit
+ * (Tier-2 item 3 — they were used from m3's 이에요/예요 onward but never
+ * taught). Three bespoke lessons interleaved into the row march as breaks
+ * (interleave-don't-block-teach):
+ *   - ko-m2-cv-1 (after the aspirated rows): ㅐ ㅔ — the e-vowels, needed
+ *     earliest (학생, 이에요, 주세요, 네 …).
+ *   - ko-m2-cv-2 (after ㅃ, mid-tense-march): ㅘ ㅝ ㅟ — the w-vowels
+ *     (사과, 뭐, 원, 귀 …).
+ *   - ko-m2-cv-3 (after the y-vowel lesson, whose glide concept it needs):
+ *     ㅖ ㅙ ㅚ ㅢ (예요, 왜, 회사, 의자/의). ㅒ and ㅞ are mentioned as
+ *     rare, not drilled — neither appears anywhere in m1–m15 text.
+ * Inventory basis: a decomposition scan of every m1–m15 Hangul literal
+ * (2026-09-01) — the drilled set covers every compound vowel in use.
  *
  * CONTENT-TODO: verify with a Korean speaker that:
  *   - 코 (nose) reads naturally as the ㅋ-row's first anchor (it does
@@ -421,6 +430,225 @@ function buildYVowelLesson(): LessonContent {
   };
 }
 
+// ─── Compound vowels (bespoke lessons, y-vowel pattern) ─────────────────
+//
+// 2026-09-01: compound vowels were the audit's biggest m2→m3 seam defect —
+// used constantly from m3 on, taught nowhere. Three lessons, interleaved
+// into the march (see file header). Each follows the y-vowel lesson shape:
+// concept info → symbolIntro/trace/recognition per block → anchor words →
+// listening/speaking → win info. Anchor words obey the row-lesson rule
+// (every block decomposes into already-taught jamo at that position) and
+// every word/block string has (or ships with) a manifest clip.
+
+function buildCompoundVowelLesson1(): LessonContent {
+  // Position: after the aspirated rows (ㅋㅌㅍㅊ), before the tense rows.
+  // Known inventory: 6 basic vowels + m1 plain consonants + ㅋㅌㅍㅊ.
+  const BLOCKS: SyllableEntry[] = [
+    { block: "애", romaji: "ae", hint: "ㅏ + ㅣ fused — 'e' as in 'bed'" },
+    { block: "에", romaji: "e", hint: "ㅓ + ㅣ fused — 'e' as in 'bed'" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "개", meaningEn: "dog", emoji: "🐶" },
+      { word: "가게", meaningEn: "store / shop", emoji: "🏪" },
+      { word: "노래", meaningEn: "song", emoji: "🎵" },
+    ],
+    tileBankPool: ["아", "어", "이", "애", "에", "가", "게", "개", "노", "래", "네"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-cv1-info-0",
+      type: "info",
+      title: "Compound vowels — two vowels, one sound",
+      body:
+        "Korean fuses two vowel letters into one written vowel:\n\n  ㅏ + ㅣ → ㅐ (ae)\n  ㅓ + ㅣ → ㅔ (e)\n\nHere's the honest part: in today's Korean, ㅐ and ㅔ sound IDENTICAL — both like 'e' in 'bed'. Spelling tells words apart (개 'dog' vs 게 'crab'), the sound doesn't. You'll meet these two constantly — 이에요, 네, 가게, 주세요 all use ㅔ.",
+      variant: "grammar",
+    },
+  ];
+  for (const b of BLOCKS) {
+    steps.push(
+      symbolIntro(`ko-m2-cv1-intro-${b.romaji}`, b.block, b.romaji, "/e̞/", b.hint ?? "", `개 (dog) / 가게 (store)`),
+      traceTwice(`ko-m2-cv1-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-cv1-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-cv1-mcq-gae", "개"),
+    listeningBuild(ctx, "ko-m2-cv1-build-gage", "가게", "store / shop"),
+    wordImageMcq(ctx, "ko-m2-cv1-mcq-norae", "노래"),
+    listeningBuild(ctx, "ko-m2-cv1-build-norae", "노래", "song"),
+    listeningComp("ko-m2-cv1-lc-gae", "개", "dog", ["a store", "a song", "a crab"]),
+    listeningComp("ko-m2-cv1-lc-gage", "가게", "store / shop", ["a dog", "a song", "meat"]),
+    speaking("ko-m2-cv1-speak-gae", "개", "dog"),
+    speaking("ko-m2-cv1-speak-norae", "노래", "song"),
+    {
+      id: "ko-m2-cv1-info-end",
+      type: "info",
+      title: "ㅐ and ㅔ — yours",
+      body:
+        "You can now read 개 (dog), 가게 (store), 노래 (song) — and, soon, the polite endings 이에요/예요 that finish half the sentences in this course. When two spellings sound the same, that's not you mishearing: it's modern Korean.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-cv-1",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "Compound vowels — ㅐ ㅔ",
+    description: "Two fused vowels, one 'e' sound. Read 개, 가게, 노래.",
+    estimatedMinutes: 5,
+    xpReward: 13,
+    steps,
+  };
+}
+
+function buildCompoundVowelLesson2(): LessonContent {
+  // Position: after the ㅃ row — a break in the tense-consonant march.
+  const BLOCKS: SyllableEntry[] = [
+    { block: "와", romaji: "wa", hint: "ㅗ + ㅏ — 'wa' as in 'water'" },
+    { block: "워", romaji: "wo", hint: "ㅜ + ㅓ — 'wo' as in 'wonder'" },
+    { block: "위", romaji: "wi", hint: "ㅜ + ㅣ — 'we' as in 'week'" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "사과", meaningEn: "apple", emoji: "🍎" },
+      { word: "뭐", meaningEn: "what", emoji: "❓" },
+      { word: "귀", meaningEn: "ear", emoji: "👂" },
+    ],
+    tileBankPool: ["오", "우", "아", "어", "이", "와", "워", "위", "사", "과", "구", "마"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-cv2-info-0",
+      type: "info",
+      title: "W-vowels — a round vowel first",
+      body:
+        "Start a round vowel (ㅗ or ㅜ), glide into a second one — that's a Korean 'w':\n\n  ㅗ + ㅏ → ㅘ (wa)\n  ㅜ + ㅓ → ㅝ (wo)\n  ㅜ + ㅣ → ㅟ (wi)\n\nThe round letter is written first, on the left of the block: 과 = ㄱ + ㅘ. These carry everyday words — 사과 (apple), 뭐 (what), 원 (₩), 귀 (ear).",
+      variant: "grammar",
+    },
+  ];
+  for (const b of BLOCKS) {
+    steps.push(
+      symbolIntro(`ko-m2-cv2-intro-${b.romaji}`, b.block, b.romaji, "", b.hint ?? "", `사과 (apple) / 뭐 (what)`),
+      traceTwice(`ko-m2-cv2-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-cv2-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-cv2-mcq-sagwa", "사과"),
+    listeningBuild(ctx, "ko-m2-cv2-build-sagwa", "사과", "apple"),
+    wordImageMcq(ctx, "ko-m2-cv2-mcq-gwi", "귀"),
+    listeningComp("ko-m2-cv2-lc-mwo", "뭐", "what", ["an apple", "an ear", "who"]),
+    listeningComp("ko-m2-cv2-lc-sagwa", "사과", "apple", ["what", "an ear", "a grape"]),
+    speaking("ko-m2-cv2-speak-sagwa", "사과", "apple"),
+    speaking("ko-m2-cv2-speak-mwo", "뭐", "what"),
+    {
+      id: "ko-m2-cv2-info-end",
+      type: "info",
+      title: "W-vowels — yours",
+      body:
+        "ㅘ ㅝ ㅟ. You can now read 사과 (apple), 뭐 (what — the single most useful question word), and 귀 (ear). Back to the tense consonants next.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-cv-2",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "Compound vowels — ㅘ ㅝ ㅟ",
+    description: "The w-vowels. Read 사과, 뭐, 귀.",
+    estimatedMinutes: 5,
+    xpReward: 13,
+    steps,
+  };
+}
+
+function buildCompoundVowelLesson3(): LessonContent {
+  // Position: right after the y-vowel lesson — ㅖ is framed as ㅔ + the
+  // y-glide the learner just met.
+  const BLOCKS: SyllableEntry[] = [
+    { block: "예", romaji: "ye", hint: "ㅔ + y-glide — 'ye' as in 'yes'" },
+    { block: "왜", romaji: "wae", hint: "ㅗ + ㅐ — 'we' as in 'wet'" },
+    { block: "외", romaji: "oe", hint: "ㅗ + ㅣ — also 'we' as in 'wet'" },
+    { block: "의", romaji: "ui", hint: "ㅡ + ㅣ said quickly — 'uh-ee'" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "왜", meaningEn: "why", emoji: "❓" },
+      { word: "회사", meaningEn: "company / office", emoji: "🏢" },
+      { word: "의자", meaningEn: "chair", emoji: "🪑" },
+    ],
+    tileBankPool: ["예", "왜", "외", "의", "에", "애", "와", "회", "사", "자", "이", "으"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-cv3-info-0",
+      type: "info",
+      title: "ㅖ — the y-glide meets ㅔ",
+      body:
+        "You just learned the y-vowels. One more takes the same glide: ㅔ → ㅖ (ye), as in 예 ('yes', polite) and the ending 예요. (Its twin ㅒ exists but is so rare you can ignore it for now.)",
+      variant: "grammar",
+    },
+    {
+      id: "ko-m2-cv3-info-1",
+      type: "info",
+      title: "The 'we' twins — ㅙ and ㅚ",
+      body:
+        "Two more w-vowels, and here's the honest part again: they sound the SAME — 'we' as in 'wet':\n\n  ㅗ + ㅐ → ㅙ (왜 'why')\n  ㅗ + ㅣ → ㅚ (회사 'company')\n\nSpelling tells the words apart, not sound. (A third twin, ㅞ, appears almost only in loanwords like 웨이터 'waiter' — recognize it, don't sweat it.)",
+      variant: "tip",
+    },
+    {
+      id: "ko-m2-cv3-info-2",
+      type: "info",
+      title: "ㅢ — the last vowel",
+      body:
+        "ㅡ + ㅣ said in one quick motion: ㅢ (의). It opens words like 의자 (chair) and 의사 (doctor). This is the LAST vowel in Korean — after this lesson you have the complete set.",
+      variant: "grammar",
+    },
+  ];
+  for (const b of BLOCKS) {
+    steps.push(
+      symbolIntro(`ko-m2-cv3-intro-${b.romaji}`, b.block, b.romaji, "", b.hint ?? "", `왜 (why) / 회사 (company) / 의자 (chair)`),
+      traceTwice(`ko-m2-cv3-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-cv3-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-cv3-mcq-hoesa", "회사"),
+    listeningBuild(ctx, "ko-m2-cv3-build-hoesa", "회사", "company / office"),
+    wordImageMcq(ctx, "ko-m2-cv3-mcq-uija", "의자"),
+    listeningBuild(ctx, "ko-m2-cv3-build-uija", "의자", "chair"),
+    listeningComp("ko-m2-cv3-lc-wae", "왜", "why", ["what", "a company", "a chair"]),
+    listeningComp("ko-m2-cv3-lc-uija", "의자", "chair", ["a company", "why", "a doctor"]),
+    speaking("ko-m2-cv3-speak-wae", "왜", "why"),
+    speaking("ko-m2-cv3-speak-hoesa", "회사", "company / office"),
+    {
+      id: "ko-m2-cv3-info-end",
+      type: "info",
+      title: "Every Korean vowel — done",
+      body:
+        "ㅖ, ㅙ, ㅚ, ㅢ — plus everything before them: the vowel system is COMPLETE. 예요, 왜, 회사, 의자 are all readable now, and no vowel in this course will ever surprise you again. What's left for reading is only the final consonant (받침), coming after the review.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-cv-3",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "Compound vowels — ㅖ ㅙ ㅚ ㅢ",
+    description: "Finish the vowel system. Read 예, 왜, 회사, 의자.",
+    estimatedMinutes: 6,
+    xpReward: 14,
+    steps,
+  };
+}
+
 // ─── Module review (mixed drill across aspirated + tense + y-vowel) ─────
 
 function buildModuleReview(): LessonContent {
@@ -431,14 +659,16 @@ function buildModuleReview(): LessonContent {
       { block: "파", romaji: "pa" }, { block: "차", romaji: "cha" },
       { block: "까", romaji: "kka" }, { block: "따", romaji: "tta" },
       { block: "야", romaji: "ya" }, { block: "여", romaji: "yeo" },
+      { block: "애", romaji: "ae" }, { block: "와", romaji: "wa" },
     ],
     words: [
       { word: "커피", meaningEn: "coffee", emoji: "☕" },
       { word: "야구", meaningEn: "baseball", emoji: "⚾" },
       { word: "오빠", meaningEn: "older brother (♀ speaker)", emoji: "🧑" },
       { word: "토끼", meaningEn: "rabbit", emoji: "🐰" },
+      { word: "사과", meaningEn: "apple", emoji: "🍎" },
     ],
-    tileBankPool: ["코", "키", "피", "차", "토", "끼", "야", "여", "구", "오", "빠", "커"],
+    tileBankPool: ["코", "키", "피", "차", "토", "끼", "야", "여", "구", "오", "빠", "커", "사", "과", "애"],
   };
 
   return {
@@ -457,7 +687,7 @@ function buildModuleReview(): LessonContent {
         type: "info",
         title: "Module 2 review",
         body:
-          "You learned 13 new jamo across three groups: 4 aspirated consonants (ㅋ ㅌ ㅍ ㅊ), 5 tense consonants (ㄲ ㄸ ㅃ ㅆ ㅉ), and 4 y-vowels (ㅑ ㅕ ㅛ ㅠ). Together with M1, you can now read every plain syllable in Korean — only compound vowels and final-consonant 받침 are left.",
+          "You learned 22 new jamo across four groups: 4 aspirated consonants (ㅋ ㅌ ㅍ ㅊ), 5 tense consonants (ㄲ ㄸ ㅃ ㅆ ㅉ), 4 y-vowels (ㅑ ㅕ ㅛ ㅠ), and 9 compound vowels (ㅐ ㅔ ㅖ ㅘ ㅝ ㅟ ㅙ ㅚ ㅢ). Together with M1, you can now read every Korean syllable that has no final consonant — only the 받침 is left.",
         variant: "culture",
       },
 
@@ -465,11 +695,13 @@ function buildModuleReview(): LessonContent {
       recognition(reviewCtx, "ko-m2-review-recog-ka", "카", "ka", "aspirated"),
       recognition(reviewCtx, "ko-m2-review-recog-kka", "까", "kka", "tense"),
       recognition(reviewCtx, "ko-m2-review-recog-ya", "야", "ya", "y-vowel"),
+      recognition(reviewCtx, "ko-m2-review-recog-ae", "애", "ae", "compound vowel"),
 
       // Word recognition.
       wordImageMcq(reviewCtx, "ko-m2-review-mcq-keopi", "커피"),
       wordImageMcq(reviewCtx, "ko-m2-review-mcq-yagu", "야구"),
       wordImageMcq(reviewCtx, "ko-m2-review-mcq-oppa", "오빠"),
+      wordImageMcq(reviewCtx, "ko-m2-review-mcq-sagwa", "사과"),
 
       // Listening build — production.
       listeningBuild(reviewCtx, "ko-m2-review-build-keopi", "커피", "coffee"),
@@ -488,7 +720,7 @@ function buildModuleReview(): LessonContent {
         type: "info",
         title: "Reading foundation: complete",
         body:
-          "You finished the M2 review. Plain + aspirated + tense consonants × basic + y-vowels covers most of the syllable inventory you'll see in everyday Korean. Compound vowels (ㅐ ㅔ ㅘ ㅝ) and final-consonant 받침 are next — but you can already read coffee menus, K-drama subtitles, and most signage.",
+          "You finished the M2 review. Plain + aspirated + tense consonants × the COMPLETE vowel set (basic, y-, and compound) — that's every open syllable in Korean. The final-consonant 받침 is next, and then nothing in Hangul is unreadable: coffee menus, K-drama subtitles, signage, all of it.",
         variant: "win",
       },
     ],
@@ -646,15 +878,22 @@ function buildBatchimLesson(): LessonContent {
 
 /**
  * Build every M2 lesson the curriculum exposes — 9 rows × 3 sub-lessons
- * (27 lessons) + Y-vowel lesson + module review + 받침 [t]-group lesson.
+ * (27 lessons) + 3 compound-vowel lessons (interleaved into the march as
+ * breaks: cv-1 after the aspirated rows, cv-2 after ㅃ, cv-3 after the
+ * y-vowel lesson) + Y-vowel lesson + module review + 받침 [t]-group
+ * lesson = 33. Keep this order in sync with the m2 pathway in
+ * `mockCourse.ts`.
  */
 export function buildAllKoreanM2Lessons(): LessonContent[] {
   const out: LessonContent[] = [];
   for (const row of KO_M2_ROWS) {
     validateRowVocab(row);
     out.push(...buildRowSubLessons(row, "m2"));
+    if (row.id === "ch") out.push(buildCompoundVowelLesson1());
+    if (row.id === "pp") out.push(buildCompoundVowelLesson2());
   }
   out.push(buildYVowelLesson());
+  out.push(buildCompoundVowelLesson3());
   out.push(buildModuleReview());
   out.push(buildBatchimLesson());
   return out;

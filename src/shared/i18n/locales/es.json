@@ -163,7 +163,8 @@
     "footerAttribution": "Atribución",
     "footerCopyright": "© {{year}} Open Lingo · Licencia MIT",
     "footerStrokeOrder": "Orden de trazos: ",
-    "footerStrokeOrderHangul": "Datos de trazos de Hangul © Open Lingo"
+    "footerStrokeOrderHangul": "Datos de trazos de Hangul © Open Lingo",
+    "footerNikl": "Datos de frecuencia del coreano: "
   },
   "learn": {
     "intro": "Tu ruta de aprendizaje, cursos y módulos de la comunidad.",

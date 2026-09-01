@@ -42,6 +42,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -210,8 +211,10 @@ const M5_4: LessonContent = {
     sentenceMcq({
       id: "ko-m5-4-q-people",
       prompt: "Which counter do you use for PEOPLE?",
+      // 2026-09-01 audit: 원 (won) was a distractor here 2 lessons before its
+      // m5-6 intro — swapped for the taught 열 (native ten).
       correctHangul: "명",
-      distractorsHangul: ["개", "잔", "원"],
+      distractorsHangul: ["개", "잔", "열"],
       explanation: "명 counts people. 개 = things, 잔 = cups.",
       exercisedAtomSurfaces: ["명"],
     }),
@@ -219,7 +222,7 @@ const M5_4: LessonContent = {
       id: "ko-m5-4-q-cups",
       prompt: "Which counter do you use for cups of coffee?",
       correctHangul: "잔",
-      distractorsHangul: ["개", "명", "원"],
+      distractorsHangul: ["개", "명", "열"],
       explanation: "잔 counts cups/glasses (커피 한 잔 = one coffee).",
       exercisedAtomSurfaces: ["잔"],
     }),
@@ -255,6 +258,9 @@ const M5_5: LessonContent = {
     phrase("ko-m5-5-p-han", "one (before a counter)", "han", "한"),
     phrase("ko-m5-5-p-du", "two (before a counter)", "du", "두"),
     phrase("ko-m5-5-p-se", "three (before a counter)", "se", "세"),
+    // 2026-09-01 audit: 커피 had only an m2 reading-word exposure — semantic
+    // re-intro here before the first 커피 build/order drills.
+    phrase("ko-m5-5-p-coffee", "coffee", "keopi", "커피", undefined, { emoji: "☕" }),
     sentenceMcq({
       id: "ko-m5-5-q-onecounter",
       prompt: "'One of these, please.' — which is correct?",
@@ -276,7 +282,7 @@ const M5_5: LessonContent = {
       "물 한",
       "주세요",
       "잔",
-      ["잔", "개", "명", "원"],
+      ["잔", "개", "명", "열"],
       "One glass of water, please.",
       "물 한 잔 주세요",
       "Water comes in a glass → 잔. (한 = 'one' before a counter.)",
@@ -303,6 +309,10 @@ const M5_6: LessonContent = {
       "얼마 = 'how much'. 얼마예요? = 'How much is it?'. Prices are answered with SINO numbers + 원 (won): 삼천 원 = '3,000 won'. (You won't compute big numbers yet — just recognize the question and 원.)",
       "grammar",
     ),
+    // 2026-09-01 gate catch: the 얼마예요? chunk card resolves to the survival
+    // phrase atom, so the word 얼마 itself was graded with no intro — real
+    // word card first, then the chunk.
+    phrase("ko-m5-6-p-eolma", "how much", "eolma", "얼마"),
     phrase("ko-m5-6-p-howmuch", "How much is it?", "eolmayeyo", "얼마예요?"),
     phrase("ko-m5-6-p-won", "won (₩)", "won", "원"),
     sentenceMcq({
@@ -444,7 +454,7 @@ const M5_8: LessonContent = {
   ],
 };
 
-export const KO_M5_LESSONS: LessonContent[] = [
+export const KO_M5_LESSONS: LessonContent[] = withReviewInterleave("m5", [
   M5_1,
   M5_2,
   M5_3,
@@ -453,4 +463,4 @@ export const KO_M5_LESSONS: LessonContent[] = [
   M5_6,
   M5_7,
   M5_8,
-];
+]);

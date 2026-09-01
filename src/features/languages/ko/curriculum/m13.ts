@@ -38,6 +38,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -112,6 +113,9 @@ const M13_2: LessonContent = {
     phrase("ko-m13-2-p-often", "often", "jaju", "자주"),
     phrase("ko-m13-2-p-sometimes", "sometimes", "gakkeum", "가끔"),
     phrase("ko-m13-2-p-never", "never (with 안)", "jeonhyeo", "전혀"),
+    // 2026-09-01 audit: 운동 was graded in the listening step below three
+    // lessons before its old m13-5 intro — the intro card moved here.
+    phrase("ko-m13-2-p-exercise", "exercise", "undong", "운동", undefined, { emoji: "🏃" }),
     sentenceMcq({
       id: "ko-m13-2-q-often",
       prompt: "'I often eat (it).' —",
@@ -230,6 +234,18 @@ const M13_4: LessonContent = {
       "grammar",
     ),
     phrase("ko-m13-4-p-so", "so / therefore", "geuraeseo", "그래서"),
+    // 2026-09-01 audit: the rain idiom 비가 와요 (lit. "rain comes") had to be
+    // PRODUCED in the translate step below but was only ever shown inside an
+    // info card — explicit phrase-card intro added. 비 is the M1 reading word;
+    // 와요 is the M7 "come" — the idiom pairing is what's new.
+    phrase(
+      "ko-m13-4-p-rain",
+      "it's raining (lit. rain comes)",
+      "biga wayo",
+      "비가 와요",
+      undefined,
+      { emoji: "🌧️" },
+    ),
     sentenceMcq({
       id: "ko-m13-4-q-sostayhome",
       prompt: "'It's raining. So I'm staying home.' —",
@@ -286,7 +302,6 @@ const M13_5: LessonContent = {
       "default",
     ),
     phrase("ko-m13-5-p-company", "company / workplace", "hoesa", "회사"),
-    phrase("ko-m13-5-p-exercise", "exercise", "undong", "운동"),
     sentenceMcq({
       id: "ko-m13-5-q-oftenoffice",
       prompt: "'I often go to the office.' —",
@@ -495,7 +510,7 @@ const M13_8: LessonContent = {
   ],
 };
 
-export const KO_M13_LESSONS: LessonContent[] = [
+export const KO_M13_LESSONS: LessonContent[] = withReviewInterleave("m13", [
   M13_1,
   M13_2,
   M13_3,
@@ -504,4 +519,4 @@ export const KO_M13_LESSONS: LessonContent[] = [
   M13_6,
   M13_7,
   M13_8,
-];
+]);

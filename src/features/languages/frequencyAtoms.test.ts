@@ -8,6 +8,8 @@
 import { describe, it, expect } from "vitest";
 
 import { JA_FREQUENCY_ATOMS, JA_FREQ_LAST_MODULE } from "./ja/frequencyAtoms";
+import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "./ja/courseAtoms";
+import { jaModule } from "./ja/module";
 import { KO_FREQUENCY_ATOMS, KO_FREQ_LAST_MODULE } from "./ko/frequencyAtoms";
 import {
   frequencyRankToModule,
@@ -49,11 +51,46 @@ describe("JA frequency atoms", () => {
     }
   });
 
-  it("frequency ranks are dense + unique (1..N)", () => {
-    const ranks = JA_FREQUENCY_ATOMS.map((a) => a.frequencyRank).sort((x, y) => x - y);
-    expect(ranks[0]).toBe(1);
-    expect(ranks[ranks.length - 1]).toBe(JA_FREQUENCY_ATOMS.length);
+  it("every frequency candidate carries an explicit, unique freqRank", () => {
+    // Rank is an explicit field (seeded 2026-08-26), NOT array position —
+    // re-homing an atom off "future" must not reshuffle the rest of the deck.
+    // Gaps are fine (a re-homed atom retires its rank); density is NOT asserted.
+    const missing = JA_COURSE_ATOMS.filter(
+      (a) =>
+        a.fromModule === "future" &&
+        a.kind === "vocab" &&
+        isSrsEligibleAtom(a) &&
+        typeof a.freqRank !== "number",
+    ).map((a) => a.id);
+    expect(missing, `future vocab atoms missing freqRank: ${missing.join(", ")}`).toEqual([]);
+
+    const ranks = JA_FREQUENCY_ATOMS.map((a) => a.frequencyRank);
     expect(new Set(ranks).size).toBe(ranks.length);
+    // Derived deck is sorted by rank, ascending.
+    for (let i = 1; i < ranks.length; i++) {
+      expect(ranks[i]).toBeGreaterThan(ranks[i - 1]);
+    }
+  });
+
+  it("freqRank is only for the frequency deck — non-future atoms must not carry it", () => {
+    // A re-homed atom's rank retires with it; leaving the field behind would
+    // look meaningful (and tempt a future consumer) while feeding nothing.
+    const stale = JA_COURSE_ATOMS.filter(
+      (a) => a.fromModule !== "future" && typeof a.freqRank === "number",
+    ).map((a) => a.id);
+    expect(stale, `non-future atoms carrying freqRank: ${stale.join(", ")}`).toEqual([]);
+  });
+
+  it("JA_FREQ_LAST_MODULE tracks the last live content module", () => {
+    // Was 30 while the course ran to m38 — overflow piled 8 modules early and
+    // learners past m30 saw nothing new. Wire it to the live curriculum.
+    const lastLive = Math.max(
+      ...jaModule.curriculum
+        .map((m) => /^m(\d+)$/.exec(m.id)?.[1])
+        .filter((n): n is string => n != null)
+        .map(Number),
+    );
+    expect(JA_FREQ_LAST_MODULE).toBe(lastLive);
   });
 
   it("conjugable atoms link a class the engine conjugates", () => {

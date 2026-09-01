@@ -21,6 +21,7 @@ import type {
   InfoStep,
   ListeningBuildStep,
   ListeningComprehensionStep,
+  MatchPairsStep,
   MultipleChoiceStep,
   ParticleClozeStep,
   PhraseCardStep,
@@ -28,12 +29,27 @@ import type {
   TranslateStep,
   WordImageMcqStep,
 } from "@/features/lesson/types";
-import { KO_ATOMS_BY_SURFACE, type KoAtom } from "./courseAtoms";
+import { getTtsUrl } from "@/shared/tts";
+import {
+  KO_ATOMS_BY_SURFACE,
+  KO_COURSE_ATOMS,
+  KO_PARTICLES_BY_SURFACE,
+  type KoAtom,
+  type KoAtomKind,
+} from "./courseAtoms";
 
 // ─── Atom resolution ─────────────────────────────────────────────────────
 
 function resolveAtomId(surface: string): string | undefined {
   return KO_ATOMS_BY_SURFACE.get(surface)?.id;
+}
+
+// Particle steps must NOT resolve through the general surface map: 이
+// (subject marker) loses that lookup to 이 (the number "two") on
+// first-write-wins. Falls back to the general map for anything not
+// registered as a particle (e.g. a cloze over a non-particle function word).
+function resolveParticleAtomId(surface: string): string | undefined {
+  return (KO_PARTICLES_BY_SURFACE.get(surface) ?? KO_ATOMS_BY_SURFACE.get(surface))?.id;
 }
 
 function resolveAtomIds(surfaces: ReadonlyArray<string> | undefined): string[] {
@@ -128,7 +144,10 @@ export function cloze(
     meaningEn,
     audioText,
     explanation,
-    exercisedAtoms: resolveAtomIds([correctParticle]),
+    exercisedAtoms: (() => {
+      const id = resolveParticleAtomId(correctParticle);
+      return id ? [id] : [];
+    })(),
     modality: "production",
   };
 }
@@ -344,6 +363,132 @@ export function vocabMcq(
     options,
     correctOptionId: "correct",
     exercisedAtoms: resolveAtomIds([target.surface]),
+    modality: "recognition",
+  };
+}
+
+// ─── Compounding review (prior-module draw) ──────────────────────────────
+//
+// KO port of the ES/JA compounding-review machinery (guide §6 — "the #1
+// differentiator"; audit 2026-09-01 §2 #5: KO modules never resurfaced
+// earlier material except by accident). Unlike ES, KO needs NO generated
+// pool snapshot: `courseAtoms.ts` imports nothing from `curriculum/`, so
+// there is no import cycle — every atom is registered before any curriculum
+// module evaluates, and the live registry is safe to read at lesson-build
+// time. If courseAtoms ever grows a curriculum import, port the ES
+// `esReviewPool.ts` snapshot pattern instead.
+
+/** Full-width FNV-1a + Murmur3 finalizer (slotFor keeps only `% slots`). */
+function hash32(s: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  return h >>> 0;
+}
+
+/** Numeric index for "mN" module ids; -1 for sidequests/undefined (which the
+ *  review pool deliberately excludes). */
+function koModuleIndex(fromModule: string | undefined): number {
+  const m = fromModule ? /^m(\d+)$/.exec(fromModule) : null;
+  return m ? Number(m[1]) : -1;
+}
+
+export type KoReviewEntry = { atomId: string; surface: string; gloss: string };
+
+/**
+ * Deterministically pick up to `n` atoms introduced in modules STRICTLY
+ * EARLIER than `beforeModule`. Seeded by `seedId` so two call sites draw
+ * different (but stable) samples. Defaults keep the draw honest for review
+ * carriers:
+ *   - kind "vocab" only, srsEligible, gloss present, single-word surface;
+ *   - surfaces are deduped first-write-wins (matches KO_ATOMS_BY_SURFACE);
+ *   - glosses are deduped within one draw (a match grid with two identical
+ *     targets is unanswerable);
+ *   - entries without a manifest TTS clip are skipped (audio-on-select must
+ *     never fall back to the platform voice in a review grid).
+ */
+export function pickReviewEntries(
+  seedId: string,
+  beforeModule: string,
+  n: number,
+  opts?: { kinds?: KoAtomKind[]; singleWord?: boolean; requireAudio?: boolean },
+): KoReviewEntry[] {
+  const cutoff = koModuleIndex(beforeModule);
+  if (cutoff < 0) {
+    throw new Error(`ko pickReviewEntries(${seedId}): beforeModule '${beforeModule}' is not an mN module id`);
+  }
+  const kinds = opts?.kinds ?? (["vocab"] as KoAtomKind[]);
+  const singleWord = opts?.singleWord ?? true;
+  const requireAudio = opts?.requireAudio ?? true;
+  const seenSurface = new Set<string>();
+  const pool: KoReviewEntry[] = [];
+  for (const a of KO_COURSE_ATOMS) {
+    const idx = koModuleIndex(a.fromModule);
+    if (idx < 0 || idx >= cutoff) continue;
+    if (seenSurface.has(a.surface)) continue; // first-write-wins parity
+    seenSurface.add(a.surface);
+    if (!kinds.includes(a.kind)) continue;
+    if (a.srsEligible === false) continue;
+    if (!a.gloss) continue;
+    if (singleWord && a.surface.includes(" ")) continue;
+    if (requireAudio && getTtsUrl(a.surface, "ko") === null) continue;
+    pool.push({ atomId: a.id, surface: a.surface, gloss: a.gloss });
+  }
+  pool.sort((x, y) => hash32(`${seedId}:${x.surface}`) - hash32(`${seedId}:${y.surface}`));
+  const out: KoReviewEntry[] = [];
+  const seenGloss = new Set<string>();
+  for (const e of pool) {
+    const g = e.gloss.toLowerCase();
+    if (seenGloss.has(g)) continue;
+    seenGloss.add(g);
+    out.push(e);
+    if (out.length >= n) break;
+  }
+  return out;
+}
+
+/** Surfaces-only variant — for feeding prior-module words into cloze /
+ *  sentenceMcq / build review carriers. */
+export function pickReviewSurfaces(
+  seedId: string,
+  beforeModule: string,
+  n: number,
+  opts?: { kinds?: KoAtomKind[]; singleWord?: boolean; requireAudio?: boolean },
+): string[] {
+  return pickReviewEntries(seedId, beforeModule, n, opts).map((e) => e.surface);
+}
+
+/**
+ * A prior-module review match_pairs grid (Hangul → meaning, audio on
+ * select). Throws when the earlier pool can't fill the grid — a review
+ * step that silently shrinks is how coverage rots.
+ */
+export function reviewMatchPairs(
+  idPrefix: string,
+  seedId: string,
+  beforeModule: string,
+  n = 6,
+): MatchPairsStep {
+  const entries = pickReviewEntries(seedId, beforeModule, n);
+  if (entries.length < n) {
+    throw new Error(
+      `ko reviewMatchPairs(${idPrefix}): pool before ${beforeModule} has only ${entries.length} usable entries (need ${n})`,
+    );
+  }
+  return {
+    id: `${idPrefix}-match`,
+    type: "match_pairs",
+    prompt: "Review — match each word to its meaning",
+    playAudioOnSelect: true,
+    pairs: entries.map((e, i) => ({ id: `p-${i}`, source: e.surface, target: e.gloss })),
+    exercisedAtoms: entries.map((e) => e.atomId),
     modality: "recognition",
   };
 }

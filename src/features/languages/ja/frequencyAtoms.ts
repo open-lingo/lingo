@@ -8,11 +8,14 @@
  * for that atom — enabling the feature flips its unlock flag, it does not mint
  * a duplicate.
  *
- * Frequency rank: we have no corpus counts for our own backlog words, so we use
- * the honest proxy — the atom's position in the curriculum registry among the
- * "future" vocab atoms. The registry is roughly authored foundational-first, so
- * earlier entries are treated as higher-frequency (earlier unlock). Deterministic
- * and stable as long as the registry order is stable.
+ * Frequency rank: the atom's explicit `freqRank` field (seeded 2026-08-26 from
+ * the then-registry order — we have no corpus counts for our own backlog
+ * words). Rank used to be derived from array position, which meant re-homing
+ * ANY atom off "future" shifted every later atom's rank and (at 20 words per
+ * module) silently moved ~1 in 20 of the remaining deck to a different unlock
+ * module. Explicit ranks are stable under re-homing: a re-homed atom retires
+ * its rank (gaps are fine — rank VALUE drives the bucket), a new backlog atom
+ * takes max+1. `frequencyAtoms.test.ts` enforces presence + uniqueness.
  *
  * Filtered to real single words: `kind: "vocab"` only (drops authored sentence
  * "phrase" atoms) and SRS-eligible only (drops alphabet-trainer single-kana
@@ -31,8 +34,13 @@ import {
   type FrequencyAtom,
 } from "../frequencyTypes";
 
-/** JA has 30 content modules — its true upper unlock bound. */
-export const JA_FREQ_LAST_MODULE = 30;
+/**
+ * JA's true upper unlock bound — the last LIVE content module (m38, N4 tier).
+ * Overflow ranks pile here. Was 30 until 2026-08-26 (eight modules stale: a
+ * learner at m38 saw nothing new past m30). `frequencyAtoms.test.ts` ties
+ * this to the live curriculum so it cannot silently go stale again.
+ */
+export const JA_FREQ_LAST_MODULE = 38;
 
 function isFrequencyCandidate(atom: CourseAtom): boolean {
   return (
@@ -43,19 +51,23 @@ function isFrequencyCandidate(atom: CourseAtom): boolean {
 }
 
 export const JA_FREQUENCY_ATOMS: ReadonlyArray<FrequencyAtom<JaConjugationLink>> =
-  JA_COURSE_ATOMS.filter(isFrequencyCandidate).map((atom, i) => {
-    const frequencyRank = i + 1;
-    return {
-      id: canonicalAtomId(atom),
-      surface: atom.kana,
-      reading: atom.romaji,
-      meaningEn: atom.shortGloss ?? atom.meaningEn,
-      pos: atom.pos,
-      frequencyRank,
-      unlockModule: frequencyRankToModule(frequencyRank, {
-        lastModule: JA_FREQ_LAST_MODULE,
-      }),
-      conjugation: atom.conjugation,
-      source: "freq",
-    };
-  });
+  JA_COURSE_ATOMS.filter(isFrequencyCandidate)
+    .map((atom) => {
+      // Candidates without an explicit rank are a seeding bug — the test
+      // enforces presence; sort below keeps output deterministic regardless.
+      const frequencyRank = atom.freqRank ?? Number.MAX_SAFE_INTEGER;
+      return {
+        id: canonicalAtomId(atom),
+        surface: atom.kana,
+        reading: atom.romaji,
+        meaningEn: atom.shortGloss ?? atom.meaningEn,
+        pos: atom.pos,
+        frequencyRank,
+        unlockModule: frequencyRankToModule(frequencyRank, {
+          lastModule: JA_FREQ_LAST_MODULE,
+        }),
+        conjugation: atom.conjugation,
+        source: "freq" as const,
+      };
+    })
+    .sort((a, b) => a.frequencyRank - b.frequencyRank);

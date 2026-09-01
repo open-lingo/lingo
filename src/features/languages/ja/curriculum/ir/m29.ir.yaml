@@ -61,9 +61,12 @@ notes: |
      fail-routing input — see FAIL-ROUTING below, which is where the honest
      limitation is recorded.
 
-  Shape: 13 lessons = 9 teaching + 3 review + 1 challenge, reviews at the
-  first/middle/last thirds, challenge lesson LAST (inv 25). NO katakana rows
-  (the programme ended at m11).
+  Shape: 14 lessons = 10 teaching + 3 review + 1 challenge, reviews at the
+  first/middle/last thirds, challenge lesson LAST (inv 25). The tenth teaching
+  lesson is m29-neo-14, the 2026-08-26 F18 freq-gap insert (the remaining CEJC
+  top-130 enders じゃん・っけ・さ・わ), slotted between L11 and review-3 — id ≠
+  position is established precedent. NO katakana rows (the programme ended at
+  m11).
 
   DEVIATIONS + DECISIONS, documented per the RUN-PLAN "decide and document" rule:
 
@@ -91,7 +94,8 @@ notes: |
     AND the closed-class coverage lint", and **0 of 103 registry entries carry
     it**. Neither gap can be closed from a module's IR, which is why this is a
     report item rather than an invented field.
-  - **FOUR ATOMS ARE DECLARED AND `courseAtoms.ts` IS UNTOUCHED.** A capstone's
+  - **FOUR ATOMS WERE DECLARED AT SHIP — EIGHT since the 2026-08-26 F18 insert
+    added じゃん・っけ・さ・わ — AND `courseAtoms.ts` IS UNTOUCHED.** A capstone's
     job is coverage, not expansion. `よ` and `ね` are the two sentence-final
     particles the ledger owes; `じゃないです` and `じゃありません` are the polite
     and formal skins of an atom (`じゃない`) the learner has had since m12. All
@@ -210,12 +214,22 @@ notes: |
     m29 — the N4 "plain form" pilot). RECALIBRATED on the finished module and
     set three sentences below the measurement. Raised, never lowered.
 
-  ONE RULE CARD PER LESSON (m14's layout law): every teaching lesson carries
-  exactly one, because two `kind: rule` beats compile to two PINNED, ADJACENT
-  grammar_rule steps and fail the adjacency bar.
+  RULE CARDS PER LESSON (m14's layout law, amended 2026-08-26): at most TWO
+  `kind: rule` beats, adjacency-capped — every `kind: rule` beat compiles
+  PINNED at the lesson front in authored order, and `moduleBarGuards` caps the
+  adjacent grammar_rule run at 2 (the m34-neo-1 precedent). Every lesson here
+  carries exactly one except m29-neo-14, which spends the full budget: the
+  じゃん card (janai-desu, `variant: jan` — which is why L1's card and beat now
+  carry `variant: ladder`) and the っけ/さ card (ka-question). The F18 enders
+  follow the BOUND ruling above word for word: じゃん・っけ・さ・わ decorate a
+  finished predicate and carry no proposition, so all four are in
+  `moduleCompiler.BOUND`, in `BOUND_ENDERS`, in `FROZEN_UNREGISTERED`, and in
+  no reviewPool — and わ is RECOGNITION-ONLY (one listening-comp beat, never a
+  production target, never a tile).
 
 grammarPoints:
   - id: janai-desu
+    variant: ladder
     rule: "You have been saying 「じゃない」 since module 12 — it is how a noun sentence goes negative. 「わたしのじゃない」, it isn't mine. This lesson adds no new meaning at all. It adds the two other ways to say the same thing, because Japanese does not pick one way of saying something and use it everywhere: it picks the one that fits the person listening. To a friend it stays 「じゃない」. To anybody you are already using です with — a teacher, somebody you met an hour ago, the person at the next desk — it becomes 「じゃないです」. And when you want to sound careful, at a counter or on the phone to a company or in anything written down, it becomes 「じゃありません」. Three forms, one meaning, and the choice is not about the sentence. Now look at what actually changes: only the END. The noun in front never moves, the は never moves, and there is no polite version of the noun itself. Politeness in Japanese is carried once and it is carried at the end, which is exactly what です and ます taught you in module 7. One warning, because everyone walks into it: this whole family is for NOUNS and な-adjectives. An い-adjective goes negative on its own — 「たかくない」 — and 「たかいじゃない」 is not a sentence."
     examples:
       - { ja: "この かぎは わたしのじゃない。", en: "This key isn't mine." }
@@ -224,6 +238,30 @@ grammarPoints:
       - { ja: "ごごは ひまじゃない。", en: "I'm not free in the afternoon." }
       - { ja: "たなかさんは いしゃじゃありません。せんせいです。", en: "Tanaka isn't a doctor. He's a teacher." }
     antiPattern: { ja: "この かぎは わたしのじゃないだ。", why: "じゃない IS the finished negative — nothing follows it, and だ never sits on top of it: この かぎは わたしのじゃない。" }
+
+  # ══ m29-neo-14 (the F18 insert). SECOND card under janai-desu — the id stays
+  #    shared on purpose (one point, one SRS history); `variant` is what keeps
+  #    the two cards reachable (the m6 nai-form ruling).
+  - id: janai-desu
+    variant: jan
+    rule: "Walk the module's ladder down one more rung and listen to what falls off. 「たかくないですか」 is how you nudge a teacher — isn't it expensive? Strip the polite skin and it is 「たかくない？」, the same nudge to a friend. Now say THAT fast, every day, for years, and the ない itself wears down to ん: 「たかいじゃん」. So じゃん is not a new word. It is じゃない with the ない worn off, and it does what the negative question has done since module 12 — pushes a claim at somebody while leaving them room to nod. What it pushes is something you BOTH already know. よ hands over news and ね collects agreement; じゃん appeals — come on, you can see it too — which is why it is the friendly protest: 「たかかったじゃん。」, it WAS expensive, remember? Two mechanical facts. It sits on a finished PLAIN sentence and nothing follows it. And — here the family tree misleads — じゃない glues only to nouns, but じゃん, worn smooth, rides anything: たかいじゃん is fine where 「たかいじゃない」 was never a sentence. One social fact, and it is the whole warning: じゃん lives in friend-register only. There is no polite じゃん and there does not need to be — the same move to a teacher is the ですね you already own."
+    examples:
+      - { ja: "この ぼうしは たかいじゃん。", en: "This hat's expensive, right?" }
+      - { ja: "たかかったじゃん。", en: "It was expensive, remember?" }
+      - { ja: "ひまじゃん。", en: "You're free, right?" }
+    antiPattern: { ja: "せんせい たかいじゃん。", why: "じゃん is a friend-register ender — to a teacher the same move is たかいですね。" }
+
+  # ══ m29-neo-14. っけ is the card's core; さ rides along in the prose — it
+  #    gets NO third card (the two-rule cap), and its explicit teaching lives
+  #    here and in its beats' explanations.
+  - id: ka-question
+    rule: "You have owned か since module 7, and か asks the WORLD: 「なんじですか。」 puts the question to somebody who knows. っけ turns the same question inward. 「なんじだっけ？」 is what time was it again? — you knew this once, and you are digging through your own memory in front of somebody, half inviting them to help. That is why っけ loves だ and た: it rides what was already settled — 「ごごからだっけ？」, it WAS from the afternoon, wasn't it. Mechanically it takes か's seat: っけ IS the question, so no か joins it and nothing follows it. Like じゃん, it is friend-register — to your teacher the memory check is still 「なんじですか」. And while you are at the warm end of the shelf, meet さ, which asks nothing at all: 「あのさ」 just keeps the sentence warm while you think, the way English says so— before the real sentence arrives. It rides あの, it means nothing except I'm still talking, stay with me, and you will hear it constantly. Spend it lightly."
+    examples:
+      - { ja: "なんじだっけ？", en: "What time was it again?" }
+      - { ja: "さんぽは ごごからだっけ？", en: "The walk's from this afternoon, right?" }
+      - { ja: "その おんがくは よかったっけ？", en: "Was that music good, again?" }
+      - { ja: "あのさ ごごから かいものに いくんだ。", en: "So — I'm going shopping this afternoon." }
+    antiPattern: { ja: "なんじだっけか？", why: "っけ takes か's seat — it IS the question, so か never stacks on top of it: なんじだっけ？" }
 
   - id: yo-emphasis
     rule: "よ goes on the very end of a finished sentence and it means one thing: this is news to you. You have something the listener does not have, and よ is how you hand it over. 「ゆきが ふるよ。」 — it's going to snow, and I can hear that you don't know that yet. Say the same sentence without よ and it is a flat remark about the weather; say it with よ and it is aimed at somebody. That is the whole job, and it is worth having, because a beginner's Japanese without よ sounds oddly like a weather report even when it is a warning. Two mechanical facts, and neither is negotiable. First, よ attaches to a sentence that is ALREADY finished, in whatever register you finished it: 「ふるよ。」 to a friend, 「いきますよ。」 to a teacher, 「じゃないですよ。」 when you are correcting somebody politely. The politeness is decided before よ arrives, and よ neither adds any nor takes any away. Second, nothing follows よ. It is the last thing in the sentence. There is one thing NOT to do with it. Do not put よ on something you can both plainly see. Telling somebody standing in the same snow 「さむいよ」 informs them of their own experience, which lands somewhere between odd and rude — that sentence wants ね, and ね is the next lesson."
@@ -339,6 +377,22 @@ newAtoms:
   #    「じゃないありません」.
   - { kana: じゃないです, romaji: "ja nai desu", gloss: "isn't (noun or な-adjective) — polite", shortGloss: "isn't (noun) polite", imageable: false, kind: vocab, derivedFrom: じゃない }
   - { kana: じゃありません, romaji: "ja arimasen", gloss: "isn't (noun or な-adjective) — formal", shortGloss: "isn't (noun) formal", imageable: false, kind: vocab, derivedFrom: じゃない }
+  # ══ L14 (m29-neo-14, the 2026-08-26 F18 insert): the four remaining CEJC
+  #    top-130 sentence enders. ALL FOUR ARE BOUND by the module's own ruling —
+  #    they decorate a finished predicate and carry no proposition of their
+  #    own, so 「じゃん。」 is not an utterance. All four are in
+  #    `moduleCompiler.BOUND`, in `BOUND_ENDERS`, in `FROZEN_UNREGISTERED`
+  #    (registering a bound ender would put a decoration in the flashcard
+  #    deck), and in no reviewPool. じゃん is additionally じゃない-derived —
+  #    じゃない with the ない worn off — but is deliberately declared WITHOUT
+  #    `derivedFrom`: the frozen-list ratchet audits underived lemma kinds
+  #    only, and じゃん's ruling should sit there beside よ/ね rather than
+  #    vanish from every audit. わ is RECOGNITION-ONLY (gender/region-marked,
+  #    the ぼく/おれ posture): one listening-comp beat, never production.
+  - { kana: じゃん, romaji: "jan", gloss: "~, right? (casual pushback — じゃない worn smooth)", shortGloss: "right?", imageable: false, kind: particle }
+  - { kana: っけ, romaji: "kke", gloss: "~, was it? (asking your own memory)", shortGloss: "was it?", imageable: false, kind: particle }
+  - { kana: さ, romaji: "sa", gloss: "~, y'know (keeps the sentence warm)", shortGloss: "y'know", imageable: false, kind: particle }
+  - { kana: わ, romaji: "wa", gloss: "~ (soft sentence-final emphasis)", shortGloss: "(soft emphasis)", imageable: false, kind: particle }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -348,7 +402,7 @@ lessons:
     focus: "One negative, three registers: じゃない / じゃないです / じゃありません"
     introduces: [じゃないです, じゃありません]
     beats:
-      - { kind: rule, grammarPointId: janai-desu }
+      - { kind: rule, grammarPointId: janai-desu, variant: ladder }
       - { kind: register, stage: 1, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", cheatSheet: { 1: "じゃない", 2: "じゃないです", 3: "じゃありません" }, exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "この かぎは わたしのじゃない。", en: "Say to a friend: This key isn't mine", exercises: [janai-desu, no-possession, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "きゅうりは くだものじゃないです。", en: "Say politely: A cucumber isn't a fruit", exercises: [janai-desu, wa-topic, desu-copula], mode: build }
@@ -647,6 +701,60 @@ lessons:
           - { q: "Why does Mika turn the invitation down?", options: ["She has got work", "She is ill", "She has no money", "She is going abroad"], answer: "She has got work" }
       - { kind: challenge, ja: "ちょっと からいけど とりにくの ほうが おいしいと おもうよ。", en: "Say to a friend: It's a bit spicy, but I think the chicken is better", combines: [chotto-softener, kedo, yori-comparison, to-omoimasu, yo-emphasis], mode: build }
     reviewPool: [ぼうし, くつ, とりにく, ぎゅうにゅう, かさ, じかん, ばん, ごぜん, いけ, まいにち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # m29-neo-14 — the 2026-08-26 F18 freq-gap insert ("the rest of the enders").
+  # Id ≠ position (the m2 landmine, deliberately reused): the SHIPPED order
+  # comes from M29_NEO_LESSONS, which slots this between L11 and review-3.
+  # TWO rule beats (the amended cap): both compile PINNED at the front, and
+  # the guards cap the adjacent run at exactly 2. First dialogue_sim below
+  # m34 — the sim sits LATE, after every ender's intro-capable debut, because
+  # dialogue_sim is deliberately not intro-capable (inv 33, applied harder).
+  - id: m29-neo-14
+    role: teaching
+    title: "「たかいじゃん」 — the enders you have not met yet"
+    focus: "じゃん is じゃない said fast; っけ asks your own memory; さ keeps the sentence warm — and わ you only need to recognise"
+    introduces: [じゃん, っけ, さ, わ]
+    beats:
+      - { kind: rule, grammarPointId: janai-desu, variant: jan }
+      - { kind: rule, grammarPointId: ka-question }
+      - { kind: sentence, ja: "この ぼうしは たかいじゃん。", en: "Say to a friend: This hat's expensive, right?", exercises: [janai-desu, kono-sono-ano-dono, i-adj-present], mode: build }
+      - { kind: listening-comp, audio: "この かさは たかいじゃん。", answer: "This umbrella's expensive, right?", distractors: ["This umbrella isn't expensive.", "Is this umbrella expensive?", "This umbrella was expensive."], exercises: [janai-desu, i-adj-present] }
+      - { kind: sentence, ja: "さんぽは ごごからだっけ？", en: "Say to a friend: The walk's from this afternoon, right?", exercises: [ka-question, kara-time], mode: build }
+      - { kind: particle-cloze, stem: "なんじ", tail: "？", answer: "だっけ", options: ["だっけ", "だよ", "だね"], en: "What time was it again?", explanation: "だっけ digs into your own memory; だよ tells somebody news; だね checks that they agree — and you cannot check agreement about something you yourself have forgotten." }
+      - { kind: sentence, ja: "あのさ ごごから かいものに いくんだ。", en: "Say to a friend: So — I'm going shopping this afternoon.", exercises: [n-desu, ni-iku, kara-time], mode: build }
+      - { kind: sentence, ja: "あのさ その くつ ちょっと たかくない？", en: "Say to a friend: So… aren't those shoes a bit expensive?", exercises: [chotto-softener, i-adj-negative], mode: listening }
+      - { kind: register, stage: 2, audience: teacher, answer: "たかいですね", options: ["たかいじゃん", "たかいですね", "たかくないです", "たかいね"], en: "Say that's expensive.", exercises: [register-audience, ne-agreement] }
+      - { kind: listening-comp, audio: "ふゆは さむいわ。", q: "Who is most likely saying this?", answer: "An older woman", distractors: ["A schoolboy", "A shop clerk to a customer", "A teacher in class"], explanation: "わ is a soft sentence-final emphasis you will mostly hear from older women — you only ever need to RECOGNISE it, never say it.", exercises: [yo-emphasis, i-adj-present] }
+      - { kind: sentence, ja: "その おんがくは よかったっけ？", en: "Say to a friend: Was that music good, again?", exercises: [ka-question, i-adj-past], mode: listening }
+      - kind: sim
+        scene: { emoji: "☕", title: "After class", setting: "Ken catches you on the way out." }
+        exercises: [janai-desu, ka-question, nai-form, yes-no-register]
+        turns:
+          - npc: { speaker: "Ken", ja: "ひまじゃん。コーヒー のむ？", en: "You're free, right? Coffee?" }
+            goal: "Agree — you are free."
+            reply: { mode: choice, options: ["うん ひまだよ。", "ううん ひまじゃない。", "はい そうです。"], answer: "うん ひまだよ。" }
+            replyGloss: "Yeah, I'm free."
+            explanation: "Plain うん is the register with Ken. はい そうです would land oddly polite between friends, and ううん ひまじゃない declines the premise — no coffee for you."
+          - npc: { speaker: "Ken", ja: "あそこの コーヒー やすかったっけ？", en: "Was the coffee there cheap, again?" }
+            goal: "Tell him it was actually expensive."
+            reply: { mode: build, tiles: ["たかかった", "じゃん", "やすかった", "よ", "ね", "。"], answer: "たかかったじゃん。" }
+            replyGloss: "No — it was expensive, remember?"
+            explanation: "じゃん pushes back with something you both already know. たかかったよ would be telling him news; たかかったね would agree with him — and he is wrong."
+          - npc: { speaker: "Ken", ja: "どこで のむ？", en: "Where shall we drink it, then?" }
+            goal: "Suggest your place — the friendly way."
+            reply: { mode: build, tiles: ["うち", "で", "のまない", "に", "いく", "？"], answer: "うちで のまない？" }
+            replyGloss: "Drink it at mine?"
+            explanation: "で marks where the drinking happens — に would point a movement somewhere instead. And のまない？ borrows the negative to soften the ask, the same friendliness 「いかない？」 carries: a plain question with room to say no."
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あの ぼうし たかいじゃん。", en: "That hat's expensive, right?" }
+          - { speaker: "Tom", ja: "そうだね。たかいけど いい ぼうしだよ。", en: "Yeah. It's expensive, but it's a good hat." }
+          - { speaker: "Mika", ja: "かう？", en: "Buying it, then?" }
+        questions:
+          - { q: "What does Mika suggest at the end?", options: ["Buying it anyway", "Not buying it", "Looking for a cheaper one", "Asking the clerk"], answer: "Buying it anyway" }
+      - { kind: challenge, ja: "あのさ あねと した かいもの たかかったじゃん。", en: "Say to a friend: So — that shopping I did with my older sister, it was expensive, right?", combines: [janai-desu, ta-form, family-register, to-and], mode: build }
+    reviewPool: [ぼうし, くつ, ふく, さいふ, かいもの, おんがく, コーヒー, さんぽ, ごご, ふゆ]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m29-neo-review-3

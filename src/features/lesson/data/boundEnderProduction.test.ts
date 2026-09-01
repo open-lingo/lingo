@@ -62,6 +62,15 @@ const BOUND_ENDERS = [
   // complete reply and a legitimate production target.
   "よ",
   "ね",
+  // m29-neo-14 (2026-08-26, the F18 ender insert), same principle as よ/ね.
+  // じゃん / っけ / さ / わ decorate a finished sentence and carry no
+  // predicate: 「じゃん。」 is not an utterance. じゃん is じゃない worn smooth,
+  // but unlike じゃない — which IS the predicate and stays out of this list —
+  // the contraction only ever rides another finished predicate.
+  "じゃん",
+  "っけ",
+  "さ",
+  "わ",
 ];
 
 /**

@@ -40,6 +40,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -67,8 +68,10 @@ const M12_1: LessonContent = {
     sentenceMcq({
       id: "ko-m12-1-q-twoclock",
       prompt: "'2 o'clock' —",
+      // 2026-09-01: 분 was a distractor here one lesson before its m12-2 intro
+      // (same class as the m5 원 defect) — swapped for the taught 잔.
       correctHangul: "두 시",
-      distractorsHangul: ["이 시", "둘 시", "두 분"],
+      distractorsHangul: ["이 시", "둘 시", "두 잔"],
       explanation: "Hours use native numbers in counter form: 두 시 (not 이 시, not 둘 시).",
       exercisedAtomSurfaces: ["시"],
     }),
@@ -76,7 +79,7 @@ const M12_1: LessonContent = {
       id: "ko-m12-1-q-oneclock",
       prompt: "'1 o'clock' —",
       correctHangul: "한 시",
-      distractorsHangul: ["일 시", "하나 시", "한 분"],
+      distractorsHangul: ["일 시", "하나 시", "한 잔"],
       explanation: "1:00 = 한 시 (contracted native number + 시).",
       exercisedAtomSurfaces: ["시"],
     }),
@@ -167,6 +170,9 @@ const M12_3: LessonContent = {
       "grammar",
     ),
     phrase("ko-m12-3-p-now", "now", "jigeum", "지금"),
+    // 2026-09-01 gate catch: 몇 was graded in the cloze below with only the
+    // 몇 시예요? chunk card (which carries no ko:몇 atom) — word card added.
+    phrase("ko-m12-3-p-myeot", "how many / what (number)", "myeot", "몇"),
     phrase("ko-m12-3-p-whattime", "What time is it?", "myeot siyeyo", "몇 시예요?"),
     sentenceMcq({
       id: "ko-m12-3-q-whattime",
@@ -223,9 +229,16 @@ const M12_4: LessonContent = {
       "Each day of the week ends in 요일 ('day of the week'): 월요일 (Mon), 화요일 (Tue), 수요일 (Wed), 목요일 (Thu), 금요일 (Fri), 토요일 (Sat), 일요일 (Sun). The first syllable is the classic element — 월(moon), 화(fire), 수(water)… — but you can just learn them as set words.",
       "grammar",
     ),
+    // 2026-09-01 audit + follow-up: 토요일 was graded below with only the
+    // info-card mention, and 화요일/목요일 were registered srsEligible atoms
+    // that SRS seeded with no intro anywhere — the full week now gets real
+    // cards, in order.
     phrase("ko-m12-4-p-mon", "Monday", "woryoil", "월요일"),
+    phrase("ko-m12-4-p-tue", "Tuesday", "hwayoil", "화요일"),
     phrase("ko-m12-4-p-wed", "Wednesday", "suyoil", "수요일"),
+    phrase("ko-m12-4-p-thu", "Thursday", "mogyoil", "목요일"),
     phrase("ko-m12-4-p-fri", "Friday", "geumyoil", "금요일"),
+    phrase("ko-m12-4-p-sat", "Saturday", "toyoil", "토요일"),
     phrase("ko-m12-4-p-sun", "Sunday", "iryoil", "일요일"),
     sentenceMcq({
       id: "ko-m12-4-q-monday",
@@ -397,15 +410,16 @@ const M12_7: LessonContent = {
       ["금요일에", "영화를", "보고 싶어요"],
       ["금요일", "영화"],
     ),
+    // 2026-09-01 audit: 만나요 was required in the translate step below but
+    // taught only in the dialogue info card — phrase-card intro added (and the
+    // atom registered in M12_VOCAB).
+    phrase("ko-m12-7-p-meet", "meet / let's meet", "mannayo", "만나요"),
     translateStep({
       id: "ko-m12-7-tr-meetatthree",
-      // NATIVE-REVIEW: 만나요 ('let's meet' / 'I meet') appears only in the info
-      // card; the accepted answer set keeps it but the verb 만나다 isn't drilled
-      // as its own atom — confirm it's acceptable as a recognition-only word here.
       promptEn: "Let's meet at 3:00.",
       acceptedAnswers: ["세 시에 만나요", "세 시에 만나요."],
       audioText: "세 시에 만나요",
-      exercisedAtomSurfaces: ["시"],
+      exercisedAtomSurfaces: ["시", "만나요"],
     }),
     listeningCompSentence({
       id: "ko-m12-7-lc-whattime",
@@ -479,7 +493,7 @@ const M12_8: LessonContent = {
   ],
 };
 
-export const KO_M12_LESSONS: LessonContent[] = [
+export const KO_M12_LESSONS: LessonContent[] = withReviewInterleave("m12", [
   M12_1,
   M12_2,
   M12_3,
@@ -488,4 +502,4 @@ export const KO_M12_LESSONS: LessonContent[] = [
   M12_6,
   M12_7,
   M12_8,
-];
+]);

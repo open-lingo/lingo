@@ -12,7 +12,7 @@
  * instead of as scattered per-consumer filters.
  *
  * Sources, in order of truth:
- *  - IR modules (m6–m29): the compiled `mN.ir.json` `priorVocab` — the union
+ *  - IR modules (m6–m38): the compiled `mN.ir.json` `priorVocab` — the union
  *    of what every earlier module actually taught, computed by
  *    `scripts/compile-ir.mjs` where the filesystem is available. The JSONs
  *    are already statically imported by each `mN-neo.ts`, so importing them
@@ -60,6 +60,13 @@ import m28Ir from "./ir/m28.ir.json";
 import m29Ir from "./ir/m29.ir.json";
 import m30Ir from "./ir/m30.ir.json";
 import m31Ir from "./ir/m31.ir.json";
+import m32Ir from "./ir/m32.ir.json";
+import m33Ir from "./ir/m33.ir.json";
+import m34Ir from "./ir/m34.ir.json";
+import m35Ir from "./ir/m35.ir.json";
+import m36Ir from "./ir/m36.ir.json";
+import m37Ir from "./ir/m37.ir.json";
+import m38Ir from "./ir/m38.ir.json";
 
 type IrWithPriorVocab = { priorVocab?: string[] };
 
@@ -90,6 +97,13 @@ const IR_BY_MODULE: Readonly<Record<string, IrWithPriorVocab>> = {
   m29: m29Ir,
   m30: m30Ir,
   m31: m31Ir,
+  m32: m32Ir,
+  m33: m33Ir,
+  m34: m34Ir,
+  m35: m35Ir,
+  m36: m36Ir,
+  m37: m37Ir,
+  m38: m38Ir,
 };
 
 const cache = new Map<string, ReadonlySet<string>>();

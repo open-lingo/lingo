@@ -51,7 +51,14 @@ const MAX_LEN = 40; // guards against a stray all-Korean paragraph
 const set = new Set();
 for (const path of sources) {
   const src = readFileSync(path, "utf-8");
-  for (const m of src.matchAll(/"([^"\\]*)"/g)) {
+  // The escape-aware alternation matters: the old /"([^"\\]*)"/ could not
+  // match any string containing an escape (e.g. the multi-line dialogue info
+  // cards with \n), which DESYNCED quote-pairing for the rest of the file and
+  // silently swallowed every later audioText — the 2026-09-01 audit's 26
+  // missing-clip holes were exactly this. Escaped strings themselves are
+  // English prose (info cards), so they're skipped AFTER being matched.
+  for (const m of src.matchAll(/"((?:[^"\\]|\\.)*)"/g)) {
+    if (m[1].includes("\\")) continue; // escaped ⇒ prose, not a speakable string
     const s = m[1].trim();
     if (!s || !HAS_HANGUL.test(s) || !KO_ONLY.test(s) || s.length > MAX_LEN) {
       continue;

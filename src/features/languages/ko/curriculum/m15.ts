@@ -22,7 +22,8 @@
  *     permission; as a statement it grants it.
  *   - 지만 attaches to the plain stem (and works on copula/adjectives too):
  *     좋지만 ('it's good, but…'), 비싸지만 ('it's expensive, but…'). Joins two
- *     clauses inside one sentence; the contrast equivalent of M13's 하지만.
+ *     clauses inside one sentence. (Do NOT back-reference 하지만 as taught —
+ *     it only ever appeared as an MCQ distractor; 2026-09-01 audit fix.)
  *
  * NATIVE-REVIEW flags are inline at the relevant steps. See WORKTREE_REPORT.md.
  */
@@ -37,6 +38,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -283,7 +285,7 @@ const M15_5: LessonContent = {
     infoStep(
       "ko-m15-5-info",
       "stem + 지만",
-      "지만 attaches to the plain stem of any verb or adjective to mean 'but / although': 좋지만 ('it's good, but…'), 비싸지만 ('it's expensive, but…'), 가고 싶지만 ('I want to go, but…'). It joins two clauses in ONE sentence — the in-clause version of M13's sentence-starting 하지만.",
+      "지만 attaches to the plain stem of any verb or adjective to mean 'but / although': 좋지만 ('it's good, but…'), 비싸지만 ('it's expensive, but…'), 가고 싶지만 ('I want to go, but…'). It joins two clauses in ONE sentence — the contrast counterpart of M14's in-clause reason ending 아서/어서.",
       "grammar",
     ),
     phrase("ko-m15-5-p-but", "but / although (stem + 지만)", "jiman", "지만"),
@@ -494,7 +496,7 @@ const M15_8: LessonContent = {
   ],
 };
 
-export const KO_M15_LESSONS: LessonContent[] = [
+export const KO_M15_LESSONS: LessonContent[] = withReviewInterleave("m15", [
   M15_1,
   M15_2,
   M15_3,
@@ -503,4 +505,4 @@ export const KO_M15_LESSONS: LessonContent[] = [
   M15_6,
   M15_7,
   M15_8,
-];
+]);

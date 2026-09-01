@@ -188,7 +188,7 @@ artifacts/
 # mobile render pipeline screenshot output
 mobile-shots*/
 
-# downloaded raw gov corpus (reproducible via scripts/data/ko-frequency-raw/SOURCES.txt)
+# downloaded raw gov corpus (reproducible via scripts/data/ko-frequency-raw.SOURCES.md — committed)
 scripts/data/ko-frequency-raw/
 
 # Dev-only TTS clip cache (see serveTtsLocally in vite.config.ts). Populated

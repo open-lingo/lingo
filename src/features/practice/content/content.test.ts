@@ -114,6 +114,18 @@ const JA_RESTAMP_DEBT = new Set([
   "ja-m30-the-club", "ja-m30-the-senior-i-grew-up-with",
 ]);
 
+// KO fromModule truth-fix debt (2026-09-01). The KO release audit moved 빵 to
+// its true first-teach module (m9 phrase card) — it had been registered as m5
+// vocab that m5 never taught, and early curated café content used it under the
+// stale tag. Most pieces absorbed a 빵 gloss instead; the two here cannot (the
+// m6 story sits at its L2 gloss cap with both glosses in use, and
+// conversations have no gloss channel). Frozen BY NAME until the KO re-author
+// teaches 빵 at m5 for real; same contract as JA_RESTAMP_DEBT — stale entries
+// must be removed (checked below).
+const KO_RESTAMP_DEBT = new Set([
+  "ko-m6-no-restaurant-at-the-station", "ko-m5-cafe",
+]);
+
 function contentGateFlags(lang: string): Set<string> {
   const flagged = new Set<string>();
   for (const story of allStories(lang))
@@ -132,6 +144,7 @@ describe("curated content — comprehensibility gate", () => {
       const failures: string[] = [];
       for (const story of allStories(lang)) {
         if (lang === "ja" && JA_RESTAMP_DEBT.has(story.id)) continue;
+        if (lang === "ko" && KO_RESTAMP_DEBT.has(story.id)) continue;
         for (const { label, text } of storyTexts(story)) {
           const residual = gateResidual(text, lang, story.module, glossSurfaces(story));
           if (residual !== "") {
@@ -146,6 +159,7 @@ describe("curated content — comprehensibility gate", () => {
       const failures: string[] = [];
       for (const conv of allConversations(lang)) {
         if (lang === "ja" && JA_RESTAMP_DEBT.has(conv.id)) continue;
+        if (lang === "ko" && KO_RESTAMP_DEBT.has(conv.id)) continue;
         for (const { label, text } of conversationTexts(conv)) {
           const residual = gateResidual(text, lang, conv.module);
           if (residual !== "") {
@@ -163,6 +177,15 @@ describe("curated content — comprehensibility gate", () => {
     expect(
       stale,
       `these debt entries no longer fail the gate (an R16 landing cleared them — remove):\n${stale.join("\n")}`,
+    ).toEqual([]);
+  });
+
+  it("ko: RESTAMP_DEBT entries stay honest — stale ones must be removed", () => {
+    const flagged = contentGateFlags("ko");
+    const stale = [...KO_RESTAMP_DEBT].filter((id) => !flagged.has(id)).sort();
+    expect(
+      stale,
+      `these debt entries no longer fail the gate (빵 is now taught early — remove):\n${stale.join("\n")}`,
     ).toEqual([]);
   });
 });

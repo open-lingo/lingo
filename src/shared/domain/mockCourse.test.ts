@@ -129,13 +129,14 @@ describe("curriculum lesson counts", () => {
     expect(stillComingSoon, stillComingSoon.join(", ")).toEqual([]);
   });
 
-  it("m29 is the authored N5 capstone (13 lessons, challenge last)", () => {
+  it("m29 is the authored N5 capstone (14 lessons, challenge last)", () => {
+    // 14 since 2026-08-26: ja-m29-neo-14 is the F18 freq-gap ender insert.
     const m29 = course.modules.find((m) => m.id === "m29")!;
     expect(m29, "m29 missing").toBeDefined();
     expect(m29.comingSoon).toBeFalsy();
     expect(m29.tier ?? "n5").toBe("n5");
     const taught = m29.lessons.filter((l) => l.kind !== "story");
-    expect(taught).toHaveLength(13);
+    expect(taught).toHaveLength(14);
     expect(taught[taught.length - 1].id).toBe("ja-m29-neo-challenge");
     // …then the capstone read, which is the module's last node.
     expect(m29.lessons[m29.lessons.length - 1].id).toBe("story:ja-m29-cleaning-day");

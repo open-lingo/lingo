@@ -90,9 +90,15 @@ function atom(opts: {
   srsEligible?: boolean;
   hint?: string;
   hanja?: string;
+  /** Disambiguates homograph ids (`ko:<surface>-<suffix>`). Without it,
+   *  atoms sharing a surface share an id and the SRS conflates them —
+   *  fine for the deliberate re-register convention (토끼, 도), wrong for
+   *  true homographs like 이 subject-marker vs 이 "two". Same shape the
+   *  frequency registry already uses (ko:무-02). */
+  idSuffix?: string;
 }): KoAtom {
   return {
-    id: `ko:${opts.surface}` as AtomId,
+    id: `ko:${opts.surface}${opts.idSuffix ? `-${opts.idSuffix}` : ""}` as AtomId,
     languageId: "ko",
     surface: opts.surface,
     gloss: opts.meaningEn,
@@ -158,7 +164,7 @@ const JAMO_ATOMS: KoAtom[] = [
 const PARTICLE_ATOMS: KoAtom[] = [
   atom({ surface: "은", meaningEn: "topic marker (after consonant)", romanization: "eun", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "는", meaningEn: "topic marker (after vowel)", romanization: "neun", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
-  atom({ surface: "이", meaningEn: "subject marker (after consonant)", romanization: "i", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
+  atom({ surface: "이", idSuffix: "subj", meaningEn: "subject marker (after consonant)", romanization: "i", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "가", meaningEn: "subject marker (after vowel)", romanization: "ga", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "을", meaningEn: "object marker (after consonant)", romanization: "eul", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "를", meaningEn: "object marker (after vowel)", romanization: "reul", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
@@ -400,7 +406,9 @@ const M5_VOCAB: KoAtom[] = [
   // Ordering / money vocab
   atom({ surface: "주세요", meaningEn: "please give (me)", romanization: "juseyo", partOfSpeech: "verb", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "물", meaningEn: "water", romanization: "mul", emoji: "💧", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
-  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  // 빵 ("bread") was registered here as m5 vocab, but m5 never teaches it —
+  // attribution drift caught by the 2026-09-01 audit. It is owned (and now
+  // properly introduced) by M9; see M9_VOCAB.
   atom({ surface: "얼마", meaningEn: "how much", romanization: "eolma", partOfSpeech: "pronoun", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "원", meaningEn: "won (₩, currency)", romanization: "won", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
 ];
@@ -544,7 +552,9 @@ const M9_VOCAB: KoAtom[] = [
   atom({ surface: "과", meaningEn: "and (formal, after a consonant)", romanization: "gwa", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
   atom({ surface: "도", meaningEn: "too / also", romanization: "do", partOfSpeech: "particle", fromModule: "m9", kind: "particle", srsEligible: false }),
   // Support vocab for the connector drills
-  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m9", kind: "vocab", srsEligible: false }),
+  // 빵 is FIRST taught here (phrase card in ko-m9-1) — it was previously
+  // misattributed to m5 (2026-09-01 audit fix), so this is its primary entry.
+  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m9", kind: "vocab" }),
   atom({ surface: "우유", meaningEn: "milk", romanization: "uyu", emoji: "🥛", partOfSpeech: "noun", fromModule: "m9", kind: "vocab", srsEligible: false }),
   atom({ surface: "사과", meaningEn: "apple", romanization: "sagwa", emoji: "🍎", partOfSpeech: "noun", fromModule: "m9", kind: "vocab" }),
 ];
@@ -646,6 +656,10 @@ const M12_VOCAB: KoAtom[] = [
   atom({ surface: "금요일", meaningEn: "Friday", romanization: "geumyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
   atom({ surface: "토요일", meaningEn: "Saturday", romanization: "toyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
   atom({ surface: "일요일", meaningEn: "Sunday", romanization: "iryoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  // Meeting verb for the making-plans dialogue (2026-09-01 audit: 만나요 was
+  // required in a translate step but taught only in an info card — now a real
+  // phrase-card intro in ko-m12-7).
+  atom({ surface: "만나요", meaningEn: "meet / let's meet (polite)", romanization: "mannayo", partOfSpeech: "verb", fromModule: "m12", kind: "vocab" }),
 ];
 
 /**
@@ -697,6 +711,12 @@ const M14_VOCAB: KoAtom[] = [
   // Support verbs used in request sentences
   atom({ surface: "기다리다", meaningEn: "to wait (dictionary form)", romanization: "gidarida", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
   atom({ surface: "기다려 주세요", meaningEn: "please wait (for me)", romanization: "gidaryeo juseyo", partOfSpeech: "phrase", fromModule: "m14", kind: "phrase" }),
+  // 자다/자요 ("sleep") — load-bearing in the m14-1 고-sequencing drills
+  // (밥을 먹고 자요) yet previously registered only at M15 and never taught
+  // anywhere (2026-09-01 audit). Taught via phrase cards in ko-m14-1; the M15
+  // entry remains as an srsEligible:false re-register.
+  atom({ surface: "자다", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  atom({ surface: "자요", meaningEn: "sleep / go to bed (polite)", romanization: "jayo", partOfSpeech: "verb", fromModule: "m14", kind: "vocab" }),
 ];
 
 /**
@@ -710,6 +730,7 @@ const M15_VOCAB: KoAtom[] = [
   atom({ surface: "도 돼요", meaningEn: "may / it's okay to (permission)", romanization: "do dwaeyo", partOfSpeech: "grammar", fromModule: "m15", kind: "vocab", srsEligible: false }),
   atom({ surface: "지만", meaningEn: "but / although (joins clauses)", romanization: "jiman", partOfSpeech: "particle", fromModule: "m15", kind: "particle" }),
   // Support verbs
+  // 자다 is taught in M14 (see M14_VOCAB) — re-register, kept srsEligible:false.
   atom({ surface: "자다", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
   atom({ surface: "쉬다", meaningEn: "to rest (dictionary form)", romanization: "swida", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
   atom({ surface: "전화", meaningEn: "phone / phone call", romanization: "jeonhwa", emoji: "📞", partOfSpeech: "noun", fromModule: "m15", kind: "vocab" }),
@@ -840,7 +861,7 @@ const M20_VOCAB: KoAtom[] = [
  * M21 — Food, restaurants, quotation & listing. Food vocab, the listing
  * connectors 하고/(이)랑, the 잔 cup counter, and (이)라고 하다 (naming/quote).
  * Mirrors JA M21 (food + と quotation + や list + cup counter). 고기 (M1),
- * 빵 (M5), 하고 (M9), 잔 (M5) already exist → srsEligible:false.
+ * 빵 (M9), 하고 (M9), 잔 (M5) already exist → srsEligible:false.
  */
 const M21_VOCAB: KoAtom[] = [
   atom({ surface: "고기", meaningEn: "meat", romanization: "gogi", emoji: "🥩", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
@@ -1044,6 +1065,21 @@ export const KO_ATOMS_BY_SURFACE: ReadonlyMap<string, KoAtom> = (() => {
   const m = new Map<string, KoAtom>();
   for (const a of KO_COURSE_ATOMS) {
     if (!m.has(a.surface)) m.set(a.surface, a);
+  }
+  return m;
+})();
+
+/**
+ * Particle-only view of the same registry. Korean surfaces are heavily
+ * overloaded — 이 is the Sino number "two" (M1, wins first-write above)
+ * AND the subject marker (M3). Particle-semantic steps (particle_cloze)
+ * must resolve against this map, or crediting 이 in a cloze attributes
+ * the rep to the number atom and the particle atom never gets SRS credit.
+ */
+export const KO_PARTICLES_BY_SURFACE: ReadonlyMap<string, KoAtom> = (() => {
+  const m = new Map<string, KoAtom>();
+  for (const a of KO_COURSE_ATOMS) {
+    if (a.kind === "particle" && !m.has(a.surface)) m.set(a.surface, a);
   }
   return m;
 })();

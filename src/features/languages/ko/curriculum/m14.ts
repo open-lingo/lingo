@@ -42,6 +42,7 @@ import {
   speaking,
   translateStep,
 } from "../grammarHelpers";
+import { withReviewInterleave } from "./_reviewInterleave";
 
 const COURSE_ID = "mock-1";
 
@@ -64,13 +65,18 @@ const M14_1: LessonContent = {
       "grammar",
     ),
     phrase("ko-m14-1-p-and", "and / and then (verb + 고)", "go", "고"),
+    // 2026-09-01 audit: 자요 ("sleep") was never taught anywhere yet the
+    // listening comp below hinges on eat-then-sleep vs sleep-then-eat —
+    // real intro (dictionary + polite form) before any graded use.
+    phrase("ko-m14-1-p-sleep-dict", "to sleep (dictionary form)", "jada", "자다"),
+    phrase("ko-m14-1-p-sleep", "sleep / go to bed (polite)", "jayo", "자요"),
     sentenceMcq({
       id: "ko-m14-1-q-eatsleep",
       prompt: "'I eat and (then) sleep.' —",
       correctHangul: "밥을 먹고 자요",
       distractorsHangul: ["밥을 먹어요 자요", "밥을 먹고 자고", "밥을 먹서 자요"],
       explanation: "Stem + 고 on the first verb; tense on the last: 먹고 자요.",
-      exercisedAtomSurfaces: ["밥", "고"],
+      exercisedAtomSurfaces: ["밥", "고", "자요"],
     }),
     cloze(
       "ko-m14-1-cloze-gowatch",
@@ -88,16 +94,16 @@ const M14_1: LessonContent = {
       "공부하고 자요",
       ["공부하고", "자요", "공부해서", "먹고"],
       ["공부하고", "자요"],
-      ["공부", "고"],
+      ["공부", "고", "자요"],
     ),
     listeningCompSentence({
       id: "ko-m14-1-lc-eatsleep",
       audioText: "밥을 먹고 자요",
       correctMeaningEn: "I eat and (then) sleep",
       distractorsEn: ["I sleep and (then) eat", "I want to eat", "I'm eating"],
-      exercisedAtomSurfaces: ["밥", "고"],
+      exercisedAtomSurfaces: ["밥", "고", "자요"],
     }),
-    speaking("ko-m14-1-speak-eatsleep", "밥을 먹고 자요", "I eat and then sleep", ["밥", "고"]),
+    speaking("ko-m14-1-speak-eatsleep", "밥을 먹고 자요", "I eat and then sleep", ["밥", "고", "자요"]),
   ],
 };
 
@@ -131,7 +137,7 @@ const M14_2: LessonContent = {
       // 아서 form specifically. Confirm the 가고 distractor reads as 'less
       // tight' rather than outright wrong to a native ear.
       explanation: "가다 → 가서 (ㅏ stem). 아서 = the second action happens at/after the first.",
-      exercisedAtomSurfaces: ["아서", "가요"],
+      exercisedAtomSurfaces: ["아서", "가요", "자요"],
     }),
     cloze(
       "ko-m14-2-cloze-eatgo",
@@ -158,9 +164,9 @@ const M14_2: LessonContent = {
       audioText: "집에 가서 자요",
       correctMeaningEn: "I go home and sleep (there)",
       distractorsEn: ["I sleep and then go home", "I want to go home", "I'm going home"],
-      exercisedAtomSurfaces: ["아서", "가요"],
+      exercisedAtomSurfaces: ["아서", "가요", "자요"],
     }),
-    speaking("ko-m14-2-speak-gosleep", "집에 가서 자요", "I go home and sleep", ["아서", "가요"]),
+    speaking("ko-m14-2-speak-gosleep", "집에 가서 자요", "I go home and sleep", ["아서", "가요", "자요"]),
   ],
 };
 
@@ -453,7 +459,7 @@ const M14_8: LessonContent = {
       prompt: "'I eat and (then) sleep.' —",
       correctHangul: "밥을 먹고 자요",
       distractorsHangul: ["밥을 먹어요 자요", "밥을 먹고 자고", "밥을 먹서 자요"],
-      exercisedAtomSurfaces: ["밥", "고"],
+      exercisedAtomSurfaces: ["밥", "고", "자요"],
     }),
     sentenceMcq({
       id: "ko-m14-8-q-rain",
@@ -493,11 +499,11 @@ const M14_8: LessonContent = {
       distractorsEn: ["Please wait", "I'm busy", "Thank you"],
       exercisedAtomSurfaces: ["도와주세요"],
     }),
-    speaking("ko-m14-8-speak-recap", "밥을 먹고 자요", "I eat and then sleep", ["밥", "고"]),
+    speaking("ko-m14-8-speak-recap", "밥을 먹고 자요", "I eat and then sleep", ["밥", "고", "자요"]),
   ],
 };
 
-export const KO_M14_LESSONS: LessonContent[] = [
+export const KO_M14_LESSONS: LessonContent[] = withReviewInterleave("m14", [
   M14_1,
   M14_2,
   M14_3,
@@ -506,4 +512,4 @@ export const KO_M14_LESSONS: LessonContent[] = [
   M14_6,
   M14_7,
   M14_8,
-];
+]);

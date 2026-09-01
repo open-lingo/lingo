@@ -529,8 +529,12 @@ const ELIDING_WORDS = new Set(["le", "la", "je", "de", "que", "ne", "me", "te", 
  *  atom's consonant-onset fact through the ONE source (`elidesBefore`) when
  *  the right word is registered; for unregistered words it falls back to
  *  spelling, minus `y`/`h` (the glide and h-aspiré classes are lexical and
- *  unknowable without the atom — never guess them; fr pin F3). */
-function mustElide(left: string, right: string): boolean {
+ *  unknowable without the atom — never guess them; fr pin F3).
+ *  EXPORTED 2026-09-01 for the frContentAudits gate, which re-checks every
+ *  COMPOSED sentence at word level (a multi-word tile ending in an eliding
+ *  word hides its boundary from the tile-level check). Same source, both
+ *  layers — the F2 rule applies everywhere or nowhere. */
+export function mustElide(left: string, right: string): boolean {
   const l = left.toLowerCase();
   const r = right.toLowerCase();
   if (l === "si") return r === "il" || r === "ils";

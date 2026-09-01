@@ -1,5 +1,13 @@
 # French lesson authoring guide
 
+> ⚠️ **STALE (2026-09-01):** this guide predates the 2026-08-21 §13 restart.
+> FR m1–m3 are now hand-authored under the ES doctrine. The authoritative law
+> for FR authoring is **es-lesson-authoring-guide.md §13/§13.9** + the fr gate
+> files (`fr-doctrine.test.ts`, `fr-quality.test.ts`, `moduleBarGuards.ts`) +
+> `m1.ts`–`m3.ts` as the living spec. `scripts/compile-ir-fr.mjs` still
+> enforces the pre-restart 8-lesson shape and is UNUSABLE for §13 modules.
+> Read this file only for FR-specific linguistic notes, not process.
+
 **Status:** DESIGN — no French module has been authored. The FR engine's
 STRUCTURAL CORE now exists (atoms, the 5 FR-usable step factories, placement
 bank, module, registry entry — `fr` is registered and deliberately not

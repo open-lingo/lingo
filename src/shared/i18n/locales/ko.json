@@ -163,7 +163,8 @@
     "footerAttribution": "출처",
     "footerCopyright": "© {{year}} 오픈 링고 · MIT 라이선스",
     "footerStrokeOrder": "획순: ",
-    "footerStrokeOrderHangul": "한글 획순 데이터 © 오픈 링고"
+    "footerStrokeOrderHangul": "한글 획순 데이터 © 오픈 링고",
+    "footerNikl": "한국어 빈도 데이터: "
   },
   "learn": {
     "intro": "학습 경로, 코스, 커뮤니티 모듈.",

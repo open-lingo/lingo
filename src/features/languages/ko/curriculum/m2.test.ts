@@ -11,11 +11,22 @@ describe("KO M2 curriculum", () => {
     }
   });
 
-  it("builds 9 rows × 3 sub-lessons + y-vowel + review + 받침 = 30 lessons", () => {
+  it("builds 9 rows × 3 sub-lessons + 3 compound-vowel + y-vowel + review + 받침 = 33 lessons", () => {
     const lessons = buildAllKoreanM2Lessons();
-    expect(lessons.length).toBe(30);
+    expect(lessons.length).toBe(33);
     expect(lessons.every((l) => l.moduleId === "m2")).toBe(true);
     expect(lessons.every((l) => l.languageId === "ko")).toBe(true);
+  });
+
+  it("interleaves the compound-vowel lessons into the march (not one block)", () => {
+    const ids = buildAllKoreanM2Lessons().map((l) => l.id);
+    // cv-1 breaks aspirated → tense; cv-2 breaks the tense march after ㅃ;
+    // cv-3 follows the y-vowel lesson it builds on (ㅖ = ㅔ + y-glide).
+    expect(ids.indexOf("ko-m2-cv-1")).toBe(ids.indexOf("ko-m2-ch-3") + 1);
+    expect(ids.indexOf("ko-m2-cv-2")).toBe(ids.indexOf("ko-m2-pp-3") + 1);
+    expect(ids.indexOf("ko-m2-cv-3")).toBe(ids.indexOf("ko-m2-yv-1") + 1);
+    // And they precede the module review that claims the full vowel set.
+    expect(ids.indexOf("ko-m2-cv-3")).toBeLessThan(ids.indexOf("ko-m2-review"));
   });
 
   it("lesson ids are unique", () => {
