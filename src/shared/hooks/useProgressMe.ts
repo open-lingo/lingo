@@ -9,6 +9,7 @@ import {
   mergeServerLessonRollups,
   refreshLessonProgressFromStorage,
 } from "@/shared/domain/mockProgress";
+import { readProgressSnapshot, writeProgressSnapshot } from "./progressSnapshotCache";
 
 function canFetchProgress(
   isAuthenticated: boolean,
@@ -30,6 +31,7 @@ export function useProgressMe() {
   const { progress } = useApi();
   const userId = user?.sub;
   const enabled = canFetchProgress(isAuthenticated, authLoading, userId);
+  const snapshot = userId ? readProgressSnapshot(userId) : null;
 
   const query = useQuery({
     queryKey: ["progress", "me", userId ?? "anon"],
@@ -48,8 +50,16 @@ export function useProgressMe() {
         // stay sticky and block every future merge on this device forever.
         clearLessonProgressReset();
       }
+      if (userId && summary) writeProgressSnapshot(userId, summary);
       return summary;
     },
+    // Option B cold-start: hydrate from the last persisted summary so the
+    // home paint doesn't full-page-gate on this round-trip. `initialData`
+    // marks the query fetched/successful immediately; `initialDataUpdatedAt`
+    // is the real save time, so staleTime still schedules a background
+    // refetch instead of treating the snapshot as forever-fresh.
+    initialData: snapshot?.data,
+    initialDataUpdatedAt: snapshot?.savedAt,
     enabled,
     // LessonProgressHydrate explicitly invalidates ["progress", "me"] after
     // every lesson-attempt sync, and shop purchases / placement tests also
@@ -61,7 +71,12 @@ export function useProgressMe() {
     retry: 2,
   });
 
-  const isProgressReady = !enabled || query.isFetched;
+  // `isFetched` (dataUpdateCount > 0) stays false while a query is only
+  // hydrated from `initialData` — a real fetch never happened yet. Ready
+  // means "there is data to show OR we gave up trying", so check status
+  // directly: success covers both a completed fetch and the optimistic
+  // hydration case; error covers a failed first attempt with no snapshot.
+  const isProgressReady = !enabled || query.isSuccess || query.isError;
 
   return {
     summary: query.data ?? null,
