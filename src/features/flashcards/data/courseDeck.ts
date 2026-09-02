@@ -27,7 +27,7 @@ import {
 } from "@/features/lesson/data/minedSentences";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { tryGetLanguageModule } from "@/shared/language/registry";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import {
   getFrequencyAtoms,
   getFrequencyUnlockedAtomIds,
@@ -64,8 +64,10 @@ function getCardImages(): Map<string, string> {
   if (imagesByCardId) return imagesByCardId;
   const out = new Map<string, string>();
   for (const atom of JA_COURSE_ATOMS) {
-    if (!isSrsEligibleAtom(atom) || !atom.emoji) continue;
-    const url = notoEmojiUrl(atom.emoji);
+    if (!isSrsEligibleAtom(atom)) continue;
+    const url =
+      lingoArtUrl("ja", atom.kana) ??
+      (atom.emoji ? notoEmojiUrl(atom.emoji) : null);
     if (url) out.set(canonicalAtomId(atom), url);
   }
   imagesByCardId = out;
@@ -137,7 +139,10 @@ function buildBaseCourseDeck(
     front: atom.display,
     back: atom.gloss,
     type: "word",
-    image: atom.emoji ? (notoEmojiUrl(atom.emoji) ?? undefined) : undefined,
+    image:
+      lingoArtUrl(languageId, atom.display) ??
+      (atom.emoji ? notoEmojiUrl(atom.emoji) : null) ??
+      undefined,
     unlocked: unlockedIds.has(atom.id),
     parts: undefined,
   }));

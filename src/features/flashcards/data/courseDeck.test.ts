@@ -59,6 +59,23 @@ describe("JA course deck (from atoms)", () => {
   });
 });
 
+describe("JA course deck art (Wave C emoji-refit)", () => {
+  it("resolves custom art before falling back to emoji", () => {
+    const deck = buildEnrichedJaCourseDeck(new Set());
+    // しょうゆ has a Wave C custom PNG and NO emoji field — before the fix
+    // this card's image was undefined.
+    const shouyu = deck.cards.find((c) => c.id === "ja:shouyu")!;
+    expect(shouyu).toBeDefined();
+    expect(shouyu.image).toBe("/lingo-art/vocab/ja/shouyu.png");
+
+    // あい (love) has an emoji and no custom art entry — must still fall
+    // back to the Noto SVG, not regress to undefined.
+    const ai = deck.cards.find((c) => c.id === "ja:ai")!;
+    expect(ai).toBeDefined();
+    expect(ai.image).toMatch(/^\/noto-emoji\/svg\/.+\.svg$/);
+  });
+});
+
 describe("generic course deck (normalized atoms)", () => {
   it("builds an ES course deck with canonical ids, surfaces and glosses", () => {
     const deck = buildEnrichedCourseDeck("es", new Set())!;
@@ -91,5 +108,12 @@ describe("generic course deck (normalized atoms)", () => {
     const ja = buildEnrichedCourseDeck("ja", new Set())!;
     expect(ja.id).toBe("ja-course");
     expect(buildEnrichedCourseDeck("fr", new Set())).toBeNull();
+  });
+
+  it("resolves custom art before emoji for a KO word (Wave C emoji-refit)", () => {
+    const deck = buildEnrichedCourseDeck("ko", new Set())!;
+    const gimchi = deck.cards.find((c) => c.front === "김치")!;
+    expect(gimchi).toBeDefined();
+    expect(gimchi.image).toBe("/lingo-art/vocab/ko/김치.png");
   });
 });
