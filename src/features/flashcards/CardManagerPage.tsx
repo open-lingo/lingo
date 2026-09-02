@@ -14,6 +14,7 @@ import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
 import { Pagination } from "@/shared/components/ui/Pagination";
 import { SegmentedControl } from "@/shared/components/ui/SegmentedControl";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+import { CardFront } from "./components/CardFront";
 import { useCardManagerData, type ManagedCard } from "./useCardManagerData";
 import {
   cardEarliestDueDate,
@@ -398,7 +399,7 @@ export function CardManagerPage() {
             sortable: true,
             render: (mc) => (
               <span className="max-w-[200px] truncate text-text-primary">
-                {mc.card.front}
+                <CardFront text={mc.card.front} reading={mc.card.reading} />
               </span>
             ),
           },
@@ -678,7 +679,7 @@ function ModalityDateModal({ card, onClose, onSave }: ModalityDateModalProps) {
       <div className="space-y-5">
         <div className="rounded-lg border border-border bg-surface-muted px-4 py-3">
           <div className="text-base font-semibold text-text-primary">
-            {card.card.front}
+            <CardFront text={card.card.front} reading={card.card.reading} />
           </div>
           <div className="mt-0.5 text-sm text-text-muted">
             {card.card.back}

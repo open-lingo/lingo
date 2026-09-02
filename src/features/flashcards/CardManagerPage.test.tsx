@@ -241,3 +241,24 @@ describe("CardManagerPage — search filter", () => {
     expect(screen.getByText("学校")).toBeInTheDocument();
   });
 });
+
+describe("CardManagerPage — furigana rendering", () => {
+  beforeEach(() => {
+    mockCards = [
+      makeCard({
+        card: {
+          id: "card-jp",
+          front: "学校",
+          reading: { surface: "学校", kana: "がっこう" },
+          back: "school",
+        } as ManagedCard["card"],
+      }),
+    ];
+  });
+
+  it("renders kanji fronts as ruby, not as '漢字 (かな)'", () => {
+    const { container } = render(<CardManagerPage />);
+    expect(container.querySelector("ruby")).not.toBeNull();
+    expect(container.textContent).not.toContain("学校 (がっこう)");
+  });
+});

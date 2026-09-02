@@ -25,6 +25,7 @@ export function CardImage({ src, className }: { src: string; className?: string 
   );
 }
 import { PlainText } from "@/shared/components/PlainText";
+import { CardFront } from "./components/CardFront";
 import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
 import type { ReviewMode } from "./reviewModes";
 import type { ParticleDef } from "@/features/practice/data/types";
@@ -82,11 +83,13 @@ function CardFace({
   side,
   particles,
   highlightMode,
+  face,
 }: {
   card: Flashcard;
   side: "front" | "back";
   particles: ParticleDef[] | null;
   highlightMode: boolean;
+  face: "prompt" | "answer";
 }) {
   const isFront = side === "front";
   if (isFront) {
@@ -96,7 +99,14 @@ function CardFace({
     if (highlightMode && card.type === "sentence" && card.words?.length) {
       return <HighlightedText segments={card.words} particles={particles} highlightMode />;
     }
-    return <PlainText>{card.front}</PlainText>;
+    return (
+      <CardFront
+        text={card.front}
+        reading={card.reading}
+        cardId={card.id}
+        face={face}
+      />
+    );
   }
   return <PlainText>{card.back}</PlainText>;
 }
@@ -157,6 +167,7 @@ export function CardPreview({
           }
           particles={particles}
           highlightMode={highlightMode}
+          face={flipped ? "answer" : "prompt"}
         />
       </div>
       <p className="mt-2 text-xs text-text-muted">

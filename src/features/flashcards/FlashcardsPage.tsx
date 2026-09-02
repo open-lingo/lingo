@@ -10,6 +10,7 @@ import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { Card } from "@/shared/components/ui";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
+import { CardFront } from "@/features/flashcards/components/CardFront";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
 import { useDeckManagerData } from "@/features/flashcards/useDeckManagerData";
@@ -90,7 +91,7 @@ function DueCarousel({
                 className="flex h-32 w-full flex-col justify-center rounded-lg border border-border bg-surface-muted px-4 py-3 text-left transition hover:border-border-muted hover:bg-surface-muted"
               >
                 <p className="line-clamp-3 text-base font-medium text-text-primary">
-                  {card.front}
+                  <CardFront text={card.front} reading={card.reading} />
                 </p>
               </button>
             </li>

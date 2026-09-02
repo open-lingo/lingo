@@ -35,6 +35,7 @@ import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { Tooltip } from "@/shared/components/ui/Tooltip";
 import { PlainText } from "@/shared/components/PlainText";
+import { CardFront } from "./components/CardFront";
 import { FlashcardsInfoModal } from "./components/FlashcardsInfoModal";
 import { FlashcardDetailSidebar } from "./components/FlashcardDetailSidebar";
 import {
@@ -100,11 +101,13 @@ function CardFace({
   side,
   particles,
   highlightMode,
+  face,
 }: {
   card: Flashcard;
   side: "front" | "back";
   particles: ParticleDef[] | null;
   highlightMode: boolean;
+  face: "prompt" | "answer";
 }) {
   const isFront = side === "front";
   if (isFront) {
@@ -114,7 +117,14 @@ function CardFace({
     if (highlightMode && card.type === "sentence" && card.words?.length) {
       return <HighlightedText segments={card.words} particles={particles} highlightMode />;
     }
-    return <PlainText>{card.front}</PlainText>;
+    return (
+      <CardFront
+        text={card.front}
+        reading={card.reading}
+        cardId={card.id}
+        face={face}
+      />
+    );
   }
   return <PlainText>{card.back}</PlainText>;
 }
@@ -870,6 +880,7 @@ export function FlashcardTester() {
             }
             particles={particles}
             highlightMode={highlightMode}
+            face={flipped ? "answer" : "prompt"}
           />
         </p>
         <p className="mt-3 text-sm text-text-muted">
