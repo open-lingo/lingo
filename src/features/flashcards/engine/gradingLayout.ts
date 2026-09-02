@@ -1,5 +1,4 @@
 import type { SRSRating } from "../data/types";
-import { getSRSStore } from "./srsStorage";
 
 /**
  * Grading-button layout for the flashcard reviewer.
@@ -10,36 +9,20 @@ import { getSRSStore } from "./srsStorage";
 export type GradingLayout = "simple" | "full";
 
 /**
- * Resolve the effective grading layout. Pure so the history-aware default is
- * unit-testable without touching localStorage.
+ * Resolve the effective grading layout.
  *
- * - An explicit user preference always wins (once they touch the toggle, their
- *   choice is authoritative forever).
- * - With no explicit preference, default to `"full"` for a learner who has
- *   already reviewed a card (they've seen the 4-button row and understand the
- *   grades), and `"simple"` for a fresh learner.
+ * TWO BUTTONS ARE THE DEFAULT FOR EVERYONE (Spencer, 2026-09-02). This used to
+ * take a second argument, `hasAnyReviewedCard`, and return `"full"` for anyone
+ * who had ever graded a card. That meant the reviewer changed shape between the
+ * learner's first and second session with nothing announcing it — and on a
+ * phone the four-button row is the widest, most cramped thing on the screen.
+ * Four stays available, but only when the learner picks it in review settings
+ * (`flashcards.gradingLayoutLabel`), and that choice is authoritative forever.
  */
 export function resolveGradingLayout(
   explicitPref: GradingLayout | undefined,
-  hasAnyReviewedCard: boolean,
 ): GradingLayout {
-  if (explicitPref === "simple" || explicitPref === "full") return explicitPref;
-  return hasAnyReviewedCard ? "full" : "simple";
-}
-
-/**
- * Cheapest honest check for "has the learner ever reviewed a card?" — scans the
- * local SRS store for any card whose state shows a completed review: either a
- * top-level `lastReviewedAt` stamp (set by `reviewCard`) or a modality sub-state
- * with `reps > 0`. Short-circuits on the first hit.
- */
-export function hasAnyReviewedCard(): boolean {
-  const store = getSRSStore();
-  for (const state of Object.values(store)) {
-    if (state.lastReviewedAt) return true;
-    if (state.recognition.reps > 0 || state.production.reps > 0) return true;
-  }
-  return false;
+  return explicitPref === "full" ? "full" : "simple";
 }
 
 /** Map a simple-mode button to its FSRS rating. */

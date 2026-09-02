@@ -49,7 +49,7 @@ export { buildSessionSlots, requeueReason } from "./sessionSlots";
 export type { SessionSlot, RequeueReason } from "./sessionSlots";
 export { rollbackStats, rollbackRepeatQueue, restoreStateForUndo } from "./undo";
 export type { GradeSnapshot, SessionStats } from "./undo";
-export { resolveGradingLayout, hasAnyReviewedCard, SIMPLE_RATING } from "./gradingLayout";
+export { resolveGradingLayout, SIMPLE_RATING } from "./gradingLayout";
 export type { GradingLayout } from "./gradingLayout";
 export { getDirtyCards, markSynced, mergeServerState, buildSyncPayload, performSync, hydrateFromServer } from "./srsSync";
 export {

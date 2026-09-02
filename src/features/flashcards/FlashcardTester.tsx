@@ -20,7 +20,6 @@ import {
   rollbackRepeatQueue,
   restoreStateForUndo,
   resolveGradingLayout,
-  hasAnyReviewedCard,
 } from "./engine";
 import type { GradeSnapshot, SessionSlot, RequeueReason } from "./engine";
 import { useSettings } from "@/shared/contexts/SettingsContext";
@@ -209,14 +208,11 @@ export function FlashcardTester() {
 
   // Grading experience prefs (persisted via SettingsContext).
   const { settings, updateFlashcards } = useSettings();
-  const explicitGradingLayout = settings.flashcards?.gradingLayout;
-  // History-aware default: snapshot "have they ever reviewed a card?" ONCE at
-  // mount so the layout can't flip mid-session as this session grades cards.
-  const [hadReviewedCardAtMount] = useState(() => hasAnyReviewedCard());
-  const gradingLayout = resolveGradingLayout(
-    explicitGradingLayout,
-    hadReviewedCardAtMount,
-  );
+  // Two buttons unless the learner explicitly chose four in review settings
+  // (Spencer, 2026-09-02). No history-derived promotion, so nothing can change
+  // the row's shape mid-learner — the `hadReviewedCardAtMount` snapshot that
+  // used to freeze the old flip for the duration of a session is gone with it.
+  const gradingLayout = resolveGradingLayout(settings.flashcards?.gradingLayout);
   const showIntervalPreviews = settings.flashcards?.showIntervalPreviews ?? false;
 
   const handleResetOnboarding = useCallback(() => {
