@@ -1,5 +1,3 @@
-import type { SRSRating } from "../data/types";
-
 /**
  * Grading-button layout for the flashcard reviewer.
  *
@@ -24,9 +22,3 @@ export function resolveGradingLayout(
 ): GradingLayout {
   return explicitPref === "full" ? "full" : "simple";
 }
-
-/** Map a simple-mode button to its FSRS rating. */
-export const SIMPLE_RATING: Record<"didntKnow" | "knewIt", SRSRating> = {
-  didntKnow: "again",
-  knewIt: "good",
-};

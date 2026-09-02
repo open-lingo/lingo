@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveGradingLayout, SIMPLE_RATING } from "./gradingLayout";
+import { resolveGradingLayout } from "./gradingLayout";
 
 describe("resolveGradingLayout", () => {
   it("honors an explicit 'simple' preference", () => {
@@ -22,15 +22,5 @@ describe("resolveGradingLayout", () => {
     // preference, so there is no input that could do that again.
     expect(resolveGradingLayout.length).toBe(1);
     expect(resolveGradingLayout(undefined)).toBe("simple");
-  });
-});
-
-describe("SIMPLE_RATING mapping", () => {
-  it("maps 'Didn't know' to the 'again' rating", () => {
-    expect(SIMPLE_RATING.didntKnow).toBe("again");
-  });
-
-  it("maps 'Knew it' to the 'good' rating", () => {
-    expect(SIMPLE_RATING.knewIt).toBe("good");
   });
 });

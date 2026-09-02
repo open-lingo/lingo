@@ -32,9 +32,10 @@ export type FlashcardsSettings = {
   /**
    * Grading button layout in the reviewer. `"simple"` = 2 buttons
    * (Didn't know / Knew it), `"full"` = the 4-button Again/Hard/Good/Easy
-   * row. Undefined = history-aware default (see `resolveGradingLayout`):
-   * "full" once any card has been reviewed, "simple" for a fresh learner.
-   * Once the user touches the toggle their explicit choice wins forever.
+   * row. Undefined (or any value other than `"full"`) resolves to `"simple"`
+   * — two buttons for everyone by default (see `resolveGradingLayout`).
+   * `"full"` is opt-in only, set when the learner picks it in review
+   * settings, and that explicit choice wins forever.
    */
   gradingLayout?: "simple" | "full";
   /**
