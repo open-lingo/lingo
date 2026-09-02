@@ -1,0 +1,2236 @@
+module: m14
+title: "Puedo, quiero — the vowel that breaks"
+frame: none
+throughModule: m13
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m14 — «Puedo, quiero»: stem-changing verbs (e→ie, o→ue).
+#
+# THE MODULE TEACHES ALMOST NOTHING NEW. It NAMES something the learner has
+# been doing since module 2. Three stem-changers are already in their mouth:
+#
+#     quiero / quieres   (m7)   e→ie   — the regular form would be «quero»
+#     cuesta / cuestan   (m12)  o→ue   — the regular form would be «costa»
+#     no entiendo        (m2)   e→ie   — the regular form would be «entendo»
+#
+# This is the m13 move again, and it is why these modules land. m13 broke
+# open «me gusta», a chunk m7 taught whole. m14 breaks open «quiero»,
+# «cuesta» and «no entiendo». The learner's reaction should be "wait, I
+# already knew this" — never "here is a new table".
+#
+# ⚠️ DO NOT CALL THIS "THE BOOT". The boot picture only means anything when
+# nosotros/vosotros are on the table, and this course teaches only
+# yo / tú / él-ella. All three taught persons break, so there is no unbroken
+# form to contrast against — the boot would be a picture of nothing. The true
+# statement is that the vowel breaks when it is the STRESSED one, and in
+# these three persons it always is. The words "boot" and «la bota» may never
+# appear in learner-facing text.
+#
+# ── CARRIER ATOMS: quiero / quieres / cuesta / cuestan / entiendo ─────────
+# These are NOT registered here — they are already atoms of m7, m12 and m2,
+# and re-registering an exact surface duplicates an atom id (the m11
+# pan/pero failure). They are used FREELY as carriers.
+#
+# But `atomModuleBySurfaceWord` (moduleBarGuards.ts:546) resolves them to
+# their ORIGINAL modules, so a clozeLit answered by any of them reads as a
+# PRIOR-module atom under pin E2 and survives ONLY on the §13.9 law 5
+# discrimination-trial exemption — EXACTLY TWO options, both taught, sharing
+# a stem. A three-option cloze on any of them FAILS. 46 shipped clozes in
+# m3–m12 already ride this exemption; it is the normal path, not a hack.
+# This module lives on contrasting «quiero» against «hablo», so you WILL want
+# these as cloze answers. Build them as two-option trials.
+#
+# `entiendo` is the sharpest case: m2's «no entiendo» is the first thing the
+# learner ever said, and L3 breaks it open. Highest payoff in the module.
+#
+# INFINITIVE-ONLY / FORM DISCIPLINE: only the forms listed below may ever be
+# a correct answer. No «podemos», no «duermes», no «empiezo», no
+# «entiendes» — none of those are registered. Present indicative only; no
+# preterite, no subjunctive, no progressive. «puede» + infinitive is in
+# scope; «poder» + a bare noun is not Spanish.
+#
+# NOT DRILLED HERE: `volver` — it is the L8 TRANSFER CELL. It appears in
+# exactly ONE step in the entire module, inside the checkpoint, glossed in
+# place, testing whether the learner learned the PATTERN or memorised six
+# words. It must not appear in L7 or anywhere else. It IS registered (see
+# the atom list) so the provenance gate can track it; registration is not
+# teaching.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  - { surface: "poder", meaningEn: "to be able to, can", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "puedo", meaningEn: "I can", partOfSpeech: "verb", kind: "vocab", hint: "PWEH-doh — the o broke into ue" }
+  - { surface: "puedes", meaningEn: "you can", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "puede", meaningEn: "he/she can", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "querer", meaningEn: "to want", partOfSpeech: "verb", kind: "vocab", hint: "the infinitive behind «quiero» — no ie here" }
+  - { surface: "quiere", meaningEn: "he/she wants", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "entender", meaningEn: "to understand", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "entiende", meaningEn: "he/she understands", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "dormir", meaningEn: "to sleep", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duermo", meaningEn: "I sleep", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duerme", meaningEn: "he/she sleeps", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "empezar", meaningEn: "to begin", partOfSpeech: "verb", kind: "vocab", hint: "em-peh-SAR" }
+  - { surface: "empieza", meaningEn: "it begins", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "costar", meaningEn: "to cost", partOfSpeech: "verb", kind: "vocab", hint: "the infinitive behind m12's «cuesta»" }
+  - { surface: "temprano", meaningEn: "early", partOfSpeech: "adverb", kind: "vocab", hint: "tem-PRA-noh" }
+  - { surface: "tarde", meaningEn: "late", partOfSpeech: "adverb", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — no emoji: it must be met cold, in text.
+  # Registered, NOT drilled. The learner never meets these before the
+  # checkpoint, but the provenance gate tracks every billed word, so leaving
+  # them unregistered fails `unknownTokens` (3 occurrences) — exactly how m13
+  # handles «vacaciones». «volver» is registered because it sits in the tile
+  # bank as the didn't-conjugate foil; only «vuelve» is ever produced.
+  - { surface: "volver", meaningEn: "to come back", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vuelve", meaningEn: "he/she comes back", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:
+
+  # ── L1 · «Ya lo sabes» — zero new atoms. The learner already owns three
+  #    stem-changers; this lesson does nothing but make them look at them. ──
+  #
+  #    ⚠️ ZERO m14 ATOMS ARE BILLED HERE, deliberately and strictly. Not
+  #    «poder», not «querer», not «entender», not «costar» — not even inside
+  #    a guillemet span on the info card. The brief pins L1 as zero-new and
+  #    the sibling lessons own those infinitives (L2 poder, L3 entender,
+  #    L6 querer/costar); a stray «querer» in this card would move that
+  #    word's debut into L1 and quietly re-allocate L6. Everything this
+  #    lesson prints is m1–m13 property.
+  #
+  #    ⚠️ THE REVEAL IS CARRIED BY GHOST FORMS — «quero», «costa»,
+  #    «entendo» — the spellings the regular rule PREDICTS and Spanish
+  #    refuses. They are non-words, so they may live in exactly two places:
+  #    a `multiple_choice` DISTRACTOR slot and a `sim` reply option. Neither
+  #    is billed by `esSurfaces` (it takes the correct option only, and only
+  #    when it looks Spanish; dialogue_sim it does not read at all). A ghost
+  #    as a cloze option or a build tile WOULD be billed and would fail the
+  #    provenance gate as an untracked word — options and tiles are
+  #    exposures. That is why l1-q-vocal and l1-q-cuesta are MCQs and the
+  #    three clozes offer only real taught forms.
+  #
+  #    ⚠️ ALL THREE CLOZES ANSWER TO A PRIOR MODULE — «quiero» (m7),
+  #    «cuesta» (m12), «entiendo» (m2, via «no entiendo»). Under pin E2 that
+  #    is a prior-module pick, and each survives only on the §13.9 law 5
+  #    discrimination-trial exemption: EXACTLY TWO options, both taught,
+  #    both resolvable in `atomModuleBySurfaceWord`. A third option on any
+  #    of them fails. l1-c-entiendohablo is the module's thesis in one step:
+  #    a broken form and an unbroken one competing for the same slot.
+  #
+  #    ⚠️ NO "BOOT", NO «la bota». Every person this course teaches breaks,
+  #    so the boot would be a picture of nothing. The card says the true
+  #    thing instead: the vowel breaks where the voice leans.
+  #
+  #    The win is not a new sentence. It is «no entiendo, pero hablo un
+  #    poco» — the most honest line a beginner owns, and it happens to carry
+  #    a broken verb and a regular one side by side.
+  - n: 1
+    template: free
+    title: "Ya lo sabes"
+    description: "«quiero». «cuesta». «no entiendo». You have said all three for weeks. Today you find out what they have been doing."
+    steps:
+      - kind: map
+        id: l1-map-quierouncafe
+        tokens: ["quiero", "un", "café"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+        audioText: "quiero un café"
+        revealNote: "Nothing new here — you ordered this in module seven. Look at «quiero» on its own. Every regular yo-form you own is the plain stem plus -o: «hablo», «como», «bebo», «vivo». By that rule «quiero» ought to be spelled q-u-e-r-o. It is not. There is an extra i sitting inside it, and you have been saying it correctly for six modules without once asking why."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: l1-sp-quierouncafe
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: ["quiero", "un", "café"]
+      # Deduction before explanation: the learner sorts the four forms
+      # themselves, and only then does the card name what they sorted.
+      - kind: mcq
+        id: l1-q-vocal
+        prompt: "Three of these are the plain stem plus its ending. One has an extra vowel wedged inside it. Which one?"
+        correct: "quiero"
+        distractors: ["hablo", "como", "vivo"]
+        atoms: ["quiero"]
+        why: "«hablo», «como» and «vivo» are exactly what you would predict — stem, then -o. «quiero» is not. Somewhere between this verb and its yo-form the e turned into ie, and you have been saying it that way, correctly, since the café."
+      # The module's L1 card. It confirms the sort the learner just did; it
+      # does not preview a rule, and it introduces no word. Every guillemet
+      # span in it is an m1–m13 surface.
+      - kind: info
+        id: l1-info-lavocalquerompe
+        title: "The vowel that breaks"
+        body: "Look at what you already say. «hablo», «como», «bebo», «vivo» — stem, then ending, nothing moving. Now look at «quiero» and «quieres». At «cuesta» and «cuestan». At «no entiendo». The endings on those are the same ones: -o for yo, -es or -as for tú, -a or -e for él and ella. You have never had to think about them and you do not have to start now. What changed is inside the verb. An e has become ie. An o has become ue. That is the entire rule, and there is no list to learn, because it happens in the syllable your voice leans on: in «quiero» you lean on the quie-, in «cuesta» you lean on the cues-. When the stress lands on that vowel, the vowel breaks. Three verbs have been doing this in your mouth for weeks. Today they get a name."
+      # Two options, both m7, both taught — the discrimination-trial shape
+      # pin E2 exempts. A third option here would fail the gate.
+      - kind: clozeLit
+        id: l1-c-quieroquieres
+        es: "hoy no quiero café"
+        en: "Today I don't want coffee"
+        blank: "quiero"
+        options: ["quiero", "quieres"]
+        atoms: ["quiero", "café"]
+        why: "Both forms broke the same way — the ie is in each of them. All that separates them is the ending you already own: -o is you, -es is the person you are talking to."
+      - kind: speakLit
+        id: l1-sp-recall-noentiendo
+        es: "no entiendo"
+        en: "I don't understand"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l1-b-habloperonoentiendo
+        es: "hablo español pero no entiendo"
+        en: "I speak Spanish but I don't understand"
+        atoms: ["hablo", "español", "pero", "no entiendo"]
+        tiles: ["quiero", "hablas"]
+      - kind: audioWimcq
+        id: l1-ear-cafe
+        target: { surface: "el café", emoji: "☕" }
+        distractors:
+          - { surface: "el té", emoji: "🍵" }
+          - { surface: "la leche", emoji: "🥛" }
+      # The o→ue half, drilled on m12's own pair. Two options, both m12.
+      - kind: clozeLit
+        id: l1-c-cuestacuestan
+        es: "la camisa cuesta mucho"
+        en: "The shirt costs a lot"
+        blank: "cuesta"
+        options: ["cuesta", "cuestan"]
+        atoms: ["camisa", "cuesta", "mucho"]
+        why: "One shirt, so one thing is doing the costing. The ue is in both forms — it never depends on how many there are, only on where your voice lands."
+      - kind: speakLit
+        id: l1-sp-camisacuesta
+        es: "la camisa cuesta mucho"
+        en: "The shirt costs a lot"
+        atoms: ["la", "camisa", "cuesta", "mucho"]
+      - kind: listenBuildLit
+        id: l1-lb-noentiendolapelicula
+        es: "no entiendo la película"
+        en: "I don't understand the movie"
+        atoms: ["no entiendo", "la", "película"]
+        tiles: ["quiero", "habla"]
+      # The ghost «costa» gets its one appearance as a distractor, where
+      # nothing bills it.
+      - kind: mcq
+        id: l1-q-cuesta
+        prompt: "Which one means 'it costs'?"
+        correct: "cuesta"
+        distractors: ["costa", "costas", "costan"]
+        atoms: ["cuesta"]
+        why: "«cuesta» is the same break in the other vowel: o became ue. The other three are the regular rule applied to three different people — c-o-sta every time — and no shop in the world has ever said one of them to you."
+      # The on-ramp, retrieved rather than asserted. Printed non-recall at
+      # m12 es-m12-4-l4-sp-cuantocuesta.
+      - kind: speakLit
+        id: l1-sp-recall-cuantocuesta
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      # THE THESIS IN ONE STEP: a broken form and an unbroken one competing
+      # for the same slot, both real, both taught, English disambiguating.
+      - kind: clozeLit
+        id: l1-c-entiendohablo
+        es: "no entiendo español"
+        en: "I don't understand Spanish"
+        blank: "entiendo"
+        options: ["entiendo", "hablo"]
+        atoms: ["no entiendo", "español"]
+        why: "Two verbs, one slot, the same -o ending on both. «hablo» kept its vowel. «entiendo» did not — and it has carried that ie since the second thing you ever learned to say."
+      - kind: buildLit
+        id: l1-b-quierohablarespanol
+        es: "quiero hablar español"
+        en: "I want to speak Spanish"
+        atoms: ["quiero", "hablar", "español"]
+        tiles: ["quieres", "como"]
+      - kind: sim
+        id: l1-sim-ana-cafe
+        scene: { emoji: "☕", title: "Ana takes your order", setting: "Ana is at the counter with her pad out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Quieres un café?", audioText: "¿quieres un café?", gloss: "Do you want a coffee?" }
+            goal: "Say yes — you want a coffee."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero un café" }
+                - { id: "wrong1", text: "sí, quero un café" }
+                - { id: "wrong2", text: "sí, quieres un café" }
+              correctOptionId: "right"
+              audioText: "sí, quiero un café"
+            replyGloss: "Yes, I want a coffee."
+            explanation: "The i is not optional. «quero» is the spelling the regular rule predicts and the one Spanish has never used. And the -es ending points back at Ana's question — she asked about you, you answer about yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y un pan?", audioText: "¿y un pan?", gloss: "And some bread?" }
+            goal: "Say you do not understand."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no entiendo" }
+                - { id: "wrong1", text: "no entendo" }
+                - { id: "wrong2", text: "no hablo" }
+              correctOptionId: "right"
+              audioText: "no entiendo"
+            replyGloss: "I don't understand."
+            explanation: "This one you have said since module two, ie and all. «entendo» is what the rule would build, and nobody anywhere says it."
+          - id: t3
+            npc: { speaker: "Ana", es: "El café cuesta cinco.", audioText: "el café cuesta cinco", gloss: "The coffee costs five." }
+            goal: "Say you want the coffee."
+            reply:
+              mode: build
+              tiles: ["quiero", "el", "café", "un", "quero", "hablo"]
+              answer: "quiero el café"
+              alsoAccepted: ["quiero un café"]
+            replyGloss: "I want the coffee."
+            explanation: "«quero» is on the board to be left there. Every single time you reach for this verb, the e has already become ie."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "quieres", target: "you want" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "no entiendo", target: "I don't understand" }
+          - { source: "hablo", target: "I speak" }
+          - { source: "como", target: "I eat" }
+      # The win adds no vocabulary at all — it is the most useful sentence a
+      # beginner owns, and it happens to carry a broken verb and a regular
+      # one in the same breath.
+      - kind: speakLit
+        id: l1-sp-win
+        es: "no entiendo, pero hablo un poco"
+        en: "I don't understand, but I speak a little"
+        atoms: ["no entiendo", "pero", "hablo", "un poco"]
+
+  # ── L2 · «Puedo» — poder / puedo / puedes / puede. The module's new full
+  #    paradigm, and the first one the learner meets knowing what to expect. ──
+  #
+  #    L1 said the rule. L2 spends it. Because the learner arrives already
+  #    holding "the stressed vowel breaks and the endings do not move", this
+  #    lesson never argues for the pattern — it hands over four forms and
+  #    lets the pattern do the predicting. The card at step 8 lands AFTER
+  #    the learner has produced «puedo» and «puedes» and does exactly one
+  #    new thing: names the él/ella column and points out that «puede» is
+  #    just pued- plus the -e already on «come».
+  #
+  #    ⚠️ DEBUT ORDER IS LOAD-BEARING. `esSurfaces` bills cloze OPTIONS and
+  #    build TILES, so a new form offered as a foil before its own first
+  #    exposure debuts it on a non-intro step (inv 33). Hence:
+  #      «poder»  debuts l2-sp-poder        (speaking)
+  #      «puedo»  debuts l2-b-puedococinar  (build_sentence)
+  #      «puedes» debuts l2-b-puedescocinar (build_sentence)
+  #      «puede»  debuts l2-info-lastresformas (info, a guillemet span)
+  #    and no step before each of those carries the form in any slot —
+  #    checked, not assumed. The tile banks use «quiero» and «hablo» as
+  #    foils precisely so they need no debut of their own.
+  #
+  #    ⚠️ FORM DISCIPLINE. Only poder / puedo / puedes / puede are printed.
+  #    No «podemos», no «pueden», no «podéis». The ghost «podo» appears
+  #    exactly twice, both times inside the sim, which `esSurfaces` does not
+  #    read — the same non-word discipline L1 uses.
+  #
+  #    ⚠️ «puede» + INFINITIVE ONLY. «puedo cocinar», «puede leer»,
+  #    «puedes comer aquí». Never «puedo el café» — poder does not take a
+  #    bare noun and a step that implied it would teach a sentence that is
+  #    not Spanish. Every infinitive used here is m10–m13 property
+  #    (cocinar, cantar, leer, comer, trabajar, nadar, viajar, hablar).
+  #
+  #    ⚠️ NO IMAGE MCQ ON THE NEW ATOMS — they carry no emoji, so `vocabMcq`
+  #    would throw, and inv 44 wants an English-prompted image MCQ to be a
+  #    first exposure anyway. The ear beat is an `audioWimcq` on «la
+  #    cocina», which is audio-prompted and therefore exempt, and which puts
+  #    the kitchen on screen one step before the learner says they can cook
+  #    in it.
+  - n: 2
+    template: free
+    title: "Puedo"
+    description: "«poder» — to be able to. It breaks the same way «cuesta» does, it takes the endings you already own, and what follows it never changes at all."
+    steps:
+      - kind: map
+        id: l2-map-puedococinar
+        tokens: ["puedo", "cocinar"]
+        pairs:
+          - { en: "I can", tokenIndex: 0 }
+          - { en: "to cook", tokenIndex: 1 }
+        audioText: "puedo cocinar"
+        revealNote: "Two words, and only one of them is doing anything. «cocinar» has not moved — it is the same plain infinitive you have used since «me gusta cocinar», and it will stay that way no matter who is speaking. Everything happens in the first word: the verb is p-o-d-e-r, and its yo-form is p-ue-d-o. The o broke into ue, exactly the way «cuesta» broke, and then the ordinary -o went on the end."
+      - kind: speakLit
+        id: l2-sp-poder
+        es: "poder"
+        en: "to be able to, can"
+        atoms: ["poder"]
+      - kind: buildLit
+        id: l2-b-puedococinar
+        es: "puedo cocinar"
+        en: "I can cook"
+        atoms: ["puedo", "cocinar"]
+        tiles: ["quiero", "hablo"]
+      - kind: audioWimcq
+        id: l2-ear-cocina
+        target: { surface: "la cocina", emoji: "🍳" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Two stem-changers competing for one slot: both broke, and the
+      # learner has to hear which meaning is wanted rather than which
+      # spelling looks odd. «puedo» is this module's own atom, so pin E2
+      # imposes no option-count limit here — two options is pedagogy, not
+      # compliance.
+      - kind: clozeLit
+        id: l2-c-puedoquiero
+        es: "hoy no puedo cocinar"
+        en: "I can't cook today"
+        blank: "puedo"
+        options: ["puedo", "quiero"]
+        atoms: ["puedo", "cocinar"]
+        why: "Both of these broke their stem vowel and both take the plain -o. The difference is not grammar, it is meaning: «quiero» is about wanting to, «puedo» is about being able to. Today the kitchen is the problem, not the appetite."
+      - kind: speakLit
+        id: l2-sp-nopuedococinarhoy
+        es: "no puedo cocinar hoy"
+        en: "I can't cook today"
+        atoms: ["puedo", "cocinar", "hoy"]
+      - kind: buildLit
+        id: l2-b-puedescocinarbien
+        es: "puedes cocinar bien"
+        en: "You can cook well"
+        atoms: ["puedes", "cocinar", "bien"]
+        tiles: ["puedo", "quiero"]
+      # The lesson's one card, and it lands only after the learner has
+      # already produced two of the three forms. Its one genuinely new
+      # claim is the él/ella column.
+      - kind: info
+        id: l2-info-lastresformas
+        title: "Pued-, and endings you already own"
+        body: "The verb is «poder». Every form you will ever use of it starts pued-: the o broke into ue the moment the stress landed on it, exactly as it did in «cuesta», and then it stopped. Nothing else about this verb is unusual. What goes on the end of that broken stem is the set of endings you have been putting on «como», «comes» and «come» since you learned to eat. -o for yo, and you get «puedo». -es for tú, and you get «puedes». -e for él and for ella, and you get «puede». Three forms, one thing to learn. And one habit worth keeping from the very first line of this lesson: whatever follows is the verb in its plain, untouched shape — «cocinar», «nadar», «leer». It never bends to agree with anybody. You do the bending; the second verb just sits there."
+      - kind: speakLit
+        id: l2-sp-anapuedecantar
+        es: "Ana puede cantar"
+        en: "Ana can sing"
+        atoms: ["puede", "cantar"]
+      - kind: listenCompLit
+        id: l2-lc-hermanapuedeleer
+        es: "mi hermana puede leer"
+        en: "My sister can read."
+        atoms: ["puede", "leer", "hermana"]
+        distractorsEn:
+          - "My sister can cook."
+          - "My sister can sing."
+          - "My brother can read."
+      - kind: textMcq
+        id: l2-tm-puedes
+        target: "puedes"
+        distractors: ["puedo", "puede", "poder"]
+      - kind: speakLit
+        id: l2-sp-puedescomeraqui
+        es: "puedes comer aquí"
+        en: "You can eat here"
+        atoms: ["puedes", "comer", "aquí"]
+      # Three options is legal here — «puede» resolves to m14, this module,
+      # so pin E2 never fires and the two-option exemption is not needed.
+      # The whole paradigm competes for one slot.
+      - kind: clozeLit
+        id: l2-c-puedepersona
+        es: "Ana puede nadar"
+        en: "Ana can swim"
+        blank: "puede"
+        options: ["puede", "puedes", "puedo"]
+        atoms: ["puede", "nadar"]
+        why: "The stem is pued- in all three — that part of the decision was already made for you. What is left is the ending, and Ana is neither you nor the person you are talking to, so it is -e."
+      - kind: listenBuildLit
+        id: l2-lb-nopuedotrabajar
+        es: "no puedo trabajar hoy"
+        en: "I can't work today"
+        atoms: ["puedo", "trabajar", "hoy"]
+        tiles: ["puedes", "quiero"]
+      # The other stem-changer that takes an infinitive, retrieved rather
+      # than restated. Printed non-recall at m10 es-m10-5-sp-quierobailar.
+      - kind: speakLit
+        id: l2-sp-recall-quierobailar
+        es: "quiero bailar"
+        en: "I want to dance"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l2-sim-diego-cocina
+        scene: { emoji: "🍳", title: "Diego is deciding who cooks", setting: "Diego is standing in the kitchen doorway, working out the evening." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Puedes cocinar?", audioText: "¿puedes cocinar?", gloss: "Can you cook?" }
+            goal: "Say yes — you can cook."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo cocinar" }
+                - { id: "wrong1", text: "sí, podo cocinar" }
+                - { id: "wrong2", text: "sí, puedes cocinar" }
+              correctOptionId: "right"
+              audioText: "sí, puedo cocinar"
+            replyGloss: "Yes, I can cook."
+            explanation: "Diego used the tú form to ask about you; the answer comes back in yo. And the o never survives — «podo» is the form the rule predicts and the one Spanish refuses."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana?", audioText: "¿y tu hermana?", gloss: "And your sister?" }
+            goal: "Say your sister can cook too."
+            reply:
+              mode: build
+              tiles: ["mi", "hermana", "puede", "cocinar", "también", "puedes", "puedo"]
+              answer: "mi hermana puede cocinar también"
+              alsoAccepted: ["mi hermana puede cocinar"]
+            replyGloss: "My sister can cook too."
+            explanation: "Your sister is neither you nor the person you are speaking to, so she takes the third column — the same -e you already put on «come»."
+          - id: t3
+            npc: { speaker: "Diego", es: "Yo no puedo nadar.", audioText: "yo no puedo nadar", gloss: "I can't swim." }
+            goal: "Say you can swim."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo puedo nadar" }
+                - { id: "wrong1", text: "yo podo nadar" }
+                - { id: "wrong2", text: "yo puede nadar" }
+              correctOptionId: "right"
+              audioText: "yo puedo nadar"
+            replyGloss: "I can swim."
+            explanation: "Diego said it about himself and so do you — same word, «puedo». The ending moves with the person; the ue never moves at all."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "poder", target: "to be able to" }
+          - { source: "puedo", target: "I can" }
+          - { source: "puedes", target: "you can" }
+          - { source: "puede", target: "he or she can" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "quiero", target: "I want" }
+          - { source: "cuesta", target: "it costs" }
+      - kind: buildLit
+        id: l2-b-hermanopuedeviajar
+        es: "mi hermano puede viajar"
+        en: "My brother can travel"
+        atoms: ["puede", "viajar", "hermano"]
+        tiles: ["puedes", "quiero"]
+      # The win: the sentence the whole course has been building toward, and
+      # the one the learner can now say truthfully.
+      - kind: speakLit
+        id: l2-sp-win
+        es: "puedo hablar español"
+        en: "I can speak Spanish"
+        atoms: ["puedo", "hablar", "español"]
+
+  # ── L3 · «No entiendo» — the panic button turns out to be a verb ────────
+  #   This is the highest-payoff lesson in the module and possibly in the
+  #   course so far. «no entiendo» is the FIRST thing this course ever put
+  #   in the learner's mouth (m2 L3, «the escape phrase»), and for twelve
+  #   modules it has been one indivisible lump — a button you press when a
+  #   sentence gets away from you. It is two words, and the second one is a
+  #   conjugated verb they can now take apart, run through three persons and
+  #   put back together.
+  #
+  #   ⚠️ THE SHAPE IS m13 L1's, ON PURPOSE: map → say the old line → card.
+  #   The map DISSECTS a sentence the learner already owns rather than
+  #   introducing one, and the recall at step 2 makes them SAY the old
+  #   phrase one beat before the card explains it. A learner who thinks this
+  #   is new vocabulary will try to memorise what they already know.
+  #   («no entiendo» is printed non-recall at m2 es-m2v2-3-speak-noentiendo,
+  #   verified against the shipped course — the recall is licensed.)
+  #
+  #   ⚠️ NOTE WHAT IS NOT HERE: «entiendes». The tú form of entender is NOT
+  #   a registered atom, so the lesson cannot ask a question with it and
+  #   cannot offer it as an option or a tile. That is why every beat here
+  #   runs on yo (entiendo) and él/ella (entiende) and why the sim's third
+  #   turn asks ABOUT the brother instead of about the learner. This is a
+  #   real constraint, not a stylistic choice — check the header, not your
+  #   Spanish.
+  #
+  #   ⚠️ CARRIER TRAP. `entiendo` is m2's word (atomModuleBySurfaceWord maps
+  #   WORDS, and m2's «no entiendo» claims it), so under pin E2 a cloze
+  #   answered by «entiendo» reads as a prior-module atom. l3-c-entiendo is
+  #   therefore EXACTLY TWO options — the §13.9 law 5 discrimination trial,
+  #   «entiendo» against «entiende», which is also independently the right
+  #   pedagogy: who is doing the understanding is a binary. l3-c-entiende
+  #   is answered by m14's OWN «entiende» and takes three options freely.
+  #
+  #   ⚠️ NO «temprano», NO «empieza», NO «quiere», NO «costar» anywhere —
+  #   L5 and L6 own those and a tile or a cloze option here would spend
+  #   their debuts in a discard pile. «quiero» IS used freely: it is m7's,
+  #   and «quiero entender» is what gives the new infinitive its answer
+  #   position.
+  - n: 3
+    template: free
+    title: "No entiendo"
+    description: "The first sentence you ever learned in Spanish has been a verb the whole time — and now you can conjugate it."
+    steps:
+      - kind: map
+        id: l3-map-noentiendo
+        tokens: ["no", "entiendo"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I understand", tokenIndex: 1 }
+        audioText: "no entiendo"
+        revealNote: "The first thing this course ever taught you to say, and until this second it was one lump — a button you press when a sentence gets away from you. It has two parts. «no» is not, which you have had since lesson one. «entiendo» is a whole verb: I understand. That final -o is the same yo ending you put on «hablo», «como» and «vivo». Something else happened inside it, though. Look at the middle of the word."
+      - kind: speakLit
+        id: l3-sp-recall-noentiendo
+        es: "no entiendo"
+        en: "I don't understand"
+        atoms: []
+        cue: recall
+      # The lesson's ONE card, and it lands AFTER the learner has said the
+      # old line — the m11 L5 / m12 L1 / m13 L1 idiom: a card confirms a
+      # noticing, it never previews a rule.
+      - kind: info
+        id: l3-info-entiendoesunverbo
+        title: "«entiendo» was a verb all along"
+        body: "«no entiendo» is two words, and the second one is a verb. Its infinitive is «entender» — to understand. It is an -er verb, so by the ordinary rule it should behave like «comer» and «beber», which hold their stem perfectly still and only swap the ending: «como», «bebo». «entender» does not hold still. The e in the middle breaks into ie, and out comes «entiendo» — the word you have been saying since the second module. Same break as «quiero». The endings themselves are the plain ones you already own: -o for yo, -e for él and ella. So «entiende» is he understands, she understands."
+      - kind: buildLit
+        id: l3-b-entiendounpoco
+        es: "entiendo un poco"
+        en: "I understand a little"
+        atoms: ["entender", "un poco"]
+        tiles: ["entiende", "mucho"]
+      # Answered by m14's own «entiende», so three options are legal here:
+      # the person error, and the infinitive nobody is standing in.
+      - kind: clozeLit
+        id: l3-c-entiende
+        es: "mi hermano entiende el español"
+        en: "my brother understands Spanish"
+        blank: "entiende"
+        options: ["entiende", "entiendo", "entender"]
+        atoms: ["mi", "hermano", "entiende", "el", "español"]
+        why: "«mi hermano» is he, and the él/ella ending is -e: «entiende». «entiendo» would be about you. «entender» is the bare infinitive — nobody is standing in it."
+      - kind: audioWimcq
+        id: l3-ear-espanol
+        target: { surface: "el español", emoji: "💬" }
+        distractors:
+          - { surface: "la música", emoji: "🎵" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: speakLit
+        id: l3-sp-hermanaentiende
+        es: "mi hermana entiende un poco"
+        en: "my sister understands a little"
+        atoms: ["mi", "hermana", "entiende", "un poco"]
+      - kind: listenBuildLit
+        id: l3-lb-padrenoentiende
+        es: "mi padre no entiende el español"
+        en: "my father doesn't understand Spanish"
+        atoms: ["mi", "padre", "entiende", "el", "español"]
+        tiles: ["entiendo", "la"]
+      # THE CARRIER BEAT. «entiendo» is m2's word, so this is a two-option
+      # §13.9 law 5 discrimination trial, not a four-way pick. Statement,
+      # never a question — the compiler blanks a literal whitespace token
+      # and a «¿» would ride into it.
+      - kind: clozeLit
+        id: l3-c-entiendo
+        es: "yo no entiendo la película"
+        en: "I don't understand the movie"
+        blank: "entiendo"
+        options: ["entiendo", "entiende"]
+        atoms: ["yo", "no entiendo", "la", "película"]
+        why: "«yo» — so the yo ending, -o: «entiendo». «entiende» would put it on him or her instead."
+      - kind: listenCompLit
+        id: l3-lc-quienentiende
+        es: "mi hermano entiende, pero yo no entiendo"
+        en: "My brother understands, but I don't understand."
+        atoms: ["mi", "hermano", "entiende", "pero", "yo", "no entiendo"]
+        distractorsEn:
+          - "I understand, but my brother doesn't understand."
+          - "My brother understands and I understand."
+          - "My sister understands, but I don't understand."
+      # «entender» earns its answer position here, in the one place a
+      # beginner actually needs an infinitive: after «quiero».
+      - kind: buildLit
+        id: l3-b-quieroentender
+        es: "quiero entender el español"
+        en: "I want to understand Spanish"
+        atoms: ["quiero", "entender", "el", "español"]
+        tiles: ["entiendo", "entiende"]
+      - kind: textMcq
+        id: l3-tm-entender
+        target: "entender"
+        distractors: ["escuchar", "hablar", "estudiar"]
+      - kind: audioWimcq
+        id: l3-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l3-sp-ahoraentiendo
+        es: "ahora entiendo"
+        en: "now I understand"
+        atoms: ["ahora", "entender"]
+      # Both persons in one line, same two options in both blanks, rotated
+      # independently by the factory — so position tells the learner
+      # nothing and only «yo» / «ella» can decide it.
+      - kind: agreementLit
+        id: l3-agree-yoyella
+        en: "I understand a little, but she doesn't understand"
+        audioText: "yo entiendo un poco, pero ella no entiende"
+        atoms: ["entender", "entiende", "un poco", "pero"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "entiendo", options: ["entiendo", "entiende"] } }
+          - { text: " un poco, pero ella no " }
+          - { blank: { id: "p2", answer: "entiende", options: ["entiende", "entiendo"] } }
+      # The scene the phrase was invented for: a sentence goes past too
+      # fast, «no entiendo» buys a slower one, and the learner climbs back
+      # in — this time knowing which piece of it means "I".
+      - kind: sim
+        id: l3-sim-ana-rapido
+        scene: { emoji: "💬", title: "Ana talks too fast", setting: "Ana says a whole sentence at full speed and does not notice she lost you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Mi hermano estudia español en la escuela todos los días.", audioText: "mi hermano estudia español en la escuela todos los días", gloss: "My brother studies Spanish at school every day." }
+            goal: "Say you did not understand."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no entiendo" }
+                - { id: "wrong1", text: "no entiende" }
+                - { id: "wrong2", text: "yo entiendo" }
+              correctOptionId: "right"
+              audioText: "no entiendo"
+            replyGloss: "I don't understand."
+            explanation: "The same two words you have used since module two — and now you know why they end that way. «no entiende» would be a report about somebody else; «yo entiendo» says the opposite of what happened."
+          - id: t2
+            npc: { speaker: "Ana", es: "Mi hermano estudia español.", audioText: "mi hermano estudia español", gloss: "My brother studies Spanish." }
+            goal: "Say you understand a little."
+            reply:
+              mode: build
+              tiles: ["entiendo", "un", "poco", "entiende", "mucho"]
+              answer: "entiendo un poco"
+              alsoAccepted: ["entiendo"]
+            replyGloss: "I understand a little."
+            explanation: "«entiendo» — you, so -o. «entiende» is in the bank as the person trap: it would hand the understanding back to her brother."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Tu hermano entiende el español?", audioText: "¿tu hermano entiende el español?", gloss: "Does your brother understand Spanish?" }
+            goal: "Say your brother understands a little."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mi hermano entiende un poco" }
+                - { id: "wrong1", text: "mi hermano entiendo un poco" }
+                - { id: "wrong2", text: "mi hermano no entiende" }
+              correctOptionId: "right"
+              audioText: "mi hermano entiende un poco"
+            replyGloss: "My brother understands a little."
+            explanation: "Ana handed you the form in her own question: «entiende». Keep it — «mi hermano» is he. «entiendo» is only ever about you."
+          - id: t4
+            npc: { speaker: "Ana", es: "Muy bien.", audioText: "muy bien", gloss: "Very good." }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "entender", target: "to understand" }
+          - { source: "entiendo", target: "I understand" }
+          - { source: "entiende", target: "he understands" }
+          - { source: "un poco", target: "a little" }
+          - { source: "el español", target: "Spanish" }
+          - { source: "la película", target: "the movie" }
+          - { source: "el cine", target: "the movie theater" }
+      # The win: the oldest sentence in the course and the newest one, in
+      # the same breath.
+      - kind: speakLit
+        id: l3-sp-win
+        es: "no entiendo, pero quiero entender"
+        en: "I don't understand, but I want to understand"
+        atoms: ["no entiendo", "pero", "quiero", "entender"]
+
+  # ── L4 · «Duermo tarde» — the same break, a second time, on purpose ─────
+  #   L2 opened «poder» → «puedo» and called the o→ue break by name. A
+  #   pattern seen once is an exception; seen twice it is a rule. That is
+  #   this lesson's entire job, and it is why the card spends its whole body
+  #   putting «dormir» beside «vivir» (which does NOT break) and beside
+  #   «poder» and «cuesta» (which do). Nothing here is new machinery — only
+  #   a second data point for a machine L2 already built.
+  #
+  #   ⚠️ «duermes» IS NOT A REGISTERED ATOM. Neither is «duermen». The tú
+  #   form of dormir simply does not exist in this course, so — exactly as
+  #   in L3 with «entiendes» — every beat runs on yo and él/ella, and the
+  #   sim asks about the brother rather than about the learner. Check the
+  #   header, not your Spanish.
+  #
+  #   ⚠️ «temprano» IS L5's ATOM AND MUST NOT APPEAR — not as a tile, not as
+  #   a cloze option, nowhere. It is the obvious opposite of «tarde» and it
+  #   is the single most tempting wrong tile in this lesson; a tile is a
+  #   billed exposure and would burn L5's debut in a discard pile. Every
+  #   bank here uses a form of the SAME verb as its trap instead, which is
+  #   also the better drill: the decision is always person, never vocabulary.
+  #
+  #   ⚠️ «tarde» vs m1's «buenas tardes». Different tokens, so nothing
+  #   collides in atomModuleBySurfaceWord — but the audio is close enough
+  #   that «tarde» gets a text MCQ of its own (l4-tm-tarde) against three
+  #   time words the learner already owns.
+  #
+  #   The recall is «el sábado y el domingo» (printed non-recall at m8),
+  #   placed one step before «el sábado duermo tarde» so the weekend is
+  #   already in the learner's mouth when the new verb lands in it.
+  - n: 4
+    template: free
+    title: "Duermo tarde"
+    description: "«dormir» breaks the same way «poder» did — o into ue — and two verbs doing the same thing is not a coincidence, it is a rule."
+    steps:
+      - kind: map
+        id: l4-map-duermotarde
+        tokens: ["duermo", "tarde"]
+        pairs:
+          - { en: "I sleep", tokenIndex: 0 }
+          - { en: "late", tokenIndex: 1 }
+        audioText: "duermo tarde"
+        revealNote: "Two words, and you can already predict one of them. «duermo» ends in the -o you put on «hablo», «como» and «vivo» — it is a yo form. And the middle of it did the same thing «puedo» did: the o broke open into ue. «tarde» is late — the hour, not the day."
+      - kind: speakLit
+        id: l4-sp-duermotarde
+        es: "duermo tarde"
+        en: "I sleep late"
+        atoms: ["duermo", "tarde"]
+      # The lesson's ONE card. It is spent entirely on the second-data-point
+      # argument: an -ir verb that does NOT break, next to two that do.
+      - kind: info
+        id: l4-info-otraves
+        title: "The same break, a second time"
+        body: "«dormir» is to sleep. It is an -ir verb, so the endings are the ones you already hang on «vivir»: «vivo», «vive». Now line the stems up. «vivir» keeps its stem exactly as it is. «dormir» does not — the o breaks open into ue, and you get «duermo» and «duerme». You have seen this break before: «poder» does it to make «puedo», and it is sitting inside «cuesta», which you have been saying in shops since module twelve. One verb doing it is an exception. Three is a rule, and the rule is that the vowel breaks when it is the stressed one — which, in yo, tú and él-ella, it always is."
+      - kind: clozeLit
+        id: l4-c-duerme
+        es: "mi hermano duerme tarde"
+        en: "my brother sleeps late"
+        blank: "duerme"
+        options: ["duerme", "duermo", "dormir"]
+        atoms: ["mi", "hermano", "duerme", "tarde"]
+        why: "«mi hermano» is he, so the él/ella ending -e: «duerme». The stem still breaks — o into ue — in every one of the three persons. «dormir» is the bare infinitive; nobody is standing in it."
+      - kind: audioWimcq
+        id: l4-ear-cama
+        target: { surface: "la cama", emoji: "🛏️" }
+        distractors:
+          - { surface: "la silla", emoji: "🪑" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: buildLit
+        id: l4-b-padreduermemucho
+        es: "mi padre duerme mucho"
+        en: "my father sleeps a lot"
+        atoms: ["mi", "padre", "duerme", "mucho"]
+        tiles: ["duermo", "dormir"]
+      - kind: listenCompLit
+        id: l4-lc-gatoperro
+        es: "el gato duerme mucho, pero el perro no duerme"
+        en: "The cat sleeps a lot, but the dog doesn't sleep."
+        atoms: ["el", "gato", "duerme", "mucho", "pero", "perro"]
+        distractorsEn:
+          - "The dog sleeps a lot, but the cat doesn't sleep."
+          - "The cat sleeps a lot and the dog sleeps."
+          - "The cat doesn't sleep, but the dog sleeps a lot."
+      # The weekend, said out loud one beat before the new verb lands in it.
+      # (Printed non-recall at m8 — verified against the shipped course.)
+      - kind: speakLit
+        id: l4-sp-recall-finde
+        es: "el sábado y el domingo"
+        en: "on Saturday and on Sunday"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l4-lb-sabadoduermotarde
+        es: "el sábado duermo tarde"
+        en: "on Saturday I sleep late"
+        atoms: ["el", "sábado", "duermo", "tarde"]
+        tiles: ["duerme", "hoy"]
+      - kind: clozeLit
+        id: l4-c-duermo
+        es: "hoy duermo un poco"
+        en: "today I sleep a little"
+        blank: "duermo"
+        options: ["duermo", "duerme", "dormir"]
+        atoms: ["hoy", "duermo", "un poco"]
+        why: "No name in front of it, so it is you: the yo form, «duermo». «duerme» would be about him or her."
+      # «dormir» earns its answer position after «quiero», where the second
+      # verb is always an infinitive and never breaks.
+      - kind: buildLit
+        id: l4-b-quierodormir
+        es: "quiero dormir ahora"
+        en: "I want to sleep now"
+        atoms: ["quiero", "dormir", "ahora"]
+        tiles: ["duermo", "duerme"]
+      - kind: audioWimcq
+        id: l4-ear-domingo
+        target: { surface: "domingo", emoji: "⛪" }
+        distractors:
+          - { surface: "sábado", emoji: "🕯️" }
+          - { surface: "lunes", emoji: "🌛" }
+      - kind: speakLit
+        id: l4-sp-perrocama
+        es: "el perro duerme en la cama"
+        en: "the dog sleeps on the bed"
+        atoms: ["el", "perro", "duerme", "en", "la", "cama"]
+      # Two blanks, one line, the same two options in each and the factory
+      # rotating them independently — the person is the only thing that can
+      # decide either one.
+      - kind: agreementLit
+        id: l4-agree-yoyhermano
+        en: "I sleep late, but my brother doesn't sleep late"
+        audioText: "yo duermo tarde, pero mi hermano no duerme tarde"
+        atoms: ["duermo", "duerme", "tarde", "hermano"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "duermo", options: ["duermo", "duerme"] } }
+          - { text: " tarde, pero mi hermano no " }
+          - { blank: { id: "p2", answer: "duerme", options: ["duerme", "duermo"] } }
+          - { text: " tarde" }
+      - kind: textMcq
+        id: l4-tm-tarde
+        target: "tarde"
+        distractors: ["ahora", "hoy", "mañana"]
+      - kind: sim
+        id: l4-sim-ana-sabado
+        scene: { emoji: "🛏️", title: "Ana calls on Saturday morning", setting: "It is Saturday, it is already late, and Ana wants to go to the park." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola! ¿Vas al parque hoy?", audioText: "¡hola! ¿vas al parque hoy?", gloss: "Hi! Are you going to the park today?" }
+            goal: "Say no, you sleep late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, duermo tarde" }
+                - { id: "wrong1", text: "no, duerme tarde" }
+                - { id: "wrong2", text: "no, no duermo" }
+              correctOptionId: "right"
+              audioText: "no, duermo tarde"
+            replyGloss: "No, I sleep late."
+            explanation: "«duermo» — you, so -o, and the o inside still breaks into ue. «duerme» would be about somebody else, and «no duermo» says you do not sleep at all, which is a different and sadder answer."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano?", audioText: "¿y tu hermano?", gloss: "And your brother?" }
+            goal: "Say your brother sleeps a lot."
+            reply:
+              mode: build
+              tiles: ["mi", "hermano", "duerme", "mucho", "duermo", "dormir"]
+              answer: "mi hermano duerme mucho"
+              alsoAccepted: ["duerme mucho"]
+            replyGloss: "My brother sleeps a lot."
+            explanation: "Ana asked about him, so the él/ella form: «duerme». The bank holds «duermo» and «dormir» because those are the two ways this goes wrong — the wrong person, or no person at all."
+          - id: t3
+            npc: { speaker: "Ana", es: "Mi hermana duerme mucho también.", audioText: "mi hermana duerme mucho también", gloss: "My sister sleeps a lot too." }
+            goal: "Say you want to sleep now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero dormir ahora" }
+                - { id: "wrong1", text: "quiero duermo ahora" }
+                - { id: "wrong2", text: "quiero dormir mañana" }
+              correctOptionId: "right"
+              audioText: "quiero dormir ahora"
+            replyGloss: "I want to sleep now."
+            explanation: "After «quiero» the second verb stays an infinitive — «dormir», never «duermo». Only one verb in a sentence gets conjugated, and «quiero» already took the job."
+          - id: t4
+            npc: { speaker: "Ana", es: "Muy bien. ¡Adiós!", audioText: "muy bien, ¡adiós!", gloss: "All right. Bye!" }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "dormir", target: "to sleep" }
+          - { source: "duermo", target: "I sleep" }
+          - { source: "duerme", target: "she sleeps" }
+          - { source: "tarde", target: "late" }
+          - { source: "la cama", target: "the bed" }
+          - { source: "domingo", target: "Sunday" }
+          - { source: "un poco", target: "a little" }
+      # The win: two prior modules and one new verb in a single line the
+      # learner would actually say about their own weekend.
+      - kind: speakLit
+        id: l4-sp-win
+        es: "no trabajo el domingo, duermo tarde"
+        en: "I don't work on Sunday, I sleep late"
+        atoms: ["trabajar", "el", "domingo", "duermo", "tarde"]
+
+  # ── L5 · Empieza temprano — the third pattern member, and the first one the
+  #    learner is asked to PRODUCE before anything explains it. ────────────
+  #    Shape follows m13 L5/L6: first contact is a MAP (a segmented sentence,
+  #    never a bare word), and the map is CASHED by the speakLit under it —
+  #    `word_map` is absent from `esSurfaces`, so it bills NOTHING and can
+  #    never itself be a debut. «empezar» and «temprano» therefore debut on
+  #    l5-sp-quieroempezar (`speaking`, an ES_INTRO_TYPE) and «empieza» on
+  #    l5-b-laescuela (`build_sentence`, also intro-capable).
+  #
+  #    ⚠️ THE PREDICTION BEAT, AND THE SHAPE THE GATES ALLOW. The brief wants
+  #    the learner to predict the break before being told. inv 33 caps how
+  #    cold that can be: the FIRST billed exposure of «empieza» must land on
+  #    an intro-capable type, so it cannot first appear as the answer to a
+  #    cloze or an agreement blank. The strongest legal version is the one
+  #    built here, in two beats and in this order:
+  #      l5-b-laescuela  — the bank holds «empezar» AND the sentence needs
+  #                        the broken form; the learner commits to one.
+  #      l5-agr-eltrabajo — the blank is the VOWEL ITSELF («emp_za»), two
+  #                        letters, no other decision in the line.
+  #    Both stand BEFORE the info card. The card confirms; it never previews
+  #    (the m11 L5 / m12 L1 / m13 L5 idiom).
+  #
+  #    ⚠️ NO FABRICATED FORMS ANYWHERE. «empeza» would be the obvious foil and
+  #    it is illegal: the provenance gate bills particle_cloze options and
+  #    build tiles, and an untracked token fails inv 24 unless it is one of
+  #    the three hardcoded ES_FABRICATED_TRAPS (azula/verda/granda). The only
+  #    place a non-word may live is an agreement_cloze BLANK, because
+  #    `esSurfaces` reconstructs that step from its correct answer alone —
+  #    which is exactly why l5-agr-eltrabajo carries the vowel choice and no
+  #    cloze in this lesson does.
+  #
+  #    ⚠️ «empiezo» IS NOT REGISTERED and never appears — not as an answer,
+  #    not as a tile, not as a sim reply. The sim is built entirely in the
+  #    third person and the infinitive for that reason: any turn that asked
+  #    the learner to say "I begin" would have no legal way to be right.
+  #
+  #    «tarde» is L4's atom, not this lesson's; it rides in on the tile bank
+  #    of l5-b-laescuela so that its first billed appearance in this file is
+  #    still `build_sentence` — belt and braces, since L4 owns its real debut.
+  #    No genderSort (≤2 module-wide, and there is no gender work here).
+  - n: 5
+    template: free
+    title: "Empieza temprano"
+    description: "A third verb cracks in the middle — and this time nothing tells you it will. «empezar» is to begin; you work out «empieza» yourself."
+    steps:
+      - kind: map
+        id: l5-map-quieroempezar
+        tokens: ["quiero", "empezar", "temprano"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to begin", tokenIndex: 1 }
+          - { en: "early", tokenIndex: 2 }
+        audioText: "quiero empezar temprano"
+        revealNote: "«empezar» is to begin — and this is the shape a dictionary lists it under, sitting untouched after «quiero» exactly the way «bailar» and «leer» did. Look hard at the middle of it: e-m-p-e. A plain e. «temprano» is early, and it goes at the end where a time word lives."
+      - kind: speakLit
+        id: l5-sp-quieroempezar
+        es: "quiero empezar temprano"
+        en: "I want to begin early"
+        atoms: ["quiero", "empezar", "temprano"]
+      # THE PREDICTION, beat one. The bank holds the dictionary shape the
+      # learner just said out loud AND the form the sentence actually needs.
+      # Nothing above this step has shown «empieza»; the map deliberately
+      # stopped at the infinitive. What the learner has to go on is m14 L3
+      # («entender» → «entiende») and m14 L4 («dormir» → «duerme»).
+      - kind: buildLit
+        id: l5-b-laescuela
+        es: "la escuela empieza temprano"
+        en: "the school begins early"
+        atoms: ["escuela", "empieza", "temprano"]
+        tiles: ["empezar", "tarde"]
+      - kind: audioWimcq
+        id: l5-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # THE PREDICTION, beat two — and the only step in this module that can
+      # legally put a non-word on screen. An agreement_cloze is reconstructed
+      # from its CORRECT answer, so the wrong option never reaches the
+      # provenance gate. Two letters, one decision, nothing else moving.
+      - kind: agreementLit
+        id: l5-agr-eltrabajo
+        en: "work begins late"
+        audioText: "el trabajo empieza tarde"
+        atoms: ["trabajo", "empieza", "tarde"]
+        segments:
+          - { text: "el trabajo emp" }
+          - { blank: { id: "raiz", answer: "ie", options: ["ie", "e"] } }
+          - { text: "za tarde" }
+      # The lesson's single card, and it lands AFTER both commitments. Its
+      # whole job is to name what the learner has just done twice, and to
+      # point at the half of the word that did NOT move — because the ending
+      # is the thing they already own and nobody has told them it survives.
+      - kind: info
+        id: l5-info-terceravez
+        title: "Third verb, same crack"
+        body: "You have watched this happen twice. «entender» came out as «entiende» — the e split into ie. «dormir» came out as «duerme» — the o split into ue. Now «empezar» does it too, and you got there before this card did: «empieza». Three verbs, three splits, all in the same place — the syllable your voice leans on. Now the half nobody points at. Look at the END of «empieza». It is -a. The same -a that finishes «habla», «estudia» and «trabaja», the ending you have been using since module ten, completely untouched. That is the whole deal: the endings you already know stay exactly as they are, and one vowel in the middle of the word breaks. Nothing else ever changes."
+      - kind: clozeLit
+        id: l5-c-tempranotarde
+        es: "la película empieza temprano"
+        en: "the movie begins early"
+        blank: "temprano"
+        options: ["temprano", "tarde", "ahora"]
+        atoms: ["película", "empieza", "temprano"]
+        why: "Three time words, and only one of them is the opposite of «tarde». «ahora» would say the movie is starting this second, which is not the same claim."
+      - kind: listenCompLit
+        id: l5-lc-peliculatarde
+        es: "la película empieza tarde"
+        en: "The movie begins late."
+        atoms: ["película", "empieza", "tarde"]
+        distractorsEn:
+          - "The movie begins early."
+          - "The school begins late."
+          - "I want to begin late."
+      # Cross-module recall. m10 printed this line on a non-recall speaking
+      # step (es-m10-4-sp-estudioescuela), which is what licenses it, and it
+      # lands next to «la escuela empieza temprano» on purpose.
+      - kind: speakLit
+        id: l5-sp-recall-estudioescuela
+        es: "estudio en la escuela"
+        en: "I study at the school"
+        atoms: []
+        cue: recall
+      # The same decision as the build, now with no tiles to lean on and the
+      # sentence read left to right. Two options, and both are «empezar» —
+      # one conjugated, one not. E2 does not need its exemption here:
+      # «empieza» is m14's own word, so a cloze may answer with it freely.
+      - kind: clozeLit
+        id: l5-c-empiezaempezar
+        es: "el trabajo empieza temprano"
+        en: "work begins early"
+        blank: "empieza"
+        options: ["empieza", "empezar"]
+        atoms: ["trabajo", "empieza", "temprano"]
+        why: "The work is doing the beginning, so the verb has to point at it. The other option is the dictionary shape — it only ever stands behind another verb, the way it did in «quiero empezar»."
+      - kind: audioWimcq
+        id: l5-ear-pelicula
+        target: { surface: "la película", emoji: "📽️" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el celular", emoji: "📱" }
+      # Interleave with L3. The learner's oldest sentence, rebuilt — and the
+      # bank offers the two shapes it is NOT.
+      - kind: buildLit
+        id: l5-b-noentiendo
+        es: "no entiendo la película"
+        en: "I don't understand the movie"
+        atoms: ["no entiendo", "película"]
+        tiles: ["entiende", "entender"]
+      - kind: listenBuildLit
+        id: l5-lb-nopuedoempezar
+        es: "no puedo empezar temprano"
+        en: "I can't begin early"
+        atoms: ["puedo", "empezar", "temprano"]
+        tiles: ["empieza", "tarde"]
+      # «entiende» is m14's own atom, so this needs no exemption either —
+      # but it is deliberately built as a two-option trial anyway, because
+      # the pair «entiendo»/«entiende» IS the decision and a third option
+      # would be scenery.
+      - kind: clozeLit
+        id: l5-c-entiende
+        es: "Ana no entiende la película"
+        en: "Ana doesn't understand the movie"
+        blank: "entiende"
+        options: ["entiende", "entiendo"]
+        atoms: ["entiende", "película"]
+        why: "Ana is the one lost here, not you. Same crack in the middle either way — what moves is the letter on the end."
+      - kind: textMcq
+        id: l5-tm-empezar
+        target: "empezar"
+        distractors: ["comprar", "escuchar", "visitar"]
+      - kind: sim
+        id: l5-sim-diego-horarios
+        scene: { emoji: "🎬", title: "Diego checks the times", setting: "Diego is squinting at the times posted outside the cinema." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Cuándo empieza la película?", audioText: "¿cuándo empieza la película?", gloss: "When does the movie start?" }
+            goal: "Say it begins early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "empieza temprano" }
+                - { id: "wrong1", text: "empezar temprano" }
+                - { id: "wrong2", text: "empieza tarde" }
+              correctOptionId: "right"
+              audioText: "empieza temprano"
+            replyGloss: "It begins early."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la escuela?", audioText: "¿y la escuela?", gloss: "And school?" }
+            goal: "Say school begins late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "la escuela empieza tarde" }
+                - { id: "wrong1", text: "la escuela empezar tarde" }
+                - { id: "wrong2", text: "la escuela empieza temprano" }
+              correctOptionId: "right"
+              audioText: "la escuela empieza tarde"
+            replyGloss: "School begins late."
+            explanation: "The school is doing the beginning, so the verb breaks and takes the -a. The dictionary shape has nothing in front of it to lean on here."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y el trabajo?", audioText: "¿y el trabajo?", gloss: "And work?" }
+            goal: "Say work begins early today."
+            reply:
+              mode: build
+              tiles: ["hoy", "el", "trabajo", "empieza", "temprano", "empezar", "tarde"]
+              answer: "hoy el trabajo empieza temprano"
+              alsoAccepted: ["el trabajo empieza temprano"]
+            replyGloss: "Today work begins early."
+            explanation: "«tarde» and the dictionary shape are both on the board to be left there."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "empezar", target: "to begin" }
+          - { source: "empieza", target: "it begins" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+          - { source: "la escuela", target: "the school" }
+          - { source: "la película", target: "the movie" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "la escuela empieza temprano, pero la película empieza tarde"
+        en: "school begins early, but the movie begins late"
+        atoms: ["escuela", "empieza", "temprano", "película", "tarde"]
+
+  # ── L6 · Quiere, puede, duerme — the él-ella column, read down all at once,
+  #    and the two half-paradigms the course left open. ─────────────────────
+  #    Two jobs, and only one of them is visible. The visible one is the
+  #    column: «puede», «duerme», «entiende», «empieza» and now «quiere», all
+  #    on one screen, all cracked in the middle, all ending the ordinary way.
+  #    The quiet one is the pair of gaps the course has been carrying —
+  #    m7 taught «quiero» and «quieres» and never «quiere»; m12 taught
+  #    «cuesta» and «cuestan» and never the word a dictionary lists them
+  #    under. This lesson closes both without ever announcing that it is
+  #    doing so.
+  #
+  #    ⚠️ THE CARRIER TRAP, WHICH SHAPES THREE STEPS HERE.
+  #    `atomModuleBySurfaceWord` (moduleBarGuards.ts:546) indexes every WORD
+  #    of every registered surface, first-write-wins, so
+  #        quiero, quieres -> m7      cuesta, cuestan -> m12
+  #    A clozeLit answered by any of them reads as a PRIOR-module atom under
+  #    pin E2 and survives ONLY on the §13.9 law 5 discrimination-trial
+  #    exemption: EXACTLY TWO options, both known to that map, distinct. So
+  #    l6-c-quiero (answer «quiero») and l6-c-cuestan (answer «cuestan») are
+  #    two-option trials by necessity — which is also, independently, the
+  #    right pedagogy, because each one IS a binary. l6-c-quiere goes the
+  #    other way: «quiere» is m14's own atom, so it needs no exemption and
+  #    could take three options; it takes two anyway, because a third would
+  #    be scenery.
+  #
+  #    ⚠️ «querer» AND «costar» ARE BARE INFINITIVES AND NOTHING ELSE. Neither
+  #    has any conjugated cell registered beyond what m7 and m12 already own,
+  #    so «queremos», «quieren», «costamos», «cuestas» never appear — not as
+  #    answers, not as tiles, not as sim replies. «costar» has exactly one
+  #    natural slot at this level, behind «puede», and that is where it is
+  #    produced: «¿cuánto puede costar?». «querer» has none at all, which is
+  #    why it debuts on the card and earns its answer position on a
+  #    `textMcq` — the only answer shape that fits a word with no sentence.
+  #
+  #    ORDERING PIN: `esSurfaces` bills an info card's «…» spans, and `info`
+  #    is an ES_INTRO_TYPE, so l6-info-lacolumna is a legal debut for both
+  #    «querer» and «costar» — and it must come BEFORE l6-tm-querer
+  #    (multiple_choice, NOT intro-capable) and before l6-sp-cuantocuesta.
+  #    It does.
+  #
+  #    NOT TOUCHED HERE: «volver» — the L8 transfer cell. It appears in
+  #    exactly one step in the entire module and this is not it.
+  #    No genderSort; no info card beyond the one.
+  - n: 6
+    template: free
+    title: "Quiere, puede, duerme"
+    description: "Read down the third column. Every verb in this module breaks the same way — and two of the columns were already half-finished before you got here."
+    steps:
+      - kind: map
+        id: l6-map-anaquiere
+        tokens: ["Ana", "quiere", "un", "café"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "wants", tokenIndex: 1 }
+          - { en: "a", tokenIndex: 2 }
+          - { en: "coffee", tokenIndex: 3 }
+        audioText: "Ana quiere un café"
+        revealNote: "You have said «quiero un café» since module seven, and «quieres» not long after. This is the third one, and it was never new — it was missing. «quiere»: he wants, she wants. Same broken ie in the middle, and the plain -e on the end that «come» and «vive» and «bebe» all wear."
+        tokenGenders: { 3: "m" }
+      - kind: speakLit
+        id: l6-sp-anaquiere
+        es: "Ana quiere un café"
+        en: "Ana wants a coffee"
+        atoms: ["quiere", "café"]
+      # «quiere» is m14's own atom, so pin E2 lets this cloze take any number
+      # of options. It takes two, because the choice the lesson cares about
+      # is who is doing the wanting, and that is a binary.
+      - kind: clozeLit
+        id: l6-c-quiere
+        es: "Ana quiere un té"
+        en: "Ana wants a tea"
+        blank: "quiere"
+        options: ["quiere", "quiero"]
+        atoms: ["quiere", "té"]
+        why: "The tea is for Ana. «quiero» would put it in your own hands — the middle of the word is identical, and the last letter is the whole difference."
+      - kind: audioWimcq
+        id: l6-ear-leche
+        target: { surface: "la leche", emoji: "🥛" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "la sopa", emoji: "🍲" }
+      # Second verb in the column, and the first place «puede» is produced in
+      # this lesson — a `build_sentence`, which is intro-capable, so the step
+      # holds even if the conjugation table's provenance for «poder» ever
+      # moves. The bank offers the other two persons and neither fits.
+      - kind: buildLit
+        id: l6-b-anapuedecocinar
+        es: "Ana puede cocinar"
+        en: "Ana can cook"
+        atoms: ["puede", "cocinar"]
+        tiles: ["puedo", "puedes"]
+      - kind: listenCompLit
+        id: l6-lc-diegoduerme
+        es: "Diego duerme tarde"
+        en: "Diego sleeps late."
+        atoms: ["duerme", "tarde"]
+        distractorsEn:
+          - "Diego sleeps early."
+          - "Diego wants to sleep."
+          - "Ana sleeps late."
+      # The lesson's one card. It reads the column down, then does the quiet
+      # job: it hands back the two dictionary words the course has owed the
+      # learner since the café and the shop. Both «querer» and «costar»
+      # debut here, which is legal — `info` is an ES_INTRO_TYPE and its
+      # guillemet spans are billed — and both are cashed downstream.
+      - kind: info
+        id: l6-info-lacolumna
+        title: "The column you never finished"
+        body: "Line the module up and read down the last column. «puede» — he can. «duerme» — she sleeps. «entiende» — he understands. «empieza» — it begins. Every one of them cracked in the middle, and every one of them ends the ordinary way. Now the part you were not told. Two of these columns were already two-thirds built and nobody mentioned it. You have said «quiero» since the café and «quieres» soon after; «quiere» was never a new word, it was the missing one. And you have said «cuesta» and «cuestan» through ten lessons of shopping — which, for a price, is the whole table there is. What you have never met is what a dictionary would list either of them under. «costar», to cost. «querer», to want. Look at the middle of those two: no ie, no ue, just the flat vowel. That is the rule in one line — the break happens when you put the verb on a person, and never before."
+      # «querer» has no sentence a beginner can say — it is a dictionary word
+      # and nothing else — so it is CASHED the way m10 cashed «estudiar» and
+      # m9 cashed «la escuela»: a bare voicing. That matters mechanically, not
+      # just stylistically: the shipped atom-usage pin (m13.test.ts) counts an
+      # ANSWER position only from build / listening_build / speaking /
+      # particle_cloze / agreement_cloze. A `textMcq` is a distractor set with
+      # a right answer in it, and it would NOT have discharged this atom.
+      - kind: speakLit
+        id: l6-sp-querer
+        es: "querer"
+        en: "to want"
+        atoms: ["querer"]
+      # THE CARRIER TRAP, LIVE. «quiero» is an m7 atom, so this cloze reads
+      # as a prior-module pick under pin E2 and rides the §13.9 law 5
+      # exemption: exactly two options, both known to
+      # atomModuleBySurfaceWord («quiero» m7, «quiere» m14). A third option
+      # here would fail the gate outright — verified, not assumed.
+      - kind: clozeLit
+        id: l6-c-quiero
+        es: "quiero un café"
+        en: "I want a coffee"
+        blank: "quiero"
+        options: ["quiero", "quiere"]
+        atoms: ["quiero", "café"]
+        why: "Nobody is named in this line, so the coffee is yours. The other shape needs somebody standing in front of it — a name, or an «él»."
+      - kind: audioWimcq
+        id: l6-ear-camisa
+        target: { surface: "la camisa", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+      # «costar» has exactly one slot a beginner can say it in, and this is
+      # it: behind «puede». It is the m12 question the learner has asked
+      # forty times, with the dictionary word restored to the middle of it.
+      - kind: speakLit
+        id: l6-sp-cuantopuedecostar
+        es: "¿cuánto puede costar?"
+        en: "how much can it cost?"
+        atoms: ["cuánto", "puede", "costar"]
+      - kind: buildLit
+        id: l6-b-anaquierecomprar
+        es: "Ana quiere comprar un sombrero"
+        en: "Ana wants to buy a hat"
+        atoms: ["quiere", "comprar", "sombrero"]
+        tiles: ["quiero", "quieres"]
+      - kind: textMcq
+        id: l6-tm-costar
+        target: "costar"
+        distractors: ["comprar", "dormir", "entender"]
+      # Cross-module recall. m12 printed this line on a non-recall speaking
+      # step (es-m12-4-l4-sp-estacamisa), which is what licenses it — and it
+      # is deliberately the sentence the next step takes apart.
+      - kind: speakLit
+        id: l6-sp-recall-cuantocuesta
+        es: "¿cuánto cuesta esta camisa?"
+        en: "how much does this shirt cost?"
+        atoms: []
+        cue: recall
+      # The second carrier trap. «cuestan» is an m12 atom, so this is the
+      # exemption again — two options, both taught, and they are the only
+      # two shapes a price ever takes.
+      - kind: clozeLit
+        id: l6-c-cuestan
+        es: "los zapatos cuestan mucho"
+        en: "the shoes cost a lot"
+        blank: "cuestan"
+        options: ["cuestan", "cuesta"]
+        atoms: ["zapato", "cuestan", "mucho"]
+        why: "Count the shoes, not the shopper. More than one thing is doing the costing, so the verb goes with them."
+      - kind: listenBuildLit
+        id: l6-lb-noentiende
+        es: "Ana no entiende la cuenta"
+        en: "Ana doesn't understand the bill"
+        atoms: ["entiende", "cuenta"]
+        tiles: ["entiendo", "entender"]
+      - kind: sim
+        id: l6-sim-ana-tienda
+        scene: { emoji: "🛍️", title: "Ana holds up a shirt", setting: "Ana is at the rack. Diego is two aisles over, not looking." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego quiere esta camisa?", audioText: "¿Diego quiere esta camisa?", gloss: "Does Diego want this shirt?" }
+            goal: "Say yes — he wants it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, Diego quiere esta camisa" }
+                - { id: "wrong1", text: "sí, Diego quiero esta camisa" }
+                - { id: "wrong2", text: "sí, Diego quieres esta camisa" }
+              correctOptionId: "right"
+              audioText: "sí, Diego quiere esta camisa"
+            replyGloss: "Yes, Diego wants this shirt."
+            explanation: "«quiero» is what you want and «quieres» is what the person in front of you wants. Diego is neither of those, so the ending is -e."
+          - id: t2
+            npc: { speaker: "Ana", es: "Es cara.", audioText: "es cara", gloss: "It's expensive." }
+            goal: "Say Diego can't buy it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "Diego no puede comprar esta camisa" }
+                - { id: "wrong1", text: "Diego no puedo comprar esta camisa" }
+                - { id: "wrong2", text: "Diego no puedes comprar esta camisa" }
+              correctOptionId: "right"
+              audioText: "Diego no puede comprar esta camisa"
+            replyGloss: "Diego can't buy this shirt."
+            explanation: "Different verb, same column — Diego is still the one it is about, so it lands on the -e."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y el sombrero?", audioText: "¿y el sombrero?", gloss: "And the hat?" }
+            goal: "Say the hat costs a lot."
+            reply:
+              mode: build
+              tiles: ["el", "sombrero", "cuesta", "mucho", "cuestan", "costar", "quiere"]
+              answer: "el sombrero cuesta mucho"
+            replyGloss: "The hat costs a lot."
+            explanation: "One hat, so the singular. The dictionary shape is on the board to be left there — it never stands in a sentence on its own."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "querer", target: "to want" }
+          - { source: "quiere", target: "he/she wants" }
+          - { source: "costar", target: "to cost" }
+          - { source: "puede", target: "he/she can" }
+          - { source: "duerme", target: "he/she sleeps" }
+          - { source: "entiende", target: "he/she understands" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "Ana quiere comprar esta camisa, pero cuesta mucho"
+        en: "Ana wants to buy this shirt, but it costs a lot"
+        atoms: ["quiere", "comprar", "esta", "camisa", "cuesta", "mucho"]
+
+  # ── L7 · consolidation — both breaks, every person, one sentence at a time ──
+  #   Zero new words. Six lessons taught six verbs one at a time; this is the
+  #   lesson where the learner stops running a row and starts SWITCHING.
+  #   Every consecutive pair of steps changes either the verb or the person,
+  #   and no two steps in a row drill the same cell — that interleave is the
+  #   whole design, and it is why nothing here is grouped by pattern.
+  #
+  #   The opening map is the module in one line: «ella duerme tarde pero el
+  #   trabajo empieza temprano». Two verbs, two DIFFERENT breaks (o→ue and
+  #   e→ie), and — the part that matters — endings the learner has owned
+  #   since m10. The map's job is to show that only the vowel moved.
+  #
+  #   The agreement beat is the thesis as two live decisions in one line:
+  #   «quiero dormir pero no puedo» blanks the stem vowel itself, once for a
+  #   word m7 taught (quiero) and once for a word this module taught (puedo).
+  #   Nothing else in the course can stage the point that cleanly: the
+  #   learner has been saying one of those two broken forms for six modules.
+  #
+  #   The sim is the scene the module has been building toward — three people
+  #   whose schedules do not line up, so the learner has to move between
+  #   «puedo / puedes», «quiero / quiere» and «duermo / duerme» inside one
+  #   conversation instead of finishing a table.
+  #
+  #   «volver» is NOT here. It is L8's alone, met once, in the checkpoint.
+  - n: 7
+    template: free
+    title: "Everything at once"
+    description: "No new words. Both breaks, all three persons, and sentences long enough that you have to switch verbs in the middle of one."
+    steps:
+      # The module in eight tokens. The two halves are deliberately unlike:
+      # different verb, different break, different subject. What they share
+      # is the ending — which is the thing that did NOT change.
+      - kind: map
+        id: l7-map-dosverbos
+        tokens: ["ella", "duerme", "tarde", "pero", "el", "trabajo", "empieza", "temprano"]
+        pairs:
+          - { en: "she", tokenIndex: 0 }
+          - { en: "sleeps — the o broke to ue", tokenIndex: 1 }
+          - { en: "late", tokenIndex: 2 }
+          - { en: "but", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "work", tokenIndex: 5 }
+          - { en: "begins — the e broke to ie", tokenIndex: 6 }
+          - { en: "early", tokenIndex: 7 }
+        audioText: "ella duerme tarde pero el trabajo empieza temprano"
+        revealNote: "Two verbs, two different breaks, one sentence. «dormir» breaks o → ue; «empezar» breaks e → ie. Now look at what did NOT change: both endings are the plain -a you have put on «habla» and «come» since module ten. Only the vowel inside moved."
+        tokenGenders: { 5: "m" }
+      # Person and verb both live at once: the English says CAN, the bank
+      # offers WANT, and the ending has to be the yo one.
+      - kind: clozeLit
+        id: l7-c-puedo
+        es: "yo no puedo dormir"
+        en: "I can't sleep"
+        blank: "puedo"
+        options: ["puedo", "puede", "quiero"]
+        atoms: ["puedo", "dormir"]
+        why: "«yo» is the one who can't, so the ending is -o. And «poder» breaks every time that o is the stressed one — which, in these three persons, is always."
+      - kind: audioWimcq
+        id: l7-ear-cama
+        target: { surface: "la cama", emoji: "🛏️" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "la silla", emoji: "🪑" }
+      # «quiere» produced with «quiero» sitting in the bank: the person is a
+      # decision, not a copy. The second verb stays an infinitive.
+      - kind: buildLit
+        id: l7-b-quieredormir
+        es: "ella quiere dormir temprano"
+        en: "she wants to sleep early"
+        atoms: ["quiere", "dormir", "temprano"]
+        tiles: ["quiero", "tarde"]
+      - kind: listenCompLit
+        id: l7-lc-trabajar
+        es: "hoy no puedo trabajar"
+        en: "I can't work today."
+        atoms: ["hoy", "puedo", "trabajar"]
+        distractorsEn:
+          - "I can't study today."
+          - "She can't work today."
+          - "I don't want to work today."
+      # The oldest phrase in the course, said back — and the first time the
+      # learner can hear the break inside it. Licensed by m2's printed
+      # voicing (es-m2 «no entiendo»).
+      - kind: speakLit
+        id: l7-sp-recall-entiendo
+        es: "no entiendo"
+        en: "I don't understand"
+        atoms: []
+        cue: recall
+      # Two options ON PURPOSE: «entiendo» is a word of m2's «no entiendo»,
+      # so under pin E2 this survives only as a §13.9 law 5 discrimination
+      # trial — exactly two options, both taught, sharing a stem.
+      - kind: clozeLit
+        id: l7-c-entiendo
+        es: "yo no entiendo la película"
+        en: "I don't understand the movie"
+        blank: "entiendo"
+        options: ["entiendo", "entiende"]
+        atoms: ["película"]
+        why: "You are the one lost, so the ending is -o. The two forms differ by one letter at the end and not at all in the middle — the ie is in both, because the break happens in every one of these persons."
+      - kind: listenBuildLit
+        id: l7-lb-puedescocinar
+        es: "¿puedes cocinar hoy?"
+        en: "can you cook today?"
+        atoms: ["puedes", "cocinar", "hoy"]
+        tiles: ["puedo", "tarde"]
+      - kind: audioWimcq
+        id: l7-ear-trabajo
+        target: { surface: "el trabajo", emoji: "💼" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # The infinitive PRODUCED, with the broken third-person in the bank:
+      # after «quiero» the second verb never breaks, because nothing stresses
+      # its stem.
+      - kind: buildLit
+        id: l7-b-empezar
+        es: "quiero empezar temprano"
+        en: "I want to begin early"
+        atoms: ["empezar", "temprano"]
+        tiles: ["empieza", "tarde"]
+      # The module's thesis as two live decisions in ONE line: the vowel the
+      # learner has been saying since m7 («quiero») and the vowel this module
+      # taught («puedo»), blanked in the middle of the word where the break
+      # actually happens. Nothing on screen says which way either one goes.
+      - kind: agreementLit
+        id: l7-agree-quieropuedo
+        en: "I want to sleep but I can't"
+        audioText: "quiero dormir pero no puedo"
+        atoms: ["dormir", "puedo"]
+        segments:
+          - { text: "qu" }
+          - { blank: { id: "v1", answer: "ie", options: ["e", "ie"] } }
+          - { text: "ro dormir pero no p" }
+          - { blank: { id: "v2", answer: "ue", options: ["o", "ue"] } }
+          - { text: "do" }
+      - kind: speakLit
+        id: l7-sp-duerme
+        es: "ella duerme tarde"
+        en: "she sleeps late"
+        atoms: ["duerme", "tarde"]
+      - kind: textMcq
+        id: l7-tm-temprano
+        target: "temprano"
+        distractors: ["tarde", "nunca", "siempre"]
+      # m12's «cuestan» standing where this module can finally explain it:
+      # the o in «costar» broke to ue two modules before the learner had a
+      # name for it. Two options — «cuestan» is m12's atom, so E2 again.
+      - kind: clozeLit
+        id: l7-c-cuestan
+        es: "los zapatos cuestan mucho"
+        en: "the shoes cost a lot"
+        blank: "cuestan"
+        options: ["cuestan", "cuesta"]
+        atoms: ["cuestan", "zapato", "mucho"]
+        why: "More than one shoe is doing the costing, so the verb goes plural. And that ue in the middle is not an exception you have to learn — it is «costar» breaking, exactly like «poder» and «dormir»."
+      - kind: buildLit
+        id: l7-b-entiende
+        es: "mi hermana no entiende la música"
+        en: "my sister doesn't understand the music"
+        atoms: ["hermana", "entiende", "música"]
+        tiles: ["entiendo", "empieza"]
+      - kind: sim
+        id: l7-sim-horarios
+        scene: { emoji: "😴", title: "Nobody keeps the same hours", setting: "Ana, Diego and Sofía are trying to plan tomorrow, and not one of them gets up at the same time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes trabajar temprano?", audioText: "¿puedes trabajar temprano?", gloss: "Can you work early?" }
+            goal: "Say you can't work early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no puedo trabajar temprano" }
+                - { id: "wrong1", text: "no puede trabajar temprano" }
+                - { id: "wrong2", text: "no puedo trabajar tarde" }
+              correctOptionId: "right"
+              audioText: "no puedo trabajar temprano"
+            replyGloss: "I can't work early."
+            explanation: "Ana asked with «puedes» because she meant you. You answer about yourself, so the ending flips to -o — and the ue stays put in both."
+          - id: t2
+            npc: { speaker: "Diego", es: "Yo duermo tarde todos los días.", audioText: "yo duermo tarde todos los días", gloss: "I sleep late every day." }
+            goal: "Ask Diego if he can sleep early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿puedes dormir temprano?" }
+                - { id: "wrong1", text: "¿puede dormir temprano?" }
+                - { id: "wrong2", text: "¿quieres dormir temprano?" }
+              correctOptionId: "right"
+              audioText: "¿puedes dormir temprano?"
+            replyGloss: "Can you sleep early?"
+            explanation: "You are talking TO Diego, so «puedes». And the verb that follows it does not break at all — «dormir» stays whole, because nothing is stressing its stem."
+          - id: t3
+            # A build turn whose bank holds the other person of BOTH verbs,
+            # so neither the verb nor the person can be found by elimination.
+            npc: { speaker: "Sofía", es: "La película empieza tarde.", audioText: "la película empieza tarde", gloss: "The movie starts late." }
+            goal: "Say you want to sleep now."
+            reply:
+              mode: build
+              tiles: ["quiero", "dormir", "ahora", "puedo", "duerme", "quiere"]
+              answer: "quiero dormir ahora"
+            replyGloss: "I want to sleep now."
+            explanation: "«quiero» breaks the same way «puedo» does, and it always has — m7 just never said so. What comes after it stays an infinitive."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Cuánto cuesta el libro?", audioText: "¿cuánto cuesta el libro?", gloss: "How much does the book cost?" }
+            goal: "Say the book costs a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "el libro cuesta mucho" }
+                - { id: "wrong1", text: "el libro cuestan mucho" }
+                - { id: "wrong2", text: "el libro costar mucho" }
+              correctOptionId: "right"
+              audioText: "el libro cuesta mucho"
+            replyGloss: "The book costs a lot."
+            explanation: "One book, so the singular. You have said this since module twelve; what is new is knowing that the ue got there the same way «puedo» did."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "puedes", target: "you can" }
+          - { source: "duerme", target: "he sleeps, she sleeps" }
+          - { source: "empieza", target: "it begins" }
+          - { source: "entiende", target: "he understands, she understands" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+          - { source: "el trabajo", target: "the work" }
+      # The win: one line, two verbs, two persons, both breaks — and the
+      # learner picks up the person switch in the middle without being told.
+      - kind: speakLit
+        id: l7-sp-win
+        es: "quiero dormir pero el trabajo empieza temprano"
+        en: "I want to sleep but work starts early"
+        atoms: ["dormir", "empieza", "temprano"]
+
+  # ── L8 · CHECKPOINT — every verb that breaks, with nothing to lean on. ───
+  #   Graded steps only: no info card, no map, nothing the learner can tap
+  #   past. All three persons of «poder», both of «dormir», «quiere» against
+  #   «quiero», «entiende» against «entiendo», «empieza» and m12's «cuesta»
+  #   are each decided at least once, and no step announces which way the
+  #   vowel goes.
+  #
+  #   ── TRANSFER TEST — the one step the module is built to earn ──────────
+  #   Every other sentence here points at a verb m14 has drilled for six
+  #   lessons. `cp-transfer-volver` points at one the module has NEVER used.
+  #   «volver» is not a registered atom and appears in exactly one step in
+  #   the whole module — not in L7, not in a later lesson, not in a tile bank
+  #   anywhere else. The shape is forced, not chosen:
+  #     - the answer «vuelve» requires a break the module never drilled. If
+  #       the learner memorised six words they have nothing; if they learned
+  #       the PATTERN, the o → ue is the only thing it could be.
+  #     - the bank holds the INFINITIVE «volver» beside it, so the live
+  #       decision is the didn't-conjugate error mode — the same foil the
+  #       ES distractor lint names — and «vuelve» cannot be reached by
+  #       elimination.
+  #     - the verb is GLOSSED IN PLACE in the prompt, because a transfer
+  #       test has to be fair: the learner is being asked to apply a rule to
+  #       a new word, not to guess a word.
+  #     - buildLit because build_sentence is one of the intro-capable step
+  #       types (ES_INTRO_TYPES) and bills its tiles as surfaces. A textMcq
+  #       or mcq fails the provenance gate — multiple_choice is not
+  #       intro-capable — and m10, m11 and m12 each lost a compile lap
+  #       discovering that.
+  #     - NOT a cue:"recall" speakLit: the course-wide recall law licenses
+  #       recall only for a phrase an earlier non-recall speaking step
+  #       already printed, and nothing has ever printed «vuelve».
+  #     - no audioWimcq near it: a picture would answer the question the
+  #       step is asking. A transfer cell is met cold, in text.
+  #   ⚠️ AUTHORING NOTE — see the wave report. Because «volver»/«vuelve» are
+  #   neither registered atoms nor cells of ES_VERB_ENTRIES, this step is
+  #   the module's only source of untracked-word occurrences under the
+  #   vocab-provenance gate (moduleBarGuards, zero declared debt). Every
+  #   prior transfer cell — m10 visitar, m11 recibir, m12 sombrero, m13
+  #   vacaciones — registered its transfer word for exactly this reason.
+  #   Placement: step 9 of 18, between a clozeLit and an audioWimcq — two
+  #   unrelated beats of two different kinds, so the transfer touches no
+  #   step of its own kind and BREAKS a selection run rather than joining
+  #   one.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The vowel that breaks"
+    description: "Every verb that breaks, every person, no help — and one verb in the middle of it that this module never taught you."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "ella no puede dormir temprano"
+        en: "She can't sleep early."
+        atoms: ["puede", "dormir", "temprano"]
+        distractorsEn:
+          - "She can't sleep late."
+          - "She doesn't want to sleep early."
+          - "I can't sleep early."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "no puedo cocinar hoy"
+        en: "I can't cook today"
+        atoms: ["puedo", "cocinar", "hoy"]
+        tiles: ["puedes", "dormir"]
+      # The didn't-conjugate foil: the bank offers the infinitive for a slot
+      # that needs a finite verb, and a second broken verb for a slot that
+      # means something else.
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "el cine empieza tarde"
+        en: "the movie theater starts late"
+        blank: "empieza"
+        options: ["empieza", "empezar", "entiende"]
+        atoms: ["cine", "empieza", "tarde"]
+        why: "A sentence needs a verb with a person on it, so the bare «empezar» cannot go here. And when it takes that person, the e breaks: empieza."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "mi hermano duerme mucho"
+        en: "my brother sleeps a lot"
+        atoms: ["hermano", "duerme", "mucho"]
+        tiles: ["duermo", "poco"]
+      - kind: textMcq
+        id: cp-tm-1
+        target: "puede"
+        distractors: ["puedo", "puedes", "poder"]
+        prompt: "Which one means 'he can, she can'?"
+      - kind: speakLit
+        id: cp-sp-1
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      # «quiero» is m7's atom, so this is a two-option discrimination trial
+      # (pin E2 / §13.9 law 5). The stem is identical in both; the learner is
+      # deciding the person, which is the half m7 never taught them to move.
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "yo quiero dormir temprano"
+        en: "I want to sleep early"
+        blank: "quiero"
+        options: ["quiero", "quiere"]
+        atoms: ["dormir", "temprano"]
+        why: "«yo» wants it, so the ending is -o. Both forms carry the ie — the break is not what tells them apart, and it never is."
+      # ── TRANSFER TEST — see the lesson header for why it is shaped this way.
+      - kind: buildLit
+        id: cp-transfer-volver
+        es: "ella vuelve tarde"
+        en: "she comes back late — «volver» means to come back"
+        atoms: ["tarde"]
+        tiles: ["volver", "temprano"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el autobús", emoji: "🚌" }
+        distractors:
+          - { surface: "el carro", emoji: "🚗" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "mi hermana no entiende el libro"
+        en: "my sister doesn't understand the book"
+        blank: "entiende"
+        options: ["entiende", "entiendo"]
+        atoms: ["hermana", "entiende", "libro"]
+        why: "Your sister is the one lost, not you — so the ending is -e. The ie in the middle sits there for both of them."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "¿puedes dormir tarde?"
+        en: "can you sleep late?"
+        atoms: ["puedes", "dormir", "tarde"]
+        tiles: ["puede", "temprano"]
+      # Both breaks as four keystrokes, in one line, with nothing else to go
+      # on: o → ue on one verb and e → ie on another, neither announced.
+      - kind: agreementLit
+        id: cp-agree-1
+        en: "she sleeps late but the movie begins early"
+        audioText: "ella duerme tarde pero la película empieza temprano"
+        atoms: ["duerme", "tarde", "película", "empieza", "temprano"]
+        segments:
+          - { text: "ella d" }
+          - { blank: { id: "v1", answer: "ue", options: ["o", "ue"] } }
+          - { text: "rme tarde pero la película emp" }
+          - { blank: { id: "v2", answer: "ie", options: ["e", "ie"] } }
+          - { text: "za temprano" }
+      - kind: buildLit
+        id: cp-build-2
+        es: "ella quiere comprar zapatos baratos"
+        en: "she wants to buy cheap shoes"
+        atoms: ["quiere", "comprar", "zapato", "barato"]
+        tiles: ["quiero", "caro"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "yo duermo tarde y ella duerme temprano"
+        en: "I sleep late and she sleeps early."
+        atoms: ["duermo", "tarde", "duerme", "temprano"]
+        distractorsEn:
+          - "I sleep early and she sleeps late."
+          - "I sleep late and she sleeps late."
+          - "I work late and she works early."
+      # m7's line, unchanged since the café — and the first broken stem the
+      # learner ever produced, three modules before anyone named it.
+      - kind: speakLit
+        id: cp-sp-2
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "poder", target: "to be able to, can" }
+          - { source: "querer", target: "to want" }
+          - { source: "dormir", target: "to sleep" }
+          - { source: "entender", target: "to understand" }
+          - { source: "empezar", target: "to begin" }
+          - { source: "costar", target: "to cost" }
+          - { source: "temprano", target: "early" }
+          - { source: "la película", target: "the movie" }
+      - kind: speakLit
+        id: cp-sp-win
+        es: "no puedo dormir temprano"
+        en: "I can't sleep early"
+        atoms: ["puedo", "dormir", "temprano"]
+
+  # ── L9 · consolidation — both breaks at once, threaded through everything
+  #    m1–m13 already gave you. ────────────────────────────────────────────
+  #    ZERO NEW ATOMS. The learner has just been graded, so nothing here is
+  #    allowed to feel like remediation. The job is LENGTH and BREADTH: the
+  #    map opens on the longest sentence the module has ever asked for —
+  #    «la escuela empieza temprano y no puedo dormir tarde» — and it is
+  #    deliberately one clause of each break, e→ie and o→ue, sharing the
+  #    plain m10 endings between them.
+  #    Nothing block-drills. Both patterns alternate, and between them the
+  #    lesson keeps reaching back: «el café» by ear (m7), «no entiendo»
+  #    cued cold (m2 — the first thing they ever said, and the reason this
+  #    module exists), «la cama» by ear (m4), «esa camisa» (m12) and
+  #    «¿cuánto cuesta?» cued cold (m12 — an o→ue verb they have owned for
+  #    a whole module without knowing it).
+  #    ⚠️ Every clozeLit here is a TWO-OPTION discrimination trial. On
+  #    «entiende» / «puedo» / «quiere» that is a style choice — those words
+  #    are m14's own and pin E2 lets them through at any width. On anything
+  #    resolving to m7/m12/m2 it is the ONLY thing that licenses the step.
+  #    Keeping every one of them at two makes the lane uniform and makes
+  #    each blank a real minimal pair rather than a lucky guess.
+  - n: 9
+    template: free
+    title: "Everything you can, everything you want"
+    description: "No new words at all — both broken vowels running at once, at the longest sentence length this module has asked for, threaded through half the course."
+    steps:
+      - kind: map
+        id: l9-map-1
+        tokens: ["la", "escuela", "empieza", "temprano", "y", "no", "puedo", "dormir", "tarde"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "school", tokenIndex: 1 }
+          - { en: "starts", tokenIndex: 2 }
+          - { en: "early", tokenIndex: 3 }
+          - { en: "and", tokenIndex: 4 }
+          - { en: "not", tokenIndex: 5 }
+          - { en: "I can", tokenIndex: 6 }
+          - { en: "sleep", tokenIndex: 7 }
+          - { en: "late", tokenIndex: 8 }
+        audioText: "la escuela empieza temprano y no puedo dormir tarde"
+        revealNote: "Two broken verbs in one breath, and they broke in opposite directions. «empezar» pushed its e out into ie — «empieza». «poder» pushed its o out into ue — «puedo». Now look at what did NOT change: the endings. «empieza» ends in the same -a that «habla» has ended in since m10, and «puedo» ends in the same -o as «hablo». The endings never break. Only the vowel in the middle of the stem, and only when the stress lands on it — which in these three persons it always does."
+        tokenGenders: { 1: "f" }
+      - kind: speakLit
+        id: l9-sp-1
+        es: "la escuela empieza temprano y no puedo dormir tarde"
+        en: "school starts early and I can't sleep late"
+        atoms: ["escuela", "empieza", "temprano", "puedo", "dormir", "tarde"]
+      - kind: clozeLit
+        id: l9-c-1
+        es: "no puedo dormir tarde"
+        en: "I can't sleep late"
+        blank: "puedo"
+        options: ["puedo", "puedes"]
+        atoms: ["puedo", "dormir", "tarde"]
+        why: "The one who cannot sleep is you, so «puedo». «puedes» hands the problem to whoever you are talking to — and notice that the broken ue sits in both of them. The stem is settled before the ending is even chosen."
+      - kind: buildLit
+        id: l9-b-1
+        es: "quiero comer temprano"
+        en: "I want to eat early"
+        atoms: ["quiero", "comer", "temprano"]
+        tiles: ["quieres", "tarde"]
+      # ── review tail 1 — m7's coffee, by ear only ─────────────────────────
+      - kind: audioWimcq
+        id: l9-ear-1
+        target: { surface: "el café", emoji: "☕" }
+        distractors:
+          - { surface: "la leche", emoji: "🥛" }
+          - { surface: "el té", emoji: "🍵" }
+      - kind: listenBuildLit
+        id: l9-lb-1
+        es: "Ana duerme temprano"
+        en: "Ana sleeps early"
+        atoms: ["duerme", "temprano"]
+        tiles: ["duermo", "tarde"]
+      # ── review tail 2 — the oldest phrase in the course, cued cold. m2 L3
+      #    printed it. They are about to watch it come apart.
+      - kind: speakLit
+        id: l9-sp-recall-1
+        es: "no entiendo"
+        en: "I don't understand"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-2
+        es: "Diego no entiende el libro"
+        en: "Diego doesn't understand the book"
+        blank: "entiende"
+        options: ["entiende", "entiendo"]
+        atoms: ["entiende", "libro"]
+        why: "Diego is the one lost, so «entiende». You just said «entiendo» out loud a moment ago — the same verb, the same broken e, a different ending. That phrase has been in your mouth since module 2 and this is the first time you have been able to see inside it."
+      - kind: buildLit
+        id: l9-b-2
+        es: "el trabajo empieza temprano"
+        en: "work starts early"
+        atoms: ["trabajo", "empieza", "temprano"]
+        tiles: ["empezar", "tarde"]
+      - kind: listenCompLit
+        id: l9-lc-1
+        es: "quiero dormir, pero la escuela empieza temprano"
+        en: "I want to sleep, but school starts early."
+        atoms: ["quiero", "dormir", "escuela", "empieza", "temprano"]
+        distractorsEn:
+          - "I want to sleep, but school starts late."
+          - "I can sleep, but school starts early."
+          - "She wants to sleep, but school starts early."
+      - kind: speakLit
+        id: l9-sp-2
+        es: "Ana puede cocinar muy bien"
+        en: "Ana can cook very well"
+        atoms: ["puede", "cocinar", "bien"]
+      - kind: textMcq
+        id: l9-tm-1
+        target: "duerme"
+        distractors: ["duermo", "dormir", "empieza"]
+      - kind: listenBuildLit
+        id: l9-lb-2
+        es: "no puedes comprar ese sombrero"
+        en: "you can't buy that hat"
+        atoms: ["puedes", "comprar", "ese", "sombrero"]
+        tiles: ["puedo", "barato"]
+      - kind: clozeLit
+        id: l9-c-3
+        es: "Ana quiere comprar esa camisa"
+        en: "Ana wants to buy that shirt"
+        blank: "quiere"
+        options: ["quiere", "quiero"]
+        atoms: ["quiere", "comprar", "esa", "camisa"]
+        why: "Ana is the one who wants it, so «quiere». Her stem broke exactly the way yours does in «quiero» — the ie was never about which person is speaking. It is about where the stress falls, and in all three of these persons it falls on the stem."
+      # ── review tail 3 — m12's price question, cued cold (m12 L4 printed
+      #    it). They have been saying an o→ue verb for a whole module.
+      - kind: speakLit
+        id: l9-sp-recall-2
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      # ── review tail 4 — m4's bed, by ear only ────────────────────────────
+      - kind: audioWimcq
+        id: l9-ear-2
+        target: { surface: "la cama", emoji: "🛏️" }
+        distractors:
+          - { surface: "la silla", emoji: "🪑" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "puedes", target: "you can" }
+          - { source: "duermo", target: "I sleep" }
+          - { source: "entiende", target: "he/she understands" }
+          - { source: "empieza", target: "it begins" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+      # ── THE WIN — one sentence, both breaks, and the most relatable
+      #    complaint in any language.
+      - kind: speakLit
+        id: l9-sp-win
+        es: "quiero dormir tarde, pero el trabajo empieza temprano"
+        en: "I want to sleep late, but work starts early"
+        atoms: ["quiero", "dormir", "tarde", "trabajo", "empieza", "temprano"]
+
+  # ── L10 · MASTERY — every step graded, no cards, no map. Both breaks,
+  #    all three persons, and then a whole tomorrow arranged out of them. ──
+  #    ZERO NEW ATOMS and ZERO info. Cloze runs 4/18 = 0.22, inside the ⅓
+  #    the mastery lesson is allowed.
+  #    The exam for this module is NOT "can you conjugate poder". It is "do
+  #    you know you were already doing this", so the graded lane deliberately
+  #    puts m7's «quieres» (l10-c-2, l10-sp-recall-1) and m12's «cuesta»
+  #    (l10-c-3, l10-sp-recall-2) under the same blank treatment as m14's
+  #    own «puede» and «duerme». Four of the six broken verbs in this lesson
+  #    were taught to the learner before this module existed.
+  #    The closing matchLit is the él-ella column entire — puede, quiere,
+  #    duerme, entiende, empieza, cuesta — six verbs, one break, one grid.
+  #
+  #    NB: `esSurfaces` returns NOTHING for dialogue_sim, so the closing sim
+  #    is invisible to the provenance and production gates. Every surface it
+  #    uses — «puedo», «quiero», «duermo», «empieza», «entiende», «pollo»,
+  #    «sopa», «cocinar», «película» — is carried by a graded step above it
+  #    or by an earlier lesson. Nothing follows it; the module ends there.
+  - n: 10
+    template: free
+    title: "Prove it — then settle tomorrow"
+    description: "Every broken vowel, every person, nothing to lean on — and then an entire tomorrow arranged out of what you want, what you can do, and when things start."
+    steps:
+      - kind: clozeLit
+        id: l10-c-1
+        es: "Ana no puede cocinar hoy"
+        en: "Ana can't cook today"
+        blank: "puede"
+        options: ["puede", "puedo"]
+        atoms: ["puede", "cocinar"]
+        why: "Ana is the one who can't, so «puede». The ue is already there before the ending is chosen — «puedo», «puedes», «puede», one broken stem and three ordinary endings."
+      - kind: buildLit
+        id: l10-b-1
+        es: "duermo tarde el domingo"
+        en: "I sleep late on Sunday"
+        atoms: ["duermo", "tarde", "domingo"]
+        tiles: ["duerme", "temprano"]
+      # ── review tail 1 — m9's school, by ear only ─────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-1
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: listenBuildLit
+        id: l10-lb-1
+        es: "la película empieza temprano"
+        en: "the movie starts early"
+        atoms: ["película", "empieza", "temprano"]
+        tiles: ["empezar", "tarde"]
+      - kind: clozeLit
+        id: l10-c-2
+        es: "tú quieres dormir temprano"
+        en: "you want to sleep early"
+        blank: "quieres"
+        options: ["quieres", "quiero"]
+        atoms: ["quieres", "dormir", "temprano"]
+        why: "«tú» is the one who wants it, so «quieres». You have been saying both of these since module 7 without ever being asked why there is an ie in a verb spelled «querer». There it is."
+      # ── review tail 2 — m7's own question, cued cold (m7 L3 printed it) ──
+      - kind: speakLit
+        id: l10-sp-recall-1
+        es: "¿quieres un café?"
+        en: "do you want a coffee?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-1
+        target: "empieza"
+        distractors: ["empezar", "entiende", "duerme"]
+      - kind: buildLit
+        id: l10-b-2
+        es: "Diego entiende un poco de español"
+        en: "Diego understands a little Spanish"
+        atoms: ["entiende", "un poco", "español"]
+        tiles: ["entiendo", "entender"]
+      # ── review tail 3 — m9's bus, by ear only ────────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-2
+        target: { surface: "el autobús", emoji: "🚌" }
+        distractors:
+          - { surface: "el carro", emoji: "🚗" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: listenCompLit
+        id: l10-lc-1
+        es: "Diego duerme tarde y no puede trabajar temprano"
+        en: "Diego sleeps late and can't work early."
+        atoms: ["duerme", "tarde", "puede", "trabajar", "temprano"]
+        distractorsEn:
+          - "Diego sleeps early and can't work late."
+          - "Diego wants to sleep late and can't work."
+          - "I sleep late and can't work early."
+      # ── review tail 4 — m12's plural price line, cued cold (m12 L4) ──────
+      - kind: speakLit
+        id: l10-sp-recall-2
+        es: "¿cuánto cuestan los zapatos?"
+        en: "how much do the shoes cost?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l10-c-3
+        es: "este sombrero cuesta mucho"
+        en: "this hat costs a lot"
+        blank: "cuesta"
+        options: ["cuesta", "cuestan"]
+        atoms: ["este", "sombrero", "cuesta", "mucho"]
+        why: "One hat, so «cuesta». Now look at the stem you just picked: «costar» with its o pushed out into ue, the same break as «puedo». m12 drilled this verb for ten lessons a whole module before anybody gave the break a name."
+      - kind: buildLit
+        id: l10-b-3
+        es: "puedo escuchar música ahora"
+        en: "I can listen to music now"
+        atoms: ["puedo", "escuchar", "música", "ahora"]
+        tiles: ["puedes", "poder"]
+      - kind: listenBuildLit
+        id: l10-lb-2
+        es: "Ana quiere comer temprano"
+        en: "Ana wants to eat early"
+        atoms: ["quiere", "comer", "temprano"]
+        tiles: ["quiero", "tarde"]
+      - kind: speakLit
+        id: l10-sp-1
+        es: "no entiendo, pero quiero estudiar"
+        en: "I don't understand, but I want to study"
+        atoms: ["quiero", "estudiar"]
+      - kind: clozeLit
+        id: l10-c-4
+        es: "Diego duerme temprano"
+        en: "Diego sleeps early"
+        blank: "duerme"
+        options: ["duerme", "duermo"]
+        atoms: ["duerme", "temprano"]
+        why: "Diego is the sleeper, so «duerme»; «duermo» would be you. Spanish breaks the stem once and then puts the same ordinary endings on it that every verb since m10 has taken."
+      # ── the él-ella column entire: six verbs, one break, one grid ────────
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "puede", target: "he/she can" }
+          - { source: "quiere", target: "he/she wants" }
+          - { source: "duerme", target: "he/she sleeps" }
+          - { source: "entiende", target: "he/she understands" }
+          - { source: "empieza", target: "it begins" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "temprano", target: "early" }
+      # ── THE PAYOFF ──────────────────────────────────────────────────────
+      #   Tomorrow gets settled in five turns and nobody proposes anything
+      #   directly: every turn is a broken verb doing real work. t1 is what
+      #   you CAN do, t2 what you WANT, t3 when you SLEEP, t4 when the film
+      #   STARTS, and t5 is the module's whole thesis in Ana's mouth — she
+      #   says «no entiendo», the first phrase the learner ever learned, and
+      #   the answer hands Diego the él-ella form of a different broken verb.
+      #   Two builds, three choices; every accepted build answer is
+      #   composable from its own bank word for word.
+      - kind: sim
+        id: l10-sim-manana
+        scene: { emoji: "🌙", title: "Tomorrow, settled", setting: "Ana has tomorrow free and so do you. Nobody proposes a plan — you both just say what you want, what you can do and when things start, until tomorrow arranges itself." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola, Sam! ¿Puedes cocinar mañana?", audioText: "¡hola, Sam! ¿puedes cocinar mañana?", gloss: "Hi Sam! Can you cook tomorrow?" }
+            goal: "Say yes, you can cook."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo cocinar" }
+                - { id: "wrong1", text: "sí, puedes cocinar" }
+                - { id: "wrong2", text: "sí, poder cocinar" }
+              correctOptionId: "right"
+              audioText: "sí, puedo cocinar"
+            replyGloss: "Yes, I can cook."
+            explanation: "Ana asked «puedes» and you answer «puedo». The ue was already broken before either of you chose an ending — and the ending you chose is the plain -o m10 handed you. «poder» is only the verb's name; nobody ever does «poder»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¡Muy bien! ¿Y qué quieres comer?", audioText: "¡muy bien! ¿y qué quieres comer?", gloss: "Great! And what do you want to eat?" }
+            goal: "Say what you want to eat."
+            reply:
+              mode: build
+              tiles: ["quiero", "comer", "pollo", "sopa", "quieres", "comprar"]
+              answer: "quiero comer pollo"
+              alsoAccepted: ["quiero comer sopa"]
+            replyGloss: "I want to eat chicken."
+            explanation: "Either answer is true and either is right — the verb does not care what comes after it. What it does care about is the person, and «quiero» is you. That word has been in your mouth since module 7; the ie inside it was doing this the whole time."
+          - id: t3
+            npc: { speaker: "Ana", es: "Yo duermo temprano. ¿Y tú?", audioText: "yo duermo temprano. ¿y tú?", gloss: "I sleep early. And you?" }
+            goal: "Say you sleep late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo duermo tarde" }
+                - { id: "wrong1", text: "yo duerme tarde" }
+                - { id: "wrong2", text: "yo dormir tarde" }
+              correctOptionId: "right"
+              audioText: "yo duermo tarde"
+            replyGloss: "I sleep late."
+            explanation: "Ana said «duermo» about herself and you say «duermo» about yourself — same broken stem, same plain -o. «duerme» would be somebody else and «dormir» is only the name of the verb."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y la película? ¿Cuándo empieza?", audioText: "¿y la película? ¿cuándo empieza?", gloss: "And the movie? When does it start?" }
+            goal: "Say when the movie starts."
+            reply:
+              mode: build
+              tiles: ["la", "película", "empieza", "tarde", "temprano", "empezar", "el"]
+              answer: "la película empieza tarde"
+              alsoAccepted: ["la película empieza temprano"]
+            replyGloss: "The movie starts late."
+            explanation: "A movie is an it, so it takes the same él-ella form Ana just used on «empieza». Both answers are true; either way the verb broke its e into ie and then took m10's ordinary -a."
+          - id: t5
+            npc: { speaker: "Ana", es: "Diego quiere comer temprano. ¡No entiendo!", audioText: "Diego quiere comer temprano. ¡no entiendo!", gloss: "Diego wants to eat early. I don't get it!" }
+            goal: "Say Diego can eat early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "Diego puede comer temprano" }
+                - { id: "wrong1", text: "Diego puedo comer temprano" }
+                - { id: "wrong2", text: "Diego poder comer temprano" }
+              correctOptionId: "right"
+              audioText: "Diego puede comer temprano"
+            replyGloss: "Diego can eat early."
+            explanation: "Three broken verbs in four seconds and not one of them is new. «quiere» is m7's word, «no entiendo» is the very first thing you ever said in Spanish, and «puede» is the one this module finally gave you. Diego eats early, you eat late, and tomorrow settled itself out of six words with a cracked vowel in the middle."
+
+# Placement bank — the compiler emits ES_M14_PLACEMENT only if this block
+# exists. Every item tests the stem break, not the endings.
+placement:
+  screener:
+    - id: "es-m14-scr-1"
+      prompt: "Which one means 'I can'?"
+      correct: "puedo"
+      distractors: ["podo", "puedes", "poder"]
+  byModule:
+    - id: "es-m14-pl-1"
+      prompt: "I sleep late."
+      correct: "duermo tarde"
+      distractors: ["dormo tarde", "duerme tarde", "duermo temprano"]
+    - id: "es-m14-pl-2"
+      prompt: "She can cook."
+      correct: "puede cocinar"
+      distractors: ["puede cocina", "puedo cocinar", "pode cocinar"]
+    - id: "es-m14-pl-3"
+      prompt: "He doesn't understand."
+      correct: "no entiende"
+      distractors: ["no entende", "no entiendo", "no entender"]
+    - id: "es-m14-pl-4"
+      prompt: "The movie begins early."
+      correct: "la película empieza temprano"
+      distractors: ["la película empeza temprano", "la película empieza tarde", "la película empiezan temprano"]
