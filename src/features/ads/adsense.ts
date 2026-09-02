@@ -1,5 +1,6 @@
 import { getAdSenseClient } from "./config";
 import { isAdvertisingConsentGranted } from "@/shared/legal/cookieConsent";
+import { IS_NATIVE } from "@/shared/platform/native";
 
 declare global {
   interface Window {
@@ -13,6 +14,12 @@ export function isAdSenseScriptLoaded(): boolean {
 
 /** Load the AdSense script once, after advertising cookie consent. */
 export function loadAdSenseScript(): void {
+  // Native guard lives HERE, not only in `isAdsFeatureEnabled()`, because
+  // `routes/Layout.tsx` and `RewardedAdSlot.tsx` call this directly on consent
+  // — the master switch never runs on that path. AdSense is a web-only
+  // programme (apps must use AdMob), so injecting it into the Capacitor
+  // WKWebView breaches Google's policy. See `adsense.native.test.ts`.
+  if (IS_NATIVE) return;
   if (!isAdvertisingConsentGranted()) return;
 
   const client = getAdSenseClient();
