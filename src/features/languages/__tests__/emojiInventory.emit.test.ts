@@ -12,9 +12,16 @@ import path from "node:path";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { JA_COURSE_ATOMS, canonicalAtomId } from "@/features/languages/ja/courseAtoms";
 import { WORD_IMAGE_MCQ_BLOCKLIST } from "@/features/languages/ja/grammarHelpers";
+import { getFrCourseAtoms } from "@/features/languages/fr/courseAtoms";
 
 const ENABLED = process.env.EMOJI_INVENTORY_EMIT === "1";
-const COURSES = ["ja", "ko", "es", "fr"] as const;
+// FR is not registered in normalizedAtoms.ts's buildAtomsFor switch (that
+// registration also wires FR into lessonAtomIndex/flashcards/SRS-unlock,
+// which is out of scope for the emoji inventory — see fix-round-2 report).
+// So FR is read straight from its own registry here, bypassing
+// getNormalizedCourseAtoms, while ja/ko/es keep going through the shared
+// cross-language adapter.
+const NORMALIZED_COURSES = ["ja", "ko", "es"] as const;
 
 describe.skipIf(!ENABLED)("emoji inventory emit", () => {
   it("writes inventory.json for all four courses", () => {
@@ -28,7 +35,7 @@ describe.skipIf(!ENABLED)("emoji inventory emit", () => {
         },
       ]),
     );
-    const items = COURSES.flatMap((course) =>
+    const normalizedItems = NORMALIZED_COURSES.flatMap((course) =>
       getNormalizedCourseAtoms(course).map((a) => ({
         course,
         id: a.id,
@@ -42,6 +49,25 @@ describe.skipIf(!ENABLED)("emoji inventory emit", () => {
         ...(course === "ja" ? jaExtras.get(a.id) ?? {} : {}),
       })),
     );
+    const frItems = getFrCourseAtoms().map((a) => ({
+      course: "fr" as const,
+      id: a.id,
+      surface: a.surface,
+      secondary: undefined as string | undefined,
+      gloss: a.gloss,
+      kind: a.kind,
+      module: a.fromModule ?? "future",
+      emoji: a.emoji,
+      srsEligible: a.srsEligible,
+      // FR has no blocked-list / note / pos concept (that's JA-only
+      // metadata above) — declare the fields so `items` is one shape and
+      // the `blocked` filter below type-checks across all four courses.
+      blocked: undefined as boolean | undefined,
+      note: undefined as string | undefined,
+      pos: undefined as string | undefined,
+    }));
+    const items = [...normalizedItems, ...frItems];
+    const COURSES = [...NORMALIZED_COURSES, "fr"] as const;
     const perCourse = Object.fromEntries(
       COURSES.map((c) => {
         const rows = items.filter((i) => i.course === c);

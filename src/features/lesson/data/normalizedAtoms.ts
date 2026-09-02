@@ -30,10 +30,6 @@ import {
   getEsCourseAtoms,
   type EsAtom,
 } from "@/features/languages/es/courseAtoms";
-import {
-  getFrCourseAtoms,
-  type FrAtom,
-} from "@/features/languages/fr/courseAtoms";
 import { isLanguageRegistered } from "@/shared/language/registry";
 
 /** Atom kind; `"other"` covers alphabet material (KO jamo / syllables). */
@@ -108,20 +104,6 @@ function fromEsAtom(atom: EsAtom): NormalizedAtom {
   };
 }
 
-function fromFrAtom(atom: FrAtom): NormalizedAtom {
-  return {
-    id: atom.id,
-    languageId: "fr",
-    display: atom.surface,
-    gloss: atom.gloss,
-    emoji: atom.emoji,
-    gender: atom.gender,
-    kind: atom.kind,
-    module: atom.fromModule ?? "future",
-    srsEligible: atom.srsEligible,
-  };
-}
-
 function buildAtomsFor(languageId: string): NormalizedAtom[] {
   // Registry gate per ADR-005: unregistered languages read as empty, never
   // as a silent fallback onto another catalog. A registered language
@@ -134,8 +116,6 @@ function buildAtomsFor(languageId: string): NormalizedAtom[] {
       return KO_COURSE_ATOMS.map(fromKoAtom);
     case "es":
       return getEsCourseAtoms().map(fromEsAtom);
-    case "fr":
-      return getFrCourseAtoms().map(fromFrAtom);
     default:
       return [];
   }
