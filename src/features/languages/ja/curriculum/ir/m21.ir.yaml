@@ -340,6 +340,11 @@ newAtoms:
   - { kana: きいたり, romaji: kiitari, gloss: "listen, and things like that", shortGloss: "listen, etc.", imageable: false, kind: vocab }
   - { kana: あそんだり, romaji: asondari, gloss: "play, and things like that", shortGloss: "play, etc.", imageable: false, kind: vocab }
   - { kana: いったり, romaji: ittari, gloss: "go, and things like that", shortGloss: "go, etc.", imageable: false, kind: vocab }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Introduced by the PINNED rule card that already uses it — `imageable:
+  #    false` because a card at step 1 pre-empts a picture debut (inv 30/44).
+  - { kana: ごにん, romaji: "go nin", gloss: "5 people", imageable: false, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -527,7 +532,7 @@ lessons:
     role: teaching
     title: "「さんにんで よんはい」 — people take にん, cupfuls take はい"
     focus: "Choosing the counter is the skill: にん for people, はい for what's in the cup"
-    introduces: [よんはい, ごはい, なんばい]
+    introduces: [よんはい, ごはい, なんばい, ごにん]
     beats:
       - { kind: rule, grammarPointId: counter-nin }
       - { kind: sentence, ja: "かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, desu-copula], mode: build }

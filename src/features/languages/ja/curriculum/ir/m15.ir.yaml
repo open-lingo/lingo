@@ -284,6 +284,11 @@ newAtoms:
   #    declared here so it gets a real teach-first debut rather than being
   #    assumed known — the m13/だいがく precedent.
   - { kana: まえ, romaji: mae, gloss: "before", imageable: false, kind: vocab }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Introduced by the PINNED rule card that already uses it — `imageable:
+  #    false` because a card at step 1 pre-empts a picture debut (inv 30/44).
+  - { kana: から, romaji: kara, gloss: "from (origin)", shortGloss: "from", imageable: false, kind: particle }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -541,7 +546,7 @@ lessons:
     role: teaching
     title: "たべてから — after doing"
     focus: "て-form + から says the first action is finished before the second starts"
-    introduces: []
+    introduces: [から]
     beats:
       - { kind: rule, grammarPointId: te-kara }
       - { kind: sentence, ja: "ごはんを たべてから だいがくに いく。", en: "After eating, I go to university", exercises: [te-kara, ni-location], mode: build }

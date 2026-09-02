@@ -240,6 +240,11 @@ newAtoms:
   - { kana: じゃなかった, romaji: janakatta, gloss: "wasn't (noun or な-adjective)", shortGloss: "wasn't", imageable: false, kind: grammar-chunk }
   # ══ L9
   - { kana: どう, romaji: dou, gloss: "how, what's it like", shortGloss: "how", imageable: false, kind: vocab }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Introduced by the PINNED rule card that already uses it — `imageable:
+  #    false` because a card at step 1 pre-empts a picture debut (inv 30/44).
+  - { kana: ひま, romaji: hima, gloss: "free time", imageable: false, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -371,7 +376,7 @@ lessons:
     role: teaching
     title: "な-adjectives — a noun doing an adjective's job"
     focus: "しずかだ needs the copula; な appears only in front of a noun"
-    introduces: [しずか, きれい, にぎやか, ゆうめい]
+    introduces: [しずか, きれい, にぎやか, ゆうめい, ひま]
     beats:
       - { kind: rule, grammarPointId: na-adj-present }
       - { kind: sentence, ja: "いえは しずかだ。", en: "Say to a friend: The house is quiet", exercises: [wa-topic, na-adj-present], mode: build }

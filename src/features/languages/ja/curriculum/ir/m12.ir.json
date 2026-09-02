@@ -572,6 +572,13 @@
       "shortGloss": "how",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
     }
   ],
   "lessons": [
@@ -1403,7 +1410,8 @@
         "しずか",
         "きれい",
         "にぎやか",
-        "ゆうめい"
+        "ゆうめい",
+        "ひま"
       ],
       "beats": [
         {
@@ -2628,6 +2636,7 @@
     "いきません",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いす",
     "いそいで",
@@ -2789,6 +2798,7 @@
     "てがみ",
     "で",
     "でした",
+    "です",
     "でんわ",
     "と",
     "とけい",
@@ -3151,7 +3161,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {

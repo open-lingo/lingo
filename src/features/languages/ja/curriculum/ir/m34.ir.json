@@ -242,8 +242,8 @@
       "rule": "「〜ことにする」 is deciding, with your hands on the wheel. Take the whole action as a こと — a thing, module 15's nominalizer — and する it: 「かいしゃを やめることにした」, I decided to quit the company. する is the tell that YOU pushed: the decision has an owner, and it is the speaker. Present tense decides now (ことにする); past tense reports the decision already made (ことにした), which is how it usually appears — we mostly tell people about decisions after making them.",
       "examples": [
         {
-          "ja": "まいにち れんしゅうすることにする。",
-          "en": "I've decided to practise every day."
+          "ja": "まいにち あるくことにする。",
+          "en": "I've decided to walk every day."
         },
         {
           "ja": "かいしゃを やめることにした。",
@@ -255,8 +255,8 @@
         }
       ],
       "antiPattern": {
-        "ja": "まいにち れんしゅうするにする。",
-        "why": "する needs a THING to decide on, and a bare verb is not a thing yet — こと does that job first: れんしゅうすることにする."
+        "ja": "まいにち あるくにする。",
+        "why": "する needs a THING to decide on, and a bare verb is not a thing yet — こと does that job first: あるくことにする."
       }
     },
     {
@@ -645,6 +645,13 @@
       "kind": "verb-form",
       "derivedFrom": "つかう",
       "verbClass": "u"
+    },
+    {
+      "kana": "れんしゅうする",
+      "romaji": "renshuusuru",
+      "gloss": "to practice",
+      "imageable": true,
+      "kind": "vocab"
     }
   ],
   "lessons": [
@@ -1577,7 +1584,8 @@
       "introduces": [
         "やめる",
         "やめよう",
-        "ちょきん"
+        "ちょきん",
+        "れんしゅうする"
       ],
       "beats": [
         {
@@ -2830,6 +2838,7 @@
   ],
   "priorVocab": [
     "あいて",
+    "あかい",
     "あき",
     "あく",
     "あけて",
@@ -2930,6 +2939,7 @@
     "うごいて",
     "うごく",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3041,6 +3051,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かりた",
@@ -3141,6 +3152,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3286,6 +3298,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -3341,6 +3354,7 @@
     "ともだち",
     "とりあえず",
     "とりにく",
+    "とる",
     "どう",
     "どうして",
     "どうぶつ",
@@ -4433,6 +4447,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4756,6 +4777,28 @@
       "kind": "vocab"
     },
     {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "しって",
       "romaji": "shitte",
       "gloss": "know (te-form)",
@@ -5064,6 +5107,14 @@
       "gloss": "before",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "さむい",
@@ -5987,6 +6038,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いたい",
       "romaji": "itai",
       "gloss": "painful, sore — it hurts",
@@ -6823,6 +6881,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いかなきゃ",
       "romaji": "ikanakya",
       "gloss": "have to go (casual)",
@@ -7390,6 +7455,14 @@
       "shortGloss": "do ahead (とく)",
       "imageable": false,
       "kind": "grammar-chunk"
+    },
+    {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a film",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "そと",

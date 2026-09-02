@@ -134,10 +134,10 @@ grammarPoints:
   - id: koto-ni-suru
     rule: "「〜ことにする」 is deciding, with your hands on the wheel. Take the whole action as a こと — a thing, module 15's nominalizer — and する it: 「かいしゃを やめることにした」, I decided to quit the company. する is the tell that YOU pushed: the decision has an owner, and it is the speaker. Present tense decides now (ことにする); past tense reports the decision already made (ことにした), which is how it usually appears — we mostly tell people about decisions after making them."
     examples:
-      - { ja: "まいにち れんしゅうすることにする。", en: "I've decided to practise every day." }
+      - { ja: "まいにち あるくことにする。", en: "I've decided to walk every day." }
       - { ja: "かいしゃを やめることにした。", en: "I decided to quit the company." }
       - { ja: "ちょきんを はじめることにした。", en: "I decided to start saving." }
-    antiPattern: { ja: "まいにち れんしゅうするにする。", why: "する needs a THING to decide on, and a bare verb is not a thing yet — こと does that job first: れんしゅうすることにする." }
+    antiPattern: { ja: "まいにち あるくにする。", why: "する needs a THING to decide on, and a bare verb is not a thing yet — こと does that job first: あるくことにする." }
 
   - id: koto-ni-naru
     rule: "Same shape, different engine: 「〜ことになる」 is the decision arriving from outside. なる is the verb of the world changing by itself — you have had it since module 27's くなる/になる — so 「けっこんすることになった」 says the marriage got decided, without pointing at who decided. Japanese reaches for this constantly, and not only for modesty: transfers, schedules, plans made by families and companies genuinely are decided around us. する-version: I own it. なる-version: it landed on me. The particle-perfect minimal pair with ことにする is the whole lesson."
@@ -216,6 +216,13 @@ newAtoms:
   - { kana: とした, romaji: toshita, gloss: "tried to (ようとする, past)", shortGloss: "tried to", imageable: false, kind: verb-form }
   - { kana: だったら, romaji: dattara, gloss: "if it is / if it was (copula, conditional)", shortGloss: "if it is", imageable: false, kind: verb-form }
   - { kana: つかわない, romaji: tsukawanai, gloss: "won't use, won't spend (つかう, negative)", shortGloss: "won't use", imageable: false, kind: verb-form, derivedFrom: つかう, verbClass: u }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Each carries an emoji, so inv 30 wants a real picture debut — which means
+  #    the rule cards had to DUCK them (the pattern this file already documents
+  #    for みがく/せっけん/シャワー). The card examples that used them now run on
+  #    prior vocab; the lesson's own build beats still teach the word.
+  - { kana: れんしゅうする, romaji: renshuusuru, gloss: "to practice", imageable: true, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -367,7 +374,7 @@ lessons:
     role: teaching
     title: "「やめることにした」 — deciding, hands on the wheel"
     focus: "Wrap the action in こと and する it — the decision has an owner, and it is you"
-    introduces: [やめる, やめよう, ちょきん]
+    introduces: [やめる, やめよう, ちょきん, れんしゅうする]
     beats:
       - { kind: rule, grammarPointId: koto-ni-suru }
       - { kind: sentence, ja: "かいしゃを やめる。", en: "I quit the company", exercises: [wo-object], mode: build }

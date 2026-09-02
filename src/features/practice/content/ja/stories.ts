@@ -1457,7 +1457,9 @@ export const JA_STORIES: Story[] = [
     glosses: [
       { surface: "ならべる", meaning: "to set out, to lay in a row", atomId: "ja:naraberu" },
       { surface: "すくない", meaning: "few, not enough", atomId: "ja:sukunai" },
-      { surface: "うたう", meaning: "to sing", atomId: "ja:utau" },
+      // うたう dropped 2026-09-02 (R16 teach-them wave): it is now TAUGHT at
+      // m13, so at m21 it is known vocabulary and an above-level gloss on it
+      // is wrong by this file's own level discipline.
     ],
     questions: [
       {

@@ -171,7 +171,16 @@ const MAX_NEVER_TOUCHED = 140;
  * resolve to IR-local derived-form tokens, not these lemma ids, so those
  * nine show up (if anywhere) in the never-graded count instead, already
  * covered by that ratchet's own ceiling. */
-const MAX_GRADED_BUT_NEVER_WRITES = 53;
+/* 53 → 56, 2026-09-02 (R16 teach-them wave): あかい, ごにん and とる. Same
+ * shape as every entry above, and for the same reason — each is now TAUGHT in
+ * the module that already graded it (m13 / m21 / m30) and is graded nowhere
+ * else, so the D2 gate blocks the same-module write and D4 seeds the atom due
+ * the next day. Before this wave all three were `fromModule: "future"` and so
+ * invisible to this audit entirely: registering a word is what makes its debt
+ * countable. うたう is NOT a new entry — it was already stuck under its stale
+ * m23 tag. The way these three come OFF the list is a later module grading
+ * them, which is Wave 1 authoring, not a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 56;
 
 type Row = {
   atomId: string;

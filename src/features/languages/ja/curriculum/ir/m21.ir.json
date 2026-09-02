@@ -517,6 +517,13 @@
       "shortGloss": "go, etc.",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
+      "imageable": false,
+      "kind": "vocab"
     }
   ],
   "lessons": [
@@ -1667,7 +1674,8 @@
       "introduces": [
         "よんはい",
         "ごはい",
-        "なんばい"
+        "なんばい",
+        "ごにん"
       ],
       "beats": [
         {
@@ -2987,6 +2995,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -3051,6 +3060,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3116,6 +3126,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -4289,6 +4300,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4612,6 +4630,28 @@
       "kind": "vocab"
     },
     {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "しって",
       "romaji": "shitte",
       "gloss": "know (te-form)",
@@ -4920,6 +4960,14 @@
       "gloss": "before",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "さむい",

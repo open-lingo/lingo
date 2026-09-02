@@ -175,6 +175,18 @@ notes: |
     tier prerequisite, not an m30 task.**
   - **NO `kanji-set-4` CARD, AND THE KANJI ARE DRIPPED RATHER THAN WALLED.**
     m18 / m23 / m28 each spent a whole teaching lesson on a reading SET with its
+    DEVIATION FROM spine-n4 n4-01 — vocab count 34 → 35 (decided and documented,
+    2026-09-02, R16 teach-them wave). The 35th is **とる (撮る)**, and it is not
+    a new word arriving: L9 already grades とって in ten targets, but とって is a
+    `kind: verb-form` newAtom, which by design carries NO courseAtoms row — so
+    the LEMMA behind ten graded steps was declared nowhere, never unlocked, and
+    could never reach a flashcard. L7 now debuts it on its picture and a
+    dictionary-form beat 「やまで しゃしんを とる。」, beside ならう and おくる,
+    which is the dict-then-て shape this module already uses for those two.
+    It is also why `JA_PRIMARY_ATOM_BY_KANA` now resolves bare とる to 撮る
+    rather than 取る: every live use of とる in the whole course is this
+    module's photography, and 取る is a `future` word no lesson exercises.
+
     own registry card. `thr-n4` says the opposite for this tier — "~8 new kanji
     per module, dripped … **never a kanji module**" — so m30 ships FOUR
     `kind: kanji` beats scattered across four lessons, each tagged to its host
@@ -488,6 +500,13 @@ newAtoms:
   - { kana: みがいて, romaji: "migaite", gloss: "brush, polish (te-form)", shortGloss: "polish (て)", imageable: false, kind: verb-form, derivedFrom: みがく }
   - { kana: かっとく, romaji: "kattoku", gloss: "buy it in advance (casual 〜とく)", shortGloss: "buy ahead (とく)", imageable: false, kind: grammar-chunk }
   - { kana: しとく, romaji: "shitoku", gloss: "do it in advance (casual 〜とく)", shortGloss: "do ahead (とく)", imageable: false, kind: grammar-chunk }
+  # ── R16 teach-them wave (2026-09-02): L9 grades とって in ten targets, but the
+  #    LEMMA behind it was declared nowhere, so 撮る never reached the unlock
+  #    path (a `verb-form` newAtom carries no registry row by design). とる now
+  #    debuts on L7's dictionary-form beat, beside ならう and おくる — the same
+  #    dict-then-て shape this module already uses for the other two. It is
+  #    `imageable: false`: 🤲 is 取る's picture and this is 撮る.
+  - { kana: とる, romaji: toru, gloss: "to take a photo or record a film", shortGloss: "take a photo", imageable: true, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -667,7 +686,7 @@ lessons:
     role: teaching
     title: "「たべてみた」 is not 「I tried to eat it」"
     focus: "てみる is give-it-a-go, never make-an-attempt — the classic learner error, named"
-    introduces: [ならう, おくる, しつもん, こたえ]
+    introduces: [ならう, おくる, しつもん, こたえ, とる]
     beats:
       - { kind: rule, grammarPointId: te-miru, variant: limits }
       - { kind: sentence, ja: "しつもんを して こたえを きいてみた。", en: "I asked the question and heard what the answer was", exercises: [te-miru, ta-form, wo-object], mode: build }
@@ -675,6 +694,7 @@ lessons:
       - { kind: sentence, ja: "むずかしいけど とりあえず やってみる。", en: "It's difficult, but I'll give it a go for now", exercises: [te-miru, kedo], mode: build }
       - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I take English lessons from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "あねの いえに しゃしんを おくる。", en: "I'm sending the photo to my older sister's house", exercises: [dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: sentence, ja: "やまで しゃしんを とる。", en: "I take a photo on the mountain", exercises: [dictionary-form, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "この しつもんは むずかしいから せんせいに きいてみる。", en: "This question is difficult, so I'll ask the teacher and see", exercises: [te-miru, kara-because, wa-topic], mode: listening }
       - { kind: sentence, ja: "こたえが わからないから じしょで しらべてみる。", en: "I don't know the answer, so I'll look it up in the dictionary and see", exercises: [te-miru, kara-because, te-form], mode: build }
       - { kind: sentence, ja: "この しつもんの こたえを きいてみる。", en: "I'll ask what the answer to this question is", exercises: [te-miru, no-possession], mode: translate }

@@ -212,8 +212,10 @@ describe("fromModule drift guard (introduction doctrine)", () => {
       "suru", // する — m5-neo-5 LC
       "yaru", // やる — m5-neo-5 speaking
       "kuru", // くる — m5-neo-4 LC
-      "toriniku", // とりにく — m13-neo-7 sentence predates the m21 teach
-      "utau", // うたう — m13-neo-8 sentence predates the m23 teach
+      // toriniku / utau CLEARED 2026-09-02 (R16 teach-them wave): both were
+      // "m13 sentence predates the m21/m23 teach". They are now TAUGHT at m13,
+      // where the sentences always were, so the debt is gone rather than
+      // waived.
     ]);
     const offenders: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
@@ -252,7 +254,20 @@ describe("fromModule drift guard (introduction doctrine)", () => {
     // tokenizer resolves them to these rows and `exercisedAtoms` picks them
     // up. Same R16 teach-them class as the other 40; none is a new debt this
     // module chose to create.
-    const MAX_INVENTORY = 41;
+    // 41 → 32, 2026-09-02 (R16 teach-them wave — the first time this ratchet
+    // has been PAID DOWN rather than raised). Nine words that appeared in a
+    // module's own sentences but were declared in no `introduces:` list now
+    // have real introductions in the module that already used them:
+    // あります (m7) ひま (m12) とりにく・あかい・うたう (m13) から (m15)
+    // ごにん (m21) だんだん (m27) れんしゅうする (m34). No Japanese was
+    // invented for any of them — each was already on screen; only the
+    // declaration was missing, which is exactly what this ratchet counts.
+    // What REMAINS in the 32 is largely instrument blindness, not debt: JA's
+    // IR covers m6–m38, so the m1–m5 hand-authored modules teach は/を/の/も/
+    // と/か, いぬ, せんせい, にほんじん, どれ, あれ, それ, だれ, くる, する …
+    // with no machine-visible teaching site. Clearing those is an attribution
+    // pass, not an authoring one.
+    const MAX_INVENTORY = 32;
     const inventory: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
       const hasIntro =

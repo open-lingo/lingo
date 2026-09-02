@@ -283,12 +283,12 @@
           "en": "I don't like cucumber."
         },
         {
-          "ja": "わたしの すきな いろは あかい。",
-          "en": "The colour I like is red."
+          "ja": "わたしの すきな みせは ちいさい。",
+          "en": "The shop I like is small."
         },
         {
-          "ja": "とりにくは すきじゃない。",
-          "en": "I don't like chicken."
+          "ja": "ちゃは すきじゃない。",
+          "en": "I don't like tea."
         }
       ],
       "antiPattern": {
@@ -339,8 +339,8 @@
           "en": "I like eating."
         },
         {
-          "ja": "ミカは うたを うたうのが すきだ。",
-          "en": "Mika likes singing."
+          "ja": "ミカは ちゃを のむのが すきだ。",
+          "en": "Mika likes drinking tea."
         },
         {
           "ja": "ともだちと あそぶのが すきだ。",
@@ -683,6 +683,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     }
   ],
@@ -2205,7 +2227,9 @@
       "introduces": [
         "すき",
         "きらい",
-        "なつやすみ"
+        "なつやすみ",
+        "とりにく",
+        "あかい"
       ],
       "beats": [
         {
@@ -2386,7 +2410,9 @@
       "role": "teaching",
       "title": "たべるのが すき — liking to do something",
       "focus": "の turns a plain verb into a thing, and then が marks it like any other",
-      "introduces": [],
+      "introduces": [
+        "うたう"
+      ],
       "beats": [
         {
           "kind": "rule",
@@ -3568,6 +3594,7 @@
     "いきません",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いす",
     "いそいで",
@@ -3749,6 +3776,7 @@
     "てがみ",
     "で",
     "でした",
+    "です",
     "でんわ",
     "と",
     "とけい",
@@ -3794,6 +3822,7 @@
     "はん",
     "ひと",
     "ひとつ",
+    "ひま",
     "ひゃく",
     "ふたつ",
     "ふね",
@@ -4120,7 +4149,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4663,6 +4691,13 @@
       "romaji": "dou",
       "gloss": "how, what's it like",
       "shortGloss": "how",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
       "imageable": false,
       "kind": "vocab"
     },

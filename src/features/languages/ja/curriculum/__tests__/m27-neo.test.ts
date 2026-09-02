@@ -615,10 +615,21 @@ describe("m27-neo pedagogy invariants", () => {
     // too, so they are usable as predicates (たのしいんです) but never with
     // なる — which is why they are NOT on this list and are covered by the
     // く-stem guard above instead.
+    // DRIFT NOTE (2026-09-02, R16 teach-them wave): this list is hand-frozen
+    // and m16 has since added きょうしつ to its `introduces:`, so the ban was
+    // firing on a word the learner genuinely knows — surfaced when the wave's
+    // new emoji atoms reshuffled the seeded debut-distractor pool and m27 L2
+    // drew it. きょうしつ removed. Twelve MORE entries (ノート ドア クラス
+    // スポーツ よむ かく うたう たつ つめたい わるい やさしい) are likewise in
+    // m27's computed priorVocab now; they are LEFT banned because this list is
+    // also load-bearing for reasons that are not teaching (はやい/あつい are
+    // wrong-sense homograph bans, つよい/よわい are unbuildable — see above),
+    // and un-banning a dozen words at once is a re-audit, not a side effect of
+    // this wave. Queued in the JA authoring notes.
     const UNTAUGHT = [
       "はやい", "あつい", "つよい", "よわい", "つめたい", "わるい", "やさしい",
       "まずい", "つまらない", "べんり", "ふべん", "かんたん", "たいへん",
-      "こうえん", "まち", "ちかく", "そと", "きょうしつ", "おふろ", "しごと",
+      "こうえん", "まち", "ちかく", "そと", "おふろ", "しごと",
       "べんきょう", "ページ", "よこ", "さいふ", "いりぐち", "せいと",
       "ノート", "プール", "タクシー", "ドア", "どあ", "クラス", "スポーツ",
       "よむ", "かく", "うたう", "たつ", "とる", "なく",

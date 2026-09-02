@@ -289,9 +289,9 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m5-7-v-arigatou", kana: "ありがとうございます", romaji: "arigatou gozaimasu", meaningEn: "Thank you (polite)", fromModule: "m3", introducedByLessonId: "ja-m3-neo-5", kind: "phrase", note: "m5→m3 (2026-08-20 drift guard): the m3-neo-5 phrases lesson is the real teach (audio primer lc-arigatou); the old ja-m5-7 pointer was dangling", pos: "expression" },
   { id: "ja-m5-4-v-ikura", kana: "いくら", romaji: "ikura", meaningEn: "how much?", emoji: "💲", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab", blocked: true, note: "question word", pos: "adverb" },
   { id: "ja-m5-4-v-en", kana: "えん", kanji: "円", romaji: "en", meaningEn: "Yen", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab", pos: "noun" },
-  { id: "kara", kana: "から", romaji: "kara", meaningEn: "from (origin)", fromModule: "m5", introducedByLessonId: "ja-m5-6-1", kind: "vocab", pos: "particle" },
+  { id: "kara", kana: "から", romaji: "kara", meaningEn: "from (origin)", fromModule: "m5", introducedByLessonId: "ja-m15-neo-8", kind: "vocab", pos: "particle" },
   { id: "ja-m5-2-kudasai-card", kana: "ください", romaji: "kudasai", meaningEn: "please", emoji: "🤲", fromModule: "m8", introducedByLessonId: "ja-m5-2", kind: "phrase", blocked: true, note: "polite-request auxiliary; function word", pos: "expression" },
-  { id: "ja-m5-3-v-gonin", kana: "ごにん", kanji: "五人", romaji: "go nin", meaningEn: "5 people", fromModule: "future", freqRank: 7, introducedByLessonId: "ja-m5-3", kind: "vocab", pos: "number" },
+  { id: "ja-m5-3-v-gonin", kana: "ごにん", kanji: "五人", romaji: "go nin", meaningEn: "5 people", fromModule: "m21", introducedByLessonId: "ja-m21-neo-6", kind: "vocab", pos: "number" },
   { id: "ja-m5-3-v-sannin", kana: "さんにん", kanji: "三人", romaji: "san nin", meaningEn: "3 people", fromModule: "m17", introducedByLessonId: "ja-m5-3", kind: "vocab", pos: "number" },
   { id: "ja-m5-3-v-yonin", kana: "よにん", kanji: "四人", romaji: "yo nin", meaningEn: "4 people", fromModule: "m17", introducedByLessonId: "ja-m5-3", kind: "vocab", pos: "number" },
   { id: "ja-m5-4-v-ocha", kana: "おちゃ", kanji: "お茶", romaji: "ocha", meaningEn: "green tea", emoji: "🍵", fromModule: "m2", introducedByLessonId: "ja-m5-4", kind: "vocab", pos: "noun" },
@@ -311,7 +311,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m5-2-v-6", kana: "ろく", kanji: "六", romaji: "roku", meaningEn: "six", emoji: "6️⃣", fromModule: "m9", introducedByLessonId: "ja-m5-2", kind: "vocab", pos: "number" },
   { id: "ja-m5-2-v-10", kana: "じゅう", kanji: "十", romaji: "juu", meaningEn: "ten", emoji: "🔟", fromModule: "m2", introducedByLessonId: "ja-m5-2", kind: "vocab", pos: "number" },
   { id: "ja-m5-1-v-4", kana: "よん", kanji: "四", romaji: "yon", meaningEn: "four", emoji: "4️⃣", fromModule: "m9", introducedByLessonId: "ja-m5-1", kind: "vocab", pos: "number" },
-  { id: "arimasu", kana: "あります", romaji: "arimasu", meaningEn: "exists (thing)", emoji: "📦", fromModule: "m6", introducedByLessonId: "ja-m6-4-1", kind: "vocab", pos: "verb" },
+  { id: "arimasu", kana: "あります", romaji: "arimasu", meaningEn: "exists (thing)", emoji: "📦", fromModule: "m6", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", pos: "verb" },
   { id: "imasu", kana: "います", romaji: "imasu", meaningEn: "exists (alive)", emoji: "🧑", fromModule: "future", freqRank: 9, introducedByLessonId: "ja-m6-2-1", kind: "vocab", pos: "verb" },
   // Neo m6 (Negatives & Existence): existence negatives. ない is the IRREGULAR
   // negative of ある; いない the ordinary る-drop negative of いる (2026-07-20).
@@ -439,7 +439,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tate", kana: "たて", romaji: "tate", meaningEn: "length, height", emoji: "📏", fromModule: "future", freqRank: 38, kind: "vocab", note: "ruler = measurement", pos: "noun" },
   { id: "tabako", kana: "たばこ", romaji: "tabako", meaningEn: "tobacco, cigarettes", shortGloss: "cigarettes", emoji: "🚬", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 6 2026-07-30 (B067)", pos: "noun" },
   { id: "tabun", kana: "たぶん", romaji: "tabun", meaningEn: "probably", fromModule: "m25", introducedByLessonId: "ja-m18-2-1", kind: "vocab", blocked: true, note: "modal adverb", pos: "adverb" },
-  { id: "dandan", kana: "だんだん", romaji: "dandan", meaningEn: "gradually", fromModule: "m27", introducedByLessonId: "ja-m27-4-1", kind: "vocab", blocked: true, note: "adverb of degree; no referent", pos: "adverb" },
+  { id: "dandan", kana: "だんだん", romaji: "dandan", meaningEn: "gradually", fromModule: "m27", introducedByLessonId: "ja-m27-neo-9", kind: "vocab", blocked: true, note: "adverb of degree; no referent", pos: "adverb" },
   { id: "chawan", kana: "ちゃわん", romaji: "chawan", meaningEn: "rice bowl", emoji: "🍚", fromModule: "future", freqRank: 39, kind: "vocab", note: "cooked rice in bowl", pos: "noun" },
   { id: "choudo", kana: "ちょうど", romaji: "choudo", meaningEn: "exactly", fromModule: "future", freqRank: 40, introducedByLessonId: "ja-m21-7-2", kind: "vocab", blocked: true, note: "abstract adverb; no concrete referent", pos: "adverb" },
   { id: "chotto", kana: "ちょっと", romaji: "chotto", meaningEn: "somewhat", fromModule: "m10", kind: "vocab", blocked: true, note: "adverb/abstract degree marker", pos: "adverb" },
@@ -539,7 +539,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "okashi", kana: "おかし", kanji: "お菓子", romaji: "okashi", meaningEn: "sweets, candy", emoji: "🍬", fromModule: "m31", kind: "vocab", blocked: true, note: "blocked — 🍬 is also あまい, さとう and あめ (candy)", pos: "noun" },
   { id: "ofuro", kana: "おふろ", kanji: "お風呂", romaji: "ofuro", meaningEn: "bath", emoji: "🛁", fromModule: "future", freqRank: 101, kind: "vocab", pos: "noun" },
   { id: "sarainen", kana: "さらいねん", kanji: "さ来年", romaji: "sarainen", meaningEn: "year after next", fromModule: "future", freqRank: 102, kind: "vocab", blocked: true, note: "temporal abstraction", pos: "noun" },
-  { id: "toriniku", kana: "とりにく", kanji: "とり肉", romaji: "toriniku", meaningEn: "chicken meat", emoji: "🍗", fromModule: "m21", kind: "vocab", pos: "noun" },
+  { id: "toriniku", kana: "とりにく", kanji: "とり肉", romaji: "toriniku", meaningEn: "chicken meat", emoji: "🍗", fromModule: "m13", kind: "vocab", pos: "noun" },
   { id: "mouichido", kana: "もういちど", kanji: "もう一度", romaji: "mouichido", meaningEn: "again", emoji: "🔁", fromModule: "future", freqRank: 103, kind: "vocab", note: "repeat arrow", pos: "adverb" },
   { id: "ichinichi", kana: "いちにち", kanji: "一日", romaji: "ichinichi", meaningEn: "(1) one day, (2) first of month", fromModule: "future", freqRank: 104, kind: "vocab", blocked: true, note: "counter/date abstraction", pos: "number" },
   { id: "ototoshi", kana: "おととし", kanji: "一昨年", romaji: "ototoshi", meaningEn: "year before last", fromModule: "future", freqRank: 105, kind: "vocab", blocked: true, note: "temporal abstraction", pos: "noun" },
@@ -736,7 +736,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "motsu", kana: "もつ", kanji: "持つ", romaji: "motsu", meaningEn: "to hold", emoji: "✊", fromModule: "m14", kind: "vocab", note: "fist as holding cue; taught by m14 vocab pack 2026-07-29 (B067); was m15", pos: "verb", conjugation: { class: "godan", entryId: "motsu" } },
   { id: "soujisuru", kana: "そうじする", kanji: "掃除", romaji: "soujisuru", meaningEn: "to clean, to sweep", emoji: "🧹", fromModule: "future", freqRank: 206, kind: "vocab", note: "broom", pos: "verb", conjugation: { class: "irregular" } },
   { id: "jugyou", kana: "じゅぎょう", kanji: "授業", romaji: "jugyou", meaningEn: "lesson, class work", emoji: "👨‍🏫", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "teacher as class cue", pos: "noun" },
-  { id: "toru-take", kana: "とる", kanji: "撮る", romaji: "toru", meaningEn: "to take a photo or record a film", emoji: "📸", fromModule: "future", freqRank: 207, kind: "vocab", note: "camera with flash", pos: "verb", conjugation: { class: "godan" } },
+  { id: "toru-take", kana: "とる", kanji: "撮る", romaji: "toru", meaningEn: "to take a photo or record a film", emoji: "📸", fromModule: "m30", kind: "vocab", note: "camera with flash", pos: "verb", conjugation: { class: "godan" } },
   { id: "oshieru", kana: "おしえる", kanji: "教える", romaji: "oshieru", meaningEn: "to teach, to tell", emoji: "👨‍🏫", fromModule: "m8", kind: "vocab", note: "teacher ZWJ glyph", pos: "verb", conjugation: { class: "ichidan", entryId: "oshieru" } },
   { id: "kyoushitsu", kana: "きょうしつ", kanji: "教室", romaji: "kyoushitsu", meaningEn: "classroom", emoji: "🏫", fromModule: "m16", kind: "vocab", note: "school; closest concrete", pos: "noun" },
   { id: "sanposuru", kana: "さんぽする", kanji: "散歩", romaji: "sanposuru", meaningEn: "to stroll", emoji: "🚶", fromModule: "future", freqRank: 208, kind: "vocab", pos: "verb", conjugation: { class: "irregular" } },
@@ -787,7 +787,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hashi-bridge", kana: "はし", kanji: "橋", romaji: "hashi", meaningEn: "bridge", emoji: "🌉", fromModule: "future", freqRank: 223, kind: "vocab", pos: "noun" },
   { id: "tsugi", kana: "つぎ", kanji: "次", romaji: "tsugi", meaningEn: "next", fromModule: "future", freqRank: 224, introducedByLessonId: "ja-m13-6-2", kind: "vocab", blocked: true, note: "abstract ordinal/temporal — no concrete referent", pos: "noun" },
   { id: "hoshii", kana: "ほしい", kanji: "欲しい", romaji: "hoshii", meaningEn: "want", emoji: "🤲", fromModule: "m13", kind: "vocab", blocked: true, note: "cupped hands as wanting cue (weak). fromModule re-homed m15 → m13 (2026-07-29, B067/B068): ja-m13-neo-6 introduces it — the legacy tag left it graded-but-never-unlockable. blocked: the ga-hoshii rule card IS the debut (m13 IR note), and the weak 🤲 cannot carry it", pos: "adjective", conjugation: { class: "i-adj" } },
-  { id: "utau", kana: "うたう", kanji: "歌う", romaji: "utau", meaningEn: "to sing", emoji: "🎤", fromModule: "m23", kind: "vocab", note: "microphone", pos: "verb", conjugation: { class: "godan" } },
+  { id: "utau", kana: "うたう", kanji: "歌う", romaji: "utau", meaningEn: "to sing", emoji: "🎤", fromModule: "m13", kind: "vocab", note: "microphone", pos: "verb", conjugation: { class: "godan" } },
   { id: "tomaru", kana: "とまる", kanji: "止まる", romaji: "tomaru", meaningEn: "to come to a halt", emoji: "🛑", fromModule: "m32", kind: "vocab", pos: "verb", conjugation: { class: "godan", entryId: "tomaru" } },
   { id: "aruku", kana: "あるく", kanji: "歩く", romaji: "aruku", meaningEn: "to walk", emoji: "🚶", fromModule: "m19", blocked: true, kind: "vocab", pos: "verb", conjugation: { class: "godan", entryId: "aruku" }, note: "no picture debut (inv-30 census 2026-08-20): さんぽ/いく's 🚶 owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
   { id: "ha", kana: "は", kanji: "歯", romaji: "ha", meaningEn: "tooth", emoji: "🦷", fromModule: "future", freqRank: 225, kind: "vocab", pos: "noun" },
@@ -858,7 +858,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "e", kana: "え", kanji: "絵", romaji: "e", meaningEn: "picture", emoji: "🖼️", fromModule: "m24", kind: "vocab", note: "framed picture", pos: "noun" },
   { id: "midori", kana: "みどり", kanji: "緑", romaji: "midori", meaningEn: "green", emoji: "🟢", fromModule: "future", freqRank: 259, kind: "vocab", pos: "noun" },
   { id: "shimeru-tie", kana: "しめる", kanji: "締める", romaji: "shimeru", meaningEn: "to tie", emoji: "🎀", fromModule: "future", freqRank: 260, kind: "vocab", note: "ribbon", pos: "verb", conjugation: { class: "ichidan" } },
-  { id: "renshuusuru", kana: "れんしゅうする", kanji: "練習", romaji: "renshuusuru", meaningEn: "to practice", emoji: "📓", fromModule: "future", freqRank: 261, kind: "vocab", note: "notebook as practice proxy", pos: "verb", conjugation: { class: "irregular" } },
+  { id: "renshuusuru", kana: "れんしゅうする", kanji: "練習", romaji: "renshuusuru", meaningEn: "to practice", emoji: "📓", fromModule: "m34", kind: "vocab", note: "notebook as practice proxy", pos: "verb", conjugation: { class: "irregular" } },
   { id: "oku", kana: "おく", kanji: "置く", romaji: "oku", meaningEn: "to put", emoji: "📥", fromModule: "m30", kind: "vocab", blocked: true, note: "inbox tray — place/put", pos: "verb", conjugation: { class: "godan" } },
   { id: "narau", kana: "ならう", kanji: "習う", romaji: "narau", meaningEn: "to learn", emoji: "🎓", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "godan" } },
   { id: "mimi", kana: "みみ", kanji: "耳", romaji: "mimi", meaningEn: "ear", emoji: "👂", fromModule: "m22", blocked: true, kind: "vocab", pos: "noun", note: "no picture debut (inv-30 census 2026-08-20): きく's 👂 owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
@@ -898,7 +898,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "nigiyaka", kana: "にぎやか", kanji: "賑やか", romaji: "nigiyaka", meaningEn: "bustling, busy", emoji: "🎉", fromModule: "m12", kind: "vocab", note: "party popper as lively proxy", pos: "adjective", conjugation: { class: "na-adj", entryId: "nigiyaka" } },
   { id: "shitsumon", kana: "しつもん", kanji: "質問", romaji: "shitsumon", meaningEn: "question", emoji: "❓", fromModule: "m30", kind: "vocab", blocked: true, note: "question mark", pos: "noun" },
   { id: "aka", kana: "あか", kanji: "赤", romaji: "aka", meaningEn: "red", emoji: "🟥", fromModule: "future", freqRank: 279, kind: "vocab", note: "red square — shares with 赤い", pos: "noun" },
-  { id: "akai", kana: "あかい", kanji: "赤い", romaji: "akai", meaningEn: "red", emoji: "🟥", fromModule: "future", freqRank: 280, kind: "vocab", note: "red square", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "akai", kana: "あかい", kanji: "赤い", romaji: "akai", meaningEn: "red", emoji: "🟥", fromModule: "m13", kind: "vocab", note: "red square", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "hashiru", kana: "はしる", kanji: "走る", romaji: "hashiru", meaningEn: "to run", emoji: "🏃", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 6 2026-07-30 (B067); trainer entry un-parked 30 → 16", pos: "verb", conjugation: { class: "godan", entryId: "hashiru" } },
   { id: "okiru", kana: "おきる", kanji: "起きる", romaji: "okiru", meaningEn: "to get up", emoji: "⏰", fromModule: "m13", kind: "vocab", blocked: true, note: "taught by m13 vocab pack 2026-07-29 (B067); was m16. blocked: ⏰ belongs to じかん", pos: "verb", conjugation: { class: "ichidan", entryId: "okiru" } },
   { id: "ashi", kana: "あし", kanji: "足", romaji: "ashi", meaningEn: "foot, leg", emoji: "🦶", fromModule: "m22", kind: "vocab", pos: "noun" },
@@ -1707,7 +1707,11 @@ export const JA_PRIMARY_ATOM_BY_KANA: Readonly<Record<string, string>> = {
   きる: "kiru", // 着る to wear, not 切る to cut
   いる: "iru-be", // to exist, not 要る to need
   ひく: "hiku", // 引く to pull, not 弾く to play (strings)
-  とる: "toru", // 取る to take, not 撮る to photograph
+  // R16 teach-them wave (2026-09-02): FLIPPED to 撮る. The only live use of
+  // bare とる in the course is m30 L7/L9 photography (「しゃしんを とってみる」);
+  // 取る is a `future` word no lesson exercises, so the old ruling credited
+  // every photo to an atom the learner never meets. Tile diff before/after: empty.
+  とる: "toru-take", // 撮る to photograph — 取る (toru) is unused by any lesson
   しめる: "shimeru", // 閉める to close, not 締める to tie
 };
 

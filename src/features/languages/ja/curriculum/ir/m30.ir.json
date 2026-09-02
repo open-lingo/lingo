@@ -713,6 +713,14 @@
       "shortGloss": "do ahead (とく)",
       "imageable": false,
       "kind": "grammar-chunk"
+    },
+    {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a film",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
     }
   ],
   "lessons": [
@@ -1939,7 +1947,8 @@
         "ならう",
         "おくる",
         "しつもん",
-        "こたえ"
+        "こたえ",
+        "とる"
       ],
       "beats": [
         {
@@ -1997,6 +2006,17 @@
           "exercises": [
             "dictionary-form",
             "ni-location",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "やまで しゃしんを とる。",
+          "en": "I take a photo on the mountain",
+          "exercises": [
+            "dictionary-form",
+            "de-action",
             "wo-object"
           ],
           "mode": "build"
@@ -3345,6 +3365,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3398,6 +3419,7 @@
     "いきませんでした",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いける",
@@ -3429,6 +3451,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3514,6 +3537,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かわ",
@@ -3588,10 +3612,12 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
     "ごめんなさい",
+    "さ",
     "さい",
     "さいふ",
     "さかな",
@@ -3644,6 +3670,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -3713,6 +3740,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -3723,6 +3751,7 @@
     "ちゃ",
     "ちゃん",
     "ちょっと",
+    "っけ",
     "つかう",
     "つかって",
     "つき",
@@ -3740,6 +3769,7 @@
     "でした",
     "でしょ",
     "でしょう",
+    "です",
     "でんき",
     "でんしゃ",
     "でんわ",
@@ -3755,6 +3785,7 @@
     "どうして",
     "どうぶつ",
     "どこ",
+    "どこですか",
     "どちら",
     "どっち",
     "どの",
@@ -3960,6 +3991,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかります",
@@ -4252,7 +4284,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4799,6 +4830,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -5122,6 +5160,28 @@
       "kind": "vocab"
     },
     {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "しって",
       "romaji": "shitte",
       "gloss": "know (te-form)",
@@ -5430,6 +5490,14 @@
       "gloss": "before",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "さむい",
@@ -6353,6 +6421,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いたい",
       "romaji": "itai",
       "gloss": "painful, sore — it hurts",
@@ -6403,7 +6478,6 @@
       "romaji": "te",
       "gloss": "hand",
       "shortGloss": "hand",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6863,7 +6937,6 @@
       "romaji": "natsu",
       "gloss": "summer",
       "shortGloss": "summer",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6871,7 +6944,6 @@
       "romaji": "aki",
       "gloss": "autumn",
       "shortGloss": "autumn",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7192,6 +7264,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いかなきゃ",
       "romaji": "ikanakya",
       "gloss": "have to go (casual)",
@@ -7427,6 +7506,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "うえ",

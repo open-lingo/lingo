@@ -153,12 +153,21 @@ describe("m30-neo module shape (invariant 25)", () => {
     }
   });
 
-  it("declares exactly the spine's 34 atoms", () => {
+  it("declares exactly the spine's 34 atoms, plus the R16 lemma", () => {
     // spine-n4 §2, n4-01: `vocab: { count: 34 }`. A module that quietly grows
-    // its allocation is the thing inv 16 exists to stop.
+    // its allocation is the thing inv 16 exists to stop — so the +1 here is
+    // DECIDED AND DOCUMENTED (RUN-PLAN), not quiet.
+    //
+    // 35th = とる (撮る). This module already GRADED it in ten targets via the
+    // て-form とって, which is a `kind: verb-form` newAtom and therefore
+    // carries no courseAtoms row by design — so the lemma behind ten graded
+    // steps was introduced nowhere and could never unlock. That is not a new
+    // word entering the module; it is the module's existing word finally being
+    // declared. L7 debuts it beside ならう and おくる, the same dict-then-て
+    // shape the other two already use.
     const atoms = (m30Ir as unknown as { newAtoms: { kana: string }[] }).newAtoms;
-    expect(atoms).toHaveLength(34);
-    expect(new Set(atoms.map((a) => a.kana)).size).toBe(34);
+    expect(atoms).toHaveLength(35);
+    expect(new Set(atoms.map((a) => a.kana)).size).toBe(35);
   });
 
   it("teaches every `must` word the spine allocates", () => {
@@ -240,7 +249,7 @@ describe("m30-neo owes the spine's て+helper row", () => {
     }
   });
 
-  it("ships ZERO image MCQs, deliberately", () => {
+  it("ships exactly ONE image MCQ — とる, decided on purpose", () => {
     // m30's allocation is almost entirely ABSTRACT (よやく, じゅんび, けっか,
     // せつめい, れんしゅう, さいしょ, とりあえず, こたえ, しつもん are process
     // nouns and adverbs; しらべる / きめる / つづける / ならう / おくる are
@@ -249,13 +258,18 @@ describe("m30-neo owes the spine's て+helper row", () => {
     // that `word_image_mcq` carries no usage floor. Asserted rather than left
     // implicit so that adding an emoji to one of these rows is a decision
     // somebody takes on purpose.
+    // …which held until the R16 teach-them wave, and this assertion is exactly
+    // why: "adding an emoji to one of these rows is a decision somebody takes
+    // on purpose." とる (撮る, 📸) is that decision. It is concrete and
+    // photographable — the one atom here that HAS an honest picture — and inv
+    // 30 requires an emoji-carrying module-new word to debut on its picture.
     const imaged = M30_NEO_LESSONS.flatMap((l) => l.steps).filter(
       (s) => s.type === "word_image_mcq",
     );
-    expect(imaged.map((s) => s.id)).toEqual([]);
+    expect(imaged.map((s) => s.id)).toEqual(["ja-m30-neo-7-debut-0"]);
     const atoms = (m30Ir as unknown as { newAtoms: { kana: string; imageable?: boolean }[] })
       .newAtoms;
-    expect(atoms.every((a) => a.imageable === false)).toBe(true);
+    expect(atoms.filter((a) => a.imageable !== false).map((a) => a.kana)).toEqual(["とる"]);
   });
 });
 

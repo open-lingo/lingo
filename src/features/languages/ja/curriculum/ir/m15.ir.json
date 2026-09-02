@@ -404,6 +404,14 @@
       "gloss": "before",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
     }
   ],
   "lessons": [
@@ -2127,7 +2135,9 @@
       "role": "teaching",
       "title": "たべてから — after doing",
       "focus": "て-form + から says the first action is finished before the second starts",
-      "introduces": [],
+      "introduces": [
+        "から"
+      ],
       "beats": [
         {
           "kind": "rule",
@@ -2890,6 +2900,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -2925,6 +2936,7 @@
     "いきません",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いす",
@@ -2944,6 +2956,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うま",
     "うみ",
     "うる",
@@ -3137,6 +3150,7 @@
     "てがみ",
     "で",
     "でした",
+    "です",
     "でんき",
     "でんわ",
     "と",
@@ -3193,6 +3207,7 @@
     "ひく",
     "ひと",
     "ひとつ",
+    "ひま",
     "ひゃく",
     "ふく",
     "ふたつ",
@@ -3538,7 +3553,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4085,6 +4099,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4404,6 +4425,28 @@
       "kana": "はやい",
       "romaji": "hayai",
       "gloss": "early",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
       "imageable": false,
       "kind": "vocab"
     },

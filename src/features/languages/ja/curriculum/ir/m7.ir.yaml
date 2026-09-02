@@ -347,7 +347,7 @@ lessons:
     role: teaching
     title: "Work and school"
     focus: "the settings where polite speech actually lives"
-    introduces: [はたらく, はたらきます, かいしゃ, じゅぎょう]
+    introduces: [はたらく, はたらきます, かいしゃ, じゅぎょう, あります]
     beats:
       - { kind: sentence, ja: "かいしゃに いく。", en: "Say to a friend: I go to the company", exercises: [ni-location], mode: build }
       - { kind: sentence, ja: "かいしゃで はたらく。", en: "Say to a friend: I work at the company", exercises: [de-action, register-audience], mode: build }

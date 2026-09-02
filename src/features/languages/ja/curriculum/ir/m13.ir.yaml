@@ -229,8 +229,8 @@ grammarPoints:
       - { ja: "わたしは ちいさい ねこが すきだ。", en: "I like small cats." }
       - { ja: "ミカは あたらしい うたが すきだ。", en: "Mika likes new songs." }
       - { ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber." }
-      - { ja: "わたしの すきな いろは あかい。", en: "The colour I like is red." }
-      - { ja: "とりにくは すきじゃない。", en: "I don't like chicken." }
+      - { ja: "わたしの すきな みせは ちいさい。", en: "The shop I like is small." }
+      - { ja: "ちゃは すきじゃない。", en: "I don't like tea." }
     antiPattern: { ja: "わたしは ちいさい ねこを すきだ。", why: "すき is an adjective, not a verb — what you like is marked が" }
   # Vocab pack 3 (B065/B067, 2026-07-29): the morning-routine card. Like
   # youbi-days/time-spans in m11, an IR-local point — a vocabulary card, not a
@@ -252,7 +252,7 @@ grammarPoints:
     rule: "To like an ACTION you first have to make it a thing. Put の straight after the plain verb and たべる becomes たべるの, the eating of it. Then it takes が like anything else you like: たべるのが すきだ. The verb stays in plain form — の does the nominalising — and きらい works identically."
     examples:
       - { ja: "わたしは ごはんを たべるのが すきだ。", en: "I like eating." }
-      - { ja: "ミカは うたを うたうのが すきだ。", en: "Mika likes singing." }
+      - { ja: "ミカは ちゃを のむのが すきだ。", en: "Mika likes drinking tea." }
       - { ja: "ともだちと あそぶのが すきだ。", en: "I like hanging out with friends." }
       - { ja: "ふるい しゃしんを みるのが すきだ。", en: "I like looking at old photos." }
       - { ja: "わたしは みせに いくのが きらいだ。", en: "I don't like going to the shop." }
@@ -338,6 +338,15 @@ newAtoms:
   - { kana: ゆうべ, romaji: yuube, gloss: "last night", imageable: false, kind: vocab }
   - { kana: けさ, romaji: kesa, gloss: "this morning", imageable: false, kind: vocab }
   - { kana: はやい, romaji: hayai, gloss: "early", imageable: false, kind: vocab }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Each carries an emoji, so inv 30 wants a real picture debut — which means
+  #    the rule cards had to DUCK them (the pattern this file already documents
+  #    for みがく/せっけん/シャワー). The card examples that used them now run on
+  #    prior vocab; the lesson's own build beats still teach the word.
+  - { kana: とりにく, romaji: toriniku, gloss: "chicken meat", shortGloss: "chicken", imageable: true, kind: vocab }
+  - { kana: あかい, romaji: akai, gloss: "red", imageable: true, kind: vocab }
+  - { kana: うたう, romaji: utau, gloss: "to sing", imageable: true, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -564,7 +573,7 @@ lessons:
     role: teaching
     title: "すき / きらい — が, one more time"
     focus: "すき and きらい are な-adjectives: what you like is marked が, not を"
-    introduces: [すき, きらい, なつやすみ]
+    introduces: [すき, きらい, なつやすみ, とりにく, あかい]
     beats:
       - { kind: rule, grammarPointId: suki-kirai-no }
       - { kind: sentence, ja: "わたしは ちいさい ねこが すきだ。", en: "I like small cats", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
@@ -591,7 +600,7 @@ lessons:
     role: teaching
     title: "たべるのが すき — liking to do something"
     focus: "の turns a plain verb into a thing, and then が marks it like any other"
-    introduces: []
+    introduces: [うたう]
     beats:
       - { kind: rule, grammarPointId: no-ga-suki }
       - { kind: sentence, ja: "わたしは ごはんを たべるのが すきだ。", en: "I like eating", exercises: [wa-topic, wo-object, no-ga-suki], mode: build }

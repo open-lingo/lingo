@@ -410,6 +410,11 @@ newAtoms:
   #    and not at L10 — an atom whose first appearance is a cloze distractor is
   #    the bare debut vocab-provenance exists to catch.
   - { kana: なった, romaji: natta, gloss: "became, got (become, past)", shortGloss: "became", imageable: false, kind: vocab }
+  # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
+  #    but declared nowhere, so the word never reached courseAtoms' unlock path.
+  #    Introduced by the PINNED rule card that already uses it — `imageable:
+  #    false` because a card at step 1 pre-empts a picture debut (inv 30/44).
+  - { kana: だんだん, romaji: dandan, gloss: "gradually", imageable: false, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -646,7 +651,7 @@ lessons:
     role: teaching
     title: "「だんだん さむく なる」 — the weather is changing"
     focus: "An い-adjective swaps its い for く and hands the sentence to なる"
-    introduces: [なる, ながい, みじかい, ひろい, おそい]
+    introduces: [なる, ながい, みじかい, ひろい, おそい, だんだん]
     beats:
       - { kind: rule, grammarPointId: ku-ni-naru }
       - { kind: sentence, ja: "ふゆの あさは だんだん さむく なる。", en: "Winter mornings gradually get cold", exercises: [ku-ni-naru, no-possession, wa-topic], mode: build }
