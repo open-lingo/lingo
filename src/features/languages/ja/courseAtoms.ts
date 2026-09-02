@@ -190,7 +190,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kawa", kana: "かわ", kanji: "川 / 河", romaji: "kawa", meaningEn: "river", fromModule: "m1", introducedByLessonId: "ja-m1-l10-wa", kind: "vocab", pos: "noun" },
   { id: "asa", kana: "あさ", kanji: "朝", romaji: "asa", meaningEn: "morning", emoji: "🌅", fromModule: "m1", introducedByLessonId: "ja-m1-l3-sa", kind: "vocab", pos: "noun" },
   { id: "uta", kana: "うた", kanji: "歌", romaji: "uta", meaningEn: "song", emoji: "🎤", fromModule: "m1", introducedByLessonId: "ja-m1-l4-ta", kind: "vocab", note: "microphone as song cue (music note taken)", pos: "noun" },
-  { id: "ike", kana: "いけ", kanji: "池", romaji: "ike", meaningEn: "pond", fromModule: "m1", introducedByLessonId: "ja-m1-l2-ka", kind: "vocab", note: "duck implies pond", pos: "noun" },
+  { id: "ike", kana: "いけ", kanji: "池", romaji: "ike", meaningEn: "pond", emoji: "🦆", fromModule: "m1", introducedByLessonId: "ja-m1-l2-ka", kind: "vocab", note: "duck implies pond; emoji kept 2026-09-02 despite the Wave C art decision — moduleCompiler.ts's pool/gate logic (emojiPool, invariant-30, gloss-before-production) only ever checks this raw field, never LINGO_CUSTOM_ART, so m1's authored image-mcq debut and m6's later reference both depend on it staying non-empty. lingoArtUrl(\"ja\", \"いけ\") is checked FIRST at every render call site, so the custom pond PNG still wins visually everywhere; this field only keeps the compiler's own internal gates satisfied.", pos: "noun" },
   { id: "umi", kana: "うみ", kanji: "海", romaji: "umi", meaningEn: "sea", emoji: "🌊", fromModule: "m3", kind: "vocab", note: "wave", pos: "noun" },
   { id: "inu", kana: "いぬ", kanji: "犬", romaji: "inu", meaningEn: "dog", emoji: "🐕", fromModule: "m1", introducedByLessonId: "ja-m3-3", kind: "vocab", pos: "noun" },
   { id: "neko", kana: "ねこ", kanji: "猫", romaji: "neko", meaningEn: "cat", emoji: "🐱", fromModule: "m1", introducedByLessonId: "ja-m3-3", kind: "vocab", pos: "noun" },
@@ -1060,10 +1060,10 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kite", kana: "きて", romaji: "kite", meaningEn: "come (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-3", kind: "vocab", pos: "verb" },
   { id: "oshiete", kana: "おしえて", romaji: "oshiete", meaningEn: "teach, tell (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-7", kind: "vocab", pos: "verb" },
   { id: "shokuji", kana: "しょくじ", romaji: "shokuji", meaningEn: "a meal", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", pos: "noun" },
-  { id: "cha", emoji: "🍵", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", pos: "noun" },
-  { id: "kome", emoji: "🌾", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab", pos: "noun" },
+  { id: "cha", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", pos: "noun" },
+  { id: "kome", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab", pos: "noun" },
   // ── m9-neo (tile n03) — numbers, counters, purchases ──
-  { id: "kane", emoji: "💰", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab", pos: "noun" },
+  { id: "kane", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab", pos: "noun" },
   // ── m10-neo (tile n15) — register in the wild ──
   { id: "uun", kana: "ううん", romaji: "uun", meaningEn: "nope (casual no)", shortGloss: "nope", fromModule: "m10", introducedByLessonId: "ja-m10-neo-2", kind: "vocab", pos: "interjection" },
   { id: "dame", kana: "だめ", romaji: "dame", meaningEn: "no good, not allowed", shortGloss: "no good", fromModule: "m10", introducedByLessonId: "ja-m10-neo-5", kind: "vocab", pos: "adjective", conjugation: { class: "na-adj" } },
