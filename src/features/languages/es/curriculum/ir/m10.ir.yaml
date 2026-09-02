@@ -14,6 +14,15 @@ checkpoint: 8
 # REQUIRED voicings (docs/es-m4-m10-wave-2026-08-24.md, "m8 — La semana" /
 # "m9 — Vamos") as taught/licensed, per throughModule: m9.
 #
+# ⚠️ SPINE DEVIATION (2026-09-02): the pinned inventory below is 20 atoms;
+# this file now registers 24. The four extra are visitar/visito/visitas/
+# visita, added for the L8 TRANSFER TEST — the module shipped with zero steps
+# asking the learner to run the machine on a verb they had never conjugated,
+# so every "conjugation" moment was a pick between two forms already on
+# screen. Spencer's decision, 2026-09-02, ahead of his sister's walk. The
+# wave doc is NOT edited; this note is the record, following the ja m30
+# precedent (document the deviation where the deviation lives).
+#
 # SPINE PROVENANCE: atom inventory + arc PINNED by
 # docs/es-m4-m10-wave-2026-08-24.md ("m10 — the -ar machine"). 20 registered
 # atoms: hablar, trabajar, estudiar, hablo, hablas, habla, trabajas, trabaja,
@@ -52,8 +61,10 @@ checkpoint: 8
 #     L1 hablar/hablo/hablas (3) · L2 habla/español/música (3) ·
 #     L3 trabajar/trabajas/trabaja (3) · L4 estudiar/estudio/estudias/
 #     estudia/siempre/nunca (6) · L5 escuchar/bailar/cantar (3) ·
-#     L6 todos los días/un poco (2). L7–L10 are zero-new. Total 3+3+3+6+3+2
-#     = 20.
+#     L6 todos los días/un poco (2). L7 · L9 · L10 are zero-new. Total
+#     3+3+3+6+3+2 = 20, plus L8's four transfer cells (visitar/visito/
+#     visitas/visita) = 24. L8 is the ONLY checkpoint in the ES course that
+#     registers atoms, and it does so for one reason — see TRANSFER TEST.
 #   - Person build-out DELIBERATELY differs by verb, mirroring the arc's
 #     own escalating scaffold: hablar gets three separate map-elimination
 #     debuts spread across L1–L2 (fully worked, the "watch me do it"
@@ -197,6 +208,13 @@ newAtoms:
   - { surface: "español", meaningEn: "Spanish (the language)", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💬", hint: "the ñ: es-pa-NYOL" }
   - { surface: "un poco", meaningEn: "a little", partOfSpeech: "phrase", kind: "phrase" }
   - { surface: "música", meaningEn: "music", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🎵", hint: "stress up front — MOO-see-ka" }
+  # ── TRANSFER CELLS (added 2026-09-02) — see "TRANSFER TEST" in the notes.
+  #    No emoji on any of them: these are grammar cells, not picture words,
+  #    and an emoji would demand a picture debut this module has no room for.
+  - { surface: "visitar", meaningEn: "to visit", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "visito", meaningEn: "I visit", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "visitas", meaningEn: "you visit", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "visita", meaningEn: "he/she visits", partOfSpeech: "verb", kind: "vocab" }
 
 lessons:
   # ── L1 · the machine card + hablo/hablas debut. States the promise. ──
@@ -1269,6 +1287,35 @@ lessons:
         id: cp-tm-1
         target: "trabajas"
         distractors: ["trabaja", "trabajo", "estudias"]
+      # ── TRANSFER TEST (added 2026-09-02) ────────────────────────────────
+      #   The one thing this module never asked for: run the machine on a verb
+      #   whose cells the learner has NEVER seen. «visitar» is a free cognate
+      #   on purpose — the whole cognitive load lands on the ENDING, which is
+      #   what is being tested. It debuts one step above and is immediately
+      #   demanded, with all three singular cells in the tile bank so the
+      #   choice cannot be made by shape.
+      #   WHY NOT cantar/bailar/escuchar: this module's own bespoke pin
+      #   ("stay infinitive-only, never conjugated anywhere") forbids their
+      #   cells, and that pin is right — those verbs are taught as infinitives
+      #   and conjugating one would be an untaught form appearing nowhere else.
+      #   WHY NOT a speakLit: the course-wide recall law licenses cue:"recall"
+      #   only for a phrase PRINTED by an earlier speaking step, so an unseen
+      #   phrase cannot be recalled; and a printed speakLit is pronunciation,
+      #   not production. buildLit is intro-capable (ES_INTRO_TYPES) and bills
+      #   its tiles as surfaces, so all four cells debut legally right here.
+      #   Deviation from this lesson's own "no new words": a transfer test is
+      #   worthless if the verb is already drilled. 20 atoms → 24.
+      - kind: speakLit
+        id: cp-transfer-visitar
+        es: "visitar"
+        en: "to visit"
+        atoms: ["visitar"]
+      - kind: buildLit
+        id: cp-transfer-visito
+        es: "visito el mercado"
+        en: "I visit the market"
+        atoms: ["visito", "el", "mercado"]
+        tiles: ["visitas", "visita"]
       - kind: audioWimcq
         id: cp-ear-3
         target: { surface: "bailar", emoji: "💃" }

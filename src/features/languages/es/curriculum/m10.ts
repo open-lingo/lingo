@@ -46,6 +46,10 @@ export const ES_M10_ATOMS: EsAtom[] = [
   atom({ surface: "español", meaningEn: "Spanish (the language)", partOfSpeech: "noun", fromModule: "m10", kind: "vocab", gender: "m", emoji: "💬", hint: "the ñ: es-pa-NYOL" }),
   atom({ surface: "un poco", meaningEn: "a little", partOfSpeech: "phrase", fromModule: "m10", kind: "phrase" }),
   atom({ surface: "música", meaningEn: "music", partOfSpeech: "noun", fromModule: "m10", kind: "vocab", gender: "f", emoji: "🎵", hint: "stress up front — MOO-see-ka" }),
+  atom({ surface: "visitar", meaningEn: "to visit", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "visito", meaningEn: "I visit", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "visitas", meaningEn: "you visit", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "visita", meaningEn: "he/she visits", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
 ];
 
 const ES_M10_1: LessonContent = {
@@ -1230,7 +1234,7 @@ const ES_M10_8: LessonContent = {
   languageId: "es",
   title: "L8 ✓ Checkpoint · Every gear, every pair",
   description: "Every discrimination, every verb, no new words — before the summit.",
-  estimatedMinutes: 8,
+  estimatedMinutes: 10,
   xpReward: 20,
   steps: [
     listeningCompSentence({
@@ -1328,6 +1332,15 @@ const ES_M10_8: LessonContent = {
       ["siempre", "estudio", "español"],
     ),
     vocabTextMcq("es-m10-8-cp-tm-1", "trabajas", ["trabaja", "trabajo", "estudias"]),
+    speaking("es-m10-8-cp-transfer-visitar", "visitar", "to visit", ["visitar"]),
+    build(
+      "es-m10-8-cp-transfer-visito",
+      "Build: 'I visit the market'",
+      "visito el mercado",
+      ["visito", "el", "mercado", "visitas", "visita"],
+      ["visito", "el", "mercado"],
+      ["visito", "el", "mercado"],
+    ),
     {
       id: "es-m10-8-cp-ear-3",
       type: "word_image_mcq",
