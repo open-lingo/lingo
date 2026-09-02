@@ -115,7 +115,7 @@ function lesson1(): LessonStep[] {
       "es-m1v2-1-img-hola",
       { surface: "hola", meaningEn: "hello", emoji: "🙋" },
       [
-        { surface: "adiós", emoji: "🚶" },
+        { surface: "adiós", emoji: "👋" },
         { surface: "gracias", emoji: "🙏" },
         { surface: "sí", emoji: "✅" },
       ],
@@ -123,7 +123,7 @@ function lesson1(): LessonStep[] {
     speaking("es-m1v2-1-speak-hola", "hola", "hello", ["hola"]),
     vocabMcq(
       "es-m1v2-1-img-adios",
-      { surface: "adiós", meaningEn: "goodbye", emoji: "🚶" },
+      { surface: "adiós", meaningEn: "goodbye", emoji: "👋" },
       [
         { surface: "hola", emoji: "🙋" },
         { surface: "gracias", emoji: "🙏" },
@@ -138,7 +138,7 @@ function lesson1(): LessonStep[] {
       { surface: "gracias", meaningEn: "thank you", emoji: "🙏" },
       [
         { surface: "hola", emoji: "🙋" },
-        { surface: "adiós", emoji: "🚶" },
+        { surface: "adiós", emoji: "👋" },
         { surface: "sí", emoji: "✅" },
       ],
     ),
@@ -149,7 +149,7 @@ function lesson1(): LessonStep[] {
       [
         { surface: "no", emoji: "❌" },
         { surface: "gracias", emoji: "🙏" },
-        { surface: "adiós", emoji: "🚶" },
+        { surface: "adiós", emoji: "👋" },
       ],
     ),
     listeningCompSentence({
@@ -245,7 +245,7 @@ function lesson2(): LessonStep[] {
       [
         { surface: "gracias", emoji: "🙏" },
         { surface: "hola", emoji: "🙋" },
-        { surface: "adiós", emoji: "🚶" },
+        { surface: "adiós", emoji: "👋" },
       ],
     ),
     speaking("es-m1v2-2-speak-porfavor", "por favor", "please", ["por favor"]),
@@ -347,7 +347,7 @@ function lesson2(): LessonStep[] {
       meaningEn: "hola",
       options: [
         { id: "correct", word: "hola", emoji: "🙋" },
-        { id: "o1", word: "adiós", emoji: "🚶" },
+        { id: "o1", word: "adiós", emoji: "👋" },
         { id: "o2", word: "gracias", emoji: "🙏" },
       ],
       correctOptionId: "correct",
@@ -888,7 +888,7 @@ function lesson6(): LessonStep[] {
       type: "word_image_mcq",
       meaningEn: "hasta luego",
       options: [
-        { id: "correct", word: "hasta luego", emoji: "🚪" },
+        { id: "correct", word: "hasta luego", emoji: "🚶" },
         { id: "o1", word: "mucho gusto", emoji: "🤝" },
         { id: "o2", word: "buenos días", emoji: "🌅" },
       ],
@@ -1182,7 +1182,7 @@ function lesson7(): LessonStep[] {
       meaningEn: "mucho gusto",
       options: [
         { id: "correct", word: "mucho gusto", emoji: "🤝" },
-        { id: "o1", word: "hasta luego", emoji: "🚪" },
+        { id: "o1", word: "hasta luego", emoji: "🚶" },
         { id: "o2", word: "gracias", emoji: "🙏" },
       ],
       correctOptionId: "correct",

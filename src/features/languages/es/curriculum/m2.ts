@@ -283,7 +283,7 @@ function lesson2(): LessonStep[] {
       meaningEn: "mucho gusto",
       options: [
         { id: "correct", word: "mucho gusto", emoji: "🤝" },
-        { id: "o1", word: "hasta luego", emoji: "🚪" },
+        { id: "o1", word: "hasta luego", emoji: "🚶" },
         { id: "o2", word: "por favor", emoji: "🤲" },
       ],
       correctOptionId: "correct",
@@ -384,7 +384,7 @@ function lesson3(): LessonStep[] {
       { surface: "señora", meaningEn: "Mrs. / ma'am", emoji: "👩" },
       [
         { surface: "señor", emoji: "👨" },
-        { surface: "adiós", emoji: "🚶" },
+        { surface: "adiós", emoji: "👋" },
         { surface: "por favor", emoji: "🤲" },
       ],
     ),

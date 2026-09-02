@@ -793,7 +793,7 @@ const ES_M7_6: LessonContent = {
       type: "word_image_mcq",
       meaningEn: "hasta luego",
       options: [
-        { id: "correct", word: "hasta luego", emoji: "👋" },
+        { id: "correct", word: "hasta luego", emoji: "🚶" },
         { id: "o1", word: "buenos días", emoji: "🌅" },
         { id: "o2", word: "mucho gusto", emoji: "🤝" },
       ],
