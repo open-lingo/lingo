@@ -41,6 +41,7 @@ import {
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
+import { getFrCourseAtoms } from "@/features/languages/fr/courseAtoms";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import type { WordImageMcqStep } from "@/features/lesson/types";
 
@@ -100,6 +101,77 @@ export const KNOWN_DUPLICATE_BASELINE: Record<"ja" | "ko", number> = {
   ko: 5,
 };
 
+/**
+ * Snapshot of the actual offending groups as of 2026-09-02 (JA has 24 live
+ * today, well under its 43 ceiling; KO is at its ceiling of 5) — used only
+ * to keep a ratchet failure message short: a regression's message names
+ * the NEW groups (not in this snapshot), not the whole backlog. Update
+ * this snapshot whenever the backlog legitimately shrinks or grows within
+ * the ceiling, so the next regression's message stays a short diff.
+ */
+const KNOWN_DUPLICATE_GROUPS: Record<"ja" | "ko", ReadonlySet<string>> = {
+  ja: new Set([
+    "⏰ → とけい / じかん / いま",
+    "☕ → きっさてん / コーヒー",
+    "⬆️ → うえ / まっすぐ",
+    "⭐ → ほし / ゆうめい",
+    "🍞 → ぱん / パン",
+    "🍱 → たべもの / りょうり",
+    "🎒 → かばん / せいと",
+    "🎓 → がくせい / だいがく",
+    "🎤 → うた / うたう",
+    "🎵 → うた / おんがく",
+    "🏪 → みせ / コンビニ",
+    "🏫 → きょうしつ / がっこう",
+    "👨‍🏫 → じゅぎょう / おしえる",
+    "📓 → ノート / れんしゅうする",
+    "📖 → ほん / じしょ",
+    "📚 → よむ / としょかん",
+    "📷 → しゃしん / カメラ",
+    "📸 → しゃしん / とる",
+    "🖊️ → ぺん / ペン",
+    "🗣️ → いう / はなす",
+    "🚪 → どあ / ドア",
+    "🚶 → さんぽ / いく",
+    "🥤 → のむ / のみもの",
+    "🧍 → からだ / たつ",
+  ]),
+  ko: new Set([
+    "❓ → 누구 / 뭐 / 왜",
+    "🍚 → 끼 / 밥",
+    "👶 → 아이 / 아기",
+    "📍 → 거기 / 여기",
+    "🧑 → 머리 / 오빠",
+  ]),
+};
+
+/** Minimal shape check 1 needs, uniform across all four courses. */
+type EmojiAtom = { id: string; display: string; emoji?: string };
+
+/**
+ * Every atom for a course, in the shape check 1 needs. JA/KO/ES go through
+ * the shared cross-language adapter; FR is NOT registered in
+ * `normalizedAtoms.ts`'s `buildAtomsFor` switch (deliberately — that
+ * registration also wires FR into lessonAtomIndex/flashcards/SRS-unlock,
+ * out of scope here), so `getNormalizedCourseAtoms("fr")` always returns
+ * `[]`. Read FR straight from its own registry instead, the way
+ * `emojiInventory.emit.test.ts` does.
+ */
+function atomsFor(course: CourseId): EmojiAtom[] {
+  if (course === "fr") {
+    return getFrCourseAtoms().map((a) => ({
+      id: a.id,
+      display: a.surface,
+      emoji: a.emoji,
+    }));
+  }
+  return getNormalizedCourseAtoms(course).map((a) => ({
+    id: a.id,
+    display: a.display,
+    emoji: a.emoji,
+  }));
+}
+
 function lessonsFor(course: CourseId) {
   return getAvailableMockLessonIds()
     .filter((id) => id.startsWith(`${course}-`))
@@ -131,17 +203,29 @@ function duplicateEmojiGroups(course: CourseId): string[] {
   return bad.sort();
 }
 
+// Repo-relative form of PUB_DIR (`src/pub`), for actionable failure
+// messages — a bare absolute path is useless to whoever reads the report.
+const REPO_PUB_REL = "src/pub";
+
 describe.each(COURSES)("%s course emoji integrity", (course) => {
-  it("every SRS-eligible atom's emoji resolves to a real vendored asset", () => {
-    const atoms = getNormalizedCourseAtoms(course).filter(
-      (a) => a.srsEligible && a.emoji,
-    );
+  it("every emoji-bearing atom's emoji resolves to a real vendored asset", () => {
+    // Checks EVERY emoji-bearing atom, not just SRS-eligible ones — an
+    // atom excluded from SRS (e.g. a `srsEligible: false` KO atom) can
+    // still render its emoji in a word_image_mcq step or a vocab-browse
+    // card, so a missing SVG there is just as broken.
+    const atoms = atomsFor(course).filter((a) => a.emoji);
     const missing: string[] = [];
     for (const atom of atoms) {
       if (lingoArtUrl(course, atom.display)) continue;
+      const url = notoEmojiUrl(atom.emoji!);
       const path = assetPath(atom.emoji!);
       if (!path || !existsSync(path)) {
-        missing.push(`${atom.id} (${atom.emoji}) → ${path ?? "(unresolvable)"}`);
+        const expectedRel = url ? `${REPO_PUB_REL}${url}` : "(unresolvable emoji)";
+        missing.push(
+          `${atom.id} "${atom.display}" (${atom.emoji}) → expected ${expectedRel}\n` +
+            `  vendor it: node scripts/emoji-refit/vendor-noto.mjs ${atom.emoji} ` +
+            `(or copy from https://github.com/googlefonts/noto-emoji/tree/main/svg)`,
+        );
       }
     }
     expect(missing, missing.join("\n")).toEqual([]);
@@ -165,9 +249,11 @@ describe.each(["ja", "ko"] as const)(
   (course) => {
     it(`duplicate-emoji groups do not exceed the known baseline (${KNOWN_DUPLICATE_BASELINE[course]})`, () => {
       const bad = duplicateEmojiGroups(course);
+      const newGroups = bad.filter((g) => !KNOWN_DUPLICATE_GROUPS[course].has(g));
       expect(
         bad.length,
-        `${bad.length} duplicate-emoji group(s), ceiling is ${KNOWN_DUPLICATE_BASELINE[course]}:\n${bad.join("\n")}`,
+        `${course}: ${bad.length} duplicate-emoji group(s), ceiling ${KNOWN_DUPLICATE_BASELINE[course]}. ` +
+          `NEW group(s) not in the known baseline (${newGroups.length}):\n${newGroups.join("\n")}`,
       ).toBeLessThanOrEqual(KNOWN_DUPLICATE_BASELINE[course]);
     });
   },
