@@ -1,0 +1,2275 @@
+module: m13
+title: "Me gusta, me gustan — the sentence that runs backwards"
+frame: none
+throughModule: m12
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m13 — «Me gusta, me gustan»: the hardest grammar point in the beginner
+# course, and the one every Spanish learner gets wrong for years.
+#
+# «gustar» does not mean "to like". It means "to be pleasing". So
+#
+#     me gusta el café          the coffee is pleasing to me
+#     me gustan los zapatos     the shoes are pleasing to me
+#
+# The thing liked is the SUBJECT. The verb agrees with IT, never with the
+# person doing the liking. That is why «gustan» exists at all, and it is the
+# single fact the module has to land. The word "indirect object" never
+# appears in learner-facing text.
+#
+# THE ON-RAMP WAS BUILT IN m12. «cuesta / cuestan» is structurally the same
+# split — one thing costs, many things cost — and m12 drilled it for ten
+# lessons. m13 does not introduce number agreement; it RENAMES a pattern the
+# learner already owns and then reveals that the pronoun in front is the
+# person. Any lesson that teaches gustan as a brand-new idea is wasting the
+# only pedagogical advantage this module has.
+#
+# m12 also left behind exactly the plural carriers this module needs —
+# camisas, faldas, zapatos — plus m3's libros and m6's colours. «me gustan»
+# has somewhere to land from lesson four onward without a single new noun.
+#
+# ⚠️ DELIBERATELY LOW ATOM COUNT (15, against m12's 18 and m11's 21). The
+# grammar load here is the highest in the course, so the vocabulary load is
+# cut to make room. Do not read the gap as an allocation error.
+#
+# NOT TAUGHT HERE: «nos gusta» and «les gusta» (the plural persons), «a mí me
+# gusta» (the redundant clarifier), and «encantar». Three persons is the
+# whole table a beginner needs; the rest is m20s work.
+#
+# INFINITIVE-ONLY: nadar, cocinar, viajar appear ONLY as bare infinitives,
+# which for this module is not a restriction but the point — «me gusta
+# nadar» is the construction, and a conjugated «nado» would be a different
+# lesson. Enforced by a bespoke test, as in m10/m11/m12.
+#
+# TRANSFER TEST (L8, one atom): «vacaciones» exists for ONE purpose. It is
+# inherently plural — Spanish has no usable singular — so the learner cannot
+# get it right by habit or by copying the shape of the last sentence. They
+# must notice the noun is plural and then agree TWICE: «las», and «gustan».
+# m10 (visitar), m11 (recibir) and m12 (sombrero) set the pattern; this is
+# its sharpest form yet, because the noun itself carries the trigger.
+# No emoji — transfer cells are met cold, in text.
+#
+# Atom allocation across lessons (15 total):
+#   L1 me/gusta (2) · L2 pizza/helado/película/fútbol (4) · L3 te/mucho (2) ·
+#   L4 gustan (1) · L5 nadar/cocinar/viajar (3) · L6 le/favorito (2) ·
+#   L8 vacaciones (1, transfer only). L7 · L9 · L10 are zero-new.
+#   2+4+2+1+3+2+1 = 15.
+#   me (L1), te (L3) and le (L6) are split by unrelated lessons — the
+#   interleave doctrine. Blocking the three pronouns into one lesson is the
+#   version of this module that teaches a table nobody can use.
+#
+# FORMS THE GATE DERIVES — do not register:
+#   «favorita / favoritos / favoritas» ride the -o adjective gender fold and
+#   the regular plural fold. «pizzas», «helados», «películas» ride the m3
+#   plural canon. The atoms are the masculine singulars only.
+
+newAtoms:
+  # ── CARRIER ATOMS: me / te / gusta / mucho ────────────────────────────────
+  # These four are NEW SURFACES but their WORDS are already owned by earlier
+  # modules, because `atomModuleBySurfaceWord` (moduleBarGuards.ts:546) indexes
+  # every WORD of every registered surface, first-write-wins:
+  #     me     -> m2  via «me llamo»        te  -> m2  via «te llamas»
+  #     gusta  -> m7  via «me gusta»        mucho -> m1 via «mucho gusto»
+  # They are registered here ON PURPOSE. This is NOT the m11 pan/pero mistake:
+  # those were EXACT-surface duplicates (a duplicate `es:pan` id). Here the ids
+  # differ (`es:me` vs `es:me llamo`), so nothing collides — and registering
+  # them IS the module's thesis. m2 and m7 taught «me llamo» / «me gusta» as
+  # unanalysable chunks; m13's job is to break those chunks open and show that
+  # `me` is a swappable piece and that the verb can become `gustan`.
+  # CONSEQUENCE FOR AUTHORS: a clozeLit answered by me/te/gusta/mucho reads as
+  # a PRIOR-module atom under pin E2, so it survives only on the §13.9 law 5
+  # discrimination-trial exemption — EXACTLY TWO options, both taught. A
+  # three-option cloze on any of these four fails. (46 shipped clozes in
+  # m3–m12 already ride this exemption; it is the normal path, not a hack.)
+  # ──────────────────────────────────────────────────────────────────────────
+  - { surface: "gusta", meaningEn: "is pleasing (to someone)", partOfSpeech: "verb", kind: "vocab", hint: "GOOS-tah" }
+  - { surface: "gustan", meaningEn: "are pleasing (to someone)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "me", meaningEn: "to me", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "te", meaningEn: "to you", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "le", meaningEn: "to him, to her", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "mucho", meaningEn: "a lot", partOfSpeech: "adverb", kind: "vocab" }
+  - { surface: "pizza", meaningEn: "pizza", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍕" }
+  - { surface: "helado", meaningEn: "ice cream", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍨" }
+  - { surface: "película", meaningEn: "movie", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📽️", hint: "peh-LEE-ku-la" }
+  - { surface: "fútbol", meaningEn: "soccer", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "⚽" }
+  - { surface: "nadar", meaningEn: "to swim", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "cocinar", meaningEn: "to cook", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "viajar", meaningEn: "to travel", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "favorito", meaningEn: "favorite", partOfSpeech: "adjective", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — no emoji: it must be met cold, in text.
+  - { surface: "vacaciones", meaningEn: "vacation", partOfSpeech: "noun", kind: "vocab", gender: "f", hint: "always plural in Spanish — there is no «vacación» you would ever say" }
+
+lessons:
+
+  # ── L1 · me/gusta debut — the sentence that runs backwards, and the fact
+  #    that the learner already owns its shape. ─────────────────────────────
+  #    Shape follows m12 L4: the first contact is a MAP of the whole
+  #    sentence, segmented and glossed, because the ONE thing this lesson
+  #    has to sell is the word order, and a word order is not visible in a
+  #    vocabulary card.
+  #
+  #    ⚠️ «me gusta» IS NOT NEW TEXT. m7 taught it in L2 as a single
+  #    indivisible formula («me gusta el café», atom surface "me gusta",
+  #    still registered, still in the carriers file) and told the learner
+  #    outright that «the grammar behind gusta comes later». This is later.
+  #    So the map is not a first meeting, it is a DISSECTION: the same line
+  #    the learner has said since the café, cut into four tokens for the
+  #    first time. The revealNote and the info card both say so, because a
+  #    learner who thinks this is new vocabulary will try to memorise what
+  #    they already know instead of noticing the shape.
+  #
+  #    ⚠️ THE ON-RAMP IS m12, NAMED EXPLICITLY. «cuesta» is a one-thing verb
+  #    whose subject is the price-bearing object and whose beneficiary never
+  #    appears — «¿cuánto cuesta?» never says who is paying. «gusta» is the
+  #    same verb shape with the person put back in front. Ten lessons of
+  #    shopping were, structurally, ten lessons of gustar. The info card is
+  #    spent entirely on that, and «¿cuánto cuesta?» is retrieved as this
+  #    lesson's cued recall (printed non-recall at m12 es-m12-4-l4-sp-
+  #    cuantocuesta) so the comparison is a thing the learner SAYS, not a
+  #    thing they are told.
+  #
+  #    ⚠️ NO NEW NOUN APPEARS. Everything liked here is m3–m12 property —
+  #    café/pan/sopa/queso/carne (m7, m11) and música (m10). L2 owns
+  #    pizza/helado/película/fútbol and this lesson does not touch them.
+  #
+  #    ⚠️ NO «gustan», ANYWHERE. Not as an answer, not as a tile, not as a
+  #    distractor. L4 is the crux and it gets its own first contact; a
+  #    stray «gustan» tile here would spend it in a discard pile. The
+  #    number split is only ever GESTURED at ("one thing pleases").
+  #
+  #    The error mode this lesson actually drills is «yo gusta» — the
+  #    English-shaped sentence every beginner writes. «yo» is on the tile
+  #    bank of every build, is the wrong half of l1-c-meyo, and is the
+  #    wrong option in the sim. It is never the answer anywhere.
+  #
+  #    l1-c-meyo is a two-option cloze on purpose. `me` reads as an m2 word
+  #    to the pin-E2 gate (m2's «me llamo» owns the token "me" in
+  #    atomModuleBySurfaceWord, which maps WORDS, not surfaces), so a
+  #    three-option cloze on it would trip E2 even though `me` is this
+  #    module's own new atom. Exactly two taught options makes it the
+  #    alternating-answer discrimination trial the pin exempts — which is
+  #    also, independently, the right pedagogy: me-or-yo is a binary.
+  - n: 1
+    template: free
+    title: "Me gusta"
+    description: "«Me gusta el café» is not I-like-coffee word for word. It is the coffee is pleasing to me — the same one-thing verb you have been shopping with since «cuesta»."
+    steps:
+      - kind: map
+        id: l1-map-megustaelcafe
+        tokens: ["me", "gusta", "el", "café"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "coffee", tokenIndex: 3 }
+        audioText: "me gusta el café"
+        revealNote: "You have said this line since the café — but back then «me gusta» arrived as one piece, a formula nobody took apart. Here it is in four. «me» is to me. «gusta» is is pleasing. «el café» is the thing doing the pleasing, and it sits at the END. Read the arrows left to right and you get: to me — is pleasing — the coffee."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: speakLit
+        id: l1-sp-megustaelcafe
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: ["me", "gusta", "el", "café"]
+      # The module's ONE info card, spent on the thesis and on nothing else.
+      # It sits AFTER the map and the voicing (the m11 L5 / m12 L1 idiom: a
+      # card confirms a noticing, it never previews a rule).
+      - kind: info
+        id: l1-info-alreves
+        title: "The coffee is pleasing to me"
+        body: "«me gusta el café» runs backwards from English. Word for word it is: to me — is pleasing — the coffee. The coffee is the one doing something; you are the one it happens to. Notice what is missing: nothing in that sentence says I. And notice where «me» sits — right at the front, before the verb, which is where Spanish puts the person a thing happens to. You already own this shape. Ten lessons of shopping ran on «cuesta»: one thing costs. «¿cuánto cuesta?» never says who is paying, and nobody misses it. «gusta» is the same one-thing verb with the person put back in front. One thing costs. One thing pleases."
+      - kind: buildLit
+        id: l1-b-megustaelpan
+        es: "me gusta el pan"
+        en: "I like bread"
+        atoms: ["me", "gusta", "el", "pan"]
+        tiles: ["yo", "la"]
+      - kind: audioWimcq
+        id: l1-ear-llave
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la ventana", emoji: "🪟" }
+          - { surface: "la silla", emoji: "🪑" }
+      # THE «yo gusta» BEAT. Two options, both taught, and the wrong one is
+      # the sentence the learner's English wants to write. Statement, never
+      # a question — the compiler blanks a literal whitespace token and a
+      # «¿» would ride into it.
+      - kind: clozeLit
+        id: l1-c-meyo
+        es: "me gusta la sopa"
+        en: "I like soup"
+        blank: "me"
+        options: ["me", "yo"]
+        atoms: ["me", "gusta", "la", "sopa"]
+        why: "«yo» is the word for the one DOING something, and here the soup is doing it — it is pleasing. You are the one it happens to, and that is «me». «yo gusta la sopa» is the sentence English wants; Spanish never says it."
+      - kind: speakLit
+        id: l1-sp-megustalasopa
+        es: "me gusta la sopa"
+        en: "I like soup"
+        atoms: ["me", "gusta", "la", "sopa"]
+      # `gusta` gets a real ANSWER position of its own here — it is not
+      # allowed to live in this lesson only as a tile it is handed. The
+      # default prompt is used deliberately: a custom prompt quoting
+      # «cuesta» would make the «cuesta» distractor echo the prompt and
+      # fail the inv-10 echo check.
+      - kind: textMcq
+        id: l1-tm-gusta
+        target: "gusta"
+        distractors: ["cuesta", "quiero", "tengo"]
+      - kind: listenBuildLit
+        id: l1-lb-megustalamusica
+        es: "me gusta la música"
+        en: "I like music"
+        atoms: ["me", "gusta", "la", "música"]
+        tiles: ["yo", "el"]
+      # The on-ramp, retrieved rather than asserted. Printed non-recall at
+      # m12 es-m12-4-l4-sp-cuantocuesta.
+      - kind: speakLit
+        id: l1-sp-recall-cuantocuesta
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l1-lc-megustaelqueso
+        es: "me gusta el queso"
+        en: "I like cheese."
+        atoms: ["me", "gusta", "el", "queso"]
+        distractorsEn:
+          - "I like bread."
+          - "I like soup."
+          - "I want cheese."
+      - kind: buildLit
+        id: l1-b-megustalacarne
+        es: "me gusta la carne"
+        en: "I like meat"
+        atoms: ["me", "gusta", "la", "carne"]
+        tiles: ["yo", "el"]
+      - kind: audioWimcq
+        id: l1-ear-carro
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "el autobús", emoji: "🚌" }
+          - { surface: "el celular", emoji: "📱" }
+      # «¿te gusta…?» is m7's registered formula (carrier, printed at
+      # es-m7-3-sp-tegusta), not a preview of L3's `te` atom — the NPC has
+      # been asking this question since the café module. L3 splits it the
+      # same way L1 just split «me gusta».
+      - kind: sim
+        id: l1-sim-ana-cafe
+        scene: { emoji: "☕", title: "Ana asks what you like", setting: "Ana slides the menu across the table and waits." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te gusta el café?", audioText: "¿te gusta el café?", gloss: "Do you like coffee?" }
+            goal: "Say yes — you like coffee."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta el café" }
+                - { id: "wrong1", text: "sí, yo gusta el café" }
+                - { id: "wrong2", text: "sí, gusta el café" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta el café"
+            replyGloss: "Yes, I like coffee."
+            explanation: "«yo» is for the one doing something and the coffee is doing it. And the sentence cannot start at «gusta» — somebody has to be pleased, and that somebody is «me»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el pan?", audioText: "¿y el pan?", gloss: "And the bread?" }
+            goal: "Say you like the bread too."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "el", "pan", "también", "yo", "la"]
+              answer: "me gusta el pan también"
+              alsoAccepted: ["me gusta el pan"]
+            replyGloss: "I like bread too."
+            explanation: "«yo» is on the board to be left there. The bread pleases you; you do not please the bread."
+          - id: t3
+            npc: { speaker: "Ana", es: "Aquí la sopa es muy rica.", audioText: "aquí la sopa es muy rica", gloss: "The soup here is very good." }
+            goal: "Say you like the soup."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta la sopa" }
+                - { id: "wrong1", text: "yo gusta la sopa" }
+                - { id: "wrong2", text: "me gusta el sopa" }
+              correctOptionId: "right"
+              audioText: "me gusta la sopa"
+            replyGloss: "I like the soup."
+            explanation: "«la sopa» keeps its «la» — «gusta» changes nothing behind it."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "me", target: "to me" }
+          - { source: "gusta", target: "is pleasing" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "la sopa", target: "the soup" }
+          - { source: "el pan", target: "the bread" }
+          - { source: "la música", target: "the music" }
+          - { source: "la llave", target: "the key" }
+      # The win is the line the title promises — and it is the SAME line the
+      # lesson opened on, which is the point: nothing was added, the learner
+      # simply now knows what the four words are doing.
+      - kind: speakLit
+        id: l1-sp-win
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: ["me", "gusta", "el", "café"]
+
+  # ── L2 · pizza/helado/película/fútbol debut — four things worth liking,
+  #    and somewhere for L4's «gustan» to land. ────────────────────────────
+  #    Deliberately ZERO info cards: the module's one card is spent in L1 on
+  #    the thesis, and the el/la generalisation this lesson needs is carried
+  #    by the genderSort's own endingRule, which is a GRADED beat rather
+  #    than a passive one.
+  #
+  #    ⚠️ THIS IS THE MODULE'S genderSort (course convention: ≤2 per module;
+  #    L3..L10 authors, this is one of the two, and it is the only one this
+  #    lesson takes). It has a real reason: the four new nouns split 2–2,
+  #    «pizza»/«película» la, «helado»/«fútbol» el, which is free drilling
+  #    of a decision L4 will need the learner to make automatically before
+  #    it can add a second one. «fútbol» ends in neither -a nor -o, so it
+  #    carries a `note` and the endingRule says so out loud rather than
+  #    stating a rule that is false of an item on screen (the m12 L2 trap).
+  #
+  #    ⚠️ NOT A VOCABULARY SILO. Every one of the four nouns arrives inside
+  #    «me gusta ___», never bare: the debut imageMcq names the noun and the
+  #    very next beat spends it in L1's frame. There is no step in this
+  #    lesson that teaches a noun in isolation.
+  #
+  #    ⚠️ NO COORDINATED SUBJECT ANYWHERE. «me gusta la pizza y el helado»
+  #    is WRONG Spanish — two things joined by «y» take the plural verb,
+  #    and «gustan» is L4's atom. The win line therefore repeats the verb
+  #    («me gusta la pizza y me gusta el helado»), which is grammatical,
+  #    natural, and leaves L4 the whole of its reveal. Do not "tighten" it.
+  #
+  #    ⚠️ NO «gustan», as in L1: not an answer, not a tile, not a distractor.
+  #
+  #    Emoji are the pinned four (🍕 🍨 📽️ ⚽), all verified unbound before
+  #    this module. 📽️ is NOT 🎬 — 🎬 is «cine» (m9), which appears in this
+  #    lesson's match tail, so the two live one screen apart and must stay
+  #    distinct.
+  - n: 2
+    template: free
+    title: "La pizza y el helado"
+    description: "Pizza, ice cream, a movie and a football match — four things worth liking, and «me gusta» in front of every one of them."
+    steps:
+      - kind: imageMcq
+        id: l2-d-pizza
+        target: { surface: "la pizza", meaningEn: "the pizza", emoji: "🍕" }
+        distractors:
+          - { surface: "el helado", emoji: "🍨" }
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: map
+        id: l2-map-megustalapizza
+        tokens: ["me", "gusta", "la", "pizza"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "pizza", tokenIndex: 3 }
+        audioText: "me gusta la pizza"
+        revealNote: "Nothing new but the noun. «pizza» ends in -a, so it is «la pizza» — and «gusta» does not move an inch for it. There is one pizza doing the pleasing, and one thing is all «gusta» ever needs."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: l2-sp-megustalapizza
+        es: "me gusta la pizza"
+        en: "I like pizza"
+        atoms: ["me", "gusta", "la", "pizza"]
+      - kind: imageMcq
+        id: l2-d-helado
+        target: { surface: "el helado", meaningEn: "the ice cream", emoji: "🍨" }
+        distractors:
+          - { surface: "la pizza", emoji: "🍕" }
+          - { surface: "la leche", emoji: "🥛" }
+          - { surface: "la manzana", emoji: "🍎" }
+      - kind: buildLit
+        id: l2-b-megustaelhelado
+        es: "me gusta el helado"
+        en: "I like ice cream"
+        atoms: ["me", "gusta", "el", "helado"]
+        tiles: ["la", "yo"]
+      - kind: imageMcq
+        id: l2-d-pelicula
+        target: { surface: "la película", meaningEn: "the movie", emoji: "📽️" }
+        distractors:
+          - { surface: "el fútbol", emoji: "⚽" }
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la foto", emoji: "📷" }
+      - kind: speakLit
+        id: l2-sp-megustalapelicula
+        es: "me gusta la película"
+        en: "I like the movie"
+        atoms: ["me", "gusta", "la", "película"]
+      - kind: imageMcq
+        id: l2-d-futbol
+        target: { surface: "el fútbol", meaningEn: "soccer", emoji: "⚽" }
+        distractors:
+          - { surface: "la película", emoji: "📽️" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la música", emoji: "🎵" }
+      - kind: listenBuildLit
+        id: l2-lb-megustaelfutbol
+        es: "me gusta el fútbol"
+        en: "I like soccer"
+        atoms: ["me", "gusta", "el", "fútbol"]
+        tiles: ["la", "yo"]
+      - kind: genderSort
+        id: l2-sort
+        prompt: "el or la?"
+        items:
+          - { surface: "pizza", side: "la", meaningEn: "pizza" }
+          - { surface: "película", side: "la", meaningEn: "movie" }
+          - { surface: "helado", side: "el", meaningEn: "ice cream" }
+          - { surface: "fútbol", side: "el", meaningEn: "soccer", note: "ends in neither -a nor -o — this one you just learn" }
+          - { surface: "sopa", side: "la", meaningEn: "soup" }
+          - { surface: "queso", side: "el", meaningEn: "cheese" }
+        endingRule: "-a words take la, -o words take el — so «pizza» and «película» are la-words and «helado» is an el-word. «fútbol» ends in neither, and it is an el-word: «el fútbol». Whichever side a noun lands on, «gusta» in front of it does not change."
+      # The blank is a NOUN, not a particle: the answer is this module's own
+      # atom, so pin E2 is satisfied outright rather than by exemption. The
+      # English gloss is the only cue, which makes it a meaning check on
+      # «película» instead of a shape check.
+      - kind: clozeLit
+        id: l2-c-pelicula
+        es: "me gusta la película"
+        en: "I like the movie"
+        blank: "película"
+        options: ["película", "pizza", "sopa"]
+        atoms: ["me", "gusta", "la", "película"]
+        why: "All three are la-words, so «la» tells you nothing here — only the meaning does. «película» is the one on a screen."
+      - kind: audioWimcq
+        id: l2-ear-manzana
+        target: { surface: "la manzana", emoji: "🍎" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "el pollo", emoji: "🍗" }
+      # Printed non-recall at m9 es-m9-2-sp-voyalcine.
+      - kind: speakLit
+        id: l2-sp-recall-cine
+        es: "voy al cine"
+        en: "I go to the movies"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l2-lc-megustaelfutbol
+        es: "me gusta el fútbol"
+        en: "I like soccer."
+        atoms: ["me", "gusta", "el", "fútbol"]
+        distractorsEn:
+          - "I like the movie."
+          - "I like ice cream."
+          - "I like pizza."
+      - kind: buildLit
+        id: l2-b-megustalapelicula
+        es: "me gusta la película"
+        en: "I like the movie"
+        atoms: ["me", "gusta", "la", "película"]
+        tiles: ["el", "yo"]
+      - kind: audioWimcq
+        id: l2-ear-futbol
+        target: { surface: "el fútbol", emoji: "⚽" }
+        distractors:
+          - { surface: "la película", emoji: "📽️" }
+          - { surface: "el helado", emoji: "🍨" }
+      - kind: sim
+        id: l2-sim-diego-pizza
+        scene: { emoji: "🍕", title: "Diego picks the evening", setting: "Diego has a pizza box in one hand and the remote in the other." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te gusta la pizza?", audioText: "¿te gusta la pizza?", gloss: "Do you like pizza?" }
+            goal: "Say yes — you like pizza."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta la pizza" }
+                - { id: "wrong1", text: "sí, me gusta el pizza" }
+                - { id: "wrong2", text: "sí, yo gusta la pizza" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta la pizza"
+            replyGloss: "Yes, I like pizza."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el helado?", audioText: "¿y el helado?", gloss: "And ice cream?" }
+            goal: "Say you like ice cream too."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "el", "helado", "también", "la", "yo"]
+              answer: "me gusta el helado también"
+              alsoAccepted: ["me gusta el helado"]
+            replyGloss: "I like ice cream too."
+            explanation: "«helado» ends in -o, so it takes «el» — and «gusta» in front of it does not move either way."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿La película o el fútbol?", audioText: "¿la película o el fútbol?", gloss: "The movie or soccer?" }
+            goal: "Say you like the movie."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta la película" }
+                - { id: "wrong1", text: "me gusta el película" }
+                - { id: "wrong2", text: "me gusta la fútbol" }
+              correctOptionId: "right"
+              audioText: "me gusta la película"
+            replyGloss: "I like the movie."
+            explanation: "Both wrong answers put the noun on the wrong side: it is «la película» and «el fútbol», and the noun decides that, not you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "la pizza", target: "the pizza" }
+          - { source: "el helado", target: "the ice cream" }
+          - { source: "la película", target: "the movie" }
+          - { source: "el fútbol", target: "soccer" }
+          - { source: "gusta", target: "is pleasing" }
+          - { source: "el cine", target: "the movie theater" }
+          - { source: "la manzana", target: "the apple" }
+      # Two likings, two verbs. «me gusta la pizza y el helado» would be
+      # wrong Spanish — a coordinated subject takes the plural — and the
+      # plural verb belongs to L4. Repeating «me gusta» is the honest
+      # sentence a beginner can say today.
+      - kind: speakLit
+        id: l2-sp-win
+        es: "me gusta la pizza y me gusta el helado"
+        en: "I like pizza and I like ice cream"
+        atoms: ["me", "gusta", "la", "pizza", "y", "el", "helado"]
+
+  # ── L3 · ¿Te gusta? — the question, and the second person ──────────────
+  #   m13's first two lessons are a statement drill: «me gusta X», ten times.
+  #   This is the lesson that makes it a conversation, and it does it by
+  #   changing ONE WORD. «me gusta el fútbol» → «¿te gusta el fútbol?». The
+  #   verb does not move, does not re-spell, does not agree with anybody. So
+  #   every beat here stages the same sentence with one word swapped, and the
+  #   two beats where the learner has to commit (l3-c-te, l3-agree-tuyyo) put
+  #   «me» and «te» side by side and let the meaning pick.
+  #   ⚠️ «mucho» goes AFTER the verb — «me gusta mucho el helado» — and it is
+  #   never «muy». That is the second atom's whole content, so it rides in the
+  #   TILE BANKS (l3-b-megustamucho, l3-lb-tegustapelicula) and in the second
+  #   blank of the agreement line rather than getting a card of its own.
+  #   ⚠️ NO «gustan» ANYWHERE — the plural verb is L4's atom and its debut is
+  #   L4's speakLit. A «gustan» tile here would steal it.
+  #   The recall is «¿te gusta el café?» on purpose: m7 taught that exact
+  #   sentence as an unanalysed formula and the learner has been saying it for
+  #   six modules. Saying it again the lesson they learn what «te» is doing is
+  #   the whole payoff. (Printed in m7 — verified against the shipped course,
+  #   not assumed.)
+  - n: 3
+    template: free
+    title: "¿Te gusta?"
+    description: "«Me gusta» becomes «te gusta» by swapping one word — and the verb does not move an inch."
+    steps:
+      - kind: map
+        id: l3-map-tegustafutbol
+        tokens: ["¿te", "gusta", "el", "fútbol?"]
+        pairs:
+          - { en: "to you", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "soccer", tokenIndex: 3 }
+        audioText: "¿te gusta el fútbol?"
+        revealNote: "You already own every other word here. Hold it against «me gusta el fútbol» and look at what changed: «me» became «te», and that is all. «gusta» did not move and did not re-spell. Spanish says who is doing the liking with the little word in front — «me» is to me, «te» is to you."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: speakLit
+        id: l3-sp-tegustafutbol
+        es: "¿te gusta el fútbol?"
+        en: "do you like soccer?"
+        atoms: ["te", "gusta", "el", "fútbol"]
+      - kind: map
+        id: l3-map-megustamucho
+        tokens: ["me", "gusta", "mucho", "el", "helado"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "ice cream", tokenIndex: 4 }
+        audioText: "me gusta mucho el helado"
+        revealNote: "«mucho» is how much — a lot. Watch where it sits: right after the verb, before the thing. English puts it at the end («I like ice cream a lot»), Spanish puts it in the middle, and it never goes in front of the verb."
+        tokenGenders: { 3: "m", 4: "m" }
+      - kind: speakLit
+        id: l3-sp-megustamucho
+        es: "me gusta mucho el helado"
+        en: "I like ice cream a lot"
+        atoms: ["me", "gusta", "mucho", "el", "helado"]
+      # The lesson's ONE card, spent AFTER both new words have been said out
+      # loud (m11 L5 / m12 L3 idiom): a card confirms a noticing, it never
+      # previews a rule. It is spent on the thing the learner cannot deduce —
+      # that the verb is the part which does NOT move.
+      - kind: info
+        id: l3-info-meote
+        title: "One word swapped, nothing else"
+        body: "«me gusta el café» and «te gusta el café» are the same sentence with one word changed. «me» is to me; «te» is to you. Now look at what did NOT change: «gusta» is in exactly the same place, spelled exactly the same way. Spanish marks the person out front and leaves the verb alone. And «mucho» — a lot — goes after the verb: «me gusta mucho el helado»."
+      - kind: buildLit
+        id: l3-b-tegustapizza
+        es: "¿te gusta la pizza?"
+        en: "do you like pizza?"
+        atoms: ["te", "gusta", "la", "pizza"]
+        tiles: ["me", "el"]
+      # Statement, never a question: the compiler blanks a literal
+      # whitespace-delimited token, and «¿te» carries the ¿ into it.
+      - kind: clozeLit
+        id: l3-c-te
+        es: "te gusta la película"
+        en: "you like the movie"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["te", "gusta", "la", "película"]
+        why: "It is about the person you are talking TO, so «te». «me» would make it about you."
+      - kind: audioWimcq
+        id: l3-ear-libro
+        target: { surface: "el libro", emoji: "📖" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la pluma", emoji: "🖊️" }
+      # m7 taught this line as one unbreakable formula. Six modules later the
+      # learner says it again knowing which piece is the person.
+      - kind: speakLit
+        id: l3-sp-recall-cafe
+        es: "¿te gusta el café?"
+        en: "do you like coffee?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l3-b-megustamucho
+        es: "me gusta mucho el fútbol"
+        en: "I like soccer a lot"
+        atoms: ["me", "gusta", "mucho", "el", "fútbol"]
+        tiles: ["te", "muy"]
+      # The swap made visible: two blanks, one line, and the SAME two options
+      # in both. The learner cannot ride a habit — each blank is decided by
+      # who the clause is about, and the factory rotates the two option sets
+      # independently so position tells them nothing.
+      - kind: agreementLit
+        id: l3-agree-tuyyo
+        en: "I like ice cream and you like pizza"
+        audioText: "me gusta el helado y te gusta la pizza"
+        atoms: ["me", "gusta", "el", "helado", "y", "te", "la", "pizza"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "te"] } }
+          - { text: " gusta el helado y " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "me"] } }
+          - { text: " gusta la pizza" }
+      - kind: audioWimcq
+        id: l3-ear-leche
+        target: { surface: "la leche", emoji: "🥛" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: listenBuildLit
+        id: l3-lb-tegustapelicula
+        es: "te gusta mucho la película"
+        en: "you like the movie a lot"
+        atoms: ["te", "gusta", "mucho", "la", "película"]
+        tiles: ["me", "muy"]
+      # Both persons in one line, and the three wrong glosses each move
+      # exactly one thing — so the only way through is to actually hear which
+      # word is in front of which «gusta».
+      - kind: listenCompLit
+        id: l3-lc-contraste
+        es: "me gusta el café y te gusta el té"
+        en: "I like coffee and you like tea."
+        atoms: ["me", "gusta", "el", "café", "y", "te", "té"]
+        distractorsEn:
+          - "You like coffee and I like tea."
+          - "I like coffee and you like coffee."
+          - "I like tea and you like coffee."
+      - kind: speakLit
+        id: l3-sp-tegustahelado
+        es: "¿te gusta el helado?"
+        en: "do you like ice cream?"
+        atoms: ["te", "gusta", "el", "helado"]
+      - kind: textMcq
+        id: l3-tm-te
+        target: "te"
+        distractors: ["me", "mi", "tu"]
+      - kind: sim
+        id: l3-sim-ana-pizza
+        scene: { emoji: "🍕", title: "Ana wants to know what you like", setting: "Ana is deciding what to order and she keeps asking you first." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te gusta la pizza?", audioText: "¿te gusta la pizza?", gloss: "Do you like pizza?" }
+            goal: "Say yes, you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho" }
+                - { id: "wrong1", text: "sí, te gusta mucho" }
+                - { id: "wrong2", text: "sí, mucho gusta" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho"
+            replyGloss: "Yes, I like it a lot."
+            explanation: "Ana said «te» because she was talking about you. Answering about yourself flips it to «me» — and nothing else in the sentence moves. «mucho» stays after the verb."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el fútbol?", audioText: "¿y el fútbol?", gloss: "And soccer?" }
+            goal: "Say you like soccer a lot."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "mucho", "el", "fútbol", "te", "muy"]
+              answer: "me gusta mucho el fútbol"
+              alsoAccepted: ["me gusta el fútbol"]
+            replyGloss: "I like soccer a lot."
+            explanation: "«me», because it is you doing the liking. «muy» is in the bank as a trap: it makes adjectives bigger, not verbs — a verb takes «mucho»."
+          - id: t3
+            npc: { speaker: "Ana", es: "Me gusta mucho el helado.", audioText: "me gusta mucho el helado", gloss: "I like ice cream a lot." }
+            goal: "Ask if she likes the movie."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿te gusta la película?" }
+                - { id: "wrong1", text: "¿me gusta la película?" }
+                - { id: "wrong2", text: "¿te gusta el helado?" }
+              correctOptionId: "right"
+              audioText: "¿te gusta la película?"
+            replyGloss: "Do you like the movie?"
+            explanation: "You are asking Ana, so «te». «me» would be asking whether YOU like it, which you already know."
+          - id: t4
+            npc: { speaker: "Ana", es: "Sí, mucho.", audioText: "sí, mucho", gloss: "Yes, a lot." }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "me gusta", target: "I like it" }
+          - { source: "te gusta", target: "you like it" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "el helado", target: "the ice cream" }
+          - { source: "la película", target: "the movie" }
+          - { source: "el libro", target: "the book" }
+          - { source: "la leche", target: "the milk" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "¿te gusta la música?"
+        en: "do you like music?"
+        atoms: ["te", "gusta", "la", "música"]
+
+  # ── L4 · Me gustan — the CRUX. The verb agrees with the thing, not you. ──
+  #   This lesson does not teach number agreement. The learner spent TEN
+  #   lessons on it in m12 — «esta camisa cuesta diez», «los zapatos cuestan
+  #   quince» — and m12's own L4 was built to hand this module the split. So
+  #   every teaching surface here RENAMES a machine the learner already owns:
+  #   the first map's revealNote says it, the card says it in m12's own
+  #   sentences, l4-sp-recall-cuestan makes the learner SAY the m12 line one
+  #   step before its m13 twin, and l4-match puts cuesta/cuestan and
+  #   gusta/gustan in the same grid so the parallel is graded, not asserted.
+  #   ⚠️ NUMBER IS THE ONLY VARIABLE, everywhere. Every bank holds the other
+  #   number of the SAME verb («gusta» against «gustan»), never a different
+  #   verb, and every plural bank also holds the singular article so the two
+  #   decisions move together. A blank offering «gusta» against «cuesta»
+  #   would test vocabulary and teach nothing.
+  #   ⚠️ ZERO NEW NOUNS. The plurals are m12's (camisas, faldas, zapatos) and
+  #   m3's (libros); the singular side reuses L2's pizza/fútbol and m12's
+  #   camisa/falda. «me gustan» has somewhere to land without a new word.
+  #   ⚠️ TWO agreementLits, which is one more than any m12 lesson, and they do
+  #   different jobs: l4-agree-lascamisas moves the article and the verb
+  #   ending together (the agreement CHAIN), l4-agree-contraste blanks the
+  #   same verb twice in one sentence with the number as the only difference
+  #   between the two clauses (the RULE, isolated). The second is the step
+  #   this lesson exists for.
+  #   ⚠️ «te gustan» appears twice on purpose (l4-c-tegustanfaldas,
+  #   l4-b-tegustanzapatos): L3's pronoun against L4's verb is the proof that
+  #   the -n is not about the person. Nothing else in the module makes that
+  #   argument.
+  - n: 4
+    template: free
+    title: "Me gustan"
+    description: "One thing is pleasing, or more than one is — and the -n that says which is the same -n you have been using since «cuestan»."
+    steps:
+      - kind: map
+        id: l4-map-megustanzapatos
+        tokens: ["me", "gustan", "los", "zapatos"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "are pleasing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "shoes", tokenIndex: 3 }
+        audioText: "me gustan los zapatos"
+        revealNote: "You have built this machine already. «esta camisa cuesta diez» — one shirt, no -n. «los zapatos cuestan quince» — two shoes, and the verb grows an -n. This is the same -n on a different word: one thing, «gusta»; more than one, «gustan». Nothing new is happening here except which verb it happens to."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: speakLit
+        id: l4-sp-megustanzapatos
+        es: "me gustan los zapatos"
+        en: "I like the shoes"
+        atoms: ["me", "gustan", "los", "zapato"]
+      - kind: buildLit
+        id: l4-b-megustanlibros
+        es: "me gustan los libros"
+        en: "I like the books"
+        atoms: ["me", "gustan", "los", "libro"]
+        tiles: ["gusta", "el"]
+      # The SINGULAR, deliberately — three beats in a row asking for «gustan»
+      # would teach "pick the new word", not "pick the number".
+      - kind: clozeLit
+        id: l4-c-gustacamisa
+        es: "me gusta la camisa"
+        en: "I like the shirt"
+        blank: "gusta"
+        options: ["gusta", "gustan"]
+        atoms: ["me", "gusta", "la", "camisa"]
+        why: "One shirt is doing the pleasing, so no -n. The -n is waiting for a second thing."
+      # The module's one card for this lesson, and it is spent RENAMING, not
+      # teaching: every rule sentence in it is one the learner already met in
+      # m12. Placed after two commits (the build and the cloze), so it
+      # confirms a noticing rather than previewing a rule.
+      - kind: info
+        id: l4-info-elnumero
+        title: "The same -n you already know"
+        body: "«¿cuánto cuesta esta camisa?» — one shirt, so «cuesta». «¿cuánto cuestan los zapatos?» — two shoes, so «cuestan». «gusta» and «gustan» split in exactly the same place: «me gusta el fútbol» for one thing, «me gustan los zapatos» for more than one. Now the part worth pinning down — the -n has nothing to do with you. «me» never changes shape. The thing you like is what grows the -n, because in Spanish that thing is the one doing the pleasing."
+      - kind: audioWimcq
+        id: l4-ear-llave
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: listenBuildLit
+        id: l4-lb-megustanfaldas
+        es: "me gustan las faldas"
+        en: "I like the skirts"
+        atoms: ["me", "gustan", "las", "falda"]
+        tiles: ["gusta", "la"]
+      # The agreement CHAIN, made visible: the verb ending and the article are
+      # two blanks in ONE line, so the learner watches them move together
+      # instead of being told they do. This is m12's l4-agree-loslibros with
+      # the price verb swapped out — the same step, the same lesson, a
+      # module later.
+      - kind: agreementLit
+        id: l4-agree-lascamisas
+        en: "I like the shirts"
+        audioText: "me gustan las camisas"
+        atoms: ["me", "gustan", "las", "camisa"]
+        segments:
+          - { text: "me gust" }
+          - { blank: { id: "verb", answer: "an", options: ["an", "a"] } }
+          - { text: " " }
+          - { blank: { id: "art", answer: "las", options: ["las", "la"] } }
+          - { text: " camisas" }
+      # The m12 sentence, spoken from an English cue, one step before its m13
+      # twin. Printed in m12 L4 (l4-sp-loszapatos) — verified against the
+      # shipped course, not assumed.
+      - kind: speakLit
+        id: l4-sp-recall-cuestan
+        es: "¿cuánto cuestan los zapatos?"
+        en: "how much do the shoes cost?"
+        atoms: []
+        cue: recall
+      # L3's pronoun, L4's verb. If the -n were about the person, this would
+      # be «te gusta» — it is not, because faldas is what is doing the
+      # pleasing.
+      - kind: clozeLit
+        id: l4-c-tegustanfaldas
+        es: "te gustan las faldas"
+        en: "you like the skirts"
+        blank: "gustan"
+        options: ["gustan", "gusta"]
+        atoms: ["te", "gustan", "las", "falda"]
+        why: "«te» says who, and it never touches the verb. Two skirts are doing the pleasing, so the -n."
+      - kind: buildLit
+        id: l4-b-tegustanzapatos
+        es: "¿te gustan los zapatos?"
+        en: "do you like the shoes?"
+        atoms: ["te", "gustan", "los", "zapato"]
+        tiles: ["gusta", "el"]
+      - kind: audioWimcq
+        id: l4-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el parque", emoji: "🌳" }
+      # THE STEP THIS LESSON EXISTS FOR. Two clauses, one verb, and the ONLY
+      # difference between them is how many things are being liked. «me» is
+      # printed twice and blanked never — the person is visibly the constant,
+      # the number is visibly the variable.
+      - kind: agreementLit
+        id: l4-agree-contraste
+        en: "I like the skirt and I like the shoes"
+        audioText: "me gusta la falda y me gustan los zapatos"
+        atoms: ["me", "gusta", "la", "falda", "y", "gustan", "los", "zapato"]
+        segments:
+          - { text: "me gust" }
+          - { blank: { id: "v1", answer: "a", options: ["a", "an"] } }
+          - { text: " la falda y me gust" }
+          - { blank: { id: "v2", answer: "an", options: ["an", "a"] } }
+          - { text: " los zapatos" }
+      - kind: speakLit
+        id: l4-sp-megustanmucholibros
+        es: "me gustan mucho los libros"
+        en: "I like the books a lot"
+        atoms: ["me", "gustan", "mucho", "los", "libro"]
+      # Three wrong glosses, each moving exactly one thing: the number, the
+      # person, the noun. Nothing here can be passed by catching one word.
+      - kind: listenCompLit
+        id: l4-lc-numero
+        es: "me gustan mucho las camisas"
+        en: "I like the shirts a lot."
+        atoms: ["me", "gustan", "mucho", "las", "camisa"]
+        distractorsEn:
+          - "I like the shirt a lot."
+          - "You like the shirts a lot."
+          - "I like the skirts a lot."
+      - kind: sim
+        id: l4-sim-sofia-tienda
+        scene: { emoji: "👟", title: "Sofía at the shop", setting: "Sofía holds up a shirt, then points at a row of shoes behind her." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te gusta esta camisa?", audioText: "¿te gusta esta camisa?", gloss: "Do you like this shirt?" }
+            goal: "Say yes, you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho" }
+                - { id: "wrong1", text: "sí, me gustan mucho" }
+                - { id: "wrong2", text: "sí, te gusta mucho" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho"
+            replyGloss: "Yes, I like it a lot."
+            explanation: "One shirt is doing the pleasing, so no -n. And it is you doing the liking now, so «me»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y los zapatos?", audioText: "¿y los zapatos?", gloss: "And the shoes?" }
+            goal: "Say you like the shoes a lot."
+            reply:
+              mode: build
+              tiles: ["me", "gustan", "mucho", "los", "zapatos", "gusta", "las"]
+              answer: "me gustan mucho los zapatos"
+              alsoAccepted: ["me gustan los zapatos"]
+            replyGloss: "I like the shoes a lot."
+            explanation: "Shoes come in twos, so the verb takes the -n. «me» stayed exactly where it was and exactly as it was — it is not the part that counts."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Me gustan mucho las faldas.", audioText: "me gustan mucho las faldas", gloss: "I like skirts a lot." }
+            goal: "Ask if she likes the books."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿te gustan los libros?" }
+                - { id: "wrong1", text: "¿te gusta los libros?" }
+                - { id: "wrong2", text: "¿me gustan los libros?" }
+              correctOptionId: "right"
+              audioText: "¿te gustan los libros?"
+            replyGloss: "Do you like the books?"
+            explanation: "«libros» is more than one, so «gustan» — the person you are asking does not change that. «te» is only there to say who."
+          - id: t4
+            npc: { speaker: "Sofía", es: "Sí, me gustan mucho.", audioText: "sí, me gustan mucho", gloss: "Yes, I like them a lot." }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenas noches" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      # The rename, graded: m12's pair and m13's pair in one grid, glossed so
+      # the two rows say the same sentence about number.
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "gusta", target: "one thing is pleasing" }
+          - { source: "gustan", target: "more than one is pleasing" }
+          - { source: "cuesta", target: "one thing costs" }
+          - { source: "cuestan", target: "more than one costs" }
+          - { source: "me gustan los libros", target: "I like the books" }
+          - { source: "los zapatos", target: "the shoes" }
+          - { source: "la llave", target: "the key" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "me gusta la pizza y me gustan los libros"
+        en: "I like pizza and I like books"
+        atoms: ["me", "gusta", "la", "pizza", "y", "gustan", "los", "libro"]
+
+  # ── L5 · Me gusta nadar — liking an ACTIVITY: the verb behind «gusta» stays
+  #    in its dictionary shape, and the verb in front stays SINGULAR however
+  #    long the list gets. ────────────────────────────────────────────────
+  #    Shape follows m12 L1/L5: first contact is a MAP (a segmented sentence,
+  #    never a bare word), and each map is CASHED by the speakLit under it —
+  #    a word_map exposes nothing to the provenance gate, so «nadar» debuts on
+  #    l5-sp-nadar, «cocinar» on l5-sp-cocinar and «viajar» on
+  #    l5-sp-nadaryviajar, all `speaking` (an ES_INTRO_TYPE).
+  #    The third map is NOT a third teach card of the same shape: it carries
+  #    the lesson's trap, because «viajar» arrives inside «me gusta nadar y
+  #    viajar» — two activities, one «gusta». That is the beat the lesson
+  #    exists for, and it gets two graded commits of different kinds
+  #    (l5-agr-dosactividades blanks the ending; l5-c-gustavsgustan makes the
+  #    whole-word choice) rather than one.
+  #
+  #    ⚠️ INFINITIVE-ONLY, and the él/ella form of «nadar» is banned outright.
+  #    nadar/cocinar/viajar appear ONLY as bare infinitives — no cell of any
+  #    of the three exists in any field, including tile banks, cloze options,
+  #    sim wrong answers and these comments, which is why this note does not
+  #    print a single one of them. The él/ella form of «nadar» is doubly
+  #    banned because it is ALSO an ordinary Spanish word ("nothing"), so it
+  #    is out in that sense too and the lesson never reaches for it. The m4
+  #    kitchen noun is avoided on the same rule: it is a whole-word match for
+  #    the él/ella form of «cocinar», and m12 set the precedent for keeping
+  #    the banned shapes off the page entirely.
+  #
+  #    ⚠️ ORDERING PIN: no new atom may appear as a cloze OPTION or a build
+  #    TILE before its intro-type debut — `esSurfaces` pushes both, so an
+  #    option is an exposure and particle_cloze is not an ES_INTRO_TYPE.
+  #    «viajar» is therefore absent from l5-c-cualverbo's options (which is
+  #    why that blank runs nadar/cocinar) and appears first at l5-map-nadaryviajar.
+  #
+  #    The module's one card for this lesson sits AFTER all three debuts (the
+  #    m11 L5 / m12 L1 idiom: a card confirms a noticing, it never previews a
+  #    rule), and it is spent on the singular verb — the only thing here the
+  #    learner cannot deduce from the maps.
+  #    No genderSort: the type is capped at ≤2 course-wide per module and this
+  #    lesson has no gender work at all; three infinitives have no side.
+  - n: 5
+    template: free
+    title: "Me gusta nadar"
+    description: "Liking a THING was one lesson. Liking something you DO is this one — and the verb you like keeps the shape it has in a dictionary."
+    steps:
+      - kind: map
+        id: l5-map-nadar
+        tokens: ["me", "gusta", "nadar"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "to swim", tokenIndex: 2 }
+        audioText: "me gusta nadar"
+        revealNote: "«me gusta» is yours already — what is new is what comes after it. «nadar» is to swim, and that is the whole word: nothing added, no ending swapped. This is the shape a verb wears in a dictionary, and after «me gusta» it never wears any other."
+      - kind: speakLit
+        id: l5-sp-nadar
+        es: "me gusta nadar"
+        en: "I like to swim"
+        atoms: ["me", "gusta", "nadar"]
+      - kind: map
+        id: l5-map-cocinar
+        tokens: ["me", "gusta", "mucho", "cocinar"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "to cook", tokenIndex: 3 }
+        audioText: "me gusta mucho cocinar"
+        revealNote: "«cocinar» is to cook, and again it arrives untouched — the -ar is still sitting on the end of it. «mucho» has slipped in between: it stays next to the verb it is measuring, not out at the end of the line."
+      - kind: speakLit
+        id: l5-sp-cocinar
+        es: "me gusta mucho cocinar"
+        en: "I really like to cook"
+        atoms: ["me", "gusta", "mucho", "cocinar"]
+      # A blank on the ACTIVITY, not the verb — the two options are the two
+      # infinitives already said out loud above. «viajar» is deliberately NOT
+      # offered here: it has not debuted yet, and a cloze option is an
+      # exposure the provenance gate counts.
+      - kind: clozeLit
+        id: l5-c-cualverbo
+        es: "me gusta nadar en la playa"
+        en: "I like to swim at the beach"
+        blank: "nadar"
+        options: ["nadar", "cocinar"]
+        atoms: ["me", "gusta", "nadar", "en", "la", "playa"]
+        why: "Both words are activities and both are in their dictionary shape — the sentence tells you which one. At the beach it is the one you do in the water."
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      # THE TRAP, met as a sentence before it is met as a rule: «viajar»
+      # debuts inside a two-activity line, so the learner sees the list grow
+      # and «gusta» not move, in the same breath.
+      - kind: map
+        id: l5-map-nadaryviajar
+        tokens: ["me", "gusta", "nadar", "y", "viajar"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "to swim", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "to travel", tokenIndex: 4 }
+        audioText: "me gusta nadar y viajar"
+        revealNote: "«viajar» is the third one: to travel. Now count the words that changed when it joined — none. «me gusta nadar» became «me gusta nadar y viajar» and «gusta» stayed exactly where it was. Two activities, one «gusta». Say it and listen for how little happens."
+      - kind: speakLit
+        id: l5-sp-nadaryviajar
+        es: "me gusta nadar y viajar"
+        en: "I like to swim and to travel"
+        atoms: ["me", "gusta", "nadar", "y", "viajar"]
+      # The lesson's single card, spent on the singular verb — the one thing
+      # above that cannot be read off the maps. It sits after all three
+      # debuts, and it contrasts the trap against a countable thing.
+      - kind: info
+        id: l5-info-unagusta
+        title: "Two things you like, one «gusta»"
+        body: "Look at what follows the verb. «me gusta nadar» — the second word is the shape you would find in a dictionary, and it stays that way forever. You have done this before, back when you said «quiero bailar» and «quiero escuchar música»: one verb in front, the other one untouched behind it. Now the part that catches everybody. Add a second activity and nothing moves: «me gusta nadar y cocinar». Still «gusta». The verb is not counting your activities — liking-to-do is one idea, however long the list gets. Hold that against something you can actually count: «me gustan los libros», more than one book, so «gustan». Activities never do that."
+      # Blank the ENDING: one decision, and the sentence behind it is two
+      # activities long. agreement_cloze, not particle_cloze — this is a
+      # morpheme choice, and it keeps the lesson's cloze share honest.
+      - kind: agreementLit
+        id: l5-agr-dosactividades
+        en: "I like to swim and to cook"
+        audioText: "me gusta nadar y cocinar"
+        atoms: ["me", "gusta", "nadar", "cocinar"]
+        segments:
+          - { text: "me gust" }
+          - { blank: { id: "verbo", answer: "a", options: ["a", "an"] } }
+          - { text: " nadar y cocinar" }
+      - kind: buildLit
+        id: l5-b-tegustacocinar
+        es: "¿te gusta cocinar?"
+        en: "do you like to cook?"
+        atoms: ["te", "gusta", "cocinar"]
+        tiles: ["me", "gustan"]
+      - kind: listenCompLit
+        id: l5-lc-viajar
+        es: "me gusta mucho viajar"
+        en: "I really like to travel."
+        atoms: ["me", "gusta", "mucho", "viajar"]
+        distractorsEn:
+          - "I really like to cook."
+          - "I like to travel."
+          - "You really like to travel."
+      # Cross-module recall. m10 printed this line on a non-recall speaking
+      # step («quiero escuchar música»), which is what licenses it — and it is
+      # the same shape as everything above: one verb, then a dictionary verb.
+      - kind: speakLit
+        id: l5-sp-recall-escucharmusica
+        es: "quiero escuchar música"
+        en: "I want to listen to music"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l5-c-gustavsgustan
+        es: "me gusta cocinar y viajar"
+        en: "I like to cook and to travel"
+        blank: "gusta"
+        options: ["gusta", "gustan"]
+        atoms: ["me", "gusta", "cocinar", "y", "viajar"]
+        why: "Two activities on the list and the verb still does not move. «gustan» is what more than one countable THING gets — «me gustan los libros». An activity is one idea however many you name."
+      - kind: audioWimcq
+        id: l5-ear-musica
+        target: { surface: "la música", emoji: "🎵" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la foto", emoji: "📷" }
+      - kind: listenBuildLit
+        id: l5-lb-tegustanadar
+        es: "te gusta mucho nadar"
+        en: "you really like to swim"
+        atoms: ["te", "gusta", "mucho", "nadar"]
+        tiles: ["me", "gustan"]
+      - kind: textMcq
+        id: l5-tm-viajar
+        target: "viajar"
+        distractors: ["nadar", "cocinar", "bailar"]
+      - kind: sim
+        id: l5-sim-diego-actividades
+        scene: { emoji: "🏊", title: "Diego asks what you like", setting: "Diego drops onto the bench next to you and starts listing things." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te gusta nadar?", audioText: "¿te gusta nadar?", gloss: "Do you like swimming?" }
+            goal: "Say yes — you like to swim."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta nadar" }
+                - { id: "wrong1", text: "sí, me gustan nadar" }
+                - { id: "wrong2", text: "sí, te gusta nadar" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta nadar"
+            replyGloss: "Yes, I like to swim."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y cocinar?", audioText: "¿y cocinar?", gloss: "And cooking?" }
+            goal: "Say you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta mucho cocinar" }
+                - { id: "wrong1", text: "me gustan mucho cocinar" }
+                - { id: "wrong2", text: "te gusta mucho cocinar" }
+              correctOptionId: "right"
+              audioText: "me gusta mucho cocinar"
+            replyGloss: "I like cooking a lot."
+            explanation: "One activity, so «gusta» — and the person is you, so it is «me» in front, not «te»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Qué más?", audioText: "¿qué más?", gloss: "What else?" }
+            goal: "Say you like to swim and travel."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "nadar", "y", "viajar", "gustan", "te"]
+              answer: "me gusta nadar y viajar"
+              alsoAccepted: ["me gusta viajar y nadar"]
+            replyGloss: "I like to swim and to travel."
+            explanation: "Two activities and «gustan» is still the wrong tile — it is on the board to be left there."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "nadar", target: "to swim" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "la playa", target: "the beach" }
+          - { source: "la música", target: "the music" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "me gusta nadar, cocinar y viajar"
+        en: "I like to swim, to cook and to travel"
+        atoms: ["me", "gusta", "nadar", "cocinar", "y", "viajar"]
+
+  # ── L6 · A Diego le gusta — the third person, and the module's payoff word.
+  #    ────────────────────────────────────────────────────────────────────
+  #    Two atoms, and they are doing different jobs. «le» is a GRAMMAR atom:
+  #    one word where English keeps two, so the lesson's work is to stop the
+  #    learner reaching for a him-form and a her-form. «favorito» is the word
+  #    the module has been building toward since L2 put a movie on the board —
+  #    «mi película favorita» is a sentence a beginner actually wants.
+  #    Both debut on `speaking` (an ES_INTRO_TYPE) after a map that exposes
+  #    nothing: «le» on l6-sp-diego (via the whole line) and «favorito» on
+  #    l6-sp-favorita, where the token «favorita» folds to the registered
+  #    masculine.
+  #
+  #    THE LEADING «a Diego» IS TAUGHT AS PART OF THE SHAPE, not as a
+  #    translation — nothing in the English sentence corresponds to it, so the
+  #    map glosses it honestly (to · Diego · to him · is pleasing · the ·
+  #    soccer) and every produced line in the lesson carries it. Three
+  #    different people run through the same frame (Diego, Ana, Sofía, Carmen,
+  #    María in the sim) so the fixed part is the shape and the moving part is
+  #    the person — which doubles as third-person practice.
+  #
+  #    NOT REGISTERED, used freely: «favorita», and the plurals. The guard
+  #    folds an untracked regular feminine of an -o adjective into its
+  #    masculine and an untracked regular plural into its singular, so the
+  #    atom is «favorito» and every other shape rides the fold — exactly as
+  #    «películas» rides «película» and «libros» rides «libro».
+  #
+  #    ⚠️ inv 10 SUBTLETY, and it shaped two steps here: mcqDistractorLint
+  #    treats a particle_cloze's PROMPT as the rest of the sentence, so a
+  #    blank inside «a Diego le gusta el fútbol» may not offer any distractor
+  #    containing «fútbol». Both clozes here therefore blank a word whose
+  #    competitor is a single unrelated form (le/me/te, gustan/gusta), and
+  #    neither offers a content word that is standing in the line.
+  #    No genderSort (capped ≤2 per module, and L2 has the gender work); no
+  #    conjugated infinitive of any kind, and no banned shape appears here
+  #    either — see the L5 note above for the pin.
+  - n: 6
+    template: free
+    title: "A Diego le gusta"
+    description: "The third person. One word — «le» — covers to him and to her, and the name goes at the front of the sentence where English would never put it."
+    steps:
+      - kind: map
+        id: l6-map-diego
+        tokens: ["a", "Diego", "le", "gusta", "el", "fútbol"]
+        pairs:
+          - { en: "to", tokenIndex: 0 }
+          - { en: "Diego", tokenIndex: 1 }
+          - { en: "to him", tokenIndex: 2 }
+          - { en: "is pleasing", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "soccer", tokenIndex: 5 }
+        audioText: "a Diego le gusta el fútbol"
+        revealNote: "Read it in Spanish order and it comes out backwards: to Diego, is pleasing, the soccer. «le» is the new word — to him, and also to her. And the line opens with «a Diego», which is not a translation of anything you would say in English; it is simply how this sentence starts, every time."
+        tokenGenders: { 5: "m" }
+      - kind: speakLit
+        id: l6-sp-diego
+        es: "a Diego le gusta el fútbol"
+        en: "Diego likes soccer"
+        atoms: ["a", "le", "gusta", "el", "fútbol"]
+      # «le» is DECIDED here, two steps after it is said — and the options are
+      # the three persons, which is the only choice the word has. The foils
+      # are two letters long, so nothing here can echo the prompt.
+      - kind: clozeLit
+        id: l6-c-le
+        es: "a Ana le gusta la pizza"
+        en: "Ana likes pizza"
+        blank: "le"
+        options: ["le", "me", "te"]
+        atoms: ["a", "le", "gusta", "la", "pizza"]
+        why: "The pizza is pleasing to Ana — not to you, not to me. «le» is the word for that, and it is the same «le» you would use for Diego. Spanish does not split him from her here."
+      - kind: audioWimcq
+        id: l6-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: map
+        id: l6-map-favorita
+        tokens: ["mi", "película", "favorita"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "movie", tokenIndex: 1 }
+          - { en: "favorite", tokenIndex: 2 }
+        audioText: "mi película favorita"
+        revealNote: "«favorita» is the word this module has been walking toward. Its dictionary shape is «favorito» — «película» is a la-word, so it lands here as «favorita», the same -o → -a flip «bonito» does in «la casa es bonita». And notice where it stands: behind the noun, never in front of it."
+        tokenGenders: { 1: "f", 2: "f" }
+      - kind: speakLit
+        id: l6-sp-favorita
+        es: "mi película favorita"
+        en: "my favorite movie"
+        atoms: ["mi", "película", "favorito"]
+      # The lesson's one card, after both debuts. It is spent on «le» — the
+      # thing an English speaker cannot deduce, because English forces a
+      # choice Spanish does not make.
+      - kind: info
+        id: l6-info-le
+        title: "One word for him and for her"
+        body: "English makes you pick: to him, or to her. Spanish does not. «le» is both, and the sentence tells you which one is meant — that is exactly why the name goes up front. «a Diego le gusta el fútbol»: the «a Diego» is doing the job your ear is waiting on the word him to do. «a Ana le gusta la pizza»: same «le», different person, and nothing in the verb moved either. Two things to keep. The «a» in front of the name is not optional — «Diego le gusta» is not a sentence. And «le» never changes for a man or a woman; the only thing that ever changes this verb is how many things are being liked."
+      - kind: buildLit
+        id: l6-b-sofia-helado
+        es: "a Sofía le gusta el helado"
+        en: "Sofía likes ice cream"
+        atoms: ["a", "le", "gusta", "el", "helado"]
+        tiles: ["me", "gustan"]
+      - kind: listenCompLit
+        id: l6-lc-carmen
+        es: "a Carmen le gustan las películas"
+        en: "Carmen likes movies."
+        atoms: ["a", "le", "gustan", "las", "película"]
+        distractorsEn:
+          - "Carmen likes the movie."
+          - "I like movies."
+          - "Carmen likes soccer."
+      # Cross-module recall. m9 printed «voy al cine» on a non-recall speaking
+      # step, which is what licenses it — and it lands next to «película» on
+      # purpose.
+      - kind: speakLit
+        id: l6-sp-recall-voyalcine
+        es: "voy al cine"
+        en: "I'm going to the movies"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l6-c-gustan
+        es: "a Diego le gustan los libros"
+        en: "Diego likes books"
+        blank: "gustan"
+        options: ["gustan", "gusta"]
+        atoms: ["a", "le", "gustan", "los", "libro"]
+        why: "Count what is being liked, never who is doing the liking. There is more than one book, so the verb goes plural — and «le» in front does not move a letter."
+      - kind: audioWimcq
+        id: l6-ear-libro
+        target: { surface: "el libro", emoji: "📖" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la pluma", emoji: "🖊️" }
+      # The payoff sentence, BUILT — and the bank holds the masculine
+      # dictionary shape so the -a is a decision, not a copy.
+      - kind: buildLit
+        id: l6-b-mipeliculafavorita
+        es: "esta es mi película favorita"
+        en: "this is my favorite movie"
+        atoms: ["esta", "es", "mi", "película", "favorito"]
+        tiles: ["favorito", "este"]
+      - kind: listenBuildLit
+        id: l6-lb-ana-futbol
+        es: "a Ana le gusta el fútbol"
+        en: "Ana likes soccer"
+        atoms: ["a", "le", "gusta", "el", "fútbol"]
+        tiles: ["me", "gustan"]
+      - kind: textMcq
+        id: l6-tm-favorito
+        target: "favorito"
+        distractors: ["bonito", "nuevo", "viejo"]
+      - kind: agreementLit
+        id: l6-agr-librofavorito
+        en: "my favorite book"
+        audioText: "mi libro favorito"
+        atoms: ["mi", "libro", "favorito"]
+        segments:
+          - { text: "mi libro favorit" }
+          - { blank: { id: "adj", answer: "o", options: ["o", "a"] } }
+      - kind: sim
+        id: l6-sim-ana-pregunta
+        scene: { emoji: "⚽", title: "Ana asks about the others", setting: "Ana leans over. Diego has the game on; Sofía is queueing up a movie." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te gusta el fútbol?", audioText: "¿te gusta el fútbol?", gloss: "Do you like soccer?" }
+            goal: "Say no — but Diego likes it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero a Diego le gusta" }
+                - { id: "wrong1", text: "no, pero a Diego me gusta" }
+                - { id: "wrong2", text: "no, pero a Diego le gustan" }
+              correctOptionId: "right"
+              audioText: "no, pero a Diego le gusta"
+            replyGloss: "No, but Diego likes it."
+            explanation: "«me» would put the liking back on you, and «gustan» would be counting more than one thing. One game, one other person: «le gusta»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y a Sofía?", audioText: "¿y a Sofía?", gloss: "And Sofía?" }
+            goal: "Say Sofía likes movies."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "a Sofía le gustan las películas" }
+                - { id: "wrong1", text: "a Sofía le gusta las películas" }
+                - { id: "wrong2", text: "a Sofía me gustan las películas" }
+              correctOptionId: "right"
+              audioText: "a Sofía le gustan las películas"
+            replyGloss: "Sofía likes movies."
+            explanation: "The person changed and «le» did not. What changed the verb is the movies — more than one of them."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tu película favorita?", audioText: "¿y tu película favorita?", gloss: "And your favorite movie?" }
+            goal: "Say this is your favorite movie."
+            reply:
+              mode: build
+              tiles: ["esta", "es", "mi", "película", "favorita", "favorito", "este"]
+              answer: "esta es mi película favorita"
+            replyGloss: "This is my favorite movie."
+            explanation: "«película» is a la-word, so the whole line leans that way: «esta» at the front and «favorita» at the back. The two masculine tiles are there to be left there."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "le", target: "to him, to her" }
+          - { source: "favorito", target: "favorite" }
+          - { source: "la película", target: "the movie" }
+          - { source: "el fútbol", target: "soccer" }
+          - { source: "el helado", target: "ice cream" }
+          - { source: "el libro", target: "the book" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "a Ana le gusta mi película favorita"
+        en: "Ana likes my favorite movie"
+        atoms: ["a", "le", "gusta", "mi", "película", "favorito"]
+
+  # ── L7 · consolidation — every person, both verbs, one sentence at a time ──
+  #   Zero new words. This is the lesson where the module's six pieces stop
+  #   being six lessons: «me», «te» and «le» meet «gusta» and «gustan» in
+  #   sentences long enough that the learner has to hold the person and the
+  #   number at the same time, which nothing before here has asked for.
+  #
+  #   The opening map is the whole module in one line — «te gusta la pizza y
+  #   me gustan las películas». Two halves, one word apart: the person word
+  #   changes and does nothing, the thing liked changes and moves BOTH the
+  #   verb and the article. Every later beat is that line taken apart.
+  #
+  #   The sim is the scene the module has been building toward since L1:
+  #   three friends who like different things, so the learner has to switch
+  #   person mid-conversation (te → me → le) instead of drilling one row of
+  #   the table. Its build turn is the module's quietest hard fact — two
+  #   infinitives after «gusta» and the verb still does not go plural.
+  #
+  #   «vacaciones» is NOT here. It is L8's alone, met cold, once.
+  - n: 7
+    template: free
+    title: "Everything you like"
+    description: "No new words. Me, te and le, gusta and gustan, the four things and the three things to do — all of it in one sentence at a time."
+    steps:
+      # The module in nine tokens. The two halves are deliberately parallel
+      # so the ONE difference stands out: singular thing → «gusta» + «la»,
+      # plural thing → «gustan» + «las». The person word out front is the
+      # thing that does NOT react.
+      - kind: map
+        id: l7-map-tumepizza
+        tokens: ["te", "gusta", "la", "pizza", "y", "me", "gustan", "las", "películas"]
+        pairs:
+          - { en: "to you", tokenIndex: 0 }
+          - { en: "is pleasing", tokenIndex: 1 }
+          - { en: "the — one thing", tokenIndex: 2 }
+          - { en: "pizza", tokenIndex: 3 }
+          - { en: "and", tokenIndex: 4 }
+          - { en: "to me", tokenIndex: 5 }
+          - { en: "are pleasing", tokenIndex: 6 }
+          - { en: "the — more than one", tokenIndex: 7 }
+          - { en: "movies", tokenIndex: 8 }
+        audioText: "te gusta la pizza y me gustan las películas"
+        revealNote: "Not one new word — but look at the two halves. One pizza pleases you: «gusta», «la». Many films please me: «gustan», «las». The person word out front changed («te» → «me») and nothing else moved with it. Change the THING and the verb and the article both move together."
+        tokenGenders: { 3: "f", 8: "f" }
+      - kind: speakLit
+        id: l7-sp-peliculas
+        es: "me gustan las películas"
+        en: "I like movies"
+        atoms: ["me", "gustan", "las", "película"]
+      # m3's books, not one of this module's four nouns — the plural verb has
+      # to survive a noun the module never drilled it on.
+      - kind: clozeLit
+        id: l7-c-gustan
+        # Statement, never a question: the compiler blanks a literal
+        # whitespace-delimited word and «¿te» carries the ¿ into the token.
+        es: "me gustan los libros"
+        en: "I like books"
+        blank: "gustan"
+        options: ["gustan", "gusta"]
+        atoms: ["me", "gustan", "los", "libro"]
+        why: "More than one book is doing the pleasing, so the verb goes plural — «gustan». It never looks at «me»."
+      - kind: audioWimcq
+        id: l7-ear-1
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: l7-b-tegustahelado
+        es: "¿te gusta el helado?"
+        en: "do you like ice cream?"
+        atoms: ["te", "gusta", "el", "helado"]
+        tiles: ["gustan", "me"]
+      - kind: listenCompLit
+        id: l7-lc-diego
+        es: "a Diego le gusta el fútbol"
+        en: "Diego likes soccer."
+        atoms: ["a", "le", "gusta", "el", "fútbol"]
+        distractorsEn:
+          - "Diego likes ice cream."
+          - "María likes soccer."
+          - "Diego likes movies."
+      - kind: clozeLit
+        id: l7-c-le
+        es: "a María le gusta cocinar"
+        en: "María likes to cook"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["a", "le", "gusta", "cocinar"]
+        why: "The cooking pleases María, and María is neither you nor me — so the person word is «le»."
+      # m7 taught «me gusta el café» as one frozen lump three modules ago.
+      # The learner has said it before; this is the first time they can say
+      # WHY it is «gusta» and not «gustan». Licensed by m7's printed voicing
+      # (es-m7-2-sp-megustacafe).
+      - kind: speakLit
+        id: l7-sp-recall-cafe
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: ["me", "gusta"]
+        cue: recall
+      # The module's thesis as ONE decision, twice over: the verb ending and
+      # the article both key off «películas» and nothing on screen shows the
+      # learner which way either goes.
+      - kind: agreementLit
+        id: l7-agree-peliculas
+        en: "I really like movies"
+        audioText: "me gustan mucho las películas"
+        atoms: ["me", "gustan", "mucho", "las", "película"]
+        segments:
+          - { text: "me gust" }
+          - { blank: { id: "verb", answer: "an", options: ["a", "an"] } }
+          - { text: " mucho l" }
+          - { blank: { id: "art", answer: "as", options: ["a", "as"] } }
+          - { text: " películas" }
+      - kind: buildLit
+        id: l7-b-nadarplaya
+        es: "me gusta nadar en la playa"
+        en: "I like to swim at the beach"
+        atoms: ["me", "gusta", "nadar", "en", "la", "playa"]
+        tiles: ["gustan", "cocinar"]
+      - kind: textMcq
+        id: l7-tm-favorito
+        target: "favorito"
+        distractors: ["mucho", "gustan", "viajar"]
+      - kind: listenBuildLit
+        id: l7-lb-peliculas
+        es: "¿te gustan las películas?"
+        en: "do you like movies?"
+        atoms: ["te", "gustan", "las", "película"]
+        tiles: ["gusta", "la"]
+      # An infinitive is a thing you like too — and the meaning, not the
+      # shape, picks it. A bus does not take you swimming.
+      - kind: clozeLit
+        id: l7-c-viajar
+        es: "me gusta viajar en el autobús"
+        en: "I like to travel by bus"
+        blank: "viajar"
+        options: ["viajar", "nadar"]
+        atoms: ["me", "gusta", "viajar", "en", "el", "autobús"]
+        why: "A bus does not take you swimming — «viajar» is the one that goes places. And an action after «gusta» leaves the verb singular."
+      - kind: audioWimcq
+        id: l7-ear-2
+        target: { surface: "la música", emoji: "🎵" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la sopa", emoji: "🍲" }
+      # «favorito» PRODUCED, and the bank holds the feminine so the ending is
+      # a decision rather than a copy.
+      - kind: buildLit
+        id: l7-b-favorito
+        es: "el fútbol es mi favorito"
+        en: "soccer is my favorite"
+        atoms: ["el", "fútbol", "es", "favorito"]
+        tiles: ["favorita", "gustan"]
+      - kind: sim
+        id: l7-sim-amigos
+        scene: { emoji: "🍕", title: "Three friends, three favorites", setting: "Ana, Diego and Sofía are at the park and nobody can agree on anything." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te gusta la pizza?", audioText: "¿te gusta la pizza?", gloss: "Do you like pizza?" }
+            goal: "Say you like pizza a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta mucho la pizza" }
+                - { id: "wrong1", text: "me gustan mucho la pizza" }
+                - { id: "wrong2", text: "te gusta mucho la pizza" }
+              correctOptionId: "right"
+              audioText: "me gusta mucho la pizza"
+            replyGloss: "I really like pizza."
+          - id: t2
+            npc: { speaker: "Diego", es: "Me gustan las películas y el fútbol.", audioText: "me gustan las películas y el fútbol", gloss: "I like movies and soccer." }
+            goal: "Ask Diego if he likes ice cream."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿te gusta el helado?" }
+                - { id: "wrong1", text: "¿te gustan el helado?" }
+                - { id: "wrong2", text: "¿me gusta el helado?" }
+              correctOptionId: "right"
+              audioText: "¿te gusta el helado?"
+            replyGloss: "Do you like ice cream?"
+            explanation: "You are talking TO Diego, so the person word is «te». One ice cream is doing the pleasing, so the verb stays singular."
+          - id: t3
+            # Two things liked and the verb still does not move. The bank
+            # holds «gustan» and «viajar» so neither the number nor the verb
+            # can be found by elimination.
+            npc: { speaker: "Sofía", es: "¿Te gusta nadar?", audioText: "¿te gusta nadar?", gloss: "Do you like swimming?" }
+            goal: "Say you like to swim and cook."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "nadar", "y", "cocinar", "gustan", "viajar"]
+              answer: "me gusta nadar y cocinar"
+              alsoAccepted: ["me gusta cocinar y nadar"]
+            replyGloss: "I like to swim and to cook."
+            explanation: "Two things you like DOING, and the verb still does not move: «gusta». Actions do not come in plurals."
+          - id: t4
+            npc: { speaker: "Ana", es: "A Diego le gusta el fútbol.", audioText: "a Diego le gusta el fútbol", gloss: "Diego likes soccer." }
+            goal: "Say María likes movies."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "a María le gustan las películas" }
+                - { id: "wrong1", text: "a María le gusta las películas" }
+                - { id: "wrong2", text: "a María te gustan las películas" }
+              correctOptionId: "right"
+              audioText: "a María le gustan las películas"
+            replyGloss: "María likes movies."
+            explanation: "The films are what please her, and there is more than one of them — «gustan». María is neither of us, so her person word is «le»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "me gusta", target: "I like it (one thing)" }
+          - { source: "me gustan", target: "I like them (more than one)" }
+          - { source: "te gusta", target: "you like it" }
+          - { source: "le gusta", target: "he likes it, she likes it" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "favorito", target: "favorite" }
+          - { source: "la música", target: "the music" }
+      # The map line, said back in the learner's own voice — both halves now
+      # first person, so the person word is constant and only the thing liked
+      # decides the verb.
+      - kind: speakLit
+        id: l7-sp-win
+        es: "me gusta el fútbol y me gustan las películas"
+        en: "I like soccer and I like movies"
+        atoms: ["me", "gusta", "el", "fútbol", "gustan", "las", "película"]
+
+  # ── L8 · CHECKPOINT — who likes what, with nothing to lean on. ───────────
+  #   Graded steps only: no info card, no map, nothing the learner can tap
+  #   past. All three person words, both verb forms, «mucho», «favorito»,
+  #   the four nouns and two of the three infinitives are each decided at
+  #   least once, and no step announces which way the agreement goes.
+  #
+  #   ── TRANSFER TEST — the one step the module is built to earn ──────────
+  #   Every other sentence here points at a noun m13 has drilled for six
+  #   lessons. `cp-transfer-vacaciones` points at one the module has never
+  #   used. «vacaciones» is registered for THIS BEAT ONLY and appears
+  #   nowhere else in m13 — not in a tile bank, not in a matchLit, not in a
+  #   sim line, not in a later lesson (a bespoke test in m13.test.ts asserts
+  #   it). The shape is forced, not chosen:
+  #     - «vacaciones» is INHERENTLY PLURAL. Spanish has no singular anyone
+  #       says, so the learner cannot get it right by habit and cannot copy
+  #       the shape of the previous sentence: they must NOTICE the noun is
+  #       plural and then agree TWICE, at «las» and again at «gustan».
+  #       m10's «visitar», m11's «recibir» and m12's «sombrero» set the
+  #       pattern; this is its sharpest form, because the trigger is carried
+  #       by the new word itself rather than by the sentence around it.
+  #     - the bank holds the SINGULAR verb («gusta») and the SINGULAR
+  #       article («el»), so both decisions are live and neither can be
+  #       found by elimination.
+  #     - buildLit because build_sentence is one of the intro-capable step
+  #       types (ES_INTRO_TYPES). A textMcq or mcq debut fails the
+  #       provenance gate — multiple_choice is not intro-capable — and m10,
+  #       m11 and m12 each lost a compile lap discovering that.
+  #     - NOT a cue:"recall" speakLit: the course-wide recall law licenses
+  #       recall only for a phrase an earlier non-recall speaking step
+  #       already printed, and nothing has ever printed «vacaciones».
+  #     - no imageMcq anywhere near it: «vacaciones» is registered without
+  #       an emoji. A transfer cell is met cold, in text; a picture would
+  #       answer the question the step is asking.
+  #   Placement: step 9 of 18, between a clozeLit and an audioWimcq — two
+  #   unrelated beats of two different kinds, so the transfer touches no
+  #   step of its own kind and BREAKS a selection run rather than joining
+  #   one.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Who likes what"
+    description: "Every person word, both verb forms, no help — and one thing in the middle of it you have never liked before."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "a Diego le gusta mucho el helado"
+        en: "Diego really likes ice cream."
+        atoms: ["a", "le", "gusta", "mucho", "el", "helado"]
+        distractorsEn:
+          - "Diego really likes soccer."
+          - "María really likes ice cream."
+          - "Diego really likes movies."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "¿te gusta viajar?"
+        en: "do you like to travel?"
+        atoms: ["te", "gusta", "viajar"]
+        tiles: ["gustan", "nadar"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "a Sofía le gustan las películas"
+        en: "Sofía likes movies"
+        blank: "gustan"
+        options: ["gustan", "gusta"]
+        atoms: ["a", "le", "gustan", "las", "película"]
+        why: "Count what is doing the pleasing: more than one film. The verb follows the films, never Sofía."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "me gusta mucho el fútbol"
+        en: "I really like soccer"
+        atoms: ["me", "gusta", "mucho", "el", "fútbol"]
+        tiles: ["gustan", "muy"]
+      - kind: textMcq
+        id: cp-tm-1
+        target: "gustan"
+        distractors: ["gusta", "mucho", "favorito"]
+        prompt: "Which word do you use when MORE THAN ONE thing is liked?"
+      - kind: speakLit
+        id: cp-sp-1
+        es: "voy a la playa"
+        en: "I'm going to the beach"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "me gusta cocinar en casa"
+        en: "I like to cook at home"
+        blank: "cocinar"
+        options: ["cocinar", "viajar"]
+        atoms: ["me", "gusta", "cocinar", "en", "casa"]
+        why: "You do it at home, in a pan — «cocinar». And an action after «gusta» never makes the verb plural."
+      # ── TRANSFER TEST — see the lesson header for why it is shaped this way.
+      - kind: buildLit
+        id: cp-transfer-vacaciones
+        es: "me gustan las vacaciones"
+        en: "I like vacations"
+        atoms: ["me", "gustan", "las", "vacaciones"]
+        tiles: ["gusta", "el"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la manzana", emoji: "🍎" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "a Ana le gusta el cine"
+        en: "Ana likes the movie theater"
+        blank: "le"
+        options: ["le", "me"]
+        atoms: ["a", "le", "gusta", "el", "cine"]
+        why: "Ana is the one it pleases — not you, not me. «le» is the word for anybody else."
+      # «favorito» decided, not copied: the bank offers the masculine and the
+      # noun in the sentence is a la-word.
+      - kind: buildLit
+        id: cp-build-2
+        es: "la pizza es mi favorita"
+        en: "pizza is my favorite"
+        atoms: ["la", "pizza", "es", "favorito"]
+        tiles: ["favorito", "gustan"]
+      # Both verb forms in one line, with a negative on the first half, so
+      # the learner has to parse the sentence rather than spot a word.
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "no me gusta el fútbol pero me gustan las películas"
+        en: "I don't like soccer but I like movies."
+        atoms: ["no", "me", "gusta", "el", "fútbol", "pero", "gustan", "las", "película"]
+        distractorsEn:
+          - "I don't like movies but I like soccer."
+          - "I like soccer but I don't like movies."
+          - "I don't like soccer but I like ice cream."
+      - kind: speakLit
+        id: cp-sp-2
+        es: "quiero escuchar música"
+        en: "I want to listen to music"
+        atoms: []
+        cue: recall
+      # The agreement CHAIN as one decision — verb ending and article, both
+      # keyed off «libros», an m3 noun this module has never agreed with.
+      - kind: agreementLit
+        id: cp-agree-1
+        en: "María likes books"
+        audioText: "a María le gustan los libros"
+        atoms: ["a", "le", "gustan", "los", "libro"]
+        segments:
+          - { text: "a María le gust" }
+          - { blank: { id: "verb", answer: "an", options: ["a", "an"] } }
+          - { text: " l" }
+          - { blank: { id: "art", answer: "os", options: ["o", "os"] } }
+          - { text: " libros" }
+      - kind: buildLit
+        id: cp-build-3
+        es: "me gusta mucho la pizza"
+        en: "I really like pizza"
+        atoms: ["me", "gusta", "mucho", "la", "pizza"]
+        tiles: ["gustan", "muy"]
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "me gustan", target: "I like them (more than one)" }
+          - { source: "le gusta", target: "he likes it, she likes it" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "favorito", target: "favorite" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "el helado", target: "the ice cream" }
+          - { source: "la manzana", target: "the apple" }
+      # The line L7 assembled one morpheme at a time, now said cold and
+      # whole: plural verb, plural article, and «mucho» where a beginner
+      # wants to put «muy».
+      - kind: speakLit
+        id: cp-sp-win
+        es: "me gustan mucho las películas"
+        en: "I really like movies"
+        atoms: ["me", "gustan", "mucho", "las", "película"]
+
+  # ── L9 · Summit, part one — everything combines, at length, and «cuesta /
+  #    cuestan» stands next to «gusta / gustan» so the learner sees they are
+  #    one machine. ──────────────────────────────────────────────────────────
+  #    ZERO NEW ATOMS. The job is length: the map opens on the longest
+  #    sentence in the module, and it is deliberately the CONSOLIDATION
+  #    sentence — «me gustan estos zapatos, pero cuestan mucho» — because
+  #    both verbs in it are agreeing with the same plural noun and neither is
+  #    agreeing with the speaker. m12 spent ten lessons on the right-hand
+  #    half of that sentence; this lesson claims the left-hand half is the
+  #    same fact.
+  #    The reach-back is real, not decorative: «hablo» (m10), «viajar en el
+  #    autobús» (m9), «el café» and the two m7 recall lines, «el cine» by
+  #    ear, and «cuesta / cuestan» four separate times.
+  #    ⚠️ Every cloze here is a TWO-OPTION discrimination trial. That is not
+  #    a stylistic choice: pin E2 forbids a clozeLit whose answer belongs to
+  #    an earlier module, and «gusta» is a word of m7's «me gusta» while
+  #    «cuestan» is m12's outright. The alternating-answer exemption is what
+  #    licenses them, and it requires exactly two options, both tracked.
+  - n: 9
+    template: free
+    title: "Everything you like, part one"
+    description: "Longer sentences than this module has dared yet — and the m12 price verb standing right next to the m13 liking verb, doing exactly the same job."
+    steps:
+      - kind: map
+        id: l9-map-1
+        tokens: ["me", "gustan", "estos", "zapatos", "pero", "cuestan", "mucho"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "are pleasing", tokenIndex: 1 }
+          - { en: "these", tokenIndex: 2 }
+          - { en: "shoes", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "they cost", tokenIndex: 5 }
+          - { en: "a lot", tokenIndex: 6 }
+        audioText: "me gustan estos zapatos, pero cuestan mucho"
+        revealNote: "Nothing new — and look what is standing side by side. «gustan» and «cuestan» are both plural, and both of them are plural for the SAME reason: «zapatos» is more than one thing. Neither of them cares that the person is you. You spent all of m12 learning that shoes cost, plural; «me gustan» is that same machine with a person hooked on the front. The «me» never changes shape. Only the verb counts."
+        tokenGenders: { 3: "m" }
+      - kind: speakLit
+        id: l9-sp-1
+        es: "me gustan estos zapatos, pero cuestan mucho"
+        en: "I like these shoes, but they cost a lot"
+        atoms: ["me", "gustan", "estos", "zapato", "pero", "cuestan", "mucho"]
+      - kind: clozeLit
+        id: l9-c-1
+        es: "me gusta esta camisa, pero cuesta mucho"
+        en: "I like this shirt, but it costs a lot"
+        blank: "gusta"
+        options: ["gusta", "gustan"]
+        atoms: ["me", "gusta", "esta", "camisa", "cuesta", "mucho"]
+        why: "One shirt is pleasing, so «gusta» — and one shirt costs, so «cuesta». Drop the sentence to one thing and BOTH verbs shrink together."
+      - kind: buildLit
+        id: l9-b-1
+        es: "a Diego le gusta el fútbol"
+        en: "Diego likes soccer"
+        atoms: ["a", "le", "gusta", "el", "fútbol"]
+        tiles: ["gustan", "me"]
+      # ── review tail 1 — m9's cinema, by ear only ────────────────────────
+      - kind: audioWimcq
+        id: l9-ear-1
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: clozeLit
+        id: l9-c-2
+        es: "te gusta mucho el fútbol"
+        en: "you like soccer a lot"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["te", "gusta", "mucho", "el", "fútbol"]
+        why: "The soccer is pleasing TO YOU, so «te». Swap it for «me» and you have changed who is doing the liking — the verb would not move at all."
+      - kind: listenBuildLit
+        id: l9-lb-1
+        es: "me gusta viajar en el autobús"
+        en: "I like to travel by bus"
+        atoms: ["me", "gusta", "viajar", "en", "el", "autobús"]
+        tiles: ["gustan", "cuesta"]
+      # ── review tail 2 — m7's own gustar line, cued cold (m7 L2 printed it)
+      - kind: speakLit
+        id: l9-sp-recall-1
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-1
+        es: "me gusta el fútbol, pero a Ana le gusta la música"
+        en: "I like soccer, but Ana likes music."
+        atoms: ["me", "gusta", "el", "fútbol", "a", "le", "la", "música"]
+        distractorsEn:
+          - "Ana likes soccer, but I like music."
+          - "I like soccer, and Ana likes soccer too."
+          - "I don't like soccer, but Ana likes music."
+      - kind: buildLit
+        id: l9-b-2
+        es: "hablo español y me gusta viajar"
+        en: "I speak Spanish and I like to travel"
+        atoms: ["hablo", "español", "y", "me", "gusta", "viajar"]
+        tiles: ["hablas", "gustan"]
+      # ── the two verbs in one grid: this is the whole lesson, four options
+      #    wide. «cuestan» has been the plural for ten lessons.
+      - kind: textMcq
+        id: l9-tm-1
+        target: "gustan"
+        distractors: ["gusta", "cuestan", "cuesta"]
+      - kind: clozeLit
+        id: l9-c-3
+        es: "a Carmen le gusta el helado"
+        en: "Carmen likes ice cream"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["a", "le", "gusta", "el", "helado"]
+        why: "The ice cream is pleasing TO CARMEN, so «le». «te» would hand it to whoever you are talking to."
+      # ── review tail 3 — m12's question, cued cold (m12 L4 printed it) ───
+      - kind: speakLit
+        id: l9-sp-recall-2
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l9-ear-2
+        target: { surface: "la pizza", emoji: "🍕" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: listenBuildLit
+        id: l9-lb-2
+        es: "a Diego le gustan las películas"
+        en: "Diego likes movies"
+        atoms: ["a", "le", "gustan", "las", "película"]
+        tiles: ["gusta", "los"]
+      - kind: speakLit
+        id: l9-sp-2
+        es: "me gusta mucho el fútbol, pero no me gusta nadar"
+        en: "I like soccer a lot, but I don't like to swim"
+        atoms: ["me", "gusta", "mucho", "el", "fútbol", "pero", "no", "nadar"]
+      # ── the deliberate m12 re-touch: same sentence shape as l9-c-1, moved
+      #    to the plural, and the blank is now the PRICE verb. If the learner
+      #    can fill this one they have understood that «gustan» was never a
+      #    new idea.
+      - kind: clozeLit
+        id: l9-c-4
+        es: "me gustan estas camisas, pero cuestan mucho"
+        en: "I like these shirts, but they cost a lot"
+        blank: "cuestan"
+        options: ["cuestan", "cuesta"]
+        atoms: ["me", "gustan", "estas", "camisa", "cuestan", "mucho"]
+        why: "«camisas» is more than one thing, so BOTH verbs count it — «gustan» and «cuestan». Spanish agrees with the thing, never with you."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "me gusta", target: "I like (one thing)" }
+          - { source: "me gustan", target: "I like (more than one)" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "el fútbol", target: "soccer" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "la película", target: "the movie" }
+          - { source: "el cine", target: "the movie theater" }
+      # ── THE SUMMIT ─────────────────────────────────────────────────────
+      #   Ana runs the module past you in four turns: te gusta → me gusta
+      #   (t1), the plural built by hand (t2), the price verb and the liking
+      #   verb agreeing together in one breath (t3), and then t4 — «hablo»
+      #   from m10, where the ending DOES follow the person. Putting the two
+      #   systems next to each other is the point: the learner has to notice
+      #   that «hablo» changed for the speaker and «gusta» never did.
+      - kind: sim
+        id: l9-sim-sabado
+        scene: { emoji: "⚽", title: "Saturday with Ana", setting: "Ana is working out what to do on Saturday and wants to know what you like." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola, Sam! ¿Te gusta el fútbol?", audioText: "¡hola, Sam! ¿te gusta el fútbol?", gloss: "Hi Sam! Do you like soccer?" }
+            goal: "Say yes — you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho" }
+                - { id: "wrong1", text: "sí, te gusta mucho" }
+                - { id: "wrong2", text: "sí, me gustan mucho" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho"
+            replyGloss: "Yes, I like it a lot."
+            explanation: "Ana says «te gusta» to you; you say «me gusta» back. One thing — soccer — so the verb stays singular no matter which person you hook on the front."
+          - id: t2
+            npc: { speaker: "Ana", es: "A Diego le gustan las películas.", audioText: "a Diego le gustan las películas.", gloss: "Diego likes movies." }
+            goal: "Say you like movies too."
+            reply:
+              mode: build
+              tiles: ["me", "gustan", "las", "películas", "también", "gusta", "la"]
+              answer: "me gustan las películas también"
+              alsoAccepted: ["también me gustan las películas"]
+            replyGloss: "I like movies too."
+            explanation: "«películas» is more than one, so «gustan». The «me» never changes shape — only the verb is counting."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y esta camisa? Es bonita.", audioText: "¿y esta camisa? es bonita.", gloss: "And this shirt? It's pretty." }
+            goal: "Say you like it but it's expensive."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta, pero cuesta mucho" }
+                - { id: "wrong1", text: "me gustan, pero cuestan mucho" }
+                - { id: "wrong2", text: "me gusta, pero cuestan mucho" }
+              correctOptionId: "right"
+              audioText: "me gusta, pero cuesta mucho"
+            replyGloss: "I like it, but it costs a lot."
+            explanation: "One shirt. It is pleasing («gusta») and it costs («cuesta»), and both verbs are counting the same one thing. They will never disagree with each other."
+          - id: t4
+            npc: { speaker: "Ana", es: "Hablo español todos los días.", audioText: "hablo español todos los días.", gloss: "I speak Spanish every day." }
+            goal: "Say you speak Spanish too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hablo español también" }
+                - { id: "wrong1", text: "hablas español también" }
+                - { id: "wrong2", text: "habla español también" }
+              correctOptionId: "right"
+              audioText: "hablo español también"
+            replyGloss: "I speak Spanish too."
+            explanation: "Ana says «hablo» about herself and you say «hablo» about yourself — that ending follows the PERSON. «gusta» never does. Two modules, two opposite rules, and you just used both in one conversation."
+      - kind: speakLit
+        id: l9-sp-win
+        es: "me gusta el fútbol y me gustan las películas"
+        en: "I like soccer and I like movies"
+        atoms: ["me", "gusta", "el", "fútbol", "y", "gustan", "las", "película"]
+
+  # ── L10 · MASTERY — every step graded, no cards, no map. Both verbs, both
+  #    numbers, all three persons, and the module ends where it always meant
+  #    to: two people getting to a plan with nothing but what is pleasing to
+  #    each of them. ──────────────────────────────────────────────────────
+  #    ZERO NEW ATOMS and ZERO info. Cloze runs 3/15 = 0.20, inside the ⅓
+  #    the mastery lesson is allowed.
+  #    «cuestan» sits here on purpose (l10-c-3, l10-sp-recall-2): the exam
+  #    for this module is not "can you say gustan", it is "do you know it is
+  #    the same agreement you already had".
+  #
+  #    NB: `esSurfaces` returns NOTHING for dialogue_sim, so the closing sim
+  #    is invisible to the provenance and production gates. Every surface it
+  #    uses — «favorito», «le», «también», «voy al cine» — is carried by a
+  #    graded step above it (l10-b-3, l10-c-2, l10-b-1, l10-ear-1's
+  #    neighbours). Nothing follows it; the module ends there.
+  - n: 10
+    template: free
+    title: "Prove it — then make a plan out of it"
+    description: "Every person, both numbers, both verbs, no help — and then an afternoon settled entirely by saying what you like."
+    steps:
+      - kind: clozeLit
+        id: l10-c-1
+        es: "me gustan mucho los zapatos"
+        en: "I like the shoes a lot"
+        blank: "gustan"
+        options: ["gustan", "gusta"]
+        atoms: ["me", "gustan", "mucho", "los", "zapato"]
+        why: "More than one shoe, so «gustan». The verb is counting the shoes; it has never once looked at you."
+      - kind: buildLit
+        id: l10-b-1
+        es: "a Sofía le gusta el helado"
+        en: "Sofía likes ice cream"
+        atoms: ["a", "le", "gusta", "el", "helado"]
+        tiles: ["gustan", "me"]
+      # ── review tail 1 — m9's park, by ear only ──────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-1
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: listenBuildLit
+        id: l10-lb-1
+        es: "no me gusta cocinar, pero me gusta comer"
+        en: "I don't like to cook, but I like to eat"
+        atoms: ["no", "me", "gusta", "cocinar", "pero", "comer"]
+        tiles: ["gustan", "te"]
+      - kind: clozeLit
+        id: l10-c-2
+        es: "a Carmen le gustan las películas"
+        en: "Carmen likes movies"
+        blank: "le"
+        options: ["le", "me"]
+        atoms: ["a", "le", "gustan", "las", "película"]
+        why: "The movies are pleasing TO CARMEN, so «le». «me» would put you in her chair — and notice the verb would not move either way."
+      # ── review tail 2 — m7's question, cued cold (m7 L3 printed it) ─────
+      - kind: speakLit
+        id: l10-sp-recall-1
+        es: "¿te gusta el café?"
+        en: "do you like the coffee?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-1
+        target: "gusta"
+        distractors: ["gustan", "cuesta", "cuestan"]
+      - kind: buildLit
+        id: l10-b-2
+        es: "no me gustan estas camisas"
+        en: "I don't like these shirts"
+        atoms: ["no", "me", "gustan", "estas", "camisa"]
+        tiles: ["gusta", "estos"]
+      - kind: audioWimcq
+        id: l10-ear-2
+        target: { surface: "el fútbol", emoji: "⚽" }
+        distractors:
+          - { surface: "la película", emoji: "📽️" }
+          - { surface: "el helado", emoji: "🍨" }
+      - kind: listenCompLit
+        id: l10-lc-1
+        es: "me gusta el helado, pero a Diego le gusta mucho la pizza"
+        en: "I like ice cream, but Diego really likes pizza."
+        atoms: ["me", "gusta", "el", "helado", "a", "le", "mucho", "la", "pizza"]
+        distractorsEn:
+          - "Diego likes ice cream, but I really like pizza."
+          - "I like pizza, but Diego really likes ice cream."
+          - "I don't like ice cream, but Diego likes pizza."
+      # ── review tail 3 — m12's plural price line, cued cold (m12 L4) ─────
+      - kind: speakLit
+        id: l10-sp-recall-2
+        es: "¿cuánto cuestan los zapatos?"
+        en: "how much do the shoes cost?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l10-c-3
+        es: "estos zapatos cuestan mucho"
+        en: "these shoes cost a lot"
+        blank: "cuestan"
+        options: ["cuestan", "cuesta"]
+        atoms: ["estos", "zapato", "cuestan", "mucho"]
+        why: "«zapatos» is more than one, so «cuestan» — the same count «gustan» makes on the same noun. One machine, two verbs."
+      - kind: buildLit
+        id: l10-b-3
+        es: "la pizza es mi favorita"
+        en: "pizza is my favorite"
+        atoms: ["la", "pizza", "es", "mi", "favorito"]
+        tiles: ["favorito", "el"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "me gusta", target: "I like (one thing)" }
+          - { source: "te gusta", target: "you like (one thing)" }
+          - { source: "me gustan", target: "I like (more than one)" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "el mercado", target: "the market" }
+      # ── THE PAYOFF ─────────────────────────────────────────────────────
+      #   Two friends and no plan, settled in five turns without either of
+      #   them ever saying "let's". Every turn is a like: what Sam likes
+      #   (t1), what they both like (t2), what Sam does NOT like (t3), what
+      #   Diego likes (t4 — third person, built by hand), and the thing that
+      #   settles it (t5, «favorito», agreeing with an el-word).
+      #   t4 is the module's thesis in one build: Diego replaced Sam on the
+      #   front of the sentence and «gusta» did not move, because the soccer
+      #   is still one thing.
+      - kind: sim
+        id: l10-sim-plan
+        scene: { emoji: "🍕", title: "What should we do?", setting: "Ana has the afternoon free and so do you. Nobody proposes anything — you both just say what you like until a plan falls out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola, Sam! ¿Qué te gusta?", audioText: "¡hola, Sam! ¿qué te gusta?", gloss: "Hi Sam! What do you like?" }
+            goal: "Say one thing you like."
+            reply:
+              mode: build
+              tiles: ["me", "gustan", "las", "películas", "gusta", "el", "fútbol"]
+              answer: "me gustan las películas"
+              alsoAccepted: ["me gusta el fútbol"]
+            replyGloss: "I like movies."
+            explanation: "Either answer is true and either is right — but watch which verb each one takes. «películas» is more than one, «fútbol» is one, and that is the only thing that decided it."
+          - id: t2
+            npc: { speaker: "Ana", es: "Me gusta mucho el fútbol.", audioText: "me gusta mucho el fútbol.", gloss: "I really like soccer." }
+            goal: "Tell her you like it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me gusta también" }
+                - { id: "wrong1", text: "te gusta también" }
+                - { id: "wrong2", text: "me gustan también" }
+              correctOptionId: "right"
+              audioText: "me gusta también"
+            replyGloss: "I like it too."
+            explanation: "Ana said «me gusta» about herself. You say «me gusta» about yourself — «me» is always whoever is speaking, and the verb is still counting the soccer."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Te gusta nadar, Sam?", audioText: "¿te gusta nadar, Sam?", gloss: "Do you like swimming, Sam?" }
+            goal: "Say no — you don't like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me gusta" }
+                - { id: "wrong1", text: "no, no te gusta" }
+                - { id: "wrong2", text: "no, no me gustan" }
+              correctOptionId: "right"
+              audioText: "no, no me gusta"
+            replyGloss: "No, I don't like it."
+            explanation: "The «no» goes in front of the whole thing. Everything behind it is untouched: still «me», still one activity, still «gusta»."
+          - id: t4
+            npc: { speaker: "Ana", es: "Diego está aquí. ¿Le gusta el fútbol?", audioText: "Diego está aquí. ¿le gusta el fútbol?", gloss: "Diego is here. Does he like soccer?" }
+            goal: "Say yes — Diego likes soccer a lot."
+            reply:
+              mode: build
+              tiles: ["a", "Diego", "le", "gusta", "mucho", "el", "fútbol", "me", "gustan"]
+              answer: "a Diego le gusta mucho el fútbol"
+              alsoAccepted: ["a Diego le gusta el fútbol"]
+            replyGloss: "Diego really likes soccer."
+            explanation: "«le» is the third person — to him. Diego replaced you at the front of the sentence and «gusta» did not move one letter, because the soccer is still one thing. That is the whole module."
+          - id: t5
+            npc: { speaker: "Ana", es: "Voy al cine hoy. ¿Y tú?", audioText: "voy al cine hoy. ¿y tú?", gloss: "I'm going to the movies today. And you?" }
+            goal: "Say the movies are your favorite."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, el cine es mi favorito" }
+                - { id: "wrong1", text: "sí, el cine es mi favorita" }
+                - { id: "wrong2", text: "sí, la película es mi favorito" }
+              correctOptionId: "right"
+              audioText: "sí, el cine es mi favorito"
+            replyGloss: "Yes — the movies are my favorite."
+            explanation: "«el cine» is an el-word, so the judgement keeps its «-o». Nobody proposed anything all afternoon; you both just said what was pleasing to you, and the plan made itself."
+
+# Placement bank — the compiler emits ES_M13_PLACEMENT only if this block
+# exists. Every item tests the module's thesis directly: the verb agrees with
+# the thing liked, never with the person.
+placement:
+  screener:
+    - id: "es-m13-scr-1"
+      prompt: "Which one means 'I like the shoes'?"
+      correct: "me gustan los zapatos"
+      distractors: ["me gusta los zapatos", "te gustan los zapatos", "me gustan el zapato"]
+  byModule:
+    - id: "es-m13-pl-1"
+      prompt: "Do you like pizza?"
+      correct: "¿te gusta la pizza?"
+      distractors: ["¿te gustan la pizza?", "¿me gusta la pizza?", "¿te gusta las pizza?"]
+    - id: "es-m13-pl-2"
+      prompt: "Diego likes soccer a lot."
+      correct: "a Diego le gusta mucho el fútbol"
+      distractors: ["a Diego le gustan mucho el fútbol", "a Diego me gusta mucho el fútbol", "a Diego le gusta el mucho fútbol"]
+    - id: "es-m13-pl-3"
+      prompt: "I like to swim and cook."
+      correct: "me gusta nadar y cocinar"
+      distractors: ["me gustan nadar y cocinar", "me gusta nado y cocino", "te gusta nadar y cocinar"]
+    - id: "es-m13-pl-4"
+      prompt: "My favorite movie is expensive."
+      correct: "mi película favorita es cara"
+      distractors: ["mi película favorito es cara", "mi película favorita es caro", "mi favorita película es cara"]

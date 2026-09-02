@@ -41,10 +41,11 @@ import { ES_M9_ATOMS } from "./curriculum/m9";
 import { ES_M10_ATOMS } from "./curriculum/m10";
 import { ES_M11_ATOMS } from "./curriculum/m11";
 import { ES_M12_ATOMS } from "./curriculum/m12";
+import { ES_M13_ATOMS } from "./curriculum/m13";
 
 export type EsAtomKind = "vocab" | "particle" | "phrase";
 
-export type EsAtomSource = "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12";
+export type EsAtomSource = "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13";
 
 /** ES-specific atom shape — Latin script + gender for the agreement engines. */
 export type EsAtom = Atom & {
@@ -184,6 +185,7 @@ export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
     ...ES_M10_ATOMS,
     ...ES_M11_ATOMS,
     ...ES_M12_ATOMS,
+    ...ES_M13_ATOMS,
   ]);
 }
 
