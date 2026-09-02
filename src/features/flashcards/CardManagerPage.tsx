@@ -128,7 +128,8 @@ export function CardManagerPage() {
       list = list.filter(
         (m) =>
           m.card.front.toLowerCase().includes(q) ||
-          m.card.back.toLowerCase().includes(q)
+          m.card.back.toLowerCase().includes(q) ||
+          (m.card.reading?.kana.toLowerCase().includes(q) ?? false)
       );
     }
 

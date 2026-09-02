@@ -219,3 +219,25 @@ describe("CardManagerPage — modality date modal", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });
+
+describe("CardManagerPage — search filter", () => {
+  beforeEach(() => {
+    mockCards = [
+      makeCard({
+        card: {
+          id: "card-jp",
+          front: "学校",
+          reading: { surface: "学校", kana: "がっこう" },
+          back: "school",
+        } as ManagedCard["card"],
+      }),
+    ];
+  });
+
+  it("finds a JA kanji card by typing its kana reading", () => {
+    render(<CardManagerPage />);
+    const search = document.getElementById("facet-search") as HTMLInputElement;
+    fireEvent.change(search, { target: { value: "がっこう" } });
+    expect(screen.getByText("学校")).toBeInTheDocument();
+  });
+});
