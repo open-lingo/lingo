@@ -5,6 +5,8 @@ import { useAuth } from "@/shared/auth/useAuth";
 import { PracticeBreadcrumbs } from "./PracticeBreadcrumbs";
 import { ReadingCrumbProvider } from "./readingCrumb";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { useViewport } from "@/shared/hooks/useViewport";
+import { isFocusedFlow } from "@/routes/focusedFlow";
 
 /** Grace period before redirecting an apparently-anon user out of /practice.
  *  Auth0 can briefly report `isLoading: false && isAuthenticated: false` while
@@ -22,6 +24,7 @@ export function PracticeLayout() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const flags = useFeatureFlags();
+  const { isMobile } = useViewport();
 
   // Redirect when a disabled practice surface is hit directly (bookmark / old link)
   useEffect(() => {
@@ -57,10 +60,11 @@ export function PracticeLayout() {
 
   const norm = pathname.replace(/\/$/, "");
   const isPracticeHub = norm === practiceHubPath;
-  // The grammar review session is a focused flow (Layout hides header/footer
-  // for it) — breadcrumbs above it would be the one stray chrome the lesson
-  // player doesn't have. The session's X-out button is the way out.
-  const isFocusedSession = /\/practice\/grammar\/review$/.test(norm);
+  // Focused sessions get no breadcrumbs — `Layout` has already hidden the
+  // header and tab bar for them, and a crumb trail would be the one stray piece
+  // of app chrome the lesson player doesn't have. The session's own exit
+  // control is the way out. Flashcard review qualifies below `md` only.
+  const isFocusedSession = isFocusedFlow(norm, isMobile);
 
   return (
     // The hub index rides the shell's shared wide canvas (Layout <main> centers

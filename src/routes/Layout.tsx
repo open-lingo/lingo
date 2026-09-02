@@ -19,6 +19,8 @@ import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
 import { useUnlockMapSync } from "@/shared/hooks/useUnlockMapSync";
+import { useViewport } from "@/shared/hooks/useViewport";
+import { isFocusedFlow } from "@/routes/focusedFlow";
 import { useStopAudioOnNavigate } from "@/shared/tts/useStopAudioOnNavigate";
 import { ImpersonationBanner } from "@/features/admin/impersonation/ImpersonationBanner";
 import { LingotBalance } from "@/shared/components/LingotBalance";
@@ -70,13 +72,13 @@ export function Layout() {
 
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
-  // Focused flows (inside a lesson / test) drop the marketing footer and
-  // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
-  // usable) the footer alone pushed every lesson step below the fold.
-  const focusedFlow =
-    /\/lessons\/|\/test-out\/|\/placement-test|\/practice\/grammar\/review/.test(
-      pathname,
-    );
+  // Focused flows (inside a lesson / test / review session) drop the marketing
+  // footer, the header and the bottom tab bar, and tighten main padding — on
+  // short laptop viewports (MacBook 14" ≈ 840px usable) the footer alone pushed
+  // every lesson step below the fold. The flashcard reviewer joins them BELOW
+  // `md` only; see `@/routes/focusedFlow`.
+  const { isMobile } = useViewport();
+  const focusedFlow = isFocusedFlow(pathname, isMobile);
   // Map-style pages own their width — the 2xl cap wastes a 4k viewport on
   // a page whose whole point is a wide panning canvas: the transit-map
   // preview, and the learn homepage itself where the map is live (ja).
