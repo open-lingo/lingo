@@ -30,155 +30,21 @@ import { useQuests } from "@/features/quests/useQuests";
 import { useReviewQueueFilter } from "./useReviewQueueFilter";
 import { useImagePreload } from "./useImagePreload";
 import { getModalityTheme } from "./modalityTheme";
-import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { Tooltip } from "@/shared/components/ui/Tooltip";
-import { PlainText } from "@/shared/components/PlainText";
-import { CardFront } from "./components/CardFront";
 import { FlashcardsInfoModal } from "./components/FlashcardsInfoModal";
 import { FlashcardDetailSidebar } from "./components/FlashcardDetailSidebar";
+import { ReviewCard } from "./components/ReviewCard";
+import { GradeRow } from "./components/GradeRow";
+import { SessionSummary } from "./components/SessionSummary";
 import {
   FlashcardsOnboardingGate,
   FLASHCARDS_ONBOARDING_STORAGE_KEY,
 } from "./components/FlashcardsOnboardingGate";
-import type { Flashcard, CardSegment, SRSRating, SRSModality } from "@/features/flashcards/data/types";
-import type { ParticleDef } from "@/features/practice/data/types";
+import type { Flashcard, SRSRating, SRSModality } from "@/features/flashcards/data/types";
 
 /** A slot coming back within the session, tagged with why (see requeueReason). */
 type RepeatSlot = SessionSlot & { reason: RequeueReason };
-
-function getParticleById(particles: ParticleDef[] | null, id: string): ParticleDef | undefined {
-  return particles?.find((p) => p.id === id);
-}
-
-function HighlightedText({
-  segments,
-  particles,
-  highlightMode,
-}: {
-  segments: CardSegment[];
-  particles: ParticleDef[] | null;
-  highlightMode: boolean;
-}) {
-  if (!segments?.length) return null;
-  return (
-    <span>
-      {segments.map((seg, i) => {
-        const particle = seg.particleId ? getParticleById(particles, seg.particleId) : undefined;
-        const isParticle = Boolean(seg.particleId && particle);
-        const isRoot = Boolean(highlightMode && seg.meaning && !seg.particleId);
-        if (highlightMode && isParticle) {
-          return (
-            <mark
-              key={i}
-              className="rounded bg-warning/30 px-0.5"
-              title={particle ? `${particle.form}: ${particle.meaning}` : undefined}
-            >
-              {seg.segment}
-            </mark>
-          );
-        }
-        if (isRoot) {
-          return (
-            <mark
-              key={i}
-              className="rounded bg-success/30 px-0.5"
-              title={seg.meaning}
-            >
-              {seg.segment}
-            </mark>
-          );
-        }
-        return <span key={i}>{seg.segment}</span>;
-      })}
-    </span>
-  );
-}
-
-function CardFace({
-  card,
-  side,
-  particles,
-  highlightMode,
-  face,
-}: {
-  card: Flashcard;
-  side: "front" | "back";
-  particles: ParticleDef[] | null;
-  highlightMode: boolean;
-  face: "prompt" | "answer";
-}) {
-  const isFront = side === "front";
-  if (isFront) {
-    if (highlightMode && card.type === "word" && card.parts?.length) {
-      return <HighlightedText segments={card.parts} particles={particles} highlightMode />;
-    }
-    if (highlightMode && card.type === "sentence" && card.words?.length) {
-      return <HighlightedText segments={card.words} particles={particles} highlightMode />;
-    }
-    return (
-      <CardFront
-        text={card.front}
-        reading={card.reading}
-        cardId={card.id}
-        face={face}
-      />
-    );
-  }
-  return <PlainText>{card.back}</PlainText>;
-}
-
-const RATING_BUTTONS: Array<{ rating: SRSRating; label: string; color: string }> = [
-  { rating: "again", label: "Again", color: "bg-error text-white hover:bg-error/90" },
-  { rating: "hard", label: "Hard", color: "bg-warning text-white hover:bg-warning/90" },
-  { rating: "good", label: "Good", color: "bg-success text-white hover:bg-success/90" },
-  { rating: "easy", label: "Easy", color: "bg-accent text-white hover:bg-accent-hover" },
-];
-
-// Simple 2-button layout — "Didn't know" grades `again`, "Knew it" grades
-// `good`. Both go through the same `handleRate` path as the full row so undo,
-// requeue, and sync behave identically.
-const SIMPLE_BUTTONS: Array<{
-  rating: SRSRating;
-  labelKey: string;
-  labelDefault: string;
-  color: string;
-}> = [
-  {
-    rating: "again",
-    labelKey: "flashcards.simpleDidntKnow",
-    labelDefault: "Didn't know",
-    color: "bg-error text-white hover:bg-error/90",
-  },
-  {
-    rating: "good",
-    labelKey: "flashcards.simpleKnewIt",
-    labelDefault: "Knew it",
-    color: "bg-success text-white hover:bg-success/90",
-  },
-];
-
-function IntervalHint({
-  cardId,
-  rating,
-  defaultEase,
-  modality,
-}: {
-  cardId: string;
-  rating: SRSRating;
-  defaultEase?: number;
-  modality: SRSModality;
-}) {
-  // Preview the interval for the TESTED modality only.
-  const state = getEffectiveState(cardId, defaultEase);
-  const after = reviewCard(state, modality, rating);
-  const interval = after[modality].interval;
-  if (interval === 0) return <span className="text-[10px]">&lt;1d</span>;
-  if (interval === 1) return <span className="text-[10px]">1d</span>;
-  if (interval < 30) return <span className="text-[10px]">{interval}d</span>;
-  const months = Math.round(interval / 30);
-  return <span className="text-[10px]">{months}mo</span>;
-}
 
 export function FlashcardTester() {
   const { t } = useTranslation();
@@ -549,74 +415,18 @@ export function FlashcardTester() {
   }
 
   if (isSessionDone) {
-    const accuracy =
-      sessionStats.reviewed > 0
-        ? Math.round((sessionStats.correct / sessionStats.reviewed) * 100)
-        : 100;
     return (
-      <div className="mx-auto flex max-w-md flex-col items-center gap-6 py-12 text-center">
-        <Icon name="partyPopper" size={48} className="text-accent" />
-        <h2 className="text-2xl font-bold text-text-primary">
-          {t("flashcards.sessionDone", "Review Complete!")}
-        </h2>
-        <div className="flex gap-8">
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-success">
-              {sessionStats.reviewed}
-            </span>
-            <span className="text-xs text-text-muted">
-              {t("flashcards.reviewed", "Reviewed")}
-            </span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-success">
-              {accuracy}%
-            </span>
-            <span className="text-xs text-text-muted">
-              {t("flashcards.accuracy", "Accuracy")}
-            </span>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {queue.dueCount > 0 || queue.newCount > 0 ? (
-            <button
-              type="button"
-              onClick={handleRestart}
-              className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
-            >
-              {t("flashcards.reviewMore", "Review More")}
-            </button>
-          ) : (
-            // Only offer free review when there are reviewed-but-not-yet-due
-            // cards to surface. Otherwise the button is a silent no-op (the
-            // queue would rebuild empty and re-show this same screen).
-            (queue.notYetDueCount ?? 0) > 0 && (
-              <button
-                type="button"
-                onClick={handleStartFreeReview}
-                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
-              >
-                <Icon name="sparkles" size={16} aria-hidden />
-                {t("flashcards.startFreeReview", "Start a free review")}
-              </button>
-            )
-          )}
-          <Link
-            to={langPath("practice/flashcards")}
-            className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-primary hover:bg-surface-muted"
-          >
-            {t("flashcards.backToHub")}
-          </Link>
-        </div>
-        {freeReview && (
-          <p className="text-xs text-text-muted">
-            {t(
-              "flashcards.freeReviewNote",
-              "Free review shows cards before they're due. It won't change your schedule much — Good/Easy just nudge intervals.",
-            )}
-          </p>
-        )}
-      </div>
+      <SessionSummary
+        reviewed={sessionStats.reviewed}
+        correct={sessionStats.correct}
+        canReviewMore={queue.dueCount > 0 || queue.newCount > 0}
+        canFreeReview={(queue.notYetDueCount ?? 0) > 0}
+        freeReview={freeReview}
+        onRestart={handleRestart}
+        onStartFreeReview={handleStartFreeReview}
+        hubPath={langPath("practice/flashcards")}
+        fitted={false}
+      />
     );
   }
 
@@ -840,136 +650,26 @@ export function FlashcardTester() {
         </span>
       </div>
 
-      {/* Card — top rail color signals the active modality. Height is fixed
-          (min-h-[360px]) for EVERY card, image or not, so the grade buttons
-          below never shift between cards. Image cards were taller than plain
-          ones, so the buttons jumped up and down as the queue advanced —
-          shoving them under the cursor mid-grade (Spencer QA 2026-07-13).
-          Custom review modes (e.g. front-image cues) will hook in around the
-          image render below; for now the reviewer always shows the vocab art
-          on the answer side so it never gives away a recognition prompt. */}
-      <button
-        type="button"
-        onClick={() => setFlipped((f) => !f)}
-        className={`flex min-h-[360px] w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
-      >
-        {flipped && currentCard.image && (
-          <CardImage
-            src={currentCard.image}
-            className="mb-3 max-h-32 w-auto rounded object-contain"
-          />
-        )}
-        <p className="text-center text-3xl font-medium text-text-primary">
-          <CardFace
-            card={currentCard}
-            side={
-              // Recognition: shown Japanese (front) → recall meaning (back).
-              // Production:  cued English (back) → produce Japanese (front).
-              // This mapping was INVERTED until 2026-07-02 (EN→JA graded the
-              // recognition sub-state) — the engine definition (types.ts) and
-              // every lesson/grammar grading surface use the sense above, so
-              // the reviewer now matches. No data migration: sub-states share
-              // FSRS params and re-converge within a few reviews.
-              testedModality === "recognition"
-                ? flipped ? "back" : "front"
-                : flipped ? "front" : "back"
-            }
-            particles={particles}
-            highlightMode={highlightMode}
-            face={flipped ? "answer" : "prompt"}
-          />
-        </p>
-        <p className="mt-3 text-sm text-text-muted">
-          {flipped
-            ? testedModality === "recognition"
-              ? t("flashcards.meaningLabel", "Meaning")
-              : t("flashcards.wordLabel", "Word")
-            : t("flashcards.tapToReveal", "Tap to reveal")}
-        </p>
-      </button>
+      <ReviewCard
+        card={currentCard}
+        flipped={flipped}
+        onFlip={() => setFlipped((f) => !f)}
+        testedModality={testedModality}
+        particles={particles}
+        highlightMode={highlightMode}
+        fitted={false}
+      />
 
-      {/* Rating buttons (only when flipped) – above detail so layout doesn't
-          shift. The action controls are wrapped in a fixed-height row so the
-          reveal swap (single "Show" button → grade grid) never changes the
-          control-area height and shoves layout. Both the "Show" button and
-          every grade button are h-16 and vertically center their content, so
-          the two states line up exactly (Spencer QA — buttons were jumping on
-          reveal). This complements the card-body min-h fix above. */}
-      <div
-        className={`flex items-stretch ${
-          gradingLayout === "simple" ? "h-16" : "h-24 sm:h-16"
-        }`}
-      >
-      {flipped ? (
-        gradingLayout === "simple" ? (
-          <div className="grid w-full grid-cols-2 gap-2">
-            {SIMPLE_BUTTONS.map(({ rating, labelKey, labelDefault, color }, i) => (
-              <button
-                key={rating}
-                type="button"
-                onClick={() => handleRate(rating)}
-                className={`relative flex h-full flex-col items-center justify-center gap-0.5 rounded-xl px-3 text-sm font-semibold transition ${color}`}
-                title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
-              >
-                {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
-                <span
-                  className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
-                  aria-hidden
-                >
-                  {i + 1}
-                </span>
-                {t(labelKey, labelDefault)}
-                {showIntervalPreviews && (
-                  <IntervalHint
-                    cardId={currentCard.id}
-                    rating={rating}
-                    defaultEase={cardIdToDefaultEase?.[currentCard.id]}
-                    modality={testedModality}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
-            {RATING_BUTTONS.map(({ rating, label, color }, i) => (
-              <button
-                key={rating}
-                type="button"
-                onClick={() => handleRate(rating)}
-                className={`relative flex h-full flex-col items-center justify-center gap-0.5 rounded-xl px-3 text-sm font-semibold transition ${color}`}
-                title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
-              >
-                {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
-                <span
-                  className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
-                  aria-hidden
-                >
-                  {i + 1}
-                </span>
-                {label}
-                {showIntervalPreviews && (
-                  <IntervalHint
-                    cardId={currentCard.id}
-                    rating={rating}
-                    defaultEase={cardIdToDefaultEase?.[currentCard.id]}
-                    modality={testedModality}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-        )
-      ) : (
-        <button
-          type="button"
-          onClick={() => setFlipped(true)}
-          className="flex h-full w-full items-center justify-center rounded-xl bg-accent px-6 text-base font-semibold text-white transition hover:bg-accent-hover"
-        >
-          {t("flashcards.showAnswer", "Show Answer")}
-        </button>
-      )}
-      </div>
+      <GradeRow
+        flipped={flipped}
+        onReveal={() => setFlipped(true)}
+        onRate={handleRate}
+        gradingLayout={gradingLayout}
+        cardId={currentCard.id}
+        defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+        modality={testedModality}
+        showIntervalPreviews={showIntervalPreviews}
+      />
 
       {/* Detail panel stacked below the card on mobile. On lg:+ it floats
           as an absolute overlay (below) so the card never shifts. */}
