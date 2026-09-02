@@ -19,6 +19,7 @@ import {
 import { useDictionaryModal } from "@/features/dictionary/DictionaryModalContext";
 import { VocabArt } from "./VocabArt";
 import { VocabCardSheet } from "./VocabCardSheet";
+import { CardFront } from "@/features/flashcards/components/CardFront";
 
 /** Cap the rendered grid; facets + search narrow past it. */
 const VISIBLE_CAP = 150;
@@ -250,7 +251,13 @@ export function VocabPage() {
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate font-semibold text-text-primary">{row.kanji ?? row.kana}</p>
+                    <p className="truncate font-semibold leading-[1.9] text-text-primary">
+                      <CardFront
+                        text={row.kanji ?? row.kana}
+                        reading={row.kanji ? { surface: row.kanji, kana: row.kana } : undefined}
+                        cardId={row.id}
+                      />
+                    </p>
                     <p className="truncate text-xs text-text-muted">{row.meaning}</p>
                     <p
                       className={`truncate text-[10px] font-medium ${

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Sheet, Badge } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
 import { VocabArt } from "./VocabArt";
+import { CardFront } from "@/features/flashcards/components/CardFront";
 import type { VocabRow, VocabTier } from "./vocabData";
 
 const TIER_LABEL: Record<VocabTier, string> = {
@@ -45,7 +46,11 @@ export function VocabCardSheet({ open, onClose, row, practiceTo }: Props) {
             </div>
             <div className="min-w-0">
               <p className="text-2xl font-bold text-text-primary">
-                {row.kanji ? `${row.kanji}（${row.kana}）` : row.kana}
+                <CardFront
+                  text={row.kanji ?? row.kana}
+                  reading={row.kanji ? { surface: row.kanji, kana: row.kana } : undefined}
+                  cardId={row.id}
+                />
               </p>
               <p className="text-sm text-text-muted">{row.romaji}</p>
               <p className="mt-1 text-base text-text-secondary">{row.meaning}</p>
