@@ -20,6 +20,9 @@ vi.mock("@/shared/contexts/SettingsContext", async () => {
   const { DEFAULT_SETTINGS } = await import("@/shared/settings/types");
   return { useSettings: () => ({ settings: DEFAULT_SETTINGS }) };
 });
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: { id: "ja" } }),
+}));
 
 const baseStep = (over: Partial<WordImageMcqStep>): WordImageMcqStep => ({
   id: "t-1",

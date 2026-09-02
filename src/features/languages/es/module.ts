@@ -36,7 +36,7 @@ import { ES_VERB_ENTRIES } from "./conjugationTables";
 import { ES_PLACEMENT_BANK } from "./placementBank";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
 import { getTtsManifest } from "@/shared/tts/manifest";
 
 // ── Course id ────────────────────────────────────────────────────────────
@@ -91,13 +91,16 @@ const esConjugation: ConjugationCapability = {
   // generic engine renders the table cells without an analyzer.
 };
 
-// ── vocabArt (atom.emoji → Noto fallback; ES has no custom SVGs yet) ────
+// ── vocabArt (custom art first, then atom.emoji → Noto fallback) ────────
 
 const esVocabArt: VocabArtResolver = {
   resolve: (atom) => {
     const bare = atom.id.startsWith("es:") ? atom.id.slice(3) : atom.id;
     const esAtom: EsAtom | undefined = findEsAtomBySurface(bare);
-    if (esAtom?.emoji) return notoEmojiUrl(esAtom.emoji);
+    if (!esAtom) return null;
+    const custom = lingoArtUrl("es", esAtom.surface);
+    if (custom) return custom;
+    if (esAtom.emoji) return notoEmojiUrl(esAtom.emoji);
     return null;
   },
 };

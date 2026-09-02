@@ -40,7 +40,7 @@ import { annotateKorean, romanizeKorean } from "./romanization/hangulRomanize";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
 import { getTtsManifest } from "@/shared/tts/manifest";
 
 // ── Course id ────────────────────────────────────────────────────────────
@@ -128,13 +128,16 @@ const koConjugation: ConjugationCapability = {
   // generic engine renders the table cells without an analyzer.
 };
 
-// ── vocabArt (atom.emoji → Noto fallback; KO has no custom SVGs yet) ────
+// ── vocabArt (custom art first, then atom.emoji → Noto fallback) ────────
 
 const koVocabArt: VocabArtResolver = {
   resolve: (atom) => {
     const bare = atom.id.startsWith("ko:") ? atom.id.slice(3) : atom.id;
     const koAtom = KO_COURSE_ATOMS.find((a) => a.surface === bare);
-    if (koAtom?.emoji) return notoEmojiUrl(koAtom.emoji);
+    if (!koAtom) return null;
+    const custom = lingoArtUrl("ko", koAtom.surface);
+    if (custom) return custom;
+    if (koAtom.emoji) return notoEmojiUrl(koAtom.emoji);
     return null;
   },
 };

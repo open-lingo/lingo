@@ -39,54 +39,85 @@ const NOTO_SVG_BASE = "/noto-emoji/svg";
 
 const NOTO_FLAG_BASE = "/region-flags/svg";
 
-const LINGO_ART_BASE = "/lingo-art/svg";
+const LINGO_ART_BASE = "/lingo-art";
 
 /**
- * Vocabulary words whose Noto rendering failed the 4-persona audit
- * (2026-05-18: 9yo/16yo/38yo/67yo Opus subagents). Each entry is paired
- * with a custom MIT-licensed SVG under `src/pub/lingo-art/svg/` designed
- * in Noto-adjacent style: flat fill, soft dark outline, saturated colors.
+ * Vocabulary words with custom art instead of a Noto emoji, keyed
+ * `${course}:${surface}` — `surface` is the kana display form for JA, the
+ * target-language surface form for KO/ES/FR (whatever `opt.word` /
+ * `atom.display` /  `ca.kana` /  a course atom's `surface` field actually
+ * holds at each call site — every caller already has that string on hand,
+ * none carries the course-atom id, so surface is the only key every
+ * resolver call site can build without a registry lookup).
  *
- * Words removed from this map (anata, ani, ane, arimasu, imasu, koe,
- * chichi, haha) deferred for later resolution per
- * `docs/emoji-blocked-words-2026-05-18.md` — taught via particle_cloze /
- * phrase_card / dialogue_listen, NOT wordImageMcq. Those eight kana are
- * registered in `WORD_IMAGE_MCQ_BLOCKLIST` (see _jaGrammarHelpers.ts)
- * which throws at import-time if a lesson tries to image-MCQ them.
+ * Two generations of entries share this map:
  *
- * The custom-art path is preferred over `notoEmojiUrl` when present. Keys
- * are the kana surface form (matches `RowWord.kana`).
+ * 1. The original JA-only set (2026-05-18, 4-persona Noto-rendering audit:
+ *    9yo/16yo/38yo/67yo Opus subagents) — hand-authored MIT SVGs under
+ *    `src/pub/lingo-art/svg/`, flat fill, soft dark outline, saturated
+ *    colors, ~128×128 viewBox. Migrated to `ja:<kana>` keys 2026-09-02
+ *    (Wave C) without touching the files themselves.
  *
- * To add a new word: (1) drop the SVG under `src/pub/lingo-art/svg/`
- * (~128×128 viewBox, transparent bg, 2-2.5px #1e293b outline, flat fill,
- * rounded geometry — match the existing 9 SVGs' style), (2) add the
- * kana→filename entry below, (3) verify at production size (64px) via
- * Playwright or the dev preview page. See
- * `docs/n5-vocab-emoji-reference-2026-05-18.md` for the full vocab→art
- * map (662 N5 words) and `docs/emoji-blocked-words-2026-05-18.md` for the
- * rubric + end-to-end authoring workflow.
+ *    Words removed from this map (anata, ani, ane, arimasu, imasu, koe,
+ *    chichi, haha) deferred for later resolution per
+ *    `docs/emoji-blocked-words-2026-05-18.md` — taught via particle_cloze /
+ *    phrase_card / dialogue_listen, NOT wordImageMcq. Those eight kana are
+ *    registered in `WORD_IMAGE_MCQ_BLOCKLIST` (see grammarHelpers.ts) which
+ *    throws at import-time if a lesson tries to image-MCQ them.
+ *
+ * 2. The Wave C emoji-refit "art" decisions (2026-09-02) — words the
+ *    frontier audit found NO honest Noto emoji for at all (soy sauce,
+ *    genkan, kimchi, ...). Generated via `scripts/emoji-refit/art.mjs`
+ *    (local mflux + Z-Image-Turbo, flat-vector-sticker style) and
+ *    post-processed PNGs under `src/pub/lingo-art/vocab/<course>/<id>.png`.
+ *
+ * The custom-art path is preferred over `notoEmojiUrl` when present.
+ *
+ * To add a new word to generation-1 style: (1) drop an SVG under
+ * `src/pub/lingo-art/svg/` (match the existing 9 SVGs' style), (2) add the
+ * `<course>:<surface>` → `svg/<file>.svg` entry below, (3) verify at
+ * production size (64px). To add a new generation-2 word: run
+ * `scripts/emoji-refit/art.mjs`, then add `<course>:<surface>` →
+ * `vocab/<course>/<id>.png` below.
  */
 const LINGO_CUSTOM_ART: Record<string, string> = {
-  つくえ: "desk.svg",
-  きょう: "today.svg",
-  へや: "room.svg",
-  みせ: "shop.svg",
-  しゃしん: "photo.svg",
-  そら: "sky.svg",
-  ひゃく: "hundred.svg",
-  ざっし: "magazine.svg",
-  どれ: "which.svg",
+  "ja:つくえ": "svg/desk.svg",
+  "ja:きょう": "svg/today.svg",
+  "ja:へや": "svg/room.svg",
+  "ja:みせ": "svg/shop.svg",
+  "ja:しゃしん": "svg/photo.svg",
+  "ja:そら": "svg/sky.svg",
+  "ja:ひゃく": "svg/hundred.svg",
+  "ja:ざっし": "svg/magazine.svg",
+  "ja:どれ": "svg/which.svg",
+  // Wave C emoji-refit (2026-09-02) — decisions.json `action: "art"`.
+  "ja:しょうゆ": "vocab/ja/shouyu.png",
+  "ja:ストーブ": "vocab/ja/sutoobu.png",
+  "ja:ポケット": "vocab/ja/poketto.png",
+  "ja:こうばん": "vocab/ja/kouban.png",
+  "ja:げんかん": "vocab/ja/genkan.png",
+  "ja:いけ": "vocab/ja/ike.png",
+  "ja:かわ": "vocab/ja/kawa.png",
+  "ja:テーブル": "vocab/ja/teeburu.png",
+  "ko:배": "vocab/ko/배.png",
+  "ko:김치": "vocab/ko/김치.png",
+  "ko:비빔밥": "vocab/ko/비빔밥.png",
+  "es:mesa": "vocab/es/mesa.png",
 };
 
 /**
  * Per-word override returning the custom-art URL when a word has one,
- * else `null`. Lookups are kana-keyed so the lesson data's `emoji` field
- * stays untouched (the emoji is the fallback if the custom asset is
- * unavailable).
+ * else `null`. Lookups are `${course}:${surface}`-keyed — `surface` is
+ * kana for JA, the target-language surface form for KO/ES/FR — so the
+ * lesson data's `emoji` field stays untouched (the emoji is the fallback
+ * if the custom asset is unavailable).
  */
-export function lingoArtUrl(kana: string | undefined): string | null {
-  if (!kana) return null;
-  const file = LINGO_CUSTOM_ART[kana];
+export function lingoArtUrl(
+  course: string,
+  surface: string | undefined,
+): string | null {
+  if (!surface) return null;
+  const file = LINGO_CUSTOM_ART[`${course}:${surface}`];
   return file ? `${LINGO_ART_BASE}/${file}` : null;
 }
 

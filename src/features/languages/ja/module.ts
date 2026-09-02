@@ -222,7 +222,7 @@ const jaVocabArt: VocabArtResolver = {
     const bare = atom.id.startsWith("ja:") ? atom.id.slice(3) : atom.id;
     const ca = JA_COURSE_ATOMS.find((c) => c.id === bare);
     if (!ca) return null;
-    const custom = lingoArtUrl(ca.kana);
+    const custom = lingoArtUrl("ja", ca.kana);
     if (custom) return custom;
     if (ca.emoji) return notoEmojiUrl(ca.emoji);
     return null;

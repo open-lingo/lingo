@@ -10,6 +10,7 @@ import { AnnotatedText } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { isRomanizationOn } from "@/shared/settings/types";
 import { Icon } from "@/shared/components/Icon";
 
@@ -88,6 +89,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // with no record. This is a JA-only vocab step (romaji above kana options),
   // so the setting is resolved for the "ja" language key.
   const showRomaji = isRomanizationOn(useSettings().settings.learning, "ja");
+  const { language } = useLanguage();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -268,7 +270,8 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           } else if (isSelected) {
             stateClasses = "border-accent bg-accent/5";
           }
-          const emojiSrc = lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
+          const emojiSrc =
+            (language && lingoArtUrl(language.id, opt.word)) ?? notoEmojiUrl(opt.emoji);
           return (
             <button
               key={opt.id}

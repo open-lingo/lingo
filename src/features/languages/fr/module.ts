@@ -43,7 +43,7 @@ import * as grammarHelpers from "./grammarHelpers";
 import { FR_PLACEMENT_BANK } from "./placementBank";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
 import { getTtsManifest } from "@/shared/tts/manifest";
 
 // ── Course id ────────────────────────────────────────────────────────────
@@ -85,13 +85,16 @@ const frParticles: ParticleSet = {
     .map((a) => ({ id: a.id, form: a.surface, meaning: a.gloss })),
 };
 
-// ── vocabArt (atom.emoji → Noto fallback; FR has no custom SVGs) ─────────
+// ── vocabArt (custom art first, then atom.emoji → Noto fallback) ────────
 
 const frVocabArt: VocabArtResolver = {
   resolve: (atom) => {
     const bare = atom.id.startsWith("fr:") ? atom.id.slice(3) : atom.id;
     const frAtom: FrAtom | undefined = findFrAtomBySurface(bare);
-    if (frAtom?.emoji) return notoEmojiUrl(frAtom.emoji);
+    if (!frAtom) return null;
+    const custom = lingoArtUrl("fr", frAtom.surface);
+    if (custom) return custom;
+    if (frAtom.emoji) return notoEmojiUrl(frAtom.emoji);
     return null;
   },
 };

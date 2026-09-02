@@ -123,7 +123,7 @@ export function buildVocabRows(
       const state = srsStore[atom.id];
       const { retention, encounters } = retentionFor(state);
       const imageUrl =
-        lingoArtUrl(atom.display) ??
+        lingoArtUrl(languageId, atom.display) ??
         (atom.emoji ? notoEmojiUrl(atom.emoji) : null);
       return {
         id: atom.id,
