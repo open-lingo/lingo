@@ -165,8 +165,8 @@ newAtoms:
   - { kana: ごはん, romaji: gohan, gloss: "rice, a meal", shortGloss: "rice/meal", imageable: true, kind: vocab }
   - { kana: たべもの, romaji: tabemono, gloss: "food", imageable: true, kind: vocab }
   - { kana: しょくじ, romaji: shokuji, gloss: "a meal", imageable: true, kind: vocab }
-  - { kana: ちゃ, romaji: cha, gloss: "tea", imageable: true, kind: vocab }
-  - { kana: こめ, romaji: kome, gloss: "rice (uncooked)", shortGloss: "rice (raw)", imageable: true, kind: vocab }
+  - { kana: ちゃ, romaji: cha, gloss: "tea", imageable: false, kind: vocab }
+  - { kana: こめ, romaji: kome, gloss: "rice (uncooked)", shortGloss: "rice (raw)", imageable: false, kind: vocab }
   - { kana: みせ, romaji: mise, gloss: "shop, store", shortGloss: "shop", imageable: true, kind: vocab }
 
 lessons:

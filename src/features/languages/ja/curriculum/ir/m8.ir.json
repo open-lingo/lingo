@@ -447,7 +447,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -455,7 +455,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -2657,6 +2657,7 @@
     "て",
     "てがみ",
     "で",
+    "です",
     "でんわ",
     "と",
     "とけい",

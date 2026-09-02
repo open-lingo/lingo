@@ -90,13 +90,13 @@ newAtoms:
   - { kana: ひとつ, romaji: hitotsu, gloss: "one thing", shortGloss: "one (thing)", imageable: false, kind: vocab }
   - { kana: ふたつ, romaji: futatsu, gloss: "two things", shortGloss: "two (things)", imageable: false, kind: vocab }
   - { kana: みっつ, romaji: mittsu, gloss: "three things", shortGloss: "three (things)", imageable: false, kind: vocab }
-  - { kana: えん, romaji: en, gloss: "yen", imageable: true, kind: vocab }
+  - { kana: えん, romaji: en, gloss: "yen", imageable: false, kind: vocab }
   # ひゃく was used from m9-neo-4 onward while being introduced NOWHERE —
   # it reached the learner through lesson 4's reviewPool, which asserts
   # "already known". Same shape as the いくら/えん leak (inv 33).
   - { kana: ひゃく, romaji: hyaku, gloss: "hundred", imageable: false, kind: vocab }
   - { kana: いくら, romaji: ikura, gloss: "how much", imageable: false, kind: vocab }
-  - { kana: かね, romaji: kane, gloss: "money", imageable: true, kind: vocab }
+  - { kana: かね, romaji: kane, gloss: "money", imageable: false, kind: vocab }
   - { kana: たかい, romaji: takai, gloss: "expensive, tall", shortGloss: "expensive", imageable: true, kind: vocab }
   - { kana: やすい, romaji: yasui, gloss: "cheap", imageable: true, kind: vocab }
   - { kana: うる, romaji: uru, gloss: "to sell", imageable: true, kind: verb, verbClass: u }
