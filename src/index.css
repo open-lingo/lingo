@@ -56,16 +56,35 @@ body {
      page edges, so anchored lesson chrome feels solid.
    - tap-highlight removal: controls provide their own pressed states; the
      gray iOS flash on every tile tap reads as "web page".
-   - touch-action: manipulation on controls removes double-tap-zoom delay
-     on rapid tile tapping without disabling pinch zoom on content. */
+   - touch-action: manipulation on the root removes the double-tap-zoom
+     delay everywhere without disabling pinch zoom on content.
+   - Under a coarse pointer the app is not a document: long-press and drag
+     must not select text or raise the iOS callout/magnifier (Spencer,
+     2026-09-02: "accidentally selecting all words on the screen"). Scoped
+     to `(pointer: coarse)` so desktop keeps normal selection. Inputs,
+     textareas, contenteditable and the opt-in `.select-text` utility stay
+     selectable — a caret must still appear in typed-answer steps. */
 html,
 body {
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
-}
-button,
-[role="button"] {
   touch-action: manipulation;
+}
+@media (pointer: coarse) {
+  html,
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  input,
+  textarea,
+  [contenteditable="true"],
+  .select-text {
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
+  }
 }
 
 /* ── Cute scrollbar — pill-in-pill, no arrows ──────────────────────────

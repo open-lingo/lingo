@@ -6,6 +6,9 @@ import { SCREENS } from "./src/shared/hooks/breakpoints";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
+  // Every `hover:` utility compiles under `@media (hover: hover)`, so a tap
+  // on touch no longer leaves the hover state stuck until the next tap.
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     // Values are identical to Tailwind's stock scale — existing sm:/md:/lg:
     // utilities are unchanged; this just removes the duplicated constants.

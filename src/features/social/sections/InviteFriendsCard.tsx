@@ -138,7 +138,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
         <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-muted px-3 py-2">
           <Icon name="link" size={14} aria-hidden className="text-text-muted" />
-          <code className="flex-1 truncate font-mono text-xs text-text-primary">
+          <code className="select-text flex-1 truncate font-mono text-xs text-text-primary">
             {offer.url}
           </code>
           <button
