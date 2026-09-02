@@ -20,8 +20,30 @@ const shot = async (name) => {
   console.log(f);
 };
 await page.goto("http://localhost:5173/ja/practice/flashcards/review", { waitUntil: "networkidle" });
-await page.waitForTimeout(1200);
+// `subQueueLoading` resolves ~1-2s post-nav (one react-query retry's backoff
+// under the bypass build's offline short-circuit) — well past the flat
+// 1200ms this used to wait, so this screenshot used to capture "Loading…"
+// instead of the session (2026-09-02, Task 8). Wait for the fact.
+await page
+  .waitForFunction(
+    () => {
+      // An unhydrated/pre-paint body is also "" and must NOT read as
+      // resolved (Task 8, 2026-09-02).
+      const t = document.body.innerText.trim();
+      return t.length > 0 && !/Loading…?$/.test(t);
+    },
+    undefined,
+    { timeout: 10_000 },
+  )
+  .catch(() => {});
+// `FlashcardsOnboardingGate` opens in a useEffect gated on `enabled` (card
+// present), which fires a render pass AFTER the loading-resolved wait above
+// already saw a card — so `gotIt.count()` read 0 here even though the modal
+// showed up seconds later (2026-09-02, Task 8: captured a blank fc-front
+// because of it). Give the effect a real chance to open it before deciding
+// there's nothing to dismiss.
 const gotIt = page.getByRole("button", { name: /got it/i });
+await gotIt.first().waitFor({ state: "visible", timeout: 3_000 }).catch(() => {});
 if (await gotIt.count()) { await shot("fc-onboarding-modal"); await gotIt.first().click(); await page.waitForTimeout(400); }
 await shot("fc-front");
 // dump visible buttons for diagnosis

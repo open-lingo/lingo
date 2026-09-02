@@ -16,6 +16,41 @@ import { PUBLIC_BASE_URL, type Insets, type RouteTarget, type Viewport } from ".
 
 const SETTINGS_KEY = "open-lingo-settings";
 
+/**
+ * The dev-auth-bypass user (`shared/auth/bypass.ts`) is local-first with an
+ * empty `lingo:unlocked-atoms` store — no lessons ever ran to unlock
+ * anything, and it has no subscribed decks either. `/practice/flashcards/review`
+ * therefore renders its `!queue` empty state at EVERY viewport (Task 7,
+ * 2026-09-02): `[data-lesson-stage]` never mounts, so `stage-fit` skips the
+ * route with "not a lesson stage surface" and any chrome/geometry check on
+ * this route measures the empty state, not the fitted review session.
+ *
+ * The fix is the same localStorage key `scripts/capture-flashcards.mjs`
+ * already seeds for its desktop-parity captures: mark a handful of M1 vocab
+ * atoms unlocked so `buildEnrichedCourseDeck`'s course-deck injection
+ * (`useSubscriptionQueue.ts`) has unseen cards to surface as "new cards" —
+ * no SRS state, no subscription, no `?free=1` needed. Same ids as
+ * `capture-flashcards.mjs` (JA) so a Playwright run and a capture run render
+ * the same deck.
+ */
+const JA_FLASHCARDS_SEED_ATOMS = [
+  "ai", "uma", "kai", "kao", "kame", "kinoko", "sakura", "tsuki", "fune",
+  "hoshi", "momo", "ue", "hito", "nani", "koe", "ie", "yama", "kawa", "asa",
+  "uta", "ike", "umi", "inu", "neko",
+];
+
+/**
+ * KO course-atom ids already carry their language prefix (`ko:<surface>`,
+ * `courseAtoms.ts`'s `atom()` helper), unlike JA's bare ids — so these need
+ * no canonicalization. M1 vocab, `kind: "vocab"`, default `srsEligible`.
+ */
+const KO_FLASHCARDS_SEED_ATOMS = [
+  "ko:아이", "ko:오이", "ko:고기", "ko:아기", "ko:거기", "ko:나", "ko:너",
+  "ko:누구", "ko:어머니", "ko:나무",
+];
+
+const FLASHCARDS_REVIEW_RE = /\/practice\/flashcards\/review$/;
+
 /** One CDP session per page — reused across navigations within a test. */
 const cdpSessions = new WeakMap<Page, Promise<CDPSession>>();
 
@@ -139,6 +174,18 @@ export async function seedPage(page: Page, route: RouteTarget): Promise<void> {
       /* ignore */
     }
   });
+
+  if (FLASHCARDS_REVIEW_RE.test(route.path)) {
+    const atoms =
+      route.lang === "ko" ? KO_FLASHCARDS_SEED_ATOMS : JA_FLASHCARDS_SEED_ATOMS;
+    await page.addInitScript((atomIds) => {
+      try {
+        window.localStorage.setItem("lingo:unlocked-atoms", JSON.stringify(atomIds));
+      } catch {
+        /* page may not be same-origin yet */
+      }
+    }, atoms);
+  }
 }
 
 /**
@@ -186,6 +233,34 @@ export async function gotoSeeded(
     });
   // Settle async layout (fonts, lazy chunks, transitions) before measuring.
   await page.waitForTimeout(600);
+
+  // The flashcards review route's queue gates behind `subQueueLoading`
+  // (`useDeckSubscriptions`'s two react-query calls), which the "Skip to
+  // content" link above already satisfies well before the queue itself
+  // resolves — measured ~1-2s post-nav even on the bypassed/offline-short-
+  // circuited fetch (one retry's ~1s backoff). Without this, both a seeded
+  // queue AND a genuinely-empty one get measured mid-"Loading…", which is
+  // the exact race Task 7 found behind `tap-targets`'s 4 pre-existing
+  // failures on this route. Wait for the FACT (loading resolved to
+  // something), not a longer guess — a real empty queue still settles here
+  // and specs assert on it same as before.
+  if (FLASHCARDS_REVIEW_RE.test(route.path)) {
+    await page
+      .waitForFunction(
+        () => {
+          // An unhydrated/pre-paint body is also "" and must NOT read as
+          // resolved — that raced this predicate into passing instantly,
+          // before React had painted anything at all (Task 8, 2026-09-02).
+          const t = document.body.innerText.trim();
+          return t.length > 0 && !/Loading…?$/.test(t);
+        },
+        undefined,
+        { timeout: 10_000 },
+      )
+      .catch(() => {
+        /* leave the verdict to the spec */
+      });
+  }
 
   const landedUrl = new URL(page.url());
   const expectedOrigin = new URL(route.path, base).origin;
