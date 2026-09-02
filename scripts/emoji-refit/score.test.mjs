@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildPrompt, mergeBatch, chunk } from "./score.mjs";
+import { buildPrompt, mergeBatch, chunk, isBatchComplete } from "./score.mjs";
 
 test("chunk splits into 8s", () => {
   assert.equal(chunk(Array.from({ length: 19 }), 8).length, 3);
@@ -21,4 +21,16 @@ test("mergeBatch fills missing ids with a null score and empty candidates", () =
   const out = mergeBatch(items, { scores: [{ id: "a", fit: 5, indirect: false, reason: "fish", candidates: [] }] });
   assert.deepEqual(out.find((s) => s.id === "b"), { id: "b", fit: null, indirect: false, reason: "MODEL_MISSING", candidates: [] });
   assert.equal(out.find((s) => s.id === "a").fit, 5);
+});
+
+test("isBatchComplete rejects an all-MODEL_MISSING batch (failed model call), accepts a normal one", () => {
+  const failedCall = mergeBatch([{ id: "a" }, { id: "b" }], null);
+  assert.equal(isBatchComplete(failedCall), false);
+  const normal = mergeBatch(
+    [{ id: "a", emoji: "🐟" }, { id: "b" }],
+    { scores: [{ id: "a", fit: 5, indirect: false, reason: "fish", candidates: [] }] },
+  );
+  assert.equal(isBatchComplete(normal), true);
+  assert.equal(isBatchComplete([]), false);
+  assert.equal(isBatchComplete(null), false);
 });

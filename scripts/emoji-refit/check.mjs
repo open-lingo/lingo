@@ -6,12 +6,17 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { notoFilename, isDigitOrKeycap, isFlag, loadNotoIndex, loadVendored, headCheckNoto } from "./noto.mjs";
 
-export function checkCandidate(emoji, item, notoIndex, vendored, usedByCourse) {
+export function checkCandidate(emoji, item, notoIndex, vendored, usedByCourse, unreachable = new Set()) {
   const file = notoFilename(emoji);
   const digit = isDigitOrKeycap(emoji) || isFlag(emoji);
   const collidesWith = (usedByCourse.get(emoji) ?? []).filter((id) => id !== item.id);
   const inNoto = notoIndex.has(file);
-  return { emoji, file, inNoto, vendored: vendored.has(file), collidesWith, digit, ok: inNoto && !digit && collidesWith.length === 0 };
+  const result = { emoji, file, inNoto, vendored: vendored.has(file), collidesWith, digit, ok: inNoto && !digit && collidesWith.length === 0 };
+  // Offline fallback path (see main()): a candidate whose HEAD check
+  // couldn't even reach raw.githubusercontent.com is neither confirmed nor
+  // denied — mark why `inNoto: false` here, distinct from a genuine 404.
+  if (!inNoto && unreachable.has(file)) result.reason = "NOTO_UNREACHABLE";
+  return result;
 }
 
 export function buildFlagged(items, scores, checked) {
@@ -42,6 +47,7 @@ async function main() {
   // per candidate emoji actually proposed by score.mjs, and cache the result
   // to <out>/noto-index.json the same way loadNotoIndex would.
   let notoIndex;
+  let unreachable = new Set();
   let notoSource = "github-tree";
   try {
     notoIndex = await loadNotoIndex(out);
@@ -52,11 +58,19 @@ async function main() {
     notoIndex = new Set();
     for (const emoji of candidateEmoji) {
       const file = notoFilename(emoji);
-      if (await headCheckNoto(file)) notoIndex.add(file);
+      // A true offline run means even the per-candidate HEAD fetch throws
+      // (not just a non-ok response) — catch that so the script still
+      // finishes and writes checked.json/flagged.json rather than crashing.
+      try {
+        if (await headCheckNoto(file)) notoIndex.add(file);
+      } catch (headErr) {
+        unreachable.add(file);
+        process.stderr.write(`  HEAD check unreachable for ${file}: ${headErr.message}\n`);
+      }
     }
     await writeFile(join(out, "noto-index.json"), JSON.stringify([...notoIndex]));
   }
-  process.stderr.write(`noto index source: ${notoSource} (${notoIndex.size} entries)\n`);
+  process.stderr.write(`noto index source: ${notoSource} (${notoIndex.size} entries, ${unreachable.size} unreachable)\n`);
 
   const vendored = await loadVendored(root);
   const items = inv.items.filter((i) => !i.blocked && (i.kind === "vocab" || i.kind === "phrase"));
@@ -70,7 +84,7 @@ async function main() {
   const checked = scores.map((s) => {
     const item = itemById.get(s.id);
     if (!item) return { ...s, candidates: [] };
-    return { ...s, candidates: s.candidates.map((c) => checkCandidate(c, item, notoIndex, vendored, used[item.course] ?? new Map())) };
+    return { ...s, candidates: s.candidates.map((c) => checkCandidate(c, item, notoIndex, vendored, used[item.course] ?? new Map(), unreachable)) };
   });
   await writeFile(join(out, "checked.json"), JSON.stringify(checked, null, 1));
   const flagged = buildFlagged(items, scores, checked);

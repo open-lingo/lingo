@@ -8,7 +8,7 @@
  * batch so a killed run resumes. Skips particles and blocked atoms — they are
  * not image words.
  */
-import { readFile, writeFile, mkdir, access, readdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, access, readdir, rename } from "node:fs/promises";
 import { join } from "node:path";
 import { generateJson } from "./ollama.mjs";
 
@@ -79,6 +79,37 @@ export function mergeBatch(items, parsed) {
 const flag = (n, d) => { const i = process.argv.indexOf(`--${n}`); return i > -1 && process.argv[i + 1] ? process.argv[i + 1] : d; };
 const exists = (p) => access(p).then(() => true, () => false);
 
+/**
+ * A batch file only counts as "done" if it has at least one row that isn't
+ * a MODEL_MISSING placeholder. A batch whose model call failed outright
+ * (parsed === null, e.g. the model returned unparseable JSON) merges to a
+ * file where EVERY row is MODEL_MISSING via mergeBatch's byId-miss branch —
+ * that must be retried on resume, not treated as complete forever.
+ */
+export function isBatchComplete(rows) {
+  return Array.isArray(rows) && rows.length > 0 && rows.some((r) => r?.reason !== "MODEL_MISSING");
+}
+
+/** Reads + parses a batch file and returns its rows only if it's a complete
+ *  batch per `isBatchComplete`. Returns null (retry) for a missing file, a
+ *  corrupt/truncated one (hard kill mid-write — JSON.parse throws), or an
+ *  all-MODEL_MISSING one. */
+async function loadCompleteBatch(file) {
+  let text;
+  try {
+    text = await readFile(file, "utf8");
+  } catch {
+    return null;
+  }
+  let rows;
+  try {
+    rows = JSON.parse(text);
+  } catch {
+    return null;
+  }
+  return isBatchComplete(rows) ? rows : null;
+}
+
 async function main() {
   const out = flag("out", "artifacts/emoji-refit");
   const onlyCourse = flag("course", null);
@@ -95,17 +126,36 @@ async function main() {
     const batches = chunk(rows, 8);
     for (let b = 0; b < batches.length; b++) {
       const file = join(out, "scores", `${course}-${String(b).padStart(3, "0")}.json`);
-      if (!force && (await exists(file))) { done++; continue; }
+      if (!force) {
+        const existingRows = await loadCompleteBatch(file);
+        if (existingRows) { done++; continue; }
+        if (await exists(file)) process.stderr.write(`retrying ${file} (incomplete or corrupt)\n`);
+      }
       const r = await generateJson({ prompt: buildPrompt(batches[b]), schema: SCHEMA, numCtx: 8192, numPredict: 2048 });
       tin += r.tokensIn; tout += r.tokensOut;
-      await writeFile(file, JSON.stringify(mergeBatch(batches[b], r.parsed), null, 1));
+      // Atomic write: a hard kill mid-write leaves only the .tmp file (not
+      // matched by the *.json glob below), never a truncated .json that
+      // would crash the merge's JSON.parse.
+      const tmp = `${file}.tmp`;
+      await writeFile(tmp, JSON.stringify(mergeBatch(batches[b], r.parsed), null, 1));
+      await rename(tmp, file);
       done++;
       process.stderr.write(`  ${course} ${b + 1}/${batches.length}  (${((Date.now() - t0) / 1000).toFixed(0)}s)\r`);
     }
   }
   const merged = [];
   for (const f of (await readdir(join(out, "scores"))).sort()) {
-    if (f.endsWith(".json")) merged.push(...JSON.parse(await readFile(join(out, "scores", f), "utf8")));
+    if (!f.endsWith(".json")) continue;
+    try {
+      merged.push(...JSON.parse(await readFile(join(out, "scores", f), "utf8")));
+    } catch (e) {
+      // Defensive: atomic writes should make this unreachable going forward,
+      // but a file written by an older process (no rename-on-write) could
+      // still be sitting truncated on disk. Skip it rather than crash the
+      // whole merge — its batch will simply be missing from scores.json
+      // until it's re-scored.
+      process.stderr.write(`WARN: skipping corrupt batch file ${f}: ${e.message}\n`);
+    }
   }
   await writeFile(join(out, "scores.json"), JSON.stringify(merged, null, 1));
   console.log(`scored ${merged.length} items in ${done} batches, ${tin} in / ${tout} out tokens, ${((Date.now() - t0) / 1000).toFixed(0)}s`);
