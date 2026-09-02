@@ -256,11 +256,15 @@ export function VocabPage() {
                         row.kanji ? "leading-[1.9]" : ""
                       }`}
                     >
-                      <CardFront
-                        text={row.kanji ?? row.kana}
-                        reading={row.kanji ? { surface: row.kanji, kana: row.kana } : undefined}
-                        cardId={row.id}
-                      />
+                      {row.kanji ? (
+                        <CardFront
+                          text={row.kanji}
+                          reading={{ surface: row.kanji, kana: row.kana }}
+                          cardId={row.id}
+                        />
+                      ) : (
+                        row.kana
+                      )}
                     </p>
                     <p className="truncate text-xs text-text-muted">{row.meaning}</p>
                     <p

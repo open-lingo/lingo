@@ -102,8 +102,7 @@ describe("VocabPage", () => {
     expect(withoutRuby).toBeTruthy();
     expect(withoutRuby!.className).not.toContain("leading-[1.9]");
     const withRuby = headlines.find((p) => p.querySelector("ruby"));
-    if (withRuby) {
-      expect(withRuby.className).toContain("leading-[1.9]");
-    }
+    expect(withRuby).toBeTruthy();
+    expect(withRuby!.className).toContain("leading-[1.9]");
   });
 });

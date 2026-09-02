@@ -102,6 +102,7 @@ export type WordOfDay = {
   front: string;
   back: string;
   image?: string;
+  reading?: { surface: string; kana: string };
 };
 
 /**
@@ -114,5 +115,5 @@ export function pickWordOfDay(cards: Flashcard[]): WordOfDay | null {
   );
   if (words.length === 0) return null;
   const w = words[dayIndex() % words.length];
-  return { front: w.front, back: w.back, image: w.image };
+  return { front: w.front, back: w.back, image: w.image, reading: w.reading };
 }

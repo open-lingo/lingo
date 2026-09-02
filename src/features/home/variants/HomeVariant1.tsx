@@ -5,6 +5,7 @@ import type { IconName } from "@/shared/iconRegistry";
 import type { Quest } from "@/features/quests/types";
 import type { HomeVariantData } from "./useHomeVariantData";
 import { questRewardText } from "./homeVariantContent";
+import { CardFront } from "@/features/flashcards/components/CardFront";
 
 /**
  * Home redesign — "One Thing, with a way out."
@@ -397,7 +398,7 @@ function Rail({ data }: { data: HomeVariantData }) {
               </span>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-text-primary">
-                  {data.wordOfDay.front}
+                  <CardFront text={data.wordOfDay.front} reading={data.wordOfDay.reading} />
                   <span className="ml-1.5 font-normal text-text-muted">{data.wordOfDay.back}</span>
                 </p>
                 <p className="text-[11px] uppercase tracking-wide text-text-muted">Word of the day</p>

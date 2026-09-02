@@ -4,9 +4,11 @@
  * furigana, never the `漢字 (かな)` string (Spencer, 2026-09-02). Everything
  * else is `PlainText`.
  *
- * Furigana follows FSRS like the lesson steps do: on the PROMPT face it
- * shows until the card is mastered (both modalities past the mastery
- * interval), then the kanji stands alone. On the ANSWER face it always
+ * PROMPT face: furigana shows until `isMastered` (both modalities past the
+ * mastery interval), then the kanji stands alone. This is simpler than the
+ * lesson steps' gate (`kanjiFuriganaSrsVisible` = `furiganaWindowOpen ||
+ * !isMastered(...)`, a 21-day post-latch window on top of mastery) — that
+ * window is intentionally NOT applied here. ANSWER face: furigana always
  * shows — the learner is checking, not being tested. Re-renders on the SRS
  * store revision so a grade in the same session is reflected.
  */
