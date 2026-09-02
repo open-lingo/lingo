@@ -344,7 +344,8 @@ export function FacetSidebar({
                                   // Hide on hover when the "Only" action is
                                   // available so the count doesn't fight the
                                   // hover affordance for real estate.
-                                  onOnly && "group-hover/option:invisible",
+                                  onOnly &&
+                                    "group-hover/option:invisible [@media(pointer:coarse)]:invisible",
                                 )}
                               >
                                 {opt.count}
@@ -360,7 +361,7 @@ export function FacetSidebar({
                                 }}
                                 tabIndex={-1}
                                 aria-label={`${onlyLabel} ${opt.label}`}
-                                className="invisible absolute right-2 text-[10px] font-semibold uppercase tracking-wider text-accent underline-offset-2 hover:underline group-hover/option:visible"
+                                className="invisible absolute right-2 text-[10px] font-semibold uppercase tracking-wider text-accent underline-offset-2 hover:underline group-hover/option:visible [@media(pointer:coarse)]:visible"
                               >
                                 {onlyLabel}
                               </button>

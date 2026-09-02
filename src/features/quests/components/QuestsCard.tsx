@@ -246,7 +246,7 @@ function QuestRow({
             />
             {/* Progress fraction — revealed on row hover, floats above the bar */}
             <span
-              className="pointer-events-none absolute -top-6 right-0 z-10 hidden whitespace-nowrap rounded-md border border-border bg-surface px-1.5 py-0.5 text-[0.65rem] font-semibold tabular-nums text-text-primary shadow-card group-hover:block"
+              className="pointer-events-none absolute -top-6 right-0 z-10 hidden whitespace-nowrap rounded-md border border-border bg-surface px-1.5 py-0.5 text-[0.65rem] font-semibold tabular-nums text-text-primary shadow-card group-hover:block [@media(pointer:coarse)]:block"
               aria-hidden
             >
               {fraction(quest)}
