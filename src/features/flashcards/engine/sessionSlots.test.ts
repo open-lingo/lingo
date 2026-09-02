@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { buildSessionSlots, requeueReason } from "./sessionSlots";
 import {
   setCardState,
@@ -83,6 +83,15 @@ describe("buildSessionSlots", () => {
 });
 
 describe("requeueReason", () => {
+  // "Still due today" is a calendar-date comparison, so a real clock in the
+  // last minutes of the day pushes the 10-minute learning step onto tomorrow
+  // and the first case fails between 23:50 and 00:00. Pin the clock to noon.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-06-15T12:00:00Z"));
+  });
+  afterEach(() => vi.useRealTimers());
+
   it("requeues a Good-graded new card that is still on a same-day learning step", () => {
     // The reported bug: a brand-new word graded Good lands on FSRS's 10-minute
     // learning step, so it is STILL due today — but only Again/Hard used to be
