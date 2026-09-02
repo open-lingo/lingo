@@ -625,7 +625,7 @@
         {
           "kind": "sentence",
           "ja": "あしたは あめでしょう。",
-          "en": "It'll probably rain tomorrow",
+          "en": "Tomorrow will probably be rain",
           "exercises": [
             "deshou"
           ],
@@ -1530,7 +1530,7 @@
         {
           "kind": "sentence",
           "ja": "あした たぶん あめでしょう。",
-          "en": "It'll probably rain tomorrow",
+          "en": "Tomorrow will most likely be rain",
           "exercises": [
             "tabun-kitto",
             "deshou"
@@ -1608,7 +1608,7 @@
         {
           "kind": "sentence",
           "ja": "あした たぶん ゆきでしょう。",
-          "en": "It'll probably snow tomorrow",
+          "en": "Tomorrow will most likely be snow",
           "exercises": [
             "tabun-kitto",
             "deshou"
@@ -1922,7 +1922,7 @@
         {
           "kind": "sentence",
           "ja": "あした たぶん あめでしょう。",
-          "en": "It'll probably rain tomorrow",
+          "en": "Tomorrow will most likely be rain",
           "exercises": [
             "tabun-kitto",
             "deshou"
@@ -3868,6 +3868,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6218,6 +6219,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {

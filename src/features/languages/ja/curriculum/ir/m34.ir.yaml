@@ -372,7 +372,7 @@ lessons:
       - { kind: rule, grammarPointId: koto-ni-suru }
       - { kind: sentence, ja: "かいしゃを やめる。", en: "I quit the company", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "かいしゃを やめることにした。", en: "I decided to quit the company", exercises: [koto-ni-suru, wo-object], mode: build }
-      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I've decided to practise every day", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practise every day, starting now", exercises: [koto-ni-suru], mode: build }
       - { kind: particle-cloze, stem: "かいしゃを やめる", tail: "。", answer: "ことにした", options: ["ことにした", "にした", "だった"], en: "I decided to quit the company", explanation: "する needs a THING to decide on, and a bare verb isn't one yet — こと does that job first: やめることにした. にした skips こと entirely. だった just reports a past state, with no decision in it at all." }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "たばこを やめることにした。", answer: "I decided to quit smoking", distractors: ["I decided to start smoking", "I want to quit smoking", "I already quit smoking"], exercises: [koto-ni-suru] }
@@ -432,7 +432,7 @@ lessons:
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
       - { kind: sentence, ja: "しょうらいの ゆめが ある。", en: "I have a dream for the future", exercises: [no-possession, ga-existence], mode: build }
-      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I've decided to practise every day", exercises: [koto-ni-suru], mode: listening }
+      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practise every day, starting now", exercises: [koto-ni-suru], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "しょうらい、なにを しようとおもう？", en: "What do you think you'll do in the future?" }
@@ -483,8 +483,8 @@ lessons:
       - { kind: sentence, ja: "ことしの もくひょうが ある。", en: "I have a goal this year", exercises: [no-possession, ga-existence], mode: build }
       - { kind: sentence, ja: "まいにち がんばる。", en: "I do my best every day", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "もくひょうが あるから、がんばろう。", en: "There's a goal, so let's do our best", exercises: [volitional, kara-because, ga-existence], mode: build }
-      - { kind: sentence, ja: "まいにち あるくことにする。", en: "I've decided to walk every day", exercises: [koto-ni-suru], mode: build }
-      - { kind: sentence, ja: "ちょきんすることにした。", en: "I decided to start saving", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "まいにち あるくことにする。", en: "I'm deciding to walk every day, starting now", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "ちょきんすることにした。", en: "I decided to save money", exercises: [koto-ni-suru], mode: build }
       - { kind: particle-cloze, stem: "ミカに「", tail: "」と いう。", answer: "がんばろう", options: ["がんばろう", "がんばります", "がんばる"], en: "Say to Mika: Let's do our best", explanation: "がんばろう is the bare will — right for a friend like Mika. がんばります is the same promise in polite dress, for せんせい. がんばる is only the bare dictionary form, with no suggestion in it at all." }
       - { kind: kanji, kana: まいにち, kanji: 毎日, distractors: ["まいび", "まえにち", "まいにつ"], exercises: [volitional] }
       # がんばります gets a REAL intro-capable exposure before the Tanaka sim

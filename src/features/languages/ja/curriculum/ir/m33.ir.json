@@ -3133,7 +3133,10 @@
             "de-action",
             "jidoushi-tadoushi"
           ],
-          "mode": "translate"
+          "mode": "translate",
+          "alsoAccept": [
+            "でんしゃは えきに とまる。"
+          ]
         },
         {
           "kind": "dialogue",
@@ -4128,6 +4131,7 @@
     "ごほん",
     "ごめんなさい",
     "ごろ",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -4188,6 +4192,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -4217,6 +4222,7 @@
     "ぜんぜん",
     "そう",
     "そこ",
+    "そと",
     "その",
     "そら",
     "それ",
@@ -4272,6 +4278,7 @@
     "ちゃ",
     "ちゃん",
     "ちょっと",
+    "っけ",
     "ついたら",
     "つかう",
     "つかって",
@@ -4552,6 +4559,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかります",
@@ -4835,6 +4843,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7185,6 +7194,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {
@@ -8022,6 +8032,38 @@
       "derivedFrom": "じゃない"
     },
     {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "とりあえず",
       "romaji": "toriaezu",
       "gloss": "for now, to start with",
@@ -8311,6 +8353,14 @@
       "shortGloss": "do ahead (とく)",
       "imageable": false,
       "kind": "grammar-chunk"
+    },
+    {
+      "kana": "そと",
+      "romaji": "soto",
+      "gloss": "outside (the in-group boundary)",
+      "shortGloss": "outside",
+      "imageable": false,
+      "kind": "vocab"
     },
     {
       "kana": "あげる",
@@ -8641,6 +8691,7 @@
       "romaji": "neru",
       "gloss": "to go to bed, to sleep",
       "shortGloss": "go to bed",
+      "imageable": false,
       "kind": "verb"
     },
     {

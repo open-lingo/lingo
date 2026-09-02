@@ -1788,7 +1788,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、はなが さく。",
-          "en": "When spring comes, the flowers bloom",
+          "en": "Every spring, the flowers bloom",
           "exercises": [
             "to-conditional",
             "ni-time",
@@ -1799,7 +1799,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆに なると、ゆきが ふる。",
-          "en": "When winter comes, it snows",
+          "en": "Every winter, it snows",
           "exercises": [
             "to-conditional",
             "ni-time",
@@ -1856,7 +1856,7 @@
         {
           "kind": "sentence",
           "ja": "あきに なると、さむく なる。",
-          "en": "When autumn comes, it gets cold",
+          "en": "Every autumn, it gets cold",
           "exercises": [
             "to-conditional",
             "ku-ni-naru"
@@ -1877,7 +1877,7 @@
         {
           "kind": "sentence",
           "ja": "なつに なると、あつく なる。",
-          "en": "When summer comes, it gets hot",
+          "en": "Every summer, it gets hot",
           "exercises": [
             "to-conditional",
             "ku-ni-naru",
@@ -1935,7 +1935,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、あたたかく なる。",
-          "en": "When spring comes, it gets warm",
+          "en": "Every spring, it gets warm",
           "exercises": [
             "to-conditional",
             "ku-ni-naru"
@@ -2412,7 +2412,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、はなが さく。",
-          "en": "When spring comes, the flowers bloom",
+          "en": "Every spring, the flowers bloom",
           "exercises": [
             "to-conditional",
             "ni-time"
@@ -2470,7 +2470,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆに なると、ゆきが ふる。",
-          "en": "When winter comes, it snows",
+          "en": "Every winter, it snows",
           "exercises": [
             "to-conditional",
             "ni-time"
@@ -2578,7 +2578,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、はなが さく。",
-          "en": "When spring comes, the flowers bloom",
+          "en": "Every spring, the flowers bloom",
           "exercises": [
             "to-conditional",
             "ni-time"
@@ -3259,7 +3259,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、はなが さく。",
-          "en": "When spring comes, the flowers bloom",
+          "en": "Every spring, the flowers bloom",
           "exercises": [
             "to-conditional",
             "ni-time"
@@ -3347,7 +3347,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆに なると、さむく なる。",
-          "en": "When winter comes, it gets cold",
+          "en": "Every winter, it gets cold",
           "exercises": [
             "to-conditional",
             "ku-ni-naru"
@@ -3599,7 +3599,7 @@
         {
           "kind": "sentence",
           "ja": "はるに なると、はなが さく。",
-          "en": "When spring comes, the flowers bloom",
+          "en": "Every spring, the flowers bloom",
           "exercises": [
             "to-conditional",
             "ni-time"
@@ -4149,6 +4149,7 @@
     "ごはん",
     "ごほん",
     "ごめんなさい",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -4207,6 +4208,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -4236,6 +4238,7 @@
     "ぜんぜん",
     "そう",
     "そこ",
+    "そと",
     "その",
     "そら",
     "それ",
@@ -4289,6 +4292,7 @@
     "ちゃ",
     "ちゃん",
     "ちょっと",
+    "っけ",
     "つかう",
     "つかって",
     "つき",
@@ -4547,6 +4551,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかります",
@@ -4826,6 +4831,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7176,6 +7182,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {
@@ -8013,6 +8020,38 @@
       "derivedFrom": "じゃない"
     },
     {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "とりあえず",
       "romaji": "toriaezu",
       "gloss": "for now, to start with",
@@ -8311,6 +8350,14 @@
       "shortGloss": "do ahead (とく)",
       "imageable": false,
       "kind": "grammar-chunk"
+    },
+    {
+      "kana": "そと",
+      "romaji": "soto",
+      "gloss": "outside (the in-group boundary)",
+      "shortGloss": "outside",
+      "imageable": false,
+      "kind": "vocab"
     },
     {
       "kana": "あげる",

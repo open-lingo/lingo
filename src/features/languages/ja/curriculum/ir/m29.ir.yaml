@@ -333,7 +333,7 @@ grammarPoints:
     examples:
       - { ja: "ごごは やすみなんだ。", en: "Say to a friend: The thing is, I'm off this afternoon" }
       - { ja: "かぜが つよいんです。", en: "Say politely: The thing is, the wind's strong" }
-      - { ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are too small, you see" }
+      - { ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are small, you see" }
       - { ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer holidays" }
       - { ja: "めがねが ないんです。", en: "Say politely: The thing is, I haven't got my glasses" }
     antiPattern: { ja: "ごごは やすみんだ。", why: "after a NOUN, ん needs な in front of it — なんだ, never んだ: ごごは やすみなんだ。" }
@@ -626,7 +626,7 @@ lessons:
       - { kind: rule, grammarPointId: n-desu }
       - { kind: sentence, ja: "ごごは やすみなんだ。", en: "Say to a friend: The thing is, I'm off this afternoon", exercises: [n-desu, wa-topic], mode: build }
       - { kind: sentence, ja: "かぜが つよいんです。", en: "Say politely: The thing is, the wind's strong", exercises: [n-desu, i-adj-present, ga-existence], mode: build }
-      - { kind: sentence, ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are too small, you see", exercises: [n-desu, yo-emphasis, i-adj-present], mode: build }
+      - { kind: sentence, ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are small, you see", exercises: [n-desu, yo-emphasis, i-adj-present], mode: build }
       - { kind: sentence, ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer holidays", exercises: [n-desu, ne-agreement, ni-location], mode: build }
       - { kind: sentence, ja: "めがねが ないんです。", en: "Say politely: The thing is, I haven't got my glasses", exercises: [n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "この じしょが ほしいんですよ。", en: "Say politely: The thing is, I want this dictionary, you know", exercises: [n-desu, ga-hoshii, yo-emphasis], mode: build }
@@ -634,7 +634,7 @@ lessons:
       - { kind: kanji, kana: わかる, exercises: [kanji-set-1] }
       - { kind: sentence, ja: "その ことばが わからないんですね。", en: "Say politely: So you don't know that word", exercises: [n-desu, ne-agreement, masu-negative], mode: build }
       - { kind: particle-cloze, stem: "ごごは やすみ", tail: "。", answer: "なんだ", options: ["なんだ", "んだ", "だ"], en: "Say to a friend: The thing is, I'm off this afternoon", explanation: "やすみ is a NOUN, so the explanatory ん needs な in front of it: なんだ. んだ straight after a noun is the mistake everybody makes, and plain だ drops the explanation and just states the fact." }
-      - { kind: listening-comp, audio: "へやが せまいんですよ。", answer: "The room is too narrow, you see", distractors: ["The room is too big, you see", "Is the room narrow?", "The room was narrow, you see"], exercises: [n-desu, yo-emphasis] }
+      - { kind: listening-comp, audio: "へやが せまいんですよ。", answer: "The room is narrow, you see", distractors: ["The room is big, you see", "Is the room narrow?", "The room was narrow, you see"], exercises: [n-desu, yo-emphasis] }
       - { kind: listening-comp, audio: "あきの ふくが ほしいんです。", answer: "The thing is, I want some autumn clothes", distractors: ["The thing is, I want some winter clothes", "I don't want any autumn clothes", "The thing is, I wanted some autumn clothes"], exercises: [n-desu, nai-existence] }
       - kind: dialogue
         lines:
@@ -682,7 +682,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: chotto-softener }
       - { kind: sentence, ja: "ちょっと たかいから かわない。", en: "Say to a friend: It's a bit expensive, so I won't buy it", exercises: [chotto-softener, kara-because, masu-negative], mode: build }
-      - { kind: sentence, ja: "ばんは ちょっと。", en: "Say to a friend: This evening is a bit difficult", exercises: [chotto-softener, wa-topic], mode: build }
+      - { kind: sentence, ja: "ばんは ちょっと。", en: "Say to a friend: This evening is a bit… (a refusal)", exercises: [chotto-softener, wa-topic], mode: build }
       - { kind: sentence, ja: "すみません ごぜんは ちょっと じかんが ないんです。", en: "Say politely: Sorry, I haven't quite got time this morning", exercises: [chotto-softener, n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "その ぼうしは ちょっと おおきいですね。", en: "Say politely: That hat is a bit big, isn't it", exercises: [chotto-softener, ne-agreement, i-adj-present], mode: listening }
       - { kind: register, stage: 3, audience: friend, answer: "じゃない", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Finish it.", frame: { before: "ともだち：「あの かさは ミカの？」　ミカの", after: "。" }, exercises: [janai-desu, register-audience] }

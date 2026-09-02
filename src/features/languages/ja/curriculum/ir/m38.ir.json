@@ -1036,7 +1036,7 @@
         {
           "kind": "sentence",
           "ja": "ぜんぶ たべちゃった。",
-          "en": "I ate it all up",
+          "en": "I ate it all up (casual)",
           "exercises": [
             "chau"
           ],
@@ -1045,7 +1045,7 @@
         {
           "kind": "sentence",
           "ja": "コーヒーを のんじゃった。",
-          "en": "I drank up the coffee",
+          "en": "I drank up the coffee (casual)",
           "exercises": [
             "chau",
             "wo-object"
@@ -1206,7 +1206,7 @@
         {
           "kind": "challenge",
           "ja": "ともだちの かさを こわしちゃったから、あたらしい かさを かった。",
-          "en": "I went and broke my friend's umbrella, so I bought a new umbrella",
+          "en": "I went and broke my friend's umbrella (casual), so I bought a new umbrella",
           "combines": [
             "chau",
             "kara-because",
@@ -2051,7 +2051,7 @@
         {
           "kind": "challenge",
           "ja": "かんじを まちがえちゃったけど、がっこうに なれてきたから、 だいじょうぶ。",
-          "en": "I went and got the kanji wrong, but I've gotten used to school, so it's fine",
+          "en": "I went and got the kanji wrong (casual), but I've gotten used to school, so it's fine",
           "combines": [
             "chau",
             "kedo",
@@ -2126,7 +2126,7 @@
         {
           "kind": "sentence",
           "ja": "おかしも もっていく。",
-          "en": "I'll bring sweets too",
+          "en": "I'll take sweets too",
           "exercises": [
             "te-iku-kuru-space",
             "mo-also"
@@ -2866,6 +2866,7 @@
     "ごほん",
     "ごめんなさい",
     "ごろ",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -2934,6 +2935,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -3034,6 +3036,7 @@
     "ちゃん",
     "ちょきん",
     "ちょっと",
+    "っけ",
     "ついたら",
     "つかいやすい",
     "つかう",
@@ -3379,6 +3382,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかりにくい",
@@ -6853,6 +6857,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "とりあえず",

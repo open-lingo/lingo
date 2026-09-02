@@ -699,7 +699,7 @@ lessons:
       - { kind: sentence, ja: "ミカが きょうしつを でる。", en: "Mika leaves the classroom", exercises: [jidoushi-tadoushi, wo-object], mode: build }
       - { kind: particle-cloze, stem: "ほんが ", tail: "。", answer: "おちる", options: ["おちる", "おとす", "でる"], en: "The book falls", explanation: "が is the tell: nothing is being done to ほん, so the verb has to be the が-half, おちる. おとす needs somebody doing it, and that comes with を. でる would also follow が — the English says falls, not comes out." }
       - { kind: sentence, ja: "つくえから ほんが おちる。", en: "The book falls off the desk", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
-      - { kind: sentence, ja: "えきで でんしゃが とまる。", en: "The train stops at the station", exercises: [de-action, jidoushi-tadoushi], mode: translate }
+      - { kind: sentence, ja: "えきで でんしゃが とまる。", en: "The train stops at the station", exercises: [de-action, jidoushi-tadoushi], mode: translate, alsoAccept: ["でんしゃは えきに とまる。"] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "さいふが ない。", en: "My wallet's gone." }

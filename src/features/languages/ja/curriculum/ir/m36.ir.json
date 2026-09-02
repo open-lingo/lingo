@@ -1373,7 +1373,7 @@
         {
           "kind": "sentence",
           "ja": "ちょっと ふとる。",
-          "en": "I put on a bit of weight",
+          "en": "I gain a bit of weight",
           "exercises": [
             "dictionary-form"
           ],
@@ -3001,6 +3001,7 @@
     "ごほん",
     "ごめんなさい",
     "ごろ",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -3068,6 +3069,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -3163,6 +3165,7 @@
     "ちゃん",
     "ちょきん",
     "ちょっと",
+    "っけ",
     "ついたら",
     "つかう",
     "つかって",
@@ -3475,6 +3478,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかります",
@@ -6947,6 +6951,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "とりあえず",

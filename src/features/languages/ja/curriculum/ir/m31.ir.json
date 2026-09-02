@@ -511,7 +511,7 @@
         },
         {
           "ja": "わたしは かさを もらった。",
-          "en": "I got an umbrella."
+          "en": "As for me, I got an umbrella."
         },
         {
           "ja": "いもうとが ケーキを くれたから うれしかった。",
@@ -1010,7 +1010,10 @@
             "kureru",
             "ga-existence"
           ],
-          "mode": "translate"
+          "mode": "translate",
+          "alsoAccept": [
+            "ともだちが わたしに プレゼントを くれる。"
+          ]
         },
         {
           "kind": "particle-cloze",
@@ -1553,7 +1556,7 @@
         {
           "kind": "challenge",
           "ja": "こんど かいしゃから おいわいの きっぷを もらうから うれしい。",
-          "en": "I'm getting congratulatory tickets from the company next time, so I'm happy",
+          "en": "I'll get congratulatory tickets from the company next time, so I'm happy",
           "combines": [
             "kara-origin",
             "morau",
@@ -1816,7 +1819,7 @@
         {
           "kind": "sentence",
           "ja": "プレゼントを もらうから うれしい。",
-          "en": "I'm getting a present, so I'm happy",
+          "en": "I'll get a present, so I'm happy",
           "exercises": [
             "morau",
             "kara-because",
@@ -2856,7 +2859,7 @@
         {
           "kind": "sentence",
           "ja": "わたしは かさを もらった。",
-          "en": "I got an umbrella",
+          "en": "As for me, I got an umbrella",
           "exercises": [
             "wa-topic",
             "morau",
@@ -2989,7 +2992,7 @@
             {
               "speaker": "Mika",
               "ja": "わたしは かさを もらった。",
-              "en": "I got an umbrella."
+              "en": "As for me, I got an umbrella."
             }
           ],
           "questions": [
@@ -3931,6 +3934,7 @@
     "ごはん",
     "ごほん",
     "ごめんなさい",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -3988,6 +3992,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -4069,6 +4074,7 @@
     "ちゃ",
     "ちゃん",
     "ちょっと",
+    "っけ",
     "つかう",
     "つかって",
     "つき",
@@ -4320,6 +4326,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかります",
@@ -4596,6 +4603,7 @@
       "romaji": "han",
       "gloss": "half past (the hour)",
       "shortGloss": "half past",
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6946,6 +6954,7 @@
       "romaji": "hairu",
       "gloss": "to enter, to go in",
       "shortGloss": "enter",
+      "imageable": false,
       "kind": "verb"
     },
     {
@@ -7781,6 +7790,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "とりあえず",

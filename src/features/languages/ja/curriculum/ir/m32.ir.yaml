@@ -484,22 +484,22 @@ lessons:
       # which is the right division of labour anyway: seasons make the claim
       # easy to believe, machines make it useful.
       - { kind: rule, grammarPointId: to-conditional, variant: automatic }
-      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "When spring comes, the flowers bloom", exercises: [to-conditional, ni-time, ga-existence], mode: build }
-      - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "When winter comes, it snows", exercises: [to-conditional, ni-time, ga-existence], mode: build }
+      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time, ga-existence], mode: build }
+      - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "Every winter, it snows", exercises: [to-conditional, ni-time, ga-existence], mode: build }
       - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "この ボタンを おすと、おとが きこえる。", en: "If you press this button, you hear a sound", exercises: [to-conditional, mieru-kikoeru, wo-object], mode: build }
       - { kind: sentence, ja: "かぎを まわすと、くるまが うごく。", en: "If you turn the key, the car starts", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       # The form drill: と takes the DICTIONARY, たら took the past. This is the
       # only place the two are mechanically confusable.
       - { kind: particle-cloze, stem: "はるに ", tail: "、はなが さく。", answer: "なると", options: ["なると", "なったと", "なったら"], en: "When spring comes, the flowers bloom", explanation: "と goes on the DICTIONARY form, which is the exact mirror of たら — たら wanted the past and と wants なる. なったと borrows たら's past and pins と on it, which is not a form. なったら IS real Japanese, but it makes the weaker claim: this card is about the result that never varies, and that is what と states." }
-      - { kind: sentence, ja: "あきに なると、さむく なる。", en: "When autumn comes, it gets cold", exercises: [to-conditional, ku-ni-naru], mode: build }
+      - { kind: sentence, ja: "あきに なると、さむく なる。", en: "Every autumn, it gets cold", exercises: [to-conditional, ku-ni-naru], mode: build }
       - { kind: sentence, ja: "きかいが うごくと、おとが きこえる。", en: "When the machine runs, you hear a sound", exercises: [to-conditional, ga-existence, mieru-kikoeru], mode: build }
-      - { kind: sentence, ja: "なつに なると、あつく なる。", en: "When summer comes, it gets hot", exercises: [to-conditional, ku-ni-naru, ni-time], mode: translate }
+      - { kind: sentence, ja: "なつに なると、あつく なる。", en: "Every summer, it gets hot", exercises: [to-conditional, ku-ni-naru, ni-time], mode: translate }
       - { kind: kanji, kana: くるま, kanji: 車, distractors: ["ぐるま", "くろま", "しゃりん"], exercises: [to-conditional] }
       - { kind: sentence, ja: "その ボタンを おすと、きかいが うごく。", en: "If you press that button, the machine starts", exercises: [to-conditional, wo-object], mode: listening }
       - { kind: sentence, ja: "かぎを まわすと、ドアが うごく。", en: "If you turn the key, the door moves", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "ボタンを ", tail: "、きかいが うごく。", answer: "おすと", options: ["おすと", "おす", "おすから"], en: "If you press the button, the machine starts", explanation: "おす is a う-verb, so its dictionary form is おす and と attaches straight onto it. Bare おす leaves the two halves unjoined, and おすから says the machine starts BECAUSE you press — true, but it reports one occasion rather than stating how the machine works." }
-      - { kind: sentence, ja: "はるに なると、あたたかく なる。", en: "When spring comes, it gets warm", exercises: [to-conditional, ku-ni-naru], mode: build }
+      - { kind: sentence, ja: "はるに なると、あたたかく なる。", en: "Every spring, it gets warm", exercises: [to-conditional, ku-ni-naru], mode: build }
       - { kind: listening-comp, audio: "ボタンを おすと、きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["If you press the button, the machine stops", "If you turn the key, the machine starts", "I pressed the button and the machine started"], exercises: [to-conditional, wo-object] }
       - { kind: listening-comp, audio: "ふゆに なると、ゆきが ふる。", answer: "When winter comes, it snows", distractors: ["When winter comes, it rains", "When autumn comes, it snows", "It snowed when winter came"], exercises: [to-conditional, ni-time] }
       - kind: dialogue
@@ -570,12 +570,12 @@ lessons:
       - { kind: sentence, ja: "かぎを まわすと、くるまが とまる。", en: "If you turn the key, the car stops", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "しごとが おわったら、ごはんを たべに いきましょう。", en: "When work finishes, let's go and eat", exercises: [tara, mashou, ni-iku], mode: build }
       - { kind: particle-cloze, stem: "やすみに ", tail: "、うみに いきましょう。", answer: "なったら", options: ["なったら", "なると", "なる"], en: "When the holidays come, let's go to the sea", explanation: "ましょう is an invitation, so the same test applies — と cannot promise that the holidays automatically produce a trip to the sea. たら is the form for anything the speaker is proposing rather than reporting." }
-      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "When spring comes, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
+      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["てんわ", "でんは", "でんき"], exercises: [to-conditional] }
       - { kind: sentence, ja: "この みちを わたったら、みぎに まがって ください。", en: "When you've crossed this road, please turn right", exercises: [tara, te-kudasai, ni-location], mode: build }
       - { kind: sentence, ja: "きかいが とまると、おとが きこえない。", en: "When the machine stops, you can't hear the sound", exercises: [to-conditional, mieru-kikoeru, nai-form], mode: translate }
       - { kind: particle-cloze, stem: "うちに ", tail: "、ねる つもりだ。", answer: "かえったら", options: ["かえったら", "かえると", "かえる"], en: "When I get home, I intend to sleep", explanation: "つもり is a plan, and a plan is the speaker's intention rather than a law of the world — so it needs たら. と would be claiming that getting home always puts this person to sleep." }
-      - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "When winter comes, it snows", exercises: [to-conditional, ni-time], mode: listening }
+      - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "Every winter, it snows", exercises: [to-conditional, ni-time], mode: listening }
       - { kind: listening-comp, audio: "えきに ついたら、でんわを して ください。", answer: "When you get to the station, please call", distractors: ["When you get to the station, the phone rings", "When I get to the station, I'll call", "If you call, please come to the station"], exercises: [tara, te-kudasai] }
       - { kind: listening-comp, audio: "ボタンを おすと、きかいが とまる。", answer: "If you press the button, the machine stops", distractors: ["If you press the button, the machine starts", "Please press the button and stop the machine", "When the machine stopped, I pressed the button"], exercises: [to-conditional, ga-existence] }
       - kind: dialogue
@@ -600,7 +600,7 @@ lessons:
       # reviews all three と variants against the たら the first block taught —
       # N-way contrast on review, pairwise on introduction (RUN-PLAN standing
       # decision 5).
-      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "When spring comes, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
+      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai], mode: build }
       - { kind: sentence, ja: "この みちを まっすぐ いくと、えきが ある。", en: "If you go straight along this road, the station is there", exercises: [to-conditional, wo-object], mode: listening }
       - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, ga-existence], mode: build }
@@ -703,7 +703,7 @@ lessons:
       # the SAME sentence and making the learner choose. That is the whole
       # lesson, and a fresh rule card here would only re-explain what the
       # exercises are for.
-      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "When spring comes, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
+      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "はるに なったら、こうえんに いきましょう。", en: "When spring comes, let's go to the park", exercises: [tara, mashou, ni-time], mode: build }
       - { kind: particle-cloze, stem: "はるに ", tail: "、こうえんに いきましょう。", answer: "なったら", options: ["なったら", "なると", "なる"], en: "When spring comes, let's go to the park", explanation: "the same opening half as the sentence before it, and the ending decides everything: ましょう is an invitation, so it has to be たら. Spring arriving makes flowers bloom every year — it does not make anyone go to the park." }
       - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object], mode: build }
@@ -711,7 +711,7 @@ lessons:
       - { kind: sentence, ja: "この みちを まっすぐ いくと、えきが ある。", en: "If you go straight along this road, the station is there", exercises: [to-conditional, wo-object], mode: build }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai], mode: build }
       - { kind: particle-cloze, stem: "この みちを まっすぐ ", tail: "、えきが ある。", answer: "いくと", options: ["いくと", "いったら", "いく"], en: "If you go straight along this road, the station is there", explanation: "the station is there for everyone, every time — that is a fact about the town, so と is the natural form. いったら is not wrong here, but it claims less: it would only report what happens on this one walk." }
-      - { kind: sentence, ja: "ふゆに なると、さむく なる。", en: "When winter comes, it gets cold", exercises: [to-conditional, ku-ni-naru], mode: listening }
+      - { kind: sentence, ja: "ふゆに なると、さむく なる。", en: "Every winter, it gets cold", exercises: [to-conditional, ku-ni-naru], mode: listening }
       - { kind: sentence, ja: "ふゆに なったら、うみに いきたい。", en: "When winter comes, I want to go to the sea", exercises: [tara, v-tai], mode: translate }
       - { kind: sentence, ja: "かぎを まわすと、くるまが うごく。", en: "If you turn the key, the car starts", exercises: [to-conditional, ga-existence], mode: listening }
       - { kind: sentence, ja: "うちに かえったら、ねる つもりだ。", en: "When I get home, I intend to sleep", exercises: [tara, tsumori-desu], mode: build }
@@ -745,7 +745,7 @@ lessons:
       - { kind: sentence, ja: "こうさてんを ひだりに まがると、びょういんが みえる。", en: "If you turn left at the intersection, you can see the hospital", exercises: [to-conditional, mieru-kikoeru], mode: build }
       - { kind: sentence, ja: "くすりを のんだら どうですか。", en: "How about taking some medicine?", exercises: [tara-dou, wo-object], mode: build }
       - { kind: particle-cloze, stem: "さんじ", tail: " うちに かえる。", answer: "ごろ", options: ["ごろ", "ぐらい", "から"], en: "I'll go home around three", explanation: "a point on the clock takes ごろ; ぐらい is for amounts." }
-      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "When spring comes, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
+      - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "ちかみちを とおったら いい。", en: "You'd do well to take the shortcut", exercises: [tara-dou, wo-object], mode: translate }
       - { kind: listening-comp, audio: "ちかてつに のったら どうですか。", answer: "How about taking the underground?", distractors: ["How about taking the bus?", "I took the underground", "Please take the underground"], exercises: [tara-dou] }
       - { kind: challenge, ja: "ろくじごろ えきに ついたら、ちかてつに のったら どうですか。", en: "If you get to the station around six, how about taking the underground?", combines: [gurai-goro, tara, tara-dou, ni-location], mode: build }

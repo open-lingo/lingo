@@ -262,8 +262,8 @@ lessons:
     introduces: [たべちゃった, なくしちゃった, のんじゃった, こわしちゃった, こわれちゃった]
     beats:
       - { kind: rule, grammarPointId: chau }
-      - { kind: sentence, ja: "ぜんぶ たべちゃった。", en: "I ate it all up", exercises: [chau], mode: build }
-      - { kind: sentence, ja: "コーヒーを のんじゃった。", en: "I drank up the coffee", exercises: [chau, wo-object], mode: build }
+      - { kind: sentence, ja: "ぜんぶ たべちゃった。", en: "I ate it all up (casual)", exercises: [chau], mode: build }
+      - { kind: sentence, ja: "コーヒーを のんじゃった。", en: "I drank up the coffee (casual)", exercises: [chau, wo-object], mode: build }
       - { kind: sentence, ja: "かぎを なくしちゃった。", en: "I went and lost the key (casual)", exercises: [chau, wo-object], mode: build }
       - { kind: particle-cloze, stem: "コーヒーを ", tail: "。", answer: "のんじゃった", options: ["のんじゃった", "のんちゃった", "のんで"], en: "I drank up the coffee (casual)", explanation: "でしまう voices to じゃう, following のんで's own voicing — のんで + しまう melts into のんじゃう. のんちゃった keeps the unvoiced ちゃ, which never follows an ん-ending stem. のんで alone is just the て-form, nothing finished parked behind it." }
       - { kind: listening-comp, audio: "たべちゃった。", answer: "I ate it up (casual)", distractors: ["I'm going to eat it", "I didn't eat it", "I want to eat it"], q: "What does this mean?" }
@@ -290,7 +290,7 @@ lessons:
             reply: { mode: build, tiles: ["あたらしい", "かさ", "を", "かう", "よ", "かった"], answer: "あたらしい かさを かうよ。" }
             replyGloss: "I'll buy you a new one."
             explanation: "The promise rides plain かう plus よ — m29's emphasis particle doing its real job. かった would report it already bought, which the state of the umbrella suggests is not yet true."
-      - { kind: challenge, ja: "ともだちの かさを こわしちゃったから、あたらしい かさを かった。", en: "I went and broke my friend's umbrella, so I bought a new umbrella", combines: [chau, kara-because, ta-form], mode: build }
+      - { kind: challenge, ja: "ともだちの かさを こわしちゃったから、あたらしい かさを かった。", en: "I went and broke my friend's umbrella (casual), so I bought a new umbrella", combines: [chau, kara-because, ta-form], mode: build }
     reviewPool: [かさ, かぎ, ケーキ, コーヒー, さいふ, ともだち, ごめんなさい, まど]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -437,7 +437,7 @@ lessons:
           - { speaker: "Mika", ja: "だいじょうぶだよ。", en: "It's okay." }
         questions:
           - { q: "What does Mika say Tom has gotten used to?", options: ["Kanji", "Tests", "School", "Homework"], answer: "Kanji" }
-      - { kind: challenge, ja: "かんじを まちがえちゃったけど、がっこうに なれてきたから、 だいじょうぶ。", en: "I went and got the kanji wrong, but I've gotten used to school, so it's fine", combines: [chau, kedo, te-kuru-iku-time], mode: build }
+      - { kind: challenge, ja: "かんじを まちがえちゃったけど、がっこうに なれてきたから、 だいじょうぶ。", en: "I went and got the kanji wrong (casual), but I've gotten used to school, so it's fine", combines: [chau, kedo, te-kuru-iku-time], mode: build }
     reviewPool: [にほん, ことば, テスト, しつもん, せんせい, じゅぎょう, なまえ, がっこう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -451,7 +451,7 @@ lessons:
       - { kind: sentence, ja: "ケンの うちに のみものを もっていく。", en: "I'll take drinks to Ken's place", exercises: [te-iku-kuru-space, ni-location], mode: build }
       - { kind: particle-cloze, stem: "ケンは のみものを ", tail: "。", answer: "もってくる", options: ["もってくる", "もっていく", "かってくる"], en: "Ken will bring drinks (toward here)", explanation: "From Ken's own vantage the drinks travel TOWARD him — もってくる, matching his house as the anchor. もっていく would send them away, the wrong direction from his side. かってくる is a real verb too, but it means going to buy — a different errand from just carrying." }
       - { kind: listening-comp, audio: "ミカを つれてくる。", answer: "I'll bring Mika along (toward here)", distractors: ["I'll take Mika away", "Mika is coming by herself", "I'll buy something for Mika"], q: "What does this mean?" }
-      - { kind: sentence, ja: "おかしも もっていく。", en: "I'll bring sweets too", exercises: [te-iku-kuru-space, mo-also], mode: build }
+      - { kind: sentence, ja: "おかしも もっていく。", en: "I'll take sweets too", exercises: [te-iku-kuru-space, mo-also], mode: build }
       - { kind: kanji, kana: えいが, kanji: 映画, exercises: [te-iku-kuru-space] }
       - kind: dialogue
         lines:

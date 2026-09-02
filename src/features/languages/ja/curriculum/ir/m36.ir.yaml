@@ -298,7 +298,7 @@ lessons:
       - { kind: particle-cloze, stem: "わたしは こうえんに ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたがっている", "いきたがる"], en: "I want to go to the park", explanation: "たい is first-person interior — わたし owns the wanting directly. いきたがっている describes someone ELSE's visible wanting-behavior; using it for yourself sounds like you're describing your own behavior from the outside." }
       - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: listening-comp, audio: "いぬは こうえんに いきたがっている。", answer: "The dog wants to go to the park", distractors: ["The dog went to the park", "I want to go to the park", "The dog doesn't want to go anywhere"], q: "What does this mean?", explanation: "いきたがっている reports visible wanting-behavior, third person — you can SEE the dog wants this." }
-      - { kind: sentence, ja: "ちょっと ふとる。", en: "I put on a bit of weight", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "ちょっと ふとる。", en: "I gain a bit of weight", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "ちょっと やせる。", en: "I lose a bit of weight", exercises: [dictionary-form], mode: build }
       - { kind: kanji, kana: そと, kanji: 外, distractors: ["がい", "うち", "ほか"], exercises: [garu-tagaru] }
       - kind: dialogue

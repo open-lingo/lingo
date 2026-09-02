@@ -383,7 +383,7 @@
         },
         {
           "ja": "くつが ちいさいんですよ。",
-          "en": "Say politely: The shoes are too small, you see"
+          "en": "Say politely: The shoes are small, you see"
         },
         {
           "ja": "なつやすみに がいこくに いくんだね。",
@@ -2157,7 +2157,7 @@
         {
           "kind": "sentence",
           "ja": "くつが ちいさいんですよ。",
-          "en": "Say politely: The shoes are too small, you see",
+          "en": "Say politely: The shoes are small, you see",
           "exercises": [
             "n-desu",
             "yo-emphasis",
@@ -2242,9 +2242,9 @@
         {
           "kind": "listening-comp",
           "audio": "へやが せまいんですよ。",
-          "answer": "The room is too narrow, you see",
+          "answer": "The room is narrow, you see",
           "distractors": [
-            "The room is too big, you see",
+            "The room is big, you see",
             "Is the room narrow?",
             "The room was narrow, you see"
           ],
@@ -2540,7 +2540,7 @@
         {
           "kind": "sentence",
           "ja": "ばんは ちょっと。",
-          "en": "Say to a friend: This evening is a bit difficult",
+          "en": "Say to a friend: This evening is a bit… (a refusal)",
           "exercises": [
             "chotto-softener",
             "wa-topic"

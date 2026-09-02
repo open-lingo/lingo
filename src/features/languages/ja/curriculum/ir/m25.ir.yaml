@@ -393,7 +393,7 @@ lessons:
       - { kind: sentence, ja: "ミカは いま としょかんでしょう。", en: "Mika's probably at the library right now", exercises: [deshou, wa-topic], mode: listening }
       - { kind: sentence, ja: "きょうは いそがしいけど あしたは やすみでしょう。", en: "I'm busy today, but tomorrow's probably a day off", exercises: [deshou, kedo, wa-topic, i-adj-present], mode: build }
       - { kind: sentence, ja: "きょうは あめだけど あしたは ゆきでしょう。", en: "Today it's rain, but tomorrow it'll probably be snow", exercises: [deshou, wa-topic, kedo, desu-copula], mode: build }
-      - { kind: sentence, ja: "あしたは あめでしょう。", en: "It'll probably rain tomorrow", exercises: [deshou], mode: translate }
+      - { kind: sentence, ja: "あしたは あめでしょう。", en: "Tomorrow will probably be rain", exercises: [deshou], mode: translate }
       - { kind: particle-cloze, stem: "あしたの てんきは はれ", tail: "。", answer: "でしょう", options: ["でしょう", "だった", "でした"], en: "Tomorrow's weather will probably be clear", explanation: "でしょう says you EXPECT clear weather without claiming to know it. だった and でした both say it already WAS clear." }
       - { kind: listening-comp, audio: "あしたの てんきは あめでしょう。", answer: "Tomorrow's weather will probably be rain", distractors: ["Tomorrow's weather was rain", "Tomorrow's weather is definitely rain", "Today's weather is rain"], exercises: [deshou, no-possession] }
       - { kind: listening-comp, audio: "ミカは いま がっこうでしょう。", answer: "Mika's probably at school right now", distractors: ["Mika is at school right now", "Mika was at school", "Mika isn't at school right now"], exercises: [deshou, wa-topic] }
@@ -526,14 +526,14 @@ lessons:
     introduces: [たぶん, きっと]
     beats:
       - { kind: rule, grammarPointId: tabun-kitto }
-      - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "It'll probably rain tomorrow", exercises: [tabun-kitto, deshou], mode: build }
+      - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "Tomorrow will most likely be rain", exercises: [tabun-kitto, deshou], mode: build }
       - { kind: sentence, ja: "なつは きっと あついでしょう。", en: "Summer's definitely going to be hot", exercises: [tabun-kitto, deshou-adjective, ni-time], mode: build }
       - { kind: sentence, ja: "ミカは いそがしいから たぶん こないでしょう。", en: "Mika's busy, so she probably won't come", exercises: [tabun-kitto, deshou-verb, nai-form, kara-because], mode: build }
       - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer holidays will definitely be fun", exercises: [tabun-kitto, deshou-adjective, wa-topic], mode: build }
       - { kind: sentence, ja: "あきは たぶん すずしいでしょう。", en: "Autumn's probably cool", exercises: [tabun-kitto, deshou-adjective, ni-time], mode: listening }
       - { kind: sentence, ja: "きっと ばんに ほしが みえるでしょう。", en: "You'll definitely be able to see the stars in the evening", exercises: [tabun-kitto, mieru-kikoeru, deshou-verb, ni-time], mode: build }
       - { kind: sentence, ja: "たぶん あしたの じゅぎょうは むずかしいでしょう。", en: "Tomorrow's class is probably going to be difficult", exercises: [tabun-kitto, deshou-adjective, no-possession], mode: build }
-      - { kind: sentence, ja: "あした たぶん ゆきでしょう。", en: "It'll probably snow tomorrow", exercises: [tabun-kitto, deshou], mode: translate }
+      - { kind: sentence, ja: "あした たぶん ゆきでしょう。", en: "Tomorrow will most likely be snow", exercises: [tabun-kitto, deshou], mode: translate }
       - { kind: particle-cloze, stem: "なつは ", tail: "あついでしょう。", answer: "きっと", options: ["きっと", "たぶん", "あまり"], en: "Summer's definitely going to be hot", explanation: "きっと is the sure end of the scale. たぶん hedges, and あまり only ever works in front of a negative." }
       - { kind: listening-comp, audio: "ミカは たぶん こないでしょう。", answer: "Mika probably won't come", distractors: ["Mika definitely won't come", "Mika probably will come", "Mika didn't come"], exercises: [tabun-kitto, nai-form] }
       - { kind: listening-comp, audio: "あきは きっと すずしいでしょう。", answer: "Autumn will definitely be cool", distractors: ["Autumn is probably cool", "Autumn was cool", "Autumn definitely isn't cool"], exercises: [tabun-kitto, deshou-adjective] }
@@ -582,7 +582,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "ふゆは さむいでしょうけど はるは あたたかいでしょう。", en: "Winter's probably cold, but spring's probably mild", exercises: [ni-time, deshou-adjective], mode: build }
-      - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "It'll probably rain tomorrow", exercises: [tabun-kitto, deshou], mode: build }
+      - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "Tomorrow will most likely be rain", exercises: [tabun-kitto, deshou], mode: build }
       - { kind: sentence, ja: "あの ひとは だれかな。", en: "I wonder who that person over there is", exercises: [kana-wondering, dare], mode: listening }
       - { kind: sentence, ja: "あきは すずしいから さんぽを する。", en: "Autumn's cool, so I go for a walk", exercises: [ni-time, kara-because], mode: build }
       - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer holidays will definitely be fun", exercises: [tabun-kitto, deshou-adjective], mode: build }
