@@ -1,4 +1,8 @@
 import type { ReactNode, Ref } from "react";
+import {
+  FITTED_SHELL_COLUMN,
+  FITTED_SHELL_HEIGHT,
+} from "@/shared/layout/fittedShell";
 
 /**
  * The viewport-locked exercise shell — ONE implementation shared by the lesson
@@ -38,14 +42,15 @@ import type { ReactNode, Ref } from "react";
 /**
  * Height reserved outside the shell. Keep header/stage/footer inside this box
  * and the primary CTA stays in-fold without any `dvh` arithmetic in step
- * content. `--cookie-consent-height` is published by the consent banner so the
- * shell shortens rather than hiding the CTA behind it.
+ * content. The value itself lives in `@/shared/layout/fittedShell` so the
+ * mobile flashcard review shell can use the identical budget without importing
+ * lesson UI — see that file for why the direction matters. Re-exported here
+ * because this module is where the app has always looked for it.
  */
-export const SHELL_HEIGHT =
-  "h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))]";
+export const SHELL_HEIGHT = FITTED_SHELL_HEIGHT;
 
 /** The shared measure. Header, stage and footer all use it — don't fork it. */
-export const SHELL_COLUMN = "mx-auto w-full max-w-2xl";
+export const SHELL_COLUMN = FITTED_SHELL_COLUMN;
 
 type Props = {
   /** Progress bar / exit affordance row. Rendered inside the shared column. */
