@@ -77,7 +77,7 @@ export function FlashcardsTile() {
             <span
               key={card.id}
               title={card.front}
-              className="flex h-7 min-w-7 max-w-[6rem] items-center justify-center truncate rounded-md border border-border bg-surface-muted px-1.5 text-sm font-bold text-text-primary"
+              className="flex min-h-7 min-w-7 max-w-[6rem] items-center justify-center truncate rounded-md py-0.5 border border-border bg-surface-muted px-1.5 text-sm font-bold text-text-primary"
             >
               <CardFront text={card.front} reading={card.reading} cardId={card.id} />
             </span>
