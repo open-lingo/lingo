@@ -32,7 +32,27 @@ const arg = (name, fallback) => {
   const i = process.argv.indexOf(`--${name}`);
   return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 };
-const BASE = arg("base", "https://openlingoapp.com").replace(/\/+$/, "");
+/**
+ * The clips are served from the ASSET origin, which is NOT the apex. Defaulting
+ * to `openlingoapp.com` made this script report every single clip missing —
+ * the apex answers a `/tts/v1/...` path with index.html and a 200, which is the
+ * exact signature this script calls "MISSING". A checker whose own default
+ * cries wolf is worse than no checker, so read the base the app actually uses.
+ */
+function configuredBase() {
+  for (const file of [".env.native", ".env"]) {
+    try {
+      const body = readFileSync(resolve(__dirname, "..", file), "utf-8");
+      const found = body.match(/^VITE_ASSET_BASE_URL=(.+)$/m)?.[1]?.trim();
+      if (found) return found;
+    } catch {
+      // Not every checkout has every env file; fall through to the next.
+    }
+  }
+  return "https://app.openlingoapp.com";
+}
+
+const BASE = arg("base", configuredBase()).replace(/\/+$/, "");
 const SAMPLE = Number(arg("sample", "25"));
 const CONCURRENCY = 12;
 
