@@ -22,6 +22,7 @@ import { ES_M8_LESSONS } from "./m8";
 import { ES_M9_LESSONS } from "./m9";
 import { ES_M10_LESSONS } from "./m10";
 import { ES_M11_LESSONS } from "./m11";
+import { ES_M12_LESSONS } from "./m12";
 
 export type EsModuleMeta = {
   id: string;
@@ -109,6 +110,13 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     summary: "comer, beber, vivir — the -er and -ir machines, which in the singular are one machine.",
     accent: { from: "#38bdf8", to: "#0369a1" },
   },
+  {
+    id: "m12",
+    title: "Este, ese",
+    eyebrow: "Module 12 · Señalar",
+    summary: "este, ese and their plurals — pointing agrees, and a shop is where you find out.",
+    accent: { from: "#a78bfa", to: "#6d28d9" },
+  },
 ];
 
 const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
@@ -123,6 +131,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m9: ES_M9_LESSONS,
   m10: ES_M10_LESSONS,
   m11: ES_M11_LESSONS,
+  m12: ES_M12_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

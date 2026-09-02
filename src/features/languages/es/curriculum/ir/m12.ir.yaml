@@ -1,0 +1,2051 @@
+module: m12
+title: "Este, ese — pointing, and paying for it"
+frame: none
+throughModule: m11
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m12 — «Este, ese»: the module that teaches POINTING.
+#
+# m10 built the -ar machine, m11 finished the regular present. m12 is a
+# deliberate non-verb breather between two paradigm modules — but it is not
+# a rest. Spanish cannot point without agreeing:
+#
+#     este / esta      this   (near me)
+#     estos / estas    these
+#     ese  / esa       that   (over there)
+#     esos / esas      those
+#
+# The learner has owned gender since m6 and plurals since m3. The whole
+# module is one rule — A DEMONSTRATIVE TAKES THE GENDER AND NUMBER OF THE
+# NOUN IT POINTS AT — spent in the one place pointing is unavoidable: a
+# shop. «¿Cuánto cuesta?» is the transaction the grammar is for.
+#
+# aquel/aquella are deliberately NOT taught. Two distances only; the third
+# is a m20s problem and teaching it here would triple the table for a
+# distinction beginners never need.
+#
+# ⚠️ «esta» vs «está» — the accent collision, taught not dodged.
+#   «está» (m4) is "is (somewhere)"; «esta» (here) is "this". They differ by
+#   one accent and the learner WILL meet them in the same sentence («esta
+#   camisa está aquí»). L1 names the pair explicitly rather than hoping the
+#   learner never notices. The atom registry does not deaccent, so the two
+#   are separate atoms and both stay trackable.
+#
+# INFINITIVE-ONLY: «comprar» appears ONLY as a bare infinitive, essentially
+# always after «quiero». No cell of it is ever written. This mirrors m10's
+# escuchar/bailar/cantar and m11's escribir/leer/correr and is enforced by a
+# bespoke test in m12.test.ts. Rationale unchanged: a conjugated cell of a
+# verb the module never drills is an untaught form appearing nowhere else.
+#
+# FORMS DELIBERATELY NOT REGISTERED (the gate derives them):
+#   - «cara / caros / caras», «barata / baratos / baratas» — the guard folds
+#     an untracked regular feminine of an -o adjective into its masculine,
+#     and an untracked regular plural into its singular. Registering them
+#     would give each a debut requirement it does not need.
+#   - «zapatos» — regular plural of the registered singular «zapato». The
+#     module uses the plural far more than the singular (shoes come in
+#     pairs, and L5 needs «estos zapatos»), but the SINGULAR is the atom;
+#     the plural rides the m3 fold.
+#   - «estos/estas/esos/esas» are NOT foldable — este→estos and ese→esos are
+#     irregular — so all four are registered in their own right (L5).
+#
+# TRANSFER TEST (L8, one atom): «sombrero» exists for ONE purpose — the
+# checkpoint step that makes the learner run the module's machine on a noun
+# it never drilled. m10 (visitar) and m11 (recibir) set the pattern with
+# verb cells; a demonstrative module's equivalent is an UNSEEN NOUN whose
+# gender the learner must decide for themselves. «sombrero» is a loanword
+# into English, so the vocabulary load is zero and the entire load falls on
+# the agreement — which is the thing being tested. It carries no emoji;
+# transfer cells never do.
+#
+# Atom allocation across lessons (18 total):
+#   L1 este/esta (2) · L2 camisa/falda/zapato (3) · L3 ese/esa (2) ·
+#   L4 cuánto/cuesta/cuestan (3) · L5 estos/estas/esos/esas (4) ·
+#   L6 caro/barato/comprar (3) · L8 sombrero (1, transfer only).
+#   L7 · L9 · L10 are zero-new. 2+3+2+3+4+3+1 = 18.
+#   este/esta (L1) and ese/esa (L3) are split by an unrelated noun lesson
+#   and the plurals wait until L5 — the interleave doctrine, not an
+#   accident of ordering.
+
+newAtoms:
+  - { surface: "este", meaningEn: "this (el-word)", partOfSpeech: "particle", kind: "particle", hint: "ES-teh" }
+  - { surface: "esta", meaningEn: "this (la-word)", partOfSpeech: "particle", kind: "particle", hint: "no accent — está with the accent is 'is'" }
+  - { surface: "ese", meaningEn: "that (el-word)", partOfSpeech: "particle", kind: "particle", hint: "EH-seh" }
+  - { surface: "esa", meaningEn: "that (la-word)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "estos", meaningEn: "these (el-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "estas", meaningEn: "these (la-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "esos", meaningEn: "those (el-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "esas", meaningEn: "those (la-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "camisa", meaningEn: "shirt", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👕" }
+  - { surface: "falda", meaningEn: "skirt", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👗" }
+  - { surface: "zapato", meaningEn: "shoe", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👟" }
+  - { surface: "cuánto", meaningEn: "how much", partOfSpeech: "adverb", kind: "vocab", hint: "KWAN-toh" }
+  - { surface: "cuesta", meaningEn: "it costs", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "cuestan", meaningEn: "they cost", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "caro", meaningEn: "expensive", partOfSpeech: "adjective", kind: "vocab" }
+  - { surface: "barato", meaningEn: "cheap", partOfSpeech: "adjective", kind: "vocab", hint: "ba-RA-toh" }
+  - { surface: "comprar", meaningEn: "to buy", partOfSpeech: "verb", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — no emoji: it must be met cold, in text.
+  - { surface: "sombrero", meaningEn: "hat", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+
+lessons:
+
+  # ── L1 · este/esta debut — the pointing word copies the noun's side, and
+  #    «esta» is not «está». ────────────────────────────────────────────────
+  #    Shape follows m11 L1: the very first contact is a MAP (a segmented
+  #    sentence, not a bare word), each map is cashed by the speakLit that
+  #    actually debuts the atom — a word_map exposes nothing to the
+  #    provenance gate, so «este» debuts on l1-sp-estelibro and «esta» on
+  #    l1-sp-estasilla, both intro-capable types.
+  #    The module's ONE card is not spent here on the paradigm — it is spent
+  #    on the accent pair, because that is the thing the learner cannot
+  #    deduce. It sits AFTER both debuts (the m11 L5 idiom: a card confirms a
+  #    noticing, it does not preview a rule).
+  #    ⚠️ «esta» vs «está»: l1-b-estamesa is the beat. Its tile bank is the
+  #    answer's own words plus «este», so BOTH «esta» and «está» are on the
+  #    board and the learner must place each one. It is a build and not a
+  #    cloze on purpose: a cloze offering «está» against the sentence «esta
+  #    mesa está aquí» fails the inv-10 echo check (the distractor is a word
+  #    of the prompt). l1-c-estavsesta gets the same contrast honestly, by
+  #    running it on a sentence that does NOT contain «está».
+  - n: 1
+    template: free
+    title: "Este, esta"
+    description: "«Este» and «esta» both mean this — and which one you say is decided by the noun, not by you."
+    steps:
+      - kind: map
+        id: l1-map-estelibro
+        tokens: ["este", "libro", "es", "nuevo"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "book", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "este libro es nuevo"
+        revealNote: "«libro» and «nuevo» are already yours — «este» is the new word: this. Notice where it sits: it takes «el»'s place. «el libro» becomes «este libro», never «este el libro»."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: l1-sp-estelibro
+        es: "este libro es nuevo"
+        en: "this book is new"
+        atoms: ["este", "libro", "es", "nuevo"]
+      - kind: map
+        id: l1-map-estasilla
+        tokens: ["esta", "silla", "es", "nueva"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "chair", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "esta silla es nueva"
+        revealNote: "Same sentence, other side. «silla» is a la-word, so the pointing word is «esta» — and «nuevo» flips to «nueva» right behind it, exactly as it always has. The noun decides both."
+        tokenGenders: { 0: "f", 1: "f", 3: "f" }
+      - kind: speakLit
+        id: l1-sp-estasilla
+        es: "esta silla es nueva"
+        en: "this chair is new"
+        atoms: ["esta", "silla", "es", "nueva"]
+      # The module's single info card, spent on the accent pair — the one
+      # thing here that cannot be deduced from the two maps above.
+      - kind: info
+        id: l1-info-estevsesta
+        title: "Este, esta — and the accent that changes everything"
+        body: "«este» and «esta» both mean this. The noun picks: an el-word takes «este libro», a la-word takes «esta silla». Now the trap: «está», with the mark, is the word you have had since the kitchen — «está en la mesa», it IS somewhere. «esta», with no mark, means this. They sound different too: es-TA for «está», ES-ta for «esta». You will meet both in one line: «esta mesa está aquí» — this table is here."
+      - kind: clozeLit
+        id: l1-c-estelapiz
+        es: "este lápiz es pequeño"
+        en: "this pencil is small"
+        blank: "este"
+        options: ["este", "esta"]
+        atoms: ["este", "lápiz", "es", "pequeño"]
+        why: "«el lápiz» is an el-word, so the pointing word is «este». And «pequeño» stays as it is behind it."
+      # THE ACCENT BEAT. The bank is the answer's own four tiles plus «este»,
+      # so «esta» and «está» are both on the board and both have to land in
+      # the right slot. Do not turn this into a cloze.
+      - kind: buildLit
+        id: l1-b-estamesa
+        es: "esta mesa está aquí"
+        en: "this table is here"
+        atoms: ["esta", "mesa", "está", "aquí"]
+        tiles: ["este"]
+      - kind: audioWimcq
+        id: l1-ear-review1
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+      # The same contrast as the build, run as a choice — and it is legal
+      # here because THIS sentence has no «está» in it to echo.
+      - kind: clozeLit
+        id: l1-c-estavsesta
+        es: "esta casa es grande"
+        en: "this house is big"
+        blank: "esta"
+        options: ["esta", "está"]
+        atoms: ["esta", "casa", "es", "grande"]
+        why: "You are pointing at the house, not saying where it is — «esta», no mark. «está casa» is not Spanish; «está» always means is-somewhere."
+      - kind: listenBuildLit
+        id: l1-lb-estegato
+        es: "este gato es negro"
+        en: "this cat is black"
+        atoms: ["este", "gato", "es", "negro"]
+        tiles: ["esta", "blanco"]
+      - kind: speakLit
+        id: l1-sp-recall-llave
+        es: "la llave está allí"
+        en: "the key is over there"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l1-tm-esta
+        target: "esta"
+        distractors: ["este", "está", "aquí"]
+        prompt: "Which word means «this» and goes with a la-word?"
+      - kind: listenCompLit
+        id: l1-lc-estamesa
+        es: "esta mesa está aquí"
+        en: "This table is here."
+        atoms: ["esta", "mesa", "está", "aquí"]
+        distractorsEn:
+          - "This chair is here."
+          - "The table is here."
+          - "This table is new."
+      - kind: buildLit
+        id: l1-b-quieroestasopa
+        es: "quiero esta sopa"
+        en: "I want this soup"
+        atoms: ["quiero", "esta", "sopa"]
+        tiles: ["este", "la"]
+      - kind: audioWimcq
+        id: l1-ear-review2
+        target: { surface: "el perro", emoji: "🐶" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: sim
+        id: l1-sim-ana-senala
+        scene: { emoji: "☕", title: "Ana points at the counter", setting: "Ana taps the counter twice and waits for you to choose." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Quieres este café?", audioText: "¿quieres este café?", gloss: "Do you want this coffee?" }
+            goal: "Say yes — you want this coffee."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero este café" }
+                - { id: "wrong1", text: "sí, quiero esta café" }
+                - { id: "wrong2", text: "sí, quiero este sopa" }
+              correctOptionId: "right"
+              audioText: "sí, quiero este café"
+            replyGloss: "Yes, I want this coffee."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y esta sopa?", audioText: "¿y esta sopa?", gloss: "And this soup?" }
+            goal: "Say you want this soup too."
+            reply:
+              mode: build
+              tiles: ["quiero", "esta", "sopa", "también", "este", "el"]
+              answer: "quiero esta sopa también"
+              alsoAccepted: ["quiero esta sopa"]
+            replyGloss: "I want this soup too."
+            explanation: "«la sopa» is a la-word, so it is «esta sopa» — «este» is on the board to be left there."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Esta mesa está aquí?", audioText: "¿esta mesa está aquí?", gloss: "Is this table here?" }
+            goal: "Say yes — this table is here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, esta mesa está aquí" }
+                - { id: "wrong1", text: "sí, está mesa esta aquí" }
+                - { id: "wrong2", text: "sí, este mesa está aquí" }
+              correctOptionId: "right"
+              audioText: "sí, esta mesa está aquí"
+            replyGloss: "Yes, this table is here."
+            explanation: "Both words are in the line and each has one job: «esta» points at the table, «está» says where it is."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "este", target: "this (with an el-word)" }
+          - { source: "esta", target: "this (with a la-word)" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "la silla", target: "the chair" }
+          - { source: "la mesa", target: "the table" }
+          - { source: "la llave", target: "the key" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "quiero este café y esta sopa"
+        en: "I want this coffee and this soup"
+        atoms: ["quiero", "este", "café", "y", "esta", "sopa"]
+
+  # ── L2 · camisa/falda/zapato debut — and L1's pointing words get something
+  #    worth pointing at. ────────────────────────────────────────────────
+  #    Deliberately ZERO info cards: the module's one card is spent in L1, and
+  #    the el/la generalisation this lesson needs is carried by the
+  #    genderSort's own endingRule line, which is a GRADED beat rather than a
+  #    passive one.
+  #    This is the module's genderSort (the course convention is ≤2 per
+  #    module — L1..L10 authors, this is one of them). ⚠️ «sombrero» is
+  #    registered for the L8 transfer step ONLY and appears nowhere in this
+  #    lesson; the fourth, fifth and sixth sort slots are earlier modules'
+  #    nouns (libro m3, mesa m4, carro m6), all regular -o/-a so the ending
+  #    rule the card states is actually true of every item on screen.
+  #    Interleave: apart from the debut naming «la camisa», EVERY sentence in
+  #    this lesson that carries one of the three new nouns also carries
+  #    «este» or «esta» — the nouns exist here to give L1's pointing words
+  #    something to point at, so this is not a vocabulary silo.
+  #    «zapatos» (the plural) is not needed yet — L5 owns it — so every shoe
+  #    here is singular.
+  - n: 2
+    template: free
+    title: "La camisa"
+    description: "A shirt, a skirt and a shoe — two la-words and one el-word, and the pointing word you just learned has to choose between them."
+    steps:
+      - kind: imageMcq
+        id: l2-d-camisa
+        target: { surface: "la camisa", meaningEn: "the shirt", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+          - { surface: "la puerta", emoji: "🚪" }
+      - kind: speakLit
+        id: l2-sp-lacamisa
+        es: "la camisa"
+        en: "the shirt"
+        atoms: ["la", "camisa"]
+      - kind: map
+        id: l2-map-estacamisa
+        tokens: ["esta", "camisa", "es", "nueva"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "shirt", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "esta camisa es nueva"
+        revealNote: "Nothing new but the noun. «camisa» ends in -a and takes «la», so the pointing word is «esta» and «nuevo» flips to «nueva» behind it — the whole line leans one way."
+        tokenGenders: { 0: "f", 1: "f", 3: "f" }
+      - kind: speakLit
+        id: l2-sp-estacamisa
+        es: "esta camisa es nueva"
+        en: "this shirt is new"
+        atoms: ["esta", "camisa", "es", "nueva"]
+      - kind: imageMcq
+        id: l2-d-falda
+        target: { surface: "la falda", meaningEn: "the skirt", emoji: "👗" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "el zapato", emoji: "👟" }
+          - { surface: "una silla", emoji: "🪑" }
+      - kind: buildLit
+        id: l2-b-estafalda
+        es: "esta falda es roja"
+        en: "this skirt is red"
+        atoms: ["esta", "falda", "es", "roja"]
+        tiles: ["este", "rojo"]
+      - kind: imageMcq
+        id: l2-d-zapato
+        target: { surface: "el zapato", meaningEn: "the shoe", emoji: "👟" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: speakLit
+        id: l2-sp-estezapato
+        es: "este zapato es negro"
+        en: "this shoe is black"
+        atoms: ["este", "zapato", "es", "negro"]
+      - kind: genderSort
+        id: l2-sort
+        prompt: "el or la?"
+        items:
+          - { surface: "camisa", side: "la", meaningEn: "shirt" }
+          - { surface: "falda", side: "la", meaningEn: "skirt" }
+          - { surface: "zapato", side: "el", meaningEn: "shoe" }
+          - { surface: "libro", side: "el", meaningEn: "book" }
+          - { surface: "mesa", side: "la", meaningEn: "table" }
+          - { surface: "carro", side: "el", meaningEn: "car" }
+        endingRule: "-a words take la, -o words take el — so camisa and falda are la-words and take «esta», and zapato is an el-word and takes «este»."
+      - kind: clozeLit
+        id: l2-c-estacamisa
+        es: "esta camisa es blanca"
+        en: "this shirt is white"
+        blank: "esta"
+        options: ["esta", "este"]
+        atoms: ["esta", "camisa", "es", "blanca"]
+        why: "«la camisa» — a la-word, so «esta». The shirt decided it, not you."
+      - kind: listenBuildLit
+        id: l2-lb-estezapato
+        es: "este zapato es nuevo"
+        en: "this shoe is new"
+        atoms: ["este", "zapato", "es", "nuevo"]
+        tiles: ["esta", "vieja"]
+      - kind: audioWimcq
+        id: l2-ear-review
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: speakLit
+        id: l2-sp-recall-cuenta
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l2-c-estezapato
+        es: "este zapato es grande"
+        en: "this shoe is big"
+        blank: "este"
+        options: ["este", "esta"]
+        atoms: ["este", "zapato", "es", "grande"]
+        why: "«el zapato» — an el-word, so «este». «grande» does not move either way; it never does."
+      - kind: listenCompLit
+        id: l2-lc-estezapato
+        es: "este zapato es negro"
+        en: "This shoe is black."
+        atoms: ["este", "zapato", "es", "negro"]
+        distractorsEn:
+          - "This shirt is black."
+          - "The shoe is black."
+          - "This shoe is new."
+      - kind: buildLit
+        id: l2-b-quierocamisa
+        es: "quiero esta camisa"
+        en: "I want this shirt"
+        atoms: ["quiero", "esta", "camisa"]
+        tiles: ["este", "la"]
+      - kind: sim
+        id: l2-sim-carmen-tienda
+        scene: { emoji: "👕", title: "Carmen at the shop", setting: "Carmen lays three things on the counter and looks at you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Quieres esta camisa?", audioText: "¿quieres esta camisa?", gloss: "Do you want this shirt?" }
+            goal: "Say yes — you want this shirt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero esta camisa" }
+                - { id: "wrong1", text: "sí, quiero este camisa" }
+                - { id: "wrong2", text: "sí, quiero esta zapato" }
+              correctOptionId: "right"
+              audioText: "sí, quiero esta camisa"
+            replyGloss: "Yes, I want this shirt."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y este zapato? ¿Es nuevo?", audioText: "¿y este zapato? ¿es nuevo?", gloss: "And this shoe? Is it new?" }
+            goal: "Say yes — this shoe is new."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, este zapato es nuevo" }
+                - { id: "wrong1", text: "sí, esta zapato es nuevo" }
+                - { id: "wrong2", text: "sí, este zapato es nueva" }
+              correctOptionId: "right"
+              audioText: "sí, este zapato es nuevo"
+            replyGloss: "Yes, this shoe is new."
+            explanation: "«zapato» is an el-word, so the whole line stays on that side: «este» in front, «nuevo» behind."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y la falda?", audioText: "¿y la falda?", gloss: "And the skirt?" }
+            goal: "Say you want this skirt too."
+            reply:
+              mode: build
+              tiles: ["quiero", "esta", "falda", "también", "este", "la"]
+              answer: "quiero esta falda también"
+              alsoAccepted: ["quiero esta falda"]
+            replyGloss: "I want this skirt too."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "camisa", target: "shirt" }
+          - { source: "falda", target: "skirt" }
+          - { source: "zapato", target: "shoe" }
+          - { source: "este", target: "this (with an el-word)" }
+          - { source: "esta", target: "this (with a la-word)" }
+          - { source: "la cuenta", target: "the check" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "quiero esta camisa y este zapato"
+        en: "I want this shirt and this shoe"
+        atoms: ["quiero", "esta", "camisa", "y", "este", "zapato"]
+
+  # ── L3 · the second distance — este vs ese, always inside one frame. ──
+  #   The atom pair is tiny (ese/esa) and the DISTANCE is the whole lesson, so
+  #   no beat here asks "what does ese mean?" in isolation: every graded step
+  #   either holds both distances in the sentence (l3-b-estezapatoesacamisa,
+  #   l3-lc-contraste, l3-sp-contraste) or puts the other distance in the bank
+  #   as the thing the answer is NOT (l3-b-esafalda, l3-c-distancia,
+  #   l3-lb-estacamisa, l3-c-genero). The learner is CHOOSING a distance at
+  #   every commit, never recalling a word.
+  #   ⚠️ «esa» and «esta» are one letter apart, and that collision is a
+  #   SPELLING trap, not the grammar. It gets exactly ONE step — the tile bank
+  #   of l3-b-estezapatoesacamisa, where the 2×2 table is the point anyway.
+  #   Everywhere else the foils are chosen so the learner is deciding distance
+  #   or gender, not proofreading. aquel/aquella are not taught here or ever.
+  - n: 3
+    template: free
+    title: "Ese, esa"
+    description: "«Este» is the one in your hand; «ese» is the one across the shop. Two distances, and the noun decides the ending — not you."
+    steps:
+      - kind: map
+        id: l3-map-esezapato
+        tokens: ["ese", "zapato", "es", "negro"]
+        pairs:
+          - { en: "that", tokenIndex: 0 }
+          - { en: "shoe", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "black", tokenIndex: 3 }
+        audioText: "ese zapato es negro"
+        revealNote: "«zapato» and «negro» are yours — «ese» is the new one. Hold it against «este»: «este zapato» is the one on your foot, «ese zapato» is the one over on the shelf. Same el-word, same -e on the end. The only thing that moved is how far away it is."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: l3-sp-esezapato
+        es: "ese zapato es negro"
+        en: "that shoe is black"
+        atoms: ["ese", "zapato", "es", "negro"]
+      - kind: map
+        id: l3-map-esacamisa
+        tokens: ["esa", "camisa", "es", "nueva"]
+        pairs:
+          - { en: "that", tokenIndex: 0 }
+          - { en: "shirt", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "esa camisa es nueva"
+        revealNote: "«camisa» is a la-word, so the pointing word takes the -a: «esta camisa» in your hands, «esa camisa» across the shop. The noun picks the ending, exactly the way it picks «nueva» over «nuevo». You are not choosing the letter — the shirt is."
+        tokenGenders: { 1: "f", 3: "f" }
+      - kind: speakLit
+        id: l3-sp-esacamisa
+        es: "esa camisa es nueva"
+        en: "that shirt is new"
+        atoms: ["esa", "camisa", "es", "nueva"]
+      # The module's one card for this lesson, spent AFTER both debuts: it
+      # confirms a noticing (m11's L5 idiom), it does not preview a rule.
+      - kind: info
+        id: l3-info-dosdistancias
+        title: "Two distances, and that's all there are"
+        body: "Everything you point at in Spanish sits at one of two distances. Near you: «este zapato», «esta camisa». Away from you: «ese zapato», «esa camisa». Gender does not move — an el-word keeps the -e, a la-word keeps the -a. Only the distance changes, and it changes by dropping one letter: «este» has a t in the middle, «ese» does not."
+      - kind: buildLit
+        id: l3-b-esafalda
+        es: "esa falda es azul"
+        en: "that skirt is blue"
+        atoms: ["esa", "falda", "es", "azul"]
+        tiles: ["ese", "este"]
+      - kind: clozeLit
+        id: l3-c-distancia
+        # The NEAR one, deliberately — three beats in a row asking for «ese»
+        # would teach "pick the new word", not "pick the distance".
+        es: "este zapato es nuevo"
+        en: "this shoe is new"
+        blank: "este"
+        options: ["este", "ese"]
+        atoms: ["este", "zapato", "es", "nuevo"]
+        why: "It is the one right here, so «este». «ese» would put it back on the shelf."
+      - kind: listenBuildLit
+        id: l3-lb-estacamisa
+        es: "esta camisa es bonita"
+        en: "this shirt is pretty"
+        atoms: ["esta", "camisa", "es", "bonita"]
+        tiles: ["ese", "este"]
+      - kind: audioWimcq
+        id: l3-ear-review
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: speakLit
+        id: l3-sp-recall-tienda
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l3-c-genero
+        es: "esa falda es vieja"
+        en: "that skirt is old"
+        blank: "esa"
+        options: ["esa", "ese"]
+        atoms: ["esa", "falda", "es", "vieja"]
+        why: "Both are the far one — «falda» is the tell. It is a la-word, so the -a form: «esa»."
+      # BOTH distances in one line, with the two one-letter neighbours in the
+      # bank. This is the lesson's 2×2 table as a step, and the ONE place the
+      # esa/esta collision is allowed to do work.
+      - kind: buildLit
+        id: l3-b-estezapatoesacamisa
+        es: "este zapato y esa camisa"
+        en: "this shoe and that shirt"
+        atoms: ["este", "zapato", "y", "esa", "camisa"]
+        tiles: ["ese", "esta"]
+      - kind: audioWimcq
+        id: l3-ear-ropa
+        target: { surface: "la falda", emoji: "👗" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "el zapato", emoji: "👟" }
+      - kind: listenCompLit
+        id: l3-lc-contraste
+        es: "este zapato es nuevo pero ese zapato es viejo"
+        en: "This shoe is new but that shoe is old."
+        atoms: ["este", "zapato", "es", "nuevo", "pero", "ese", "viejo"]
+        distractorsEn:
+          - "That shoe is new but this shoe is old."
+          - "This shirt is new but that shirt is old."
+          - "This shoe is new and that shoe is black."
+      - kind: speakLit
+        id: l3-sp-contraste
+        es: "esta camisa y esa falda"
+        en: "this shirt and that skirt"
+        atoms: ["esta", "camisa", "y", "esa", "falda"]
+      - kind: textMcq
+        id: l3-tm-ese
+        target: "ese"
+        distractors: ["este", "esa", "esta"]
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "este zapato", target: "this shoe" }
+          - { source: "ese zapato", target: "that shoe" }
+          - { source: "esta camisa", target: "this shirt" }
+          - { source: "esa camisa", target: "that shirt" }
+          - { source: "la falda", target: "the skirt" }
+          - { source: "la tienda", target: "the store" }
+          - { source: "la llave", target: "the key" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "quiero esa camisa"
+        en: "I want that shirt"
+        atoms: ["quiero", "esa", "camisa"]
+
+  # ── L4 · the transaction — cuesta/cuestan, and the number split m13 needs. ──
+  #   Pointing was for something: this is the sentence it was for. The three
+  #   maps ramp «¿cuánto cuesta?» → «+ esta camisa» → «+ cuestan los zapatos»,
+  #   so the demonstratives arrive as the thing you attach to a question you
+  #   already own.
+  #   ⚠️ «cuánto» NEVER inflects here. Real Spanish asks «¿cuánto cuestan los
+  #   zapatos?» — how MUCH do they cost, one price — never «¿cuántos cuestan?»,
+  #   which asks how MANY cost. Keeping «cuánto» frozen also leaves exactly one
+  #   moving part on screen, which is the whole point of the lesson: the -n.
+  #   ⚠️ NO PLURAL DEMONSTRATIVE appears. estos/estas/esos/esas are L5's atoms;
+  #   the plural side rides «los zapatos» / «los libros» (m4's articles + the
+  #   m3 plural fold), so nothing here is untaught.
+  #   The number agreement is made VISIBLE rather than incidental by
+  #   l4-agree-loslibros, where the article and the verb ending move together
+  #   in one step — the first taste of the singular/plural verb split «gustar»
+  #   will need in m13.
+  - n: 4
+    template: free
+    title: "¿Cuánto cuesta?"
+    description: "Two words and you can shop anywhere. One thing costs; more than one cost — and the -n that says so is the first of a split you will use for the rest of the course."
+    steps:
+      - kind: map
+        id: l4-map-cuantocuesta
+        tokens: ["¿cuánto", "cuesta?"]
+        pairs:
+          - { en: "how much", tokenIndex: 0 }
+          - { en: "does it cost", tokenIndex: 1 }
+        audioText: "¿cuánto cuesta?"
+        revealNote: "Two words, and you can buy anything. «cuánto» is how much — it carries an accent and it never changes shape. «cuesta» is what ONE thing does: it costs."
+      - kind: speakLit
+        id: l4-sp-cuantocuesta
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: ["cuánto", "cuesta"]
+      - kind: map
+        id: l4-map-estacamisa
+        tokens: ["¿cuánto", "cuesta", "esta", "camisa?"]
+        pairs:
+          - { en: "how much", tokenIndex: 0 }
+          - { en: "costs", tokenIndex: 1 }
+          - { en: "this", tokenIndex: 2 }
+          - { en: "shirt", tokenIndex: 3 }
+        audioText: "¿cuánto cuesta esta camisa?"
+        revealNote: "Point, then ask — «esta camisa» drops straight onto the end of the question you just learned. Nothing about «cuesta» moved: one shirt, one «cuesta»."
+        tokenGenders: { 3: "f" }
+      - kind: speakLit
+        id: l4-sp-estacamisa
+        es: "¿cuánto cuesta esta camisa?"
+        en: "how much does this shirt cost?"
+        atoms: ["cuánto", "cuesta", "esta", "camisa"]
+      - kind: map
+        id: l4-map-loszapatos
+        tokens: ["¿cuánto", "cuestan", "los", "zapatos?"]
+        pairs:
+          - { en: "how much", tokenIndex: 0 }
+          - { en: "do they cost", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "shoes", tokenIndex: 3 }
+        audioText: "¿cuánto cuestan los zapatos?"
+        revealNote: "Shoes come in twos, so the verb grows an -n: cuesta → cuestan. Watch what did NOT change: «cuánto». You are asking about the price, and there is only ever one price. The -n is the only moving part on the screen."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: speakLit
+        id: l4-sp-loszapatos
+        es: "¿cuánto cuestan los zapatos?"
+        en: "how much do the shoes cost?"
+        atoms: ["cuánto", "cuestan", "los", "zapato"]
+      - kind: info
+        id: l4-info-unoomas
+        title: "One thing, or more than one"
+        body: "«cuesta» is what one thing does: «¿cuánto cuesta esta camisa?» «cuestan» is what several things do: «¿cuánto cuestan los zapatos?» One letter, and it is the same -n every Spanish verb grows when it talks about more than one. «cuánto» stays put through all of it — one price, one word."
+      - kind: buildLit
+        id: l4-b-esafalda
+        es: "¿cuánto cuesta esa falda?"
+        en: "how much does that skirt cost?"
+        atoms: ["cuánto", "cuesta", "esa", "falda"]
+        tiles: ["cuestan", "esta"]
+      - kind: clozeLit
+        id: l4-c-cuesta
+        # Statement, never a question: the compiler blanks a literal
+        # whitespace-delimited token, and «¿cuánto» carries the ¿ into it.
+        es: "esta camisa cuesta diez"
+        en: "this shirt costs ten"
+        blank: "cuesta"
+        options: ["cuesta", "cuestan"]
+        atoms: ["esta", "camisa", "cuesta", "diez"]
+        why: "One shirt on the counter — «cuesta». The -n is waiting for a second thing."
+      - kind: listenBuildLit
+        id: l4-lb-loszapatos
+        es: "los zapatos cuestan quince"
+        en: "the shoes cost fifteen"
+        atoms: ["los", "zapato", "cuestan", "quince"]
+        tiles: ["cuesta", "la"]
+      - kind: audioWimcq
+        id: l4-ear-dinero
+        target: { surface: "el dinero", emoji: "💰" }
+        distractors:
+          - { surface: "el celular", emoji: "📱" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: speakLit
+        id: l4-sp-recall-cuenta
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      # The number agreement made VISIBLE: the article and the verb ending are
+      # two blanks in ONE line, so the learner watches them move together
+      # instead of being told they do.
+      - kind: agreementLit
+        id: l4-agree-loslibros
+        en: "the books cost ten"
+        audioText: "los libros cuestan diez"
+        atoms: ["los", "libro", "cuestan", "diez"]
+        segments:
+          - { blank: { id: "art", answer: "los", options: ["los", "el"] } }
+          - { text: " libros cuest" }
+          - { blank: { id: "verb", answer: "an", options: ["an", "a"] } }
+          - { text: " diez" }
+      - kind: buildLit
+        id: l4-b-esezapato
+        es: "ese zapato cuesta ocho"
+        en: "that shoe costs eight"
+        atoms: ["ese", "zapato", "cuesta", "ocho"]
+        tiles: ["cuestan", "esa"]
+      - kind: listenCompLit
+        id: l4-lc-esafalda
+        es: "¿cuánto cuesta esa falda?"
+        en: "How much does that skirt cost?"
+        atoms: ["cuánto", "cuesta", "esa", "falda"]
+        distractorsEn:
+          - "How much do those skirts cost?"
+          - "How much does this skirt cost?"
+          - "How much does that shirt cost?"
+      - kind: audioWimcq
+        id: l4-ear-ropa
+        target: { surface: "la camisa", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+      - kind: sim
+        id: l4-sim-carmen-tienda
+        scene: { emoji: "🏪", title: "Carmen at the counter", setting: "You put a shirt on the counter. The shoes are still on the shelf behind you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Quieres esta camisa?", audioText: "¿quieres esta camisa?", gloss: "Do you want this shirt?" }
+            goal: "Ask how much the shirt costs."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, ¿cuánto cuesta?" }
+                - { id: "wrong1", text: "sí, ¿cuánto cuestan?" }
+                - { id: "wrong2", text: "sí, ¿dónde está?" }
+              correctOptionId: "right"
+              audioText: "sí, ¿cuánto cuesta?"
+            replyGloss: "Yes — how much is it?"
+            explanation: "One shirt, so «cuesta». «cuestan» would be asking about a pile of them."
+          - id: t2
+            npc: { speaker: "Carmen", es: "Cuesta doce.", audioText: "cuesta doce", gloss: "It costs twelve." }
+            goal: "Now ask about the shoes."
+            reply:
+              mode: build
+              tiles: ["¿cuánto", "cuestan", "los", "zapatos?", "cuesta", "las"]
+              answer: "¿cuánto cuestan los zapatos?"
+            replyGloss: "How much do the shoes cost?"
+            explanation: "Two shoes, so «cuestan» — and «cuánto» does not follow it. There is still only one price."
+          - id: t3
+            npc: { speaker: "Carmen", es: "Cuestan quince.", audioText: "cuestan quince", gloss: "They cost fifteen." }
+            goal: "Say you want this shirt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero esta camisa" }
+                - { id: "wrong1", text: "quiero esa camisa" }
+                - { id: "wrong2", text: "quiero este camisa" }
+              correctOptionId: "right"
+              audioText: "quiero esta camisa"
+            replyGloss: "I want this shirt."
+            explanation: "The shirt is right here on the counter, so «esta» — «esa» is the one you left on the rack. And «camisa» is a la-word, which is what rules out «este»."
+          - id: t4
+            npc: { speaker: "Carmen", es: "¿Y los zapatos?", audioText: "¿y los zapatos?", gloss: "And the shoes?" }
+            goal: "Say no, thank you."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, gracias" }
+                - { id: "wrong1", text: "sí, por favor" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "no, gracias"
+            replyGloss: "No, thank you."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "¿cuánto cuesta?", target: "how much does it cost?" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "la camisa", target: "the shirt" }
+          - { source: "el zapato", target: "the shoe" }
+          - { source: "la cuenta", target: "the check" }
+          - { source: "el dinero", target: "the money" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "¿cuánto cuesta ese zapato?"
+        en: "how much does that shoe cost?"
+        atoms: ["cuánto", "cuesta", "ese", "zapato"]
+
+  # ── L5 · the plurals close the 2×2 — one gender choice, one number choice ──
+  #   The four plurals arrive LAST on purpose. L1 gave este/esta, L3 gave
+  #   ese/esa, and the noun lesson + the price lesson sat between them so
+  #   nothing was learned as a block. By now the singular pointing word is
+  #   automatic and «¿cuánto cuestan?» has given the learner a reason to
+  #   point at more than one thing at a time.
+  #   The lesson's whole claim is that estos/estas/esos/esas are NOT four new
+  #   words: they are one decision (el-word or la-word) plus a second
+  #   decision (one, or more than one) — the two decisions the learner has
+  #   owned since m6 and m3. So three of the four are SHOWN (map → speak) and
+  #   the fourth is BUILT: «esas» is never printed as a teach card, it is
+  #   assembled from a rule the learner already has.
+  #
+  #   ⚠️ «son» DEBUTS HERE, deliberately. It appears NOWHERE in the shipped
+  #   m1–m11 (verified across every IR and the hand-authored m1/m2), and the
+  #   provenance gate cannot catch that: «son» sits in ES_FUNCTION_WORDS
+  #   (moduleBarGuards.ts), so a plural predicate would sail through with no
+  #   debut at all. That is a hole in the gate, not a licence. It is not
+  #   registered — a closed-class copula does not want an atom, and
+  #   registering it would collide with the function-word list — but it gets
+  #   a real first contact: map preview → speakLit (an ES_INTRO_TYPE) at
+  #   l5-sp-camisassonnuevas, one line in the info card («es» for one, «son»
+  #   for more than one), and NO plural predicate anywhere before that step.
+  #   Every «son» in this lesson and in L6 is downstream of it.
+  #
+  #   The module's one info card is spent here, AFTER all four demonstratives
+  #   and «son» have been said out loud (m11 L5's idiom) — it confirms a
+  #   noticing, it does not preview a rule.
+  #   The two-blank agreementLit is m6's step type, unused since m6 and
+  #   earned back here: a plural demonstrative and a plural adjective are the
+  #   SAME choice spelled twice, which is exactly what an agreement chain is.
+  #   No genderSort: L2 spends the module's one warm-up (l2-sort), and the
+  #   plural-agreement work belongs to agreementLit anyway.
+  - n: 5
+    template: free
+    title: "Estos y esos"
+    description: "Four more pointing words that are not new words — «este» and «ese» wearing the plural you have had since «los libros»."
+    steps:
+      - kind: map
+        id: l5-map-estoszapatos
+        tokens: ["estos", "zapatos"]
+        pairs:
+          - { en: "these", tokenIndex: 0 }
+          - { en: "shoes", tokenIndex: 1 }
+        audioText: "estos zapatos"
+        revealNote: "«zapatos» is «zapato» wearing the plural you have had since «los libros» — and «estos» is «este» wearing the same one. One shoe: este zapato. A pair: estos zapatos. The pointing word moves with the noun; it always has."
+        tokenGenders: { 0: "m", 1: "m" }
+      - kind: speakLit
+        id: l5-sp-estoszapatos
+        es: "estos zapatos"
+        en: "these shoes"
+        atoms: ["estos", "zapato"]
+      - kind: map
+        id: l5-map-estascamisas
+        tokens: ["estas", "camisas"]
+        pairs:
+          - { en: "these", tokenIndex: 0 }
+          - { en: "shirts", tokenIndex: 1 }
+        audioText: "estas camisas"
+        revealNote: "«camisa» is a la-word, so its pointing word is a la-word too: esta camisa, estas camisas. Nothing here was memorised — the gender was decided the day you met the word, and the -s was decided back in «las llaves»."
+        tokenGenders: { 0: "f", 1: "f" }
+      - kind: speakLit
+        id: l5-sp-estascamisas
+        es: "estas camisas"
+        en: "these shirts"
+        atoms: ["estas", "camisa"]
+      # «son» arrives HERE and nowhere earlier — the map previews it, the
+      # speakLit below is its first real exposure (speaking is an
+      # ES_INTRO_TYPE). No plural predicate appears above this step.
+      - kind: map
+        id: l5-map-camisassonnuevas
+        tokens: ["estas", "camisas", "son", "nuevas"]
+        pairs:
+          - { en: "these", tokenIndex: 0 }
+          - { en: "shirts", tokenIndex: 1 }
+          - { en: "are", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "estas camisas son nuevas"
+        revealNote: "Two words changed shape and neither one is new. «nuevas» is «nuevo» agreeing with a pair of la-words — the same flip you did in «la casa es bonita». And «es» has become «son»: one thing es, more than one son. That is the whole of it; nothing else in the line moved."
+        tokenGenders: { 0: "f", 1: "f", 3: "f" }
+      - kind: speakLit
+        id: l5-sp-camisassonnuevas
+        es: "estas camisas son nuevas"
+        en: "these shirts are new"
+        atoms: ["estas", "camisa", "nuevo"]
+      # Two blanks, the SAME two options, the SAME answer both times — the
+      # lesson's thesis as a graded step. The learner decides once (la-word,
+      # more than one) and then spells that decision twice.
+      - kind: agreementLit
+        id: l5-agr-camisasbonitas
+        en: "these shirts are pretty"
+        audioText: "estas camisas son bonitas"
+        atoms: ["estas", "camisa", "bonito"]
+        segments:
+          - { text: "est" }
+          - { blank: { id: "dem", answer: "as", options: ["as", "os"] } }
+          - { text: " camisas son bonit" }
+          - { blank: { id: "adj", answer: "as", options: ["as", "os"] } }
+      - kind: map
+        id: l5-map-esoszapatos
+        tokens: ["esos", "zapatos", "son", "nuevos"]
+        pairs:
+          - { en: "those", tokenIndex: 0 }
+          - { en: "shoes", tokenIndex: 1 }
+          - { en: "are", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "esos zapatos son nuevos"
+        revealNote: "Over there, more than one, el-words: «esos». Say the pair out loud — este, estos; ese, esos — and listen to how little moves. «son» is doing the same job it did a moment ago, and «nuevos» is the el-word plural of the same adjective."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: l5-sp-esoszapatos
+        es: "esos zapatos son nuevos"
+        en: "those shoes are new"
+        atoms: ["esos", "zapato", "nuevo"]
+      # The fourth cell is DERIVED, not shown: nothing has printed «esas» as
+      # a teach card. La-word + far + more than one, and the tile bank holds
+      # the wrong-number and wrong-gender neighbours so it cannot be found by
+      # shape.
+      - kind: buildLit
+        id: l5-b-esasfaldas
+        es: "esas faldas son bonitas"
+        en: "those skirts are pretty"
+        atoms: ["esas", "falda", "bonito"]
+        tiles: ["estas", "esos"]
+      - kind: info
+        id: l5-info-unadecisiondosveces
+        title: "Four words you already knew"
+        body: "Line them up. «este zapato» → «estos zapatos». «esta camisa» → «estas camisas». «ese zapato» → «esos zapatos». «esa falda» → «esas faldas». You are not learning four words; you are making one decision twice. First the gender — el-word or la-word. Then the number — one, or more than one. Two spellings are worth a second look. «este» grows an o: «estos», because -os is the ending el-words take in the plural, the same one you already say in «los libros». And the little verb comes along: one thing «es», more than one «son» — «la camisa es nueva», but «estas camisas son nuevas»."
+      - kind: clozeLit
+        id: l5-c-estosvsestas
+        es: "estos zapatos son nuevos"
+        en: "these shoes are new"
+        blank: "estos"
+        options: ["estos", "estas"]
+        atoms: ["estos", "zapato", "nuevo"]
+        why: "«zapato» is an el-word and there is more than one of them, so the pointing word has to be the el-word plural. «estas» is what you would say in front of a la-word."
+      - kind: audioWimcq
+        id: l5-ear-review1
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: listenBuildLit
+        id: l5-lb-esoszapatos
+        es: "esos zapatos son muy bonitos"
+        en: "those shoes are very pretty"
+        atoms: ["esos", "zapato", "muy", "bonito"]
+        tiles: ["estos", "esas"]
+      - kind: clozeLit
+        id: l5-c-esasvsesos
+        es: "esas camisas son nuevas"
+        en: "those shirts are new"
+        blank: "esas"
+        options: ["esas", "esos"]
+        atoms: ["esas", "camisa", "nuevo"]
+        why: "«camisa» is a la-word and there are several of them — so the far-away pointing word is «esas». «esos» is the el-word plural."
+      - kind: speakLit
+        id: l5-sp-recall-voyalatienda
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l5-lc-esasfaldas
+        es: "esas faldas son bonitas"
+        en: "Those skirts are pretty."
+        atoms: ["esas", "falda", "bonito"]
+        distractorsEn:
+          - "These skirts are pretty."
+          - "Those shirts are pretty."
+          - "Those skirts are new."
+      # The plural pointing word meets the plural price question from L4 —
+      # «cuesta» sits in the bank as the singular the learner must NOT take.
+      - kind: buildLit
+        id: l5-b-cuantocuestan
+        es: "¿cuánto cuestan estos zapatos?"
+        en: "how much do these shoes cost?"
+        atoms: ["cuánto", "cuestan", "estos", "zapato"]
+        tiles: ["cuesta", "este"]
+      - kind: sim
+        id: l5-sim-carmen-tienda
+        scene: { emoji: "👟", title: "Carmen behind the counter", setting: "Carmen looks up as you come in. Shoes on your left, skirts on the wall." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "Buenas tardes. ¿Qué quieres?", audioText: "buenas tardes. ¿qué quieres?", gloss: "Good afternoon. What would you like?" }
+            goal: "Say you want these shoes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero estos zapatos" }
+                - { id: "wrong1", text: "quiero estas zapatos" }
+                - { id: "wrong2", text: "quiero este zapatos" }
+              correctOptionId: "right"
+              audioText: "quiero estos zapatos"
+            replyGloss: "I want these shoes."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y las faldas? ¿Estas?", audioText: "¿y las faldas? ¿estas?", gloss: "And the skirts? These ones?" }
+            goal: "Say no — those skirts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, esas faldas" }
+                - { id: "wrong1", text: "no, esos faldas" }
+                - { id: "wrong2", text: "no, esa faldas" }
+              correctOptionId: "right"
+              audioText: "no, esas faldas"
+            replyGloss: "No, those skirts."
+            explanation: "Carmen is holding up the near ones. The ones you mean are over there and there is more than one: la-word, far, plural."
+          - id: t3
+            npc: { speaker: "Carmen", es: "Muy bien.", audioText: "muy bien", gloss: "Very good." }
+            goal: "Ask how much the shoes cost."
+            reply:
+              mode: build
+              tiles: ["¿cuánto", "cuestan", "estos", "zapatos?", "cuesta", "esos"]
+              answer: "¿cuánto cuestan estos zapatos?"
+              alsoAccepted: ["¿cuánto cuestan esos zapatos?"]
+            replyGloss: "How much do these shoes cost?"
+            explanation: "More than one shoe, so the price question goes plural too — the verb agrees the same way the pointing word does."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "estos zapatos", target: "these shoes" }
+          - { source: "estas camisas", target: "these shirts" }
+          - { source: "esos zapatos", target: "those shoes" }
+          - { source: "esas faldas", target: "those skirts" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "tienda", target: "shop" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "estos zapatos y esas faldas"
+        en: "these shoes and those skirts"
+        atoms: ["estos", "zapato", "y", "esas", "falda"]
+
+  # ── L6 · Caro o barato — the pointing gets an opinion, and it agrees too ──
+  #   L5 closed the demonstrative table and debuted «son»; this lesson is why
+  #   both were worth doing. The learner can already point at a thing and ask
+  #   what it costs; now they can say what they think of the answer, and the
+  #   moment they do, a THIRD word joins the agreement chain: «esta camisa es
+  #   cara» — three words, one decision. Every plural predicate here rides
+  #   L5's «son» debut; nothing introduces it again.
+  #
+  #   ⚠️ HARD PIN: «comprar» is INFINITIVE-ONLY. It appears after «quiero»
+  #   and nowhere else — not one singular cell of it exists in any field,
+  #   including tile banks, cloze options and sim wrong answers. Same rule
+  #   m10 enforces on escuchar/bailar/cantar and m11 on escribir/leer/correr,
+  #   and (like both of those notes) this comment does not print the banned
+  #   forms either. A bespoke test in m12.test.ts fails the build for them.
+  #
+  #   NOT REGISTERED, used freely: cara/caras, barata/baratos/baratas. The
+  #   guard folds an untracked regular feminine of an -o adjective into its
+  #   masculine and an untracked regular plural into its singular, so the
+  #   atoms are «caro» and «barato» and the four derived shapes ride the
+  #   fold — exactly as «zapatos» rides «zapato».
+  #   No genderSort here either: the module's one warm-up is L2's.
+  - n: 6
+    template: free
+    title: "Caro o barato"
+    description: "Two words for what you think of the price — and both of them agree with the thing, exactly like the pointing word in front of it."
+    steps:
+      - kind: map
+        id: l6-map-camisacara
+        tokens: ["esta", "camisa", "es", "cara"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "shirt", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "expensive", tokenIndex: 3 }
+        audioText: "esta camisa es cara"
+        revealNote: "«cara» is the new word: expensive. Its dictionary shape is «caro» — but «camisa» is a la-word, so it lands here as «cara», the same -o → -a flip you did to «bonito» in «la casa es bonita». The pointing word at the front already made that decision; the adjective is only repeating it."
+        tokenGenders: { 0: "f", 1: "f", 3: "f" }
+      - kind: speakLit
+        id: l6-sp-camisacara
+        es: "esta camisa es cara"
+        en: "this shirt is expensive"
+        atoms: ["esta", "camisa", "es", "caro"]
+      - kind: map
+        id: l6-map-zapatobarato
+        tokens: ["ese", "zapato", "es", "barato"]
+        pairs:
+          - { en: "that", tokenIndex: 0 }
+          - { en: "shoe", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "cheap", tokenIndex: 3 }
+        audioText: "ese zapato es barato"
+        revealNote: "«barato» is the other half of the pair: cheap. «zapato» is an el-word, so nothing flips here — the adjective is already wearing the el-word ending, and so is «ese» in front of it."
+        tokenGenders: { 0: "m", 1: "m", 3: "m" }
+      - kind: speakLit
+        id: l6-sp-zapatobarato
+        es: "ese zapato es barato"
+        en: "that shoe is cheap"
+        atoms: ["ese", "zapato", "es", "barato"]
+      - kind: clozeLit
+        id: l6-c-caravscaro
+        es: "esta falda es cara"
+        en: "this skirt is expensive"
+        blank: "cara"
+        options: ["cara", "caro"]
+        atoms: ["esta", "falda", "es", "caro"]
+        why: "«falda» is a la-word, so the adjective takes the la-word ending. The dictionary shape «caro» is what el-words get."
+      # The tile bank holds the SINGULAR «barato» — the learner has to notice
+      # that two shoes move the adjective, not just the pointing word.
+      # «son» is L5's; nothing here re-teaches it.
+      - kind: buildLit
+        id: l6-b-zapatosbaratos
+        es: "estos zapatos son baratos"
+        en: "these shoes are cheap"
+        atoms: ["estos", "zapato", "barato"]
+        tiles: ["barato", "estas"]
+      - kind: info
+        id: l6-info-tresvecesunadecision
+        title: "One decision, said three times"
+        body: "Look at how many words moved together in «esta camisa es cara». «esta» is a la-word. «camisa» is a la-word. «cara» is a la-word. You made ONE decision — what kind of noun this is — and then three words spelled it out. Plural is the same story: «estos zapatos son baratos», all three carrying the el-word plural, with «son» doing the same work «es» does in the singular. The shape you will see in a dictionary is always the el-word singular, «caro» and «barato»; everything else is that shape agreeing with whatever it is describing."
+      - kind: agreementLit
+        id: l6-agr-camisascaras
+        en: "these shirts are expensive"
+        audioText: "estas camisas son caras"
+        atoms: ["estas", "camisa", "caro"]
+        segments:
+          - { text: "est" }
+          - { blank: { id: "dem", answer: "as", options: ["as", "os"] } }
+          - { text: " camisas son car" }
+          - { blank: { id: "adj", answer: "as", options: ["as", "os"] } }
+      - kind: map
+        id: l6-map-quierocomprar
+        tokens: ["quiero", "comprar", "esa", "falda"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to buy", tokenIndex: 1 }
+          - { en: "that", tokenIndex: 2 }
+          - { en: "skirt", tokenIndex: 3 }
+        audioText: "quiero comprar esa falda"
+        revealNote: "«comprar» is new: to buy. It arrives in the one shape you will ever need it in — after «quiero», a verb keeps its dictionary form, exactly as it did in «quiero leer» and «quiero bailar». Nothing to swap."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: l6-sp-quierocomprar
+        es: "quiero comprar esa falda"
+        en: "I want to buy that skirt"
+        atoms: ["quiero", "comprar", "esa", "falda"]
+      - kind: audioWimcq
+        id: l6-ear-review1
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: buildLit
+        id: l6-b-comprarzapatos
+        es: "quiero comprar estos zapatos"
+        en: "I want to buy these shoes"
+        atoms: ["quiero", "comprar", "estos", "zapato"]
+        tiles: ["esta", "cuestan"]
+      - kind: clozeLit
+        id: l6-c-baratosvsbaratas
+        es: "esos zapatos son baratos"
+        en: "those shoes are cheap"
+        blank: "baratos"
+        options: ["baratos", "baratas"]
+        atoms: ["esos", "zapato", "barato"]
+        why: "«zapato» is an el-word and there are two of them, so the adjective takes the el-word plural ending. «baratas» is what a pair of la-words would get."
+      - kind: speakLit
+        id: l6-sp-recall-lacuenta
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l6-lc-comprarcamisa
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt."
+        atoms: ["quiero", "comprar", "esta", "camisa"]
+        distractorsEn:
+          - "I want to buy this skirt."
+          - "I want to buy these shirts."
+          - "This shirt is expensive."
+      - kind: listenBuildLit
+        id: l6-lb-faldabarata
+        es: "esta falda es barata pero bonita"
+        en: "this skirt is cheap but pretty"
+        atoms: ["esta", "falda", "es", "barato", "pero", "bonito"]
+        tiles: ["barato", "cara"]
+      - kind: audioWimcq
+        id: l6-ear-review2
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: textMcq
+        id: l6-tm-barato
+        target: "barato"
+        distractors: ["caro", "nuevo", "viejo"]
+      - kind: sim
+        id: l6-sim-diego-precios
+        scene: { emoji: "💰", title: "Diego reads the price tags", setting: "Diego turns over a tag, winces, and puts the shirt back." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Cuánto cuesta esta camisa?", audioText: "¿cuánto cuesta esta camisa?", gloss: "How much is this shirt?" }
+            goal: "Tell him it is expensive."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es cara" }
+                - { id: "wrong1", text: "es caro" }
+                - { id: "wrong2", text: "son caras" }
+              correctOptionId: "right"
+              audioText: "es cara"
+            replyGloss: "It's expensive."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y estos zapatos?", audioText: "¿y estos zapatos?", gloss: "And these shoes?" }
+            goal: "Tell him they are cheap."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "son baratos" }
+                - { id: "wrong1", text: "son baratas" }
+                - { id: "wrong2", text: "es barato" }
+              correctOptionId: "right"
+              audioText: "son baratos"
+            replyGloss: "They're cheap."
+            explanation: "Two shoes and an el-word: the verb goes plural and so does the adjective. One decision, both words."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Qué quieres comprar?", audioText: "¿qué quieres comprar?", gloss: "What do you want to buy?" }
+            goal: "Say you want to buy those shoes."
+            reply:
+              mode: build
+              tiles: ["quiero", "comprar", "esos", "zapatos", "baratos", "esas", "caros"]
+              answer: "quiero comprar esos zapatos"
+              alsoAccepted: ["quiero comprar esos zapatos baratos"]
+            replyGloss: "I want to buy those shoes."
+            explanation: "After «quiero» the verb keeps its dictionary shape, every time — that is the only shape of this one you will ever need."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "caro", target: "expensive" }
+          - { source: "barato", target: "cheap" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "camisa", target: "shirt" }
+          - { source: "dinero", target: "money" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "quiero comprar estas camisas baratas"
+        en: "I want to buy these cheap shirts"
+        atoms: ["quiero", "comprar", "estas", "camisa", "barato"]
+
+  # ── L7 · zero-new workout. Everything m12 points at, in one shop. ─────
+  #   The consolidation lesson. No new surface of any kind — every word here
+  #   is registered in m1–m11 or debuted in m12's L1–L6, and «sombrero» is
+  #   deliberately absent: it is L8's alone and a single leak into this
+  #   lesson would spend the checkpoint's transfer test in advance.
+  #   The lesson's job is to stop drilling ONE pointer at a time. Every
+  #   graded step here carries a demonstrative AND the noun it has to agree
+  #   with AND something to do with it (cost it, want it, compare it), which
+  #   is the first time the learner has to hold all three at once. Three of
+  #   them run the PLURAL chain — demonstrative + noun + «son» + adjective,
+  #   every link keyed off the same noun — which is the sentence shape the
+  #   whole module has been building toward and which nothing before L5
+  #   could say. («son» is L5's; by here it is licensed and cued.) The sim
+  #   is the module's second (L4 took the first) and it is a shop, because a
+  #   shop is the only place a beginner points at things for real.
+  - n: 7
+    template: free
+    title: "Point at everything"
+    description: "No new words. Este, esa, estos, esos — every pointer you own, on every thing in the shop, with a price attached."
+    steps:
+      - kind: map
+        id: l7-map-faldacara
+        tokens: ["esta", "falda", "es", "cara", "pero", "bonita"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "skirt", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "expensive", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "pretty", tokenIndex: 5 }
+        audioText: "esta falda es cara pero bonita"
+        revealNote: "Not one new word — but count the -a's. «falda» is a la-word, so «esta» ends in -a, «cara» ends in -a, «bonita» ends in -a. One noun, three words leaning on it. Change the noun and all three move together."
+        tokenGenders: { 1: "f" }
+      - kind: speakLit
+        id: l7-sp-faldacara
+        es: "esta falda es cara pero bonita"
+        en: "this skirt is expensive but pretty"
+        atoms: ["esta", "falda", "es", "caro", "pero", "bonito"]
+      - kind: clozeLit
+        id: l7-c-esta
+        # Statement, never a question: the compiler blanks a literal
+        # whitespace-delimited word and «¿cuánto» carries the ¿ into the token.
+        es: "esta camisa es barata"
+        en: "this shirt is cheap"
+        blank: "esta"
+        options: ["esta", "este"]
+        atoms: ["esta", "camisa", "es", "barato"]
+        why: "«camisa» is a la-word, so the pointer wears the same -a: «esta». «este» is waiting for an el-word."
+      # Same noun as the map, moved away from you: «esta falda» up there,
+      # «esa falda» here. One step, and the only thing that changed is where
+      # the skirt is standing.
+      - kind: buildLit
+        id: l7-b-cuantocuesta
+        es: "¿cuánto cuesta esa falda?"
+        en: "how much does that skirt cost?"
+        atoms: ["cuánto", "cuesta", "esa", "falda"]
+        tiles: ["cuestan", "esas"]
+      - kind: audioWimcq
+        id: l7-ear-1
+        target: { surface: "el dinero", emoji: "💰" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: clozeLit
+        id: l7-c-estos
+        es: "quiero comprar estos zapatos"
+        en: "I want to buy these shoes"
+        blank: "estos"
+        options: ["estos", "estas"]
+        atoms: ["quiero", "comprar", "estos", "zapato"]
+        why: "Shoes come in pairs and «zapato» is an el-word — so the plural pointer is «estos». «estas» is for la-words."
+      - kind: listenBuildLit
+        id: l7-lb-cuestanzapatos
+        es: "¿cuánto cuestan estos zapatos?"
+        en: "how much do these shoes cost?"
+        atoms: ["cuánto", "cuestan", "estos", "zapato"]
+        tiles: ["cuesta", "este"]
+      # The module's thesis as ONE graded step, and now in the PLURAL: pick
+      # the pointer and pick the adjective ending, and they have to come out
+      # of the same noun. «son» is L5's (one thing es, more than one son), so
+      # by here it is licensed and cued.
+      - kind: agreementLit
+        id: l7-agree-camisasbaratas
+        en: "those shirts are cheap"
+        audioText: "esas camisas son baratas"
+        atoms: ["esas", "camisa", "barato"]
+        segments:
+          - { blank: { id: "dem", answer: "esas", options: ["esos", "esas"] } }
+          - { text: " camisas son barat" }
+          - { blank: { id: "adj", answer: "as", options: ["os", "as"] } }
+      - kind: speakLit
+        id: l7-sp-recall-tienda
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l7-tm-barato
+        target: "barato"
+        distractors: ["caro", "comprar", "cuesta"]
+      # The plural chain PRODUCED, not just completed: the bank offers the
+      # singular pointer and the singular adjective, so both ends of the
+      # agreement have to be decided rather than matched to what is on screen.
+      - kind: buildLit
+        id: l7-b-zapatoscaros
+        es: "estos zapatos son caros"
+        en: "these shoes are expensive"
+        atoms: ["estos", "zapato", "caro"]
+        tiles: ["este", "caro"]
+      - kind: clozeLit
+        id: l7-c-esas
+        es: "no quiero comprar esas faldas"
+        en: "I don't want to buy those skirts"
+        blank: "esas"
+        options: ["esas", "esa"]
+        atoms: ["no", "quiero", "comprar", "esas", "falda"]
+        why: "More than one skirt over there — «esas». «esa» would be pointing at exactly one."
+      - kind: buildLit
+        id: l7-b-comprarlibro
+        es: "quiero comprar este libro"
+        en: "I want to buy this book"
+        atoms: ["quiero", "comprar", "este", "libro"]
+        tiles: ["esta", "estos"]
+      # One plural chain and one singular chain in the same line — «son» with
+      # «baratas», «es» with «caro», and the pointer moving with each. Held
+      # against l7-agree-camisasbaratas it is also a near/far minimal pair:
+      # «esas camisas son baratas» there, «estas camisas son baratas» here,
+      # same four-word chain, one pointer moved.
+      - kind: listenCompLit
+        id: l7-lc-baratasycaro
+        es: "estas camisas son baratas pero ese zapato es caro"
+        en: "These shirts are cheap but that shoe is expensive."
+        atoms: ["estas", "camisa", "barato", "pero", "ese", "zapato", "es", "caro"]
+        distractorsEn:
+          - "These shirts are expensive but that shoe is cheap."
+          - "Those shirts are cheap but this shoe is expensive."
+          - "These skirts are cheap but that shoe is expensive."
+      - kind: audioWimcq
+        id: l7-ear-2
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: buildLit
+        id: l7-b-esezapato
+        es: "ese zapato es barato"
+        en: "that shoe is cheap"
+        atoms: ["ese", "zapato", "es", "barato"]
+        tiles: ["esa", "esos"]
+      - kind: sim
+        id: l7-sim-carmen-tienda
+        scene: { emoji: "🛍️", title: "Carmen in the shop", setting: "Carmen folds a shirt on the counter and looks up at you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Te gusta esta camisa?", audioText: "¿te gusta esta camisa?", gloss: "Do you like this shirt?" }
+            goal: "Ask what this shirt costs."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿cuánto cuesta esta camisa?" }
+                - { id: "wrong1", text: "¿cuánto cuestan esta camisa?" }
+                - { id: "wrong2", text: "¿cuánto cuesta estas camisas?" }
+              correctOptionId: "right"
+              audioText: "¿cuánto cuesta esta camisa?"
+            replyGloss: "How much does this shirt cost?"
+          - id: t2
+            npc: { speaker: "Carmen", es: "Es muy barata.", audioText: "es muy barata", gloss: "It's very cheap." }
+            goal: "Say you want to buy it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero comprar esta camisa" }
+                - { id: "wrong1", text: "quiero comprar este camisa" }
+                - { id: "wrong2", text: "quiero comprar estas camisa" }
+              correctOptionId: "right"
+              audioText: "quiero comprar esta camisa"
+            replyGloss: "I want to buy this shirt."
+            explanation: "One shirt, and «camisa» is a la-word — so the pointer is «esta». Nothing about the price changes that."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y esos zapatos?", audioText: "¿y esos zapatos?", gloss: "And those shoes?" }
+            goal: "Ask how much those shoes cost."
+            reply:
+              mode: build
+              # No alsoAccepted: a shortened «¿cuánto cuestan?» would need a
+              # "cuestan?" tile the bank does not hold, and the compiler
+              # checks accepted replies against the bank word for word.
+              tiles: ["¿cuánto", "cuestan", "esos", "zapatos?", "cuesta", "ese"]
+              answer: "¿cuánto cuestan esos zapatos?"
+            replyGloss: "How much do those shoes cost?"
+            explanation: "Two shoes and they are over there: «esos». Two of them cost, not one — «cuestan»."
+          - id: t4
+            npc: { speaker: "Carmen", es: "Y estas faldas también.", audioText: "y estas faldas también", gloss: "And these skirts too." }
+            goal: "Say those skirts are cheap."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "esas faldas son baratas" }
+                - { id: "wrong1", text: "esas faldas son baratos" }
+                - { id: "wrong2", text: "esos faldas son baratas" }
+              correctOptionId: "right"
+              audioText: "esas faldas son baratas"
+            replyGloss: "Those skirts are cheap."
+            explanation: "Carmen is holding them, so they are «estas» to her and «esas» to you — and «faldas» is plural and la-side, so «baratas» ends the same way."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "este", target: "this (el-word)" }
+          - { source: "esa", target: "that (la-word)" }
+          - { source: "esos", target: "those (el-words)" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "barato", target: "cheap" }
+          - { source: "la tienda", target: "the store" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt"
+        atoms: ["quiero", "comprar", "esta", "camisa"]
+
+  # ── L8 · CHECKPOINT — every pointer, every price, no help. ────────────
+  #   Graded steps only: no info card, no map, nothing the learner can tap
+  #   past. The four singular pointers, all four plurals, both cost forms
+  #   and caro/barato are each tried at least once, and no step tells the
+  #   learner which noun it is agreeing with. Three steps run the full
+  #   PLURAL chain (demonstrative + noun + «son» + adjective) so the
+  #   checkpoint tests the agreement chain and not only the price question.
+  #
+  #   ── TRANSFER TEST — the one step the module is built to earn ────────
+  #   Everything else in this lesson points at a noun m12 has drilled for
+  #   six lessons. `cp-transfer-sombrero` points at one the module has
+  #   never used. «sombrero» is registered for THIS BEAT ONLY and appears
+  #   nowhere else in m12 — not in a tile bank, not in a matchLit, not in a
+  #   later lesson (a bespoke test in m12.test.ts asserts it).
+  #   The shape is forced, not chosen:
+  #     - it is a loanword into English, so the vocabulary load is zero and
+  #       the whole load falls on DECIDING THE AGREEMENT, which is the
+  #       thing being tested. m10's «visitar» and m11's «recibir» made the
+  #       same trade with a free cognate verb.
+  #     - the tile bank holds a wrong-GENDER pointer («esta») and a
+  #       wrong-NUMBER one («esos»), so the answer cannot be found by
+  #       shape — the learner has to rule «sombrero» masculine singular.
+  #     - buildLit because build_sentence is one of the intro-capable step
+  #       types (ES_INTRO_TYPES). A textMcq or mcq debut fails the
+  #       provenance gate — multiple_choice is not intro-capable — and m10
+  #       and m11 each lost a compile lap discovering that.
+  #     - NOT a cue:"recall" speakLit: the course-wide recall law licenses
+  #       recall only for a phrase an earlier non-recall speaking step
+  #       already printed, and nothing has ever printed «sombrero».
+  #     - no imageMcq anywhere: «sombrero» is registered without an emoji.
+  #       A transfer cell must be met cold, in text; a picture would answer
+  #       the question the step is asking.
+  #   Placement: step 9 of 18, between a clozeLit and an audioWimcq — two
+  #   unrelated beats of two different kinds, so the transfer touches no
+  #   step of its own kind and breaks a selection run rather than joining
+  #   one.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Point at anything"
+    description: "Every pointer, both prices, no help — and one thing in the shop you have never pointed at before."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "quiero comprar esta falda"
+        en: "I want to buy this skirt."
+        atoms: ["quiero", "comprar", "esta", "falda"]
+        distractorsEn:
+          - "I want to buy that skirt."
+          - "I want to buy this shirt."
+          - "I want to buy these skirts."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "¿cuánto cuesta ese zapato?"
+        en: "how much does that shoe cost?"
+        atoms: ["cuánto", "cuesta", "ese", "zapato"]
+        tiles: ["cuestan", "esos"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "quiero comprar estas camisas"
+        en: "I want to buy these shirts"
+        blank: "estas"
+        options: ["estas", "estos"]
+        atoms: ["quiero", "comprar", "estas", "camisa"]
+        why: "«camisas» are la-words, so the plural pointer keeps the -as: «estas»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "esas camisas son baratas"
+        en: "those shirts are cheap"
+        atoms: ["esas", "camisa", "barato"]
+        tiles: ["esa", "barato"]
+      - kind: textMcq
+        id: cp-tm-1
+        target: "cuestan"
+        distractors: ["cuesta", "cuánto", "comprar"]
+      - kind: speakLit
+        id: cp-sp-1
+        es: "voy al mercado"
+        en: "I'm going to the market"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "esta camisa es bonita"
+        en: "this shirt is pretty"
+        blank: "esta"
+        options: ["esta", "estas"]
+        atoms: ["esta", "camisa", "es", "bonito"]
+        why: "One shirt, not a rack of them — «esta». «estas» would need «camisas»."
+      # ── TRANSFER TEST — see the lesson header for why it is shaped this way.
+      - kind: buildLit
+        id: cp-transfer-sombrero
+        es: "este sombrero es caro"
+        en: "this hat is expensive"
+        atoms: ["este", "sombrero", "es", "caro"]
+        tiles: ["esta", "esos"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el papel", emoji: "📄" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el lápiz", emoji: "✏️" }
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "no quiero comprar esos zapatos"
+        en: "I don't want to buy those shoes"
+        blank: "esos"
+        options: ["esos", "ese"]
+        atoms: ["no", "quiero", "comprar", "esos", "zapato"]
+        why: "A pair, and over there — «esos». «ese» would be one shoe."
+      - kind: buildLit
+        id: cp-build-2
+        es: "¿cuánto cuestan estas faldas?"
+        en: "how much do these skirts cost?"
+        atoms: ["cuánto", "cuestan", "estas", "falda"]
+        tiles: ["cuesta", "esta"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "esa falda es cara pero estos zapatos son baratos"
+        en: "That skirt is expensive but these shoes are cheap."
+        atoms: ["esa", "falda", "es", "caro", "pero", "estos", "zapato", "barato"]
+        distractorsEn:
+          - "That skirt is cheap but these shoes are expensive."
+          - "This skirt is expensive but those shoes are cheap."
+          - "That shirt is expensive but these shoes are cheap."
+      - kind: speakLit
+        id: cp-sp-2
+        es: "es viejo pero bueno"
+        en: "it's old but good"
+        atoms: []
+        cue: recall
+      # The plural agreement CHAIN as one decision: pointer, then adjective,
+      # both keyed off «zapatos» with «son» between them and nothing on
+      # screen to copy.
+      - kind: agreementLit
+        id: cp-agree-1
+        en: "these shoes are expensive"
+        audioText: "estos zapatos son caros"
+        atoms: ["estos", "zapato", "caro"]
+        segments:
+          - { blank: { id: "dem", answer: "estos", options: ["estas", "estos"] } }
+          - { text: " zapatos son car" }
+          - { blank: { id: "adj", answer: "os", options: ["as", "os"] } }
+      - kind: buildLit
+        id: cp-build-3
+        es: "quiero comprar este zapato"
+        en: "I want to buy this shoe"
+        atoms: ["quiero", "comprar", "este", "zapato"]
+        tiles: ["esta", "estos"]
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "esta", target: "this (la-word)" }
+          - { source: "esos", target: "those (el-words)" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "caro", target: "expensive" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: cp-sp-win
+        es: "quiero comprar estos zapatos"
+        en: "I want to buy these shoes"
+        atoms: ["quiero", "comprar", "estos", "zapato"]
+
+  # ── L9 · summit — Sofía's stall. The 2×2 table, three clothes, the price
+  #    question and the judgement pair all do real work in ONE shop, and the
+  #    m10/m11 verbs come back so the module is not an island. Zero-new. ───
+  - n: 9
+    template: free
+    title: "Sofía's stall, part one"
+    description: "Point at it, ask the price, judge it — everything this module gave you, at one table of clothes."
+    steps:
+      - kind: map
+        id: l9-map-1
+        tokens: ["esta", "camisa", "es", "cara", "pero", "esa", "falda", "es", "barata"]
+        pairs:
+          - { en: "this", tokenIndex: 0 }
+          - { en: "shirt", tokenIndex: 1 }
+          - { en: "expensive", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "that", tokenIndex: 5 }
+          - { en: "skirt", tokenIndex: 6 }
+          - { en: "cheap", tokenIndex: 8 }
+        audioText: "esta camisa es cara, pero esa falda es barata"
+        revealNote: "Nothing new — but this is the longest thing you have read in this module, and every word of it is yours. «esta» is the one in your hand; «esa» is the one across the table. Both nouns are la-words, so both judgements end in «-a»: «cara», «barata». One thing at a time here, so «es» twice; when the stall starts counting, it will be «son»."
+        tokenGenders: { 1: "f", 6: "f" }
+      - kind: speakLit
+        id: l9-sp-1
+        es: "esta camisa es cara, pero esa falda es barata"
+        en: "this shirt is expensive, but that skirt is cheap"
+        atoms: ["esta", "camisa", "es", "caro", "pero", "esa", "falda", "barato"]
+      - kind: clozeLit
+        id: l9-c-1
+        es: "quiero comprar esta falda"
+        en: "I want to buy this skirt"
+        blank: "esta"
+        options: ["esta", "este"]
+        atoms: ["quiero", "comprar", "esta", "falda"]
+        why: "«falda» is a la-word, so the pointer is «esta». «este» waits for an el-word."
+      - kind: buildLit
+        id: l9-b-1
+        es: "¿cuánto cuestan estos zapatos?"
+        en: "how much do these shoes cost?"
+        atoms: ["cuánto", "cuestan", "estos", "zapato"]
+        tiles: ["cuesta", "este"]
+      # ── review tail 1 — m3's money, in the one place money belongs ──────
+      - kind: audioWimcq
+        id: l9-ear-1
+        target: { surface: "el dinero", emoji: "💰" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: clozeLit
+        id: l9-c-2
+        es: "ese zapato es muy barato"
+        en: "that shoe is very cheap"
+        blank: "barato"
+        options: ["barato", "barata"]
+        atoms: ["ese", "zapato", "es", "muy", "barato"]
+        why: "«zapato» is an el-word, so the judgement keeps its «-o»: «barato»."
+      - kind: listenBuildLit
+        id: l9-lb-1
+        es: "esos zapatos cuestan quince"
+        en: "those shoes cost fifteen"
+        atoms: ["esos", "zapato", "cuestan", "quince"]
+        tiles: ["esas", "cuesta"]
+      # ── review tail 2 — m10's win line, cued cold (m10 L2 printed it) ───
+      - kind: speakLit
+        id: l9-sp-recall-1
+        es: "hablo español"
+        en: "I speak Spanish"
+        atoms: []
+        cue: recall
+      # ── one thing vs more than one, inside one sentence: «es» → «son» ───
+      - kind: listenCompLit
+        id: l9-lc-1
+        es: "esta camisa es cara, pero esos zapatos son baratos"
+        en: "this shirt is expensive, but those shoes are cheap."
+        atoms: ["esta", "camisa", "es", "caro", "pero", "esos", "zapato", "barato"]
+        distractorsEn:
+          - "This shirt is cheap, but those shoes are expensive."
+          - "That shirt is expensive, but these shoes are cheap."
+          - "This skirt is expensive, but those shoes are cheap."
+      - kind: buildLit
+        id: l9-b-2
+        es: "vivo aquí y hablo español"
+        en: "I live here and I speak Spanish"
+        atoms: ["vivo", "aquí", "y", "hablo", "español"]
+        tiles: ["vives", "hablas"]
+      - kind: textMcq
+        id: l9-tm-1
+        target: "cuestan"
+        distractors: ["cuesta", "cuánto", "comprar"]
+      - kind: clozeLit
+        id: l9-c-3
+        es: "estas faldas son baratas"
+        en: "these skirts are cheap"
+        blank: "estas"
+        options: ["estas", "estos"]
+        atoms: ["estas", "falda", "barato"]
+        why: "More than one, and «faldas» are la-words — «estas». «estos» is waiting for «zapatos». More than one thing, so «son», not «es»."
+      # ── review tail 3 — m9's win line, cued cold (m9 L2 printed it) ─────
+      - kind: speakLit
+        id: l9-sp-recall-2
+        es: "voy al mercado"
+        en: "I'm going to the market"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l9-lb-2
+        es: "no quiero comprar esa camisa"
+        en: "I don't want to buy that shirt"
+        atoms: ["no", "quiero", "comprar", "esa", "camisa"]
+        tiles: ["este", "cuesta"]
+      - kind: speakLit
+        id: l9-sp-2
+        es: "¿cuánto cuesta esta camisa?"
+        en: "how much does this shirt cost?"
+        atoms: ["cuánto", "cuesta", "esta", "camisa"]
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "esta camisa", target: "this shirt" }
+          - { source: "esa falda", target: "that skirt" }
+          - { source: "esos zapatos", target: "those shoes" }
+          - { source: "cuesta", target: "it costs" }
+          - { source: "caro", target: "expensive" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "el dinero", target: "the money" }
+      # ── THE SUMMIT ─────────────────────────────────────────────────────
+      #   One stall, all four of the module's loads: the near/far pair (t1,
+      #   t3), the price question and its singular/plural (t1, t2), the
+      #   judgement pair agreeing with a la-word (t2), and «quiero comprar»
+      #   built by hand (t3). t4 is m11's «vives» walking back in, so the
+      #   summit is not a demonstrative island.
+      - kind: sim
+        id: l9-sim-puesto
+        scene: { emoji: "👕", title: "Sofía's stall", setting: "Sofía has shirts folded on the table in front of you and skirts hanging behind her." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Hola, Sam! ¿Te gusta esta camisa?", audioText: "¡hola, Sam! ¿te gusta esta camisa?", gloss: "Hi Sam! Do you like this shirt?" }
+            goal: "Say yes — and ask the price."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, ¿cuánto cuesta?" }
+                - { id: "wrong1", text: "sí, ¿cuánto cuestan?" }
+                - { id: "wrong2", text: "no, no me gusta" }
+              correctOptionId: "right"
+              audioText: "sí, ¿cuánto cuesta?"
+            replyGloss: "Yes — how much is it?"
+            explanation: "One shirt, one price: «cuesta». «cuestan» is for more than one thing."
+          - id: t2
+            npc: { speaker: "Sofía", es: "Cuesta quince.", audioText: "cuesta quince.", gloss: "It's fifteen." }
+            goal: "React — that is expensive."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "es muy cara" }
+                - { id: "wrong1", text: "es muy caro" }
+                - { id: "wrong2", text: "es muy barata" }
+              correctOptionId: "right"
+              audioText: "es muy cara"
+            replyGloss: "That's very expensive."
+            explanation: "You are judging «la camisa» — a la-word — so the judgement flips with it: «cara», not «caro»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Y esa falda? Cuesta diez.", audioText: "¿y esa falda? cuesta diez.", gloss: "And that skirt? It's ten." }
+            goal: "Say you want to buy that skirt."
+            reply:
+              mode: build
+              tiles: ["quiero", "comprar", "esa", "falda", "este", "cuestan"]
+              answer: "quiero comprar esa falda"
+            replyGloss: "I want to buy that skirt."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¿Vives aquí, Sam?", audioText: "¿vives aquí, Sam?", gloss: "Do you live here, Sam?" }
+            goal: "Say you live here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vivo aquí" }
+                - { id: "wrong1", text: "sí, vives aquí" }
+                - { id: "wrong2", text: "sí, vivo allí" }
+              correctOptionId: "right"
+              audioText: "sí, vivo aquí"
+            replyGloss: "Yes, I live here."
+            explanation: "Sofía says «vives» to you; you say «vivo» back. Two modules ago that was the whole lesson — here it is small talk."
+      - kind: speakLit
+        id: l9-sp-win
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt"
+        atoms: ["quiero", "comprar", "esta", "camisa"]
+
+  # ── L10 · MASTERY — every step graded, no info, no passive cards. Both
+  #    distances, both numbers, both prices, and the module ends on the one
+  #    thing pointing is FOR: Sofía holds it from her side («esta falda»)
+  #    and you buy it from yours («esa falda»). ────────────────────────────
+  - n: 10
+    template: free
+    title: "Prove it — then walk out with something"
+    description: "Every pointer, both prices, no help — and Sofía hands you the skirt from her side of the table."
+    steps:
+      - kind: clozeLit
+        id: l10-c-1
+        es: "estos zapatos cuestan doce"
+        en: "these shoes cost twelve"
+        blank: "cuestan"
+        options: ["cuestan", "cuesta"]
+        atoms: ["estos", "zapato", "cuestan", "doce"]
+        why: "Shoes come in pairs, and the price verb counts them: «cuestan»."
+      - kind: buildLit
+        id: l10-b-1
+        es: "esa camisa roja es muy cara"
+        en: "that red shirt is very expensive"
+        atoms: ["esa", "camisa", "rojo", "es", "muy", "caro"]
+        tiles: ["ese", "barata"]
+      # ── review tail 1 — m9's shop, the place all of this happens ────────
+      - kind: audioWimcq
+        id: l10-ear-1
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: listenBuildLit
+        id: l10-lb-1
+        es: "¿cuánto cuesta esa falda?"
+        en: "how much does that skirt cost?"
+        atoms: ["cuánto", "cuesta", "esa", "falda"]
+        tiles: ["cuestan", "esas"]
+      - kind: clozeLit
+        id: l10-c-2
+        es: "quiero comprar ese zapato"
+        en: "I want to buy that shoe"
+        blank: "ese"
+        options: ["ese", "esa"]
+        atoms: ["quiero", "comprar", "ese", "zapato"]
+        why: "«zapato» is an el-word, so the far pointer is «ese»."
+      # ── review tail 2 — m3's money, cued cold (m3 L5 printed it) ────────
+      - kind: speakLit
+        id: l10-sp-recall-1
+        es: "el dinero"
+        en: "the money"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-1
+        target: "cuánto"
+        distractors: ["cuesta", "cuestan", "comprar"]
+      - kind: buildLit
+        id: l10-b-2
+        es: "esas camisas son caras"
+        en: "those shirts are expensive"
+        atoms: ["esas", "camisa", "caro"]
+        tiles: ["esos", "baratas"]
+      # ── review tail 3 — m3 again, by ear only ───────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-2
+        target: { surface: "el libro", emoji: "📖" }
+        distractors:
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la pluma", emoji: "🖊️" }
+      - kind: listenCompLit
+        id: l10-lc-1
+        es: "esos zapatos cuestan quince, pero esta falda cuesta diez"
+        en: "those shoes cost fifteen, but this skirt costs ten."
+        atoms: ["esos", "zapato", "cuestan", "quince", "pero", "esta", "falda", "cuesta", "diez"]
+        distractorsEn:
+          - "These shoes cost ten, but that skirt costs fifteen."
+          - "Those shoes cost fifteen, and this skirt costs fifteen too."
+          - "That shirt costs fifteen, but this skirt costs ten."
+      # ── review tail 4 — m11's question, cued cold (m11 L5 printed it) ───
+      - kind: speakLit
+        id: l10-sp-recall-2
+        es: "¿vives aquí?"
+        en: "do you live here?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-3
+        es: "no quiero comprar esos zapatos"
+        en: "I don't want to buy those shoes"
+        atoms: ["no", "quiero", "comprar", "esos", "zapato"]
+        tiles: ["esas", "cuestan"]
+      - kind: clozeLit
+        id: l10-c-3
+        es: "esos zapatos son caros"
+        en: "those shoes are expensive"
+        blank: "esos"
+        options: ["esos", "esas"]
+        atoms: ["esos", "zapato", "caro"]
+        why: "Over there, more than one, and «zapatos» are el-words — «esos». The judgement counts them too: «caros»."
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "este zapato", target: "this shoe" }
+          - { source: "esas faldas", target: "those skirts" }
+          - { source: "cuánto", target: "how much" }
+          - { source: "cuestan", target: "they cost" }
+          - { source: "barato", target: "cheap" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "el mercado", target: "the market" }
+      # ── THE PAYOFF ─────────────────────────────────────────────────────
+      #   The full transaction, in the order a real one happens: point (t1),
+      #   ask the price (t2), react to it (t3), decline the expensive thing
+      #   (t4), buy the cheap one (t5). t1–t4 run the PLURAL chain end to
+      #   end — «estos zapatos» → «cuestan» → «son caros» → «cuestan quince»
+      #   — because that is the agreement the module is actually for; t5
+      #   drops to the singular so the last thing the learner says is the
+      #   module's whole thesis in one word. Sofía is holding the skirt, so
+      #   for her it is «esta falda»; from where you stand it is «esa
+      #   falda». Same skirt, different distance.
+      #
+      #   NB: `esSurfaces` returns NOTHING for dialogue_sim, so this step is
+      #   invisible to the provenance and production gates. Every surface it
+      #   uses — «son», the plural judgements, «esa/esta» — is carried by a
+      #   graded step above it (l10-b-2, l10-c-3, l10-lb-1, l10-b-3).
+      #   Nothing follows it; the module ends there.
+      - kind: sim
+        id: l10-sim-compra
+        scene: { emoji: "🛒", title: "One thing, one price", setting: "Sofía has the shoes out on the table and the skirts on the rack behind her. You have fifteen in your pocket." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¡Hola, Sam! ¿Qué quieres?", audioText: "¡hola, Sam! ¿qué quieres?", gloss: "Hi Sam! What would you like?" }
+            goal: "Point at the shoes on the table."
+            reply:
+              mode: build
+              tiles: ["quiero", "comprar", "estos", "zapatos", "este", "esa"]
+              answer: "quiero comprar estos zapatos"
+              alsoAccepted: ["quiero estos zapatos"]
+            replyGloss: "I want to buy these shoes."
+          - id: t2
+            npc: { speaker: "Sofía", es: "Son muy bonitos.", audioText: "son muy bonitos.", gloss: "They're very nice." }
+            goal: "Ask how much they cost."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿cuánto cuestan?" }
+                - { id: "wrong1", text: "¿cuánto cuesta?" }
+                - { id: "wrong2", text: "¿dónde está?" }
+              correctOptionId: "right"
+              audioText: "¿cuánto cuestan?"
+            replyGloss: "How much are they?"
+            explanation: "Two shoes, so the price verb counts them: «cuestan»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Quince.", audioText: "quince.", gloss: "Fifteen." }
+            goal: "Say they are expensive."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "son muy caros" }
+                - { id: "wrong1", text: "son muy caras" }
+                - { id: "wrong2", text: "es muy caro" }
+              correctOptionId: "right"
+              audioText: "son muy caros"
+            replyGloss: "They're very expensive."
+            explanation: "More than one thing, so «son», not «es» — and «zapatos» are el-words, so «caros». The whole line counts."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¿Quieres comprar esos zapatos?", audioText: "¿quieres comprar esos zapatos?", gloss: "Do you want to buy those shoes?" }
+            goal: "Say no — they cost too much."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, cuestan quince" }
+                - { id: "wrong1", text: "no, cuesta quince" }
+                - { id: "wrong2", text: "sí, quiero comprar esos zapatos" }
+              correctOptionId: "right"
+              audioText: "no, cuestan quince"
+            replyGloss: "No — they're fifteen."
+            explanation: "Sofía is looking at the shoes in front of YOU, so for her they are «esos zapatos». The shoes have not moved; the speaker has."
+          - id: t5
+            npc: { speaker: "Sofía", es: "Esta falda cuesta diez.", audioText: "esta falda cuesta diez.", gloss: "This skirt is ten." }
+            goal: "Buy that skirt."
+            reply:
+              mode: build
+              tiles: ["quiero", "comprar", "esa", "falda", "esta", "camisa", "esos"]
+              answer: "quiero comprar esa falda"
+              alsoAccepted: ["quiero esa falda"]
+            replyGloss: "I want to buy that skirt."
+            explanation: "Sofía is holding it, so she says «esta falda». You are across the table, so you say «esa falda». Same skirt, different distance — that is the whole module, and you just spent it on something."
+
+# Placement bank — the compiler emits ES_M12_PLACEMENT only if this block
+# exists (m11 lost a lap discovering that). Each item tests the module's
+# thesis directly: the demonstrative agrees with the noun, or it is wrong.
+placement:
+  screener:
+    - id: "es-m12-scr-1"
+      prompt: "Which one means 'this shirt'?"
+      correct: "esta camisa"
+      distractors: ["este camisa", "esa camisa", "estas camisa"]
+  byModule:
+    - id: "es-m12-pl-1"
+      prompt: "That skirt is expensive."
+      correct: "esa falda es cara"
+      distractors: ["ese falda es cara", "esa falda es caro", "esas falda es cara"]
+    - id: "es-m12-pl-2"
+      prompt: "How much do these shoes cost?"
+      correct: "¿cuánto cuestan estos zapatos?"
+      distractors: ["¿cuánto cuesta estos zapatos?", "¿cuánto cuestan estas zapatos?", "¿cuánto cuestan este zapatos?"]
+    - id: "es-m12-pl-3"
+      prompt: "I want to buy this shirt, but it's expensive."
+      correct: "quiero comprar esta camisa, pero es cara"
+      distractors: ["quiero compro esta camisa, pero es cara", "quiero comprar este camisa, pero es cara", "quiero comprar esta camisa, pero es caro"]
+    - id: "es-m12-pl-4"
+      prompt: "Those shirts are cheap."
+      correct: "esas camisas son baratas"
+      distractors: ["esos camisas son baratas", "esas camisas son barata", "esa camisas son baratas"]
