@@ -625,8 +625,12 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     id: "ko",
     name: "Korean",
     flag: "🇰🇷",
-    backgroundImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/View_of_Seoul.jpg/1280px-View_of_Seoul.jpg",
+    // Bundled, not hotlinked. The previous image (View_of_Seoul.jpg) was
+    // CC BY-SA 2.0 with attribution REQUIRED and none given anywhere in the
+    // app — a licence violation, and share-alike is not something to entangle
+    // an app binary in. Replaced with a CC0 image (no attribution required, no
+    // share-alike). See `src/pub/img/lang/CREDITS.md`.
+    backgroundImage: "/img/lang/ko-hero.jpg",
     practiceTypes: ["general", "particles", "alphabet"],
     practiceOptions: [
       { type: "general", label: "General practice" },
@@ -898,8 +902,10 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     id: "ja",
     name: "Japanese",
     flag: "🇯🇵",
-    backgroundImage:
-      "https://upload.wikimedia.org/wikipedia/commons/7/71/12-Chureito-pagoda-and-Mount-Fuji-Japan_%2829677439878%29.jpg",
+    // Bundled, not hotlinked — this was previously pulling the 1.6 MB
+    // full-resolution original from Wikimedia on every home paint, and was
+    // simply missing offline. CC0. See `src/pub/img/lang/CREDITS.md`.
+    backgroundImage: "/img/lang/ja-hero.jpg",
     backgroundImageFit: "cover",
     practiceTypes: ["general", "particles", "kanji", "alphabet", "components"],
     practiceOptions: [
