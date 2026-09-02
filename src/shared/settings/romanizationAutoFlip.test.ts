@@ -8,6 +8,7 @@ import {
   romajiVisibleForScript,
   todayLocalDate,
   shouldAutoFadeBuildTileRomaji,
+  languageHasRomanization,
 } from "./romanizationAutoFlip";
 import { DEFAULT_SETTINGS, isRomanizationOn, type UserSettings } from "./types";
 
@@ -258,5 +259,26 @@ describe("shouldAutoFadeBuildTileRomaji", () => {
         reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
       }),
     ).toBe(false);
+  });
+});
+
+describe("languageHasRomanization", () => {
+  // The regression this exists for: SpeakingStepView gated its "Show romaji"
+  // button on a MODULE INDEX alone, so every Spanish and French speaking step
+  // in modules 1–16 rendered a dead toggle with Japanese terminology on it.
+  // A module threshold cannot answer a question about SCRIPT.
+  it("is false for Latin-script courses, whatever the module", () => {
+    expect(languageHasRomanization("es")).toBe(false);
+    expect(languageHasRomanization("fr")).toBe(false);
+  });
+
+  it("is true for the courses that actually have a romanization layer", () => {
+    expect(languageHasRomanization("ja")).toBe(true);
+    expect(languageHasRomanization("ko")).toBe(true);
+  });
+
+  it("is false when the language is unknown rather than defaulting on", () => {
+    expect(languageHasRomanization(undefined)).toBe(false);
+    expect(languageHasRomanization("")).toBe(false);
   });
 });

@@ -17,7 +17,10 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
-import { KATAKANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
+import {
+  KATAKANA_ROMAJI_OFF_MODULE,
+  languageHasRomanization,
+} from "@/shared/settings/romanizationAutoFlip";
 import { isRomanizationOn } from "@/shared/settings/types";
 import {
   getSpeechConfig,
@@ -501,8 +504,14 @@ function SpeakingStepRecognized({
   // setting may still be ON (it's global), but no romaji surface in this
   // step may render — including the transcript/target hint lines (A/B
   // judge find, 2026-07-17: "you said" romaji leaked at m30).
+  // …and a language gate in front of the module gate: romanization only means
+  // anything for a script the learner cannot already read. Without this, every
+  // Spanish and French speaking step rendered a "Show romaji" button, because
+  // the module threshold below was written for the katakana ladder and es/fr
+  // module indices sail under it.
   const romajiAllowed =
-    lessonModuleIndex == null || lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE;
+    languageHasRomanization(lang) &&
+    (lessonModuleIndex == null || lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE);
   const effectiveShowRomaji = showRomaji && romajiAllowed;
 
   // Stop the mic the instant the learner is already correct.
@@ -890,8 +899,7 @@ function SpeakingStepRecognized({
             2026-07-17). Hide it; outside a lesson (null) keep it. */}
         <div className="flex items-center gap-2">
           {onSilentSwap && <SilentSwapButton onSwap={onSilentSwap} />}
-          {(lessonModuleIndex == null ||
-            lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE) && (
+          {romajiAllowed && (
             <button
               type="button"
               onClick={toggleRomaji}

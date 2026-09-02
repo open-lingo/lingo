@@ -24,6 +24,27 @@ export const HIRAGANA_ROMAJI_OFF_MODULE = 7;
 export const KATAKANA_ROMAJI_OFF_MODULE = 17;
 
 /**
+ * Languages whose script the learner cannot already read, and which therefore
+ * have a romanization layer at all.
+ *
+ * ES and FR are written in the same alphabet as the interface. A
+ * "Show romaji" control on a Spanish speaking step is a dead toggle wearing
+ * Japanese terminology — it was shipping on `/es` and `/fr` because the only
+ * gate on it was a MODULE-INDEX threshold, and every early Spanish module
+ * clears a threshold written for the katakana ladder. (Reported in the es
+ * m1–m10 wave's open-items list, 2026-08-25; fixed 2026-09-02.)
+ *
+ * Membership is about the SCRIPT, not about whether a course is finished, so
+ * a new non-Latin course joins this set and a new Latin one does not.
+ */
+export const ROMANIZED_SCRIPT_LANGS: ReadonlySet<string> = new Set(["ja", "ko"]);
+
+/** Does this language have a romanization layer to show or hide at all? */
+export function languageHasRomanization(lang: string | undefined): boolean {
+  return lang !== undefined && ROMANIZED_SCRIPT_LANGS.has(lang);
+}
+
+/**
  * The module at which character-build tile banks stop showing per-kana
  * romaji by default and switch to tap/hover-to-reveal. Fires two modules
  * ahead of the full hiragana romaji auto-off (Module 7): by that point a
