@@ -1066,6 +1066,7 @@
     "detailsLabel": "Card details",
     "detailPanelSettings": "Open settings",
     "sessionSectionLabel": "This session",
+    "stageLabel": "Review card",
     "examples": "Examples",
     "examplesMore": "+{{count}} more",
     "examplePlay": "Play example audio",

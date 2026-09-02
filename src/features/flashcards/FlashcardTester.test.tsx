@@ -226,4 +226,23 @@ describe("FlashcardTester", () => {
     const popover = screen.getByRole("dialog", { name: /review settings/i });
     expect(popover.className).toContain("absolute");
   });
+
+  it("mounts the fitted stage on mobile and the flow column on desktop", () => {
+    mockViewport.isMobile = true;
+    const { container, unmount } = renderTester();
+    const stage = container.querySelector("[data-lesson-stage]");
+    expect(stage, "mobile must expose the stage-fit gate hook").not.toBeNull();
+    // The card fills the stage rather than reserving a fixed 360px block.
+    const card = screen.getByText("やま").closest("button")!;
+    expect(card.className).toContain("flex-1");
+    expect(card.className).not.toContain("min-h-[360px]");
+    unmount();
+
+    mockViewport.isMobile = false;
+    const desktop = renderTester();
+    expect(desktop.container.querySelector("[data-lesson-stage]")).toBeNull();
+    expect(
+      screen.getByText("やま").closest("button")!.className,
+    ).toContain("min-h-[360px]");
+  });
 });

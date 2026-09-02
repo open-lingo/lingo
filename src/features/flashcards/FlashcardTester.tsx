@@ -44,6 +44,7 @@ import { SessionSummary } from "./components/SessionSummary";
 import { ReviewToolbar } from "./components/ReviewToolbar";
 import { ReviewSettingsPanel } from "./components/ReviewSettingsPanel";
 import { ReviewDetailsSheet } from "./components/ReviewDetailsSheet";
+import { ReviewShell } from "./components/ReviewShell";
 import {
   FlashcardsOnboardingGate,
   FLASHCARDS_ONBOARDING_STORAGE_KEY,
@@ -440,24 +441,6 @@ export function FlashcardTester() {
     );
   }
 
-  if (isSessionDone) {
-    return (
-      <SessionSummary
-        reviewed={sessionStats.reviewed}
-        correct={sessionStats.correct}
-        canReviewMore={queue.dueCount > 0 || queue.newCount > 0}
-        canFreeReview={(queue.notYetDueCount ?? 0) > 0}
-        freeReview={freeReview}
-        onRestart={handleRestart}
-        onStartFreeReview={handleStartFreeReview}
-        hubPath={langPath("practice/flashcards")}
-        fitted={false}
-      />
-    );
-  }
-
-  // TS narrowing: card is guaranteed defined after isSessionDone guard
-  const currentCard = card!;
   const modalityTheme = getModalityTheme(testedModality);
 
   // Toolbar for the detail overlay — lets the learner jump straight to the
@@ -498,182 +481,204 @@ export function FlashcardTester() {
       : 0;
 
   return (
-    // `justify-center` keeps the card column horizontally centered. The detail
-    // panel is rendered as an absolute overlay INSIDE the centered column, so
-    // revealing it never displaces the card.
-    <div className="flex min-h-0 flex-1 justify-center">
-      {/* Main content — always centered; detail panel floats beside it. */}
-      <div className="relative flex min-w-0 max-w-md flex-1 flex-col space-y-4">
-        <ReviewToolbar
-          compact={isMobile}
-          hubPath={langPath("practice/flashcards")}
-          progressPct={progressPct}
-          againQueued={againQueued}
-          canUndo={lastGrade !== null}
-          onUndo={handleUndo}
-          onOpenInfo={() => setInfoOpen(true)}
-          onOpenSettings={() =>
-            isMobile ? setSheet("session") : setSettingsOpen((o) => !o)
-          }
-          settingsOpen={settingsOpen}
-          onOpenDetails={() => setSheet("details")}
-          detailsEnabled={flipped && hasSidebarContent(currentCard)}
-          settingsPopover={
-            settingsOpen ? (
-              <>
-                <div
-                  className="fixed inset-0 z-10 bg-transparent"
-                  aria-hidden
-                  onClick={() => setSettingsOpen(false)}
-                />
-                <div
-                  className="absolute right-0 top-full z-20 mt-1 w-64 shrink-0 rounded-lg border border-border bg-surface p-4 shadow-popover"
-                  role="dialog"
-                  aria-label={t("flashcards.reviewSettings", "Review settings")}
-                >
-                  <ReviewSettingsPanel
-                    highlightMode={highlightMode}
-                    onHighlightModeChange={setHighlightMode}
-                  />
-                </div>
-              </>
-            ) : undefined
-          }
-        />
-
-      {/* Modality indicator — color-coded chip (recognition=info, production=accent). */}
-      <div className="flex items-center justify-center">
-        <span
-          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${modalityTheme.chip}`}
-        >
-          <Icon name={modalityTheme.icon} size={12} aria-hidden />
-          {testedModality === "recognition"
-            ? t("flashcards.modeRecognition", "Recognition")
-            : t("flashcards.modeProduction", "Production")}
-        </span>
-      </div>
-
-      <ReviewCard
-        card={currentCard}
-        flipped={flipped}
-        onFlip={() => setFlipped((f) => !f)}
-        testedModality={testedModality}
-        particles={particles}
-        highlightMode={highlightMode}
-        fitted={false}
-      />
-
-      <GradeRow
-        flipped={flipped}
-        onReveal={() => setFlipped(true)}
-        onRate={handleRate}
-        gradingLayout={gradingLayout}
-        cardId={currentCard.id}
-        defaultEase={cardIdToDefaultEase?.[currentCard.id]}
-        modality={testedModality}
-        showIntervalPreviews={showIntervalPreviews}
-      />
-
-      {/* Detail panel stacked below the card on mobile. On lg:+ it floats
-          as an absolute overlay (below) so the card never shifts. Below `md`
-          the detail body lives in `ReviewDetailsSheet` instead — this stays
-          purely a `lg:` overlay concern once `isMobile` is true. */}
-      {!isMobile && flipped && (
-        <FlashcardDetailSidebar
-          card={currentCard}
-          particles={particles}
-          layout="stacked"
-        />
-      )}
-
-      {/* lg:+ detail overlay — absolutely positioned to the right of the
-          column, with a settings/info toolbar. Zero layout shift. */}
-      {!isMobile && flipped && (
-        <FlashcardDetailSidebar
-          card={currentCard}
-          particles={particles}
-          layout="overlay"
-          toolbar={detailToolbar}
-        />
-      )}
-
-        {/* Floating counts widget — desktop only; mobile counts live in
-            `ReviewDetailsSheet`. */}
-        {!isMobile && (
-          <div
-            className="flex flex-wrap items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 shadow-sm"
-            role="status"
-          >
-            <span className="text-sm text-text-muted">
-              {t("flashcards.reviewed")}: <strong className="text-text-primary">{sessionStats.reviewed}</strong>
-            </span>
-            <span className="text-border">·</span>
-            <span className="text-sm text-text-muted">
-              {t("flashcards.newCount")}: <strong className="text-text-primary">{liveCounts.newRemaining}</strong>
-            </span>
-            <span className="text-border">·</span>
-            <Tooltip
-              side="top"
-              label={
-                <span className="block whitespace-nowrap">
-                  <span className="block">
-                    {t("flashcards.dueBreakdownRecognition", "{{count}} due for recognition", {
-                      count: liveCounts.dueBreakdown.recognition,
-                    })}
-                  </span>
-                  <span className="block">
-                    {t("flashcards.dueBreakdownProduction", "{{count}} due for production", {
-                      count: liveCounts.dueBreakdown.production,
-                    })}
-                  </span>
-                </span>
+    <>
+      <ReviewShell
+        fitted={isMobile}
+        stageLabel={t("flashcards.stageLabel", "Review card")}
+        toolbar={
+          // No slot left → the session is on its summary screen; the toolbar
+          // (back link, progress bar, detail/settings affordances) has
+          // nothing to act on and would duplicate the summary's own
+          // "Back to Flashcards" link.
+          !card ? null : (
+            <ReviewToolbar
+              compact={isMobile}
+              hubPath={langPath("practice/flashcards")}
+              progressPct={progressPct}
+              againQueued={againQueued}
+              canUndo={lastGrade !== null}
+              onUndo={handleUndo}
+              onOpenInfo={() => setInfoOpen(true)}
+              onOpenSettings={() =>
+                isMobile ? setSheet("session") : setSettingsOpen((o) => !o)
               }
-            >
-              <span className="text-sm text-text-muted">
-                {t("flashcards.dueCount")}: <strong className="text-text-primary">{liveCounts.dueRemaining}</strong>
+              settingsOpen={settingsOpen}
+              onOpenDetails={() => setSheet("details")}
+              detailsEnabled={flipped && hasSidebarContent(card)}
+              settingsPopover={
+                settingsOpen ? (
+                  <>
+                    <div
+                      className="fixed inset-0 z-10 bg-transparent"
+                      aria-hidden
+                      onClick={() => setSettingsOpen(false)}
+                    />
+                    <div
+                      className="absolute right-0 top-full z-20 mt-1 w-64 shrink-0 rounded-lg border border-border bg-surface p-4 shadow-popover"
+                      role="dialog"
+                      aria-label={t("flashcards.reviewSettings", "Review settings")}
+                    >
+                      <ReviewSettingsPanel
+                        highlightMode={highlightMode}
+                        onHighlightModeChange={setHighlightMode}
+                      />
+                    </div>
+                  </>
+                ) : undefined
+              }
+            />
+          )
+        }
+      >
+        {!card ? (
+          <SessionSummary
+            reviewed={sessionStats.reviewed}
+            correct={sessionStats.correct}
+            canReviewMore={queue.dueCount > 0 || queue.newCount > 0}
+            canFreeReview={(queue.notYetDueCount ?? 0) > 0}
+            freeReview={freeReview}
+            onRestart={handleRestart}
+            onStartFreeReview={handleStartFreeReview}
+            hubPath={langPath("practice/flashcards")}
+            fitted={isMobile}
+          />
+        ) : (
+          <>
+            {/* Modality indicator — color-coded chip (recognition=info, production=accent). */}
+            <div className="flex shrink-0 items-center justify-center">
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${modalityTheme.chip}`}
+              >
+                <Icon name={modalityTheme.icon} size={12} aria-hidden />
+                {testedModality === "recognition"
+                  ? t("flashcards.modeRecognition", "Recognition")
+                  : t("flashcards.modeProduction", "Production")}
               </span>
-            </Tooltip>
-            <span className="text-border">·</span>
-            <span className="text-sm text-text-muted">
-              {t("flashcards.againCount")}: <strong className="text-warning">{againQueued}</strong>
-            </span>
-            {freeReview && (queue.extraCount ?? 0) > 0 && (
-              <>
+            </div>
+
+            <ReviewCard
+              card={card}
+              flipped={flipped}
+              onFlip={() => setFlipped((f) => !f)}
+              testedModality={testedModality}
+              particles={particles}
+              highlightMode={highlightMode}
+              fitted={isMobile}
+            />
+
+            <GradeRow
+              flipped={flipped}
+              onReveal={() => setFlipped(true)}
+              onRate={handleRate}
+              gradingLayout={gradingLayout}
+              cardId={card.id}
+              defaultEase={cardIdToDefaultEase?.[card.id]}
+              modality={testedModality}
+              showIntervalPreviews={showIntervalPreviews}
+            />
+
+            {/* Detail panel stacked below the card on mobile. On lg:+ it floats
+                as an absolute overlay (below) so the card never shifts. Below `md`
+                the detail body lives in `ReviewDetailsSheet` instead — this stays
+                purely a `lg:` overlay concern once `isMobile` is true. */}
+            {!isMobile && flipped && (
+              <FlashcardDetailSidebar
+                card={card}
+                particles={particles}
+                layout="stacked"
+              />
+            )}
+
+            {/* lg:+ detail overlay — absolutely positioned to the right of the
+                column, with a settings/info toolbar. Zero layout shift. */}
+            {!isMobile && flipped && (
+              <FlashcardDetailSidebar
+                card={card}
+                particles={particles}
+                layout="overlay"
+                toolbar={detailToolbar}
+              />
+            )}
+
+            {/* Floating counts widget — desktop only; mobile counts live in
+                `ReviewDetailsSheet`. */}
+            {!isMobile && (
+              <div
+                className="flex flex-wrap items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 shadow-sm"
+                role="status"
+              >
+                <span className="text-sm text-text-muted">
+                  {t("flashcards.reviewed")}: <strong className="text-text-primary">{sessionStats.reviewed}</strong>
+                </span>
                 <span className="text-border">·</span>
                 <span className="text-sm text-text-muted">
-                  {t("flashcards.extraCount", "Extra")}:{" "}
-                  <strong className="text-accent">{queue.extraCount}</strong>
+                  {t("flashcards.newCount")}: <strong className="text-text-primary">{liveCounts.newRemaining}</strong>
                 </span>
-              </>
+                <span className="text-border">·</span>
+                <Tooltip
+                  side="top"
+                  label={
+                    <span className="block whitespace-nowrap">
+                      <span className="block">
+                        {t("flashcards.dueBreakdownRecognition", "{{count}} due for recognition", {
+                          count: liveCounts.dueBreakdown.recognition,
+                        })}
+                      </span>
+                      <span className="block">
+                        {t("flashcards.dueBreakdownProduction", "{{count}} due for production", {
+                          count: liveCounts.dueBreakdown.production,
+                        })}
+                      </span>
+                    </span>
+                  }
+                >
+                  <span className="text-sm text-text-muted">
+                    {t("flashcards.dueCount")}: <strong className="text-text-primary">{liveCounts.dueRemaining}</strong>
+                  </span>
+                </Tooltip>
+                <span className="text-border">·</span>
+                <span className="text-sm text-text-muted">
+                  {t("flashcards.againCount")}: <strong className="text-warning">{againQueued}</strong>
+                </span>
+                {freeReview && (queue.extraCount ?? 0) > 0 && (
+                  <>
+                    <span className="text-border">·</span>
+                    <span className="text-sm text-text-muted">
+                      {t("flashcards.extraCount", "Extra")}:{" "}
+                      <strong className="text-accent">{queue.extraCount}</strong>
+                    </span>
+                  </>
+                )}
+              </div>
             )}
-          </div>
-        )}
 
-        {/* Quiet one-step undo — only after a grade, clears at session end.
-            Desktop only; mobile undo lives as a chip in `ReviewToolbar`. */}
-        {!isMobile && lastGrade && (
-          <div className="flex justify-center">
-            <button
-              type="button"
-              onClick={handleUndo}
-              className="inline-flex items-center gap-1.5 text-xs text-text-muted transition hover:text-text-primary"
-            >
-              <Icon name="rotateCcw" size={12} aria-hidden />
-              {t("flashcards.undo", "Undo last grade")}
-              <kbd className="hidden rounded bg-surface-muted px-1 font-sans text-[10px] font-medium leading-4 lg:inline">
-                Z
-              </kbd>
-            </button>
-          </div>
+            {/* Quiet one-step undo — only after a grade, clears at session end.
+                Desktop only; mobile undo lives as a chip in `ReviewToolbar`. */}
+            {!isMobile && lastGrade && (
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={handleUndo}
+                  className="inline-flex items-center gap-1.5 text-xs text-text-muted transition hover:text-text-primary"
+                >
+                  <Icon name="rotateCcw" size={12} aria-hidden />
+                  {t("flashcards.undo", "Undo last grade")}
+                  <kbd className="hidden rounded bg-surface-muted px-1 font-sans text-[10px] font-medium leading-4 lg:inline">
+                    Z
+                  </kbd>
+                </button>
+              </div>
+            )}
+          </>
         )}
-      </div>
+      </ReviewShell>
 
-      {isMobile && (
+      {isMobile && card && (
         <ReviewDetailsSheet
           open={sheet !== null}
           onClose={() => setSheet(null)}
           initialSection={sheet ?? "details"}
-          card={currentCard}
+          card={card}
           particles={particles}
           stats={{
             reviewed: sessionStats.reviewed,
@@ -703,6 +708,6 @@ export function FlashcardTester() {
           onResetOnboarding={handleResetOnboarding}
         />
       )}
-    </div>
+    </>
   );
 }

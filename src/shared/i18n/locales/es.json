@@ -1005,6 +1005,7 @@
     "detailsLabel": "Detalles de la tarjeta",
     "detailPanelSettings": "Abrir ajustes",
     "sessionSectionLabel": "Esta sesión",
+    "stageLabel": "Tarjeta de repaso",
     "examples": "Ejemplos",
     "examplesMore": "+{{count}} más",
     "examplePlay": "Reproducir audio de ejemplo",

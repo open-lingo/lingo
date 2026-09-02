@@ -1005,6 +1005,7 @@
     "detailsLabel": "카드 상세",
     "detailPanelSettings": "설정 열기",
     "sessionSectionLabel": "이번 세션",
+    "stageLabel": "복습 카드",
     "examples": "예시",
     "examplesMore": "+{{count}}개 더",
     "examplePlay": "예시 오디오 재생",
