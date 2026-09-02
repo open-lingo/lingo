@@ -352,6 +352,12 @@ type Atom = {
   meaningEn: string;
   shortGloss?: string;
   emoji?: string;
+  /** The registry's "no image MCQ" flag (`courseAtoms.blocked`) — the atom
+   *  HAS art, but the audit graded that art misleading or weak for this
+   *  sense, so it may never occupy a picture tile as target OR distractor.
+   *  Carried here because the compiler's own pools are the last place that
+   *  decision can be honoured; see `imageFoilPool`. */
+  blocked?: boolean;
   fromModule: ReviewAtom["fromModule"];
 };
 
@@ -596,6 +602,7 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
         meaningEn: (a.meaningEn as string) ?? kana,
         shortGloss: a.shortGloss as string | undefined,
         emoji: a.emoji as string | undefined,
+        blocked: a.blocked === true,
         fromModule: (a.fromModule as ReviewAtom["fromModule"]) ?? "m6",
       });
   }
@@ -612,6 +619,7 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
       meaningEn: a.gloss,
       shortGloss: a.shortGloss,
       emoji: m.get(a.kana)?.emoji,
+      blocked: m.get(a.kana)?.blocked,
       fromModule: (m.get(a.kana)?.fromModule ?? "m6") as ReviewAtom["fromModule"],
     });
   for (const a of ir.newAtoms ?? [])
@@ -625,6 +633,7 @@ function atomIndex(ir: ModuleIR): Map<string, Atom> {
       // is why one-token `mode: build` beats had to stand in as intros —
       // and why 41 single-tile builds came back (inv 19).
       emoji: m.get(a.kana)?.emoji,
+      blocked: m.get(a.kana)?.blocked,
       fromModule: ir.module as ReviewAtom["fromModule"],
     });
   return m;
@@ -753,6 +762,40 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
   const declaredPool: Atom[] = [...atoms.values()].filter((a) => declaredKana.has(a.kana));
   const emojiPool: Atom[] = [...atoms.values()].filter(
     (a) => a.emoji && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
+  );
+  /**
+   * Foils for a `word_image_mcq` — a STRICTLY narrower pool than `emojiPool`.
+   *
+   * Two constraints the whole-course `emojiPool` cannot express, and both were
+   * live defects until 2026-09-02:
+   *
+   * 1. DECLARED ONLY. Identical reasoning to `declaredPool` above ("distractors
+   *    may only come from vocabulary THIS module declares"), which was applied
+   *    to the filler path and missed here — so image debuts kept drawing foils
+   *    from the entire registry. `usableHere` is not a substitute: it asks
+   *    "has the learner MET this word", and `priorVocab` answers yes for every
+   *    word any earlier module taught — 574 of them by m26. A module's authored
+   *    avoid-list (m23/m26's "ships no untaught vocabulary" guards) is invisible
+   *    at that width, so よむ / よわい / かく / クラス — all taught by m16's
+   *    2026-07-30 vocab packs, all deliberately avoided by m23/m26 — were legal
+   *    foils by the compiler's lights and illegal by the module's.
+   *
+   * 2. NOT `blocked`. `courseAtoms.blocked` is exactly the "no image MCQ" flag
+   *    (419 atoms carry it) and it never reached the compiler at all: `Atom`
+   *    dropped the field, so the only image-block the pools honoured was the
+   *    25-entry hand-written `WORD_IMAGE_MCQ_BLOCKLIST`. That is how よわい
+   *    could be offered as a picture tile showing 🪶 — a feather its own
+   *    registry note says "cannot honestly cue 'weak'" — and how クラス could
+   *    offer 🏫, a glyph the registry assigns to きょうしつ.
+   *
+   * Why this surfaced with Wave C's emoji refit and not before: `pickReviewAtoms`
+   * shuffles by ARRAY POSITION over the pool, so adding or removing any atom's
+   * `emoji` changes `emojiPool`'s membership and re-rolls every draw in the
+   * course. The emoji edits did not create these foils; they re-dealt a hand
+   * that had been illegal all along.
+   */
+  const imageFoilPool: Atom[] = declaredPool.filter(
+    (a) => a.emoji && !a.blocked && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
   );
 
   /**
@@ -1385,11 +1428,26 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     for (const kana of lesson.introduces ?? []) {
       const irAtom = (ir.newAtoms ?? []).find((x) => x.kana === kana);
       const atom = atoms.get(kana);
-      if (!irAtom || irAtom.imageable === false || !atom?.emoji) continue;
+      // `blocked` is the registry's "no image MCQ" flag and it binds the TARGET
+      // slot as well as the foil slots (see `imageFoilPool`) — the two have
+      // always been one rule, and `vocabMcq`'s own doc comment states it
+      // ("skip them from BOTH target and distractor slots"). Until 2026-09-02
+      // only the 25-entry hand-written blocklist reached here, so the 419
+      // atoms flagged in `courseAtoms` were invisible: the compiler would
+      // build a picture debut for a word whose registry row says a picture
+      // must never name it. For ちゃ / こめ / かね that debut could not even be
+      // legal — their を/で rule card NAMES them and rule cards are pinned
+      // ahead of the interleaved middle, so the picture can never be the
+      // first-ever appearance (the `image-debut` diagnostic, and the m14/m16
+      // さむい lesson: "an imageable word on a pinned card steals its picture
+      // debut"). Skipping them here is what makes that authored ruling true
+      // rather than merely asserted.
+      if (!irAtom || irAtom.imageable === false || atom?.blocked || !atom?.emoji)
+        continue;
       const v = tryVocabMcq(
         `${lid}-debut-${debutSteps.length}`,
         atom,
-        emojiPool.filter(usableHere),
+        imageFoilPool.filter(usableHere),
       );
       if (v) debutSteps.push(v);
     }
@@ -1964,9 +2022,20 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
   {
     const compiled = compileModule(ir);
     const mcqSeen = new Map<string, string>();
+    // `blocked` joins `imageable: false` as a reason NOT to expect a picture
+    // debut — it is the registry's half of the same ruling, and the census
+    // has to agree with the builder above or it demands a debut the compiler
+    // deliberately declines to emit. `moduleBarGuards`' invariant-30 census
+    // has always excluded blocked atoms; this is the compiler's copy of that
+    // filter, and it was the half that had drifted.
     const introduced = new Set(
       (ir.newAtoms ?? [])
-        .filter((a) => a.imageable !== false && atoms.get(a.kana)?.emoji)
+        .filter(
+          (a) =>
+            a.imageable !== false &&
+            atoms.get(a.kana)?.emoji &&
+            !atoms.get(a.kana)?.blocked,
+        )
         .map((a) => a.kana),
     );
     const firstAppearance = new Map<string, { stepId: string; type: string }>();

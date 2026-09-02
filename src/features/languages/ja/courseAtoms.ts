@@ -288,11 +288,11 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "zasshi", kana: "ざっし", kanji: "雑誌", romaji: "zasshi", meaningEn: "magazine", emoji: "📖", fromModule: "future", freqRank: 6, introducedByLessonId: "ja-m4-1-1", kind: "vocab", note: "open book as magazine proxy", pos: "noun" },
   { id: "ja-m5-7-v-arigatou", kana: "ありがとうございます", romaji: "arigatou gozaimasu", meaningEn: "Thank you (polite)", fromModule: "m3", introducedByLessonId: "ja-m3-neo-5", kind: "phrase", note: "m5→m3 (2026-08-20 drift guard): the m3-neo-5 phrases lesson is the real teach (audio primer lc-arigatou); the old ja-m5-7 pointer was dangling", pos: "expression" },
   { id: "ja-m5-4-v-ikura", kana: "いくら", romaji: "ikura", meaningEn: "how much?", emoji: "💲", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab", blocked: true, note: "question word", pos: "adverb" },
-  { id: "ja-m5-4-v-en", kana: "えん", kanji: "円", romaji: "en", meaningEn: "Yen", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab", pos: "noun" },
+  { id: "ja-m5-4-v-en", emoji: "💴", kana: "えん", kanji: "円", romaji: "en", meaningEn: "Yen", fromModule: "m5", introducedByLessonId: "ja-m5-4", kind: "vocab", blocked: true, note: "💴 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked, and the reason is a genuine content knot rather than bad art: m5 only EXPOSES えん — m5-neo-a.ts's own header says 「えん debuts on dialogue exposure」 (ひゃくえんです in the shop scene, comprehension note, no vocabulary step), and moduleBarGuards' PRIOR builder names えん as the worked example of 'a word that appeared ONLY in a prior dialogue was never taught'. ir/m9.ir.yaml is where えん is really TAUGHT (new atom, imageable, introduced by m9-neo-1), so the obvious fix is to re-home fromModule m5 → m9 — but fromModuleDrift rejects that: m5's ja-m5-neo-6-dlg-scene1 exercises えん, and the doctrine is that no atom is exercised before its fromModule. Re-homing therefore needs m5's shop dialogue re-authored off えん, which is a content decision, not an emoji one. Until then the tag stays m5 and the picture debut stays off; the art renders everywhere else", pos: "noun" },
   { id: "kara", kana: "から", romaji: "kara", meaningEn: "from (origin)", fromModule: "m5", introducedByLessonId: "ja-m15-neo-8", kind: "vocab", pos: "particle" },
   { id: "ja-m5-2-kudasai-card", kana: "ください", romaji: "kudasai", meaningEn: "please", emoji: "🤲", fromModule: "m8", introducedByLessonId: "ja-m5-2", kind: "phrase", blocked: true, note: "polite-request auxiliary; function word", pos: "expression" },
   { id: "ja-m5-3-v-gonin", kana: "ごにん", kanji: "五人", romaji: "go nin", meaningEn: "5 people", fromModule: "m21", introducedByLessonId: "ja-m21-neo-6", kind: "vocab", pos: "number" },
-  { id: "ja-m5-3-v-sannin", kana: "さんにん", kanji: "三人", romaji: "san nin", meaningEn: "3 people", fromModule: "m17", introducedByLessonId: "ja-m5-3", kind: "vocab", pos: "number" },
+  { id: "ja-m5-3-v-sannin", emoji: "🧑‍🤝‍🧑", kana: "さんにん", kanji: "三人", romaji: "san nin", meaningEn: "3 people", fromModule: "m17", introducedByLessonId: "ja-m5-3", kind: "vocab", blocked: true, note: "🧑‍🤝‍🧑 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked: `ir/m17.ir.yaml` declares さんにん `imageable: false` and debuts it on m17-neo-4's rule card. Same ruling the four other 〜にん counters already carry (よにん/ごにん are in WORD_IMAGE_MCQ_BLOCKLIST): the glyph shows TWO people, so it cannot cue the number three — a counter needs the numeral, not a picture", pos: "number" },
   { id: "ja-m5-3-v-yonin", kana: "よにん", kanji: "四人", romaji: "yo nin", meaningEn: "4 people", fromModule: "m17", introducedByLessonId: "ja-m5-3", kind: "vocab", pos: "number" },
   { id: "ja-m5-4-v-ocha", kana: "おちゃ", kanji: "お茶", romaji: "ocha", meaningEn: "green tea", emoji: "🍵", fromModule: "m2", introducedByLessonId: "ja-m5-4", kind: "vocab", pos: "noun" },
   { id: "ja-m5-4-v-okane", kana: "おかね", kanji: "お金", romaji: "okane", meaningEn: "money", emoji: "💰", fromModule: "m27", introducedByLessonId: "ja-m5-4", kind: "vocab", pos: "noun" },
@@ -331,7 +331,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "ja-m6-neo-konai", kana: "こない", romaji: "konai", meaningEn: "won't come / isn't coming", shortGloss: "won't come", fromModule: "m6", introducedByLessonId: "ja-m6-neo-3", kind: "vocab", blocked: true, excludeFromSrs: true, pos: "verb" },
   { id: "ja-m6-neo-nai-aru", kana: "ない", romaji: "nai", meaningEn: "there isn't (neg. of ある)", fromModule: "m6", introducedByLessonId: "ja-m6-neo-6", kind: "vocab", pos: "verb" },
   { id: "ja-m6-neo-inai", kana: "いない", romaji: "inai", meaningEn: "there isn't (neg. of いる)", fromModule: "m6", introducedByLessonId: "ja-m6-neo-6", kind: "vocab", pos: "verb" },
-  { id: "ja-m6-1-uchi", kana: "うち", romaji: "uchi", meaningEn: "Home / my place", fromModule: "m16", introducedByLessonId: "ja-m6-1", kind: "vocab", pos: "noun" },
+  { id: "ja-m6-1-uchi", emoji: "🏡", kana: "うち", romaji: "uchi", meaningEn: "Home / my place", fromModule: "m16", introducedByLessonId: "ja-m6-1", kind: "vocab", blocked: true, note: "🏡 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked: `ir/m16.ir.yaml` declares うち `imageable: false` and debuts it on m16-neo-1's rule card — 'home, my place' is a POSSESSIVE/deictic sense (where *I* live, vs いえ the building), and a house picture cannot carry the difference between the two. Registry `blocked` ⟺ IR `imageable: false`, the standing convention", pos: "noun" },
   { id: "kuukou", kana: "くうこう", kanji: "空港", romaji: "kuukou", meaningEn: "airport", emoji: "✈️", fromModule: "m23", introducedByLessonId: "ja-m6-1-1", blocked: true, kind: "vocab", pos: "noun", note: "no picture debut (inv-30 census 2026-08-20): りょこう's ✈️ owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
   { id: "p-de", kana: "で", romaji: "de", meaningEn: "at / by means of", fromModule: "m6", introducedByLessonId: "ja-m6-3-1", kind: "particle", pos: "particle" },
   { id: "ja-m6-8-warm-doko", kana: "どこ", romaji: "doko", meaningEn: "where", fromModule: "m6", introducedByLessonId: "ja-m6-8", kind: "vocab", blocked: true, note: "interrogative demonstrative; abstract", pos: "pronoun" },
@@ -1060,10 +1060,10 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kite", kana: "きて", romaji: "kite", meaningEn: "come (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-3", kind: "vocab", pos: "verb" },
   { id: "oshiete", kana: "おしえて", romaji: "oshiete", meaningEn: "teach, tell (te-form)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-7", kind: "vocab", pos: "verb" },
   { id: "shokuji", kana: "しょくじ", romaji: "shokuji", meaningEn: "a meal", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", pos: "noun" },
-  { id: "cha", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", pos: "noun" },
-  { id: "kome", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab", pos: "noun" },
+  { id: "cha", emoji: "🍵", kana: "ちゃ", romaji: "cha", meaningEn: "tea", fromModule: "m8", introducedByLessonId: "ja-m8-neo-5", kind: "vocab", blocked: true, note: "🍵 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked because THE RULE CARD IS THE DEBUT (same ruling as suki/haru): m8's を card teaches the particle through its objects and says 「ちゃ is tea」 in the prose with 「ちゃを のむ」 as an example, and rule cards are pinned ahead of the interleaved middle — so a picture debut could never be the first-ever appearance (m14/m16 さむい lesson). The word is fully taught by that card plus its build sentences", pos: "noun" },
+  { id: "kome", emoji: "🌾", kana: "こめ", romaji: "kome", meaningEn: "rice (uncooked)", shortGloss: "rice (raw)", fromModule: "m8", introducedByLessonId: "ja-m8-neo-6", kind: "vocab", blocked: true, note: "🌾 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked: same rule-card-is-the-debut ruling as ちゃ above — m8's で card carries the こめ/ごはん contrast in its prose (「uncooked rice, the bag on the shelf, not the cooked bowl on the table」) and 「こめを かう」 as its example, and that contrast is the point of the card, so it stays. A grain glyph could not carry raw-vs-cooked anyway — the very distinction the card exists to draw", pos: "noun" },
   // ── m9-neo (tile n03) — numbers, counters, purchases ──
-  { id: "kane", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab", pos: "noun" },
+  { id: "kane", emoji: "💰", kana: "かね", romaji: "kane", meaningEn: "money", fromModule: "m9", introducedByLessonId: "ja-m9-neo-5", kind: "vocab", blocked: true, note: "💰 vendored 2026-09-02 (Wave C fill-gap) for the flashcard/SRS surface. blocked: same rule-card-is-the-debut ruling as ちゃ/こめ — m9's たかい/やすい card names かね in its prose to reach 「かねが ない」, the whole point of the beat, and rule cards are pinned first", pos: "noun" },
   // ── m10-neo (tile n15) — register in the wild ──
   { id: "uun", kana: "ううん", romaji: "uun", meaningEn: "nope (casual no)", shortGloss: "nope", fromModule: "m10", introducedByLessonId: "ja-m10-neo-2", kind: "vocab", pos: "interjection" },
   { id: "dame", kana: "だめ", romaji: "dame", meaningEn: "no good, not allowed", shortGloss: "no good", fromModule: "m10", introducedByLessonId: "ja-m10-neo-5", kind: "vocab", pos: "adjective", conjugation: { class: "na-adj" } },
@@ -1082,18 +1082,30 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "gojuu", kana: "ごじゅう", romaji: "gojuu", meaningEn: "fifty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab", pos: "number" },
   { id: "rokujuu", kana: "ろくじゅう", romaji: "rokujuu", meaningEn: "sixty", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab", pos: "number" },
   { id: "nanajuu", kana: "ななじゅう", romaji: "nanajuu", meaningEn: "seventy", fromModule: "m11", introducedByLessonId: "ja-m11-neo-1", kind: "vocab", pos: "number" },
-  // Clock hours. No emoji by design: a clock face cannot discriminate よじ
-  // from くじ, so these are never image-MCQ material (inv 30/44).
-  { id: "ichiji", kana: "いちじ", romaji: "ichiji", meaningEn: "one o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "niji", kana: "にじ", romaji: "niji", meaningEn: "two o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "sanji", kana: "さんじ", romaji: "sanji", meaningEn: "three o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "yoji", kana: "よじ", romaji: "yoji", meaningEn: "four o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "goji", kana: "ごじ", romaji: "goji", meaningEn: "five o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "rokuji", kana: "ろくじ", romaji: "rokuji", meaningEn: "six o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "shichiji", kana: "しちじ", romaji: "shichiji", meaningEn: "seven o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "hachiji", kana: "はちじ", romaji: "hachiji", meaningEn: "eight o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "kuji", kana: "くじ", romaji: "kuji", meaningEn: "nine o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
-  { id: "juuji", kana: "じゅうじ", romaji: "juuji", meaningEn: "ten o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", pos: "number" },
+  // Clock hours. Art (🕐…🕙) landed 2026-09-02 with Wave C's fill-gap pass, so
+  // the flashcard / SRS surface finally has a face per hour — but all ten are
+  // `blocked`, which is what the old "no emoji by design" note was really
+  // protecting. Two independent reasons, and `blocked` is the ONLY field that
+  // carries either one to the compiler's pools and the inv-30/44 census:
+  //   (a) a clock face cannot discriminate よじ from くじ at tile size — four
+  //       of these as MCQ options is a clock-reading test, not a Japanese one;
+  //   (b) `ir/m11.ir.yaml` declares all ten `imageable: false` on purpose:
+  //       they debut as a SET on the counter-じ rule card (number + じ is a
+  //       PATTERN, not ten separate vocabulary items), so demanding a picture
+  //       debut per hour would contradict the module's own teaching design.
+  // Same shape as なんじ immediately below, which has carried `blocked` all
+  // along. Registry `blocked` ⟺ IR `imageable: false` is the standing
+  // convention (m16's vocab-pack six state it explicitly).
+  { id: "ichiji", emoji: "🕐", kana: "いちじ", romaji: "ichiji", meaningEn: "one o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "niji", emoji: "🕑", kana: "にじ", romaji: "niji", meaningEn: "two o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "sanji", emoji: "🕒", kana: "さんじ", romaji: "sanji", meaningEn: "three o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "yoji", emoji: "🕓", kana: "よじ", romaji: "yoji", meaningEn: "four o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "goji", emoji: "🕔", kana: "ごじ", romaji: "goji", meaningEn: "five o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "rokuji", emoji: "🕕", kana: "ろくじ", romaji: "rokuji", meaningEn: "six o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "shichiji", emoji: "🕖", kana: "しちじ", romaji: "shichiji", meaningEn: "seven o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "hachiji", emoji: "🕗", kana: "はちじ", romaji: "hachiji", meaningEn: "eight o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "kuji", emoji: "🕘", kana: "くじ", romaji: "kuji", meaningEn: "nine o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
+  { id: "juuji", emoji: "🕙", kana: "じゅうじ", romaji: "juuji", meaningEn: "ten o'clock", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, pos: "number" },
   { id: "nanji", kana: "なんじ", romaji: "nanji", meaningEn: "what time", fromModule: "m11", introducedByLessonId: "ja-m11-neo-2", kind: "vocab", blocked: true, note: "interrogative — no concrete referent", pos: "number" },
   // Plain past. した (する) and きた (くる) are deliberately NOT registered:
   // both kana already belong to 下 / 北 in this deck, and a second entry
