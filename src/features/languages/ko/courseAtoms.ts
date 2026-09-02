@@ -206,7 +206,7 @@ const M1_VOCAB: KoAtom[] = [
   atom({ surface: "모두", meaningEn: "all / everyone", romanization: "modu", emoji: "👥", partOfSpeech: "noun", fromModule: "m1", kind: "vocab" }),
   // ㄹ-row
   atom({ surface: "다리", meaningEn: "leg / bridge", romanization: "dari", emoji: "🦵", partOfSpeech: "noun", fromModule: "m1", kind: "vocab" }),
-  atom({ surface: "머리", meaningEn: "head / hair", romanization: "meori", emoji: "🧑", partOfSpeech: "noun", fromModule: "m1", kind: "vocab" }),
+  atom({ surface: "머리", meaningEn: "head / hair", romanization: "meori", emoji: "👤", partOfSpeech: "noun", fromModule: "m1", kind: "vocab" }),
   atom({ surface: "우리", meaningEn: "we / us", romanization: "uri", emoji: "🤝", partOfSpeech: "pronoun", fromModule: "m1", kind: "vocab" }),
   // ㅂ-row
   atom({ surface: "바다", meaningEn: "sea", romanization: "bada", emoji: "🌊", partOfSpeech: "noun", fromModule: "m1", kind: "vocab" }),
@@ -240,7 +240,7 @@ const M2_VOCAB: KoAtom[] = [
   atom({ surface: "커피", meaningEn: "coffee", romanization: "keopi", emoji: "☕", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
   atom({ surface: "쿠키", meaningEn: "cookie", romanization: "kuki", emoji: "🍪", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
   // ㅌ — t aspirated
-  atom({ surface: "토끼", meaningEn: "rabbit", romanization: "tokki", emoji: "🐰", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
+  atom({ surface: "토끼", meaningEn: "rabbit", romanization: "tokki", emoji: "🐇", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
   atom({ surface: "타다", meaningEn: "to ride / board", romanization: "tada", partOfSpeech: "verb", fromModule: "m2", kind: "vocab" }),
   // ㅍ — p aspirated
   atom({ surface: "피", meaningEn: "blood", romanization: "pi", emoji: "🩸", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
@@ -253,8 +253,8 @@ const M2_VOCAB: KoAtom[] = [
   atom({ surface: "토끼", meaningEn: "rabbit (with tense ㄲ)", romanization: "tokki", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", srsEligible: false }),
   atom({ surface: "오빠", meaningEn: "older brother (female speaker)", romanization: "oppa", emoji: "🧑", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
   atom({ surface: "아빠", meaningEn: "dad", romanization: "appa", emoji: "👨", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
-  atom({ surface: "싸다", meaningEn: "to be cheap", romanization: "ssada", partOfSpeech: "adjective", fromModule: "m2", kind: "vocab" }),
-  atom({ surface: "짜다", meaningEn: "to be salty", romanization: "jjada", partOfSpeech: "adjective", fromModule: "m2", kind: "vocab" }),
+  atom({ surface: "싸다", emoji: "🏷️", meaningEn: "to be cheap", romanization: "ssada", partOfSpeech: "adjective", fromModule: "m2", kind: "vocab" }),
+  atom({ surface: "짜다", emoji: "🧂", meaningEn: "to be salty", romanization: "jjada", partOfSpeech: "adjective", fromModule: "m2", kind: "vocab" }),
   // Y-vowel words (M2)
   atom({ surface: "야구", meaningEn: "baseball", romanization: "yagu", emoji: "⚾", partOfSpeech: "noun", fromModule: "m2", kind: "vocab" }),
   atom({ surface: "여기", meaningEn: "here", romanization: "yeogi", emoji: "📍", partOfSpeech: "pronoun", fromModule: "m2", kind: "vocab" }),
@@ -402,9 +402,9 @@ const M5_VOCAB: KoAtom[] = [
   // Counters
   atom({ surface: "개", meaningEn: "counter: things / items", romanization: "gae", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "명", meaningEn: "counter: people", romanization: "myeong", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
-  atom({ surface: "잔", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "잔", emoji: "🥃", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
   // Ordering / money vocab
-  atom({ surface: "주세요", meaningEn: "please give (me)", romanization: "juseyo", partOfSpeech: "verb", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "주세요", emoji: "🙏", meaningEn: "please give (me)", romanization: "juseyo", partOfSpeech: "verb", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "물", meaningEn: "water", romanization: "mul", emoji: "💧", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
   // 빵 ("bread") — taught HERE for real since the R4 re-author (2026-09-01):
   // m2's bt-2 gives the READING (빵 as a batchim drill word, no atom), and
@@ -435,7 +435,7 @@ const M6_VOCAB: KoAtom[] = [
   atom({ surface: "집", meaningEn: "house / home", romanization: "jip", emoji: "🏠", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
   atom({ surface: "학교", meaningEn: "school", romanization: "hakgyo", emoji: "🏫", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
   atom({ surface: "가게", meaningEn: "store / shop", romanization: "gage", emoji: "🏪", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
-  atom({ surface: "식당", meaningEn: "restaurant", romanization: "sikdang", emoji: "🍜", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "식당", meaningEn: "restaurant", romanization: "sikdang", emoji: "🍽️", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
   atom({ surface: "역", meaningEn: "(train) station", romanization: "yeok", emoji: "🚉", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
   atom({ surface: "병원", meaningEn: "hospital", romanization: "byeongwon", emoji: "🏥", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
   // Existence verbs
@@ -473,11 +473,11 @@ const M6_VOCAB: KoAtom[] = [
  */
 const M7_VOCAB: KoAtom[] = [
   // Dictionary forms (recognition aids — not separate SRS targets)
-  atom({ surface: "가다", meaningEn: "to go (dictionary form)", romanization: "gada", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "가다", emoji: "🚶", meaningEn: "to go (dictionary form)", romanization: "gada", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
   atom({ surface: "오다", meaningEn: "to come (dictionary form)", romanization: "oda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
-  atom({ surface: "먹다", meaningEn: "to eat (dictionary form)", romanization: "meokda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
-  atom({ surface: "마시다", meaningEn: "to drink (dictionary form)", romanization: "masida", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
-  atom({ surface: "보다", meaningEn: "to see / watch (dictionary form)", romanization: "boda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "먹다", emoji: "🥄", meaningEn: "to eat (dictionary form)", romanization: "meokda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "마시다", emoji: "🥤", meaningEn: "to drink (dictionary form)", romanization: "masida", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "보다", emoji: "👀", meaningEn: "to see / watch (dictionary form)", romanization: "boda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
   atom({ surface: "하다", meaningEn: "to do (dictionary form)", romanization: "hada", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
   // 해요-form (the drilled / graded surface)
   atom({ surface: "가요", meaningEn: "go / will go (polite)", romanization: "gayo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
@@ -513,12 +513,12 @@ const M7_VOCAB: KoAtom[] = [
  */
 const M8_VOCAB: KoAtom[] = [
   // Dictionary forms (recognition aids)
-  atom({ surface: "좋다", meaningEn: "to be good (dictionary form)", romanization: "jota", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "좋다", emoji: "👍", meaningEn: "to be good (dictionary form)", romanization: "jota", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
   atom({ surface: "크다", meaningEn: "to be big (dictionary form)", romanization: "keuda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
   atom({ surface: "작다", meaningEn: "to be small (dictionary form)", romanization: "jakda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
-  atom({ surface: "예쁘다", meaningEn: "to be pretty (dictionary form)", romanization: "yeppeuda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
-  atom({ surface: "맛있다", meaningEn: "to be delicious (dictionary form)", romanization: "masitda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
-  atom({ surface: "비싸다", meaningEn: "to be expensive (dictionary form)", romanization: "bissada", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "예쁘다", emoji: "🌺", meaningEn: "to be pretty (dictionary form)", romanization: "yeppeuda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "맛있다", emoji: "😋", meaningEn: "to be delicious (dictionary form)", romanization: "masitda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "비싸다", emoji: "💸", meaningEn: "to be expensive (dictionary form)", romanization: "bissada", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
   // 해요-form (drilled surface)
   atom({ surface: "좋아요", meaningEn: "is good / I like it (polite)", romanization: "joayo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
   atom({ surface: "커요", meaningEn: "is big (polite)", romanization: "keoyo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
@@ -711,13 +711,13 @@ const M14_VOCAB: KoAtom[] = [
   atom({ surface: "천", meaningEn: "thousand", romanization: "cheon", partOfSpeech: "noun", fromModule: "m14", kind: "vocab" }),
   atom({ surface: "만", meaningEn: "ten thousand", romanization: "man", partOfSpeech: "noun", fromModule: "m14", kind: "vocab" }),
   // Support verbs used in request sentences
-  atom({ surface: "기다리다", meaningEn: "to wait (dictionary form)", romanization: "gidarida", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  atom({ surface: "기다리다", emoji: "⏳", meaningEn: "to wait (dictionary form)", romanization: "gidarida", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
   atom({ surface: "기다려 주세요", meaningEn: "please wait (for me)", romanization: "gidaryeo juseyo", partOfSpeech: "phrase", fromModule: "m14", kind: "phrase" }),
   // 자다/자요 ("sleep") — load-bearing in the m14-1 고-sequencing drills
   // (밥을 먹고 자요) yet previously registered only at M15 and never taught
   // anywhere (2026-09-01 audit). Taught via phrase cards in ko-m14-1; the M15
   // entry remains as an srsEligible:false re-register.
-  atom({ surface: "자다", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  atom({ surface: "자다", emoji: "😴", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
   atom({ surface: "자요", meaningEn: "sleep / go to bed (polite)", romanization: "jayo", partOfSpeech: "verb", fromModule: "m14", kind: "vocab" }),
 ];
 
@@ -733,8 +733,8 @@ const M15_VOCAB: KoAtom[] = [
   atom({ surface: "지만", meaningEn: "but / although (joins clauses)", romanization: "jiman", partOfSpeech: "particle", fromModule: "m15", kind: "particle" }),
   // Support verbs
   // 자다 is taught in M14 (see M14_VOCAB) — re-register, kept srsEligible:false.
-  atom({ surface: "자다", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
-  atom({ surface: "쉬다", meaningEn: "to rest (dictionary form)", romanization: "swida", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "자다", emoji: "😴", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "쉬다", emoji: "😌", meaningEn: "to rest (dictionary form)", romanization: "swida", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
   atom({ surface: "전화", meaningEn: "phone / phone call", romanization: "jeonhwa", emoji: "📞", partOfSpeech: "noun", fromModule: "m15", kind: "vocab" }),
 ];
 
@@ -771,9 +771,9 @@ const M17_VOCAB: KoAtom[] = [
   atom({ surface: "비행기", meaningEn: "airplane", romanization: "bihaenggi", emoji: "✈️", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
   // 역 (station) already registered in M6; reused here (no re-declare).
   // Directions
-  atom({ surface: "왼쪽", meaningEn: "left side", romanization: "oenjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
-  atom({ surface: "오른쪽", meaningEn: "right side", romanization: "oreunjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
-  atom({ surface: "똑바로", meaningEn: "straight ahead", romanization: "ttokbaro", partOfSpeech: "adverb", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "왼쪽", emoji: "⬅️", meaningEn: "left side", romanization: "oenjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "오른쪽", emoji: "➡️", meaningEn: "right side", romanization: "oreunjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "똑바로", emoji: "⬆️", meaningEn: "straight ahead", romanization: "ttokbaro", partOfSpeech: "adverb", fromModule: "m17", kind: "vocab" }),
   // Motion verbs
   atom({ surface: "타다", meaningEn: "to ride / get on (dictionary form)", romanization: "tada", partOfSpeech: "verb", fromModule: "m17", kind: "vocab", srsEligible: false }),
   atom({ surface: "타요", meaningEn: "ride / get on (polite)", romanization: "tayo", partOfSpeech: "verb", fromModule: "m17", kind: "vocab" }),
@@ -788,15 +788,15 @@ const M17_VOCAB: KoAtom[] = [
 const M18_VOCAB: KoAtom[] = [
   // Weather & nature
   atom({ surface: "날씨", meaningEn: "weather", romanization: "nalssi", emoji: "🌤️", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
-  atom({ surface: "맑다", meaningEn: "to be clear / sunny (dictionary form)", romanization: "makda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "맑다", emoji: "☀️", meaningEn: "to be clear / sunny (dictionary form)", romanization: "makda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
   atom({ surface: "맑아요", meaningEn: "is clear / sunny (polite)", romanization: "malgayo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
-  atom({ surface: "흐리다", meaningEn: "to be cloudy (dictionary form)", romanization: "heurida", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "흐리다", emoji: "☁️", meaningEn: "to be cloudy (dictionary form)", romanization: "heurida", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
   atom({ surface: "흐려요", meaningEn: "is cloudy (polite)", romanization: "heuryeoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
   atom({ surface: "눈", meaningEn: "snow", romanization: "nun", emoji: "❄️", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
   atom({ surface: "바람", meaningEn: "wind", romanization: "baram", emoji: "💨", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
-  atom({ surface: "덥다", meaningEn: "to be hot (weather, dictionary form)", romanization: "deopda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "덥다", emoji: "🥵", meaningEn: "to be hot (weather, dictionary form)", romanization: "deopda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
   atom({ surface: "더워요", meaningEn: "is hot (polite, ㅂ-irregular)", romanization: "deowoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
-  atom({ surface: "춥다", meaningEn: "to be cold (weather, dictionary form)", romanization: "chupda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "춥다", emoji: "🥶", meaningEn: "to be cold (weather, dictionary form)", romanization: "chupda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
   atom({ surface: "추워요", meaningEn: "is cold (polite, ㅂ-irregular)", romanization: "chuwoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
   // Seasons
   atom({ surface: "봄", meaningEn: "spring", romanization: "bom", emoji: "🌸", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
@@ -850,7 +850,7 @@ const M20_VOCAB: KoAtom[] = [
   // Body — more
   atom({ surface: "손", meaningEn: "hand", romanization: "son", emoji: "✋", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
   atom({ surface: "발", meaningEn: "foot", romanization: "bal", emoji: "🦶", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
-  atom({ surface: "배", meaningEn: "stomach / belly", romanization: "bae", emoji: "🫃", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "배", meaningEn: "stomach / belly", romanization: "bae", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
   atom({ surface: "목", meaningEn: "neck / throat", romanization: "mok", emoji: "🧣", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
   // Health
   atom({ surface: "아파요", meaningEn: "hurts / is sick (ㅡ-irregular)", romanization: "apayo", partOfSpeech: "adjective", fromModule: "m20", kind: "vocab" }),
@@ -871,13 +871,13 @@ const M21_VOCAB: KoAtom[] = [
   atom({ surface: "채소", meaningEn: "vegetables", romanization: "chaeso", emoji: "🥬", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
   atom({ surface: "과일", meaningEn: "fruit", romanization: "gwail", emoji: "🍎", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
   atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
-  atom({ surface: "김치", meaningEn: "kimchi", romanization: "gimchi", emoji: "🥬", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
-  atom({ surface: "비빔밥", meaningEn: "bibimbap", romanization: "bibimbap", emoji: "🍲", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "김치", meaningEn: "kimchi", romanization: "gimchi", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "비빔밥", meaningEn: "bibimbap", romanization: "bibimbap", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
   atom({ surface: "불고기", meaningEn: "bulgogi (grilled beef)", romanization: "bulgogi", emoji: "🥩", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
   atom({ surface: "라면", meaningEn: "ramyeon (noodles)", romanization: "ramyeon", emoji: "🍜", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
   atom({ surface: "하고", meaningEn: "and / with (nouns)", romanization: "hago", partOfSpeech: "particle", fromModule: "m21", kind: "particle", srsEligible: false }),
   atom({ surface: "랑", meaningEn: "and / with (casual, after vowel)", romanization: "rang", partOfSpeech: "particle", fromModule: "m21", kind: "particle" }),
-  atom({ surface: "잔", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
+  atom({ surface: "잔", emoji: "🥃", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
 ];
 
 /**
@@ -923,7 +923,7 @@ const M24_VOCAB: KoAtom[] = [
   atom({ surface: "게임", meaningEn: "game", romanization: "geim", emoji: "🎮", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
   atom({ surface: "거나", meaningEn: "or (joining verbs)", romanization: "geona", partOfSpeech: "particle", fromModule: "m24", kind: "particle", srsEligible: false }),
   atom({ surface: "번", meaningEn: "counter: times / occurrences", romanization: "beon", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
-  atom({ surface: "일주일", meaningEn: "one week", romanization: "iljuil", emoji: "📅", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "일주일", meaningEn: "one week", romanization: "iljuil", emoji: "🗓️", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
 ];
 
 /**
@@ -932,7 +932,7 @@ const M24_VOCAB: KoAtom[] = [
  * Mirrors JA M25 (つもり + にいく + ことがある + とき).
  */
 const M25_VOCAB: KoAtom[] = [
-  atom({ surface: "여행", meaningEn: "travel / trip", romanization: "yeohaeng", emoji: "✈️", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "여행", meaningEn: "travel / trip", romanization: "yeohaeng", emoji: "🧳", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
   atom({ surface: "계획", meaningEn: "plan", romanization: "gyehoek", emoji: "📋", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
   atom({ surface: "출발", meaningEn: "departure", romanization: "chulbal", emoji: "🛫", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
   atom({ surface: "도착", meaningEn: "arrival", romanization: "dochak", emoji: "🛬", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
@@ -967,9 +967,9 @@ const M26_VOCAB: KoAtom[] = [
  */
 const M27_VOCAB: KoAtom[] = [
   atom({ surface: "결정하다", meaningEn: "decide", romanization: "gyeoljeonghada", emoji: "✅", partOfSpeech: "verb", fromModule: "m27", kind: "vocab" }),
-  atom({ surface: "약속", meaningEn: "promise / appointment", romanization: "yaksok", emoji: "🤝", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "약속", meaningEn: "promise / appointment", romanization: "yaksok", emoji: "📌", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
   atom({ surface: "준비", meaningEn: "preparation", romanization: "junbi", emoji: "🎒", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
-  atom({ surface: "연습", meaningEn: "practice", romanization: "yeonseup", emoji: "🔁", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "연습", meaningEn: "practice", romanization: "yeonseup", emoji: "🎯", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
   atom({ surface: "시험", meaningEn: "exam", romanization: "siheom", emoji: "📝", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
   atom({ surface: "건강", meaningEn: "health", romanization: "geongang", emoji: "💪", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
   atom({ surface: "조심하다", meaningEn: "be careful", romanization: "josimhada", emoji: "⚠️", partOfSpeech: "verb", fromModule: "m27", kind: "vocab" }),

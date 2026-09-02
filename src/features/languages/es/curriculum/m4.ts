@@ -32,7 +32,7 @@ export const ES_M4_ATOMS: EsAtom[] = [
   atom({ surface: "cama", meaningEn: "bed", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🛏️" }),
   atom({ surface: "baño", meaningEn: "bathroom", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🚽", hint: "ny sound from ñ: BA-nyo" }),
   atom({ surface: "cocina", meaningEn: "kitchen", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🍳", hint: "soft c, like cero: ko-SEE-na" }),
-  atom({ surface: "cuarto", meaningEn: "room", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m" }),
+  atom({ surface: "cuarto", emoji: "🛋️", meaningEn: "room", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m" }),
   atom({ surface: "allí", meaningEn: "there", partOfSpeech: "adverb", fromModule: "m4", kind: "vocab", hint: "ll sounds like y, just like llave: a-YEE" }),
   atom({ surface: "los", meaningEn: "the (el-words, plural)", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),
   atom({ surface: "las", meaningEn: "the (la-words, plural)", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),

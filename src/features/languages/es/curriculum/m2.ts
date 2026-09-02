@@ -27,7 +27,7 @@ import {
 const COURSE_ID = "mock-1";
 
 export const ES_M2_ATOMS: EsAtom[] = [
-  atom({ surface: "¿cómo estás?", meaningEn: "how are you?", partOfSpeech: "phrase", fromModule: "m2", kind: "phrase", emoji: "👋", hint: "KO-mo es-TAS — the answer it wants is «bien»" }),
+  atom({ surface: "¿cómo estás?", meaningEn: "how are you?", partOfSpeech: "phrase", fromModule: "m2", kind: "phrase", emoji: "🙂", hint: "KO-mo es-TAS — the answer it wants is «bien»" }),
   atom({ surface: "bien", meaningEn: "well / fine", partOfSpeech: "other", fromModule: "m2", kind: "vocab", emoji: "👍", hint: "byen — one syllable" }),
   atom({ surface: "¿y tú?", meaningEn: "and you?", partOfSpeech: "phrase", fromModule: "m2", kind: "phrase", hint: "bounces any question back" }),
   atom({ surface: "me llamo", meaningEn: "my name is", partOfSpeech: "phrase", fromModule: "m2", kind: "phrase", hint: "ll sounds like y: meh YA-mo" }),
@@ -48,7 +48,7 @@ export const ES_M2_ATOMS: EsAtom[] = [
   atom({ surface: "Estados Unidos", meaningEn: "United States", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", emoji: "🇺🇸" }),
   atom({ surface: "maestro", meaningEn: "teacher (m)", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", gender: "m", emoji: "👨‍🏫" }),
   atom({ surface: "maestra", meaningEn: "teacher (f)", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", gender: "f", emoji: "👩‍🏫" }),
-  atom({ surface: "estudiante", meaningEn: "student", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", emoji: "🎓" }),
+  atom({ surface: "estudiante", meaningEn: "student", partOfSpeech: "noun", fromModule: "m2", kind: "vocab", emoji: "🧑‍🎓" }),
 ];
 
 /**

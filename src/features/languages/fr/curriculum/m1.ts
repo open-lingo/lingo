@@ -36,7 +36,7 @@ export const FR_M1_ATOMS: FrAtom[] = [
   atom({ surface: "pardon", meaningEn: "excuse me / sorry", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "🙇", hint: "par-DOHN — nasal ending, the n is not spoken" }),
   atom({ surface: "oui", meaningEn: "yes", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "✅", hint: "sounds like 'we'" }),
   atom({ surface: "non", meaningEn: "no", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "❌", hint: "nohn — nasal, the n is not spoken" }),
-  atom({ surface: "au revoir", meaningEn: "goodbye", partOfSpeech: "phrase", fromModule: "m1", kind: "phrase", emoji: "🚪", hint: "oh ruh-VWAR" }),
+  atom({ surface: "au revoir", meaningEn: "goodbye", partOfSpeech: "phrase", fromModule: "m1", kind: "phrase", emoji: "🚶", hint: "oh ruh-VWAR" }),
   atom({ surface: "à bientôt", meaningEn: "see you soon", partOfSpeech: "phrase", fromModule: "m1", kind: "phrase", emoji: "🔜", hint: "ah byan-TOH — en is nasal, the final t is silent" }),
   atom({ surface: "bonsoir", meaningEn: "good evening", partOfSpeech: "other", fromModule: "m1", kind: "vocab", emoji: "🌆", hint: "bohn-SWAR — oi says wah" }),
   atom({ surface: "bonne nuit", meaningEn: "good night", partOfSpeech: "phrase", fromModule: "m1", kind: "phrase", emoji: "🌙", hint: "bun NWEE — ui glides like wee, the t is silent" }),
