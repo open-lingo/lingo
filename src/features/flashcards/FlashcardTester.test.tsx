@@ -203,6 +203,18 @@ describe("FlashcardTester", () => {
     expect(within(sheet).getByText(/grading buttons/i)).toBeInTheDocument();
   });
 
+  it("grading the current card closes an open details sheet", () => {
+    mockViewport.isMobile = true;
+    renderTester();
+    fireEvent.click(screen.getByRole("button", { name: /show answer/i }));
+    fireEvent.click(screen.getByRole("button", { name: /card details/i }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    // Grading advances to the NEXT, unrevealed card — a still-open sheet
+    // would show its details despite the disabled-until-revealed invariant.
+    fireEvent.click(screen.getByRole("button", { name: /knew it/i }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
   it("desktop keeps the detail panel in flow and the settings popover", () => {
     mockViewport.isMobile = false;
     renderTester();

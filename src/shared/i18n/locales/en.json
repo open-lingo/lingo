@@ -1064,6 +1064,8 @@
     "segmentBreakdown": "Segment breakdown",
     "reasoning": "Reasoning",
     "detailsLabel": "Card details",
+    "detailPanelSettings": "Open settings",
+    "sessionSectionLabel": "This session",
     "examples": "Examples",
     "examplesMore": "+{{count}} more",
     "examplePlay": "Play example audio",

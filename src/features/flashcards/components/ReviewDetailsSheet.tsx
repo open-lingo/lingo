@@ -64,7 +64,11 @@ export function ReviewDetailsSheet({
       open={open}
       onClose={onClose}
       side="auto"
-      title={t("flashcards.detailsLabel", "Card details")}
+      title={
+        initialSection === "session"
+          ? t("flashcards.sessionSectionLabel", "This session")
+          : t("flashcards.detailsLabel", "Card details")
+      }
     >
       <div className="space-y-5">
         {showDetails && (

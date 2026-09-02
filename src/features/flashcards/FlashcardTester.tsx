@@ -287,6 +287,14 @@ export function FlashcardTester() {
 
       setFlipped(false);
       setIndex((i) => i + 1);
+      // The details sheet's "enabled" state is keyed on the REVEALED current
+      // card (see `detailsEnabled`) — leaving it open across an advance would
+      // show it hovering over the next, unrevealed card, which is exactly the
+      // disabled-until-revealed invariant it's supposed to enforce. Closed
+      // here (the actual card-change path — button click or keyboard grade,
+      // both route through this function) rather than guarded in the keydown
+      // handler, so every advance path is covered by construction.
+      setSheet(null);
     },
     [card, cardIdToDefaultEase, testedModality, index],
   );
@@ -306,6 +314,9 @@ export function FlashcardTester() {
       // same side comes back regardless of state; reveal it directly.
       setIndex(snap.index);
       setFlipped(true);
+      // Same invariant as the grade path above: the current card is changing,
+      // so any open details sheet is stale.
+      setSheet(null);
       return null;
     });
   }, []);
@@ -375,6 +386,7 @@ export function FlashcardTester() {
     setSessionStats({ reviewed: 0, correct: 0 });
     setLastGrade(null);
     setQueueVersion((v) => v + 1);
+    setSheet(null);
   }, []);
 
   // No cross-session undo: clear the snapshot once the session ends (summary
