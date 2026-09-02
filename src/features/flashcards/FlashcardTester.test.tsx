@@ -215,6 +215,25 @@ describe("FlashcardTester", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
+  it("ignores keyboard grade keys while the details sheet is open", () => {
+    mockViewport.isMobile = true;
+    renderTester();
+    fireEvent.click(screen.getByRole("button", { name: /show answer/i }));
+    fireEvent.click(screen.getByRole("button", { name: /card details/i }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    // "1" grades "again" in simple mode — must be swallowed while the
+    // focus-trapped sheet owns the keyboard, not routed to the card behind it.
+    fireEvent.keyDown(document, { key: "1" });
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(getEffectiveState("ja:yama").recognition.reps).toBe(0);
+    // Still on the first (revealed) card — a grade would have advanced to
+    // "かわ", unrevealed.
+    expect(screen.getByText("mountain")).toBeInTheDocument();
+    expect(screen.queryByText("かわ")).not.toBeInTheDocument();
+  });
+
   it("desktop keeps the detail panel in flow and the settings popover", () => {
     mockViewport.isMobile = false;
     renderTester();

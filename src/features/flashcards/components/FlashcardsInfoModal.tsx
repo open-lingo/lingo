@@ -179,7 +179,7 @@ export function FlashcardsInfoModal({ mode, onClose, onResetOnboarding }: Props)
         </section>
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-border px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="sticky bottom-0 flex flex-col gap-2 border-t border-border bg-surface px-6 py-4 pb-safe sm:flex-row sm:items-center sm:justify-between">
         {mode === "reference" && onResetOnboarding ? (
           <button
             type="button"

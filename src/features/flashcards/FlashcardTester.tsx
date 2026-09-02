@@ -332,11 +332,21 @@ export function FlashcardTester() {
   flippedRef.current = flipped;
   const gradingLayoutRef = useRef(gradingLayout);
   gradingLayoutRef.current = gradingLayout;
+  const sheetRef = useRef(sheet);
+  sheetRef.current = sheet;
+  const infoOpenRef = useRef(infoOpen);
+  infoOpenRef.current = infoOpen;
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      // A focus-trapped sheet/modal owns the keyboard while open — grading or
+      // undoing behind it would mutate SRS state the user can't see, and
+      // without this the handler also swallows Enter/Space meant for the
+      // modal's own controls (e.g. its Close button).
+      if (sheetRef.current !== null || infoOpenRef.current) return;
 
       // Undo the last grade: Ctrl/⌘+Z, or a bare "z" (no modifier) since the
       // reviewer isn't a text surface. Guarded by availability.
@@ -352,6 +362,14 @@ export function FlashcardTester() {
       }
 
       if (e.key === " " || e.key === "Enter") {
+        // Let native button/link/input activation handle its own Space/Enter
+        // — only the body/card surface flips on these keys.
+        if (
+          e.target instanceof HTMLElement &&
+          e.target.closest("button, a, input, textarea, select, [role=button]")
+        ) {
+          return;
+        }
         e.preventDefault();
         if (!flippedRef.current) setFlipped(true);
         return;
