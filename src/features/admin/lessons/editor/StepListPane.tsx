@@ -110,7 +110,7 @@ export function StepListPane({ steps, selectedIndex, onSelect, onChange }: Props
                     )}
                   </p>
                 </div>
-                <div className="flex flex-col items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="flex flex-col items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 [@media(pointer:coarse)]:opacity-100">
                   <button
                     title="Move up"
                     className="rounded p-0.5 text-text-muted hover:bg-surface hover:text-text-primary"

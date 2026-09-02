@@ -87,7 +87,7 @@ export function SortableCardItem({
             {card.front || placeholder}
           </span>
         </button>
-        <div className="flex shrink-0 gap-0.5 opacity-0 group-hover:opacity-100">
+        <div className="flex shrink-0 gap-0.5 opacity-0 group-hover:opacity-100 [@media(pointer:coarse)]:opacity-100">
           <button
             type="button"
             onClick={(e) => {
