@@ -9,6 +9,8 @@ import {
   listeningCompSentence,
   buildSentenceAnnotation,
   resolveEligibleKanjiAtomId,
+  vocabMcq,
+  type ReviewAtom,
 } from "./grammarHelpers";
 
 const HAS_HAN = /\p{Script=Han}/u;
@@ -181,5 +183,34 @@ describe("sentence factories emit multi-segment annotations", () => {
     expect(step.correctOrder).toEqual(tiles);
     expect(step.targetSentence).toBe(SENTENCE);
     expect(step.audioKey).toBe(SENTENCE);
+  });
+});
+
+describe("vocabMcq", () => {
+  it("never offers two options with the same emoji, even when the distractor pool holds a same-glyph pair", () => {
+    const target: ReviewAtom = {
+      kana: "test-target-fruit",
+      meaningEn: "test target",
+      emoji: "🍎",
+      fromModule: "m1",
+    };
+    // 🍇 is deliberately shared by two distinct pool entries — before the
+    // emoji-dedup guard, both could land as separate options in the same
+    // step (a learner-facing bug: two visually identical foils).
+    const pool: ReviewAtom[] = [
+      { kana: "test-grape-a", meaningEn: "test grape a", emoji: "🍇", fromModule: "m1" },
+      { kana: "test-grape-b", meaningEn: "test grape b (same glyph)", emoji: "🍇", fromModule: "m1" },
+      { kana: "test-banana", meaningEn: "test banana", emoji: "🍌", fromModule: "m1" },
+      { kana: "test-cherry", meaningEn: "test cherry", emoji: "🍒", fromModule: "m1" },
+    ];
+    const step = vocabMcq("t-vocab-mcq-dedupe", target, pool);
+    const emojis = step.options.map((o) => o.emoji);
+    // 4 options total (target + 3 distractors); all must be visually distinct.
+    expect(emojis).toHaveLength(4);
+    expect(new Set(emojis).size).toBe(emojis.length);
+    // Exactly one of the 🍇 twins survives — the pool only offers 3 distinct
+    // emoji among 4 entries, so all 3 distinct emoji (including 🍇 once)
+    // must appear for the step to have enough distractors at all.
+    expect(emojis.filter((e) => e === "🍇")).toHaveLength(1);
   });
 });

@@ -1063,7 +1063,22 @@ export function vocabMcq(
   const filtered = distractorPool.filter(
     (a) => a.kana !== target.kana && Boolean(a.emoji) && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
   );
-  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  // Shuffle the full filtered pool (not just the top 3) so the emoji-dedup
+  // walk below can skip forward without disturbing the deterministic order
+  // — `pickReviewAtoms(seed, filtered, 3)`'s first 3 results are always a
+  // prefix of `pickReviewAtoms(seed, filtered, filtered.length)`'s, so when
+  // there's no duplicate emoji to skip the picks are byte-identical to
+  // before this guard existed.
+  const shuffled = pickReviewAtoms(`${idPrefix}-distractors`, filtered, filtered.length);
+  const seen = new Set<string>([target.emoji]);
+  const picked: ReviewAtom[] = [];
+  for (const a of shuffled) {
+    if (picked.length >= 3) break;
+    // a.emoji is guaranteed set by the `filtered` predicate above.
+    if (seen.has(a.emoji!)) continue;
+    seen.add(a.emoji!);
+    picked.push(a);
+  }
   if (picked.length < 3) {
     throw new Error(
       `vocabMcq: not enough emoji-bearing distractors for '${target.kana}' (have ${picked.length}, need 3)`,
