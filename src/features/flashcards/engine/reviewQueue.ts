@@ -95,15 +95,30 @@ export type DeckWithCards = {
  * (see `courseAtomToFlashcard`), and several atoms share a kanji surface
  * with a different reading and meaning (何 なに/なん, 私 わたし/わたくし,
  * 七 なな/しち, etc.) — without it those distinct cards would collide.
+ *
+ * An absent reading (kana-only decks, KO/ES/FR, a community import that
+ * never set one) is a wildcard, not its own key: it dedupes against ANY
+ * reading of the same front, and any reading of the same front dedupes
+ * against it. `seenFronts` tracks that regardless of which kana (if any)
+ * won the front first.
  */
 function dedupeSiblings<T extends { card: Flashcard }>(entries: T[]): T[] {
-  const seen = new Set<string>();
+  const seenKeys = new Set<string>();
+  const seenFronts = new Set<string>();
   const out: T[] = [];
   for (const e of entries) {
     const frontKey = e.card.front.trim().toLowerCase();
-    const key = `${frontKey}|${e.card.reading?.kana ?? ""}`;
-    if (frontKey && seen.has(key)) continue;
-    if (frontKey) seen.add(key);
+    if (!frontKey) {
+      out.push(e);
+      continue;
+    }
+    const kana = e.card.reading?.kana ?? "";
+    const key = `${frontKey}|${kana}`;
+    const isDuplicate =
+      seenKeys.has(key) || (kana === "" ? seenFronts.has(frontKey) : seenKeys.has(`${frontKey}|`));
+    if (isDuplicate) continue;
+    seenKeys.add(key);
+    seenFronts.add(frontKey);
     out.push(e);
   }
   return out;
