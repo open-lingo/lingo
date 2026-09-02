@@ -97,7 +97,7 @@ export const EMOJI_SURFACE_EXEMPTIONS: Record<CourseId, Map<string, Set<string>>
  * (if the new count is a real regression) revert it.
  */
 export const KNOWN_DUPLICATE_BASELINE: Record<"ja" | "ko", number> = {
-  ja: 43,
+  ja: 24,
   ko: 5,
 };
 
