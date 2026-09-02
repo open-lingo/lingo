@@ -251,7 +251,11 @@ export function VocabPage() {
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate font-semibold leading-[1.9] text-text-primary">
+                    <p
+                      className={`truncate font-semibold text-text-primary ${
+                        row.kanji ? "leading-[1.9]" : ""
+                      }`}
+                    >
                       <CardFront
                         text={row.kanji ?? row.kana}
                         reading={row.kanji ? { surface: row.kanji, kana: row.kana } : undefined}

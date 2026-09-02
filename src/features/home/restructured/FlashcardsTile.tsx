@@ -6,6 +6,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSummary";
+import { CardFront } from "@/features/flashcards/components/CardFront";
 
 const PREVIEW_LIMIT = 3;
 
@@ -78,7 +79,7 @@ export function FlashcardsTile() {
               title={card.front}
               className="flex h-7 min-w-7 max-w-[6rem] items-center justify-center truncate rounded-md border border-border bg-surface-muted px-1.5 text-sm font-bold text-text-primary"
             >
-              {card.front}
+              <CardFront text={card.front} reading={card.reading} cardId={card.id} />
             </span>
           ))}
           {previewOverflow > 0 ? (

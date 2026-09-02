@@ -89,4 +89,21 @@ describe("VocabPage", () => {
     fireEvent.click(firstCard);
     expect(screen.getByText("Practice in flashcards")).toBeInTheDocument();
   });
+
+  it("only widens row-headline leading for kanji rows, not kana-only rows", () => {
+    renderPage();
+    const grid = screen.getByText(/Showing/).parentElement!;
+    const headlines = within(grid)
+      .getAllByRole("button")
+      .map((btn) => btn.querySelector("p"))
+      .filter((p): p is HTMLParagraphElement => p !== null);
+    const withoutRuby = headlines.find((p) => !p.querySelector("ruby"));
+    // The visible grid must actually include a kana-only row for this to mean anything.
+    expect(withoutRuby).toBeTruthy();
+    expect(withoutRuby!.className).not.toContain("leading-[1.9]");
+    const withRuby = headlines.find((p) => p.querySelector("ruby"));
+    if (withRuby) {
+      expect(withRuby.className).toContain("leading-[1.9]");
+    }
+  });
 });
