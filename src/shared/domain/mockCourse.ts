@@ -1380,15 +1380,29 @@ export function getMockCourse(languageId: string): Course {
         });
       }
     }
+    // Cross-row capstone tail (R4 re-author 2026-09-01) — look-alike glyph
+    // discrimination + mixed cross-row reading. Keep in sync with
+    // `buildAllKoreanRowLessons` in ko/curriculum/m1-rows.ts.
+    m1Lessons.push({
+      id: "ko-m1-mix-1",
+      title: "Look-alike letters",
+      status: "available" as const,
+    });
+    m1Lessons.push({
+      id: "ko-m1-mix-2",
+      title: "Module 1 capstone — every row mixed",
+      status: "available" as const,
+    });
 
     // M2 — aspirated + tense consonants + y-vowels + compound vowels
     // (Phase 5, 2026-06-01; compound vowels added 2026-09-01 per the release
-    // audit). Each row gets 3 sub-lessons via the same row builder as M1.
-    // Three compound-vowel lessons are INTERLEAVED into the march as breaks
-    // (after ㅊ, after ㅃ, after the y-vowels) — keep this order in sync
-    // with `buildAllKoreanM2Lessons` in ko/curriculum/m2.ts. A closing 받침
-    // lesson (final-consonant [t]-group neutralization) completes the
-    // reading foundation.
+    // audit; 받침 depth arc added 2026-09-01, batchim pass). Each row gets 3
+    // sub-lessons via the same row builder as M1. Three compound-vowel and
+    // three 받침 group lessons are INTERLEAVED into the march as breaks
+    // (cv-1 after ㅊ, bt-1 after ㄲ, cv-2 after ㅃ, bt-2 after ㅆ, bt-3
+    // after cv-3) — keep this order in sync with `buildAllKoreanM2Lessons`
+    // in ko/curriculum/m2.ts. The [t]-group 받침 lesson and the 받침
+    // review/연음 wrap close the module.
     const m2Lessons: { id: string; title: string; status: "available"; kind?: "recap" }[] = [];
     for (const row of KO_M2_ROWS) {
       for (const suffix of ["1", "2", "3"] as const) {
@@ -1406,10 +1420,24 @@ export function getMockCourse(languageId: string): Course {
           status: "available" as const,
         });
       }
+      if (row.id === "kk") {
+        m2Lessons.push({
+          id: "ko-m2-bt-1",
+          title: "받침 — the hummed endings ㄴ ㅁ",
+          status: "available" as const,
+        });
+      }
       if (row.id === "pp") {
         m2Lessons.push({
           id: "ko-m2-cv-2",
           title: "Compound vowels — ㅘ ㅝ ㅟ",
+          status: "available" as const,
+        });
+      }
+      if (row.id === "ss") {
+        m2Lessons.push({
+          id: "ko-m2-bt-2",
+          title: "받침 — ㅇ sings, ㄹ holds",
           status: "available" as const,
         });
       }
@@ -1424,17 +1452,28 @@ export function getMockCourse(languageId: string): Course {
       title: "Compound vowels — ㅖ ㅙ ㅚ ㅢ",
       status: "available" as const,
     });
+    // bt-3 needs cv-1's ㅐ (책, 학생) and follows the vowel-system finale.
+    m2Lessons.push({
+      id: "ko-m2-bt-3",
+      title: "받침 — the stopped endings ㄱ ㅂ",
+      status: "available" as const,
+    });
     m2Lessons.push({
       id: "ko-m2-review",
       title: "Module 2 — Full review",
       status: "available" as const,
       kind: "recap" as const,
     });
-    // Final reading piece the M2 review promises ("받침 are next"):
-    // final-consonant neutralization, focused on the [t] group.
+    // The one 받침 family left after bt-1/2/3: the seven-letter [t]-group
+    // collapse, then the batchim review + 연음 wrap closes the module.
     m2Lessons.push({
       id: "ko-m2-batchim-1",
       title: "받침 — the final [t] sound",
+      status: "available" as const,
+    });
+    m2Lessons.push({
+      id: "ko-m2-bt-review",
+      title: "받침 — review + 연음",
       status: "available" as const,
     });
 

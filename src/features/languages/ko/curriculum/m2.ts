@@ -40,6 +40,31 @@
  * Inventory basis: a decomposition scan of every m1–m15 Hangul literal
  * (2026-09-01) — the drilled set covers every compound vowel in use.
  *
+ * 받침 (final consonants) are taught HERE as of the 2026-09-01 depth pass
+ * (the follow-up to the compound-vowel audit: the tier taught only the
+ * [t]-group, 1 of the 7 final sound groups, while m3 lesson 1 already
+ * requires five of the others — 안녕하세요 alone carries ㄴ and ㅇ finals,
+ * 학생/선생님/반갑습니다 carry ㄱ ㅁ ㅂ). Same interleave style as the
+ * CV arc — four lessons spread through the march, never back-to-back:
+ *   - ko-m2-bt-1 (after ㄲ, breaking the tense march): ㄴ [n] + ㅁ [m] —
+ *     the hummable nasals, easiest to hear, all-m1 letters (눈, 돈, 곰,
+ *     밤; builds 사람, 시간).
+ *   - ko-m2-bt-2 (after ㅆ): ㅇ [ng] + ㄹ [l] — pays off m1-intro's
+ *     "ㅇ makes a sound at the bottom: more on that later" promise, and
+ *     the ㄹ coda-[l]-vs-flap-[r] allophony note (강, 빵, 물, 말; builds
+ *     서울, 오늘).
+ *   - ko-m2-bt-3 (after cv-3, whose ㅐ it needs for 책/학생): ㄱ [k] +
+ *     ㅂ [p] — the unreleased stops, priming the stop concept the
+ *     [t]-group lesson then leans on (책, 국, 밥, 집; builds 한국, 학생).
+ *   - ko-m2-batchim-1 (existing, after the module review): the [t]-group
+ *     collapse — kept last of the teach lessons because 7-letters→1-sound
+ *     is the strange one; its intro now bridges from the six known groups.
+ *   - ko-m2-bt-review (module tail): mixed 7-group drill + the honest
+ *     연음 beats (물이→[무리], 있어요→[이써요], 좋아요→[조아요], and the
+ *     없어요/많이 double-coda mention) — explanation + light drill only;
+ *     the m3–m15 scan shows liaison everywhere (이에요/어요 endings) but
+ *     no evidence a full drill arc is needed before m15.
+ *
  * CONTENT-TODO: verify with a Korean speaker that:
  *   - 코 (nose) reads naturally as the ㅋ-row's first anchor (it does
  *     in standard Seoul Korean).
@@ -632,7 +657,7 @@ function buildCompoundVowelLesson3(): LessonContent {
       type: "info",
       title: "Every Korean vowel — done",
       body:
-        "ㅖ, ㅙ, ㅚ, ㅢ — plus everything before them: the vowel system is COMPLETE. 예요, 왜, 회사, 의자 are all readable now, and no vowel in this course will ever surprise you again. What's left for reading is only the final consonant (받침), coming after the review.",
+        "ㅖ, ㅙ, ㅚ, ㅢ — plus everything before them: the vowel system is COMPLETE. 예요, 왜, 회사, 의자 are all readable now, and no vowel in this course will ever surprise you again. What's left is finishing the 받침 endings — the stopped ㄱ/ㅂ are next, and they pair with these new vowels: 책, 학생.",
       variant: "win",
     },
   );
@@ -687,7 +712,7 @@ function buildModuleReview(): LessonContent {
         type: "info",
         title: "Module 2 review",
         body:
-          "You learned 22 new jamo across four groups: 4 aspirated consonants (ㅋ ㅌ ㅍ ㅊ), 5 tense consonants (ㄲ ㄸ ㅃ ㅆ ㅉ), 4 y-vowels (ㅑ ㅕ ㅛ ㅠ), and 9 compound vowels (ㅐ ㅔ ㅖ ㅘ ㅝ ㅟ ㅙ ㅚ ㅢ). Together with M1, you can now read every Korean syllable that has no final consonant — only the 받침 is left.",
+          "You learned 22 new jamo across four groups: 4 aspirated consonants (ㅋ ㅌ ㅍ ㅊ), 5 tense consonants (ㄲ ㄸ ㅃ ㅆ ㅉ), 4 y-vowels (ㅑ ㅕ ㅛ ㅠ), and 9 compound vowels (ㅐ ㅔ ㅖ ㅘ ㅝ ㅟ ㅙ ㅚ ㅢ) — plus six of the seven 받침 ending sounds: [n] [m] (눈, 곰), [ng] [l] (강, 물), [k] [p] (책, 밥). One ending family is still ahead.",
         variant: "culture",
       },
 
@@ -707,9 +732,11 @@ function buildModuleReview(): LessonContent {
       listeningBuild(reviewCtx, "ko-m2-review-build-keopi", "커피", "coffee"),
       listeningBuild(reviewCtx, "ko-m2-review-build-tokki", "토끼", "rabbit"),
 
-      // Listening comprehension.
+      // Listening comprehension — including two 받침 words from the bt arc.
       listeningComp("ko-m2-review-lc-keopi", "커피", "coffee", ["baseball", "rabbit", "skirt"]),
       listeningComp("ko-m2-review-lc-yagu", "야구", "baseball", ["coffee", "milk", "older brother"]),
+      listeningComp("ko-m2-review-lc-hanguk", "한국", "Korea", ["Seoul", "a student", "a book"]),
+      listeningComp("ko-m2-review-lc-bap", "밥", "rice / a meal", ["bread", "night", "water"]),
 
       // Speaking.
       speaking("ko-m2-review-speak-keopi", "커피", "coffee"),
@@ -720,21 +747,23 @@ function buildModuleReview(): LessonContent {
         type: "info",
         title: "Reading foundation: complete",
         body:
-          "You finished the M2 review. Plain + aspirated + tense consonants × the COMPLETE vowel set (basic, y-, and compound) — that's every open syllable in Korean. The final-consonant 받침 is next, and then nothing in Hangul is unreadable: coffee menus, K-drama subtitles, signage, all of it.",
+          "You finished the M2 review. Every consonant × the COMPLETE vowel set, and six of the seven 받침 ending sounds. One strange family remains: the seven letters that ALL collapse to a stopped [t] at a syllable's end. That's next — and then nothing in Hangul is unreadable: coffee menus, K-drama subtitles, signage, all of it.",
         variant: "win",
       },
     ],
   };
 }
 
-// ─── 받침 neutralization — the [t] group (final reading piece) ───────────
+// ─── 받침 neutralization — the [t] group ────────────────────────────────
 //
-// This is the last piece of the "read every Korean syllable" arc the M2
-// review promises ("final-consonant 받침 are next"). Rows taught these
-// letters as ONSETS; here the learner meets them as CODAS, where Korean
-// neutralizes a blocked final consonant to one of only 7 representative
-// sounds ([k n t l m p ŋ]). The lesson focuses on the biggest collapse:
-// ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ all → a plain unreleased [t] at a syllable's end.
+// The last TEACH lesson of the batchim arc (bt-1 nasals → bt-2 ㅇ/ㄹ →
+// bt-3 stops → module review → THIS). Rows taught these letters as
+// ONSETS; the arc teaches them as CODAS, where Korean neutralizes a
+// blocked final to one of only 7 sounds ([k n t l m p ŋ]) — six of which
+// the learner now knows letter-by-letter. This lesson does the biggest
+// collapse: ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ all → a plain unreleased [t] at a
+// syllable's end. Its intro deliberately bridges FROM the six known
+// groups — don't re-introduce the 받침 concept here (bt-1 owns that).
 //
 // Verified against the RR engine (romanization/hangulRomanize.ts): every
 // one of those 7 jongseong carries `rep: "t"`, so 옷→ot, 꽃→kkot, 밭→bat,
@@ -780,9 +809,9 @@ function buildBatchimLesson(): LessonContent {
     {
       id: "ko-m2-batchim-info-1",
       type: "info",
-      title: "받침 — the final consonant",
+      title: "받침 — the last ending",
       body:
-        "A consonant written at the BOTTOM of a syllable is a 받침 (batchim) — the 'support'. Korean gives it a special job: at the end of a syllable it is stopped, not released. Your mouth moves into the shape but never finishes the sound.\n\nOnly SEVEN endings survive that stop: [k] [n] [t] [l] [m] [p] and [ng]. Every possible final consonant collapses into one of these seven.",
+        "You know six of the seven 받침 ending sounds: [n] 눈, [m] 곰, [ng] 강, [l] 물, [k] 책, [p] 밥 — each spelled with the letter that makes it.\n\nThe seventh slot, [t], is the strange one. It isn't one letter. SEVEN different letters all collapse into it at the bottom of a block — the biggest sound-merger in Korean.",
       variant: "grammar",
     },
     {
@@ -874,15 +903,385 @@ function buildBatchimLesson(): LessonContent {
   };
 }
 
+// ─── 받침 depth arc (2026-09-01) — the six letter-true final groups ──────
+//
+// Census basis (decomposition scan of m1–m15 Hangul literals, 2026-09-01):
+// every one of the 7 final sound groups is in heavy course use, and m3
+// lesson 1 already requires ㄴ ㅇ ㅁ ㅂ ㄱ (안녕하세요, 학생, 선생님,
+// 반갑습니다) with ㄹ close behind (이름, 얼마) — so ALL of them must be
+// taught here in m2, before their first graded use. Each lesson follows
+// the CV-lesson shape (concept info → per-block intro/trace/recognition →
+// anchor words → listening/speaking → win) and every block/word ships
+// with a manifest clip (koHangulAudioCoverage ratchet 0).
+
+function buildBatchimNasalLesson(): LessonContent {
+  // Position: after the ㄲ row — first break in the tense march, and the
+  // learner's FIRST batchim exposure (this lesson owns the 받침 concept
+  // intro; batchim-1's [t] lesson bridges from here). Nasals first
+  // because they're the only finals you can stretch and HEAR — nothing
+  // is stopped or swallowed. All blocks use m1 jamo only.
+  const BLOCKS: SyllableEntry[] = [
+    { block: "눈", romaji: "nun", ipa: "/nun/", hint: "ㄴ + ㅜ + ㄴ — end on a held 'n'" },
+    { block: "돈", romaji: "don", ipa: "/ton/", hint: "ㄷ + ㅗ + ㄴ — end on a held 'n'" },
+    { block: "곰", romaji: "gom", ipa: "/kom/", hint: "ㄱ + ㅗ + ㅁ — close your lips and hum" },
+    { block: "밤", romaji: "bam", ipa: "/pam/", hint: "ㅂ + ㅏ + ㅁ — close your lips and hum" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "눈", meaningEn: "eye", emoji: "👁️" },
+      { word: "돈", meaningEn: "money", emoji: "💰" },
+      { word: "곰", meaningEn: "bear", emoji: "🐻" },
+      { word: "밤", meaningEn: "night", emoji: "🌙" },
+      { word: "사람", meaningEn: "person", emoji: "🧑" },
+      { word: "시간", meaningEn: "time", emoji: "⏰" },
+    ],
+    tileBankPool: ["눈", "돈", "곰", "밤", "사", "시", "마", "라", "가", "나"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-bt1-info-0",
+      type: "info",
+      title: "받침 — the letter at the bottom",
+      body:
+        "A consonant written at the BOTTOM of a block is a 받침 (batchim) — the 'support'. You read it last: 눈 = ㄴ + ㅜ + ㄴ → 'nun'.\n\nOnly SEVEN sounds can end a Korean syllable: [k] [n] [t] [l] [m] [p] [ng]. You already met [t]. Today, the two easiest — the nasals ㄴ [n] and ㅁ [m]. They're the finals you can stretch: hum the end of 눈 and it just keeps going.",
+      variant: "grammar",
+    },
+  ];
+  for (const b of BLOCKS) {
+    const word = ctx.words.find((w) => w.word === b.block)!;
+    steps.push(
+      symbolIntro(`ko-m2-bt1-intro-${b.romaji}`, b.block, b.romaji, b.ipa ?? "", b.hint ?? "", `${b.block} (${word.meaningEn})`),
+      traceTwice(`ko-m2-bt1-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-bt1-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-bt1-mcq-nun", "눈"),
+    wordImageMcq(ctx, "ko-m2-bt1-mcq-gom", "곰"),
+    listeningBuild(ctx, "ko-m2-bt1-build-saram", "사람", "person"),
+    listeningBuild(ctx, "ko-m2-bt1-build-sigan", "시간", "time"),
+    listeningComp("ko-m2-bt1-lc-bam", "밤", "night", ["money", "an eye", "a bear"]),
+    matchBlocksToRomaji(
+      "ko-m2-bt1-match",
+      [
+        { block: "눈", romaji: "nun" },
+        { block: "돈", romaji: "don" },
+        { block: "곰", romaji: "gom" },
+        { block: "밤", romaji: "bam" },
+      ],
+      "Match each word to how it sounds",
+    ),
+    speaking("ko-m2-bt1-speak-saram", "사람", "person"),
+    {
+      id: "ko-m2-bt1-info-end",
+      type: "info",
+      title: "ㄴ and ㅁ — yours",
+      body:
+        "눈 (eye), 돈 (money), 곰 (bear), 밤 (night), 사람 (person), 시간 (time) — your first six words with a final consonant. The trick to hearing ㄴ vs ㅁ: watch the lips. ㅁ closes them (곰), ㄴ leaves them open (돈). Back to the tense consonants next — more ending sounds later in the module.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-bt-1",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "받침 — the hummed endings ㄴ ㅁ",
+    description: "Your first final consonants. Read 눈, 돈, 곰, 밤, 사람, 시간.",
+    estimatedMinutes: 6,
+    xpReward: 14,
+    steps,
+  };
+}
+
+function buildBatchimNgLLesson(): LessonContent {
+  // Position: after the ㅆ row — second break in the tense march (bt-1
+  // sat after ㄲ; ㄸ/ㅃ/cv-2 keep the two batchim lessons well apart).
+  // ㅇ here pays off the m1-intro promise ("at the bottom, ㅇ does make a
+  // sound: 'ng'. More on that later") — the learner has spent a module
+  // and a half with silent ㅇ, so the reveal lands. ㄹ gets the
+  // coda-[l]-vs-flap allophony note (a KO course voice strength).
+  const BLOCKS: SyllableEntry[] = [
+    { block: "강", romaji: "gang", ipa: "/kaŋ/", hint: "ㄱ + ㅏ + ㅇ — end on 'ng' as in 'song'" },
+    { block: "빵", romaji: "ppang", ipa: "/p͈aŋ/", hint: "ㅃ + ㅏ + ㅇ — tense start, 'ng' end" },
+    { block: "물", romaji: "mul", ipa: "/mul/", hint: "ㅁ + ㅜ + ㄹ — tongue tip up, hold the 'l'" },
+    { block: "말", romaji: "mal", ipa: "/mal/", hint: "ㅁ + ㅏ + ㄹ — tongue tip up, hold the 'l'" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "강", meaningEn: "river", emoji: "🏞️" },
+      { word: "빵", meaningEn: "bread", emoji: "🍞" },
+      { word: "물", meaningEn: "water", emoji: "💧" },
+      { word: "말", meaningEn: "horse", emoji: "🐴" },
+      { word: "오늘", meaningEn: "today", emoji: "📅" },
+      { word: "서울", meaningEn: "Seoul" },
+    ],
+    tileBankPool: ["강", "빵", "물", "말", "서", "울", "오", "늘", "누", "수"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-bt2-info-0",
+      type: "info",
+      title: "ㅇ finds its voice",
+      body:
+        "Remember the promise from lesson one? At the START of a block, ㅇ is silent — a placeholder. At the BOTTOM, it finally speaks: [ng], exactly the ending of English 'song'. 강 = 'gang' (river).\n\nIt is never a hard 'g' — don't say 'gan-guh'. English already ends words this way; trust your 'song'.",
+      variant: "grammar",
+    },
+    {
+      id: "ko-m2-bt2-info-l",
+      type: "info",
+      title: "ㄹ at the bottom — a true [l]",
+      body:
+        "You learned ㄹ as a quick tongue flap (다리, 'butter'-tt). At the BOTTOM of a block it changes: the tongue tip touches the ridge behind your teeth and HOLDS — a real 'l'. 물 (water) = 'mul', 말 (horse) = 'mal'.\n\nSame letter, two honest sounds: flap between vowels, held [l] at the end.",
+      variant: "tip",
+    },
+  ];
+  for (const b of BLOCKS) {
+    const word = ctx.words.find((w) => w.word === b.block)!;
+    steps.push(
+      symbolIntro(`ko-m2-bt2-intro-${b.romaji}`, b.block, b.romaji, b.ipa ?? "", b.hint ?? "", `${b.block} (${word.meaningEn})`),
+      traceTwice(`ko-m2-bt2-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-bt2-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-bt2-mcq-ppang", "빵"),
+    wordImageMcq(ctx, "ko-m2-bt2-mcq-mul", "물"),
+    listeningBuild(ctx, "ko-m2-bt2-build-seoul", "서울", "Seoul"),
+    listeningBuild(ctx, "ko-m2-bt2-build-oneul", "오늘", "today"),
+    listeningComp("ko-m2-bt2-lc-gang", "강", "river", ["bread", "water", "a horse"]),
+    codaSoundMcq(
+      "ko-m2-bt2-mcq-same-l",
+      "물 ends on a held [l]. Which of these ends with the SAME sound?",
+      "말",
+      ["곰", "눈", "빵"],
+      "말 (horse) also ends in ㄹ — a held [l]. 곰 hums [m], 눈 hums [n], 빵 sings [ng].",
+    ),
+    speaking("ko-m2-bt2-speak-mul", "물", "water"),
+    speaking("ko-m2-bt2-speak-seoul", "서울", "Seoul"),
+    {
+      id: "ko-m2-bt2-info-end",
+      type: "info",
+      title: "ㅇ and ㄹ — yours",
+      body:
+        "강 (river), 빵 (bread), 물 (water), 말 (horse), 오늘 (today), 서울 (Seoul). Four of the seven ending sounds down — [n] [m] [ng] [l], the four you can hold and hear. The stopped endings are still ahead. Back to the last tense row next.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-bt-2",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "받침 — ㅇ sings, ㄹ holds",
+    description: "The silent letter finds its voice. Read 강, 빵, 물, 말, 서울, 오늘.",
+    estimatedMinutes: 6,
+    xpReward: 14,
+    steps,
+  };
+}
+
+function buildBatchimStopLesson(): LessonContent {
+  // Position: right after cv-3 — 책 and 학생 need cv-1's ㅐ, and coming
+  // after the vowel-system finale this lesson starts the "finish the
+  // endings" run the cv-3 win text promises. Teaching the clean stops
+  // ㄱ/ㅂ BEFORE the [t]-collapse lesson is deliberate sequencing: the
+  // learner meets "stopped, not released" where letter = sound, so the
+  // seven-letters-one-[t] merger is the only new idea left.
+  const BLOCKS: SyllableEntry[] = [
+    { block: "책", romaji: "chaek", ipa: "/t͡ɕʰɛk̚/", hint: "ㅊ + ㅐ + ㄱ — stop on [k], no release" },
+    { block: "국", romaji: "guk", ipa: "/kuk̚/", hint: "ㄱ + ㅜ + ㄱ — same letter, start and stop" },
+    { block: "밥", romaji: "bap", ipa: "/pap̚/", hint: "ㅂ + ㅏ + ㅂ — lips close on [p], no puff" },
+    { block: "집", romaji: "jip", ipa: "/t͡ɕip̚/", hint: "ㅈ + ㅣ + ㅂ — lips close on [p], no puff" },
+  ];
+  const ctx: KoRowContext = {
+    allBlocks: BLOCKS,
+    words: [
+      { word: "책", meaningEn: "book", emoji: "📖" },
+      { word: "국", meaningEn: "soup", emoji: "🍲" },
+      { word: "밥", meaningEn: "rice / a meal", emoji: "🍚" },
+      { word: "집", meaningEn: "house / home", emoji: "🏠" },
+      { word: "한국", meaningEn: "Korea", emoji: "🇰🇷" },
+      { word: "학생", meaningEn: "student", emoji: "🎓" },
+    ],
+    tileBankPool: ["책", "국", "밥", "집", "한", "학", "생", "가", "구", "바"],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-bt3-info-0",
+      type: "info",
+      title: "The stopped endings — ㄱ and ㅂ",
+      body:
+        "The other ending family doesn't hum — it STOPS. A final ㄱ is [k] and a final ㅂ is [p], but your mouth only moves INTO the shape and freezes there. Say English 'book' but never let the k out: that's 국.\n\nTheir louder cousins collapse into them at the bottom: ㅋ and ㄲ also end as [k] (부엌, 밖), ㅍ ends as [p] (앞). Recognize that when you see it; the plain letters carry almost all the words.",
+      variant: "grammar",
+    },
+  ];
+  for (const b of BLOCKS) {
+    const word = ctx.words.find((w) => w.word === b.block)!;
+    steps.push(
+      symbolIntro(`ko-m2-bt3-intro-${b.romaji}`, b.block, b.romaji, b.ipa ?? "", b.hint ?? "", `${b.block} (${word.meaningEn})`),
+      traceTwice(`ko-m2-bt3-trace-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+      recognition(ctx, `ko-m2-bt3-recog-${b.romaji}`, b.block, b.romaji, b.hint ?? ""),
+    );
+  }
+  steps.push(
+    wordImageMcq(ctx, "ko-m2-bt3-mcq-chaek", "책"),
+    wordImageMcq(ctx, "ko-m2-bt3-mcq-bap", "밥"),
+    // 한국 = bt-1's ㄴ final + this lesson's ㄱ final; 학생 = ㄱ final +
+    // cv-1's ㅐ + bt-2's ㅇ final. Deliberate cross-arc builds: the two
+    // words m3 opens with, assembled from all three batchim lessons.
+    listeningBuild(ctx, "ko-m2-bt3-build-hanguk", "한국", "Korea"),
+    listeningBuild(ctx, "ko-m2-bt3-build-haksaeng", "학생", "student"),
+    listeningComp("ko-m2-bt3-lc-jip", "집", "house / home", ["a book", "soup", "rice"]),
+    codaSoundMcq(
+      "ko-m2-bt3-mcq-stop-k",
+      "Which of these ends with the stopped [k] sound?",
+      "책",
+      ["밥", "밤", "물"],
+      "책 ends in ㄱ — a stopped [k]. 밥 stops on [p], 밤 hums [m], 물 holds [l].",
+    ),
+    speaking("ko-m2-bt3-speak-bap", "밥", "rice / a meal"),
+    speaking("ko-m2-bt3-speak-hanguk", "한국", "Korea"),
+    {
+      id: "ko-m2-bt3-info-end",
+      type: "info",
+      title: "한국 — you just read it",
+      body:
+        "Lesson one showed you 한국 (Korea) and promised you'd read it within the hour. Done — 한 [han] + 국 [guk], plus 책, 밥, 집, and 학생 (student), the word half of module 3 is built on. Six ending sounds down. The review is next, then the one strange family that's left.",
+      variant: "win",
+    },
+  );
+  return {
+    id: "ko-m2-bt-3",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "받침 — the stopped endings ㄱ ㅂ",
+    description: "Stops with no release. Read 책, 국, 밥, 집 — and 한국, 학생.",
+    estimatedMinutes: 6,
+    xpReward: 14,
+    steps,
+  };
+}
+
+function buildBatchimWrapLesson(): LessonContent {
+  // Module tail: the "review after" the interleave doctrine prescribes for
+  // the batchim family (all 7 groups mixed), plus the honest 연음 beats.
+  // 연음 evidence (m3–m15 scan): liaison contexts are everywhere — every
+  // X이에요, 있어요/없어요, 먹어요, 좋아요, 많이 — so the learner will hear
+  // carried-over codas from m3 lesson 1 onward. That earns an explanation
+  // + light drill HERE; it does not earn a multi-lesson drill arc (no
+  // liaison-dependent GRADED distinction exists before m15).
+  const ctx: KoRowContext = {
+    allBlocks: [
+      { block: "눈", romaji: "nun" },
+      { block: "강", romaji: "gang" },
+      { block: "밥", romaji: "bap" },
+      { block: "곰", romaji: "gom" },
+      { block: "물", romaji: "mul" },
+      { block: "책", romaji: "chaek" },
+    ],
+    words: [],
+    tileBankPool: [],
+  };
+  const steps: LessonStep[] = [
+    {
+      id: "ko-m2-btr-info-0",
+      type: "info",
+      title: "Seven endings — the complete set",
+      body:
+        "Every Korean syllable ends in a vowel or one of exactly seven sounds:\n\n  ㄱ [k] 책 · ㄴ [n] 눈 · ㄷ [t] 옷 · ㄹ [l] 물 · ㅁ [m] 곰 · ㅂ [p] 밥 · ㅇ [ng] 강\n\nThat's the whole system. Quick sweep first, then one last secret about how endings behave in real speech.",
+      variant: "grammar",
+    },
+    recognition(ctx, "ko-m2-btr-recog-nun", "눈", "nun", "ends on a held 'n'"),
+    recognition(ctx, "ko-m2-btr-recog-gang", "강", "gang", "ends on 'ng'"),
+    recognition(ctx, "ko-m2-btr-recog-bap", "밥", "bap", "stops on [p]"),
+    matchBlocksToRomaji(
+      "ko-m2-btr-match",
+      [
+        { block: "밤", romaji: "bam" },
+        { block: "밥", romaji: "bap" },
+        { block: "말", romaji: "mal" },
+        { block: "물", romaji: "mul" },
+      ],
+      "Two of these differ only in their ending — listen closely",
+    ),
+    {
+      id: "ko-m2-btr-info-yeon-1",
+      type: "info",
+      title: "연음 — the ending slides over",
+      body:
+        "When a 받침 is followed by a syllable that starts with silent ㅇ, the final consonant SLIDES onto it. 물 + 이 is written 물이 but said [무리] — the ㄹ jumps across and turns back into its flap.\n\nKorean does this every single time. It's why real speech sounds smoother than the blocks look — the writing keeps the word's shape, the mouth takes the shortcut.",
+      variant: "grammar",
+    },
+    {
+      id: "ko-m2-btr-info-yeon-2",
+      type: "info",
+      title: "있어요 — hear it happen",
+      body:
+        "있어요 means 'there is / I have' — you'll hear it in half the sentences in this course. Spelled 있 + 어요; the double ㅆ slides over: [이써요].\n\nListen for the strong 'ss' starting the middle syllable — that's the 받침, relocated.",
+      variant: "tip",
+    },
+    listeningComp("ko-m2-btr-lc-isseoyo", "있어요", "there is / I have", ["it's good", "there isn't", "a person"]),
+    codaSoundMcq(
+      "ko-m2-btr-mcq-isseoyo",
+      "있어요 — which spelling shows how it SOUNDS?",
+      "이써요",
+      ["이서요", "읻어요", "이떠요"],
+      "The ㅆ slides onto the next syllable at full strength: [이써요]. A single-s [이서요] is the classic learner shortcut — Koreans hear the difference.",
+    ),
+    {
+      id: "ko-m2-btr-info-yeon-3",
+      type: "info",
+      title: "ㅎ is too weak to slide",
+      body:
+        "One exception: a final ㅎ before a vowel simply VANISHES. 좋아요 ('it's good') is said [조아요] — no h at all.\n\nAnd a preview so nothing ever ambushes you: a few words stack TWO letters in the 받침 slot — you say one of them. 없어요 ('there isn't') → [업써요], 많이 ('a lot') → [마니], 여덟 ('eight') → [여덜]. Read the survivor; the spelling keeps the history.",
+      variant: "grammar",
+    },
+    codaSoundMcq(
+      "ko-m2-btr-mcq-joayo",
+      "좋아요 ('it's good') — which spelling shows how it SOUNDS?",
+      "조아요",
+      ["조하요", "조타요", "졸아요"],
+      "Final ㅎ before a vowel disappears: [조아요]. Saying the h ([조하요]) is the giveaway of reading letter-by-letter.",
+    ),
+    listeningComp("ko-m2-btr-lc-eopseoyo", "없어요", "there isn't / I don't have", ["there is / I have", "it's good", "a lot"]),
+    speaking("ko-m2-btr-speak-joayo", "좋아요", "it's good"),
+    {
+      id: "ko-m2-btr-info-end",
+      type: "info",
+      title: "Hangul: complete",
+      body:
+        "Every consonant, every vowel, all seven endings, and the way they flow together. Next module you meet 안녕하세요 — look at it now: 안 [an], 녕 [nyeong] — you can already read every ending in it. Nothing in Korean writing is a stranger anymore.",
+      variant: "win",
+    },
+  ];
+  return {
+    id: "ko-m2-bt-review",
+    moduleId: "m2",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "받침 — review + 연음",
+    description: "All seven endings mixed, and how they slide in real speech: 물이 → [무리].",
+    estimatedMinutes: 6,
+    xpReward: 15,
+    steps,
+  };
+}
+
 // ─── Public builder ─────────────────────────────────────────────────────
 
 /**
  * Build every M2 lesson the curriculum exposes — 9 rows × 3 sub-lessons
- * (27 lessons) + 3 compound-vowel lessons (interleaved into the march as
- * breaks: cv-1 after the aspirated rows, cv-2 after ㅃ, cv-3 after the
- * y-vowel lesson) + Y-vowel lesson + module review + 받침 [t]-group
- * lesson = 33. Keep this order in sync with the m2 pathway in
- * `mockCourse.ts`.
+ * (27 lessons) + 3 compound-vowel lessons + 3 받침 group lessons
+ * (interleaved into the march as breaks: cv-1 after ㅊ, bt-1 after ㄲ,
+ * cv-2 after ㅃ, bt-2 after ㅆ, bt-3 after cv-3) + Y-vowel lesson +
+ * module review + 받침 [t]-group lesson + 받침 review/연음 wrap = 37.
+ * Batchim teach lessons are never adjacent (interleave-don't-block-teach);
+ * bt-review follows the family as its "review after". Keep this order in
+ * sync with the m2 pathway in `mockCourse.ts`.
  */
 export function buildAllKoreanM2Lessons(): LessonContent[] {
   const out: LessonContent[] = [];
@@ -890,11 +1289,15 @@ export function buildAllKoreanM2Lessons(): LessonContent[] {
     validateRowVocab(row);
     out.push(...buildRowSubLessons(row, "m2"));
     if (row.id === "ch") out.push(buildCompoundVowelLesson1());
+    if (row.id === "kk") out.push(buildBatchimNasalLesson());
     if (row.id === "pp") out.push(buildCompoundVowelLesson2());
+    if (row.id === "ss") out.push(buildBatchimNgLLesson());
   }
   out.push(buildYVowelLesson());
   out.push(buildCompoundVowelLesson3());
+  out.push(buildBatchimStopLesson());
   out.push(buildModuleReview());
   out.push(buildBatchimLesson());
+  out.push(buildBatchimWrapLesson());
   return out;
 }

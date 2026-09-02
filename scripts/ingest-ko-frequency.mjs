@@ -58,10 +58,32 @@
  *   node scripts/ingest-ko-frequency.mjs --dry-run      # registry diff summary, writes NOTHING
  *   node scripts/ingest-ko-frequency.mjs --graded-vocab # emit docs/data/ko-graded-vocab.json (no src/ writes)
  *   node scripts/ingest-ko-frequency.mjs --candidates   # emit the gloss worklist (no src/ writes)
+ *   node scripts/ingest-ko-frequency.mjs --rebase-ranks # DELIBERATE drip re-base: ignore committed
+ *                                                       # ranks, re-derive dense fresh ranks (moves
+ *                                                       # unlockModules for a live course — human
+ *                                                       # sign-off required; then refresh the test
+ *                                                       # baseline with --write-rank-baseline)
+ *   node scripts/ingest-ko-frequency.mjs --write-rank-baseline
+ *                                                       # snapshot the COMMITTED registry's
+ *                                                       # id → [frequencyRank, unlockModule] into
+ *                                                       # ko/__tests__/freqRankBaseline.json (the
+ *                                                       # stability-gate fixture). Run only after a
+ *                                                       # reviewed re-base / accepted registry write.
  *
  * Re-run command of record for the registry: `node scripts/ingest-ko-frequency.mjs`.
- * ⚠ Registry regeneration re-ranks smeared homographs → unlockModules move →
- * ratchet-sensitive tests may flip. Run --dry-run first and review the counts.
+ *
+ * ── freqRank STABILIZER (JA pattern, ported 2026-09-01) ──
+ * JA pins an explicit `freqRank` field on each `fromModule: "future"` atom in
+ * ja/courseAtoms.ts (seeded 2026-08-26) so that re-homing atoms never
+ * reshuffles the rest of the deck — rank VALUE, not array position, drives the
+ * unlock bucket, and gaps are fine. KO's atoms live in a GENERATED registry,
+ * so the committed registry itself is the rank store: on regen, an existing id
+ * KEEPS its committed frequencyRank (and therefore the unlockModule drip a
+ * live learner has already seen); NEW ids append at max(committed rank)+1 in
+ * fresh corpus order; a REMOVED id retires its rank (gap stays). Without this,
+ * dense positional re-ranking moved 562 atoms' unlockModule on the 2026-08-26
+ * homograph-aware re-ingest — a wholesale reshuffle of a live course's drip.
+ * The ratchet test is ko/__tests__/freqUnlockStability.test.ts.
  */
 import { readFileSync, writeFileSync, existsSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -76,6 +98,9 @@ const GLOSS_PATH = join(HERE, "data", "ko-glosses.json");
 const CANDIDATES_PATH = join(HERE, "data", "ko-frequency-candidates.json");
 const OUT_PATH = join(REPO, "src", "features", "languages", "ko", "frequencyAtoms.ts");
 const GRADED_VOCAB_PATH = join(REPO, "docs", "data", "ko-graded-vocab.json");
+const RANK_BASELINE_PATH = join(
+  REPO, "src", "features", "languages", "ko", "__tests__", "freqRankBaseline.json",
+);
 
 const KO_FREQ_LAST_MODULE = 27; // KO has 27 content modules — its unlock ceiling.
 
@@ -324,10 +349,49 @@ function loadCourseModules() {
   return bySurface;
 }
 
+// ── Parse the COMMITTED registry into id → { rank, module }. ──
+// Doubles as (a) the dry-run diff baseline and (b) the freqRank stabilizer's
+// rank store (see the header). Returns null when the registry doesn't exist
+// yet (bootstrap) — fresh dense ranks apply then.
+function loadCommittedRegistry() {
+  if (!existsSync(OUT_PATH)) return null;
+  const existing = new Map();
+  const rowRe =
+    /\{ id: "((?:[^"\\]|\\.)*)", surface: "(?:[^"\\]|\\.)*",.*?frequencyRank: (\d+), unlockModule: (\d+)/g;
+  const cur = readFileSync(OUT_PATH, "utf8");
+  for (let m; (m = rowRe.exec(cur)); ) {
+    existing.set(m[1].replace(/\\(.)/g, "$1"), {
+      rank: Number(m[2]),
+      module: Number(m[3]),
+    });
+  }
+  return existing.size ? existing : null;
+}
+
 async function main() {
   const emitCandidates = process.argv.includes("--candidates");
   const emitGradedVocab = process.argv.includes("--graded-vocab");
   const dryRun = process.argv.includes("--dry-run");
+  const rebaseRanks = process.argv.includes("--rebase-ranks");
+
+  if (process.argv.includes("--write-rank-baseline")) {
+    // Snapshot the COMMITTED registry (never a regen in flight) into the
+    // stability-gate fixture. Deliberate step after a reviewed registry write.
+    const committed = loadCommittedRegistry();
+    if (!committed) {
+      console.error(`no committed registry at ${OUT_PATH} — nothing to snapshot.`);
+      process.exit(1);
+    }
+    // One line per atom (diff-friendly: a re-base reviews as per-id line changes).
+    const lines = [...committed].map(
+      ([id, e]) => `  ${JSON.stringify(id)}: [${e.rank}, ${e.module}]`,
+    );
+    writeFileSync(RANK_BASELINE_PATH, `{\n${lines.join(",\n")}\n}\n`);
+    console.error(
+      `wrote ${committed.size} id → [frequencyRank, unlockModule] entries → ${RANK_BASELINE_PATH}`,
+    );
+    return;
+  }
 
   const [{ frequencyRankToModule }, { romanizeKorean }] = await Promise.all([
     loadTsModule("src/features/languages/frequencyTypes.ts"),
@@ -485,14 +549,25 @@ async function main() {
     return `ko:${r.surface}-${suffix}`;
   };
 
+  // ── freqRank stabilizer (see header). Existing ids keep their committed
+  // rank; new ids append at max+1 in fresh corpus order; removed ids retire
+  // their rank (gaps are fine — rank VALUE drives the bucket). --rebase-ranks
+  // deliberately re-derives dense fresh ranks instead (drip re-base).
+  const committedRegistry = loadCommittedRegistry();
+  const pinnedRanks = rebaseRanks ? null : committedRegistry;
+  let nextRank = pinnedRanks
+    ? Math.max(...[...pinnedRanks.values()].map((e) => e.rank)) + 1
+    : 1;
+
   const esc = (s) => s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-  const atoms = shipped.map((r, i) => {
-    const frequencyRank = i + 1;
+  const atoms = shipped.map((r) => {
+    const id = idFor(r);
+    const frequencyRank = pinnedRanks?.get(id)?.rank ?? nextRank++;
     const unlockModule = frequencyRankToModule(frequencyRank, {
       lastModule: KO_FREQ_LAST_MODULE,
     });
     return {
-      id: idFor(r),
+      id,
       surface: r.surface,
       reading: romanizeKorean(r.surface),
       meaningEn: glossFor(r),
@@ -510,20 +585,30 @@ async function main() {
     };
   });
 
+  // Registry order = rank order (with pinned ranks the existing block keeps
+  // its committed order; new atoms land at the tail in fresh corpus order).
+  atoms.sort((a, b) => a.frequencyRank - b.frequencyRank);
+
+  // Sanity: ranks must stay unique (a duplicate would mean the committed
+  // registry itself carries a duplicate — fix that before regenerating).
+  const rankSeen = new Map();
+  for (const a of atoms) {
+    const clash = rankSeen.get(a.frequencyRank);
+    if (clash) throw new Error(`duplicate frequencyRank ${a.frequencyRank}: ${clash} vs ${a.id}`);
+    rankSeen.set(a.frequencyRank, a.id);
+  }
+
+  const stabilizerNote = pinnedRanks
+    ? `pinned to committed registry (${pinnedRanks.size} ids)`
+    : rebaseRanks
+      ? "REBASE — fresh dense ranks (drip re-base; refresh freqRankBaseline.json after review)"
+      : "bootstrap — no committed registry, fresh dense ranks";
+
   if (dryRun) {
     // Compare against the committed registry WITHOUT writing anything.
     // Registry regen is ratchet-sensitive (unlockModule moves re-bucket the
     // optional-vocab drip) — this summary is the review artifact.
-    const existing = new Map();
-    const rowRe =
-      /\{ id: "((?:[^"\\]|\\.)*)", surface: "(?:[^"\\]|\\.)*",.*?frequencyRank: (\d+), unlockModule: (\d+)/g;
-    const cur = readFileSync(OUT_PATH, "utf8");
-    for (let m; (m = rowRe.exec(cur)); ) {
-      existing.set(m[1].replace(/\\(.)/g, "$1"), {
-        rank: Number(m[2]),
-        module: Number(m[3]),
-      });
-    }
+    const existing = committedRegistry ?? new Map();
     const next = new Map(atoms.map((a) => [a.id, a]));
     const added = [...next.keys()].filter((id) => !existing.has(id));
     const removed = [...existing.keys()].filter((id) => !next.has(id));
@@ -541,6 +626,7 @@ async function main() {
     }
     console.error(
       `DRY RUN — no files written.\n` +
+        `  rank stabilizer: ${stabilizerNote}\n` +
         `  existing atoms: ${existing.size}, regenerated atoms: ${atoms.length}\n` +
         `  ids added: ${added.length}${added.length ? " " + JSON.stringify(added.slice(0, 10)) : ""}\n` +
         `  ids removed: ${removed.length}${removed.length ? " " + JSON.stringify(removed.slice(0, 10)) : ""}\n` +
@@ -595,6 +681,14 @@ async function main() {
  * Conjugation links are attached only where the surface is a real \`KO_LEMMAS\`
  * lemma.
  *
+ * RANK STABILITY (JA freqRank pattern, ported 2026-09-01): on regeneration an
+ * existing id KEEPS its committed \`frequencyRank\` — and therefore its
+ * \`unlockModule\` drip — regardless of fresh corpus order; new ids append at
+ * max+1; removed ids retire their rank (gaps are fine — rank VALUE drives the
+ * bucket, so ranks are NOT necessarily dense). A wholesale re-rank requires the
+ * deliberate \`--rebase-ranks\` flag + a refresh of the ratchet fixture
+ * \`__tests__/freqRankBaseline.json\` (\`--write-rank-baseline\`).
+ *
  * Atoms: ${atoms.length}. Conjugation-linked: ${conjCount}.
  */
 import type { KoConjugationLink } from "./courseAtoms";
@@ -610,6 +704,7 @@ export const KO_FREQUENCY_ATOMS: ReadonlyArray<FrequencyAtom<KoConjugationLink>>
   writeFileSync(OUT_PATH, out);
   console.error(
     `wrote ${atoms.length} atoms → ${OUT_PATH}\n` +
+      `  rank stabilizer: ${stabilizerNote}\n` +
       `  conjugation-linked: ${conjCount}\n` +
       `  unlockModule distribution: ${JSON.stringify(moduleDist)}`,
   );

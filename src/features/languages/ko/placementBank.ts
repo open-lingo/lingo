@@ -60,6 +60,32 @@ function makeM1Items(): PlacementItem[] {
           distractorsHangul: ["우리", "다리", "머리"],
         }),
     },
+    // Look-alike coverage (m1 capstone, R4 re-author 2026-09-01): a learner
+    // placing past m1 must split the confusable pairs, not just read inside
+    // one row. Distractors differ in SOUND as well as shape (버/머/보/부,
+    // 바다/다리/나무/머리) — never sound-identical to the answer.
+    {
+      id: "pt-ko-m1-4",
+      moduleId: "m1",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m1-4",
+          prompt: "Which block reads 'beo' (the syllable ㅂ + ㅓ)?",
+          correctHangul: "버",
+          distractorsHangul: ["머", "보", "부"],
+        }),
+    },
+    {
+      id: "pt-ko-m1-5",
+      moduleId: "m1",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m1-5",
+          prompt: "Which word means 'sea'?",
+          correctHangul: "바다",
+          distractorsHangul: ["다리", "나무", "머리"],
+        }),
+    },
   ];
 }
 
@@ -133,6 +159,45 @@ function makeM2Items(): PlacementItem[] {
           prompt: "Which word means 'company / office'? (compound vowel ㅚ)",
           correctHangul: "회사",
           distractorsHangul: ["의자", "사과", "노래"],
+        }),
+    },
+    // 받침 — taught in m2 since the 2026-09-01 depth pass (bt-1/2/3 +
+    // [t]-group + 연음 wrap); a learner placing past m2 must read final
+    // consonants. One reading item, one coda-discrimination item, one
+    // 연음 item. Same rule as the CV items: distractors are never
+    // sound-identical to the answer — coda contrasts (밤/밥/빵) are fair
+    // precisely BECAUSE they sound different.
+    {
+      id: "pt-ko-m2-7",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-7",
+          prompt: "Which word means 'Korea'?",
+          correctHangul: "한국",
+          distractorsHangul: ["서울", "학생", "사람"],
+        }),
+    },
+    {
+      id: "pt-ko-m2-8",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-8",
+          prompt: "Which block reads 'bam' (night — ends on the hummed ㅁ)?",
+          correctHangul: "밤",
+          distractorsHangul: ["밥", "바", "빵"],
+        }),
+    },
+    {
+      id: "pt-ko-m2-9",
+      moduleId: "m2",
+      build: () =>
+        sentenceMcq({
+          id: "pt-ko-m2-9",
+          prompt: "있어요 is written with ㅆ at the bottom. How is it pronounced?",
+          correctHangul: "이써요",
+          distractorsHangul: ["이서요", "읻어요", "이떠요"],
         }),
     },
   ];

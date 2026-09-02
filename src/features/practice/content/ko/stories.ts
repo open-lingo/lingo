@@ -112,7 +112,6 @@ export const KO_STORIES: Story[] = [
     level: 1,
     title: "Morning at the cafe",
     theme: "A quick coffee run.",
-    glosses: [{ surface: "빵", meaning: "bread", atomId: "ko:빵" }],
     questions: [
       {
         id: "gist",
@@ -145,7 +144,6 @@ export const KO_STORIES: Story[] = [
     tags: ["food", "shopping", "numbers"],
     glosses: [
       { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
-      { surface: "빵", meaning: "bread", atomId: "ko:빵" },
     ],
     questions: [
       {
@@ -246,7 +244,6 @@ export const KO_STORIES: Story[] = [
       { surface: "그런데", meaning: "but, and yet", atomId: "ko:그런데" },
       { surface: "하고", meaning: "with, and", atomId: "ko:하고" },
       { surface: "좋아요", meaning: "is good, is nice", atomId: "ko:좋아요" },
-      { surface: "빵", meaning: "bread", atomId: "ko:빵" },
     ],
     questions: [
       {

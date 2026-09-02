@@ -11,9 +11,9 @@ describe("KO M2 curriculum", () => {
     }
   });
 
-  it("builds 9 rows × 3 sub-lessons + 3 compound-vowel + y-vowel + review + 받침 = 33 lessons", () => {
+  it("builds 9 rows × 3 sub-lessons + 3 compound-vowel + 4 받침 + y-vowel + review + 받침 wrap = 37 lessons", () => {
     const lessons = buildAllKoreanM2Lessons();
-    expect(lessons.length).toBe(33);
+    expect(lessons.length).toBe(37);
     expect(lessons.every((l) => l.moduleId === "m2")).toBe(true);
     expect(lessons.every((l) => l.languageId === "ko")).toBe(true);
   });
@@ -27,6 +27,27 @@ describe("KO M2 curriculum", () => {
     expect(ids.indexOf("ko-m2-cv-3")).toBe(ids.indexOf("ko-m2-yv-1") + 1);
     // And they precede the module review that claims the full vowel set.
     expect(ids.indexOf("ko-m2-cv-3")).toBeLessThan(ids.indexOf("ko-m2-review"));
+  });
+
+  it("interleaves the 받침 arc — spread through the march, teach lessons never adjacent", () => {
+    const ids = buildAllKoreanM2Lessons().map((l) => l.id);
+    // bt-1 breaks the tense march after ㄲ; bt-2 after ㅆ; bt-3 follows
+    // cv-3 (책/학생 need ㅐ); the [t]-group collapse comes after the module
+    // review, once the six letter-true groups are known; the wrap closes.
+    expect(ids.indexOf("ko-m2-bt-1")).toBe(ids.indexOf("ko-m2-kk-3") + 1);
+    expect(ids.indexOf("ko-m2-bt-2")).toBe(ids.indexOf("ko-m2-ss-3") + 1);
+    expect(ids.indexOf("ko-m2-bt-3")).toBe(ids.indexOf("ko-m2-cv-3") + 1);
+    expect(ids.indexOf("ko-m2-batchim-1")).toBe(ids.indexOf("ko-m2-review") + 1);
+    expect(ids[ids.length - 1]).toBe("ko-m2-bt-review");
+    // No two batchim TEACH lessons back-to-back (bt-review is the family's
+    // "review after" and may follow batchim-1 directly).
+    const teach = ["ko-m2-bt-1", "ko-m2-bt-2", "ko-m2-bt-3", "ko-m2-batchim-1"];
+    for (const a of teach) {
+      for (const b of teach) {
+        if (a === b) continue;
+        expect(Math.abs(ids.indexOf(a) - ids.indexOf(b))).toBeGreaterThan(1);
+      }
+    }
   });
 
   it("lesson ids are unique", () => {

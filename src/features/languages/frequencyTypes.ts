@@ -49,8 +49,11 @@ export type FrequencyAtom<Conj = never> = {
   /**
    * Standard-curriculum fluency level, where the source provides one
    * (KO: 국제 통용 한국어 표준 교육과정 2017, 1급–6급 ≈ TOPIK/Sejong levels).
+   * Values are 1–6. Typed `number`, not a literal union: 2,587 numeric-literal
+   * `intlLevel` fields in the 2,998-row KO registry literal push tsc over the
+   * union-complexity cap (TS2590 on the array literal) when this is `1|2|…|6`.
    */
-  intlLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  intlLevel?: number;
   /** Discriminator — always "freq". */
   source: "freq";
 };

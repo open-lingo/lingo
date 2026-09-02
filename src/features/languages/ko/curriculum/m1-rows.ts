@@ -37,6 +37,7 @@ import {
   wordImageMcq,
   listeningBuild,
   listeningComp,
+  matchBlocksToRomaji,
   speaking,
 } from "./_hangulRowHelpers";
 
@@ -489,11 +490,233 @@ export function validateRowVocab(row: KoRow): void {
   }
 }
 
+/* ────────────────────────────────────────────────────────────────────────
+ * M1 tail — cross-row capstone (R4 re-author, 2026-09-01).
+ *
+ * Before this, each row was tested only within itself: every recognition /
+ * symbol_to_sound drew its distractors from the SAME consonant row, so the
+ * classic cross-row confusions (ㅏ/ㅓ, ㅗ/ㅜ, ㅁ/ㅂ, ㄷ/ㄹ, ㅅ/ㅈ, ㅎ/ㅇ —
+ * all censused from m1's own taught inventory; m2 pairs like ㅈ/ㅊ are NOT
+ * drawn on) were never drilled head-to-head. Two lessons at the module tail
+ * ("review after", per the interleave law — mirrors m2's bt-review):
+ *   - ko-m1-mix-1: look-alike glyph discrimination, pair by pair.
+ *   - ko-m1-mix-2: mixed cross-row word reading/building, m1 vocab only.
+ * All audio reuses existing m1 block/word clips — no new TTS strings.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/** Ctx over a hand-picked confusable set: recognition / symbol_to_sound
+ *  distractors come from `allBlocks`, so a 4-block ctx pits the target
+ *  against exactly its look-alikes. */
+function confusableCtx(blocks: SyllableEntry[]): KoRowContext {
+  return { allBlocks: blocks, words: [], tileBankPool: [] };
+}
+
+const MIX_VOWEL_AXIS: SyllableEntry[] = [
+  { block: "아", romaji: "a", hint: "ㅏ — stroke points RIGHT" },
+  { block: "어", romaji: "eo", hint: "ㅓ — stroke points LEFT" },
+  { block: "오", romaji: "o", hint: "ㅗ — stroke points UP" },
+  { block: "우", romaji: "u", hint: "ㅜ — stroke points DOWN" },
+];
+
+const MIX_M_B: SyllableEntry[] = [
+  { block: "마", romaji: "ma", hint: "ㅁ — closed box" },
+  { block: "바", romaji: "ba", hint: "ㅂ — box with antennae" },
+  { block: "무", romaji: "mu", hint: "ㅁ + ㅜ" },
+  { block: "부", romaji: "bu", hint: "ㅂ + ㅜ" },
+];
+
+const MIX_D_R: SyllableEntry[] = [
+  { block: "다", romaji: "da", hint: "ㄷ — two corners" },
+  { block: "라", romaji: "ra", hint: "ㄹ — the zigzag" },
+  { block: "도", romaji: "do", hint: "ㄷ + ㅗ" },
+  { block: "로", romaji: "ro", hint: "ㄹ + ㅗ" },
+];
+
+const MIX_S_J: SyllableEntry[] = [
+  { block: "사", romaji: "sa", hint: "ㅅ — plain tent" },
+  { block: "자", romaji: "ja", hint: "ㅈ — tent with a roof beam" },
+  { block: "서", romaji: "seo", hint: "ㅅ + ㅓ" },
+  { block: "저", romaji: "jeo", hint: "ㅈ + ㅓ" },
+];
+
+const MIX_H_NULL: SyllableEntry[] = [
+  { block: "하", romaji: "ha", hint: "ㅎ — the circle wears a hat" },
+  { block: "아", romaji: "a", hint: "ㅇ — bare circle, silent" },
+  { block: "호", romaji: "ho", hint: "ㅎ + ㅗ" },
+  { block: "오", romaji: "o", hint: "ㅇ + ㅗ" },
+];
+
+function buildM1ConfusablesLesson(): LessonContent {
+  const wordCtx: KoRowContext = {
+    allBlocks: [],
+    words: [
+      { word: "바다", meaningEn: "sea", emoji: "🌊" },
+      { word: "나무", meaningEn: "tree", emoji: "🌳" },
+      { word: "모자", meaningEn: "hat", emoji: "🧢" },
+      { word: "다리", meaningEn: "leg / bridge", emoji: "🦵" },
+    ],
+    tileBankPool: [],
+  };
+  return {
+    id: "ko-m1-mix-1",
+    moduleId: "m1",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "Look-alike letters",
+    description: "The pairs that fool beginners: ㅏ/ㅓ, ㅗ/ㅜ, ㅁ/ㅂ, ㄷ/ㄹ, ㅅ/ㅈ, ㅎ/ㅇ.",
+    estimatedMinutes: 6,
+    xpReward: 14,
+    steps: [
+      {
+        id: "ko-m1-mix1-info-0",
+        type: "info",
+        title: "One stroke apart",
+        body:
+          "Nine rows down. Now the letters that fool everyone: flip a stroke and ㅏ becomes ㅓ, ㅗ becomes ㅜ. ㅁ grows antennae into ㅂ, ㄷ grows a tail into ㄹ, ㅅ puts on a roof beam and becomes ㅈ, and ㅇ puts on a hat and becomes ㅎ.\n\nEach round pits a block against its look-alikes — read closely.",
+        variant: "grammar",
+      },
+      // Vowel axis — the direction of the short stroke IS the vowel.
+      recognition(confusableCtx(MIX_VOWEL_AXIS), "ko-m1-mix1-recog-eo", "어", "eo", "ㅓ — stroke points LEFT"),
+      recognition(confusableCtx(MIX_VOWEL_AXIS), "ko-m1-mix1-recog-u", "우", "u", "ㅜ — stroke points DOWN"),
+      matchBlocksToRomaji(
+        "ko-m1-mix1-match-g",
+        [
+          { block: "가", romaji: "ga" },
+          { block: "거", romaji: "geo" },
+          { block: "고", romaji: "go" },
+          { block: "구", romaji: "gu" },
+        ],
+        "Same consonant, four vowels — match each to its sound",
+      ),
+      // ㅁ vs ㅂ
+      recognition(confusableCtx(MIX_M_B), "ko-m1-mix1-recog-ba", "바", "ba", "ㅂ — box with antennae"),
+      symbolToSound(confusableCtx(MIX_M_B), "ko-m1-mix1-sts-mu", "무", "mu", "closed box on top = m"),
+      // ㄷ vs ㄹ
+      recognition(confusableCtx(MIX_D_R), "ko-m1-mix1-recog-ra", "라", "ra", "ㄹ — the zigzag"),
+      symbolToSound(confusableCtx(MIX_D_R), "ko-m1-mix1-sts-do", "도", "do", "two corners = d"),
+      // Word break — the pairs inside real words you know.
+      wordImageMcq(wordCtx, "ko-m1-mix1-mcq-bada", "바다"),
+      listeningComp("ko-m1-mix1-lc-dari", "다리", "leg / bridge", ["sea", "tree", "hat"]),
+      // ㅅ vs ㅈ
+      recognition(confusableCtx(MIX_S_J), "ko-m1-mix1-recog-ja", "자", "ja", "ㅈ — tent with a roof beam"),
+      symbolToSound(confusableCtx(MIX_S_J), "ko-m1-mix1-sts-seo", "서", "seo", "plain tent = s"),
+      // ㅎ vs silent ㅇ
+      recognition(confusableCtx(MIX_H_NULL), "ko-m1-mix1-recog-ha", "하", "ha", "ㅎ — the circle wears a hat"),
+      // Final cross-family sweep.
+      matchBlocksToRomaji(
+        "ko-m1-mix1-match-mbdr",
+        [
+          { block: "마", romaji: "ma" },
+          { block: "바", romaji: "ba" },
+          { block: "다", romaji: "da" },
+          { block: "라", romaji: "ra" },
+        ],
+        "Two look-alike pairs at once — match each block to its sound",
+      ),
+      {
+        id: "ko-m1-mix1-info-end",
+        type: "info",
+        title: "Sharp eyes",
+        body:
+          "ㅏ/ㅓ, ㅗ/ㅜ, ㅁ/ㅂ, ㄷ/ㄹ, ㅅ/ㅈ, ㅎ/ㅇ — six traps, disarmed. One more lesson closes the module: every row mixed together.",
+        variant: "win",
+      },
+    ],
+  };
+}
+
+function buildM1CapstoneLesson(): LessonContent {
+  // Cross-row word work only — every word and block below is m1-taught.
+  const mojaCtx: KoRowContext = {
+    allBlocks: [],
+    words: [{ word: "모자", meaningEn: "hat", emoji: "🧢" }],
+    tileBankPool: ["머", "조", "무"], // look-alike decoy tiles
+  };
+  const nuguCtx: KoRowContext = {
+    allBlocks: [],
+    words: [{ word: "누구", meaningEn: "who", emoji: "❓" }],
+    tileBankPool: ["노", "고", "두"],
+  };
+  const eomeoniCtx: KoRowContext = {
+    allBlocks: [],
+    words: [{ word: "어머니", meaningEn: "mother", emoji: "👩" }],
+    tileBankPool: ["아", "미", "너"],
+  };
+  const shoesCtx: KoRowContext = {
+    allBlocks: [],
+    words: [
+      { word: "구두", meaningEn: "shoes (dress shoes)", emoji: "👞" },
+      { word: "호두", meaningEn: "walnut", emoji: "🌰" },
+      { word: "고기", meaningEn: "meat", emoji: "🥩" },
+      { word: "모두", meaningEn: "all / everyone", emoji: "👥" },
+    ],
+    tileBankPool: [],
+  };
+  const natureCtx: KoRowContext = {
+    allBlocks: [],
+    words: [
+      { word: "나무", meaningEn: "tree", emoji: "🌳" },
+      { word: "어머니", meaningEn: "mother", emoji: "👩" },
+      { word: "머리", meaningEn: "head / hair", emoji: "🧑" },
+      { word: "바다", meaningEn: "sea", emoji: "🌊" },
+    ],
+    tileBankPool: [],
+  };
+  return {
+    id: "ko-m1-mix-2",
+    moduleId: "m1",
+    courseId: "mock-1",
+    languageId: "ko",
+    title: "Module 1 capstone — every row mixed",
+    description: "Read and build m1 words with all nine rows in play.",
+    estimatedMinutes: 6,
+    xpReward: 15,
+    steps: [
+      {
+        id: "ko-m1-mix2-info-0",
+        type: "info",
+        title: "All nine rows at once",
+        body:
+          "Until now each lesson stayed inside one consonant row. Real Korean doesn't. Every word here mixes rows — and the decoy tiles are the look-alikes from last lesson. Trust your reading, not the shape of the exercise.",
+        variant: "default",
+      },
+      listeningBuild(mojaCtx, "ko-m1-mix2-build-moja", "모자", "hat"),
+      wordImageMcq(shoesCtx, "ko-m1-mix2-mcq-gudu", "구두"),
+      listeningComp("ko-m1-mix2-lc-hodu", "호두", "walnut", [
+        "shoes (dress shoes)",
+        "all / everyone",
+        "meat",
+      ]),
+      listeningBuild(nuguCtx, "ko-m1-mix2-build-nugu", "누구", "who"),
+      wordImageMcq(natureCtx, "ko-m1-mix2-mcq-namu", "나무"),
+      listeningComp("ko-m1-mix2-lc-meori", "머리", "head / hair", [
+        "tree",
+        "mother",
+        "leg / bridge",
+      ]),
+      listeningBuild(eomeoniCtx, "ko-m1-mix2-build-eomeoni", "어머니", "mother"),
+      speaking("ko-m1-mix2-speak-eomeoni", "어머니", "mother"),
+      speaking("ko-m1-mix2-speak-bada", "바다", "sea"),
+      {
+        id: "ko-m1-mix2-info-end",
+        type: "info",
+        title: "Module 1 — complete",
+        body:
+          "Six vowels, nine consonant rows, the look-alike traps, and real words built across all of them. Module 2 adds the aspirated and tense consonants (ㅋ ㅌ ㅍ ㅊ, ㄲ ㄸ ㅃ ㅆ ㅉ), the y- and compound vowels, and the final consonants that close a block.",
+        variant: "win",
+      },
+    ],
+  };
+}
+
 export function buildAllKoreanRowLessons(): LessonContent[] {
   const out: LessonContent[] = [];
   for (const row of KO_M1_ROWS) {
     validateRowVocab(row);
     out.push(...buildRowSubLessons(row));
   }
+  // Cross-row capstone tail — review after the family, never mid-march.
+  out.push(buildM1ConfusablesLesson());
+  out.push(buildM1CapstoneLesson());
   return out;
 }

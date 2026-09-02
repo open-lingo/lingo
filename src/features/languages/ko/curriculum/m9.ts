@@ -72,8 +72,9 @@ const M9_1: LessonContent = {
       "grammar",
     ),
     phrase("ko-m9-1-p-and", "and / with", "hago", "하고"),
-    // 2026-09-01 audit: 빵 was graded (MCQ + listening) with no intro anywhere
-    // in the course — real intro here, before its first graded use below.
+    // 빵 is taught at m5 since the R4 re-author (reading in m2 bt-2, meaning
+    // in ko-m5-3) — this card is a quick REVIEW re-anchor before the
+    // connector drills lean on it, not an intro.
     phrase("ko-m9-1-p-bread", "bread", "ppang", "빵", undefined, { emoji: "🍞" }),
     phrase("ko-m9-1-p-apple", "apple", "sagwa", "사과", undefined, { emoji: "🍎" }),
     vocabMcq("ko-m9-1-mcq-apple", { surface: "사과", meaningEn: "apple", emoji: "🍎" }, MCQ_POOL),

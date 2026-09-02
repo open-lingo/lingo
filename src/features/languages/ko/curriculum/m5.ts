@@ -5,7 +5,9 @@
  * and phone numbers. M5 introduces the OTHER set — the NATIVE-Korean numbers
  * (하나 둘 셋…) used for counting things, people, age, and hours — plus the
  * three most common counters (개 / 명 / 잔) and 주세요 ("please give"),
- * so the learner can actually order at a cafe.
+ * so the learner can actually order at a cafe. 빵 ("bread") is taught here
+ * too (R4 re-author 2026-09-01): reading came free from m2's batchim drill
+ * (bt-2), ko-m5-3 attaches the meaning, ko-m5-5 grades it while ordering.
  *
  * Grammar spine mirrors the JA M5 arc (native numbers + counters + ください),
  * adapted to Korean:
@@ -152,6 +154,11 @@ const M5_3: LessonContent = {
     ),
     phrase("ko-m5-3-p-give", "please give (me)", "juseyo", "주세요"),
     phrase("ko-m5-3-p-water", "water", "mul", "물", undefined, { emoji: "💧" }),
+    // R4 re-author (2026-09-01): 빵 semantic intro. The learner can already
+    // READ it — m2's bt-2 drilled 빵 as a batchim word — this card attaches
+    // the meaning and opens its SRS entry; graded ordering use lands in
+    // ko-m5-5 (interleave: a counters lesson sits between).
+    phrase("ko-m5-3-p-bread", "bread", "ppang", "빵", undefined, { emoji: "🍞" }),
     sentenceMcq({
       id: "ko-m5-3-q-water",
       prompt: "How do you say 'Water, please'?",
@@ -277,6 +284,16 @@ const M5_5: LessonContent = {
       ["커피", "두", "잔", "주세요"],
       ["커피", "잔", "주세요"],
     ),
+    // 빵 was introduced in ko-m5-3 — first graded use, and it pulls its
+    // counter (개, things) against 잔 right after the 커피/잔 build above.
+    sentenceMcq({
+      id: "ko-m5-5-q-bread",
+      prompt: "'One piece of bread, please.' — which is correct?",
+      correctHangul: "빵 한 개 주세요",
+      distractorsHangul: ["빵 하나 개 주세요", "빵 한 잔 주세요", "빵 일 개 주세요"],
+      explanation: "Bread is a thing → 개 (not 잔), and 하나 → 한 before a counter.",
+      exercisedAtomSurfaces: ["빵", "개", "주세요"],
+    }),
     cloze(
       "ko-m5-5-cloze-counter",
       "물 한",

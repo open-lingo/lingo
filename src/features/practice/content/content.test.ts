@@ -114,17 +114,14 @@ const JA_RESTAMP_DEBT = new Set([
   "ja-m30-the-club", "ja-m30-the-senior-i-grew-up-with",
 ]);
 
-// KO fromModule truth-fix debt (2026-09-01). The KO release audit moved 빵 to
-// its true first-teach module (m9 phrase card) — it had been registered as m5
-// vocab that m5 never taught, and early curated café content used it under the
-// stale tag. Most pieces absorbed a 빵 gloss instead; the two here cannot (the
-// m6 story sits at its L2 gloss cap with both glosses in use, and
-// conversations have no gloss channel). Frozen BY NAME until the KO re-author
-// teaches 빵 at m5 for real; same contract as JA_RESTAMP_DEBT — stale entries
-// must be removed (checked below).
-const KO_RESTAMP_DEBT = new Set([
-  "ko-m6-no-restaurant-at-the-station", "ko-m5-cafe",
-]);
+// KO fromModule truth-fix debt. EMPTY since 2026-09-01 (R4 re-author): 빵 is
+// now genuinely taught at m5 (reading in m2 bt-2, semantic intro ko-m5-3,
+// graded use ko-m5-5), which cleared the two frozen entries
+// (ko-m6-no-restaurant-at-the-station, ko-m5-cafe) — they pass the strict
+// gate. Mechanism kept: same contract as JA_RESTAMP_DEBT — freeze BY NAME
+// only content that was comprehensible under a stale fromModule tag and
+// cannot absorb a gloss; stale entries must be removed (checked below).
+const KO_RESTAMP_DEBT = new Set<string>([]);
 
 function contentGateFlags(lang: string): Set<string> {
   const flagged = new Set<string>();

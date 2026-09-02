@@ -406,9 +406,13 @@ const M5_VOCAB: KoAtom[] = [
   // Ordering / money vocab
   atom({ surface: "주세요", meaningEn: "please give (me)", romanization: "juseyo", partOfSpeech: "verb", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "물", meaningEn: "water", romanization: "mul", emoji: "💧", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
-  // 빵 ("bread") was registered here as m5 vocab, but m5 never teaches it —
-  // attribution drift caught by the 2026-09-01 audit. It is owned (and now
-  // properly introduced) by M9; see M9_VOCAB.
+  // 빵 ("bread") — taught HERE for real since the R4 re-author (2026-09-01):
+  // m2's bt-2 gives the READING (빵 as a batchim drill word, no atom), and
+  // ko-m5-3 gives the semantic intro (phrase card) with graded ordering use
+  // in ko-m5-5. The 2026-09-01 audit had moved it to m9 because the old m5
+  // registration was attribution drift with no teach beat; the m9 phrase
+  // card in ko-m9-1 is now review. M21's re-register stays srsEligible:false.
+  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "얼마", meaningEn: "how much", romanization: "eolma", partOfSpeech: "pronoun", fromModule: "m5", kind: "vocab" }),
   atom({ surface: "원", meaningEn: "won (₩, currency)", romanization: "won", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
 ];
@@ -551,10 +555,8 @@ const M9_VOCAB: KoAtom[] = [
   atom({ surface: "와", meaningEn: "and (formal, after a vowel)", romanization: "wa", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
   atom({ surface: "과", meaningEn: "and (formal, after a consonant)", romanization: "gwa", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
   atom({ surface: "도", meaningEn: "too / also", romanization: "do", partOfSpeech: "particle", fromModule: "m9", kind: "particle", srsEligible: false }),
-  // Support vocab for the connector drills
-  // 빵 is FIRST taught here (phrase card in ko-m9-1) — it was previously
-  // misattributed to m5 (2026-09-01 audit fix), so this is its primary entry.
-  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m9", kind: "vocab" }),
+  // Support vocab for the connector drills. 빵 lives in M5_VOCAB since the
+  // R4 re-author (real intro in ko-m5-3); ko-m9-1's phrase card is review.
   atom({ surface: "우유", meaningEn: "milk", romanization: "uyu", emoji: "🥛", partOfSpeech: "noun", fromModule: "m9", kind: "vocab", srsEligible: false }),
   atom({ surface: "사과", meaningEn: "apple", romanization: "sagwa", emoji: "🍎", partOfSpeech: "noun", fromModule: "m9", kind: "vocab" }),
 ];
@@ -861,7 +863,7 @@ const M20_VOCAB: KoAtom[] = [
  * M21 — Food, restaurants, quotation & listing. Food vocab, the listing
  * connectors 하고/(이)랑, the 잔 cup counter, and (이)라고 하다 (naming/quote).
  * Mirrors JA M21 (food + と quotation + や list + cup counter). 고기 (M1),
- * 빵 (M9), 하고 (M9), 잔 (M5) already exist → srsEligible:false.
+ * 빵 (M5), 하고 (M9), 잔 (M5) already exist → srsEligible:false.
  */
 const M21_VOCAB: KoAtom[] = [
   atom({ surface: "고기", meaningEn: "meat", romanization: "gogi", emoji: "🥩", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),

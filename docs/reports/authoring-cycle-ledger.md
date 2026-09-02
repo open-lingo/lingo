@@ -18,32 +18,49 @@ burn — the F18 agent spent ~68 min exploring before writing; never again).
 Priority: FR m3→m15 (long pole) → KO quality wave → ES m11–m15 (after
 Spencer's walk unblocks).
 
-## In-flight (updated 2026-09-01 post-compaction)
+## In-flight (updated 2026-09-01 PM)
 
-**RUN COMPLETE (2026-09-01 ~06:50). FR 10/15; lane PAUSED at the
-conjugation checkpoint.** Everything remaining is Spencer-gated:
-- **Walks**: /fr/qa/m3..m10 (~610 unauditioned Denise clips). HIGHEST
-  PRIORITY LISTEN = the m10 liaison audition set (5 strings, numbered
-  list in the m10.ts header comment block + the agent report; pinned as
-  `LIAISON_AUDITION_SET` in m10.test.ts; a bad liaison is a one-string
-  swap). Ear-training teaches what the learner hears — audit before
-  promotion.
-- **Conjugation checkpoints**: ES m11+ AND FR m11 «La machine à verbes»
-  (specced in playbook §8; teases planted in m10) both await Spencer's
-  sign-off per the ES checkpoint law.
-- **Commit/push**: entire program uncommitted (~70 real code/content
-  files + 550 staged FR mp3s etc. under tts-publish/). THE critical-path
-  release risk.
-- Parked daylight items: KO batchim depth, KO m1 capstone; lingo-data
-  generate.py flat-manifest lock (pipeline backlog).
-Session-limit note: the account limit killed the FR agent mid-m10 at
-~03:20 (reset 5am Denver) and the machine slept ~3h; recovery cost
-nothing — partial m10.ts survived, resume finished it clean.
+**SHIPPED TO PROD 2026-09-01 ~15:40 — commit `65c0944e`** (Spencer
+approved commit+push; the whole program in one atomic commit, 988 paths,
+other sessions' in-flight files deliberately excluded). Clean-worktree
+preflight caught 3 latent |app|-project failures the scoped cycle runs
+couldn't see — fixed pre-push: (1) 빵 fromModule truth-fix (m5→m9) broke
+5 curated café pieces → 빵 glossed into the 3 stories with budget room,
+`KO_RESTAMP_DEBT` (JA-pattern, stays-honest-checked) froze the
+gloss-capped m6 story + the ko-m5-cafe conversation until the re-author
+teaches 빵 early; (2+3) contentSafety LIKES_A_PERSON flagged 5 FR strings
+(«J'aime ma famille» arc payoff + 2 regex false positives) → reviewed
+exemptions with rationales. Verified: preflight green at the commit,
+deploy + ci runs SUCCESS, prod bundle CONSISTENT (209 chunks resolve) and
+carries the FR m3–m10 titles + m11 teaser.
+
+**KO RE-AUTHOR LANE (Spencer 2026-09-01: full re-author, handing KO to
+Payton): ALL FOUR CYCLES COMPLETE** — R1 stabilizer ✅ R2 re-base regen ✅
+R3 batchim depth ✅ R4 m1 capstone + 빵-at-m5 ✅ (rows below; all verified
+independently, ALL UNCOMMITTED). KO_RESTAMP_DEBT is now empty (both
+entries cleared for real — 빵 taught at m5, glosses dropped, gates pass
+with no skips). Remaining before Payton sees it:
+1. ⚠️ TTS upload BLOCKED — AWS SSO token expired; 26 staged clips
+   (R3's 22 + R4's 4, tts-publish/ko/ now 353) are NOT in S3 while the
+   manifest (1879) counts them. Spencer: `aws sso login --profile lingo`,
+   then pipeline.tts.upload → re-run to to-upload=0. MUST precede any
+   deploy carrying this manifest.
+2. Commit/push of the whole re-author wave = ask Spencer fresh
+   (release-wave approval was one-time); clean-preflight worktree at
+   scratchpad/wt-release.
+
+Still Spencer-gated (unchanged): /fr/qa/m3..m10 walks incl. the m10
+LIAISON_AUDITION_SET listen; ES m11+ AND FR m11 conjugation sign-offs.
+Parked: lingo-data generate.py flat-manifest lock.
 
 ## Cycles
 
 | # | date | target | agent tokens | agent wall | gate failures caught | notes / optimizations adopted |
 |---|---|---|---|---|---|---|
+| R4 | 2026-09-01 | KO m1 cross-row capstone + 빵 taught at m5 (restamp debt cleared) | 210,729 | 14.2 min (95 tool uses) | 0 — full lane green first pass; ZERO ratchet flips from the atom move (review-grid pools absorbed 빵 without pinned-test fallout) | 빵 atom M9→M5 (courseAtoms first-write-wins resolves at m5; m21 srsEligible:false intact; introducedByLessonId landmine confirmed JA-only, N/A); intro = phrase card in ko-m5-3 leaning on R3's m2 reading + graded sentenceMcq in ko-m5-5 (빵 한 개 주세요, distractors drill 한-contraction + 개/잔), interleave respected (m5-4 counters as break). Both KO_RESTAMP_DEBT entries DELETED (mechanism kept as empty set — JA twin exists); all 3 빵 story glosses dropped (the above-level gloss gate forces removal once 빵 is m5). m1 capstone: 2 tail lessons (ko-m1-mix-1 look-alikes: ㅏㅓ/ㅗㅜ/ㅁㅂ/ㄷㄹ/ㅅㅈ/ㅎㅇ from m1's actual census, m2 pairs excluded; ko-m1-mix-2 cross-row builds w/ decoy tiles), NEW m1.test.ts (29-lesson pin + capstone census guard), 2 mockCourse nodes, 2 placement items (pt-ko-m1-4/5). TTS: +4 strings (MCQ options — emitter sweeps distractors by design, 3 clips are never-rendered orderings), manifest 1875→1879, byte-identical both repos, 4 mp3s staged. Verified independently: ko 37 files/423, app content+mockCourse 64/64, tsc 0, debt set empty + no 빵 glosses + atom at m5 spot-grepped, 4 hashes present, 353 staged mp3s. Judgment calls flagged: distractor clips generated; ko-m9-1 빵 card kept as review re-anchor; capstone = 2 lessons not 1 |
+| R3 | 2026-09-01 | KO batchim depth (m2 33→37 lessons, all 7 final-sound groups taught before first use) | 187,766 | 16.9 min (70 tool uses) | 0 — suite green on report; interleave/adjacency machine-asserted in new m2 test | Census-first (script at scratchpad/batchim-census.mjs): all 6 untaught groups are forced by m3 L1–L2 (안녕하세요/학생/이름/감사합니다/반갑습니다) → all belong in m2. Built: bt-1 hummed ㄴㅁ, bt-2 ㅇㄹ (pays off m1-intro's "ㅇ later" promise, ㄹ allophony note), bt-3 stopped ㄱㅂ (builds 한국/학생 — m3's opening words — as cross-arc wins), review extended, existing [t] lesson kept last-teach (position/TTS stable), bt-review tail w/ 연음 beats. 연음 = explanation+light drill, NO arc (13–40 liaison words/module m3–m15 but zero graded steps depend on production before m15); double codas = one info mention (4 lexical items). +3 placement items (pt-ko-m2-7/8/9, coda discrimination uses sound-DIFFERENT contrasts per in-code rule). 22 new clips (manifest 1853→1875). Verified independently: ko suite 36 files/418 green, tsc 0, mockCourse+placement 97/97, manifest count+4 spot-hashes ✓, app↔lingo-data ko.json byte-identical, 349 staged mp3s. ⚠️ UPLOAD BLOCKED: AWS SSO token expired — clips staged, not uploaded. Flagged for Spencer: [t]-lesson-after-review ordering; new m2 words carry no atoms (no SRS credit from m2 — avoids registration ripple); legacy questionBank.ts pt-ko-m2 drift (pre-existing); 말="horse"/눈="eye" gloss choices |
+| R2 | 2026-09-01 | KO registry re-base regen (deliberate 562-move drip re-base) | 68,357 | 6.0 min (29 tool uses) | 0 — full curriculum suite green FIRST TRY (20/module drip invariant absorbed all 562 moves; no ratchet edits at all) | The de-smear is real: rare homograph senses fall to true rank (이-03 tooth m3→m27 r2449, 그-02 um m3→m27, 등-04, 때-02), 56 genuine high-freq words enter the live tier (책 m13, 학생, 엄마, 이름, 너무, 어렵다…), 56 digit-suffixed rare senses leave it (ids stable — existing SRS cards keep working). 436 earlier/126 later. Ride-along: first run of R1's emitter added grade (2,998) + intlLevel (2,587) fields → latent TS2590 (union-complexity cap on the 2,998-row literal) fixed by widening intlLevel to number in frequencyTypes.ts (documented in-type; nothing consumes the literal union). Fixture refreshed (--write-rank-baseline). Verified independently: dry-run idempotent 0/0, 이-03/책 spot-greps match, 15/15 gates, tsc exit 0 (lingle-eb finished its tts/index.ts edit — expected error gone). NO test-file fallout — the stabilizer + drip-by-construction made the scary cycle the cheapest one |
+| R1 | 2026-09-01 | KO freqRank stabilizer port (re-author lane) | 88,588 | 5.5 min (29 tool uses) | 0; ratchet negative-tested (mutated fixture → exactly the 2 pin tests fail) | JA's explicit-freqRank pattern adapted: KO has no hand-maintained source, so the committed registry IS the rank store — ingest pins existing ids to committed frequencyRank, unlockModule still derives via frequencyRankToModule (gating-math changes still flow). New: --rebase-ranks (deliberate re-base), --write-rank-baseline (fixture snapshot), freqUnlockStability.test.ts (6 tests) + freqRankBaseline.json (2,998 id→[rank,module]). Dry-run before/after: 2993 rank + 562 unlockModule moves → 0/0; --rebase-ranks escape hatch reproduces 562. Verified independently: dry-run 0/0 reproduced, 6/6 green. Pre-existing tsc error in src/shared/tts/index.ts = lingle-eb's mid-edit, not ours |
 | 0 | 2026-08-26..09-01 | JA F18 pilot (baseline) | not measured | ~3h incl. 2 stalls | 1 real (dup audio) | Lesson learned: pre-brief agents with exact paths; scoped test runs |
 | 10 | 2026-09-01 | FR m10 «Les» (8 atoms, 10 lessons, liaison_listen debut) — RUN FINALE | 807,648 (resumed-run; incl. session-limit kill + resume) | 3.8+? min post-resume (13 tool uses; interrupted cycle) | 0 — clean first pass, 5 modules running; survived a mid-module session-limit kill + 3h machine sleep with zero loss | Liaison risk CONTAINED per ruling: core ear lane = robust le/les vowel contrast; exactly 3 liaison_listen items drawing only from a 5-string audition set pinned as a m10.test.ts constant (one-string swap procedure); checkpoint machine-pinned liaison-free. Plural atoms banned from withArticle factories («le chats»); no silent singular/plural co-tiling in listening banks (written builds co-tile on purpose); no gender tints on plural word_maps. Arc payoff: «j'aime les chats» (the sentence m3 couldn't build). m11 teases planted glossed+ungraded. Verified: fr 661 pass, tsc clean, 6/6 spot-hashes, 46 clips uploaded, to-upload=0 (21,488). LANE PAUSED: m11 = first conjugation module, awaits Spencer's checkpoint sign-off (ES law applied to FR) |
 | 9 | 2026-09-01 | FR m9 «Grand, grande» (6 atoms, 10 lessons, agreement_chain debut) | 752,760 (resumed-run) | 10.8 min (14 tool uses) | 0 — clean first pass, 4 modules running | Audible-pairs-only law (every taught agreement hearable; joli/jolie written-only class machine-pinned OUT until homophone tables ship); all 3 adjectives pre-nominal (BAGS); «bonne» completes m1's «bon» as the arc's emotional beat; 5 agreement chains, ≥4-per-module pin. Playbook's predicted agreementChain gap filled in-pass. Verified: fr 602 pass, tsc clean, 5/5 spot-hashes, 56 clips uploaded, to-upload=0 (21,442). WORKER-BOUNDING VERDICT: --max-workers=6 keeps qwen3.8:27b resident (eviction fixed) but drafter calls STILL starve behind the concurrent session's queue — own-judgment confirmed as the norm; keep the flag for suite speed. ESCALATION: m10's liaison_listen ear-training rides unauditioned Denise liaisons — see risk note in in-flight section |
