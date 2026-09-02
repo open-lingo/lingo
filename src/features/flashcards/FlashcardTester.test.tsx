@@ -14,7 +14,7 @@
  * the real scheduler.
  */
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/shared/i18n/i18n";
@@ -178,5 +178,40 @@ describe("FlashcardTester", () => {
       screen.getByRole("link", { name: /back to flashcards/i }),
     ).toBeInTheDocument();
     expect(screen.queryByText(/tap to reveal/i)).not.toBeInTheDocument();
+  });
+
+  it("mobile moves card details into a sheet opened from the toolbar", async () => {
+    mockViewport.isMobile = true;
+    renderTester();
+    // Not in flow before reveal, and the affordance is inert.
+    expect(screen.queryByText(/second half of many surnames/i)).not.toBeInTheDocument();
+    const details = screen.getByRole("button", { name: /card details/i });
+    expect(details).toBeDisabled();
+
+    fireEvent.click(screen.getByRole("button", { name: /show answer/i }));
+    expect(details).toBeEnabled();
+    // Still not in flow — the phone screen shows card + grades and nothing else.
+    expect(screen.queryByText(/second half of many surnames/i)).not.toBeInTheDocument();
+
+    fireEvent.click(details);
+    const sheet = await screen.findByRole("dialog");
+    expect(sheet.className).toContain("bottom-0");
+    expect(
+      within(sheet).getByText(/second half of many surnames/i),
+    ).toBeInTheDocument();
+    // Session stats and the review settings ride in the same sheet on mobile.
+    expect(within(sheet).getByText(/grading buttons/i)).toBeInTheDocument();
+  });
+
+  it("desktop keeps the detail panel in flow and the settings popover", () => {
+    mockViewport.isMobile = false;
+    renderTester();
+    fireEvent.click(screen.getByRole("button", { name: /show answer/i }));
+    expect(screen.getAllByText(/second half of many surnames/i).length).toBeGreaterThan(0);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /review settings/i }));
+    // The popover is a `role="dialog"` anchored in the toolbar, not a sheet.
+    const popover = screen.getByRole("dialog", { name: /review settings/i });
+    expect(popover.className).toContain("absolute");
   });
 });

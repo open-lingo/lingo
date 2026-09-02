@@ -88,9 +88,11 @@ type Layout = "sidebar" | "stacked" | "overlay";
 
 /**
  * The detail body itself (segment breakdown / note / definition / context /
- * reasoning / examples). Shared by every layout variant.
+ * reasoning / examples). Shared by every layout variant — and, since Wave B,
+ * by the mobile bottom sheet, which needs the body WITHOUT the `<aside>` and
+ * card chrome the layout variants wrap it in.
  */
-function DetailBody({
+export function FlashcardDetailBody({
   card,
   particles,
 }: {
@@ -212,7 +214,7 @@ export function FlashcardDetailSidebar({
             </div>
           )}
           <div className="p-4">
-            <DetailBody card={card} particles={particles} />
+            <FlashcardDetailBody card={card} particles={particles} />
           </div>
         </div>
       </aside>
@@ -227,7 +229,7 @@ export function FlashcardDetailSidebar({
   return (
     <aside className={containerClass} aria-label={t("flashcards.detailsLabel", "Card details")}>
       <div className="rounded-lg border border-border bg-surface-muted p-4">
-        <DetailBody card={card} particles={particles} />
+        <FlashcardDetailBody card={card} particles={particles} />
       </div>
     </aside>
   );
