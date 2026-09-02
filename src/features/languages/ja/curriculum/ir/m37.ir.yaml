@@ -324,7 +324,7 @@ lessons:
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いく", "いった"], en: "If you're going to Japan, you should buy the ticket in advance", explanation: "なら picks up the PLAN as its topic — いくなら. いく alone is just the bare fact, no advice-frame attached. いった would mean the trip already happened — too late for advance-buying advice." }
-      - { kind: sentence, ja: "ひつようなら、てつだうよ。", en: "If it's necessary, I'll help", exercises: [nara], mode: build }
+      - { kind: sentence, ja: "ひつようなら、てつだうよ。", en: "If it's necessary, I'll help, you know", exercises: [nara], mode: build }
       - { kind: sentence, ja: "つごうが よければ、きてください。", en: "If it's convenient for you, please come", exercises: [ba-form, ga-existence], mode: build }
       - { kind: listening-comp, audio: "それなら、いい。", answer: "If that's the case, fine", distractors: ["That's not the case", "If that's not it, it's fine", "That's fine, thanks"], exercises: [nara] }
       - { kind: kanji, kana: にほん, kanji: 日本, distractors: ["にっぽん", "ひもと", "にほんじ"], exercises: [nara] }

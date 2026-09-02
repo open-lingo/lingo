@@ -266,21 +266,21 @@ grammarPoints:
   - id: yo-emphasis
     rule: "よ goes on the very end of a finished sentence and it means one thing: this is news to you. You have something the listener does not have, and よ is how you hand it over. 「ゆきが ふるよ。」 — it's going to snow, and I can hear that you don't know that yet. Say the same sentence without よ and it is a flat remark about the weather; say it with よ and it is aimed at somebody. That is the whole job, and it is worth having, because a beginner's Japanese without よ sounds oddly like a weather report even when it is a warning. Two mechanical facts, and neither is negotiable. First, よ attaches to a sentence that is ALREADY finished, in whatever register you finished it: 「ふるよ。」 to a friend, 「いきますよ。」 to a teacher, 「じゃないですよ。」 when you are correcting somebody politely. The politeness is decided before よ arrives, and よ neither adds any nor takes any away. Second, nothing follows よ. It is the last thing in the sentence. There is one thing NOT to do with it. Do not put よ on something you can both plainly see. Telling somebody standing in the same snow 「さむいよ」 informs them of their own experience, which lands somewhere between odd and rude — that sentence wants ね, and ね is the next lesson."
     examples:
-      - { ja: "ゆきが ふるよ。", en: "It's going to snow, you know." }
-      - { ja: "この おんがくは いいよ。", en: "This music is good, you know." }
-      - { ja: "かぎは つくえの うえに あるよ。", en: "The key's on the desk, you know." }
-      - { ja: "せんせい じかんが ありませんよ。", en: "Say politely: Teacher, there isn't any time" }
-      - { ja: "へやは せまいよ。", en: "The room's narrow, you know." }
+      - { ja: "ゆきが ふるよ。", en: "Say to a friend: It's going to snow, you know" }
+      - { ja: "この おんがくは いいよ。", en: "Say to a friend: This music is good, you know" }
+      - { ja: "かぎは つくえの うえに あるよ。", en: "Say to a friend: The key's on the desk, you know" }
+      - { ja: "せんせい じかんが ありませんよ。", en: "Say politely: Teacher, there isn't any time — just so you know" }
+      - { ja: "へやは せまいよ。", en: "Say to a friend: The room's narrow, you know" }
     antiPattern: { ja: "ゆきよが ふる。", why: "よ goes on the very END of a finished sentence and never inside it — it is not a particle marking a word: ゆきが ふるよ。" }
 
   - id: ne-agreement
     rule: "ね is the exact opposite move to よ, and the pair is easier to learn together than apart. よ says I know something you don't. ね says we both know this, don't we — and it asks the listener to nod. 「かぜが つよいね。」 — the wind's strong, isn't it. You are not informing anybody; you are checking that you are standing in the same weather. That is why ね is everywhere in real conversation and why a beginner who only has よ sounds strangely combative. Mechanically it behaves exactly like よ. It sits at the very end, it attaches to a sentence that is already finished, and it takes whatever register that sentence was in: 「きれいだね。」 to a friend, 「きれいですね。」 to a teacher. Nothing follows it. And the two are a genuine choice, not a decoration: telling somebody the key is on the desk takes よ because they were looking for it, while remarking that the room is cold takes ね because they are in it. Pick the wrong one and the sentence is still grammatical — it is just aimed at the wrong person. One extra use worth knowing now. ね also softens a sentence that might otherwise land too hard, which is why 「ちょっと まってね。」 is friendlier than 「ちょっと まって。」"
     examples:
-      - { ja: "この はなは きれいだね。", en: "These flowers are pretty, aren't they." }
-      - { ja: "かぜが つよいね。", en: "The wind's strong, isn't it." }
+      - { ja: "この はなは きれいだね。", en: "Say to a friend: These flowers are pretty, aren't they" }
+      - { ja: "かぜが つよいね。", en: "Say to a friend: The wind's strong, isn't it" }
       - { ja: "たなかさんは えいごが じょうずですね。", en: "Say politely: Tanaka, you're good at English, aren't you" }
-      - { ja: "あきは すずしいね。", en: "Autumn is cool, isn't it." }
-      - { ja: "その くつは ちょっと ちいさいね。", en: "Those shoes are a bit small, aren't they." }
+      - { ja: "あきは すずしいね。", en: "Say to a friend: Autumn is cool, isn't it" }
+      - { ja: "その くつは ちょっと ちいさいね。", en: "Say to a friend: Those shoes are a bit small, aren't they" }
     antiPattern: { ja: "この はなは きれいねだ。", why: "ね goes AFTER the finished sentence, and だ is what finishes it — so だ comes first and ね last: この はなは きれいだね。" }
 
   - id: register-audience
@@ -301,10 +301,10 @@ grammarPoints:
         1: "なつやすみに がいこくに いくよ。"
         2: "なつやすみに がいこくに いきますよ。"
     examples:
-      - { ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays" }
-      - { ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays" }
+      - { ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays, you know" }
+      - { ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays, just so you know" }
       - { ja: "へやが せまいから つくえを かいます。", en: "Say politely: I'm going to buy a desk, because the room is narrow" }
-      - { ja: "ばんは とりにくを たべるよ。", en: "Say to a friend: I eat chicken in the evening" }
+      - { ja: "ばんは とりにくを たべるよ。", en: "Say to a friend: I eat chicken in the evening, you know" }
       - { ja: "たなかさんに えいごを ききますね。", en: "Say politely: I'll ask Tanaka about English, then" }
     antiPattern: { ja: "なつやすみに がいこくに いくだよ。", why: "a verb is already a whole sentence — だ finishes NOUNS and never verbs, so nothing goes between いく and よ: なつやすみに がいこくに いくよ。" }
 
@@ -313,9 +313,9 @@ grammarPoints:
     examples:
       - { ja: "ごごは かいものに いかない。", en: "Say to a friend: I'm not going shopping this afternoon" }
       - { ja: "ごごは かいものに いきません。", en: "Say politely: I won't be going shopping this afternoon" }
-      - { ja: "にくを たべないから やさいを かうよ。", en: "Say to a friend: I don't eat meat, so I'll buy vegetables" }
+      - { ja: "にくを たべないから やさいを かうよ。", en: "Say to a friend: I don't eat meat, so I'll buy vegetables, you know" }
       - { ja: "ぎゅうにゅうは のみません。", en: "Say politely: I don't drink milk" }
-      - { ja: "その ことばは わからないよ。", en: "Say to a friend: I don't know that word" }
+      - { ja: "その ことばは わからないよ。", en: "Say to a friend: I don't know that word, you know" }
     antiPattern: { ja: "ごごは かいものに いかないません。", why: "a verb goes negative ONCE — either the plain ない or the polite ません, never both: ごごは かいものに いかない。" }
 
   - id: masu-past
@@ -324,7 +324,7 @@ grammarPoints:
       - { ja: "ごぜんは はれだったから さんぽに いった。", en: "Say to a friend: It was fine this morning, so I went for a walk" }
       - { ja: "ごぜんは はれでした。", en: "Say politely: It was fine this morning" }
       - { ja: "じかんが なかったから でんわを しませんでした。", en: "Say politely: I didn't phone, because I hadn't got time" }
-      - { ja: "その おんがくは よかったよ。", en: "Say to a friend: That music was good" }
+      - { ja: "その おんがくは よかったよ。", en: "Say to a friend: That music was good, you know" }
       - { ja: "きっぷは たかかったですね。", en: "Say politely: The tickets were expensive, weren't they" }
     antiPattern: { ja: "ごぜんは はれだっただから さんぽに いった。", why: "だった IS the past of だ and finishes the noun sentence on its own, so nothing can be stacked on top of it: ごぜんは はれだったから さんぽに いった。" }
 
@@ -355,7 +355,7 @@ grammarPoints:
       - { ja: "ばんは ちょっと。", en: "Say to a friend: This evening is a bit… (a refusal)" }
       - { ja: "すみません ごぜんは ちょっと じかんが ないんです。", en: "Say politely: Sorry, I haven't quite got time this morning" }
       - { ja: "その ぼうしは ちょっと おおきいですね。", en: "Say politely: That hat is a bit big, isn't it" }
-      - { ja: "ちょっと まってね。", en: "Say to a friend: Hang on a second" }
+      - { ja: "ちょっと まってね。", en: "Say to a friend: Hang on a second, will you" }
     antiPattern: { ja: "ちょっと たかいだから かわない。", why: "an い-adjective finishes its clause on its own and never takes だ — から attaches straight onto it: ちょっと たかいから かわない。" }
 
 newAtoms:
@@ -421,7 +421,7 @@ lessons:
           - { speaker: "Tom", ja: "ううん ケンのじゃないよ。ミカのだ。", en: "No, it isn't Ken's. It's yours, Mika." }
         questions:
           - { q: "Whose wallet does Tom say it is?", options: ["Mika's", "Ken's", "His own", "The teacher's"], answer: "Mika's" }
-      - { kind: challenge, ja: "つくえの うえに ある えんぴつは わたしのじゃないですよ。", en: "Say politely: The pencil on the desk isn't mine", combines: [janai-desu, yo-emphasis, spatial-relations, arimasu, no-possession], mode: build }
+      - { kind: challenge, ja: "つくえの うえに ある えんぴつは わたしのじゃないですよ。", en: "Say politely: The pencil on the desk isn't mine, just so you know", combines: [janai-desu, yo-emphasis, spatial-relations, arimasu, no-possession], mode: build }
     reviewPool: [かぎ, めがね, ぼうし, さいふ, きゅうり, くだもの, さかな, にく, いしゃ, えんぴつ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -432,14 +432,14 @@ lessons:
     introduces: [よ]
     beats:
       - { kind: rule, grammarPointId: yo-emphasis }
-      - { kind: sentence, ja: "ゆきが ふるよ。", en: "Say to a friend: It's going to snow", exercises: [yo-emphasis, ga-existence, dictionary-form], mode: build }
-      - { kind: sentence, ja: "この おんがくは いいよ。", en: "Say to a friend: This music is good", exercises: [yo-emphasis, i-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "かぎは つくえの うえに あるよ。", en: "Say to a friend: The key's on the desk", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
-      - { kind: sentence, ja: "せんせい じかんが ありませんよ。", en: "Say politely: Teacher, there isn't any time", exercises: [yo-emphasis, nai-existence, masu-negative], mode: build }
-      - { kind: sentence, ja: "へやは せまいよ。", en: "Say to a friend: The room's narrow", exercises: [yo-emphasis, i-adj-present, wa-topic], mode: listening }
-      - { kind: sentence, ja: "この きゅうりは やすかったよ。", en: "Say to a friend: These cucumbers were cheap", exercises: [yo-emphasis, i-adj-past], mode: build }
-      - { kind: sentence, ja: "つくえの したに めがねが あるよ。", en: "Say to a friend: Your glasses are under the desk", exercises: [yo-emphasis, spatial-relations, ga-existence], mode: build }
-      - { kind: sentence, ja: "ごごから かいものに いきますよ。", en: "Say politely: I'm going shopping this afternoon", exercises: [yo-emphasis, ni-iku, masu-present], mode: build }
+      - { kind: sentence, ja: "ゆきが ふるよ。", en: "Say to a friend: It's going to snow, you know", exercises: [yo-emphasis, ga-existence, dictionary-form], mode: build }
+      - { kind: sentence, ja: "この おんがくは いいよ。", en: "Say to a friend: This music is good, you know", exercises: [yo-emphasis, i-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "かぎは つくえの うえに あるよ。", en: "Say to a friend: The key's on the desk, you know", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
+      - { kind: sentence, ja: "せんせい じかんが ありませんよ。", en: "Say politely: Teacher, there isn't any time — just so you know", exercises: [yo-emphasis, nai-existence, masu-negative], mode: build }
+      - { kind: sentence, ja: "へやは せまいよ。", en: "Say to a friend: The room's narrow, you know", exercises: [yo-emphasis, i-adj-present, wa-topic], mode: listening }
+      - { kind: sentence, ja: "この きゅうりは やすかったよ。", en: "Say to a friend: These cucumbers were cheap, you know", exercises: [yo-emphasis, i-adj-past], mode: build }
+      - { kind: sentence, ja: "つくえの したに めがねが あるよ。", en: "Say to a friend: Your glasses are under the desk, you know", exercises: [yo-emphasis, spatial-relations, ga-existence], mode: build }
+      - { kind: sentence, ja: "ごごから かいものに いきますよ。", en: "Say politely: I'm going shopping this afternoon, just so you know", exercises: [yo-emphasis, ni-iku, masu-present], mode: build }
       - { kind: particle-cloze, stem: "かぎは つくえの ", tail: "に あるよ。", answer: "うえ", options: ["うえ", "した", "なか"], en: "The key's on top of the desk", explanation: "うえ is the top surface — a key left where you can see it. した would put it underneath the desk and なか would shut it inside a drawer, and neither is where you leave something for somebody to find." }
       - { kind: listening-comp, audio: "じしょは いすの うえに あるよ。", answer: "The dictionary's on the chair, you know", distractors: ["The dictionary's under the chair", "The dictionary's on the desk", "Is the dictionary on the chair?"], exercises: [yo-emphasis, i-adj-present] }
       - { kind: listening-comp, audio: "ごごから ゆきが ふるよ。", answer: "It's going to snow from this afternoon", distractors: ["It snowed this afternoon", "It's going to rain from this afternoon", "It isn't going to snow this afternoon"], exercises: [yo-emphasis, kara-time] }
@@ -449,7 +449,7 @@ lessons:
           - { speaker: "Mika", ja: "かぜが つよいよ。ぼうしは ある？", en: "The wind's strong, you know. Have you got a hat?" }
         questions:
           - { q: "What does Mika tell Ken?", options: ["The wind is strong", "It is going to snow", "She is going too", "The walk is long"], answer: "The wind is strong" }
-      - { kind: challenge, ja: "きっぷは たかいから いっしょに いきませんよ。", en: "Say politely: The tickets are expensive, so I'm not going with you", combines: [yo-emphasis, kara-because, masu-negative, i-adj-present], mode: build }
+      - { kind: challenge, ja: "きっぷは たかいから いっしょに いきませんよ。", en: "Say politely: The tickets are expensive, so I'm not going with you — just so you know", combines: [yo-emphasis, kara-because, masu-negative, i-adj-present], mode: build }
     reviewPool: [ゆき, おんがく, かぎ, つくえ, まど, へや, きゅうり, きっぷ, じかん, かいもの]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -460,14 +460,14 @@ lessons:
     introduces: [ね]
     beats:
       - { kind: rule, grammarPointId: ne-agreement }
-      - { kind: sentence, ja: "この はなは きれいだね。", en: "Say to a friend: These flowers are pretty", exercises: [ne-agreement, na-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "かぜが つよいね。", en: "Say to a friend: The wind's strong", exercises: [ne-agreement, i-adj-present, ga-existence], mode: build }
-      - { kind: sentence, ja: "たなかさんは えいごが じょうずですね。", en: "Say politely: Tanaka, you're good at English", exercises: [ne-agreement, no-ga-jouzu, desu-copula], mode: build }
-      - { kind: sentence, ja: "あきは すずしいね。", en: "Say to a friend: Autumn is cool", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
-      - { kind: sentence, ja: "その くつは ちょっと ちいさいね。", en: "Say to a friend: Those shoes are a bit small", exercises: [ne-agreement, chotto-softener, i-adj-present], mode: listening }
-      - { kind: sentence, ja: "ふゆの いけは さむいですね。", en: "Say politely: The pond in winter is cold", exercises: [ne-agreement, no-possession, i-adj-present], mode: build }
-      - { kind: sentence, ja: "たまごは やすいですね。", en: "Say politely: Eggs are cheap", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
-      - { kind: sentence, ja: "この てがみは ながいね。", en: "Say to a friend: This letter is long", exercises: [ne-agreement, i-adj-present], mode: translate }
+      - { kind: sentence, ja: "この はなは きれいだね。", en: "Say to a friend: These flowers are pretty, aren't they", exercises: [ne-agreement, na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "かぜが つよいね。", en: "Say to a friend: The wind's strong, isn't it", exercises: [ne-agreement, i-adj-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "たなかさんは えいごが じょうずですね。", en: "Say politely: Tanaka, you're good at English, aren't you", exercises: [ne-agreement, no-ga-jouzu, desu-copula], mode: build }
+      - { kind: sentence, ja: "あきは すずしいね。", en: "Say to a friend: Autumn is cool, isn't it", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "その くつは ちょっと ちいさいね。", en: "Say to a friend: Those shoes are a bit small, aren't they", exercises: [ne-agreement, chotto-softener, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "ふゆの いけは さむいですね。", en: "Say politely: The pond in winter is cold, isn't it", exercises: [ne-agreement, no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たまごは やすいですね。", en: "Say politely: Eggs are cheap, aren't they", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "この てがみは ながいね。", en: "Say to a friend: This letter is long, isn't it", exercises: [ne-agreement, i-adj-present], mode: translate }
       - { kind: particle-cloze, stem: "かぜが つよい", tail: "。", answer: "ね", options: ["ね", "よ"], en: "You are both standing in the wind — say the wind's strong", explanation: "you are both feeling the same wind, so the sentence is collecting agreement and takes ね. よ would be telling them something they could not know, which is not true of weather you are both standing in." }
       - { kind: listening-comp, audio: "ふゆの ゆきは きれいだね。", answer: "The winter snow is pretty, isn't it", distractors: ["The winter snow is pretty, I'm telling you", "The winter snow isn't pretty", "The autumn flowers are pretty, aren't they"], exercises: [ne-agreement, na-adj-present] }
       - { kind: listening-comp, audio: "ごごの かぜは すずしいですね。", answer: "The afternoon wind is cool, isn't it", distractors: ["The afternoon wind is warm, isn't it", "The morning wind is cool, isn't it", "The afternoon wind was cool, wasn't it"], exercises: [ne-agreement, no-possession] }
@@ -477,7 +477,7 @@ lessons:
           - { speaker: "Tom", ja: "ええ かぜが つよいですよ。", en: "Yes. The wind's strong, you know." }
         questions:
           - { q: "What does Tom add about the weather?", options: ["The wind is strong", "It is going to snow", "It is cold", "It is raining"], answer: "The wind is strong" }
-      - { kind: challenge, ja: "ふゆに なったから あきの はなは もう ないですね。", en: "Say politely: Winter has come, so the autumn flowers are gone now", combines: [ne-agreement, ku-ni-naru, nai-existence, mada-mou, kara-because], mode: build }
+      - { kind: challenge, ja: "ふゆに なったから あきの はなは もう ないですね。", en: "Say politely: Winter has come, so the autumn flowers are gone now, aren't they", combines: [ne-agreement, ku-ni-naru, nai-existence, mada-mou, kara-because], mode: build }
     reviewPool: [はな, かぜ, くつ, たまご, てがみ, あき, ふゆ, えいご, てんき, すずしい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -487,25 +487,25 @@ lessons:
     focus: "じゃない / じゃないです / じゃありません, plus よ against ね"
     introduces: []
     beats:
-      - { kind: sentence, ja: "この さいふは ミカのじゃないよ。", en: "Say to a friend: This wallet isn't Mika's", exercises: [janai-desu, yo-emphasis, no-possession], mode: build }
+      - { kind: sentence, ja: "この さいふは ミカのじゃないよ。", en: "Say to a friend: This wallet isn't Mika's, you know", exercises: [janai-desu, yo-emphasis, no-possession], mode: build }
       - { kind: sentence, ja: "たまごは やさいじゃありません。", en: "Say politely: An egg isn't a vegetable", exercises: [janai-desu, wa-topic], mode: build }
-      - { kind: sentence, ja: "ごぜんの てんきは よかったね。", en: "Say to a friend: The weather was good this morning", exercises: [ne-agreement, i-adj-past, no-possession], mode: listening }
-      - { kind: sentence, ja: "その じしょは ふるいですね。", en: "Say politely: That dictionary is old", exercises: [ne-agreement, i-adj-present], mode: build }
-      - { kind: sentence, ja: "まどの まえに いすが ありますよ。", en: "Say politely: There's a chair in front of the window", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
+      - { kind: sentence, ja: "ごぜんの てんきは よかったね。", en: "Say to a friend: The weather was good this morning, wasn't it", exercises: [ne-agreement, i-adj-past, no-possession], mode: listening }
+      - { kind: sentence, ja: "その じしょは ふるいですね。", en: "Say politely: That dictionary is old, isn't it", exercises: [ne-agreement, i-adj-present], mode: build }
+      - { kind: sentence, ja: "まどの まえに いすが ありますよ。", en: "Say politely: There's a chair in front of the window, just so you know", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
       - { kind: particle-cloze, stem: "かぎは ここに ある", tail: "。", answer: "よ", options: ["よ", "ね"], en: "Your friend has been looking for the key — tell them it's here", explanation: "they have been looking, so they do not know: the sentence is handing over news and takes よ. ね would be checking that they already agree, which is exactly what they cannot do." }
       - { kind: sentence, ja: "ごごは ひまじゃないです。", en: "Say politely: I'm not free in the afternoon", exercises: [janai-desu, na-adj-negative], mode: build }
       - { kind: listening-comp, audio: "この かさは あねのじゃないよ。", answer: "This umbrella isn't my older sister's", distractors: ["This umbrella is my older sister's", "This umbrella isn't my older brother's", "That hat isn't my older sister's"], exercises: [janai-desu, family-register] }
-      - { kind: sentence, ja: "とりにくは ちょっと からいね。", en: "Say to a friend: The chicken is a bit spicy", exercises: [ne-agreement, chotto-softener, i-adj-present], mode: build }
-      - { kind: sentence, ja: "その ふくは おおきくないよ。", en: "Say to a friend: Those clothes aren't big", exercises: [yo-emphasis, i-adj-negative], mode: translate }
+      - { kind: sentence, ja: "とりにくは ちょっと からいね。", en: "Say to a friend: The chicken is a bit spicy, isn't it", exercises: [ne-agreement, chotto-softener, i-adj-present], mode: build }
+      - { kind: sentence, ja: "その ふくは おおきくないよ。", en: "Say to a friend: Those clothes aren't big, you know", exercises: [yo-emphasis, i-adj-negative], mode: translate }
       - { kind: listening-comp, audio: "ぎゅうにゅうは のみものですよ。", answer: "Milk is a drink, you know", distractors: ["Milk isn't a drink", "Milk is a food, you know", "Is milk a drink?"], exercises: [yo-emphasis, desu-copula] }
-      - { kind: sentence, ja: "この さんぽは ながいですね。", en: "Say politely: This walk is long", exercises: [ne-agreement, i-adj-present], mode: build }
+      - { kind: sentence, ja: "この さんぽは ながいですね。", en: "Say politely: This walk is long, isn't it", exercises: [ne-agreement, i-adj-present], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あの ひとは いしゃ？", en: "Is that person a doctor?" }
           - { speaker: "Ken", ja: "いしゃじゃないよ。せんせいだ。", en: "They aren't a doctor. They're a teacher." }
         questions:
           - { q: "What does Ken say the person is?", options: ["A teacher", "A doctor", "A student", "A shop clerk"], answer: "A teacher" }
-      - { kind: sentence, ja: "ふゆの ばんは ながいですね。", en: "Say politely: Winter evenings are long", exercises: [ne-agreement, no-possession], mode: build }
+      - { kind: sentence, ja: "ふゆの ばんは ながいですね。", en: "Say politely: Winter evenings are long, aren't they", exercises: [ne-agreement, no-possession], mode: build }
     reviewPool: [さいふ, たまご, やさい, じしょ, いす, かさ, とりにく, ふく, ぎゅうにゅう, さんぽ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -516,16 +516,16 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: register-audience }
-      - { kind: sentence, ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays", exercises: [register-audience, yo-emphasis, ni-location], mode: build }
-      - { kind: sentence, ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays", exercises: [register-audience, yo-emphasis, masu-present], mode: build }
+      - { kind: sentence, ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays, you know", exercises: [register-audience, yo-emphasis, ni-location], mode: build }
+      - { kind: sentence, ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays, just so you know", exercises: [register-audience, yo-emphasis, masu-present], mode: build }
       - { kind: register, stage: 2, audience: grandmother, answer: "じゃありません", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "へやが せまいから つくえを かいます。", en: "Say politely: I'm going to buy a desk, because the room is narrow", exercises: [register-audience, kara-because, masu-present], mode: listening }
       - { kind: register, stage: 2, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
-      - { kind: sentence, ja: "ばんは とりにくを たべるよ。", en: "Say to a friend: I eat chicken in the evening", exercises: [register-audience, yo-emphasis, wo-object], mode: translate }
+      - { kind: sentence, ja: "ばんは とりにくを たべるよ。", en: "Say to a friend: I eat chicken in the evening, you know", exercises: [register-audience, yo-emphasis, wo-object], mode: translate }
       - { kind: register, stage: 3, audience: friend, answer: "うん", options: ["うん", "はい", "ええ", "ううん"], en: "Answer yes.", frame: { before: "ともだち：「なつやすみに いく？」　" }, exercises: [yes-no-register, register-audience] }
       - { kind: sentence, ja: "たなかさんに えいごを ききますね。", en: "Say politely: I'll ask Tanaka about English, then", exercises: [register-audience, ne-agreement, wo-object], mode: build }
       - { kind: kanji, kana: ひと, exercises: [kanji-set-1] }
-      - { kind: sentence, ja: "ふゆの がいこくは さむいですよ。", en: "Say politely: Abroad is cold in winter", exercises: [register-audience, yo-emphasis, no-possession], mode: listening }
+      - { kind: sentence, ja: "ふゆの がいこくは さむいですよ。", en: "Say politely: Abroad is cold in winter, just so you know", exercises: [register-audience, yo-emphasis, no-possession], mode: listening }
       - { kind: particle-cloze, stem: "せんせいに えいごを ", tail: "ね。", answer: "ききます", options: ["ききます", "きく", "きこえる"], en: "Say politely: I'll ask the teacher about English, then", explanation: "the sentence is addressed to a teacher, so the verb takes its polite ending: ききます. きく is the same sentence said to a friend, and きこえる says the English reaches your ear by itself rather than that you ask anybody." }
       - { kind: listening-comp, audio: "まいにち えいごを ききますよ。", answer: "I listen to English every day, you know", distractors: ["I listen to English every week", "I don't listen to English every day", "I listened to English every day"], exercises: [register-audience, masu-present] }
       - kind: dialogue
@@ -534,7 +534,7 @@ lessons:
           - { speaker: "Mika", ja: "がいこくに いきます。ちちも いきますよ。", en: "I'm going abroad. My father's going too." }
         questions:
           - { q: "Who else does Mika say is going?", options: ["Her father", "Her mother", "Her older brother", "Tanaka"], answer: "Her father" }
-      - { kind: challenge, ja: "つくえが ふるいから おおきいのを かいたいんですよ。", en: "Say politely: The desk is old, so the thing is, I want to buy a big one", combines: [register-audience, n-desu, v-tai, kara-because, yo-emphasis], mode: build }
+      - { kind: challenge, ja: "つくえが ふるいから おおきいのを かいたいんですよ。", en: "Say politely: The desk is old, so the thing is, I want to buy a big one, you know", combines: [register-audience, n-desu, v-tai, kara-because, yo-emphasis], mode: build }
     reviewPool: [なつやすみ, がいこく, へや, つくえ, とりにく, えいご, ばん, ふゆ, ちち, ひと]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -547,12 +547,12 @@ lessons:
       - { kind: rule, grammarPointId: masu-negative }
       - { kind: sentence, ja: "ごごは かいものに いかない。", en: "Say to a friend: I'm not going shopping this afternoon", exercises: [masu-negative, nai-form, ni-iku], mode: build }
       - { kind: sentence, ja: "ごごは かいものに いきません。", en: "Say politely: I won't be going shopping this afternoon", exercises: [masu-negative, ni-iku, wa-topic], mode: build }
-      - { kind: sentence, ja: "にくを たべないから やさいを かうよ。", en: "Say to a friend: I don't eat meat, so I'll buy vegetables", exercises: [masu-negative, kara-because, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "にくを たべないから やさいを かうよ。", en: "Say to a friend: I don't eat meat, so I'll buy vegetables, you know", exercises: [masu-negative, kara-because, yo-emphasis], mode: build }
       - { kind: sentence, ja: "ぎゅうにゅうは のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wa-topic], mode: build }
-      - { kind: sentence, ja: "その ことばは わからないよ。", en: "Say to a friend: I don't know that word", exercises: [masu-negative, yo-emphasis, nai-form], mode: build }
+      - { kind: sentence, ja: "その ことばは わからないよ。", en: "Say to a friend: I don't know that word, you know", exercises: [masu-negative, yo-emphasis, nai-form], mode: build }
       - { kind: sentence, ja: "じかんが ないから さんぽに いきません。", en: "Say politely: I'm not going for a walk, because I haven't got time", exercises: [masu-negative, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "この えいごの ことばは しりませんね。", en: "Say politely: Neither of us knows this English word", exercises: [masu-negative, ne-agreement], mode: build }
-      - { kind: sentence, ja: "ばんは さかなを たべませんよ。", en: "Say politely: I don't eat fish in the evening", exercises: [masu-negative, yo-emphasis, wa-topic], mode: listening }
+      - { kind: sentence, ja: "ばんは さかなを たべませんよ。", en: "Say politely: I don't eat fish in the evening, just so you know", exercises: [masu-negative, yo-emphasis, wa-topic], mode: listening }
       - { kind: particle-cloze, stem: "ぎゅうにゅうは ", tail: "。", answer: "のみません", options: ["のみません", "のまない", "のみます"], en: "Say politely: I don't drink milk", explanation: "the cue asks for the polite register, so the negative is のみません. のまない is the same refusal said to a friend, and のみます says the opposite — that you do drink it." }
       - { kind: listening-comp, audio: "さかなを たべないから たまごを かうよ。", answer: "I don't eat fish, so I'll buy eggs", distractors: ["I eat fish, so I'll buy eggs", "I don't eat fish, so I'll buy meat", "I don't buy eggs, so I'll eat fish"], exercises: [masu-negative, kara-because] }
       - { kind: listening-comp, audio: "ばんは さんぽに いきません。", answer: "I don't go for a walk in the evening", distractors: ["I go for a walk in the evening", "I don't go for a walk in the morning", "I didn't go for a walk in the evening"], exercises: [masu-negative, ni-iku] }
@@ -562,7 +562,7 @@ lessons:
           - { speaker: "Ken", ja: "ううん たべないよ。やさいの ほうが すきなんだ。", en: "No, I don't. I like vegetables better." }
         questions:
           - { q: "What does Ken say he prefers?", options: ["Vegetables", "Chicken", "Fish", "Eggs"], answer: "Vegetables" }
-      - { kind: challenge, ja: "さいふに おかねが ないから ふゆまで かいものに いきませんよ。", en: "Say politely: There's no money in my wallet, so I'm not going shopping until winter", combines: [masu-negative, nai-existence, kara-because, yo-emphasis, made-until], mode: build }
+      - { kind: challenge, ja: "さいふに おかねが ないから ふゆまで かいものに いきませんよ。", en: "Say politely: There's no money in my wallet, so I'm not going shopping until winter — just so you know", combines: [masu-negative, nai-existence, kara-because, yo-emphasis, made-until], mode: build }
     reviewPool: [かいもの, にく, やさい, ぎゅうにゅう, ことば, じしょ, さんぽ, じかん, とりにく, くつ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -576,10 +576,10 @@ lessons:
       - { kind: sentence, ja: "ごぜんは はれだったから さんぽに いった。", en: "Say to a friend: It was fine this morning, so I went for a walk", exercises: [masu-past, desu-past, kara-because], mode: build }
       - { kind: sentence, ja: "ごぜんは はれでした。", en: "Say politely: It was fine this morning", exercises: [masu-past, desu-past, wa-topic], mode: build }
       - { kind: sentence, ja: "じかんが なかったから でんわを しませんでした。", en: "Say politely: I didn't phone, because I hadn't got time", exercises: [masu-past, masu-past-negative, kara-because], mode: build }
-      - { kind: sentence, ja: "その おんがくは よかったよ。", en: "Say to a friend: That music was good", exercises: [masu-past, i-adj-past, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "その おんがくは よかったよ。", en: "Say to a friend: That music was good, you know", exercises: [masu-past, i-adj-past, yo-emphasis], mode: build }
       - { kind: sentence, ja: "きっぷは たかかったですね。", en: "Say politely: The tickets were expensive, weren't they", exercises: [masu-past, i-adj-past, ne-agreement], mode: build }
       - { kind: sentence, ja: "ばんに とりにくを たべました。", en: "Say politely: I ate chicken in the evening", exercises: [masu-past, ni-time, wo-object], mode: build }
-      - { kind: sentence, ja: "ぎゅうにゅうを のんだから おなかは だいじょうぶだよ。", en: "Say to a friend: I drank the milk, so my stomach is fine", exercises: [masu-past, kara-because, na-adj-present, yo-emphasis], mode: listening }
+      - { kind: sentence, ja: "ぎゅうにゅうを のんだから おなかは だいじょうぶだよ。", en: "Say to a friend: I drank the milk, so my stomach is fine, you know", exercises: [masu-past, kara-because, na-adj-present, yo-emphasis], mode: listening }
       - { kind: kanji, kana: なまえ, exercises: [kanji-set-2] }
       - { kind: sentence, ja: "ふゆの いけは さむかったですね。", en: "Say politely: The pond was cold in winter, wasn't it", exercises: [masu-past, i-adj-past, ne-agreement], mode: build }
       - { kind: particle-cloze, stem: "じかんが なかったから でんわを ", tail: "。", answer: "しませんでした", options: ["しませんでした", "しました", "しなかった"], en: "Say politely: I didn't phone, because I hadn't got time", explanation: "the cue is polite and the sentence is a past NEGATIVE, so it takes ませんでした. しました says you did phone, and しなかった is the same denial said to a friend." }
@@ -595,18 +595,18 @@ lessons:
     focus: "Plain against polite across the present, the negative and the past"
     introduces: []
     beats:
-      - { kind: sentence, ja: "ふゆの がいこくは さむいですよ。", en: "Say politely: Abroad is cold in winter", exercises: [register-audience, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "ふゆの がいこくは さむいですよ。", en: "Say politely: Abroad is cold in winter, just so you know", exercises: [register-audience, yo-emphasis], mode: build }
       - { kind: sentence, ja: "ばんは とりにくを たべない。", en: "Say to a friend: I don't eat chicken in the evening", exercises: [masu-negative, nai-form, wa-topic], mode: build }
-      - { kind: sentence, ja: "ごぜんは ひまだったよ。", en: "Say to a friend: I was free this morning", exercises: [masu-past, desu-past, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "ごぜんは ひまだったよ。", en: "Say to a friend: I was free this morning, you know", exercises: [masu-past, desu-past, yo-emphasis], mode: build }
       - { kind: sentence, ja: "その ぼうしは おおきかったですね。", en: "Say politely: That hat was big, wasn't it", exercises: [masu-past, i-adj-past, ne-agreement], mode: listening }
       - { kind: particle-cloze, stem: "せんせい ごごは かいものに ", tail: "。", answer: "いきません", options: ["いきません", "いかない", "いきます"], en: "Say to your teacher: I'm not going shopping this afternoon", explanation: "a teacher is being addressed, so the negative takes its polite ending: いきません. いかない is what you would say to a friend, and いきます says you ARE going." }
       - { kind: sentence, ja: "この じしょは あにのじゃありません。", en: "Say politely: This dictionary isn't my older brother's", exercises: [janai-desu, family-register, no-possession], mode: build }
-      - { kind: sentence, ja: "あきに ぼうしを かいましたよ。", en: "Say politely: I bought a hat in the autumn", exercises: [masu-past, ni-time, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "あきに ぼうしを かいましたよ。", en: "Say politely: I bought a hat in the autumn, just so you know", exercises: [masu-past, ni-time, yo-emphasis], mode: build }
       - { kind: listening-comp, audio: "じかんが なかったから でんわを しませんでした。", answer: "I didn't phone, because I hadn't got time", distractors: ["I phoned, because I had time", "I didn't phone, because I hadn't got any money", "I don't phone, because I haven't got time"], exercises: [masu-past, masu-past-negative] }
-      - { kind: sentence, ja: "その くつは おおきくなかったね。", en: "Say to a friend: Those shoes weren't big", exercises: [ne-agreement, i-adj-past-negative], mode: build }
-      - { kind: sentence, ja: "いすの うえに ぼうしが ありますよ。", en: "Say politely: There's a hat on the chair", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
+      - { kind: sentence, ja: "その くつは おおきくなかったね。", en: "Say to a friend: Those shoes weren't big, were they", exercises: [ne-agreement, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "いすの うえに ぼうしが ありますよ。", en: "Say politely: There's a hat on the chair, just so you know", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
       - { kind: listening-comp, audio: "ぎゅうにゅうは のみません。", answer: "I don't drink milk", distractors: ["I drink milk", "I didn't drink the milk", "I don't drink tea"], exercises: [masu-negative, wa-topic] }
-      - { kind: sentence, ja: "ごぜんに たまごを かいましたよ。", en: "Say politely: I bought some eggs this morning", exercises: [masu-past, ni-time, yo-emphasis], mode: translate }
+      - { kind: sentence, ja: "ごぜんに たまごを かいましたよ。", en: "Say politely: I bought some eggs this morning, just so you know", exercises: [masu-past, ni-time, yo-emphasis], mode: translate }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "ごぜんに でんわを しましたか。", en: "Did you phone this morning?" }
@@ -629,7 +629,7 @@ lessons:
       - { kind: sentence, ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are too small, you see", exercises: [n-desu, yo-emphasis, i-adj-present], mode: build }
       - { kind: sentence, ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer holidays", exercises: [n-desu, ne-agreement, ni-location], mode: build }
       - { kind: sentence, ja: "めがねが ないんです。", en: "Say politely: The thing is, I haven't got my glasses", exercises: [n-desu, nai-existence], mode: build }
-      - { kind: sentence, ja: "この じしょが ほしいんですよ。", en: "Say politely: The thing is, I want this dictionary", exercises: [n-desu, ga-hoshii, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "この じしょが ほしいんですよ。", en: "Say politely: The thing is, I want this dictionary, you know", exercises: [n-desu, ga-hoshii, yo-emphasis], mode: build }
       - { kind: sentence, ja: "ごぜんから ゆきが ふるんだ。", en: "Say to a friend: The thing is, it snows from this morning", exercises: [n-desu, ga-existence, kara-time], mode: listening }
       - { kind: kanji, kana: わかる, exercises: [kanji-set-1] }
       - { kind: sentence, ja: "その ことばが わからないんですね。", en: "Say politely: So you don't know that word", exercises: [n-desu, ne-agreement, masu-negative], mode: build }
@@ -642,7 +642,7 @@ lessons:
           - { speaker: "Mika", ja: "かぜが つよいんです。ごごは へやで おんがくを ききますよ。", en: "The thing is, the wind's strong. I'll listen to music in my room this afternoon." }
         questions:
           - { q: "Why does Mika say she isn't going for a walk?", options: ["The wind is strong", "She hasn't got time", "It is snowing", "The pond is cold"], answer: "The wind is strong" }
-      - { kind: challenge, ja: "とりにくが からいから ぎゅうにゅうが ほしいんですよ。", en: "Say politely: The chicken is spicy, so the thing is, I want some milk", combines: [n-desu, chotto-softener, ga-hoshii, kara-because, yo-emphasis], mode: build }
+      - { kind: challenge, ja: "とりにくが からいから ぎゅうにゅうが ほしいんですよ。", en: "Say politely: The chicken is spicy, so the thing is, I want some milk, you know", combines: [n-desu, chotto-softener, ga-hoshii, kara-because, yo-emphasis], mode: build }
     reviewPool: [やすみ, かぜ, くつ, めがね, じしょ, ことば, おなか, なつやすみ, がいこく, とりにく]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -686,11 +686,11 @@ lessons:
       - { kind: sentence, ja: "すみません ごぜんは ちょっと じかんが ないんです。", en: "Say politely: Sorry, I haven't quite got time this morning", exercises: [chotto-softener, n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "その ぼうしは ちょっと おおきいですね。", en: "Say politely: That hat is a bit big, isn't it", exercises: [chotto-softener, ne-agreement, i-adj-present], mode: listening }
       - { kind: register, stage: 3, audience: friend, answer: "じゃない", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Finish it.", frame: { before: "ともだち：「あの かさは ミカの？」　ミカの", after: "。" }, exercises: [janai-desu, register-audience] }
-      - { kind: sentence, ja: "ちょっと まってね。", en: "Say to a friend: Hang on a second", exercises: [chotto-softener, ne-agreement, te-kudasai], mode: build }
+      - { kind: sentence, ja: "ちょっと まってね。", en: "Say to a friend: Hang on a second, will you", exercises: [chotto-softener, ne-agreement, te-kudasai], mode: build }
       - { kind: register, stage: 3, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Finish it.", frame: { before: "せんせい：「ごごは ひまですか。」　ひま", after: "。" }, exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "この くつは ちょっと せまいですね。", en: "Say politely: These shoes are a bit tight, aren't they", exercises: [chotto-softener, ne-agreement, i-adj-present], mode: listening }
       - { kind: kanji, kana: まいにち, exercises: [kanji-set-2] }
-      - { kind: sentence, ja: "ちょっと からいけど おいしいよ。", en: "Say to a friend: It's a bit spicy, but it's delicious", exercises: [chotto-softener, kedo, yo-emphasis], mode: translate }
+      - { kind: sentence, ja: "ちょっと からいけど おいしいよ。", en: "Say to a friend: It's a bit spicy, but it's delicious, you know", exercises: [chotto-softener, kedo, yo-emphasis], mode: translate }
       - { kind: particle-cloze, stem: "すみません ばんは ", tail: "。", answer: "ちょっと", options: ["ちょっと", "いきません", "だめ"], en: "Say politely: Turn the invitation down gently", explanation: "trailing off after ちょっと IS the refusal, and it is the one that leaves everybody comfortable. いきません is a flat no, and だめ tells the other person their idea was not allowed." }
       - { kind: listening-comp, audio: "この じしょは ちょっと ふるいですね。", answer: "This dictionary is a bit old, isn't it", distractors: ["This dictionary is a bit new, isn't it", "This dictionary is very old, isn't it", "That hat is a bit old, isn't it"], exercises: [chotto-softener, ne-agreement] }
       - kind: dialogue
@@ -699,7 +699,7 @@ lessons:
           - { speaker: "Mika", ja: "すみません ごごは ちょっと。しごとが あるんです。", en: "Sorry, this afternoon is a bit… The thing is, I've got work." }
         questions:
           - { q: "Why does Mika turn the invitation down?", options: ["She has got work", "She is ill", "She has no money", "She is going abroad"], answer: "She has got work" }
-      - { kind: challenge, ja: "ちょっと からいけど とりにくの ほうが おいしいと おもうよ。", en: "Say to a friend: It's a bit spicy, but I think the chicken is better", combines: [chotto-softener, kedo, yori-comparison, to-omoimasu, yo-emphasis], mode: build }
+      - { kind: challenge, ja: "ちょっと からいけど とりにくの ほうが おいしいと おもうよ。", en: "Say to a friend: It's a bit spicy, but I think the chicken is better, you know", combines: [chotto-softener, kedo, yori-comparison, to-omoimasu, yo-emphasis], mode: build }
     reviewPool: [ぼうし, くつ, とりにく, ぎゅうにゅう, かさ, じかん, ばん, ごぜん, いけ, まいにち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -764,17 +764,17 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "ごごから いっしょに いけに いきませんか。", en: "Say politely: Shall we go to the pond together this afternoon", exercises: [masenka, ka-question, ni-location], mode: build }
-      - { kind: sentence, ja: "この へやは ちょっと せまいから つくえを かわないよ。", en: "Say to a friend: This room is a bit narrow, so I won't buy a desk", exercises: [chotto-softener, kara-because, yo-emphasis], mode: build }
-      - { kind: sentence, ja: "ごぜんに くつを かいましたよ。", en: "Say politely: I bought shoes this morning", exercises: [masu-past, ni-time, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "この へやは ちょっと せまいから つくえを かわないよ。", en: "Say to a friend: This room is a bit narrow, so I won't buy a desk, you know", exercises: [chotto-softener, kara-because, yo-emphasis], mode: build }
+      - { kind: sentence, ja: "ごぜんに くつを かいましたよ。", en: "Say politely: I bought shoes this morning, just so you know", exercises: [masu-past, ni-time, yo-emphasis], mode: build }
       - { kind: sentence, ja: "その くつは あにのじゃないですね。", en: "Say politely: Those shoes aren't your older brother's, are they", exercises: [janai-desu, ne-agreement, family-register], mode: listening }
       - { kind: particle-cloze, stem: "この てがみは ながい", tail: "。", answer: "ね", options: ["ね", "よ"], en: "You are both reading the same letter — say it's long", explanation: "you are both looking at it, so the sentence is collecting agreement and takes ね. よ would be handing over news, and there is no news in something you can both see." }
       - { kind: sentence, ja: "めがねが ないんです。つくえの したに ありませんか。", en: "Say politely: The thing is, I haven't got my glasses — aren't they under the desk", exercises: [n-desu, nai-existence, ka-question], mode: build }
-      - { kind: sentence, ja: "ばんは ぎゅうにゅうを のまないよ。", en: "Say to a friend: I don't drink milk in the evening", exercises: [masu-negative, yo-emphasis, wa-topic], mode: build }
+      - { kind: sentence, ja: "ばんは ぎゅうにゅうを のまないよ。", en: "Say to a friend: I don't drink milk in the evening, you know", exercises: [masu-negative, yo-emphasis, wa-topic], mode: build }
       - { kind: listening-comp, audio: "ごぜんは はれでしたね。", answer: "It was fine this morning, wasn't it", distractors: ["It was cloudy this morning, wasn't it", "It's fine this morning, isn't it", "It was fine this afternoon, wasn't it"], exercises: [masu-past, ne-agreement] }
-      - { kind: sentence, ja: "たなかさんは えいごの せんせいなんですよ。", en: "Say politely: The thing is, Tanaka is the English teacher", exercises: [n-desu, yo-emphasis, no-possession], mode: build }
-      - { kind: sentence, ja: "あきの かぜは すずしいね。", en: "Say to a friend: The autumn wind is cool", exercises: [ne-agreement, no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "たなかさんは えいごの せんせいなんですよ。", en: "Say politely: The thing is, Tanaka is the English teacher, you know", exercises: [n-desu, yo-emphasis, no-possession], mode: build }
+      - { kind: sentence, ja: "あきの かぜは すずしいね。", en: "Say to a friend: The autumn wind is cool, isn't it", exercises: [ne-agreement, no-possession, i-adj-present], mode: build }
       - { kind: listening-comp, audio: "いっしょに さかなを たべませんか。", answer: "Shall we eat fish together?", distractors: ["Don't you eat fish?", "Shall we eat chicken together?", "I'm not eating fish"], exercises: [masenka, ka-question] }
-      - { kind: sentence, ja: "その じしょは ふるいけど いいですよ。", en: "Say politely: That dictionary is old, but it's good", exercises: [kedo, yo-emphasis, i-adj-present], mode: build }
+      - { kind: sentence, ja: "その じしょは ふるいけど いいですよ。", en: "Say politely: That dictionary is old, but it's good, just so you know", exercises: [kedo, yo-emphasis, i-adj-present], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "その さいふは きれいだね。", en: "That wallet's smart, isn't it." }
@@ -794,11 +794,11 @@ lessons:
       - { kind: sentence, ja: "あきは すずしいから ごごから いけを みに いきませんか。", en: "Say politely: Autumn is cool, so shall we go and look at the pond this afternoon", exercises: [masenka, kara-because, ni-iku, kara-time], mode: build }
       - { kind: sentence, ja: "ごぜんの きゅうりは ちょっと たかかったんだ。", en: "Say to a friend: This morning's cucumbers were a bit expensive", exercises: [n-desu, chotto-softener, i-adj-past, no-possession], mode: build }
       - { kind: sentence, ja: "この じしょは あねのじゃありませんから ちちに でんわを しました。", en: "Say politely: This dictionary isn't my older sister's, so I phoned my father", exercises: [janai-desu, kara-because, masu-past, family-register], mode: build }
-      - { kind: sentence, ja: "ふゆの がいこくは さむいと おもうよ。", en: "Say to a friend: I think it's cold abroad in winter", exercises: [to-omoimasu, yo-emphasis, no-possession], mode: build }
+      - { kind: sentence, ja: "ふゆの がいこくは さむいと おもうよ。", en: "Say to a friend: I think it's cold abroad in winter, you know", exercises: [to-omoimasu, yo-emphasis, no-possession], mode: build }
       - { kind: sentence, ja: "とりにくより たまごの ほうが やすいですね。", en: "Say politely: Eggs are cheaper than chicken, aren't they", exercises: [yori-comparison, ne-agreement, i-adj-present], mode: build }
       - { kind: sentence, ja: "めがねが ないから てがみが わからないんです。", en: "Say politely: I can't make out the letter, because I haven't got my glasses", exercises: [n-desu, nai-existence, kara-because], mode: build }
       - { kind: sentence, ja: "ばんは しごとが あるから ちょっと。", en: "Say to a friend: I've got work this evening, so it's a bit difficult", exercises: [chotto-softener, kara-because, ga-existence], mode: build }
-      - { kind: sentence, ja: "その おんがくは ながすぎるから ぼくは かわないよ。", en: "Say to a friend: That music is too long, so I won't buy it", exercises: [sugiru, masu-negative, yo-emphasis, kara-because], mode: translate }
+      - { kind: sentence, ja: "その おんがくは ながすぎるから ぼくは かわないよ。", en: "Say to a friend: That music is too long, so I won't buy it, you know", exercises: [sugiru, masu-negative, yo-emphasis, kara-because], mode: translate }
       - { kind: particle-cloze, stem: "せんせい ごごは かいものに ", tail: "か。", answer: "いきません", options: ["いきません", "いかない", "いきました"], en: "Say to your teacher: Shall we go shopping this afternoon", explanation: "an invitation to somebody you owe politeness to is a polite NEGATIVE question, so it takes いきません plus か. いかない is the casual invitation, and いきました asks about a trip that already happened." }
       - { kind: listening-comp, audio: "ちょっと からいけど とりにくは おいしかったですね。", answer: "It was a bit spicy, but the chicken was delicious, wasn't it", distractors: ["It was a bit spicy, so the chicken wasn't delicious", "It's a bit spicy, but the chicken is delicious, isn't it", "It was a bit sweet, but the chicken was delicious, wasn't it"], exercises: [chotto-softener, kedo, masu-past] }
       - { kind: listening-comp, audio: "なつやすみに がいこくに いくんですね。", answer: "So you're going abroad in the summer holidays", distractors: ["So you went abroad in the summer holidays", "So you aren't going abroad in the summer holidays", "So you're going abroad in the winter holidays"], exercises: [n-desu, ne-agreement] }

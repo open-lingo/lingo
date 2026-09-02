@@ -213,23 +213,23 @@
       "examples": [
         {
           "ja": "ゆきが ふるよ。",
-          "en": "It's going to snow, you know."
+          "en": "Say to a friend: It's going to snow, you know"
         },
         {
           "ja": "この おんがくは いいよ。",
-          "en": "This music is good, you know."
+          "en": "Say to a friend: This music is good, you know"
         },
         {
           "ja": "かぎは つくえの うえに あるよ。",
-          "en": "The key's on the desk, you know."
+          "en": "Say to a friend: The key's on the desk, you know"
         },
         {
           "ja": "せんせい じかんが ありませんよ。",
-          "en": "Say politely: Teacher, there isn't any time"
+          "en": "Say politely: Teacher, there isn't any time — just so you know"
         },
         {
           "ja": "へやは せまいよ。",
-          "en": "The room's narrow, you know."
+          "en": "Say to a friend: The room's narrow, you know"
         }
       ],
       "antiPattern": {
@@ -243,11 +243,11 @@
       "examples": [
         {
           "ja": "この はなは きれいだね。",
-          "en": "These flowers are pretty, aren't they."
+          "en": "Say to a friend: These flowers are pretty, aren't they"
         },
         {
           "ja": "かぜが つよいね。",
-          "en": "The wind's strong, isn't it."
+          "en": "Say to a friend: The wind's strong, isn't it"
         },
         {
           "ja": "たなかさんは えいごが じょうずですね。",
@@ -255,11 +255,11 @@
         },
         {
           "ja": "あきは すずしいね。",
-          "en": "Autumn is cool, isn't it."
+          "en": "Say to a friend: Autumn is cool, isn't it"
         },
         {
           "ja": "その くつは ちょっと ちいさいね。",
-          "en": "Those shoes are a bit small, aren't they."
+          "en": "Say to a friend: Those shoes are a bit small, aren't they"
         }
       ],
       "antiPattern": {
@@ -285,11 +285,11 @@
       "examples": [
         {
           "ja": "なつやすみに がいこくに いくよ。",
-          "en": "Say to a friend: I'm going abroad in the summer holidays"
+          "en": "Say to a friend: I'm going abroad in the summer holidays, you know"
         },
         {
           "ja": "なつやすみに がいこくに いきますよ。",
-          "en": "Say politely: I'll be going abroad in the summer holidays"
+          "en": "Say politely: I'll be going abroad in the summer holidays, just so you know"
         },
         {
           "ja": "へやが せまいから つくえを かいます。",
@@ -297,7 +297,7 @@
         },
         {
           "ja": "ばんは とりにくを たべるよ。",
-          "en": "Say to a friend: I eat chicken in the evening"
+          "en": "Say to a friend: I eat chicken in the evening, you know"
         },
         {
           "ja": "たなかさんに えいごを ききますね。",
@@ -323,7 +323,7 @@
         },
         {
           "ja": "にくを たべないから やさいを かうよ。",
-          "en": "Say to a friend: I don't eat meat, so I'll buy vegetables"
+          "en": "Say to a friend: I don't eat meat, so I'll buy vegetables, you know"
         },
         {
           "ja": "ぎゅうにゅうは のみません。",
@@ -331,7 +331,7 @@
         },
         {
           "ja": "その ことばは わからないよ。",
-          "en": "Say to a friend: I don't know that word"
+          "en": "Say to a friend: I don't know that word, you know"
         }
       ],
       "antiPattern": {
@@ -357,7 +357,7 @@
         },
         {
           "ja": "その おんがくは よかったよ。",
-          "en": "Say to a friend: That music was good"
+          "en": "Say to a friend: That music was good, you know"
         },
         {
           "ja": "きっぷは たかかったですね。",
@@ -451,7 +451,7 @@
         },
         {
           "ja": "ちょっと まってね。",
-          "en": "Say to a friend: Hang on a second"
+          "en": "Say to a friend: Hang on a second, will you"
         }
       ],
       "antiPattern": {
@@ -735,7 +735,7 @@
         {
           "kind": "challenge",
           "ja": "つくえの うえに ある えんぴつは わたしのじゃないですよ。",
-          "en": "Say politely: The pencil on the desk isn't mine",
+          "en": "Say politely: The pencil on the desk isn't mine, just so you know",
           "combines": [
             "janai-desu",
             "yo-emphasis",
@@ -775,7 +775,7 @@
         {
           "kind": "sentence",
           "ja": "ゆきが ふるよ。",
-          "en": "Say to a friend: It's going to snow",
+          "en": "Say to a friend: It's going to snow, you know",
           "exercises": [
             "yo-emphasis",
             "ga-existence",
@@ -786,7 +786,7 @@
         {
           "kind": "sentence",
           "ja": "この おんがくは いいよ。",
-          "en": "Say to a friend: This music is good",
+          "en": "Say to a friend: This music is good, you know",
           "exercises": [
             "yo-emphasis",
             "i-adj-present",
@@ -797,7 +797,7 @@
         {
           "kind": "sentence",
           "ja": "かぎは つくえの うえに あるよ。",
-          "en": "Say to a friend: The key's on the desk",
+          "en": "Say to a friend: The key's on the desk, you know",
           "exercises": [
             "yo-emphasis",
             "spatial-relations",
@@ -808,7 +808,7 @@
         {
           "kind": "sentence",
           "ja": "せんせい じかんが ありませんよ。",
-          "en": "Say politely: Teacher, there isn't any time",
+          "en": "Say politely: Teacher, there isn't any time — just so you know",
           "exercises": [
             "yo-emphasis",
             "nai-existence",
@@ -819,7 +819,7 @@
         {
           "kind": "sentence",
           "ja": "へやは せまいよ。",
-          "en": "Say to a friend: The room's narrow",
+          "en": "Say to a friend: The room's narrow, you know",
           "exercises": [
             "yo-emphasis",
             "i-adj-present",
@@ -830,7 +830,7 @@
         {
           "kind": "sentence",
           "ja": "この きゅうりは やすかったよ。",
-          "en": "Say to a friend: These cucumbers were cheap",
+          "en": "Say to a friend: These cucumbers were cheap, you know",
           "exercises": [
             "yo-emphasis",
             "i-adj-past"
@@ -840,7 +840,7 @@
         {
           "kind": "sentence",
           "ja": "つくえの したに めがねが あるよ。",
-          "en": "Say to a friend: Your glasses are under the desk",
+          "en": "Say to a friend: Your glasses are under the desk, you know",
           "exercises": [
             "yo-emphasis",
             "spatial-relations",
@@ -851,7 +851,7 @@
         {
           "kind": "sentence",
           "ja": "ごごから かいものに いきますよ。",
-          "en": "Say politely: I'm going shopping this afternoon",
+          "en": "Say politely: I'm going shopping this afternoon, just so you know",
           "exercises": [
             "yo-emphasis",
             "ni-iku",
@@ -930,7 +930,7 @@
         {
           "kind": "challenge",
           "ja": "きっぷは たかいから いっしょに いきませんよ。",
-          "en": "Say politely: The tickets are expensive, so I'm not going with you",
+          "en": "Say politely: The tickets are expensive, so I'm not going with you — just so you know",
           "combines": [
             "yo-emphasis",
             "kara-because",
@@ -969,7 +969,7 @@
         {
           "kind": "sentence",
           "ja": "この はなは きれいだね。",
-          "en": "Say to a friend: These flowers are pretty",
+          "en": "Say to a friend: These flowers are pretty, aren't they",
           "exercises": [
             "ne-agreement",
             "na-adj-present",
@@ -980,7 +980,7 @@
         {
           "kind": "sentence",
           "ja": "かぜが つよいね。",
-          "en": "Say to a friend: The wind's strong",
+          "en": "Say to a friend: The wind's strong, isn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-present",
@@ -991,7 +991,7 @@
         {
           "kind": "sentence",
           "ja": "たなかさんは えいごが じょうずですね。",
-          "en": "Say politely: Tanaka, you're good at English",
+          "en": "Say politely: Tanaka, you're good at English, aren't you",
           "exercises": [
             "ne-agreement",
             "no-ga-jouzu",
@@ -1002,7 +1002,7 @@
         {
           "kind": "sentence",
           "ja": "あきは すずしいね。",
-          "en": "Say to a friend: Autumn is cool",
+          "en": "Say to a friend: Autumn is cool, isn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-present",
@@ -1013,7 +1013,7 @@
         {
           "kind": "sentence",
           "ja": "その くつは ちょっと ちいさいね。",
-          "en": "Say to a friend: Those shoes are a bit small",
+          "en": "Say to a friend: Those shoes are a bit small, aren't they",
           "exercises": [
             "ne-agreement",
             "chotto-softener",
@@ -1024,7 +1024,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆの いけは さむいですね。",
-          "en": "Say politely: The pond in winter is cold",
+          "en": "Say politely: The pond in winter is cold, isn't it",
           "exercises": [
             "ne-agreement",
             "no-possession",
@@ -1035,7 +1035,7 @@
         {
           "kind": "sentence",
           "ja": "たまごは やすいですね。",
-          "en": "Say politely: Eggs are cheap",
+          "en": "Say politely: Eggs are cheap, aren't they",
           "exercises": [
             "ne-agreement",
             "i-adj-present",
@@ -1046,7 +1046,7 @@
         {
           "kind": "sentence",
           "ja": "この てがみは ながいね。",
-          "en": "Say to a friend: This letter is long",
+          "en": "Say to a friend: This letter is long, isn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-present"
@@ -1123,7 +1123,7 @@
         {
           "kind": "challenge",
           "ja": "ふゆに なったから あきの はなは もう ないですね。",
-          "en": "Say politely: Winter has come, so the autumn flowers are gone now",
+          "en": "Say politely: Winter has come, so the autumn flowers are gone now, aren't they",
           "combines": [
             "ne-agreement",
             "ku-ni-naru",
@@ -1157,7 +1157,7 @@
         {
           "kind": "sentence",
           "ja": "この さいふは ミカのじゃないよ。",
-          "en": "Say to a friend: This wallet isn't Mika's",
+          "en": "Say to a friend: This wallet isn't Mika's, you know",
           "exercises": [
             "janai-desu",
             "yo-emphasis",
@@ -1178,7 +1178,7 @@
         {
           "kind": "sentence",
           "ja": "ごぜんの てんきは よかったね。",
-          "en": "Say to a friend: The weather was good this morning",
+          "en": "Say to a friend: The weather was good this morning, wasn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-past",
@@ -1189,7 +1189,7 @@
         {
           "kind": "sentence",
           "ja": "その じしょは ふるいですね。",
-          "en": "Say politely: That dictionary is old",
+          "en": "Say politely: That dictionary is old, isn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-present"
@@ -1199,7 +1199,7 @@
         {
           "kind": "sentence",
           "ja": "まどの まえに いすが ありますよ。",
-          "en": "Say politely: There's a chair in front of the window",
+          "en": "Say politely: There's a chair in front of the window, just so you know",
           "exercises": [
             "yo-emphasis",
             "spatial-relations",
@@ -1246,7 +1246,7 @@
         {
           "kind": "sentence",
           "ja": "とりにくは ちょっと からいね。",
-          "en": "Say to a friend: The chicken is a bit spicy",
+          "en": "Say to a friend: The chicken is a bit spicy, isn't it",
           "exercises": [
             "ne-agreement",
             "chotto-softener",
@@ -1257,7 +1257,7 @@
         {
           "kind": "sentence",
           "ja": "その ふくは おおきくないよ。",
-          "en": "Say to a friend: Those clothes aren't big",
+          "en": "Say to a friend: Those clothes aren't big, you know",
           "exercises": [
             "yo-emphasis",
             "i-adj-negative"
@@ -1281,7 +1281,7 @@
         {
           "kind": "sentence",
           "ja": "この さんぽは ながいですね。",
-          "en": "Say politely: This walk is long",
+          "en": "Say politely: This walk is long, isn't it",
           "exercises": [
             "ne-agreement",
             "i-adj-present"
@@ -1318,7 +1318,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆの ばんは ながいですね。",
-          "en": "Say politely: Winter evenings are long",
+          "en": "Say politely: Winter evenings are long, aren't they",
           "exercises": [
             "ne-agreement",
             "no-possession"
@@ -1353,7 +1353,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いくよ。",
-          "en": "Say to a friend: I'm going abroad in the summer holidays",
+          "en": "Say to a friend: I'm going abroad in the summer holidays, you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1364,7 +1364,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いきますよ。",
-          "en": "Say politely: I'll be going abroad in the summer holidays",
+          "en": "Say politely: I'll be going abroad in the summer holidays, just so you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1420,7 +1420,7 @@
         {
           "kind": "sentence",
           "ja": "ばんは とりにくを たべるよ。",
-          "en": "Say to a friend: I eat chicken in the evening",
+          "en": "Say to a friend: I eat chicken in the evening, you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1469,7 +1469,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆの がいこくは さむいですよ。",
-          "en": "Say politely: Abroad is cold in winter",
+          "en": "Say politely: Abroad is cold in winter, just so you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1534,7 +1534,7 @@
         {
           "kind": "challenge",
           "ja": "つくえが ふるいから おおきいのを かいたいんですよ。",
-          "en": "Say politely: The desk is old, so the thing is, I want to buy a big one",
+          "en": "Say politely: The desk is old, so the thing is, I want to buy a big one, you know",
           "combines": [
             "register-audience",
             "n-desu",
@@ -1594,7 +1594,7 @@
         {
           "kind": "sentence",
           "ja": "にくを たべないから やさいを かうよ。",
-          "en": "Say to a friend: I don't eat meat, so I'll buy vegetables",
+          "en": "Say to a friend: I don't eat meat, so I'll buy vegetables, you know",
           "exercises": [
             "masu-negative",
             "kara-because",
@@ -1615,7 +1615,7 @@
         {
           "kind": "sentence",
           "ja": "その ことばは わからないよ。",
-          "en": "Say to a friend: I don't know that word",
+          "en": "Say to a friend: I don't know that word, you know",
           "exercises": [
             "masu-negative",
             "yo-emphasis",
@@ -1647,7 +1647,7 @@
         {
           "kind": "sentence",
           "ja": "ばんは さかなを たべませんよ。",
-          "en": "Say politely: I don't eat fish in the evening",
+          "en": "Say politely: I don't eat fish in the evening, just so you know",
           "exercises": [
             "masu-negative",
             "yo-emphasis",
@@ -1726,7 +1726,7 @@
         {
           "kind": "challenge",
           "ja": "さいふに おかねが ないから ふゆまで かいものに いきませんよ。",
-          "en": "Say politely: There's no money in my wallet, so I'm not going shopping until winter",
+          "en": "Say politely: There's no money in my wallet, so I'm not going shopping until winter — just so you know",
           "combines": [
             "masu-negative",
             "nai-existence",
@@ -1797,7 +1797,7 @@
         {
           "kind": "sentence",
           "ja": "その おんがくは よかったよ。",
-          "en": "Say to a friend: That music was good",
+          "en": "Say to a friend: That music was good, you know",
           "exercises": [
             "masu-past",
             "i-adj-past",
@@ -1830,7 +1830,7 @@
         {
           "kind": "sentence",
           "ja": "ぎゅうにゅうを のんだから おなかは だいじょうぶだよ。",
-          "en": "Say to a friend: I drank the milk, so my stomach is fine",
+          "en": "Say to a friend: I drank the milk, so my stomach is fine, you know",
           "exercises": [
             "masu-past",
             "kara-because",
@@ -1935,7 +1935,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆの がいこくは さむいですよ。",
-          "en": "Say politely: Abroad is cold in winter",
+          "en": "Say politely: Abroad is cold in winter, just so you know",
           "exercises": [
             "register-audience",
             "yo-emphasis"
@@ -1956,7 +1956,7 @@
         {
           "kind": "sentence",
           "ja": "ごぜんは ひまだったよ。",
-          "en": "Say to a friend: I was free this morning",
+          "en": "Say to a friend: I was free this morning, you know",
           "exercises": [
             "masu-past",
             "desu-past",
@@ -2002,7 +2002,7 @@
         {
           "kind": "sentence",
           "ja": "あきに ぼうしを かいましたよ。",
-          "en": "Say politely: I bought a hat in the autumn",
+          "en": "Say politely: I bought a hat in the autumn, just so you know",
           "exercises": [
             "masu-past",
             "ni-time",
@@ -2027,7 +2027,7 @@
         {
           "kind": "sentence",
           "ja": "その くつは おおきくなかったね。",
-          "en": "Say to a friend: Those shoes weren't big",
+          "en": "Say to a friend: Those shoes weren't big, were they",
           "exercises": [
             "ne-agreement",
             "i-adj-past-negative"
@@ -2037,7 +2037,7 @@
         {
           "kind": "sentence",
           "ja": "いすの うえに ぼうしが ありますよ。",
-          "en": "Say politely: There's a hat on the chair",
+          "en": "Say politely: There's a hat on the chair, just so you know",
           "exercises": [
             "yo-emphasis",
             "spatial-relations",
@@ -2062,7 +2062,7 @@
         {
           "kind": "sentence",
           "ja": "ごぜんに たまごを かいましたよ。",
-          "en": "Say politely: I bought some eggs this morning",
+          "en": "Say politely: I bought some eggs this morning, just so you know",
           "exercises": [
             "masu-past",
             "ni-time",
@@ -2189,7 +2189,7 @@
         {
           "kind": "sentence",
           "ja": "この じしょが ほしいんですよ。",
-          "en": "Say politely: The thing is, I want this dictionary",
+          "en": "Say politely: The thing is, I want this dictionary, you know",
           "exercises": [
             "n-desu",
             "ga-hoshii",
@@ -2297,7 +2297,7 @@
         {
           "kind": "challenge",
           "ja": "とりにくが からいから ぎゅうにゅうが ほしいんですよ。",
-          "en": "Say politely: The chicken is spicy, so the thing is, I want some milk",
+          "en": "Say politely: The chicken is spicy, so the thing is, I want some milk, you know",
           "combines": [
             "n-desu",
             "chotto-softener",
@@ -2593,7 +2593,7 @@
         {
           "kind": "sentence",
           "ja": "ちょっと まってね。",
-          "en": "Say to a friend: Hang on a second",
+          "en": "Say to a friend: Hang on a second, will you",
           "exercises": [
             "chotto-softener",
             "ne-agreement",
@@ -2643,7 +2643,7 @@
         {
           "kind": "sentence",
           "ja": "ちょっと からいけど おいしいよ。",
-          "en": "Say to a friend: It's a bit spicy, but it's delicious",
+          "en": "Say to a friend: It's a bit spicy, but it's delicious, you know",
           "exercises": [
             "chotto-softener",
             "kedo",
@@ -2708,7 +2708,7 @@
         {
           "kind": "challenge",
           "ja": "ちょっと からいけど とりにくの ほうが おいしいと おもうよ。",
-          "en": "Say to a friend: It's a bit spicy, but I think the chicken is better",
+          "en": "Say to a friend: It's a bit spicy, but I think the chicken is better, you know",
           "combines": [
             "chotto-softener",
             "kedo",
@@ -3023,7 +3023,7 @@
         {
           "kind": "sentence",
           "ja": "この へやは ちょっと せまいから つくえを かわないよ。",
-          "en": "Say to a friend: This room is a bit narrow, so I won't buy a desk",
+          "en": "Say to a friend: This room is a bit narrow, so I won't buy a desk, you know",
           "exercises": [
             "chotto-softener",
             "kara-because",
@@ -3034,7 +3034,7 @@
         {
           "kind": "sentence",
           "ja": "ごぜんに くつを かいましたよ。",
-          "en": "Say politely: I bought shoes this morning",
+          "en": "Say politely: I bought shoes this morning, just so you know",
           "exercises": [
             "masu-past",
             "ni-time",
@@ -3079,7 +3079,7 @@
         {
           "kind": "sentence",
           "ja": "ばんは ぎゅうにゅうを のまないよ。",
-          "en": "Say to a friend: I don't drink milk in the evening",
+          "en": "Say to a friend: I don't drink milk in the evening, you know",
           "exercises": [
             "masu-negative",
             "yo-emphasis",
@@ -3104,7 +3104,7 @@
         {
           "kind": "sentence",
           "ja": "たなかさんは えいごの せんせいなんですよ。",
-          "en": "Say politely: The thing is, Tanaka is the English teacher",
+          "en": "Say politely: The thing is, Tanaka is the English teacher, you know",
           "exercises": [
             "n-desu",
             "yo-emphasis",
@@ -3115,7 +3115,7 @@
         {
           "kind": "sentence",
           "ja": "あきの かぜは すずしいね。",
-          "en": "Say to a friend: The autumn wind is cool",
+          "en": "Say to a friend: The autumn wind is cool, isn't it",
           "exercises": [
             "ne-agreement",
             "no-possession",
@@ -3140,7 +3140,7 @@
         {
           "kind": "sentence",
           "ja": "その じしょは ふるいけど いいですよ。",
-          "en": "Say politely: That dictionary is old, but it's good",
+          "en": "Say politely: That dictionary is old, but it's good, just so you know",
           "exercises": [
             "kedo",
             "yo-emphasis",
@@ -3246,7 +3246,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆの がいこくは さむいと おもうよ。",
-          "en": "Say to a friend: I think it's cold abroad in winter",
+          "en": "Say to a friend: I think it's cold abroad in winter, you know",
           "exercises": [
             "to-omoimasu",
             "yo-emphasis",
@@ -3290,7 +3290,7 @@
         {
           "kind": "sentence",
           "ja": "その おんがくは ながすぎるから ぼくは かわないよ。",
-          "en": "Say to a friend: That music is too long, so I won't buy it",
+          "en": "Say to a friend: That music is too long, so I won't buy it, you know",
           "exercises": [
             "sugiru",
             "masu-negative",

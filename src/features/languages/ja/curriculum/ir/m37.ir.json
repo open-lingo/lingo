@@ -1359,7 +1359,7 @@
         {
           "kind": "sentence",
           "ja": "ひつようなら、てつだうよ。",
-          "en": "If it's necessary, I'll help",
+          "en": "If it's necessary, I'll help, you know",
           "exercises": [
             "nara"
           ],
@@ -2696,6 +2696,7 @@
     "ごほん",
     "ごめんなさい",
     "ごろ",
+    "さ",
     "さい",
     "さいしょ",
     "さいふ",
@@ -2764,6 +2765,7 @@
     "じゃない",
     "じゃないです",
     "じゃなかった",
+    "じゃん",
     "じゅう",
     "じゅうじ",
     "じゅぎょう",
@@ -2861,6 +2863,7 @@
     "ちゃん",
     "ちょきん",
     "ちょっと",
+    "っけ",
     "ついたら",
     "つかいやすい",
     "つかう",
@@ -3195,6 +3198,7 @@
     "ろっぱい",
     "ろっぴゃく",
     "ろっぽん",
+    "わ",
     "わかった",
     "わからない",
     "わかりにくい",
@@ -6669,6 +6673,38 @@
       "imageable": false,
       "kind": "vocab",
       "derivedFrom": "じゃない"
+    },
+    {
+      "kana": "じゃん",
+      "romaji": "jan",
+      "gloss": "~, right? (casual pushback — じゃない worn smooth)",
+      "shortGloss": "right?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "っけ",
+      "romaji": "kke",
+      "gloss": "~, was it? (asking your own memory)",
+      "shortGloss": "was it?",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "さ",
+      "romaji": "sa",
+      "gloss": "~, y'know (keeps the sentence warm)",
+      "shortGloss": "y'know",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
+      "kana": "わ",
+      "romaji": "wa",
+      "gloss": "~ (soft sentence-final emphasis)",
+      "shortGloss": "(soft emphasis)",
+      "imageable": false,
+      "kind": "particle"
     },
     {
       "kana": "とりあえず",
