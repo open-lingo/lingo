@@ -1,0 +1,1657 @@
+module: m11
+title: "Como y bebo — the second machine, and the third"
+frame: none
+throughModule: m10
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m11 — «Como y bebo»: the module that COMPLETES the regular present.
+# m10 taught the -ar machine (hablo/hablas/habla) and nothing else; m11
+# teaches -er and -ir, and the insight the whole module is built to deliver:
+# IN THE SINGULAR THEY ARE THE SAME MACHINE.
+#
+#     -ar:  hablo · hablas · habla
+#     -er:  como  · comes  · come
+#     -ir:  vivo  · vives  · vive     ← identical to -er
+#
+# The yo-form is «-o» for all three. The ONLY difference between -ar and
+# -er/-ir is a → e in the tú and él/ella cells. The word "conjugation"
+# never appears in learner-facing text — m10 established "machines" and
+# "gears" and this module keeps that vocabulary.
+#
+# SPINE PROVENANCE: settled 2026-09-02 in
+# docs/handoff-2026-09-02-es-m11-m15.md from three agreeing sources — the
+# m4–m10 wave doc's forecast, invariant E5's morphological ramp, and the
+# July archive (read for planning only). Authored by a 5-agent Opus wave
+# against a pinned per-lesson atom allocation; see the same handoff doc for
+# the sonnet-vs-opus parity experiment that chose the tier.
+#
+# ⚠️ TWO SURFACES THAT ARE NOT NEW HERE (first-write-wins, the m10
+# «trabajo» precedent):
+#   - «pan» is registered in m7 (m7.ir.yaml:100), debuted there on an
+#     imageMcq of «el pan». m11 uses it as a carrier only.
+#   - «pero» is registered in m6 (m6.ir.yaml:92). Same.
+#   «también» and «carne» ARE genuinely new and are registered below.
+#
+# INFINITIVE-ONLY: escribir, leer, correr appear ONLY as bare infinitives,
+# essentially always after «quiero». No cell of them is ever written. This
+# mirrors m10's escuchar/bailar/cantar rule and is enforced by a bespoke
+# test in m11.test.ts. Rationale: a conjugated cell of a verb the module
+# never drills is an untaught form appearing nowhere else.
+#
+# TRANSFER TEST (L8, four atoms): recibir/recibo/recibes/recibe exist for
+# ONE purpose — the checkpoint step that makes the learner run the machine
+# on a verb they have never conjugated. m10 shipped without this and every
+# "conjugation" moment there was a pick between two forms already on
+# screen; m10 has since been retrofitted (its own L8 «visitar» beat) and
+# m11 ships with it built in. The shape is forced, not chosen:
+#   - speakLit + buildLit are the intro-capable step types that fit; a
+#     textMcq debut fails the provenance gate (multiple_choice is not in
+#     ES_INTRO_TYPES).
+#   - the buildLit's tile bank holds ALL THREE singular cells, so the
+#     answer cannot be found by shape.
+#   - a cue:"recall" speakLit is illegal for an unprinted phrase (the
+#     course-wide recall law licenses recall only for a phrase an earlier
+#     speaking step already printed).
+#
+# Atom allocation across lessons (21 total):
+#   L1 comer/como/comes/come (4) · L2 carne (1) · L3 beber/bebo/bebes/bebe
+#   (4) · L4 también (1) · L5 vivir/vivo/vives/vive (4) · L6 escribir/
+#   leer/correr (3) · L8 recibir/recibo/recibes/recibe (4, transfer only).
+#   L7 · L9 · L10 are zero-new. 4+1+4+1+4+3+4 = 21.
+
+newAtoms:
+  - { surface: "comer", meaningEn: "to eat", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "como", meaningEn: "I eat", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "comes", meaningEn: "you eat", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "come", meaningEn: "he/she eats", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "beber", meaningEn: "to drink", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "bebo", meaningEn: "I drink", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "bebes", meaningEn: "you drink", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "bebe", meaningEn: "he/she drinks", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vivir", meaningEn: "to live", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vivo", meaningEn: "I live", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vives", meaningEn: "you live", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vive", meaningEn: "he/she lives", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escribir", meaningEn: "to write", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "leer", meaningEn: "to read", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "correr", meaningEn: "to run", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "carne", meaningEn: "meat", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🥩" }
+  - { surface: "también", meaningEn: "also, too", partOfSpeech: "adverb", kind: "vocab", hint: "tam-BYEN" }
+  # ── TRANSFER CELLS (L8 only) — no emoji: grammar cells, not picture words.
+  - { surface: "recibir", meaningEn: "to receive", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "recibo", meaningEn: "I receive", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "recibes", meaningEn: "you receive", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "recibe", meaningEn: "he/she receives", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:
+
+  # ── L1 · the second machine card + como/comes/come debut. The thesis. ──
+  - n: 1
+    template: free
+    title: "Run your second machine"
+    description: "«Comer» — a second machine, and almost the same one. The I-gear doesn't move at all; the other two swap one vowel."
+    steps:
+      - kind: info
+        id: l1-info-segunda-maquina
+        title: "A second machine — almost the same one"
+        body: "You already run the -ar machine: hablar → hablo (I), hablas (you), habla (he/she). Here is the -er machine: comer (to eat) → como (I), comes (you), come (he/she). Look at the I-gear: hablo, como — the same -o, no change at all. Only the other two move, and only by one letter: where -ar says a, -er says e. One vowel. That's the whole module."
+      - kind: speakLit
+        id: l1-sp-comer
+        es: "comer"
+        en: "to eat"
+        atoms: ["comer"]
+      - kind: map
+        id: l1-map-comoencasa
+        tokens: ["como", "en", "casa"]
+        pairs:
+          - { en: "I eat", tokenIndex: 0 }
+          - { en: "at", tokenIndex: 1 }
+          - { en: "home", tokenIndex: 2 }
+        audioText: "como en casa"
+        revealNote: "«en» and «casa» (no article, just like «Ana estudia en casa») are yours — «como» is the new gear: I eat. Same -o as «hablo»: the I-gear is identical on both machines."
+      - kind: speakLit
+        id: l1-sp-comoencasa
+        es: "como en casa"
+        en: "I eat at home"
+        atoms: ["como", "en", "casa"]
+      - kind: map
+        id: l1-map-comesaqui
+        tokens: ["¿comes", "aquí?"]
+        pairs:
+          - { en: "do you eat", tokenIndex: 0 }
+          - { en: "here", tokenIndex: 1 }
+        audioText: "¿comes aquí?"
+        revealNote: "«aquí» is already yours — «comes» is the you-gear. Hold it against «hablas»: same -s, and the a has become an e."
+      - kind: speakLit
+        id: l1-sp-comesaqui
+        es: "¿comes aquí?"
+        en: "do you eat here?"
+        atoms: ["comes", "aquí"]
+      - kind: map
+        id: l1-map-diegocomeaqui
+        tokens: ["Diego", "come", "aquí"]
+        pairs:
+          - { en: "Diego", tokenIndex: 0 }
+          - { en: "eats", tokenIndex: 1 }
+          - { en: "here", tokenIndex: 2 }
+        audioText: "Diego come aquí"
+        revealNote: "«Diego» and «aquí» are yours — «come» is the last gear: he/she eats. «habla» ends in a, «come» ends in e. Nothing else changed."
+      - kind: speakLit
+        id: l1-sp-diegocomeaqui
+        es: "Diego come aquí"
+        en: "Diego eats here"
+        atoms: ["come", "aquí"]
+      - kind: clozeLit
+        id: l1-c-comevshabla
+        es: "Diego come aquí"
+        en: "Diego eats here"
+        blank: "come"
+        options: ["come", "habla"]
+        atoms: ["come", "aquí"]
+        why: "Both are the he/she gear — the vowel is the tell. «hablar» is an -ar verb, so habl-a; «comer» is an -er verb, so com-e. Diego is eating, not talking: «come»."
+      - kind: buildLit
+        id: l1-b-comesencasa
+        es: "¿comes en casa?"
+        en: "do you eat at home?"
+        atoms: ["comes", "en", "casa"]
+        tiles: ["come", "hablas"]
+      - kind: clozeLit
+        id: l1-c-comovscomes
+        es: "como en casa"
+        en: "I eat at home"
+        blank: "como"
+        options: ["como", "comes"]
+        atoms: ["como", "en", "casa"]
+        why: "You're the one eating — «como». The I-gear ends in -o on every machine, exactly like «hablo»."
+      - kind: listenCompLit
+        id: l1-lc-comesaqui
+        es: "¿comes aquí?"
+        en: "Do you eat here?"
+        atoms: ["comes", "aquí"]
+        distractorsEn:
+          - "Do you work here?"
+          - "I eat here."
+          - "Do you eat at home?"
+      - kind: speakLit
+        id: l1-sp-recall-voyalparque
+        es: "voy al parque"
+        en: "I'm going to the park"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l1-ear-review
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: sim
+        id: l1-sim-ana-comes
+        scene: { emoji: "🍽️", title: "Ana asks where you eat", setting: "Ana slides onto the stool next to you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Comes aquí?", audioText: "¿comes aquí?", gloss: "Do you eat here?" }
+            goal: "Say yes — you eat here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, como aquí" }
+                - { id: "wrong1", text: "sí, comes aquí" }
+                - { id: "wrong2", text: "sí, come aquí" }
+              correctOptionId: "right"
+              audioText: "sí, como aquí"
+            replyGloss: "Yes, I eat here."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Come aquí?", audioText: "¿y Diego? ¿come aquí?", gloss: "And Diego? Does he eat here?" }
+            goal: "Say no — Diego eats at home."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, Diego come en casa" }
+                - { id: "wrong1", text: "no, Diego comes en casa" }
+                - { id: "wrong2", text: "no, Diego como en casa" }
+              correctOptionId: "right"
+              audioText: "no, Diego come en casa"
+            replyGloss: "No, Diego eats at home."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "comer", target: "to eat" }
+          - { source: "como", target: "I eat" }
+          - { source: "comes", target: "you eat" }
+          - { source: "come", target: "he/she eats" }
+          - { source: "aquí", target: "here" }
+          - { source: "gracias", target: "thank you" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "como aquí"
+        en: "I eat here"
+        atoms: ["como", "aquí"]
+
+  # ── L2 · «carne» debuts; the machine works instead of being explained. ──
+  - n: 2
+    template: free
+    title: "La carne"
+    description: "Meat on the table. No new machine — the one you just built does the work."
+    steps:
+      - kind: imageMcq
+        id: l2-d-carne
+        target: { surface: "la carne", meaningEn: "the meat", emoji: "🥩" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: speakLit
+        id: l2-sp-lacarne
+        es: "la carne"
+        en: "the meat"
+        atoms: ["la", "carne"]
+      - kind: map
+        id: l2-map-comopan
+        tokens: ["como", "pan"]
+        pairs:
+          - { en: "I eat", tokenIndex: 0 }
+          - { en: "bread", tokenIndex: 1 }
+        audioText: "como pan"
+        revealNote: "Nothing new here at all — «pan» has been yours since the café, «como» since last lesson. One habit to notice: a food word goes bare after the verb — «como pan», not «como el pan» — the same drop as «habla español»."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: l2-sp-comopan
+        es: "como pan"
+        en: "I eat bread"
+        atoms: ["como", "pan"]
+      - kind: map
+        id: l2-map-anacomecarne
+        tokens: ["Ana", "come", "carne"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "eats", tokenIndex: 1 }
+          - { en: "meat", tokenIndex: 2 }
+        audioText: "Ana come carne"
+        revealNote: "Every word is already yours — just read it. Watch «carne» though: it ends in -e and it is still feminine, «la carne», the same secret-side trick as «la llave»."
+        tokenGenders: { 2: "f" }
+      - kind: speakLit
+        id: l2-sp-anacomecarne
+        es: "Ana come carne"
+        en: "Ana eats meat"
+        atoms: ["come", "carne"]
+      - kind: clozeLit
+        id: l2-c-comevscomo
+        es: "Ana come carne"
+        en: "Ana eats meat"
+        blank: "come"
+        options: ["come", "como"]
+        atoms: ["come", "carne"]
+        why: "Ana, not you — «come». Keep «como» for yourself."
+      - kind: buildLit
+        id: l2-b-comescarne
+        es: "¿comes carne?"
+        en: "do you eat meat?"
+        atoms: ["comes", "carne"]
+        tiles: ["come", "pan"]
+      - kind: clozeLit
+        id: l2-c-comesvscome
+        # Statement, not a question: the compiler blanks a literal
+        # whitespace-delimited word, and «¿comes» carries the ¿ into the
+        # token. No cloze in any shipped ES module is a question.
+        es: "comes carne"
+        en: "you eat meat"
+        blank: "comes"
+        options: ["comes", "come"]
+        atoms: ["comes", "carne"]
+        why: "You're the one eating — «comes», the -es gear. «come» would be Diego."
+      - kind: audioWimcq
+        id: l2-ear-review
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: speakLit
+        id: l2-sp-recall-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l2-lc-anacomecarne
+        es: "Ana come carne"
+        en: "Ana eats meat."
+        atoms: ["come", "carne"]
+        distractorsEn:
+          - "Ana eats bread."
+          - "I eat meat."
+          - "Ana wants meat."
+      - kind: sim
+        id: l2-sim-carmen-carne
+        scene: { emoji: "🍖", title: "Carmen takes the order", setting: "Carmen sets down two plates and waits." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Comes carne?", audioText: "¿comes carne?", gloss: "Do you eat meat?" }
+            goal: "Say yes — you eat meat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, como carne" }
+                - { id: "wrong1", text: "sí, comes carne" }
+                - { id: "wrong2", text: "sí, come carne" }
+              correctOptionId: "right"
+              audioText: "sí, como carne"
+            replyGloss: "Yes, I eat meat."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Ana? ¿Come pan?", audioText: "¿y Ana? ¿come pan?", gloss: "And Ana? Does she eat bread?" }
+            goal: "Say yes — Ana eats bread."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, Ana come pan" }
+                - { id: "wrong1", text: "sí, Ana comes pan" }
+                - { id: "wrong2", text: "sí, Ana como pan" }
+              correctOptionId: "right"
+              audioText: "sí, Ana come pan"
+            replyGloss: "Yes, Ana eats bread."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "carne", target: "meat" }
+          - { source: "pan", target: "bread" }
+          - { source: "como", target: "I eat" }
+          - { source: "comes", target: "you eat" }
+          - { source: "come", target: "he/she eats" }
+          - { source: "la cuenta", target: "the check" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "como carne"
+        en: "I eat meat"
+        atoms: ["como", "carne"]
+
+  # ── L3 · beber — the SECOND -er verb. The machine repeats; nobody announces it. ──
+  #    Deliberately ZERO info cards. L1 already carried the -er card; the whole
+  #    point of a second -er verb is that the learner WATCHES the swap happen
+  #    again instead of being told it happens again. The observation lives in
+  #    the three map revealNotes ("comer → como; beber → bebo"), which are the
+  #    m10 idiom for naming what is new without spending a passive card.
+  - n: 3
+    template: free
+    title: "Bebo agua"
+    description: "«Beber» — a second -er verb. Nothing gets explained this time: watch the machine do to «beber» exactly what it did to «comer»."
+    steps:
+      - kind: speakLit
+        id: l3-sp-beber
+        es: "beber"
+        en: "to drink"
+        atoms: ["beber"]
+      - kind: map
+        id: l3-map-beboagua
+        tokens: ["bebo", "agua"]
+        pairs:
+          - { en: "I drink", tokenIndex: 0 }
+          - { en: "water", tokenIndex: 1 }
+        audioText: "bebo agua"
+        revealNote: "«agua» is already yours — «bebo» is the new gear: I drink. comer → como; beber → bebo. Second -er verb, same -o. (No «el» in front of a drink you mean in general — the same drop as «habla español».)"
+        tokenGenders: { 1: "f" }
+      - kind: speakLit
+        id: l3-sp-beboagua
+        es: "bebo agua"
+        en: "I drink water"
+        atoms: ["bebo", "agua"]
+      - kind: map
+        id: l3-map-bebesleche
+        tokens: ["¿bebes", "leche?"]
+        pairs:
+          - { en: "do you drink", tokenIndex: 0 }
+          - { en: "milk", tokenIndex: 1 }
+        audioText: "¿bebes leche?"
+        revealNote: "«leche» is already yours — «bebes» is the you-gear. como → comes; bebo → bebes. The machine did not change when the verb did."
+      - kind: speakLit
+        id: l3-sp-bebesleche
+        es: "¿bebes leche?"
+        en: "do you drink milk?"
+        atoms: ["bebes", "leche"]
+      - kind: map
+        id: l3-map-anabebecafe
+        tokens: ["Ana", "bebe", "café"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "drinks", tokenIndex: 1 }
+          - { en: "coffee", tokenIndex: 2 }
+        audioText: "Ana bebe café"
+        revealNote: "«café» is already yours — «bebe» is the last gear: he/she drinks. comer gave you come; beber gives you bebe. Two -er verbs, one machine — and it is the -ar machine with one letter moved: habla · come · bebe."
+        tokenGenders: { 2: "m" }
+      - kind: speakLit
+        id: l3-sp-anabebecafe
+        es: "Ana bebe café"
+        en: "Ana drinks coffee"
+        atoms: ["bebe", "café"]
+      - kind: clozeLit
+        id: l3-c-bebolane1
+        es: "bebo agua"
+        en: "I drink water"
+        blank: "bebo"
+        options: ["bebo", "bebes"]
+        atoms: ["bebo", "agua"]
+        why: "You're the one drinking — «bebo», not «bebes»."
+      - kind: buildLit
+        id: l3-b-bebesleche
+        es: "¿bebes leche?"
+        en: "do you drink milk?"
+        atoms: ["bebes", "leche"]
+        tiles: ["bebo", "bebe"]
+      - kind: clozeLit
+        id: l3-c-bebolane2
+        es: "Ana bebe café"
+        en: "Ana drinks coffee"
+        blank: "bebe"
+        options: ["bebe", "bebo"]
+        atoms: ["bebe", "café"]
+        why: "Ana, not you — «bebe»."
+      - kind: listenBuildLit
+        id: l3-lb-comocarneybeboagua
+        es: "como carne y bebo agua"
+        en: "I eat meat and I drink water"
+        atoms: ["como", "carne", "y", "bebo", "agua"]
+        tiles: ["comes", "bebes"]
+      - kind: audioWimcq
+        id: l3-ear-review
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: listenCompLit
+        id: l3-lc-anabebecafe
+        es: "Ana bebe café"
+        en: "Ana drinks coffee."
+        atoms: ["bebe", "café"]
+        distractorsEn:
+          - "Ana eats meat."
+          - "Ana drinks milk."
+          - "I drink coffee."
+      - kind: speakLit
+        id: l3-sp-recall-tengosed
+        es: "tengo sed"
+        en: "I'm thirsty"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l3-sim-diego-bebe
+        scene: { emoji: "🥤", title: "Diego pours", setting: "Diego holds up two glasses and waits." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Bebes café?", audioText: "¿bebes café?", gloss: "Do you drink coffee?" }
+            goal: "Say no — you drink water."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, bebo agua" }
+                - { id: "wrong1", text: "no, bebes agua" }
+                - { id: "wrong2", text: "no, bebe agua" }
+              correctOptionId: "right"
+              audioText: "no, bebo agua"
+            replyGloss: "No, I drink water."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Comes carne?", audioText: "¿comes carne?", gloss: "Do you eat meat?" }
+            goal: "Say yes, and that you drink water."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, como carne y bebo agua" }
+                - { id: "wrong1", text: "sí, comes carne y bebes agua" }
+                - { id: "wrong2", text: "sí, come carne y bebe agua" }
+              correctOptionId: "right"
+              audioText: "sí, como carne y bebo agua"
+            replyGloss: "Yes, I eat meat and I drink water."
+            explanation: "Both verbs are yours now, and both take the same -o for «I»: como, bebo."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "beber", target: "to drink" }
+          - { source: "bebo", target: "I drink" }
+          - { source: "bebes", target: "you drink" }
+          - { source: "bebe", target: "he/she drinks" }
+          - { source: "la leche", target: "the milk" }
+          - { source: "tengo sed", target: "I'm thirsty" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "bebo agua todos los días"
+        en: "I drink water every day"
+        atoms: ["bebo", "agua", "todos los días"]
+
+  # ── L4 · también/pero — the breather. No morphology; joining, not swapping. ──
+  #    The module's two paradigm lessons (L3 beber, L5 vivir) sit on either
+  #    side of this one, so L4 spends its whole budget on ONE non-verb atom and
+  #    on putting two already-owned facts into a single line. It is still fully
+  #    graded — the one info card is this lesson's entire passive budget, and
+  #    both clozes are two-option contrasts where BOTH options are grammatical
+  #    (también/nunca in the same slot; pero/y between the same two halves), so
+  #    neither can be answered by shape.
+  - n: 4
+    template: free
+    title: "También, pero"
+    description: "«También» piles a second fact on; «pero» takes one back. Two things you can already say, joined into one line."
+    steps:
+      - kind: info
+        id: l4-info-tambienpero
+        title: "Two facts, one line"
+        body: "«también» adds: como pan también — I eat bread TOO. It can ride at the end of the line or lead it («también bebo leche»); both are normal. «pero» you have had since «es viejo pero bueno» — it sits between two halves and turns the second one against the first: bebo agua pero no bebo café. Same job, opposite sign — «también» piles on, «pero» pushes back. One «pero» per sentence, and it always needs two different ideas on either side."
+      - kind: map
+        id: l4-map-comopantambien
+        tokens: ["como", "pan", "también"]
+        pairs:
+          - { en: "I eat", tokenIndex: 0 }
+          - { en: "bread", tokenIndex: 1 }
+          - { en: "too", tokenIndex: 2 }
+        audioText: "como pan también"
+        revealNote: "«como» and «pan» are both already yours — «también» is the new word: too, also. Nothing swaps here; you are just adding a second fact to one you already said."
+        tokenGenders: { 1: "m" }
+      - kind: speakLit
+        id: l4-sp-comopantambien
+        es: "como pan también"
+        en: "I eat bread too"
+        atoms: ["como", "pan", "también"]
+      - kind: clozeLit
+        id: l4-c-tambien
+        es: "también bebo leche"
+        en: "I drink milk too"
+        blank: "también"
+        options: ["también", "nunca"]
+        atoms: ["también", "bebo", "leche"]
+        why: "You drink it TOO — that is adding. «nunca» would say you never do."
+      - kind: buildLit
+        id: l4-b-comocarnetambien
+        es: "como carne también"
+        en: "I eat meat too"
+        atoms: ["como", "carne", "también"]
+        tiles: ["pero", "bebes"]
+      - kind: map
+        id: l4-map-comopanperocarne
+        tokens: ["como", "pan", "pero", "no", "carne"]
+        pairs:
+          - { en: "I eat", tokenIndex: 0 }
+          - { en: "bread", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "not", tokenIndex: 3 }
+          - { en: "meat", tokenIndex: 4 }
+        audioText: "como pan pero no carne"
+        revealNote: "Nothing new here — «pero» has been yours since «es viejo pero bueno». It splits a line into yes-this, not-that, and the second half never repeats the verb."
+        tokenGenders: { 1: "m", 4: "f" }
+      - kind: speakLit
+        id: l4-sp-comopanperocarne
+        es: "como pan pero no carne"
+        en: "I eat bread but not meat"
+        atoms: ["como", "pan", "pero", "no", "carne"]
+      # pin E2: «pero» is m6's atom. Past its intro module an item is
+      # PRODUCED, not picked — so this is a build, not a cloze. «y» and
+      # «también» sit in the bank as the two things «pero» is not.
+      - kind: buildLit
+        id: l4-b-pero
+        es: "bebo agua pero no bebo café"
+        en: "I drink water but I don't drink coffee"
+        atoms: ["bebo", "agua", "pero", "no", "café"]
+        tiles: ["y", "también"]
+      - kind: audioWimcq
+        id: l4-ear-review
+        target: { surface: "la cocina", emoji: "🍳" }
+        distractors:
+          - { surface: "el baño", emoji: "🚽" }
+          - { surface: "la cama", emoji: "🛏️" }
+      - kind: speakLit
+        id: l4-sp-recall-viejopero
+        es: "es viejo pero bueno"
+        en: "it's old but good"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l4-lc-beboaguapero
+        es: "bebo agua pero no bebo café"
+        en: "I drink water but I don't drink coffee."
+        atoms: ["bebo", "agua", "pero", "no", "café"]
+        distractorsEn:
+          - "I drink water and coffee."
+          - "I don't drink water, but I drink coffee."
+          - "I drink coffee every day."
+      - kind: listenBuildLit
+        id: l4-lb-anacomecarnetambien
+        es: "Ana come carne también"
+        en: "Ana eats meat too"
+        atoms: ["come", "carne", "también"]
+        tiles: ["pero", "bebo"]
+      - kind: textMcq
+        id: l4-tm-tambien
+        target: "también"
+        distractors: ["pero", "siempre", "nunca"]
+      - kind: sim
+        id: l4-sim-sofia-tambien
+        scene: { emoji: "☕", title: "Sofía decides", setting: "Sofía is working out what to order." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "Yo bebo café. ¿Y tú?", audioText: "yo bebo café. ¿y tú?", gloss: "I drink coffee. And you?" }
+            goal: "Say you drink coffee too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo también" }
+                - { id: "wrong1", text: "sí, bebes café" }
+                - { id: "wrong2", text: "no, nunca bebo café" }
+              correctOptionId: "right"
+              audioText: "yo también"
+            replyGloss: "Me too."
+            explanation: "«yo también» is a whole answer on its own — two words that agree with everything just said."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Comes carne?", audioText: "¿comes carne?", gloss: "Do you eat meat?" }
+            goal: "Say you eat bread but not meat."
+            reply:
+              mode: build
+              tiles: ["como", "pan", "pero", "no", "carne", "también", "bebo"]
+              answer: "como pan pero no carne"
+            replyGloss: "I eat bread but not meat."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "también", target: "too, also" }
+          - { source: "pero", target: "but" }
+          - { source: "como", target: "I eat" }
+          - { source: "bebo", target: "I drink" }
+          - { source: "la leche", target: "the milk" }
+          - { source: "la cocina", target: "the kitchen" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "bebo leche y como pan también"
+        en: "I drink milk and I eat bread too"
+        atoms: ["bebo", "leche", "y", "como", "pan", "también"]
+
+  # ── L5 · vivir debuts — and the module's payoff: -ir IS -er in the singular. ──
+  #   Design note: the three cells debut FIRST (maps 2/4/6), the learner runs
+  #   both machines in one sentence (l5-b-comoyvivo), and only THEN does the
+  #   single info card name what they just did. The card is the module's one
+  #   card and it is spent here on purpose — it confirms a noticing, it does
+  #   not preview a rule. The closing matchLit re-prints the two paradigms as
+  #   a graded step so the parallel is tested, not just asserted.
+  #   Word "conjugation" appears nowhere; m10's "machine"/"gear" vocabulary
+  #   carries through.
+  - n: 5
+    template: free
+    title: "Vivo aquí"
+    description: "«Vivir» is an -ir verb — and in the singular it runs the exact machine you already own."
+    steps:
+      - kind: speakLit
+        id: l5-sp-vivir
+        es: "vivir"
+        en: "to live"
+        atoms: ["vivir"]
+      - kind: map
+        id: l5-map-vivoaqui
+        tokens: ["vivo", "aquí"]
+        pairs:
+          - { en: "I live", tokenIndex: 0 }
+          - { en: "here", tokenIndex: 1 }
+        audioText: "vivo aquí"
+        revealNote: "«aquí» is already yours — «vivo» is the new gear: I live. You have met that ending before."
+      - kind: speakLit
+        id: l5-sp-vivoaqui
+        es: "vivo aquí"
+        en: "I live here"
+        atoms: ["vivo", "aquí"]
+      - kind: map
+        id: l5-map-vivesaqui
+        tokens: ["¿vives", "aquí?"]
+        pairs:
+          - { en: "do you live", tokenIndex: 0 }
+          - { en: "here", tokenIndex: 1 }
+        audioText: "¿vives aquí?"
+        revealNote: "«vives» is the you-form. Say «comes» and «vives» out loud, one after the other."
+      - kind: speakLit
+        id: l5-sp-vivesaqui
+        es: "¿vives aquí?"
+        en: "do you live here?"
+        atoms: ["vives", "aquí"]
+      - kind: map
+        id: l5-map-anavive
+        tokens: ["Ana", "vive", "en", "México"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "lives", tokenIndex: 1 }
+          - { en: "in", tokenIndex: 2 }
+          - { en: "Mexico", tokenIndex: 3 }
+        audioText: "Ana vive en México"
+        revealNote: "«en» and «México» are already yours — «vive» is the last gear: he/she lives. Notice which endings you did NOT have to learn."
+      - kind: speakLit
+        id: l5-sp-anavive
+        es: "Ana vive en México"
+        en: "Ana lives in Mexico"
+        atoms: ["vive", "en", "México"]
+      # Both machines in ONE sentence, with the OTHER verb's tú-cells in the
+      # tile bank — the learner cannot get here by shape.
+      - kind: buildLit
+        id: l5-b-comoyvivo
+        es: "como y vivo aquí"
+        en: "I eat and live here"
+        atoms: ["como", "y", "vivo", "aquí"]
+        tiles: ["comes", "vives"]
+      - kind: info
+        id: l5-info-dosmaquinas
+        title: "Look again"
+        body: "Put them side by side: comer → como · comes · come, and vivir → vivo · vives · vive. The same three endings, twice. -er verbs and -ir verbs are one machine in the singular — you never had to learn a second one. And the I-form ends the same way in all three: hablo, como, vivo."
+      - kind: clozeLit
+        id: l5-c-vivovsvives
+        es: "vivo aquí"
+        en: "I live here"
+        blank: "vivo"
+        options: ["vivo", "vives"]
+        atoms: ["vivo", "aquí"]
+        why: "You're the one living here — «vivo»."
+      - kind: audioWimcq
+        id: l5-ear-review1
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la cocina", emoji: "🍳" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: speakLit
+        id: l5-sp-recall-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l5-c-vivevsvivo
+        es: "Ana vive en México"
+        en: "Ana lives in Mexico"
+        blank: "vive"
+        options: ["vive", "vivo"]
+        atoms: ["vive", "en", "México"]
+        why: "Ana, not you — «vive»."
+      - kind: listenCompLit
+        id: l5-lc-anavive
+        es: "Ana vive en México"
+        en: "Ana lives in Mexico."
+        atoms: ["vive", "en", "México"]
+        distractorsEn:
+          - "Ana eats in Mexico."
+          - "I live in Mexico."
+          - "Ana lives here."
+      - kind: buildLit
+        id: l5-b-abuelavive
+        es: "mi abuela vive aquí"
+        en: "my grandmother lives here"
+        atoms: ["mi", "abuela", "vive", "aquí"]
+        tiles: ["vivo", "vives"]
+      - kind: clozeLit
+        id: l5-c-vivesvsvive
+        es: "vives en España"
+        en: "you live in Spain"
+        blank: "vives"
+        options: ["vives", "vive"]
+        atoms: ["vives", "en", "España"]
+        why: "Talking to YOU — «vives»."
+      - kind: audioWimcq
+        id: l5-ear-review2
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "el lápiz", emoji: "✏️" }
+      - kind: sim
+        id: l5-sim-ana-vive
+        scene: { emoji: "🏘️", title: "Ana on your street", setting: "You run into Ana right outside your door." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde vives?", audioText: "¿dónde vives?", gloss: "Where do you live?" }
+            goal: "Tell her you live right here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "vivo aquí" }
+                - { id: "wrong1", text: "vives aquí" }
+                - { id: "wrong2", text: "vive aquí" }
+              correctOptionId: "right"
+              audioText: "vivo aquí"
+            replyGloss: "I live here."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y comes aquí también?", audioText: "¿y comes aquí también?", gloss: "And do you eat here too?" }
+            goal: "Say yes, you eat here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, como aquí" }
+                - { id: "wrong1", text: "sí, comes aquí" }
+                - { id: "wrong2", text: "sí, vivo aquí" }
+              correctOptionId: "right"
+              audioText: "sí, como aquí"
+            replyGloss: "Yes, I eat here."
+            explanation: "Two verbs, one machine: «vivo», «como» — same ending, same job."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tu abuela?", audioText: "¿y tu abuela?", gloss: "And your grandmother?" }
+            goal: "Say she lives in Mexico."
+            reply:
+              mode: build
+              tiles: ["mi", "abuela", "vive", "en", "México", "vivo", "vives"]
+              answer: "mi abuela vive en México"
+              alsoAccepted: ["vive en México"]
+            replyGloss: "My grandmother lives in Mexico."
+      # The two paradigms, printed as one graded table. This is the lesson's
+      # thesis as a step, not as a claim.
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "vivo", target: "I live" }
+          - { source: "como", target: "I eat" }
+          - { source: "vives", target: "you live" }
+          - { source: "comes", target: "you eat" }
+          - { source: "vive", target: "he/she lives" }
+          - { source: "come", target: "he/she eats" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "vivo aquí"
+        en: "I live here"
+        atoms: ["vivo", "aquí"]
+
+  # ── L6 · leer/escribir/correr — infinitives only. After «quiero», the verb ──
+  #   keeps its dictionary shape. Deliberately ZERO info cards: the module's
+  #   one card is spent in L5, so this contrast is carried by the map
+  #   revealNotes and by steps that make the learner CHOOSE the dictionary
+  #   form over a cell they already own (l6-b-quierocomer, l6-c-comervscomo,
+  #   sim t3's tile bank).
+  #   ⚠️ HARD PIN: leer/escribir/correr stay infinitive-only — not one
+  #   singular cell of any of the three appears anywhere in this lesson, in
+  #   any field, including tiles, cloze options, tile banks and sim wrong
+  #   answers. Same rule m10 enforces on escuchar/bailar/cantar, and (like
+  #   m10's own note) this comment does not print the banned forms either.
+  - n: 6
+    template: free
+    title: "Quiero leer"
+    description: "Three verbs you never have to swap: after «quiero», the verb stays exactly as the dictionary spells it."
+    steps:
+      - kind: map
+        id: l6-map-quieroleer
+        tokens: ["quiero", "leer"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to read", tokenIndex: 1 }
+        audioText: "quiero leer"
+        revealNote: "«quiero» is already yours — «leer» is new: to read. And look at it: after «quiero» the verb keeps its dictionary shape. No gear swap."
+      - kind: speakLit
+        id: l6-sp-quieroleer
+        es: "quiero leer"
+        en: "I want to read"
+        atoms: ["quiero", "leer"]
+      - kind: map
+        id: l6-map-quieroescribir
+        tokens: ["quiero", "escribir"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to write", tokenIndex: 1 }
+        audioText: "quiero escribir"
+        revealNote: "«escribir» is new: to write. Same shape as «leer» — untouched, straight from the dictionary."
+      - kind: speakLit
+        id: l6-sp-quieroescribir
+        es: "quiero escribir"
+        en: "I want to write"
+        atoms: ["quiero", "escribir"]
+      - kind: map
+        id: l6-map-quierocorrer
+        tokens: ["quiero", "correr", "en", "el", "parque"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to run", tokenIndex: 1 }
+          - { en: "in", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "park", tokenIndex: 4 }
+        audioText: "quiero correr en el parque"
+        revealNote: "«en el parque» is already yours — «correr» is new: to run. Third verb, still no swap."
+        tokenGenders: { 3: "m", 4: "m" }
+      - kind: speakLit
+        id: l6-sp-quierocorrer
+        es: "quiero correr en el parque"
+        en: "I want to run in the park"
+        atoms: ["quiero", "correr", "en", "el", "parque"]
+      # THE contrast: the learner owns «como» and has drilled it for five
+      # lessons. After «quiero» it goes back to «comer».
+      - kind: buildLit
+        id: l6-b-quierocomer
+        es: "quiero comer"
+        en: "I want to eat"
+        atoms: ["quiero", "comer"]
+        tiles: ["como", "comes"]
+      - kind: clozeLit
+        id: l6-c-leervsescribir
+        es: "quiero leer el libro"
+        en: "I want to read the book"
+        blank: "leer"
+        options: ["leer", "escribir"]
+        atoms: ["quiero", "leer", "el", "libro"]
+        why: "Read, not write — «leer»."
+      - kind: audioWimcq
+        id: l6-ear-infinitivos
+        target: { surface: "correr", emoji: "🏃" }
+        distractors:
+          - { surface: "leer", emoji: "👓" }
+          - { surface: "escribir", emoji: "✍️" }
+      - kind: speakLit
+        id: l6-sp-recall-voyalparque
+        es: "voy al parque"
+        en: "I'm going to the park"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l6-c-comervscomo
+        es: "quiero comer carne"
+        en: "I want to eat meat"
+        blank: "comer"
+        options: ["comer", "como"]
+        atoms: ["quiero", "comer", "carne"]
+        why: "After «quiero» the verb keeps its dictionary shape — «comer», not «como»."
+      - kind: listenCompLit
+        id: l6-lc-quierocorrer
+        es: "quiero correr en el parque"
+        en: "I want to run in the park."
+        atoms: ["quiero", "correr", "en", "el", "parque"]
+        distractorsEn:
+          - "I want to read in the park."
+          - "I want to eat in the park."
+          - "I run in the park every day."
+      - kind: buildLit
+        id: l6-b-leeryescribir
+        es: "quiero leer y escribir"
+        en: "I want to read and write"
+        atoms: ["quiero", "leer", "y", "escribir"]
+        tiles: ["correr", "comer"]
+      - kind: audioWimcq
+        id: l6-ear-review1
+        target: { surface: "el libro", emoji: "📕" }
+        distractors:
+          - { surface: "el lápiz", emoji: "✏️" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: speakLit
+        id: l6-sp-quieroleerlibro
+        es: "quiero leer el libro"
+        en: "I want to read the book"
+        atoms: ["quiero", "leer", "el", "libro"]
+      - kind: textMcq
+        id: l6-tm-correr
+        target: "correr"
+        distractors: ["comer", "beber", "vivir"]
+      - kind: sim
+        id: l6-sim-diego-parque
+        scene: { emoji: "🌳", title: "Diego at the park", setting: "Diego is stretching by the gate, book under his arm." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres correr?", audioText: "¿quieres correr?", gloss: "Do you want to run?" }
+            goal: "Say yes, you want to run."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiero correr" }
+                - { id: "wrong1", text: "sí, quiero leer" }
+                - { id: "wrong2", text: "no, gracias" }
+              correctOptionId: "right"
+              audioText: "sí, quiero correr"
+            replyGloss: "Yes, I want to run."
+          - id: t2
+            npc: { speaker: "Diego", es: "Yo quiero leer. ¿Y tú?", audioText: "yo quiero leer. ¿y tú?", gloss: "I want to read. And you?" }
+            goal: "Say you want to write."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero escribir" }
+                - { id: "wrong1", text: "quiero leer" }
+                - { id: "wrong2", text: "quiero comer" }
+              correctOptionId: "right"
+              audioText: "quiero escribir"
+            replyGloss: "I want to write."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Quieres comer también?", audioText: "¿quieres comer también?", gloss: "Do you want to eat too?" }
+            goal: "Say you want to eat and read."
+            reply:
+              mode: build
+              tiles: ["quiero", "comer", "y", "leer", "como", "escribir"]
+              answer: "quiero comer y leer"
+              alsoAccepted: ["comer y leer"]
+            replyGloss: "I want to eat and read."
+            explanation: "«como» is on the board on purpose — after «quiero» it is «comer», every time."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "leer", target: "to read" }
+          - { source: "escribir", target: "to write" }
+          - { source: "correr", target: "to run" }
+          - { source: "quiero", target: "I want" }
+          - { source: "el libro", target: "the book" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "quiero leer"
+        en: "I want to read"
+        atoms: ["quiero", "leer"]
+
+  # ── L7 · zero-new workout. Pick the MACHINE, then the gear. ───────────
+  - n: 7
+    template: free
+    title: "Every gear"
+    description: "No new words. -ar, -er, -ir — all three machines in one lesson, and you choose which one runs."
+    steps:
+      - kind: map
+        id: l7-map-ana
+        tokens: ["Ana", "trabaja", "y", "vive", "aquí"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "works", tokenIndex: 1 }
+          - { en: "and", tokenIndex: 2 }
+          - { en: "lives", tokenIndex: 3 }
+          - { en: "here", tokenIndex: 4 }
+        audioText: "Ana trabaja y vive aquí"
+        revealNote: "Nothing new — but look at the two gears side by side. «trabaja» ends in «a»: that is the -ar machine. «vive» ends in «e»: the -er/-ir machine. Same person, one letter apart."
+      - kind: speakLit
+        id: l7-sp-ana
+        es: "Ana trabaja y vive aquí"
+        en: "Ana works and lives here"
+        atoms: ["trabaja", "y", "vive", "aquí"]
+      - kind: clozeLit
+        id: l7-c-bebo
+        es: "bebo agua todos los días"
+        en: "I drink water every day"
+        blank: "bebo"
+        options: ["bebo", "bebes"]
+        atoms: ["bebo", "agua", "todos los días"]
+        why: "You're the one drinking — «bebo»."
+      - kind: buildLit
+        id: l7-b-sofia
+        es: "Sofía habla español y come carne"
+        en: "Sofía speaks Spanish and eats meat"
+        atoms: ["habla", "español", "y", "come", "carne"]
+        tiles: ["hablas", "comes"]
+      - kind: audioWimcq
+        id: l7-ear-1
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: clozeLit
+        id: l7-c-vive
+        es: "mi hermano vive aquí"
+        en: "my brother lives here"
+        blank: "vive"
+        options: ["vive", "vives"]
+        atoms: ["mi", "hermano", "vive", "aquí"]
+        why: "Talking ABOUT your brother, not to him — «vive»."
+      - kind: listenBuildLit
+        id: l7-lb-1
+        es: "hablo español y como pan"
+        en: "I speak Spanish and I eat bread"
+        atoms: ["hablo", "español", "y", "como", "pan"]
+        tiles: ["hablas", "come"]
+      - kind: clozeLit
+        id: l7-c-comes
+        es: "comes carne"
+        en: "you eat meat"
+        blank: "comes"
+        options: ["comes", "come"]
+        atoms: ["comes", "carne"]
+        why: "Talking TO someone — «comes». The -ar machine says «hablas»; this one says «comes»."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l7-lc-1
+        es: "Ana vive aquí pero trabaja allí"
+        en: "Ana lives here but works there."
+        atoms: ["vive", "aquí", "pero", "trabaja", "allí"]
+        distractorsEn:
+          - "Ana works here but lives there."
+          - "Ana lives here and eats there."
+          - "Ana studies here but works there."
+      - kind: buildLit
+        id: l7-b-quiero
+        es: "quiero leer y escribir"
+        en: "I want to read and write"
+        atoms: ["quiero", "leer", "y", "escribir"]
+        tiles: ["correr", "comer"]
+      - kind: textMcq
+        id: l7-tm-1
+        target: "vives"
+        distractors: ["vive", "vivo", "trabajas"]
+      - kind: listenBuildLit
+        id: l7-lb-2
+        es: "Diego come carne y bebe agua"
+        en: "Diego eats meat and drinks water"
+        atoms: ["come", "carne", "y", "bebe", "agua"]
+        tiles: ["como", "bebo"]
+      - kind: clozeLit
+        id: l7-c-trabajo
+        es: "vivo aquí y trabajo también"
+        en: "I live here and I work here too"
+        blank: "trabajo"
+        options: ["trabajo", "trabajas"]
+        atoms: ["vivo", "aquí", "y", "trabajo", "también"]
+        why: "Same person all the way through — you live here, so you work here: «trabajo». Two machines, one «-o»."
+      - kind: audioWimcq
+        id: l7-ear-2
+        target: { surface: "el perro", emoji: "🐶" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: sim
+        id: l7-sim-sofia
+        scene: { emoji: "🍽️", title: "Lunch with Sofía", setting: "Sofía sits down across from you with a plate and a glass." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Comes carne?", audioText: "¿comes carne?", gloss: "Do you eat meat?" }
+            goal: "Say yes — and that you drink water."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, como carne y bebo agua" }
+                - { id: "wrong1", text: "sí, comes carne" }
+                - { id: "wrong2", text: "no entiendo" }
+              correctOptionId: "right"
+              audioText: "sí, como carne y bebo agua"
+            replyGloss: "Yes, I eat meat and I drink water."
+            explanation: "Sofía says «comes» TO you — you answer «como». The ending follows the person, not the question."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Vives aquí?", audioText: "¿vives aquí?", gloss: "Do you live here?" }
+            goal: "Say you live and work here."
+            reply:
+              mode: build
+              tiles: ["vivo", "aquí", "y", "trabajo", "también", "vives", "trabajas"]
+              answer: "vivo aquí y trabajo también"
+              alsoAccepted: ["vivo aquí"]
+            replyGloss: "I live here, and I work here too."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "como", target: "I eat" }
+          - { source: "bebes", target: "you drink" }
+          - { source: "vive", target: "he/she lives" }
+          - { source: "correr", target: "to run" }
+          - { source: "la carne", target: "the meat" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "hablo español y como pan"
+        en: "I speak Spanish and I eat bread"
+        atoms: ["hablo", "español", "y", "como", "pan"]
+
+  # ── L8 · CHECKPOINT — all graded, no info, no passive cards. ──────────
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Every machine, every gear"
+    description: "Every verb, every ending, no help — and one verb you have never run before."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "Ana come carne todos los días"
+        en: "Ana eats meat every day."
+        atoms: ["come", "carne", "todos los días"]
+        distractorsEn:
+          - "Ana eats bread every day."
+          - "Ana drinks water every day."
+          - "I eat meat every day."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la carne", emoji: "🥩" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "María habla español y come pan"
+        en: "María speaks Spanish and eats bread"
+        atoms: ["habla", "español", "y", "come", "pan"]
+        tiles: ["hablas", "comes"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "comes pan"
+        en: "you eat bread"
+        blank: "comes"
+        options: ["comes", "come"]
+        atoms: ["comes", "pan"]
+        why: "Talking TO someone — «comes»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "vivo aquí pero trabajo allí"
+        en: "I live here but I work there"
+        atoms: ["vivo", "aquí", "pero", "trabajo", "allí"]
+        tiles: ["vives", "trabajas"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "Diego bebe agua"
+        en: "Diego drinks water"
+        blank: "bebe"
+        options: ["bebe", "bebo"]
+        atoms: ["bebe", "agua"]
+        why: "Diego, not you — «bebe»."
+      - kind: speakLit
+        id: cp-sp-1
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "bebo café todos los días"
+        en: "I drink coffee every day"
+        blank: "bebo"
+        options: ["bebo", "bebes"]
+        atoms: ["bebo", "café", "todos los días"]
+        why: "You, every day — «bebo»."
+      - kind: buildLit
+        id: cp-build-2
+        es: "quiero comer y beber"
+        en: "I want to eat and drink"
+        atoms: ["quiero", "comer", "y", "beber"]
+        tiles: ["leer", "correr"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "mi hermano vive aquí y estudia español"
+        en: "My brother lives here and studies Spanish."
+        atoms: ["mi", "hermano", "vive", "aquí", "y", "estudia", "español"]
+        distractorsEn:
+          - "My brother lives here and speaks Spanish."
+          - "My brother works here and studies Spanish."
+          - "My sister lives here and studies Spanish."
+      - kind: textMcq
+        id: cp-tm-1
+        target: "bebes"
+        distractors: ["bebe", "bebo", "hablas"]
+      # ── TRANSFER TEST — the one step the module is built to earn ────────
+      #   Everything above is a pick between forms already drilled. This is
+      #   the machine run on a verb whose cells the learner has NEVER seen.
+      #   «recibir» is a free cognate on purpose: the whole cognitive load
+      #   lands on the ENDING, which is the thing being tested. Its four
+      #   cells are registered for THIS BEAT ONLY and appear nowhere else in
+      #   m11 — not in a matchLit, not in a tile bank, not in a later lesson.
+      #   The shape is forced, not chosen:
+      #     - speakLit + buildLit are the intro-capable step types that fit;
+      #       a textMcq debut fails the provenance gate (multiple_choice is
+      #       not in ES_INTRO_TYPES), so the four cells could not debut there.
+      #     - the buildLit's tile bank holds ALL THREE singular cells, so the
+      #       answer cannot be found by shape — «recibo» has to be reasoned.
+      #     - a cue:"recall" speakLit is ILLEGAL here: the course-wide recall
+      #       law licenses recall only for a phrase an earlier SPEAKING step
+      #       already printed, and nothing has ever printed «recibir».
+      #   WHY NOT escribir/leer/correr: this module's own pin keeps those
+      #   three infinitive-only, and that pin is right — a conjugated cell of
+      #   a verb the module never drills is an untaught form appearing
+      #   nowhere else. Hence a twenty-first atom rather than a cheaper reuse.
+      #   Placement: between cp-tm-1 (textMcq) and cp-ear-3 (audioWimcq), so
+      #   neither transfer step touches a step of its own kind, and — both
+      #   being generation steps — the pair BREAKS selection runs rather than
+      #   building one.
+      - kind: speakLit
+        id: cp-transfer-recibir
+        es: "recibir"
+        en: "to receive"
+        atoms: ["recibir"]
+      - kind: buildLit
+        id: cp-transfer-recibo
+        es: "recibo el libro"
+        en: "I receive the book"
+        atoms: ["recibo", "el", "libro"]
+        tiles: ["recibes", "recibe"]
+      - kind: audioWimcq
+        id: cp-ear-3
+        target: { surface: "correr", emoji: "🏃" }
+        distractors:
+          - { surface: "leer", emoji: "👓" }
+          - { surface: "escribir", emoji: "✍️" }
+      - kind: speakLit
+        id: cp-sp-2
+        es: "voy al parque"
+        en: "I'm going to the park"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: cp-cloze-4
+        es: "hablo español y como carne"
+        en: "I speak Spanish and I eat meat"
+        blank: "como"
+        options: ["como", "comes"]
+        atoms: ["hablo", "español", "y", "como", "carne"]
+        why: "One person, two machines — and the I-form is «-o» in both: «hablo», «como»."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "Diego come carne y yo también"
+        en: "Diego eats meat and me too"
+        atoms: ["come", "carne", "y", "yo", "también"]
+        tiles: ["pero", "como"]
+      - kind: clozeLit
+        id: cp-cloze-5
+        es: "vives en España"
+        en: "you live in Spain"
+        blank: "vives"
+        options: ["vives", "vive"]
+        atoms: ["vives", "en", "España"]
+        why: "Talking TO someone — «vives»."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "comer", target: "to eat" }
+          - { source: "come", target: "he/she eats" }
+          - { source: "bebo", target: "I drink" }
+          - { source: "vives", target: "you live" }
+          - { source: "también", target: "also, too" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: cp-sp-win
+        es: "como carne y bebo agua"
+        en: "I eat meat and I drink water"
+        atoms: ["como", "carne", "y", "bebo", "agua"]
+
+  # ── L9 · summit — Ana's table. comer/beber/vivir/carne/pan/también/pero
+  #    all do real work inside ONE meal. Zero-new. ────────────────────────
+  - n: 9
+    template: free
+    title: "Ana's table, part one"
+    description: "Bread, meat, water — and where you live. Everything this module gave you, at one table."
+    steps:
+      - kind: map
+        id: l9-map-1
+        tokens: ["Ana", "come", "carne", "y", "pan"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "eats", tokenIndex: 1 }
+          - { en: "meat", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "bread", tokenIndex: 4 }
+        audioText: "Ana come carne y pan"
+        revealNote: "Nothing new — just read it."
+        tokenGenders: { 2: "f", 4: "m" }
+      - kind: speakLit
+        id: l9-sp-1
+        es: "Ana come carne y pan"
+        en: "Ana eats meat and bread"
+        atoms: ["come", "carne", "y", "pan"]
+      - kind: clozeLit
+        id: l9-c-1
+        es: "Diego come carne, pero yo como pan"
+        en: "Diego eats meat, but I eat bread"
+        blank: "come"
+        options: ["come", "comes"]
+        atoms: ["come", "carne", "pero", "yo", "como", "pan"]
+        why: "Diego is one person, not the person you're talking to — «come», not «comes»."
+      - kind: buildLit
+        id: l9-b-1
+        es: "bebo agua y como pan"
+        en: "I drink water and eat bread"
+        atoms: ["bebo", "agua", "y", "como", "pan"]
+        tiles: ["bebes", "comes"]
+      - kind: audioWimcq
+        id: l9-ear-1
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la puerta", emoji: "🚪" }
+          - { surface: "la ventana", emoji: "🪟" }
+      - kind: clozeLit
+        id: l9-c-2
+        es: "Ana bebe agua también"
+        en: "Ana drinks water too"
+        blank: "bebe"
+        options: ["bebe", "bebes"]
+        atoms: ["bebe", "agua", "también"]
+        why: "Ana, not you — «bebe»."
+      - kind: listenBuildLit
+        id: l9-lb-1
+        es: "mi madre vive en Estados Unidos"
+        en: "my mother lives in the United States"
+        atoms: ["mi", "madre", "vive", "en", "Estados Unidos"]
+        tiles: ["vivo", "vives"]
+      - kind: listenCompLit
+        id: l9-lc-1
+        es: "como pan, pero no como carne"
+        en: "I eat bread, but I don't eat meat."
+        atoms: ["como", "pan", "pero", "no", "carne"]
+        distractorsEn:
+          - "I eat meat, but I don't eat bread."
+          - "I want bread, but not meat."
+          - "She eats bread, but not meat."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l9-tm-1
+        target: "vives"
+        distractors: ["vive", "vivo", "hablas"]
+      - kind: buildLit
+        id: l9-b-2
+        es: "Sofía come carne también"
+        en: "Sofía eats meat too"
+        atoms: ["come", "carne", "también"]
+        tiles: ["como", "comes"]
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "como", target: "I eat" }
+          - { source: "come", target: "he/she eats" }
+          - { source: "bebes", target: "you drink" }
+          - { source: "vive", target: "he/she lives" }
+          - { source: "carne", target: "meat" }
+          - { source: "la leche", target: "the milk" }
+      # ── THE SUMMIT ─────────────────────────────────────────────────────
+      #   One meal, all seven of the module's loads: comer (t1), pero (t1),
+      #   carne + pan (t1), beber (t2), vivir (t3), también (t3 NPC line —
+      #   Ana hands the learner the word, and L10's finale is where Sam
+      #   finally claims it).
+      - kind: sim
+        id: l9-sim-mesa
+        scene: { emoji: "🍽️", title: "Ana's table", setting: "Ana puts bread, meat and water on the table and starts asking." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Comes carne?", audioText: "¿comes carne?", gloss: "Do you eat meat?" }
+            goal: "Say no — but you eat bread."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero como pan" }
+                - { id: "wrong1", text: "no, pero comes pan" }
+                - { id: "wrong2", text: "sí, como carne" }
+              correctOptionId: "right"
+              audioText: "no, pero como pan"
+            replyGloss: "No, but I eat bread."
+            explanation: "Ana says «comes» to you; you say «como» back. «pero» turns a refusal into an answer."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Bebes agua o leche?", audioText: "¿bebes agua o leche?", gloss: "Do you drink water or milk?" }
+            goal: "Say you'll drink water."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "bebo agua, por favor" }
+                - { id: "wrong1", text: "bebes agua, por favor" }
+                - { id: "wrong2", text: "como agua" }
+              correctOptionId: "right"
+              audioText: "bebo agua, por favor"
+            replyGloss: "Water, please."
+          - id: t3
+            npc: { speaker: "Ana", es: "Diego vive aquí también. ¿Y tú? ¿Dónde vives?", audioText: "Diego vive aquí también. ¿y tú? ¿dónde vives?", gloss: "Diego lives here too. And you? Where do you live?" }
+            goal: "Say you live here."
+            reply:
+              mode: build
+              tiles: ["vivo", "aquí", "vives", "vive", "en"]
+              answer: "vivo aquí"
+            replyGloss: "I live here."
+          - id: t4
+            npc: { speaker: "Ana", es: "¡Gracias, Sam! Hasta luego.", audioText: "¡gracias, Sam! hasta luego.", gloss: "Thanks, Sam! See you later." }
+            goal: "Say goodbye back."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "also", text: "adiós" }
+                - { id: "wrong1", text: "buenos días" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: speakLit
+        id: l9-sp-win
+        es: "como pan, pero no como carne"
+        en: "I eat bread, but I don't eat meat"
+        atoms: ["como", "pan", "pero", "no", "carne"]
+
+  # ── L10 · MASTERY — every graded, no info, no passive cards. Both
+  #    machines, all three -ir/-er gears, and the module ends on the
+  #    reserved line «vivo aquí también» (printed nowhere else). ──────────
+  - n: 10
+    template: free
+    title: "Prove it — then Diego's last question"
+    description: "Every gear, both machines, no help — and Diego asks you something bigger than food."
+    steps:
+      - kind: clozeLit
+        id: l10-c-1
+        es: "Diego come carne"
+        en: "Diego eats meat"
+        blank: "come"
+        options: ["come", "como"]
+        atoms: ["come", "carne"]
+      - kind: buildLit
+        id: l10-b-1
+        es: "como pan y bebo café"
+        en: "I eat bread and drink coffee"
+        atoms: ["como", "pan", "y", "bebo", "café"]
+        tiles: ["comes", "bebes"]
+      - kind: audioWimcq
+        id: l10-ear-1
+        target: { surface: "carne", emoji: "🥩" }
+        distractors:
+          - { surface: "el queso", emoji: "🧀" }
+          - { surface: "el pollo", emoji: "🍗" }
+      - kind: clozeLit
+        id: l10-c-2
+        es: "vives en México"
+        en: "you live in Mexico"
+        blank: "vives"
+        options: ["vives", "vive"]
+        atoms: ["vives", "en", "México"]
+      - kind: listenBuildLit
+        id: l10-lb-1
+        es: "quiero leer y escribir"
+        en: "I want to read and write"
+        atoms: ["quiero", "leer", "y", "escribir"]
+        tiles: ["correr", "comer"]
+      - kind: speakLit
+        id: l10-sp-1
+        es: "¿adónde vas?"
+        en: "where are you headed?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-1
+        target: "comes"
+        distractors: ["come", "como", "hablas"]
+      - kind: buildLit
+        id: l10-b-2
+        es: "Sofía vive en España"
+        en: "Sofía lives in Spain"
+        atoms: ["vive", "en", "España"]
+        tiles: ["vivo", "vives"]
+      - kind: audioWimcq
+        id: l10-ear-2
+        target: { surface: "el celular", emoji: "📱" }
+        distractors:
+          - { surface: "la llave", emoji: "🔑" }
+          - { surface: "el libro", emoji: "📕" }
+      - kind: listenCompLit
+        id: l10-lc-1
+        es: "bebo café, pero no bebo té"
+        en: "I drink coffee, but I don't drink tea."
+        atoms: ["bebo", "café", "pero", "no", "té"]
+        distractorsEn:
+          - "I drink tea, but I don't drink coffee."
+          - "I want coffee, not tea."
+          - "He drinks coffee, but not tea."
+      - kind: buildLit
+        id: l10-b-3
+        es: "Ana bebe leche y come carne"
+        en: "Ana drinks milk and eats meat"
+        atoms: ["bebe", "leche", "y", "come", "carne"]
+        tiles: ["bebo", "como"]
+      - kind: clozeLit
+        id: l10-c-3
+        es: "Sofía come pan también"
+        en: "Sofía eats bread too"
+        blank: "también"
+        options: ["también", "pero"]
+        atoms: ["come", "pan", "también"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "como", target: "I eat" }
+          - { source: "bebes", target: "you drink" }
+          - { source: "vive", target: "he/she lives" }
+          - { source: "carne", target: "meat" }
+          - { source: "también", target: "too, also" }
+          - { source: "el mercado", target: "the market" }
+      # ── THE RESERVED LINE ──────────────────────────────────────────────
+      #   «vivo aquí también» is the module's «hablo un poco»: printed
+      #   NOWHERE else in m11 (L5 prints «vivo aquí»; L9's Ana prints
+      #   «Diego vive aquí también» — the learner has heard both halves and
+      #   has never yet said them together). It is the LAST turn of the LAST
+      #   step, with no farewell turn after it, per m10's mastery precedent.
+      - kind: sim
+        id: l10-sim-diego
+        scene: { emoji: "🚪", title: "Diego's real question", setting: "Dinner's over. Diego walks out with you and keeps talking." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Ana come pan todos los días. ¿Y tú?", audioText: "Ana come pan todos los días. ¿y tú?", gloss: "Ana eats bread every day. And you?" }
+            goal: "Say you eat bread too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo como pan también" }
+                - { id: "wrong1", text: "yo comes pan también" }
+                - { id: "wrong2", text: "yo bebo pan" }
+              correctOptionId: "right"
+              audioText: "yo como pan también"
+            replyGloss: "I eat bread too."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermano? ¿Vive aquí también?", audioText: "¿y tu hermano? ¿vive aquí también?", gloss: "And your brother? Does he live here too?" }
+            goal: "Say your brother lives here."
+            reply:
+              mode: build
+              tiles: ["mi", "hermano", "vive", "aquí", "vivo", "vives"]
+              answer: "mi hermano vive aquí"
+            replyGloss: "My brother lives here."
+          - id: t3
+            npc: { speaker: "Diego", es: "Yo vivo aquí, Sam. ¿Y tú?", audioText: "yo vivo aquí, Sam. ¿y tú?", gloss: "I live here, Sam. And you?" }
+            goal: "Say you live here too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vivo aquí también" }
+                - { id: "wrong1", text: "sí, vives aquí también" }
+                - { id: "wrong2", text: "sí, como aquí también" }
+              correctOptionId: "right"
+              audioText: "sí, vivo aquí también"
+            replyGloss: "Yes, I live here too."
+            explanation: "Same machine as «como» and «bebo» — «vivo» is just the -ir gear you already knew. «también» is the part that puts you at the table."
+
+placement:
+  screener:
+    - id: "es-m11-scr-1"
+      prompt: "Which one means 'I eat'?"
+      correct: "como"
+      distractors: ["comes", "come", "bebo"]
+  byModule:
+    - id: "es-m11-pl-1"
+      prompt: "I eat bread."
+      correct: "como pan"
+      distractors: ["comes pan", "come pan", "quiero pan"]
+    - id: "es-m11-pl-2"
+      prompt: "Diego drinks water."
+      correct: "Diego bebe agua"
+      distractors: ["Diego bebo agua", "Diego bebes agua", "Diego come agua"]
+    - id: "es-m11-pl-3"
+      prompt: "I live here but I don't eat here."
+      correct: "vivo aquí pero no como aquí"
+      distractors: ["vives aquí pero no comes aquí", "vivo aquí y no como aquí", "vivo aquí pero no come aquí"]
+    - id: "es-m11-pl-4"
+      prompt: "I want to read."
+      correct: "quiero leer"
+      distractors: ["quiero leo", "leo quiero", "quiero correr"]
