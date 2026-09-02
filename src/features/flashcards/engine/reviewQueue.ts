@@ -89,16 +89,21 @@ export type DeckWithCards = {
  * one-card-per-atom so this is a no-op there, but a merged subscription queue
  * can surface the same word from two decks — keep the first, drop the rest for
  * the day (they stay due and resurface next build, now spaced). Keyed on the
- * normalized target surface (`front`); different words / word-vs-sentence keep
- * distinct keys and are untouched.
+ * normalized target surface (`front`), qualified by the reading's kana when
+ * present; different words / word-vs-sentence keep distinct keys and are
+ * untouched. The kana qualifier matters for JA: `front` is now kanji-only
+ * (see `courseAtomToFlashcard`), and several atoms share a kanji surface
+ * with a different reading and meaning (何 なに/なん, 私 わたし/わたくし,
+ * 七 なな/しち, etc.) — without it those distinct cards would collide.
  */
 function dedupeSiblings<T extends { card: Flashcard }>(entries: T[]): T[] {
   const seen = new Set<string>();
   const out: T[] = [];
   for (const e of entries) {
-    const key = e.card.front.trim().toLowerCase();
-    if (key && seen.has(key)) continue;
-    if (key) seen.add(key);
+    const frontKey = e.card.front.trim().toLowerCase();
+    const key = `${frontKey}|${e.card.reading?.kana ?? ""}`;
+    if (frontKey && seen.has(key)) continue;
+    if (frontKey) seen.add(key);
     out.push(e);
   }
   return out;

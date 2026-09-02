@@ -317,7 +317,7 @@ export function FlashcardTester() {
     card &&
     testedModality === "recognition" &&
     (card.type === "word" || card.type === "sentence")
-      ? card.front
+      ? (card.reading?.kana ?? card.front)
       : undefined;
   useAutoPlayJaAudio(frontAudioText, `fc-front-${index}-${card?.id ?? "none"}`);
 

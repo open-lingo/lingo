@@ -1744,7 +1744,8 @@ export const JA_COURSE_ATOMS_BY_ID: ReadonlyMap<string, CourseAtom> = new Map(
  * Adapt a CourseAtom to the existing Flashcard shape used by DecksApi /
  * the SRS engine. Keeps consumers unchanged until the migration lands.
  *
- * `front`: kana (with kanji prefix if available, e.g. "毎朝 (まいあさ)").
+ * `front`: kanji if available, else kana (e.g. "毎朝"); the kana reading
+ *          moves to `reading.kana` instead of being baked into `front`.
  * `back`:  English meaning.
  */
 /** Canonical SRS/card id for an atom (`ja:biiru`). Matches the key scheme
@@ -1761,10 +1762,14 @@ export function courseAtomToFlashcard(
   // init cycle. The deck-enrichment layer resolves the emoji URL.
   opts?: { unlocked?: boolean; example?: Example; image?: string },
 ): Flashcard {
-  const front = atom.kanji ? `${atom.kanji} (${atom.kana})` : atom.kana;
+  const front = atom.kanji ?? atom.kana;
+  const reading = atom.kanji
+    ? { surface: atom.kanji, kana: atom.kana }
+    : undefined;
   return {
     id: canonicalAtomId(atom),
     front,
+    reading,
     back: atom.meaningEn,
     note: atom.note,
     type: "word",

@@ -14,6 +14,7 @@ import { describe, expect, it } from "vitest";
 
 import { M3_M7_REVIEW_POOL } from "@/features/languages/ja/grammarHelpers";
 import {
+  courseAtomToFlashcard,
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_KANA,
 } from "./courseAtoms";
@@ -81,6 +82,29 @@ describe("ja-course-atoms", () => {
       // picks the last occurrence, so the lookup just needs to return SOME
       // atom matching that kana.
       expect(found?.kana).toBe(atom.kana);
+    }
+  });
+});
+
+describe("courseAtomToFlashcard reading", () => {
+  it("puts the kanji on the front and carries the kana as a reading", () => {
+    const gakkou = JA_COURSE_ATOMS_BY_KANA.get("がっこう")!;
+    const card = courseAtomToFlashcard(gakkou);
+    expect(card.front).toBe("学校");
+    expect(card.reading).toEqual({ surface: "学校", kana: "がっこう" });
+    expect(card.front).not.toContain("(");
+  });
+
+  it("leaves kana-only atoms without a reading", () => {
+    const kana = JA_COURSE_ATOMS_BY_KANA.get("これ")!;
+    const card = courseAtomToFlashcard(kana);
+    expect(card.front).toBe("これ");
+    expect(card.reading).toBeUndefined();
+  });
+
+  it("never emits the old parenthesised front for any atom", () => {
+    for (const atom of JA_COURSE_ATOMS_BY_KANA.values()) {
+      expect(courseAtomToFlashcard(atom).front).not.toMatch(/\(.+\)$/);
     }
   });
 });

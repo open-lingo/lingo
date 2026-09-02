@@ -30,6 +30,13 @@ export type FlashcardBase = {
   id: string;
   front: string;
   back: string;
+  /**
+   * JA only: the kanji surface with its whole-word kana reading, so the
+   * front can render okurigana-aligned ruby (`KanjiRuby`) instead of the
+   * old `漢字 (かな)` string. Absent on kana-only, KO, ES, FR and frequency
+   * cards. Also the spoken text — the TTS manifest is keyed by kana.
+   */
+  reading?: { surface: string; kana: string };
   note?: string;
   /** Full image URL. */
   image?: string;
