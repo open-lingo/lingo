@@ -248,7 +248,16 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 onClick={() => addTile(i)}
                 onMouseEnter={() => peek.hoverStart(i)}
                 onMouseLeave={peek.hoverEnd}
-                className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+                /* Vertical padding is height-relative, not fixed.
+                   A fixed `py-6` made each option 90px, and four of them plus
+                   the play button, a two-line prompt and the CTA overflow the
+                   fixed lesson shell below ~900pt: at 393x852 (a 15 Pro Max in
+                   Display Zoom) that shows a scrollbar, and at 375x812 the last
+                   option is clipped BEHIND the Check button — unreachable.
+                   `cqh` is already the unit this grid sizes with, so the
+                   padding now shrinks with the container while the clamp keeps
+                   the roomy look on tall screens. Measured at 375/393/430. */
+                className={`flex items-center justify-center rounded-xl border-2 px-4 py-[clamp(0.5rem,2.6cqh,1.5rem)] text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
               >
                 <BuildTileSurface
                   tile={tile}
