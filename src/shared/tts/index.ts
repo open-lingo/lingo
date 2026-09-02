@@ -33,6 +33,7 @@ import { useEffect } from "react";
 import { assetUrl, resolveTtsPath } from "./manifest";
 import { IS_NATIVE } from "@/shared/platform/native";
 import { fetchBinaryNative } from "@/shared/platform/nativeHttp";
+import { getClipStore } from "./clipStore";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   getAudioVolume,
@@ -270,7 +271,71 @@ function getContext(): AudioContext | null {
     window.AudioContext ?? (window as WebAudioWindow).webkitAudioContext;
   if (!Ctor) return null;
   ctx = new Ctor();
+  // Self-heal whenever the platform parks the context.
+  //
+  // The explicit resumes elsewhere all hang off something we can observe — a
+  // user gesture, a play call, recording ending. An interruption can land
+  // outside all three (a call arrives, another app grabs the session, our own
+  // recognizer hands the session back while the learner is mid-step), and the
+  // context then stays parked with no error and no sound. Listening to the
+  // context itself needs no such hook.
+  //
+  // A resume attempted while the session is still unavailable simply rejects,
+  // and the next play retries — so this is safe to fire on every transition.
+  // Feature-detected: `BaseAudioContext` is an EventTarget everywhere we ship,
+  // but test doubles and very old WebKit are not obliged to be.
+  if (typeof ctx.addEventListener === "function") {
+    ctx.addEventListener("statechange", () => {
+      const c = ctx;
+      if (c) resumeIfBlocked(c);
+    });
+  }
   return ctx;
+}
+
+/**
+ * Bring the context back to `running` if anything has parked it.
+ *
+ * Two states park it, and only one of them is in the spec:
+ *   - `"suspended"` — created before any user gesture (Chrome autoplay policy,
+ *     iOS Safari).
+ *   - `"interrupted"` — **WebKit-only, and not in the `AudioContextState`
+ *     union**, which is exactly why it went unhandled. iOS parks the context
+ *     here whenever the app's `AVAudioSession` is taken away: a phone call, or
+ *     — the case that actually bit us — our own speech plugin calling
+ *     `setActive(false)` to hand the session back after recording. The context
+ *     never leaves that state on its own, because the "interruption ended"
+ *     notification WebKit waits for never arrives when WE were the one who
+ *     deactivated. Every clip after the first speaking step is then silent,
+ *     with no error anywhere: `start()` is accepted and simply never sounds.
+ *
+ * Checking `!== "running"` rather than listing states is deliberate — the bug
+ * was a state nobody knew to name.
+ */
+function resumeIfBlocked(c: AudioContext): void {
+  if (c.state === "closed") return;
+  if (c.state === "running") return;
+  if ((c.state as string) === "interrupted") {
+    // Never normal, and silent otherwise — worth a line in the native log.
+    console.warn("[tts] AudioContext interrupted (audio session was taken); resuming");
+  }
+  void c.resume().catch(() => {
+    /* resume can reject if the session is still unavailable; next play retries */
+  });
+}
+
+/**
+ * Force the audio context back to life after something outside the page took
+ * the audio session away.
+ *
+ * Exported because the speaking step is the one place that KNOWS an
+ * interruption just ended — the native recognizer released the session — and
+ * the next clip is usually an autoplay on the following step, with no user
+ * gesture to piggyback on.
+ */
+export function resumeAudioPlayback(): void {
+  const c = ctx;
+  if (c) resumeIfBlocked(c);
 }
 
 /**
@@ -312,9 +377,7 @@ function unlockOnFirstGesture(): void {
   const events: (keyof WindowEventMap)[] = ["pointerdown", "keydown", "touchstart"];
   const handler = () => {
     const c = getContext();
-    if (c && c.state === "suspended") {
-      void c.resume();
-    }
+    if (c) resumeIfBlocked(c);
     unlocked = true;
     for (const ev of events) window.removeEventListener(ev, handler);
   };
@@ -374,6 +437,22 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
 
   const p = (async () => {
     let arr: ArrayBuffer;
+
+    // Offline: serve from the persistent clip store when we already hold the
+    // bytes. `bufferCache` above is per-session only, so without this every
+    // cold start re-fetches every clip — and a plane/subway session has no
+    // audio at all. See `clipStore.ts`.
+    const store = getClipStore();
+    const cached = await store.get(url);
+    if (cached) {
+      // decodeAudioData DETACHES its input, so hand it a copy — otherwise the
+      // stored ArrayBuffer is zero-length on the next hit.
+      const decoded = await c.decodeAudioData(cached.slice(0));
+      bufferCache.set(url, decoded);
+      inflight.delete(url);
+      return decoded;
+    }
+
     if (IS_NATIVE) {
       // Under `capacitor://` this fetch is CORS-blocked and the clip silently
       // never plays — see `shared/platform/nativeHttp.ts` for why the native
@@ -388,6 +467,9 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       arr = await res.arrayBuffer();
     }
+    // Persist BEFORE decoding — decodeAudioData detaches the buffer, so a
+    // store call afterwards would write zero bytes.
+    void store.put(url, arr.slice(0));
     // Chromium prefers the promise form; older Safari only honored the
     // callback form, but we target current evergreens.
     const buf = await c.decodeAudioData(arr);
@@ -451,11 +533,9 @@ export function stopAllAudio(): void {
 function playBuffer(buffer: AudioBuffer): void {
   const c = getContext();
   if (!c) return;
-  // If still suspended (no gesture yet this session), attempt resume but
-  // don't block playback — start() is queued by the Web Audio runtime.
-  if (c.state === "suspended") {
-    void c.resume();
-  }
+  // Not running (no gesture yet, or the session was interrupted): attempt a
+  // resume but don't block playback — start() is queued by the Web Audio runtime.
+  resumeIfBlocked(c);
   const src = c.createBufferSource();
   src.buffer = buffer;
   const out = getGain() ?? c.destination;
@@ -546,9 +626,7 @@ export async function playJaAudioToEnd(
   }
   const c = getContext();
   if (!c) return;
-  if (c.state === "suspended") {
-    void c.resume();
-  }
+  resumeIfBlocked(c);
   const src = c.createBufferSource();
   src.buffer = buf;
   if (voice.playbackRate) src.playbackRate.value = voice.playbackRate;

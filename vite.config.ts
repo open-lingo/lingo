@@ -51,6 +51,18 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
     // Covers core + ops Lambda Function URLs (ops URL is unset in some envs).
     "https://*.lambda-url.us-west-1.on.aws",
     auth0Origin,
+    // Whisper (`?speech-engine=whisper`) pulls `Xenova/whisper-small` weights
+    // at runtime: the model index from huggingface.co, the weights from the
+    // LFS CDN it redirects to. Without these the engine cannot initialise at
+    // all — which is exactly what was happening in production, silently,
+    // because this policy is build-only and `npm run dev` has no CSP.
+    //
+    // Whisper is opt-in, not the default (see `speech/featureFlag.ts`) — the
+    // download is >300 MB. These origins exist so the A/B dial still works,
+    // not because normal users reach them.
+    "https://huggingface.co",
+    "https://*.hf.co",
+    "https://cdn-lfs.huggingface.co",
   ].filter(Boolean) as string[];
 
   const policy = [
@@ -90,6 +102,30 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
         /<head>/i,
         `<head>\n    <meta http-equiv="Content-Security-Policy" content="${policy}" />`,
       );
+    },
+  };
+}
+
+/**
+ * Strip the AdSense publisher `<meta>` tag from the NATIVE bundle.
+ *
+ * `index.html` carries `<meta name="google-adsense-account">` unconditionally,
+ * which is correct for the web app but ships an AdSense association inside the
+ * iOS binary. AdSense is a web-only programme — Google requires apps to use
+ * AdMob — so declaring it in a Capacitor WKWebView bundle is a policy problem
+ * and contradicts the runtime guards in `features/ads/config.ts` and
+ * `features/ads/adsense.ts`, which already refuse to load ads when IS_NATIVE.
+ *
+ * Build-time rather than runtime because a `<meta>` tag in the shipped HTML is
+ * static: no amount of JS gating removes it from the binary Apple receives.
+ */
+function stripAdSenseMetaOnNative(mode: string): Plugin {
+  return {
+    name: "strip-adsense-meta-native",
+    apply: "build",
+    transformIndexHtml(html) {
+      if (mode !== "native") return html;
+      return html.replace(/\s*<meta\s+name=["']google-adsense-account["'][^>]*>/gi, "");
     },
   };
 }
@@ -436,6 +472,81 @@ function copyKuromojiDict(): Plugin {
   };
 }
 
+
+/**
+ * Simulator/device HARNESS driver — dev-server only, opt-in via `HARNESS_DRIVE`.
+ *
+ * Driving the iOS Simulator's UI from a script needs macOS Accessibility
+ * permission (`osascript` → System Events → click), which an agent cannot grant
+ * itself. But the native shell under test loads its JS from THIS dev server, so
+ * the tap can be injected instead of synthesised: set
+ * `HARNESS_DRIVE="Tap to speak"` and the served page clicks the first button
+ * whose visible text matches, once, after first paint.
+ *
+ * It also mirrors `window.onerror` and unhandled rejections into `console.error`
+ * — Capacitor forwards `console.*` to the native log when
+ * `loggingBehavior: "production"` is set, but an uncaught error inside a React
+ * event handler is otherwise swallowed by the error boundary and never reaches
+ * either log. That gap is what made the speaking-step failure invisible.
+ *
+ * `apply: "serve"` plus the env gate means this cannot exist in a built bundle:
+ * `vite build` never runs the hook, and without the variable the hook is a
+ * no-op even in dev.
+ */
+function harnessDriverPlugin(): Plugin {
+  const target = process.env.HARNESS_DRIVE;
+  return {
+    name: "harness-driver",
+    apply: "serve",
+    transformIndexHtml() {
+      if (!target) return;
+      const delay = Number(process.env.HARNESS_DRIVE_DELAY ?? 3500);
+      return [
+        {
+          tag: "script",
+          injectTo: "body",
+          children: `
+(() => {
+  const LABELS = ${JSON.stringify(target)}.split("|");
+  const DELAY = ${delay};
+  window.addEventListener("error", (e) => {
+    console.error("[harness] window.onerror:", e.message, e.filename + ":" + e.lineno, e.error && e.error.stack);
+  });
+  window.addEventListener("unhandledrejection", (e) => {
+    const r = e.reason;
+    console.error("[harness] unhandledrejection:", r && (r.stack || r.message) || String(r));
+  });
+  const findByText = (label) => {
+    const nodes = document.querySelectorAll("button, [role=button]");
+    for (const n of nodes) {
+      if (n.disabled) continue;
+      const hay = ((n.textContent || "") + " " + (n.getAttribute("aria-label") || ""))
+        .trim()
+        .toLowerCase();
+      if (hay.includes(label.toLowerCase())) return n;
+    }
+    return null;
+  };
+  window.__harnessTap = (label) => {
+    const el = findByText(label);
+    if (!el) { console.error("[harness] no element matching:", label); return false; }
+    console.error("[harness] tapping:", label);
+    el.click();
+    return true;
+  };
+  let i = 0;
+  const timer = setInterval(() => {
+    if (i >= LABELS.length) { clearInterval(timer); return; }
+    if (window.__harnessTap(LABELS[i])) i++;
+  }, DELAY);
+})();
+`,
+        },
+      ];
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname, "VITE_");
   return {
@@ -445,10 +556,12 @@ export default defineConfig(({ mode }) => {
     serveDictAsBinary(),
     copyKuromojiDict(),
     devLogMiddleware(),
+    harnessDriverPlugin(),
     qaNotesMiddleware(),
     reviewQueueMiddleware(),
     spinePlanMiddleware(),
     cspMetaPlugin(env),
+    stripAdSenseMetaOnNative(mode),
     // Service worker: the app is a daily-use tool, so returning visits are the
     // common case — precaching the learner path makes them load from disk
     // instead of re-paying the CDN round trips every morning (the shell is

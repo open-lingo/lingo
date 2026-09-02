@@ -7,7 +7,12 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { convertToHiragana } from "@/features/languages/ja/readingAnnotation/kuroshiro";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
-import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/tts";
+import {
+  getTtsUrl,
+  playJaAudio,
+  resumeAudioPlayback,
+  useAutoPlayJaAudio,
+} from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
@@ -22,6 +27,7 @@ import {
   scoreAlternatives,
   scoreAlternativesGeneric,
   tiersForTarget,
+  useNativeSpeechRecognition,
   useSpeechRecognition,
   useWhisperRecognition,
   type MatchResult,
@@ -30,6 +36,7 @@ import {
   type UseWhisperRecognitionApi,
   type Verdict,
 } from "@/shared/speech";
+import { IS_NATIVE } from "@/shared/platform/native";
 import { useLang } from "@/shared/hooks/useLangPath";
 
 /**
@@ -152,6 +159,7 @@ export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
   return (
     <SpeakingStepPlaceholder
       step={step}
+      onComplete={onComplete}
       onContinue={onContinue}
       onSilentSwap={onSilentSwap}
     />
@@ -175,10 +183,12 @@ function SilentSwapButton({ onSwap }: { onSwap: () => void }) {
 
 function SpeakingStepPlaceholder({
   step,
+  onComplete,
   onContinue,
   onSilentSwap,
 }: {
   step: SpeakingStep;
+  onComplete?: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
   onSilentSwap?: () => void;
 }) {
@@ -231,7 +241,18 @@ function SpeakingStepPlaceholder({
       </div>
 
       <div className="mt-auto pt-6" data-testid="primary-cta">
-        <ContinueButton onClick={onContinue} label="I said it!" />
+        {/* `speaking` is a graded step, and `LessonPage.handleContinue`
+            refuses to advance past a graded step with no recorded result.
+            Continuing without `onComplete` therefore did nothing at all —
+            the button accepted the tap and the learner was stuck. This path
+            is an ungraded self-report, so record it as a pass. */}
+        <ContinueButton
+          onClick={() => {
+            onComplete?.(step.id, true);
+            onContinue();
+          }}
+          label="I said it!"
+        />
       </div>
     </div>
   );
@@ -378,10 +399,23 @@ function SpeakingStepRecognized({
     maxAlternatives: config.maxAlternatives,
   });
   const whisperRecog: UseWhisperRecognitionApi = useWhisperRecognition(locales.whisper);
-  const recog: UseSpeechRecognitionApi | UseWhisperRecognitionApi = usingWhisper
-    ? whisperRecog
-    : webRecog;
+  // iOS gets SFSpeechRecognizer. Neither of the other two can work in a
+  // shipped native build: WKWebView has no Web Speech API, and Whisper's
+  // weights come from a HuggingFace origin the CSP does not allow (and are
+  // ~240 MB besides). See `useNativeSpeechRecognition.ts`.
+  const nativeRecog = useNativeSpeechRecognition(locales.web, {
+    maxAlternatives: config.maxAlternatives,
+  });
+  // `IS_NATIVE` is a build/runtime constant, so this choice is stable for the
+  // lifetime of the mount — same rules-of-hooks argument as `usingWhisper`.
+  const usingNative = IS_NATIVE;
+  const recog: UseSpeechRecognitionApi | UseWhisperRecognitionApi = usingNative
+    ? nativeRecog
+    : usingWhisper
+      ? whisperRecog
+      : webRecog;
   const supported = useMemo(() => {
+    if (usingNative) return nativeRecog.supported;
     if (usingWhisper) {
       return (
         typeof window !== "undefined" &&
@@ -390,7 +424,7 @@ function SpeakingStepRecognized({
       );
     }
     return isSpeechRecognitionSupported();
-  }, [usingWhisper]);
+  }, [usingNative, nativeRecog.supported, usingWhisper]);
   const whisperLoading =
     usingWhisper &&
     (whisperRecog.status === "loading" || whisperRecog.status === "idle");
@@ -471,7 +505,51 @@ function SpeakingStepRecognized({
     lessonModuleIndex == null || lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE;
   const effectiveShowRomaji = showRomaji && romajiAllowed;
 
+  // Stop the mic the instant the learner is already correct.
+  //
+  // Scoring below only runs on `finished`, which means the recognizer decides
+  // when the attempt is over — it waits out its own silence timeout after the
+  // learner has plainly said the word. That is the "it keeps listening for a
+  // second after I got it right" complaint, and on a drill you repeat dozens
+  // of times per lesson it is the difference between fluid and sluggish.
+  //
+  // Watching the live transcript closes the mic on a match instead; the
+  // existing `finished` path then grades it normally, so there is exactly one
+  // place that decides a verdict.
+  //
+  // Deliberately conservative:
+  //   - `perfect` only. A `close` reading mid-utterance may be a prefix of a
+  //     word the learner is still saying, and cutting them off there would
+  //     grade a partial as final.
+  //   - Non-JA only. Japanese grades kana AFTER an async kanji→kana
+  //     conversion (`convertToHiragana`); running that per partial would be
+  //     costly and, skipped, the generic scorer would under-match kanji and
+  //     never fire anyway. JA keeps today's behaviour.
+  useEffect(() => {
+    if (isJa) return;
+    if (!recog.listening || recog.finished) return;
+    const live = recog.transcript.trim();
+    if (!live) return;
+    const probe = scoreAlternativesGeneric(step.targetPhrase, [{ transcript: live }]);
+    if (probe.verdict === "perfect") recog.stop();
+  }, [isJa, recog, step.targetPhrase]);
+
   // When recognition finishes, score all alternatives against the
+  // Recording is over — hand the audio session back to playback.
+  //
+  // On iOS the native recognizer holds `.playAndRecord` and releases it with
+  // `setActive(false)` when it stops. That deactivation parks WKWebView's
+  // AudioContext in WebKit's `"interrupted"` state, and nothing resumes it,
+  // because the "interruption ended" notification WebKit is waiting for never
+  // comes when the app itself did the deactivating. Result: every clip after
+  // the first speaking step is silent — including the autoplay on the NEXT
+  // step, which has no user gesture to recover on. This is that gesture.
+  useEffect(() => {
+    if (!usingNative) return;
+    if (recog.listening) return;
+    resumeAudioPlayback();
+  }, [usingNative, recog.listening]);
+
   // target and surface a tiered verdict. The hook resets on the next
   // start(), so each attempt is a clean grade.
   useEffect(() => {

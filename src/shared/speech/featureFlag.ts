@@ -81,10 +81,22 @@ export const SPEECH_DEFAULTS: SpeechConfig = {
   strict: false,
   maxAlternatives: 5,
   debug: false,
-  // Default to Whisper-small. It outperforms Web Speech for JA recognition
-  // (better kanji/katakana handling, no English phonotactic priors).
-  // `?speech-engine=web` still lets you opt back to Web Speech for A/B.
-  engine: "whisper",
+  // Web Speech by default. Whisper-small genuinely recognises JA better
+  // (kanji/katakana handling, no English phonotactic priors) and stays
+  // available via `?speech-engine=whisper` — but it cannot be the DEFAULT for
+  // a web app: `Xenova/whisper-small` fetches its weights from HuggingFace at
+  // runtime and the smallest quantised encoder+decoder pair is still >300 MB
+  // EACH. Shipping that to every learner who taps a speaking step is not a
+  // download we can justify.
+  //
+  // It was also simply broken in production: the CSP has no HuggingFace
+  // origin, so the fetch was blocked outright and the default engine could
+  // never initialise on app.openlingoapp.com. It only ever worked in
+  // `npm run dev`, because the CSP plugin is `apply: "build"`.
+  //
+  // Native does not consult this dial at all — iOS uses SFSpeechRecognizer
+  // (`useNativeSpeechRecognition`), which is on-device and needs no download.
+  engine: "web",
 };
 
 function safeGet(key: string): string | null {

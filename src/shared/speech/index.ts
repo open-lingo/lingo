@@ -38,6 +38,10 @@ export {
   type WhisperStatus,
 } from "./useWhisperRecognition";
 export {
+  useNativeSpeechRecognition,
+  type NativeSpeechPlugin,
+} from "./useNativeSpeechRecognition";
+export {
   tiersForTarget,
   classifyMoraBand,
   type MoraBand,

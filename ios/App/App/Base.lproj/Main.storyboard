@@ -11,7 +11,14 @@
         <!--Bridge View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CAPBridgeViewController" customModule="Capacitor" sceneMemberID="viewController"/>
+                <!-- AppBridgeViewController, not the stock CAPBridgeViewController:
+                     it is the subclass whose `capacitorDidLoad()` registers the
+                     app's own plugins (SpeechRecognizer). Info.plist sets
+                     UISceneStoryboardFile=Main, so UIKit instantiates whatever
+                     this line names — pointing it at the base class meant the
+                     registering subclass never ran and the speech plugin was
+                     invisible to the bridge. customModule is the app target. -->
+                <viewController id="BYZ-38-t0r" customClass="AppBridgeViewController" customModule="App" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>

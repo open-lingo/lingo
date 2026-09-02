@@ -269,10 +269,19 @@ export function speaking(id: string, word: string, meaning: string): LessonStep 
     type: "speaking",
     targetPhrase: word,
     translation: meaning,
-    // 2026-05-19: Korean STT not yet wired (Whisper supports it but the
-    // mora/normalization pipeline is JA-specific). Stub for now — flips
-    // to false once the Korean grader lands.
-    stubbed: true,
+    // Un-stubbed 2026-09-01. The 2026-05-19 note here said "flips to false
+    // once the Korean grader lands" — it has: `scoreAlternativesGeneric` is
+    // the script-agnostic scorer SpeakingStepView already uses for every
+    // non-JA language, so the JA-specific mora pipeline is no longer on the
+    // path.
+    //
+    // ⚠️ `stubbed: true` is not a soft hint — it makes SpeakingStepView render
+    // the ungraded placeholder UNCONDITIONALLY, ahead of any engine check. So
+    // every Korean speaking step showed "speech recognition is not yet
+    // available" and no recognizer was ever constructed, which is why iOS
+    // never even listed Microphone/Speech Recognition under the app: nothing
+    // had requested them.
+    stubbed: false,
   };
 }
 

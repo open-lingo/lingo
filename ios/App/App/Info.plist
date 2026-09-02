@@ -18,8 +18,6 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
@@ -35,10 +33,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Open Lingo uses the microphone so you can practise speaking. Recordings are transcribed on your device and are not uploaded.</string>
+	<string>Open Lingo uses the microphone so you can practise speaking. Your speech is transcribed to check your pronunciation, on your device when Apple's offline model for the language is available and through Apple's speech service otherwise.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Open Lingo uses speech recognition to check your pronunciation against the lesson.</string>
 	<key>UIApplicationSceneManifest</key>
@@ -64,10 +64,6 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
