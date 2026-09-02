@@ -29,7 +29,7 @@ const sideClasses: Record<SheetSide, string> = {
   auto:
     "inset-x-0 bottom-0 max-h-[88vh] border-t rounded-t-2xl pb-safe " +
     "md:inset-y-0 md:left-auto md:right-0 md:h-full md:max-h-none md:w-[88vw] " +
-    "md:max-w-sm md:rounded-l-2xl md:rounded-t-none md:border-l md:border-t-0 md:pb-0",
+    "md:max-w-sm md:rounded-tr-none md:rounded-bl-2xl md:border-l md:border-t-0 md:pb-0",
 };
 
 export type SheetProps = {
