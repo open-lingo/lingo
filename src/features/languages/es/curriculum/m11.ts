@@ -1045,7 +1045,7 @@ const ES_M11_6: LessonContent = {
       type: "word_image_mcq",
       meaningEn: "el libro",
       options: [
-        { id: "correct", word: "el libro", emoji: "📕" },
+        { id: "correct", word: "el libro", emoji: "📖" },
         { id: "o1", word: "el lápiz", emoji: "✏️" },
         { id: "o2", word: "el papel", emoji: "📄" },
       ],
@@ -1781,7 +1781,7 @@ const ES_M11_10: LessonContent = {
       options: [
         { id: "correct", word: "el celular", emoji: "📱" },
         { id: "o1", word: "la llave", emoji: "🔑" },
-        { id: "o2", word: "el libro", emoji: "📕" },
+        { id: "o2", word: "el libro", emoji: "📖" },
       ],
       correctOptionId: "correct",
     },

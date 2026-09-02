@@ -954,7 +954,7 @@ lessons:
         tiles: ["correr", "comer"]
       - kind: audioWimcq
         id: l6-ear-review1
-        target: { surface: "el libro", emoji: "📕" }
+        target: { surface: "el libro", emoji: "📖" }
         distractors:
           - { surface: "el lápiz", emoji: "✏️" }
           - { surface: "el papel", emoji: "📄" }
@@ -1556,7 +1556,7 @@ lessons:
         target: { surface: "el celular", emoji: "📱" }
         distractors:
           - { surface: "la llave", emoji: "🔑" }
-          - { surface: "el libro", emoji: "📕" }
+          - { surface: "el libro", emoji: "📖" }
       - kind: listenCompLit
         id: l10-lc-1
         es: "bebo café, pero no bebo té"
