@@ -86,7 +86,7 @@ const ES_M12_1: LessonContent = {
       revealNote: "Same sentence, other side. «silla» is a la-word, so the pointing word is «esta» — and «nuevo» flips to «nueva» right behind it, exactly as it always has. The noun decides both.",
       tokenGenders: { 0: "f", 1: "f", 3: "f" },
     },
-    speaking("es-m12-1-l1-sp-estasilla", "esta silla es nueva", "this chair is new", ["esta", "silla", "es", "nueva"]),
+    speaking("es-m12-1-l1-sp-estasilla", "esta silla es nueva", "this chair is new", ["esta", "silla", "es", "nuevo"]),
     infoStep(
       "es-m12-1-l1-info-estevsesta",
       "Este, esta — and the accent that changes everything",
@@ -282,7 +282,7 @@ const ES_M12_2: LessonContent = {
       revealNote: "Nothing new but the noun. «camisa» ends in -a and takes «la», so the pointing word is «esta» and «nuevo» flips to «nueva» behind it — the whole line leans one way.",
       tokenGenders: { 0: "f", 1: "f", 3: "f" },
     },
-    speaking("es-m12-2-l2-sp-estacamisa", "esta camisa es nueva", "this shirt is new", ["esta", "camisa", "es", "nueva"]),
+    speaking("es-m12-2-l2-sp-estacamisa", "esta camisa es nueva", "this shirt is new", ["esta", "camisa", "es", "nuevo"]),
     vocabMcq("es-m12-2-l2-d-falda", { surface: "la falda", meaningEn: "the skirt", emoji: "👗" }, [{ surface: "la camisa", emoji: "👕" }, { surface: "el zapato", emoji: "👟" }, { surface: "una silla", emoji: "🪑" }]),
     build(
       "es-m12-2-l2-b-estafalda",
@@ -290,7 +290,7 @@ const ES_M12_2: LessonContent = {
       "esta falda es roja",
       ["esta", "falda", "es", "roja", "este", "rojo"],
       ["esta", "falda", "es", "roja"],
-      ["esta", "falda", "es", "roja"],
+      ["esta", "falda", "es", "rojo"],
     ),
     vocabMcq("es-m12-2-l2-d-zapato", { surface: "el zapato", meaningEn: "the shoe", emoji: "👟" }, [{ surface: "la camisa", emoji: "👕" }, { surface: "la falda", emoji: "👗" }, { surface: "el papel", emoji: "📄" }]),
     speaking("es-m12-2-l2-sp-estezapato", "este zapato es negro", "this shoe is black", ["este", "zapato", "es", "negro"]),
@@ -321,7 +321,7 @@ const ES_M12_2: LessonContent = {
       "this shirt is white",
       "esta camisa es blanca",
       "«la camisa» — a la-word, so «esta». The shirt decided it, not you.",
-      ["esta", "camisa", "es", "blanca"],
+      ["esta", "camisa", "es", "blanco"],
     ),
     listeningBuildSentence({
       id: "es-m12-2-l2-lb-estezapato",
@@ -493,7 +493,7 @@ const ES_M12_3: LessonContent = {
       revealNote: "«camisa» is a la-word, so the pointing word takes the -a: «esta camisa» in your hands, «esa camisa» across the shop. The noun picks the ending, exactly the way it picks «nueva» over «nuevo». You are not choosing the letter — the shirt is.",
       tokenGenders: { 1: "f", 3: "f" },
     },
-    speaking("es-m12-3-l3-sp-esacamisa", "esa camisa es nueva", "that shirt is new", ["esa", "camisa", "es", "nueva"]),
+    speaking("es-m12-3-l3-sp-esacamisa", "esa camisa es nueva", "that shirt is new", ["esa", "camisa", "es", "nuevo"]),
     infoStep(
       "es-m12-3-l3-info-dosdistancias",
       "Two distances, and that's all there are",
@@ -525,7 +525,7 @@ const ES_M12_3: LessonContent = {
       tiles: ["esta", "camisa", "es", "bonita", "ese", "este"],
       correctOrder: ["esta", "camisa", "es", "bonita"],
       promptEn: "this shirt is pretty",
-      exercisedAtomSurfaces: ["esta", "camisa", "es", "bonita"],
+      exercisedAtomSurfaces: ["esta", "camisa", "es", "bonito"],
     }),
     {
       id: "es-m12-3-l3-ear-review",
@@ -548,7 +548,7 @@ const ES_M12_3: LessonContent = {
       "that skirt is old",
       "esa falda es vieja",
       "Both are the far one — «falda» is the tell. It is a la-word, so the -a form: «esa».",
-      ["esa", "falda", "es", "vieja"],
+      ["esa", "falda", "es", "viejo"],
     ),
     build(
       "es-m12-3-l3-b-estezapatoesacamisa",

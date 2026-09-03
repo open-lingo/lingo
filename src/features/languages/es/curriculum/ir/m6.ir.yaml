@@ -422,7 +422,7 @@ lessons:
           - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
         en: "the house is pretty"
         audioText: "la casa es bonita"
-        atoms: ["la", "casa", "es", "bonita"]
+        atoms: ["la", "casa", "es", "bonito"]
       - kind: clozeLit
         id: c-bonitomasc
         es: "el libro es bonito"
@@ -435,7 +435,7 @@ lessons:
         id: b-mesabonita
         es: "la mesa es bonita"
         en: "the table is pretty"
-        atoms: ["la", "mesa", "es", "bonita"]
+        atoms: ["la", "mesa", "es", "bonito"]
         tiles: ["el", "bonito"]
       - kind: clozeLit
         id: c-bonitofem
@@ -443,7 +443,7 @@ lessons:
         en: "the key is pretty"
         blank: "bonita"
         options: ["bonita", "bonito"]
-        atoms: ["la", "llave", "es", "bonita"]
+        atoms: ["la", "llave", "es", "bonito"]
         why: "llave is a la-word — you've known that since m3 — so bonita matches."
       - kind: audioWimcq
         id: ear-review-llave
@@ -464,13 +464,13 @@ lessons:
         id: b-ventanabonita
         es: "la ventana es bonita"
         en: "the window is pretty"
-        atoms: ["la", "ventana", "es", "bonita"]
+        atoms: ["la", "ventana", "es", "bonito"]
         tiles: ["el", "bonito"]
       - kind: listenCompLit
         id: lc-cocinabonita
         es: "la cocina es bonita"
         en: "The kitchen is pretty."
-        atoms: ["la", "cocina", "es", "bonita"]
+        atoms: ["la", "cocina", "es", "bonito"]
         distractorsEn:
           - "The kitchen is big."
           - "The bathroom is pretty."
@@ -603,7 +603,7 @@ lessons:
         id: b-casablanca
         es: "la casa es blanca"
         en: "the house is white"
-        atoms: ["la", "casa", "es", "blanca"]
+        atoms: ["la", "casa", "es", "blanco"]
         tiles: ["el", "negro", "blanco"]
       - kind: audioWimcq
         id: ear-rojoverde
@@ -788,7 +788,7 @@ lessons:
         id: b-casanueva
         es: "la casa es nueva"
         en: "the house is new"
-        atoms: ["la", "casa", "es", "nueva"]
+        atoms: ["la", "casa", "es", "nuevo"]
         tiles: ["el", "viejo", "nuevo"]
       - kind: clozeLit
         id: c-malobueno-alt
@@ -796,7 +796,7 @@ lessons:
         en: "the photo is bad"
         blank: "mala"
         options: ["mala", "buena"]
-        atoms: ["la", "foto", "es", "mala"]
+        atoms: ["la", "foto", "es", "malo"]
         why: "foto is a la-word (the m4 rule-breaker) — mala matches."
       - kind: speakLit
         id: sp-recall-esunlapiz
@@ -864,12 +864,12 @@ lessons:
         en: "the window is small"
         blank: "pequeña"
         options: ["pequeña", "grande"]
-        atoms: ["la", "ventana", "es", "pequeña"]
+        atoms: ["la", "ventana", "es", "pequeño"]
       - kind: buildLit
         id: b-review1
         es: "la casa blanca es muy bonita"
         en: "the white house is very pretty"
-        atoms: ["la", "casa", "blanca", "es", "muy", "bonita"]
+        atoms: ["la", "casa", "blanco", "es", "muy", "bonito"]
         tiles: ["blanco", "bonito"]
       - kind: audioWimcq
         id: ear-review-final1
@@ -904,7 +904,7 @@ lessons:
         en: "the window is white"
         blank: "blanca"
         options: ["blanca", "negra"]
-        atoms: ["la", "ventana", "es", "blanca"]
+        atoms: ["la", "ventana", "es", "blanco"]
       - kind: buildLit
         id: b-review2
         es: "el perro es bueno y bonito"
@@ -1049,7 +1049,7 @@ lessons:
         id: lb-review1
         es: "la mesa es vieja pero buena"
         en: "The table is old but good"
-        atoms: ["la", "mesa", "es", "vieja", "pero", "buena"]
+        atoms: ["la", "mesa", "es", "viejo", "pero", "bueno"]
         tiles: ["nueva", "mala"]
       - kind: clozeLit
         id: c-invariant-grande
@@ -1124,7 +1124,7 @@ lessons:
         id: sp-win
         es: "la foto es pequeña y muy bonita"
         en: "the photo is small and very pretty"
-        atoms: ["la", "foto", "es", "pequeña", "y", "muy", "bonita"]
+        atoms: ["la", "foto", "es", "pequeño", "y", "muy", "bonito"]
 
   # ── L8 · CHECKPOINT — zero-new, all graded. ───────────────────────────
   - n: 8
@@ -1153,7 +1153,7 @@ lessons:
         en: "the door is white"
         blank: "blanca"
         options: ["blanca", "negra"]
-        atoms: ["la", "puerta", "es", "blanca"]
+        atoms: ["la", "puerta", "es", "blanco"]
       - kind: buildLit
         id: cp-build-1
         es: "el perro es grande y bonito"
@@ -1168,7 +1168,7 @@ lessons:
           - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
         en: "the key is old"
         audioText: "la llave es vieja"
-        atoms: ["la", "llave", "es", "vieja"]
+        atoms: ["la", "llave", "es", "viejo"]
       - kind: clozeLit
         id: cp-cloze-2
         es: "la ventana es azul"
@@ -1186,7 +1186,7 @@ lessons:
         id: cp-lb-1
         es: "la ventana es vieja pero bonita"
         en: "The window is old but pretty"
-        atoms: ["la", "ventana", "es", "vieja", "pero", "bonita"]
+        atoms: ["la", "ventana", "es", "viejo", "pero", "bonito"]
         tiles: ["nueva", "mala"]
       - kind: speakLit
         id: cp-sp-1
@@ -1200,7 +1200,7 @@ lessons:
         en: "the table is small"
         blank: "pequeña"
         options: ["pequeña", "grande"]
-        atoms: ["la", "mesa", "es", "pequeña"]
+        atoms: ["la", "mesa", "es", "pequeño"]
       - kind: audioWimcq
         id: cp-ear-3
         target: { surface: "verde", emoji: "🟢" }
@@ -1211,7 +1211,7 @@ lessons:
         id: cp-lc-2
         es: "la casa es nueva y grande"
         en: "The house is new and big."
-        atoms: ["la", "casa", "es", "nueva", "y", "grande"]
+        atoms: ["la", "casa", "es", "nuevo", "y", "grande"]
         distractorsEn:
           - "The house is old and small."
           - "The house is new and small."
@@ -1234,7 +1234,7 @@ lessons:
         en: "the key is good"
         blank: "buena"
         options: ["buena", "mala"]
-        atoms: ["la", "llave", "es", "buena"]
+        atoms: ["la", "llave", "es", "bueno"]
       - kind: matchLit
         id: cp-match
         pairs:
@@ -1306,7 +1306,7 @@ lessons:
           - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
         en: "María's house is pretty"
         audioText: "la casa de María es bonita"
-        atoms: ["la", "casa", "de", "es", "bonita"]
+        atoms: ["la", "casa", "de", "es", "bonito"]
       - kind: clozeLit
         id: c-summit2
         es: "el carro de María es verde"
@@ -1334,7 +1334,7 @@ lessons:
         id: b-summit2
         es: "la casa de María es vieja pero bonita"
         en: "María's house is old but pretty"
-        atoms: ["la", "casa", "de", "es", "vieja", "pero", "bonita"]
+        atoms: ["la", "casa", "de", "es", "viejo", "pero", "bonito"]
         tiles: ["nueva", "mala"]
       - kind: matchLit
         id: match
@@ -1430,7 +1430,7 @@ lessons:
         id: m-lc-1
         es: "la foto es bonita"
         en: "The photo is pretty."
-        atoms: ["la", "foto", "es", "bonita"]
+        atoms: ["la", "foto", "es", "bonito"]
         distractorsEn:
           - "The photo is big."
           - "The house is pretty."
@@ -1449,7 +1449,7 @@ lessons:
         id: m-lb-1
         es: "la casa es vieja pero muy bonita"
         en: "The house is old but very pretty"
-        atoms: ["la", "casa", "es", "vieja", "pero", "muy", "bonita"]
+        atoms: ["la", "casa", "es", "viejo", "pero", "muy", "bonito"]
         tiles: ["nueva", "mala"]
       - kind: audioWimcq
         id: m-ear-2
@@ -1471,7 +1471,7 @@ lessons:
           - { blank: { id: "adj", answer: "a", options: ["a", "o"] } }
         en: "the table is white"
         audioText: "la mesa es blanca"
-        atoms: ["la", "mesa", "es", "blanca"]
+        atoms: ["la", "mesa", "es", "blanco"]
       - kind: clozeLit
         id: m-cloze-3
         es: "el perro es malo"

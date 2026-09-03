@@ -145,7 +145,7 @@ lessons:
         id: l1-sp-estasilla
         es: "esta silla es nueva"
         en: "this chair is new"
-        atoms: ["esta", "silla", "es", "nueva"]
+        atoms: ["esta", "silla", "es", "nuevo"]
       # The module's single info card, spent on the accent pair — the one
       # thing here that cannot be deduced from the two maps above.
       - kind: info
@@ -327,7 +327,7 @@ lessons:
         id: l2-sp-estacamisa
         es: "esta camisa es nueva"
         en: "this shirt is new"
-        atoms: ["esta", "camisa", "es", "nueva"]
+        atoms: ["esta", "camisa", "es", "nuevo"]
       - kind: imageMcq
         id: l2-d-falda
         target: { surface: "la falda", meaningEn: "the skirt", emoji: "👗" }
@@ -339,7 +339,7 @@ lessons:
         id: l2-b-estafalda
         es: "esta falda es roja"
         en: "this skirt is red"
-        atoms: ["esta", "falda", "es", "roja"]
+        atoms: ["esta", "falda", "es", "rojo"]
         tiles: ["este", "rojo"]
       - kind: imageMcq
         id: l2-d-zapato
@@ -370,7 +370,7 @@ lessons:
         en: "this shirt is white"
         blank: "esta"
         options: ["esta", "este"]
-        atoms: ["esta", "camisa", "es", "blanca"]
+        atoms: ["esta", "camisa", "es", "blanco"]
         why: "«la camisa» — a la-word, so «esta». The shirt decided it, not you."
       - kind: listenBuildLit
         id: l2-lb-estezapato
@@ -515,7 +515,7 @@ lessons:
         id: l3-sp-esacamisa
         es: "esa camisa es nueva"
         en: "that shirt is new"
-        atoms: ["esa", "camisa", "es", "nueva"]
+        atoms: ["esa", "camisa", "es", "nuevo"]
       # The module's one card for this lesson, spent AFTER both debuts: it
       # confirms a noticing (m11's L5 idiom), it does not preview a rule.
       - kind: info
@@ -542,7 +542,7 @@ lessons:
         id: l3-lb-estacamisa
         es: "esta camisa es bonita"
         en: "this shirt is pretty"
-        atoms: ["esta", "camisa", "es", "bonita"]
+        atoms: ["esta", "camisa", "es", "bonito"]
         tiles: ["ese", "este"]
       - kind: audioWimcq
         id: l3-ear-review
@@ -562,7 +562,7 @@ lessons:
         en: "that skirt is old"
         blank: "esa"
         options: ["esa", "ese"]
-        atoms: ["esa", "falda", "es", "vieja"]
+        atoms: ["esa", "falda", "es", "viejo"]
         why: "Both are the far one — «falda» is the tell. It is a la-word, so the -a form: «esa»."
       # BOTH distances in one line, with the two one-letter neighbours in the
       # bank. This is the lesson's 2×2 table as a step, and the ONE place the

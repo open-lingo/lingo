@@ -415,7 +415,7 @@ const ES_M6_3: LessonContent = {
       ],
       "the house is pretty",
       "la casa es bonita",
-      ["la", "casa", "es", "bonita"],
+      ["la", "casa", "es", "bonito"],
     ),
     cloze(
       "es-m6-3-c-bonitomasc",
@@ -434,7 +434,7 @@ const ES_M6_3: LessonContent = {
       "la mesa es bonita",
       ["la", "mesa", "es", "bonita", "el", "bonito"],
       ["la", "mesa", "es", "bonita"],
-      ["la", "mesa", "es", "bonita"],
+      ["la", "mesa", "es", "bonito"],
     ),
     cloze(
       "es-m6-3-c-bonitofem",
@@ -445,7 +445,7 @@ const ES_M6_3: LessonContent = {
       "the key is pretty",
       "la llave es bonita",
       "llave is a la-word — you've known that since m3 — so bonita matches.",
-      ["la", "llave", "es", "bonita"],
+      ["la", "llave", "es", "bonito"],
     ),
     {
       id: "es-m6-3-ear-review-llave",
@@ -475,14 +475,14 @@ const ES_M6_3: LessonContent = {
       "la ventana es bonita",
       ["la", "ventana", "es", "bonita", "el", "bonito"],
       ["la", "ventana", "es", "bonita"],
-      ["la", "ventana", "es", "bonita"],
+      ["la", "ventana", "es", "bonito"],
     ),
     listeningCompSentence({
       id: "es-m6-3-lc-cocinabonita",
       audioText: "la cocina es bonita",
       correctMeaningEn: "The kitchen is pretty",
       distractorsEn: ["The kitchen is big", "The bathroom is pretty", "There's a pretty kitchen"],
-      exercisedAtomSurfaces: ["la", "cocina", "es", "bonita"],
+      exercisedAtomSurfaces: ["la", "cocina", "es", "bonito"],
     }),
     speaking("es-m6-3-sp-recall-quees", "¿qué es?", "what is it?", [], "recall"),
     vocabTextMcq("es-m6-3-tm-bonito", "bonito", ["bonita", "grande", "pequeño"]),
@@ -612,7 +612,7 @@ const ES_M6_4: LessonContent = {
       "la casa es blanca",
       ["la", "casa", "es", "blanca", "el", "negro", "blanco"],
       ["la", "casa", "es", "blanca"],
-      ["la", "casa", "es", "blanca"],
+      ["la", "casa", "es", "blanco"],
     ),
     {
       id: "es-m6-4-ear-rojoverde",
@@ -836,7 +836,7 @@ const ES_M6_5: LessonContent = {
       "la casa es nueva",
       ["la", "casa", "es", "nueva", "el", "viejo", "nuevo"],
       ["la", "casa", "es", "nueva"],
-      ["la", "casa", "es", "nueva"],
+      ["la", "casa", "es", "nuevo"],
     ),
     cloze(
       "es-m6-5-c-malobueno-alt",
@@ -847,7 +847,7 @@ const ES_M6_5: LessonContent = {
       "the photo is bad",
       "la foto es mala",
       "foto is a la-word (the m4 rule-breaker) — mala matches.",
-      ["la", "foto", "es", "mala"],
+      ["la", "foto", "es", "malo"],
     ),
     speaking("es-m6-5-sp-recall-esunlapiz", "es un lápiz", "it's a pencil", [], "recall"),
     {
@@ -942,7 +942,7 @@ const ES_M6_6: LessonContent = {
       "the window is small",
       "la ventana es pequeña",
       "",
-      ["la", "ventana", "es", "pequeña"],
+      ["la", "ventana", "es", "pequeño"],
     ),
     build(
       "es-m6-6-b-review1",
@@ -950,7 +950,7 @@ const ES_M6_6: LessonContent = {
       "la casa blanca es muy bonita",
       ["la", "casa", "blanca", "es", "muy", "bonita", "blanco", "bonito"],
       ["la", "casa", "blanca", "es", "muy", "bonita"],
-      ["la", "casa", "blanca", "es", "muy", "bonita"],
+      ["la", "casa", "blanco", "es", "muy", "bonito"],
     ),
     {
       id: "es-m6-6-ear-review-final1",
@@ -991,7 +991,7 @@ const ES_M6_6: LessonContent = {
       "the window is white",
       "la ventana es blanca",
       "",
-      ["la", "ventana", "es", "blanca"],
+      ["la", "ventana", "es", "blanco"],
     ),
     build(
       "es-m6-6-b-review2",
@@ -1212,7 +1212,7 @@ const ES_M6_7: LessonContent = {
       tiles: ["la", "mesa", "es", "vieja", "pero", "buena", "nueva", "mala"],
       correctOrder: ["la", "mesa", "es", "vieja", "pero", "buena"],
       promptEn: "The table is old but good",
-      exercisedAtomSurfaces: ["la", "mesa", "es", "vieja", "pero", "buena"],
+      exercisedAtomSurfaces: ["la", "mesa", "es", "viejo", "pero", "bueno"],
     }),
     cloze(
       "es-m6-7-c-invariant-grande",
@@ -1318,7 +1318,7 @@ const ES_M6_7: LessonContent = {
         },
       ],
     },
-    speaking("es-m6-7-sp-win", "la foto es pequeña y muy bonita", "the photo is small and very pretty", ["la", "foto", "es", "pequeña", "y", "muy", "bonita"]),
+    speaking("es-m6-7-sp-win", "la foto es pequeña y muy bonita", "the photo is small and very pretty", ["la", "foto", "es", "pequeño", "y", "muy", "bonito"]),
   ],
 };
 
@@ -1359,7 +1359,7 @@ const ES_M6_8: LessonContent = {
       "the door is white",
       "la puerta es blanca",
       "",
-      ["la", "puerta", "es", "blanca"],
+      ["la", "puerta", "es", "blanco"],
     ),
     build(
       "es-m6-8-cp-build-1",
@@ -1378,7 +1378,7 @@ const ES_M6_8: LessonContent = {
       ],
       "the key is old",
       "la llave es vieja",
-      ["la", "llave", "es", "vieja"],
+      ["la", "llave", "es", "viejo"],
     ),
     cloze(
       "es-m6-8-cp-cloze-2",
@@ -1408,7 +1408,7 @@ const ES_M6_8: LessonContent = {
       tiles: ["la", "ventana", "es", "vieja", "pero", "bonita", "nueva", "mala"],
       correctOrder: ["la", "ventana", "es", "vieja", "pero", "bonita"],
       promptEn: "The window is old but pretty",
-      exercisedAtomSurfaces: ["la", "ventana", "es", "vieja", "pero", "bonita"],
+      exercisedAtomSurfaces: ["la", "ventana", "es", "viejo", "pero", "bonito"],
     }),
     speaking("es-m6-8-cp-sp-1", "el carro rojo", "the red car", [], "recall"),
     cloze(
@@ -1420,7 +1420,7 @@ const ES_M6_8: LessonContent = {
       "the table is small",
       "la mesa es pequeña",
       "",
-      ["la", "mesa", "es", "pequeña"],
+      ["la", "mesa", "es", "pequeño"],
     ),
     {
       id: "es-m6-8-cp-ear-3",
@@ -1438,7 +1438,7 @@ const ES_M6_8: LessonContent = {
       audioText: "la casa es nueva y grande",
       correctMeaningEn: "The house is new and big",
       distractorsEn: ["The house is old and small", "The house is new and small", "There's a new house"],
-      exercisedAtomSurfaces: ["la", "casa", "es", "nueva", "y", "grande"],
+      exercisedAtomSurfaces: ["la", "casa", "es", "nuevo", "y", "grande"],
     }),
     speaking("es-m6-8-cp-sp-2", "es viejo pero bueno", "it's old but good", [], "recall"),
     build(
@@ -1458,7 +1458,7 @@ const ES_M6_8: LessonContent = {
       "the key is good",
       "la llave es buena",
       "",
-      ["la", "llave", "es", "buena"],
+      ["la", "llave", "es", "bueno"],
     ),
     {
       id: "es-m6-8-cp-match",
@@ -1549,7 +1549,7 @@ const ES_M6_9: LessonContent = {
       ],
       "María's house is pretty",
       "la casa de María es bonita",
-      ["la", "casa", "de", "es", "bonita"],
+      ["la", "casa", "de", "es", "bonito"],
     ),
     cloze(
       "es-m6-9-c-summit2",
@@ -1576,7 +1576,7 @@ const ES_M6_9: LessonContent = {
       "la casa de María es vieja pero bonita",
       ["la", "casa", "de", "María", "es", "vieja", "pero", "bonita", "nueva", "mala"],
       ["la", "casa", "de", "María", "es", "vieja", "pero", "bonita"],
-      ["la", "casa", "de", "es", "vieja", "pero", "bonita"],
+      ["la", "casa", "de", "es", "viejo", "pero", "bonito"],
     ),
     {
       id: "es-m6-9-match",
@@ -1737,7 +1737,7 @@ const ES_M6_10: LessonContent = {
       audioText: "la foto es bonita",
       correctMeaningEn: "The photo is pretty",
       distractorsEn: ["The photo is big", "The house is pretty", "There's a pretty photo"],
-      exercisedAtomSurfaces: ["la", "foto", "es", "bonita"],
+      exercisedAtomSurfaces: ["la", "foto", "es", "bonito"],
     }),
     speaking("es-m6-10-m-sp-1", "el carro rojo", "the red car", [], "recall"),
     vocabTextMcq("es-m6-10-m-tm-bueno", "bueno", ["malo", "viejo", "nuevo"]),
@@ -1747,7 +1747,7 @@ const ES_M6_10: LessonContent = {
       tiles: ["la", "casa", "es", "vieja", "pero", "muy", "bonita", "nueva", "mala"],
       correctOrder: ["la", "casa", "es", "vieja", "pero", "muy", "bonita"],
       promptEn: "The house is old but very pretty",
-      exercisedAtomSurfaces: ["la", "casa", "es", "vieja", "pero", "muy", "bonita"],
+      exercisedAtomSurfaces: ["la", "casa", "es", "viejo", "pero", "muy", "bonito"],
     }),
     {
       id: "es-m6-10-m-ear-2",
@@ -1777,7 +1777,7 @@ const ES_M6_10: LessonContent = {
       ],
       "the table is white",
       "la mesa es blanca",
-      ["la", "mesa", "es", "blanca"],
+      ["la", "mesa", "es", "blanco"],
     ),
     cloze(
       "es-m6-10-m-cloze-3",
