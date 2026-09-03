@@ -1,0 +1,2381 @@
+module: m15
+title: "Hago, vengo — the yo that goes its own way"
+frame: none
+throughModule: m14
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m15 — irregular «yo» forms. A family of very common verbs whose yo form
+# is not derivable from the infinitive, and which mostly ends in -go.
+#
+#     hacer  -> hago      venir -> vengo      salir -> salgo
+#     tener  -> tengo   (the learner has said this since m5)
+#
+# The tú and él forms are ordinary. ONLY the yo form is strange. That is the
+# whole module, and it is a smaller claim than m14's.
+#
+# ⚠️ THE DIFFERENCE FROM m14, and it must be taught as a difference:
+# m14's stem break is PREDICTABLE — once you know a verb breaks, you know
+# where. These are NOT. «hago» cannot be derived from «hacer» by any rule;
+# it is memorised, one verb at a time. A learner who tries to apply m14's
+# machine here will produce «haco». Confronting that directly is the job of
+# at least one graded step.
+#
+# ── CARRIER ATOMS: tengo / tiene / tienes ────────────────────────────────
+# These are m5's atoms and are NOT re-registered here (re-registering an
+# exact surface duplicates an atom id — the m11 pan/pero failure). They are
+# used FREELY as carriers, and `tener` (the infinitive, never registered by
+# m5) IS registered here to complete the paradigm.
+#
+# `atomModuleBySurfaceWord` resolves tengo/tiene/tienes to m5, so a clozeLit
+# answered by any of them reads as a PRIOR-module atom under pin E2 and
+# survives ONLY on the §13.9 law 5 discrimination-trial exemption — EXACTLY
+# TWO options, both taught. A three-option cloze on any of them FAILS.
+# «tengo» against «hago» is exactly the two-option trial this module wants.
+#
+# `ver` is deliberately included as the ONE member that does not end in -go
+# («veo»), so the module does not teach a false rule. It gets its own beat.
+#
+# FORM DISCIPLINE: only the forms below may ever be a correct answer. No
+# «hacemos», «venís», «salen», «vemos», «haces» is registered but «vienes»
+# and «sales» are NOT — check the list, not your Spanish. Present indicative
+# only; no preterite, no subjunctive, no progressive, no imperative.
+#
+# NOT DRILLED HERE: `poner` — it is the L8 TRANSFER CELL. «pongo» appears in
+# exactly ONE step in the entire module, inside the checkpoint, glossed in
+# place, testing whether the learner learned the -go FAMILY or memorised
+# four words. It must not appear in L7 or anywhere else. It IS registered
+# (see the atom list) so the gate can track it; registration is not teaching.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  - { surface: "hacer", meaningEn: "to do, to make", partOfSpeech: "verb", kind: "vocab", hint: "the h is silent — a-SER" }
+  - { surface: "hago", meaningEn: "I do, I make", partOfSpeech: "verb", kind: "vocab", hint: "AH-go — not «haco»" }
+  - { surface: "haces", meaningEn: "you do, you make", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "hace", meaningEn: "he/she does, makes", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "venir", meaningEn: "to come", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vengo", meaningEn: "I come", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "viene", meaningEn: "he/she comes", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "salir", meaningEn: "to leave, to go out", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "salgo", meaningEn: "I leave, I go out", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "sale", meaningEn: "he/she leaves", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tener", meaningEn: "to have", partOfSpeech: "verb", kind: "vocab", hint: "the infinitive behind m5's «tengo»" }
+  - { surface: "ver", meaningEn: "to see", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "veo", meaningEn: "I see", partOfSpeech: "verb", kind: "vocab", hint: "VEH-oh — the one that does NOT end in -go" }
+  - { surface: "ve", meaningEn: "he/she sees", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "fiesta", meaningEn: "party", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🎉" }
+  - { surface: "tarea", meaningEn: "homework", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📝" }
+  - { surface: "amigo", meaningEn: "friend", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧑‍🤝‍🧑" }
+  # ── TRANSFER CELL (L8 only) — no emoji: it must be met cold, in text.
+  # REGISTERED but never drilled. The provenance gate bills every word of
+  # every step, INCLUDING a foil tile, so an unregistered transfer word fails
+  # `unknownTokens` outright — this is exactly how m13 handles «vacaciones»
+  # and how m14 handles «volver»/«vuelve». Registration is not teaching: the
+  # learner still meets these cold in the checkpoint. «poner» is registered
+  # because it sits in the bank as the didn't-conjugate foil; only «pongo» is
+  # ever produced.
+  - { surface: "poner", meaningEn: "to put", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "pongo", meaningEn: "I put", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:
+
+  # ── L1 · «Tengo, y no lo sabías» — zero new atoms. The learner's oldest
+  #    verb turns out to have been irregular the whole time. ──
+  #
+  #    ⚠️ ZERO m15 ATOMS ARE BILLED HERE, and the discipline is stricter
+  #    than it looks: not «hacer», not «hago», and — the easy one to lose —
+  #    NOT «tener». The infinitive is registered by this module but it is
+  #    L6's atom, and a single «tener» inside a guillemet span on the card
+  #    below would move its debut into L1 and quietly re-allocate L6. That
+  #    is m14 L1's «querer» trap, one module later. Everything this lesson
+  #    prints is m1–m14 property.
+  #
+  #    ⚠️ SO THE REVEAL IS BUILT WITHOUT THE INFINITIVE, and it is better
+  #    for it. The learner cannot be told "the regular form would be
+  #    «teno»", because they have never seen the verb it would come from.
+  #    What they CAN see is the three forms they already own side by side:
+  #    «tienes», «tiene» … «tengo». Two of them share every letter of their
+  #    stem. The third has a g that is nowhere in the other two. That is
+  #    the module's real claim — ONLY the yo form is strange — and it needs
+  #    no dictionary form at all.
+  #
+  #    ⚠️ THE «tengo» / «hago» TWO-OPTION TRIAL DOES NOT BELONG HERE.
+  #    `esSurfaces` bills cloze OPTIONS, so «hago» in an option slot would
+  #    debut an m15 atom in L1 (breaking zero-new) AND debut it on
+  #    `particle_cloze`, which is not in ES_INTRO_TYPES — inv 33, twice
+  #    over. That trial is legal and wanted, but only after «hago» has an
+  #    intro-type debut, so it lives in L2 (l2-c-hagotengo). L1's clozes
+  #    ride the §13.9 law 5 exemption on m5/m10 carriers instead: exactly
+  #    two options, both taught, both resolvable in
+  #    `atomModuleBySurfaceWord`.
+  #
+  #    ⚠️ THE GHOST IS «tieno», not «teno». Given only «tienes» and
+  #    «tiene», the yo form the learner would build is «tieno» — that is
+  #    the honest prediction from what they hold in L1, and it previews
+  #    L2's «haco» exactly. It appears once, inside the sim, which
+  #    `esSurfaces` does not read at all. A ghost in a cloze option or a
+  #    build tile WOULD be billed and would fail `unknownTokens`.
+  #
+  #    The win is not a new sentence. It is the yo form and the él form of
+  #    the same verb in one breath — the first time the learner can hear
+  #    the g appear and disappear on purpose.
+  - n: 1
+    template: free
+    title: "Tengo, y no lo sabías"
+    description: "«tengo». You have said it since module five — about your dog, about your age, about being hungry. Nobody mentioned it was irregular. It is."
+    steps:
+      - kind: map
+        id: l1-map-tengounperro
+        tokens: ["tengo", "un", "perro"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "dog", tokenIndex: 2 }
+        audioText: "tengo un perro"
+        revealNote: "Nothing new here — this was the first sentence of module five. Look at «tengo» by itself for a moment. Every yo-form you own is the front of the verb plus -o: «hablo», «bebo», «vivo», «como». Now look at the other two forms of this same verb, the ones you use for tú and for él: «tienes», «tiene». Neither of them has a g in it anywhere. This one does."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: speakLit
+        id: l1-sp-recall-tengounperro
+        es: "tengo un perro"
+        en: "I have a dog"
+        atoms: []
+        cue: recall
+      # Deduction before explanation: the learner picks the odd form out of
+      # four they already produce, and only then does the card name what
+      # they just noticed.
+      - kind: mcq
+        id: l1-q-laletra
+        prompt: "Four yo-forms you already use. Three of them are exactly what you would predict — the front of the verb, then -o. One of them has a letter in it that no rule put there. Which one?"
+        correct: "tengo"
+        distractors: ["hablo", "bebo", "vivo"]
+        atoms: ["tengo"]
+        why: "«hablo», «bebo» and «vivo» are the rule doing precisely what it promises. «tengo» is not. There is a g wedged between the front of the verb and the ending, and the other two forms of that same verb — «tienes» and «tiene» — have no g anywhere in them. You have been saying this word correctly since module five, and it has been irregular the entire time."
+      # Two options, both m5, both taught — the §13.9 law 5 discrimination
+      # shape pin E2 exempts. A third option here would fail the gate.
+      - kind: clozeLit
+        id: l1-c-tienegato
+        es: "mi hermana tiene un gato"
+        en: "My sister has a cat"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["tiene", "hermana", "gato"]
+        why: "The g belongs to exactly one person, and your sister is not that person. «tiene» is the ordinary form — the same -e you already put on «come» and on «vive»."
+      # The lesson's one card. It confirms the sort the learner just did and
+      # introduces no word: every guillemet span in it is m1–m14 property.
+      - kind: info
+        id: l1-info-lagquesolotutienes
+        title: "The g that is only yours"
+        body: "Look at three verbs you already own. «hablo», «hablas», «habla» — the same four letters at the front, every time. «como», «comes», «come» — the same three. «vivo», «vives», «vive» — the same three again. Whatever moves, it moves at the end; the front of the verb never budges. Now look at the verb you have been using since you first talked about your family. «tienes». «tiene». And then «tengo». There is a g in that last one and it is nowhere in the other two. It is not the ending — the ending is the ordinary -o you put on «hablo» and «como». It is the word itself, changing shape for you and for nobody else. You have said it right hundreds of times: «tengo un perro», «tengo hambre», «tengo sed», «tengo ocho años». Nobody told you it was odd because you never had to think about it. It is odd. And it is not the only one."
+      - kind: buildLit
+        id: l1-b-notengodinero
+        es: "no tengo dinero"
+        en: "I don't have money"
+        atoms: ["tengo", "dinero"]
+        tiles: ["tienes", "hablo"]
+      - kind: audioWimcq
+        id: l1-ear-tengosed
+        target: { surface: "tengo sed", emoji: "🥤" }
+        distractors:
+          - { surface: "tengo hambre", emoji: "🍽️" }
+          - { surface: "el agua", emoji: "💧" }
+      # Printed non-recall at m7 (es-m7-4-sp-tengosed) — verified against the
+      # shipped course, not remembered. NOTE: «tengo hambre» and «tengo sed»
+      # are m7's, not m5's; the brief says m5 and the brief is wrong.
+      - kind: speakLit
+        id: l1-sp-recall-tengosed
+        es: "tengo sed"
+        en: "I'm thirsty"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l1-lc-tienesuncarronuevo
+        es: "tú tienes un carro nuevo"
+        en: "You have a new car."
+        atoms: ["tienes", "carro", "nuevo"]
+        distractorsEn:
+          - "I have a new car."
+          - "You have a new house."
+          - "You want a new car."
+      - kind: buildLit
+        id: l1-b-tengounacasapequena
+        es: "tengo una casa pequeña"
+        en: "I have a small house"
+        atoms: ["tengo", "casa", "pequeño"]
+        tiles: ["tienes", "grande"]
+      # A broken form and an unbroken one competing for one slot, both real,
+      # both taught, both prior-module — so exactly two options. The -o on
+      # the end is identical; only one of them grew a g.
+      - kind: clozeLit
+        id: l1-c-hablotengo
+        es: "yo hablo español todos los días"
+        en: "I speak Spanish every day"
+        blank: "hablo"
+        options: ["hablo", "tengo"]
+        atoms: ["hablo", "español", "todos los días"]
+        why: "Both of these are yo-forms and both end in the same plain -o — that part of the machinery is shared. What separates them is meaning, and one other thing worth staring at: «hablo» is the front of its verb untouched, and «tengo» is not."
+      # Printed non-recall at m5 (es-m5-4-sp-tengoochoanos).
+      - kind: speakLit
+        id: l1-sp-recall-tengoochoanos
+        es: "tengo ocho años"
+        en: "I'm eight years old"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l1-tm-tengo
+        target: "tengo"
+        distractors: ["tienes", "tiene", "hablo"]
+      - kind: listenBuildLit
+        id: l1-lb-mihermanotieneungato
+        es: "mi hermano tiene un gato"
+        en: "My brother has a cat"
+        atoms: ["tiene", "hermano", "gato"]
+        tiles: ["tengo", "tienes"]
+      - kind: clozeLit
+        id: l1-c-tienestienes
+        es: "hoy tú tienes hambre"
+        en: "Today you are hungry"
+        blank: "tienes"
+        options: ["tienes", "tengo"]
+        atoms: ["tienes", "hoy"]
+        why: "The g shows up in exactly one place: when the person doing the having is you. Here it is not you, so there is no g — «tienes» and «tiene» are both perfectly ordinary."
+      - kind: sim
+        id: l1-sim-ana-perro
+        scene: { emoji: "🐶", title: "Ana asks about your house", setting: "Ana is scrolling through photos on her phone." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes un perro?", audioText: "¿tienes un perro?", gloss: "Do you have a dog?" }
+            goal: "Say yes — you have a dog."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un perro" }
+                - { id: "wrong1", text: "sí, tieno un perro" }
+                - { id: "wrong2", text: "sí, tienes un perro" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un perro"
+            replyGloss: "Yes, I have a dog."
+            explanation: "«tieno» is the word you would build if you took «tienes» and swapped the ending, and it is a word Spanish has never used. The g is not optional and it is not decoration — it is simply what this verb does when the person is you. And «tienes» is Ana's word for you, not your word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana?", audioText: "¿y tu hermana?", gloss: "And your sister?" }
+            goal: "Say your sister has a cat."
+            reply:
+              mode: build
+              tiles: ["mi", "hermana", "tiene", "un", "gato", "tengo", "tienes"]
+              answer: "mi hermana tiene un gato"
+            replyGloss: "My sister has a cat."
+            explanation: "No g for her. Your sister is neither you nor the person you are speaking to, so she takes the third column, and the third column of this verb is completely unremarkable."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Tienes hambre?", audioText: "¿tienes hambre?", gloss: "Are you hungry?" }
+            goal: "Say you are hungry."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo hambre" }
+                - { id: "wrong1", text: "sí, tienes hambre" }
+                - { id: "wrong2", text: "sí, tengo sed" }
+              correctOptionId: "right"
+              audioText: "sí, tengo hambre"
+            replyGloss: "Yes, I'm hungry."
+            explanation: "The line you have been saying since the café is a yo-form with a g in the middle of it. You never noticed, because you never had to."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he or she has" }
+          - { source: "hablo", target: "I speak" }
+          - { source: "hablas", target: "you speak" }
+          - { source: "habla", target: "he or she speaks" }
+          - { source: "como", target: "I eat" }
+      # The win adds no vocabulary at all. It is the g appearing and
+      # disappearing on purpose, in one breath, for the first time.
+      - kind: speakLit
+        id: l1-sp-win
+        es: "yo tengo hambre y mi hermano tiene sed"
+        en: "I'm hungry and my brother is thirsty"
+        atoms: ["tengo hambre", "hermano", "tiene"]
+
+  # ── L2 · «Hago» — hacer / hago / haces / hace / tarea. The module's first
+  #    full paradigm, and the place the m14 machine has to be switched off. ──
+  #
+  #    ⚠️ THIS IS THE MODULE'S MOST IMPORTANT BEAT AND IT IS GRADED TWICE.
+  #    The learner arrives from m14 holding a rule that WORKS: once you know
+  #    a verb breaks, you know exactly where. Run that rule on «hacer» and
+  #    you get «haco». Two steps confront it head-on:
+  #      l2-q-hagohaco   — «hago» against «haco» directly, the ghost in a
+  #                        `multiple_choice` DISTRACTOR slot, which
+  #                        `esSurfaces` does not bill (it takes the correct
+  #                        option only). A ghost in a cloze option or a
+  #                        build tile WOULD be billed and would fail
+  #                        `unknownTokens` — that is why this is an MCQ.
+  #      l2-c-hacehago   — the quieter half, and arguably the sharper one:
+  #                        «hace» is entirely regular, «hago» is not, and
+  #                        the learner has to notice that the strangeness
+  #                        occupies exactly ONE cell of the table.
+  #    m14 said "there is a pattern you already knew". This says "and here
+  #    the pattern stops" — twice, in the learner's hands, not on a card.
+  #
+  #    ⚠️ DEBUT ORDER IS LOAD-BEARING. `esSurfaces` bills cloze OPTIONS,
+  #    build TILES and match SOURCES, so a form offered as a foil before its
+  #    own first exposure debuts it on a non-intro step (inv 33). Hence:
+  #      «tarea»  debuts l2-im-tarea       (word_image_mcq — English-prompted
+  #                                         and a genuine first exposure, so
+  #                                         inv 44 is satisfied, not dodged)
+  #      «hacer»  debuts l2-sp-hacer       (speaking)
+  #      «hago»   debuts l2-b-yohagolatarea(build_sentence)
+  #      «haces»  debuts l2-b-haceseltrabajo(build_sentence)
+  #      «hace»   debuts l2-info-solotuyo  (info, a guillemet span)
+  #    and no step before each of those carries the form in any BILLED slot
+  #    — checked against the real `esSurfaces`, not assumed. The opening map
+  #    prints «hago» and «la tarea» a step early and that is fine: `word_map`
+  #    is absent from `esSurfaces`'s switch entirely, so a map bills nothing
+  #    and can debut nothing. (The brief says a map introduces via its
+  #    revealNote. It does not.)
+  #
+  #    ⚠️ FORM DISCIPLINE. Only hacer / hago / haces / hace are printed. No
+  #    «hacemos», no «hacéis», no «hacen» — none are registered. Note that
+  #    the provenance gate will NOT catch them: `hacemos` is in the real-form
+  #    lexicon via `ES_VERB_ENTRIES`, so it is not an untracked word, and it
+  #    would only fail if it happened to debut on a non-intro step. This one
+  #    is held by hand and by the bespoke test.
+  #
+  #    ⚠️ «hace» IS KEPT TO do/make. Its weather sense («hace frío») is not
+  #    this module's, and no step here puts it near a temperature.
+  #
+  #    ⚠️ NO IMAGE MCQ ON THE VERB FORMS — they carry no emoji, so `vocabMcq`
+  #    would throw. The one English-prompted image MCQ is «la tarea», which
+  #    is a true first exposure; the second ear beat is an `audioWimcq`, which
+  #    is audio-prompted and therefore exempt from inv 44 outright.
+  - n: 2
+    template: free
+    title: "Hago"
+    description: "«hacer» — to do, to make. Its tú form is ordinary. Its él form is ordinary. Its yo form is «hago», and there is no rule on earth that gets you there."
+    steps:
+      - kind: map
+        id: l2-map-hagolatarea
+        tokens: ["hago", "la", "tarea"]
+        pairs:
+          - { en: "I do", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "homework", tokenIndex: 2 }
+        audioText: "hago la tarea"
+        revealNote: "One of these two words is behaving and one is not. «la tarea» is an ordinary feminine noun and will give you no trouble. The first word is the verb «hacer», to do or to make — and last module you learned to predict exactly how a verb bends. Try it here before you read on. Whatever you predicted, this is what Spanish actually says."
+        tokenGenders: { 1: "f", 2: "f" }
+      - kind: speakLit
+        id: l2-sp-hacer
+        es: "hacer"
+        en: "to do, to make"
+        atoms: ["hacer"]
+      - kind: imageMcq
+        id: l2-im-tarea
+        target: { surface: "la tarea", meaningEn: "homework", emoji: "📝" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: buildLit
+        id: l2-b-yohagolatarea
+        es: "yo hago la tarea"
+        en: "I do the homework"
+        atoms: ["hago", "tarea"]
+        tiles: ["tengo", "hablo"]
+      # THE BEAT. The ghost «haco» is what m14's machine builds, and it lives
+      # in a distractor slot, where nothing bills it.
+      - kind: mcq
+        id: l2-q-hagohaco
+        prompt: "You know how a regular yo-form is built: take the front of the verb, add -o. Run «hacer» through that and you get one of the four below. Spanish does not use it. Which one does Spanish actually use for 'I do'?"
+        correct: "hago"
+        distractors: ["haco", "hace", "haces"]
+        atoms: ["hago"]
+        why: "«haco» is precisely what the machine produces, and precisely what Spanish refuses. This is the difference from last module and it is worth slowing down for: there, once you knew a verb broke, you could work out where. Here there is nothing to work out. «hace» and «haces» are the ordinary forms and you could have guessed both of them. «hago» is the one you have to be told, and you have just been told it."
+      - kind: speakLit
+        id: l2-sp-hagolatareatodoslosdias
+        es: "hago la tarea todos los días"
+        en: "I do the homework every day"
+        atoms: ["hago", "tarea", "todos los días"]
+      # The family link, and the shape pin E2 exempts: «tengo» resolves to m5,
+      # so this pairing survives on the §13.9 law 5 exemption — exactly two
+      # options, both taught. «hago» is m15's own atom, so the answer side
+      # imposes no option-count limit; two options is pedagogy, not
+      # compliance.
+      - kind: clozeLit
+        id: l2-c-hagotengo
+        es: "yo hago la tarea"
+        en: "I do the homework"
+        blank: "hago"
+        options: ["hago", "tengo"]
+        atoms: ["hago", "tarea"]
+        why: "Two yo-forms, both ending in -go, and that is not a coincidence — it is the family this module is about. The one you already owned is «tengo». This is the second. Here the English decides it: doing the homework, not having it."
+      - kind: buildLit
+        id: l2-b-haceseltrabajo
+        es: "tú haces el trabajo"
+        en: "You do the work"
+        atoms: ["haces", "trabajo"]
+        tiles: ["hago", "tengo"]
+      # The lesson's one card, and it lands only after the learner has
+      # already produced «hago» and «haces». Its genuinely new claim is the
+      # él/ella column — and the sentence that names «tengo» as the same
+      # shape, which is what makes m15 a family rather than a list.
+      - kind: info
+        id: l2-info-solotuyo
+        title: "Only the yo form is strange"
+        body: "«hacer» means to do or to make, and almost everywhere it behaves. For tú it is «haces» — the front of the verb plus the -es you already put on «comes». For él and for ella it is «hace» — the same front plus the -e already sitting on «come». Nothing there to learn; you could have guessed both, and if you did, you were right. Then you reach yo, and instead of that front you have been using, Spanish hands you «hago». Last module you met a break you could predict: once you knew a verb bent, you knew the exact spot. This is not that. There is no rule that turns «hacer» into «hago» — it is one form, memorised once, per verb, and everything else about the verb stays perfectly ordinary. One thing more, and it is the reason this is a family and not a list: you already own one of these. «tengo» is the same shape — a yo-form ending in -go, standing next to a «tienes» and a «tiene» with no g in them at all."
+      - kind: audioWimcq
+        id: l2-ear-latarea
+        target: { surface: "la tarea", emoji: "📝" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: speakLit
+        id: l2-sp-anahacelatarea
+        es: "Ana hace la tarea"
+        en: "Ana does the homework"
+        atoms: ["hace", "tarea"]
+      - kind: listenCompLit
+        id: l2-lc-mihermanohaceeltrabajo
+        es: "mi hermano hace el trabajo"
+        en: "My brother does the work."
+        atoms: ["hace", "hermano", "trabajo"]
+        distractorsEn:
+          - "My brother does the homework."
+          - "My sister does the work."
+          - "My brother works today."
+      # THE QUIETER HALF OF THE BEAT: the él form is entirely regular. The
+      # strangeness occupies exactly one cell of the table, and it is the
+      # learner's own.
+      - kind: clozeLit
+        id: l2-c-hacehago
+        es: "mi hermana hace la tarea"
+        en: "My sister does the homework"
+        blank: "hace"
+        options: ["hace", "hago"]
+        atoms: ["hace", "hermana", "tarea"]
+        why: "Nothing irregular happens here at all. «hace» is the front of the verb plus the -e you already put on «come» — as predictable as this verb ever gets. That is the point of the whole lesson: one cell of the table went its own way, and it is the one with your name on it."
+      # Printed non-recall at m7 (es-m7-4-sp-win) — verified against the
+      # shipped course. The other -go form, retrieved rather than restated.
+      - kind: speakLit
+        id: l2-sp-recall-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l2-lb-hoynohagolatarea
+        es: "hoy no hago la tarea"
+        en: "Today I don't do the homework"
+        atoms: ["hago", "tarea", "hoy"]
+        tiles: ["haces", "hace"]
+      - kind: textMcq
+        id: l2-tm-haces
+        target: "haces"
+        distractors: ["hago", "hace", "hacer"]
+      - kind: sim
+        id: l2-sim-diego-tarea
+        scene: { emoji: "📝", title: "Diego is packing for class", setting: "Diego has his bag half open and is checking what he has done." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Haces la tarea hoy?", audioText: "¿haces la tarea hoy?", gloss: "Are you doing the homework today?" }
+            goal: "Say yes — you do the homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hago la tarea" }
+                - { id: "wrong1", text: "sí, haco la tarea" }
+                - { id: "wrong2", text: "sí, haces la tarea" }
+              correctOptionId: "right"
+              audioText: "sí, hago la tarea"
+            replyGloss: "Yes, I do the homework."
+            explanation: "«haco» is the form the rule builds and the form nobody says. Diego used the tú ending to ask about you; the answer comes back in yo, and in yo this verb grows a g."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana?", audioText: "¿y tu hermana?", gloss: "And your sister?" }
+            goal: "Say your sister does the homework."
+            reply:
+              mode: build
+              tiles: ["mi", "hermana", "hace", "la", "tarea", "hago", "haces"]
+              answer: "mi hermana hace la tarea"
+            replyGloss: "My sister does the homework."
+            explanation: "Her form is the boring one, and boring is correct: the front of the verb, then the -e you already put on «come». The g never leaves the yo column."
+          - id: t3
+            npc: { speaker: "Diego", es: "Yo no hago la tarea.", audioText: "yo no hago la tarea", gloss: "I don't do the homework." }
+            goal: "Say you do the homework today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo hago la tarea hoy" }
+                - { id: "wrong1", text: "yo haco la tarea hoy" }
+                - { id: "wrong2", text: "yo hace la tarea hoy" }
+              correctOptionId: "right"
+              audioText: "yo hago la tarea hoy"
+            replyGloss: "I do the homework today."
+            explanation: "Diego said it about himself and so do you — the same word, «hago». The g belongs to the speaker, whoever the speaker happens to be."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hacer", target: "to do, to make" }
+          - { source: "hago", target: "I do" }
+          - { source: "haces", target: "you do" }
+          - { source: "hace", target: "he or she does" }
+          - { source: "la tarea", target: "the homework" }
+          - { source: "tengo", target: "I have" }
+          - { source: "hablo", target: "I speak" }
+      # The win: the odd cell and an ordinary one, in the same breath, on the
+      # same verb — the sentence the whole lesson was for.
+      - kind: speakLit
+        id: l2-sp-win
+        es: "yo hago la tarea, ella hace el trabajo"
+        en: "I do the homework, she does the work"
+        atoms: ["hago", "tarea", "hace", "trabajo"]
+
+  # ── L3 · «Vengo» — the second -go, and the moment it starts to look like a
+  #    family ────────────────────────────────────────────────────────────────
+  #    L1 cracked «tengo» open and L2 built «hacer»'s full paradigm. This is
+  #    the third yo form in three lessons that ends in -go, and that is the
+  #    whole beat: the learner should look at «tengo», «hago», «vengo» and
+  #    see a CLUB. Not a rule — a club. Nothing about «venir» predicts the g,
+  #    and the card says so in as many words, because the one way this module
+  #    can go wrong is for the learner to leave it with a generator instead of
+  #    a membership list. (L5's «veo» is the proof, and L4 seeds it.)
+  #
+  #    ⚠️ «vienes» IS NOT A REGISTERED ATOM. Neither is «venimos» nor
+  #    «vienen». `venir` is absent from ES_VERB_ENTRIES entirely, so — unlike
+  #    a stem-changer whose whole paradigm is folded into PRIOR by
+  #    moduleBarGuards.ts:565 — a stray «vienes» here is caught outright by
+  #    the provenance gate as an untracked word. Every beat therefore runs on
+  #    yo (vengo) and él/ella (viene), and the sim asks ABOUT the brother
+  #    rather than about the learner. Check the header, not your Spanish.
+  #
+  #    ⚠️ «tener» IS NOT AVAILABLE HERE. The infinitive is a registered m15
+  #    atom but it belongs to L6, which completes m5's half-paradigm. The
+  #    card therefore talks about «tengo» — m5's own word, a free carrier —
+  #    and never names the infinitive behind it. Same for «salir» (L4) and
+  #    «ver»/«veo»/«ve»/«amigo» (L5): an info-card guillemet span is BILLED
+  #    by esSurfaces, so one stray «tener» in this card would move that
+  #    word's debut into L3 and quietly re-allocate L6.
+  #
+  #    ⚠️ THE GHOST «veno» LIVES IN EXACTLY TWO PLACES — a `multiple_choice`
+  #    DISTRACTOR (l3-q-vengonoveno) and a `sim` reply option. Neither is
+  #    billed: esSurfaces takes an MCQ's correct option only, and does not
+  #    read dialogue_sim at all. A ghost as a CLOZE OPTION or a BUILD TILE
+  #    would be billed and would fail `unknownTokens` outright — options and
+  #    tiles are exposures. That is why the two clozes here offer only real
+  #    taught forms, and why the over-generalisation beat is an MCQ.
+  #
+  #    ⚠️ ORDER MATTERS. `fiesta` debuts on the image MCQ (step 2), `vengo`
+  #    on the speakLit that follows it, and `venir`/`viene` inside the card's
+  #    guillemets — all four intro-capable. The `map` at step 1 bills
+  #    NOTHING (esSurfaces has no word_map case), so it cannot carry a debut;
+  #    it is a free reading of a sentence the next two steps pay for.
+  - n: 3
+    template: free
+    title: "Vengo"
+    description: "«venir» does it too — and three verbs ending in -go is not a coincidence any more, it is a club you now have to keep a list of."
+    steps:
+      - kind: map
+        id: l3-map-vengoalafiesta
+        tokens: ["vengo", "a", "la", "fiesta"]
+        pairs:
+          - { en: "I come", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "party", tokenIndex: 3 }
+        audioText: "vengo a la fiesta"
+        revealNote: "One new word and one familiar shape. «la fiesta» is the party. And «vengo» is I come — look at how it ends. You have been saying «tengo» since module five, you built «hago» last lesson, and here is a third one. Three different verbs, three yo forms, and every one of them ends in -go."
+      - kind: imageMcq
+        id: l3-d-fiesta
+        target: { surface: "la fiesta", meaningEn: "the party", emoji: "🎉" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: speakLit
+        id: l3-sp-vengoalafiesta
+        es: "vengo a la fiesta"
+        en: "I come to the party"
+        atoms: ["vengo", "fiesta"]
+      # The lesson's ONE card, and it lands AFTER the learner has said the
+      # line — the m11 L5 / m12 L1 / m13 L1 / m14 L3 idiom: a card confirms a
+      # noticing, it never previews a rule. Its whole argument is that this
+      # is a MEMBERSHIP LIST and not a generator, because a learner who
+      # leaves m15 with a generator will produce «veo» as «vego» in L5.
+      - kind: info
+        id: l3-info-clubdelgo
+        title: "Three verbs, one ending, no rule"
+        body: "«venir» is to come, and its yo form is «vengo». Nothing about «venir» predicts that g. You cannot derive it and you cannot reason your way to it — it is one word, learned once, the same way «hago» was. What you CAN do is notice the company it keeps: «tengo», «hago», «vengo». Three different verbs, three yo forms, all ending in -go. That is a family, not a rule, and each member joins it one at a time. Everything else about these verbs is completely ordinary — «viene» is he comes, she comes, the plain -e you already hang on «come» and «vive». Only yo goes its own way."
+      - kind: clozeLit
+        id: l3-c-viene
+        es: "mi hermano viene a la fiesta"
+        en: "my brother comes to the party"
+        blank: "viene"
+        options: ["viene", "vengo", "venir"]
+        atoms: ["mi", "hermano", "viene", "fiesta"]
+        why: "«mi hermano» is he, and the él/ella ending is the plain -e: «viene». No g — the g only ever turns up in yo. «vengo» would put the coming on you, and «venir» is the bare infinitive, with nobody standing in it."
+      # «venir» earns its answer position in the one place a beginner
+      # actually needs an infinitive: straight after «quiero».
+      - kind: buildLit
+        id: l3-b-quierovenir
+        es: "quiero venir a la fiesta"
+        en: "I want to come to the party"
+        atoms: ["quiero", "venir", "fiesta"]
+        tiles: ["vengo", "viene"]
+      # THE OVER-GENERALISATION BEAT. «veno» is what the ordinary -ir ending
+      # produces and what a learner arriving from m14's machine will reach
+      # for. It is a non-word, so it may only live in an MCQ distractor slot
+      # (esSurfaces bills the correct option only) — never in a cloze option
+      # or a tile. The prompt quotes «venir» and one distractor is «venir»
+      # itself: that is the didn't-conjugate error mode, and Gate 5's
+      # allowEchoDistractor licenses it because the prompt says "form" and
+      # the distractor ends in -ir.
+      - kind: mcq
+        id: l3-q-vengonoveno
+        prompt: "«tengo», «hago» — pick the yo form of «venir»."
+        correct: "vengo"
+        distractors: ["veno", "viene", "venir"]
+        why: "«vengo». Strip «venir» down and add the ordinary yo ending and you get «veno» — Spanish does not say it. There is no rule that gets you from «venir» to «vengo»; there is only the club, and «venir» is in it. «viene» is he or she, and «venir» is the infinitive."
+        atoms: ["vengo"]
+      # Said out loud one beat before the module's other motion verb turns
+      # up, so «voy» is already in the mouth when «vengo» has to sit beside
+      # it. (Printed non-recall at m9 — verified against the shipped course.)
+      - kind: speakLit
+        id: l3-sp-recall-voyalparque
+        es: "voy al parque"
+        en: "I go to the park"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: listenCompLit
+        id: l3-lc-hermanahoy
+        es: "mi hermana viene hoy, pero yo vengo mañana"
+        en: "My sister comes today, but I come tomorrow."
+        atoms: ["mi", "hermana", "viene", "hoy", "vengo", "mañana"]
+        distractorsEn:
+          - "I come today, but my sister comes tomorrow."
+          - "My sister comes today and I come today."
+          - "My brother comes today, but I come tomorrow."
+      # L2's verb and L3's verb in one sentence, both in yo, both ending in
+      # -go. This is the club in a single line the learner builds by hand.
+      - kind: buildLit
+        id: l3-b-hagoyvengo
+        es: "hago la tarea y vengo a la fiesta"
+        en: "I do the homework and I come to the party"
+        atoms: ["hago", "tarea", "vengo", "fiesta"]
+        tiles: ["viene", "haces"]
+      - kind: audioWimcq
+        id: l3-ear-autobus
+        target: { surface: "el autobús", emoji: "🚌" }
+        distractors:
+          - { surface: "el carro", emoji: "🚗" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: listenBuildLit
+        id: l3-lb-anaviene
+        es: "hoy Ana viene a la fiesta"
+        en: "today Ana comes to the party"
+        atoms: ["viene", "fiesta", "hoy"]
+        tiles: ["vengo", "venir"]
+      # Statement, never a question — the compiler blanks a literal
+      # whitespace token and a «¿» would ride into it.
+      - kind: clozeLit
+        id: l3-c-vengo
+        es: "yo vengo en autobús"
+        en: "I come by bus"
+        blank: "vengo"
+        options: ["vengo", "viene", "venir"]
+        atoms: ["yo", "vengo", "autobús"]
+        why: "«yo» — so the yo form, and for this verb the yo form is the odd one: «vengo». «viene» would hand the bus ride to somebody else; «venir» has nobody in it at all."
+      - kind: speakLit
+        id: l3-sp-fiestaempieza
+        es: "la fiesta empieza tarde"
+        en: "the party begins late"
+        atoms: ["fiesta", "empieza", "tarde"]
+      # Two blanks, one line, the same two options in each and the factory
+      # rotating them independently — so position tells the learner nothing
+      # and only «yo» / «mi hermano» can decide either one.
+      - kind: agreementLit
+        id: l3-agree-yoyhermano
+        en: "I come to the party, but my brother doesn't come"
+        audioText: "yo vengo a la fiesta, pero mi hermano no viene"
+        atoms: ["vengo", "viene", "fiesta", "hermano"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "vengo", options: ["vengo", "viene"] } }
+          - { text: " a la fiesta, pero mi hermano no " }
+          - { blank: { id: "p2", answer: "viene", options: ["viene", "vengo"] } }
+      # The scene the verb is for: someone is throwing a party and wants to
+      # know whether you are coming. Ana never says «vienes» — the tú form is
+      # not a registered atom — so she asks with «hay» and about the brother.
+      - kind: sim
+        id: l3-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana's party", setting: "Ana is having a party on Saturday and wants to know whether you are coming." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola! Hay una fiesta el sábado.", audioText: "¡hola! hay una fiesta el sábado", gloss: "Hi! There's a party on Saturday." }
+            goal: "Say you are coming to the party."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "vengo a la fiesta" }
+                - { id: "wrong1", text: "viene a la fiesta" }
+                - { id: "wrong2", text: "veno a la fiesta" }
+              correctOptionId: "right"
+              audioText: "vengo a la fiesta"
+            replyGloss: "I come to the party."
+            explanation: "«vengo» — you, so the club's -go form. «viene» hands the party to somebody else, and «veno» is what the ordinary ending would predict; Spanish refuses it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano?", audioText: "¿y tu hermano?", gloss: "And your brother?" }
+            goal: "Say your brother comes too."
+            reply:
+              mode: build
+              tiles: ["mi", "hermano", "viene", "también", "vengo", "venir"]
+              answer: "mi hermano viene también"
+              alsoAccepted: ["viene también"]
+            replyGloss: "My brother comes too."
+            explanation: "Ana asked about him, so the plain -e: «viene». The bank holds «vengo» and «venir» because those are the two ways this goes wrong — the wrong person, or no person at all."
+          - id: t3
+            npc: { speaker: "Ana", es: "La fiesta empieza tarde.", audioText: "la fiesta empieza tarde", gloss: "The party starts late." }
+            goal: "Say you want to come."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero venir" }
+                - { id: "wrong1", text: "quiero vengo" }
+                - { id: "wrong2", text: "quiero viene" }
+              correctOptionId: "right"
+              audioText: "quiero venir"
+            replyGloss: "I want to come."
+            explanation: "After «quiero» the second verb stays an infinitive — «venir», never «vengo». «quiero» already took the conjugation, and only one verb in a sentence gets it."
+          - id: t4
+            npc: { speaker: "Ana", es: "¡Muy bien!", audioText: "muy bien", gloss: "Great!" }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "venir", target: "to come" }
+          - { source: "vengo", target: "I come" }
+          - { source: "viene", target: "she comes" }
+          - { source: "la fiesta", target: "the party" }
+          - { source: "la tarea", target: "the homework" }
+          - { source: "el autobús", target: "the bus" }
+          - { source: "empieza", target: "it begins" }
+      # The win: m5's oldest -go and m15's newest, in one line the learner
+      # would actually say about their own Saturday.
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo tarea, pero vengo a la fiesta"
+        en: "I have homework, but I come to the party"
+        atoms: ["tengo", "tarea", "vengo", "fiesta"]
+
+  # ── L4 · «Salgo» — the lesson where the learner gets to guess first ──────
+  #    Three members in, the club has a shape. This lesson's entire design
+  #    is: SHOW the ordinary él form, WITHHOLD the yo form, make the learner
+  #    produce it, and only then confirm. The card is step 5, not step 4, and
+  #    it opens by telling them they were right.
+  #
+  #    ⚠️ THE TRY HAS TO BE A `buildLit`, and that is a gate constraint, not
+  #    a taste one. `salgo` is a module-new word, so its FIRST BILLED
+  #    appearance must be on an ES_INTRO_TYPE — and `multiple_choice` is not
+  #    one. An MCQ "pick the yo form of «salir»" answered by «salgo» would
+  #    be that word's debut on a non-intro type and fail inv 33. So the guess
+  #    is a build whose bank offers «salgo» / «sale» / «salir» (build_sentence
+  #    IS intro-capable), and the MCQ that names the ghost «salo» comes one
+  #    step LATER, when «salgo» is already billed. The map at step 1 cannot
+  #    rescue this: esSurfaces has no word_map case, so a map bills nothing
+  #    and can never carry a debut — but its revealNote is free text, which
+  #    is exactly why the setup («salir» = to leave, and the question) can
+  #    live there without spending anything.
+  #
+  #    ⚠️ «sales» IS NOT A REGISTERED ATOM. Neither is «salimos» nor
+  #    «salen», and `salir` is absent from ES_VERB_ENTRIES, so any of them
+  #    would be caught by the provenance gate as an untracked word rather
+  #    than slipping through on a folded paradigm. Every beat runs on yo and
+  #    él/ella, and Diego asks about the brother, never about the learner.
+  #
+  #    ⚠️ NO «ver», NO «veo», NO «ve», NO «amigo», NO «tener» — L5 and L6
+  #    own those and a tile, a cloze option or a card guillemet here would
+  #    spend their debuts in a discard pile. The card TEASES L5 ("the next
+  #    lesson has one") without naming it, which is the point: the learner
+  #    should walk into «veo» expecting «vego».
+  #
+  #    ⚠️ «salir de casa» uses «de», which m2 taught («soy de México», «la
+  #    foto de mi familia»). No preposition here is untaught, and no step
+  #    reaches for the exit-a-building sense that would need one.
+  #
+  #    The recall is «voy al trabajo» (printed non-recall at m9), placed one
+  #    step before «salgo temprano y voy al trabajo» so the destination is
+  #    already in the learner's mouth when the new verb lands in front of it.
+  - n: 4
+    template: free
+    title: "Salgo"
+    description: "The fourth member of the club — and this time you should be able to guess it before anybody tells you."
+    steps:
+      # The map deliberately shows the ORDINARY form. «sale» gives nothing
+      # away: sal- plus the same -e as «come» and «vive». The revealNote
+      # names «salir», states the question, and asks for a guess — and
+      # because a word_map bills nothing, none of that spends a debut.
+      - kind: map
+        id: l4-map-hermanosale
+        tokens: ["mi", "hermano", "sale", "tarde"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "brother", tokenIndex: 1 }
+          - { en: "leaves", tokenIndex: 2 }
+          - { en: "late", tokenIndex: 3 }
+        audioText: "mi hermano sale tarde"
+        revealNote: "«salir» is to leave, to go out. This is the él form and there is nothing strange about it whatsoever: take «salir», drop the -ir, add the -e you already put on «come» and «vive». «sale» — he leaves. Now stop before the next step. You have «tengo», you have «hago», you have «vengo». Say the yo form of «salir» out loud, and then go and build it."
+      - kind: speakLit
+        id: l4-sp-hermanosale
+        es: "mi hermano sale tarde"
+        en: "my brother leaves late"
+        atoms: ["salir", "sale", "tarde"]
+      # THE TRY. Nothing has told the learner what the yo form is; the bank
+      # holds the two ways it could go wrong (the él form, the bare
+      # infinitive) and the one way the club says it goes right. This is
+      # also, of necessity, where «salgo» and «salir» are BILLED, and
+      # build_sentence is intro-capable — see the lesson note.
+      - kind: buildLit
+        id: l4-b-salgotemprano
+        es: "salgo temprano"
+        en: "I leave early"
+        atoms: ["salgo", "temprano"]
+        tiles: ["sale", "salir"]
+      # And now the ghost, one step after the debut so the MCQ is legal.
+      # «salo» is the form the ordinary rule predicts; it lives here and in
+      # the sim, and nowhere a surface is billed.
+      - kind: mcq
+        id: l4-q-salgonosalo
+        prompt: "«hago», «vengo», «tengo» — pick the yo form of «salir»."
+        correct: "salgo"
+        distractors: ["salo", "sale", "salir"]
+        why: "«salgo». The ordinary ending would give «salo», and Spanish does not say it — same refusal you met at «hago» and «vengo». You could guess this one only because you had three others to guess from, and that is the honest reason: not a rule, a list you are now four items into."
+        atoms: ["salgo"]
+      # The card lands FIFTH, after the guess, and its first job is to tell
+      # the learner they were right. Its second is to stop them turning four
+      # data points into a generator — L5's «veo» is one lesson away.
+      - kind: info
+        id: l4-info-cuartomiembro
+        title: "You just guessed a verb"
+        body: "«salir» is to leave, to go out, and its yo form is «salgo» — which you may well have predicted, because this is the fourth time it has happened. «tengo», «hago», «vengo», «salgo». Four verbs, four strange yo forms, one shape. Be careful about what that shape actually is, though. It is not a rule that manufactures the form out of the infinitive; it is a club, and you have to know who is in it. There are extremely common verbs that look exactly like these four and do something else entirely — the next lesson has one, and it will catch you if you let this become a rule. Outside yo, nothing moves: «sale» is he leaves, she leaves, and «haces» is you do. Plain endings, no g anywhere."
+      - kind: clozeLit
+        id: l4-c-sale
+        es: "mi madre sale temprano"
+        en: "my mother leaves early"
+        blank: "sale"
+        options: ["sale", "salgo", "salir"]
+        atoms: ["mi", "madre", "sale", "temprano"]
+        why: "«mi madre» is she, and the él/ella ending is the plain -e: «sale». The g belongs to yo and to nobody else. «salgo» would be about you; «salir» is the bare infinitive."
+      - kind: audioWimcq
+        id: l4-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el trabajo", emoji: "💼" }
+          - { surface: "la tienda", emoji: "🏪" }
+      # (Printed non-recall at m9 — verified against the shipped course.)
+      - kind: speakLit
+        id: l4-sp-recall-voyaltrabajo
+        es: "voy al trabajo"
+        en: "I go to work"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l4-lb-salgoyvoy
+        es: "salgo temprano y voy al trabajo"
+        en: "I leave early and go to work"
+        atoms: ["salgo", "temprano", "trabajo"]
+        tiles: ["sale", "salir"]
+      # Two options, both taught — a person trial, which is the only
+      # decision this sentence contains.
+      - kind: clozeLit
+        id: l4-c-salgo
+        es: "hoy salgo tarde"
+        en: "today I leave late"
+        blank: "salgo"
+        options: ["salgo", "sale"]
+        atoms: ["hoy", "salgo", "tarde"]
+        why: "No name in front of it, so it is you — and for you this verb grows a g: «salgo». «sale» would put somebody else out the door."
+      - kind: speakLit
+        id: l4-sp-salgodecasa
+        es: "salgo de casa temprano"
+        en: "I leave the house early"
+        atoms: ["salgo", "casa", "temprano"]
+      - kind: audioWimcq
+        id: l4-ear-pelicula
+        target: { surface: "la película", emoji: "📽️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: listenCompLit
+        id: l4-lc-hermanasale
+        es: "mi hermana sale tarde, pero yo salgo temprano"
+        en: "My sister leaves late, but I leave early."
+        atoms: ["mi", "hermana", "sale", "tarde", "salgo", "temprano"]
+        distractorsEn:
+          - "I leave late, but my sister leaves early."
+          - "My sister leaves late and I leave late."
+          - "My brother leaves late, but I leave early."
+      # «salir» earns its answer position after «quiero», where the second
+      # verb is always an infinitive and never grows anything.
+      - kind: buildLit
+        id: l4-b-quierosalir
+        es: "quiero salir hoy"
+        en: "I want to go out today"
+        atoms: ["quiero", "salir", "hoy"]
+        tiles: ["salgo", "sale"]
+      # Both club members in one line, two different persons, and the foils
+      # are each other's — so the learner cannot pass by pattern-matching
+      # the -go and has to read who is doing what.
+      - kind: agreementLit
+        id: l4-agree-salgoyviene
+        en: "I leave early, but my brother comes late"
+        audioText: "yo salgo temprano, pero mi hermano viene tarde"
+        atoms: ["salgo", "viene", "temprano", "tarde"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salgo", options: ["salgo", "sale"] } }
+          - { text: " temprano, pero mi hermano " }
+          - { blank: { id: "p2", answer: "viene", options: ["viene", "vengo"] } }
+          - { text: " tarde" }
+      - kind: textMcq
+        id: l4-tm-salir
+        target: "salir"
+        distractors: ["venir", "hacer", "comer"]
+      - kind: sim
+        id: l4-sim-diego-cine
+        scene: { emoji: "🎬", title: "Diego wants to go to the movies", setting: "Diego is planning the evening and needs to know when you get out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Vas al cine hoy?", audioText: "¿vas al cine hoy?", gloss: "Are you going to the movies today?" }
+            goal: "Say you leave late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "salgo tarde" }
+                - { id: "wrong1", text: "sale tarde" }
+                - { id: "wrong2", text: "salo tarde" }
+              correctOptionId: "right"
+              audioText: "salgo tarde"
+            replyGloss: "I leave late."
+            explanation: "«salgo» — you, and for you the verb grows a g. «sale» is somebody else, and «salo» is the form the ordinary rule predicts and Spanish refuses."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermano?", audioText: "¿y tu hermano?", gloss: "And your brother?" }
+            goal: "Say your brother leaves early."
+            reply:
+              mode: build
+              tiles: ["mi", "hermano", "sale", "temprano", "salgo", "salir"]
+              answer: "mi hermano sale temprano"
+              alsoAccepted: ["sale temprano"]
+            replyGloss: "My brother leaves early."
+            explanation: "Diego asked about him, so the plain -e: «sale». The bank holds «salgo» and «salir» because those are the two ways this goes wrong — the wrong person, or no person at all."
+          - id: t3
+            npc: { speaker: "Diego", es: "La película empieza tarde.", audioText: "la película empieza tarde", gloss: "The movie starts late." }
+            goal: "Say you want to go out today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quiero salir hoy" }
+                - { id: "wrong1", text: "quiero salgo hoy" }
+                - { id: "wrong2", text: "quiero sale hoy" }
+              correctOptionId: "right"
+              audioText: "quiero salir hoy"
+            replyGloss: "I want to go out today."
+            explanation: "After «quiero» the second verb stays an infinitive: «salir». «quiero» is already carrying the conjugation, and only one verb in a sentence gets it."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Muy bien!", audioText: "muy bien", gloss: "Great!" }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenas noches" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "salir", target: "to leave" }
+          - { source: "salgo", target: "I leave" }
+          - { source: "sale", target: "he leaves" }
+          - { source: "venir", target: "to come" }
+          - { source: "vengo", target: "I come" }
+          - { source: "temprano", target: "early" }
+          - { source: "la fiesta", target: "the party" }
+      # The win: both of this module's -go verbs, in one evening the learner
+      # could actually have.
+      - kind: speakLit
+        id: l4-sp-win
+        es: "hoy salgo temprano y vengo a la fiesta"
+        en: "today I leave early and I come to the party"
+        atoms: ["salgo", "temprano", "vengo", "fiesta"]
+
+  # ── L5 · Veo — the exception that stops the rule, and the only lesson in
+  #    the module whose job is to UN-teach something. ────────────────────────
+  #    Four lessons have handed the learner «hago», «vengo», «salgo» and
+  #    «tengo», and by now they have drawn the obvious conclusion: an
+  #    irregular yo ends in -go. That conclusion is WRONG and it is this
+  #    lesson's whole reason to exist. If «veo» arrives as a footnote the
+  #    module ships a false rule it has to un-teach in m16; so «veo» arrives
+  #    as a CORRECTION — the learner is made to commit to the -go shape
+  #    first, and only then told it does not apply here.
+  #
+  #    ⚠️ WHERE THE -go ERROR MAY LEGALLY BE SHOWN. «vego» is the exact
+  #    over-generalisation this lesson exists to kill, and it is not a
+  #    Spanish word, so `esSurfaces` decides where it may appear:
+  #      agreement_cloze — reconstructed from its CORRECT answer alone, so a
+  #                        wrong blank option NEVER reaches the gate. This is
+  #                        the m14 L5 «emp[ie/e]za» precedent and it is where
+  #                        l5-agr-veoamigo puts the whole decision: two
+  #                        letters, v + eo or v + ego, nothing else moving.
+  #      multiple_choice — `esSurfaces` bills ONLY the correct option (and
+  #                        only if it looks Spanish); distractors are free.
+  #                        l5-tm-veo therefore offers «vego» against «veo».
+  #      dialogue_sim    — `esSurfaces` has no case for it at all, so a wrong
+  #                        sim option bills nothing. l5-sim t1 uses that.
+  #    It may NOT appear as a particle_cloze option or a build tile: both ARE
+  #    billed, and an untracked token fails `unknownTokens` outright. No cloze
+  #    and no bank in this lesson carries a non-word.
+  #
+  #    ⚠️ «ve» IS ALSO THE IMPERATIVE OF «ir» («ve al parque» = go to the
+  #    park). Only the él-of-«ver» reading may be taught, so EVERY «ve» in
+  #    this lesson stands behind an explicit subject — «mi amigo ve…»,
+  #    «Diego ve…» — and no «ve» is ever followed by «a» + a place. A bare
+  #    «ve …» anywhere here would hand the learner a second, unglossed verb.
+  #
+  #    ORDERING PINS (inv 33 — a cloze option and a build tile are BILLED
+  #    exposures, so debut order inside the lesson is load-bearing):
+  #      «ver»   debuts l5-sp-quierover   (speaking — intro-capable)
+  #      «veo»   debuts l5-b-veolapelicula (build_sentence — intro-capable)
+  #      «amigo» debuts l5-img-amigo      (word_image_mcq — intro-capable,
+  #              and legal under inv 44 because it IS the first exposure)
+  #      «ve»    debuts l5-info-laexcepcion (an info card's «…» spans are
+  #              billed and `info` is intro-capable)
+  #    l5-map-quierover is FIRST CONTACT but debuts nothing: `esSurfaces` has
+  #    no `word_map` case, so a map bills NOTHING and can never be a debut.
+  #    Its audioText IS still counted by inv 24. The map is cashed by the
+  #    speakLit under it, which is what actually carries «ver».
+  #
+  #    «tener» IS L6'S SINGLE NEW ATOM AND MUST NOT APPEAR HERE — not in the
+  #    card, not in a bank, not in the match. «poner»/«pongo» are the L8
+  #    transfer cell and appear nowhere in this file.
+  - n: 5
+    template: free
+    title: "Veo"
+    description: "Four verbs in a row put a -go on the yo form, so you built the rule. Here is the fifth one, and it is the reason the rule needs a footnote."
+    steps:
+      - kind: map
+        id: l5-map-quierover
+        tokens: ["quiero", "ver", "la", "película"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to see", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "movie", tokenIndex: 3 }
+        audioText: "quiero ver la película"
+        revealNote: "«ver» is to see, and this is the dictionary shape — sitting untouched behind «quiero», exactly the way «empezar» and «dormir» sat there in the last module. Before you go on, make a guess. You already own four yo forms that went their own way: «hago», «vengo», «salgo», «tengo». Look at how all four of them end, then decide what you think the yo form of «ver» is going to be."
+        tokenGenders: { 3: "f" }
+      - kind: speakLit
+        id: l5-sp-quierover
+        es: "quiero ver la película"
+        en: "I want to see the movie"
+        atoms: ["quiero", "ver", "película"]
+      # THE COMMITMENT. Nothing above has shown the yo form; the bank holds
+      # the dictionary shape the learner just said out loud AND a real -go
+      # form from another verb in the family. A learner running the rule they
+      # built in L1–L4 reaches for the -go tile and finds «vengo», which is
+      # the wrong verb — the first crack in the rule, made by their own hand.
+      # Both tiles are already-taught words: «ver» debuted one step ago,
+      # «vengo» is L3's atom. Neither is a non-word, because a build tile IS
+      # a billed exposure.
+      - kind: buildLit
+        id: l5-b-veolapelicula
+        es: "veo la película"
+        en: "I see the movie"
+        atoms: ["veo", "película"]
+        tiles: ["ver", "vengo", "hago"]
+      # «amigo» first, on a picture, because the correction beat below needs
+      # it and an agreement_cloze is NOT intro-capable — its reconstructed
+      # sentence would otherwise be «amigo»'s debut and fail inv 33. An
+      # English-prompted image MCQ is legal here and only here: inv 44 makes
+      # the type FIRST-EXPOSURE ONLY, and this is that exposure.
+      - kind: imageMcq
+        id: l5-img-amigo
+        target: { surface: "el amigo", meaningEn: "friend", emoji: "🧑‍🤝‍🧑" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "la maestra", emoji: "👩‍🏫" }
+          - { surface: "el abuelo", emoji: "👴" }
+      # THE CORRECTION, and the only step in this lesson that may legally put
+      # the -go error on screen. Two letters. The learner has already built
+      # «veo» once, so this is not a guess — it is the rule being contradicted
+      # in the smallest possible space, with the wrong answer named out loud
+      # instead of left implied.
+      - kind: agreementLit
+        id: l5-agr-veoamigo
+        en: "I see my friend today"
+        audioText: "veo a mi amigo hoy"
+        atoms: ["veo", "amigo"]
+        segments:
+          - { text: "v" }
+          - { blank: { id: "yo", answer: "eo", options: ["eo", "ego"] } }
+          - { text: " a mi amigo hoy" }
+      # The lesson's single card, and it lands AFTER the commitment and after
+      # the correction — it confirms what the learner has already done twice,
+      # which is the m11 L5 / m12 L1 / m13 L5 / m14 L5 idiom. It also debuts
+      # «ve», which is legal because an info card's «…» spans are billed and
+      # `info` is intro-capable. The -go error itself is NOT quoted here: an
+      # info card's guillemets ARE billed, so «vego» inside one would fail
+      # `unknownTokens` — the card describes the mistake instead of printing it.
+      - kind: info
+        id: l5-info-laexcepcion
+        title: "Four go, one doesn't"
+        body: "Count them. «hago». «vengo». «salgo». «tengo». Four verbs, four yo forms, and every single one ends in -go. That is a real pattern and you were right to spot it. Here is the fifth verb, and it is the one that breaks it. «ver» is to see, and its yo form is «veo» — two letters after the v, and no g anywhere. Nobody can tell you why. It is simply the one that went a different way, and knowing that it exists is the only thing standing between you and putting a g in it for the rest of your life. Now the half that does hold. «ve» — he sees, she sees — wears the same plain -e that «come» and «vive» have worn since module eleven. That is the shape of this whole module: the tú and él forms take endings you already own, and it is the yo form that goes its own way — and even then, only sometimes. One more small thing, because you have just said it twice. When the thing you see is a PERSON, Spanish slips a little «a» in front of them: «veo la película» has no «a», and «veo a mi amigo» does. It marks a person and it means nothing on its own."
+      - kind: buildLit
+        id: l5-b-amigove
+        es: "mi amigo ve la película"
+        en: "my friend sees the movie"
+        atoms: ["amigo", "ve", "película"]
+        tiles: ["veo", "ver", "hace"]
+      - kind: listenCompLit
+        id: l5-lc-veoenelcine
+        es: "veo a mi amigo en el cine"
+        en: "I see my friend at the cinema."
+        atoms: ["veo", "amigo", "cine"]
+        distractorsEn:
+          - "I see my friend at the park."
+          - "My friend sees the movie."
+          - "I want to see my friend."
+      # «ve» is m15's own atom, so pin E2 needs no exemption and this cloze
+      # could take three options. It takes two, because the decision the
+      # lesson cares about is who is doing the looking, and that is a binary.
+      # «Diego» is in front of the verb on purpose — a bare «ve el carro»
+      # would read as the imperative of «ir» plus a noun, which is a verb this
+      # module does not teach.
+      - kind: clozeLit
+        id: l5-c-vecarro
+        es: "Diego ve el carro"
+        en: "Diego sees the car"
+        blank: "ve"
+        options: ["ve", "veo"]
+        atoms: ["ve", "carro"]
+        why: "Diego is the one looking, not you. The odd form in this family is the yo one — the él form is as ordinary as «come» and «vive»."
+      # Cross-module recall. m9 printed this line on a non-recall speaking
+      # step (es-m9-2-sp-voyalcine), which is what licenses it, and it lands
+      # next to the cinema sentence above on purpose.
+      - kind: speakLit
+        id: l5-sp-recall-voyalcine
+        es: "voy al cine"
+        en: "I go to the cinema"
+        atoms: []
+        cue: recall
+      # Two yo forms, both irregular, both taught in this module — and only
+      # one of them has a -go. This is the -go family and its exception put
+      # into a single binary, with no non-word anywhere near it.
+      - kind: clozeLit
+        id: l5-c-veodiego
+        es: "veo a Diego en la fiesta"
+        en: "I see Diego at the party"
+        blank: "veo"
+        options: ["veo", "vengo"]
+        atoms: ["veo", "fiesta"]
+        why: "Both of these are yours and both of them are irregular. One is about your eyes; the other is how you got to the party."
+      - kind: audioWimcq
+        id: l5-ear-pelicula
+        target: { surface: "la película", emoji: "📽️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: listenBuildLit
+        id: l5-lb-noveoamigo
+        es: "no veo a mi amigo"
+        en: "I don't see my friend"
+        atoms: ["veo", "amigo"]
+        tiles: ["ver", "ve", "vengo"]
+      # Interleave with L2 — the other half of the module, kept warm. «hace»
+      # is m15's own atom so pin E2 is satisfied outright; two options,
+      # because the él/yo choice is the only thing in question.
+      - kind: clozeLit
+        id: l5-c-hacetarea
+        es: "mi amigo hace la tarea"
+        en: "my friend does the homework"
+        blank: "hace"
+        options: ["hace", "hago"]
+        atoms: ["amigo", "hace", "tarea"]
+        why: "The homework belongs to your friend. «hago» would move it onto your own desk — same verb, and the last letter is the whole difference."
+      # THE -go ERROR, NAMED. A `multiple_choice` bills only its correct
+      # option, so «vego» is legal in this slot and nowhere else in the
+      # lesson; «vengo» and «salgo» stand beside it as the two real -go forms
+      # the learner already owns. The question is exactly the one the module
+      # has to settle.
+      - kind: textMcq
+        id: l5-tm-veo
+        target: "veo"
+        distractors: ["vego", "vengo", "salgo"]
+      - kind: sim
+        id: l5-sim-diego-cine
+        scene: { emoji: "🎬", title: "Diego outside the cinema", setting: "Diego is waiting under the posters, checking who has turned up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué haces hoy?", audioText: "¿qué haces hoy?", gloss: "What are you doing today?" }
+            goal: "Say you are seeing the movie."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "veo la película" }
+                - { id: "wrong1", text: "vego la película" }
+                - { id: "wrong2", text: "ver la película" }
+              correctOptionId: "right"
+              audioText: "veo la película"
+            replyGloss: "I see the movie."
+            explanation: "«hago», «vengo» and «salgo» all end in -go, and this one does not — it is the exception, and it is the reason the rule needs a footnote. The last option is the dictionary shape, which never stands on its own."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu amigo?", audioText: "¿y tu amigo?", gloss: "And your friend?" }
+            goal: "Say your friend sees it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mi amigo ve la película" }
+                - { id: "wrong1", text: "mi amigo veo la película" }
+                - { id: "wrong2", text: "mi amigo ver la película" }
+              correctOptionId: "right"
+              audioText: "mi amigo ve la película"
+            replyGloss: "My friend sees the movie."
+            explanation: "«veo» is only ever you. Your friend takes the él form, and there the verb behaves itself completely."
+          - id: t3
+            npc: { speaker: "Diego", es: "Hay una fiesta.", audioText: "hay una fiesta", gloss: "There's a party." }
+            goal: "Say you see your friend."
+            reply:
+              mode: build
+              tiles: ["veo", "a", "mi", "amigo", "ve", "ver", "vengo"]
+              answer: "veo a mi amigo"
+            replyGloss: "I see my friend."
+            explanation: "Three near-misses on the board and all three are real words. «ver» never stands alone, «ve» belongs to somebody else, and «vengo» is a different verb entirely."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "ver", target: "to see" }
+          - { source: "veo", target: "I see" }
+          - { source: "ve", target: "he/she sees" }
+          - { source: "el amigo", target: "the friend" }
+          - { source: "la película", target: "the movie" }
+          - { source: "vengo", target: "I come" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "veo a mi amigo en el cine, y mi amigo ve la película"
+        en: "I see my friend at the cinema, and my friend sees the movie"
+        atoms: ["veo", "amigo", "cine", "ve", "película"]
+
+  # ── L6 · Tener — the infinitive the course has owed the learner since
+  #    module five, and the first screen with all five verbs on it. ──────────
+  #    Two jobs, and the second one is the one the learner will feel. The
+  #    first is a gap: m5 taught «tengo», «tienes» and «tiene» as three
+  #    unrelated chunks — «tengo un perro», «tengo hambre», «¿cuántos años
+  #    tienes?» — and never once printed the word a dictionary lists them
+  #    under. m15 registers «tener» and hands it back. The second job is the
+  #    table: «hago», «vengo», «salgo», «veo», «tengo» on one screen, which is
+  #    the first time the module's claim is visible as a claim rather than as
+  #    five separate lessons.
+  #
+  #    ⚠️ THE CARRIER TRAP, WHICH SHAPES THREE STEPS HERE.
+  #    `atomModuleBySurfaceWord` (moduleBarGuards.ts:546) indexes every WORD
+  #    of every registered surface, first-write-wins, so
+  #        tengo, tienes, tiene -> m5
+  #    They are NOT re-registered here (re-registering an exact surface
+  #    duplicates an atom id — the m11 pan/pero failure); only the infinitive
+  #    «tener» is m15's. A clozeLit answered by any of the three therefore
+  #    reads as a PRIOR-module atom under pin E2 and survives ONLY on the
+  #    §13.9 law 5 discrimination-trial exemption: EXACTLY TWO options, both
+  #    known to that map, distinct. A third option would fail the gate
+  #    outright. l6-c-tengoperro («tengo» vs «tener»), l6-c-tengohermanos
+  #    («tengo» vs «hago») and l6-c-tienecarro («tiene» vs «tengo») are all
+  #    two-option trials by necessity — and independently the right pedagogy,
+  #    because each one IS a binary. l6-c-vengofiesta needs no exemption
+  #    («vengo» is m15's own atom) and takes two anyway, for the same reason.
+  #
+  #    ⚠️ THE GATE IS BLIND TO «tener»'s CONJUGATION AND THAT IS MY PROBLEM,
+  #    NOT ITS. moduleBarGuards.ts:565 folds every `present.*` form of any
+  #    verb with `introducedAtModule < 15` into PRIOR, and
+  #    `tener.introducedAtModule` is 5 — so «tenemos» and «tienen» are
+  #    already "known" to every gate and would sail through `unknownTokens`
+  #    and inv 33 untouched. Neither is a registered atom and neither appears
+  #    anywhere in this lesson; the only thing stopping them is this note and
+  #    the bespoke form-discipline pin. For the same reason the ONLY genuine
+  #    debut in L6 is the INFINITIVE — a lemma is not a `present.*` key — so
+  #    «tener» debuts on l6-sp-quierotener (`speaking`, intro-capable) and
+  #    earns its answer position on that same step. `ver` by contrast is
+  #    absent from `ES_VERB_ENTRIES` entirely, which is why L5 could lean on
+  #    the gate to catch a stray «ves» and this lesson cannot.
+  #
+  #    ORDERING PIN: l6-map-quierotener is first contact and bills NOTHING
+  #    (`esSurfaces` has no `word_map` case). The speakLit under it carries
+  #    the debut. l6-c-tengoperro offers «tener» as an option one step later,
+  #    which is a billed exposure — legal only because the speakLit came first.
+  #
+  #    NOT TOUCHED HERE: «poner»/«pongo» — the L8 transfer cell, which appears
+  #    in exactly one step in the whole module and this is not it. No
+  #    genderSort; no info card beyond the one.
+  - n: 6
+    template: free
+    title: "Tener"
+    description: "Your oldest verb finally gets its dictionary shape back — and all five of the module's verbs stand on one screen for the first time."
+    steps:
+      - kind: map
+        id: l6-map-quierotener
+        tokens: ["quiero", "tener", "un", "perro"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to have", tokenIndex: 1 }
+          - { en: "a", tokenIndex: 2 }
+          - { en: "dog", tokenIndex: 3 }
+        audioText: "quiero tener un perro"
+        revealNote: "You have been saying «tengo» since module five — «tengo un perro», «tengo hambre», «tengo ocho años» — and nobody ever showed you the word a dictionary lists it under, because until now you did not need it. Here it is. «tener», to have. Read it next to «hacer», «venir» and «salir» and you can see what it has been the whole time: another verb whose yo form went its own way, and the very first one you ever learned."
+        tokenGenders: { 3: "m" }
+      - kind: speakLit
+        id: l6-sp-quierotener
+        es: "quiero tener un perro"
+        en: "I want to have a dog"
+        atoms: ["quiero", "tener", "perro"]
+      # THE CARRIER TRAP, LIVE. «tengo» is an m5 atom, so this cloze reads as
+      # a prior-module pick under pin E2 and rides the §13.9 law 5 exemption:
+      # exactly two options, both known to atomModuleBySurfaceWord («tengo»
+      # m5, «tener» m15). A third option here would fail the gate outright —
+      # verified against the live registry, not assumed.
+      - kind: clozeLit
+        id: l6-c-tengoperro
+        es: "tengo un perro"
+        en: "I have a dog"
+        blank: "tengo"
+        options: ["tengo", "tener"]
+        atoms: ["tengo", "perro"]
+        why: "The dictionary shape never stands on its own — it needs another verb in front of it, the way it just did behind «quiero». Put the dog on yourself and the word changes."
+      - kind: audioWimcq
+        id: l6-ear-perro
+        target: { surface: "el perro", emoji: "🐶" }
+        distractors:
+          - { surface: "el gato", emoji: "🐱" }
+          - { surface: "el hermano", emoji: "👦" }
+      - kind: buildLit
+        id: l6-b-hoynotengotarea
+        es: "hoy no tengo tarea"
+        en: "today I don't have homework"
+        atoms: ["tengo", "tarea"]
+        tiles: ["tener", "tienes", "tiene"]
+      # The lesson's one card, and the module's only screen with the whole
+      # table on it. Every guillemet span here is a registered surface —
+      # «tener» is m15's, the rest are m15's or m5's — because an info card's
+      # «…» spans ARE billed. «poner» and «pongo» are registered too and are
+      # deliberately absent: they belong to the L8 checkpoint and a card is
+      # exactly where a transfer cell would leak.
+      - kind: info
+        id: l6-info-lafamilia
+        title: "Five verbs, one habit"
+        body: "Put them side by side and the whole module is one picture. «hacer» gives «hago». «venir» gives «vengo». «salir» gives «salgo». «ver» gives «veo». And «tener» gives «tengo» — the one you have been saying since module five without ever being told it belonged to anything. Four of the five end in -go, «veo» is the one that does not, and that is the entire exception; there is nothing else hiding. Now look down the other columns, because this is the half nobody warns you about, and it is smaller than it looks. «tienes» and «tiene» never gave you a moment's trouble — and that ie sitting in the middle of them is the exact break the last module spent ten lessons on. «viene» has it too. «haces», «hace», «sale» and «ve» do not break at all. What every one of them shares is the ENDING: the plain -es and -e you have used since module eleven. Nothing new is being asked of you anywhere in those two columns. The strangeness lives in exactly one cell of that table, and it is the cell with you in it."
+      - kind: listenCompLit
+        id: l6-lc-anaviene
+        es: "Ana viene a la fiesta hoy"
+        en: "Ana comes to the party today."
+        atoms: ["viene", "fiesta"]
+        distractorsEn:
+          - "Ana leaves the party today."
+          - "I come to the party today."
+          - "Ana comes to the school today."
+      # Cross-module recall. m7 printed this line on a non-recall speaking
+      # step (es-m7-4-sp-win), which is what licenses it — and it is the
+      # oldest «tengo» the learner owns, dropped in one step after the card
+      # that finally explained it.
+      - kind: speakLit
+        id: l6-sp-recall-tengohambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      # THE FAMILY TRIAL — the beat the module is for. Two yo forms, both
+      # irregular, both ending in -go, from two different verbs. It is a
+      # two-option cloze because «tengo» is m5's and pin E2 demands exactly
+      # two; it would be two anyway, because a third would be scenery.
+      - kind: clozeLit
+        id: l6-c-tengohermanos
+        es: "tengo dos hermanos"
+        en: "I have two brothers"
+        blank: "tengo"
+        options: ["tengo", "hago"]
+        atoms: ["tengo", "hermano"]
+        why: "These two are the same shape from two different verbs — both yours, both ending in -go. One is about what you own; the other is about what you do."
+      - kind: listenBuildLit
+        id: l6-lb-amigotiene
+        es: "mi amigo tiene un gato"
+        en: "my friend has a cat"
+        atoms: ["amigo", "tiene", "gato"]
+        tiles: ["tengo", "tener", "tienes"]
+      # The second carrier trial: «tiene» is m5's, so the exemption again —
+      # two options, both taught, and they are the only two shapes this verb
+      # takes at this level once you know who is speaking.
+      - kind: clozeLit
+        id: l6-c-tienecarro
+        es: "Ana tiene un carro"
+        en: "Ana has a car"
+        blank: "tiene"
+        options: ["tiene", "tengo"]
+        atoms: ["tiene", "carro"]
+        why: "The car is Ana's. «tengo» would park it in front of your own house — same verb, different person, and the ending is the only thing that says which."
+      - kind: audioWimcq
+        id: l6-ear-gato
+        target: { surface: "el gato", emoji: "🐱" }
+        distractors:
+          - { surface: "el perro", emoji: "🐶" }
+          - { surface: "el carro", emoji: "🚗" }
+      # Interleave: two of the module's other -go forms produced back to back
+      # in one line, with both dictionary shapes sitting in the bank to be
+      # left there.
+      - kind: buildLit
+        id: l6-b-hagoysalgo
+        es: "hago la tarea y salgo"
+        en: "I do the homework and I go out"
+        atoms: ["hago", "tarea", "salgo"]
+        tiles: ["hacer", "salir", "sale"]
+      # «vengo» is m15's own atom, so pin E2 needs no exemption here — but
+      # the pair IS the decision, so it stays a binary like the rest.
+      - kind: clozeLit
+        id: l6-c-vengofiesta
+        es: "vengo a la fiesta hoy"
+        en: "I come to the party today"
+        blank: "vengo"
+        options: ["vengo", "tengo"]
+        atoms: ["vengo", "fiesta"]
+        why: "Both end in -go and both are yours. One is how you arrive; the other is what you own once you are there."
+      # «tener» has no sentence of its own a beginner can say — it only ever
+      # stands behind another verb — so the answer position it earns is the
+      # speakLit at the top of the lesson, and this step is the recognition
+      # beat that puts it against the module's other three infinitives.
+      - kind: textMcq
+        id: l6-tm-tener
+        target: "tener"
+        distractors: ["hacer", "venir", "salir"]
+      - kind: sim
+        id: l6-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana counts heads", setting: "Ana has a list and is working out who is actually coming." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes tarea hoy?", audioText: "¿tienes tarea hoy?", gloss: "Do you have homework today?" }
+            goal: "Say you don't have homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no tengo tarea" }
+                - { id: "wrong1", text: "no tener tarea" }
+                - { id: "wrong2", text: "no tienes tarea" }
+              correctOptionId: "right"
+              audioText: "no tengo tarea"
+            replyGloss: "I don't have homework."
+            explanation: "«tienes» is the question coming at you; answering it turns the verb around onto yourself, and that is the cell that goes its own way."
+          - id: t2
+            npc: { speaker: "Ana", es: "Hay una fiesta hoy.", audioText: "hay una fiesta hoy", gloss: "There's a party today." }
+            goal: "Say you are coming."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "vengo a la fiesta" }
+                - { id: "wrong1", text: "venir a la fiesta" }
+                - { id: "wrong2", text: "viene a la fiesta" }
+              correctOptionId: "right"
+              audioText: "vengo a la fiesta"
+            replyGloss: "I come to the party."
+            explanation: "You are the one arriving, so the verb lands on you — and this is one of the four that does end in -go."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tu amigo?", audioText: "¿y tu amigo?", gloss: "And your friend?" }
+            goal: "Say your friend has a car."
+            reply:
+              mode: build
+              tiles: ["mi", "amigo", "tiene", "un", "carro", "tengo", "tener"]
+              answer: "mi amigo tiene un carro"
+            replyGloss: "My friend has a car."
+            explanation: "«tengo» is only ever you, and the dictionary shape never stands alone. Your friend takes the ordinary form — the one you have known since module five."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "hacer", target: "to do, to make" }
+          - { source: "venir", target: "to come" }
+          - { source: "salir", target: "to leave, to go out" }
+          - { source: "ver", target: "to see" }
+          - { source: "tener", target: "to have" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "quiero tener un perro, pero tengo un gato"
+        en: "I want to have a dog, but I have a cat"
+        atoms: ["quiero", "tener", "perro", "tengo", "gato"]
+
+  # ── L7 · «Todo junto» — ZERO new atoms. Mixed retrieval, yo against él
+  #    across all five verbs, never block-drilled by verb. ────────────────
+  #
+  #    ⚠️ ZERO m15 ATOMS DEBUT HERE and none may. Every form this lesson
+  #    prints — hago/haces/hace, vengo/viene, salgo/sale, veo/ve, plus m5's
+  #    tengo/tiene — was introduced in L1–L6. Nothing new is billed, so
+  #    there is no debut for inv 33 to judge and no intro-type obligation.
+  #
+  #    ⚠️ NO «poner», NO «pongo», ANYWHERE IN THIS LESSON. They are the L8
+  #    transfer cell and appear in exactly one step in the whole module. A
+  #    tile, an option, a match pair or a sim line here would spend the
+  #    only cold meeting the module gets.
+  #
+  #    ⚠️ THE INTERLEAVE IS THE LESSON. Read the verb column down the
+  #    steps: hacer, —, venir, salir, tener, tener, hacer, —, ver, hacer
+  #    +salir, ver, salir, venir, venir+hacer. No verb is ever drilled
+  #    twice in a row, and four steps (5, 11, 15, 18) switch verb AND
+  #    person inside a single sentence, which is the thing L1–L6 could not
+  #    ask for because each of them owned one verb.
+  #
+  #    ⚠️ «tengo» IS m5's ATOM, NOT m15's. `atomModuleBySurfaceWord`
+  #    resolves it to m5, so l7-c-tengo reads as a prior-module pick under
+  #    pin E2 and survives ONLY on the §13.9 law 5 discrimination-trial
+  #    exemption: EXACTLY TWO options, both resolvable. A third option
+  #    fails. Every other cloze here answers to an m15 form and may run at
+  #    three.
+  #
+  #    ⚠️ GHOST FORMS («haco», «salo», «veno») ARE NOT BILLED-SLOT SAFE.
+  #    `esSurfaces` bills cloze options and build tiles, and «haco» is in
+  #    no atom and in no ES_VERB_ENTRIES cell, so a ghost in either slot is
+  #    an untracked word and fails the provenance gate outright. They live
+  #    HERE in exactly two places the gate does not read: a
+  #    `multiple_choice` distractor (only the correct option is billed) and
+  #    a `sim` reply option (dialogue_sim has no esSurfaces case at all).
+  #    That is why l7-tm-salgo is a textMcq and the three clozes offer only
+  #    real registered forms.
+  #
+  #    ⚠️ «ve» IS ALSO THE IMPERATIVE OF «ir». It appears exactly twice —
+  #    as the answer of l7-sp-ve («ella ve la película hoy») and as a
+  #    match source glossed "he sees, she sees" — both with an explicit
+  #    third-person subject and neither followed by a place. It is never a
+  #    build tile in a sentence that also carries «a» + a location, which
+  #    is the one assembly that would make the go-there reading available.
+  - n: 7
+    template: free
+    title: "All five at once"
+    description: "No new words. Five verbs, two people, and sentences that change both in the middle."
+    steps:
+      # The module in eight tokens: one yo form that had to be memorised
+      # and one él form that is completely ordinary, side by side.
+      - kind: map
+        id: l7-map-todojunto
+        tokens: ["yo", "hago", "la", "tarea", "pero", "ella", "sale", "temprano"]
+        pairs:
+          - { en: "I", tokenIndex: 0 }
+          - { en: "do, make — the yo form, and it grew a g", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "she", tokenIndex: 5 }
+          - { en: "goes out — the él form, and nothing happened to it", tokenIndex: 6 }
+          - { en: "early", tokenIndex: 7 }
+        audioText: "yo hago la tarea pero ella sale temprano"
+        revealNote: "Two verbs, two people, one sentence. «hago» is the strange half — nothing in «hacer» tells you a g is coming, which is why you learned it one verb at a time. Now look at «sale»: the plain -e you have been putting on «come» and «vive» since module eleven. Only the yo form goes its own way."
+        tokenGenders: { 3: "f" }
+      - kind: clozeLit
+        id: l7-c-hago
+        es: "yo hago la tarea todos los días"
+        en: "I do the homework every day"
+        blank: "hago"
+        options: ["hago", "hace", "haces"]
+        atoms: ["hago", "tarea"]
+        why: "«yo» is the one doing it, so it is «hago» — the form you could not have guessed. «hace» is hers and «haces» is yours, and both of those are perfectly ordinary."
+      - kind: audioWimcq
+        id: l7-ear-tarea
+        target: { surface: "la tarea", emoji: "📝" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la película", emoji: "📽️" }
+      # él PRODUCED with the yo form sitting in the bank, and a second
+      # verb's yo form beside it — neither the person nor the verb can be
+      # found by elimination.
+      - kind: buildLit
+        id: l7-b-viene
+        es: "mi amigo viene a la fiesta"
+        en: "my friend comes to the party"
+        atoms: ["amigo", "viene", "fiesta"]
+        tiles: ["vengo", "salgo"]
+      - kind: listenCompLit
+        id: l7-lc-salgosale
+        es: "yo salgo temprano pero ella sale tarde"
+        en: "I leave early but she leaves late."
+        atoms: ["salgo", "sale", "temprano", "tarde"]
+        distractorsEn:
+          - "I leave late but she leaves early."
+          - "She leaves early but I leave late."
+          - "I leave early but she comes late."
+      # The oldest -go form in the course, said back cold. Licensed by m7's
+      # printed voicing (es-m7-4 «tengo hambre»).
+      - kind: speakLit
+        id: l7-sp-recall-hambre
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      # Two options ON PURPOSE: «tengo» is m5's atom, so under pin E2 this
+      # survives only as a §13.9 law 5 discrimination trial — exactly two,
+      # both resolvable in atomModuleBySurfaceWord.
+      - kind: clozeLit
+        id: l7-c-tengo
+        es: "yo tengo un amigo en la escuela"
+        en: "I have a friend at school"
+        blank: "tengo"
+        options: ["tengo", "tiene"]
+        atoms: ["amigo"]
+        why: "You are the one with the friend, so «tengo». You have said this word since module five without anyone telling you it was irregular — it is the same -go you just put on «hago»."
+      - kind: listenBuildLit
+        id: l7-lb-haces
+        es: "¿haces la tarea hoy?"
+        en: "do you do the homework today?"
+        atoms: ["haces", "tarea"]
+        tiles: ["hago", "hace"]
+      - kind: audioWimcq
+        id: l7-ear-amigo
+        target: { surface: "el amigo", emoji: "🧑‍🤝‍🧑" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "el perro", emoji: "🐶" }
+      - kind: buildLit
+        id: l7-b-veo
+        es: "veo a mi amigo hoy"
+        en: "I see my friend today"
+        atoms: ["veo", "amigo"]
+        tiles: ["ve", "ver"]
+      # The -go itself, as two keystrokes on two unrelated verbs. The wrong
+      # options are the spellings the regular rule PREDICTS — «haco» and
+      # «salo» — and they are safe here because agreement_cloze bills only
+      # the reconstructed CORRECT sentence, never its options.
+      - kind: agreementLit
+        id: l7-agree-go
+        en: "I do the homework and I go out late"
+        audioText: "yo hago la tarea y salgo tarde"
+        atoms: ["hago", "tarea", "salgo", "tarde"]
+        segments:
+          - { text: "yo ha" }
+          - { blank: { id: "g1", answer: "go", options: ["co", "go"] } }
+          - { text: " la tarea y sal" }
+          - { blank: { id: "g2", answer: "go", options: ["o", "go"] } }
+          - { text: " tarde" }
+      - kind: speakLit
+        id: l7-sp-ve
+        es: "ella ve la película hoy"
+        en: "she sees the movie today"
+        atoms: ["ve", "película"]
+      # The over-regularised ghost «salo» against the real «salgo», with
+      # the infinitive as the didn't-conjugate foil. A textMcq because a
+      # multiple_choice bills only its correct option.
+      - kind: textMcq
+        id: l7-tm-salgo
+        target: "salgo"
+        distractors: ["salo", "sale", "salir"]
+        prompt: "Which one means 'I leave, I go out'?"
+      - kind: clozeLit
+        id: l7-c-viene
+        es: "mi amigo viene temprano"
+        en: "my friend comes early"
+        blank: "viene"
+        options: ["viene", "vengo", "venir"]
+        atoms: ["viene", "amigo"]
+        why: "«mi amigo» is the one arriving, so «viene». «vengo» only ever means yo, and «venir» has nobody on it at all."
+      # Verb AND person both change in the middle of one line, and the bank
+      # holds the other person of each verb.
+      - kind: buildLit
+        id: l7-b-mixto
+        es: "yo vengo a la fiesta y ella hace la tarea"
+        en: "I come to the party and she does the homework"
+        atoms: ["vengo", "fiesta", "hace", "tarea"]
+        tiles: ["viene", "hago"]
+      - kind: sim
+        id: l7-sim-fiesta
+        scene: { emoji: "🎉", title: "Everyone is doing something else", setting: "Ana, Diego and Sofía are sorting out who is coming to the party and who still has work to do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué haces hoy?", audioText: "¿qué haces hoy?", gloss: "What are you doing today?" }
+            goal: "Say you do the homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hago la tarea" }
+                - { id: "wrong1", text: "haco la tarea" }
+                - { id: "wrong2", text: "hace la tarea" }
+              correctOptionId: "right"
+              audioText: "hago la tarea"
+            replyGloss: "I do the homework."
+            explanation: "Ana asked with «haces», so the tú form is ordinary. Yours is not: it is «hago», never «haco». That g is the whole module."
+          - id: t2
+            npc: { speaker: "Diego", es: "Ana viene a la fiesta.", audioText: "ana viene a la fiesta", gloss: "Ana is coming to the party." }
+            goal: "Say you come early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo vengo temprano también" }
+                - { id: "wrong1", text: "yo viene temprano también" }
+                - { id: "wrong2", text: "yo vengo tarde también" }
+              correctOptionId: "right"
+              audioText: "yo vengo temprano también"
+            replyGloss: "I come early too."
+            explanation: "Diego said «viene» about Ana. About yourself it is «vengo» — same verb, and the g appears only when you are the one arriving."
+          - id: t3
+            # A build turn whose bank holds the él form AND the infinitive
+            # of the answer's verb, plus a second -go verb, so the reply
+            # cannot be reached by elimination.
+            npc: { speaker: "Sofía", es: "Yo salgo temprano hoy.", audioText: "yo salgo temprano hoy", gloss: "I'm leaving early today." }
+            goal: "Say you see your friend today."
+            reply:
+              mode: build
+              tiles: ["veo", "a", "mi", "amigo", "hoy", "ve", "ver", "salgo"]
+              answer: "veo a mi amigo hoy"
+            replyGloss: "I see my friend today."
+            explanation: "«ver» is the one in this family that does not take a g: «veo», not «vego». The rest of it is completely ordinary."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Tienes tarea hoy?", audioText: "¿tienes tarea hoy?", gloss: "Do you have homework today?" }
+            goal: "Say you have homework today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tengo tarea hoy" }
+                - { id: "wrong1", text: "hago tarea hoy" }
+                - { id: "wrong2", text: "tiene tarea hoy" }
+              correctOptionId: "right"
+              audioText: "tengo tarea hoy"
+            replyGloss: "I have homework today."
+            explanation: "«tengo» has been in your mouth since module five. It is the same g you just put on «hago» and «salgo» — it was the first one, and nobody told you."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "hago", target: "I do, I make" }
+          - { source: "hace", target: "he does, she does" }
+          - { source: "vengo", target: "I come" }
+          - { source: "viene", target: "he comes, she comes" }
+          - { source: "salgo", target: "I leave, I go out" }
+          - { source: "sale", target: "he leaves, she leaves" }
+          - { source: "veo", target: "I see" }
+          - { source: "la tarea", target: "the homework" }
+      # The win: two yo forms of two different verbs — one that grew the g
+      # and one that refused to.
+      - kind: speakLit
+        id: l7-sp-win
+        es: "veo a mi amigo y salgo temprano"
+        en: "I see my friend and I go out early"
+        atoms: ["veo", "amigo", "salgo", "temprano"]
+
+  # ── L8 · CHECKPOINT — every verb in the family, with nothing to lean on.
+  #   Graded steps only: no info card, NO MAP, nothing the learner can tap
+  #   past. `word_map` is technically graded under `isGradedStep`, but it
+  #   is a reveal, not a retrieval, and the brief pins the checkpoint as
+  #   all-graded retrieval — so there is none here. Every one of the five
+  #   verbs is decided at least once, both persons of hacer, venir, salir
+  #   and ver are produced, m5's «tengo» is discriminated against «hago»,
+  #   and no step announces whether the g is coming.
+  #
+  #   ── TRANSFER TEST — the one step the module is built to earn ─────────
+  #   Every other sentence here points at a verb m15 has drilled for six
+  #   lessons. `cp-transfer-poner` points at one the module has NEVER used.
+  #   «poner»/«pongo» appear in exactly one step in the whole module — not
+  #   in L7, not in a later lesson, not in a tile bank anywhere else. The
+  #   shape is forced, not chosen:
+  #     - the answer «pongo» requires a yo form the module never drilled.
+  #       If the learner memorised four words they have nothing; if they
+  #       learned the -go FAMILY, «pongo» is the only thing it could be.
+  #     - the bank holds the INFINITIVE «poner» beside it, so the live
+  #       decision is the didn't-conjugate error mode — the same foil the
+  #       ES distractor lint names. Only «pongo» is ever PRODUCED.
+  #     - the verb is GLOSSED IN PLACE in the prompt, because a transfer
+  #       test has to be fair: the learner is being asked to apply a
+  #       pattern to a new word, not to guess a word.
+  #     - buildLit because build_sentence is one of the intro-capable step
+  #       types (ES_INTRO_TYPES) and bills its target AND its tiles. A
+  #       clozeLit or textMcq fails `nonIntroDebuts` — particle_cloze and
+  #       multiple_choice are not intro-capable — and a map or a sim
+  #       cannot carry it either: `esSurfaces` has no word_map or
+  #       dialogue_sim case, so they bill nothing and can introduce
+  #       nothing.
+  #     - NOT a cue:"recall" speakLit: the recall law licenses recall only
+  #       for a phrase an earlier NON-recall speaking step already printed,
+  #       and nothing has ever printed «pongo».
+  #     - no audioWimcq on «la mesa» near it: a picture would answer the
+  #       question the step is asking. A transfer cell is met cold, in
+  #       text, so cp-ear-2 is deliberately about somewhere else.
+  #   ⚠️ «poner» AND «pongo» ARE REGISTERED ATOMS (see the header) and must
+  #   stay registered. REGISTRATION IS NOT TEACHING — the learner still
+  #   meets them cold here — but the provenance gate bills every word of
+  #   every step INCLUDING a foil tile, and neither word is in any atom or
+  #   in ES_VERB_ENTRIES, so leaving them unregistered fails `unknownTokens`
+  #   with 3 occurrences (target «pongo», tile «pongo», tile «poner») —
+  #   exactly the way m14's first «volver» attempt failed. m13's
+  #   «vacaciones» is the correct precedent.
+  #   Placement: step 9 of 18, between a clozeLit (particle_cloze) and an
+  #   audioWimcq (word_image_mcq) — two unrelated beats of two different
+  #   kinds, so the transfer touches no step of its own kind and BREAKS the
+  #   selection run rather than joining one.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The yo that goes its own way"
+    description: "Every verb in the family, every person, no help — and one verb in the middle of it that this module never taught you."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "ella hace la tarea temprano"
+        en: "She does the homework early."
+        atoms: ["hace", "tarea", "temprano"]
+        distractorsEn:
+          - "I do the homework early."
+          - "She does the homework late."
+          - "You do the homework early."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "yo vengo a la fiesta temprano"
+        en: "I come to the party early"
+        atoms: ["vengo", "fiesta", "temprano"]
+        tiles: ["viene", "tarde"]
+      # The didn't-conjugate foil: the bank offers the bare infinitive for
+      # a slot that needs a person on it, and the yo form for a subject
+      # that is not you.
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "mi amigo hace la tarea aquí"
+        en: "my friend does the homework here"
+        blank: "hace"
+        options: ["hace", "hago", "hacer"]
+        atoms: ["hace", "amigo", "tarea"]
+        why: "«mi amigo» is the one doing it, so the ordinary -e. Only the yo form of this verb grew a g, and nothing here is yo."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "ella sale tarde todos los días"
+        en: "she leaves late every day"
+        atoms: ["sale", "tarde"]
+        tiles: ["salgo", "temprano"]
+      - kind: textMcq
+        id: cp-tm-1
+        target: "vengo"
+        distractors: ["veno", "viene", "venir"]
+        prompt: "Which one means 'I come'?"
+      - kind: speakLit
+        id: cp-sp-1
+        es: "tengo sed"
+        en: "I'm thirsty"
+        atoms: []
+        cue: recall
+      # Two options ON PURPOSE — «tengo» is m5's atom (pin E2 / §13.9 law
+      # 5). Both are yo forms and both end in -go, so the g decides
+      # nothing: the learner has to know that the family is a SHAPE, not a
+      # meaning.
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "yo tengo una foto de mi familia"
+        en: "I have a photo of my family"
+        blank: "tengo"
+        options: ["tengo", "hago"]
+        atoms: ["foto", "familia"]
+        why: "Both of these are yo forms and both end in -go. Only one of them means having something. The family is real, but each verb still means its own thing."
+      # ── TRANSFER TEST — see the lesson header for why it is shaped this way.
+      - kind: buildLit
+        id: cp-transfer-poner
+        es: "pongo la foto en la mesa"
+        en: "I put the photo on the table — «poner» means to put"
+        atoms: ["foto", "mesa"]
+        tiles: ["poner", "allí"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "mi hermana viene a la escuela temprano"
+        en: "my sister comes to school early"
+        blank: "viene"
+        options: ["viene", "vengo", "venir"]
+        atoms: ["viene", "hermana"]
+        why: "Your sister is the one arriving, not you, so «viene». The g on «vengo» belongs to yo and to nobody else."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "mi amigo sale tarde hoy"
+        en: "my friend leaves late today"
+        atoms: ["sale", "amigo", "tarde"]
+        tiles: ["salgo", "temprano"]
+      # Both decisions as two keystrokes in one line. «go» is on offer at
+      # BOTH blanks and is right at only one of them, so the person is the
+      # only thing that says where it goes — and nothing on screen says so.
+      - kind: agreementLit
+        id: cp-agree-1
+        en: "I do the homework and she goes out late"
+        audioText: "yo hago la tarea y ella sale tarde"
+        atoms: ["hago", "tarea", "sale", "tarde"]
+        segments:
+          - { text: "yo ha" }
+          - { blank: { id: "g1", answer: "go", options: ["go", "ce"] } }
+          - { text: " la tarea y ella sal" }
+          - { blank: { id: "g2", answer: "e", options: ["go", "e"] } }
+          - { text: " tarde" }
+      - kind: buildLit
+        id: cp-build-2
+        es: "ella ve la película hoy"
+        en: "she sees the movie today"
+        atoms: ["ve", "película"]
+        tiles: ["veo", "ver"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "yo hago la tarea pero ella no viene"
+        en: "I do the homework but she doesn't come."
+        atoms: ["hago", "tarea", "viene"]
+        distractorsEn:
+          - "She does the homework but I don't come."
+          - "I do the homework and she comes."
+          - "I do the homework but she doesn't leave."
+      # m5's line, unchanged since the family lesson — and the first
+      # irregular yo form the learner ever heard, ten modules before
+      # anyone named it.
+      - kind: speakLit
+        id: cp-sp-2
+        es: "¿cuántos años tienes?"
+        en: "how old are you?"
+        atoms: []
+        cue: recall
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "hago", target: "I do, I make" }
+          - { source: "haces", target: "you do, you make" }
+          - { source: "vengo", target: "I come" }
+          - { source: "salgo", target: "I leave, I go out" }
+          - { source: "veo", target: "I see" }
+          - { source: "viene", target: "he comes, she comes" }
+          - { source: "sale", target: "he leaves, she leaves" }
+          - { source: "tener", target: "to have" }
+      - kind: speakLit
+        id: cp-sp-win
+        es: "salgo temprano y veo a mi amigo"
+        en: "I go out early and I see my friend"
+        atoms: ["salgo", "veo", "amigo", "temprano"]
+
+  # ── L9 · CONSOLIDATION — ZERO NEW ATOMS, and it must not feel like a
+  #    retake of L8. The checkpoint asked "do you know these?"; L9 asks
+  #    "can you live in them?", so the yo forms are never drilled two in a
+  #    row: every -go beat is followed by something from an entirely
+  #    different module (m13's pizza, m5's dog, m9's cine, m7's coffee),
+  #    which is §13.9 law 9 applied to a verb family instead of numbers.
+  #    NOTE the three shapes this lesson deliberately keeps side by side:
+  #      hago / vengo / salgo   the -go family
+  #      veo                    the cousin that refuses -go
+  #      hace / viene / sale    the ordinary él forms nothing happened to
+  #    l9-tm-1 is the one graded step that puts «hago» against «haco» —
+  #    the m14 machine's output — because a learner who leaves this module
+  #    still able to build «haco» has learned a rule that does not exist.
+  #    Cloze runs 3/19 = 0.16 (cap 0.25). One word_map, zero info cards.
+  - n: 9
+    template: free
+    title: "Everything I do, everywhere I go"
+    description: "No new words at all — the yo forms that go their own way, let loose across half the course, with the rest of your Spanish walking beside them."
+    steps:
+      - kind: map
+        id: l9-map-1
+        tokens: ["hoy", "hago", "la", "tarea", "y", "salgo", "tarde"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I do", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+          - { en: "and", tokenIndex: 4 }
+          - { en: "I go out", tokenIndex: 5 }
+          - { en: "late", tokenIndex: 6 }
+        audioText: "hoy hago la tarea y salgo tarde"
+        revealNote: "Two verbs, one breath, and both of them end in the same strange «-go». Now look at what is NOT strange. «la tarea» takes the article it has always taken. «tarde» sits where m14 put it. «y» joins two halves the way it has since m1. The sentence around these verbs is completely ordinary — it is only the yo cell that goes its own way, and only in a handful of very common verbs. Everything else you have learned still applies, exactly as you learned it."
+        tokenGenders: { 3: "f" }
+      - kind: speakLit
+        id: l9-sp-1
+        es: "hoy hago la tarea y salgo tarde"
+        en: "today I do the homework and I go out late"
+        atoms: ["hago", "tarea", "salgo", "tarde"]
+      - kind: clozeLit
+        id: l9-c-1
+        es: "Ana hace la tarea en casa"
+        en: "Ana does the homework at home"
+        blank: "hace"
+        options: ["hace", "hago"]
+        atoms: ["hace", "tarea", "casa"]
+        why: "Ana is the one doing it, so «hace» — and «hace» is the most ordinary verb form in this lesson. It takes the same -e that «come» and «vive» have taken since m11. Nothing happened to it. The odd one is yours: «hago». That is the whole shape of this module — the strangeness lives in exactly one cell."
+      # ── review tail 1 — m13's pizza, by ear only. Nothing to do with -go,
+      #    and that is the point: the family never gets two beats in a row.
+      - kind: audioWimcq
+        id: l9-ear-1
+        target: { surface: "la pizza", emoji: "🍕" }
+        distractors:
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el helado", emoji: "🍨" }
+      - kind: buildLit
+        id: l9-b-1
+        es: "vengo a la fiesta el sábado"
+        en: "I come to the party on Saturday"
+        atoms: ["vengo", "fiesta", "sábado"]
+        tiles: ["viene", "venir"]
+      # ── review tail 2 — m5's dog, cued cold (m5 L1 printed it). The
+      #    learner has no idea yet that they are about to be shown this
+      #    sentence's verb is a member of the family.
+      - kind: speakLit
+        id: l9-sp-recall-1
+        es: "tengo un perro"
+        en: "I have a dog"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l9-lb-1
+        es: "Ana sale el viernes"
+        en: "Ana goes out on Friday"
+        atoms: ["sale", "viernes"]
+        tiles: ["salgo", "salir"]
+      - kind: clozeLit
+        id: l9-c-2
+        es: "yo tengo hambre"
+        en: "I'm hungry"
+        blank: "tengo"
+        options: ["tengo", "hago"]
+        atoms: ["tengo"]
+        why: "«tengo» — you said it thirty seconds ago about a dog and you have been saying it since m5. Now look at the end of it. It is the same «-go» you have been putting on «hago», «vengo» and «salgo» all module long. m5 handed you the first member of this family years before anybody told you there was a family."
+      - kind: textMcq
+        id: l9-tm-1
+        target: "hago"
+        distractors: ["haco", "hace", "hacer"]
+      - kind: speakLit
+        id: l9-sp-2
+        es: "veo a mi amigo en el parque"
+        en: "I see my friend at the park"
+        atoms: ["veo", "amigo", "parque"]
+      # ── review tail 3 — m9's cinema, by ear only ─────────────────────────
+      - kind: audioWimcq
+        id: l9-ear-2
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: buildLit
+        id: l9-b-2
+        es: "no veo mi celular"
+        en: "I don't see my phone"
+        atoms: ["veo", "celular"]
+        tiles: ["ve", "ver"]
+      - kind: listenCompLit
+        id: l9-lc-1
+        es: "Ana viene a la fiesta pero yo salgo temprano"
+        en: "Ana comes to the party but I leave early."
+        atoms: ["viene", "fiesta", "salgo", "temprano"]
+        distractorsEn:
+          - "Ana comes to the party but I leave late."
+          - "Ana leaves the party but I come early."
+          - "I come to the party but Ana leaves early."
+      # ── review tail 4 — m9's own question, cued cold (m9 L3 printed it) ──
+      - kind: speakLit
+        id: l9-sp-recall-2
+        es: "¿adónde vas?"
+        en: "where are you headed?"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-3
+        es: "mi hermana viene mañana"
+        en: "my sister comes tomorrow"
+        blank: "viene"
+        options: ["viene", "vengo", "venir"]
+        atoms: ["viene", "hermana"]
+        why: "Your sister is the one coming, so «viene» — and it is perfectly regular, the same -e ending every -er and -ir verb has taken since m11. «venir» is only the verb's name; nobody ever does «venir». The single irregular cell in this verb is «vengo», and it is irregular only when the person is you."
+      - kind: listenBuildLit
+        id: l9-lb-2
+        es: "quiero tener un gato"
+        en: "I want to have a cat"
+        atoms: ["tener", "gato"]
+        tiles: ["tengo", "tiene"]
+      # ── review tail 5 — m7's coffee, cued cold (m7 L2 printed it) ────────
+      - kind: speakLit
+        id: l9-sp-recall-3
+        es: "me gusta el café"
+        en: "I like coffee"
+        atoms: []
+        cue: recall
+      # ── the yo column entire, with the él forms beside it so the grid
+      #    itself makes the claim: one cell is strange, the rest are not ──
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hago", target: "I do, I make" }
+          - { source: "vengo", target: "I come" }
+          - { source: "salgo", target: "I leave, I go out" }
+          - { source: "veo", target: "I see" }
+          - { source: "tengo", target: "I have" }
+          - { source: "hace", target: "he/she does, makes" }
+          - { source: "viene", target: "he/she comes" }
+      # ── THE WIN — three verbs, three shapes: «tengo» the one they had all
+      #    along, «veo» the cousin without a -go, «vengo» the one this
+      #    module actually gave them. One sentence, one weekend.
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy tengo tarea, mañana veo a mi amigo y el sábado vengo a la fiesta"
+        en: "today I have homework, tomorrow I see my friend, and on Saturday I come to the party"
+        atoms: ["tarea", "veo", "amigo", "vengo", "fiesta"]
+
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps. This is
+  #    also the closer of the whole m11–m15 arc, so the exam lane and the
+  #    sim are doing different jobs on purpose:
+  #      · the graded lane proves the CONTRAST — every irregular yo form
+  #        sits next to the ordinary tú/él form of the same verb, because
+  #        the thing being tested is not "conjugate venir", it is "do you
+  #        know WHICH cell is the strange one".
+  #      · l10-tm-1 offers «veno» and the sim offers «haco» and «salo» —
+  #        the forms m14's machine would build. `esSurfaces` bills neither
+  #        a textMcq distractor nor ANY string inside a dialogue_sim, so
+  #        the ghost forms are legal exactly where they teach most.
+  #      · the closing matchLit is the él-ella column plus the two
+  #        infinitives — six ordinary forms and nothing irregular in it,
+  #        which is the last thing this module wants to say.
+  #    Cloze runs 4/19 = 0.21 (mastery cap ⅓). Recalls: 3.
+  #    NB: every surface the sim uses — hago, vengo, salgo, veo, tengo,
+  #    haces, sale, tienes, tarea, fiesta, amigo, sábado, temprano, tarde,
+  #    parque — is carried by a graded step above it or by an earlier
+  #    module. Nothing follows it; five modules end there.
+  - n: 10
+    template: free
+    title: "Five verbs, one Saturday"
+    description: "Every yo form that goes its own way, every ordinary form standing next to it, and then a whole Saturday arranged out of them — the last conversation of five modules."
+    steps:
+      - kind: clozeLit
+        id: l10-c-1
+        es: "yo hago la tarea el domingo"
+        en: "I do the homework on Sunday"
+        blank: "hago"
+        options: ["hago", "hace", "hacer"]
+        atoms: ["hago", "tarea", "domingo"]
+        why: "You are the one doing it, so «hago». «hace» would be somebody else and «hacer» is only the verb's name. Nothing in «hacer» predicts that g — you had to learn this word, not derive it, and that is the difference between this module and the last one."
+      - kind: buildLit
+        id: l10-b-1
+        es: "Ana viene a mi casa mañana"
+        en: "Ana comes to my house tomorrow"
+        atoms: ["viene", "casa"]
+        tiles: ["vengo", "venir"]
+      # ── review tail 1 — the module's own noun, by ear only ───────────────
+      - kind: audioWimcq
+        id: l10-ear-1
+        target: { surface: "la tarea", emoji: "📝" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: listenBuildLit
+        id: l10-lb-1
+        es: "salgo temprano el viernes"
+        en: "I go out early on Friday"
+        atoms: ["salgo", "temprano", "viernes"]
+        tiles: ["sale", "salir"]
+      - kind: clozeLit
+        id: l10-c-2
+        es: "yo tengo sed"
+        en: "I'm thirsty"
+        blank: "tengo"
+        options: ["tengo", "vengo"]
+        atoms: ["tengo"]
+        why: "Thirst is something you HAVE, so «tengo». And look at the pair you just chose between: ten-go and ven-go, one letter apart, both of them irregular in exactly the same cell and nowhere else. m5 taught you one of them and never said why it looked like that."
+      # ── review tail 2 — m5's own question, cued cold (m5 L4 printed it) ──
+      - kind: speakLit
+        id: l10-sp-recall-1
+        es: "¿cuántos años tienes?"
+        en: "how old are you?"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-1
+        target: "vengo"
+        distractors: ["veno", "viene", "venir"]
+      - kind: buildLit
+        id: l10-b-2
+        es: "mi amigo viene a la fiesta"
+        en: "my friend comes to the party"
+        atoms: ["amigo", "viene", "fiesta"]
+        tiles: ["vengo", "venir"]
+      # ── review tail 3 — the module's other noun, by ear only ─────────────
+      - kind: audioWimcq
+        id: l10-ear-2
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la película", emoji: "📽️" }
+          - { surface: "el fútbol", emoji: "⚽" }
+      - kind: listenCompLit
+        id: l10-lc-1
+        es: "Ana sale temprano pero yo vengo tarde"
+        en: "Ana leaves early but I come late."
+        atoms: ["sale", "temprano", "vengo", "tarde"]
+        distractorsEn:
+          - "Ana leaves late but I come early."
+          - "Ana comes early but I leave late."
+          - "I leave early but Ana comes late."
+      - kind: speakLit
+        id: l10-sp-1
+        es: "veo a mi amigo todos los días"
+        en: "I see my friend every day"
+        atoms: ["veo", "amigo", "todos los días"]
+      - kind: clozeLit
+        id: l10-c-3
+        es: "Diego ve el fútbol el domingo"
+        en: "Diego watches soccer on Sunday"
+        blank: "ve"
+        options: ["ve", "veo", "ver"]
+        atoms: ["ve", "fútbol", "domingo"]
+        why: "Diego is the one watching, so «ve». This is the verb that breaks the module's own pattern: four verbs put a «-go» on the yo cell and this one just says «veo». If you had learned «-go» as a rule you would be reaching for a word that does not exist — there is no rule here, only a family, and one cousin who does it differently."
+      - kind: listenBuildLit
+        id: l10-lb-2
+        es: "hago la tarea y veo la película"
+        en: "I do the homework and I watch the movie"
+        atoms: ["hago", "tarea", "veo", "película"]
+        tiles: ["hace", "ve"]
+      # ── review tail 4 — m9's cinema line, cued cold (m9 L2 printed it) ───
+      - kind: speakLit
+        id: l10-sp-recall-2
+        es: "voy al cine"
+        en: "I'm going to the movies"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l10-c-4
+        es: "tú haces la cama"
+        en: "you make the bed"
+        blank: "haces"
+        options: ["haces", "hago", "hace"]
+        atoms: ["haces", "cama"]
+        why: "«tú» takes the plain -es that «comes», «bebes» and «vives» have all taken since m11 — nothing irregular happens here at all. Say the three out loud in order: hago, haces, hace. One of those three had to be memorised. The other two you could have built yourself."
+      - kind: buildLit
+        id: l10-b-3
+        es: "mañana salgo temprano y veo a mi amigo"
+        en: "tomorrow I go out early and I see my friend"
+        atoms: ["salgo", "temprano", "veo", "amigo"]
+        tiles: ["sale", "ve"]
+      # ── the ORDINARY column: six forms this module changed nothing about,
+      #    plus the two infinitives. The last grid of the arc deliberately
+      #    contains no irregular form at all.
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "hace", target: "he/she does, makes" }
+          - { source: "haces", target: "you do, you make" }
+          - { source: "viene", target: "he/she comes" }
+          - { source: "sale", target: "he/she leaves" }
+          - { source: "ve", target: "he/she sees" }
+          - { source: "hacer", target: "to do, to make" }
+          - { source: "tener", target: "to have" }
+      # ── review tail 5 — m7's oldest complaint, cued cold (m7 L4 printed
+      #    it). It is a -go verb and the learner now knows that.
+      - kind: speakLit
+        id: l10-sp-recall-3
+        es: "tengo hambre"
+        en: "I'm hungry"
+        atoms: []
+        cue: recall
+      # ── THE PAYOFF — five modules end on one Saturday getting arranged.
+      #   Nobody conjugates anything for its own sake: t1 is what you DO,
+      #   t2 when you COME, t3 when you GO OUT, t4 who you SEE, and t5 is
+      #   «tengo hambre» — the phrase the learner has owned since m5,
+      #   handed back to them as a member of the family they just learned.
+      #   Two builds, three choices; every accepted build answer is
+      #   composable from its own bank word for word, and every wrong
+      #   option is a form a learner could really have produced.
+      - kind: sim
+        id: l10-sim-sabado
+        scene: { emoji: "🎉", title: "Saturday, made", setting: "Ana is having people over on Saturday. Nothing is arranged yet — you two just say what you do, when you come, when you go out and who you see, until Saturday arranges itself." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¡Hola, Sam! ¿Qué haces el sábado?", audioText: "¡hola, Sam! ¿qué haces el sábado?", gloss: "Hi Sam! What do you do on Saturday?" }
+            goal: "Say you do the homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hago la tarea" }
+                - { id: "wrong1", text: "haco la tarea" }
+                - { id: "wrong2", text: "hace la tarea" }
+              correctOptionId: "right"
+              audioText: "hago la tarea"
+            replyGloss: "I do the homework."
+            explanation: "Ana's «haces» is ordinary and your «hago» is not, and there is no rule that turns one into the other. «haco» is what m14's machine would have built — a real pattern, correctly applied, to a verb that does not obey it. This is the one family where you memorise instead of deriving."
+          - id: t2
+            npc: { speaker: "Ana", es: "Muy bien. Yo voy a la fiesta el sábado. ¿Y tú?", audioText: "muy bien. yo voy a la fiesta el sábado. ¿y tú?", gloss: "Good. I'm going to the party on Saturday. And you?" }
+            goal: "Say you come to the party."
+            reply:
+              mode: build
+              tiles: ["vengo", "viene", "a", "la", "fiesta", "el", "sábado", "venir"]
+              answer: "vengo a la fiesta"
+              alsoAccepted: ["vengo a la fiesta el sábado", "el sábado vengo a la fiesta"]
+            replyGloss: "I come to the party."
+            explanation: "Ana used «voy», which m9 gave you whole. You answered «vengo», which nothing gave you — «venir» does not contain it and no ending you know produces it. You just had to know that word, and now you do."
+          - id: t3
+            npc: { speaker: "Ana", es: "Diego sale temprano. ¿Y tú?", audioText: "Diego sale temprano. ¿y tú?", gloss: "Diego leaves early. And you?" }
+            goal: "Say when you go out."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo salgo tarde" }
+                - { id: "also", text: "yo salgo temprano" }
+                - { id: "wrong1", text: "yo sale tarde" }
+                - { id: "wrong2", text: "yo salo tarde" }
+              correctOptionId: "right"
+              alsoCorrectOptionIds: ["also"]
+              audioText: "yo salgo tarde"
+            replyGloss: "I go out late."
+            explanation: "Either hour is true and either one is right — what is not optional is the «-go». Diego gets the ordinary «sale»; you get «salgo». «salo» is the word the pattern would have made, if this family had a pattern."
+          - id: t4
+            npc: { speaker: "Ana", es: "Yo veo a Diego en el parque hoy. ¿Y tú?", audioText: "yo veo a Diego en el parque hoy. ¿y tú?", gloss: "I'm seeing Diego at the park today. And you?" }
+            goal: "Say you see your friend."
+            reply:
+              mode: build
+              tiles: ["veo", "ve", "a", "mi", "amigo", "en", "el", "parque", "ver"]
+              answer: "veo a mi amigo"
+              alsoAccepted: ["veo a mi amigo en el parque"]
+            replyGloss: "I see my friend."
+            explanation: "«veo» is the one that refuses the «-go». Four of these verbs take it and this one just puts a plain -o on a shortened stem. That is why the module taught it beside the others instead of after them: a rule with an exception you never met is a rule you will over-apply for a year."
+          - id: t5
+            npc: { speaker: "Ana", es: "¡Muy bien! ¿Tienes hambre?", audioText: "¡muy bien! ¿tienes hambre?", gloss: "Great! Are you hungry?" }
+            goal: "Say yes, you are hungry."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo hambre" }
+                - { id: "wrong1", text: "sí, hago hambre" }
+                - { id: "wrong2", text: "sí, tener hambre" }
+              correctOptionId: "right"
+              audioText: "sí, tengo hambre"
+            replyGloss: "Yes, I'm hungry."
+            explanation: "The last thing you say in five modules is a sentence you have been able to say since module 5. «tengo hambre» was never a phrase you memorised whole — it was «tener» with the same «-go» you have spent this module putting on «hacer», «venir» and «salir». It was the first member of the family, standing there the whole time, waiting for the rest to show up."
+
+# Placement bank — the compiler emits ES_M15_PLACEMENT only if this block
+# exists. Every item tests the yo form specifically.
+placement:
+  screener:
+    - id: "es-m15-scr-1"
+      prompt: "Which one means 'I do'?"
+      correct: "hago"
+      distractors: ["haco", "hace", "hacer"]
+  byModule:
+    - id: "es-m15-pl-1"
+      prompt: "I come to the party."
+      correct: "vengo a la fiesta"
+      distractors: ["veno a la fiesta", "viene a la fiesta", "venir a la fiesta"]
+    - id: "es-m15-pl-2"
+      prompt: "I go out early."
+      correct: "salgo temprano"
+      distractors: ["salo temprano", "sale temprano", "salgo tarde"]
+    - id: "es-m15-pl-3"
+      prompt: "I see my friend."
+      correct: "veo a mi amigo"
+      distractors: ["vego a mi amigo", "ve a mi amigo", "ver a mi amigo"]
+    - id: "es-m15-pl-4"
+      prompt: "She does the homework."
+      correct: "hace la tarea"
+      distractors: ["hago la tarea", "haces la tarea", "hacer la tarea"]

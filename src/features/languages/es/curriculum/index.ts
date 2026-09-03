@@ -25,6 +25,7 @@ import { ES_M11_LESSONS } from "./m11";
 import { ES_M12_LESSONS } from "./m12";
 import { ES_M13_LESSONS } from "./m13";
 import { ES_M14_LESSONS } from "./m14";
+import { ES_M15_LESSONS } from "./m15";
 
 export type EsModuleMeta = {
   id: string;
@@ -133,6 +134,13 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     summary: "some verbs break their stem vowel — and you have been saying three of them since module 2.",
     accent: { from: "#2dd4bf", to: "#0f766e" },
   },
+  {
+    id: "m15",
+    title: "Hago, vengo",
+    eyebrow: "Module 15 · El yo raro",
+    summary: "a family of verbs whose yo form goes its own way — and «tengo» was the first one all along.",
+    accent: { from: "#f472b6", to: "#9d174d" },
+  },
 ];
 
 const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
@@ -150,6 +158,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m12: ES_M12_LESSONS,
   m13: ES_M13_LESSONS,
   m14: ES_M14_LESSONS,
+  m15: ES_M15_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */
