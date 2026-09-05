@@ -12,7 +12,10 @@ import { isDue, isNew, getDueModalities, createInitialState } from "@/features/f
 import { getUnlockedAtomIds } from "./unlockLessonAtoms";
 import { pickSwitchoverCandidates } from "@/features/languages/ja/secondScript/switchoverCandidate";
 import { getLatchedKanjiIds } from "@/features/languages/ja/secondScript/kanjiSwitchoverLatch";
-import { SWITCHOVER_BEAT_ENABLED } from "@/features/languages/ja/secondScript/kanjiRollout";
+import {
+  SWITCHOVER_BEAT_ENABLED,
+  MAX_SWITCHOVER_BEATS_PER_REVIEW,
+} from "@/features/languages/ja/secondScript/kanjiRollout";
 import { buildKanjiClozeStep } from "./kanjiClozeStep";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
@@ -79,10 +82,16 @@ export function buildSwitchoverBeat(
   // by definition never had a switchover.
   const isFirstEver = getLatchedKanjiIds().size === 0;
 
+  // Ask for every ready word, not the first two: the cap is on BEATS emitted,
+  // and a word with no usable mined sentence must not eat a slot (after the
+  // word-boundary miner fix, ~1 in 5 eligible words has none).
+  let beats = 0;
   for (const candidate of pickSwitchoverCandidates({
     learnerModule,
     unlockedAtomIds: unlockedIds,
+    limit: Number.POSITIVE_INFINITY,
   })) {
+    if (beats >= MAX_SWITCHOVER_BEATS_PER_REVIEW) break;
     // Beat ids are SUFFIXED per word, because the latch pairs reveal↔cloze by id
     // and two beats in one lesson would otherwise collide on `-kanji-reveal`.
     const slug = candidate.atomId.replace(/[^a-zA-Z0-9]+/g, "-");
@@ -96,6 +105,7 @@ export function buildSwitchoverBeat(
     // with no introduction grades a form that was never taught. A word with no
     // mined sentence is skipped, not half-shipped.
     if (!cloze) continue;
+    beats += 1;
     if (isFirstEver && out.length === 0) {
       out.push(
         infoStep(

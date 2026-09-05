@@ -26,6 +26,7 @@ import {
 } from "@/features/languages/ja/courseAtoms";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "./mockLessons";
+import { usesWord } from "./jaWordSpan";
 
 export type MinedSentence = { text: string; translation?: string };
 export type MinedTranslatedSentence = { text: string; translation: string };
@@ -141,7 +142,7 @@ function buildIndexesInner(): void {
         if (sent.text.length <= 1) continue;
         for (const { kana, cardId } of atoms) {
           if (sent.text === kana) continue;
-          if (!sent.text.includes(kana)) continue;
+          if (!usesWord(sent.text, kana)) continue;
           const prev = bestAny.get(cardId);
           if (!prev || sent.text.length < prev.len) {
             bestAny.set(cardId, { sent, len: sent.text.length });
@@ -151,7 +152,7 @@ function buildIndexesInner(): void {
       for (const sent of translatedSentencesFromStep(step)) {
         for (const { kana, cardId } of atoms) {
           if (sent.text === kana) continue;
-          if (!sent.text.includes(kana)) continue;
+          if (!usesWord(sent.text, kana)) continue;
           const prev = bestTr.get(cardId);
           if (!prev || sent.text.length < prev.len) {
             bestTr.set(cardId, { sent, len: sent.text.length });
@@ -166,8 +167,9 @@ function buildIndexesInner(): void {
 
 /**
  * Map canonical card id → shortest mined example sentence. Memoized: walks
- * every lesson once. Only multi-character sentences that strictly CONTAIN
- * the word (and aren't just the word itself) qualify.
+ * every lesson once. Only multi-character sentences that USE the word as a
+ * word (`jaWordSpan.ts` — not a substring of another word, and not the bare
+ * word itself) qualify.
  */
 export function getMinedSentences(): Map<string, MinedSentence> {
   if (building) return new Map();

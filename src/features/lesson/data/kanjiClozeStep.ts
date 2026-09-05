@@ -1,3 +1,4 @@
+import { findWordSpan } from "./jaWordSpan";
 import type { LessonStep } from "../types";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { buildKanjiDistractors } from "@/features/languages/ja/secondScript/kanjiDistractorPool";
@@ -27,15 +28,23 @@ import { buildKanjiDistractors } from "@/features/languages/ja/secondScript/kanj
  * useful side effect — the only kanji on screen are the tiles, so there is no
  * ambiguity about which word is being asked for.
  */
+/**
+ * Index of the kana run to blank, or -1 when the kana never appears as a WORD.
+ * Shared with the sentence miner — see `jaWordSpan.ts` for why `indexOf` was
+ * not enough (TestFlight #11: な＿を やる completed with 二).
+ */
+export const findClozeSpan = findWordSpan;
+
 export function buildKanjiClozeStep(
   stepId: string,
   word: { atomId: string; kana: string; kanji: string; gloss: string },
   sentence: { text: string; translation: string } | undefined,
 ): LessonStep | null {
   if (!sentence) return null;
-  const at = sentence.text.indexOf(word.kana);
+  const at = findClozeSpan(sentence.text, word.kana);
   // The miner guarantees the sentence CONTAINS the kana, but it is keyed by card
-  // id and the guarantee is not worth trusting blind at build time.
+  // id and the guarantee is not worth trusting blind at build time — and a bare
+  // `indexOf` is not enough either (see `findClozeSpan`).
   if (at === -1) return null;
   const before = sentence.text.slice(0, at);
   const after = sentence.text.slice(at + word.kana.length);
