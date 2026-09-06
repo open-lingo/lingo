@@ -1819,15 +1819,61 @@ export function isSrsEligibleAtom(atom: CourseAtom): boolean {
 }
 
 /**
+ * True when this atom is a conjugated/inflected verb SURFACE — て-form,
+ * た-form, ます-form, ない-form, 〜たり-form, potential-form, etc. — rather
+ * than its dictionary-form headword.
+ *
+ * These atoms stay registered: the taught-word / IR gates need to credit
+ * the exact surface a lesson drills (see `JaConjugationLink`'s doc above).
+ * But the headword is ALREADY its own SRS-eligible atom — `taberu` "to
+ * eat" (id `ja-m7-1-v-taberu`) has its own flashcard — so also surfacing
+ * `tabete` as a flashcard duplicates it with a second, unusable front:
+ * "eat (te-form)" (TestFlight #17, 2026-09-06 — "Did we really want to
+ * include te form? That's kind of useless yeah?"). This predicate is
+ * `isFlashcardEligibleAtom`'s exclusion, not `isSrsEligibleAtom`'s: the
+ * many non-flashcard consumers of SRS eligibility (seed scheduling, match
+ * pairs, mined sentences, grammar review) are unaffected.
+ *
+ * Structural signal, not a text regex on `meaningEn`: `JaConjugationLink`
+ * (the `conjugation` field) is attached ONLY to the dictionary-form lemma
+ * (see that type's doc comment) — a `pos: "verb"` atom missing it is, for
+ * every atom in this registry today, a derived conjugated surface, never
+ * a headword that merely lacks a resolved class. Verified against the
+ * full corpus 2026-09-06: every `pos: "verb"` atom without `conjugation`
+ * is a te/ta/masu/nai/tari/potential/copula-past form.
+ *
+ * Deliberately NOT extended to adjectives: いい／よい ("good", id
+ * `ii--yoi`) is a real dictionary-form headword missing `conjugation` for
+ * an unrelated reason (irregular いい/よい class never got a link) — this
+ * signal would misfire and drop a real vocabulary card.
+ */
+export function isInflectedVerbFormAtom(atom: CourseAtom): boolean {
+  return atom.pos === "verb" && !atom.conjugation;
+}
+
+/**
+ * Predicate: should this atom get its own flashcard in the SRS deck?
+ *
+ * SRS-eligible (`isSrsEligibleAtom`) minus inflected verb-form surfaces
+ * (`isInflectedVerbFormAtom`): a conjugated form is real curriculum
+ * content other gates must still see, but it is not a second vocabulary
+ * item alongside its own dictionary form.
+ */
+export function isFlashcardEligibleAtom(atom: CourseAtom): boolean {
+  return isSrsEligibleAtom(atom) && !isInflectedVerbFormAtom(atom);
+}
+
+/**
  * Build the course-wide JA flashcard deck.
  *
  * `unlockedIds`: if provided, only atoms with ids in the set are marked
  * unlocked. Omit to leave `unlocked` undefined (engine treats as locked
  * for course decks).
  *
- * Filters out atoms ineligible for SRS (see `isSrsEligibleAtom`) — these
- * are alphabet-trainer atoms whose practice surface is the Practice page,
- * not the vocab flashcards deck.
+ * Filters out atoms ineligible for the flashcard deck (see
+ * `isFlashcardEligibleAtom`) — alphabet-trainer atoms (Practice page
+ * territory, see `isSrsEligibleAtom`) and inflected verb-form surfaces
+ * (dictionary form already has its own card, see `isInflectedVerbFormAtom`).
  */
 export function buildJaCourseDeck(opts?: {
   /** Canonical (`ja:`-prefixed) unlocked ids, from the unlock store. */
@@ -1837,7 +1883,7 @@ export function buildJaCourseDeck(opts?: {
   /** Optional per-atom card image URL, keyed by canonical id. */
   imagesByCardId?: ReadonlyMap<string, string>;
 }): FlashcardDeck {
-  const cards: Flashcard[] = JA_COURSE_ATOMS.filter(isSrsEligibleAtom).map(
+  const cards: Flashcard[] = JA_COURSE_ATOMS.filter(isFlashcardEligibleAtom).map(
     (atom) => {
       const cardId = canonicalAtomId(atom);
       return courseAtomToFlashcard(atom, {

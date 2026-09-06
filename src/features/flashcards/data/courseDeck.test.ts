@@ -4,7 +4,8 @@ import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_ID,
   canonicalAtomId,
-  isSrsEligibleAtom,
+  isFlashcardEligibleAtom,
+  isInflectedVerbFormAtom,
 } from "@/features/languages/ja/courseAtoms";
 
 /**
@@ -18,12 +19,29 @@ function bareId(cardId: string): string {
 }
 
 describe("JA course deck (from atoms)", () => {
-  it("has one card per SRS-eligible atom, no stub remnants", () => {
+  it("has one card per flashcard-eligible atom, no stub remnants", () => {
     const deck = buildEnrichedJaCourseDeck(new Set());
-    const eligible = JA_COURSE_ATOMS.filter(isSrsEligibleAtom);
+    const eligible = JA_COURSE_ATOMS.filter(isFlashcardEligibleAtom);
     expect(deck.cards.length).toBe(eligible.length);
     // No leftover stub cards (ja-1..ja-5 etc.)
     expect(deck.cards.some((c) => /^ja-\d+$/.test(c.id))).toBe(false);
+  });
+
+  it("excludes inflected verb-form surfaces (TestFlight #17: te-form leak)", () => {
+    const deck = buildEnrichedJaCourseDeck(new Set());
+    // たべて "eat (te-form)" — a conjugated surface of たべる, not its own
+    // vocabulary item — must not get a flashcard front.
+    const tabete = JA_COURSE_ATOMS_BY_ID.get("tabete")!;
+    expect(tabete).toBeDefined();
+    expect(isInflectedVerbFormAtom(tabete)).toBe(true);
+    expect(deck.cards.some((c) => c.id === "ja:tabete")).toBe(false);
+
+    // The dictionary-form headword たべる "to eat" is unaffected — it keeps
+    // its own card.
+    const taberu = JA_COURSE_ATOMS_BY_ID.get("ja-m7-1-v-taberu")!;
+    expect(taberu).toBeDefined();
+    expect(isInflectedVerbFormAtom(taberu)).toBe(false);
+    expect(deck.cards.some((c) => c.id === "ja:ja-m7-1-v-taberu")).toBe(true);
   });
 
   it("every card id is canonical and maps to a real atom", () => {
@@ -35,7 +53,7 @@ describe("JA course deck (from atoms)", () => {
   });
 
   it("marks exactly the unlocked atoms as unlocked", () => {
-    const eligible = JA_COURSE_ATOMS.filter(isSrsEligibleAtom);
+    const eligible = JA_COURSE_ATOMS.filter(isFlashcardEligibleAtom);
     const sample = eligible.slice(0, 5).map(canonicalAtomId);
     const unlocked = new Set(sample);
     const deck = buildEnrichedJaCourseDeck(unlocked);
