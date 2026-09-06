@@ -599,9 +599,19 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            10 placed vs a 7-tile answer spilled out of the box). Ghost and
            tiles share one grid cell, so the tray height is
            max(ghost, actual) and the box grows instead of overflowing.
-           Left-aligned (reading order). */
+           Left-aligned (reading order).
+
+           PHONE CAP (TestFlight 2026-09-05 #3/#5/#7/#24): below `sm` the
+           ghost's contribution is capped at two rows (2×42px + gap). A
+           12-tile answer wraps to four rows in a 398px tray, and a 212px
+           EMPTY box on a 15 Pro Max pushed the bank's last rows under the
+           sticky CTA — the learner saw dead space above and clipped tiles
+           below. The tray still grows past the cap as tiles are placed
+           (the floor rule, not a cap on content); only the reservation
+           shrinks. From `sm` up there is height to spend and the ghost
+           reserves the full answer as before. */
         <div className="grid min-h-[56px] sm:min-h-[72px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
-          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2 sm:gap-2.5">
+          <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`ghost-${i}`}

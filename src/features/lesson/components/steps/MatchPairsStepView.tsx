@@ -226,6 +226,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
           <SourceTile
             key={`s-${pair.id}`}
             pair={pair}
+            denseRows={rows >= 6}
             style={stateStyles[tileState("source", pair.id)]}
             disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("source", pair.id)}
@@ -238,6 +239,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
           <TargetTile
             key={`t-${pair.id}`}
             pair={pair}
+            denseRows={rows >= 6}
             style={stateStyles[tileState("target", pair.id)]}
             disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("target", pair.id)}
@@ -302,6 +304,8 @@ type TileProps = {
   disabled: boolean;
   onClick: () => void;
   row: number;
+  /** Six or more rows: smaller type floor so every row fits a phone. */
+  denseRows: boolean;
 };
 
 type SourceTileProps = TileProps & {
@@ -323,15 +327,26 @@ function SourceTile({
   disabled,
   onClick,
   row,
+  denseRows,
   audioOnSelect,
   showSourceRomaji,
 }: SourceTileProps) {
   // Fluid type; rows own the height (1fr) and tiles stretch to fill,
   // so vertical padding stays minimal — big static py inflated each
   // row's min-content floor and forced inner scroll on short windows.
+  // Six-row grids (review matches) get a step down: at 3.8cqh a 743px
+  // scroller sets 28px type, and a kanji tile with its furigana band is then
+  // 94px — six of them cannot share a 585px column with the prompt, so the
+  // last row was clipped on a 15 Pro Max (TestFlight 2026-09-05 #22). Rows
+  // own the height (1fr), so with the smaller floor the tiles still stretch
+  // to fill whatever the grid gets.
   const sizeClass = audioOnSelect
-    ? "text-[clamp(1.75rem,4.5cqh,3rem)] font-semibold py-1.5"
-    : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-medium py-1.5";
+    ? denseRows
+      ? "text-[clamp(1.25rem,3.2cqh,2.5rem)] font-semibold py-1.5"
+      : "text-[clamp(1.75rem,4.5cqh,3rem)] font-semibold py-1.5"
+    : denseRows
+      ? "text-[clamp(1.125rem,3cqh,2.25rem)] font-medium py-1.5"
+      : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-medium py-1.5";
   return (
     <button
       type="button"
@@ -405,10 +420,14 @@ function AudioSelectSourceSurface({
   );
 }
 
-function TargetTile({ pair, style, disabled, onClick, row, audioOnSelect }: SourceTileProps) {
+function TargetTile({ pair, style, disabled, onClick, row, denseRows, audioOnSelect }: SourceTileProps) {
   const sizeClass = audioOnSelect
-    ? "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-semibold py-1.5"
-    : "text-[clamp(1.125rem,3cqh,1.875rem)] font-medium py-1.5";
+    ? denseRows
+      ? "text-[clamp(1.125rem,3.2cqh,2.25rem)] font-semibold py-1.5"
+      : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-semibold py-1.5"
+    : denseRows
+      ? "text-[clamp(1rem,2.6cqh,1.75rem)] font-medium py-1.5"
+      : "text-[clamp(1.125rem,3cqh,1.875rem)] font-medium py-1.5";
   return (
     <button
       type="button"

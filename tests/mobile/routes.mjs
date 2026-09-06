@@ -53,6 +53,16 @@ export const VIEWPORTS = [
   { name: "iphone-se", width: 375, height: 667, insets: { top: 20, right: 0, bottom: 0, left: 0 } },
   { name: "pixel-7", width: 412, height: 915, insets: { top: 24, right: 0, bottom: 24, left: 0 } },
   { name: "iphone-14-promax", width: 430, height: 932, insets: { top: 59, right: 0, bottom: 34, left: 0 } },
+  // ── Share-weighted additions (StatCounter mobile screen resolutions, US + UK,
+  // Aug 2026: 414x896 ≈21% in both markets, 390x844 ≈12%, 393x852 / 402x874 /
+  // 384x832 / 360x780 / 412x915 each 4–6%, 375x667 ≈6% UK). Insets are the
+  // published safe areas for the iPhone class each size represents.
+  { name: "iphone-11", width: 414, height: 896, insets: { top: 48, right: 0, bottom: 34, left: 0 } },
+  { name: "iphone-13", width: 390, height: 844, insets: { top: 47, right: 0, bottom: 34, left: 0 } },
+  { name: "iphone-16-pro", width: 402, height: 874, insets: { top: 62, right: 0, bottom: 34, left: 0 } },
+  { name: "iphone-17-promax", width: 440, height: 956, insets: { top: 62, right: 0, bottom: 34, left: 0 } },
+  { name: "android-360x780", width: 360, height: 780, insets: { top: 24, right: 0, bottom: 0, left: 0 } },
+  { name: "android-384x832", width: 384, height: 832, insets: { top: 24, right: 0, bottom: 0, left: 0 } },
   { name: "tablet-portrait", width: 768, height: 1024, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
 ];
 

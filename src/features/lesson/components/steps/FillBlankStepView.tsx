@@ -71,7 +71,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
           The blank narrows below `sm`: at 3xl a 128px blank plus といきます
           exceeds the ~300px available at 390px wide and the sentence wrapped,
           leaving the blank stranded on its own line. */}
-      <div className="flex flex-wrap items-baseline gap-1.5 text-3xl font-bold leading-relaxed text-text-primary">
+      <div className="flex flex-wrap items-baseline gap-1.5 text-2xl font-bold leading-relaxed text-text-primary sm:text-3xl">
         {parts.map((part, i) => (
           <span key={i} className="flex items-baseline gap-1">
             <span><AnnotatedJa text={part} /></span>
@@ -88,7 +88,13 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                         [step.blanks[i].id]: e.target.value,
                       }))
                     }
-                    className={`w-24 border-b-[2.5px] bg-transparent text-center text-3xl font-bold outline-none transition-colors sm:w-32 ${
+                    // `disabled:` overrides: a tile-fed blank is a DISABLED input,
+                    // and WebKit paints disabled inputs grey via
+                    // -webkit-text-fill-color + opacity regardless of `color` —
+                    // the filled answer looked dimmed even when correct
+                    // (TestFlight 2026-09-05 #29). 2xl on phones with the
+                    // sentence (#30: three lines with the blank orphaned).
+                    className={`w-24 border-b-[2.5px] bg-transparent text-center text-2xl font-bold outline-none transition-colors [-webkit-text-fill-color:currentColor] disabled:opacity-100 sm:w-32 sm:text-3xl ${
                       submitted
                         ? isCorrect
                           ? "border-accent text-accent"

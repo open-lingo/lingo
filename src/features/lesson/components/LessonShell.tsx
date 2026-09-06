@@ -1,4 +1,4 @@
-import type { ReactNode, Ref } from "react";
+import { useEffect, type ReactNode, type Ref } from "react";
 import {
   FITTED_SHELL_COLUMN,
   FITTED_SHELL_HEIGHT,
@@ -80,6 +80,26 @@ export function LessonShell({
   className,
   children,
 }: Props) {
+  // The WINDOW must never be scrolled: the shell is viewport-sized and the
+  // stage scroller owns every overflow. WKWebView still scrolls the window to
+  // bring a focused input into view above the keyboard and does not always
+  // restore it on dismiss — TestFlight 2026-09-05 #14 (Mikey): a test-out
+  // match grid drawn under the status bar with the bottom third blank. Snap
+  // back whenever the visual viewport settles or focus leaves a field.
+  useEffect(() => {
+    const snap = () => {
+      if (window.scrollY > 0 || window.scrollX > 0) window.scrollTo(0, 0);
+    };
+    const vv = window.visualViewport;
+    vv?.addEventListener("resize", snap);
+    vv?.addEventListener("scroll", snap);
+    document.addEventListener("focusout", snap);
+    return () => {
+      vv?.removeEventListener("resize", snap);
+      vv?.removeEventListener("scroll", snap);
+      document.removeEventListener("focusout", snap);
+    };
+  }, []);
   return (
     <div
       // `*-safe` (tailwind.config.js) = `max(env(safe-area-inset-*), 0px)`, so

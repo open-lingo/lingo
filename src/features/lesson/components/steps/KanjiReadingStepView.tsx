@@ -116,7 +116,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
 
       <div
         data-testid="kanji-reading-prompt"
-        className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-8 text-center"
+        className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-5 text-center sm:py-8"
       >
         {/* The kanji under test — bare by construction (see the note above). */}
         <div className="text-5xl leading-tight text-text-primary sm:text-6xl">
@@ -125,7 +125,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
         {step.meaningEn ? (
           // Meaning is a disambiguating cue, not the answer: homographs like
           // 一 (いち / ひと-) need it to have one correct reading.
-          <p className="mt-4 text-base text-text-secondary">
+          <p className="mt-2 text-base text-text-secondary sm:mt-4">
             &ldquo;{step.meaningEn}&rdquo;
           </p>
         ) : null}
@@ -149,6 +149,11 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
           2026-08-19, docs/issues/step-overflow-measured-2026-08-19.md). The
           options are kana readings, two to four characters, so a ~170px
           column is not tight. */}
+      {/* Proportions (TestFlight 2026-09-05 #2/#23, Spencer: "make the top
+          box a bit shallower, keep font size and increase the vertical on
+          the buttons below; button text fills vertical height, shrinking to
+          prevent wrapping"). Options are min-h-14 with type that scales to
+          the column (cqw) and never wraps — a reading is one word. */}
       <div className="grid grid-cols-2 gap-3">
         {step.options.map((option) => (
           <button
@@ -157,7 +162,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
             disabled={submitted}
             aria-pressed={selected === option.id}
             onClick={() => setSelected(option.id)}
-            className={`rounded-xl border-2 px-4 py-4 text-2xl font-bold transition-colors ${optionStyle(option.id)} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+            className={`min-h-14 whitespace-nowrap rounded-xl border-2 px-3 py-3 text-[clamp(1.125rem,6cqw,1.5rem)] font-bold transition-colors sm:min-h-16 sm:py-4 ${optionStyle(option.id)} ${submitted ? "cursor-default" : "cursor-pointer"}`}
           >
             {option.text}
           </button>

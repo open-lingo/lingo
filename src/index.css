@@ -368,6 +368,13 @@ ruby {
 :lang(ja),
 .font-japanese {
   font-family: "Noto Sans JP", "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Break at the course's own bunsetsu spaces, never inside a word. Without
+     `keep-all` WebKit wraps kana anywhere — TestFlight 2026-09-05 #6/#31:
+     しらべてみる split as しらべ / てみる, a furigana か stranded on its own
+     line. `anywhere` is the escape hatch for a single run wider than the
+     column (a tile, a long compound), so nothing can overflow sideways. */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 /* Apply Noto Sans KR to every Korean-language span so Hangul renders
    consistently across platforms. Wrap KO content with lang="ko" to opt in. */
@@ -385,6 +392,14 @@ ruby {
 }
 .kana-helper[data-visible="false"] {
   opacity: 0;
+  /* A hidden helper must not keep its ruby band: with `ruby-position: over`
+     an invisible <rt> still adds ~0.65em above EVERY line, which read as
+     "too much spacing between the sentences" once romaji had faded out
+     (TestFlight 2026-09-05 #6). Collapse the box; font-size is animated
+     alongside opacity so the fade-out still reads as a fade. */
+  font-size: 0;
+  line-height: 0;
+  transition: opacity 200ms ease-out, font-size 200ms ease-out;
 }
 .dark .kana-helper {
   color: rgb(var(--color-accent-hover)); /* lifted for dark surfaces */

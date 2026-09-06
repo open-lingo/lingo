@@ -304,7 +304,7 @@ function ReferenceCard({
     );
   }
   return (
-    <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface py-10 shadow-[var(--shadow-card)]">
+    <div className="flex flex-col items-center gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-4 py-6 shadow-[var(--shadow-card)] sm:gap-5 sm:py-10">
       <button
         type="button"
         onClick={onPlay}
@@ -314,7 +314,7 @@ function ReferenceCard({
         <Icon name="play" size={28} />
       </button>
 
-      <p className="text-4xl font-bold tracking-tight text-text-primary">
+      <p className="text-center text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
         {step.targetAnnotation ? (
           <AnnotatedJa segments={step.targetAnnotation} forceShowHelper={showRomaji} />
         ) : (

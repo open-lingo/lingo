@@ -261,7 +261,10 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           // taller than the width cap predicted. With the floor removed the
           // card shrinks into its `1fr` row and the ratio finally binds.
           let base =
-            "flex aspect-square min-h-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 bg-surface p-4 transition-colors duration-150";
+            // `[container-type:inline-size]` so the label's `cqw` is the CARD's width:
+            // a 3-up ES grid on a 393px phone gives ~105px cards, and "hermano" at
+            // text-2xl clipped both ends (TestFlight 2026-09-05 #16, Mikey).
+            "flex aspect-square min-h-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 bg-surface p-3 transition-colors duration-150 [container-type:inline-size] sm:p-4";
           let stateClasses = "border-border hover:border-accent";
           if (submitted && isAnswer) {
             stateClasses = "border-accent bg-accent/10";
@@ -295,7 +298,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    "font-japanese text-center text-2xl font-bold tracking-wide sm:text-4xl " +
+                    "font-japanese text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl " +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer
@@ -311,7 +314,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    "font-japanese text-center text-2xl font-bold tracking-wide sm:text-4xl " +
+                    "font-japanese text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl " +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer

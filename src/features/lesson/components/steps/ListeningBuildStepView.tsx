@@ -173,7 +173,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const hasSubmittedWrong = submitted && !isCorrect;
 
   return (
-    <div className="relative flex flex-1 flex-col gap-7">
+    <div className="relative flex flex-1 flex-col gap-5 sm:gap-7">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
@@ -185,14 +185,14 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           430x932). Reading order is unchanged; only the position moved. The
           action block below keeps `mt-auto`, so it stays bottom-anchored and
           the fixed action bar does not shift. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-7">
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-5 sm:gap-7">
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover sm:h-16 sm:w-16 bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
           aria-label="Play audio"
         >
           <Icon name="play" size={28} />
@@ -270,12 +270,17 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         </div>
       ) : (
       <>
-      <div className="grid min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
-        <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2.5">
+      {/* Phone tier (TestFlight 2026-09-05 #3): 64px tiles at text-2xl
+          wrapped an 11-tile answer to four rows, so tray + bank alone were
+          690px of a 743px scroller on a 15 Pro Max. Below `sm` the tiles
+          take the sentence-build tier (text-xl, py-2 ≈ 48px) and the ghost
+          floor is capped at two rows; from `sm` up nothing changes. */}
+      <div className="grid min-h-[64px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[80px] sm:py-4">
+        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[108px] flex-wrap gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
-              className="rounded-xl border-2 px-5 py-2.5 text-2xl sm:text-3xl font-bold"
+              className="rounded-xl border-2 px-4 py-2 text-xl font-bold sm:px-5 sm:py-2.5 sm:text-3xl"
             >
               {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                   real tiles or the tray mis-sizes. */}
@@ -283,7 +288,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             </span>
           ))}
         </div>
-        <div className="[grid-area:1/1] flex flex-wrap content-start gap-2.5">
+        <div className="[grid-area:1/1] flex flex-wrap content-start gap-2 sm:gap-2.5">
           {placed.length === 0 ? (
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
@@ -301,7 +306,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
               className="flex flex-wrap content-start gap-2.5"
-              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
+              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
             />
           )}
         </div>
@@ -322,8 +327,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               aria-pressed={used}
               className={
                 used
-                  ? "rounded-xl border-2 border-border bg-surface-muted px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-muted opacity-40"
-                  : "rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
+                  ? "rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
+                  : "rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
               }
             >
               <BuildTileSurface
