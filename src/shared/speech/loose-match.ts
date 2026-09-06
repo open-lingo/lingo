@@ -734,6 +734,30 @@ export type MatchResult = {
   alternatives: AlternativeScore[];
 };
 
+/**
+ * Containment tier shared by the JA and generic scorers. Returns 1 when the
+ * transcript and target contain each other in a way that counts as saying
+ * the whole thing, or `null` to fall through to char-overlap.
+ *
+ *  - target inside a longer transcript (filler, a repeated word): 1.
+ *  - transcript inside the target: 1 only when it covers most of the target
+ *    (a dropped trailing kana — あお for あおい). A FRAGMENT is not the
+ *    sentence: the recognizer handing back one syllable of 이거는 김치라고
+ *    해요 was graded Perfect! by the old unconditional boost (TestFlight
+ *    #33). Below the floor it falls through to char-overlap, which for a
+ *    fragment equals its coverage, so a short fragment lands in try-again.
+ */
+const PARTIAL_COVERAGE_FLOOR = 0.6;
+
+export function substringScore(normalized: string, targetNorm: string): number | null {
+  if (normalized.includes(targetNorm)) return 1;
+  if (targetNorm.includes(normalized)) {
+    const coverage = [...normalized].length / [...targetNorm].length;
+    if (coverage >= PARTIAL_COVERAGE_FLOOR) return 1;
+  }
+  return null;
+}
+
 function scoreOne(
   rawAlt: string,
   targetNorm: string,
@@ -752,16 +776,10 @@ function scoreOne(
     return { raw: rawAlt, normalized, score: 1, confidence };
   }
 
-  if (normalized.includes(targetNorm) || targetNorm.includes(normalized)) {
-    // Substring is a soft "perfect" — set to 1 so the perfect tier
-    // catches it regardless of length mismatch.
-    return { raw: rawAlt, normalized, score: 1, confidence };
-  }
-
   return {
     raw: rawAlt,
     normalized,
-    score: charOverlap(normalized, targetNorm),
+    score: substringScore(normalized, targetNorm) ?? charOverlap(normalized, targetNorm),
     confidence,
   };
 }
@@ -841,8 +859,7 @@ export function scoreAlternativesGeneric(
     let score: number;
     if (!normalized || !targetNorm) score = 0;
     else if (normalized === targetNorm) score = 1;
-    else if (normalized.includes(targetNorm) || targetNorm.includes(normalized)) score = 1;
-    else score = charOverlap(normalized, targetNorm);
+    else score = substringScore(normalized, targetNorm) ?? charOverlap(normalized, targetNorm);
     return { raw: a.transcript, normalized, score, confidence: a.confidence };
   });
 

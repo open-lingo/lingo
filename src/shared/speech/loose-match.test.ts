@@ -515,3 +515,26 @@ describe("gradeTypedAnswer — accentPolicy (F5, 2026-08-20)", () => {
     expect(gradeTypedAnswer(["où est"], "ouest", FR_POLICY).correct).toBe(false);
   });
 });
+
+describe("fragment of the target is not a match (TestFlight #33)", () => {
+  // A one-syllable recognition "이" was graded Perfect! against
+  // 이거는 김치라고 해요 because any substring of the target scored 1.
+  it("a one-syllable fragment of a Korean sentence is try-again", () => {
+    const r = scoreAlternativesGeneric("이거는 김치라고 해요", [{ transcript: "이" }]);
+    expect(r.verdict).toBe("try-again");
+  });
+
+  it("a short JA fragment of a long target is try-again", () => {
+    const r = scoreAlternatives("きっぷを かっておいた", [{ transcript: "きっ" }]);
+    expect(r.verdict).toBe("try-again");
+  });
+
+  it("most of the sentence with the tail dropped still passes", () => {
+    const r = scoreAlternativesGeneric("이거는 김치라고 해요", [{ transcript: "이거는 김치라고" }]);
+    expect(r.verdict === "perfect" || r.verdict === "close").toBe(true);
+  });
+
+  it("a missing trailing kana on a short word still passes", () => {
+    expect(isUtteranceCorrect("あおい", "あお")).toBe(true);
+  });
+});
