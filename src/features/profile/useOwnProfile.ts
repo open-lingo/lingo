@@ -56,10 +56,24 @@ export function useOwnProfile(
         if (!username) {
           throw new ApiError(400, { detail: "Username is required" });
         }
-        return users.register({
-          username,
-          display_name: displayName,
-        });
+        try {
+          return await users.register({
+            username,
+            display_name: displayName,
+          });
+        } catch (err) {
+          // The first POST /users/me on a cold backend can fail CLIENT-side
+          // after the row was written (TestFlight #33, 2026-09-05: "Failed to
+          // save", then a retry 409s "User already registered" and the user
+          // is stuck on the username screen while signed in). If /users/me
+          // resolves now, registration succeeded — take it. A real username
+          // clash leaves /users/me at 404, so that path still surfaces.
+          try {
+            return await users.getMe();
+          } catch {
+            throw err;
+          }
+        }
       }
       return users.updateMe({
         display_name: draft.displayName.trim() || undefined,
