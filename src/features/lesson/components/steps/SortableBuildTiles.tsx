@@ -87,20 +87,20 @@ export function SortableBuildTiles({
   onTileHoverEnd?: () => void;
   forceHelperFor?: (id: number) => boolean;
 }) {
-  // Mouse and touch get DIFFERENT constraints on purpose.
-  //
-  // A single PointerSensor would need `touch-action: none` on every tile for
-  // touch drags to track — and that kills NATIVE SCROLLING for any swipe that
-  // starts on a tile. On a phone the tile area is most of the step, so the
-  // lesson would have become unscrollable.
-  //
-  // Instead: mouse drags after 8px of travel (so a click still removes), and
-  // touch drags only after a 200ms press (so a quick swipe scrolls the stage
-  // and a quick tap removes, exactly as before).
+  // Touch drags the same way mouse does: after a few px of travel, no
+  // press-and-hold. That needs `touch-action: none` on the PLACED tiles (else
+  // WebKit starts a scroll and cancels the drag), which is why it is scoped to
+  // the tray only — the bank tiles are tap-to-place and keep native scrolling.
+  // The 200ms hold this replaced (Spencer 2026-09-06: "mobile click to drag
+  // for tiles isn't working the same way we have it on web") read as dead,
+  // because nothing signalled that a hold was required. The lesson stage no
+  // longer scrolls on the common phones (0px overflow on 15 Pro Max / 13 after
+  // the 2026-09-05 fit pass), so a swipe that starts on a placed tile losing
+  // its scroll is not a cost any more; the SE still scrolls from the bank.
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
     useSensor(TouchSensor, {
-      activationConstraint: { delay: 200, tolerance: 6 },
+      activationConstraint: { distance: 6 },
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -226,8 +226,10 @@ function SortableTile({
       onClick={onRemove}
       onMouseEnter={() => onHoverStart?.(id)}
       onMouseLeave={onHoverEnd}
-      className={`${className ?? ""} ${
-        isDragging ? "z-10 opacity-80" : ""
+      // `touch-action: none` so the drag tracks on touch (see sensors above).
+      // The lift (scale + shadow) is the feedback that the tile is in hand.
+      className={`${className ?? ""} touch-none ${
+        isDragging ? "z-10 scale-105 opacity-90 shadow-lg" : ""
       }`}
       style={{
         // Written out rather than importing @dnd-kit/utilities' CSS helper:
