@@ -50,6 +50,9 @@ export function installSimProbe(): void {
         for (let i = 0; el && i < 6; i++) { el = el.parentElement; if (!el) break; const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); out.push({ tag: el.tagName, cls: el.className.toString().slice(0, 40), t: Math.round(r.top), h: Math.round(r.height), ov: cs.overflow, pos: cs.position }); }
         return out;
       })(),
+      // Body scrollbar on touch (TestFlight #1): is OverlayScrollbars mounted?
+      osBars: [...document.querySelectorAll(".os-scrollbar")].map((el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return { cls: el.className.toString().slice(0, 60), l: Math.round(r.left), w: Math.round(r.width), h: Math.round(r.height), vis: cs.visibility, op: cs.opacity }; }),
+      coarse: matchMedia("(pointer: coarse)").matches,
       tiles: [...document.querySelectorAll("[data-lesson-stage] button")]
         .filter((b) => !b.closest('[data-testid="primary-cta"]'))
         .slice(0, 2)
