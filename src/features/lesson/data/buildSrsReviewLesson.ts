@@ -3,6 +3,8 @@ import {
   JA_COURSE_ATOMS_BY_KANA,
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
+import { getAllJaTaughtKana } from "@/features/languages/ja/curriculum/taughtVocab";
+import { makeGlobalTokenizer } from "./moduleCompiler";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import {
   getCardState,
@@ -351,6 +353,23 @@ function sentenceRecognitionStep(
   );
 }
 
+/**
+ * Every kana surface the course has EVER taught, tokenized against — built
+ * once, lazily, since the taught set is static for the process lifetime. A
+ * mined sentence can use a word from ANY earlier module (that's the whole
+ * point of mining real lesson content), so this needs the FULL taught
+ * vocabulary, not just `JA_COURSE_ATOMS` — most inflected forms (て/た-form,
+ * derived adjectives) live only in a module's own IR `newAtoms`, which is
+ * exactly what `getAllJaTaughtKana` reassembles.
+ */
+let globalTokenize: ((ja: string) => string[]) | null = null;
+function tokenizeMinedSentence(ja: string): string[] {
+  globalTokenize ??= makeGlobalTokenizer(
+    [...getAllJaTaughtKana()].map((kana) => ({ kana })),
+  );
+  return globalTokenize(ja);
+}
+
 function sentenceProductionStep(
   idPrefix: string,
   targetAtomId: string,
@@ -360,9 +379,14 @@ function sentenceProductionStep(
   variant: number,
 ): LessonStep {
   if (variant % 2 === 0) {
-    // Multi-tile sentence build: mined sentences are space-separated
-    // authored text — the standard word split the authored builds use.
-    const words = sent.text.split(" ").filter(Boolean);
+    // Multi-tile sentence build. Mined sentences are space-separated
+    // AUTHORED text, but authored spaces mark phrase boundaries, not word
+    // boundaries — "ふねが ある" is one space-delimited chunk with the
+    // particle glued to the noun. A naive `.split(" ")` here fused every
+    // noun+particle into one tile (TestFlight #32); tokenize the same way
+    // `compileModule` does for its own build steps instead, so a particle
+    // is always its own tile (particleTileSeparation.test.ts).
+    const words = tokenizeMinedSentence(sent.text);
     const distractorWords = pool
       .filter((a) => a.kana !== targetKana && !words.includes(a.kana))
       .slice(0, 2)

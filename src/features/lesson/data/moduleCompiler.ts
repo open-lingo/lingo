@@ -746,6 +746,30 @@ function makeTokenizer(atoms: Map<string, Atom>) {
   };
 }
 
+/**
+ * Global tokenizer, built from every registered course atom rather than one
+ * module's own IR. Callers outside a single module's compile pass — the SRS
+ * review-lesson builder mines sentences out of ANY earlier lesson, so a
+ * word's owning module is unknown and irrelevant here — need the same
+ * longest-match, particle-aware split `compileModule` uses for its own
+ * build-tile banks (TestFlight #32: the review builder's own naive
+ * `text.split(" ")` fused a word to a trailing particle into one tile,
+ * e.g. "ふねが", because authored spaces mark PHRASE boundaries, not word
+ * boundaries). Only `kana` is read by the tokenizer itself; the other
+ * Atom fields are never consulted, so callers may pass placeholders.
+ */
+export function makeGlobalTokenizer(
+  atoms: readonly { kana: string }[],
+): (ja: string) => string[] {
+  const m = new Map<string, Atom>();
+  for (const a of atoms) {
+    if (!m.has(a.kana)) {
+      m.set(a.kana, { kana: a.kana, meaningEn: a.kana, fromModule: "m1" });
+    }
+  }
+  return makeTokenizer(m);
+}
+
 // ── compiler ────────────────────────────────────────────────────────────────
 export function compileModule(ir: ModuleIR): LessonContent[] {
   const atoms = atomIndex(ir);

@@ -33,6 +33,7 @@
 import { JA_COURSE_FURNITURE_KANA } from "@/features/lesson/data/moduleCompiler";
 import { getAtomsForLesson } from "@/features/lesson/data/lessonAtomIndex";
 import { tryGetLanguageModule } from "@/shared/language/registry";
+import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 
 import m6Ir from "./ir/m6.ir.json";
 import m7Ir from "./ir/m7.ir.json";
@@ -68,7 +69,10 @@ import m36Ir from "./ir/m36.ir.json";
 import m37Ir from "./ir/m37.ir.json";
 import m38Ir from "./ir/m38.ir.json";
 
-type IrWithPriorVocab = { priorVocab?: string[] };
+type IrWithPriorVocab = {
+  priorVocab?: string[];
+  newAtoms?: { kana?: string }[];
+};
 
 const IR_BY_MODULE: Readonly<Record<string, IrWithPriorVocab>> = {
   m6: m6Ir,
@@ -140,5 +144,47 @@ export function getJaTaughtKanaBeforeModule(moduleId: string): ReadonlySet<strin
   }
   for (const w of JA_COURSE_FURNITURE_KANA) set.add(w);
   cache.set(moduleId, set);
+  return set;
+}
+
+let allTaughtCache: ReadonlySet<string> | null = null;
+
+/**
+ * Every kana surface the live JA course teaches ANYWHERE — the union across
+ * every module, not "before" a cutoff. For a consumer that doesn't know
+ * (and doesn't care) which module a piece of text came from — the SRS
+ * review-lesson builder mines a sentence out of ANY earlier lesson and needs
+ * to tokenize it correctly regardless of origin (TestFlight #32).
+ *
+ * `priorVocab` alone under-covers: it's "taught before module N", so the
+ * LAST IR module's own new words are never anyone's "prior". `newAtoms`
+ * fills that gap module-by-module, and most inflected forms (て/た-form,
+ * derived adjectives) live ONLY there — `courseAtoms` deliberately excludes
+ * them (see file header) so this is the one place that reassembles the
+ * complete inflected-surface vocabulary.
+ */
+export function getAllJaTaughtKana(): ReadonlySet<string> {
+  if (allTaughtCache) return allTaughtCache;
+  const set = new Set<string>();
+  for (const w of JA_COURSE_FURNITURE_KANA) set.add(w);
+  for (const a of JA_COURSE_ATOMS) set.add(a.kana);
+  for (const ir of Object.values(IR_BY_MODULE)) {
+    for (const w of ir.priorVocab ?? []) set.add(w);
+    for (const a of ir.newAtoms ?? []) if (a.kana) set.add(a.kana);
+  }
+  // m1-m5 (no IR): real attribution, same source `getJaTaughtKanaBeforeModule`
+  // uses for its hand-authored branch, over every lesson of every module.
+  const ja = tryGetLanguageModule("ja");
+  for (const mod of ja?.curriculum ?? []) {
+    for (const lesson of mod.lessons ?? []) {
+      for (const atom of getAtomsForLesson(lesson.id, "ja")) {
+        for (const surface of atom.kana.split("/")) {
+          const s = surface.trim();
+          if (s) set.add(s);
+        }
+      }
+    }
+  }
+  allTaughtCache = set;
   return set;
 }
