@@ -16,15 +16,15 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 
 | # | Shot | Step | Verbatim | Class | Status |
 |---|---|---|---|---|---|
-| 1 | 01 | Home, continue card | "look at the scroll bar clipping on the right, bad format there" | layout: scrollbar visible on touch (home is not the lesson stage) | open (home scrollbar — not the lesson stage; touch scrollbars are hidden there only) |
+| 1 | 01 | Home, continue card | "look at the scroll bar clipping on the right, bad format there" | layout: scrollbar visible on touch (home is not the lesson stage) | cannot reproduce — no body scrollbar mounts on the native home (probe: OverlayScrollbars absent, native bar hidden on coarse pointer since 8c9792e8); need a fresh shot |
 | 2 | 02 | 辞書 how-do-you-read | "Scroll failure for mobile UI" | layout: step scrolls + scrollbar; options clipped behind CTA | fixed fb77a859 (0px overflow on 15PM/13) |
 | 3 | 03 | Build what you hear | "clipping over the edge, build box needs to dynamically size and the top play button is huge" | layout: build target box fixed-height, tile bank clipped; play button oversized | fixed fb77a859 |
-| 4 | 04 | Cloze しらべてみる | "bad lesson type, doesn't teach anything unique… shirabetemiru is basically two words" | content/design: cloze whose 3 options are all てみる compounds = tests the verb, not the helper | discuss |
+| 4 | 04 | Cloze しらべてみる | "bad lesson type, doesn't teach anything unique… shirabetemiru is basically two words" | content/design: cloze whose 3 options are all てみる compounds = tests the verb, not the helper | fixed c1bb8da0 (5 clozes now contrast the helper) |
 | 5 | 05 | Build "ask the teacher and see" | "sizing is bad, needs to be dynamic so we got on the screen with no scroll bar" | layout: same as 3 | fixed fb77a859 |
 | 6 | 06 | Listen-and-answer 時間がないから明日しらべてみる | "Too much spacing between the sentences… make sure we aren't wrapping mid word, shi > rabetemiru is bad" | layout: JA line-break inside a word (needs `word-break: keep-all` / segment-aware wrapping) + line-height too large under furigana | fixed fb77a859 (keep-all + ruby band) |
 | 7 | 07 | Build result | "padding on top and bottom of the tiles is a bit much, lots of ugly vertical space" | layout: tile vertical padding | fixed fb77a859 |
-| 8 | 08 | Dialogue "What does Ken say" | "get rid of the playing listen button up top and only keep room for the dialogue? They can replay individual lines" | design: drop the header play control in dialogue steps | discuss |
-| 9 | 09 | Dialogue transcript この ことばの いみは？ | "audio gen here was a ha not a wa" | audio: TTS read topic は as /ha/ — regenerate clip; scan other は-topic clips | open — needs lingo-data TTS regen (no in-repo override) |
+| 8 | 08 | Dialogue "What does Ken say" | "get rid of the playing listen button up top and only keep room for the dialogue? They can replay individual lines" | design: drop the header play control in dialogue steps | fixed 052d47eb (header play control removed) |
+| 9 | 09 | Dialogue transcript この ことばの いみは？ | "audio gen here was a ha not a wa" | audio: TTS read topic は as /ha/ — regenerate clip; scan other は-topic clips | staged in lingo-data: speech overrides for 13 sentence-final は sentences (21 clips, 2 voices) regenerated locally; needs `python -m pipeline.tts.upload --force --audio-only` + CloudFront invalidation; 7 name/loanword-final は？ lines have no kanji lever |
 | 10 | 10 | Match review ことば ↔ language | "Kotoba is word rather than language, failure here; kanji tiles take up too much room, ruby furigana spacing less vertical padding" | content: ことば gloss (m26/m30 atom says "language") + layout: match tiles with furigana too tall | fixed 4c1acbb7 + fb77a859 |
 
 ## Build 6 — 2026-09-04 evening
@@ -56,7 +56,7 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 | # | Shot | Step | Verbatim | Class | Status |
 |---|---|---|---|---|---|
 | 13 | 13 | Build "Of all languages, English is the most interesting" (ことばの なかで) | "Not sure if this is a true failure or not but language is 言語 right?" | content: same ことば=language issue as #10; either gloss "words/language" and reword EN, or teach げんご | fixed 4c1acbb7 |
-| 17 | 17 | Flashcard front "eat (te-form)" | "Did we really want to include te form? That's kind of useless yeah?" | content/design: conjugated forms as flashcard entries — decide whether inflections are deck items | discuss |
+| 17 | 17 | Flashcard front "eat (te-form)" | "Did we really want to include te form? That's kind of useless yeah?" | content/design: conjugated forms as flashcard entries — decide whether inflections are deck items | fixed 76caf531 (JA deck 1009 → 944 cards) |
 
 ### JA m30 / m37 ておく + てみる lessons (build 6 walk, 01:33–02:08 UTC)
 
@@ -74,7 +74,7 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 | 27 | 27 | Typed translate "I'll ask what the answer to this question is" | "Miru doesn't feel necessary here" | content: EN prompt doesn't cue てみる — reword ("I'll ask and see") | fixed 4c1acbb7 |
 | 28 | 28 | Build こたえはわからないけど…とりあえず あにに きいてみる | "Is toriaezu necessary here? maybe reword the English sentence… 'first off, xxx'" | content: EN "…for now" → "first off, I'll ask my brother and see" (m37 とりあえず atom) | fixed 4c1acbb7 |
 | 31 | 31 | Speak きのこや きゅうりを 買う | "More formatting issues" | layout: speak card scrolled, furigana か on its own line, mic CTA clipped | fixed fb77a859 |
-| 32 | 32 | Build "There's a big boat" tile ふねが | "Not sure if we want to separate the particle here" | content/tiling: m12 tile bank fuses noun+particle; decide per module (early modules fuse on purpose?) | discuss |
+| 32 | 32 | Build "There's a big boat" tile ふねが | "Not sure if we want to separate the particle here" | content/tiling: m12 tile bank fuses noun+particle; decide per module (early modules fuse on purpose?) | fixed (see commit) — not m12: the SRS review builder split mined sentences on spaces, 436/468 mined sentences fused a particle; now tokenized like compileModule |
 
 ## Pulled 2026-09-06 (new since the first pull)
 
@@ -82,7 +82,7 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 |---|---|---|---|---|---|
 | 33 | 33 | iPhone 14 Pro, KO m21-5 speaking 이거는 김치라고 해요 | "bad recognition" — transcript 이 graded Perfect! | **grading bug**: any substring of the target scored 1 | fixed 1c85fecc |
 | 34 | 34 | iPhone 14 Pro, KO m21-6 build 비빔밥하고 라면 주세요 | "buttons too tall" | layout: same tile family as #3/#7 (shared BuildSentenceStepView) | fixed fb77a859 |
-| 35 | 35 | 15 Pro Max, JA m30 build あした つかうから しゃしんを おくっておいた | "Should be correct no?" — learner placed に after あした | grading/content: に is a floor particle contrast; あしたに is not natural Japanese (relative time words take no に) | discuss |
+| 35 | 35 | 15 Pro Max, JA m30 build あした つかうから しゃしんを おくっておいた | "Should be correct no?" — learner placed に after あした | grading/content: に is a floor particle contrast; あしたに is not natural Japanese (relative time words take no に) | discuss — position: keep rejecting; あした takes no に |
 
 ## Other channels
 
