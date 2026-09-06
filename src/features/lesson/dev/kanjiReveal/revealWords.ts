@@ -35,6 +35,29 @@ const p = (surface: string): JapaneseAnnotation => ({
 
 export const BEAT_WORDS: BeatWord[] = [
   {
+    // TestFlight #12 (2026-09-05): the live switchover beat for 十 rendered a
+    // lone stroke on a 15 Pro Max. A one-glyph, two-kana word — the shortest
+    // shape the reveal has to survive — kept here so the bake-off page can
+    // reproduce it in the simulator.
+    id: "juu",
+    kana: "じゅう",
+    kanji: "十",
+    gloss: "ten",
+    taughtModule: 2,
+    kanjiModule: 32,
+    parts: [{ glyph: "十", sense: "ten" }],
+    sentence: {
+      segments: [
+        { surface: "十", reading: "じゅう" },
+        p("まで"),
+        { surface: "かぞえる", reading: "かぞえる" },
+      ],
+      en: "Count to ten.",
+    },
+    targetIndex: 0,
+    distractors: ["Count to two.", "Count to five.", "Count to a hundred."],
+  },
+  {
     id: "tomodachi",
     kana: "ともだち",
     kanji: "友達",

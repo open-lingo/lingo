@@ -46,7 +46,12 @@ export function KanjiRuby({ surface, reading, show, ...rubyProps }: Props) {
         data-visible={show ? "true" : "false"}
         aria-hidden={!show}
       >
-        {show ? rt : "​"}
+        {/* The reading lives in an inner span so effects can target the INK
+            and never the <rt> box: WebKit drops an <rt> out of its ruby the
+            moment the <rt> itself gets a compositing layer (a clip-path
+            animation was painting the reveal's furigana at the bottom of the
+            page on iOS — TestFlight #12). */}
+        <span className="kana-helper-ink">{show ? rt : "​"}</span>
       </rt>
       {suffix}
     </ruby>

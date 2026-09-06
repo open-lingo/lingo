@@ -110,7 +110,22 @@ function loadNotes(): Notes {
 }
 
 export default function KanjiRevealAnimPage() {
-  const [wordIdx, setWordIdx] = useState(0);
+  // `?word=<id>` picks the word and `?beat=1` scrolls the reveal beat into view
+  // on mount — the simulator capture harness cannot tap or scroll, and the
+  // TestFlight #12 repro (十) needs the live beat on screen the moment the
+  // page loads.
+  const [wordIdx, setWordIdx] = useState(() => {
+    const wanted = new URLSearchParams(window.location.search).get("word");
+    const i = wanted ? BEAT_WORDS.findIndex((w) => w.id === wanted) : -1;
+    return i >= 0 ? i : 0;
+  });
+  const beatRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("beat") !== "1") return;
+    beatRef.current?.scrollIntoView({ block: "start" });
+    // Clear the fixed app header, which otherwise covers the furigana row.
+    window.scrollBy(0, -120);
+  }, []);
   const [notes, setNotes] = useState<Notes>(() => loadNotes());
   const [replay, setReplay] = useState<Record<string, number>>({});
   const [furiganaOn, setFuriganaOn] = useState(false);
@@ -331,7 +346,7 @@ export default function KanjiRevealAnimPage() {
           </label>
         </div>
 
-        <div className="rounded-lg border border-dashed border-border/60 bg-background p-4">
+        <div ref={beatRef} className="rounded-lg border border-dashed border-border/60 bg-background p-4">
           {beatStep === 1 ? (
             <div>
               <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-text-muted">

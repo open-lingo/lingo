@@ -208,7 +208,12 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
               style={{
                 bottom: 12,
                 whiteSpace: "nowrap",
-                visibility: phase >= 2 ? "visible" : "hidden",
+                // Opacity, not `visibility`: WebKit is not reliable about
+                // repainting a `visibility: hidden → visible` flip inside a
+                // clipped stage while sibling animations run — the switchover
+                // beat on a 15 Pro Max painted a lone fragment of the kana
+                // and no kanji at all (TestFlight #12). Opacity is a
+                // compositor property and always repaints.
                 // Hard cut, NOT a cross-fade. The decoys finish at exactly these
                 // glyph positions at full opacity, so swapping in the same frame
                 // is pixel-identical and therefore invisible. Fading the ruby up
@@ -216,7 +221,8 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
                 // and the ruby was still transparent — the kanji flashed out.
                 // Keyed on `sliding` alone (not `glyphBoxes`) so the ruby cannot
                 // flash at full opacity for the one frame before measurement.
-                opacity: sliding ? 0 : 1,
+                opacity: phase >= 2 && !sliding ? 1 : 0,
+                pointerEvents: phase >= 2 ? "auto" : "none",
               }}
             >
               <AnnotatedJa
@@ -288,8 +294,12 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
           from { transform: translateX(var(--krv-dx)); opacity: 0; }
           to   { transform: translateX(0);             opacity: 1; }
         }
-        .krv-choreo[data-paint="pending"] rt.kana-helper { clip-path: inset(0 100% 0 0); }
-        .krv-choreo[data-paint="painting"] rt.kana-helper {
+        /* The wipe clips the reading's INK (an inline-block span inside the
+           <rt>), never the <rt> itself — see KanjiRuby: a composited <rt>
+           loses its ruby position in WebKit. */
+        .krv-choreo .kana-helper-ink { display: inline-block; }
+        .krv-choreo[data-paint="pending"] .kana-helper-ink { clip-path: inset(0 100% 0 0); }
+        .krv-choreo[data-paint="painting"] .kana-helper-ink {
           animation: krv-wipe 560ms ${WIPE_EASE} both;
         }
       `}</style>

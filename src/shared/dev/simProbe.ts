@@ -39,6 +39,17 @@ export function installSimProbe(): void {
         cls: (k.getAttribute("class") ?? k.tagName).slice(0, 40),
         ...r(k),
       })),
+      // Kanji reveal ruby (TestFlight #12): every box inside the choreo
+      // span, with the styles that decide whether the furigana can paint.
+      ruby: [...document.querySelectorAll(".krv-choreo, .krv-choreo ruby, .krv-choreo rt, .krv-choreo rt *")].map((el) => {
+        const r = el.getBoundingClientRect(); const cs = getComputedStyle(el);
+        return { tag: el.tagName, cls: (el as HTMLElement).className?.toString().slice(0, 30), t: Math.round(r.top), l: Math.round(r.left), w: Math.round(r.width), h: Math.round(r.height), disp: cs.display, vis: cs.visibility, op: cs.opacity, fs: cs.fontSize, clip: cs.clipPath, anim: cs.animationName, text: (el.textContent ?? "").slice(0, 8) };
+      }),
+      rubyAncestors: (() => {
+        const out: unknown[] = []; let el: Element | null = document.querySelector(".krv-choreo");
+        for (let i = 0; el && i < 6; i++) { el = el.parentElement; if (!el) break; const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); out.push({ tag: el.tagName, cls: el.className.toString().slice(0, 40), t: Math.round(r.top), h: Math.round(r.height), ov: cs.overflow, pos: cs.position }); }
+        return out;
+      })(),
       tiles: [...document.querySelectorAll("[data-lesson-stage] button")]
         .filter((b) => !b.closest('[data-testid="primary-cta"]'))
         .slice(0, 2)
